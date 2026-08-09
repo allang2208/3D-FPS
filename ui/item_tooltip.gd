@@ -30,42 +30,46 @@ func _ready() -> void:
 	theme = Style.make_theme()
 	_font_title = Style.make_font(700)
 	_font_value = Style.make_font(600)
-	add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_TT_BG, Style.COLOR_TT_BORDER, 8, 2))
+	var panel_sb := Style.make_style(Style.COLOR_TT_BG, Style.COLOR_TT_BORDER, 8, 2)
+	panel_sb.shadow_color = Style.COLOR_TT_SHADOW
+	panel_sb.shadow_size = 12
+	panel_sb.shadow_offset = Vector2(0, 4)
+	add_theme_stylebox_override("panel", panel_sb)
 	_build()
 
 func _build() -> void:
 	var margin := MarginContainer.new()
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	margin.add_theme_constant_override("margin_left", 10)
-	margin.add_theme_constant_override("margin_right", 10)
-	margin.add_theme_constant_override("margin_top", 10)
-	margin.add_theme_constant_override("margin_bottom", 10)
+	margin.add_theme_constant_override("margin_left", 18)
+	margin.add_theme_constant_override("margin_right", 18)
+	margin.add_theme_constant_override("margin_top", 14)
+	margin.add_theme_constant_override("margin_bottom", 14)
 	add_child(margin)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 6)
 	margin.add_child(row)
 	# 附魔列（左）
 	_enchant_col = VBoxContainer.new()
-	_enchant_col.custom_minimum_size = Vector2(170, 0)
+	_enchant_col.custom_minimum_size = Vector2(180, 0)
 	_enchant_col.add_theme_constant_override("separation", 4)
 	_enchant_col.visible = false
 	row.add_child(_enchant_col)
 	# 改造列（左）
 	_craft_col = VBoxContainer.new()
-	_craft_col.custom_minimum_size = Vector2(270, 0)
+	_craft_col.custom_minimum_size = Vector2(300, 0)
 	_craft_col.add_theme_constant_override("separation", 4)
 	_craft_col.visible = false
 	row.add_child(_craft_col)
 	# 主信息列（右）
 	_main_col = VBoxContainer.new()
-	_main_col.custom_minimum_size = Vector2(310, 0)
+	_main_col.custom_minimum_size = Vector2(360, 0)
 	_main_col.add_theme_constant_override("separation", 6)
 	row.add_child(_main_col)
 	var header := HBoxContainer.new()
 	header.add_theme_constant_override("separation", 10)
 	_main_col.add_child(header)
 	_icon = TextureRect.new()
-	_icon.custom_minimum_size = Vector2(42, 42)
+	_icon.custom_minimum_size = Vector2(34, 34)
 	_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -78,7 +82,7 @@ func _build() -> void:
 	_name_row.add_theme_constant_override("separation", 6)
 	title_box.add_child(_name_row)
 	_name_label = Label.new()
-	_name_label.add_theme_font_size_override("font_size", 16)
+	_name_label.add_theme_font_size_override("font_size", 18)
 	_name_label.add_theme_font_override("font", _font_title)
 	_name_label.add_theme_color_override("font_color", Style.COLOR_TT_NAME)
 	_name_row.add_child(_name_label)
@@ -361,7 +365,7 @@ func _render_enchant(item: Dictionary) -> void:
 	var name_lbl := Label.new()
 	name_lbl.text = name_html
 	name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	name_lbl.add_theme_font_size_override("font_size", 12)
+	name_lbl.add_theme_font_size_override("font_size", 13)
 	name_lbl.add_theme_color_override("font_color", Style.COLOR_TT_ENCHANT_NAME)
 	_enchant_col.add_child(name_lbl)
 	var ee: Dictionary = item.get("_enchantEffects", {})
@@ -426,7 +430,7 @@ func _add_row(parent: Node, name: String, value: String, pos := false, neg := fa
 	row.add_child(name_lbl)
 	var val_lbl := Label.new()
 	val_lbl.text = value
-	val_lbl.add_theme_font_size_override("font_size", 12)
+	val_lbl.add_theme_font_size_override("font_size", 13)
 	val_lbl.add_theme_font_override("font", _font_value)
 	var c := Style.COLOR_TT_VAL
 	if neg:
