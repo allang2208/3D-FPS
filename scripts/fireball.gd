@@ -29,6 +29,8 @@ var _caster: Node3D
 var _hover_t := 0.0
 var _hover_duration := 30.0
 var _consumed_emitted := false
+var _ribbon: MeshInstance3D
+var _trail: GPUParticles3D
 static var _dot_tex_cache: Texture2D
 
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, matk: int, intt: int) -> Node3D:
@@ -81,6 +83,7 @@ func build_visual() -> void:
 	rt.material = _ribbon_mat()
 	ribbon.mesh = rt
 	add_child(ribbon)
+	_ribbon = ribbon
 	# 柔和光晕（软边圆点贴图 + ADD，遮住贴图边缘像素化）
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
@@ -103,7 +106,7 @@ func build_visual() -> void:
 	add_child(light)
 	# 飞行尾迹（原版 trail：ADD 橙粒子，世界空间跟随）
 	var trail := GPUParticles3D.new()
-	trail.emitting = true
+	trail.emitting = false  # 飞行时才开，悬浮时避免垂直拖尾
 	trail.one_shot = false
 	trail.amount = 64
 	trail.lifetime = 0.4
@@ -123,24 +126,25 @@ func build_visual() -> void:
 	], [0.0, 1.0])
 	trail.process_material = tp
 	add_child(trail)
+	_trail = trail
 	# 悬浮火星（凝聚时向上飘散的橙色小光点，让火球"活着"）
 	var ember := GPUParticles3D.new()
 	ember.emitting = true
 	ember.one_shot = false
-	ember.amount = 20
-	ember.lifetime = 0.7
+	ember.amount = 14
+	ember.lifetime = 0.5
 	ember.local_coords = false
-	ember.draw_pass_1 = _dot_pass(0.05, true)
+	ember.draw_pass_1 = _dot_pass(0.035, true)
 	var ep := ParticleProcessMaterial.new()
 	ep.direction = Vector3.UP
-	ep.spread = 25.0
-	ep.initial_velocity_min = 0.3
-	ep.initial_velocity_max = 0.8
-	ep.gravity = Vector3(0, -0.3, 0)
-	ep.scale_min = 0.03
-	ep.scale_max = 0.06
+	ep.spread = 140.0
+	ep.initial_velocity_min = 0.12
+	ep.initial_velocity_max = 0.45
+	ep.gravity = Vector3(0, -0.15, 0)
+	ep.scale_min = 0.02
+	ep.scale_max = 0.04
 	ep.color_ramp = _ramp([
-		Color(1.0, 0.6, 0.2, 0.9),
+		Color(1.0, 0.6, 0.2, 0.6),
 		Color(1.0, 0.3, 0.1, 0.0),
 	], [0.0, 1.0])
 	ember.process_material = ep
@@ -152,6 +156,10 @@ func enter_hover(caster: Node3D) -> void:
 	_caster = caster
 	_age = 0.0
 	_hover_t = 0.0
+	if _ribbon != null:
+		_ribbon.visible = false  # 悬浮期无前进轨迹，拖尾会渲染成竖条
+	if _trail != null:
+		_trail.emitting = false
 
 ## 第二段：发射（原版 _launchAll：从当前轨道位置起飞，动画切 20fps）
 func launch(dir: Vector3) -> void:
@@ -160,6 +168,10 @@ func launch(dir: Vector3) -> void:
 	_hovering = false
 	_dir = dir.normalized()
 	_age = 0.0
+	if _ribbon != null:
+		_ribbon.visible = true
+	if _trail != null:
+		_trail.emitting = true
 
 func _physics_process(delta: float) -> void:
 	if _hovering:
@@ -352,7 +364,7 @@ func _ribbon_mat() -> StandardMaterial3D:
 	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	m.albedo_color = Color(1.0, 0.45, 0.15, 0.7)
+	m.albedo_color = Color(1.0, 0.45, 0.15, 0.45)
 	return m
 
 func _dot_pass(size: float, additive: bool) -> QuadMesh:
