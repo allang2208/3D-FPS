@@ -353,21 +353,15 @@ func _refresh_skill_slots() -> void:
 	for i in _skill_slots.size():
 		var slot: SkillSlot = _skill_slots[i]
 		var icon := slot.get_node("Content/Icon") as TextureRect
-		var fallback := slot.get_node("Content/Fallback") as Label
 		var dim := slot.get_node("Content/Dim") as ColorRect
 		var id := skillbar.resolve(i)
 		if id == "":
 			icon.texture = null
-			fallback.visible = true
-			fallback.text = "⚔"
 			dim.visible = false
 			slot.add_theme_stylebox_override("panel", _s_skill_empty)
 		else:
 			var def: Dictionary = skillbar.skills.get(id, {})
-			var tex := _icon_tex(String(def.get("icon", "")))
-			icon.texture = tex
-			fallback.visible = tex == null
-			fallback.text = String(def.get("icon_fallback", "⚔"))
+			icon.texture = _icon_tex(String(def.get("icon", "")))
 			var req_ok: bool = int(def.get("tier", 1)) < 2 or skillbar.staff_equipped
 			dim.visible = not req_ok
 			slot.add_theme_stylebox_override("panel", _s_hotbar_item if not req_ok else _s_skill_empty)
@@ -847,17 +841,6 @@ func _build_hotbar() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
-		var fallback := Label.new()
-		fallback.name = "Fallback"
-		fallback.text = "⚔"
-		fallback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		fallback.add_theme_font_override("font", Style.make_emoji_font())
-		fallback.add_theme_font_size_override("font_size", 20)
-		fallback.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
-		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		content.add_child(fallback)
 		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
@@ -910,16 +893,6 @@ func _build_hotbar() -> void:
 	sp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sp_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sp_content.add_child(sp_icon)
-	var sp_fb := Label.new()
-	sp_fb.name = "Fallback"
-	sp_fb.text = "🔥"
-	sp_fb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	sp_fb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	sp_fb.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	sp_fb.add_theme_font_override("font", Style.make_emoji_font())
-	sp_fb.add_theme_font_size_override("font_size", 20)
-	sp_fb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	sp_content.add_child(sp_fb)
 	var sp_key := _make_label(sp_content, "右击", 10, Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
 	sp_key.name = "Key"
 	sp_key.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER

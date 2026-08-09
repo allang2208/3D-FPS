@@ -5,10 +5,10 @@ extends SceneTree
 const SkillBarScript := preload("res://ui/skillbar.gd")
 
 const FAKE_SKILLS := {
-	"iceSpike": {"name": "冰锥", "icon_fallback": "❄", "cooldown_s": 3.0, "tier": 1},
-	"iceWall": {"name": "冰墙", "icon_fallback": "🧊", "cooldown_s": 8.0, "tier": 2},
-	"droneSkill": {"name": "无人机", "icon_fallback": "🚁", "cooldown_s": 15.0, "tier": 1, "hold": true},
-	"fireball": {"name": "火球", "icon_fallback": "🔥", "cooldown_s": 2.0, "tier": 1},
+	"iceSpike": {"name": "冰锥", "icon": "res://assets/ui/icons/equip/1-rusty_sword_macro.png", "cooldown_s": 3.0, "tier": 1},
+	"iceWall": {"name": "冰墙", "icon": "res://assets/ui/icons/equip/1-rusty_sword_macro.png", "cooldown_s": 8.0, "tier": 2},
+	"droneSkill": {"name": "无人机", "icon": "res://assets/ui/icons/equip/1-rusty_sword_macro.png", "cooldown_s": 15.0, "tier": 1, "hold": true},
+	"fireball": {"name": "火球", "icon": "res://assets/ui/icons/equip/1-rusty_sword_macro.png", "cooldown_s": 2.0, "tier": 1},
 }
 
 var _fail := 0
@@ -39,7 +39,7 @@ func _process(_delta: float) -> bool:
 		var sb = _hud.get("skillbar")
 		sb.setup(FAKE_SKILLS)
 		sb.assign(0, "iceSpike")
-		_check("skill_slot_refresh", String(_hud.get("_skill_slots")[0].get_node("Content/Fallback").text) == "❄")
+		_check("skill_slot_refresh", _hud.get("_skill_slots")[0].get_node("Content/Icon").texture != null)
 		# 触发 → 冷却遮罩出现
 		sb.trigger(0)
 		_check("skill_cd_overlay", bool(_hud.get("_skill_slots")[0].get_node("Content/CD").visible))
