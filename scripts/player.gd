@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 signal damaged(hp: int)
 signal died
+signal healed(hp: int)
 
 @export var walk_speed := 5.0
 @export var sprint_speed := 8.5
@@ -30,6 +31,15 @@ func take_damage(d: int) -> void:
 		is_dead = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		died.emit()
+
+## 恢复生命（背包药水使用；加法式接口，不改动既有契约）
+func heal(amount: int) -> void:
+	if is_dead or amount <= 0:
+		return
+	var before := hp
+	hp = mini(max_hp, hp + amount)
+	if hp != before:
+		healed.emit(hp)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
