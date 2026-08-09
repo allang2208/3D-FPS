@@ -149,11 +149,8 @@ func _build_fireball_anim() -> AnimatedSprite3D:
 	anim.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	anim.pixel_size = 0.0025  # 200px 帧 → 0.5m 火球（默认 0.01 会是 2m 巨块）
 	anim.play("default")
-	var mat := StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
-	anim.material_override = mat
+	# 注意：不要给 AnimatedSprite3D 设 material_override——默认材质会使用帧纹理；
+	# 自定义覆盖材质若不绑定帧贴图，会渲染成纯白方块。
 	add_child(anim)
 	return anim
 
