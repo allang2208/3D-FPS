@@ -168,13 +168,16 @@ func _lightning_bolt(from: Vector3, to: Vector3) -> void:
 	for i in n_pts:
 		var t := float(i) / float(maxi(1, n_pts - 1))
 		var s := randf_range(0.75, 1.25)
-		# 三层连续色块：外层辉光 ADD + 中层色块 NORMAL + 白芯 ADD（旧版 4 层简化 3 层）
-		var r_glow := lerpf(0.22, 0.06, t) * s
-		var r_core := lerpf(0.14, 0.04, t) * s
-		var r_white := lerpf(0.07, 0.02, t) * s
-		dots.append(_bolt_dot(node, chain[i], r_glow, Color(0.42, 0.28, 1.0, 0.28), true))
-		dots.append(_bolt_dot(node, chain[i], r_core, Color(0.78, 0.7, 1.0, 0.75), false))
-		dots.append(_bolt_dot(node, chain[i], r_white, Color(1.0, 0.98, 1.0, 0.9), true))
+		# 旧版四层圆块：外层辉光(30→5px) + 第二层辉光(19→4px) + 色块(11→2px) + 白芯(5→1px)，
+		# 施法端粗→目标端细（×0.014 换算米），重叠连续增亮
+		var r_outer := lerpf(0.42, 0.07, t) * s
+		var r_inner := lerpf(0.266, 0.056, t) * s
+		var r_core := lerpf(0.154, 0.028, t) * s
+		var r_white := lerpf(0.07, 0.014, t) * s
+		dots.append(_bolt_dot(node, chain[i], r_outer, Color(0.415, 0.294, 1.0, 0.26), true))  # 0x6a4bff
+		dots.append(_bolt_dot(node, chain[i], r_inner, Color(0.663, 0.561, 1.0, 0.18), true))  # 0xa98fff
+		dots.append(_bolt_dot(node, chain[i], r_core, Color(0.863, 0.839, 1.0, 0.88), false))  # 0xdcd6ff
+		dots.append(_bolt_dot(node, chain[i], r_white, Color(1.0, 1.0, 1.0, 0.92), true))       # 0xffffff
 	# 定格 duration_s 后线性淡出 fade_ms
 	var tw := node.create_tween()
 	tw.tween_interval(float(_effect.get("duration_s", 0.5)))
