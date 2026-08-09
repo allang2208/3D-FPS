@@ -334,13 +334,19 @@ def main() -> int:
     grid = np.zeros(shape, dtype=np.uint8)
     idx3 = tuple(np.nonzero(filled))
     grid[idx3] = indices
-    vox_path = base + ".vox"
-    obj_path = base + ".obj"
-    write_vox(vox_path, shape, grid, palette)
-    print("stage vox %.2fs" % (time.time() - t_start))
     # 弹匣拆分：枪体 + 独立弹匣（换弹动画滑出用）
     body, mag_v = split_magazine(filled)
     print("stage split %.2fs body=%d mag=%d" % (time.time() - t_start, int(body.sum()), int(mag_v.sum())))
+    # .vox 只含枪体（无弹匣）；弹匣单独出 .vox
+    body_grid = np.zeros(shape, dtype=np.uint8)
+    body_idx = np.nonzero(body)
+    body_grid[body_idx] = grid[body_idx]
+    mag_grid = np.zeros(shape, dtype=np.uint8)
+    mag_idx = np.nonzero(mag_v)
+    mag_grid[mag_idx] = grid[mag_idx]
+    write_vox(base + ".vox", shape, body_grid, palette)
+    write_vox(base + "_mag.vox", shape, mag_grid, palette)
+    print("stage vox %.2fs" % (time.time() - t_start))
     for name, part in [("", body), ("_mag", mag_v)]:
         part_surf = extract_surface(part)
         part_grid = np.zeros(shape, dtype=np.uint8)
