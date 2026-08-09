@@ -73,6 +73,7 @@ func _gen_main() -> void:
 			img.set_pixel(x, y, c)
 	_draw_border(img, Color(0.04, 0.04, 0.047), 1)
 	_draw_corner_ticks(img)
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_main.png")
 
 
@@ -98,6 +99,7 @@ func _gen_inner() -> void:
 		img.set_pixel(x, 2, Color(0.157, 0.157, 0.180))
 	_draw_border(img, Color(0.231, 0.231, 0.259), 1)  # #3B3B42 可见细框
 	_draw_border(img, Color(0.04, 0.04, 0.047), 2, 2) # 外圈暗线压边
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_inner.png")
 
 
@@ -115,6 +117,20 @@ func _draw_border(img: Image, color: Color, thickness: int, inset := 0) -> void:
 		for yy in h:
 			img.set_pixel(x1, yy, color)
 			img.set_pixel(x2, yy, color)
+
+## 四角烘焙圆角（透明角），9-slice 后任意尺寸都保持圆角
+func _round_corners(img: Image, r: int) -> void:
+	var w := img.get_width()
+	var h := img.get_height()
+	for y in r:
+		for x in r:
+			var dx := r - 1 - x
+			var dy := r - 1 - y
+			if dx * dx + dy * dy > r * r:
+				img.set_pixel(x, y, Color(0, 0, 0, 0))
+				img.set_pixel(w - 1 - x, y, Color(0, 0, 0, 0))
+				img.set_pixel(x, h - 1 - y, Color(0, 0, 0, 0))
+				img.set_pixel(w - 1 - x, h - 1 - y, Color(0, 0, 0, 0))
 
 
 func _draw_corner_ticks(img: Image) -> void:
@@ -164,6 +180,7 @@ func _gen_slot() -> void:
 		img.set_pixel(x, 61, Color(0.086, 0.086, 0.10))
 	_draw_border(img, Color(0.243, 0.243, 0.271), 1)   # #3E3E45 细框
 	_draw_border(img, Color(0.04, 0.04, 0.047), 1, 2)  # 内压暗线
+	_round_corners(img, 6)
 	img.save_png(OUT_DIR + "panel_slot.png")
 
 
@@ -194,6 +211,7 @@ func _gen_tab() -> void:
 		img.set_pixel(x, 62, Color(GOLD, 0.35))
 		img.set_pixel(x, 63, Color(GOLD, 0.18))
 	_draw_border(img, Color(0.243, 0.243, 0.271), 1, 0)
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_tab.png")
 
 
@@ -220,6 +238,7 @@ func _gen_slot_light() -> void:
 		img.set_pixel(x, 61, Color(0.78, 0.78, 0.84))
 	_draw_border(img, Color(0.77, 0.77, 0.82), 1)    # #C4C4D1
 	_draw_border(img, Color(0.72, 0.72, 0.78), 1, 2) # 内压线
+	_round_corners(img, 6)
 	img.save_png(OUT_DIR + "panel_slot_light.png")
 
 
@@ -244,6 +263,7 @@ func _gen_inner_light() -> void:
 		img.set_pixel(x, 2, Color(0.98, 0.98, 0.99))
 	_draw_border(img, Color(0.80, 0.80, 0.85), 1)
 	_draw_border(img, Color(0.71, 0.71, 0.77), 2, 2)
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_inner_light.png")
 
 
@@ -270,4 +290,5 @@ func _gen_tab_light() -> void:
 		img.set_pixel(x, 62, Color(0.80, 0.80, 0.85))
 		img.set_pixel(x, 63, Color(0.86, 0.86, 0.90))
 	_draw_border(img, Color(0.74, 0.74, 0.80), 1, 0)
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_tab_light.png")

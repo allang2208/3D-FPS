@@ -75,6 +75,7 @@ var _panel: PanelContainer
 var _panel_w := 720.0
 var _panel_anim: Tween
 var _panel_open := false
+var _blur_size_synced := false
 var _count_label: Label
 var _status_label: Label
 var _notice_label: Label
@@ -812,6 +813,13 @@ func _place_tooltip(at: Vector2) -> void:
 ## ---------- 冷却 ----------
 
 func _process(delta: float) -> void:
+	if not _blur_size_synced and _panel_root != null:
+		var blur := _panel_root.get_node_or_null("Panel/Content/Blur") as ColorRect
+		if blur != null and blur.size.x > 0.0:
+			var mat := blur.material as ShaderMaterial
+			if mat != null:
+				mat.set_shader_parameter("node_size", blur.size)
+				_blur_size_synced = true
 	if backpack != null:
 		backpack.tick_cooldowns(delta)
 		_update_cooldown_overlays()

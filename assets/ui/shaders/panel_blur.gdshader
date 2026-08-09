@@ -7,10 +7,18 @@ uniform float radius : hint_range(0.0, 32.0) = 9.0;
 uniform vec3 tint_color : source_color = vec3(0.02, 0.025, 0.04);
 uniform float tint_amount = 0.18;
 uniform float alpha = 0.52;
+uniform vec2 node_size = vec2(864.0, 1080.0);
+uniform float corner_radius = 8.0;
 
 const int TAPS = 4;
 
 void fragment() {
+	// 圆角裁剪：节点本地坐标下，落在圆角外的像素丢弃（毛玻璃不露出直角）
+	vec2 px = UV * node_size;
+	vec2 pc = clamp(px, vec2(corner_radius), node_size - vec2(corner_radius));
+	if (distance(px, pc) > corner_radius) {
+		discard;
+	}
 	vec2 ps = 1.0 / vec2(textureSize(screen_texture, 0));
 	vec3 acc = vec3(0.0);
 	float wsum = 0.0;
