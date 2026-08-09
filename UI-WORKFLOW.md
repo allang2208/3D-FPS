@@ -114,7 +114,7 @@
 - 注意：官方 `pnpm icons:dev & next dev` 的 `&` 在 Windows cmd 下是顺序执行，icons:watch 永不退出导致
   next 永远不启动；脚本已拆成两个独立后台进程规避。首次运行脚本会自动补 `pnpm install` 与 `registry:build`。
 
-### 借鉴到 Godot UI 线的三点
+### 借鉴到 Godot UI 线的四点
 
 1. **注册表（已落地）**：`ui/registry.md` + `ui/registry.json` 对应 shadcn 的组件注册表与
    `r/index.json`——新组件先登记、AI/人类共用一份组件清单，避免“第 2 套风格”。
@@ -122,3 +122,5 @@
    的项目、可定制”的哲学；组件接口/依赖/验收登记在 registry，改动先改文档。
 3. **设计参考**：本地文档站的按钮/弹窗/拖拽/无障碍交互，作为把 Web 成熟交互翻译成 Godot 实现的参照；
    情绪板与 DESIGN.md 仍是我们风格的唯一真源。
+4. **映射矩阵（已落地）**：`docs/shadcn-mapping.md` 逐项登记 shadcn Token/组件 → Godot 对应物 →
+   验证方式；翻译前查表，硬指标（数值）自动断言，软指标（阴影/模糊）差异显式登记并拍板，杜绝隐性失真。
