@@ -85,6 +85,8 @@ const KILL_SOUND := preload("res://assets/sfx/criticalhit.mp3")
 
 # 枪模场景（换枪时替换；当前默认混元3D LowPoly 版，TRELLIS 版可用 AKM_GLB 切换）
 var model_scene: PackedScene = HUNYUAN_AK_GLB
+# 枪口方向手动覆盖：0=自动，1=枪口朝+axis，-1=枪口朝-axis（自动判定误判时用）
+var muzzle_sign_override := 0.0
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
@@ -551,6 +553,9 @@ func _calibrate_viewmodel() -> void:
 		push_warning("[gun] 枪模主轴为 Y（立式），暂不支持自动校准")
 		return
 	var muzzle_sign := _muzzle_sign(verts, axis)
+	if muzzle_sign_override != 0.0:
+		muzzle_sign = signf(muzzle_sign_override)
+		print("[gun] muzzle direction override=", muzzle_sign)
 	var extent := _axis_extent(verts, axis)
 	if extent <= 0.001:
 		return
@@ -565,14 +570,25 @@ func _calibrate_viewmodel() -> void:
 	var to_gun := func(p: Vector3) -> Vector3: return (b * p) * scale
 	# 瞄具锚点（raw 网格坐标，t 从枪托端 0 → 枪口端 1）
 	var rear_raw := _find_rear_sight(verts, axis, muzzle_sign)
-	var front_raw := _find_front_sight(verts, axis, muzzle_sign)
+	var front_raw := _find_front_sight(verts, axis, muzzle_sign, rear_raw.y)
 	var muzzle_raw := _find_tip(verts, axis, muzzle_sign, true)
 	var stock_raw := _find_tip(verts, axis, muzzle_sign, false)
 	var rear: Vector3 = to_gun.call(rear_raw)
 	var front: Vector3 = to_gun.call(front_raw)
+	var muzzle_local_tmp: Vector3 = to_gun.call(muzzle_raw)
+	if front_raw == Vector3.ZERO:
+		# 找不到前准星（粗模/无准星）：用枪口位置、照门高度构造水平瞄线
+		front = Vector3(rear.x, rear.y, (muzzle_local_tmp.z + rear.z) * 0.5)
+		push_warning("[gun] 未检出前准星，使用水平瞄线兜底")
+	# 前准星高度合理性校验：AI 网格（尤其低模）常在前端产生噪声尖刺被误判为
+	# 准星，导致机瞄大幅抬头、枪口高于瞄准线（视觉上像"方向反了"）。
+	# 准星高度低于照门 65% 时按水平瞄线兜底（准星取照门高度），姿态恢复正常。
+	if rear.y > 0.001 and front.y < rear.y * 0.65:
+		push_warning("[gun] 前准星锚点异常（y=", front.y, " < 照门×0.65=", rear.y * 0.65, "），改用水平瞄线")
+		front = Vector3(front.x, rear.y, front.z)
 	_sight_rear = rear
 	_sight_front = front
-	_muzzle_local = to_gun.call(muzzle_raw)
+	_muzzle_local = muzzle_local_tmp
 	_eject_local = Vector3(0.035 * scale, 0.032 * scale, _muzzle_local.z + 0.30 * scale)
 	if _mag:
 		var mag_center := _find_mag_center(verts, axis, muzzle_sign)
@@ -633,29 +649,58 @@ func _axis_extent(verts: PackedVector3Array, axis: int) -> float:
 	return mx - mn
 
 func _muzzle_sign(verts: PackedVector3Array, axis: int) -> float:
-	# 沿主轴两端切片，细端 = 枪口
-	var mn := INF
-	var mx := -INF
-	for v in verts:
-		mn = minf(mn, v[axis])
-		mx = maxf(mx, v[axis])
-	var span := maxf(mx - mn, 0.0001)
-	var lo := 0.0
-	var hi := 0.0
-	var n_lo := 0
-	var n_hi := 0
-	for v in verts:
-		var rel := (v[axis] - mn) / span
-		var r := Vector2(v.y, v.z).length()
-		if rel < 0.08:
-			lo += r
-			n_lo += 1
-		elif rel > 0.92:
-			hi += r
-			n_hi += 1
-	if n_lo == 0 or n_hi == 0:
-		return 1.0
-	return -1.0 if lo / n_lo < hi / n_hi else 1.0
+	# 枪口方向判定：默认 +X（与参考图/TRELLIS 一致，本管线生成的枪模枪口均朝 +X）。
+	# 仅当 -X 端出现“明确的前准星立柱”（窄顶带 + 高度在照门 55%~90%）而 +X 端没有时，
+	# 才判定枪口朝 -X（镜像枪模）。误判可手动用 muzzle_sign_override 覆盖。
+	var n_bins := 120
+	var tops := _bin_tops(verts, axis, 1.0, n_bins)
+	# 后照门：中段（25%..75%）最高点
+	var rear_top := -INF
+	for i in range(n_bins):
+		var t := (i + 0.5) / n_bins
+		if t >= 0.25 and t <= 0.75:
+			rear_top = maxf(rear_top, tops[i])
+	if rear_top > -INF:
+		# 两端各找前准星候选（从端部往回扫，首个满足宽度+高度范围的小凸起）
+		var cand_plus := _front_candidate(verts, axis, 0.80, 0.97, rear_top)
+		var cand_minus := _front_candidate(verts, axis, 0.03, 0.20, rear_top)
+		var ok_plus := cand_plus != Vector3.ZERO
+		var ok_minus := cand_minus != Vector3.ZERO
+		if ok_minus and not ok_plus:
+			return -1.0
+	return 1.0
+
+func _front_candidate(verts: PackedVector3Array, axis: int, t_lo: float, t_hi: float, rear_top: float) -> Vector3:
+	# 在 [t_lo, t_hi]（t 以 +axis 为枪口端）从端部往回扫：
+	# 首个高于局部基线、顶带宽 < 3.5cm、高度在照门 55%~97% 的凸起 = 前准星
+	var n_bins := 120
+	var tops := _bin_tops(verts, axis, 1.0, n_bins)
+	var region: Array[float] = []
+	for i in range(n_bins):
+		var t := (i + 0.5) / n_bins
+		if t >= t_lo and t <= t_hi:
+			region.append(tops[i])
+	if region.is_empty():
+		return Vector3.ZERO
+	region.sort()
+	var base := region[region.size() / 2]
+	var lo := clampi(int(t_lo * n_bins), 0, n_bins - 1)
+	var hi := clampi(int(t_hi * n_bins), 0, n_bins - 1)
+	for i in range(hi, lo - 1, -1):
+		var t := (i + 0.5) / n_bins
+		if t < t_lo or t > t_hi:
+			continue
+		if tops[i] <= base + 0.0025:
+			continue
+		if tops[i] < rear_top * 0.55 or tops[i] > rear_top * 0.90:
+			continue
+		var w := _top_band_width(verts, axis, 1.0, i, n_bins, 0.002)
+		if w > 0.02:
+			continue
+		var c := _top_band_centroid(verts, axis, 1.0, i, n_bins, 0.002)
+		if c != Vector3.ZERO:
+			return c
+	return Vector3.ZERO
 
 func _t_of(v: Vector3, axis: int, muzzle_sign: float, mn: float, extent: float) -> float:
 	var c := v[axis]
@@ -736,44 +781,11 @@ func _find_rear_sight(verts: PackedVector3Array, axis: int, muzzle_sign: float) 
 		return Vector3.ZERO
 	return _top_band_centroid(verts, axis, muzzle_sign, best_i, n_bins, 0.004)
 
-func _find_front_sight(verts: PackedVector3Array, axis: int, muzzle_sign: float) -> Vector3:
-	var n_bins := 120
-	var tops := _bin_tops(verts, axis, muzzle_sign, n_bins)
-	var t_lo := 0.78
-	var t_hi := 0.97
-	var region: Array[float] = []
-	for i in range(n_bins):
-		var t := (i + 0.5) / n_bins
-		if t >= t_lo and t <= t_hi:
-			region.append(tops[i])
-	if region.is_empty():
-		return Vector3.ZERO
-	region.sort()
-	var base := region[region.size() / 2]
-	# 从枪口端往回扫：第一个高于局部基线的小凸起（顶带宽 < 3.5cm，排除枪管/机匣）
-	for i in range(int(t_hi * n_bins), int(t_lo * n_bins) - 1, -1):
-		var t := (i + 0.5) / n_bins
-		if t < t_lo or t > t_hi:
-			continue
-		if tops[i] <= base + 0.0025:
-			continue
-		var w := _top_band_width(verts, axis, muzzle_sign, i, n_bins, 0.004)
-		if w > 0.035:
-			continue
-		var c := _top_band_centroid(verts, axis, muzzle_sign, i, n_bins, 0.004)
-		if c != Vector3.ZERO:
-			return c
-	# 兜底：区域内最高点
-	var best := -INF
-	var best_i := -1
-	for i in range(n_bins):
-		var t := (i + 0.5) / n_bins
-		if t >= t_lo and t <= t_hi and tops[i] > best:
-			best = tops[i]
-			best_i = i
-	if best_i < 0:
-		return Vector3.ZERO
-	return _top_band_centroid(verts, axis, muzzle_sign, best_i, n_bins, 0.004)
+func _find_front_sight(verts: PackedVector3Array, axis: int, muzzle_sign: float, rear_top: float) -> Vector3:
+	# 前准星在枪口端一侧；t 以 +axis 为枪口端计算
+	if muzzle_sign > 0.0:
+		return _front_candidate(verts, axis, 0.78, 0.97, rear_top)
+	return _front_candidate(verts, axis, 0.03, 0.22, rear_top)
 
 func _find_tip(verts: PackedVector3Array, axis: int, muzzle_sign: float, is_muzzle: bool) -> Vector3:
 	var mn := INF
