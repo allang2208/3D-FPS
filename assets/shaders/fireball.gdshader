@@ -2,8 +2,8 @@ shader_type spatial;
 // 程序化火球（D 方案）：径向明暗 + fbm 噪声翻涌火焰，自发光，随时间动画
 render_mode unshaded, blend_mix, cull_back;
 
-uniform vec3 core_color : source_color = vec3(1.0, 0.72, 0.28);
-uniform vec3 mid_color : source_color = vec3(1.0, 0.42, 0.12);
+uniform vec3 core_color : source_color = vec3(1.0, 0.88, 0.5);
+uniform vec3 mid_color : source_color = vec3(1.0, 0.5, 0.14);
 uniform vec3 edge_color : source_color = vec3(0.55, 0.08, 0.02);
 uniform float time_scale : hint_range(0.2, 4.0) = 1.8;
 
@@ -43,10 +43,12 @@ void fragment() {
 	float n2 = fbm(p * 1.8 + vec3(0.0, t * 1.2, 1.3));
 	float flame = smoothstep(0.15, 0.95, n1 * 0.6 + n2 * 0.4);
 	float core = smoothstep(0.0, 0.6, fres);
+	// 白热核心闪烁（原版火焰：中心亮白随噪声脉动）
+	float flick = 0.72 + 0.28 * sin(TIME * 24.0 + n1 * 12.0);
 	vec3 col = mix(edge_color, mid_color, core);
-	col = mix(col, core_color, flame * core);
+	col = mix(col, core_color * (0.85 + 0.25 * flick), flame * core);
 	float alpha = mix(0.12, 0.92, core * (0.55 + 0.45 * flame));
 	ALBEDO = col;
-	EMISSION = col * (0.8 + flame * 1.1);
+	EMISSION = col * (0.9 + flame * 1.3 + flick * core * 0.5);
 	ALPHA = alpha;
 }

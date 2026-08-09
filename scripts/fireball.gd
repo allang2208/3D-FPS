@@ -29,8 +29,8 @@ var _caster: Node3D
 var _hover_t := 0.0
 var _hover_duration := 30.0
 var _consumed_emitted := false
-var _ribbon: MeshInstance3D
 var _trail: GPUParticles3D
+var _trail_white: GPUParticles3D
 static var _dot_tex_cache: Texture2D
 
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, matk: int, intt: int) -> Node3D:
@@ -74,28 +74,18 @@ func build_visual() -> void:
 	sm.material = smat
 	sphere.mesh = sm
 	add_child(sphere)
-	# 实体拖尾（E 方案）：RibbonTrailMesh 沿飞行路径拉丝
-	var ribbon := MeshInstance3D.new()
-	var rt := RibbonTrailMesh.new()
-	rt.size = 0.07
-	rt.sections = 18
-	rt.section_length = 0.18
-	rt.material = _ribbon_mat()
-	ribbon.mesh = rt
-	add_child(ribbon)
-	_ribbon = ribbon
 	# 柔和光晕（软边圆点贴图 + ADD，遮住贴图边缘像素化）
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	glow.pixel_size = 0.0025
-	glow.scale = Vector3(3.0, 3.0, 1.0)
+	glow.scale = Vector3(2.2, 2.2, 1.0)
 	var glow_mat := StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	glow_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	glow_mat.albedo_texture = _dot_tex()
-	glow_mat.albedo_color = Color(1.0, 0.55, 0.2, 0.45)
+	glow_mat.albedo_color = Color(1.0, 0.55, 0.2, 0.32)
 	glow.material_override = glow_mat
 	add_child(glow)
 	# 橙色点光（火球照亮周围）
@@ -104,29 +94,96 @@ func build_visual() -> void:
 	light.light_energy = 2.5
 	light.omni_range = 5.0
 	add_child(light)
-	# 飞行尾迹（原版 trail：ADD 橙粒子，世界空间跟随）
+	# 常驻火焰：白色核心火星（B 方案，火球表面白热闪烁）
+	var flame_white := GPUParticles3D.new()
+	flame_white.emitting = true
+	flame_white.one_shot = false
+	flame_white.amount = 36
+	flame_white.lifetime = 0.4
+	flame_white.local_coords = false
+	flame_white.draw_pass_1 = _dot_pass(0.045, true)
+	var wp := ParticleProcessMaterial.new()
+	wp.direction = Vector3.ZERO
+	wp.spread = 180.0
+	wp.initial_velocity_min = 0.1
+	wp.initial_velocity_max = 0.35
+	wp.gravity = Vector3(0, -0.1, 0)
+	wp.scale_min = 0.05
+	wp.scale_max = 0.09
+	wp.color_ramp = _ramp([
+		Color(1.0, 0.97, 0.82, 1.0),
+		Color(1.0, 0.75, 0.3, 0.0),
+	], [0.0, 1.0])
+	flame_white.process_material = wp
+	add_child(flame_white)
+	# 常驻火焰：黄色火焰（B 方案，环绕火球的黄焰）
+	var flame_yellow := GPUParticles3D.new()
+	flame_yellow.emitting = true
+	flame_yellow.one_shot = false
+	flame_yellow.amount = 22
+	flame_yellow.lifetime = 0.65
+	flame_yellow.local_coords = false
+	flame_yellow.draw_pass_1 = _dot_pass(0.09, true)
+	var yp := ParticleProcessMaterial.new()
+	yp.direction = Vector3.UP
+	yp.spread = 140.0
+	yp.initial_velocity_min = 0.15
+	yp.initial_velocity_max = 0.5
+	yp.gravity = Vector3(0, -0.2, 0)
+	yp.scale_min = 0.065
+	yp.scale_max = 0.115
+	yp.color_ramp = _ramp([
+		Color(1.0, 0.9, 0.35, 0.85),
+		Color(1.0, 0.45, 0.12, 0.0),
+	], [0.0, 1.0])
+	flame_yellow.process_material = yp
+	add_child(flame_yellow)
+	# 飞行尾迹（原版 trail：ADD 橙粒子，世界空间跟随，仅飞行时开启）
 	var trail := GPUParticles3D.new()
 	trail.emitting = false  # 飞行时才开，悬浮时避免垂直拖尾
 	trail.one_shot = false
-	trail.amount = 64
-	trail.lifetime = 0.4
+	trail.amount = 90
+	trail.lifetime = 0.6
 	trail.local_coords = false
-	trail.draw_pass_1 = _dot_pass(0.14, true)
+	trail.draw_pass_1 = _dot_pass(0.16, true)
 	var tp := ParticleProcessMaterial.new()
 	tp.direction = Vector3.ZERO
 	tp.spread = 180.0
 	tp.initial_velocity_min = 0.05
-	tp.initial_velocity_max = 0.35
+	tp.initial_velocity_max = 0.5
 	tp.gravity = Vector3(0, -0.4, 0)
-	tp.scale_min = 0.05
-	tp.scale_max = 0.11
+	tp.scale_min = 0.08
+	tp.scale_max = 0.16
 	tp.color_ramp = _ramp([
-		Color(1.0, 0.55, 0.2, 0.7),
+		Color(1.0, 0.75, 0.3, 0.8),
 		Color(1.0, 0.35, 0.1, 0.0),
 	], [0.0, 1.0])
 	trail.process_material = tp
 	add_child(trail)
 	_trail = trail
+	# 飞行白热核心尾迹（更亮更小，紧贴弹道）
+	var trail_white := GPUParticles3D.new()
+	trail_white.emitting = false
+	trail_white.one_shot = false
+	trail_white.amount = 40
+	trail_white.lifetime = 0.3
+	trail_white.local_coords = false
+	trail_white.draw_pass_1 = _dot_pass(0.07, true)
+	var twp := ParticleProcessMaterial.new()
+	twp.direction = Vector3.ZERO
+	twp.spread = 60.0
+	twp.initial_velocity_min = 0.02
+	twp.initial_velocity_max = 0.15
+	twp.gravity = Vector3(0, -0.2, 0)
+	twp.scale_min = 0.04
+	twp.scale_max = 0.07
+	twp.color_ramp = _ramp([
+		Color(1.0, 0.95, 0.7, 0.9),
+		Color(1.0, 0.6, 0.2, 0.0),
+	], [0.0, 1.0])
+	trail_white.process_material = twp
+	add_child(trail_white)
+	_trail_white = trail_white
 	# 悬浮火星（凝聚时向上飘散的橙色小光点，让火球"活着"）
 	var ember := GPUParticles3D.new()
 	ember.emitting = true
@@ -156,10 +213,10 @@ func enter_hover(caster: Node3D) -> void:
 	_caster = caster
 	_age = 0.0
 	_hover_t = 0.0
-	if _ribbon != null:
-		_ribbon.visible = false  # 悬浮期无前进轨迹，拖尾会渲染成竖条
 	if _trail != null:
 		_trail.emitting = false
+	if _trail_white != null:
+		_trail_white.emitting = false
 
 ## 第二段：发射（原版 _launchAll：从当前轨道位置起飞，动画切 20fps）
 func launch(dir: Vector3) -> void:
@@ -168,10 +225,10 @@ func launch(dir: Vector3) -> void:
 	_hovering = false
 	_dir = dir.normalized()
 	_age = 0.0
-	if _ribbon != null:
-		_ribbon.visible = true
 	if _trail != null:
 		_trail.emitting = true
+	if _trail_white != null:
+		_trail_white.emitting = true
 
 func _physics_process(delta: float) -> void:
 	if _hovering:
@@ -358,14 +415,6 @@ func _dot_tex() -> Texture2D:
 			img.set_pixel(x, y, Color(1, 1, 1, a))
 	_dot_tex_cache = ImageTexture.create_from_image(img)
 	return _dot_tex_cache
-
-func _ribbon_mat() -> StandardMaterial3D:
-	var m := StandardMaterial3D.new()
-	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	m.albedo_color = Color(1.0, 0.45, 0.15, 0.45)
-	return m
 
 func _dot_pass(size: float, additive: bool) -> QuadMesh:
 	var q := QuadMesh.new()
