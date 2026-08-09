@@ -2,12 +2,14 @@ class_name WeaponData
 extends Resource
 ## 武器数据（GunData）：Unity FPS 参考（SakanakoChan/FPSGameBySakanako）移植的多武器架构。
 ## 每把武器一份 .tres（weapon_data/*.tres），gun.gd 只读 data，不再硬编码武器常量。
-## 脚本内默认值 = AKM 基准（与 weapon_data/akm_dl.tres 一致），data 缺失时兜底可用。
+## 脚本内默认值 = AKM 基准（与 weapon_data/akm_sketchfab.tres 一致），data 缺失时兜底可用。
 
 @export var weapon_name := "AK-74"
 @export var model_scene: Resource  # PackedScene（GLB）或 Mesh（体素 OBJ/PLY）
 @export var muzzle_sign_override := 0  # 0=自动，1=枪口朝+axis，-1=枪口朝-axis
 @export var mag_scene: Resource  # 独立弹匣 Mesh（换弹动画滑出用）；空=用占位盒
+@export var sight_rear_override: Vector3 = Vector3.ZERO  # 照门锚点（模型原始坐标）；ZERO=自动检测
+@export var sight_front_override: Vector3 = Vector3.ZERO  # 前准星锚点（模型原始坐标）；ZERO=自动检测
 
 @export_group("开火")
 @export var fire_interval := 0.13

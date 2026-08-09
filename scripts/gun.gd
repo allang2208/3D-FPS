@@ -788,8 +788,16 @@ func _calibrate_viewmodel() -> void:
 	var b := Basis(Vector3.UP, deg_to_rad(rot_deg))
 	var to_gun := func(p: Vector3) -> Vector3: return (b * p) * scale
 	# 瞄具锚点（raw 网格坐标，t 从枪托端 0 → 枪口端 1）
-	var rear_raw := _find_rear_sight(verts, axis, muzzle_sign)
-	var front_raw := _find_front_sight(verts, axis, muzzle_sign, rear_raw.y)
+	var rear_raw: Vector3
+	var front_raw: Vector3
+	if data != null and data.sight_rear_override != Vector3.ZERO and data.sight_front_override != Vector3.ZERO:
+		# 数据驱动：模型自带真实觇孔/准星位置（如 AKM），比启发式检测更精准
+		rear_raw = data.sight_rear_override
+		front_raw = data.sight_front_override
+		print("[gun] sight overrides: rear=", rear_raw, " front=", front_raw)
+	else:
+		rear_raw = _find_rear_sight(verts, axis, muzzle_sign)
+		front_raw = _find_front_sight(verts, axis, muzzle_sign, rear_raw.y)
 	var muzzle_raw := _find_tip(verts, axis, muzzle_sign, true)
 	var stock_raw := _find_tip(verts, axis, muzzle_sign, false)
 	var rear: Vector3 = to_gun.call(rear_raw)
