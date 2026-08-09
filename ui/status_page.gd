@@ -115,13 +115,15 @@ func _build() -> void:
 
 func _make_card(parent: Node, pad := 12) -> VBoxContainer:
 	var card := PanelContainer.new()
-	card.add_theme_stylebox_override("panel", Style.make_inner_panel_style())
+	# 原项目 status-section：半透明暗卡 + 8px 圆角 + 14px 内边距
+	card.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_STATUS_CARD_BG, Style.COLOR_TRANSPARENT, 8, 0))
 	parent.add_child(card)
 	var m := MarginContainer.new()
-	m.add_theme_constant_override("margin_left", pad)
-	m.add_theme_constant_override("margin_right", pad)
-	m.add_theme_constant_override("margin_top", 10)
-	m.add_theme_constant_override("margin_bottom", 10)
+	m.add_theme_constant_override("margin_left", 14)
+	m.add_theme_constant_override("margin_right", 14)
+	m.add_theme_constant_override("margin_top", pad)
+	m.add_theme_constant_override("margin_bottom", pad)
 	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	card.add_child(m)
 	var v := VBoxContainer.new()
@@ -223,7 +225,8 @@ func _add_bar(parent: Node, label: String, key: String, fill_color: Color) -> vo
 
 func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 	var card := PanelContainer.new()
-	var sb := Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 4, 0)
+	# 原项目 attr-item：暖灰半透明底 + 4px 圆角 + hover 加深
+	var sb := Style.make_style(Style.COLOR_ATTR_ROW_BG, Style.COLOR_TRANSPARENT, 4, 0)
 	card.add_theme_stylebox_override("panel", sb)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
@@ -253,7 +256,7 @@ func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 		row.add_child(plus)
 		_attr_plus[key] = plus
 	card.mouse_filter = Control.MOUSE_FILTER_STOP
-	var hover_sb := Style.make_style(Color(Style.THEME_GOLD, 0.10), Color(Style.THEME_GOLD, 0.55), 4, 1)
+	var hover_sb := Style.make_style(Style.COLOR_ATTR_ROW_HOVER, Style.COLOR_TRANSPARENT, 4, 0)
 	card.mouse_entered.connect(func() -> void:
 		card.add_theme_stylebox_override("panel", hover_sb)
 		_show_tooltip(key, get_viewport().get_mouse_position()))

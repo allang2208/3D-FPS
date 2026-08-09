@@ -146,6 +146,12 @@ func _sync_top_bar() -> void:
 			_top_level_lbl.text = "Lv.%d" % int(st.get("level"))
 		if _top_class_lbl != null:
 			_top_class_lbl.text = String(st.get("character_class"))
+		var sm := int(st.call("max_stamina"))
+		if _stamina_now != int(st.get("stamina")) or _stamina_max != sm:
+			set_stamina(int(st.get("stamina")), sm)
+		var em := int(st.call("max_exp"))
+		if _exp_now != int(st.get("exp")) or _exp_max != em:
+			set_exp(int(st.get("exp")), em)
 	if _top_kills_lbl != null:
 		_top_kills_lbl.text = "击杀 %d" % _kills
 

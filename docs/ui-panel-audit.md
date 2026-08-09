@@ -55,3 +55,14 @@ hud / sound / backpack / equipment / skillbar / skill_page / icons + 其他线 n
 2. 字号一律 `Style.font_size` / `tt_*`，禁止裸数字。
 3. 颜色一律 palette Token，跑 `test_ui_tokens` 门禁。
 4. 灰白主题交付前跑本审计扫描（`tools/audit_ui_panels.py` 可复用，见下）。
+
+## 5. 其他线面板灰白适配检查（2026-08-09 补充）
+
+扫描 npc_panel / npc_panels / npc_bar / shop / craft / enchant / enhance / warehouse /
+quest / fusion / expedition / loading_screen：
+
+- ✅ 无裸 `Color(` 硬编码（已随 test_ui_tokens 门禁覆盖，对方提交均通过）。
+- ✅ 无"深底/白字"灰白破坏项。
+- ⚠️ 游离字号仅 1 处：enhance_panel 魔法阵图标 36px（装饰，可保留或入阶梯）。
+- ⚠️ 面板样式未统一到玻璃系（npc 用 `make_panel_style` 平坦半透明、锻造/仓库各自 make_style）——
+  属一致性待办，非灰白功能破坏；等其他线稳定后统一。

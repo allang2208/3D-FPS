@@ -2,6 +2,8 @@
     "version":  1,
     "colors":  {
                    "COLOR_AMMO":  "#D4C5A9",
+                   "COLOR_ATTR_ROW_BG":  "#5A4D3F33",
+                   "COLOR_ATTR_ROW_HOVER":  "#5A4D3F59",
                    "COLOR_BADGE_CRAFT_BG":  "#6B9EE6EB",
                    "COLOR_BADGE_CRAFT_TEXT":  "#F2F7FF",
                    "COLOR_BADGE_ENCHANT_BG":  "#A86BD9EB",
@@ -65,6 +67,7 @@
                    "COLOR_STACK_TEXT":  "#D4C5A9",
                    "COLOR_STAMINA_FILL":  "#7A8A4A",
                    "COLOR_STATUS":  "#D4C5A9",
+                   "COLOR_STATUS_CARD_BG":  "#00000026",
                    "COLOR_TEXT":  "#D4C5A9",
                    "COLOR_TITLE_TEXT":  "#D4C5A9",
                    "COLOR_TRANSPARENT":  "#00000000",
