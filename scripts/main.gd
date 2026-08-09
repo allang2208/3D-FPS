@@ -7,6 +7,7 @@ const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物
 const FireballScript := preload("res://scripts/fireball.gd")
 const IceSpikeScript := preload("res://scripts/ice_spike.gd")
 const LightningScript := preload("res://scripts/lightning.gd")
+const WeaponFormula := preload("res://ui/weapon_formula.gd")
 const AreaSkillScript := preload("res://scripts/area_skill.gd")
 const ThunderLanceScript := preload("res://scripts/thunder_lance.gd")
 const LoadingScreenScript := preload("res://ui/loading_screen.gd")
@@ -17,6 +18,7 @@ var _status_bar: CanvasLayer
 var _npc_bar: CanvasLayer
 var _item_db
 var _economy
+var _warehouse
 var _shop_panel
 var _enhance_panel
 var _craft_panel
@@ -165,6 +167,28 @@ func _build_player() -> void:
 	_gun = gun
 	add_child(player)
 	_player = player
+	_refresh_weapon_mods()
+
+## 装备武器强化/改造/附魔 -> 枪械与玩家攻击生效（weapon_formula 计算）
+func _refresh_weapon_mods() -> void:
+	if _gun == null or _equipment == null:
+		return
+	var item: Dictionary = _equipment.get_item("weapon")
+	if item.is_empty():
+		item = _equipment.get_item("weapon2")
+	if item.is_empty():
+		_gun.clear_item_mods()
+		if _player_status != null:
+			_player_status.set_weapon_atk(0)
+		return
+	_gun.apply_item_mods(WeaponFormula.gun_mods_from_item(item))
+	if _player_status != null:
+		var attrs := {}
+		for k in ["str", "dex", "con", "wis", "luck"]:
+			attrs[k] = int(_player_status.get(k))
+		attrs["int"] = int(_player_status.get("intt"))
+		_player_status.set_weapon_atk(WeaponFormula.compute_weapon_atk(
+			item, int(item.get("enhanceLevel", 0)), attrs))
 
 func _build_hud() -> void:
 	var bar := CanvasLayer.new()
@@ -456,8 +480,13 @@ func _on_npc_closed() -> void:
 ## NPC 子面板：打开时收起对话框，关闭后回到对话框（旧版 exitCompactMode）
 func _build_npc_panels() -> void:
 	_economy = load("res://ui/economy.gd").new()
+	_warehouse = load("res://ui/warehouse.gd").new()
+	# 仓库种子：部分材料放仓库，验证背包+仓库双源扣减
+	_warehouse.add_item(_item_db.create_instance("enhancement_stone", 2))
+	_warehouse.add_item(_item_db.create_instance("reforge_ticket", 1))
+	_warehouse.add_item(_item_db.create_instance("magic_dust", 50))
 	var NpcPanels := load("res://ui/npc_panels.gd")
-	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, _npc_bar)
+	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, _npc_bar, _warehouse, _player_status)
 	_shop_panel = _panels.get("shop")
 	_enhance_panel = _panels.get("enhance")
 	_craft_panel = _panels.get("craft")
@@ -467,6 +496,7 @@ func _build_npc_panels() -> void:
 	_expedition_panel = _panels.get("expedition")
 	_quest_panel.teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
 	_expedition_panel.depart_requested.connect(_on_depart_requested)
+	_equipment.changed.connect(_refresh_weapon_mods)
 
 func _open_npc_panel(panel) -> void:
 	if panel == null:
