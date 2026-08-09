@@ -22,6 +22,7 @@ var _built := false
 var _last_scene: Node
 var _bound_player: Node
 var _bound_gun: Node
+var _bind_gun_retries := 0
 
 
 func _process(_delta: float) -> void:
@@ -145,17 +146,35 @@ func _bind_scene(scene: Node) -> void:
 		_bound_player = player
 		player.damaged.connect(_on_player_damaged)
 		player.died.connect(_on_player_died)
+	_bind_gun(scene)
+	if _bound_gun == null:
+		# 枪通常在 HUD 绑定后才加入场景（main._ready 先调 ensure 后建枪），延迟重试直到出现
+		_bind_gun_retries = 0
+		call_deferred("_retry_bind_gun", scene)
+
+
+func _bind_gun(scene: Node) -> void:
 	var gun := scene.find_child("Gun", true, false)
-	if gun != null:
-		_bound_gun = gun
-		gun.shot.connect(_on_ammo)
-		gun.reloaded.connect(_on_ammo)
-		gun.reloading.connect(_on_gun_reloading)
-		gun.empty.connect(_on_gun_empty)
-		gun.hit.connect(_on_gun_hit)
-		gun.ads_changed.connect(_on_ads_changed)
-		# 同步初始弹药（gun._ready 的首枪发生在绑定前，这里补一次显示）
-		_on_ammo(int(gun.get("ammo")), int(gun.get("reserve")))
+	if gun == null:
+		return
+	_bound_gun = gun
+	gun.shot.connect(_on_ammo)
+	gun.reloaded.connect(_on_ammo)
+	gun.reloading.connect(_on_gun_reloading)
+	gun.empty.connect(_on_gun_empty)
+	gun.hit.connect(_on_gun_hit)
+	gun.ads_changed.connect(_on_ads_changed)
+	# 同步初始弹药（gun._ready 的首枪发生在绑定前，这里补一次显示）
+	_on_ammo(int(gun.get("ammo")), int(gun.get("reserve")))
+
+
+func _retry_bind_gun(scene: Node) -> void:
+	if _bound_gun != null or not is_instance_valid(scene):
+		return
+	_bind_gun(scene)
+	if _bound_gun == null and _bind_gun_retries < 300:
+		_bind_gun_retries += 1
+		call_deferred("_retry_bind_gun", scene)
 
 
 ## ---- 信号转发 / HUD 更新 ----
