@@ -18,6 +18,14 @@ func _process(_delta: float) -> bool:
 		gun.position = Vector3(0.28, -0.26, -0.5)
 		gun.set_script(load("res://scripts/gun.gd"))
 		gun.set_physics_process(false)  # 固定换弹进度，避免物理帧衰减 _reload_t
+		var model_path := OS.get_environment("GUN_TEST_MODEL")
+		var mag_path := OS.get_environment("GUN_TEST_MAG")
+		if model_path != "" or mag_path != "":
+			var wd := WeaponData.new()
+			wd.model_scene = load(model_path) if model_path != "" else load("res://assets/models/ak/akm_voxel_body.obj")
+			wd.mag_scene = load(mag_path) if mag_path != "" else load("res://assets/models/ak/akm_voxel_mag.obj")
+			wd.muzzle_sign_override = -1
+			gun.set("data", wd)
 		cam.add_child(gun)
 		_gun = gun
 	if _frames == 8:

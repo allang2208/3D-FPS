@@ -15,7 +15,7 @@ import numpy as np
 import trimesh
 
 
-def strip_mag(mesh: trimesh.Trimesh, x_lo: float = 0.30, x_hi: float = 0.52, y_floor: float = -0.10) -> trimesh.Trimesh:
+def strip_mag(mesh: trimesh.Trimesh, x_lo: float = 0.30, x_hi: float = 0.495, y_floor: float = -0.05) -> trimesh.Trimesh:
     mn = mesh.bounds[0]
     extent = mesh.bounds[1] - mesh.bounds[0]
     xa = mn[0] + extent[0] * x_lo
@@ -38,9 +38,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="删除 GLB 中的弹匣")
     ap.add_argument("--input", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--y-floor", type=float, default=-0.10)
+    ap.add_argument("--y-floor", type=float, default=-0.05)
     ap.add_argument("--x-lo", type=float, default=0.30)
-    ap.add_argument("--x-hi", type=float, default=0.52)
+    ap.add_argument("--x-hi", type=float, default=0.495)
     args = ap.parse_args()
     scene = trimesh.load(args.input, force="scene")
     mesh = scene.to_geometry()

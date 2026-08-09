@@ -62,3 +62,19 @@ $godot = 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe'
 - UI 风格唯一真源：`DESIGN.md`（设计 DNA / Token / 一致性检查清单）。
 - UI 完整闭环：`UI-WORKFLOW.md`（定风格 → 出图 → 验收 → Token → 组件 → 验证 → 提交）。
 - UI 线动手前必读 `DESIGN.md` + 本文件；风格变更先改 `DESIGN.md` 再改代码。
+
+## 7. 资产建模纪律（换模型 / 重导出 / 拆件）
+
+重建模或换枪模时，**绝对不要让游戏处于“引用坏掉”的中间态**（否则编辑器/游戏直接打不开）。
+
+1. **新资产先独立生成**：一律用新文件名（如 `akm_voxel_v2.obj`），不要先覆盖正式文件名。
+2. **先验证再置入**：在独立环境验证通过后，才做“置入”——覆盖正式文件名 → 删除旧 `.import`
+   → `--import` → 冒烟 + `test_ads_calibration` 全绿 → 提交。
+3. **不要提前动 `.import` / `.tres` / 正式资产**：中途删改会导致引用缺失、项目无法打开，
+   用户还要测其他功能，禁止制造这种状态。
+4. Godot OBJ 导入会把网格归一化到原点（0..1.005），`gun.gd` 已按 AABB 中心反移居中；
+   换新网格后必须跑 `test_ads_calibration`（瞄具/枪口/ADS 自动校准是否仍正确）。
+5. 部件拆分（弹匣等）：源 GLB 用 `tools/ai-gen/strip_mag_glb.py`，体素用
+   `tools/ai-gen/voxelize_glb.py`（自动 split_magazine）；拆完验证弹匣区无残留
+   （源 GLB 弹匣区 `y<-0.05` 顶点数 = 0；体素枪体只剩弹匣井自然底面）。
+6. 详细体素管线见 `docs/voxel-pipeline.md`。

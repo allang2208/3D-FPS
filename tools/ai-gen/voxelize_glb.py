@@ -176,7 +176,7 @@ def quantize_palette(colors: np.ndarray, max_colors: int) -> tuple:
 def split_magazine(
     filled: np.ndarray,
     z_threshold: int = 18,
-    bottom_margin: int = 20,
+    bottom_margin: int = 28,
     mag_height: int = 25,
     x_lo: float = 0.30,
     x_hi: float = 0.52,
