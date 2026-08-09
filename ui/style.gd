@@ -5,12 +5,72 @@ extends RefCounted
 ## 切换时用 THEME_* 色板整体替换上方旧 2D 暗金 COLOR_*，HUD/背包代码零改动。
 
 const PALETTE_PATH := "res://ui/palette.json"
+const CONFIG_PATH := "res://ui/style-config.json"
+
+# ---------- 风格配置（style-config.json，改配置不改代码） ----------
+static var ACTIVE_THEME := "dark_gold"            # dark_gold | gold_white_gray
+static var RADIUS := 8
+static var SPACING: Dictionary = {"grid": 4, "hud_margin": 20, "panel_padding": 10, "element_gap": 8}
+static var FONT_SIZES: Dictionary = {"h1": 48, "h2": 32, "big": 22, "label": 16, "body": 14, "caption": 12}
+static var FONT_WEIGHTS: Dictionary = {"heavy": 700, "bold": 600, "regular": 400}
+static var MOTION_DURATION := 0.2
+static var MOTION_EASING := "ease_out"
 
 ## 脚本类加载时自动执行：读取 ui/palette.json 并覆盖色板默认值
 static func _static_init() -> void:
+	_load_config()
 	var pal := _load_palette()
 	if not pal.is_empty():
 		_apply_colors(pal)
+	if ACTIVE_THEME == "gold_white_gray":
+		_apply_theme_preset()
+
+static func _load_config() -> void:
+	if not FileAccess.file_exists(CONFIG_PATH):
+		return
+	var f := FileAccess.open(CONFIG_PATH, FileAccess.READ)
+	if f == null:
+		push_warning("ui/style.gd: cannot open style-config.json")
+		return
+	var parsed = JSON.parse_string(f.get_as_text())
+	if typeof(parsed) != TYPE_DICTIONARY:
+		push_warning("ui/style.gd: style-config.json parse failed, using defaults")
+		return
+	var cfg: Dictionary = parsed
+	if cfg.has("active_theme"):
+		var t := str(cfg.active_theme)
+		if t in ["dark_gold", "gold_white_gray"]:
+			ACTIVE_THEME = t
+	if cfg.has("radius"):
+		RADIUS = int(cfg.radius)
+	if typeof(cfg.get("spacing", {})) == TYPE_DICTIONARY:
+		for key in cfg.spacing:
+			SPACING[key] = int(cfg.spacing[key])
+	if typeof(cfg.get("font", {})) == TYPE_DICTIONARY:
+		for key in cfg.font:
+			FONT_SIZES[key] = int(cfg.font[key])
+	if typeof(cfg.get("font_weight", {})) == TYPE_DICTIONARY:
+		for key in cfg.font_weight:
+			FONT_WEIGHTS[key] = int(cfg.font_weight[key])
+	if typeof(cfg.get("motion", {})) == TYPE_DICTIONARY:
+		var motion: Dictionary = cfg.motion
+		if motion.has("duration_ms"):
+			MOTION_DURATION = float(motion.duration_ms) / 1000.0
+		if motion.has("easing"):
+			MOTION_EASING = str(motion.easing)
+
+## 风格查询（供组件统一消费，禁止散落数值）
+static func spacing(key: String) -> int:
+	return int(SPACING.get(key, 4))
+
+static func font_size(key: String) -> int:
+	return int(FONT_SIZES.get(key, 14))
+
+static func font_weight(key: String) -> int:
+	return int(FONT_WEIGHTS.get(key, 400))
+
+static func theme_active() -> String:
+	return ACTIVE_THEME
 
 static func _load_palette() -> Dictionary:
 	if not FileAccess.file_exists(PALETTE_PATH):
@@ -178,12 +238,12 @@ static func make_theme() -> Theme:
 	t.default_font_size = 14
 	return t
 
-static func make_style(bg: Color, border: Color, radius := 8, border_w := 2) -> StyleBoxFlat:
+static func make_style(bg: Color, border: Color, radius := -1, border_w := 2) -> StyleBoxFlat:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = bg
 	sb.border_color = border
 	sb.set_border_width_all(border_w)
-	sb.set_corner_radius_all(radius)
+	sb.set_corner_radius_all(RADIUS if radius < 0 else radius)
 	return sb
 
 static func rarity_label(key: String) -> String:
@@ -284,3 +344,75 @@ static func _apply_colors(p: Dictionary) -> void:
 	var rbc: Dictionary = p.get("rarity_badge_colors", {})
 	for key in rbc:
 		if RARITY_BADGE_COLORS.has(key): RARITY_BADGE_COLORS[key] = _hex_to_color(rbc[key])
+
+## 金白深灰主题预设（DESIGN.md 定稿）：按语义把 THEME_* 覆盖到 COLOR_*，组件零改动。
+## 映射登记在 docs/shadcn-mapping.md；切换 = 改 style-config.json 的 active_theme。
+static func _apply_theme_preset() -> void:
+	# 底 / 面板 / 遮罩
+	COLOR_PANEL_BG = Color(THEME_BG, 0.8)
+	COLOR_PANEL_BORDER = Color(THEME_GRAY_MID, 0.5)
+	COLOR_BAR_BG = Color(THEME_BG, 0.9)
+	COLOR_BAR_TRACK = Color(THEME_BG, 0.9)
+	COLOR_HP_BG = Color(THEME_BG, 0.85)
+	COLOR_OVERLAY = Color(0, 0, 0, 0.55)
+	COLOR_DRAG_PREVIEW_BG = Color(THEME_BG, 0.92)
+	# 槽位 / 边框
+	COLOR_BAR_BORDER = THEME_GOLD
+	COLOR_SLOT_BG = THEME_GRAY_MID
+	COLOR_SLOT_BORDER = THEME_GRAY_MID
+	COLOR_SLOT_HOVER_BG = Color(THEME_GRAY_MID, 0.85)
+	COLOR_SLOT_HOVER_BORDER = THEME_GOLD
+	COLOR_ITEM_BG = Color(THEME_BG, 0.7)
+	COLOR_ITEM_BORDER = THEME_GOLD
+	COLOR_DRAG_OVER_BG = Color(THEME_GOLD, 0.18)
+	COLOR_DRAG_OVER_BORDER = THEME_GOLD
+	COLOR_EQUIP_SLOT_BG = THEME_GRAY_MID
+	COLOR_EQUIP_SLOT_BORDER = THEME_GRAY_MID
+	COLOR_EQUIP_EQUIPPED_BG = Color(THEME_GOLD, 0.18)
+	COLOR_EQUIP_EQUIPPED_BORDER = THEME_GOLD
+	COLOR_EQUIP_LOCKED_BG = Color(THEME_GRAY_MID, 0.5)
+	COLOR_EQUIP_LOCKED_BORDER = Color(THEME_GRAY_MID, 0.8)
+	COLOR_EQUIP_LOCK_OVERLAY = Color(0, 0, 0, 0.62)
+	# 文本层级
+	COLOR_TEXT = THEME_WHITE
+	COLOR_DIM_TEXT = THEME_GRAY_LIGHT
+	COLOR_MUTED = Color(THEME_GRAY_MID, 0.9)
+	COLOR_NOTICE = THEME_GOLD
+	COLOR_STATUS = THEME_GOLD
+	COLOR_AMMO = THEME_WHITE
+	COLOR_KILL = THEME_GOLD
+	COLOR_TITLE_TEXT = THEME_WHITE
+	COLOR_STACK_TEXT = THEME_WHITE
+	COLOR_KEY_HINT = THEME_GRAY_LIGHT
+	COLOR_DEATH_TITLE = THEME_DANGER_RED
+	COLOR_DEATH_HINT = THEME_GRAY_LIGHT
+	COLOR_ZERO_TEXT = THEME_DANGER_RED
+	COLOR_RARITY_TEXT = Color(THEME_BG, 1.0)
+	# 状态条（状态色专属）
+	COLOR_HP_HIGH = THEME_HP_GREEN
+	COLOR_HP_MID = THEME_WARN_ORANGE
+	COLOR_HP_LOW = THEME_DANGER_RED
+	COLOR_MP_FILL = THEME_MP_BLUE
+	COLOR_STAMINA_FILL = THEME_GOLD
+	COLOR_EXP_FILL = THEME_GOLD
+	# 准星 / 命中
+	COLOR_CROSSHAIR = THEME_WHITE
+	COLOR_HITMARKER = THEME_WHITE
+	COLOR_DMG_FLASH = Color(THEME_DANGER_RED, 0.0)
+	# 浮窗（金白板 = 深灰玻璃底 + 金字强调）
+	COLOR_TT_BG = Color(THEME_BG, 0.94)
+	COLOR_TT_BORDER = THEME_GRAY_MID
+	COLOR_TT_NAME = THEME_WHITE
+	COLOR_TT_TYPE = THEME_GOLD
+	COLOR_TT_VAL = THEME_WHITE
+	COLOR_TT_POS = THEME_HP_GREEN
+	COLOR_TT_DESC = THEME_GRAY_LIGHT
+	COLOR_TT_CLOSE_BG = Color(THEME_DANGER_RED, 0.8)
+	COLOR_TT_CLOSE_HOVER = THEME_DANGER_RED
+	COLOR_TT_SECTION_BORDER = Color(THEME_GRAY_MID, 0.5)
+	COLOR_TT_CRAFT_POS = THEME_HP_GREEN
+	COLOR_TT_CRAFT_NEG = THEME_DANGER_RED
+	COLOR_TT_ENCHANT_NAME = THEME_GOLD
+	# 徽章（金色徽章对齐主题，改造/附魔保留语义色）
+	COLOR_BADGE_GOLD_BG = Color(THEME_GOLD, 0.92)
+	COLOR_BADGE_GOLD_TEXT = Color(THEME_BG, 1.0)

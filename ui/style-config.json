@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "active_theme": "gold_white_gray",
+  "radius": 8,
+  "spacing": {
+    "grid": 4,
+    "hud_margin": 20,
+    "panel_padding": 10,
+    "element_gap": 8
+  },
+  "font": {
+    "h1": 48,
+    "h2": 32,
+    "big": 22,
+    "label": 16,
+    "body": 14,
+    "caption": 12
+  },
+  "font_weight": {
+    "heavy": 700,
+    "bold": 600,
+    "regular": 400
+  },
+  "motion": {
+    "duration_ms": 200,
+    "easing": "ease_out"
+  }
+}

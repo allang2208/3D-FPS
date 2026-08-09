@@ -36,7 +36,7 @@
 | `--input` | 输入框边 | `THEME_GRAY_MID` | `#3A3A3C` | ✅ |
 | `--ring` | 聚焦环 | `THEME_GOLD` | `#D4AF37` | ✅（待 Godot focus 实现） |
 | `--chart-1..5` | 图表色 | `THEME_HP_GREEN` / `THEME_WARN_ORANGE` / `THEME_DANGER_RED` / `THEME_MP_BLUE` / `THEME_GOLD` | 状态色组 | ✅（游戏无图表，映射到状态色） |
-| `--radius` | 圆角 | `style.gd make_style(radius)` | 8px | 🔶 待配置化（收进配置文件） |
+| `--radius` | 圆角 | `style-config.json` → `Style.RADIUS` / `make_style()` | 8px | ✅ 已配置化 |
 | `--sidebar*` | 侧栏系列 | 暂不需要 | — | ⛔ 无侧栏 UI |
 
 > 注：我们 Godot 的 Token 是扁平命名（THEME_*/COLOR_*），shadcn 是语义命名；映射关系登记在上表后，
@@ -46,12 +46,15 @@
 
 | 维度 | shadcn 规范 | Godot 对应物 | 当前值 | 状态 |
 |---|---|---|---|---|
-| 间距 | 4px 网格 | Control 布局常量 | DESIGN.md 第 4 节 | 🔶 待配置化 |
-| 字体 | Heading/Inter + 字重阶梯 | `style.gd make_font(weight)`（思源黑体） | 12–48 阶梯 | 🔶 待配置化 |
+| 间距 | 4px 网格 | `style-config.json` → `Style.spacing(key)` | DESIGN.md 第 4 节 | ✅ 已配置化 |
+| 字体 | Heading/Inter + 字重阶梯 | `style-config.json` → `Style.font_size/font_weight`（思源黑体） | 12–48 阶梯 | ✅ 已配置化 |
 | 图标 | Lucide 线性图标 | SVG → Godot Texture | emoji 回退 | ❌ 未做 |
 | 动效 | 150–250ms ease-out | Tween | DESIGN.md 第 7 节 | ✅ 已按规范 |
 | 阴影/发光 | 柔和阴影 | Shader / 半透明叠加 | 仅关键元素发光 | 🔶 等效实现，待登记 |
 | 玻璃模糊 | backdrop-blur | Godot 无原生 backdrop blur | 半透明深灰近似 | 🔶 软指标（已用 α0.8 面板） |
+
+> 主题切换：`style-config.json` 的 `active_theme`（`dark_gold` 旧暗金 / `gold_white_gray` 金白深灰）。
+> 金白板 = 把 THEME_* 按语义覆盖到 COLOR_*（`Style._apply_theme_preset()`），组件零改动。
 
 ## 4. 组件映射（shadcn 63 个 → 我们的 registry）
 
@@ -97,6 +100,6 @@
 
 - ✅ 颜色层（31 个 token 中 27 个已映射，4 个 sidebar 明确不需要）
 - ✅ 动效规范（150–250ms ease-out）
-- 🔶 圆角/间距/字号（规范已定，待收进配置文件）
+- ✅ 圆角/间距/字号/动效/主题开关（style-config.json + 调色面板「风格配置」tab）
 - ❌ 图标层（Lucide SVG → Godot）
 - 🔶 组件层（HUD/背包已迁移；设置页/菜单按优先级推进）

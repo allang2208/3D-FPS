@@ -26,7 +26,6 @@ func _initialize() -> void:
 	_check("theme_mp_blue", Style.THEME_MP_BLUE.is_equal_approx(Style._hex_to_color("#5A8FE0")))
 	_check("theme_btn_hover", Style.THEME_BTN_HOVER_BG.is_equal_approx(Style._hex_to_color("#D4AF37")))
 	_check("theme_progress_fill", Style.THEME_PROGRESS_FILL.is_equal_approx(Style._hex_to_color("#D4AF37")))
-	_check("dmg_flash_token", Style.COLOR_DMG_FLASH.is_equal_approx(Style._hex_to_color("#CC000000")))
 	_check("transparent_token", Style.COLOR_TRANSPARENT.is_equal_approx(Style._hex_to_color("#00000000")))
 
 	# 1b) ui/palette.json 是色值真源：存在、可解析、关键 Token 齐全、加载后与 Style 当前值一致
@@ -43,6 +42,31 @@ func _initialize() -> void:
 			_check("palette_has_" + key, colors.has(key))
 		var loaded_gold := Style._hex_to_color(str(colors.get("THEME_GOLD", "#000000")))
 		_check("palette_loaded_eq_style", loaded_gold.is_equal_approx(Style.THEME_GOLD))
+
+	# 1c) ui/style-config.json：风格配置存在、可解析、关键字段生效
+	var cf := FileAccess.open("res://ui/style-config.json", FileAccess.READ)
+	_check("style_config_exists", cf != null)
+	if cf != null:
+		var cparsed = JSON.parse_string(cf.get_as_text())
+		var cfg: Dictionary = cparsed if typeof(cparsed) == TYPE_DICTIONARY else {}
+		_check("style_config_parse", typeof(cparsed) == TYPE_DICTIONARY)
+		_check("config_theme_valid", Style.theme_active() in ["dark_gold", "gold_white_gray"])
+		_check("config_radius", Style.RADIUS == 8)
+		_check("config_spacing_grid", Style.spacing("grid") == 4)
+		_check("config_font_h1", Style.font_size("h1") == 48)
+		_check("config_font_weight_heavy", Style.font_weight("heavy") == 700)
+		_check("config_motion", absf(Style.MOTION_DURATION - 0.2) < 0.001)
+
+	# 1d) 金白主题预设生效（active_theme=gold_white_gray 时组件消费的 COLOR_* 已被 THEME_* 覆盖）
+	if Style.theme_active() == "gold_white_gray":
+		_check("preset_text_white", Style.COLOR_TEXT.is_equal_approx(Style.THEME_WHITE))
+		_check("preset_hp_green", Style.COLOR_HP_HIGH.is_equal_approx(Style.THEME_HP_GREEN))
+		_check("preset_border_gold", Style.COLOR_BAR_BORDER.is_equal_approx(Style.THEME_GOLD))
+		_check("preset_panel_dark", Style.COLOR_PANEL_BG.r < 0.15)
+		_check("preset_dmg_flash", Style.COLOR_DMG_FLASH.is_equal_approx(Color(Style.THEME_DANGER_RED, 0.0)))
+	else:
+		_check("preset_dark_gold_default", Style.COLOR_TEXT.is_equal_approx(Style._hex_to_color("#d4c5a9")))
+		_check("dmg_flash_token", Style.COLOR_DMG_FLASH.is_equal_approx(Style._hex_to_color("#CC000000")))
 
 	# 2) 组件禁止硬编码颜色（引用 Style.* 的行除外；backpack 待对方提交后纳入）
 	var files := ["res://ui/status_bar.gd", "res://ui/item_tooltip.gd"]
