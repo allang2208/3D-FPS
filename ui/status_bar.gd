@@ -153,7 +153,7 @@ func _sync_top_bar() -> void:
 		if _exp_now != int(st.get("exp")) or _exp_max != em:
 			set_exp(int(st.get("exp")), em)
 	if _top_kills_lbl != null:
-		_top_kills_lbl.text = "击杀 %d" % _kills
+		_top_kills_lbl.text = "%d" % _kills
 
 func _build() -> void:
 	_build_tooltip()
@@ -324,51 +324,100 @@ func _build_top_bar() -> void:
 	_top_bar.name = "TopBar"
 	_top_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_top_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	_top_bar.offset_top = 10
+	_top_bar.offset_top = 8
 	_top_bar.add_theme_stylebox_override("panel",
-		Style.make_style(Color(Style.THEME_BG, 0.55), Style.THEME_GRAY_MID, 10, 1))
+		Style.make_style(Color(Style.THEME_BG, 0.62), Color(Style.THEME_GRAY_MID, 0.7), 10, 1))
 	add_child(_top_bar)
 	var hb := HBoxContainer.new()
-	hb.add_theme_constant_override("separation", 14)
+	hb.add_theme_constant_override("separation", 12)
 	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_top_bar.add_child(hb)
-	var texts := [["名称", "character_name", "轮回者"], ["等级", "level", "1"], ["职业", "character_class", "初心者"]]
-	for spec in texts:
-		var box := VBoxContainer.new()
-		box.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var l := Label.new()
-		l.text = str(spec[0])
-		l.add_theme_font_size_override("font_size", 10)
-		l.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
-		box.add_child(l)
-		var v := Label.new()
-		v.add_theme_font_size_override("font_size", 14)
-		v.add_theme_font_override("font", _font_bold)
-		v.add_theme_color_override("font_color", Style.COLOR_TEXT)
-		box.add_child(v)
-		match str(spec[0]):
-			"名称":
-				_top_name_lbl = v
-			"等级":
-				_top_level_lbl = v
-			"职业":
-				_top_class_lbl = v
-		hb.add_child(box)
-	_top_kills_lbl = Label.new()
-	_top_kills_lbl.add_theme_font_size_override("font_size", 14)
-	_top_kills_lbl.add_theme_font_override("font", _font_mono)
-	_top_kills_lbl.add_theme_color_override("font_color", Style.COLOR_KILL)
-	hb.add_child(_top_kills_lbl)
-	_top_hp_fill = _make_top_meter(hb, Style.COLOR_HP_HIGH)
-	_top_mp_fill = _make_top_meter(hb, Style.THEME_MP_BLUE)
+	# 名称 / 等级 / 职业 / 击杀：固定宽 + 居中 + 分隔线，值变化不跳动
+	_top_name_lbl = _add_top_stat(hb, "名称", "character_name", false)
+	_add_top_divider(hb)
+	_top_level_lbl = _add_top_stat(hb, "等级", "level", false)
+	_add_top_divider(hb)
+	_top_class_lbl = _add_top_stat(hb, "职业", "character_class", false)
+	_add_top_divider(hb)
+	_top_kills_lbl = _add_top_stat(hb, "击杀", "", true)
+	_add_top_divider(hb)
+	# 生命 / 魔法小条（标题 + 圆角轨道 + 数值）
+	var hp_box := _add_top_meter_box(hb, "生命", Style.COLOR_HP_HIGH)
+	_top_hp_fill = hp_box[1]
+	_add_top_divider(hb)
+	var mp_box := _add_top_meter_box(hb, "魔法", Style.THEME_MP_BLUE)
+	_top_mp_fill = mp_box[1]
+
+
+func _make_top_caption(parent: Node, text: String) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.add_theme_font_size_override("font_size", 10)
+	l.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(l)
+	return l
+
+
+func _add_top_stat(parent: Node, caption: String, prop: String, mono: bool) -> Label:
+	var box := VBoxContainer.new()
+	box.custom_minimum_size = Vector2(52, 0)
+	box.mouse_filter = Control.MOUSE_FILTER_STOP
+	_make_top_caption(box, caption)
+	var v := Label.new()
+	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_theme_font_size_override("font_size", 14)
+	v.add_theme_font_override("font", _font_mono if mono else _font_bold)
+	v.add_theme_color_override("font_color", Style.COLOR_KILL if mono else Style.COLOR_TEXT)
+	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(v)
+	var tip: String = {"名称": "角色名称", "等级": "角色等级，经验满升级", "职业": "角色职业", "击杀": "本局累计击杀"}.get(caption, "")
+	box.mouse_entered.connect(func() -> void:
+		_show_tooltip(caption, tip, [], box.global_position + Vector2(0, box.size.y + 6)))
+	box.mouse_exited.connect(func() -> void:
+		if _tip != null:
+			_tip.visible = false)
+	parent.add_child(box)
+	return v
+
+
+func _add_top_divider(parent: Node) -> void:
+	var d := ColorRect.new()
+	d.custom_minimum_size = Vector2(1, 24)
+	d.color = Color(Style.THEME_GRAY_MID, 0.45)
+	d.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(d)
+
+
+func _add_top_meter_box(parent: Node, caption: String, color: Color) -> Array:
+	var box := VBoxContainer.new()
+	box.custom_minimum_size = Vector2(88, 0)
+	box.mouse_filter = Control.MOUSE_FILTER_STOP
+	_make_top_caption(box, caption)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	box.add_child(row)
+	var fill := _make_top_meter(row, color)
+	parent.add_child(box)
+	box.mouse_entered.connect(func() -> void:
+		var rows := [["当前", "%d / %d" % [_hp_now, _hp_max]]] if caption == "生命" \
+			else [["当前", "%d / %d" % [_mp_now, _mp_max]]]
+		_show_tooltip(caption + "值", _label("hp_tip_desc" if caption == "生命" else "mp_tip_desc", "状态值说明"), rows,
+			box.global_position + Vector2(0, box.size.y + 6)))
+	box.mouse_exited.connect(func() -> void:
+		if _tip != null:
+			_tip.visible = false)
+	return [box, fill]
 
 
 func _make_top_meter(parent: Node, color: Color) -> ColorRect:
 	var track := Panel.new()
-	track.custom_minimum_size = Vector2(84, 10)
+	track.custom_minimum_size = Vector2(76, 10)
 	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	track.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_BAR_TRACK, Style.THEME_GRAY_MID, 5, 1))
+		Style.make_style(Style.COLOR_BAR_TRACK, Color(Style.THEME_GRAY_MID, 0.6), 5, 1))
 	parent.add_child(track)
 	var fill := ColorRect.new()
 	fill.color = color
