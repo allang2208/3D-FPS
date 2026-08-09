@@ -23,7 +23,15 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg", "res://addons/audio_manager_lite/plugin.cfg")
+
+[audio]
+
+default_bus_layout="res://default_bus_layout.tres"
+
+[autoload]
+
+AudioManager="*res://addons/audio_manager_lite/audio_manager.gd"
 
 [physics]
 
