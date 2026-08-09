@@ -235,8 +235,8 @@ func _process(delta: float) -> void:
 		else:
 			mag_out = 1.0 - _ease_in(clampf((prog - 0.60) / 0.40, 0.0, 1.0))
 		# 枪身上抬 + 抬头右倾：弹匣舱位进画面，弹匣下滑时能看清分离
-		reload_pos = Vector3(0, mag_out * 0.16, mag_out * 0.05)
-		reload_rot = Vector3(-mag_out * 0.30, 0, mag_out * 0.22)
+		reload_pos = Vector3(0, mag_out * 0.12, mag_out * 0.03)
+		reload_rot = Vector3(-mag_out * 0.08, 0, mag_out * 0.05)
 		if _mag:
 			_mag.position.y = _mag_base_y - mag_out * _mag_slide
 			# 弹匣卸下时后倾、插入时回正（模拟取出/装回角度）
@@ -675,6 +675,9 @@ func _build_gun() -> void:
 		holder.name = "AkmModel"
 		var mi := MeshInstance3D.new()
 		mi.mesh = model_scene as Mesh
+		# Godot OBJ 导入会归一化到原点（坐标 0..1.005），这里按 AABB 中心反移，
+		# 把网格真正居中到节点原点，校准/弹匣/枪口定位才与导出坐标系一致
+		mi.position = -(mi.mesh.get_aabb().get_center())
 		var arrays := (mi.mesh as ArrayMesh).surface_get_arrays(0)
 		if arrays.size() > 0 and arrays[Mesh.ARRAY_COLOR] != null:
 			var mat := StandardMaterial3D.new()
@@ -695,6 +698,7 @@ func _build_gun() -> void:
 		mag_holder.name = "Magazine"
 		var mag_mi := MeshInstance3D.new()
 		mag_mi.mesh = mag_scene as Mesh
+		mag_mi.position = -(mag_mi.mesh.get_aabb().get_center())
 		var marr := (mag_mi.mesh as ArrayMesh).surface_get_arrays(0)
 		if marr.size() > 0 and marr[Mesh.ARRAY_COLOR] != null:
 			var mmat := StandardMaterial3D.new()
@@ -794,6 +798,12 @@ func _mesh_vertices(model: Node3D) -> PackedVector3Array:
 	return out
 
 func _append_mesh_verts(mi: MeshInstance3D, out: PackedVector3Array) -> void:
+	# 独立弹匣是模型子节点，但测量枪体几何时要排除（弹匣会带偏瞄具/枪口定位）
+	var anc := mi.get_parent()
+	while anc:
+		if anc.name == "Magazine":
+			return
+		anc = anc.get_parent()
 	var mesh := mi.mesh as ArrayMesh
 	if mesh == null:
 		return

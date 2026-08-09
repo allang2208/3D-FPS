@@ -17,6 +17,7 @@ func _process(_delta: float) -> bool:
 		gun.name = "Gun"
 		gun.position = Vector3(0.28, -0.26, -0.5)
 		gun.set_script(load("res://scripts/gun.gd"))
+		gun.set_physics_process(false)  # 固定换弹进度，避免物理帧衰减 _reload_t
 		cam.add_child(gun)
 		_gun = gun
 	if _frames == 8:

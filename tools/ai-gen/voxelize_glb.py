@@ -173,9 +173,18 @@ def quantize_palette(colors: np.ndarray, max_colors: int) -> tuple:
     return indices, pal_rgb
 
 
-def split_magazine(filled: np.ndarray, z_threshold: int = 13) -> tuple:
+def split_magazine(
+    filled: np.ndarray,
+    z_threshold: int = 18,
+    bottom_margin: int = 20,
+    mag_height: int = 25,
+    x_lo: float = 0.30,
+    x_hi: float = 0.52,
+) -> tuple:
     """把悬挂在机匣下方的弹匣拆成独立体素。
-    弹匣列 = 底部达到全局最低的列；弹匣顶 = 该列 z 宽度 <= 阈值的最高的连续行（上方变宽=进入机匣）。"""
+    弹匣列 = 底部低于机匣地板（全局最低 + bottom_margin）的列；
+    弹匣顶 = 该列 z 宽度 <= 阈值的最高的连续行（上方变宽=进入机匣）。
+    阈值需介于弹匣宽与机匣宽之间（实测弹匣 zw≈15、机匣 zw≈22 → 取 18）。"""
     shape = filled.shape
     jmin = np.full((shape[0], shape[2]), shape[1])
     for i in range(shape[0]):
@@ -187,7 +196,10 @@ def split_magazine(filled: np.ndarray, z_threshold: int = 13) -> tuple:
     mag = np.zeros_like(filled)
     for i in range(shape[0]):
         for k in range(shape[2]):
-            if jmin[i, k] > bottom + 2:
+            # 弹匣只在枪身中前段（x 比例限制），防止吞入护木/枪管
+            if not (x_lo * shape[0] <= i <= x_hi * shape[0]):
+                continue
+            if jmin[i, k] > bottom + bottom_margin:
                 continue
             top_j = -1
             for j in range(shape[1]):
@@ -197,6 +209,9 @@ def split_magazine(filled: np.ndarray, z_threshold: int = 13) -> tuple:
                         top_j = j
                     else:
                         break
+            # 弹匣高度上限：列底 + mag_height 格（0.125m），防止弹匣井/护木窄段被吞入
+            if top_j >= 0:
+                top_j = min(top_j, jmin[i, k] + mag_height)
             if top_j >= 0:
                 mag[i, : top_j + 1, k] = filled[i, : top_j + 1, k]
     return filled & ~mag, mag
