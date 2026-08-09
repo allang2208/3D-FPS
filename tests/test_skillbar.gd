@@ -57,9 +57,19 @@ func _process(_delta: float) -> bool:
 		# 冷却到期后可用
 		sb.tick(8100.0)
 		_check("skill_cd_expire", bool(sb.ready_check(0).get("ok", false)))
+		# 技能页（新栏目）：K 键打开
+		_check("skill_page_built", _hud.get("_skill_page") != null)
+		var ev := InputEventKey.new()
+		ev.keycode = KEY_K
+		ev.physical_keycode = KEY_K
+		ev.pressed = true
+		Input.parse_input_event(ev)
 		_stage = 2
 		_stage_start = Time.get_ticks_msec()
 	elif _stage == 2 and Time.get_ticks_msec() - _stage_start > 300:
+		_check("skill_k_opens_page", String(_hud.get("_current_tab")) == "skill" \
+			and bool(_hud.get("_skill_page").visible) \
+			and not bool(_hud.get("_equip_page").visible))
 		quit(0 if _fail == 0 else 1)
 	return false
 

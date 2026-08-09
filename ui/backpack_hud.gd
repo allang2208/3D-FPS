@@ -22,6 +22,7 @@ const Icons := preload("res://ui/icons.gd")
 const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
 const StatusPageScript := preload("res://ui/status_page.gd")
 const SkillBarScript := preload("res://ui/skillbar.gd")
+const SkillPageScript := preload("res://ui/skill_page.gd")
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
@@ -30,8 +31,8 @@ const SKILL_KEY_HINTS := ["Q", "E", "X", "C"]
 const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
-const CELL_SLOT := 60
-const EQUIP_SLOT_SIZE := Vector2(160, 84)
+const CELL_SLOT := 54
+const EQUIP_SLOT_SIZE := Vector2(160, 74)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
@@ -61,9 +62,11 @@ var _equip_cells := {}
 var _panel_title: Label
 var _tab_status: Button
 var _tab_equip: Button
+var _tab_skill: Button
 var _page_stack: Control
 var _equip_page: VBoxContainer
 var _status_page: Control
+var _skill_page: Control
 var _current_tab := "equip"
 var _panel_root: Control
 var _panel: PanelContainer
@@ -157,6 +160,13 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: S
 	if skillbar != null:
 		skillbar.changed.connect(_refresh_skill_slots)
 		_refresh_skill_slots()
+	if skillbar != null:
+		_skill_page = SkillPageScript.new()
+		_skill_page.name = "SkillPage"
+		_skill_page.visible = false
+		_skill_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		_page_stack.add_child(_skill_page)
+		_skill_page.setup(skillbar)
 	set_tab("equip")
 	_refresh()
 
@@ -265,15 +275,17 @@ func _refresh_equip() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
-			KEY_TAB, KEY_K:
+			KEY_TAB:
 				get_viewport().set_input_as_handled()
 				if _panel_open and _current_tab == "equip":
 					set_panel_open(false)
 				else:
 					set_tab("equip")
 					set_panel_open(true)
-				if event.keycode == KEY_K:
-					_flash_status("技能体系未移植（K）")
+			KEY_K:
+				get_viewport().set_input_as_handled()
+				set_tab("skill")
+				set_panel_open(true)
 			KEY_B:
 				get_viewport().set_input_as_handled()
 				toggle_panel()
@@ -482,25 +494,34 @@ func set_panel_open(open: bool) -> void:
 ## ---------- 页签（角色状态 / 装备背包，复刻旧版 SystemUI 页签） ----------
 
 func set_tab(tab: String) -> void:
-	if tab != "status" and tab != "equip":
+	if tab != "status" and tab != "equip" and tab != "skill":
 		return
 	_current_tab = tab
-	var is_status := tab == "status"
 	if _status_page != null:
-		_status_page.visible = is_status
+		_status_page.visible = tab == "status"
 	if _equip_page != null:
-		_equip_page.visible = not is_status
+		_equip_page.visible = tab == "equip"
+	if _skill_page != null:
+		_skill_page.visible = tab == "skill"
 	if _panel_title != null:
-		_panel_title.text = "角色状态" if is_status else "装备与背包"
+		match tab:
+			"status":
+				_panel_title.text = "角色状态"
+			"equip":
+				_panel_title.text = "装备与背包"
+			"skill":
+				_panel_title.text = "技能体系"
 	_update_tab_styles()
 
 func _update_tab_styles() -> void:
-	if _tab_status == null or _tab_equip == null:
+	if _tab_status == null or _tab_equip == null or _tab_skill == null:
 		return
 	_tab_status.add_theme_stylebox_override("normal", _tab_style(_current_tab == "status"))
 	_tab_equip.add_theme_stylebox_override("normal", _tab_style(_current_tab == "equip"))
+	_tab_skill.add_theme_stylebox_override("normal", _tab_style(_current_tab == "skill"))
 	_tab_status.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "status" else Style.COLOR_DIM_TEXT)
 	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Style.COLOR_DIM_TEXT)
+	_tab_skill.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "skill" else Style.COLOR_DIM_TEXT)
 
 func _tab_style(active: bool) -> StyleBoxFlat:
 	if active:
@@ -1041,10 +1062,13 @@ func _build_panel() -> void:
 	vbox.add_child(tab_bar)
 	_tab_status = _make_tab_button("角色状态")
 	_tab_equip = _make_tab_button("装备背包")
+	_tab_skill = _make_tab_button("技能体系")
 	tab_bar.add_child(_tab_status)
 	tab_bar.add_child(_tab_equip)
+	tab_bar.add_child(_tab_skill)
 	_tab_status.pressed.connect(func() -> void: set_tab("status"))
 	_tab_equip.pressed.connect(func() -> void: set_tab("equip"))
+	_tab_skill.pressed.connect(func() -> void: set_tab("skill"))
 	# 页面栈
 	_page_stack = Control.new()
 	_page_stack.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -1056,17 +1080,11 @@ func _build_panel() -> void:
 	_equip_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_equip_page.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_page_stack.add_child(_equip_page)
-	# 装备栏 + 背包 左右并排（上下排列在 1080p 垂直空间不足，横向容纳）
-	var cols := HBoxContainer.new()
-	cols.add_theme_constant_override("separation", Style.spacing("element_gap"))
-	cols.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	cols.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_equip_page.add_child(cols)
-	# 左：装备栏（3x5 大宽格）
+	# 上：装备栏（3x5 大宽格）
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
 	equip_col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	cols.add_child(equip_col)
+	_equip_page.add_child(equip_col)
 	var equip_title := _make_label(equip_col, "装备栏", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1186,11 +1204,11 @@ func _build_panel() -> void:
 		lock.add_child(x_lbl)
 		_equip_grid.add_child(cell)
 		_equip_cells[key] = cell
-	# 右：背包（表头 背包+0/36，5 列小方格）
+	# 下：背包（表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
 	inv_col.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	inv_col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
-	cols.add_child(inv_col)
+	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
 	var inv_title := _make_label(inv_header, "背包", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
