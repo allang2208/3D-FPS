@@ -93,6 +93,7 @@ func _build() -> void:
 	apply_btn.add_theme_stylebox_override("normal", Style.make_style(Style.THEME_GOLD, Style.THEME_GOLD, Style.RADIUS_SM, 1))
 	apply_btn.add_theme_color_override("font_color", Color(Style.THEME_BG, 1.0))
 	apply_btn.add_theme_color_override("font_hover_color", Color(Style.THEME_BG, 1.0))
+	Style._attach_button_anim(apply_btn)
 	apply_btn.pressed.connect(func() -> void: _hint.text = "已应用（演示）")
 	bottom.add_child(apply_btn)
 

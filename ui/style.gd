@@ -297,6 +297,7 @@ static func make_button_style() -> Dictionary:
 	for sb in [normal, hover, pressed, disabled]:
 		for k in base_margin:
 			sb.set(k, base_margin[k])
+	pressed.content_margin_top = int(base_margin["content_margin_top"]) + 1  # 按下内容下沉 1px
 	return {"normal": normal, "hover": hover, "pressed": pressed, "disabled": disabled}
 
 ## 面板样式（玻璃感：半透明深灰底 + 细边框）
@@ -338,6 +339,23 @@ static func style_button(btn: Button, font_size_key := "body") -> void:
 	btn.add_theme_color_override("font_hover_color", Color(THEME_BG, 1.0))
 	btn.add_theme_color_override("font_pressed_color", Color(THEME_BG, 1.0))
 	btn.add_theme_color_override("font_disabled_color", Color(THEME_BTN_DISABLED_TEXT, 0.5))
+	_attach_button_anim(btn)
+
+## 统一按钮动画（Vega 规范）：hover 微放大 1.03，按下微缩 0.97（+ pressed 样式下沉 1px）
+static func _attach_button_anim(btn: Button) -> void:
+	btn.pivot_offset = btn.size * 0.5
+	btn.mouse_entered.connect(func() -> void: _button_scale(btn, 1.03))
+	btn.mouse_exited.connect(func() -> void: _button_scale(btn, 1.0))
+	btn.button_down.connect(func() -> void: _button_scale(btn, 0.97))
+	btn.button_up.connect(func() -> void: _button_scale(btn, 1.03))
+
+static func _button_scale(btn: Button, target: float) -> void:
+	if not btn.is_inside_tree():
+		return
+	btn.pivot_offset = btn.size * 0.5
+	var tw := btn.create_tween()
+	tw.tween_property(btn, "scale", Vector2(target, target), 0.08) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 static func rarity_label(key: String) -> String:
 	return String(RARITY_LABELS.get(key, key))

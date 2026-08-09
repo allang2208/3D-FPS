@@ -1337,6 +1337,7 @@ func _make_tab_button(label: String) -> Button:
 	b.custom_minimum_size = Vector2(120, 30)
 	b.add_theme_font_size_override("font_size", 13)
 	b.add_theme_font_override("font", _font_section)
+	Style._attach_button_anim(b)
 	var idle := _tab_style(false)
 	b.add_theme_stylebox_override("normal", idle)
 	b.add_theme_stylebox_override("hover", idle)

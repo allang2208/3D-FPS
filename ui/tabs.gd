@@ -38,6 +38,7 @@ func add_tab(title: String) -> void:
 	b.add_theme_font_size_override("font_size", Style.font_size("label"))
 	b.add_theme_color_override("font_color", Style.THEME_GRAY_LIGHT)
 	b.add_theme_color_override("font_hover_color", Style.THEME_WHITE)
+	Style._attach_button_anim(b)
 	b.pressed.connect(func() -> void: _select(idx))
 	_tabs.add_child(b)
 	_buttons.append(b)
