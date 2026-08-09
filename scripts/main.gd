@@ -35,7 +35,8 @@ func _process(delta: float) -> void:
 	_status_t = maxf(0.0, _status_t - delta)
 	_status_label.visible = _status_t > 0.0
 	if _player_dead and Input.is_key_pressed(KEY_R):
-		get_tree().reload_current_scene()
+		if get_tree().current_scene != null:
+			get_tree().reload_current_scene()
 
 func _build_environment() -> void:
 	var env := Environment.new()

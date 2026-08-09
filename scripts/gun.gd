@@ -79,14 +79,22 @@ func _physics_process(delta: float) -> void:
 		if _reload_t <= 0.0:
 			_finish_reload()
 		return
-	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+	# 换弹不依赖鼠标捕获（释放鼠标/菜单状态下也能换）
+	# 空仓自动换弹：打空弹匣立即开始换弹，不再卡在空枪动画
+	if ammo <= 0 and reserve > 0:
+		_start_reload()
 		return
-	if Input.is_key_pressed(KEY_R) and ammo < MAG_SIZE and reserve > 0:
-		_reload_t = RELOAD_TIME
-		reloading.emit()
+	if Input.is_physical_key_pressed(KEY_R) and ammo < MAG_SIZE and reserve > 0:
+		_start_reload()
+		return
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		return
 	if _fire_cd <= 0.0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_shoot()
+
+func _start_reload() -> void:
+	_reload_t = RELOAD_TIME
+	reloading.emit()
 
 func _shoot() -> void:
 	_fire_cd = FIRE_INTERVAL
