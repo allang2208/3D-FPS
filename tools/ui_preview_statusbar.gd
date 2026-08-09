@@ -12,7 +12,7 @@ func _initialize() -> void:
 	root.add_child(bar)
 	await process_frame
 	await process_frame
-	bar.set_hp(72, 100)
+	bar.set_hp(20, 100)
 	bar.set_mp(46, 100)
 	bar.set_ammo(24, 96)
 	bar.set_weapon_name("AK-74 突击步枪")

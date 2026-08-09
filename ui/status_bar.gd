@@ -31,6 +31,15 @@ var _font_mono: Font
 var _hitmark_t := 0.0
 var _dmgflash_t := 0.0
 var _status_t := 0.0
+var _ch_gap := 4.0
+var _last_ammo := -1
+var _low_hp := false
+var _vignette_mat: ShaderMaterial
+var _ch_up: ColorRect
+var _ch_down: ColorRect
+var _ch_left: ColorRect
+var _ch_right: ColorRect
+var _vignette: ColorRect
 
 func _ready() -> void:
 	_theme = Style.make_theme()
@@ -47,6 +56,19 @@ func _process(delta: float) -> void:
 	_dmgflash.color.a = 0.25 * (_dmgflash_t / 0.18)
 	_status_t = maxf(0.0, _status_t - delta)
 	_status_label.visible = _status_t > 0.0
+	# 准星随扩散张开（读 gun 的扩散状态；无枪时保持最小）
+	var gun := get_tree().root.find_child("Gun", true, false) if get_tree() != null else null
+	if gun != null:
+		var base: float = 0.0025
+		var data = gun.get("data")
+		if data != null:
+			base = float(data.base_spread)
+		var total := base + float(gun.get("_spread")) + float(gun.get("_move_spread")) + float(gun.get("_air_spread"))
+		_set_crosshair(clampf(total / 0.035, 0.0, 1.0))
+	# 低血量血雾呼吸
+	if _low_hp and _vignette_mat != null:
+		var v := 0.30 + 0.22 * (0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * 2.4))
+		_vignette_mat.set_shader_parameter("intensity", v)
 
 func _build() -> void:
 	# 左上：生命（图标 + 血条 + 数值）
@@ -123,8 +145,12 @@ func _build() -> void:
 	_status_label.offset_top = -34
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_status_label.visible = false
-	# 中央：准星 + 命中标记
-	_center(_make_label("+", Vector2.ZERO, 26, Style.COLOR_CROSSHAIR))
+	# 中央：四段式准星（随扩散张开）+ 命中标记
+	_ch_up = _make_crosshair_line(Vector2(0, -1))
+	_ch_down = _make_crosshair_line(Vector2(0, 1))
+	_ch_left = _make_crosshair_line(Vector2(-1, 0))
+	_ch_right = _make_crosshair_line(Vector2(1, 0))
+	_set_crosshair(0.0)
 	_hitmarker = _make_label("✕", Vector2.ZERO, 30, Style.COLOR_HITMARKER)
 	_center(_hitmarker)
 	_hitmarker.visible = false
@@ -157,6 +183,38 @@ func _build() -> void:
 	_dmgflash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_dmgflash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_dmgflash)
+	# 低血量血雾（最上层）
+	_vignette = ColorRect.new()
+	_vignette.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_vignette.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_vignette_mat = ShaderMaterial.new()
+	_vignette_mat.shader = load("res://assets/ui/shaders/health_vignette.gdshader")
+	_vignette.material = _vignette_mat
+	_vignette.visible = false
+	add_child(_vignette)
+
+func _make_crosshair_line(dir: Vector2) -> ColorRect:
+	var r := ColorRect.new()
+	r.color = Style.COLOR_CROSSHAIR
+	r.size = Vector2(3, 9)
+	r.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	r.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	r.grow_vertical = Control.GROW_DIRECTION_BOTH
+	add_child(r)
+	return r
+
+func _set_crosshair(ratio: float) -> void:
+	_ch_gap = 4.0 + ratio * 24.0
+	if _ch_up == null:
+		return
+	_ch_up.offset_left = -1.5
+	_ch_up.offset_top = -_ch_gap - 9.0
+	_ch_down.offset_left = -1.5
+	_ch_down.offset_top = _ch_gap
+	_ch_left.offset_left = -_ch_gap - 9.0
+	_ch_left.offset_top = -1.5
+	_ch_right.offset_left = _ch_gap
+	_ch_right.offset_top = -1.5
 
 func _center(c: Label) -> void:
 	c.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
@@ -200,6 +258,11 @@ func set_hp(hp: int, max_hp: int) -> void:
 	_hp_label.text = "%d/%d" % [maxi(0, hp), m]
 	_hp_label.add_theme_color_override("font_color",
 		Style.THEME_DANGER_RED if pct <= 0.25 else Style.COLOR_WHITE)
+	_low_hp = pct <= 0.25
+	if _vignette != null:
+		_vignette.visible = _low_hp
+		if not _low_hp:
+			_vignette_mat.set_shader_parameter("intensity", 0.0)
 
 ## 魔法值（技能系统移植后由 main 调用；首次调用点亮蓝条）
 func set_mp(mp: int, max_mp: int) -> void:
@@ -217,10 +280,19 @@ func set_kills(n: int) -> void:
 	_kill_label.text = "击杀: %d" % n
 
 func set_ammo(ammo: int, reserve: int) -> void:
+	var changed := ammo != _last_ammo
+	_last_ammo = ammo
 	_ammo_label.text = str(maxi(0, ammo))
 	_ammo_label.add_theme_color_override("font_color",
 		Style.THEME_DANGER_RED if ammo <= 0 else Style.COLOR_AMMO)
 	_ammo_reserve_label.text = " / %d" % maxi(0, reserve)
+	if changed:
+		_pulse_label(_ammo_label)
+
+func _pulse_label(l: Label) -> void:
+	var tw := create_tween()
+	tw.tween_property(l, "modulate", Color(1.35, 1.35, 1.35, 1.0), 0.07)
+	tw.tween_property(l, "modulate", Color.WHITE, 0.12)
 
 func show_status(text: String, duration: float) -> void:
 	_status_label.text = text
