@@ -54,8 +54,9 @@ func _process(_delta: float) -> bool:
 		# 直接朝黑狼发射，验证爆炸 AOE 与三层特效
 		var wolf: Node3D = _main.get_node_or_null("WolfEnemy") as Node3D
 		if wolf != null:
-			var origin := wolf.global_position - Vector3(0, 0, 3)
-			FireballScript.fire(_main, origin, wolf.global_position - origin, 1, st.matk(), st.intt())
+			wolf.global_position = Vector3(0, 0, -4)
+			var origin := Vector3(0, 0.9, -7)
+			FireballScript.fire(_main, origin, Vector3(0, 0, 1), 1, st.matk(), st.intt)
 		_stage = 3
 		_stage_start = Time.get_ticks_msec()
 	elif _stage == 3 and Time.get_ticks_msec() - _stage_start > 500:
