@@ -40,8 +40,11 @@ func _build_environment() -> void:
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.6
+	env.ambient_light_energy = 0.35
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	# 过曝修复：FILMIC 默认 exposure=1.0 会把地表压到发白（实测 val≈0.90），
+	# 降到 0.35 后地面回到参考图质感（val≈0.6-0.7、绿色饱和、层次分明）
+	env.tonemap_exposure = 0.35
 	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
 	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
 	env.fog_enabled = true
@@ -56,7 +59,7 @@ func _build_light() -> void:
 	var light := DirectionalLight3D.new()
 	light.name = "Sun"
 	light.rotation_degrees = Vector3(-50, 30, 0)
-	light.light_energy = 1.2
+	light.light_energy = 0.8
 	light.shadow_enabled = true
 	add_child(light)
 

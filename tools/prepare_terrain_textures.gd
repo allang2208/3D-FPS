@@ -27,6 +27,9 @@ func _prepare_albedo(folder: String, name: String) -> void:
 	var hgt := Image.load_from_file(SRC % [folder, name, "Displacement"])
 	alb.resize(RES, RES)
 	hgt.resize(RES, RES)
+	# 坑：JPG 加载后 format 是 RGB8，直接 set_pixel 写 alpha 会在 save_png 时丢弃。
+	# 必须先转 RGBA8，alpha 通道才会真正落盘（Terrain3D 高度混合/粗糙度依赖它）。
+	alb.convert(Image.FORMAT_RGBA8)
 	for x in alb.get_width():
 		for y in alb.get_height():
 			var c := alb.get_pixel(x, y)
@@ -40,6 +43,7 @@ func _prepare_normal(folder: String, name: String) -> void:
 	var rgh := Image.load_from_file(SRC % [folder, name, "Roughness"])
 	nrm.resize(RES, RES)
 	rgh.resize(RES, RES)
+	nrm.convert(Image.FORMAT_RGBA8)
 	for x in nrm.get_width():
 		for y in nrm.get_height():
 			var c := nrm.get_pixel(x, y)
