@@ -49,7 +49,7 @@ func _process(_delta: float) -> bool:
 			return false
 		_player.set("hp", 100000)
 		var bp = _hud.get("backpack")
-		_check("seed_items", bp.item_count() == 1 and int(bp.slots[0].get("stack", 0)) == 5)
+		_check("seed_items", bp.item_count() == 5 and int(bp.slots[0].get("stack", 0)) == 5)
 		# 受击后用药回血 → 状态栏生命恢复，且不触发受伤红闪
 		_player.set("hp", 70)
 		bp.bind_hotbar(0, String(bp.slots[0].get("instance_id", "")))

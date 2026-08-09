@@ -14,6 +14,12 @@ const COLOR_ITEM_BG := Color(0.239, 0.29, 0.208)
 const COLOR_ITEM_BORDER := Color(0.478, 0.604, 0.416)
 const COLOR_DRAG_OVER_BG := Color(0.29, 0.25, 0.208)
 const COLOR_DRAG_OVER_BORDER := Color(0.831, 0.773, 0.659)
+const COLOR_EQUIP_SLOT_BG := Color(0.24, 0.204, 0.169)
+const COLOR_EQUIP_SLOT_BORDER := Color(0.353, 0.302, 0.247)
+const COLOR_EQUIP_EQUIPPED_BG := Color(0.145, 0.13, 0.11)
+const COLOR_EQUIP_EQUIPPED_BORDER := Color(0.55, 0.55, 0.55)
+const COLOR_EQUIP_LOCKED_BG := Color(0.18, 0.18, 0.18, 0.72)
+const COLOR_EQUIP_LOCKED_BORDER := Color(0.27, 0.27, 0.27)
 const COLOR_PANEL_BG := Color(0.11, 0.10, 0.085, 0.0)
 const COLOR_PANEL_BORDER := Color(0.55, 0.46, 0.34)
 const COLOR_OVERLAY := Color(0, 0, 0, 0.35)
@@ -44,6 +50,16 @@ const COLOR_TT_POS := Color(0.165, 0.478, 0.165)
 const COLOR_TT_DESC := Color(0.42, 0.365, 0.31)
 const COLOR_TT_CLOSE_BG := Color(0.78, 0.2, 0.2, 0.8)
 const COLOR_TT_CLOSE_HOVER := Color(0.86, 0.27, 0.27)
+const COLOR_TT_SECTION_BORDER := Color(0, 0, 0, 0.12)
+const COLOR_TT_CRAFT_POS := Color(0, 0.6, 0)
+const COLOR_TT_CRAFT_NEG := Color(0.85, 0, 0)
+const COLOR_TT_ENCHANT_NAME := Color(0.75, 0.63, 0.38)
+const COLOR_BADGE_GOLD_BG := Color(1.0, 0.84, 0.0, 0.92)
+const COLOR_BADGE_GOLD_TEXT := Color(0.1, 0.1, 0.18)
+const COLOR_BADGE_CRAFT_BG := Color(0.42, 0.62, 0.9, 0.92)
+const COLOR_BADGE_CRAFT_TEXT := Color(0.95, 0.97, 1.0)
+const COLOR_BADGE_ENCHANT_BG := Color(0.66, 0.42, 0.85, 0.92)
+const COLOR_BADGE_ENCHANT_TEXT := Color(0.98, 0.95, 1.0)
 
 # ---------- 稀有度（对齐旧版 src/config/rarity.js） ----------
 const RARITY_LABELS := {
@@ -61,6 +77,15 @@ const RARITY_COLORS := {
 	"epic": Color(0.7765, 0.4784, 1.0),
 	"mythic": Color(0.9020, 0.6039, 0.2353),
 	"legendary": Color(0.8784, 0.2902, 0.2275),
+}
+## 装备槽稀有度竖排徽章底色（半透明，对齐旧版 .slot-rarity.rarity-*）
+const RARITY_BADGE_COLORS := {
+	"common": Color(0.71, 0.71, 0.71, 0.85),
+	"uncommon": Color(0.48, 0.78, 0.48, 0.7),
+	"rare": Color(0.48, 0.62, 0.78, 0.7),
+	"epic": Color(0.71, 0.48, 0.78, 0.7),
+	"mythic": Color(0.9, 0.59, 0.24, 0.78),
+	"legendary": Color(0.84, 0.24, 0.22, 0.8),
 }
 
 # ---------- v2 全境封锁风色板（DESIGN.md Token，未启用） ----------
@@ -81,6 +106,12 @@ const V2_TEXT_WEAK := Color(0.420, 0.447, 0.502)      # #6B7280 弱化文本
 static func make_font() -> SystemFont:
 	var f := SystemFont.new()
 	f.font_names = PackedStringArray(["Microsoft YaHei", "SimHei", "Noto Sans CJK SC"])
+	return f
+
+## emoji 回退字体（旧版图标加载失败时显示 item.icon 字符）
+static func make_emoji_font() -> SystemFont:
+	var f := SystemFont.new()
+	f.font_names = PackedStringArray(["Segoe UI Emoji", "Noto Color Emoji", "Apple Color Emoji"])
 	return f
 
 static func make_theme() -> Theme:
