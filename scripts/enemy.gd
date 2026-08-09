@@ -17,6 +17,8 @@ const RESPAWN_TIME := 3.0
 var _player: Node3D
 var _kill_cb: Callable
 var _model: Node3D
+var _rig: Node3D  # 带骨骼动画的模型（有 rig_update 方法，如黑狼 WolfRig）
+var _rig_t := 0.0
 var _mat: StandardMaterial3D
 var _legs: Array[Node3D] = []
 var _hp: int
@@ -46,6 +48,8 @@ func _ready() -> void:
 				if c.name.begins_with("Leg"):
 					_legs.append(c)
 	_wander_target = global_position
+	if _model != null and _model.has_method("rig_update"):
+		_rig = _model
 
 func _find_material(n: Node) -> void:
 	if n is MeshInstance3D and n.mesh and n.mesh.get_surface_count() > 0:
@@ -85,13 +89,15 @@ func _physics_process(delta: float) -> void:
 		if _model:
 			_model.rotation.x = minf(PI / 2, _model.rotation.x + delta * 2.5)
 			_model.position.y = maxf(0.0, _model.position.y - delta * 0.4)
+		if _rig:
+			_rig.rig_update(_dead_t, false, 0.0, true)
 		if _dead_t >= RESPAWN_TIME:
 			_respawn()
 		return
 	if _player == null:
 		return
 	_lunge_t = maxf(0.0, _lunge_t - delta)
-	if _lunge_t > 0.0 and _model:
+	if _lunge_t > 0.0 and _model and _rig == null:
 		_model.rotation.x = 0.3 * (_lunge_t / 0.25)
 	_attack_t = maxf(0.0, _attack_t - delta)
 	_contact_attack()
@@ -104,6 +110,9 @@ func _physics_process(delta: float) -> void:
 	_walk_t += delta
 	_swing_legs()
 	_idle_breath()
+	if _rig:
+		_rig_t += delta * (12.0 if _moving else 4.0)
+		_rig.rig_update(_rig_t, _moving, _lunge_t, false)
 
 func _contact_attack() -> void:
 	if _attack_t > 0.0 or _player == null or not _player.has_method("take_damage"):
@@ -171,6 +180,9 @@ func _respawn() -> void:
 	collision_layer = 2
 	velocity = Vector3.ZERO
 	global_position = Vector3(randf_range(-11.0, 11.0), 0, randf_range(-11.0, 11.0))
+	_rig_t = 0.0
+	if _rig:
+		_rig.rig_reset()
 	if _model:
 		_model.rotation.x = 0.0
 		_model.position.y = model_offset_y

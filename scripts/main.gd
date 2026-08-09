@@ -2,7 +2,8 @@ extends Node3D
 ## 无尽轮回 · 3D FPS（Godot 4.7）
 ## 场景代码搭建：环境 / 光照 / 地面 / 墙体 / 玩家 / HUD / 三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）
 
-const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"
+const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"  # 骨架烘焙源（tools/bake_wolf_rig.gd）
+const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物：18骨骼+蒙皮黑狼
 
 var _player: Node3D
 var _gun: Node3D
@@ -10,6 +11,7 @@ var _status_bar: CanvasLayer
 var _backpack_hud: Control
 var _backpack
 var _equipment
+var _player_status
 var _player_dead := false
 var _kills := 0
 
@@ -157,6 +159,7 @@ func _build_backpack_hud(parent: Node) -> void:
 	_backpack.add_item("hp_potion", 5)
 	# 装备栏 + 演示种子（沿用旧版初始装备：主手生锈长剑；背包放 G18/小圆盾/铁盔/戒指）
 	_equipment = load("res://ui/equipment.gd").new(_backpack)
+	_player_status = load("res://ui/player_status.gd").new()
 	_backpack.add_item("rusty_sword", 1)
 	_backpack.add_item("g18_pistol", 1)
 	_backpack.add_item("small_shield", 1)
@@ -170,12 +173,12 @@ func _build_backpack_hud(parent: Node) -> void:
 	hud.name = "BackpackHud"
 	hud.player_healed.connect(_on_player_healed)
 	parent.add_child(hud)
-	hud.setup(_backpack, _equipment)
+	hud.setup(_backpack, _equipment, _player_status)
 	_backpack_hud = hud
 
 func _build_enemies() -> void:
-	var wolf_model: Node3D = load(WOLF_GLB).instantiate()
-	wolf_model.scale = Vector3.ONE * 1.9
+	# 黑狼用烘焙好的骨骼模型（WolfRig），原 GLB 是静态网格，烘焙见 tools/bake_wolf_rig.gd
+	var wolf_model: Node3D = load(WOLF_RIGGED).instantiate()
 	_build_enemy("WolfEnemy", wolf_model, Vector3(3, 0, -4), {
 		"hp": 85, "chase": 3.5, "dmg": 15, "radius": 0.55, "height": 1.0,
 		"offset_y": 0.41, "bob": 0.05,
@@ -245,9 +248,13 @@ func _on_reloaded(_ammo: int, _reserve: int) -> void:
 func _on_player_damaged(hp: int) -> void:
 	_status_bar.set_hp(hp, int(_player.get("max_hp")))
 	_status_bar.damage_flash()
+	if _player_status != null:
+		_player_status.set_hp(hp)
 
 func _on_player_healed(hp: int) -> void:
 	_status_bar.set_hp(hp, int(_player.get("max_hp")))
+	if _player_status != null:
+		_player_status.set_hp(hp)
 
 func _on_player_died() -> void:
 	_player_dead = true
@@ -256,3 +263,5 @@ func _on_player_died() -> void:
 func _on_enemy_killed() -> void:
 	_kills += 1
 	_status_bar.set_kills(_kills)
+	if _player_status != null:
+		_player_status.set_kills(_kills)
