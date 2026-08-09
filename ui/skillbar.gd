@@ -100,17 +100,22 @@ func ready_check(slot: int) -> Dictionary:
 		return {"ok": false, "reason": "中级魔法需要装备法杖才能释放"}
 	return {"ok": true, "reason": ""}
 
-## 触发（技能效果未移植：判定通过后仅设置冷却）
-func trigger(slot: int) -> Dictionary:
+## 触发：判定（冷却/法杖门槛/MP）通过后扣 MP、设冷却，返回 ok + skill_id 交由施法系统
+func trigger(slot: int, mp_provider: Object = null) -> Dictionary:
 	var r := ready_check(slot)
 	if not bool(r.get("ok", false)):
 		return r
 	var skill_id := resolve(slot)
 	var def: Dictionary = skills.get(skill_id, {})
+	var mp_cost: int = int(def.get("mp_cost", 0))
+	if mp_cost > 0 and mp_provider != null:
+		if int(mp_provider.get("mp")) < mp_cost:
+			return {"ok": false, "reason": "魔法不足"}
+		mp_provider.set_mp(int(mp_provider.get("mp")) - mp_cost)
 	var cd_s: float = def.get("cooldown_s", 0.0)
 	if cd_s > 0.0:
 		set_cooldown(skill_id, cd_s * 1000.0)
-	return {"ok": true, "reason": "技能效果未移植"}
+	return {"ok": true, "reason": "", "skill_id": skill_id}
 
 ## 特殊攻击槽（旧版 refreshSpecialAttack：夜与火之剑/符文长剑，15s 冷却）
 func refresh_special(weapon: Dictionary) -> void:

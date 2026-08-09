@@ -53,6 +53,8 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
     player_status.gd# 角色属性数据模型（旧版 combat-formulas 公式：六维/战斗属性/上限）
     status_page.gd  # 角色状态页：角色头+4 状态条+基础/战斗/详细/轮回四区块+公式悬停浮窗
     skillbar.gd     # 快捷栏技能绑定数据层：唯一性换位/冷却/法杖门槛/长按标记/特殊攻击槽
+    skills_db.gd    # 技能库（data/skills.json）：等级公式求值（火球先迁）
+  scripts/fireball.gd # 火球：朝瞄准方向飞行 + 范围爆炸 AOE（旧版公式/距离衰减）
   assets/ui/shaders/panel_blur.gdshader  # 面板毛玻璃背景（复刻旧版 backdrop-filter blur）
   assets/data/equipment.json             # 旧版装备数据（整份迁移，图标重映射到 ui/icons/equip）
   assets/ui/icons/equip|skills|icons     # 旧版装备/武器/物品/技能图片全量移植（327 张，压到 128px）
@@ -100,6 +102,14 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
 
 覆盖：技能绑定唯一性/换位/解绑、冷却拦截与遮罩、法杖门槛灰化、长按标记、特殊攻击槽。
 
+## 火球（Fireball）测试
+
+```powershell
+& 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe' --headless --path 'E:\3d\3-dfps' --script res://tests/test_fireball.gd
+```
+
+覆盖：skills.json 公式求值、Q 键触发、MP 扣除、冷却、火球生成与伤害计算。
+
 ## 当前状态与下一步
 
 - 可玩闭环：三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）、玩家 100 血、接触伤害、死亡按 R 重生、
@@ -117,7 +127,8 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
   蓝灰面板），集中在 style.gd。属性栏已迁移：面板页签（角色状态/装备背包，CapsLock/Tab）+ 角色头
   + 生命/魔法/体力/经验条 + 基础/战斗/详细/轮回四区块 + 公式悬停浮窗。技能栏互动已迁移（技能本体未移植）：
   Q/E/X/C 技能槽（绑定唯一性/换位、拖出解绑、冷却遮罩+秒数+白闪、中级魔法法杖门槛灰化、长按标记、
-  特殊攻击槽数据位），物品侧 1~4 保持。排版按 DESIGN.md：黑体（思源黑体→雅黑回退）、
+  特殊攻击槽数据位），物品侧 1~4 保持。技能迁徙从火球开始：Q 默认绑定，朝瞄准方向飞行、
+  命中/到射程范围爆炸 AOE（伤害=80+10Lv+魔攻×(2+0.5Lv)+智力×(2.5+0.75Lv)，20s 冷却、50 MP）。排版按 DESIGN.md：黑体（思源黑体→雅黑回退）、
   字号阶梯（24 标题/14 正文/10~12 角标）、4px 间距网格、数值右对齐。MP 系统未实装，魔力药水暂不发放。
 - 敌人仍是整体平移 + 占位起伏/摆腿；下一步把 three.js 里的程序化骨骼动画（18 根骨骼 + 蒙皮权重）
   移植成 Godot 的 Skeleton3D + AnimationPlayer，或接 Godot 4.6+ 的 IKModifier3D 做真正的四足步态。
