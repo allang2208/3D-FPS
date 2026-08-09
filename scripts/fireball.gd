@@ -11,8 +11,7 @@ extends Node3D
 
 const HIT_MASK := 3  # 1 墙体 + 2 敌人
 const PX_TO_M := 0.014
-const SPRITESHEET := "res://assets/ui/icons/skills/fireball_spritesheet.png"
-const ANIM_JSON := "res://assets/data/fireball_anim.json"
+const FIREBALL_SHADER := "res://assets/shaders/fireball.gdshader"
 const HIT_SOUND := "res://assets/sfx/fireball.mp3"
 
 signal consumed
@@ -25,7 +24,6 @@ var _damage := 90
 var _traveled := 0.0
 var _scene_root: Node
 var _age := 0.0
-var _anim: AnimatedSprite3D
 var _hovering := false
 var _caster: Node3D
 var _hover_t := 0.0
@@ -61,7 +59,28 @@ func configure(origin: Vector3, dir: Vector3, level: int, matk: int, intt: int, 
 	position = origin
 
 func build_visual() -> void:
-	_anim = _build_fireball_anim()
+	# 本体（D 方案）：程序化火焰 shader 球体
+	var sphere := MeshInstance3D.new()
+	var sm := SphereMesh.new()
+	sm.radius = 0.22
+	sm.height = 0.44
+	sm.radial_segments = 24
+	sm.rings = 16
+	var shader: Shader = load(FIREBALL_SHADER)
+	var smat := ShaderMaterial.new()
+	smat.shader = shader
+	sm.material = smat
+	sphere.mesh = sm
+	add_child(sphere)
+	# 实体拖尾（E 方案）：RibbonTrailMesh 沿飞行路径拉丝
+	var ribbon := MeshInstance3D.new()
+	var rt := RibbonTrailMesh.new()
+	rt.size = 0.07
+	rt.sections = 18
+	rt.section_length = 0.18
+	rt.material = _ribbon_mat()
+	ribbon.mesh = rt
+	add_child(ribbon)
 	# 柔和光晕（软边圆点贴图 + ADD，遮住贴图边缘像素化）
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
@@ -111,7 +130,6 @@ func enter_hover(caster: Node3D) -> void:
 	_caster = caster
 	_age = 0.0
 	_hover_t = 0.0
-	_anim.speed_scale = 1.0  # 10fps（hover 100ms/帧）
 
 ## 第二段：发射（原版 _launchAll：从当前轨道位置起飞，动画切 20fps）
 func launch(dir: Vector3) -> void:
@@ -120,39 +138,6 @@ func launch(dir: Vector3) -> void:
 	_hovering = false
 	_dir = dir.normalized()
 	_age = 0.0
-	_anim.speed_scale = 2.0  # 20fps（fly 50ms/帧）
-
-func _build_fireball_anim() -> AnimatedSprite3D:
-	var tex: Texture2D = load(SPRITESHEET)
-	var cfg: Dictionary = {}
-	var f := FileAccess.open(ANIM_JSON, FileAccess.READ)
-	if f != null:
-		var d = JSON.parse_string(f.get_as_text())
-		f.close()
-		if d is Dictionary:
-			cfg = d
-	var cols: int = int(cfg.get("cols", 9))
-	var total: int = int(cfg.get("totalFrames", 73))
-	var fw: int = tex.get_width() / cols
-	var fh: int = tex.get_height() / int(cfg.get("rows", 9))
-	var frames := SpriteFrames.new()
-	for i in total:
-		var at := AtlasTexture.new()
-		at.atlas = tex
-		at.region = Rect2((i % cols) * fw, int(i / cols) * fh, fw, fh)
-		frames.add_frame("default", at)
-	# 原版 hover 100ms/帧 = 10fps；飞行 50ms/帧 = 20fps（发射后 speed_scale ×2）
-	frames.set_animation_speed("default", 10.0)
-	var anim := AnimatedSprite3D.new()
-	anim.sprite_frames = frames
-	anim.animation = "default"
-	anim.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	anim.pixel_size = 0.0025  # 200px 帧 → 0.5m 火球（默认 0.01 会是 2m 巨块）
-	anim.play("default")
-	# 注意：不要给 AnimatedSprite3D 设 material_override——默认材质会使用帧纹理；
-	# 自定义覆盖材质若不绑定帧贴图，会渲染成纯白方块。
-	add_child(anim)
-	return anim
 
 func _physics_process(delta: float) -> void:
 	if _hovering:
@@ -339,6 +324,14 @@ func _dot_tex() -> Texture2D:
 			img.set_pixel(x, y, Color(1, 1, 1, a))
 	_dot_tex_cache = ImageTexture.create_from_image(img)
 	return _dot_tex_cache
+
+func _ribbon_mat() -> StandardMaterial3D:
+	var m := StandardMaterial3D.new()
+	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	m.albedo_color = Color(1.0, 0.45, 0.15, 0.7)
+	return m
 
 func _dot_pass(size: float, additive: bool) -> QuadMesh:
 	var q := QuadMesh.new()
