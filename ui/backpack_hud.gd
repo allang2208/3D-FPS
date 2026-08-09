@@ -47,24 +47,6 @@ const EQUIP_SLOT_LABELS := {
 	"extra": "额外物品", "boots": "靴子", "backpack": "背包装备",
 }
 
-const SLOT_TYPE_ICONS := {
-	"earring": "res://assets/ui/icons/gem.svg",
-	"helmet": "res://assets/ui/icons/equip/helmet_icon.png",
-	"ring1": "res://assets/ui/icons/equip/ring_icon.png",
-	"gloves": "res://assets/ui/icons/equip/gloves_icon.png",
-	"necklace": "res://assets/ui/icons/gem.svg",
-	"cloak": "res://assets/ui/icons/user.svg",
-	"weapon": "res://assets/ui/icons/sword.svg",
-	"armor": "res://assets/ui/icons/equip/armor_icon.png",
-	"offhand": "res://assets/ui/icons/shield.svg",
-	"weapon2": "res://assets/ui/icons/sword.svg",
-	"belt": "res://assets/ui/icons/equip/belt_icon.png",
-	"ring2": "res://assets/ui/icons/equip/ring_icon.png",
-	"extra": "res://assets/ui/icons/package.svg",
-	"boots": "res://assets/ui/icons/equip/boot_icon.png",
-	"backpack": "res://assets/ui/icons/backpack.svg",
-}
-
 var backpack: BackpackScript
 var equipment: EquipmentScript
 var skillbar: SkillBarScript
@@ -259,7 +241,6 @@ func _refresh_equip() -> void:
 		var item: Dictionary = equipment.get_item(key)
 		var icon := cell.get_node("Content/Icon") as TextureRect
 		var fallback := cell.get_node("Content/Fallback") as Label
-		var slot_icon := cell.get_node("Content/SlotIcon") as TextureRect
 		var name_lbl := cell.get_node("Content/Name") as Label
 		var rarity_lbl := cell.get_node("Content/Rarity") as Label
 		var badges := cell.get_node("Content/Badges") as VBoxContainer
@@ -276,16 +257,12 @@ func _refresh_equip() -> void:
 		if item.is_empty():
 			icon.texture = null
 			fallback.visible = false
-			slot_icon.visible = true
-			var slot_path := String(SLOT_TYPE_ICONS.get(key, ""))
-			slot_icon.texture = _icon_tex(slot_path) if slot_path != "" else null
 			name_lbl.text = String(EQUIP_SLOT_LABELS.get(key, key))
 			name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 			rarity_lbl.text = ""
 			rarity_lbl.remove_theme_stylebox_override("normal")
 			_set_badges(badges, {})
 		else:
-			slot_icon.visible = false
 			_set_icon(icon, fallback, item)
 			name_lbl.text = String(item.get("name", ""))
 			name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
@@ -313,7 +290,12 @@ func _input(event: InputEvent) -> void:
 				set_panel_open(true)
 			KEY_B:
 				get_viewport().set_input_as_handled()
-				toggle_panel()
+				# 通用语义：任何界面按 B 都打开"装备与背包"页（已开则关闭）
+				if _panel_open and _current_tab == "equip":
+					set_panel_open(false)
+				else:
+					set_tab("equip")
+					set_panel_open(true)
 			KEY_CAPSLOCK:
 				get_viewport().set_input_as_handled()
 				set_tab("status")
@@ -878,6 +860,7 @@ func _build_hotbar() -> void:
 	bar.add_theme_constant_override("margin_right", BAR_PAD)
 	bar.add_theme_constant_override("margin_top", BAR_PAD)
 	bar.add_theme_constant_override("margin_bottom", BAR_PAD)
+	bar.z_index = 100  # 快捷栏通用置顶：任何界面（含面板打开）都可见
 	add_child(bar)
 	_hotbar_root = HBoxContainer.new()
 	_hotbar_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1050,6 +1033,10 @@ func _build_panel() -> void:
 	blur.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var mat := ShaderMaterial.new()
 	mat.shader = PANEL_BLUR_SHADER
+	if Style.theme_active() == "gray_white":
+		mat.set_shader_parameter("tint_color", Color(0.93, 0.93, 0.95))
+		mat.set_shader_parameter("tint_amount", 0.42)
+		mat.set_shader_parameter("alpha", 0.58)
 	blur.material = mat
 	content.add_child(blur)
 	var tex_layer := Panel.new()
@@ -1175,21 +1162,6 @@ func _build_panel() -> void:
 		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		fallback.visible = false
 		cell_content.add_child(fallback)
-		var slot_icon := TextureRect.new()
-		slot_icon.name = "SlotIcon"
-		slot_icon.anchor_left = 0.0
-		slot_icon.anchor_top = 0.0
-		slot_icon.anchor_right = 0.0
-		slot_icon.anchor_bottom = 0.0
-		slot_icon.offset_left = 6
-		slot_icon.offset_top = 5
-		slot_icon.offset_right = 26
-		slot_icon.offset_bottom = 25
-		slot_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		slot_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		slot_icon.modulate = Color(Style.THEME_WHITE, 0.30)
-		slot_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		cell_content.add_child(slot_icon)
 		var name_lbl := Label.new()
 		name_lbl.name = "Name"
 		name_lbl.anchor_left = 1.0

@@ -15,18 +15,25 @@ func _check(name: String, ok: bool, detail := "") -> void:
 
 func _initialize() -> void:
 	# 1) DESIGN.md 关键 Token 对齐（以 DESIGN.md 的十六进制色值为真源，经 palette.json 加载）
-	_check("theme_bg", Style.THEME_BG.is_equal_approx(Style._hex_to_color("#0F0F10")))
-	_check("theme_gold", Style.THEME_GOLD.is_equal_approx(Style._hex_to_color("#D4AF37")))
-	_check("theme_white", Style.THEME_WHITE.is_equal_approx(Style._hex_to_color("#FFFFFF")))
-	_check("theme_gray_light", Style.THEME_GRAY_LIGHT.is_equal_approx(Style._hex_to_color("#B5B5B5")))
-	_check("theme_gray_mid", Style.THEME_GRAY_MID.is_equal_approx(Style._hex_to_color("#3A3A3C")))
-	_check("theme_hp_green", Style.THEME_HP_GREEN.is_equal_approx(Style._hex_to_color("#7FD26A")))
-	_check("theme_warn_orange", Style.THEME_WARN_ORANGE.is_equal_approx(Style._hex_to_color("#E0A94F")))
-	_check("theme_danger_red", Style.THEME_DANGER_RED.is_equal_approx(Style._hex_to_color("#D95B4A")))
-	_check("theme_mp_blue", Style.THEME_MP_BLUE.is_equal_approx(Style._hex_to_color("#5A8FE0")))
-	_check("theme_btn_hover", Style.THEME_BTN_HOVER_BG.is_equal_approx(Style._hex_to_color("#D4AF37")))
-	_check("theme_progress_fill", Style.THEME_PROGRESS_FILL.is_equal_approx(Style._hex_to_color("#D4AF37")))
-	_check("transparent_token", Style.COLOR_TRANSPARENT.is_equal_approx(Style._hex_to_color("#00000000")))
+	if Style.theme_active() == "gray_white":
+		_check("gw_bg_light", Style.THEME_BG.r > 0.8)
+		_check("gw_white_dark", Style.THEME_WHITE.r < 0.2)
+		_check("gw_gold_bronze", Style.THEME_GOLD.r > 0.4 and Style.THEME_GOLD.r < 0.7)
+		_check("gw_gray_mid_light", Style.THEME_GRAY_MID.r > 0.6)
+		_check("transparent_token", Style.COLOR_TRANSPARENT.is_equal_approx(Style._hex_to_color("#00000000")))
+	else:
+		_check("theme_bg", Style.THEME_BG.is_equal_approx(Style._hex_to_color("#0F0F10")))
+		_check("theme_gold", Style.THEME_GOLD.is_equal_approx(Style._hex_to_color("#D4AF37")))
+		_check("theme_white", Style.THEME_WHITE.is_equal_approx(Style._hex_to_color("#FFFFFF")))
+		_check("theme_gray_light", Style.THEME_GRAY_LIGHT.is_equal_approx(Style._hex_to_color("#B5B5B5")))
+		_check("theme_gray_mid", Style.THEME_GRAY_MID.is_equal_approx(Style._hex_to_color("#3A3A3C")))
+		_check("theme_hp_green", Style.THEME_HP_GREEN.is_equal_approx(Style._hex_to_color("#7FD26A")))
+		_check("theme_warn_orange", Style.THEME_WARN_ORANGE.is_equal_approx(Style._hex_to_color("#E0A94F")))
+		_check("theme_danger_red", Style.THEME_DANGER_RED.is_equal_approx(Style._hex_to_color("#D95B4A")))
+		_check("theme_mp_blue", Style.THEME_MP_BLUE.is_equal_approx(Style._hex_to_color("#5A8FE0")))
+		_check("theme_btn_hover", Style.THEME_BTN_HOVER_BG.is_equal_approx(Style._hex_to_color("#D4AF37")))
+		_check("theme_progress_fill", Style.THEME_PROGRESS_FILL.is_equal_approx(Style._hex_to_color("#D4AF37")))
+		_check("transparent_token", Style.COLOR_TRANSPARENT.is_equal_approx(Style._hex_to_color("#00000000")))
 
 	# 1b) ui/palette.json 是色值真源：存在、可解析、关键 Token 齐全、加载后与 Style 当前值一致
 	var pf := FileAccess.open("res://ui/palette.json", FileAccess.READ)
@@ -41,7 +48,10 @@ func _initialize() -> void:
 				"COLOR_HP_BG", "COLOR_TT_BG"]:
 			_check("palette_has_" + key, colors.has(key))
 		var loaded_gold := Style._hex_to_color(str(colors.get("THEME_GOLD", "#000000")))
-		_check("palette_loaded_eq_style", loaded_gold.is_equal_approx(Style.THEME_GOLD))
+		if Style.theme_active() == "gray_white":
+			_check("palette_preset_overrides", Style.THEME_GOLD.r < loaded_gold.r)
+		else:
+			_check("palette_loaded_eq_style", loaded_gold.is_equal_approx(Style.THEME_GOLD))
 
 	# 1c) ui/style-config.json：风格配置存在、可解析、关键字段生效
 	var cf := FileAccess.open("res://ui/style-config.json", FileAccess.READ)
@@ -50,7 +60,7 @@ func _initialize() -> void:
 		var cparsed = JSON.parse_string(cf.get_as_text())
 		var cfg: Dictionary = cparsed if typeof(cparsed) == TYPE_DICTIONARY else {}
 		_check("style_config_parse", typeof(cparsed) == TYPE_DICTIONARY)
-		_check("config_theme_valid", Style.theme_active() in ["dark_gold", "gold_white_gray"])
+		_check("config_theme_valid", Style.theme_active() in ["dark_gold", "gold_white_gray", "gray_white"])
 		_check("config_radius", Style.RADIUS == 10)
 		_check("config_spacing_grid", Style.spacing("grid") == 4)
 		_check("config_font_h1", Style.font_size("h1") == 48)
@@ -64,6 +74,11 @@ func _initialize() -> void:
 		_check("preset_border_gold", Style.COLOR_BAR_BORDER.is_equal_approx(Style.THEME_GOLD))
 		_check("preset_panel_dark", Style.COLOR_PANEL_BG.r < 0.15)
 		_check("preset_dmg_flash", Style.COLOR_DMG_FLASH.is_equal_approx(Color(Style.THEME_DANGER_RED, 0.0)))
+	elif Style.theme_active() == "gray_white":
+		_check("gw_panel_light", Style.COLOR_PANEL_BG.r > 0.8)
+		_check("gw_text_dark", Style.COLOR_TEXT.r < 0.2)
+		_check("gw_theme_bg_light", Style.THEME_BG.r > 0.8)
+		_check("gw_hp_status", Style.COLOR_HP_HIGH.is_equal_approx(Style.THEME_HP_GREEN))
 	else:
 		_check("preset_dark_gold_default", Style.COLOR_TEXT.is_equal_approx(Style._hex_to_color("#d4c5a9")))
 		_check("dmg_flash_token", Style.COLOR_DMG_FLASH.is_equal_approx(Style._hex_to_color("#CC000000")))

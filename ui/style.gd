@@ -9,7 +9,7 @@ const PALETTE_PATH := "res://ui/palette.json"
 const CONFIG_PATH := "res://ui/style-config.json"
 
 # ---------- 风格配置（style-config.json，改配置不改代码） ----------
-static var ACTIVE_THEME := "dark_gold"            # dark_gold | gold_white_gray
+static var ACTIVE_THEME := "dark_gold"            # dark_gold | gold_white_gray | gray_white
 static var RADIUS := 8
 static var RADIUS_XS := 4
 static var RADIUS_SM := 6
@@ -27,7 +27,7 @@ static func _static_init() -> void:
 	var pal := _load_palette()
 	if not pal.is_empty():
 		_apply_colors(pal)
-	if ACTIVE_THEME == "gold_white_gray":
+	if ACTIVE_THEME in ["gold_white_gray", "gray_white"]:
 		_apply_theme_preset()
 
 static func _load_config() -> void:
@@ -44,7 +44,7 @@ static func _load_config() -> void:
 	var cfg: Dictionary = parsed
 	if cfg.has("active_theme"):
 		var t := str(cfg.active_theme)
-		if t in ["dark_gold", "gold_white_gray"]:
+		if t in ["dark_gold", "gold_white_gray", "gray_white"]:
 			ACTIVE_THEME = t
 	if cfg.has("radius"):
 		RADIUS = int(cfg.radius)
@@ -330,7 +330,7 @@ static func make_panel_style() -> StyleBoxFlat:
 ## 内嵌卡面板（属性页分区卡片）：略亮底 + 顶部高光 + 1px 细框（textures/panel_inner.png）
 static func make_inner_panel_style() -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_inner.png")
+	sb.texture = load("res://assets/ui/textures/panel_inner_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_inner.png")
 	sb.modulate_color = Color(1, 1, 1, 0.72)
 	var m := 12
 	sb.texture_margin_left = m
@@ -364,7 +364,7 @@ static func make_glass_panel_style(radius := -1, bg_alpha := 0.30) -> StyleBox:
 ## 格子底纹理（背包/快捷栏/装备槽共用）：textures/panel_slot.png，modulate 控制状态色
 static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_slot.png")
+	sb.texture = load("res://assets/ui/textures/panel_slot_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_slot.png")
 	sb.modulate_color = modulate
 	var m := 6
 	sb.texture_margin_left = m
@@ -382,7 +382,7 @@ static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTe
 ## 页签激活态：金上暗下 + 顶底金线（textures/panel_tab.png）
 static func make_tab_active_style() -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_tab.png")
+	sb.texture = load("res://assets/ui/textures/panel_tab_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_tab.png")
 	var m := 12
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
@@ -558,6 +558,9 @@ static func _apply_colors(p: Dictionary) -> void:
 ## 金白深灰主题预设（DESIGN.md 定稿）：按语义把 THEME_* 覆盖到 COLOR_*，组件零改动。
 ## 映射登记在 docs/shadcn-mapping.md；切换 = 改 style-config.json 的 active_theme。
 static func _apply_theme_preset() -> void:
+	if ACTIVE_THEME == "gray_white":
+		_apply_gray_white_preset()
+		return
 	# 底 / 面板 / 遮罩
 	COLOR_PANEL_BG = Color(THEME_BG, 0.8)
 	COLOR_PANEL_BORDER = Color(THEME_GRAY_MID, 0.5)
@@ -615,3 +618,78 @@ static func _apply_theme_preset() -> void:
 	# 徽章（金色徽章对齐主题，改造/附魔保留语义色）
 	COLOR_BADGE_GOLD_BG = Color(THEME_GOLD, 0.92)
 	COLOR_BADGE_GOLD_TEXT = Color(THEME_BG, 1.0)
+
+## 灰白毛玻璃主题：浅色玻璃面板 + 深色文字 + 中性灰边框；状态色/徽章语义保留
+static func _apply_gray_white_preset() -> void:
+	# 语义色板（浅底深字）
+	THEME_BG = Color(0.93, 0.93, 0.95)
+	THEME_WHITE = Color(0.08, 0.08, 0.10)
+	THEME_GRAY_LIGHT = Color(0.45, 0.45, 0.50)
+	THEME_GRAY_MID = Color(0.74, 0.74, 0.80)
+	THEME_GOLD = Color(0.55, 0.45, 0.28)
+	THEME_BTN_BG = Color(0.80, 0.80, 0.85)
+	THEME_BTN_HOVER_BG = Color(0.42, 0.34, 0.20)
+	THEME_BTN_DISABLED_BG = Color(0.88, 0.88, 0.90)
+	THEME_BTN_DISABLED_TEXT = Color(0.60, 0.60, 0.64)
+	THEME_PROGRESS_FILL = Color(0.55, 0.45, 0.28)
+	THEME_DIVIDER = Color(0.78, 0.78, 0.82)
+	THEME_DIVIDER_ACCENT = Color(0.55, 0.45, 0.28, 0.6)
+	# 面板 / 玻璃
+	COLOR_PANEL_BG = Color(0.94, 0.94, 0.96, 0.55)
+	COLOR_PANEL_BORDER = Color(0.70, 0.70, 0.75, 0.85)
+	COLOR_BAR_BG = Color(0.85, 0.85, 0.89, 0.8)
+	COLOR_BAR_TRACK = Color(0.86, 0.86, 0.90, 0.9)
+	COLOR_HP_BG = Color(0.82, 0.82, 0.87, 0.85)
+	COLOR_OVERLAY = Color(0, 0, 0, 0.35)
+	COLOR_DRAG_PREVIEW_BG = Color(0.96, 0.96, 0.97, 0.92)
+	COLOR_SKILL_SLOT_BG = Color(0.88, 0.88, 0.92)
+	COLOR_SKILL_SLOT_BORDER = Color(0.55, 0.45, 0.28)
+	# 槽位玻璃
+	COLOR_SLOT_BG = Color(0.93, 0.93, 0.96)
+	COLOR_SLOT_BORDER = Color(0.70, 0.70, 0.76)
+	COLOR_SLOT_HOVER_BG = Color(0.95, 0.93, 0.88)
+	COLOR_SLOT_HOVER_BORDER = Color(0.55, 0.45, 0.28)
+	COLOR_ITEM_BG = Color(0.96, 0.96, 0.98)
+	COLOR_ITEM_BORDER = Color(0.60, 0.55, 0.45)
+	COLOR_DRAG_OVER_BG = Color(0.55, 0.45, 0.28, 0.18)
+	COLOR_DRAG_OVER_BORDER = Color(0.55, 0.45, 0.28)
+	COLOR_EQUIP_SLOT_BG = Color(0.93, 0.93, 0.96)
+	COLOR_EQUIP_SLOT_BORDER = Color(0.70, 0.70, 0.76)
+	COLOR_EQUIP_EQUIPPED_BG = Color(0.55, 0.45, 0.28, 0.16)
+	COLOR_EQUIP_EQUIPPED_BORDER = Color(0.55, 0.45, 0.28)
+	COLOR_EQUIP_LOCKED_BG = Color(0.80, 0.80, 0.84, 0.6)
+	COLOR_EQUIP_LOCKED_BORDER = Color(0.62, 0.62, 0.68, 0.8)
+	COLOR_EQUIP_LOCK_OVERLAY = Color(1, 1, 1, 0.62)
+	# 槽位纹理玻璃 tint（浅色）
+	COLOR_SLOT_TINT_EMPTY = Color(1, 1, 1, 0.55)
+	COLOR_SLOT_TINT_ITEM = Color(1, 1, 1, 0.62)
+	COLOR_SLOT_TINT_HOVER = Color(0.98, 0.93, 0.82, 0.75)
+	COLOR_SLOT_TINT_DRAG = Color(0.96, 0.85, 0.62, 0.80)
+	COLOR_EQUIP_TINT_EQUIPPED = Color(1, 1, 1, 0.66)
+	COLOR_EQUIP_TINT_LOCKED = Color(0.88, 0.88, 0.91, 0.55)
+	# 文本层级（浅底深字）
+	COLOR_TEXT = Color(0.08, 0.08, 0.10)
+	COLOR_DIM_TEXT = Color(0.45, 0.45, 0.50)
+	COLOR_WHITE = Color(0.15, 0.15, 0.17)
+	COLOR_MUTED = Color(0.62, 0.62, 0.67)
+	COLOR_NOTICE = Color(0.55, 0.45, 0.28)
+	COLOR_STATUS = Color(0.55, 0.45, 0.28)
+	COLOR_AMMO = Color(0.10, 0.10, 0.12)
+	COLOR_KILL = Color(0.55, 0.45, 0.28)
+	COLOR_TITLE_TEXT = Color(0.08, 0.08, 0.10)
+	COLOR_STACK_TEXT = Color(0.25, 0.25, 0.28)
+	COLOR_KEY_HINT = Color(0.50, 0.50, 0.55)
+	COLOR_DEATH_HINT = Color(0.45, 0.45, 0.50)
+	COLOR_ZERO_TEXT = THEME_DANGER_RED
+	COLOR_RARITY_TEXT = Color(0.10, 0.10, 0.12)
+	# 状态条颜色保留（状态语义色）
+	COLOR_HP_HIGH = THEME_HP_GREEN
+	COLOR_HP_MID = THEME_WARN_ORANGE
+	COLOR_HP_LOW = THEME_DANGER_RED
+	COLOR_MP_FILL = THEME_MP_BLUE
+	COLOR_STAMINA_FILL = THEME_GOLD
+	COLOR_EXP_FILL = THEME_GOLD
+	COLOR_DMG_FLASH = Color(THEME_DANGER_RED, 0.0)
+	# 徽章（深青铜底 + 浅字）
+	COLOR_BADGE_GOLD_BG = Color(0.55, 0.45, 0.28, 0.92)
+	COLOR_BADGE_GOLD_TEXT = Color(0.96, 0.96, 0.97)

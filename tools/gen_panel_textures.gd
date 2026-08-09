@@ -23,6 +23,9 @@ func _init() -> void:
 	_gen_inner()
 	_gen_slot()
 	_gen_tab()
+	_gen_slot_light()
+	_gen_inner_light()
+	_gen_tab_light()
 	print("面板贴图已生成 -> ", ProjectSettings.globalize_path(OUT_DIR))
 	quit(0)
 
@@ -192,3 +195,79 @@ func _gen_tab() -> void:
 		img.set_pixel(x, 63, Color(GOLD, 0.18))
 	_draw_border(img, Color(0.243, 0.243, 0.271), 1, 0)
 	img.save_png(OUT_DIR + "panel_tab.png")
+
+
+func _gen_slot_light() -> void:
+	var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 1111
+	var base_top := Color(0.914, 0.914, 0.929)   # #E9E9ED
+	var base_bot := Color(0.929, 0.929, 0.941)   # #EDEDF0
+	for y in 64:
+		for x in 64:
+			var t := float(y) / 63.0
+			var base := base_top.lerp(base_bot, t)
+			var grain := rng.randf_range(-0.010, 0.010)
+			var c := Color(
+				clampf(base.r + grain, 0.0, 1.0),
+				clampf(base.g + grain, 0.0, 1.0),
+				clampf(base.b + grain * 1.1, 0.0, 1.0))
+			img.set_pixel(x, y, c)
+	for x in 64:
+		img.set_pixel(x, 2, Color(0.98, 0.98, 0.99))
+		img.set_pixel(x, 3, Color(0.95, 0.95, 0.97))
+		img.set_pixel(x, 60, Color(0.82, 0.82, 0.87))
+		img.set_pixel(x, 61, Color(0.78, 0.78, 0.84))
+	_draw_border(img, Color(0.77, 0.77, 0.82), 1)    # #C4C4D1
+	_draw_border(img, Color(0.72, 0.72, 0.78), 1, 2) # 内压线
+	img.save_png(OUT_DIR + "panel_slot_light.png")
+
+
+func _gen_inner_light() -> void:
+	var img := Image.create(512, 512, false, Image.FORMAT_RGBA8)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 1212
+	var base_top := Color(0.949, 0.949, 0.957)   # #F2F2F4
+	var base_bot := Color(0.961, 0.961, 0.965)   # #F5F5F6
+	for y in 512:
+		for x in 512:
+			var t := float(y) / 511.0
+			var base := base_top.lerp(base_bot, t)
+			var grain := rng.randf_range(-0.008, 0.008)
+			var c := Color(
+				clampf(base.r + grain, 0.0, 1.0),
+				clampf(base.g + grain, 0.0, 1.0),
+				clampf(base.b + grain * 1.1, 0.0, 1.0))
+			img.set_pixel(x, y, c)
+	for x in 512:
+		img.set_pixel(x, 1, Color(1.0, 1.0, 1.0))
+		img.set_pixel(x, 2, Color(0.98, 0.98, 0.99))
+	_draw_border(img, Color(0.80, 0.80, 0.85), 1)
+	_draw_border(img, Color(0.71, 0.71, 0.77), 2, 2)
+	img.save_png(OUT_DIR + "panel_inner_light.png")
+
+
+func _gen_tab_light() -> void:
+	var img := Image.create(128, 64, false, Image.FORMAT_RGBA8)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 1313
+	var base_top := Color(0.965, 0.965, 0.973)   # #F6F6F8
+	var base_bot := Color(0.941, 0.941, 0.953)   # #F0F0F3
+	for y in 64:
+		for x in 128:
+			var t := float(y) / 63.0
+			var base := base_top.lerp(base_bot, t)
+			var grain := rng.randf_range(-0.007, 0.007)
+			var c := Color(
+				clampf(base.r + grain, 0.0, 1.0),
+				clampf(base.g + grain, 0.0, 1.0),
+				clampf(base.b + grain, 0.0, 1.0))
+			img.set_pixel(x, y, c)
+	# 顶边青铜线 + 底边灰线
+	for x in 128:
+		img.set_pixel(x, 1, Color(0.55, 0.45, 0.28))
+		img.set_pixel(x, 2, Color(0.62, 0.53, 0.36))
+		img.set_pixel(x, 62, Color(0.80, 0.80, 0.85))
+		img.set_pixel(x, 63, Color(0.86, 0.86, 0.90))
+	_draw_border(img, Color(0.74, 0.74, 0.80), 1, 0)
+	img.save_png(OUT_DIR + "panel_tab_light.png")
