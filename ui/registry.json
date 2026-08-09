@@ -37,6 +37,96 @@
       "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_bar.gd"]
     },
     {
+      "name": "npc_config",
+      "type": "data",
+      "path": "ui/npc_config.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["SHOP_CATALOGS", "ENHANCE_*", "CRAFT_CONFIG", "ENCHANT_SCROLLS", "QUESTS", "standard_price", "enhance_cost", "can_enchant"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "economy",
+      "type": "data",
+      "path": "ui/economy.gd",
+      "status": "stable",
+      "deps": [],
+      "interfaces": ["signal changed(gold)", "get_gold", "add_gold", "deduct_gold"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "npc_panel",
+      "type": "base",
+      "path": "ui/npc_panel.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["open_panel()", "close()", "set_title()", "show_message()", "set_economy()", "gold_label"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "shop_panel",
+      "type": "panel",
+      "path": "ui/shop_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel", "item_db", "backpack", "economy"],
+      "interfaces": ["setup(db,bp,eq,econ)", "set_shop_id(id)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "enhance_panel",
+      "type": "panel",
+      "path": "ui/enhance_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel", "item_db", "backpack", "economy"],
+      "interfaces": ["setup(db,bp,eq,econ)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "craft_panel",
+      "type": "panel",
+      "path": "ui/craft_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel", "item_db", "backpack", "economy"],
+      "interfaces": ["setup(db,bp,eq,econ)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "enchant_panel",
+      "type": "panel",
+      "path": "ui/enchant_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel", "item_db", "backpack", "economy"],
+      "interfaces": ["setup(db,bp,eq,econ)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "quest_panel",
+      "type": "panel",
+      "path": "ui/quest_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel"],
+      "interfaces": ["signal teleport_requested(id)", "setup(db,bp,eq,econ)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "fusion_panel",
+      "type": "panel",
+      "path": "ui/fusion_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel", "item_db", "backpack"],
+      "interfaces": ["setup(db,bp,eq,econ)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "expedition_panel",
+      "type": "panel",
+      "path": "ui/expedition_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config", "npc_panel", "item_db", "backpack"],
+      "interfaces": ["signal depart_requested(items)", "setup(db,bp,eq,econ)"],
+      "tests": ["tests/test_npc_panels.gd"]
+    },
+    {
       "name": "item_tooltip",
       "type": "tooltip",
       "path": "ui/item_tooltip.gd",

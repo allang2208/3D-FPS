@@ -1,0 +1,174 @@
+﻿extends "res://ui/npc_panel.gd"
+## 商店面板（shop-system.js 迁移）：左侧购买目录，右侧出售栏。
+## 购买价 = 商店价（shopPrice 缺省 price，price 缺省按稀有度标准价）；出售价 = max(1, price*0.5)。
+
+const NpcConfig := preload("res://ui/npc_config.gd")
+
+var _db: RefCounted
+var _backpack: RefCounted
+var _shop_id := "main"
+var _sell: Array = []  # Array[{item, slot}]
+
+var _buy_grid: GridContainer
+var _sell_grid: GridContainer
+var _bp_grid: GridContainer
+
+func setup(db: RefCounted, backpack: RefCounted, _equipment: RefCounted, economy: RefCounted) -> void:
+	_db = db
+	_backpack = backpack
+	set_economy(economy)
+	if _backpack != null and not _backpack.changed.is_connected(_on_backpack_changed):
+		_backpack.changed.connect(_on_backpack_changed)
+
+func set_shop_id(v: String) -> void:
+	_shop_id = v
+
+func _build_body() -> void:
+	var h := HBoxContainer.new()
+	h.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	body.add_child(h)
+
+	var buy_col := VBoxContainer.new()
+	buy_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	buy_col.add_theme_constant_override("separation", Style.spacing("grid"))
+	h.add_child(buy_col)
+	buy_col.add_child(_make_label("购买", "label", Style.THEME_GOLD))
+	var buy_scroll := ScrollContainer.new()
+	buy_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	buy_scroll.custom_minimum_size = Vector2(400, 320)
+	buy_col.add_child(buy_scroll)
+	_buy_grid = GridContainer.new()
+	_buy_grid.columns = 3
+	_buy_grid.add_theme_constant_override("h_separation", 6)
+	_buy_grid.add_theme_constant_override("v_separation", 6)
+	buy_scroll.add_child(_buy_grid)
+
+	var sell_col := VBoxContainer.new()
+	sell_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	sell_col.add_theme_constant_override("separation", Style.spacing("grid"))
+	h.add_child(sell_col)
+	sell_col.add_child(_make_label("出售（点击背包物品放入，点击已放物品退回）", "caption", Style.THEME_GRAY_LIGHT))
+	var sell_scroll := ScrollContainer.new()
+	sell_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sell_scroll.custom_minimum_size = Vector2(360, 160)
+	sell_col.add_child(sell_scroll)
+	_sell_grid = GridContainer.new()
+	_sell_grid.columns = 3
+	_sell_grid.add_theme_constant_override("h_separation", 6)
+	_sell_grid.add_theme_constant_override("v_separation", 6)
+	sell_scroll.add_child(_sell_grid)
+
+	sell_col.add_child(_make_label("背包", "caption", Style.THEME_GRAY_LIGHT))
+	var bp_scroll := ScrollContainer.new()
+	bp_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	bp_scroll.custom_minimum_size = Vector2(360, 160)
+	sell_col.add_child(bp_scroll)
+	_bp_grid = GridContainer.new()
+	_bp_grid.columns = 3
+	_bp_grid.add_theme_constant_override("h_separation", 6)
+	_bp_grid.add_theme_constant_override("v_separation", 6)
+	bp_scroll.add_child(_bp_grid)
+
+	var sell_btn := _make_button("确认出售")
+	sell_btn.pressed.connect(_confirm_sell)
+	sell_col.add_child(sell_btn)
+
+func _refresh() -> void:
+	_refresh_gold()
+	_rebuild_buy_grid()
+	_rebuild_sell_grid()
+	_rebuild_backpack_grid()
+
+func _catalog_items() -> Array:
+	var ids: Array = NpcConfig.SHOP_CATALOGS.get(_shop_id, NpcConfig.SHOP_CATALOGS["main"])
+	var out: Array = []
+	for id in ids:
+		var def: Dictionary = _db.get_def(String(id))
+		if def.is_empty():
+			continue
+		var it: Dictionary = def.duplicate(true)
+		it["id"] = String(id)
+		it["price"] = NpcConfig.standard_price(def)
+		out.append(it)
+	return out
+
+func _rebuild_buy_grid() -> void:
+	for c in _buy_grid.get_children():
+		c.queue_free()
+	for item in _catalog_items():
+		var b := _make_item_button(item)
+		b.pressed.connect(_buy.bind(String(item["id"]), int(item["price"])))
+		_buy_grid.add_child(b)
+
+func _rebuild_sell_grid() -> void:
+	for c in _sell_grid.get_children():
+		c.queue_free()
+	for i in _sell.size():
+		var it: Dictionary = _sell[i]["item"]
+		var b := _make_item_button(it, Vector2(110, 40))
+		var sell_price := maxi(1, int(NpcConfig.standard_price(it) * 0.5))
+		b.text += " 💰%d" % sell_price
+		b.pressed.connect(_return_to_backpack.bind(i))
+		_sell_grid.add_child(b)
+
+func _rebuild_backpack_grid() -> void:
+	for c in _bp_grid.get_children():
+		c.queue_free()
+	for i in _backpack.slots.size():
+		var it = _backpack.slots[i]
+		if it == null or it.is_empty():
+			continue
+		var b := _make_item_button(it, Vector2(110, 40))
+		b.pressed.connect(_add_to_sell.bind(i))
+		_bp_grid.add_child(b)
+
+func _buy(id: String, cost: int) -> void:
+	if _backpack.item_count() >= int(_backpack.max_slots):
+		show_message("背包已满！", true)
+		return
+	if not economy.deduct_gold(cost):
+		show_message("金币不足！需要 %d 金币" % cost, true)
+		return
+	if not _backpack.add_item(id, 1):
+		economy.add_gold(cost)
+		show_message("购买失败", true)
+		return
+	show_message("购买成功：%s" % String(_db.get_def(id).get("name", id)))
+	_refresh()
+
+func _add_to_sell(slot: int) -> void:
+	var it = _backpack.slots[slot]
+	if it == null or it.is_empty():
+		return
+	if String(it.get("category", "")) == "gold" or String(it.get("name", "")) == "金币":
+		show_message("金币不可卖出", true)
+		return
+	_sell.append({"item": it.duplicate(true), "slot": slot})
+	_backpack.slots[slot] = null
+	_backpack.changed.emit()
+	_refresh()
+
+func _return_to_backpack(index: int) -> void:
+	if index < 0 or index >= _sell.size():
+		return
+	var entry: Dictionary = _sell[index]
+	_sell.remove_at(index)
+	_backpack.add_item(String(entry["item"].get("id", "")), int(entry["item"].get("stack", 1)))
+	_refresh()
+
+func _confirm_sell() -> void:
+	if _sell.is_empty():
+		show_message("出售栏为空！", true)
+		return
+	var total := 0
+	for entry in _sell:
+		var price := maxi(1, int(NpcConfig.standard_price(entry["item"]) * 0.5))
+		total += price
+	economy.add_gold(total)
+	show_message("卖出 %d 件物品，获得 %d 金币" % [_sell.size(), total])
+	_sell.clear()
+	_refresh()
+
+func _on_backpack_changed() -> void:
+	if _open:
+		_refresh()

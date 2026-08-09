@@ -50,6 +50,7 @@ var _font_bold: Font
 
 var _open := false
 var _npc := {}
+var _last_npc := {}
 var _option_ids: Array[String] = []
 var _typing := false
 var _full_text := ""
@@ -162,6 +163,7 @@ func _reposition() -> void:
 
 func open(npc: Dictionary = {}) -> void:
 	_npc = npc.duplicate(true) if not npc.is_empty() else DEMO_NPC.duplicate(true)
+	_last_npc = _npc.duplicate(true)
 	_open = true
 	visible = true
 
@@ -185,6 +187,13 @@ func open(npc: Dictionary = {}) -> void:
 
 func open_demo() -> void:
 	open(DEMO_NPC)
+
+## 子面板关闭后回到对话框（旧版 exitCompactMode）
+func reopen() -> void:
+	if _last_npc.is_empty():
+		open_demo()
+		return
+	open(_last_npc)
 
 func close() -> void:
 	_open = false

@@ -1,0 +1,217 @@
+﻿extends "res://ui/npc_panel.gd"
+## 强化面板（enhance-system.js 迁移）：放入装备 -> 消耗金币 + 强化石 -> +1 强化等级。
+## 强化上限：武器（含盾）15 级，其他装备 10 级；费用 = baseCost * costGrowth^level。
+
+const NpcConfig := preload("res://ui/npc_config.gd")
+
+var _db: RefCounted
+var _backpack: RefCounted
+var _equipment: RefCounted
+var _equipped := {}  # {item, source, slot}
+
+var _slot_label: Label
+var _info_label: Label
+var _cost_label: Label
+var _bp_grid: GridContainer
+var _eq_grid: GridContainer
+
+func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy: RefCounted) -> void:
+	_db = db
+	_backpack = backpack
+	_equipment = equipment
+	set_economy(economy)
+	if _backpack != null and not _backpack.changed.is_connected(_on_changed):
+		_backpack.changed.connect(_on_changed)
+
+func _build_body() -> void:
+	_slot_label = _make_label("强化槽：空（点击下方装备放入）", "body", Style.THEME_GRAY_LIGHT)
+	body.add_child(_slot_label)
+	_info_label = _make_label("", "body", Style.THEME_WHITE)
+	body.add_child(_info_label)
+	_cost_label = _make_label("", "body", Style.THEME_GOLD)
+	body.add_child(_cost_label)
+
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	body.add_child(actions)
+	var enhance_btn := _make_button("强化")
+	enhance_btn.pressed.connect(_enhance)
+	actions.add_child(enhance_btn)
+	var remove_btn := _make_button("取下")
+	remove_btn.pressed.connect(_return_item)
+	actions.add_child(remove_btn)
+
+	var h := HBoxContainer.new()
+	h.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	h.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	body.add_child(h)
+
+	var bp_col := VBoxContainer.new()
+	bp_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	bp_col.add_theme_constant_override("separation", Style.spacing("grid"))
+	h.add_child(bp_col)
+	bp_col.add_child(_make_label("背包", "caption", Style.THEME_GRAY_LIGHT))
+	var bp_scroll := ScrollContainer.new()
+	bp_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	bp_col.add_child(bp_scroll)
+	_bp_grid = GridContainer.new()
+	_bp_grid.columns = 3
+	_bp_grid.add_theme_constant_override("h_separation", 6)
+	_bp_grid.add_theme_constant_override("v_separation", 6)
+	bp_scroll.add_child(_bp_grid)
+
+	var eq_col := VBoxContainer.new()
+	eq_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	eq_col.add_theme_constant_override("separation", Style.spacing("grid"))
+	h.add_child(eq_col)
+	eq_col.add_child(_make_label("已装备", "caption", Style.THEME_GRAY_LIGHT))
+	var eq_scroll := ScrollContainer.new()
+	eq_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	eq_col.add_child(eq_scroll)
+	_eq_grid = GridContainer.new()
+	_eq_grid.columns = 3
+	_eq_grid.add_theme_constant_override("h_separation", 6)
+	_eq_grid.add_theme_constant_override("v_separation", 6)
+	eq_scroll.add_child(_eq_grid)
+
+func _refresh() -> void:
+	_refresh_gold()
+	if _equipped.is_empty():
+		_slot_label.text = "强化槽：空（点击下方装备放入）"
+		_info_label.text = ""
+		_cost_label.text = ""
+	else:
+		var item: Dictionary = _equipped["item"]
+		var level := int(item.get("enhanceLevel", 0))
+		var max_level := NpcConfig.enhance_max_level(item)
+		_slot_label.text = "强化槽：%s  +%d" % [String(item.get("name", "?")), level]
+		_info_label.text = "当前强化等级：+%d / +%d\n%s" % [level, max_level, _predicted(item)]
+		if level >= max_level:
+			_cost_label.text = "已到达最高强化等级"
+		else:
+			_cost_label.text = "消耗：💰 %d + 💎 强化石×1" % NpcConfig.enhance_cost(level)
+	_rebuild_grids()
+
+func _rebuild_grids() -> void:
+	for c in _bp_grid.get_children():
+		c.queue_free()
+	for i in _backpack.slots.size():
+		var it = _backpack.slots[i]
+		if it == null or it.is_empty() or String(it.get("category", "")) == "gold":
+			continue
+		var b := _make_item_button(it, Vector2(130, 44))
+		b.pressed.connect(_equip_from_backpack.bind(i))
+		_bp_grid.add_child(b)
+	for c in _eq_grid.get_children():
+		c.queue_free()
+	for key in _equipment.SLOT_ORDER:
+		var it = _equipment.slots.get(key, {})
+		if it == null or it.is_empty():
+			continue
+		var b := _make_item_button(it, Vector2(130, 44))
+		b.pressed.connect(_equip_from_slot.bind(String(key)))
+		_eq_grid.add_child(b)
+
+func _equip_from_backpack(slot: int) -> void:
+	var it = _backpack.slots[slot]
+	if it == null or it.is_empty() or String(it.get("category", "")) == "gold":
+		return
+	_return_item()
+	_backpack.slots[slot] = null
+	_equipped = {"item": it, "source": "backpack", "slot": slot}
+	_backpack.changed.emit()
+	_refresh()
+
+func _equip_from_slot(key: String) -> void:
+	var it = _equipment.slots.get(key, {})
+	if it == null or it.is_empty():
+		return
+	_return_item()
+	_equipment.slots[key] = null
+	_equipped = {"item": it, "source": "equip", "slot": key}
+	_equipment.changed.emit()
+	_refresh()
+
+func _return_item() -> void:
+	if _equipped.is_empty():
+		return
+	var item: Dictionary = _equipped["item"]
+	var source := String(_equipped["source"])
+	var slot = _equipped["slot"]
+	if source == "equip" and _equipment.slots.get(slot, {}) == {}:
+		_equipment.slots[slot] = item
+		_equipment.changed.emit()
+	else:
+		_place_into_backpack(item)
+	_equipped = {}
+	_refresh()
+
+func _place_into_backpack(item: Dictionary) -> void:
+	for i in _backpack.slots.size():
+		if _backpack.slots[i] == null:
+			item["slot"] = i
+			_backpack.slots[i] = item
+			_backpack.changed.emit()
+			return
+	show_message("背包已满，物品无法归还", true)
+
+func _enhance() -> void:
+	if _equipped.is_empty():
+		show_message("请先放入装备！", true)
+		return
+	var item: Dictionary = _equipped["item"]
+	var level := int(item.get("enhanceLevel", 0))
+	var max_level := NpcConfig.enhance_max_level(item)
+	if level >= max_level:
+		show_message("已达最高强化等级！", true)
+		return
+	var stone_slot := _find_material(NpcConfig.ENHANCE_STONE_ID)
+	if stone_slot < 0:
+		show_message("强化石不足！需要 1 颗强化石", true)
+		return
+	var cost := NpcConfig.enhance_cost(level)
+	if not economy.deduct_gold(cost):
+		show_message("金币不足！需要 %d 金币" % cost, true)
+		return
+	_consume_stack(stone_slot)
+	item["enhanceLevel"] = level + 1
+	show_message("强化成功！%s +%d" % [String(item.get("name", "?")), level + 1])
+	_refresh()
+
+func _find_material(id: String) -> int:
+	for i in _backpack.slots.size():
+		var it = _backpack.slots[i]
+		if it != null and String(it.get("id", "")) == id:
+			return i
+	for i in _backpack.slots.size():
+		var it = _backpack.slots[i]
+		if it != null and String(it.get("name", "")) == "强化石":
+			return i
+	return -1
+
+func _consume_stack(slot: int) -> void:
+	var it = _backpack.slots[slot]
+	var stack := int(it.get("stack", 1))
+	if stack <= 1:
+		_backpack.slots[slot] = null
+	else:
+		it["stack"] = stack - 1
+	_backpack.changed.emit()
+
+func _predicted(item: Dictionary) -> String:
+	var level := int(item.get("enhanceLevel", 0))
+	var formula: Dictionary = item.get("attackFormula", {})
+	if not formula.is_empty():
+		var base := float(formula.get("base", 0))
+		var flat := float(formula.get("enhanceFlat", 0))
+		var now := base + flat * level
+		var next := base + flat * (level + 1)
+		return "预测强化效果 (+%d)：物理攻击 %.0f → %.0f (+%.0f)" % [level + 1, now, next, flat]
+	var stats: Array = item.get("stats", [])
+	if not stats.is_empty() and typeof(stats[0]) == TYPE_DICTIONARY:
+		return "强化后继续提升：%s %s" % [String(stats[0].get("name", "")), String(stats[0].get("value", ""))]
+	return ""
+
+func _on_changed() -> void:
+	if _open:
+		_refresh()

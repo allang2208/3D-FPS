@@ -22,6 +22,16 @@
 | style | tokens | ui/style.gd | stable | DESIGN.md（唯一风格真源） | `make_theme()` / `make_font(weight)`；`COLOR_*` 生效色板 / `THEME_*` 金白深灰待拍板启用 | tests/test_ui_tokens.gd |
 | status_bar | hud | ui/status_bar.gd | stable | style | 消费 `player.gd`（damaged/died/hp）与 `gun.gd`（shot/reloaded/reloading/empty/hit/ammo/reserve）稳定信号；`_build()` 代码建 HUD | tests/test_ui_tokens.gd + test_status_bar.gd |
 | npc_bar | hud | ui/npc_bar.gd | stable | style | `signal option_pressed(id)` / `close_requested`；`open(npc)` / `close()` / `is_open()` / `set_text()` / `skip()` / `open_demo()`（F8 调试） | tests/test_ui_tokens.gd + test_npc_bar.gd |
+| npc_config | data | ui/npc_config.gd | stable | style | 商店目录/强化/改造/附魔/任务/稀有度只读配置；`standard_price` / `enhance_cost` / `can_enchant` 等 | tests/test_ui_tokens.gd + test_npc_panels.gd |
+| economy | data | ui/economy.gd | stable | - | 金币：`get_gold` / `add_gold` / `deduct_gold`，signal changed | tests/test_ui_tokens.gd + test_npc_panels.gd |
+| npc_panel | base | ui/npc_panel.gd | stable | style | 居中面板基类：`open_panel()` / `close()` / `set_title()` / `show_message()` / 金币标签 / 物品按钮助手 | tests/test_ui_tokens.gd + test_npc_panels.gd |
+| shop_panel | panel | ui/shop_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | `setup(db,bp,eq,econ)`；购买目录 / 出售栏（50% 价） | tests/test_npc_panels.gd |
+| enhance_panel | panel | ui/enhance_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | 强化槽 + 金币/强化石消耗 + 预测文本 | tests/test_npc_panels.gd |
+| craft_panel | panel | ui/craft_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | 改造槽 + mod 选择弹层（改造券 1/4 张）+ `_craftEffects` 聚合 | tests/test_npc_panels.gd |
+| enchant_panel | panel | ui/enchant_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | 卷轴/装备槽 + 魔法粉尘附魔 + 卷轴转粉尘 | tests/test_npc_panels.gd |
+| quest_panel | panel | ui/quest_panel.gd | stable | style, npc_config, npc_panel | `signal teleport_requested(id)`；列表/详情/接受/传送 | tests/test_npc_panels.gd |
+| fusion_panel | panel | ui/fusion_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack | 20 格祭品合成：同稀有度两两升一级 | tests/test_npc_panels.gd |
+| expedition_panel | panel | ui/expedition_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack | `signal depart_requested(items)`；10 格祭品 + 稀有度准入 | tests/test_npc_panels.gd |
 | item_tooltip | tooltip | ui/item_tooltip.gd | stable | style, item_db | `signal close_requested`；`render(item)` / `is_pinned()` / `set_pinned(v)` | tests/test_ui_tokens.gd |
 | backpack_hud | panel | ui/backpack_hud.gd | stable（Vega 金白已升级） | style, backpack, equipment, item_tooltip, icons | `signal player_healed(hp)`；`setup(bp, eq)`；Tab/B 开背包、拖拽、右键使用 | tests/test_backpack.gd + test_ui_tokens（已纳入硬编码扫描） |
 | backpack | data | ui/backpack.gd | stable | item_db | `signal changed / item_used / item_added / bound`；`add_item` / `remove_item` / `swap_items` / `bind_hotbar` / `resolve_hotbar` | tests/test_backpack.gd |

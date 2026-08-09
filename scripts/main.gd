@@ -14,6 +14,15 @@ var _player: Node3D
 var _gun: Node3D
 var _status_bar: CanvasLayer
 var _npc_bar: CanvasLayer
+var _item_db
+var _economy
+var _shop_panel
+var _enhance_panel
+var _craft_panel
+var _enchant_panel
+var _quest_panel
+var _fusion_panel
+var _expedition_panel
 var _backpack_hud: Control
 var _backpack
 var _equipment
@@ -170,11 +179,12 @@ func _build_hud() -> void:
 	npc_bar.option_pressed.connect(_on_npc_option)
 	npc_bar.close_requested.connect(_on_npc_closed)
 	_npc_bar = npc_bar
+	_build_npc_panels()
 
 ## 背包栏迁移：底部快捷栏（1~4）+ Tab/B 背包面板
 func _build_backpack_hud(parent: Node) -> void:
-	var item_db = load("res://ui/item_db.gd").new()
-	_backpack = load("res://ui/backpack.gd").new(item_db)
+	_item_db = load("res://ui/item_db.gd").new()
+	_backpack = load("res://ui/backpack.gd").new(_item_db)
 	# 初始背包沿用旧版默认（治疗药水 ×5）；MP 系统未实装，暂不发放魔力药水
 	_backpack.add_item("hp_potion", 5)
 	# 装备栏 + 演示种子（沿用旧版初始装备：主手生锈长剑；背包放 G18/小圆盾/铁盔/戒指）
@@ -227,6 +237,16 @@ func _build_backpack_hud(parent: Node) -> void:
 	_backpack.add_item("small_shield", 1)
 	_backpack.add_item("lunar_helmet", 1)
 	_backpack.add_item("ring_oracle", 1)
+	# NPC 面板测试物资（商店/强化/改造/附魔/祭坛）
+	_backpack.add_item("enhancement_stone", 3)
+	_backpack.add_item("reforge_ticket", 2)
+	_backpack.add_item("magic_dust", 150)
+	_backpack.add_item("enchant_scroll_heavy", 1)
+	_backpack.add_item("enchant_scroll_sharp", 1)
+	_backpack.add_item("enchant_scroll_tarantula", 1)
+	_backpack.add_item("enchant_scroll_skeleton", 1)
+	_backpack.add_item("tribute_common", 4)
+	_backpack.add_item("tribute_uncommon", 2)
 	for i in _backpack.slots.size():
 		if _backpack.slots[i] != null and String(_backpack.slots[i].get("id", "")) == "rusty_sword":
 			_equipment.equip_from_backpack(i)
@@ -405,17 +425,21 @@ func _on_npc_option(id: String) -> void:
 		return
 	match id:
 		"shop":
-			_status_bar.show_status("商店系统迁移中…", 1.5)
+			_open_npc_panel(_shop_panel)
 		"enhance":
-			_status_bar.show_status("强化系统迁移中…", 1.5)
+			_open_npc_panel(_enhance_panel)
 		"craft":
-			_status_bar.show_status("改造系统迁移中…", 1.5)
+			_open_npc_panel(_craft_panel)
 		"enchant":
-			_status_bar.show_status("附魔系统迁移中…", 1.5)
-		"quest", "teleport":
-			_status_bar.show_status("任务系统迁移中…", 1.5)
-		"expedition", "fusion":
-			_status_bar.show_status("祭坛系统迁移中…", 1.5)
+			_open_npc_panel(_enchant_panel)
+		"quest":
+			_open_npc_panel(_quest_panel)
+		"teleport":
+			_on_teleport_requested()
+		"expedition":
+			_open_npc_panel(_expedition_panel)
+		"fusion":
+			_open_npc_panel(_fusion_panel)
 		"info":
 			_npc_bar.set_text("关于各个世界的信息正在收集中……目前可以告诉您的是，时空裂隙的出现频率越来越高，请务必小心。")
 		"help":
@@ -426,6 +450,80 @@ func _on_npc_option(id: String) -> void:
 func _on_npc_closed() -> void:
 	if _status_bar != null:
 		_status_bar.clear_status()
+
+## NPC 子面板：打开时收起对话框，关闭后回到对话框（旧版 exitCompactMode）
+func _build_npc_panels() -> void:
+	_economy = load("res://ui/economy.gd").new()
+	var panels := {
+		"shop": "res://ui/shop_panel.gd",
+		"enhance": "res://ui/enhance_panel.gd",
+		"craft": "res://ui/craft_panel.gd",
+		"enchant": "res://ui/enchant_panel.gd",
+		"quest": "res://ui/quest_panel.gd",
+		"fusion": "res://ui/fusion_panel.gd",
+		"expedition": "res://ui/expedition_panel.gd",
+	}
+	for key in panels:
+		var panel = load(String(panels[key])).new()
+		panel.name = key.capitalize() + "Panel"
+		panel.setup(_item_db, _backpack, _equipment, _economy)
+		panel.set_title(_panel_title(key))
+		panel.closed.connect(func() -> void:
+			if _npc_bar != null:
+				_npc_bar.reopen())
+		add_child(panel)
+		match key:
+			"shop":
+				_shop_panel = panel
+			"enhance":
+				_enhance_panel = panel
+			"craft":
+				_craft_panel = panel
+			"enchant":
+				_enchant_panel = panel
+			"quest":
+				_quest_panel = panel
+			"fusion":
+				_fusion_panel = panel
+			"expedition":
+				_expedition_panel = panel
+	_quest_panel.teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
+	_expedition_panel.depart_requested.connect(_on_depart_requested)
+
+func _panel_title(key: String) -> String:
+	match key:
+		"shop":
+			return "🏪 商店"
+		"enhance":
+			return "⚒️ 强化"
+		"craft":
+			return "🔧 改造"
+		"enchant":
+			return "✨ 附魔"
+		"quest":
+			return "📜 任务日志"
+		"fusion":
+			return "🔮 祭品合成"
+		"expedition":
+			return "⚔️ 献祭出征"
+	return ""
+
+func _open_npc_panel(panel) -> void:
+	if panel == null:
+		return
+	_npc_bar.close()
+	panel.open_panel()
+
+func _on_teleport_requested() -> void:
+	if _status_bar != null:
+		_status_bar.show_status("任务场景未迁移，传送暂不可用", 2.0)
+
+func _on_depart_requested(items: Array) -> void:
+	if _backpack != null:
+		for it in items:
+			_backpack.add_item(String(it.get("id", "")), 1)
+	if _status_bar != null:
+		_status_bar.show_status("地牢世界未迁移，出征暂不可用（祭品已返还）", 2.5)
 
 func _on_player_damaged(hp: int) -> void:
 	_status_bar.set_hp(hp, int(_player.get("max_hp")))
