@@ -24,9 +24,9 @@ func _process(_delta: float) -> bool:
 			quit(1)
 			return false
 		_player.set("hp", 100000)  # 避免敌人咬死干扰测试
-		var ammo0: bool = String(_bar.get("_ammo_label").text).contains("30/90")
-		var hp0: bool = String(_bar.get("_hp_label").text).contains("100/100")
-		print("TEST init ammo0=", ammo0, " hp0=", hp0)
+	var ammo0: bool = String(_bar.get("_ammo_label").text) == "30" and String(_bar.get("_ammo_reserve_label").text) == " / 90"
+	var hp0: bool = String(_bar.get("_hp_label").text).contains("100/100")
+	print("TEST init ammo0=", ammo0, " hp0=", hp0)
 	if _frames == 3:
 		_player.set("hp", 100)
 		_player.take_damage(30)
@@ -37,13 +37,12 @@ func _process(_delta: float) -> bool:
 		_gun.set("ammo", 5)
 		_gun.set("reserve", 3)
 		_gun.shot.emit(5, 3)
-		var ammo_ok: bool = String(_bar.get("_ammo_label").text).contains("5/3")
-		_gun.reloading.emit()
-		var reload_ok: bool = bool(_bar.get("_status_label").visible) \
-			and String(_bar.get("_status_label").text).contains("换弹中")
-		_gun.hit.emit()
-		var hit_ok: bool = bool(_bar.get("_hitmarker").visible)
-		print("TEST ammo=", _bar.get("_ammo_label").text, " reload_ok=", reload_ok, " hit_ok=", hit_ok)
+	var ammo_ok: bool = String(_bar.get("_ammo_label").text) == "5" and String(_bar.get("_ammo_reserve_label").text) == " / 3"
+	_gun.reloading.emit()
+	var reload_ok: bool = bool(_bar.get("_status_label").visible) and String(_bar.get("_status_label").text).contains("换弹中")
+	_gun.hit.emit()
+	var hit_ok: bool = bool(_bar.get("_hitmarker").visible)
+	print("TEST ammo=", _bar.get("_ammo_label").text, " reload_ok=", reload_ok, " hit_ok=", hit_ok)
 	if _frames == 10:
 		var wolf: Node3D = _main.get_node_or_null("WolfEnemy") as Node3D
 		if wolf != null:

@@ -5,14 +5,21 @@ extends CanvasLayer
 ## 配色/字体统一走 ui/style.gd（换肤只改那一处）。
 
 const Style := preload("res://ui/style.gd")
+const Icons := preload("res://ui/icons.gd")
 
 const BAR_W := 220.0
-const BAR_H := 16.0
+const BAR_H := 18.0
 
 var _hp_fill: ColorRect
+var _hp_trail: ColorRect
 var _hp_label: Label
+var _mp_icon: TextureRect
+var _mp_fill: ColorRect
+var _mp_label: Label
 var _kill_label: Label
 var _ammo_label: Label
+var _ammo_reserve_label: Label
+var _weapon_label: Label
 var _status_label: Label
 var _hitmarker: Label
 var _death_panel: VBoxContainer
@@ -40,27 +47,88 @@ func _process(delta: float) -> void:
 	_status_label.visible = _status_t > 0.0
 
 func _build() -> void:
-	# 左上：生命条（背景 + 填充 + 数值）
-	var hp_bg := ColorRect.new()
-	hp_bg.color = Style.COLOR_HP_BG
-	hp_bg.position = Vector2(16, 12)
+	# 左上：生命（图标 + 血条 + 数值）
+	var hp_icon := TextureRect.new()
+	hp_icon.position = Vector2(16, 9)
+	hp_icon.size = Vector2(24, 24)
+	hp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	Icons.apply_icon(hp_icon, "heart", Style.THEME_HP_GREEN)
+	add_child(hp_icon)
+	var hp_bg := Panel.new()
+	hp_bg.position = Vector2(46, 10)
 	hp_bg.size = Vector2(BAR_W, BAR_H)
+	hp_bg.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(hp_bg)
 	_hp_fill = ColorRect.new()
-	_hp_fill.color = Style.COLOR_HP_HIGH
-	_hp_fill.position = Vector2(18, 14)
+	_hp_fill.position = Vector2(48, 12)
 	_hp_fill.size = Vector2(BAR_W - 4, BAR_H - 4)
 	add_child(_hp_fill)
-	_hp_label = _make_label("生命 100/100", Vector2(16, 34), 16, Style.COLOR_AMMO)
-	_kill_label = _make_label("击杀: 0", Vector2(16, 58), 16, Style.COLOR_KILL)
-	# 右下：弹药 + 状态提示
-	_ammo_label = _make_label("弹药: --", Vector2.ZERO, 22, Style.COLOR_AMMO)
-	_ammo_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_ammo_label.position = Vector2(-170, -42)
-	_ammo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_hp_trail = ColorRect.new()
+	_hp_trail.color = Color(Style.COLOR_WHITE, 0.85)
+	_hp_trail.position = Vector2(48, 12)
+	_hp_trail.size = Vector2(BAR_W - 4, BAR_H - 4)
+	_hp_trail.visible = false
+	add_child(_hp_trail)
+	_hp_label = _make_label("100/100", Vector2(272, 8), 22, Style.COLOR_WHITE)
+	_hp_label.add_theme_font_override("font", _font_heavy)
+	# 左上第二行：魔力（蓝条，技能系统移植后由 set_mp 点亮）
+	_mp_icon = TextureRect.new()
+	_mp_icon.position = Vector2(16, 38)
+	_mp_icon.size = Vector2(24, 24)
+	_mp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	Icons.apply_icon(_mp_icon, "sparkles", Style.THEME_MP_BLUE)
+	add_child(_mp_icon)
+	var mp_bg := Panel.new()
+	mp_bg.position = Vector2(46, 40)
+	mp_bg.size = Vector2(BAR_W, 14)
+	mp_bg.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
+	add_child(mp_bg)
+	_mp_fill = ColorRect.new()
+	_mp_fill.color = Style.THEME_MP_BLUE
+	_mp_fill.position = Vector2(48, 42)
+	_mp_fill.size = Vector2(BAR_W - 4, 10)
+	add_child(_mp_fill)
+	_mp_label = _make_label("", Vector2(272, 37), 16, Style.THEME_MP_BLUE)
+	_mp_icon.visible = false
+	mp_bg.visible = false
+	_mp_fill.visible = false
+	_mp_label.visible = false
+	_kill_label = _make_label("击杀: 0", Vector2(16, 64), 16, Style.COLOR_KILL)
+	# 右下：武器名 + 弹药 + 状态提示
+	_weapon_label = _make_label("AK-74", Vector2.ZERO, 14,
+		Style.THEME_GRAY_LIGHT if Style.theme_active() == "gold_white_gray" else Style.COLOR_DIM_TEXT)
+	_weapon_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	_weapon_label.offset_left = -320
+	_weapon_label.offset_top = -116
+	_weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	var ammo_row := HBoxContainer.new()
+	ammo_row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	ammo_row.offset_left = -220
+	ammo_row.offset_top = -82
+	ammo_row.offset_right = -16
+	ammo_row.offset_bottom = -40
+	ammo_row.alignment = BoxContainer.ALIGNMENT_END
+	ammo_row.add_theme_constant_override("separation", 6)
+	add_child(ammo_row)
+	_ammo_label = Label.new()
+	_ammo_label.theme = _theme
+	_ammo_label.add_theme_font_override("font", _font_heavy)
+	_ammo_label.add_theme_color_override("font_color", Style.COLOR_AMMO)
+	_ammo_label.add_theme_font_size_override("font_size", 34)
+	_ammo_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	ammo_row.add_child(_ammo_label)
+	_ammo_reserve_label = Label.new()
+	_ammo_reserve_label.theme = _theme
+	_ammo_reserve_label.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+	_ammo_reserve_label.add_theme_font_size_override("font_size", 16)
+	_ammo_reserve_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+	ammo_row.add_child(_ammo_reserve_label)
 	_status_label = _make_label("", Vector2.ZERO, 16, Style.COLOR_STATUS)
 	_status_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_status_label.position = Vector2(-170, -68)
+	_status_label.offset_left = -300
+	_status_label.offset_top = -34
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_status_label.visible = false
 	# 中央：准星 + 命中标记
@@ -121,20 +189,47 @@ func _make_label(text: String, pos: Vector2, size: int, color: Color) -> Label:
 func set_hp(hp: int, max_hp: int) -> void:
 	var m := maxi(1, max_hp)
 	var pct := clampf(float(hp) / float(m), 0.0, 1.0)
-	_hp_fill.size.x = (BAR_W - 4) * pct
+	var target_w := (BAR_W - 4) * pct
+	if _hp_fill.size.x > target_w + 0.5:
+		# 掉血：白色后滞条从旧值缓动到新值
+		_hp_trail.size.x = _hp_fill.size.x
+		_hp_trail.visible = true
+		var tw := create_tween()
+		tw.tween_property(_hp_trail, "size:x", target_w, 0.45) \
+			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tw.tween_callback(func() -> void: _hp_trail.visible = false)
+	_hp_fill.size.x = target_w
 	if pct > 0.5:
 		_hp_fill.color = Style.COLOR_HP_HIGH
 	elif pct > 0.25:
 		_hp_fill.color = Style.COLOR_HP_MID
 	else:
 		_hp_fill.color = Style.COLOR_HP_LOW
-	_hp_label.text = "生命 %d/%d" % [maxi(0, hp), m]
+	_hp_label.text = "%d/%d" % [maxi(0, hp), m]
+	_hp_label.add_theme_color_override("font_color",
+		Style.THEME_DANGER_RED if pct <= 0.25 else Style.COLOR_WHITE)
+
+## 魔法值（技能系统移植后由 main 调用；首次调用点亮蓝条）
+func set_mp(mp: int, max_mp: int) -> void:
+	var m := maxi(1, max_mp)
+	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
+	_mp_fill.size.x = (BAR_W - 4) * pct
+	_mp_label.text = "%d/%d" % [maxi(0, mp), m]
+	_mp_icon.visible = true
+	_mp_fill.visible = true
+	_mp_label.visible = true
+
+func set_weapon_name(name: String) -> void:
+	_weapon_label.text = name
 
 func set_kills(n: int) -> void:
 	_kill_label.text = "击杀: %d" % n
 
 func set_ammo(ammo: int, reserve: int) -> void:
-	_ammo_label.text = "弹药: %d/%d" % [ammo, reserve]
+	_ammo_label.text = str(maxi(0, ammo))
+	_ammo_label.add_theme_color_override("font_color",
+		Style.THEME_DANGER_RED if ammo <= 0 else Style.COLOR_AMMO)
+	_ammo_reserve_label.text = " / %d" % maxi(0, reserve)
 
 func show_status(text: String, duration: float) -> void:
 	_status_label.text = text
