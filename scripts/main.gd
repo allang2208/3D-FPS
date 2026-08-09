@@ -14,6 +14,7 @@ var _backpack
 var _equipment
 var _player_status
 var _skillbar
+var _hover_fireball: Node3D
 var _player_dead := false
 var _kills := 0
 
@@ -173,6 +174,7 @@ func _build_backpack_hud(parent: Node) -> void:
 		fb["cooldown_s"] = eff.cooldown_s
 		fb["mp_cost"] = eff.mp_cost
 		fb["tier"] = 1
+		fb["two_stage"] = true  # 原版火球：凝聚绕身 → 第二次投掷
 		sb_skills["fireball"] = fb
 	_skillbar.setup(sb_skills)
 	_skillbar.assign(0, "fireball")
@@ -193,18 +195,27 @@ func _build_backpack_hud(parent: Node) -> void:
 	hud.setup(_backpack, _equipment, _player_status, _skillbar)
 	_backpack_hud = hud
 
-## 技能触发（火球先迁）：从玩家相机方向发射
-func _on_skill_triggered(skill_id: String) -> void:
+## 技能触发（火球二段式，原版流程）：第一次凝聚绕身、第二次朝相机方向投掷
+func _on_skill_triggered(skill_id: String, phase: String) -> void:
 	if skill_id != "fireball" or _player == null:
 		_flash_skill_missing(skill_id)
 		return
-	var cam := _player.get_node_or_null("Camera3D") as Camera3D
-	if cam == null:
+	if phase == "launch":
+		if _hover_fireball != null and is_instance_valid(_hover_fireball):
+			var cam := _player.get_node_or_null("Camera3D") as Camera3D
+			if cam != null:
+				_hover_fireball.launch(-cam.global_transform.basis.z)
 		return
-	var origin := _player.global_position + Vector3(0, 1.5, 0)
-	var dir := -cam.global_transform.basis.z
-	FireballScript.fire(get_tree().current_scene, origin, dir,
+	# spawn：生成绕身火球
+	_hover_fireball = FireballScript.spawn_hover(get_tree().current_scene, _player,
 		_player_status.level, _player_status.matk(), _player_status.intt)
+	if _hover_fireball != null:
+		_hover_fireball.consumed.connect(_on_fireball_consumed)
+
+func _on_fireball_consumed() -> void:
+	_hover_fireball = null
+	if _skillbar != null:
+		_skillbar.consume_active("fireball")
 
 func _flash_skill_missing(skill_id: String) -> void:
 	if _backpack_hud != null and _backpack_hud.has_method("flash_status"):

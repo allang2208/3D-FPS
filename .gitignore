@@ -5,3 +5,7 @@
 # Python 缓存（tools/ai-gen 等）
 __pycache__/
 *.pyc
+
+# Terrain3D addon 构建临时文件 / 运行日志
+*.TMP
+*.log
