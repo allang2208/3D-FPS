@@ -49,6 +49,19 @@ func _run() -> void:
 	_check("bar_portrait", bool(_bar.get("_portrait").texture != null))
 	var want: Array = ["shop", "enhance", "craft", "enchant", "close"]
 	_check("bar_options", _bar.get_option_ids() == want, "got=" + str(_bar.get_option_ids()))
+
+	# 选项 -> 打开子面板（改造/附魔/强化），关闭后面板回到对话框
+	_scene.call("_on_npc_option", "craft")
+	_check("wild_craft_panel_open", bool(_scene.get("_panels")["craft"].is_open()))
+	_scene.get("_panels")["craft"].close()
+	_check("bar_reopens_after_close", bool(_bar.is_open()))
+	_scene.call("_on_npc_option", "enchant")
+	_check("wild_enchant_panel_open", bool(_scene.get("_panels")["enchant"].is_open()))
+	_scene.get("_panels")["enchant"].close()
+	_scene.call("_on_npc_option", "enhance")
+	_check("wild_enhance_panel_open", bool(_scene.get("_panels")["enhance"].is_open()))
+	_scene.get("_panels")["enhance"].close()
+
 	_npc.interacted.emit(NpcConfig.NPCS["shop_mouse_king"])
 	_check("bar_toggle_closed", not bool(_bar.is_open()))
 	quit(0 if _fail == 0 else 1)

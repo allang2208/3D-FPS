@@ -64,6 +64,15 @@
       "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
     },
     {
+      "name": "npc_panels",
+      "type": "host",
+      "path": "ui/npc_panels.gd",
+      "status": "stable",
+      "deps": ["shop_panel", "enhance_panel", "craft_panel", "enchant_panel", "quest_panel", "fusion_panel", "expedition_panel"],
+      "interfaces": ["build(host,db,bp,eq,econ,npc_bar)", "open(panels,npc_bar,id)", "seed_materials(bp)"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_status_bar.gd", "tests/test_demo_terrain.gd"]
+    },
+    {
       "name": "shop_panel",
       "type": "panel",
       "path": "ui/shop_panel.gd",

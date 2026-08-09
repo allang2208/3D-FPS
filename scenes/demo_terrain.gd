@@ -6,12 +6,18 @@ const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresk
 const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
 const DATA_DIR := "res://assets/terrain_data/demo"
 const NpcConfig := preload("res://ui/npc_config.gd")
+const NpcPanels := preload("res://ui/npc_panels.gd")
 
 var terrain: Terrain3D
 var rng := RandomNumberGenerator.new()
 var _player: Node3D
 var _status_bar: CanvasLayer
 var _npc_bar: CanvasLayer
+var _item_db
+var _backpack
+var _equipment
+var _economy
+var _panels := {}
 var _player_status: RefCounted
 var _backpack_hud: Control
 var _tree_cache := {}  # 树模型路径 -> {"base": scale=1 底座偏移, "size": 包围盒尺寸}
@@ -464,6 +470,14 @@ func _build_hud() -> void:
 	add_child(npc_bar)
 	npc_bar.option_pressed.connect(_on_npc_option)
 	_npc_bar = npc_bar
+	_item_db = load("res://ui/item_db.gd").new()
+	_backpack = load("res://ui/backpack.gd").new(_item_db)
+	_equipment = load("res://ui/equipment.gd").new(_backpack)
+	_economy = load("res://ui/economy.gd").new()
+	NpcPanels.seed_materials(_backpack)
+	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, npc_bar)
+	_panels["quest"].teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
+	_panels["expedition"].depart_requested.connect(_on_depart_requested)
 
 
 ## 荒野场景补齐背包 HUD（快捷栏 + 背包面板）：与 main.gd 同构，最小技能集（火球 Q）
@@ -588,22 +602,26 @@ func _on_npc_interacted(data: Dictionary) -> void:
 
 
 func _on_npc_option(id: String) -> void:
-	if _status_bar == null:
+	if id == "info":
+		_npc_bar.set_text("关于各个世界的信息正在收集中……目前可以告诉您的是，时空裂隙的出现频率越来越高，请务必小心。")
 		return
-	match id:
-		"shop":
-			_status_bar.show_status("商店面板在基地开放（主场景 F8 可测）", 2.0)
-		"enhance":
-			_status_bar.show_status("强化面板在基地开放", 2.0)
-		"craft":
-			_status_bar.show_status("改造面板在基地开放", 2.0)
-		"enchant":
-			_status_bar.show_status("附魔面板在基地开放", 2.0)
-		"quest", "teleport":
-			_status_bar.show_status("任务面板在基地开放", 2.0)
-		"expedition", "fusion":
-			_status_bar.show_status("祭坛面板在基地开放", 2.0)
-		"info":
-			_npc_bar.set_text("关于各个世界的信息正在收集中……目前可以告诉您的是，时空裂隙的出现频率越来越高，请务必小心。")
-		"help":
-			_npc_bar.set_text("帮助功能正在开发中，敬请期待。您可以先尝试接受任务前往其他世界探险。")
+	if id == "help":
+		_npc_bar.set_text("帮助功能正在开发中，敬请期待。您可以先尝试接受任务前往其他世界探险。")
+		return
+	if NpcPanels.open(_panels, _npc_bar, id):
+		return
+	if _status_bar != null:
+		_status_bar.show_status("NPC 选项待接入：%s" % id, 1.5)
+
+
+func _on_teleport_requested() -> void:
+	if _status_bar != null:
+		_status_bar.show_status("任务场景未迁移，传送暂不可用", 2.0)
+
+
+func _on_depart_requested(items: Array) -> void:
+	if _backpack != null:
+		for it in items:
+			_backpack.add_item(String(it.get("id", "")), 1)
+	if _status_bar != null:
+		_status_bar.show_status("地牢世界未迁移，出征暂不可用（祭品已返还）", 2.5)

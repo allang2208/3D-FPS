@@ -63,7 +63,11 @@ func _process(_delta: float) -> bool:
 		_bar.call("set_crosshair_visible", true)
 		var ch_restored: bool = bool(_bar.get("_ch_up").visible)
 		print("TEST crosshair_hidden=", ch_hidden, " restored=", ch_restored)
-		var all_ok: bool = kill_ok and death_ok and ch_hidden and ch_restored
+		_main.call("_on_npc_option", "enhance")
+		var npc_enhance_ok: bool = _main.get("_enhance_panel") != null \
+			and bool(_main.get("_enhance_panel").is_open())
+		print("TEST npc_enhance_panel_open=", npc_enhance_ok)
+		var all_ok: bool = kill_ok and death_ok and ch_hidden and ch_restored and npc_enhance_ok
 		quit(0 if all_ok else 1)
 		return false
 	return false

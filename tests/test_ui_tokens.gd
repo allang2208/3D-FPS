@@ -87,6 +87,7 @@ func _initialize() -> void:
 	var files := [
 		"res://ui/status_bar.gd", "res://ui/item_tooltip.gd", "res://ui/npc_bar.gd",
 		"res://ui/npc_panel.gd", "res://ui/npc_config.gd", "res://ui/economy.gd",
+		"res://ui/npc_panels.gd",
 		"res://ui/shop_panel.gd", "res://ui/enhance_panel.gd", "res://ui/craft_panel.gd",
 		"res://ui/enchant_panel.gd", "res://ui/quest_panel.gd",
 		"res://ui/fusion_panel.gd", "res://ui/expedition_panel.gd",

@@ -24,6 +24,7 @@ var _enchant_panel
 var _quest_panel
 var _fusion_panel
 var _expedition_panel
+var _panels := {}
 var _backpack_hud: Control
 var _backpack
 var _equipment
@@ -455,59 +456,17 @@ func _on_npc_closed() -> void:
 ## NPC 子面板：打开时收起对话框，关闭后回到对话框（旧版 exitCompactMode）
 func _build_npc_panels() -> void:
 	_economy = load("res://ui/economy.gd").new()
-	var panels := {
-		"shop": "res://ui/shop_panel.gd",
-		"enhance": "res://ui/enhance_panel.gd",
-		"craft": "res://ui/craft_panel.gd",
-		"enchant": "res://ui/enchant_panel.gd",
-		"quest": "res://ui/quest_panel.gd",
-		"fusion": "res://ui/fusion_panel.gd",
-		"expedition": "res://ui/expedition_panel.gd",
-	}
-	for key in panels:
-		var panel = load(String(panels[key])).new()
-		panel.name = key.capitalize() + "Panel"
-		add_child(panel)
-		panel.setup(_item_db, _backpack, _equipment, _economy)
-		panel.set_title(_panel_title(key))
-		panel.closed.connect(func() -> void:
-			if _npc_bar != null:
-				_npc_bar.reopen())
-		match key:
-			"shop":
-				_shop_panel = panel
-			"enhance":
-				_enhance_panel = panel
-			"craft":
-				_craft_panel = panel
-			"enchant":
-				_enchant_panel = panel
-			"quest":
-				_quest_panel = panel
-			"fusion":
-				_fusion_panel = panel
-			"expedition":
-				_expedition_panel = panel
+	var NpcPanels := load("res://ui/npc_panels.gd")
+	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, _npc_bar)
+	_shop_panel = _panels.get("shop")
+	_enhance_panel = _panels.get("enhance")
+	_craft_panel = _panels.get("craft")
+	_enchant_panel = _panels.get("enchant")
+	_quest_panel = _panels.get("quest")
+	_fusion_panel = _panels.get("fusion")
+	_expedition_panel = _panels.get("expedition")
 	_quest_panel.teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
 	_expedition_panel.depart_requested.connect(_on_depart_requested)
-
-func _panel_title(key: String) -> String:
-	match key:
-		"shop":
-			return "🏪 商店"
-		"enhance":
-			return "⚒️ 强化"
-		"craft":
-			return "🔧 改造"
-		"enchant":
-			return "✨ 附魔"
-		"quest":
-			return "📜 任务日志"
-		"fusion":
-			return "🔮 祭品合成"
-		"expedition":
-			return "⚔️ 献祭出征"
-	return ""
 
 func _open_npc_panel(panel) -> void:
 	if panel == null:
