@@ -261,6 +261,27 @@ func _refresh_equip() -> void:
 
 ## ---------- 输入 ----------
 
+## 面板开关键放 _input（早于 GUI 焦点导航，Tab 不会被焦点吃掉；K 对齐旧版技能体系键）
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		match event.keycode:
+			KEY_TAB, KEY_K:
+				get_viewport().set_input_as_handled()
+				if _panel_open and _current_tab == "equip":
+					set_panel_open(false)
+				else:
+					set_tab("equip")
+					set_panel_open(true)
+				if event.keycode == KEY_K:
+					_flash_status("技能体系未移植（K）")
+			KEY_B:
+				get_viewport().set_input_as_handled()
+				toggle_panel()
+			KEY_CAPSLOCK:
+				get_viewport().set_input_as_handled()
+				set_tab("status")
+				set_panel_open(true)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
@@ -268,17 +289,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				use_hotbar(event.keycode - KEY_1)
 			KEY_Q, KEY_E, KEY_X, KEY_C:
 				use_skill_slot(SKILL_KEYCODES.find(event.keycode))
-			KEY_TAB:
-				if _panel_open and _current_tab == "equip":
-					set_panel_open(false)
-				else:
-					set_tab("equip")
-					set_panel_open(true)
-			KEY_B:
-				toggle_panel()
-			KEY_CAPSLOCK:
-				set_tab("status")
-				set_panel_open(true)
 			KEY_ESCAPE:
 				if _tooltip != null and _tooltip.visible:
 					hide_tooltip()
@@ -1046,10 +1056,17 @@ func _build_panel() -> void:
 	_equip_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_equip_page.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_page_stack.add_child(_equip_page)
-	# 上：装备栏（旧版 gear-equip-col，占上半区，3x5 大宽格）
+	# 装备栏 + 背包 左右并排（上下排列在 1080p 垂直空间不足，横向容纳）
+	var cols := HBoxContainer.new()
+	cols.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	cols.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cols.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_equip_page.add_child(cols)
+	# 左：装备栏（3x5 大宽格）
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
-	_equip_page.add_child(equip_col)
+	equip_col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	cols.add_child(equip_col)
 	var equip_title := _make_label(equip_col, "装备栏", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -1057,7 +1074,7 @@ func _build_panel() -> void:
 	_equip_grid.columns = EQUIP_COLS
 	_equip_grid.add_theme_constant_override("h_separation", Style.spacing("element_gap"))
 	_equip_grid.add_theme_constant_override("v_separation", Style.spacing("element_gap"))
-	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_equip_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	equip_col.add_child(_equip_grid)
 	var total_slots := backpack.max_slots if backpack != null else 36
 	for key in EquipmentScript.SLOT_ORDER:
@@ -1065,7 +1082,6 @@ func _build_panel() -> void:
 		cell.hud = self
 		cell.key = key
 		cell.custom_minimum_size = EQUIP_SLOT_SIZE
-		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_equip_empty)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
@@ -1170,10 +1186,11 @@ func _build_panel() -> void:
 		lock.add_child(x_lbl)
 		_equip_grid.add_child(cell)
 		_equip_cells[key] = cell
-	# 下：背包（旧版 gear-inventory-col：表头 背包+0/36，5 列小方格）
+	# 右：背包（表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
 	inv_col.add_theme_constant_override("separation", Style.spacing("element_gap"))
-	_equip_page.add_child(inv_col)
+	inv_col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	cols.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
 	var inv_title := _make_label(inv_header, "背包", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
@@ -1185,7 +1202,7 @@ func _build_panel() -> void:
 	_grid.columns = INV_COLS
 	_grid.add_theme_constant_override("h_separation", Style.spacing("element_gap"))
 	_grid.add_theme_constant_override("v_separation", Style.spacing("element_gap"))
-	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	inv_col.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
