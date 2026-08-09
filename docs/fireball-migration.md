@@ -99,3 +99,10 @@ scale_curve 生长（越往上越宽）+ color_ramp alpha 提前淡出（防顶�
   Godot 4.7 的 `int(Nil)` 报 `Nonexistent 'int' constructor` 且每帧中断 → 发射后卡死。
 - 修复：5 个技能脚本统一 `_hp_of(node)` helper（`get("_hp")` + nil 短路，`Object.get` 仅 1 参）。
 - 验证：test_fireball 全过（含 fireball_hits_wolf=true）、冰锥发射链路正常（命中致死、收尾）。
+
+## 冰锥水平悬浮修复（`700ab85`）
+
+- 根因：billboard 模式忽略 Sprite3D 的 rotation（4.7 实测，贴图 bbox 仍 24×140 纵向），
+  之前"旋转 90°"白做，冰锥贴图剪影始终垂直。
+- 修复：PIL 预旋转生成 4 张横向贴图（ice_spike_h_01~04，bbox 140×24 横向），
+  billboard 直接显示横置；GLM 读图 + 像素测量双重确认 4 根全水平。
