@@ -139,7 +139,7 @@ func _ready() -> void:
 	_flash_light.name = "MuzzleFlashLight"
 	_flash_light.position = _muzzle_local
 	_flash_light.omni_range = 2.2
-	_flash_light.light_color = Color(1.0, 0.8, 0.45)
+	_flash_light.light_color = Color(1.0, 0.92, 0.5)
 	_flash_light.light_energy = 0.0
 	_flash_light.visible = false
 	add_child(_flash_light)
@@ -524,12 +524,12 @@ func _make_flash_pop() -> CPUParticles3D:
 	p.mesh = _make_particle_mesh(0.95)
 	p.one_shot = true
 	p.emitting = false
-	p.amount = 14
+	p.amount = 8
 	p.lifetime = 0.06
 	p.explosiveness = 1.0
 	p.randomness = 0.8
 	p.direction = Vector3(0, 0, -1)
-	p.spread = 55.0
+	p.spread = 40.0
 	p.gravity = Vector3.ZERO
 	p.initial_velocity_min = 0.6
 	p.initial_velocity_max = 2.6
@@ -540,7 +540,7 @@ func _make_flash_pop() -> CPUParticles3D:
 	p.scale_amount_curve = _make_curve([Vector2(0, 0.45), Vector2(0.35, 1.0), Vector2(1, 0.12)])
 	p.color_ramp = _make_gradient(
 		PackedFloat32Array([0.0, 0.35, 0.7, 1.0]),
-		PackedColorArray([Color(1, 0.98, 0.9), Color(1, 0.85, 0.5), Color(1, 0.55, 0.2), Color(1, 0.4, 0.1, 0.0)]))
+		PackedColorArray([Color(1, 0.98, 0.75), Color(1, 0.9, 0.45), Color(1, 0.75, 0.2), Color(1, 0.6, 0.1, 0.0)]))
 	p.position = _muzzle_local
 	return p
 
@@ -551,12 +551,12 @@ func _make_flash_flame() -> CPUParticles3D:
 	p.mesh = _make_particle_mesh(0.9)
 	p.one_shot = true
 	p.emitting = false
-	p.amount = 26
+	p.amount = 16
 	p.lifetime = 0.11
 	p.explosiveness = 0.8
 	p.randomness = 0.6
 	p.direction = Vector3(0, 0, -1)
-	p.spread = 16.0
+	p.spread = 14.0
 	p.gravity = Vector3(0, -0.5, 0)
 	p.initial_velocity_min = 5.0
 	p.initial_velocity_max = 11.0
@@ -570,8 +570,8 @@ func _make_flash_flame() -> CPUParticles3D:
 	p.color_ramp = _make_gradient(
 		PackedFloat32Array([0.0, 0.2, 0.45, 0.75, 1.0]),
 		PackedColorArray([
-			Color(1, 0.95, 0.75), Color(1, 0.8, 0.4), Color(1, 0.55, 0.18),
-			Color(0.9, 0.3, 0.08), Color(0.8, 0.2, 0.05, 0.0)]))
+			Color(1, 0.96, 0.7), Color(1, 0.88, 0.42), Color(1, 0.78, 0.28),
+			Color(0.95, 0.65, 0.15), Color(0.85, 0.55, 0.1, 0.0)]))
 	p.position = _muzzle_local + Vector3(0, 0, -0.03)
 	return p
 
@@ -582,12 +582,12 @@ func _make_flash_sparks() -> CPUParticles3D:
 	p.mesh = _make_particle_mesh(0.95)
 	p.one_shot = true
 	p.emitting = false
-	p.amount = 10
+	p.amount = 6
 	p.lifetime = 0.22
 	p.explosiveness = 1.0
 	p.randomness = 0.9
 	p.direction = Vector3(0, 0, -1)
-	p.spread = 80.0
+	p.spread = 55.0
 	p.gravity = Vector3(0, -9, 0)
 	p.initial_velocity_min = 7.0
 	p.initial_velocity_max = 16.0
@@ -599,7 +599,7 @@ func _make_flash_sparks() -> CPUParticles3D:
 	p.angular_velocity_max = 420.0
 	p.color_ramp = _make_gradient(
 		PackedFloat32Array([0.0, 0.5, 1.0]),
-		PackedColorArray([Color(1, 0.95, 0.7), Color(1, 0.7, 0.35), Color(1, 0.5, 0.2, 0.0)]))
+		PackedColorArray([Color(1, 0.95, 0.6), Color(1, 0.8, 0.35), Color(1, 0.65, 0.2, 0.0)]))
 	p.position = _muzzle_local + Vector3(0, 0, -0.04)
 	return p
 

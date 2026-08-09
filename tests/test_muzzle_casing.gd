@@ -41,7 +41,10 @@ func _process(_delta: float) -> bool:
 				and flame.get("mesh").material.blend_mode == BaseMaterial3D.BLEND_MODE_ADD \
 				and pop.get("color_ramp") != null and flame.get("color_ramp") != null and sparks.get("color_ramp") != null \
 				and flame_dir.normalized().dot(Vector3(0, 0, -1)) > 0.99 \
-				and int(flame.get("amount")) > 0 and int(pop.get("amount")) > 0 \
+				and int(pop.get("amount")) == 8 \
+				and int(flame.get("amount")) == 16 \
+				and int(sparks.get("amount")) == 6 \
+				and float(light.get("light_color").g) > 0.9 \
 				and light is OmniLight3D
 			# 生命周期：0.05s 后仍亮（衰减中），再 0.04s 熄灭（总 0.09s > 0.08s）
 			_gun.call("_process", 0.05)
