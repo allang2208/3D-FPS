@@ -287,6 +287,23 @@ static func make_panel_style() -> StyleBoxFlat:
 	sb.content_margin_bottom = SPACING.get("panel_padding", 10)
 	return sb
 
+## 纹理面板（程序化生成深灰磨砂金属底纹，九宫格平铺；纹理：assets/ui/textures/panel_brushed.png）
+static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
+	var sb := StyleBoxTexture.new()
+	sb.texture = load("res://assets/ui/textures/panel_brushed.png")
+	var m := 28
+	sb.texture_margin_left = m
+	sb.texture_margin_right = m
+	sb.texture_margin_top = m
+	sb.texture_margin_bottom = m
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.content_margin_left = SPACING.get("panel_padding", 10)
+	sb.content_margin_right = SPACING.get("panel_padding", 10)
+	sb.content_margin_top = SPACING.get("panel_padding", 10)
+	sb.content_margin_bottom = SPACING.get("panel_padding", 10)
+	return sb
+
 ## 给 Button 应用三态样式 + 字号
 static func style_button(btn: Button, font_size_key := "body") -> void:
 	var s := make_button_style()
