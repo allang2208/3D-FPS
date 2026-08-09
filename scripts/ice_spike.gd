@@ -75,24 +75,24 @@ func _spawn_spikes() -> void:
 
 func _make_spike(i: int, base: Vector3, amp: float, freq_a: float, freq_b: float, freq_c: float) -> Dictionary:
 	var node := Node3D.new()
-	# 本体：原版贴图 billboard（唯一视觉，避免贴图/模型重复）——随机 4 张预旋转横向贴图
-	var tex_path: String = ICE_TEXES[i % ICE_TEXES.size()]
-	if ResourceLoader.exists(tex_path):
-		var spike_tex := Sprite3D.new()
-		spike_tex.texture = load(tex_path)
-		spike_tex.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-		spike_tex.pixel_size = 0.0025  # 128px → 0.32m 基础尺寸
-		spike_tex.scale = Vector3(1.0, 1.0, 1.0)
-		var tm := StandardMaterial3D.new()
-		tm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		tm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		tm.albedo_texture = load(tex_path)
-		tm.albedo_color = Color(0.85, 0.96, 1.0, 1.0)
-		tm.emission_enabled = true
-		tm.emission = Color(0.5, 0.8, 1.0)
-		tm.emission_energy_multiplier = 1.4
-		spike_tex.material_override = tm
-		node.add_child(spike_tex)
+	# 本体：3D 冰锥（锥体横置，尖端朝 -Z）——尖端可随 node 直对瞄准方向
+	var mi := MeshInstance3D.new()
+	var cyl := CylinderMesh.new()
+	cyl.top_radius = 0.015
+	cyl.bottom_radius = 0.04
+	cyl.height = 0.3
+	cyl.radial_segments = 8
+	mi.rotation_degrees = Vector3(-90, 0, 0)  # 横置：尖端（细端）朝 -Z（look_at 方向）
+	var cmat := StandardMaterial3D.new()
+	cmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	cmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	cmat.albedo_color = Color(0.75, 0.92, 1.0, 0.92)
+	cmat.emission_enabled = true
+	cmat.emission = Color(0.5, 0.8, 1.0)
+	cmat.emission_energy_multiplier = 1.5
+	cyl.material = cmat
+	mi.mesh = cyl
+	node.add_child(mi)
 	# 冰蓝光晕（软点 ADD，让冰锥有"法光"感）
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
@@ -147,16 +147,14 @@ func launch(dir: Vector3) -> void:
 		if c is Camera3D:
 			cam = c
 			break
-	var aim_point := _caster.global_position + dir * 5.0
-	if cam != null:
-		aim_point = cam.global_position + dir * 5.0
-	aim_point.y = 0.8
+	# 发射：直接沿瞄准方向平行投掷（不汇聚到一点）
+	var fire_dir := dir.normalized()
 	for s in _spikes:
 		var p: Vector3 = s.node.global_position
-		p.y = aim_point.y
+		p.y = 0.8  # 对齐躯干高度，避免从敌人头顶掠过
 		s.node.global_position = p
 		s.launched = true
-		s.dir = (aim_point - p).normalized()
+		s.dir = fire_dir
 		s.traveled = 0.0
 		s.trail.emitting = true
 
