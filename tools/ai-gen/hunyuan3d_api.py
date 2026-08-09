@@ -345,10 +345,10 @@ def main() -> int:
     ts.add_argument("--model", default="hy-3d-3.1", choices=["hy-3d-3.0", "hy-3d-3.1", "hy-3d-express"])
     ts.add_argument("--prompt", default=None)
     ts.add_argument("--image", default=None)
-    ts.add_argument("--generate-type", default=None, help="normal/lowpoly/geometry/sketch")
+    ts.add_argument("--generate-type", default=None, help="Normal/LowPoly/Geometry/Sketch")
     ts.add_argument("--enable-pbr", action="store_true")
     ts.add_argument("--face-count", type=int, default=None)
-    ts.add_argument("--result-format", default=None, help="obj/glb/fbx/stl/usdz")
+    ts.add_argument("--result-format", default=None, help="OBJ/GLB/STL/FBX/USDZ（大写）")
     ts.set_defaults(func=cmd_tokenhub_submit)
 
     tq = sub.add_parser("tokenhub-query")
