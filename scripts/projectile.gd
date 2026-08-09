@@ -8,6 +8,7 @@ signal hit_enemy
 const MAX_DISTANCE := 150.0
 const MAX_LIFETIME := 2.0
 const HIT_MASK := 3  # 1 墙体 + 2 敌人
+const ImpactFxScript := preload("res://scripts/impact_fx.gd")
 
 var _dir := Vector3.FORWARD
 var _speed := 90.0
@@ -61,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	if hit:
 		global_position = hit.position
 		var root: Node = _scene_root if _scene_root != null else get_tree().current_scene
-		ImpactFx.spawn(root, hit.position, hit.normal)
+		ImpactFxScript.spawn(root, hit.position, hit.normal)
 		var collider = hit.collider
 		if collider != null and collider.has_method("take_damage"):
 			collider.take_damage(_damage)

@@ -15,6 +15,8 @@ const BASE_SPREAD := 0.0025
 const BLOOM_PER_SHOT := 0.0012
 const MAX_SPREAD := 0.018
 
+const ProjectileScript := preload("res://scripts/projectile.gd")
+
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
 signal reloading
@@ -105,7 +107,7 @@ func _shoot() -> void:
 	var scene_root: Node = get_tree().current_scene
 	if scene_root == null:
 		scene_root = get_tree().root
-	var proj := Projectile.fire(scene_root, origin, dir, BULLET_SPEED, DAMAGE, BULLET_GRAVITY)
+	var proj = ProjectileScript.fire(scene_root, origin, dir, BULLET_SPEED, DAMAGE, BULLET_GRAVITY)
 	proj.hit_enemy.connect(_on_projectile_hit)
 
 func _on_projectile_hit() -> void:

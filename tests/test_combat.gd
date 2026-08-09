@@ -2,6 +2,9 @@ extends SceneTree
 ## 无头冒烟：三只敌人存在、黑狼 AI 会移动、射击扣血、接触伤害让玩家掉血
 ## 运行：& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_combat.gd
 
+const ProjectileScript := preload("res://scripts/projectile.gd")
+const ImpactFxScript := preload("res://scripts/impact_fx.gd")
+
 var _frames := 0
 var _main: Node
 var _wolf: Node3D
@@ -39,8 +42,8 @@ func _process(delta: float) -> bool:
 	if _frames == 5:
 		# 验证弹道系统：飞行子弹命中黑狼（扣血），火花在生命周期后自毁
 		var before := root.get_child_count()
-		_proj = Projectile.fire(root, Vector3(0, 0.8, -2), Vector3(0, 0, 1), 90.0, 25, 0.0)
-		ImpactFx.spawn(root, Vector3(0, 0.8, -4), Vector3(0, 1, 0))
+		_proj = ProjectileScript.fire(root, Vector3(0, 0.8, -2), Vector3(0, 0, 1), 90.0, 25, 0.0)
+		ImpactFxScript.spawn(root, Vector3(0, 0.8, -4), Vector3(0, 1, 0))
 		_impact = root.get_child(before + 1)
 	if _frames == 30:
 		var proj_result: bool = not is_instance_valid(_proj) and _wolf.get("_hp") == 60
