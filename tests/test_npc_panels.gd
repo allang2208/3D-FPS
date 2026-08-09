@@ -104,6 +104,15 @@ func _run() -> void:
 	craft._cancel_edit()
 	var layout_cancel_ok: bool = craft._layout != null and not bool(craft._layout.editing)
 	_check("craft_layout_edit_cancel", layout_edit_ok and layout_cancel_ok)
+	# 取消编辑不得污染内存布局（craft_layout 操作的是深拷贝）
+	var before_x := float(NpcConfig.get_craft_config("weapon9")["slots"][0]["x"])
+	craft._enter_edit()
+	var editable_slots: Array = craft._layout.collect_slots()
+	editable_slots[0]["x"] = 0.99
+	craft._cancel_edit()
+	var after_x := float(NpcConfig.get_craft_config("weapon9")["slots"][0]["x"])
+	_check("craft_layout_no_pollute", absf(after_x - before_x) < 0.001,
+		"before=%f after=%f" % [before_x, after_x])
 	craft._return_item()
 	craft.close()
 

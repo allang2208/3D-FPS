@@ -18,6 +18,7 @@ var body: VBoxContainer
 var close_btn: Button
 var economy: RefCounted
 var _backpack
+var _tooltip: PanelContainer
 
 var _open := false
 var _was_captured := false
@@ -25,6 +26,10 @@ var _msg_timer := 0.0
 var _pending_title := ""
 
 func _ready() -> void:
+	_tooltip = load("res://ui/item_tooltip.gd").new()
+	_tooltip.name = "ItemTooltip"
+	_tooltip.visible = false
+	add_child(_tooltip)
 	_build()
 	hide()
 
@@ -33,6 +38,8 @@ func _process(delta: float) -> void:
 		_msg_timer = maxf(0.0, _msg_timer - delta)
 		if _msg_timer <= 0.0:
 			message_label.text = ""
+	if _tooltip != null and _tooltip.visible:
+		_tooltip.position = get_viewport().get_mouse_position() + Vector2(16, 16)
 
 func _build() -> void:
 	panel = Panel.new()
@@ -182,7 +189,20 @@ func _make_item_cell(it: Dictionary, min_size := Vector2(120, 52)) -> Node:
 	var script: GDScript = load("res://ui/item_cell.gd")
 	var c = script.new()
 	c.setup(it, min_size)
+	c.hovered.connect(func(item: Dictionary) -> void: _show_tooltip(item))
+	c.unhovered.connect(func() -> void: _hide_tooltip())
 	return c
+
+func _show_tooltip(item: Dictionary) -> void:
+	if _tooltip == null or item.is_empty():
+		return
+	_tooltip.render(item)
+	_tooltip.visible = true
+	_tooltip.position = get_viewport().get_mouse_position() + Vector2(16, 16)
+
+func _hide_tooltip() -> void:
+	if _tooltip != null and not _tooltip.is_pinned():
+		_tooltip.visible = false
 
 ## 拖放接收槽（旧版 drag-drop-manager 迁移）
 func _make_drop_slot() -> Node:

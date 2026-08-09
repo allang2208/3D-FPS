@@ -149,7 +149,7 @@ func _rebuild_mod_grid() -> void:
 	if cfg.is_empty():
 		_layout.setup({}, {})
 		return
-	_layout.setup(cfg, item.get("_craftData", {}))
+	_layout.setup(cfg.duplicate(true), item.get("_craftData", {}))
 
 func _find_option(cfg: Dictionary, slot_id: String, mod_id: String) -> Dictionary:
 	var opts: Array = cfg.get("options", {}).get(slot_id, [])
@@ -191,7 +191,7 @@ func _reset_layout() -> void:
 		return
 	var item: Dictionary = _equipped["item"]
 	NpcConfig.reset_craft_layout(String(item.get("weaponId", "")))
-	_layout.setup(NpcConfig.craft_config_for(item), item.get("_craftData", {}))
+	_layout.setup(NpcConfig.craft_config_for(item).duplicate(true), item.get("_craftData", {}))
 	show_message("布局已重置为出厂默认")
 
 func _exit_edit() -> void:

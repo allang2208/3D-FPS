@@ -22,6 +22,8 @@ var _glow_t := 0.0
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	if not is_open():
+		return
 	if _circle_icon == null:
 		return
 	_glow_t += delta

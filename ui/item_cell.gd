@@ -6,6 +6,7 @@ const Style := preload("res://ui/style.gd")
 
 signal pressed(cell: Panel)
 signal hovered(item: Dictionary)
+signal unhovered
 signal drop_requested(data: Dictionary)
 
 var item := {}
@@ -22,6 +23,7 @@ var _price_lbl: Label
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_entered.connect(func() -> void: hovered.emit(item))
+	mouse_exited.connect(func() -> void: unhovered.emit())
 	gui_input.connect(_on_gui_input)
 
 func setup(it: Dictionary, min_size := Vector2(120, 52)) -> void:
@@ -103,7 +105,7 @@ func _build() -> void:
 		add_child(_stack_lbl)
 
 	# 价格角标（商店/出售格，旧版 .shop-buy-cell-price 右上角）
-	var price := int(item.get("_price", 0))
+	var price := int(item.get("_price", item.get("price", 0)))
 	if price > 0:
 		_price_lbl = Label.new()
 		_price_lbl.text = "💰%d" % price
