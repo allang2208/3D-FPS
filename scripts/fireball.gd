@@ -305,82 +305,110 @@ func _aoe_damage(pos: Vector3) -> void:
 				c.take_damage(dmg)
 
 func _shockwave_ring(pos: Vector3) -> void:
+	# 双层冲击波：白热内环 + 橙红外环，扩散节奏略错开
+	_ring_layer(pos, _radius, 1.0, Color(1.0, 0.9, 0.55, 0.9), 0.42)
+	_ring_layer(pos, _radius, 1.18, Color(1.0, 0.42, 0.1, 0.7), 0.5)
+
+func _ring_layer(pos: Vector3, radius: float, scale_mul: float, color: Color, dur: float) -> void:
 	var ring := MeshInstance3D.new()
 	var torus := TorusMesh.new()
-	torus.inner_radius = _radius * 0.92
-	torus.outer_radius = _radius
-	torus.rings = 16
+	torus.inner_radius = radius * 0.92 * scale_mul
+	torus.outer_radius = radius * scale_mul
+	torus.rings = 20
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	mat.albedo_color = Color(1.0, 0.44, 0.13, 0.9)
+	mat.albedo_color = color
 	torus.material = mat
 	ring.mesh = torus
 	ring.rotation_degrees = Vector3(90, 0, 0)
 	ring.position = pos
 	ring.scale = Vector3.ONE * 0.01
 	_add_to_root(ring)
-	# 0→半径扩散 + 闪烁（0.55+0.45*sin(t*π*8)）+ 淡出（原版 fireGroundShockwave 420ms cubic easeOut）
+	# 0→半径扩散 + 闪烁 + 淡出（原版 fireGroundShockwave cubic easeOut）
 	var tw := ring.create_tween()
 	tw.tween_method(func(t: float) -> void:
 		ring.scale = Vector3.ONE * maxf(0.01, t)
 		var flick: float = 0.55 + 0.45 * sin(t * TAU * 4.0)
-		mat.albedo_color.a = (1.0 - t) * 0.9 * flick
-		, 0.0, 1.0, 0.42).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		mat.albedo_color.a = (1.0 - t) * color.a * flick
+		, 0.0, 1.0, dur).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_callback(func() -> void: ring.queue_free())
 
 func _flame_burst(pos: Vector3) -> void:
+	# 参考火球三层火焰结构：白热核心爆闪 + 黄焰主体 + 橙红外焰 + 四溅火星
+	# 白热核心（MIX，快速爆闪）
+	_boom_layer(pos, 24, 0.5, 0.3, 0.6, 1.5, 4.0, 0.35,
+		[Color(1.0, 1.0, 1.0, 0.95), Color(1.0, 0.92, 0.6, 0.7), Color(1.0, 0.7, 0.3, 0.0)],
+		[0.0, 0.4, 1.0], Vector3(0, -0.5, 0), false, 180.0, false)
+	# 黄焰主体（MIX，大扩散 + 翻涌）
+	_boom_layer(pos, 32, 0.6, 0.45, 0.9, 1.2, 3.5, 0.5,
+		[Color(1.0, 0.92, 0.5, 0.85), Color(1.0, 0.75, 0.28, 0.6), Color(1.0, 0.45, 0.1, 0.0)],
+		[0.0, 0.45, 1.0], Vector3(0, -0.8, 0), false, 180.0, true)
+	# 橙红外焰（MIX，最大最淡）
+	_boom_layer(pos, 26, 0.6, 0.5, 1.0, 0.9, 2.8, 0.65,
+		[Color(1.0, 0.55, 0.14, 0.6), Color(1.0, 0.32, 0.06, 0.15), Color(1.0, 0.25, 0.04, 0.0)],
+		[0.0, 0.5, 1.0], Vector3(0, -0.5, 0), false, 180.0, false)
+	# 四溅火星（ADD，高速带重力下坠）
+	_boom_layer(pos, 18, 0.3, 0.08, 0.18, 3.0, 8.0, 0.7,
+		[Color(1.0, 0.85, 0.4, 1.0), Color(1.0, 0.5, 0.15, 0.6), Color(1.0, 0.3, 0.05, 0.0)],
+		[0.0, 0.5, 1.0], Vector3(0, -6.0, 0), true, 180.0, false)
+
+func _boom_layer(pos: Vector3, amount: int, quad: float, s_min: float, s_max: float,
+		v_min: float, v_max: float, lifetime: float, colors: Array, offsets: Array,
+		gravity: Vector3, additive: bool, spread: float, turbulence: bool) -> void:
 	var boom := GPUParticles3D.new()
 	boom.one_shot = true
 	boom.emitting = true
-	boom.amount = 26
-	boom.lifetime = 0.5
+	boom.amount = amount
+	boom.lifetime = lifetime
 	boom.local_coords = false
 	boom.position = pos
-	boom.draw_pass_1 = _dot_pass(0.3, true)
+	boom.draw_pass_1 = _dot_pass(quad, additive)
 	var pm := ParticleProcessMaterial.new()
 	pm.direction = Vector3.ZERO
-	pm.spread = 180.0
-	pm.initial_velocity_min = 1.7
-	pm.initial_velocity_max = 5.9
-	pm.gravity = Vector3(0, -1.0, 0)
-	pm.scale_min = 0.12
-	pm.scale_max = 0.3
-	pm.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.9),
-		Color(1.0, 0.82, 0.48, 0.8),
-		Color(1.0, 0.53, 0.19, 0.6),
-		Color(1.0, 0.33, 0.06, 0.0),
-	], [0.0, 0.35, 0.7, 1.0])
+	pm.spread = spread
+	pm.initial_velocity_min = v_min
+	pm.initial_velocity_max = v_max
+	pm.gravity = gravity
+	pm.scale_min = s_min
+	pm.scale_max = s_max
+	pm.scale_curve = _grow_texture(0.5, 1.0)
+	if turbulence:
+		pm.turbulence_enabled = true
+		pm.turbulence_noise_strength = 0.8
+		pm.turbulence_noise_scale = 4.0
+		pm.turbulence_noise_speed = Vector3(2.0, 2.0, 2.0)
+	pm.color_ramp = _ramp(colors, offsets)
 	boom.process_material = pm
 	_add_to_root(boom)
-	_delayed_free(boom, 0.8)
+	_delayed_free(boom, lifetime + 0.3)
 
 func _smoke(pos: Vector3) -> void:
 	var smoke := GPUParticles3D.new()
 	smoke.one_shot = true
 	smoke.emitting = true
-	smoke.amount = 8
-	smoke.lifetime = 1.0
+	smoke.amount = 10
+	smoke.lifetime = 1.1
 	smoke.local_coords = false
 	smoke.position = pos
 	smoke.draw_pass_1 = _dot_pass(0.4, false)
 	var pm := ParticleProcessMaterial.new()
 	pm.direction = Vector3.ZERO
 	pm.spread = 180.0
-	pm.initial_velocity_min = 0.3
-	pm.initial_velocity_max = 1.0
-	pm.gravity = Vector3(0, 0.4, 0)
-	pm.scale_min = 0.2
-	pm.scale_max = 0.35
+	pm.initial_velocity_min = 0.35
+	pm.initial_velocity_max = 1.2
+	pm.gravity = Vector3(0, 0.5, 0)
+	pm.scale_min = 0.25
+	pm.scale_max = 0.45
+	pm.scale_curve = _grow_texture(0.6, 1.6)
 	pm.color_ramp = _ramp([
-		Color(0.33, 0.33, 0.33, 0.35),
+		Color(0.35, 0.35, 0.35, 0.32),
 		Color(0.33, 0.33, 0.33, 0.0),
 	], [0.0, 1.0])
 	smoke.process_material = pm
 	_add_to_root(smoke)
-	_delayed_free(smoke, 1.3)
+	_delayed_free(smoke, 1.5)
 
 func _play_hit_sound(pos: Vector3) -> void:
 	if not ResourceLoader.exists(HIT_SOUND):
