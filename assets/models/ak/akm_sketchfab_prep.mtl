@@ -1,0 +1,18 @@
+newmtl akm
+Kd 1 1 1
+Ks 0.1 0.1 0.1
+Ns 64
+map_Kd akm_sketchfab_tex/akm_basecolor.png
+map_Bump akm_sketchfab_tex/akm_normal.png
+map_Pm akm_sketchfab_tex/akm_metallic.png
+map_Ps akm_sketchfab_tex/akm_roughness.png
+map_Ka akm_sketchfab_tex/akm_ao.png
+newmtl magazine
+Kd 1 1 1
+Ks 0.1 0.1 0.1
+Ns 64
+map_Kd akm_sketchfab_tex/mag_basecolor.png
+map_Bump akm_sketchfab_tex/mag_normal.png
+map_Pm akm_sketchfab_tex/mag_metallic.png
+map_Ps akm_sketchfab_tex/mag_roughness.png
+map_Ka akm_sketchfab_tex/mag_ao.png

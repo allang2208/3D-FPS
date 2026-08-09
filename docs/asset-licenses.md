@@ -14,10 +14,13 @@
 - 来源：Sketchfab https://sketchfab.com/3d-models/akm-lowpoly-game-ready-b09ba6a7d56246adaff76ad091e4dc72
 - 作者：sami uddin（@rameezuddin14）
 - 许可证：CC Attribution（CC-BY），需署名
-- 原始下载：21.9k tris / 11.3k verts / 4096×4096 PBR 贴图（本仓库仅收到 AKM.obj，
-  无 MTL/贴图；由 tools/ai-gen/prep_akm_obj.py 预处理为 X 轴 + 顶点色 OBJ，按部位上色）
-- 预处理：剔除旁置子弹道具、Z→X 转正、矫正 6° 倾斜、归一化 1m、木/钢/弹匣上色
-- 已通过 test_ads_calibration 全绿；若补上原 PBR 贴图可升级打磨分
+- 原始下载：21.9k tris / 11.3k verts / 4096×4096 PBR 贴图（Textures/PBR 组，
+  TGA 转 PNG 2048 存于 assets/models/ak/akm_sketchfab_tex/）
+- 预处理（tools/ai-gen/prep_akm_obj.py）：剔除旁置子弹道具、Z→X 转正、矫正 6° 倾斜、
+  归一化 1m、保留 UV 并生成 MTL 引用 PBR 贴图
+- PBR 补丁（tests/export_pbr_mesh.gd）：Godot OBJ 导入只吃 albedo/normal，
+  金属/粗糙/AO 按命名约定补入并导出 akm_sketchfab_pbr.tres（游戏引用此资源）
+- 已通过 test_ads_calibration 全绿；GLM 评审：PBR 全通道接入后打磨 6/10、造型 7/10
 
 ## 备选
 
