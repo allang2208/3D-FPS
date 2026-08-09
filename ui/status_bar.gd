@@ -149,6 +149,9 @@ func _sync_top_bar() -> void:
 		var sm := int(st.call("max_stamina"))
 		if _stamina_now != int(st.get("stamina")) or _stamina_max != sm:
 			set_stamina(int(st.get("stamina")), sm)
+		var mm := int(st.call("max_mp"))
+		if _mp_now != int(st.get("mp")) or _mp_max != mm:
+			set_mp(int(st.get("mp")), mm)
 		var em := int(st.call("max_exp"))
 		if _exp_now != int(st.get("exp")) or _exp_max != em:
 			set_exp(int(st.get("exp")), em)
