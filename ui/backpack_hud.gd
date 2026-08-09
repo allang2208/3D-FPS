@@ -1035,8 +1035,8 @@ func _build_panel() -> void:
 	_panel = PanelContainer.new()
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	# 主面板统一纹理底（与设置面板一致：深灰磨砂金属）
-	_panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
+	# 主面板：透明底 + 细框投影，毛玻璃完全由内部 Blur 层提供
+	_panel.add_theme_stylebox_override("panel", Style.make_glass_panel_style(-1, 0.0))
 	_panel_root.add_child(_panel)
 	var content := Control.new()
 	content.name = "Content"
@@ -1050,6 +1050,14 @@ func _build_panel() -> void:
 	mat.shader = PANEL_BLUR_SHADER
 	blur.material = mat
 	content.add_child(blur)
+	var tex_layer := Panel.new()
+	tex_layer.name = "GlassTex"
+	tex_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	tex_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var tex_style := Style.make_texture_panel_style()
+	tex_style.modulate_color = Color(Style.THEME_WHITE, 0.06)
+	tex_layer.add_theme_stylebox_override("panel", tex_style)
+	content.add_child(tex_layer)
 	var margin := MarginContainer.new()
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	margin.add_theme_constant_override("margin_left", PANEL_MARGIN)

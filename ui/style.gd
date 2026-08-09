@@ -322,6 +322,7 @@ static func make_panel_style() -> StyleBoxFlat:
 static func make_inner_panel_style() -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
 	sb.texture = load("res://assets/ui/textures/panel_inner.png")
+	sb.modulate_color = Color(1, 1, 1, 0.72)
 	var m := 12
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
@@ -333,6 +334,22 @@ static func make_inner_panel_style() -> StyleBoxTexture:
 	sb.content_margin_right = 10
 	sb.content_margin_top = 8
 	sb.content_margin_bottom = 8
+	return sb
+
+## 半透明毛玻璃主面板：深灰半透明底 + 1px 细框 + 投影；毛玻璃质感由面板背后 blur 层提供
+static func make_glass_panel_style(radius := -1, bg_alpha := 0.30) -> StyleBox:
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(THEME_BG, bg_alpha)
+	sb.border_color = Color(THEME_GRAY_MID, 0.65)
+	sb.set_border_width_all(1)
+	sb.set_corner_radius_all(RADIUS_MD if radius < 0 else radius)
+	sb.shadow_color = Color(0, 0, 0, 0.45)
+	sb.shadow_size = 16
+	sb.shadow_offset = Vector2(0, 4)
+	sb.content_margin_left = SPACING.get("panel_padding", 10)
+	sb.content_margin_right = SPACING.get("panel_padding", 10)
+	sb.content_margin_top = SPACING.get("panel_padding", 10)
+	sb.content_margin_bottom = SPACING.get("panel_padding", 10)
 	return sb
 
 ## 格子底纹理（背包/快捷栏/装备槽共用）：textures/panel_slot.png，modulate 控制状态色
@@ -372,7 +389,8 @@ static func make_tab_active_style() -> StyleBoxTexture:
 
 static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_brushed.png")
+	sb.texture = load("res://assets/ui/textures/panel_main.png")
+	sb.modulate_color = Color(1, 1, 1, 1)
 	var m := 28
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m

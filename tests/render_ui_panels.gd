@@ -59,6 +59,18 @@ func _process(_delta: float) -> bool:
 		bg.color = Color(0.10, 0.10, 0.11)
 		bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 		ui_root.add_child(bg)
+		# 彩色背景块：让毛玻璃的模糊/透光度在截图里可见
+		for spec in [
+				[Vector2(0, 0), Vector2(520, 420), Color(0.90, 0.30, 0.25)],
+				[Vector2(300, 160), Vector2(760, 580), Color(0.25, 0.55, 0.92)],
+				[Vector2(1180, 620), Vector2(1760, 1020), Color(0.32, 0.80, 0.42)],
+				[Vector2(880, 240), Vector2(1440, 660), Color(0.95, 0.75, 0.25)],
+				[Vector2(1500, 60), Vector2(1900, 420), Color(0.80, 0.45, 0.85)]]:
+			var cr := ColorRect.new()
+			cr.position = spec[0]
+			cr.size = spec[1] - spec[0]
+			cr.color = spec[2]
+			ui_root.add_child(cr)
 
 		_hud = load("res://ui/backpack_hud.gd").new()
 		ui_root.add_child(_hud)

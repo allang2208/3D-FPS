@@ -32,7 +32,7 @@ func _build() -> void:
 	add_child(center)
 
 	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
+	panel.add_theme_stylebox_override("panel", Style.make_glass_panel_style())
 	panel.custom_minimum_size = Vector2(620, 0)
 	center.add_child(panel)
 

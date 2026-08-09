@@ -3,7 +3,7 @@ shader_type canvas_item;
 // 用法：ColorRect 铺满面板，挂本 shader，颜色走 COLOR 输出（半透明暗色 + 高斯模糊采样）
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_linear;
-uniform float radius : hint_range(0.0, 32.0) = 7.0;
+uniform float radius : hint_range(0.0, 32.0) = 9.0;
 
 const int TAPS = 4;
 
@@ -21,6 +21,6 @@ void fragment() {
 		}
 	}
 	vec3 blurred = acc / wsum;
-	vec3 tinted = mix(blurred, vec3(0.025, 0.03, 0.045), 0.42);
-	COLOR = vec4(tinted, 0.86);
+	vec3 tinted = mix(blurred, vec3(0.02, 0.025, 0.04), 0.18);
+	COLOR = vec4(tinted, 0.52);
 }
