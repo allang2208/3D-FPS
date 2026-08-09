@@ -61,31 +61,19 @@ func configure(origin: Vector3, dir: Vector3, level: int, matk: int, intt: int, 
 	position = origin
 
 func build_visual() -> void:
-	# 本体（D 方案）：程序化火焰 shader 球体
-	var sphere := MeshInstance3D.new()
-	var sm := SphereMesh.new()
-	sm.radius = 0.12
-	sm.height = 0.24
-	sm.radial_segments = 24
-	sm.rings = 16
-	var shader: Shader = load(FIREBALL_SHADER)
-	var smat := ShaderMaterial.new()
-	smat.shader = shader
-	sm.material = smat
-	sphere.mesh = sm
-	add_child(sphere)
-	# 柔和光晕（软边圆点贴图 + ADD，遮住贴图边缘像素化）
+	# 不渲染球体模型（命中判定走射线查询，与视觉无关）——纯火焰特效承担全部视觉
+	# 柔和光晕（软边圆点贴图 + ADD，作为火球整体光感）
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	glow.pixel_size = 0.0025
-	glow.scale = Vector3(1.8, 1.8, 1.0)
+	glow.scale = Vector3(2.2, 2.2, 1.0)
 	var glow_mat := StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	glow_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	glow_mat.albedo_texture = _dot_tex()
-	glow_mat.albedo_color = Color(1.0, 0.55, 0.2, 0.15)
+	glow_mat.albedo_color = Color(1.0, 0.6, 0.25, 0.22)
 	glow.material_override = glow_mat
 	add_child(glow)
 	# 橙色点光（火球照亮周围）
@@ -98,7 +86,7 @@ func build_visual() -> void:
 	var flame_white := GPUParticles3D.new()
 	flame_white.emitting = true
 	flame_white.one_shot = false
-	flame_white.amount = 10
+	flame_white.amount = 14
 	flame_white.lifetime = 0.45
 	flame_white.local_coords = false
 	flame_white.draw_pass_1 = _dot_pass(0.5, false)
@@ -114,8 +102,8 @@ func build_visual() -> void:
 	wp.scale_max = 0.2
 	wp.scale_curve = _grow_texture(0.5, 1.0)
 	wp.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.5),
-		Color(1.0, 0.96, 0.8, 0.4),
+		Color(1.0, 1.0, 1.0, 0.55),
+		Color(1.0, 0.96, 0.8, 0.45),
 		Color(1.0, 0.7, 0.3, 0.0),
 	], [0.0, 0.3, 1.0])
 	flame_white.process_material = wp
