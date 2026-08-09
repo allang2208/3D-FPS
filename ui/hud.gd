@@ -15,9 +15,9 @@ var player_status: RefCounted
 var skillbar
 var skills_db: RefCounted
 var skill_progress: RefCounted
+var status_bar: CanvasLayer
+var backpack_hud: Control
 
-var _status_bar: CanvasLayer
-var _backpack_hud: Control
 var _built := false
 var _last_scene: Node
 var _bound_player: Node
@@ -27,6 +27,18 @@ var _bound_gun: Node
 func _process(_delta: float) -> void:
 	var scene := get_tree().current_scene
 	if scene == null or scene == _last_scene:
+		return
+	_last_scene = scene
+	if scene.find_child("BackpackHud", true, false) != null:
+		return
+	_ensure_built()
+	_bind_scene(scene)
+
+
+## 场景可在 _ready 中同步调用：立即为当前场景构建/接线（未就绪则交给 _process 兜底）
+func ensure_for_current_scene() -> void:
+	var scene := get_tree().current_scene
+	if scene == null:
 		return
 	_last_scene = scene
 	if scene.find_child("BackpackHud", true, false) != null:
@@ -56,6 +68,14 @@ func _ensure_built() -> void:
 			def["tier"] = 1
 			def["two_stage"] = id in ["fireball", "iceSpike"]
 			sb_skills[id] = def
+	for id in ["stormDomain", "thunderLance", "holyLight", "iceWall", "meteor", "flameArmor", "droneSkill"]:
+		if skills_db.has_skill(id):
+			var sd: Dictionary = skills_db.get_def(id).duplicate(true)
+			var sd_eff: Dictionary = skills_db.effect(id, player_status.level)
+			sd["cooldown_s"] = sd_eff.cooldown_s
+			sd["mp_cost"] = sd_eff.mp_cost
+			sd["tier"] = 1
+			sb_skills[id] = sd
 	skillbar.setup(sb_skills)
 	skillbar.assign(0, "fireball")
 	skillbar.assign(1, "iceSpike")
@@ -63,24 +83,34 @@ func _ensure_built() -> void:
 	skillbar.assign(3, "blizzard")
 	for id in ["rusty_sword", "g18_pistol", "small_shield", "lunar_helmet", "ring_oracle"]:
 		backpack.add_item(id, 1)
+	# NPC 面板测试物资（商店/强化/改造/附魔/祭坛），与旧 main 种子一致
+	backpack.add_item("enhancement_stone", 3)
+	backpack.add_item("reforge_ticket", 2)
+	backpack.add_item("magic_dust", 150)
+	backpack.add_item("enchant_scroll_heavy", 1)
+	backpack.add_item("enchant_scroll_sharp", 1)
+	backpack.add_item("enchant_scroll_tarantula", 1)
+	backpack.add_item("enchant_scroll_skeleton", 1)
+	backpack.add_item("tribute_common", 4)
+	backpack.add_item("tribute_uncommon", 2)
 	for i in backpack.slots.size():
 		if backpack.slots[i] != null and String(backpack.slots[i].get("id", "")) == "rusty_sword":
 			equipment.equip_from_backpack(i)
 			break
 	skill_progress = load("res://ui/skill_progress.gd").new(skills_db)
-	_status_bar = CanvasLayer.new()
-	_status_bar.name = "StatusBar"
-	_status_bar.set_script(load("res://ui/status_bar.gd"))
-	add_child(_status_bar)
-	_status_bar.set_weapon_name("AK-74")
-	_backpack_hud = load("res://ui/backpack_hud.gd").new()
-	_backpack_hud.name = "BackpackHud"
-	_backpack_hud.player_healed.connect(_on_hud_healed)
-	_backpack_hud.skill_triggered.connect(func(id: String, phase: String) -> void:
+	status_bar = CanvasLayer.new()
+	status_bar.name = "StatusBar"
+	status_bar.set_script(load("res://ui/status_bar.gd"))
+	add_child(status_bar)
+	status_bar.set_weapon_name("AK-74")
+	backpack_hud = load("res://ui/backpack_hud.gd").new()
+	backpack_hud.name = "BackpackHud"
+	backpack_hud.player_healed.connect(_on_hud_healed)
+	backpack_hud.skill_triggered.connect(func(id: String, phase: String) -> void:
 		skill_triggered.emit(id, phase))
-	_status_bar.add_child(_backpack_hud)
-	_backpack_hud.setup(backpack, equipment, player_status, skillbar)
-	var skill_page: Node = _backpack_hud.get_node_or_null("SkillPage")
+	status_bar.add_child(backpack_hud)
+	backpack_hud.setup(backpack, equipment, player_status, skillbar)
+	var skill_page: Node = backpack_hud.get_node_or_null("SkillPage")
 	if skill_page != null and skill_page.has_method("set_progress"):
 		skill_page.set_progress(skill_progress)
 		if skill_page.has_method("set_db"):
@@ -122,21 +152,23 @@ func _bind_scene(scene: Node) -> void:
 		gun.empty.connect(_on_gun_empty)
 		gun.hit.connect(_on_gun_hit)
 		gun.ads_changed.connect(_on_ads_changed)
+		# 同步初始弹药（gun._ready 的首枪发生在绑定前，这里补一次显示）
+		_on_ammo(int(gun.get("ammo")), int(gun.get("reserve")))
 
 
 ## ---- 信号转发 / HUD 更新 ----
 
 func _on_player_damaged(hp: int) -> void:
-	if _status_bar != null:
+	if status_bar != null:
 		var m := int(_bound_player.get("max_hp")) if _bound_player != null else 100
-		_status_bar.set_hp(hp, m)
+		status_bar.set_hp(hp, m)
 	if player_status != null:
 		player_status.set_hp(hp)
 
 
 func _on_player_died() -> void:
-	if _status_bar != null:
-		_status_bar.show_death()
+	if status_bar != null:
+		status_bar.show_death()
 
 
 func _on_hud_healed(hp: int) -> void:
@@ -146,25 +178,25 @@ func _on_hud_healed(hp: int) -> void:
 
 
 func _on_ammo(ammo: int, reserve: int) -> void:
-	if _status_bar != null:
-		_status_bar.set_ammo(ammo, reserve)
+	if status_bar != null:
+		status_bar.set_ammo(ammo, reserve)
 
 
 func _on_gun_reloading() -> void:
-	if _status_bar != null:
-		_status_bar.show_status("换弹中…", 1.5)
+	if status_bar != null:
+		status_bar.show_status("换弹中…", 1.5)
 
 
 func _on_gun_empty() -> void:
-	if _status_bar != null:
-		_status_bar.show_status("没子弹 · 按 R 换弹", 1.2)
+	if status_bar != null:
+		status_bar.show_status("没子弹 · 按 R 换弹", 1.2)
 
 
 func _on_gun_hit() -> void:
-	if _status_bar != null:
-		_status_bar.hitmark()
+	if status_bar != null:
+		status_bar.hitmark()
 
 
 func _on_ads_changed(active: bool) -> void:
-	if _status_bar != null and _status_bar.has_method("set_crosshair_visible"):
-		_status_bar.set_crosshair_visible(not active)
+	if status_bar != null and status_bar.has_method("set_crosshair_visible"):
+		status_bar.set_crosshair_visible(not active)

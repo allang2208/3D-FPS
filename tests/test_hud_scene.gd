@@ -16,8 +16,8 @@ func _process(_delta: float) -> void:
 	if _frames < 20:
 		return
 	var hud := get_tree().root.get_node_or_null("HUD")
-	var bph: Control = hud.get("_backpack_hud") if hud != null else null
-	var sbar: CanvasLayer = hud.get("_status_bar") if hud != null else null
+	var bph: Control = hud.get("backpack_hud") if hud != null else null
+	var sbar: CanvasLayer = hud.get("status_bar") if hud != null else null
 	print("HUD autoload: ", hud != null,
 		"  backpack_hud: ", bph != null,
 		"  status_bar: ", sbar != null,

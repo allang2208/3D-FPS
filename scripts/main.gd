@@ -44,7 +44,8 @@ func _ready() -> void:
 	_build_environment()
 	_build_ground()
 	_build_walls()
-	_build_hud()
+	HUD.ensure_for_current_scene()
+	call_deferred("_setup_hud_bridge")
 	_build_player()
 	_build_enemies()
 	_build_portal()
@@ -157,12 +158,6 @@ func _build_player() -> void:
 	gun.name = "Gun"
 	gun.position = Vector3(0.28, -0.26, -0.5)
 	gun.set_script(load("res://scripts/gun.gd"))
-	gun.shot.connect(_on_ammo)
-	gun.reloaded.connect(_on_ammo)
-	gun.reloading.connect(_on_reloading)
-	gun.empty.connect(_on_empty)
-	gun.hit.connect(_on_hit)
-	gun.ads_changed.connect(_on_ads_changed)
 	cam.add_child(gun)
 	_gun = gun
 	add_child(player)
@@ -190,14 +185,25 @@ func _refresh_weapon_mods() -> void:
 		_player_status.set_weapon_atk(WeaponFormula.compute_weapon_atk(
 			item, int(item.get("enhanceLevel", 0)), attrs))
 
-func _build_hud() -> void:
-	var bar := CanvasLayer.new()
-	bar.name = "StatusBar"
-	bar.set_script(load("res://ui/status_bar.gd"))
-	add_child(bar)
-	_status_bar = bar
-	_status_bar.set_weapon_name("AK-74")
-	_build_backpack_hud(bar)
+## HUD 由 autoload(HUD) 全局提供（状态栏/快捷栏/背包唯一、数据跨场景保留）；
+## 本场景只做桥接：本地数据别名指向 HUD + NPC 栏/子面板 + 技能/治疗信号。
+func _setup_hud_bridge() -> void:
+	if HUD.backpack == null:
+		call_deferred("_setup_hud_bridge")
+		return
+	if not HUD.skill_triggered.is_connected(_on_skill_triggered):
+		HUD.skill_triggered.connect(_on_skill_triggered)
+	if not HUD.player_healed.is_connected(_on_player_healed):
+		HUD.player_healed.connect(_on_player_healed)
+	_status_bar = HUD.status_bar
+	_item_db = HUD.item_db
+	_backpack = HUD.backpack
+	_equipment = HUD.equipment
+	_player_status = HUD.player_status
+	_skillbar = HUD.skillbar
+	_skills_db = HUD.skills_db
+	_skill_progress = HUD.skill_progress
+	_backpack_hud = HUD.backpack_hud
 	var npc_bar := CanvasLayer.new()
 	npc_bar.name = "NpcBar"
 	npc_bar.set_script(load("res://ui/npc_bar.gd"))
@@ -206,90 +212,7 @@ func _build_hud() -> void:
 	npc_bar.close_requested.connect(_on_npc_closed)
 	_npc_bar = npc_bar
 	_build_npc_panels()
-
-## 背包栏迁移：底部快捷栏（1~4）+ Tab/B 背包面板
-func _build_backpack_hud(parent: Node) -> void:
-	_item_db = load("res://ui/item_db.gd").new()
-	_backpack = load("res://ui/backpack.gd").new(_item_db)
-	# 初始背包沿用旧版默认（治疗药水 ×5）；MP 系统未实装，暂不发放魔力药水
-	_backpack.add_item("hp_potion", 5)
-	# 装备栏 + 演示种子（沿用旧版初始装备：主手生锈长剑；背包放 G18/小圆盾/铁盔/戒指）
-	_equipment = load("res://ui/equipment.gd").new(_backpack)
-	_player_status = load("res://ui/player_status.gd").new()
-	_skillbar = load("res://ui/skillbar.gd").new()
-	# 技能库：火球 Q / 冰锥 E / 闪电 X，defs 补 skillbar 需要的 cooldown_s/mp_cost/tier
-	var skills_db = load("res://ui/skills_db.gd").new()
-	_skills_db = skills_db
-	_skill_progress = load("res://ui/skill_progress.gd").new(skills_db)
-	var sb_skills := {}
-	if skills_db.has_skill("fireball"):
-		var fb: Dictionary = skills_db.get_def("fireball").duplicate(true)
-		var eff: Dictionary = skills_db.effect("fireball", _player_status.level)
-		fb["cooldown_s"] = eff.cooldown_s
-		fb["mp_cost"] = eff.mp_cost
-		fb["tier"] = 1
-		fb["two_stage"] = true  # 原版火球：凝聚绕身 → 第二次投掷
-		sb_skills["fireball"] = fb
-	if skills_db.has_skill("iceSpike"):
-		var ic: Dictionary = skills_db.get_def("iceSpike").duplicate(true)
-		var ice_eff: Dictionary = skills_db.effect("iceSpike", _player_status.level)
-		ic["cooldown_s"] = ice_eff.cooldown_s
-		ic["mp_cost"] = ice_eff.mp_cost
-		ic["tier"] = 1
-		ic["two_stage"] = true  # 原版冰锥：凝聚环绕 → 第二次齐射
-		sb_skills["iceSpike"] = ic
-	if skills_db.has_skill("lightningStrike"):
-		var ls: Dictionary = skills_db.get_def("lightningStrike").duplicate(true)
-		var ls_eff: Dictionary = skills_db.effect("lightningStrike", _player_status.level)
-		ls["cooldown_s"] = ls_eff.cooldown_s
-		ls["mp_cost"] = ls_eff.mp_cost
-		ls["tier"] = 1
-		sb_skills["lightningStrike"] = ls
-	for id in ["stormDomain", "thunderLance", "holyLight", "iceWall", "blizzard", "meteor", "flameArmor", "droneSkill"]:
-		if skills_db.has_skill(id):
-			var sd: Dictionary = skills_db.get_def(id).duplicate(true)
-			var sd_eff: Dictionary = skills_db.effect(id, _player_status.level)
-			sd["cooldown_s"] = sd_eff.cooldown_s
-			sd["mp_cost"] = sd_eff.mp_cost
-			sd["tier"] = 1
-			sb_skills[id] = sd
-	_skillbar.setup(sb_skills)
-	_skillbar.assign(0, "fireball")
-	_skillbar.assign(1, "iceSpike")
-	_skillbar.assign(2, "lightningStrike")
-	_skillbar.assign(3, "blizzard")
-	_backpack.add_item("rusty_sword", 1)
-	_backpack.add_item("g18_pistol", 1)
-	_backpack.add_item("small_shield", 1)
-	_backpack.add_item("lunar_helmet", 1)
-	_backpack.add_item("ring_oracle", 1)
-	# NPC 面板测试物资（商店/强化/改造/附魔/祭坛）
-	_backpack.add_item("enhancement_stone", 3)
-	_backpack.add_item("reforge_ticket", 2)
-	_backpack.add_item("magic_dust", 150)
-	_backpack.add_item("enchant_scroll_heavy", 1)
-	_backpack.add_item("enchant_scroll_sharp", 1)
-	_backpack.add_item("enchant_scroll_tarantula", 1)
-	_backpack.add_item("enchant_scroll_skeleton", 1)
-	_backpack.add_item("tribute_common", 4)
-	_backpack.add_item("tribute_uncommon", 2)
-	for i in _backpack.slots.size():
-		if _backpack.slots[i] != null and String(_backpack.slots[i].get("id", "")) == "rusty_sword":
-			_equipment.equip_from_backpack(i)
-			break
-	var hud = load("res://ui/backpack_hud.gd").new()
-	hud.name = "BackpackHud"
-	hud.player_healed.connect(_on_player_healed)
-	hud.skill_triggered.connect(_on_skill_triggered)
-	parent.add_child(hud)
-	hud.setup(_backpack, _equipment, _player_status, _skillbar)
-	# 修炼进度注入技能面板（不改 UI 线文件的 setup 签名）
-	var skill_page: Node = hud.get_node_or_null("SkillPage")
-	if skill_page != null and skill_page.has_method("set_progress"):
-		skill_page.set_progress(_skill_progress)
-		if skill_page.has_method("set_db"):
-			skill_page.set_db(_skills_db)
-	_backpack_hud = hud
+	_refresh_weapon_mods()
 
 ## 技能触发分发（火球/冰锥二段式 + 闪电单段）
 func _on_skill_triggered(skill_id: String, phase: String) -> void:
@@ -426,25 +349,6 @@ func _build_portal() -> void:
 	portal.position = Vector3(0, 1.4, 0)
 	add_child(portal)
 
-func _on_ammo(ammo: int, reserve_left: int) -> void:
-	_status_bar.set_ammo(ammo, reserve_left)
-
-func _on_hit() -> void:
-	_status_bar.hitmark()
-
-func _on_ads_changed(active: bool) -> void:
-	if _status_bar != null and _status_bar.has_method("set_crosshair_visible"):
-		_status_bar.set_crosshair_visible(not active)
-
-func _on_reloading() -> void:
-	_status_bar.show_status("换弹中…", 1.5)
-
-func _on_empty() -> void:
-	_status_bar.show_status("没子弹 · 按 R 换弹", 1.2)
-
-func _on_reloaded(_ammo: int, _reserve: int) -> void:
-	_status_bar.clear_status()
-
 ## NPC 栏选项分发：子面板系统未迁移前先给状态提示；info/help 沿用旧版就地回话
 func _on_npc_option(id: String) -> void:
 	if _npc_bar == null or _status_bar == null:
@@ -516,22 +420,26 @@ func _on_depart_requested(items: Array) -> void:
 		_status_bar.show_status("地牢世界未迁移，出征暂不可用（祭品已返还）", 2.5)
 
 func _on_player_damaged(hp: int) -> void:
-	_status_bar.set_hp(hp, int(_player.get("max_hp")))
-	_status_bar.damage_flash()
+	if _status_bar != null:
+		_status_bar.set_hp(hp, int(_player.get("max_hp")))
+		_status_bar.damage_flash()
 	if _player_status != null:
 		_player_status.set_hp(hp)
 
 func _on_player_healed(hp: int) -> void:
-	_status_bar.set_hp(hp, int(_player.get("max_hp")))
+	if _status_bar != null:
+		_status_bar.set_hp(hp, int(_player.get("max_hp")))
 	if _player_status != null:
 		_player_status.set_hp(hp)
 
 func _on_player_died() -> void:
 	_player_dead = true
-	_status_bar.show_death()
+	if _status_bar != null:
+		_status_bar.show_death()
 
 func _on_enemy_killed() -> void:
 	_kills += 1
-	_status_bar.set_kills(_kills)
+	if _status_bar != null:
+		_status_bar.set_kills(_kills)
 	if _player_status != null:
 		_player_status.set_kills(_kills)

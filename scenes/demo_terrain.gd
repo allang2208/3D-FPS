@@ -23,7 +23,7 @@ var _panels := {}
 var _player_status: RefCounted
 var _backpack_hud: Control
 var _tree_cache := {}  # 树模型路径 -> {"base": scale=1 底座偏移, "size": 包围盒尺寸}
-
+var _hud_retries := 0  # HUD 桥接重试计数：backpack 未就绪时有限重试，避免无限 call_deferred 递归崩溃
 
 func _ready() -> void:
 	rng.seed = 20260809
@@ -41,7 +41,6 @@ func _ready() -> void:
 	_build_return_portal()
 	_build_mouse_king()
 	print("[demo_terrain] scene ready")
-
 
 func _build_environment() -> void:
 	var env_node := WorldEnvironment.new()
@@ -79,8 +78,19 @@ func _build_environment() -> void:
 	env.ssil_enabled = true
 	env.ssil_radius = 3.0
 	env.ssil_intensity = 1.2
+	# SSR：水面/湿润表面反射天空与岸边（参考图溪流反光感）
+	env.ssr_enabled = true
+	env.ssr_max_steps = 64
+	env.ssr_fade_in = 0.12
+	env.ssr_fade_out = 1.5
+	env.ssr_depth_tolerance = 0.15
+	# Glow：温和辉光提升天空高光与水面波光（避免 HDR 高光死白）
+	env.glow_enabled = true
+	env.glow_intensity = 0.4
+	env.glow_bloom = 0.08
+	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_SOFTLIGHT
+	env.glow_hdr_threshold = 1.2
 	env_node.environment = env
-
 
 func _build_light() -> void:
 	var light := DirectionalLight3D.new()
@@ -89,7 +99,6 @@ func _build_light() -> void:
 	light.light_energy = 0.28
 	light.shadow_enabled = true
 	add_child(light)
-
 
 func _build_terrain() -> Terrain3D:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(DATA_DIR))
@@ -209,7 +218,6 @@ func _build_terrain() -> Terrain3D:
 		t.assets.set_mesh_asset(i, ma)
 	return t
 
-
 func _fix_grass_material(node: Node) -> void:
 	# 草色基准：地面实际渲染色（D3D12 实测 RGB≈(137,172,136)，亮低饱和草绿）
 	var grass := Color(0.54, 0.67, 0.53)
@@ -223,7 +231,6 @@ func _fix_grass_material(node: Node) -> void:
 				var bm := mat as BaseMaterial3D
 				bm.albedo_color = grass
 				bm.roughness = 0.8
-
 
 func _build_instanced_nature() -> void:
 	# [mesh_id, count, lo, hi, h_min, h_max, scale_min, scale_max]
@@ -263,7 +270,6 @@ func _build_instanced_nature() -> void:
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
 
-
 func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_max: float,
 		scale_min: float, scale_max: float) -> void:
 	var xforms: Array[Transform3D] = []
@@ -282,13 +288,11 @@ func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_ma
 		placed += 1
 	terrain.instancer.add_transforms(mesh_id, xforms)
 
-
 func _build_landmark_rocks() -> void:
 	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(-240, 0, -180), 0.035)
 	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(210, 0, 150), 0.045)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(120, 0, -260), 0.25)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(-60, 0, 300), 0.3)
-
 
 func _build_river() -> void:
 	# 沿蛇形河道生成一张"贴合地形的带状水面"：
@@ -358,7 +362,6 @@ func _build_river() -> void:
 		var base := _scene_aabb(inst).position.y
 		inst.position = Vector3(at.x, at.y - base + 0.05, at.z)
 
-
 func _build_particle_grass() -> void:
 	# Terrain3D 官方 GPU 粒子草：GPUParticles3D shader 直接采样地形高度图，
 	# 在相机周围撒几千根草（实例间距 0.3m，随相机移动），几乎不占 draw call。
@@ -392,7 +395,6 @@ func _build_particle_grass() -> void:
 		pm.set_shader_parameter("patch_min_threshold", 0.05)
 		pm.set_shader_parameter("patch_max_threshold", 0.3)
 
-
 func _build_trees() -> void:
 	# 热带岛树三物种：独立 StaticBody3D（带碰撞），AABB 底座精确贴地
 	var tree_paths: Array[String] = [
@@ -417,7 +419,6 @@ func _build_trees() -> void:
 			Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
 			rng.randf_range(0.9, 1.7))
 
-
 func _pick_tree(paths: Array[String]) -> String:
 	# 加权：island_tree_02 占 45%，01 / 03 各 20%，fir_sapling 15%
 	var r := rng.randf()
@@ -428,7 +429,6 @@ func _pick_tree(paths: Array[String]) -> String:
 	if r < 0.85:
 		return paths[2]
 	return paths[3]
-
 
 func _place_tree(path: String, at2: Vector2, scale: float) -> void:
 	var h := terrain.data.get_height(Vector3(at2.x, 0, at2.y))
@@ -453,7 +453,6 @@ func _place_tree(path: String, at2: Vector2, scale: float) -> void:
 	col.position = Vector3(0, size.y * 0.35, 0)
 	body.add_child(col)
 
-
 func _tree_info(path: String) -> Dictionary:
 	if not _tree_cache.has(path):
 		var probe: Node = load(path).instantiate()
@@ -463,7 +462,6 @@ func _tree_info(path: String) -> Dictionary:
 		probe.free()
 		_tree_cache[path] = {"base": aabb.position.y, "size": aabb.size}
 	return _tree_cache[path]
-
 
 func _scene_aabb(node: Node) -> AABB:
 	var aabb := AABB()
@@ -478,7 +476,6 @@ func _scene_aabb(node: Node) -> AABB:
 				aabb = aabb.merge(b)
 	return aabb
 
-
 func _place_scene(path: String, at: Vector3, scale: float) -> void:
 	var inst: Node = load(path).instantiate()
 	add_child(inst)
@@ -486,7 +483,6 @@ func _place_scene(path: String, at: Vector3, scale: float) -> void:
 	inst.rotation.y = rng.randf_range(0.0, TAU)
 	var base := _scene_aabb(inst).position.y
 	inst.position = Vector3(at.x, terrain.data.get_height(at) - base + 0.05, at.z)
-
 
 func _build_props() -> void:
 	var props := [
@@ -506,7 +502,6 @@ func _build_props() -> void:
 		inst.rotation.y = rng.randf_range(0.0, TAU)
 		var base := _scene_aabb(inst).position.y
 		inst.position = Vector3(pos.x, pos.y - base + 0.05, pos.z)
-
 
 func _build_player() -> void:
 	var player := CharacterBody3D.new()
@@ -537,33 +532,40 @@ func _build_player() -> void:
 	gun.name = "Gun"
 	gun.position = Vector3(0.28, -0.26, -0.5)
 	gun.set_script(load("res://scripts/gun.gd"))
-	gun.shot.connect(_on_ammo)
-	gun.reloaded.connect(_on_ammo)
-	gun.reloading.connect(_on_reloading)
-	gun.empty.connect(_on_empty)
-	gun.hit.connect(_on_hit)
-	gun.ads_changed.connect(_on_ads_changed)
 	cam.add_child(gun)
 	add_child(player)
 	_player = player
 
-
 func _build_hud() -> void:
-	var bar := CanvasLayer.new()
-	bar.name = "StatusBar"
-	bar.set_script(load("res://ui/status_bar.gd"))
-	add_child(bar)
-	_status_bar = bar
-	_build_backpack_hud(bar)
+	HUD.ensure_for_current_scene()
+	call_deferred("_setup_hud_bridge")
+
+## HUD 由 autoload(HUD) 提供（状态栏/快捷栏/背包唯一、数据跨场景保留）；
+## 本场景桥接：别名指向 HUD 数据 + NPC 栏/子面板 + 治疗/技能信号。
+func _setup_hud_bridge() -> void:
+	if HUD.backpack == null:
+		# 防递归风暴：backpack 由 autoload 的 _process 兜底初始化，
+		# 本场景只做有限次重试（约 5 秒），超时放弃等 autoload 自行接线
+		_hud_retries += 1
+		if _hud_retries < 300:
+			call_deferred("_setup_hud_bridge")
+		return
+	_hud_retries = 0
+	_status_bar = HUD.status_bar
+	_item_db = HUD.item_db
+	_backpack = HUD.backpack
+	_equipment = HUD.equipment
+	_player_status = HUD.player_status
+	if not HUD.player_healed.is_connected(_on_player_healed):
+		HUD.player_healed.connect(_on_player_healed)
+	if not HUD.skill_triggered.is_connected(_on_hud_skill):
+		HUD.skill_triggered.connect(_on_hud_skill)
 	var npc_bar := CanvasLayer.new()
 	npc_bar.name = "NpcBar"
 	npc_bar.set_script(load("res://ui/npc_bar.gd"))
 	add_child(npc_bar)
 	npc_bar.option_pressed.connect(_on_npc_option)
 	_npc_bar = npc_bar
-	_item_db = load("res://ui/item_db.gd").new()
-	_backpack = load("res://ui/backpack.gd").new(_item_db)
-	_equipment = load("res://ui/equipment.gd").new(_backpack)
 	_economy = load("res://ui/economy.gd").new()
 	_warehouse = load("res://ui/warehouse.gd").new()
 	_warehouse.add_item(_item_db.create_instance("enhancement_stone", 2))
@@ -580,50 +582,15 @@ func _build_hud() -> void:
 	_equipment.changed.connect(_refresh_weapon_mods)
 	_refresh_weapon_mods()
 
-
-## 荒野场景补齐背包 HUD（快捷栏 + 背包面板）：与 main.gd 同构，最小技能集（火球 Q）
-func _build_backpack_hud(parent: Node) -> void:
-	var item_db = load("res://ui/item_db.gd").new()
-	var bp = load("res://ui/backpack.gd").new(item_db)
-	bp.add_item("hp_potion", 5)
-	var eq = load("res://ui/equipment.gd").new(bp)
-	_player_status = load("res://ui/player_status.gd").new()
-	var sb = load("res://ui/skillbar.gd").new()
-	var skills_db = load("res://ui/skills_db.gd").new()
-	var sb_skills := {}
-	if skills_db.has_skill("fireball"):
-		var fb: Dictionary = skills_db.get_def("fireball").duplicate(true)
-		var eff: Dictionary = skills_db.effect("fireball", _player_status.level)
-		fb["cooldown_s"] = eff.cooldown_s
-		fb["mp_cost"] = eff.mp_cost
-		fb["tier"] = 1
-		fb["two_stage"] = true
-		sb_skills["fireball"] = fb
-	sb.setup(sb_skills)
-	sb.assign(0, "fireball")
-	for id in ["rusty_sword", "g18_pistol", "small_shield", "lunar_helmet", "ring_oracle"]:
-		bp.add_item(id, 1)
-	for i in bp.slots.size():
-		if bp.slots[i] != null and String(bp.slots[i].get("id", "")) == "rusty_sword":
-			eq.equip_from_backpack(i)
-			break
-	var hud = load("res://ui/backpack_hud.gd").new()
-	hud.name = "BackpackHud"
-	hud.player_healed.connect(_on_player_healed)
-	hud.skill_triggered.connect(func(skill_id: String, _phase: String) -> void:
-		if _status_bar != null:
-			_status_bar.show_status("技能未移植（%s）" % skill_id, 1.5))
-	parent.add_child(hud)
-	hud.setup(bp, eq, _player_status, sb)
-	_backpack_hud = hud
-
+func _on_hud_skill(skill_id: String, _phase: String) -> void:
+	if _status_bar != null:
+		_status_bar.show_status("技能未移植（%s）" % skill_id, 1.5)
 
 func _on_player_healed(hp: int) -> void:
 	if _status_bar != null:
 		_status_bar.set_hp(hp, int(_player.get("max_hp")))
 	if _player_status != null:
 		_player_status.set_hp(hp)
-
 
 func _build_return_portal() -> void:
 	var pos := Vector3(0, 0, 30)
@@ -635,33 +602,6 @@ func _build_return_portal() -> void:
 	portal.position = pos + Vector3(0, 1.4, 0)
 	add_child(portal)
 
-
-func _on_ammo(ammo: int, reserve: int) -> void:
-	if _status_bar:
-		_status_bar.set_ammo(ammo, reserve)
-
-
-func _on_hit() -> void:
-	if _status_bar:
-		_status_bar.hitmark()
-
-
-func _on_reloading() -> void:
-	if _status_bar:
-		_status_bar.show_status("换弹中…", 1.5)
-
-
-func _on_empty() -> void:
-	if _status_bar:
-		_status_bar.show_status("没子弹 · 按 R 换弹", 1.2)
-
-
-func _on_ads_changed(active: bool) -> void:
-	var cross := _find_crosshair()
-	if cross:
-		cross.visible = not active
-
-
 func _find_crosshair() -> Label:
 	if _status_bar == null:
 		return null
@@ -670,17 +610,14 @@ func _find_crosshair() -> Label:
 			return c
 	return null
 
-
 func _on_player_damaged(hp: int) -> void:
 	if _status_bar:
 		_status_bar.set_hp(hp, int(_player.get("max_hp")))
 		_status_bar.damage_flash()
 
-
 func _on_player_died() -> void:
 	if _status_bar:
 		_status_bar.show_death()
-
 
 func _build_mouse_king() -> void:
 	var pos := Vector3(2.8, 0, 26.0)
@@ -692,7 +629,6 @@ func _build_mouse_king() -> void:
 	npc.interacted.connect(_on_npc_interacted)
 	add_child(npc)
 
-
 func _on_npc_interacted(data: Dictionary) -> void:
 	if _npc_bar == null:
 		return
@@ -700,7 +636,6 @@ func _on_npc_interacted(data: Dictionary) -> void:
 		_npc_bar.close()
 	else:
 		_npc_bar.open(data)
-
 
 func _on_npc_option(id: String) -> void:
 	if id == "info":
@@ -714,11 +649,9 @@ func _on_npc_option(id: String) -> void:
 	if _status_bar != null:
 		_status_bar.show_status("NPC 选项待接入：%s" % id, 1.5)
 
-
 func _on_teleport_requested() -> void:
 	if _status_bar != null:
 		_status_bar.show_status("任务场景未迁移，传送暂不可用", 2.0)
-
 
 func _on_depart_requested(items: Array) -> void:
 	if _backpack != null:
@@ -726,7 +659,6 @@ func _on_depart_requested(items: Array) -> void:
 			_backpack.add_item(String(it.get("id", "")), 1)
 	if _status_bar != null:
 		_status_bar.show_status("地牢世界未迁移，出征暂不可用（祭品已返还）", 2.5)
-
 
 func _refresh_weapon_mods() -> void:
 	var gun := _player.get_node_or_null("Camera3D/Gun") if _player != null else null
