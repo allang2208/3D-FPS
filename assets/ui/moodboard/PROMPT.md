@@ -22,6 +22,30 @@ UI mood board concept sheet for a tactical sci-fi FPS game interface, The Divisi
 - 输出：`moodboard_zb_1.jpg` / `moodboard_zb_2.jpg` / `moodboard_zb_3.jpg`（三张候选）
 - 提示词原文见 `prompt.txt`（同一份）
 
+## v2：参考即梦（Jimeng）三张全境封锁风 UI 重出（2026-08-09）
+
+参考目录：`C:\Users\allan\Downloads\新建文件夹`（菜单交互 / 战斗 / 探索三状态）
+
+### 风格共性（从参考图提炼）
+
+- 冷色低饱和场景（雪天 / 雨夜 / 废弃地铁），UI 与场景色调统一
+- 半透明磨砂玻璃面板（透明度 30-50%）+ 青色发光边框 + 玻璃反光
+- 现代无衬线中文字体，白/浅灰，极淡发光描边，层级分明
+- 扁平几何发光图标（六边形/圆形/菱形），红（血条/警告）、绿（状态）、
+  蓝（科技/准星）、橙（任务/进度）高饱和强调色
+- HUD 四角环绕：左上小地图（蓝网格 + 橙路线/标记）、右上资源条（黄→红渐变）、
+  左下状态列表、右下技能网格 + 弹药数字、中心准星（蓝光环 + 红十字）
+
+### 三张 v2 输出
+
+| 状态 | 文件 | 提示词 |
+|---|---|---|
+| 菜单交互 | `moodboard_v2_menu.jpg` | `prompt_v2_menu.txt` |
+| 战斗 | `moodboard_v2_combat.jpg` | `prompt_v2_combat.txt` |
+| 探索 | `moodboard_v2_explore.jpg` | `prompt_v2_explore.txt` |
+
+生成：智谱 API `glm-image` 1280x1280（5080 FLUX 故障期间兜底）。
+
 ## 待办：修好 5080 后出 FLUX 精修版
 
 远端需以 `--use-split-attention` 启动（或修复 xformers 对 sm_120 的适配），
