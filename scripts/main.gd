@@ -24,6 +24,7 @@ func _ready() -> void:
 	_build_hud()
 	_build_player()
 	_build_enemies()
+	_build_portal()
 
 func _process(_delta: float) -> void:
 	if _player_dead and Input.is_key_pressed(KEY_R):
@@ -242,6 +243,15 @@ func _build_enemy(enemy_name: String, model: Node3D, pos: Vector3, cfg: Dictiona
 	enemy.add_child(model)
 	add_child(enemy)
 	enemy.setup(_player, _on_enemy_killed)
+
+## 传送门：从基地进入地形演示旷野
+func _build_portal() -> void:
+	var portal: Node = load("res://scripts/portal.gd").new()
+	portal.name = "Portal"
+	portal.target_scene = "res://scenes/demo_terrain.tscn"
+	portal.label_text = "传送门 · 进入旷野"
+	portal.position = Vector3(0, 1.4, 0)
+	add_child(portal)
 
 func _on_ammo(ammo: int, reserve_left: int) -> void:
 	_status_bar.set_ammo(ammo, reserve_left)

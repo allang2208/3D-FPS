@@ -1,0 +1,271 @@
+extends Node3D
+
+# 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 岩石、Kenney 植被/掩体、AmbientCG 地表纹理、HDRI 天空）
+
+const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
+const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
+const DATA_DIR := "res://assets/terrain_data/demo"
+
+var terrain: Terrain3D
+var rng := RandomNumberGenerator.new()
+var _player: Node3D
+var _status_bar: CanvasLayer
+
+
+func _ready() -> void:
+	rng.seed = 20260809
+	_build_environment()
+	_build_light()
+	terrain = _build_terrain()
+	_build_instanced_nature()
+	_build_landmark_rocks()
+	_build_props()
+	_build_player()
+	_build_hud()
+	_build_return_portal()
+	print("[demo_terrain] scene ready")
+
+
+func _build_environment() -> void:
+	var env_node := WorldEnvironment.new()
+	env_node.name = "WorldEnvironment"
+	add_child(env_node)
+	var env := Environment.new()
+	var sky := Sky.new()
+	var mat := PanoramaSkyMaterial.new()
+	mat.panorama = load(HDRI)
+	sky.sky_material = mat
+	env.background_mode = Environment.BG_SKY
+	env.sky = sky
+	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+	env.ambient_light_energy = 0.6
+	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env_node.environment = env
+
+
+func _build_light() -> void:
+	var light := DirectionalLight3D.new()
+	light.name = "Sun"
+	light.rotation_degrees = Vector3(-50, 30, 0)
+	light.light_energy = 1.2
+	light.shadow_enabled = true
+	add_child(light)
+
+
+func _build_terrain() -> Terrain3D:
+	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(DATA_DIR))
+	var t := Terrain3D.new()
+	t.name = "Terrain3D"
+	add_child(t)
+	t.data_directory = DATA_DIR
+	t.material.auto_shader = true
+	t.material.world_background = Terrain3DMaterial.NONE
+	t.material.dual_scaling = true
+	t.material.set_shader_param("auto_slope", 0.35)
+	t.material.set_shader_param("blend_sharpness", 0.85)
+
+	t.assets = Terrain3DAssets.new()
+	var tex_ids := ["grass001", "ground037", "rock063", "ground080"]
+	var uv_scales := [0.08, 0.08, 0.05, 0.05]
+	for i in tex_ids.size():
+		var ta := Terrain3DTextureAsset.new()
+		ta.name = tex_ids[i]
+		ta.albedo_texture = load(PREP_TEX % [tex_ids[i], "alb_ht"])
+		ta.normal_texture = load(PREP_TEX % [tex_ids[i], "nrm_rgh"])
+		ta.normal_depth = 1.0
+		ta.ao_strength = 2.0
+		ta.uv_scale = uv_scales[i]
+		ta.detiling_rotation = 0.12
+		t.assets.set_texture(i, ta)
+
+	# 程序化高度图（ridged noise，1024x1024，region 512 -> 2x2 区块，约 1km 见方）
+	t.region_size = 512
+	var noise := FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	noise.frequency = 0.0035
+	noise.fractal_octaves = 4
+	var img := Image.create_empty(1024, 1024, false, Image.FORMAT_RF)
+	for x in img.get_width():
+		for y in img.get_height():
+			img.set_pixel(x, y, Color(noise.get_noise_2d(x, y), 0.0, 0.0, 1.0))
+	t.data.import_images([img, null, null], Vector3(-512, 0, -512), 0.0, 45.0)
+	t.data.save_directory(DATA_DIR)
+	t.collision.set_mode(Terrain3DCollision.FULL_GAME)  # 全量运行时碰撞（1km 地图性能足够）
+	t.collision.build()
+
+	# 植被/岩石 instancer 网格资产
+	var mesh_specs := {
+		"tree": "res://assets/models/kenney_nature/tree_default.glb",
+		"bush": "res://assets/models/kenney_nature/plant_bush.glb",
+		"rock": "res://assets/models/kenney_nature/rock_largeA.glb",
+	}
+	var mid := 0
+	for key: String in mesh_specs:
+		var ma := Terrain3DMeshAsset.new()
+		ma.name = key
+		ma.scene_file = load(mesh_specs[key])
+		ma.height_offset = 0.5
+		t.assets.set_mesh_asset(mid, ma)
+		mid += 1
+	return t
+
+
+func _build_instanced_nature() -> void:
+	# 每个网格：id 与 _build_terrain 中 mesh_specs 顺序一致（tree=0, bush=1, rock=2）
+	_scatter(0, 220, -460, 460, -32.0, 20.0)
+	_scatter(1, 180, -460, 460, -35.0, 25.0)
+	_scatter(2, 120, -460, 460, -40.0, 30.0)
+
+
+func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_max: float) -> void:
+	var xforms: Array[Transform3D] = []
+	var placed := 0
+	var guard := 0
+	while placed < count and guard < count * 20:
+		guard += 1
+		var pos := Vector3(rng.randf_range(lo, hi), 0.0, rng.randf_range(lo, hi))
+		pos.y = terrain.data.get_height(pos)
+		if pos.y < h_min or pos.y > h_max:
+			continue
+		var basis := Basis(Vector3.UP, rng.randf_range(0.0, TAU))
+		xforms.append(Transform3D(basis, pos))
+		placed += 1
+	terrain.instancer.add_transforms(mesh_id, xforms)
+
+
+func _build_landmark_rocks() -> void:
+	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(-240, 0, -180), 0.035)
+	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(210, 0, 150), 0.045)
+	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(120, 0, -260), 0.25)
+	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(-60, 0, 300), 0.3)
+
+
+func _place_scene(path: String, at: Vector3, scale: float) -> void:
+	var inst: Node = load(path).instantiate()
+	add_child(inst)
+	inst.position = Vector3(at.x, terrain.data.get_height(at) + 0.5, at.z)
+	inst.scale = Vector3.ONE * scale
+	inst.rotation.y = rng.randf_range(0.0, TAU)
+
+
+func _build_props() -> void:
+	var props := [
+		"res://assets/models/kenney_tower_defense/wood-structure.glb",
+		"res://assets/models/kenney_tower_defense/wood-structure-high.glb",
+		"res://assets/models/kenney_tower_defense/weapon-ammo-bullet.glb",
+		"res://assets/models/kenney_tower_defense/tower-round-base.glb",
+	]
+	for i in 14:
+		var path: String = props[i % props.size()]
+		var pos := Vector3(rng.randf_range(-400, 400), 0.0, rng.randf_range(-400, 400))
+		pos.y = terrain.data.get_height(pos)
+		if pos.y < -30.0 or pos.y > 25.0:
+			continue
+		var inst: Node = load(path).instantiate()
+		add_child(inst)
+		inst.position = pos
+		inst.rotation.y = rng.randf_range(0.0, TAU)
+
+
+func _build_player() -> void:
+	var player := CharacterBody3D.new()
+	player.name = "Player"
+	var spawn := Vector3(0, 0, 40)
+	# 出生点在地表上方 2m：Heightfield 碰撞单面，从下方/内部生成会直接掉穿
+	player.position = Vector3(spawn.x, terrain.data.get_height(spawn) + 2.0, spawn.z)
+	player.set_script(load("res://scripts/player.gd"))
+	player.damaged.connect(_on_player_damaged)
+	player.died.connect(_on_player_died)
+	var col := CollisionShape3D.new()
+	var cap := CapsuleShape3D.new()
+	cap.radius = 0.35
+	cap.height = 1.7
+	col.shape = cap
+	player.add_child(col)
+	var cam := Camera3D.new()
+	cam.name = "Camera3D"
+	cam.position = Vector3(0, 1.62, 0)
+	cam.fov = 75.0
+	player.add_child(cam)
+	var cfx := Node3D.new()
+	cfx.name = "CameraFx"
+	cfx.set_script(load("res://scripts/camera_fx.gd"))
+	cam.add_child(cfx)
+	var gun := Node3D.new()
+	gun.name = "Gun"
+	gun.position = Vector3(0.28, -0.26, -0.5)
+	gun.set_script(load("res://scripts/gun.gd"))
+	gun.shot.connect(_on_ammo)
+	gun.reloaded.connect(_on_ammo)
+	gun.reloading.connect(_on_reloading)
+	gun.empty.connect(_on_empty)
+	gun.hit.connect(_on_hit)
+	gun.ads_changed.connect(_on_ads_changed)
+	cam.add_child(gun)
+	add_child(player)
+	_player = player
+
+
+func _build_hud() -> void:
+	var bar := CanvasLayer.new()
+	bar.name = "StatusBar"
+	bar.set_script(load("res://ui/status_bar.gd"))
+	add_child(bar)
+	_status_bar = bar
+
+
+func _build_return_portal() -> void:
+	var pos := Vector3(0, 0, 30)
+	pos.y = terrain.data.get_height(pos)
+	var portal: Node = load("res://scripts/portal.gd").new()
+	portal.name = "ReturnPortal"
+	portal.target_scene = "res://scenes/main.tscn"
+	portal.label_text = "传送门 · 返回基地"
+	portal.position = pos + Vector3(0, 1.4, 0)
+	add_child(portal)
+
+
+func _on_ammo(ammo: int, reserve: int) -> void:
+	if _status_bar:
+		_status_bar.set_ammo(ammo, reserve)
+
+
+func _on_hit() -> void:
+	if _status_bar:
+		_status_bar.hitmark()
+
+
+func _on_reloading() -> void:
+	if _status_bar:
+		_status_bar.show_status("换弹中…", 1.5)
+
+
+func _on_empty() -> void:
+	if _status_bar:
+		_status_bar.show_status("没子弹 · 按 R 换弹", 1.2)
+
+
+func _on_ads_changed(active: bool) -> void:
+	var cross := _find_crosshair()
+	if cross:
+		cross.visible = not active
+
+
+func _find_crosshair() -> Label:
+	if _status_bar == null:
+		return null
+	for c in _status_bar.find_children("", "Label", true, false):
+		if c is Label and c.text == "+":
+			return c
+	return null
+
+
+func _on_player_damaged(hp: int) -> void:
+	if _status_bar:
+		_status_bar.set_hp(hp, int(_player.get("max_hp")))
+		_status_bar.damage_flash()
+
+
+func _on_player_died() -> void:
+	if _status_bar:
+		_status_bar.show_death()
