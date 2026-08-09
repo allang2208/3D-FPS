@@ -87,7 +87,7 @@ var _tooltip: Control
 var _tooltip_tween: Tween
 var _font_title: SystemFont
 var _font_section: SystemFont
-var _font_value: SystemFont
+var _font_mono: SystemFont
 var _tex_cache := {}
 var _cd_last := {}
 var _hovered_cell := -1
@@ -117,7 +117,7 @@ func _ready() -> void:
 	theme = Style.make_theme()
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(400)
-	_font_value = Style.make_font(600)
+	_font_mono = Style.make_mono_font(600)
 	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
 	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
 	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
@@ -201,7 +201,7 @@ func _refresh_hotbar() -> void:
 			var count: int = item.get("stack", 0)
 			stack.text = str(count)
 			stack.add_theme_color_override("font_color", Style.COLOR_ZERO_TEXT if count <= 0 else Style.COLOR_TEXT)
-			stack.add_theme_font_override("font", _font_value)
+			stack.add_theme_font_override("font", _font_mono)
 			slot.add_theme_stylebox_override("panel", _s_hotbar_hover if i == _hovered_hotbar else _s_hotbar_item)
 			slot.tooltip_text = ""
 
@@ -901,6 +901,7 @@ func _build_hotbar() -> void:
 		content.add_child(cd)
 		var cd_text := _make_label(content, "", 10, Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
 		cd_text.name = "CDText"
+		cd_text.add_theme_font_override("font", _font_mono)
 		cd_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		cd_text.visible = false
 		var dim := ColorRect.new()
@@ -959,7 +960,7 @@ func _build_hotbar() -> void:
 		content.add_child(icon)
 		var stack := _make_label(content, "", 12, Style.COLOR_TEXT, Vector2(3, HOTBAR_SLOT - 18))
 		stack.name = "Stack"
-		stack.add_theme_font_override("font", _font_value)
+		stack.add_theme_font_override("font", _font_mono)
 		var key := _make_label(content, str(i + 1), 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
@@ -1208,7 +1209,7 @@ func _build_panel() -> void:
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_count_label = _make_label(inv_header, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
-	_count_label.add_theme_font_override("font", _font_section)
+	_count_label.add_theme_font_override("font", _font_mono)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
 	_grid.add_theme_constant_override("h_separation", 6)
@@ -1246,7 +1247,7 @@ func _build_panel() -> void:
 		cell_content.add_child(fallback)
 		var stack := _make_label(cell_content, "", 12, Style.COLOR_STACK_TEXT, Vector2.ZERO)
 		stack.name = "Stack"
-		stack.add_theme_font_override("font", _font_value)
+		stack.add_theme_font_override("font", _font_mono)
 		stack.anchor_left = 1.0
 		stack.anchor_right = 1.0
 		stack.anchor_top = 1.0
