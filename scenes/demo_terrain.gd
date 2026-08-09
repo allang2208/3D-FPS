@@ -1,6 +1,6 @@
 extends Node3D
 
-# 地形演示场景：Terrain3D + 免费 CC0 资产（风格化地表纹理 + Kenney 植被/掩体 + Poly Haven 岩石/点缀 + HDRI 天空）
+# 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 岩石、Kenney 植被/掩体、AmbientCG 地表纹理、HDRI 天空）
 
 const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
 const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
@@ -111,6 +111,8 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/flower_yellowA.glb",
 		"res://assets/models/kenney_nature/flower_redA.glb",
 		"res://assets/models/kenney_nature/flower_purpleA.glb",
+		"res://assets/models/kenney_nature/mushroom_red.glb",
+		"res://assets/models/kenney_nature/mushroom_tan.glb",
 		"res://assets/models/kenney_nature/stump_old.glb",
 		"res://assets/models/kenney_nature/stump_round.glb",
 		"res://assets/models/kenney_nature/log.glb",
@@ -134,70 +136,37 @@ func _build_terrain() -> Terrain3D:
 func _build_instanced_nature() -> void:
 	# [mesh_id, count, lo, hi, h_min, h_max, scale_min, scale_max]
 	var specs: Array = [
+		[0, 45, -460, 460, -30.0, 18.0, 0.8, 1.3],   # tree_default
+		[1, 40, -460, 460, -30.0, 18.0, 0.8, 1.3],   # tree_cone
+		[2, 40, -460, 460, -30.0, 18.0, 0.8, 1.2],   # tree_detailed
+		[3, 35, -460, 460, -28.0, 16.0, 0.9, 1.4],   # tree_oak
+		[4, 40, -460, 460, -32.0, 20.0, 0.8, 1.3],   # tree_small
+		[5, 35, -460, 460, -28.0, 15.0, 0.9, 1.4],   # tree_tall
+		[6, 40, -460, 460, -26.0, 14.0, 0.9, 1.4],   # tree_pineTallA
 		[7, 60, -460, 460, -35.0, 24.0, 0.8, 1.4],   # plant_bush
 		[8, 55, -460, 460, -35.0, 24.0, 0.8, 1.5],   # plant_bushLarge
 		[9, 55, -460, 460, -35.0, 24.0, 0.8, 1.3],   # plant_bushSmall
-		[10, 150, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass
-		[11, 140, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_large
-		[12, 130, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_leafs
-		[13, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],  # flower_yellowA
-		[14, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],  # flower_redA
-		[15, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],  # flower_purpleA
-		[16, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_old
-		[17, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_round
-		[18, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log
-		[19, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log_stack
-		[20, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_largeA
-		[21, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_smallA
-		[22, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_medium_01
-		[23, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
-		[24, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
-		[25, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
+		[10, 140, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass
+		[11, 130, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_large
+		[12, 120, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_leafs
+		[13, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_yellowA
+		[14, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_redA
+		[15, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_purpleA
+		[16, 35, -460, 460, -36.0, 22.0, 0.8, 1.3],  # mushroom_red
+		[17, 35, -460, 460, -36.0, 22.0, 0.8, 1.3],  # mushroom_tan
+		[18, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_old
+		[19, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_round
+		[20, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log
+		[21, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log_stack
+		[22, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_largeA
+		[23, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_smallA
+		[24, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_medium_01
+		[25, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
+		[26, 18, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
+		[27, 18, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
-	_build_tree_groves()
-
-
-func _build_tree_groves() -> void:
-	# 树用"成片树林"而非均匀撒点：出生点附近保证一片，其余散布在地图各处
-	var tree_ids := [0, 1, 2, 3, 4, 5, 6]
-	var grove_centers := [
-		Vector2(0, 40),      # 出生点附近，传送进来就能看到树
-		Vector2(200, -160),
-		Vector2(-220, 180),
-		Vector2(-150, -260),
-		Vector2(280, 240),
-	]
-	for c in grove_centers:
-		_scatter_grove(tree_ids, 150, c, 90.0, -30.0, 18.0, 1.0, 1.8)
-	# 地图边缘稀疏背景树
-	_scatter_grove(tree_ids, 120, Vector2(0, 0), 650.0, -32.0, 18.0, 1.0, 1.8)
-
-
-func _scatter_grove(mesh_ids: Array, count: int, center: Vector2, radius: float,
-		h_min: float, h_max: float, scale_min: float, scale_max: float) -> void:
-	var xforms_by_mesh := {}
-	for id in mesh_ids:
-		xforms_by_mesh[id] = []
-	var placed := 0
-	var guard := 0
-	while placed < count and guard < count * 40:
-		guard += 1
-		var ang := rng.randf_range(0.0, TAU)
-		var r := sqrt(rng.randf_range(0.0, 1.0)) * radius
-		var pos := Vector3(center.x + cos(ang) * r, 0.0, center.y + sin(ang) * r)
-		pos.y = terrain.data.get_height(pos)
-		if pos.y < h_min or pos.y > h_max:
-			continue
-		var mid: int = mesh_ids[rng.randi_range(0, mesh_ids.size() - 1)]
-		var yaw := rng.randf_range(0.0, TAU)
-		var s := rng.randf_range(scale_min, scale_max)
-		var basis := Basis(Vector3.UP, yaw).scaled(Vector3.ONE * s)
-		xforms_by_mesh[mid].append(Transform3D(basis, pos))
-		placed += 1
-	for id in xforms_by_mesh:
-		terrain.instancer.add_transforms(id, xforms_by_mesh[id])
 
 
 func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_max: float,

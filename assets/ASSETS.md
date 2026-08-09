@@ -32,7 +32,6 @@ assets/
 ## 使用建议
 
 - Terrain3D 刷地表：在 Asset Dock 的 Textures 里添加 `textures/terrain/*/*_Color.jpg` 作为 albedo，`*_Roughness.jpg` 作为粗糙度，`*_NormalGL.jpg` 作为法线。
-- 地表纹理现由 `tools/prepare_stylized_textures.gd` 生成风格化版本（低模手绘感，与体素/低模美术统一）；AmbientCG 原图保留在 `textures/terrain/` 备查。
 - 岩石/植被：`models/polyhaven/*.gltf` 与 `models/kenney_nature/*.glb` 可直接拖进场景，或作为 Terrain3D 植被 instancer 的 Mesh 资产。
 - 天空：新建 `WorldEnvironment`，用 `PanoramaSkyMaterial` 加载 `environment/hdri/*.hdr`。
 - 模型加载示例：
