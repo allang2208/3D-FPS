@@ -34,6 +34,11 @@ const JITTER_ADS_MULT := 0.45
 const FLIP_STIFFNESS := 260.0
 const FLIP_DAMPING := 16.0
 const FLIP_IMPULSE := 1.5
+# 枪口火光（每次开火一次性随机尺度/旋转，随后按生命周期收缩，避免逐帧抖动）
+const FLASH_DURATION := 0.06
+const FLASH_LIGHT_PEAK := 12.0
+const FLASH_SCALE_MIN := 0.85
+const FLASH_SCALE_MAX := 1.55
 # 姿态系统（bob / sway / 疾跑下沉）
 const BOB_FREQ_BASE := 5.0
 const BOB_FREQ_SPEED := 0.85
@@ -66,6 +71,8 @@ signal jitter_impulse(pos_impulse: Vector3, rot_impulse: Vector3)
 
 var _fire_cd := 0.0
 var _flash_t := 0.0
+var _flash_scale := 1.0
+var _flash_rot := 0.0
 var _reload_t := 0.0
 var _spread := 0.0
 var _pattern_idx := 0
@@ -140,16 +147,21 @@ func _ready() -> void:
 	add_child(_flash_light)
 	_flash_mesh = MeshInstance3D.new()
 	_flash_mesh.name = "MuzzleFlashMesh"
-	var sphere := SphereMesh.new()
-	sphere.radius = 0.06
-	sphere.height = 0.12
+	# 径向渐变光斑（ADD 叠加 + billboard）：比硬球体更像枪口火舌
+	var quad := QuadMesh.new()
+	quad.size = Vector2(0.55, 0.55)
 	var fm := StandardMaterial3D.new()
 	fm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	fm.emission_enabled = true
-	fm.emission = Color(1.0, 0.75, 0.35) * 3.0
-	fm.albedo_color = Color(1.0, 0.85, 0.5)
-	sphere.material = fm
-	_flash_mesh.mesh = sphere
+	fm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	fm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	fm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	fm.no_depth_test = true
+	fm.cull_mode = BaseMaterial3D.CULL_DISABLED
+	fm.albedo_texture = _make_flash_texture()
+	fm.albedo_color = Color(1.0, 0.82, 0.45) * 1.8
+	fm.disable_receive_shadows = true
+	quad.material = fm
+	_flash_mesh.mesh = quad
 	_flash_mesh.position = _muzzle_local
 	_flash_mesh.visible = false
 	add_child(_flash_mesh)
@@ -237,11 +249,13 @@ func _process(delta: float) -> void:
 	position = base_pos + _kick_pos + _jitter_pos + _bob_pos * suppress + _sway_pos * suppress + Vector3(0, -SPRINT_DROP * _sprint, 0) * suppress + reload_pos + flip_correction
 	rotation = base_rot + _kick_rot + _jitter_rot + _bob_rot * suppress + _sway_rot * suppress + Vector3(SPRINT_TILT * _sprint, 0, 0) * suppress + reload_rot + Vector3(_flip_rot, 0, 0)
 	_flash_t = maxf(0.0, _flash_t - delta)
-	_flash_light.visible = _flash_t > 0.0
-	_flash_light.light_energy = 10.0 * (_flash_t / 0.06)
-	_flash_mesh.visible = _flash_t > 0.0
-	if _flash_mesh.visible:
-		_flash_mesh.scale = Vector3.ONE * randf_range(0.8, 1.7)
+	var flash_on := _flash_t > 0.0
+	_flash_light.visible = flash_on
+	_flash_mesh.visible = flash_on
+	if flash_on:
+		var frac := _flash_t / FLASH_DURATION
+		_flash_light.light_energy = FLASH_LIGHT_PEAK * frac * frac
+		_flash_mesh.scale = Vector3.ONE * _flash_scale * (0.35 + 0.65 * frac)
 
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
@@ -294,7 +308,11 @@ func _shoot() -> void:
 	_last_fire_t = Time.get_ticks_msec() * 0.001
 	var pattern: Vector2 = data.recoil_pattern[_pattern_idx]
 	_pattern_idx = mini(_pattern_idx + 1, data.recoil_pattern.size() - 1)
-	_flash_t = 0.06
+	_flash_t = FLASH_DURATION
+	_flash_scale = randf_range(FLASH_SCALE_MIN, FLASH_SCALE_MAX)
+	_flash_rot = randf() * TAU
+	_flash_mesh.rotation.z = _flash_rot
+	_flash_mesh.scale = Vector3.ONE * _flash_scale
 	shot.emit(ammo, reserve)
 	_apply_gun_kick()
 	_shoot_player.pitch_scale = randf_range(0.97, 1.03)
@@ -477,6 +495,19 @@ func _spawn_casing() -> void:
 	CasingScript.spawn(scene_root, origin, cam.global_transform.basis.x)
 
 # ---------- 模型 ----------
+
+## 程序化径向渐变火光贴图（软边高光，ADD 叠加下自然衰减）
+func _make_flash_texture() -> ImageTexture:
+	var size := 64
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var center := Vector2(size * 0.5, size * 0.5)
+	for y in size:
+		for x in size:
+			var d := Vector2(x + 0.5, y + 0.5).distance_to(center) / (size * 0.5)
+			var a := clampf(1.0 - d, 0.0, 1.0)
+			a = a * a * (3.0 - 2.0 * a)  # smoothstep 软化边缘
+			img.set_pixel(x, y, Color(1.0, 0.82, 0.45, a))
+	return ImageTexture.create_from_image(img)
 
 func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vector3.ZERO) -> Node3D:
 	var mesh := MeshInstance3D.new()
