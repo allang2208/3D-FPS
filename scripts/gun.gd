@@ -440,7 +440,7 @@ func _build_gun() -> void:
 	# AI 生成 AKM（TRELLIS.2）：GLB 枪管沿 X 轴，旋转 90° 对齐 -Z 枪口方向
 	var akm := AKM_GLB.instantiate()
 	akm.name = "AkmModel"
-	akm.rotation_degrees.y = 90.0
+	akm.rotation_degrees.y = -90.0
 	add_child(akm)
 	# 弹匣节点（换弹动画滑出用，GLB 是整体网格，程序化补一个小弹匣节点占位）
 	_mag = _box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), Color(0.10, 0.11, 0.13))

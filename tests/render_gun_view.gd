@@ -12,11 +12,15 @@ func _initialize() -> void:
 
 func _process(_delta: float) -> bool:
 	_frames += 1
-	if _frames < 8:
+	if _frames < 12:
 		return false
 	# 用主相机渲染一帧
 	var cam := root.get_node("Main/Player/Camera3D") as Camera3D
 	var img := cam.get_viewport().get_texture().get_image()
+	if img == null or img.get_width() == 0:
+		print("VIEWPORT EMPTY, frames=", _frames)
+		quit(0)
+		return false
 	var out := "user://gun_view.png"
 	img.save_png(out)
 	print("SAVED ", ProjectSettings.globalize_path(out))
