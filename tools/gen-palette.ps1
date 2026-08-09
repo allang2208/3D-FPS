@@ -14,11 +14,11 @@ if (-not (Test-Path $stylePath)) { Write-Error "style.gd not found: $stylePath" 
 $text = [System.IO.File]::ReadAllText($stylePath)
 
 function To-Hex([double]$r, [double]$g, [double]$b, [double]$a) {
-  $hr = '{0:X2}' -f [int][math]::Round($r * 255)
-  $hg = '{0:X2}' -f [int][math]::Round($g * 255)
-  $hb = '{0:X2}' -f [int][math]::Round($b * 255)
+  $hr = '{0:X2}' -f [int][math]::Round([math]::Min(1.0, [math]::Max(0.0, $r)) * 255)
+  $hg = '{0:X2}' -f [int][math]::Round([math]::Min(1.0, [math]::Max(0.0, $g)) * 255)
+  $hb = '{0:X2}' -f [int][math]::Round([math]::Min(1.0, [math]::Max(0.0, $b)) * 255)
   $hex = "#$hr$hg$hb"
-  if ($a -lt 0.999) { $hex += '{0:X2}' -f [int][math]::Round($a * 255) }
+  if ($a -lt 0.999) { $hex += '{0:X2}' -f [int][math]::Round([math]::Min(1.0, [math]::Max(0.0, $a)) * 255) }
   return $hex
 }
 
