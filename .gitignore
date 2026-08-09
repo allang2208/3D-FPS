@@ -1,4 +1,4 @@
-# Godot 4+ specific ignores
+﻿# Godot 4+ specific ignores
 .godot/
 /android/
 
@@ -9,3 +9,6 @@ __pycache__/
 # Terrain3D addon 构建临时文件 / 运行日志
 *.TMP
 *.log
+
+# AmbientCG 4K 源贴图（不入库，prepared 4096 输出已在 terrain_prepared）
+assets/textures/terrain/*-4k/

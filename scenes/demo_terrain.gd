@@ -22,11 +22,16 @@ var _warehouse
 var _panels := {}
 var _player_status: RefCounted
 var _backpack_hud: Control
+var _meadow_noise := FastNoiseLite.new()  # 草甸斑块掩码：控制草类疏密分布
 var _tree_cache := {}  # 树模型路径 -> {"base": scale=1 底座偏移, "size": 包围盒尺寸}
 var _hud_retries := 0  # HUD 桥接重试计数：backpack 未就绪时有限重试，避免无限 call_deferred 递归崩溃
 
 func _ready() -> void:
 	rng.seed = 20260809
+	_meadow_noise.seed = 991
+	_meadow_noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	_meadow_noise.frequency = 0.006
+	_meadow_noise.fractal_octaves = 2
 	_build_environment()
 	_build_light()
 	terrain = _build_terrain()
@@ -269,6 +274,8 @@ func _build_instanced_nature() -> void:
 
 func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_max: float,
 		scale_min: float, scale_max: float) -> void:
+	# 草类资产走草甸掩码：只有噪声>阈值的区域密集，形成"一簇密一簇疏"的天然草甸
+	var is_grass := mesh_id in [3, 4, 5, 15, 16, 19, 20, 27]
 	var xforms: Array[Transform3D] = []
 	var placed := 0
 	var guard := 0
@@ -277,6 +284,8 @@ func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_ma
 		var pos := Vector3(rng.randf_range(lo, hi), 0.0, rng.randf_range(lo, hi))
 		pos.y = terrain.data.get_height(pos)
 		if pos.y < h_min or pos.y > h_max:
+			continue
+		if is_grass and _meadow_noise.get_noise_2d(pos.x, pos.z) < 0.15:
 			continue
 		var yaw := rng.randf_range(0.0, TAU)
 		var s := rng.randf_range(scale_min, scale_max)
@@ -290,6 +299,9 @@ func _build_landmark_rocks() -> void:
 	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(210, 0, 150), 0.045)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(120, 0, -260), 0.25)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(-60, 0, 300), 0.3)
+	# 参考图岩石形态多样：补两座大石（Kenney tall 变体）
+	_place_scene("res://assets/models/kenney_nature/rock_tallC.glb", Vector3(-320, 0, 40), 2.2)
+	_place_scene("res://assets/models/kenney_nature/rock_tallE.glb", Vector3(280, 0, -320), 2.4)
 
 func _build_river() -> void:
 	# 沿蛇形河道生成一张"贴合地形的带状水面"：
@@ -345,14 +357,25 @@ func _build_river() -> void:
 	var mi := MeshInstance3D.new()
 	mi.mesh = mesh
 	river.add_child(mi)
-	# 河岸装饰：沿河道放一些碎石（复用 rock_smallA）
-	var rock: PackedScene = load("res://assets/models/kenney_nature/rock_smallA.glb")
-	for i in 30:
+	# 河岸装饰：沿河道放碎石（全部 rock 变体随机混用，形态更自然）
+	var rock_variants := [
+		"res://assets/models/kenney_nature/rock_smallA.glb",
+		"res://assets/models/kenney_nature/rock_smallB.glb",
+		"res://assets/models/kenney_nature/rock_smallC.glb",
+		"res://assets/models/kenney_nature/rock_smallD.glb",
+		"res://assets/models/kenney_nature/rock_smallE.glb",
+		"res://assets/models/kenney_nature/rock_smallF.glb",
+		"res://assets/models/kenney_nature/rock_smallFlatA.glb",
+		"res://assets/models/kenney_nature/rock_smallFlatB.glb",
+		"res://assets/models/kenney_nature/rock_largeB.glb",
+		"res://assets/models/kenney_nature/rock_largeC.glb",
+	]
+	for i in 60:
 		var wx := rng.randf_range(-420.0, 420.0)
 		var cz := 40.0 * sin(wx / 90.0)
 		var at := Vector3(wx + rng.randf_range(-12.0, 12.0), 0.0, cz + rng.randf_range(-9.0, 9.0))
 		at.y = terrain.data.get_height(at)
-		var inst: Node = rock.instantiate()
+		var inst: Node = load(rock_variants[rng.randi_range(0, rock_variants.size() - 1)]).instantiate()
 		river.add_child(inst)
 		inst.scale = Vector3.ONE * rng.randf_range(0.8, 1.8)
 		inst.rotation.y = rng.randf_range(0.0, TAU)
@@ -384,13 +407,17 @@ func _build_particle_grass() -> void:
 	# 增强自然随机性：间距抖动 + 高度差异 + 风摆（参考图草叶交错感）
 	var pm: ShaderMaterial = pt.process_material
 	if pm != null:
-		pm.set_shader_parameter("random_spacing", 0.8)
-		pm.set_shader_parameter("min_scale", Vector3(0.1, 0.35, 0.1))
-		pm.set_shader_parameter("max_scale", Vector3(0.18, 1.35, 0.18))
-		pm.set_shader_parameter("wind_strength", 1.25)
-		pm.set_shader_parameter("clod_scale_boost", 2.5)
-		pm.set_shader_parameter("patch_min_threshold", 0.05)
-		pm.set_shader_parameter("patch_max_threshold", 0.3)
+		# 成簇分布（参考图"一簇密一簇疏"的天然草甸）：
+		# patch 阈值提高 → 只有噪声高的区域长草，形成密簇+空地的明暗斑块；
+		# clod_scale_boost 提高 → 簇心草更高，边缘渐低。
+		pm.set_shader_parameter("random_spacing", 0.85)
+		pm.set_shader_parameter("min_scale", Vector3(0.1, 0.3, 0.1))
+		pm.set_shader_parameter("max_scale", Vector3(0.2, 1.5, 0.2))
+		pm.set_shader_parameter("wind_strength", 1.35)
+		pm.set_shader_parameter("clod_scale_boost", 3.5)
+		pm.set_shader_parameter("patch_min_threshold", 0.35)
+		pm.set_shader_parameter("patch_max_threshold", 0.75)
+		pm.set_shader_parameter("main_noise_scale", 0.006)
 
 func _build_trees() -> void:
 	# 热带岛树三物种：独立 StaticBody3D（带碰撞），AABB 底座精确贴地
@@ -405,13 +432,21 @@ func _build_trees() -> void:
 		Vector2(-240, 100), Vector2(60, -260), Vector2(300, 260),
 	]
 	for c in centers:
-		for i in 8:
+		for i in 12:
 			var ang := rng.randf_range(0.0, TAU)
 			var r := rng.randf_range(4.0, 55.0)
 			_place_tree(_pick_tree(tree_paths), c + Vector2(cos(ang), sin(ang)) * r,
 				rng.randf_range(1.0, 2.0))
+	# 密集林斑块：参考图林缘密/空地疏，额外两个密林区
+	var groves := [Vector2(-80, 200), Vector2(220, -40)]
+	for g in groves:
+		for i in 10:
+			var ang := rng.randf_range(0.0, TAU)
+			var r := rng.randf_range(3.0, 30.0)
+			_place_tree(_pick_tree(tree_paths), g + Vector2(cos(ang), sin(ang)) * r,
+				rng.randf_range(1.0, 2.2))
 	# 地图边缘稀疏背景树
-	for i in 25:
+	for i in 40:
 		_place_tree(_pick_tree(tree_paths),
 			Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
 			rng.randf_range(0.9, 1.7))
