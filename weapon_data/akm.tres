@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapon_data.gd" id="1_wd"]
-[ext_resource type="ArrayMesh" path="res://assets/models/ak/akm_voxel_m.obj" id="2_wd"]
+[ext_resource type="ArrayMesh" path="res://assets/models/ak/akm_voxel_solid.obj" id="2_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/akm_burst.mp3" id="3_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/reload_sharp.mp3" id="4_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/criticalhit.mp3" id="5_wd"]
@@ -10,6 +10,7 @@
 script = ExtResource("1_wd")
 weapon_name = "AK-74"
 model_scene = ExtResource("2_wd")
+muzzle_sign_override = -1
 fire_interval = 0.13
 damage = 25
 mag_size = 30

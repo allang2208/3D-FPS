@@ -130,6 +130,7 @@ func _ready() -> void:
 		push_error("[gun] 缺少武器数据，使用脚本默认兜底")
 		data = WeaponData.new()
 	model_scene = data.model_scene
+	muzzle_sign_override = data.muzzle_sign_override
 	ammo = data.mag_size
 	reserve = data.reserve
 	_cam = get_parent() as Camera3D

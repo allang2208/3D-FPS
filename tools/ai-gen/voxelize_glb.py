@@ -153,9 +153,11 @@ def write_obj_with_colors(path: str, shape: tuple, indices: np.ndarray, palette:
             dtype=int,
         )
         base = 1
+        half = np.array(shape, dtype=float) / 2.0
         for x, y, z, c in zip(xs, ys, zs, indices[xs, ys, zs]):
             r, g, b = palette[int(c) - 1]
-            for cx, cy, cz in (corners + np.array([x, y, z])) * pitch:
+            # 居中：体素中心 = (x+0.5)*pitch，整体平移使模型中心落在原点（与 GLB 一致）
+            for cx, cy, cz in ((corners + np.array([x, y, z]) + 0.5 - half) * pitch):
                 # Godot/MagicaVoxel 读 OBJ 顶点色为 0..1 浮点
                 f.write("v %.6f %.6f %.6f %.4f %.4f %.4f\n" % (cx, cy, cz, r / 255.0, g / 255.0, b / 255.0))
             for quad in faces:
@@ -180,9 +182,30 @@ def main() -> int:
     vox = mesh.voxelized(pitch=args.pitch)
     print("stage voxelize %.2fs" % (time.time() - t_start))
     shape = tuple(int(s) for s in vox.shape)
+    filled = np.asarray(vox.matrix, dtype=bool)
+    # 内部列填充：AI 网格多非水密，表面体素化会镂空（枪托丢块/半透明）。
+    # 沿 y 对每个 (x,z) 列填满 min..max，保证实心。
+    for i in range(filled.shape[0]):
+        for k in range(filled.shape[2]):
+            js = np.nonzero(filled[i, :, k])[0]
+            if js.size > 1:
+                filled[i, js[0] : js[-1] + 1, k] = True
+    # OBJ 只导出表面体素（至少一个 6 邻域空洞），避免内部盒子浪费几何量
+    surf = np.zeros_like(filled)
+    if filled.shape[0] > 2 and filled.shape[1] > 2 and filled.shape[2] > 2:
+        pad = np.pad(filled, 1)
+        for di, dj, dk in [(-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1)]:
+            surf |= filled & ~pad[
+                1 + di : 1 + di + filled.shape[0],
+                1 + dj : 1 + dj + filled.shape[1],
+                1 + dk : 1 + dk + filled.shape[2],
+            ]
+    else:
+        surf = filled
+    print("stage fill %.2fs surface=%d solid=%d" % (time.time() - t_start, int(surf.sum()), int(filled.sum())))
     if max(shape) > 255:
         print("警告：体素网格超过 255 格，MagicaVoxel 标准世界放不下；请加大 pitch")
-    idx = np.array(np.nonzero(vox.matrix > 0))
+    idx = np.array(np.nonzero(filled))
     centers = (vox.transform @ np.vstack([idx + 0.5, np.ones(idx.shape[1])]))[:3].T
     print("stage centers %.2fs n=%d" % (time.time() - t_start, len(centers)))
     colors = sample_colors(mesh, centers)
@@ -190,13 +213,16 @@ def main() -> int:
     indices, palette = quantize_palette(colors, args.palette)
     print("stage palette %.2fs" % (time.time() - t_start))
     grid = np.zeros(shape, dtype=np.uint8)
-    idx3 = tuple(np.nonzero(vox.matrix > 0))
+    idx3 = tuple(np.nonzero(filled))
     grid[idx3] = indices
     vox_path = base + ".vox"
     obj_path = base + ".obj"
     write_vox(vox_path, shape, grid, palette)
     print("stage vox %.2fs" % (time.time() - t_start))
-    write_obj_with_colors(obj_path, shape, grid, palette, args.pitch)
+    surf_idx = np.nonzero(surf)
+    surf_grid = np.zeros(shape, dtype=np.uint8)
+    surf_grid[surf_idx] = grid[surf_idx]
+    write_obj_with_colors(obj_path, shape, surf_grid, palette, args.pitch)
     print("stage obj %.2fs" % (time.time() - t_start))
     return 0
 

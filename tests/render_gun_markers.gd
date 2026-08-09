@@ -28,6 +28,10 @@ func _process(_delta: float) -> bool:
 			var out := "user://gun_markers.png"
 			img.save_png(out)
 			print("SAVED ", ProjectSettings.globalize_path(out))
+			var mr := root.get_node_or_null("MuzzleMark")
+			var sr := root.get_node_or_null("StockMark")
+			print("marker world: muzzle=", mr.global_position if mr else "missing",
+				" stock=", sr.global_position if sr else "missing")
 		quit(0)
 		return false
 	return false
