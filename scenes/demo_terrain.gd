@@ -1,6 +1,6 @@
 extends Node3D
 
-# 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 岩石、Kenney 植被/掩体、AmbientCG 地表纹理、HDRI 天空）
+# 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 岩石/荒漠树木、Kenney 灌木草石、AmbientCG 地表纹理、HDRI 天空）
 
 const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
 const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
@@ -19,6 +19,7 @@ func _ready() -> void:
 	terrain = _build_terrain()
 	_build_instanced_nature()
 	_build_landmark_rocks()
+	_build_hero_trees()
 	_build_props()
 	_build_player()
 	_build_hud()
@@ -95,13 +96,6 @@ func _build_terrain() -> Terrain3D:
 
 	# 植被/岩石 instancer 网格资产（顺序即 instancer id，须与 _build_instanced_nature 的 specs 对应）
 	var mesh_specs: Array[String] = [
-		"res://assets/models/kenney_nature/tree_default.glb",
-		"res://assets/models/kenney_nature/tree_cone.glb",
-		"res://assets/models/kenney_nature/tree_detailed.glb",
-		"res://assets/models/kenney_nature/tree_oak.glb",
-		"res://assets/models/kenney_nature/tree_small.glb",
-		"res://assets/models/kenney_nature/tree_tall.glb",
-		"res://assets/models/kenney_nature/tree_pineTallA.glb",
 		"res://assets/models/kenney_nature/plant_bush.glb",
 		"res://assets/models/kenney_nature/plant_bushLarge.glb",
 		"res://assets/models/kenney_nature/plant_bushSmall.glb",
@@ -111,8 +105,6 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/flower_yellowA.glb",
 		"res://assets/models/kenney_nature/flower_redA.glb",
 		"res://assets/models/kenney_nature/flower_purpleA.glb",
-		"res://assets/models/kenney_nature/mushroom_red.glb",
-		"res://assets/models/kenney_nature/mushroom_tan.glb",
 		"res://assets/models/kenney_nature/stump_old.glb",
 		"res://assets/models/kenney_nature/stump_round.glb",
 		"res://assets/models/kenney_nature/log.glb",
@@ -123,6 +115,8 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/grass_bermuda_01/grass_bermuda_01_2k.gltf",
 		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
 		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
+		"res://assets/models/polyhaven/quiver_tree_01/quiver_tree_01_2k.gltf",
+		"res://assets/models/polyhaven/othonna_cerarioides/othonna_cerarioides_2k.gltf",
 	]
 	for i in mesh_specs.size():
 		var ma := Terrain3DMeshAsset.new()
@@ -136,34 +130,27 @@ func _build_terrain() -> Terrain3D:
 func _build_instanced_nature() -> void:
 	# [mesh_id, count, lo, hi, h_min, h_max, scale_min, scale_max]
 	var specs: Array = [
-		[0, 45, -460, 460, -30.0, 18.0, 0.8, 1.3],   # tree_default
-		[1, 40, -460, 460, -30.0, 18.0, 0.8, 1.3],   # tree_cone
-		[2, 40, -460, 460, -30.0, 18.0, 0.8, 1.2],   # tree_detailed
-		[3, 35, -460, 460, -28.0, 16.0, 0.9, 1.4],   # tree_oak
-		[4, 40, -460, 460, -32.0, 20.0, 0.8, 1.3],   # tree_small
-		[5, 35, -460, 460, -28.0, 15.0, 0.9, 1.4],   # tree_tall
-		[6, 40, -460, 460, -26.0, 14.0, 0.9, 1.4],   # tree_pineTallA
-		[7, 60, -460, 460, -35.0, 24.0, 0.8, 1.4],   # plant_bush
-		[8, 55, -460, 460, -35.0, 24.0, 0.8, 1.5],   # plant_bushLarge
-		[9, 55, -460, 460, -35.0, 24.0, 0.8, 1.3],   # plant_bushSmall
-		[10, 140, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass
-		[11, 130, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_large
-		[12, 120, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_leafs
-		[13, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_yellowA
-		[14, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_redA
-		[15, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_purpleA
-		[16, 35, -460, 460, -36.0, 22.0, 0.8, 1.3],  # mushroom_red
-		[17, 35, -460, 460, -36.0, 22.0, 0.8, 1.3],  # mushroom_tan
-		[18, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_old
-		[19, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_round
-		[20, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log
-		[21, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log_stack
-		[22, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_largeA
-		[23, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_smallA
-		[24, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_medium_01
-		[25, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
-		[26, 18, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
-		[27, 18, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
+		[0, 60, -460, 460, -35.0, 24.0, 0.8, 1.4],   # plant_bush
+		[1, 55, -460, 460, -35.0, 24.0, 0.8, 1.5],   # plant_bushLarge
+		[2, 55, -460, 460, -35.0, 24.0, 0.8, 1.3],   # plant_bushSmall
+		[3, 150, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass
+		[4, 140, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass_large
+		[5, 130, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass_leafs
+		[6, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],   # flower_yellowA
+		[7, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],   # flower_redA
+		[8, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],   # flower_purpleA
+		[9, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],   # stump_old
+		[10, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_round
+		[11, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log
+		[12, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log_stack
+		[13, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_largeA
+		[14, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_smallA
+		[15, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_medium_01
+		[16, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
+		[17, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
+		[18, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
+		[19, 55, -460, 460, -35.0, 20.0, 2.5, 4.5],  # ph quiver_tree_01（本体 2.7m，放大成 7-12m 树）
+		[20, 60, -460, 460, -38.0, 26.0, 1.5, 2.5],  # ph othonna_cerarioides（灌木）
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
@@ -193,6 +180,13 @@ func _build_landmark_rocks() -> void:
 	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(210, 0, 150), 0.045)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(120, 0, -260), 0.25)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(-60, 0, 300), 0.3)
+
+
+func _build_hero_trees() -> void:
+	# 几棵箭袋树做地标，保证视野里有明显树木
+	var spots := [Vector3(35, 0, 15), Vector3(-180, 0, -60), Vector3(250, 0, -220), Vector3(-40, 0, 280)]
+	for s in spots:
+		_place_scene("res://assets/models/polyhaven/quiver_tree_01/quiver_tree_01_2k.gltf", s, 3.5)
 
 
 func _place_scene(path: String, at: Vector3, scale: float) -> void:
