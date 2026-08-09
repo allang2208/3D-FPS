@@ -196,7 +196,6 @@ func _build() -> void:
 func _make_crosshair_line(dir: Vector2) -> ColorRect:
 	var r := ColorRect.new()
 	r.color = Style.COLOR_CROSSHAIR
-	r.size = Vector2(3, 9)
 	r.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	r.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	r.grow_vertical = Control.GROW_DIRECTION_BOTH
@@ -209,12 +208,20 @@ func _set_crosshair(ratio: float) -> void:
 		return
 	_ch_up.offset_left = -1.5
 	_ch_up.offset_top = -_ch_gap - 9.0
+	_ch_up.offset_right = 1.5
+	_ch_up.offset_bottom = -_ch_gap
 	_ch_down.offset_left = -1.5
 	_ch_down.offset_top = _ch_gap
+	_ch_down.offset_right = 1.5
+	_ch_down.offset_bottom = _ch_gap + 9.0
 	_ch_left.offset_left = -_ch_gap - 9.0
 	_ch_left.offset_top = -1.5
+	_ch_left.offset_right = -_ch_gap
+	_ch_left.offset_bottom = 1.5
 	_ch_right.offset_left = _ch_gap
 	_ch_right.offset_top = -1.5
+	_ch_right.offset_right = _ch_gap + 9.0
+	_ch_right.offset_bottom = 1.5
 
 func _center(c: Label) -> void:
 	c.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
