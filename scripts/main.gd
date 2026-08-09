@@ -6,17 +6,8 @@ const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"
 
 var _player: Node3D
 var _gun: Node3D
-var _hp_label: Label
-var _ammo_label: Label
-var _kill_label: Label
-var _hitmarker: Label
-var _death_label: Label
-var _status_label: Label
-var _dmgflash: ColorRect
+var _status_bar: CanvasLayer
 var _player_dead := false
-var _hitmark_t := 0.0
-var _dmgflash_t := 0.0
-var _status_t := 0.0
 var _kills := 0
 
 func _ready() -> void:
@@ -27,13 +18,7 @@ func _ready() -> void:
 	_build_player()
 	_build_enemies()
 
-func _process(delta: float) -> void:
-	_hitmark_t = maxf(0.0, _hitmark_t - delta)
-	_hitmarker.visible = _hitmark_t > 0.0
-	_dmgflash_t = maxf(0.0, _dmgflash_t - delta)
-	_dmgflash.color.a = 0.25 * (_dmgflash_t / 0.18)
-	_status_t = maxf(0.0, _status_t - delta)
-	_status_label.visible = _status_t > 0.0
+func _process(_delta: float) -> void:
 	if _player_dead and Input.is_key_pressed(KEY_R):
 		if get_tree().current_scene != null:
 			get_tree().reload_current_scene()
@@ -149,54 +134,11 @@ func _build_player() -> void:
 	_player = player
 
 func _build_hud() -> void:
-	var layer := CanvasLayer.new()
-	layer.name = "HUD"
-	add_child(layer)
-	_hp_label = _make_label(layer, "生命: 100", Vector2(16, 12), 18, Color(0.92, 0.92, 0.96))
-	_kill_label = _make_label(layer, "击杀: 0", Vector2(16, 38), 18, Color(0.96, 0.9, 0.7))
-	_ammo_label = _make_label(layer, "弹药: 30/90", Vector2.ZERO, 22, Color(0.92, 0.92, 0.96))
-	_ammo_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_ammo_label.position = Vector2(-170, -42)
-	_ammo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_status_label = _make_label(layer, "", Vector2.ZERO, 16, Color(0.98, 0.75, 0.4))
-	_status_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_status_label.position = Vector2(-170, -68)
-	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_status_label.visible = false
-	_hitmarker = _make_label(layer, "✕", Vector2.ZERO, 30, Color(0.98, 0.98, 0.95))
-	_hitmarker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_hitmarker.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_hitmarker.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_hitmarker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_hitmarker.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_hitmarker.visible = false
-	var cross := _make_label(layer, "＋", Vector2.ZERO, 26, Color(0.95, 0.95, 0.9))
-	cross.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	cross.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	cross.grow_vertical = Control.GROW_DIRECTION_BOTH
-	cross.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	cross.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_death_label = _make_label(layer, "你死了\n按 R 重来", Vector2.ZERO, 40, Color(0.95, 0.4, 0.35))
-	_death_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_death_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_death_label.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_death_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_death_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_death_label.visible = false
-	_dmgflash = ColorRect.new()
-	_dmgflash.color = Color(0.8, 0, 0, 0)
-	_dmgflash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_dmgflash.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	layer.add_child(_dmgflash)
-
-func _make_label(parent: Node, text: String, pos: Vector2, size: int, color: Color) -> Label:
-	var l := Label.new()
-	l.text = text
-	l.position = pos
-	l.add_theme_color_override("font_color", color)
-	l.add_theme_font_size_override("font_size", size)
-	parent.add_child(l)
-	return l
+	var bar := CanvasLayer.new()
+	bar.name = "StatusBar"
+	bar.set_script(load("res://ui/status_bar.gd"))
+	add_child(bar)
+	_status_bar = bar
 
 func _build_enemies() -> void:
 	var wolf_model: Node3D = load(WOLF_GLB).instantiate()
@@ -240,30 +182,28 @@ func _build_enemy(enemy_name: String, model: Node3D, pos: Vector3, cfg: Dictiona
 	enemy.setup(_player, _on_enemy_killed)
 
 func _on_ammo(ammo: int, reserve_left: int) -> void:
-	_ammo_label.text = "弹药: %d/%d" % [ammo, reserve_left]
+	_status_bar.set_ammo(ammo, reserve_left)
 
 func _on_hit() -> void:
-	_hitmark_t = 0.12
+	_status_bar.hitmark()
 
 func _on_reloading() -> void:
-	_status_label.text = "换弹中…"
-	_status_t = 1.5
+	_status_bar.show_status("换弹中…", 1.5)
 
 func _on_empty() -> void:
-	_status_label.text = "没子弹 · 按 R 换弹"
-	_status_t = 1.2
+	_status_bar.show_status("没子弹 · 按 R 换弹", 1.2)
 
 func _on_reloaded(_ammo: int, _reserve: int) -> void:
-	_status_t = 0.0
+	_status_bar.clear_status()
 
 func _on_player_damaged(hp: int) -> void:
-	_hp_label.text = "生命: %d" % hp
-	_dmgflash_t = 0.18
+	_status_bar.set_hp(hp, int(_player.get("max_hp")))
+	_status_bar.damage_flash()
 
 func _on_player_died() -> void:
 	_player_dead = true
-	_death_label.visible = true
+	_status_bar.show_death()
 
 func _on_enemy_killed() -> void:
 	_kills += 1
-	_kill_label.text = "击杀: %d" % _kills
+	_status_bar.set_kills(_kills)

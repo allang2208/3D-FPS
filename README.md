@@ -31,7 +31,7 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
   project.godot     # 项目配置（Godot 4.7 / Forward Plus / Jolt）
   scenes/main.tscn  # 主场景入口（场景由 main.gd 代码搭建）
   scripts/
-    main.gd         # 环境/光照/地面/墙体/玩家/黑狼 GLB
+    main.gd         # 环境/光照/地面/墙体/玩家/黑狼 GLB；HUD 部分转发信号到 ui/status_bar.gd
     player.gd       # 第一人称控制器 + 血量/受伤/死亡
     gun.gd          # AKM：弹药 30/90 + 空仓自动换弹/R 换弹 + 散布(bloom) + 枪口闪光
     projectile.gd   # 标准弹道飞行：90m/s、轻微下坠、逐帧扫描防穿墙、命中火花
@@ -40,7 +40,17 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
     enemy_models.gd # 代码拼装：僵尸犬 / 蜘蛛
   assets/models/
     black_wolf_trellis.glb  # TRELLIS.2 生成的 PBR 黑狼
+  ui/
+    status_bar.gd   # 状态栏（UI 迁移线）：生命条/弹药/击杀/换弹状态/命中/死亡面板
 ```
+
+## 状态栏（HUD）测试
+
+```powershell
+& 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe' --headless --path 'E:\3d\3-dfps' --script res://tests/test_status_bar.gd
+```
+
+覆盖：初始血量/弹药、受伤扣血 + 红闪、弹药/换弹提示、命中标记、击杀计数、死亡面板。
 
 ## 当前状态与下一步
 
