@@ -58,3 +58,16 @@ scale_curve 生长（越往上越宽）+ color_ramp alpha 提前淡出（防顶�
 `48dd87e`（去 RibbonTrail 红柱）、`2488b1c`（火焰燃烧三层 + 放大）、`eed6a56`（缩 30% 防光柱）、
 `afdbef7`（球体改暖橙芯防红球）、`052fef5`（修 color_ramp + 火焰包球）、`9917b17`（移除球体纯火焰）、
 `8db2178`（中心火芯加大）、`72a9c35`（爆炸升级四层 + 双层冲击波）。
+
+## 冰锥 / 闪电（第二轮迁移，`064070b`）
+
+- **冰锥（iceSpike）**：两段式——N 颗冰锥环绕相机悬浮（水平椭圆 + 垂直分层错速）→ 齐射。
+  命中/撞墙 = 碎裂（冰屑带重力 + 小冰环 + 音效 90ms 节流）；到达射程静默消失。
+- **闪电（lightningStrike）**：单段——锁定相机准星前方 aimRadius 内最近敌人，
+  蓝紫闪电链（锯齿折线 + billboard 软点链）连接，chainRange 内传导，每跳 ×(1−chainDecay)；
+  命中点蓝紫冲击波 + 白紫粒子；无目标/超距失败（不耗魔不冷却，main.gd 回滚）。
+- **接线**：skills_db.effect() 扩展 spike_count / aim_radius / chain_range / chain_targets /
+  chain_decay / stun_ms / electrify 等字段；main.gd 绑定 Q=火球 / E=冰锥 / X=闪电。
+- **新坑**：`Camera3D.new()` 自动名是 `@Camera3D@id`（类型查找替代名字查找）；
+  3D 投射物要汇聚躯干高度（0.8m）否则从敌人头顶掠过；skills_db._eval 需兼容纯数值；
+  隔离探针假敌人须 StaticBody3D + CapsuleShape3D + collision_layer=2 才能被射线命中。
