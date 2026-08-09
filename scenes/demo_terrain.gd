@@ -33,6 +33,7 @@ func _ready() -> void:
 	_build_instanced_nature()
 	_build_landmark_rocks()
 	_build_river()
+	_build_particle_grass()
 	_build_trees()
 	_build_props()
 	_build_player()
@@ -339,6 +340,39 @@ func _build_river() -> void:
 		inst.position = Vector3(at.x, at.y - base + 0.05, at.z)
 
 
+func _build_particle_grass() -> void:
+	# Terrain3D 官方 GPU 粒子草：GPUParticles3D shader 直接采样地形高度图，
+	# 在相机周围撒几千根草（实例间距 0.3m，随相机移动），几乎不占 draw call。
+	# 参考图"单根草叶级"密度就是靠这层实现的。
+	var pscn: PackedScene = load("res://addons/terrain_3d/extras/particle_example/Terrain3DParticles.tscn")
+	if pscn == null:
+		print("[grass] FAIL: Terrain3DParticles.tscn not found")
+		return
+	var pt := pscn.instantiate()
+	pt.name = "ParticleGrass"
+	pt.terrain = terrain
+	add_child(pt)
+	# 密度/范围微调：0.3m 间距 + 32m 单元 + 7x7 网格 → 相机周围约 4.9 万根草
+	pt.instance_spacing = 0.3
+	pt.cell_width = 32.0
+	pt.grid_width = 7
+	# 用项目内参数化草 shader（色相与地表 grass001 统一），不改插件源文件
+	var gm := ShaderMaterial.new()
+	gm.shader = load("res://assets/shaders/grass_particles.gdshader")
+	gm.set_shader_parameter("grass_color", Color(0.22, 0.34, 0.12))
+	pt.mesh_material_override = gm
+	# 增强自然随机性：间距抖动 + 高度差异 + 风摆（参考图草叶交错感）
+	var pm: ShaderMaterial = pt.process_material
+	if pm != null:
+		pm.set_shader_parameter("random_spacing", 0.8)
+		pm.set_shader_parameter("min_scale", Vector3(0.1, 0.35, 0.1))
+		pm.set_shader_parameter("max_scale", Vector3(0.18, 1.35, 0.18))
+		pm.set_shader_parameter("wind_strength", 1.25)
+		pm.set_shader_parameter("clod_scale_boost", 2.5)
+		pm.set_shader_parameter("patch_min_threshold", 0.05)
+		pm.set_shader_parameter("patch_max_threshold", 0.3)
+
+
 func _build_trees() -> void:
 	# 热带岛树三物种：独立 StaticBody3D（带碰撞），AABB 底座精确贴地
 	var tree_paths: Array[String] = [
@@ -517,8 +551,12 @@ func _build_hud() -> void:
 	_warehouse.add_item(_item_db.create_instance("magic_dust", 50))
 	NpcPanels.seed_materials(_backpack)
 	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, npc_bar, _warehouse)
-	_panels["quest"].teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
-	_panels["expedition"].depart_requested.connect(_on_depart_requested)
+	var quest_panel = _panels.get("quest")
+	if quest_panel != null:
+		quest_panel.teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
+	var expedition_panel = _panels.get("expedition")
+	if expedition_panel != null:
+		expedition_panel.depart_requested.connect(_on_depart_requested)
 	_equipment.changed.connect(_refresh_weapon_mods)
 	_refresh_weapon_mods()
 

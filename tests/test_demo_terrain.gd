@@ -49,6 +49,8 @@ func _run() -> void:
 	_check("bar_portrait", bool(_bar.get("_portrait").texture != null))
 	var want: Array = ["shop", "enhance", "craft", "enchant", "close"]
 	_check("bar_options", _bar.get_option_ids() == want, "got=" + str(_bar.get_option_ids()))
+	_check("craft_config_akm", not NpcConfig.get_craft_config("weapon7").is_empty())
+	_check("warehouse_exists", _scene.get("_warehouse") != null)
 
 	# 选项 -> 打开子面板（改造/附魔/强化），关闭后面板回到对话框
 	_scene.call("_on_npc_option", "craft")

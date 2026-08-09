@@ -18,6 +18,7 @@ var intt := 10
 var con := 10
 var wis := 10
 var luck := 10
+var weapon_atk := 0
 var hp_regen := 1
 var mp_regen := 1
 var loop_count := 0
@@ -64,7 +65,12 @@ func max_exp() -> int:
 	return int((20 + level * 20 + level * level * 12) * 2 * 4)
 
 func atk() -> int:
-	return roundi(ATK_BASE + str * ATK_STR + dex * ATK_DEX)
+	return roundi(ATK_BASE + str * ATK_STR + dex * ATK_DEX) + weapon_atk
+
+## 武器攻击（强化/改造/附魔后由 weapon_formula 计算，main 装备变化时写入）
+func set_weapon_atk(v: int) -> void:
+	weapon_atk = maxi(0, v)
+	changed.emit()
 
 func def() -> int:
 	return floori(con * DEF_CON + str * DEF_STR)

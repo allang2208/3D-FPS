@@ -8,6 +8,7 @@ const NpcConfig := preload("res://ui/npc_config.gd")
 var _db: RefCounted
 var _backpack: RefCounted
 var _equipment: RefCounted
+var _warehouse: RefCounted
 var _equipped := {}
 var _popup_slot_id := ""
 
@@ -17,6 +18,7 @@ var _mod_title: Label
 var _popup: PanelContainer
 var _popup_list: VBoxContainer
 var _bp_grid: GridContainer
+var _eq_grid: GridContainer
 
 func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy: RefCounted) -> void:
 	_db = db
@@ -25,6 +27,9 @@ func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy:
 	set_economy(economy)
 	if _backpack != null and not _backpack.changed.is_connected(_on_changed):
 		_backpack.changed.connect(_on_changed)
+
+func set_warehouse(wh: RefCounted) -> void:
+	_warehouse = wh
 
 func _build_body() -> void:
 	_slot_label = _make_label("改造槽：空（点击下方武器放入）", "body", Style.THEME_GRAY_LIGHT)
@@ -83,6 +88,20 @@ func _build_body() -> void:
 	_bp_grid.add_theme_constant_override("v_separation", 6)
 	bp_scroll.add_child(_bp_grid)
 
+	var eq_col := VBoxContainer.new()
+	eq_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	eq_col.add_theme_constant_override("separation", Style.spacing("grid"))
+	h.add_child(eq_col)
+	eq_col.add_child(_make_label("已装备（可放入改造）", "caption", Style.THEME_GRAY_LIGHT))
+	var eq_scroll := ScrollContainer.new()
+	eq_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	eq_col.add_child(eq_scroll)
+	_eq_grid = GridContainer.new()
+	_eq_grid.columns = 2
+	_eq_grid.add_theme_constant_override("h_separation", 6)
+	_eq_grid.add_theme_constant_override("v_separation", 6)
+	eq_scroll.add_child(_eq_grid)
+
 func _refresh() -> void:
 	_refresh_gold()
 	_popup.visible = false
@@ -92,7 +111,7 @@ func _refresh() -> void:
 	else:
 		var item: Dictionary = _equipped["item"]
 		_slot_label.text = "改造槽：%s%s" % [String(item.get("name", "?")), "（已改造）" if _is_crafted(item) else ""]
-		_mod_title.text = "改造配件（点击格子选择）：" if NpcConfig.is_craftable(item) else "该武器不可改造"
+		_mod_title.text = "改造配件（点击格子选择）：" if NpcConfig.has_craft_config(item) else "该武器不可改造"
 	_rebuild_mod_grid()
 	_rebuild_backpack()
 
@@ -141,6 +160,15 @@ func _rebuild_backpack() -> void:
 		var b := _make_item_button(it, Vector2(170, 44))
 		b.pressed.connect(_equip_from_backpack.bind(i))
 		_bp_grid.add_child(b)
+	for c in _eq_grid.get_children():
+		c.queue_free()
+	for key in _equipment.SLOT_ORDER:
+		var it = _equipment.slots.get(key, {})
+		if it == null or it.is_empty():
+			continue
+		var b := _make_item_button(it, Vector2(170, 44))
+		b.pressed.connect(_equip_from_slot.bind(String(key)))
+		_eq_grid.add_child(b)
 
 func _equip_from_backpack(slot: int) -> void:
 	var it = _backpack.slots[slot]
@@ -149,16 +177,36 @@ func _equip_from_backpack(slot: int) -> void:
 		return
 	_return_item()
 	_backpack.slots[slot] = null
-	_equipped = {"item": it, "slot": slot}
+	_equipped = {"item": it, "source": "backpack", "slot": slot}
 	_backpack.changed.emit()
+	_refresh()
+
+func _equip_from_slot(key: String) -> void:
+	var it = _equipment.slots.get(key, {})
+	if it == null or it.is_empty() or not NpcConfig.is_craftable(it):
+		show_message("只能放入可改造的武器", true)
+		return
+	_return_item()
+	_equipment.slots[key] = null
+	_equipped = {"item": it, "source": "equip", "slot": key}
+	_equipment.changed.emit()
 	_refresh()
 
 func _return_item() -> void:
 	if _equipped.is_empty():
 		return
 	var item: Dictionary = _equipped["item"]
+	var source := String(_equipped.get("source", "backpack"))
+	if source == "equip":
+		var key := String(_equipped["slot"])
+		if _equipment.slots.get(key, {}) == {}:
+			_equipment.slots[key] = item
+			_equipment.changed.emit()
+			_equipped = {}
+			_refresh()
+			return
 	var slot: int = _equipped["slot"]
-	if slot >= 0 and slot < _backpack.slots.size() and _backpack.slots[slot] == null:
+	if source != "equip" and slot >= 0 and slot < _backpack.slots.size() and _backpack.slots[slot] == null:
 		item["slot"] = slot
 		_backpack.slots[slot] = item
 	else:
@@ -213,10 +261,17 @@ func _equip_mod(slot_id: String, mod_id: String) -> void:
 	var has_existing := mods.has(slot_id)
 	var cost := 4 if has_existing else 1
 	var ticket_slot := _find_ticket()
-	if ticket_slot < 0 or int(_backpack.slots[ticket_slot].get("stack", 1)) < cost:
+	var bp_stack := int(_backpack.slots[ticket_slot].get("stack", 1)) if ticket_slot >= 0 else 0
+	var wh_stack: int = _warehouse.count_material(_is_ticket) if _warehouse != null else 0
+	if bp_stack + wh_stack < cost:
 		show_message("改造券不足！需要 %d 张改造券%s" % [cost, "（替换已改造配件）" if has_existing else ""], true)
 		return
-	_consume_tickets(ticket_slot, cost)
+	if bp_stack >= cost:
+		_consume_tickets(ticket_slot, cost)
+	else:
+		if ticket_slot >= 0:
+			_consume_tickets(ticket_slot, bp_stack)
+		_warehouse.consume_material(_is_ticket, cost - bp_stack)
 	mods[slot_id] = mod_id
 	item["_craftData"] = mods
 	item["_isCrafted"] = true
@@ -250,6 +305,9 @@ func _find_ticket() -> int:
 		if it != null and String(it.get("name", "")) == "改造券":
 			return i
 	return -1
+
+func _is_ticket(it) -> bool:
+	return it != null and (String(it.get("id", "")) == NpcConfig.REFORGE_TICKET_ID or String(it.get("name", "")) == "改造券")
 
 func _consume_tickets(slot: int, count: int) -> void:
 	var it = _backpack.slots[slot]

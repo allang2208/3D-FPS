@@ -7,9 +7,11 @@ const NpcConfig := preload("res://ui/npc_config.gd")
 var _db: RefCounted
 var _backpack: RefCounted
 var _equipment: RefCounted
+var _warehouse: RefCounted
 var _scroll := {}
 var _equip := {}
 var _equip_src := {}
+var _scroll_src := {}
 
 var _scroll_label: Label
 var _equip_label: Label
@@ -26,6 +28,9 @@ func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy:
 	set_economy(economy)
 	if _backpack != null and not _backpack.changed.is_connected(_on_changed):
 		_backpack.changed.connect(_on_changed)
+
+func set_warehouse(wh: RefCounted) -> void:
+	_warehouse = wh
 
 func _build_body() -> void:
 	_scroll_label = _make_label("卷轴槽：空", "body", Style.THEME_GRAY_LIGHT)
@@ -100,8 +105,16 @@ func _rebuild_scroll_list() -> void:
 		if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
 			continue
 		var b := _make_item_button(it, Vector2(360, 40))
-		b.pressed.connect(_place_scroll.bind(i))
+		b.pressed.connect(_place_scroll.bind("backpack", i))
 		_scroll_grid.add_child(b)
+	if _warehouse != null:
+		for it in _warehouse.items:
+			if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
+				continue
+			var b := _make_item_button(it, Vector2(360, 40))
+			b.text += "（仓库）"
+			b.pressed.connect(_place_scroll.bind("warehouse", int(it.get("slot", -1))))
+			_scroll_grid.add_child(b)
 
 func _rebuild_equip_list() -> void:
 	for c in _equip_grid.get_children():
@@ -125,16 +138,20 @@ func _is_weapon(item: Dictionary) -> bool:
 	var cat := String(item.get("category", ""))
 	return cat == "weapon_melee" or cat == "weapon_ranged"
 
-func _place_scroll(slot: int) -> void:
-	var it = _backpack.slots[slot]
+func _place_scroll(source: String, slot: int) -> void:
+	var it = _backpack.slots[slot] if source == "backpack" else _warehouse.get_item_at(slot)
 	if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
 		return
 	if not _equip.is_empty() and not NpcConfig.can_enchant(_equip, String(it.get("scroll_id", ""))):
 		show_message("不符合附魔条件", true)
 		return
 	_return_scroll()
-	_backpack.slots[slot] = null
+	if source == "backpack":
+		_backpack.slots[slot] = null
+	else:
+		_warehouse.consume_material(func(i): return i == it, int(it.get("stack", 1)))
 	_scroll = it
+	_scroll_src = {"source": source, "slot": slot}
 	_backpack.changed.emit()
 	_refresh()
 
@@ -144,6 +161,7 @@ func _place_equip(source: String, slot) -> void:
 		return
 	if not _scroll.is_empty() and not NpcConfig.can_enchant(it, String(_scroll.get("scroll_id", ""))):
 		show_message("不符合附魔条件", true)
+		_return_scroll()
 		return
 	_return_equip()
 	if source == "backpack":
@@ -158,8 +176,13 @@ func _place_equip(source: String, slot) -> void:
 func _return_scroll() -> void:
 	if _scroll.is_empty():
 		return
-	_place_into_backpack(_scroll)
+	if not _scroll_src.is_empty() and String(_scroll_src.get("source", "")) == "warehouse" and _warehouse != null:
+		if not _warehouse.add_item(_scroll):
+			_place_into_backpack(_scroll)
+	else:
+		_place_into_backpack(_scroll)
 	_scroll = {}
+	_scroll_src = {}
 
 func _return_equip() -> void:
 	if _equip.is_empty():
@@ -210,7 +233,12 @@ func _count_dust() -> int:
 		var it = _backpack.slots[i]
 		if it != null and (String(it.get("id", "")) == NpcConfig.MAGIC_DUST_ID or String(it.get("name", "")) == "魔法粉尘"):
 			total += int(it.get("stack", 1))
+	if _warehouse != null:
+		total += _warehouse.count_material(_is_dust)
 	return total
+
+func _is_dust(it) -> bool:
+	return it != null and (String(it.get("id", "")) == NpcConfig.MAGIC_DUST_ID or String(it.get("name", "")) == "魔法粉尘")
 
 func _consume_dust(amount: int) -> void:
 	var remaining := amount
@@ -227,6 +255,8 @@ func _consume_dust(amount: int) -> void:
 			remaining = 0
 		if remaining <= 0:
 			break
+	if remaining > 0 and _warehouse != null:
+		remaining -= _warehouse.consume_material(_is_dust, remaining)
 	_backpack.changed.emit()
 
 func _do_enchant() -> void:

@@ -67,7 +67,23 @@ func _process(_delta: float) -> bool:
 		var npc_enhance_ok: bool = _main.get("_enhance_panel") != null \
 			and bool(_main.get("_enhance_panel").is_open())
 		print("TEST npc_enhance_panel_open=", npc_enhance_ok)
-		var all_ok: bool = kill_ok and death_ok and ch_hidden and ch_restored and npc_enhance_ok
+		# 枪械 mods 钩子 + main 装备接线
+		var gun2: Node = _main.get_node_or_null("Player/Camera3D/Gun")
+		gun2.apply_item_mods({"damagePercent": 0.6, "enhance_flat_damage": 3})
+		var mods_ok: bool = absf(float(gun2.get("_mod_damage_mult")) - 1.6) < 0.001 \
+			and int(gun2.get("_mod_damage")) == 3
+		gun2.clear_item_mods()
+		var clear_ok: bool = absf(float(gun2.get("_mod_damage_mult")) - 1.0) < 0.001
+		var equipped_item: Dictionary = _main.get("_equipment").get_item("weapon")
+		var wiring_ok := false
+		if not equipped_item.is_empty():
+			equipped_item["_craftEffects"] = {"damagePercent": 0.1, "attackIntervalDelta": -50}
+			_main.call("_refresh_weapon_mods")
+			wiring_ok = absf(float(gun2.get("_mod_damage_mult")) - 1.1) < 0.001 \
+				and int(gun2.get("_mod_interval_ms")) == -50
+		print("TEST gun_mods=", mods_ok, " clear=", clear_ok, " wiring=", wiring_ok)
+		var all_ok: bool = kill_ok and death_ok and ch_hidden and ch_restored \
+			and npc_enhance_ok and mods_ok and clear_ok and wiring_ok
 		quit(0 if all_ok else 1)
 		return false
 	return false

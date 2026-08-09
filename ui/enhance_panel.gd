@@ -3,10 +3,13 @@
 ## 强化上限：武器（含盾）15 级，其他装备 10 级；费用 = baseCost * costGrowth^level。
 
 const NpcConfig := preload("res://ui/npc_config.gd")
+const WeaponFormula := preload("res://ui/weapon_formula.gd")
 
 var _db: RefCounted
 var _backpack: RefCounted
 var _equipment: RefCounted
+var _warehouse: RefCounted
+var _player_status
 var _equipped := {}  # {item, source, slot}
 
 var _slot_label: Label
@@ -22,6 +25,12 @@ func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy:
 	set_economy(economy)
 	if _backpack != null and not _backpack.changed.is_connected(_on_changed):
 		_backpack.changed.connect(_on_changed)
+
+func set_warehouse(wh: RefCounted) -> void:
+	_warehouse = wh
+
+func set_player_status(ps) -> void:
+	_player_status = ps
 
 func _build_body() -> void:
 	_slot_label = _make_label("强化槽：空（点击下方装备放入）", "body", Style.THEME_GRAY_LIGHT)
@@ -166,17 +175,24 @@ func _enhance() -> void:
 		show_message("已达最高强化等级！", true)
 		return
 	var stone_slot := _find_material(NpcConfig.ENHANCE_STONE_ID)
-	if stone_slot < 0:
+	var wh_has: bool = _warehouse != null and _warehouse.count_material(_is_enhance_stone) > 0
+	if stone_slot < 0 and not wh_has:
 		show_message("强化石不足！需要 1 颗强化石", true)
 		return
 	var cost := NpcConfig.enhance_cost(level)
 	if not economy.deduct_gold(cost):
 		show_message("金币不足！需要 %d 金币" % cost, true)
 		return
-	_consume_stack(stone_slot)
+	if stone_slot >= 0:
+		_consume_stack(stone_slot)
+	else:
+		_warehouse.consume_material(_is_enhance_stone, 1)
 	item["enhanceLevel"] = level + 1
 	show_message("强化成功！%s +%d" % [String(item.get("name", "?")), level + 1])
 	_refresh()
+
+func _is_enhance_stone(it) -> bool:
+	return it != null and (String(it.get("id", "")) == NpcConfig.ENHANCE_STONE_ID or String(it.get("name", "")) == "强化石")
 
 func _find_material(id: String) -> int:
 	for i in _backpack.slots.size():
@@ -200,13 +216,21 @@ func _consume_stack(slot: int) -> void:
 
 func _predicted(item: Dictionary) -> String:
 	var level := int(item.get("enhanceLevel", 0))
-	var formula: Dictionary = item.get("attackFormula", {})
-	if not formula.is_empty():
-		var base := float(formula.get("base", 0))
-		var flat := float(formula.get("enhanceFlat", 0))
-		var now := base + flat * level
-		var next := base + flat * (level + 1)
-		return "预测强化效果 (+%d)：物理攻击 %.0f → %.0f (+%.0f)" % [level + 1, now, next, flat]
+	var attrs := {}
+	if _player_status != null:
+		for k in ["str", "dex", "con", "wis", "luck"]:
+			attrs[k] = int(_player_status.get(k))
+		attrs["int"] = int(_player_status.get("intt"))
+	if not WeaponFormula.get_attack_formula(item).is_empty():
+		var cur := WeaponFormula.compute_weapon_atk(item, level, attrs)
+		var nxt := WeaponFormula.compute_weapon_atk(item, level + 1, attrs)
+		return "预测强化效果 (+%d)：物理攻击 %d → %d (+%d)\n公式：%s" % [
+			level + 1, cur, nxt, nxt - cur, WeaponFormula.formula_text(item, level + 1)]
+	var defense: Dictionary = item.get("defense", {})
+	if not defense.is_empty():
+		var dcur := float(defense.get("base", 0)) + float(defense.get("perEnhance", 0)) * level
+		var dnxt := float(defense.get("base", 0)) + float(defense.get("perEnhance", 0)) * (level + 1)
+		return "预测强化效果 (+%d)：物理防御 %.1f → %.1f (+%.1f)" % [level + 1, dcur, dnxt, dnxt - dcur]
 	var stats: Array = item.get("stats", [])
 	if not stats.is_empty() and typeof(stats[0]) == TYPE_DICTIONARY:
 		return "强化后继续提升：%s %s" % [String(stats[0].get("name", "")), String(stats[0].get("value", ""))]

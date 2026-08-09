@@ -14,6 +14,7 @@ const PANEL_SCRIPTS := {
 	"quest": "res://ui/quest_panel.gd",
 	"fusion": "res://ui/fusion_panel.gd",
 	"expedition": "res://ui/expedition_panel.gd",
+	"warehouse": "res://ui/warehouse_panel.gd",
 }
 
 static func title_of(key: String) -> String:
@@ -32,15 +33,22 @@ static func title_of(key: String) -> String:
 			return "🔮 祭品合成"
 		"expedition":
 			return "⚔️ 献祭出征"
+		"warehouse":
+			return "📦 仓库"
 	return ""
 
-static func build(host: Node, db, backpack, equipment, economy, npc_bar) -> Dictionary:
+static func build(host: Node, db, backpack, equipment, economy, npc_bar,
+		warehouse = null, player_status = null) -> Dictionary:
 	var out := {}
 	for key in PANEL_SCRIPTS:
 		var panel = load(PANEL_SCRIPTS[key]).new()
 		panel.name = key.capitalize() + "Panel"
 		host.add_child(panel)
 		panel.setup(db, backpack, equipment, economy)
+		if panel.has_method("set_warehouse"):
+			panel.set_warehouse(warehouse)
+		if panel.has_method("set_player_status"):
+			panel.set_player_status(player_status)
 		panel.set_title(title_of(key))
 		panel.closed.connect(func() -> void:
 			if npc_bar != null:

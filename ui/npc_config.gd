@@ -50,88 +50,9 @@ const ENHANCE_NON_WEAPON_MAX_LEVEL := 10
 const ENHANCE_BASE_COST := 100
 const ENHANCE_COST_GROWTH := 1.5
 const ENHANCE_STONE_ID := "enhancement_stone"
+const CRAFT_CONFIG_PATH := "res://assets/data/craft-config.json"
 
-## 改造（craft-config.json 对齐，裁剪到 Godot 已有武器；slot 布局坐标省略，仅保留 mod 逻辑）
-const CRAFT_CONFIG := {
-	"weapon2": {
-		"slots": [
-			{"id": "blade", "name": "剑刃"},
-			{"id": "guard", "name": "护手"},
-			{"id": "grip", "name": "握把"},
-		],
-		"options": {
-			"blade": [
-				{"id": "light_blade", "name": "轻量化剑刃", "desc": "减少攻击间隔 50ms", "effects": {"attackIntervalDelta": -50}},
-				{"id": "hardened_edge", "name": "淬火硬化刃口", "desc": "增加 10% 暴击率", "effects": {"critChancePercent": 0.1}},
-				{"id": "heavy_blunt", "name": "厚重钝化", "desc": "增加 20% 防御穿透", "effects": {"armorPenetrationPercent": 0.2}},
-				{"id": "sharpened_edge", "name": "精细研磨（开刃）", "desc": "增加 5% 伤害", "effects": {"damagePercent": 0.05}},
-			],
-			"guard": [
-				{"id": "small_disc_guard", "name": "小型圆盘护手", "desc": "减少攻击间隔 50ms", "effects": {"attackIntervalDelta": -50}},
-				{"id": "wide_cross_guard", "name": "宽十字护手", "desc": "装备时获得次级格挡：近战攻击 50% 概率减伤", "effects": {"secondaryBlock": true}},
-				{"id": "no_guard", "name": "无护手", "desc": "攻击间隔-100ms，体力消耗-5，防御力-25%", "effects": {"attackIntervalDelta": -100, "staminaCostDelta": -5, "defensePercent": -0.25}},
-			],
-			"grip": [
-				{"id": "wrapped_long_grip", "name": "缠绳加长柄", "desc": "减少 5 点攻击和技能体力消耗", "effects": {"staminaCostDelta": -5, "skillStaminaCostDelta": -5}},
-				{"id": "short_compact_grip", "name": "短柄紧凑型握把", "desc": "减少攻击间隔 50ms", "effects": {"attackIntervalDelta": -50}},
-			],
-		},
-	},
-	"weapon4": {
-		"slots": [
-			{"id": "blade", "name": "剑刃"},
-			{"id": "grip", "name": "握把"},
-		],
-		"options": {
-			"blade": [
-				{"id": "rune_restructure", "name": "符文重构", "desc": "右键特殊攻击额外生成 2 把魔法剑", "effects": {"runeRestructureCount": 2}},
-				{"id": "sharp_rune", "name": "锋利符文", "desc": "魔法防御穿透 20%", "effects": {"magicPenetrationPercent": 0.2}},
-				{"id": "destruction_rune", "name": "毁灭符文", "desc": "魔法剑击中附加 2 层魔力易伤", "effects": {"magicVulnerabilityOnHit": true, "magicVulnerabilityStacks": 2}},
-			],
-			"grip": [
-				{"id": "alloy_grip", "name": "合金", "desc": "施法前摇缩短 25%", "effects": {"castSpeedPercent": 0.25}},
-				{"id": "sandalwood_grip", "name": "檀木", "desc": "施法后 5 秒加速效果", "effects": {"castHasteDuration": 5000, "castHasteStacks": 1}},
-			],
-		},
-	},
-	"weapon7": {
-		"slots": [
-			{"id": "barrel", "name": "枪管"},
-			{"id": "trigger", "name": "扳机"},
-			{"id": "magazine", "name": "弹匣"},
-		],
-		"options": {
-			"barrel": [
-				{"id": "longshot_barrel", "name": "远射枪管", "desc": "射程+300px，散布更集中", "effects": {"rangeDelta": 300, "shotSpreadDelta": -1}},
-				{"id": "cqb_barrel", "name": "近战短管", "desc": "移动速度+5%，散布增大", "effects": {"moveSpeedPercent": 0.05, "shotSpreadDelta": 1}},
-			],
-			"trigger": [
-				{"id": "auto_trigger", "name": "全自动扳机", "desc": "切换全自动射击模式", "effects": {"fireModeOverride": "fullAuto", "attackIntervalDelta": -100}},
-				{"id": "lightweight_trigger", "name": "轻量化快速扳机", "desc": "攻击间隔-100ms，换弹-500ms", "effects": {"attackIntervalDelta": -100, "reloadTimeDelta": -500}},
-			],
-			"magazine": [
-				{"id": "light_extended_mag", "name": "轻型扩容弹匣", "desc": "备弹+6", "effects": {"magazineDelta": 6}},
-				{"id": "long_extended_mag", "name": "长扩容弹匣", "desc": "备弹+12，换弹+300ms", "effects": {"magazineDelta": 12, "reloadTimeDelta": 300}},
-			],
-		},
-	},
-	"weapon9": {
-		"slots": [
-			{"id": "trigger", "name": "扳机"},
-			{"id": "magazine", "name": "弹匣"},
-		],
-		"options": {
-			"trigger": [
-				{"id": "auto_trigger", "name": "全自动扳机", "desc": "切换全自动射击模式", "effects": {"fireModeOverride": "fullAuto", "attackIntervalDelta": -100}},
-				{"id": "lightweight_trigger", "name": "轻量化快速扳机", "desc": "攻击间隔-100ms，换弹-500ms", "effects": {"attackIntervalDelta": -100, "reloadTimeDelta": -500}},
-			],
-			"magazine": [
-				{"id": "light_extended_mag", "name": "轻型扩容弹匣", "desc": "备弹+6", "effects": {"magazineDelta": 6}},
-				{"id": "quick_mag", "name": "快拔弹匣", "desc": "换弹-500ms，移动速度+3%", "effects": {"reloadTimeDelta": -500, "moveSpeedPercent": 0.03}},
-			],
-		},
-	},
-}
+## 改造（craft-config.json 全量 17 把武器，运行时加载，避免手抄遗漏）
 const REFORGE_TICKET_ID := "reforge_ticket"
 
 ## 附魔（enchant-config.js 对齐）
@@ -219,10 +140,30 @@ static func enhance_max_level(item: Dictionary) -> int:
 	return ENHANCE_MAX_LEVEL if is_weapon else ENHANCE_NON_WEAPON_MAX_LEVEL
 
 static func is_craftable(item: Dictionary) -> bool:
-	return CRAFT_CONFIG.has(String(item.get("weaponId", "")))
+	# 旧版 gun-ammo.js：所有 weapon_ranged/melee/shield 都可放入，无配置再提示不可改造
+	var cat := String(item.get("category", ""))
+	return cat == "weapon_melee" or cat == "weapon_ranged" or cat == "weapon_shield"
+
+static func get_craft_config(weapon_id: String) -> Dictionary:
+	return _load_craft_config().get(weapon_id, {})
+
+static func has_craft_config(item: Dictionary) -> bool:
+	return not get_craft_config(String(item.get("weaponId", ""))).is_empty()
+
+static var _craft_cache: Dictionary = {}
+
+static func _load_craft_config() -> Dictionary:
+	if _craft_cache.is_empty() and FileAccess.file_exists(CRAFT_CONFIG_PATH):
+		var f := FileAccess.open(CRAFT_CONFIG_PATH, FileAccess.READ)
+		if f != null:
+			var parsed = JSON.parse_string(f.get_as_text())
+			f.close()
+			if typeof(parsed) == TYPE_DICTIONARY:
+				_craft_cache = parsed
+	return _craft_cache
 
 static func craft_config_for(item: Dictionary) -> Dictionary:
-	return CRAFT_CONFIG.get(String(item.get("weaponId", "")), {})
+	return get_craft_config(String(item.get("weaponId", "")))
 
 static func get_scroll(scroll_id: String) -> Dictionary:
 	return ENCHANT_SCROLLS.get(scroll_id, {})

@@ -2,6 +2,9 @@ extends SceneTree
 ## 无头冒烟：NPC 子面板全量（商店/强化/改造/附魔/任务/祭品合成/出征）
 ## 运行：$godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_npc_panels.gd
 
+const NpcConfig := preload("res://ui/npc_config.gd")
+const WeaponFormula := preload("res://ui/weapon_formula.gd")
+
 var _db: RefCounted
 var _bp: RefCounted
 var _eq: RefCounted
@@ -87,11 +90,14 @@ func _run() -> void:
 	craft.open_panel()
 	var g18 := _slot_of("g18_pistol")
 	craft._equip_from_backpack(g18)
-	craft._equip_mod("trigger", "auto_trigger")
+	var craft_cfg: Dictionary = NpcConfig.craft_config_for(craft._equipped["item"])
+	var slot_id := String(craft_cfg["slots"][0]["id"])
+	var mod_id := String(craft_cfg["options"][slot_id][0]["id"])
+	craft._equip_mod(slot_id, mod_id)
 	var c_item: Dictionary = craft._equipped["item"]
 	var c_data: Dictionary = c_item.get("_craftData", {})
-	_check("craft_data", String(c_data.get("trigger", "")) == "auto_trigger")
-	_check("craft_effects", String(c_item.get("_craftEffects", {}).get("fireModeOverride", "")) == "fullAuto")
+	_check("craft_data", String(c_data.get(slot_id, "")) == mod_id)
+	_check("craft_effects", not c_item.get("_craftEffects", {}).is_empty())
 	_check("craft_ticket", _slot_of("reforge_ticket") == -1 or int(_bp.slots[_slot_of("reforge_ticket")].get("stack", 0)) == 1)
 	craft._return_item()
 	craft.close()
@@ -103,7 +109,7 @@ func _run() -> void:
 	enchant.open_panel()
 	var scroll_slot := _slot_of("enchant_scroll_heavy")
 	rs = _slot_of("rusty_sword")
-	enchant._place_scroll(scroll_slot)
+	enchant._place_scroll("backpack", scroll_slot)
 	enchant._place_equip("backpack", rs)
 	_check("enchant_compatible", not enchant._enchant_btn.disabled)
 	enchant._do_enchant()
@@ -112,7 +118,7 @@ func _run() -> void:
 	_check("enchant_dust", int(enchant._count_dust()) == 50, "dust=" + str(enchant._count_dust()))
 	enchant._return_equip()
 	var ts := _slot_of("enchant_scroll_tarantula")
-	enchant._place_scroll(ts)
+	enchant._place_scroll("backpack", ts)
 	enchant._convert_dust()
 	_check("enchant_convert_dust", int(enchant._count_dust()) == 150, "dust=" + str(enchant._count_dust()))
 	enchant.close()
@@ -162,5 +168,43 @@ func _run() -> void:
 	_check("expedition_departed", _departed.size() == 1, "n=" + str(_departed.size()))
 	_check("expedition_returned", _slot_of("tribute_common") >= 0)
 	exp.close()
+
+	# 改造配置全量覆盖（craft-config.json 17 把）
+	var craft_keys: Array = [
+		"weapon2", "weapon4", "weapon5", "weapon6", "weapon7", "weapon8", "weapon9",
+		"weapon10", "weapon11", "weapon12", "weapon13", "weapon15", "weapon18",
+		"weapon19", "weapon20", "weapon21", "weapon22",
+	]
+	var craft_all := true
+	for k in craft_keys:
+		if NpcConfig.get_craft_config(String(k)).is_empty():
+			craft_all = false
+	_check("craft_config_17", craft_all)
+	_check("craft_config_akm", not NpcConfig.get_craft_config("weapon7").is_empty())
+
+	# 武器攻击公式（attack-formula.js 对齐）：base5 + 3 + dex10*(0.35+0.45) + wis10*(0.4+0.45) = 25
+	var atk := WeaponFormula.compute_weapon_atk({
+		"attackFormula": {"base": 5, "enhanceFlat": 1, "attrs": [
+			{"key": "dex", "base": 0.35, "perEnhance": 0.15},
+			{"key": "wis", "base": 0.4, "perEnhance": 0.15},
+		]},
+	}, 3, {"dex": 10, "wis": 10})
+	_check("weapon_formula", atk == 25, "atk=" + str(atk))
+
+	# 仓库兜底：背包无强化石 -> 从仓库扣（当前 rusty_sword 已 +1，再强化到 +2）
+	var wh = load("res://ui/warehouse.gd").new()
+	wh.add_item(_db.create_instance("enhancement_stone", 1))
+	enhance.set_warehouse(wh)
+	var st := _slot_of("enhancement_stone")
+	if st >= 0:
+		_bp.slots[st] = null
+	enhance._equip_from_backpack(_slot_of("rusty_sword"))
+	var gold_before := int(_econ.get_gold())
+	enhance._enhance()
+	_check("enhance_warehouse_stone",
+		int(_econ.get_gold()) < gold_before and int(enhance._equipped["item"].get("enhanceLevel", 0)) == 2)
+	_check("warehouse_consumed",
+		wh.count_material(func(i): return String(i.get("id", "")) == "enhancement_stone") == 0)
+	enhance._return_item()
 
 	quit(0 if _fail == 0 else 1)

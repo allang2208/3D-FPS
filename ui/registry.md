@@ -26,6 +26,9 @@
 | economy | data | ui/economy.gd | stable | - | 金币：`get_gold` / `add_gold` / `deduct_gold`，signal changed | tests/test_ui_tokens.gd + test_npc_panels.gd |
 | npc_panel | base | ui/npc_panel.gd | stable | style | 居中面板基类：`open_panel()` / `close()` / `set_title()` / `show_message()` / 金币标签 / 物品按钮助手 | tests/test_ui_tokens.gd + test_npc_panels.gd |
 | npc_panels | host | ui/npc_panels.gd | stable | 全部 npc 面板 | `build(host,db,bp,eq,econ,npc_bar)` 一键挂 7 面板；`open(panels,npc_bar,id)`；`seed_materials(bp)` | tests/test_ui_tokens.gd + test_status_bar.gd + test_demo_terrain.gd |
+| weapon_formula | data | ui/weapon_formula.gd | stable | - | attack-formula 移植：`compute_weapon_atk` / `formula_text` / `gun_mods_from_item` | tests/test_ui_tokens.gd + test_npc_panels.gd |
+| warehouse | data | ui/warehouse.gd | stable | item_db | 100 格仓库：`add_item` / `count_material` / `consume_material` / `retrieve_all_to_backpack` | tests/test_ui_tokens.gd + test_npc_panels.gd |
+| warehouse_panel | panel | ui/warehouse_panel.gd | stable | style, npc_panel, warehouse, backpack | 分页格子 + 存入/取出 | tests/test_ui_tokens.gd |
 | shop_panel | panel | ui/shop_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | `setup(db,bp,eq,econ)`；购买目录 / 出售栏（50% 价） | tests/test_npc_panels.gd |
 | enhance_panel | panel | ui/enhance_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | 强化槽 + 金币/强化石消耗 + 预测文本 | tests/test_npc_panels.gd |
 | craft_panel | panel | ui/craft_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack, economy | 改造槽 + mod 选择弹层（改造券 1/4 张）+ `_craftEffects` 聚合 | tests/test_npc_panels.gd |

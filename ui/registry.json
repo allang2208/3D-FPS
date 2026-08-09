@@ -73,6 +73,33 @@
       "tests": ["tests/test_ui_tokens.gd", "tests/test_status_bar.gd", "tests/test_demo_terrain.gd"]
     },
     {
+      "name": "weapon_formula",
+      "type": "data",
+      "path": "ui/weapon_formula.gd",
+      "status": "stable",
+      "deps": [],
+      "interfaces": ["compute_weapon_atk(item,el,attrs)", "formula_text(item,el)", "gun_mods_from_item(item)"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "warehouse",
+      "type": "data",
+      "path": "ui/warehouse.gd",
+      "status": "stable",
+      "deps": ["item_db"],
+      "interfaces": ["add_item", "count_material", "consume_material", "retrieve_all_to_backpack"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "warehouse_panel",
+      "type": "panel",
+      "path": "ui/warehouse_panel.gd",
+      "status": "stable",
+      "deps": ["style", "npc_panel", "warehouse", "backpack"],
+      "interfaces": ["setup(db,bp,eq,econ)", "set_warehouse(wh)"],
+      "tests": ["tests/test_ui_tokens.gd"]
+    },
+    {
       "name": "shop_panel",
       "type": "panel",
       "path": "ui/shop_panel.gd",

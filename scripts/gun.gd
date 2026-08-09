@@ -126,6 +126,38 @@ var _sprint := 0.0
 var _player: CharacterBody3D
 var _cam: Camera3D
 
+# 物品强化/改造/附魔生效（weapon_formula.gd -> main 调用）：伤害/射速/弹匣/备弹/换弹/散布
+var _mod_damage := 0
+var _mod_damage_mult := 1.0
+var _mod_interval_ms := 0
+var _mod_interval_mul := 1.0
+var _mod_mag := 0
+var _mod_reserve := 0
+var _mod_reload_ms := 0
+var _mod_spread := 0.0
+
+func apply_item_mods(mods: Dictionary) -> void:
+	if data == null:
+		return
+	_mod_damage = int(mods.get("enhance_flat_damage", 0))
+	_mod_damage_mult = 1.0 + float(mods.get("damagePercent", 0.0))
+	_mod_interval_ms = int(mods.get("attackIntervalDelta", 0))
+	_mod_interval_mul = float(mods.get("attackIntervalMul", 1.0))
+	_mod_mag = int(mods.get("magazineDelta", 0))
+	_mod_reserve = int(mods.get("reserveDelta", 0))
+	_mod_reload_ms = int(mods.get("reloadTimeDelta", 0))
+	_mod_spread = float(mods.get("shotSpreadDelta", 0.0))
+	reserve = maxi(0, data.reserve + _mod_reserve)
+	ammo = mini(ammo, _effective_mag())
+
+func clear_item_mods() -> void:
+	apply_item_mods({})
+
+func _effective_mag() -> int:
+	if data == null:
+		return 1
+	return maxi(1, data.mag_size + _mod_mag)
+
 func _ready() -> void:
 	if data == null:
 		data = load("res://weapon_data/akm.tres")
@@ -293,7 +325,7 @@ func _physics_process(delta: float) -> void:
 		_shoot()
 
 func _start_reload() -> void:
-	_reload_t = data.reload_time
+	_reload_t = maxf(0.1, data.reload_time + _mod_reload_ms / 1000.0)
 	_reload_player.pitch_scale = randf_range(0.95, 1.05)
 	_reload_player.play()
 	reloading.emit()
@@ -301,7 +333,7 @@ func _start_reload() -> void:
 func _shoot() -> void:
 	if _sprint_lock > 0.0:
 		return
-	_fire_cd = data.fire_interval
+	_fire_cd = maxf(0.05, data.fire_interval * _mod_interval_mul + _mod_interval_ms / 1000.0)
 	if ammo <= 0:
 		_click_player.play()
 		empty.emit()
@@ -336,7 +368,8 @@ func _shoot() -> void:
 	var scene_root: Node = get_tree().current_scene
 	if scene_root == null:
 		scene_root = get_tree().root
-	var proj = ProjectileScript.fire(scene_root, origin, dir, data.bullet_speed, data.damage, data.bullet_gravity)
+	var dmg := int(round(data.damage * _mod_damage_mult)) + _mod_damage
+	var proj = ProjectileScript.fire(scene_root, origin, dir, data.bullet_speed, dmg, data.bullet_gravity)
 	proj.hit_enemy.connect(_on_projectile_hit)
 	proj.killed.connect(_on_proj_kill)
 
@@ -363,7 +396,7 @@ func _aim_dir(cam: Camera3D) -> Vector3:
 	var base := -cam.global_transform.basis.z
 	var right := cam.global_transform.basis.x
 	var up := cam.global_transform.basis.y
-	var r := (data.base_spread + _spread + _move_spread + _air_spread) * lerpf(1.0, data.ads_spread_mult, _ads_factor)
+	var r := (data.base_spread + _mod_spread + _spread + _move_spread + _air_spread) * lerpf(1.0, data.ads_spread_mult, _ads_factor)
 	return (base + right * randf_range(-r, r) + up * randf_range(-r, r)).normalized()
 
 ## 缓存相机引用（枪挂在 Camera3D 下，避免每帧 get_viewport 查找）
@@ -373,7 +406,7 @@ func _camera() -> Camera3D:
 	return _cam
 
 func _finish_reload() -> void:
-	var need := data.mag_size - ammo
+	var need := _effective_mag() - ammo
 	var take := mini(need, reserve)
 	ammo += take
 	reserve -= take
