@@ -643,6 +643,10 @@ func _build_gun() -> void:
 		akm = (model_scene as PackedScene).instantiate()
 	elif model_scene is Mesh:
 		# 体素模型：OBJ/PLY 直接挂 MeshInstance3D，顶点色 + 无光照（像素风）
+		# 必须包一层 Node3D：旋转/缩放由父节点承担，MeshInstance3D 保持单位变换，
+		# 否则 _mesh_vertices 的 mi.transform 与校准 to_gun 会双重旋转导致枪口反。
+		var holder := Node3D.new()
+		holder.name = "AkmModel"
 		var mi := MeshInstance3D.new()
 		mi.mesh = model_scene as Mesh
 		var arrays := (mi.mesh as ArrayMesh).surface_get_arrays(0)
@@ -651,7 +655,8 @@ func _build_gun() -> void:
 			mat.vertex_color_use_as_albedo = true
 			mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 			mi.material_override = mat
-		akm = mi
+		holder.add_child(mi)
+		akm = holder
 	else:
 		push_error("[gun] model_scene 类型不支持：", model_scene.get_class())
 		return
