@@ -24,6 +24,11 @@ from PIL import Image
 OUT = r"E:\3d\3-dfps\assets\textures\terrain_prepared"
 DEFAULT = {
     "grass001": dict(hue=30.0, sat=1.15, val=0.88),
+    "grass004": dict(hue=22.0, sat=1.1, val=0.9),
+    "grass005": dict(hue=12.0, sat=1.05, val=0.9),
+    "grass007": dict(hue=10.0, sat=1.05, val=0.92),
+    "ground020": dict(hue=0.0, sat=1.0, val=0.9),
+    "ground030": dict(hue=0.0, sat=1.0, val=0.92),
     "ground037": dict(hue=0.0, sat=1.0, val=0.92),
     "rock063": dict(hue=0.0, sat=1.0, val=0.95),
     "ground080": dict(hue=0.0, sat=1.0, val=0.9),
@@ -44,7 +49,9 @@ def shift(png_path: str, hue: float, sat: float, val: float) -> None:
     hsv[:, :, 2] = np.clip(hsv[:, :, 2] * val, 0, 1)
     rgb2 = np.asarray([colorsys.hsv_to_rgb(h, s, v) for h, s, v in hsv.reshape(-1, 3)])
     rgb2 = rgb2.reshape(rgb.shape) * 255.0
-    out = np.dstack([rgb2, a]).astype(np.uint8)
+    # 注意：alpha 是 0-1 浮点，必须乘 255 再转 uint8，
+    # 否则 astype 会把大部分 alpha 截成 0（高度/粗糙度通道被毁，地面变“雪地”）
+    out = np.dstack([rgb2, a * 255.0]).astype(np.uint8)
     Image.fromarray(out, "RGBA").save(png_path)
     print(f"[colors] shifted {os.path.basename(png_path)} hue+{hue} sat*{sat} val*{val}")
 

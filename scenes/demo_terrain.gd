@@ -80,29 +80,54 @@ func _build_terrain() -> Terrain3D:
 	t.material.set_shader_param("blend_sharpness", 0.85)
 
 	t.assets = Terrain3DAssets.new()
-	var tex_ids := ["grass001", "ground037", "rock063", "ground080"]
-	var uv_scales := [0.08, 0.08, 0.05, 0.05]
+	# 地表纹理集：草(001/004/005/007)、森林落叶土(020)、碎石地(030)、
+	# 泥土(037)、沙(080)、岩(063)。uv_scale 越小纹理越大。
+	var tex_ids := ["grass001", "grass004", "grass005", "grass007",
+		"ground020", "ground030", "ground037", "ground080", "rock063"]
+	var uv_scales := [0.08, 0.08, 0.09, 0.09, 0.08, 0.06, 0.08, 0.06, 0.05]
 	for i in tex_ids.size():
 		var ta := Terrain3DTextureAsset.new()
 		ta.name = tex_ids[i]
 		ta.albedo_texture = load(PREP_TEX % [tex_ids[i], "alb_ht"])
 		ta.normal_texture = load(PREP_TEX % [tex_ids[i], "nrm_rgh"])
-		ta.normal_depth = 1.0
-		ta.ao_strength = 2.0
+		# 参考图地面更"厚实"：法线强度略提、AO 更强，配合新 alpha 高度混合
+		ta.normal_depth = 1.1
+		ta.ao_strength = 2.5
 		ta.uv_scale = uv_scales[i]
 		ta.detiling_rotation = 0.12
 		t.assets.set_texture(i, ta)
 
-	# 程序化高度图（ridged noise，1024x1024，region 512 -> 2x2 区块，约 1km 见方）
+	# 程序化高度图：低频山体 + 高频微起伏（避免地面过平），
+	# 并沿蛇形路径刻一条溪流河道（低洼带，供后续水体 shader 使用）
 	t.region_size = 512
-	var noise := FastNoiseLite.new()
-	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise.frequency = 0.0035
-	noise.fractal_octaves = 4
+	var macro := FastNoiseLite.new()
+	macro.noise_type = FastNoiseLite.TYPE_PERLIN
+	macro.frequency = 0.0035
+	macro.fractal_octaves = 4
+	var micro := FastNoiseLite.new()
+	micro.noise_type = FastNoiseLite.TYPE_PERLIN
+	micro.frequency = 0.028
+	micro.fractal_octaves = 2
 	var img := Image.create_empty(1024, 1024, false, Image.FORMAT_RF)
 	for x in img.get_width():
 		for y in img.get_height():
-			img.set_pixel(x, y, Color(noise.get_noise_2d(x, y), 0.0, 0.0, 1.0))
+			var wx := x - 512.0
+			var wz := y - 512.0
+			# 宏观起伏：±30m 实际高度（系数 2.0，import scale=45 → 2.0*45=90m 全幅？实测 ±30m 量级）
+			var h := macro.get_noise_2d(x, y) * 2.0
+			# 高频微起伏：±2.5m 实际高度（import scale=45，噪声系数=2.5/45）
+			h += micro.get_noise_2d(x, y) * 0.056
+			# 溪流河道：蛇形路径 z = 40*sin(x/90)，沿路径 26m 内逐渐挖低
+			var cx := wx
+			var cz := 40.0 * sin(wx / 90.0)
+			var dist := absf(wz - cz)
+			if dist < 26.0:
+				var fall := (1.0 - dist / 26.0)
+				fall = fall * fall
+				# 河道中心低约 6m（实测校准：系数 0.01 ≈ 5-8m），边缘平滑过渡
+				h -= fall * 0.01
+				h += micro.get_noise_2d(x + 512, y + 512) * 0.03
+			img.set_pixel(x, y, Color(h, 0.0, 0.0, 1.0))
 	t.data.import_images([img, null, null], Vector3(-512, 0, -512), 0.0, 45.0)
 	t.data.save_directory(DATA_DIR)
 	t.collision.set_mode(Terrain3DCollision.FULL_GAME)  # 全量运行时碰撞（1km 地图性能足够）
@@ -139,6 +164,8 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/plant_flatTall.glb",
 		"res://assets/models/kenney_nature/grass_leafsLarge.glb",
 		"res://assets/models/kenney_nature/plant_bushDetailed.glb",
+		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",
+		"res://assets/models/polyhaven/moss_01/moss_01_2k.gltf",
 	]
 	for i in mesh_specs.size():
 		var scn: PackedScene = load(mesh_specs[i])
@@ -187,6 +214,8 @@ func _build_instanced_nature() -> void:
 		[26, 65, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_flatTall 宽叶
 		[27, 85, -460, 460, -40.0, 30.0, 0.8, 1.4],   # kenney grass_leafsLarge 大草
 		[28, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_bushDetailed 细节灌木
+		[29, 40, -460, 460, -38.0, 26.0, 1.2, 2.2],   # ph fir_sapling 小针叶树（放大）
+		[30, 60, -460, 460, -40.0, 30.0, 1.5, 3.0],   # ph moss_01 地面苔藓斑
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
@@ -224,6 +253,7 @@ func _build_trees() -> void:
 		"res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf",  # 最常见
 		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
+		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",  # 针叶小树
 	]
 	var centers := [
 		Vector2(35, 15), Vector2(-120, -60), Vector2(180, -140),
@@ -243,13 +273,15 @@ func _build_trees() -> void:
 
 
 func _pick_tree(paths: Array[String]) -> String:
-	# 加权：island_tree_02 占 50%，01 / 03 各 25%
+	# 加权：island_tree_02 占 45%，01 / 03 各 20%，fir_sapling 15%
 	var r := rng.randf()
-	if r < 0.5:
+	if r < 0.45:
 		return paths[0]
-	if r < 0.75:
+	if r < 0.65:
 		return paths[1]
-	return paths[2]
+	if r < 0.85:
+		return paths[2]
+	return paths[3]
 
 
 func _place_tree(path: String, at2: Vector2, scale: float) -> void:

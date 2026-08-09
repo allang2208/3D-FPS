@@ -8,7 +8,9 @@ const RES := 2048  # 源图为 2K，输出 2048 获得完整细节（曾用 1024
 const SRC := "res://assets/textures/terrain/%s/%s_2K-JPG_%s.jpg"
 const OUT_DIR := "res://assets/textures/terrain_prepared/"
 
-var names := ["Grass001", "Ground037", "Rock063", "Ground080"]
+# 地表纹理集：草/苔藓草/鲜草/短草/森林落叶土/碎石地/岩石/沙
+var names := ["Grass001", "Grass004", "Grass005", "Grass007",
+	"Ground020", "Ground030", "Ground037", "Ground080", "Rock063"]
 
 
 func _init() -> void:
