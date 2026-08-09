@@ -19,6 +19,7 @@ const BackpackScript := preload("res://ui/backpack.gd")
 const EquipmentScript := preload("res://ui/equipment.gd")
 const Style := preload("res://ui/style.gd")
 const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
+const StatusPageScript := preload("res://ui/status_page.gd")
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
@@ -48,6 +49,13 @@ var _grid: GridContainer
 var _cells: Array = []
 var _equip_grid: GridContainer
 var _equip_cells := {}
+var _panel_title: Label
+var _tab_status: Button
+var _tab_equip: Button
+var _page_stack: Control
+var _equip_page: VBoxContainer
+var _status_page: Control
+var _current_tab := "equip"
 var _panel_root: Control
 var _panel: PanelContainer
 var _panel_w := 720.0
@@ -118,7 +126,7 @@ func _ready() -> void:
 	_build_tooltip()
 	_build_notice()
 
-func setup(bp: BackpackScript, eq: EquipmentScript) -> void:
+func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null) -> void:
 	backpack = bp
 	equipment = eq
 	backpack.changed.connect(_refresh)
@@ -127,6 +135,14 @@ func setup(bp: BackpackScript, eq: EquipmentScript) -> void:
 	if equipment != null:
 		equipment.changed.connect(_refresh_equip)
 		equipment.equipped.connect(_on_equipped)
+	if st != null:
+		_status_page = StatusPageScript.new()
+		_status_page.name = "StatusPage"
+		_status_page.visible = false
+		_status_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		_page_stack.add_child(_status_page)
+		_status_page.setup(st)
+	set_tab("equip")
 	_refresh()
 
 ## ---------- 数据变化刷新 ----------
@@ -235,8 +251,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		match event.keycode:
 			KEY_1, KEY_2, KEY_3, KEY_4:
 				use_hotbar(event.keycode - KEY_1)
-			KEY_TAB, KEY_B:
+			KEY_TAB:
+				if _panel_open and _current_tab == "equip":
+					set_panel_open(false)
+				else:
+					set_tab("equip")
+					set_panel_open(true)
+			KEY_B:
 				toggle_panel()
+			KEY_CAPSLOCK:
+				set_tab("status")
+				set_panel_open(true)
 			KEY_ESCAPE:
 				if _tooltip != null and _tooltip.visible:
 					hide_tooltip()
@@ -320,6 +345,35 @@ func set_panel_open(open: bool) -> void:
 		if player == null or not bool(player.get("is_dead")):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	hide_tooltip()
+
+## ---------- 页签（角色状态 / 装备背包，复刻旧版 SystemUI 页签） ----------
+
+func set_tab(tab: String) -> void:
+	if tab != "status" and tab != "equip":
+		return
+	_current_tab = tab
+	var is_status := tab == "status"
+	if _status_page != null:
+		_status_page.visible = is_status
+	if _equip_page != null:
+		_equip_page.visible = not is_status
+	if _panel_title != null:
+		_panel_title.text = "角色状态" if is_status else "装备与背包"
+	_update_tab_styles()
+
+func _update_tab_styles() -> void:
+	if _tab_status == null or _tab_equip == null:
+		return
+	_tab_status.add_theme_stylebox_override("normal", _tab_style(_current_tab == "status"))
+	_tab_equip.add_theme_stylebox_override("normal", _tab_style(_current_tab == "equip"))
+	_tab_status.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "status" else Style.COLOR_DIM_TEXT)
+	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Style.COLOR_DIM_TEXT)
+
+func _tab_style(active: bool) -> StyleBoxFlat:
+	if active:
+		var sb := Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 6, 2)
+		return sb
+	return Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_PANEL_BORDER, 6, 2)
 
 ## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
 func _apply_panel_slide(t: float) -> void:
@@ -748,16 +802,37 @@ func _build_panel() -> void:
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
 	vbox.add_child(title_row)
-	var title := _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
-	title.add_theme_font_override("font", _font_title)
-	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_panel_title = _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
+	_panel_title.add_theme_font_override("font", _font_title)
+	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var divider := HSeparator.new()
 	divider.modulate = Style.COLOR_PANEL_BORDER
 	vbox.add_child(divider)
+	# 页签栏（旧版 SystemUI 页签）
+	var tab_bar := HBoxContainer.new()
+	tab_bar.add_theme_constant_override("separation", 6)
+	vbox.add_child(tab_bar)
+	_tab_status = _make_tab_button("角色状态")
+	_tab_equip = _make_tab_button("装备背包")
+	tab_bar.add_child(_tab_status)
+	tab_bar.add_child(_tab_equip)
+	_tab_status.pressed.connect(func() -> void: set_tab("status"))
+	_tab_equip.pressed.connect(func() -> void: set_tab("equip"))
+	# 页面栈
+	_page_stack = Control.new()
+	_page_stack.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_page_stack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vbox.add_child(_page_stack)
+	_equip_page = VBoxContainer.new()
+	_equip_page.name = "EquipPage"
+	_equip_page.add_theme_constant_override("separation", 8)
+	_equip_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_equip_page.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_page_stack.add_child(_equip_page)
 	# 上：装备栏（旧版 gear-equip-col，占上半区，3x5 大宽格）
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
-	vbox.add_child(equip_col)
+	_equip_page.add_child(equip_col)
 	var equip_title := _make_label(equip_col, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -880,7 +955,7 @@ func _build_panel() -> void:
 	# 下：背包（旧版 gear-inventory-col：表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
 	inv_col.add_theme_constant_override("separation", 4)
-	vbox.add_child(inv_col)
+	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
 	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
@@ -991,6 +1066,22 @@ func _make_label(parent: Node, text: String, font_size: int, color: Color, pos: 
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(l)
 	return l
+
+func _make_tab_button(label: String) -> Button:
+	var b := Button.new()
+	b.text = label
+	b.custom_minimum_size = Vector2(120, 30)
+	b.add_theme_font_size_override("font_size", 13)
+	b.add_theme_font_override("font", _font_section)
+	var idle := _tab_style(false)
+	b.add_theme_stylebox_override("normal", idle)
+	b.add_theme_stylebox_override("hover", idle)
+	b.add_theme_stylebox_override("pressed", idle)
+	b.add_theme_stylebox_override("focus", Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0))
+	b.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+	b.add_theme_color_override("font_hover_color", Style.COLOR_TEXT)
+	b.add_theme_color_override("font_pressed_color", Style.COLOR_TEXT)
+	return b
 
 func _icon_tex(path: String) -> Texture2D:
 	if path == "":

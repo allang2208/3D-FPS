@@ -50,6 +50,8 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
     backpack_hud.gd # 背包/装备 UI：快捷栏 + 装备与背包面板（竖排稀有度/徽章/锁定）+ 弹出动画
     item_tooltip.gd # 物品浮窗三段式（主信息+改造+附魔）：悬停跟随/点击固定/贴边翻转
     item_db.gd      # 物品库：药水 + 加载 assets/data/equipment.json（125 件装备）
+    player_status.gd# 角色属性数据模型（旧版 combat-formulas 公式：六维/战斗属性/上限）
+    status_page.gd  # 角色状态页：角色头+4 状态条+基础/战斗/详细/轮回四区块+公式悬停浮窗
   assets/ui/shaders/panel_blur.gdshader  # 面板毛玻璃背景（复刻旧版 backdrop-filter blur）
   assets/data/equipment.json             # 旧版装备数据（整份迁移，图标重映射到 ui/icons/equip）
 ```
@@ -80,6 +82,14 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
 覆盖：装备/卸下/交换、武器槽规则（单手→主手/副手、双手→主手并卸副手、盾）、双手锁定、
 拖放装备、右键卸下、装备浮窗（名称/稀有度/属性）。
 
+## 属性栏（Status）测试
+
+```powershell
+& 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe' --headless --path 'E:\3d\3-dfps' --script res://tests/test_status_page.gd
+```
+
+覆盖：旧版公式（六维→物攻/物防/魔攻/魔防/暴击/上限）、状态页签切换、公式悬停浮窗、hp/击杀同步。
+
 ## 当前状态与下一步
 
 - 可玩闭环：三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）、玩家 100 血、接触伤害、死亡按 R 重生、
@@ -91,7 +101,8 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
   45% 屏宽、全高、毛玻璃；排版按旧版 gear-layout 上下分栏——上装备栏 3x5 大宽格、下背包 5 列小方格
   （表头 背包+0/36）。装备栏（15 槽）已迁移：竖排稀有度、已强化/改造/附魔徽章、双手武器锁定、拖放装备/卸下；
   物品浮窗为旧版三段式（主信息+改造+附魔）。配色已按旧版精确移植（暗金棕槽/白底浮窗/红棕血条/
-  蓝灰面板），集中在 style.gd。排版按 DESIGN.md：黑体（思源黑体→雅黑回退）、
+  蓝灰面板），集中在 style.gd。属性栏已迁移：面板页签（角色状态/装备背包，CapsLock/Tab）+ 角色头
+  + 生命/魔法/体力/经验条 + 基础/战斗/详细/轮回四区块 + 公式悬停浮窗。排版按 DESIGN.md：黑体（思源黑体→雅黑回退）、
   字号阶梯（24 标题/14 正文/10~12 角标）、4px 间距网格、数值右对齐。MP 系统未实装，魔力药水暂不发放。
 - 敌人仍是整体平移 + 占位起伏/摆腿；下一步把 three.js 里的程序化骨骼动画（18 根骨骼 + 蒙皮权重）
   移植成 Godot 的 Skeleton3D + AnimationPlayer，或接 Godot 4.6+ 的 IKModifier3D 做真正的四足步态。
