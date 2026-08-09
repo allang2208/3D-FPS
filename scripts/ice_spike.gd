@@ -107,28 +107,42 @@ func _make_spike(i: int, base: Vector3, amp: float, freq_a: float, freq_b: float
 	gm.albedo_color = Color(0.6, 0.85, 1.0, 0.35)
 	glow.material_override = gm
 	node.add_child(glow)
-	# 飞行尾迹（冰蓝 ADD 粒子，仅飞行时开启）
+	# 大寒气光晕（柔和蓝白光雾，参考火球 glow——无颗粒/边角，只有渐变光）
+	var haze := Sprite3D.new()
+	haze.texture = _dot_tex()
+	haze.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	haze.pixel_size = 0.0025
+	haze.scale = Vector3(2.8, 2.8, 1.0)
+	var hm := StandardMaterial3D.new()
+	hm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	hm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	hm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	hm.albedo_texture = _dot_tex()
+	hm.albedo_color = Color(0.72, 0.9, 1.0, 0.2)
+	haze.material_override = hm
+	node.add_child(haze)
+	# 飞行尾迹（柔和寒气拖尾：大软点 + 蓝白低透明渐隐，仅飞行时开启）
 	var trail := GPUParticles3D.new()
 	trail.emitting = false
 	trail.one_shot = false
-	trail.amount = 8
-	trail.lifetime = 0.3
+	trail.amount = 10
+	trail.lifetime = 0.4
 	trail.local_coords = false
 	trail.draw_pass_1 = _dot_pass(0.3, true)
 	var tp := ParticleProcessMaterial.new()
 	tp.direction = Vector3.ZERO
 	tp.spread = 180.0
 	tp.initial_velocity_min = 0.0
-	tp.initial_velocity_max = 0.35
-	tp.gravity = Vector3(0, -0.8, 0)
-	tp.scale_min = 0.35
-	tp.scale_max = 0.55
-	tp.scale_curve = _grow_texture(1.0, 0.25)  # 旧版 scale 0.9→0.1 渐小
+	tp.initial_velocity_max = 0.18
+	tp.gravity = Vector3(0, -0.2, 0)
+	tp.scale_min = 0.55
+	tp.scale_max = 0.85
+	tp.scale_curve = _grow_texture(1.0, 0.4)  # 柔和放大后渐隐，无小碎粒
 	tp.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.6),
-		Color(0.68, 0.87, 1.0, 0.3),
-		Color(0.4, 0.65, 1.0, 0.0),
-	], [0.0, 0.5, 1.0])
+		Color(0.95, 0.98, 1.0, 0.4),
+		Color(0.72, 0.9, 1.0, 0.18),
+		Color(0.5, 0.75, 1.0, 0.0),
+	], [0.0, 0.45, 1.0])
 	trail.process_material = tp
 	node.add_child(trail)
 	add_child(node)
@@ -203,11 +217,16 @@ func _hover_update(delta: float) -> void:
 
 func _fly_update(delta: float) -> void:
 	_hit_sound_cd = maxf(0.0, _hit_sound_cd - delta)
+	# 实时追踪准星瞄准点：每帧把冰锥方向指向准星所指，近距离也能精准打击
+	var aim := _aim_point()
 	for s in _spikes:
 		if bool(s.done) or not bool(s.launched):
 			continue
 		var step := _speed * delta
 		var from: Vector3 = s.node.global_position
+		var dir_to_aim := (aim - from).normalized()
+		if dir_to_aim.length() > 0.001:
+			s.dir = dir_to_aim
 		var to: Vector3 = from + (s.dir as Vector3) * step
 		s.traveled += step
 		if s.traveled >= _max_range:
@@ -222,7 +241,26 @@ func _fly_update(delta: float) -> void:
 			s.done = true
 			continue
 		s.node.global_position = to
-		s.node.look_at(to + s.dir, Vector3.UP)
+		# 锥体尖端实时朝向当前飞行方向（准星方向）
+		s.node.look_at(to + (s.dir as Vector3), Vector3.UP)
+
+## 准星瞄准点：相机前方射线（HIT_MASK）命中点，否则前方 5m
+func _aim_point() -> Vector3:
+	var cam: Camera3D = null
+	if _caster != null:
+		for c in _caster.get_children():
+			if c is Camera3D:
+				cam = c
+				break
+	if cam == null:
+		return _caster.global_position + Vector3(0, 0, -5.0)
+	var origin := cam.global_position
+	var fwd := -cam.global_transform.basis.z
+	var query := PhysicsRayQueryParameters3D.create(origin, origin + fwd * _max_range, HIT_MASK)
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	if hit:
+		return hit.position
+	return origin + fwd * 5.0
 
 ## 命中/撞墙：碎裂（冰屑带重力 + 小冰环 + 音效节流）
 func _shatter(s: Dictionary, pos: Vector3, collider: Object) -> void:
