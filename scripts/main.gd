@@ -9,6 +9,7 @@ var _gun: Node3D
 var _status_bar: CanvasLayer
 var _backpack_hud: Control
 var _backpack
+var _equipment
 var _player_dead := false
 var _kills := 0
 
@@ -134,6 +135,7 @@ func _build_player() -> void:
 	gun.reloading.connect(_on_reloading)
 	gun.empty.connect(_on_empty)
 	gun.hit.connect(_on_hit)
+	gun.ads_changed.connect(_on_ads_changed)
 	cam.add_child(gun)
 	_gun = gun
 	add_child(player)
@@ -153,11 +155,22 @@ func _build_backpack_hud(parent: Node) -> void:
 	_backpack = load("res://ui/backpack.gd").new(item_db)
 	# 初始背包沿用旧版默认（治疗药水 ×5）；MP 系统未实装，暂不发放魔力药水
 	_backpack.add_item("hp_potion", 5)
+	# 装备栏 + 演示种子（沿用旧版初始装备：主手生锈长剑；背包放 G18/小圆盾/铁盔/戒指）
+	_equipment = load("res://ui/equipment.gd").new(_backpack)
+	_backpack.add_item("rusty_sword", 1)
+	_backpack.add_item("g18_pistol", 1)
+	_backpack.add_item("small_shield", 1)
+	_backpack.add_item("lunar_helmet", 1)
+	_backpack.add_item("ring_oracle", 1)
+	for i in _backpack.slots.size():
+		if _backpack.slots[i] != null and String(_backpack.slots[i].get("id", "")) == "rusty_sword":
+			_equipment.equip_from_backpack(i)
+			break
 	var hud = load("res://ui/backpack_hud.gd").new()
 	hud.name = "BackpackHud"
-	hud.setup(_backpack)
 	hud.player_healed.connect(_on_player_healed)
 	parent.add_child(hud)
+	hud.setup(_backpack, _equipment)
 	_backpack_hud = hud
 
 func _build_enemies() -> void:
@@ -206,6 +219,19 @@ func _on_ammo(ammo: int, reserve_left: int) -> void:
 
 func _on_hit() -> void:
 	_status_bar.hitmark()
+
+func _on_ads_changed(active: bool) -> void:
+	var cross := _find_crosshair()
+	if cross:
+		cross.visible = not active
+
+func _find_crosshair() -> Label:
+	if _status_bar == null:
+		return null
+	for c in _status_bar.find_children("", "Label", true, false):
+		if c is Label and c.text == "+":
+			return c
+	return null
 
 func _on_reloading() -> void:
 	_status_bar.show_status("换弹中…", 1.5)

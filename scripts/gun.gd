@@ -30,8 +30,10 @@ const SWAY_LAG := 10.0
 const SPRINT_DROP := 0.10
 const SPRINT_TILT := 0.30
 # ADS 机瞄（右键长按）
-const ADS_POS := Vector3(0, -0.165, -0.44)
-const ADS_ROT := Vector3(-0.02, 0, 0)
+# 觇孔重合：由后照门(0,0.075,0.09)与前照门(0,0.065,-0.22)反算，
+# 使觇孔落在相机中心轴(z≈-0.25)、前照门与觇孔同一水平线
+const ADS_POS := Vector3(0, -0.072, -0.342)
+const ADS_ROT := Vector3(0.0323, 0, 0)
 const ADS_SPREAD_MULT := 0.2
 const ADS_SMOOTH := 12.0
 
@@ -46,6 +48,7 @@ signal hit
 signal reloading
 signal reloaded(ammo_left: int, reserve_left: int)
 signal empty
+signal ads_changed(active: bool)
 
 var _fire_cd := 0.0
 var _flash_t := 0.0
@@ -63,6 +66,7 @@ var _mag: Node3D
 var _mag_base_y := -0.14
 var _ads := false
 var _ads_factor := 0.0
+var _ads_prev := false
 var ammo := MAG_SIZE
 var reserve := 90
 
@@ -153,6 +157,10 @@ func _process(delta: float) -> void:
 	_update_spring(delta)
 	_update_pose(delta)
 	_ads_factor = lerpf(_ads_factor, 1.0 if _ads else 0.0, 1.0 - exp(-ADS_SMOOTH * delta))
+	var ads_active := _ads_factor > 0.5
+	if ads_active != _ads_prev:
+		_ads_prev = ads_active
+		ads_changed.emit(ads_active)
 	var cam := get_viewport().get_camera_3d()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
