@@ -23,10 +23,10 @@ var _hitmarker: Label
 var _death_panel: VBoxContainer
 var _dmgflash: ColorRect
 var _theme: Theme
-var _font_bold: SystemFont
-var _font_heavy: SystemFont
-var _font_regular: SystemFont
-var _font_mono: SystemFont
+var _font_bold: Font
+var _font_heavy: Font
+var _font_regular: Font
+var _font_mono: Font
 
 var _hitmark_t := 0.0
 var _dmgflash_t := 0.0

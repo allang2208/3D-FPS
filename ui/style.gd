@@ -237,23 +237,28 @@ static var THEME_DIVIDER_ACCENT: Color = Color(0.8314, 0.6863, 0.2157, 0.6) # �
 # ---------- 字体 ----------
 
 ## 黑体字重阶梯（DESIGN.md：标题 Heavy / 副标题 Bold / 正文 Regular）
-static func make_font(weight := 400) -> SystemFont:
-	var f := SystemFont.new()
-	if weight <= 400:
-		# 正文：微软雅黑标准（VS Code 中文回退）
-		f.font_names = PackedStringArray(["Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC"])
-	else:
-		# 标题/加粗：雅黑 / 思源黑体
-		f.font_names = PackedStringArray(["Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", "SimHei"])
-	f.font_weight = weight
-	return f
+## 字体文件直载（绕开系统字体名解析，确保 100% 生效）：
+## - 正文/常规：微软雅黑 MicrosoftYaHei.ttc
+## - 加粗/标题：微软雅黑 Bold MicrosoftYaHeiBold.ttc
+## - 等宽数字：Consolas.ttf（VS Code 同款）
+static var _font_regular: Font
+static var _font_bold: Font
+static var _font_mono: Font
 
-## 等宽字体（VS Code Consolas 风格）：HUD 数字/弹药/数值用，清晰对齐
-static func make_mono_font(weight := 400) -> SystemFont:
-	var f := SystemFont.new()
-	f.font_names = PackedStringArray(["Consolas", "Cascadia Mono", "Cascadia Code", "Microsoft YaHei", "SimHei"])
-	f.font_weight = weight
-	return f
+static func make_font(weight := 400) -> Font:
+	if weight >= 600:
+		if _font_bold == null:
+			_font_bold = load("res://assets/ui/fonts/MicrosoftYaHeiBold.ttc")
+		return _font_bold
+	if _font_regular == null:
+		_font_regular = load("res://assets/ui/fonts/MicrosoftYaHei.ttc")
+	return _font_regular
+
+## 等宽字体（VS Code Consolas 同款）：HUD 数字/弹药/数值用，清晰对齐
+static func make_mono_font(_weight := 400) -> Font:
+	if _font_mono == null:
+		_font_mono = load("res://assets/ui/fonts/Consolas.ttf")
+	return _font_mono
 
 ## emoji 回退字体（旧版图标加载失败时显示 item.icon 字符）
 static func make_emoji_font() -> SystemFont:

@@ -85,9 +85,9 @@ var _notice_tween: Tween
 var _drag_clear_timer: Timer
 var _tooltip: Control
 var _tooltip_tween: Tween
-var _font_title: SystemFont
-var _font_section: SystemFont
-var _font_mono: SystemFont
+var _font_title: Font
+var _font_section: Font
+var _font_mono: Font
 var _tex_cache := {}
 var _cd_last := {}
 var _hovered_cell := -1

@@ -22,8 +22,8 @@ var _close_btn: Button
 var _craft_col: VBoxContainer
 var _enchant_col: VBoxContainer
 var _main_col: VBoxContainer
-var _font_title: SystemFont
-var _font_value: SystemFont
+var _font_title: Font
+var _font_value: Font
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
