@@ -413,14 +413,15 @@ func _refresh_skill_slots() -> void:
 		var slot: SkillSlot = _skill_slots[i]
 		var icon := slot.get_node("Content/Icon") as TextureRect
 		var dim := slot.get_node("Content/Dim") as ColorRect
+		# 快捷栏技能位不显示图标（用户定稿：原项目快捷栏无图标，键位+冷却即可）
+		icon.texture = null
+		icon.visible = false
 		var id := skillbar.resolve(i)
 		if id == "":
-			icon.texture = null
 			dim.visible = false
 			slot.add_theme_stylebox_override("panel", _s_skill_empty)
 		else:
 			var def: Dictionary = skillbar.skills.get(id, {})
-			icon.texture = _icon_tex(String(def.get("icon", "")))
 			var req_ok: bool = int(def.get("tier", 1)) < 2 or skillbar.staff_equipped
 			dim.visible = not req_ok
 			slot.add_theme_stylebox_override("panel", _s_hotbar_item if not req_ok else _s_skill_empty)

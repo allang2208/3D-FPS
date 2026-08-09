@@ -13,8 +13,10 @@ var _db
 
 var _slot_names := {}
 var _slot_cd := {}
+var _slot_icons := {}
 var _train_rows := {}  # skill_id -> {name:Label, lv:Label, bar:ProgressBar}
 var _vbox: VBoxContainer
+var _tex_cache := {}
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -53,8 +55,8 @@ func _build() -> void:
 	margin.add_child(vbox)
 	_vbox = vbox
 	var note := Label.new()
-	note.text = "技能体系未移植——Q/E/X/C 槽位已就绪，技能数据后续接入"
-	note.add_theme_font_size_override("font_size", Style.font_size("body"))
+	note.text = "按 Q / E / X / C 释放技能 · 二段式技能首次凝聚、再次投掷 · 冷却与法杖门槛自动判定"
+	note.add_theme_font_size_override("font_size", Style.font_size("caption"))
 	note.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 	vbox.add_child(note)
 	var row := HBoxContainer.new()
@@ -68,6 +70,13 @@ func _build() -> void:
 		content.alignment = BoxContainer.ALIGNMENT_CENTER
 		content.add_theme_constant_override("separation", 6)
 		cell.add_child(content)
+		var icon := TextureRect.new()
+		icon.name = "Icon"
+		icon.custom_minimum_size = Vector2(44, 44)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.add_child(icon)
 		var key_lbl := Label.new()
 		key_lbl.text = SLOT_KEYS[i]
 		key_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -91,6 +100,7 @@ func _build() -> void:
 		row.add_child(cell)
 		_slot_names[i] = name_lbl
 		_slot_cd[i] = cd_lbl
+		_slot_icons[i] = icon
 	# 特殊攻击位（旧版右击，占用键位待定）
 	var special := PanelContainer.new()
 	special.custom_minimum_size = Vector2(120, 110)
@@ -147,6 +157,12 @@ func _build_train_row(parent: Node, name: String) -> Dictionary:
 	parent.add_child(box)
 	var top := HBoxContainer.new()
 	box.add_child(top)
+	var icon := TextureRect.new()
+	icon.custom_minimum_size = Vector2(26, 26)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	top.add_child(icon)
 	var name_lbl := Label.new()
 	name_lbl.text = name
 	name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -164,7 +180,7 @@ func _build_train_row(parent: Node, name: String) -> Dictionary:
 	bar.add_theme_stylebox_override("background", Style.make_style(Style.COLOR_SLOT_BG, Color.TRANSPARENT, Style.RADIUS_SM, 1))
 	bar.add_theme_stylebox_override("fill", Style.make_style(Style.THEME_MP_BLUE, Color.TRANSPARENT, Style.RADIUS_SM, 1))
 	box.add_child(bar)
-	return {"name": name_lbl, "lv": lv_lbl, "bar": bar}
+	return {"name": name_lbl, "lv": lv_lbl, "bar": bar, "icon": icon}
 
 func _refresh() -> void:
 	if skillbar == null:
@@ -173,21 +189,34 @@ func _refresh() -> void:
 		var id := skillbar.resolve(i)
 		var name_lbl: Label = _slot_names.get(i)
 		var cd_lbl: Label = _slot_cd.get(i)
+		var icon: TextureRect = _slot_icons.get(i)
 		if id == "":
 			name_lbl.text = "未移植"
 			cd_lbl.text = ""
+			icon.texture = null
 		else:
 			var def: Dictionary = skillbar.skills.get(id, {})
 			name_lbl.text = String(def.get("name", id))
+			icon.texture = _icon_tex(String(def.get("iconImage", "")))
 			var cd := skillbar.get_cooldown(id)
 			cd_lbl.text = "%.1f秒" % (cd / 1000.0) if cd > 0.0 else ""
 	# 修炼列表刷新
 	if _progress != null:
 		for id in _train_rows.keys():
 			var row: Dictionary = _train_rows[id]
+			var def2: Dictionary = _db.get_def(id) if _db != null else {}
+			(row.icon as TextureRect).texture = _icon_tex(String(def2.get("iconImage", "")))
 			var lv: int = _progress.get_level(id)
 			var exp: float = _progress.get_exp(id)
 			var max_exp: float = _progress.get_max_exp(id)
 			(row.lv as Label).text = "Lv.%d" % lv
 			(row.bar as ProgressBar).max_value = maxf(1.0, max_exp)
 			(row.bar as ProgressBar).value = clampf(exp, 0.0, max_exp)
+
+func _icon_tex(path: String) -> Texture2D:
+	if path == "":
+		return null
+	if not _tex_cache.has(path):
+		var res := load(path)
+		_tex_cache[path] = res if res is Texture2D else null
+	return _tex_cache[path]

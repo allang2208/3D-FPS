@@ -113,7 +113,7 @@ func _ensure_built() -> void:
 		skill_triggered.emit(id, phase))
 	status_bar.add_child(backpack_hud)
 	backpack_hud.setup(backpack, equipment, player_status, skillbar)
-	var skill_page: Node = backpack_hud.get_node_or_null("SkillPage")
+	var skill_page: Node = backpack_hud.find_child("SkillPage", true, false)
 	if skill_page != null and skill_page.has_method("set_progress"):
 		skill_page.set_progress(skill_progress)
 		if skill_page.has_method("set_db"):
