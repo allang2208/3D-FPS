@@ -33,6 +33,7 @@ func _process(_d) -> bool:
 		if ao_tex != null:
 			mat.ao_enabled = true
 			mat.ao_texture = ao_tex
+		mat.specular = 0.2  # 降低金属高光强度，避免"泛光/眩光"观感（贴图已提亮）
 		target.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh.surface_get_arrays(i), [], {}, 0)
 		target.surface_set_material(si, mat)
 		print("patched surf ", i, " stem=", stem, " -> ", "mag" if is_mag else "body")
