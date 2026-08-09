@@ -324,9 +324,18 @@ func _build_top_bar() -> void:
 	_top_bar.name = "TopBar"
 	_top_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_top_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_top_bar.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	_top_bar.offset_top = 8
-	_top_bar.add_theme_stylebox_override("panel",
-		Style.make_style(Color(Style.THEME_BG, 0.62), Color(Style.THEME_GRAY_MID, 0.7), 10, 1))
+	# 原项目 top-bar 模块：深色玻璃 + 2px 边框 + 12px 圆角 + 阴影
+	var tb_sb := Style.make_style(Style.COLOR_HUD_BG, Style.COLOR_HUD_BORDER, 12, 2)
+	tb_sb.shadow_color = Color(Style.COLOR_BLACK, 0.35)
+	tb_sb.shadow_size = 10
+	tb_sb.shadow_offset = Vector2(0, 2)
+	tb_sb.content_margin_left = 20
+	tb_sb.content_margin_right = 20
+	tb_sb.content_margin_top = 6
+	tb_sb.content_margin_bottom = 6
+	_top_bar.add_theme_stylebox_override("panel", tb_sb)
 	add_child(_top_bar)
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 12)
@@ -354,7 +363,7 @@ func _make_top_caption(parent: Node, text: String) -> Label:
 	l.text = text
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	l.add_theme_font_size_override("font_size", 11)
-	l.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+	l.add_theme_color_override("font_color", Style.COLOR_HUD_DIM)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(l)
 	return l
@@ -369,7 +378,7 @@ func _add_top_stat(parent: Node, caption: String, prop: String, mono: bool) -> L
 	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	v.add_theme_font_size_override("font_size", 13)
 	v.add_theme_font_override("font", _font_mono if mono else _font_bold)
-	v.add_theme_color_override("font_color", Style.COLOR_KILL if mono else Style.COLOR_TEXT)
+	v.add_theme_color_override("font_color", Style.COLOR_HUD_GOLD if mono else Style.COLOR_HUD_TEXT)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(v)
 	var tip: String = {"名称": "角色名称", "等级": "角色等级，经验满升级", "职业": "角色职业", "击杀": "本局累计击杀"}.get(caption, "")
@@ -385,7 +394,7 @@ func _add_top_stat(parent: Node, caption: String, prop: String, mono: bool) -> L
 func _add_top_divider(parent: Node) -> void:
 	var d := ColorRect.new()
 	d.custom_minimum_size = Vector2(1, 24)
-	d.color = Color(Style.THEME_GRAY_MID, 0.45)
+	d.color = Color(Style.COLOR_HUD_BORDER, 0.5)
 	d.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(d)
 
@@ -417,7 +426,7 @@ func _make_top_meter(parent: Node, color: Color) -> ColorRect:
 	track.custom_minimum_size = Vector2(76, 10)
 	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	track.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_BAR_TRACK, Color(Style.THEME_GRAY_MID, 0.6), 5, 1))
+		Style.make_style(Style.COLOR_HUD_TRACK, Color(Style.COLOR_HUD_BORDER, 0.6), 5, 1))
 	parent.add_child(track)
 	var fill := ColorRect.new()
 	fill.color = color
