@@ -84,12 +84,9 @@ func _build_environment() -> void:
 	env.ssr_fade_in = 0.12
 	env.ssr_fade_out = 1.5
 	env.ssr_depth_tolerance = 0.15
-	# Glow：温和辉光提升天空高光与水面波光（避免 HDR 高光死白）
-	env.glow_enabled = true
-	env.glow_intensity = 0.4
-	env.glow_bloom = 0.08
-	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_SOFTLIGHT
-	env.glow_hdr_threshold = 1.2
+	# Glow 实测观感：开启后水面/天空高光泛光过重，画面"一片泛光看不清"，
+	# 追求可玩性直接关闭（无辉光也能保持 FILMIC 色调）
+	env.glow_enabled = false
 	env_node.environment = env
 
 func _build_light() -> void:
