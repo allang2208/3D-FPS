@@ -7,6 +7,8 @@ const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"
 var _player: Node3D
 var _gun: Node3D
 var _status_bar: CanvasLayer
+var _backpack_hud: Control
+var _backpack
 var _player_dead := false
 var _kills := 0
 
@@ -119,6 +121,10 @@ func _build_player() -> void:
 	cam.position = Vector3(0, 1.62, 0)
 	cam.fov = 75.0
 	player.add_child(cam)
+	var cfx := Node3D.new()
+	cfx.name = "CameraFx"
+	cfx.set_script(load("res://scripts/camera_fx.gd"))
+	cam.add_child(cfx)
 	var gun := Node3D.new()
 	gun.name = "Gun"
 	gun.position = Vector3(0.28, -0.26, -0.5)
@@ -139,6 +145,20 @@ func _build_hud() -> void:
 	bar.set_script(load("res://ui/status_bar.gd"))
 	add_child(bar)
 	_status_bar = bar
+	_build_backpack_hud(bar)
+
+## 背包栏迁移：底部快捷栏（1~4）+ Tab/B 背包面板
+func _build_backpack_hud(parent: Node) -> void:
+	var item_db = load("res://ui/item_db.gd").new()
+	_backpack = load("res://ui/backpack.gd").new(item_db)
+	# 初始背包沿用旧版默认（治疗药水 ×5）；MP 系统未实装，暂不发放魔力药水
+	_backpack.add_item("hp_potion", 5)
+	var hud = load("res://ui/backpack_hud.gd").new()
+	hud.name = "BackpackHud"
+	hud.setup(_backpack)
+	hud.player_healed.connect(_on_player_healed)
+	parent.add_child(hud)
+	_backpack_hud = hud
 
 func _build_enemies() -> void:
 	var wolf_model: Node3D = load(WOLF_GLB).instantiate()
@@ -199,6 +219,9 @@ func _on_reloaded(_ammo: int, _reserve: int) -> void:
 func _on_player_damaged(hp: int) -> void:
 	_status_bar.set_hp(hp, int(_player.get("max_hp")))
 	_status_bar.damage_flash()
+
+func _on_player_healed(hp: int) -> void:
+	_status_bar.set_hp(hp, int(_player.get("max_hp")))
 
 func _on_player_died() -> void:
 	_player_dead = true

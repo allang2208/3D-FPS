@@ -23,14 +23,6 @@ const BASE_POS := Vector3(0.28, -0.26, -0.5)
 # GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
 const KICK_STIFFNESS := 210.0
 const KICK_DAMPING := 16.0
-# ViewKick 指数回正速率（/s）
-const VIEW_KICK_RECOVERY := 5.5
-# FOV 脉冲
-const FOV_PUNCH := 5.0
-const FOV_PUNCH_DECAY := 28.0
-# 命中抖动
-const HIT_SHAKE_AMP := 0.014
-const HIT_SHAKE_TIME := 0.12
 
 const ProjectileScript := preload("res://scripts/projectile.gd")
 const CasingScript := preload("res://scripts/casing.gd")
@@ -59,12 +51,6 @@ var _kick_pos := Vector3.ZERO
 var _kick_pos_vel := Vector3.ZERO
 var _kick_rot := Vector3.ZERO
 var _kick_rot_vel := Vector3.ZERO
-# 视角后坐 / FOV / 抖动
-var _kick_pitch := 0.0
-var _kick_yaw := 0.0
-var _fov_kick := 0.0
-var _base_fov := 0.0
-var _shake_t := 0.0
 
 func _ready() -> void:
 	_build_gun()
@@ -113,13 +99,6 @@ func _process(delta: float) -> void:
 	_flash_mesh.visible = _flash_t > 0.0
 	if _flash_mesh.visible:
 		_flash_mesh.scale = Vector3.ONE * randf_range(0.8, 1.7)
-	var cam := get_viewport().get_camera_3d()
-	if cam != null:
-		if _base_fov <= 0.0:
-			_base_fov = cam.fov
-		_apply_view_kick(cam, delta)
-		_apply_fov_punch(cam, delta)
-		_apply_hit_shake(cam, delta)
 
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
@@ -164,6 +143,7 @@ func _shoot() -> void:
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
 		return
+	_fire_camera_fx(cam)
 	var dir := _aim_dir(cam)
 	var origin := global_transform * MUZZLE_LOCAL
 	var scene_root: Node = get_tree().current_scene
@@ -173,7 +153,11 @@ func _shoot() -> void:
 	proj.hit_enemy.connect(_on_projectile_hit)
 
 func _on_projectile_hit() -> void:
-	_shake_t = HIT_SHAKE_TIME
+	var cam := get_viewport().get_camera_3d()
+	if cam:
+		var cfx := cam.get_node_or_null("CameraFx")
+		if cfx:
+			cfx.add_trauma(0.22)
 	hit.emit()
 
 func _aim_dir(cam: Camera3D) -> Vector3:
@@ -195,9 +179,6 @@ func _finish_reload() -> void:
 func _apply_gun_kick() -> void:
 	_kick_pos_vel += Vector3(randf_range(-0.10, 0.10), randf_range(0.04, 0.10), randf_range(0.55, 0.85))
 	_kick_rot_vel += Vector3(randf_range(0.55, 1.0), 0.0, randf_range(-0.7, 0.7))
-	_kick_pitch += randf_range(0.008, 0.017)
-	_kick_yaw += randf_range(-0.006, 0.006)
-	_fov_kick = FOV_PUNCH
 
 func _update_spring(delta: float) -> void:
 	var a_pos := -_kick_pos * KICK_STIFFNESS - _kick_pos_vel * KICK_DAMPING
@@ -207,26 +188,12 @@ func _update_spring(delta: float) -> void:
 	_kick_rot_vel += a_rot * delta
 	_kick_rot += _kick_rot_vel * delta
 
-func _apply_view_kick(cam: Camera3D, delta: float) -> void:
-	var prev_p := _kick_pitch
-	var prev_y := _kick_yaw
-	var k := exp(-VIEW_KICK_RECOVERY * delta)
-	_kick_pitch *= k
-	_kick_yaw *= k
-	cam.rotation.x += _kick_pitch - prev_p
-	cam.rotation.y += _kick_yaw - prev_y
-
-func _apply_fov_punch(cam: Camera3D, delta: float) -> void:
-	_fov_kick = maxf(0.0, _fov_kick - delta * FOV_PUNCH_DECAY)
-	cam.fov = _base_fov + _fov_kick
-
-func _apply_hit_shake(cam: Camera3D, delta: float) -> void:
-	if _shake_t <= 0.0:
+func _fire_camera_fx(cam: Camera3D) -> void:
+	var cfx := cam.get_node_or_null("CameraFx")
+	if cfx == null:
 		return
-	_shake_t -= delta
-	var a := HIT_SHAKE_AMP * (_shake_t / HIT_SHAKE_TIME)
-	cam.rotation.x += randf_range(-a, a)
-	cam.rotation.y += randf_range(-a, a)
+	cfx.kick(randf_range(0.008, 0.017), randf_range(-0.006, 0.006))
+	cfx.fov_punch(2.5)
 
 func _spawn_casing() -> void:
 	var cam := get_viewport().get_camera_3d()
