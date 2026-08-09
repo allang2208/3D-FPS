@@ -235,7 +235,7 @@ func _process(delta: float) -> void:
 		else:
 			mag_out = 1.0 - _ease_in(clampf((prog - 0.60) / 0.40, 0.0, 1.0))
 		# 枪身上抬 + 抬头右倾：弹匣舱位进画面，弹匣下滑时能看清分离
-		reload_pos = Vector3(0, mag_out * 0.12, mag_out * 0.03)
+		reload_pos = Vector3(0, mag_out * 0.18, mag_out * 0.03)
 		reload_rot = Vector3(-mag_out * 0.08, 0, mag_out * 0.05)
 		if _mag:
 			_mag.position.y = _mag_base_y - mag_out * _mag_slide
@@ -767,7 +767,7 @@ func _calibrate_viewmodel() -> void:
 			# 体素独立弹匣：OBJ 与枪体同坐标系，网格自带正确位置，节点放原点即可
 			_mag.position = Vector3.ZERO
 			_mag_base_y = 0.0
-			_mag_slide = 0.20 / scale
+			_mag_slide = 0.30 / scale
 		else:
 			var mag_center := _find_mag_center(verts, axis, muzzle_sign)
 			if mag_center != Vector3.ZERO:
