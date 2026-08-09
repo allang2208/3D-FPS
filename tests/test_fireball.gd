@@ -59,6 +59,10 @@ func _process(_delta: float) -> bool:
 		var fb := _find_fireball()
 		_check("fireball_hover_spawned", fb != null and bool(fb.get("_hovering")))
 		_check("fireball_hover_damage", fb != null and int(fb.get("_damage")) == 172)
+		var cam: Camera3D = _main.get_node_or_null("Player/Camera3D") as Camera3D
+		_check("fireball_left_hand", fb != null and cam != null \
+			and fb.global_position.x < cam.global_position.x \
+			and fb.global_position.z < cam.global_position.z)
 		_check("fireball_mp_cost", int(st.get("mp")) == 50)
 		_check("fireball_no_cd_on_spawn", sb.get_cooldown("fireball") == 0.0)
 		_press_key(KEY_Q)  # 第二段：投掷
