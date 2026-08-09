@@ -56,12 +56,12 @@ func _build_environment() -> void:
 	var sky := Sky.new()
 	var mat := PanoramaSkyMaterial.new()
 	mat.panorama = load(HDRI)
-	mat.energy_multiplier = 1.5  # 阴天 HDRI 提亮，恢复"有天空"的观感（实测 val≈0.5，避免过曝）
+	mat.energy_multiplier = 1.1  # 阴天 HDRI：天空不要太抢，把光权让给太阳
 	sky.sky_material = mat
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.1
+	env.ambient_light_energy = 0.35
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	# 曝光平衡（实测标定）：exposure 1.4 + 天空能量 2.2 + 低太阳/环境光
 	# → 天空恢复可见 val≈0.51，地面保持参考图亮度 val≈0.33-0.36
@@ -98,8 +98,8 @@ func _build_environment() -> void:
 func _build_light() -> void:
 	var light := DirectionalLight3D.new()
 	light.name = "Sun"
-	light.rotation_degrees = Vector3(-50, 30, 0)
-	light.light_energy = 0.28
+	light.rotation_degrees = Vector3(-30, 35, 0)
+	light.light_energy = 0.7
 	light.shadow_enabled = true
 	add_child(light)
 
@@ -168,7 +168,7 @@ func _build_terrain() -> Terrain3D:
 			if dist < R:
 				var tt := clampf(dist / R, 0.0, 1.0)
 				var edge := smoothstep(0.35, 1.0, tt)
-				var bed_m := lerpf(-8.0, -12.0, clampf((wx + 430.0) / 860.0, 0.0, 1.0))
+				var bed_m := lerpf(-4.0, -7.0, clampf((wx + 430.0) / 860.0, 0.0, 1.0))
 				bed_m += micro.get_noise_2d(x + 512, y + 512) * 0.6
 				h = lerpf(bed_m / 45.0, h, edge)
 			img.set_pixel(x, y, Color(h, 0.0, 0.0, 1.0))
@@ -216,6 +216,9 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/log_stackLarge.glb",
 		"res://assets/models/kenney_nature/lily_large.glb",
 		"res://assets/models/kenney_nature/lily_small.glb",
+		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
+		"res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf",
+		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
 	]
 	for i in mesh_specs.size():
 		var scn: PackedScene = load(mesh_specs[i])
@@ -282,13 +285,16 @@ func _build_instanced_nature() -> void:
 		[27, 85, -460, 460, -40.0, 30.0, 0.8, 1.4],   # kenney grass_leafsLarge 大草
 		[28, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_bushDetailed 细节灌木
 		[29, 40, -460, 460, -38.0, 26.0, 1.2, 2.2],   # ph fir_sapling 小针叶树（放大）
-		[30, 60, -460, 460, -40.0, 30.0, 1.5, 3.0],   # ph moss_01 地面苔藓斑
+		[30, 90, -460, 460, -40.0, 30.0, 1.5, 3.0],   # ph moss_01 地面苔藓斑
 		[31, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney stump_oldTall
 		[32, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney stump_roundDetailed
 		[33, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_large
 		[34, 18, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_stackLarge
 		[35, 12, -460, 460, -40.0, 26.0, 0.8, 1.3],   # kenney lily_large（近岸/浅水）
 		[36, 12, -460, 460, -40.0, 26.0, 0.8, 1.3],   # kenney lily_small
+		[37, 130, -460, 460, -40.0, 28.0, 1.2, 2.1],  # ph island_tree_01 密集背景林（instancer 无碰撞）
+		[38, 150, -460, 460, -40.0, 28.0, 1.3, 2.3],  # ph island_tree_02 密集背景林
+		[39, 100, -460, 460, -40.0, 28.0, 1.1, 2.0],  # ph island_tree_03 密集背景林
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
@@ -370,6 +376,7 @@ func _build_river() -> void:
 		var lat := absf((row - 1) * half_w)
 		var a := clampf((lat - water_core) / (half_w - water_core), 0.0, 1.0)
 		st.set_color(Color(1.0, 1.0, 1.0, 1.0 - a * a))
+		st.set_normal(Vector3.UP)
 		st.add_vertex(verts[i])
 	for i in pts.size() - 1:
 		var a := i * 3
@@ -378,8 +385,9 @@ func _build_river() -> void:
 		st.add_index(a)
 		st.add_index(a + 1)
 		st.add_index(b)
-		st.add_index(b + 1)
 		st.add_index(a + 1)
+		st.add_index(b + 1)
+		st.add_index(b)
 		st.add_index(a + 1)
 		st.add_index(a + 2)
 		st.add_index(b + 1)
@@ -391,6 +399,45 @@ func _build_river() -> void:
 	var mi := MeshInstance3D.new()
 	mi.mesh = mesh
 	river.add_child(mi)
+	# 河床：贴地形铺一条沙质河床带（宽于水面核心、略低于水面），
+	# 透过半透明水面看到沙/碎石底，复刻参考图"清澈见底"
+	var bed_mat := StandardMaterial3D.new()
+	bed_mat.albedo_texture = load("res://assets/textures/riverbed_sand.png")
+	bed_mat.roughness = 1.0
+	bed_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var bed_st := SurfaceTool.new()
+	bed_st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var bed_half := 7.0
+	for i in pts.size():
+		var p := pts[i]
+		var tan: Vector3
+		if i == 0:
+			tan = (pts[1] - pts[0]).normalized()
+		elif i == pts.size() - 1:
+			tan = (pts[i] - pts[i - 1]).normalized()
+		else:
+			tan = (pts[i + 1] - pts[i - 1]).normalized()
+		var side := tan.cross(Vector3.UP).normalized()
+		for k: float in [-1.0, 1.0]:
+			var v := p + side * (bed_half * k)
+			v.y = terrain.data.get_height(v) + 0.08
+			bed_st.set_uv(Vector2(float(i) * 0.2, (k + 1.0) * 0.5))
+			bed_st.set_normal(Vector3.UP)
+			bed_st.add_vertex(v)
+	for i in pts.size() - 1:
+		var a := i * 2
+		var b := (i + 1) * 2
+		bed_st.add_index(a)
+		bed_st.add_index(a + 1)
+		bed_st.add_index(b)
+		bed_st.add_index(a + 1)
+		bed_st.add_index(b + 1)
+		bed_st.add_index(b)
+	var bed_mesh := bed_st.commit()
+	bed_mesh.surface_set_material(0, bed_mat)
+	var bed_mi := MeshInstance3D.new()
+	bed_mi.mesh = bed_mesh
+	river.add_child(bed_mi)
 	# 河岸装饰：沿河道放碎石（全部 rock 变体随机混用，形态更自然）
 	var rock_variants := [
 		"res://assets/models/kenney_nature/rock_smallA.glb",
@@ -404,10 +451,10 @@ func _build_river() -> void:
 		"res://assets/models/kenney_nature/rock_largeB.glb",
 		"res://assets/models/kenney_nature/rock_largeC.glb",
 	]
-	for i in 60:
+	for i in 90:
 		var wx := rng.randf_range(-420.0, 420.0)
 		var cz := _river_center_z(wx)
-		var at := Vector3(wx + rng.randf_range(-12.0, 12.0), 0.0, cz + rng.randf_range(-9.0, 9.0))
+		var at := Vector3(wx + rng.randf_range(-14.0, 14.0), 0.0, cz + rng.randf_range(-10.0, 10.0))
 		at.y = terrain.data.get_height(at)
 		var inst: Node = load(rock_variants[rng.randi_range(0, rock_variants.size() - 1)]).instantiate()
 		river.add_child(inst)
@@ -420,7 +467,7 @@ func _build_river() -> void:
 		"res://assets/models/kenney_nature/lily_large.glb",
 		"res://assets/models/kenney_nature/lily_small.glb",
 	]
-	for i in 16:
+	for i in 24:
 		var wx := rng.randf_range(-400.0, 400.0)
 		var cz := _river_center_z(wx)
 		var at := Vector3(wx + rng.randf_range(-3.5, 3.5), 0.0, cz + rng.randf_range(-2.5, 2.5))
@@ -433,11 +480,11 @@ func _build_river() -> void:
 		lily.position = Vector3(at.x, at.y - lbase, at.z)
 	# 河岸水草：贴近河道两侧的浅水区
 	var reed: PackedScene = load("res://assets/models/kenney_nature/grass_leafs.glb")
-	for i in 30:
+	for i in 90:
 		var wx := rng.randf_range(-410.0, 410.0)
 		var cz := _river_center_z(wx)
 		var side := 1.0 if i % 2 == 0 else -1.0
-		var at := Vector3(wx + side * rng.randf_range(6.0, 10.0), 0.0, cz + rng.randf_range(-4.0, 4.0))
+		var at := Vector3(wx + side * rng.randf_range(3.0, 8.0), 0.0, cz + rng.randf_range(-4.0, 4.0))
 		at.y = terrain.data.get_height(at)
 		var rinst: Node = reed.instantiate()
 		river.add_child(rinst)
@@ -543,21 +590,21 @@ func _build_trees() -> void:
 		Vector2(-240, 100), Vector2(60, -260), Vector2(300, 260),
 	]
 	for c in centers:
-		for i in 12:
+		for i in 18:
 			var ang := rng.randf_range(0.0, TAU)
 			var r := rng.randf_range(4.0, 55.0)
 			_place_tree(_pick_tree(tree_paths), c + Vector2(cos(ang), sin(ang)) * r,
 				rng.randf_range(1.0, 2.0))
 	# 密集林斑块：参考图林缘密/空地疏，额外两个密林区
-	var groves := [Vector2(-80, 200), Vector2(220, -40)]
+	var groves := [Vector2(-80, 200), Vector2(220, -40), Vector2(-260, -240)]
 	for g in groves:
-		for i in 10:
+		for i in 16:
 			var ang := rng.randf_range(0.0, TAU)
 			var r := rng.randf_range(3.0, 30.0)
 			_place_tree(_pick_tree(tree_paths), g + Vector2(cos(ang), sin(ang)) * r,
 				rng.randf_range(1.0, 2.2))
 	# 地图边缘稀疏背景树
-	for i in 40:
+	for i in 60:
 		_place_tree(_pick_tree(tree_paths),
 			Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
 			rng.randf_range(0.9, 1.7))

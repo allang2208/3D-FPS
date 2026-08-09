@@ -1,12 +1,12 @@
 shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, specular_schlick_ggx;
 
 // Stream water surface: UV flow normal wobble + depth-tinted teal + fresnel
 // highlight. Deeper/opaque colors + soft highlights keep it reading as water
 // instead of washing out to white-green under the bright sky.
 // Usage: MeshInstance3D + PlaneMesh with this shader; mesh sits at bed height.
-uniform vec4 water_color : source_color = vec4(0.10, 0.27, 0.32, 0.88);
-uniform vec4 deep_color : source_color = vec4(0.05, 0.14, 0.20, 0.95);
+uniform vec4 water_color : source_color = vec4(0.24, 0.52, 0.58, 0.50);
+uniform vec4 deep_color : source_color = vec4(0.14, 0.32, 0.40, 0.62);
 uniform float flow_speed : hint_range(0.0, 4.0) = 0.9;
 uniform float wave_scale : hint_range(0.0, 4.0) = 1.0;
 uniform float fresnel_power : hint_range(0.0, 8.0) = 3.2;
@@ -31,12 +31,12 @@ void fragment() {
 	streak *= sin(world_uv.y * 6.0 + t) * 0.5 + 0.5;
 	wave = wave * 0.6 + streak * 0.4;
 
-	// Depth tint: shallow water lighter, deep water darker.
-	float depth = 1.0 - clamp(NORMAL.z * 1.5, 0.0, 1.0);
+	// Depth tint: looking straight down = shallow/clear, grazing = deeper.
+	float ndv = clamp(dot(NORMAL, VIEW), 0.0, 1.0);
+	float depth = 1.0 - ndv;
 	vec3 col = mix(water_color.rgb, deep_color.rgb, depth * 0.65 + wave * 0.12);
 
 	// Fresnel: grazing angles get a soft sky-light tint, not pure white.
-	float ndv = clamp(dot(NORMAL, VIEW), 0.0, 1.0);
 	float fres = pow(1.0 - ndv, fresnel_power);
 	col += vec3(0.22, 0.36, 0.42) * fres * 0.35;
 	// Sparkle highlights riding the wave crests.
