@@ -466,12 +466,12 @@ func _build_npc_panels() -> void:
 	for key in panels:
 		var panel = load(String(panels[key])).new()
 		panel.name = key.capitalize() + "Panel"
+		add_child(panel)
 		panel.setup(_item_db, _backpack, _equipment, _economy)
 		panel.set_title(_panel_title(key))
 		panel.closed.connect(func() -> void:
 			if _npc_bar != null:
 				_npc_bar.reopen())
-		add_child(panel)
 		match key:
 			"shop":
 				_shop_panel = panel

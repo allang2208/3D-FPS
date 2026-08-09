@@ -21,6 +21,7 @@ var economy: RefCounted
 var _open := false
 var _was_captured := false
 var _msg_timer := 0.0
+var _pending_title := ""
 
 func _ready() -> void:
 	_build()
@@ -58,6 +59,8 @@ func _build() -> void:
 	title_label.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
 	title_label.add_theme_color_override("font_color", Style.THEME_GOLD)
 	title_label.add_theme_font_size_override("font_size", Style.font_size("h2"))
+	if _pending_title != "":
+		title_label.text = _pending_title
 	title_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(title_label)
 	gold_label = Label.new()
@@ -118,7 +121,9 @@ func is_open() -> bool:
 	return _open
 
 func set_title(text: String) -> void:
-	title_label.text = text
+	_pending_title = text
+	if title_label != null:
+		title_label.text = text
 
 func set_economy(e: RefCounted) -> void:
 	economy = e
