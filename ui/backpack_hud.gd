@@ -120,10 +120,11 @@ func _ready() -> void:
 	_font_section = Style.make_font(400)
 	_font_mono = Style.make_mono_font(600)
 	# 贴图化槽位：panel_slot 底纹 + modulate 状态色（hover=金、拖放=强金、装备=暖亮、锁定=灰）
-	_s_hotbar_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
-	_s_hotbar_item = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_ITEM)
-	_s_hotbar_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
-	_s_skill_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
+	# 快捷栏/技能槽 = 深色 HUD 模块（原项目 quick-slot：深底 + 2px 边框 + 8px 圆角）
+	_s_hotbar_empty = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
+	_s_hotbar_item = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
+	_s_hotbar_hover = Style.make_style(Style.COLOR_HUD_SLOT_HOVER, Style.COLOR_HUD_SLOT_HOVER_BORDER, 8, 2)
+	_s_skill_empty = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
 	_s_cell_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
 	_s_cell_item = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_ITEM)
 	_s_cell_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
@@ -922,7 +923,7 @@ func _build_hotbar() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
-		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_HUD_GOLD, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
@@ -940,7 +941,7 @@ func _build_hotbar() -> void:
 		cd.offset_top = 0
 		cd.visible = false
 		content.add_child(cd)
-		var cd_text := _make_label(content, "", 10, Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
+		var cd_text := _make_label(content, "", 10, Style.COLOR_HUD_TEXT, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
 		cd_text.name = "CDText"
 		cd_text.add_theme_font_override("font", _font_mono)
 		cd_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -974,7 +975,7 @@ func _build_hotbar() -> void:
 	sp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sp_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sp_content.add_child(sp_icon)
-	var sp_key := _make_label(sp_content, "右击", 10, Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
+	var sp_key := _make_label(sp_content, "右击", 10, Style.COLOR_HUD_GOLD, Vector2(0, HOTBAR_SLOT - 17))
 	sp_key.name = "Key"
 	sp_key.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hotbar_root.add_child(sp)
@@ -999,10 +1000,10 @@ func _build_hotbar() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
-		var stack := _make_label(content, "", 12, Style.COLOR_TEXT, Vector2(3, HOTBAR_SLOT - 18))
+		var stack := _make_label(content, "", 12, Style.COLOR_HUD_TEXT, Vector2(3, HOTBAR_SLOT - 18))
 		stack.name = "Stack"
 		stack.add_theme_font_override("font", _font_mono)
-		var key := _make_label(content, str(i + 1), 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		var key := _make_label(content, str(i + 1), 11, Style.COLOR_HUD_GOLD, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()

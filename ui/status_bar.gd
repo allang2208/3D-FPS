@@ -440,7 +440,7 @@ func _build_side_menu() -> void:
 			["res://assets/ui/icons/map.svg", "O", "图鉴", "codex"],
 			["res://assets/ui/icons/flag.svg", "L", "任务", "quest"]]:
 		var b := Button.new()
-		b.custom_minimum_size = Vector2(64, 56)
+		b.custom_minimum_size = Vector2(72, 64)
 		# 深色 HUD 模块按钮（原项目 side-menu-btn，hover 金色发光）
 		b.add_theme_stylebox_override("normal",
 			Style.make_style(Color(Style.COLOR_HUD_BG, 0.72), Color(Style.COLOR_HUD_BORDER, 0.6), 8, 1))
@@ -452,7 +452,7 @@ func _build_side_menu() -> void:
 		vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var icon := TextureRect.new()
 		icon.texture = load(str(spec[0]))
-		icon.custom_minimum_size = Vector2(26, 26)
+		icon.custom_minimum_size = Vector2(30, 30)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.modulate = Style.COLOR_HUD_TEXT
@@ -462,7 +462,7 @@ func _build_side_menu() -> void:
 		hint.text = str(spec[1])
 		hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		hint.add_theme_font_override("font", _font_mono)
-		hint.add_theme_font_size_override("font_size", 11)
+		hint.add_theme_font_size_override("font_size", 14)
 		hint.add_theme_color_override("font_color", Style.COLOR_HUD_GOLD)
 		hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(hint)
