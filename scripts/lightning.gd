@@ -72,7 +72,8 @@ func _cast() -> Dictionary:
 	queue_free()
 	return {"ok": true, "hits": hits, "kills": kills}
 
-## 锁定：相机准星前方 aimRadius 内最近敌人，且距施法者 ≤ maxRange
+## 锁定：优先准星 15° 锥形内最近敌人（矮/偏移也可锁定，参照冰锥第 13 节修复）；
+## 无则回退旧版"相机前方 aimRadius 内最近"，且距施法者 ≤ maxRange
 func _acquire_target() -> Node3D:
 	var cam: Camera3D = null
 	for c in _caster.get_children():
@@ -82,9 +83,13 @@ func _acquire_target() -> Node3D:
 	if cam == null:
 		return null
 	var origin := cam.global_position
-	var aim_point := origin - cam.global_transform.basis.z * 5.0
-	var aim_radius := float(_effect.get("aim_radius_m", 2.8))
+	var fwd := -cam.global_transform.basis.z
 	var max_range := float(_effect.get("max_range_m", 8.4))
+	var aimed := _nearest_aimed_enemy(origin, fwd, 15.0)
+	if aimed != null:
+		return aimed
+	var aim_point := origin + fwd * 5.0
+	var aim_radius := float(_effect.get("aim_radius_m", 2.8))
 	var best: Node3D = null
 	var best_d := INF
 	for c in _scene_root.get_children():
@@ -98,6 +103,26 @@ func _acquire_target() -> Node3D:
 			continue
 		if d_aim < best_d:
 			best_d = d_aim
+			best = c
+	return best
+
+## 准星方向锥形内最近的敌对目标（有 take_damage 且非 Player），距施法者 ≤ maxRange
+func _nearest_aimed_enemy(from: Vector3, fwd: Vector3, half_angle_deg: float) -> Node3D:
+	var best: Node3D = null
+	var best_d := INF
+	var cos_limit := cos(deg_to_rad(half_angle_deg))
+	var max_range := float(_effect.get("max_range_m", 8.4))
+	for c in _scene_root.get_children():
+		if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
+			continue
+		var to_target: Vector3 = (c.global_position + Vector3(0, 0.3, 0)) - from
+		var d: float = to_target.length()
+		if d > max_range or d <= 0.0:
+			continue
+		if fwd.dot(to_target.normalized()) < cos_limit:
+			continue
+		if d < best_d:
+			best_d = d
 			best = c
 	return best
 
