@@ -94,48 +94,61 @@ func build_visual() -> void:
 	light.light_energy = 2.5
 	light.omni_range = 5.0
 	add_child(light)
-	# 常驻火焰：白色核心火星（B 方案，火球表面白热闪烁）
+	# 常驻火焰层一：白色核心——从球面喷涌的白热火舌（燃烧中心）
 	var flame_white := GPUParticles3D.new()
 	flame_white.emitting = true
 	flame_white.one_shot = false
-	flame_white.amount = 36
-	flame_white.lifetime = 0.4
+	flame_white.amount = 40
+	flame_white.lifetime = 0.55
 	flame_white.local_coords = false
-	flame_white.draw_pass_1 = _dot_pass(0.045, true)
+	flame_white.draw_pass_1 = _dot_pass(0.5, true)
 	var wp := ParticleProcessMaterial.new()
-	wp.direction = Vector3.ZERO
-	wp.spread = 180.0
-	wp.initial_velocity_min = 0.1
-	wp.initial_velocity_max = 0.35
-	wp.gravity = Vector3(0, -0.1, 0)
-	wp.scale_min = 0.05
-	wp.scale_max = 0.09
+	wp.direction = Vector3.UP
+	wp.spread = 50.0
+	wp.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	wp.emission_sphere_radius = 0.14
+	wp.initial_velocity_min = 0.25
+	wp.initial_velocity_max = 0.7
+	wp.gravity = Vector3(0, 0.5, 0)
+	wp.scale_min = 0.22
+	wp.scale_max = 0.4
+	wp.scale_curve = _grow_texture(0.5, 1.0)
 	wp.color_ramp = _ramp([
-		Color(1.0, 0.97, 0.82, 1.0),
-		Color(1.0, 0.75, 0.3, 0.0),
-	], [0.0, 1.0])
+		Color(1.0, 1.0, 1.0, 1.0),
+		Color(1.0, 0.95, 0.72, 0.9),
+		Color(1.0, 0.7, 0.3, 0.0),
+	], [0.0, 0.35, 1.0])
 	flame_white.process_material = wp
 	add_child(flame_white)
-	# 常驻火焰：黄色火焰（B 方案，环绕火球的黄焰）
+	# 常驻火焰层二：黄色主焰——向上窜的火舌主体，带翻涌扭曲（燃烧火苗）
 	var flame_yellow := GPUParticles3D.new()
 	flame_yellow.emitting = true
 	flame_yellow.one_shot = false
-	flame_yellow.amount = 22
-	flame_yellow.lifetime = 0.65
+	flame_yellow.amount = 46
+	flame_yellow.lifetime = 0.85
 	flame_yellow.local_coords = false
-	flame_yellow.draw_pass_1 = _dot_pass(0.09, true)
+	flame_yellow.draw_pass_1 = _dot_pass(0.5, true)
 	var yp := ParticleProcessMaterial.new()
 	yp.direction = Vector3.UP
-	yp.spread = 140.0
-	yp.initial_velocity_min = 0.15
-	yp.initial_velocity_max = 0.5
-	yp.gravity = Vector3(0, -0.2, 0)
-	yp.scale_min = 0.065
-	yp.scale_max = 0.115
+	yp.spread = 38.0
+	yp.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	yp.emission_sphere_radius = 0.15
+	yp.initial_velocity_min = 0.5
+	yp.initial_velocity_max = 1.2
+	yp.gravity = Vector3(0, 1.0, 0)
+	yp.scale_min = 0.3
+	yp.scale_max = 0.55
+	yp.scale_curve = _grow_texture(0.6, 1.4)
+	yp.turbulence_enabled = true
+	yp.turbulence_noise_strength = 0.9
+	yp.turbulence_noise_scale = 5.0
+	yp.turbulence_noise_speed = Vector3(1.5, 1.5, 1.5)
 	yp.color_ramp = _ramp([
-		Color(1.0, 0.9, 0.35, 0.85),
-		Color(1.0, 0.45, 0.12, 0.0),
-	], [0.0, 1.0])
+		Color(1.0, 0.95, 0.62, 0.9),
+		Color(1.0, 0.82, 0.3, 0.7),
+		Color(1.0, 0.45, 0.1, 0.15),
+		Color(1.0, 0.3, 0.05, 0.0),
+	], [0.0, 0.35, 0.75, 1.0])
 	flame_yellow.process_material = yp
 	add_child(flame_yellow)
 	# 飞行尾迹（原版 trail：ADD 橙粒子，世界空间跟随，仅飞行时开启）
@@ -145,15 +158,15 @@ func build_visual() -> void:
 	trail.amount = 90
 	trail.lifetime = 0.6
 	trail.local_coords = false
-	trail.draw_pass_1 = _dot_pass(0.16, true)
+	trail.draw_pass_1 = _dot_pass(0.35, true)
 	var tp := ParticleProcessMaterial.new()
 	tp.direction = Vector3.ZERO
 	tp.spread = 180.0
 	tp.initial_velocity_min = 0.05
 	tp.initial_velocity_max = 0.5
 	tp.gravity = Vector3(0, -0.4, 0)
-	tp.scale_min = 0.08
-	tp.scale_max = 0.16
+	tp.scale_min = 0.35
+	tp.scale_max = 0.6
 	tp.color_ramp = _ramp([
 		Color(1.0, 0.75, 0.3, 0.8),
 		Color(1.0, 0.35, 0.1, 0.0),
@@ -168,15 +181,15 @@ func build_visual() -> void:
 	trail_white.amount = 40
 	trail_white.lifetime = 0.3
 	trail_white.local_coords = false
-	trail_white.draw_pass_1 = _dot_pass(0.07, true)
+	trail_white.draw_pass_1 = _dot_pass(0.25, true)
 	var twp := ParticleProcessMaterial.new()
 	twp.direction = Vector3.ZERO
 	twp.spread = 60.0
 	twp.initial_velocity_min = 0.02
 	twp.initial_velocity_max = 0.15
 	twp.gravity = Vector3(0, -0.2, 0)
-	twp.scale_min = 0.04
-	twp.scale_max = 0.07
+	twp.scale_min = 0.3
+	twp.scale_max = 0.5
 	twp.color_ramp = _ramp([
 		Color(1.0, 0.95, 0.7, 0.9),
 		Color(1.0, 0.6, 0.2, 0.0),
@@ -184,28 +197,32 @@ func build_visual() -> void:
 	trail_white.process_material = twp
 	add_child(trail_white)
 	_trail_white = trail_white
-	# 悬浮火星（凝聚时向上飘散的橙色小光点，让火球"活着"）
-	var ember := GPUParticles3D.new()
-	ember.emitting = true
-	ember.one_shot = false
-	ember.amount = 14
-	ember.lifetime = 0.5
-	ember.local_coords = false
-	ember.draw_pass_1 = _dot_pass(0.035, true)
-	var ep := ParticleProcessMaterial.new()
-	ep.direction = Vector3.UP
-	ep.spread = 140.0
-	ep.initial_velocity_min = 0.12
-	ep.initial_velocity_max = 0.45
-	ep.gravity = Vector3(0, -0.15, 0)
-	ep.scale_min = 0.02
-	ep.scale_max = 0.04
-	ep.color_ramp = _ramp([
-		Color(1.0, 0.6, 0.2, 0.6),
-		Color(1.0, 0.3, 0.1, 0.0),
-	], [0.0, 1.0])
-	ember.process_material = ep
-	add_child(ember)
+	# 常驻火焰层三：橙色外焰——更大更淡，向上飘散形成火苗轮廓
+	var flame_orange := GPUParticles3D.new()
+	flame_orange.emitting = true
+	flame_orange.one_shot = false
+	flame_orange.amount = 30
+	flame_orange.lifetime = 1.0
+	flame_orange.local_coords = false
+	flame_orange.draw_pass_1 = _dot_pass(0.5, true)
+	var op := ParticleProcessMaterial.new()
+	op.direction = Vector3.UP
+	op.spread = 70.0
+	op.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
+	op.emission_sphere_radius = 0.13
+	op.initial_velocity_min = 0.15
+	op.initial_velocity_max = 0.55
+	op.gravity = Vector3(0, 0.6, 0)
+	op.scale_min = 0.3
+	op.scale_max = 0.6
+	op.scale_curve = _grow_texture(0.7, 1.8)
+	op.color_ramp = _ramp([
+		Color(1.0, 0.65, 0.2, 0.5),
+		Color(1.0, 0.4, 0.1, 0.15),
+		Color(1.0, 0.3, 0.05, 0.0),
+	], [0.0, 0.55, 1.0])
+	flame_orange.process_material = op
+	add_child(flame_orange)
 
 ## 第一段：凝聚（火球悬浮于左手位置——相机前下方偏左，镜像枪械握持位）
 func enter_hover(caster: Node3D) -> void:
@@ -435,4 +452,18 @@ func _ramp(colors: Array, offsets: Array) -> GradientTexture1D:
 	g.offsets = PackedFloat32Array(offsets)
 	var tex := GradientTexture1D.new()
 	tex.gradient = g
+	return tex
+
+## 粒子生长曲线：随时间从 from 线性增长到 to（火焰越往上越宽）
+func _grow_curve(from: float, to: float) -> Curve:
+	var c := Curve.new()
+	c.add_point(Vector2(0, from))
+	c.add_point(Vector2(0.5, from + (to - from) * 0.6))
+	c.add_point(Vector2(1, to))
+	return c
+
+## 将生长曲线包成 CurveTexture（Godot 4 的 scale_curve 属性类型）
+func _grow_texture(from: float, to: float) -> CurveTexture:
+	var tex := CurveTexture.new()
+	tex.curve = _grow_curve(from, to)
 	return tex
