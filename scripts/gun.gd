@@ -23,6 +23,12 @@ const BASE_POS := Vector3(0.28, -0.26, -0.5)
 # GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
 const KICK_STIFFNESS := 210.0
 const KICK_DAMPING := 16.0
+# 姿态系统（bob / sway / 疾跑下沉）
+const BOB_FREQ_BASE := 5.0
+const BOB_FREQ_SPEED := 0.85
+const SWAY_LAG := 10.0
+const SPRINT_DROP := 0.10
+const SPRINT_TILT := 0.30
 
 const ProjectileScript := preload("res://scripts/projectile.gd")
 const CasingScript := preload("res://scripts/casing.gd")
@@ -43,6 +49,8 @@ var _flash_light: OmniLight3D
 var _flash_mesh: MeshInstance3D
 var _shoot_player: AudioStreamPlayer
 var _reload_player: AudioStreamPlayer
+var _click_player: AudioStreamPlayer
+var _smoke: CPUParticles3D
 var ammo := MAG_SIZE
 var reserve := 90
 
@@ -51,6 +59,14 @@ var _kick_pos := Vector3.ZERO
 var _kick_pos_vel := Vector3.ZERO
 var _kick_rot := Vector3.ZERO
 var _kick_rot_vel := Vector3.ZERO
+# 姿态状态
+var _bob_t := 0.0
+var _bob_pos := Vector3.ZERO
+var _bob_rot := Vector3.ZERO
+var _sway_pos := Vector3.ZERO
+var _sway_rot := Vector3.ZERO
+var _sprint := 0.0
+var _player: CharacterBody3D
 
 func _ready() -> void:
 	_build_gun()
@@ -87,12 +103,35 @@ func _ready() -> void:
 	_reload_player.stream = RELOAD_SOUND
 	_reload_player.volume_db = -4.0
 	add_child(_reload_player)
+	_click_player = AudioStreamPlayer.new()
+	_click_player.name = "DryClick"
+	_click_player.stream = _make_click()
+	_click_player.volume_db = -6.0
+	add_child(_click_player)
+	_smoke = CPUParticles3D.new()
+	_smoke.name = "MuzzleSmoke"
+	_smoke.position = MUZZLE_LOCAL + Vector3(0, -0.01, 0)
+	_smoke.one_shot = true
+	_smoke.emitting = false
+	_smoke.amount = 8
+	_smoke.lifetime = 0.45
+	_smoke.direction = Vector3(0, 0, -1)
+	_smoke.spread = 18.0
+	_smoke.gravity = Vector3(0, 0.8, 0)
+	_smoke.initial_velocity_min = 0.6
+	_smoke.initial_velocity_max = 1.4
+	_smoke.scale_amount_min = 0.03
+	_smoke.scale_amount_max = 0.07
+	_smoke.color = Color(0.75, 0.75, 0.8, 0.5)
+	add_child(_smoke)
+	_player = get_parent().get_parent() as CharacterBody3D
 	shot.emit(ammo, reserve)
 
 func _process(delta: float) -> void:
 	_update_spring(delta)
-	position = BASE_POS + _kick_pos
-	rotation = _kick_rot
+	_update_pose(delta)
+	position = BASE_POS + _kick_pos + _bob_pos + _sway_pos + Vector3(0, -SPRINT_DROP * _sprint, 0)
+	rotation = _kick_rot + _bob_rot + _sway_rot + Vector3(SPRINT_TILT * _sprint, 0, 0)
 	_flash_t = maxf(0.0, _flash_t - delta)
 	_flash_light.visible = _flash_t > 0.0
 	_flash_light.light_energy = 10.0 * (_flash_t / 0.06)
@@ -130,6 +169,7 @@ func _start_reload() -> void:
 func _shoot() -> void:
 	_fire_cd = FIRE_INTERVAL
 	if ammo <= 0:
+		_click_player.play()
 		empty.emit()
 		return
 	ammo -= 1
@@ -139,6 +179,7 @@ func _shoot() -> void:
 	_apply_gun_kick()
 	_shoot_player.pitch_scale = randf_range(0.97, 1.03)
 	_shoot_player.play()
+	_smoke.restart()
 	_spawn_casing()
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
@@ -173,6 +214,42 @@ func _finish_reload() -> void:
 	ammo += take
 	reserve -= take
 	reloaded.emit(ammo, reserve)
+
+func _make_click() -> AudioStreamWAV:
+	var rate := 22050
+	var frames := int(rate * 0.05)
+	var data := PackedByteArray()
+	data.resize(frames * 2)
+	for i in frames:
+		var env := 0.6 * (1.0 - float(i) / frames)
+		var s := (randf() * 2.0 - 1.0) * env
+		data.encode_s16(i * 2, int(clampf(s, -1.0, 1.0) * 32767.0))
+	var wav := AudioStreamWAV.new()
+	wav.format = AudioStreamWAV.FORMAT_16_BITS
+	wav.mix_rate = rate
+	wav.stereo = false
+	wav.data = data
+	return wav
+
+func _update_pose(delta: float) -> void:
+	var spd := 0.0
+	if _player:
+		spd = Vector2(_player.velocity.x, _player.velocity.z).length()
+	var sprinting := Input.is_physical_key_pressed(KEY_SHIFT) and spd > 1.0
+	_bob_t += delta * (BOB_FREQ_BASE + spd * BOB_FREQ_SPEED)
+	var target_sprint := 1.0 if sprinting else 0.0
+	_sprint = lerpf(_sprint, target_sprint, 1.0 - exp(-8.0 * delta))
+	if spd <= 0.5:
+		_bob_pos = Vector3(0, sin(_bob_t * 0.5) * 0.003, 0)
+		_bob_rot = Vector3.ZERO
+	else:
+		var amp := 1.35 if _sprint > 0.5 else 0.7
+		_bob_pos = Vector3(sin(_bob_t) * 0.011 * amp, absf(cos(_bob_t)) * 0.016 * amp, 0)
+		_bob_rot = Vector3(sin(_bob_t * 0.5) * 0.010 * amp, 0, sin(_bob_t) * 0.008 * amp)
+	var mv := Input.get_last_mouse_velocity()
+	var k := 1.0 - exp(-SWAY_LAG * delta)
+	_sway_pos = _sway_pos.lerp(Vector3(mv.x * 0.000006, mv.y * 0.000006, 0), k)
+	_sway_rot = _sway_rot.lerp(Vector3(mv.y * 0.00002, mv.x * 0.00003, 0), k)
 
 # ---------- 强反馈 ----------
 

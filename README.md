@@ -33,7 +33,7 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
   scripts/
     main.gd         # 环境/光照/地面/墙体/玩家/黑狼 GLB；HUD 部分转发信号到 ui/status_bar.gd
     player.gd       # 第一人称控制器 + 血量/受伤/死亡
-    gun.gd          # AKM：枪模弹簧后坐 + 弹壳 + 枪声 + 散布（视角后坐/FOV/抖动由 camera_fx 负责）
+    gun.gd          # AKM：弹簧后坐 + 姿态（bob/sway/疾跑下沉）+ 弹壳/烟雾 + 枪声/空仓咔哒 + 散布
     casing.gd       # 弹壳抛壳（重力/旋转/落地弹跳）
     camera_fx.gd    # 相机反馈：视角后坐弹簧 + FOV 指数平滑 + Trauma/Perlin 抖动
     projectile.gd   # 标准弹道飞行：90m/s、轻微下坠、逐帧扫描防穿墙、命中火花
