@@ -68,7 +68,8 @@ func _fire() -> void:
 		if p.distance_to(origin) > _max_range + 1.0:
 			continue
 		# 旧版：目标感电层数越高伤害越高（每层 +10%），命中前读取
-		var stacks := int(c.get("_electrified_stacks")) if c.get("_electrified_stacks") != null else 0
+		var b: RefCounted = c.get("_buffs")
+		var stacks := int(b.stacks("electrified")) if b != null else 0
 		var per_stack := float(_eff.get("electrifyDamagePerStack", 0.1))
 		var dmg := maxi(1, floori(_damage * (1.0 + stacks * per_stack)))
 		var was_alive := _hp_of(c) > 0

@@ -20,7 +20,9 @@ func _process(_delta: float) -> bool:
 		_stage = 1
 		_t = 1
 	elif _stage == 1 and _t == 5:
-		print("OVERLOAD e1_stun_t=", _e1.get("_stun_t"), " e1_elect=", _e1.get("_electrified_stacks"))
+		var b: RefCounted = _e1.get("_buffs")
+		print("OVERLOAD e1_stun=", b.has("stun"), " stun_remaining=", snappedf(b.remaining("stun"), 0.01),
+			" e1_elect=", b.stacks("electrified"))
 		print("OVERLOAD e2_hp=", _e2.get("_hp"), " (expect 56 = 100 - 44)")
 		quit(0)
 		return false

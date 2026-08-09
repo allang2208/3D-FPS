@@ -57,7 +57,7 @@ func _run() -> void:
 		"blizzard":
 			_blizzard()
 		"iceWall":
-			_ice_wall()
+			await _ice_wall()
 			queue_free()
 		"meteor":
 			_meteor()
@@ -183,7 +183,13 @@ func _blizzard() -> void:
 	var duration := float(_eff.get("duration", 5.0))
 	var rx := float(_eff.get("radiusX", 200.0)) * PX_TO_M
 	var rz := float(_eff.get("radiusY", 124.0)) * PX_TO_M
-	_tick_area(tick_ms / 1000.0, duration, rx, rz, 1.0)
+	var buff := {
+		"type": "chill",
+		"stacks": int(_eff.get("chillStacks", 1)),
+		"duration_ms": int(_eff.get("chillDurationMs", 2500)),
+		"slow_percent": float(_eff.get("chillSlowPercent", 0.035)),
+	}
+	_tick_area(tick_ms / 1000.0, duration, rx, rz, 1.0, buff)
 
 ## ---------- 冰墙：目标点障碍列 ----------
 func _ice_wall() -> void:
@@ -193,11 +199,13 @@ func _ice_wall() -> void:
 	var seg_w := float(_eff.get("segmentWidth", 48.0)) * PX_TO_M
 	var seg_h := float(_eff.get("segmentHeight", 64.0)) * PX_TO_M
 	var duration := float(_eff.get("duration", 10.0))
+	var seg_positions: Array = []
 	for i in count:
 		var body := StaticBody3D.new()
 		body.name = "IceWallSeg"
 		body.collision_layer = 3
 		body.position = pos + Vector3((float(i) - (count - 1) * 0.5) * spacing, seg_h * 0.5, 0)
+		seg_positions.append(body.position)
 		var col := CollisionShape3D.new()
 		var box := BoxShape3D.new()
 		box.size = Vector3(seg_w, seg_h, seg_w)
@@ -218,7 +226,26 @@ func _ice_wall() -> void:
 		_add_to_root(body)
 		var t := get_tree().create_timer(duration)
 		t.timeout.connect(func() -> void: body.queue_free())
-	# 生成时碎裂音效可加；伤害结算（旧版生成时对碰撞敌人造成伤害）简化跳过
+	# 冰墙寒冷光环（旧版 chillRadius / chillIntervalMs）：范围内敌人持续叠寒冷
+	var chill_r := float(_eff.get("chillRadius", 100.0)) * PX_TO_M
+	var chill_interval := float(_eff.get("chillIntervalMs", 1000.0)) / 1000.0
+	var buff := {
+		"type": "chill",
+		"stacks": int(_eff.get("chillStacks", 1)),
+		"duration_ms": int(_eff.get("chillDurationMs", 2500)),
+		"slow_percent": float(_eff.get("chillSlowPercent", 0.035)),
+	}
+	var elapsed := 0.0
+	while elapsed < duration:
+		await get_tree().create_timer(chill_interval).timeout
+		elapsed += chill_interval
+		for c in _scene_root.get_children():
+			if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
+				continue
+			for sp in seg_positions:
+				if (c.global_position - sp).length() <= chill_r:
+					_apply_buff(c, buff)
+					break
 
 ## ---------- 陨星：延迟坠落 + 爆炸 + 熔岩区 ----------
 func _meteor() -> void:
@@ -228,9 +255,17 @@ func _meteor() -> void:
 	await get_tree().create_timer(fall).timeout
 	if ball != null and is_instance_valid(ball):
 		ball.queue_free()
-	_explosion(pos, float(_eff.get("explosionRadius", 140.0)) * PX_TO_M)
-	_lava_zone(pos, float(_eff.get("lavaRadius", 120.0)) * PX_TO_M,
-		float(_eff.get("lavaDuration", 3.0)), float(_eff.get("lavaTickMs", 500.0)))
+	var explosion_radius := float(_eff.get("explosionRadius", 140.0)) * PX_TO_M
+	_explosion(pos, explosion_radius)
+	_apply_explosion_debuffs(pos, explosion_radius)
+	var lava_burn := {
+		"type": "burn",
+		"stacks": int(_eff.get("lavaBurnStacks", 1)),
+		"duration_ms": int(_eff.get("lavaBurnDurationMs", 2500)),
+		"damage_mul": float(_eff.get("lavaBurnDamageMul", 0.3)),
+	}
+	await _lava_zone(pos, float(_eff.get("lavaRadius", 120.0)) * PX_TO_M,
+		float(_eff.get("lavaDuration", 3.0)), float(_eff.get("lavaTickMs", 500.0)), lava_burn)
 	queue_free()
 
 func _falling_ball(pos: Vector3, fall: float) -> Node3D:
@@ -342,6 +377,8 @@ func _flame_armor() -> void:
 	var tick := float(_eff.get("auraTickMs", 500.0)) / 1000.0
 	var duration := float(_eff.get("duration", 12.0))
 	var radius := float(_eff.get("auraRadius", 130.0)) * PX_TO_M
+	if _caster != null and _caster.has_method("apply_buff"):
+		_caster.apply_buff("flameArmor", int(duration * 1000.0))
 	var light := OmniLight3D.new()
 	light.light_color = Color(1.0, 0.45, 0.15)
 	light.light_energy = 1.2
@@ -375,8 +412,9 @@ func _drone() -> void:
 	if target == null:
 		return
 	var duration := float(_eff.get("duration", 15.0))
-	var bonus := float(_eff.get("damageBonusPercent", 10.0)) / 100.0
-	target.set("_vuln_mul", 1.0 + bonus)
+	# 旧版 droneSkill：目标无人机易伤（每层所有伤害 +10%），持续 duration
+	if target.has_method("apply_drone_vulnerability"):
+		target.apply_drone_vulnerability(1, int(duration * 1000.0))
 	var drone := Sprite3D.new()
 	drone.texture = _dot_tex()
 	drone.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -393,12 +431,12 @@ func _drone() -> void:
 	_add_to_root(drone)
 	var t := get_tree().create_timer(duration)
 	t.timeout.connect(func() -> void:
-		if is_instance_valid(target):
-			target.set("_vuln_mul", 1.0)
+		if is_instance_valid(target) and target.has_method("remove_buff"):
+			target.remove_buff("droneVulnerability")
 		drone.queue_free())
 
 ## ---------- 通用结算/特效 ----------
-func _aoe_hit(pos: Vector3, radius: float, mul: float) -> void:
+func _aoe_hit(pos: Vector3, radius: float, mul: float, buff: Dictionary = {}) -> void:
 	for c in _scene_root.get_children():
 		if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
 			continue
@@ -412,15 +450,55 @@ func _aoe_hit(pos: Vector3, radius: float, mul: float) -> void:
 		_hits += 1
 		if was_alive and _hp_of(c) <= 0:
 			_kills += 1
+		_apply_buff(c, buff)
 
-func _tick_area(interval: float, duration: float, rx: float, rz: float, mul: float) -> void:
+func _tick_area(interval: float, duration: float, rx: float, rz: float, mul: float, buff: Dictionary = {}) -> void:
 	var elapsed := 0.0
 	while elapsed < duration:
 		await get_tree().create_timer(interval).timeout
 		elapsed += interval
-		_aoe_hit(global_position, maxf(rx, rz) * 0.8, mul)
+		_aoe_hit(global_position, maxf(rx, rz) * 0.8, mul, buff)
 	cast_finished.emit(_hits, _kills)
 	queue_free()
+
+## 通用 buff 应用分发（旧版技能 buff 字段 → enemy apply_* 接口）
+func _apply_buff(target: Node3D, buff: Dictionary) -> void:
+	if buff.is_empty() or target == null:
+		return
+	var type: String = buff.get("type", "")
+	var stacks_n := int(buff.get("stacks", 1))
+	var duration_ms := int(buff.get("duration_ms", 0))
+	match type:
+		"chill":
+			if target.has_method("apply_chill"):
+				target.apply_chill(stacks_n, duration_ms, float(buff.get("slow_percent", 0.05)))
+		"burn":
+			if target.has_method("apply_burn"):
+				target.apply_burn(_caster, stacks_n, duration_ms, float(buff.get("damage_mul", 0.5)), _matk)
+		"stun":
+			if target.has_method("apply_stun"):
+				target.apply_stun(duration_ms)
+		"droneVulnerability":
+			if target.has_method("apply_drone_vulnerability"):
+				target.apply_drone_vulnerability(stacks_n, duration_ms)
+
+## 陨星爆炸：主爆炸眩晕 + 灼烧（旧版 stunMs / burnStacks / burnDurationMs / burnDamageMul）
+func _apply_explosion_debuffs(pos: Vector3, radius: float) -> void:
+	var burn := {
+		"type": "burn",
+		"stacks": int(_eff.get("burnStacks", 3)),
+		"duration_ms": int(_eff.get("burnDurationMs", 3500)),
+		"damage_mul": float(_eff.get("burnDamageMul", 0.5)),
+	}
+	var stun_ms := int(_eff.get("stunMs", 0))
+	for c in _scene_root.get_children():
+		if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
+			continue
+		if (c.global_position - pos).length() > radius:
+			continue
+		if stun_ms > 0 and c.has_method("apply_stun"):
+			c.apply_stun(stun_ms)
+		_apply_buff(c, burn)
 
 func _nearest_hostile(from: Vector3, range_m: float, exclude: Array = []) -> Node3D:
 	var best: Node3D = null
@@ -511,7 +589,7 @@ func _explosion(pos: Vector3, radius: float) -> void:
 	_aoe_hit(pos, radius, 1.0)
 	cast_finished.emit(_hits, _kills)
 
-func _lava_zone(pos: Vector3, radius: float, duration: float, tick_ms: float) -> void:
+func _lava_zone(pos: Vector3, radius: float, duration: float, tick_ms: float, burn: Dictionary = {}) -> void:
 	var elapsed := 0.0
 	var lava_dmg := maxi(1, floori(_damage * 0.25))
 	while elapsed < duration:
@@ -523,6 +601,7 @@ func _lava_zone(pos: Vector3, radius: float, duration: float, tick_ms: float) ->
 			if (c.global_position - pos).length() > radius:
 				continue
 			c.take_damage(lava_dmg)
+			_apply_buff(c, burn)
 
 ## 旧版 LightningBoltEffect 移植：中点位移锯齿 → 按比例重采样色块链，
 ## 每点四层圆块（外层辉光 ADD + 内芯），施法端粗 → 目标端细；形态创建时定格

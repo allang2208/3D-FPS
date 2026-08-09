@@ -4,6 +4,8 @@ extends CharacterBody3D
 ## 部位命中盒：_ready 自动从模型骨骼（head）生成 HitboxHead（×2），射线按 shape 索引结算
 
 const HitboxShapeScript := preload("res://scripts/hitbox_shape.gd")
+const BuffSystemScript := preload("res://scripts/buff_system.gd")
+const BuffsDb := preload("res://ui/buffs_db.gd")
 
 @export var max_hp := 50
 @export var chase_speed := 3.0
@@ -35,9 +37,7 @@ var _attack_t := 0.0
 var _wander_target := Vector3.ZERO
 var _wander_timer := 0.0
 var _shape_multipliers: Array[float] = []
-var _stun_t := 0.0
-var _electrified_stacks := 0
-var _electrified_t := 0.0
+var _buffs: BuffSystem = BuffSystem.new()
 var _overload_matk := 0
 var _overload_intt := 0
 var _knock_vel := Vector3.ZERO
@@ -47,8 +47,11 @@ func setup(player: Node3D, kill_cb: Callable) -> void:
 	_player = player
 	_kill_cb = kill_cb
 	_hp = max_hp
+	_buffs = BuffSystem.new()
 
 func _ready() -> void:
+	if _buffs == null:
+		_buffs = BuffSystem.new()
 	collision_layer = 2
 	collision_mask = 5  # 1 墙体 + 4 玩家
 	for child in get_children():
@@ -148,10 +151,8 @@ func get_head_center_global() -> Vector3:
 func take_damage(d: int, damage_type := "physical", _src: Node3D = null) -> bool:
 	if _dead:
 		return false
-	var final_d := d
-	# 感电：电系伤害每层 +3%（旧版 damageable-entity）
-	if damage_type == "electric" and _electrified_stacks > 0:
-		final_d = maxi(1, floori(final_d * (1.0 + _electrified_stacks * 0.03)))
+	# 受击伤害修正：魔力易伤/感电/无人机易伤/冻结（旧版 takeDamage 管线）
+	var final_d := maxi(1, floori(d * _buffs.incoming_damage_mul(damage_type)))
 	_hp -= final_d
 	_flash_t = 0.12
 	if _hp <= 0:
@@ -163,7 +164,7 @@ func take_damage(d: int, damage_type := "physical", _src: Node3D = null) -> bool
 func apply_stun(duration_ms: int) -> void:
 	if _dead:
 		return
-	_stun_t = maxf(_stun_t, duration_ms / 1000.0)
+	_buffs.add("stun", duration_ms)
 	_attack_t = 0.0
 	_lunge_t = 0.0
 	_moving = false
@@ -175,12 +176,121 @@ func apply_electrified(stacks: int, duration_ms: int, matk: int = 0, intt: int =
 		return
 	_overload_matk = matk
 	_overload_intt = intt
-	_electrified_stacks += stacks
-	_electrified_t += duration_ms / 1000.0
-	if _electrified_stacks >= 5:
-		_electrified_stacks = 0
-		_electrified_t = 0.0
+	var cur := _buffs.stacks("electrified")
+	var rem_ms := int(_buffs.remaining("electrified") * 1000.0) if _buffs.has("electrified") else 0
+	_buffs.add("electrified", rem_ms + duration_ms, { "stacks": cur + stacks })
+	if _buffs.stacks("electrified") >= 5:
+		_buffs.remove("electrified")
 		_trigger_overload()
+
+## 寒冷（旧版 applyChill）：层数叠加、时长叠加，叠满 20 层触发冻结（扣 10 层）
+func apply_chill(stacks: int, duration_ms: int, slow_percent: float = 0.05) -> void:
+	if _dead or _buffs.has("frozen"):
+		return
+	var cur := _buffs.stacks("chill")
+	var rem_ms := int(_buffs.remaining("chill") * 1000.0) if _buffs.has("chill") else 0
+	var total := cur + stacks
+	_buffs.add("chill", rem_ms + duration_ms, { "stacks": total, "meta": { "slow_percent": slow_percent } })
+	if total >= int(BuffsDb.get_def("chill").get("freeze_at", 20)):
+		total -= int(BuffsDb.get_def("chill").get("freeze_cost", 10))
+		apply_freeze(duration_ms)
+		if total <= 0:
+			_buffs.remove("chill")
+		else:
+			_buffs.add("chill", rem_ms + duration_ms, { "stacks": total })
+
+## 冻结（旧版 applyFreeze）：眩晕等效 + 非魔法伤害 +50%
+func apply_freeze(duration_ms: int) -> void:
+	if _dead:
+		return
+	_buffs.add("frozen", duration_ms)
+	_attack_t = 0.0
+	_lunge_t = 0.0
+	_moving = false
+	velocity = Vector3.ZERO
+
+## 灼伤（旧版 applyBurn）：每层独立计时，每 tickMs 造成 floor(matk×damageMul) 魔法伤害
+func apply_burn(source: Node3D, stacks: int, duration_ms: int, damage_mul: float = 0.5, matk: int = 0) -> void:
+	if _dead:
+		return
+	var list: Array = []
+	var cur_list: Array = _buffs.get_effect("burn").get("opts", {}).get("burn_stacks", []) if _buffs.has("burn") else []
+	for s in cur_list:
+		list.append(s)
+	for i in stacks:
+		list.append({ "matk": matk, "damage_mul": damage_mul, "remaining_s": duration_ms / 1000.0 })
+	_buffs.add("burn", duration_ms, { "stacks": list.size(), "burn_stacks": list, "source": source })
+
+## 生命恢复（HoT 用；与玩家 heal 同语义，上限 max_hp）
+func heal(amount: int) -> void:
+	if _dead or amount <= 0:
+		return
+	_hp = mini(max_hp, _hp + amount)
+
+## 中毒（旧版 applyPoison）：每秒受到层数点毒素伤害，持续 5s
+func apply_poison(stacks: int) -> void:
+	if _dead:
+		return
+	var cur := _buffs.stacks("poison")
+	_buffs.add("poison", 5000, { "stacks": cur + stacks, "source": _player })
+
+## 流血（旧版 applyBleeding）：每层每秒流失当前生命 1%，逐层 10s 到期
+func apply_bleed(stacks: int) -> void:
+	if _dead:
+		return
+	var list: Array = []
+	var cur_list: Array = _buffs.get_effect("bleed").get("opts", {}).get("bleed_stacks", []) if _buffs.has("bleed") else []
+	for s in cur_list:
+		list.append(s)
+	for i in stacks:
+		list.append({ "remaining_s": 10.0 })
+	_buffs.add("bleed", 10000, { "stacks": list.size(), "bleed_stacks": list })
+
+func apply_magic_vulnerability(stacks: int, duration_ms: int = 5000) -> void:
+	if _dead:
+		return
+	var cur := _buffs.stacks("magicVulnerability")
+	_buffs.add("magicVulnerability", duration_ms, { "stacks": cur + stacks })
+
+func apply_drone_vulnerability(stacks: int, duration_ms: int = 999999) -> void:
+	if _dead:
+		return
+	var cur := _buffs.stacks("droneVulnerability")
+	_buffs.add("droneVulnerability", duration_ms, { "stacks": cur + stacks })
+
+func remove_buff(type: String) -> void:
+	if _buffs != null:
+		_buffs.remove(type)
+
+func apply_holy_renewal(stacks: int = 1, duration_ms: int = 3000) -> void:
+	if _dead:
+		return
+	var cur := _buffs.stacks("holyRenewal")
+	_buffs.add("holyRenewal", duration_ms, { "stacks": cur + stacks })
+
+func apply_haste(duration_ms: int, per_stack_mul: float = 0.10) -> void:
+	if _dead:
+		return
+	var cur := _buffs.stacks("haste")
+	var rem_ms := int(_buffs.remaining("haste") * 1000.0) if _buffs.has("haste") else 0
+	_buffs.add("haste", rem_ms + duration_ms, { "stacks": cur + 1, "meta": { "per_stack": per_stack_mul } })
+
+## 激励（旧版 applyInspire，怪物增益）：移速 ×speedMul、物攻 ×atkMul，只刷时长不重复乘算
+func apply_inspire(duration_ms: int, speed_mul: float = 1.33, atk_mul: float = 1.5) -> void:
+	if _dead:
+		return
+	_buffs.add("inspire", duration_ms, { "meta": { "speed_mul": speed_mul, "atk_mul": atk_mul } })
+
+func apply_status_immune(duration_ms: int) -> void:
+	if _dead:
+		return
+	_buffs.add("statusImmune", duration_ms)
+
+func apply_fear(duration_ms: int) -> void:
+	if _dead:
+		return
+	var cur := _buffs.stacks("fear")
+	_buffs.add("fear", duration_ms, { "stacks": cur + 1 })
 
 ## 击退（旧版 applyKnockback）：沿方向短程位移，速度随时间衰减
 func apply_knockback(dir: Vector3, dist_m: float) -> void:
@@ -221,7 +331,7 @@ func _physics_process(delta: float) -> void:
 		if _flash_t > 0.0:
 			_mat.emission_enabled = true
 			_mat.emission = Color(1.0, 0.25, 0.2)
-		elif _electrified_t > 0.0 and _electrified_stacks > 0:
+		elif _buffs.has("electrified"):
 			_mat.emission_enabled = true
 			_mat.emission = Color(0.45, 0.35, 1.0) * (0.35 + 0.65 * absf(sin(_walk_t * 18.0)))
 		else:
@@ -236,13 +346,8 @@ func _physics_process(delta: float) -> void:
 		if _dead_t >= RESPAWN_TIME:
 			_respawn()
 		return
-	if _electrified_t > 0.0:
-		_electrified_t -= delta
-		if _electrified_t <= 0.0:
-			_electrified_t = 0.0
-			_electrified_stacks = 0
-	if _stun_t > 0.0:
-		_stun_t -= delta
+	_buffs.tick(delta, self)
+	if _buffs.is_control_locked():
 		_moving = false
 		velocity = Vector3.ZERO
 		if _model:
@@ -291,8 +396,12 @@ func _chase(delta: float, to_player: Vector3, dist: float) -> void:
 	var dir := Vector3(to_player.x, 0, to_player.z)
 	if dist > 0.01:
 		dir = dir.normalized()
-	velocity.x = dir.x * chase_speed
-	velocity.z = dir.z * chase_speed
+	var spd := chase_speed * _buffs.speed_mul()
+	# 恐惧：失控远离恐惧源
+	if _buffs.has("fear"):
+		dir = -dir
+	velocity.x = dir.x * spd
+	velocity.z = dir.z * spd
 	_turn_to(dir, delta)
 	move_and_slide()
 	if _model:
@@ -312,8 +421,9 @@ func _wander(delta: float) -> void:
 	else:
 		_moving = true
 		var dir := Vector3(to_t.x, 0, to_t.z).normalized()
-		velocity.x = dir.x * wander_speed
-		velocity.z = dir.z * wander_speed
+		var spd := wander_speed * _buffs.speed_mul()
+		velocity.x = dir.x * spd
+		velocity.z = dir.z * spd
 		_turn_to(dir, delta)
 		if _model:
 			_model.position.y = model_offset_y + absf(sin(_walk_t * walk_bob_speed * 0.6)) * walk_bob_amp * 0.6
@@ -340,9 +450,7 @@ func _respawn() -> void:
 	_dead = false
 	_dead_t = 0.0
 	_moving = false
-	_stun_t = 0.0
-	_electrified_stacks = 0
-	_electrified_t = 0.0
+	_buffs.clear()
 	collision_layer = 2
 	velocity = Vector3.ZERO
 	global_position = Vector3(randf_range(-11.0, 11.0), 0, randf_range(-11.0, 11.0))

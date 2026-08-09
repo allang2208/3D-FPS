@@ -1,9 +1,12 @@
 extends CharacterBody3D
 ## 第一人称控制器：WASD 移动 + 鼠标视角 + 空格跳 + Shift 疾跑 + Esc 释放鼠标
+## 持有 BuffSystem（旧版 damageable-entity 状态系统）：受击修正 / DoT / HoT / 移速倍率
 
 signal damaged(hp: int)
 signal died
 signal healed(hp: int)
+
+const BuffSystemScript := preload("res://scripts/buff_system.gd")
 
 @export var walk_speed := 5.0
 @export var sprint_speed := 8.5
@@ -15,17 +18,20 @@ const GRAVITY := 18.0
 
 var hp := 100
 var is_dead := false
+var _buffs: BuffSystem = BuffSystem.new()
 
 func _ready() -> void:
 	hp = max_hp
+	_buffs = BuffSystem.new()
 	collision_layer = 4
 	collision_mask = 5  # 1 墙体 + 2 敌人
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func take_damage(d: int) -> void:
+func take_damage(d: int, damage_type := "physical", _src: Node3D = null) -> void:
 	if is_dead:
 		return
-	hp = maxi(0, hp - d)
+	var final_d := maxi(1, floori(d * _buffs.incoming_damage_mul(damage_type)))
+	hp = maxi(0, hp - final_d)
 	damaged.emit(hp)
 	if hp <= 0:
 		is_dead = true
@@ -41,6 +47,18 @@ func heal(amount: int) -> void:
 	if hp != before:
 		healed.emit(hp)
 
+## 通用状态入口（技能/物品给玩家挂 buff 用，如灼锋焰甲）
+func apply_buff(type: String, duration_ms: int, opts := {}) -> void:
+	if is_dead:
+		return
+	_buffs.add(type, duration_ms, opts)
+
+func has_buff(type: String) -> bool:
+	return _buffs.has(type)
+
+func buff_snapshot() -> Array[Dictionary]:
+	return _buffs.effect_snapshot()
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
@@ -55,6 +73,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
+	_buffs.tick(delta, self)
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 	if Input.is_key_pressed(KEY_SPACE) and is_on_floor():
@@ -66,7 +85,7 @@ func _physics_process(delta: float) -> void:
 	)
 	if input.length() > 1.0:
 		input = input.normalized()
-	var spd := sprint_speed if Input.is_key_pressed(KEY_SHIFT) else walk_speed
+	var spd := (sprint_speed if Input.is_key_pressed(KEY_SHIFT) else walk_speed) * _buffs.speed_mul()
 	var dir := (transform.basis * input).normalized()
 	velocity.x = dir.x * spd
 	velocity.z = dir.z * spd

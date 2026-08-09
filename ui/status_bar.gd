@@ -70,6 +70,10 @@ var _stamina_now := 100
 var _stamina_max := 100
 var _exp_now := 0
 var _exp_max := 100
+var _buff_bar: HBoxContainer
+var _buff_items := {}
+var _buff_sig := ""
+var _emoji_font: SystemFont
 
 func _ready() -> void:
 	_hud_cfg()
@@ -108,6 +112,7 @@ func _label(key: String, default: String) -> String:
 
 func _process(delta: float) -> void:
 	_sync_top_bar()
+	_sync_buffs()
 	_hitmark_t = maxf(0.0, _hitmark_t - delta)
 	_hitmarker.visible = _hitmark_t > 0.0
 	_dmgflash_t = maxf(0.0, _dmgflash_t - delta)
@@ -247,6 +252,7 @@ func _build() -> void:
 	_vignette.visible = false
 	add_child(_vignette)
 	_build_hud_extras()
+	_build_buff_bar()
 
 ## 原项目补充 HUD：顶部状态栏 / 体力条 / 经验条 / 操作提示 / 侧边菜单
 func _build_hud_extras() -> void:
@@ -470,6 +476,142 @@ func _build_side_menu() -> void:
 		var tab := str(spec[3])
 		b.pressed.connect(func() -> void: _open_hud_tab(tab))
 		menu.add_child(b)
+
+## ---------- Buff 图标栏（旧版 StatusBar：图标/名称/剩余时间/底部进度条/悬停浮窗） ----------
+
+func _build_buff_bar() -> void:
+	_emoji_font = SystemFont.new()
+	_emoji_font.font_names = PackedStringArray(["Segoe UI Emoji", "Microsoft YaHei", "SimHei"])
+	_buff_bar = HBoxContainer.new()
+	_buff_bar.position = Vector2(16, 108)
+	_buff_bar.add_theme_constant_override("separation", 6)
+	_buff_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_buff_bar)
+
+func _sync_buffs() -> void:
+	var player: Node = get_tree().root.find_child("Player", true, false) if get_tree() != null else null
+	if player == null or not player.has_method("buff_snapshot"):
+		if _buff_bar != null and not _buff_bar.get_children().is_empty():
+			_clear_buff_items()
+		return
+	var snap: Array = player.buff_snapshot()
+	var sig := ""
+	for e in snap:
+		sig += "%s:%d:%d;" % [String(e["type"]), int(e["stacks"]), int(float(e["remaining_s"]) * 10.0)]
+	if sig == _buff_sig:
+		_update_buff_times(snap)
+		return
+	_clear_buff_items()
+	_buff_sig = sig
+	for e in snap:
+		_add_buff_item(e)
+
+func _clear_buff_items() -> void:
+	if _buff_bar == null:
+		return
+	for ch in _buff_bar.get_children():
+		_buff_bar.remove_child(ch)
+		ch.queue_free()
+	_buff_items.clear()
+	_buff_sig = ""
+
+func _add_buff_item(e: Dictionary) -> void:
+	var color := Color.html(String(e["color"])) if String(e["color"]).is_valid_html_color() else Color(0.36, 0.3, 0.25)
+	var panel := Panel.new()
+	panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(42.0 / 255.0, 37.0 / 255.0, 32.0 / 255.0, 0.85)
+	sb.border_color = color
+	sb.set_border_width_all(2)
+	sb.set_corner_radius_all(8)
+	sb.content_margin_left = 8
+	sb.content_margin_right = 10
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 6
+	panel.add_theme_stylebox_override("panel", sb)
+	var row := HBoxContainer.new()
+	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_theme_constant_override("separation", 4)
+	panel.add_child(row)
+	var icon := Label.new()
+	icon.text = String(e["icon"])
+	icon.add_theme_font_override("font", _emoji_font)
+	icon.add_theme_font_size_override("font_size", 16)
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(icon)
+	var name_lbl := Label.new()
+	var stacks_n := int(e["stacks"])
+	name_lbl.text = String(e["name"]) + (" x%d" % stacks_n if stacks_n > 1 else "")
+	name_lbl.add_theme_font_override("font", _font_bold)
+	name_lbl.add_theme_font_size_override("font_size", 12)
+	name_lbl.add_theme_color_override("font_color", Color(0.83, 0.77, 0.66))
+	name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(name_lbl)
+	var time_lbl := Label.new()
+	time_lbl.add_theme_font_override("font", _font_mono)
+	time_lbl.add_theme_font_size_override("font_size", 11)
+	time_lbl.add_theme_color_override("font_color", Color(0.54, 0.49, 0.42))
+	time_lbl.custom_minimum_size = Vector2(24, 0)
+	time_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	time_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(time_lbl)
+	var progress := ColorRect.new()
+	progress.color = color
+	progress.anchor_top = 1.0
+	progress.anchor_bottom = 1.0
+	progress.offset_top = -2
+	progress.offset_bottom = 0
+	progress.offset_left = 0
+	progress.offset_right = 0
+	progress.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(progress)
+	_buff_bar.add_child(panel)
+	var battle: Variant = e.get("battle_remaining")
+	_buff_items[String(e["type"])] = { "time": time_lbl, "progress": progress, "dur": float(e["duration_s"]), "battle": battle != null }
+	_update_buff_item(e, panel, color, battle)
+
+func _update_buff_item(e: Dictionary, panel: Control, color: Color, battle: Variant) -> void:
+	var item: Dictionary = _buff_items[String(e["type"])]
+	var time_lbl: Label = item["time"]
+	if battle != null:
+		time_lbl.text = "%d场" % int(battle)
+	else:
+		var secs := int(ceil(float(e["remaining_s"])))
+		time_lbl.text = "%ds" % secs
+	var progress: ColorRect = item["progress"]
+	var dur := float(e["duration_s"])
+	if dur > 0.0 and battle == null:
+		progress.anchor_right = clampf(float(e["remaining_s"]) / dur, 0.0, 1.0)
+	else:
+		progress.anchor_right = 0.0
+	# 悬停浮窗（旧版 StatusBar tooltip：名称/描述/层数/剩余时间）
+	var rows: Array = []
+	var stacks_n := int(e["stacks"])
+	if stacks_n > 1:
+		rows.append(["层数", "x%d" % stacks_n])
+	rows.append(["剩余", "%d 秒" % int(ceil(float(e["remaining_s"]))) if battle == null else "%d 场" % int(battle)])
+	panel.mouse_entered.connect(func() -> void:
+		_show_tooltip(String(e["icon"]) + " " + String(e["name"]), String(e["desc"]), rows,
+			panel.global_position + Vector2(0, panel.size.y + 6)))
+	panel.mouse_exited.connect(func() -> void:
+		if _tip != null:
+			_tip.visible = false)
+
+func _update_buff_times(snap: Array) -> void:
+	for e in snap:
+		var type := String(e["type"])
+		if not _buff_items.has(type):
+			continue
+		var item: Dictionary = _buff_items[type]
+		var battle: Variant = e.get("battle_remaining")
+		var time_lbl: Label = item["time"]
+		if battle != null:
+			time_lbl.text = "%d场" % int(battle)
+		else:
+			time_lbl.text = "%ds" % int(ceil(float(e["remaining_s"])))
+		var progress: ColorRect = item["progress"]
+		var dur := float(e["duration_s"])
+		progress.anchor_right = clampf(float(e["remaining_s"]) / dur, 0.0, 1.0) if dur > 0.0 and battle == null else 0.0
 
 
 func _open_hud_tab(tab: String) -> void:
