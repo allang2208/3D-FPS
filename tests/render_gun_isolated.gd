@@ -23,7 +23,10 @@ func _process(_delta: float) -> bool:
 		var gun := root.get_node("Cam/Gun")
 		print("GUN children:")
 		for c in gun.get_children():
-			print("  ", c.name, " pos=", c.position, " rot=", c.rotation_degrees)
+			if c is Node3D:
+				print("  ", c.name, " pos=", c.position, " rot=", c.rotation_degrees)
+			else:
+				print("  ", c.name, " (", c.get_class(), ")")
 		var akm := gun.get_node_or_null("AkmModel")
 		if akm:
 			print("AKM rot_degrees=", akm.rotation_degrees, " children=", akm.get_child_count())

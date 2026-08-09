@@ -6,8 +6,6 @@ extends Node3D
 ## - Juice：枪口闪光 / 弹壳抛壳 / 命中相机抖动 / AKM 枪声 / 换弹声
 ## - 弹药 30/90，空仓自动换弹 / R 手动；信号契约（shot/hit/reloading/reloaded/empty）保持不变
 
-const MUZZLE_LOCAL := Vector3(0, 0.02, -0.5)
-const EJECT_LOCAL := Vector3(0.045, 0.045, -0.10)
 const FIRE_INTERVAL := 0.13
 const DAMAGE := 25
 const MAG_SIZE := 30
@@ -19,6 +17,12 @@ const BLOOM_PER_SHOT := 0.0012
 const MAX_SPREAD := 0.018
 
 const BASE_POS := Vector3(0.28, -0.26, -0.5)
+
+# 视模自动校准（从 GLB 网格测量，换枪模自动适配）
+const VIEWMODEL_LENGTH := 0.62          # 视模全长目标（米）
+const ADS_REAR_CLEAR := 0.13            # ADS 时枪托末端距相机最小距离（米）
+const ADS_REAR_DIST_MIN := 0.38         # 照门到相机距离下限
+const ADS_REAR_DIST_MAX := 0.75         # 上限（枪不能太远）
 
 # GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
 const KICK_STIFFNESS := 210.0
@@ -40,11 +44,10 @@ const BOB_FREQ_SPEED := 0.85
 const SWAY_LAG := 10.0
 const SPRINT_DROP := 0.10
 const SPRINT_TILT := 0.30
-# ADS 机瞄（右键长按）
-# 觇孔重合：由后照门(0,0.075,0.09)与前照门(0,0.065,-0.22)反算，
-# 使觇孔落在相机中心轴(z≈-0.25)、前照门与觇孔同一水平线
-const ADS_POS := Vector3(0, -0.072, -0.342)
-const ADS_ROT := Vector3(0.0323, 0, 0)
+# ADS 机瞄（右键长按）：运行时由 _calibrate_viewmodel() 按枪模网格自动计算，
+# 保证觇孔/准星落在相机光轴上；换枪模无需手调
+var _ads_pos := Vector3(0, -0.072, -0.342)
+var _ads_rot := Vector3(0.0323, 0, 0)
 const ADS_SPREAD_MULT := 0.2
 const ADS_SMOOTH := 12.0
 
@@ -78,6 +81,13 @@ var _shoot_tail: AudioStreamPlayer
 var _kill_player: AudioStreamPlayer
 var _mag: Node3D
 var _mag_base_y := -0.14
+var _model: Node3D
+var _muzzle_local := Vector3(0, 0.02, -0.5)
+var _eject_local := Vector3(0.045, 0.045, -0.10)
+# 校准结果（调试/测试用）：瞄具锚点在枪节点局部空间的坐标
+var _sight_rear := Vector3.ZERO
+var _sight_front := Vector3.ZERO
+var _rear_dist := 0.0
 var _ads := false
 var _ads_factor := 0.0
 var _ads_prev := false
@@ -107,9 +117,10 @@ var _player: CharacterBody3D
 
 func _ready() -> void:
 	_build_gun()
+	_calibrate_viewmodel()
 	_flash_light = OmniLight3D.new()
 	_flash_light.name = "MuzzleFlashLight"
-	_flash_light.position = MUZZLE_LOCAL
+	_flash_light.position = _muzzle_local
 	_flash_light.omni_range = 3.0
 	_flash_light.light_color = Color(1.0, 0.8, 0.45)
 	_flash_light.light_energy = 0.0
@@ -127,7 +138,7 @@ func _ready() -> void:
 	fm.albedo_color = Color(1.0, 0.85, 0.5)
 	sphere.material = fm
 	_flash_mesh.mesh = sphere
-	_flash_mesh.position = MUZZLE_LOCAL
+	_flash_mesh.position = _muzzle_local
 	_flash_mesh.visible = false
 	add_child(_flash_mesh)
 	_shoot_player = AudioStreamPlayer.new()
@@ -157,7 +168,7 @@ func _ready() -> void:
 	add_child(_click_player)
 	_smoke = CPUParticles3D.new()
 	_smoke.name = "MuzzleSmoke"
-	_smoke.position = MUZZLE_LOCAL + Vector3(0, -0.01, 0)
+	_smoke.position = _muzzle_local + Vector3(0, -0.01, 0)
 	_smoke.one_shot = true
 	_smoke.emitting = false
 	_smoke.amount = 8
@@ -194,8 +205,8 @@ func _process(delta: float) -> void:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
 			cfx.set_ads(_ads_factor > 0.5)
-	var base_pos := BASE_POS.lerp(ADS_POS, _ads_factor)
-	var base_rot := Vector3.ZERO.lerp(ADS_ROT, _ads_factor)
+	var base_pos := BASE_POS.lerp(_ads_pos, _ads_factor)
+	var base_rot := Vector3.ZERO.lerp(_ads_rot, _ads_factor)
 	var suppress := 1.0 - _ads_factor
 	var reload_pos := Vector3.ZERO
 	var reload_rot := Vector3.ZERO
@@ -210,7 +221,7 @@ func _process(delta: float) -> void:
 	var flip_correction := Vector3.ZERO
 	if absf(_flip_rot) > 0.0005:
 		var rb := Basis(Vector3.RIGHT, _flip_rot)
-		flip_correction = rb * MUZZLE_LOCAL - MUZZLE_LOCAL
+		flip_correction = rb * _muzzle_local - _muzzle_local
 	position = base_pos + _kick_pos + _jitter_pos + _bob_pos * suppress + _sway_pos * suppress + Vector3(0, -SPRINT_DROP * _sprint, 0) * suppress + reload_pos + flip_correction
 	rotation = base_rot + _kick_rot + _jitter_rot + _bob_rot * suppress + _sway_rot * suppress + Vector3(SPRINT_TILT * _sprint, 0, 0) * suppress + reload_rot + Vector3(_flip_rot, 0, 0)
 	_flash_t = maxf(0.0, _flash_t - delta)
@@ -272,7 +283,7 @@ func _shoot() -> void:
 		return
 	_fire_camera_fx(cam)
 	var dir := _aim_dir(cam)
-	var origin := global_transform * MUZZLE_LOCAL
+	var origin := global_transform * _muzzle_local
 	var scene_root: Node = get_tree().current_scene
 	if scene_root == null:
 		scene_root = get_tree().root
@@ -395,7 +406,7 @@ func _spawn_casing() -> void:
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
 		return
-	var origin := global_transform * EJECT_LOCAL
+	var origin := global_transform * _eject_local
 	var scene_root: Node = get_tree().current_scene
 	if scene_root == null:
 		scene_root = get_tree().root
@@ -437,10 +448,291 @@ func _cyl(parent: Node3D, radius: float, length: float, pos: Vector3, color: Col
 	return mesh
 
 func _build_gun() -> void:
-	# AI 生成 AKM（TRELLIS.2）：GLB 枪管沿 X 轴，旋转 90° 对齐 -Z 枪口方向
+	# AI 生成 AKM（TRELLIS.2）：朝向/缩放由 _calibrate_viewmodel() 按网格测量
 	var akm := AKM_GLB.instantiate()
 	akm.name = "AkmModel"
-	akm.rotation_degrees.y = -90.0
 	add_child(akm)
+	_model = akm
 	# 弹匣节点（换弹动画滑出用，GLB 是整体网格，程序化补一个小弹匣节点占位）
-	_mag = _box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), Color(0.10, 0.11, 0.13))
+	_mag = _box(self, Vector3(0.05, 0.11, 0.06), Vector3(0, -0.14, -0.02), Color(0.10, 0.11, 0.13))
+
+# ---------- 视模自动校准 ----------
+
+func _calibrate_viewmodel() -> void:
+	if _model == null:
+		return
+	var verts := _mesh_vertices(_model)
+	if verts.is_empty():
+		push_warning("[gun] 无法读取枪模网格，ADS 使用默认位姿")
+		return
+	var axis := _dominant_axis(verts)
+	if axis == 1:
+		push_warning("[gun] 枪模主轴为 Y（立式），暂不支持自动校准")
+		return
+	var muzzle_sign := _muzzle_sign(verts, axis)
+	var extent := _axis_extent(verts, axis)
+	if extent <= 0.001:
+		return
+	# 旋转：让枪口指向 -Z（相机前方）
+	var rot_deg := 90.0 if muzzle_sign > 0.0 else -90.0
+	if axis == 2:
+		rot_deg = 0.0 if muzzle_sign > 0.0 else 180.0
+	_model.rotation_degrees.y = rot_deg
+	var scale := clampf(VIEWMODEL_LENGTH / extent, 0.4, 1.0)
+	_model.scale = Vector3.ONE * scale
+	var b := Basis(Vector3.UP, deg_to_rad(rot_deg))
+	var to_gun := func(p: Vector3) -> Vector3: return (b * p) * scale
+	# 瞄具锚点（raw 网格坐标，t 从枪托端 0 → 枪口端 1）
+	var rear_raw := _find_rear_sight(verts, axis, muzzle_sign)
+	var front_raw := _find_front_sight(verts, axis, muzzle_sign)
+	var muzzle_raw := _find_tip(verts, axis, muzzle_sign, true)
+	var stock_raw := _find_tip(verts, axis, muzzle_sign, false)
+	var rear: Vector3 = to_gun.call(rear_raw)
+	var front: Vector3 = to_gun.call(front_raw)
+	_sight_rear = rear
+	_sight_front = front
+	_muzzle_local = to_gun.call(muzzle_raw)
+	_eject_local = Vector3(0.035 * scale, 0.032 * scale, _muzzle_local.z + 0.30 * scale)
+	if _mag:
+		var mag_center := _find_mag_center(verts, axis, muzzle_sign)
+		if mag_center != Vector3.ZERO:
+			_mag.position = to_gun.call(mag_center) + Vector3(0, 0.022, 0)
+			_mag.scale = Vector3.ONE * scale
+			_mag_base_y = _mag.position.y
+	# ADS 求解：旋转让照门→准星连线指向相机光轴(-Z)，再平移让照门落到光轴上
+	var d: Vector3 = front - rear
+	if d.length_squared() < 0.0001:
+		push_warning("[gun] 瞄具锚点异常，跳过 ADS 校准")
+		return
+	var q := Quaternion(Vector3(0, 0, -1), d.normalized())
+	var rot_basis := Basis(q.inverse())
+	_ads_rot = rot_basis.get_euler()
+	var stock_gun: Vector3 = to_gun.call(stock_raw)
+	var stock_clear_z: float = (rot_basis * (stock_gun - rear)).z
+	_rear_dist = clampf(ADS_REAR_CLEAR + stock_clear_z, ADS_REAR_DIST_MIN, ADS_REAR_DIST_MAX)
+	_ads_pos = Vector3(0, 0, -_rear_dist) - rot_basis * rear
+	print("[gun] ADS calibrated: pos=", _ads_pos, " rot=", _ads_rot, " rear_dist=", _rear_dist)
+	print("[gun] sight rear=", rear, " front=", front, " muzzle=", _muzzle_local, " scale=", scale)
+
+func _mesh_vertices(model: Node3D) -> PackedVector3Array:
+	var out := PackedVector3Array()
+	for c in model.find_children("*", "MeshInstance3D", true, false):
+		var mi := c as MeshInstance3D
+		var mesh := mi.mesh as ArrayMesh
+		if mesh == null:
+			continue
+		for s in range(mesh.get_surface_count()):
+			var arrays := mesh.surface_get_arrays(s)
+			if arrays.is_empty():
+				continue
+			var v: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			for p in v:
+				out.append(mi.transform * p)
+	return out
+
+func _dominant_axis(verts: PackedVector3Array) -> int:
+	var mn := Vector3(INF, INF, INF)
+	var mx := Vector3(-INF, -INF, -INF)
+	for v in verts:
+		mn = mn.min(v)
+		mx = mx.max(v)
+	var e := mx - mn
+	if e.y > e.x and e.y > e.z:
+		return 1
+	if e.z > e.x and e.z > e.y:
+		return 2
+	return 0
+
+func _axis_extent(verts: PackedVector3Array, axis: int) -> float:
+	var mn := INF
+	var mx := -INF
+	for v in verts:
+		mn = minf(mn, v[axis])
+		mx = maxf(mx, v[axis])
+	return mx - mn
+
+func _muzzle_sign(verts: PackedVector3Array, axis: int) -> float:
+	# 沿主轴两端切片，细端 = 枪口
+	var mn := INF
+	var mx := -INF
+	for v in verts:
+		mn = minf(mn, v[axis])
+		mx = maxf(mx, v[axis])
+	var span := maxf(mx - mn, 0.0001)
+	var lo := 0.0
+	var hi := 0.0
+	var n_lo := 0
+	var n_hi := 0
+	for v in verts:
+		var rel := (v[axis] - mn) / span
+		var r := Vector2(v.y, v.z).length()
+		if rel < 0.08:
+			lo += r
+			n_lo += 1
+		elif rel > 0.92:
+			hi += r
+			n_hi += 1
+	if n_lo == 0 or n_hi == 0:
+		return 1.0
+	return -1.0 if lo / n_lo < hi / n_hi else 1.0
+
+func _t_of(v: Vector3, axis: int, muzzle_sign: float, mn: float, extent: float) -> float:
+	var c := v[axis]
+	if muzzle_sign > 0.0:
+		return clampf((c - mn) / extent, 0.0, 1.0)
+	return clampf((mn + extent - c) / extent, 0.0, 1.0)
+
+func _bin_tops(verts: PackedVector3Array, axis: int, muzzle_sign: float, n_bins: int) -> Array[float]:
+	var mn := INF
+	var mx := -INF
+	for v in verts:
+		mn = minf(mn, v[axis])
+		mx = maxf(mx, v[axis])
+	var extent := mx - mn
+	var tops: Array[float] = []
+	tops.resize(n_bins)
+	tops.fill(-INF)
+	for v in verts:
+		var t := _t_of(v, axis, muzzle_sign, mn, extent)
+		var i := clampi(int(t * n_bins), 0, n_bins - 1)
+		tops[i] = maxf(tops[i], v.y)
+	return tops
+
+func _top_band(verts: PackedVector3Array, axis: int, muzzle_sign: float, bin_i: int, n_bins: int, band: float) -> Array[Vector3]:
+	var mn := INF
+	var mx := -INF
+	for v in verts:
+		mn = minf(mn, v[axis])
+		mx = maxf(mx, v[axis])
+	var extent := mx - mn
+	var t0 := float(bin_i) / n_bins
+	var t1 := float(bin_i + 1) / n_bins
+	var top := 0.0
+	for v in verts:
+		var t := _t_of(v, axis, muzzle_sign, mn, extent)
+		if t >= t0 and t < t1:
+			top = maxf(top, v.y)
+	var pts: Array[Vector3] = []
+	for v in verts:
+		var t := _t_of(v, axis, muzzle_sign, mn, extent)
+		if t >= t0 and t < t1 and v.y > top - band:
+			pts.append(v)
+	return pts
+
+func _top_band_centroid(verts: PackedVector3Array, axis: int, muzzle_sign: float, bin_i: int, n_bins: int, band: float) -> Vector3:
+	var pts := _top_band(verts, axis, muzzle_sign, bin_i, n_bins, band)
+	if pts.is_empty():
+		return Vector3.ZERO
+	var sum := Vector3.ZERO
+	for p in pts:
+		sum += p
+	return sum / pts.size()
+
+func _top_band_width(verts: PackedVector3Array, axis: int, muzzle_sign: float, bin_i: int, n_bins: int, band: float) -> float:
+	var pts := _top_band(verts, axis, muzzle_sign, bin_i, n_bins, band)
+	if pts.size() < 2:
+		return 0.0
+	var zmin := INF
+	var zmax := -INF
+	for p in pts:
+		zmin = minf(zmin, p.z)
+		zmax = maxf(zmax, p.z)
+	return zmax - zmin
+
+func _find_rear_sight(verts: PackedVector3Array, axis: int, muzzle_sign: float) -> Vector3:
+	var n_bins := 120
+	var tops := _bin_tops(verts, axis, muzzle_sign, n_bins)
+	var best := -INF
+	var best_i := -1
+	for i in range(n_bins):
+		var t := (i + 0.5) / n_bins
+		if t < 0.30 or t > 0.80:
+			continue
+		if tops[i] > best:
+			best = tops[i]
+			best_i = i
+	if best_i < 0:
+		return Vector3.ZERO
+	return _top_band_centroid(verts, axis, muzzle_sign, best_i, n_bins, 0.004)
+
+func _find_front_sight(verts: PackedVector3Array, axis: int, muzzle_sign: float) -> Vector3:
+	var n_bins := 120
+	var tops := _bin_tops(verts, axis, muzzle_sign, n_bins)
+	var t_lo := 0.78
+	var t_hi := 0.97
+	var region: Array[float] = []
+	for i in range(n_bins):
+		var t := (i + 0.5) / n_bins
+		if t >= t_lo and t <= t_hi:
+			region.append(tops[i])
+	if region.is_empty():
+		return Vector3.ZERO
+	region.sort()
+	var base := region[region.size() / 2]
+	# 从枪口端往回扫：第一个高于局部基线的小凸起（顶带宽 < 3.5cm，排除枪管/机匣）
+	for i in range(int(t_hi * n_bins), int(t_lo * n_bins) - 1, -1):
+		var t := (i + 0.5) / n_bins
+		if t < t_lo or t > t_hi:
+			continue
+		if tops[i] <= base + 0.0025:
+			continue
+		var w := _top_band_width(verts, axis, muzzle_sign, i, n_bins, 0.004)
+		if w > 0.035:
+			continue
+		var c := _top_band_centroid(verts, axis, muzzle_sign, i, n_bins, 0.004)
+		if c != Vector3.ZERO:
+			return c
+	# 兜底：区域内最高点
+	var best := -INF
+	var best_i := -1
+	for i in range(n_bins):
+		var t := (i + 0.5) / n_bins
+		if t >= t_lo and t <= t_hi and tops[i] > best:
+			best = tops[i]
+			best_i = i
+	if best_i < 0:
+		return Vector3.ZERO
+	return _top_band_centroid(verts, axis, muzzle_sign, best_i, n_bins, 0.004)
+
+func _find_tip(verts: PackedVector3Array, axis: int, muzzle_sign: float, is_muzzle: bool) -> Vector3:
+	var mn := INF
+	var mx := -INF
+	for v in verts:
+		mn = minf(mn, v[axis])
+		mx = maxf(mx, v[axis])
+	var extent := mx - mn
+	var sum := Vector3.ZERO
+	var cnt := 0
+	for v in verts:
+		var t := _t_of(v, axis, muzzle_sign, mn, extent)
+		if (is_muzzle and t > 0.96) or (not is_muzzle and t < 0.04):
+			sum += v
+			cnt += 1
+	if cnt == 0:
+		return Vector3.ZERO
+	return sum / cnt
+
+func _find_mag_center(verts: PackedVector3Array, axis: int, muzzle_sign: float) -> Vector3:
+	var mn := INF
+	var mx := -INF
+	for v in verts:
+		mn = minf(mn, v[axis])
+		mx = maxf(mx, v[axis])
+	var extent := mx - mn
+	var mn_y := INF
+	for v in verts:
+		var t := _t_of(v, axis, muzzle_sign, mn, extent)
+		if t >= 0.42 and t <= 0.62:
+			mn_y = minf(mn_y, v.y)
+	if mn_y > 900.0:
+		return Vector3.ZERO
+	var sum := Vector3.ZERO
+	var cnt := 0
+	for v in verts:
+		var t := _t_of(v, axis, muzzle_sign, mn, extent)
+		if t >= 0.42 and t <= 0.62 and v.y < mn_y + 0.015:
+			sum += v
+			cnt += 1
+	if cnt == 0:
+		return Vector3.ZERO
+	return sum / cnt
