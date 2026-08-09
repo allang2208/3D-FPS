@@ -280,6 +280,11 @@ static func make_style(bg: Color, border: Color, radius := -1, border_w := 2) ->
 	sb.set_corner_radius_all(RADIUS if radius < 0 else radius)
 	return sb
 
+## 格子样式统一入口：size_class = xs(快捷栏 4px) / sm(背包格 6px) / md(装备槽 8px)
+static func make_slot_style(bg: Color, border: Color, size_class := "sm", border_w := 1) -> StyleBoxFlat:
+	var r := RADIUS_XS if size_class == "xs" else (RADIUS_MD if size_class == "md" else RADIUS_SM)
+	return make_style(bg, border, r, border_w)
+
 ## 按钮三态样式（DESIGN.md 第 5 节）：{normal, hover, pressed, disabled}
 static func make_button_style() -> Dictionary:
 	# Vega：rounded-md(6px)、px-2.5(10px) / py-1.5(6px)、1px 边框、禁用 50% 透明

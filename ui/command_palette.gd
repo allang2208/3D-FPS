@@ -28,7 +28,7 @@ func _ensure_built() -> void:
 	_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_overlay)
 	_panel = PanelContainer.new()
-	_panel.add_theme_stylebox_override("panel", Style.make_panel_style())
+	_panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
 	_panel.custom_minimum_size = Vector2(460, 0)
 	_panel.set_anchors_preset(Control.PRESET_CENTER)
 	add_child(_panel)

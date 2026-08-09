@@ -30,8 +30,6 @@ const SKILL_SIZE := 4
 const SKILL_KEY_HINTS := ["Q", "E", "X", "C"]
 const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
 # 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
-const COLOR_SKILL_SLOT_BG := Color(0.2392, 0.2039, 0.1686)
-const COLOR_SKILL_SLOT_BORDER := Color(0.4196, 0.3647, 0.3098)
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
 const CELL_SLOT := 60
@@ -118,18 +116,18 @@ func _ready() -> void:
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(400)
 	_font_mono = Style.make_mono_font(600)
-	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
-	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
-	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
-	_s_skill_empty = Style.make_style(COLOR_SKILL_SLOT_BG, COLOR_SKILL_SLOT_BORDER, 8, 2)
-	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
-	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
-	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
-	_s_cell_drag_over = Style.make_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, 8, 2)
-	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, 8, 2)
-	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, 8, 2)
-	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
-	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, 8, 2)
+	_s_hotbar_empty = Style.make_slot_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, "xs")
+	_s_hotbar_item = Style.make_slot_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, "xs")
+	_s_hotbar_hover = Style.make_slot_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, "xs")
+	_s_skill_empty = Style.make_slot_style(Style.COLOR_SKILL_SLOT_BG, Style.COLOR_SKILL_SLOT_BORDER, "xs")
+	_s_cell_empty = Style.make_slot_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, "sm")
+	_s_cell_item = Style.make_slot_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, "sm")
+	_s_cell_hover = Style.make_slot_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, "sm")
+	_s_cell_drag_over = Style.make_slot_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, "sm")
+	_s_equip_empty = Style.make_slot_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, "md")
+	_s_equip_equipped = Style.make_slot_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, "md")
+	_s_equip_hover = Style.make_slot_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, "md")
+	_s_equip_locked = Style.make_slot_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, "md")
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -1014,12 +1012,8 @@ func _build_panel() -> void:
 	_panel = PanelContainer.new()
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	var panel_sb := Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 12, 2)
-	panel_sb.set_corner_radius_all(0)
-	panel_sb.set_corner_radius(CORNER_TOP_LEFT, 12)
-	panel_sb.set_corner_radius(CORNER_BOTTOM_LEFT, 12)
-	panel_sb.border_width_left = 3
-	_panel.add_theme_stylebox_override("panel", panel_sb)
+	# 主面板统一纹理底（与设置面板一致：深灰磨砂金属）
+	_panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
 	_panel_root.add_child(_panel)
 	var content := Control.new()
 	content.name = "Content"
@@ -1421,7 +1415,7 @@ func make_slot_preview(item: Dictionary) -> Control:
 func make_skill_preview(skill_id: String) -> Control:
 	var p := PanelContainer.new()
 	p.custom_minimum_size = Vector2(44, 44)
-	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, COLOR_SKILL_SLOT_BORDER, 6, 2))
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_SKILL_SLOT_BORDER, 6, 2))
 	var def: Dictionary = skillbar.skills.get(skill_id, {})
 	var tex := _icon_tex(String(def.get("icon", "")))
 	if tex != null:
