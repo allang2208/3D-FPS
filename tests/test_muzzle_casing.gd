@@ -1,7 +1,7 @@
 extends SceneTree
-## 无头验证：枪口火光 + 弹壳抛壳优化
-## 1) 开火瞬间火光初始化：flash_t=0.08、星形 + 双十字火舌（沿枪管 -Z）+ 柔光晕 + 6 帧火焰动画 + OmniLight/火花就位
-## 2) 生命周期同步验证：_process(0.03) 后仍亮，再 _process(0.04) 熄灭
+## 无头验证：粒子枪口火光 + 弹壳抛壳
+## 1) 开火瞬间三层粒子（主闪光/火舌/火星）restart 后 emitting，且均为 one_shot、带 QuadMesh 与颜色渐变
+## 2) 点光源生命周期同步验证：_process(0.05) 后仍亮，再 _process(0.04) 熄灭
 ## 3) 弹壳生成 1 颗（Casing，圆柱弹壳）
 ## 4) 弹壳寿命（1.2~1.8s）到期自毁
 ## 运行：& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_muzzle_casing.gd
@@ -26,38 +26,29 @@ func _process(_delta: float) -> bool:
 			_gun.set("ammo", 30)
 			_gun.call("_shoot")
 			# 同步验证（不依赖帧时序）：开火瞬间状态
-			var flash_mesh: Node = _gun.get("_flash_mesh")
-			var tongue: Node = _gun.get("_flash_tongue")
-			var tongue_b: Node = _gun.get("_flash_tongue_b")
-			var glow: Node = _gun.get("_flash_glow")
+			var pop: Node = _gun.get("_flash_pop")
+			var flame: Node = _gun.get("_flash_flame")
+			var sparks: Node = _gun.get("_flash_sparks")
 			var light: Node = _gun.get("_flash_light")
-			var sparks: Node = _gun.get("_sparks")
-			var flame_frames: Array = _gun.get("_flame_frames")
 			var flash_t: float = _gun.get("_flash_t")
-			var scale: float = _gun.get("_flash_scale")
+			var flame_dir: Vector3 = flame.get("direction")
 			_ok_flash = flash_t == 0.08 \
-				and flash_mesh.mesh is QuadMesh \
-				and tongue.mesh is QuadMesh \
-				and tongue_b.mesh is QuadMesh \
-				and glow.mesh is QuadMesh \
-				and flame_frames.size() == 6 \
-				and absf(tongue.rotation.x + PI / 2) < 0.01 \
-				and absf(tongue_b.rotation.x + PI / 2) < 0.01 \
-				and absf(tongue_b.rotation.z - (PI / 2 + tongue.rotation.z)) < 0.01 \
-				and sparks is CPUParticles3D \
-				and light is OmniLight3D \
-				and scale >= 0.85 and scale <= 1.55 \
-				and absf((flash_mesh.scale as Vector3).x - scale) < 0.001
+				and pop is CPUParticles3D and flame is CPUParticles3D and sparks is CPUParticles3D \
+				and pop.get("emitting") and flame.get("emitting") and sparks.get("emitting") \
+				and pop.get("one_shot") and flame.get("one_shot") and sparks.get("one_shot") \
+				and pop.get("mesh") is QuadMesh and flame.get("mesh") is QuadMesh and sparks.get("mesh") is QuadMesh \
+				and pop.get("color_ramp") != null and flame.get("color_ramp") != null and sparks.get("color_ramp") != null \
+				and flame_dir.normalized().dot(Vector3(0, 0, -1)) > 0.99 \
+				and int(flame.get("amount")) > 0 and int(pop.get("amount")) > 0 \
+				and light is OmniLight3D
 			# 生命周期：0.05s 后仍亮（衰减中），再 0.04s 熄灭（总 0.09s > 0.08s）
 			_gun.call("_process", 0.05)
 			var mid_ok: bool = float(_gun.get("_flash_t")) > 0.0 \
-				and flash_mesh.visible and tongue.visible and tongue_b.visible \
-				and glow.visible and light.visible \
+				and light.visible \
 				and float(light.get("light_energy")) > 0.0
 			_gun.call("_process", 0.04)
 			var end_ok: bool = float(_gun.get("_flash_t")) <= 0.0 \
-				and not flash_mesh.visible and not tongue.visible and not tongue_b.visible \
-				and not glow.visible and not light.visible
+				and not light.visible
 			_ok_flash = _ok_flash and mid_ok and end_ok
 			_ok_casing = _count_casings() == 1
 			print("TEST flash=", _ok_flash, " casing=", _ok_casing, " mid=", mid_ok, " end=", end_ok)
