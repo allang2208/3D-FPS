@@ -178,9 +178,15 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: S
 	_codex_page.visible = false
 	_codex_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_page_stack.add_child(_codex_page)
-	var codex_title := _make_label(_codex_page, "图鉴", 20, Style.COLOR_TITLE_TEXT, Vector2(24, 18))
+	var codex_scroll := Style.make_scroll_container()
+	codex_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_codex_page.add_child(codex_scroll)
+	var codex_v := VBoxContainer.new()
+	codex_v.add_theme_constant_override("separation", 8)
+	codex_scroll.add_child(codex_v)
+	var codex_title := _make_label(codex_v, "图鉴", 20, Style.COLOR_TITLE_TEXT, Vector2(24, 18))
 	codex_title.add_theme_font_override("font", _font_title)
-	_make_label(_codex_page, "装备图鉴 / 怪物图鉴系统移植中……", 14, Style.COLOR_DIM_TEXT, Vector2(26, 52))
+	_make_label(codex_v, "装备图鉴 / 怪物图鉴系统移植中……", 14, Style.COLOR_DIM_TEXT, Vector2(26, 52))
 	set_tab("equip")
 	_refresh()
 
@@ -1155,7 +1161,6 @@ func _build_panel() -> void:
 	equip_glass.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	equip_glass.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_EQUIP_GLASS_BG, Style.COLOR_EQUIP_GLASS_BORDER, 12, 2))
-	equip_glass.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(equip_glass)
 	_equip_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equip_glass.add_child(_equip_grid)
@@ -1271,6 +1276,7 @@ func _build_panel() -> void:
 	# 下：背包（旧版 gear-inventory-col：表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
 	inv_col.add_theme_constant_override("separation", 4)
+	inv_col.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
@@ -1286,7 +1292,10 @@ func _build_panel() -> void:
 	_grid.add_theme_constant_override("h_separation", 6)
 	_grid.add_theme_constant_override("v_separation", 6)
 	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	inv_col.add_child(_grid)
+	var inv_scroll := Style.make_scroll_container()
+	inv_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	inv_col.add_child(inv_scroll)
+	inv_scroll.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
 		cell.hud = self

@@ -379,6 +379,26 @@ static func make_glass_panel_style(radius := -1, bg_alpha := 0.30) -> StyleBox:
 	sb.content_margin_bottom = SPACING.get("panel_padding", 10)
 	return sb
 
+## 统一滚动容器：原项目 status-details / inventory-grid 的 overflow-y:auto + 细滚动条
+static func make_scroll_container() -> ScrollContainer:
+	var sc := ScrollContainer.new()
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	sc.add_theme_stylebox_override("panel",
+		StyleBoxFlat.new())
+	var track := StyleBoxFlat.new()
+	track.bg_color = Color(THEME_GRAY_MID, 0.25)
+	track.set_corner_radius_all(4)
+	track.content_margin_left = 3
+	track.content_margin_right = 3
+	var grab := StyleBoxFlat.new()
+	grab.bg_color = Color(THEME_GRAY_MID, 0.85)
+	grab.set_corner_radius_all(4)
+	sc.add_theme_stylebox_override("scroll", track)
+	sc.add_theme_stylebox_override("grabber", grab)
+	sc.add_theme_stylebox_override("grabber_highlight", grab)
+	sc.add_theme_constant_override("scrollbar_margin", 3)
+	return sc
+
 ## 格子底纹理（背包/快捷栏/装备槽共用）：textures/panel_slot.png，modulate 控制状态色
 static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
