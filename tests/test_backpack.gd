@@ -101,7 +101,7 @@ func _process(_delta: float) -> bool:
 		var r := panel.get_global_rect()
 		var vp := Rect2(Vector2.ZERO, root.get_visible_rect().size)
 		_check("panel_on_screen", vp.encloses(r))
-		_check("panel_centered", r.get_center().distance_to(vp.get_center()) < 40.0)
+		_check("panel_right_aligned", absf(r.end.x - vp.size.x) < 2.0 and r.position.x > 0.0)
 		print("TEST panel_rect=", r, " viewport=", vp.size)
 		quit(0 if _fail == 0 else 1)
 	return false

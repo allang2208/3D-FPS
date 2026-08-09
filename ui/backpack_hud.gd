@@ -24,13 +24,13 @@ const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader"
 const HOTBAR_SIZE := 4
 const INV_COLS := 6
 const HOTBAR_SLOT := 52
-const CELL_SLOT := 60
-const EQUIP_SLOT_SIZE := Vector2(118, 86)
+const CELL_SLOT := 56
+const EQUIP_SLOT_SIZE := Vector2(100, 76)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
 const PANEL_MARGIN := 12
-const PANEL_SLIDE_X := 140.0
+const PANEL_W := 720.0
 
 const EQUIP_SLOT_LABELS := {
 	"earring": "左耳环", "helmet": "头盔", "ring1": "右耳环", "gloves": "手套",
@@ -50,8 +50,6 @@ var _equip_grid: GridContainer
 var _equip_cells := {}
 var _panel_root: Control
 var _panel: PanelContainer
-var _panel_rest_offset := Vector2.ZERO
-var _panel_size := Vector2.ZERO
 var _panel_anim: Tween
 var _panel_open := false
 var _count_label: Label
@@ -304,32 +302,27 @@ func set_panel_open(open: bool) -> void:
 	if open:
 		_panel_root.visible = true
 		dim.modulate.a = 0.0
-		_panel.modulate.a = 0.0
-		_apply_panel_offset(_panel_rest_offset + Vector2(PANEL_SLIDE_X, 0))
+		_apply_panel_slide(0.0)
 		_panel_anim = create_tween()
 		_panel_anim.tween_property(dim, "modulate:a", 1.0, 0.22)
-		_panel_anim.parallel().tween_method(_apply_panel_offset, _panel_rest_offset + Vector2(PANEL_SLIDE_X, 0), _panel_rest_offset, 0.24) \
+		_panel_anim.parallel().tween_method(_apply_panel_slide, 0.0, 1.0, 0.25) \
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		_panel_anim.parallel().tween_property(_panel, "modulate:a", 1.0, 0.18)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		_panel_anim = create_tween()
 		_panel_anim.tween_property(dim, "modulate:a", 0.0, 0.16)
-		_panel_anim.parallel().tween_method(_apply_panel_offset, _panel_rest_offset, _panel_rest_offset + Vector2(PANEL_SLIDE_X, 0), 0.18) \
+		_panel_anim.parallel().tween_method(_apply_panel_slide, 1.0, 0.0, 0.18) \
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-		_panel_anim.parallel().tween_property(_panel, "modulate:a", 0.0, 0.14)
 		_panel_anim.tween_callback(func() -> void: _panel_root.visible = false)
 		var player := _get_player()
 		if player == null or not bool(player.get("is_dead")):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	hide_tooltip()
 
-## 面板滑入动画用偏移量（锚点无关），避免 position 受中心锚点影响跑出屏幕
-func _apply_panel_offset(off: Vector2) -> void:
-	_panel.offset_left = off.x
-	_panel.offset_top = off.y
-	_panel.offset_right = off.x + _panel_size.x
-	_panel.offset_bottom = off.y + _panel_size.y
+## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
+func _apply_panel_slide(t: float) -> void:
+	_panel.offset_left = -PANEL_W * t
+	_panel.offset_right = PANEL_W * (1.0 - t)
 
 ## ---------- 获取/添加物品 ----------
 
@@ -720,7 +713,12 @@ func _build_panel() -> void:
 	_panel = PanelContainer.new()
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	_panel.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 12, 2))
+	var panel_sb := Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 12, 2)
+	panel_sb.set_corner_radius_all(0)
+	panel_sb.set_corner_radius(CORNER_TOP_LEFT, 12)
+	panel_sb.set_corner_radius(CORNER_BOTTOM_LEFT, 12)
+	panel_sb.border_width_left = 3
+	_panel.add_theme_stylebox_override("panel", panel_sb)
 	_panel_root.add_child(_panel)
 	var content := Control.new()
 	content.name = "Content"
@@ -744,6 +742,7 @@ func _build_panel() -> void:
 	content.add_child(margin)
 	var vbox := VBoxContainer.new()
 	vbox.add_theme_constant_override("separation", 10)
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
 	vbox.add_child(title_row)
@@ -752,8 +751,11 @@ func _build_panel() -> void:
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_count_label = _make_label(title_row, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
 	_count_label.add_theme_font_override("font", _font_section)
+	var divider := HSeparator.new()
+	divider.modulate = Style.COLOR_BAR_BORDER
+	vbox.add_child(divider)
 	var columns := HBoxContainer.new()
-	columns.add_theme_constant_override("separation", 14)
+	columns.add_theme_constant_override("separation", 12)
 	vbox.add_child(columns)
 	# 左：装备栏
 	var equip_col := VBoxContainer.new()
@@ -781,16 +783,16 @@ func _build_panel() -> void:
 		cell.add_child(cell_content)
 		var icon := TextureRect.new()
 		icon.name = "Icon"
-		icon.position = Vector2(6, 6)
-		icon.size = Vector2(46, 74)
+		icon.position = Vector2(4, 4)
+		icon.size = Vector2(42, 68)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(icon)
 		var fallback := Label.new()
 		fallback.name = "Fallback"
-		fallback.position = Vector2(6, 6)
-		fallback.size = Vector2(46, 74)
+		fallback.position = Vector2(4, 4)
+		fallback.size = Vector2(42, 68)
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		fallback.add_theme_font_override("font", Style.make_emoji_font())
@@ -800,19 +802,20 @@ func _build_panel() -> void:
 		cell_content.add_child(fallback)
 		var name_lbl := Label.new()
 		name_lbl.name = "Name"
-		name_lbl.position = Vector2(52, 28)
-		name_lbl.size = Vector2(62, 30)
+		name_lbl.position = Vector2(46, 14)
+		name_lbl.size = Vector2(52, 48)
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		name_lbl.add_theme_font_size_override("font_size", 14)
+		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		name_lbl.add_theme_font_size_override("font_size", 13)
 		name_lbl.add_theme_font_override("font", _font_value)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)
 		var rarity_lbl := Label.new()
 		rarity_lbl.name = "Rarity"
-		rarity_lbl.position = Vector2(2, 3)
-		rarity_lbl.size = Vector2(16, 80)
+		rarity_lbl.position = Vector2(2, 2)
+		rarity_lbl.size = Vector2(14, 72)
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		rarity_lbl.add_theme_font_size_override("font_size", 12)
@@ -821,7 +824,7 @@ func _build_panel() -> void:
 		cell_content.add_child(rarity_lbl)
 		var badges := VBoxContainer.new()
 		badges.name = "Badges"
-		badges.position = Vector2(92, 2)
+		badges.position = Vector2(74, 2)
 		badges.add_theme_constant_override("separation", 2)
 		badges.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(badges)
@@ -856,8 +859,8 @@ func _build_panel() -> void:
 	inv_title.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
-	_grid.add_theme_constant_override("h_separation", 6)
-	_grid.add_theme_constant_override("v_separation", 6)
+	_grid.add_theme_constant_override("h_separation", 4)
+	_grid.add_theme_constant_override("v_separation", 4)
 	inv_col.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
@@ -905,17 +908,15 @@ func _build_panel() -> void:
 		cell_content.add_child(rarity_lbl)
 		_grid.add_child(cell)
 		_cells.append(cell)
-	content.custom_minimum_size = margin.get_combined_minimum_size()
-	var s := _panel.get_combined_minimum_size()
-	_panel_size = s
-	_panel_rest_offset = Vector2(-s.x / 2.0, -s.y / 2.0)
-	_panel.anchor_left = 0.5
-	_panel.anchor_right = 0.5
-	_panel.anchor_top = 0.5
-	_panel.anchor_bottom = 0.5
-	_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_apply_panel_offset(_panel_rest_offset)
+	# 右侧贴边：固定 PANEL_W 宽、全高，初始在屏幕外右侧（复刻旧版 system-panel）
+	_panel.anchor_left = 1.0
+	_panel.anchor_right = 1.0
+	_panel.anchor_top = 0.0
+	_panel.anchor_bottom = 1.0
+	_panel.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	_panel.offset_top = 0
+	_panel.offset_bottom = 0
+	_apply_panel_slide(0.0)
 
 func _build_status_label() -> void:
 	_status_label = _make_label(self, "", 14, Style.COLOR_STATUS, Vector2.ZERO)
