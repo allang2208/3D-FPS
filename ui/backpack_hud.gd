@@ -25,7 +25,7 @@ const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader"
 const HOTBAR_SIZE := 4
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
-const CELL_SLOT := 54
+const CELL_SLOT := 60
 const EQUIP_SLOT_SIZE := Vector2(250, 84)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
@@ -450,7 +450,10 @@ func _on_equipped(key: String) -> void:
 
 func _pop_cell(slot: int) -> void:
 	var cell: BackpackCell = _cells[slot]
-	cell.pivot_offset = Vector2(CELL_SLOT, CELL_SLOT) * 0.5
+	var s := cell.size
+	if s == Vector2.ZERO:
+		s = Vector2(72, CELL_SLOT)
+	cell.pivot_offset = s * 0.5
 	var tw := create_tween()
 	tw.tween_property(cell, "scale", Vector2(1.2, 1.2), 0.18).from(Vector2(0.5, 0.5))
 	tw.tween_property(cell, "scale", Vector2(0.95, 0.95), 0.12)
@@ -965,19 +968,20 @@ func _build_panel() -> void:
 	_count_label.add_theme_font_override("font", _font_section)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
-	_grid.add_theme_constant_override("h_separation", 4)
-	_grid.add_theme_constant_override("v_separation", 4)
+	_grid.add_theme_constant_override("h_separation", 6)
+	_grid.add_theme_constant_override("v_separation", 6)
 	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inv_col.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
 		cell.hud = self
 		cell.slot = i
-		cell.custom_minimum_size = Vector2(CELL_SLOT, CELL_SLOT)
+		cell.custom_minimum_size = Vector2(72, CELL_SLOT)
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_cell_empty)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
-		cell_content.custom_minimum_size = Vector2(CELL_SLOT, CELL_SLOT)
+		cell_content.custom_minimum_size = Vector2(72, CELL_SLOT)
 		cell_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell.add_child(cell_content)
 		var icon := TextureRect.new()
@@ -997,17 +1001,39 @@ func _build_panel() -> void:
 		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		fallback.visible = false
 		cell_content.add_child(fallback)
-		var stack := _make_label(cell_content, "", 12, Style.COLOR_STACK_TEXT, Vector2(CELL_SLOT - 20, 3))
+		var stack := _make_label(cell_content, "", 12, Style.COLOR_STACK_TEXT, Vector2.ZERO)
 		stack.name = "Stack"
 		stack.add_theme_font_override("font", _font_value)
-		var name_lbl := _make_label(cell_content, "", 11, Style.COLOR_WHITE, Vector2(2, CELL_SLOT - 15))
+		stack.anchor_left = 1.0
+		stack.anchor_right = 1.0
+		stack.anchor_top = 1.0
+		stack.anchor_bottom = 1.0
+		stack.offset_left = -30
+		stack.offset_top = -20
+		stack.offset_right = -4
+		stack.offset_bottom = -2
+		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		var name_lbl := _make_label(cell_content, "", 11, Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
-		name_lbl.custom_minimum_size = Vector2(CELL_SLOT - 4, 12)
+		name_lbl.anchor_left = 0.0
+		name_lbl.anchor_right = 1.0
+		name_lbl.anchor_top = 1.0
+		name_lbl.anchor_bottom = 1.0
+		name_lbl.offset_left = 4
+		name_lbl.offset_top = -20
+		name_lbl.offset_right = -4
+		name_lbl.offset_bottom = -2
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var rarity_lbl := Label.new()
 		rarity_lbl.name = "Rarity"
-		rarity_lbl.position = Vector2(2, 2)
-		rarity_lbl.size = Vector2(12, CELL_SLOT - 4)
+		rarity_lbl.anchor_left = 0.0
+		rarity_lbl.anchor_right = 0.0
+		rarity_lbl.anchor_top = 0.0
+		rarity_lbl.anchor_bottom = 1.0
+		rarity_lbl.offset_left = 2
+		rarity_lbl.offset_top = 2
+		rarity_lbl.offset_right = 15
+		rarity_lbl.offset_bottom = -2
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		rarity_lbl.add_theme_font_size_override("font_size", 10)
