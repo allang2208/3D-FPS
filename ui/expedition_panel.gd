@@ -29,6 +29,16 @@ func setup(db: RefCounted, backpack: RefCounted, _equipment: RefCounted, _econom
 		_backpack.changed.connect(_on_changed)
 
 func _build_body() -> void:
+	body.add_child(_make_section_title("⚔️ 出征条件"))
+	var rule_text := (
+		"F 级地牢 → 普通及以上祭品\n"
+		+ "E 级地牢 → 优质及以上祭品\n"
+		+ "D 级地牢 → 稀有及以上祭品\n"
+		+ "C 级地牢 → 史诗及以上祭品\n"
+		+ "B 级地牢 → 神话及以上祭品\n"
+		+ "A 级地牢 → 传说及以上祭品"
+	)
+	body.add_child(_make_label(rule_text, "caption", Style.THEME_GRAY_LIGHT))
 	_rule_label = _make_label("", "body", Style.THEME_GOLD)
 	body.add_child(_rule_label)
 	_capacity_label = _make_label("", "caption", Style.THEME_GRAY_LIGHT)

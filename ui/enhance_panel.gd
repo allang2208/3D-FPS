@@ -33,12 +33,30 @@ func set_player_status(ps) -> void:
 	_player_status = ps
 
 func _build_body() -> void:
-	_slot_label = _make_label("强化槽：空（点击下方装备放入）", "body", Style.THEME_GRAY_LIGHT)
-	body.add_child(_slot_label)
+	# 魔法阵（旧版 magic-circle-container：金色圆环装饰 + 槽位信息）
+	var circle_row := HBoxContainer.new()
+	circle_row.add_theme_constant_override("separation", 14)
+	body.add_child(circle_row)
+	var circle := Panel.new()
+	circle.custom_minimum_size = Vector2(96, 96)
+	circle.add_theme_stylebox_override("panel",
+		Style.make_style(Color(Style.THEME_BG, 0.0), Style.THEME_GOLD, 48, 2))
+	circle_row.add_child(circle)
+	var circle_icon := Label.new()
+	circle_icon.text = "⚒️"
+	circle_icon.add_theme_font_size_override("font_size", 36)
+	circle_icon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	circle.add_child(circle_icon)
+	var slot_box := VBoxContainer.new()
+	slot_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	slot_box.add_theme_constant_override("separation", 4)
+	circle_row.add_child(slot_box)
+	_slot_label = _make_label("强化槽：拖入装备", "body", Style.THEME_GRAY_LIGHT)
+	slot_box.add_child(_slot_label)
 	_info_label = _make_label("", "body", Style.THEME_WHITE)
-	body.add_child(_info_label)
+	slot_box.add_child(_info_label)
 	_cost_label = _make_label("", "body", Style.THEME_GOLD)
-	body.add_child(_cost_label)
+	slot_box.add_child(_cost_label)
 
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))

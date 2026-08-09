@@ -134,12 +134,16 @@ func _rebuild_mod_grid() -> void:
 		var slot_name := String(slot["name"])
 		var current := String(mods.get(slot_id, ""))
 		var label := slot_name
+		var opt := {}
 		if current != "":
-			var opt := _find_option(cfg, slot_id, current)
+			opt = _find_option(cfg, slot_id, current)
 			label = "%s：%s" % [slot_name, String(opt.get("name", current))]
 		var b := _make_button(label, "body")
 		if current != "":
 			b.add_theme_color_override("font_color", Style.THEME_GOLD)
+		var icon_path := NpcConfig.map_icon_path(String(opt.get("icon", "")))
+		if icon_path != "":
+			b.icon = load(icon_path)
 		b.pressed.connect(_open_popup.bind(String(slot_id)))
 		_mod_grid.add_child(b)
 
@@ -245,6 +249,9 @@ func _open_popup(slot_id: String) -> void:
 		label += "（🔧 替换需4张改造券）" if current != "" else "（🔧 需1张改造券）"
 		var b := _make_button(label, "body")
 		b.custom_minimum_size = Vector2(400, 0)
+		var icon_path := NpcConfig.map_icon_path(String(opt.get("icon", "")))
+		if icon_path != "":
+			b.icon = load(icon_path)
 		b.pressed.connect(_equip_mod.bind(slot_id, mod_id))
 		_popup_list.add_child(b)
 	var cancel := _make_button("✕ 取消", "body")

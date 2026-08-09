@@ -165,6 +165,19 @@ static func _load_craft_config() -> Dictionary:
 static func craft_config_for(item: Dictionary) -> Dictionary:
 	return get_craft_config(String(item.get("weaponId", "")))
 
+## 旧版图标路径（assets/icons/craft/x.png 等）→ 本地 res:// 路径；不存在返回空
+static func map_icon_path(path: String) -> String:
+	if path == "":
+		return ""
+	var local := path
+	if path.begins_with("assets/"):
+		local = "res://assets/" + path.trim_prefix("assets/")
+	elif not path.begins_with("res://"):
+		return ""
+	if ResourceLoader.exists(local):
+		return local
+	return ""
+
 static func get_scroll(scroll_id: String) -> Dictionary:
 	return ENCHANT_SCROLLS.get(scroll_id, {})
 
