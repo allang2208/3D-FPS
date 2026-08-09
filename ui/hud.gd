@@ -103,6 +103,8 @@ func _ensure_built() -> void:
 	status_bar.set_script(load("res://ui/status_bar.gd"))
 	add_child(status_bar)
 	status_bar.set_weapon_name("AK-74")
+	status_bar.set_stamina(int(player_status.stamina), player_status.max_stamina())
+	status_bar.set_exp(int(player_status.exp), player_status.max_exp())
 	backpack_hud = load("res://ui/backpack_hud.gd").new()
 	backpack_hud.name = "BackpackHud"
 	backpack_hud.player_healed.connect(_on_hud_healed)

@@ -178,9 +178,9 @@ func _gen_slot() -> void:
 		img.set_pixel(x, 3, Color(0.165, 0.165, 0.184))
 		img.set_pixel(x, 60, Color(0.106, 0.106, 0.122))
 		img.set_pixel(x, 61, Color(0.086, 0.086, 0.10))
-	_draw_border(img, Color(0.243, 0.243, 0.271), 1)   # #3E3E45 细框
-	_draw_border(img, Color(0.04, 0.04, 0.047), 1, 2)  # 内压暗线
-	_round_corners(img, 6)
+	_draw_border(img, Color(0.243, 0.243, 0.271), 2)   # #3E3E45 2px 边框（原项目）
+	_draw_border(img, Color(0.04, 0.04, 0.047), 1, 3)  # 内压暗线
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_slot.png")
 
 
@@ -236,9 +236,9 @@ func _gen_slot_light() -> void:
 		img.set_pixel(x, 3, Color(0.95, 0.95, 0.97))
 		img.set_pixel(x, 60, Color(0.82, 0.82, 0.87))
 		img.set_pixel(x, 61, Color(0.78, 0.78, 0.84))
-	_draw_border(img, Color(0.77, 0.77, 0.82), 1)    # #C4C4D1
-	_draw_border(img, Color(0.72, 0.72, 0.78), 1, 2) # 内压线
-	_round_corners(img, 6)
+	_draw_border(img, Color(0.77, 0.77, 0.82), 2)    # #C4C4D1 2px 边框
+	_draw_border(img, Color(0.72, 0.72, 0.78), 1, 3) # 内压线
+	_round_corners(img, 8)
 	img.save_png(OUT_DIR + "panel_slot_light.png")
 
 

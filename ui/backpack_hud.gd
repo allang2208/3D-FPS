@@ -531,8 +531,14 @@ func _update_tab_styles() -> void:
 
 func _tab_style(active: bool) -> StyleBox:
 	if active:
-		return Style.make_tab_active_style()
-	return Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 6, 1)
+		# 原项目 panel-tab：底部 3px 下划线 + 半透明底（灰白/暗金主题自动取色）
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color(Style.THEME_GRAY_MID, 0.16)
+		sb.set_border_width_all(0)
+		sb.border_width_bottom = 3
+		sb.border_color = Style.THEME_GOLD
+		return sb
+	return Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0)
 
 ## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
 func _apply_panel_slide(t: float) -> void:

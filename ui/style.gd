@@ -281,10 +281,10 @@ static func make_font(weight := 400) -> Font:
 static func tt_font_title() -> Font: return make_font(700)
 static func tt_font_value() -> Font: return make_font(600)
 static func tt_font_body() -> Font: return make_font(400)
-static func tt_size_title() -> int: return 16
+static func tt_size_title() -> int: return 18
 static func tt_size_group() -> int: return 12
 static func tt_size_body() -> int: return 12
-static func tt_size_value() -> int: return 12
+static func tt_size_value() -> int: return 13
 
 ## 等宽字体（VS Code Consolas 同款）：HUD 数字/弹药/数值用，清晰对齐
 static func make_mono_font(_weight := 400) -> Font:
@@ -382,7 +382,7 @@ static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTe
 	var sb := StyleBoxTexture.new()
 	sb.texture = load("res://assets/ui/textures/panel_slot_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_slot.png")
 	sb.modulate_color = modulate
-	var m := 6
+	var m := 8
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
 	sb.texture_margin_top = m

@@ -63,6 +63,20 @@ var _dmg_cfg := {}
 var _cross_cfg := {}
 var _vig_cfg := {}
 var _labels := {}
+var _top_bar: PanelContainer
+var _top_name_lbl: Label
+var _top_level_lbl: Label
+var _top_class_lbl: Label
+var _top_kills_lbl: Label
+var _top_hp_fill: ColorRect
+var _top_mp_fill: ColorRect
+var _stamina_fill: ColorRect
+var _stamina_val: Label
+var _exp_bar: ColorRect
+var _stamina_now := 100
+var _stamina_max := 100
+var _exp_now := 0
+var _exp_max := 100
 
 func _ready() -> void:
 	_hud_cfg()
@@ -100,6 +114,7 @@ func _label(key: String, default: String) -> String:
 	return String(_labels.get(key, default))
 
 func _process(delta: float) -> void:
+	_sync_top_bar()
 	_hitmark_t = maxf(0.0, _hitmark_t - delta)
 	_hitmarker.visible = _hitmark_t > 0.0
 	_dmgflash_t = maxf(0.0, _dmgflash_t - delta)
@@ -120,6 +135,19 @@ func _process(delta: float) -> void:
 		var v := _cfg_num(_vig_cfg, "base", 0.30) + _cfg_num(_vig_cfg, "amp", 0.22) \
 			* (0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * _cfg_num(_vig_cfg, "freq", 2.4)))
 		_vignette_mat.set_shader_parameter("intensity", v)
+
+func _sync_top_bar() -> void:
+	var hud := get_parent()
+	var st: RefCounted = hud.get("player_status") if hud != null else null
+	if st != null:
+		if _top_name_lbl != null:
+			_top_name_lbl.text = String(st.get("character_name"))
+		if _top_level_lbl != null:
+			_top_level_lbl.text = "Lv.%d" % int(st.get("level"))
+		if _top_class_lbl != null:
+			_top_class_lbl.text = String(st.get("character_class"))
+	if _top_kills_lbl != null:
+		_top_kills_lbl.text = "击杀 %d" % _kills
 
 func _build() -> void:
 	_build_tooltip()
@@ -271,6 +299,196 @@ func _build() -> void:
 	_vignette.material = _vignette_mat
 	_vignette.visible = false
 	add_child(_vignette)
+	_build_hud_extras()
+
+## 原项目补充 HUD：顶部状态栏 / 体力条 / 经验条 / 操作提示 / 侧边菜单
+func _build_hud_extras() -> void:
+	_build_top_bar()
+	_build_stamina_bar()
+	_build_exp_bar()
+	_build_controls_hint()
+	_build_side_menu()
+
+
+func _build_top_bar() -> void:
+	_top_bar = PanelContainer.new()
+	_top_bar.name = "TopBar"
+	_top_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_top_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_top_bar.offset_top = 10
+	_top_bar.add_theme_stylebox_override("panel",
+		Style.make_style(Color(Style.THEME_BG, 0.55), Style.THEME_GRAY_MID, 10, 1))
+	add_child(_top_bar)
+	var hb := HBoxContainer.new()
+	hb.add_theme_constant_override("separation", 14)
+	hb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_top_bar.add_child(hb)
+	var texts := [["名称", "character_name", "轮回者"], ["等级", "level", "1"], ["职业", "character_class", "初心者"]]
+	for spec in texts:
+		var box := VBoxContainer.new()
+		box.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var l := Label.new()
+		l.text = str(spec[0])
+		l.add_theme_font_size_override("font_size", 10)
+		l.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+		box.add_child(l)
+		var v := Label.new()
+		v.add_theme_font_size_override("font_size", 14)
+		v.add_theme_font_override("font", _font_bold)
+		v.add_theme_color_override("font_color", Style.COLOR_TEXT)
+		box.add_child(v)
+		match str(spec[0]):
+			"名称":
+				_top_name_lbl = v
+			"等级":
+				_top_level_lbl = v
+			"职业":
+				_top_class_lbl = v
+		hb.add_child(box)
+	_top_kills_lbl = Label.new()
+	_top_kills_lbl.add_theme_font_size_override("font_size", 14)
+	_top_kills_lbl.add_theme_font_override("font", _font_mono)
+	_top_kills_lbl.add_theme_color_override("font_color", Style.COLOR_KILL)
+	hb.add_child(_top_kills_lbl)
+	_top_hp_fill = _make_top_meter(hb, Style.COLOR_HP_HIGH)
+	_top_mp_fill = _make_top_meter(hb, Style.THEME_MP_BLUE)
+
+
+func _make_top_meter(parent: Node, color: Color) -> ColorRect:
+	var track := Panel.new()
+	track.custom_minimum_size = Vector2(84, 10)
+	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	track.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_BAR_TRACK, Style.THEME_GRAY_MID, 5, 1))
+	parent.add_child(track)
+	var fill := ColorRect.new()
+	fill.color = color
+	fill.anchor_top = 0.0
+	fill.anchor_bottom = 1.0
+	fill.offset_left = 1
+	fill.offset_top = 1
+	fill.offset_right = -1
+	fill.offset_bottom = -1
+	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	track.add_child(fill)
+	return fill
+
+
+func _build_stamina_bar() -> void:
+	var bg := Panel.new()
+	bg.position = Vector2(16, 84)
+	bg.size = Vector2(_bar_w, 14)
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bg.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
+	add_child(bg)
+	_stamina_fill = ColorRect.new()
+	_stamina_fill.color = Style.COLOR_STAMINA_FILL
+	_stamina_fill.position = Vector2(18, 86)
+	_stamina_fill.size = Vector2(_bar_w - 4, 10)
+	_stamina_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_stamina_fill)
+	_stamina_val = Label.new()
+	_stamina_val.text = "%d/%d" % [_stamina_now, _stamina_max]
+	_stamina_val.position = Vector2(244, 80)
+	_stamina_val.add_theme_font_override("font", _font_mono)
+	_stamina_val.add_theme_font_size_override("font_size", 14)
+	_stamina_val.add_theme_color_override("font_color", Style.COLOR_STAMINA_FILL)
+	add_child(_stamina_val)
+	_bind_hover(bg, "体力", "冲刺、闪避、攻击消耗体力，停止消耗后自动恢复。",
+		func() -> Array: return [["当前体力", "%d / %d" % [_stamina_now, _stamina_max]]])
+
+
+func _build_exp_bar() -> void:
+	var track := ColorRect.new()
+	track.color = Color(Style.THEME_BG, 0.55)
+	track.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	track.offset_top = -6
+	track.offset_bottom = 0
+	track.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(track)
+	_exp_bar = ColorRect.new()
+	_exp_bar.color = Style.THEME_GOLD
+	_exp_bar.anchor_top = 1.0
+	_exp_bar.anchor_bottom = 1.0
+	_exp_bar.offset_top = -6
+	_exp_bar.offset_bottom = 0
+	_exp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(_exp_bar)
+
+
+func _build_controls_hint() -> void:
+	var p := PanelContainer.new()
+	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	p.offset_left = 10
+	p.offset_top = -150
+	p.offset_bottom = -78
+	p.add_theme_stylebox_override("panel",
+		Style.make_style(Color(Style.THEME_BG, 0.45), Color(Style.THEME_GRAY_MID, 0.4), 8, 1))
+	add_child(p)
+	var l := Label.new()
+	l.text = "WASD 移动 · 左键攻击 · 空格闪避 · Shift 冲刺\n1~4 快捷栏 · Q/E/X/C 技能 · R 换弹\nTab 背包 · CapsLock 状态 · K 技能 · O 图鉴 · L 任务"
+	l.add_theme_font_size_override("font_size", 11)
+	l.add_theme_color_override("font_color", Color(Style.COLOR_DIM_TEXT, 0.75))
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	p.add_child(l)
+
+
+func _build_side_menu() -> void:
+	var menu := VBoxContainer.new()
+	menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	menu.set_anchors_and_offsets_preset(Control.PRESET_CENTER_RIGHT)
+	menu.offset_left = -86
+	menu.offset_right = -14
+	menu.add_theme_constant_override("separation", 8)
+	add_child(menu)
+	for spec in [
+			["res://assets/ui/icons/user.svg", "Caps", "状态", "status"],
+			["res://assets/ui/icons/backpack.svg", "Tab", "背包", "equip"],
+			["res://assets/ui/icons/zap.svg", "K", "技能", "skill"],
+			["res://assets/ui/icons/map.svg", "O", "图鉴", "codex"],
+			["res://assets/ui/icons/flag.svg", "L", "任务", "quest"]]:
+		var b := Button.new()
+		b.custom_minimum_size = Vector2(64, 56)
+		b.add_theme_stylebox_override("normal", Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0))
+		b.add_theme_stylebox_override("hover", Style.make_style(Color(Style.THEME_GOLD, 0.18), Style.COLOR_TRANSPARENT, 8, 0))
+		b.add_theme_stylebox_override("pressed", Style.make_style(Color(Style.THEME_GOLD, 0.30), Style.COLOR_TRANSPARENT, 8, 0))
+		var vb := VBoxContainer.new()
+		vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var icon := TextureRect.new()
+		icon.texture = load(str(spec[0]))
+		icon.custom_minimum_size = Vector2(26, 26)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.modulate = Style.COLOR_TEXT
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		vb.add_child(icon)
+		var hint := Label.new()
+		hint.text = str(spec[1])
+		hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		hint.add_theme_font_override("font", _font_mono)
+		hint.add_theme_font_size_override("font_size", 11)
+		hint.add_theme_color_override("font_color", Style.THEME_GOLD)
+		hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		vb.add_child(hint)
+		b.add_child(vb)
+		var tab := str(spec[3])
+		b.pressed.connect(func() -> void: _open_hud_tab(tab))
+		menu.add_child(b)
+
+
+func _open_hud_tab(tab: String) -> void:
+	var hud := get_parent()
+	var bph: Control = hud.get("backpack_hud") if hud != null else null
+	if bph == null:
+		return
+	if tab in ["status", "equip", "skill"]:
+		bph.set_panel_open(true)
+		bph.set_tab(tab)
+	else:
+		show_status("%s 系统未移植" % tab, 1.5)
+
 
 func _make_crosshair_line(dir: Vector2) -> ColorRect:
 	var r := ColorRect.new()
@@ -435,6 +653,8 @@ func set_hp(hp: int, max_hp: int) -> void:
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		tw.tween_callback(func() -> void: _hp_trail.visible = false)
 	_hp_fill.size.x = target_w
+	if _top_hp_fill != null:
+		_top_hp_fill.anchor_right = pct
 	if pct > 0.5:
 		_hp_fill.color = Style.COLOR_HP_HIGH
 	elif pct > low_ratio:
@@ -457,6 +677,8 @@ func set_mp(mp: int, max_mp: int) -> void:
 	var m := maxi(1, max_mp)
 	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
 	_mp_fill.size.x = (_bar_w - 4) * pct
+	if _top_mp_fill != null:
+		_top_mp_fill.anchor_right = pct
 	_mp_label.text = "%d/%d" % [maxi(0, mp), m]
 	_mp_fill.visible = true
 	_mp_label.visible = true
@@ -480,6 +702,20 @@ func set_ammo(ammo: int, reserve: int) -> void:
 	_ammo_reserve_label.text = " / %d" % maxi(0, reserve)
 	if changed:
 		_pulse_label(_ammo_label)
+
+func set_stamina(st: int, max_st: int) -> void:
+	_stamina_now = maxi(0, st)
+	_stamina_max = maxi(1, max_st)
+	if _stamina_fill != null:
+		_stamina_fill.size.x = (_bar_w - 4) * clampf(float(_stamina_now) / float(_stamina_max), 0.0, 1.0)
+	if _stamina_val != null:
+		_stamina_val.text = "%d/%d" % [_stamina_now, _stamina_max]
+
+func set_exp(v: int, max_v: int) -> void:
+	_exp_now = maxi(0, v)
+	_exp_max = maxi(1, max_v)
+	if _exp_bar != null:
+		_exp_bar.anchor_right = clampf(float(_exp_now) / float(_exp_max), 0.0, 1.0)
 
 func _pulse_label(l: Label) -> void:
 	var tw := create_tween()
