@@ -89,6 +89,7 @@ func _initialize() -> void:
 		"res://ui/npc_panel.gd", "res://ui/npc_config.gd", "res://ui/economy.gd",
 		"res://ui/npc_panels.gd",
 		"res://ui/weapon_formula.gd", "res://ui/warehouse.gd", "res://ui/warehouse_panel.gd",
+		"res://ui/item_cell.gd",
 		"res://ui/shop_panel.gd", "res://ui/enhance_panel.gd", "res://ui/craft_panel.gd",
 		"res://ui/enchant_panel.gd", "res://ui/quest_panel.gd",
 		"res://ui/fusion_panel.gd", "res://ui/expedition_panel.gd",

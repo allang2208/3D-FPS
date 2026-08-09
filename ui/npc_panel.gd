@@ -159,6 +159,30 @@ func _make_button(text: String, size_key := "body") -> Button:
 	Style.style_button(b, size_key)
 	return b
 
+## 分区标题（旧版 .shop-section-title / .enchant-section-title 排版：金色加粗 + 分隔线）
+func _make_section_title(text: String) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
+	l.add_theme_color_override("font_color", Style.THEME_GOLD)
+	l.add_theme_font_size_override("font_size", Style.font_size("label"))
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
+
+## 空态/占位提示（旧版 .shop-empty-hint / .enhance-info-placeholder：灰字居中）
+func _make_empty_hint(text: String) -> Label:
+	var l := _make_label(text, "body", Style.THEME_GRAY_LIGHT)
+	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return l
+
+## 物品格（旧版 .inv-cell 排版，含稀有度竖条/图标/徽章/堆叠）
+func _make_item_cell(it: Dictionary, min_size := Vector2(120, 52)) -> Node:
+	var script: GDScript = load("res://ui/item_cell.gd")
+	var c = script.new()
+	c.setup(it, min_size)
+	return c
+
 func _make_item_button(item: Dictionary, min_size := Vector2(118, 44)) -> Button:
 	var b := Button.new()
 	b.focus_mode = Control.FOCUS_NONE

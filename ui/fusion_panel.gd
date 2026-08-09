@@ -1,4 +1,4 @@
-﻿extends "res://ui/npc_panel.gd"
+extends "res://ui/npc_panel.gd"
 ## 祭品合成面板（fusion-system.js 迁移）：同稀有度祭品两两熔铸为更高一级；
 ## 传说对 -> 随机新传说；奇数保留最后放入的一件；只接受 tribute 类。
 
@@ -80,9 +80,8 @@ func _rebuild_grid() -> void:
 			_grid.add_child(empty)
 			continue
 		var item: Dictionary = entry["item"]
-		var b := _make_item_button(item, Vector2(120, 44))
-		b.text += " [%s]" % NpcConfig.rarity_label(String(item.get("rarity", "common")))
-		b.pressed.connect(_retrieve.bind(i))
+		var b := _make_item_cell(item, Vector2(120, 52))
+		b.pressed.connect(func(_c, _idx: int = i): _retrieve(_idx))
 		_grid.add_child(b)
 
 func _rebuild_backpack() -> void:
@@ -92,8 +91,8 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("category", "")) != "tribute":
 			continue
-		var b := _make_item_button(it, Vector2(120, 44))
-		b.pressed.connect(_place_from_backpack.bind(i))
+		var b := _make_item_cell(it, Vector2(120, 52))
+		b.pressed.connect(func(_c, _idx: int = i): _place_from_backpack(_idx))
 		_bp_grid.add_child(b)
 
 func _free_slot() -> int:

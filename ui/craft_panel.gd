@@ -1,4 +1,4 @@
-﻿extends "res://ui/npc_panel.gd"
+extends "res://ui/npc_panel.gd"
 ## 改造面板（craft-system.js 迁移）：放入可改造武器 -> 点击 mod 槽选择配件。
 ## 消耗改造券：首次 1 张，替换已改造配件 4 张；效果按 effects 聚合存入 item._craftEffects。
 ## 说明：旧版拖拽布局编辑（craft-config.json 坐标）未迁移，仅保留 mod 选择逻辑。
@@ -59,7 +59,7 @@ func _build_body() -> void:
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	left.add_child(actions)
-	var remove_btn := _make_button("取下武器")
+	var remove_btn := _make_button("↔ 取下武器")
 	remove_btn.pressed.connect(_return_item)
 	actions.add_child(remove_btn)
 
@@ -78,7 +78,7 @@ func _build_body() -> void:
 	bp_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bp_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(bp_col)
-	bp_col.add_child(_make_label("背包", "caption", Style.THEME_GRAY_LIGHT))
+	bp_col.add_child(_make_section_title("🎒 背包"))
 	var bp_scroll := ScrollContainer.new()
 	bp_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bp_col.add_child(bp_scroll)
@@ -92,7 +92,7 @@ func _build_body() -> void:
 	eq_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	eq_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(eq_col)
-	eq_col.add_child(_make_label("已装备（可放入改造）", "caption", Style.THEME_GRAY_LIGHT))
+	eq_col.add_child(_make_section_title("⚒️ 已装备（可放入改造）"))
 	var eq_scroll := ScrollContainer.new()
 	eq_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	eq_col.add_child(eq_scroll)
@@ -106,12 +106,12 @@ func _refresh() -> void:
 	_refresh_gold()
 	_popup.visible = false
 	if _equipped.is_empty():
-		_slot_label.text = "改造槽：空（点击下方武器放入）"
+		_slot_label.text = "将武器拖入此处进行改造"
 		_mod_title.text = ""
 	else:
 		var item: Dictionary = _equipped["item"]
 		_slot_label.text = "改造槽：%s%s" % [String(item.get("name", "?")), "（已改造）" if _is_crafted(item) else ""]
-		_mod_title.text = "改造配件（点击格子选择）：" if NpcConfig.has_craft_config(item) else "该武器不可改造"
+		_mod_title.text = "🔧 改造配件（点击格子选择）：" if NpcConfig.has_craft_config(item) else "该武器不可改造"
 	_rebuild_mod_grid()
 	_rebuild_backpack()
 
@@ -157,18 +157,18 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		var b := _make_item_button(it, Vector2(170, 44))
-		b.pressed.connect(_equip_from_backpack.bind(i))
-		_bp_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(170, 52))
+		cell.pressed.connect(func(_c, _idx: int = i): _equip_from_backpack(_idx))
+		_bp_grid.add_child(cell)
 	for c in _eq_grid.get_children():
 		c.queue_free()
 	for key in _equipment.SLOT_ORDER:
 		var it = _equipment.slots.get(key, {})
 		if it == null or it.is_empty():
 			continue
-		var b := _make_item_button(it, Vector2(170, 44))
-		b.pressed.connect(_equip_from_slot.bind(String(key)))
-		_eq_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(170, 52))
+		cell.pressed.connect(func(_c, _key: String = String(key)): _equip_from_slot(_key))
+		_eq_grid.add_child(cell)
 
 func _equip_from_backpack(slot: int) -> void:
 	var it = _backpack.slots[slot]
@@ -236,16 +236,18 @@ func _open_popup(slot_id: String) -> void:
 	var mods: Dictionary = _equipped["item"].get("_craftData", {})
 	var current := String(mods.get(slot_id, ""))
 	var opts: Array = cfg.get("options", {}).get(slot_id, [])
+	_popup_list.add_child(_make_section_title("🔧 选择配件"))
 	for opt in opts:
 		var mod_id := String(opt["id"])
 		var label := "%s ｜ %s" % [String(opt["name"]), String(opt["desc"])]
 		if mod_id == current:
 			label = "✓ " + label
+		label += "（🔧 替换需4张改造券）" if current != "" else "（🔧 需1张改造券）"
 		var b := _make_button(label, "body")
 		b.custom_minimum_size = Vector2(400, 0)
 		b.pressed.connect(_equip_mod.bind(slot_id, mod_id))
 		_popup_list.add_child(b)
-	var cancel := _make_button("取消", "body")
+	var cancel := _make_button("✕ 取消", "body")
 	cancel.pressed.connect(func() -> void: _popup.visible = false)
 	_popup_list.add_child(cancel)
 	_popup.visible = true

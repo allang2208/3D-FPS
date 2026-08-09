@@ -1,4 +1,4 @@
-﻿extends "res://ui/npc_panel.gd"
+extends "res://ui/npc_panel.gd"
 ## 出征准备面板（expedition-system.js 迁移）：10 格祭品栏（同名限 1 件），
 ## 当前地牢 僵尸地牢（F 级）需要「普通及以上」祭品；出征通过 depart_requested 交给 main。
 
@@ -95,8 +95,8 @@ func _rebuild_grid() -> void:
 			_grid.add_child(empty)
 			continue
 		var item: Dictionary = entry["item"]
-		var b := _make_item_button(item, Vector2(120, 44))
-		b.pressed.connect(_remove_from_cell.bind(i))
+		var b := _make_item_cell(item, Vector2(120, 52))
+		b.pressed.connect(func(_c, _idx: int = i): _remove_from_cell(_idx))
 		_grid.add_child(b)
 
 func _rebuild_backpack() -> void:
@@ -106,8 +106,8 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("category", "")) != "tribute":
 			continue
-		var b := _make_item_button(it, Vector2(120, 44))
-		b.pressed.connect(_place_from_backpack.bind(i))
+		var b := _make_item_cell(it, Vector2(120, 52))
+		b.pressed.connect(func(_c, _idx: int = i): _place_from_backpack(_idx))
 		_bp_grid.add_child(b)
 
 func _has_duplicate(item: Dictionary) -> bool:

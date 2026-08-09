@@ -27,7 +27,7 @@ func _build_body() -> void:
 	list_col.custom_minimum_size = Vector2(240, 0)
 	list_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(list_col)
-	list_col.add_child(_make_label("任务列表", "label", Style.THEME_GOLD))
+	list_col.add_child(_make_section_title("📜 任务列表"))
 	var list_scroll := ScrollContainer.new()
 	list_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	list_col.add_child(list_scroll)

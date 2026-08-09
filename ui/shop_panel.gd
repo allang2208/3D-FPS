@@ -1,4 +1,4 @@
-﻿extends "res://ui/npc_panel.gd"
+extends "res://ui/npc_panel.gd"
 ## 商店面板（shop-system.js 迁移）：左侧购买目录，右侧出售栏。
 ## 购买价 = 商店价（shopPrice 缺省 price，price 缺省按稀有度标准价）；出售价 = max(1, price*0.5)。
 
@@ -12,6 +12,7 @@ var _sell: Array = []  # Array[{item, slot}]
 var _buy_grid: GridContainer
 var _sell_grid: GridContainer
 var _bp_grid: GridContainer
+var _sell_empty: Label
 
 func setup(db: RefCounted, backpack: RefCounted, _equipment: RefCounted, economy: RefCounted) -> void:
 	_db = db
@@ -32,7 +33,7 @@ func _build_body() -> void:
 	buy_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	buy_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(buy_col)
-	buy_col.add_child(_make_label("购买", "label", Style.THEME_GOLD))
+	buy_col.add_child(_make_section_title("📦 商品购买"))
 	var buy_scroll := ScrollContainer.new()
 	buy_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	buy_scroll.custom_minimum_size = Vector2(400, 320)
@@ -47,7 +48,7 @@ func _build_body() -> void:
 	sell_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sell_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(sell_col)
-	sell_col.add_child(_make_label("出售（点击背包物品放入，点击已放物品退回）", "caption", Style.THEME_GRAY_LIGHT))
+	sell_col.add_child(_make_section_title("🛒 我的卖出"))
 	var sell_scroll := ScrollContainer.new()
 	sell_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sell_scroll.custom_minimum_size = Vector2(360, 160)
@@ -58,7 +59,10 @@ func _build_body() -> void:
 	_sell_grid.add_theme_constant_override("v_separation", 6)
 	sell_scroll.add_child(_sell_grid)
 
-	sell_col.add_child(_make_label("背包", "caption", Style.THEME_GRAY_LIGHT))
+	_sell_empty = _make_empty_hint("双击或右键点击背包/装备栏物品，或拖动至此")
+	sell_col.add_child(_sell_empty)
+
+	sell_col.add_child(_make_section_title("🎒 背包"))
 	var bp_scroll := ScrollContainer.new()
 	bp_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bp_scroll.custom_minimum_size = Vector2(360, 160)
@@ -69,7 +73,7 @@ func _build_body() -> void:
 	_bp_grid.add_theme_constant_override("v_separation", 6)
 	bp_scroll.add_child(_bp_grid)
 
-	var sell_btn := _make_button("确认出售")
+	var sell_btn := _make_button("💰 确认卖出")
 	sell_btn.pressed.connect(_confirm_sell)
 	sell_col.add_child(sell_btn)
 
@@ -96,20 +100,24 @@ func _rebuild_buy_grid() -> void:
 	for c in _buy_grid.get_children():
 		c.queue_free()
 	for item in _catalog_items():
-		var b := _make_item_button(item)
-		b.pressed.connect(_buy.bind(String(item["id"]), int(item["price"])))
-		_buy_grid.add_child(b)
+		var cell := _make_item_cell(item)
+		cell.set_price(int(item["price"]))
+		var id := String(item["id"])
+		var price := int(item["price"])
+		cell.pressed.connect(func(_c): _buy(id, price))
+		_buy_grid.add_child(cell)
 
 func _rebuild_sell_grid() -> void:
 	for c in _sell_grid.get_children():
 		c.queue_free()
+	_sell_empty.visible = _sell.is_empty()
 	for i in _sell.size():
 		var it: Dictionary = _sell[i]["item"]
-		var b := _make_item_button(it, Vector2(110, 40))
 		var sell_price := maxi(1, int(NpcConfig.standard_price(it) * 0.5))
-		b.text += " 💰%d" % sell_price
-		b.pressed.connect(_return_to_backpack.bind(i))
-		_sell_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(112, 50))
+		cell.set_price(sell_price)
+		cell.pressed.connect(func(_c, _idx: int = i): _return_to_backpack(_idx))
+		_sell_grid.add_child(cell)
 
 func _rebuild_backpack_grid() -> void:
 	for c in _bp_grid.get_children():
@@ -118,9 +126,9 @@ func _rebuild_backpack_grid() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		var b := _make_item_button(it, Vector2(110, 40))
-		b.pressed.connect(_add_to_sell.bind(i))
-		_bp_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(112, 50))
+		cell.pressed.connect(func(_c, _idx: int = i): _add_to_sell(_idx))
+		_bp_grid.add_child(cell)
 
 func _buy(id: String, cost: int) -> void:
 	if _backpack.item_count() >= int(_backpack.max_slots):

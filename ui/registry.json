@@ -73,6 +73,15 @@
       "tests": ["tests/test_ui_tokens.gd", "tests/test_status_bar.gd", "tests/test_demo_terrain.gd"]
     },
     {
+      "name": "item_cell",
+      "type": "widget",
+      "path": "ui/item_cell.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["setup(item,size)", "set_price(v)", "signal pressed(cell)/hovered(item)"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
       "name": "weapon_formula",
       "type": "data",
       "path": "ui/weapon_formula.gd",

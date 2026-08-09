@@ -1,4 +1,4 @@
-﻿extends "res://ui/npc_panel.gd"
+extends "res://ui/npc_panel.gd"
 ## 附魔面板（enchant-system.js 迁移）：卷轴 + 装备槽位，消耗魔法粉尘附魔；
 ## 卷轴可单独转换粉尘（奖励 = 消耗的一半）；兼容性按 weaponTypes 限制。
 
@@ -33,25 +33,27 @@ func set_warehouse(wh: RefCounted) -> void:
 	_warehouse = wh
 
 func _build_body() -> void:
+	body.add_child(_make_empty_hint("拖入卷轴点击转换粉尘可以生成粉尘，拖入装备和附魔卷轴进行附魔。"))
 	_scroll_label = _make_label("卷轴槽：空", "body", Style.THEME_GRAY_LIGHT)
 	body.add_child(_scroll_label)
 	_equip_label = _make_label("装备槽：空", "body", Style.THEME_GRAY_LIGHT)
 	body.add_child(_equip_label)
 	_dust_label = _make_label("✨ 魔法粉尘：0", "body", Style.THEME_GOLD)
 	body.add_child(_dust_label)
+	body.add_child(_make_section_title("🔮 预览效果"))
 	_preview_label = _make_label("", "body", Style.THEME_WHITE)
 	body.add_child(_preview_label)
 
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	body.add_child(actions)
-	_enchant_btn = _make_button("附魔")
+	_enchant_btn = _make_button("✨ 进行附魔")
 	_enchant_btn.pressed.connect(_do_enchant)
 	actions.add_child(_enchant_btn)
-	var convert_btn := _make_button("转换粉尘")
+	var convert_btn := _make_button("💳 转换粉尘")
 	convert_btn.pressed.connect(_convert_dust)
 	actions.add_child(convert_btn)
-	var reset_btn := _make_button("重置")
+	var reset_btn := _make_button("↺ 重置")
 	reset_btn.pressed.connect(_reset)
 	actions.add_child(reset_btn)
 
@@ -64,7 +66,7 @@ func _build_body() -> void:
 	sc_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sc_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(sc_col)
-	sc_col.add_child(_make_label("可用卷轴", "caption", Style.THEME_GRAY_LIGHT))
+	sc_col.add_child(_make_section_title("📜 可用卷轴（双击/右键放入）"))
 	var sc_scroll := ScrollContainer.new()
 	sc_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sc_col.add_child(sc_scroll)
@@ -78,7 +80,7 @@ func _build_body() -> void:
 	eq_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	eq_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(eq_col)
-	eq_col.add_child(_make_label("武器（背包 / 已装备）", "caption", Style.THEME_GRAY_LIGHT))
+	eq_col.add_child(_make_section_title("⚔️ 武器（背包 / 已装备）"))
 	var eq_scroll := ScrollContainer.new()
 	eq_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	eq_col.add_child(eq_scroll)
@@ -104,17 +106,16 @@ func _rebuild_scroll_list() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
 			continue
-		var b := _make_item_button(it, Vector2(360, 40))
-		b.pressed.connect(_place_scroll.bind("backpack", i))
-		_scroll_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(360, 52))
+		cell.pressed.connect(func(_c, _idx: int = i): _place_scroll("backpack", _idx))
+		_scroll_grid.add_child(cell)
 	if _warehouse != null:
 		for it in _warehouse.items:
 			if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
 				continue
-			var b := _make_item_button(it, Vector2(360, 40))
-			b.text += "（仓库）"
-			b.pressed.connect(_place_scroll.bind("warehouse", int(it.get("slot", -1))))
-			_scroll_grid.add_child(b)
+			var cell := _make_item_cell(it, Vector2(360, 52))
+			cell.pressed.connect(func(_c, _it: Dictionary = it): _place_scroll("warehouse", int(_it.get("slot", -1))))
+			_scroll_grid.add_child(cell)
 
 func _rebuild_equip_list() -> void:
 	for c in _equip_grid.get_children():
@@ -123,16 +124,16 @@ func _rebuild_equip_list() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or not _is_weapon(it):
 			continue
-		var b := _make_item_button(it, Vector2(360, 40))
-		b.pressed.connect(_place_equip.bind("backpack", i))
-		_equip_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(360, 52))
+		cell.pressed.connect(func(_c, _idx: int = i): _place_equip("backpack", _idx))
+		_equip_grid.add_child(cell)
 	for key in _equipment.SLOT_ORDER:
 		var it = _equipment.slots.get(key, {})
 		if it == null or it.is_empty() or not _is_weapon(it):
 			continue
-		var b := _make_item_button(it, Vector2(360, 40))
-		b.pressed.connect(_place_equip.bind("equip", String(key)))
-		_equip_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(360, 52))
+		cell.pressed.connect(func(_c, _key: String = String(key)): _place_equip("equip", _key))
+		_equip_grid.add_child(cell)
 
 func _is_weapon(item: Dictionary) -> bool:
 	var cat := String(item.get("category", ""))

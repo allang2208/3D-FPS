@@ -1,4 +1,4 @@
-﻿extends "res://ui/npc_panel.gd"
+extends "res://ui/npc_panel.gd"
 ## 强化面板（enhance-system.js 迁移）：放入装备 -> 消耗金币 + 强化石 -> +1 强化等级。
 ## 强化上限：武器（含盾）15 级，其他装备 10 级；费用 = baseCost * costGrowth^level。
 
@@ -43,10 +43,10 @@ func _build_body() -> void:
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	body.add_child(actions)
-	var enhance_btn := _make_button("强化")
+	var enhance_btn := _make_button("✨ 强化")
 	enhance_btn.pressed.connect(_enhance)
 	actions.add_child(enhance_btn)
-	var remove_btn := _make_button("取下")
+	var remove_btn := _make_button("↔ 取下")
 	remove_btn.pressed.connect(_return_item)
 	actions.add_child(remove_btn)
 
@@ -59,7 +59,7 @@ func _build_body() -> void:
 	bp_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	bp_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(bp_col)
-	bp_col.add_child(_make_label("背包", "caption", Style.THEME_GRAY_LIGHT))
+	bp_col.add_child(_make_section_title("🎒 背包"))
 	var bp_scroll := ScrollContainer.new()
 	bp_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bp_col.add_child(bp_scroll)
@@ -73,7 +73,7 @@ func _build_body() -> void:
 	eq_col.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	eq_col.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(eq_col)
-	eq_col.add_child(_make_label("已装备", "caption", Style.THEME_GRAY_LIGHT))
+	eq_col.add_child(_make_section_title("⚒️ 已装备"))
 	var eq_scroll := ScrollContainer.new()
 	eq_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	eq_col.add_child(eq_scroll)
@@ -86,9 +86,9 @@ func _build_body() -> void:
 func _refresh() -> void:
 	_refresh_gold()
 	if _equipped.is_empty():
-		_slot_label.text = "强化槽：空（点击下方装备放入）"
-		_info_label.text = ""
-		_cost_label.text = ""
+		_slot_label.text = "强化槽：拖入装备"
+		_info_label.text = "请将装备拖入上方强化槽"
+		_cost_label.text = "强化费用: 💰 0"
 	else:
 		var item: Dictionary = _equipped["item"]
 		var level := int(item.get("enhanceLevel", 0))
@@ -98,7 +98,7 @@ func _refresh() -> void:
 		if level >= max_level:
 			_cost_label.text = "已到达最高强化等级"
 		else:
-			_cost_label.text = "消耗：💰 %d + 💎 强化石×1" % NpcConfig.enhance_cost(level)
+			_cost_label.text = "强化费用: 💰 %d + 💎 强化石×1" % NpcConfig.enhance_cost(level)
 	_rebuild_grids()
 
 func _rebuild_grids() -> void:
@@ -108,18 +108,18 @@ func _rebuild_grids() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("category", "")) == "gold":
 			continue
-		var b := _make_item_button(it, Vector2(130, 44))
-		b.pressed.connect(_equip_from_backpack.bind(i))
-		_bp_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(130, 52))
+		cell.pressed.connect(func(_c, _idx: int = i): _equip_from_backpack(_idx))
+		_bp_grid.add_child(cell)
 	for c in _eq_grid.get_children():
 		c.queue_free()
 	for key in _equipment.SLOT_ORDER:
 		var it = _equipment.slots.get(key, {})
 		if it == null or it.is_empty():
 			continue
-		var b := _make_item_button(it, Vector2(130, 44))
-		b.pressed.connect(_equip_from_slot.bind(String(key)))
-		_eq_grid.add_child(b)
+		var cell := _make_item_cell(it, Vector2(130, 52))
+		cell.pressed.connect(func(_c, _key: String = String(key)): _equip_from_slot(_key))
+		_eq_grid.add_child(cell)
 
 func _equip_from_backpack(slot: int) -> void:
 	var it = _backpack.slots[slot]

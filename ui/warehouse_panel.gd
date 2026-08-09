@@ -80,8 +80,8 @@ func _rebuild_grid() -> void:
 			empty.disabled = true
 			_grid.add_child(empty)
 			continue
-		var b := _make_item_button(it, Vector2(120, 44))
-		b.pressed.connect(_take_item.bind(start + i))
+		var b := _make_item_cell(it, Vector2(120, 52))
+		b.pressed.connect(func(_c, _slot: int = start + i): _take_item(_slot))
 		_grid.add_child(b)
 
 func _rebuild_backpack() -> void:
@@ -91,8 +91,8 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		var b := _make_item_button(it, Vector2(120, 44))
-		b.pressed.connect(_store_item.bind(i))
+		var b := _make_item_cell(it, Vector2(120, 52))
+		b.pressed.connect(func(_c, _idx: int = i): _store_item(_idx))
 		_bp_grid.add_child(b)
 
 func _store_item(bp_slot: int) -> void:
