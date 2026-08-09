@@ -1,8 +1,8 @@
-# TRELLIS.2 部署到 5080 机器（国内镜像清单）
+# TRELLIS.2 部署到 5080 机器（国内镜像清单 + 实测记录）
 
-> 状态：2026-08-09 已验证所有下载通道可用（本机 3080Ti 实测）。
-> 目标：在 5080（Blackwell，RTX 50 系）上跑通 ComfyUI-Trellis2 的
-> 图生 3D 管线（AI 生图 → TRELLIS.2 → GLB），服务《无尽轮回》资产。
+> 状态：**2026-08-09 已跑通端到端**（红狼王图 → TRELLIS.2 → 9.3MB 带纹理 GLB）。
+> 访问方式：SSH 别名 `r5080`（= 192.168.3.142，用户 可爱小鼠，免密，见 `~/.ssh/config`）；
+> ComfyUI API：http://192.168.3.142:8188。
 
 ## 0. 前置：为什么之前卡住 / 现在解决了
 
@@ -10,6 +10,23 @@
   已合入 `visualbruno/ComfyUI-Trellis2` 主线（2026-02-05 起），
   当前 main 分支（2026-07-31 更新）已包含修复，重新拉最新代码即可。
 - 模型权重不从 HuggingFace 下载（国内直连被墙），走 ModelScope（魔搭）。
+- **5080 现状（2026-08-09 核对）**：ComfyUI 0.30（venv Python 3.11.9 +
+  torch 2.9.1+cu128）已装 ComfyUI-Trellis2（含 blackwell_fix.py）；
+  TRELLIS.2-4B 全量权重（16.2GB）与 DINOv3（1.2GB）均已就位。
+- **本轮修复的两个 Blackwell 崩溃点（已打在 5080 上，备份 .bak_20260809）**：
+  1. `trellis2/pipelines/trellis2_image_to_3d.py`：decode 后的 `m.fill_holes()`
+     走 CuMesh 会崩（sm_120）→ Blackwell 跳过（黑狼不需要填洞）。
+  2. `nodes.py` `Trellis2DecodeLatents`：texture_slat 存在时无条件建 CuMesh BVH
+     会崩 → Blackwell 跳过 BVH（本管线文本烘焙不走 BVH 引导）。
+
+## 0.5 端到端实测结论（2026-08-09）
+
+- 命令：`python tools/ai-gen/trellis-gen.py --image x.png --out out.glb --prefix my --faces 20000`
+- 单模型耗时：约 195 秒（64 稀疏分辨率 / 12 步采样；含纹理烘焙 2048²）。
+- 产物：`ComfyUI\output\<prefix>_00001_.glb`（9.3MB，PBR 纹理内嵌）。
+- 客户端下载问题：ComfyUI history 对多 OUTPUT_NODE 不返回 GLB 条目，
+  trellis-gen.py 已改为按 `prefix_00001_.glb` 文件名规则直取。
+- 参数注意：`sparse_structure_resolution` 用 64（32 网格过小、128 会 OOM）。
 
 ## 1. 需要下载的东西（全部已核实源）
 
