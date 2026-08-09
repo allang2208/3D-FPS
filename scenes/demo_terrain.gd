@@ -7,6 +7,7 @@ const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
 const DATA_DIR := "res://assets/terrain_data/demo"
 const NpcConfig := preload("res://ui/npc_config.gd")
 const NpcPanels := preload("res://ui/npc_panels.gd")
+const WeaponFormula := preload("res://ui/weapon_formula.gd")
 
 var terrain: Terrain3D
 var rng := RandomNumberGenerator.new()
@@ -17,6 +18,7 @@ var _item_db
 var _backpack
 var _equipment
 var _economy
+var _warehouse
 var _panels := {}
 var _player_status: RefCounted
 var _backpack_hud: Control
@@ -65,6 +67,10 @@ func _build_environment() -> void:
 	env.fog_density = 0.0008
 	env.fog_height = -45.0
 	env.fog_height_density = 0.08
+	# 关键：fog_sky_affect=1（默认）会让指数雾在无限远的天空上完全雾化，
+	# 把 HDRI 天空盖成纯雾色——这就是"天空消失"的真凶（不是贴图/曝光）。
+	# 设为 0：雾只影响地形/物体景深，天空恢复 HDRI 云层。
+	env.fog_sky_affect = 0.0
 	# SSAO/SSIL：给地形与植被接触阴影，消除"平面贴纸感"（参考图质感关键）
 	env.ssao_enabled = true
 	env.ssao_radius = 1.2
@@ -505,10 +511,16 @@ func _build_hud() -> void:
 	_backpack = load("res://ui/backpack.gd").new(_item_db)
 	_equipment = load("res://ui/equipment.gd").new(_backpack)
 	_economy = load("res://ui/economy.gd").new()
+	_warehouse = load("res://ui/warehouse.gd").new()
+	_warehouse.add_item(_item_db.create_instance("enhancement_stone", 2))
+	_warehouse.add_item(_item_db.create_instance("reforge_ticket", 1))
+	_warehouse.add_item(_item_db.create_instance("magic_dust", 50))
 	NpcPanels.seed_materials(_backpack)
-	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, npc_bar)
+	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, npc_bar, _warehouse)
 	_panels["quest"].teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
 	_panels["expedition"].depart_requested.connect(_on_depart_requested)
+	_equipment.changed.connect(_refresh_weapon_mods)
+	_refresh_weapon_mods()
 
 
 ## 荒野场景补齐背包 HUD（快捷栏 + 背包面板）：与 main.gd 同构，最小技能集（火球 Q）
@@ -656,3 +668,16 @@ func _on_depart_requested(items: Array) -> void:
 			_backpack.add_item(String(it.get("id", "")), 1)
 	if _status_bar != null:
 		_status_bar.show_status("地牢世界未迁移，出征暂不可用（祭品已返还）", 2.5)
+
+
+func _refresh_weapon_mods() -> void:
+	var gun := _player.get_node_or_null("Camera3D/Gun") if _player != null else null
+	if gun == null or _equipment == null:
+		return
+	var item: Dictionary = _equipment.get_item("weapon")
+	if item.is_empty():
+		item = _equipment.get_item("weapon2")
+	if item.is_empty():
+		gun.clear_item_mods()
+		return
+	gun.apply_item_mods(WeaponFormula.gun_mods_from_item(item))
