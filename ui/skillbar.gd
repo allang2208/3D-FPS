@@ -12,6 +12,7 @@ var cooldowns := {}    # skill_id -> 剩余毫秒
 var special := {}      # {enabled, skill_id, cooldown_ms}
 var skills := {}       # skill_id -> {name, icon, cooldown_s, hold, tier}
 var staff_equipped := false
+var active_skill := ""  # 二段式技能正在凝聚的 skill_id（火球绕身阶段）
 
 func setup(skills_data: Dictionary) -> void:
 	skills = skills_data
@@ -100,22 +101,38 @@ func ready_check(slot: int) -> Dictionary:
 		return {"ok": false, "reason": "中级魔法需要装备法杖才能释放"}
 	return {"ok": true, "reason": ""}
 
-## 触发：判定（冷却/法杖门槛/MP）通过后扣 MP、设冷却，返回 ok + skill_id 交由施法系统
+## 触发（二段式）：凝聚中再按 → 第二段发射（不扣 MP/不设冷却）；
+## 第一段 → 扣 MP、不设冷却（消耗后由 consume_active 设），返回 ok + skill_id + phase
 func trigger(slot: int, mp_provider: Object = null) -> Dictionary:
 	var r := ready_check(slot)
 	if not bool(r.get("ok", false)):
 		return r
 	var skill_id := resolve(slot)
 	var def: Dictionary = skills.get(skill_id, {})
+	var two_stage := bool(def.get("two_stage", false))
+	if two_stage and active_skill == skill_id:
+		return {"ok": true, "reason": "", "skill_id": skill_id, "phase": "launch"}
 	var mp_cost: int = int(def.get("mp_cost", 0))
 	if mp_cost > 0 and mp_provider != null:
 		if int(mp_provider.get("mp")) < mp_cost:
 			return {"ok": false, "reason": "魔法不足"}
 		mp_provider.set_mp(int(mp_provider.get("mp")) - mp_cost)
+	if two_stage:
+		active_skill = skill_id
+		return {"ok": true, "reason": "", "skill_id": skill_id, "phase": "spawn"}
 	var cd_s: float = def.get("cooldown_s", 0.0)
 	if cd_s > 0.0:
 		set_cooldown(skill_id, cd_s * 1000.0)
-	return {"ok": true, "reason": "", "skill_id": skill_id}
+	return {"ok": true, "reason": "", "skill_id": skill_id, "phase": "cast"}
+
+## 二段式技能消耗完成（爆炸/超时）→ 开始冷却并清凝聚态
+func consume_active(skill_id: String) -> void:
+	if active_skill != skill_id:
+		return
+	active_skill = ""
+	var cd_s: float = float(skills.get(skill_id, {}).get("cooldown_s", 0.0))
+	if cd_s > 0.0:
+		set_cooldown(skill_id, cd_s * 1000.0)
 
 ## 特殊攻击槽（旧版 refreshSpecialAttack：夜与火之剑/符文长剑，15s 冷却）
 func refresh_special(weapon: Dictionary) -> void:

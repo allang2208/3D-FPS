@@ -1,5 +1,7 @@
 extends Node3D
 ## 火球（技能迁徙，从旧版 fireball-system.js / BoltSkillSystem 移植）
+## 二段式（原版流程）：第一次释放 → 凝聚火球绕施法者椭圆轨道环绕（73 帧动画，30s 内有效）；
+## 第二次释放 → 朝瞄准方向投掷 → 命中/到射程 → 范围爆炸。
 ## 视觉按原版逐层迁移：
 ## - 73 帧火球贴图动画（fireball_spritesheet.png，hover 100ms / fly 50ms，billboard 面向相机）
 ## - 飞行尾迹：ADD 橙粒子，50ms 间隔（世界空间，跟随火球）
@@ -13,6 +15,8 @@ const SPRITESHEET := "res://assets/ui/icons/skills/fireball_spritesheet.png"
 const ANIM_JSON := "res://assets/data/fireball_anim.json"
 const HIT_SOUND := "res://assets/sfx/fireball.mp3"
 
+signal consumed
+
 var _dir := Vector3.FORWARD
 var _speed := 22.4
 var _max_range := 16.8
@@ -22,7 +26,12 @@ var _traveled := 0.0
 var _scene_root: Node
 var _age := 0.0
 var _anim: AnimatedSprite3D
-var _launched := false
+var _hovering := false
+var _caster: Node3D
+var _orbit_angle := 0.0
+var _orbit_r := 0.9
+var _hover_duration := 30.0
+var _consumed_emitted := false
 
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, matk: int, intt: int) -> Node3D:
 	var script := load("res://scripts/fireball.gd")
@@ -30,6 +39,16 @@ static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, ma
 	fb.configure(origin, dir, level, matk, intt, scene_root)
 	scene_root.add_child(fb)
 	fb.build_visual()
+	return fb
+
+## 第一段：凝聚火球（绕施法者环绕，等玩家第二次释放投掷）
+static func spawn_hover(scene_root: Node, caster: Node3D, level: int, matk: int, intt: int) -> Node3D:
+	var script := load("res://scripts/fireball.gd")
+	var fb: Node3D = script.new()
+	fb.configure(caster.global_position + Vector3(0, 1.2, 0), Vector3.FORWARD, level, matk, intt, scene_root)
+	scene_root.add_child(fb)
+	fb.build_visual()
+	fb.enter_hover(caster)
 	return fb
 
 func configure(origin: Vector3, dir: Vector3, level: int, matk: int, intt: int, scene_root: Node) -> void:
@@ -72,6 +91,22 @@ func build_visual() -> void:
 	trail.process_material = tp
 	add_child(trail)
 
+## 第一段：凝聚（火球绕施法者椭圆轨道环绕，原版 makeProjectiles + 悬浮帧动画）
+func enter_hover(caster: Node3D) -> void:
+	_hovering = true
+	_caster = caster
+	_age = 0.0
+	_anim.speed_scale = 1.0  # 10fps（hover 100ms/帧）
+
+## 第二段：发射（原版 _launchAll：从当前轨道位置起飞，动画切 20fps）
+func launch(dir: Vector3) -> void:
+	if not _hovering:
+		return
+	_hovering = false
+	_dir = dir.normalized()
+	_age = 0.0
+	_anim.speed_scale = 2.0  # 20fps（fly 50ms/帧）
+
 func _build_fireball_anim() -> AnimatedSprite3D:
 	var tex: Texture2D = load(SPRITESHEET)
 	var cfg: Dictionary = {}
@@ -107,11 +142,10 @@ func _build_fireball_anim() -> AnimatedSprite3D:
 	return anim
 
 func _physics_process(delta: float) -> void:
+	if _hovering:
+		_hover_age(delta)
+		return
 	_age += delta
-	if not _launched:
-		_launched = true
-		if _anim != null:
-			_anim.speed_scale = 2.0  # 飞行帧率 20fps
 	if _age >= 3.0 or _traveled >= _max_range:
 		_explode(global_position)
 		return
@@ -126,6 +160,28 @@ func _physics_process(delta: float) -> void:
 	global_position = to
 	_traveled += step
 
+func _hover_age(delta: float) -> void:
+	_age += delta
+	if _age >= _hover_duration:
+		_emit_consumed()
+		queue_free()
+		return
+	if _caster == null or not is_instance_valid(_caster):
+		_emit_consumed()
+		queue_free()
+		return
+	# 原版：椭圆轨道环绕（orbitRx=radius, orbitRy=0.7*radius, orbitSpeed 0.0018 rad/ms）
+	_orbit_angle += delta * 1.8
+	var yaw: float = _caster.global_transform.basis.get_euler().y
+	var off := Vector3(cos(_orbit_angle) * _orbit_r, 0.0, sin(_orbit_angle) * _orbit_r * 0.7)
+	off = off.rotated(Vector3.UP, yaw)
+	global_position = _caster.global_position + Vector3(0, 1.2, 0) + off
+
+func _emit_consumed() -> void:
+	if not _consumed_emitted:
+		_consumed_emitted = true
+		consumed.emit()
+
 ## ---------- 爆炸（三层特效 + 音效 + AOE 伤害，原版顺序） ----------
 
 func _explode(pos: Vector3) -> void:
@@ -135,6 +191,7 @@ func _explode(pos: Vector3) -> void:
 	_smoke(pos)
 	_play_hit_sound(pos)
 	_aoe_damage(pos)
+	_emit_consumed()
 	queue_free()
 
 func _aoe_damage(pos: Vector3) -> void:
