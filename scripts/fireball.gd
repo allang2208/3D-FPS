@@ -62,8 +62,8 @@ func build_visual() -> void:
 	# 本体（D 方案）：程序化火焰 shader 球体
 	var sphere := MeshInstance3D.new()
 	var sm := SphereMesh.new()
-	sm.radius = 0.22
-	sm.height = 0.44
+	sm.radius = 0.16
+	sm.height = 0.32
 	sm.radial_segments = 24
 	sm.rings = 16
 	var shader: Shader = load(FIREBALL_SHADER)
@@ -123,6 +123,28 @@ func build_visual() -> void:
 	], [0.0, 1.0])
 	trail.process_material = tp
 	add_child(trail)
+	# 悬浮火星（凝聚时向上飘散的橙色小光点，让火球"活着"）
+	var ember := GPUParticles3D.new()
+	ember.emitting = true
+	ember.one_shot = false
+	ember.amount = 20
+	ember.lifetime = 0.7
+	ember.local_coords = false
+	ember.draw_pass_1 = _dot_pass(0.05, true)
+	var ep := ParticleProcessMaterial.new()
+	ep.direction = Vector3.UP
+	ep.spread = 25.0
+	ep.initial_velocity_min = 0.3
+	ep.initial_velocity_max = 0.8
+	ep.gravity = Vector3(0, -0.3, 0)
+	ep.scale_min = 0.03
+	ep.scale_max = 0.06
+	ep.color_ramp = _ramp([
+		Color(1.0, 0.6, 0.2, 0.9),
+		Color(1.0, 0.3, 0.1, 0.0),
+	], [0.0, 1.0])
+	ember.process_material = ep
+	add_child(ember)
 
 ## 第一段：凝聚（火球悬浮于左手位置——相机前下方偏左，镜像枪械握持位）
 func enter_hover(caster: Node3D) -> void:
@@ -173,7 +195,7 @@ func _hover_age(delta: float) -> void:
 	var cam := _caster.get_node_or_null("Camera3D") as Camera3D
 	if cam != null:
 		var b := cam.global_transform.basis
-		var hold := cam.global_position + b * Vector3(-0.30, -0.26, -0.55)
+		var hold := cam.global_position + b * Vector3(-0.28, -0.24, -0.85)
 		hold.y += sin(_hover_t * 2.2) * 0.03
 		global_position = hold
 	else:
