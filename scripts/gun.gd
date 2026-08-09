@@ -78,12 +78,13 @@ const ADS_SMOOTH := 12.0
 const ProjectileScript := preload("res://scripts/projectile.gd")
 const CasingScript := preload("res://scripts/casing.gd")
 const AKM_GLB := preload("res://assets/models/akm_trellis.glb")
+const HUNYUAN_AK_GLB := preload("res://assets/models/akm_hunyuan_lowpoly.glb")
 const SHOOT_SOUND := preload("res://assets/sfx/akm_burst.mp3")
 const RELOAD_SOUND := preload("res://assets/sfx/reload_sharp.mp3")
 const KILL_SOUND := preload("res://assets/sfx/criticalhit.mp3")
 
-# 枪模场景（换枪时替换；默认 AKM TRELLIS 版）
-var model_scene: PackedScene = AKM_GLB
+# 枪模场景（换枪时替换；当前默认混元3D LowPoly 版，TRELLIS 版可用 AKM_GLB 切换）
+var model_scene: PackedScene = HUNYUAN_AK_GLB
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
