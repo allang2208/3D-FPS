@@ -2,6 +2,8 @@
 
 从 three.js 原型迁移到 Godot 的 3D FPS 工程，资产沿用 AI 管线（AI 生图 → TRELLIS.2 → GLB）。
 
+并行开发约定（动画线 / UI 迁移线）见 [WORKFLOW.md](WORKFLOW.md)。
+
 ## 打开与运行
 
 Godot 编辑器（便携版）：`E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe`
