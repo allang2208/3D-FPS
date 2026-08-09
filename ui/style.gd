@@ -1,7 +1,7 @@
 extends RefCounted
 ## UI 风格集中定义（换肤只改本文件）
-## 当前沿用旧 2D 版深棕/暗金基调；后续接 moodboard（全境封锁 x 暗金六边形）时
-## 只需替换这里的色板 / 字体 / 圆角，HUD 代码零改动。
+## 定稿方向（DESIGN.md）：金主色 + 白信息 + 深灰底（下方 THEME_* 块）。
+## 切换时用 THEME_* 色板整体替换上方旧 2D 暗金 COLOR_*，HUD/背包代码零改动。
 
 # ---------- 基础色板 ----------
 const COLOR_BAR_BG := Color(0.16, 0.145, 0.125, 0.94)
@@ -88,18 +88,26 @@ const RARITY_BADGE_COLORS := {
 	"legendary": Color(0.84, 0.24, 0.22, 0.8),
 }
 
-# ---------- v2 全境封锁风色板（DESIGN.md Token，未启用） ----------
-# 切换时用下方色板整体替换上方旧 2D 暗金色板即可，HUD/背包代码零改动。
-const V2_BG_SCENE := Color(0.039, 0.055, 0.086)       # #0A0E16 深蓝黑底
-const V2_ACCENT_CYAN := Color(0.310, 0.765, 0.969)    # #4FC3F7 科技/战术主强调
-const V2_ACCENT_GOLD := Color(1.0, 0.847, 0.290)      # #FFD84A 游戏次强调
-const V2_HP_GREEN := Color(0.498, 0.824, 0.416)       # #7FD26A 生命
-const V2_WARN_ORANGE := Color(0.878, 0.663, 0.310)    # #E0A94F 警告
-const V2_DANGER_RED := Color(0.851, 0.357, 0.290)     # #D95B4A 危险
-const V2_MP_BLUE := Color(0.353, 0.561, 0.878)        # #5A8FE0 魔力
-const V2_TEXT_PRIMARY := Color(0.910, 0.894, 0.847)   # #E8E4D8 主文本
-const V2_TEXT_SECONDARY := Color(0.667, 0.690, 0.729) # #AAB0BA 次级文本
-const V2_TEXT_WEAK := Color(0.420, 0.447, 0.502)      # #6B7280 弱化文本
+# ---------- 定稿金色板（DESIGN.md Token，未启用） ----------
+# 全境封锁 UI 改进情绪板定稿：金主色 + 白信息 + 深灰底。
+# 切换时用下方色板整体替换上方旧 2D 暗金 COLOR_*，HUD/背包代码零改动。
+const THEME_BG := Color(0.0588, 0.0588, 0.0627)          # #0F0F10 深灰黑底
+const THEME_GOLD := Color(0.8314, 0.6863, 0.2157)        # #D4AF37 核心强调
+const THEME_WHITE := Color(1, 1, 1)                      # #FFFFFF 主信息文本
+const THEME_GRAY_LIGHT := Color(0.7098, 0.7098, 0.7098)  # #B5B5B5 次级文本/禁用字
+const THEME_GRAY_MID := Color(0.2275, 0.2275, 0.2353)    # #3A3A3C 边框/分隔线/按钮底
+const THEME_HP_GREEN := Color(0.498, 0.824, 0.416)       # #7FD26A 生命（状态）
+const THEME_WARN_ORANGE := Color(0.878, 0.663, 0.310)    # #E0A94F 警告（状态）
+const THEME_DANGER_RED := Color(0.851, 0.357, 0.290)     # #D95B4A 危险（状态）
+const THEME_MP_BLUE := Color(0.353, 0.561, 0.878)        # #5A8FE0 魔力（状态）
+# 按钮三态 / 进度条 / 分隔线（DESIGN.md 第 5 节）
+const THEME_BTN_BG := Color(0.2275, 0.2275, 0.2353)      # 默认底（同 GRAY_MID）
+const THEME_BTN_HOVER_BG := Color(0.8314, 0.6863, 0.2157) # 悬停金底
+const THEME_BTN_DISABLED_BG := Color(0.2275, 0.2275, 0.2353) # 禁用底
+const THEME_BTN_DISABLED_TEXT := Color(0.7098, 0.7098, 0.7098) # 禁用字
+const THEME_PROGRESS_FILL := Color(0.8314, 0.6863, 0.2157) # 进度条金填充
+const THEME_DIVIDER := Color(0.2275, 0.2275, 0.2353)     # 细分隔线
+const THEME_DIVIDER_ACCENT := Color(0.8314, 0.6863, 0.2157, 0.6) # 金色强调分隔线
 
 # ---------- 字体 ----------
 

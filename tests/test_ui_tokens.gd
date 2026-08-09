@@ -15,14 +15,17 @@ func _check(name: String, ok: bool, detail := "") -> void:
 
 func _initialize() -> void:
 	# 1) DESIGN.md 关键 Token 对齐 style.gd
-	_check("v2_bg_scene", Style.V2_BG_SCENE.is_equal_approx(Color(0.039, 0.055, 0.086)))
-	_check("v2_accent_cyan", Style.V2_ACCENT_CYAN.is_equal_approx(Color(0.310, 0.765, 0.969)))
-	_check("v2_accent_gold", Style.V2_ACCENT_GOLD.is_equal_approx(Color(1.0, 0.847, 0.290)))
-	_check("v2_hp_green", Style.V2_HP_GREEN.is_equal_approx(Color(0.498, 0.824, 0.416)))
-	_check("v2_warn_orange", Style.V2_WARN_ORANGE.is_equal_approx(Color(0.878, 0.663, 0.310)))
-	_check("v2_danger_red", Style.V2_DANGER_RED.is_equal_approx(Color(0.851, 0.357, 0.290)))
-	_check("v2_mp_blue", Style.V2_MP_BLUE.is_equal_approx(Color(0.353, 0.561, 0.878)))
-	_check("v2_text_primary", Style.V2_TEXT_PRIMARY.is_equal_approx(Color(0.910, 0.894, 0.847)))
+	_check("theme_bg", Style.THEME_BG.is_equal_approx(Color(0.0588, 0.0588, 0.0627)))
+	_check("theme_gold", Style.THEME_GOLD.is_equal_approx(Color(0.8314, 0.6863, 0.2157)))
+	_check("theme_white", Style.THEME_WHITE.is_equal_approx(Color(1, 1, 1)))
+	_check("theme_gray_light", Style.THEME_GRAY_LIGHT.is_equal_approx(Color(0.7098, 0.7098, 0.7098)))
+	_check("theme_gray_mid", Style.THEME_GRAY_MID.is_equal_approx(Color(0.2275, 0.2275, 0.2353)))
+	_check("theme_hp_green", Style.THEME_HP_GREEN.is_equal_approx(Color(0.498, 0.824, 0.416)))
+	_check("theme_warn_orange", Style.THEME_WARN_ORANGE.is_equal_approx(Color(0.878, 0.663, 0.310)))
+	_check("theme_danger_red", Style.THEME_DANGER_RED.is_equal_approx(Color(0.851, 0.357, 0.290)))
+	_check("theme_mp_blue", Style.THEME_MP_BLUE.is_equal_approx(Color(0.353, 0.561, 0.878)))
+	_check("theme_btn_hover", Style.THEME_BTN_HOVER_BG.is_equal_approx(Color(0.8314, 0.6863, 0.2157)))
+	_check("theme_progress_fill", Style.THEME_PROGRESS_FILL.is_equal_approx(Color(0.8314, 0.6863, 0.2157)))
 	_check("dmg_flash_token", Style.COLOR_DMG_FLASH.is_equal_approx(Color(0.8, 0, 0, 0)))
 	_check("transparent_token", Style.COLOR_TRANSPARENT.is_equal_approx(Color(0, 0, 0, 0)))
 

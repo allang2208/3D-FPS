@@ -46,6 +46,18 @@ UI mood board concept sheet for a tactical sci-fi FPS game interface, The Divisi
 
 生成：智谱 API `glm-image` 1280x1280（5080 FLUX 故障期间兜底）。
 
+## v3：定稿金色方向（2026-08-09）
+
+定稿基准：`ref_division_ui_improvement.png`（《全境封锁 1+2》UI 改进情绪板，
+源自 `C:\Users\allan\Downloads\图片-1.png`）。
+
+- 方向：**金主色 #D4AF37 + 白信息 #FFFFFF + 深灰底 #0F0F10 / #3A3A3C / #B5B5B5**；
+  字体思源黑体 + 字重阶梯；按钮三态 / 金进度条 / 玻璃面板 / 分隔线。
+- 按此八段式格式出的完整情绪板：`moodboard_v3_board_1.jpg` / `_2.jpg` / `_3.jpg`
+  （提示词 `prompt_v3_board.txt`）。
+- 同步：`DESIGN.md` 已更新为定稿方向；`ui/style.gd` 已加入 `THEME_*` Token
+  （未启用，换肤时整体替换 `COLOR_*`）。
+
 ## 待办：修好 5080 后出 FLUX 精修版
 
 远端需以 `--use-split-attention` 启动（或修复 xformers 对 sm_120 的适配），
