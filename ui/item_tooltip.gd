@@ -22,10 +22,14 @@ var _close_btn: Button
 var _craft_col: VBoxContainer
 var _enchant_col: VBoxContainer
 var _main_col: VBoxContainer
+var _font_title: SystemFont
+var _font_value: SystemFont
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	theme = Style.make_theme()
+	_font_title = Style.make_font(700)
+	_font_value = Style.make_font(600)
 	add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_TT_BG, Style.COLOR_TT_BORDER, 8, 2))
 	_build()
 
@@ -74,7 +78,8 @@ func _build() -> void:
 	_name_row.add_theme_constant_override("separation", 6)
 	title_box.add_child(_name_row)
 	_name_label = Label.new()
-	_name_label.add_theme_font_size_override("font_size", 17)
+	_name_label.add_theme_font_size_override("font_size", 16)
+	_name_label.add_theme_font_override("font", _font_title)
 	_name_label.add_theme_color_override("font_color", Style.COLOR_TT_NAME)
 	_name_row.add_child(_name_label)
 	_type_row = HBoxContainer.new()
@@ -124,6 +129,7 @@ func _render_main(item: Dictionary) -> void:
 		_badge = Label.new()
 		_badge.text = "已强化 +%d" % enhance
 		_badge.add_theme_font_size_override("font_size", 12)
+		_badge.add_theme_font_override("font", _font_value)
 		_badge.add_theme_color_override("font_color", Style.COLOR_BADGE_GOLD_TEXT)
 		_badge.add_theme_stylebox_override("normal", Style.make_style(Style.COLOR_BADGE_GOLD_BG, Color(0, 0, 0, 0), 4, 0))
 		_badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -394,6 +400,7 @@ func _add_group_title(parent: Node, text: String) -> void:
 	var lbl := Label.new()
 	lbl.text = text
 	lbl.add_theme_font_size_override("font_size", 12)
+	lbl.add_theme_font_override("font", _font_value)
 	lbl.add_theme_color_override("font_color", Style.COLOR_TT_NAME)
 	parent.add_child(lbl)
 
@@ -403,7 +410,8 @@ func _add_panel_title(parent: Node, text: String, color: Color) -> void:
 	parent.add_child(sep)
 	var lbl := Label.new()
 	lbl.text = text
-	lbl.add_theme_font_size_override("font_size", 13)
+	lbl.add_theme_font_size_override("font_size", 12)
+	lbl.add_theme_font_override("font", _font_title)
 	lbl.add_theme_color_override("font_color", color)
 	parent.add_child(lbl)
 
@@ -419,6 +427,7 @@ func _add_row(parent: Node, name: String, value: String, pos := false, neg := fa
 	var val_lbl := Label.new()
 	val_lbl.text = value
 	val_lbl.add_theme_font_size_override("font_size", 12)
+	val_lbl.add_theme_font_override("font", _font_value)
 	var c := Style.COLOR_TT_VAL
 	if neg:
 		c = Style.COLOR_TT_CRAFT_NEG

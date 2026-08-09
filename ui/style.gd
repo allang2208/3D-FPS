@@ -39,6 +39,15 @@ const COLOR_CROSSHAIR := Color(0.95, 0.95, 0.9)
 const COLOR_HITMARKER := Color(0.98, 0.98, 0.95)
 const COLOR_DMG_FLASH := Color(0.8, 0, 0, 0)
 const COLOR_TRANSPARENT := Color(0, 0, 0, 0)
+const COLOR_WHITE := Color(1, 1, 1)
+const COLOR_BLACK := Color(0, 0, 0)
+const COLOR_TITLE_TEXT := Color(0.91, 0.87, 0.8)
+const COLOR_STACK_TEXT := Color(0.95, 0.9, 0.8)
+const COLOR_KEY_HINT := Color(0.9, 0.9, 0.9)
+const COLOR_ZERO_TEXT := Color(0.95, 0.35, 0.32)
+const COLOR_RARITY_TEXT := Color(0.1, 0.1, 0.1)
+const COLOR_EQUIP_LOCK_OVERLAY := Color(0.12, 0.12, 0.12, 0.62)
+const COLOR_DRAG_PREVIEW_BG := Color(0.2, 0.18, 0.15, 0.92)
 
 # ---------- 浮窗（白底，复刻旧版 tt-main） ----------
 const COLOR_TT_BG := Color(0.96, 0.95, 0.93)
@@ -111,9 +120,11 @@ const THEME_DIVIDER_ACCENT := Color(0.8314, 0.6863, 0.2157, 0.6) # 金色强调�
 
 # ---------- 字体 ----------
 
-static func make_font() -> SystemFont:
+## 黑体字重阶梯（DESIGN.md：标题 Heavy / 副标题 Bold / 正文 Regular）
+static func make_font(weight := 400) -> SystemFont:
 	var f := SystemFont.new()
-	f.font_names = PackedStringArray(["Microsoft YaHei", "SimHei", "Noto Sans CJK SC"])
+	f.font_names = PackedStringArray(["Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", "SimHei"])
+	f.font_weight = weight
 	return f
 
 ## emoji 回退字体（旧版图标加载失败时显示 item.icon 字符）
@@ -125,7 +136,7 @@ static func make_emoji_font() -> SystemFont:
 static func make_theme() -> Theme:
 	var t := Theme.new()
 	t.default_font = make_font()
-	t.default_font_size = 13
+	t.default_font_size = 14
 	return t
 
 static func make_style(bg: Color, border: Color, radius := 8, border_w := 2) -> StyleBoxFlat:

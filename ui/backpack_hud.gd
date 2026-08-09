@@ -29,7 +29,7 @@ const EQUIP_SLOT_SIZE := Vector2(118, 86)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
-const PANEL_MARGIN := 14
+const PANEL_MARGIN := 12
 const PANEL_SLIDE_X := 140.0
 
 const EQUIP_SLOT_LABELS := {
@@ -62,6 +62,9 @@ var _notice_tween: Tween
 var _drag_clear_timer: Timer
 var _tooltip: Control
 var _tooltip_tween: Tween
+var _font_title: SystemFont
+var _font_section: SystemFont
+var _font_value: SystemFont
 var _tex_cache := {}
 var _cd_last := {}
 var _hovered_cell := -1
@@ -87,6 +90,9 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme = Style.make_theme()
+	_font_title = Style.make_font(700)
+	_font_section = Style.make_font(600)
+	_font_value = Style.make_font(600)
 	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
 	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
 	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
@@ -149,7 +155,8 @@ func _refresh_hotbar() -> void:
 			icon.texture = _icon_tex(String(item.get("icon", "")))
 			var count: int = item.get("stack", 0)
 			stack.text = str(count)
-			stack.add_theme_color_override("font_color", Color(0.95, 0.35, 0.32) if count <= 0 else Style.COLOR_TEXT)
+			stack.add_theme_color_override("font_color", Style.COLOR_ZERO_TEXT if count <= 0 else Style.COLOR_TEXT)
+			stack.add_theme_font_override("font", _font_value)
 			slot.add_theme_stylebox_override("panel", _s_hotbar_hover if i == _hovered_hotbar else _s_hotbar_item)
 			slot.tooltip_text = ""
 
@@ -214,7 +221,8 @@ func _refresh_equip() -> void:
 		else:
 			_set_icon(icon, fallback, item)
 			name_lbl.text = String(item.get("name", ""))
-			name_lbl.add_theme_color_override("font_color", Color.WHITE)
+			name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
+			name_lbl.add_theme_font_override("font", _font_value)
 			var rarity_key := String(item.get("rarity", "common"))
 			rarity_lbl.text = _vertical_text(Style.rarity_label(rarity_key))
 			rarity_lbl.add_theme_stylebox_override("normal", Style.make_style(Style.RARITY_BADGE_COLORS.get(rarity_key, Color.GRAY), Color(0, 0, 0, 0), 3, 0))
@@ -656,9 +664,10 @@ func _build_hotbar() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
-		var stack := _make_label(content, "", 11, Style.COLOR_TEXT, Vector2(3, HOTBAR_SLOT - 17))
+		var stack := _make_label(content, "", 12, Style.COLOR_TEXT, Vector2(3, HOTBAR_SLOT - 18))
 		stack.name = "Stack"
-		var key := _make_label(content, str(i + 1), 10, Color(0.9, 0.9, 0.9), Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		stack.add_theme_font_override("font", _font_value)
+		var key := _make_label(content, str(i + 1), 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
@@ -738,17 +747,20 @@ func _build_panel() -> void:
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
 	vbox.add_child(title_row)
-	var title := _make_label(title_row, "装备与背包", 20, Color(0.91, 0.87, 0.8), Vector2.ZERO)
+	var title := _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
+	title.add_theme_font_override("font", _font_title)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_count_label = _make_label(title_row, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
+	_count_label.add_theme_font_override("font", _font_section)
 	var columns := HBoxContainer.new()
-	columns.add_theme_constant_override("separation", 16)
+	columns.add_theme_constant_override("separation", 14)
 	vbox.add_child(columns)
 	# 左：装备栏
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
 	columns.add_child(equip_col)
-	var equip_title := _make_label(equip_col, "装备栏", 15, Style.COLOR_TEXT, Vector2.ZERO)
+	var equip_title := _make_label(equip_col, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_equip_grid = GridContainer.new()
 	_equip_grid.columns = EQUIP_COLS
@@ -792,7 +804,8 @@ func _build_panel() -> void:
 		name_lbl.size = Vector2(62, 30)
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		name_lbl.add_theme_font_size_override("font_size", 13)
+		name_lbl.add_theme_font_size_override("font_size", 14)
+		name_lbl.add_theme_font_override("font", _font_value)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)
@@ -802,8 +815,8 @@ func _build_panel() -> void:
 		rarity_lbl.size = Vector2(16, 80)
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 11)
-		rarity_lbl.add_theme_color_override("font_color", Color(0.1, 0.1, 0.1))
+		rarity_lbl.add_theme_font_size_override("font_size", 12)
+		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
 		var badges := VBoxContainer.new()
@@ -819,7 +832,7 @@ func _build_panel() -> void:
 		lock.visible = false
 		cell_content.add_child(lock)
 		var lock_bg := ColorRect.new()
-		lock_bg.color = Color(0.12, 0.12, 0.12, 0.62)
+		lock_bg.color = Style.COLOR_EQUIP_LOCK_OVERLAY
 		lock_bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		lock_bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		lock.add_child(lock_bg)
@@ -829,7 +842,7 @@ func _build_panel() -> void:
 		x_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		x_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		x_lbl.add_theme_font_size_override("font_size", 30)
-		x_lbl.add_theme_color_override("font_color", Color(0, 0, 0))
+		x_lbl.add_theme_color_override("font_color", Style.COLOR_BLACK)
 		x_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		lock.add_child(x_lbl)
 		_equip_grid.add_child(cell)
@@ -838,12 +851,13 @@ func _build_panel() -> void:
 	var inv_col := VBoxContainer.new()
 	inv_col.add_theme_constant_override("separation", 6)
 	columns.add_child(inv_col)
-	var inv_title := _make_label(inv_col, "背包", 15, Style.COLOR_TEXT, Vector2.ZERO)
+	var inv_title := _make_label(inv_col, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
-	_grid.add_theme_constant_override("h_separation", 5)
-	_grid.add_theme_constant_override("v_separation", 5)
+	_grid.add_theme_constant_override("h_separation", 6)
+	_grid.add_theme_constant_override("v_separation", 6)
 	inv_col.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
@@ -873,9 +887,10 @@ func _build_panel() -> void:
 		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		fallback.visible = false
 		cell_content.add_child(fallback)
-		var stack := _make_label(cell_content, "", 11, Color(0.95, 0.9, 0.8), Vector2(CELL_SLOT - 20, 3))
+		var stack := _make_label(cell_content, "", 12, Style.COLOR_STACK_TEXT, Vector2(CELL_SLOT - 20, 3))
 		stack.name = "Stack"
-		var name_lbl := _make_label(cell_content, "", 9, Color.WHITE, Vector2(2, CELL_SLOT - 14))
+		stack.add_theme_font_override("font", _font_value)
+		var name_lbl := _make_label(cell_content, "", 11, Style.COLOR_WHITE, Vector2(2, CELL_SLOT - 15))
 		name_lbl.name = "Name"
 		name_lbl.custom_minimum_size = Vector2(CELL_SLOT - 4, 12)
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -884,8 +899,8 @@ func _build_panel() -> void:
 		rarity_lbl.position = Vector2(2, 2)
 		rarity_lbl.custom_minimum_size = Vector2(24, 13)
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 9)
-		rarity_lbl.add_theme_color_override("font_color", Color(0.1, 0.1, 0.1))
+		rarity_lbl.add_theme_font_size_override("font_size", 10)
+		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
 		_grid.add_child(cell)
@@ -911,7 +926,8 @@ func _build_status_label() -> void:
 	_status_label.visible = false
 
 func _build_notice() -> void:
-	_notice_label = _make_label(self, "", 22, Style.COLOR_NOTICE, Vector2.ZERO)
+	_notice_label = _make_label(self, "", 24, Style.COLOR_NOTICE, Vector2.ZERO)
+	_notice_label.add_theme_font_override("font", _font_title)
 	_notice_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_notice_label.offset_top = 210
 	_notice_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -992,7 +1008,7 @@ func _clear_children(box: Node) -> void:
 func make_slot_preview(item: Dictionary) -> Control:
 	var p := PanelContainer.new()
 	p.custom_minimum_size = Vector2(44, 44)
-	p.add_theme_stylebox_override("panel", Style.make_style(Color(0.2, 0.18, 0.15, 0.92), Style.COLOR_ITEM_BORDER, 6, 2))
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_ITEM_BORDER, 6, 2))
 	var tr := TextureRect.new()
 	tr.texture = _icon_tex(String(item.get("icon", "")))
 	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE

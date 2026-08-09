@@ -18,6 +18,8 @@ var _hitmarker: Label
 var _death_panel: VBoxContainer
 var _dmgflash: ColorRect
 var _theme: Theme
+var _font_bold: SystemFont
+var _font_heavy: SystemFont
 
 var _hitmark_t := 0.0
 var _dmgflash_t := 0.0
@@ -25,6 +27,8 @@ var _status_t := 0.0
 
 func _ready() -> void:
 	_theme = Style.make_theme()
+	_font_bold = Style.make_font(600)
+	_font_heavy = Style.make_font(700)
 	_build()
 
 func _process(delta: float) -> void:
@@ -73,6 +77,7 @@ func _build() -> void:
 	var title := Label.new()
 	title.text = "你死了"
 	title.theme = _theme
+	title.add_theme_font_override("font", _font_heavy)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 40)
 	title.add_theme_color_override("font_color", Style.COLOR_DEATH_TITLE)
@@ -81,7 +86,7 @@ func _build() -> void:
 	hint.text = "按 R 重来"
 	hint.theme = _theme
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint.add_theme_font_size_override("font_size", 18)
+	hint.add_theme_font_size_override("font_size", 16)
 	hint.add_theme_color_override("font_color", Style.COLOR_DEATH_HINT)
 	_death_panel.add_child(hint)
 	_death_panel.visible = false
@@ -105,6 +110,7 @@ func _make_label(text: String, pos: Vector2, size: int, color: Color) -> Label:
 	l.text = text
 	l.position = pos
 	l.theme = _theme
+	l.add_theme_font_override("font", _font_bold)
 	l.add_theme_color_override("font_color", color)
 	l.add_theme_font_size_override("font_size", size)
 	add_child(l)
