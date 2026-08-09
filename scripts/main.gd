@@ -4,21 +4,20 @@ extends Node3D
 
 const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"
 
-var _wolf: Node3D
+var _player: Node3D
+var _hp_label: Label
 var _t := 0.0
 
 func _ready() -> void:
 	_build_environment()
 	_build_ground()
 	_build_walls()
+	_build_hud()
 	_build_player()
 	_build_wolf()
 
 func _process(delta: float) -> void:
 	_t += delta
-	# 占位待机动画：轻微起伏（后续换成骨骼动画 / IK）
-	if _wolf:
-		_wolf.position.y = 0.41 + sin(_t * 2.2) * 0.05
 
 func _build_environment() -> void:
 	var env := Environment.new()
@@ -101,6 +100,7 @@ func _build_player() -> void:
 	var player := CharacterBody3D.new()
 	player.name = "Player"
 	player.position = Vector3(0, 0.2, 8)
+	_player = player
 	player.set_script(load("res://scripts/player.gd"))
 	var col := CollisionShape3D.new()
 	var cap := CapsuleShape3D.new()
@@ -120,14 +120,52 @@ func _build_player() -> void:
 	cam.add_child(gun)
 	add_child(player)
 
+func _build_hud() -> void:
+	var layer := CanvasLayer.new()
+	layer.name = "HUD"
+	add_child(layer)
+	var hp := Label.new()
+	hp.name = "WolfHP"
+	hp.text = "黑狼 HP: 85/85"
+	hp.position = Vector2(16, 12)
+	hp.add_theme_color_override("font_color", Color(0.92, 0.92, 0.96))
+	hp.add_theme_font_size_override("font_size", 18)
+	layer.add_child(hp)
+	_hp_label = hp
+	var cross := Label.new()
+	cross.name = "Crosshair"
+	cross.text = "＋"
+	cross.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	cross.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	cross.grow_vertical = Control.GROW_DIRECTION_BOTH
+	cross.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	cross.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	cross.add_theme_color_override("font_color", Color(0.95, 0.95, 0.9))
+	cross.add_theme_font_size_override("font_size", 28)
+	layer.add_child(cross)
+
 func _build_wolf() -> void:
 	var wolf_scene := load(WOLF_GLB)
 	if not wolf_scene:
 		push_warning("黑狼 GLB 未导入，请先运行 --import 或打开一次编辑器")
 		return
-	_wolf = wolf_scene.instantiate()
-	_wolf.name = "BlackWolf"
-	_wolf.scale = Vector3.ONE * 1.9
+	var enemy := CharacterBody3D.new()
+	enemy.name = "WolfEnemy"
+	enemy.position = Vector3(3, 0, -4)
+	enemy.set_script(load("res://scripts/wolf_enemy.gd"))
+	var col := CollisionShape3D.new()
+	col.name = "Collision"
+	var cap := CapsuleShape3D.new()
+	cap.radius = 0.55
+	cap.height = 1.0
+	col.shape = cap
+	col.position = Vector3(0, 0.5, 0)
+	enemy.add_child(col)
+	var model: Node3D = wolf_scene.instantiate()
+	model.name = "BlackWolf"
+	model.scale = Vector3.ONE * 1.9
 	# 原始 GLB：脚底 y≈-0.21，头朝 +z；抬高让脚落在地面
-	_wolf.position = Vector3(3, 0.41, -4)
-	add_child(_wolf)
+	model.position = Vector3(0, 0.41, 0)
+	enemy.add_child(model)
+	add_child(enemy)
+	enemy.setup(_player, _hp_label)
