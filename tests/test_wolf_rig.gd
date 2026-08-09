@@ -41,7 +41,8 @@ func _initialize() -> void:
 	var verts: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 	_check("skin_arrays", bones.size() == verts.size() * 4 and weights.size() == verts.size() * 4)
 	var norm_ok := true
-	for vi in [0, 1000, 50000, 150000, verts.size() - 1]:
+	var n := verts.size()
+	for vi in [0, n / 16, n / 4, n / 2, n - 1]:
 		var sum := 0.0
 		for k in 4:
 			sum += weights[vi * 4 + k]

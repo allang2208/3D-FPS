@@ -7,26 +7,26 @@ extends Node3D
 ## 与旧版差异：旧版蒙皮线段→骨骼有错位（线段索引直接当骨骼索引），本版按“线段归属骨骼”修正；
 ## 旧版死亡摊腿 startsWith('R') 恒为 false，本版按左右腿正确取符号。
 
-# [name, parent_name, 模型空间关节坐标]（旧工具 wolf-inspect 实测，GLB 相同故直接沿用）
+# [name, parent_name, 模型空间关节坐标]（2026-08-09 按 CuMesh 版新狼重新实测）
 const BONE_DEFS := [
-	["pelvis", "", Vector3(0.0, 0.06, -0.22)],
-	["spineMid", "pelvis", Vector3(0.0, 0.09, -0.05)],
-	["chest", "spineMid", Vector3(0.0, 0.10, 0.10)],
-	["neck", "chest", Vector3(0.0, 0.15, 0.24)],
-	["head", "neck", Vector3(0.0, 0.19, 0.33)],
-	["tail", "pelvis", Vector3(0.0, 0.05, -0.32)],
-	["FLRoot", "pelvis", Vector3(-0.075, 0.01, 0.17)],
-	["FLKnee", "FLRoot", Vector3(-0.075, -0.09, 0.15)],
-	["FLPaw", "FLKnee", Vector3(-0.063, -0.21, 0.19)],
-	["FRRoot", "pelvis", Vector3(0.085, 0.01, 0.14)],
-	["FRKnee", "FRRoot", Vector3(0.085, -0.09, 0.12)],
-	["FRPaw", "FRKnee", Vector3(0.078, -0.18, 0.15)],
-	["HLRoot", "pelvis", Vector3(-0.10, 0.02, -0.29)],
-	["HLKnee", "HLRoot", Vector3(-0.10, -0.08, -0.30)],
-	["HLPaw", "HLKnee", Vector3(-0.103, -0.19, -0.32)],
-	["HRRoot", "pelvis", Vector3(0.07, 0.02, -0.28)],
-	["HRKnee", "HRRoot", Vector3(0.07, -0.08, -0.29)],
-	["HRPaw", "HRKnee", Vector3(0.051, -0.20, -0.27)],
+	["pelvis", "", Vector3(0.0, 0.136, -0.22)],
+	["spineMid", "pelvis", Vector3(0.0, 0.138, -0.05)],
+	["chest", "spineMid", Vector3(0.0, 0.124, 0.10)],
+	["neck", "chest", Vector3(0.0, 0.160, 0.24)],
+	["head", "neck", Vector3(0.0, 0.136, 0.40)],
+	["tail", "pelvis", Vector3(0.0, 0.0, -0.35)],
+	["FLRoot", "pelvis", Vector3(-0.082, -0.010, 0.177)],
+	["FLKnee", "FLRoot", Vector3(-0.080, -0.12, 0.21)],
+	["FLPaw", "FLKnee", Vector3(-0.078, -0.227, 0.240)],
+	["FRRoot", "pelvis", Vector3(0.082, -0.005, 0.175)],
+	["FRKnee", "FRRoot", Vector3(0.087, -0.11, 0.185)],
+	["FRPaw", "FRKnee", Vector3(0.091, -0.227, 0.195)],
+	["HLRoot", "pelvis", Vector3(-0.082, -0.012, -0.190)],
+	["HLKnee", "HLRoot", Vector3(-0.094, -0.12, -0.21)],
+	["HLPaw", "HLKnee", Vector3(-0.106, -0.226, -0.230)],
+	["HRRoot", "pelvis", Vector3(0.082, -0.011, -0.184)],
+	["HRKnee", "HRRoot", Vector3(0.095, -0.12, -0.21)],
+	["HRPaw", "HRKnee", Vector3(0.107, -0.226, -0.233)],
 ]
 
 # 蒙皮权重线段：[线段端点a, 线段端点b, 权重目标骨骼]（均为 BONE_DEFS 下标）

@@ -37,18 +37,13 @@ func _process(delta: float) -> bool:
 		_start_pos = _wolf.global_position
 		print("TEST enemies=1 start=", _start_pos)
 	if _frames == 2:
-		# ADS 时应隐藏准星
+		# ADS 时应隐藏准星（走信号全链路：gun.ads_changed → main._on_ads_changed → status_bar）
 		var gun: Node = root.get_node("Main/Player/Camera3D/Gun")
-		gun.set("_ads", true)
-		gun.set("_ads_factor", 0.6)
-		gun.call("_process", 0.016)
 		var sb: Node = root.get_node("Main/StatusBar")
-		var cross: Node = null
-		for c in sb.find_children("", "Label", true, false):
-			if c is Label and c.text == "+":
-				cross = c
-				break
-		_ads_hidden = cross != null and cross.visible == false
+		gun.ads_changed.emit(true)
+		var ch: Node = sb.get("_ch_up")  # 四段式准星（UI 线重做后不再是 "+" Label）
+		_ads_hidden = ch != null and ch.visible == false
+		gun.ads_changed.emit(false)
 		print("TEST ads_hides_crosshair=", _ads_hidden)
 	if _frames == 5:
 		# 验证弹道系统：飞行子弹命中黑狼（扣血），火花在生命周期后自毁
