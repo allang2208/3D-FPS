@@ -48,15 +48,16 @@ func _build_environment() -> void:
 	var sky := Sky.new()
 	var mat := PanoramaSkyMaterial.new()
 	mat.panorama = load(HDRI)
+	mat.energy_multiplier = 2.2  # 阴天 HDRI 提亮，恢复"有天空"的观感
 	sky.sky_material = mat
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.35
+	env.ambient_light_energy = 0.1
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	# 过曝修复：FILMIC 默认 exposure=1.0 会把地表压到发白（实测 val≈0.90），
-	# 降到 0.35 后地面回到参考图质感（val≈0.6-0.7、绿色饱和、层次分明）
-	env.tonemap_exposure = 0.35
+	# 曝光平衡（实测标定）：exposure 1.4 + 天空能量 2.2 + 低太阳/环境光
+	# → 天空恢复可见 val≈0.51，地面保持参考图亮度 val≈0.33-0.36
+	env.tonemap_exposure = 1.4
 	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
 	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
 	env.fog_enabled = true
@@ -78,7 +79,7 @@ func _build_light() -> void:
 	var light := DirectionalLight3D.new()
 	light.name = "Sun"
 	light.rotation_degrees = Vector3(-50, 30, 0)
-	light.light_energy = 0.8
+	light.light_energy = 0.28
 	light.shadow_enabled = true
 	add_child(light)
 
@@ -264,29 +265,59 @@ func _build_landmark_rocks() -> void:
 
 
 func _build_river() -> void:
-	# 沿地形高度图里的蛇形河道（z = 40*sin(x/90)）铺水面分段。
-	# 每段 PlaneMesh 旋转到路径切线方向，y 落在河道底部上方约 1.2m（水面）。
+	# 沿蛇形河道生成一张"贴合地形的带状水面"：
+	# 用 ArrayMesh 沿路径 + 宽度方向采样地形高度，每个顶点 y = 地形高度 + 水深，
+	# 彻底消除分段平面造成的悬浮/接缝问题。
 	var mat := ShaderMaterial.new()
 	mat.shader = load("res://assets/shaders/river_water.gdshader")
 	var river := Node3D.new()
 	river.name = "River"
 	add_child(river)
-	var seg := 10.0
-	var prev := Vector3(-430, 0, 40.0 * sin(-430.0 / 90.0))
-	for wx in range(-430.0, 431.0, seg):
+	var half_w := 6.5      # 半宽（m）
+	var depth := 0.55      # 水面到河床的高度（m）
+	var step := 3.0        # 沿路径采样步长（m）
+	var pts: Array[Vector3] = []
+	for wx in range(-430.0, 431.0, step):
 		var cz := 40.0 * sin(wx / 90.0)
-		var pos := Vector3(wx, 0.0, cz)
-		pos.y = terrain.data.get_height(pos) + 1.1
-		var mi := MeshInstance3D.new()
-		var mesh := PlaneMesh.new()
-		mesh.size = Vector2(seg * 1.15, 14.0)
-		mesh.material = mat
-		mi.mesh = mesh
-		mi.position = pos
-		var dir := pos - prev
-		mi.rotation.y = atan2(-dir.z, dir.x) + PI / 2.0
-		river.add_child(mi)
-		prev = pos
+		pts.append(Vector3(wx, 0.0, cz))
+	# 生成带状网格
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var verts: Array[Vector3] = []
+	for i in pts.size():
+		var p := pts[i]
+		# 切线方向：端点用一阶差分，中间用前后点
+		var tan: Vector3
+		if i == 0:
+			tan = (pts[1] - pts[0]).normalized()
+		elif i == pts.size() - 1:
+			tan = (pts[i] - pts[i - 1]).normalized()
+		else:
+			tan = (pts[i + 1] - pts[i - 1]).normalized()
+		var side := tan.cross(Vector3.UP).normalized()
+		var left := p + side * half_w
+		var right := p - side * half_w
+		left.y = terrain.data.get_height(left) + depth
+		right.y = terrain.data.get_height(right) + depth
+		verts.append(right)
+		verts.append(left)
+	for v in verts:
+		st.add_vertex(v)
+	for i in pts.size() - 1:
+		var a := i * 2
+		var b := (i + 1) * 2
+		# 四边形 (a右,a左,b右,b左) 拆两个三角形
+		st.add_index(a)
+		st.add_index(a + 1)
+		st.add_index(b)
+		st.add_index(a + 1)
+		st.add_index(b + 1)
+		st.add_index(b)
+	var mesh := st.commit()
+	mesh.surface_set_material(0, mat)
+	var mi := MeshInstance3D.new()
+	mi.mesh = mesh
+	river.add_child(mi)
 	# 河岸装饰：沿河道放一些碎石（复用 rock_smallA）
 	var rock: PackedScene = load("res://assets/models/kenney_nature/rock_smallA.glb")
 	for i in 30:
