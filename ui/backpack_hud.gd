@@ -871,7 +871,9 @@ func _build_hotbar() -> void:
 	var bar := PanelContainer.new()
 	bar.name = "Hotbar"
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bar.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_BAR_BORDER, 12, 2))
+	# 快捷栏容器：半透明玻璃底（与面板毛玻璃一致）
+	bar.add_theme_stylebox_override("panel",
+		Style.make_style(Color(Style.THEME_BG, 0.30), Style.COLOR_BAR_BORDER, 12, 2))
 	bar.add_theme_constant_override("margin_left", BAR_PAD)
 	bar.add_theme_constant_override("margin_right", BAR_PAD)
 	bar.add_theme_constant_override("margin_top", BAR_PAD)
@@ -1072,9 +1074,16 @@ func _build_panel() -> void:
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
 	vbox.add_child(title_row)
+	var title_accent := ColorRect.new()
+	title_accent.custom_minimum_size = Vector2(3, 22)
+	title_accent.color = Style.THEME_GOLD
+	title_row.add_child(title_accent)
 	_panel_title = _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
 	_panel_title.add_theme_font_override("font", _font_title)
 	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_count_label = _make_label(title_row, "", 14, Style.THEME_GOLD, Vector2.ZERO)
+	_count_label.add_theme_font_override("font", _font_mono)
+	_count_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	var divider := HSeparator.new()
 	divider.modulate = Style.COLOR_PANEL_BORDER
 	vbox.add_child(divider)
@@ -1106,7 +1115,14 @@ func _build_panel() -> void:
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
 	_equip_page.add_child(equip_col)
-	var equip_title := _make_label(equip_col, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	var equip_head := HBoxContainer.new()
+	equip_head.add_theme_constant_override("separation", 6)
+	equip_col.add_child(equip_head)
+	var equip_bar := ColorRect.new()
+	equip_bar.custom_minimum_size = Vector2(3, 14)
+	equip_bar.color = Style.THEME_GOLD
+	equip_head.add_child(equip_bar)
+	var equip_title := _make_label(equip_head, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
@@ -1245,11 +1261,13 @@ func _build_panel() -> void:
 	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
+	var inv_bar := ColorRect.new()
+	inv_bar.custom_minimum_size = Vector2(3, 14)
+	inv_bar.color = Style.THEME_GOLD
+	inv_header.add_child(inv_bar)
 	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_count_label = _make_label(inv_header, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
-	_count_label.add_theme_font_override("font", _font_mono)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
 	_grid.add_theme_constant_override("h_separation", 6)
