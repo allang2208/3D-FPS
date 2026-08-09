@@ -232,6 +232,18 @@ def extract_surface(filled: np.ndarray) -> np.ndarray:
     return out
 
 
+def compute_ao(filled: np.ndarray) -> np.ndarray:
+    """体素环境光遮蔽：6 邻域被占越多的体素越暗（凹槽/缝隙）。"""
+    pad = np.pad(filled, 1)
+    n = np.zeros(filled.shape, dtype=np.int32)
+    for di, dj, dk in [(-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1)]:
+        n += pad[1 + di : 1 + di + filled.shape[0],
+                 1 + dj : 1 + dj + filled.shape[1],
+                 1 + dk : 1 + dk + filled.shape[2]]
+    exposure = (6.0 - n) / 6.0
+    return 0.75 + 0.25 * exposure
+
+
 def write_vox(path: str, shape: tuple, indices: np.ndarray, palette: np.ndarray) -> None:
     sx, sy, sz = (int(s) for s in shape)
     xs, ys, zs = np.nonzero(indices > 0)
@@ -259,8 +271,15 @@ def write_vox(path: str, shape: tuple, indices: np.ndarray, palette: np.ndarray)
     print("vox:", path, "shape", shape, "filled", n, "palette", cnt)
 
 
-def write_obj_with_colors(path: str, shape: tuple, indices: np.ndarray, palette: np.ndarray, pitch: float) -> None:
-    """每个体素生成一个带顶点色的方盒（12 三角面）。"""
+def write_obj_with_colors(
+    path: str,
+    shape: tuple,
+    indices: np.ndarray,
+    palette: np.ndarray,
+    pitch: float,
+    ao: np.ndarray = None,
+) -> None:
+    """每个体素生成一个带顶点色的方盒（12 三角面），按面法线烘焙明暗 + AO。"""
     xs, ys, zs = np.nonzero(indices > 0)
     n = len(xs)
     with open(path, "w") as f:
@@ -290,17 +309,27 @@ def write_obj_with_colors(path: str, shape: tuple, indices: np.ndarray, palette:
             ],
             dtype=int,
         )
+        face_bright = np.array([0.55, 1.0, 0.85, 0.80, 0.70, 0.78], dtype=float)
         base = 1
         half = np.array(shape, dtype=float) / 2.0
         for x, y, z, c in zip(xs, ys, zs, indices[xs, ys, zs]):
             r, g, b = palette[int(c) - 1]
+            ao_f = 1.0
+            if ao is not None:
+                ao_f = ao[int(x), int(y), int(z)]
             # 居中：体素中心 = (x+0.5)*pitch，整体平移使模型中心落在原点（与 GLB 一致）
-            for cx, cy, cz in ((corners + np.array([x, y, z]) + 0.5 - half) * pitch):
-                # Godot/MagicaVoxel 读 OBJ 顶点色为 0..1 浮点
-                f.write("v %.6f %.6f %.6f %.4f %.4f %.4f\n" % (cx, cy, cz, r / 255.0, g / 255.0, b / 255.0))
-            for quad in faces:
-                f.write("f %d %d %d %d\n" % tuple(base + quad))
-            base += 8
+            pos = (corners + np.array([x, y, z]) + 0.5 - half) * pitch
+            for fi, quad in enumerate(faces):
+                bright = face_bright[fi] * ao_f
+                for corner in quad:
+                    cx, cy, cz = pos[corner]
+                    # Godot/MagicaVoxel 读 OBJ 顶点色为 0..1 浮点
+                    f.write(
+                        "v %.6f %.6f %.6f %.4f %.4f %.4f\n"
+                        % (cx, cy, cz, r / 255.0 * bright, g / 255.0 * bright, b / 255.0 * bright)
+                    )
+                f.write("f %d %d %d %d\n" % tuple(base + np.arange(4)))
+                base += 4
     print("obj:", path, "voxels", n)
 
 
@@ -329,6 +358,8 @@ def main() -> int:
     print("stage centers %.2fs n=%d" % (time.time() - t_start, len(centers)))
     colors = sample_colors(mesh, centers)
     print("stage colors %.2fs unique=%d" % (time.time() - t_start, len(np.unique(colors, axis=0))))
+    # AI 贴图普遍偏暗，提亮后做体素像素风更耐看
+    colors = np.clip(colors.astype(np.float32) * 1.35, 0, 255).astype(np.uint8)
     indices, palette = quantize_palette(colors, args.palette)
     print("stage palette %.2fs" % (time.time() - t_start))
     grid = np.zeros(shape, dtype=np.uint8)
@@ -347,12 +378,13 @@ def main() -> int:
     write_vox(base + ".vox", shape, body_grid, palette)
     write_vox(base + "_mag.vox", shape, mag_grid, palette)
     print("stage vox %.2fs" % (time.time() - t_start))
+    ao_map = compute_ao(filled)
     for name, part in [("", body), ("_mag", mag_v)]:
         part_surf = extract_surface(part)
         part_grid = np.zeros(shape, dtype=np.uint8)
         part_idx = np.nonzero(part_surf)
         part_grid[part_idx] = grid[part_idx]
-        write_obj_with_colors(base + name + ".obj", shape, part_grid, palette, args.pitch)
+        write_obj_with_colors(base + name + ".obj", shape, part_grid, palette, args.pitch, ao_map)
     print("stage obj %.2fs" % (time.time() - t_start))
     return 0
 
