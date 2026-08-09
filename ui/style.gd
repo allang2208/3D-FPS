@@ -279,7 +279,7 @@ static func make_font(weight := 400) -> Font:
 			_font_bold = load("res://assets/ui/fonts/MicrosoftYaHeiBold.ttc")
 		return _font_bold
 	if _font_regular == null:
-		_font_regular = load("res://assets/ui/fonts/MicrosoftYaHei.ttc")
+		_font_regular = load("res://assets/ui/fonts/simhei.ttf")
 	return _font_regular
 
 ## 浮窗排版规范（所有 tooltip 统一使用，禁止各组件自造字号/字重）

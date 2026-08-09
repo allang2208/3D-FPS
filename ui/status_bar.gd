@@ -353,7 +353,7 @@ func _make_top_caption(parent: Node, text: String) -> Label:
 	var l := Label.new()
 	l.text = text
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.add_theme_font_size_override("font_size", 10)
+	l.add_theme_font_size_override("font_size", 11)
 	l.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(l)
@@ -367,7 +367,7 @@ func _add_top_stat(parent: Node, caption: String, prop: String, mono: bool) -> L
 	_make_top_caption(box, caption)
 	var v := Label.new()
 	v.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	v.add_theme_font_size_override("font_size", 14)
+	v.add_theme_font_size_override("font_size", 13)
 	v.add_theme_font_override("font", _font_mono if mono else _font_bold)
 	v.add_theme_color_override("font_color", Style.COLOR_KILL if mono else Style.COLOR_TEXT)
 	v.mouse_filter = Control.MOUSE_FILTER_IGNORE

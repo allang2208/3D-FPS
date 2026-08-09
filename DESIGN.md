@@ -31,11 +31,11 @@
 规则：金色是唯一跨屏强调色；白/灰负责层级；红/绿/橙/蓝只作为状态色出现，
 禁止当装饰色。旧 2D 暗金棕（`COLOR_*`）为历史色板，逐步废弃。
 
-## 3. 字体规范（思源黑体）
+## 3. 字体规范（黑体 SimHei，对齐原项目 game-style.css）
 
-- 主字体：思源黑体（Source Han Sans SC，Godot 回退 `Noto Sans CJK SC`）。
-- 字重阶梯：标题 Heavy / 副标题 Bold / 正文 Regular（Godot 用
-  `SystemFont.font_weight` 或 theme 字重覆盖）。
+- 主字体：**黑体 SimHei**（原项目 `font-family: SimHei, "Microsoft YaHei", "黑体"`；Godot 加载 `assets/ui/fonts/simhei.ttf`）。
+- 字重阶梯：标题/加粗用微软雅黑 Bold（黑体无粗体文件），正文用黑体；等宽数字用 Consolas（原项目 monospace）。
+- 换字体 = 改 `ui/style.gd` 的 `make_font`（唯一字体入口），组件零改动。
 - 字号阶梯（映射到游戏 HUD）：
   - `48`（H1）→ 封面/大标题；游戏内死亡面板用 `40`
   - `32`（H2）→ 面板标题
