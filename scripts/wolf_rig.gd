@@ -77,7 +77,7 @@ func _init_bone_map() -> bool:
 
 
 ## 每帧驱动：t=步态时钟，moving=是否移动，attack_t=扑咬剩余时间（0 表示无），dead=死亡瘫软
-func rig_update(t: float, moving: bool, attack_t: float, dead: bool) -> void:
+func rig_update(t: float, moving: bool, attack_t: float, dead: bool, _chasing := true) -> void:
 	if _skel == null and not _init_bone_map():
 		return
 	var off := {} # bone_idx -> Vector3(rx, ry, rz) 欧拉偏移
