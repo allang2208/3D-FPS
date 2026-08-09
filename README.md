@@ -55,6 +55,7 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
     skillbar.gd     # 快捷栏技能绑定数据层：唯一性换位/冷却/法杖门槛/长按标记/特殊攻击槽
   assets/ui/shaders/panel_blur.gdshader  # 面板毛玻璃背景（复刻旧版 backdrop-filter blur）
   assets/data/equipment.json             # 旧版装备数据（整份迁移，图标重映射到 ui/icons/equip）
+  assets/ui/icons/equip|skills|icons     # 旧版装备/武器/物品/技能图片全量移植（327 张，压到 128px）
 ```
 
 ## 状态栏（HUD）测试

@@ -41,6 +41,8 @@ func _process(_delta: float) -> bool:
 		var eq = _hud.get("equipment")
 		var bp = _hud.get("backpack")
 		_check("equip_seed", String(eq.get_item("weapon").get("name", "")) == "生锈的长剑")
+		var icon_path := String(eq.get_item("weapon").get("icon", ""))
+		_check("equip_icon_migrated", icon_path != "" and ResourceLoader.exists(icon_path))
 		_check("equip_grid_15", int(_hud.get("_equip_grid").get_child_count()) == 15)
 		_check("inv_grid_36", int(_hud.get("_grid").get_child_count()) == 36)
 		# 拖放：背包 G18 → weapon2

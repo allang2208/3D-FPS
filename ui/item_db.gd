@@ -6,7 +6,11 @@ extends RefCounted
 const HP_POTION_ICON := "res://assets/ui/icons/health_potion.png"
 const MP_POTION_ICON := "res://assets/ui/icons/mana_potion.png"
 const EQUIPMENT_JSON := "res://assets/data/equipment.json"
-const EQUIP_ICON_DIR := "res://assets/ui/icons/equip/"
+const EQUIP_ICON_DIRS := [
+	"res://assets/ui/icons/equip/",
+	"res://assets/ui/icons/skills/",
+	"res://assets/ui/icons/",
+]
 
 var _defs := {
 	"hp_potion": {
@@ -58,8 +62,13 @@ func _load_equipment() -> void:
 		var emoji := String(def.get("icon", ""))
 		var icon_path := String(def.get("slotImage", def.get("iconImage", "")))
 		if icon_path != "":
-			var mapped := EQUIP_ICON_DIR + icon_path.get_file()
-			if ResourceLoader.exists(mapped):
+			var mapped := ""
+			for dir in EQUIP_ICON_DIRS:
+				var candidate: String = dir + icon_path.get_file()
+				if ResourceLoader.exists(candidate):
+					mapped = candidate
+					break
+			if mapped != "":
 				def["icon"] = mapped
 			else:
 				def["icon"] = ""
