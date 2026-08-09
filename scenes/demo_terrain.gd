@@ -200,10 +200,29 @@ func _build_terrain() -> Terrain3D:
 		var probe: Node = scn.instantiate()
 		add_child(probe)
 		ma.height_offset = -_scene_aabb(probe).position.y
+		# Kenney 低模草是纯色青绿材质（实测 albedo≈(0.45,0.93,0.87)），
+		# 与粒子草/地表深绿格格不入——统一覆盖为自然深绿（共享材质全局生效）
+		if mesh_specs[i].contains("kenney_nature/grass"):
+			_fix_grass_material(probe)
 		remove_child(probe)
 		probe.free()
 		t.assets.set_mesh_asset(i, ma)
 	return t
+
+
+func _fix_grass_material(node: Node) -> void:
+	# 草色基准：地表 grass001 贴图真实渲染色（hue≈118-122 / sat≈0.62 / val≈0.31）
+	var grass := Color(0.13, 0.31, 0.12)
+	for m in node.find_children("", "MeshInstance3D", true, false):
+		var mi := m as MeshInstance3D
+		if mi.mesh == null:
+			continue
+		for s in mi.mesh.get_surface_count():
+			var mat := mi.mesh.surface_get_material(s)
+			if mat is BaseMaterial3D:
+				var bm := mat as BaseMaterial3D
+				bm.albedo_color = grass
+				bm.roughness = 0.8
 
 
 func _build_instanced_nature() -> void:
