@@ -13,12 +13,16 @@ func _process(_d) -> bool:
 		print("LOAD FAIL ", src)
 		quit(1)
 		return false
-	var new_mesh := ArrayMesh.new()
+	var body_mesh := ArrayMesh.new()
+	var mag_mesh := ArrayMesh.new()
 	for i in range(mesh.get_surface_count()):
 		var mat: StandardMaterial3D = mesh.surface_get_material(i)
-		var si := new_mesh.get_surface_count()
+		var is_mag: bool = mat != null and mat.albedo_texture != null \
+			and mat.albedo_texture.resource_path.get_file().begins_with("mag_")
+		var target := mag_mesh if is_mag else body_mesh
+		var si := target.get_surface_count()
 		if mat == null or mat.albedo_texture == null:
-			new_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh.surface_get_arrays(i), [], {}, 0)
+			target.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh.surface_get_arrays(i), [], {}, 0)
 			continue
 		var stem := mat.albedo_texture.resource_path.get_basename()
 		if stem.ends_with("_basecolor"):
@@ -29,13 +33,17 @@ func _process(_d) -> bool:
 		if ao_tex != null:
 			mat.ao_enabled = true
 			mat.ao_texture = ao_tex
-		new_mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh.surface_get_arrays(i), [], {}, 0)
-		new_mesh.surface_set_material(si, mat)
-		print("patched surf ", i, " stem=", stem)
+		target.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, mesh.surface_get_arrays(i), [], {}, 0)
+		target.surface_set_material(si, mat)
+		print("patched surf ", i, " stem=", stem, " -> ", "mag" if is_mag else "body")
 	var out := OS.get_environment("PBR_OUT")
 	if out != "":
-		var err := ResourceSaver.save(new_mesh, out)
-		print("saved ", out, " err=", err)
+		var err := ResourceSaver.save(body_mesh, out)
+		print("saved body ", out, " err=", err)
+	var mag_out := OS.get_environment("PBR_MAG_OUT")
+	if mag_out != "" and mag_mesh.get_surface_count() > 0:
+		var err2 := ResourceSaver.save(mag_mesh, mag_out)
+		print("saved mag ", mag_out, " err=", err2)
 	quit(0)
 	return false
 

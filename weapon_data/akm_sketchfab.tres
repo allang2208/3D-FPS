@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/weapon_data.gd" id="1_wd"]
 [ext_resource type="ArrayMesh" path="res://assets/models/ak/akm_sketchfab_pbr.tres" id="2_wd"]
+[ext_resource type="ArrayMesh" path="res://assets/models/ak/akm_sketchfab_mag.tres" id="6_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/akm_burst.mp3" id="3_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/reload_sharp.mp3" id="4_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/criticalhit.mp3" id="5_wd"]
@@ -10,9 +11,11 @@
 script = ExtResource("1_wd")
 weapon_name = "AKM (Sketchfab 21.9k)"
 model_scene = ExtResource("2_wd")
+mag_scene = ExtResource("6_wd")
 muzzle_sign_override = 1
 sight_rear_override = Vector3(0.02, 0.133, 0)
 sight_front_override = Vector3(0.325, 0.122, 0)
+mag_offset = Vector3(-0.003, -0.03, 0.011)
 fire_interval = 0.13
 damage = 25
 mag_size = 30

@@ -819,9 +819,13 @@ func _calibrate_viewmodel() -> void:
 	_eject_local = Vector3(0.035 * scale, 0.032 * scale, _muzzle_local.z + 0.30 * scale)
 	if _mag:
 		if _mag.get_parent() == _model:
-			# 体素独立弹匣：OBJ 与枪体同坐标系，网格自带正确位置，节点放原点即可
-			_mag.position = Vector3.ZERO
-			_mag_base_y = 0.0
+			# 独立弹匣 Mesh：节点是 _model 子节点（自带旋转/缩放），局部位置用模型原始坐标
+			if data != null and data.mag_offset != Vector3.ZERO:
+				_mag.position = data.mag_offset
+				_mag_base_y = _mag.position.y
+			else:
+				_mag.position = Vector3.ZERO
+				_mag_base_y = 0.0
 			_mag_slide = 0.30 / scale
 		else:
 			var mag_center := _find_mag_center(verts, axis, muzzle_sign)
