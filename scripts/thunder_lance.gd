@@ -61,10 +61,10 @@ func _fire() -> void:
 			continue
 		if p.distance_to(origin) > _max_range + 1.0:
 			continue
-		var was_alive := int(c.get("hp")) > 0
+		var was_alive := _hp_of(c) > 0
 		c.take_damage(_damage)
 		_hits += 1
-		if was_alive and int(c.get("hp")) <= 0:
+		if was_alive and _hp_of(c) <= 0:
 			_kills += 1
 	# 末端电爆
 	_electric_boom(end)
@@ -175,3 +175,7 @@ func _add_to_root(node: Node) -> void:
 		root.add_child(node)
 	else:
 		get_parent().add_child(node)
+
+func _hp_of(node: Object) -> int:
+	var h = node.get("_hp")
+	return int(h) if h != null else 0

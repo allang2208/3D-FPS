@@ -247,10 +247,10 @@ func _shatter(s: Dictionary, pos: Vector3, collider: Object) -> void:
 	_ice_ring(pos)
 	_play_hit_sound(pos)
 	if collider != null and collider.has_method("take_damage") and String(collider.name) != "Player":
-		var was_alive := int(collider.get("hp")) > 0
+		var was_alive := _hp_of(collider) > 0
 		collider.take_damage(_damage)
 		_hits += 1
-		if was_alive and int(collider.get("hp")) <= 0:
+		if was_alive and _hp_of(collider) <= 0:
 			_kills += 1
 
 func _ice_shards(pos: Vector3) -> void:
@@ -409,3 +409,7 @@ func _add_to_root(node: Node) -> void:
 func _delayed_free(node: Node, delay: float) -> void:
 	var t := node.get_tree().create_timer(delay)
 	t.timeout.connect(func() -> void: node.queue_free())
+
+func _hp_of(node: Object) -> int:
+	var h = node.get("_hp")
+	return int(h) if h != null else 0

@@ -310,10 +310,10 @@ func _aoe_damage(pos: Vector3) -> void:
 			if dist <= _radius:
 				var ratio := 1.0 - clampf(dist / _radius, 0.0, 1.0)
 				var dmg := maxi(1, floori(_damage * (0.5 + 0.5 * ratio)))
-				var was_alive := int(c.get("hp")) > 0
+				var was_alive := _hp_of(c) > 0
 				c.take_damage(dmg)
 				_hits += 1
-				if was_alive and int(c.get("hp")) <= 0:
+				if was_alive and _hp_of(c) <= 0:
 					_kills += 1
 
 func _shockwave_ring(pos: Vector3) -> void:
@@ -496,3 +496,7 @@ func _grow_texture(from: float, to: float) -> CurveTexture:
 	var tex := CurveTexture.new()
 	tex.curve = _grow_curve(from, to)
 	return tex
+
+func _hp_of(node: Object) -> int:
+	var h = node.get("_hp")
+	return int(h) if h != null else 0

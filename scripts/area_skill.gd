@@ -189,10 +189,10 @@ func _storm_domain() -> void:
 			continue
 		var tpos: Vector3 = target.global_position + Vector3(0, 0.8, 0)
 		_lightning_line(_caster.global_position + Vector3(0, 2.0, 0), tpos)
-		var was_alive := int(target.get("hp")) > 0
+		var was_alive := _hp_of(target) > 0
 		target.take_damage(strike_dmg)
 		_hits += 1
-		if was_alive and int(target.get("hp")) <= 0:
+		if was_alive and _hp_of(target) <= 0:
 			_kills += 1
 	cast_finished.emit(_hits, _kills)
 	queue_free()
@@ -238,10 +238,10 @@ func _flame_armor() -> void:
 			if (c.global_position - _caster.global_position).length() > radius:
 				continue
 			var dmg := maxi(1, floori(_damage * 0.35))
-			var was_alive := int(c.get("hp")) > 0
+			var was_alive := _hp_of(c) > 0
 			c.take_damage(dmg)
 			_hits += 1
-			if was_alive and int(c.get("hp")) <= 0:
+			if was_alive and _hp_of(c) <= 0:
 				_kills += 1
 	cast_finished.emit(_hits, _kills)
 	queue_free()
@@ -286,10 +286,10 @@ func _aoe_hit(pos: Vector3, radius: float, mul: float) -> void:
 			continue
 		var ratio := 1.0 - clampf(dist / radius, 0.0, 1.0)
 		var dmg := maxi(1, floori(_damage * mul * (0.5 + 0.5 * ratio)))
-		var was_alive := int(c.get("hp")) > 0
+		var was_alive := _hp_of(c) > 0
 		c.take_damage(dmg)
 		_hits += 1
-		if was_alive and int(c.get("hp")) <= 0:
+		if was_alive and _hp_of(c) <= 0:
 			_kills += 1
 
 func _tick_area(interval: float, duration: float, rx: float, rz: float, mul: float) -> void:
@@ -498,3 +498,7 @@ func _add_to_root(node: Node) -> void:
 func _delayed_free(node: Node, delay: float) -> void:
 	var t := node.get_tree().create_timer(delay)
 	t.timeout.connect(func() -> void: node.queue_free())
+
+func _hp_of(node: Object) -> int:
+	var h = node.get("_hp")
+	return int(h) if h != null else 0

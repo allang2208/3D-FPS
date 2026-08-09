@@ -63,10 +63,10 @@ func _cast() -> Dictionary:
 		_lightning_bolt(src_pos, tgt_pos)
 		_impact_bolt(tgt_pos, decay_mul)
 		var target := chain[i] as Node3D
-		var was_alive := int(target.get("hp")) > 0
+		var was_alive := _hp_of(target) > 0
 		target.take_damage(dmg)
 		hits += 1
-		if was_alive and int(target.get("hp")) <= 0:
+		if was_alive and _hp_of(target) <= 0:
 			kills += 1
 	cast_finished.emit(hits, kills)
 	queue_free()
@@ -337,3 +337,7 @@ func _add_to_root(node: Node) -> void:
 func _delayed_free(node: Node, delay: float) -> void:
 	var t := node.get_tree().create_timer(delay)
 	t.timeout.connect(func() -> void: node.queue_free())
+
+func _hp_of(node: Object) -> int:
+	var h = node.get("_hp")
+	return int(h) if h != null else 0
