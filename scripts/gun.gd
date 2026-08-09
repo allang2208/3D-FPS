@@ -12,7 +12,7 @@ extends Node3D
 ## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
 @export var data: WeaponData = preload("res://weapon_data/akm.tres")
 
-const BASE_POS := Vector3(0.28, -0.26, -0.5)
+const BASE_POS := Vector3(0.28, -0.15, -0.5)  # 抬高持枪位，给换弹弹匣下滑留出画面空间
 
 # 视模自动校准（从 GLB 网格测量，换枪模自动适配）
 const VIEWMODEL_LENGTH := 0.62          # 视模全长目标（米）
@@ -234,8 +234,9 @@ func _process(delta: float) -> void:
 			mag_out = 1.0
 		else:
 			mag_out = 1.0 - _ease_in(clampf((prog - 0.60) / 0.40, 0.0, 1.0))
-		reload_pos = Vector3(0, -mag_out * 0.12, mag_out * 0.05)
-		reload_rot = Vector3(-mag_out * 0.45, 0, -mag_out * 0.35)
+		# 枪身上抬 + 抬头右倾：弹匣舱位进画面，弹匣下滑时能看清分离
+		reload_pos = Vector3(0, mag_out * 0.16, mag_out * 0.05)
+		reload_rot = Vector3(-mag_out * 0.30, 0, mag_out * 0.22)
 		if _mag:
 			_mag.position.y = _mag_base_y - mag_out * _mag_slide
 			# 弹匣卸下时后倾、插入时回正（模拟取出/装回角度）
@@ -759,13 +760,10 @@ func _calibrate_viewmodel() -> void:
 	_eject_local = Vector3(0.035 * scale, 0.032 * scale, _muzzle_local.z + 0.30 * scale)
 	if _mag:
 		if _mag.get_parent() == _model:
-			# 体素独立弹匣：与枪体 OBJ 同坐标系，用弹匣网格包围盒中心定位
-			var mag_mi := _mag.get_child(0) as MeshInstance3D
-			if mag_mi:
-				var aabb := (mag_mi.mesh as ArrayMesh).get_aabb()
-				_mag.position = aabb.get_center()
-				_mag_base_y = _mag.position.y
-				_mag_slide = 0.18 / scale
+			# 体素独立弹匣：OBJ 与枪体同坐标系，网格自带正确位置，节点放原点即可
+			_mag.position = Vector3.ZERO
+			_mag_base_y = 0.0
+			_mag_slide = 0.20 / scale
 		else:
 			var mag_center := _find_mag_center(verts, axis, muzzle_sign)
 			if mag_center != Vector3.ZERO:
