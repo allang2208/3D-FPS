@@ -1,12 +1,17 @@
 extends Node3D
 ## 火球（技能迁徙，从旧版 fireball-system.js / BoltSkillSystem 移植）
-## 朝方向直线飞行，命中墙体/敌人或到达最大射程后范围爆炸：
+## 视觉按原版逐层迁移：
+## - 73 帧火球贴图动画（fireball_spritesheet.png，hover 100ms / fly 50ms，billboard 面向相机）
+## - 飞行尾迹：ADD 橙粒子，50ms 间隔（世界空间，跟随火球）
+## - 爆炸三层：冲击波扩散圈（420ms 闪烁淡出）+ 火焰爆发（26 粒 ADD）+ 烟尘（8 粒放大淡出）
+## - 命中音效（skills.json fireball.sounds.hit）
 ## 伤害 = floor(damageBase + matk*magicMul + int*intMul)，AOE 距离衰减 damage*(0.5+0.5*(1-d/r))
-## 旧版像素换算：1px ≈ 0.014m（flySpeed 1600px/s→22.4m/s、maxRange 1200px→16.8m、
-## explosionRadius 85px→1.19m）。
 
 const HIT_MASK := 3  # 1 墙体 + 2 敌人
 const PX_TO_M := 0.014
+const SPRITESHEET := "res://assets/ui/icons/skills/fireball_spritesheet.png"
+const ANIM_JSON := "res://assets/data/fireball_anim.json"
+const HIT_SOUND := "res://assets/sfx/fireball.mp3"
 
 var _dir := Vector3.FORWARD
 var _speed := 22.4
@@ -16,6 +21,8 @@ var _damage := 90
 var _traveled := 0.0
 var _scene_root: Node
 var _age := 0.0
+var _anim: AnimatedSprite3D
+var _launched := false
 
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, matk: int, intt: int) -> Node3D:
 	var script := load("res://scripts/fireball.gd")
@@ -26,10 +33,8 @@ static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, ma
 	return fb
 
 func configure(origin: Vector3, dir: Vector3, level: int, matk: int, intt: int, scene_root: Node) -> void:
-	# 旧版公式（skills.json fireball effectFormula，等级 1 起步）
 	_damage = floori(80 + level * 10 + matk * (2.0 + 0.5 * level) + intt * (2.5 + 0.75 * level))
-	var radius_px := 80 + level * 5
-	_radius = radius_px * PX_TO_M
+	_radius = (80 + level * 5) * PX_TO_M
 	_speed = 1600.0 * PX_TO_M
 	_max_range = 1200.0 * PX_TO_M
 	_dir = dir.normalized()
@@ -37,31 +42,76 @@ func configure(origin: Vector3, dir: Vector3, level: int, matk: int, intt: int, 
 	position = origin
 
 func build_visual() -> void:
-	var sphere := MeshInstance3D.new()
-	var sm := SphereMesh.new()
-	sm.radius = 0.16
-	sm.height = 0.32
+	_anim = _build_fireball_anim()
+	# 橙色点光（火球照亮周围）
+	var light := OmniLight3D.new()
+	light.light_color = Color(1.0, 0.5, 0.2)
+	light.light_energy = 2.5
+	light.omni_range = 5.0
+	add_child(light)
+	# 飞行尾迹（原版 trail：ADD 橙粒子，世界空间跟随）
+	var trail := GPUParticles3D.new()
+	trail.emitting = true
+	trail.one_shot = false
+	trail.amount = 64
+	trail.lifetime = 0.4
+	trail.local_coords = false
+	trail.draw_pass_1 = _quad_pass(Color(1, 1, 1, 0.8), true)
+	var tp := ParticleProcessMaterial.new()
+	tp.direction = Vector3.ZERO
+	tp.spread = 180.0
+	tp.initial_velocity_min = 0.05
+	tp.initial_velocity_max = 0.35
+	tp.gravity = Vector3(0, -0.4, 0)
+	tp.scale_min = 0.05
+	tp.scale_max = 0.11
+	tp.color_ramp = _ramp([
+		Color(1.0, 0.55, 0.2, 0.7),
+		Color(1.0, 0.35, 0.1, 0.0),
+	], [0.0, 1.0])
+	trail.process_material = tp
+	add_child(trail)
+
+func _build_fireball_anim() -> AnimatedSprite3D:
+	var tex: Texture2D = load(SPRITESHEET)
+	var cfg: Dictionary = {}
+	var f := FileAccess.open(ANIM_JSON, FileAccess.READ)
+	if f != null:
+		var d = JSON.parse_string(f.get_as_text())
+		f.close()
+		if d is Dictionary:
+			cfg = d
+	var cols: int = int(cfg.get("cols", 9))
+	var total: int = int(cfg.get("totalFrames", 73))
+	var fw: int = tex.get_width() / cols
+	var fh: int = tex.get_height() / int(cfg.get("rows", 9))
+	var frames := SpriteFrames.new()
+	for i in total:
+		var at := AtlasTexture.new()
+		at.atlas = tex
+		at.region = Rect2((i % cols) * fw, int(i / cols) * fh, fw, fh)
+		frames.add_frame("default", at)
+	# 原版 hover 100ms/帧 = 10fps；飞行 50ms/帧 = 20fps（发射后 speed_scale ×2）
+	frames.set_animation_speed("default", 10.0)
+	var anim := AnimatedSprite3D.new()
+	anim.sprite_frames = frames
+	anim.animation = "default"
+	anim.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	anim.play("default")
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.albedo_color = Color(1.0, 0.75, 0.35)
-	mat.emission_enabled = true
-	mat.emission = Color(1.0, 0.45, 0.15) * 2.0
-	sm.material = mat
-	sphere.mesh = sm
-	add_child(sphere)
-	# 飞行尾迹
-	var trail := GPUParticles3D.new()
-	trail.one_shot = false
-	trail.emitting = true
-	trail.amount = 24
-	trail.lifetime = 0.3
-	trail.local_coords = true
-	trail.process_material = _particle_mat(Vector3(0, 0, 0), 1.0, 0.2, 0.12, Color(1.0, 0.6, 0.2, 0.7))
-	trail.position = Vector3(0, 0, -0.25)
-	add_child(trail)
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	anim.material_override = mat
+	add_child(anim)
+	return anim
 
 func _physics_process(delta: float) -> void:
 	_age += delta
+	if not _launched:
+		_launched = true
+		if _anim != null:
+			_anim.speed_scale = 2.0  # 飞行帧率 20fps
 	if _age >= 3.0 or _traveled >= _max_range:
 		_explode(global_position)
 		return
@@ -75,40 +125,146 @@ func _physics_process(delta: float) -> void:
 		return
 	global_position = to
 	_traveled += step
-	rotate_y(delta * 6.0)
+
+## ---------- 爆炸（三层特效 + 音效 + AOE 伤害，原版顺序） ----------
 
 func _explode(pos: Vector3) -> void:
 	global_position = pos
-	# 爆炸粒子
+	_shockwave_ring(pos)
+	_flame_burst(pos)
+	_smoke(pos)
+	_play_hit_sound(pos)
+	_aoe_damage(pos)
+	queue_free()
+
+func _aoe_damage(pos: Vector3) -> void:
+	var scene_root: Node = _scene_root if _scene_root != null else get_tree().current_scene
+	if scene_root == null:
+		return
+	for c in scene_root.get_children():
+		if c != null and c.has_method("take_damage") and String(c.name) != "Player":
+			var dist: float = (c.global_position - pos).length()
+			if dist <= _radius:
+				var ratio := 1.0 - clampf(dist / _radius, 0.0, 1.0)
+				var dmg := maxi(1, floori(_damage * (0.5 + 0.5 * ratio)))
+				c.take_damage(dmg)
+
+func _shockwave_ring(pos: Vector3) -> void:
+	var ring := MeshInstance3D.new()
+	var torus := TorusMesh.new()
+	torus.inner_radius = _radius * 0.92
+	torus.outer_radius = _radius
+	torus.rings = 16
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	mat.albedo_color = Color(1.0, 0.44, 0.13, 0.9)
+	torus.material = mat
+	ring.mesh = torus
+	ring.rotation_degrees = Vector3(90, 0, 0)
+	ring.position = pos
+	ring.scale = Vector3.ONE * 0.01
+	_add_to_root(ring)
+	# 0→半径扩散 + 闪烁（0.55+0.45*sin(t*π*8)）+ 淡出（原版 fireGroundShockwave 420ms cubic easeOut）
+	var tw := ring.create_tween()
+	tw.tween_method(func(t: float) -> void:
+		ring.scale = Vector3.ONE * maxf(0.01, t)
+		var flick: float = 0.55 + 0.45 * sin(t * TAU * 4.0)
+		mat.albedo_color.a = (1.0 - t) * 0.9 * flick
+		, 0.0, 1.0, 0.42).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.tween_callback(func() -> void: ring.queue_free())
+
+func _flame_burst(pos: Vector3) -> void:
 	var boom := GPUParticles3D.new()
 	boom.one_shot = true
 	boom.emitting = true
 	boom.amount = 26
 	boom.lifetime = 0.5
 	boom.local_coords = false
-	boom.process_material = _particle_mat(Vector3(0, 0, 0), 4.0, 0.3, 0.15, Color(1.0, 0.5, 0.2, 1.0))
 	boom.position = pos
-	var scene_root: Node = _scene_root if _scene_root != null else get_tree().current_scene
-	scene_root.add_child(boom)
-	# AOE 伤害（距离衰减，旧版 _explodeAoE）
-	if scene_root != null:
-		for c in scene_root.get_children():
-			if c != null and c.has_method("take_damage") and String(c.name) != "Player":
-				var dist: float = (c.global_position - pos).length()
-				if dist <= _radius:
-					var ratio := 1.0 - clampf(dist / _radius, 0.0, 1.0)
-					var dmg := maxi(1, floori(_damage * (0.5 + 0.5 * ratio)))
-					c.take_damage(dmg)
-	queue_free()
-
-func _particle_mat(dir: Vector3, speed: float, scale_s: float, scale_e: float, tint: Color) -> ParticleProcessMaterial:
+	boom.draw_pass_1 = _quad_pass(Color(1, 1, 1, 0.9), true)
 	var pm := ParticleProcessMaterial.new()
-	pm.direction = dir
+	pm.direction = Vector3.ZERO
 	pm.spread = 180.0
-	pm.initial_velocity_min = speed * 0.4
-	pm.initial_velocity_max = speed
-	pm.gravity = Vector3(0, -2.0, 0)
-	pm.scale_min = scale_s
-	pm.scale_max = scale_s * 1.4
-	pm.color = tint
-	return pm
+	pm.initial_velocity_min = 1.7
+	pm.initial_velocity_max = 5.9
+	pm.gravity = Vector3(0, -1.0, 0)
+	pm.scale_min = 0.12
+	pm.scale_max = 0.3
+	pm.color_ramp = _ramp([
+		Color(1.0, 1.0, 1.0, 0.9),
+		Color(1.0, 0.82, 0.48, 0.8),
+		Color(1.0, 0.53, 0.19, 0.6),
+		Color(1.0, 0.33, 0.06, 0.0),
+	], [0.0, 0.35, 0.7, 1.0])
+	boom.process_material = pm
+	_add_to_root(boom)
+	_delayed_free(boom, 0.8)
+
+func _smoke(pos: Vector3) -> void:
+	var smoke := GPUParticles3D.new()
+	smoke.one_shot = true
+	smoke.emitting = true
+	smoke.amount = 8
+	smoke.lifetime = 1.0
+	smoke.local_coords = false
+	smoke.position = pos
+	smoke.draw_pass_1 = _quad_pass(Color(0.33, 0.33, 0.33, 0.35), false)
+	var pm := ParticleProcessMaterial.new()
+	pm.direction = Vector3.ZERO
+	pm.spread = 180.0
+	pm.initial_velocity_min = 0.3
+	pm.initial_velocity_max = 1.0
+	pm.gravity = Vector3(0, 0.4, 0)
+	pm.scale_min = 0.2
+	pm.scale_max = 0.35
+	pm.color_ramp = _ramp([
+		Color(0.33, 0.33, 0.33, 0.35),
+		Color(0.33, 0.33, 0.33, 0.0),
+	], [0.0, 1.0])
+	smoke.process_material = pm
+	_add_to_root(smoke)
+	_delayed_free(smoke, 1.3)
+
+func _play_hit_sound(pos: Vector3) -> void:
+	if not ResourceLoader.exists(HIT_SOUND):
+		return
+	var player := AudioStreamPlayer3D.new()
+	player.stream = load(HIT_SOUND)
+	player.position = pos
+	player.max_distance = 40.0
+	_add_to_root(player)
+	player.play()
+	_delayed_free(player, 3.0)
+
+func _add_to_root(node: Node) -> void:
+	var root: Node = _scene_root if _scene_root != null else get_tree().current_scene
+	if root != null:
+		root.add_child(node)
+	else:
+		get_parent().add_child(node)
+
+func _delayed_free(node: Node, delay: float) -> void:
+	var t := node.get_tree().create_timer(delay)
+	t.timeout.connect(func() -> void: node.queue_free())
+
+func _quad_pass(color: Color, additive: bool) -> QuadMesh:
+	var q := QuadMesh.new()
+	q.size = Vector2(0.16, 0.16)
+	var m := StandardMaterial3D.new()
+	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	m.albedo_color = color
+	if additive:
+		m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	q.material = m
+	return q
+
+func _ramp(colors: Array, offsets: Array) -> GradientTexture1D:
+	var g := Gradient.new()
+	g.colors = PackedColorArray(colors)
+	g.offsets = PackedFloat32Array(offsets)
+	var tex := GradientTexture1D.new()
+	tex.gradient = g
+	return tex

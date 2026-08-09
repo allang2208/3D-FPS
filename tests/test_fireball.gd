@@ -4,6 +4,7 @@ extends SceneTree
 
 const SkillsDbScript := preload("res://ui/skills_db.gd")
 const SkillBarScript := preload("res://ui/skillbar.gd")
+const FireballScript := preload("res://scripts/fireball.gd")
 
 var _fail := 0
 var _stage := 0
@@ -50,6 +51,25 @@ func _process(_delta: float) -> bool:
 		_check("fireball_spawned", fb_found)
 		_check("fireball_mp_cost", int(st.get("mp")) == 50)
 		_check("fireball_cooldown", sb.get_cooldown("fireball") > 0.0)
+		# 直接朝黑狼发射，验证爆炸 AOE 与三层特效
+		var wolf: Node3D = _main.get_node_or_null("WolfEnemy") as Node3D
+		if wolf != null:
+			var origin := wolf.global_position - Vector3(0, 0, 3)
+			FireballScript.fire(_main, origin, wolf.global_position - origin, 1, st.matk(), st.intt())
+		_stage = 3
+		_stage_start = Time.get_ticks_msec()
+	elif _stage == 3 and Time.get_ticks_msec() - _stage_start > 500:
+		var wolf: Node3D = _main.get_node_or_null("WolfEnemy") as Node3D
+		_check("fireball_hits_wolf", wolf != null and int(wolf.get("_hp")) <= 0)
+		var ring_found := false
+		var particle_found := false
+		for c in _main.get_children():
+			if c is MeshInstance3D and c.mesh is TorusMesh:
+				ring_found = true
+			if c is GPUParticles3D:
+				particle_found = true
+		_check("fireball_shockwave_ring", ring_found)
+		_check("fireball_particles", particle_found)
 		quit(0 if _fail == 0 else 1)
 	return false
 

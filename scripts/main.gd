@@ -4,6 +4,7 @@ extends Node3D
 
 const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"  # 骨架烘焙源（tools/bake_wolf_rig.gd）
 const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物：18骨骼+蒙皮黑狼
+const FireballScript := preload("res://scripts/fireball.gd")
 
 var _player: Node3D
 var _gun: Node3D
@@ -12,6 +13,7 @@ var _backpack_hud: Control
 var _backpack
 var _equipment
 var _player_status
+var _skillbar
 var _player_dead := false
 var _kills := 0
 
@@ -160,6 +162,19 @@ func _build_backpack_hud(parent: Node) -> void:
 	# 装备栏 + 演示种子（沿用旧版初始装备：主手生锈长剑；背包放 G18/小圆盾/铁盔/戒指）
 	_equipment = load("res://ui/equipment.gd").new(_backpack)
 	_player_status = load("res://ui/player_status.gd").new()
+	_skillbar = load("res://ui/skillbar.gd").new()
+	# 技能库：先迁火球（Q 默认绑定），defs 补 skillbar 需要的 cooldown_s/mp_cost/tier
+	var skills_db = load("res://ui/skills_db.gd").new()
+	var sb_skills := {}
+	if skills_db.has_skill("fireball"):
+		var fb: Dictionary = skills_db.get_def("fireball").duplicate(true)
+		var eff: Dictionary = skills_db.effect("fireball", _player_status.level)
+		fb["cooldown_s"] = eff.cooldown_s
+		fb["mp_cost"] = eff.mp_cost
+		fb["tier"] = 1
+		sb_skills["fireball"] = fb
+	_skillbar.setup(sb_skills)
+	_skillbar.assign(0, "fireball")
 	_backpack.add_item("rusty_sword", 1)
 	_backpack.add_item("g18_pistol", 1)
 	_backpack.add_item("small_shield", 1)
@@ -172,9 +187,27 @@ func _build_backpack_hud(parent: Node) -> void:
 	var hud = load("res://ui/backpack_hud.gd").new()
 	hud.name = "BackpackHud"
 	hud.player_healed.connect(_on_player_healed)
+	hud.skill_triggered.connect(_on_skill_triggered)
 	parent.add_child(hud)
-	hud.setup(_backpack, _equipment, _player_status)
+	hud.setup(_backpack, _equipment, _player_status, _skillbar)
 	_backpack_hud = hud
+
+## 技能触发（火球先迁）：从玩家相机方向发射
+func _on_skill_triggered(skill_id: String) -> void:
+	if skill_id != "fireball" or _player == null:
+		_flash_skill_missing(skill_id)
+		return
+	var cam := _player.get_node_or_null("Camera3D") as Camera3D
+	if cam == null:
+		return
+	var origin := _player.global_position + Vector3(0, 1.5, 0)
+	var dir := -cam.global_transform.basis.z
+	FireballScript.fire(get_tree().current_scene, origin, dir,
+		_player_status.level, _player_status.matk(), _player_status.intt)
+
+func _flash_skill_missing(skill_id: String) -> void:
+	if _backpack_hud != null and _backpack_hud.has_method("flash_status"):
+		_backpack_hud.flash_status("技能未移植（%s）" % skill_id)
 
 func _build_enemies() -> void:
 	# 黑狼用烘焙好的骨骼模型（WolfRig），原 GLB 是静态网格，烘焙见 tools/bake_wolf_rig.gd
@@ -183,14 +216,7 @@ func _build_enemies() -> void:
 		"hp": 85, "chase": 3.5, "dmg": 15, "radius": 0.55, "height": 1.0,
 		"offset_y": 0.41, "bob": 0.05,
 	})
-	_build_enemy("ZombieDog", EnemyModels.build_zombie_dog(), Vector3(-5, 0, 2), {
-		"hp": 60, "chase": 3.7, "dmg": 12, "radius": 0.5, "height": 1.0,
-		"offset_y": -0.1, "bob": 0.04, "scale": 1.5,
-	})
-	_build_enemy("Spider", EnemyModels.build_spider(), Vector3(7, 0, 5), {
-		"hp": 50, "chase": 3.1, "dmg": 10, "radius": 0.55, "height": 0.9,
-		"offset_y": -0.1, "bob": 0.04, "scale": 1.25,
-	})
+	# 测试期：只保留黑狼，僵尸犬/蜘蛛暂时移除（EnemyModels 保留供后续恢复）
 
 func _build_enemy(enemy_name: String, model: Node3D, pos: Vector3, cfg: Dictionary) -> void:
 	var enemy := CharacterBody3D.new()

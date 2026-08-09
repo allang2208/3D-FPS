@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Python 缓存（tools/ai-gen 等）
+__pycache__/
+*.pyc
