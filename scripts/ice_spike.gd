@@ -63,35 +63,19 @@ func enter_hover(caster: Node3D) -> void:
 	_spawn_spikes()
 
 func _spawn_spikes() -> void:
-	var start_angle := -PI / 2.0
+	# 前方扇形松散分布（3D 第一人称优化）：x 水平散开、y 上下错开、z 前后错开，
+	# 每颗独立浮动相位/频率——像法术凝聚时冰锥在面前蓄势漂浮，避免死板转圈
 	for i in _spike_count:
-		var angle: float = start_angle + (float(i) / float(_spike_count)) * TAU
-		var rx := 0.4
-		var ry := rx * 0.62
-		# 相对相机的垂直偏移（-0.2 ~ +0.12），确保环绕冰锥都在视野内
-		var elev := -0.2 + 0.32 * (float(i) / float(maxi(1, _spike_count - 1)))
-		_spikes.append(_make_spike(i, angle, rx, ry, elev))
+		var t := float(i) / float(maxi(1, _spike_count - 1))
+		var bx := lerpf(-0.55, 0.55, t) + (randf() - 0.5) * 0.12
+		var by := lerpf(-0.18, 0.1, t) + (randf() - 0.5) * 0.08
+		var bz := lerpf(0.48, 0.72, float(i % 2)) + (randf() - 0.5) * 0.12
+		_spikes.append(_make_spike(i, Vector3(bx, by, -bz), randf_range(0.6, 1.4),
+			randf_range(1.8, 2.6), randf_range(0.8, 1.3), randf_range(1.0, 1.6)))
 
-func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dictionary:
+func _make_spike(i: int, base: Vector3, amp: float, freq_a: float, freq_b: float, freq_c: float) -> Dictionary:
 	var node := Node3D.new()
-	# 冰锥本体：细长冰蓝半透明棱柱（不透明感来自发光，避免硬边）
-	var mi := MeshInstance3D.new()
-	var cyl := CylinderMesh.new()
-	cyl.top_radius = 0.012
-	cyl.bottom_radius = 0.035
-	cyl.height = 0.3
-	cyl.radial_segments = 6
-	mi.rotation_degrees = Vector3(-90, 0, 0)  # 圆柱横置（沿 Z），尖端朝 -Z（look_at 方向）
-	var mat := StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(0.72, 0.9, 1.0, 0.9)
-	mat.emission_enabled = true
-	mat.emission = Color(0.45, 0.72, 1.0)
-	cyl.material = mat
-	mi.mesh = cyl
-	node.add_child(mi)
-	# 原版贴图冰锥（billboard 精灵，随机 4 张——贴近旧版 2D 冰锥外观）
+	# 本体：原版贴图 billboard（唯一视觉，避免贴图/模型重复）——随机 4 张预旋转横向贴图
 	var tex_path: String = ICE_TEXES[i % ICE_TEXES.size()]
 	if ResourceLoader.exists(tex_path):
 		var spike_tex := Sprite3D.new()
@@ -103,9 +87,10 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 		tm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 		tm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 		tm.albedo_texture = load(tex_path)
-		tm.albedo_color = Color(0.85, 0.95, 1.0, 1.0)
+		tm.albedo_color = Color(0.85, 0.96, 1.0, 1.0)
 		tm.emission_enabled = true
 		tm.emission = Color(0.5, 0.8, 1.0)
+		tm.emission_energy_multiplier = 1.4
 		spike_tex.material_override = tm
 		node.add_child(spike_tex)
 	# 冰蓝光晕（软点 ADD，让冰锥有"法光"感）
@@ -113,13 +98,13 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	glow.pixel_size = 0.0025
-	glow.scale = Vector3(1.5, 1.5, 1.0)
+	glow.scale = Vector3(1.8, 1.8, 1.0)
 	var gm := StandardMaterial3D.new()
 	gm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	gm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	gm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	gm.albedo_texture = _dot_tex()
-	gm.albedo_color = Color(0.6, 0.85, 1.0, 0.3)
+	gm.albedo_color = Color(0.6, 0.85, 1.0, 0.35)
 	glow.material_override = gm
 	node.add_child(glow)
 	# 飞行尾迹（冰蓝 ADD 粒子，仅飞行时开启）
@@ -147,7 +132,8 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 	trail.process_material = tp
 	node.add_child(trail)
 	add_child(node)
-	return {"node": node, "i": i, "angle": angle, "rx": rx, "ry": ry, "elev": elev,
+	return {"node": node, "i": i, "base": base, "amp": amp,
+		"freq_a": freq_a, "freq_b": freq_b, "freq_c": freq_c,
 		"launched": false, "dir": Vector3.FORWARD, "traveled": 0.0, "trail": trail, "done": false}
 
 ## 第二段：齐射
@@ -202,19 +188,20 @@ func _hover_update(delta: float) -> void:
 			cam = c
 			break
 	if cam != null:
-		# 环绕中心前移到相机前方 0.55m——第一人称下 4 颗冰锥都在视野内
-		center = cam.global_position - cam.global_transform.basis.z * 0.55
+		center = cam.global_position
+	var aim_dir := Vector3(0, 0, -5.0)
+	if cam != null:
+		aim_dir = cam.global_position - cam.global_transform.basis.z * 5.0
 	for s in _spikes:
-		# 相邻错速，避免整体刚性转圈（旧版 orbitSpeed 错开）
-		s.angle += delta * (0.7 + (int(s.i) % 2) * 0.18)
-		var a: float = s.angle
-		var pos := center + Vector3(cos(a) * s.rx, s.elev, sin(a) * s.ry)
-		# 原版 sway：每颗错相位上下浮动，避免呆板
-		pos.y += sin(_hover_t * 2.0 + float(s.i) * 0.7) * 0.04
+		var b: Vector3 = s.base
+		# 各自相位浮动：上下/左右/前后独立频率（每颗像漂浮的冰晶，非死板转圈）
+		var dx := sin(_hover_t * float(s.freq_b) + float(s.i) * 0.9) * 0.03
+		var dy := sin(_hover_t * float(s.freq_a) + float(s.i) * 1.3) * 0.05
+		var dz := sin(_hover_t * float(s.freq_c) + float(s.i) * 2.1) * 0.04
+		var pos := center + Vector3(b.x + dx, b.y + dy, b.z + dz)
 		s.node.global_position = pos
-		# 水平悬浮：尖端沿环绕切线（待发射姿态），而非竖直朝中心
-		var tangent := Vector3(-sin(a), 0.0, cos(a))
-		s.node.look_at(pos + tangent, Vector3.UP)
+		# 朝向发射汇聚方向（贴图为 billboard 不随 node 旋转，look_at 供结构/未来 3D 元素）
+		s.node.look_at(aim_dir, Vector3.UP)
 
 func _fly_update(delta: float) -> void:
 	_hit_sound_cd = maxf(0.0, _hit_sound_cd - delta)
