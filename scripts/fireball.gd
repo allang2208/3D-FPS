@@ -67,13 +67,13 @@ func build_visual() -> void:
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	glow.pixel_size = 0.0025
-	glow.scale = Vector3(2.2, 2.2, 1.0)
+	glow.scale = Vector3(2.5, 2.5, 1.0)
 	var glow_mat := StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	glow_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	glow_mat.albedo_texture = _dot_tex()
-	glow_mat.albedo_color = Color(1.0, 0.6, 0.25, 0.22)
+	glow_mat.albedo_color = Color(1.0, 0.6, 0.25, 0.26)
 	glow.material_override = glow_mat
 	add_child(glow)
 	# 橙色点光（火球照亮周围）
@@ -86,8 +86,8 @@ func build_visual() -> void:
 	var flame_white := GPUParticles3D.new()
 	flame_white.emitting = true
 	flame_white.one_shot = false
-	flame_white.amount = 14
-	flame_white.lifetime = 0.45
+	flame_white.amount = 24
+	flame_white.lifetime = 0.5
 	flame_white.local_coords = false
 	flame_white.draw_pass_1 = _dot_pass(0.5, false)
 	var wp := ParticleProcessMaterial.new()
@@ -95,15 +95,15 @@ func build_visual() -> void:
 	wp.spread = 120.0
 	wp.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
 	wp.emission_sphere_radius = 0.13
-	wp.initial_velocity_min = 0.15
-	wp.initial_velocity_max = 0.3
+	wp.initial_velocity_min = 0.18
+	wp.initial_velocity_max = 0.35
 	wp.gravity = Vector3(0, 0.25, 0)
-	wp.scale_min = 0.12
-	wp.scale_max = 0.2
+	wp.scale_min = 0.24
+	wp.scale_max = 0.38
 	wp.scale_curve = _grow_texture(0.5, 1.0)
 	wp.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.55),
-		Color(1.0, 0.96, 0.8, 0.45),
+		Color(1.0, 1.0, 1.0, 0.65),
+		Color(1.0, 0.96, 0.8, 0.55),
 		Color(1.0, 0.7, 0.3, 0.0),
 	], [0.0, 0.3, 1.0])
 	flame_white.process_material = wp
@@ -112,7 +112,7 @@ func build_visual() -> void:
 	var flame_yellow := GPUParticles3D.new()
 	flame_yellow.emitting = true
 	flame_yellow.one_shot = false
-	flame_yellow.amount = 40
+	flame_yellow.amount = 44
 	flame_yellow.lifetime = 0.55
 	flame_yellow.local_coords = false
 	flame_yellow.draw_pass_1 = _dot_pass(0.6, false)
@@ -124,8 +124,8 @@ func build_visual() -> void:
 	yp.initial_velocity_min = 0.25
 	yp.initial_velocity_max = 0.5
 	yp.gravity = Vector3(0, 0.15, 0)
-	yp.scale_min = 0.28
-	yp.scale_max = 0.5
+	yp.scale_min = 0.32
+	yp.scale_max = 0.56
 	yp.scale_curve = _grow_texture(0.6, 1.2)
 	yp.turbulence_enabled = true
 	yp.turbulence_noise_strength = 1.1
