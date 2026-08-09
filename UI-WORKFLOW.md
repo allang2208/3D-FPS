@@ -106,6 +106,29 @@
 
 ## 10. shadcn 模式落地（本机已部署）
 
+## 11. 场景通用 HUD + 还原原项目（2026-08-09 落地）
+
+### 架构：HUD 已迁移到 autoload
+
+- `ui/hud.gd` = autoload `HUD`：任何场景自动构建 状态栏+快捷栏+背包+技能栏，并接线当前场景 Player/Gun；
+  数据（背包/装备/属性/技能）挂在 HUD 上，跨场景保留（传送门往返不重置）。
+- 场景桥接 `_setup_hud_bridge`：别名指向 HUD 数据 + `HUD.skill_triggered` / `HUD.player_healed` 信号；
+  未就绪自动重试、重载防重复连接。main.gd / demo_terrain.gd 已迁移，禁止再在场景里自建 HUD。
+- 新场景零代码获得 HUD；验证 `tests/test_hud_scene.tscn`（裸 Player 场景）。
+
+### 换肤 / 还原
+
+- 换肤 = 改 `ui/style-config.json` 的 `active_theme`（dark_gold / gold_white_gray / gray_white）。
+- 还原原项目前先读 `E:\无尽轮回\长期备份\2026-7-13-1\game-dev\game-style.css` + `hud-layer.html`；
+  关键差异与已完成项见 `docs/ui-panel-audit.md`；可复用审计脚本 `tools/audit_ui_panels.py`。
+- 圆角必须烘焙进面板贴图（`gen_panel_textures.gd` 的 `_round_corners`）；blur shader 圆角裁剪。
+- 浮窗字号规范 `tt_*`（18/13/12），禁止自造字号。
+
+### 提交
+
+- 场景通用 HUD 后，`main.gd` 的 HUD 部分不再手写（只有桥接）；改 UI 仍走 `ui:` 前缀 + 无头验证 + 门禁。
+- 并行纪律：`git add` 前检查 `git diff --cached`，避免把其他线的暂存文件卷进自己的提交。
+
 ### 本地 shadcn 文档站
 
 - 部署位置：`E:\3d\shadcn-ui`（官方仓库 `shadcn-ui/ui`，MIT，文档 v4）。
