@@ -10,7 +10,7 @@ extends Node3D
 ##   冲刺开火延迟、贴墙弹道起点修正、部位伤害（爆头 ×2，由 projectile→enemy Hitbox 结算）
 
 ## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
-@export var data: WeaponData = preload("res://weapon_data/akm_dl.tres")
+@export var data: WeaponData = preload("res://weapon_data/akm_sketchfab.tres")
 
 const BASE_POS := Vector3(0.28, -0.15, -0.5)  # 抬高持枪位，给换弹弹匣下滑留出画面空间
 
@@ -174,7 +174,7 @@ func _effective_mag() -> int:
 
 func _ready() -> void:
 	if data == null:
-		data = load("res://weapon_data/akm_dl.tres")
+		data = load("res://weapon_data/akm_sketchfab.tres")
 	if data == null:
 		push_error("[gun] 缺少武器数据，使用脚本默认兜底")
 		data = WeaponData.new()
