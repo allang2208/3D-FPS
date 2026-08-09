@@ -71,3 +71,16 @@ scale_curve 生长（越往上越宽）+ color_ramp alpha 提前淡出（防顶�
 - **新坑**：`Camera3D.new()` 自动名是 `@Camera3D@id`（类型查找替代名字查找）；
   3D 投射物要汇聚躯干高度（0.8m）否则从敌人头顶掠过；skills_db._eval 需兼容纯数值；
   隔离探针假敌人须 StaticBody3D + CapsuleShape3D + collision_layer=2 才能被射线命中。
+
+## 技能栏全面迁移（第三轮，`8bcc482`）
+
+- **数据**：skills_db 公式求值换 Godot Expression（Math.floor/round/pi 替换），
+  新增 `effect_raw()` 全量求值、`exp_formula/exp_rewards/sounds` 暴露；26 技能全部可解析。
+- **音效**：补齐 frozn / holy-light-1 / icewall / 陨星×3 到 assets/sfx。
+- **修炼**：`ui/skill_progress.gd`（命中/击杀/多杀经验 → 升级，expFormula 求值），
+  技能脚本发 `cast_finished(hits, kills)`（静态 cast 用 Callable 回调），
+  `skill_page.gd` 修炼列表显示 Lv + 经验条（set_progress/set_db 注入，不改 UI 线 setup 签名）。
+- **技能实现**：`area_skill.gd` 配置化覆盖圣光/暴风雪/冰墙/陨星/雷暴领域/灼锋焰甲/无人机，
+  `thunder_lance.gd` 贯穿雷枪（射线-线段距离贯穿，阈值 0.8）；Q/E/X/C 绑定
+  火球/冰锥/闪电/暴风雪，其余可绑定/修炼。
+- 验证：修炼 exp=34（3hit+1kill+multiHit 正确）、圣光命中、雷枪贯穿双杀、隔离探针全过。
