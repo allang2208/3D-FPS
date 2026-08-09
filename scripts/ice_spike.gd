@@ -7,6 +7,13 @@ extends Node3D
 const PX_TO_M := 0.014
 const HIT_MASK := 3  # 1 墙体 + 2 敌人
 const HIT_SOUND := "res://assets/sfx/ice.mp3"
+## 原版冰锥贴图池：每次施法每颗随机一张（旧版 ICE_SPIKE_TEXES 4 张）
+const ICE_TEXES := [
+	"res://assets/ui/icons/skills/icearrow.png",
+	"res://assets/ui/icons/skills/ice_spike_icon_01.png",
+	"res://assets/ui/icons/skills/ice_spike_icon_02.png",
+	"res://assets/ui/icons/skills/ice_spike_icon_03.png",
+]
 
 signal consumed
 signal cast_finished(hits, kills)
@@ -82,6 +89,23 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 	cyl.material = mat
 	mi.mesh = cyl
 	node.add_child(mi)
+	# 原版贴图冰锥（billboard 精灵，随机 4 张——贴近旧版 2D 冰锥外观）
+	var tex_path: String = ICE_TEXES[i % ICE_TEXES.size()]
+	if ResourceLoader.exists(tex_path):
+		var spike_tex := Sprite3D.new()
+		spike_tex.texture = load(tex_path)
+		spike_tex.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		spike_tex.pixel_size = 0.0025  # 128px → 0.32m 基础尺寸
+		spike_tex.scale = Vector3(1.0, 1.0, 1.0)
+		var tm := StandardMaterial3D.new()
+		tm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		tm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		tm.albedo_texture = load(tex_path)
+		tm.albedo_color = Color(0.85, 0.95, 1.0, 1.0)
+		tm.emission_enabled = true
+		tm.emission = Color(0.5, 0.8, 1.0)
+		spike_tex.material_override = tm
+		node.add_child(spike_tex)
 	# 冰蓝光晕（软点 ADD，让冰锥有"法光"感）
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
@@ -100,22 +124,24 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 	var trail := GPUParticles3D.new()
 	trail.emitting = false
 	trail.one_shot = false
-	trail.amount = 30
-	trail.lifetime = 0.45
+	trail.amount = 8
+	trail.lifetime = 0.3
 	trail.local_coords = false
 	trail.draw_pass_1 = _dot_pass(0.3, true)
 	var tp := ParticleProcessMaterial.new()
 	tp.direction = Vector3.ZERO
 	tp.spread = 180.0
-	tp.initial_velocity_min = 0.03
-	tp.initial_velocity_max = 0.2
-	tp.gravity = Vector3(0, -1.2, 0)
-	tp.scale_min = 0.3
-	tp.scale_max = 0.5
+	tp.initial_velocity_min = 0.0
+	tp.initial_velocity_max = 0.35
+	tp.gravity = Vector3(0, -0.8, 0)
+	tp.scale_min = 0.35
+	tp.scale_max = 0.55
+	tp.scale_curve = _grow_texture(1.0, 0.25)  # 旧版 scale 0.9→0.1 渐小
 	tp.color_ramp = _ramp([
-		Color(0.9, 0.97, 1.0, 0.8),
-		Color(0.5, 0.75, 1.0, 0.0),
-	], [0.0, 1.0])
+		Color(1.0, 1.0, 1.0, 0.6),
+		Color(0.68, 0.87, 1.0, 0.3),
+		Color(0.4, 0.65, 1.0, 0.0),
+	], [0.0, 0.5, 1.0])
 	trail.process_material = tp
 	node.add_child(trail)
 	add_child(node)
@@ -174,12 +200,15 @@ func _hover_update(delta: float) -> void:
 			cam = c
 			break
 	if cam != null:
-		center = cam.global_position
+		# 环绕中心前移到相机前方 0.55m——第一人称下 4 颗冰锥都在视野内
+		center = cam.global_position - cam.global_transform.basis.z * 0.55
 	for s in _spikes:
 		# 相邻错速，避免整体刚性转圈（旧版 orbitSpeed 错开）
 		s.angle += delta * (0.7 + (int(s.i) % 2) * 0.18)
 		var a: float = s.angle
 		var pos := center + Vector3(cos(a) * s.rx, s.elev, sin(a) * s.ry)
+		# 原版 sway：每颗错相位上下浮动，避免呆板
+		pos.y += sin(_hover_t * 2.0 + float(s.i) * 0.7) * 0.04
 		s.node.global_position = pos
 		s.node.look_at(center + Vector3(0, s.elev * 0.7, 0), Vector3.UP)
 
@@ -225,18 +254,19 @@ func _ice_shards(pos: Vector3) -> void:
 	p.one_shot = true
 	p.emitting = true
 	p.amount = 12
-	p.lifetime = 0.5
+	p.lifetime = 0.45
 	p.local_coords = false
 	p.position = pos
-	p.draw_pass_1 = _dot_pass(0.3, false)
+	p.draw_pass_1 = _dot_pass(0.3, true)
 	var pm := ParticleProcessMaterial.new()
 	pm.direction = Vector3.ZERO
 	pm.spread = 180.0
-	pm.initial_velocity_min = 1.2
-	pm.initial_velocity_max = 3.2
-	pm.gravity = Vector3(0, -6.0, 0)
-	pm.scale_min = 0.25
-	pm.scale_max = 0.45
+	pm.initial_velocity_min = 1.4
+	pm.initial_velocity_max = 4.5
+	pm.gravity = Vector3(0, -7.0, 0)
+	pm.scale_min = 0.5
+	pm.scale_max = 0.9
+	pm.scale_curve = _grow_texture(1.0, 0.2)  # 旧版 scale 1.6→0.15 渐小
 	pm.color_ramp = _ramp([
 		Color(1.0, 1.0, 1.0, 0.9),
 		Color(0.7, 0.9, 1.0, 0.5),
@@ -244,7 +274,32 @@ func _ice_shards(pos: Vector3) -> void:
 	], [0.0, 0.4, 1.0])
 	p.process_material = pm
 	_add_to_root(p)
-	_delayed_free(p, 0.8)
+	_delayed_free(p, 0.75)
+	# 白色爆闪（旧版 tint 白打头，短促亮闪）
+	var flash := GPUParticles3D.new()
+	flash.one_shot = true
+	flash.emitting = true
+	flash.amount = 6
+	flash.lifetime = 0.18
+	flash.local_coords = false
+	flash.position = pos
+	flash.draw_pass_1 = _dot_pass(0.25, true)
+	var fp := ParticleProcessMaterial.new()
+	fp.direction = Vector3.ZERO
+	fp.spread = 180.0
+	fp.initial_velocity_min = 0.4
+	fp.initial_velocity_max = 1.6
+	fp.gravity = Vector3.ZERO
+	fp.scale_min = 0.4
+	fp.scale_max = 0.7
+	fp.scale_curve = _grow_texture(1.0, 0.1)
+	fp.color_ramp = _ramp([
+		Color(1.0, 1.0, 1.0, 1.0),
+		Color(0.85, 0.95, 1.0, 0.0),
+	], [0.0, 1.0])
+	flash.process_material = fp
+	_add_to_root(flash)
+	_delayed_free(flash, 0.4)
 
 func _ice_ring(pos: Vector3) -> void:
 	var ring := MeshInstance3D.new()
@@ -266,7 +321,8 @@ func _ice_ring(pos: Vector3) -> void:
 	var tw := ring.create_tween()
 	tw.tween_method(func(t: float) -> void:
 		ring.scale = Vector3.ONE * (0.1 + t * 0.9)
-		mat.albedo_color.a = (1.0 - t) * 0.8
+		var flick: float = 0.55 + 0.45 * sin(t * TAU * 4.0)  # 旧版 flicker
+		mat.albedo_color.a = (1.0 - t) * 0.8 * flick
 		, 0.0, 1.0, 0.32).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tw.tween_callback(func() -> void: ring.queue_free())
 
