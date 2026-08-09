@@ -221,7 +221,8 @@ func _setup_hud_bridge() -> void:
 
 ## 技能触发分发（火球/冰锥二段式 + 闪电单段）
 func _on_skill_triggered(skill_id: String, phase: String) -> void:
-	if _player == null:
+	if _player == null or _player_status == null or _skills_db == null:
+		# HUD 桥接未就绪时静默忽略（避免 Nil 崩溃；桥接重试完成后自然可用）
 		return
 	match skill_id:
 		"fireball":
