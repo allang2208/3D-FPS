@@ -244,7 +244,8 @@ func _fly_update(delta: float) -> void:
 		# 锥体尖端实时朝向当前飞行方向（准星方向）
 		s.node.look_at(to + (s.dir as Vector3), Vector3.UP)
 
-## 准星瞄准点：相机前方射线（HIT_MASK）命中点，否则前方 5m
+## 准星瞄准点：优先锁定准星锥形内最近敌人（矮敌人/偏移也追踪），
+## 否则用相机前方射线（HIT_MASK）命中点，再无命中取前方 5m
 func _aim_point() -> Vector3:
 	var cam: Camera3D = null
 	if _caster != null:
@@ -256,11 +257,38 @@ func _aim_point() -> Vector3:
 		return _caster.global_position + Vector3(0, 0, -5.0)
 	var origin := cam.global_position
 	var fwd := -cam.global_transform.basis.z
+	# 准星锥形内最近敌人（half_angle ~15°，容错大，准星大致对准即锁定）
+	var enemy := _nearest_aimed_enemy(origin, fwd, 15.0)
+	if enemy != null:
+		# 瞄准躯干中部（避免与冰锥 0.8m 发射高度同高时擦过胶囊顶端）
+		return (enemy as Node3D).global_position + Vector3(0, 0.3, 0)
 	var query := PhysicsRayQueryParameters3D.create(origin, origin + fwd * _max_range, HIT_MASK)
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	if hit:
 		return hit.position
 	return origin + fwd * 5.0
+
+## 准星方向锥形内最近的敌对目标（有 take_damage 且非 Player）
+func _nearest_aimed_enemy(from: Vector3, fwd: Vector3, half_angle_deg: float) -> Node3D:
+	var best: Node3D = null
+	var best_d := INF
+	var cos_limit := cos(deg_to_rad(half_angle_deg))
+	var scene_root: Node = _scene_root if _scene_root != null else get_tree().current_scene
+	if scene_root == null:
+		return null
+	for c in scene_root.get_children():
+		if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
+			continue
+		var to_target: Vector3 = (c.global_position + Vector3(0, 0.5, 0)) - from
+		var d: float = to_target.length()
+		if d > _max_range or d <= 0.0:
+			continue
+		if fwd.dot(to_target.normalized()) < cos_limit:
+			continue
+		if d < best_d:
+			best_d = d
+			best = c
+	return best
 
 ## 命中/撞墙：碎裂（冰屑带重力 + 小冰环 + 音效节流）
 func _shatter(s: Dictionary, pos: Vector3, collider: Object) -> void:
