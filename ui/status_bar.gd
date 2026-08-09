@@ -40,6 +40,18 @@ var _ch_down: ColorRect
 var _ch_left: ColorRect
 var _ch_right: ColorRect
 var _vignette: ColorRect
+var _tip: PanelContainer
+var _tip_title: Label
+var _tip_desc: Label
+var _tip_body: VBoxContainer
+var _hp_now := 0
+var _hp_max := 100
+var _mp_now := 0
+var _mp_max := 100
+var _ammo_now := 0
+var _ammo_reserve := 0
+var _kills := 0
+var _weapon_name := ""
 
 func _ready() -> void:
 	_theme = Style.make_theme()
@@ -71,6 +83,7 @@ func _process(delta: float) -> void:
 		_vignette_mat.set_shader_parameter("intensity", v)
 
 func _build() -> void:
+	_build_tooltip()
 	# 左上：生命（图标 + 血条 + 数值）
 	var hp_bg := Panel.new()
 	hp_bg.position = Vector2(16, 10)
@@ -78,15 +91,19 @@ func _build() -> void:
 	hp_bg.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(hp_bg)
+	_bind_hover(hp_bg, "生命值", "角色的生命，归零时死亡。低血量会触发红色警示。",
+		func() -> Array: return [["当前生命", "%d / %d" % [_hp_now, _hp_max]], ["低血量", "低于 25% 警示"]])
 	_hp_fill = ColorRect.new()
 	_hp_fill.position = Vector2(18, 12)
 	_hp_fill.size = Vector2(BAR_W - 4, BAR_H - 4)
+	_hp_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_hp_fill)
 	_hp_trail = ColorRect.new()
 	_hp_trail.color = Color(Style.COLOR_WHITE, 0.85)
 	_hp_trail.position = Vector2(18, 12)
 	_hp_trail.size = Vector2(BAR_W - 4, BAR_H - 4)
 	_hp_trail.visible = false
+	_hp_trail.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_hp_trail)
 	_hp_label = _make_label("100/100", Vector2(244, 8), 22, Style.COLOR_WHITE)
 	_hp_label.add_theme_font_override("font", _font_mono)
@@ -97,10 +114,13 @@ func _build() -> void:
 	mp_bg.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(mp_bg)
+	_bind_hover(mp_bg, "魔法值", "释放技能消耗的魔力，随时间自动恢复。",
+		func() -> Array: return [["当前魔法", "%d / %d" % [_mp_now, _mp_max]]])
 	_mp_fill = ColorRect.new()
 	_mp_fill.color = Style.THEME_MP_BLUE
 	_mp_fill.position = Vector2(18, 42)
 	_mp_fill.size = Vector2(BAR_W - 4, 10)
+	_mp_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_mp_fill)
 	_mp_label = _make_label("", Vector2(244, 37), 16, Style.THEME_MP_BLUE)
 	mp_bg.visible = false
@@ -108,6 +128,8 @@ func _build() -> void:
 	_mp_label.visible = false
 	_kill_label = _make_label("击杀: 0", Vector2(16, 64), 16, Style.COLOR_KILL)
 	_kill_label.add_theme_font_override("font", _font_mono)
+	_bind_hover(_kill_label, "击杀数", "本局累计击杀的敌人数量。",
+		func() -> Array: return [["击杀", "%d" % _kills]])
 	# 右下：武器名 + 弹药 + 状态提示
 	_weapon_label = _make_label("AK-74", Vector2.ZERO, 14,
 		Style.THEME_GRAY_LIGHT if Style.theme_active() == "gold_white_gray" else Style.COLOR_DIM_TEXT)
@@ -116,6 +138,8 @@ func _build() -> void:
 	_weapon_label.offset_left = -320
 	_weapon_label.offset_top = -116
 	_weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_bind_hover(_weapon_label, "当前武器", "正在使用的武器。1~4 键切换，R 键换弹。",
+		func() -> Array: return [["武器", _weapon_name]])
 	var ammo_row := HBoxContainer.new()
 	ammo_row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	ammo_row.offset_left = -220
@@ -125,6 +149,8 @@ func _build() -> void:
 	ammo_row.alignment = BoxContainer.ALIGNMENT_END
 	ammo_row.add_theme_constant_override("separation", 6)
 	add_child(ammo_row)
+	_bind_hover(ammo_row, "弹药", "弹匣内子弹 / 备弹。弹匣打空后自动换弹。",
+		func() -> Array: return [["弹匣", "%d" % _ammo_now], ["备弹", "%d" % _ammo_reserve]])
 	_ammo_label = Label.new()
 	_ammo_label.theme = _theme
 	_ammo_label.add_theme_font_override("font", _font_mono)
@@ -202,6 +228,92 @@ func _make_crosshair_line(dir: Vector2) -> ColorRect:
 	add_child(r)
 	return r
 
+## ---------- HUD 解释浮窗（源项目状态栏 hover 说明） ----------
+
+func _build_tooltip() -> void:
+	_tip = PanelContainer.new()
+	_tip.visible = false
+	_tip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_tip.z_index = 100
+	var sb := Style.make_style(Style.COLOR_TT_BG, Style.COLOR_TT_BORDER, 8, 2)
+	sb.shadow_color = Style.COLOR_TT_SHADOW
+	sb.shadow_size = 12
+	sb.shadow_offset = Vector2(0, 4)
+	_tip.add_theme_stylebox_override("panel", sb)
+	add_child(_tip)
+	var m := MarginContainer.new()
+	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	m.add_theme_constant_override("margin_left", 12)
+	m.add_theme_constant_override("margin_right", 12)
+	m.add_theme_constant_override("margin_top", 10)
+	m.add_theme_constant_override("margin_bottom", 10)
+	_tip.add_child(m)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 4)
+	m.add_child(v)
+	_tip_title = Label.new()
+	_tip_title.add_theme_font_override("font", Style.tt_font_title())
+	_tip_title.add_theme_font_size_override("font_size", Style.tt_size_title())
+	_tip_title.add_theme_color_override("font_color", Style.COLOR_TT_NAME)
+	v.add_child(_tip_title)
+	_tip_desc = Label.new()
+	_tip_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_tip_desc.custom_minimum_size = Vector2(200, 0)
+	_tip_desc.add_theme_font_override("font", Style.tt_font_body())
+	_tip_desc.add_theme_font_size_override("font_size", Style.tt_size_body())
+	_tip_desc.add_theme_color_override("font_color", Style.COLOR_TT_DESC)
+	v.add_child(_tip_desc)
+	_tip_body = VBoxContainer.new()
+	_tip_body.add_theme_constant_override("separation", 2)
+	v.add_child(_tip_body)
+
+func _bind_hover(target: Control, title: String, desc: String, rows: Callable) -> void:
+	target.mouse_filter = Control.MOUSE_FILTER_STOP
+	target.mouse_entered.connect(func() -> void:
+		_show_tooltip(title, desc, rows.call(), target.global_position + Vector2(0, target.size.y + 6)))
+	target.mouse_exited.connect(func() -> void:
+		if _tip != null:
+			_tip.visible = false)
+
+func _show_tooltip(title: String, desc: String, rows: Array, at: Vector2) -> void:
+	if _tip == null:
+		return
+	_tip_title.text = title
+	_tip_desc.text = desc
+	for c in _tip_body.get_children():
+		c.queue_free()
+	for row in rows:
+		var r := HBoxContainer.new()
+		r.add_theme_constant_override("separation", 12)
+		var n := Label.new()
+		n.text = String(row[0])
+		n.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		n.add_theme_font_override("font", Style.tt_font_body())
+		n.add_theme_font_size_override("font_size", Style.tt_size_body())
+		n.add_theme_color_override("font_color", Style.COLOR_TT_TYPE)
+		r.add_child(n)
+		var vv := Label.new()
+		vv.text = String(row[1])
+		vv.add_theme_font_override("font", Style.tt_font_value())
+		vv.add_theme_font_size_override("font_size", Style.tt_size_value())
+		vv.add_theme_color_override("font_color", Style.COLOR_TT_VAL)
+		r.add_child(vv)
+		_tip_body.add_child(r)
+	_tip.visible = true
+	_place_tooltip(at)
+
+func _place_tooltip(at: Vector2) -> void:
+	var ts := _tip.get_combined_minimum_size()
+	var vp := get_viewport().get_visible_rect().size
+	var pos := at + Vector2(0, 6)
+	if pos.y + ts.y > vp.y - 8:
+		pos.y = at.y - ts.y - 6
+	if pos.x + ts.x > vp.x - 8:
+		pos.x = vp.x - ts.x - 8
+	pos.x = maxf(8, pos.x)
+	pos.y = maxf(8, pos.y)
+	_tip.position = pos
+
 func _set_crosshair(ratio: float) -> void:
 	_ch_gap = 4.0 + ratio * 24.0
 	if _ch_up == null:
@@ -251,6 +363,8 @@ func _make_label(text: String, pos: Vector2, size: int, color: Color) -> Label:
 ## ---- 供 main.gd 调用的公开接口（数据来自稳定信号） ----
 
 func set_hp(hp: int, max_hp: int) -> void:
+	_hp_now = maxi(0, hp)
+	_hp_max = maxi(1, max_hp)
 	var m := maxi(1, max_hp)
 	var pct := clampf(float(hp) / float(m), 0.0, 1.0)
 	var target_w := (BAR_W - 4) * pct
@@ -280,6 +394,8 @@ func set_hp(hp: int, max_hp: int) -> void:
 
 ## 魔法值（技能系统移植后由 main 调用；首次调用点亮蓝条）
 func set_mp(mp: int, max_mp: int) -> void:
+	_mp_now = maxi(0, mp)
+	_mp_max = maxi(1, max_mp)
 	var m := maxi(1, max_mp)
 	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
 	_mp_fill.size.x = (BAR_W - 4) * pct
@@ -288,12 +404,16 @@ func set_mp(mp: int, max_mp: int) -> void:
 	_mp_label.visible = true
 
 func set_weapon_name(name: String) -> void:
+	_weapon_name = name
 	_weapon_label.text = name
 
 func set_kills(n: int) -> void:
+	_kills = maxi(0, n)
 	_kill_label.text = "击杀: %d" % n
 
 func set_ammo(ammo: int, reserve: int) -> void:
+	_ammo_now = maxi(0, ammo)
+	_ammo_reserve = maxi(0, reserve)
 	var changed := ammo != _last_ammo
 	_last_ammo = ammo
 	_ammo_label.text = str(maxi(0, ammo))

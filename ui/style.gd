@@ -261,6 +261,15 @@ static func make_font(weight := 400) -> Font:
 		_font_regular = load("res://assets/ui/fonts/MicrosoftYaHei.ttc")
 	return _font_regular
 
+## 浮窗排版规范（所有 tooltip 统一使用，禁止各组件自造字号/字重）
+static func tt_font_title() -> Font: return make_font(700)
+static func tt_font_value() -> Font: return make_font(600)
+static func tt_font_body() -> Font: return make_font(400)
+static func tt_size_title() -> int: return 16
+static func tt_size_group() -> int: return 12
+static func tt_size_body() -> int: return 12
+static func tt_size_value() -> int: return 12
+
 ## 等宽字体（VS Code Consolas 同款）：HUD 数字/弹药/数值用，清晰对齐
 static func make_mono_font(_weight := 400) -> Font:
 	if _font_mono == null:

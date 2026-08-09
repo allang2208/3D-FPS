@@ -24,12 +24,14 @@ var _enchant_col: VBoxContainer
 var _main_col: VBoxContainer
 var _font_title: Font
 var _font_value: Font
+var _font_body: Font
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	theme = Style.make_theme()
 	_font_title = Style.make_font(700)
 	_font_value = Style.make_font(600)
+	_font_body = Style.make_font(400)
 	var panel_sb := Style.make_style(Style.COLOR_TT_BG, Style.COLOR_TT_BORDER, 8, 2)
 	panel_sb.shadow_color = Style.COLOR_TT_SHADOW
 	panel_sb.shadow_size = 12
@@ -82,7 +84,7 @@ func _build() -> void:
 	_name_row.add_theme_constant_override("separation", 6)
 	title_box.add_child(_name_row)
 	_name_label = Label.new()
-	_name_label.add_theme_font_size_override("font_size", 18)
+	_name_label.add_theme_font_size_override("font_size", Style.tt_size_title())
 	_name_label.add_theme_font_override("font", _font_title)
 	_name_label.add_theme_color_override("font_color", Style.COLOR_TT_NAME)
 	_name_row.add_child(_name_label)
@@ -107,7 +109,8 @@ func _build() -> void:
 	_main_col.add_child(_extra_box)
 	_desc_label = Label.new()
 	_desc_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	_desc_label.add_theme_font_size_override("font_size", 12)
+	_desc_label.add_theme_font_size_override("font_size", Style.tt_size_body())
+	_desc_label.add_theme_font_override("font", _font_body)
 	_desc_label.add_theme_color_override("font_color", Style.COLOR_TT_DESC)
 	_main_col.add_child(_desc_label)
 
@@ -143,15 +146,17 @@ func _render_main(item: Dictionary) -> void:
 	_clear(_type_row)
 	var type_lbl := Label.new()
 	type_lbl.text = String(item.get("type", "物品"))
-	type_lbl.add_theme_font_size_override("font_size", 12)
+	type_lbl.add_theme_font_size_override("font_size", Style.tt_size_body())
+	type_lbl.add_theme_font_override("font", _font_body)
 	type_lbl.add_theme_color_override("font_color", Style.COLOR_TT_TYPE)
 	_type_row.add_child(type_lbl)
 	var rarity_key := String(item.get("rarity", "common"))
 	var rarity_lbl := Label.new()
 	rarity_lbl.text = "| " + Style.rarity_label(rarity_key)
-	rarity_lbl.add_theme_font_size_override("font_size", 12)
+	rarity_lbl.add_theme_font_size_override("font_size", Style.tt_size_body())
 	var ls := LabelSettings.new()
-	ls.font_size = 12
+	ls.font_size = Style.tt_size_body()
+	ls.font = _font_body
 	ls.font_color = Style.rarity_color(rarity_key)
 	ls.outline_size = 2
 	ls.outline_color = Color.BLACK
@@ -161,7 +166,8 @@ func _render_main(item: Dictionary) -> void:
 	if level > 0:
 		var lv_lbl := Label.new()
 		lv_lbl.text = "| Lv.%d" % level
-		lv_lbl.add_theme_font_size_override("font_size", 12)
+		lv_lbl.add_theme_font_size_override("font_size", Style.tt_size_body())
+		lv_lbl.add_theme_font_override("font", _font_body)
 		lv_lbl.add_theme_color_override("font_color", Style.COLOR_TT_TYPE)
 		_type_row.add_child(lv_lbl)
 	# 属性行
@@ -365,7 +371,8 @@ func _render_enchant(item: Dictionary) -> void:
 	var name_lbl := Label.new()
 	name_lbl.text = name_html
 	name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	name_lbl.add_theme_font_size_override("font_size", 13)
+	name_lbl.add_theme_font_size_override("font_size", Style.tt_size_body())
+	name_lbl.add_theme_font_override("font", _font_value)
 	name_lbl.add_theme_color_override("font_color", Style.COLOR_TT_ENCHANT_NAME)
 	_enchant_col.add_child(name_lbl)
 	var ee: Dictionary = item.get("_enchantEffects", {})
@@ -384,7 +391,8 @@ func _render_enchant(item: Dictionary) -> void:
 			var f: Callable = row[2]
 			var lbl := Label.new()
 			lbl.text = "%s: %s" % [String(row[1]), str(f.call(v))]
-			lbl.add_theme_font_size_override("font_size", 12)
+			lbl.add_theme_font_size_override("font_size", Style.tt_size_body())
+			lbl.add_theme_font_override("font", _font_body)
 			lbl.add_theme_color_override("font_color", Style.COLOR_TT_VAL)
 			_enchant_col.add_child(lbl)
 
@@ -425,12 +433,13 @@ func _add_row(parent: Node, name: String, value: String, pos := false, neg := fa
 	var name_lbl := Label.new()
 	name_lbl.text = name
 	name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	name_lbl.add_theme_font_size_override("font_size", 12)
+	name_lbl.add_theme_font_size_override("font_size", Style.tt_size_body())
+	name_lbl.add_theme_font_override("font", _font_body)
 	name_lbl.add_theme_color_override("font_color", Style.COLOR_TT_TYPE)
 	row.add_child(name_lbl)
 	var val_lbl := Label.new()
 	val_lbl.text = value
-	val_lbl.add_theme_font_size_override("font_size", 13)
+	val_lbl.add_theme_font_size_override("font_size", Style.tt_size_value())
 	val_lbl.add_theme_font_override("font", _font_value)
 	var c := Style.COLOR_TT_VAL
 	if neg:
