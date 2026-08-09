@@ -42,6 +42,13 @@ func _build_environment() -> void:
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
 	env.ambient_light_energy = 0.6
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
+	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
+	env.fog_enabled = true
+	env.fog_light_color = Color(0.55, 0.62, 0.58)
+	env.fog_density = 0.0008
+	env.fog_height = -45.0
+	env.fog_height_density = 0.08
 	env_node.environment = env
 
 
@@ -116,6 +123,16 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/grass_bermuda_01/grass_bermuda_01_2k.gltf",
 		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
 		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
+		"res://assets/models/polyhaven/fern_02/fern_02_2k.gltf",
+		"res://assets/models/polyhaven/leafy_grass/leafy_grass_2k.gltf",
+		"res://assets/models/polyhaven/nettle_plant/nettle_plant_2k.gltf",
+		"res://assets/models/polyhaven/weed_plant_02/weed_plant_02_2k.gltf",
+		"res://assets/models/polyhaven/rock_moss_set_01/rock_moss_set_01_2k.gltf",
+		"res://assets/models/kenney_nature/crops_bambooStageB.glb",
+		"res://assets/models/kenney_nature/hanging_moss.glb",
+		"res://assets/models/kenney_nature/plant_flatTall.glb",
+		"res://assets/models/kenney_nature/grass_leafsLarge.glb",
+		"res://assets/models/kenney_nature/plant_bushDetailed.glb",
 	]
 	for i in mesh_specs.size():
 		var scn: PackedScene = load(mesh_specs[i])
@@ -154,6 +171,16 @@ func _build_instanced_nature() -> void:
 		[16, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
 		[17, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
 		[18, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
+		[19, 130, -460, 460, -40.0, 30.0, 0.5, 1.1],  # ph fern_02 蕨类（林下主体）
+		[20, 60, -460, 460, -40.0, 30.0, 0.35, 0.7],  # ph leafy_grass 阔叶草簇
+		[21, 90, -460, 460, -40.0, 30.0, 1.3, 2.3],   # ph nettle_plant 荨麻（放大）
+		[22, 80, -460, 460, -40.0, 30.0, 1.6, 2.8],   # ph weed_plant_02 杂草（放大）
+		[23, 30, -460, 460, -42.0, 28.0, 0.08, 0.16], # ph rock_moss_set_01 青苔石组
+		[24, 45, -460, 460, -38.0, 24.0, 0.8, 1.4],   # kenney bamboo 竹丛
+		[25, 55, -460, 460, -40.0, 28.0, 0.8, 1.3],   # kenney hanging_moss 垂藤丛
+		[26, 65, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_flatTall 宽叶
+		[27, 85, -460, 460, -40.0, 30.0, 0.8, 1.4],   # kenney grass_leafsLarge 大草
+		[28, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_bushDetailed 细节灌木
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
