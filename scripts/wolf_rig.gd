@@ -136,7 +136,9 @@ static func _euler_to_quat(e: Vector3) -> Quaternion:
 
 ## 从 GLB 实例构建带骨架/蒙皮的黑狼（一次性高成本，仅烘焙工具调用）。
 ## 顶点烘到 GLB 根空间，骨骼静止姿态与 BONE_DEFS 坐标同空间。
-static func build_rigged(src: Node3D) -> WolfRig:
+## ext_weights 非空时使用外部权重（[PackedInt32Array, PackedFloat32Array]，每顶点4影响），
+## 例如 UniRig 权重转移产物（tools/bake_wolf_rig.gd 的 WEIGHTS_BIN）；为空则用距离权重现算。
+static func build_rigged(src: Node3D, ext_weights: Array = []) -> WolfRig:
 	var rig := WolfRig.new()
 	rig.name = src.name
 	var skel := Skeleton3D.new()
@@ -181,7 +183,14 @@ static func build_rigged(src: Node3D) -> WolfRig:
 				for ni in norms.size():
 					norms[ni] = (rel.basis * norms[ni]).normalized()
 				arrays[Mesh.ARRAY_NORMAL] = norms
-			var bw := _compute_weights(verts, seg_data)
+			var bw: Array
+			if ext_weights.is_empty():
+				bw = _compute_weights(verts, seg_data)
+			else:
+				if (ext_weights[0] as PackedInt32Array).size() != verts.size() * MAX_INFLUENCES:
+					push_error("外部权重顶点数不匹配: weights=%d verts*4=%d" % [(ext_weights[0] as PackedInt32Array).size(), verts.size() * MAX_INFLUENCES])
+					return null
+				bw = ext_weights
 			arrays[Mesh.ARRAY_BONES] = bw[0]
 			arrays[Mesh.ARRAY_WEIGHTS] = bw[1]
 			out.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
