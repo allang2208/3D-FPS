@@ -71,8 +71,20 @@ static func _load_config() -> void:
 			MOTION_DURATION = float(motion.duration_ms) / 1000.0
 		if motion.has("easing"):
 			MOTION_EASING = str(motion.easing)
+	if typeof(cfg.get("hud", {})) == TYPE_DICTIONARY:
+		HUD_CFG = cfg.hud
 
 ## 风格查询（供组件统一消费，禁止散落数值）
+
+## HUD 布局/字号/行为/文案配置（style-config.json "hud" 段，改配置不改代码）
+static var HUD_CFG: Dictionary = {}
+
+static func hud(key: String, default_val = null):
+	return HUD_CFG.get(key, default_val)
+
+static func hud_section(key: String) -> Dictionary:
+	var v = HUD_CFG.get(key, {})
+	return v if v is Dictionary else {}
 static func spacing(key: String) -> int:
 	return int(SPACING.get(key, 4))
 

@@ -6,9 +6,6 @@ extends CanvasLayer
 
 const Style := preload("res://ui/style.gd")
 
-const BAR_W := 220.0
-const BAR_H := 18.0
-
 var _hp_fill: ColorRect
 var _hp_trail: ColorRect
 var _hp_label: Label
@@ -52,8 +49,23 @@ var _ammo_now := 0
 var _ammo_reserve := 0
 var _kills := 0
 var _weapon_name := ""
+var _bar_w := 220.0
+var _bar_h := 18.0
+var _hp_cfg := {}
+var _mp_cfg := {}
+var _kill_cfg := {}
+var _weapon_cfg := {}
+var _ammo_cfg := {}
+var _status_cfg := {}
+var _death_cfg := {}
+var _hitmark_cfg := {}
+var _dmg_cfg := {}
+var _cross_cfg := {}
+var _vig_cfg := {}
+var _labels := {}
 
 func _ready() -> void:
+	_hud_cfg()
 	_theme = Style.make_theme()
 	_font_bold = Style.make_font(600)
 	_font_heavy = Style.make_font(700)
@@ -61,11 +73,37 @@ func _ready() -> void:
 	_font_mono = Style.make_mono_font(600)
 	_build()
 
+## 从 style-config.json "hud" 段读取布局/字号/行为/文案（改配置不改代码）
+func _hud_cfg() -> void:
+	_bar_w = float(Style.hud("bar_w", 220.0))
+	_bar_h = float(Style.hud("bar_h", 18.0))
+	_hp_cfg = Style.hud_section("hp")
+	_mp_cfg = Style.hud_section("mp")
+	_kill_cfg = Style.hud_section("kill")
+	_weapon_cfg = Style.hud_section("weapon")
+	_ammo_cfg = Style.hud_section("ammo")
+	_status_cfg = Style.hud_section("status")
+	_death_cfg = Style.hud_section("death")
+	_hitmark_cfg = Style.hud_section("hitmark")
+	_dmg_cfg = Style.hud_section("dmgflash")
+	_cross_cfg = Style.hud_section("crosshair")
+	_vig_cfg = Style.hud_section("vignette")
+	_labels = Style.hud_section("labels")
+
+func _cfg_num(d: Dictionary, key: String, default: float) -> float:
+	return float(d.get(key, default))
+
+func _cfg_int(d: Dictionary, key: String, default: int) -> int:
+	return int(d.get(key, default))
+
+func _label(key: String, default: String) -> String:
+	return String(_labels.get(key, default))
+
 func _process(delta: float) -> void:
 	_hitmark_t = maxf(0.0, _hitmark_t - delta)
 	_hitmarker.visible = _hitmark_t > 0.0
 	_dmgflash_t = maxf(0.0, _dmgflash_t - delta)
-	_dmgflash.color.a = 0.25 * (_dmgflash_t / 0.18)
+	_dmgflash.color.a = _cfg_num(_dmg_cfg, "alpha", 0.25) * (_dmgflash_t / _cfg_num(_dmg_cfg, "ms", 0.18))
 	_status_t = maxf(0.0, _status_t - delta)
 	_status_label.visible = _status_t > 0.0
 	# 准星随扩散张开（读 gun 的扩散状态；无枪时保持最小）
@@ -76,99 +114,113 @@ func _process(delta: float) -> void:
 		if data != null:
 			base = float(data.base_spread)
 		var total := base + float(gun.get("_spread")) + float(gun.get("_move_spread")) + float(gun.get("_air_spread"))
-		_set_crosshair(clampf(total / 0.035, 0.0, 1.0))
+		_set_crosshair(clampf(total / _cfg_num(_cross_cfg, "max_ratio", 0.035), 0.0, 1.0))
 	# 低血量血雾呼吸
 	if _low_hp and _vignette_mat != null:
-		var v := 0.30 + 0.22 * (0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * 2.4))
+		var v := _cfg_num(_vig_cfg, "base", 0.30) + _cfg_num(_vig_cfg, "amp", 0.22) \
+			* (0.5 + 0.5 * sin(Time.get_ticks_msec() / 1000.0 * _cfg_num(_vig_cfg, "freq", 2.4)))
 		_vignette_mat.set_shader_parameter("intensity", v)
 
 func _build() -> void:
 	_build_tooltip()
 	# 左上：生命（图标 + 血条 + 数值）
+	var hp_x := _cfg_int(_hp_cfg, "x", 16)
+	var hp_y := _cfg_int(_hp_cfg, "y", 10)
+	var hp_lx := _cfg_int(_hp_cfg, "label_x", 244)
+	var hp_ls := _cfg_int(_hp_cfg, "label_size", 22)
 	var hp_bg := Panel.new()
-	hp_bg.position = Vector2(16, 10)
-	hp_bg.size = Vector2(BAR_W, BAR_H)
+	hp_bg.position = Vector2(hp_x, hp_y)
+	hp_bg.size = Vector2(_bar_w, _bar_h)
 	hp_bg.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(hp_bg)
-	_bind_hover(hp_bg, "生命值", "角色的生命，归零时死亡。低血量会触发红色警示。",
+	_bind_hover(hp_bg, _label("hp_tip_title", "生命值"), _label("hp_tip_desc", "角色的生命，归零时死亡。低血量会触发红色警示。"),
 		func() -> Array: return [["当前生命", "%d / %d" % [_hp_now, _hp_max]], ["低血量", "低于 25% 警示"]])
 	_hp_fill = ColorRect.new()
-	_hp_fill.position = Vector2(18, 12)
-	_hp_fill.size = Vector2(BAR_W - 4, BAR_H - 4)
+	_hp_fill.position = Vector2(hp_x + 2, hp_y + 2)
+	_hp_fill.size = Vector2(_bar_w - 4, _bar_h - 4)
 	_hp_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_hp_fill)
 	_hp_trail = ColorRect.new()
 	_hp_trail.color = Color(Style.COLOR_WHITE, 0.85)
-	_hp_trail.position = Vector2(18, 12)
-	_hp_trail.size = Vector2(BAR_W - 4, BAR_H - 4)
+	_hp_trail.position = Vector2(hp_x + 2, hp_y + 2)
+	_hp_trail.size = Vector2(_bar_w - 4, _bar_h - 4)
 	_hp_trail.visible = false
 	_hp_trail.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_hp_trail)
-	_hp_label = _make_label("100/100", Vector2(244, 8), 22, Style.COLOR_WHITE)
+	_hp_label = _make_label("100/100", Vector2(hp_lx, hp_y - 2), hp_ls, Style.COLOR_WHITE)
 	_hp_label.add_theme_font_override("font", _font_mono)
 	# 左上第二行：魔力（蓝条，技能系统移植后由 set_mp 点亮）
+	var mp_x := _cfg_int(_mp_cfg, "x", 16)
+	var mp_y := _cfg_int(_mp_cfg, "y", 40)
+	var mp_h := _cfg_int(_mp_cfg, "h", 14)
+	var mp_lx := _cfg_int(_mp_cfg, "label_x", 244)
+	var mp_ls := _cfg_int(_mp_cfg, "label_size", 16)
 	var mp_bg := Panel.new()
-	mp_bg.position = Vector2(16, 40)
-	mp_bg.size = Vector2(BAR_W, 14)
+	mp_bg.position = Vector2(mp_x, mp_y)
+	mp_bg.size = Vector2(_bar_w, mp_h)
 	mp_bg.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(mp_bg)
-	_bind_hover(mp_bg, "魔法值", "释放技能消耗的魔力，随时间自动恢复。",
+	_bind_hover(mp_bg, _label("mp_tip_title", "魔法值"), _label("mp_tip_desc", "释放技能消耗的魔力，随时间自动恢复。"),
 		func() -> Array: return [["当前魔法", "%d / %d" % [_mp_now, _mp_max]]])
 	_mp_fill = ColorRect.new()
 	_mp_fill.color = Style.THEME_MP_BLUE
-	_mp_fill.position = Vector2(18, 42)
-	_mp_fill.size = Vector2(BAR_W - 4, 10)
+	_mp_fill.position = Vector2(mp_x + 2, mp_y + 2)
+	_mp_fill.size = Vector2(_bar_w - 4, mp_h - 4)
 	_mp_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_mp_fill)
-	_mp_label = _make_label("", Vector2(244, 37), 16, Style.THEME_MP_BLUE)
+	_mp_label = _make_label("", Vector2(mp_lx, mp_y - 3), mp_ls, Style.THEME_MP_BLUE)
 	mp_bg.visible = false
 	_mp_fill.visible = false
 	_mp_label.visible = false
-	_kill_label = _make_label("击杀: 0", Vector2(16, 64), 16, Style.COLOR_KILL)
+	var kill_x := _cfg_int(_kill_cfg, "x", 16)
+	var kill_y := _cfg_int(_kill_cfg, "y", 64)
+	var kill_sz := _cfg_int(_kill_cfg, "size", 16)
+	_kill_label = _make_label(_label("kills", "击杀: %d") % 0, Vector2(kill_x, kill_y), kill_sz, Style.COLOR_KILL)
 	_kill_label.add_theme_font_override("font", _font_mono)
-	_bind_hover(_kill_label, "击杀数", "本局累计击杀的敌人数量。",
+	_bind_hover(_kill_label, _label("kill_tip_title", "击杀数"), _label("kill_tip_desc", "本局累计击杀的敌人数量。"),
 		func() -> Array: return [["击杀", "%d" % _kills]])
 	# 右下：武器名 + 弹药 + 状态提示
-	_weapon_label = _make_label("AK-74", Vector2.ZERO, 14,
+	var wsize := _cfg_int(_weapon_cfg, "size", 14)
+	_weapon_label = _make_label("", Vector2.ZERO, wsize,
 		Style.THEME_GRAY_LIGHT if Style.theme_active() == "gold_white_gray" else Style.COLOR_DIM_TEXT)
 	_weapon_label.add_theme_font_override("font", _font_regular)
 	_weapon_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_weapon_label.offset_left = -320
-	_weapon_label.offset_top = -116
+	_weapon_label.offset_left = -320.0
+	_weapon_label.offset_top = -116.0
 	_weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_bind_hover(_weapon_label, "当前武器", "正在使用的武器。1~4 键切换，R 键换弹。",
+	_bind_hover(_weapon_label, _label("weapon_tip_title", "当前武器"), _label("weapon_tip_desc", "正在使用的武器。1~4 键切换，R 键换弹。"),
 		func() -> Array: return [["武器", _weapon_name]])
 	var ammo_row := HBoxContainer.new()
 	ammo_row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	ammo_row.offset_left = -220
-	ammo_row.offset_top = -82
-	ammo_row.offset_right = -16
-	ammo_row.offset_bottom = -40
+	ammo_row.offset_left = -220.0
+	ammo_row.offset_top = -82.0
+	ammo_row.offset_right = -16.0
+	ammo_row.offset_bottom = -40.0
 	ammo_row.alignment = BoxContainer.ALIGNMENT_END
 	ammo_row.add_theme_constant_override("separation", 6)
 	add_child(ammo_row)
-	_bind_hover(ammo_row, "弹药", "弹匣内子弹 / 备弹。弹匣打空后自动换弹。",
+	_bind_hover(ammo_row, _label("ammo_tip_title", "弹药"), _label("ammo_tip_desc", "弹匣内子弹 / 备弹。弹匣打空后自动换弹。"),
 		func() -> Array: return [["弹匣", "%d" % _ammo_now], ["备弹", "%d" % _ammo_reserve]])
 	_ammo_label = Label.new()
 	_ammo_label.theme = _theme
 	_ammo_label.add_theme_font_override("font", _font_mono)
 	_ammo_label.add_theme_color_override("font_color", Style.COLOR_AMMO)
-	_ammo_label.add_theme_font_size_override("font_size", 34)
+	_ammo_label.add_theme_font_size_override("font_size", _cfg_int(_ammo_cfg, "size", 34))
 	_ammo_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	ammo_row.add_child(_ammo_label)
 	_ammo_reserve_label = Label.new()
 	_ammo_reserve_label.theme = _theme
 	_ammo_reserve_label.add_theme_font_override("font", _font_mono)
 	_ammo_reserve_label.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
-	_ammo_reserve_label.add_theme_font_size_override("font_size", 16)
+	_ammo_reserve_label.add_theme_font_size_override("font_size", _cfg_int(_ammo_cfg, "reserve_size", 16))
 	_ammo_reserve_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	ammo_row.add_child(_ammo_reserve_label)
-	_status_label = _make_label("", Vector2.ZERO, 16, Style.COLOR_STATUS)
+	_status_label = _make_label("", Vector2.ZERO, _cfg_int(_status_cfg, "size", 16), Style.COLOR_STATUS)
 	_status_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_status_label.offset_left = -300
-	_status_label.offset_top = -34
+	_status_label.offset_left = -300.0
+	_status_label.offset_top = -34.0
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_status_label.visible = false
 	# 中央：四段式准星（随扩散张开）+ 命中标记
@@ -177,28 +229,29 @@ func _build() -> void:
 	_ch_left = _make_crosshair_line(Vector2(-1, 0))
 	_ch_right = _make_crosshair_line(Vector2(1, 0))
 	_set_crosshair(0.0)
-	_hitmarker = _make_label("✕", Vector2.ZERO, 30, Style.COLOR_HITMARKER)
+	_hitmarker = _make_label("✕", Vector2.ZERO, _cfg_int(_hitmark_cfg, "size", 30), Style.COLOR_HITMARKER)
 	_center(_hitmarker)
 	_hitmarker.visible = false
 	# 死亡面板
 	_death_panel = VBoxContainer.new()
 	_death_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	_death_panel.custom_minimum_size = Vector2(320, 140)
+	_death_panel.custom_minimum_size = Vector2(
+		_cfg_int(_death_cfg, "w", 320), _cfg_int(_death_cfg, "h", 140))
 	_death_panel.alignment = BoxContainer.ALIGNMENT_CENTER
 	_death_panel.add_theme_constant_override("separation", 10)
 	var title := Label.new()
-	title.text = "你死了"
+	title.text = _label("death_title", "你死了")
 	title.theme = _theme
 	title.add_theme_font_override("font", _font_heavy)
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.add_theme_font_size_override("font_size", 40)
+	title.add_theme_font_size_override("font_size", _cfg_int(_death_cfg, "title_size", 40))
 	title.add_theme_color_override("font_color", Style.COLOR_DEATH_TITLE)
 	_death_panel.add_child(title)
 	var hint := Label.new()
-	hint.text = "按 R 重来"
+	hint.text = _label("death_hint", "按 R 重来")
 	hint.theme = _theme
 	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	hint.add_theme_font_size_override("font_size", 16)
+	hint.add_theme_font_size_override("font_size", _cfg_int(_death_cfg, "hint_size", 16))
 	hint.add_theme_color_override("font_color", Style.COLOR_DEATH_HINT)
 	_death_panel.add_child(hint)
 	_death_panel.visible = false
@@ -315,24 +368,28 @@ func _place_tooltip(at: Vector2) -> void:
 	_tip.position = pos
 
 func _set_crosshair(ratio: float) -> void:
-	_ch_gap = 4.0 + ratio * 24.0
+	var gap0 := _cfg_num(_cross_cfg, "gap", 4.0)
+	var spread := _cfg_num(_cross_cfg, "spread", 24.0)
+	var len := _cfg_num(_cross_cfg, "len", 9.0)
+	var thick := _cfg_num(_cross_cfg, "thick", 1.5)
+	_ch_gap = gap0 + ratio * spread
 	if _ch_up == null:
 		return
-	_ch_up.offset_left = -1.5
-	_ch_up.offset_top = -_ch_gap - 9.0
-	_ch_up.offset_right = 1.5
+	_ch_up.offset_left = -thick
+	_ch_up.offset_top = -_ch_gap - len
+	_ch_up.offset_right = thick
 	_ch_up.offset_bottom = -_ch_gap
-	_ch_down.offset_left = -1.5
+	_ch_down.offset_left = -thick
 	_ch_down.offset_top = _ch_gap
-	_ch_down.offset_right = 1.5
-	_ch_down.offset_bottom = _ch_gap + 9.0
-	_ch_left.offset_left = -_ch_gap - 9.0
-	_ch_left.offset_top = -1.5
+	_ch_down.offset_right = thick
+	_ch_down.offset_bottom = _ch_gap + len
+	_ch_left.offset_left = -_ch_gap - len
+	_ch_left.offset_top = -thick
 	_ch_left.offset_right = -_ch_gap
-	_ch_left.offset_bottom = 1.5
+	_ch_left.offset_bottom = thick
 	_ch_right.offset_left = _ch_gap
-	_ch_right.offset_top = -1.5
-	_ch_right.offset_right = _ch_gap + 9.0
+	_ch_right.offset_top = -thick
+	_ch_right.offset_right = _ch_gap + len
 
 ## ADS 时隐藏准星（main.gd _on_ads_changed 调用）
 func set_crosshair_visible(v: bool) -> void:
@@ -367,7 +424,8 @@ func set_hp(hp: int, max_hp: int) -> void:
 	_hp_max = maxi(1, max_hp)
 	var m := maxi(1, max_hp)
 	var pct := clampf(float(hp) / float(m), 0.0, 1.0)
-	var target_w := (BAR_W - 4) * pct
+	var low_ratio := _cfg_num(_hp_cfg, "low_ratio", 0.25)
+	var target_w := (_bar_w - 4) * pct
 	if _hp_fill.size.x > target_w + 0.5:
 		# 掉血：白色后滞条从旧值缓动到新值
 		_hp_trail.size.x = _hp_fill.size.x
@@ -379,14 +437,14 @@ func set_hp(hp: int, max_hp: int) -> void:
 	_hp_fill.size.x = target_w
 	if pct > 0.5:
 		_hp_fill.color = Style.COLOR_HP_HIGH
-	elif pct > 0.25:
+	elif pct > low_ratio:
 		_hp_fill.color = Style.COLOR_HP_MID
 	else:
 		_hp_fill.color = Style.COLOR_HP_LOW
 	_hp_label.text = "%d/%d" % [maxi(0, hp), m]
 	_hp_label.add_theme_color_override("font_color",
-		Style.THEME_DANGER_RED if pct <= 0.25 else Style.COLOR_WHITE)
-	_low_hp = pct <= 0.25
+		Style.THEME_DANGER_RED if pct <= low_ratio else Style.COLOR_WHITE)
+	_low_hp = pct <= low_ratio
 	if _vignette != null:
 		_vignette.visible = _low_hp
 		if not _low_hp:
@@ -398,7 +456,7 @@ func set_mp(mp: int, max_mp: int) -> void:
 	_mp_max = maxi(1, max_mp)
 	var m := maxi(1, max_mp)
 	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
-	_mp_fill.size.x = (BAR_W - 4) * pct
+	_mp_fill.size.x = (_bar_w - 4) * pct
 	_mp_label.text = "%d/%d" % [maxi(0, mp), m]
 	_mp_fill.visible = true
 	_mp_label.visible = true
@@ -409,7 +467,7 @@ func set_weapon_name(name: String) -> void:
 
 func set_kills(n: int) -> void:
 	_kills = maxi(0, n)
-	_kill_label.text = "击杀: %d" % n
+	_kill_label.text = _label("kills", "击杀: %d") % n
 
 func set_ammo(ammo: int, reserve: int) -> void:
 	_ammo_now = maxi(0, ammo)
@@ -440,10 +498,10 @@ func clear_status() -> void:
 
 func hitmark() -> void:
 	_hitmarker.visible = true
-	_hitmark_t = 0.12
+	_hitmark_t = _cfg_num(_hitmark_cfg, "ms", 0.12)
 
 func damage_flash() -> void:
-	_dmgflash_t = 0.18
+	_dmgflash_t = _cfg_num(_dmg_cfg, "ms", 0.18)
 
 func show_death() -> void:
 	_death_panel.visible = true
