@@ -12,6 +12,8 @@ var rng := RandomNumberGenerator.new()
 var _player: Node3D
 var _status_bar: CanvasLayer
 var _npc_bar: CanvasLayer
+var _player_status: RefCounted
+var _backpack_hud: Control
 var _tree_cache := {}  # 树模型路径 -> {"base": scale=1 底座偏移, "size": 包围盒尺寸}
 
 
@@ -455,12 +457,57 @@ func _build_hud() -> void:
 	bar.set_script(load("res://ui/status_bar.gd"))
 	add_child(bar)
 	_status_bar = bar
+	_build_backpack_hud(bar)
 	var npc_bar := CanvasLayer.new()
 	npc_bar.name = "NpcBar"
 	npc_bar.set_script(load("res://ui/npc_bar.gd"))
 	add_child(npc_bar)
 	npc_bar.option_pressed.connect(_on_npc_option)
 	_npc_bar = npc_bar
+
+
+## 荒野场景补齐背包 HUD（快捷栏 + 背包面板）：与 main.gd 同构，最小技能集（火球 Q）
+func _build_backpack_hud(parent: Node) -> void:
+	var item_db = load("res://ui/item_db.gd").new()
+	var bp = load("res://ui/backpack.gd").new(item_db)
+	bp.add_item("hp_potion", 5)
+	var eq = load("res://ui/equipment.gd").new(bp)
+	_player_status = load("res://ui/player_status.gd").new()
+	var sb = load("res://ui/skillbar.gd").new()
+	var skills_db = load("res://ui/skills_db.gd").new()
+	var sb_skills := {}
+	if skills_db.has_skill("fireball"):
+		var fb: Dictionary = skills_db.get_def("fireball").duplicate(true)
+		var eff: Dictionary = skills_db.effect("fireball", _player_status.level)
+		fb["cooldown_s"] = eff.cooldown_s
+		fb["mp_cost"] = eff.mp_cost
+		fb["tier"] = 1
+		fb["two_stage"] = true
+		sb_skills["fireball"] = fb
+	sb.setup(sb_skills)
+	sb.assign(0, "fireball")
+	for id in ["rusty_sword", "g18_pistol", "small_shield", "lunar_helmet", "ring_oracle"]:
+		bp.add_item(id, 1)
+	for i in bp.slots.size():
+		if bp.slots[i] != null and String(bp.slots[i].get("id", "")) == "rusty_sword":
+			eq.equip_from_backpack(i)
+			break
+	var hud = load("res://ui/backpack_hud.gd").new()
+	hud.name = "BackpackHud"
+	hud.player_healed.connect(_on_player_healed)
+	hud.skill_triggered.connect(func(skill_id: String, _phase: String) -> void:
+		if _status_bar != null:
+			_status_bar.show_status("技能未移植（%s）" % skill_id, 1.5))
+	parent.add_child(hud)
+	hud.setup(bp, eq, _player_status, sb)
+	_backpack_hud = hud
+
+
+func _on_player_healed(hp: int) -> void:
+	if _status_bar != null:
+		_status_bar.set_hp(hp, int(_player.get("max_hp")))
+	if _player_status != null:
+		_player_status.set_hp(hp)
 
 
 func _build_return_portal() -> void:
