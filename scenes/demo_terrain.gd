@@ -211,8 +211,8 @@ func _build_terrain() -> Terrain3D:
 
 
 func _fix_grass_material(node: Node) -> void:
-	# 草色基准：地表 grass001 贴图真实渲染色（hue≈118-122 / sat≈0.62 / val≈0.31）
-	var grass := Color(0.13, 0.31, 0.12)
+	# 草色基准：地面实际渲染色（D3D12 实测 RGB≈(137,172,136)，亮低饱和草绿）
+	var grass := Color(0.54, 0.67, 0.53)
 	for m in node.find_children("", "MeshInstance3D", true, false):
 		var mi := m as MeshInstance3D
 		if mi.mesh == null:
@@ -379,7 +379,7 @@ func _build_particle_grass() -> void:
 	var gm := ShaderMaterial.new()
 	gm.shader = load("res://assets/shaders/grass_particles.gdshader")
 	# 草色与地表 grass001 贴图对齐（实测地表 hue≈118-122/sat≈0.62/val≈0.31）
-	gm.set_shader_parameter("grass_color", Color(0.13, 0.31, 0.12))
+	gm.set_shader_parameter("grass_color", Color(0.54, 0.67, 0.53))
 	pt.mesh_material_override = gm
 	# 增强自然随机性：间距抖动 + 高度差异 + 风摆（参考图草叶交错感）
 	var pm: ShaderMaterial = pt.process_material
