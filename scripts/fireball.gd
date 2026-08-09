@@ -79,7 +79,7 @@ func build_visual() -> void:
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	glow.pixel_size = 0.0025
-	glow.scale = Vector3(2.6, 2.6, 1.0)
+	glow.scale = Vector3(2.3, 2.3, 1.0)
 	var glow_mat := StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -94,60 +94,62 @@ func build_visual() -> void:
 	light.light_energy = 2.5
 	light.omni_range = 5.0
 	add_child(light)
-	# 常驻火焰层一：白色核心——从球面喷涌的白热火舌（燃烧中心）
+	# 常驻火焰层一：内焰（白色核心）——从球底升起，贴近球体最亮
 	var flame_white := GPUParticles3D.new()
 	flame_white.emitting = true
 	flame_white.one_shot = false
-	flame_white.amount = 26
-	flame_white.lifetime = 0.55
+	flame_white.amount = 20
+	flame_white.lifetime = 0.4
 	flame_white.local_coords = false
 	flame_white.draw_pass_1 = _dot_pass(0.5, true)
 	var wp := ParticleProcessMaterial.new()
 	wp.direction = Vector3.UP
-	wp.spread = 55.0
+	wp.spread = 50.0
 	wp.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
-	wp.emission_sphere_radius = 0.14
-	wp.initial_velocity_min = 0.3
-	wp.initial_velocity_max = 0.7
-	wp.gravity = Vector3(0, 0.6, 0)
-	wp.scale_min = 0.28
-	wp.scale_max = 0.5
+	wp.emission_shape_offset = Vector3(0, -0.09, 0)
+	wp.emission_sphere_radius = 0.09
+	wp.initial_velocity_min = 0.22
+	wp.initial_velocity_max = 0.45
+	wp.gravity = Vector3(0, 0.35, 0)
+	wp.scale_min = 0.16
+	wp.scale_max = 0.27
 	wp.scale_curve = _grow_texture(0.5, 1.0)
 	wp.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.7),
-		Color(1.0, 0.95, 0.72, 0.6),
+		Color(1.0, 1.0, 1.0, 0.55),
+		Color(1.0, 0.96, 0.8, 0.45),
 		Color(1.0, 0.7, 0.3, 0.0),
 	], [0.0, 0.3, 1.0])
 	flame_white.process_material = wp
 	add_child(flame_white)
-	# 常驻火焰层二：黄色主焰——向上窜的火舌主体，带翻涌扭曲（燃烧火苗）
+	# 常驻火焰层二：中焰（黄色主焰）——从球底窜出的火舌主体，带翻涌扭曲
 	var flame_yellow := GPUParticles3D.new()
 	flame_yellow.emitting = true
 	flame_yellow.one_shot = false
-	flame_yellow.amount = 40
-	flame_yellow.lifetime = 0.8
+	flame_yellow.amount = 30
+	flame_yellow.lifetime = 0.55
 	flame_yellow.local_coords = false
 	flame_yellow.draw_pass_1 = _dot_pass(0.6, true)
 	var yp := ParticleProcessMaterial.new()
 	yp.direction = Vector3.UP
-	yp.spread = 40.0
+	yp.spread = 35.0
 	yp.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
-	yp.emission_sphere_radius = 0.15
-	yp.initial_velocity_min = 0.5
-	yp.initial_velocity_max = 1.1
-	yp.gravity = Vector3(0, 0.5, 0)
-	yp.scale_min = 0.4
-	yp.scale_max = 0.75
+	yp.emission_shape_offset = Vector3(0, -0.11, 0)
+	yp.emission_sphere_radius = 0.1
+	yp.initial_velocity_min = 0.35
+	yp.initial_velocity_max = 0.65
+	yp.gravity = Vector3(0, 0.2, 0)
+	yp.scale_min = 0.22
+	yp.scale_max = 0.4
 	yp.scale_curve = _grow_texture(0.6, 1.2)
 	yp.turbulence_enabled = true
 	yp.turbulence_noise_strength = 1.1
 	yp.turbulence_noise_scale = 5.0
 	yp.turbulence_noise_speed = Vector3(1.5, 1.5, 1.5)
 	yp.color_ramp = _ramp([
-		Color(1.0, 0.95, 0.62, 0.6),
-		Color(1.0, 0.82, 0.3, 0.5),
-		Color(1.0, 0.45, 0.1, 0.1),
-		Color(1.0, 0.3, 0.05, 0.0),
+		Color(1.0, 0.92, 0.5, 0.4),
+		Color(1.0, 0.8, 0.28, 0.35),
+		Color(1.0, 0.48, 0.1, 0.08),
+		Color(1.0, 0.32, 0.05, 0.0),
 	], [0.0, 0.25, 0.55, 1.0])
 	flame_yellow.process_material = yp
 	add_child(flame_yellow)
@@ -197,29 +199,30 @@ func build_visual() -> void:
 	trail_white.process_material = twp
 	add_child(trail_white)
 	_trail_white = trail_white
-	# 常驻火焰层三：橙色外焰——更大更淡，向上飘散形成火苗轮廓
+	# 常驻火焰层三：外焰（橙红）——最大最淡，勾出火苗外轮廓
 	var flame_orange := GPUParticles3D.new()
 	flame_orange.emitting = true
 	flame_orange.one_shot = false
-	flame_orange.amount = 32
-	flame_orange.lifetime = 0.9
+	flame_orange.amount = 24
+	flame_orange.lifetime = 0.6
 	flame_orange.local_coords = false
 	flame_orange.draw_pass_1 = _dot_pass(0.6, true)
 	var op := ParticleProcessMaterial.new()
 	op.direction = Vector3.UP
-	op.spread = 75.0
+	op.spread = 70.0
 	op.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_SPHERE
-	op.emission_sphere_radius = 0.13
-	op.initial_velocity_min = 0.25
-	op.initial_velocity_max = 0.6
-	op.gravity = Vector3(0, 0.3, 0)
-	op.scale_min = 0.4
-	op.scale_max = 0.75
+	op.emission_shape_offset = Vector3(0, -0.12, 0)
+	op.emission_sphere_radius = 0.08
+	op.initial_velocity_min = 0.18
+	op.initial_velocity_max = 0.38
+	op.gravity = Vector3(0, 0.15, 0)
+	op.scale_min = 0.22
+	op.scale_max = 0.4
 	op.scale_curve = _grow_texture(0.7, 1.3)
 	op.color_ramp = _ramp([
-		Color(1.0, 0.65, 0.2, 0.45),
-		Color(1.0, 0.4, 0.1, 0.1),
-		Color(1.0, 0.3, 0.05, 0.0),
+		Color(1.0, 0.5, 0.12, 0.32),
+		Color(1.0, 0.32, 0.06, 0.08),
+		Color(1.0, 0.25, 0.05, 0.0),
 	], [0.0, 0.45, 1.0])
 	flame_orange.process_material = op
 	add_child(flame_orange)
@@ -281,7 +284,7 @@ func _hover_age(delta: float) -> void:
 	var cam := _caster.get_node_or_null("Camera3D") as Camera3D
 	if cam != null:
 		var b := cam.global_transform.basis
-		var hold := cam.global_position + b * Vector3(-0.28, -0.24, -0.85)
+		var hold := cam.global_position + b * Vector3(-0.42, -0.24, -0.85)
 		hold.y += sin(_hover_t * 2.2) * 0.03
 		global_position = hold
 	else:
