@@ -9,6 +9,7 @@ const IceSpikeScript := preload("res://scripts/ice_spike.gd")
 const LightningScript := preload("res://scripts/lightning.gd")
 const AreaSkillScript := preload("res://scripts/area_skill.gd")
 const ThunderLanceScript := preload("res://scripts/thunder_lance.gd")
+const LoadingScreenScript := preload("res://ui/loading_screen.gd")
 
 var _player: Node3D
 var _gun: Node3D
@@ -36,6 +37,7 @@ var _player_dead := false
 var _kills := 0
 
 func _ready() -> void:
+	add_child(LoadingScreenScript.new())  # 注册全局加载界面（进度条）
 	_build_environment()
 	_build_ground()
 	_build_walls()
@@ -46,8 +48,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if _player_dead and Input.is_key_pressed(KEY_R):
-		if get_tree().current_scene != null:
-			get_tree().reload_current_scene()
+		LoadingScreenScript.reload_scene()
 
 func _build_environment() -> void:
 	var env := Environment.new()
@@ -362,7 +363,7 @@ func _build_enemies() -> void:
 	var wolf_model: Node3D = load(WOLF_RIGGED).instantiate()
 	_build_enemy("WolfEnemy", wolf_model, Vector3(3, 0, -4), {
 		"hp": 85, "chase": 3.5, "dmg": 15, "radius": 0.55, "height": 1.0,
-		"offset_y": 0.41, "bob": 0.05,
+		"offset_y": 0.25, "bob": 0.05,  # CuMesh 新狼脚底 y=-0.246，offset 0.25 落地
 	})
 	# 测试期：只保留黑狼，僵尸犬/蜘蛛暂时移除（EnemyModels 保留供后续恢复）
 

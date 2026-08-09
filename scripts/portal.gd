@@ -80,4 +80,6 @@ func _on_body_entered(body: Node3D) -> void:
 	if target_scene == "":
 		return
 	if body is CharacterBody3D and body.name == "Player":
-		get_tree().change_scene_to_file(target_scene)
+		# 走全局加载界面（进度条），风格统一
+		var ls := load("res://ui/loading_screen.gd")
+		ls.load_scene(target_scene)
