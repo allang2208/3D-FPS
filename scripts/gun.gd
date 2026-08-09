@@ -478,18 +478,32 @@ func _spawn_casing() -> void:
 
 # ---------- 模型 ----------
 
-## 粒子方形光点（ADD 叠加，白色由 color_ramp 上色；无外部贴图文件）
-func _make_particle_mesh() -> Mesh:
+## 粒子软边光点（ADD 叠加）：程序化径向渐变贴图去硬边/像素颗粒感，白色由 color_ramp 上色
+func _make_particle_mesh(alpha := 1.0) -> Mesh:
 	var q := QuadMesh.new()
 	q.size = Vector2.ONE
 	var m := StandardMaterial3D.new()
 	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.albedo_color = Color.WHITE
+	m.albedo_texture = _make_soft_dot_texture()
+	m.albedo_color = Color(1.0, 1.0, 1.0, alpha)
 	m.disable_receive_shadows = true
 	q.material = m
 	return q
+
+## 软边圆点贴图：中心亮 → 边缘平滑衰减到透明（消除方块硬边）
+func _make_soft_dot_texture() -> ImageTexture:
+	var size := 64
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	var center := Vector2(size * 0.5, size * 0.5)
+	for y in size:
+		for x in size:
+			var d := Vector2(x + 0.5, y + 0.5).distance_to(center) / (size * 0.5)
+			var a := clampf(1.0 - d, 0.0, 1.0)
+			a = a * a * (3.0 - 2.0 * a)  # smoothstep 软边
+			img.set_pixel(x, y, Color(1, 1, 1, a))
+	return ImageTexture.create_from_image(img)
 
 func _make_gradient(offsets: PackedFloat32Array, colors: PackedColorArray) -> Gradient:
 	var g := Gradient.new()
@@ -507,7 +521,7 @@ func _make_curve(points: Array) -> Curve:
 func _make_flash_pop() -> CPUParticles3D:
 	var p := CPUParticles3D.new()
 	p.name = "MuzzleFlashPop"
-	p.mesh = _make_particle_mesh()
+	p.mesh = _make_particle_mesh(0.95)
 	p.one_shot = true
 	p.emitting = false
 	p.amount = 14
@@ -534,7 +548,7 @@ func _make_flash_pop() -> CPUParticles3D:
 func _make_flash_flame() -> CPUParticles3D:
 	var p := CPUParticles3D.new()
 	p.name = "MuzzleFlashFlame"
-	p.mesh = _make_particle_mesh()
+	p.mesh = _make_particle_mesh(0.9)
 	p.one_shot = true
 	p.emitting = false
 	p.amount = 26
@@ -565,7 +579,7 @@ func _make_flash_flame() -> CPUParticles3D:
 func _make_flash_sparks() -> CPUParticles3D:
 	var p := CPUParticles3D.new()
 	p.name = "MuzzleFlashSparks"
-	p.mesh = _make_particle_mesh()
+	p.mesh = _make_particle_mesh(0.95)
 	p.one_shot = true
 	p.emitting = false
 	p.amount = 10

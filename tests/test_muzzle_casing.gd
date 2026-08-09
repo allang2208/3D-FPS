@@ -37,6 +37,8 @@ func _process(_delta: float) -> bool:
 				and pop.get("emitting") and flame.get("emitting") and sparks.get("emitting") \
 				and pop.get("one_shot") and flame.get("one_shot") and sparks.get("one_shot") \
 				and pop.get("mesh") is QuadMesh and flame.get("mesh") is QuadMesh and sparks.get("mesh") is QuadMesh \
+				and flame.get("mesh").material.albedo_texture != null \
+				and flame.get("mesh").material.blend_mode == BaseMaterial3D.BLEND_MODE_ADD \
 				and pop.get("color_ramp") != null and flame.get("color_ramp") != null and sparks.get("color_ramp") != null \
 				and flame_dir.normalized().dot(Vector3(0, 0, -1)) > 0.99 \
 				and int(flame.get("amount")) > 0 and int(pop.get("amount")) > 0 \
