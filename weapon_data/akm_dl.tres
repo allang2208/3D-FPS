@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/weapon_data.gd" id="1_wd"]
+[ext_resource type="PackedScene" path="res://assets/models/ak/_dl_ak47_adamkokrito.glb" id="2_wd"]
+[ext_resource type="AudioStream" path="res://assets/sfx/akm_burst.mp3" id="3_wd"]
+[ext_resource type="AudioStream" path="res://assets/sfx/reload_sharp.mp3" id="4_wd"]
+[ext_resource type="AudioStream" path="res://assets/sfx/criticalhit.mp3" id="5_wd"]
+
+[resource]
+script = ExtResource("1_wd")
+weapon_name = "AK-47 (下载版)"
+model_scene = ExtResource("2_wd")
+fire_interval = 0.13
+damage = 25
+mag_size = 30
+reserve = 90
+reload_time = 1.5
+bullet_speed = 90.0
+bullet_gravity = 2.5
+base_spread = 0.0025
+bloom_per_shot = 0.0012
+max_spread = 0.018
+spread_decay = 0.12
+ads_spread_mult = 0.2
+ads_smooth = 12.0
+recoil_pattern = PackedVector2Array(0.009, 0, 0.012, -0.002, 0.015, 0.0025, 0.018, -0.0015, 0.02, 0.003, 0.022, -0.002, 0.024, 0.002, 0.026, -0.001, 0.028, 0.0005)
+recoil_recovery_delay = 0.3
+recoil_recovery_interval = 0.05
+move_spread_ratio = 0.6
+max_move_spread = 0.012
+air_spread_punish = 0.015
+air_spread_transition = 10.0
+sprint_to_fire = 0.18
+shoot_sound = ExtResource("3_wd")
+reload_sound = ExtResource("4_wd")
+kill_sound = ExtResource("5_wd")
