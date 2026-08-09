@@ -116,7 +116,7 @@ func _ready() -> void:
 	_panel_w = get_viewport_rect().size.x * PANEL_W_RATIO
 	theme = Style.make_theme()
 	_font_title = Style.make_font(700)
-	_font_section = Style.make_font(600)
+	_font_section = Style.make_font(400)
 	_font_value = Style.make_font(600)
 	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
 	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
