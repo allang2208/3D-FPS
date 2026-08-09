@@ -161,15 +161,20 @@ func _lightning_bolt(from: Vector3, to: Vector3) -> void:
 		pts.append((to - from) * t + n * off)
 	pts.append(to - from)
 	var smooth := _smooth_chain(pts, 2)
-	var chain := _resample(smooth, 0.07)
+	# 旧版：固定 4px 步长重采样 + 连续圆块链（重叠增亮），避免"点链接"生硬
+	var chain := _resample(smooth, 0.03)
 	var dots: Array = []
 	var n_pts := chain.size()
 	for i in n_pts:
 		var t := float(i) / float(maxi(1, n_pts - 1))
 		var s := randf_range(0.75, 1.25)
-		var r_out := lerpf(0.16, 0.045, t) * s
-		dots.append(_bolt_dot(node, chain[i], r_out, Color(0.42, 0.28, 1.0, 0.3)))
-		dots.append(_bolt_dot(node, chain[i], r_out * 0.38, Color(0.88, 0.86, 1.0, 0.9)))
+		# 三层连续色块：外层辉光 ADD + 中层色块 NORMAL + 白芯 ADD（旧版 4 层简化 3 层）
+		var r_glow := lerpf(0.22, 0.06, t) * s
+		var r_core := lerpf(0.14, 0.04, t) * s
+		var r_white := lerpf(0.07, 0.02, t) * s
+		dots.append(_bolt_dot(node, chain[i], r_glow, Color(0.42, 0.28, 1.0, 0.28), true))
+		dots.append(_bolt_dot(node, chain[i], r_core, Color(0.78, 0.7, 1.0, 0.75), false))
+		dots.append(_bolt_dot(node, chain[i], r_white, Color(1.0, 0.98, 1.0, 0.9), true))
 	# 定格 duration_s 后线性淡出 fade_ms
 	var tw := node.create_tween()
 	tw.tween_interval(float(_effect.get("duration_s", 0.5)))
@@ -182,7 +187,7 @@ func _lightning_bolt(from: Vector3, to: Vector3) -> void:
 		, 1.0, 0.0, float(_effect.get("fade_ms", 250.0)) / 1000.0)
 	tw.tween_callback(func() -> void: node.queue_free())
 
-func _bolt_dot(parent: Node3D, local_pos: Vector3, radius: float, color: Color) -> Sprite3D:
+func _bolt_dot(parent: Node3D, local_pos: Vector3, radius: float, color: Color, additive: bool) -> Sprite3D:
 	var sp := Sprite3D.new()
 	sp.texture = _dot_tex()
 	sp.billboard = BaseMaterial3D.BILLBOARD_ENABLED
@@ -193,7 +198,7 @@ func _bolt_dot(parent: Node3D, local_pos: Vector3, radius: float, color: Color) 
 	var m := StandardMaterial3D.new()
 	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD if additive else BaseMaterial3D.BLEND_MODE_MIX
 	m.albedo_texture = _dot_tex()
 	m.albedo_color = color
 	sp.material_override = m
