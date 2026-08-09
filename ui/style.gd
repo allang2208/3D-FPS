@@ -10,6 +10,7 @@ const CONFIG_PATH := "res://ui/style-config.json"
 # ---------- 风格配置（style-config.json，改配置不改代码） ----------
 static var ACTIVE_THEME := "dark_gold"            # dark_gold | gold_white_gray
 static var RADIUS := 8
+static var RADIUS_XS := 4
 static var RADIUS_SM := 6
 static var RADIUS_MD := 8
 static var RADIUS_LG := 12
@@ -46,6 +47,8 @@ static func _load_config() -> void:
 			ACTIVE_THEME = t
 	if cfg.has("radius"):
 		RADIUS = int(cfg.radius)
+	if cfg.has("radius_xs"):
+		RADIUS_XS = int(cfg.radius_xs)
 	if cfg.has("radius_sm"):
 		RADIUS_SM = int(cfg.radius_sm)
 	if cfg.has("radius_md"):

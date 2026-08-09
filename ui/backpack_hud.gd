@@ -18,6 +18,7 @@ signal player_healed(hp: int)
 const BackpackScript := preload("res://ui/backpack.gd")
 const EquipmentScript := preload("res://ui/equipment.gd")
 const Style := preload("res://ui/style.gd")
+const Icons := preload("res://ui/icons.gd")
 const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
 const StatusPageScript := preload("res://ui/status_page.gd")
 const SkillBarScript := preload("res://ui/skillbar.gd")
@@ -110,18 +111,18 @@ func _ready() -> void:
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(600)
 	_font_value = Style.make_font(600)
-	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_SM, 1)
-	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
-	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
-	_s_skill_empty = Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.COLOR_SKILL_SLOT_BORDER, Style.RADIUS_SM, 1)
+	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_XS, 1)
+	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_XS, 1)
+	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_XS, 1)
+	_s_skill_empty = Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.COLOR_SKILL_SLOT_BORDER, Style.RADIUS_XS, 1)
 	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_SM, 1)
 	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
 	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
 	_s_cell_drag_over = Style.make_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, Style.RADIUS_SM, 1)
-	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, Style.RADIUS_SM, 1)
-	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, Style.RADIUS_SM, 1)
-	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
-	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, Style.RADIUS_SM, 1)
+	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, Style.RADIUS_MD, 1)
+	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, Style.RADIUS_MD, 1)
+	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_MD, 1)
+	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, Style.RADIUS_MD, 1)
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -1006,7 +1007,7 @@ func _build_panel() -> void:
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	content.add_child(margin)
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 10)
+	vbox.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
@@ -1019,7 +1020,7 @@ func _build_panel() -> void:
 	vbox.add_child(divider)
 	# 页签栏（旧版 SystemUI 页签）
 	var tab_bar := HBoxContainer.new()
-	tab_bar.add_theme_constant_override("separation", 6)
+	tab_bar.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	vbox.add_child(tab_bar)
 	_tab_status = _make_tab_button("角色状态")
 	_tab_equip = _make_tab_button("装备背包")
@@ -1047,8 +1048,8 @@ func _build_panel() -> void:
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
 	_equip_grid.columns = EQUIP_COLS
-	_equip_grid.add_theme_constant_override("h_separation", 8)
-	_equip_grid.add_theme_constant_override("v_separation", 8)
+	_equip_grid.add_theme_constant_override("h_separation", Style.spacing("element_gap"))
+	_equip_grid.add_theme_constant_override("v_separation", Style.spacing("element_gap"))
 	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(_equip_grid)
 	var total_slots := backpack.max_slots if backpack != null else 36
@@ -1068,12 +1069,12 @@ func _build_panel() -> void:
 		icon.name = "Icon"
 		icon.anchor_left = 0.0
 		icon.anchor_top = 0.0
-		icon.anchor_right = 0.0
+		icon.anchor_right = 1.0
 		icon.anchor_bottom = 1.0
-		icon.offset_left = 20
-		icon.offset_top = 6
-		icon.offset_right = 118
-		icon.offset_bottom = -6
+		icon.offset_left = 10
+		icon.offset_top = 8
+		icon.offset_right = -10
+		icon.offset_bottom = -26
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1082,12 +1083,12 @@ func _build_panel() -> void:
 		fallback.name = "Fallback"
 		fallback.anchor_left = 0.0
 		fallback.anchor_top = 0.0
-		fallback.anchor_right = 0.0
+		fallback.anchor_right = 1.0
 		fallback.anchor_bottom = 1.0
-		fallback.offset_left = 20
-		fallback.offset_top = 6
-		fallback.offset_right = 118
-		fallback.offset_bottom = -6
+		fallback.offset_left = 10
+		fallback.offset_top = 8
+		fallback.offset_right = -10
+		fallback.offset_bottom = -26
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		fallback.add_theme_font_override("font", Style.make_emoji_font())
@@ -1097,19 +1098,19 @@ func _build_panel() -> void:
 		cell_content.add_child(fallback)
 		var name_lbl := Label.new()
 		name_lbl.name = "Name"
-		name_lbl.anchor_left = 1.0
-		name_lbl.anchor_top = 0.0
+		name_lbl.anchor_left = 0.0
+		name_lbl.anchor_top = 1.0
 		name_lbl.anchor_right = 1.0
 		name_lbl.anchor_bottom = 1.0
-		name_lbl.offset_left = -118
-		name_lbl.offset_top = 8
-		name_lbl.offset_right = -10
-		name_lbl.offset_bottom = -8
+		name_lbl.offset_left = 4
+		name_lbl.offset_top = -24
+		name_lbl.offset_right = -4
+		name_lbl.offset_bottom = -3
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
 		name_lbl.clip_text = true
-		name_lbl.add_theme_font_size_override("font_size", Style.font_size("body"))
+		name_lbl.add_theme_font_size_override("font_size", Style.font_size("caption"))
 		name_lbl.add_theme_font_override("font", _font_value)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1164,7 +1165,7 @@ func _build_panel() -> void:
 		_equip_cells[key] = cell
 	# 下：背包（旧版 gear-inventory-col：表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
-	inv_col.add_theme_constant_override("separation", 4)
+	inv_col.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
@@ -1175,8 +1176,8 @@ func _build_panel() -> void:
 	_count_label.add_theme_font_override("font", _font_section)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
-	_grid.add_theme_constant_override("h_separation", 6)
-	_grid.add_theme_constant_override("v_separation", 6)
+	_grid.add_theme_constant_override("h_separation", Style.spacing("element_gap"))
+	_grid.add_theme_constant_override("v_separation", Style.spacing("element_gap"))
 	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inv_col.add_child(_grid)
 	for i in total_slots:
@@ -1334,10 +1335,25 @@ func _icon_tex(path: String) -> Texture2D:
 
 func _set_icon(icon: TextureRect, fallback: Label, item: Dictionary) -> void:
 	var tex := _icon_tex(String(item.get("icon", "")))
-	icon.texture = tex
 	var emoji := String(item.get("icon_fallback", ""))
+	if tex == null and emoji == "":
+		# 旧版图标缺失时给分类默认图标（金色描边），保证每个槽都有统一图标
+		var cat_icon := _category_icon(String(item.get("category", "")))
+		if cat_icon != "":
+			tex = Icons.get_icon(cat_icon)
+			icon.modulate = Style.THEME_GOLD
+	icon.texture = tex
 	fallback.visible = tex == null and emoji != ""
 	fallback.text = emoji
+
+func _category_icon(category: String) -> String:
+	match category:
+		"武器", "weapon": return "sword"
+		"防具", "armor", "头盔", "helmet": return "shield"
+		"饰品", "accessory", "耳环", "戒指", "项链": return "gem"
+		"消耗品", "consumable", "药水": return "package"
+		"装备", "equipment", "靴子", "手套", "斗篷": return "shield"
+		_: return "package"
 
 func _vertical_text(s: String) -> String:
 	if s.length() <= 1:

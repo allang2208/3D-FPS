@@ -20,11 +20,19 @@ func _initialize() -> void:
 	await process_frame
 	hud.setup(bp, eq)
 	var ids := db.get_all_ids()
-	for i in mini(8, ids.size()):
+	for i in mini(16, ids.size()):
 		bp.add_item(ids[i], 1 + (i % 3))
-	# 尝试装备背包第一件（若为可装备类型则演示装备栏高亮）
-	if bp.item_count() > 0:
-		eq.equip_from_backpack(0)
+	# 尝试装备几件可装备物品（type 非消耗品），演示装备槽图标
+	var equipped := 0
+	for i in mini(bp.slots.size(), bp.slots.size()):
+		var inst = bp.slots[i]
+		if equipped >= 4:
+			break
+		if inst != null and not inst.is_empty():
+			var def := db.get_def(str(inst.get("id", "")))
+			if def != null and str(def.get("type", "")) != "消耗品":
+				if eq.equip_from_backpack(i):
+					equipped += 1
 	# 打开装备/背包面板（模拟 Tab 键）
 	var ev := InputEventKey.new()
 	ev.keycode = KEY_TAB
