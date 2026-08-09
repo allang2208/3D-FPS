@@ -4,6 +4,7 @@ extends Control
 signal command_selected(id: String)
 
 const Style := preload("res://ui/style.gd")
+const Sound := preload("res://ui/sound.gd")
 
 var _commands: Array[Dictionary] = []
 var _search: LineEdit
@@ -11,6 +12,7 @@ var _list: VBoxContainer
 var _panel: PanelContainer
 var _overlay: ColorRect
 var _built := false
+var _just_selected := false
 
 func _ready() -> void:
 	_ensure_built()
@@ -86,7 +88,10 @@ func open() -> void:
 
 func close() -> void:
 	_ensure_built()
+	if visible and not _just_selected:
+		Sound.cancel()
 	visible = false
+	_just_selected = false
 
 func _refresh() -> void:
 	for c in _list.get_children():
@@ -103,6 +108,7 @@ func _refresh() -> void:
 		Style.style_button(b, "body")
 		b.add_theme_font_size_override("font_size", Style.font_size("body"))
 		b.pressed.connect(func() -> void:
+			_just_selected = true
 			close()
 			command_selected.emit(str(cmd.id)))
 		_list.add_child(b)

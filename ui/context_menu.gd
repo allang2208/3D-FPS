@@ -3,7 +3,9 @@ extends PopupMenu
 ## 用法：var m := ContextMenu.new(); add_child(m); m.open_at(pos, [{"label":"使用","id":1},{"separator":true},{"label":"丢弃","id":2}])
 
 const Style := preload("res://ui/style.gd")
+const Sound := preload("res://ui/sound.gd")
 var _built := false
+var _just_selected := false
 
 func _ready() -> void:
 	_ensure_built()
@@ -23,6 +25,14 @@ func _ensure_built() -> void:
 	add_theme_color_override("hover_color", Style.THEME_GOLD)
 	add_theme_color_override("font_separator_color", Style.COLOR_TT_SECTION_BORDER)
 	add_theme_font_size_override("font_size", Style.font_size("body"))
+	id_pressed.connect(func(_id: int) -> void:
+		_just_selected = true
+		Sound.confirm())
+	popup_hide.connect(func() -> void:
+		if _just_selected:
+			_just_selected = false
+		else:
+			Sound.cancel())
 
 func open_at(pos: Vector2, items: Array) -> void:
 	_ensure_built()

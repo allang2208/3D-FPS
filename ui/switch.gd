@@ -4,6 +4,7 @@ extends Control
 signal toggled(on: bool)
 
 const Style := preload("res://ui/style.gd")
+const Sound := preload("res://ui/sound.gd")
 
 var _on := false
 var _bg: Panel
@@ -45,6 +46,10 @@ func set_on(v: bool) -> void:
 	if _on == v:
 		return
 	_on = v
+	if _on:
+		Sound.switch_on()
+	else:
+		Sound.switch_off()
 	_update()
 	toggled.emit(_on)
 

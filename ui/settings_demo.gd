@@ -13,6 +13,7 @@ const InputC := preload("res://ui/input.gd")
 const SelectC := preload("res://ui/select.gd")
 const ContextMenu := preload("res://ui/context_menu.gd")
 const CommandPalette := preload("res://ui/command_palette.gd")
+const Sound := preload("res://ui/sound.gd")
 
 var _content: VBoxContainer
 var _hint: Label
@@ -170,6 +171,32 @@ func _build_audio() -> void:
 		_content.add_child(row)
 		sl.setup(0.0, 100.0, 1.0, spec[1])
 	_content.add_child(_switch_row("立体声", true))
+	# UI 体素风音效预览
+	_content.add_child(_row("UI 音效测试"))
+	var preview_row := HBoxContainer.new()
+	preview_row.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	_content.add_child(preview_row)
+	for spec in [["悬停", "hover"], ["点击", "click"], ["开关开", "switch_on"],
+			["开关关", "switch_off"], ["确认", "confirm"], ["取消", "cancel"]]:
+		var b := Button.new()
+		b.text = str(spec[0])
+		Style.style_button(b)
+		b.custom_minimum_size = Vector2(0, 30)
+		b.pressed.connect(func() -> void:
+			var n := str(spec[1])
+			if n == "hover":
+				Sound.hover()
+			elif n == "click":
+				Sound.click()
+			elif n == "switch_on":
+				Sound.switch_on()
+			elif n == "switch_off":
+				Sound.switch_off()
+			elif n == "confirm":
+				Sound.confirm()
+			elif n == "cancel":
+				Sound.cancel())
+		preview_row.add_child(b)
 
 func _build_game() -> void:
 	var name_in := InputC.new()

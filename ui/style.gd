@@ -1,4 +1,5 @@
 extends RefCounted
+const Sound := preload("res://ui/sound.gd")
 ## UI 风格集中定义。色值真源 = ui/palette.json（改 JSON 即可换肤，无需改代码；
 ## 缺失字段用下方内置默认值兜底）。生成/更新 palette.json：tools/gen-palette.ps1
 ## 定稿方向（DESIGN.md）：金主色 + 白信息 + 深灰底（下方 THEME_* 块）。
@@ -344,9 +345,13 @@ static func style_button(btn: Button, font_size_key := "body") -> void:
 ## 统一按钮动画（Vega 规范）：hover 微放大 1.03，按下微缩 0.97（+ pressed 样式下沉 1px）
 static func _attach_button_anim(btn: Button) -> void:
 	btn.pivot_offset = btn.size * 0.5
-	btn.mouse_entered.connect(func() -> void: _button_scale(btn, 1.03))
+	btn.mouse_entered.connect(func() -> void:
+		Sound.hover()
+		_button_scale(btn, 1.03))
 	btn.mouse_exited.connect(func() -> void: _button_scale(btn, 1.0))
-	btn.button_down.connect(func() -> void: _button_scale(btn, 0.97))
+	btn.button_down.connect(func() -> void:
+		Sound.click()
+		_button_scale(btn, 0.97))
 	btn.button_up.connect(func() -> void: _button_scale(btn, 1.03))
 
 static func _button_scale(btn: Button, target: float) -> void:

@@ -1,0 +1,69 @@
+{
+  "sample_rate": 22050,
+  "crush_bits": 8,
+  "crush_rate": 2,
+  "sounds": {
+    "hover": {
+      "wave": "sine",
+      "freq": 1568.0,
+      "freq_end": 1760.0,
+      "duration": 0.05,
+      "attack": 0.003,
+      "decay": 70.0,
+      "gain": 0.16,
+      "noise": 0.05,
+      "crush_rate": 0
+    },
+    "click": {
+      "wave": "square",
+      "freq": 880.0,
+      "freq_end": 590.0,
+      "duration": 0.075,
+      "attack": 0.001,
+      "decay": 46.0,
+      "gain": 0.30,
+      "noise": 0.14,
+      "crush_rate": 4
+    },
+    "switch_on": {
+      "wave": "square",
+      "notes": [659.25, 987.77],
+      "duration": 0.12,
+      "attack": 0.002,
+      "decay": 55.0,
+      "gain": 0.26,
+      "noise": 0.08,
+      "crush_rate": 3
+    },
+    "switch_off": {
+      "wave": "square",
+      "notes": [987.77, 659.25],
+      "duration": 0.12,
+      "attack": 0.002,
+      "decay": 55.0,
+      "gain": 0.24,
+      "noise": 0.08,
+      "crush_rate": 3
+    },
+    "confirm": {
+      "wave": "square",
+      "notes": [523.25, 659.25, 783.99],
+      "duration": 0.22,
+      "attack": 0.003,
+      "decay": 36.0,
+      "gain": 0.28,
+      "noise": 0.06,
+      "crush_rate": 2
+    },
+    "cancel": {
+      "wave": "triangle",
+      "notes": [392.0, 329.63],
+      "duration": 0.2,
+      "attack": 0.003,
+      "decay": 42.0,
+      "gain": 0.22,
+      "noise": 0.04,
+      "crush_rate": 2
+    }
+  }
+}
