@@ -28,6 +28,8 @@ const JITTER_STIFFNESS := 7000.0
 const JITTER_DAMPING := 48.0
 const JITTER_POS_IMPULSE := 0.7
 const JITTER_ROT_IMPULSE := 2.2
+# ADS 时枪械侧抖动收束系数（相机侧接收已收束的脉冲，两边按同一比例衰减）
+const JITTER_ADS_MULT := 0.45
 # 枪口翻转（muzzle flip：绕枪口旋转，枪口被顶起、枪身下压）
 const FLIP_STIFFNESS := 260.0
 const FLIP_DAMPING := 16.0
@@ -58,6 +60,8 @@ signal reloading
 signal reloaded(ammo_left: int, reserve_left: int)
 signal empty
 signal ads_changed(active: bool)
+## 开火时发出的枪械震颤脉冲（相机侧镜像弹簧用，保证枪/镜头同频同相零滞后）
+signal jitter_impulse(pos_impulse: Vector3, rot_impulse: Vector3)
 
 var _fire_cd := 0.0
 var _flash_t := 0.0
@@ -167,6 +171,12 @@ func _ready() -> void:
 	_smoke.color = Color(0.75, 0.75, 0.8, 0.5)
 	add_child(_smoke)
 	_player = get_parent().get_parent() as CharacterBody3D
+	# 相机联动：镜像弹簧同参数驱动（枪/镜头同频同相）
+	var cam := get_viewport().get_camera_3d()
+	if cam:
+		var cfx := cam.get_node_or_null("CameraFx")
+		if cfx and cfx.has_method("_on_gun_jitter_impulse"):
+			jitter_impulse.connect(cfx._on_gun_jitter_impulse)
 	shot.emit(ammo, reserve)
 
 func _process(delta: float) -> void:
@@ -344,8 +354,12 @@ func _apply_gun_kick() -> void:
 	_kick_pos_vel += Vector3(randf_range(-0.10, 0.10), randf_range(0.04, 0.10), randf_range(0.55, 0.85)) * accum
 	_kick_rot_vel += Vector3(randf_range(0.55, 1.0), 0.0, randf_range(-0.7, 0.7)) * accum
 	# 枪口高频震颤（弹簧冲击，短促回摆）
-	_jitter_pos_vel += Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * JITTER_POS_IMPULSE
-	_jitter_rot_vel += Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * JITTER_ROT_IMPULSE
+	var jitter_mult := lerpf(1.0, JITTER_ADS_MULT, _ads_factor)
+	var pos_imp := Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * JITTER_POS_IMPULSE * jitter_mult
+	var rot_imp := Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * JITTER_ROT_IMPULSE * jitter_mult
+	_jitter_pos_vel += pos_imp
+	_jitter_rot_vel += rot_imp
+	jitter_impulse.emit(pos_imp, rot_imp)
 	# 枪口翻转
 	_flip_vel += FLIP_IMPULSE
 
