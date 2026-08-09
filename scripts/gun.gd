@@ -50,6 +50,7 @@ const ADS_SMOOTH := 12.0
 
 const ProjectileScript := preload("res://scripts/projectile.gd")
 const CasingScript := preload("res://scripts/casing.gd")
+const AKM_GLB := preload("res://assets/models/akm_trellis.glb")
 const SHOOT_SOUND := preload("res://assets/sfx/akm_burst.mp3")
 const RELOAD_SOUND := preload("res://assets/sfx/reload_sharp.mp3")
 const KILL_SOUND := preload("res://assets/sfx/criticalhit.mp3")
@@ -436,32 +437,10 @@ func _cyl(parent: Node3D, radius: float, length: float, pos: Vector3, color: Col
 	return mesh
 
 func _build_gun() -> void:
-	var dark := Color(0.10, 0.11, 0.13)
-	var mid := Color(0.19, 0.20, 0.23)
-	var wood := Color(0.34, 0.23, 0.13)
-	var poly := Color(0.07, 0.08, 0.09)
-	# 机匣 + 防尘盖 + 抛壳口
-	_box(self, Vector3(0.06, 0.09, 0.42), Vector3.ZERO, mid)
-	_box(self, Vector3(0.05, 0.03, 0.30), Vector3(0, 0.05, -0.02), dark, Vector3(0.05, 0, 0))
-	_box(self, Vector3(0.018, 0.025, 0.05), Vector3(0.028, 0.035, 0.02), Color(0.05, 0.05, 0.06))
-	# 枪管 + 枪口制退器（枪口在 z≈-0.50）
-	_cyl(self, 0.018, 0.34, Vector3(0, 0.02, -0.38), dark)
-	_cyl(self, 0.026, 0.07, Vector3(0, 0.02, -0.51), dark)
-	# 导气管
-	_cyl(self, 0.011, 0.20, Vector3(0, 0.048, -0.27), dark)
-	# 护木（上木下黑）
-	_box(self, Vector3(0.048, 0.026, 0.20), Vector3(0, 0.005, -0.28), wood)
-	_box(self, Vector3(0.05, 0.026, 0.20), Vector3(0, -0.018, -0.28), dark)
-	# 枪托 + 抵肩板
-	_box(self, Vector3(0.05, 0.10, 0.16), Vector3(0, -0.02, 0.28), wood)
-	_box(self, Vector3(0.052, 0.11, 0.02), Vector3(0, -0.02, 0.365), poly)
-	# 握把（聚合物）
-	_box(self, Vector3(0.04, 0.13, 0.05), Vector3(0, -0.11, 0.10), poly, Vector3(0.25, 0, 0))
-	# 弹匣（独立节点，供换弹动画滑出）+ 底座
-	_mag = _box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), dark)
-	_box(_mag, Vector3(0.05, 0.012, 0.08), Vector3(0, -0.088, 0), poly)
-	# 瞄具：后照门 + 准星座
-	_box(self, Vector3(0.028, 0.016, 0.03), Vector3(0, 0.075, 0.09), dark)
-	_box(self, Vector3(0.02, 0.045, 0.016), Vector3(0, 0.065, -0.22), dark)
-	# 顶部导轨（瞄具/红点安装位）
-	_box(self, Vector3(0.032, 0.014, 0.12), Vector3(0, 0.062, 0.03), dark)
+	# AI 生成 AKM（TRELLIS.2）：GLB 枪管沿 X 轴，旋转 90° 对齐 -Z 枪口方向
+	var akm := AKM_GLB.instantiate()
+	akm.name = "AkmModel"
+	akm.rotation_degrees.y = 90.0
+	add_child(akm)
+	# 弹匣节点（换弹动画滑出用，GLB 是整体网格，程序化补一个小弹匣节点占位）
+	_mag = _box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), Color(0.10, 0.11, 0.13))
