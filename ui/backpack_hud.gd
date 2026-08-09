@@ -20,6 +20,7 @@ const EquipmentScript := preload("res://ui/equipment.gd")
 const Style := preload("res://ui/style.gd")
 const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
 const StatusPageScript := preload("res://ui/status_page.gd")
+const SkillBarScript := preload("res://ui/skillbar.gd")
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
@@ -48,10 +49,13 @@ const EQUIP_SLOT_LABELS := {
 
 var backpack: BackpackScript
 var equipment: EquipmentScript
+var skillbar: SkillBarScript
 
 var _hotbar_root: HBoxContainer
 var _hotbar_slots: Array = []
 var _skill_slots: Array = []
+var _special_slot: Control
+var _skill_cd_last := {}
 var _grid: GridContainer
 var _cells: Array = []
 var _equip_grid: GridContainer
@@ -135,9 +139,10 @@ func _ready() -> void:
 	_build_tooltip()
 	_build_notice()
 
-func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null) -> void:
+func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: SkillBarScript = null) -> void:
 	backpack = bp
 	equipment = eq
+	skillbar = sb
 	backpack.changed.connect(_refresh)
 	backpack.item_added.connect(_on_item_added)
 	backpack.bound.connect(_on_bound)
@@ -151,6 +156,9 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null) -> vo
 		_status_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		_page_stack.add_child(_status_page)
 		_status_page.setup(st)
+	if skillbar != null:
+		skillbar.changed.connect(_refresh_skill_slots)
+		_refresh_skill_slots()
 	set_tab("equip")
 	_refresh()
 
@@ -261,7 +269,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			KEY_1, KEY_2, KEY_3, KEY_4:
 				use_hotbar(event.keycode - KEY_1)
 			KEY_Q, KEY_E, KEY_X, KEY_C:
-				on_skill_click(SKILL_KEY_HINTS[SKILL_KEYCODES.find(event.keycode)])
+				use_skill_slot(SKILL_KEYCODES.find(event.keycode))
 			KEY_TAB:
 				if _panel_open and _current_tab == "equip":
 					set_panel_open(false)
@@ -302,16 +310,99 @@ func use_hotbar(index: int) -> void:
 	else:
 		_flash_status(String(result.get("message", "")))
 
-## 技能位占位（技能系统未移植；后续绑定后改为触发技能）
 func on_skill_click(_key: String) -> void:
 	if _panel_open:
 		return
-	_flash_status("技能未移植")
+	if skillbar == null:
+		_flash_status("技能未移植")
+		return
+	var index := SKILL_KEY_HINTS.find(_key)
+	use_skill_slot(index)
+
+## 技能位触发（旧版 useSlot 技能侧：冷却/法杖门槛判定，通过后设冷却）
+func use_skill_slot(index: int) -> void:
+	if _panel_open or index < 0 or index >= SKILL_SIZE:
+		return
+	if skillbar == null:
+		_flash_status("技能未移植")
+		return
+	var r := skillbar.trigger(index)
+	_flash_status(String(r.get("reason", "")))
+	if bool(r.get("ok", false)):
+		var id := skillbar.resolve(index)
+		if skillbar.is_hold(id):
+			_flash_status("长按技能（未移植）")
 
 func on_skill_hover(enter: bool, key: String) -> void:
 	for s in _skill_slots:
 		if String(s.key) == key:
 			s.add_theme_stylebox_override("panel", _s_hotbar_hover if enter else _s_skill_empty)
+
+## 技能槽刷新（旧版 _updateSlot：图标/灰化/冷却遮罩）
+func _refresh_skill_slots() -> void:
+	if skillbar == null:
+		return
+	for i in _skill_slots.size():
+		var slot: SkillSlot = _skill_slots[i]
+		var icon := slot.get_node("Content/Icon") as TextureRect
+		var fallback := slot.get_node("Content/Fallback") as Label
+		var dim := slot.get_node("Content/Dim") as ColorRect
+		var id := skillbar.resolve(i)
+		if id == "":
+			icon.texture = null
+			fallback.visible = true
+			fallback.text = "⚔"
+			dim.visible = false
+			slot.add_theme_stylebox_override("panel", _s_skill_empty)
+		else:
+			var def: Dictionary = skillbar.skills.get(id, {})
+			var tex := _icon_tex(String(def.get("icon", "")))
+			icon.texture = tex
+			fallback.visible = tex == null
+			fallback.text = String(def.get("icon_fallback", "⚔"))
+			var req_ok: bool = int(def.get("tier", 1)) < 2 or skillbar.staff_equipped
+			dim.visible = not req_ok
+			slot.add_theme_stylebox_override("panel", _s_hotbar_item if not req_ok else _s_skill_empty)
+		_update_skill_cd(slot, i)
+
+func _update_skill_cd(slot: SkillSlot, index: int) -> void:
+	var cd := slot.get_node("Content/CD") as ColorRect
+	var cd_text := slot.get_node("Content/CDText") as Label
+	var id := skillbar.resolve(index)
+	if id == "":
+		cd.visible = false
+		cd_text.visible = false
+		_skill_cd_last[index] = 0.0
+		return
+	var remaining := skillbar.get_cooldown(id)
+	var total := skillbar.get_cooldown_total(id)
+	var prev := float(_skill_cd_last.get(index, 0.0))
+	if total > 0.0 and remaining > 0.0:
+		var pct := clampf(remaining / total, 0.0, 1.0)
+		cd.visible = true
+		cd.offset_top = -HOTBAR_SLOT * pct
+		cd_text.visible = true
+		cd_text.text = "%.1f" % (remaining / 1000.0)
+	elif prev > 0.0 and remaining <= 0.0:
+		cd.visible = true
+		cd_text.visible = false
+		cd.color = Color(1, 1, 1, 0.85)
+		var tw := create_tween()
+		tw.tween_property(cd, "color", Color(0, 0, 0, 0.55), 0.18)
+	else:
+		cd.visible = false
+		cd_text.visible = false
+	_skill_cd_last[index] = remaining
+
+## 技能槽拖放（旧版：技能↔技能交换；外部技能投放接口；拖出解绑）
+func drop_on_skill(index: int, data: Dictionary) -> void:
+	if skillbar == null:
+		return
+	match String(data.get("type", "")):
+		"skill":
+			skillbar.swap(index, int(data.get("slot", -1)))
+		"skillbar":
+			skillbar.assign(index, String(data.get("skill_id", "")))
 
 func use_backpack_item(slot: int) -> void:
 	if backpack == null or slot < 0 or slot >= backpack.slots.size() or backpack.slots[slot] == null:
@@ -442,6 +533,9 @@ func drop_on_backpack(slot: int, data: Dictionary) -> void:
 		"equip":
 			if equipment != null:
 				equipment.unequip(String(data.get("key", "")))
+		"skill":
+			if skillbar != null:
+				skillbar.unassign(int(data.get("slot", -1)))
 
 func drop_on_equip(key: String, data: Dictionary) -> void:
 	if equipment == null or equipment.is_locked(key):
@@ -676,6 +770,10 @@ func _process(delta: float) -> void:
 	if backpack != null:
 		backpack.tick_cooldowns(delta)
 		_update_cooldown_overlays()
+	if skillbar != null:
+		skillbar.tick(delta * 1000.0)
+		for i in _skill_slots.size():
+			_update_skill_cd(_skill_slots[i], i)
 	if _tooltip != null and _tooltip.visible and not _tooltip.is_pinned():
 		_place_tooltip(get_viewport().get_mouse_position())
 
@@ -726,6 +824,7 @@ func _build_hotbar() -> void:
 		var slot := SkillSlot.new()
 		slot.hud = self
 		slot.key = SKILL_KEY_HINTS[i]
+		slot.index = i
 		slot.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
 		slot.add_theme_stylebox_override("panel", _s_skill_empty)
 		var content := Control.new()
@@ -733,25 +832,90 @@ func _build_hotbar() -> void:
 		content.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
 		content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		slot.add_child(content)
-		var icon := Label.new()
+		var icon := TextureRect.new()
 		icon.name = "Icon"
-		icon.text = "⚔"
 		icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		icon.add_theme_font_override("font", Style.make_emoji_font())
-		icon.add_theme_font_size_override("font_size", 20)
-		icon.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
+		var fallback := Label.new()
+		fallback.name = "Fallback"
+		fallback.text = "⚔"
+		fallback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		fallback.add_theme_font_override("font", Style.make_emoji_font())
+		fallback.add_theme_font_size_override("font_size", 20)
+		fallback.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.add_child(fallback)
 		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
 		blink.tween_property(key, "modulate:a", 0.35, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		var cd := ColorRect.new()
+		cd.name = "CD"
+		cd.color = Color(0, 0, 0, 0.55)
+		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cd.anchor_left = 0.0
+		cd.anchor_right = 1.0
+		cd.anchor_top = 1.0
+		cd.anchor_bottom = 1.0
+		cd.offset_bottom = 0
+		cd.offset_top = 0
+		cd.visible = false
+		content.add_child(cd)
+		var cd_text := _make_label(content, "", 10, Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
+		cd_text.name = "CDText"
+		cd_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		cd_text.visible = false
+		var dim := ColorRect.new()
+		dim.name = "Dim"
+		dim.color = Color(0.2, 0.2, 0.2, 0.55)
+		dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		dim.visible = false
+		content.add_child(dim)
 		_hotbar_root.add_child(slot)
 		_skill_slots.append(slot)
+	# 特殊攻击槽（旧版 special：右击，默认隐藏；右键已被机瞄占用，仅做显示位）
+	var sp := SkillSlot.new()
+	sp.hud = self
+	sp.key = "右击"
+	sp.index = -1
+	sp.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
+	sp.add_theme_stylebox_override("panel", Style.make_style(Color(0.231, 0.208, 0.29), Color(0.353, 0.353, 0.541), 8, 2))
+	sp.visible = false
+	var sp_content := Control.new()
+	sp_content.name = "Content"
+	sp_content.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
+	sp_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sp.add_child(sp_content)
+	var sp_icon := TextureRect.new()
+	sp_icon.name = "Icon"
+	sp_icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	sp_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	sp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	sp_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sp_content.add_child(sp_icon)
+	var sp_fb := Label.new()
+	sp_fb.name = "Fallback"
+	sp_fb.text = "🔥"
+	sp_fb.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	sp_fb.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	sp_fb.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	sp_fb.add_theme_font_override("font", Style.make_emoji_font())
+	sp_fb.add_theme_font_size_override("font_size", 20)
+	sp_fb.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sp_content.add_child(sp_fb)
+	var sp_key := _make_label(sp_content, "右击", 10, Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
+	sp_key.name = "Key"
+	sp_key.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hotbar_root.add_child(sp)
+	_special_slot = sp
 	# 分隔 + 物品组（旧版 itemGroup：1~4）
 	_hotbar_root.add_child(_make_divider())
 	for i in HOTBAR_SIZE:
@@ -1230,6 +1394,27 @@ func make_slot_preview(item: Dictionary) -> Control:
 	p.add_child(tr)
 	return p
 
+func make_skill_preview(skill_id: String) -> Control:
+	var p := PanelContainer.new()
+	p.custom_minimum_size = Vector2(44, 44)
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, COLOR_SKILL_SLOT_BORDER, 6, 2))
+	var def: Dictionary = skillbar.skills.get(skill_id, {})
+	var tex := _icon_tex(String(def.get("icon", "")))
+	if tex != null:
+		var tr := TextureRect.new()
+		tr.texture = tex
+		tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		tr.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		p.add_child(tr)
+	else:
+		var lbl := Label.new()
+		lbl.text = String(def.get("icon_fallback", "⚔"))
+		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		lbl.add_theme_font_override("font", Style.make_emoji_font())
+		p.add_child(lbl)
+	return p
+
 func _flash_status(text: String) -> void:
 	if _status_label == null or text == "":
 		return
@@ -1244,6 +1429,9 @@ class SkillSlot:
 
 	var hud
 	var key := ""
+	var index := 0
+	var _press_pos := Vector2.ZERO
+	var _pressed := false
 
 	func _ready() -> void:
 		mouse_filter = Control.MOUSE_FILTER_STOP
@@ -1251,8 +1439,35 @@ class SkillSlot:
 		mouse_exited.connect(func() -> void: hud.on_skill_hover(false, key))
 
 	func _gui_input(event: InputEvent) -> void:
-		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			hud.on_skill_click(key)
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				_pressed = true
+				_press_pos = get_global_mouse_position()
+			elif _pressed:
+				_pressed = false
+				if get_global_mouse_position().distance_to(_press_pos) < 8.0:
+					hud.on_skill_click(key)
+
+	func _get_drag_data(_at: Vector2):
+		if hud.skillbar == null or index < 0:
+			return null
+		var skill_id = hud.skillbar.resolve(index)
+		if skill_id == "":
+			return null
+		hud.hide_tooltip()
+		hud.set_drag_preview(hud.make_skill_preview(skill_id))
+		return {"type": "skill", "slot": index}
+
+	func _can_drop_data(_at: Vector2, data) -> bool:
+		var ok := data is Dictionary and (String(data.get("type", "")) == "skill" \
+			or String(data.get("type", "")) == "skillbar")
+		if ok:
+			hud.set_hotbar_drag_over(index, true)
+		return ok
+
+	func _drop_data(_at: Vector2, data) -> void:
+		hud.set_hotbar_drag_over(index, false)
+		hud.drop_on_skill(index, data)
 
 class HotbarSlot:
 	extends PanelContainer
@@ -1330,7 +1545,8 @@ class BackpackCell:
 
 	func _can_drop_data(_at: Vector2, data) -> bool:
 		var ok := data is Dictionary and (String(data.get("type", "")) == "backpack" \
-			or String(data.get("type", "")) == "hotbar" or String(data.get("type", "")) == "equip")
+			or String(data.get("type", "")) == "hotbar" or String(data.get("type", "")) == "equip" \
+			or String(data.get("type", "")) == "skill")
 		if ok:
 			hud.set_cell_drag_over(slot, true)
 		return ok
