@@ -22,15 +22,15 @@ const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
-const INV_COLS := 6
+const INV_COLS := 5
 const HOTBAR_SLOT := 52
-const CELL_SLOT := 56
-const EQUIP_SLOT_SIZE := Vector2(100, 76)
+const CELL_SLOT := 54
+const EQUIP_SLOT_SIZE := Vector2(250, 84)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
 const PANEL_MARGIN := 12
-const PANEL_W := 720.0
+const PANEL_W_RATIO := 0.45
 
 const EQUIP_SLOT_LABELS := {
 	"earring": "左耳环", "helmet": "头盔", "ring1": "右耳环", "gloves": "手套",
@@ -50,6 +50,7 @@ var _equip_grid: GridContainer
 var _equip_cells := {}
 var _panel_root: Control
 var _panel: PanelContainer
+var _panel_w := 720.0
 var _panel_anim: Tween
 var _panel_open := false
 var _count_label: Label
@@ -87,6 +88,7 @@ var _s_equip_locked: StyleBoxFlat
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_panel_w = get_viewport_rect().size.x * PANEL_W_RATIO
 	theme = Style.make_theme()
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(600)
@@ -181,7 +183,7 @@ func _refresh_grid() -> void:
 			var count: int = item.get("stack", 1)
 			stack_lbl.text = str(count) if count > 1 else ""
 			var rarity_key := String(item.get("rarity", "common"))
-			rarity_lbl.text = Style.rarity_label(rarity_key)
+			rarity_lbl.text = _vertical_text(Style.rarity_label(rarity_key))
 			rarity_lbl.add_theme_stylebox_override("normal", Style.make_style(Style.RARITY_BADGE_COLORS.get(rarity_key, Color.GRAY), Color(0, 0, 0, 0), 3, 0))
 			cell.add_theme_stylebox_override("panel", _s_cell_drag_over if i == _drag_over_cell else (_s_cell_hover if i == _hovered_cell else _s_cell_item))
 
@@ -321,8 +323,8 @@ func set_panel_open(open: bool) -> void:
 
 ## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
 func _apply_panel_slide(t: float) -> void:
-	_panel.offset_left = -PANEL_W * t
-	_panel.offset_right = PANEL_W * (1.0 - t)
+	_panel.offset_left = -_panel_w * t
+	_panel.offset_right = _panel_w * (1.0 - t)
 
 ## ---------- 获取/添加物品 ----------
 
@@ -749,25 +751,21 @@ func _build_panel() -> void:
 	var title := _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
 	title.add_theme_font_override("font", _font_title)
 	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_count_label = _make_label(title_row, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
-	_count_label.add_theme_font_override("font", _font_section)
 	var divider := HSeparator.new()
 	divider.modulate = Style.COLOR_PANEL_BORDER
 	vbox.add_child(divider)
-	var columns := HBoxContainer.new()
-	columns.add_theme_constant_override("separation", 12)
-	vbox.add_child(columns)
-	# 左：装备栏
+	# 上：装备栏（旧版 gear-equip-col，占上半区，3x5 大宽格）
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
-	columns.add_child(equip_col)
+	vbox.add_child(equip_col)
 	var equip_title := _make_label(equip_col, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
-	equip_title.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
 	_equip_grid.columns = EQUIP_COLS
-	_equip_grid.add_theme_constant_override("h_separation", 6)
-	_equip_grid.add_theme_constant_override("v_separation", 6)
+	_equip_grid.add_theme_constant_override("h_separation", 8)
+	_equip_grid.add_theme_constant_override("v_separation", 8)
+	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(_equip_grid)
 	var total_slots := backpack.max_slots if backpack != null else 36
 	for key in EquipmentScript.SLOT_ORDER:
@@ -775,6 +773,7 @@ func _build_panel() -> void:
 		cell.hud = self
 		cell.key = key
 		cell.custom_minimum_size = EQUIP_SLOT_SIZE
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_equip_empty)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
@@ -783,16 +782,28 @@ func _build_panel() -> void:
 		cell.add_child(cell_content)
 		var icon := TextureRect.new()
 		icon.name = "Icon"
-		icon.position = Vector2(4, 4)
-		icon.size = Vector2(42, 68)
+		icon.anchor_left = 0.0
+		icon.anchor_top = 0.0
+		icon.anchor_right = 0.0
+		icon.anchor_bottom = 1.0
+		icon.offset_left = 20
+		icon.offset_top = 6
+		icon.offset_right = 118
+		icon.offset_bottom = -6
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(icon)
 		var fallback := Label.new()
 		fallback.name = "Fallback"
-		fallback.position = Vector2(4, 4)
-		fallback.size = Vector2(42, 68)
+		fallback.anchor_left = 0.0
+		fallback.anchor_top = 0.0
+		fallback.anchor_right = 0.0
+		fallback.anchor_bottom = 1.0
+		fallback.offset_left = 20
+		fallback.offset_top = 6
+		fallback.offset_right = 118
+		fallback.offset_bottom = -6
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		fallback.add_theme_font_override("font", Style.make_emoji_font())
@@ -802,8 +813,14 @@ func _build_panel() -> void:
 		cell_content.add_child(fallback)
 		var name_lbl := Label.new()
 		name_lbl.name = "Name"
-		name_lbl.position = Vector2(46, 14)
-		name_lbl.size = Vector2(52, 48)
+		name_lbl.anchor_left = 1.0
+		name_lbl.anchor_top = 0.0
+		name_lbl.anchor_right = 1.0
+		name_lbl.anchor_bottom = 1.0
+		name_lbl.offset_left = -118
+		name_lbl.offset_top = 8
+		name_lbl.offset_right = -10
+		name_lbl.offset_bottom = -8
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -814,8 +831,14 @@ func _build_panel() -> void:
 		cell_content.add_child(name_lbl)
 		var rarity_lbl := Label.new()
 		rarity_lbl.name = "Rarity"
-		rarity_lbl.position = Vector2(2, 2)
-		rarity_lbl.size = Vector2(14, 72)
+		rarity_lbl.anchor_left = 0.0
+		rarity_lbl.anchor_top = 0.0
+		rarity_lbl.anchor_right = 0.0
+		rarity_lbl.anchor_bottom = 1.0
+		rarity_lbl.offset_left = 4
+		rarity_lbl.offset_top = 4
+		rarity_lbl.offset_right = 20
+		rarity_lbl.offset_bottom = -4
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		rarity_lbl.add_theme_font_size_override("font_size", 12)
@@ -824,7 +847,11 @@ func _build_panel() -> void:
 		cell_content.add_child(rarity_lbl)
 		var badges := VBoxContainer.new()
 		badges.name = "Badges"
-		badges.position = Vector2(74, 2)
+		badges.anchor_left = 1.0
+		badges.anchor_right = 1.0
+		badges.offset_left = -38
+		badges.offset_right = -6
+		badges.offset_top = 4
 		badges.add_theme_constant_override("separation", 2)
 		badges.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(badges)
@@ -850,17 +877,22 @@ func _build_panel() -> void:
 		lock.add_child(x_lbl)
 		_equip_grid.add_child(cell)
 		_equip_cells[key] = cell
-	# 右：背包
+	# 下：背包（旧版 gear-inventory-col：表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
-	inv_col.add_theme_constant_override("separation", 6)
-	columns.add_child(inv_col)
-	var inv_title := _make_label(inv_col, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	inv_col.add_theme_constant_override("separation", 4)
+	vbox.add_child(inv_col)
+	var inv_header := HBoxContainer.new()
+	inv_col.add_child(inv_header)
+	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
-	inv_title.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_count_label = _make_label(inv_header, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
+	_count_label.add_theme_font_override("font", _font_section)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
 	_grid.add_theme_constant_override("h_separation", 4)
 	_grid.add_theme_constant_override("v_separation", 4)
+	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inv_col.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
@@ -900,8 +932,9 @@ func _build_panel() -> void:
 		var rarity_lbl := Label.new()
 		rarity_lbl.name = "Rarity"
 		rarity_lbl.position = Vector2(2, 2)
-		rarity_lbl.custom_minimum_size = Vector2(24, 13)
+		rarity_lbl.size = Vector2(12, CELL_SLOT - 4)
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		rarity_lbl.add_theme_font_size_override("font_size", 10)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
