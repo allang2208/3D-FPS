@@ -93,41 +93,96 @@ func _build_terrain() -> Terrain3D:
 	t.collision.set_mode(Terrain3DCollision.FULL_GAME)  # 全量运行时碰撞（1km 地图性能足够）
 	t.collision.build()
 
-	# 植被/岩石 instancer 网格资产
-	var mesh_specs := {
-		"tree": "res://assets/models/kenney_nature/tree_default.glb",
-		"bush": "res://assets/models/kenney_nature/plant_bush.glb",
-		"rock": "res://assets/models/kenney_nature/rock_largeA.glb",
-	}
-	var mid := 0
-	for key: String in mesh_specs:
+	# 植被/岩石 instancer 网格资产（顺序即 instancer id，须与 _build_instanced_nature 的 specs 对应）
+	var mesh_specs: Array[String] = [
+		"res://assets/models/kenney_nature/tree_default.glb",
+		"res://assets/models/kenney_nature/tree_cone.glb",
+		"res://assets/models/kenney_nature/tree_detailed.glb",
+		"res://assets/models/kenney_nature/tree_oak.glb",
+		"res://assets/models/kenney_nature/tree_small.glb",
+		"res://assets/models/kenney_nature/tree_tall.glb",
+		"res://assets/models/kenney_nature/tree_pineTallA.glb",
+		"res://assets/models/kenney_nature/plant_bush.glb",
+		"res://assets/models/kenney_nature/plant_bushLarge.glb",
+		"res://assets/models/kenney_nature/plant_bushSmall.glb",
+		"res://assets/models/kenney_nature/grass.glb",
+		"res://assets/models/kenney_nature/grass_large.glb",
+		"res://assets/models/kenney_nature/grass_leafs.glb",
+		"res://assets/models/kenney_nature/flower_yellowA.glb",
+		"res://assets/models/kenney_nature/flower_redA.glb",
+		"res://assets/models/kenney_nature/flower_purpleA.glb",
+		"res://assets/models/kenney_nature/mushroom_red.glb",
+		"res://assets/models/kenney_nature/mushroom_tan.glb",
+		"res://assets/models/kenney_nature/stump_old.glb",
+		"res://assets/models/kenney_nature/stump_round.glb",
+		"res://assets/models/kenney_nature/log.glb",
+		"res://assets/models/kenney_nature/log_stack.glb",
+		"res://assets/models/kenney_nature/rock_largeA.glb",
+		"res://assets/models/kenney_nature/rock_smallA.glb",
+		"res://assets/models/polyhaven/grass_medium_01/grass_medium_01_2k.gltf",
+		"res://assets/models/polyhaven/grass_bermuda_01/grass_bermuda_01_2k.gltf",
+		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
+		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
+	]
+	for i in mesh_specs.size():
 		var ma := Terrain3DMeshAsset.new()
-		ma.name = key
-		ma.scene_file = load(mesh_specs[key])
+		ma.name = "mesh_%02d" % i
+		ma.scene_file = load(mesh_specs[i])
 		ma.height_offset = 0.5
-		t.assets.set_mesh_asset(mid, ma)
-		mid += 1
+		t.assets.set_mesh_asset(i, ma)
 	return t
 
 
 func _build_instanced_nature() -> void:
-	# 每个网格：id 与 _build_terrain 中 mesh_specs 顺序一致（tree=0, bush=1, rock=2）
-	_scatter(0, 220, -460, 460, -32.0, 20.0)
-	_scatter(1, 180, -460, 460, -35.0, 25.0)
-	_scatter(2, 120, -460, 460, -40.0, 30.0)
+	# [mesh_id, count, lo, hi, h_min, h_max, scale_min, scale_max]
+	var specs: Array = [
+		[0, 45, -460, 460, -30.0, 18.0, 0.8, 1.3],   # tree_default
+		[1, 40, -460, 460, -30.0, 18.0, 0.8, 1.3],   # tree_cone
+		[2, 40, -460, 460, -30.0, 18.0, 0.8, 1.2],   # tree_detailed
+		[3, 35, -460, 460, -28.0, 16.0, 0.9, 1.4],   # tree_oak
+		[4, 40, -460, 460, -32.0, 20.0, 0.8, 1.3],   # tree_small
+		[5, 35, -460, 460, -28.0, 15.0, 0.9, 1.4],   # tree_tall
+		[6, 40, -460, 460, -26.0, 14.0, 0.9, 1.4],   # tree_pineTallA
+		[7, 60, -460, 460, -35.0, 24.0, 0.8, 1.4],   # plant_bush
+		[8, 55, -460, 460, -35.0, 24.0, 0.8, 1.5],   # plant_bushLarge
+		[9, 55, -460, 460, -35.0, 24.0, 0.8, 1.3],   # plant_bushSmall
+		[10, 140, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass
+		[11, 130, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_large
+		[12, 120, -460, 460, -40.0, 30.0, 0.8, 1.4], # grass_leafs
+		[13, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_yellowA
+		[14, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_redA
+		[15, 55, -460, 460, -38.0, 26.0, 0.8, 1.3],  # flower_purpleA
+		[16, 35, -460, 460, -36.0, 22.0, 0.8, 1.3],  # mushroom_red
+		[17, 35, -460, 460, -36.0, 22.0, 0.8, 1.3],  # mushroom_tan
+		[18, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_old
+		[19, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_round
+		[20, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log
+		[21, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log_stack
+		[22, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_largeA
+		[23, 70, -460, 460, -42.0, 32.0, 0.6, 1.5],  # rock_smallA
+		[24, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_medium_01
+		[25, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
+		[26, 18, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
+		[27, 18, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
+	]
+	for spec in specs:
+		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
 
 
-func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_max: float) -> void:
+func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_max: float,
+		scale_min: float, scale_max: float) -> void:
 	var xforms: Array[Transform3D] = []
 	var placed := 0
 	var guard := 0
-	while placed < count and guard < count * 20:
+	while placed < count and guard < count * 30:
 		guard += 1
 		var pos := Vector3(rng.randf_range(lo, hi), 0.0, rng.randf_range(lo, hi))
 		pos.y = terrain.data.get_height(pos)
 		if pos.y < h_min or pos.y > h_max:
 			continue
-		var basis := Basis(Vector3.UP, rng.randf_range(0.0, TAU))
+		var yaw := rng.randf_range(0.0, TAU)
+		var s := rng.randf_range(scale_min, scale_max)
+		var basis := Basis(Vector3.UP, yaw).scaled(Vector3.ONE * s)
 		xforms.append(Transform3D(basis, pos))
 		placed += 1
 	terrain.instancer.add_transforms(mesh_id, xforms)
