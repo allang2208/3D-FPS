@@ -19,12 +19,11 @@ func _process(_delta: float) -> bool:
 	var mag: Node3D = _gun.get("_mag")
 	print("mag=", mag.name if mag else "null", " parent=", mag.get_parent().name if mag and mag.get_parent() else "-")
 	print("mag_base_y=", _gun.get("_mag_base_y"), " slide=", _gun.get("_mag_slide"))
-	print("pos0=", mag.position if mag else "?")
-	_gun.set("_reload_t", 0.75)
-	_gun.call("_process", 0.016)
-	print("pos_mid=", mag.position if mag else "?")
-	_gun.set("_reload_t", 0.2)
-	_gun.call("_process", 0.016)
-	print("pos_late=", mag.position if mag else "?")
+	for pair in [["start", 0.0], ["removing", 0.2], ["hold", 0.45], ["inserting", 0.8], ["done", 1.0]]:
+		var tag: String = pair[0]
+		var prog: float = pair[1]
+		_gun.set("_reload_t", 1.5 * (1.0 - prog))
+		_gun.call("_process", 0.016)
+		print(tag, " prog=", prog, " mag_y=", mag.position.y if mag else "?", " rot_x=", mag.rotation.x if mag else "?")
 	quit(0)
 	return false

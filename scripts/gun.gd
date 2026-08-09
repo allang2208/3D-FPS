@@ -226,11 +226,25 @@ func _process(delta: float) -> void:
 	var reload_rot := Vector3.ZERO
 	if _reload_t > 0.0:
 		var prog := 1.0 - _reload_t / data.reload_time
-		var p := sin(prog * PI)
-		reload_pos = Vector3(0, -p * 0.12, p * 0.05)
-		reload_rot = Vector3(-p * 0.45, 0, -p * 0.35)
+		# 换弹分段：卸下旧弹匣(0-0.35) → 停顿/取新弹匣(0.35-0.60) → 插入(0.60-1.0)
+		var mag_out := 0.0
+		if prog < 0.35:
+			mag_out = _ease_out(clampf(prog / 0.35, 0.0, 1.0))
+		elif prog < 0.60:
+			mag_out = 1.0
+		else:
+			mag_out = 1.0 - _ease_in(clampf((prog - 0.60) / 0.40, 0.0, 1.0))
+		reload_pos = Vector3(0, -mag_out * 0.12, mag_out * 0.05)
+		reload_rot = Vector3(-mag_out * 0.45, 0, -mag_out * 0.35)
 		if _mag:
-			_mag.position.y = _mag_base_y - p * _mag_slide
+			_mag.position.y = _mag_base_y - mag_out * _mag_slide
+			# 弹匣卸下时后倾、插入时回正（模拟取出/装回角度）
+			_mag.rotation.x = mag_out * 0.45
+	else:
+		# 换弹结束：弹匣复位（防止停在半途）
+		if _mag:
+			_mag.position.y = _mag_base_y
+			_mag.rotation.x = 0.0
 	# 枪口翻转：绕枪口旋转的位置补偿（枪口保持，枪身下压）
 	var flip_correction := Vector3.ZERO
 	if absf(_flip_rot) > 0.0005:
@@ -406,6 +420,12 @@ func _make_click() -> AudioStreamWAV:
 	wav.stereo = false
 	wav.data = data
 	return wav
+
+func _ease_in(t: float) -> float:
+	return t * t
+
+func _ease_out(t: float) -> float:
+	return 1.0 - (1.0 - t) * (1.0 - t)
 
 func _update_pose(delta: float) -> void:
 	var spd := 0.0

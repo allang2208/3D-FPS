@@ -20,13 +20,21 @@ func _process(_delta: float) -> bool:
 		cam.add_child(gun)
 		_gun = gun
 	if _frames == 8:
-		_gun.set("_reload_t", 0.5)
+		_gun.set("_reload_t", 1.5 * 0.8)  # prog 0.2：卸下中
+	if _frames == 10:
+		_save("user://gun_reload_removing.png")
+		_gun.set("_reload_t", 1.5 * 0.55)  # prog 0.45：完全卸下保持
 	if _frames == 12:
-		var img := root.get_viewport().get_texture().get_image()
-		if img != null and img.get_width() > 0:
-			var out := "user://gun_reload.png"
-			img.save_png(out)
-			print("SAVED ", ProjectSettings.globalize_path(out))
+		_save("user://gun_reload_hold.png")
+		_gun.set("_reload_t", 1.5 * 0.2)  # prog 0.8：插入中
+	if _frames == 14:
+		_save("user://gun_reload_inserting.png")
 		quit(0)
 		return false
 	return false
+
+func _save(path: String) -> void:
+		var img := root.get_viewport().get_texture().get_image()
+		if img != null and img.get_width() > 0:
+			img.save_png(path)
+			print("SAVED ", ProjectSettings.globalize_path(path))
