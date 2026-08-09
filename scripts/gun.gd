@@ -23,6 +23,15 @@ const BASE_POS := Vector3(0.28, -0.26, -0.5)
 # GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
 const KICK_STIFFNESS := 210.0
 const KICK_DAMPING := 16.0
+# 枪口高频震颤（CS 式“枪口抖动”：高刚度弹簧冲击 → 短促高频回摆）
+const JITTER_STIFFNESS := 7000.0
+const JITTER_DAMPING := 48.0
+const JITTER_POS_IMPULSE := 0.7
+const JITTER_ROT_IMPULSE := 2.2
+# 枪口翻转（muzzle flip：绕枪口旋转，枪口被顶起、枪身下压）
+const FLIP_STIFFNESS := 260.0
+const FLIP_DAMPING := 16.0
+const FLIP_IMPULSE := 1.5
 # 姿态系统（bob / sway / 疾跑下沉）
 const BOB_FREQ_BASE := 5.0
 const BOB_FREQ_SPEED := 0.85
@@ -75,6 +84,13 @@ var _kick_pos := Vector3.ZERO
 var _kick_pos_vel := Vector3.ZERO
 var _kick_rot := Vector3.ZERO
 var _kick_rot_vel := Vector3.ZERO
+# 高频震颤 / 枪口翻转状态
+var _jitter_pos := Vector3.ZERO
+var _jitter_pos_vel := Vector3.ZERO
+var _jitter_rot := Vector3.ZERO
+var _jitter_rot_vel := Vector3.ZERO
+var _flip_rot := 0.0
+var _flip_vel := 0.0
 # 姿态状态
 var _bob_t := 0.0
 var _bob_pos := Vector3.ZERO
@@ -155,6 +171,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_update_spring(delta)
+	_update_jitter(delta)
 	_update_pose(delta)
 	_ads_factor = lerpf(_ads_factor, 1.0 if _ads else 0.0, 1.0 - exp(-ADS_SMOOTH * delta))
 	var ads_active := _ads_factor > 0.5
@@ -178,8 +195,13 @@ func _process(delta: float) -> void:
 		reload_rot = Vector3(-p * 0.45, 0, -p * 0.35)
 		if _mag:
 			_mag.position.y = _mag_base_y - p * 0.18
-	position = base_pos + _kick_pos + _bob_pos * suppress + _sway_pos * suppress + Vector3(0, -SPRINT_DROP * _sprint, 0) * suppress + reload_pos
-	rotation = base_rot + _kick_rot + _bob_rot * suppress + _sway_rot * suppress + Vector3(SPRINT_TILT * _sprint, 0, 0) * suppress + reload_rot
+	# 枪口翻转：绕枪口旋转的位置补偿（枪口保持，枪身下压）
+	var flip_correction := Vector3.ZERO
+	if absf(_flip_rot) > 0.0005:
+		var rb := Basis(Vector3.RIGHT, _flip_rot)
+		flip_correction = rb * MUZZLE_LOCAL - MUZZLE_LOCAL
+	position = base_pos + _kick_pos + _jitter_pos + _bob_pos * suppress + _sway_pos * suppress + Vector3(0, -SPRINT_DROP * _sprint, 0) * suppress + reload_pos + flip_correction
+	rotation = base_rot + _kick_rot + _jitter_rot + _bob_rot * suppress + _sway_rot * suppress + Vector3(SPRINT_TILT * _sprint, 0, 0) * suppress + reload_rot + Vector3(_flip_rot, 0, 0)
 	_flash_t = maxf(0.0, _flash_t - delta)
 	_flash_light.visible = _flash_t > 0.0
 	_flash_light.light_energy = 10.0 * (_flash_t / 0.06)
@@ -317,8 +339,15 @@ func _update_pose(delta: float) -> void:
 # ---------- 强反馈 ----------
 
 func _apply_gun_kick() -> void:
-	_kick_pos_vel += Vector3(randf_range(-0.10, 0.10), randf_range(0.04, 0.10), randf_range(0.55, 0.85))
-	_kick_rot_vel += Vector3(randf_range(0.55, 1.0), 0.0, randf_range(-0.7, 0.7))
+	# 后坐随连发累积（越扫越抖）
+	var accum := 1.0 + (_spread / MAX_SPREAD) * 0.7
+	_kick_pos_vel += Vector3(randf_range(-0.10, 0.10), randf_range(0.04, 0.10), randf_range(0.55, 0.85)) * accum
+	_kick_rot_vel += Vector3(randf_range(0.55, 1.0), 0.0, randf_range(-0.7, 0.7)) * accum
+	# 枪口高频震颤（弹簧冲击，短促回摆）
+	_jitter_pos_vel += Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * JITTER_POS_IMPULSE
+	_jitter_rot_vel += Vector3(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)) * JITTER_ROT_IMPULSE
+	# 枪口翻转
+	_flip_vel += FLIP_IMPULSE
 
 func _update_spring(delta: float) -> void:
 	var a_pos := -_kick_pos * KICK_STIFFNESS - _kick_pos_vel * KICK_DAMPING
@@ -328,12 +357,24 @@ func _update_spring(delta: float) -> void:
 	_kick_rot_vel += a_rot * delta
 	_kick_rot += _kick_rot_vel * delta
 
+func _update_jitter(delta: float) -> void:
+	var ap := -_jitter_pos * JITTER_STIFFNESS - _jitter_pos_vel * JITTER_DAMPING
+	_jitter_pos_vel += ap * delta
+	_jitter_pos += _jitter_pos_vel * delta
+	var ar := -_jitter_rot * JITTER_STIFFNESS - _jitter_rot_vel * JITTER_DAMPING
+	_jitter_rot_vel += ar * delta
+	_jitter_rot += _jitter_rot_vel * delta
+	var af := -_flip_rot * FLIP_STIFFNESS - _flip_vel * FLIP_DAMPING
+	_flip_vel += af * delta
+	_flip_rot += _flip_vel * delta
+
 func _fire_camera_fx(cam: Camera3D) -> void:
 	var cfx := cam.get_node_or_null("CameraFx")
 	if cfx == null:
 		return
 	cfx.kick(randf_range(0.008, 0.017), randf_range(-0.006, 0.006))
 	cfx.fov_punch(2.5)
+	cfx.add_trauma(0.06)  # 每发相机微震
 
 func _spawn_casing() -> void:
 	var cam := get_viewport().get_camera_3d()
