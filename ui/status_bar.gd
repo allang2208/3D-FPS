@@ -6,12 +6,6 @@ extends CanvasLayer
 
 const Style := preload("res://ui/style.gd")
 
-var _hp_fill: ColorRect
-var _hp_trail: ColorRect
-var _hp_label: Label
-var _mp_fill: ColorRect
-var _mp_label: Label
-var _kill_label: Label
 var _ammo_label: Label
 var _ammo_reserve_label: Label
 var _weapon_label: Label
@@ -70,8 +64,7 @@ var _top_class_lbl: Label
 var _top_kills_lbl: Label
 var _top_hp_fill: ColorRect
 var _top_mp_fill: ColorRect
-var _stamina_fill: ColorRect
-var _stamina_val: Label
+var _top_stamina_fill: ColorRect
 var _exp_bar: ColorRect
 var _stamina_now := 100
 var _stamina_max := 100
@@ -160,64 +153,6 @@ func _sync_top_bar() -> void:
 
 func _build() -> void:
 	_build_tooltip()
-	# 左上：生命（图标 + 血条 + 数值）
-	var hp_x := _cfg_int(_hp_cfg, "x", 16)
-	var hp_y := _cfg_int(_hp_cfg, "y", 10)
-	var hp_lx := _cfg_int(_hp_cfg, "label_x", 244)
-	var hp_ls := _cfg_int(_hp_cfg, "label_size", 22)
-	var hp_bg := Panel.new()
-	hp_bg.position = Vector2(hp_x, hp_y)
-	hp_bg.size = Vector2(_bar_w, _bar_h)
-	hp_bg.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_HUD_TRACK, Style.COLOR_HUD_BORDER, Style.RADIUS_SM, 2))
-	add_child(hp_bg)
-	_bind_hover(hp_bg, _label("hp_tip_title", "生命值"), _label("hp_tip_desc", "角色的生命，归零时死亡。低血量会触发红色警示。"),
-		func() -> Array: return [["当前生命", "%d / %d" % [_hp_now, _hp_max]], ["低血量", "低于 25% 警示"]])
-	_hp_fill = ColorRect.new()
-	_hp_fill.position = Vector2(hp_x + 2, hp_y + 2)
-	_hp_fill.size = Vector2(_bar_w - 4, _bar_h - 4)
-	_hp_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_hp_fill)
-	_hp_trail = ColorRect.new()
-	_hp_trail.color = Color(Style.COLOR_WHITE, 0.85)
-	_hp_trail.position = Vector2(hp_x + 2, hp_y + 2)
-	_hp_trail.size = Vector2(_bar_w - 4, _bar_h - 4)
-	_hp_trail.visible = false
-	_hp_trail.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_hp_trail)
-	_hp_label = _make_label("100/100", Vector2(hp_lx, hp_y - 2), hp_ls, Style.COLOR_WHITE)
-	_hp_label.add_theme_font_override("font", _font_mono)
-	# 左上第二行：魔力（蓝条，技能系统移植后由 set_mp 点亮）
-	var mp_x := _cfg_int(_mp_cfg, "x", 16)
-	var mp_y := _cfg_int(_mp_cfg, "y", 40)
-	var mp_h := _cfg_int(_mp_cfg, "h", 14)
-	var mp_lx := _cfg_int(_mp_cfg, "label_x", 244)
-	var mp_ls := _cfg_int(_mp_cfg, "label_size", 16)
-	var mp_bg := Panel.new()
-	mp_bg.position = Vector2(mp_x, mp_y)
-	mp_bg.size = Vector2(_bar_w, mp_h)
-	mp_bg.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_HUD_TRACK, Style.COLOR_HUD_BORDER, Style.RADIUS_SM, 2))
-	add_child(mp_bg)
-	_bind_hover(mp_bg, _label("mp_tip_title", "魔法值"), _label("mp_tip_desc", "释放技能消耗的魔力，随时间自动恢复。"),
-		func() -> Array: return [["当前魔法", "%d / %d" % [_mp_now, _mp_max]]])
-	_mp_fill = ColorRect.new()
-	_mp_fill.color = Style.THEME_MP_BLUE
-	_mp_fill.position = Vector2(mp_x + 2, mp_y + 2)
-	_mp_fill.size = Vector2(_bar_w - 4, mp_h - 4)
-	_mp_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_mp_fill)
-	_mp_label = _make_label("", Vector2(mp_lx, mp_y - 3), mp_ls, Style.THEME_MP_BLUE)
-	mp_bg.visible = false
-	_mp_fill.visible = false
-	_mp_label.visible = false
-	var kill_x := _cfg_int(_kill_cfg, "x", 16)
-	var kill_y := _cfg_int(_kill_cfg, "y", 64)
-	var kill_sz := _cfg_int(_kill_cfg, "size", 16)
-	_kill_label = _make_label(_label("kills", "击杀: %d") % 0, Vector2(kill_x, kill_y), kill_sz, Style.COLOR_HUD_GOLD)
-	_kill_label.add_theme_font_override("font", _font_mono)
-	_bind_hover(_kill_label, _label("kill_tip_title", "击杀数"), _label("kill_tip_desc", "本局累计击杀的敌人数量。"),
-		func() -> Array: return [["击杀", "%d" % _kills]])
 	# 左下：武器模式 + 武器名（原项目 weapon-info，金色发光）
 	var wsize := _cfg_int(_weapon_cfg, "size", 16)
 	var wmode := _make_label("武器", Vector2.ZERO, 12, Style.COLOR_DIM_TEXT)
@@ -316,7 +251,6 @@ func _build() -> void:
 ## 原项目补充 HUD：顶部状态栏 / 体力条 / 经验条 / 操作提示 / 侧边菜单
 func _build_hud_extras() -> void:
 	_build_top_bar()
-	_build_stamina_bar()
 	_build_exp_bar()
 	_build_controls_hint()
 	_build_side_menu()
@@ -359,6 +293,9 @@ func _build_top_bar() -> void:
 	_add_top_divider(hb)
 	var mp_box := _add_top_meter_box(hb, "魔法", Style.THEME_MP_BLUE)
 	_top_mp_fill = mp_box[1]
+	_add_top_divider(hb)
+	var sta_box := _add_top_meter_box(hb, "体力", Style.COLOR_STAMINA_FILL)
+	_top_stamina_fill = sta_box[1]
 
 
 func _make_top_caption(parent: Node, text: String) -> Label:
@@ -414,9 +351,17 @@ func _add_top_meter_box(parent: Node, caption: String, color: Color) -> Array:
 	var fill := _make_top_meter(row, color)
 	parent.add_child(box)
 	box.mouse_entered.connect(func() -> void:
-		var rows := [["当前", "%d / %d" % [_hp_now, _hp_max]]] if caption == "生命" \
-			else [["当前", "%d / %d" % [_mp_now, _mp_max]]]
-		_show_tooltip(caption + "值", _label("hp_tip_desc" if caption == "生命" else "mp_tip_desc", "状态值说明"), rows,
+		var rows: Array
+		var desc := "角色的生命，归零时死亡。"
+		if caption == "生命":
+			rows = [["当前", "%d / %d" % [_hp_now, _hp_max]]]
+		elif caption == "魔法":
+			rows = [["当前", "%d / %d" % [_mp_now, _mp_max]]]
+			desc = "释放技能消耗的魔力，随时间自动恢复。"
+		else:
+			rows = [["当前", "%d / %d" % [_stamina_now, _stamina_max]]]
+			desc = "冲刺、闪避、攻击消耗体力，停止消耗后自动恢复。"
+		_show_tooltip(caption + "值", desc, rows,
 			box.global_position + Vector2(0, box.size.y + 6)))
 	box.mouse_exited.connect(func() -> void:
 		if _tip != null:
@@ -442,31 +387,6 @@ func _make_top_meter(parent: Node, color: Color) -> ColorRect:
 	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	track.add_child(fill)
 	return fill
-
-
-func _build_stamina_bar() -> void:
-	var bg := Panel.new()
-	bg.position = Vector2(16, 84)
-	bg.size = Vector2(_bar_w, 14)
-	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bg.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_HUD_TRACK, Style.COLOR_HUD_BORDER, Style.RADIUS_SM, 2))
-	add_child(bg)
-	_stamina_fill = ColorRect.new()
-	_stamina_fill.color = Style.COLOR_STAMINA_FILL
-	_stamina_fill.position = Vector2(18, 86)
-	_stamina_fill.size = Vector2(_bar_w - 4, 10)
-	_stamina_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(_stamina_fill)
-	_stamina_val = Label.new()
-	_stamina_val.text = "%d/%d" % [_stamina_now, _stamina_max]
-	_stamina_val.position = Vector2(244, 80)
-	_stamina_val.add_theme_font_override("font", _font_mono)
-	_stamina_val.add_theme_font_size_override("font_size", 14)
-	_stamina_val.add_theme_color_override("font_color", Style.COLOR_HUD_GOLD)
-	add_child(_stamina_val)
-	_bind_hover(bg, "体力", "冲刺、闪避、攻击消耗体力，停止消耗后自动恢复。",
-		func() -> Array: return [["当前体力", "%d / %d" % [_stamina_now, _stamina_max]]])
 
 
 func _build_exp_bar() -> void:
@@ -717,27 +637,10 @@ func set_hp(hp: int, max_hp: int) -> void:
 	var m := maxi(1, max_hp)
 	var pct := clampf(float(hp) / float(m), 0.0, 1.0)
 	var low_ratio := _cfg_num(_hp_cfg, "low_ratio", 0.25)
-	var target_w := (_bar_w - 4) * pct
-	if _hp_fill.size.x > target_w + 0.5:
-		# 掉血：白色后滞条从旧值缓动到新值
-		_hp_trail.size.x = _hp_fill.size.x
-		_hp_trail.visible = true
-		var tw := create_tween()
-		tw.tween_property(_hp_trail, "size:x", target_w, 0.45) \
-			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tw.tween_callback(func() -> void: _hp_trail.visible = false)
-	_hp_fill.size.x = target_w
 	if _top_hp_fill != null:
 		_top_hp_fill.anchor_right = pct
-	if pct > 0.5:
-		_hp_fill.color = Style.COLOR_HP_HIGH
-	elif pct > low_ratio:
-		_hp_fill.color = Style.COLOR_HP_MID
-	else:
-		_hp_fill.color = Style.COLOR_HP_LOW
-	_hp_label.text = "%d/%d" % [maxi(0, hp), m]
-	_hp_label.add_theme_color_override("font_color",
-		Style.THEME_DANGER_RED if pct <= low_ratio else Style.COLOR_HUD_TEXT)
+		_top_hp_fill.color = Style.COLOR_HP_HIGH if pct > 0.5 \
+			else (Style.COLOR_HP_MID if pct > low_ratio else Style.COLOR_HP_LOW)
 	_low_hp = pct <= low_ratio
 	if _vignette != null:
 		_vignette.visible = _low_hp
@@ -750,12 +653,8 @@ func set_mp(mp: int, max_mp: int) -> void:
 	_mp_max = maxi(1, max_mp)
 	var m := maxi(1, max_mp)
 	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
-	_mp_fill.size.x = (_bar_w - 4) * pct
 	if _top_mp_fill != null:
 		_top_mp_fill.anchor_right = pct
-	_mp_label.text = "%d/%d" % [maxi(0, mp), m]
-	_mp_fill.visible = true
-	_mp_label.visible = true
 
 func set_weapon_name(name: String) -> void:
 	_weapon_name = name
@@ -763,7 +662,6 @@ func set_weapon_name(name: String) -> void:
 
 func set_kills(n: int) -> void:
 	_kills = maxi(0, n)
-	_kill_label.text = _label("kills", "击杀: %d") % n
 
 func set_ammo(ammo: int, reserve: int) -> void:
 	_ammo_now = maxi(0, ammo)
@@ -780,10 +678,8 @@ func set_ammo(ammo: int, reserve: int) -> void:
 func set_stamina(st: int, max_st: int) -> void:
 	_stamina_now = maxi(0, st)
 	_stamina_max = maxi(1, max_st)
-	if _stamina_fill != null:
-		_stamina_fill.size.x = (_bar_w - 4) * clampf(float(_stamina_now) / float(_stamina_max), 0.0, 1.0)
-	if _stamina_val != null:
-		_stamina_val.text = "%d/%d" % [_stamina_now, _stamina_max]
+	if _top_stamina_fill != null:
+		_top_stamina_fill.anchor_right = clampf(float(_stamina_now) / float(_stamina_max), 0.0, 1.0)
 
 func set_exp(v: int, max_v: int) -> void:
 	_exp_now = maxi(0, v)
