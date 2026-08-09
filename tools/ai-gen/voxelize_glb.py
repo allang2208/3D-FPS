@@ -79,6 +79,85 @@ def sample_colors(mesh: trimesh.Trimesh, centers: np.ndarray) -> np.ndarray:
     return out
 
 
+def voxelize_solid(mesh: trimesh.Trimesh, pitch: float):
+    """自研实心体素化：三角形边采样标记表面 → 洪水填充内部。
+    对非水密 AI 网格比 trimesh 的 subdivide（丢细长凸起如弹匣）可靠。"""
+    mn = mesh.bounds[0]
+    mx = mesh.bounds[1]
+    shape = tuple((np.ceil((mx - mn) / pitch).astype(int) + 1).tolist())
+    origin = mn - np.array([pitch / 2.0] * 3)
+    transform = np.eye(4)
+    transform[:3, :3] *= pitch
+    transform[:3, 3] = origin
+
+    def to_idx(p: np.ndarray) -> np.ndarray:
+        return np.floor((p - origin) / pitch).astype(np.int64)
+
+    surf = np.zeros(shape, dtype=bool)
+    verts = mesh.vertices
+    tris = mesh.faces
+    samples = []
+    for t in tris:
+        a, b, c = verts[t]
+        # 重心网格采样：边长按 pitch/2 细分，保证每个体素被表面覆盖
+        max_edge = max(
+            np.linalg.norm(b - a), np.linalg.norm(c - b), np.linalg.norm(a - c)
+        )
+        s = max(1, int(np.ceil(max_edge / (pitch * 0.5))))
+        for u_i in range(s + 1):
+            for v_i in range(s + 1 - u_i):
+                u = u_i / s
+                v = v_i / s
+                samples.append(a + (b - a) * u + (c - a) * v)
+    S = np.asarray(samples)
+    idx = to_idx(S)
+    ok = (
+        (idx[:, 0] >= 0) & (idx[:, 0] < shape[0])
+        & (idx[:, 1] >= 0) & (idx[:, 1] < shape[1])
+        & (idx[:, 2] >= 0) & (idx[:, 2] < shape[2])
+    )
+    surf[idx[ok, 0], idx[ok, 1], idx[ok, 2]] = True
+
+    # 洪水填充：从边界找外部可达的空格
+    exterior = np.zeros(shape, dtype=bool)
+    stack = []
+    for i in range(shape[0]):
+        for k in range(shape[2]):
+            for j in [0, shape[1] - 1]:
+                if not surf[i, j, k]:
+                    exterior[i, j, k] = True
+                    stack.append((i, j, k))
+    for j in range(shape[1]):
+        for k in range(shape[2]):
+            for i in [0, shape[0] - 1]:
+                if not surf[i, j, k]:
+                    exterior[i, j, k] = True
+                    stack.append((i, j, k))
+    for i in range(shape[0]):
+        for j in range(shape[1]):
+            for k in [0, shape[2] - 1]:
+                if not surf[i, j, k]:
+                    exterior[i, j, k] = True
+                    stack.append((i, j, k))
+    while stack:
+        i, j, k = stack.pop()
+        for di, dj, dk in [(-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1)]:
+            ni, nj, nk = i + di, j + dj, k + dk
+            if (
+                0 <= ni < shape[0]
+                and 0 <= nj < shape[1]
+                and 0 <= nk < shape[2]
+                and not surf[ni, nj, nk]
+                and not exterior[ni, nj, nk]
+            ):
+                exterior[ni, nj, nk] = True
+                stack.append((ni, nj, nk))
+
+    filled = surf | ~exterior
+    grid = trimesh.voxel.VoxelGrid(filled, transform=transform)
+    return grid, surf
+
+
 def quantize_palette(colors: np.ndarray, max_colors: int) -> tuple:
     """颜色量化到调色板，返回 (索引数组, 调色板 RGB)。"""
     img = Image.fromarray(colors.reshape(-1, 1, 3).repeat(1, axis=1), "RGB")
@@ -92,6 +171,50 @@ def quantize_palette(colors: np.ndarray, max_colors: int) -> tuple:
     diff = ((idx[:, None, :].astype(int) - pal_rgb[None, :, :].astype(int)) ** 2).sum(axis=2)
     indices = diff.argmin(axis=1).astype(np.uint8) + 1
     return indices, pal_rgb
+
+
+def split_magazine(filled: np.ndarray, z_threshold: int = 13) -> tuple:
+    """把悬挂在机匣下方的弹匣拆成独立体素。
+    弹匣列 = 底部达到全局最低的列；弹匣顶 = 该列 z 宽度 <= 阈值的最高的连续行（上方变宽=进入机匣）。"""
+    shape = filled.shape
+    jmin = np.full((shape[0], shape[2]), shape[1])
+    for i in range(shape[0]):
+        for k in range(shape[2]):
+            js = np.nonzero(filled[i, :, k])[0]
+            if js.size:
+                jmin[i, k] = js[0]
+    bottom = int(jmin.min())
+    mag = np.zeros_like(filled)
+    for i in range(shape[0]):
+        for k in range(shape[2]):
+            if jmin[i, k] > bottom + 2:
+                continue
+            top_j = -1
+            for j in range(shape[1]):
+                zw = int(filled[i, j, :].sum())
+                if zw > 0:
+                    if zw <= z_threshold:
+                        top_j = j
+                    else:
+                        break
+            if top_j >= 0:
+                mag[i, : top_j + 1, k] = filled[i, : top_j + 1, k]
+    return filled & ~mag, mag
+
+
+def extract_surface(filled: np.ndarray) -> np.ndarray:
+    """提取表面体素（至少一个 6 邻域为空）。"""
+    if filled.ndim != 3 or filled.shape[0] < 3:
+        return filled.copy()
+    pad = np.pad(filled, 1)
+    out = np.zeros_like(filled)
+    for di, dj, dk in [(-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1)]:
+        out |= filled & ~pad[
+            1 + di : 1 + di + filled.shape[0],
+            1 + dj : 1 + dj + filled.shape[1],
+            1 + dk : 1 + dk + filled.shape[2],
+        ]
+    return out
 
 
 def write_vox(path: str, shape: tuple, indices: np.ndarray, palette: np.ndarray) -> None:
@@ -179,30 +302,11 @@ def main() -> int:
     mesh = load_single_mesh(args.input)
     print("mesh:", len(mesh.vertices), "verts,", len(mesh.faces), "faces")
     print("stage load %.2fs" % (time.time() - t_start))
-    vox = mesh.voxelized(pitch=args.pitch)
+    vox, surf = voxelize_solid(mesh, args.pitch)
     print("stage voxelize %.2fs" % (time.time() - t_start))
     shape = tuple(int(s) for s in vox.shape)
     filled = np.asarray(vox.matrix, dtype=bool)
-    # 内部列填充：AI 网格多非水密，表面体素化会镂空（枪托丢块/半透明）。
-    # 沿 y 对每个 (x,z) 列填满 min..max，保证实心。
-    for i in range(filled.shape[0]):
-        for k in range(filled.shape[2]):
-            js = np.nonzero(filled[i, :, k])[0]
-            if js.size > 1:
-                filled[i, js[0] : js[-1] + 1, k] = True
-    # OBJ 只导出表面体素（至少一个 6 邻域空洞），避免内部盒子浪费几何量
-    surf = np.zeros_like(filled)
-    if filled.shape[0] > 2 and filled.shape[1] > 2 and filled.shape[2] > 2:
-        pad = np.pad(filled, 1)
-        for di, dj, dk in [(-1, 0, 0), (1, 0, 0), (0, -1, 0), (0, 1, 0), (0, 0, -1), (0, 0, 1)]:
-            surf |= filled & ~pad[
-                1 + di : 1 + di + filled.shape[0],
-                1 + dj : 1 + dj + filled.shape[1],
-                1 + dk : 1 + dk + filled.shape[2],
-            ]
-    else:
-        surf = filled
-    print("stage fill %.2fs surface=%d solid=%d" % (time.time() - t_start, int(surf.sum()), int(filled.sum())))
+    print("stage solid %.2fs surface=%d solid=%d" % (time.time() - t_start, int(surf.sum()), int(filled.sum())))
     if max(shape) > 255:
         print("警告：体素网格超过 255 格，MagicaVoxel 标准世界放不下；请加大 pitch")
     idx = np.array(np.nonzero(filled))
@@ -219,10 +323,15 @@ def main() -> int:
     obj_path = base + ".obj"
     write_vox(vox_path, shape, grid, palette)
     print("stage vox %.2fs" % (time.time() - t_start))
-    surf_idx = np.nonzero(surf)
-    surf_grid = np.zeros(shape, dtype=np.uint8)
-    surf_grid[surf_idx] = grid[surf_idx]
-    write_obj_with_colors(obj_path, shape, surf_grid, palette, args.pitch)
+    # 弹匣拆分：枪体 + 独立弹匣（换弹动画滑出用）
+    body, mag_v = split_magazine(filled)
+    print("stage split %.2fs body=%d mag=%d" % (time.time() - t_start, int(body.sum()), int(mag_v.sum())))
+    for name, part in [("", body), ("_mag", mag_v)]:
+        part_surf = extract_surface(part)
+        part_grid = np.zeros(shape, dtype=np.uint8)
+        part_idx = np.nonzero(part_surf)
+        part_grid[part_idx] = grid[part_idx]
+        write_obj_with_colors(base + name + ".obj", shape, part_grid, palette, args.pitch)
     print("stage obj %.2fs" % (time.time() - t_start))
     return 0
 

@@ -7,6 +7,7 @@ extends Resource
 @export var weapon_name := "AK-74"
 @export var model_scene: Resource  # PackedScene（GLB）或 Mesh（体素 OBJ/PLY）
 @export var muzzle_sign_override := 0  # 0=自动，1=枪口朝+axis，-1=枪口朝-axis
+@export var mag_scene: Resource  # 独立弹匣 Mesh（换弹动画滑出用）；空=用占位盒
 
 @export_group("开火")
 @export var fire_interval := 0.13

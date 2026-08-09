@@ -53,8 +53,11 @@ const CasingScript := preload("res://scripts/casing.gd")
 
 # 枪模资源（运行时从 data.model_scene 取；换枪时替换）
 var model_scene: Resource
+# 独立弹匣 Mesh（体素枪械用，换弹动画滑出真弹匣）
+var mag_scene: Resource
 # 枪口方向手动覆盖：0=自动，1=枪口朝+axis，-1=枪口朝-axis（自动判定误判时用）
 var muzzle_sign_override := 0.0
+var _mag_slide := 0.18
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
@@ -131,6 +134,7 @@ func _ready() -> void:
 		data = WeaponData.new()
 	model_scene = data.model_scene
 	muzzle_sign_override = data.muzzle_sign_override
+	mag_scene = data.mag_scene
 	ammo = data.mag_size
 	reserve = data.reserve
 	_cam = get_parent() as Camera3D
@@ -226,7 +230,7 @@ func _process(delta: float) -> void:
 		reload_pos = Vector3(0, -p * 0.12, p * 0.05)
 		reload_rot = Vector3(-p * 0.45, 0, -p * 0.35)
 		if _mag:
-			_mag.position.y = _mag_base_y - p * 0.18
+			_mag.position.y = _mag_base_y - p * _mag_slide
 	# 枪口翻转：绕枪口旋转的位置补偿（枪口保持，枪身下压）
 	var flip_correction := Vector3.ZERO
 	if absf(_flip_rot) > 0.0005:
@@ -664,8 +668,23 @@ func _build_gun() -> void:
 	akm.name = "AkmModel"
 	add_child(akm)
 	_model = akm
-	# 弹匣节点（换弹动画滑出用，GLB 是整体网格，程序化补一个小弹匣节点占位）
-	_mag = _box(self, Vector3(0.05, 0.11, 0.06), Vector3(0, -0.14, -0.02), Color(0.10, 0.11, 0.13))
+	# 弹匣：体素枪械用独立弹匣 Mesh（真弹匣滑出）；GLB 仍用程序化占位盒
+	if model_scene is Mesh and mag_scene is Mesh:
+		var mag_holder := Node3D.new()
+		mag_holder.name = "Magazine"
+		var mag_mi := MeshInstance3D.new()
+		mag_mi.mesh = mag_scene as Mesh
+		var marr := (mag_mi.mesh as ArrayMesh).surface_get_arrays(0)
+		if marr.size() > 0 and marr[Mesh.ARRAY_COLOR] != null:
+			var mmat := StandardMaterial3D.new()
+			mmat.vertex_color_use_as_albedo = true
+			mmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			mag_mi.material_override = mmat
+		mag_holder.add_child(mag_mi)
+		_model.add_child(mag_holder)
+		_mag = mag_holder
+	else:
+		_mag = _box(self, Vector3(0.05, 0.11, 0.06), Vector3(0, -0.14, -0.02), Color(0.10, 0.11, 0.13))
 
 # ---------- 视模自动校准 ----------
 
@@ -719,11 +738,20 @@ func _calibrate_viewmodel() -> void:
 	_muzzle_local = muzzle_local_tmp
 	_eject_local = Vector3(0.035 * scale, 0.032 * scale, _muzzle_local.z + 0.30 * scale)
 	if _mag:
-		var mag_center := _find_mag_center(verts, axis, muzzle_sign)
-		if mag_center != Vector3.ZERO:
-			_mag.position = to_gun.call(mag_center) + Vector3(0, 0.022, 0)
-			_mag.scale = Vector3.ONE * scale
-			_mag_base_y = _mag.position.y
+		if _mag.get_parent() == _model:
+			# 体素独立弹匣：与枪体 OBJ 同坐标系，用弹匣网格包围盒中心定位
+			var mag_mi := _mag.get_child(0) as MeshInstance3D
+			if mag_mi:
+				var aabb := (mag_mi.mesh as ArrayMesh).get_aabb()
+				_mag.position = aabb.get_center()
+				_mag_base_y = _mag.position.y
+				_mag_slide = 0.18 / scale
+		else:
+			var mag_center := _find_mag_center(verts, axis, muzzle_sign)
+			if mag_center != Vector3.ZERO:
+				_mag.position = to_gun.call(mag_center) + Vector3(0, 0.022, 0)
+				_mag.scale = Vector3.ONE * scale
+				_mag_base_y = _mag.position.y
 	# ADS 求解：旋转让照门→准星连线指向相机光轴(-Z)，再平移让照门落到光轴上
 	var d: Vector3 = front - rear
 	if d.length_squared() < 0.0001:
