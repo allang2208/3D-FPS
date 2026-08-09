@@ -6,7 +6,7 @@ extends SceneTree
 func _process(_delta: float) -> bool:
 	var path := OS.get_environment("PROBE_GLB")
 	if path == "":
-		path = "res://assets/models/akm_trellis.glb"
+		path = "res://assets/models/ak/_dl_ak47_adamkokrito.glb"
 	var glb: PackedScene = load(path)
 	var n := glb.instantiate()
 	root.add_child(n)

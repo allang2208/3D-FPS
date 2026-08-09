@@ -10,7 +10,9 @@ func _process(_d) -> bool:
 	if _f == 1:
 		var mesh_path := OS.get_environment("GUN_VOX_OBJ")
 		if mesh_path == "":
-			mesh_path = "res://assets/models/ak/akm_hand_built_v6.obj"
+			print("用法: 设置 GUN_VOX_OBJ=res://assets/models/ak/xxx.obj（由 voxel_ak_builder 生成）")
+			quit(1)
+			return false
 		var tag := OS.get_environment("GUN_VOX_TAG")
 		if tag != "":
 			_tag = tag

@@ -58,16 +58,11 @@ $env:GUN_VOX_TAG='v6fine'
 `docs/preview/` 后做：像素轮廓校验（弹匣谷底应前高→中低→后收）+ GLM-4.6V 评审
 （`node tools/ai-gen/glm-analyze-image.mjs`）。
 
-## 当前结论（2026-08-09，v7）
+## 当前结论（2026-08-09，已转向下载模型）
 
-- **v7 造型升级**（2mm 全枪高精度）：弹匣香蕉弧加深（前缘后倒 24° + R50mm 圆弧 + 香蕉尖）、
-  枪托加长到 -0.50 并收窄、护木改薄 + 6 道散热槽、握把分片前倾、准星加高、枪口制退器加长带侧槽、
-  8 色调色板（3 木色 / 3 钢色 / 深色 / 黄铜）
-- GLM-4.6V 对照评审：v7 造型 7/10、打磨 6/10；v6(2mm) 仅 4/3。剩余"粗糙感"主要来自体素介质本身，
-  以及部件微细节（护木曲线、枪托纹理、机匣小件）
-- 文件体积：2mm OBJ ~135MB（文本格式）；Godot 导入后的 .mesh 仅 ~44MB，游戏加载的是后者
-- **2mm OBJ 属可再生成构建产物，未提交 git**（太大）；需要时一条命令重建：
-  `python tools/ai-gen/voxel_ak_builder.py --pitch 0.002 --out assets/models/ak/akm_hand_built_v7_2mm`
-- 候选置入游戏：`assets/models/ak/akm_hand_built_v7_2mm.obj`（等用户确认后替换 weapon_data）
-- 若仍嫌粗：下一档是 1.5mm/1mm（.mesh 翻倍到 80~150MB，不建议）；更划算的是继续堆
-  微细节（护木曲线、握把纹路、机匣小件）+ 光照/贴图优化
+- **v7-2mm 体素版已被用户否决**（"还是太粗糙"），体素方向暂停；v7/v6 的 OBJ 为可再生成
+  构建产物，已从仓库与磁盘删除，需要时用下方命令一条重建
+- 游戏内默认武器已切换为下载模型：`weapon_data/akm_dl.tres` →
+  `assets/models/ak/_dl_ak47_adamkokrito.glb`（Poly Pizza，CC-BY 3.0，见 docs/asset-licenses.md）
+- 本生成器（voxel_ak_builder.py）保留备用：若未来要用体素风做其他武器，仍可用它生成 +
+  render_voxel_gun.gd 验证；更细档（1.5mm/1mm）会把 .mesh 撑到 80~150MB，不建议

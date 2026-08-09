@@ -11,8 +11,8 @@
 
 ## 备选
 
-- _dl_akm_jtoastie.glb（未采用）：Poly Pizza https://poly.pizza/m/52kQzphmeF ，J-Toastie，CC0；
-  评审造型 4/10，过于抽象未采用
+- _dl_akm_jtoastie.glb（已删除）：Poly Pizza https://poly.pizza/m/52kQzphmeF ，J-Toastie，CC0；
+  评审造型 4/10，过于抽象，2026-08-09 清理旧资产时一并删除
 - 体素方向候选：CGTrader AK74 Voxel Gun（免费，需注册账号下载）
   https://www.cgtrader.com/free-3d-models/military/gun/ak74-voxel-gun
   （MagicaVoxel 制作，3884 面，含独立弹匣/枪机部件，最贴合"高精度体素像素风"）

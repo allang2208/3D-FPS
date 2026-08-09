@@ -1,6 +1,6 @@
 extends SceneTree
 ## 在游戏相机下打印枪口/枪托/瞄具的世界坐标与屏幕投影，对比两版模型朝向
-## 运行： $env:PROBE_GLB='res://assets/models/akm_trellis.glb'; $godot --headless --path 'E:\3d\3-dfps' --script res://tests/probe_gun_projection.gd
+## 运行： $env:PROBE_GLB='res://assets/models/ak/_dl_ak47_adamkokrito.glb'; $godot --headless --path 'E:\3d\3-dfps' --script res://tests/probe_gun_projection.gd
 
 var _frames := 0
 var _gun: Node3D

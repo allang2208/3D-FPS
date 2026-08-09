@@ -1,4 +1,7 @@
 # 枪械体素像素风格管线（方案 A + B）
+> 2026-08-09 状态：体素方向已由下载模型替代（默认武器 = weapon_data/akm_dl.tres），
+> 旧体素资产已全部删除。本管线（voxelize_glb.py / MagicaVoxel 精修）保留备用，
+> 文档中示例的 akm_trellis.glb / akm_voxel_m.obj 等文件已删除，如需复现请先重新生成。
 
 ## 方案 A：程序化体素化（全自动，已完成）
 

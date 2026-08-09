@@ -2,7 +2,7 @@ class_name WeaponData
 extends Resource
 ## 武器数据（GunData）：Unity FPS 参考（SakanakoChan/FPSGameBySakanako）移植的多武器架构。
 ## 每把武器一份 .tres（weapon_data/*.tres），gun.gd 只读 data，不再硬编码武器常量。
-## 脚本内默认值 = AKM 基准（与 weapon_data/akm.tres 一致），data 缺失时兜底可用。
+## 脚本内默认值 = AKM 基准（与 weapon_data/akm_dl.tres 一致），data 缺失时兜底可用。
 
 @export var weapon_name := "AK-74"
 @export var model_scene: Resource  # PackedScene（GLB）或 Mesh（体素 OBJ/PLY）
