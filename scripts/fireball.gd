@@ -79,7 +79,7 @@ func build_visual() -> void:
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	glow.pixel_size = 0.0025
-	glow.scale = Vector3(2.3, 2.3, 1.0)
+	glow.scale = Vector3(2.5, 2.5, 1.0)
 	var glow_mat := StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -91,15 +91,15 @@ func build_visual() -> void:
 	# 橙色点光（火球照亮周围）
 	var light := OmniLight3D.new()
 	light.light_color = Color(1.0, 0.5, 0.2)
-	light.light_energy = 2.5
+	light.light_energy = 1.5
 	light.omni_range = 5.0
 	add_child(light)
 	# 常驻火焰层一：内焰（白色核心）——从球底升起，贴近球体最亮
 	var flame_white := GPUParticles3D.new()
 	flame_white.emitting = true
 	flame_white.one_shot = false
-	flame_white.amount = 20
-	flame_white.lifetime = 0.4
+	flame_white.amount = 30
+	flame_white.lifetime = 0.5
 	flame_white.local_coords = false
 	flame_white.draw_pass_1 = _dot_pass(0.5, true)
 	var wp := ParticleProcessMaterial.new()
@@ -111,12 +111,12 @@ func build_visual() -> void:
 	wp.initial_velocity_min = 0.22
 	wp.initial_velocity_max = 0.45
 	wp.gravity = Vector3(0, 0.35, 0)
-	wp.scale_min = 0.16
-	wp.scale_max = 0.27
+	wp.scale_min = 0.18
+	wp.scale_max = 0.3
 	wp.scale_curve = _grow_texture(0.5, 1.0)
 	wp.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.55),
-		Color(1.0, 0.96, 0.8, 0.45),
+		Color(1.0, 1.0, 1.0, 0.62),
+		Color(1.0, 0.96, 0.8, 0.5),
 		Color(1.0, 0.7, 0.3, 0.0),
 	], [0.0, 0.3, 1.0])
 	flame_white.process_material = wp
@@ -125,8 +125,8 @@ func build_visual() -> void:
 	var flame_yellow := GPUParticles3D.new()
 	flame_yellow.emitting = true
 	flame_yellow.one_shot = false
-	flame_yellow.amount = 30
-	flame_yellow.lifetime = 0.55
+	flame_yellow.amount = 36
+	flame_yellow.lifetime = 0.6
 	flame_yellow.local_coords = false
 	flame_yellow.draw_pass_1 = _dot_pass(0.6, true)
 	var yp := ParticleProcessMaterial.new()
@@ -138,17 +138,17 @@ func build_visual() -> void:
 	yp.initial_velocity_min = 0.35
 	yp.initial_velocity_max = 0.65
 	yp.gravity = Vector3(0, 0.2, 0)
-	yp.scale_min = 0.22
-	yp.scale_max = 0.4
+	yp.scale_min = 0.24
+	yp.scale_max = 0.42
 	yp.scale_curve = _grow_texture(0.6, 1.2)
 	yp.turbulence_enabled = true
 	yp.turbulence_noise_strength = 1.1
 	yp.turbulence_noise_scale = 5.0
 	yp.turbulence_noise_speed = Vector3(1.5, 1.5, 1.5)
 	yp.color_ramp = _ramp([
-		Color(1.0, 0.92, 0.5, 0.4),
-		Color(1.0, 0.8, 0.28, 0.35),
-		Color(1.0, 0.48, 0.1, 0.08),
+		Color(1.0, 0.92, 0.5, 0.66),
+		Color(1.0, 0.8, 0.28, 0.55),
+		Color(1.0, 0.48, 0.1, 0.14),
 		Color(1.0, 0.32, 0.05, 0.0),
 	], [0.0, 0.25, 0.55, 1.0])
 	flame_yellow.process_material = yp
@@ -203,8 +203,8 @@ func build_visual() -> void:
 	var flame_orange := GPUParticles3D.new()
 	flame_orange.emitting = true
 	flame_orange.one_shot = false
-	flame_orange.amount = 24
-	flame_orange.lifetime = 0.6
+	flame_orange.amount = 28
+	flame_orange.lifetime = 0.65
 	flame_orange.local_coords = false
 	flame_orange.draw_pass_1 = _dot_pass(0.6, true)
 	var op := ParticleProcessMaterial.new()
@@ -216,12 +216,12 @@ func build_visual() -> void:
 	op.initial_velocity_min = 0.18
 	op.initial_velocity_max = 0.38
 	op.gravity = Vector3(0, 0.15, 0)
-	op.scale_min = 0.22
-	op.scale_max = 0.4
+	op.scale_min = 0.24
+	op.scale_max = 0.42
 	op.scale_curve = _grow_texture(0.7, 1.3)
 	op.color_ramp = _ramp([
-		Color(1.0, 0.5, 0.12, 0.32),
-		Color(1.0, 0.32, 0.06, 0.08),
+		Color(1.0, 0.5, 0.12, 0.42),
+		Color(1.0, 0.32, 0.06, 0.1),
 		Color(1.0, 0.25, 0.05, 0.0),
 	], [0.0, 0.45, 1.0])
 	flame_orange.process_material = op
