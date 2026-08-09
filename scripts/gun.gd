@@ -58,6 +58,9 @@ const SHOOT_SOUND := preload("res://assets/sfx/akm_burst.mp3")
 const RELOAD_SOUND := preload("res://assets/sfx/reload_sharp.mp3")
 const KILL_SOUND := preload("res://assets/sfx/criticalhit.mp3")
 
+# 枪模场景（换枪时替换；默认 AKM TRELLIS 版）
+var model_scene: PackedScene = AKM_GLB
+
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
 signal reloading
@@ -449,7 +452,7 @@ func _cyl(parent: Node3D, radius: float, length: float, pos: Vector3, color: Col
 
 func _build_gun() -> void:
 	# AI 生成 AKM（TRELLIS.2）：朝向/缩放由 _calibrate_viewmodel() 按网格测量
-	var akm := AKM_GLB.instantiate()
+	var akm := model_scene.instantiate()
 	akm.name = "AkmModel"
 	add_child(akm)
 	_model = akm

@@ -16,6 +16,10 @@ func _process(_delta: float) -> bool:
 		var gun := Node3D.new()
 		gun.name = "Gun"
 		gun.set_script(load("res://scripts/gun.gd"))
+		var model_path := OS.get_environment("GUN_TEST_MODEL")
+		if model_path != "":
+			gun.set("model_scene", load(model_path))
+			print("TEST model_scene=", model_path)
 		cam.add_child(gun)
 		_gun = gun
 	if _frames < 2:
@@ -42,9 +46,9 @@ func _check() -> void:
 	print("ads_pos=", ads_pos, " ads_rot=", ads_rot, " rear_dist=", rear_dist)
 	print("rear=", rear, " front=", front)
 	print("mag_pos=", _gun.get("_mag").position, " mag_base_y=", _gun.get("_mag_base_y"))
-	# 1. 枪口朝前（-Z）
-	if absf(rot_y - 90.0) > 1.0:
-		_fails.append("muzzle direction: rot_y=" + str(rot_y))
+	# 1. 枪口朝前（-Z）：允许 rot_y=±90（依枪模枪口朝向而定）
+	if absf(absf(rot_y) - 90.0) > 1.0:
+		_fails.append("muzzle axis not Z: rot_y=" + str(rot_y))
 	if muzzle.z > -0.2:
 		_fails.append("muzzle not forward: " + str(muzzle))
 	# 2. ADS 后照门/准星落在相机光轴
