@@ -1,31 +1,39 @@
 extends CharacterBody3D
-## 黑狼敌人：追击玩家 / 远处游荡 / 受击扣血闪红 / 死亡倒地后重生
+## 通用敌人：追击玩家 / 远处游荡 / 受击闪红 / 接触伤害 / 死亡倒地重生
+## 子节点约定：Collision（CollisionShape3D）+ Model（GLB 或代码拼装，名字以 Leg 开头的子节点会摆动）
 
-@export var max_hp := 85
-@export var chase_speed := 3.5
-@export var wander_speed := 1.4
+@export var max_hp := 50
+@export var chase_speed := 3.0
+@export var wander_speed := 1.2
+@export var contact_damage := 10
+@export var attack_cd := 0.8
+@export var model_offset_y := 0.0
+@export var walk_bob_amp := 0.03
+@export var walk_bob_speed := 14.0
 
-const WALK_BOB_AMP := 0.05
-const WALK_BOB_SPEED := 14.0
+const CHASE_DIST := 14.0
+const RESPAWN_TIME := 3.0
 
 var _player: Node3D
-var _hp_label: Label
+var _kill_cb: Callable
 var _model: Node3D
 var _mat: StandardMaterial3D
+var _legs: Array[Node3D] = []
 var _hp: int
 var _dead := false
 var _dead_t := 0.0
 var _walk_t := 0.0
 var _moving := false
 var _flash_t := 0.0
+var _lunge_t := 0.0
+var _attack_t := 0.0
 var _wander_target := Vector3.ZERO
 var _wander_timer := 0.0
 
-func setup(player: Node3D, hp_label: Label) -> void:
+func setup(player: Node3D, kill_cb: Callable) -> void:
 	_player = player
-	_hp_label = hp_label
+	_kill_cb = kill_cb
 	_hp = max_hp
-	_update_label()
 
 func _ready() -> void:
 	collision_layer = 2
@@ -34,8 +42,10 @@ func _ready() -> void:
 		if child is Node3D and child.name != "Collision":
 			_model = child
 			_find_material(child)
+			for c in child.get_children():
+				if c.name.begins_with("Leg"):
+					_legs.append(c)
 	_wander_target = global_position
-	_update_label()
 
 func _find_material(n: Node) -> void:
 	if n is MeshInstance3D and n.mesh and n.mesh.get_surface_count() > 0:
@@ -50,7 +60,6 @@ func take_damage(d: int) -> void:
 		return
 	_hp -= d
 	_flash_t = 0.12
-	_update_label()
 	if _hp <= 0:
 		_die()
 
@@ -58,7 +67,8 @@ func _die() -> void:
 	_dead = true
 	_dead_t = 0.0
 	collision_layer = 0
-	_update_label("黑狼：已击杀，3 秒后重生")
+	if _kill_cb.is_valid():
+		_kill_cb.call()
 
 func _physics_process(delta: float) -> void:
 	_flash_t = maxf(0.0, _flash_t - delta)
@@ -73,19 +83,34 @@ func _physics_process(delta: float) -> void:
 		if _model:
 			_model.rotation.x = minf(PI / 2, _model.rotation.x + delta * 2.5)
 			_model.position.y = maxf(0.0, _model.position.y - delta * 0.4)
-		if _dead_t >= 3.0:
+		if _dead_t >= RESPAWN_TIME:
 			_respawn()
 		return
 	if _player == null:
 		return
+	_lunge_t = maxf(0.0, _lunge_t - delta)
+	if _lunge_t > 0.0 and _model:
+		_model.rotation.x = 0.3 * (_lunge_t / 0.25)
+	_attack_t = maxf(0.0, _attack_t - delta)
+	_contact_attack()
 	var to_player := _player.global_position - global_position
 	var dist := Vector2(to_player.x, to_player.z).length()
-	if dist > 14.0:
+	if dist > CHASE_DIST:
 		_wander(delta)
 	else:
 		_chase(delta, to_player, dist)
 	_walk_t += delta
+	_swing_legs()
 	_idle_breath()
+
+func _contact_attack() -> void:
+	if _attack_t > 0.0 or _player == null or not _player.has_method("take_damage"):
+		return
+	var to_p := _player.global_position - global_position
+	if Vector2(to_p.x, to_p.z).length() < 1.4:
+		_attack_t = attack_cd
+		_lunge_t = 0.25
+		_player.take_damage(contact_damage)
 
 func _chase(delta: float, to_player: Vector3, dist: float) -> void:
 	_moving = true
@@ -97,7 +122,7 @@ func _chase(delta: float, to_player: Vector3, dist: float) -> void:
 	_turn_to(dir, delta)
 	move_and_slide()
 	if _model:
-		_model.position.y = 0.41 + absf(sin(_walk_t * WALK_BOB_SPEED)) * WALK_BOB_AMP
+		_model.position.y = model_offset_y + absf(sin(_walk_t * walk_bob_speed)) * walk_bob_amp
 
 func _wander(delta: float) -> void:
 	_wander_timer -= delta
@@ -117,17 +142,24 @@ func _wander(delta: float) -> void:
 		velocity.z = dir.z * wander_speed
 		_turn_to(dir, delta)
 		if _model:
-			_model.position.y = 0.41 + absf(sin(_walk_t * WALK_BOB_SPEED * 0.6)) * WALK_BOB_AMP * 0.6
+			_model.position.y = model_offset_y + absf(sin(_walk_t * walk_bob_speed * 0.6)) * walk_bob_amp * 0.6
 	move_and_slide()
 
 func _turn_to(dir: Vector3, delta: float) -> void:
 	var yaw := atan2(dir.x, dir.z)
 	rotation.y = lerp_angle(rotation.y, yaw, 8.0 * delta)
 
+func _swing_legs() -> void:
+	if _legs.is_empty():
+		return
+	var amp := 0.4 if _moving else 0.0
+	for i in _legs.size():
+		_legs[i].rotation.x = sin(_walk_t * walk_bob_speed * 0.7 + float(i) * PI) * amp * 0.4
+
 func _idle_breath() -> void:
 	if _moving or _model == null:
 		return
-	_model.position.y = 0.41 + sin(_walk_t * 2.2) * 0.02
+	_model.position.y = model_offset_y + sin(_walk_t * 2.2) * 0.02
 
 func _respawn() -> void:
 	_hp = max_hp
@@ -139,10 +171,6 @@ func _respawn() -> void:
 	global_position = Vector3(randf_range(-11.0, 11.0), 0, randf_range(-11.0, 11.0))
 	if _model:
 		_model.rotation.x = 0.0
-		_model.position.y = 0.41
-	_update_label()
-
-func _update_label(text := "") -> void:
-	if _hp_label == null:
-		return
-	_hp_label.text = text if text != "" else "黑狼 HP: %d/%d" % [_hp, max_hp]
+		_model.position.y = model_offset_y
+		for l in _legs:
+			l.rotation.x = 0.0

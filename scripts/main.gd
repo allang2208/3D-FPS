@@ -1,12 +1,21 @@
 extends Node3D
-## 无尽轮回 · 3D FPS（Godot 4.7 最小原型）
-## 场景全部用代码搭建：环境 / 光照 / 地面 / 墙体 / 玩家 / 枪 / 黑狼 GLB
+## 无尽轮回 · 3D FPS（Godot 4.7）
+## 场景代码搭建：环境 / 光照 / 地面 / 墙体 / 玩家 / HUD / 三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）
 
 const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"
 
 var _player: Node3D
+var _gun: Node3D
 var _hp_label: Label
-var _t := 0.0
+var _ammo_label: Label
+var _kill_label: Label
+var _hitmarker: Label
+var _death_label: Label
+var _dmgflash: ColorRect
+var _player_dead := false
+var _hitmark_t := 0.0
+var _dmgflash_t := 0.0
+var _kills := 0
 
 func _ready() -> void:
 	_build_environment()
@@ -14,10 +23,15 @@ func _ready() -> void:
 	_build_walls()
 	_build_hud()
 	_build_player()
-	_build_wolf()
+	_build_enemies()
 
 func _process(delta: float) -> void:
-	_t += delta
+	_hitmark_t = maxf(0.0, _hitmark_t - delta)
+	_hitmarker.visible = _hitmark_t > 0.0
+	_dmgflash_t = maxf(0.0, _dmgflash_t - delta)
+	_dmgflash.color.a = 0.25 * (_dmgflash_t / 0.18)
+	if _player_dead and Input.is_key_pressed(KEY_R):
+		get_tree().reload_current_scene()
 
 func _build_environment() -> void:
 	var env := Environment.new()
@@ -75,6 +89,7 @@ func _build_walls() -> void:
 	_build_wall(Vector3(15, 1.5, 0), Vector3(1, 3, 30), Color(0.22, 0.16, 0.12))
 	_build_wall(Vector3(4, 0.75, -2), Vector3(2, 1.5, 2), Color(0.18, 0.2, 0.24))
 	_build_wall(Vector3(-5, 0.75, 3), Vector3(2, 1.5, 2), Color(0.18, 0.2, 0.24))
+	_build_wall(Vector3(-1, 0.75, -7), Vector3(2, 1.5, 2), Color(0.18, 0.2, 0.24))
 
 func _build_wall(pos: Vector3, size: Vector3, color: Color) -> void:
 	var body := StaticBody3D.new()
@@ -100,8 +115,9 @@ func _build_player() -> void:
 	var player := CharacterBody3D.new()
 	player.name = "Player"
 	player.position = Vector3(0, 0.2, 8)
-	_player = player
 	player.set_script(load("res://scripts/player.gd"))
+	player.damaged.connect(_on_player_damaged)
+	player.died.connect(_on_player_died)
 	var col := CollisionShape3D.new()
 	var cap := CapsuleShape3D.new()
 	cap.radius = 0.35
@@ -117,55 +133,114 @@ func _build_player() -> void:
 	gun.name = "Gun"
 	gun.position = Vector3(0.28, -0.26, -0.5)
 	gun.set_script(load("res://scripts/gun.gd"))
+	gun.shot.connect(_on_ammo)
+	gun.reloaded.connect(_on_ammo)
+	gun.hit.connect(_on_hit)
 	cam.add_child(gun)
+	_gun = gun
 	add_child(player)
+	_player = player
 
 func _build_hud() -> void:
 	var layer := CanvasLayer.new()
 	layer.name = "HUD"
 	add_child(layer)
-	var hp := Label.new()
-	hp.name = "WolfHP"
-	hp.text = "黑狼 HP: 85/85"
-	hp.position = Vector2(16, 12)
-	hp.add_theme_color_override("font_color", Color(0.92, 0.92, 0.96))
-	hp.add_theme_font_size_override("font_size", 18)
-	layer.add_child(hp)
-	_hp_label = hp
-	var cross := Label.new()
-	cross.name = "Crosshair"
-	cross.text = "＋"
+	_hp_label = _make_label(layer, "生命: 100", Vector2(16, 12), 18, Color(0.92, 0.92, 0.96))
+	_kill_label = _make_label(layer, "击杀: 0", Vector2(16, 38), 18, Color(0.96, 0.9, 0.7))
+	_ammo_label = _make_label(layer, "弹药: 30/90", Vector2.ZERO, 22, Color(0.92, 0.92, 0.96))
+	_ammo_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	_ammo_label.position = Vector2(-170, -42)
+	_ammo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_hitmarker = _make_label(layer, "✕", Vector2.ZERO, 30, Color(0.98, 0.98, 0.95))
+	_hitmarker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_hitmarker.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_hitmarker.grow_vertical = Control.GROW_DIRECTION_BOTH
+	_hitmarker.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hitmarker.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_hitmarker.visible = false
+	var cross := _make_label(layer, "＋", Vector2.ZERO, 26, Color(0.95, 0.95, 0.9))
 	cross.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	cross.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	cross.grow_vertical = Control.GROW_DIRECTION_BOTH
 	cross.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	cross.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	cross.add_theme_color_override("font_color", Color(0.95, 0.95, 0.9))
-	cross.add_theme_font_size_override("font_size", 28)
-	layer.add_child(cross)
+	_death_label = _make_label(layer, "你死了\n按 R 重来", Vector2.ZERO, 40, Color(0.95, 0.4, 0.35))
+	_death_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	_death_label.grow_horizontal = Control.GROW_DIRECTION_BOTH
+	_death_label.grow_vertical = Control.GROW_DIRECTION_BOTH
+	_death_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_death_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_death_label.visible = false
+	_dmgflash = ColorRect.new()
+	_dmgflash.color = Color(0.8, 0, 0, 0)
+	_dmgflash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_dmgflash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	layer.add_child(_dmgflash)
 
-func _build_wolf() -> void:
-	var wolf_scene := load(WOLF_GLB)
-	if not wolf_scene:
-		push_warning("黑狼 GLB 未导入，请先运行 --import 或打开一次编辑器")
-		return
+func _make_label(parent: Node, text: String, pos: Vector2, size: int, color: Color) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.position = pos
+	l.add_theme_color_override("font_color", color)
+	l.add_theme_font_size_override("font_size", size)
+	parent.add_child(l)
+	return l
+
+func _build_enemies() -> void:
+	var wolf_model: Node3D = load(WOLF_GLB).instantiate()
+	wolf_model.scale = Vector3.ONE * 1.9
+	_build_enemy("WolfEnemy", wolf_model, Vector3(3, 0, -4), {
+		"hp": 85, "chase": 3.5, "dmg": 15, "radius": 0.55, "height": 1.0,
+		"offset_y": 0.41, "bob": 0.05,
+	})
+	_build_enemy("ZombieDog", EnemyModels.build_zombie_dog(), Vector3(-5, 0, 2), {
+		"hp": 60, "chase": 3.7, "dmg": 12, "radius": 0.5, "height": 1.0,
+		"offset_y": -0.1, "bob": 0.04, "scale": 1.5,
+	})
+	_build_enemy("Spider", EnemyModels.build_spider(), Vector3(7, 0, 5), {
+		"hp": 50, "chase": 3.1, "dmg": 10, "radius": 0.55, "height": 0.9,
+		"offset_y": -0.1, "bob": 0.04, "scale": 1.25,
+	})
+
+func _build_enemy(enemy_name: String, model: Node3D, pos: Vector3, cfg: Dictionary) -> void:
 	var enemy := CharacterBody3D.new()
-	enemy.name = "WolfEnemy"
-	enemy.position = Vector3(3, 0, -4)
-	enemy.set_script(load("res://scripts/wolf_enemy.gd"))
+	enemy.name = enemy_name
+	enemy.position = pos
+	enemy.set_script(load("res://scripts/enemy.gd"))
+	enemy.set("max_hp", int(cfg["hp"]))
+	enemy.set("chase_speed", float(cfg["chase"]))
+	enemy.set("contact_damage", int(cfg["dmg"]))
+	enemy.set("model_offset_y", float(cfg["offset_y"]))
+	enemy.set("walk_bob_amp", float(cfg["bob"]))
 	var col := CollisionShape3D.new()
 	col.name = "Collision"
 	var cap := CapsuleShape3D.new()
-	cap.radius = 0.55
-	cap.height = 1.0
+	cap.radius = float(cfg["radius"])
+	cap.height = float(cfg["height"])
 	col.shape = cap
-	col.position = Vector3(0, 0.5, 0)
+	col.position = Vector3(0, float(cfg["height"]) * 0.5, 0)
 	enemy.add_child(col)
-	var model: Node3D = wolf_scene.instantiate()
-	model.name = "BlackWolf"
-	model.scale = Vector3.ONE * 1.9
-	# 原始 GLB：脚底 y≈-0.21，头朝 +z；抬高让脚落在地面
-	model.position = Vector3(0, 0.41, 0)
+	model.name = "Model"
+	model.scale = Vector3.ONE * float(cfg.get("scale", 1.0))
+	model.position.y = float(cfg["offset_y"])
 	enemy.add_child(model)
 	add_child(enemy)
-	enemy.setup(_player, _hp_label)
+	enemy.setup(_player, _on_enemy_killed)
+
+func _on_ammo(ammo: int, reserve_left: int) -> void:
+	_ammo_label.text = "弹药: %d/%d" % [ammo, reserve_left]
+
+func _on_hit() -> void:
+	_hitmark_t = 0.12
+
+func _on_player_damaged(hp: int) -> void:
+	_hp_label.text = "生命: %d" % hp
+	_dmgflash_t = 0.18
+
+func _on_player_died() -> void:
+	_player_dead = true
+	_death_label.visible = true
+
+func _on_enemy_killed() -> void:
+	_kills += 1
+	_kill_label.text = "击杀: %d" % _kills

@@ -20,7 +20,7 @@ Godot 编辑器（便携版）：`E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7
 
 ## 操作
 
-WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（射线命中 + 枪口闪光 + 曳光 + 受击闪红）· Esc 释放鼠标
+WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（射线命中 + 闪光 + 曳光 + 受击闪红）· R 换弹 · Esc 释放鼠标 · 死亡按 R 重来
 
 ## 结构
 
@@ -30,16 +30,18 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（射�
   scenes/main.tscn  # 主场景入口（场景由 main.gd 代码搭建）
   scripts/
     main.gd         # 环境/光照/地面/墙体/玩家/黑狼 GLB
-    player.gd       # 第一人称控制器
-    gun.gd          # 程序化拼装枪械 + 射线射击/闪光/曳光
-    wolf_enemy.gd   # 黑狼 AI：追击/游荡/受击扣血/死亡重生
+    player.gd       # 第一人称控制器 + 血量/受伤/死亡
+    gun.gd          # 弹药 30/90 + R 换弹 + 命中信号
+    enemy.gd        # 通用敌人 AI：追击/游荡/接触伤害/死亡重生
+    enemy_models.gd # 代码拼装：僵尸犬 / 蜘蛛
   assets/models/
     black_wolf_trellis.glb  # TRELLIS.2 生成的 PBR 黑狼
 ```
 
 ## 当前状态与下一步
 
-- 黑狼有基础 AI（14m 内追击、远处游荡、3 秒重生）与受击反馈，但仍是整体平移 + 占位起伏；
-  下一步把 three.js 里的程序化骨骼动画（18 根骨骼 + 蒙皮权重）移植成 Godot 的 Skeleton3D + AnimationPlayer，
-  或接 Godot 4.6+ 的 IKModifier3D 做真正的四足步态。
-- 玩家暂无生命值/死亡判定，HUD 只有准星与黑狼血条；后续按 three.js 原型的里程碑补齐。
+- 可玩闭环：三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）、玩家 100 血、接触伤害、死亡按 R 重生、
+  弹药 30/90 + 换弹、命中反馈、击杀计数。
+- 敌人仍是整体平移 + 占位起伏/摆腿；下一步把 three.js 里的程序化骨骼动画（18 根骨骼 + 蒙皮权重）
+  移植成 Godot 的 Skeleton3D + AnimationPlayer，或接 Godot 4.6+ 的 IKModifier3D 做真正的四足步态。
+- 后续内容：更多武器、掉落/计分、更多敌人类型（抽象敌人走物体级动画）、地图扩充。

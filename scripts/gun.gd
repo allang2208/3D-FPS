@@ -1,17 +1,29 @@
 extends Node3D
 ## 程序化拼装 AKM 风格枪械 + 开火：射线命中（层 2=敌人）、枪口闪光、曳光、后坐
+## 弹药与换弹：R 键换弹，信号通知 HUD
 
 const MUZZLE_LOCAL := Vector3(0, 0.02, -0.5)
 const FIRE_INTERVAL := 0.13
 const DAMAGE := 25
+const MAG_SIZE := 30
+const RELOAD_TIME := 1.5
+
+signal shot(ammo_left: int, reserve_left: int)
+signal hit
+signal reloaded(ammo_left: int, reserve_left: int)
+signal empty
 
 var _recoil := 0.0
 var _fire_cd := 0.0
 var _flash_t := 0.0
+var _reload_t := 0.0
 var _flash: OmniLight3D
+var ammo := MAG_SIZE
+var reserve := 90
 
 func _ready() -> void:
 	_build_gun()
+	shot.emit(ammo, reserve)
 	_flash = OmniLight3D.new()
 	_flash.name = "MuzzleFlash"
 	_flash.position = MUZZLE_LOCAL
@@ -31,28 +43,50 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
+	if _reload_t > 0.0:
+		_reload_t -= delta
+		if _reload_t <= 0.0:
+			_finish_reload()
+		return
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		return
+	if Input.is_key_pressed(KEY_R) and ammo < MAG_SIZE and reserve > 0:
+		_reload_t = RELOAD_TIME
 		return
 	if _fire_cd <= 0.0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_shoot()
 
 func _shoot() -> void:
 	_fire_cd = FIRE_INTERVAL
+	if ammo <= 0:
+		_recoil = 0.3
+		empty.emit()
+		return
+	ammo -= 1
 	_recoil = 1.0
 	_flash_t = 0.06
+	shot.emit(ammo, reserve)
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
 		return
 	var from := cam.global_position
 	var to := from - cam.global_transform.basis.z * 60.0
 	var query := PhysicsRayQueryParameters3D.create(from, to, 2)
-	var hit := get_world_3d().direct_space_state.intersect_ray(query)
-	if hit and hit.collider:
-		_spawn_tracer(from, hit.position)
-		if hit.collider.has_method("take_damage"):
-			hit.collider.take_damage(DAMAGE)
+	var hit_result := get_world_3d().direct_space_state.intersect_ray(query)
+	if hit_result and hit_result.collider:
+		_spawn_tracer(from, hit_result.position)
+		if hit_result.collider.has_method("take_damage"):
+			hit_result.collider.take_damage(DAMAGE)
+			hit.emit()
 	else:
 		_spawn_tracer(from, to)
+
+func _finish_reload() -> void:
+	var need := MAG_SIZE - ammo
+	var take := mini(need, reserve)
+	ammo += take
+	reserve -= take
+	reloaded.emit(ammo, reserve)
 
 func _spawn_tracer(from: Vector3, to: Vector3) -> void:
 	var scene_root := get_tree().current_scene
