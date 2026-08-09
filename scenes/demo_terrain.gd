@@ -22,6 +22,7 @@ func _ready() -> void:
 	terrain = _build_terrain()
 	_build_instanced_nature()
 	_build_landmark_rocks()
+	_build_river()
 	_build_trees()
 	_build_props()
 	_build_player()
@@ -55,6 +56,13 @@ func _build_environment() -> void:
 	env.fog_density = 0.0008
 	env.fog_height = -45.0
 	env.fog_height_density = 0.08
+	# SSAO/SSIL：给地形与植被接触阴影，消除"平面贴纸感"（参考图质感关键）
+	env.ssao_enabled = true
+	env.ssao_radius = 1.2
+	env.ssao_intensity = 1.6
+	env.ssil_enabled = true
+	env.ssil_radius = 3.0
+	env.ssil_intensity = 1.2
 	env_node.environment = env
 
 
@@ -245,6 +253,45 @@ func _build_landmark_rocks() -> void:
 	_place_scene("res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf", Vector3(210, 0, 150), 0.045)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(120, 0, -260), 0.25)
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(-60, 0, 300), 0.3)
+
+
+func _build_river() -> void:
+	# 沿地形高度图里的蛇形河道（z = 40*sin(x/90)）铺水面分段。
+	# 每段 PlaneMesh 旋转到路径切线方向，y 落在河道底部上方约 1.2m（水面）。
+	var mat := ShaderMaterial.new()
+	mat.shader = load("res://assets/shaders/river_water.gdshader")
+	var river := Node3D.new()
+	river.name = "River"
+	add_child(river)
+	var seg := 10.0
+	var prev := Vector3(-430, 0, 40.0 * sin(-430.0 / 90.0))
+	for wx in range(-430.0, 431.0, seg):
+		var cz := 40.0 * sin(wx / 90.0)
+		var pos := Vector3(wx, 0.0, cz)
+		pos.y = terrain.data.get_height(pos) + 1.1
+		var mi := MeshInstance3D.new()
+		var mesh := PlaneMesh.new()
+		mesh.size = Vector2(seg * 1.15, 14.0)
+		mesh.material = mat
+		mi.mesh = mesh
+		mi.position = pos
+		var dir := pos - prev
+		mi.rotation.y = atan2(-dir.z, dir.x) + PI / 2.0
+		river.add_child(mi)
+		prev = pos
+	# 河岸装饰：沿河道放一些碎石（复用 rock_smallA）
+	var rock: PackedScene = load("res://assets/models/kenney_nature/rock_smallA.glb")
+	for i in 30:
+		var wx := rng.randf_range(-420.0, 420.0)
+		var cz := 40.0 * sin(wx / 90.0)
+		var at := Vector3(wx + rng.randf_range(-12.0, 12.0), 0.0, cz + rng.randf_range(-9.0, 9.0))
+		at.y = terrain.data.get_height(at)
+		var inst: Node = rock.instantiate()
+		river.add_child(inst)
+		inst.scale = Vector3.ONE * rng.randf_range(0.8, 1.8)
+		inst.rotation.y = rng.randf_range(0.0, TAU)
+		var base := _scene_aabb(inst).position.y
+		inst.position = Vector3(at.x, at.y - base + 0.05, at.z)
 
 
 func _build_trees() -> void:
