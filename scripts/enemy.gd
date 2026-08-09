@@ -111,7 +111,9 @@ func _physics_process(delta: float) -> void:
 	_swing_legs()
 	_idle_breath()
 	if _rig:
-		_rig_t += delta * (12.0 if _moving else 4.0)
+		# 步频随实际移速缩放，减少滑步（约 3.3 rad/s 每 m/s，待机 4.0）
+		var spd := Vector2(velocity.x, velocity.z).length()
+		_rig_t += delta * (clampf(spd * 3.3, 4.0, 14.0) if _moving else 4.0)
 		_rig.rig_update(_rig_t, _moving, _lunge_t, false)
 
 func _contact_attack() -> void:
