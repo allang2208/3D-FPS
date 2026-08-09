@@ -1008,6 +1008,7 @@ func _build_panel() -> void:
 	_panel_root = Control.new()
 	_panel_root.name = "BackpackPanel"
 	_panel_root.mouse_filter = Control.MOUSE_FILTER_STOP
+	_panel_root.z_index = 110  # 背包面板位于快捷栏(z100)之上
 	_panel_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_panel_root.visible = false
 	add_child(_panel_root)
@@ -1118,7 +1119,7 @@ func _build_panel() -> void:
 	_equip_grid.add_theme_constant_override("v_separation", 8)
 	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(_equip_grid)
-	var total_slots := backpack.max_slots if backpack != null else 30
+	var total_slots := backpack.max_slots if backpack != null else 25
 	for key in EquipmentScript.SLOT_ORDER:
 		var cell := EquipSlot.new()
 		cell.hud = self

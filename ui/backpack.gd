@@ -15,7 +15,7 @@ const HOTBAR_SIZE := 4
 
 var slots: Array = []          # Array[Dictionary|null]，下标即背包格
 var hotbar: Array = []         # Array[Dictionary|null]，{instance_id, item_name}
-var max_slots := 30
+var max_slots := 25
 
 var _db: RefCounted
 var _cooldowns := {}  # instance_id -> 剩余冷却秒数
