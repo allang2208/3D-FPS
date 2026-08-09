@@ -66,14 +66,14 @@ func build_visual() -> void:
 	var glow := Sprite3D.new()
 	glow.texture = _dot_tex()
 	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	glow.pixel_size = 0.012
-	glow.scale = Vector3(2.4, 2.4, 1.0)
+	glow.pixel_size = 0.0025
+	glow.scale = Vector3(3.0, 3.0, 1.0)
 	var glow_mat := StandardMaterial3D.new()
 	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	glow_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	glow_mat.albedo_texture = _dot_tex()
-	glow_mat.albedo_color = Color(1.0, 0.55, 0.2, 0.55)
+	glow_mat.albedo_color = Color(1.0, 0.55, 0.2, 0.45)
 	glow.material_override = glow_mat
 	add_child(glow)
 	# 橙色点光（火球照亮周围）
@@ -147,6 +147,7 @@ func _build_fireball_anim() -> AnimatedSprite3D:
 	anim.sprite_frames = frames
 	anim.animation = "default"
 	anim.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	anim.pixel_size = 0.0025  # 200px 帧 → 0.5m 火球（默认 0.01 会是 2m 巨块）
 	anim.play("default")
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
