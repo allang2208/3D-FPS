@@ -5,7 +5,6 @@ extends CanvasLayer
 ## 配色/字体统一走 ui/style.gd（换肤只改那一处）。
 
 const Style := preload("res://ui/style.gd")
-const Icons := preload("res://ui/icons.gd")
 
 const BAR_W := 220.0
 const BAR_H := 18.0
@@ -13,7 +12,6 @@ const BAR_H := 18.0
 var _hp_fill: ColorRect
 var _hp_trail: ColorRect
 var _hp_label: Label
-var _mp_icon: TextureRect
 var _mp_fill: ColorRect
 var _mp_label: Label
 var _kill_label: Label
@@ -48,50 +46,37 @@ func _process(delta: float) -> void:
 
 func _build() -> void:
 	# 左上：生命（图标 + 血条 + 数值）
-	var hp_icon := TextureRect.new()
-	hp_icon.position = Vector2(16, 9)
-	hp_icon.size = Vector2(24, 24)
-	hp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	Icons.apply_icon(hp_icon, "heart", Style.THEME_HP_GREEN)
-	add_child(hp_icon)
 	var hp_bg := Panel.new()
-	hp_bg.position = Vector2(46, 10)
+	hp_bg.position = Vector2(16, 10)
 	hp_bg.size = Vector2(BAR_W, BAR_H)
 	hp_bg.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(hp_bg)
 	_hp_fill = ColorRect.new()
-	_hp_fill.position = Vector2(48, 12)
+	_hp_fill.position = Vector2(18, 12)
 	_hp_fill.size = Vector2(BAR_W - 4, BAR_H - 4)
 	add_child(_hp_fill)
 	_hp_trail = ColorRect.new()
 	_hp_trail.color = Color(Style.COLOR_WHITE, 0.85)
-	_hp_trail.position = Vector2(48, 12)
+	_hp_trail.position = Vector2(18, 12)
 	_hp_trail.size = Vector2(BAR_W - 4, BAR_H - 4)
 	_hp_trail.visible = false
 	add_child(_hp_trail)
-	_hp_label = _make_label("100/100", Vector2(272, 8), 22, Style.COLOR_WHITE)
+	_hp_label = _make_label("100/100", Vector2(244, 8), 22, Style.COLOR_WHITE)
 	_hp_label.add_theme_font_override("font", _font_heavy)
 	# 左上第二行：魔力（蓝条，技能系统移植后由 set_mp 点亮）
-	_mp_icon = TextureRect.new()
-	_mp_icon.position = Vector2(16, 38)
-	_mp_icon.size = Vector2(24, 24)
-	_mp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	Icons.apply_icon(_mp_icon, "sparkles", Style.THEME_MP_BLUE)
-	add_child(_mp_icon)
 	var mp_bg := Panel.new()
-	mp_bg.position = Vector2(46, 40)
+	mp_bg.position = Vector2(16, 40)
 	mp_bg.size = Vector2(BAR_W, 14)
 	mp_bg.add_theme_stylebox_override("panel",
 		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
 	add_child(mp_bg)
 	_mp_fill = ColorRect.new()
 	_mp_fill.color = Style.THEME_MP_BLUE
-	_mp_fill.position = Vector2(48, 42)
+	_mp_fill.position = Vector2(18, 42)
 	_mp_fill.size = Vector2(BAR_W - 4, 10)
 	add_child(_mp_fill)
-	_mp_label = _make_label("", Vector2(272, 37), 16, Style.THEME_MP_BLUE)
-	_mp_icon.visible = false
+	_mp_label = _make_label("", Vector2(244, 37), 16, Style.THEME_MP_BLUE)
 	mp_bg.visible = false
 	_mp_fill.visible = false
 	_mp_label.visible = false
@@ -215,7 +200,6 @@ func set_mp(mp: int, max_mp: int) -> void:
 	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
 	_mp_fill.size.x = (BAR_W - 4) * pct
 	_mp_label.text = "%d/%d" % [maxi(0, mp), m]
-	_mp_icon.visible = true
 	_mp_fill.visible = true
 	_mp_label.visible = true
 
