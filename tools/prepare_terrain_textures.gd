@@ -1,14 +1,19 @@
 extends SceneTree
 
-# 一次性准备脚本：把 AmbientCG 的 PBR 贴图打包成 Terrain3D 专用纹理。
-# Terrain3D 约定：albedo 的 alpha 通道存高度，normal 的 alpha 通道存粗糙度。
-# 用法：godot --headless --path <project> -s res://tools/prepare_terrain_textures.gd
+# One-shot prep: pack AmbientCG PBR maps into Terrain3D channel textures.
+# Convention: albedo.alpha = height, normal.alpha = roughness.
+# - Prefers {name}-4k/{name}_4K-JPG_*.jpg source, falls back to 2K.
+# - Terrain3D requires ALL texture sets at identical resolution, so RES
+#   must be uniform (4096 here, matching the existing 5 four-K sets).
+# Usage: godot --headless --path <project> -s res://tools/prepare_terrain_textures.gd
 
-const RES := 2048  # 源图为 2K，输出 2048 获得完整细节（曾用 1024 损失一半）
-const SRC := "res://assets/textures/terrain/%s/%s_2K-JPG_%s.jpg"
+const RES := 4096
+const SRC_4K := "res://assets/textures/terrain/%s-4k/%s_4K-JPG_%s.jpg"
+const SRC_2K := "res://assets/textures/terrain/%s/%s_2K-JPG_%s.jpg"
 const OUT_DIR := "res://assets/textures/terrain_prepared/"
 
-# 地表纹理集：草/苔藓草/鲜草/短草/森林落叶土/碎石地/岩石/沙
+# Surface sets: grass / moss grass / fresh grass / short grass / forest floor /
+# gravel / dirt / sand / rock. Keep order in sync with demo_terrain.gd tex_ids.
 var names := ["Grass001", "Grass004", "Grass005", "Grass007",
 	"Ground020", "Ground030", "Ground037", "Ground080", "Rock063"]
 
@@ -23,14 +28,20 @@ func _init() -> void:
 	print("[prepare] ALL TEXTURES PREPARED")
 	quit(0)
 
-
 func _prepare_albedo(folder: String, name: String) -> void:
-	var alb := Image.load_from_file(SRC % [folder, name, "Color"])
-	var hgt := Image.load_from_file(SRC % [folder, name, "Displacement"])
+	var alb_src := SRC_4K % [folder, name, "Color"]
+	if not FileAccess.file_exists(alb_src):
+		alb_src = SRC_2K % [folder, name, "Color"]
+		print("[prepare] %s: no 4K source, fallback 2K" % name)
+	var alb := Image.load_from_file(alb_src)
+	var hgt_src := SRC_4K % [folder, name, "Displacement"]
+	if not FileAccess.file_exists(hgt_src):
+		hgt_src = SRC_2K % [folder, name, "Displacement"]
+	var hgt := Image.load_from_file(hgt_src)
 	alb.resize(RES, RES)
 	hgt.resize(RES, RES)
-	# 坑：JPG 加载后 format 是 RGB8，直接 set_pixel 写 alpha 会在 save_png 时丢弃。
-	# 必须先转 RGBA8，alpha 通道才会真正落盘（Terrain3D 高度混合/粗糙度依赖它）。
+	# Pitfall: JPG loads as RGB8; writing alpha without RGBA8 gets dropped on
+	# save_png. Convert first so height really lands in the alpha channel.
 	alb.convert(Image.FORMAT_RGBA8)
 	for x in alb.get_width():
 		for y in alb.get_height():
@@ -41,8 +52,14 @@ func _prepare_albedo(folder: String, name: String) -> void:
 
 
 func _prepare_normal(folder: String, name: String) -> void:
-	var nrm := Image.load_from_file(SRC % [folder, name, "NormalGL"])
-	var rgh := Image.load_from_file(SRC % [folder, name, "Roughness"])
+	var nrm_src := SRC_4K % [folder, name, "NormalGL"]
+	if not FileAccess.file_exists(nrm_src):
+		nrm_src = SRC_2K % [folder, name, "NormalGL"]
+	var nrm := Image.load_from_file(nrm_src)
+	var rgh_src := SRC_4K % [folder, name, "Roughness"]
+	if not FileAccess.file_exists(rgh_src):
+		rgh_src = SRC_2K % [folder, name, "Roughness"]
+	var rgh := Image.load_from_file(rgh_src)
 	nrm.resize(RES, RES)
 	rgh.resize(RES, RES)
 	nrm.convert(Image.FORMAT_RGBA8)

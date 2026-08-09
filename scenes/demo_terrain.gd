@@ -38,6 +38,7 @@ func _ready() -> void:
 	_build_instanced_nature()
 	_build_landmark_rocks()
 	_build_river()
+	_build_ambience()
 	_build_particle_grass()
 	_build_trees()
 	_build_props()
@@ -55,7 +56,7 @@ func _build_environment() -> void:
 	var sky := Sky.new()
 	var mat := PanoramaSkyMaterial.new()
 	mat.panorama = load(HDRI)
-	mat.energy_multiplier = 2.2  # 阴天 HDRI 提亮，恢复"有天空"的观感
+	mat.energy_multiplier = 1.5  # 阴天 HDRI 提亮，恢复"有天空"的观感（实测 val≈0.5，避免过曝）
 	sky.sky_material = mat
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
@@ -64,7 +65,7 @@ func _build_environment() -> void:
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	# 曝光平衡（实测标定）：exposure 1.4 + 天空能量 2.2 + 低太阳/环境光
 	# → 天空恢复可见 val≈0.51，地面保持参考图亮度 val≈0.33-0.36
-	env.tonemap_exposure = 1.4
+	env.tonemap_exposure = 1.2
 	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
 	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
 	env.fog_enabled = true
@@ -102,6 +103,12 @@ func _build_light() -> void:
 	light.shadow_enabled = true
 	add_child(light)
 
+
+## 河流中心线 Z 坐标：高度生成/水面网格/睡莲水草共用此公式，改河道只改这里
+func _river_center_z(wx: float) -> float:
+	return 40.0 * sin(wx / 90.0)
+
+
 func _build_terrain() -> Terrain3D:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(DATA_DIR))
 	var t := Terrain3D.new()
@@ -137,31 +144,33 @@ func _build_terrain() -> Terrain3D:
 	t.region_size = 512
 	var macro := FastNoiseLite.new()
 	macro.noise_type = FastNoiseLite.TYPE_PERLIN
-	macro.frequency = 0.0035
+	macro.frequency = 0.004
 	macro.fractal_octaves = 4
+	macro.fractal_gain = 0.5
 	var micro := FastNoiseLite.new()
 	micro.noise_type = FastNoiseLite.TYPE_PERLIN
-	micro.frequency = 0.028
+	micro.frequency = 0.035
 	micro.fractal_octaves = 2
 	var img := Image.create_empty(1024, 1024, false, Image.FORMAT_RF)
 	for x in img.get_width():
 		for y in img.get_height():
 			var wx := x - 512.0
 			var wz := y - 512.0
-			# 宏观起伏：±30m 实际高度（系数 2.0，import scale=45 → 2.0*45=90m 全幅？实测 ±30m 量级）
-			var h := macro.get_noise_2d(x, y) * 2.0
-			# 高频微起伏：±2.5m 实际高度（import scale=45，噪声系数=2.5/45）
-			h += micro.get_noise_2d(x, y) * 0.056
-			# 溪流河道：蛇形路径 z = 40*sin(x/90)，沿路径 26m 内逐渐挖低
-			var cx := wx
-			var cz := 40.0 * sin(wx / 90.0)
+			# 平缓起伏草甸：宏观 ±8m + 高频微起伏 ±1.5m（实际米，除以 import scale=45）
+			var macro_m := macro.get_noise_2d(x, y) * 8.0
+			var micro_m := micro.get_noise_2d(x, y) * 1.5
+			var h := (macro_m + micro_m) / 45.0
+			# 溪流河谷：走廊内地形平滑降到一条缓坡河床（西 -8m → 东 -12m），
+			# 水面全程连续、两侧缓坡抬升回草甸，杜绝“碎水面悬浮”
+			var cz := _river_center_z(wx)
 			var dist := absf(wz - cz)
-			if dist < 26.0:
-				var fall := (1.0 - dist / 26.0)
-				fall = fall * fall
-				# 河道中心低约 6m（实测校准：系数 0.01 ≈ 5-8m），边缘平滑过渡
-				h -= fall * 0.01
-				h += micro.get_noise_2d(x + 512, y + 512) * 0.03
+			var R := 55.0
+			if dist < R:
+				var tt := clampf(dist / R, 0.0, 1.0)
+				var edge := smoothstep(0.35, 1.0, tt)
+				var bed_m := lerpf(-8.0, -12.0, clampf((wx + 430.0) / 860.0, 0.0, 1.0))
+				bed_m += micro.get_noise_2d(x + 512, y + 512) * 0.6
+				h = lerpf(bed_m / 45.0, h, edge)
 			img.set_pixel(x, y, Color(h, 0.0, 0.0, 1.0))
 	t.data.import_images([img, null, null], Vector3(-512, 0, -512), 0.0, 45.0)
 	t.data.save_directory(DATA_DIR)
@@ -201,6 +210,12 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/plant_bushDetailed.glb",
 		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",
 		"res://assets/models/polyhaven/moss_01/moss_01_2k.gltf",
+		"res://assets/models/kenney_nature/stump_oldTall.glb",
+		"res://assets/models/kenney_nature/stump_roundDetailed.glb",
+		"res://assets/models/kenney_nature/log_large.glb",
+		"res://assets/models/kenney_nature/log_stackLarge.glb",
+		"res://assets/models/kenney_nature/lily_large.glb",
+		"res://assets/models/kenney_nature/lily_small.glb",
 	]
 	for i in mesh_specs.size():
 		var scn: PackedScene = load(mesh_specs[i])
@@ -268,6 +283,12 @@ func _build_instanced_nature() -> void:
 		[28, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_bushDetailed 细节灌木
 		[29, 40, -460, 460, -38.0, 26.0, 1.2, 2.2],   # ph fir_sapling 小针叶树（放大）
 		[30, 60, -460, 460, -40.0, 30.0, 1.5, 3.0],   # ph moss_01 地面苔藓斑
+		[31, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney stump_oldTall
+		[32, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney stump_roundDetailed
+		[33, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_large
+		[34, 18, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_stackLarge
+		[35, 12, -460, 460, -40.0, 26.0, 0.8, 1.3],   # kenney lily_large（近岸/浅水）
+		[36, 12, -460, 460, -40.0, 26.0, 0.8, 1.3],   # kenney lily_small
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
@@ -284,6 +305,9 @@ func _scatter(mesh_id: int, count: int, lo: float, hi: float, h_min: float, h_ma
 		var pos := Vector3(rng.randf_range(lo, hi), 0.0, rng.randf_range(lo, hi))
 		pos.y = terrain.data.get_height(pos)
 		if pos.y < h_min or pos.y > h_max:
+			continue
+		# avoid river corridor (water/bank zone handled by _build_river)
+		if absf(pos.z - _river_center_z(pos.x)) < 12.0:
 			continue
 		if is_grass and _meadow_noise.get_noise_2d(pos.x, pos.z) < 0.15:
 			continue
@@ -312,12 +336,13 @@ func _build_river() -> void:
 	var river := Node3D.new()
 	river.name = "River"
 	add_child(river)
-	var half_w := 6.5      # 半宽（m）
+	var half_w := 9.0      # 水面带半宽（m），两侧 2.5m 由顶点色渐隐做软岸线
+	var water_core := 6.5  # 全不透明核心半宽（m）
 	var depth := 0.55      # 水面到河床的高度（m）
 	var step := 3.0        # 沿路径采样步长（m）
 	var pts: Array[Vector3] = []
 	for wx in range(-430.0, 431.0, step):
-		var cz := 40.0 * sin(wx / 90.0)
+		var cz := _river_center_z(wx)
 		pts.append(Vector3(wx, 0.0, cz))
 	# 生成带状网格
 	var st := SurfaceTool.new()
@@ -334,24 +359,33 @@ func _build_river() -> void:
 		else:
 			tan = (pts[i + 1] - pts[i - 1]).normalized()
 		var side := tan.cross(Vector3.UP).normalized()
-		var left := p + side * half_w
-		var right := p - side * half_w
-		left.y = terrain.data.get_height(left) + depth
-		right.y = terrain.data.get_height(right) + depth
-		verts.append(right)
-		verts.append(left)
-	for v in verts:
-		st.add_vertex(v)
+		# 三排顶点：右岸(透明) / 中心(不透明) / 左岸(透明)
+		for k: float in [-1.0, 0.0, 1.0]:
+			var v := p + side * (half_w * k)
+			# 外缘贴合地形（0 深度），中心保留水深：杜绝岸边悬空唇边
+			v.y = terrain.data.get_height(v) + depth * (1.0 - absf(k))
+			verts.append(v)
+	for i in verts.size():
+		var row := i % 3
+		var lat := absf((row - 1) * half_w)
+		var a := clampf((lat - water_core) / (half_w - water_core), 0.0, 1.0)
+		st.set_color(Color(1.0, 1.0, 1.0, 1.0 - a * a))
+		st.add_vertex(verts[i])
 	for i in pts.size() - 1:
-		var a := i * 2
-		var b := (i + 1) * 2
-		# 四边形 (a右,a左,b右,b左) 拆两个三角形
+		var a := i * 3
+		var b := (i + 1) * 3
+		# 四边形拆两个三角形：右→中→下一行右、中→左→下一行中、中→左→下一行左
 		st.add_index(a)
 		st.add_index(a + 1)
 		st.add_index(b)
-		st.add_index(a + 1)
 		st.add_index(b + 1)
-		st.add_index(b)
+		st.add_index(a + 1)
+		st.add_index(a + 1)
+		st.add_index(a + 2)
+		st.add_index(b + 1)
+		st.add_index(a + 2)
+		st.add_index(b + 2)
+		st.add_index(b + 1)
 	var mesh := st.commit()
 	mesh.surface_set_material(0, mat)
 	var mi := MeshInstance3D.new()
@@ -372,7 +406,7 @@ func _build_river() -> void:
 	]
 	for i in 60:
 		var wx := rng.randf_range(-420.0, 420.0)
-		var cz := 40.0 * sin(wx / 90.0)
+		var cz := _river_center_z(wx)
 		var at := Vector3(wx + rng.randf_range(-12.0, 12.0), 0.0, cz + rng.randf_range(-9.0, 9.0))
 		at.y = terrain.data.get_height(at)
 		var inst: Node = load(rock_variants[rng.randi_range(0, rock_variants.size() - 1)]).instantiate()
@@ -381,6 +415,83 @@ func _build_river() -> void:
 		inst.rotation.y = rng.randf_range(0.0, TAU)
 		var base := _scene_aabb(inst).position.y
 		inst.position = Vector3(at.x, at.y - base + 0.05, at.z)
+	# 睡莲：精确铺在水面上（沿河道中心，y = 水面高度）
+	var lily_variants := [
+		"res://assets/models/kenney_nature/lily_large.glb",
+		"res://assets/models/kenney_nature/lily_small.glb",
+	]
+	for i in 16:
+		var wx := rng.randf_range(-400.0, 400.0)
+		var cz := _river_center_z(wx)
+		var at := Vector3(wx + rng.randf_range(-3.5, 3.5), 0.0, cz + rng.randf_range(-2.5, 2.5))
+		at.y = terrain.data.get_height(at) + 0.45
+		var lily: Node = load(lily_variants[rng.randi_range(0, 1)]).instantiate()
+		river.add_child(lily)
+		lily.scale = Vector3.ONE * rng.randf_range(0.7, 1.3)
+		lily.rotation.y = rng.randf_range(0.0, TAU)
+		var lbase := _scene_aabb(lily).position.y
+		lily.position = Vector3(at.x, at.y - lbase, at.z)
+	# 河岸水草：贴近河道两侧的浅水区
+	var reed: PackedScene = load("res://assets/models/kenney_nature/grass_leafs.glb")
+	for i in 30:
+		var wx := rng.randf_range(-410.0, 410.0)
+		var cz := _river_center_z(wx)
+		var side := 1.0 if i % 2 == 0 else -1.0
+		var at := Vector3(wx + side * rng.randf_range(6.0, 10.0), 0.0, cz + rng.randf_range(-4.0, 4.0))
+		at.y = terrain.data.get_height(at)
+		var rinst: Node = reed.instantiate()
+		river.add_child(rinst)
+		rinst.scale = Vector3.ONE * rng.randf_range(0.9, 1.5)
+		rinst.rotation.y = rng.randf_range(0.0, TAU)
+		var rbase := _scene_aabb(rinst).position.y
+		rinst.position = Vector3(at.x, at.y - rbase + 0.03, at.z)
+
+
+func _build_ambience() -> void:
+	# 森林溪流环境音：程序化合成的 12s 无缝流水循环（tools/gen_river_ambience.py）
+	var amb := AudioStreamPlayer3D.new()
+	amb.name = "RiverAmbience"
+	amb.stream = load("res://assets/sfx/river_ambience.wav")
+	amb.position = Vector3(0, -8.0, 0)
+	amb.unit_size = 8.0
+	amb.max_db = 3.0
+	amb.volume_db = -5.0
+	amb.autoplay = true
+	add_child(amb)
+	# 林区落叶：CPUParticles3D 从密林斑块上方飘落
+	var leaf_tex := load("res://assets/textures/leaf_dropped.png") as Texture2D
+	var mat := StandardMaterial3D.new()
+	mat.albedo_texture = leaf_tex
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.vertex_color_use_as_albedo = true
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	var quad := QuadMesh.new()
+	quad.size = Vector2(0.22, 0.14)
+	quad.material = mat
+	var leaves := CPUParticles3D.new()
+	leaves.name = "FallingLeaves"
+	leaves.position = Vector3(-80, 12.0, 200)
+	leaves.emitting = true
+	leaves.one_shot = false
+	leaves.amount = 60
+	leaves.lifetime = 10.0
+	leaves.preprocess = 6.0
+	leaves.spread = 180.0
+	leaves.gravity = Vector3(0, -0.5, 0)
+	leaves.initial_velocity_min = 0.3
+	leaves.initial_velocity_max = 0.9
+	leaves.damping_min = 0.1
+	leaves.damping_max = 0.4
+	leaves.angular_velocity_min = -2.2
+	leaves.angular_velocity_max = 2.2
+	leaves.scale_amount_min = 0.7
+	leaves.scale_amount_max = 1.4
+	leaves.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX
+	leaves.emission_box_extents = Vector3(26, 8, 26)
+	leaves.color = Color(0.78, 0.86, 0.5, 0.95)
+	leaves.mesh = quad
+	add_child(leaves)
+
 
 func _build_particle_grass() -> void:
 	# Terrain3D 官方 GPU 粒子草：GPUParticles3D shader 直接采样地形高度图，
@@ -556,6 +667,8 @@ func _build_player() -> void:
 	cam.fov = 75.0
 	cam.current = true  # Terrain3D 需要活动相机，否则报错并停止物理进程
 	player.add_child(cam)
+	var listener := AudioListener3D.new()
+	cam.add_child(listener)
 	var cfx := Node3D.new()
 	cfx.name = "CameraFx"
 	cfx.set_script(load("res://scripts/camera_fx.gd"))

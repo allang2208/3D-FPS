@@ -21,7 +21,9 @@ func _initialize() -> void:
 
 func _process(_delta: float) -> bool:
 	_frames += 1
-	if _frames < 30:
+	if _frames == 25:
+		_cam.current = true  # 场景 ready 后夺回相机（Player 相机 ready 时会抢 current）
+	if _frames < 26:
 		return false
 	var t := _scene.get_node("Terrain3D") as Terrain3D
 	var spots := [
@@ -37,6 +39,8 @@ func _process(_delta: float) -> bool:
 		to.y = t.data.get_height(to) + 0.3
 		_cam.global_position = from
 		_cam.look_at(to, Vector3.UP)
+	if _frames < 42:
+		return false
 	var img := root.get_viewport().get_texture().get_image()
 	if img == null or img.get_width() == 0:
 		print("VIEWPORT EMPTY")
@@ -49,4 +53,5 @@ func _process(_delta: float) -> bool:
 	if _shots >= 3:
 		quit(0)
 		return false
+	_frames = 20  # 给地形 clipmap 几帧重新以相机为中心
 	return false
