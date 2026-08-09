@@ -267,7 +267,6 @@ func _refresh_equip() -> void:
 			_set_icon(icon, fallback, item)
 			name_lbl.text = String(item.get("name", ""))
 			name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
-			name_lbl.add_theme_font_override("font", _font_value)
 			var rarity_key := String(item.get("rarity", "common"))
 			rarity_lbl.text = _vertical_text(Style.rarity_label(rarity_key))
 			rarity_lbl.add_theme_stylebox_override("normal", Style.make_style(Style.RARITY_BADGE_COLORS.get(rarity_key, Color.GRAY), Color(0, 0, 0, 0), 3, 0))
