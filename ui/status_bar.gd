@@ -25,6 +25,7 @@ var _dmgflash: ColorRect
 var _theme: Theme
 var _font_bold: SystemFont
 var _font_heavy: SystemFont
+var _font_regular: SystemFont
 var _font_mono: SystemFont
 
 var _hitmark_t := 0.0
@@ -35,6 +36,7 @@ func _ready() -> void:
 	_theme = Style.make_theme()
 	_font_bold = Style.make_font(600)
 	_font_heavy = Style.make_font(700)
+	_font_regular = Style.make_font(400)
 	_font_mono = Style.make_mono_font(600)
 	_build()
 
@@ -87,6 +89,7 @@ func _build() -> void:
 	# 右下：武器名 + 弹药 + 状态提示
 	_weapon_label = _make_label("AK-74", Vector2.ZERO, 14,
 		Style.THEME_GRAY_LIGHT if Style.theme_active() == "gold_white_gray" else Style.COLOR_DIM_TEXT)
+	_weapon_label.add_theme_font_override("font", _font_regular)
 	_weapon_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	_weapon_label.offset_left = -320
 	_weapon_label.offset_top = -116
