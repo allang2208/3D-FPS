@@ -166,7 +166,7 @@ func _build() -> void:
 	hp_bg.position = Vector2(hp_x, hp_y)
 	hp_bg.size = Vector2(_bar_w, _bar_h)
 	hp_bg.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
+		Style.make_style(Style.COLOR_HUD_TRACK, Style.COLOR_HUD_BORDER, Style.RADIUS_SM, 2))
 	add_child(hp_bg)
 	_bind_hover(hp_bg, _label("hp_tip_title", "生命值"), _label("hp_tip_desc", "角色的生命，归零时死亡。低血量会触发红色警示。"),
 		func() -> Array: return [["当前生命", "%d / %d" % [_hp_now, _hp_max]], ["低血量", "低于 25% 警示"]])
@@ -194,7 +194,7 @@ func _build() -> void:
 	mp_bg.position = Vector2(mp_x, mp_y)
 	mp_bg.size = Vector2(_bar_w, mp_h)
 	mp_bg.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
+		Style.make_style(Style.COLOR_HUD_TRACK, Style.COLOR_HUD_BORDER, Style.RADIUS_SM, 2))
 	add_child(mp_bg)
 	_bind_hover(mp_bg, _label("mp_tip_title", "魔法值"), _label("mp_tip_desc", "释放技能消耗的魔力，随时间自动恢复。"),
 		func() -> Array: return [["当前魔法", "%d / %d" % [_mp_now, _mp_max]]])
@@ -211,7 +211,7 @@ func _build() -> void:
 	var kill_x := _cfg_int(_kill_cfg, "x", 16)
 	var kill_y := _cfg_int(_kill_cfg, "y", 64)
 	var kill_sz := _cfg_int(_kill_cfg, "size", 16)
-	_kill_label = _make_label(_label("kills", "击杀: %d") % 0, Vector2(kill_x, kill_y), kill_sz, Style.COLOR_KILL)
+	_kill_label = _make_label(_label("kills", "击杀: %d") % 0, Vector2(kill_x, kill_y), kill_sz, Style.COLOR_HUD_GOLD)
 	_kill_label.add_theme_font_override("font", _font_mono)
 	_bind_hover(_kill_label, _label("kill_tip_title", "击杀数"), _label("kill_tip_desc", "本局累计击杀的敌人数量。"),
 		func() -> Array: return [["击杀", "%d" % _kills]])
@@ -447,7 +447,7 @@ func _build_stamina_bar() -> void:
 	bg.size = Vector2(_bar_w, 14)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	bg.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_HP_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_SM, 1))
+		Style.make_style(Style.COLOR_HUD_TRACK, Style.COLOR_HUD_BORDER, Style.RADIUS_SM, 2))
 	add_child(bg)
 	_stamina_fill = ColorRect.new()
 	_stamina_fill.color = Style.COLOR_STAMINA_FILL
@@ -460,7 +460,7 @@ func _build_stamina_bar() -> void:
 	_stamina_val.position = Vector2(244, 80)
 	_stamina_val.add_theme_font_override("font", _font_mono)
 	_stamina_val.add_theme_font_size_override("font_size", 14)
-	_stamina_val.add_theme_color_override("font_color", Style.COLOR_STAMINA_FILL)
+	_stamina_val.add_theme_color_override("font_color", Style.COLOR_HUD_GOLD)
 	add_child(_stamina_val)
 	_bind_hover(bg, "体力", "冲刺、闪避、攻击消耗体力，停止消耗后自动恢复。",
 		func() -> Array: return [["当前体力", "%d / %d" % [_stamina_now, _stamina_max]]])
@@ -468,7 +468,7 @@ func _build_stamina_bar() -> void:
 
 func _build_exp_bar() -> void:
 	var track := ColorRect.new()
-	track.color = Color(Style.THEME_BG, 0.55)
+	track.color = Color(Style.COLOR_HUD_BG, 0.55)
 	track.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	track.offset_top = -6
 	track.offset_bottom = 0
@@ -492,12 +492,12 @@ func _build_controls_hint() -> void:
 	p.offset_top = -150
 	p.offset_bottom = -78
 	p.add_theme_stylebox_override("panel",
-		Style.make_style(Color(Style.THEME_BG, 0.45), Color(Style.THEME_GRAY_MID, 0.4), 8, 1))
+		Style.make_style(Color(Style.COLOR_HUD_BG, 0.5), Color(Style.COLOR_HUD_BORDER, 0.4), 8, 1))
 	add_child(p)
 	var l := Label.new()
 	l.text = "WASD 移动 · 左键攻击 · 空格闪避 · Shift 冲刺\n1~4 快捷栏 · Q/E/X/C 技能 · R 换弹\nTab 背包 · CapsLock 状态 · K 技能 · O 图鉴 · L 任务"
 	l.add_theme_font_size_override("font_size", 11)
-	l.add_theme_color_override("font_color", Color(Style.COLOR_DIM_TEXT, 0.75))
+	l.add_theme_color_override("font_color", Color(Style.COLOR_HUD_TEXT, 0.75))
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	p.add_child(l)
 
@@ -518,9 +518,13 @@ func _build_side_menu() -> void:
 			["res://assets/ui/icons/flag.svg", "L", "任务", "quest"]]:
 		var b := Button.new()
 		b.custom_minimum_size = Vector2(64, 56)
-		b.add_theme_stylebox_override("normal", Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0))
-		b.add_theme_stylebox_override("hover", Style.make_style(Color(Style.THEME_GOLD, 0.18), Style.COLOR_TRANSPARENT, 8, 0))
-		b.add_theme_stylebox_override("pressed", Style.make_style(Color(Style.THEME_GOLD, 0.30), Style.COLOR_TRANSPARENT, 8, 0))
+		# 深色 HUD 模块按钮（原项目 side-menu-btn，hover 金色发光）
+		b.add_theme_stylebox_override("normal",
+			Style.make_style(Color(Style.COLOR_HUD_BG, 0.72), Color(Style.COLOR_HUD_BORDER, 0.6), 8, 1))
+		b.add_theme_stylebox_override("hover",
+			Style.make_style(Color(Style.COLOR_HUD_BG, 0.92), Style.COLOR_HUD_GOLD, 8, 1))
+		b.add_theme_stylebox_override("pressed",
+			Style.make_style(Color(Style.COLOR_HUD_BG, 0.95), Style.COLOR_HUD_GOLD, 8, 2))
 		var vb := VBoxContainer.new()
 		vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var icon := TextureRect.new()
@@ -528,7 +532,7 @@ func _build_side_menu() -> void:
 		icon.custom_minimum_size = Vector2(26, 26)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.modulate = Style.COLOR_TEXT
+		icon.modulate = Style.COLOR_HUD_TEXT
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(icon)
 		var hint := Label.new()
@@ -536,7 +540,7 @@ func _build_side_menu() -> void:
 		hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		hint.add_theme_font_override("font", _font_mono)
 		hint.add_theme_font_size_override("font_size", 11)
-		hint.add_theme_color_override("font_color", Style.THEME_GOLD)
+		hint.add_theme_color_override("font_color", Style.COLOR_HUD_GOLD)
 		hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		vb.add_child(hint)
 		b.add_child(vb)
@@ -730,7 +734,7 @@ func set_hp(hp: int, max_hp: int) -> void:
 		_hp_fill.color = Style.COLOR_HP_LOW
 	_hp_label.text = "%d/%d" % [maxi(0, hp), m]
 	_hp_label.add_theme_color_override("font_color",
-		Style.THEME_DANGER_RED if pct <= low_ratio else Style.COLOR_WHITE)
+		Style.THEME_DANGER_RED if pct <= low_ratio else Style.COLOR_HUD_TEXT)
 	_low_hp = pct <= low_ratio
 	if _vignette != null:
 		_vignette.visible = _low_hp

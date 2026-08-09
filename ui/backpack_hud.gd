@@ -890,7 +890,7 @@ func _build_hotbar() -> void:
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# 快捷栏容器：半透明玻璃底（与面板毛玻璃一致）
 	bar.add_theme_stylebox_override("panel",
-		Style.make_style(Color(Style.THEME_BG, 0.30), Style.COLOR_BAR_BORDER, 12, 2))
+		Style.make_style(Color(Style.COLOR_HUD_BG, 0.35), Color(Style.COLOR_HUD_BORDER, 0.5), 12, 2))
 	bar.add_theme_constant_override("margin_left", BAR_PAD)
 	bar.add_theme_constant_override("margin_right", BAR_PAD)
 	bar.add_theme_constant_override("margin_top", BAR_PAD)
