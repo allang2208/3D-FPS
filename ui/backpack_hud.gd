@@ -321,26 +321,33 @@ func on_skill_click(_key: String) -> void:
 func use_skill_slot(index: int) -> void:
 	if _panel_open or index < 0 or index >= SKILL_SIZE:
 		return
+	var key_name: String = SKILL_KEY_HINTS[index]
 	_pulse_skill_slot(index)
 	if skillbar == null:
-		_flash_status("技能未移植")
+		_flash_status("技能未移植（%s）" % key_name)
 		return
 	var r := skillbar.trigger(index)
-	_flash_status(String(r.get("reason", "")))
+	var msg := String(r.get("reason", ""))
+	if msg == "空槽":
+		msg = "技能未移植（%s）" % key_name
+	_flash_status(msg)
 	if bool(r.get("ok", false)):
 		var id := skillbar.resolve(index)
 		if skillbar.is_hold(id):
-			_flash_status("长按技能（未移植）")
+			_flash_status("长按技能（%s，未移植）" % key_name)
 
-## 技能键按下反馈：槽位脉冲（无技能时也让玩家看到按键生效）
+## 技能键按下反馈：槽位大脉冲 + 金色边框闪（无技能时也让玩家看到按键生效）
 func _pulse_skill_slot(index: int) -> void:
 	if index < 0 or index >= _skill_slots.size():
 		return
 	var slot: SkillSlot = _skill_slots[index]
 	slot.pivot_offset = Vector2(HOTBAR_SLOT, HOTBAR_SLOT) * 0.5
 	var tw := create_tween()
-	tw.tween_property(slot, "scale", Vector2(1.15, 1.15), 0.08)
-	tw.tween_property(slot, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(slot, "scale", Vector2(1.25, 1.25), 0.1)
+	tw.tween_property(slot, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	slot.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.THEME_GOLD, Style.RADIUS_SM, 2))
+	tw.tween_callback(func() -> void:
+		slot.add_theme_stylebox_override("panel", _s_skill_empty))
 
 func on_skill_hover(enter: bool, key: String) -> void:
 	for s in _skill_slots:
@@ -1262,7 +1269,7 @@ func _build_panel() -> void:
 	_apply_panel_slide(0.0)
 
 func _build_status_label() -> void:
-	_status_label = _make_label(self, "", Style.font_size("body"), Style.COLOR_STATUS, Vector2.ZERO)
+	_status_label = _make_label(self, "", Style.font_size("label"), Style.COLOR_STATUS, Vector2.ZERO)
 	_status_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	_status_label.offset_top = -92
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
