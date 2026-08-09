@@ -31,7 +31,7 @@ const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
 const CELL_SLOT := 60
-const EQUIP_SLOT_SIZE := Vector2(250, 84)
+const EQUIP_SLOT_SIZE := Vector2(160, 84)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
@@ -571,7 +571,7 @@ func _pop_cell(slot: int) -> void:
 	var cell: BackpackCell = _cells[slot]
 	var s := cell.size
 	if s == Vector2.ZERO:
-		s = Vector2(72, CELL_SLOT)
+		s = Vector2(CELL_SLOT, CELL_SLOT)
 	cell.pivot_offset = s * 0.5
 	var tw := create_tween()
 	tw.tween_property(cell, "scale", Vector2(1.2, 1.2), 0.18).from(Vector2(0.5, 0.5))
@@ -1184,12 +1184,12 @@ func _build_panel() -> void:
 		var cell := BackpackCell.new()
 		cell.hud = self
 		cell.slot = i
-		cell.custom_minimum_size = Vector2(72, CELL_SLOT)
+		cell.custom_minimum_size = Vector2(CELL_SLOT, CELL_SLOT)
 		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_cell_empty)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
-		cell_content.custom_minimum_size = Vector2(72, CELL_SLOT)
+		cell_content.custom_minimum_size = Vector2(CELL_SLOT, CELL_SLOT)
 		cell_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell.add_child(cell_content)
 		var icon := TextureRect.new()

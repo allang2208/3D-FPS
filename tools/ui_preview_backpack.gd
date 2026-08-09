@@ -10,7 +10,7 @@ const BackpackHUD := preload("res://ui/backpack_hud.gd")
 const OUT := "C:/Users/allan/AppData/Local/Temp/ui_preview_backpack.png"
 
 func _initialize() -> void:
-	root.size = Vector2i(1600, 900)
+	root.size = Vector2i(1920, 1080)
 	var db := ItemDB.new()
 	var bp := Backpack.new(db)
 	var eq := Equipment.new(bp)
