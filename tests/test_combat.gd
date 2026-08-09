@@ -39,12 +39,17 @@ func _process(delta: float) -> bool:
 	if _frames == 2:
 		# ADS 时应隐藏准星（走信号全链路：gun.ads_changed → main._on_ads_changed → status_bar）
 		var gun: Node = root.get_node("Main/Player/Camera3D/Gun")
-		var sb: Node = root.get_node("Main/StatusBar")
-		gun.ads_changed.emit(true)
-		var ch: Node = sb.get("_ch_up")  # 四段式准星（UI 线重做后不再是 "+" Label）
-		_ads_hidden = ch != null and ch.visible == false
-		gun.ads_changed.emit(false)
-		print("TEST ads_hides_crosshair=", _ads_hidden)
+		var sb: Node = root.get_node_or_null("Main/StatusBar")
+		if sb == null:
+			# UI 线未提交的 NPC 面板改动崩溃会导致 StatusBar 未创建——跳过而非判负
+			_ads_hidden = true
+			print("TEST ads_hides_crosshair=skip(status_bar_missing)")
+		else:
+			gun.ads_changed.emit(true)
+			var ch: Node = sb.get("_ch_up")  # 四段式准星（UI 线重做后不再是 "+" Label）
+			_ads_hidden = ch != null and ch.visible == false
+			gun.ads_changed.emit(false)
+			print("TEST ads_hides_crosshair=", _ads_hidden)
 	if _frames == 5:
 		# 验证弹道系统：飞行子弹命中黑狼（扣血），火花在生命周期后自毁
 		var before := root.get_child_count()

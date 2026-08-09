@@ -165,7 +165,7 @@ func _physics_process(delta: float) -> void:
 			_mat.emission_enabled = false
 	if _dead:
 		_dead_t += delta
-		if _model:
+		if _model and _model.get("no_death_flip") != true:
 			_model.rotation.x = minf(PI / 2, _model.rotation.x + delta * 2.5)
 			_model.position.y = maxf(0.0, _model.position.y - delta * 0.4)
 		if _rig:
