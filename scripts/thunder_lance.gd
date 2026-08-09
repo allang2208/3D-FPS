@@ -1,15 +1,18 @@
 extends Node3D
-## 贯穿雷枪（旧版 ThunderLanceSystem 简化迁移：蓄力机制暂缓，按满蓄力立即释放）
-## 沿相机瞄准方向发射电磁贯穿光束：命中路径上所有敌人全额伤害（感电层数加成简化省略），
-## 射程尽头/撞墙处电爆（蓝紫冲击波 + 白紫粒子）。
+## 贯穿雷枪（旧版 ThunderLanceSystem 迁移：蓄力机制暂缓，按满蓄力立即释放）
+## 沿相机瞄准方向发射电磁贯穿光束：命中路径上所有敌人全额伤害（目标感电层数越高伤害越高，
+## 每层 +10%），命中叠加感电并沿光束方向击退；射程尽头/撞墙处电爆（蓝紫冲击波 + 白紫粒子）。
 
 const PX_TO_M := 0.014
 signal cast_finished(hits, kills)
 
 var _caster: Node3D
 var _scene_root: Node
+var _eff := {}
 var _damage := 0
 var _max_range := 12.0
+var _matk := 0
+var _intt := 0
 var _hits := 0
 var _kills := 0
 static var _dot_tex_cache: Texture2D
@@ -26,6 +29,9 @@ static func cast(scene_root: Node, caster: Node3D, level: int, matk: int, intt: 
 func configure(caster: Node3D, level: int, matk: int, intt: int, eff: Dictionary, scene_root: Node) -> void:
 	_caster = caster
 	_scene_root = scene_root
+	_eff = eff
+	_matk = matk
+	_intt = intt
 	_max_range = float(eff.get("maxRange", 900.0)) * PX_TO_M
 	_damage = maxi(1, floori(float(eff.get("lanceDamageBase", 110.0))
 		+ matk * float(eff.get("lanceMagicMul", 1.8)) + intt * float(eff.get("lanceIntMul", 2.0))))
@@ -61,8 +67,18 @@ func _fire() -> void:
 			continue
 		if p.distance_to(origin) > _max_range + 1.0:
 			continue
+		# 旧版：目标感电层数越高伤害越高（每层 +10%），命中前读取
+		var stacks := int(c.get("_electrified_stacks")) if c.get("_electrified_stacks") != null else 0
+		var per_stack := float(_eff.get("electrifyDamagePerStack", 0.1))
+		var dmg := maxi(1, floori(_damage * (1.0 + stacks * per_stack)))
 		var was_alive := _hp_of(c) > 0
-		c.take_damage(_damage)
+		c.take_damage(dmg, "electric", _caster)
+		if c.has_method("apply_electrified"):
+			c.apply_electrified(int(_eff.get("electrifyStacks", 2)),
+				int(_eff.get("electrifyDurationMs", 5000)), _matk, _intt)
+		# 击退：沿光束方向，距离随等级（旧版 50→150px）
+		if c.has_method("apply_knockback"):
+			c.apply_knockback((end - origin).normalized(), float(_eff.get("knockback", 50.0)) * PX_TO_M)
 		_hits += 1
 		if was_alive and _hp_of(c) <= 0:
 			_kills += 1

@@ -13,6 +13,8 @@ const CAST_SOUNDS := [
 
 var _caster: Node3D
 var _damage := 30
+var _matk := 0
+var _intt := 0
 var _effect := {}
 var _scene_root: Node
 signal cast_finished(hits, kills)
@@ -28,6 +30,8 @@ static func cast(scene_root: Node, caster: Node3D, level: int, matk: int, intt: 
 
 func configure(caster: Node3D, level: int, matk: int, intt: int, effect: Dictionary, scene_root: Node) -> void:
 	_caster = caster
+	_matk = matk
+	_intt = intt
 	_effect = effect
 	_scene_root = scene_root
 	_damage = floori(effect.get("damage_base", 20.0) + matk * float(effect.get("magic_mul", 1.0))
@@ -64,7 +68,15 @@ func _cast() -> Dictionary:
 		_impact_bolt(tgt_pos, decay_mul)
 		var target := chain[i] as Node3D
 		var was_alive := _hp_of(target) > 0
-		target.take_damage(dmg)
+		target.take_damage(dmg, "electric", _caster)
+		# 旧版：命中眩晕打断 + 叠加感电（电系伤害每层 +3%）
+		var elect_stacks := maxi(0, int(_effect.get("electrify_stacks", 0)))
+		var elect_ms := int(_effect.get("electrify_duration_ms", 0))
+		if elect_stacks > 0 and target.has_method("apply_electrified"):
+			target.apply_electrified(elect_stacks, elect_ms, _matk, _intt)
+		var stun_ms := int(_effect.get("stun_ms", 0))
+		if stun_ms > 0 and target.has_method("apply_stun"):
+			target.apply_stun(stun_ms)
 		hits += 1
 		if was_alive and _hp_of(target) <= 0:
 			kills += 1

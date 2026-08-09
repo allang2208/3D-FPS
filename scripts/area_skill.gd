@@ -5,7 +5,8 @@ extends Node3D
 ## - blizzard：暴风雪区域，每 tickMs 伤害（chill 减速简化省略）
 ## - iceWall：目标点生成冰墙列（StaticBody3D 阻挡）
 ## - meteor：延迟陨石坠落 → 火球爆炸三层 + 熔岩区持续灼烧
-## - stormDomain：雷云跟随施法者，每 strikeIntervalMs 落雷（简化闪电线 + 传导伤害）
+## - stormDomain：雷云跟随施法者，每 strikeIntervalMs 落雷（首击立即），
+##   主目标 + 传导链伤害，命中眩晕打断并叠加感电（叠满过载见 enemy.gd）
 ## - flameArmor：自身灼烧光环，每 tickMs 对周围敌人伤害
 ## - droneSkill：目标易伤标记（+damageBonusPercent 伤害，持续 duration）
 
@@ -17,8 +18,14 @@ var _scene_root: Node
 var _skill_id := ""
 var _eff := {}
 var _damage := 0
+var _matk := 0
+var _intt := 0
 var _hits := 0
 var _kills := 0
+var _cloud: Node3D
+var _cloud_arc_t := 0.0
+var _cloud_mist_t := 0.0
+var _cloud_spark_t := 0.0
 static var _dot_tex_cache: Texture2D
 
 static func cast(scene_root: Node, caster: Node3D, level: int, matk: int, intt: int, skill_id: String, eff: Dictionary, on_finished: Callable = Callable()) -> void:
@@ -35,6 +42,8 @@ func configure(caster: Node3D, level: int, matk: int, intt: int, skill_id: Strin
 	_scene_root = scene_root
 	_skill_id = skill_id
 	_eff = eff
+	_matk = matk
+	_intt = intt
 	var base := float(eff.get("damageBase", 0.0))
 	var mul := float(eff.get("magicMul", 0.0))
 	var imul := float(eff.get("intMul", 0.0))
@@ -59,6 +68,82 @@ func _run() -> void:
 		"droneSkill":
 			_drone()
 			queue_free()
+
+## 雷云持续期驱动：云内电弧闪烁 + 蓝色云雾弥漫 + 云底电花坠落（旧版 StormCloudFx）
+func _process(delta: float) -> void:
+	if _cloud == null:
+		return
+	_cloud_arc_t -= delta
+	if _cloud_arc_t <= 0.0:
+		_cloud_arc_t = 0.26 + randf() * 0.26
+		_cloud_arc()
+	_cloud_mist_t -= delta
+	if _cloud_mist_t <= 0.0:
+		_cloud_mist_t = 0.22
+		_cloud_mist()
+	_cloud_spark_t -= delta
+	if _cloud_spark_t <= 0.0:
+		_cloud_spark_t = 0.15
+		_cloud_spark()
+
+func _cloud_arc() -> void:
+	var node := Node3D.new()
+	_cloud.add_child(node)
+	var x0 := randf_range(-0.6, 0.6)
+	var pts: Array = [Vector3(x0, 0.0, 0.0)]
+	var cx := x0
+	var cy := 0.0
+	var segs := 4 + randi() % 3
+	for i in segs:
+		cx += randf_range(-0.18, 0.18)
+		cy += randf_range(0.1, 0.24)
+		pts.append(Vector3(cx, cy, 0))
+	var dots: Array = []
+	for i in range(pts.size() - 1):
+		var a: Vector3 = pts[i]
+		var b: Vector3 = pts[i + 1]
+		for j in range(1, 4):
+			var t := float(j) / 4.0
+			var p := a.lerp(b, t) + Vector3(randf_range(-0.03, 0.03), 0, randf_range(-0.03, 0.03))
+			dots.append(_bolt_dot(node, p, 0.05, Color(0x6a / 255.0, 0x9f / 255.0, 1.0, 0.9)))
+			dots.append(_bolt_dot(node, p, 0.028, Color.WHITE))
+	var tw := node.create_tween()
+	tw.tween_method(func(v: float) -> void:
+		for d in dots:
+			var m := (d as Sprite3D).material_override as StandardMaterial3D
+			var c2: Color = m.albedo_color
+			c2.a = c2.a * v
+			m.albedo_color = c2
+		, 1.0, 0.0, 0.16)
+	tw.tween_callback(func() -> void: node.queue_free())
+
+func _cloud_mist() -> void:
+	var a := randf() * TAU
+	var rr := randf_range(0.7, 1.8)
+	var pos := Vector3(cos(a) * rr * 0.5, sin(a) * rr * 0.22 + randf_range(-0.2, 0.2), cos(a) * rr * 0.3)
+	var sp := _bolt_dot(_cloud, pos, 0.3, Color(0x3f / 255.0, 0x66 / 255.0, 0xb8 / 255.0, 0.22))
+	var tw := sp.create_tween()
+	tw.tween_property(sp, "scale", sp.scale * 1.5, 1.6)
+	tw.parallel().tween_method(func(v: float) -> void:
+		var m := sp.material_override as StandardMaterial3D
+		var c2: Color = m.albedo_color
+		c2.a = c2.a * v
+		m.albedo_color = c2
+		, 1.0, 0.0, 1.6)
+	tw.tween_callback(func() -> void: sp.queue_free())
+
+func _cloud_spark() -> void:
+	var sx := randf_range(-0.9, 0.9)
+	var sp := _bolt_dot(_cloud, Vector3(sx, 0.0, 0.0), 0.035, Color(0.9, 0.94, 1.0, 0.95))
+	var tw := sp.create_tween()
+	tw.tween_property(sp, "position", Vector3(sx + randf_range(-0.15, 0.15), randf_range(-1.6, -1.0), randf_range(-0.1, 0.1)), 0.7)
+	tw.parallel().tween_method(func(v: float) -> void:
+		var m := sp.material_override as StandardMaterial3D
+		var c2: Color = m.albedo_color
+		c2.a = c2.a * v
+		m.albedo_color = c2
+		, 1.0, 0.0, 0.7)
+	tw.tween_callback(func() -> void: sp.queue_free())
 
 func _aim_point() -> Vector3:
 	var cam := _find_cam()
@@ -174,26 +259,56 @@ func _storm_domain() -> void:
 	var interval := float(_eff.get("strikeIntervalMs", 900.0)) / 1000.0
 	var duration := float(_eff.get("duration", 10.0))
 	var radius := float(_eff.get("radius", 220.0)) * PX_TO_M
-	var strike_dmg := _damage
+	var chain_extra := maxi(0, int(_eff.get("chainExtraTargets", 1)))
+	var chain_range := float(_eff.get("chainRange", 160.0)) * PX_TO_M
+	var chain_decay := float(_eff.get("chainDecay", 0.3))
+	var stun_ms := int(_eff.get("stunMs", 0))
+	var elect_stacks := maxi(0, int(_eff.get("electrifyStacks", 0)))
+	var elect_ms := int(_eff.get("electrifyDurationMs", 0))
+	# 旧版落雷伤害用 strikeDamageBase/strikeMagicMul/strikeIntMul（非通用 damageBase）
+	var strike_dmg := maxi(1, floori(float(_eff.get("strikeDamageBase", 25.0))
+		+ _matk * float(_eff.get("strikeMagicMul", 0.5)) + _intt * float(_eff.get("strikeIntMul", 0.5))))
 	var cloud := _make_cloud()
 	var elapsed := 0.0
 	while elapsed < duration:
 		if _caster != null and is_instance_valid(_caster):
 			cloud.global_position = _caster.global_position + Vector3(0, 2.6, 0)
-		await get_tree().create_timer(interval).timeout
+		# 旧版首击立即（timer 从 0 起跳），此后每 interval 一击
+		if elapsed > 0.0:
+			await get_tree().create_timer(interval).timeout
 		elapsed += interval
-		if _caster == null or not is_instance_valid(_caster):
-			break
-		var target := _nearest_hostile(_caster.global_position, radius)
-		if target == null:
-			continue
-		var tpos: Vector3 = target.global_position + Vector3(0, 0.8, 0)
-		_lightning_line(_caster.global_position + Vector3(0, 2.0, 0), tpos)
-		var was_alive := _hp_of(target) > 0
-		target.take_damage(strike_dmg)
-		_hits += 1
-		if was_alive and _hp_of(target) <= 0:
-			_kills += 1
+		if _caster != null and is_instance_valid(_caster):
+			cloud.global_position = _caster.global_position + Vector3(0, 2.6, 0)
+			var main := _nearest_hostile(_caster.global_position, radius)
+			if main != null:
+				# 传导链（旧版 chainExtraTargets）：主目标 → 邻近传导，每跳衰减
+				var chain: Array = [main]
+				var cursor: Node3D = main
+				for hop in range(chain_extra):
+					var next := _nearest_hostile(cursor.global_position, chain_range, chain)
+					if next == null:
+						break
+					chain.append(next)
+					cursor = next
+				for i in chain.size():
+					var decay_mul := pow(1.0 - chain_decay, i)
+					var dmg := maxi(1, floori(strike_dmg * decay_mul))
+					var target := chain[i] as Node3D
+					var src_pos: Vector3 = cloud.global_position \
+						if i == 0 else (chain[i - 1] as Node3D).global_position + Vector3(0, 0.8, 0)
+					var tpos: Vector3 = target.global_position + Vector3(0, 0.8, 0)
+					_lightning_line(src_pos, tpos)
+					_spawn_hit_fx(target.global_position, decay_mul)
+					var was_alive := _hp_of(target) > 0
+					if target.has_method("take_damage"):
+						target.take_damage(dmg, "electric", _caster)
+					if elect_stacks > 0 and target.has_method("apply_electrified"):
+						target.apply_electrified(elect_stacks, elect_ms, _matk, _intt)
+					if stun_ms > 0 and target.has_method("apply_stun"):
+						target.apply_stun(stun_ms)
+					_hits += 1
+					if was_alive and _hp_of(target) <= 0:
+						_kills += 1
 	cast_finished.emit(_hits, _kills)
 	queue_free()
 
@@ -201,19 +316,25 @@ func _make_cloud() -> Node3D:
 	var cloud := Node3D.new()
 	cloud.name = "StormCloud"
 	add_child(cloud)
-	var mi := MeshInstance3D.new()
-	var sm := SphereMesh.new()
-	sm.radius = 0.7
-	sm.height = 1.0
-	var mat := StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	mat.albedo_color = Color(0.45, 0.4, 0.7, 0.55)
-	mat.emission_enabled = true
-	mat.emission = Color(0.35, 0.25, 0.7)
-	sm.material = mat
-	mi.mesh = sm
-	cloud.add_child(mi)
+	# 旧版 StormCloudFx：四层蓝调柔边云（深蓝黑→靛蓝→电光蓝→高光），按 radius/220 等比缩放
+	var scale := maxf(0.8, float(_eff.get("radius", 220.0)) / 220.0)
+	var layers: Array = [
+		{ "tint": Color(0x14 / 255.0, 0x1b / 255.0, 0x2e / 255.0), "count": 18, "spread": 1.0, "size_min": 0.62, "size_max": 1.0, "alpha": 0.92, "y_off": 0.0 },
+		{ "tint": Color(0x23 / 255.0, 0x3a / 255.0, 0x66 / 255.0), "count": 14, "spread": 0.84, "size_min": 0.5, "size_max": 0.82, "alpha": 0.88, "y_off": -0.16 },
+		{ "tint": Color(0x3f / 255.0, 0x66 / 255.0, 0xb8 / 255.0), "count": 10, "spread": 0.62, "size_min": 0.4, "size_max": 0.64, "alpha": 0.82, "y_off": -0.30 },
+		{ "tint": Color(0x8f / 255.0, 0xb8 / 255.0, 0xff / 255.0), "count": 6, "spread": 0.42, "size_min": 0.28, "size_max": 0.46, "alpha": 0.72, "y_off": -0.42 },
+	]
+	for L in layers:
+		var tint: Color = L["tint"]
+		for i in range(int(L["count"])):
+			var rr := sqrt(randf()) * float(L["spread"])
+			var a := randf() * TAU
+			var ox := cos(a) * rr * 1.34 * scale
+			var oy := sin(a) * rr * 0.62 * scale + float(L["y_off"]) * 0.81 * scale
+			var size := 1.29 * scale * (float(L["size_min"]) + randf() * (float(L["size_max"]) - float(L["size_min"])))
+			var sp := _bolt_dot(cloud, Vector3(ox, oy, 0), size * 0.5, Color(tint.r, tint.g, tint.b, float(L["alpha"]) * (0.75 + randf() * 0.25)))
+			sp.scale = Vector3.ONE * (size / 0.16)
+	_cloud = cloud
 	return cloud
 
 ## ---------- 灼锋焰甲：自身光环 tick ----------
@@ -301,11 +422,13 @@ func _tick_area(interval: float, duration: float, rx: float, rz: float, mul: flo
 	cast_finished.emit(_hits, _kills)
 	queue_free()
 
-func _nearest_hostile(from: Vector3, range_m: float) -> Node3D:
+func _nearest_hostile(from: Vector3, range_m: float, exclude: Array = []) -> Node3D:
 	var best: Node3D = null
 	var best_d := range_m
 	for c in _scene_root.get_children():
 		if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
+			continue
+		if exclude.has(c):
 			continue
 		var d: float = (c.global_position - from).length()
 		if d <= best_d:
@@ -401,36 +524,149 @@ func _lava_zone(pos: Vector3, radius: float, duration: float, tick_ms: float) ->
 				continue
 			c.take_damage(lava_dmg)
 
-func _lightning_line(from: Vector3, to: Vector3) -> void:
+## 旧版 LightningBoltEffect 移植：中点位移锯齿 → 按比例重采样色块链，
+## 每点四层圆块（外层辉光 ADD + 内芯），施法端粗 → 目标端细；形态创建时定格
+func _lightning_line(from: Vector3, to: Vector3, opts: Dictionary = {}) -> void:
 	var node := Node3D.new()
 	_add_to_root(node)
 	node.position = from
-	var dist := (to - from).length()
-	var n := (to - from).cross(Vector3.UP)
+	var local_to := to - from
+	var dist := local_to.length()
+	if dist < 0.001:
+		node.queue_free()
+		return
+	var n := local_to.cross(Vector3.UP)
 	if n.length() < 0.001:
 		n = Vector3.RIGHT
 	n = n.normalized()
-	var segs := 8
-	var amp := maxf(0.15, dist * 0.09)
-	var prev := Vector3.ZERO
-	var dots: Array = []
-	for i in range(1, segs + 1):
+	var segs := maxi(4, int(opts.get("segments", 9)))
+	var jitter := float(opts.get("jitter", 0.10))
+	var uniform := bool(opts.get("uniform", false))
+	var width_scale := float(opts.get("widthScale", 1.0))
+	var amp := maxf(0.14, dist * jitter)
+	var pts: Array = [Vector3.ZERO]
+	for i in range(1, segs):
 		var t := float(i) / float(segs)
-		var p := (to - from) * t + n * (randf() * 2.0 - 1.0) * amp
-		var mid := (prev + p) * 0.5 + n * (randf() * 2.0 - 1.0) * amp * 0.5
-		dots.append(_bolt_dot(node, mid, 0.09, Color(0.5, 0.35, 1.0, 0.55)))
-		dots.append(_bolt_dot(node, p, 0.06, Color(0.9, 0.88, 1.0, 0.9)))
-		prev = p
+		var off := (randf() * 2.0 - 1.0) * amp
+		pts.append(local_to * t + n * off)
+	pts.append(local_to)
+	# 细分 + Chaikin 平滑（保留端点）
+	var dense: Array = []
+	for i in range(pts.size() - 1):
+		dense.append(pts[i])
+		dense.append((pts[i] + pts[i + 1]) * 0.5)
+	dense.append(pts[pts.size() - 1])
+	var smooth: Array = []
+	for i in range(dense.size() - 1):
+		var p1: Vector3 = dense[i]
+		var p2: Vector3 = dense[i + 1]
+		if i == 0:
+			smooth.append(p1)
+		smooth.append(p1 * 0.75 + p2 * 0.25)
+		smooth.append(p1 * 0.25 + p2 * 0.75)
+		if i == dense.size() - 2:
+			smooth.append(p2)
+	# 按步长重采样成连续色块链，每点烘焙大小随机因子
+	var step_m := 0.06
+	var chain: Array = []
+	var acc := 0.0
+	for i in range(smooth.size() - 1):
+		var p1: Vector3 = smooth[i]
+		var p2: Vector3 = smooth[i + 1]
+		var seg_len := p1.distance_to(p2)
+		if seg_len < 0.001:
+			continue
+		var t := acc / seg_len
+		while t <= 1.0:
+			chain.append({ "pos": p1.lerp(p2, t), "s": 1.0 if uniform else 0.75 + randf() * 0.5 })
+			acc += step_m
+			t = acc / seg_len
+		acc -= seg_len
+	chain.append({ "pos": smooth[smooth.size() - 1], "s": 1.0 })
+	# 四层圆块：外层辉光 ADD + 内芯色块；源端粗 → 目标端细
+	var dots: Array = []
+	var layers_cfg: Array = [
+		{ "color": Color(0x6a / 255.0, 0x4b / 255.0, 1.0), "r0": 0.42, "r1": 0.07, "alpha": 0.26, "add": true },
+		{ "color": Color(0xa9 / 255.0, 0x8f / 255.0, 1.0), "r0": 0.27, "r1": 0.06, "alpha": 0.18, "add": true },
+		{ "color": Color(0xdc / 255.0, 0xd6 / 255.0, 1.0), "r0": 0.15, "r1": 0.03, "alpha": 0.88, "add": false },
+		{ "color": Color.WHITE, "r0": 0.07, "r1": 0.014, "alpha": 0.92, "add": false },
+	]
+	var n_chain := chain.size()
+	for i in n_chain:
+		var c: Dictionary = chain[i]
+		var t := float(i) / float(maxi(1, n_chain - 1))
+		for L in layers_cfg:
+			var r := lerpf(float(L["r0"]), float(L["r1"]), t) * float(c["s"]) * width_scale
+			if r < 0.005:
+				continue
+			dots.append(_bolt_dot(node, c["pos"], r, Color(float(L["color"].r), float(L["color"].g), float(L["color"].b), float(L["alpha"]))))
+			if not bool(L["add"]):
+				var m := (dots[dots.size() - 1] as Sprite3D).material_override as StandardMaterial3D
+				m.blend_mode = BaseMaterial3D.BLEND_MODE_MIX
+	var life := float(opts.get("durationMs", 420.0)) / 1000.0
+	var fade := float(opts.get("fadeMs", 220.0)) / 1000.0
 	var tw := node.create_tween()
-	tw.tween_interval(0.2)
+	tw.tween_interval(life)
 	tw.tween_method(func(v: float) -> void:
 		for d in dots:
 			var m := (d as Sprite3D).material_override as StandardMaterial3D
-			var c: Color = m.albedo_color
-			c.a = c.a * v
-			m.albedo_color = c
-		, 1.0, 0.0, 0.18)
+			var c2: Color = m.albedo_color
+			c2.a = c2.a * v
+			m.albedo_color = c2
+		, 1.0, 0.0, fade)
 	tw.tween_callback(func() -> void: node.queue_free())
+
+## 落雷命中特效（旧版 _spawnHitFx）：紫色冲击波 + 白/紫叠加粒子，随传导衰减缩放
+func _spawn_hit_fx(pos: Vector3, decay_mul: float) -> void:
+	var scale := 0.75 + 0.25 * decay_mul
+	var ground := pos + Vector3(0, -0.8, 0)
+	var ring := MeshInstance3D.new()
+	var torus := TorusMesh.new()
+	var r := 1.06 * scale
+	torus.inner_radius = r * 0.72
+	torus.outer_radius = r
+	torus.rings = 16
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	mat.albedo_color = Color(0xa9 / 255.0, 0x8f / 255.0, 1.0, 0.55)
+	torus.material = mat
+	ring.mesh = torus
+	ring.rotation_degrees = Vector3(90, 0, 0)
+	ring.position = ground
+	ring.scale = Vector3.ONE * 0.01
+	_add_to_root(ring)
+	var tw := ring.create_tween()
+	tw.tween_method(func(t: float) -> void:
+		ring.scale = Vector3.ONE * maxf(0.01, t)
+		mat.albedo_color.a = (1.0 - t) * 0.55
+		, 0.0, 1.0, 0.38).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tw.tween_callback(func() -> void: ring.queue_free())
+	# 白/紫叠加粒子迸溅（旧版 burstParticles impact_dot ADD）
+	var node := Node3D.new()
+	node.position = ground
+	_add_to_root(node)
+	var tint_pool: Array = [Color.WHITE, Color(0xf0 / 255.0, 0xe9 / 255.0, 1.0), Color(0xdd / 255.0, 0xd2 / 255.0, 1.0), Color(0x8f / 255.0, 0x7b / 255.0, 1.0)]
+	var count := int(round(16.0 * scale))
+	var dots: Array = []
+	for i in count:
+		var sp := _bolt_dot(node, Vector3.ZERO, 0.045, Color(tint_pool[i % tint_pool.size()].r, tint_pool[i % tint_pool.size()].g, tint_pool[i % tint_pool.size()].b, 1.0))
+		dots.append(sp)
+		var ang := randf() * TAU
+		var vel := randf_range(0.6, 2.8)
+		var dir := Vector3(cos(ang) * vel, randf_range(0.3, 1.4), sin(ang) * vel)
+		var tw2 := sp.create_tween()
+		tw2.tween_property(sp, "position", dir, randf_range(0.32, 0.6)).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tw2.parallel().tween_method(func(v: float) -> void:
+			var m := sp.material_override as StandardMaterial3D
+			var c2: Color = m.albedo_color
+			c2.a = c2.a * v
+			m.albedo_color = c2
+			, 1.0, 0.0, randf_range(0.32, 0.6))
+		tw2.tween_callback(func() -> void: sp.queue_free())
+	await get_tree().create_timer(0.7).timeout
+	node.queue_free()
 
 func _bolt_dot(parent: Node3D, local_pos: Vector3, radius: float, color: Color) -> Sprite3D:
 	var sp := Sprite3D.new()
