@@ -284,20 +284,20 @@ func _ice_shards(pos: Vector3) -> void:
 	p.lifetime = 0.45
 	p.local_coords = false
 	p.position = pos
-	p.draw_pass_1 = _dot_pass(0.3, true)
+	p.draw_pass_1 = _dot_pass(0.4, true)
 	var pm := ParticleProcessMaterial.new()
 	pm.direction = Vector3.ZERO
 	pm.spread = 180.0
-	pm.initial_velocity_min = 1.4
+	pm.initial_velocity_min = 1.4  # 100~320px/s × 0.014
 	pm.initial_velocity_max = 4.5
-	pm.gravity = Vector3(0, -7.0, 0)
-	pm.scale_min = 0.5
-	pm.scale_max = 0.9
-	pm.scale_curve = _grow_texture(1.0, 0.2)  # 旧版 scale 1.6→0.15 渐小
+	pm.gravity = Vector3(0, -7.0, 0)  # 500px/s² 冰屑受重力下落
+	pm.scale_min = 0.7
+	pm.scale_max = 1.2
+	pm.scale_curve = _grow_texture(1.0, 0.12)  # 旧版 scale 1.6→0.15 渐小
 	pm.color_ramp = _ramp([
-		Color(1.0, 1.0, 1.0, 0.9),
-		Color(0.7, 0.9, 1.0, 0.5),
-		Color(0.4, 0.65, 1.0, 0.0),
+		Color(1.0, 1.0, 1.0, 0.9),      # 0xffffff 白
+		Color(0.667, 0.867, 1.0, 0.7),  # 0xaaddff 浅蓝
+		Color(0.4, 0.667, 1.0, 0.0),    # 0x66aaff 蓝 → 透明
 	], [0.0, 0.4, 1.0])
 	p.process_material = pm
 	_add_to_root(p)
@@ -329,29 +329,52 @@ func _ice_shards(pos: Vector3) -> void:
 	_delayed_free(flash, 0.4)
 
 func _ice_ring(pos: Vector3) -> void:
+	# 旧版 fireGroundShockwave：描边浅蓝环 + 浅蓝填充，扩散到 maxRadius 70px(=0.98m)，320ms flicker
+	var max_r := 0.98
 	var ring := MeshInstance3D.new()
 	var torus := TorusMesh.new()
-	torus.inner_radius = 0.22
-	torus.outer_radius = 0.32
-	torus.rings = 14
+	torus.inner_radius = max_r * 0.9
+	torus.outer_radius = max_r
+	torus.rings = 20
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	mat.albedo_color = Color(0.62, 0.85, 1.0, 0.8)
+	mat.albedo_color = Color(0.624, 0.847, 1.0, 0.9)  # 0x9fd8ff 浅蓝描边
 	torus.material = mat
 	ring.mesh = torus
 	ring.rotation_degrees = Vector3(90, 0, 0)
 	ring.position = pos
 	ring.scale = Vector3.ONE * 0.1
 	_add_to_root(ring)
+	# 浅蓝填充圆盘（0xd8f0ff 半透明，随环一起扩散）
+	var fill := MeshInstance3D.new()
+	var disc := CylinderMesh.new()
+	disc.top_radius = max_r * 0.96
+	disc.bottom_radius = max_r * 0.96
+	disc.height = 0.02
+	var fmat := StandardMaterial3D.new()
+	fmat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	fmat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	fmat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	fmat.albedo_color = Color(0.847, 0.941, 1.0, 0.16)  # 0xd8f0ff 填充
+	disc.material = fmat
+	fill.mesh = disc
+	fill.position = pos
+	fill.scale = Vector3.ONE * 0.1
+	_add_to_root(fill)
 	var tw := ring.create_tween()
 	tw.tween_method(func(t: float) -> void:
-		ring.scale = Vector3.ONE * (0.1 + t * 0.9)
+		var s := 0.1 + t * 0.9
+		ring.scale = Vector3.ONE * s
+		fill.scale = Vector3.ONE * s
 		var flick: float = 0.55 + 0.45 * sin(t * TAU * 4.0)  # 旧版 flicker
 		mat.albedo_color.a = (1.0 - t) * 0.8 * flick
+		fmat.albedo_color.a = (1.0 - t) * 0.16 * flick
 		, 0.0, 1.0, 0.32).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tw.tween_callback(func() -> void: ring.queue_free())
+	tw.tween_callback(func() -> void:
+		ring.queue_free()
+		fill.queue_free())
 
 func _play_hit_sound(pos: Vector3) -> void:
 	if _hit_sound_cd > 0.0 or not ResourceLoader.exists(HIT_SOUND):
