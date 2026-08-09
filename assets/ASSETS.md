@@ -8,7 +8,7 @@
 |---|---|---|---|
 | 地表纹理 | [AmbientCG](https://ambientcg.com/) | CC0 | 草/泥/岩/沙四套 PBR 贴图（Color、Roughness、NormalGL/DX、AO、Displacement），含 Godot .tres 材质 |
 | 岩石模型 | [Poly Haven](https://polyhaven.com/) | CC0 | 写实岩石 glTF 2K（boulder_01、rock_07、rock_09、rock_moss_set_01） |
-| 植被点缀 | [Poly Haven](https://polyhaven.com/) | CC0 | 写实草地/树桩/枯木/热带岛树 glTF（grass_medium_01、grass_bermuda_01、tree_stump_01、dead_tree_trunk_02、island_tree_02；荒漠 quiver_tree_01、othonna_cerarioides 备选） |
+| 植被点缀 | [Poly Haven](https://polyhaven.com/) | CC0 | 写实草地/树桩/枯木/热带岛树 glTF（grass_medium_01、grass_bermuda_01、tree_stump_01、dead_tree_trunk_02、island_tree_01/02/03；荒漠 quiver_tree_01、othonna_cerarioides 备选） |
 | 天空环境 | [Poly Haven](https://polyhaven.com/) | CC0 | kloofendal 阴天纯天空 HDRI 2K |
 | 植被/自然 | [Kenney Nature Kit](https://kenney.nl/assets/nature-kit) | CC0 | 329 个 GLB：树、灌木、草、花、岩石、蘑菇、断木等 |
 | 掩体/道具 | [Kenney Tower Defense Kit](https://kenney.nl/assets/tower-defense-kit) | CC0 | 160 个 GLB：木箱、木桶、栅栏、路障、塔、墙、桥等 |

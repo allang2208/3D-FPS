@@ -10,6 +10,7 @@ var terrain: Terrain3D
 var rng := RandomNumberGenerator.new()
 var _player: Node3D
 var _status_bar: CanvasLayer
+var _tree_cache := {}  # 树模型路径 -> {"base": scale=1 底座偏移, "size": 包围盒尺寸}
 
 
 func _ready() -> void:
@@ -185,21 +186,37 @@ func _build_landmark_rocks() -> void:
 
 
 func _build_trees() -> void:
-	# 热带岛树：独立 StaticBody3D（带碰撞），AABB 底座精确贴地
-	var tree_path := "res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf"
+	# 热带岛树三物种：独立 StaticBody3D（带碰撞），AABB 底座精确贴地
+	var tree_paths: Array[String] = [
+		"res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf",  # 最常见
+		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
+		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
+	]
 	var centers := [
 		Vector2(35, 15), Vector2(-120, -60), Vector2(180, -140),
 		Vector2(-240, 100), Vector2(60, -260), Vector2(300, 260),
 	]
 	for c in centers:
-		for i in 7:
+		for i in 8:
 			var ang := rng.randf_range(0.0, TAU)
 			var r := rng.randf_range(4.0, 55.0)
-			_place_tree(tree_path, c + Vector2(cos(ang), sin(ang)) * r, rng.randf_range(1.2, 2.2))
+			_place_tree(_pick_tree(tree_paths), c + Vector2(cos(ang), sin(ang)) * r,
+				rng.randf_range(1.0, 2.0))
 	# 地图边缘稀疏背景树
-	for i in 20:
-		_place_tree(tree_path, Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
-			rng.randf_range(1.0, 1.8))
+	for i in 25:
+		_place_tree(_pick_tree(tree_paths),
+			Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
+			rng.randf_range(0.9, 1.7))
+
+
+func _pick_tree(paths: Array[String]) -> String:
+	# 加权：island_tree_02 占 50%，01 / 03 各 25%
+	var r := rng.randf()
+	if r < 0.5:
+		return paths[0]
+	if r < 0.75:
+		return paths[1]
+	return paths[2]
 
 
 func _place_tree(path: String, at2: Vector2, scale: float) -> void:
@@ -213,15 +230,28 @@ func _place_tree(path: String, at2: Vector2, scale: float) -> void:
 	body.add_child(inst)
 	inst.scale = Vector3.ONE * scale
 	inst.rotation.y = rng.randf_range(0.0, TAU)
-	var aabb := _scene_aabb(inst)
-	body.position = Vector3(at2.x, h - aabb.position.y + 0.05, at2.y)
+	var info := _tree_info(path)
+	var base: float = info["base"] * scale
+	var size: Vector3 = info["size"] * scale
+	body.position = Vector3(at2.x, h - base + 0.05, at2.y)
 	var col := CollisionShape3D.new()
 	var shape := CapsuleShape3D.new()
 	shape.radius = 0.8 * scale
-	shape.height = maxf(aabb.size.y * 0.7 * scale, 1.2)
+	shape.height = maxf(size.y * 0.7, 1.2)
 	col.shape = shape
-	col.position = Vector3(0, aabb.size.y * 0.35 * scale, 0)
+	col.position = Vector3(0, size.y * 0.35, 0)
 	body.add_child(col)
+
+
+func _tree_info(path: String) -> Dictionary:
+	if not _tree_cache.has(path):
+		var probe: Node = load(path).instantiate()
+		add_child(probe)
+		var aabb := _scene_aabb(probe)
+		remove_child(probe)
+		probe.free()
+		_tree_cache[path] = {"base": aabb.position.y, "size": aabb.size}
+	return _tree_cache[path]
 
 
 func _scene_aabb(node: Node) -> AABB:
@@ -286,6 +316,7 @@ func _build_player() -> void:
 	cam.name = "Camera3D"
 	cam.position = Vector3(0, 1.62, 0)
 	cam.fov = 75.0
+	cam.current = true  # Terrain3D 需要活动相机，否则报错并停止物理进程
 	player.add_child(cam)
 	var cfx := Node3D.new()
 	cfx.name = "CameraFx"
