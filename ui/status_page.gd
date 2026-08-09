@@ -39,57 +39,91 @@ func _build() -> void:
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(margin)
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 6)
+	vbox.add_theme_constant_override("separation", 8)
 	margin.add_child(vbox)
-	# 角色头
+
+	# 角色卡：金色强调条 + 名称/职业/等级/属性点
+	var header_card := _make_card(vbox, 10)
 	var header := HBoxContainer.new()
 	header.add_theme_constant_override("separation", 10)
-	vbox.add_child(header)
+	header_card.add_child(header)
+	var accent := ColorRect.new()
+	accent.custom_minimum_size = Vector2(3, 20)
+	accent.color = Style.THEME_GOLD
+	header.add_child(accent)
 	_name_label = _make_label(header, "轮回者", 20, Style.COLOR_TITLE_TEXT)
 	_name_label.add_theme_font_override("font", Style.make_font(700))
 	_class_label = _make_label(header, "初心者", 13, Style.COLOR_DIM_TEXT)
 	_class_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_lv_label = _make_label(header, "Lv.1", 14, Style.COLOR_TEXT)
-	_attr_label = _make_label(header, "属性点: 0", 13, Style.COLOR_DIM_TEXT)
-	# 状态条
-	_add_section_title(vbox, "状态")
-	_add_bar(vbox, "生命", "hp", Style.COLOR_HP_HIGH)
-	_add_bar(vbox, "魔法", "mp", Style.COLOR_MP_FILL)
-	_add_bar(vbox, "体力", "stamina", Style.COLOR_STAMINA_FILL)
-	_add_bar(vbox, "经验", "exp", Style.COLOR_EXP_FILL)
-	# 基础属性（两列）
-	_add_section_title(vbox, "基础属性")
+	_lv_label.add_theme_font_override("font", Style.make_font(600))
+	_attr_label = _make_label(header, "属性点: 0", 13, Style.THEME_GOLD)
+	_attr_label.add_theme_font_override("font", Style.make_font(600))
+
+	# 状态卡
+	var status_card := _make_card(vbox)
+	_add_section_title(status_card, "状态")
+	_add_bar(status_card, "生命", "hp", Style.COLOR_HP_HIGH)
+	_add_bar(status_card, "魔法", "mp", Style.COLOR_MP_FILL)
+	_add_bar(status_card, "体力", "stamina", Style.COLOR_STAMINA_FILL)
+	_add_bar(status_card, "经验", "exp", Style.COLOR_EXP_FILL)
+
+	# 基础属性卡（两列）
+	var attr_card := _make_card(vbox)
+	_add_section_title(attr_card, "基础属性")
 	var attr_grid := GridContainer.new()
 	attr_grid.columns = 2
 	attr_grid.add_theme_constant_override("h_separation", 40)
-	attr_grid.add_theme_constant_override("v_separation", 2)
-	vbox.add_child(attr_grid)
+	attr_grid.add_theme_constant_override("v_separation", 4)
+	attr_card.add_child(attr_grid)
 	for pair in [["力量", "str"], ["敏捷", "dex"], ["智力", "intt"]]:
 		attr_grid.add_child(_make_row(pair[0], pair[1], "attr"))
 	for pair in [["体质", "con"], ["精神", "wis"], ["幸运", "luck"]]:
 		attr_grid.add_child(_make_row(pair[0], pair[1], "attr"))
-	# 战斗属性
-	_add_section_title(vbox, "战斗属性")
+
+	# 战斗属性卡
+	var combat_card := _make_card(vbox)
+	_add_section_title(combat_card, "战斗属性")
 	for row in [
 		["物理攻击", "atk"], ["物理防御", "def"], ["魔法攻击", "matk"], ["魔法防御", "mdef"],
 		["暴击率", "crit"], ["暴击抵抗", "critRes"], ["攻击间隔", "aspd"], ["移动速度", "moveSpeed"],
 	]:
-		vbox.add_child(_make_row(row[0], row[1], "combat"))
-	# 详细信息
-	_add_section_title(vbox, "详细信息")
+		combat_card.add_child(_make_row(row[0], row[1], "combat"))
+
+	# 详细信息卡
+	var detail_card := _make_card(vbox)
+	_add_section_title(detail_card, "详细信息")
 	for row in [
 		["体力恢复", "staminaRegen"], ["生命恢复", "hpRegen"], ["魔法恢复", "mpRegen"],
 		["碰撞体积", "collisionRadius"], ["移动速度", "moveSpeedDetail"], ["闪避冷却", "dodgeCooldown"],
 		["攻击距离", "attackRange"], ["击退距离", "knockback"], ["视野宽度", "viewRange"],
 	]:
-		vbox.add_child(_make_row(row[0], row[1], "detail"))
-	# 轮回信息
-	_add_section_title(vbox, "轮回信息")
+		detail_card.add_child(_make_row(row[0], row[1], "detail"))
+
+	# 轮回信息卡
+	var loop_card := _make_card(vbox)
+	_add_section_title(loop_card, "轮回信息")
 	for row in [
 		["轮回次数", "loopCount"], ["存活天数", "surviveDays"], ["击杀数", "kills"],
 		["完成任务", "quests"], ["基因锁", "geneLock"], ["主神评价", "rank"],
 	]:
-		vbox.add_child(_make_row(row[0], row[1], "loop"))
+		loop_card.add_child(_make_row(row[0], row[1], "loop"))
+
+func _make_card(parent: Node, pad := 12) -> VBoxContainer:
+	var card := PanelContainer.new()
+	card.add_theme_stylebox_override("panel", Style.make_inner_panel_style())
+	parent.add_child(card)
+	var m := MarginContainer.new()
+	m.add_theme_constant_override("margin_left", pad)
+	m.add_theme_constant_override("margin_right", pad)
+	m.add_theme_constant_override("margin_top", 10)
+	m.add_theme_constant_override("margin_bottom", 10)
+	m.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	card.add_child(m)
+	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 6)
+	m.add_child(v)
+	return v
 
 func _refresh() -> void:
 	if status == null:
@@ -135,11 +169,20 @@ func _refresh() -> void:
 ## ---------- 构建辅助 ----------
 
 func _add_section_title(parent: Node, text: String) -> void:
-	var sep := HSeparator.new()
-	sep.modulate = Style.COLOR_PANEL_BORDER
-	parent.add_child(sep)
-	var lbl := _make_label(parent, text, 14, Style.COLOR_TEXT)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation", 6)
+	parent.add_child(row)
+	var bar := ColorRect.new()
+	bar.custom_minimum_size = Vector2(3, 14)
+	bar.color = Style.THEME_GOLD
+	row.add_child(bar)
+	var lbl := _make_label(row, text, 14, Style.COLOR_TEXT)
 	lbl.add_theme_font_override("font", Style.make_font(600))
+	var line := HSeparator.new()
+	line.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	line.add_theme_stylebox_override("separator",
+		Style.make_style(Color(Style.THEME_GOLD, 0.30), Color(Style.THEME_GOLD, 0.30), 0, 0))
+	row.add_child(line)
 
 func _add_bar(parent: Node, label: String, key: String, fill_color: Color) -> void:
 	var row := HBoxContainer.new()
@@ -147,41 +190,52 @@ func _add_bar(parent: Node, label: String, key: String, fill_color: Color) -> vo
 	parent.add_child(row)
 	var lbl := _make_label(row, label, 13, Style.COLOR_DIM_TEXT)
 	lbl.custom_minimum_size = Vector2(56, 0)
-	var track := Control.new()
+	var track := Panel.new()
 	track.custom_minimum_size = Vector2(220, 14)
 	track.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	track.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_BAR_TRACK, Style.COLOR_BAR_BORDER, 4, 1))
 	row.add_child(track)
-	var bg := ColorRect.new()
-	bg.color = Style.COLOR_BAR_TRACK
-	bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	track.add_child(bg)
-	var fill := ColorRect.new()
-	fill.color = fill_color
+	var fill := Panel.new()
 	fill.anchor_left = 0.0
 	fill.anchor_top = 0.0
 	fill.anchor_right = 0.0
 	fill.anchor_bottom = 1.0
-	fill.offset_top = 0
-	fill.offset_bottom = 0
+	fill.offset_top = 2
+	fill.offset_bottom = -2
+	fill.offset_left = 2
+	fill.offset_right = -2
 	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	var fsb := Style.make_style(fill_color, fill_color, 3, 0)
+	fill.add_theme_stylebox_override("panel", fsb)
 	track.add_child(fill)
 	var value := _make_label(row, "", 13, Style.COLOR_TEXT)
 	value.custom_minimum_size = Vector2(90, 0)
 	value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	_bars[key] = {"fill": fill, "value": value}
+	_bars[key] = {"fill": fill, "style": fsb, "value": value}
 	_bind_tooltip(row, key)
 
-func _make_row(label: String, key: String, _group: String) -> HBoxContainer:
+func _make_row(label: String, key: String, _group: String) -> PanelContainer:
+	var card := PanelContainer.new()
+	var sb := Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 4, 0)
+	card.add_theme_stylebox_override("panel", sb)
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
+	card.add_child(row)
 	var name_lbl := _make_label(row, label, 13, Style.COLOR_DIM_TEXT)
 	name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var val_lbl := _make_label(row, "", 13, Style.COLOR_TEXT)
 	val_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_rows[key] = val_lbl
-	_bind_tooltip(row, key)
-	return row
+	card.mouse_filter = Control.MOUSE_FILTER_STOP
+	var hover_sb := Style.make_style(Color(Style.THEME_GOLD, 0.10), Color(Style.THEME_GOLD, 0.55), 4, 1)
+	card.mouse_entered.connect(func() -> void:
+		card.add_theme_stylebox_override("panel", hover_sb)
+		_show_tooltip(key, get_viewport().get_mouse_position()))
+	card.mouse_exited.connect(func() -> void:
+		card.add_theme_stylebox_override("panel", sb)
+		hide_tooltip())
+	return card
 
 func _make_label(parent: Node, text: String, size: int, color: Color) -> Label:
 	var l := Label.new()
@@ -198,14 +252,16 @@ func _set_bar(key: String, value: int, max_v: int, c_high: Color, c_mid: Color, 
 		return
 	var m := maxi(1, max_v)
 	var pct := clampf(float(value) / float(m), 0.0, 1.0)
-	var fill := bar["fill"] as ColorRect
-	fill.offset_right = 220.0 * pct
-	if pct > 0.5:
-		fill.color = c_high
-	elif pct > 0.25:
-		fill.color = c_mid
-	else:
-		fill.color = c_low
+	var fill := bar["fill"] as Panel
+	fill.anchor_right = pct
+	var col := c_high
+	if pct <= 0.5 and pct > 0.25:
+		col = c_mid
+	elif pct <= 0.25:
+		col = c_low
+	var fsb: StyleBoxFlat = bar["style"]
+	fsb.bg_color = col
+	fsb.border_color = col
 	var v_lbl := bar["value"] as Label
 	v_lbl.text = ("%d%%" % int(pct * 100.0)) if pct_only else ("%d/%d" % [maxi(0, value), m])
 

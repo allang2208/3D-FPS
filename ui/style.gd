@@ -312,6 +312,23 @@ static func make_panel_style() -> StyleBoxFlat:
 	return sb
 
 ## 纹理面板（程序化生成深灰磨砂金属底纹，九宫格平铺；纹理：assets/ui/textures/panel_brushed.png）
+## 内嵌卡面板（属性页分区卡片）：略亮底 + 顶部高光 + 1px 细框（textures/panel_inner.png）
+static func make_inner_panel_style() -> StyleBoxTexture:
+	var sb := StyleBoxTexture.new()
+	sb.texture = load("res://assets/ui/textures/panel_inner.png")
+	var m := 12
+	sb.texture_margin_left = m
+	sb.texture_margin_right = m
+	sb.texture_margin_top = m
+	sb.texture_margin_bottom = m
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.content_margin_left = 10
+	sb.content_margin_right = 10
+	sb.content_margin_top = 8
+	sb.content_margin_bottom = 8
+	return sb
+
 static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
 	sb.texture = load("res://assets/ui/textures/panel_brushed.png")

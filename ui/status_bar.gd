@@ -298,7 +298,8 @@ func set_ammo(ammo: int, reserve: int) -> void:
 
 func _pulse_label(l: Label) -> void:
 	var tw := create_tween()
-	tw.tween_property(l, "modulate", Color(1.35, 1.35, 1.35, 1.0), 0.07)
+	tw.tween_property(l, "modulate",
+		Color(Style.THEME_WHITE.r * 1.35, Style.THEME_WHITE.g * 1.35, Style.THEME_WHITE.b * 1.35, 1.0), 0.07)
 	tw.tween_property(l, "modulate", Color.WHITE, 0.12)
 
 func show_status(text: String, duration: float) -> void:
