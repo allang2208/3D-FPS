@@ -28,6 +28,15 @@
       "tests": ["tests/test_ui_tokens.gd", "tests/test_status_bar.gd"]
     },
     {
+      "name": "npc_bar",
+      "type": "hud",
+      "path": "ui/npc_bar.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal option_pressed(id)/close_requested", "open(npc)", "close()", "is_open()", "set_text()", "skip()", "open_demo()"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_bar.gd"]
+    },
+    {
       "name": "item_tooltip",
       "type": "tooltip",
       "path": "ui/item_tooltip.gd",

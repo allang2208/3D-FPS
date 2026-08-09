@@ -221,6 +221,13 @@ func _set_crosshair(ratio: float) -> void:
 	_ch_right.offset_left = _ch_gap
 	_ch_right.offset_top = -1.5
 	_ch_right.offset_right = _ch_gap + 9.0
+
+## ADS 时隐藏准星（main.gd _on_ads_changed 调用）
+func set_crosshair_visible(v: bool) -> void:
+	_ch_up.visible = v
+	_ch_down.visible = v
+	_ch_left.visible = v
+	_ch_right.visible = v
 	_ch_right.offset_bottom = 1.5
 
 func _center(c: Label) -> void:

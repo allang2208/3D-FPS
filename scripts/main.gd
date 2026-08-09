@@ -13,6 +13,7 @@ const ThunderLanceScript := preload("res://scripts/thunder_lance.gd")
 var _player: Node3D
 var _gun: Node3D
 var _status_bar: CanvasLayer
+var _npc_bar: CanvasLayer
 var _backpack_hud: Control
 var _backpack
 var _equipment
@@ -162,6 +163,13 @@ func _build_hud() -> void:
 	_status_bar = bar
 	_status_bar.set_weapon_name("AK-74")
 	_build_backpack_hud(bar)
+	var npc_bar := CanvasLayer.new()
+	npc_bar.name = "NpcBar"
+	npc_bar.set_script(load("res://ui/npc_bar.gd"))
+	add_child(npc_bar)
+	npc_bar.option_pressed.connect(_on_npc_option)
+	npc_bar.close_requested.connect(_on_npc_closed)
+	_npc_bar = npc_bar
 
 ## 背包栏迁移：底部快捷栏（1~4）+ Tab/B 背包面板
 func _build_backpack_hud(parent: Node) -> void:
@@ -379,17 +387,8 @@ func _on_hit() -> void:
 	_status_bar.hitmark()
 
 func _on_ads_changed(active: bool) -> void:
-	var cross := _find_crosshair()
-	if cross:
-		cross.visible = not active
-
-func _find_crosshair() -> Label:
-	if _status_bar == null:
-		return null
-	for c in _status_bar.find_children("", "Label", true, false):
-		if c is Label and c.text == "+":
-			return c
-	return null
+	if _status_bar != null and _status_bar.has_method("set_crosshair_visible"):
+		_status_bar.set_crosshair_visible(not active)
 
 func _on_reloading() -> void:
 	_status_bar.show_status("换弹中…", 1.5)
@@ -399,6 +398,34 @@ func _on_empty() -> void:
 
 func _on_reloaded(_ammo: int, _reserve: int) -> void:
 	_status_bar.clear_status()
+
+## NPC 栏选项分发：子面板系统未迁移前先给状态提示；info/help 沿用旧版就地回话
+func _on_npc_option(id: String) -> void:
+	if _npc_bar == null or _status_bar == null:
+		return
+	match id:
+		"shop":
+			_status_bar.show_status("商店系统迁移中…", 1.5)
+		"enhance":
+			_status_bar.show_status("强化系统迁移中…", 1.5)
+		"craft":
+			_status_bar.show_status("改造系统迁移中…", 1.5)
+		"enchant":
+			_status_bar.show_status("附魔系统迁移中…", 1.5)
+		"quest", "teleport":
+			_status_bar.show_status("任务系统迁移中…", 1.5)
+		"expedition", "fusion":
+			_status_bar.show_status("祭坛系统迁移中…", 1.5)
+		"info":
+			_npc_bar.set_text("关于各个世界的信息正在收集中……目前可以告诉您的是，时空裂隙的出现频率越来越高，请务必小心。")
+		"help":
+			_npc_bar.set_text("帮助功能正在开发中，敬请期待。您可以先尝试接受任务前往其他世界探险。")
+		_:
+			_status_bar.show_status("NPC 选项待接入：%s" % id, 1.5)
+
+func _on_npc_closed() -> void:
+	if _status_bar != null:
+		_status_bar.clear_status()
 
 func _on_player_damaged(hp: int) -> void:
 	_status_bar.set_hp(hp, int(_player.get("max_hp")))

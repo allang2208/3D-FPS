@@ -55,7 +55,15 @@ func _process(_delta: float) -> bool:
 		_player.take_damage(200)
 		var death_ok: bool = bool(_bar.get("_death_panel").visible)
 		print("TEST kill=", _bar.get("_kill_label").text, " death_ok=", death_ok)
-		var all_ok: bool = kill_ok and death_ok
+		_bar.call("set_crosshair_visible", false)
+		var ch_hidden: bool = not bool(_bar.get("_ch_up").visible) \
+			and not bool(_bar.get("_ch_down").visible) \
+			and not bool(_bar.get("_ch_left").visible) \
+			and not bool(_bar.get("_ch_right").visible)
+		_bar.call("set_crosshair_visible", true)
+		var ch_restored: bool = bool(_bar.get("_ch_up").visible)
+		print("TEST crosshair_hidden=", ch_hidden, " restored=", ch_restored)
+		var all_ok: bool = kill_ok and death_ok and ch_hidden and ch_restored
 		quit(0 if all_ok else 1)
 		return false
 	return false

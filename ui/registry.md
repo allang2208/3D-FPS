@@ -21,6 +21,7 @@
 |---|---|---|---|---|---|---|
 | style | tokens | ui/style.gd | stable | DESIGN.md（唯一风格真源） | `make_theme()` / `make_font(weight)`；`COLOR_*` 生效色板 / `THEME_*` 金白深灰待拍板启用 | tests/test_ui_tokens.gd |
 | status_bar | hud | ui/status_bar.gd | stable | style | 消费 `player.gd`（damaged/died/hp）与 `gun.gd`（shot/reloaded/reloading/empty/hit/ammo/reserve）稳定信号；`_build()` 代码建 HUD | tests/test_ui_tokens.gd + test_status_bar.gd |
+| npc_bar | hud | ui/npc_bar.gd | stable | style | `signal option_pressed(id)` / `close_requested`；`open(npc)` / `close()` / `is_open()` / `set_text()` / `skip()` / `open_demo()`（F8 调试） | tests/test_ui_tokens.gd + test_npc_bar.gd |
 | item_tooltip | tooltip | ui/item_tooltip.gd | stable | style, item_db | `signal close_requested`；`render(item)` / `is_pinned()` / `set_pinned(v)` | tests/test_ui_tokens.gd |
 | backpack_hud | panel | ui/backpack_hud.gd | stable（Vega 金白已升级） | style, backpack, equipment, item_tooltip, icons | `signal player_healed(hp)`；`setup(bp, eq)`；Tab/B 开背包、拖拽、右键使用 | tests/test_backpack.gd + test_ui_tokens（已纳入硬编码扫描） |
 | backpack | data | ui/backpack.gd | stable | item_db | `signal changed / item_used / item_added / bound`；`add_item` / `remove_item` / `swap_items` / `bind_hotbar` / `resolve_hotbar` | tests/test_backpack.gd |
