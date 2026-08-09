@@ -14,7 +14,7 @@ extends Control
 ## - 悬停/拖拽高亮、物品浮窗（主信息+改造+附魔三段式）、背包已满提示
 
 signal player_healed(hp: int)
-signal skill_triggered(skill_id: String)
+signal skill_triggered(skill_id: String, phase: String)
 
 const BackpackScript := preload("res://ui/backpack.gd")
 const EquipmentScript := preload("res://ui/equipment.gd")
@@ -358,10 +358,12 @@ func use_skill_slot(index: int) -> void:
 		msg = "技能未移植（%s）" % key_name
 	if bool(r.get("ok", false)):
 		var skill_id := String(r.get("skill_id", ""))
+		var phase := String(r.get("phase", "cast"))
 		var def: Dictionary = skillbar.skills.get(skill_id, {})
-		msg = "释放 %s（%s）" % [String(def.get("name", skill_id)), key_name]
+		msg = "凝聚 %s（%s）" % [String(def.get("name", skill_id)), key_name] if phase == "spawn" \
+			else "投掷 %s（%s）" % [String(def.get("name", skill_id)), key_name]
 		if skill_id != "":
-			skill_triggered.emit(skill_id)
+			skill_triggered.emit(skill_id, phase)
 	_flash_status(msg)
 
 ## 技能键按下反馈：槽位大脉冲 + 金色边框闪（无技能时也让玩家看到按键生效）
@@ -1146,7 +1148,6 @@ func _build_panel() -> void:
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		name_lbl.add_theme_font_size_override("font_size", 13)
-		name_lbl.add_theme_font_override("font", _font_value)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)
@@ -1256,7 +1257,7 @@ func _build_panel() -> void:
 		stack.offset_right = -4
 		stack.offset_bottom = -2
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		var name_lbl := _make_label(cell_content, "", 11, Style.COLOR_WHITE, Vector2.ZERO)
+		var name_lbl := _make_label(cell_content, "", 13, Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
 		name_lbl.anchor_left = 0.0
 		name_lbl.anchor_right = 1.0
@@ -1279,7 +1280,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -2
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 10)
+		rarity_lbl.add_theme_font_size_override("font_size", 12)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
