@@ -4,7 +4,7 @@ extends SceneTree
 # Terrain3D 约定：albedo 的 alpha 通道存高度，normal 的 alpha 通道存粗糙度。
 # 用法：godot --headless --path <project> -s res://tools/prepare_terrain_textures.gd
 
-const RES := 1024
+const RES := 2048  # 源图为 2K，输出 2048 获得完整细节（曾用 1024 损失一半）
 const SRC := "res://assets/textures/terrain/%s/%s_2K-JPG_%s.jpg"
 const OUT_DIR := "res://assets/textures/terrain_prepared/"
 
