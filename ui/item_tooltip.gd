@@ -98,7 +98,7 @@ func _build() -> void:
 	_close_btn.add_theme_stylebox_override("hover", Style.make_style(Style.COLOR_TT_CLOSE_HOVER, Color(0, 0, 0, 0.0), 12, 0))
 	_close_btn.add_theme_stylebox_override("pressed", Style.make_style(Style.COLOR_TT_CLOSE_HOVER, Color(0, 0, 0, 0.0), 12, 0))
 	_close_btn.add_theme_color_override("font_color", Color.WHITE)
-	_close_btn.add_theme_font_size_override("font_size", 13)
+	_close_btn.add_theme_font_size_override("font_size", Style.tt_size_body())
 	_close_btn.pressed.connect(func() -> void: close_requested.emit())
 	header.add_child(_close_btn)
 	_stats_box = VBoxContainer.new()
@@ -135,7 +135,7 @@ func _render_main(item: Dictionary) -> void:
 	if enhance > 0:
 		_badge = Label.new()
 		_badge.text = "已强化 +%d" % enhance
-		_badge.add_theme_font_size_override("font_size", 12)
+		_badge.add_theme_font_size_override("font_size", Style.tt_size_body())
 		_badge.add_theme_font_override("font", _font_value)
 		_badge.add_theme_color_override("font_color", Style.COLOR_BADGE_GOLD_TEXT)
 		_badge.add_theme_stylebox_override("normal", Style.make_style(Style.COLOR_BADGE_GOLD_BG, Color(0, 0, 0, 0), 4, 0))

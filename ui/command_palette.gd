@@ -25,7 +25,7 @@ func _ensure_built() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	_overlay = ColorRect.new()
-	_overlay.color = Color(0, 0, 0, 0.55)
+	_overlay.color = Style.COLOR_OVERLAY_STRONG
 	_overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_overlay.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_overlay)

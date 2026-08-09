@@ -429,9 +429,9 @@ func _update_skill_cd(slot: SkillSlot, index: int) -> void:
 	elif prev > 0.0 and remaining <= 0.0:
 		cd.visible = true
 		cd_text.visible = false
-		cd.color = Color(1, 1, 1, 0.85)
+		cd.color = Style.COLOR_CD_FLASH
 		var tw := create_tween()
-		tw.tween_property(cd, "color", Color(0, 0, 0, 0.55), 0.18)
+		tw.tween_property(cd, "color", Style.COLOR_CD_DIM, 0.18)
 	else:
 		cd.visible = false
 		cd_text.visible = false
@@ -636,9 +636,9 @@ func _shake_hotbar(index: int) -> void:
 
 func _flash_cd_end(slot: HotbarSlot) -> void:
 	var overlay := slot.get_node("Content/CD") as ColorRect
-	overlay.color = Color(1, 1, 1, 0.85)
+	overlay.color = Style.COLOR_CD_FLASH
 	var tw := create_tween()
-	tw.tween_property(overlay, "color", Color(0, 0, 0, 0.55), 0.18)
+	tw.tween_property(overlay, "color", Style.COLOR_CD_DIM, 0.18)
 
 ## ---------- 悬停 / 拖拽高亮 ----------
 
@@ -839,7 +839,7 @@ func _update_cooldown_overlays() -> void:
 			var pct := clampf(remaining / total, 0.0, 1.0)
 			overlay.visible = true
 			overlay.offset_top = -HOTBAR_SLOT * pct
-			overlay.color = Color(0, 0, 0, 0.55)
+			overlay.color = Style.COLOR_CD_DIM
 		elif prev > 0.0 and remaining <= 0.0:
 			overlay.visible = true
 			_flash_cd_end(slot)
@@ -895,7 +895,7 @@ func _build_hotbar() -> void:
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
-		cd.color = Color(0, 0, 0, 0.55)
+		cd.color = Style.COLOR_CD_DIM
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cd.anchor_left = 0.0
 		cd.anchor_right = 1.0
@@ -912,7 +912,7 @@ func _build_hotbar() -> void:
 		cd_text.visible = false
 		var dim := ColorRect.new()
 		dim.name = "Dim"
-		dim.color = Color(0.2, 0.2, 0.2, 0.55)
+		dim.color = Style.COLOR_CD_DIM
 		dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		dim.visible = false
@@ -975,7 +975,7 @@ func _build_hotbar() -> void:
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
-		cd.color = Color(0, 0, 0, 0.55)
+		cd.color = Style.COLOR_CD_DIM
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cd.anchor_left = 0.0
 		cd.anchor_right = 1.0
@@ -1035,7 +1035,7 @@ func _build_panel() -> void:
 	var mat := ShaderMaterial.new()
 	mat.shader = PANEL_BLUR_SHADER
 	if Style.theme_active() == "gray_white":
-		mat.set_shader_parameter("tint_color", Color(0.93, 0.93, 0.95))
+		mat.set_shader_parameter("tint_color", Style.COLOR_BLUR_TINT)
 		mat.set_shader_parameter("tint_amount", 0.42)
 		mat.set_shader_parameter("alpha", 0.58)
 	blur.material = mat

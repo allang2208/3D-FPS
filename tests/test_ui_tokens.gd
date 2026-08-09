@@ -88,9 +88,19 @@ func _initialize() -> void:
 		"res://ui/status_bar.gd", "res://ui/item_tooltip.gd", "res://ui/npc_bar.gd",
 		"res://ui/npc_panel.gd", "res://ui/npc_config.gd", "res://ui/economy.gd",
 		"res://ui/npc_panels.gd",
+		"res://ui/weapon_formula.gd", "res://ui/warehouse.gd", "res://ui/warehouse_panel.gd",
 		"res://ui/shop_panel.gd", "res://ui/enhance_panel.gd", "res://ui/craft_panel.gd",
 		"res://ui/enchant_panel.gd", "res://ui/quest_panel.gd",
 		"res://ui/fusion_panel.gd", "res://ui/expedition_panel.gd",
+		"res://ui/backpack_hud.gd", "res://ui/command_palette.gd",
+		"res://ui/status_page.gd", "res://ui/settings_demo.gd",
+		"res://ui/switch.gd", "res://ui/checkbox.gd",
+		"res://ui/slider.gd", "res://ui/input.gd",
+		"res://ui/select.gd", "res://ui/tabs.gd",
+		"res://ui/context_menu.gd", "res://ui/navigation_menu.gd",
+		"res://ui/hud.gd", "res://ui/sound.gd",
+		"res://ui/backpack.gd", "res://ui/equipment.gd",
+		"res://ui/skillbar.gd", "res://ui/skill_page.gd", "res://ui/icons.gd",
 	]
 	for f in files:
 		var p := FileAccess.open(f, FileAccess.READ)
