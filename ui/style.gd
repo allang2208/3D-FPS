@@ -246,6 +246,41 @@ static func make_style(bg: Color, border: Color, radius := -1, border_w := 2) ->
 	sb.set_corner_radius_all(RADIUS if radius < 0 else radius)
 	return sb
 
+## 按钮三态样式（DESIGN.md 第 5 节）：{normal, hover, pressed, disabled}
+static func make_button_style() -> Dictionary:
+	var base_margin := {"content_margin_left": 12, "content_margin_right": 12,
+		"content_margin_top": 6, "content_margin_bottom": 6}
+	var normal := make_style(THEME_BTN_BG, THEME_GRAY_MID, 6, 1)
+	var hover := make_style(THEME_BTN_HOVER_BG, THEME_GOLD, 6, 1)
+	var pressed := make_style(Color(THEME_GOLD, 0.85), THEME_GOLD, 6, 1)
+	var disabled := make_style(THEME_BTN_DISABLED_BG, THEME_GRAY_MID, 6, 1)
+	for sb in [normal, hover, pressed, disabled]:
+		for k in base_margin:
+			sb.set(k, base_margin[k])
+	return {"normal": normal, "hover": hover, "pressed": pressed, "disabled": disabled}
+
+## 面板样式（玻璃感：半透明深灰底 + 细边框）
+static func make_panel_style() -> StyleBoxFlat:
+	var sb := make_style(Color(THEME_BG, 0.8), THEME_GRAY_MID, 8, 1)
+	sb.content_margin_left = SPACING.get("panel_padding", 10)
+	sb.content_margin_right = SPACING.get("panel_padding", 10)
+	sb.content_margin_top = SPACING.get("panel_padding", 10)
+	sb.content_margin_bottom = SPACING.get("panel_padding", 10)
+	return sb
+
+## 给 Button 应用三态样式 + 字号
+static func style_button(btn: Button, font_size_key := "body") -> void:
+	var s := make_button_style()
+	btn.add_theme_stylebox_override("normal", s.normal)
+	btn.add_theme_stylebox_override("hover", s.hover)
+	btn.add_theme_stylebox_override("pressed", s.pressed)
+	btn.add_theme_stylebox_override("disabled", s.disabled)
+	btn.add_theme_font_size_override("font_size", font_size(font_size_key))
+	btn.add_theme_color_override("font_color", THEME_WHITE)
+	btn.add_theme_color_override("font_hover_color", Color(THEME_BG, 1.0))
+	btn.add_theme_color_override("font_pressed_color", Color(THEME_BG, 1.0))
+	btn.add_theme_color_override("font_disabled_color", THEME_BTN_DISABLED_TEXT)
+
 static func rarity_label(key: String) -> String:
 	return String(RARITY_LABELS.get(key, key))
 
