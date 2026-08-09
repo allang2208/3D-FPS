@@ -92,3 +92,10 @@ scale_curve 生长（越往上越宽）+ color_ramp alpha 提前淡出（防顶�
 - 碎裂：ADD 冰屑 12 粒带重力（−7m/s²）+ 白色爆闪 + 冰环 flicker（0.55+0.45·sin(t·8π)）；
 - 悬浮：环绕中心前移相机前方 0.55m（第一人称 4 颗全可见）+ 错相位 sway 浮动；
 - 验证：飞行尾迹/碎裂特效 ASCII 目检达标，命中致死（hp 0）、正常收尾。
+
+## 发射卡死修复（`212d1ad`）
+
+- 根因：enemy.gd 血量属性是 `_hp`（私有），`c.get("hp")` 返回 Nil；
+  Godot 4.7 的 `int(Nil)` 报 `Nonexistent 'int' constructor` 且每帧中断 → 发射后卡死。
+- 修复：5 个技能脚本统一 `_hp_of(node)` helper（`get("_hp")` + nil 短路，`Object.get` 仅 1 参）。
+- 验证：test_fireball 全过（含 fireball_hits_wolf=true）、冰锥发射链路正常（命中致死、收尾）。
