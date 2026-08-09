@@ -37,7 +37,7 @@ func setup(player: Node3D, kill_cb: Callable) -> void:
 
 func _ready() -> void:
 	collision_layer = 2
-	collision_mask = 1
+	collision_mask = 5  # 1 墙体 + 4 玩家
 	for child in get_children():
 		if child is Node3D and child.name != "Collision":
 			_model = child

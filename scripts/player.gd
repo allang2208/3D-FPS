@@ -17,6 +17,8 @@ var is_dead := false
 
 func _ready() -> void:
 	hp = max_hp
+	collision_layer = 4
+	collision_mask = 5  # 1 墙体 + 2 敌人
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func take_damage(d: int) -> void:

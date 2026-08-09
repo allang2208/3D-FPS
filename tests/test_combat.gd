@@ -9,6 +9,8 @@ var _dog: Node3D
 var _spider: Node3D
 var _player: Node3D
 var _start_pos := Vector3.ZERO
+var _proj: Node
+var _impact: Node
 
 func _initialize() -> void:
 	var scene: PackedScene = load("res://scenes/main.tscn")
@@ -34,14 +36,21 @@ func _process(delta: float) -> bool:
 		_player.global_position = Vector3(0, 0.2, 3)
 		_start_pos = _wolf.global_position
 		print("TEST enemies=3 start=", _start_pos)
+	if _frames == 5:
+		# 验证弹道系统：飞行子弹命中黑狼（扣血），火花在生命周期后自毁
+		var before := root.get_child_count()
+		_proj = Projectile.fire(root, Vector3(0, 0.8, -2), Vector3(0, 0, 1), 90.0, 25, 0.0)
+		ImpactFx.spawn(root, Vector3(0, 0.8, -4), Vector3(0, 1, 0))
+		_impact = root.get_child(before + 1)
 	if _frames == 30:
-		_wolf.call("take_damage", 25)
-		print("TEST hp_after_shot=", _wolf.get("_hp"))
+		var proj_result: bool = not is_instance_valid(_proj) and _wolf.get("_hp") == 60
+		print("TEST proj_hit_damage=", proj_result)
 	if _frames == 120:
 		var moved := _wolf.global_position.distance_to(_start_pos) > 0.5
 		var hp_ok: bool = _wolf.get("_hp") == 60
 		var player_hurt: bool = int(_player.get("hp")) < 100
-		print("TEST moved=", moved, " hp_ok=", hp_ok, " player_hurt=", player_hurt)
-		quit(0 if moved and hp_ok and player_hurt else 1)
+		var fx_cleaned: bool = not is_instance_valid(_impact)
+		print("TEST moved=", moved, " hp_ok=", hp_ok, " player_hurt=", player_hurt, " fx_cleaned=", fx_cleaned)
+		quit(0 if moved and hp_ok and player_hurt and fx_cleaned else 1)
 		return false
 	return false

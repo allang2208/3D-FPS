@@ -11,10 +11,12 @@ var _ammo_label: Label
 var _kill_label: Label
 var _hitmarker: Label
 var _death_label: Label
+var _status_label: Label
 var _dmgflash: ColorRect
 var _player_dead := false
 var _hitmark_t := 0.0
 var _dmgflash_t := 0.0
+var _status_t := 0.0
 var _kills := 0
 
 func _ready() -> void:
@@ -30,6 +32,8 @@ func _process(delta: float) -> void:
 	_hitmarker.visible = _hitmark_t > 0.0
 	_dmgflash_t = maxf(0.0, _dmgflash_t - delta)
 	_dmgflash.color.a = 0.25 * (_dmgflash_t / 0.18)
+	_status_t = maxf(0.0, _status_t - delta)
+	_status_label.visible = _status_t > 0.0
 	if _player_dead and Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
 
@@ -135,6 +139,8 @@ func _build_player() -> void:
 	gun.set_script(load("res://scripts/gun.gd"))
 	gun.shot.connect(_on_ammo)
 	gun.reloaded.connect(_on_ammo)
+	gun.reloading.connect(_on_reloading)
+	gun.empty.connect(_on_empty)
 	gun.hit.connect(_on_hit)
 	cam.add_child(gun)
 	_gun = gun
@@ -151,6 +157,11 @@ func _build_hud() -> void:
 	_ammo_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	_ammo_label.position = Vector2(-170, -42)
 	_ammo_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_status_label = _make_label(layer, "", Vector2.ZERO, 16, Color(0.98, 0.75, 0.4))
+	_status_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	_status_label.position = Vector2(-170, -68)
+	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_status_label.visible = false
 	_hitmarker = _make_label(layer, "✕", Vector2.ZERO, 30, Color(0.98, 0.98, 0.95))
 	_hitmarker.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	_hitmarker.grow_horizontal = Control.GROW_DIRECTION_BOTH
@@ -232,6 +243,17 @@ func _on_ammo(ammo: int, reserve_left: int) -> void:
 
 func _on_hit() -> void:
 	_hitmark_t = 0.12
+
+func _on_reloading() -> void:
+	_status_label.text = "换弹中…"
+	_status_t = 1.5
+
+func _on_empty() -> void:
+	_status_label.text = "没子弹 · 按 R 换弹"
+	_status_t = 1.2
+
+func _on_reloaded(_ammo: int, _reserve: int) -> void:
+	_status_t = 0.0
 
 func _on_player_damaged(hp: int) -> void:
 	_hp_label.text = "生命: %d" % hp
