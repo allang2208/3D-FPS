@@ -153,6 +153,7 @@ func _build_hud() -> void:
 	bar.set_script(load("res://ui/status_bar.gd"))
 	add_child(bar)
 	_status_bar = bar
+	_status_bar.set_weapon_name("AK-74")
 	_build_backpack_hud(bar)
 
 ## 背包栏迁移：底部快捷栏（1~4）+ Tab/B 背包面板
