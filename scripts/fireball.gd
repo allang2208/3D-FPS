@@ -266,7 +266,11 @@ func _hover_age(delta: float) -> void:
 		queue_free()
 		return
 	# 左手握持位：相机前下方偏左（与枪械握持位镜像），轻微上下浮动
-	var cam := _caster.get_node_or_null("Camera3D") as Camera3D
+	var cam: Camera3D = null
+	for c in _caster.get_children():
+		if c is Camera3D:
+			cam = c
+			break
 	if cam != null:
 		var b := cam.global_transform.basis
 		var hold := cam.global_position + b * Vector3(-0.42, -0.24, -0.85)

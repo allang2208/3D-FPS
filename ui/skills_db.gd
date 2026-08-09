@@ -54,10 +54,25 @@ func effect(id: String, level := 1) -> Dictionary:
 		"fly_speed_m": float(f.get("flySpeed", 0.0)) * 0.014,
 		"max_range_m": float(f.get("maxRange", 0.0)) * 0.014,
 		"duration_s": float(f.get("duration", 0.0)),
+		# 冰锥：多投射物数量
+		"spike_count": int(_eval(f.get("spikeCount", "1"), level)),
+		# 闪电：锁定/传导
+		"aim_radius_m": _eval(f.get("aimRadius", "0"), level) * 0.014,
+		"chain_range_m": _eval(f.get("chainRange", "0"), level) * 0.014,
+		"chain_targets": int(_eval(f.get("chainTargets", "1"), level)),
+		"chain_decay": float(f.get("chainDecay", 0.0)),
+		"stun_ms": _eval(f.get("stunMs", "0"), level),
+		"electrify_stacks": int(_eval(f.get("electrifyStacks", "1"), level)),
+		"electrify_duration_ms": _eval(f.get("electrifyDurationMs", "0"), level),
+		"fade_ms": float(f.get("fadeMs", 0.0)),
+		"segments": int(f.get("segments", 10)),
+		"jitter": float(f.get("jitter", 0.09)),
 	}
 	return out
 
-func _eval(formula: String, level: int) -> float:
+func _eval(formula, level: int) -> float:
+	if formula is int or formula is float:
+		return float(formula)
 	var expr := String(formula).replace("level", str(level))
 	var total := 0.0
 	for term in expr.split("+"):

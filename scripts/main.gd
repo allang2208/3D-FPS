@@ -5,6 +5,8 @@ extends Node3D
 const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"  # 骨架烘焙源（tools/bake_wolf_rig.gd）
 const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物：18骨骼+蒙皮黑狼
 const FireballScript := preload("res://scripts/fireball.gd")
+const IceSpikeScript := preload("res://scripts/ice_spike.gd")
+const LightningScript := preload("res://scripts/lightning.gd")
 
 var _player: Node3D
 var _gun: Node3D
@@ -14,7 +16,9 @@ var _backpack
 var _equipment
 var _player_status
 var _skillbar
+var _skills_db
 var _hover_fireball: Node3D
+var _hover_ice_spike: Node3D
 var _player_dead := false
 var _kills := 0
 
@@ -166,8 +170,9 @@ func _build_backpack_hud(parent: Node) -> void:
 	_equipment = load("res://ui/equipment.gd").new(_backpack)
 	_player_status = load("res://ui/player_status.gd").new()
 	_skillbar = load("res://ui/skillbar.gd").new()
-	# 技能库：先迁火球（Q 默认绑定），defs 补 skillbar 需要的 cooldown_s/mp_cost/tier
+	# 技能库：火球 Q / 冰锥 E / 闪电 X，defs 补 skillbar 需要的 cooldown_s/mp_cost/tier
 	var skills_db = load("res://ui/skills_db.gd").new()
+	_skills_db = skills_db
 	var sb_skills := {}
 	if skills_db.has_skill("fireball"):
 		var fb: Dictionary = skills_db.get_def("fireball").duplicate(true)
@@ -177,8 +182,25 @@ func _build_backpack_hud(parent: Node) -> void:
 		fb["tier"] = 1
 		fb["two_stage"] = true  # 原版火球：凝聚绕身 → 第二次投掷
 		sb_skills["fireball"] = fb
+	if skills_db.has_skill("iceSpike"):
+		var ic: Dictionary = skills_db.get_def("iceSpike").duplicate(true)
+		var ice_eff: Dictionary = skills_db.effect("iceSpike", _player_status.level)
+		ic["cooldown_s"] = ice_eff.cooldown_s
+		ic["mp_cost"] = ice_eff.mp_cost
+		ic["tier"] = 1
+		ic["two_stage"] = true  # 原版冰锥：凝聚环绕 → 第二次齐射
+		sb_skills["iceSpike"] = ic
+	if skills_db.has_skill("lightningStrike"):
+		var ls: Dictionary = skills_db.get_def("lightningStrike").duplicate(true)
+		var ls_eff: Dictionary = skills_db.effect("lightningStrike", _player_status.level)
+		ls["cooldown_s"] = ls_eff.cooldown_s
+		ls["mp_cost"] = ls_eff.mp_cost
+		ls["tier"] = 1
+		sb_skills["lightningStrike"] = ls
 	_skillbar.setup(sb_skills)
 	_skillbar.assign(0, "fireball")
+	_skillbar.assign(1, "iceSpike")
+	_skillbar.assign(2, "lightningStrike")
 	_backpack.add_item("rusty_sword", 1)
 	_backpack.add_item("g18_pistol", 1)
 	_backpack.add_item("small_shield", 1)
@@ -196,11 +218,21 @@ func _build_backpack_hud(parent: Node) -> void:
 	hud.setup(_backpack, _equipment, _player_status, _skillbar)
 	_backpack_hud = hud
 
-## 技能触发（火球二段式，原版流程）：第一次凝聚绕身、第二次朝相机方向投掷
+## 技能触发分发（火球/冰锥二段式 + 闪电单段）
 func _on_skill_triggered(skill_id: String, phase: String) -> void:
-	if skill_id != "fireball" or _player == null:
-		_flash_skill_missing(skill_id)
+	if _player == null:
 		return
+	match skill_id:
+		"fireball":
+			_on_fireball_trigger(phase)
+		"iceSpike":
+			_on_ice_spike_trigger(phase)
+		"lightningStrike":
+			_on_lightning_trigger()
+		_:
+			_flash_skill_missing(skill_id)
+
+func _on_fireball_trigger(phase: String) -> void:
 	if phase == "launch":
 		if _hover_fireball != null and is_instance_valid(_hover_fireball):
 			var cam := _player.get_node_or_null("Camera3D") as Camera3D
@@ -217,6 +249,38 @@ func _on_fireball_consumed() -> void:
 	_hover_fireball = null
 	if _skillbar != null:
 		_skillbar.consume_active("fireball")
+
+## 冰锥二段式：第一次凝聚 N 颗环绕，第二次齐射
+func _on_ice_spike_trigger(phase: String) -> void:
+	if phase == "launch":
+		if _hover_ice_spike != null and is_instance_valid(_hover_ice_spike):
+			var cam := _player.get_node_or_null("Camera3D") as Camera3D
+			if cam != null:
+				_hover_ice_spike.launch(-cam.global_transform.basis.z)
+		return
+	var eff: Dictionary = _skills_db.effect("iceSpike", _player_status.level)
+	_hover_ice_spike = IceSpikeScript.spawn_hover(get_tree().current_scene, _player,
+		_player_status.level, _player_status.matk(), _player_status.intt, int(eff.spike_count))
+	if _hover_ice_spike != null:
+		_hover_ice_spike.consumed.connect(_on_ice_spike_consumed)
+
+func _on_ice_spike_consumed() -> void:
+	_hover_ice_spike = null
+	if _skillbar != null:
+		_skillbar.consume_active("iceSpike")
+
+## 闪电单段：锁定 + 传导；失败回滚 MP/冷却（旧版"无目标不消耗"语义）
+func _on_lightning_trigger() -> void:
+	var eff: Dictionary = _skills_db.effect("lightningStrike", _player_status.level)
+	var ok: bool = LightningScript.cast(get_tree().current_scene, _player,
+		_player_status.level, _player_status.matk(), _player_status.intt, eff)
+	if ok:
+		return
+	_player_status.set_mp(_player_status.mp + int(eff.mp_cost))
+	if _skillbar != null:
+		_skillbar.set_cooldown("lightningStrike", 0.0)
+	if _backpack_hud != null and _backpack_hud.has_method("flash_status"):
+		_backpack_hud.flash_status("闪电：范围内无目标！")
 
 func _flash_skill_missing(skill_id: String) -> void:
 	if _backpack_hud != null and _backpack_hud.has_method("flash_status"):
