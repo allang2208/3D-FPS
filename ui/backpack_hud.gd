@@ -752,7 +752,7 @@ func _build_panel() -> void:
 	_count_label = _make_label(title_row, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
 	_count_label.add_theme_font_override("font", _font_section)
 	var divider := HSeparator.new()
-	divider.modulate = Style.COLOR_BAR_BORDER
+	divider.modulate = Style.COLOR_PANEL_BORDER
 	vbox.add_child(divider)
 	var columns := HBoxContainer.new()
 	columns.add_theme_constant_override("separation", 12)
@@ -927,7 +927,7 @@ func _build_status_label() -> void:
 	_status_label.visible = false
 
 func _build_notice() -> void:
-	_notice_label = _make_label(self, "", 24, Style.COLOR_NOTICE, Vector2.ZERO)
+	_notice_label = _make_label(self, "", 36, Style.COLOR_NOTICE, Vector2.ZERO)
 	_notice_label.add_theme_font_override("font", _font_title)
 	_notice_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_notice_label.offset_top = 210
