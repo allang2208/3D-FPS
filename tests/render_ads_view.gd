@@ -19,7 +19,9 @@ func _process(_delta: float) -> bool:
 		gun.set_script(load("res://scripts/gun.gd"))
 		var model_path := OS.get_environment("GUN_TEST_MODEL")
 		if model_path != "":
-			gun.set("model_scene", load(model_path))
+			var wd := WeaponData.new()
+			wd.model_scene = load(model_path)
+			gun.set("data", wd)
 		cam.add_child(gun)
 		_gun = gun
 	if _frames == 12:

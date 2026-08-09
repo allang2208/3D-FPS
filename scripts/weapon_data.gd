@@ -5,7 +5,7 @@ extends Resource
 ## 脚本内默认值 = AKM 基准（与 weapon_data/akm.tres 一致），data 缺失时兜底可用。
 
 @export var weapon_name := "AK-74"
-@export var model_scene: PackedScene
+@export var model_scene: Resource  # PackedScene（GLB）或 Mesh（体素 OBJ/PLY）
 
 @export_group("开火")
 @export var fire_interval := 0.13
