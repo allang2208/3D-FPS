@@ -80,6 +80,7 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 	cyl.bottom_radius = 0.035
 	cyl.height = 0.3
 	cyl.radial_segments = 6
+	mi.rotation_degrees = Vector3(-90, 0, 0)  # 圆柱横置（沿 Z），尖端朝 -Z（look_at 方向）
 	var mat := StandardMaterial3D.new()
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -97,6 +98,7 @@ func _make_spike(i: int, angle: float, rx: float, ry: float, elev: float) -> Dic
 		spike_tex.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 		spike_tex.pixel_size = 0.0025  # 128px → 0.32m 基础尺寸
 		spike_tex.scale = Vector3(1.0, 1.0, 1.0)
+		spike_tex.rotation_degrees = Vector3(0, 0, 90)  # 竖直贴图横置（水平悬浮）
 		var tm := StandardMaterial3D.new()
 		tm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 		tm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
@@ -210,7 +212,9 @@ func _hover_update(delta: float) -> void:
 		# 原版 sway：每颗错相位上下浮动，避免呆板
 		pos.y += sin(_hover_t * 2.0 + float(s.i) * 0.7) * 0.04
 		s.node.global_position = pos
-		s.node.look_at(center + Vector3(0, s.elev * 0.7, 0), Vector3.UP)
+		# 水平悬浮：尖端沿环绕切线（待发射姿态），而非竖直朝中心
+		var tangent := Vector3(-sin(a), 0.0, cos(a))
+		s.node.look_at(pos + tangent, Vector3.UP)
 
 func _fly_update(delta: float) -> void:
 	_hit_sound_cd = maxf(0.0, _hit_sound_cd - delta)
