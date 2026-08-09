@@ -83,10 +83,14 @@
 4. 跑门禁：`tests/test_ui_tokens.gd`（Token 对齐 + 无硬编码）+ 相关组件冒烟。
 5. `ui:` 提交；`git status` 确认不覆盖对方未提交文件。
 
-### 换肤 = 改一处
+### 换肤 = 改 palette.json（已落地，方案 A）
 
-`ui/style.gd` 是唯一色板入口：旧 2D 暗金 = 当前色板；v2 全境封锁色板已预置为
-`V2_*` 常量（未启用）。拍板后整体替换色板，HUD/背包代码零改动。
+色值真源 = `ui/palette.json`（`ui/style.gd` 启动时自动读取并覆盖，组件引用方式零改动）。
+不需要写代码调色：
+- 打开 `tools/palette-editor.html`（网页调色面板）→ 加载 palette.json → 调色 → 导出覆盖原文件 → 重开游戏。
+- 或直接编辑 palette.json 里的 hex 值（`#RRGGBB` / `#RRGGBBAA`）。
+- 新增/同步色值：跑 `tools/gen-palette.ps1` 重新生成（从 style.gd 提取）。
+- 改到 DESIGN.md 关键 Token 时同步更新 DESIGN.md，否则 `test_ui_tokens` 报不一致。
 
 ### 自动化门禁（已落地）
 
@@ -97,7 +101,8 @@
 
 ### 新颜色进组件的唯一路径（禁止跳步）
 
-`DESIGN.md` 加色值 → `style.gd` 加常量 → 组件引用。任何一步缺失都算硬编码。
+`DESIGN.md` 加色值 → `ui/palette.json`（或 gen-palette.ps1 重新生成）→ `style.gd` 默认值兜底 → 组件引用。
+任何一步缺失都算硬编码。
 
 ## 10. shadcn 模式落地（本机已部署）
 

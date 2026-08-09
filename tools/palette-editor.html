@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>无尽轮回 · UI 调色面板</title>
+<style>
+  :root {
+    --bg: #0F0F10;
+    --panel: #1A1A1C;
+    --panel2: #222225;
+    --border: #3A3A3C;
+    --gold: #D4AF37;
+    --text: #FFFFFF;
+    --dim: #B5B5B5;
+    --danger: #D95B4A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Source Han Sans SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    padding: 24px;
+  }
+  header { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
+  h1 span { color: var(--gold); }
+  .actions { display: flex; gap: 10px; margin-left: auto; }
+  button {
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 8px 16px; font-size: 14px; cursor: pointer; transition: all .12s ease-out;
+  }
+  button:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+  button.primary { background: var(--gold); color: #000; border-color: var(--gold); font-weight: 600; }
+  .hint { color: var(--dim); font-size: 13px; line-height: 1.7; margin-bottom: 16px; }
+  .hint code { background: var(--panel); border: 1px solid var(--border); padding: 1px 6px; border-radius: 4px; color: var(--gold); }
+  section { margin-bottom: 22px; }
+  .sec-title {
+    font-size: 14px; font-weight: 700; color: var(--gold);
+    border-bottom: 1px solid var(--border); padding-bottom: 6px; margin-bottom: 10px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px; }
+  .row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px;
+  }
+  .swatch {
+    width: 44px; height: 30px; border-radius: 4px; flex: none;
+    border: 1px solid rgba(255,255,255,.18);
+    background-image: linear-gradient(45deg, #333 25%, transparent 25%, transparent 75%, #333 75%),
+                      linear-gradient(45deg, #333 25%, transparent 25%, transparent 75%, #333 75%);
+    background-size: 12px 12px; background-position: 0 0, 6px 6px;
+  }
+  .swatch > div { width: 100%; height: 100%; border-radius: 3px; }
+  .meta { flex: 1; min-width: 0; }
+  .name { font-size: 12px; font-weight: 600; word-break: break-all; }
+  .hex-input {
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 4px;
+    width: 104px; padding: 4px 6px; font-size: 12px; font-family: Consolas, monospace;
+  }
+  .hex-input:focus { outline: 1px solid var(--gold); }
+  .color-picker { width: 40px; height: 28px; border: 1px solid var(--border); border-radius: 4px; background: none; cursor: pointer; }
+  .alpha-wrap { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--dim); }
+  .alpha-wrap input[type=range] { width: 70px; accent-color: var(--gold); }
+  .alpha-wrap .val { width: 34px; text-align: right; font-family: Consolas, monospace; }
+  footer { margin-top: 20px; color: var(--dim); font-size: 12px; line-height: 1.8; border-top: 1px solid var(--border); padding-top: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>无尽轮回 · <span>UI 调色面板</span></h1>
+  <div class="actions">
+    <button onclick="document.getElementById('file').click()">加载 palette.json</button>
+    <button class="primary" onclick="exportJson()">导出 palette.json</button>
+  </div>
+</header>
+<input type="file" id="file" accept=".json" style="display:none" onchange="loadFile(event)">
+
+<div class="hint">
+  1. 点击「加载 palette.json」选择 <code>E:\3d\3-dfps\ui\palette.json</code>　
+  2. 拖动色块/输入 hex 调色　
+  3. 导出文件覆盖原 <code>ui\palette.json</code>　
+  4. 重开游戏生效（Godot 启动时自动读取）
+</div>
+
+<div id="groups"></div>
+
+<footer>
+  色值格式：#RRGGBB 或 #RRGGBBAA（AA 为透明度）。<br>
+  THEME_* = 金白深灰定稿板（DESIGN.md）；COLOR_* = 旧 2D 暗金板（当前生效）；RARITY_* = 稀有度色。
+  修改色值后如涉及 DESIGN.md 关键 Token，记得同步更新 DESIGN.md，否则 <code>test_ui_tokens</code> 会提示不一致。
+</footer>
+
+<script>
+let state = null;
+let currentAlpha = {}; // name -> alpha (0-1)
+
+function loadFile(ev) {
+  const f = ev.target.files[0];
+  if (!f) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      if (!data.colors) throw new Error("缺少 colors 字段");
+      state = data;
+      currentAlpha = {};
+      render();
+    } catch (e) {
+      alert("解析失败：" + e.message);
+    }
+  };
+  reader.readAsText(f, "utf-8");
+}
+
+function normalizeHex(v) {
+  let s = String(v).trim().replace(/^#/, "").toUpperCase();
+  if (s.length === 3) s = s.split("").map(c => c + c).join("");
+  if (s.length !== 6 && s.length !== 8) return null;
+  return "#" + s;
+}
+
+function hexToRgb(hex) {
+  const s = normalizeHex(hex);
+  if (!s) return null;
+  const a = s.length === 9 ? parseInt(s.slice(7, 9), 16) / 255 : 1;
+  return { r: parseInt(s.slice(1, 3), 16), g: parseInt(s.slice(3, 5), 16), b: parseInt(s.slice(5, 7), 16), a };
+}
+
+function rgbToHex(r, g, b, a) {
+  const h = "#" + [r, g, b].map(x => x.toString(16).padStart(2, "0").toUpperCase()).join("");
+  return a >= 0.999 ? h : h + Math.round(a * 255).toString(16).padStart(2, "0").toUpperCase();
+}
+
+function setColor(name, hex, alpha) {
+  const rgb = hexToRgb(hex);
+  if (!rgb) return;
+  const a = alpha === undefined ? rgb.a : alpha;
+  const next = rgbToHex(rgb.r, rgb.g, rgb.b, a);
+  const groups = ["colors", "rarity_colors", "rarity_badge_colors"];
+  for (const g of groups) {
+    if (state[g] && name in state[g]) { state[g][name] = next; break; }
+  }
+  const el = document.querySelector(`[data-name="${CSS.escape(name)}"]`);
+  if (el) {
+    el.querySelector(".swatch > div").style.background = toCss(next);
+    el.querySelector(".hex-input").value = next;
+  }
+}
+
+function toCss(hex) {
+  const rgb = hexToRgb(hex);
+  return rgb ? `rgba(${rgb.r},${rgb.g},${rgb.b},${rgb.a})` : hex;
+}
+
+function groupTitle(key) {
+  if (key === "colors") return "色板（COLOR_* 旧暗金 / THEME_* 金白深灰）";
+  if (key === "rarity_colors") return "稀有度色（RARITY_COLORS）";
+  if (key === "rarity_badge_colors") return "稀有度徽章底色（RARITY_BADGE_COLORS）";
+  return key;
+}
+
+function render() {
+  const root = document.getElementById("groups");
+  root.innerHTML = "";
+  const groups = ["colors", "rarity_colors", "rarity_badge_colors"];
+  for (const g of groups) {
+    const dict = state[g];
+    if (!dict) continue;
+    const keys = Object.keys(dict).sort();
+    const sec = document.createElement("section");
+    sec.innerHTML = `<div class="sec-title">${groupTitle(g)}（${keys.length}）</div>`;
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    for (const name of keys) {
+      const hex = normalizeHex(dict[name]) || "#FFFFFF";
+      const rgb = hexToRgb(hex);
+      const alpha = rgb.a;
+      const row = document.createElement("div");
+      row.className = "row";
+      row.dataset.name = name;
+      const rgba = toCss(hex);
+      row.innerHTML = `
+        <div class="swatch"><div style="background:${rgba}"></div></div>
+        <div class="meta">
+          <div class="name" title="${name}">${name}</div>
+          <div class="alpha-wrap">
+            <span>α</span>
+            <input type="range" min="0" max="100" value="${Math.round(alpha * 100)}" oninput="setAlpha('${name}', this.value)">
+            <span class="val">${Math.round(alpha * 100)}%</span>
+          </div>
+        </div>
+        <input type="color" class="color-picker" value="${hex.slice(0, 7)}" oninput="setColor('${name}', this.value + (this.value.length === 7 ? hexAlpha('${name}') : ''))">
+        <input class="hex-input" value="${hex}" spellcheck="false" onchange="setColor('${name}', this.value)">
+      `;
+      grid.appendChild(row);
+    }
+    sec.appendChild(grid);
+    root.appendChild(sec);
+  }
+}
+
+function hexAlpha(name) {
+  const cur = currentHex(name);
+  return cur.length === 8 ? cur.slice(7, 9) : "FF";
+}
+
+function currentHex(name) {
+  const el = document.querySelector(`[data-name="${CSS.escape(name)}"] .hex-input`);
+  return el ? el.value : "#FFFFFF";
+}
+
+function setAlpha(name, v) {
+  const a = Number(v) / 100;
+  const cur = normalizeHex(currentHex(name)) || "#FFFFFF";
+  const rgb = hexToRgb(cur);
+  if (!rgb) return;
+  const next = rgbToHex(rgb.r, rgb.g, rgb.b, a);
+  const el = document.querySelector(`[data-name="${CSS.escape(name)}"]`);
+  if (el) {
+    el.querySelector(".swatch > div").style.background = toCss(next);
+    el.querySelector(".hex-input").value = next;
+    el.querySelector(".val").textContent = Math.round(a * 100) + "%";
+  }
+  setColor(name, next);
+}
+
+function exportJson() {
+  if (!state) { alert("请先加载 palette.json"); return; }
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "palette.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
