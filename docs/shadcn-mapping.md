@@ -107,6 +107,10 @@ shadcn 官方定义：**"Clean, neutral, and familiar"**（干净、中性、熟
 | hover-card | 物品悬浮卡片（现 tooltip 已覆盖） | ⛔ 等效 |
 | navigation-menu | 主菜单 | ✅ 已落地（ui/navigation_menu.gd） |
 
+> **2026-08-09 背包/装备 UI 升级**：`backpack_hud.gd` 全面走 Style token（技能槽色并入 palette.json、
+> 遮罩/冷却动画色用 COLOR_OVERLAY、特殊攻击位去紫色硬编码），圆角按 Vega 分层（槽 6px / 面板 12px），
+> 已纳入 `test_ui_tokens` 硬编码扫描；截图验收通过。
+
 ## 5. 翻译工作流（每个组件固定六步）
 
 1. 查本表：shadcn 组件对应的 Godot 目标、硬/软指标。

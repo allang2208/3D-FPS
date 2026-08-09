@@ -40,10 +40,10 @@
       "name": "backpack_hud",
       "type": "panel",
       "path": "ui/backpack_hud.gd",
-      "status": "in_progress",
+      "status": "stable",
       "deps": ["style", "backpack", "equipment", "item_tooltip"],
       "interfaces": ["signal player_healed(hp)", "setup(bp, eq)"],
-      "tests": ["tests/test_backpack.gd"]
+      "tests": ["tests/test_backpack.gd", "tests/test_ui_tokens.gd"]
     },
     {
       "name": "backpack",

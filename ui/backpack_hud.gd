@@ -27,9 +27,6 @@ const HOTBAR_SIZE := 4
 const SKILL_SIZE := 4
 const SKILL_KEY_HINTS := ["Q", "E", "X", "C"]
 const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
-# 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
-const COLOR_SKILL_SLOT_BG := Color(0.2392, 0.2039, 0.1686)
-const COLOR_SKILL_SLOT_BORDER := Color(0.4196, 0.3647, 0.3098)
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
 const CELL_SLOT := 60
@@ -113,18 +110,18 @@ func _ready() -> void:
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(600)
 	_font_value = Style.make_font(600)
-	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
-	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
-	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
-	_s_skill_empty = Style.make_style(COLOR_SKILL_SLOT_BG, COLOR_SKILL_SLOT_BORDER, 8, 2)
-	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
-	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
-	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
-	_s_cell_drag_over = Style.make_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, 8, 2)
-	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, 8, 2)
-	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, 8, 2)
-	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
-	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, 8, 2)
+	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_SM, 1)
+	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
+	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
+	_s_skill_empty = Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.COLOR_SKILL_SLOT_BORDER, Style.RADIUS_SM, 1)
+	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_SM, 1)
+	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
+	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
+	_s_cell_drag_over = Style.make_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, Style.RADIUS_SM, 1)
+	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, Style.RADIUS_SM, 1)
+	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, Style.RADIUS_SM, 1)
+	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
+	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, Style.RADIUS_SM, 1)
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -323,6 +320,7 @@ func on_skill_click(_key: String) -> void:
 func use_skill_slot(index: int) -> void:
 	if _panel_open or index < 0 or index >= SKILL_SIZE:
 		return
+	_pulse_skill_slot(index)
 	if skillbar == null:
 		_flash_status("技能未移植")
 		return
@@ -332,6 +330,16 @@ func use_skill_slot(index: int) -> void:
 		var id := skillbar.resolve(index)
 		if skillbar.is_hold(id):
 			_flash_status("长按技能（未移植）")
+
+## 技能键按下反馈：槽位脉冲（无技能时也让玩家看到按键生效）
+func _pulse_skill_slot(index: int) -> void:
+	if index < 0 or index >= _skill_slots.size():
+		return
+	var slot: SkillSlot = _skill_slots[index]
+	slot.pivot_offset = Vector2(HOTBAR_SLOT, HOTBAR_SLOT) * 0.5
+	var tw := create_tween()
+	tw.tween_property(slot, "scale", Vector2(1.15, 1.15), 0.08)
+	tw.tween_property(slot, "scale", Vector2.ONE, 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func on_skill_hover(enter: bool, key: String) -> void:
 	for s in _skill_slots:
@@ -386,9 +394,9 @@ func _update_skill_cd(slot: SkillSlot, index: int) -> void:
 	elif prev > 0.0 and remaining <= 0.0:
 		cd.visible = true
 		cd_text.visible = false
-		cd.color = Color(1, 1, 1, 0.85)
+		cd.color = Color(Style.COLOR_WHITE, 0.85)
 		var tw := create_tween()
-		tw.tween_property(cd, "color", Color(0, 0, 0, 0.55), 0.18)
+		tw.tween_property(cd, "color", Style.COLOR_OVERLAY, 0.18)
 	else:
 		cd.visible = false
 		cd_text.visible = false
@@ -484,9 +492,9 @@ func _update_tab_styles() -> void:
 
 func _tab_style(active: bool) -> StyleBoxFlat:
 	if active:
-		var sb := Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 6, 2)
+		var sb := Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
 		return sb
-	return Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_PANEL_BORDER, 6, 2)
+	return Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_PANEL_BORDER, Style.RADIUS_SM, 1)
 
 ## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
 func _apply_panel_slide(t: float) -> void:
@@ -591,9 +599,9 @@ func _shake_hotbar(index: int) -> void:
 
 func _flash_cd_end(slot: HotbarSlot) -> void:
 	var overlay := slot.get_node("Content/CD") as ColorRect
-	overlay.color = Color(1, 1, 1, 0.85)
+	overlay.color = Color(Style.COLOR_WHITE, 0.85)
 	var tw := create_tween()
-	tw.tween_property(overlay, "color", Color(0, 0, 0, 0.55), 0.18)
+	tw.tween_property(overlay, "color", Style.COLOR_OVERLAY, 0.18)
 
 ## ---------- 悬停 / 拖拽高亮 ----------
 
@@ -794,7 +802,7 @@ func _update_cooldown_overlays() -> void:
 			var pct := clampf(remaining / total, 0.0, 1.0)
 			overlay.visible = true
 			overlay.offset_top = -HOTBAR_SLOT * pct
-			overlay.color = Color(0, 0, 0, 0.55)
+			overlay.color = Style.COLOR_OVERLAY
 		elif prev > 0.0 and remaining <= 0.0:
 			overlay.visible = true
 			_flash_cd_end(slot)
@@ -808,7 +816,7 @@ func _build_hotbar() -> void:
 	var bar := PanelContainer.new()
 	bar.name = "Hotbar"
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bar.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_BAR_BORDER, 12, 2))
+	bar.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_LG, 1))
 	bar.add_theme_constant_override("margin_left", BAR_PAD)
 	bar.add_theme_constant_override("margin_right", BAR_PAD)
 	bar.add_theme_constant_override("margin_top", BAR_PAD)
@@ -858,7 +866,7 @@ func _build_hotbar() -> void:
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
-		cd.color = Color(0, 0, 0, 0.55)
+		cd.color = Style.COLOR_OVERLAY
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cd.anchor_left = 0.0
 		cd.anchor_right = 1.0
@@ -874,7 +882,7 @@ func _build_hotbar() -> void:
 		cd_text.visible = false
 		var dim := ColorRect.new()
 		dim.name = "Dim"
-		dim.color = Color(0.2, 0.2, 0.2, 0.55)
+		dim.color = Color(Style.THEME_BG, 0.55)
 		dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		dim.visible = false
@@ -887,7 +895,8 @@ func _build_hotbar() -> void:
 	sp.key = "右击"
 	sp.index = -1
 	sp.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
-	sp.add_theme_stylebox_override("panel", Style.make_style(Color(0.231, 0.208, 0.29), Color(0.353, 0.353, 0.541), 8, 2))
+	sp.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.THEME_MP_BLUE, Style.RADIUS_SM, 1))
 	sp.visible = false
 	var sp_content := Control.new()
 	sp_content.name = "Content"
@@ -947,7 +956,7 @@ func _build_hotbar() -> void:
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
-		cd.color = Color(0, 0, 0, 0.55)
+		cd.color = Style.COLOR_OVERLAY
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cd.anchor_left = 0.0
 		cd.anchor_right = 1.0
@@ -992,10 +1001,10 @@ func _build_panel() -> void:
 	_panel = PanelContainer.new()
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	var panel_sb := Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 12, 2)
+	var panel_sb := Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, Style.RADIUS_LG, 1)
 	panel_sb.set_corner_radius_all(0)
-	panel_sb.set_corner_radius(CORNER_TOP_LEFT, 12)
-	panel_sb.set_corner_radius(CORNER_BOTTOM_LEFT, 12)
+	panel_sb.set_corner_radius(CORNER_TOP_LEFT, Style.RADIUS_LG)
+	panel_sb.set_corner_radius(CORNER_BOTTOM_LEFT, Style.RADIUS_LG)
 	panel_sb.border_width_left = 3
 	_panel.add_theme_stylebox_override("panel", panel_sb)
 	_panel_root.add_child(_panel)
@@ -1386,7 +1395,7 @@ func _clear_children(box: Node) -> void:
 func make_slot_preview(item: Dictionary) -> Control:
 	var p := PanelContainer.new()
 	p.custom_minimum_size = Vector2(44, 44)
-	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_ITEM_BORDER, 6, 2))
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1))
 	var tr := TextureRect.new()
 	tr.texture = _icon_tex(String(item.get("icon", "")))
 	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -1397,7 +1406,7 @@ func make_slot_preview(item: Dictionary) -> Control:
 func make_skill_preview(skill_id: String) -> Control:
 	var p := PanelContainer.new()
 	p.custom_minimum_size = Vector2(44, 44)
-	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, COLOR_SKILL_SLOT_BORDER, 6, 2))
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_SKILL_SLOT_BORDER, Style.RADIUS_SM, 1))
 	var def: Dictionary = skillbar.skills.get(skill_id, {})
 	var tex := _icon_tex(String(def.get("icon", "")))
 	if tex != null:

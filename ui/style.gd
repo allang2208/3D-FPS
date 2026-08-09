@@ -159,7 +159,11 @@ static var COLOR_KEY_HINT: Color = Color(1, 1, 1) # #ffffff（旧版快捷栏键
 static var COLOR_ZERO_TEXT: Color = Color(0.95, 0.35, 0.32)
 static var COLOR_RARITY_TEXT: Color = Color(0.1, 0.1, 0.1)
 static var COLOR_EQUIP_LOCK_OVERLAY: Color = Color(0.12, 0.12, 0.12, 0.62)
-static var COLOR_DRAG_PREVIEW_BG: Color = Color(0.2, 0.18, 0.15, 0.92) # ---------- 浮窗（白底，复刻旧版 tt-main） ----------
+static var COLOR_DRAG_PREVIEW_BG: Color = Color(0.2, 0.18, 0.15, 0.92)
+static var COLOR_SKILL_SLOT_BG: Color = Color(0.2392, 0.2039, 0.1686) # #3d342b 技能槽（旧版 quick-slot.skill）
+static var COLOR_SKILL_SLOT_BORDER: Color = Color(0.4196, 0.3647, 0.3098) # #6b5d4f
+
+# ---------- 浮窗（白底，复刻旧版 tt-main） ----------
 static var COLOR_TT_BG: Color = Color(0.96, 0.96, 0.96) # 旧版白底浮窗渐变近似
 static var COLOR_TT_BORDER: Color = Color(0, 0, 0, 0.2) # rgba(0,0,0,0.2)
 static var COLOR_TT_NAME: Color = Color(0.16, 0.145, 0.125)
@@ -319,6 +323,8 @@ static func _apply_colors(p: Dictionary) -> void:
 	if p.has("COLOR_DRAG_OVER_BG"): COLOR_DRAG_OVER_BG = _hex_to_color(p.COLOR_DRAG_OVER_BG)
 	if p.has("COLOR_DRAG_OVER_BORDER"): COLOR_DRAG_OVER_BORDER = _hex_to_color(p.COLOR_DRAG_OVER_BORDER)
 	if p.has("COLOR_DRAG_PREVIEW_BG"): COLOR_DRAG_PREVIEW_BG = _hex_to_color(p.COLOR_DRAG_PREVIEW_BG)
+	if p.has("COLOR_SKILL_SLOT_BG"): COLOR_SKILL_SLOT_BG = _hex_to_color(p.COLOR_SKILL_SLOT_BG)
+	if p.has("COLOR_SKILL_SLOT_BORDER"): COLOR_SKILL_SLOT_BORDER = _hex_to_color(p.COLOR_SKILL_SLOT_BORDER)
 	if p.has("COLOR_EQUIP_EQUIPPED_BG"): COLOR_EQUIP_EQUIPPED_BG = _hex_to_color(p.COLOR_EQUIP_EQUIPPED_BG)
 	if p.has("COLOR_EQUIP_EQUIPPED_BORDER"): COLOR_EQUIP_EQUIPPED_BORDER = _hex_to_color(p.COLOR_EQUIP_EQUIPPED_BORDER)
 	if p.has("COLOR_EQUIP_LOCK_OVERLAY"): COLOR_EQUIP_LOCK_OVERLAY = _hex_to_color(p.COLOR_EQUIP_LOCK_OVERLAY)
@@ -402,6 +408,8 @@ static func _apply_theme_preset() -> void:
 	COLOR_HP_BG = Color(THEME_BG, 0.85)
 	COLOR_OVERLAY = Color(0, 0, 0, 0.55)
 	COLOR_DRAG_PREVIEW_BG = Color(THEME_BG, 0.92)
+	COLOR_SKILL_SLOT_BG = THEME_GRAY_MID
+	COLOR_SKILL_SLOT_BORDER = THEME_GOLD
 	# 槽位 / 边框
 	COLOR_BAR_BORDER = THEME_GOLD
 	COLOR_SLOT_BG = THEME_GRAY_MID
