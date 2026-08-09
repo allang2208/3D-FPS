@@ -240,8 +240,8 @@ static var THEME_DIVIDER_ACCENT: Color = Color(0.8314, 0.6863, 0.2157, 0.6) # �
 static func make_font(weight := 400) -> SystemFont:
 	var f := SystemFont.new()
 	if weight <= 400:
-		# 正文：雅黑 Light（更细更轻盈）
-		f.font_names = PackedStringArray(["Microsoft YaHei Light", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC"])
+		# 正文：微软雅黑标准（VS Code 中文回退）
+		f.font_names = PackedStringArray(["Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC"])
 	else:
 		# 标题/加粗：雅黑 / 思源黑体
 		f.font_names = PackedStringArray(["Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", "SimHei"])
