@@ -1,0 +1,43 @@
+# Godot UI 组件注册表（ui/registry.md）
+
+> 借鉴 shadcn/ui 的「注册表 + 组件即代码 + AI 友好」模式，落地到 Godot UI 线：
+> - shadcn `registry:ui` 条目 → 本表的每个组件条目；
+> - shadcn `public/r/index.json` → 配套机器可读版 `ui/registry.json`；
+> - shadcn 组件文档页 → `DESIGN.md`（风格唯一真源）+ 本表（组件接口/依赖/验收）。
+>
+> 本地 shadcn 文档站（部署参考）：`E:\3d\shadcn-ui`，
+> 启动：`powershell -File tools/shadcn-docs.ps1` → http://localhost:4000
+
+## 铁律
+
+1. 新 UI 任务先查本表；能复用绝不新建，新页面 = 拼组件，差异只在布局与内容。
+2. 新组件先登记（本表 + `registry.json`）再实现；改接口先改本表。
+3. 所有组件只消费 `ui/style.gd` 的 Token，禁止裸 `Color(` 硬编码。
+4. 状态：`stable` = 已通过门禁；`in_progress` = 有人正在改，动手前 `git status` 协调。
+
+## 组件清单
+
+| name | type | 文件 | 状态 | 依赖 | 接口 | 验收/测试 |
+|---|---|---|---|---|---|---|
+| style | tokens | ui/style.gd | stable | DESIGN.md（唯一风格真源） | `make_theme()` / `make_font(weight)`；`COLOR_*` 生效色板 / `THEME_*` 金白深灰待拍板启用 | tests/test_ui_tokens.gd |
+| status_bar | hud | ui/status_bar.gd | stable | style | 消费 `player.gd`（damaged/died/hp）与 `gun.gd`（shot/reloaded/reloading/empty/hit/ammo/reserve）稳定信号；`_build()` 代码建 HUD | tests/test_ui_tokens.gd + test_status_bar.gd |
+| item_tooltip | tooltip | ui/item_tooltip.gd | stable | style, item_db | `signal close_requested`；`render(item)` / `is_pinned()` / `set_pinned(v)` | tests/test_ui_tokens.gd |
+| backpack_hud | panel | ui/backpack_hud.gd | in_progress（对方线在改） | style, backpack, equipment, item_tooltip | `signal player_healed(hp)`；`setup(bp, eq)`；Tab/B 开背包、拖拽、右键使用 | tests/test_backpack.gd；硬编码扫描待对方提交后纳入 test_ui_tokens |
+| backpack | data | ui/backpack.gd | stable | item_db | `signal changed / item_used / item_added / bound`；`add_item` / `remove_item` / `swap_items` / `bind_hotbar` / `resolve_hotbar` | tests/test_backpack.gd |
+| equipment | data | ui/equipment.gd | stable | backpack | `signal changed / equipped`；`equip_from_backpack` / `equip_to_slot` / `unequip` / `swap_equip` / `is_locked` | tests/test_equip.gd |
+| item_db | data | ui/item_db.gd | stable | assets（旧版 equipment.json） | `has_item` / `get_def` / `get_all_ids` / `create_instance` | tests/test_ui_tokens.gd |
+
+## 新组件登记模板
+
+```markdown
+| name | type | ui/<name>.gd | draft | style, ... | 接口摘要 | tests/test_<name>.gd |
+```
+
+登记后同步在 `ui/registry.json` 的 `components` 数组加一条；实现完跑门禁通过后把状态改为 `stable`。
+
+## AI 使用提示
+
+- 动手前：读 `DESIGN.md` + 本表 + `ui/style.gd` 的可用 Token。
+- 需要交互/数据：先看 `backpack.gd` / `equipment.gd` / `item_db.gd` 提供的信号与方法，UI 只消费接口。
+- 需要视觉：一律走 `style.gd` Token；新色值路径 = `DESIGN.md` → `style.gd` → 组件。
+- 需要参考成熟交互：打开本地 shadcn 文档站，把按钮/弹窗/拖拽的无障碍交互要求翻译成 Godot 实现。

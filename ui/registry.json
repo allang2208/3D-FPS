@@ -1,0 +1,76 @@
+{
+  "schema": "ui-registry-v1",
+  "updated": "2026-08-09",
+  "reference": "https://ui.shadcn.com/docs (local: E:/3d/shadcn-ui)",
+  "rules": [
+    "新 UI 任务先查本注册表，能复用绝不新建",
+    "新组件先登记再实现，改接口先改 registry.md",
+    "组件只消费 ui/style.gd Token，禁止裸 Color( 硬编码",
+    "状态 stable = 已过门禁；in_progress = 有会话在改，动手前 git status 协调"
+  ],
+  "components": [
+    {
+      "name": "style",
+      "type": "tokens",
+      "path": "ui/style.gd",
+      "status": "stable",
+      "deps": [],
+      "interfaces": ["make_theme()", "make_font(weight)", "COLOR_*", "THEME_*"],
+      "tests": ["tests/test_ui_tokens.gd"]
+    },
+    {
+      "name": "status_bar",
+      "type": "hud",
+      "path": "ui/status_bar.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["consume player.gd/gun.gd stable signals", "_build()"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_status_bar.gd"]
+    },
+    {
+      "name": "item_tooltip",
+      "type": "tooltip",
+      "path": "ui/item_tooltip.gd",
+      "status": "stable",
+      "deps": ["style", "item_db"],
+      "interfaces": ["signal close_requested", "render(item)", "is_pinned()", "set_pinned(v)"],
+      "tests": ["tests/test_ui_tokens.gd"]
+    },
+    {
+      "name": "backpack_hud",
+      "type": "panel",
+      "path": "ui/backpack_hud.gd",
+      "status": "in_progress",
+      "deps": ["style", "backpack", "equipment", "item_tooltip"],
+      "interfaces": ["signal player_healed(hp)", "setup(bp, eq)"],
+      "tests": ["tests/test_backpack.gd"]
+    },
+    {
+      "name": "backpack",
+      "type": "data",
+      "path": "ui/backpack.gd",
+      "status": "stable",
+      "deps": ["item_db"],
+      "interfaces": ["signal changed/item_used/item_added/bound", "add_item", "remove_item", "swap_items", "bind_hotbar", "resolve_hotbar"],
+      "tests": ["tests/test_backpack.gd"]
+    },
+    {
+      "name": "equipment",
+      "type": "data",
+      "path": "ui/equipment.gd",
+      "status": "stable",
+      "deps": ["backpack"],
+      "interfaces": ["signal changed/equipped", "equip_from_backpack", "equip_to_slot", "unequip", "swap_equip", "is_locked"],
+      "tests": ["tests/test_equip.gd"]
+    },
+    {
+      "name": "item_db",
+      "type": "data",
+      "path": "ui/item_db.gd",
+      "status": "stable",
+      "deps": [],
+      "interfaces": ["has_item", "get_def", "get_all_ids", "create_instance"],
+      "tests": ["tests/test_ui_tokens.gd"]
+    }
+  ]
+}

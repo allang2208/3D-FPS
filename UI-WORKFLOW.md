@@ -8,7 +8,7 @@
 
 1. 动手前必读 `DESIGN.md`（风格唯一真源）与 `WORKFLOW.md`（文件所有权/提交纪律）。
 2. 所有 UI 代码只消费 Token（颜色/字号/间距），禁止硬编码。
-3. 新 UI 组件先查同类基准，能复用绝不新建。
+3. 新 UI 任务先查 `ui/registry.md` 组件注册表，能复用绝不新建；新组件先登记再实现。
 4. 风格变更先改 `DESIGN.md` + 情绪板，再改代码；禁止“改着试试”。
 
 ## 1. 定风格（方向）
@@ -78,7 +78,8 @@
 
 1. 读 `DESIGN.md`（风格真源）与 `WORKFLOW.md`（文件所有权）。
 2. 查 `ui/style.gd` 是否有可用 Token；没有 → 先加进 `DESIGN.md` + `style.gd` 再写代码。
-3. 复用组件（`status_bar.gd` / `backpack*.gd` / `item_tooltip.gd`），禁止复制样式。
+3. 查 `ui/registry.md`（+ `registry.json`）复用组件（`status_bar.gd` / `backpack*.gd` / `item_tooltip.gd`），
+   禁止复制样式；新组件先登记再实现。
 4. 跑门禁：`tests/test_ui_tokens.gd`（Token 对齐 + 无硬编码）+ 相关组件冒烟。
 5. `ui:` 提交；`git status` 确认不覆盖对方未提交文件。
 
@@ -97,3 +98,22 @@
 ### 新颜色进组件的唯一路径（禁止跳步）
 
 `DESIGN.md` 加色值 → `style.gd` 加常量 → 组件引用。任何一步缺失都算硬编码。
+
+## 10. shadcn 模式落地（本机已部署）
+
+### 本地 shadcn 文档站
+
+- 部署位置：`E:\3d\shadcn-ui`（官方仓库 `shadcn-ui/ui`，MIT，文档 v4）。
+- 一键启动：`powershell -ExecutionPolicy Bypass -File tools/shadcn-docs.ps1` → http://localhost:4000
+- 局域网（5080 副机等）访问：加 `-HostName 0.0.0.0`；停止：`-Stop`。
+- 注意：官方 `pnpm icons:dev & next dev` 的 `&` 在 Windows cmd 下是顺序执行，icons:watch 永不退出导致
+  next 永远不启动；脚本已拆成两个独立后台进程规避。首次运行脚本会自动补 `pnpm install` 与 `registry:build`。
+
+### 借鉴到 Godot UI 线的三点
+
+1. **注册表（已落地）**：`ui/registry.md` + `ui/registry.json` 对应 shadcn 的组件注册表与
+   `r/index.json`——新组件先登记、AI/人类共用一份组件清单，避免“第 2 套风格”。
+2. **组件即代码 + 文档驱动**：每个组件独立 `.gd` 且只消费 `style.gd` Token，对应 shadcn“代码复制进你
+   的项目、可定制”的哲学；组件接口/依赖/验收登记在 registry，改动先改文档。
+3. **设计参考**：本地文档站的按钮/弹窗/拖拽/无障碍交互，作为把 Web 成熟交互翻译成 Godot 实现的参照；
+   情绪板与 DESIGN.md 仍是我们风格的唯一真源。
