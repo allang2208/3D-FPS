@@ -44,7 +44,7 @@ func _process(_delta: float) -> bool:
 		var icon_path := String(eq.get_item("weapon").get("icon", ""))
 		_check("equip_icon_migrated", icon_path != "" and ResourceLoader.exists(icon_path))
 		_check("equip_grid_15", int(_hud.get("_equip_grid").get_child_count()) == 15)
-		_check("inv_grid_35", int(_hud.get("_grid").get_child_count()) == 35)
+		_check("inv_grid_30", int(_hud.get("_grid").get_child_count()) == 30)
 		# 拖放：背包 G18 → weapon2
 		var g18_slot := -1
 		for i in bp.slots.size():

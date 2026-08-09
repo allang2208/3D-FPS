@@ -1088,7 +1088,7 @@ func _build_panel() -> void:
 	_equip_grid.add_theme_constant_override("v_separation", 8)
 	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(_equip_grid)
-	var total_slots := backpack.max_slots if backpack != null else 35
+	var total_slots := backpack.max_slots if backpack != null else 30
 	for key in EquipmentScript.SLOT_ORDER:
 		var cell := EquipSlot.new()
 		cell.hud = self
