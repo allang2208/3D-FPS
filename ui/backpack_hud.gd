@@ -38,7 +38,8 @@ var _grid: GridContainer
 var _cells: Array = []
 var _panel_root: Control
 var _panel: PanelContainer
-var _panel_base_pos := Vector2.ZERO
+var _panel_rest_offset := Vector2.ZERO
+var _panel_size := Vector2.ZERO
 var _panel_anim: Tween
 var _panel_open := false
 var _count_label: Label
@@ -215,17 +216,17 @@ func set_panel_open(open: bool) -> void:
 		_panel_root.visible = true
 		dim.modulate.a = 0.0
 		_panel.modulate.a = 0.0
-		_panel.position = _panel_base_pos + Vector2(PANEL_SLIDE_X, 0)
+		_apply_panel_offset(_panel_rest_offset + Vector2(PANEL_SLIDE_X, 0))
 		_panel_anim = create_tween()
 		_panel_anim.tween_property(dim, "modulate:a", 1.0, 0.22)
-		_panel_anim.parallel().tween_property(_panel, "position", _panel_base_pos, 0.24) \
+		_panel_anim.parallel().tween_method(_apply_panel_offset, _panel_rest_offset + Vector2(PANEL_SLIDE_X, 0), _panel_rest_offset, 0.24) \
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		_panel_anim.parallel().tween_property(_panel, "modulate:a", 1.0, 0.18)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	else:
 		_panel_anim = create_tween()
 		_panel_anim.tween_property(dim, "modulate:a", 0.0, 0.16)
-		_panel_anim.parallel().tween_property(_panel, "position", _panel_base_pos + Vector2(PANEL_SLIDE_X, 0), 0.18) \
+		_panel_anim.parallel().tween_method(_apply_panel_offset, _panel_rest_offset, _panel_rest_offset + Vector2(PANEL_SLIDE_X, 0), 0.18) \
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 		_panel_anim.parallel().tween_property(_panel, "modulate:a", 0.0, 0.14)
 		_panel_anim.tween_callback(func() -> void: _panel_root.visible = false)
@@ -233,6 +234,13 @@ func set_panel_open(open: bool) -> void:
 		if player == null or not bool(player.get("is_dead")):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	hide_tooltip()
+
+## 面板滑入动画用偏移量（锚点无关），避免 position 受中心锚点影响跑出屏幕
+func _apply_panel_offset(off: Vector2) -> void:
+	_panel.offset_left = off.x
+	_panel.offset_top = off.y
+	_panel.offset_right = off.x + _panel_size.x
+	_panel.offset_bottom = off.y + _panel_size.y
 
 ## ---------- 获取/添加物品 ----------
 
@@ -618,17 +626,15 @@ func _build_panel() -> void:
 		_cells.append(cell)
 	content.custom_minimum_size = margin.get_combined_minimum_size()
 	var s := _panel.get_combined_minimum_size()
-	_panel_base_pos = Vector2(-s.x / 2.0, -s.y / 2.0)
+	_panel_size = s
+	_panel_rest_offset = Vector2(-s.x / 2.0, -s.y / 2.0)
 	_panel.anchor_left = 0.5
 	_panel.anchor_right = 0.5
 	_panel.anchor_top = 0.5
 	_panel.anchor_bottom = 0.5
 	_panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
 	_panel.grow_vertical = Control.GROW_DIRECTION_BOTH
-	_panel.offset_left = _panel_base_pos.x
-	_panel.offset_right = s.x / 2.0
-	_panel.offset_top = _panel_base_pos.y
-	_panel.offset_bottom = s.y / 2.0
+	_apply_panel_offset(_panel_rest_offset)
 
 func _build_status_label() -> void:
 	_status_label = _make_label(self, "", 14, Style.COLOR_STATUS, Vector2.ZERO)

@@ -18,6 +18,7 @@ class StubPlayer:
 var _fail := 0
 var _frames := 0
 var _stage := 0
+var _stage_start := 0
 var _main: Node
 var _hud: Node
 var _player: Node
@@ -91,6 +92,17 @@ func _process(_delta: float) -> bool:
 			fills += 1
 		_check("notice_full", bool(_hud.get("_notice_label").visible) \
 			and String(_hud.get("_notice_label").text).contains("背包已满"))
+		# 打开面板等滑入动画结束，验证面板完全在 1280x720 视口内
+		_hud.toggle_panel()
+		_stage = 2
+		_stage_start = Time.get_ticks_msec()
+	elif _stage == 2 and Time.get_ticks_msec() - _stage_start > 800:
+		var panel: Control = _hud.get("_panel")
+		var r := panel.get_global_rect()
+		var vp := Rect2(Vector2.ZERO, root.get_visible_rect().size)
+		_check("panel_on_screen", vp.encloses(r))
+		_check("panel_centered", r.get_center().distance_to(vp.get_center()) < 40.0)
+		print("TEST panel_rect=", r, " viewport=", vp.size)
 		quit(0 if _fail == 0 else 1)
 	return false
 
