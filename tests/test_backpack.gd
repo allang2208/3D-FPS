@@ -66,6 +66,11 @@ func _process(_delta: float) -> bool:
 		_check("panel_open", bool(_hud.get("_panel_open")) and bool(_hud.get("_panel_root").visible))
 		_hud.toggle_panel()
 		_check("panel_close", not bool(_hud.get("_panel_open")))
+		# 浮窗 / 毛玻璃 / 满包提示
+		_check("tooltip_built", _hud.get("_tooltip") != null)
+		_hud.show_item_tooltip(bp.slots[0], Vector2(120, 120))
+		_check("tooltip_show", bool(_hud.get("_tooltip").visible))
+		_check("panel_blur", _hud.get("_panel").get_node("Content/Blur").material != null)
 		# 拖拽落点：背包格→快捷栏绑定；快捷栏→快捷栏交换；快捷栏→背包格解绑
 		bp.bind_hotbar(1, String(bp.slots[0].get("instance_id", "")))
 		_hud.drop_on_hotbar(2, {"type": "backpack", "slot": 0})
@@ -78,6 +83,14 @@ func _process(_delta: float) -> bool:
 			and bp.hotbar[2].get("instance_id", "") == mp_inst)
 		_hud.drop_on_backpack(3, {"type": "hotbar", "index": 1})
 		_check("drop_unbind", bp.hotbar[1] == null)
+		# 背包填满后 try_add 返回 false 并弹出"背包已满"提示
+		var fills := 0
+		while fills < 100:
+			if not _hud.try_add("hp_potion", 5):
+				break
+			fills += 1
+		_check("notice_full", bool(_hud.get("_notice_label").visible) \
+			and String(_hud.get("_notice_label").text).contains("背包已满"))
 		quit(0 if _fail == 0 else 1)
 	return false
 
@@ -94,8 +107,18 @@ func _data_tests() -> void:
 	_check("stack_to_second_slot", bp.add_item("hp_potion", 2) \
 		and int(bp.slots[0].get("stack", 0)) == 5 and int(bp.slots[1].get("stack", 0)) == 1)
 	var inst0 := String(bp.slots[0].get("instance_id", ""))
+	var inst1 := String(bp.slots[1].get("instance_id", ""))
 	_check("bind_ok", bp.bind_hotbar(0, inst0))
 	_check("bind_unknown_rejected", not bp.bind_hotbar(1, "nope"))
+	# 信号：item_added / bound
+	var added_slots := []
+	var bound_indexes := []
+	bp.item_added.connect(func(s: int) -> void: added_slots.append(s))
+	bp.bound.connect(func(i: int) -> void: bound_indexes.append(i))
+	bp.add_item("hp_potion", 1)
+	_check("signal_item_added", not added_slots.is_empty())
+	bp.bind_hotbar(0, inst0)
+	_check("signal_bound", not bound_indexes.is_empty() and int(bound_indexes[0]) == 0)
 	var stub := StubPlayer.new()
 	var use0 := bp.use_hotbar(0, stub)
 	_check("use_heal", use0.get("ok", false) and stub.hp == 130)
@@ -103,10 +126,19 @@ func _data_tests() -> void:
 	_check("add_mp", bp.add_item("mp_potion", 1))
 	var inst_mp := String(bp.slots[2].get("instance_id", ""))
 	_check("use_mp", bp.use_item(inst_mp, stub).get("ok", false) and stub.mp == 25)
+	# 冷却：useCooldown 生效、期间拦截、到期恢复
+	bp.slots[0]["useCooldown"] = 0.4
+	bp.bind_hotbar(1, inst0)
+	_check("cd_use_ok", bp.use_hotbar(1, stub).get("ok", false))
+	var cd2 := bp.use_hotbar(1, stub)
+	_check("cd_blocked", not cd2.get("ok", false) and cd2.get("cooldown", false))
+	bp.tick_cooldowns(0.5)
+	_check("cd_expired", bp.use_hotbar(1, stub).get("ok", false))
 	# 交换后绑定仍按实例解析
 	bp.swap_items(0, 1)
-	_check("swap_updates_slot", bp.slots[0] != null and int(bp.slots[0].get("stack", 0)) == 1 \
-		and bp.slots[1] != null and int(bp.slots[1].get("stack", 0)) == 4)
+	_check("swap_updates_slot", bp.slots[0] != null and bp.slots[1] != null \
+		and String(bp.slots[0].get("instance_id", "")) == inst1 \
+		and String(bp.slots[1].get("instance_id", "")) == inst0)
 	_check("swap_keeps_binding", not bp.resolve_hotbar(0).is_empty())
 	# 用完最后一瓶：快捷栏绑定保留，数量回退为 0/按名称找回新物品
 	var bp2 := BackpackScript.new(db)

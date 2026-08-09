@@ -44,9 +44,12 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
     black_wolf_trellis.glb  # TRELLIS.2 生成的 PBR 黑狼
   ui/
     status_bar.gd   # 状态栏（UI 迁移线）：生命条/弹药/击杀/换弹状态/命中/死亡面板
+    style.gd        # UI 风格集中定义（配色/字体/稀有度；换肤只改这里）
     backpack.gd     # 背包数据模型：36 格 + 快捷栏 1~4 绑定（堆叠/实例绑定/名称回退）
-    backpack_hud.gd # 背包栏 UI：底部快捷栏 + Tab/B 背包面板，拖拽绑定/交换、右键使用
+    backpack_hud.gd # 背包栏 UI：底部快捷栏 + 滑入面板 + 弹出动画 + 冷却遮罩 + 拖拽高亮
+    item_tooltip.gd # 物品浮窗：悬停跟随/点击固定/贴边翻转（复刻旧版白底浮窗）
     item_db.gd      # 物品库（治疗药水/魔力药水，图标 assets/ui/icons/）
+  assets/ui/shaders/panel_blur.gdshader  # 面板毛玻璃背景（复刻旧版 backdrop-filter blur）
 ```
 
 ## 状态栏（HUD）测试
@@ -63,14 +66,17 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
 & 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe' --headless --path 'E:\3d\3-dfps' --script res://tests/test_backpack.gd
 ```
 
-覆盖：堆叠/满包拒绝、药水回血 + 状态栏更新、快捷栏绑定/实例回退、面板开关、拖拽绑定/交换/解绑。
+覆盖：堆叠/满包拒绝、药水回血 + 状态栏更新、快捷栏绑定/实例回退、信号（item_added/bound）、
+冷却拦截与恢复、面板开关、浮窗显示/毛玻璃背景、拖拽绑定/交换/解绑、背包已满提示。
 
 ## 当前状态与下一步
 
 - 可玩闭环：三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）、玩家 100 血、接触伤害、死亡按 R 重生、
   弹药 30/90 + 换弹、飞行弹道（可见子弹 + 下坠 + 火花）、命中反馈、击杀计数。
 - 背包栏（UI 迁移线）：底部快捷栏 1~4 + Tab/B 背包面板（36 格），治疗药水回血、拖拽绑定/交换、
-  右键使用；MP 系统未实装，魔力药水暂不发放。
+  右键使用；已复刻旧版弹出效果（面板滑入+毛玻璃、equipPop、数字键闪烁、0 数量抖动、冷却遮罩、
+  拖拽/悬停高亮、物品浮窗、背包满提示）；配色/字体集中在 ui/style.gd，后续按情绪板换肤只改这一处。
+  MP 系统未实装，魔力药水暂不发放。
 - 敌人仍是整体平移 + 占位起伏/摆腿；下一步把 three.js 里的程序化骨骼动画（18 根骨骼 + 蒙皮权重）
   移植成 Godot 的 Skeleton3D + AnimationPlayer，或接 Godot 4.6+ 的 IKModifier3D 做真正的四足步态。
 - 后续内容：更多武器、掉落/计分、更多敌人类型（抽象敌人走物体级动画）、地图扩充。

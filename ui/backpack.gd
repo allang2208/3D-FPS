@@ -8,6 +8,8 @@ extends RefCounted
 
 signal changed
 signal item_used(item: Dictionary)
+signal item_added(slot: int)
+signal bound(index: int)
 
 const HOTBAR_SIZE := 4
 
@@ -16,6 +18,7 @@ var hotbar: Array = []         # Array[Dictionary|null]，{instance_id, item_nam
 var max_slots := 36
 
 var _db: RefCounted
+var _cooldowns := {}  # instance_id -> 剩余冷却秒数
 
 func _init(db: RefCounted) -> void:
 	_db = db
@@ -45,6 +48,7 @@ func add_item(id: String, count := 1) -> bool:
 				remaining -= take
 				if remaining <= 0:
 					changed.emit()
+					item_added.emit(i)
 					return true
 	for i in slots.size():
 		if slots[i] == null:
@@ -54,8 +58,28 @@ func add_item(id: String, count := 1) -> bool:
 			inst["slot"] = i
 			slots[i] = inst
 			changed.emit()
+			item_added.emit(i)
 			return true
 	return false
+
+func tick_cooldowns(delta: float) -> void:
+	if delta <= 0.0 or _cooldowns.is_empty():
+		return
+	for k in _cooldowns.keys():
+		var v: float = maxf(0.0, float(_cooldowns[k]) - delta)
+		if v <= 0.0:
+			_cooldowns.erase(k)
+		else:
+			_cooldowns[k] = v
+
+func get_cooldown(instance_id: String) -> float:
+	return float(_cooldowns.get(instance_id, 0.0))
+
+func get_cooldown_total(instance_id: String) -> float:
+	var i := find_slot(instance_id)
+	if i < 0:
+		return 0.0
+	return float(slots[i].get("useCooldown", 0.0))
 
 func find_slot(instance_id: String) -> int:
 	for i in slots.size():
@@ -100,6 +124,7 @@ func bind_hotbar(index: int, instance_id: String) -> bool:
 		return false
 	hotbar[index] = {"instance_id": instance_id, "item_name": String(it.get("name", ""))}
 	changed.emit()
+	bound.emit(index)
 	return true
 
 func unbind_hotbar(index: int) -> void:
@@ -139,6 +164,8 @@ func use_item(instance_id: String, player: Object) -> Dictionary:
 	var i := find_slot(instance_id)
 	if i < 0:
 		return {"ok": false, "message": "物品不存在"}
+	if get_cooldown(instance_id) > 0.0:
+		return {"ok": false, "message": "冷却中", "cooldown": true}
 	var it: Dictionary = slots[i]
 	var effect: Dictionary = it.get("useEffect", {})
 	var applied := false
@@ -157,6 +184,9 @@ func use_item(instance_id: String, player: Object) -> Dictionary:
 		slots[i] = null
 	else:
 		it["stack"] = stack - 1
+	var cd: float = float(it.get("useCooldown", 0.0))
+	if cd > 0.0:
+		_cooldowns[instance_id] = cd
 	var used := it
 	changed.emit()
 	item_used.emit(used)
