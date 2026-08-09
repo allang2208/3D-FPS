@@ -3,6 +3,7 @@ extends SceneTree
 var _f := 0
 var _cam: Camera3D
 var _mi: MeshInstance3D
+var _tag := "v6"
 
 func _process(_d) -> bool:
 	_f += 1
@@ -10,6 +11,9 @@ func _process(_d) -> bool:
 		var mesh_path := OS.get_environment("GUN_VOX_OBJ")
 		if mesh_path == "":
 			mesh_path = "res://assets/models/ak/akm_hand_built_v6.obj"
+		var tag := OS.get_environment("GUN_VOX_TAG")
+		if tag != "":
+			_tag = tag
 		_cam = Camera3D.new()
 		_cam.fov = 40.0
 		root.add_child(_cam)
@@ -27,18 +31,32 @@ func _process(_d) -> bool:
 		_cam.position = Vector3(0, -0.02, -1.5)
 		_cam.rotation_degrees.y = 180.0
 	if _f == 15:
-		var tag := OS.get_environment("GUN_VOX_TAG")
-		if tag == "":
-			tag = "v6"
-		_save("user://handbuilt_side_" + tag + ".png")
+		_save("user://handbuilt_side_" + _tag + ".png")
 		# 45° 前侧俯视图
 		_cam.position = Vector3(1.0, 0.40, -1.60)
 		_cam.look_at(Vector3.ZERO, Vector3.UP)
 	if _f == 30:
-		var tag2 := OS.get_environment("GUN_VOX_TAG")
-		if tag2 == "":
-			tag2 = "v6"
-		_save("user://handbuilt_front34_" + tag2 + ".png")
+		_save("user://handbuilt_front34_" + _tag + ".png")
+		# 带光照的 Flat 渲染（侧视图），看轮廓立体感
+		var env := Environment.new()
+		env.background_mode = Environment.BG_COLOR
+		env.background_color = Color(0.12, 0.12, 0.14)
+		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		env.ambient_light_color = Color(0.55, 0.55, 0.58)
+		env.ambient_light_energy = 1.0
+		var we := WorldEnvironment.new()
+		we.environment = env
+		root.add_child(we)
+		var light := DirectionalLight3D.new()
+		light.rotation_degrees = Vector3(-45, 140, 0)
+		root.add_child(light)
+		var mat := StandardMaterial3D.new()
+		mat.vertex_color_use_as_albedo = true
+		_mi.material_override = mat
+		_cam.position = Vector3(0, -0.02, -1.5)
+		_cam.rotation_degrees.y = 180.0
+	if _f == 45:
+		_save("user://handbuilt_side_lit_" + _tag + ".png")
 		quit(0)
 		return false
 	return false
