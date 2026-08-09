@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>无尽轮回 · UI 设计系统</title>
+<style>
+  :root {
+    --bg: #0F0F10;
+    --gold: #D4AF37;
+    --white: #FFFFFF;
+    --gray-light: #B5B5B5;
+    --gray-mid: #3A3A3C;
+    --line: rgba(58,58,60,0.85);
+    --line-gold: rgba(212,175,55,0.55);
+    --hp: #7FD26A;
+    --warn: #E0A94F;
+    --danger: #D95B4A;
+    --mp: #5A8FE0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1280px; height:1280px; background:var(--bg); color:var(--white);
+    font-family:"Microsoft YaHei","Source Han Sans SC","Noto Sans CJK SC",sans-serif; }
+  .page { padding:64px 72px 56px; display:flex; flex-direction:column; gap:40px; height:100%; }
+  .sec-label { font-size:12px; letter-spacing:4px; color:var(--gold); margin-bottom:18px; text-transform:uppercase; }
+  .sec-label small { color:var(--gray-light); letter-spacing:2px; margin-left:10px; }
+  .thin { border-top:1px solid var(--line); }
+
+  /* 头部 */
+  header { display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:26px; border-bottom:1px solid var(--line-gold); }
+  .brand { display:flex; align-items:baseline; gap:18px; }
+  .brand h1 { font-size:32px; font-weight:900; letter-spacing:4px; }
+  .brand span { font-size:14px; color:var(--gold); letter-spacing:7px; }
+  .tag { font-size:12px; color:var(--gray-light); letter-spacing:4px; }
+
+  /* 行一：观察 + 方向 */
+  .row2 { display:grid; grid-template-columns:1fr 1fr; gap:64px; }
+  .issue-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .issue { border:1px solid var(--line); border-radius:6px; padding:14px 16px; background:rgba(255,255,255,0.015); }
+  .issue b { display:block; font-size:13px; font-weight:700; margin-bottom:10px; }
+  .issue .thumb { height:40px; border-radius:4px; border:1px solid var(--line); opacity:.85; }
+  .t1 { background:linear-gradient(120deg,#222,#333 40%,#222); }
+  .t2 { background:linear-gradient(90deg,#4a4a4a,#3a3a3c 30%,#6b6b6b); }
+  .t3 { background:repeating-linear-gradient(0deg,#2a2a2a 0 6px,#3a3a3c 6px 12px); }
+  .t4 { background:linear-gradient(160deg,#5b5b5b,#262626); }
+  .dir-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .dir { border:1px solid var(--line); border-radius:6px; padding:16px; display:flex; gap:14px; align-items:flex-start; }
+  .dir svg { width:24px; height:24px; flex:none; stroke:var(--gold); stroke-width:1.3; fill:none; }
+  .dir b { display:block; font-size:13px; font-weight:700; margin-bottom:4px; }
+  .dir span { font-size:12px; color:var(--gray-light); line-height:1.5; }
+
+  /* 行二：未来愿景 */
+  .vision { display:grid; grid-template-columns:2fr 1fr; gap:26px; border:1px solid var(--line);
+    border-radius:8px; padding:18px; background:rgba(255,255,255,0.015); }
+  .vision img { width:100%; height:238px; object-fit:cover; border-radius:6px; border:1px solid var(--line); }
+  .agent { display:flex; flex-direction:column; gap:11px; }
+  .agent .name { font-size:17px; font-weight:900; color:var(--gold); }
+  .stat { display:flex; justify-content:space-between; font-size:12px; border-bottom:1px solid var(--line); padding-bottom:7px; }
+  .stat span { color:var(--gray-light); }
+  .stat b { font-weight:700; }
+  .bar { height:6px; background:var(--gray-mid); border-radius:3px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--gold); }
+
+  /* 行三：情绪 */
+  .emotion { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .emo { position:relative; height:108px; border-radius:6px; overflow:hidden; border:1px solid var(--line); }
+  .emo img { width:100%; height:100%; object-fit:cover; }
+  .emo .cap { position:absolute; left:0; right:0; bottom:0; padding:5px 8px; font-size:12px;
+    background:linear-gradient(transparent,rgba(0,0,0,.82)); color:var(--white); letter-spacing:1px; }
+
+  /* 行四：色彩 + 字体 + 元素 */
+  .row3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:48px; }
+  .swatches { display:flex; flex-direction:column; gap:9px; }
+  .sw { display:flex; align-items:center; gap:11px; border:1px solid var(--line); border-radius:5px; padding:8px 12px; }
+  .sw i { width:26px; height:26px; border-radius:50%; border:1px solid rgba(255,255,255,.25); }
+  .sw b { font-size:13px; font-weight:700; width:66px; }
+  .sw span { font-size:12px; color:var(--gray-light); }
+  .type-line { display:flex; align-items:baseline; gap:16px; padding:8px 0; border-bottom:1px solid var(--line); }
+  .type-line:last-child { border-bottom:none; }
+  .type-line .w { width:74px; font-size:11px; color:var(--gold); letter-spacing:1px; }
+  .type-line .sample { color:var(--white); }
+  .btn-row { display:flex; gap:10px; align-items:center; }
+  .btn { padding:9px 20px; border-radius:5px; font-size:12px; letter-spacing:1px; }
+  .btn.on { background:var(--gray-mid); color:var(--white); }
+  .btn.ho { background:var(--gold); color:var(--white); }
+  .btn.off { background:var(--gray-mid); color:var(--gray-light); }
+  .prog { margin-top:14px; }
+  .prog .bar { height:8px; }
+  .prog .bar i { width:75%; }
+  .prog span { display:block; text-align:right; font-size:12px; color:var(--gray-light); margin-top:5px; }
+  .divider-sample { margin-top:16px; border-top:1px solid var(--line); padding-top:12px; }
+  .divider-sample .g { border-top:1px solid var(--line-gold); margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand"><h1>无尽轮回</h1><span>UI 设计系统</span></div>
+    <div class="tag">更沉浸 · 更高效</div>
+  </header>
+
+  <section class="row2">
+    <div>
+      <div class="sec-label">现状观察 <small>OBSERVATION</small></div>
+      <div class="issue-grid">
+        <div class="issue"><b>信息层级复杂</b><div class="thumb t1"></div></div>
+        <div class="issue"><b>色彩对比不足</b><div class="thumb t2"></div></div>
+        <div class="issue"><b>排版对齐混乱</b><div class="thumb t3"></div></div>
+        <div class="issue"><b>视觉语言老旧</b><div class="thumb t4"></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-label">改进方向 <small>DIRECTION</small></div>
+      <div class="dir-grid">
+        <div class="dir"><svg viewBox="0 0 24 24"><path d="M4 17l8-10 8 10"/><path d="M8 13h8"/></svg><div><b>层级重构</b><span>一屏一焦点</span></div></div>
+        <div class="dir"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg><div><b>色彩系统</b><span>金主白辅</span></div></div>
+        <div class="dir"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h7"/></svg><div><b>排版规范</b><span>思源黑体阶梯</span></div></div>
+        <div class="dir"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg><div><b>视觉语言</b><span>线条科技图标</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">未来愿景 <small>FUTURE VISION</small></div>
+    <div class="vision">
+      <img src="moodboard_v2_combat.jpg" alt="战斗 HUD 愿景">
+      <div class="agent">
+        <div class="name">特工 · 轮回者</div>
+        <div class="stat"><span>生命</span><b>72 / 100</b></div>
+        <div class="bar" style="margin-top:-2px"><i style="width:72%"></i></div>
+        <div class="stat"><span>弹药</span><b>30 / 90</b></div>
+        <div class="stat"><span>金币</span><b style="color:var(--gold)">1,240</b></div>
+        <div class="stat"><span>波次</span><b>5</b></div>
+        <div class="stat"><span>队伍</span><b>Agent_01 · 04</b></div>
+        <div class="stat"><span>服务器</span><b>亚服 32ms</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">设计情绪 <small>EMOTIONAL MOODBOARD</small></div>
+    <div class="emotion">
+      <div class="emo"><img src="moodboard_v2_explore.jpg" alt=""><div class="cap">末日希望</div></div>
+      <div class="emo"><img src="moodboard_v2_menu.jpg" alt=""><div class="cap">秩序权威</div></div>
+      <div class="emo"><img src="moodboard_v3_board_1.jpg" alt=""><div class="cap">高科技感</div></div>
+      <div class="emo"><img src="moodboard_v2_combat.jpg" alt=""><div class="cap">沉浸代入</div></div>
+      <div class="emo"><img src="moodboard_zb_1.jpg" alt=""><div class="cap">简洁高效</div></div>
+    </div>
+  </section>
+
+  <section class="row3">
+    <div>
+      <div class="sec-label">色彩方案 <small>COLOR</small></div>
+      <div class="swatches">
+        <div class="sw"><i style="background:#D4AF37"></i><b>#D4AF37</b><span>核心强调</span></div>
+        <div class="sw"><i style="background:#FFFFFF"></i><b>#FFFFFF</b><span>主信息</span></div>
+        <div class="sw"><i style="background:#0F0F10"></i><b>#0F0F10</b><span>深灰底</span></div>
+        <div class="sw"><i style="background:#3A3A3C"></i><b>#3A3A3C</b><span>中灰</span></div>
+        <div class="sw"><i style="background:#B5B5B5"></i><b>#B5B5B5</b><span>浅灰</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="sec-label">排版系统 <small>TYPOGRAPHY</small></div>
+      <div class="type-line"><span class="w">标题 Heavy</span><span class="sample" style="font-size:30px;font-weight:900">更沉浸 更高效</span></div>
+      <div class="type-line"><span class="w">副题 Bold</span><span class="sample" style="font-size:22px;font-weight:700">生命 弹药 金币 波次</span></div>
+      <div class="type-line"><span class="w">正文 Regular</span><span class="sample" style="font-size:16px">战术信息密度 · 克制</span></div>
+      <div class="type-line"><span class="w">辅助 12px</span><span class="sample" style="font-size:12px;color:var(--gray-light)">CAPTION / 角标</span></div>
+    </div>
+    <div>
+      <div class="sec-label">UI 元素 <small>ELEMENTS</small></div>
+      <div class="btn-row">
+        <span class="btn on">默认</span><span class="btn ho">悬停</span><span class="btn off">禁用</span>
+      </div>
+      <div class="prog"><div class="bar"><i></i></div><span>任务进度 75%</span></div>
+      <div class="divider-sample">分隔线<span class="g"></span></div>
+    </div>
+  </section>
+</div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const w = Number(q.get('w') || 1280);
+  const h = Number(q.get('h') || 1280);
+  document.documentElement.style.width = w + 'px';
+  document.documentElement.style.height = h + 'px';
+  document.body.style.width = w + 'px';
+  document.body.style.height = h + 'px';
+</script>
+</body>
+</html>

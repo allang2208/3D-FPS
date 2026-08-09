@@ -58,6 +58,24 @@ UI mood board concept sheet for a tactical sci-fi FPS game interface, The Divisi
 - 同步：`DESIGN.md` 已更新为定稿方向；`ui/style.gd` 已加入 `THEME_*` Token
   （未启用，换肤时整体替换 `COLOR_*`）。
 
+## v4 → 终版：混合方案（AI 素材 + 代码排版）
+
+纯 AI 出图（v4_refined_1/2/3，cogview-4）经 GLM 验收：文字乱码、线条粗、留白挤
+——AI 生图写文字是硬伤，继续叠提示词收益低。
+
+改走**混合方案**：
+1. AI 只出视觉素材（v2/v3 情绪板作为愿景/情绪板块图片）；
+2. 版式与文字用 `spec.html` 精确排版（金主色 Token、思源黑体阶梯、细线分隔、
+   真实中文，零乱码）；
+3. 无头 Edge 截图导出（`tools/spec-shot.ps1`，支持 `SPEC_W/SPEC_H/SPEC_OUT`）。
+
+产出：
+- `moodboard_final.png`（1280×1280，与参考图同尺寸）
+- `moodboard_final_tall.png`（1080×1440 竖版，GLM 五项验收全过：
+  线条细长精致 / 留白充足 / 布局干净 / 文字无乱码 / 优雅现代专业）
+
+后续改版：直接改 `spec.html` 再跑 `powershell -File tools/spec-shot.ps1`。
+
 ## 待办：修好 5080 后出 FLUX 精修版
 
 远端需以 `--use-split-attention` 启动（或修复 xformers 对 sm_120 的适配），
