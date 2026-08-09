@@ -841,7 +841,8 @@ func _build_hotbar() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
-		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		var key := _make_label(content, SKILL_KEY_HINTS[i],
+			Style.font_size("caption"), Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
@@ -859,7 +860,8 @@ func _build_hotbar() -> void:
 		cd.offset_top = 0
 		cd.visible = false
 		content.add_child(cd)
-		var cd_text := _make_label(content, "", 10, Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
+		var cd_text := _make_label(content, "",
+			Style.font_size("caption"), Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
 		cd_text.name = "CDText"
 		cd_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		cd_text.visible = false
@@ -893,7 +895,8 @@ func _build_hotbar() -> void:
 	sp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sp_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sp_content.add_child(sp_icon)
-	var sp_key := _make_label(sp_content, "右击", 10, Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
+	var sp_key := _make_label(sp_content, "右击",
+		Style.font_size("caption"), Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
 	sp_key.name = "Key"
 	sp_key.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hotbar_root.add_child(sp)
@@ -921,7 +924,8 @@ func _build_hotbar() -> void:
 		var stack := _make_label(content, "", 12, Style.COLOR_TEXT, Vector2(3, HOTBAR_SLOT - 18))
 		stack.name = "Stack"
 		stack.add_theme_font_override("font", _font_value)
-		var key := _make_label(content, str(i + 1), 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		var key := _make_label(content, str(i + 1),
+			Style.font_size("caption"), Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
@@ -1007,7 +1011,7 @@ func _build_panel() -> void:
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
 	vbox.add_child(title_row)
-	_panel_title = _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
+	_panel_title = _make_label(title_row, "装备与背包", Style.font_size("h2"), Style.COLOR_TITLE_TEXT, Vector2.ZERO)
 	_panel_title.add_theme_font_override("font", _font_title)
 	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var divider := HSeparator.new()
@@ -1038,7 +1042,7 @@ func _build_panel() -> void:
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
 	_equip_page.add_child(equip_col)
-	var equip_title := _make_label(equip_col, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	var equip_title := _make_label(equip_col, "装备栏", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
@@ -1103,8 +1107,9 @@ func _build_panel() -> void:
 		name_lbl.offset_bottom = -8
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		name_lbl.add_theme_font_size_override("font_size", 13)
+		name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
+		name_lbl.clip_text = true
+		name_lbl.add_theme_font_size_override("font_size", Style.font_size("body"))
 		name_lbl.add_theme_font_override("font", _font_value)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1121,7 +1126,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -4
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 12)
+		rarity_lbl.add_theme_font_size_override("font_size", 11)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
@@ -1163,10 +1168,10 @@ func _build_panel() -> void:
 	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
-	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	var inv_title := _make_label(inv_header, "背包", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_count_label = _make_label(inv_header, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
+	_count_label = _make_label(inv_header, "", Style.font_size("label"), Style.COLOR_DIM_TEXT, Vector2.ZERO)
 	_count_label.add_theme_font_override("font", _font_section)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
@@ -1215,7 +1220,8 @@ func _build_panel() -> void:
 		stack.offset_right = -4
 		stack.offset_bottom = -2
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		var name_lbl := _make_label(cell_content, "", 11, Style.COLOR_WHITE, Vector2.ZERO)
+		var name_lbl := _make_label(cell_content, "",
+			Style.font_size("caption"), Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
 		name_lbl.anchor_left = 0.0
 		name_lbl.anchor_right = 1.0
@@ -1238,7 +1244,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -2
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 10)
+		rarity_lbl.add_theme_font_size_override("font_size", 11)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
@@ -1255,7 +1261,7 @@ func _build_panel() -> void:
 	_apply_panel_slide(0.0)
 
 func _build_status_label() -> void:
-	_status_label = _make_label(self, "", 14, Style.COLOR_STATUS, Vector2.ZERO)
+	_status_label = _make_label(self, "", Style.font_size("body"), Style.COLOR_STATUS, Vector2.ZERO)
 	_status_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	_status_label.offset_top = -92
 	_status_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -1263,7 +1269,7 @@ func _build_status_label() -> void:
 	_status_label.visible = false
 
 func _build_notice() -> void:
-	_notice_label = _make_label(self, "", 36, Style.COLOR_NOTICE, Vector2.ZERO)
+	_notice_label = _make_label(self, "", Style.font_size("h2"), Style.COLOR_NOTICE, Vector2.ZERO)
 	_notice_label.add_theme_font_override("font", _font_title)
 	_notice_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_notice_label.offset_top = 210
@@ -1299,7 +1305,7 @@ func _make_tab_button(label: String) -> Button:
 	var b := Button.new()
 	b.text = label
 	b.custom_minimum_size = Vector2(120, 30)
-	b.add_theme_font_size_override("font_size", 13)
+	b.add_theme_font_size_override("font_size", Style.font_size("label"))
 	b.add_theme_font_override("font", _font_section)
 	var idle := _tab_style(false)
 	b.add_theme_stylebox_override("normal", idle)
@@ -1355,7 +1361,7 @@ func _make_badge(text: String, bg: Color, fg: Color) -> Label:
 	l.text = text
 	l.custom_minimum_size = Vector2(22, 13)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.add_theme_font_size_override("font_size", 9)
+	l.add_theme_font_size_override("font_size", 11)
 	l.add_theme_color_override("font_color", fg)
 	l.add_theme_stylebox_override("normal", Style.make_style(bg, Color(0, 0, 0, 0), 3, 0))
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
