@@ -36,9 +36,11 @@ const FLIP_DAMPING := 16.0
 const FLIP_IMPULSE := 1.5
 # 枪口火光（每次开火一次性随机尺度/旋转，随后按生命周期收缩，避免逐帧抖动）
 const FLASH_DURATION := 0.06
-const FLASH_LIGHT_PEAK := 12.0
+const FLASH_LIGHT_PEAK := 8.0
 const FLASH_SCALE_MIN := 0.85
 const FLASH_SCALE_MAX := 1.55
+const TONGUE_SCALE_MIN := 0.85
+const TONGUE_SCALE_MAX := 1.35
 # 姿态系统（bob / sway / 疾跑下沉）
 const BOB_FREQ_BASE := 5.0
 const BOB_FREQ_SPEED := 0.85
@@ -73,6 +75,7 @@ var _fire_cd := 0.0
 var _flash_t := 0.0
 var _flash_scale := 1.0
 var _flash_rot := 0.0
+var _tongue_scale := 1.0
 var _reload_t := 0.0
 var _spread := 0.0
 var _pattern_idx := 0
@@ -82,10 +85,12 @@ var _air_spread := 0.0
 var _sprint_lock := 0.0
 var _flash_light: OmniLight3D
 var _flash_mesh: MeshInstance3D
+var _flash_tongue: MeshInstance3D
 var _shoot_player: AudioStreamPlayer
 var _reload_player: AudioStreamPlayer
 var _click_player: AudioStreamPlayer
 var _smoke: CPUParticles3D
+var _sparks: CPUParticles3D
 var _shoot_tail: AudioStreamPlayer
 var _kill_player: AudioStreamPlayer
 var _mag: Node3D
@@ -140,31 +145,51 @@ func _ready() -> void:
 	_flash_light = OmniLight3D.new()
 	_flash_light.name = "MuzzleFlashLight"
 	_flash_light.position = _muzzle_local
-	_flash_light.omni_range = 3.0
+	_flash_light.omni_range = 2.4
 	_flash_light.light_color = Color(1.0, 0.8, 0.45)
 	_flash_light.light_energy = 0.0
 	_flash_light.visible = false
 	add_child(_flash_light)
+	# 火光分层（真实枪口闪光：沿枪管前冲的火舌 + 四角星闪光 + 点光源）
 	_flash_mesh = MeshInstance3D.new()
-	_flash_mesh.name = "MuzzleFlashMesh"
-	# 径向渐变光斑（ADD 叠加 + billboard）：比硬球体更像枪口火舌
-	var quad := QuadMesh.new()
-	quad.size = Vector2(0.55, 0.55)
-	var fm := StandardMaterial3D.new()
-	fm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	fm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
-	fm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
-	fm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	fm.no_depth_test = true
-	fm.cull_mode = BaseMaterial3D.CULL_DISABLED
-	fm.albedo_texture = _make_flash_texture()
-	fm.albedo_color = Color(1.0, 0.82, 0.45) * 1.8
-	fm.disable_receive_shadows = true
-	quad.material = fm
-	_flash_mesh.mesh = quad
+	_flash_mesh.name = "MuzzleFlashStar"
+	var star_quad := QuadMesh.new()
+	star_quad.size = Vector2(0.42, 0.42)
+	var sm := StandardMaterial3D.new()
+	sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	sm.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	sm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	sm.no_depth_test = true
+	sm.cull_mode = BaseMaterial3D.CULL_DISABLED
+	sm.albedo_texture = _make_star_texture()
+	sm.albedo_color = Color(1.0, 0.9, 0.55) * 2.0
+	sm.disable_receive_shadows = true
+	star_quad.material = sm
+	_flash_mesh.mesh = star_quad
 	_flash_mesh.position = _muzzle_local
 	_flash_mesh.visible = false
 	add_child(_flash_mesh)
+	# 火舌：沿枪管（-Z）前冲的细长火焰，不 billboard，带随机倾斜
+	_flash_tongue = MeshInstance3D.new()
+	_flash_tongue.name = "MuzzleFlashTongue"
+	var tongue_quad := QuadMesh.new()
+	tongue_quad.size = Vector2(0.16, 0.34)
+	var tm := StandardMaterial3D.new()
+	tm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	tm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	tm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	tm.no_depth_test = true
+	tm.cull_mode = BaseMaterial3D.CULL_DISABLED
+	tm.albedo_texture = _make_tongue_texture()
+	tm.albedo_color = Color(1.0, 0.75, 0.4) * 1.6
+	tm.disable_receive_shadows = true
+	tongue_quad.material = tm
+	_flash_tongue.mesh = tongue_quad
+	_flash_tongue.position = _muzzle_local + Vector3(0, 0.005, -0.02)
+	_flash_tongue.rotation.x = -PI / 2  # 纹理 +Y（尖端）→ 枪管前方 -Z
+	_flash_tongue.visible = false
+	add_child(_flash_tongue)
 	_shoot_player = AudioStreamPlayer.new()
 	_shoot_player.name = "ShootSfx"
 	_shoot_player.stream = data.shoot_sound
@@ -206,6 +231,23 @@ func _ready() -> void:
 	_smoke.scale_amount_max = 0.07
 	_smoke.color = Color(0.75, 0.75, 0.8, 0.5)
 	add_child(_smoke)
+	# 火花：主闪光同时向前喷出的细小火星（真实枪口 flash 的粒子层）
+	_sparks = CPUParticles3D.new()
+	_sparks.name = "MuzzleSparks"
+	_sparks.position = _muzzle_local + Vector3(0, 0, -0.05)
+	_sparks.one_shot = true
+	_sparks.emitting = false
+	_sparks.amount = 6
+	_sparks.lifetime = 0.22
+	_sparks.direction = Vector3(0, 0, -1)
+	_sparks.spread = 24.0
+	_sparks.gravity = Vector3(0, -8, 0)
+	_sparks.initial_velocity_min = 6.0
+	_sparks.initial_velocity_max = 11.0
+	_sparks.scale_amount_min = 0.015
+	_sparks.scale_amount_max = 0.035
+	_sparks.color = Color(1.0, 0.85, 0.5, 1.0)
+	add_child(_sparks)
 	_player = get_parent().get_parent() as CharacterBody3D
 	# 相机联动：镜像弹簧同参数驱动（枪/镜头同频同相）
 	var cam := _camera()
@@ -252,10 +294,12 @@ func _process(delta: float) -> void:
 	var flash_on := _flash_t > 0.0
 	_flash_light.visible = flash_on
 	_flash_mesh.visible = flash_on
+	_flash_tongue.visible = flash_on
 	if flash_on:
 		var frac := _flash_t / FLASH_DURATION
 		_flash_light.light_energy = FLASH_LIGHT_PEAK * frac * frac
-		_flash_mesh.scale = Vector3.ONE * _flash_scale * (0.35 + 0.65 * frac)
+		_flash_mesh.scale = Vector3.ONE * _flash_scale * (0.30 + 0.70 * frac)
+		_flash_tongue.scale = Vector3.ONE * _tongue_scale * (0.55 + 0.45 * frac)
 
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
@@ -313,6 +357,10 @@ func _shoot() -> void:
 	_flash_rot = randf() * TAU
 	_flash_mesh.rotation.z = _flash_rot
 	_flash_mesh.scale = Vector3.ONE * _flash_scale
+	_tongue_scale = randf_range(TONGUE_SCALE_MIN, TONGUE_SCALE_MAX)
+	_flash_tongue.rotation = Vector3(-PI / 2, 0, randf_range(-0.14, 0.14))
+	_flash_tongue.scale = Vector3.ONE * _tongue_scale
+	_sparks.restart()
 	shot.emit(ammo, reserve)
 	_apply_gun_kick()
 	_shoot_player.pitch_scale = randf_range(0.97, 1.03)
@@ -496,17 +544,52 @@ func _spawn_casing() -> void:
 
 # ---------- 模型 ----------
 
-## 程序化径向渐变火光贴图（软边高光，ADD 叠加下自然衰减）
-func _make_flash_texture() -> ImageTexture:
+## 四角星闪光贴图（十字臂向尖端收窄 + 菱形核心 + 中心圆，ADD 叠加）
+func _make_star_texture() -> ImageTexture:
 	var size := 64
 	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
-	var center := Vector2(size * 0.5, size * 0.5)
 	for y in size:
 		for x in size:
-			var d := Vector2(x + 0.5, y + 0.5).distance_to(center) / (size * 0.5)
-			var a := clampf(1.0 - d, 0.0, 1.0)
+			var nx := (x + 0.5) / size * 2.0 - 1.0
+			var ny := (y + 0.5) / size * 2.0 - 1.0
+			var ax := absf(nx)
+			var ay := absf(ny)
+			var v_arm := 1.0 - ax / (0.10 * (1.0 - 0.72 * ay))
+			var h_arm := 1.0 - ay / (0.10 * (1.0 - 0.72 * ax))
+			var diamond := 1.0 - (ax + ay) * 0.85
+			var disc := 1.0 - sqrt(ax * ax + ay * ay)
+			var m := maxf(maxf(v_arm, h_arm), maxf(diamond, disc))
+			var a := clampf(m, 0.0, 1.0)
 			a = a * a * (3.0 - 2.0 * a)  # smoothstep 软化边缘
-			img.set_pixel(x, y, Color(1.0, 0.82, 0.45, a))
+			var core := clampf(disc * 1.4, 0.0, 1.0)
+			var cg := lerpf(0.82, 0.95, core)
+			var cb := lerpf(0.38, 0.80, core)
+			img.set_pixel(x, y, Color(1.0, cg, cb, a))
+	return ImageTexture.create_from_image(img)
+
+## 火舌贴图：根部宽、尖端细的细长火焰（带不规则边缘），尖端朝纹理 +Y
+func _make_tongue_texture() -> ImageTexture:
+	var w := 64
+	var h := 128
+	var img := Image.create(w, h, false, Image.FORMAT_RGBA8)
+	var cx := w * 0.5
+	for y in h:
+		var u := float(y) / float(h - 1)  # 0 根部 → 1 尖端
+		var profile := 1.0 - pow(u, 1.8)  # 根部宽、尖端收成一点
+		var jitter := 0.82 + 0.18 * sin(y * 13.7) * sin(y * 7.3 + 1.7)
+		var half := clampf(0.40 * profile * jitter, 0.0, 0.46)
+		for x in w:
+			var ndx := (x + 0.5 - cx) / (w * 0.5)  # -1..1
+			if absf(ndx) > half:
+				img.set_pixel(x, y, Color(0, 0, 0, 0))
+				continue
+			var t := absf(ndx) / maxf(half, 0.0001)  # 0 中心 → 1 边缘
+			var a := 1.0 - t * t
+			a *= a
+			var core := clampf(1.0 - absf(ndx) / 0.12, 0.0, 1.0)
+			var cg := lerpf(0.55, 0.92, core)
+			var cb := lerpf(0.16, 0.72, core)
+			img.set_pixel(x, y, Color(1.0, cg, cb, a))
 	return ImageTexture.create_from_image(img)
 
 func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vector3.ZERO) -> Node3D:
