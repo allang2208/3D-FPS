@@ -37,7 +37,7 @@ func _initialize() -> void:
 	var ev := InputEventKey.new()
 	ev.keycode = KEY_TAB
 	ev.pressed = true
-	hud._unhandled_input(ev)
+	hud._input(ev)
 	for i in 20:
 		await process_frame
 	await RenderingServer.frame_post_draw
