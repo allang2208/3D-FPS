@@ -135,20 +135,34 @@ var _mod_mag := 0
 var _mod_reserve := 0
 var _mod_reload_ms := 0
 var _mod_spread := 0.0
+var _mods_active := false
+var _base_reserve := -1
 
 func apply_item_mods(mods: Dictionary) -> void:
 	if data == null:
 		return
-	_mod_damage = int(mods.get("enhance_flat_damage", 0))
-	_mod_damage_mult = 1.0 + float(mods.get("damagePercent", 0.0))
-	_mod_interval_ms = int(mods.get("attackIntervalDelta", 0))
-	_mod_interval_mul = float(mods.get("attackIntervalMul", 1.0))
-	_mod_mag = int(mods.get("magazineDelta", 0))
-	_mod_reserve = int(mods.get("reserveDelta", 0))
-	_mod_reload_ms = int(mods.get("reloadTimeDelta", 0))
-	_mod_spread = float(mods.get("shotSpreadDelta", 0.0))
-	reserve = maxi(0, data.reserve + _mod_reserve)
+	var new_damage := int(mods.get("enhance_flat_damage", 0))
+	var new_damage_mult := 1.0 + float(mods.get("damagePercent", 0.0))
+	var new_interval_ms := int(mods.get("attackIntervalDelta", 0))
+	var new_interval_mul := float(mods.get("attackIntervalMul", 1.0))
+	var new_mag := int(mods.get("magDelta", 0))
+	var new_reserve := int(mods.get("reserveDelta", 0))
+	var new_reload_ms := int(mods.get("reloadTimeDelta", 0))
+	var new_spread := float(mods.get("shotSpreadDelta", 0.0))
+	if _base_reserve < 0:
+		_base_reserve = reserve
+	# 备弹只按增量调整并夹到上限，不重置回满（换枪/卸下不吞弹、不回弹）
+	reserve = mini(reserve + (new_reserve - _mod_reserve), maxi(0, _base_reserve + new_reserve))
+	_mod_damage = new_damage
+	_mod_damage_mult = new_damage_mult
+	_mod_interval_ms = new_interval_ms
+	_mod_interval_mul = new_interval_mul
+	_mod_mag = new_mag
+	_mod_reserve = new_reserve
+	_mod_reload_ms = new_reload_ms
+	_mod_spread = new_spread
 	ammo = mini(ammo, _effective_mag())
+	_mods_active = true
 
 func clear_item_mods() -> void:
 	apply_item_mods({})

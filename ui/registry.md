@@ -25,7 +25,7 @@
 | npc_config | data | ui/npc_config.gd | stable | style | 商店目录/强化/改造/附魔/任务/稀有度只读配置；`standard_price` / `enhance_cost` / `can_enchant` 等 | tests/test_ui_tokens.gd + test_npc_panels.gd |
 | economy | data | ui/economy.gd | stable | - | 金币：`get_gold` / `add_gold` / `deduct_gold`，signal changed | tests/test_ui_tokens.gd + test_npc_panels.gd |
 | npc_panel | base | ui/npc_panel.gd | stable | style | 居中面板基类：`open_panel()` / `close()` / `set_title()` / `show_message()` / 金币标签 / 物品按钮助手 | tests/test_ui_tokens.gd + test_npc_panels.gd |
-| npc_panels | host | ui/npc_panels.gd | stable | 全部 npc 面板 | `build(host,db,bp,eq,econ,npc_bar)` 一键挂 7 面板；`open(panels,npc_bar,id)`；`seed_materials(bp)` | tests/test_ui_tokens.gd + test_status_bar.gd + test_demo_terrain.gd |
+| npc_panels | host | ui/npc_panels.gd | stable | 全部 npc 面板 | `build(host,db,bp,eq,econ,npc_bar)` 一键挂 8 面板（含仓库）；`open(panels,npc_bar,id)`；`seed_materials(bp)` | tests/test_ui_tokens.gd + test_status_bar.gd + test_demo_terrain.gd |
 | weapon_formula | data | ui/weapon_formula.gd | stable | - | attack-formula 移植：`compute_weapon_atk` / `formula_text` / `gun_mods_from_item` | tests/test_ui_tokens.gd + test_npc_panels.gd |
 | warehouse | data | ui/warehouse.gd | stable | item_db | 100 格仓库：`add_item` / `count_material` / `consume_material` / `retrieve_all_to_backpack` | tests/test_ui_tokens.gd + test_npc_panels.gd |
 | warehouse_panel | panel | ui/warehouse_panel.gd | stable | style, npc_panel, warehouse, backpack | 分页格子 + 存入/取出 | tests/test_ui_tokens.gd |

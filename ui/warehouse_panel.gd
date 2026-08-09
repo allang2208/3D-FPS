@@ -99,7 +99,9 @@ func _store_item(bp_slot: int) -> void:
 	var it = _backpack.slots[bp_slot]
 	if it == null or it.is_empty():
 		return
-	_warehouse.add_item(it)
+	if not _warehouse.add_item(it):
+		show_message("仓库已满", true)
+		return
 	_backpack.remove_item(String(it.get("instance_id", "")), int(it.get("stack", 1)))
 	_refresh()
 
@@ -118,7 +120,9 @@ func _store_all() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		_warehouse.add_item(it)
+		if not _warehouse.add_item(it):
+			show_message("仓库已满", true)
+			break
 		_backpack.remove_item(String(it.get("instance_id", "")), int(it.get("stack", 1)))
 	_refresh()
 

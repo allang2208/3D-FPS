@@ -19,10 +19,21 @@ func _initialize() -> void:
 	var scene: PackedScene = load("res://scenes/demo_terrain.tscn")
 	_scene = scene.instantiate()
 	root.add_child(_scene)
+	var hud := root.get_node_or_null("HUD")
+	if hud != null:
+		hud.call("_ensure_built")
 
 func _process(_delta: float) -> bool:
 	_frame += 1
-	if _frame == 1:
+	_npc = _scene.get_node_or_null("MouseKingNpc")
+	_bar = _scene.get_node_or_null("NpcBar")
+	if _npc == null or _bar == null:
+		if _frame > 90:
+			_check("npc_exists", _npc != null)
+			_check("npc_bar_exists", _bar != null)
+			quit(1)
+		return false
+	if _frame <= 90:
 		_run()
 	return false
 

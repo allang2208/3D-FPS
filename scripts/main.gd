@@ -38,6 +38,7 @@ var _hover_fireball: Node3D
 var _hover_ice_spike: Node3D
 var _player_dead := false
 var _kills := 0
+var _hud_retries := 0
 
 func _ready() -> void:
 	add_child(LoadingScreenScript.new())  # 注册全局加载界面（进度条）
@@ -189,8 +190,12 @@ func _refresh_weapon_mods() -> void:
 ## 本场景只做桥接：本地数据别名指向 HUD + NPC 栏/子面板 + 技能/治疗信号。
 func _setup_hud_bridge() -> void:
 	if HUD.backpack == null:
-		call_deferred("_setup_hud_bridge")
+		# 防递归风暴：backpack 由 autoload 的 _process 兜底初始化，限次重试后放弃等待 autoload 自行接线
+		_hud_retries += 1
+		if _hud_retries < 300:
+			call_deferred("_setup_hud_bridge")
 		return
+	_hud_retries = 0
 	if not HUD.skill_triggered.is_connected(_on_skill_triggered):
 		HUD.skill_triggered.connect(_on_skill_triggered)
 	if not HUD.player_healed.is_connected(_on_player_healed):
@@ -401,6 +406,7 @@ func _build_npc_panels() -> void:
 	_quest_panel.teleport_requested.connect(func(_quest_id: String) -> void: _on_teleport_requested())
 	_expedition_panel.depart_requested.connect(_on_depart_requested)
 	_equipment.changed.connect(_refresh_weapon_mods)
+	_refresh_weapon_mods()
 
 func _open_npc_panel(panel) -> void:
 	if panel == null:

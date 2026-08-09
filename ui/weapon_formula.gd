@@ -63,5 +63,13 @@ static func gun_mods_from_item(item: Dictionary) -> Dictionary:
 		mods[k] = craft[k]
 	var enchant: Dictionary = item.get("_enchantEffects", {})
 	for k in enchant:
-		mods[k] = enchant[k]
+		if mods.has(k) and typeof(mods[k]) == TYPE_FLOAT and typeof(enchant[k]) == TYPE_FLOAT:
+			# 改造+附魔同键数值（如伤害%）合并：1-(1+a)(1+b)
+			mods[k] = (1.0 + float(mods[k])) * (1.0 + float(enchant[k])) - 1.0
+		else:
+			mods[k] = enchant[k]
+	# 旧版 craft magazineDelta = 备弹增量，映射到 reserveDelta 供枪械生效
+	if mods.has("magazineDelta") and not mods.has("reserveDelta"):
+		mods["reserveDelta"] = mods["magazineDelta"]
+	mods.erase("magazineDelta")
 	return mods

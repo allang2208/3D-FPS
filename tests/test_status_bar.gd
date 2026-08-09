@@ -3,6 +3,8 @@ extends SceneTree
 ## 运行： $godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_status_bar.gd
 
 var _frames := 0
+var _started := false
+var _local := 0
 var _main: Node
 var _bar: Node
 var _player: Node
@@ -12,30 +14,38 @@ func _initialize() -> void:
 	var scene: PackedScene = load("res://scenes/main.tscn")
 	_main = scene.instantiate()
 	root.add_child(_main)
+	var hud := root.get_node_or_null("HUD")
+	if hud != null and not hud.has_method("_ensure_built"):
+		push_error("缺少 HUD autoload")
+	if hud != null:
+		hud.call("_ensure_built")  # 无 current_scene 的 headless 测试里手动初始化 HUD 数据
 
 func _process(_delta: float) -> bool:
 	_frames += 1
-	if _frames == 1:
-		_bar = _main.get_node_or_null("StatusBar")
+	if not _started:
+		_bar = root.get_node_or_null("HUD/StatusBar")
 		_player = _main.get_node_or_null("Player")
 		_gun = _main.get_node_or_null("Player/Camera3D/Gun")
 		if _bar == null or _player == null or _gun == null:
-			push_error("缺少 StatusBar / Player / Gun")
-			quit(1)
+			if _frames > 90:
+				push_error("缺少 StatusBar / Player / Gun（HUD 桥接超时）")
+				quit(1)
 			return false
+		_started = true
 		_player.set("hp", 100000)  # 避免敌人咬死干扰测试
+	_local += 1
 	# ammo 可能被敌人触发玩家反击射击而变动，只校验格式（数字 + / 备弹）
 	var ammo0: bool = String(_bar.get("_ammo_label").text).is_valid_int() and String(_bar.get("_ammo_reserve_label").text).begins_with(" / ")
 	# hp 可能被敌人咬触发 damaged 变成 100000/100，只校验格式（数值/max）
 	var hp0: bool = String(_bar.get("_hp_label").text).contains("/100")
 	print("TEST init ammo0=", ammo0, " hp0=", hp0)
-	if _frames == 3:
+	if _local == 3:
 		_player.set("hp", 100)
 		_player.take_damage(30)
 		var hp_ok: bool = String(_bar.get("_hp_label").text).contains("70/100")
 		var flash_ok: bool = float(_bar.get("_dmgflash_t")) > 0.0
 		print("TEST damaged hp=", _bar.get("_hp_label").text, " flash_ok=", flash_ok)
-	if _frames == 5:
+	if _local == 5:
 		_gun.set("ammo", 5)
 		_gun.set("reserve", 3)
 		_gun.shot.emit(5, 3)
@@ -45,11 +55,11 @@ func _process(_delta: float) -> bool:
 	_gun.hit.emit()
 	var hit_ok: bool = bool(_bar.get("_hitmarker").visible)
 	print("TEST ammo=", _bar.get("_ammo_label").text, " reload_ok=", reload_ok, " hit_ok=", hit_ok)
-	if _frames == 10:
+	if _local == 10:
 		var wolf: Node3D = _main.get_node_or_null("WolfEnemy") as Node3D
 		if wolf != null:
 			wolf.take_damage(9999)
-	if _frames == 12:
+	if _local == 12:
 		var kill_ok: bool = String(_bar.get("_kill_label").text).contains("击杀: 1")
 		_player.set("hp", 100)
 		_player.take_damage(200)
@@ -69,6 +79,11 @@ func _process(_delta: float) -> bool:
 		print("TEST npc_enhance_panel_open=", npc_enhance_ok)
 		# 枪械 mods 钩子 + main 装备接线
 		var gun2: Node = _main.get_node_or_null("Player/Camera3D/Gun")
+		var base_res: int = int(gun2.get("reserve"))
+		gun2.apply_item_mods({"reserveDelta": 6})
+		var reserve_ok: bool = int(gun2.get("reserve")) == base_res + 6
+		gun2.clear_item_mods()
+		var reserve_clear: bool = int(gun2.get("reserve")) == base_res
 		gun2.apply_item_mods({"damagePercent": 0.6, "enhance_flat_damage": 3})
 		var mods_ok: bool = absf(float(gun2.get("_mod_damage_mult")) - 1.6) < 0.001 \
 			and int(gun2.get("_mod_damage")) == 3
@@ -81,9 +96,10 @@ func _process(_delta: float) -> bool:
 			_main.call("_refresh_weapon_mods")
 			wiring_ok = absf(float(gun2.get("_mod_damage_mult")) - 1.1) < 0.001 \
 				and int(gun2.get("_mod_interval_ms")) == -50
-		print("TEST gun_mods=", mods_ok, " clear=", clear_ok, " wiring=", wiring_ok)
+		print("TEST gun_mods=", mods_ok, " clear=", clear_ok, " reserve=", reserve_ok, "/", reserve_clear,
+			" wiring=", wiring_ok)
 		var all_ok: bool = kill_ok and death_ok and ch_hidden and ch_restored \
-			and npc_enhance_ok and mods_ok and clear_ok and wiring_ok
+			and npc_enhance_ok and mods_ok and clear_ok and reserve_ok and reserve_clear and wiring_ok
 		quit(0 if all_ok else 1)
 		return false
 	return false

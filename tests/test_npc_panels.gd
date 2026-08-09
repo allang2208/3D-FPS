@@ -207,4 +207,12 @@ func _run() -> void:
 		wh.count_material(func(i): return String(i.get("id", "")) == "enhancement_stone") == 0)
 	enhance._return_item()
 
+	# 仓库不叠武器（旧版默认 maxStack=1）
+	var wh2 = load("res://ui/warehouse.gd").new()
+	wh2.add_item(_db.create_instance("rusty_sword", 1))
+	wh2.add_item(_db.create_instance("rusty_sword", 1))
+	_check("warehouse_no_weapon_stack",
+		wh2.items.size() == 2 and int(wh2.items[0].get("stack", 0)) == 1,
+		"n=" + str(wh2.items.size()))
+
 	quit(0 if _fail == 0 else 1)

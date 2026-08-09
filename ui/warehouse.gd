@@ -12,7 +12,9 @@ var items: Array = []
 var current_page := 0
 
 func _max_stack(item: Dictionary) -> int:
-	return int(item.get("stack_max", 99))
+	# 旧版 warehouse-system.js：无 maxStack 字段的非堆叠物品按 1（武器不叠）
+	var v := int(item.get("stack_max", 0))
+	return v if v > 1 else 1
 
 func add_item(item: Dictionary) -> bool:
 	var remaining := int(item.get("stack", 1))
@@ -77,6 +79,7 @@ func retrieve_all_to_backpack(backpack) -> void:
 		var it = items[i]
 		if it == null:
 			continue
-		backpack.add_item(String(it.get("id", "")), int(it.get("stack", 1)))
+		if not backpack.add_item(String(it.get("id", "")), int(it.get("stack", 1))):
+			break  # 背包满：保留剩余仓库物品，不丢失
 		items.remove_at(i)
 	changed.emit()
