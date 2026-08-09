@@ -12,6 +12,7 @@
 """
 
 import argparse
+import json
 import os
 import struct
 import time
@@ -173,6 +174,17 @@ def quantize_palette(colors: np.ndarray, max_colors: int) -> tuple:
     return indices, pal_rgb
 
 
+def map_to_custom_palette(colors: np.ndarray, hexes: list) -> tuple:
+    """把采样颜色映射到手工定制调色板（最近邻 RGB）。"""
+    pal = np.array(
+        [[int(h[i : i + 2], 16) for i in (0, 2, 4)] for h in hexes], dtype=np.int32
+    )
+    c = colors.astype(np.int32)
+    diff = ((c[:, None, :] - pal[None, :, :]) ** 2).sum(axis=2)
+    indices = diff.argmin(axis=1).astype(np.uint8) + 1
+    return indices, pal.astype(np.uint8)
+
+
 def split_magazine(
     filled: np.ndarray,
     z_threshold: int = 18,
@@ -278,59 +290,79 @@ def write_obj_with_colors(
     palette: np.ndarray,
     pitch: float,
     ao: np.ndarray = None,
+    extras: list = None,
 ) -> None:
-    """每个体素生成一个带顶点色的方盒（12 三角面），按面法线烘焙明暗 + AO。"""
+    """每个体素生成一个带顶点色的方盒（12 三角面），按面法线烘焙明暗 + AO。
+
+    extras: 附加体素块列表，每项 (shape, indices, palette, pitch, origin, ao)，
+    用于"大+小体素混合"（如主枪 4mm + 弹匣 2mm 合并进同一个 OBJ）。
+    """
     xs, ys, zs = np.nonzero(indices > 0)
     n = len(xs)
+    corners = np.array(
+        [
+            [0, 0, 0],
+            [1, 0, 0],
+            [1, 1, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+            [1, 0, 1],
+            [1, 1, 1],
+            [0, 1, 1],
+        ],
+        dtype=float,
+    )
+    faces = np.array(
+        [
+            [1, 0, 3, 2],  # 底面 z=0，法线 -Z
+            [4, 5, 6, 7],  # 顶面 z=1，法线 +Z
+            [0, 1, 5, 4],  # 前面 y=0，法线 -Y
+            [2, 3, 7, 6],  # 后面 y=1，法线 +Y
+            [3, 0, 4, 7],  # 左面 x=0，法线 -X
+            [1, 2, 6, 5],  # 右面 x=1，法线 +X
+        ],
+        dtype=int,
+    )
+    face_bright = np.array([0.55, 1.0, 0.85, 0.80, 0.70, 0.78], dtype=float)
+    blocks = [
+        dict(
+            shape=shape, xs=xs, ys=ys, zs=zs, idx=indices, pal=palette,
+            pitch=pitch, origin=-(np.array(shape, dtype=float) / 2.0) * pitch, ao=ao,
+        )
+    ]
+    for ex in extras or []:
+        exs, eys, ezs = np.nonzero(ex[1] > 0)
+        blocks.append(
+            dict(
+                shape=ex[0], xs=exs, ys=eys, zs=ezs, idx=ex[1],
+                pal=ex[2], pitch=ex[3], origin=np.array(ex[4], dtype=float), ao=ex[5],
+            )
+        )
     with open(path, "w") as f:
         f.write("# voxelized gun (vertex colors)\n")
         # 体素单位边长 1，中心在 (x+0.5, y+0.5, z+0.5)
-        corners = np.array(
-            [
-                [0, 0, 0],
-                [1, 0, 0],
-                [1, 1, 0],
-                [0, 1, 0],
-                [0, 0, 1],
-                [1, 0, 1],
-                [1, 1, 1],
-                [0, 1, 1],
-            ],
-            dtype=float,
-        )
-        faces = np.array(
-            [
-                [1, 0, 3, 2],  # 底面 z=0，法线 -Z
-                [4, 5, 6, 7],  # 顶面 z=1，法线 +Z
-                [0, 1, 5, 4],  # 前面 y=0，法线 -Y
-                [2, 3, 7, 6],  # 后面 y=1，法线 +Y
-                [3, 0, 4, 7],  # 左面 x=0，法线 -X
-                [1, 2, 6, 5],  # 右面 x=1，法线 +X
-            ],
-            dtype=int,
-        )
-        face_bright = np.array([0.55, 1.0, 0.85, 0.80, 0.70, 0.78], dtype=float)
         base = 1
-        half = np.array(shape, dtype=float) / 2.0
-        for x, y, z, c in zip(xs, ys, zs, indices[xs, ys, zs]):
-            r, g, b = palette[int(c) - 1]
-            ao_f = 1.0
-            if ao is not None:
-                ao_f = ao[int(x), int(y), int(z)]
-            # 居中：体素中心 = (x+0.5)*pitch，整体平移使模型中心落在原点（与 GLB 一致）
-            pos = (corners + np.array([x, y, z]) + 0.5 - half) * pitch
-            for fi, quad in enumerate(faces):
-                bright = face_bright[fi] * ao_f
-                for corner in quad:
-                    cx, cy, cz = pos[corner]
-                    # Godot/MagicaVoxel 读 OBJ 顶点色为 0..1 浮点
-                    f.write(
-                        "v %.6f %.6f %.6f %.4f %.4f %.4f\n"
-                        % (cx, cy, cz, r / 255.0 * bright, g / 255.0 * bright, b / 255.0 * bright)
-                    )
-                f.write("f %d %d %d %d\n" % tuple(base + np.arange(4)))
-                base += 4
-    print("obj:", path, "voxels", n)
+        for blk in blocks:
+            for x, y, z, c in zip(
+                blk["xs"], blk["ys"], blk["zs"], blk["idx"][blk["xs"], blk["ys"], blk["zs"]]
+            ):
+                r, g, b = blk["pal"][int(c) - 1]
+                ao_f = 1.0
+                if blk["ao"] is not None:
+                    ao_f = blk["ao"][int(x), int(y), int(z)]
+                pos = (corners + np.array([x, y, z]) + 0.5) * blk["pitch"] + blk["origin"]
+                for fi, quad in enumerate(faces):
+                    bright = face_bright[fi] * ao_f
+                    for corner in quad:
+                        cx, cy, cz = pos[corner]
+                        # Godot/MagicaVoxel 读 OBJ 顶点色为 0..1 浮点
+                        f.write(
+                            "v %.6f %.6f %.6f %.4f %.4f %.4f\n"
+                            % (cx, cy, cz, r / 255.0 * bright, g / 255.0 * bright, b / 255.0 * bright)
+                        )
+                    f.write("f %d %d %d %d\n" % tuple(base + np.arange(4)))
+                    base += 4
+    print("obj:", path, "voxels", n, "+ extras", [len(b["xs"]) for b in blocks[1:]])
 
 
 def main() -> int:
@@ -339,6 +371,11 @@ def main() -> int:
     ap.add_argument("--pitch", type=float, default=0.005, help="体素边长（米），默认 0.005=0.5cm")
     ap.add_argument("--out", default=None, help="输出路径前缀（默认与输入同名）")
     ap.add_argument("--palette", type=int, default=96, help="调色板最大颜色数，默认 96")
+    ap.add_argument(
+        "--palette-file",
+        default=None,
+        help="手工定制调色板 JSON（如 ['8B5A2B','5A5A5E']），替换自动量化",
+    )
     args = ap.parse_args()
 
     base = args.out or os.path.splitext(args.input)[0]
@@ -360,7 +397,12 @@ def main() -> int:
     print("stage colors %.2fs unique=%d" % (time.time() - t_start, len(np.unique(colors, axis=0))))
     # AI 贴图普遍偏暗，提亮后做体素像素风更耐看
     colors = np.clip(colors.astype(np.float32) * 1.35, 0, 255).astype(np.uint8)
-    indices, palette = quantize_palette(colors, args.palette)
+    if args.palette_file:
+        with open(args.palette_file, encoding="utf-8") as f:
+            hexes = json.load(f)
+        indices, palette = map_to_custom_palette(colors, hexes)
+    else:
+        indices, palette = quantize_palette(colors, args.palette)
     print("stage palette %.2fs" % (time.time() - t_start))
     grid = np.zeros(shape, dtype=np.uint8)
     idx3 = tuple(np.nonzero(filled))
