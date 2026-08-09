@@ -9,8 +9,15 @@ const Style := preload("res://ui/style.gd")
 var _tabs: HBoxContainer
 var _buttons: Array[Button] = []
 var _underline: ColorRect
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	custom_minimum_size = Vector2(0, 34)
 	_tabs = HBoxContainer.new()
 	_tabs.add_theme_constant_override("separation", Style.spacing("element_gap"))
@@ -22,6 +29,7 @@ func _ready() -> void:
 	add_child(_underline)
 
 func add_tab(title: String) -> void:
+	_ensure_built()
 	var idx := _buttons.size()
 	var b := Button.new()
 	b.text = title
@@ -50,6 +58,7 @@ func _select(idx: int) -> void:
 	tab_changed.emit(idx)
 
 func select(index: int) -> void:
+	_ensure_built()
 	_select(index)
 
 func current() -> int:

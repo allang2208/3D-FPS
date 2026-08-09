@@ -7,8 +7,15 @@ const Style := preload("res://ui/style.gd")
 
 var _line: LineEdit
 var _label: Label
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	add_child(h)
@@ -30,11 +37,14 @@ func _ready() -> void:
 	h.add_child(_line)
 
 func setup(text: String, placeholder := "") -> void:
+	_ensure_built()
 	_label.text = text
 	_line.placeholder_text = placeholder
 
 func get_text() -> String:
+	_ensure_built()
 	return _line.text
 
 func set_text(v: String) -> void:
+	_ensure_built()
 	_line.text = v

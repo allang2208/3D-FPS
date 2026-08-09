@@ -10,8 +10,15 @@ var _on := false
 var _box: Panel
 var _check: TextureRect
 var _label: Label
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	add_child(h)
@@ -35,6 +42,7 @@ func _ready() -> void:
 	gui_input.connect(_on_gui)
 
 func setup(text: String) -> void:
+	_ensure_built()
 	_label.text = text
 
 func _on_gui(event: InputEvent) -> void:
@@ -43,6 +51,7 @@ func _on_gui(event: InputEvent) -> void:
 		set_on(not _on)
 
 func set_on(v: bool) -> void:
+	_ensure_built()
 	if _on == v:
 		return
 	_on = v

@@ -5,11 +5,19 @@ signal item_activated(index: int)
 
 const Style := preload("res://ui/style.gd")
 const Icons := preload("res://ui/icons.gd")
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	add_theme_constant_override("separation", Style.spacing("element_gap"))
 
 func add_item(title: String, icon := "") -> void:
+	_ensure_built()
 	var idx := get_child_count()
 	var b := Button.new()
 	b.text = title

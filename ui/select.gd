@@ -7,8 +7,15 @@ const Style := preload("res://ui/style.gd")
 
 var _option: OptionButton
 var _label: Label
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	add_child(h)
@@ -32,16 +39,21 @@ func _ready() -> void:
 	h.add_child(_option)
 
 func setup(text: String) -> void:
+	_ensure_built()
 	_label.text = text
 
 func add_item(item_text: String, id := -1) -> void:
+	_ensure_built()
 	_option.add_item(item_text, id)
 
 func select(index: int) -> void:
+	_ensure_built()
 	_option.select(index)
 
 func get_selected_id() -> int:
+	_ensure_built()
 	return _option.get_selected_id()
 
 func get_selected_index() -> int:
+	_ensure_built()
 	return _option.selected

@@ -8,8 +8,15 @@ const Style := preload("res://ui/style.gd")
 var _on := false
 var _bg: ColorRect
 var _knob: ColorRect
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	custom_minimum_size = Vector2(46, 26)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	_bg = ColorRect.new()
@@ -32,6 +39,7 @@ func _on_gui(event: InputEvent) -> void:
 		set_on(not _on)
 
 func set_on(v: bool) -> void:
+	_ensure_built()
 	if _on == v:
 		return
 	_on = v

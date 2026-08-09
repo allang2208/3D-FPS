@@ -7,8 +7,15 @@ const Style := preload("res://ui/style.gd")
 
 var _slider: HSlider
 var _value_label: Label
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	var h := HBoxContainer.new()
 	h.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	add_child(h)
@@ -44,6 +51,7 @@ func _ready() -> void:
 	h.add_child(_value_label)
 
 func setup(minv: float, maxv: float, step: float, value: float) -> void:
+	_ensure_built()
 	_slider.min_value = minv
 	_slider.max_value = maxv
 	_slider.step = step
@@ -51,4 +59,5 @@ func setup(minv: float, maxv: float, step: float, value: float) -> void:
 	_value_label.text = str(int(value))
 
 func get_value() -> float:
+	_ensure_built()
 	return _slider.value

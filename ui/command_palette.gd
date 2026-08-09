@@ -10,8 +10,15 @@ var _search: LineEdit
 var _list: VBoxContainer
 var _panel: PanelContainer
 var _overlay: ColorRect
+var _built := false
 
 func _ready() -> void:
+	_ensure_built()
+
+func _ensure_built() -> void:
+	if _built:
+		return
+	_built = true
 	visible = false
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -55,10 +62,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func register(id: String, label: String) -> void:
+	_ensure_built()
 	_commands.append({"id": id, "label": label})
 	_refresh()
 
 func clear_commands() -> void:
+	_ensure_built()
 	_commands.clear()
 	_refresh()
 
@@ -69,12 +78,14 @@ func toggle() -> void:
 		open()
 
 func open() -> void:
+	_ensure_built()
 	visible = true
 	_search.clear()
 	_refresh()
 	_search.grab_focus()
 
 func close() -> void:
+	_ensure_built()
 	visible = false
 
 func _refresh() -> void:
