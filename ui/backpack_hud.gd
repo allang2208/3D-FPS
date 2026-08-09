@@ -65,10 +65,12 @@ var _panel_title: Label
 var _tab_status: Button
 var _tab_equip: Button
 var _tab_skill: Button
+var _tab_codex: Button
 var _page_stack: Control
 var _equip_page: VBoxContainer
 var _status_page: Control
 var _skill_page: Control
+var _codex_page: Control
 var _current_tab := "equip"
 var _panel_root: Control
 var _panel: PanelContainer
@@ -171,6 +173,14 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: S
 		_skill_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		_page_stack.add_child(_skill_page)
 		_skill_page.setup(skillbar)
+	_codex_page = Control.new()
+	_codex_page.name = "CodexPage"
+	_codex_page.visible = false
+	_codex_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_page_stack.add_child(_codex_page)
+	var codex_title := _make_label(_codex_page, "图鉴", 20, Style.COLOR_TITLE_TEXT, Vector2(24, 18))
+	codex_title.add_theme_font_override("font", _font_title)
+	_make_label(_codex_page, "装备图鉴 / 怪物图鉴系统移植中……", 14, Style.COLOR_DIM_TEXT, Vector2(26, 52))
 	set_tab("equip")
 	_refresh()
 
@@ -506,7 +516,7 @@ func set_panel_open(open: bool) -> void:
 ## ---------- 页签（角色状态 / 装备背包，复刻旧版 SystemUI 页签） ----------
 
 func set_tab(tab: String) -> void:
-	if tab != "status" and tab != "equip" and tab != "skill":
+	if tab != "status" and tab != "equip" and tab != "skill" and tab != "codex":
 		return
 	_current_tab = tab
 	if _status_page != null:
@@ -515,19 +525,24 @@ func set_tab(tab: String) -> void:
 		_equip_page.visible = tab == "equip"
 	if _skill_page != null:
 		_skill_page.visible = tab == "skill"
+	if _codex_page != null:
+		_codex_page.visible = tab == "codex"
 	if _panel_title != null:
-		_panel_title.text = "角色状态" if tab == "status" else ("装备与背包" if tab == "equip" else "技能")
+		_panel_title.text = "角色状态" if tab == "status" else (
+			"装备与背包" if tab == "equip" else ("技能" if tab == "skill" else "图鉴"))
 	_update_tab_styles()
 
 func _update_tab_styles() -> void:
-	if _tab_status == null or _tab_equip == null or _tab_skill == null:
+	if _tab_status == null or _tab_equip == null or _tab_skill == null or _tab_codex == null:
 		return
 	_tab_status.add_theme_stylebox_override("normal", _tab_style(_current_tab == "status"))
 	_tab_equip.add_theme_stylebox_override("normal", _tab_style(_current_tab == "equip"))
 	_tab_skill.add_theme_stylebox_override("normal", _tab_style(_current_tab == "skill"))
+	_tab_codex.add_theme_stylebox_override("normal", _tab_style(_current_tab == "codex"))
 	_tab_status.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "status" else Style.COLOR_DIM_TEXT)
 	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Style.COLOR_DIM_TEXT)
 	_tab_skill.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "skill" else Style.COLOR_DIM_TEXT)
+	_tab_codex.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "codex" else Style.COLOR_DIM_TEXT)
 
 func _tab_style(active: bool) -> StyleBox:
 	if active:
@@ -1096,12 +1111,15 @@ func _build_panel() -> void:
 	_tab_status = _make_tab_button("角色状态")
 	_tab_equip = _make_tab_button("装备背包")
 	_tab_skill = _make_tab_button("技能")
+	_tab_codex = _make_tab_button("图鉴")
 	tab_bar.add_child(_tab_status)
 	tab_bar.add_child(_tab_equip)
 	tab_bar.add_child(_tab_skill)
+	tab_bar.add_child(_tab_codex)
 	_tab_status.pressed.connect(func() -> void: set_tab("status"))
 	_tab_equip.pressed.connect(func() -> void: set_tab("equip"))
 	_tab_skill.pressed.connect(func() -> void: set_tab("skill"))
+	_tab_codex.pressed.connect(func() -> void: set_tab("codex"))
 	# 页面栈
 	_page_stack = Control.new()
 	_page_stack.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -1132,7 +1150,15 @@ func _build_panel() -> void:
 	_equip_grid.add_theme_constant_override("h_separation", 8)
 	_equip_grid.add_theme_constant_override("v_separation", 8)
 	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	equip_col.add_child(_equip_grid)
+	# 装备区白色毛玻璃容器（原项目 equip-grid：白渐变 + blur + 12px 圆角）
+	var equip_glass := PanelContainer.new()
+	equip_glass.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	equip_glass.add_theme_stylebox_override("panel",
+		Style.make_style(Style.COLOR_EQUIP_GLASS_BG, Style.COLOR_EQUIP_GLASS_BORDER, 12, 2))
+	equip_glass.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	equip_col.add_child(equip_glass)
+	_equip_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	equip_glass.add_child(_equip_grid)
 	var total_slots := backpack.max_slots if backpack != null else 25
 	for key in EquipmentScript.SLOT_ORDER:
 		var cell := EquipSlot.new()

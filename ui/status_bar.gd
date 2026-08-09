@@ -209,15 +209,18 @@ func _build() -> void:
 	_kill_label.add_theme_font_override("font", _font_mono)
 	_bind_hover(_kill_label, _label("kill_tip_title", "击杀数"), _label("kill_tip_desc", "本局累计击杀的敌人数量。"),
 		func() -> Array: return [["击杀", "%d" % _kills]])
-	# 右下：武器名 + 弹药 + 状态提示
-	var wsize := _cfg_int(_weapon_cfg, "size", 14)
-	_weapon_label = _make_label("", Vector2.ZERO, wsize,
-		Style.THEME_GRAY_LIGHT if Style.theme_active() == "gold_white_gray" else Style.COLOR_DIM_TEXT)
-	_weapon_label.add_theme_font_override("font", _font_regular)
-	_weapon_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	_weapon_label.offset_left = -320.0
-	_weapon_label.offset_top = -116.0
-	_weapon_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	# 左下：武器模式 + 武器名（原项目 weapon-info，金色发光）
+	var wsize := _cfg_int(_weapon_cfg, "size", 16)
+	var wmode := _make_label("武器", Vector2.ZERO, 12, Style.COLOR_DIM_TEXT)
+	wmode.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	wmode.offset_left = 16.0
+	wmode.offset_top = -204.0
+	_weapon_label = _make_label("", Vector2.ZERO, wsize, Style.THEME_GOLD)
+	_weapon_label.add_theme_font_override("font", _font_bold)
+	_weapon_label.add_theme_color_override("font_color", Style.THEME_GOLD)
+	_weapon_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	_weapon_label.offset_left = 16.0
+	_weapon_label.offset_top = -182.0
 	_bind_hover(_weapon_label, _label("weapon_tip_title", "当前武器"), _label("weapon_tip_desc", "正在使用的武器。1~4 键切换，R 键换弹。"),
 		func() -> Array: return [["武器", _weapon_name]])
 	var ammo_row := HBoxContainer.new()
@@ -483,7 +486,7 @@ func _open_hud_tab(tab: String) -> void:
 	var bph: Control = hud.get("backpack_hud") if hud != null else null
 	if bph == null:
 		return
-	if tab in ["status", "equip", "skill"]:
+	if tab in ["status", "equip", "skill", "codex"]:
 		bph.set_panel_open(true)
 		bph.set_tab(tab)
 	else:

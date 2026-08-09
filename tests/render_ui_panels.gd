@@ -33,6 +33,7 @@ func _initialize() -> void:
 	_st.stamina = 62
 	_st.exp = 42
 	_st.level = 3
+	_st.attr_points = 5
 
 
 func _process(_delta: float) -> bool:

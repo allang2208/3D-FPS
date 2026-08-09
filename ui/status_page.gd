@@ -14,6 +14,7 @@ var _lv_label: Label
 var _attr_label: Label
 var _bars := {}
 var _rows := {}
+var _attr_plus := {}
 var _tooltip: PanelContainer
 var _tooltip_title: Label
 var _tooltip_desc: Label
@@ -142,6 +143,8 @@ func _refresh() -> void:
 	_rows["con"].text = str(status.con)
 	_rows["wis"].text = str(status.wis)
 	_rows["luck"].text = str(status.luck)
+	for key in _attr_plus:
+		_attr_plus[key].visible = status.attr_points > 0
 	_rows["atk"].text = str(status.atk())
 	_rows["def"].text = str(status.def())
 	_rows["matk"].text = str(status.matk())
@@ -227,6 +230,25 @@ func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 	var val_lbl := _make_label(row, "", 13, Style.COLOR_TEXT)
 	val_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_rows[key] = val_lbl
+	if _group == "attr":
+		# 原项目属性点 + 分配按钮（有属性点时显示）
+		var plus := Button.new()
+		plus.text = "+"
+		plus.custom_minimum_size = Vector2(20, 20)
+		plus.visible = false
+		plus.add_theme_font_size_override("font_size", 14)
+		plus.add_theme_font_override("font", Style.make_font(700))
+		plus.add_theme_stylebox_override("normal",
+			Style.make_style(Style.COLOR_WHITE, Style.THEME_GOLD, 4, 2))
+		plus.add_theme_stylebox_override("hover",
+			Style.make_style(Style.COLOR_BADGE_GOLD_BG, Style.THEME_GOLD, 4, 2))
+		plus.add_theme_stylebox_override("pressed",
+			Style.make_style(Style.COLOR_BADGE_GOLD_BG, Style.THEME_GOLD, 4, 2))
+		plus.add_theme_color_override("font_color", Style.COLOR_BLACK)
+		plus.add_theme_color_override("font_hover_color", Style.COLOR_BLACK)
+		plus.pressed.connect(func() -> void: _allocate(key))
+		row.add_child(plus)
+		_attr_plus[key] = plus
 	card.mouse_filter = Control.MOUSE_FILTER_STOP
 	var hover_sb := Style.make_style(Color(Style.THEME_GOLD, 0.10), Color(Style.THEME_GOLD, 0.55), 4, 1)
 	card.mouse_entered.connect(func() -> void:
@@ -236,6 +258,21 @@ func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 		card.add_theme_stylebox_override("panel", sb)
 		hide_tooltip())
 	return card
+
+func _allocate(key: String) -> void:
+	if status == null or status.attr_points <= 0:
+		return
+	match key:
+		"str": status.str += 1
+		"dex": status.dex += 1
+		"intt": status.intt += 1
+		"con": status.con += 1
+		"wis": status.wis += 1
+		"luck": status.luck += 1
+		_:
+			return
+	status.attr_points -= 1
+	_refresh()
 
 func _make_label(parent: Node, text: String, size: int, color: Color) -> Label:
 	var l := Label.new()

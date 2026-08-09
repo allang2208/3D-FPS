@@ -140,6 +140,8 @@ static var COLOR_OVERLAY_STRONG: Color = Color(0, 0, 0, 0.55)  # 命令面板/�
 static var COLOR_CD_DIM: Color = Color(0, 0, 0, 0.55)          # 冷却遮罩
 static var COLOR_CD_FLASH: Color = Color(1, 1, 1, 0.85)        # 冷却结束闪光
 static var COLOR_BLUR_TINT: Color = Color(0.93, 0.93, 0.95)    # 灰白毛玻璃 blur 乳白染色
+static var COLOR_EQUIP_GLASS_BG: Color = Color(1, 1, 1, 0.42)     # 装备区白色毛玻璃底（原项目 equip-grid）
+static var COLOR_EQUIP_GLASS_BORDER: Color = Color(0.75, 0.75, 0.80, 0.5)
 static var COLOR_SLOT_BORDER: Color = Color(0.3529, 0.3020, 0.2471) # #5a4d3f
 static var COLOR_SLOT_HOVER_BG: Color = Color(0.2902, 0.2471, 0.2078) # #4a3f35
 static var COLOR_SLOT_HOVER_BORDER: Color = Color(0.5412, 0.4902, 0.4196) # #8a7d6b
@@ -527,6 +529,8 @@ static func _apply_colors(p: Dictionary) -> void:
 	if p.has("COLOR_CD_DIM"): COLOR_CD_DIM = _hex_to_color(p.COLOR_CD_DIM)
 	if p.has("COLOR_CD_FLASH"): COLOR_CD_FLASH = _hex_to_color(p.COLOR_CD_FLASH)
 	if p.has("COLOR_BLUR_TINT"): COLOR_BLUR_TINT = _hex_to_color(p.COLOR_BLUR_TINT)
+	if p.has("COLOR_EQUIP_GLASS_BG"): COLOR_EQUIP_GLASS_BG = _hex_to_color(p.COLOR_EQUIP_GLASS_BG)
+	if p.has("COLOR_EQUIP_GLASS_BORDER"): COLOR_EQUIP_GLASS_BORDER = _hex_to_color(p.COLOR_EQUIP_GLASS_BORDER)
 	if p.has("COLOR_SLOT_BORDER"): COLOR_SLOT_BORDER = _hex_to_color(p.COLOR_SLOT_BORDER)
 	if p.has("COLOR_SLOT_HOVER_BG"): COLOR_SLOT_HOVER_BG = _hex_to_color(p.COLOR_SLOT_HOVER_BG)
 	if p.has("COLOR_SLOT_HOVER_BORDER"): COLOR_SLOT_HOVER_BORDER = _hex_to_color(p.COLOR_SLOT_HOVER_BORDER)
