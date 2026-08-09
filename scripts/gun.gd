@@ -1,10 +1,13 @@
 extends Node3D
-## AKM 风格 hitscan 弹道系统：
-## - 射线判定（命中敌人层 2 / 墙体层 1），散布随连射增大（bloom）
-## - 每次实弹射击必出曳光（Tracer），命中点出火花（ImpactFx），枪口闪光
-## - 弹药 30/90，R 换弹；空仓 / 换弹信号通知 HUD
+## AKM 强反馈枪械（COD 式三层后坐 + juice）
+## - GunKick：枪模多轴弹簧后坐（位置 Z 退/Y 沉 + 旋转 pitch/roll），带回弹过冲
+## - ViewKick：相机 pitch 上扬 + yaw 随机，指数回正（真正影响弹道，叠加散布）
+## - FOV Punch：开火瞬间视场角 +5°，快速回落
+## - Juice：枪口闪光 / 弹壳抛壳 / 命中相机抖动 / AKM 枪声 / 换弹声
+## - 弹药 30/90，空仓自动换弹 / R 手动；信号契约（shot/hit/reloading/reloaded/empty）保持不变
 
 const MUZZLE_LOCAL := Vector3(0, 0.02, -0.5)
+const EJECT_LOCAL := Vector3(0.045, 0.045, -0.10)
 const FIRE_INTERVAL := 0.13
 const DAMAGE := 25
 const MAG_SIZE := 30
@@ -15,7 +18,24 @@ const BASE_SPREAD := 0.0025
 const BLOOM_PER_SHOT := 0.0012
 const MAX_SPREAD := 0.018
 
+const BASE_POS := Vector3(0.28, -0.26, -0.5)
+
+# GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
+const KICK_STIFFNESS := 210.0
+const KICK_DAMPING := 16.0
+# ViewKick 指数回正速率（/s）
+const VIEW_KICK_RECOVERY := 5.5
+# FOV 脉冲
+const FOV_PUNCH := 5.0
+const FOV_PUNCH_DECAY := 28.0
+# 命中抖动
+const HIT_SHAKE_AMP := 0.014
+const HIT_SHAKE_TIME := 0.12
+
 const ProjectileScript := preload("res://scripts/projectile.gd")
+const CasingScript := preload("res://scripts/casing.gd")
+const SHOOT_SOUND := preload("res://assets/sfx/akm_burst.mp3")
+const RELOAD_SOUND := preload("res://assets/sfx/reload_sharp.mp3")
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
@@ -23,15 +43,28 @@ signal reloading
 signal reloaded(ammo_left: int, reserve_left: int)
 signal empty
 
-var _recoil := 0.0
 var _fire_cd := 0.0
 var _flash_t := 0.0
 var _reload_t := 0.0
 var _spread := 0.0
 var _flash_light: OmniLight3D
 var _flash_mesh: MeshInstance3D
+var _shoot_player: AudioStreamPlayer
+var _reload_player: AudioStreamPlayer
 var ammo := MAG_SIZE
 var reserve := 90
+
+# 弹簧状态
+var _kick_pos := Vector3.ZERO
+var _kick_pos_vel := Vector3.ZERO
+var _kick_rot := Vector3.ZERO
+var _kick_rot_vel := Vector3.ZERO
+# 视角后坐 / FOV / 抖动
+var _kick_pitch := 0.0
+var _kick_yaw := 0.0
+var _fov_kick := 0.0
+var _base_fov := 0.0
+var _shake_t := 0.0
 
 func _ready() -> void:
 	_build_gun()
@@ -58,18 +91,35 @@ func _ready() -> void:
 	_flash_mesh.position = MUZZLE_LOCAL
 	_flash_mesh.visible = false
 	add_child(_flash_mesh)
+	_shoot_player = AudioStreamPlayer.new()
+	_shoot_player.name = "ShootSfx"
+	_shoot_player.stream = SHOOT_SOUND
+	_shoot_player.volume_db = -2.0
+	add_child(_shoot_player)
+	_reload_player = AudioStreamPlayer.new()
+	_reload_player.name = "ReloadSfx"
+	_reload_player.stream = RELOAD_SOUND
+	_reload_player.volume_db = -4.0
+	add_child(_reload_player)
 	shot.emit(ammo, reserve)
 
 func _process(delta: float) -> void:
-	_recoil = maxf(0.0, _recoil - delta * 7.0)
-	position.z = -0.5 - _recoil * 0.09
-	rotation.x = -_recoil * 0.08
+	_update_spring(delta)
+	position = BASE_POS + _kick_pos
+	rotation = _kick_rot
 	_flash_t = maxf(0.0, _flash_t - delta)
 	_flash_light.visible = _flash_t > 0.0
 	_flash_light.light_energy = 10.0 * (_flash_t / 0.06)
 	_flash_mesh.visible = _flash_t > 0.0
 	if _flash_mesh.visible:
 		_flash_mesh.scale = Vector3.ONE * randf_range(0.8, 1.7)
+	var cam := get_viewport().get_camera_3d()
+	if cam != null:
+		if _base_fov <= 0.0:
+			_base_fov = cam.fov
+		_apply_view_kick(cam, delta)
+		_apply_fov_punch(cam, delta)
+		_apply_hit_shake(cam, delta)
 
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
@@ -94,19 +144,23 @@ func _physics_process(delta: float) -> void:
 
 func _start_reload() -> void:
 	_reload_t = RELOAD_TIME
+	_reload_player.pitch_scale = randf_range(0.95, 1.05)
+	_reload_player.play()
 	reloading.emit()
 
 func _shoot() -> void:
 	_fire_cd = FIRE_INTERVAL
 	if ammo <= 0:
-		_recoil = 0.3
 		empty.emit()
 		return
 	ammo -= 1
 	_spread = minf(MAX_SPREAD, _spread + BLOOM_PER_SHOT)
-	_recoil = 1.0
 	_flash_t = 0.06
 	shot.emit(ammo, reserve)
+	_apply_gun_kick()
+	_shoot_player.pitch_scale = randf_range(0.97, 1.03)
+	_shoot_player.play()
+	_spawn_casing()
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
 		return
@@ -119,6 +173,7 @@ func _shoot() -> void:
 	proj.hit_enemy.connect(_on_projectile_hit)
 
 func _on_projectile_hit() -> void:
+	_shake_t = HIT_SHAKE_TIME
 	hit.emit()
 
 func _aim_dir(cam: Camera3D) -> Vector3:
@@ -134,6 +189,56 @@ func _finish_reload() -> void:
 	ammo += take
 	reserve -= take
 	reloaded.emit(ammo, reserve)
+
+# ---------- 强反馈 ----------
+
+func _apply_gun_kick() -> void:
+	_kick_pos_vel += Vector3(randf_range(-0.10, 0.10), randf_range(0.04, 0.10), randf_range(0.55, 0.85))
+	_kick_rot_vel += Vector3(randf_range(0.55, 1.0), 0.0, randf_range(-0.7, 0.7))
+	_kick_pitch += randf_range(0.008, 0.017)
+	_kick_yaw += randf_range(-0.006, 0.006)
+	_fov_kick = FOV_PUNCH
+
+func _update_spring(delta: float) -> void:
+	var a_pos := -_kick_pos * KICK_STIFFNESS - _kick_pos_vel * KICK_DAMPING
+	_kick_pos_vel += a_pos * delta
+	_kick_pos += _kick_pos_vel * delta
+	var a_rot := -_kick_rot * KICK_STIFFNESS - _kick_rot_vel * KICK_DAMPING
+	_kick_rot_vel += a_rot * delta
+	_kick_rot += _kick_rot_vel * delta
+
+func _apply_view_kick(cam: Camera3D, delta: float) -> void:
+	var prev_p := _kick_pitch
+	var prev_y := _kick_yaw
+	var k := exp(-VIEW_KICK_RECOVERY * delta)
+	_kick_pitch *= k
+	_kick_yaw *= k
+	cam.rotation.x += _kick_pitch - prev_p
+	cam.rotation.y += _kick_yaw - prev_y
+
+func _apply_fov_punch(cam: Camera3D, delta: float) -> void:
+	_fov_kick = maxf(0.0, _fov_kick - delta * FOV_PUNCH_DECAY)
+	cam.fov = _base_fov + _fov_kick
+
+func _apply_hit_shake(cam: Camera3D, delta: float) -> void:
+	if _shake_t <= 0.0:
+		return
+	_shake_t -= delta
+	var a := HIT_SHAKE_AMP * (_shake_t / HIT_SHAKE_TIME)
+	cam.rotation.x += randf_range(-a, a)
+	cam.rotation.y += randf_range(-a, a)
+
+func _spawn_casing() -> void:
+	var cam := get_viewport().get_camera_3d()
+	if cam == null:
+		return
+	var origin := global_transform * EJECT_LOCAL
+	var scene_root: Node = get_tree().current_scene
+	if scene_root == null:
+		scene_root = get_tree().root
+	CasingScript.spawn(scene_root, origin, cam.global_transform.basis.x)
+
+# ---------- 模型 ----------
 
 func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vector3.ZERO) -> void:
 	var mesh := MeshInstance3D.new()

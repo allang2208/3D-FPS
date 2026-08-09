@@ -16,6 +16,7 @@
 | `scripts/player.gd` | ✅（不动 take_damage/信号） | ✅（HUD 接线） |
 | `scripts/main.gd` | 仅场景搭建 / 敌人配置 | 仅 `_build_hud` 与 `_on_*` 处理 |
 | `assets/models/**` | ✅ | ❌ |
+| `assets/sfx/**`（枪械/战斗音效） | ✅（枪声/换弹等） | ✅（`ui/` 子目录） |
 | `assets/ui/**`、`ui/**`、`scenes/ui/**` | ❌ | ✅ |
 | `project.godot` | ❌ | ✅（主题/字体/输入映射） |
 | `tests/test_combat.gd`、`test_reload.gd` | ✅ | 只读 |
