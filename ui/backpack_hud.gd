@@ -14,11 +14,11 @@ extends Control
 ## - 悬停/拖拽高亮、物品浮窗（主信息+改造+附魔三段式）、背包已满提示
 
 signal player_healed(hp: int)
+signal skill_triggered(skill_id: String)
 
 const BackpackScript := preload("res://ui/backpack.gd")
 const EquipmentScript := preload("res://ui/equipment.gd")
 const Style := preload("res://ui/style.gd")
-const Icons := preload("res://ui/icons.gd")
 const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
 const StatusPageScript := preload("res://ui/status_page.gd")
 const SkillBarScript := preload("res://ui/skillbar.gd")
@@ -29,10 +29,13 @@ const HOTBAR_SIZE := 4
 const SKILL_SIZE := 4
 const SKILL_KEY_HINTS := ["Q", "E", "X", "C"]
 const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
+# 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
+const COLOR_SKILL_SLOT_BG := Color(0.2392, 0.2039, 0.1686)
+const COLOR_SKILL_SLOT_BORDER := Color(0.4196, 0.3647, 0.3098)
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
-const CELL_SLOT := 54
-const EQUIP_SLOT_SIZE := Vector2(160, 74)
+const CELL_SLOT := 60
+const EQUIP_SLOT_SIZE := Vector2(250, 84)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
@@ -49,6 +52,7 @@ const EQUIP_SLOT_LABELS := {
 var backpack: BackpackScript
 var equipment: EquipmentScript
 var skillbar: SkillBarScript
+var _player_status: RefCounted
 
 var _hotbar_root: HBoxContainer
 var _hotbar_slots: Array = []
@@ -114,18 +118,18 @@ func _ready() -> void:
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(600)
 	_font_value = Style.make_font(600)
-	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_XS, 1)
-	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_XS, 1)
-	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_XS, 1)
-	_s_skill_empty = Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.COLOR_SKILL_SLOT_BORDER, Style.RADIUS_XS, 1)
-	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, Style.RADIUS_SM, 1)
-	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
-	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_SM, 1)
-	_s_cell_drag_over = Style.make_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, Style.RADIUS_SM, 1)
-	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, Style.RADIUS_MD, 1)
-	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, Style.RADIUS_MD, 1)
-	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, Style.RADIUS_MD, 1)
-	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, Style.RADIUS_MD, 1)
+	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
+	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
+	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
+	_s_skill_empty = Style.make_style(COLOR_SKILL_SLOT_BG, COLOR_SKILL_SLOT_BORDER, 8, 2)
+	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
+	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
+	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
+	_s_cell_drag_over = Style.make_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, 8, 2)
+	_s_equip_empty = Style.make_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, 8, 2)
+	_s_equip_equipped = Style.make_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, 8, 2)
+	_s_equip_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
+	_s_equip_locked = Style.make_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, 8, 2)
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -144,6 +148,7 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: S
 	backpack = bp
 	equipment = eq
 	skillbar = sb
+	_player_status = st
 	backpack.changed.connect(_refresh)
 	backpack.item_added.connect(_on_item_added)
 	backpack.bound.connect(_on_bound)
@@ -160,7 +165,6 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: S
 	if skillbar != null:
 		skillbar.changed.connect(_refresh_skill_slots)
 		_refresh_skill_slots()
-	if skillbar != null:
 		_skill_page = SkillPageScript.new()
 		_skill_page.name = "SkillPage"
 		_skill_page.visible = false
@@ -348,15 +352,17 @@ func use_skill_slot(index: int) -> void:
 	if skillbar == null:
 		_flash_status("技能未移植（%s）" % key_name)
 		return
-	var r := skillbar.trigger(index)
+	var r := skillbar.trigger(index, _player_status)
 	var msg := String(r.get("reason", ""))
 	if msg == "空槽":
 		msg = "技能未移植（%s）" % key_name
-	_flash_status(msg)
 	if bool(r.get("ok", false)):
-		var id := skillbar.resolve(index)
-		if skillbar.is_hold(id):
-			_flash_status("长按技能（%s，未移植）" % key_name)
+		var skill_id := String(r.get("skill_id", ""))
+		var def: Dictionary = skillbar.skills.get(skill_id, {})
+		msg = "释放 %s（%s）" % [String(def.get("name", skill_id)), key_name]
+		if skill_id != "":
+			skill_triggered.emit(skill_id)
+	_flash_status(msg)
 
 ## 技能键按下反馈：槽位大脉冲 + 金色边框闪（无技能时也让玩家看到按键生效）
 func _pulse_skill_slot(index: int) -> void:
@@ -418,9 +424,9 @@ func _update_skill_cd(slot: SkillSlot, index: int) -> void:
 	elif prev > 0.0 and remaining <= 0.0:
 		cd.visible = true
 		cd_text.visible = false
-		cd.color = Color(Style.COLOR_WHITE, 0.85)
+		cd.color = Color(1, 1, 1, 0.85)
 		var tw := create_tween()
-		tw.tween_property(cd, "color", Style.COLOR_OVERLAY, 0.18)
+		tw.tween_property(cd, "color", Color(0, 0, 0, 0.55), 0.18)
 	else:
 		cd.visible = false
 		cd_text.visible = false
@@ -504,13 +510,7 @@ func set_tab(tab: String) -> void:
 	if _skill_page != null:
 		_skill_page.visible = tab == "skill"
 	if _panel_title != null:
-		match tab:
-			"status":
-				_panel_title.text = "角色状态"
-			"equip":
-				_panel_title.text = "装备与背包"
-			"skill":
-				_panel_title.text = "技能体系"
+		_panel_title.text = "角色状态" if tab == "status" else ("装备与背包" if tab == "equip" else "技能")
 	_update_tab_styles()
 
 func _update_tab_styles() -> void:
@@ -525,9 +525,9 @@ func _update_tab_styles() -> void:
 
 func _tab_style(active: bool) -> StyleBoxFlat:
 	if active:
-		var sb := Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1)
+		var sb := Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 6, 2)
 		return sb
-	return Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_PANEL_BORDER, Style.RADIUS_SM, 1)
+	return Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_PANEL_BORDER, 6, 2)
 
 ## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
 func _apply_panel_slide(t: float) -> void:
@@ -609,7 +609,7 @@ func _pop_cell(slot: int) -> void:
 	var cell: BackpackCell = _cells[slot]
 	var s := cell.size
 	if s == Vector2.ZERO:
-		s = Vector2(CELL_SLOT, CELL_SLOT)
+		s = Vector2(72, CELL_SLOT)
 	cell.pivot_offset = s * 0.5
 	var tw := create_tween()
 	tw.tween_property(cell, "scale", Vector2(1.2, 1.2), 0.18).from(Vector2(0.5, 0.5))
@@ -632,9 +632,9 @@ func _shake_hotbar(index: int) -> void:
 
 func _flash_cd_end(slot: HotbarSlot) -> void:
 	var overlay := slot.get_node("Content/CD") as ColorRect
-	overlay.color = Color(Style.COLOR_WHITE, 0.85)
+	overlay.color = Color(1, 1, 1, 0.85)
 	var tw := create_tween()
-	tw.tween_property(overlay, "color", Style.COLOR_OVERLAY, 0.18)
+	tw.tween_property(overlay, "color", Color(0, 0, 0, 0.55), 0.18)
 
 ## ---------- 悬停 / 拖拽高亮 ----------
 
@@ -835,7 +835,7 @@ func _update_cooldown_overlays() -> void:
 			var pct := clampf(remaining / total, 0.0, 1.0)
 			overlay.visible = true
 			overlay.offset_top = -HOTBAR_SLOT * pct
-			overlay.color = Style.COLOR_OVERLAY
+			overlay.color = Color(0, 0, 0, 0.55)
 		elif prev > 0.0 and remaining <= 0.0:
 			overlay.visible = true
 			_flash_cd_end(slot)
@@ -849,7 +849,7 @@ func _build_hotbar() -> void:
 	var bar := PanelContainer.new()
 	bar.name = "Hotbar"
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	bar.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_BAR_BORDER, Style.RADIUS_LG, 1))
+	bar.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_BAR_BORDER, 12, 2))
 	bar.add_theme_constant_override("margin_left", BAR_PAD)
 	bar.add_theme_constant_override("margin_right", BAR_PAD)
 	bar.add_theme_constant_override("margin_top", BAR_PAD)
@@ -880,8 +880,7 @@ func _build_hotbar() -> void:
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		content.add_child(icon)
-		var key := _make_label(content, SKILL_KEY_HINTS[i],
-			Style.font_size("caption"), Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
@@ -889,7 +888,7 @@ func _build_hotbar() -> void:
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
-		cd.color = Style.COLOR_OVERLAY
+		cd.color = Color(0, 0, 0, 0.55)
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cd.anchor_left = 0.0
 		cd.anchor_right = 1.0
@@ -899,14 +898,13 @@ func _build_hotbar() -> void:
 		cd.offset_top = 0
 		cd.visible = false
 		content.add_child(cd)
-		var cd_text := _make_label(content, "",
-			Style.font_size("caption"), Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
+		var cd_text := _make_label(content, "", 10, Color.WHITE, Vector2(HOTBAR_SLOT - 18, HOTBAR_SLOT - 28))
 		cd_text.name = "CDText"
 		cd_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		cd_text.visible = false
 		var dim := ColorRect.new()
 		dim.name = "Dim"
-		dim.color = Color(Style.THEME_BG, 0.55)
+		dim.color = Color(0.2, 0.2, 0.2, 0.55)
 		dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		dim.visible = false
@@ -919,8 +917,7 @@ func _build_hotbar() -> void:
 	sp.key = "右击"
 	sp.index = -1
 	sp.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
-	sp.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.THEME_MP_BLUE, Style.RADIUS_SM, 1))
+	sp.add_theme_stylebox_override("panel", Style.make_style(Color(0.231, 0.208, 0.29), Color(0.353, 0.353, 0.541), 8, 2))
 	sp.visible = false
 	var sp_content := Control.new()
 	sp_content.name = "Content"
@@ -934,8 +931,7 @@ func _build_hotbar() -> void:
 	sp_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sp_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sp_content.add_child(sp_icon)
-	var sp_key := _make_label(sp_content, "右击",
-		Style.font_size("caption"), Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
+	var sp_key := _make_label(sp_content, "右击", 10, Style.COLOR_KEY_HINT, Vector2(0, HOTBAR_SLOT - 17))
 	sp_key.name = "Key"
 	sp_key.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hotbar_root.add_child(sp)
@@ -963,8 +959,7 @@ func _build_hotbar() -> void:
 		var stack := _make_label(content, "", 12, Style.COLOR_TEXT, Vector2(3, HOTBAR_SLOT - 18))
 		stack.name = "Stack"
 		stack.add_theme_font_override("font", _font_value)
-		var key := _make_label(content, str(i + 1),
-			Style.font_size("caption"), Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		var key := _make_label(content, str(i + 1), 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
 		var blink := create_tween()
 		blink.set_loops()
@@ -972,7 +967,7 @@ func _build_hotbar() -> void:
 		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
-		cd.color = Style.COLOR_OVERLAY
+		cd.color = Color(0, 0, 0, 0.55)
 		cd.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cd.anchor_left = 0.0
 		cd.anchor_right = 1.0
@@ -1017,10 +1012,10 @@ func _build_panel() -> void:
 	_panel = PanelContainer.new()
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
-	var panel_sb := Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, Style.RADIUS_LG, 1)
+	var panel_sb := Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 12, 2)
 	panel_sb.set_corner_radius_all(0)
-	panel_sb.set_corner_radius(CORNER_TOP_LEFT, Style.RADIUS_LG)
-	panel_sb.set_corner_radius(CORNER_BOTTOM_LEFT, Style.RADIUS_LG)
+	panel_sb.set_corner_radius(CORNER_TOP_LEFT, 12)
+	panel_sb.set_corner_radius(CORNER_BOTTOM_LEFT, 12)
 	panel_sb.border_width_left = 3
 	_panel.add_theme_stylebox_override("panel", panel_sb)
 	_panel_root.add_child(_panel)
@@ -1045,12 +1040,12 @@ func _build_panel() -> void:
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	content.add_child(margin)
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	vbox.add_theme_constant_override("separation", 10)
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	margin.add_child(vbox)
 	var title_row := HBoxContainer.new()
 	vbox.add_child(title_row)
-	_panel_title = _make_label(title_row, "装备与背包", Style.font_size("h2"), Style.COLOR_TITLE_TEXT, Vector2.ZERO)
+	_panel_title = _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
 	_panel_title.add_theme_font_override("font", _font_title)
 	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var divider := HSeparator.new()
@@ -1058,11 +1053,11 @@ func _build_panel() -> void:
 	vbox.add_child(divider)
 	# 页签栏（旧版 SystemUI 页签）
 	var tab_bar := HBoxContainer.new()
-	tab_bar.add_theme_constant_override("separation", Style.spacing("element_gap"))
+	tab_bar.add_theme_constant_override("separation", 6)
 	vbox.add_child(tab_bar)
 	_tab_status = _make_tab_button("角色状态")
 	_tab_equip = _make_tab_button("装备背包")
-	_tab_skill = _make_tab_button("技能体系")
+	_tab_skill = _make_tab_button("技能")
 	tab_bar.add_child(_tab_status)
 	tab_bar.add_child(_tab_equip)
 	tab_bar.add_child(_tab_skill)
@@ -1080,26 +1075,26 @@ func _build_panel() -> void:
 	_equip_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_equip_page.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_page_stack.add_child(_equip_page)
-	# 上：装备栏（3x5 大宽格）
+	# 上：装备栏（旧版 gear-equip-col，占上半区，3x5 大宽格）
 	var equip_col := VBoxContainer.new()
 	equip_col.add_theme_constant_override("separation", 6)
-	equip_col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	_equip_page.add_child(equip_col)
-	var equip_title := _make_label(equip_col, "装备栏", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
+	var equip_title := _make_label(equip_col, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
 	_equip_grid.columns = EQUIP_COLS
-	_equip_grid.add_theme_constant_override("h_separation", Style.spacing("element_gap"))
-	_equip_grid.add_theme_constant_override("v_separation", Style.spacing("element_gap"))
-	_equip_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_equip_grid.add_theme_constant_override("h_separation", 8)
+	_equip_grid.add_theme_constant_override("v_separation", 8)
+	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(_equip_grid)
-	var total_slots := backpack.max_slots if backpack != null else 36
+	var total_slots := backpack.max_slots if backpack != null else 35
 	for key in EquipmentScript.SLOT_ORDER:
 		var cell := EquipSlot.new()
 		cell.hud = self
 		cell.key = key
 		cell.custom_minimum_size = EQUIP_SLOT_SIZE
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_equip_empty)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
@@ -1110,12 +1105,12 @@ func _build_panel() -> void:
 		icon.name = "Icon"
 		icon.anchor_left = 0.0
 		icon.anchor_top = 0.0
-		icon.anchor_right = 1.0
+		icon.anchor_right = 0.0
 		icon.anchor_bottom = 1.0
-		icon.offset_left = 10
-		icon.offset_top = 8
-		icon.offset_right = -10
-		icon.offset_bottom = -26
+		icon.offset_left = 20
+		icon.offset_top = 6
+		icon.offset_right = 118
+		icon.offset_bottom = -6
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1124,12 +1119,12 @@ func _build_panel() -> void:
 		fallback.name = "Fallback"
 		fallback.anchor_left = 0.0
 		fallback.anchor_top = 0.0
-		fallback.anchor_right = 1.0
+		fallback.anchor_right = 0.0
 		fallback.anchor_bottom = 1.0
-		fallback.offset_left = 10
-		fallback.offset_top = 8
-		fallback.offset_right = -10
-		fallback.offset_bottom = -26
+		fallback.offset_left = 20
+		fallback.offset_top = 6
+		fallback.offset_right = 118
+		fallback.offset_bottom = -6
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		fallback.add_theme_font_override("font", Style.make_emoji_font())
@@ -1139,19 +1134,18 @@ func _build_panel() -> void:
 		cell_content.add_child(fallback)
 		var name_lbl := Label.new()
 		name_lbl.name = "Name"
-		name_lbl.anchor_left = 0.0
-		name_lbl.anchor_top = 1.0
+		name_lbl.anchor_left = 1.0
+		name_lbl.anchor_top = 0.0
 		name_lbl.anchor_right = 1.0
 		name_lbl.anchor_bottom = 1.0
-		name_lbl.offset_left = 4
-		name_lbl.offset_top = -24
-		name_lbl.offset_right = -4
-		name_lbl.offset_bottom = -3
+		name_lbl.offset_left = -118
+		name_lbl.offset_top = 8
+		name_lbl.offset_right = -10
+		name_lbl.offset_bottom = -8
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
-		name_lbl.clip_text = true
-		name_lbl.add_theme_font_size_override("font_size", Style.font_size("caption"))
+		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		name_lbl.add_theme_font_size_override("font_size", 13)
 		name_lbl.add_theme_font_override("font", _font_value)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1168,7 +1162,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -4
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 11)
+		rarity_lbl.add_theme_font_size_override("font_size", 12)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
@@ -1204,34 +1198,33 @@ func _build_panel() -> void:
 		lock.add_child(x_lbl)
 		_equip_grid.add_child(cell)
 		_equip_cells[key] = cell
-	# 下：背包（表头 背包+0/36，5 列小方格）
+	# 下：背包（旧版 gear-inventory-col：表头 背包+0/36，5 列小方格）
 	var inv_col := VBoxContainer.new()
-	inv_col.add_theme_constant_override("separation", Style.spacing("element_gap"))
-	inv_col.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	inv_col.add_theme_constant_override("separation", 4)
 	_equip_page.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
-	var inv_title := _make_label(inv_header, "背包", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
+	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_count_label = _make_label(inv_header, "", Style.font_size("label"), Style.COLOR_DIM_TEXT, Vector2.ZERO)
+	_count_label = _make_label(inv_header, "", 14, Style.COLOR_DIM_TEXT, Vector2.ZERO)
 	_count_label.add_theme_font_override("font", _font_section)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
-	_grid.add_theme_constant_override("h_separation", Style.spacing("element_gap"))
-	_grid.add_theme_constant_override("v_separation", Style.spacing("element_gap"))
-	_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_grid.add_theme_constant_override("h_separation", 6)
+	_grid.add_theme_constant_override("v_separation", 6)
+	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inv_col.add_child(_grid)
 	for i in total_slots:
 		var cell := BackpackCell.new()
 		cell.hud = self
 		cell.slot = i
-		cell.custom_minimum_size = Vector2(CELL_SLOT, CELL_SLOT)
+		cell.custom_minimum_size = Vector2(72, CELL_SLOT)
 		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_cell_empty)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
-		cell_content.custom_minimum_size = Vector2(CELL_SLOT, CELL_SLOT)
+		cell_content.custom_minimum_size = Vector2(72, CELL_SLOT)
 		cell_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell.add_child(cell_content)
 		var icon := TextureRect.new()
@@ -1263,8 +1256,7 @@ func _build_panel() -> void:
 		stack.offset_right = -4
 		stack.offset_bottom = -2
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		var name_lbl := _make_label(cell_content, "",
-			Style.font_size("caption"), Style.COLOR_WHITE, Vector2.ZERO)
+		var name_lbl := _make_label(cell_content, "", 11, Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
 		name_lbl.anchor_left = 0.0
 		name_lbl.anchor_right = 1.0
@@ -1287,7 +1279,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -2
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 11)
+		rarity_lbl.add_theme_font_size_override("font_size", 10)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
@@ -1312,7 +1304,7 @@ func _build_status_label() -> void:
 	_status_label.visible = false
 
 func _build_notice() -> void:
-	_notice_label = _make_label(self, "", Style.font_size("h2"), Style.COLOR_NOTICE, Vector2.ZERO)
+	_notice_label = _make_label(self, "", 36, Style.COLOR_NOTICE, Vector2.ZERO)
 	_notice_label.add_theme_font_override("font", _font_title)
 	_notice_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_notice_label.offset_top = 210
@@ -1348,7 +1340,7 @@ func _make_tab_button(label: String) -> Button:
 	var b := Button.new()
 	b.text = label
 	b.custom_minimum_size = Vector2(120, 30)
-	b.add_theme_font_size_override("font_size", Style.font_size("label"))
+	b.add_theme_font_size_override("font_size", 13)
 	b.add_theme_font_override("font", _font_section)
 	var idle := _tab_style(false)
 	b.add_theme_stylebox_override("normal", idle)
@@ -1377,25 +1369,10 @@ func _icon_tex(path: String) -> Texture2D:
 
 func _set_icon(icon: TextureRect, fallback: Label, item: Dictionary) -> void:
 	var tex := _icon_tex(String(item.get("icon", "")))
-	var emoji := String(item.get("icon_fallback", ""))
-	if tex == null and emoji == "":
-		# 旧版图标缺失时给分类默认图标（金色描边），保证每个槽都有统一图标
-		var cat_icon := _category_icon(String(item.get("category", "")))
-		if cat_icon != "":
-			tex = Icons.get_icon(cat_icon)
-			icon.modulate = Style.THEME_GOLD
 	icon.texture = tex
+	var emoji := String(item.get("icon_fallback", ""))
 	fallback.visible = tex == null and emoji != ""
 	fallback.text = emoji
-
-func _category_icon(category: String) -> String:
-	match category:
-		"武器", "weapon": return "sword"
-		"防具", "armor", "头盔", "helmet": return "shield"
-		"饰品", "accessory", "耳环", "戒指", "项链": return "gem"
-		"消耗品", "consumable", "药水": return "package"
-		"装备", "equipment", "靴子", "手套", "斗篷": return "shield"
-		_: return "package"
 
 func _vertical_text(s: String) -> String:
 	if s.length() <= 1:
@@ -1419,7 +1396,7 @@ func _make_badge(text: String, bg: Color, fg: Color) -> Label:
 	l.text = text
 	l.custom_minimum_size = Vector2(22, 13)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	l.add_theme_font_size_override("font_size", 11)
+	l.add_theme_font_size_override("font_size", 9)
 	l.add_theme_color_override("font_color", fg)
 	l.add_theme_stylebox_override("normal", Style.make_style(bg, Color(0, 0, 0, 0), 3, 0))
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1432,7 +1409,7 @@ func _clear_children(box: Node) -> void:
 func make_slot_preview(item: Dictionary) -> Control:
 	var p := PanelContainer.new()
 	p.custom_minimum_size = Vector2(44, 44)
-	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_ITEM_BORDER, Style.RADIUS_SM, 1))
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_ITEM_BORDER, 6, 2))
 	var tr := TextureRect.new()
 	tr.texture = _icon_tex(String(item.get("icon", "")))
 	tr.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -1443,7 +1420,7 @@ func make_slot_preview(item: Dictionary) -> Control:
 func make_skill_preview(skill_id: String) -> Control:
 	var p := PanelContainer.new()
 	p.custom_minimum_size = Vector2(44, 44)
-	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_SKILL_SLOT_BORDER, Style.RADIUS_SM, 1))
+	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, COLOR_SKILL_SLOT_BORDER, 6, 2))
 	var def: Dictionary = skillbar.skills.get(skill_id, {})
 	var tex := _icon_tex(String(def.get("icon", "")))
 	if tex != null:
@@ -1467,6 +1444,9 @@ func _flash_status(text: String) -> void:
 	_status_label.text = text
 	_status_label.visible = true
 	_status_timer.start(1.6)
+
+func flash_status(text: String) -> void:
+	_flash_status(text)
 
 ## ---------- 内部控件 ----------
 

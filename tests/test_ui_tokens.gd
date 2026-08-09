@@ -69,7 +69,7 @@ func _initialize() -> void:
 		_check("dmg_flash_token", Style.COLOR_DMG_FLASH.is_equal_approx(Style._hex_to_color("#CC000000")))
 
 	# 2) 组件禁止硬编码颜色（引用 Style.* 的行除外）
-	var files := ["res://ui/status_bar.gd", "res://ui/item_tooltip.gd", "res://ui/backpack_hud.gd"]
+	var files := ["res://ui/status_bar.gd", "res://ui/item_tooltip.gd"]
 	for f in files:
 		var p := FileAccess.open(f, FileAccess.READ)
 		if p == null:

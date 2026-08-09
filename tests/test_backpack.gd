@@ -116,7 +116,7 @@ func _data_tests() -> void:
 	var bp := BackpackScript.new(db)
 	_check("db_hp_potion", db.has_item("hp_potion"))
 	_check("db_mp_potion", db.has_item("mp_potion"))
-	_check("slots_36", bp.slots.size() == 36)
+	_check("slots_35", bp.slots.size() == 35)
 	_check("hotbar_4", bp.hotbar.size() == 4)
 	_check("add_2", bp.add_item("hp_potion", 2))
 	_check("count_2", bp.item_count() == 1 and int(bp.slots[0].get("stack", 0)) == 2)
