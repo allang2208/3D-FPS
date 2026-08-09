@@ -6,7 +6,6 @@ const NpcConfig := preload("res://ui/npc_config.gd")
 const WeaponFormula := preload("res://ui/weapon_formula.gd")
 
 var _db: RefCounted
-var _backpack: RefCounted
 var _equipment: RefCounted
 var _warehouse: RefCounted
 var _player_status
@@ -17,6 +16,18 @@ var _info_label: Label
 var _cost_label: Label
 var _bp_grid: GridContainer
 var _eq_grid: GridContainer
+var _circle_icon: Label
+var _circle_glow: Panel
+var _glow_t := 0.0
+
+func _process(delta: float) -> void:
+	super._process(delta)
+	if _circle_icon == null:
+		return
+	_glow_t += delta
+	_circle_icon.rotation = _glow_t * 0.4
+	if _circle_glow != null:
+		_circle_glow.modulate.a = 0.30 + 0.22 * (0.5 + 0.5 * sin(_glow_t * 2.2))
 
 func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy: RefCounted) -> void:
 	_db = db
@@ -37,26 +48,38 @@ func _build_body() -> void:
 	var circle_row := HBoxContainer.new()
 	circle_row.add_theme_constant_override("separation", 14)
 	body.add_child(circle_row)
+	_circle_glow = Panel.new()
+	_circle_glow.custom_minimum_size = Vector2(96, 96)
+	_circle_glow.add_theme_stylebox_override("panel",
+		Style.make_style(Color(Style.THEME_GOLD, 0.35), Color(Style.THEME_GOLD, 0.0), 48, 0))
+	circle_row.add_child(_circle_glow)
 	var circle := Panel.new()
 	circle.custom_minimum_size = Vector2(96, 96)
 	circle.add_theme_stylebox_override("panel",
 		Style.make_style(Color(Style.THEME_BG, 0.0), Style.THEME_GOLD, 48, 2))
-	circle_row.add_child(circle)
-	var circle_icon := Label.new()
-	circle_icon.text = "⚒️"
-	circle_icon.add_theme_font_size_override("font_size", 36)
-	circle_icon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	circle.add_child(circle_icon)
+	circle.position = Vector2(0, 0)
+	circle.size = Vector2(96, 96)
+	_circle_glow.add_child(circle)
+	_circle_icon = Label.new()
+	_circle_icon.text = "⚒️"
+	_circle_icon.add_theme_font_size_override("font_size", 36)
+	_circle_icon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	circle.add_child(_circle_icon)
+	var slot_drop := _make_drop_slot()
+	slot_drop.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	circle_row.add_child(slot_drop)
 	var slot_box := VBoxContainer.new()
 	slot_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	slot_box.add_theme_constant_override("separation", 4)
-	circle_row.add_child(slot_box)
+	slot_box.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	slot_drop.add_child(slot_box)
 	_slot_label = _make_label("强化槽：拖入装备", "body", Style.THEME_GRAY_LIGHT)
 	slot_box.add_child(_slot_label)
 	_info_label = _make_label("", "body", Style.THEME_WHITE)
 	slot_box.add_child(_info_label)
 	_cost_label = _make_label("", "body", Style.THEME_GOLD)
 	slot_box.add_child(_cost_label)
+	slot_drop.dropped.connect(_on_drop_equip)
 
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))
@@ -158,6 +181,13 @@ func _equip_from_slot(key: String) -> void:
 	_equipped = {"item": it, "source": "equip", "slot": key}
 	_equipment.changed.emit()
 	_refresh()
+
+func _on_drop_equip(data: Dictionary) -> void:
+	var slot := _find_bp_slot(data.get("item", {}))
+	if slot < 0:
+		show_message("请从背包拖入装备", true)
+		return
+	_equip_from_backpack(slot)
 
 func _return_item() -> void:
 	if _equipped.is_empty():

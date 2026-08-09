@@ -151,6 +151,7 @@ static func has_craft_config(item: Dictionary) -> bool:
 	return not get_craft_config(String(item.get("weaponId", ""))).is_empty()
 
 static var _craft_cache: Dictionary = {}
+static var _craft_defaults: Dictionary = {}
 
 static func _load_craft_config() -> Dictionary:
 	if _craft_cache.is_empty() and FileAccess.file_exists(CRAFT_CONFIG_PATH):
@@ -160,10 +161,31 @@ static func _load_craft_config() -> Dictionary:
 			f.close()
 			if typeof(parsed) == TYPE_DICTIONARY:
 				_craft_cache = parsed
+				if _craft_defaults.is_empty():
+					_craft_defaults = parsed.duplicate(true)
 	return _craft_cache
 
 static func craft_config_for(item: Dictionary) -> Dictionary:
 	return get_craft_config(String(item.get("weaponId", "")))
+
+## 布局编辑落盘（旧版 CraftSystem._persistCraftConfig 迁移：写回 assets/data/craft-config.json）
+static func update_craft_layout(weapon_id: String, slots: Array) -> void:
+	_load_craft_config()
+	if _craft_cache.has(weapon_id):
+		_craft_cache[weapon_id]["slots"] = slots
+		_save_craft_config()
+
+static func reset_craft_layout(weapon_id: String) -> void:
+	_load_craft_config()
+	if _craft_defaults.has(weapon_id) and _craft_cache.has(weapon_id):
+		_craft_cache[weapon_id]["slots"] = _craft_defaults[weapon_id]["slots"].duplicate(true)
+		_save_craft_config()
+
+static func _save_craft_config() -> void:
+	var f := FileAccess.open(CRAFT_CONFIG_PATH, FileAccess.WRITE)
+	if f != null:
+		f.store_string(JSON.stringify(_craft_cache, "\t"))
+		f.close()
 
 ## 旧版图标路径（assets/icons/craft/x.png 等）→ 本地 res:// 路径；不存在返回空
 static func map_icon_path(path: String) -> String:

@@ -5,7 +5,6 @@ extends "res://ui/npc_panel.gd"
 const NpcConfig := preload("res://ui/npc_config.gd")
 
 var _db: RefCounted
-var _backpack: RefCounted
 var _equipment: RefCounted
 var _warehouse: RefCounted
 var _scroll := {}
@@ -34,10 +33,18 @@ func set_warehouse(wh: RefCounted) -> void:
 
 func _build_body() -> void:
 	body.add_child(_make_empty_hint("拖入卷轴点击转换粉尘可以生成粉尘，拖入装备和附魔卷轴进行附魔。"))
+	var scroll_drop := _make_drop_slot()
+	body.add_child(scroll_drop)
 	_scroll_label = _make_label("卷轴槽：空", "body", Style.THEME_GRAY_LIGHT)
-	body.add_child(_scroll_label)
+	_scroll_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	scroll_drop.add_child(_scroll_label)
+	scroll_drop.dropped.connect(_on_drop_scroll)
+	var equip_drop := _make_drop_slot()
+	body.add_child(equip_drop)
 	_equip_label = _make_label("装备槽：空", "body", Style.THEME_GRAY_LIGHT)
-	body.add_child(_equip_label)
+	_equip_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	equip_drop.add_child(_equip_label)
+	equip_drop.dropped.connect(_on_drop_equip)
 	_dust_label = _make_label("✨ 魔法粉尘：0", "body", Style.THEME_GOLD)
 	body.add_child(_dust_label)
 	body.add_child(_make_section_title("🔮 预览效果"))
@@ -155,6 +162,28 @@ func _place_scroll(source: String, slot: int) -> void:
 	_scroll_src = {"source": source, "slot": slot}
 	_backpack.changed.emit()
 	_refresh()
+
+func _on_drop_scroll(data: Dictionary) -> void:
+	var it: Dictionary = data.get("item", {})
+	if String(it.get("scroll_id", "")) == "":
+		show_message("请拖入附魔卷轴", true)
+		return
+	var slot := _find_bp_slot(it)
+	if slot < 0:
+		show_message("请从背包拖入卷轴", true)
+		return
+	_place_scroll("backpack", slot)
+
+func _on_drop_equip(data: Dictionary) -> void:
+	var it: Dictionary = data.get("item", {})
+	if not _is_weapon(it):
+		show_message("只能附魔武器", true)
+		return
+	var slot := _find_bp_slot(it)
+	if slot < 0:
+		show_message("请从背包拖入武器", true)
+		return
+	_place_equip("backpack", slot)
 
 func _place_equip(source: String, slot) -> void:
 	var it = _backpack.slots[slot] if source == "backpack" else _equipment.slots.get(slot, {})

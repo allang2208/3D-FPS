@@ -82,6 +82,24 @@
       "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
     },
     {
+      "name": "drop_slot",
+      "type": "widget",
+      "path": "ui/drop_slot.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal dropped(data)", "accepted_types"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
+      "name": "craft_layout",
+      "type": "widget",
+      "path": "ui/craft_layout.gd",
+      "status": "stable",
+      "deps": ["style", "npc_config"],
+      "interfaces": ["setup(config,mods)", "set_editing(v)", "collect_slots()", "signal slot_clicked/layout_changed"],
+      "tests": ["tests/test_ui_tokens.gd", "tests/test_npc_panels.gd"]
+    },
+    {
       "name": "weapon_formula",
       "type": "data",
       "path": "ui/weapon_formula.gd",

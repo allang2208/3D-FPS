@@ -5,7 +5,6 @@ extends "res://ui/npc_panel.gd"
 const NpcConfig := preload("res://ui/npc_config.gd")
 
 var _db: RefCounted
-var _backpack: RefCounted
 var _placed: Array = []
 var _seq := 0
 
@@ -82,6 +81,10 @@ func _rebuild_grid() -> void:
 		var item: Dictionary = entry["item"]
 		var b := _make_item_cell(item, Vector2(120, 52))
 		b.pressed.connect(func(_c, _idx: int = i): _retrieve(_idx))
+		b.drop_requested.connect(func(d):
+			var s := _find_bp_slot(d.get("item", {}))
+			if s >= 0:
+				_place_from_backpack(s))
 		_grid.add_child(b)
 
 func _rebuild_backpack() -> void:

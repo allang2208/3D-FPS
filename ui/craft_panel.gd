@@ -6,19 +6,23 @@ extends "res://ui/npc_panel.gd"
 const NpcConfig := preload("res://ui/npc_config.gd")
 
 var _db: RefCounted
-var _backpack: RefCounted
 var _equipment: RefCounted
 var _warehouse: RefCounted
 var _equipped := {}
 var _popup_slot_id := ""
 
 var _slot_label: Label
-var _mod_grid: GridContainer
 var _mod_title: Label
 var _popup: PanelContainer
 var _popup_list: VBoxContainer
 var _bp_grid: GridContainer
 var _eq_grid: GridContainer
+var _layout: Control
+var _edit_backup := {}
+var _edit_btn: Button
+var _save_btn: Button
+var _cancel_btn: Button
+var _reset_btn: Button
 
 func setup(db: RefCounted, backpack: RefCounted, equipment: RefCounted, economy: RefCounted) -> void:
 	_db = db
@@ -32,10 +36,14 @@ func set_warehouse(wh: RefCounted) -> void:
 	_warehouse = wh
 
 func _build_body() -> void:
+	var slot_drop := _make_drop_slot()
+	body.add_child(slot_drop)
 	_slot_label = _make_label("改造槽：空（点击下方武器放入）", "body", Style.THEME_GRAY_LIGHT)
-	body.add_child(_slot_label)
+	_slot_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	slot_drop.add_child(_slot_label)
 	_mod_title = _make_label("", "label", Style.THEME_GOLD)
 	body.add_child(_mod_title)
+	slot_drop.dropped.connect(_on_drop_weapon)
 
 	var h := HBoxContainer.new()
 	h.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -46,15 +54,28 @@ func _build_body() -> void:
 	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	left.add_theme_constant_override("separation", Style.spacing("grid"))
 	h.add_child(left)
-	var mod_scroll := ScrollContainer.new()
-	mod_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	mod_scroll.custom_minimum_size = Vector2(300, 240)
-	left.add_child(mod_scroll)
-	_mod_grid = GridContainer.new()
-	_mod_grid.columns = 2
-	_mod_grid.add_theme_constant_override("h_separation", 6)
-	_mod_grid.add_theme_constant_override("v_separation", 6)
-	mod_scroll.add_child(_mod_grid)
+	var edit_bar := HBoxContainer.new()
+	edit_bar.add_theme_constant_override("separation", 6)
+	left.add_child(edit_bar)
+	_edit_btn = _make_button("🖱 调整布局")
+	_edit_btn.pressed.connect(_enter_edit)
+	edit_bar.add_child(_edit_btn)
+	_save_btn = _make_button("💾 保存布局")
+	_save_btn.pressed.connect(_save_layout)
+	_save_btn.visible = false
+	edit_bar.add_child(_save_btn)
+	_cancel_btn = _make_button("✕ 取消")
+	_cancel_btn.pressed.connect(_cancel_edit)
+	_cancel_btn.visible = false
+	edit_bar.add_child(_cancel_btn)
+	_reset_btn = _make_button("↺ 重置")
+	_reset_btn.pressed.connect(_reset_layout)
+	_reset_btn.visible = false
+	edit_bar.add_child(_reset_btn)
+	_layout = load("res://ui/craft_layout.gd").new()
+	_layout.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_layout.slot_clicked.connect(_open_popup)
+	left.add_child(_layout)
 
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation", Style.spacing("element_gap"))
@@ -120,32 +141,15 @@ func _is_crafted(item: Dictionary) -> bool:
 	return not data.is_empty()
 
 func _rebuild_mod_grid() -> void:
-	for c in _mod_grid.get_children():
-		c.queue_free()
 	if _equipped.is_empty():
+		_layout.setup({}, {})
 		return
 	var item: Dictionary = _equipped["item"]
 	var cfg := NpcConfig.craft_config_for(item)
 	if cfg.is_empty():
+		_layout.setup({}, {})
 		return
-	var mods: Dictionary = item.get("_craftData", {})
-	for slot in cfg["slots"]:
-		var slot_id := String(slot["id"])
-		var slot_name := String(slot["name"])
-		var current := String(mods.get(slot_id, ""))
-		var label := slot_name
-		var opt := {}
-		if current != "":
-			opt = _find_option(cfg, slot_id, current)
-			label = "%s：%s" % [slot_name, String(opt.get("name", current))]
-		var b := _make_button(label, "body")
-		if current != "":
-			b.add_theme_color_override("font_color", Style.THEME_GOLD)
-		var icon_path := NpcConfig.map_icon_path(String(opt.get("icon", "")))
-		if icon_path != "":
-			b.icon = load(icon_path)
-		b.pressed.connect(_open_popup.bind(String(slot_id)))
-		_mod_grid.add_child(b)
+	_layout.setup(cfg, item.get("_craftData", {}))
 
 func _find_option(cfg: Dictionary, slot_id: String, mod_id: String) -> Dictionary:
 	var opts: Array = cfg.get("options", {}).get(slot_id, [])
@@ -153,6 +157,49 @@ func _find_option(cfg: Dictionary, slot_id: String, mod_id: String) -> Dictionar
 		if String(o.get("id", "")) == mod_id:
 			return o
 	return {}
+
+func _enter_edit() -> void:
+	if _equipped.is_empty():
+		return
+	var item: Dictionary = _equipped["item"]
+	var cfg := NpcConfig.craft_config_for(item)
+	if cfg.is_empty():
+		show_message("该武器不可改造", true)
+		return
+	_edit_backup = cfg.duplicate(true)
+	_layout.set_editing(true)
+	_edit_btn.visible = false
+	_save_btn.visible = true
+	_cancel_btn.visible = true
+	_reset_btn.visible = true
+
+func _save_layout() -> void:
+	if _equipped.is_empty():
+		return
+	var item: Dictionary = _equipped["item"]
+	NpcConfig.update_craft_layout(String(item.get("weaponId", "")), _layout.collect_slots())
+	_exit_edit()
+	show_message("布局已保存（craft-config.json）")
+
+func _cancel_edit() -> void:
+	if not _edit_backup.is_empty() and _equipped.has("item"):
+		_layout.setup(_edit_backup, _equipped["item"].get("_craftData", {}))
+	_exit_edit()
+
+func _reset_layout() -> void:
+	if _equipped.is_empty():
+		return
+	var item: Dictionary = _equipped["item"]
+	NpcConfig.reset_craft_layout(String(item.get("weaponId", "")))
+	_layout.setup(NpcConfig.craft_config_for(item), item.get("_craftData", {}))
+	show_message("布局已重置为出厂默认")
+
+func _exit_edit() -> void:
+	_layout.set_editing(false)
+	_edit_btn.visible = true
+	_save_btn.visible = false
+	_cancel_btn.visible = false
+	_reset_btn.visible = false
 
 func _rebuild_backpack() -> void:
 	for c in _bp_grid.get_children():
@@ -195,6 +242,13 @@ func _equip_from_slot(key: String) -> void:
 	_equipped = {"item": it, "source": "equip", "slot": key}
 	_equipment.changed.emit()
 	_refresh()
+
+func _on_drop_weapon(data: Dictionary) -> void:
+	var slot := _find_bp_slot(data.get("item", {}))
+	if slot < 0:
+		show_message("请从背包拖入武器", true)
+		return
+	_equip_from_backpack(slot)
 
 func _return_item() -> void:
 	if _equipped.is_empty():

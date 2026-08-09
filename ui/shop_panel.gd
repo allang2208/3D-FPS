@@ -5,7 +5,6 @@ extends "res://ui/npc_panel.gd"
 const NpcConfig := preload("res://ui/npc_config.gd")
 
 var _db: RefCounted
-var _backpack: RefCounted
 var _shop_id := "main"
 var _sell: Array = []  # Array[{item, slot}]
 
@@ -117,6 +116,10 @@ func _rebuild_sell_grid() -> void:
 		var cell := _make_item_cell(it, Vector2(112, 50))
 		cell.set_price(sell_price)
 		cell.pressed.connect(func(_c, _idx: int = i): _return_to_backpack(_idx))
+		cell.drop_requested.connect(func(d):
+			var s := _find_bp_slot(d.get("item", {}))
+			if s >= 0:
+				_add_to_sell(s))
 		_sell_grid.add_child(cell)
 
 func _rebuild_backpack_grid() -> void:

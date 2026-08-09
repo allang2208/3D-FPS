@@ -6,6 +6,7 @@ const Style := preload("res://ui/style.gd")
 
 signal pressed(cell: Panel)
 signal hovered(item: Dictionary)
+signal drop_requested(data: Dictionary)
 
 var item := {}
 
@@ -144,6 +145,27 @@ func _make_badge(text: String, bg: Color, fg: Color) -> Label:
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		pressed.emit(self)
+
+## 拖出（旧版：背包格可拖到面板槽位）
+func _get_drag_data(_at_position: Vector2) -> Variant:
+	if item.is_empty():
+		return null
+	var preview := Label.new()
+	preview.text = String(item.get("name", "?"))
+	preview.add_theme_font_size_override("font_size", 14)
+	preview.add_theme_color_override("font_color", Style.THEME_WHITE)
+	preview.add_theme_stylebox_override("normal",
+		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, Style.RADIUS_SM, 1))
+	set_drag_preview(preview)
+	return {"type": "npc_item", "item": item.duplicate(true), "source": "cell"}
+
+## 接收（旧版：合成/出征/仓库/卖出格可接收背包拖入）
+func _can_drop_data(_at_position: Vector2, data) -> bool:
+	return data is Dictionary and String(data.get("type", "")) == "npc_item"
+
+func _drop_data(_at_position: Vector2, data) -> void:
+	if _can_drop_data(_at_position, data):
+		drop_requested.emit(data)
 
 func set_item(it: Dictionary) -> void:
 	item = it

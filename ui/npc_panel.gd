@@ -17,6 +17,7 @@ var message_label: Label
 var body: VBoxContainer
 var close_btn: Button
 var economy: RefCounted
+var _backpack
 
 var _open := false
 var _was_captured := false
@@ -182,6 +183,25 @@ func _make_item_cell(it: Dictionary, min_size := Vector2(120, 52)) -> Node:
 	var c = script.new()
 	c.setup(it, min_size)
 	return c
+
+## 拖放接收槽（旧版 drag-drop-manager 迁移）
+func _make_drop_slot() -> Node:
+	var script: GDScript = load("res://ui/drop_slot.gd")
+	return script.new()
+
+## 按背包实例定位（拖放数据匹配；找不到返回 -1）
+func _find_bp_slot(item: Dictionary) -> int:
+	var iid := String(item.get("instance_id", ""))
+	for i in _backpack.slots.size():
+		var it = _backpack.slots[i]
+		if it == null or it.is_empty():
+			continue
+		if iid != "" and String(it.get("instance_id", "")) == iid:
+			return i
+		if iid == "" and String(it.get("name", "")) == String(item.get("name", "")) \
+				and int(it.get("stack", 1)) >= int(item.get("stack", 1)):
+			return i
+	return -1
 
 func _make_item_button(item: Dictionary, min_size := Vector2(118, 44)) -> Button:
 	var b := Button.new()

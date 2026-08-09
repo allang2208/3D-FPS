@@ -99,6 +99,11 @@ func _run() -> void:
 	_check("craft_data", String(c_data.get(slot_id, "")) == mod_id)
 	_check("craft_effects", not c_item.get("_craftEffects", {}).is_empty())
 	_check("craft_ticket", _slot_of("reforge_ticket") == -1 or int(_bp.slots[_slot_of("reforge_ticket")].get("stack", 0)) == 1)
+	craft._enter_edit()
+	var layout_edit_ok: bool = craft._layout != null and bool(craft._layout.editing)
+	craft._cancel_edit()
+	var layout_cancel_ok: bool = craft._layout != null and not bool(craft._layout.editing)
+	_check("craft_layout_edit_cancel", layout_edit_ok and layout_cancel_ok)
 	craft._return_item()
 	craft.close()
 

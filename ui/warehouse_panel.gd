@@ -3,7 +3,6 @@ extends "res://ui/npc_panel.gd"
 ## 当前未接入 NPC 对话选项（旧版仓库 NPC 直接开面板），数据层已供强化/改造/附魔扣减。
 
 var _db: RefCounted
-var _backpack: RefCounted
 var _warehouse: RefCounted
 
 var _grid: GridContainer
@@ -82,6 +81,10 @@ func _rebuild_grid() -> void:
 			continue
 		var b := _make_item_cell(it, Vector2(120, 52))
 		b.pressed.connect(func(_c, _slot: int = start + i): _take_item(_slot))
+		b.drop_requested.connect(func(d):
+			var s := _find_bp_slot(d.get("item", {}))
+			if s >= 0:
+				_store_item(s))
 		_grid.add_child(b)
 
 func _rebuild_backpack() -> void:

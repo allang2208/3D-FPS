@@ -5,6 +5,7 @@ extends SceneTree
 var _frames := 0
 var _started := false
 var _local := 0
+var _bridge_ready := false
 var _main: Node
 var _bar: Node
 var _player: Node
@@ -14,21 +15,22 @@ func _initialize() -> void:
 	var scene: PackedScene = load("res://scenes/main.tscn")
 	_main = scene.instantiate()
 	root.add_child(_main)
-	var hud := root.get_node_or_null("HUD")
-	if hud != null and not hud.has_method("_ensure_built"):
-		push_error("缺少 HUD autoload")
-	if hud != null:
-		hud.call("_ensure_built")  # 无 current_scene 的 headless 测试里手动初始化 HUD 数据
 
 func _process(_delta: float) -> bool:
 	_frames += 1
+	if _frames == 1:
+		var hud := root.get_node_or_null("HUD")
+		if hud != null and not bool(hud.get("_built")):
+			hud.call("_ensure_built")  # 节点 ready 后再初始化，避免 add_child 未触发 _ready 的时序警告
+		_main.call("_setup_hud_bridge")  # --script 测试会一次排空 deferred，需主动执行桥接
 	if not _started:
 		_bar = root.get_node_or_null("HUD/StatusBar")
 		_player = _main.get_node_or_null("Player")
 		_gun = _main.get_node_or_null("Player/Camera3D/Gun")
-		if _bar == null or _player == null or _gun == null:
+		_bridge_ready = _main.get("_equipment") != null and _main.get("_npc_bar") != null
+		if _bar == null or _player == null or _gun == null or not _bridge_ready:
 			if _frames > 90:
-				push_error("缺少 StatusBar / Player / Gun（HUD 桥接超时）")
+				push_error("缺少 StatusBar / Player / Gun 或 HUD 桥接未完成")
 				quit(1)
 			return false
 		_started = true
