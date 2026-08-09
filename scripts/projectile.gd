@@ -20,6 +20,10 @@ var _age := 0.0
 var _traveled := 0.0
 var _scene_root: Node
 
+# 共享网格/材质：每发子弹不再 new 一份（高频分配优化）
+static var _shared_mesh: Mesh
+static var _shared_mat: Material
+
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, speed := 90.0, damage := 25, gravity := 2.5) -> Projectile:
 	var p := Projectile.new()
 	p._dir = dir.normalized()
@@ -34,18 +38,21 @@ static func fire(scene_root: Node, origin: Vector3, dir: Vector3, speed := 90.0,
 
 func _build_visual() -> void:
 	var mesh := MeshInstance3D.new()
-	var cyl := CylinderMesh.new()
-	cyl.top_radius = 0.014
-	cyl.bottom_radius = 0.014
-	cyl.height = 0.5
-	cyl.radial_segments = 6
-	var mat := StandardMaterial3D.new()
-	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	mat.albedo_color = Color(1.0, 0.9, 0.6)
-	mat.emission_enabled = true
-	mat.emission = Color(1.0, 0.75, 0.35) * 2.5
-	cyl.material = mat
-	mesh.mesh = cyl
+	if _shared_mesh == null:
+		var cyl := CylinderMesh.new()
+		cyl.top_radius = 0.014
+		cyl.bottom_radius = 0.014
+		cyl.height = 0.5
+		cyl.radial_segments = 6
+		var mat := StandardMaterial3D.new()
+		mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mat.albedo_color = Color(1.0, 0.9, 0.6)
+		mat.emission_enabled = true
+		mat.emission = Color(1.0, 0.75, 0.35) * 2.5
+		_shared_mesh = cyl
+		_shared_mat = mat
+	mesh.mesh = _shared_mesh
+	mesh.material_override = _shared_mat
 	mesh.transform.basis = Basis(Quaternion(Vector3.UP, _dir))
 	add_child(mesh)
 

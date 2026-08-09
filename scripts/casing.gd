@@ -9,6 +9,10 @@ var _rot := Vector3.ZERO
 var _age := 0.0
 var _bounced := false
 
+# 共享网格/材质：每颗弹壳不再 new 一份（高频分配优化）
+static var _shared_mesh: Mesh
+static var _shared_mat: Material
+
 static func spawn(scene_root: Node, origin: Vector3, right: Vector3) -> void:
 	var c := Casing.new()
 	c._vel = right * randf_range(1.2, 1.8) + Vector3(0, randf_range(1.0, 1.6), randf_range(-0.5, -1.0))
@@ -18,14 +22,17 @@ static func spawn(scene_root: Node, origin: Vector3, right: Vector3) -> void:
 	c._build()
 
 func _build() -> void:
-	var box := BoxMesh.new()
-	box.size = Vector3(0.018, 0.012, 0.045)
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.72, 0.52, 0.22)
-	mat.metallic = 0.9
-	mat.roughness = 0.35
-	box.material = mat
-	mesh = box
+	if _shared_mesh == null:
+		var box := BoxMesh.new()
+		box.size = Vector3(0.018, 0.012, 0.045)
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = Color(0.72, 0.52, 0.22)
+		mat.metallic = 0.9
+		mat.roughness = 0.35
+		_shared_mesh = box
+		_shared_mat = mat
+	mesh = _shared_mesh
+	material_override = _shared_mat
 
 func _physics_process(delta: float) -> void:
 	_age += delta

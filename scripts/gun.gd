@@ -1,44 +1,16 @@
 extends Node3D
-## AKM 强反馈枪械（COD 式三层后坐 + juice）
+## 强反馈枪械（COD 式三层后坐 + juice）· 数据驱动（GunData）
 ## - GunKick：枪模多轴弹簧后坐（位置 Z 退/Y 沉 + 旋转 pitch/roll），带回弹过冲
 ## - ViewKick：相机 pitch 上扬 + yaw 随机，指数回正（真正影响弹道，叠加散布）
 ## - FOV Punch：开火瞬间视场角 +5°，快速回落
-## - Juice：枪口闪光 / 弹壳抛壳 / 命中相机抖动 / AKM 枪声 / 换弹声
-## - 弹药 30/90，空仓自动换弹 / R 手动；信号契约（shot/hit/reloading/reloaded/empty）保持不变
+## - Juice：枪口闪光 / 弹壳抛壳 / 命中相机抖动 / 枪声 / 换弹声
+## - 弹药/伤害/射速/后坐力 pattern/扩散惩罚等全部来自 WeaponData（weapon_data/*.tres），
+##   空仓自动换弹 / R 手动；信号契约（shot/hit/reloading/reloaded/empty/ammo/reserve）保持不变
 ## - 移植自 Unity FPS 参考（SakanakoChan/FPSGameBySakanako）：弹道后坐力 pattern、移动/空中扩散惩罚、
 ##   冲刺开火延迟、贴墙弹道起点修正、部位伤害（爆头 ×2，由 projectile→enemy Hitbox 结算）
 
-const FIRE_INTERVAL := 0.13
-const DAMAGE := 25
-const MAG_SIZE := 30
-const RELOAD_TIME := 1.5
-const BULLET_SPEED := 90.0
-const BULLET_GRAVITY := 2.5
-const BASE_SPREAD := 0.0025
-const BLOOM_PER_SHOT := 0.0012
-const MAX_SPREAD := 0.018
-
-# 弹道后坐力 pattern（连发固定序列，停火按间隔回退，COD 式）
-const RECOIL_PATTERN := [
-	Vector2(0.009, 0.0000),
-	Vector2(0.012, -0.0020),
-	Vector2(0.015, 0.0025),
-	Vector2(0.018, -0.0015),
-	Vector2(0.020, 0.0030),
-	Vector2(0.022, -0.0020),
-	Vector2(0.024, 0.0020),
-	Vector2(0.026, -0.0010),
-	Vector2(0.028, 0.0005),
-]
-const RECOIL_RECOVERY_DELAY := 0.30
-const RECOIL_RECOVERY_INTERVAL := 0.05
-# 扩散惩罚：移动速度 / 空中（Unity 参考移植）
-const MOVE_SPREAD_RATIO := 0.6
-const MAX_MOVE_SPREAD := 0.012
-const AIR_SPREAD_PUNISH := 0.015
-const AIR_SPREAD_TRANSITION := 10.0
-# 冲刺开火延迟：松开冲刺后短暂锁定开火
-const SPRINT_TO_FIRE := 0.18
+## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
+@export var data: WeaponData = preload("res://weapon_data/akm.tres")
 
 const BASE_POS := Vector3(0.28, -0.26, -0.5)
 
@@ -72,19 +44,12 @@ const SPRINT_TILT := 0.30
 # 保证觇孔/准星落在相机光轴上；换枪模无需手调
 var _ads_pos := Vector3(0, -0.072, -0.342)
 var _ads_rot := Vector3(0.0323, 0, 0)
-const ADS_SPREAD_MULT := 0.2
-const ADS_SMOOTH := 12.0
 
 const ProjectileScript := preload("res://scripts/projectile.gd")
 const CasingScript := preload("res://scripts/casing.gd")
-const AKM_GLB := preload("res://assets/models/akm_trellis.glb")
-const HUNYUAN_AK_GLB := preload("res://assets/models/akm_hunyuan_lowpoly.glb")
-const SHOOT_SOUND := preload("res://assets/sfx/akm_burst.mp3")
-const RELOAD_SOUND := preload("res://assets/sfx/reload_sharp.mp3")
-const KILL_SOUND := preload("res://assets/sfx/criticalhit.mp3")
 
-# 枪模场景（换枪时替换；当前默认混元3D LowPoly 版，TRELLIS 版可用 AKM_GLB 切换）
-var model_scene: PackedScene = HUNYUAN_AK_GLB
+# 枪模场景（运行时从 data.model_scene 取；换枪时替换）
+var model_scene: PackedScene
 # 枪口方向手动覆盖：0=自动，1=枪口朝+axis，-1=枪口朝-axis（自动判定误判时用）
 var muzzle_sign_override := 0.0
 
@@ -128,8 +93,8 @@ var _rear_dist := 0.0
 var _ads := false
 var _ads_factor := 0.0
 var _ads_prev := false
-var ammo := MAG_SIZE
-var reserve := 90
+var ammo := 0
+var reserve := 0
 
 # 弹簧状态
 var _kick_pos := Vector3.ZERO
@@ -151,8 +116,18 @@ var _sway_pos := Vector3.ZERO
 var _sway_rot := Vector3.ZERO
 var _sprint := 0.0
 var _player: CharacterBody3D
+var _cam: Camera3D
 
 func _ready() -> void:
+	if data == null:
+		data = load("res://weapon_data/akm.tres")
+	if data == null:
+		push_error("[gun] 缺少武器数据，使用脚本默认兜底")
+		data = WeaponData.new()
+	model_scene = data.model_scene
+	ammo = data.mag_size
+	reserve = data.reserve
+	_cam = get_parent() as Camera3D
 	_build_gun()
 	_calibrate_viewmodel()
 	_flash_light = OmniLight3D.new()
@@ -180,22 +155,22 @@ func _ready() -> void:
 	add_child(_flash_mesh)
 	_shoot_player = AudioStreamPlayer.new()
 	_shoot_player.name = "ShootSfx"
-	_shoot_player.stream = SHOOT_SOUND
+	_shoot_player.stream = data.shoot_sound
 	_shoot_player.volume_db = -2.0
 	add_child(_shoot_player)
 	_reload_player = AudioStreamPlayer.new()
 	_reload_player.name = "ReloadSfx"
-	_reload_player.stream = RELOAD_SOUND
+	_reload_player.stream = data.reload_sound
 	_reload_player.volume_db = -4.0
 	add_child(_reload_player)
 	_shoot_tail = AudioStreamPlayer.new()
 	_shoot_tail.name = "ShootSfxTail"
-	_shoot_tail.stream = SHOOT_SOUND
+	_shoot_tail.stream = data.shoot_sound
 	_shoot_tail.volume_db = -8.0
 	add_child(_shoot_tail)
 	_kill_player = AudioStreamPlayer.new()
 	_kill_player.name = "KillSfx"
-	_kill_player.stream = KILL_SOUND
+	_kill_player.stream = data.kill_sound
 	_kill_player.volume_db = -2.0
 	add_child(_kill_player)
 	_click_player = AudioStreamPlayer.new()
@@ -221,7 +196,7 @@ func _ready() -> void:
 	add_child(_smoke)
 	_player = get_parent().get_parent() as CharacterBody3D
 	# 相机联动：镜像弹簧同参数驱动（枪/镜头同频同相）
-	var cam := get_viewport().get_camera_3d()
+	var cam := _camera()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx and cfx.has_method("_on_gun_jitter_impulse"):
@@ -232,12 +207,12 @@ func _process(delta: float) -> void:
 	_update_spring(delta)
 	_update_jitter(delta)
 	_update_pose(delta)
-	_ads_factor = lerpf(_ads_factor, 1.0 if _ads else 0.0, 1.0 - exp(-ADS_SMOOTH * delta))
+	_ads_factor = lerpf(_ads_factor, 1.0 if _ads else 0.0, 1.0 - exp(-data.ads_smooth * delta))
 	var ads_active := _ads_factor > 0.5
 	if ads_active != _ads_prev:
 		_ads_prev = ads_active
 		ads_changed.emit(ads_active)
-	var cam := get_viewport().get_camera_3d()
+	var cam := _camera()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
@@ -248,7 +223,7 @@ func _process(delta: float) -> void:
 	var reload_pos := Vector3.ZERO
 	var reload_rot := Vector3.ZERO
 	if _reload_t > 0.0:
-		var prog := 1.0 - _reload_t / RELOAD_TIME
+		var prog := 1.0 - _reload_t / data.reload_time
 		var p := sin(prog * PI)
 		reload_pos = Vector3(0, -p * 0.12, p * 0.05)
 		reload_rot = Vector3(-p * 0.45, 0, -p * 0.35)
@@ -270,7 +245,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
-	_spread = maxf(0.0, _spread - delta * 0.12)
+	_spread = maxf(0.0, _spread - delta * data.spread_decay)
 	_sprint_lock = maxf(0.0, _sprint_lock - delta)
 	_update_spread_punishments(delta)
 	_update_recoil_recovery(delta)
@@ -285,7 +260,7 @@ func _physics_process(delta: float) -> void:
 	if ammo <= 0 and reserve > 0:
 		_start_reload()
 		return
-	if Input.is_physical_key_pressed(KEY_R) and ammo < MAG_SIZE and reserve > 0:
+	if Input.is_physical_key_pressed(KEY_R) and ammo < data.mag_size and reserve > 0:
 		_start_reload()
 		return
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -293,7 +268,7 @@ func _physics_process(delta: float) -> void:
 		return
 	var sprinting := _is_sprinting()
 	if sprinting:
-		_sprint_lock = SPRINT_TO_FIRE
+		_sprint_lock = data.sprint_to_fire
 		_ads = false
 	else:
 		_ads = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
@@ -301,7 +276,7 @@ func _physics_process(delta: float) -> void:
 		_shoot()
 
 func _start_reload() -> void:
-	_reload_t = RELOAD_TIME
+	_reload_t = data.reload_time
 	_reload_player.pitch_scale = randf_range(0.95, 1.05)
 	_reload_player.play()
 	reloading.emit()
@@ -309,16 +284,16 @@ func _start_reload() -> void:
 func _shoot() -> void:
 	if _sprint_lock > 0.0:
 		return
-	_fire_cd = FIRE_INTERVAL
+	_fire_cd = data.fire_interval
 	if ammo <= 0:
 		_click_player.play()
 		empty.emit()
 		return
 	ammo -= 1
-	_spread = minf(MAX_SPREAD, _spread + BLOOM_PER_SHOT)
+	_spread = minf(data.max_spread, _spread + data.bloom_per_shot)
 	_last_fire_t = Time.get_ticks_msec() * 0.001
-	var pattern: Vector2 = RECOIL_PATTERN[_pattern_idx]
-	_pattern_idx = mini(_pattern_idx + 1, RECOIL_PATTERN.size() - 1)
+	var pattern: Vector2 = data.recoil_pattern[_pattern_idx]
+	_pattern_idx = mini(_pattern_idx + 1, data.recoil_pattern.size() - 1)
 	_flash_t = 0.06
 	shot.emit(ammo, reserve)
 	_apply_gun_kick()
@@ -328,7 +303,7 @@ func _shoot() -> void:
 	_shoot_tail.play()
 	_smoke.restart()
 	_spawn_casing()
-	var cam := get_viewport().get_camera_3d()
+	var cam := _camera()
 	if cam == null:
 		return
 	_fire_camera_fx(cam, pattern)
@@ -341,12 +316,12 @@ func _shoot() -> void:
 	var scene_root: Node = get_tree().current_scene
 	if scene_root == null:
 		scene_root = get_tree().root
-	var proj = ProjectileScript.fire(scene_root, origin, dir, BULLET_SPEED, DAMAGE, BULLET_GRAVITY)
+	var proj = ProjectileScript.fire(scene_root, origin, dir, data.bullet_speed, data.damage, data.bullet_gravity)
 	proj.hit_enemy.connect(_on_projectile_hit)
 	proj.killed.connect(_on_proj_kill)
 
 func _on_projectile_hit(is_headshot: bool) -> void:
-	var cam := get_viewport().get_camera_3d()
+	var cam := _camera()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
@@ -356,7 +331,7 @@ func _on_projectile_hit(is_headshot: bool) -> void:
 	hit.emit()
 
 func _on_proj_kill(is_headshot: bool) -> void:
-	var cam := get_viewport().get_camera_3d()
+	var cam := _camera()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
@@ -368,11 +343,17 @@ func _aim_dir(cam: Camera3D) -> Vector3:
 	var base := -cam.global_transform.basis.z
 	var right := cam.global_transform.basis.x
 	var up := cam.global_transform.basis.y
-	var r := (BASE_SPREAD + _spread + _move_spread + _air_spread) * lerpf(1.0, ADS_SPREAD_MULT, _ads_factor)
+	var r := (data.base_spread + _spread + _move_spread + _air_spread) * lerpf(1.0, data.ads_spread_mult, _ads_factor)
 	return (base + right * randf_range(-r, r) + up * randf_range(-r, r)).normalized()
 
+## 缓存相机引用（枪挂在 Camera3D 下，避免每帧 get_viewport 查找）
+func _camera() -> Camera3D:
+	if _cam == null:
+		_cam = get_parent() as Camera3D
+	return _cam
+
 func _finish_reload() -> void:
-	var need := MAG_SIZE - ammo
+	var need := data.mag_size - ammo
 	var take := mini(need, reserve)
 	ammo += take
 	reserve -= take
@@ -391,17 +372,17 @@ func _update_spread_punishments(delta: float) -> void:
 	var spd := 0.0
 	if _player:
 		spd = Vector2(_player.velocity.x, _player.velocity.z).length()
-	var target_move := clampf(spd * MOVE_SPREAD_RATIO, 0.0, MAX_MOVE_SPREAD)
+	var target_move := clampf(spd * data.move_spread_ratio, 0.0, data.max_move_spread)
 	_move_spread = lerpf(_move_spread, target_move, 1.0 - exp(-6.0 * delta))
 	var airborne := _player != null and not _player.is_on_floor()
-	var target_air := AIR_SPREAD_PUNISH if (airborne and not _ads) else 0.0
-	_air_spread = lerpf(_air_spread, target_air, 1.0 - exp(-AIR_SPREAD_TRANSITION * delta))
+	var target_air := data.air_spread_punish if (airborne and not _ads) else 0.0
+	_air_spread = lerpf(_air_spread, target_air, 1.0 - exp(-data.air_spread_transition * delta))
 
 func _update_recoil_recovery(_delta: float) -> void:
 	var now := Time.get_ticks_msec() * 0.001
 	var idle := now - _last_fire_t
-	if idle > RECOIL_RECOVERY_DELAY:
-		var shots := int((idle - RECOIL_RECOVERY_DELAY) / RECOIL_RECOVERY_INTERVAL)
+	if idle > data.recoil_recovery_delay:
+		var shots := int((idle - data.recoil_recovery_delay) / data.recoil_recovery_interval)
 		if shots > 0:
 			_pattern_idx = maxi(0, _pattern_idx - shots)
 
@@ -445,7 +426,7 @@ func _update_pose(delta: float) -> void:
 
 func _apply_gun_kick() -> void:
 	# 后坐随连发累积（越扫越抖）
-	var accum := 1.0 + (_spread / MAX_SPREAD) * 0.7
+	var accum := 1.0 + (_spread / data.max_spread) * 0.7
 	_kick_pos_vel += Vector3(randf_range(-0.10, 0.10), randf_range(0.04, 0.10), randf_range(0.55, 0.85)) * accum
 	_kick_rot_vel += Vector3(randf_range(0.55, 1.0), 0.0, randf_range(-0.7, 0.7)) * accum
 	# 枪口高频震颤（弹簧冲击，短促回摆）
@@ -486,7 +467,7 @@ func _fire_camera_fx(cam: Camera3D, pattern: Vector2) -> void:
 	cfx.add_trauma(0.06)  # 每发相机微震
 
 func _spawn_casing() -> void:
-	var cam := get_viewport().get_camera_3d()
+	var cam := _camera()
 	if cam == null:
 		return
 	var origin := global_transform * _eject_local
