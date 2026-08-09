@@ -23,6 +23,12 @@ const StatusPageScript := preload("res://ui/status_page.gd")
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
+const SKILL_SIZE := 4
+const SKILL_KEY_HINTS := ["Q", "E", "X", "C"]
+const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
+# 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
+const COLOR_SKILL_SLOT_BG := Color(0.2392, 0.2039, 0.1686)
+const COLOR_SKILL_SLOT_BORDER := Color(0.4196, 0.3647, 0.3098)
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
 const CELL_SLOT := 60
@@ -45,6 +51,7 @@ var equipment: EquipmentScript
 
 var _hotbar_root: HBoxContainer
 var _hotbar_slots: Array = []
+var _skill_slots: Array = []
 var _grid: GridContainer
 var _cells: Array = []
 var _equip_grid: GridContainer
@@ -84,6 +91,7 @@ var _drag_over_equip := ""
 var _s_hotbar_empty: StyleBoxFlat
 var _s_hotbar_item: StyleBoxFlat
 var _s_hotbar_hover: StyleBoxFlat
+var _s_skill_empty: StyleBoxFlat
 var _s_cell_empty: StyleBoxFlat
 var _s_cell_item: StyleBoxFlat
 var _s_cell_hover: StyleBoxFlat
@@ -104,6 +112,7 @@ func _ready() -> void:
 	_s_hotbar_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
 	_s_hotbar_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
 	_s_hotbar_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
+	_s_skill_empty = Style.make_style(COLOR_SKILL_SLOT_BG, COLOR_SKILL_SLOT_BORDER, 8, 2)
 	_s_cell_empty = Style.make_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, 8, 2)
 	_s_cell_item = Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 8, 2)
 	_s_cell_hover = Style.make_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, 8, 2)
@@ -251,6 +260,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		match event.keycode:
 			KEY_1, KEY_2, KEY_3, KEY_4:
 				use_hotbar(event.keycode - KEY_1)
+			KEY_Q, KEY_E, KEY_X, KEY_C:
+				on_skill_click(SKILL_KEY_HINTS[SKILL_KEYCODES.find(event.keycode)])
 			KEY_TAB:
 				if _panel_open and _current_tab == "equip":
 					set_panel_open(false)
@@ -290,6 +301,17 @@ func use_hotbar(index: int) -> void:
 		_notify_heal(player)
 	else:
 		_flash_status(String(result.get("message", "")))
+
+## 技能位占位（技能系统未移植；后续绑定后改为触发技能）
+func on_skill_click(_key: String) -> void:
+	if _panel_open:
+		return
+	_flash_status("技能未移植")
+
+func on_skill_hover(enter: bool, key: String) -> void:
+	for s in _skill_slots:
+		if String(s.key) == key:
+			s.add_theme_stylebox_override("panel", _s_hotbar_hover if enter else _s_skill_empty)
 
 func use_backpack_item(slot: int) -> void:
 	if backpack == null or slot < 0 or slot >= backpack.slots.size() or backpack.slots[slot] == null:
@@ -698,6 +720,40 @@ func _build_hotbar() -> void:
 	_hotbar_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hotbar_root.add_theme_constant_override("separation", BAR_GAP)
 	bar.add_child(_hotbar_root)
+	# 技能组（旧版 skillGroup：Q/E/X/C 占位，技能系统未移植前为空槽）
+	_hotbar_root.add_child(_make_divider())
+	for i in SKILL_SIZE:
+		var slot := SkillSlot.new()
+		slot.hud = self
+		slot.key = SKILL_KEY_HINTS[i]
+		slot.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
+		slot.add_theme_stylebox_override("panel", _s_skill_empty)
+		var content := Control.new()
+		content.name = "Content"
+		content.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
+		content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		slot.add_child(content)
+		var icon := Label.new()
+		icon.name = "Icon"
+		icon.text = "⚔"
+		icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		icon.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		icon.add_theme_font_override("font", Style.make_emoji_font())
+		icon.add_theme_font_size_override("font_size", 20)
+		icon.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		content.add_child(icon)
+		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_KEY_HINT, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
+		key.name = "Key"
+		var blink := create_tween()
+		blink.set_loops()
+		blink.tween_property(key, "modulate:a", 0.35, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		_hotbar_root.add_child(slot)
+		_skill_slots.append(slot)
+	# 分隔 + 物品组（旧版 itemGroup：1~4）
+	_hotbar_root.add_child(_make_divider())
 	for i in HOTBAR_SIZE:
 		var slot := HotbarSlot.new()
 		slot.hud = self
@@ -741,7 +797,7 @@ func _build_hotbar() -> void:
 		content.add_child(cd)
 		_hotbar_root.add_child(slot)
 		_hotbar_slots.append(slot)
-	var w := HOTBAR_SIZE * HOTBAR_SLOT + (HOTBAR_SIZE - 1) * BAR_GAP + BAR_PAD * 2
+	var w := (HOTBAR_SIZE + SKILL_SIZE) * HOTBAR_SLOT + (HOTBAR_SIZE + SKILL_SIZE + 2) * BAR_GAP + 2 * 2 + BAR_PAD * 2
 	var h := HOTBAR_SLOT + BAR_PAD * 2
 	bar.anchor_left = 0.5
 	bar.anchor_right = 0.5
@@ -1109,6 +1165,13 @@ func _make_tab_button(label: String) -> Button:
 	b.add_theme_color_override("font_pressed_color", Style.COLOR_TEXT)
 	return b
 
+func _make_divider() -> ColorRect:
+	var d := ColorRect.new()
+	d.custom_minimum_size = Vector2(2, HOTBAR_SLOT - 10)
+	d.color = Style.COLOR_BAR_BORDER
+	d.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return d
+
 func _icon_tex(path: String) -> Texture2D:
 	if path == "":
 		return null
@@ -1175,6 +1238,21 @@ func _flash_status(text: String) -> void:
 	_status_timer.start(1.6)
 
 ## ---------- 内部控件 ----------
+
+class SkillSlot:
+	extends PanelContainer
+
+	var hud
+	var key := ""
+
+	func _ready() -> void:
+		mouse_filter = Control.MOUSE_FILTER_STOP
+		mouse_entered.connect(func() -> void: hud.on_skill_hover(true, key))
+		mouse_exited.connect(func() -> void: hud.on_skill_hover(false, key))
+
+	func _gui_input(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			hud.on_skill_click(key)
 
 class HotbarSlot:
 	extends PanelContainer

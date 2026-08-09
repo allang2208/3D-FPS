@@ -47,6 +47,11 @@ func _process(_delta: float) -> bool:
 		if _hud == null or _player == null or _bar == null:
 			quit(1)
 			return false
+		# 技能栏占位（Q/E/X/C 空槽，技能系统未移植）
+		_check("skill_slots", int(_hud.get("_skill_slots").size()) == 4)
+		_check("skill_key_q", String(_hud.get("_skill_slots")[0].get_node("Content/Key").text) == "Q")
+		_hud.on_skill_click("Q")
+		_check("skill_click_hint", bool(_hud.get("_status_label").visible))
 		_player.set("hp", 100000)
 		var bp = _hud.get("backpack")
 		_check("seed_items", bp.item_count() == 5 and int(bp.slots[0].get("stack", 0)) == 5)
