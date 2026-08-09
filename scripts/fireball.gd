@@ -32,6 +32,7 @@ var _orbit_angle := 0.0
 var _orbit_r := 0.9
 var _hover_duration := 30.0
 var _consumed_emitted := false
+static var _dot_tex_cache: Texture2D
 
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, level: int, matk: int, intt: int) -> Node3D:
 	var script := load("res://scripts/fireball.gd")
@@ -62,6 +63,20 @@ func configure(origin: Vector3, dir: Vector3, level: int, matk: int, intt: int, 
 
 func build_visual() -> void:
 	_anim = _build_fireball_anim()
+	# 柔和光晕（软边圆点贴图 + ADD，遮住贴图边缘像素化）
+	var glow := Sprite3D.new()
+	glow.texture = _dot_tex()
+	glow.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	glow.pixel_size = 0.012
+	glow.scale = Vector3(2.4, 2.4, 1.0)
+	var glow_mat := StandardMaterial3D.new()
+	glow_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	glow_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glow_mat.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	glow_mat.albedo_texture = _dot_tex()
+	glow_mat.albedo_color = Color(1.0, 0.55, 0.2, 0.55)
+	glow.material_override = glow_mat
+	add_child(glow)
 	# 橙色点光（火球照亮周围）
 	var light := OmniLight3D.new()
 	light.light_color = Color(1.0, 0.5, 0.2)
@@ -75,7 +90,7 @@ func build_visual() -> void:
 	trail.amount = 64
 	trail.lifetime = 0.4
 	trail.local_coords = false
-	trail.draw_pass_1 = _quad_pass(Color(1, 1, 1, 0.8), true)
+	trail.draw_pass_1 = _dot_pass(0.14, true)
 	var tp := ParticleProcessMaterial.new()
 	tp.direction = Vector3.ZERO
 	tp.spread = 180.0
@@ -240,7 +255,7 @@ func _flame_burst(pos: Vector3) -> void:
 	boom.lifetime = 0.5
 	boom.local_coords = false
 	boom.position = pos
-	boom.draw_pass_1 = _quad_pass(Color(1, 1, 1, 0.9), true)
+	boom.draw_pass_1 = _dot_pass(0.3, true)
 	var pm := ParticleProcessMaterial.new()
 	pm.direction = Vector3.ZERO
 	pm.spread = 180.0
@@ -267,7 +282,7 @@ func _smoke(pos: Vector3) -> void:
 	smoke.lifetime = 1.0
 	smoke.local_coords = false
 	smoke.position = pos
-	smoke.draw_pass_1 = _quad_pass(Color(0.33, 0.33, 0.33, 0.35), false)
+	smoke.draw_pass_1 = _dot_pass(0.4, false)
 	var pm := ParticleProcessMaterial.new()
 	pm.direction = Vector3.ZERO
 	pm.spread = 180.0
@@ -306,13 +321,31 @@ func _delayed_free(node: Node, delay: float) -> void:
 	var t := node.get_tree().create_timer(delay)
 	t.timeout.connect(func() -> void: node.queue_free())
 
-func _quad_pass(color: Color, additive: bool) -> QuadMesh:
+## 软边圆点粒子贴图（等价 Phaser impact_dot：径向渐隐，消除硬边方块）
+func _dot_tex() -> Texture2D:
+	if _dot_tex_cache != null:
+		return _dot_tex_cache
+	var size := 64
+	var img := Image.create(size, size, false, Image.FORMAT_RGBA8)
+	for y in size:
+		for x in size:
+			var dx := (x + 0.5) / size * 2.0 - 1.0
+			var dy := (y + 0.5) / size * 2.0 - 1.0
+			var d := sqrt(dx * dx + dy * dy)
+			var a := clampf(1.0 - d, 0.0, 1.0)
+			a = a * a
+			img.set_pixel(x, y, Color(1, 1, 1, a))
+	_dot_tex_cache = ImageTexture.create_from_image(img)
+	return _dot_tex_cache
+
+func _dot_pass(size: float, additive: bool) -> QuadMesh:
 	var q := QuadMesh.new()
-	q.size = Vector2(0.16, 0.16)
+	q.size = Vector2(size, size)
 	var m := StandardMaterial3D.new()
 	m.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	m.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	m.albedo_color = color
+	m.albedo_texture = _dot_tex()
+	m.albedo_color = Color.WHITE
 	if additive:
 		m.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
 	q.material = m
