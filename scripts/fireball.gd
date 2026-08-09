@@ -296,7 +296,8 @@ func _hover_age(delta: float) -> void:
 			break
 	if cam != null:
 		var b := cam.global_transform.basis
-		var hold := cam.global_position + b * Vector3(-0.42, -0.24, -0.85)
+		# 更近更高的握持位（0.7m）：转身/地形起伏时火球不易被环境遮挡，仍贴左手
+		var hold := cam.global_position + b * Vector3(-0.34, -0.16, -0.7)
 		hold.y += sin(_hover_t * 2.2) * 0.03
 		global_position = hold
 	else:
