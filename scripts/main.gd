@@ -7,6 +7,8 @@ const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物
 const FireballScript := preload("res://scripts/fireball.gd")
 const IceSpikeScript := preload("res://scripts/ice_spike.gd")
 const LightningScript := preload("res://scripts/lightning.gd")
+const AreaSkillScript := preload("res://scripts/area_skill.gd")
+const ThunderLanceScript := preload("res://scripts/thunder_lance.gd")
 
 var _player: Node3D
 var _gun: Node3D
@@ -17,6 +19,7 @@ var _equipment
 var _player_status
 var _skillbar
 var _skills_db
+var _skill_progress
 var _hover_fireball: Node3D
 var _hover_ice_spike: Node3D
 var _player_dead := false
@@ -173,6 +176,7 @@ func _build_backpack_hud(parent: Node) -> void:
 	# 技能库：火球 Q / 冰锥 E / 闪电 X，defs 补 skillbar 需要的 cooldown_s/mp_cost/tier
 	var skills_db = load("res://ui/skills_db.gd").new()
 	_skills_db = skills_db
+	_skill_progress = load("res://ui/skill_progress.gd").new(skills_db)
 	var sb_skills := {}
 	if skills_db.has_skill("fireball"):
 		var fb: Dictionary = skills_db.get_def("fireball").duplicate(true)
@@ -197,10 +201,19 @@ func _build_backpack_hud(parent: Node) -> void:
 		ls["mp_cost"] = ls_eff.mp_cost
 		ls["tier"] = 1
 		sb_skills["lightningStrike"] = ls
+	for id in ["stormDomain", "thunderLance", "holyLight", "iceWall", "blizzard", "meteor", "flameArmor", "droneSkill"]:
+		if skills_db.has_skill(id):
+			var sd: Dictionary = skills_db.get_def(id).duplicate(true)
+			var sd_eff: Dictionary = skills_db.effect(id, _player_status.level)
+			sd["cooldown_s"] = sd_eff.cooldown_s
+			sd["mp_cost"] = sd_eff.mp_cost
+			sd["tier"] = 1
+			sb_skills[id] = sd
 	_skillbar.setup(sb_skills)
 	_skillbar.assign(0, "fireball")
 	_skillbar.assign(1, "iceSpike")
 	_skillbar.assign(2, "lightningStrike")
+	_skillbar.assign(3, "blizzard")
 	_backpack.add_item("rusty_sword", 1)
 	_backpack.add_item("g18_pistol", 1)
 	_backpack.add_item("small_shield", 1)
@@ -216,6 +229,12 @@ func _build_backpack_hud(parent: Node) -> void:
 	hud.skill_triggered.connect(_on_skill_triggered)
 	parent.add_child(hud)
 	hud.setup(_backpack, _equipment, _player_status, _skillbar)
+	# 修炼进度注入技能面板（不改 UI 线文件的 setup 签名）
+	var skill_page: Node = hud.get_node_or_null("SkillPage")
+	if skill_page != null and skill_page.has_method("set_progress"):
+		skill_page.set_progress(_skill_progress)
+		if skill_page.has_method("set_db"):
+			skill_page.set_db(_skills_db)
 	_backpack_hud = hud
 
 ## 技能触发分发（火球/冰锥二段式 + 闪电单段）
@@ -229,6 +248,10 @@ func _on_skill_triggered(skill_id: String, phase: String) -> void:
 			_on_ice_spike_trigger(phase)
 		"lightningStrike":
 			_on_lightning_trigger()
+		"stormDomain", "thunderLance", "holyLight", "iceWall", "meteor", "flameArmor", "droneSkill":
+			_on_area_skill_trigger(skill_id)
+		"blizzard":
+			_on_area_skill_trigger(skill_id)
 		_:
 			_flash_skill_missing(skill_id)
 
@@ -244,6 +267,7 @@ func _on_fireball_trigger(phase: String) -> void:
 		_player_status.level, _player_status.matk(), _player_status.intt)
 	if _hover_fireball != null:
 		_hover_fireball.consumed.connect(_on_fireball_consumed)
+		_hover_fireball.cast_finished.connect(_on_skill_exp.bind("fireball"))
 
 func _on_fireball_consumed() -> void:
 	_hover_fireball = null
@@ -263,6 +287,7 @@ func _on_ice_spike_trigger(phase: String) -> void:
 		_player_status.level, _player_status.matk(), _player_status.intt, int(eff.spike_count))
 	if _hover_ice_spike != null:
 		_hover_ice_spike.consumed.connect(_on_ice_spike_consumed)
+		_hover_ice_spike.cast_finished.connect(_on_skill_exp.bind("iceSpike"))
 
 func _on_ice_spike_consumed() -> void:
 	_hover_ice_spike = null
@@ -272,15 +297,33 @@ func _on_ice_spike_consumed() -> void:
 ## 闪电单段：锁定 + 传导；失败回滚 MP/冷却（旧版"无目标不消耗"语义）
 func _on_lightning_trigger() -> void:
 	var eff: Dictionary = _skills_db.effect("lightningStrike", _player_status.level)
-	var ok: bool = LightningScript.cast(get_tree().current_scene, _player,
+	var res: Dictionary = LightningScript.cast(get_tree().current_scene, _player,
 		_player_status.level, _player_status.matk(), _player_status.intt, eff)
-	if ok:
+	if bool(res.get("ok", false)):
+		if _skill_progress != null:
+			_skill_progress.award("lightningStrike", int(res.get("hits", 0)), int(res.get("kills", 0)))
 		return
 	_player_status.set_mp(_player_status.mp + int(eff.mp_cost))
 	if _skillbar != null:
 		_skillbar.set_cooldown("lightningStrike", 0.0)
 	if _backpack_hud != null and _backpack_hud.has_method("flash_status"):
 		_backpack_hud.flash_status("闪电：范围内无目标！")
+
+## 技能修炼经验上报（cast_finished(hits, kills) → award）
+func _on_skill_exp(hits: int, kills: int, skill_id: String) -> void:
+	if _skill_progress != null:
+		_skill_progress.award(skill_id, hits, kills)
+
+## 区域/持续型技能 + 贯穿雷枪触发
+func _on_area_skill_trigger(skill_id: String) -> void:
+	var eff: Dictionary = _skills_db.effect_raw(skill_id, _player_status.level)
+	var on_done := _on_skill_exp.bind(skill_id)
+	if skill_id == "thunderLance":
+		ThunderLanceScript.cast(get_tree().current_scene, _player,
+			_player_status.level, _player_status.matk(), _player_status.intt, eff, on_done)
+	else:
+		AreaSkillScript.cast(get_tree().current_scene, _player,
+			_player_status.level, _player_status.matk(), _player_status.intt, skill_id, eff, on_done)
 
 func _flash_skill_missing(skill_id: String) -> void:
 	if _backpack_hud != null and _backpack_hud.has_method("flash_status"):

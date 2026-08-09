@@ -38,6 +38,26 @@ func has_skill(id: String) -> bool:
 func get_def(id: String) -> Dictionary:
 	return skills.get(id, {})
 
+## 原始 effectFormula 全量求值（技能实现直接取各自字段）
+func effect_raw(id: String, level := 1) -> Dictionary:
+	var def := get_def(id)
+	if def.is_empty():
+		return {}
+	var f: Dictionary = def.get("effectFormula", {})
+	var out := {}
+	for k in f.keys():
+		out[k] = _eval(f[k], level)
+	return out
+
+func exp_formula(id: String) -> String:
+	return String(get_def(id).get("expFormula", "100"))
+
+func exp_rewards(id: String) -> Dictionary:
+	return get_def(id).get("expRewards", {})
+
+func sounds(id: String) -> Dictionary:
+	return get_def(id).get("sounds", {})
+
 ## 按旧版 effectFormula 计算某等级效果（字符串公式求值：base + level * mul）
 func effect(id: String, level := 1) -> Dictionary:
 	var def := get_def(id)
@@ -73,15 +93,15 @@ func effect(id: String, level := 1) -> Dictionary:
 func _eval(formula, level: int) -> float:
 	if formula is int or formula is float:
 		return float(formula)
-	var expr := String(formula).replace("level", str(level))
-	var total := 0.0
-	for term in expr.split("+"):
-		var t := term.strip_edges()
-		if t.contains("*"):
-			var mul := 1.0
-			for p in t.split("*"):
-				mul *= float(p.strip_edges())
-			total += mul
-		else:
-			total += float(t)
-	return total
+	var expr_str := String(formula)
+	expr_str = expr_str.replace("Math.floor", "floor")
+	expr_str = expr_str.replace("Math.round", "round")
+	expr_str = expr_str.replace("Math.PI", "pi")
+	var expr := Expression.new()
+	var err := expr.parse(expr_str, ["level"])
+	if err != OK:
+		return 0.0
+	var result = expr.execute([float(level)])
+	if expr.has_execute_failed():
+		return 0.0
+	return float(result)

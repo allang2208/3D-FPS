@@ -15,10 +15,11 @@ var _caster: Node3D
 var _damage := 30
 var _effect := {}
 var _scene_root: Node
+signal cast_finished(hits, kills)
 static var _dot_tex_cache: Texture2D
 
-## 释放闪电；成功返回 true（锁定并结算），失败返回 false
-static func cast(scene_root: Node, caster: Node3D, level: int, matk: int, intt: int, effect: Dictionary) -> bool:
+## 释放闪电；成功返回 {ok:true, hits, kills}，失败返回 {ok:false}
+static func cast(scene_root: Node, caster: Node3D, level: int, matk: int, intt: int, effect: Dictionary) -> Dictionary:
 	var script := load("res://scripts/lightning.gd")
 	var ln: Node3D = script.new()
 	ln.configure(caster, level, matk, intt, effect, scene_root)
@@ -32,14 +33,14 @@ func configure(caster: Node3D, level: int, matk: int, intt: int, effect: Diction
 	_damage = floori(effect.get("damage_base", 20.0) + matk * float(effect.get("magic_mul", 1.0))
 		+ intt * float(effect.get("int_mul", 1.0)))
 
-func _cast() -> bool:
+func _cast() -> Dictionary:
 	if _caster == null or not is_instance_valid(_caster):
 		queue_free()
-		return false
+		return {"ok": false}
 	var primary := _acquire_target()
 	if primary == null:
 		queue_free()
-		return false
+		return {"ok": false}
 	_play_cast_sound()
 	# 传导链：主目标 → chainRange 内最近（排除已命中）
 	var chain: Array = [primary]
@@ -52,6 +53,8 @@ func _cast() -> bool:
 		chain.append(next)
 		cursor = next
 	# 逐目标结算
+	var hits := 0
+	var kills := 0
 	for i in chain.size():
 		var decay_mul := pow(1.0 - float(_effect.get("chain_decay", 0.1)), i)
 		var dmg := maxi(1, floori(_damage * decay_mul))
@@ -59,9 +62,15 @@ func _cast() -> bool:
 		var tgt_pos: Vector3 = (chain[i] as Node3D).global_position + Vector3(0, 0.9, 0)
 		_lightning_bolt(src_pos, tgt_pos)
 		_impact_bolt(tgt_pos, decay_mul)
-		(chain[i] as Node3D).take_damage(dmg)
+		var target := chain[i] as Node3D
+		var was_alive := int(target.get("hp")) > 0
+		target.take_damage(dmg)
+		hits += 1
+		if was_alive and int(target.get("hp")) <= 0:
+			kills += 1
+	cast_finished.emit(hits, kills)
 	queue_free()
-	return true
+	return {"ok": true, "hits": hits, "kills": kills}
 
 ## 锁定：相机准星前方 aimRadius 内最近敌人，且距施法者 ≤ maxRange
 func _acquire_target() -> Node3D:

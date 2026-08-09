@@ -9,6 +9,7 @@ const HIT_MASK := 3  # 1 墙体 + 2 敌人
 const HIT_SOUND := "res://assets/sfx/ice.mp3"
 
 signal consumed
+signal cast_finished(hits, kills)
 
 var _spike_count := 2
 var _damage := 30
@@ -20,6 +21,8 @@ var _hovering := false
 var _hover_t := 0.0
 var _hover_duration := 30.0
 var _consumed_emitted := false
+var _hits := 0
+var _kills := 0
 var _hit_sound_cd := 0.0
 var _spikes: Array = []
 static var _dot_tex_cache: Texture2D
@@ -154,6 +157,7 @@ func _physics_process(delta: float) -> void:
 			all_done = false
 			break
 	if all_done:
+		cast_finished.emit(_hits, _kills)
 		_emit_consumed()
 		queue_free()
 
@@ -210,7 +214,11 @@ func _shatter(s: Dictionary, pos: Vector3, collider: Object) -> void:
 	_ice_ring(pos)
 	_play_hit_sound(pos)
 	if collider != null and collider.has_method("take_damage") and String(collider.name) != "Player":
+		var was_alive := int(collider.get("hp")) > 0
 		collider.take_damage(_damage)
+		_hits += 1
+		if was_alive and int(collider.get("hp")) <= 0:
+			_kills += 1
 
 func _ice_shards(pos: Vector3) -> void:
 	var p := GPUParticles3D.new()

@@ -15,6 +15,7 @@ const FIREBALL_SHADER := "res://assets/shaders/fireball.gdshader"
 const HIT_SOUND := "res://assets/sfx/fireball.mp3"
 
 signal consumed
+signal cast_finished(hits, kills)
 
 var _dir := Vector3.FORWARD
 var _speed := 22.4
@@ -29,6 +30,8 @@ var _caster: Node3D
 var _hover_t := 0.0
 var _hover_duration := 30.0
 var _consumed_emitted := false
+var _hits := 0
+var _kills := 0
 var _trail: GPUParticles3D
 var _trail_white: GPUParticles3D
 static var _dot_tex_cache: Texture2D
@@ -294,6 +297,7 @@ func _explode(pos: Vector3) -> void:
 	_play_hit_sound(pos)
 	_aoe_damage(pos)
 	_emit_consumed()
+	cast_finished.emit(_hits, _kills)
 	queue_free()
 
 func _aoe_damage(pos: Vector3) -> void:
@@ -306,7 +310,11 @@ func _aoe_damage(pos: Vector3) -> void:
 			if dist <= _radius:
 				var ratio := 1.0 - clampf(dist / _radius, 0.0, 1.0)
 				var dmg := maxi(1, floori(_damage * (0.5 + 0.5 * ratio)))
+				var was_alive := int(c.get("hp")) > 0
 				c.take_damage(dmg)
+				_hits += 1
+				if was_alive and int(c.get("hp")) <= 0:
+					_kills += 1
 
 func _shockwave_ring(pos: Vector3) -> void:
 	# 双层冲击波：白热内环 + 橙红外环，扩散节奏略错开
