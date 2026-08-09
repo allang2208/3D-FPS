@@ -25,6 +25,7 @@ var _dmgflash: ColorRect
 var _theme: Theme
 var _font_bold: SystemFont
 var _font_heavy: SystemFont
+var _font_mono: SystemFont
 
 var _hitmark_t := 0.0
 var _dmgflash_t := 0.0
@@ -34,6 +35,7 @@ func _ready() -> void:
 	_theme = Style.make_theme()
 	_font_bold = Style.make_font(600)
 	_font_heavy = Style.make_font(700)
+	_font_mono = Style.make_mono_font(600)
 	_build()
 
 func _process(delta: float) -> void:
@@ -63,7 +65,7 @@ func _build() -> void:
 	_hp_trail.visible = false
 	add_child(_hp_trail)
 	_hp_label = _make_label("100/100", Vector2(244, 8), 22, Style.COLOR_WHITE)
-	_hp_label.add_theme_font_override("font", _font_heavy)
+	_hp_label.add_theme_font_override("font", _font_mono)
 	# 左上第二行：魔力（蓝条，技能系统移植后由 set_mp 点亮）
 	var mp_bg := Panel.new()
 	mp_bg.position = Vector2(16, 40)
@@ -81,6 +83,7 @@ func _build() -> void:
 	_mp_fill.visible = false
 	_mp_label.visible = false
 	_kill_label = _make_label("击杀: 0", Vector2(16, 64), 16, Style.COLOR_KILL)
+	_kill_label.add_theme_font_override("font", _font_mono)
 	# 右下：武器名 + 弹药 + 状态提示
 	_weapon_label = _make_label("AK-74", Vector2.ZERO, 14,
 		Style.THEME_GRAY_LIGHT if Style.theme_active() == "gold_white_gray" else Style.COLOR_DIM_TEXT)
@@ -99,13 +102,14 @@ func _build() -> void:
 	add_child(ammo_row)
 	_ammo_label = Label.new()
 	_ammo_label.theme = _theme
-	_ammo_label.add_theme_font_override("font", _font_heavy)
+	_ammo_label.add_theme_font_override("font", _font_mono)
 	_ammo_label.add_theme_color_override("font_color", Style.COLOR_AMMO)
 	_ammo_label.add_theme_font_size_override("font_size", 34)
 	_ammo_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	ammo_row.add_child(_ammo_label)
 	_ammo_reserve_label = Label.new()
 	_ammo_reserve_label.theme = _theme
+	_ammo_reserve_label.add_theme_font_override("font", _font_mono)
 	_ammo_reserve_label.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 	_ammo_reserve_label.add_theme_font_size_override("font_size", 16)
 	_ammo_reserve_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM

@@ -243,6 +243,13 @@ static func make_font(weight := 400) -> SystemFont:
 	f.font_weight = weight
 	return f
 
+## 等宽字体（VS Code Consolas 风格）：HUD 数字/弹药/数值用，清晰对齐
+static func make_mono_font(weight := 400) -> SystemFont:
+	var f := SystemFont.new()
+	f.font_names = PackedStringArray(["Consolas", "Cascadia Mono", "Cascadia Code", "Microsoft YaHei", "SimHei"])
+	f.font_weight = weight
+	return f
+
 ## emoji 回退字体（旧版图标加载失败时显示 item.icon 字符）
 static func make_emoji_font() -> SystemFont:
 	var f := SystemFont.new()
