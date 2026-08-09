@@ -47,6 +47,24 @@ const EQUIP_SLOT_LABELS := {
 	"extra": "额外物品", "boots": "靴子", "backpack": "背包装备",
 }
 
+const SLOT_TYPE_ICONS := {
+	"earring": "res://assets/ui/icons/gem.svg",
+	"helmet": "res://assets/ui/icons/equip/helmet_icon.png",
+	"ring1": "res://assets/ui/icons/equip/ring_icon.png",
+	"gloves": "res://assets/ui/icons/equip/gloves_icon.png",
+	"necklace": "res://assets/ui/icons/gem.svg",
+	"cloak": "res://assets/ui/icons/user.svg",
+	"weapon": "res://assets/ui/icons/sword.svg",
+	"armor": "res://assets/ui/icons/equip/armor_icon.png",
+	"offhand": "res://assets/ui/icons/shield.svg",
+	"weapon2": "res://assets/ui/icons/sword.svg",
+	"belt": "res://assets/ui/icons/equip/belt_icon.png",
+	"ring2": "res://assets/ui/icons/equip/ring_icon.png",
+	"extra": "res://assets/ui/icons/package.svg",
+	"boots": "res://assets/ui/icons/equip/boot_icon.png",
+	"backpack": "res://assets/ui/icons/backpack.svg",
+}
+
 var backpack: BackpackScript
 var equipment: EquipmentScript
 var skillbar: SkillBarScript
@@ -95,18 +113,18 @@ var _drag_over_cell := -1
 var _drag_over_hotbar := -1
 var _drag_over_equip := ""
 
-var _s_hotbar_empty: StyleBoxFlat
-var _s_hotbar_item: StyleBoxFlat
-var _s_hotbar_hover: StyleBoxFlat
-var _s_skill_empty: StyleBoxFlat
-var _s_cell_empty: StyleBoxFlat
-var _s_cell_item: StyleBoxFlat
-var _s_cell_hover: StyleBoxFlat
-var _s_cell_drag_over: StyleBoxFlat
-var _s_equip_empty: StyleBoxFlat
-var _s_equip_equipped: StyleBoxFlat
-var _s_equip_hover: StyleBoxFlat
-var _s_equip_locked: StyleBoxFlat
+var _s_hotbar_empty: StyleBox
+var _s_hotbar_item: StyleBox
+var _s_hotbar_hover: StyleBox
+var _s_skill_empty: StyleBox
+var _s_cell_empty: StyleBox
+var _s_cell_item: StyleBox
+var _s_cell_hover: StyleBox
+var _s_cell_drag_over: StyleBox
+var _s_equip_empty: StyleBox
+var _s_equip_equipped: StyleBox
+var _s_equip_hover: StyleBox
+var _s_equip_locked: StyleBox
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -116,18 +134,19 @@ func _ready() -> void:
 	_font_title = Style.make_font(700)
 	_font_section = Style.make_font(400)
 	_font_mono = Style.make_mono_font(600)
-	_s_hotbar_empty = Style.make_slot_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, "xs")
-	_s_hotbar_item = Style.make_slot_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, "xs")
-	_s_hotbar_hover = Style.make_slot_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, "xs")
-	_s_skill_empty = Style.make_slot_style(Style.COLOR_SKILL_SLOT_BG, Style.COLOR_SKILL_SLOT_BORDER, "xs")
-	_s_cell_empty = Style.make_slot_style(Style.COLOR_SLOT_BG, Style.COLOR_SLOT_BORDER, "sm")
-	_s_cell_item = Style.make_slot_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, "sm")
-	_s_cell_hover = Style.make_slot_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, "sm")
-	_s_cell_drag_over = Style.make_slot_style(Style.COLOR_DRAG_OVER_BG, Style.COLOR_DRAG_OVER_BORDER, "sm")
-	_s_equip_empty = Style.make_slot_style(Style.COLOR_EQUIP_SLOT_BG, Style.COLOR_EQUIP_SLOT_BORDER, "md")
-	_s_equip_equipped = Style.make_slot_style(Style.COLOR_EQUIP_EQUIPPED_BG, Style.COLOR_EQUIP_EQUIPPED_BORDER, "md")
-	_s_equip_hover = Style.make_slot_style(Style.COLOR_SLOT_HOVER_BG, Style.COLOR_SLOT_HOVER_BORDER, "md")
-	_s_equip_locked = Style.make_slot_style(Style.COLOR_EQUIP_LOCKED_BG, Style.COLOR_EQUIP_LOCKED_BORDER, "md")
+	# 贴图化槽位：panel_slot 底纹 + modulate 状态色（hover=金、拖放=强金、装备=暖亮、锁定=灰）
+	_s_hotbar_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
+	_s_hotbar_item = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_ITEM)
+	_s_hotbar_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
+	_s_skill_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
+	_s_cell_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
+	_s_cell_item = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_ITEM)
+	_s_cell_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
+	_s_cell_drag_over = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_DRAG)
+	_s_equip_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
+	_s_equip_equipped = Style.make_slot_texture_style(Style.COLOR_EQUIP_TINT_EQUIPPED)
+	_s_equip_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
+	_s_equip_locked = Style.make_slot_texture_style(Style.COLOR_EQUIP_TINT_LOCKED)
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -240,6 +259,7 @@ func _refresh_equip() -> void:
 		var item: Dictionary = equipment.get_item(key)
 		var icon := cell.get_node("Content/Icon") as TextureRect
 		var fallback := cell.get_node("Content/Fallback") as Label
+		var slot_icon := cell.get_node("Content/SlotIcon") as TextureRect
 		var name_lbl := cell.get_node("Content/Name") as Label
 		var rarity_lbl := cell.get_node("Content/Rarity") as Label
 		var badges := cell.get_node("Content/Badges") as VBoxContainer
@@ -256,12 +276,16 @@ func _refresh_equip() -> void:
 		if item.is_empty():
 			icon.texture = null
 			fallback.visible = false
+			slot_icon.visible = true
+			var slot_path := String(SLOT_TYPE_ICONS.get(key, ""))
+			slot_icon.texture = _icon_tex(slot_path) if slot_path != "" else null
 			name_lbl.text = String(EQUIP_SLOT_LABELS.get(key, key))
 			name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 			rarity_lbl.text = ""
 			rarity_lbl.remove_theme_stylebox_override("normal")
 			_set_badges(badges, {})
 		else:
+			slot_icon.visible = false
 			_set_icon(icon, fallback, item)
 			name_lbl.text = String(item.get("name", ""))
 			name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
@@ -522,11 +546,10 @@ func _update_tab_styles() -> void:
 	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Style.COLOR_DIM_TEXT)
 	_tab_skill.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "skill" else Style.COLOR_DIM_TEXT)
 
-func _tab_style(active: bool) -> StyleBoxFlat:
+func _tab_style(active: bool) -> StyleBox:
 	if active:
-		var sb := Style.make_style(Style.COLOR_ITEM_BG, Style.COLOR_ITEM_BORDER, 6, 2)
-		return sb
-	return Style.make_style(Style.COLOR_BAR_BG, Style.COLOR_PANEL_BORDER, 6, 2)
+		return Style.make_tab_active_style()
+	return Style.make_style(Style.COLOR_PANEL_BG, Style.COLOR_PANEL_BORDER, 6, 1)
 
 ## 右侧贴边滑入（复刻旧版 system-panel：translateX(100%)→0，0.25s cubic-bezier）
 func _apply_panel_slide(t: float) -> void:
@@ -1128,6 +1151,21 @@ func _build_panel() -> void:
 		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		fallback.visible = false
 		cell_content.add_child(fallback)
+		var slot_icon := TextureRect.new()
+		slot_icon.name = "SlotIcon"
+		slot_icon.anchor_left = 0.0
+		slot_icon.anchor_top = 0.0
+		slot_icon.anchor_right = 0.0
+		slot_icon.anchor_bottom = 0.0
+		slot_icon.offset_left = 6
+		slot_icon.offset_top = 5
+		slot_icon.offset_right = 26
+		slot_icon.offset_bottom = 25
+		slot_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		slot_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		slot_icon.modulate = Color(Style.THEME_WHITE, 0.30)
+		slot_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cell_content.add_child(slot_icon)
 		var name_lbl := Label.new()
 		name_lbl.name = "Name"
 		name_lbl.anchor_left = 1.0

@@ -118,6 +118,12 @@ static func _hex_to_color(hex: String) -> Color:
 static var COLOR_BAR_BG: Color = Color(0.1647, 0.1451, 0.1255, 0.9) # rgba(42,37,32,0.9)
 static var COLOR_BAR_BORDER: Color = Color(0.3529, 0.3020, 0.2471) # #5a4d3f
 static var COLOR_SLOT_BG: Color = Color(0.2392, 0.2039, 0.1686) # #3d342b
+static var COLOR_SLOT_TINT_EMPTY: Color = Color(1.0, 1.0, 1.0)
+static var COLOR_SLOT_TINT_ITEM: Color = Color(1.06, 1.04, 0.98)
+static var COLOR_SLOT_TINT_HOVER: Color = Color(1.0, 0.90, 0.70)
+static var COLOR_SLOT_TINT_DRAG: Color = Color(1.0, 0.84, 0.55)
+static var COLOR_EQUIP_TINT_EQUIPPED: Color = Color(1.08, 1.06, 0.97)
+static var COLOR_EQUIP_TINT_LOCKED: Color = Color(0.56, 0.56, 0.60)
 static var COLOR_SLOT_BORDER: Color = Color(0.3529, 0.3020, 0.2471) # #5a4d3f
 static var COLOR_SLOT_HOVER_BG: Color = Color(0.2902, 0.2471, 0.2078) # #4a3f35
 static var COLOR_SLOT_HOVER_BORDER: Color = Color(0.5412, 0.4902, 0.4196) # #8a7d6b
@@ -329,6 +335,41 @@ static func make_inner_panel_style() -> StyleBoxTexture:
 	sb.content_margin_bottom = 8
 	return sb
 
+## 格子底纹理（背包/快捷栏/装备槽共用）：textures/panel_slot.png，modulate 控制状态色
+static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTexture:
+	var sb := StyleBoxTexture.new()
+	sb.texture = load("res://assets/ui/textures/panel_slot.png")
+	sb.modulate_color = modulate
+	var m := 6
+	sb.texture_margin_left = m
+	sb.texture_margin_right = m
+	sb.texture_margin_top = m
+	sb.texture_margin_bottom = m
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.content_margin_left = 4
+	sb.content_margin_right = 4
+	sb.content_margin_top = 4
+	sb.content_margin_bottom = 4
+	return sb
+
+## 页签激活态：金上暗下 + 顶底金线（textures/panel_tab.png）
+static func make_tab_active_style() -> StyleBoxTexture:
+	var sb := StyleBoxTexture.new()
+	sb.texture = load("res://assets/ui/textures/panel_tab.png")
+	var m := 12
+	sb.texture_margin_left = m
+	sb.texture_margin_right = m
+	sb.texture_margin_top = m
+	sb.texture_margin_bottom = m
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.content_margin_left = 10
+	sb.content_margin_right = 10
+	sb.content_margin_top = 6
+	sb.content_margin_bottom = 6
+	return sb
+
 static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
 	sb.texture = load("res://assets/ui/textures/panel_brushed.png")
@@ -433,6 +474,12 @@ static func _apply_colors(p: Dictionary) -> void:
 	if p.has("COLOR_PANEL_BORDER"): COLOR_PANEL_BORDER = _hex_to_color(p.COLOR_PANEL_BORDER)
 	if p.has("COLOR_RARITY_TEXT"): COLOR_RARITY_TEXT = _hex_to_color(p.COLOR_RARITY_TEXT)
 	if p.has("COLOR_SLOT_BG"): COLOR_SLOT_BG = _hex_to_color(p.COLOR_SLOT_BG)
+	if p.has("COLOR_SLOT_TINT_EMPTY"): COLOR_SLOT_TINT_EMPTY = _hex_to_color(p.COLOR_SLOT_TINT_EMPTY)
+	if p.has("COLOR_SLOT_TINT_ITEM"): COLOR_SLOT_TINT_ITEM = _hex_to_color(p.COLOR_SLOT_TINT_ITEM)
+	if p.has("COLOR_SLOT_TINT_HOVER"): COLOR_SLOT_TINT_HOVER = _hex_to_color(p.COLOR_SLOT_TINT_HOVER)
+	if p.has("COLOR_SLOT_TINT_DRAG"): COLOR_SLOT_TINT_DRAG = _hex_to_color(p.COLOR_SLOT_TINT_DRAG)
+	if p.has("COLOR_EQUIP_TINT_EQUIPPED"): COLOR_EQUIP_TINT_EQUIPPED = _hex_to_color(p.COLOR_EQUIP_TINT_EQUIPPED)
+	if p.has("COLOR_EQUIP_TINT_LOCKED"): COLOR_EQUIP_TINT_LOCKED = _hex_to_color(p.COLOR_EQUIP_TINT_LOCKED)
 	if p.has("COLOR_SLOT_BORDER"): COLOR_SLOT_BORDER = _hex_to_color(p.COLOR_SLOT_BORDER)
 	if p.has("COLOR_SLOT_HOVER_BG"): COLOR_SLOT_HOVER_BG = _hex_to_color(p.COLOR_SLOT_HOVER_BG)
 	if p.has("COLOR_SLOT_HOVER_BORDER"): COLOR_SLOT_HOVER_BORDER = _hex_to_color(p.COLOR_SLOT_HOVER_BORDER)

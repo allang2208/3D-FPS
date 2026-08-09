@@ -21,6 +21,8 @@ func _init() -> void:
 		_vals[i] = rng.randf()
 	_gen_main()
 	_gen_inner()
+	_gen_slot()
+	_gen_tab()
 	print("面板贴图已生成 -> ", ProjectSettings.globalize_path(OUT_DIR))
 	quit(0)
 
@@ -97,15 +99,17 @@ func _gen_inner() -> void:
 
 
 func _draw_border(img: Image, color: Color, thickness: int, inset := 0) -> void:
+	var w := img.get_width()
+	var h := img.get_height()
 	for t in thickness:
 		var y := inset + t
-		var y2 := SIZE - 1 - inset - t
-		for x in SIZE:
+		var y2 := h - 1 - inset - t
+		for x in w:
 			img.set_pixel(x, y, color)
 			img.set_pixel(x, y2, color)
 		var x1 := inset + t
-		var x2 := SIZE - 1 - inset - t
-		for yy in SIZE:
+		var x2 := w - 1 - inset - t
+		for yy in h:
 			img.set_pixel(x1, yy, color)
 			img.set_pixel(x2, yy, color)
 
@@ -131,3 +135,60 @@ func _draw_corner_ticks(img: Image) -> void:
 		for i in line_len:
 			img.set_pixel(cx + i, cy, GOLD)
 			img.set_pixel(cx, cy + i, GOLD)
+
+
+func _gen_slot() -> void:
+	var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 999
+	var base_top := Color(0.137, 0.137, 0.153)   # #232328
+	var base_bot := Color(0.157, 0.157, 0.173)   # #28282C
+	for y in 64:
+		for x in 64:
+			var t := float(y) / 63.0
+			var base := base_top.lerp(base_bot, t)
+			var grain := rng.randf_range(-0.012, 0.012)
+			var c := Color(
+				clampf(base.r + grain, 0.0, 1.0),
+				clampf(base.g + grain, 0.0, 1.0),
+				clampf(base.b + grain * 1.1, 0.0, 1.0))
+			img.set_pixel(x, y, c)
+	# 顶部内高光 + 底部内阴影（凹槽）
+	for x in 64:
+		img.set_pixel(x, 2, Color(0.196, 0.196, 0.216))
+		img.set_pixel(x, 3, Color(0.165, 0.165, 0.184))
+		img.set_pixel(x, 60, Color(0.106, 0.106, 0.122))
+		img.set_pixel(x, 61, Color(0.086, 0.086, 0.10))
+	_draw_border(img, Color(0.243, 0.243, 0.271), 1)   # #3E3E45 细框
+	_draw_border(img, Color(0.04, 0.04, 0.047), 1, 2)  # 内压暗线
+	img.save_png(OUT_DIR + "panel_slot.png")
+
+
+func _gen_tab() -> void:
+	var img := Image.create(128, 64, false, Image.FORMAT_RGBA8)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 1010
+	var base_top := Color(0.114, 0.114, 0.129)   # #1D1D21
+	var base_bot := Color(0.090, 0.090, 0.102)   # #17171A
+	for y in 64:
+		for x in 128:
+			var t := float(y) / 63.0
+			var base := base_top.lerp(base_bot, t)
+			var grain := rng.randf_range(-0.010, 0.010)
+			# 顶部金色渐变罩（0.22 alpha -> 0，25% 高度内）
+			var wash := 0.0
+			if y < 16:
+				wash = (1.0 - float(y) / 16.0) * 0.22
+			var c := Color(
+				clampf(base.r + grain + GOLD.r * wash, 0.0, 1.0),
+				clampf(base.g + grain + GOLD.g * wash, 0.0, 1.0),
+				clampf(base.b + grain + GOLD.b * wash, 0.0, 1.0))
+			img.set_pixel(x, y, c)
+	# 顶边金线 + 底边金线（9-slice margin 内）
+	for x in 128:
+		img.set_pixel(x, 1, GOLD)
+		img.set_pixel(x, 2, Color(GOLD, 0.55))
+		img.set_pixel(x, 62, Color(GOLD, 0.35))
+		img.set_pixel(x, 63, Color(GOLD, 0.18))
+	_draw_border(img, Color(0.243, 0.243, 0.271), 1, 0)
+	img.save_png(OUT_DIR + "panel_tab.png")
