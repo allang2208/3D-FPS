@@ -104,7 +104,7 @@ func _rebuild_grid() -> void:
 			_grid.add_child(empty)
 			continue
 		var item: Dictionary = entry["item"]
-		var b := _make_item_cell(item, Vector2(120, 52))
+		var b := _make_item_cell(item, _cell_size("std"))
 		b.pressed.connect(func(_c, _idx: int = i): _remove_from_cell(_idx))
 		b.drop_requested.connect(func(d):
 			var s := _find_bp_slot(d.get("item", {}))
@@ -119,7 +119,7 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("category", "")) != "tribute":
 			continue
-		var b := _make_item_cell(it, Vector2(120, 52))
+		var b := _make_item_cell(it, _cell_size("std"))
 		b.pressed.connect(func(_c, _idx: int = i): _place_from_backpack(_idx))
 		_bp_grid.add_child(b)
 

@@ -113,7 +113,7 @@ func _rebuild_sell_grid() -> void:
 	for i in _sell.size():
 		var it: Dictionary = _sell[i]["item"]
 		var sell_price := maxi(1, int(NpcConfig.standard_price(it) * 0.5))
-		var cell := _make_item_cell(it, Vector2(112, 50))
+		var cell := _make_item_cell(it, _cell_size("sm"))
 		cell.set_price(sell_price)
 		cell.pressed.connect(func(_c, _idx: int = i): _return_to_backpack(_idx))
 		cell.drop_requested.connect(func(d):
@@ -129,7 +129,7 @@ func _rebuild_backpack_grid() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		var cell := _make_item_cell(it, Vector2(112, 50))
+		var cell := _make_item_cell(it, _cell_size("sm"))
 		cell.pressed.connect(func(_c, _idx: int = i): _add_to_sell(_idx))
 		_bp_grid.add_child(cell)
 

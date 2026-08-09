@@ -32,12 +32,6 @@ const DEFAULT_OPTIONS := [
 	["craft", "改造装备"], ["enchant", "附魔装备"], ["close", "再见"],
 ]
 
-const PANEL_W := 920.0
-const PANEL_H := 176.0
-const PANEL_BOTTOM := 18.0
-const PORTRAIT_S := 132.0
-const TYPE_SPEED := 42.0  # 字符/秒
-
 var _panel: Panel
 var _portrait_frame: Panel
 var _portrait: TextureRect
@@ -58,6 +52,7 @@ var _type_acc := 0.0
 var _was_captured := false
 
 func _ready() -> void:
+	layer = int(Style.npc("layer_bar", 50))
 	_theme = Style.make_theme()
 	_font_regular = Style.make_font(Style.font_weight("regular"))
 	_font_bold = Style.make_font(Style.font_weight("bold"))
@@ -70,7 +65,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not _open or not _typing:
 		return
-	_type_acc += delta * TYPE_SPEED
+	_type_acc += delta * float(Style.npc("type_speed", 42.0))
 	var n := int(_type_acc)
 	if n >= _full_text.length():
 		_text_label.text = _full_text
@@ -100,7 +95,8 @@ func _build() -> void:
 	# 立绘区：无 portrait 的 NPC（祭坛/仓库等）隐藏整块
 	_portrait_frame = Panel.new()
 	_portrait_frame.name = "PortraitFrame"
-	_portrait_frame.custom_minimum_size = Vector2(PORTRAIT_S, PORTRAIT_S)
+	var ps := float(Style.npc("portrait_s", 132.0))
+	_portrait_frame.custom_minimum_size = Vector2(ps, ps)
 	_portrait_frame.add_theme_stylebox_override("panel",
 		Style.make_slot_style(Style.THEME_GRAY_MID, Style.THEME_GRAY_MID, "sm", 1))
 	row.add_child(_portrait_frame)
@@ -152,12 +148,12 @@ func _reposition() -> void:
 	if vp == null:
 		return
 	var vw: float = vp.get_visible_rect().size.x
-	var w := minf(PANEL_W, vw * 0.72)
+	var w := minf(float(Style.npc("panel_w", 920.0)), vw * 0.72)
 	_panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	_panel.offset_left = -w * 0.5
-	_panel.offset_top = -PANEL_H - PANEL_BOTTOM
+	_panel.offset_top = -float(Style.npc("panel_h", 176.0)) - float(Style.npc("panel_bottom", 18.0))
 	_panel.offset_right = w * 0.5
-	_panel.offset_bottom = -PANEL_BOTTOM
+	_panel.offset_bottom = -float(Style.npc("panel_bottom", 18.0))
 
 ## ---- 公开接口 ----
 

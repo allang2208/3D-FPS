@@ -79,7 +79,7 @@ func _rebuild_grid() -> void:
 			empty.disabled = true
 			_grid.add_child(empty)
 			continue
-		var b := _make_item_cell(it, Vector2(120, 52))
+		var b := _make_item_cell(it, _cell_size("std"))
 		b.pressed.connect(func(_c, _slot: int = start + i): _take_item(_slot))
 		b.drop_requested.connect(func(d):
 			var s := _find_bp_slot(d.get("item", {}))
@@ -94,7 +94,7 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		var b := _make_item_cell(it, Vector2(120, 52))
+		var b := _make_item_cell(it, _cell_size("std"))
 		b.pressed.connect(func(_c, _idx: int = i): _store_item(_idx))
 		_bp_grid.add_child(b)
 

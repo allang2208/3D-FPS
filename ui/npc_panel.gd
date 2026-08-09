@@ -7,9 +7,6 @@ const Style := preload("res://ui/style.gd")
 
 signal closed
 
-const PANEL_W := 880.0
-const PANEL_H := 560.0
-
 var panel: Panel
 var title_label: Label
 var gold_label: Label
@@ -26,6 +23,7 @@ var _msg_timer := 0.0
 var _pending_title := ""
 
 func _ready() -> void:
+	layer = int(Style.npc("layer_panel", 60))
 	_tooltip = load("res://ui/item_tooltip.gd").new()
 	_tooltip.name = "ItemTooltip"
 	_tooltip.visible = false
@@ -39,17 +37,20 @@ func _process(delta: float) -> void:
 		if _msg_timer <= 0.0:
 			message_label.text = ""
 	if _tooltip != null and _tooltip.visible:
-		_tooltip.position = get_viewport().get_mouse_position() + Vector2(16, 16)
+		var off := float(Style.npc("tooltip_offset", 16.0))
+		_tooltip.position = get_viewport().get_mouse_position() + Vector2(off, off)
 
 func _build() -> void:
 	panel = Panel.new()
 	panel.name = "Panel"
 	panel.add_theme_stylebox_override("panel", Style.make_panel_style())
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	panel.offset_left = -PANEL_W * 0.5
-	panel.offset_top = -PANEL_H * 0.5
-	panel.offset_right = PANEL_W * 0.5
-	panel.offset_bottom = PANEL_H * 0.5
+	var pw := float(Style.npc("panel_w", 880.0))
+	var ph := float(Style.npc("panel_h", 560.0))
+	panel.offset_left = -pw * 0.5
+	panel.offset_top = -ph * 0.5
+	panel.offset_right = pw * 0.5
+	panel.offset_bottom = ph * 0.5
 	add_child(panel)
 
 	var root := VBoxContainer.new()
@@ -143,7 +144,7 @@ func show_message(text: String, is_error := false) -> void:
 	message_label.text = text
 	message_label.add_theme_color_override("font_color",
 		Style.THEME_DANGER_RED if is_error else Style.THEME_GRAY_LIGHT)
-	_msg_timer = 3.0
+	_msg_timer = float(Style.npc("msg_ms", 3000)) / 1000.0
 
 func clear_message() -> void:
 	message_label.text = ""
@@ -193,12 +194,19 @@ func _make_item_cell(it: Dictionary, min_size := Vector2(120, 52)) -> Node:
 	c.unhovered.connect(func() -> void: _hide_tooltip())
 	return c
 
+## 通用格子尺寸（style-config.json npc.cell_*，唯一真源）
+func _cell_size(kind := "std") -> Vector2:
+	return Vector2(
+		float(Style.npc("cell_%s_w" % kind, 120.0)),
+		float(Style.npc("cell_%s_h" % kind, 52.0)))
+
 func _show_tooltip(item: Dictionary) -> void:
 	if _tooltip == null or item.is_empty():
 		return
 	_tooltip.render(item)
 	_tooltip.visible = true
-	_tooltip.position = get_viewport().get_mouse_position() + Vector2(16, 16)
+	var off := float(Style.npc("tooltip_offset", 16.0))
+	_tooltip.position = get_viewport().get_mouse_position() + Vector2(off, off)
 
 func _hide_tooltip() -> void:
 	if _tooltip != null and not _tooltip.is_pinned():

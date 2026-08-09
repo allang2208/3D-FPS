@@ -50,21 +50,22 @@ func _build_body() -> void:
 	var circle_row := HBoxContainer.new()
 	circle_row.add_theme_constant_override("separation", 14)
 	body.add_child(circle_row)
+	var ms := float(Style.npc("magic_s", 96.0))
 	_circle_glow = Panel.new()
-	_circle_glow.custom_minimum_size = Vector2(96, 96)
+	_circle_glow.custom_minimum_size = Vector2(ms, ms)
 	_circle_glow.add_theme_stylebox_override("panel",
 		Style.make_style(Color(Style.THEME_GOLD, 0.35), Color(Style.THEME_GOLD, 0.0), 48, 0))
 	circle_row.add_child(_circle_glow)
 	var circle := Panel.new()
-	circle.custom_minimum_size = Vector2(96, 96)
+	circle.custom_minimum_size = Vector2(ms, ms)
 	circle.add_theme_stylebox_override("panel",
 		Style.make_style(Color(Style.THEME_BG, 0.0), Style.THEME_GOLD, 48, 2))
 	circle.position = Vector2(0, 0)
-	circle.size = Vector2(96, 96)
+	circle.size = Vector2(ms, ms)
 	_circle_glow.add_child(circle)
 	_circle_icon = Label.new()
 	_circle_icon.text = "⚒️"
-	_circle_icon.add_theme_font_size_override("font_size", 36)
+	_circle_icon.add_theme_font_size_override("font_size", int(Style.npc("magic_icon_size", 36)))
 	_circle_icon.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	circle.add_child(_circle_icon)
 	var slot_drop := _make_drop_slot()
@@ -151,7 +152,7 @@ func _rebuild_grids() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("category", "")) == "gold":
 			continue
-		var cell := _make_item_cell(it, Vector2(130, 52))
+		var cell := _make_item_cell(it, _cell_size("md"))
 		cell.pressed.connect(func(_c, _idx: int = i): _equip_from_backpack(_idx))
 		_bp_grid.add_child(cell)
 	for c in _eq_grid.get_children():
@@ -160,7 +161,7 @@ func _rebuild_grids() -> void:
 		var it = _equipment.slots.get(key, {})
 		if it == null or it.is_empty():
 			continue
-		var cell := _make_item_cell(it, Vector2(130, 52))
+		var cell := _make_item_cell(it, _cell_size("md"))
 		cell.pressed.connect(func(_c, _key: String = String(key)): _equip_from_slot(_key))
 		_eq_grid.add_child(cell)
 

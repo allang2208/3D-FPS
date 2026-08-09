@@ -73,17 +73,28 @@ static func _load_config() -> void:
 			MOTION_EASING = str(motion.easing)
 	if typeof(cfg.get("hud", {})) == TYPE_DICTIONARY:
 		HUD_CFG = cfg.hud
+	if typeof(cfg.get("npc", {})) == TYPE_DICTIONARY:
+		NPC_CFG = cfg.npc
 
 ## 风格查询（供组件统一消费，禁止散落数值）
 
 ## HUD 布局/字号/行为/文案配置（style-config.json "hud" 段，改配置不改代码）
 static var HUD_CFG: Dictionary = {}
+static var NPC_CFG: Dictionary = {}
 
 static func hud(key: String, default_val = null):
 	return HUD_CFG.get(key, default_val)
 
 static func hud_section(key: String) -> Dictionary:
 	var v = HUD_CFG.get(key, {})
+	return v if v is Dictionary else {}
+
+## NPC 面板通用设置（旧版 WORKING-GUIDELINES 原则6：数值/尺寸/坐标进配置，唯一真源）
+static func npc(key: String, default_val = null):
+	return NPC_CFG.get(key, default_val)
+
+static func npc_section(key: String) -> Dictionary:
+	var v = NPC_CFG.get(key, {})
 	return v if v is Dictionary else {}
 static func spacing(key: String) -> int:
 	return int(SPACING.get(key, 4))

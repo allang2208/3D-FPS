@@ -113,14 +113,14 @@ func _rebuild_scroll_list() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
 			continue
-		var cell := _make_item_cell(it, Vector2(360, 52))
+		var cell := _make_item_cell(it, _cell_size("lg"))
 		cell.pressed.connect(func(_c, _idx: int = i): _place_scroll("backpack", _idx))
 		_scroll_grid.add_child(cell)
 	if _warehouse != null:
 		for it in _warehouse.items:
 			if it == null or it.is_empty() or String(it.get("scroll_id", "")) == "":
 				continue
-			var cell := _make_item_cell(it, Vector2(360, 52))
+			var cell := _make_item_cell(it, _cell_size("lg"))
 			cell.pressed.connect(func(_c, _it: Dictionary = it): _place_scroll("warehouse", int(_it.get("slot", -1))))
 			_scroll_grid.add_child(cell)
 
@@ -131,14 +131,14 @@ func _rebuild_equip_list() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty() or not _is_weapon(it):
 			continue
-		var cell := _make_item_cell(it, Vector2(360, 52))
+		var cell := _make_item_cell(it, _cell_size("lg"))
 		cell.pressed.connect(func(_c, _idx: int = i): _place_equip("backpack", _idx))
 		_equip_grid.add_child(cell)
 	for key in _equipment.SLOT_ORDER:
 		var it = _equipment.slots.get(key, {})
 		if it == null or it.is_empty() or not _is_weapon(it):
 			continue
-		var cell := _make_item_cell(it, Vector2(360, 52))
+		var cell := _make_item_cell(it, _cell_size("lg"))
 		cell.pressed.connect(func(_c, _key: String = String(key)): _place_equip("equip", _key))
 		_equip_grid.add_child(cell)
 

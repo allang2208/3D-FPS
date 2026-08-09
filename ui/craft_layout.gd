@@ -20,7 +20,9 @@ var _drag_offset := Vector2.ZERO
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	custom_minimum_size = Vector2(420, 300)
+	custom_minimum_size = Vector2(
+		float(Style.npc("layout_w", 420.0)),
+		float(Style.npc("layout_h", 300.0)))
 
 func setup(config: Dictionary, item_mods: Dictionary) -> void:
 	cfg = config

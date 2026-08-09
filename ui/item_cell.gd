@@ -60,8 +60,9 @@ func _build() -> void:
 
 	# 图标（图片优先，fallback emoji）
 	var icon_path := String(item.get("icon", ""))
+	var icon_s := float(Style.npc("cell_icon_s", 30.0))
 	_icon = TextureRect.new()
-	_icon.custom_minimum_size = Vector2(30, 30)
+	_icon.custom_minimum_size = Vector2(icon_s, icon_s)
 	_icon.position = Vector2(12, 6)
 	_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -73,7 +74,7 @@ func _build() -> void:
 	_icon_fallback = Label.new()
 	_icon_fallback.text = fallback if fallback != "" else "❔"
 	_icon_fallback.position = Vector2(14, 4)
-	_icon_fallback.add_theme_font_size_override("font_size", 24)
+	_icon_fallback.add_theme_font_size_override("font_size", int(Style.npc("cell_icon_s", 30.0)) - 6)
 	_icon_fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_icon_fallback.visible = _icon.texture == null
 	add_child(_icon_fallback)
@@ -84,7 +85,7 @@ func _build() -> void:
 	_name_lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
 	_name_lbl.offset_left = 48
 	_name_lbl.offset_bottom = -16
-	_name_lbl.add_theme_font_size_override("font_size", 11)
+	_name_lbl.add_theme_font_size_override("font_size", int(Style.npc("cell_name_size", 11)))
 	_name_lbl.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
 	_name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
 	_name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -95,7 +96,7 @@ func _build() -> void:
 	if stack > 1:
 		_stack_lbl = Label.new()
 		_stack_lbl.text = "x%d" % stack
-		_stack_lbl.add_theme_font_size_override("font_size", 11)
+		_stack_lbl.add_theme_font_size_override("font_size", int(Style.npc("cell_stack_size", 11)))
 		_stack_lbl.add_theme_font_override("font", Style.make_mono_font(600))
 		_stack_lbl.add_theme_color_override("font_color", Style.COLOR_BLACK)
 		_stack_lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
@@ -137,7 +138,7 @@ func _build() -> void:
 func _make_badge(text: String, bg: Color, fg: Color) -> Label:
 	var l := Label.new()
 	l.text = text
-	l.add_theme_font_size_override("font_size", 8)
+	l.add_theme_font_size_override("font_size", int(Style.npc("cell_badge_size", 8)))
 	l.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
 	l.add_theme_color_override("font_color", fg)
 	l.add_theme_stylebox_override("normal", Style.make_style(bg, Color(0, 0, 0, 0), 2, 0))

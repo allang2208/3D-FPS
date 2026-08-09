@@ -208,7 +208,7 @@ func _rebuild_backpack() -> void:
 		var it = _backpack.slots[i]
 		if it == null or it.is_empty():
 			continue
-		var cell := _make_item_cell(it, Vector2(170, 52))
+		var cell := _make_item_cell(it, _cell_size("wide"))
 		cell.pressed.connect(func(_c, _idx: int = i): _equip_from_backpack(_idx))
 		_bp_grid.add_child(cell)
 	for c in _eq_grid.get_children():
@@ -217,7 +217,7 @@ func _rebuild_backpack() -> void:
 		var it = _equipment.slots.get(key, {})
 		if it == null or it.is_empty():
 			continue
-		var cell := _make_item_cell(it, Vector2(170, 52))
+		var cell := _make_item_cell(it, _cell_size("wide"))
 		cell.pressed.connect(func(_c, _key: String = String(key)): _equip_from_slot(_key))
 		_eq_grid.add_child(cell)
 
