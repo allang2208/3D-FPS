@@ -31,6 +31,8 @@ const COLOR_DEATH_TITLE := Color(0.95, 0.4, 0.35)
 const COLOR_DEATH_HINT := Color(0.85, 0.85, 0.9)
 const COLOR_CROSSHAIR := Color(0.95, 0.95, 0.9)
 const COLOR_HITMARKER := Color(0.98, 0.98, 0.95)
+const COLOR_DMG_FLASH := Color(0.8, 0, 0, 0)
+const COLOR_TRANSPARENT := Color(0, 0, 0, 0)
 
 # ---------- 浮窗（白底，复刻旧版 tt-main） ----------
 const COLOR_TT_BG := Color(0.96, 0.95, 0.93)
@@ -60,6 +62,19 @@ const RARITY_COLORS := {
 	"mythic": Color(0.9020, 0.6039, 0.2353),
 	"legendary": Color(0.8784, 0.2902, 0.2275),
 }
+
+# ---------- v2 全境封锁风色板（DESIGN.md Token，未启用） ----------
+# 切换时用下方色板整体替换上方旧 2D 暗金色板即可，HUD/背包代码零改动。
+const V2_BG_SCENE := Color(0.039, 0.055, 0.086)       # #0A0E16 深蓝黑底
+const V2_ACCENT_CYAN := Color(0.310, 0.765, 0.969)    # #4FC3F7 科技/战术主强调
+const V2_ACCENT_GOLD := Color(1.0, 0.847, 0.290)      # #FFD84A 游戏次强调
+const V2_HP_GREEN := Color(0.498, 0.824, 0.416)       # #7FD26A 生命
+const V2_WARN_ORANGE := Color(0.878, 0.663, 0.310)    # #E0A94F 警告
+const V2_DANGER_RED := Color(0.851, 0.357, 0.290)     # #D95B4A 危险
+const V2_MP_BLUE := Color(0.353, 0.561, 0.878)        # #5A8FE0 魔力
+const V2_TEXT_PRIMARY := Color(0.910, 0.894, 0.847)   # #E8E4D8 主文本
+const V2_TEXT_SECONDARY := Color(0.667, 0.690, 0.729) # #AAB0BA 次级文本
+const V2_TEXT_WEAK := Color(0.420, 0.447, 0.502)      # #6B7280 弱化文本
 
 # ---------- 字体 ----------
 

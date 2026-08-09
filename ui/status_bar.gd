@@ -88,7 +88,7 @@ func _build() -> void:
 	add_child(_death_panel)
 	# 受伤红闪（全屏，最上层）
 	_dmgflash = ColorRect.new()
-	_dmgflash.color = Color(0.8, 0, 0, 0)
+	_dmgflash.color = Style.COLOR_DMG_FLASH
 	_dmgflash.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_dmgflash.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_dmgflash)

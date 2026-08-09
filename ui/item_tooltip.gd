@@ -58,9 +58,9 @@ func _build() -> void:
 	_close_btn.text = "✕"
 	_close_btn.custom_minimum_size = Vector2(24, 24)
 	_close_btn.flat = false
-	_close_btn.add_theme_stylebox_override("normal", Style.make_style(Style.COLOR_TT_CLOSE_BG, Color(0, 0, 0, 0.0), 12, 0))
-	_close_btn.add_theme_stylebox_override("hover", Style.make_style(Style.COLOR_TT_CLOSE_HOVER, Color(0, 0, 0, 0.0), 12, 0))
-	_close_btn.add_theme_stylebox_override("pressed", Style.make_style(Style.COLOR_TT_CLOSE_HOVER, Color(0, 0, 0, 0.0), 12, 0))
+	_close_btn.add_theme_stylebox_override("normal", Style.make_style(Style.COLOR_TT_CLOSE_BG, Style.COLOR_TRANSPARENT, 12, 0))
+	_close_btn.add_theme_stylebox_override("hover", Style.make_style(Style.COLOR_TT_CLOSE_HOVER, Style.COLOR_TRANSPARENT, 12, 0))
+	_close_btn.add_theme_stylebox_override("pressed", Style.make_style(Style.COLOR_TT_CLOSE_HOVER, Style.COLOR_TRANSPARENT, 12, 0))
 	_close_btn.add_theme_color_override("font_color", Color.WHITE)
 	_close_btn.add_theme_font_size_override("font_size", 13)
 	_close_btn.pressed.connect(func() -> void: close_requested.emit())

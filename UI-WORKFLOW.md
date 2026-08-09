@@ -66,3 +66,34 @@
    重出 3 张（v2）→ `DESIGN.md` 据此固化 Token。
 3. 下一步：5080 修好后 FLUX 横版精修；Token 落地 `ui/tokens.gd`；
    状态栏/背包按新 Token 统一。
+
+## 9. 落地到日常工作（具体执行）
+
+### 角色分工
+
+- 你（用户/设计决策）：定方向、给参考图、挑情绪板、拍板换肤（v1 暗金 ↔ v2 全境封锁）。
+- AI（执行）：读 `DESIGN.md` + `style.gd` 后实现；改样式只动 Token 层；跑自动化门禁。
+
+### 每次 UI 任务的五步（固定）
+
+1. 读 `DESIGN.md`（风格真源）与 `WORKFLOW.md`（文件所有权）。
+2. 查 `ui/style.gd` 是否有可用 Token；没有 → 先加进 `DESIGN.md` + `style.gd` 再写代码。
+3. 复用组件（`status_bar.gd` / `backpack*.gd` / `item_tooltip.gd`），禁止复制样式。
+4. 跑门禁：`tests/test_ui_tokens.gd`（Token 对齐 + 无硬编码）+ 相关组件冒烟。
+5. `ui:` 提交；`git status` 确认不覆盖对方未提交文件。
+
+### 换肤 = 改一处
+
+`ui/style.gd` 是唯一色板入口：旧 2D 暗金 = 当前色板；v2 全境封锁色板已预置为
+`V2_*` 常量（未启用）。拍板后整体替换色板，HUD/背包代码零改动。
+
+### 自动化门禁（已落地）
+
+`tests/test_ui_tokens.gd`：
+- DESIGN.md 关键 Token 与 `style.gd` 数值必须一致（不一致即红）；
+- `status_bar.gd` / `item_tooltip.gd` 出现裸 `Color(` 硬编码即红；
+- 待对方提交后把 `backpack_hud.gd` 纳入扫描。
+
+### 新颜色进组件的唯一路径（禁止跳步）
+
+`DESIGN.md` 加色值 → `style.gd` 加常量 → 组件引用。任何一步缺失都算硬编码。
