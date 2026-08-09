@@ -1,7 +1,10 @@
 {
   "version": 1,
   "active_theme": "gold_white_gray",
-  "radius": 8,
+  "radius": 10,
+  "radius_sm": 6,
+  "radius_md": 8,
+  "radius_lg": 12,
   "spacing": {
     "grid": 4,
     "hud_margin": 20,

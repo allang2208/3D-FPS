@@ -51,7 +51,7 @@ func _initialize() -> void:
 		var cfg: Dictionary = cparsed if typeof(cparsed) == TYPE_DICTIONARY else {}
 		_check("style_config_parse", typeof(cparsed) == TYPE_DICTIONARY)
 		_check("config_theme_valid", Style.theme_active() in ["dark_gold", "gold_white_gray"])
-		_check("config_radius", Style.RADIUS == 8)
+		_check("config_radius", Style.RADIUS == 10)
 		_check("config_spacing_grid", Style.spacing("grid") == 4)
 		_check("config_font_h1", Style.font_size("h1") == 48)
 		_check("config_font_weight_heavy", Style.font_weight("heavy") == 700)

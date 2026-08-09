@@ -39,9 +39,9 @@ func _ensure_built() -> void:
 	_search.placeholder_text = "输入命令… (Esc 关闭)"
 	_search.custom_minimum_size = Vector2(0, 34)
 	_search.add_theme_stylebox_override("normal",
-		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, 4, 1))
+		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, Style.RADIUS_SM, 1))
 	_search.add_theme_stylebox_override("focus",
-		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, 4, 1))
+		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, Style.RADIUS_SM, 1))
 	_search.add_theme_color_override("font_color", Style.THEME_WHITE)
 	_search.add_theme_color_override("font_placeholder_color", Style.THEME_GRAY_LIGHT)
 	_search.add_theme_font_size_override("font_size", Style.font_size("body"))

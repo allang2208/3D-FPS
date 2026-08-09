@@ -22,10 +22,10 @@ func _ensure_built() -> void:
 	_slider = HSlider.new()
 	_slider.custom_minimum_size = Vector2(220, 24)
 	_slider.focus_mode = Control.FOCUS_NONE
-	var track := Style.make_style(Style.THEME_GRAY_MID, Color(Style.THEME_GRAY_MID, 1.0), 4, 0)
+	var track := Style.make_style(Style.THEME_GRAY_MID, Color(Style.THEME_GRAY_MID, 1.0), Style.RADIUS_SM, 0)
 	track.content_margin_top = 3
 	track.content_margin_bottom = 3
-	var fill := Style.make_style(Style.THEME_GOLD, Color(Style.THEME_GOLD, 1.0), 4, 0)
+	var fill := Style.make_style(Style.THEME_GOLD, Color(Style.THEME_GOLD, 1.0), Style.RADIUS_SM, 0)
 	fill.content_margin_top = 3
 	fill.content_margin_bottom = 3
 	var grabber := Style.make_style(Style.THEME_GOLD, Style.THEME_GOLD, 10, 0)

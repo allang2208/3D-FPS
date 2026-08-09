@@ -10,6 +10,26 @@
 2. **数值断言**：颜色/尺寸/间距/字号等数值型由 `tests/test_ui_tokens.gd` 自动校验，错一个就红。
 3. **截图验收**：组件形态用 GLM-4.6V 读图并排对比（Godot 渲染 vs shadcn 参考页），差异列表给人拍板。
 
+## 0.1 当前风格基准：Vega（2026-08-09 拍板）
+
+shadcn 官方定义：**"Clean, neutral, and familiar"**（干净、中性、熟悉）。
+已翻译进 `ui/style-config.json` + `ui/style.gd`：
+
+| Vega 参数 | shadcn 值 | Godot 落地 | 状态 |
+|---|---|---|---|
+| 全局圆角 `--radius` | 0.625rem = 10px | `style-config.json radius: 10` | ✅ 硬指标 |
+| 按钮圆角 | rounded-md = 6px | `RADIUS_SM`（make_button_style） | ✅ |
+| 面板圆角 | rounded-lg = 8px | `RADIUS_MD`（make_panel_style） | ✅ |
+| 对话框圆角 | rounded-xl = 12px | `RADIUS_LG`（预留给 dialog） | ✅ 已定义 |
+| 按钮高度/内边距 | h-9(36px) / px-2.5(10px) | make_button_style content_margin 10/6 | ✅ |
+| 边框 | 1px border | 全部样式 border_w=1 | ✅ |
+| 禁用 | opacity-50 | disabled 样式 50% 透明 | ✅ |
+| 按下反馈 | active:translate-y-px | Godot pressed 样式变色（位移未做） | 🔶 软指标 |
+| 遮罩 | bg-black/10 + blur-xs | `COLOR_OVERLAY` α0.55（游戏内更暗） | 🔶 软指标 |
+| 配色 | Neutral（黑白灰） | **保留金白深灰 DNA**（DESIGN.md），仅形态采用 Vega | ✅ 用户拍板 |
+
+> 原则：Vega 决定"形态与层次"，金白深灰决定"颜色"，两者组合 = 当前游戏 UI。
+
 ## 1. 硬指标 vs 软指标
 
 | 类别 | 含义 | 示例 |

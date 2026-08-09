@@ -27,11 +27,11 @@ func _ensure_built() -> void:
 	_option = OptionButton.new()
 	_option.custom_minimum_size = Vector2(220, 30)
 	_option.add_theme_stylebox_override("normal",
-		Style.make_style(Style.THEME_BG, Style.THEME_GRAY_MID, 4, 1))
+		Style.make_style(Style.THEME_BG, Style.THEME_GRAY_MID, Style.RADIUS_SM, 1))
 	_option.add_theme_stylebox_override("hover",
-		Style.make_style(Color(Style.THEME_GRAY_MID, 0.7), Style.THEME_GRAY_MID, 4, 1))
+		Style.make_style(Color(Style.THEME_GRAY_MID, 0.7), Style.THEME_GRAY_MID, Style.RADIUS_SM, 1))
 	_option.add_theme_stylebox_override("pressed",
-		Style.make_style(Color(Style.THEME_GOLD, 0.25), Style.THEME_GOLD, 4, 1))
+		Style.make_style(Color(Style.THEME_GOLD, 0.25), Style.THEME_GOLD, Style.RADIUS_SM, 1))
 	_option.add_theme_color_override("font_color", Style.THEME_WHITE)
 	_option.add_theme_color_override("font_hover_color", Style.THEME_GOLD)
 	_option.add_theme_font_size_override("font_size", Style.font_size("body"))

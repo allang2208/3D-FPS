@@ -24,7 +24,7 @@ func _ensure_built() -> void:
 	add_child(h)
 	_box = Panel.new()
 	_box.custom_minimum_size = Vector2(22, 22)
-	var sb := Style.make_style(Style.THEME_GRAY_MID, Style.THEME_GRAY_MID, 4, 1)
+	var sb := Style.make_style(Style.THEME_GRAY_MID, Style.THEME_GRAY_MID, Style.RADIUS_SM, 1)
 	_box.add_theme_stylebox_override("panel", sb)
 	h.add_child(_box)
 	_check = TextureRect.new()

@@ -10,6 +10,9 @@ const CONFIG_PATH := "res://ui/style-config.json"
 # ---------- 风格配置（style-config.json，改配置不改代码） ----------
 static var ACTIVE_THEME := "dark_gold"            # dark_gold | gold_white_gray
 static var RADIUS := 8
+static var RADIUS_SM := 6
+static var RADIUS_MD := 8
+static var RADIUS_LG := 12
 static var SPACING: Dictionary = {"grid": 4, "hud_margin": 20, "panel_padding": 10, "element_gap": 8}
 static var FONT_SIZES: Dictionary = {"h1": 48, "h2": 32, "big": 22, "label": 16, "body": 14, "caption": 12}
 static var FONT_WEIGHTS: Dictionary = {"heavy": 700, "bold": 600, "regular": 400}
@@ -43,6 +46,12 @@ static func _load_config() -> void:
 			ACTIVE_THEME = t
 	if cfg.has("radius"):
 		RADIUS = int(cfg.radius)
+	if cfg.has("radius_sm"):
+		RADIUS_SM = int(cfg.radius_sm)
+	if cfg.has("radius_md"):
+		RADIUS_MD = int(cfg.radius_md)
+	if cfg.has("radius_lg"):
+		RADIUS_LG = int(cfg.radius_lg)
 	if typeof(cfg.get("spacing", {})) == TYPE_DICTIONARY:
 		for key in cfg.spacing:
 			SPACING[key] = int(cfg.spacing[key])
@@ -248,12 +257,13 @@ static func make_style(bg: Color, border: Color, radius := -1, border_w := 2) ->
 
 ## 按钮三态样式（DESIGN.md 第 5 节）：{normal, hover, pressed, disabled}
 static func make_button_style() -> Dictionary:
-	var base_margin := {"content_margin_left": 12, "content_margin_right": 12,
+	# Vega：rounded-md(6px)、px-2.5(10px) / py-1.5(6px)、1px 边框、禁用 50% 透明
+	var base_margin := {"content_margin_left": 10, "content_margin_right": 10,
 		"content_margin_top": 6, "content_margin_bottom": 6}
-	var normal := make_style(THEME_BTN_BG, THEME_GRAY_MID, 6, 1)
-	var hover := make_style(THEME_BTN_HOVER_BG, THEME_GOLD, 6, 1)
-	var pressed := make_style(Color(THEME_GOLD, 0.85), THEME_GOLD, 6, 1)
-	var disabled := make_style(THEME_BTN_DISABLED_BG, THEME_GRAY_MID, 6, 1)
+	var normal := make_style(THEME_BTN_BG, THEME_GRAY_MID, RADIUS_SM, 1)
+	var hover := make_style(THEME_BTN_HOVER_BG, THEME_GOLD, RADIUS_SM, 1)
+	var pressed := make_style(Color(THEME_GOLD, 0.85), THEME_GOLD, RADIUS_SM, 1)
+	var disabled := make_style(Color(THEME_BTN_DISABLED_BG, 0.5), THEME_GRAY_MID, RADIUS_SM, 1)
 	for sb in [normal, hover, pressed, disabled]:
 		for k in base_margin:
 			sb.set(k, base_margin[k])
@@ -261,7 +271,8 @@ static func make_button_style() -> Dictionary:
 
 ## 面板样式（玻璃感：半透明深灰底 + 细边框）
 static func make_panel_style() -> StyleBoxFlat:
-	var sb := make_style(Color(THEME_BG, 0.8), THEME_GRAY_MID, 8, 1)
+	# Vega：rounded-lg(8px)、1px 边框
+	var sb := make_style(Color(THEME_BG, 0.8), THEME_GRAY_MID, RADIUS_MD, 1)
 	sb.content_margin_left = SPACING.get("panel_padding", 10)
 	sb.content_margin_right = SPACING.get("panel_padding", 10)
 	sb.content_margin_top = SPACING.get("panel_padding", 10)
@@ -279,7 +290,7 @@ static func style_button(btn: Button, font_size_key := "body") -> void:
 	btn.add_theme_color_override("font_color", THEME_WHITE)
 	btn.add_theme_color_override("font_hover_color", Color(THEME_BG, 1.0))
 	btn.add_theme_color_override("font_pressed_color", Color(THEME_BG, 1.0))
-	btn.add_theme_color_override("font_disabled_color", THEME_BTN_DISABLED_TEXT)
+	btn.add_theme_color_override("font_disabled_color", Color(THEME_BTN_DISABLED_TEXT, 0.5))
 
 static func rarity_label(key: String) -> String:
 	return String(RARITY_LABELS.get(key, key))

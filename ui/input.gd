@@ -27,9 +27,9 @@ func _ensure_built() -> void:
 	_line = LineEdit.new()
 	_line.custom_minimum_size = Vector2(220, 30)
 	_line.add_theme_stylebox_override("normal",
-		Style.make_style(Style.THEME_BG, Style.THEME_GRAY_MID, 4, 1))
+		Style.make_style(Style.THEME_BG, Style.THEME_GRAY_MID, Style.RADIUS_SM, 1))
 	_line.add_theme_stylebox_override("focus",
-		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, 4, 1))
+		Style.make_style(Style.THEME_BG, Style.THEME_GOLD, Style.RADIUS_SM, 1))
 	_line.add_theme_color_override("font_color", Style.THEME_WHITE)
 	_line.add_theme_color_override("font_placeholder_color", Style.THEME_GRAY_MID)
 	_line.add_theme_font_size_override("font_size", Style.font_size("body"))
