@@ -6,7 +6,9 @@ shader_type spatial;
 render_mode skip_vertex_transform, cull_disabled, blend_mix;
 
 uniform vec2 wind_direction = vec2(1.0, 1.0);
-uniform vec3 grass_color : source_color = vec3(0.22, 0.34, 0.12);
+// 与地表 grass001 贴图真实渲染色对齐（实测 hue≈118-122 / sat≈0.62 / val≈0.31），
+// 避免粒子草与地面"色相不同、亮度脱节"的割裂感
+uniform vec3 grass_color : source_color = vec3(0.13, 0.31, 0.12);
 
 varying vec4 data;
 
@@ -40,14 +42,16 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO = grass_color * (data[2] * 0.5 + 0.5);
+	// 亮度贴近地表：底部 0.75 倍、顶部 1.15 倍，整体 val≈0.31 附近
+	ALBEDO = grass_color * (0.75 + data[2] * 0.4);
 	ALBEDO.rg *= (data.rg * 0.3 + 0.9);
 	ALBEDO *= pow(COLOR.rgb, vec3(2.2));
 	float spec_rough = clamp(max(data[2], data[3]), 0., 1.);
 	ROUGHNESS = 1. - spec_rough;
 	SPECULAR = clamp(spec_rough * 0.25, 0., .15);
 
-	BACKLIGHT = vec3(0.33);
+	// 背光减少（过强会让草叶发黄发白，与深绿地表脱节）
+	BACKLIGHT = vec3(0.15);
 	#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
 	ALBEDO = pow(ALBEDO, vec3(0.4));
 	#endif

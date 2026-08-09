@@ -359,7 +359,8 @@ func _build_particle_grass() -> void:
 	# 用项目内参数化草 shader（色相与地表 grass001 统一），不改插件源文件
 	var gm := ShaderMaterial.new()
 	gm.shader = load("res://assets/shaders/grass_particles.gdshader")
-	gm.set_shader_parameter("grass_color", Color(0.22, 0.34, 0.12))
+	# 草色与地表 grass001 贴图对齐（实测地表 hue≈118-122/sat≈0.62/val≈0.31）
+	gm.set_shader_parameter("grass_color", Color(0.13, 0.31, 0.12))
 	pt.mesh_material_override = gm
 	# 增强自然随机性：间距抖动 + 高度差异 + 风摆（参考图草叶交错感）
 	var pm: ShaderMaterial = pt.process_material
