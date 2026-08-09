@@ -354,13 +354,51 @@ func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vect
 	parent.add_child(mesh)
 	return mesh
 
+func _cyl(parent: Node3D, radius: float, length: float, pos: Vector3, color: Color) -> Node3D:
+	var mesh := MeshInstance3D.new()
+	var cyl := CylinderMesh.new()
+	cyl.top_radius = radius
+	cyl.bottom_radius = radius
+	cyl.height = length
+	cyl.radial_segments = 10
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = color
+	mat.roughness = 0.42
+	mat.metallic = 0.8
+	cyl.material = mat
+	mesh.mesh = cyl
+	mesh.position = pos
+	mesh.rotation = Vector3(PI / 2, 0, 0)  # 圆柱轴向 Y → Z（枪口方向）
+	parent.add_child(mesh)
+	return mesh
+
 func _build_gun() -> void:
-	var dark := Color(0.13, 0.14, 0.16)
-	var mid := Color(0.22, 0.23, 0.27)
-	var wood := Color(0.32, 0.22, 0.12)
+	var dark := Color(0.10, 0.11, 0.13)
+	var mid := Color(0.19, 0.20, 0.23)
+	var wood := Color(0.34, 0.23, 0.13)
+	var poly := Color(0.07, 0.08, 0.09)
+	# 机匣 + 防尘盖 + 抛壳口
 	_box(self, Vector3(0.06, 0.09, 0.42), Vector3.ZERO, mid)
-	_box(self, Vector3(0.04, 0.04, 0.30), Vector3(0, 0.02, -0.35), dark)
+	_box(self, Vector3(0.05, 0.03, 0.30), Vector3(0, 0.05, -0.02), dark, Vector3(0.05, 0, 0))
+	_box(self, Vector3(0.018, 0.025, 0.05), Vector3(0.028, 0.035, 0.02), Color(0.05, 0.05, 0.06))
+	# 枪管 + 枪口制退器（枪口在 z≈-0.50）
+	_cyl(self, 0.018, 0.34, Vector3(0, 0.02, -0.38), dark)
+	_cyl(self, 0.026, 0.07, Vector3(0, 0.02, -0.51), dark)
+	# 导气管
+	_cyl(self, 0.011, 0.20, Vector3(0, 0.048, -0.27), dark)
+	# 护木（上木下黑）
+	_box(self, Vector3(0.048, 0.026, 0.20), Vector3(0, 0.005, -0.28), wood)
+	_box(self, Vector3(0.05, 0.026, 0.20), Vector3(0, -0.018, -0.28), dark)
+	# 枪托 + 抵肩板
 	_box(self, Vector3(0.05, 0.10, 0.16), Vector3(0, -0.02, 0.28), wood)
-	_box(self, Vector3(0.04, 0.13, 0.05), Vector3(0, -0.11, 0.10), dark, Vector3(0.25, 0, 0))
+	_box(self, Vector3(0.052, 0.11, 0.02), Vector3(0, -0.02, 0.365), poly)
+	# 握把（聚合物）
+	_box(self, Vector3(0.04, 0.13, 0.05), Vector3(0, -0.11, 0.10), poly, Vector3(0.25, 0, 0))
+	# 弹匣（独立节点，供换弹动画滑出）+ 底座
 	_mag = _box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), dark)
-	_box(self, Vector3(0.02, 0.05, 0.02), Vector3(0, 0.06, -0.20), dark)
+	_box(_mag, Vector3(0.05, 0.012, 0.08), Vector3(0, -0.088, 0), poly)
+	# 瞄具：后照门 + 准星座
+	_box(self, Vector3(0.028, 0.016, 0.03), Vector3(0, 0.075, 0.09), dark)
+	_box(self, Vector3(0.02, 0.045, 0.016), Vector3(0, 0.065, -0.22), dark)
+	# 顶部导轨（瞄具/红点安装位）
+	_box(self, Vector3(0.032, 0.014, 0.12), Vector3(0, 0.062, 0.03), dark)
