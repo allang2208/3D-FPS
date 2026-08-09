@@ -28,4 +28,18 @@
   评审造型 4/10，过于抽象，2026-08-09 清理旧资产时一并删除
 - 体素方向候选：CGTrader AK74 Voxel Gun（免费，需注册账号下载）
   https://www.cgtrader.com/free-3d-models/military/gun/ak74-voxel-gun
+
+## TACZ AK-47 (test stand-in, since 2026-08-09, NOT a release asset)
+
+- Source: Timeless and Classics Zero 1.1.8-hotfix built-in gunpack tacz_default_gun
+  (Modrinth: https://modrinth.com/mod/timeless-and-classics-zero)
+- License: code GPL-3.0; assets CC BY-NC-ND 4.0 - no commercial, no derivatives, attribution.
+  Internal test stand-in ONLY (weapon_data/tacz_ak47.tres default weapon).
+  MUST be swapped out before any release.
+- Conversion: tools/ai-gen/tacz_geo_to_glb.py (Bedrock geo + animation -> skinned GLB with 16 anims;
+  magazine subtree split to separate centered GLB; CatmullRom baked to linear keyframes;
+  position uses additive semantics).
+- Verified: test_ads_calibration all green - rot_y=0, muzzle_local.z<0, rear/front sights
+  project to exactly (960,540) in ADS.
+- Serves as the "high-res voxel pixel style" reference: wood stock/handguard + metal + detachable mag.
   （MagicaVoxel 制作，3884 面，含独立弹匣/枪机部件，最贴合"高精度体素像素风"）

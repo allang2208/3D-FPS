@@ -10,7 +10,7 @@ extends Node3D
 ##   冲刺开火延迟、贴墙弹道起点修正、部位伤害（爆头 ×2，由 projectile→enemy Hitbox 结算）
 
 ## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
-@export var data: WeaponData = preload("res://weapon_data/akm_sketchfab.tres")
+@export var data: WeaponData = preload("res://weapon_data/tacz_ak47.tres")
 
 const BASE_POS := Vector3(0.28, -0.15, -0.5)  # 抬高持枪位，给换弹弹匣下滑留出画面空间
 
@@ -174,7 +174,7 @@ func _effective_mag() -> int:
 
 func _ready() -> void:
 	if data == null:
-		data = load("res://weapon_data/akm_sketchfab.tres")
+		data = load("res://weapon_data/tacz_ak47.tres")
 	if data == null:
 		push_error("[gun] 缺少武器数据，使用脚本默认兜底")
 		data = WeaponData.new()
@@ -740,7 +740,12 @@ func _build_gun() -> void:
 	add_child(akm)
 	_model = akm
 	# 弹匣：体素枪械用独立弹匣 Mesh（真弹匣滑出）；GLB 仍用程序化占位盒
-	if model_scene is Mesh and mag_scene is Mesh:
+	if mag_scene is PackedScene:
+		var mag_inst := (mag_scene as PackedScene).instantiate()
+		mag_inst.name = "Magazine"
+		_model.add_child(mag_inst)
+		_mag = mag_inst
+	elif model_scene is Mesh and mag_scene is Mesh:
 		var mag_holder := Node3D.new()
 		mag_holder.name = "Magazine"
 		var mag_mi := MeshInstance3D.new()
@@ -781,7 +786,8 @@ func _calibrate_viewmodel() -> void:
 	# 旋转：让枪口指向 -Z（相机前方）
 	var rot_deg := 90.0 if muzzle_sign > 0.0 else -90.0
 	if axis == 2:
-		rot_deg = 0.0 if muzzle_sign > 0.0 else 180.0
+		# Z-axis models: sign>0 = muzzle at +Z (rotate 180 to face forward); sign<0 = muzzle at -Z (keep)
+		rot_deg = 180.0 if muzzle_sign > 0.0 else 0.0
 	_model.rotation_degrees.y = rot_deg
 	var scale := clampf(VIEWMODEL_LENGTH / extent, 0.4, 1.0)
 	_model.scale = Vector3.ONE * scale

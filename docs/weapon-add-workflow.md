@@ -116,3 +116,13 @@ $env:GUN_TEST_MODEL='res://assets/models/ak/xxx_pbr.tres'
 | tests/probe_gun_projection.gd | 打印照门/准星/枪口屏幕投影 |
 | tests/render_gun_markers.gd | 方向标记球渲染 |
 | tests/render_ads_view.gd / render_reload_frame.gd | 第一人称腰射/机瞄/换弹渲染 |
+
+## TACZ（Minecraft 模组）模型特例
+
+1. 下载 TACZ JAR → 解包 → `geo_models/gun/*_geo.json` + `animations/*.animation.json` + `textures/gun/uv/*.png`。
+2. `tools/ai-gen/tacz_geo_to_glb.py` 转出带动画的 GLB（`--pos-mode additive`）+ 独立弹匣 GLB（`--split-bone magazine`，
+   输出 `mag center` 即 `mag_offset`）。
+3. 主轴向 Z：`muzzle_sign_override = -1`（枪口 −Z）；瞄具锚点用 iron_sight3/4 方块簇顶部中心。
+4. GLB 弹匣走 gun.gd 的 `mag_scene is PackedScene` 分支（节点挂 _model 子节点、position=mag_offset）。
+5. 导入缓存坑：`.import` 残留 `valid=false` 时删 `.import` + `.godot/imported/*.md5` 再 `--import`。
+6. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。

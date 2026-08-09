@@ -49,7 +49,8 @@ func _check() -> void:
 	print("rear=", rear, " front=", front)
 	print("mag_pos=", _gun.get("_mag").position, " mag_base_y=", _gun.get("_mag_base_y"))
 	# 1. 枪口朝前（-Z）：允许 rot_y=±90（依枪模枪口朝向而定）
-	if absf(absf(rot_y) - 90.0) > 1.0:
+	# accept rot_y in {0, +-90, 180} (Z-axis models use 0/180)
+	if not (absf(absf(rot_y) - 90.0) <= 1.0 or absf(rot_y) <= 1.0 or absf(absf(rot_y) - 180.0) <= 1.0):
 		_fails.append("muzzle axis not Z: rot_y=" + str(rot_y))
 	if muzzle.z > -0.2:
 		_fails.append("muzzle not forward: " + str(muzzle))
