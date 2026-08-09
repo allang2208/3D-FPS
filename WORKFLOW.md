@@ -56,3 +56,9 @@ $godot = 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe'
 
 - 同文件冲突时：后改的一方把改动暂存（`git stash`），先让对方提交，再 `git stash pop` 应用并手工合并。
 - 尽量把 `main.gd` 的改动拆成独立小提交，减少合并面。
+
+## 6. UI 线补充
+
+- UI 风格唯一真源：`DESIGN.md`（设计 DNA / Token / 一致性检查清单）。
+- UI 完整闭环：`UI-WORKFLOW.md`（定风格 → 出图 → 验收 → Token → 组件 → 验证 → 提交）。
+- UI 线动手前必读 `DESIGN.md` + 本文件；风格变更先改 `DESIGN.md` 再改代码。
