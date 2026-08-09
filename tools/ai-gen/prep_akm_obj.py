@@ -102,8 +102,11 @@ def main() -> int:
     N3 = N2 @ R.T
     print("tilt deg:", round(float(np.degrees(theta)), 2))
 
-    # 4. 居中 + 归一化到枪长 1.0m（X 轴），保证 gun.gd 缩放落在合理区间
-    lo, hi = V3.min(0), V3.max(0)
+    # 4. 居中（只用保留部件，避免被剔除道具带偏）+ 归一化到枪长 1.0m（X 轴）
+    kept_bool = np.zeros(len(V), dtype=bool)
+    for name in keep:
+        kept_bool[group_verts[name]] = True
+    lo, hi = V3[kept_bool].min(0), V3[kept_bool].max(0)
     center = (lo + hi) / 2.0
     length = hi[0] - lo[0]
     scale = 1.0 / length if length > 0 else 1.0

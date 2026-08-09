@@ -10,6 +10,7 @@
 script = ExtResource("1_wd")
 weapon_name = "AKM (Sketchfab 21.9k)"
 model_scene = ExtResource("2_wd")
+muzzle_sign_override = 1
 fire_interval = 0.13
 damage = 25
 mag_size = 30

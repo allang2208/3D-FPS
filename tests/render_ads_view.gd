@@ -8,6 +8,18 @@ var _gun: Node3D
 func _process(_delta: float) -> bool:
 	_frames += 1
 	if _frames == 1:
+		var env := Environment.new()
+		env.background_mode = Environment.BG_COLOR
+		env.background_color = Color(0.13, 0.13, 0.15)
+		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+		env.ambient_light_color = Color(0.65, 0.65, 0.68)
+		env.ambient_light_energy = 1.0
+		var we := WorldEnvironment.new()
+		we.environment = env
+		root.add_child(we)
+		var light := DirectionalLight3D.new()
+		light.rotation_degrees = Vector3(-45, 140, 0)
+		root.add_child(light)
 		var cam := Camera3D.new()
 		cam.name = "Cam"
 		cam.fov = 75.0

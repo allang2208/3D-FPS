@@ -3,7 +3,8 @@ extends Node3D
 ## 场景代码搭建：环境 / 光照 / 地面 / 墙体 / 玩家 / HUD / 三只敌人（黑狼 GLB + 僵尸犬 + 蜘蛛）
 
 const WOLF_GLB := "res://assets/models/black_wolf_trellis.glb"  # 骨架烘焙源（tools/bake_wolf_rig.gd）
-const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物：18骨骼+蒙皮黑狼
+const WOLF_RIGGED := "res://assets/models/black_wolf_rigged.scn"  # 烘焙产物：18骨骼+蒙皮黑狼（备用管线）
+const WOLF_QUATERNIUS := "res://assets/models/wolf_quaternius.gltf"  # CC0 动画狼（现役）
 const FireballScript := preload("res://scripts/fireball.gd")
 const IceSpikeScript := preload("res://scripts/ice_spike.gd")
 const LightningScript := preload("res://scripts/lightning.gd")
@@ -151,6 +152,9 @@ func _build_player() -> void:
 	cam.position = Vector3(0, 1.62, 0)
 	cam.fov = 75.0
 	player.add_child(cam)
+	# 3D 音效监听点（技能/枪声以玩家相机为听点）
+	var listener := AudioListener3D.new()
+	cam.add_child(listener)
 	var cfx := Node3D.new()
 	cfx.name = "CameraFx"
 	cfx.set_script(load("res://scripts/camera_fx.gd"))
@@ -313,11 +317,13 @@ func _flash_skill_missing(skill_id: String) -> void:
 		_backpack_hud.flash_status("技能未移植（%s）" % skill_id)
 
 func _build_enemies() -> void:
-	# 黑狼用烘焙好的骨骼模型（WolfRig），原 GLB 是静态网格，烘焙见 tools/bake_wolf_rig.gd
-	var wolf_model: Node3D = load(WOLF_RIGGED).instantiate()
+	# 黑狼换用 CC0 Quaternius 动画狼（关键帧动画，scripts/wolf_anim.gd 驱动）；
+	# 旧 TRELLIS/UniRig 烘焙管线保留（WOLF_RIGGED），可回退
+	var wolf_model: Node3D = load(WOLF_QUATERNIUS).instantiate()
+	wolf_model.set_script(load("res://scripts/wolf_anim.gd"))
 	_build_enemy("WolfEnemy", wolf_model, Vector3(3, 0, -4), {
 		"hp": 85, "chase": 3.5, "dmg": 15, "radius": 0.55, "height": 1.0,
-		"offset_y": 0.25, "bob": 0.05,  # CuMesh 新狼脚底 y=-0.246，offset 0.25 落地
+		"offset_y": 0.0, "bob": 0.0, "scale": 0.3,  # 原模脚底 y=0，走路起伏由动画负责
 	})
 	# 测试期：只保留黑狼，僵尸犬/蜘蛛暂时移除（EnemyModels 保留供后续恢复）
 
