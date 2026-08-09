@@ -55,13 +55,15 @@ func _find_material(n: Node) -> void:
 	for c in n.get_children():
 		_find_material(c)
 
-func take_damage(d: int) -> void:
+func take_damage(d: int) -> bool:
 	if _dead:
-		return
+		return false
 	_hp -= d
 	_flash_t = 0.12
 	if _hp <= 0:
 		_die()
+		return true
+	return false
 
 func _die() -> void:
 	_dead = true

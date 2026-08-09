@@ -11,6 +11,10 @@ const SHAKE_MAX_ROT := 0.03     # 最大旋转（弧度）
 const KICK_STIFFNESS := 170.0   # 视角后坐弹簧刚度
 const KICK_DAMPING := 15.0      # 视角后坐弹簧阻尼（欠阻尼 → 回摆）
 const FOV_PUNCH_DECAY := 6.5    # FOV 指数回落速率
+const FOV_SMOOTH := 10.0        # FOV 平滑速率（变焦/复位共用）
+const ADS_FOV := 55.0           # 机瞄目标 FOV
+const ADS_SMOOTH := 9.0         # 机瞄进出速率
+const KICK_ADS_EXTRA_DAMP := 8.0  # 机瞄时后坐额外回正速率（COD：ADS 回正更快）
 
 var _trauma := 0.0
 var _kick_pitch := 0.0
@@ -19,6 +23,8 @@ var _kick_pitch_vel := 0.0
 var _kick_yaw_vel := 0.0
 var _fov_offset := 0.0
 var _base_fov := 0.0
+var _ads_factor := 0.0
+var _ads_target := 0.0
 var _rest_pos := Vector3.ZERO
 var _shake_rot_x := 0.0
 var _shake_rot_y := 0.0
@@ -42,6 +48,9 @@ func kick(pitch: float, yaw: float) -> void:
 func fov_punch(amount: float) -> void:
 	_fov_offset = amount
 
+func set_ads(on: bool) -> void:
+	_ads_target = 1.0 if on else 0.0
+
 func _process(delta: float) -> void:
 	_t += delta
 	var cam := get_parent() as Camera3D
@@ -49,6 +58,7 @@ func _process(delta: float) -> void:
 		return
 	if _base_fov <= 0.0:
 		_base_fov = cam.fov
+	_ads_factor = lerpf(_ads_factor, _ads_target, 1.0 - exp(-ADS_SMOOTH * delta))
 	_apply_kick(cam, delta)
 	_apply_fov(cam, delta)
 	_apply_trauma(cam, delta)
@@ -56,6 +66,10 @@ func _process(delta: float) -> void:
 func _apply_kick(cam: Camera3D, delta: float) -> void:
 	var prev_p := _kick_pitch
 	var prev_y := _kick_yaw
+	# 机瞄时后坐回正更快（能量前置、快速收束）
+	var ads_damp := exp(-KICK_ADS_EXTRA_DAMP * _ads_factor * delta)
+	_kick_pitch_vel *= ads_damp
+	_kick_yaw_vel *= ads_damp
 	_kick_pitch_vel += (-_kick_pitch * KICK_STIFFNESS - _kick_pitch_vel * KICK_DAMPING) * delta
 	_kick_pitch += _kick_pitch_vel * delta
 	_kick_yaw_vel += (-_kick_yaw * KICK_STIFFNESS - _kick_yaw_vel * KICK_DAMPING) * delta
@@ -65,7 +79,8 @@ func _apply_kick(cam: Camera3D, delta: float) -> void:
 
 func _apply_fov(cam: Camera3D, delta: float) -> void:
 	_fov_offset *= exp(-FOV_PUNCH_DECAY * delta)
-	cam.fov = _base_fov + _fov_offset
+	var target := lerpf(_base_fov, ADS_FOV, _ads_factor) + _fov_offset
+	cam.fov = lerpf(cam.fov, target, 1.0 - exp(-FOV_SMOOTH * delta))
 
 func _apply_trauma(cam: Camera3D, delta: float) -> void:
 	_trauma *= exp(-SHAKE_DECAY * delta)

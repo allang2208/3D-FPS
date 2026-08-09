@@ -4,6 +4,7 @@ extends Node3D
 ## 命中墙体/敌人时结算伤害并生成火花，距离或寿命到头自动消失。
 
 signal hit_enemy
+signal killed
 
 const MAX_DISTANCE := 150.0
 const MAX_LIFETIME := 2.0
@@ -65,7 +66,8 @@ func _physics_process(delta: float) -> void:
 		ImpactFxScript.spawn(root, hit.position, hit.normal)
 		var collider = hit.collider
 		if collider != null and collider.has_method("take_damage"):
-			collider.take_damage(_damage)
+			if collider.take_damage(_damage):
+				killed.emit()
 			hit_enemy.emit()
 		queue_free()
 		return

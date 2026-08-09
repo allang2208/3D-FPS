@@ -22,7 +22,7 @@ Godot 编辑器（便携版）：`E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7
 
 ## 操作
 
-WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞行弹道 + 下坠 + 命中火花 + 受击闪红）· 空仓自动换弹 / R 手动换弹 · 1~4 使用快捷栏 · Tab/B 背包面板 · Esc 释放鼠标 · 死亡按 R 重来
+WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞行弹道 + 下坠 + 命中火花 + 受击闪红）· 右键长按机瞄 · 空仓自动换弹 / R 手动换弹 · 1~4 使用快捷栏 · Tab/B 背包面板 · Esc 释放鼠标 · 死亡按 R 重来
 
 ## 结构
 
@@ -33,9 +33,9 @@ WASD 移动 · 鼠标视角 · 空格跳 · Shift 疾跑 · 左键射击（飞�
   scripts/
     main.gd         # 环境/光照/地面/墙体/玩家/黑狼 GLB；HUD 部分转发信号到 ui/status_bar.gd
     player.gd       # 第一人称控制器 + 血量/受伤/死亡
-    gun.gd          # AKM：弹簧后坐 + 姿态（bob/sway/疾跑下沉）+ 弹壳/烟雾 + 枪声/空仓咔哒 + 散布
+    gun.gd          # AKM：ADS 机瞄 + 换弹动画（弹匣滑出）+ 弹簧后坐 + 姿态（bob/sway/疾跑）+ 弹壳/烟雾 + 枪声分层/击杀反馈
     casing.gd       # 弹壳抛壳（重力/旋转/落地弹跳）
-    camera_fx.gd    # 相机反馈：视角后坐弹簧 + FOV 指数平滑 + Trauma/Perlin 抖动
+    camera_fx.gd    # 相机反馈：视角后坐弹簧 + FOV 指数平滑/机瞄变焦 + Trauma/Perlin 抖动
     projectile.gd   # 标准弹道飞行：90m/s、轻微下坠、逐帧扫描防穿墙、命中火花
     impact_fx.gd    # 命中火花粒子
     enemy.gd        # 通用敌人 AI：追击/游荡/接触伤害/死亡重生

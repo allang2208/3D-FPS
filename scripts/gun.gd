@@ -29,11 +29,17 @@ const BOB_FREQ_SPEED := 0.85
 const SWAY_LAG := 10.0
 const SPRINT_DROP := 0.10
 const SPRINT_TILT := 0.30
+# ADS 机瞄（右键长按）
+const ADS_POS := Vector3(0, -0.165, -0.44)
+const ADS_ROT := Vector3(-0.02, 0, 0)
+const ADS_SPREAD_MULT := 0.2
+const ADS_SMOOTH := 12.0
 
 const ProjectileScript := preload("res://scripts/projectile.gd")
 const CasingScript := preload("res://scripts/casing.gd")
 const SHOOT_SOUND := preload("res://assets/sfx/akm_burst.mp3")
 const RELOAD_SOUND := preload("res://assets/sfx/reload_sharp.mp3")
+const KILL_SOUND := preload("res://assets/sfx/criticalhit.mp3")
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
@@ -51,6 +57,12 @@ var _shoot_player: AudioStreamPlayer
 var _reload_player: AudioStreamPlayer
 var _click_player: AudioStreamPlayer
 var _smoke: CPUParticles3D
+var _shoot_tail: AudioStreamPlayer
+var _kill_player: AudioStreamPlayer
+var _mag: Node3D
+var _mag_base_y := -0.14
+var _ads := false
+var _ads_factor := 0.0
 var ammo := MAG_SIZE
 var reserve := 90
 
@@ -103,6 +115,16 @@ func _ready() -> void:
 	_reload_player.stream = RELOAD_SOUND
 	_reload_player.volume_db = -4.0
 	add_child(_reload_player)
+	_shoot_tail = AudioStreamPlayer.new()
+	_shoot_tail.name = "ShootSfxTail"
+	_shoot_tail.stream = SHOOT_SOUND
+	_shoot_tail.volume_db = -8.0
+	add_child(_shoot_tail)
+	_kill_player = AudioStreamPlayer.new()
+	_kill_player.name = "KillSfx"
+	_kill_player.stream = KILL_SOUND
+	_kill_player.volume_db = -2.0
+	add_child(_kill_player)
 	_click_player = AudioStreamPlayer.new()
 	_click_player.name = "DryClick"
 	_click_player.stream = _make_click()
@@ -130,8 +152,26 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_update_spring(delta)
 	_update_pose(delta)
-	position = BASE_POS + _kick_pos + _bob_pos + _sway_pos + Vector3(0, -SPRINT_DROP * _sprint, 0)
-	rotation = _kick_rot + _bob_rot + _sway_rot + Vector3(SPRINT_TILT * _sprint, 0, 0)
+	_ads_factor = lerpf(_ads_factor, 1.0 if _ads else 0.0, 1.0 - exp(-ADS_SMOOTH * delta))
+	var cam := get_viewport().get_camera_3d()
+	if cam:
+		var cfx := cam.get_node_or_null("CameraFx")
+		if cfx:
+			cfx.set_ads(_ads_factor > 0.5)
+	var base_pos := BASE_POS.lerp(ADS_POS, _ads_factor)
+	var base_rot := Vector3.ZERO.lerp(ADS_ROT, _ads_factor)
+	var suppress := 1.0 - _ads_factor
+	var reload_pos := Vector3.ZERO
+	var reload_rot := Vector3.ZERO
+	if _reload_t > 0.0:
+		var prog := 1.0 - _reload_t / RELOAD_TIME
+		var p := sin(prog * PI)
+		reload_pos = Vector3(0, -p * 0.12, p * 0.05)
+		reload_rot = Vector3(-p * 0.45, 0, -p * 0.35)
+		if _mag:
+			_mag.position.y = _mag_base_y - p * 0.18
+	position = base_pos + _kick_pos + _bob_pos * suppress + _sway_pos * suppress + Vector3(0, -SPRINT_DROP * _sprint, 0) * suppress + reload_pos
+	rotation = base_rot + _kick_rot + _bob_rot * suppress + _sway_rot * suppress + Vector3(SPRINT_TILT * _sprint, 0, 0) * suppress + reload_rot
 	_flash_t = maxf(0.0, _flash_t - delta)
 	_flash_light.visible = _flash_t > 0.0
 	_flash_light.light_energy = 10.0 * (_flash_t / 0.06)
@@ -146,6 +186,7 @@ func _physics_process(delta: float) -> void:
 		_reload_t -= delta
 		if _reload_t <= 0.0:
 			_finish_reload()
+		_ads = false
 		return
 	# 换弹不依赖鼠标捕获（释放鼠标/菜单状态下也能换）
 	# 空仓自动换弹：打空弹匣立即开始换弹，不再卡在空枪动画
@@ -156,7 +197,9 @@ func _physics_process(delta: float) -> void:
 		_start_reload()
 		return
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		_ads = false
 		return
+	_ads = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	if _fire_cd <= 0.0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_shoot()
 
@@ -179,6 +222,8 @@ func _shoot() -> void:
 	_apply_gun_kick()
 	_shoot_player.pitch_scale = randf_range(0.97, 1.03)
 	_shoot_player.play()
+	_shoot_tail.pitch_scale = randf_range(0.80, 0.86)
+	_shoot_tail.play()
 	_smoke.restart()
 	_spawn_casing()
 	var cam := get_viewport().get_camera_3d()
@@ -192,6 +237,7 @@ func _shoot() -> void:
 		scene_root = get_tree().root
 	var proj = ProjectileScript.fire(scene_root, origin, dir, BULLET_SPEED, DAMAGE, BULLET_GRAVITY)
 	proj.hit_enemy.connect(_on_projectile_hit)
+	proj.killed.connect(_on_proj_kill)
 
 func _on_projectile_hit() -> void:
 	var cam := get_viewport().get_camera_3d()
@@ -201,11 +247,20 @@ func _on_projectile_hit() -> void:
 			cfx.add_trauma(0.22)
 	hit.emit()
 
+func _on_proj_kill() -> void:
+	var cam := get_viewport().get_camera_3d()
+	if cam:
+		var cfx := cam.get_node_or_null("CameraFx")
+		if cfx:
+			cfx.add_trauma(0.45)
+	_kill_player.pitch_scale = randf_range(0.95, 1.05)
+	_kill_player.play()
+
 func _aim_dir(cam: Camera3D) -> Vector3:
 	var base := -cam.global_transform.basis.z
 	var right := cam.global_transform.basis.x
 	var up := cam.global_transform.basis.y
-	var r := BASE_SPREAD + _spread
+	var r := (BASE_SPREAD + _spread) * lerpf(1.0, ADS_SPREAD_MULT, _ads_factor)
 	return (base + right * randf_range(-r, r) + up * randf_range(-r, r)).normalized()
 
 func _finish_reload() -> void:
@@ -235,7 +290,7 @@ func _update_pose(delta: float) -> void:
 	var spd := 0.0
 	if _player:
 		spd = Vector2(_player.velocity.x, _player.velocity.z).length()
-	var sprinting := Input.is_physical_key_pressed(KEY_SHIFT) and spd > 1.0
+	var sprinting := Input.is_physical_key_pressed(KEY_SHIFT) and spd > 1.0 and not _ads
 	_bob_t += delta * (BOB_FREQ_BASE + spd * BOB_FREQ_SPEED)
 	var target_sprint := 1.0 if sprinting else 0.0
 	_sprint = lerpf(_sprint, target_sprint, 1.0 - exp(-8.0 * delta))
@@ -284,7 +339,7 @@ func _spawn_casing() -> void:
 
 # ---------- 模型 ----------
 
-func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vector3.ZERO) -> void:
+func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vector3.ZERO) -> Node3D:
 	var mesh := MeshInstance3D.new()
 	var box := BoxMesh.new()
 	box.size = size
@@ -297,6 +352,7 @@ func _box(parent: Node3D, size: Vector3, pos: Vector3, color: Color, rot := Vect
 	mesh.position = pos
 	mesh.rotation = rot
 	parent.add_child(mesh)
+	return mesh
 
 func _build_gun() -> void:
 	var dark := Color(0.13, 0.14, 0.16)
@@ -306,5 +362,5 @@ func _build_gun() -> void:
 	_box(self, Vector3(0.04, 0.04, 0.30), Vector3(0, 0.02, -0.35), dark)
 	_box(self, Vector3(0.05, 0.10, 0.16), Vector3(0, -0.02, 0.28), wood)
 	_box(self, Vector3(0.04, 0.13, 0.05), Vector3(0, -0.11, 0.10), dark, Vector3(0.25, 0, 0))
-	_box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), dark)
+	_mag = _box(self, Vector3(0.045, 0.17, 0.07), Vector3(0, -0.14, -0.02), dark)
 	_box(self, Vector3(0.02, 0.05, 0.02), Vector3(0, 0.06, -0.20), dark)
