@@ -1,6 +1,6 @@
 extends Node3D
 
-# 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 岩石/荒漠树木、Kenney 灌木草石、AmbientCG 地表纹理、HDRI 天空）
+# 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 热带岛树/岩石、Kenney 灌木草石、AmbientCG 地表纹理、HDRI 天空）
 
 const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
 const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
@@ -19,7 +19,7 @@ func _ready() -> void:
 	terrain = _build_terrain()
 	_build_instanced_nature()
 	_build_landmark_rocks()
-	_build_hero_trees()
+	_build_trees()
 	_build_props()
 	_build_player()
 	_build_hud()
@@ -115,14 +115,18 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/grass_bermuda_01/grass_bermuda_01_2k.gltf",
 		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
 		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
-		"res://assets/models/polyhaven/quiver_tree_01/quiver_tree_01_2k.gltf",
-		"res://assets/models/polyhaven/othonna_cerarioides/othonna_cerarioides_2k.gltf",
 	]
 	for i in mesh_specs.size():
+		var scn: PackedScene = load(mesh_specs[i])
 		var ma := Terrain3DMeshAsset.new()
 		ma.name = "mesh_%02d" % i
-		ma.scene_file = load(mesh_specs[i])
-		ma.height_offset = 0.5
+		ma.scene_file = scn
+		# instancer 按 transform.y + height_offset 摆位：用模型底座偏移补偿，避免悬浮
+		var probe: Node = scn.instantiate()
+		add_child(probe)
+		ma.height_offset = -_scene_aabb(probe).position.y
+		remove_child(probe)
+		probe.free()
 		t.assets.set_mesh_asset(i, ma)
 	return t
 
@@ -149,8 +153,6 @@ func _build_instanced_nature() -> void:
 		[16, 45, -460, 460, -40.0, 30.0, 0.8, 1.4],  # ph grass_bermuda_01
 		[17, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph tree_stump_01
 		[18, 15, -460, 460, -36.0, 24.0, 0.7, 1.2],  # ph dead_tree_trunk_02
-		[19, 55, -460, 460, -35.0, 20.0, 2.5, 4.5],  # ph quiver_tree_01（本体 2.7m，放大成 7-12m 树）
-		[20, 60, -460, 460, -38.0, 26.0, 1.5, 2.5],  # ph othonna_cerarioides（灌木）
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
@@ -182,19 +184,67 @@ func _build_landmark_rocks() -> void:
 	_place_scene("res://assets/models/polyhaven/rock_09/rock_09_2k.gltf", Vector3(-60, 0, 300), 0.3)
 
 
-func _build_hero_trees() -> void:
-	# 几棵箭袋树做地标，保证视野里有明显树木
-	var spots := [Vector3(35, 0, 15), Vector3(-180, 0, -60), Vector3(250, 0, -220), Vector3(-40, 0, 280)]
-	for s in spots:
-		_place_scene("res://assets/models/polyhaven/quiver_tree_01/quiver_tree_01_2k.gltf", s, 3.5)
+func _build_trees() -> void:
+	# 热带岛树：独立 StaticBody3D（带碰撞），AABB 底座精确贴地
+	var tree_path := "res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf"
+	var centers := [
+		Vector2(35, 15), Vector2(-120, -60), Vector2(180, -140),
+		Vector2(-240, 100), Vector2(60, -260), Vector2(300, 260),
+	]
+	for c in centers:
+		for i in 7:
+			var ang := rng.randf_range(0.0, TAU)
+			var r := rng.randf_range(4.0, 55.0)
+			_place_tree(tree_path, c + Vector2(cos(ang), sin(ang)) * r, rng.randf_range(1.2, 2.2))
+	# 地图边缘稀疏背景树
+	for i in 20:
+		_place_tree(tree_path, Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
+			rng.randf_range(1.0, 1.8))
+
+
+func _place_tree(path: String, at2: Vector2, scale: float) -> void:
+	var h := terrain.data.get_height(Vector3(at2.x, 0, at2.y))
+	if h < -35.0 or h > 22.0:
+		return
+	var body := StaticBody3D.new()
+	body.name = "Tree"
+	add_child(body)
+	var inst: Node = load(path).instantiate()
+	body.add_child(inst)
+	inst.scale = Vector3.ONE * scale
+	inst.rotation.y = rng.randf_range(0.0, TAU)
+	var aabb := _scene_aabb(inst)
+	body.position = Vector3(at2.x, h - aabb.position.y + 0.05, at2.y)
+	var col := CollisionShape3D.new()
+	var shape := CapsuleShape3D.new()
+	shape.radius = 0.8 * scale
+	shape.height = maxf(aabb.size.y * 0.7 * scale, 1.2)
+	col.shape = shape
+	col.position = Vector3(0, aabb.size.y * 0.35 * scale, 0)
+	body.add_child(col)
+
+
+func _scene_aabb(node: Node) -> AABB:
+	var aabb := AABB()
+	var first := true
+	for m in node.find_children("", "MeshInstance3D", true, false):
+		if m is MeshInstance3D and m.mesh != null:
+			var b := (m as Node3D).global_transform * (m as MeshInstance3D).mesh.get_aabb()
+			if first:
+				aabb = b
+				first = false
+			else:
+				aabb = aabb.merge(b)
+	return aabb
 
 
 func _place_scene(path: String, at: Vector3, scale: float) -> void:
 	var inst: Node = load(path).instantiate()
 	add_child(inst)
-	inst.position = Vector3(at.x, terrain.data.get_height(at) + 0.5, at.z)
 	inst.scale = Vector3.ONE * scale
 	inst.rotation.y = rng.randf_range(0.0, TAU)
+	var base := _scene_aabb(inst).position.y
+	inst.position = Vector3(at.x, terrain.data.get_height(at) - base + 0.05, at.z)
 
 
 func _build_props() -> void:
@@ -212,8 +262,9 @@ func _build_props() -> void:
 			continue
 		var inst: Node = load(path).instantiate()
 		add_child(inst)
-		inst.position = pos
 		inst.rotation.y = rng.randf_range(0.0, TAU)
+		var base := _scene_aabb(inst).position.y
+		inst.position = Vector3(pos.x, pos.y - base + 0.05, pos.z)
 
 
 func _build_player() -> void:
