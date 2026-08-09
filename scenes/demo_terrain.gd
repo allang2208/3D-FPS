@@ -5,11 +5,13 @@ extends Node3D
 const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
 const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
 const DATA_DIR := "res://assets/terrain_data/demo"
+const NpcConfig := preload("res://ui/npc_config.gd")
 
 var terrain: Terrain3D
 var rng := RandomNumberGenerator.new()
 var _player: Node3D
 var _status_bar: CanvasLayer
+var _npc_bar: CanvasLayer
 var _tree_cache := {}  # 树模型路径 -> {"base": scale=1 底座偏移, "size": 包围盒尺寸}
 
 
@@ -25,6 +27,7 @@ func _ready() -> void:
 	_build_player()
 	_build_hud()
 	_build_return_portal()
+	_build_mouse_king()
 	print("[demo_terrain] scene ready")
 
 
@@ -373,6 +376,12 @@ func _build_hud() -> void:
 	bar.set_script(load("res://ui/status_bar.gd"))
 	add_child(bar)
 	_status_bar = bar
+	var npc_bar := CanvasLayer.new()
+	npc_bar.name = "NpcBar"
+	npc_bar.set_script(load("res://ui/npc_bar.gd"))
+	add_child(npc_bar)
+	npc_bar.option_pressed.connect(_on_npc_option)
+	_npc_bar = npc_bar
 
 
 func _build_return_portal() -> void:
@@ -430,3 +439,45 @@ func _on_player_damaged(hp: int) -> void:
 func _on_player_died() -> void:
 	if _status_bar:
 		_status_bar.show_death()
+
+
+func _build_mouse_king() -> void:
+	var pos := Vector3(2.8, 0, 26.0)
+	pos.y = terrain.data.get_height(pos)
+	var npc: Node = load("res://scripts/npc_interact.gd").new()
+	npc.name = "MouseKingNpc"
+	npc.position = pos + Vector3(0, 0.9, 0)
+	npc.setup(NpcConfig.NPCS["shop_mouse_king"])
+	npc.interacted.connect(_on_npc_interacted)
+	add_child(npc)
+
+
+func _on_npc_interacted(data: Dictionary) -> void:
+	if _npc_bar == null:
+		return
+	if _npc_bar.is_open():
+		_npc_bar.close()
+	else:
+		_npc_bar.open(data)
+
+
+func _on_npc_option(id: String) -> void:
+	if _status_bar == null:
+		return
+	match id:
+		"shop":
+			_status_bar.show_status("商店面板在基地开放（主场景 F8 可测）", 2.0)
+		"enhance":
+			_status_bar.show_status("强化面板在基地开放", 2.0)
+		"craft":
+			_status_bar.show_status("改造面板在基地开放", 2.0)
+		"enchant":
+			_status_bar.show_status("附魔面板在基地开放", 2.0)
+		"quest", "teleport":
+			_status_bar.show_status("任务面板在基地开放", 2.0)
+		"expedition", "fusion":
+			_status_bar.show_status("祭坛面板在基地开放", 2.0)
+		"info":
+			_npc_bar.set_text("关于各个世界的信息正在收集中……目前可以告诉您的是，时空裂隙的出现频率越来越高，请务必小心。")
+		"help":
+			_npc_bar.set_text("帮助功能正在开发中，敬请期待。您可以先尝试接受任务前往其他世界探险。")

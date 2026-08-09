@@ -11,6 +11,23 @@ const RARITY_STANDARD_PRICE := {
 	"epic": 800, "mythic": 1600, "legendary": 3200,
 }
 
+## NPC 预设（旧版 data/game-config.json npcs 对齐）
+const NPCS := {
+	"shop_mouse_king": {
+		"id": "shop_mouse_king",
+		"name": "小鼠大王",
+		"npc_type": "shop",
+		"portrait": "res://assets/ui/npc/npc_portrait.png",
+		"shop_id": "main",
+		"greetings": [
+			"你好，冒险者！欢迎来到无尽轮回。",
+			"今天的天空格外晴朗呢。",
+			"新鲜货物刚到，快来看看！",
+			"如果你需要强化装备，我可以帮你。",
+		],
+	},
+}
+
 ## 商店目录：shopId -> 物品 id 列表（运行时按 item_db.has_item 过滤缺失）
 const SHOP_CATALOGS := {
 	"main": [
