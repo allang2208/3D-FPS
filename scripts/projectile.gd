@@ -3,8 +3,8 @@ extends Node3D
 ## 标准弹道飞行：子弹以恒定速度在空中飞行，逐帧扫描射线（防止高速穿墙），
 ## 命中墙体/敌人时结算伤害并生成火花，距离或寿命到头自动消失。
 
-signal hit_enemy
-signal killed
+signal hit_enemy(headshot: bool)
+signal killed(headshot: bool)
 
 const MAX_DISTANCE := 150.0
 const MAX_LIFETIME := 2.0
@@ -63,12 +63,19 @@ func _physics_process(delta: float) -> void:
 	if hit:
 		global_position = hit.position
 		var root: Node = _scene_root if _scene_root != null else get_tree().current_scene
-		ImpactFxScript.spawn(root, hit.position, hit.normal)
 		var collider = hit.collider
+		# 部位倍率：enemy.gd 按命中 shape 返回（头部 HitboxHead=2.0，躯干=1.0）
+		var mult := 1.0
+		if collider != null and collider.has_method("get_shape_multiplier"):
+			mult = collider.get_shape_multiplier(int(hit.get("shape", 0)))
+		var headshot := mult >= 2.0
+		ImpactFxScript.spawn(root, hit.position, hit.normal,
+			Color(1.0, 0.9, 0.45) if headshot else Color(1.0, 0.75, 0.4))
 		if collider != null and collider.has_method("take_damage"):
-			if collider.take_damage(_damage):
-				killed.emit()
-			hit_enemy.emit()
+			var dmg := maxi(1, roundi(_damage * mult))
+			if collider.take_damage(dmg):
+				killed.emit(headshot)
+			hit_enemy.emit(headshot)
 		queue_free()
 		return
 	global_position = to

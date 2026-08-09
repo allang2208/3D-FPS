@@ -5,6 +5,8 @@ extends Node3D
 ## - FOV Punch：开火瞬间视场角 +5°，快速回落
 ## - Juice：枪口闪光 / 弹壳抛壳 / 命中相机抖动 / AKM 枪声 / 换弹声
 ## - 弹药 30/90，空仓自动换弹 / R 手动；信号契约（shot/hit/reloading/reloaded/empty）保持不变
+## - 移植自 Unity FPS 参考（SakanakoChan/FPSGameBySakanako）：弹道后坐力 pattern、移动/空中扩散惩罚、
+##   冲刺开火延迟、贴墙弹道起点修正、部位伤害（爆头 ×2，由 projectile→enemy Hitbox 结算）
 
 const FIRE_INTERVAL := 0.13
 const DAMAGE := 25
@@ -15,6 +17,28 @@ const BULLET_GRAVITY := 2.5
 const BASE_SPREAD := 0.0025
 const BLOOM_PER_SHOT := 0.0012
 const MAX_SPREAD := 0.018
+
+# 弹道后坐力 pattern（连发固定序列，停火按间隔回退，COD 式）
+const RECOIL_PATTERN := [
+	Vector2(0.009, 0.0000),
+	Vector2(0.012, -0.0020),
+	Vector2(0.015, 0.0025),
+	Vector2(0.018, -0.0015),
+	Vector2(0.020, 0.0030),
+	Vector2(0.022, -0.0020),
+	Vector2(0.024, 0.0020),
+	Vector2(0.026, -0.0010),
+	Vector2(0.028, 0.0005),
+]
+const RECOIL_RECOVERY_DELAY := 0.30
+const RECOIL_RECOVERY_INTERVAL := 0.05
+# 扩散惩罚：移动速度 / 空中（Unity 参考移植）
+const MOVE_SPREAD_RATIO := 0.6
+const MAX_MOVE_SPREAD := 0.012
+const AIR_SPREAD_PUNISH := 0.015
+const AIR_SPREAD_TRANSITION := 10.0
+# 冲刺开火延迟：松开冲刺后短暂锁定开火
+const SPRINT_TO_FIRE := 0.18
 
 const BASE_POS := Vector3(0.28, -0.26, -0.5)
 
@@ -63,6 +87,8 @@ var model_scene: PackedScene = AKM_GLB
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
+## 爆头命中（供 UI 后续做金色 hitmarker 等）
+signal headshot
 signal reloading
 signal reloaded(ammo_left: int, reserve_left: int)
 signal empty
@@ -74,6 +100,11 @@ var _fire_cd := 0.0
 var _flash_t := 0.0
 var _reload_t := 0.0
 var _spread := 0.0
+var _pattern_idx := 0
+var _last_fire_t := -100.0
+var _move_spread := 0.0
+var _air_spread := 0.0
+var _sprint_lock := 0.0
 var _flash_light: OmniLight3D
 var _flash_mesh: MeshInstance3D
 var _shoot_player: AudioStreamPlayer
@@ -237,6 +268,9 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	_fire_cd = maxf(0.0, _fire_cd - delta)
 	_spread = maxf(0.0, _spread - delta * 0.12)
+	_sprint_lock = maxf(0.0, _sprint_lock - delta)
+	_update_spread_punishments(delta)
+	_update_recoil_recovery(delta)
 	if _reload_t > 0.0:
 		_reload_t -= delta
 		if _reload_t <= 0.0:
@@ -254,7 +288,12 @@ func _physics_process(delta: float) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		_ads = false
 		return
-	_ads = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+	var sprinting := _is_sprinting()
+	if sprinting:
+		_sprint_lock = SPRINT_TO_FIRE
+		_ads = false
+	else:
+		_ads = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 	if _fire_cd <= 0.0 and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		_shoot()
 
@@ -265,6 +304,8 @@ func _start_reload() -> void:
 	reloading.emit()
 
 func _shoot() -> void:
+	if _sprint_lock > 0.0:
+		return
 	_fire_cd = FIRE_INTERVAL
 	if ammo <= 0:
 		_click_player.play()
@@ -272,6 +313,9 @@ func _shoot() -> void:
 		return
 	ammo -= 1
 	_spread = minf(MAX_SPREAD, _spread + BLOOM_PER_SHOT)
+	_last_fire_t = Time.get_ticks_msec() * 0.001
+	var pattern: Vector2 = RECOIL_PATTERN[_pattern_idx]
+	_pattern_idx = mini(_pattern_idx + 1, RECOIL_PATTERN.size() - 1)
 	_flash_t = 0.06
 	shot.emit(ammo, reserve)
 	_apply_gun_kick()
@@ -284,9 +328,13 @@ func _shoot() -> void:
 	var cam := get_viewport().get_camera_3d()
 	if cam == null:
 		return
-	_fire_camera_fx(cam)
+	_fire_camera_fx(cam, pattern)
 	var dir := _aim_dir(cam)
 	var origin := global_transform * _muzzle_local
+	# 贴墙修正（Unity 参考）：2m 内命中时子弹从相机出，避免弹道被墙面吞掉
+	var probe := PhysicsRayQueryParameters3D.create(cam.global_position, cam.global_position + dir * 2.0, 3)
+	if get_world_3d().direct_space_state.intersect_ray(probe):
+		origin = cam.global_position
 	var scene_root: Node = get_tree().current_scene
 	if scene_root == null:
 		scene_root = get_tree().root
@@ -294,28 +342,30 @@ func _shoot() -> void:
 	proj.hit_enemy.connect(_on_projectile_hit)
 	proj.killed.connect(_on_proj_kill)
 
-func _on_projectile_hit() -> void:
+func _on_projectile_hit(is_headshot: bool) -> void:
 	var cam := get_viewport().get_camera_3d()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
-			cfx.add_trauma(0.22)
+			cfx.add_trauma(0.22 + (0.10 if is_headshot else 0.0))
+	if is_headshot:
+		headshot.emit()
 	hit.emit()
 
-func _on_proj_kill() -> void:
+func _on_proj_kill(is_headshot: bool) -> void:
 	var cam := get_viewport().get_camera_3d()
 	if cam:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
 			cfx.add_trauma(0.45)
-	_kill_player.pitch_scale = randf_range(0.95, 1.05)
+	_kill_player.pitch_scale = randf_range(1.08, 1.16) if is_headshot else randf_range(0.95, 1.05)
 	_kill_player.play()
 
 func _aim_dir(cam: Camera3D) -> Vector3:
 	var base := -cam.global_transform.basis.z
 	var right := cam.global_transform.basis.x
 	var up := cam.global_transform.basis.y
-	var r := (BASE_SPREAD + _spread) * lerpf(1.0, ADS_SPREAD_MULT, _ads_factor)
+	var r := (BASE_SPREAD + _spread + _move_spread + _air_spread) * lerpf(1.0, ADS_SPREAD_MULT, _ads_factor)
 	return (base + right * randf_range(-r, r) + up * randf_range(-r, r)).normalized()
 
 func _finish_reload() -> void:
@@ -323,7 +373,34 @@ func _finish_reload() -> void:
 	var take := mini(need, reserve)
 	ammo += take
 	reserve -= take
+	_pattern_idx = 0
 	reloaded.emit(ammo, reserve)
+
+# ---------- 弹道后坐力 pattern / 扩散惩罚 / 冲刺开火 ----------
+
+func _is_sprinting() -> bool:
+	if _player == null:
+		return false
+	var spd := Vector2(_player.velocity.x, _player.velocity.z).length()
+	return Input.is_physical_key_pressed(KEY_SHIFT) and spd > 1.0
+
+func _update_spread_punishments(delta: float) -> void:
+	var spd := 0.0
+	if _player:
+		spd = Vector2(_player.velocity.x, _player.velocity.z).length()
+	var target_move := clampf(spd * MOVE_SPREAD_RATIO, 0.0, MAX_MOVE_SPREAD)
+	_move_spread = lerpf(_move_spread, target_move, 1.0 - exp(-6.0 * delta))
+	var airborne := _player != null and not _player.is_on_floor()
+	var target_air := AIR_SPREAD_PUNISH if (airborne and not _ads) else 0.0
+	_air_spread = lerpf(_air_spread, target_air, 1.0 - exp(-AIR_SPREAD_TRANSITION * delta))
+
+func _update_recoil_recovery(_delta: float) -> void:
+	var now := Time.get_ticks_msec() * 0.001
+	var idle := now - _last_fire_t
+	if idle > RECOIL_RECOVERY_DELAY:
+		var shots := int((idle - RECOIL_RECOVERY_DELAY) / RECOIL_RECOVERY_INTERVAL)
+		if shots > 0:
+			_pattern_idx = maxi(0, _pattern_idx - shots)
 
 func _make_click() -> AudioStreamWAV:
 	var rate := 22050
@@ -397,11 +474,11 @@ func _update_jitter(delta: float) -> void:
 	_flip_vel += af * delta
 	_flip_rot += _flip_vel * delta
 
-func _fire_camera_fx(cam: Camera3D) -> void:
+func _fire_camera_fx(cam: Camera3D, pattern: Vector2) -> void:
 	var cfx := cam.get_node_or_null("CameraFx")
 	if cfx == null:
 		return
-	cfx.kick(randf_range(0.008, 0.017), randf_range(-0.006, 0.006))
+	cfx.kick(pattern.x + randf_range(-0.0012, 0.0012), pattern.y + randf_range(-0.0008, 0.0008))
 	cfx.fov_punch(2.5)
 	cfx.add_trauma(0.06)  # 每发相机微震
 

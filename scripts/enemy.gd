@@ -1,6 +1,9 @@
 extends CharacterBody3D
 ## 通用敌人：追击玩家 / 远处游荡 / 受击闪红 / 接触伤害 / 死亡倒地重生
 ## 子节点约定：Collision（CollisionShape3D）+ Model（GLB 或代码拼装，名字以 Leg 开头的子节点会摆动）
+## 部位命中盒：_ready 自动从模型骨骼（head）生成 HitboxHead（×2），射线按 shape 索引结算
+
+const HitboxShapeScript := preload("res://scripts/hitbox_shape.gd")
 
 @export var max_hp := 50
 @export var chase_speed := 3.0
@@ -31,6 +34,7 @@ var _lunge_t := 0.0
 var _attack_t := 0.0
 var _wander_target := Vector3.ZERO
 var _wander_timer := 0.0
+var _shape_multipliers: Array[float] = []
 
 func setup(player: Node3D, kill_cb: Callable) -> void:
 	_player = player
@@ -41,7 +45,7 @@ func _ready() -> void:
 	collision_layer = 2
 	collision_mask = 5  # 1 墙体 + 4 玩家
 	for child in get_children():
-		if child is Node3D and child.name != "Collision":
+		if child is Node3D and not (child is CollisionShape3D) and child.name != "Collision":
 			_model = child
 			_find_material(child)
 			for c in child.get_children():
@@ -50,6 +54,8 @@ func _ready() -> void:
 	_wander_target = global_position
 	if _model != null and _model.has_method("rig_update"):
 		_rig = _model
+	_build_head_hitbox()
+	_rebuild_shape_multipliers()
 
 func _find_material(n: Node) -> void:
 	if n is MeshInstance3D and n.mesh and n.mesh.get_surface_count() > 0:
@@ -58,6 +64,79 @@ func _find_material(n: Node) -> void:
 			_mat = m
 	for c in n.get_children():
 		_find_material(c)
+
+# ---------- 部位命中盒（Hitbox） ----------
+
+## 生成头部命中球（×2）：优先锚定模型骨骼 head，无骨骼时退化为碰撞盒顶端
+func _build_head_hitbox() -> void:
+	var col := get_node_or_null("Collision") as CollisionShape3D
+	if col == null or not (col.shape is CapsuleShape3D):
+		return
+	var head_local := _find_head_local()
+	if head_local == Vector3.ZERO:
+		return
+	var hb := CollisionShape3D.new()
+	hb.name = "HitboxHead"
+	hb.set_script(HitboxShapeScript)
+	var sphere := SphereShape3D.new()
+	sphere.radius = 0.22
+	hb.shape = sphere
+	hb.position = head_local
+	hb.multiplier = 2.0
+	add_child(hb)
+
+## 头部本地坐标（模型骨骼 head 绑定姿势；无骨骼时取碰撞盒顶端）
+func _find_head_local() -> Vector3:
+	var skel := _find_skeleton(_model)
+	if skel:
+		var head_idx := skel.find_bone("head")
+		if head_idx < 0:
+			for b in skel.get_bone_count():
+				if skel.get_bone_name(b).to_lower().contains("head"):
+					head_idx = b
+					break
+		if head_idx >= 0:
+			var rest: Transform3D = skel.get_bone_global_rest(head_idx)
+			return to_local(skel.to_global(rest.origin))
+	var col := get_node_or_null("Collision") as CollisionShape3D
+	if col and col.shape is CapsuleShape3D:
+		var cap := col.shape as CapsuleShape3D
+		return col.position + Vector3(0, cap.height * 0.5 - 0.18, 0)
+	return Vector3.ZERO
+
+func _find_skeleton(n: Node) -> Skeleton3D:
+	if n == null:
+		return null
+	if n is Skeleton3D:
+		return n
+	for c in n.get_children():
+		var r := _find_skeleton(c)
+		if r:
+			return r
+	return null
+
+## 按 shape 索引建立倍率表（Collision 躯干=1.0，HitboxHead=2.0）
+func _rebuild_shape_multipliers() -> void:
+	_shape_multipliers = []
+	for c in get_children():
+		if c is CollisionShape3D:
+			var m := 1.0
+			if c.get_script() == HitboxShapeScript:
+				m = c.multiplier
+			_shape_multipliers.append(m)
+
+## 射线命中回调：按命中 shape 返回伤害倍率
+func get_shape_multiplier(shape_idx: int) -> float:
+	if shape_idx >= 0 and shape_idx < _shape_multipliers.size():
+		return _shape_multipliers[shape_idx]
+	return 1.0
+
+## 测试/调试：头部命中盒全局坐标
+func get_head_center_global() -> Vector3:
+	var hb := get_node_or_null("HitboxHead") as CollisionShape3D
+	if hb:
+		return hb.global_position
+	return Vector3.ZERO
 
 func take_damage(d: int) -> bool:
 	if _dead:
