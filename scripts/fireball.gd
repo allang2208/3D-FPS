@@ -234,6 +234,23 @@ func launch(dir: Vector3) -> void:
 		return
 	_hovering = false
 	_dir = dir.normalized()
+	# 指向准星射线命中点（精确打准星所指位置，不追踪目标）：
+	# 火球起点在左手（偏离准星线），飞向准星前方射线落点可精确命中
+	var cam: Camera3D = null
+	if _caster != null:
+		for c in _caster.get_children():
+			if c is Camera3D:
+				cam = c
+				break
+	if cam != null:
+		var origin := cam.global_position
+		var fwd := -cam.global_transform.basis.z
+		var query := PhysicsRayQueryParameters3D.create(origin, origin + fwd * _max_range, HIT_MASK)
+		var hit := get_world_3d().direct_space_state.intersect_ray(query)
+		var aim: Vector3 = hit.position if hit else origin + fwd * 6.0
+		var to_aim := (aim - global_position).normalized()
+		if to_aim.length() > 0.001:
+			_dir = to_aim
 	_age = 0.0
 	if _trail != null:
 		_trail.emitting = true
@@ -248,11 +265,7 @@ func _physics_process(delta: float) -> void:
 	if _age >= 3.0 or _traveled >= _max_range:
 		_explode(global_position)
 		return
-	# 实时追踪准星瞄准点（同冰锥精准瞄准）：准星指哪火球追哪
-	var aim := _aim_point()
-	var to_aim := (aim - global_position).normalized()
-	if to_aim.length() > 0.001:
-		_dir = to_aim
+	# 沿发射时准星方向直线飞行，命中准星射线第一个障碍（不追踪目标）
 	var step := _speed * delta
 	var from := global_position
 	var to := from + _dir * step
@@ -263,48 +276,6 @@ func _physics_process(delta: float) -> void:
 		return
 	global_position = to
 	_traveled += step
-
-## 准星瞄准点：优先锥形内最近敌人，否则相机前方射线命中点/前方 5m
-func _aim_point() -> Vector3:
-	var cam: Camera3D = null
-	if _caster != null:
-		for c in _caster.get_children():
-			if c is Camera3D:
-				cam = c
-				break
-	if cam == null:
-		return global_position + Vector3(0, 0, -5.0)
-	var origin := cam.global_position
-	var fwd := -cam.global_transform.basis.z
-	var enemy := _nearest_aimed_enemy(origin, fwd, 15.0)
-	if enemy != null:
-		return (enemy as Node3D).global_position + Vector3(0, 0.3, 0)
-	var query := PhysicsRayQueryParameters3D.create(origin, origin + fwd * _max_range, HIT_MASK)
-	var hit := get_world_3d().direct_space_state.intersect_ray(query)
-	if hit:
-		return hit.position
-	return origin + fwd * 5.0
-
-func _nearest_aimed_enemy(from: Vector3, fwd: Vector3, half_angle_deg: float) -> Node3D:
-	var best: Node3D = null
-	var best_d := INF
-	var cos_limit := cos(deg_to_rad(half_angle_deg))
-	var scene_root: Node = _scene_root if _scene_root != null else get_tree().current_scene
-	if scene_root == null:
-		return null
-	for c in scene_root.get_children():
-		if c == null or c == _caster or not c.has_method("take_damage") or String(c.name) == "Player":
-			continue
-		var to_target: Vector3 = (c.global_position + Vector3(0, 0.3, 0)) - from
-		var d: float = to_target.length()
-		if d > _max_range or d <= 0.0:
-			continue
-		if fwd.dot(to_target.normalized()) < cos_limit:
-			continue
-		if d < best_d:
-			best_d = d
-			best = c
-	return best
 
 func _hover_age(delta: float) -> void:
 	_age += delta
