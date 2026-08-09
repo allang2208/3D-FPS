@@ -71,6 +71,114 @@
       "deps": [],
       "interfaces": ["has_item", "get_def", "get_all_ids", "create_instance"],
       "tests": ["tests/test_ui_tokens.gd"]
+    },
+    {
+      "name": "style_config",
+      "type": "config",
+      "path": "ui/style-config.json",
+      "status": "stable",
+      "deps": [],
+      "interfaces": ["radius", "spacing", "font", "font_weight", "motion", "active_theme"],
+      "tests": ["tests/test_ui_tokens.gd"]
+    },
+    {
+      "name": "icons",
+      "type": "tools",
+      "path": "ui/icons.gd",
+      "status": "stable",
+      "deps": [],
+      "interfaces": ["get_icon(name)", "apply_icon(rect, name, color)", "has(name)"],
+      "tests": ["tests/test_icons.gd"]
+    },
+    {
+      "name": "tabs",
+      "type": "widget",
+      "path": "ui/tabs.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal tab_changed", "add_tab(title)", "select(i)", "current()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "switch",
+      "type": "widget",
+      "path": "ui/switch.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal toggled", "set_on(v)", "is_on()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "checkbox",
+      "type": "widget",
+      "path": "ui/checkbox.gd",
+      "status": "stable",
+      "deps": ["style", "icons"],
+      "interfaces": ["signal toggled", "setup(text)", "set_on(v)", "is_on()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "slider",
+      "type": "widget",
+      "path": "ui/slider.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal value_changed", "setup(min,max,step,val)", "get_value()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "input",
+      "type": "widget",
+      "path": "ui/input.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal text_submitted", "setup(label, placeholder)", "get_text()", "set_text()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "select",
+      "type": "widget",
+      "path": "ui/select.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal item_selected", "setup(label)", "add_item", "select", "get_selected_id()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "context_menu",
+      "type": "widget",
+      "path": "ui/context_menu.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["open_at(pos, items)"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "navigation_menu",
+      "type": "widget",
+      "path": "ui/navigation_menu.gd",
+      "status": "stable",
+      "deps": ["style", "icons"],
+      "interfaces": ["signal item_activated", "add_item(title, icon)"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "command_palette",
+      "type": "widget",
+      "path": "ui/command_palette.gd",
+      "status": "stable",
+      "deps": ["style"],
+      "interfaces": ["signal command_selected", "register(id, label)", "toggle()"],
+      "tests": ["tests/test_components.gd"]
+    },
+    {
+      "name": "settings_demo",
+      "type": "demo",
+      "path": "scenes/ui/settings_demo.tscn",
+      "status": "stable",
+      "deps": ["style", "icons", "tabs", "switch", "checkbox", "slider", "input", "select", "context_menu", "command_palette"],
+      "interfaces": ["独立场景 F6 运行", "tabs 画面/音频/游戏"],
+      "tests": ["tools/ui_preview.gd"]
     }
   ]
 }

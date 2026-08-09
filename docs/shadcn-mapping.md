@@ -48,7 +48,7 @@
 |---|---|---|---|---|
 | 间距 | 4px 网格 | `style-config.json` → `Style.spacing(key)` | DESIGN.md 第 4 节 | ✅ 已配置化 |
 | 字体 | Heading/Inter + 字重阶梯 | `style-config.json` → `Style.font_size/font_weight`（思源黑体） | 12–48 阶梯 | ✅ 已配置化 |
-| 图标 | Lucide 线性图标 | SVG → Godot Texture | emoji 回退 | ❌ 未做 |
+| 图标 | Lucide 线性图标 | `assets/ui/icons/*.svg`（96px，黑色 stroke）+ `ui/icons.gd` | 48 个图标，modulate 任意着色 | ✅ 已落地 |
 | 动效 | 150–250ms ease-out | Tween | DESIGN.md 第 7 节 | ✅ 已按规范 |
 | 阴影/发光 | 柔和阴影 | Shader / 半透明叠加 | 仅关键元素发光 | 🔶 等效实现，待登记 |
 | 玻璃模糊 | backdrop-blur | Godot 无原生 backdrop blur | 半透明深灰近似 | 🔶 软指标（已用 α0.8 面板） |
@@ -77,15 +77,15 @@
 
 | shadcn 组件 | 预期用途 | 优先级 |
 |---|---|---|
-| tabs | 背包分类页 / 设置页分页签 | 高 |
-| switch / checkbox / slider | 设置页（音量、灵敏度） | 中 |
-| input / field | 设置页文本输入 / 搜索 | 低 |
-| select / combobox | 设置页下拉 | 低 |
-| separator | 面板分隔线（现用 THEME_DIVIDER） | 低（已有等效） |
-| command palette | 开发者工具（跳转场景） | 低 |
-| context-menu | 装备右键菜单 | 中 |
+| tabs | 背包分类页 / 设置页分页签 | ✅ 已落地（ui/tabs.gd） |
+| switch / checkbox / slider | 设置页（音量、灵敏度） | ✅ 已落地（ui/switch.gd 等） |
+| input / field | 设置页文本输入 / 搜索 | ✅ 已落地（ui/input.gd） |
+| select / combobox | 设置页下拉 | ✅ 已落地（ui/select.gd） |
+| separator | 面板分隔线（现用 THEME_DIVIDER） | ✅ 已有等效 |
+| command palette | 开发者工具（跳转场景） | ✅ 已落地（ui/command_palette.gd，Ctrl+K） |
+| context-menu | 装备右键菜单 | ✅ 已落地（ui/context_menu.gd） |
 | hover-card | 物品悬浮卡片（现 tooltip 已覆盖） | ⛔ 等效 |
-| navigation-menu | 主菜单 | 中 |
+| navigation-menu | 主菜单 | ✅ 已落地（ui/navigation_menu.gd） |
 
 ## 5. 翻译工作流（每个组件固定六步）
 
@@ -101,5 +101,6 @@
 - ✅ 颜色层（31 个 token 中 27 个已映射，4 个 sidebar 明确不需要）
 - ✅ 动效规范（150–250ms ease-out）
 - ✅ 圆角/间距/字号/动效/主题开关（style-config.json + 调色面板「风格配置」tab）
-- ❌ 图标层（Lucide SVG → Godot）
-- 🔶 组件层（HUD/背包已迁移；设置页/菜单按优先级推进）
+- ✅ 图标层（48 个 Lucide SVG + icons.gd）
+- ✅ 组件层（HUD/背包已迁移；tabs/switch/checkbox/slider/input/select/context-menu/nav/command-palette 全落地）
+- ✅ 设置面板 Demo（scenes/ui/settings_demo.tscn，F6 运行测试）

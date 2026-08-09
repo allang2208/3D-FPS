@@ -26,6 +26,18 @@
 | backpack | data | ui/backpack.gd | stable | item_db | `signal changed / item_used / item_added / bound`；`add_item` / `remove_item` / `swap_items` / `bind_hotbar` / `resolve_hotbar` | tests/test_backpack.gd |
 | equipment | data | ui/equipment.gd | stable | backpack | `signal changed / equipped`；`equip_from_backpack` / `equip_to_slot` / `unequip` / `swap_equip` / `is_locked` | tests/test_equip.gd |
 | item_db | data | ui/item_db.gd | stable | assets（旧版 equipment.json） | `has_item` / `get_def` / `get_all_ids` / `create_instance` | tests/test_ui_tokens.gd |
+| style_config | config | ui/style-config.json | stable | style.gd 自动读取 | `radius` / `spacing` / `font` / `font_weight` / `motion` / `active_theme` | tests/test_ui_tokens.gd |
+| icons | tools | ui/icons.gd + assets/ui/icons/*.svg | stable | Lucide 48 图标 | `get_icon(name)` / `apply_icon(rect, name, color)` / `has(name)` | tests/test_icons.gd |
+| tabs | widget | ui/tabs.gd | stable | style | `signal tab_changed`；`add_tab(title)` / `select(i)` / `current()` | tests/test_components.gd |
+| switch | widget | ui/switch.gd | stable | style | `signal toggled`；`set_on(v)` / `is_on()` | tests/test_components.gd |
+| checkbox | widget | ui/checkbox.gd | stable | style, icons | `signal toggled`；`setup(text)` / `set_on(v)` / `is_on()` | tests/test_components.gd |
+| slider | widget | ui/slider.gd | stable | style | `signal value_changed`；`setup(min,max,step,val)` / `get_value()` | tests/test_components.gd |
+| input | widget | ui/input.gd | stable | style | `signal text_submitted`；`setup(label, placeholder)` / `get_text()` / `set_text()` | tests/test_components.gd |
+| select | widget | ui/select.gd | stable | style | `signal item_selected`；`setup(label)` / `add_item` / `select` / `get_selected_id()` | tests/test_components.gd |
+| context_menu | widget | ui/context_menu.gd | stable | style | `open_at(pos, items)`（支持 separator） | tests/test_components.gd |
+| navigation_menu | widget | ui/navigation_menu.gd | stable | style, icons | `signal item_activated`；`add_item(title, icon)` | tests/test_components.gd |
+| command_palette | widget | ui/command_palette.gd | stable | style | `signal command_selected`；`register(id, label)` / `toggle()` / Ctrl+K | tests/test_components.gd |
+| settings_demo | demo | scenes/ui/settings_demo.tscn + ui/settings_demo.gd | stable | 全部通用组件 + 金白主题 | 独立场景，F6 运行；tabs 切换画面/音频/游戏 | tools/ui_preview.gd 截图验收 |
 
 ## 新组件登记模板
 
