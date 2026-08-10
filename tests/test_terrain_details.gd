@@ -7,6 +7,10 @@ var frames := 0
 
 
 func _init() -> void:
+	# --script 模式不加载 project.godot 的 autoload，手动挂载 HUD 让 demo_terrain.gd 可编译
+	var hud: Node = load("res://ui/hud.gd").new()
+	hud.name = "HUD"
+	root.add_child(hud)
 	var scene: Node = load("res://scenes/demo_terrain.tscn").instantiate()
 	root.add_child(scene)
 	current_scene = scene
@@ -15,7 +19,7 @@ func _init() -> void:
 
 func _on_frame() -> void:
 	frames += 1
-	if frames < 30:
+	if frames < 150:
 		return
 	var terrain := current_scene.get_node_or_null("Terrain3D") as Terrain3D
 	if terrain == null or terrain.collision == null:
@@ -41,7 +45,13 @@ func _on_frame() -> void:
 		"res://assets/models/polyhaven/nettle_plant/nettle_plant_2k.gltf",
 		"res://assets/models/polyhaven/weed_plant_02/weed_plant_02_2k.gltf",
 		"res://assets/models/polyhaven/rock_moss_set_01/rock_moss_set_01_2k.gltf",
-		"res://assets/models/kenney_nature/crops_bambooStageB.glb",
+		"res://assets/models/polyhaven/searsia_burchellii/searsia_burchellii_2k.gltf",
+		"res://assets/models/polyhaven/shrub_01/shrub_01_2k.gltf",
+		"res://assets/models/polyhaven/flower_gazania/flower_gazania_2k.gltf",
+		"res://assets/models/polyhaven/flower_heliophila/flower_heliophila_2k.gltf",
+		"res://assets/models/polyhaven/dandelion_01/dandelion_01_2k.gltf",
+		"res://assets/models/polyhaven/grass_medium_02/grass_medium_02_2k.gltf",
+		"res://assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf",
 		"res://assets/models/kenney_nature/hanging_moss.glb",
 		"res://assets/models/kenney_nature/plant_flatTall.glb",
 		"res://assets/models/kenney_nature/grass_leafsLarge.glb",

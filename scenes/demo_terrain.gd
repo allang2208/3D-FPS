@@ -233,9 +233,9 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/grass.glb",
 		"res://assets/models/kenney_nature/grass_large.glb",
 		"res://assets/models/kenney_nature/grass_leafs.glb",
-		"res://assets/models/kenney_nature/flower_yellowA.glb",
-		"res://assets/models/kenney_nature/flower_redA.glb",
-		"res://assets/models/kenney_nature/flower_purpleA.glb",
+		"res://assets/models/polyhaven/flower_gazania/flower_gazania_2k.gltf",
+		"res://assets/models/polyhaven/flower_heliophila/flower_heliophila_2k.gltf",
+		"res://assets/models/polyhaven/dandelion_01/dandelion_01_2k.gltf",
 		"res://assets/models/kenney_nature/stump_old.glb",
 		"res://assets/models/kenney_nature/stump_round.glb",
 		"res://assets/models/kenney_nature/log.glb",
@@ -251,7 +251,7 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/nettle_plant/nettle_plant_2k.gltf",
 		"res://assets/models/polyhaven/weed_plant_02/weed_plant_02_2k.gltf",
 		"res://assets/models/polyhaven/rock_moss_set_01/rock_moss_set_01_2k.gltf",
-		"res://assets/models/kenney_nature/crops_bambooStageB.glb",
+		"res://assets/models/polyhaven/searsia_burchellii/searsia_burchellii_2k.gltf",
 		"res://assets/models/kenney_nature/hanging_moss.glb",
 		"res://assets/models/kenney_nature/plant_flatTall.glb",
 		"res://assets/models/kenney_nature/grass_leafsLarge.glb",
@@ -267,6 +267,8 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
+		"res://assets/models/polyhaven/shrub_01/shrub_01_2k.gltf",
+		"res://assets/models/polyhaven/grass_medium_02/grass_medium_02_2k.gltf",
 	]
 	for i in mesh_specs.size():
 		var scn: PackedScene = load(mesh_specs[i])
@@ -309,9 +311,9 @@ func _build_instanced_nature() -> void:
 		[3, 150, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass
 		[4, 140, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass_large
 		[5, 130, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass_leafs
-		[6, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],   # flower_yellowA
-		[7, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],   # flower_redA
-		[8, 25, -460, 460, -38.0, 26.0, 0.8, 1.2],   # flower_purpleA
+		[6, 30, -460, 460, -38.0, 26.0, 0.8, 1.3],   # ph flower_gazania
+		[7, 30, -460, 460, -38.0, 26.0, 0.8, 1.3],   # ph flower_heliophila
+		[8, 30, -460, 460, -38.0, 26.0, 0.8, 1.3],   # ph dandelion_01
 		[9, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],   # stump_old
 		[10, 25, -460, 460, -38.0, 26.0, 0.8, 1.4],  # stump_round
 		[11, 30, -460, 460, -38.0, 26.0, 0.8, 1.4],  # log
@@ -327,7 +329,7 @@ func _build_instanced_nature() -> void:
 		[21, 90, -460, 460, -40.0, 30.0, 1.3, 2.3],   # ph nettle_plant 荨麻（放大）
 		[22, 80, -460, 460, -40.0, 30.0, 1.6, 2.8],   # ph weed_plant_02 杂草（放大）
 		[23, 30, -460, 460, -42.0, 28.0, 0.08, 0.16], # ph rock_moss_set_01 青苔石组
-		[24, 45, -460, 460, -38.0, 24.0, 0.8, 1.4],   # kenney bamboo 竹丛
+		[24, 35, -460, 460, -38.0, 26.0, 1.1, 2.2],   # ph searsia_burchellii 灌木
 		[25, 55, -460, 460, -40.0, 28.0, 0.8, 1.3],   # kenney hanging_moss 垂藤丛
 		[26, 65, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_flatTall 宽叶
 		[27, 85, -460, 460, -40.0, 30.0, 0.8, 1.4],   # kenney grass_leafsLarge 大草
@@ -343,6 +345,8 @@ func _build_instanced_nature() -> void:
 		[37, 130, -460, 460, -40.0, 28.0, 1.2, 2.1],  # ph island_tree_01 密集背景林（instancer 无碰撞）
 		[38, 150, -460, 460, -40.0, 28.0, 1.3, 2.3],  # ph island_tree_02 密集背景林
 		[39, 100, -460, 460, -40.0, 28.0, 1.1, 2.0],  # ph island_tree_03 密集背景林
+		[40, 60, -460, 460, -40.0, 28.0, 1.0, 2.0],   # ph shrub_01 写实灌木
+		[41, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # ph grass_medium_02
 	]
 	for spec in specs:
 		_scatter(spec[0], spec[1], spec[2], spec[3], spec[4], spec[5], spec[6], spec[7])
@@ -645,6 +649,7 @@ func _build_trees() -> void:
 		"res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf",  # 最常见
 		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
+		"res://assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf",  # small tree
 		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",  # 针叶小树
 	]
 	var centers := [
@@ -674,13 +679,15 @@ func _build_trees() -> void:
 func _pick_tree(paths: Array[String]) -> String:
 	# 加权：island_tree_02 占 45%，01 / 03 各 20%，fir_sapling 15%
 	var r := rng.randf()
-	if r < 0.45:
+	if r < 0.40:
 		return paths[0]
-	if r < 0.65:
+	if r < 0.58:
 		return paths[1]
-	if r < 0.85:
+	if r < 0.75:
 		return paths[2]
-	return paths[3]
+	if r < 0.85:
+		return paths[3]
+	return paths[4]
 
 func _place_tree(path: String, at2: Vector2, scale: float) -> void:
 	var h := terrain.data.get_height(Vector3(at2.x, 0, at2.y))

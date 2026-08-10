@@ -49,3 +49,11 @@
 - License: MIT (see LICENSE.md in the repo); SSR ray-march + depth refraction
   adapted into assets/shaders/river_water.gdshader for the demo stream.
   （MagicaVoxel 制作，3884 面，含独立弹匣/枪机部件，最贴合"高精度体素像素风"）
+
+## Poly Haven models (realistic vegetation, since 2026-08-10)
+
+- Source: https://polyhaven.com/models (CC0 - no attribution required)
+- Added: searsia_burchellii, shrub_01, flower_gazania, flower_heliophila,
+  dandelion_01, grass_medium_02 (2k), tree_small_02 (1k)
+- Downloader: tools/ai-gen/download_polyhaven.py
+- Replaced cartoon Kenney props (mushroom_*, flower_*, crops_bambooStageB) removed 2026-08-10.
