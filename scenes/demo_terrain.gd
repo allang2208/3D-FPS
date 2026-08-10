@@ -173,8 +173,9 @@ func _build_terrain() -> Terrain3D:
 	# 地表纹理集：草(001/004/005/007)、森林落叶土(020)、碎石地(030)、
 	# 泥土(037)、沙(080)、岩(063)。uv_scale 越小纹理越大。
 	var tex_ids := ["grass001", "grass004", "grass005", "grass007",
-		"ground020", "ground030", "ground037", "ground080", "rock063"]
-	var uv_scales := [0.08, 0.08, 0.09, 0.09, 0.08, 0.06, 0.08, 0.06, 0.05]
+		"ground020", "ground030", "ground037", "ground080", "rock063",
+		"ground106", "ground092c"]
+	var uv_scales := [0.08, 0.08, 0.09, 0.09, 0.08, 0.06, 0.08, 0.06, 0.05, 0.07, 0.07]
 	for i in tex_ids.size():
 		var ta := Terrain3DTextureAsset.new()
 		ta.name = tex_ids[i]

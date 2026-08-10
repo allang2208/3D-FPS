@@ -15,7 +15,8 @@ const OUT_DIR := "res://assets/textures/terrain_prepared/"
 # Surface sets: grass / moss grass / fresh grass / short grass / forest floor /
 # gravel / dirt / sand / rock. Keep order in sync with demo_terrain.gd tex_ids.
 var names := ["Grass001", "Grass004", "Grass005", "Grass007",
-	"Ground020", "Ground030", "Ground037", "Ground080", "Rock063"]
+	"Ground020", "Ground030", "Ground037", "Ground080", "Rock063",
+	"Ground106", "Ground092C"]
 
 
 func _init() -> void:
