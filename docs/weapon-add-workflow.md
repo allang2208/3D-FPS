@@ -138,3 +138,17 @@ $env:GUN_TEST_MODEL='res://assets/models/ak/xxx_pbr.tres'
    旧哈希，直方图纹丝不动）。遇到"改了没反应"，直接**改文件名**（如 ak47_v3.glb）强制全新导入，
    再清理旧文件。换名后必须同步更新 .tres 引用。
 10. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。
+
+## TACZ 最终方案：静态 ArrayMesh（不要走骨骼 GLB）
+
+**实测结论（2026-08-10）**：TACZ 骨骼 GLB 路径在 Godot 里渲染持续"破碎"（同一几何导出成
+OBJ 渲染是完整 AK-47，纯几何+法线均验证无误；问题出在 GLB 骨骼导入/材质路径，非几何）。
+**换办法 = 走 AKM 已验证管线**：
+
+1. 转换器生成归一化+居中的 GLB（ak47_v3.glb / ak47_mag_v3.glb）只作中间源。
+2. `tests/export_tacz_mesh.gd` 把 GLB 的 Mesh（bind pose = 原始坐标）转成静态
+   ArrayMesh .tres（去掉 ARRAY_BONES/ARRAY_WEIGHTS，挂 StandardMaterial3D + 提亮贴图）。
+3. `weapon_data/tacz_ak47.tres` 的 model_scene/mag_scene 指向 .tres（与 AKM 同款 Mesh 路径，
+   gun.gd 自动按 AABB 居中、mag_offset 定位弹匣）。
+4. 骨骼动画暂时放弃（gun.gd 的程序化开火/换弹/ADS 已够用）；后续如要 TACZ 动画，
+   另走 Godot AnimationPlayer 驱动拆件（弹匣已独立）。

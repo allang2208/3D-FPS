@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapon_data.gd" id="1_wd"]
-[ext_resource type="PackedScene" path="res://assets/models/tacz_ak47/ak47_v3.glb" id="2_wd"]
-[ext_resource type="PackedScene" path="res://assets/models/tacz_ak47/ak47_mag_v3.glb" id="6_wd"]
+[ext_resource type="ArrayMesh" path="res://assets/models/tacz_ak47/ak47_body.tres" id="2_wd"]
+[ext_resource type="ArrayMesh" path="res://assets/models/tacz_ak47/ak47_mag.tres" id="6_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/akm_burst.mp3" id="3_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/reload_sharp.mp3" id="4_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/criticalhit.mp3" id="5_wd"]
