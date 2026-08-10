@@ -86,3 +86,21 @@ godot --headless --path E:\3d\3-dfps res://tests/test_terrain_regression.tscn
 
 注意：`tests/test_tree_grounding.gd` 这类 `--script` 单测加载不了 HUD
 autoload，场景起不来（count=0），不是回归，以 .tscn runner 为准。
+
+## 5. 远景构图（零素材，程序化）
+
+参考图"远山+湖泊+中景溪流"的层次，全部用代码生成：
+
+- **下游湖盆**：高度图里 `wx < -350` 时河谷半径 55→150 渐变放宽成湖盆，
+  colormap/wetness 同步用同一公式扩宽（湖底暖棕 + 岸边湿润）。
+- **湖面网格**：椭圆水面（rings×segs 网格），复用 river_water.gdshader，
+  顶点色 alpha 从 0.55 半径处向岸边渐隐。
+- **程序化山体**：`_build_mountain()` 用 FastNoiseLite 高度场生成真实 3D 山体
+  （48×30 网格，~3k 三角/座），法线由有限差分计算，顶点色做
+  岩石灰→蓝灰→雪顶渐变；**关键坑**：贴片边缘必须做"谷侧低、远方高"
+  foothill 衰减（smoothstep 0-0.38），否则 200m 高墙直接挡住河谷；
+  背面剔除默认开启，注意法线朝向。
+- **雾**：density 0.00095 + 蓝灰雾色，山体在 600-700m 处约 50% 雾化，
+  与 HDRI 天空衔接；`fog_sky_affect=0` 保持天空清晰。
+- 相机陷阱：`_river_center_z(-430) = 40*sin(-430/90) ≈ -39.9`（不是 +40），
+  远景机位要对准公式算出的真实湖心。

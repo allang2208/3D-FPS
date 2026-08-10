@@ -37,6 +37,7 @@ func _process(_delta: float) -> bool:
 		[0.0, 9.0, -1.0, 1.0, "eye"],
 		[150.0, -8.0, 1.0, 0.9, "eye"],
 		[80.0, 0.0, 0.0, 60.0, "top"],
+		[10.0, 0.0, 0.0, 8.0, "vista"],
 	]
 	if _shots < spots.size() and _terrain != null:
 		var s: Array = spots[_shots]
@@ -45,7 +46,10 @@ func _process(_delta: float) -> bool:
 		var water_h := _terrain.data.get_height(Vector3(wx, 0, cz)) + 0.55
 		var from: Vector3
 		var to: Vector3
-		if s[4] == "top":
+		if s[4] == "vista":
+			from = Vector3(0.0, 9.0, 70.0)
+			to = Vector3(-430.0, -2.0, _river_center_z(-430.0))
+		elif s[4] == "top":
 			from = Vector3(wx, water_h + s[3], cz)
 			to = Vector3(wx, water_h - 1.0, cz)
 		else:
@@ -65,7 +69,7 @@ func _process(_delta: float) -> bool:
 	img.save_png(out)
 	print("SAVED ", ProjectSettings.globalize_path(out))
 	_shots += 1
-	if _shots >= 3:
+	if _shots >= 4:
 		quit(0)
 		return false
 	_frames = 20
