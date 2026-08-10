@@ -58,6 +58,13 @@ func _init() -> void:
 		_scale_arrays(arrays, s)
 	for arrays in mag_arrays:
 		_scale_arrays(arrays, s)
+	# 用户反馈：枪"平放"了，需沿中轴线（枪口方向，模型 X 轴）逆时针转 90° 让顶部朝上。
+	# Rx(+90°): (x, y, z) -> (x, -z, y)
+	for arrays in body_arrays:
+		_roll_arrays(arrays)
+	for arrays in mag_arrays:
+		_roll_arrays(arrays)
+	print("rolled +90 deg around X (muzzle axis)")
 
 	var body_mesh := ArrayMesh.new()
 	var mat := _make_mat(tex, "akm_")
@@ -114,3 +121,15 @@ func _scale_arrays(arrays: Array, s: float) -> void:
 	for i in v.size():
 		v[i] = v[i] * s
 	arrays[Mesh.ARRAY_VERTEX] = v
+
+func _roll_arrays(arrays: Array) -> void:
+	var v: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var n: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+	for i in v.size():
+		var p := v[i]
+		v[i] = Vector3(p.x, -p.z, p.y)
+		if i < n.size():
+			var nn := n[i]
+			n[i] = Vector3(nn.x, -nn.z, nn.y)
+	arrays[Mesh.ARRAY_VERTEX] = v
+	arrays[Mesh.ARRAY_NORMAL] = n
