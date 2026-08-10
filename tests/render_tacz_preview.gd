@@ -10,9 +10,9 @@ var _gun: Node3D
 var _anim_player: AnimationPlayer
 var _target := Vector3.ZERO
 var _views := [
-	["tacz_idle", Vector3(2.5, 12, 13.75)],
-	["tacz_side", Vector3(38, 10, -5)],
-	["tacz_front34", Vector3(26, 16, 26)],
+	["tacz_idle", Vector3(0.0, 0.08, 1.05)],
+	["tacz_side", Vector3(1.25, 0.28, 0.0)],
+	["tacz_front34", Vector3(0.75, 0.35, 0.85)],
 ]
 var _shot := 0
 

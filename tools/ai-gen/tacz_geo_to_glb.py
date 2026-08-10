@@ -617,6 +617,14 @@ def main():
     ap.add_argument("--out-mag", default=None)
     ap.add_argument("--pos-mode", default="replace", choices=["replace", "additive"])
     ap.add_argument("--rot-order", default="XYZ", choices=["XYZ", "ZYX"])
+    ap.add_argument("--normalize-length", type=float, default=0.0,
+                    help="scale so longest mesh axis == this length (e.g. 1.0 for meter scale); "
+                         "0 disables. gun.gd clamps viewmodel scale to >=0.4 so pixel-unit models "
+                         "would render huge without this.")
+    ap.add_argument("--center", action="store_true",
+                    help="translate mesh so AABB center == origin (matches gun.gd Mesh path which "
+                         "re-centers via mi.position=-AABB_center; GLB path does not re-center, so "
+                         "uncentered models get framed too high/close and look broken).")
     args = ap.parse_args()
 
     bones, roots, tex_w, tex_h = parse_geometry(args.geo)
@@ -711,6 +719,33 @@ def main():
                 all_wgt.append((1.0, 0.0, 0.0, 0.0))
             all_idx.extend(i + cube_start for i in qidx)
             base_vertex += len(qpos)
+
+    # 归一化：gun.gd 的 VIEWMODEL_LENGTH/extent 有 clampf(...,0.4,1.0) 下限，
+    # 像素单位模型（如 TACZ 全长 ~43）必须缩到米级，否则第一人称下枪会巨大/破碎
+    normalize_s = 1.0
+    if args.normalize_length > 0.0 and all_pos:
+        xs = [v[0] for v in all_pos]
+        ys = [v[1] for v in all_pos]
+        zs = [v[2] for v in all_pos]
+        extent = max(max(xs) - min(xs), max(ys) - min(ys), max(zs) - min(zs))
+        if extent > 1e-6:
+            normalize_s = args.normalize_length / extent
+            all_pos = [v_scale(v, normalize_s) for v in all_pos]
+            all_nor = list(all_nor)  # normals unaffected by uniform scale
+    body_center = (0.0, 0.0, 0.0)
+    if args.center and all_pos:
+        xs = [v[0] for v in all_pos]
+        ys = [v[1] for v in all_pos]
+        zs = [v[2] for v in all_pos]
+        body_center = (
+            (min(xs) + max(xs)) / 2.0,
+            (min(ys) + max(ys)) / 2.0,
+            (min(zs) + max(zs)) / 2.0,
+        )
+        all_pos = [v_sub(v, body_center) for v in all_pos]
+    print(f"normalize scale: {normalize_s:.6f}")
+    print(f"body AABB center (subtract from model anchors/mag_offset): "
+          f"{body_center[0]:.6f}, {body_center[1]:.6f}, {body_center[2]:.6f}")
 
     if all_pos:
         mesh_idx = build_mesh_primitive(
@@ -891,6 +926,11 @@ def main():
             mins = [min(v[i] for v in mpos) for i in range(3)]
             maxs = [max(v[i] for v in mpos) for i in range(3)]
             center = tuple((mins[i] + maxs[i]) / 2.0 for i in range(3))
+            if args.normalize_length > 0.0:
+                center = tuple(c * normalize_s for c in center)
+                mpos = [v_scale(v, normalize_s) for v in mpos]
+            if args.center:
+                center = tuple(center[i] - body_center[i] for i in range(3))
             mpos = [v_sub(v, center) for v in mpos]
             mesh_idx = build_static_mesh(mag_glb, mpos, mnor, muv, midx, mag_mat)
             mag_node = len(mag_glb.json["nodes"])

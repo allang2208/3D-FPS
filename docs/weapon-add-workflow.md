@@ -125,4 +125,7 @@ $env:GUN_TEST_MODEL='res://assets/models/ak/xxx_pbr.tres'
 3. 主轴向 Z：`muzzle_sign_override = -1`（枪口 −Z）；瞄具锚点用 iron_sight3/4 方块簇顶部中心。
 4. GLB 弹匣走 gun.gd 的 `mag_scene is PackedScene` 分支（节点挂 _model 子节点、position=mag_offset）。
 5. 导入缓存坑：`.import` 残留 `valid=false` 时删 `.import` + `.godot/imported/*.md5` 再 `--import`。
-6. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。
+6. **必须 `--normalize-length 1.0 --center`**：gun.gd 视模缩放有 `clampf(...,0.4,1.0)` 下限且
+   GLB 路径不居中。像素单位模型（全长 ~43）不归一化会渲染成 17m 巨物；不居中会偏高贴相机、
+   枪托被近裁剪面切掉 → 看起来"破碎"。转换后把 `body AABB center` 从瞄具锚点/mag_offset 里减掉。
+7. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。

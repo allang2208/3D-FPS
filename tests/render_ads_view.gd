@@ -12,14 +12,20 @@ func _process(_delta: float) -> bool:
 		env.background_mode = Environment.BG_COLOR
 		env.background_color = Color(0.13, 0.13, 0.15)
 		env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-		env.ambient_light_color = Color(0.65, 0.65, 0.68)
-		env.ambient_light_energy = 1.0
+		env.ambient_light_color = Color(0.9, 0.9, 0.95)
+		env.ambient_light_energy = 2.2
 		var we := WorldEnvironment.new()
 		we.environment = env
 		root.add_child(we)
 		var light := DirectionalLight3D.new()
-		light.rotation_degrees = Vector3(-45, 140, 0)
+		light.rotation_degrees = Vector3(-35, 130, 0)
+		light.light_energy = 2.4
 		root.add_child(light)
+		var fill := DirectionalLight3D.new()
+		fill.rotation_degrees = Vector3(20, -40, 0)
+		fill.light_energy = 1.1
+		fill.light_color = Color(0.75, 0.8, 0.95)
+		root.add_child(fill)
 		var cam := Camera3D.new()
 		cam.name = "Cam"
 		cam.fov = 75.0
