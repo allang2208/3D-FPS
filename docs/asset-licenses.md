@@ -57,3 +57,8 @@
   dandelion_01, grass_medium_02 (2k), tree_small_02 (1k)
 - Downloader: tools/ai-gen/download_polyhaven.py
 - Replaced cartoon Kenney props (mushroom_*, flower_*, crops_bambooStageB) removed 2026-08-10.
+## AmbientCG ground textures (since 2026-08-10)
+
+- Source: https://ambientcg.com (CC0 - no attribution required)
+- Added 4K sets: Ground106 (forest floor leaves/mud), Ground092C (wet mud),
+  packed to Terrain3D channel textures via tools/prepare_terrain_textures.gd.

@@ -26,6 +26,7 @@ func _init() -> void:
 	mat.metallic = 0.0
 	mat.specular = 0.2
 	mat.cull_mode = BaseMaterial3D.CULL_BACK
+	mat.vertex_color_use_as_albedo = true  # 方块边缘 AO（转换器 --face-ao 烘焙的顶点色）
 	if tex_path != "" and ResourceLoader.exists(tex_path):
 		mat.albedo_texture = load(tex_path)
 

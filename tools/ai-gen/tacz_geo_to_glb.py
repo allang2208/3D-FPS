@@ -487,7 +487,7 @@ def pack_vec(fmt, values):
 
 
 def build_mesh_primitive(glb, positions, normals, uvs, joints, weights,
-                         indices, material_idx, tex_w, tex_h):
+                         indices, material_idx, tex_w, tex_h, colors=None):
     """Create a skinned mesh primitive; returns mesh index."""
     pos_bytes = struct.pack(f"<{len(positions)*3}f", *[c for v in positions for c in v])
     nor_bytes = struct.pack(f"<{len(normals)*3}f", *[c for v in normals for c in v])
@@ -495,6 +495,13 @@ def build_mesh_primitive(glb, positions, normals, uvs, joints, weights,
     joint_bytes = struct.pack(f"<{len(joints)*4}B", *[j for v in joints for j in v])
     weight_bytes = struct.pack(f"<{len(weights)*4}f", *[w for v in weights for w in v])
     idx_bytes = struct.pack(f"<{len(indices)}I", *indices)
+    col_bytes = None
+    col_bv = None
+    col_acc = None
+    if colors:
+        col_bytes = struct.pack(f"<{len(colors)*4}f", *[c for v in colors for c in v])
+        col_bv = glb.add_buffer_view(col_bytes, 34962, 4)
+        col_acc = glb.add_accessor(col_bv, len(colors), 5126, "VEC4")
 
     bv_pos = glb.add_buffer_view(pos_bytes, 34962, 4)
     bv_nor = glb.add_buffer_view(nor_bytes, 34962, 4)
@@ -523,6 +530,8 @@ def build_mesh_primitive(glb, positions, normals, uvs, joints, weights,
         "indices": acc_idx,
         "mode": 4,
     }
+    if col_acc is not None:
+        prim["attributes"]["COLOR_0"] = col_acc
     if material_idx >= 0:
         prim["material"] = material_idx
     mesh_idx = len(glb.json["meshes"])
@@ -530,12 +539,19 @@ def build_mesh_primitive(glb, positions, normals, uvs, joints, weights,
     return mesh_idx
 
 
-def build_static_mesh(glb, positions, normals, uvs, indices, material_idx):
+def build_static_mesh(glb, positions, normals, uvs, indices, material_idx, colors=None):
     """Create an unskinned static mesh primitive."""
     pos_bytes = struct.pack(f"<{len(positions)*3}f", *[c for v in positions for c in v])
     nor_bytes = struct.pack(f"<{len(normals)*3}f", *[c for v in normals for c in v])
     uv_bytes = struct.pack(f"<{len(uvs)*2}f", *[c for v in uvs for c in v])
     idx_bytes = struct.pack(f"<{len(indices)}I", *indices)
+    col_bytes = None
+    col_bv = None
+    col_acc = None
+    if colors:
+        col_bytes = struct.pack(f"<{len(colors)*4}f", *[c for v in colors for c in v])
+        col_bv = glb.add_buffer_view(col_bytes, 34962, 4)
+        col_acc = glb.add_accessor(col_bv, len(colors), 5126, "VEC4")
     bv_pos = glb.add_buffer_view(pos_bytes, 34962, 4)
     bv_nor = glb.add_buffer_view(nor_bytes, 34962, 4)
     bv_uv = glb.add_buffer_view(uv_bytes, 34962, 4)
@@ -551,6 +567,8 @@ def build_static_mesh(glb, positions, normals, uvs, indices, material_idx):
         "indices": acc_idx,
         "mode": 4,
     }
+    if col_acc is not None:
+        prim["attributes"]["COLOR_0"] = col_acc
     if material_idx >= 0:
         prim["material"] = material_idx
     mesh_idx = len(glb.json["meshes"])
@@ -563,11 +581,11 @@ def build_static_mesh(glb, positions, normals, uvs, indices, material_idx):
 # --------------------------------------------------------------------------
 
 
-def cube_geometry(cube, tex_w, tex_h, rot_order="XYZ"):
+def cube_geometry(cube, tex_w, tex_h, rot_order="XYZ", extra_inflate=0.0, face_ao=0.0):
     """Emit positions/normals/uvs for one cube (absolute model space)."""
     origin = cube["origin"]
     size = cube["size"]
-    inflate = cube["inflate"]
+    inflate = cube["inflate"] + extra_inflate
     cpivot = cube["pivot"]
     crot = cube["rotation"]
     uv = cube["uv"]
@@ -599,7 +617,7 @@ def cube_geometry(cube, tex_w, tex_h, rot_order="XYZ"):
             "down":  {"uv": [u0 + sz + sx, v0 + sy], "uv_size": [sx, sz]},
         }
 
-    positions, normals, uvs = [], [], []
+    positions, normals, uvs, colors = [], [], [], []
     indices = []
     for fname, corners_list in FACES.items():
         if fname not in face_uv:
@@ -631,12 +649,35 @@ def cube_geometry(cube, tex_w, tex_h, rot_order="XYZ"):
         else:
             n = (0.0, 1.0, 0.0)
         base = len(positions)
-        for corner_idx, u, v in quad:
-            positions.append(corners[corner_idx])
+        if face_ao <= 0.0:
+            for corner_idx, u, v in quad:
+                positions.append(corners[corner_idx])
+                normals.append(n)
+                uvs.append((u / tex_w, 1.0 - v / tex_h))
+            indices.extend((base, base + 1, base + 2, base, base + 2, base + 3))
+        else:
+            # 方块边缘 AO：中心顶点亮(1.0)、四角暗(face_ao)，拆成 4 个三角形
+            qpos = [corners[c[0]] for c in quad]
+            quv = [(c[1] / tex_w, 1.0 - c[2] / tex_h) for c in quad]
+            cx = sum(p[0] for p in qpos) / 4.0
+            cy = sum(p[1] for p in qpos) / 4.0
+            cz = sum(p[2] for p in qpos) / 4.0
+            cu = sum(p[0] for p in quv) / 4.0
+            cv = sum(p[1] for p in quv) / 4.0
+            positions.append((cx, cy, cz))
             normals.append(n)
-            uvs.append((u / tex_w, 1.0 - v / tex_h))
-        indices.extend((base, base + 1, base + 2, base, base + 2, base + 3))
-    return positions, normals, uvs, indices
+            uvs.append((cu, cv))
+            colors.append((1.0, 1.0, 1.0, 1.0))
+            for p, uv in zip(qpos, quv):
+                positions.append(p)
+                normals.append(n)
+                uvs.append(uv)
+                colors.append((face_ao, face_ao, face_ao, 1.0))
+            indices.extend((base, base + 1, base + 2,
+                            base, base + 2, base + 3,
+                            base, base + 3, base + 4,
+                            base, base + 4, base + 1))
+    return positions, normals, uvs, indices, colors
 
 
 def main():
@@ -662,6 +703,13 @@ def main():
                     help="comma-separated bone names whose cubes are dropped entirely "
                          "(e.g. TACZ hand-position markers righthand_pos,lefthand_pos and "
                          "non-default mag variants extd_mag,extd_mag2,extd_mag3).")
+    ap.add_argument("--inflate", type=float, default=0.0,
+                    help="extra cube inflate (model units) to close hairline seams between "
+                         "voxel boxes (TACZ often uses negative inflate that opens tiny gaps).")
+    ap.add_argument("--face-ao", type=float, default=0.0,
+                    help="bake voxel-style edge AO: subdivide each face quad with a center "
+                         "vertex; corners get this brightness (0..1), center 1.0. e.g. 0.74 "
+                         "gives the Minecraft-style cohesive block look. Requires vertex colors.")
     args = ap.parse_args()
 
     bones, roots, tex_w, tex_h = parse_geometry(args.geo)
@@ -735,7 +783,7 @@ def main():
                     split_names.add(b["name"])
                     break
 
-    all_pos, all_nor, all_uv, all_jnt, all_wgt, all_idx = [], [], [], [], [], []
+    all_pos, all_nor, all_uv, all_col, all_jnt, all_wgt, all_idx = [], [], [], [], [], [], []
     base_vertex = 0
 
     for b in bones:
@@ -743,7 +791,8 @@ def main():
             continue
         bone_i = bone_index[b["name"]]
         for cube in b["cubes"]:
-            qpos, qnor, quv, qidx = cube_geometry(cube, tex_w, tex_h, args.rot_order)
+            qpos, qnor, quv, qidx, qcol = cube_geometry(
+                cube, tex_w, tex_h, args.rot_order, args.inflate, args.face_ao)
             # apply cube rotation about its own pivot (baked)
             if any(cube["rotation"]):
                 qpos = [v_rot_euler(v, cube["pivot"], cube["rotation"], args.rot_order) for v in qpos]
@@ -752,6 +801,8 @@ def main():
             all_pos.extend(qpos)
             all_nor.extend(qnor)
             all_uv.extend(quv)
+            if qcol:
+                all_col.extend(qcol)
             for _ in qpos:
                 all_jnt.append((bone_i, 0, 0, 0))
                 all_wgt.append((1.0, 0.0, 0.0, 0.0))
@@ -788,7 +839,7 @@ def main():
     if all_pos:
         mesh_idx = build_mesh_primitive(
             glb, all_pos, all_nor, all_uv, all_jnt, all_wgt, all_idx,
-            mat_idx, tex_w, tex_h,
+            mat_idx, tex_w, tex_h, all_col if all_col else None,
         )
         gun_node = len(glb.json["nodes"])
         glb.json["nodes"].append({"name": "gun", "mesh": mesh_idx})
@@ -943,13 +994,14 @@ def main():
         root = len(mag_glb.json["nodes"])
         mag_glb.json["nodes"].append({"name": "root"})
         mag_glb.json["scenes"][0]["nodes"].append(root)
-        mpos, mnor, muv, midx = [], [], [], []
+        mpos, mnor, muv, mcol, midx = [], [], [], [], []
         base = 0
         for b in bones:
             if b["name"] not in split_names or b["name"] in exclude_set:
                 continue
             for cube in b["cubes"]:
-                qpos, qnor, quv, qidx = cube_geometry(cube, tex_w, tex_h, args.rot_order)
+                qpos, qnor, quv, qidx, qcol = cube_geometry(
+                    cube, tex_w, tex_h, args.rot_order, args.inflate, args.face_ao)
                 if any(cube["rotation"]):
                     qpos = [v_rot_euler(v, cube["pivot"], cube["rotation"], args.rot_order) for v in qpos]
                     qnor = [mat_mul_vec(v_rot_matrix(cube["rotation"], args.rot_order), n) for n in qnor]
@@ -957,6 +1009,8 @@ def main():
                 mpos.extend(qpos)
                 mnor.extend(qnor)
                 muv.extend(quv)
+                if qcol:
+                    mcol.extend(qcol)
                 midx.extend(i + cube_start for i in qidx)
                 base += len(qpos)
         if mpos:
@@ -972,7 +1026,8 @@ def main():
             mpos = [v_sub(v, center_own) for v in mpos]
             # mag_offset：弹匣中心在"居中后枪体"坐标系里的位置
             mag_offset = tuple(center_own[i] - body_center[i] for i in range(3)) if args.center else center_own
-            mesh_idx = build_static_mesh(mag_glb, mpos, mnor, muv, midx, mag_mat)
+            mesh_idx = build_static_mesh(
+                mag_glb, mpos, mnor, muv, midx, mag_mat, mcol if mcol else None)
             mag_node = len(mag_glb.json["nodes"])
             mag_glb.json["nodes"].append({"name": "mag", "mesh": mesh_idx})
             mag_glb.json["nodes"][root].setdefault("children", []).append(mag_node)
