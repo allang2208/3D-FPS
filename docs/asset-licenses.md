@@ -25,6 +25,15 @@
 - Default weapon weapon_data/akm_glb.tres; test_ads_calibration green (auto muzzle/sights);
   GLM confirms complete & coherent, no fragments / floating pieces
 
+## low-poly_akm.glb (Sketchfab low-poly AKM, since 2026-08-10)
+
+- Source: user local E:\3d\Godot_v4.7.1-stable_win64.exe\新建文件夹\akm\low-poly_akm.glb
+  (Sketchfab export, skinned 12-part model, flat colors no textures)
+- Pipeline: tests/export_lowpoly_akm.gd CPU-bakes rest skin -> static ArrayMesh, splits mag by
+  mag_02 bone weights, normalizes 1m, brightens dark materials x2.5
+- Default weapon weapon_data/lowpoly_akm.tres; calibration green; GLM confirms coherent,
+  no fragments/floating; flat low-poly look
+
 ## TACZ AK-47 (test stand-in, since 2026-08-09, NOT a release asset)
 
 - Source: Timeless and Classics Zero 1.1.8-hotfix built-in gunpack tacz_default_gun
