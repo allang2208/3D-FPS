@@ -710,11 +710,62 @@ def main():
                     help="bake voxel-style edge AO: subdivide each face quad with a center "
                          "vertex; corners get this brightness (0..1), center 1.0. e.g. 0.74 "
                          "gives the Minecraft-style cohesive block look. Requires vertex colors.")
+    ap.add_argument("--bridge-gaps", type=float, default=0.0,
+                    help="per-cube inflate boost to bridge voxel gaps: each cube grows toward "
+                         "its nearest neighbor until the AABB gap is <= this margin (raw model "
+                         "units). e.g. 0.04 closes visible seams incl. floating rail/trigger "
+                         "pieces. Use with --inflate as global minimum.")
     args = ap.parse_args()
 
     bones, roots, tex_w, tex_h = parse_geometry(args.geo)
     animations = parse_animations(args.anim) if args.anim else []
     exclude_set = set(n.strip() for n in args.exclude_bones.split(",") if n.strip())
+
+    # 桥接体素缝隙：每个方块按最近邻 AABB 缝隙定向膨胀，消除"悬浮颗粒"
+    def bridge_gaps(cubes, margin):
+        aabbs = []
+        for c in cubes:
+            o = c["origin"]; s = c["size"]; inf = c["inflate"]
+            aabbs.append((o[0]-inf, o[0]+s[0]+inf, o[1]-inf, o[1]+s[1]+inf,
+                          o[2]-inf, o[2]+s[2]+inf))
+
+        def dist3d(a, b):
+            dx = max(a[0]-b[1], b[0]-a[1], 0.0)
+            dy = max(a[2]-b[3], b[2]-a[3], 0.0)
+            dz = max(a[4]-b[5], b[4]-a[5], 0.0)
+            return (dx*dx+dy*dy+dz*dz) ** 0.5
+
+        for i, c in enumerate(cubes):
+            dmin = 1e9
+            for j in range(len(aabbs)):
+                if i == j:
+                    continue
+                dmin = min(dmin, dist3d(aabbs[i], aabbs[j]))
+            need = (dmin - margin) / 2.0
+            if need > 0.0:
+                c["inflate"] += need
+
+    if args.bridge_gaps > 0.0:
+        bmap = {b["name"]: b for b in bones}
+        body_cubes = []
+        mag_cubes = []
+        for b in bones:
+            if b["name"] in exclude_set:
+                continue
+            node = b
+            in_split = False
+            while node["parent"] and node["parent"] in bmap:
+                node = bmap[node["parent"]]
+                if args.split_bone and node["name"] == args.split_bone:
+                    in_split = True
+                    break
+            if in_split:
+                mag_cubes.extend(b["cubes"])
+            else:
+                body_cubes.extend(b["cubes"])
+        bridge_gaps(body_cubes, args.bridge_gaps)
+        if mag_cubes:
+            bridge_gaps(mag_cubes, args.bridge_gaps)
 
     glb = GLB()
 
