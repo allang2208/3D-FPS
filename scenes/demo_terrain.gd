@@ -109,6 +109,54 @@ func _river_center_z(wx: float) -> float:
 	return 40.0 * sin(wx / 90.0)
 
 
+## Procedural colormap, 1:1 with the heightmap (1024x1024, RGBA8).
+## RGB multiplies in the Terrain3D shader (darken-only), so keep it near white
+## with gentle tints: warm tan on the riverbed, fresh green on the grass,
+## cool grey-green on rocky/high patches. Alpha is the wetness channel
+## (0.5 = neutral); the river corridor gets ~0.34 = -30% roughness so banks
+## read as wet mud/glossy, per the official "mud" recipe.
+func _build_colormap() -> Image:
+	var cm := Image.create_empty(1024, 1024, false, Image.FORMAT_RGBA8)
+	var tint_noise := FastNoiseLite.new()
+	tint_noise.seed = 20260810
+	tint_noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	tint_noise.frequency = 0.014
+	tint_noise.fractal_octaves = 3
+	var patch_noise := FastNoiseLite.new()
+	patch_noise.seed = 777
+	patch_noise.noise_type = FastNoiseLite.TYPE_PERLIN
+	patch_noise.frequency = 0.0045
+	patch_noise.fractal_octaves = 2
+	for x in cm.get_width():
+		for y in cm.get_height():
+			var wx := x - 512.0
+			var wz := y - 512.0
+			var cz := _river_center_z(wx)
+			var dist := absf(wz - cz)
+			var patch := patch_noise.get_noise_2d(x, y)
+			var rgb := Color(0.94, 0.97, 0.90)
+			if dist < 70.0:
+				# River corridor: warm tan bed fading into damp bank green.
+				var edge := clampf(dist / 70.0, 0.0, 1.0)
+				rgb = Color(0.88, 0.84, 0.76).lerp(Color(0.90, 0.95, 0.86), edge)
+			elif patch > 0.38:
+				rgb = Color(0.90, 0.92, 0.84)  # warm sunlit patch
+			elif patch < -0.38:
+				rgb = Color(0.86, 0.89, 0.90)  # cool rocky patch
+			var v := tint_noise.get_noise_2d(x, y) * 0.04
+			rgb = Color(
+				clampf(rgb.r + v, 0.76, 1.0),
+				clampf(rgb.g + v, 0.76, 1.0),
+				clampf(rgb.b + v, 0.76, 1.0))
+			var wet := 0.5
+			if dist < 16.0:
+				wet = 0.30
+			elif dist < 32.0:
+				wet = lerpf(0.30, 0.5, (dist - 16.0) / 16.0)
+			cm.set_pixel(x, y, Color(rgb.r, rgb.g, rgb.b, wet))
+	return cm
+
+
 func _build_terrain() -> Terrain3D:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(DATA_DIR))
 	var t := Terrain3D.new()
@@ -172,7 +220,7 @@ func _build_terrain() -> Terrain3D:
 				bed_m += micro.get_noise_2d(x + 512, y + 512) * 0.6
 				h = lerpf(bed_m / 45.0, h, edge)
 			img.set_pixel(x, y, Color(h, 0.0, 0.0, 1.0))
-	t.data.import_images([img, null, null], Vector3(-512, 0, -512), 0.0, 45.0)
+	t.data.import_images([img, null, _build_colormap()], Vector3(-512, 0, -512), 0.0, 45.0)
 	t.data.save_directory(DATA_DIR)
 	t.collision.set_mode(Terrain3DCollision.FULL_GAME)  # 全量运行时碰撞（1km 地图性能足够）
 	t.collision.build()
