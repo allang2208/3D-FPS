@@ -14,6 +14,7 @@ uniform float wave_scale : hint_range(0.0, 4.0) = 1.0;
 uniform float fresnel_power : hint_range(0.0, 8.0) = 3.2;
 uniform float specular_strength : hint_range(0.0, 2.0) = 0.20;
 uniform float refraction_strength : hint_range(0.0, 1.0) = 0.5;
+uniform float foam_strength : hint_range(0.0, 1.0) = 0.40;
 uniform float max_visible_depth : hint_range(0.1, 30.0) = 6.0;
 uniform float ssr_resolution : hint_range(0.05, 4.0) = 0.7;
 uniform float ssr_max_travel : hint_range(0.0, 80.0) = 32.0;
@@ -145,10 +146,20 @@ void fragment() {
 	col += vec3(0.38, 0.62, 0.85) * fres * 0.55;
 	col += vec3(0.9, 0.95, 1.0) * specular_strength * max(0.0, wave) * fres * 0.8;
 
+	// Bank foam: white lace where the shore fade meets open water.
+	float shore = 1.0 - COLOR.a;
+	float foam = smoothstep(0.42, 0.62, shore) * (0.35 + 0.65 * max(0.0, wave));
+	foam *= 0.65 + 0.35 * sin(world_uv.x * 3.0 + world_uv.y * 5.0 + TIME * 2.0);
+	// Wave-crest foam speckles on open water.
+	float crest = smoothstep(0.62, 0.95, wave);
+	foam = max(foam, crest * 0.16 * (1.0 - shore * 0.5));
+	col = mix(col, vec3(0.92, 0.95, 0.97), clamp(foam * foam_strength, 0.0, 1.0));
+
 	// Alpha: shallow = clearer (see the bed), grazing = more opaque, then
 	// multiply by the vertex-color shore fade.
 	float alpha = mix(water_color.a, deep_color.a, depth_ratio * 0.5);
 	alpha = clamp(alpha + fres * 0.15, 0.0, 1.0);
+	alpha = clamp(alpha + foam * 0.14, 0.0, 1.0);
 	alpha *= COLOR.a;
 
 	ALBEDO = col;

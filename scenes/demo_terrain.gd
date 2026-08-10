@@ -100,6 +100,7 @@ func _build_light() -> void:
 	light.name = "Sun"
 	light.rotation_degrees = Vector3(-30, 35, 0)
 	light.light_energy = 0.7
+	light.light_color = Color(1.0, 0.97, 0.90)
 	light.shadow_enabled = true
 	add_child(light)
 
@@ -347,9 +348,9 @@ func _build_instanced_nature() -> void:
 		[34, 18, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_stackLarge
 		[35, 16, -460, 460, -40.0, 26.0, 0.9, 1.4],   # ph periwinkle_plant 岸花
 		[36, 16, -460, 460, -40.0, 26.0, 0.9, 1.4],   # ph periwinkle_plant 岸花
-		[37, 130, -460, 460, -40.0, 28.0, 1.2, 2.1],  # ph island_tree_01 密集背景林（instancer 无碰撞）
-		[38, 150, -460, 460, -40.0, 28.0, 1.3, 2.3],  # ph island_tree_02 密集背景林
-		[39, 100, -460, 460, -40.0, 28.0, 1.1, 2.0],  # ph island_tree_03 密集背景林
+		[37, 180, -460, 460, -40.0, 28.0, 1.2, 2.1],  # ph island_tree_01 密集背景林（instancer 无碰撞）
+		[38, 200, -460, 460, -40.0, 28.0, 1.3, 2.3],  # ph island_tree_02 密集背景林
+		[39, 140, -460, 460, -40.0, 28.0, 1.1, 2.0],  # ph island_tree_03 密集背景林
 		[40, 60, -460, 460, -40.0, 28.0, 1.0, 2.0],   # ph shrub_01 写实灌木
 		[41, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # ph grass_medium_02
 	]
@@ -533,6 +534,8 @@ func _build_river() -> void:
 		winst.rotation.y = rng.randf_range(0.0, TAU)
 		var wbase := _scene_aabb(winst).position.y
 		winst.position = Vector3(at.x, at.y - wbase + 0.02, at.z)
+		if i % 5 == 0:
+			_place_rock_foam(river, Vector3(at.x, at.y + 0.55, at.z), winst.scale.x)
 	# Distant lake: ellipse water surface over the widened west basin.
 	var lake_cz := _river_center_z(-430.0)
 	var lake_center := Vector3(-430.0, 0.0, lake_cz)
@@ -573,6 +576,39 @@ func _build_river() -> void:
 	river.add_child(lake_mi)
 
 
+
+
+var _foam_tex: ImageTexture
+
+
+func _rock_foam_texture() -> ImageTexture:
+	if _foam_tex != null:
+		return _foam_tex
+	var img := Image.create_empty(128, 128, false, Image.FORMAT_RGBA8)
+	for y in img.get_height():
+		for x in img.get_width():
+			var d := Vector2(x - 63.5, y - 63.5).length() / 63.5
+			var ring := smoothstep(0.42, 0.6, d) * (1.0 - smoothstep(0.82, 1.0, d))
+			var hole := 0.75 + 0.25 * sin(x * 0.6 + y * 0.47)
+			var a := ring * hole
+			img.set_pixel(x, y, Color(1.0, 1.0, 1.0, clampf(a, 0.0, 1.0)))
+	_foam_tex = ImageTexture.create_from_image(img)
+	return _foam_tex
+
+
+func _place_rock_foam(parent: Node3D, at: Vector3, rock_scale: float) -> void:
+	var q := QuadMesh.new()
+	q.size = Vector2(4.2 * rock_scale, 4.2 * rock_scale)
+	var fm := StandardMaterial3D.new()
+	fm.albedo_texture = _rock_foam_texture()
+	fm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	fm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	q.material = fm
+	var mi := MeshInstance3D.new()
+	mi.mesh = q
+	mi.rotation_degrees = Vector3(-90, 0, 0)
+	mi.position = at
+	parent.add_child(mi)
 
 
 func _build_ambience() -> void:
@@ -672,7 +708,7 @@ func _build_trees() -> void:
 		Vector2(-240, 100), Vector2(60, -260), Vector2(300, 260),
 	]
 	for c in centers:
-		for i in 18:
+		for i in 26:
 			var ang := rng.randf_range(0.0, TAU)
 			var r := rng.randf_range(4.0, 55.0)
 			_place_tree(_pick_tree(tree_paths), c + Vector2(cos(ang), sin(ang)) * r,
@@ -680,13 +716,13 @@ func _build_trees() -> void:
 	# 密集林斑块：参考图林缘密/空地疏，额外两个密林区
 	var groves := [Vector2(-80, 200), Vector2(220, -40), Vector2(-260, -240)]
 	for g in groves:
-		for i in 16:
+		for i in 24:
 			var ang := rng.randf_range(0.0, TAU)
 			var r := rng.randf_range(3.0, 30.0)
 			_place_tree(_pick_tree(tree_paths), g + Vector2(cos(ang), sin(ang)) * r,
 				rng.randf_range(1.0, 2.2))
 	# 地图边缘稀疏背景树
-	for i in 60:
+	for i in 100:
 		_place_tree(_pick_tree(tree_paths),
 			Vector2(rng.randf_range(-420, 420), rng.randf_range(-420, 420)),
 			rng.randf_range(0.9, 1.7))
