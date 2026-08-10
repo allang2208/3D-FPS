@@ -182,8 +182,9 @@ func _scale_only(surfaces: Array, s: float) -> void:
 		var n: PackedVector3Array = sf["arrays"][Mesh.ARRAY_NORMAL]
 		for i in v.size():
 			var p := v[i]
-			v[i] = p * s
+			# 归一化 + 绕枪轴(Z)逆时针-90°：机匣顶从侧面转到朝上（否则"水平放置"）
+			v[i] = Vector3(p.y, -p.x, p.z) * s
 			var nn := n[i]
-			n[i] = nn.normalized()
+			n[i] = Vector3(nn.y, -nn.x, nn.z).normalized()
 		sf["arrays"][Mesh.ARRAY_VERTEX] = v
 		sf["arrays"][Mesh.ARRAY_NORMAL] = n
