@@ -232,9 +232,9 @@ func _build_terrain() -> Terrain3D:
 
 	# 植被/岩石 instancer 网格资产（顺序即 instancer id，须与 _build_instanced_nature 的 specs 对应）
 	var mesh_specs: Array[String] = [
-		"res://assets/models/kenney_nature/plant_bush.glb",
-		"res://assets/models/kenney_nature/plant_bushLarge.glb",
-		"res://assets/models/kenney_nature/plant_bushSmall.glb",
+		"res://assets/models/polyhaven/shrub_02/shrub_02_2k.gltf",
+		"res://assets/models/polyhaven/shrub_03/shrub_03_2k.gltf",
+		"res://assets/models/polyhaven/shrub_04/shrub_04_2k.gltf",
 		"res://assets/models/kenney_nature/grass.glb",
 		"res://assets/models/kenney_nature/grass_large.glb",
 		"res://assets/models/kenney_nature/grass_leafs.glb",
@@ -258,9 +258,9 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/rock_moss_set_01/rock_moss_set_01_2k.gltf",
 		"res://assets/models/polyhaven/searsia_burchellii/searsia_burchellii_2k.gltf",
 		"res://assets/models/kenney_nature/hanging_moss.glb",
-		"res://assets/models/kenney_nature/plant_flatTall.glb",
+		"res://assets/models/polyhaven/searsia_lucida/searsia_lucida_2k.gltf",
 		"res://assets/models/kenney_nature/grass_leafsLarge.glb",
-		"res://assets/models/kenney_nature/plant_bushDetailed.glb",
+		"res://assets/models/polyhaven/wild_rooibos_bush/wild_rooibos_bush_2k.gltf",
 		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",
 		"res://assets/models/polyhaven/moss_01/moss_01_2k.gltf",
 		"res://assets/models/kenney_nature/stump_oldTall.glb",
@@ -310,9 +310,9 @@ func _fix_grass_material(node: Node) -> void:
 func _build_instanced_nature() -> void:
 	# [mesh_id, count, lo, hi, h_min, h_max, scale_min, scale_max]
 	var specs: Array = [
-		[0, 60, -460, 460, -35.0, 24.0, 0.8, 1.4],   # plant_bush
-		[1, 55, -460, 460, -35.0, 24.0, 0.8, 1.5],   # plant_bushLarge
-		[2, 55, -460, 460, -35.0, 24.0, 0.8, 1.3],   # plant_bushSmall
+		[0, 55, -460, 460, -35.0, 24.0, 0.8, 1.4],  # ph shrub_02
+		[1, 55, -460, 460, -35.0, 24.0, 0.8, 1.5],  # ph shrub_03
+		[2, 55, -460, 460, -35.0, 24.0, 0.8, 1.3],  # ph shrub_04
 		[3, 150, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass
 		[4, 140, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass_large
 		[5, 130, -460, 460, -40.0, 30.0, 0.8, 1.4],  # grass_leafs
@@ -336,9 +336,9 @@ func _build_instanced_nature() -> void:
 		[23, 30, -460, 460, -42.0, 28.0, 0.08, 0.16], # ph rock_moss_set_01 青苔石组
 		[24, 35, -460, 460, -38.0, 26.0, 1.1, 2.2],   # ph searsia_burchellii 灌木
 		[25, 55, -460, 460, -40.0, 28.0, 0.8, 1.3],   # kenney hanging_moss 垂藤丛
-		[26, 65, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_flatTall 宽叶
+		[26, 50, -460, 460, -40.0, 28.0, 0.9, 1.5],  # ph searsia_lucida
 		[27, 85, -460, 460, -40.0, 30.0, 0.8, 1.4],   # kenney grass_leafsLarge 大草
-		[28, 60, -460, 460, -40.0, 28.0, 0.8, 1.4],   # kenney plant_bushDetailed 细节灌木
+		[28, 45, -460, 460, -40.0, 28.0, 0.9, 1.5],  # ph wild_rooibos_bush
 		[29, 40, -460, 460, -38.0, 26.0, 1.2, 2.2],   # ph fir_sapling 小针叶树（放大）
 		[30, 90, -460, 460, -40.0, 30.0, 1.5, 3.0],   # ph moss_01 地面苔藓斑
 		[31, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney stump_oldTall
