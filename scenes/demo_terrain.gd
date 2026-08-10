@@ -38,7 +38,6 @@ func _ready() -> void:
 	_build_instanced_nature()
 	_build_landmark_rocks()
 	_build_river()
-	_build_distant_mountains()
 	_build_ambience()
 	_build_particle_grass()
 	_build_trees()
@@ -574,96 +573,6 @@ func _build_river() -> void:
 	river.add_child(lake_mi)
 
 
-func _build_distant_mountains() -> void:
-	var mnt := Node3D.new()
-	mnt.name = "DistantMountains"
-	add_child(mnt)
-	var mat := StandardMaterial3D.new()
-	mat.vertex_color_use_as_albedo = true
-	mat.roughness = 1.0
-	# Four ridged mountain masses just beyond the terrain edge (beyond the
-	# west lake shore), fog blends them into the sky for a natural vista.
-	_build_mountain(mnt, mat, Vector3(0, 0, -640), Vector2(900, 220), 270.0, 101)
-	_build_mountain(mnt, mat, Vector3(-700, 0, 0), Vector2(240, 1250), 210.0, 202)
-	_build_mountain(mnt, mat, Vector3(700, 0, 0), Vector2(220, 1150), 180.0, 303)
-	_build_mountain(mnt, mat, Vector3(0, 0, 680), Vector2(900, 220), 200.0, 404)
-
-
-func _build_mountain(parent: Node3D, mat: Material, center: Vector3,
-		size: Vector2, max_h: float, seed: int) -> void:
-	var noise := FastNoiseLite.new()
-	noise.seed = seed
-	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise.frequency = 0.0007
-	noise.fractal_octaves = 6
-	noise.fractal_gain = 0.5
-	noise.fractal_lacunarity = 2.4
-	var detail := FastNoiseLite.new()
-	detail.seed = seed + 7
-	detail.noise_type = FastNoiseLite.TYPE_PERLIN
-	detail.frequency = 0.006
-	var nx := 48
-	var nz := 30
-	var grid: Array[float] = []
-	# Foothill falloff: heights rise from the valley-facing edge to the far
-	# side so the mass reads as mountains behind the valley, not a wall.
-	var fade_x := absf(center.x) > absf(center.z)
-	var size_axis := size.x if fade_x else size.y
-	var center_axis := center.x if fade_x else center.z
-	var near_edge := center_axis + size_axis * (0.5 if center_axis < 0.0 else -0.5)
-	for iz in nz + 1:
-		var wz := center.z - size.y * 0.5 + size.y * float(iz) / nz
-		for ix in nx + 1:
-			var wx := center.x - size.x * 0.5 + size.x * float(ix) / nx
-			var pos_axis := wx if fade_x else wz
-			var t_edge := clampf((pos_axis - near_edge) / size_axis, 0.0, 1.0)
-			if center_axis > 0.0:
-				t_edge = 1.0 - t_edge
-			var n1 := noise.get_noise_2d(wx, wz)
-			var ridge := pow(1.0 - absf(n1), 1.8)
-			var h := (max_h * ridge + detail.get_noise_2d(wx, wz) * 10.0) * smoothstep(0.0, 0.38, t_edge)
-			grid.append(maxf(h, 0.0))
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var dx := size.x / nx
-	var dz := size.y / nz
-	for iz in nz + 1:
-		var wz := center.z - size.y * 0.5 + size.y * float(iz) / nz
-		for ix in nx + 1:
-			var wx := center.x - size.x * 0.5 + size.x * float(ix) / nx
-			var idx := iz * (nx + 1) + ix
-			var hl := grid[iz * (nx + 1) + maxi(ix - 1, 0)]
-			var hr := grid[iz * (nx + 1) + mini(ix + 1, nx)]
-			var hd := grid[maxi(iz - 1, 0) * (nx + 1) + ix]
-			var hu := grid[mini(iz + 1, nz) * (nx + 1) + ix]
-			var nrm := Vector3((hl - hr) / (2.0 * dx), 2.0, (hd - hu) / (2.0 * dz)).normalized()
-			st.set_color(_mountain_color(grid[idx], max_h))
-			st.set_normal(nrm)
-			st.add_vertex(Vector3(wx, grid[idx], wz))
-	for iz in nz:
-		for ix in nx:
-			var a := iz * (nx + 1) + ix
-			var b := a + 1
-			var c := a + (nx + 1)
-			var d := c + 1
-			st.add_index(a)
-			st.add_index(c)
-			st.add_index(b)
-			st.add_index(b)
-			st.add_index(c)
-			st.add_index(d)
-	var mesh := st.commit()
-	mesh.surface_set_material(0, mat)
-	var mi := MeshInstance3D.new()
-	mi.mesh = mesh
-	parent.add_child(mi)
-
-
-func _mountain_color(h: float, max_h: float) -> Color:
-	var t := clampf(h / max_h, 0.0, 1.0)
-	var c := Color(0.30, 0.33, 0.36).lerp(Color(0.44, 0.50, 0.56), smoothstep(0.22, 0.7, t))
-	c = c.lerp(Color(0.80, 0.82, 0.86), smoothstep(0.68, 1.0, t) * 0.8)
-	return c
 
 
 func _build_ambience() -> void:
