@@ -39,6 +39,39 @@ import os
 import struct
 import sys
 
+
+def load_texture_bytes(path):
+    """Read a texture for GLB embedding.
+
+    Minecraft mod PNGs often carry a mostly-zero alpha channel that Minecraft
+    ignores but Godot honors -> faces with alpha==0 render invisible, making a
+    solid model look fragmented. Strip alpha to force opaque.
+    """
+    try:
+        from PIL import Image
+    except ImportError:
+        with open(path, "rb") as f:
+            return f.read()
+    im = Image.open(path)
+    if im.mode in ("RGBA", "LA", "PA") or (im.mode == "P" and "transparency" in im.info):
+        im = im.convert("RGBA")
+        # 用 RGB 信息重新合成不透明 RGBA（保留原视觉，alpha 全 255）
+        rgb = im.convert("RGB")
+        out = rgb.convert("RGBA")
+        buf = os.fsdecode(os.fsencode(path)) + ".opaque.png"
+        out.save(buf, "PNG")
+        try:
+            with open(buf, "rb") as f:
+                data = f.read()
+        finally:
+            try:
+                os.remove(buf)
+            except OSError:
+                pass
+        return data
+    with open(path, "rb") as f:
+        return f.read()
+
 # --------------------------------------------------------------------------
 # Face tables (Blockbench CubeFace.getVertexIndices + UV corner mapping)
 # --------------------------------------------------------------------------
@@ -635,7 +668,7 @@ def main():
     # --- material + images --------------------------------------------
     mat_idx = -1
     if args.texture:
-        img_data = open(args.texture, "rb").read()
+        img_data = load_texture_bytes(args.texture)
         img_bv = glb.add_buffer_view(img_data, None, 4)
         img_idx = len(glb.json["images"])
         glb.json["images"].append({"bufferView": img_bv, "mimeType": "image/png"})
@@ -887,7 +920,7 @@ def main():
         mag_glb = GLB()
         mag_mat = -1
         if args.texture:
-            img_data = open(args.texture, "rb").read()
+            img_data = load_texture_bytes(args.texture)
             img_bv = mag_glb.add_buffer_view(img_data, None, 4)
             img_idx = len(mag_glb.json["images"])
             mag_glb.json["images"].append({"bufferView": img_bv, "mimeType": "image/png"})
@@ -925,18 +958,20 @@ def main():
             # 弹匣网格按 AABB 中心居中到自身原点（gun.gd 用 mag_offset 定位，语义与 Mesh 弹匣一致）
             mins = [min(v[i] for v in mpos) for i in range(3)]
             maxs = [max(v[i] for v in mpos) for i in range(3)]
-            center = tuple((mins[i] + maxs[i]) / 2.0 for i in range(3))
+            center_own = tuple((mins[i] + maxs[i]) / 2.0 for i in range(3))
             if args.normalize_length > 0.0:
-                center = tuple(c * normalize_s for c in center)
+                center_own = tuple(c * normalize_s for c in center_own)
                 mpos = [v_scale(v, normalize_s) for v in mpos]
-            if args.center:
-                center = tuple(center[i] - body_center[i] for i in range(3))
-            mpos = [v_sub(v, center) for v in mpos]
+            # 顶点居中：减弹匣自身中心（否则顶点带 body_center 偏移，
+            # 放进游戏后弹匣会整体高 body_center.y 一截、浮在机匣里）
+            mpos = [v_sub(v, center_own) for v in mpos]
+            # mag_offset：弹匣中心在"居中后枪体"坐标系里的位置
+            mag_offset = tuple(center_own[i] - body_center[i] for i in range(3)) if args.center else center_own
             mesh_idx = build_static_mesh(mag_glb, mpos, mnor, muv, midx, mag_mat)
             mag_node = len(mag_glb.json["nodes"])
             mag_glb.json["nodes"].append({"name": "mag", "mesh": mesh_idx})
             mag_glb.json["nodes"][root].setdefault("children", []).append(mag_node)
-            print(f"mag center (use as mag_offset): {center[0]:.4f}, {center[1]:.4f}, {center[2]:.4f}")
+            print(f"mag center (use as mag_offset): {mag_offset[0]:.4f}, {mag_offset[1]:.4f}, {mag_offset[2]:.4f}")
         mag_glb.finish(args.out_mag)
         print(f"mag GLB written: {args.out_mag} ({base} verts)")
 

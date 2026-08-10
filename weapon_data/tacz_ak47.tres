@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/weapon_data.gd" id="1_wd"]
-[ext_resource type="PackedScene" path="res://assets/models/tacz_ak47/ak47_additive.glb" id="2_wd"]
-[ext_resource type="PackedScene" path="res://assets/models/tacz_ak47/ak47_mag_additive.glb" id="6_wd"]
+[ext_resource type="PackedScene" path="res://assets/models/tacz_ak47/ak47_v3.glb" id="2_wd"]
+[ext_resource type="PackedScene" path="res://assets/models/tacz_ak47/ak47_mag_v3.glb" id="6_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/akm_burst.mp3" id="3_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/reload_sharp.mp3" id="4_wd"]
 [ext_resource type="AudioStream" path="res://assets/sfx/criticalhit.mp3" id="5_wd"]
@@ -12,6 +12,7 @@ script = ExtResource("1_wd")
 weapon_name = "AK-47 (TACZ 1.1.8, CC BY-NC-ND test)"
 model_scene = ExtResource("2_wd")
 mag_scene = ExtResource("6_wd")
+view_pos = Vector3(0.28, -0.15, -0.5)
 muzzle_sign_override = -1
 sight_rear_override = Vector3(0, 0.0185, -0.0894)
 sight_front_override = Vector3(0, 0.0226, -0.4557)

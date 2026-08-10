@@ -128,4 +128,13 @@ $env:GUN_TEST_MODEL='res://assets/models/ak/xxx_pbr.tres'
 6. **必须 `--normalize-length 1.0 --center`**：gun.gd 视模缩放有 `clampf(...,0.4,1.0)` 下限且
    GLB 路径不居中。像素单位模型（全长 ~43）不归一化会渲染成 17m 巨物；不居中会偏高贴相机、
    枪托被近裁剪面切掉 → 看起来"破碎"。转换后把 `body AABB center` 从瞄具锚点/mag_offset 里减掉。
-7. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。
+7. **贴图必须处理两件事**：① Minecraft 模组 PNG 常带"全零 alpha"（Minecraft 忽略、Godot 按透明
+   渲染 → 枪变碎块），转换器自动剥 alpha；② TACZ 黑金属贴图过暗，要 gamma 提亮+抬升暗部
+   （现用 curve: (v/255)^0.55*1.25+42），否则黑枪融进深背景。
+8. **弹匣居中**：弹匣 GLB 顶点必须减**弹匣自身 AABB 中心**（不是 mag_center−body_center），
+   mag_offset 才是 mag_center−body_center。旧代码把 offset 也减进顶点，弹匣整体高 body_center.y
+   一截、浮在机匣里 → 游戏里"弹匣缺失/错位"。
+9. **Godot 导入缓存会卡死**：反复重导同一文件名可能一直用旧资源（md5 变了但 .import/.scn 还是
+   旧哈希，直方图纹丝不动）。遇到"改了没反应"，直接**改文件名**（如 ak47_v3.glb）强制全新导入，
+   再清理旧文件。换名后必须同步更新 .tres 引用。
+10. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。
