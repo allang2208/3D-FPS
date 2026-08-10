@@ -10,7 +10,7 @@ extends Node3D
 ##   冲刺开火延迟、贴墙弹道起点修正、部位伤害（爆头 ×2，由 projectile→enemy Hitbox 结算）
 
 ## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
-@export var data: WeaponData = preload("res://weapon_data/tacz_ak47.tres")
+@export var data: WeaponData = preload("res://weapon_data/akm_glb.tres")
 
 const BASE_POS := Vector3(0.28, -0.15, -0.5)  # 抬高持枪位，给换弹弹匣下滑留出画面空间
 
@@ -58,6 +58,7 @@ var mag_scene: Resource
 # 枪口方向手动覆盖：0=自动，1=枪口朝+axis，-1=枪口朝-axis（自动判定误判时用）
 var muzzle_sign_override := 0.0
 var _mag_slide := 0.18
+var _view_pos := BASE_POS
 
 signal shot(ammo_left: int, reserve_left: int)
 signal hit
@@ -174,13 +175,14 @@ func _effective_mag() -> int:
 
 func _ready() -> void:
 	if data == null:
-		data = load("res://weapon_data/tacz_ak47.tres")
+		data = load("res://weapon_data/akm_glb.tres")
 	if data == null:
 		push_error("[gun] 缺少武器数据，使用脚本默认兜底")
 		data = WeaponData.new()
 	model_scene = data.model_scene
 	muzzle_sign_override = data.muzzle_sign_override
 	mag_scene = data.mag_scene
+	_view_pos = data.view_pos
 	ammo = data.mag_size
 	reserve = data.reserve
 	_cam = get_parent() as Camera3D
@@ -265,7 +267,7 @@ func _process(delta: float) -> void:
 		var cfx := cam.get_node_or_null("CameraFx")
 		if cfx:
 			cfx.set_ads(_ads_factor > 0.5)
-	var base_pos := BASE_POS.lerp(_ads_pos, _ads_factor)
+	var base_pos := _view_pos.lerp(_ads_pos, _ads_factor)
 	var base_rot := Vector3.ZERO.lerp(_ads_rot, _ads_factor)
 	var suppress := 1.0 - _ads_factor
 	var reload_pos := Vector3.ZERO

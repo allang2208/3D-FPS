@@ -16,6 +16,15 @@
 ## 澶囬€?
 - _dl_akm_jtoastie.glb锛堝凡鍒犻櫎锛夛細Poly Pizza https://poly.pizza/m/52kQzphmeF 锛孞-Toastie锛孋C0锛?  璇勫閫犲瀷 4/10锛岃繃浜庢娊璞★紝2026-08-09 娓呯悊鏃ц祫浜ф椂涓€骞跺垹闄?- 浣撶礌鏂瑰悜鍊欓€夛細CGTrader AK74 Voxel Gun锛堝厤璐癸紝闇€娉ㄥ唽璐﹀彿涓嬭浇锛?  https://www.cgtrader.com/free-3d-models/military/gun/ak74-voxel-gun
 
+## akm.glb parts version (default weapon since 2026-08-10)
+
+- Source: user local E:\3d\Godot_v4.7.1-stable_win64.exe\新建文件夹\akm\akm.glb
+  (FAB conversion; same Sketchfab AKM as akm_sketchfab_prep.obj: sami uddin, CC-BY, attribution)
+- Parts: left/right gun halves + ejection + trigger + separate magazine; PBR 4K->2048 PNG
+- Pipeline: tests/export_akm_glb.gd merges body / splits mag / normalize 1m / PBR -> ArrayMesh .tres
+- Default weapon weapon_data/akm_glb.tres; test_ads_calibration green (auto muzzle/sights);
+  GLM confirms complete & coherent, no fragments / floating pieces
+
 ## TACZ AK-47 (test stand-in, since 2026-08-09, NOT a release asset)
 
 - Source: Timeless and Classics Zero 1.1.8-hotfix built-in gunpack tacz_default_gun
