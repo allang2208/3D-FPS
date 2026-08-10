@@ -658,10 +658,15 @@ def main():
                     help="translate mesh so AABB center == origin (matches gun.gd Mesh path which "
                          "re-centers via mi.position=-AABB_center; GLB path does not re-center, so "
                          "uncentered models get framed too high/close and look broken).")
+    ap.add_argument("--exclude-bones", default="",
+                    help="comma-separated bone names whose cubes are dropped entirely "
+                         "(e.g. TACZ hand-position markers righthand_pos,lefthand_pos and "
+                         "non-default mag variants extd_mag,extd_mag2,extd_mag3).")
     args = ap.parse_args()
 
     bones, roots, tex_w, tex_h = parse_geometry(args.geo)
     animations = parse_animations(args.anim) if args.anim else []
+    exclude_set = set(n.strip() for n in args.exclude_bones.split(",") if n.strip())
 
     glb = GLB()
 
@@ -734,7 +739,7 @@ def main():
     base_vertex = 0
 
     for b in bones:
-        if b["name"] in split_names:
+        if b["name"] in split_names or b["name"] in exclude_set:
             continue
         bone_i = bone_index[b["name"]]
         for cube in b["cubes"]:
@@ -941,7 +946,7 @@ def main():
         mpos, mnor, muv, midx = [], [], [], []
         base = 0
         for b in bones:
-            if b["name"] not in split_names:
+            if b["name"] not in split_names or b["name"] in exclude_set:
                 continue
             for cube in b["cubes"]:
                 qpos, qnor, quv, qidx = cube_geometry(cube, tex_w, tex_h, args.rot_order)
