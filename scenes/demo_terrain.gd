@@ -451,6 +451,7 @@ func _build_river() -> void:
 	# 透过半透明水面看到沙/碎石底，复刻参考图"清澈见底"
 	var bed_mat := StandardMaterial3D.new()
 	bed_mat.albedo_texture = load("res://assets/textures/riverbed_sand.png")
+	bed_mat.albedo_color = Color(0.85, 0.85, 0.80)
 	bed_mat.roughness = 1.0
 	bed_mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	var bed_st := SurfaceTool.new()
@@ -510,6 +511,19 @@ func _build_river() -> void:
 		inst.rotation.y = rng.randf_range(0.0, TAU)
 		var base := _scene_aabb(inst).position.y
 		inst.position = Vector3(at.x, at.y - base + 0.05, at.z)
+	# Submerged stones: half-hidden in the shallow stream so they stay visible
+	# through the transparent water, matching the reference "clear stream".
+	for i in 34:
+		var wx := rng.randf_range(-410.0, 410.0)
+		var cz := _river_center_z(wx)
+		var at := Vector3(wx + rng.randf_range(-3.2, 3.2), 0.0, cz + rng.randf_range(-2.2, 2.2))
+		at.y = terrain.data.get_height(at) + 0.06
+		var winst: Node = load(rock_variants[rng.randi_range(0, rock_variants.size() - 1)]).instantiate()
+		river.add_child(winst)
+		winst.scale = Vector3.ONE * (2.2 if i % 5 == 0 else rng.randf_range(0.5, 1.4))
+		winst.rotation.y = rng.randf_range(0.0, TAU)
+		var wbase := _scene_aabb(winst).position.y
+		winst.position = Vector3(at.x, at.y - wbase + 0.02, at.z)
 	# 睡莲：精确铺在水面上（沿河道中心，y = 水面高度）
 	var lily_variants := [
 		"res://assets/models/kenney_nature/lily_large.glb",

@@ -42,4 +42,10 @@
 - Verified: test_ads_calibration all green - rot_y=0, muzzle_local.z<0, rear/front sights
   project to exactly (960,540) in ADS.
 - Serves as the "high-res voxel pixel style" reference: wood stock/handguard + metal + detachable mag.
+## GodotSSRWater (river_water.gdshader SSR part, since 2026-08-10)
+
+- Source: https://github.com/marcelb/GodotSSRWater
+- Author: Marcel Bankmann
+- License: MIT (see LICENSE.md in the repo); SSR ray-march + depth refraction
+  adapted into assets/shaders/river_water.gdshader for the demo stream.
   （MagicaVoxel 制作，3884 面，含独立弹匣/枪机部件，最贴合"高精度体素像素风"）

@@ -47,6 +47,25 @@ vec3 refracted = texture(screen_tex, SCREEN_UV + wave_distortion).rgb;
 水面中心 alpha 从 0.50 降到 0.34、深水 0.62 → 0.46，配合折射后
 "清澈见底"感明显（GLM 对比确认四项均改善）。
 
+## 3.5 透明水面的屏幕空间反射（SSR）
+
+Godot 内置 SSR 只对不透明表面生效，透明水面反射天空/岸边是参考图的核心差距。
+移植 marcelb/GodotSSRWater（MIT）的屏幕空间光线步进：
+
+- 额外声明 `uniform sampler2D depth_tex : hint_depth_texture`，与
+  `screen_tex` 一起做反射射线步进（从水面深度出发，沿反射方向逐点投影，
+  与深度缓冲比对命中）。
+- 命中判定用 `ssr_max_diff` 控制厚度容差；`ssr_screen_border_fadeout`
+  让屏幕边缘反射淡出。
+- 反射天空是打不到东西的（天空无深度），SSR 只能反射岸上几何体；
+  掠射角水面用 fresnel 亮蓝 tint 模拟天空倒映（`vec3(0.38,0.62,0.85)*fres*0.55`）。
+- 参数：`ssr_resolution 0.7 / ssr_max_travel 32 / ssr_mix_strength 0.6`。
+  性能敏感时优先降 max_travel。
+
+排错经验：水面像素没变化时先用"命中/未命中"调试色（命中输出绿、未命中输出红）
+渲染一张，看命中分布是否符合物理（俯视中心未命中=反射指向天空，正常；
+平视掠射角有命中=正常）。
+
 ## 4. 渲染对比基线（血泪教训）
 
 - **必须同渲染器对比**：`--rendering-driver opengl3` 走 Compatibility
