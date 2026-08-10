@@ -263,8 +263,8 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/kenney_nature/stump_roundDetailed.glb",
 		"res://assets/models/kenney_nature/log_large.glb",
 		"res://assets/models/kenney_nature/log_stackLarge.glb",
-		"res://assets/models/kenney_nature/lily_large.glb",
-		"res://assets/models/kenney_nature/lily_small.glb",
+		"res://assets/models/polyhaven/periwinkle_plant/periwinkle_plant_2k.gltf",
+		"res://assets/models/polyhaven/periwinkle_plant/periwinkle_plant_2k.gltf",
 		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
@@ -341,8 +341,8 @@ func _build_instanced_nature() -> void:
 		[32, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney stump_roundDetailed
 		[33, 20, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_large
 		[34, 18, -460, 460, -38.0, 26.0, 0.8, 1.3],   # kenney log_stackLarge
-		[35, 12, -460, 460, -40.0, 26.0, 0.8, 1.3],   # kenney lily_large（近岸/浅水）
-		[36, 12, -460, 460, -40.0, 26.0, 0.8, 1.3],   # kenney lily_small
+		[35, 16, -460, 460, -40.0, 26.0, 0.9, 1.4],   # ph periwinkle_plant 岸花
+		[36, 16, -460, 460, -40.0, 26.0, 0.9, 1.4],   # ph periwinkle_plant 岸花
 		[37, 130, -460, 460, -40.0, 28.0, 1.2, 2.1],  # ph island_tree_01 密集背景林（instancer 无碰撞）
 		[38, 150, -460, 460, -40.0, 28.0, 1.3, 2.3],  # ph island_tree_02 密集背景林
 		[39, 100, -460, 460, -40.0, 28.0, 1.1, 2.0],  # ph island_tree_03 密集背景林
@@ -529,36 +529,6 @@ func _build_river() -> void:
 		winst.rotation.y = rng.randf_range(0.0, TAU)
 		var wbase := _scene_aabb(winst).position.y
 		winst.position = Vector3(at.x, at.y - wbase + 0.02, at.z)
-	# 睡莲：精确铺在水面上（沿河道中心，y = 水面高度）
-	var lily_variants := [
-		"res://assets/models/kenney_nature/lily_large.glb",
-		"res://assets/models/kenney_nature/lily_small.glb",
-	]
-	for i in 24:
-		var wx := rng.randf_range(-400.0, 400.0)
-		var cz := _river_center_z(wx)
-		var at := Vector3(wx + rng.randf_range(-3.5, 3.5), 0.0, cz + rng.randf_range(-2.5, 2.5))
-		at.y = terrain.data.get_height(at) + 0.45
-		var lily: Node = load(lily_variants[rng.randi_range(0, 1)]).instantiate()
-		river.add_child(lily)
-		lily.scale = Vector3.ONE * rng.randf_range(0.7, 1.3)
-		lily.rotation.y = rng.randf_range(0.0, TAU)
-		var lbase := _scene_aabb(lily).position.y
-		lily.position = Vector3(at.x, at.y - lbase, at.z)
-	# 河岸水草：贴近河道两侧的浅水区
-	var reed: PackedScene = load("res://assets/models/kenney_nature/grass_leafs.glb")
-	for i in 90:
-		var wx := rng.randf_range(-410.0, 410.0)
-		var cz := _river_center_z(wx)
-		var side := 1.0 if i % 2 == 0 else -1.0
-		var at := Vector3(wx + side * rng.randf_range(3.0, 8.0), 0.0, cz + rng.randf_range(-4.0, 4.0))
-		at.y = terrain.data.get_height(at)
-		var rinst: Node = reed.instantiate()
-		river.add_child(rinst)
-		rinst.scale = Vector3.ONE * rng.randf_range(0.9, 1.5)
-		rinst.rotation.y = rng.randf_range(0.0, TAU)
-		var rbase := _scene_aabb(rinst).position.y
-		rinst.position = Vector3(at.x, at.y - rbase + 0.03, at.z)
 
 
 func _build_ambience() -> void:

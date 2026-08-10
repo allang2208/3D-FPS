@@ -1,33 +1,20 @@
-# 外部资产许可证记录
+# 澶栭儴璧勪骇璁稿彲璇佽褰?
+## _dl_ak47_adamkokrito.glb锛堝綋鍓嶄笅杞界増 AK-47锛?
+- 鏉ユ簮锛歅oly Pizza https://poly.pizza/m/2zXzvGavqci
+- 浣滆€咃細AdamKokrito
+- 璁稿彲璇侊細CC-BY 3.0锛堥渶缃插悕锛?- 缃插悕瑕佹眰锛氫娇鐢ㄦ湰妯″瀷闇€娉ㄦ槑"AK47 by AdamKokrito (Poly Pizza), CC BY 3.0"
+- 鐢ㄩ€旓細3-dfps 榛樿 AK-47 瑙嗘ā锛堜笅杞界増锛?- 2026-08-09 涓嬭浇锛涘凡閫氳繃 test_ads_calibration 鍏ㄧ豢锛堣嚜鍔ㄥ畾鍚?缂╂斁/鏈虹瀯鏍″噯/寮瑰專妫€鍑猴級
 
-## _dl_ak47_adamkokrito.glb（当前下载版 AK-47）
+## akm_sketchfab_prep.obj锛堝綋鍓嶉粯璁ゆ鍣紝2026-08-09 璧凤級
 
-- 来源：Poly Pizza https://poly.pizza/m/2zXzvGavqci
-- 作者：AdamKokrito
-- 许可证：CC-BY 3.0（需署名）
-- 署名要求：使用本模型需注明"AK47 by AdamKokrito (Poly Pizza), CC BY 3.0"
-- 用途：3-dfps 默认 AK-47 视模（下载版）
-- 2026-08-09 下载；已通过 test_ads_calibration 全绿（自动定向/缩放/机瞄校准/弹匣检出）
+- 鏉ユ簮锛歋ketchfab https://sketchfab.com/3d-models/akm-lowpoly-game-ready-b09ba6a7d56246adaff76ad091e4dc72
+- 浣滆€咃細sami uddin锛園rameezuddin14锛?- 璁稿彲璇侊細CC Attribution锛圕C-BY锛夛紝闇€缃插悕
+- 鍘熷涓嬭浇锛?1.9k tris / 11.3k verts / 4096脳4096 PBR 璐村浘锛圱extures/PBR 缁勶紝
+  TGA 杞?PNG 2048 瀛樹簬 assets/models/ak/akm_sketchfab_tex/锛?- 棰勫鐞嗭紙tools/ai-gen/prep_akm_obj.py锛夛細鍓旈櫎鏃佺疆瀛愬脊閬撳叿銆乑鈫扻 杞銆佺煫姝?6掳 鍊炬枩銆?  褰掍竴鍖?1m銆佷繚鐣?UV 骞剁敓鎴?MTL 寮曠敤 PBR 璐村浘
+- PBR 琛ヤ竵锛坱ests/export_pbr_mesh.gd锛夛細Godot OBJ 瀵煎叆鍙悆 albedo/normal锛?  閲戝睘/绮楃硻/AO 鎸夊懡鍚嶇害瀹氳ˉ鍏ュ苟瀵煎嚭 akm_sketchfab_pbr.tres锛堟父鎴忓紩鐢ㄦ璧勬簮锛?- 宸查€氳繃 test_ads_calibration 鍏ㄧ豢锛汫LM 璇勫锛歅BR 鍏ㄩ€氶亾鎺ュ叆鍚庢墦纾?6/10銆侀€犲瀷 7/10
 
-## akm_sketchfab_prep.obj（当前默认武器，2026-08-09 起）
-
-- 来源：Sketchfab https://sketchfab.com/3d-models/akm-lowpoly-game-ready-b09ba6a7d56246adaff76ad091e4dc72
-- 作者：sami uddin（@rameezuddin14）
-- 许可证：CC Attribution（CC-BY），需署名
-- 原始下载：21.9k tris / 11.3k verts / 4096×4096 PBR 贴图（Textures/PBR 组，
-  TGA 转 PNG 2048 存于 assets/models/ak/akm_sketchfab_tex/）
-- 预处理（tools/ai-gen/prep_akm_obj.py）：剔除旁置子弹道具、Z→X 转正、矫正 6° 倾斜、
-  归一化 1m、保留 UV 并生成 MTL 引用 PBR 贴图
-- PBR 补丁（tests/export_pbr_mesh.gd）：Godot OBJ 导入只吃 albedo/normal，
-  金属/粗糙/AO 按命名约定补入并导出 akm_sketchfab_pbr.tres（游戏引用此资源）
-- 已通过 test_ads_calibration 全绿；GLM 评审：PBR 全通道接入后打磨 6/10、造型 7/10
-
-## 备选
-
-- _dl_akm_jtoastie.glb（已删除）：Poly Pizza https://poly.pizza/m/52kQzphmeF ，J-Toastie，CC0；
-  评审造型 4/10，过于抽象，2026-08-09 清理旧资产时一并删除
-- 体素方向候选：CGTrader AK74 Voxel Gun（免费，需注册账号下载）
-  https://www.cgtrader.com/free-3d-models/military/gun/ak74-voxel-gun
+## 澶囬€?
+- _dl_akm_jtoastie.glb锛堝凡鍒犻櫎锛夛細Poly Pizza https://poly.pizza/m/52kQzphmeF 锛孞-Toastie锛孋C0锛?  璇勫閫犲瀷 4/10锛岃繃浜庢娊璞★紝2026-08-09 娓呯悊鏃ц祫浜ф椂涓€骞跺垹闄?- 浣撶礌鏂瑰悜鍊欓€夛細CGTrader AK74 Voxel Gun锛堝厤璐癸紝闇€娉ㄥ唽璐﹀彿涓嬭浇锛?  https://www.cgtrader.com/free-3d-models/military/gun/ak74-voxel-gun
 
 ## TACZ AK-47 (test stand-in, since 2026-08-09, NOT a release asset)
 
@@ -48,13 +35,12 @@
 - Author: Marcel Bankmann
 - License: MIT (see LICENSE.md in the repo); SSR ray-march + depth refraction
   adapted into assets/shaders/river_water.gdshader for the demo stream.
-  （MagicaVoxel 制作，3884 面，含独立弹匣/枪机部件，最贴合"高精度体素像素风"）
-
+  锛圡agicaVoxel 鍒朵綔锛?884 闈紝鍚嫭绔嬪脊鍖?鏋満閮ㄤ欢锛屾渶璐村悎"楂樼簿搴︿綋绱犲儚绱犻"锛?
 ## Poly Haven models (realistic vegetation, since 2026-08-10)
 
 - Source: https://polyhaven.com/models (CC0 - no attribution required)
 - Added: searsia_burchellii, shrub_01, flower_gazania, flower_heliophila,
-  dandelion_01, grass_medium_02 (2k), tree_small_02 (1k)
+  dandelion_01, grass_medium_02 (2k), tree_small_02 (1k), periwinkle_plant (2k)
 - Downloader: tools/ai-gen/download_polyhaven.py
 - Replaced cartoon Kenney props (mushroom_*, flower_*, crops_bambooStageB) removed 2026-08-10.
 ## AmbientCG ground textures (since 2026-08-10)
