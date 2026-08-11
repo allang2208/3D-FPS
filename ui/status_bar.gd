@@ -65,6 +65,9 @@ var _top_kills_lbl: Label
 var _top_hp_fill: ColorRect
 var _top_mp_fill: ColorRect
 var _top_stamina_fill: ColorRect
+var _top_hp_val: Label
+var _top_mp_val: Label
+var _top_stamina_val: Label
 var _exp_bar: ColorRect
 var _stamina_now := 100
 var _stamina_max := 100
@@ -296,12 +299,15 @@ func _build_top_bar() -> void:
 	# 生命 / 魔法小条（标题 + 圆角轨道 + 数值）
 	var hp_box := _add_top_meter_box(hb, "生命", Style.COLOR_HP_HIGH)
 	_top_hp_fill = hp_box[1]
+	_top_hp_val = hp_box[2]
 	_add_top_divider(hb)
 	var mp_box := _add_top_meter_box(hb, "魔法", Style.THEME_MP_BLUE)
 	_top_mp_fill = mp_box[1]
+	_top_mp_val = mp_box[2]
 	_add_top_divider(hb)
 	var sta_box := _add_top_meter_box(hb, "体力", Style.COLOR_STAMINA_FILL)
 	_top_stamina_fill = sta_box[1]
+	_top_stamina_val = sta_box[2]
 
 
 func _make_top_caption(parent: Node, text: String) -> Label:
@@ -347,7 +353,7 @@ func _add_top_divider(parent: Node) -> void:
 
 func _add_top_meter_box(parent: Node, caption: String, color: Color) -> Array:
 	var box := VBoxContainer.new()
-	box.custom_minimum_size = Vector2(88, 0)
+	box.custom_minimum_size = Vector2(122, 0)
 	box.mouse_filter = Control.MOUSE_FILTER_STOP
 	_make_top_caption(box, caption)
 	var row := HBoxContainer.new()
@@ -355,6 +361,13 @@ func _add_top_meter_box(parent: Node, caption: String, color: Color) -> Array:
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_child(row)
 	var fill := _make_top_meter(row, color)
+	var val := Label.new()
+	val.add_theme_font_override("font", _font_mono)
+	val.add_theme_font_size_override("font_size", 10)
+	val.add_theme_color_override("font_color", Style.COLOR_HUD_TEXT)
+	val.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	val.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	row.add_child(val)
 	parent.add_child(box)
 	box.mouse_entered.connect(func() -> void:
 		var rows: Array
@@ -372,7 +385,7 @@ func _add_top_meter_box(parent: Node, caption: String, color: Color) -> Array:
 	box.mouse_exited.connect(func() -> void:
 		if _tip != null:
 			_tip.visible = false)
-	return [box, fill]
+	return [box, fill, val]
 
 
 func _make_top_meter(parent: Node, color: Color) -> ColorRect:
@@ -784,6 +797,8 @@ func set_hp(hp: int, max_hp: int) -> void:
 		_top_hp_fill.anchor_right = pct
 		_top_hp_fill.color = Style.COLOR_HP_HIGH if pct > 0.5 \
 			else (Style.COLOR_HP_MID if pct > low_ratio else Style.COLOR_HP_LOW)
+	if _top_hp_val != null:
+		_top_hp_val.text = "%d/%d" % [_hp_now, _hp_max]
 	_low_hp = pct <= low_ratio
 	if _vignette != null:
 		_vignette.visible = _low_hp
@@ -798,6 +813,8 @@ func set_mp(mp: int, max_mp: int) -> void:
 	var pct := clampf(float(mp) / float(m), 0.0, 1.0)
 	if _top_mp_fill != null:
 		_top_mp_fill.anchor_right = pct
+	if _top_mp_val != null:
+		_top_mp_val.text = "%d/%d" % [_mp_now, _mp_max]
 
 func set_weapon_name(name: String) -> void:
 	_weapon_name = name
@@ -823,6 +840,8 @@ func set_stamina(st: int, max_st: int) -> void:
 	_stamina_max = maxi(1, max_st)
 	if _top_stamina_fill != null:
 		_top_stamina_fill.anchor_right = clampf(float(_stamina_now) / float(_stamina_max), 0.0, 1.0)
+	if _top_stamina_val != null:
+		_top_stamina_val.text = "%d/%d" % [_stamina_now, _stamina_max]
 
 func set_exp(v: int, max_v: int) -> void:
 	_exp_now = maxi(0, v)
