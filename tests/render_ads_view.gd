@@ -41,6 +41,8 @@ func _process(_delta: float) -> bool:
 			wd.model_scene = load(model_path)
 			gun.set("data", wd)
 		cam.add_child(gun)
+		gun.set_process(false)
+		gun.set_physics_process(false)
 		_gun = gun
 	if _frames == 12:
 		# 腰射
@@ -48,10 +50,18 @@ func _process(_delta: float) -> bool:
 		_gun.set("_ads_factor", 0.0)
 	if _frames == 15:
 		_save("user://gun_hip.png")
-		# 进入机瞄
-		_gun.set("_ads", true)
-		_gun.set("_ads_factor", 0.999)
-	if _frames == 22:
+		# 进入机瞄：直接摆到 ADS 完成姿态（ADS 姿态本身由 gun 数学校准保证 rear/front 投影居中）
+		_gun.position = _gun.get("_ads_pos")
+		_gun.rotation = _gun.get("_ads_rot")
+	if _frames == 45:
+		var cam := root.get_node("Cam") as Camera3D
+		var rear: Vector3 = _gun.get("_sight_rear")
+		print("F45 gun_pos=", _gun.position, " rot=", _gun.rotation, " ads_factor=", _gun.get("_ads_factor"))
+		print("F45 rear_world=", _gun.global_transform * rear,
+				" screen=", cam.unproject_position(_gun.global_transform * rear))
+		var front: Vector3 = _gun.get("_sight_front")
+		print("F45 front_world=", _gun.global_transform * front,
+				" screen=", cam.unproject_position(_gun.global_transform * front))
 		_save("user://gun_ads.png")
 		quit(0)
 		return false

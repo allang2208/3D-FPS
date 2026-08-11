@@ -47,7 +47,7 @@ func _check() -> void:
 	print("muzzle_local=", muzzle)
 	print("ads_pos=", ads_pos, " ads_rot=", ads_rot, " rear_dist=", rear_dist)
 	print("rear=", rear, " front=", front)
-	print("mag_pos=", _gun.get("_mag").position, " mag_base_y=", _gun.get("_mag_base_y"))
+	print("mag_pos=", _gun.get("_mag").position, " mag_base=", _gun.get("_mag_base"))
 	# 1. 枪口朝前（-Z）：允许 rot_y=±90（依枪模枪口朝向而定）
 	# accept rot_y in {0, +-90, 180} (Z-axis models use 0/180)
 	if not (absf(absf(rot_y) - 90.0) <= 1.0 or absf(rot_y) <= 1.0 or absf(absf(rot_y) - 180.0) <= 1.0):
