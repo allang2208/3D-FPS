@@ -86,7 +86,9 @@ func _build_mesh() -> void:
 	skin.set_bind_count(3)
 	for i in 3:
 		skin.set_bind_name(i, _skel.get_bone_name(i))
-		skin.set_bind_pose(i, _skel.get_bone_global_rest(i))
+		# 关键：Skin 的 bind pose 存的是逆绑定矩阵（= global rest 的逆）。
+		# 不取逆会导致顶点被变换两倍、全部甩出屏幕外（蒙皮手臂一直隐形）。
+		skin.set_bind_pose(i, _skel.get_bone_global_rest(i).affine_inverse())
 	var mi := MeshInstance3D.new()
 	mi.name = "ArmMesh"
 	mi.mesh = mesh
