@@ -516,11 +516,12 @@ func _clear_buff_items() -> void:
 	_buff_sig = ""
 
 func _add_buff_item(e: Dictionary) -> void:
-	var color := Color.html(String(e["color"])) if String(e["color"]).is_valid_html_color() else Color(0.36, 0.3, 0.25)
+	var raw_color := String(e.get("color", ""))
+	var color: Color = Color.html(raw_color) if raw_color.is_valid_html_color() else Style.COLOR_HUD_BORDER
 	var panel := Panel.new()
 	panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(42.0 / 255.0, 37.0 / 255.0, 32.0 / 255.0, 0.85)
+	sb.bg_color = Style.COLOR_HUD_BG
 	sb.border_color = color
 	sb.set_border_width_all(2)
 	sb.set_corner_radius_all(8)
@@ -544,13 +545,13 @@ func _add_buff_item(e: Dictionary) -> void:
 	name_lbl.text = String(e["name"]) + (" x%d" % stacks_n if stacks_n > 1 else "")
 	name_lbl.add_theme_font_override("font", _font_bold)
 	name_lbl.add_theme_font_size_override("font_size", 12)
-	name_lbl.add_theme_color_override("font_color", Color(0.83, 0.77, 0.66))
+	name_lbl.add_theme_color_override("font_color", Style.COLOR_HUD_TEXT)
 	name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	row.add_child(name_lbl)
 	var time_lbl := Label.new()
 	time_lbl.add_theme_font_override("font", _font_mono)
 	time_lbl.add_theme_font_size_override("font_size", 11)
-	time_lbl.add_theme_color_override("font_color", Color(0.54, 0.49, 0.42))
+	time_lbl.add_theme_color_override("font_color", Style.COLOR_HUD_DIM)
 	time_lbl.custom_minimum_size = Vector2(24, 0)
 	time_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	time_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
