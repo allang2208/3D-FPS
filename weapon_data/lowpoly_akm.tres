@@ -12,6 +12,7 @@ script = ExtResource("1_wd")
 weapon_name = "AKM (low-poly Sketchfab)"
 model_scene = ExtResource("2_wd")
 mag_scene = ExtResource("6_wd")
+mag_offset = Vector3(0.009488, -0.082398, 0.02839)
 fire_interval = 0.13
 damage = 25
 mag_size = 30

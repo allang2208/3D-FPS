@@ -91,7 +91,7 @@ var _smoke: CPUParticles3D
 var _shoot_tail: AudioStreamPlayer
 var _kill_player: AudioStreamPlayer
 var _mag: Node3D
-var _mag_base_y := -0.14
+var _mag_base := Vector3.ZERO
 var _model: Node3D
 var _muzzle_local := Vector3(0, 0.02, -0.5)
 var _eject_local := Vector3(0.045, 0.045, -0.10)
@@ -279,26 +279,31 @@ func _process(delta: float) -> void:
 	var reload_rot := Vector3.ZERO
 	if _reload_t > 0.0:
 		var prog := 1.0 - _reload_t / data.reload_time
-		# 换弹分段：卸下旧弹匣(0-0.35) → 停顿/取新弹匣(0.35-0.60) → 插入(0.60-1.0)
-		var mag_out := 0.0
-		if prog < 0.35:
-			mag_out = _ease_out(clampf(prog / 0.35, 0.0, 1.0))
-		elif prog < 0.60:
-			mag_out = 1.0
-		else:
-			mag_out = 1.0 - _ease_in(clampf((prog - 0.60) / 0.40, 0.0, 1.0))
-		# 枪身上抬 + 抬头右倾：弹匣舱位进画面，弹匣下滑时能看清分离
-		reload_pos = Vector3(0, mag_out * 0.18, mag_out * 0.03)
-		reload_rot = Vector3(-mag_out * 0.08, 0, mag_out * 0.05)
+		# 换弹五段（prog 0→1）：
+		#   0.00-0.15 手就位（枪轻抬前送，弹匣未动）
+		#   0.15-0.40 卸匣：弹匣下滑+后倾+侧移脱出
+		#   0.40-0.75 停驻：弹匣持在手中，枪身侧倾展示弹匣舱
+		#   0.75-0.95 插回：弹匣沿原路径回位
+		#   0.95-1.00 收手回握把
+		var seat := _ease_out(clampf(prog / 0.15, 0.0, 1.0))
+		var pull := _ease_out(clampf((prog - 0.15) / 0.25, 0.0, 1.0))
+		var insert := _ease_in_out(clampf((prog - 0.75) / 0.20, 0.0, 1.0))
+		var mag_out := pull * (1.0 - insert)
 		if _mag:
-			_mag.position.y = _mag_base_y - mag_out * _mag_slide
-			# 弹匣卸下时后倾、插入时回正（模拟取出/装回角度）
-			_mag.rotation.x = mag_out * 0.45
+			_mag.position = _mag_base + Vector3(mag_out * 0.045, -mag_out * _mag_slide, mag_out * 0.065)
+			# 卸匣时后倾+侧滚、插回时沿原路径回正（模拟取出/装回角度）
+			_mag.rotation.x = mag_out * 0.5
+			_mag.rotation.z = -mag_out * 0.12
+		# 枪身：卸匣时上抬右倾露出弹匣舱；插回/收手时回正
+		var raise := mag_out * (0.25 + 0.75 * seat)
+		reload_pos = Vector3(0, raise * 0.12, mag_out * 0.02 - seat * 0.015)
+		reload_rot = Vector3(-raise * 0.08, 0, raise * 0.055)
 	else:
 		# 换弹结束：弹匣复位（防止停在半途）
 		if _mag:
-			_mag.position.y = _mag_base_y
+			_mag.position = _mag_base
 			_mag.rotation.x = 0.0
+			_mag.rotation.z = 0.0
 	# 枪口翻转：绕枪口旋转的位置补偿（枪口保持，枪身下压）
 	var flip_correction := Vector3.ZERO
 	if absf(_flip_rot) > 0.0005:
@@ -481,6 +486,9 @@ func _ease_in(t: float) -> float:
 
 func _ease_out(t: float) -> float:
 	return 1.0 - (1.0 - t) * (1.0 - t)
+
+func _ease_in_out(t: float) -> float:
+	return t * t * (3.0 - 2.0 * t)
 
 func _update_pose(delta: float) -> void:
 	var spd := 0.0
@@ -835,17 +843,16 @@ func _calibrate_viewmodel() -> void:
 			# 独立弹匣 Mesh：节点是 _model 子节点（自带旋转/缩放），局部位置用模型原始坐标
 			if data != null and data.mag_offset != Vector3.ZERO:
 				_mag.position = data.mag_offset
-				_mag_base_y = _mag.position.y
 			else:
 				_mag.position = Vector3.ZERO
-				_mag_base_y = 0.0
-			_mag_slide = 0.30 / scale
+			# 下滑量上限 0.20：超过后弹匣脱出过远，程序化 IK 手臂够不到（换弹看起来断手）
+			_mag_slide = minf(0.30 / scale, 0.20)
 		else:
 			var mag_center := _find_mag_center(verts, axis, muzzle_sign)
 			if mag_center != Vector3.ZERO:
 				_mag.position = to_gun.call(mag_center) + Vector3(0, 0.022, 0)
 				_mag.scale = Vector3.ONE * scale
-				_mag_base_y = _mag.position.y
+		_mag_base = _mag.position
 	# ADS 求解：旋转让照门→准星连线指向相机光轴(-Z)，再平移让照门落到光轴上
 	var d: Vector3 = front - rear
 	if d.length_squared() < 0.0001:
