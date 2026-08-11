@@ -245,6 +245,11 @@ func _ready() -> void:
 	_smoke.color = Color(0.75, 0.75, 0.8, 0.5)
 	add_child(_smoke)
 	_player = get_parent().get_parent() as CharacterBody3D
+	# 第一人称左臂视模（支持手）：IterateIK3D 驱动手抓弹匣（换弹跟随），任何武器通用
+	var arms := Node3D.new()
+	arms.name = "LeftArm"
+	arms.set_script(load("res://scripts/viewmodel_arms.gd"))
+	add_child(arms)
 	# 相机联动：镜像弹簧同参数驱动（枪/镜头同频同相）
 	var cam := _camera()
 	if cam:
