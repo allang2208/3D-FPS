@@ -191,7 +191,7 @@ func _build_terrain() -> Terrain3D:
 		ta.albedo_texture = load(PREP_TEX % [tex_ids[i], "alb_ht"])
 		ta.normal_texture = load(PREP_TEX % [tex_ids[i], "nrm_rgh"])
 		# 参考图地面更"厚实"：法线强度略提、AO 更强，配合新 alpha 高度混合
-		ta.normal_depth = 1.1
+		ta.normal_depth = 1.5
 		ta.ao_strength = 2.5
 		ta.uv_scale = uv_scales[i]
 		ta.detiling_rotation = 0.12
