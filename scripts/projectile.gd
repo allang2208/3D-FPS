@@ -1,7 +1,9 @@
 class_name Projectile
 extends Node3D
 ## 标准弹道飞行：子弹以恒定速度在空中飞行，逐帧扫描射线（防止高速穿墙），
-## 命中墙体/敌人时结算伤害并生成火花，距离或寿命到头自动消失。
+## 命中墙体/敌人时结算伤害并生成火花，距离或寿命到头自动回收（对象池复用）。
+## 对象池：ProjectilePool 预分配 N 发，命中/寿命结束回收到池里而不是 queue_free；
+## 回收时断开 hit_enemy/killed 连接，避免复用后旧回调残留导致重复结算。
 
 signal hit_enemy(headshot: bool)
 signal killed(headshot: bool)
@@ -19,22 +21,57 @@ var _vy := 0.0
 var _age := 0.0
 var _traveled := 0.0
 var _scene_root: Node
+var _pool: ProjectilePool
 
 # 共享网格/材质：每发子弹不再 new 一份（高频分配优化）
 static var _shared_mesh: Mesh
 static var _shared_mat: Material
 
 static func fire(scene_root: Node, origin: Vector3, dir: Vector3, speed := 90.0, damage := 25, gravity := 2.5) -> Projectile:
-	var p := Projectile.new()
-	p._dir = dir.normalized()
-	p._speed = speed
-	p._damage = damage
-	p._gravity = gravity
-	p._scene_root = scene_root
-	scene_root.add_child(p)
-	p.global_position = origin
-	p._build_visual()
-	return p
+	return ProjectilePool.for_scene(scene_root).acquire(origin, dir, speed, damage, gravity)
+
+## 池内一次性初始化（预分配时调用）
+func _init_pooled(pool: ProjectilePool) -> void:
+	_pool = pool
+	_build_visual()
+	_set_active(false)
+	visible = false
+
+## 从池中取出并发射
+func _acquire(origin: Vector3, dir: Vector3, speed: float, damage: int, gravity: float) -> void:
+	_dir = dir.normalized()
+	_speed = speed
+	_damage = damage
+	_gravity = gravity
+	_vy = 0.0
+	_age = 0.0
+	_traveled = 0.0
+	_scene_root = _pool.get_parent()
+	global_position = origin
+	# 节点自身朝向弹道方向（圆柱长轴 +Y 对齐弹道，命中判定用 global_position 不受影响）
+	rotation = Basis(Quaternion(Vector3.UP, _dir)).get_euler()
+	_set_active(true)
+	visible = true
+
+## 命中/寿命结束：回收到池里（断开信号防重复回调）
+func _release() -> void:
+	_deactivate()
+	if _pool != null:
+		_pool.recycle(self)
+	else:
+		queue_free()
+
+## 停用（满池复用时由池调用：只停用，不入可用区）
+func _deactivate() -> void:
+	_set_active(false)
+	visible = false
+	for conn in get_signal_connection_list("hit_enemy"):
+		hit_enemy.disconnect(conn["callable"] as Callable)
+	for conn in get_signal_connection_list("killed"):
+		killed.disconnect(conn["callable"] as Callable)
+
+func _set_active(on: bool) -> void:
+	set_physics_process(on)
 
 func _build_visual() -> void:
 	var mesh := MeshInstance3D.new()
@@ -53,13 +90,12 @@ func _build_visual() -> void:
 		_shared_mat = mat
 	mesh.mesh = _shared_mesh
 	mesh.material_override = _shared_mat
-	mesh.transform.basis = Basis(Quaternion(Vector3.UP, _dir))
 	add_child(mesh)
 
 func _physics_process(delta: float) -> void:
 	_age += delta
 	if _age >= MAX_LIFETIME or _traveled >= MAX_DISTANCE:
-		queue_free()
+		_release()
 		return
 	_vy -= _gravity * delta
 	var step := _speed * delta
@@ -83,7 +119,7 @@ func _physics_process(delta: float) -> void:
 			if collider.take_damage(dmg):
 				killed.emit(headshot)
 			hit_enemy.emit(headshot)
-		queue_free()
+		_release()
 		return
 	global_position = to
 	_traveled += step
