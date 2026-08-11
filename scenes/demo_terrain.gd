@@ -41,7 +41,6 @@ func _ready() -> void:
 	_build_ambience()
 	_build_particle_grass()
 	_build_trees()
-	_build_props()
 	_build_player()
 	_build_hud()
 	_build_return_portal()
@@ -146,11 +145,15 @@ func _build_colormap() -> Image:
 				# River corridor: warm tan bed fading into damp bank green.
 				var edge := clampf(dist / tint_r, 0.0, 1.0)
 				rgb = Color(0.88, 0.84, 0.76).lerp(Color(0.90, 0.95, 0.86), edge)
-			elif patch > 0.38:
+			elif patch > 0.28:
 				rgb = Color(0.90, 0.92, 0.84)  # warm sunlit patch
-			elif patch < -0.38:
-				rgb = Color(0.86, 0.89, 0.90)  # cool rocky patch
-			var v := tint_noise.get_noise_2d(x, y) * 0.04
+			elif patch > 0.08:
+				rgb = Color(0.92, 0.95, 0.89)  # warm-green mid patch
+			elif patch < -0.28:
+				rgb = Color(0.84, 0.88, 0.86)  # cool mossy patch
+			elif patch < -0.08:
+				rgb = Color(0.91, 0.94, 0.90)  # cool-green mid patch
+			var v := tint_noise.get_noise_2d(x, y) * 0.055
 			rgb = Color(
 				clampf(rgb.r + v, 0.76, 1.0),
 				clampf(rgb.g + v, 0.76, 1.0),
@@ -241,16 +244,16 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/shrub_02/shrub_02_2k.gltf",
 		"res://assets/models/polyhaven/shrub_03/shrub_03_2k.gltf",
 		"res://assets/models/polyhaven/shrub_04/shrub_04_2k.gltf",
-		"res://assets/models/kenney_nature/grass.glb",
-		"res://assets/models/kenney_nature/grass_large.glb",
-		"res://assets/models/kenney_nature/grass_leafs.glb",
+		"res://assets/models/polyhaven/grass_bermuda_01/grass_bermuda_01_2k.gltf",
+		"res://assets/models/polyhaven/grass_medium_01/grass_medium_01_2k.gltf",
+		"res://assets/models/polyhaven/grass_medium_02/grass_medium_02_2k.gltf",
 		"res://assets/models/polyhaven/flower_gazania/flower_gazania_2k.gltf",
 		"res://assets/models/polyhaven/flower_heliophila/flower_heliophila_2k.gltf",
 		"res://assets/models/polyhaven/dandelion_01/dandelion_01_2k.gltf",
-		"res://assets/models/kenney_nature/stump_old.glb",
-		"res://assets/models/kenney_nature/stump_round.glb",
-		"res://assets/models/kenney_nature/log.glb",
-		"res://assets/models/kenney_nature/log_stack.glb",
+		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
+		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
+		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
+		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
 		"res://assets/models/kenney_nature/rock_largeA.glb",
 		"res://assets/models/kenney_nature/rock_smallA.glb",
 		"res://assets/models/polyhaven/grass_medium_01/grass_medium_01_2k.gltf",
@@ -263,16 +266,16 @@ func _build_terrain() -> Terrain3D:
 		"res://assets/models/polyhaven/weed_plant_02/weed_plant_02_2k.gltf",
 		"res://assets/models/polyhaven/rock_moss_set_01/rock_moss_set_01_2k.gltf",
 		"res://assets/models/polyhaven/searsia_burchellii/searsia_burchellii_2k.gltf",
-		"res://assets/models/kenney_nature/hanging_moss.glb",
+		"res://assets/models/polyhaven/moss_01/moss_01_2k.gltf",
 		"res://assets/models/polyhaven/searsia_lucida/searsia_lucida_2k.gltf",
-		"res://assets/models/kenney_nature/grass_leafsLarge.glb",
+		"res://assets/models/polyhaven/leafy_grass/leafy_grass_2k.gltf",
 		"res://assets/models/polyhaven/wild_rooibos_bush/wild_rooibos_bush_2k.gltf",
 		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",
 		"res://assets/models/polyhaven/moss_01/moss_01_2k.gltf",
-		"res://assets/models/kenney_nature/stump_oldTall.glb",
-		"res://assets/models/kenney_nature/stump_roundDetailed.glb",
-		"res://assets/models/kenney_nature/log_large.glb",
-		"res://assets/models/kenney_nature/log_stackLarge.glb",
+		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
+		"res://assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf",
+		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
+		"res://assets/models/polyhaven/dead_tree_trunk_02/dead_tree_trunk_02_2k.gltf",
 		"res://assets/models/polyhaven/periwinkle_plant/periwinkle_plant_2k.gltf",
 		"res://assets/models/polyhaven/periwinkle_plant/periwinkle_plant_2k.gltf",
 		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
@@ -706,6 +709,7 @@ func _build_trees() -> void:
 		"res://assets/models/polyhaven/island_tree_01/island_tree_01_1k.gltf",
 		"res://assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf",
 		"res://assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf",  # small tree
+		"res://assets/models/polyhaven/quiver_tree_02/quiver_tree_02_2k.gltf",  # quiver tree 02
 		"res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf",  # 针叶小树
 	]
 	var centers := [
@@ -735,15 +739,17 @@ func _build_trees() -> void:
 func _pick_tree(paths: Array[String]) -> String:
 	# 加权：island_tree_02 占 45%，01 / 03 各 20%，fir_sapling 15%
 	var r := rng.randf()
-	if r < 0.40:
+	if r < 0.35:
 		return paths[0]
-	if r < 0.58:
+	if r < 0.51:
 		return paths[1]
-	if r < 0.75:
+	if r < 0.66:
 		return paths[2]
-	if r < 0.85:
+	if r < 0.75:
 		return paths[3]
-	return paths[4]
+	if r < 0.88:
+		return paths[4]
+	return paths[5]
 
 func _place_tree(path: String, at2: Vector2, scale: float) -> void:
 	var h := terrain.data.get_height(Vector3(at2.x, 0, at2.y))
@@ -799,24 +805,6 @@ func _place_scene(path: String, at: Vector3, scale: float) -> void:
 	var base := _scene_aabb(inst).position.y
 	inst.position = Vector3(at.x, terrain.data.get_height(at) - base + 0.05, at.z)
 
-func _build_props() -> void:
-	var props := [
-		"res://assets/models/kenney_tower_defense/wood-structure.glb",
-		"res://assets/models/kenney_tower_defense/wood-structure-high.glb",
-		"res://assets/models/kenney_tower_defense/weapon-ammo-bullet.glb",
-		"res://assets/models/kenney_tower_defense/tower-round-base.glb",
-	]
-	for i in 14:
-		var path: String = props[i % props.size()]
-		var pos := Vector3(rng.randf_range(-400, 400), 0.0, rng.randf_range(-400, 400))
-		pos.y = terrain.data.get_height(pos)
-		if pos.y < -30.0 or pos.y > 25.0:
-			continue
-		var inst: Node = load(path).instantiate()
-		add_child(inst)
-		inst.rotation.y = rng.randf_range(0.0, TAU)
-		var base := _scene_aabb(inst).position.y
-		inst.position = Vector3(pos.x, pos.y - base + 0.05, pos.z)
 
 func _build_player() -> void:
 	var player := CharacterBody3D.new()
