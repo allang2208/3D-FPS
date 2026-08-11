@@ -12,12 +12,12 @@ extends Node3D
 ## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
 @export var data: WeaponData = preload("res://weapon_data/lowpoly_akm.tres")
 
-const BASE_POS := Vector3(0.34, -0.18, -0.62)  # 后摆持枪位：枪托出画面右下（腰射基准，被 data.view_pos 覆盖）
+const BASE_POS := Vector3(0.28, -0.26, -0.36)  # 拉近持枪位：枪更大，枪托/弹匣近端超出画面（腰射基准，被 data.view_pos 覆盖）
 
 # 视模自动校准（从 GLB 网格测量，换枪模自动适配）
 const VIEWMODEL_LENGTH := 0.62          # 视模全长目标（米）
-const ADS_REAR_CLEAR := 0.16            # ADS 时枪托末端距相机最小距离（米）
-const ADS_REAR_DIST_MIN := 0.50         # 照门到相机距离下限（后摆：枪更远更小，枪托不抢视线）
+const ADS_REAR_CLEAR := 0.12            # ADS 时枪托末端距相机最小距离（米）
+const ADS_REAR_DIST_MIN := 0.34         # 照门到相机距离下限（拉近：枪更大更清晰）
 const ADS_REAR_DIST_MAX := 0.75         # 上限（枪不能太远）
 
 # GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
