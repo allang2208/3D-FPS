@@ -3,16 +3,22 @@ extends SceneTree
 # 地形碰撞测试：加载旷野场景，等物理运行后检查玩家是否站在地形表面（未掉穿）。
 
 var frames := 0
+var _loaded := false
 
 
 func _init() -> void:
-	var scene: Node = load("res://scenes/demo_terrain.tscn").instantiate()
-	root.add_child(scene)
-	current_scene = scene
 	process_frame.connect(_on_frame)
 
 
 func _on_frame() -> void:
+	# 延迟到第一帧再加载场景：-s 模式下 autoload（如 HUD）在 _init 时尚未注册，
+	# 提前 load 会让 demo_terrain.gd 编译失败（Identifier not found: HUD）。
+	if not _loaded:
+		_loaded = true
+		var scene: Node = load("res://scenes/demo_terrain.tscn").instantiate()
+		root.add_child(scene)
+		current_scene = scene
+		return
 	frames += 1
 	if frames < 20:
 		return

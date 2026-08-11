@@ -200,42 +200,56 @@ func _build_terrain() -> Terrain3D:
 		ta.detiling_rotation = 0.12
 		t.assets.set_texture(i, ta)
 
-	# 程序化高度图：低频山体 + 高频微起伏（避免地面过平），
-	# 并沿蛇形路径刻一条溪流河道（低洼带，供后续水体 shader 使用）
+	# 地形数据缓存：region 文件已落盘时直接加载，跳过 2×1M 像素的 GDScript 重建
+	# （高度图 + colormap 各 1024² 循环 + 噪声采样），传送门来回不再卡。
+	# 生成器是确定性的（种子固定），缓存与程序化重建数据完全一致，画面零变化。
 	t.region_size = 512
-	var macro := FastNoiseLite.new()
-	macro.noise_type = FastNoiseLite.TYPE_PERLIN
-	macro.frequency = 0.004
-	macro.fractal_octaves = 4
-	macro.fractal_gain = 0.5
-	var micro := FastNoiseLite.new()
-	micro.noise_type = FastNoiseLite.TYPE_PERLIN
-	micro.frequency = 0.035
-	micro.fractal_octaves = 2
-	var img := Image.create_empty(1024, 1024, false, Image.FORMAT_RF)
-	for x in img.get_width():
-		for y in img.get_height():
-			var wx := x - 512.0
-			var wz := y - 512.0
-			# 平缓起伏草甸：宏观 ±8m + 高频微起伏 ±1.5m（实际米，除以 import scale=45）
-			var macro_m := macro.get_noise_2d(x, y) * 8.0
-			var micro_m := micro.get_noise_2d(x, y) * 1.5
-			var h := (macro_m + micro_m) / 45.0
-			# 溪流河谷：走廊内地形平滑降到一条缓坡河床（西 -8m → 东 -12m），
-			# 水面全程连续、两侧缓坡抬升回草甸，杜绝“碎水面悬浮”
-			var cz := _river_center_z(wx)
-			var dist := absf(wz - cz)
-			# Downstream valley widens into a lake basin (R 55 -> 150 west of x=-350)
-			var R := 55.0 + maxf(0.0, lerpf(0.0, 95.0, clampf((-350.0 - wx) / 80.0, 0.0, 1.0)))
-			if dist < R:
-				var tt := clampf(dist / R, 0.0, 1.0)
-				var edge := smoothstep(0.35, 1.0, tt)
-				var bed_m := lerpf(-4.0, -7.0, clampf((wx + 430.0) / 860.0, 0.0, 1.0))
-				bed_m += micro.get_noise_2d(x + 512, y + 512) * 0.6
-				h = lerpf(bed_m / 45.0, h, edge)
-			img.set_pixel(x, y, Color(h, 0.0, 0.0, 1.0))
-	t.data.import_images([img, null, _build_colormap()], Vector3(-512, 0, -512), 0.0, 45.0)
-	t.data.save_directory(DATA_DIR)
+	var data_dir_abs := ProjectSettings.globalize_path(DATA_DIR)
+	var region_files: Array[String] = []
+	if DirAccess.dir_exists_absolute(data_dir_abs):
+		for f in DirAccess.get_files_at(data_dir_abs):
+			if f.ends_with(".res"):
+				region_files.append(f)
+	if region_files.size() > 0 and t.data.has_method("load_directory"):
+		t.data.load_directory(DATA_DIR)
+		print("[terrain] loaded %d cached region file(s), skip heightmap rebuild" % region_files.size())
+	else:
+		# 程序化高度图：低频山体 + 高频微起伏（避免地面过平），
+		# 并沿蛇形路径刻一条溪流河道（低洼带，供后续水体 shader 使用）
+		var macro := FastNoiseLite.new()
+		macro.noise_type = FastNoiseLite.TYPE_PERLIN
+		macro.frequency = 0.004
+		macro.fractal_octaves = 4
+		macro.fractal_gain = 0.5
+		var micro := FastNoiseLite.new()
+		micro.noise_type = FastNoiseLite.TYPE_PERLIN
+		micro.frequency = 0.035
+		micro.fractal_octaves = 2
+		var img := Image.create_empty(1024, 1024, false, Image.FORMAT_RF)
+		for x in img.get_width():
+			for y in img.get_height():
+				var wx := x - 512.0
+				var wz := y - 512.0
+				# 平缓起伏草甸：宏观 ±8m + 高频微起伏 ±1.5m（实际米，除以 import scale=45）
+				var macro_m := macro.get_noise_2d(x, y) * 8.0
+				var micro_m := micro.get_noise_2d(x, y) * 1.5
+				var h := (macro_m + micro_m) / 45.0
+				# 溪流河谷：走廊内地形平滑降到一条缓坡河床（西 -8m → 东 -12m），
+				# 水面全程连续、两侧缓坡抬升回草甸，杜绝“碎水面悬浮”
+				var cz := _river_center_z(wx)
+				var dist := absf(wz - cz)
+				# Downstream valley widens into a lake basin (R 55 -> 150 west of x=-350)
+				var R := 55.0 + maxf(0.0, lerpf(0.0, 95.0, clampf((-350.0 - wx) / 80.0, 0.0, 1.0)))
+				if dist < R:
+					var tt := clampf(dist / R, 0.0, 1.0)
+					var edge := smoothstep(0.35, 1.0, tt)
+					var bed_m := lerpf(-4.0, -7.0, clampf((wx + 430.0) / 860.0, 0.0, 1.0))
+					bed_m += micro.get_noise_2d(x + 512, y + 512) * 0.6
+					h = lerpf(bed_m / 45.0, h, edge)
+				img.set_pixel(x, y, Color(h, 0.0, 0.0, 1.0))
+		t.data.import_images([img, null, _build_colormap()], Vector3(-512, 0, -512), 0.0, 45.0)
+		t.data.save_directory(DATA_DIR)
+		print("[terrain] heightmap rebuilt and saved to region files")
 	t.collision.set_mode(Terrain3DCollision.FULL_GAME)  # 全量运行时碰撞（1km 地图性能足够）
 	t.collision.build()
 
