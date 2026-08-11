@@ -56,19 +56,20 @@ func _build_environment() -> void:
 	var sky := Sky.new()
 	var mat := PanoramaSkyMaterial.new()
 	mat.panorama = load(HDRI)
-	mat.energy_multiplier = 1.1  # 阴天 HDRI：天空不要太抢，把光权让给太阳
+	mat.energy_multiplier = 0.9  # 阴天 HDRI：天空不要太抢，把光权让给太阳
 	sky.sky_material = mat
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.35
+	env.ambient_light_energy = 0.28
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	# 曝光平衡（实测标定）：exposure 1.4 + 天空能量 2.2 + 低太阳/环境光
 	# → 天空恢复可见 val≈0.51，地面保持参考图亮度 val≈0.33-0.36
-	env.tonemap_exposure = 1.2
+	env.tonemap_exposure = 1.02
 	env.adjustment_enabled = true
 	env.adjustment_saturation = 1.08
-	env.adjustment_contrast = 1.04
+	env.adjustment_brightness = 0.98
+	env.adjustment_contrast = 1.06
 	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
 	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
 	env.fog_enabled = true
@@ -102,7 +103,7 @@ func _build_light() -> void:
 	var light := DirectionalLight3D.new()
 	light.name = "Sun"
 	light.rotation_degrees = Vector3(-30, 35, 0)
-	light.light_energy = 0.7
+	light.light_energy = 0.62
 	light.light_color = Color(1.0, 0.97, 0.90)
 	light.shadow_enabled = true
 	add_child(light)
