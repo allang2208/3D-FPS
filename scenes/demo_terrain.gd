@@ -66,6 +66,9 @@ func _build_environment() -> void:
 	# 曝光平衡（实测标定）：exposure 1.4 + 天空能量 2.2 + 低太阳/环境光
 	# → 天空恢复可见 val≈0.51，地面保持参考图亮度 val≈0.33-0.36
 	env.tonemap_exposure = 1.2
+	env.adjustment_enabled = true
+	env.adjustment_saturation = 1.08
+	env.adjustment_contrast = 1.04
 	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
 	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
 	env.fog_enabled = true
@@ -178,8 +181,9 @@ func _build_terrain() -> Terrain3D:
 	# 泥土(037)、沙(080)、岩(063)。uv_scale 越小纹理越大。
 	var tex_ids := ["grass001", "grass004", "grass005", "grass007",
 		"ground020", "ground030", "ground037", "ground080", "rock063",
-		"ground106", "ground092c"]
-	var uv_scales := [0.08, 0.08, 0.09, 0.09, 0.08, 0.06, 0.08, 0.06, 0.05, 0.07, 0.07]
+		"ground106", "ground092c",
+		"scatteredleaves008", "gravel041"]
+	var uv_scales := [0.08, 0.08, 0.09, 0.09, 0.08, 0.06, 0.08, 0.06, 0.05, 0.07, 0.07, 0.06, 0.05]
 	for i in tex_ids.size():
 		var ta := Terrain3DTextureAsset.new()
 		ta.name = tex_ids[i]
@@ -523,18 +527,18 @@ func _build_river() -> void:
 		inst.position = Vector3(at.x, at.y - base + 0.05, at.z)
 	# Submerged stones: half-hidden in the shallow stream so they stay visible
 	# through the transparent water, matching the reference "clear stream".
-	for i in 34:
+	for i in 46:
 		var wx := rng.randf_range(-410.0, 410.0)
 		var cz := _river_center_z(wx)
 		var at := Vector3(wx + rng.randf_range(-3.2, 3.2), 0.0, cz + rng.randf_range(-2.2, 2.2))
 		at.y = terrain.data.get_height(at) + 0.06
 		var winst: Node = load(rock_variants[rng.randi_range(0, rock_variants.size() - 1)]).instantiate()
 		river.add_child(winst)
-		winst.scale = Vector3.ONE * (2.2 if i % 5 == 0 else rng.randf_range(0.5, 1.4))
+		winst.scale = Vector3.ONE * (2.2 if i % 3 == 0 else rng.randf_range(0.5, 1.4))
 		winst.rotation.y = rng.randf_range(0.0, TAU)
 		var wbase := _scene_aabb(winst).position.y
 		winst.position = Vector3(at.x, at.y - wbase + 0.02, at.z)
-		if i % 5 == 0:
+		if i % 3 == 0:
 			_place_rock_foam(river, Vector3(at.x, at.y + 0.55, at.z), winst.scale.x)
 	# Distant lake: ellipse water surface over the widened west basin.
 	var lake_cz := _river_center_z(-430.0)
