@@ -551,18 +551,15 @@ func _update_tab_styles() -> void:
 	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Style.COLOR_DIM_TEXT)
 	_tab_skill.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "skill" else Style.COLOR_DIM_TEXT)
 	_tab_codex.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "codex" else Style.COLOR_DIM_TEXT)
-	_tab_status.add_theme_font_override("font", _font_title if _current_tab == "status" else _font_section)
-	_tab_equip.add_theme_font_override("font", _font_title if _current_tab == "equip" else _font_section)
-	_tab_skill.add_theme_font_override("font", _font_title if _current_tab == "skill" else _font_section)
-	_tab_codex.add_theme_font_override("font", _font_title if _current_tab == "codex" else _font_section)
 
 func _tab_style(active: bool) -> StyleBox:
 	if active:
-		# 参考图页签：圆角亮底选中态（灰白/暗金主题自动取色）
+		# 原项目 panel-tab：底部 3px 下划线 + 半透明底（灰白/暗金主题自动取色）
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color(Style.THEME_GRAY_MID, 0.45)
-		sb.set_corner_radius_all(6)
+		sb.bg_color = Color(Style.THEME_GRAY_MID, 0.16)
 		sb.set_border_width_all(0)
+		sb.border_width_bottom = 3
+		sb.border_color = Style.THEME_GOLD
 		return sb
 	return Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0)
 
@@ -1100,18 +1097,8 @@ func _build_panel() -> void:
 	vbox.add_theme_constant_override("separation", 10)
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	margin.add_child(vbox)
-	# 标题栏色块（参考图组件：色块底 + 内边距）
-	var title_bar := PanelContainer.new()
-	var tsb := Style.make_style(Color(Style.THEME_GRAY_MID, 0.25), Color(Style.THEME_GRAY_MID, 0.45), 6, 1)
-	tsb.content_margin_left = 12
-	tsb.content_margin_right = 12
-	tsb.content_margin_top = 4
-	tsb.content_margin_bottom = 4
-	title_bar.add_theme_stylebox_override("panel", tsb)
-	vbox.add_child(title_bar)
 	var title_row := HBoxContainer.new()
-	title_row.add_theme_constant_override("separation", 10)
-	title_bar.add_child(title_row)
+	vbox.add_child(title_row)
 	var title_accent := ColorRect.new()
 	title_accent.custom_minimum_size = Vector2(3, 22)
 	title_accent.color = Style.THEME_GOLD

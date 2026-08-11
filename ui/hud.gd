@@ -118,24 +118,6 @@ func _ensure_built() -> void:
 		skill_page.set_progress(skill_progress)
 		if skill_page.has_method("set_db"):
 			skill_page.set_db(skills_db)
-	# 左侧竖排导航（参考图组件：常驻，点击打开对应面板页签）
-	var nav: PanelContainer = load("res://ui/left_nav.gd").new()
-	nav.name = "LeftNav"
-	nav.set_anchors_and_offsets_preset(Control.PRESET_CENTER_LEFT)
-	nav.offset_left = 12
-	nav.grow_vertical = Control.GROW_DIRECTION_BOTH
-	nav.setup([["status", "角色"], ["equip", "背包"], ["skill", "技能"],
-			["codex", "图鉴"], ["quest", "任务"]])
-	nav.item_activated.connect(func(id: String) -> void:
-		var bph: Control = backpack_hud
-		if bph == null:
-			return
-		if id in ["status", "equip", "skill", "codex"]:
-			bph.set_panel_open(true)
-			bph.set_tab(id)
-		elif status_bar != null:
-			status_bar.show_status("任务系统未移植", 1.5))
-	status_bar.add_child(nav)
 
 
 func _bind_scene(scene: Node) -> void:
