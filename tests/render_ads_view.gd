@@ -46,8 +46,8 @@ func _process(_delta: float) -> bool:
 		_gun = gun
 	if _frames == 12:
 		# 腰射
-		_gun.set("_ads", false)
-		_gun.set("_ads_factor", 0.0)
+		_gun.position = _gun.get("_view_pos")
+		_gun.rotation = Vector3.ZERO
 	if _frames == 15:
 		_save("user://gun_hip.png")
 		# 进入机瞄：直接摆到 ADS 完成姿态（ADS 姿态本身由 gun 数学校准保证 rear/front 投影居中）

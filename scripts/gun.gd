@@ -12,12 +12,12 @@ extends Node3D
 ## 武器数据（GunData）：缺省 AKM；换枪 = 换 data + model_scene
 @export var data: WeaponData = preload("res://weapon_data/lowpoly_akm.tres")
 
-const BASE_POS := Vector3(0.28, -0.15, -0.5)  # 抬高持枪位，给换弹弹匣下滑留出画面空间
+const BASE_POS := Vector3(0.34, -0.18, -0.62)  # 后摆持枪位：枪托出画面右下（腰射基准，被 data.view_pos 覆盖）
 
 # 视模自动校准（从 GLB 网格测量，换枪模自动适配）
 const VIEWMODEL_LENGTH := 0.62          # 视模全长目标（米）
-const ADS_REAR_CLEAR := 0.13            # ADS 时枪托末端距相机最小距离（米）
-const ADS_REAR_DIST_MIN := 0.38         # 照门到相机距离下限
+const ADS_REAR_CLEAR := 0.16            # ADS 时枪托末端距相机最小距离（米）
+const ADS_REAR_DIST_MIN := 0.50         # 照门到相机距离下限（后摆：枪更远更小，枪托不抢视线）
 const ADS_REAR_DIST_MAX := 0.75         # 上限（枪不能太远）
 
 # GunKick 弹簧参数（欠阻尼 → 带回弹过冲）
@@ -285,10 +285,11 @@ func _process(delta: float) -> void:
 		var insert := _ease_in_out(clampf((prog - 0.75) / 0.20, 0.0, 1.0))
 		var mag_out := pull * (1.0 - insert)
 		if _mag:
-			_mag.position = _mag_base + Vector3(mag_out * 0.045, -mag_out * _mag_slide, mag_out * 0.065)
-			# 卸匣时后倾+侧滚、插回时沿原路径回正（模拟取出/装回角度）
-			_mag.rotation.x = mag_out * 0.5
-			_mag.rotation.z = -mag_out * 0.12
+			# 弹匣滑出屏幕：模型绕Y转180°后，模型-x=相机右、模型-z=向相机，
+			# 位移取 (-x,-y,-z) 才能让弹匣向右下+靠近相机飞出画面右下；插回时原路回来
+			_mag.position = _mag_base + Vector3(-mag_out * 0.32, -mag_out * 0.82, -mag_out * 0.12)
+			_mag.rotation.x = mag_out * 0.9
+			_mag.rotation.z = -mag_out * 0.35
 		# 枪身：卸匣时上抬右倾露出弹匣舱；插回/收手时回正
 		var raise := mag_out * (0.25 + 0.75 * seat)
 		reload_pos = Vector3(0, raise * 0.12, mag_out * 0.02 - seat * 0.015)

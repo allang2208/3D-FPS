@@ -8,6 +8,7 @@ extends Resource
 @export var model_scene: Resource  # PackedScene（GLB）或 Mesh（体素 OBJ/PLY）
 @export var muzzle_sign_override := 0  # 0=自动，1=枪口朝+axis，-1=枪口朝-axis
 @export var mag_scene: Resource  # 独立弹匣 Mesh（换弹动画滑出用）；空=用占位盒
+@export var view_pos: Vector3 = Vector3(0.34, -0.18, -0.62)  # 腰射持枪位（相机空间）：后摆+右移，枪托出画面右下
 @export var sight_rear_override: Vector3 = Vector3.ZERO  # 照门锚点（模型原始坐标）；ZERO=自动检测
 @export var sight_front_override: Vector3 = Vector3.ZERO  # 前准星锚点（模型原始坐标）；ZERO=自动检测
 @export var mag_offset: Vector3 = Vector3.ZERO  # 独立弹匣中心（模型原始坐标）；ZERO=放模型原点
