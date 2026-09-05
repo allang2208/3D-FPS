@@ -23,6 +23,9 @@ const ItemTooltipScript := preload("res://ui/item_tooltip.gd")
 const StatusPageScript := preload("res://ui/status_page.gd")
 const SkillBarScript := preload("res://ui/skillbar.gd")
 const SkillPageScript := preload("res://ui/skill_page.gd")
+const ReferenceStyle := preload("res://ui/backpack_reference_style.gd")
+var _reference_equip_col: VBoxContainer
+
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
@@ -32,15 +35,15 @@ const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X]
 # 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
-const CELL_SLOT := 60
+const CELL_SLOT := 56
 var _drag_origin_rect := Rect2()
 var _drag_active := false
 
-const EQUIP_SLOT_SIZE := Vector2(100, 52)
+const EQUIP_SLOT_SIZE := Vector2(80, 32)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
-const PANEL_MARGIN := 12
+const PANEL_MARGIN := 0
 const PANEL_W_RATIO := 0.45
 
 const EQUIP_SLOT_LABELS := {
@@ -135,14 +138,14 @@ func _ready() -> void:
 	_s_hotbar_item = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
 	_s_hotbar_hover = Style.make_style(Style.COLOR_HUD_SLOT_HOVER, Style.COLOR_HUD_SLOT_HOVER_BORDER, 8, 2)
 	_s_skill_empty = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
-	_s_cell_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
-	_s_cell_item = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_ITEM)
-	_s_cell_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
-	_s_cell_drag_over = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_DRAG)
-	_s_equip_empty = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_EMPTY)
-	_s_equip_equipped = Style.make_slot_texture_style(Style.COLOR_EQUIP_TINT_EQUIPPED)
-	_s_equip_hover = Style.make_slot_texture_style(Style.COLOR_SLOT_TINT_HOVER)
-	_s_equip_locked = Style.make_slot_texture_style(Style.COLOR_EQUIP_TINT_LOCKED)
+	_s_cell_empty = ReferenceStyle.surface("#4c4d4d", "#3c3c3c", "#646464")
+	_s_cell_item = ReferenceStyle.surface("#565656", "#474747", "#787878")
+	_s_cell_hover = ReferenceStyle.surface("#646464", "#505050", "#969696")
+	_s_cell_drag_over = ReferenceStyle.surface("#46586a", "#324659", "#c4d3da")
+	_s_equip_empty = ReferenceStyle.surface("#fdfdfd", "#e6e6e6", "#d3d3d3")
+	_s_equip_equipped = ReferenceStyle.surface("#555555", "#3c3c3c", "#787878")
+	_s_equip_hover = ReferenceStyle.surface("#ffffff", "#f0f0f0", "#969696")
+	_s_equip_locked = ReferenceStyle.surface("#787878", "#5a5a5a", "#444444")
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -308,7 +311,7 @@ func _refresh_equip() -> void:
 			icon.texture = null
 			fallback.visible = false
 			name_lbl.text = String(EQUIP_SLOT_LABELS.get(key, key))
-			name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+			name_lbl.add_theme_color_override("font_color", Color.BLACK)
 			rarity_lbl.text = ""
 			rarity_lbl.remove_theme_stylebox_override("normal")
 			_set_badges(badges, {})
@@ -604,10 +607,10 @@ func _update_tab_styles() -> void:
 	_tab_equip.add_theme_stylebox_override("normal", _tab_style(_current_tab == "equip"))
 	_tab_skill.add_theme_stylebox_override("normal", _tab_style(_current_tab == "skill"))
 	_tab_codex.add_theme_stylebox_override("normal", _tab_style(_current_tab == "codex"))
-	_tab_status.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "status" else Style.COLOR_DIM_TEXT)
-	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Style.COLOR_DIM_TEXT)
-	_tab_skill.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "skill" else Style.COLOR_DIM_TEXT)
-	_tab_codex.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "codex" else Style.COLOR_DIM_TEXT)
+	_tab_status.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "status" else Color("#888888"))
+	_tab_equip.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "equip" else Color("#888888"))
+	_tab_skill.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "skill" else Color("#888888"))
+	_tab_codex.add_theme_color_override("font_color", Style.COLOR_TEXT if _current_tab == "codex" else Color("#888888"))
 	_tab_status.add_theme_font_override("font", _font_title if _current_tab == "status" else _font_section)
 	_tab_equip.add_theme_font_override("font", _font_title if _current_tab == "equip" else _font_section)
 	_tab_skill.add_theme_font_override("font", _font_title if _current_tab == "skill" else _font_section)
@@ -617,11 +620,11 @@ func _tab_style(active: bool) -> StyleBox:
 	if active:
 		# 原项目 panel-tab：底部 3px 下划线 + 半透明底（灰白/暗金主题自动取色）
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color(Style.THEME_GRAY_MID, 0.45)
-		sb.set_corner_radius_all(6)
+		sb.bg_color = Color("#2a3238")
+		sb.set_corner_radius_all(0)
 		sb.set_border_width_all(0)
-		sb.border_color = Style.COLOR_DRAG_OVER_BORDER
-		sb.border_width_bottom = 3
+		sb.border_color = Color("#8fa6b1")
+		sb.border_width_bottom = 5
 		return sb
 	return Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0)
 
@@ -1125,7 +1128,16 @@ func _build_panel() -> void:
 	add_child(_panel_root)
 	var dim := ColorRect.new()
 	dim.name = "Dim"
-	dim.color = Style.COLOR_OVERLAY
+	dim.color = Color.WHITE
+	var defocus := ShaderMaterial.new()
+	defocus.shader = PANEL_BLUR_SHADER
+	defocus.set_shader_parameter("radius", 3.0)
+	defocus.set_shader_parameter("tint_color", Vector3.ZERO)
+	defocus.set_shader_parameter("tint_amount", 0.65)
+	defocus.set_shader_parameter("alpha", 1.0)
+	defocus.set_shader_parameter("corner_radius", 0.0)
+	defocus.set_shader_parameter("node_size", get_viewport_rect().size)
+	dim.material = defocus
 	dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_panel_root.add_child(dim)
@@ -1133,12 +1145,23 @@ func _build_panel() -> void:
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	# 主面板：透明底 + 细框投影，毛玻璃完全由内部 Blur 层提供
-	_panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
+	var shell := ReferenceStyle.surface("#151a1e", "#0a0e11", "#71828b", 0, 0)
+	shell.content_margin_left = 3
+	_panel.add_theme_stylebox_override("panel", shell)
 	_panel_root.add_child(_panel)
+	var left_border := ColorRect.new()
+	left_border.color = Color("#71828b")
+	left_border.anchor_bottom = 1.0
+	left_border.offset_right = 3
+	left_border.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 	var content := Control.new()
 	content.name = "Content"
 	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_panel.add_child(content)
+	left_border.offset_left = -3
+	left_border.offset_right = 0
+	content.add_child(left_border)
 	var blur := ColorRect.new()
 	blur.name = "Blur"
 	blur.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1170,46 +1193,50 @@ func _build_panel() -> void:
 	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	content.add_child(margin)
 	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 10)
-	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.add_theme_constant_override("separation", 0)
+	vbox.alignment = BoxContainer.ALIGNMENT_BEGIN
 	margin.add_child(vbox)
 	# 标题栏色块（参考图组件：色块底 + 内边距，纯视觉不改交互）
 	var title_bar := PanelContainer.new()
-	var tsb := Style.make_style(Color(Style.THEME_GRAY_MID, 0.22), Color(Style.THEME_GRAY_MID, 0.4), 6, 1)
-	tsb.content_margin_left = 12
-	tsb.content_margin_right = 12
-	tsb.content_margin_top = 4
-	tsb.content_margin_bottom = 4
+	title_bar.custom_minimum_size.y = 56
+	var tsb := ReferenceStyle.surface("#29323a", "#1a2127", "#71828b", 0, 0)
+	tsb.content_margin_left = 20
+	tsb.content_margin_right = 20
+	tsb.content_margin_top = 12
+	tsb.content_margin_bottom = 12
 	title_bar.add_theme_stylebox_override("panel", tsb)
 	vbox.add_child(title_bar)
 	var title_row := HBoxContainer.new()
 	title_row.add_theme_constant_override("separation", 10)
 	title_bar.add_child(title_row)
-	var title_accent := ColorRect.new()
-	title_accent.custom_minimum_size = Vector2(3, 22)
-	title_accent.color = Style.THEME_GOLD
-	title_row.add_child(title_accent)
+	var title_icon := _make_label(title_row, "⚔", 20, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
+	var symbol_font := SystemFont.new()
+	symbol_font.font_names = PackedStringArray(["Segoe UI Symbol"])
+	title_icon.add_theme_font_override("font", symbol_font)
+	title_icon.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_panel_title = _make_label(title_row, "装备与背包", 20, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
 	_panel_title.add_theme_font_override("font", _font_title)
 	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	_count_label = _make_label(title_row, "", 14, Style.THEME_GOLD, Vector2.ZERO)
-	_count_label.add_theme_font_override("font", _font_mono)
-	_count_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	var close_button := Button.new()
 	close_button.text = "×"
 	close_button.tooltip_text = "关闭背包（Tab / Esc）"
 	Style.style_button(close_button)
+	close_button.custom_minimum_size = Vector2(32, 32)
+	close_button.add_theme_font_size_override("font_size", 24)
+	close_button.add_theme_color_override("font_color", Color("#92a3ad"))
+	close_button.add_theme_stylebox_override("normal", ReferenceStyle.surface("#293239", "#293239", "#45545e", 5, 1))
 	close_button.pressed.connect(func(): set_panel_open(false))
 	title_row.add_child(close_button)
-	var divider := HSeparator.new()
-	divider.modulate = Style.COLOR_PANEL_BORDER
+	var divider := ColorRect.new()
+	divider.custom_minimum_size.y = 2
+	divider.color = Color("#71828b")
 	vbox.add_child(divider)
 	# 页签栏（旧版 SystemUI 页签）
 	var tab_bar := HBoxContainer.new()
-	tab_bar.add_theme_constant_override("separation", 6)
+	tab_bar.add_theme_constant_override("separation", 0)
 	vbox.add_child(tab_bar)
-	_tab_status = _make_tab_button("角色状态")
-	_tab_equip = _make_tab_button("装备背包")
+	_tab_status = _make_tab_button("状态")
+	_tab_equip = _make_tab_button("装备")
 	_tab_skill = _make_tab_button("技能")
 	_tab_codex = _make_tab_button("图鉴")
 	tab_bar.add_child(_tab_status)
@@ -1230,31 +1257,42 @@ func _build_panel() -> void:
 	_equip_page.add_theme_constant_override("separation", 8)
 	_equip_page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_equip_page.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_page_stack.add_child(_equip_page)
+	var gear_margin := MarginContainer.new()
+	gear_margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for edge in ["left", "right", "top", "bottom"]:
+		gear_margin.add_theme_constant_override("margin_" + edge, 4)
+	_page_stack.add_child(gear_margin)
+	gear_margin.add_child(_equip_page)
 	# 上：装备栏（旧版 gear-equip-col，占上半区，3x5 大宽格）
 	var equip_col := VBoxContainer.new()
-	equip_col.add_theme_constant_override("separation", 6)
+	_reference_equip_col = equip_col
+	equip_col.add_theme_constant_override("separation", 4)
 	_equip_page.add_child(equip_col)
 	var equip_head := HBoxContainer.new()
 	equip_head.add_theme_constant_override("separation", 6)
 	equip_col.add_child(equip_head)
-	var equip_bar := ColorRect.new()
-	equip_bar.custom_minimum_size = Vector2(3, 14)
-	equip_bar.color = Style.THEME_GOLD
-	equip_head.add_child(equip_bar)
-	var equip_title := _make_label(equip_head, "装备栏", 16, Style.COLOR_TEXT, Vector2.ZERO)
-	equip_title.add_theme_font_override("font", _font_section)
+	var equip_title := _make_label(equip_head, "装备栏", 13, Color("#d4c5a9"), Vector2.ZERO)
+	equip_title.custom_minimum_size.y = 30
+	equip_title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	equip_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	equip_title.add_theme_font_override("font", Style.make_font(700))
+	var rule := StyleBoxFlat.new()
+	rule.bg_color = Color.TRANSPARENT
+	rule.border_color = Color("#5a4d3f")
+	rule.border_width_bottom = 1
+	equip_title.add_theme_stylebox_override("normal", rule)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
 	_equip_grid.columns = EQUIP_COLS
-	_equip_grid.add_theme_constant_override("h_separation", 8)
-	_equip_grid.add_theme_constant_override("v_separation", 8)
+	_equip_grid.add_theme_constant_override("h_separation", 6)
+	_equip_grid.add_theme_constant_override("v_separation", 6)
 	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	# 装备区白色毛玻璃容器（原项目 equip-grid：白渐变 + blur + 12px 圆角）
 	var equip_glass := PanelContainer.new()
 	equip_glass.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	equip_glass.add_theme_stylebox_override("panel",
-		Style.make_style(Style.COLOR_EQUIP_GLASS_BG, Style.COLOR_EQUIP_GLASS_BORDER, 12, 2))
+		ReferenceStyle.surface("#dcdcdc", "#dddddd", "#bfc0c0", 12, 2, 10))
+	equip_glass.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(equip_glass)
 	_equip_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equip_glass.add_child(_equip_grid)
@@ -1263,6 +1301,7 @@ func _build_panel() -> void:
 		cell.hud = self
 		cell.key = key
 		cell.mouse_default_cursor_shape = Control.CURSOR_DRAG
+		cell.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		cell.custom_minimum_size = EQUIP_SLOT_SIZE
 		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_equip_empty)
@@ -1278,10 +1317,10 @@ func _build_panel() -> void:
 		icon.anchor_right = 0.0
 		icon.anchor_bottom = 1.0
 		icon.offset_left = 20
-		icon.offset_top = 6
+		icon.offset_top = 0
 		icon.anchor_right = 0.45
 		icon.offset_right = 0
-		icon.offset_bottom = -6
+		icon.offset_bottom = 0
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1310,16 +1349,19 @@ func _build_panel() -> void:
 		name_lbl.anchor_top = 0.0
 		name_lbl.anchor_right = 1.0
 		name_lbl.anchor_bottom = 1.0
-		name_lbl.anchor_left = 0.45
+		name_lbl.anchor_left = 0.4
 		name_lbl.offset_left = 2
 		name_lbl.offset_top = 8
-		name_lbl.offset_right = -10
+		name_lbl.anchor_right = 0.8
+		name_lbl.offset_right = 0
 		name_lbl.offset_bottom = -8
-		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		name_lbl.add_theme_font_size_override("font_size", 14)
-		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+		name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
+		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		name_lbl.add_theme_font_size_override("font_size", 16)
+		name_lbl.add_theme_font_override("font", ReferenceStyle.item_font())
+		name_lbl.add_theme_color_override("font_color", Color.BLACK)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)
 		var rarity_lbl := Label.new()
@@ -1334,7 +1376,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -4
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 12)
+		rarity_lbl.add_theme_font_size_override("font_size", 10)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
@@ -1374,33 +1416,25 @@ func _build_panel() -> void:
 	var inv_col := VBoxContainer.new()
 	inv_col.add_theme_constant_override("separation", 4)
 	inv_col.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	_equip_page.add_child(inv_col)
+	var inv_margin := MarginContainer.new()
+	inv_margin.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	inv_margin.add_theme_constant_override("margin_left", 4)
+	inv_margin.add_theme_constant_override("margin_right", 4)
+	_equip_page.add_child(inv_margin)
+	inv_margin.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
-	var inv_bar := ColorRect.new()
-	inv_bar.custom_minimum_size = Vector2(3, 14)
-	inv_bar.color = Style.THEME_GOLD
-	inv_header.add_child(inv_bar)
-	var inv_title := _make_label(inv_header, "背包", 16, Style.COLOR_TEXT, Vector2.ZERO)
+	inv_header.custom_minimum_size.y = 34
+	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var sort_button := Button.new()
-	sort_button.text = "整理"
-	Style.style_button(sort_button)
-	sort_button.pressed.connect(func(): backpack.sort_items())
-	inv_header.add_child(sort_button)
-	var save_button := Button.new()
-	save_button.text = "保存"
-	Style.style_button(save_button)
-	save_button.pressed.connect(func():
-		var hud := get_node_or_null("/root/HUD")
-		if hud != null:
-			_flash_status("背包已保存" if hud.save_inventory() == OK else "保存失败，请重试"))
-	inv_header.add_child(save_button)
+	inv_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_count_label = _make_label(inv_header, "", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	_count_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
-	_grid.add_theme_constant_override("h_separation", 6)
-	_grid.add_theme_constant_override("v_separation", 6)
+	_grid.add_theme_constant_override("h_separation", 2)
+	_grid.add_theme_constant_override("v_separation", 2)
 	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var inv_scroll := Style.make_scroll_container()
 	inv_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -1423,44 +1457,54 @@ func _build_panel() -> void:
 		cell.add_child(cell_content)
 		var icon := TextureRect.new()
 		icon.name = "Icon"
-		icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 4)
+		icon.anchor_left = 0.25
+		icon.anchor_right = 0.44
+		icon.anchor_bottom = 1.0
+		icon.offset_top = 6
+		icon.offset_bottom = -6
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(icon)
 		var fallback := Label.new()
 		fallback.name = "Fallback"
-		fallback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		fallback.anchor_left = 0.25
+		fallback.anchor_right = 0.4
+		fallback.anchor_bottom = 1.0
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		fallback.add_theme_font_override("font", Style.make_emoji_font())
-		fallback.add_theme_font_size_override("font_size", 22)
+		fallback.add_theme_font_size_override("font_size", 18)
 		fallback.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		fallback.visible = false
 		cell_content.add_child(fallback)
-		var stack := _make_label(cell_content, "", 12, Style.COLOR_STACK_TEXT, Vector2.ZERO)
+		var stack := _make_label(cell_content, "", 12, Color.BLACK, Vector2.ZERO)
 		stack.name = "Stack"
 		stack.add_theme_font_override("font", _font_mono)
 		stack.anchor_left = 1.0
 		stack.anchor_right = 1.0
-		stack.anchor_top = 0.0
-		stack.anchor_bottom = 0.0
+		stack.anchor_top = 1.0
+		stack.anchor_bottom = 1.0
 		stack.offset_left = -30
-		stack.offset_top = 2
+		stack.offset_top = -20
 		stack.offset_right = -4
-		stack.offset_bottom = 20
+		stack.offset_bottom = -4
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		var name_lbl := _make_label(cell_content, "", 14, Style.COLOR_WHITE, Vector2.ZERO)
+		var name_lbl := _make_label(cell_content, "", 12, Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
-		name_lbl.anchor_left = 0.0
-		name_lbl.anchor_right = 1.0
-		name_lbl.anchor_top = 1.0
+		name_lbl.add_theme_font_override("font", ReferenceStyle.item_font())
+		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		name_lbl.add_theme_font_override("font", ReferenceStyle.item_font())
+		name_lbl.anchor_left = 0.44
+		name_lbl.anchor_right = 0.95
+		name_lbl.anchor_top = 0.0
 		name_lbl.anchor_bottom = 1.0
 		name_lbl.offset_left = 4
-		name_lbl.offset_top = -20
+		name_lbl.offset_top = 0
 		name_lbl.offset_right = -4
-		name_lbl.offset_bottom = -2
-		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		name_lbl.offset_bottom = 0
+		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		var rarity_lbl := Label.new()
 		rarity_lbl.name = "Rarity"
 		rarity_lbl.anchor_left = 0.0
@@ -1473,7 +1517,7 @@ func _build_panel() -> void:
 		rarity_lbl.offset_bottom = -2
 		rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		rarity_lbl.add_theme_font_size_override("font_size", 12)
+		rarity_lbl.add_theme_font_size_override("font_size", 8)
 		rarity_lbl.add_theme_color_override("font_color", Style.COLOR_RARITY_TEXT)
 		rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(rarity_lbl)
@@ -1534,8 +1578,9 @@ func _make_label(parent: Node, text: String, font_size: int, color: Color, pos: 
 func _make_tab_button(label: String) -> Button:
 	var b := Button.new()
 	b.text = label
-	b.custom_minimum_size = Vector2(120, 30)
-	b.add_theme_font_size_override("font_size", 13)
+	b.custom_minimum_size = Vector2(0, 50)
+	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	b.add_theme_font_size_override("font_size", 16)
 	b.add_theme_font_override("font", _font_section)
 	Style._attach_button_anim(b)
 	var idle := _tab_style(false)
@@ -1841,7 +1886,11 @@ class EquipSlot:
 		hud.drop_on_equip(key, data)
 
 func _resize_inventory() -> void:
+	if _panel_root != null:
+		_panel_root.get_node("Dim").material.set_shader_parameter("node_size", get_viewport_rect().size)
 	_panel_w = minf(get_viewport_rect().size.x, maxf(480, get_viewport_rect().size.x * PANEL_W_RATIO))
+	if _reference_equip_col != null:
+		_reference_equip_col.custom_minimum_size.y = (get_viewport_rect().size.y - 112) * 0.5 - 2
 	if _panel != null:
 		_apply_panel_slide(1.0 if _panel_open else 0.0)
 
@@ -1853,6 +1902,9 @@ func _build_inventory_actions() -> void:
 	_context.add_item("查看详情", 2)
 	_context.add_separator()
 	_context.add_item("丢弃", 3)
+	_context.add_separator()
+	_context.add_item("整理背包", 4)
+	_context.add_item("保存背包", 5)
 	_context.id_pressed.connect(_on_item_action)
 	add_child(_context)
 	_split_dialog = ConfirmationDialog.new()
@@ -1894,6 +1946,14 @@ func open_item_actions(slot: int) -> void:
 	_context.popup()
 
 func _on_item_action(action: int) -> void:
+	if action == 4:
+		backpack.sort_items()
+		return
+	if action == 5:
+		var host := get_node_or_null("/root/HUD")
+		if host != null:
+			_flash_status("背包已保存" if host.save_inventory() == OK else "保存失败")
+		return
 	var slot := backpack.find_slot(_context_instance)
 	if slot < 0:
 		return
@@ -1927,3 +1987,6 @@ func _notification(what: int) -> void:
 	elif what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		if is_inside_tree() and get_viewport().gui_is_dragging():
 			get_viewport().gui_cancel_drag()
+
+func _exit_tree() -> void:
+	ReferenceStyle.clear_cache()
