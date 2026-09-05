@@ -18,6 +18,7 @@ uniform bool random_rotation = true;
 uniform float random_spacing : hint_range(0.0, 1.0, 0.01) = 0.5;
 uniform vec3 min_scale = vec3(1.0);
 uniform vec3 max_scale = vec3(1.0);
+uniform sampler2D solid_exclusion : filter_nearest, repeat_disable;
 
 group_uniforms wind;
 uniform float noise_scale = 0.0041;
@@ -172,7 +173,7 @@ void start() {
 		h[0] * weights[0] +
 		h[1] * weights[1] +
 		h[2] * weights[2] +
-		h[3] * weights[3] ;
+		h[3] * weights[3] - 0.025;
 
 	// Offset, Rotation, Alignment.
 	TRANSFORM = mat4(1.0);
@@ -195,7 +196,7 @@ void start() {
 
 	// Apply normal orientation
 	if (align_to_normal) {
-		orientation = mix(orientation, w_normal, normal_strength);
+		orientation = normalize(mix(orientation, w_normal, normal_strength));
 		mat3 alignment = align_to_vector(orientation);
 		offset = alignment * offset;
 		TRANSFORM = mat4(alignment);
@@ -241,7 +242,7 @@ void start() {
 	// Valley texture 0 is grass; 1..4 are mud, gravel, rock and forest litter.
 	// Read the authored surface mask so grass cannot grow through the river.
 	float grass_weight = (base == 0 ? 1.0 - blend : 0.0) + (over == 0 ? blend : 0.0);
-	if (!auto && grass_weight < 0.5 + r.x * 0.3) {
+	if ((!auto && grass_weight < 0.5 + r.x * 0.3) || textureLod(solid_exclusion, (pos.xz + 512.0) / 1024.0, 0.0).r > 0.5) {
 		pos.y = 0. / 0.;
 		pos.xz = vec2(100000.0);
 	}

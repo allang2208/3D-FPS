@@ -12,7 +12,8 @@ uniform vec3 grass_color : source_color = vec3(0.30, 0.40, 0.18);
 varying vec4 data;
 
 void vertex() {
-	data[2] = (VERTEX.y + 0.55);
+	// Ribbon is [-0.45, +0.45]. Root weight must be exactly zero in wind.
+	data[2] = clamp((VERTEX.y + 0.45) / 0.9, 0.0, 1.0);
 	data[2] *= data[2];
 
 	VERTEX.xz *= (1.0 - data[2]);

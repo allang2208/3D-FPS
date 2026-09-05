@@ -31,7 +31,7 @@ func _ready() -> void:
 	var bad_trees := 0
 	var missing_materials := 0
 	for child in scene.get_children():
-		if child is StaticBody3D and child.get_meta("impact_surface", "") == "wood":
+		if child.is_in_group("scenic_trees"):
 			tree_count += 1
 			if absf(child.position.y - t.data.get_height(child.position)) > 0.05:
 				bad_trees += 1
@@ -56,6 +56,7 @@ func _ready() -> void:
 	check(submerged == 37 and bank_clear == 37, "stream bed submerged and dry banks above water")
 	check(scene.get_node("ParticleGrass").particle_count <= 190000, "bounded near grass budget")
 	_test_landscape_physics(scene, t)
+	_test_grounding(scene, t)
 	# Move using physics frames: verify the actual Area3D signal without initiating
 	# an asynchronous whole-game load inside this structural runner.
 	portal.target_scene = ""
@@ -103,7 +104,7 @@ func _test_landscape_physics(scene: Node3D, terrain: Terrain3D) -> void:
 				query.collision_mask = 1
 				var fraction := space.cast_motion(query)
 				swept = fraction[0] < 1.0
-	check(rocks.size() == 170 and bad_shapes == 0, "all rocks have closed unscaled solid collision")
+	check(rocks.size() > 50 and rocks.size() <= 170 and bad_shapes == 0, "accepted rocks have closed unscaled solid collision")
 	check(max_gap <= 0.01, "sampled rock undersides embedded below terrain")
 	check(ray_hits > 50, "game collision layer raycasts hit visible rock surfaces")
 	check(swept, "moving physics shape blocked by rock")
@@ -120,3 +121,66 @@ func _test_landscape_physics(scene: Node3D, terrain: Terrain3D) -> void:
 			trunk_hits += 1
 	check(trunk_hits > 100, "raycasts hit calibrated trunk geometry")
 	print("[valley-physics] rocks=", rocks.size(), " max_underside_gap=", max_gap, " rock_hits=", ray_hits, " trunk_hits=", trunk_hits)
+
+
+func _test_grounding(scene: Node3D, terrain: Terrain3D) -> void:
+	var bad_roots := 0
+	var buried_plants := 0
+	var counts := {}
+	var maximum_gap := -INF
+	for record in scene.grounding_records:
+		var kind: String = record["kind"]
+		counts[kind] = counts.get(kind, 0) + 1
+		var xf: Transform3D = record["transform"]
+		for point in record["geometry"]["support"]:
+			var world: Vector3 = xf * point
+			var gap := world.y - terrain.data.get_height(world)
+			maximum_gap = maxf(maximum_gap, gap)
+			if not is_finite(gap) or gap > 0.005:
+				bad_roots += 1
+		if kind != "rock":
+			var buried := 0
+			var points: PackedVector3Array = record["geometry"]["clearance"]
+			for point in points:
+				var world: Vector3 = xf * point
+				if world.y < terrain.data.get_height(world) - 0.025:
+					buried += 1
+			if buried > points.size() * 0.08:
+				buried_plants += 1
+	check(bad_roots == 0 and counts.get("plant", 0) > 500, "individual plant and tree root samples below terrain")
+	check(buried_plants == 0, "upper plant samples respect burial budget")
+	var overlapping := 0
+	for record in scene.grounding_records:
+		if record["kind"] == "plant" and scene._blocked(record["bounds"]):
+			overlapping += 1
+	check(overlapping == 0, "ground cover clears final rocks trunks and stumps")
+	var masked := 0
+	for rock in get_tree().get_nodes_in_group("scenic_rocks"):
+		var local_box: AABB = rock.get_meta("local_bounds")
+		var center: Vector3 = rock.position + local_box.get_center()
+		var pixel := Vector2i(floori((center.x + 512) * 2), floori((center.z + 512) * 2))
+		if scene.grass_exclusion.get_pixelv(pixel).r > 0.5:
+			masked += 1
+	check(masked == counts.get("rock", 0), "GPU grass excludes every rock footprint")
+	var grass: Node3D = scene.get_node("ParticleGrass")
+	var offset: Vector3 = grass.process_material.get_shader_parameter("position_offset")
+	check(is_zero_approx(offset.y + grass.mesh.get_aabb().position.y), "grass offset matches actual mesh root")
+	# Inspect rendered tree vertices independently of the helper's placement records.
+	var floating_trunks := 0
+	for tree in get_tree().get_nodes_in_group("scenic_trees"):
+		var lowest_world_y := INF
+		var lowest := Vector3.ZERO
+		for mesh in tree.find_children("", "MeshInstance3D", true, false):
+			for surface in mesh.mesh.get_surface_count():
+				var name: String = mesh.get_active_material(surface).resource_name.to_lower()
+				if "leaves" in name or "twigs" in name:
+					continue
+				for vertex in mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_VERTEX]:
+					var world: Vector3 = mesh.global_transform * vertex
+					if world.y < lowest_world_y:
+						lowest_world_y = world.y
+						lowest = world
+		if lowest.y > terrain.data.get_height(lowest) + 0.005:
+			floating_trunks += 1
+	check(floating_trunks == 0, "rendered trunk base vertices touch terrain")
+	print("[grounding-test] counts=", counts, " max_root_gap=", maximum_gap, " rejected=", scene.placement_rejected)

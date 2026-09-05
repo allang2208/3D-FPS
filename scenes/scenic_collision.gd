@@ -2,7 +2,7 @@ extends RefCounted
 
 ## Collision helpers for the authored landscape. Shapes store scaled vertices;
 ## physics nodes themselves always have unit scale.
-static func mesh_points(root: Node3D, woody_only := false) -> PackedVector3Array:
+static func mesh_points(root: Node3D, woody_only := false, underside_only := false) -> PackedVector3Array:
 	var points := PackedVector3Array()
 	var to_root := root.global_transform.affine_inverse()
 	for child in root.find_children("", "MeshInstance3D", true, false):
@@ -13,9 +13,13 @@ static func mesh_points(root: Node3D, woody_only := false) -> PackedVector3Array
 			var material_name := mat.resource_name.to_lower() if mat != null else ""
 			if woody_only and ("leaves" in material_name or "twigs" in material_name):
 				continue
-			var vertices: PackedVector3Array = mesh.surface_get_arrays(surface)[Mesh.ARRAY_VERTEX]
-			for vertex in vertices:
-				points.append(xf * vertex)
+			var arrays := mesh.surface_get_arrays(surface)
+			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+			for i in vertices.size():
+				if underside_only and (xf.basis.inverse().transposed() * normals[i]).normalized().y > -0.1:
+					continue
+				points.append(xf * vertices[i])
 	return points
 
 
@@ -46,15 +50,73 @@ static func rock_geometry(root: Node3D) -> Dictionary:
 	for point in points:
 		if point.y > box.position.y + box.size.y * 0.38:
 			continue
-		var ix := clampi(int((point.x - box.position.x) / maxf(box.size.x, 0.001) * 16), 0, 15)
-		var iz := clampi(int((point.z - box.position.z) / maxf(box.size.z, 0.001) * 16), 0, 15)
+		var ix := clampi(int((point.x - box.position.x) / maxf(box.size.x, 0.001) * 32), 0, 31)
+		var iz := clampi(int((point.z - box.position.z) / maxf(box.size.z, 0.001) * 32), 0, 31)
 		var key := Vector2i(ix, iz)
 		if not cells.has(key) or point.y < cells[key].y:
 			cells[key] = point
-	var underside := PackedVector3Array()
+	# Include downward-facing surfaces even above the lowest 38%: high overhang
+	# lips were invisible to the old height-band-only check.
+	var underside := mesh_points(root, false, true)
 	for point in cells.values():
 		underside.append(point)
 	return {"hull": hull_points(points), "support": underside, "bounds": box}
+
+
+static func root_geometry(model: Node3D, tree := false) -> Dictionary:
+	var points := mesh_points(model, tree)
+	var box := bounds(points)
+	var support := PackedVector3Array()
+	# Single-plant geometry only. Low wood excludes foliage when locating trees.
+	for point in points:
+		if point.y <= box.position.y + box.size.y * (0.025 if tree else 0.08):
+			support.append(point)
+	var root_box := bounds(support)
+	var anchor := root_box.get_center()
+	anchor.y = box.position.y
+	var clearance := PackedVector3Array()
+	for i in range(0, points.size(), maxi(1, ceili(points.size() / 256.0))):
+		if points[i].y > box.position.y + box.size.y * 0.2:
+			clearance.append(points[i])
+	return {"support": support, "anchor": anchor, "bounds": box, "clearance": clearance}
+
+
+static func fit_root(data: Terrain3DData, at: Vector2, factor: float, yaw: float, geometry: Dictionary, tree := false) -> Dictionary:
+	var center := Vector3(at.x, 0, at.y)
+	var h := data.get_height(center)
+	var dx := data.get_height(center + Vector3.RIGHT * 0.5) - data.get_height(center - Vector3.RIGHT * 0.5)
+	var dz := data.get_height(center + Vector3.BACK * 0.5) - data.get_height(center - Vector3.BACK * 0.5)
+	var normal := Vector3(-dx, 1, -dz).normalized()
+	if not is_finite(h) or normal.y < cos(deg_to_rad(38 if tree else 32)):
+		return {}
+	var basis := Basis(Vector3.UP, yaw)
+	if not tree:
+		basis = Basis(Quaternion(Vector3.UP, normal)) * basis
+	basis = basis.scaled(Vector3.ONE * factor)
+	var anchor: Vector3 = geometry["anchor"]
+	center -= basis * Vector3(anchor.x, 0, anchor.z)
+	var low := INF
+	var high := -INF
+	for point in geometry["support"]:
+		var rotated: Vector3 = basis * point
+		var ground := data.get_height(center + Vector3(rotated.x, 0, rotated.z))
+		if not is_finite(ground):
+			return {}
+		low = minf(low, ground - rotated.y)
+		high = maxf(high, ground - rotated.y)
+	var height: float = geometry["bounds"].size.y * factor
+	if high - low > minf(0.65, height * (0.12 if tree else 0.3)):
+		return {}
+	center.y = low - clampf(height * 0.035, 0.015, 0.12)
+	var xf := Transform3D(basis, center)
+	var buried := 0
+	for point in geometry["clearance"]:
+		var world: Vector3 = xf * point
+		if world.y < data.get_height(world) - 0.025:
+			buried += 1
+	if buried > geometry["clearance"].size() * 0.08:
+		return {}
+	return {"transform": xf, "root_spread": high - low}
 
 
 static func fit_rock(data: Terrain3DData, at: Vector2, scale_factor: float, yaw: float, geometry: Dictionary) -> Transform3D:

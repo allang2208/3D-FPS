@@ -17,6 +17,13 @@ var _fir_materials: Dictionary = {}
 var _batch_geometry: Dictionary = {}
 var _rock_collision_geometry: Dictionary = {}
 var _trunk_collision_geometry: Dictionary = {}
+var _root_geometry: Dictionary = {}
+var _nature_variants: Dictionary = {}
+var _occupied: Array[AABB] = []
+var _plant_roots: Array[Rect2] = []
+var grounding_records: Array[Dictionary] = []
+var placement_rejected := 0
+var grass_exclusion: Image
 
 
 func _ready() -> void:
@@ -174,9 +181,16 @@ func _build_light() -> void:
 
 
 func _build_instanced_nature() -> void:
+	# The inherited build order calls this before rocks and trees. Populate after
+	# those solid obstacles exist so ground cover can avoid their footprints.
+	pass
+
+
+func _populate_ground_cover() -> void:
 	# Grounded model batches: fixed local layout, render-distance culling per batch.
 	var paths := ["fern_02/fern_02_2k", "shrub_02/shrub_02_2k", "grass_medium_01/grass_medium_01_2k",
 		"searsia_lucida/searsia_lucida_2k", "tree_stump_01/tree_stump_01_2k"]
+	var candidates: Array[Dictionary] = []
 	for i in 1800:
 		var p := Vector2(rng.randf_range(-265, 80), rng.randf_range(-110, 115))
 		if bank_distance(p) < 6.0 or p.distance_to(ARRIVAL) < 3.5:
@@ -185,7 +199,12 @@ func _build_instanced_nature() -> void:
 		var size_m := rng.randf_range(0.35, 0.8)
 		if kind == 1 or kind == 3:
 			size_m = rng.randf_range(0.7, 1.6)
-		_batch_model("res://assets/models/polyhaven/" + paths[kind] + ".gltf", p, size_m, false)
+		candidates.append({"kind": kind, "p": p, "size": size_m})
+	# Solid stumps precede foliage, which must not later acquire a stump inside it.
+	for kind in [4, 0, 1, 2, 3]:
+		for candidate in candidates:
+			if candidate["kind"] == kind:
+				_batch_model("res://assets/models/polyhaven/" + paths[kind] + ".gltf", candidate["p"], candidate["size"], false)
 	# Frame the arrival with shrubs, leaving the central walking route open.
 	for p in [ARRIVAL + Vector2(-2, 6), ARRIVAL + Vector2(-6, 8), ARRIVAL + Vector2(0, -7), ARRIVAL + Vector2(-16, 10)]:
 		_batch_model("res://assets/models/polyhaven/searsia_lucida/searsia_lucida_2k.gltf", p, 1.5, false)
@@ -194,14 +213,55 @@ func _build_instanced_nature() -> void:
 		if bank_distance(p) > 7 and p.distance_to(ARRIVAL) > 3:
 			_batch_model("res://assets/models/polyhaven/fern_02/fern_02_2k.gltf", p, rng.randf_range(0.3, 0.7), false)
 	_flush_batches()
+	_update_grass_exclusion()
+	print("[valley-grounding] accepted=", grounding_records.size(), " rejected=", placement_rejected)
+
+
+func _blocked(box: AABB) -> bool:
+	var footprint := Rect2(Vector2(box.position.x, box.position.z), Vector2(box.size.x, box.size.z))
+	for obstacle in _occupied:
+		var other := Rect2(Vector2(obstacle.position.x, obstacle.position.z), Vector2(obstacle.size.x, obstacle.size.z))
+		if footprint.intersects(other):
+			return true
+	for reserve in [ARRIVAL, ARRIVAL + Vector2(8, 3), ARRIVAL + Vector2(5, -5)]:
+		if footprint.grow(2.0).has_point(reserve):
+			return true
+	return false
+
+
+func _prepare_variants(path: String) -> Array:
+	if _nature_variants.has(path):
+		return _nature_variants[path]
+	var probe: Node3D = load(path).instantiate()
+	var count := probe.get_child_count()
+	probe.free()
+	var variants: Array = []
+	for variant in count:
+		var model: Node3D = load(path).instantiate()
+		add_child(model)
+		var selected: Node3D = model.get_child(variant)
+		for child in model.get_children():
+			if child != selected:
+				child.free()
+		# Keep authored orientation, discard catalog/display translations.
+		selected.position = Vector3.ZERO
+		var key := path + "#" + str(variant)
+		_root_geometry[key] = ScenicCollision.root_geometry(model)
+		_cache_batch_geometry(key, path, model)
+		variants.append(key)
+		model.free()
+	_nature_variants[path] = variants
+	return variants
 
 
 func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
-	var info := _tree_info(path)
-	var size: Vector3 = info["size"]
+	var geometry_key := path
+	if not rock:
+		var variants := _prepare_variants(path)
+		geometry_key = variants[rng.randi_range(0, variants.size() - 1)]
+	var size: Vector3 = _tree_info(path)["size"] if rock else _root_geometry[geometry_key]["bounds"].size
 	var scale_factor := extent / maxf(0.01, maxf(size.x, size.z) if rock else size.y)
 	var at := Vector3(p.x, terrain.data.get_height(Vector3(p.x, 0, p.y)), p.y)
-	at.y -= info["base"] * scale_factor
 	var yaw := rng.randf_range(0, TAU)
 	var xf := Transform3D(Basis(Vector3.UP, yaw).scaled(Vector3.ONE * scale_factor), at)
 	if rock:
@@ -212,39 +272,84 @@ func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
 			probe.free()
 		var geometry: Dictionary = _rock_collision_geometry[path]
 		xf = ScenicCollision.fit_rock(terrain.data, p, scale_factor, yaw, geometry)
+		var rock_box: AABB = xf * geometry["bounds"]
+		if not xf.is_finite() or rock_box.end.y - terrain.data.get_height(rock_box.get_center()) < rock_box.size.y * 0.25:
+			placement_rejected += 1
+			return
+		# Preserve nested outcrops, but keep arrival/NPC/portal clear.
+		for reserve in [ARRIVAL, ARRIVAL + Vector2(8, 3), ARRIVAL + Vector2(5, -5)]:
+			if Rect2(Vector2(rock_box.position.x, rock_box.position.z), Vector2(rock_box.size.x, rock_box.size.z)).grow(2).has_point(reserve):
+				placement_rejected += 1
+				return
 		ScenicCollision.add_rock(self, xf, geometry)
+		_occupied.append(rock_box.grow(0.2))
+		grounding_records.append({"kind": "rock", "transform": xf, "geometry": geometry})
+	else:
+		var geometry: Dictionary = _root_geometry[geometry_key]
+		var fit := ScenicCollision.fit_root(terrain.data, p, scale_factor, yaw, geometry)
+		if fit.is_empty():
+			placement_rejected += 1
+			return
+		xf = fit["transform"]
+		var box: AABB = xf * geometry["bounds"]
+		if _blocked(box.grow(0.12)):
+			placement_rejected += 1
+			return
+		var root_box: AABB = xf * ScenicCollision.bounds(geometry["support"])
+		var root_area := Rect2(Vector2(root_box.position.x, root_box.position.z), Vector2(root_box.size.x, root_box.size.z)).grow(0.08)
+		for other in _plant_roots:
+			if root_area.intersects(other):
+				placement_rejected += 1
+				return
+		_plant_roots.append(root_area)
+		grounding_records.append({"kind": "stump" if "tree_stump" in path else "plant", "transform": xf, "geometry": geometry, "bounds": box})
+		if "tree_stump" in path:
+			var stump := StaticBody3D.new()
+			add_child(stump)
+			stump.set_meta("impact_surface", "wood")
+			var collision := CollisionShape3D.new()
+			var shape := BoxShape3D.new()
+			shape.size = box.size
+			collision.shape = shape
+			stump.position = box.get_center()
+			stump.add_child(collision)
+			_occupied.append(box.grow(0.1))
 	# Spatial grouping prevents one huge MultiMesh AABB from keeping every detail visible.
-	var key := path + "@%d,%d" % [floori(p.x / 64.0), floori(p.y / 64.0)]
+	var key := geometry_key + "@%d,%d" % [floori(p.x / 64.0), floori(p.y / 64.0)]
 	if not _detail_meshes.has(key):
-		_detail_meshes[key] = {"path": path, "transforms": [], "rock": rock}
+		_detail_meshes[key] = {"path": path, "geometry_key": geometry_key, "transforms": [], "rock": rock}
 	_detail_meshes[key]["transforms"].append(xf)
+
+
+func _cache_batch_geometry(key: String, path: String, root_model: Node3D) -> void:
+	var geometry: Array = []
+	for child in root_model.find_children("", "MeshInstance3D", true, false):
+		var mi := child as MeshInstance3D
+		var mesh: Mesh = mi.mesh.duplicate()
+		for surface in mesh.get_surface_count():
+			var source: StandardMaterial3D = mi.get_active_material(surface)
+			var material: StandardMaterial3D = source.duplicate()
+			if material.albedo_texture == null:
+				var asset_name := path.get_base_dir().get_file()
+				material.albedo_texture = load(path.get_base_dir().path_join("textures/" + asset_name + "_diff_2k.jpg"))
+			material.metallic_specular = 0.15
+			material.roughness = 0.9
+			mesh.surface_set_material(surface, material)
+		geometry.append({"mesh": mesh, "transform": root_model.global_transform.affine_inverse() * mi.global_transform})
+	_batch_geometry[key] = geometry
 
 
 func _flush_batches() -> void:
 	for key in _detail_meshes:
 		var batch: Dictionary = _detail_meshes[key]
 		var path: String = batch["path"]
-		if not _batch_geometry.has(path):
+		var geometry_key: String = batch["geometry_key"]
+		if not _batch_geometry.has(geometry_key):
 			var root_model: Node3D = load(path).instantiate()
 			add_child(root_model)
-			var geometry: Array = []
-			for child in root_model.find_children("", "MeshInstance3D", true, false):
-				var mi := child as MeshInstance3D
-				var mesh: Mesh = mi.mesh.duplicate()
-				for surface in mesh.get_surface_count():
-					var source: StandardMaterial3D = mi.get_active_material(surface)
-					var material: StandardMaterial3D = source.duplicate()
-					# Some pre-existing imported scenes lost their texture bindings.
-					if material.albedo_texture == null:
-						var asset_name := path.get_base_dir().get_file()
-						material.albedo_texture = load(path.get_base_dir().path_join("textures/" + asset_name + "_diff_2k.jpg"))
-					material.metallic_specular = 0.15
-					material.roughness = 0.9
-					mesh.surface_set_material(surface, material)
-				geometry.append({"mesh": mesh, "transform": mi.global_transform})
-			_batch_geometry[path] = geometry
+			_cache_batch_geometry(geometry_key, path, root_model)
 			root_model.free()
-		for part in _batch_geometry[path]:
+		for part in _batch_geometry[geometry_key]:
 			var mm := MultiMesh.new()
 			mm.transform_format = MultiMesh.TRANSFORM_3D
 			mm.mesh = part["mesh"]
@@ -289,6 +394,7 @@ func _build_trees() -> void:
 			_place_valley_tree(p, rng.randf_range(9, 18) / _tree_info(CANOPY_TREE)["size"].y, CANOPY_TREE)
 	for p in [ARRIVAL + Vector2(0, 8), ARRIVAL + Vector2(-9, 12), ARRIVAL + Vector2(3, -10)]:
 		_place_valley_tree(p, 13.0 / _tree_info(CANOPY_TREE)["size"].y, CANOPY_TREE)
+	_populate_ground_cover()
 
 
 func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> void:
@@ -310,6 +416,32 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	# Capture unscaled wood geometry before assigning scene-local materials.
 	if not _trunk_collision_geometry.has(variant_key):
 		_trunk_collision_geometry[variant_key] = ScenicCollision.trunk_hulls(model)
+		_root_geometry[variant_key] = ScenicCollision.root_geometry(model, true)
+	var root_geometry: Dictionary = _root_geometry[variant_key]
+	var yaw := rng.randf_range(0, TAU)
+	var fit: Dictionary = {}
+	var xf := Transform3D.IDENTITY
+	var trunk_box := AABB()
+	# A bounded local search preserves forest density without accepting bad roots.
+	var original := p
+	for attempt in 9:
+		p = original if attempt == 0 else original + Vector2.from_angle(attempt * 2.399963) * (1.5 + attempt * 0.45)
+		if bank_distance(p) < 14 or lake_radius(p) < 1.12:
+			continue
+		fit = ScenicCollision.fit_root(terrain.data, p, scale_factor, yaw, root_geometry, true)
+		if fit.is_empty():
+			continue
+		xf = fit["transform"]
+		trunk_box = xf * ScenicCollision.bounds(root_geometry["support"])
+		for points in _trunk_collision_geometry[variant_key]:
+			trunk_box = trunk_box.merge(xf * ScenicCollision.bounds(points))
+		if not _blocked(trunk_box.grow(0.2)):
+			break
+		fit = {}
+	if fit.is_empty():
+		placement_rejected += 1
+		body.free()
+		return
 	# The imported GLTF currently has unbound textures. Restore them on local
 	# surface overrides; leave the source asset and other scenes untouched.
 	for child in model.find_children("", "MeshInstance3D", true, false):
@@ -331,13 +463,12 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 				material.cull_mode = BaseMaterial3D.CULL_DISABLED
 				_fir_materials[material_name] = material
 			child.set_surface_override_material(surface, _fir_materials[material_name])
-	model.scale = Vector3.ONE * scale_factor
-	model.rotation.y = rng.randf_range(0, TAU)
-	var info := _tree_info(path)
 	var h := terrain.data.get_height(Vector3(p.x, 0, p.y))
 	body.position = Vector3(p.x, h, p.y)
-	model.position.y = -info["base"] * scale_factor
+	model.transform = Transform3D(xf.basis, xf.origin - body.position)
 	ScenicCollision.add_trunk(body, model.transform, _trunk_collision_geometry[variant_key])
+	_occupied.append(trunk_box.grow(0.2))
+	grounding_records.append({"kind": "tree", "transform": xf, "geometry": root_geometry})
 	for child in model.find_children("", "GeometryInstance3D", true, false):
 		child.visibility_range_end = 450.0
 
@@ -419,6 +550,9 @@ func _build_particle_grass() -> void:
 	pm.set_shader_parameter("surface_slope_min", 0.7)
 	pm.set_shader_parameter("main_noise_scale", 0.025)
 	pm.set_shader_parameter("random_spacing", 0.85)
+	# Root calibration follows the actual ribbon mesh; no inherited magic offset.
+	pm.set_shader_parameter("position_offset", Vector3(0, -pt.mesh.get_aabb().position.y, 0))
+	pm.set_shader_parameter("normal_strength", 1.0)
 	pt.process_material = pm
 	var gm := ShaderMaterial.new()
 	gm.shader = load("res://assets/shaders/valley_grass.gdshader")
@@ -426,6 +560,18 @@ func _build_particle_grass() -> void:
 	pt.terrain = terrain
 	add_child(pt)
 	print("[valley] grass instances=", pt.particle_count)
+
+
+func _update_grass_exclusion() -> void:
+	# 0.5m mask, shared by all GPU grass cells; no per-blade CPU physics queries.
+	grass_exclusion = Image.create_empty(2048, 2048, false, Image.FORMAT_R8)
+	for box in _occupied:
+		var lo := Vector2i(floori((box.position.x + 511.75) * 2), floori((box.position.z + 511.75) * 2))
+		var hi := Vector2i(ceili((box.end.x + 512.25) * 2), ceili((box.end.z + 512.25) * 2))
+		var area := Rect2i(lo, hi - lo).intersection(Rect2i(0, 0, 2048, 2048))
+		grass_exclusion.fill_rect(area, Color.WHITE)
+	var material: ShaderMaterial = get_node("ParticleGrass").process_material
+	material.set_shader_parameter("solid_exclusion", ImageTexture.create_from_image(grass_exclusion))
 
 
 func _build_player() -> void:
