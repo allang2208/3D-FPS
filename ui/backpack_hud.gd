@@ -298,6 +298,7 @@ func _refresh_equip() -> void:
 		var rarity_lbl := cell.get_node("Content/Rarity") as Label
 		var badges := cell.get_node("Content/Badges") as VBoxContainer
 		var lock := cell.get_node("Content/Lock") as Control
+		name_lbl.add_theme_font_override("font", _make_item_name_font(0.3 if item.is_empty() else 0.9))
 		var locked := equipment.is_locked(key)
 		lock.visible = locked
 		var hover: bool = key == _hovered_equip and not locked
@@ -1351,16 +1352,16 @@ func _build_panel() -> void:
 		name_lbl.anchor_bottom = 1.0
 		name_lbl.anchor_left = 0.4
 		name_lbl.offset_left = 2
-		name_lbl.offset_top = 8
+		name_lbl.offset_top = 12
 		name_lbl.anchor_right = 0.8
-		name_lbl.offset_right = 0
+		name_lbl.offset_right = -2
 		name_lbl.offset_bottom = -8
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
 		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_lbl.add_theme_font_size_override("font_size", Style.font_size("label"))
-		name_lbl.add_theme_font_override("font", preload("res://assets/ui/fonts/simhei.ttf"))
+		name_lbl.add_theme_font_override("font", _make_item_name_font())
 		name_lbl.add_theme_color_override("font_color", Color.BLACK)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)
@@ -1493,16 +1494,16 @@ func _build_panel() -> void:
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		var name_lbl := _make_label(cell_content, "", Style.font_size("caption"), Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
-		name_lbl.add_theme_font_override("font", preload("res://assets/ui/fonts/simhei.ttf"))
+		name_lbl.add_theme_font_override("font", _make_item_name_font(0.9))
 		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_lbl.anchor_left = 0.44
 		name_lbl.anchor_right = 0.95
 		name_lbl.anchor_top = 0.0
 		name_lbl.anchor_bottom = 1.0
-		name_lbl.offset_left = 4
-		name_lbl.offset_top = 0
+		name_lbl.offset_left = 2
+		name_lbl.offset_top = -2
 		name_lbl.offset_right = -4
-		name_lbl.offset_bottom = 0
+		name_lbl.offset_bottom = -2
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		var rarity_lbl := Label.new()
@@ -1564,6 +1565,17 @@ func _show_notice(text: String) -> void:
 	_notice_tween.tween_callback(func() -> void: _notice_label.visible = false)
 
 ## ---------- 工具 ----------
+
+# SimHei only provides a regular face; reproduce the source CSS synthetic 600/700 weight.
+var _item_name_fonts: Dictionary = {}
+func _make_item_name_font(strength := 0.3) -> Font:
+	if _item_name_fonts.has(strength):
+		return _item_name_fonts[strength]
+	var font := FontVariation.new()
+	font.base_font = preload("res://assets/ui/fonts/simhei.ttf")
+	font.variation_embolden = strength
+	_item_name_fonts[strength] = font
+	return font
 
 func _make_label(parent: Node, text: String, font_size: int, color: Color, pos: Vector2) -> Label:
 	var l := Label.new()
