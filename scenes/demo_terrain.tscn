@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1fpbbqa8ur0y"]
 
-[ext_resource type="Script" uid="uid://b4gc8qgujx6o7" path="res://scenes/demo_terrain.gd" id="1_demo"]
+[ext_resource type="Script" path="res://scenes/scenic_valley.gd" id="1_demo"]
 
 [node name="DemoTerrain" type="Node3D" unique_id=783165525]
 script = ExtResource("1_demo")
