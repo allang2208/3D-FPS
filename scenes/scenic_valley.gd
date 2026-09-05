@@ -3,15 +3,19 @@ extends "res://scenes/demo_terrain.gd"
 ## Authored scenic corridor; inherits the existing player/HUD/portal contracts.
 ## Bump CACHE_REVISION when changing the height/control/color recipe. -- --rebuild-valley
 ## regenerates only this scene's cache, never the original demo regions.
-const CACHE_REVISION := "valley_02"
+const CACHE_REVISION := "valley_03"
 const VALLEY_DATA := "user://terrain_cache/" + CACHE_REVISION
 const ARRIVAL := Vector2(-90.0, 32.0)
 const FIR := "res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf"
 const CANOPY_TREE := "res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf"
+const CONIFER := "res://scenes/scenic_conifer.tscn"
+const YOUNG_PINE := "res://assets/models/polyhaven/pine_sapling_small/pine_sapling_small_1k.gltf"
+const LEAF_TREE := "res://assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf"
 const BOULDER := "res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf"
 const ROCK := "res://assets/models/polyhaven/rock_09/rock_09_2k.gltf"
 const ScenicCollision := preload("res://scenes/scenic_collision.gd")
 var _land_noise := FastNoiseLite.new()
+var _patch_noise := FastNoiseLite.new()
 var _detail_meshes: Dictionary = {}
 var _fir_materials: Dictionary = {}
 var _batch_geometry: Dictionary = {}
@@ -31,6 +35,9 @@ func _ready() -> void:
 	_land_noise.noise_type = FastNoiseLite.TYPE_PERLIN
 	_land_noise.frequency = 0.018
 	_land_noise.fractal_octaves = 3
+	_patch_noise.seed = 28061
+	_patch_noise.frequency = 0.17
+	_patch_noise.fractal_octaves = 3
 	super._ready()
 	_build_distant_ridge()
 
@@ -57,6 +64,13 @@ func bank_distance(p: Vector2) -> float:
 	if p.x < -260.0:
 		return minf(stream, (lake_radius(p) - 1.0) * 110.0)
 	return stream
+
+
+func shore_material_distance(p: Vector2) -> float:
+	# Vegetation and material edges share this broken band, while the physical
+	# water boundary remains the same continuous, walkable shoreline.
+	var bank := bank_distance(p)
+	return bank + (_patch_noise.get_noise_2d(p.x, p.y) * 3.8 + _land_noise.get_noise_2d(p.x * 2, p.y * 2) * 4.5) * smoothstep(0.0, 2.5, bank)
 
 
 func valley_height(p: Vector2) -> float:
@@ -89,7 +103,7 @@ func _build_terrain() -> Terrain3D:
 	t.material.dual_scaling = true
 	t.material.set_shader_param("blend_sharpness", 0.35)
 	t.assets = Terrain3DAssets.new()
-	var textures := ["grass001", "ground037", "gravel041", "rock063", "ground020"]
+	var textures := ["grass004", "ground092c", "gravel041", "rock063", "ground020"]
 	for i in textures.size():
 		var ta := Terrain3DTextureAsset.new()
 		ta.name = textures[i]
@@ -98,7 +112,7 @@ func _build_terrain() -> Terrain3D:
 		ta.normal_depth = 0.4
 		ta.roughness = 0.30
 		ta.ao_strength = 1.0
-		ta.uv_scale = 0.32 if i != 3 else 0.12
+		ta.uv_scale = 0.5 if i == 0 else (0.32 if i != 3 else 0.12)
 		ta.detiling_rotation = 0.15
 		t.assets.set_texture(i, ta)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(VALLEY_DATA))
@@ -128,20 +142,20 @@ func _generate_maps(t: Terrain3D) -> void:
 			var p := Vector2(ix - 512.0, iz - 512.0)
 			var h := valley_height(p)
 			height.set_pixel(ix, iz, Color(h, 0, 0))
-			var bank := bank_distance(p)
+			var bank := shore_material_distance(p)
 			var n := _land_noise.get_noise_2d(p.x, p.y)
 			var slope := Vector2(valley_height(p + Vector2.RIGHT) - h,
 				valley_height(p + Vector2.DOWN) - h).length()
 			var base := 0
 			var overlay := 4
 			var blend := clampf((n + 0.15) * 0.35, 0.0, 0.3)
-			if bank < 5.0:
-				base = 2
-				overlay = 1
-				blend = clampf(0.35 + n * 0.8, 0.1, 0.8)
-			elif bank < 9.0:
+			if bank < 1.5:
+				base = 1
 				overlay = 2
-				blend = 1.0 - smoothstep(5.0, 9.0, bank)
+				blend = clampf(0.2 + _patch_noise.get_noise_2d(p.x, p.y) * 0.65, 0.05, 0.55)
+			elif bank < 6.5:
+				overlay = 2
+				blend = 1.0 - smoothstep(1.5, 6.5, bank)
 			elif slope > 0.85:
 				overlay = 3
 				blend = smoothstep(0.85, 1.3, slope)
@@ -150,8 +164,10 @@ func _generate_maps(t: Terrain3D) -> void:
 				blend = clampf(0.35 + n, 0.15, 0.8)
 			var packed := (base << 27) | (overlay << 22) | (int(blend * 255.0) << 14)
 			bits.encode_u32((iz * 1024 + ix) * 4, packed)
-			var tint := Color(0.88, 0.92, 0.82).lerp(Color(0.97, 0.95, 0.88), clampf(n + 0.5, 0, 1))
-			var wetness := lerpf(0.42, 0.58, smoothstep(-0.5, 2.5, bank))
+			var tint := Color(0.62, 0.69, 0.55).lerp(Color(0.88, 0.91, 0.79), clampf(n + 0.5, 0, 1))
+			if bank < 7:
+				tint = tint.lerp(Color(0.46, 0.44, 0.39), 1.0 - smoothstep(-0.3, 6.5, bank))
+			var wetness := lerpf(0.3, 0.56, smoothstep(-0.5, 3.0, bank))
 			colors.set_pixel(ix, iz, Color(tint.r, tint.g, tint.b, wetness))
 	var control := Image.create_from_data(1024, 1024, false, Image.FORMAT_RF, bits)
 	t.data.import_images([height, control, colors], Vector3(-512, 0, -512), 0.0, 1.0)
@@ -162,10 +178,11 @@ func _build_environment() -> void:
 	super._build_environment()
 	var env: Environment = get_node("WorldEnvironment").environment
 	env.tonemap_exposure = 1.0
-	env.ambient_light_energy = 0.40
-	env.adjustment_saturation = 0.94
+	env.ambient_light_energy = 0.32
+	env.adjustment_saturation = 0.88
 	env.adjustment_contrast = 1.02
-	env.fog_density = 0.00025
+	env.fog_density = 0.00055
+	env.fog_light_color = Color(0.62, 0.70, 0.75)
 	env.fog_height_density = 0.0
 	env.ssao_intensity = 1.0
 	env.ssil_enabled = false
@@ -176,7 +193,7 @@ func _build_light() -> void:
 	super._build_light()
 	var sun: DirectionalLight3D = get_node("Sun")
 	sun.rotation_degrees = Vector3(-42, 30, 0)
-	sun.light_energy = 0.8
+	sun.light_energy = 0.72
 	sun.directional_shadow_max_distance = 160.0
 
 
@@ -191,14 +208,16 @@ func _populate_ground_cover() -> void:
 	var paths := ["fern_02/fern_02_2k", "shrub_02/shrub_02_2k", "grass_medium_01/grass_medium_01_2k",
 		"searsia_lucida/searsia_lucida_2k", "tree_stump_01/tree_stump_01_2k"]
 	var candidates: Array[Dictionary] = []
-	for i in 1800:
+	for i in 2600:
 		var p := Vector2(rng.randf_range(-265, 80), rng.randf_range(-110, 115))
-		if bank_distance(p) < 6.0 or p.distance_to(ARRIVAL) < 3.5:
+		if shore_material_distance(p) < 4.0 or bank_distance(p) < 2.5 or p.distance_to(ARRIVAL) < 3.5:
 			continue
-		var kind := i % paths.size()
-		var size_m := rng.randf_range(0.35, 0.8)
+		if _patch_noise.get_noise_2d(p.x * 0.35, p.y * 0.35) < -0.18 and i % 3 != 0:
+			continue
+		var kind := 4 if i % 21 == 0 else i % 4
+		var size_m := rng.randf_range(0.2, 0.55)
 		if kind == 1 or kind == 3:
-			size_m = rng.randf_range(0.7, 1.6)
+			size_m = rng.randf_range(0.5, 1.25)
 		candidates.append({"kind": kind, "p": p, "size": size_m})
 	# Solid stumps precede foliage, which must not later acquire a stump inside it.
 	for kind in [4, 0, 1, 2, 3]:
@@ -365,7 +384,10 @@ func _flush_batches() -> void:
 
 
 func _build_trees() -> void:
-	for i in 600:
+	# Reserve near silhouettes before filling the forest, with a view between them.
+	for p in [ARRIVAL + Vector2(1, 7), ARRIVAL + Vector2(-7, 10), ARRIVAL + Vector2(2, -8), ARRIVAL + Vector2(-15, -12)]:
+		_place_valley_tree(p, rng.randf_range(1.0, 1.35), CONIFER)
+	for i in 950:
 		var p := Vector2(rng.randf_range(-310, 95), rng.randf_range(-135, 135))
 		var side := p.y - _river_center_z(p.x)
 		if bank_distance(p) < 14 or p.distance_to(ARRIVAL) < 8:
@@ -377,11 +399,15 @@ func _build_trees() -> void:
 			continue
 		if lake_radius(p) < 1.12:
 			continue
-		var info := _tree_info(FIR)
-		var desired_height := rng.randf_range(8.0, 15.0) if absf(side) > 38 else rng.randf_range(3.0, 6.0)
-		_place_valley_tree(p, desired_height / info["size"].y)
+		var density := clampf(0.65 + _land_noise.get_noise_2d(p.x * 2.0, p.y * 2.0) * 1.1, 0.2, 0.95)
+		if rng.randf() > density:
+			continue
+		var path := CONIFER if i % 5 != 0 else YOUNG_PINE
+		var info := _tree_info(path)
+		var desired_height := rng.randf_range(9.0, 17.0) if path == CONIFER else rng.randf_range(3, 6)
+		_place_valley_tree(p, desired_height / info["size"].y, path)
 	for p in [ARRIVAL + Vector2(5, 12), ARRIVAL + Vector2(-8, 17), ARRIVAL + Vector2(4, -13)]:
-		_place_valley_tree(p, 12.0 / _tree_info(FIR)["size"].y)
+		_place_valley_tree(p, 12.0 / _tree_info(CONIFER)["size"].y, CONIFER)
 	# A continuous right-hand canopy gives the valley a forest edge. Existing
 	# broadleaf crowns supply the volume missing from the small fir source.
 	for ix in 18:
@@ -391,7 +417,8 @@ func _build_trees() -> void:
 			var p := Vector2(-230 + ix * 17 + rng.randf_range(-10, 10), -28 - iz * 11 + rng.randf_range(-8, 8))
 			if lake_radius(p) < 1.15 or bank_distance(p) < 15:
 				continue
-			_place_valley_tree(p, rng.randf_range(9, 18) / _tree_info(CANOPY_TREE)["size"].y, CANOPY_TREE)
+			var path := CONIFER if (ix + iz) % 3 != 0 else LEAF_TREE
+			_place_valley_tree(p, rng.randf_range(10, 18) / _tree_info(path)["size"].y, path)
 	for p in [ARRIVAL + Vector2(0, 8), ARRIVAL + Vector2(-9, 12), ARRIVAL + Vector2(3, -10)]:
 		_place_valley_tree(p, 13.0 / _tree_info(CANOPY_TREE)["size"].y, CANOPY_TREE)
 	_populate_ground_cover()
@@ -401,12 +428,15 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	var body := StaticBody3D.new()
 	body.name = "ValleyTree"
 	body.set_meta("impact_surface", "wood")
+	body.set_meta("landscape_asset", path)
 	add_child(body)
 	var model: Node3D = load(path).instantiate()
+	if path == CONIFER:
+		model.variant = rng.randi_range(0, 2)
 	body.add_child(model)
-	var variant_key := path
+	var variant_key := path + (":" + str(model.variant) if path == CONIFER else "")
 	# The download contains three side-by-side variants, not one tree.
-	if path == FIR:
+	if path == FIR or path == YOUNG_PINE:
 		var selected: Node3D = model.get_child(rng.randi_range(0, model.get_child_count() - 1))
 		variant_key += ":" + str(selected.name)
 		for child in model.get_children():
@@ -445,6 +475,17 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	# The imported GLTF currently has unbound textures. Restore them on local
 	# surface overrides; leave the source asset and other scenes untouched.
 	for child in model.find_children("", "MeshInstance3D", true, false):
+		if path != FIR and path != CONIFER:
+			for surface in child.mesh.get_surface_count():
+				var source: StandardMaterial3D = child.get_active_material(surface)
+				var key := path + ":" + source.resource_name
+				if not _fir_materials.has(key):
+					var local: StandardMaterial3D = source.duplicate()
+					local.roughness = 0.92
+					local.metallic_specular = 0.08
+					local.albedo_color = Color(0.6, 0.85, 0.48) if "leaves" in source.resource_name or "twig" in source.resource_name else Color(0.72, 0.70, 0.65)
+					_fir_materials[key] = local
+				child.set_surface_override_material(surface, _fir_materials[key])
 		if path != FIR:
 			continue
 		for surface in child.mesh.get_surface_count():
@@ -470,7 +511,7 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	_occupied.append(trunk_box.grow(0.2))
 	grounding_records.append({"kind": "tree", "transform": xf, "geometry": root_geometry})
 	for child in model.find_children("", "GeometryInstance3D", true, false):
-		child.visibility_range_end = 450.0
+		child.visibility_range_end = 260.0 if path == YOUNG_PINE else 450.0
 
 
 func _build_landmark_rocks() -> void:
@@ -481,11 +522,11 @@ func _build_landmark_rocks() -> void:
 	for i in 12:
 		var p := Vector2(-40 - i * 11 + rng.randf_range(-5, 5), 35 + rng.randf_range(-4, 13))
 		_batch_model(ROCK, p, rng.randf_range(11.0, 18.0), true)
-	for i in 120:
+	for i in 180:
 		var x := rng.randf_range(-285, 45)
 		var side := -1.0 if i % 2 == 0 else 1.0
 		var p := Vector2(x, _river_center_z(x) + side * (stream_half_width(x) + rng.randf_range(-0.5, 5.0)))
-		_batch_model(ROCK, p, rng.randf_range(0.4, 2.6), true)
+		_batch_model(BOULDER if i % 3 == 0 else ROCK, p, rng.randf_range(0.18, 1.8), true)
 	_flush_batches()
 
 
@@ -535,24 +576,25 @@ func _build_river() -> void:
 func _build_particle_grass() -> void:
 	var pt: Node3D = load("res://addons/terrain_3d/extras/particle_example/Terrain3DParticles.tscn").instantiate()
 	pt.name = "ParticleGrass"
+	pt.mesh = preload("res://scenes/scenic_foliage.gd").grass_mesh()
 	# Configure before binding terrain so the large default grid is never allocated.
-	pt.instance_spacing = 0.1875
+	pt.instance_spacing = 0.25
 	pt.cell_width = 16.0
 	pt.grid_width = 5
 	var pm: ShaderMaterial = pt.process_material.duplicate()
 	pm.shader = load("res://assets/shaders/valley_grass_process.gdshader")
-	pm.set_shader_parameter("min_scale", Vector3(0.035, 0.18, 0.035))
-	pm.set_shader_parameter("max_scale", Vector3(0.055, 0.48, 0.055))
-	pm.set_shader_parameter("clod_scale_boost", 0.12)
-	pm.set_shader_parameter("patch_min_threshold", 0.12)
-	pm.set_shader_parameter("patch_max_threshold", 0.5)
+	pm.set_shader_parameter("min_scale", Vector3(0.07, 0.13, 0.07))
+	pm.set_shader_parameter("max_scale", Vector3(0.12, 0.38, 0.12))
+	pm.set_shader_parameter("clod_scale_boost", 0.1)
+	pm.set_shader_parameter("patch_min_threshold", 0.06)
+	pm.set_shader_parameter("patch_max_threshold", 0.3)
 	pm.set_shader_parameter("wind_strength", 0.28)
 	pm.set_shader_parameter("surface_slope_min", 0.7)
 	pm.set_shader_parameter("main_noise_scale", 0.025)
 	pm.set_shader_parameter("random_spacing", 0.85)
 	# Root calibration follows the actual ribbon mesh; no inherited magic offset.
 	pm.set_shader_parameter("position_offset", Vector3(0, -pt.mesh.get_aabb().position.y, 0))
-	pm.set_shader_parameter("normal_strength", 1.0)
+	pm.set_shader_parameter("normal_strength", 0.6)
 	pt.process_material = pm
 	var gm := ShaderMaterial.new()
 	gm.shader = load("res://assets/shaders/valley_grass.gdshader")
@@ -599,29 +641,36 @@ func _build_mouse_king() -> void:
 
 
 func _build_distant_ridge() -> void:
+	_build_ridge_layer(0)
+	_build_ridge_layer(1)
+
+
+func _ridge_height(x: float, z: float, edge: float) -> float:
+	var ridges := 1.0 - absf(_land_noise.get_noise_2d(x * 0.55, z * 0.55))
+	return pow(maxf(0, edge), 0.85) * (45 + 55 * ridges + 20 * sin(z / 93.0) + 15 * sin(z / 37.0))
+
+
+func _build_ridge_layer(layer: int) -> void:
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for ix in 49:
-		for iz in 81:
-			var x := -1100.0 + ix * 12.5
-			var z := -800.0 + iz * 20.0
-			var edge := sin(PI * ix / 48.0)
-			var h := maxf(0, edge) * (65 + 38 * sin(z / 123.0) + 18 * sin(z / 44.0))
-			h += maxf(0, edge) * _land_noise.get_noise_2d(x, z) * 35
-			st.set_color(Color(0.31, 0.37, 0.39).lerp(Color(0.58, 0.59, 0.56), clampf(h / 110, 0, 1)))
+	for ix in 81:
+		for iz in 161:
+			var x := -1050.0 - layer * 400 + ix * 5.5
+			var z := -800.0 + iz * 10.0
+			var edge := sin(PI * ix / 80.0)
+			var h := _ridge_height(x, z + layer * 73, edge) * (1 + layer * 0.45)
 			st.add_vertex(Vector3(x, h - 5, z))
-	for ix in 48:
-		for iz in 80:
-			var a := ix * 81 + iz
-			for index in [a, a + 81, a + 1, a + 1, a + 81, a + 82]:
+	for ix in 80:
+		for iz in 160:
+			var a := ix * 161 + iz
+			for index in [a, a + 161, a + 1, a + 1, a + 161, a + 162]:
 				st.add_index(index)
 	st.generate_normals()
-	var mat := StandardMaterial3D.new()
-	mat.vertex_color_use_as_albedo = true
-	mat.roughness = 1.0
-	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	var mat := ShaderMaterial.new()
+	mat.shader = load("res://assets/shaders/valley_mountain.gdshader")
+	mat.set_shader_parameter("layer_tint", Color(0.8, 0.87, 0.9) if layer == 0 else Color(0.91, 0.95, 1.0))
 	var mountain := MeshInstance3D.new()
-	mountain.name = "DistantRidge"
+	mountain.name = "DistantRidge" if layer == 0 else "FarRidge"
 	mountain.mesh = st.commit()
 	mountain.material_override = mat
 	add_child(mountain)

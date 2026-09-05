@@ -7,22 +7,22 @@ render_mode skip_vertex_transform, cull_disabled, blend_mix;
 
 uniform vec2 wind_direction = vec2(1.0, 1.0);
 // 溪谷草色；实例颜色继续接收地形颜色图。
-uniform vec3 grass_color : source_color = vec3(0.30, 0.40, 0.18);
+uniform vec3 grass_color : source_color = vec3(0.22, 0.31, 0.105);
 
 varying vec4 data;
 
 void vertex() {
-	// Ribbon is [-0.45, +0.45]. Root weight must be exactly zero in wind.
-	data[2] = clamp((VERTEX.y + 0.45) / 0.9, 0.0, 1.0);
+	// UV.y is normalized blade length even for the shorter blades in the tuft.
+	data[2] = UV.y;
 	data[2] *= data[2];
 
-	VERTEX.xz *= (1.0 - data[2]);
-
 	COLOR = mix(COLOR, vec4(1.0), smoothstep(0.9, 1.0, data[2]));
-	COLOR *= INSTANCE_CUSTOM[3] < 0.35 ? 1. : mix(1.0, 0.75, smoothstep(0.35, 0.0, data[2]));
+	COLOR *= mix(0.72, 1.0, smoothstep(0.0, 0.6, data[2]));
 	data.rg = INSTANCE_CUSTOM.rg;
 
 	vec3 w_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
+	vec3 bend_direction = normalize(MODEL_MATRIX[0].xyz + MODEL_MATRIX[2].xyz);
+	w_vertex += bend_direction * data[2] * INSTANCE_CUSTOM[3] * 0.23;
 	float scale = pow(INSTANCE_CUSTOM[3] * INSTANCE_CUSTOM[3], 0.707);
 	float force = INSTANCE_CUSTOM[2] * data[2] * scale;
 	force -= fract(force * 256.0) * force * 0.05;
@@ -45,7 +45,7 @@ void fragment() {
 	// 草根至叶尖的轻微亮度变化。
 	ALBEDO = grass_color * (0.85 + data[2] * 0.3);
 	ALBEDO.rg *= (data.rg * 0.3 + 0.9);
-	ALBEDO *= pow(COLOR.rgb, vec3(2.2));
+	ALBEDO *= COLOR.rgb;
 	ROUGHNESS = 0.85;
 	SPECULAR = 0.12;
 

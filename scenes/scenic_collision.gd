@@ -11,7 +11,7 @@ static func mesh_points(root: Node3D, woody_only := false, underside_only := fal
 		for surface in mesh.get_surface_count():
 			var mat: Material = child.get_active_material(surface)
 			var material_name := mat.resource_name.to_lower() if mat != null else ""
-			if woody_only and ("leaves" in material_name or "twigs" in material_name):
+			if woody_only and ("leaves" in material_name or "twig" in material_name or "canopy_branches" in material_name):
 				continue
 			var arrays := mesh.surface_get_arrays(surface)
 			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]

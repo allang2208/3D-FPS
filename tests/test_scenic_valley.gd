@@ -39,7 +39,9 @@ func _ready() -> void:
 				bad_trees += 1
 			for mesh in child.find_children("", "MeshInstance3D", true, false):
 				for surface in mesh.mesh.get_surface_count():
-					if mesh.get_active_material(surface).albedo_texture == null:
+					var material: Material = mesh.get_active_material(surface)
+					var texture: Texture2D = material.get_shader_parameter("albedo_texture") if material is ShaderMaterial else material.albedo_texture
+					if texture == null:
 						missing_materials += 1
 	check(tree_count > 100 and bad_trees == 0, "forest grounded with trunk collisions")
 	check(missing_materials == 0, "fir textures bound")
@@ -57,6 +59,7 @@ func _ready() -> void:
 	check(scene.get_node("ParticleGrass").particle_count <= 190000, "bounded near grass budget")
 	_test_landscape_physics(scene, t)
 	_test_grounding(scene, t)
+	_test_scenery_layers(scene)
 	# Move using physics frames: verify the actual Area3D signal without initiating
 	# an asynchronous whole-game load inside this structural runner.
 	portal.target_scene = ""
@@ -104,7 +107,7 @@ func _test_landscape_physics(scene: Node3D, terrain: Terrain3D) -> void:
 				query.collision_mask = 1
 				var fraction := space.cast_motion(query)
 				swept = fraction[0] < 1.0
-	check(rocks.size() > 50 and rocks.size() <= 170 and bad_shapes == 0, "accepted rocks have closed unscaled solid collision")
+	check(rocks.size() > 50 and rocks.size() <= 230 and bad_shapes == 0, "accepted rocks have closed unscaled solid collision")
 	check(max_gap <= 0.01, "sampled rock undersides embedded below terrain")
 	check(ray_hits > 50, "game collision layer raycasts hit visible rock surfaces")
 	check(swept, "moving physics shape blocked by rock")
@@ -173,7 +176,7 @@ func _test_grounding(scene: Node3D, terrain: Terrain3D) -> void:
 		for mesh in tree.find_children("", "MeshInstance3D", true, false):
 			for surface in mesh.mesh.get_surface_count():
 				var name: String = mesh.get_active_material(surface).resource_name.to_lower()
-				if "leaves" in name or "twigs" in name:
+				if "leaves" in name or "twig" in name or "canopy_branches" in name:
 					continue
 				for vertex in mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_VERTEX]:
 					var world: Vector3 = mesh.global_transform * vertex
@@ -184,3 +187,35 @@ func _test_grounding(scene: Node3D, terrain: Terrain3D) -> void:
 			floating_trunks += 1
 	check(floating_trunks == 0, "rendered trunk base vertices touch terrain")
 	print("[grounding-test] counts=", counts, " max_root_gap=", maximum_gap, " rejected=", scene.placement_rejected)
+
+
+func _test_scenery_layers(scene: Node3D) -> void:
+	var conifers := 0
+	var highest_triangles := 0
+	for tree in get_tree().get_nodes_in_group("scenic_trees"):
+		if tree.get_meta("landscape_asset", "") != scene.CONIFER:
+			continue
+		conifers += 1
+		var triangles := 0
+		for child in tree.find_children("", "MeshInstance3D", true, false):
+			for surface in child.mesh.get_surface_count():
+				triangles += child.mesh.surface_get_array_len(surface) / 3
+		highest_triangles = maxi(highest_triangles, triangles)
+	check(conifers > 200 and highest_triangles < 6500, "dense conifer canopy stays within mesh budget")
+	var grass: Mesh = scene.get_node("ParticleGrass").mesh
+	var vertices: PackedVector3Array = grass.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+	var roots := 0
+	for point in vertices:
+		if is_zero_approx(point.y):
+			roots += 1
+	check(vertices.size() == 36 and roots == 6, "three curved grass blades retain six ground vertices")
+	var low := INF
+	var high := -INF
+	for x in range(-240, -20, 3):
+		var p := Vector2(x, scene._river_center_z(x) + scene.stream_half_width(x) + 4)
+		var offset: float = scene.shore_material_distance(p) - scene.bank_distance(p)
+		low = minf(low, offset)
+		high = maxf(high, offset)
+	check(high - low > 1.5, "shoreline material boundary varies along the stream")
+	check(scene.get_node_or_null("DistantRidge") != null and scene.get_node_or_null("FarRidge") != null, "two mountain layers preserve distant depth")
+	print("[scenery-test] conifers=", conifers, " max_tree_triangles=", highest_triangles, " shore_variation=", high - low)
