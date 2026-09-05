@@ -1360,7 +1360,7 @@ func _build_panel() -> void:
 		name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
 		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_lbl.add_theme_font_size_override("font_size", Style.font_size("label"))
-		name_lbl.add_theme_font_override("font", Style.make_font(600))
+		name_lbl.add_theme_font_override("font", preload("res://assets/ui/fonts/simhei.ttf"))
 		name_lbl.add_theme_color_override("font_color", Color.BLACK)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)

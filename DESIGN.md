@@ -111,3 +111,5 @@ Godot 唯一颜色入口 ui/palette.json，字体/尺寸入口 ui/style-config.j
 - [ ] 新页面先对照三态模板与已有页面，不改出“第 2 套风格”
 - [ ] 改样式只改 Token/组件层，未逐页补丁
 - [ ] 无头测试通过（`test_ui_tokens.gd`、`test_status_bar.gd` 等）
+
+2026-09-06 补充：上方装备栏名称（含空槽标签）也使用 SimHei 16px，下方背包物品名使用 SimHei 12px。原生渲染时直接读取这两类 Label 的实际字体，避免只验证公共主题却遗漏局部覆盖。

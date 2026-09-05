@@ -25,6 +25,9 @@ func run() -> void:
 	root.get_texture().get_image().save_png("res://docs/preview/original-sidebar-1912.png")
 	hud.backpack_hud.set_panel_open(true)
 	await create_timer(0.4).timeout
+	for label in [hud.backpack_hud._cells[0].get_node("Content/Name"), hud.backpack_hud._equip_cells.weapon.get_node("Content/Name")]:
+		var actual: Font = label.get_theme_font("font")
+		print("ITEM FONT: ", label.text, " = ", actual.get_font_name(), " size=", label.get_theme_font_size("font_size"))
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://docs/preview/backpack-reference-1912.png")
 	print("REFERENCE: panel=", hud.backpack_hud._panel.get_global_rect(), " equipment=", hud.backpack_hud._equip_grid.get_global_rect(), " inventory=", hud.backpack_hud._grid.get_global_rect())
