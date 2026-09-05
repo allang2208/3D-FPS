@@ -194,7 +194,7 @@ func _build_light() -> void:
 	var sun: DirectionalLight3D = get_node("Sun")
 	sun.rotation_degrees = Vector3(-42, 30, 0)
 	sun.light_energy = 0.72
-	sun.directional_shadow_max_distance = 160.0
+	sun.directional_shadow_max_distance = 55.0
 
 
 func _build_instanced_nature() -> void:
@@ -377,7 +377,8 @@ func _flush_batches() -> void:
 				mm.set_instance_transform(i, batch["transforms"][i] * part["transform"])
 			var node := MultiMeshInstance3D.new()
 			node.multimesh = mm
-			node.visibility_range_end = 420.0 if batch["rock"] else 125.0
+			node.visibility_range_end = 420.0 if batch["rock"] else 65.0
+			node.lod_bias = 0.5
 			node.visibility_range_end_margin = 20.0
 			add_child(node)
 	_detail_meshes.clear()
@@ -512,6 +513,9 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	grounding_records.append({"kind": "tree", "transform": xf, "geometry": root_geometry})
 	for child in model.find_children("", "GeometryInstance3D", true, false):
 		child.visibility_range_end = 260.0 if path == YOUNG_PINE else 450.0
+		child.lod_bias = 0.5
+	if path == CONIFER:
+		model.setup_lod()
 
 
 func _build_landmark_rocks() -> void:
@@ -574,13 +578,13 @@ func _build_river() -> void:
 
 
 func _build_particle_grass() -> void:
-	var pt: Node3D = load("res://addons/terrain_3d/extras/particle_example/Terrain3DParticles.tscn").instantiate()
+	var pt: Node3D = load("res://scenes/scenic_particle_grass.tscn").instantiate()
 	pt.name = "ParticleGrass"
 	pt.mesh = preload("res://scenes/scenic_foliage.gd").grass_mesh()
 	# Configure before binding terrain so the large default grid is never allocated.
 	pt.instance_spacing = 0.25
-	pt.cell_width = 16.0
-	pt.grid_width = 5
+	pt.cell_width = 8.0
+	pt.grid_width = 7
 	var pm: ShaderMaterial = pt.process_material.duplicate()
 	pm.shader = load("res://assets/shaders/valley_grass_process.gdshader")
 	pm.set_shader_parameter("min_scale", Vector3(0.07, 0.13, 0.07))

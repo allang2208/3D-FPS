@@ -41,6 +41,8 @@ func _ready() -> void:
 				for surface in mesh.mesh.get_surface_count():
 					var material: Material = mesh.get_active_material(surface)
 					var texture: Texture2D = material.get_shader_parameter("albedo_texture") if material is ShaderMaterial else material.albedo_texture
+					if mesh.get_meta("scenic_lod", -1) == 2:
+						texture = material.get_shader_parameter("atlas")
 					if texture == null:
 						missing_materials += 1
 	check(tree_count > 100 and bad_trees == 0, "forest grounded with trunk collisions")
@@ -192,16 +194,36 @@ func _test_grounding(scene: Node3D, terrain: Terrain3D) -> void:
 func _test_scenery_layers(scene: Node3D) -> void:
 	var conifers := 0
 	var highest_triangles := 0
+	var bad_lods := 0
 	for tree in get_tree().get_nodes_in_group("scenic_trees"):
 		if tree.get_meta("landscape_asset", "") != scene.CONIFER:
 			continue
 		conifers += 1
-		var triangles := 0
+		var lod_triangles := [0, 0, 0]
+		var ranges := [Vector2(0, 45), Vector2(45, 105), Vector2(105, 450)]
 		for child in tree.find_children("", "MeshInstance3D", true, false):
+			var level: int = child.get_meta("scenic_lod", -1)
+			if level < 0 or level > 2:
+				bad_lods += 1
+				continue
+			if Vector2(child.visibility_range_begin, child.visibility_range_end) != ranges[level]:
+				bad_lods += 1
+			if level == 2 and child.cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF:
+				bad_lods += 1
 			for surface in child.mesh.get_surface_count():
-				triangles += child.mesh.surface_get_array_len(surface) / 3
-		highest_triangles = maxi(highest_triangles, triangles)
+				var arrays: Array = child.mesh.surface_get_arrays(surface)
+				var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX] != null else PackedInt32Array()
+				lod_triangles[level] += (indices.size() if not indices.is_empty() else arrays[Mesh.ARRAY_VERTEX].size()) / 3
+		highest_triangles = maxi(highest_triangles, lod_triangles[0])
+		if lod_triangles[1] >= lod_triangles[0] / 2 or lod_triangles[2] != 2:
+			bad_lods += 1
 	check(conifers > 200 and highest_triangles < 6500, "dense conifer canopy stays within mesh budget")
+	check(bad_lods == 0, "tree LOD ranges cover near medium and two-triangle unshadowed far trees")
+	var grass_triangles := 0
+	for cell in scene.get_node("ParticleGrass").particle_nodes:
+		grass_triangles += cell.draw_pass_1.surface_get_array_index_len(0) / 3 * cell.amount
+	check(grass_triangles < 600000, "grass grid actual mesh allocation below 600k triangles")
+	check(scene.get_node("Sun").directional_shadow_max_distance <= 60, "dynamic shadows limited to near scenery")
 	var grass: Mesh = scene.get_node("ParticleGrass").mesh
 	var vertices: PackedVector3Array = grass.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
 	var roots := 0

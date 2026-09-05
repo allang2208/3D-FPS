@@ -2,6 +2,8 @@ extends Node3D
 
 @export var variant := 0
 static var templates: Dictionary = {}
+static var medium_templates: Dictionary = {}
+static var impostor_templates: Dictionary = {}
 
 func _ready() -> void:
 	if not templates.has(variant):
@@ -10,6 +12,43 @@ func _ready() -> void:
 		var node := MeshInstance3D.new()
 		node.mesh = mesh
 		add_child(node)
+
+
+## Called after ground fitting: visual LODs must never enter collision fitting.
+func setup_lod() -> void:
+	var shared_bounds := AABB(Vector3(-8, -1, -8), Vector3(16, 12, 16))
+	for node in get_children():
+		node.set_meta("scenic_lod", 0)
+		node.custom_aabb = shared_bounds
+		node.visibility_range_end = 45.0
+	if not medium_templates.has(variant):
+		medium_templates[variant] = _make_meshes(variant, true)
+	for mesh in medium_templates[variant]:
+		var node := MeshInstance3D.new()
+		node.mesh = mesh
+		node.set_meta("scenic_lod", 1)
+		node.custom_aabb = shared_bounds
+		node.visibility_range_begin = 45.0
+		node.visibility_range_end = 105.0
+		add_child(node)
+	if not impostor_templates.has(variant):
+		var quad := QuadMesh.new()
+		quad.size = Vector2(12, 12)
+		quad.center_offset.y = 5
+		var mat := ShaderMaterial.new()
+		mat.resource_name = "conifer_leaves_impostor"
+		mat.shader = load("res://assets/shaders/valley_tree_impostor.gdshader")
+		mat.set_shader_parameter("atlas", load("res://assets/textures/scenic_valley/conifer_impostor_%d.png" % variant))
+		quad.material = mat
+		impostor_templates[variant] = quad
+	var far_tree := MeshInstance3D.new()
+	far_tree.mesh = impostor_templates[variant]
+	far_tree.set_meta("scenic_lod", 2)
+	far_tree.custom_aabb = shared_bounds
+	far_tree.visibility_range_begin = 105.0
+	far_tree.visibility_range_end = 450.0
+	far_tree.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	add_child(far_tree)
 
 
 static func _tube(st: SurfaceTool, start: Vector3, end: Vector3, radius: float, tip: float) -> void:
@@ -41,7 +80,7 @@ static func _sprig(st: SurfaceTool, start: Vector3, direction: Vector3, length: 
 			st.add_vertex(positions[index])
 
 
-static func _make_meshes(seed_offset: int) -> Array[ArrayMesh]:
+static func _make_meshes(seed_offset: int, simplified: bool = false) -> Array[ArrayMesh]:
 	var random := RandomNumberGenerator.new()
 	random.seed = 88421 + seed_offset * 317
 	var trunk := SurfaceTool.new()
@@ -63,14 +102,18 @@ static func _make_meshes(seed_offset: int) -> Array[ArrayMesh]:
 			var length := reach * random.randf_range(0.8, 1.15)
 			var root := Vector3(0, y + random.randf_range(-0.2, 0.2), 0)
 			var end := root + radial * length + Vector3.UP * random.randf_range(-0.42, 0.6)
-			_tube(branches, root, end, 0.04 * (1.0 - tier / 16.0), 0.008)
+			if not simplified:
+				_tube(branches, root, end, 0.04 * (1.0 - tier / 16.0), 0.008)
 			for spray in 6:
 				var t := 0.2 + spray * 0.14
 				var point := root.lerp(end, t)
 				for side in [-1, 1]:
 					var direction: Vector3 = (radial * 0.55 + across * side * 0.85 + Vector3.UP * random.randf_range(0.05, 0.4)).normalized()
 					var size := (0.45 + reach * 0.22) * (1.0 - t * 0.45)
-					_sprig(leaves, point, direction, size, Color(0.76, 0.89, 0.64) * random.randf_range(0.8, 1.05))
+					var tint := Color(0.76, 0.89, 0.64) * random.randf_range(0.8, 1.05)
+					# Consume the same random sequence so all LODs share branch locations.
+					if not simplified or spray % 2 == 0:
+						_sprig(leaves, point, direction, size * (1.22 if simplified else 1.0), tint)
 	for i in 7:
 		_sprig(leaves, Vector3(0, 9.4, 0), Vector3(cos(i), 2.2, sin(i)).normalized(), 0.85, Color(0.7, 0.83, 0.57))
 	var bark := StandardMaterial3D.new()
@@ -88,4 +131,6 @@ static func _make_meshes(seed_offset: int) -> Array[ArrayMesh]:
 	trunk.set_material(bark)
 	branches.set_material(branch_mat)
 	leaves.set_material(foliage)
+	if simplified:
+		return [trunk.commit(), leaves.commit()]
 	return [trunk.commit(), branches.commit(), leaves.commit()]
