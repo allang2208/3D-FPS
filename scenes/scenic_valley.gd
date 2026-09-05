@@ -10,10 +10,13 @@ const FIR := "res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf"
 const CANOPY_TREE := "res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf"
 const BOULDER := "res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf"
 const ROCK := "res://assets/models/polyhaven/rock_09/rock_09_2k.gltf"
+const ScenicCollision := preload("res://scenes/scenic_collision.gd")
 var _land_noise := FastNoiseLite.new()
 var _detail_meshes: Dictionary = {}
 var _fir_materials: Dictionary = {}
 var _batch_geometry: Dictionary = {}
+var _rock_collision_geometry: Dictionary = {}
+var _trunk_collision_geometry: Dictionary = {}
 
 
 func _ready() -> void:
@@ -199,9 +202,17 @@ func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
 	var scale_factor := extent / maxf(0.01, maxf(size.x, size.z) if rock else size.y)
 	var at := Vector3(p.x, terrain.data.get_height(Vector3(p.x, 0, p.y)), p.y)
 	at.y -= info["base"] * scale_factor
+	var yaw := rng.randf_range(0, TAU)
+	var xf := Transform3D(Basis(Vector3.UP, yaw).scaled(Vector3.ONE * scale_factor), at)
 	if rock:
-		at.y -= size.y * scale_factor * 0.18
-	var xf := Transform3D(Basis(Vector3.UP, rng.randf_range(0, TAU)).scaled(Vector3.ONE * scale_factor), at)
+		if not _rock_collision_geometry.has(path):
+			var probe: Node3D = load(path).instantiate()
+			add_child(probe)
+			_rock_collision_geometry[path] = ScenicCollision.rock_geometry(probe)
+			probe.free()
+		var geometry: Dictionary = _rock_collision_geometry[path]
+		xf = ScenicCollision.fit_rock(terrain.data, p, scale_factor, yaw, geometry)
+		ScenicCollision.add_rock(self, xf, geometry)
 	# Spatial grouping prevents one huge MultiMesh AABB from keeping every detail visible.
 	var key := path + "@%d,%d" % [floori(p.x / 64.0), floori(p.y / 64.0)]
 	if not _detail_meshes.has(key):
@@ -287,13 +298,18 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	add_child(body)
 	var model: Node3D = load(path).instantiate()
 	body.add_child(model)
+	var variant_key := path
 	# The download contains three side-by-side variants, not one tree.
 	if path == FIR:
 		var selected: Node3D = model.get_child(rng.randi_range(0, model.get_child_count() - 1))
+		variant_key += ":" + str(selected.name)
 		for child in model.get_children():
 			if child != selected:
 				child.free()
 		selected.position = Vector3.ZERO
+	# Capture unscaled wood geometry before assigning scene-local materials.
+	if not _trunk_collision_geometry.has(variant_key):
+		_trunk_collision_geometry[variant_key] = ScenicCollision.trunk_hulls(model)
 	# The imported GLTF currently has unbound textures. Restore them on local
 	# surface overrides; leave the source asset and other scenes untouched.
 	for child in model.find_children("", "MeshInstance3D", true, false):
@@ -321,13 +337,7 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	var h := terrain.data.get_height(Vector3(p.x, 0, p.y))
 	body.position = Vector3(p.x, h, p.y)
 	model.position.y = -info["base"] * scale_factor
-	var shape := CylinderShape3D.new()
-	shape.radius = clampf(scale_factor * 0.1, 0.12, 0.4)
-	shape.height = info["size"].y * scale_factor * 0.65
-	var collision := CollisionShape3D.new()
-	collision.shape = shape
-	collision.position.y = shape.height * 0.5
-	body.add_child(collision)
+	ScenicCollision.add_trunk(body, model.transform, _trunk_collision_geometry[variant_key])
 	for child in model.find_children("", "GeometryInstance3D", true, false):
 		child.visibility_range_end = 450.0
 
