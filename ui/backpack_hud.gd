@@ -1425,7 +1425,7 @@ func _build_panel() -> void:
 	var inv_header := HBoxContainer.new()
 	inv_col.add_child(inv_header)
 	inv_header.custom_minimum_size.y = 34
-	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	var inv_title := _make_label(inv_header, "背包", Style.font_size("label"), Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inv_title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -1493,7 +1493,7 @@ func _build_panel() -> void:
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		var name_lbl := _make_label(cell_content, "", Style.font_size("caption"), Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
-		name_lbl.add_theme_font_override("font", preload("res://assets/ui/fonts/simhei.ttf"))
+		name_lbl.add_theme_font_override("font", Style.make_font(600))
 		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_lbl.anchor_left = 0.44
 		name_lbl.anchor_right = 0.95

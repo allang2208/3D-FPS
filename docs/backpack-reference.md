@@ -12,7 +12,7 @@
 
 实际预览：docs/preview/backpack-reference-1912.png、docs/preview/backpack-reference-720.png。
 
-字体排查修正（2026-09-05）：原 CSS 的面板根节点使用 Microsoft YaHei UI；TTC 中该字体实际为 face 1，先前默认 face 0 是 Microsoft YaHei。Godot 现在通过 FontVariation 显式选择 face 1（常规与粗体均修正）。CSS 的子节点独立声明仍然生效：背包物品名使用 SimHei 12px，装备名使用微软雅黑 UI 16px，分区标题13px、背包标题14px、装备稀有度10px、背包稀有度8px；数量使用 Consolas。上一版把物品名统一改为14px不符合实际级联，现已纠正。
+字体规则（按用户确认的正式冷钢规范修正）：中文和普通 UI 使用 Microsoft YaHei UI，TTC 通过 FontVariation 显式选择 face 1；物品名12px、600字重，不再沿用旧 CSS 写死的 SimHei。“背包”标题使用16px分区档；堆叠数量和背包容量均使用 Consolas（Godot 容量此前已显式使用该字体，本轮保留）。统一规范优先于源页面旧样式的实际级联结果。
 
 右侧栏直接复制原项目 assets/ui/icons 下 status、skills、inventory、codex、quest、world_switch、party、technology_tree 八张 PNG。按 game-style.css 与 panel-theme-backpack.css 设置74px按钮、68px图片、25px间距、右边距12px、20px快捷键和11px标题；小窗口整体缩放。图片启用 mipmap 与线性过滤。状态、技能、背包、图鉴及任务入口连接现有面板；世界、队员、科技树保留入口提示，相关玩法并未因此迁移。
 

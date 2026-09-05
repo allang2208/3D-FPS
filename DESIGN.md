@@ -1,4 +1,4 @@
-> 字体补充：原 CSS 优先 Microsoft YaHei UI（TTC face 1）；背包物品名保留显式 SimHei 12px，数量 Consolas。右侧栏目使用原项目八张 PNG，68px 图、74px 按钮、25px 间距；详见 docs/backpack-reference.md。
+> 字体补充：原 CSS 优先 Microsoft YaHei UI（TTC face 1）；背包物品名统一微软雅黑 UI 12px，堆叠数量与容量统一 Consolas，“背包”标题16px。此正式规范覆盖源页面遗留的 SimHei 声明。右侧栏目使用原项目八张 PNG，68px 图、74px 按钮、25px 间距；详见 docs/backpack-reference.md。
 
 > 2026-09-05 最新背包截图优先：背包装备页按用户提供的白色装备底板、白色空槽、深灰已装备槽和深灰背包格还原；具体值见 `ui/backpack_reference_style.gd`，布局证据见 `docs/backpack-reference.md`。这组局部规则覆盖上一版统一深灰槽，不改变其他面板的冷钢主题。
 
