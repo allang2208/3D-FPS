@@ -29,10 +29,13 @@ func run() -> void:
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 12.0
 	world.add_child(camera)
-	for variant in 3:
-		var model: Node3D = load("res://scenes/scenic_conifer.tscn").instantiate()
-		model.variant = variant
+	for variant in 6:
+		var model := Node3D.new()
 		world.add_child(model)
+		for geometry in load("res://scenes/scenic_pine_geometry.gd").make_meshes(variant):
+			var instance := MeshInstance3D.new()
+			instance.mesh = geometry
+			model.add_child(instance)
 		var atlas := Image.create_empty(4096, 512, false, Image.FORMAT_RGBA8)
 		for angle in 8:
 			var yaw := angle * TAU / 8
@@ -44,7 +47,7 @@ func run() -> void:
 			var image := viewport.get_texture().get_image()
 			image.convert(Image.FORMAT_RGBA8)
 			atlas.blit_rect(image, Rect2i(0, 0, 512, 512), Vector2i(angle * 512, 0))
-		var result := atlas.save_png("res://assets/textures/scenic_valley/conifer_impostor_%d.png" % variant)
+		var result := atlas.save_png("res://assets/textures/scenic_valley/natural_pine_impostor_%d.png" % variant)
 		print("[impostor-bake] variant=", variant, " result=", result)
 		model.free()
 	quit()

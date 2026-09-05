@@ -192,6 +192,7 @@ func _test_grounding(scene: Node3D, terrain: Terrain3D) -> void:
 
 
 func _test_scenery_layers(scene: Node3D) -> void:
+	var variants := {}
 	var conifers := 0
 	var highest_triangles := 0
 	var bad_lods := 0
@@ -199,6 +200,7 @@ func _test_scenery_layers(scene: Node3D) -> void:
 		if tree.get_meta("landscape_asset", "") != scene.CONIFER:
 			continue
 		conifers += 1
+		variants[tree.get_child(0).variant] = true
 		var lod_triangles := [0, 0, 0]
 		var ranges := [Vector2(0, 45), Vector2(45, 105), Vector2(105, 450)]
 		for child in tree.find_children("", "MeshInstance3D", true, false):
@@ -218,6 +220,7 @@ func _test_scenery_layers(scene: Node3D) -> void:
 		if lod_triangles[1] >= lod_triangles[0] / 2 or lod_triangles[2] != 2:
 			bad_lods += 1
 	check(conifers > 200 and highest_triangles < 6500, "dense conifer canopy stays within mesh budget")
+	check(variants.size() == 6, "forest uses all six natural pine silhouettes")
 	check(bad_lods == 0, "tree LOD ranges cover near medium and two-triangle unshadowed far trees")
 	var grass_triangles := 0
 	for cell in scene.get_node("ParticleGrass").particle_nodes:

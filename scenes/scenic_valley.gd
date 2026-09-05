@@ -433,7 +433,7 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	add_child(body)
 	var model: Node3D = load(path).instantiate()
 	if path == CONIFER:
-		model.variant = rng.randi_range(0, 2)
+		model.variant = rng.randi_range(0, 5)
 	body.add_child(model)
 	var variant_key := path + (":" + str(model.variant) if path == CONIFER else "")
 	# The download contains three side-by-side variants, not one tree.
