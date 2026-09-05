@@ -1,13 +1,6 @@
 extends RefCounted
 ## Visual values from the supplied 1912x948 screenshot and game-style.css.
 static var _cache := {}
-static var _name_font: FontVariation
-static func item_font() -> Font:
-	if _name_font == null:
-		_name_font = FontVariation.new()
-		_name_font.base_font = preload("res://assets/ui/fonts/simhei.ttf")
-		_name_font.variation_embolden = 0.35
-	return _name_font
 static func surface(top: String, bottom: String, border: String, radius := 8, width := 2, padding := 0) -> StyleBoxTexture:
 	var key := str([top, bottom, border, radius, width])
 	if not _cache.has(key):
@@ -32,4 +25,3 @@ static func surface(top: String, bottom: String, border: String, radius := 8, wi
 
 static func clear_cache() -> void:
 	_cache.clear()
-	_name_font = null

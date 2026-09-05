@@ -284,7 +284,7 @@ static var THEME_DIVIDER_ACCENT: Color = Color(0.8314, 0.6863, 0.2157, 0.6) # �
 
 # ---------- 字体 ----------
 
-## 黑体字重阶梯（DESIGN.md：标题 Heavy / 副标题 Bold / 正文 Regular）
+## 冷钢字体真源：中文微软雅黑，纯数字 Consolas；组件只选择语义字号和字重。
 ## 字体文件直载（绕开系统字体名解析，确保 100% 生效）：
 ## - 正文/常规：微软雅黑 MicrosoftYaHei.ttc
 ## - 加粗/标题：微软雅黑 Bold MicrosoftYaHeiBold.ttc
