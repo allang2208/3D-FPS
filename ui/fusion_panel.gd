@@ -64,6 +64,9 @@ func _build_body() -> void:
 	bp_scroll.add_child(_bp_grid)
 
 func _refresh() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		hud.request_inventory_save()
 	_rebuild_grid()
 	_rebuild_backpack()
 	_rarity_menu.visible = false
@@ -120,6 +123,8 @@ func _place_from_backpack(bp_slot: int) -> void:
 		it["stack"] = stack - 1
 	var clone: Dictionary = it.duplicate(true)
 	clone["stack"] = 1
+	if stack > 1:
+		clone["instance_id"] = preload("res://ui/item_rules.gd").new_id()
 	_placed[slot] = {"item": clone, "seq": _seq}
 	_seq += 1
 	_backpack.changed.emit()
@@ -129,8 +134,10 @@ func _retrieve(slot: int) -> void:
 	var entry = _placed[slot]
 	if entry == null:
 		return
+	if not _backpack.add_instance(entry["item"]):
+		show_message("背包已满", true)
+		return
 	_placed[slot] = null
-	_backpack.add_item(String(entry["item"].get("id", "")), 1)
 	_refresh()
 
 func _return_all() -> void:
@@ -138,8 +145,10 @@ func _return_all() -> void:
 		var entry = _placed[i]
 		if entry == null:
 			continue
+		if not _backpack.add_instance(entry["item"]):
+			show_message("背包已满", true)
+			break
 		_placed[i] = null
-		_backpack.add_item(String(entry["item"].get("id", "")), 1)
 	_refresh()
 
 func _fuse() -> void:
@@ -159,8 +168,10 @@ func _fuse() -> void:
 	var results: Array = []
 	for i in range(0, placed.size() - 1, 2):
 		var next := _next_tribute(rarity)
-		if not next.is_empty():
-			results.append(next)
+		if next.is_empty():
+			show_message("没有可用的合成结果", true)
+			return
+		results.append(next)
 	var remainder: Array = []
 	if placed.size() % 2 == 1:
 		remainder.append(placed[placed.size() - 1]["item"])

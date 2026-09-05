@@ -6,7 +6,7 @@ const Style := preload("res://ui/style.gd")
 
 signal dropped(data: Dictionary)
 
-var accepted_types: Array = ["npc_item"]
+var accepted_types: Array = ["npc_item", "backpack", "equip"]
 var _dragging := false
 
 func _ready() -> void:

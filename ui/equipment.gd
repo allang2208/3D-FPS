@@ -1,4 +1,5 @@
 extends RefCounted
+const Rules := preload("res://ui/item_rules.gd")
 ## 装备栏数据模型（从旧版 EquipManager.equipFromBackpack / unequip 迁移）
 ## - 15 槽位沿用旧版装备页：earring/helmet/ring1/gloves/necklace/cloak/weapon/armor/
 ##   offhand/weapon2/belt/ring2/extra/boots/backpack
@@ -47,7 +48,10 @@ func is_locked(key: String) -> bool:
 func equip_from_backpack(backpack_slot: int) -> bool:
 	if _backpack == null or backpack_slot < 0 or backpack_slot >= _backpack.slots.size():
 		return false
-	var item: Dictionary = _backpack.slots[backpack_slot]
+	var value = _backpack.slots[backpack_slot]
+	if value == null:
+		return false
+	var item: Dictionary = value
 	if item.is_empty():
 		return false
 	var target := _resolve_target_slot(item)
@@ -57,47 +61,53 @@ func equip_from_backpack(backpack_slot: int) -> bool:
 
 ## 显式装备到指定槽位（拖放用；兼容性由 can_equip_to 保证）
 func equip_to_slot(key: String, backpack_slot: int) -> bool:
-	if not slots.has(key) or _backpack == null:
+	if _backpack == null or backpack_slot < 0 or backpack_slot >= _backpack.slots.size():
 		return false
-	if backpack_slot < 0 or backpack_slot >= _backpack.slots.size():
+	var value = _backpack.slots[backpack_slot]
+	if value == null or not can_equip_to(key, value):
 		return false
-	var item: Dictionary = _backpack.slots[backpack_slot]
-	if item.is_empty() or not can_equip_to(key, item):
-		return false
-	_apply_two_handed_rules(item, key)
-	var replaced: Dictionary = get_item(key)
-	_backpack.slots[backpack_slot] = replaced.duplicate(true) if not replaced.is_empty() else null
-	if not replaced.is_empty():
-		_backpack.slots[backpack_slot]["slot"] = backpack_slot
-	var clone: Dictionary = item.duplicate(true)
+	var item: Dictionary = value
+	var proposed: Array = _backpack.slots.duplicate(true)
+	proposed[backpack_slot] = null
+	var next := slots.duplicate(true)
+	var displaced: Array[String] = [key]
+	if bool(item.get("isTwoHanded", false)):
+		displaced.append("offhand" if key == "weapon" else "ring2")
+	elif is_support(item):
+		var main_key := "weapon" if key == "offhand" else "weapon2"
+		if next[main_key] != null and bool(next[main_key].get("isTwoHanded", false)):
+			displaced.append(main_key)
+	for old_key in displaced:
+		if next[old_key] != null:
+			proposed = Rules.insert(proposed, next[old_key], _backpack.max_slots, backpack_slot)
+			if proposed.is_empty():
+				return false
+		next[old_key] = null
+	var clone := item.duplicate(true)
 	clone["backpack_slot"] = backpack_slot
 	clone["slot"] = -1
-	slots[key] = clone
+	next[key] = clone
+	slots = next
+	_backpack.slots = proposed
 	_backpack.changed.emit()
 	changed.emit()
 	equipped.emit(key)
 	return true
 
 ## 卸下装备回背包（优先来源格，其次首个空位）
-func unequip(key: String) -> bool:
-	var item: Dictionary = slots.get(key, {})
+func unequip(key: String, preferred := -1) -> bool:
+	var item := get_item(key)
 	if item.is_empty() or _backpack == null:
 		return false
-	var put_slot := -1
-	var remembered := int(item.get("backpack_slot", -1))
-	if remembered >= 0 and remembered < _backpack.slots.size() and _backpack.slots[remembered] == null:
-		put_slot = remembered
-	else:
-		for i in _backpack.slots.size():
-			if _backpack.slots[i] == null:
-				put_slot = i
-				break
-	if put_slot < 0:
+	if preferred >= 0 and preferred < _backpack.slots.size() and _backpack.slots[preferred] != null:
+		return equip_to_slot(key, preferred)
+	if preferred < 0:
+		preferred = int(item.get("backpack_slot", -1))
+	var proposed := Rules.insert(_backpack.slots, item, _backpack.max_slots, preferred)
+	if proposed.is_empty():
 		return false
-	var clone: Dictionary = item.duplicate(true)
-	clone["slot"] = put_slot
-	_backpack.slots[put_slot] = clone
 	slots[key] = null
+	_backpack.slots = proposed
 	_backpack.changed.emit()
 	changed.emit()
 	return true
@@ -105,81 +115,53 @@ func unequip(key: String) -> bool:
 func swap_equip(a: String, b: String) -> bool:
 	if not slots.has(a) or not slots.has(b) or a == b:
 		return false
-	if is_locked(a) or is_locked(b):
+	if (slots[a] != null and not can_equip_to(b, slots[a])) or (slots[b] != null and not can_equip_to(a, slots[b])):
 		return false
-	var tmp = slots[a]
-	slots[a] = slots[b]
-	slots[b] = tmp
+	var next := slots.duplicate(true)
+	var temp = next[a]
+	next[a] = next[b]
+	next[b] = temp
+	for pair in [["weapon", "offhand"], ["weapon2", "ring2"]]:
+		if next[pair[0]] != null and bool(next[pair[0]].get("isTwoHanded", false)) and next[pair[1]] != null:
+			return false
+	slots = next
 	changed.emit()
 	return true
 
 ## 目标槽位判定（旧版武器栏填充逻辑简化版）
 func _resolve_target_slot(item: Dictionary) -> String:
-	var category := String(item.get("category", ""))
-	if category.begins_with("weapon"):
-		var weapon_type := String(item.get("weaponType", ""))
-		if weapon_type == "shield":
-			if slots["offhand"] == null or not is_locked("offhand"):
-				return "offhand"
-			if slots["ring2"] == null or not is_locked("ring2"):
-				return "ring2"
-			return "offhand"
-		if bool(item.get("isTwoHanded", false)):
-			if slots["weapon"] == null:
-				return "weapon"
-			if slots["weapon2"] == null:
-				return "weapon2"
-			return "weapon"
-		if slots["weapon"] == null:
-			return "weapon"
-		if slots["offhand"] == null and not is_locked("offhand"):
-			return "offhand"
-		if slots["weapon2"] == null:
-			return "weapon2"
-		return "weapon"
-	var equip_slot := String(item.get("equipSlot", ""))
-	if equip_slot != "" and slots.has(equip_slot):
-		return equip_slot
-	return ""
+	var candidates: Array = []
+	if is_support(item):
+		candidates = ["offhand", "ring2"]
+	elif is_weapon(item):
+		candidates = ["weapon", "weapon2"]
+	else:
+		var target := str(item.get("equipSlot", ""))
+		return target if slots.has(target) else ""
+	for key in candidates:
+		if slots[key] == null and not is_locked(key):
+			return key
+	return candidates[0]
 
-## 双手武器/盾牌与副手互斥（旧版第 1/1b/2/2b 步）
-func _apply_two_handed_rules(item: Dictionary, target: String) -> void:
-	if bool(item.get("isTwoHanded", false)):
-		if target == "weapon" and slots["offhand"] != null:
-			_unequip_to_backpack("offhand")
-		elif target == "weapon2" and slots["ring2"] != null:
-			_unequip_to_backpack("ring2")
-	elif String(item.get("weaponType", "")) == "shield":
-		if target == "offhand" and slots["weapon"] != null and bool(slots["weapon"].get("isTwoHanded", false)):
-			_unequip_to_backpack("weapon")
-		elif target == "ring2" and slots["weapon2"] != null and bool(slots["weapon2"].get("isTwoHanded", false)):
-			_unequip_to_backpack("weapon2")
+static func is_support(item: Dictionary) -> bool:
+	return item.get("offhandType", "") in ["shield", "spellbook", "magic_book"] or item.get("weaponType", "") in ["shield", "spellbook", "magic_book"] or item.get("category", "") == "magic_book"
 
-func _unequip_to_backpack(key: String) -> void:
-	var it: Dictionary = slots[key]
-	if it.is_empty() or _backpack == null:
-		return
-	var put_slot := -1
-	for i in _backpack.slots.size():
-		if _backpack.slots[i] == null:
-			put_slot = i
-			break
-	if put_slot < 0:
-		return
-	var clone: Dictionary = it.duplicate(true)
-	clone["slot"] = put_slot
-	_backpack.slots[put_slot] = clone
-	slots[key] = null
+static func is_weapon(item: Dictionary) -> bool:
+	return item.has("weaponType") or str(item.get("category", "")).contains("weapon") or item.has("rangedType")
 
-## 拖放兼容性判定（装备槽接受什么物品）
 func can_equip_to(key: String, item: Dictionary) -> bool:
-	if item.is_empty() or is_locked(key):
+	if item.is_empty() or not slots.has(key):
 		return false
-	var category := String(item.get("category", ""))
-	if category.begins_with("weapon"):
-		if String(item.get("weaponType", "")) == "shield":
-			return key == "offhand" or key == "ring2"
-		if bool(item.get("isTwoHanded", false)):
-			return key == "weapon" or key == "weapon2"
-		return key == "weapon" or key == "weapon2" or key == "offhand" or key == "ring2"
-	return String(item.get("equipSlot", "")) == key
+	if key in ["weapon", "weapon2"]:
+		return is_weapon(item) and not is_support(item)
+	if key in ["offhand", "ring2"]:
+		return is_support(item) and not bool(item.get("isTwoHanded", false))
+	return not is_weapon(item) and str(item.get("equipSlot", "")) == key
+
+func serialize() -> Dictionary:
+	return slots.duplicate(true)
+
+func restore(data: Dictionary) -> void:
+	for key in SLOT_ORDER:
+		slots[key] = data.get(key, null)
+	changed.emit()

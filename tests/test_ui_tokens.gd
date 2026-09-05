@@ -15,7 +15,11 @@ func _check(name: String, ok: bool, detail := "") -> void:
 
 func _initialize() -> void:
 	# 1) DESIGN.md 关键 Token 对齐（以 DESIGN.md 的十六进制色值为真源，经 palette.json 加载）
-	if Style.theme_active() == "gray_white":
+	if Style.theme_active() == "cold_steel":
+		_check("steel_shell", Style.THEME_BG.is_equal_approx(Style._hex_to_color("#171d23")))
+		_check("steel_accent", Style.THEME_GOLD.is_equal_approx(Style._hex_to_color("#c4d3da")))
+		_check("steel_copy", Style.COLOR_TEXT.is_equal_approx(Style._hex_to_color("#eef3f5")))
+	elif Style.theme_active() == "gray_white":
 		_check("gw_bg_light", Style.THEME_BG.r > 0.8)
 		_check("gw_white_dark", Style.THEME_WHITE.r < 0.2)
 		_check("gw_gold_bronze", Style.THEME_GOLD.r > 0.4 and Style.THEME_GOLD.r < 0.7)
@@ -60,12 +64,12 @@ func _initialize() -> void:
 		var cparsed = JSON.parse_string(cf.get_as_text())
 		var cfg: Dictionary = cparsed if typeof(cparsed) == TYPE_DICTIONARY else {}
 		_check("style_config_parse", typeof(cparsed) == TYPE_DICTIONARY)
-		_check("config_theme_valid", Style.theme_active() in ["dark_gold", "gold_white_gray", "gray_white"])
+		_check("config_theme_valid", Style.theme_active() in ["dark_gold", "gold_white_gray", "gray_white", "cold_steel"])
 		_check("config_radius", Style.RADIUS == 10)
 		_check("config_spacing_grid", Style.spacing("grid") == 4)
-		_check("config_font_h1", Style.font_size("h1") == 48)
+		_check("config_font_h1", Style.font_size("h1") == (24 if Style.theme_active() == "cold_steel" else 48))
 		_check("config_font_weight_heavy", Style.font_weight("heavy") == 700)
-		_check("config_motion", absf(Style.MOTION_DURATION - 0.2) < 0.001)
+		_check("config_motion", absf(Style.MOTION_DURATION - (0.25 if Style.theme_active() == "cold_steel" else 0.2)) < 0.001)
 
 	# 1d) 金白主题预设生效（active_theme=gold_white_gray 时组件消费的 COLOR_* 已被 THEME_* 覆盖）
 	if Style.theme_active() == "gold_white_gray":
@@ -79,7 +83,7 @@ func _initialize() -> void:
 		_check("gw_text_dark", Style.COLOR_TEXT.r < 0.2)
 		_check("gw_theme_bg_light", Style.THEME_BG.r > 0.8)
 		_check("gw_hp_status", Style.COLOR_HP_HIGH.is_equal_approx(Style.THEME_HP_GREEN))
-	else:
+	elif Style.theme_active() != "cold_steel":
 		_check("preset_dark_gold_default", Style.COLOR_TEXT.is_equal_approx(Style._hex_to_color("#d4c5a9")))
 		_check("dmg_flash_token", Style.COLOR_DMG_FLASH.is_equal_approx(Style._hex_to_color("#CC000000")))
 

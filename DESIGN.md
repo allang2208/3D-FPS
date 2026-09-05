@@ -1,3 +1,17 @@
+# 当前生效：冷钢档案（2026-09-05）
+
+本项目当前主题为 `cold_steel`。本节取代下方历史金色/灰白设计约定。
+源规范：原 game-dev 的 docs/ui-cold-steel-design-system.md；源色值：ui/panel-theme-backpack.css。
+Godot 唯一颜色入口 ui/palette.json，字体/尺寸入口 ui/style-config.json，组件统一消费 ui/style.gd。
+炭黑外壳、冷灰控件、银白信息；普通强调为银灰，金色仅用于金币/升级等游戏语义。
+字号 24/20/16/14/12/11，单面板最多四档；微软雅黑、Consolas 数字。
+右侧背包占屏宽45%、全高，0.25秒水平滑入；圆角10、格子8、滚动条8。
+按钮有默认、hover、pressed、disabled、focus；禁止持续弹跳/旋转。
+背包操作保留数量及实例属性，取消/失败不消耗；保存包括背包、装备、仓库、快捷栏和加工暂存。
+
+---
+以下保留为历史参考，不再作为当前主题验收基准。
+
 # 无尽轮回 3D FPS · 设计 DNA（Design.md）
 
 > 本文件是 UI 线唯一的风格事实源（单一真源）。所有 UI 组件、页面、情绪板生成

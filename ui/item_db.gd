@@ -1,4 +1,5 @@
 extends RefCounted
+const Rules := preload("res://ui/item_rules.gd")
 ## 物品库：消耗品定义 + 加载旧版 data/equipment.json（125 件装备）
 ## 字段沿用旧版：id / name / type / icon / category / rarity / stack / stack_max /
 ##               stats / useEffect / useCooldown / desc / equipSlot / attack / ammoConfig ...
@@ -211,14 +212,23 @@ func _load_equipment() -> void:
 		return
 	var eq: Dictionary = data["equipment"]
 	for id in eq.keys():
-		if _defs.has(id):
-			continue  # 保留本地精修定义（药水带 stack_max/图标路径）
 		var def: Dictionary = eq[id].duplicate(true)
+		# Original definitions own gameplay values; only adapt Godot consumption fields.
+		if _defs.has(id) and _defs[id].has("scroll_id"):
+			def["scroll_id"] = _defs[id].scroll_id
+		def["id"] = id
+		def["stack_max"] = Rules.max_stack(def)
+		if not def.has("useEffect") and _defs.has(id):
+			def["useEffect"] = _defs[id].get("useEffect", {}).duplicate(true)
 		var emoji := String(def.get("icon", ""))
 		var icon_path := String(def.get("slotImage", def.get("iconImage", "")))
 		if icon_path != "":
-			var mapped := ""
+			var mapped := "res://assets/original_ui/" + icon_path
+			if not ResourceLoader.exists(mapped):
+				mapped = ""
 			for dir in EQUIP_ICON_DIRS:
+				if not mapped.is_empty():
+					break
 				var candidate: String = dir + icon_path.get_file()
 				if ResourceLoader.exists(candidate):
 					mapped = candidate
@@ -249,8 +259,8 @@ func create_instance(id: String, stack := 1) -> Dictionary:
 		return {}
 	var inst: Dictionary = def.duplicate(true)
 	inst["id"] = id
-	inst["stack"] = clampi(stack, 1, int(def.get("stack_max", 99)))
+	inst["stack"] = maxi(1, stack)
 	inst["slot"] = -1
 	_seq += 1
-	inst["instance_id"] = "%d_%d" % [Time.get_ticks_usec(), _seq]
+	inst["instance_id"] = Rules.new_id()
 	return inst

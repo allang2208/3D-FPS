@@ -11,35 +11,84 @@ const CAPACITY := 100
 var items: Array = []
 var current_page := 0
 
-func _max_stack(item: Dictionary) -> int:
-	# 旧版 warehouse-system.js：无 maxStack 字段的非堆叠物品按 1（武器不叠）
-	var v := int(item.get("stack_max", 0))
-	return v if v > 1 else 1
+const Rules := preload("res://ui/item_rules.gd")
 
-func add_item(item: Dictionary) -> bool:
-	var remaining := int(item.get("stack", 1))
-	var max_stack := _max_stack(item)
-	var name := String(item.get("name", ""))
-	for it in items:
-		if it != null and String(it.get("name", "")) == name and int(it.get("stack", 1)) < max_stack:
-			var add := mini(max_stack - int(it["stack"]), remaining)
-			it["stack"] = int(it["stack"]) + add
-			remaining -= add
-			if remaining <= 0:
-				changed.emit()
-				return true
-	while remaining > 0:
-		if items.size() >= CAPACITY:
-			changed.emit()
-			return false
-		var add := mini(max_stack, remaining)
-		var clone: Dictionary = item.duplicate(true)
-		clone["stack"] = add
-		clone["slot"] = items.size()
-		items.append(clone)
-		remaining -= add
+func _max_stack(item: Dictionary) -> int:
+	return Rules.max_stack(item)
+
+func _as_slots() -> Array:
+	var result: Array = []
+	result.resize(CAPACITY)
+	for item in items:
+		var slot := int(item.get("slot", -1))
+		if slot >= 0 and slot < CAPACITY:
+			result[slot] = item
+	return result
+
+func add_item(item: Dictionary, preferred := -1) -> bool:
+	var proposed := Rules.insert(_as_slots(), item, CAPACITY, preferred)
+	if proposed.is_empty():
+		return false
+	items = proposed.filter(func(it): return it != null)
 	changed.emit()
 	return true
+
+func store_from_backpack(backpack, source: int, preferred := -1) -> bool:
+	if source < 0 or source >= backpack.slots.size() or backpack.slots[source] == null:
+		return false
+	if preferred >= 0:
+		var moved := Rules.transfer_at(backpack.slots, _as_slots(), source, preferred)
+		if moved.is_empty():
+			return false
+		backpack.slots = moved.source
+		items = moved.target.filter(func(it): return it != null)
+		backpack.changed.emit()
+		changed.emit()
+		return true
+	var proposed := Rules.insert(_as_slots(), backpack.slots[source], CAPACITY, preferred)
+	if proposed.is_empty():
+		return false
+	items = proposed.filter(func(it): return it != null)
+	backpack.slots[source] = null
+	backpack.changed.emit()
+	changed.emit()
+	return true
+
+func retrieve_to_backpack(backpack, source: int, preferred := -1) -> bool:
+	var item := get_item_at(source)
+	if item.is_empty():
+		return false
+	if preferred >= 0:
+		var moved := Rules.transfer_at(_as_slots(), backpack.slots, source, preferred)
+		if moved.is_empty():
+			return false
+		items = moved.source.filter(func(it): return it != null)
+		backpack.slots = moved.target
+		backpack.changed.emit()
+		changed.emit()
+		return true
+	var proposed := Rules.insert(backpack.slots, item, backpack.max_slots, preferred)
+	if proposed.is_empty():
+		return false
+	items.erase(item)
+	backpack.slots = proposed
+	backpack.changed.emit()
+	changed.emit()
+	return true
+
+func serialize() -> Dictionary:
+	return {"items": items.duplicate(true), "page": current_page}
+
+func restore(data: Dictionary) -> void:
+	items = data.get("items", []).duplicate(true)
+	current_page = clampi(int(data.get("page", 0)), 0, PAGE_COUNT - 1)
+	changed.emit()
+
+func sort_items() -> void:
+	items.sort_custom(func(a, b): return str(a.get("category", "")) + str(a.get("name", "")) < str(b.get("category", "")) + str(b.get("name", "")))
+	for i in items.size():
+		items[i].slot = i
+	changed.emit()
 
 func count_material(pred: Callable) -> int:
 	var total := 0
@@ -75,11 +124,27 @@ func get_item_at(slot: int) -> Dictionary:
 	return {}
 
 func retrieve_all_to_backpack(backpack) -> void:
-	for i in range(items.size() - 1, -1, -1):
-		var it = items[i]
-		if it == null:
-			continue
-		if not backpack.add_item(String(it.get("id", "")), int(it.get("stack", 1))):
-			break  # 背包满：保留剩余仓库物品，不丢失
-		items.remove_at(i)
+	for item in items.duplicate():
+		if not retrieve_to_backpack(backpack, int(item.slot)):
+			break
+
+func move_item(from: int, to: int) -> bool:
+	var packed := _as_slots()
+	if from < 0 or from >= CAPACITY or to < 0 or to >= CAPACITY or packed[from] == null or from == to:
+		return false
+	if packed[to] != null and Rules.can_stack(packed[from], packed[to]):
+		var amount := mini(int(packed[from].stack), Rules.max_stack(packed[to]) - int(packed[to].stack))
+		packed[to].stack = int(packed[to].stack) + amount
+		packed[from].stack = int(packed[from].stack) - amount
+		if int(packed[from].stack) == 0:
+			packed[from] = null
+	else:
+		var temp = packed[from]
+		packed[from] = packed[to]
+		packed[to] = temp
+	for i in packed.size():
+		if packed[i] != null:
+			packed[i].slot = i
+	items = packed.filter(func(it): return it != null)
 	changed.emit()
+	return true

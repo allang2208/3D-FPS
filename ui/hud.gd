@@ -17,6 +17,13 @@ var skills_db: RefCounted
 var skill_progress: RefCounted
 var status_bar: CanvasLayer
 var backpack_hud: Control
+var warehouse
+var economy
+var _save_queued := false
+var _pending_panels: Dictionary = {}
+var _ground_items: Array = []
+var _inventory_panels: Dictionary = {}
+const Save := preload("res://ui/inventory_save.gd")
 
 var _built := false
 var _last_scene: Node
@@ -82,22 +89,27 @@ func _ensure_built() -> void:
 	skillbar.assign(1, "iceSpike")
 	skillbar.assign(2, "lightningStrike")
 	skillbar.assign(3, "blizzard")
-	for id in ["rusty_sword", "g18_pistol", "small_shield", "lunar_helmet", "ring_oracle"]:
-		backpack.add_item(id, 1)
-	# NPC 面板测试物资（商店/强化/改造/附魔/祭坛），与旧 main 种子一致
-	backpack.add_item("enhancement_stone", 3)
-	backpack.add_item("reforge_ticket", 2)
-	backpack.add_item("magic_dust", 150)
-	backpack.add_item("enchant_scroll_heavy", 1)
-	backpack.add_item("enchant_scroll_sharp", 1)
-	backpack.add_item("enchant_scroll_tarantula", 1)
-	backpack.add_item("enchant_scroll_skeleton", 1)
-	backpack.add_item("tribute_common", 4)
-	backpack.add_item("tribute_uncommon", 2)
-	for i in backpack.slots.size():
-		if backpack.slots[i] != null and String(backpack.slots[i].get("id", "")) == "rusty_sword":
-			equipment.equip_from_backpack(i)
-			break
+	backpack.add_item("mp_potion", 3)
+	equipment.slots["weapon"] = item_db.create_instance("rusty_sword")
+	equipment.slots["offhand"] = item_db.create_instance("small_shield")
+	warehouse = load("res://ui/warehouse.gd").new()
+	economy = load("res://ui/economy.gd").new()
+	var saved := Save.read_snapshot()
+	if not saved.is_empty():
+		backpack.restore(saved.get("backpack", {}))
+		equipment.restore(saved.get("equipment", {}))
+		warehouse.restore(saved.get("warehouse", {}))
+		economy.gold = int(saved.get("gold", economy.gold))
+		_pending_panels = saved.get("pending", {}).duplicate(true)
+		_ground_items = saved.get("ground_items", []).duplicate(true)
+		for key in saved.get("status", {}):
+			player_status.set(key, saved.status[key])
+		if saved.has("skills"):
+			skillbar.assignments = saved.skills.duplicate(true)
+	backpack.changed.connect(request_inventory_save)
+	equipment.changed.connect(request_inventory_save)
+	warehouse.changed.connect(request_inventory_save)
+	economy.changed.connect(func(_gold): request_inventory_save())
 	skill_progress = load("res://ui/skill_progress.gd").new(skills_db)
 	status_bar = CanvasLayer.new()
 	status_bar.name = "StatusBar"
@@ -111,6 +123,8 @@ func _ensure_built() -> void:
 	backpack_hud.player_healed.connect(_on_hud_healed)
 	backpack_hud.skill_triggered.connect(func(id: String, phase: String) -> void:
 		skill_triggered.emit(id, phase))
+	backpack_hud.backpack = backpack
+	backpack_hud.equipment = equipment
 	status_bar.add_child(backpack_hud)
 	backpack_hud.setup(backpack, equipment, player_status, skillbar)
 	var skill_page: Node = backpack_hud.find_child("SkillPage", true, false)
@@ -139,6 +153,7 @@ func _bind_scene(scene: Node) -> void:
 			_bound_gun.hit.disconnect(_on_gun_hit)
 		if _bound_gun.ads_changed.is_connected(_on_ads_changed):
 			_bound_gun.ads_changed.disconnect(_on_ads_changed)
+	_bound_player = null
 	var player := scene.get_node_or_null("Player")
 	if player == null:
 		player = scene.find_child("Player", true, false)
@@ -146,6 +161,9 @@ func _bind_scene(scene: Node) -> void:
 		_bound_player = player
 		player.damaged.connect(_on_player_damaged)
 		player.died.connect(_on_player_died)
+	for record in _ground_items:
+		if record.scene == scene.scene_file_path:
+			_spawn_ground_item(record)
 	_bind_gun(scene)
 	if _bound_gun == null:
 		# 枪通常在 HUD 绑定后才加入场景（main._ready 先调 ensure 后建枪），延迟重试直到出现
@@ -221,3 +239,88 @@ func _on_gun_hit() -> void:
 func _on_ads_changed(active: bool) -> void:
 	if status_bar != null and status_bar.has_method("set_crosshair_visible"):
 		status_bar.set_crosshair_visible(not active)
+
+func request_inventory_save() -> void:
+	if _save_queued or not _built or warehouse == null:
+		return
+	_save_queued = true
+	call_deferred("save_inventory")
+
+func register_inventory_panel(key: String, panel: Node) -> void:
+	_inventory_panels[key] = weakref(panel)
+	if _pending_panels.has(key):
+		panel.restore_inventory_state(_pending_panels[key])
+	panel.tree_exiting.connect(func():
+		_pending_panels[key] = panel.inventory_state()
+		_inventory_panels.erase(key)
+		request_inventory_save())
+
+func save_inventory() -> Error:
+	_save_queued = false
+	if warehouse == null:
+		return ERR_UNCONFIGURED
+	for key in _inventory_panels:
+		var panel: Node = _inventory_panels[key].get_ref()
+		if panel != null:
+			_pending_panels[key] = panel.inventory_state()
+	var status := {}
+	for key in ["level", "exp", "str", "dex", "intt", "con", "wis", "luck", "attr_points"]:
+		status[key] = player_status.get(key)
+	var snapshot := {"version": 1, "backpack": backpack.serialize(), "equipment": equipment.serialize(),
+		"warehouse": warehouse.serialize(), "gold": economy.gold, "pending": _pending_panels.duplicate(true),
+		"status": status, "skills": skillbar.assignments.duplicate(true), "ground_items": _ground_items.duplicate(true)}
+	var error := Save.write_snapshot(snapshot)
+	if error != OK:
+		push_error("Inventory save failed: %s" % error_string(error))
+	return error
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		if warehouse != null:
+			save_inventory()
+
+func drop_inventory_item(slot: int, item: Dictionary) -> bool:
+	if not is_instance_valid(_bound_player) or not is_instance_valid(get_tree().current_scene):
+		return false
+	if slot < 0 or slot >= backpack.slots.size() or backpack.slots[slot] == null or backpack.slots[slot].instance_id != item.instance_id:
+		return false
+	var pos: Vector3 = _bound_player.global_position
+	var record := {"item": item.duplicate(true), "scene": get_tree().current_scene.scene_file_path, "position": pos}
+	_ground_items.append(record)
+	backpack.slots[slot] = null
+	_spawn_ground_item(record)
+	backpack.changed.emit()
+	return true
+
+func _spawn_ground_item(record: Dictionary) -> void:
+	var node := preload("res://ui/inventory_ground_item.gd").new()
+	node.record = record
+	node.inventory_host = self
+	get_tree().current_scene.add_child(node)
+	node.global_position = record.position
+
+func pickup_inventory_item(record: Dictionary) -> bool:
+	if not _ground_items.has(record) or not backpack.add_instance(record.item):
+		backpack_hud.flash_status("背包已满")
+		return false
+	_ground_items.erase(record)
+	request_inventory_save()
+	return true
+
+func _ready() -> void:
+	get_window().gui_embed_subwindows = true
+	get_window().size_changed.connect(_sync_ui_resolution)
+	_sync_ui_resolution()
+	get_viewport().gui_drag_threshold = 6
+	if DisplayServer.get_name() != "headless":
+		for entry in [["normal-pointer", Input.CURSOR_ARROW, Vector2(3, 2)], ["click-hand", Input.CURSOR_POINTING_HAND, Vector2(20, 2)], ["grab-hand", Input.CURSOR_DRAG, Vector2(27, 33)], ["grabbing-hand", Input.CURSOR_CAN_DROP, Vector2(25, 29)]]:
+			var path: String = "res://assets/original_ui/assets/ui/cursors/%s-cold-steel.png" % entry[0]
+			Input.set_custom_mouse_cursor(load(path), entry[1], entry[2])
+
+func _sync_ui_resolution() -> void:
+	get_window().content_scale_size = get_window().size
+
+func _exit_tree() -> void:
+	if DisplayServer.get_name() != "headless":
+		for shape in [Input.CURSOR_ARROW, Input.CURSOR_POINTING_HAND, Input.CURSOR_DRAG, Input.CURSOR_CAN_DROP]:
+			Input.set_custom_mouse_cursor(null, shape)

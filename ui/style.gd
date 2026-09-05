@@ -44,7 +44,7 @@ static func _load_config() -> void:
 	var cfg: Dictionary = parsed
 	if cfg.has("active_theme"):
 		var t := str(cfg.active_theme)
-		if t in ["dark_gold", "gold_white_gray", "gray_white"]:
+		if t in ["dark_gold", "gold_white_gray", "gray_white", "cold_steel"]:
 			ACTIVE_THEME = t
 	if cfg.has("radius"):
 		RADIUS = int(cfg.radius)
@@ -299,17 +299,17 @@ static func make_font(weight := 400) -> Font:
 			_font_bold = load("res://assets/ui/fonts/MicrosoftYaHeiBold.ttc")
 		return _font_bold
 	if _font_regular == null:
-		_font_regular = load("res://assets/ui/fonts/simhei.ttf")
+		_font_regular = load("res://assets/ui/fonts/MicrosoftYaHei.ttc")
 	return _font_regular
 
 ## 浮窗排版规范（所有 tooltip 统一使用，禁止各组件自造字号/字重）
 static func tt_font_title() -> Font: return make_font(700)
 static func tt_font_value() -> Font: return make_font(600)
 static func tt_font_body() -> Font: return make_font(400)
-static func tt_size_title() -> int: return 18
+static func tt_size_title() -> int: return 20
 static func tt_size_group() -> int: return 12
-static func tt_size_body() -> int: return 12
-static func tt_size_value() -> int: return 13
+static func tt_size_body() -> int: return 14
+static func tt_size_value() -> int: return 14
 
 ## 等宽字体（VS Code Consolas 同款）：HUD 数字/弹药/数值用，清晰对齐
 static func make_mono_font(_weight := 400) -> Font:
@@ -327,6 +327,25 @@ static func make_theme() -> Theme:
 	var t := Theme.new()
 	t.default_font = make_font()
 	t.default_font_size = 14
+	for type in ["Label", "RichTextLabel", "Button", "CheckBox", "LineEdit", "SpinBox", "PopupMenu"]:
+		t.set_color("font_color", type, COLOR_TEXT)
+		t.set_color("font_hover_color", type, COLOR_WHITE)
+		t.set_color("font_focus_color", type, COLOR_WHITE)
+		t.set_color("font_disabled_color", type, COLOR_DIM_TEXT)
+	for type in ["PanelContainer", "Panel", "PopupMenu", "Window", "AcceptDialog"]:
+		t.set_stylebox("panel", type, make_panel_style())
+	var buttons := make_button_style()
+	for state in buttons:
+		t.set_stylebox(state, "Button", buttons[state])
+	for type in ["VScrollBar", "HScrollBar"]:
+		var track := make_style(COLOR_HUD_TRACK, COLOR_TRANSPARENT, 4, 0)
+		track.content_margin_left = 4
+		track.content_margin_right = 4
+		t.set_stylebox("scroll", type, track)
+		for state in ["grabber", "grabber_highlight", "grabber_pressed"]:
+			t.set_stylebox(state, type, make_style(COLOR_SLOT_BG if state == "grabber" else COLOR_DRAG_OVER_BORDER, COLOR_HUD_TRACK, 4, 1))
+	t.set_stylebox("normal", "LineEdit", make_style(COLOR_HUD_TRACK, COLOR_PANEL_BORDER, 6, 1))
+	t.set_stylebox("focus", "LineEdit", make_style(COLOR_TRANSPARENT, COLOR_DRAG_OVER_BORDER, 6, 2))
 	return t
 
 static func make_style(bg: Color, border: Color, radius := -1, border_w := 2) -> StyleBoxFlat:
@@ -371,15 +390,15 @@ static func make_panel_style() -> StyleBoxFlat:
 ## 内嵌卡面板（属性页分区卡片）：略亮底 + 顶部高光 + 1px 细框（textures/panel_inner.png）
 static func make_inner_panel_style() -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_inner_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_inner.png")
+	sb.texture = _steel_texture(COLOR_SLOT_BG, THEME_BG, 8) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_inner_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_inner.png")
 	sb.modulate_color = Color(1, 1, 1, 0.72)
 	var m := 12
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
 	sb.texture_margin_top = m
 	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
 	sb.content_margin_left = 10
 	sb.content_margin_right = 10
 	sb.content_margin_top = 8
@@ -407,7 +426,7 @@ static func make_scroll_container() -> ScrollContainer:
 	var sc := ScrollContainer.new()
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	sc.add_theme_stylebox_override("panel",
-		StyleBoxFlat.new())
+		StyleBoxEmpty.new())
 	var track := StyleBoxFlat.new()
 	track.bg_color = Color(THEME_GRAY_MID, 0.25)
 	track.set_corner_radius_all(4)
@@ -425,15 +444,15 @@ static func make_scroll_container() -> ScrollContainer:
 ## 格子底纹理（背包/快捷栏/装备槽共用）：textures/panel_slot.png，modulate 控制状态色
 static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_slot_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_slot.png")
+	sb.texture = _steel_texture(COLOR_SLOT_BG, THEME_BG, 8) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_slot_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_slot.png")
 	sb.modulate_color = modulate
 	var m := 8
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
 	sb.texture_margin_top = m
 	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
 	sb.content_margin_left = 4
 	sb.content_margin_right = 4
 	sb.content_margin_top = 4
@@ -443,14 +462,14 @@ static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTe
 ## 页签激活态：金上暗下 + 顶底金线（textures/panel_tab.png）
 static func make_tab_active_style() -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_tab_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_tab.png")
+	sb.texture = _steel_texture(COLOR_SLOT_BG, THEME_BG, 8) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_tab_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_tab.png")
 	var m := 12
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
 	sb.texture_margin_top = m
 	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
 	sb.content_margin_left = 10
 	sb.content_margin_right = 10
 	sb.content_margin_top = 6
@@ -459,15 +478,15 @@ static func make_tab_active_style() -> StyleBoxTexture:
 
 static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
 	var sb := StyleBoxTexture.new()
-	sb.texture = load("res://assets/ui/textures/panel_main.png")
+	sb.texture = _steel_texture(THEME_BG, COLOR_HUD_TRACK, 10) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_main.png")
 	sb.modulate_color = Color(1, 1, 1, 1)
 	var m := 28
 	sb.texture_margin_left = m
 	sb.texture_margin_right = m
 	sb.texture_margin_top = m
 	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_TILE
+	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
+	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
 	sb.content_margin_left = SPACING.get("panel_padding", 10)
 	sb.content_margin_right = SPACING.get("panel_padding", 10)
 	sb.content_margin_top = SPACING.get("panel_padding", 10)
@@ -483,9 +502,12 @@ static func style_button(btn: Button, font_size_key := "body") -> void:
 	btn.add_theme_stylebox_override("disabled", s.disabled)
 	btn.add_theme_font_size_override("font_size", font_size(font_size_key))
 	btn.add_theme_color_override("font_color", THEME_WHITE)
-	btn.add_theme_color_override("font_hover_color", Color(THEME_BG, 1.0))
+	btn.add_theme_color_override("font_hover_color", THEME_WHITE)
 	btn.add_theme_color_override("font_pressed_color", Color(THEME_BG, 1.0))
 	btn.add_theme_color_override("font_disabled_color", Color(THEME_BTN_DISABLED_TEXT, 0.5))
+	btn.add_theme_stylebox_override("focus", make_style(COLOR_TRANSPARENT, COLOR_DRAG_OVER_BORDER, 6, 2))
+	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	btn.custom_minimum_size.y = maxf(btn.custom_minimum_size.y, 36)
 	_attach_button_anim(btn)
 
 ## 统一按钮动画（Vega 规范）：hover 微放大 1.03，按下微缩 0.97（+ pressed 样式下沉 1px）
@@ -501,6 +523,8 @@ static func _attach_button_anim(btn: Button) -> void:
 	btn.button_up.connect(func() -> void: _button_scale(btn, 1.03))
 
 static func _button_scale(btn: Button, target: float) -> void:
+	if ACTIVE_THEME == "cold_steel":
+		return
 	if not btn.is_inside_tree():
 		return
 	btn.pivot_offset = btn.size * 0.5
@@ -772,3 +796,21 @@ static func _apply_gray_white_preset() -> void:
 	# 徽章（深青铜底 + 浅字）
 	COLOR_BADGE_GOLD_BG = Color(0.55, 0.45, 0.28, 0.92)
 	COLOR_BADGE_GOLD_TEXT = Color(0.96, 0.96, 0.97)
+
+static var _steel_textures: Dictionary = {}
+static func _steel_texture(top: Color, bottom: Color, radius: int) -> Texture2D:
+	var key := top.to_html() + bottom.to_html() + str(radius)
+	if _steel_textures.has(key):
+		return _steel_textures[key]
+	var img := Image.create(64, 64, false, Image.FORMAT_RGBA8)
+	for y in 64:
+		for x in 64:
+			var p := Vector2(x + 0.5, y + 0.5)
+			var nearest := p.clamp(Vector2(radius, radius), Vector2(64 - radius, 64 - radius))
+			var distance := p.distance_to(nearest)
+			var color := top.lerp(bottom, y / 63.0)
+			color.a *= clampf(radius + 0.5 - distance, 0.0, 1.0)
+			img.set_pixel(x, y, color)
+	var texture := ImageTexture.create_from_image(img)
+	_steel_textures[key] = texture
+	return texture

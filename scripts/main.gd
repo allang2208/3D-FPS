@@ -395,12 +395,8 @@ func _on_npc_closed() -> void:
 
 ## NPC 子面板：打开时收起对话框，关闭后回到对话框（旧版 exitCompactMode）
 func _build_npc_panels() -> void:
-	_economy = load("res://ui/economy.gd").new()
-	_warehouse = load("res://ui/warehouse.gd").new()
-	# 仓库种子：部分材料放仓库，验证背包+仓库双源扣减
-	_warehouse.add_item(_item_db.create_instance("enhancement_stone", 2))
-	_warehouse.add_item(_item_db.create_instance("reforge_ticket", 1))
-	_warehouse.add_item(_item_db.create_instance("magic_dust", 50))
+	_economy = HUD.economy
+	_warehouse = HUD.warehouse
 	var NpcPanels := load("res://ui/npc_panels.gd")
 	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, _npc_bar, _warehouse, _player_status)
 	_shop_panel = _panels.get("shop")

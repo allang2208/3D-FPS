@@ -885,12 +885,8 @@ func _setup_hud_bridge() -> void:
 	add_child(npc_bar)
 	npc_bar.option_pressed.connect(_on_npc_option)
 	_npc_bar = npc_bar
-	_economy = load("res://ui/economy.gd").new()
-	_warehouse = load("res://ui/warehouse.gd").new()
-	_warehouse.add_item(_item_db.create_instance("enhancement_stone", 2))
-	_warehouse.add_item(_item_db.create_instance("reforge_ticket", 1))
-	_warehouse.add_item(_item_db.create_instance("magic_dust", 50))
-	NpcPanels.seed_materials(_backpack)
+	_economy = HUD.economy
+	_warehouse = HUD.warehouse
 	_panels = NpcPanels.build(self, _item_db, _backpack, _equipment, _economy, npc_bar, _warehouse)
 	var quest_panel = _panels.get("quest")
 	if quest_panel != null:

@@ -26,6 +26,8 @@ func _process(delta: float) -> void:
 		return
 	if _circle_icon == null:
 		return
+	if Style.theme_active() == "cold_steel":
+		return
 	_glow_t += delta
 	_circle_icon.rotation = _glow_t * 0.4
 	if _circle_glow != null:
@@ -128,6 +130,9 @@ func _build_body() -> void:
 	eq_scroll.add_child(_eq_grid)
 
 func _refresh() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		hud.request_inventory_save()
 	_refresh_gold()
 	if _equipped.is_empty():
 		_slot_label.text = "强化槽：拖入装备"
@@ -150,7 +155,7 @@ func _rebuild_grids() -> void:
 		c.queue_free()
 	for i in _backpack.slots.size():
 		var it = _backpack.slots[i]
-		if it == null or it.is_empty() or String(it.get("category", "")) == "gold":
+		if it == null or it.is_empty() or not _can_enhance(it):
 			continue
 		var cell := _make_item_cell(it, _cell_size("md"))
 		cell.pressed.connect(func(_c, _idx: int = i): _equip_from_backpack(_idx))
@@ -167,9 +172,11 @@ func _rebuild_grids() -> void:
 
 func _equip_from_backpack(slot: int) -> void:
 	var it = _backpack.slots[slot]
-	if it == null or it.is_empty() or String(it.get("category", "")) == "gold":
+	if it == null or it.is_empty() or not _can_enhance(it):
 		return
 	_return_item()
+	if not _equipped.is_empty():
+		return
 	_backpack.slots[slot] = null
 	_equipped = {"item": it, "source": "backpack", "slot": slot}
 	_backpack.changed.emit()
@@ -180,12 +187,17 @@ func _equip_from_slot(key: String) -> void:
 	if it == null or it.is_empty():
 		return
 	_return_item()
+	if not _equipped.is_empty():
+		return
 	_equipment.slots[key] = null
 	_equipped = {"item": it, "source": "equip", "slot": key}
 	_equipment.changed.emit()
 	_refresh()
 
 func _on_drop_equip(data: Dictionary) -> void:
+	if data.get("type", "") == "equip":
+		_equip_from_slot(str(data.get("key", "")))
+		return
 	var slot := _find_bp_slot(data.get("item", {}))
 	if slot < 0:
 		show_message("请从背包拖入装备", true)
@@ -195,14 +207,15 @@ func _on_drop_equip(data: Dictionary) -> void:
 func _return_item() -> void:
 	if _equipped.is_empty():
 		return
-	var item: Dictionary = _equipped["item"]
-	var source := String(_equipped["source"])
-	var slot = _equipped["slot"]
-	if source == "equip" and _equipment.slots.get(slot, {}) == {}:
-		_equipment.slots[slot] = item
+	var item: Dictionary = _equipped.item
+	var source := str(_equipped.get("source", "backpack"))
+	var target = _equipped.get("slot", -1)
+	if source == "equip" and _equipment.get_item(str(target)).is_empty() and _equipment.can_equip_to(str(target), item) and not _equipment.is_locked(str(target)):
+		_equipment.slots[str(target)] = item
 		_equipment.changed.emit()
-	else:
-		_place_into_backpack(item)
+	elif not _backpack.add_instance(item, int(target) if source == "backpack" else -1):
+		show_message("背包已满，装备保留在加工槽", true)
+		return
 	_equipped = {}
 	_refresh()
 
@@ -290,3 +303,9 @@ func _predicted(item: Dictionary) -> String:
 func _on_changed() -> void:
 	if _open:
 		_refresh()
+
+func _can_enhance(item: Dictionary) -> bool:
+	for key in _equipment.SLOT_ORDER:
+		if _equipment.can_equip_to(key, item):
+			return true
+	return false

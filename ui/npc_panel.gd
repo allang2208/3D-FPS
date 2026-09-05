@@ -7,6 +7,7 @@ const Style := preload("res://ui/style.gd")
 
 signal closed
 
+var _shield: Control
 var panel: Panel
 var title_label: Label
 var gold_label: Label
@@ -41,9 +42,13 @@ func _process(delta: float) -> void:
 		_tooltip.position = get_viewport().get_mouse_position() + Vector2(off, off)
 
 func _build() -> void:
+	_shield = Control.new()
+	_shield.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_shield.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(_shield)
 	panel = Panel.new()
 	panel.name = "Panel"
-	panel.add_theme_stylebox_override("panel", Style.make_panel_style())
+	panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	var pw := float(Style.npc("panel_w", 880.0))
 	var ph := float(Style.npc("panel_h", 560.0))
@@ -52,10 +57,16 @@ func _build() -> void:
 	panel.offset_right = pw * 0.5
 	panel.offset_bottom = ph * 0.5
 	add_child(panel)
+	get_viewport().size_changed.connect(_resize_panel)
+	_resize_panel()
 
 	var root := VBoxContainer.new()
 	root.name = "Root"
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.offset_left = 16
+	root.offset_top = 16
+	root.offset_right = -16
+	root.offset_bottom = -16
 	root.add_theme_constant_override("separation", Style.spacing("element_gap"))
 	panel.add_child(root)
 
@@ -92,7 +103,11 @@ func _build() -> void:
 	body.name = "Body"
 	body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_theme_constant_override("separation", Style.spacing("element_gap"))
-	root.add_child(body)
+	var scroll := Style.make_scroll_container()
+	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	root.add_child(scroll)
+	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	scroll.add_child(body)
 
 	message_label = Label.new()
 	message_label.name = "Message"
@@ -121,6 +136,10 @@ func open_panel() -> void:
 	_set_mouse_released(true)
 
 func close() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		hud.request_inventory_save()
+	_hide_tooltip()
 	_open = false
 	visible = false
 	_set_mouse_released(false)
@@ -263,3 +282,29 @@ func _set_mouse_released(open_panel: bool) -> void:
 	elif _was_captured:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_was_captured = false
+
+## Panel escrow is persisted with the same inventory snapshot; full bags never destroy it.
+func inventory_state() -> Dictionary:
+	var state := {}
+	for property in get_property_list():
+		var key: String = property.name
+		if key in ["_equipped", "_equip", "_equip_src", "_scroll", "_scroll_src", "_sell", "_placed", "_seq", "_carried"]:
+			state[key] = get(key)
+	return state.duplicate(true)
+
+func restore_inventory_state(state: Dictionary) -> void:
+	for key in state:
+		set(key, state[key])
+
+func _input(event: InputEvent) -> void:
+	if _open and event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		get_viewport().set_input_as_handled()
+		close()
+
+func _resize_panel() -> void:
+	var viewport_size := get_viewport().get_visible_rect().size
+	var panel_size := Vector2(minf(880, viewport_size.x - 32), minf(640, viewport_size.y - 32))
+	panel.offset_left = -panel_size.x / 2
+	panel.offset_right = panel_size.x / 2
+	panel.offset_top = -panel_size.y / 2
+	panel.offset_bottom = panel_size.y / 2

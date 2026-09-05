@@ -50,6 +50,9 @@ static func build(host: Node, db, backpack, equipment, economy, npc_bar,
 		if panel.has_method("set_player_status"):
 			panel.set_player_status(player_status)
 		panel.set_title(title_of(key))
+		var hud := host.get_node_or_null("/root/HUD")
+		if hud != null and hud.warehouse != null:
+			hud.register_inventory_panel(key, panel)
 		panel.closed.connect(func() -> void:
 			if npc_bar != null:
 				npc_bar.reopen())

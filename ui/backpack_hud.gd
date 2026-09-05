@@ -26,14 +26,17 @@ const SkillPageScript := preload("res://ui/skill_page.gd")
 const PANEL_BLUR_SHADER := preload("res://assets/ui/shaders/panel_blur.gdshader")
 
 const HOTBAR_SIZE := 4
-const SKILL_SIZE := 4
-const SKILL_KEY_HINTS := ["Q", "E", "X", "C"]
-const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X, KEY_C]
+const SKILL_SIZE := 3
+const SKILL_KEY_HINTS := ["Q", "E", "X"]
+const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X]
 # 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
 const INV_COLS := 5
 const HOTBAR_SLOT := 52
 const CELL_SLOT := 60
-const EQUIP_SLOT_SIZE := Vector2(250, 84)
+var _drag_origin_rect := Rect2()
+var _drag_active := false
+
+const EQUIP_SLOT_SIZE := Vector2(100, 52)
 const EQUIP_COLS := 3
 const BAR_PAD := 8
 const BAR_GAP := 8
@@ -77,6 +80,13 @@ var _panel: PanelContainer
 var _panel_w := 720.0
 var _panel_anim: Tween
 var _panel_open := false
+var _split_dialog: ConfirmationDialog
+var _split_count: SpinBox
+var _split_instance := ""
+var _context: PopupMenu
+var _context_instance := ""
+var _discard_dialog: ConfirmationDialog
+var _discard_instance := ""
 var _blur_size_synced := false
 var _count_label: Label
 var _status_label: Label
@@ -146,6 +156,9 @@ func _ready() -> void:
 	_build_panel()
 	_build_tooltip()
 	_build_notice()
+	_build_inventory_actions()
+	get_viewport().size_changed.connect(_resize_inventory)
+	_resize_inventory()
 
 func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: SkillBarScript = null) -> void:
 	backpack = bp
@@ -230,6 +243,16 @@ func _refresh_grid() -> void:
 		var name_lbl := cell.get_node("Content/Name") as Label
 		var stack_lbl := cell.get_node("Content/Stack") as Label
 		var rarity_lbl := cell.get_node("Content/Rarity") as Label
+		var badge := cell.get_node_or_null("Content/UpgradeBadge") as Label
+		if badge == null:
+			badge = Label.new()
+			badge.name = "UpgradeBadge"
+			badge.position = Vector2(18, 0)
+			badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			badge.add_theme_font_size_override("font_size", 11)
+			badge.add_theme_color_override("font_color", Style.COLOR_TEXT)
+			cell.get_node("Content").add_child(badge)
+		badge.text = ""
 		if backpack.slots[i] == null:
 			icon.texture = null
 			fallback.visible = false
@@ -241,6 +264,15 @@ func _refresh_grid() -> void:
 		else:
 			var item: Dictionary = backpack.slots[i]
 			_set_icon(icon, fallback, item)
+			cell.tooltip_text = str(item.get("name", "")) + " · 右键操作 / Shift+点击拆分"
+			var markers: Array[String] = []
+			if int(item.get("enhanceLevel", 0)) > 0:
+				markers.append("+%d" % int(item.enhanceLevel))
+			if not item.get("_craftData", {}).is_empty():
+				markers.append("改")
+			if bool(item.get("_isEnchanted", false)):
+				markers.append("附")
+			badge.text = " ".join(markers)
 			name_lbl.text = String(item.get("name", ""))
 			var count: int = item.get("stack", 1)
 			stack_lbl.text = str(count) if count > 1 else ""
@@ -293,6 +325,23 @@ func _refresh_equip() -> void:
 
 ## 面板开关键放 _input（早于 GUI 焦点导航，Tab 不会被焦点吃掉；K 对齐旧版技能体系键）
 func _input(event: InputEvent) -> void:
+	if _split_dialog != null and (_split_dialog.visible or _discard_dialog.visible or _context.visible):
+		return
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		for ref in hud._inventory_panels.values():
+			var npc: Node = ref.get_ref()
+			if npc != null and npc.is_open():
+				return
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE and _panel_open:
+		get_viewport().set_input_as_handled()
+		if get_viewport().gui_is_dragging():
+			get_viewport().gui_cancel_drag()
+		elif _tooltip != null and _tooltip.visible:
+			hide_tooltip()
+		else:
+			set_panel_open(false)
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
 			KEY_TAB:
@@ -304,8 +353,9 @@ func _input(event: InputEvent) -> void:
 					set_panel_open(true)
 			KEY_K:
 				get_viewport().set_input_as_handled()
+				var should_open := not (_panel_open and _current_tab == "skill")
 				set_tab("skill")
-				set_panel_open(true)
+				set_panel_open(should_open)
 			KEY_B:
 				get_viewport().set_input_as_handled()
 				# 通用语义：任何界面按 B 都打开"装备与背包"页（已开则关闭）
@@ -316,15 +366,22 @@ func _input(event: InputEvent) -> void:
 					set_panel_open(true)
 			KEY_CAPSLOCK:
 				get_viewport().set_input_as_handled()
+				var should_open := not (_panel_open and _current_tab == "status")
 				set_tab("status")
-				set_panel_open(true)
+				set_panel_open(should_open)
 
 func _unhandled_input(event: InputEvent) -> void:
+	var host := get_node_or_null("/root/HUD")
+	if host != null:
+		for ref in host._inventory_panels.values():
+			var npc = ref.get_ref()
+			if npc != null and npc.is_open():
+				return
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.keycode:
 			KEY_1, KEY_2, KEY_3, KEY_4:
 				use_hotbar(event.keycode - KEY_1)
-			KEY_Q, KEY_E, KEY_X, KEY_C:
+			KEY_Q, KEY_E, KEY_X:
 				use_skill_slot(SKILL_KEYCODES.find(event.keycode))
 			KEY_ESCAPE:
 				if _tooltip != null and _tooltip.visible:
@@ -349,7 +406,7 @@ func use_hotbar(index: int) -> void:
 	if int(item.get("stack", 0)) <= 0:
 		_shake_hotbar(index)
 		return
-	var result := backpack.use_hotbar(index, player)
+	var result := backpack.use_hotbar(index, player, _player_status)
 	if result.get("ok", false):
 		_notify_heal(player)
 	else:
@@ -479,7 +536,7 @@ func use_backpack_item(slot: int) -> void:
 	var player := _get_player()
 	if player == null or bool(player.get("is_dead")):
 		return
-	var result := backpack.use_item(String(item.get("instance_id", "")), player)
+	var result := backpack.use_item(String(item.get("instance_id", "")), player, _player_status)
 	if result.get("ok", false):
 		_notify_heal(player)
 	else:
@@ -563,6 +620,8 @@ func _tab_style(active: bool) -> StyleBox:
 		sb.bg_color = Color(Style.THEME_GRAY_MID, 0.45)
 		sb.set_corner_radius_all(6)
 		sb.set_border_width_all(0)
+		sb.border_color = Style.COLOR_DRAG_OVER_BORDER
+		sb.border_width_bottom = 3
 		return sb
 	return Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0)
 
@@ -604,19 +663,25 @@ func drop_on_backpack(slot: int, data: Dictionary) -> void:
 	if backpack == null:
 		return
 	match String(data.get("type", "")):
+		"npc_item":
+			var host := get_node_or_null("/root/HUD")
+			if data.get("source", "") == "warehouse" and host != null:
+				host.warehouse.retrieve_to_backpack(backpack, int(data.get("slot", -1)), slot)
+			else:
+				backpack.swap_items(backpack.find_slot(str(data.get("item", {}).get("instance_id", ""))), slot)
 		"backpack":
-			backpack.swap_items(slot, int(data.get("slot", -1)))
+			backpack.swap_items(int(data.get("slot", -1)), slot)
 		"hotbar":
 			backpack.unbind_hotbar(int(data.get("index", -1)))
 		"equip":
 			if equipment != null:
-				equipment.unequip(String(data.get("key", "")))
+				equipment.unequip(String(data.get("key", "")), slot)
 		"skill":
 			if skillbar != null:
 				skillbar.unassign(int(data.get("slot", -1)))
 
 func drop_on_equip(key: String, data: Dictionary) -> void:
-	if equipment == null or equipment.is_locked(key):
+	if equipment == null:
 		return
 	match String(data.get("type", "")):
 		"equip":
@@ -635,6 +700,8 @@ func _on_bound(index: int) -> void:
 		_flash_hotbar(index)
 
 func _on_equipped(key: String) -> void:
+	if Style.theme_active() == "cold_steel":
+		return
 	if _equip_cells.has(key):
 		var cell: EquipSlot = _equip_cells[key]
 		cell.pivot_offset = EQUIP_SLOT_SIZE * 0.5
@@ -643,6 +710,8 @@ func _on_equipped(key: String) -> void:
 		tw.tween_property(cell, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _pop_cell(slot: int) -> void:
+	if Style.theme_active() == "cold_steel":
+		return
 	var cell: BackpackCell = _cells[slot]
 	var s := cell.size
 	if s == Vector2.ZERO:
@@ -845,6 +914,8 @@ func _place_tooltip(at: Vector2) -> void:
 ## ---------- 冷却 ----------
 
 func _process(delta: float) -> void:
+	if _drag_active and _hotbar_root != null and not _drag_origin_rect.has_point(get_global_mouse_position()):
+		_hotbar_root.z_index = 150
 	if not _blur_size_synced and _panel_root != null:
 		var blur := _panel_root.get_node_or_null("Panel/Content/Blur") as ColorRect
 		if blur != null and blur.size.x > 0.0:
@@ -906,7 +977,7 @@ func _build_hotbar() -> void:
 	_hotbar_root.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_hotbar_root.add_theme_constant_override("separation", BAR_GAP)
 	bar.add_child(_hotbar_root)
-	# 技能组（旧版 skillGroup：Q/E/X/C 占位，技能系统未移植前为空槽）
+	# 技能组（旧版 skillGroup：Q/E/X 占位，技能系统未移植前为空槽）
 	_hotbar_root.add_child(_make_divider())
 	for i in SKILL_SIZE:
 		var slot := SkillSlot.new()
@@ -1062,7 +1133,7 @@ func _build_panel() -> void:
 	_panel.name = "Panel"
 	_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	# 主面板：透明底 + 细框投影，毛玻璃完全由内部 Blur 层提供
-	_panel.add_theme_stylebox_override("panel", Style.make_glass_panel_style(-1, 0.0))
+	_panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
 	_panel_root.add_child(_panel)
 	var content := Control.new()
 	content.name = "Content"
@@ -1079,6 +1150,7 @@ func _build_panel() -> void:
 		mat.set_shader_parameter("tint_amount", 0.42)
 		mat.set_shader_parameter("alpha", 0.58)
 	blur.material = mat
+	blur.visible = Style.theme_active() != "cold_steel"
 	content.add_child(blur)
 	var tex_layer := Panel.new()
 	tex_layer.name = "GlassTex"
@@ -1088,6 +1160,7 @@ func _build_panel() -> void:
 	tex_style.modulate_color = Color(Style.THEME_WHITE, 0.06)
 	tex_layer.add_theme_stylebox_override("panel", tex_style)
 	content.add_child(tex_layer)
+	tex_layer.visible = Style.theme_active() != "cold_steel"
 	var margin := MarginContainer.new()
 	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	margin.add_theme_constant_override("margin_left", PANEL_MARGIN)
@@ -1116,12 +1189,18 @@ func _build_panel() -> void:
 	title_accent.custom_minimum_size = Vector2(3, 22)
 	title_accent.color = Style.THEME_GOLD
 	title_row.add_child(title_accent)
-	_panel_title = _make_label(title_row, "装备与背包", 24, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
+	_panel_title = _make_label(title_row, "装备与背包", 20, Style.COLOR_TITLE_TEXT, Vector2.ZERO)
 	_panel_title.add_theme_font_override("font", _font_title)
 	_panel_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_count_label = _make_label(title_row, "", 14, Style.THEME_GOLD, Vector2.ZERO)
 	_count_label.add_theme_font_override("font", _font_mono)
 	_count_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	var close_button := Button.new()
+	close_button.text = "×"
+	close_button.tooltip_text = "关闭背包（Tab / Esc）"
+	Style.style_button(close_button)
+	close_button.pressed.connect(func(): set_panel_open(false))
+	title_row.add_child(close_button)
 	var divider := HSeparator.new()
 	divider.modulate = Style.COLOR_PANEL_BORDER
 	vbox.add_child(divider)
@@ -1163,7 +1242,7 @@ func _build_panel() -> void:
 	equip_bar.custom_minimum_size = Vector2(3, 14)
 	equip_bar.color = Style.THEME_GOLD
 	equip_head.add_child(equip_bar)
-	var equip_title := _make_label(equip_head, "装备栏", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	var equip_title := _make_label(equip_head, "装备栏", 16, Style.COLOR_TEXT, Vector2.ZERO)
 	equip_title.add_theme_font_override("font", _font_section)
 	equip_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_equip_grid = GridContainer.new()
@@ -1179,11 +1258,11 @@ func _build_panel() -> void:
 	equip_col.add_child(equip_glass)
 	_equip_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equip_glass.add_child(_equip_grid)
-	var total_slots := backpack.max_slots if backpack != null else 25
 	for key in EquipmentScript.SLOT_ORDER:
 		var cell := EquipSlot.new()
 		cell.hud = self
 		cell.key = key
+		cell.mouse_default_cursor_shape = Control.CURSOR_DRAG
 		cell.custom_minimum_size = EQUIP_SLOT_SIZE
 		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_equip_empty)
@@ -1200,7 +1279,8 @@ func _build_panel() -> void:
 		icon.anchor_bottom = 1.0
 		icon.offset_left = 20
 		icon.offset_top = 6
-		icon.offset_right = 118
+		icon.anchor_right = 0.45
+		icon.offset_right = 0
 		icon.offset_bottom = -6
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
@@ -1214,7 +1294,8 @@ func _build_panel() -> void:
 		fallback.anchor_bottom = 1.0
 		fallback.offset_left = 20
 		fallback.offset_top = 6
-		fallback.offset_right = 118
+		fallback.anchor_right = 0.45
+		fallback.offset_right = 0
 		fallback.offset_bottom = -6
 		fallback.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		fallback.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -1229,14 +1310,15 @@ func _build_panel() -> void:
 		name_lbl.anchor_top = 0.0
 		name_lbl.anchor_right = 1.0
 		name_lbl.anchor_bottom = 1.0
-		name_lbl.offset_left = -118
+		name_lbl.anchor_left = 0.45
+		name_lbl.offset_left = 2
 		name_lbl.offset_top = 8
 		name_lbl.offset_right = -10
 		name_lbl.offset_bottom = -8
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 		name_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		name_lbl.add_theme_font_size_override("font_size", 13)
+		name_lbl.add_theme_font_size_override("font_size", 14)
 		name_lbl.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 		name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell_content.add_child(name_lbl)
@@ -1299,9 +1381,22 @@ func _build_panel() -> void:
 	inv_bar.custom_minimum_size = Vector2(3, 14)
 	inv_bar.color = Style.THEME_GOLD
 	inv_header.add_child(inv_bar)
-	var inv_title := _make_label(inv_header, "背包", 14, Style.COLOR_TEXT, Vector2.ZERO)
+	var inv_title := _make_label(inv_header, "背包", 16, Style.COLOR_TEXT, Vector2.ZERO)
 	inv_title.add_theme_font_override("font", _font_section)
 	inv_title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var sort_button := Button.new()
+	sort_button.text = "整理"
+	Style.style_button(sort_button)
+	sort_button.pressed.connect(func(): backpack.sort_items())
+	inv_header.add_child(sort_button)
+	var save_button := Button.new()
+	save_button.text = "保存"
+	Style.style_button(save_button)
+	save_button.pressed.connect(func():
+		var hud := get_node_or_null("/root/HUD")
+		if hud != null:
+			_flash_status("背包已保存" if hud.save_inventory() == OK else "保存失败，请重试"))
+	inv_header.add_child(save_button)
 	_grid = GridContainer.new()
 	_grid.columns = INV_COLS
 	_grid.add_theme_constant_override("h_separation", 6)
@@ -1311,10 +1406,13 @@ func _build_panel() -> void:
 	inv_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	inv_col.add_child(inv_scroll)
 	inv_scroll.add_child(_grid)
+	var total_slots := backpack.max_slots if backpack != null else 10
 	for i in total_slots:
 		var cell := BackpackCell.new()
 		cell.hud = self
 		cell.slot = i
+		cell.mouse_default_cursor_shape = Control.CURSOR_DRAG
+		cell.focus_mode = Control.FOCUS_ALL
 		cell.custom_minimum_size = Vector2(72, CELL_SLOT)
 		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		cell.add_theme_stylebox_override("panel", _s_cell_empty)
@@ -1345,14 +1443,14 @@ func _build_panel() -> void:
 		stack.add_theme_font_override("font", _font_mono)
 		stack.anchor_left = 1.0
 		stack.anchor_right = 1.0
-		stack.anchor_top = 1.0
-		stack.anchor_bottom = 1.0
+		stack.anchor_top = 0.0
+		stack.anchor_bottom = 0.0
 		stack.offset_left = -30
-		stack.offset_top = -20
+		stack.offset_top = 2
 		stack.offset_right = -4
-		stack.offset_bottom = -2
+		stack.offset_bottom = 20
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		var name_lbl := _make_label(cell_content, "", 13, Style.COLOR_WHITE, Vector2.ZERO)
+		var name_lbl := _make_label(cell_content, "", 14, Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
 		name_lbl.anchor_left = 0.0
 		name_lbl.anchor_right = 1.0
@@ -1391,6 +1489,7 @@ func _build_panel() -> void:
 	_panel.offset_bottom = 0
 	_apply_panel_slide(0.0)
 
+
 func _build_status_label() -> void:
 	_status_label = _make_label(self, "", Style.font_size("label"), Style.COLOR_STATUS, Vector2.ZERO)
 	_status_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
@@ -1400,7 +1499,7 @@ func _build_status_label() -> void:
 	_status_label.visible = false
 
 func _build_notice() -> void:
-	_notice_label = _make_label(self, "", 36, Style.COLOR_NOTICE, Vector2.ZERO)
+	_notice_label = _make_label(self, "", 20, Style.COLOR_NOTICE, Vector2.ZERO)
 	_notice_label.add_theme_font_override("font", _font_title)
 	_notice_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
 	_notice_label.offset_top = 210
@@ -1505,7 +1604,7 @@ func _clear_children(box: Node) -> void:
 
 func make_slot_preview(item: Dictionary) -> Control:
 	var p := PanelContainer.new()
-	p.custom_minimum_size = Vector2(44, 44)
+	p.custom_minimum_size = Vector2(48, 48)
 	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_ITEM_BORDER, 6, 2))
 	var tr := TextureRect.new()
 	tr.texture = _icon_tex(String(item.get("icon", "")))
@@ -1516,7 +1615,7 @@ func make_slot_preview(item: Dictionary) -> Control:
 
 func make_skill_preview(skill_id: String) -> Control:
 	var p := PanelContainer.new()
-	p.custom_minimum_size = Vector2(44, 44)
+	p.custom_minimum_size = Vector2(48, 48)
 	p.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_DRAG_PREVIEW_BG, Style.COLOR_SKILL_SLOT_BORDER, 6, 2))
 	var def: Dictionary = skillbar.skills.get(skill_id, {})
 	var tex := _icon_tex(String(def.get("icon", "")))
@@ -1568,7 +1667,7 @@ class SkillSlot:
 				_press_pos = get_global_mouse_position()
 			elif _pressed:
 				_pressed = false
-				if get_global_mouse_position().distance_to(_press_pos) < 8.0:
+				if get_global_mouse_position().distance_to(_press_pos) < 6.0:
 					hud.on_skill_click(key)
 
 	func _get_drag_data(_at: Vector2):
@@ -1577,6 +1676,7 @@ class SkillSlot:
 		var skill_id = hud.skillbar.resolve(index)
 		if skill_id == "":
 			return null
+		_pressed = false
 		hud.hide_tooltip()
 		hud.set_drag_preview(hud.make_skill_preview(skill_id))
 		return {"type": "skill", "slot": index}
@@ -1612,13 +1712,14 @@ class HotbarSlot:
 				_press_pos = get_global_mouse_position()
 			elif _pressed:
 				_pressed = false
-				if get_global_mouse_position().distance_to(_press_pos) < 8.0:
+				if get_global_mouse_position().distance_to(_press_pos) < 6.0:
 					hud.use_hotbar(index)
 
 	func _get_drag_data(_at: Vector2):
 		var item = hud.backpack.resolve_hotbar(index)
 		if item.is_empty():
 			return null
+		_pressed = false
 		hud.hide_tooltip()
 		hud.set_drag_preview(hud.make_slot_preview(item))
 		return {"type": "hotbar", "index": index}
@@ -1654,22 +1755,27 @@ class BackpackCell:
 					_press_pos = get_global_mouse_position()
 				elif _pressed:
 					_pressed = false
-					if get_global_mouse_position().distance_to(_press_pos) < 8.0:
-						hud.on_cell_click_pin(slot)
+					if get_global_mouse_position().distance_to(_press_pos) < 6.0:
+						if event.shift_pressed:
+							hud._context_instance = str(hud.backpack.slots[slot].get("instance_id", "")) if hud.backpack.slots[slot] != null else ""
+							hud._on_item_action(1)
+						else:
+							hud.on_cell_click_pin(slot)
 			elif event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
-				hud.use_backpack_item(slot)
+				hud.open_item_actions(slot)
 
 	func _get_drag_data(_at: Vector2):
 		if hud.backpack == null or hud.backpack.slots[slot] == null:
 			return null
+		_pressed = false
 		hud.hide_tooltip()
 		hud.set_drag_preview(hud.make_slot_preview(hud.backpack.slots[slot]))
-		return {"type": "backpack", "slot": slot}
+		return {"type": "backpack", "slot": slot, "item": hud.backpack.slots[slot].duplicate(true)}
 
 	func _can_drop_data(_at: Vector2, data) -> bool:
 		var ok := data is Dictionary and (String(data.get("type", "")) == "backpack" \
 			or String(data.get("type", "")) == "hotbar" or String(data.get("type", "")) == "equip" \
-			or String(data.get("type", "")) == "skill")
+			or String(data.get("type", "")) == "skill" or String(data.get("type", "")) == "npc_item")
 		if ok:
 			hud.set_cell_drag_over(slot, true)
 		return ok
@@ -1699,7 +1805,7 @@ class EquipSlot:
 					_press_pos = get_global_mouse_position()
 				elif _pressed:
 					_pressed = false
-					if get_global_mouse_position().distance_to(_press_pos) < 8.0:
+					if get_global_mouse_position().distance_to(_press_pos) < 6.0:
 						hud.on_equip_click_pin(key)
 			elif event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
 				hud.on_equip_right_click(key)
@@ -1708,12 +1814,13 @@ class EquipSlot:
 		if hud.equipment == null or hud.equipment.get_item(key).is_empty() or hud.equipment.is_locked(key):
 			return null
 		var item: Dictionary = hud.equipment.get_item(key)
+		_pressed = false
 		hud.hide_tooltip()
 		hud.set_drag_preview(hud.make_slot_preview(item))
-		return {"type": "equip", "key": key}
+		return {"type": "equip", "key": key, "item": item.duplicate(true)}
 
 	func _can_drop_data(_at: Vector2, data) -> bool:
-		if hud.equipment == null or hud.equipment.is_locked(key):
+		if hud.equipment == null:
 			return false
 		var ok := false
 		if data is Dictionary:
@@ -1732,3 +1839,91 @@ class EquipSlot:
 	func _drop_data(_at: Vector2, data) -> void:
 		hud.set_equip_drag_over(key, false)
 		hud.drop_on_equip(key, data)
+
+func _resize_inventory() -> void:
+	_panel_w = minf(get_viewport_rect().size.x, maxf(480, get_viewport_rect().size.x * PANEL_W_RATIO))
+	if _panel != null:
+		_apply_panel_slide(1.0 if _panel_open else 0.0)
+
+func _build_inventory_actions() -> void:
+	_context = PopupMenu.new()
+	_context.theme = Style.make_theme()
+	_context.add_item("使用 / 装备", 0)
+	_context.add_item("拆分", 1)
+	_context.add_item("查看详情", 2)
+	_context.add_separator()
+	_context.add_item("丢弃", 3)
+	_context.id_pressed.connect(_on_item_action)
+	add_child(_context)
+	_split_dialog = ConfirmationDialog.new()
+	_split_dialog.title = "拆分物品"
+	_split_dialog.theme = Style.make_theme()
+	_split_dialog.ok_button_text = "确认拆分"
+	_split_dialog.cancel_button_text = "取消"
+	_split_count = SpinBox.new()
+	_split_count.min_value = 1
+	_split_count.step = 1
+	_split_count.custom_minimum_size = Vector2(300, 50)
+	_split_dialog.add_child(_split_count)
+	_split_dialog.confirmed.connect(func():
+		var slot := backpack.find_slot(_split_instance)
+		if not backpack.split_stack(slot, int(_split_count.value)):
+			_flash_status("拆分失败：检查剩余数量和背包空位"))
+	add_child(_split_dialog)
+	_discard_dialog = ConfirmationDialog.new()
+	_discard_dialog.title = "确认丢弃"
+	_discard_dialog.theme = Style.make_theme()
+	_discard_dialog.ok_button_text = "丢弃"
+	_discard_dialog.cancel_button_text = "保留"
+	_discard_dialog.confirmed.connect(func():
+		var slot := backpack.find_slot(_discard_instance)
+		if slot >= 0:
+			var item: Dictionary = backpack.slots[slot]
+			var hud := get_node_or_null("/root/HUD")
+			if hud != null:
+				hud.drop_inventory_item(slot, item))
+	add_child(_discard_dialog)
+
+func open_item_actions(slot: int) -> void:
+	if slot < 0 or slot >= backpack.slots.size() or backpack.slots[slot] == null:
+		return
+	var item: Dictionary = backpack.slots[slot]
+	_context_instance = str(item.instance_id)
+	_context.set_item_disabled(1, int(item.get("stack", 1)) <= 1 or preload("res://ui/item_rules.gd").is_gold(item))
+	_context.position = Vector2i(get_viewport().get_mouse_position())
+	_context.popup()
+
+func _on_item_action(action: int) -> void:
+	var slot := backpack.find_slot(_context_instance)
+	if slot < 0:
+		return
+	var item: Dictionary = backpack.slots[slot]
+	if action == 0:
+		use_backpack_item(slot)
+	elif action == 1:
+		if int(item.get("stack", 1)) <= 1 or preload("res://ui/item_rules.gd").is_gold(item):
+			return
+		_split_instance = _context_instance
+		_split_count.max_value = int(item.stack) - 1
+		_split_count.value = maxi(1, int(item.stack) / 2)
+		_split_dialog.popup_centered(Vector2i(340, 150))
+		_split_count.get_line_edit().grab_focus()
+	elif action == 2:
+		on_cell_click_pin(slot)
+	elif action == 3:
+		_discard_instance = _context_instance
+		_discard_dialog.dialog_text = "将 %s × %d 放到脚边？" % [item.get("name", "物品"), int(item.stack)]
+		_discard_dialog.popup_centered(Vector2i(340, 160))
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_DRAG_BEGIN:
+		_drag_active = true
+		_drag_origin_rect = _panel.get_global_rect() if _panel_open else _hotbar_root.get_global_rect()
+	elif what == NOTIFICATION_DRAG_END:
+		_drag_active = false
+		if _hotbar_root != null:
+			_hotbar_root.z_index = 100
+		_clear_all_drag_over()
+	elif what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		if is_inside_tree() and get_viewport().gui_is_dragging():
+			get_viewport().gui_cancel_drag()

@@ -35,6 +35,9 @@ func _build_body() -> void:
 	var store_btn := _make_button("全部存入")
 	store_btn.pressed.connect(_store_all)
 	actions.add_child(store_btn)
+	var sort_btn := _make_button("整理")
+	sort_btn.pressed.connect(func(): _warehouse.sort_items())
+	actions.add_child(sort_btn)
 	var take_btn := _make_button("全部取出")
 	take_btn.pressed.connect(_take_all)
 	actions.add_child(take_btn)
@@ -45,6 +48,8 @@ func _build_body() -> void:
 	next_btn.pressed.connect(_page.bind(1))
 	actions.add_child(next_btn)
 	_page_label = _make_label("", "caption", Color.WHITE)
+	_page_label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	_page_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	actions.add_child(_page_label)
 
 	var bp_scroll := ScrollContainer.new()
@@ -73,60 +78,57 @@ func _rebuild_grid() -> void:
 		c.queue_free()
 	var start: int = _warehouse.current_page * _warehouse.PAGE_SIZE
 	for i in _warehouse.PAGE_SIZE:
-		var it: Dictionary = _warehouse.get_item_at(start + i)
-		if it.is_empty():
-			var empty := _make_button("空", "body")
-			empty.disabled = true
-			_grid.add_child(empty)
-			continue
-		var b := _make_item_cell(it, _cell_size("std"))
-		b.pressed.connect(func(_c, _slot: int = start + i): _take_item(_slot))
-		b.drop_requested.connect(func(d):
-			var s := _find_bp_slot(d.get("item", {}))
-			if s >= 0:
-				_store_item(s))
-		_grid.add_child(b)
+		var slot: int = start + int(i)
+		var item: Dictionary = _warehouse.get_item_at(slot)
+		var cell := _make_item_cell(item, _cell_size("std"))
+		cell.set_meta("inventory_source", "warehouse")
+		cell.set_meta("inventory_slot", slot)
+		cell.pressed.connect(func(_c): _take_item(slot))
+		cell.drop_requested.connect(func(data): _drop_to_warehouse(data, slot))
+		_grid.add_child(cell)
+
+func _drop_to_warehouse(data: Dictionary, target: int) -> void:
+	if data.get("source", "") == "warehouse":
+		_warehouse.move_item(int(data.get("slot", -1)), target)
+	else:
+		var source := _find_bp_slot(data.get("item", {}))
+		if source >= 0:
+			_warehouse.store_from_backpack(_backpack, source, target)
+	_refresh()
 
 func _rebuild_backpack() -> void:
 	for c in _bp_grid.get_children():
 		c.queue_free()
 	for i in _backpack.slots.size():
-		var it = _backpack.slots[i]
-		if it == null or it.is_empty():
-			continue
-		var b := _make_item_cell(it, _cell_size("std"))
-		b.pressed.connect(func(_c, _idx: int = i): _store_item(_idx))
-		_bp_grid.add_child(b)
+		var value = _backpack.slots[i]
+		var item: Dictionary = value if value != null else {}
+		var cell := _make_item_cell(item, _cell_size("std"))
+		cell.set_meta("inventory_source", "backpack")
+		cell.set_meta("inventory_slot", i)
+		cell.pressed.connect(func(_c): _store_item(i))
+		cell.drop_requested.connect(func(data):
+			if data.get("source", "") == "warehouse":
+				_warehouse.retrieve_to_backpack(_backpack, int(data.get("slot", -1)), i)
+			else:
+				_backpack.swap_items(_find_bp_slot(data.get("item", {})), i)
+			_refresh())
+		_bp_grid.add_child(cell)
 
 func _store_item(bp_slot: int) -> void:
-	var it = _backpack.slots[bp_slot]
-	if it == null or it.is_empty():
-		return
-	if not _warehouse.add_item(it):
+	if not _warehouse.store_from_backpack(_backpack, bp_slot):
 		show_message("仓库已满", true)
-		return
-	_backpack.remove_item(String(it.get("instance_id", "")), int(it.get("stack", 1)))
 	_refresh()
 
 func _take_item(w_slot: int) -> void:
-	var it: Dictionary = _warehouse.get_item_at(w_slot)
-	if it.is_empty():
-		return
-	if not _backpack.add_item(String(it.get("id", "")), int(it.get("stack", 1))):
+	if not _warehouse.retrieve_to_backpack(_backpack, w_slot):
 		show_message("背包已满", true)
-		return
-	_warehouse.consume_material(func(i): return i == it, int(it.get("stack", 1)))
 	_refresh()
 
 func _store_all() -> void:
 	for i in _backpack.slots.size():
-		var it = _backpack.slots[i]
-		if it == null or it.is_empty():
-			continue
-		if not _warehouse.add_item(it):
+		if _backpack.slots[i] != null and not _warehouse.store_from_backpack(_backpack, i):
 			show_message("仓库已满", true)
 			break
-		_backpack.remove_item(String(it.get("instance_id", "")), int(it.get("stack", 1)))
 	_refresh()
 
 func _take_all() -> void:

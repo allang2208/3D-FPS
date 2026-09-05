@@ -77,6 +77,9 @@ func _build_body() -> void:
 	sell_col.add_child(sell_btn)
 
 func _refresh() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		hud.request_inventory_save()
 	_refresh_gold()
 	_rebuild_buy_grid()
 	_rebuild_sell_grid()
@@ -134,7 +137,7 @@ func _rebuild_backpack_grid() -> void:
 		_bp_grid.add_child(cell)
 
 func _buy(id: String, cost: int) -> void:
-	if _backpack.item_count() >= int(_backpack.max_slots):
+	if not _backpack.can_add(_db.create_instance(id, 1)):
 		show_message("背包已满！", true)
 		return
 	if not economy.deduct_gold(cost):
@@ -163,8 +166,10 @@ func _return_to_backpack(index: int) -> void:
 	if index < 0 or index >= _sell.size():
 		return
 	var entry: Dictionary = _sell[index]
+	if not _backpack.add_instance(entry["item"], int(entry.get("slot", -1))):
+		show_message("背包已满", true)
+		return
 	_sell.remove_at(index)
-	_backpack.add_item(String(entry["item"].get("id", "")), int(entry["item"].get("stack", 1)))
 	_refresh()
 
 func _confirm_sell() -> void:
@@ -174,7 +179,7 @@ func _confirm_sell() -> void:
 	var total := 0
 	for entry in _sell:
 		var price := maxi(1, int(NpcConfig.standard_price(entry["item"]) * 0.5))
-		total += price
+		total += price * int(entry["item"].get("stack", 1))
 	economy.add_gold(total)
 	show_message("卖出 %d 件物品，获得 %d 金币" % [_sell.size(), total])
 	_sell.clear()

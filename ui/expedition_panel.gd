@@ -78,6 +78,9 @@ func _build_body() -> void:
 	bp_scroll.add_child(_bp_grid)
 
 func _refresh() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		hud.request_inventory_save()
 	_rule_label.text = "当前：僵尸地牢（%s 级） 需要「%s及以上」祭品" % [
 		DUNGEON_GRADE, NpcConfig.rarity_label(_required_rarity())]
 	var used := 0
@@ -152,6 +155,8 @@ func _place_from_backpack(bp_slot: int) -> void:
 		it["stack"] = stack - 1
 	var clone: Dictionary = it.duplicate(true)
 	clone["stack"] = 1
+	if stack > 1:
+		clone["instance_id"] = preload("res://ui/item_rules.gd").new_id()
 	_carried[slot] = {"item": clone, "count": 1}
 	_backpack.changed.emit()
 	_refresh()
@@ -160,8 +165,10 @@ func _remove_from_cell(slot: int) -> void:
 	var entry = _carried[slot]
 	if entry == null:
 		return
+	if not _backpack.add_instance(entry["item"]):
+		show_message("背包已满，祭品保留在出征栏", true)
+		return
 	_carried[slot] = null
-	_backpack.add_item(String(entry["item"].get("id", "")), 1)
 	_refresh()
 
 func _return_all() -> void:
@@ -169,8 +176,10 @@ func _return_all() -> void:
 		var entry = _carried[i]
 		if entry == null:
 			continue
+		if not _backpack.add_instance(entry["item"]):
+			show_message("背包已满，祭品保留在出征栏", true)
+			break
 		_carried[i] = null
-		_backpack.add_item(String(entry["item"].get("id", "")), 1)
 	_refresh()
 
 func _update_stats() -> void:

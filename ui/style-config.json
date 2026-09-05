@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "active_theme": "gray_white",
+  "active_theme": "cold_steel",
   "radius": 10,
   "radius_xs": 4,
   "radius_sm": 6,
@@ -13,12 +13,13 @@
     "element_gap": 8
   },
   "font": {
-    "h1": 48,
-    "h2": 32,
-    "big": 22,
+    "h1": 24,
+    "h2": 20,
+    "big": 20,
     "label": 16,
     "body": 14,
-    "caption": 12
+    "caption": 12,
+    "micro": 11
   },
   "font_weight": {
     "heavy": 700,
@@ -26,23 +27,67 @@
     "regular": 400
   },
   "motion": {
-    "duration_ms": 200,
-    "easing": "ease_out"
+    "duration_ms": 250,
+    "easing": "cubic"
   },
   "hud": {
     "bar_w": 220,
     "bar_h": 18,
-    "hp": { "x": 16, "y": 10, "label_x": 244, "label_size": 22, "low_ratio": 0.25 },
-    "mp": { "x": 16, "y": 40, "h": 14, "label_x": 244, "label_size": 16 },
-    "kill": { "x": 16, "y": 64, "size": 16 },
-    "weapon": { "size": 14 },
-    "ammo": { "size": 34, "reserve_size": 16 },
-    "status": { "size": 16 },
-    "death": { "w": 320, "h": 140, "title_size": 40, "hint_size": 16 },
-    "hitmark": { "size": 30, "ms": 0.12 },
-    "dmgflash": { "ms": 0.18, "alpha": 0.25 },
-    "crosshair": { "gap": 4.0, "len": 9.0, "thick": 1.5, "spread": 24.0, "max_ratio": 0.035 },
-    "vignette": { "base": 0.30, "amp": 0.22, "freq": 2.4 },
+    "hp": {
+      "x": 16,
+      "y": 10,
+      "label_x": 244,
+      "label_size": 22,
+      "low_ratio": 0.25
+    },
+    "mp": {
+      "x": 16,
+      "y": 40,
+      "h": 14,
+      "label_x": 244,
+      "label_size": 16
+    },
+    "kill": {
+      "x": 16,
+      "y": 64,
+      "size": 16
+    },
+    "weapon": {
+      "size": 14
+    },
+    "ammo": {
+      "size": 34,
+      "reserve_size": 16
+    },
+    "status": {
+      "size": 16
+    },
+    "death": {
+      "w": 320,
+      "h": 140,
+      "title_size": 40,
+      "hint_size": 16
+    },
+    "hitmark": {
+      "size": 30,
+      "ms": 0.12
+    },
+    "dmgflash": {
+      "ms": 0.18,
+      "alpha": 0.25
+    },
+    "crosshair": {
+      "gap": 4.0,
+      "len": 9.0,
+      "thick": 1.5,
+      "spread": 24.0,
+      "max_ratio": 0.035
+    },
+    "vignette": {
+      "base": 0.3,
+      "amp": 0.22,
+      "freq": 2.4
+    },
     "labels": {
       "kills": "击杀: %d",
       "death_title": "你死了",
@@ -81,9 +126,9 @@
     "cell_wide_w": 170.0,
     "cell_wide_h": 52.0,
     "cell_icon_s": 30.0,
-    "cell_name_size": 11,
+    "cell_name_size": 12,
     "cell_stack_size": 11,
-    "cell_badge_size": 8,
+    "cell_badge_size": 11,
     "magic_s": 96.0,
     "magic_icon_size": 36,
     "layout_w": 420.0,

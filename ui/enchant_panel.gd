@@ -98,6 +98,9 @@ func _build_body() -> void:
 	eq_scroll.add_child(_equip_grid)
 
 func _refresh() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null:
+		hud.request_inventory_save()
 	_refresh_gold()
 	_dust_label.text = "✨ 魔法粉尘：%d" % _count_dust()
 	_scroll_label.text = "卷轴槽：%s" % (String(_scroll.get("name", "空")) if not _scroll.is_empty() else "空")
@@ -154,6 +157,8 @@ func _place_scroll(source: String, slot: int) -> void:
 		show_message("不符合附魔条件", true)
 		return
 	_return_scroll()
+	if not _scroll.is_empty():
+		return
 	if source == "backpack":
 		_backpack.slots[slot] = null
 	else:
@@ -164,6 +169,9 @@ func _place_scroll(source: String, slot: int) -> void:
 	_refresh()
 
 func _on_drop_scroll(data: Dictionary) -> void:
+	if data.get("source", "") == "warehouse":
+		_place_scroll("warehouse", int(data.get("slot", -1)))
+		return
 	var it: Dictionary = data.get("item", {})
 	if String(it.get("scroll_id", "")) == "":
 		show_message("请拖入附魔卷轴", true)
@@ -175,6 +183,9 @@ func _on_drop_scroll(data: Dictionary) -> void:
 	_place_scroll("backpack", slot)
 
 func _on_drop_equip(data: Dictionary) -> void:
+	if data.get("type", "") == "equip":
+		_place_equip("equip", str(data.get("key", "")))
+		return
 	var it: Dictionary = data.get("item", {})
 	if not _is_weapon(it):
 		show_message("只能附魔武器", true)
@@ -194,6 +205,8 @@ func _place_equip(source: String, slot) -> void:
 		_return_scroll()
 		return
 	_return_equip()
+	if not _equip.is_empty():
+		return
 	if source == "backpack":
 		_backpack.slots[slot] = null
 	else:
@@ -206,38 +219,29 @@ func _place_equip(source: String, slot) -> void:
 func _return_scroll() -> void:
 	if _scroll.is_empty():
 		return
-	if not _scroll_src.is_empty() and String(_scroll_src.get("source", "")) == "warehouse" and _warehouse != null:
-		if not _warehouse.add_item(_scroll):
-			_place_into_backpack(_scroll)
-	else:
-		_place_into_backpack(_scroll)
+	var success := false
+	if _scroll_src.get("source", "") == "warehouse" and _warehouse != null:
+		success = _warehouse.add_item(_scroll)
+	if not success:
+		success = _backpack.add_instance(_scroll)
+	if not success:
+		show_message("背包已满，卷轴保留在附魔槽", true)
+		return
 	_scroll = {}
 	_scroll_src = {}
 
 func _return_equip() -> void:
 	if _equip.is_empty():
 		return
-	var item: Dictionary = _equip
-	if not _equip_src.is_empty() and String(_equip_src.get("source", "")) == "equip":
-		var key := String(_equip_src["slot"])
-		if _equipment.slots.get(key, {}) == {}:
-			_equipment.slots[key] = item
-			_equipment.changed.emit()
-			_equip = {}
-			_equip_src = {}
-			return
-	_place_into_backpack(item)
+	var key := str(_equip_src.get("slot", ""))
+	if _equip_src.get("source", "") == "equip" and _equipment.get_item(key).is_empty() and _equipment.can_equip_to(key, _equip) and not _equipment.is_locked(key):
+		_equipment.slots[key] = _equip
+		_equipment.changed.emit()
+	elif not _backpack.add_instance(_equip):
+		show_message("背包已满，装备保留在附魔槽", true)
+		return
 	_equip = {}
 	_equip_src = {}
-
-func _place_into_backpack(item: Dictionary) -> void:
-	for i in _backpack.slots.size():
-		if _backpack.slots[i] == null:
-			item["slot"] = i
-			_backpack.slots[i] = item
-			_backpack.changed.emit()
-			return
-	show_message("背包已满，物品无法归还", true)
 
 func _update_preview() -> void:
 	if _scroll.is_empty() or _equip.is_empty():
@@ -303,14 +307,24 @@ func _do_enchant() -> void:
 		show_message("魔法粉尘不足（需要 %d，当前 %d）" % [cost, _count_dust()], true)
 		return
 	_consume_dust(cost)
-	_scroll = {}  # 卷轴销毁
+	_scroll.stack = int(_scroll.get("stack", 1)) - 1
+	if int(_scroll.stack) <= 0:
+		_scroll = {}
 	var data: Dictionary = _equip.get("_enchantData", {})
 	if String(scroll.get("type", "")) == "prefix":
 		data["prefix"] = {"id": scroll_id, "name": String(scroll.get("name", "")), "grade": String(scroll.get("grade", ""))}
 	else:
 		data["suffix"] = {"id": scroll_id, "name": String(scroll.get("name", "")), "grade": String(scroll.get("grade", ""))}
 	_equip["_enchantData"] = data
-	_equip["_enchantEffects"] = scroll.get("effects", {}).duplicate(true)
+	var effects := {}
+	for side in ["prefix", "suffix"]:
+		var part: Dictionary = NpcConfig.get_scroll(str(data.get(side, {}).get("id", ""))).get("effects", {})
+		for key in part:
+			if effects.has(key) and part[key] is float:
+				effects[key] = effects[key] * part[key] if str(key).ends_with("Mul") else effects[key] + part[key]
+			else:
+				effects[key] = part[key]
+	_equip["_enchantEffects"] = effects
 	_equip["_isEnchanted"] = true
 	show_message("附魔成功！")
 	_refresh()
@@ -323,8 +337,12 @@ func _convert_dust() -> void:
 	if reward <= 0:
 		show_message("该卷轴无法转换", true)
 		return
-	_scroll = {}
-	_backpack.add_item(NpcConfig.MAGIC_DUST_ID, reward)
+	if not _backpack.add_item(NpcConfig.MAGIC_DUST_ID, reward):
+		show_message("背包已满", true)
+		return
+	_scroll.stack = int(_scroll.get("stack", 1)) - 1
+	if int(_scroll.stack) <= 0:
+		_scroll = {}
 	show_message("转换获得 %d 魔法粉尘" % reward)
 	_refresh()
 
