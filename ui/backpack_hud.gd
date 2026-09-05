@@ -1493,7 +1493,7 @@ func _build_panel() -> void:
 		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		var name_lbl := _make_label(cell_content, "", Style.font_size("caption"), Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
-		name_lbl.add_theme_font_override("font", Style.make_font(600))
+		name_lbl.add_theme_font_override("font", preload("res://assets/ui/fonts/simhei.ttf"))
 		name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		name_lbl.anchor_left = 0.44
 		name_lbl.anchor_right = 0.95
