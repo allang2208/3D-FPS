@@ -296,11 +296,18 @@ static var _font_mono: Font
 static func make_font(weight := 400) -> Font:
 	if weight >= 600:
 		if _font_bold == null:
-			_font_bold = load("res://assets/ui/fonts/MicrosoftYaHeiBold.ttc")
+			_font_bold = _ui_font_face("res://assets/ui/fonts/MicrosoftYaHeiBold.ttc")
 		return _font_bold
 	if _font_regular == null:
-		_font_regular = load("res://assets/ui/fonts/MicrosoftYaHei.ttc")
+		_font_regular = _ui_font_face("res://assets/ui/fonts/MicrosoftYaHei.ttc")
 	return _font_regular
+
+## Both TTC files contain face 0 YaHei and face 1 YaHei UI. Match --bp-font-ui.
+static func _ui_font_face(path: String) -> Font:
+	var face := FontVariation.new()
+	face.base_font = load(path)
+	face.variation_face_index = 1
+	return face
 
 ## 浮窗排版规范（所有 tooltip 统一使用，禁止各组件自造字号/字重）
 static func tt_font_title() -> Font: return make_font(700)
@@ -814,3 +821,8 @@ static func _steel_texture(top: Color, bottom: Color, radius: int) -> Texture2D:
 	var texture := ImageTexture.create_from_image(img)
 	_steel_textures[key] = texture
 	return texture
+
+static func release_fonts() -> void:
+	_font_regular = null
+	_font_bold = null
+	_font_mono = null

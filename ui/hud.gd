@@ -321,6 +321,7 @@ func _sync_ui_resolution() -> void:
 	get_window().content_scale_size = get_window().size
 
 func _exit_tree() -> void:
+	preload("res://ui/style.gd").release_fonts()
 	if DisplayServer.get_name() != "headless":
 		for shape in [Input.CURSOR_ARROW, Input.CURSOR_POINTING_HAND, Input.CURSOR_DRAG, Input.CURSOR_CAN_DROP]:
 			Input.set_custom_mouse_cursor(null, shape)

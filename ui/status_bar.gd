@@ -437,7 +437,7 @@ func _build_controls_hint() -> void:
 		Style.make_style(Color(Style.COLOR_HUD_BG, 0.5), Color(Style.COLOR_HUD_BORDER, 0.4), 8, 1))
 	add_child(p)
 	var l := Label.new()
-	l.text = "WASD 移动 · 左键攻击 · 空格闪避 · Shift 冲刺\n1~4 快捷栏 · Q/E/X/C 技能 · R 换弹\nTab 背包 · CapsLock 状态 · K 技能 · O 图鉴 · L 任务"
+	l.text = "WASD 移动 · 左键攻击 · 空格闪避 · Shift 冲刺\n1~4 快捷栏 · Q/E/X/C 技能 · R 换弹\nTab 背包 · CapsLock 状态 · K 技能 · U 图鉴 · L 任务"
 	l.add_theme_font_size_override("font_size", 11)
 	l.add_theme_color_override("font_color", Color(Style.COLOR_HUD_TEXT, 0.75))
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -445,50 +445,10 @@ func _build_controls_hint() -> void:
 
 
 func _build_side_menu() -> void:
-	var menu := VBoxContainer.new()
-	menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	menu.set_anchors_and_offsets_preset(Control.PRESET_CENTER_RIGHT)
-	menu.offset_left = -86
-	menu.offset_right = -14
-	menu.add_theme_constant_override("separation", 8)
+	var menu := preload("res://ui/original_sidebar.gd").new()
+	menu.name = "OriginalSidebar"
+	menu.selected.connect(_open_hud_tab)
 	add_child(menu)
-	for spec in [
-			["res://assets/ui/icons/user.svg", "Caps", "状态", "status"],
-			["res://assets/ui/icons/backpack.svg", "Tab", "背包", "equip"],
-			["res://assets/ui/icons/zap.svg", "K", "技能", "skill"],
-			["res://assets/ui/icons/map.svg", "O", "图鉴", "codex"],
-			["res://assets/ui/icons/flag.svg", "L", "任务", "quest"]]:
-		var b := Button.new()
-		b.custom_minimum_size = Vector2(72, 64)
-		# 深色 HUD 模块按钮（原项目 side-menu-btn，hover 金色发光）
-		b.add_theme_stylebox_override("normal",
-			Style.make_style(Color(Style.COLOR_HUD_BG, 0.72), Color(Style.COLOR_HUD_BORDER, 0.6), 8, 1))
-		b.add_theme_stylebox_override("hover",
-			Style.make_style(Color(Style.COLOR_HUD_BG, 0.92), Style.COLOR_HUD_GOLD, 8, 1))
-		b.add_theme_stylebox_override("pressed",
-			Style.make_style(Color(Style.COLOR_HUD_BG, 0.95), Style.COLOR_HUD_GOLD, 8, 2))
-		var vb := VBoxContainer.new()
-		vb.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var icon := TextureRect.new()
-		icon.texture = load(str(spec[0]))
-		icon.custom_minimum_size = Vector2(30, 30)
-		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		icon.modulate = Style.COLOR_HUD_TEXT
-		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		vb.add_child(icon)
-		var hint := Label.new()
-		hint.text = str(spec[1])
-		hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		hint.add_theme_font_override("font", _font_mono)
-		hint.add_theme_font_size_override("font_size", 14)
-		hint.add_theme_color_override("font_color", Style.COLOR_HUD_GOLD)
-		hint.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		vb.add_child(hint)
-		b.add_child(vb)
-		var tab := str(spec[3])
-		b.pressed.connect(func() -> void: _open_hud_tab(tab))
-		menu.add_child(b)
 
 ## ---------- Buff 图标栏（旧版 StatusBar：图标/名称/剩余时间/底部进度条/悬停浮窗） ----------
 
@@ -636,8 +596,13 @@ func _open_hud_tab(tab: String) -> void:
 	if tab in ["status", "equip", "skill", "codex"]:
 		bph.set_panel_open(true)
 		bph.set_tab(tab)
+	elif tab == "quest" and hud._inventory_panels.has("quest"):
+		var panel = hud._inventory_panels.quest.get_ref()
+		if panel != null:
+			bph.set_panel_open(false)
+			panel.open_panel()
 	else:
-		show_status("%s 系统未移植" % tab, 1.5)
+		show_status("%s尚未接入" % {"world":"世界", "party":"队员管理", "technology":"科技树", "quest":"任务档案"}.get(tab, tab), 1.5)
 
 
 func _make_crosshair_line(dir: Vector2) -> ColorRect:

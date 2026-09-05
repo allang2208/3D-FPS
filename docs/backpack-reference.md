@@ -8,8 +8,14 @@
 - 整理和手动保存移入物品右键菜单，自动保存照常工作。截图测试的金币及物品数量仅为独立预览数据，不修改正式存档。
 - 背景模糊与暗化；标题图标为单色，禁用彩色 emoji 回退；小窗口名称单行省略，不越出格子。
 
-验证：1912×948 与 1280×720 原生 Godot 渲染预览；背包 36 项功能回归通过。参考尺寸下白色装备底板 y=146、背包格 y=574，与截图对应区域对齐。字体由浏览器和 Godot 分别栅格化，不能把几何和颜色对齐描述成已验证逐像素零差异。
+验证：1912×948 与 1280×720 原生 Godot 渲染预览；背包 36 项功能回归通过。参考尺寸下白色装备底板 y=146、背包格 y=575（参考图 y=574，当前相差1px），与截图对应区域对齐。字体由浏览器和 Godot 分别栅格化，不能把几何和颜色对齐描述成已验证逐像素零差异。
 
 实际预览：docs/preview/backpack-reference-1912.png、docs/preview/backpack-reference-720.png。
 
-字体规范修正：以原项目 SKILL.md → skill/10-ui-party.md 及 docs/ui-cold-steel-design-system.md §4 为准。移除截图还原阶段的独立 SimHei/模拟粗体，统一调用 ui/style.gd；背包正文/名称使用14px，装备名/分区16px，标题20px，稀有度/数量12px。纯数字使用Consolas；Segoe UI Symbol仅绘制标题图标，不参与正文。
+字体排查修正（2026-09-05）：原 CSS 的面板根节点使用 Microsoft YaHei UI；TTC 中该字体实际为 face 1，先前默认 face 0 是 Microsoft YaHei。Godot 现在通过 FontVariation 显式选择 face 1（常规与粗体均修正）。CSS 的子节点独立声明仍然生效：背包物品名使用 SimHei 12px，装备名使用微软雅黑 UI 16px，分区标题13px、背包标题14px、装备稀有度10px、背包稀有度8px；数量使用 Consolas。上一版把物品名统一改为14px不符合实际级联，现已纠正。
+
+右侧栏直接复制原项目 assets/ui/icons 下 status、skills、inventory、codex、quest、world_switch、party、technology_tree 八张 PNG。按 game-style.css 与 panel-theme-backpack.css 设置74px按钮、68px图片、25px间距、右边距12px、20px快捷键和11px标题；小窗口整体缩放。图片启用 mipmap 与线性过滤。状态、技能、背包、图鉴及任务入口连接现有面板；世界、队员、科技树保留入口提示，相关玩法并未因此迁移。
+
+右侧栏预览：docs/preview/original-sidebar-1912.png。原图文件可逐字节复用，但浏览器与 Godot 的文字栅格化差异仍存在，未宣称整屏像素完全一致。
+
+本轮验证：180帧无头运行无脚本错误，36项背包回归通过，战斗与换弹检查通过；1912×948、1280×720 原生渲染完成，八张图与源文件逐字节一致。
