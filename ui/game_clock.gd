@@ -12,7 +12,7 @@ func model() -> Dictionary:
 	var cycles := elapsed_seconds / DAY_SECONDS + START_PHASE
 	var phase := fposmod(cycles, 1.0)
 	var minutes := int(floor(fposmod(phase * 24.0 + 6.0, 24.0) * 60.0))
-	var hour := minutes / 60
+	var hour := floori(minutes / 60.0)
 	var period := "深夜"
 	var icon := "🌙"
 	if hour >= 5 and hour < 8:

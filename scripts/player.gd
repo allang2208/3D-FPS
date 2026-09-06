@@ -21,11 +21,24 @@ var is_dead := false
 var _buffs: BuffSystem = BuffSystem.new()
 
 func _ready() -> void:
+	_disable_player_shadows(self)
+	get_tree().node_added.connect(_on_player_visual_added)
 	hp = max_hp
 	_buffs = BuffSystem.new()
 	collision_layer = 4
 	collision_mask = 5  # 1 墙体 + 2 敌人
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _disable_player_shadows(node: Node) -> void:
+	if node is GeometryInstance3D:
+		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for child in node.get_children():
+		_disable_player_shadows(child)
+
+func _on_player_visual_added(node: Node) -> void:
+	# Also cover weapons and attachments installed after the player is ready.
+	if node is GeometryInstance3D and is_ancestor_of(node):
+		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func take_damage(d: int, damage_type := "physical", _src: Node3D = null) -> void:
 	if is_dead:

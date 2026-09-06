@@ -75,6 +75,7 @@ func _set_active(on: bool) -> void:
 
 func _build_visual() -> void:
 	var mesh := MeshInstance3D.new()
+	mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	if _shared_mesh == null:
 		var cyl := CylinderMesh.new()
 		cyl.top_radius = 0.014

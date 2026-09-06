@@ -5,6 +5,8 @@ description: 开发、改造或维护 3-dfps 的枪械、通用瞄具、ADS、�
 
 # 枪械与改造标准工作流
 
+腰射准星、玩家/子弹阴影及模型加载警告排查，参见[反馈与运行报错复查](references/runtime-feedback-debugging.md)。
+
 先读 [枪械主流程](references/weapon-workflow.md)。涉及配件时再读 [改造与 ADS 校准](references/gunsmith-ads.md)，不能跳过其中的骨骼、镜片、原件替换和存档检查。
 
 ## 执行顺序
