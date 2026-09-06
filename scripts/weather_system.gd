@@ -6,7 +6,7 @@ const PROFILES := {
 	"clear": Vector3(0.0,0.0,0.0),
 	"overcast": Vector3(0.82,0.0,0.2),
 	"light_rain": Vector3(0.88,0.18,0.25),
-	"rain": Vector3(0.94,0.5,0.55),
+	"rain": Vector3(0.94,0.65,0.55),
 	"storm": Vector3(1.0,1.0,1.0)}
 var mode := "overcast"
 var automatic := true
@@ -19,8 +19,10 @@ var rain: GPUParticles3D
 var rain_material: ParticleProcessMaterial
 var rain_audio: AudioStreamPlayer
 var rain_detail_audio: AudioStreamPlayer
+var rain_drizzle_audio: AudioStreamPlayer
 var _rain_gain := 0.0
 var _detail_gain := 0.0
+var _drizzle_gain := 0.0
 const FLASH_DURATION := 0.72
 var _restrike_time := 0.12
 var thunder: AudioStreamPlayer3D
@@ -59,6 +61,7 @@ func _ready() -> void:
 	_build_rain()
 	rain_audio = _rain_player("res://assets/sfx/weather/rain_soft_v2.wav")
 	rain_detail_audio = _rain_player("res://assets/sfx/weather/rain_patter_v2.wav")
+	rain_drizzle_audio = _rain_player("res://assets/sfx/weather/rain_leaves_ground_ccby_v4.wav")
 	thunder = AudioStreamPlayer3D.new()
 	thunder.bus = "SFX"
 	thunder.unit_size = 400
@@ -84,6 +87,7 @@ func _ready() -> void:
 
 func _rain_player(path: String) -> AudioStreamPlayer:
 	var player := AudioStreamPlayer.new()
+	player.set_meta("source_path",path)
 	player.bus = "SFX"
 	var stream := load(path).duplicate() as AudioStreamWAV
 	stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
@@ -100,15 +104,33 @@ func _update_rain_audio(delta: float) -> void:
 	if amount<0.001: amount = 0.0
 	var cover := 0.32 if sheltered else 1.0
 	var blend := 1.0-exp(-delta/0.7)
-	_rain_gain = lerpf(_rain_gain,sqrt(amount)*0.52*cover,blend)
-	_detail_gain = lerpf(_detail_gain,pow(amount,1.35)*0.38*cover,blend)
-	for i in 2:
-		var player: AudioStreamPlayer = rain_audio if i==0 else rain_detail_audio
-		var gain: float = _rain_gain if i==0 else _detail_gain
+	var targets := rain_audio_targets(amount) * cover
+	_rain_gain = lerpf(_rain_gain,targets.x,blend)
+	_detail_gain = lerpf(_detail_gain,targets.y,blend)
+	_drizzle_gain = lerpf(_drizzle_gain,targets.z,blend)
+	var players: Array[AudioStreamPlayer] = [rain_audio,rain_detail_audio,rain_drizzle_audio]
+	var gains := [_rain_gain,_detail_gain,_drizzle_gain]
+	for i in players.size():
+		var player := players[i]
+		var gain: float = gains[i]
 		player.volume_db = linear_to_db(maxf(gain,0.0001))
 		if gain>0.0005:
 			if not player.playing: player.play()
-		elif amount==0 and player.playing: player.stop()
+		elif player.playing:
+			player.stop()
+
+static func rain_audio_targets(amount: float) -> Vector3:
+	amount = clampf(amount,0.0,1.0)
+	var drizzle := Vector3(0.012,0.0,0.09)
+	var medium := Vector3(0.18,0.22,0.055)
+	var storm := Vector3(0.52,0.38,0.0)
+	if amount<=PROFILES.light_rain.y:
+		return drizzle * smoothstep(0.0,PROFILES.light_rain.y,amount)
+	if amount<=PROFILES.rain.y:
+		var weight := smoothstep(PROFILES.light_rain.y,PROFILES.rain.y,amount)
+		return drizzle.lerp(medium,weight)
+	var weight := smoothstep(PROFILES.rain.y,PROFILES.storm.y,amount)
+	return medium.lerp(storm,weight)
 
 func _build_clouds() -> void:
 	if _cloud_cache == null:

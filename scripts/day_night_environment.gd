@@ -5,6 +5,7 @@ var sun: DirectionalLight3D
 var moon: DirectionalLight3D
 var _timer := 0.0
 var _materials: Array[ShaderMaterial] = []
+var _cloud_sea_materials: Array[ShaderMaterial] = []
 var _wisps: Array[BaseMaterial3D] = []
 var current_state: Dictionary = {}
 var _last_phase := -1.0
@@ -20,7 +21,7 @@ static func sample(phase: float) -> Dictionary:
 	var direction := direction_at(phase)
 	var day := smoothstep(-0.12, 0.24, direction.y)
 	var dusk := (1.0-smoothstep(0.04,0.38,absf(direction.y))) * smoothstep(-0.18,0.0,direction.y)
-	return {"direction": direction, "day": day, "twilight": dusk,
+	return {"direction": direction, "phase": fposmod(phase,1.0), "day": day, "twilight": dusk,
 		"zenith": Color(0.008,0.017,0.055).lerp(Color(0.17,0.39,0.69),day),
 		"horizon": Color(0.026,0.035,0.055).lerp(Color(0.68,0.77,0.85),day).lerp(Color(0.75,0.48,0.34),dusk*0.48),
 		"tint": Color(0.20,0.23,0.30).lerp(Color.WHITE,day).lerp(Color(1.0,0.75,0.57),dusk*0.48)}
@@ -36,7 +37,8 @@ func _bind() -> void:
 	moon = DirectionalLight3D.new()
 	moon.name = "Moon"
 	moon.sky_mode = DirectionalLight3D.SKY_MODE_LIGHT_ONLY
-	moon.light_color = Color(0.78,0.84,1.0)
+	moon.light_color = Color(0.72,0.80,1.0)
+	moon.light_angular_distance = 0.3
 	moon.directional_shadow_max_distance = sun.directional_shadow_max_distance
 	add_child(moon)
 	starfield = preload("res://scripts/night_starfield.gd").new()
@@ -46,9 +48,11 @@ func _bind() -> void:
 	for item in get_parent().find_children("*", "MeshInstance3D", true, false):
 		var material: Material = item.material_override
 		if material is ShaderMaterial and material.shader != null and material.shader.resource_path in [
-			"res://assets/environment/sky_base/cloud_sea.gdshader",
+			"res://assets/environment/sky_base/cloud_sea_dynamic_v2.gdshader",
 			"res://assets/environment/sky_base/mountain_sector.gdshader"]:
 			if not _materials.has(material): _materials.append(material)
+			if material.shader.resource_path.ends_with("cloud_sea_dynamic_v2.gdshader"):
+				_cloud_sea_materials.append(material)
 		elif material is BaseMaterial3D and str(item.name).begins_with("HubWisp"):
 			_wisps.append(material)
 	refresh()
@@ -92,13 +96,14 @@ func apply_state(state: Dictionary) -> void:
 		state.tint = state.tint.lerp(state.tint*Color(0.65,0.69,0.74),cloud*0.7)
 		weather.cloud_material.set_shader_parameter("cloud_color",gray*lerpf(1.0,0.5,wet))
 		environment.fog_density = lerpf(0.00055,0.0035,wet)
+	state["cloud_cover"] = weather.profile.x if weather != null else 0.0
 	current_state = state
 	if starfield != null: starfield.set_sky_state(state)
 	_orient(state.direction)
 	var height: float = state.direction.y
-	sun.light_energy = 0.62 * smoothstep(0.0,0.22,height)*sun_transmission
+	sun.light_energy = 0.74 * smoothstep(0.0,0.22,height)*sun_transmission
 	sun.light_color = Color(1.0,0.52,0.25).lerp(Color(1.0,0.97,0.90),smoothstep(0.0,0.38,height))
-	moon.light_energy = 0.15 * smoothstep(0.0,0.22,-height)*moon_transmission
+	moon.light_energy = 0.22 * smoothstep(0.0,0.22,-height)*moon_transmission
 	sun.shadow_enabled = height > 0.015 and sun_transmission>0.16
 	moon.shadow_enabled = height < -0.015 and moon_transmission>0.16
 	var mat := environment.sky.sky_material as ShaderMaterial
@@ -107,6 +112,8 @@ func apply_state(state: Dictionary) -> void:
 	mat.set_shader_parameter("horizon",state.horizon)
 	mat.set_shader_parameter("daylight",state.day)
 	mat.set_shader_parameter("twilight",state.twilight)
+	mat.set_shader_parameter("sun_transmission",sun_transmission)
+	mat.set_shader_parameter("moon_transmission",moon_transmission)
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	environment.ambient_light_color = Color(0.32,0.36,0.44).lerp(Color(0.72,0.80,0.91),state.day)
 	environment.ambient_light_energy = lerpf(0.17,0.32,state.day)
@@ -117,5 +124,10 @@ func apply_state(state: Dictionary) -> void:
 		material.set_shader_parameter("zenith",state.zenith)
 		material.set_shader_parameter("horizon",state.horizon)
 		material.set_shader_parameter("twilight",state.twilight)
+	for material in _cloud_sea_materials:
+		material.set_shader_parameter("weather_cloudiness",weather.profile.x if weather != null else 0.0)
+		material.set_shader_parameter("weather_wetness",weather.profile.y if weather != null else 0.0)
+		material.set_shader_parameter("weather_drift",weather.drift if weather != null else Vector2.ZERO)
+		material.set_shader_parameter("weather_flash",weather.flash_light.light_energy if weather != null and is_instance_valid(weather.flash_light) else 0.0)
 	for material in _wisps:
 		material.albedo_color = Color(state.tint.r*.91,state.tint.g*.93,state.tint.b*.94,.8)

@@ -31,13 +31,20 @@ func run() -> void:
 	weather.set_weather("overcast",true)
 	env.refresh()
 	assert(env.sun.light_energy<clear_energy)
+	var drizzle_mix := Weather.rain_audio_targets(Weather.PROFILES.light_rain.y)
+	var medium_mix := Weather.rain_audio_targets(Weather.PROFILES.rain.y)
+	var storm_mix := Weather.rain_audio_targets(Weather.PROFILES.storm.y)
+	assert(drizzle_mix.z>drizzle_mix.x and drizzle_mix.y==0.0)
+	assert(medium_mix.y>medium_mix.x and medium_mix.length()>drizzle_mix.length()*2.0)
+	assert(storm_mix.is_equal_approx(Vector3(0.52,0.38,0.0)))
+	assert(is_equal_approx(Weather.PROFILES.rain.y,0.65))
 	for mode in ["light_rain","rain","storm"]:
 		weather.set_weather(mode,true)
 		weather._process(0.3)
 		assert(weather.rain.amount==1200)
 		assert(weather.rain.amount_ratio==weather.profile.y)
 		assert(weather.rain_audio.playing)
-	for player in [weather.rain_audio,weather.rain_detail_audio]:
+	for player in [weather.rain_audio,weather.rain_detail_audio,weather.rain_drizzle_audio]:
 		assert(player.stream.format==AudioStreamWAV.FORMAT_16_BITS)
 		assert(player.stream.stereo)
 		assert(player.stream.loop_end==529200)
@@ -101,6 +108,6 @@ func run() -> void:
 	hud.game_clock.elapsed_seconds = 1439
 	weather._process(60.0)
 	assert(weather.mode=="clear" and not weather.rain.emitting)
-	assert(not weather.rain_audio.playing and not weather.rain_detail_audio.playing)
-	print("PASS weather: schedule, cloud/light coupling, three rain budgets, audio, delayed lightning/thunder, pause, clear cleanup, roof shelter")
+	assert(not weather.rain_audio.playing and not weather.rain_detail_audio.playing and not weather.rain_drizzle_audio.playing)
+	print("PASS weather: schedule, cloud/light coupling, distinct drizzle/medium/storm mixes, three rain budgets, audio, delayed lightning/thunder, pause, clear cleanup, roof shelter")
 	quit()

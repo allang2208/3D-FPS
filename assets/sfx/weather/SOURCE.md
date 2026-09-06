@@ -15,6 +15,26 @@ Imported as uncompressed PCM with forward looping; runtime endpoint is
 529200 sample frames, independent of stereo byte count. The old rain was removed after reference checks. Base gain <=0.52, patter <=0.38;
 0.7-second gain smoothing, reduced mix under shelter, both use SFX bus.
 
+## Leaf and ground drizzle field recording (2026-09-06)
+
+`rain_leaves_ground_ccby_v4.wav`: derived from Freesound sound 497044,
+"Rain on leaves,ground garden", recorded and uploaded by `spok13`.
+Source page: https://freesound.org/people/spok13/sounds/497044/
+Preview source: https://cdn.freesound.org/previews/497/497044_8021791-hq.mp3
+License: Creative Commons Attribution 3.0.
+Attribution: "Rain on leaves,ground garden" by spok13, licensed under CC BY 3.0.
+Downloaded preview SHA-256:
+`46257de2128608e2233c3ef10e823732bd94dfde3cd70bf85716909050c9b653`.
+
+`tools/prepare_light_rain_field_recording.py` downloads and verifies that
+source, selects the stable 25-51 second region before its later transient,
+resamples it to 22050 Hz stereo 16-bit PCM, and creates a 24-second loop with
+a two-second crossfade. No synthetic impacts or resonant drop effects are
+added. The drizzle mix is led by this real leaf/ground recording while its
+continuous rain bed remains nearly silent; medium rain shifts toward the
+denser patter layer. Storm retains the previous v2 bed/detail gains of
+0.52 / 0.38. The superseded synthesized v3 drizzle candidate was removed.
+
 ## Wilderness thunder revision (2026-09-06)
 
 `thunder_wilderness_1.wav` through `thunder_wilderness_3.wav`: original

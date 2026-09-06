@@ -14,8 +14,17 @@ func run() -> void:
 	var env = Lighting.create_environment()
 	world.add_child(env)
 	world.add_child(Lighting.create_sun())
+	assert(env.environment.glow_enabled)
+	assert(env.environment.glow_hdr_threshold > 0.7)
 	await process_frame
 	await process_frame
+	env.weather.set_weather("clear",true)
+	var sky_material := env.environment.sky.sky_material as ShaderMaterial
+	env.apply_state(Cycle.sample(0.25))
+	assert(is_equal_approx(sky_material.get_shader_parameter("sun_transmission"),1.0))
+	env.weather.set_weather("storm",true)
+	env.apply_state(Cycle.sample(0.25))
+	assert(sky_material.get_shader_parameter("sun_transmission")<0.2)
 	env.weather.set_weather("clear",true)
 	for phase in [0.0,0.01,0.25,0.49,0.5,0.51,0.75,0.99,1.0]:
 		var state := Cycle.sample(phase)
@@ -59,6 +68,6 @@ func run() -> void:
 	assert(next_env.current_state.day < 0.01)
 	next_env.weather.set_weather("clear",true)
 	next_env.refresh()
-	assert(next_env.moon.light_energy > 0.1)
-	print("PASS day/night: orbit, disc/light alignment, horizon cutoff, single shadow, phase wrap, restore, pause, scene transition")
+	assert(next_env.moon.light_energy > 0.2)
+	print("PASS day/night: orbit, HDR sun/moon glare, weather transmission, single shadow, phase wrap, restore, pause, scene transition")
 	quit()

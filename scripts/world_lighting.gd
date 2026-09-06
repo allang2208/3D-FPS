@@ -35,7 +35,14 @@ static func create_environment() -> WorldEnvironment:
 	env.ssao_intensity = 1.0
 	env.ssil_enabled = false
 	env.ssr_enabled = false
-	env.glow_enabled = false
+	# HDR celestial cores alone cross the threshold: ordinary white materials stay crisp.
+	env.glow_enabled = true
+	env.glow_intensity = 0.62
+	env.glow_strength = 0.86
+	env.glow_bloom = 0.0
+	env.glow_hdr_threshold = 0.78
+	env.glow_hdr_scale = 1.25
+	env.glow_blend_mode = Environment.GLOW_BLEND_MODE_SCREEN
 	var node := WorldEnvironment.new()
 	node.set_script(load("res://scripts/day_night_environment.gd"))
 	node.name = "WorldEnvironment"
@@ -46,8 +53,9 @@ static func create_sun() -> DirectionalLight3D:
 	var sun := DirectionalLight3D.new()
 	sun.name = "Sun"
 	sun.rotation_degrees = Vector3(-42, 30, 0)
-	sun.light_energy = 0.62
+	sun.light_energy = 0.74
 	sun.light_color = Color(1.0, 0.97, 0.90)
+	sun.light_angular_distance = 0.5
 	sun.shadow_enabled = true
 	sun.directional_shadow_max_distance = 55.0
 	return sun
