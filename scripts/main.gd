@@ -171,6 +171,11 @@ func _refresh_weapon_mods() -> void:
 
 ## HUD 由 autoload(HUD) 全局提供（状态栏/快捷栏/背包唯一、数据跨场景保留）；
 ## 本场景只做桥接：本地数据别名指向 HUD + NPC 栏/子面板 + 技能/治疗信号。
+var _loading_ready := false
+
+func is_loading_ready() -> bool:
+	return _loading_ready
+
 func _setup_hud_bridge() -> void:
 	if HUD.backpack == null:
 		# 防递归风暴：backpack 由 autoload 的 _process 兜底初始化，限次重试后放弃等待 autoload 自行接线
@@ -201,6 +206,7 @@ func _setup_hud_bridge() -> void:
 	_npc_bar = npc_bar
 	_build_npc_panels()
 	_refresh_weapon_mods()
+	_loading_ready = true
 
 ## 技能触发分发（火球/冰锥二段式 + 闪电单段）
 func _on_skill_triggered(skill_id: String, phase: String) -> void:

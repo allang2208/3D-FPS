@@ -127,8 +127,8 @@ static func rain_audio_targets(amount: float) -> Vector3:
 	if amount<=PROFILES.light_rain.y:
 		return drizzle * smoothstep(0.0,PROFILES.light_rain.y,amount)
 	if amount<=PROFILES.rain.y:
-		var weight := smoothstep(PROFILES.light_rain.y,PROFILES.rain.y,amount)
-		return drizzle.lerp(medium,weight)
+		var rain_weight := smoothstep(PROFILES.light_rain.y,PROFILES.rain.y,amount)
+		return drizzle.lerp(medium,rain_weight)
 	var weight := smoothstep(PROFILES.rain.y,PROFILES.storm.y,amount)
 	return medium.lerp(storm,weight)
 
