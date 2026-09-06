@@ -40,6 +40,10 @@ func _ready() -> void:
 	_patch_noise.fractal_octaves = 3
 	super._ready()
 	_build_distant_ridge()
+	if _player!=null:
+		var ground_editor:=preload("res://scripts/voxel_lab/wilderness_editor.gd").new()
+		ground_editor.name="WildernessEditor"
+		add_child(ground_editor)
 
 
 func _river_center_z(x: float) -> float:
@@ -108,13 +112,17 @@ func _build_terrain() -> Terrain3D:
 		var ta := Terrain3DTextureAsset.new()
 		ta.name = textures[i]
 		ta.albedo_texture = load(PREP_TEX % [textures[i], "alb_ht"])
+		if i==0: ta.albedo_texture=load("res://assets/textures/wilderness_generated/turf_alb_ht_v1.png")
+		elif i==4: ta.albedo_texture=load("res://assets/textures/wilderness_generated/loam_alb_ht_v1.png")
 		ta.normal_texture = load(PREP_TEX % [textures[i], "nrm_rgh"])
 		ta.normal_depth = 0.4
 		ta.roughness = 0.30
 		ta.ao_strength = 1.0
 		ta.uv_scale = 0.5 if i == 0 else (0.32 if i != 3 else 0.12)
 		ta.detiling_rotation = 0.15
+		preload("res://scripts/wilderness_materials.gd").configure_asset(ta,i)
 		t.assets.set_texture(i, ta)
+	preload("res://scripts/wilderness_materials.gd").configure_terrain(t.material)
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(VALLEY_DATA))
 	t.data_directory = VALLEY_DATA
 	var cache_ok := FileAccess.file_exists(VALLEY_DATA + "/complete.txt")
@@ -172,29 +180,6 @@ func _generate_maps(t: Terrain3D) -> void:
 	var control := Image.create_from_data(1024, 1024, false, Image.FORMAT_RF, bits)
 	t.data.import_images([height, control, colors], Vector3(-512, 0, -512), 0.0, 1.0)
 	print("[valley] generated height, five surface zones and shoreline wetness")
-
-
-func _build_environment() -> void:
-	super._build_environment()
-	var env: Environment = get_node("WorldEnvironment").environment
-	env.tonemap_exposure = 1.0
-	env.ambient_light_energy = 0.32
-	env.adjustment_saturation = 0.88
-	env.adjustment_contrast = 1.02
-	env.fog_density = 0.00055
-	env.fog_light_color = Color(0.62, 0.70, 0.75)
-	env.fog_height_density = 0.0
-	env.ssao_intensity = 1.0
-	env.ssil_enabled = false
-	env.ssr_enabled = false
-
-
-func _build_light() -> void:
-	super._build_light()
-	var sun: DirectionalLight3D = get_node("Sun")
-	sun.rotation_degrees = Vector3(-42, 30, 0)
-	sun.light_energy = 0.72
-	sun.directional_shadow_max_distance = 55.0
 
 
 func _build_instanced_nature() -> void:
@@ -300,7 +285,8 @@ func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
 			if Rect2(Vector2(rock_box.position.x, rock_box.position.z), Vector2(rock_box.size.x, rock_box.size.z)).grow(2).has_point(reserve):
 				placement_rejected += 1
 				return
-		ScenicCollision.add_rock(self, xf, geometry)
+		var rock_body:=ScenicCollision.add_rock(self, xf, geometry)
+		rock_body.set_meta("terrain_support_root",xf.origin)
 		_occupied.append(rock_box.grow(0.2))
 		grounding_records.append({"kind": "rock", "transform": xf, "geometry": geometry})
 	else:
@@ -326,6 +312,7 @@ func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
 			var stump := StaticBody3D.new()
 			add_child(stump)
 			stump.set_meta("impact_surface", "wood")
+			stump.set_meta("terrain_support_root",xf.origin)
 			var collision := CollisionShape3D.new()
 			var shape := BoxShape3D.new()
 			shape.size = box.size
@@ -377,6 +364,7 @@ func _flush_batches() -> void:
 				mm.set_instance_transform(i, batch["transforms"][i] * part["transform"])
 			var node := MultiMeshInstance3D.new()
 			node.multimesh = mm
+			node.set_meta("ground_roots",batch["transforms"].duplicate())
 			node.visibility_range_end = 420.0 if batch["rock"] else 65.0
 			node.lod_bias = 0.5
 			node.visibility_range_end_margin = 20.0

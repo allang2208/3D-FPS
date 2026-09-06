@@ -183,6 +183,9 @@ void start() {
 	float noise = textureLod(main_noise, uv, 0.0).r;
 	float clods = smoothstep(clod_min_threshold, clod_max_threshold, noise) * clod_scale_boost;
 	float patch = smoothstep(patch_min_threshold, patch_max_threshold, noise);
+	// Smaller irregular gaps within broad meadow patches, stable in world space.
+	float detail_patch = textureLod(main_noise, uv * 4.7 + vec2(0.31, 0.73), 0.0).r;
+	patch *= mix(0.72, 1.0, smoothstep(0.22, 0.65, detail_patch));
 	float width_modifier = 1.0 + 0.5 * smoothstep(0., max_dist, length(camera_position - pos));
 
 	// Calculate scale

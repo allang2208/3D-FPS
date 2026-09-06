@@ -7,7 +7,7 @@ render_mode skip_vertex_transform, cull_disabled, blend_mix;
 
 uniform vec2 wind_direction = vec2(1.0, 1.0);
 // 溪谷草色；实例颜色继续接收地形颜色图。
-uniform vec3 grass_color : source_color = vec3(0.22, 0.31, 0.105);
+uniform vec3 grass_color : source_color = vec3(0.32, 0.40, 0.18);
 
 varying vec4 data;
 
@@ -17,7 +17,7 @@ void vertex() {
 	data[2] *= data[2];
 
 	COLOR = mix(COLOR, vec4(1.0), smoothstep(0.9, 1.0, data[2]));
-	COLOR *= mix(0.72, 1.0, smoothstep(0.0, 0.6, data[2]));
+	COLOR *= mix(0.82, 1.0, smoothstep(0.0, 0.6, data[2]));
 	data.rg = INSTANCE_CUSTOM.rg;
 
 	vec3 w_vertex = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -46,6 +46,8 @@ void fragment() {
 	ALBEDO = grass_color * (0.85 + data[2] * 0.3);
 	ALBEDO.rg *= (data.rg * 0.3 + 0.9);
 	ALBEDO *= COLOR.rgb;
+	// Gentle midrib shading gives each ribbon a curved cross-section without more triangles.
+	ALBEDO *= mix(0.88, 1.04, 1.0 - abs(UV.x * 2.0 - 1.0));
 	ROUGHNESS = 0.85;
 	SPECULAR = 0.12;
 

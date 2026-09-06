@@ -2,7 +2,7 @@ extends Node3D
 
 # 地形演示场景：Terrain3D + 免费 CC0 资产（Poly Haven 热带岛树/岩石、Kenney 灌木草石、AmbientCG 地表纹理、HDRI 天空）
 
-const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
+const WorldLighting := preload("res://scripts/world_lighting.gd")
 const PREP_TEX := "res://assets/textures/terrain_prepared/%s_%s.png"
 const DATA_DIR := "res://assets/terrain_data/demo"
 const NpcConfig := preload("res://ui/npc_config.gd")
@@ -48,64 +48,10 @@ func _ready() -> void:
 	print("[demo_terrain] scene ready")
 
 func _build_environment() -> void:
-	var env_node := WorldEnvironment.new()
-	env_node.name = "WorldEnvironment"
-	add_child(env_node)
-	var env := Environment.new()
-	var sky := Sky.new()
-	var mat := PanoramaSkyMaterial.new()
-	mat.panorama = load(HDRI)
-	mat.energy_multiplier = 0.9  # 阴天 HDRI：天空不要太抢，把光权让给太阳
-	sky.sky_material = mat
-	env.background_mode = Environment.BG_SKY
-	env.sky = sky
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.28
-	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
-	# 曝光平衡（实测标定）：exposure 1.4 + 天空能量 2.2 + 低太阳/环境光
-	# → 天空恢复可见 val≈0.51，地面保持参考图亮度 val≈0.33-0.36
-	env.tonemap_exposure = 1.02
-	env.adjustment_enabled = true
-	env.adjustment_saturation = 1.08
-	env.adjustment_brightness = 0.98
-	env.adjustment_contrast = 1.06
-	# 热带雨林潮湿氛围：极低密度雾提升景深，避免远树/山体生硬。
-	# 注意 fog_height 必须低于地表最低点，否则相机/低洼处会整片泡雾（实测全灰屏）
-	env.fog_enabled = true
-	env.fog_light_color = Color(0.58, 0.66, 0.72)
-	env.fog_density = 0.00095
-	env.fog_height = -45.0
-	env.fog_height_density = 0.08
-	# 关键：fog_sky_affect=1（默认）会让指数雾在无限远的天空上完全雾化，
-	# 把 HDRI 天空盖成纯雾色——这就是"天空消失"的真凶（不是贴图/曝光）。
-	# 设为 0：雾只影响地形/物体景深，天空恢复 HDRI 云层。
-	env.fog_sky_affect = 0.0
-	# SSAO/SSIL：给地形与植被接触阴影，消除"平面贴纸感"（参考图质感关键）
-	env.ssao_enabled = true
-	env.ssao_radius = 1.2
-	env.ssao_intensity = 1.6
-	env.ssil_enabled = true
-	env.ssil_radius = 3.0
-	env.ssil_intensity = 1.2
-	# SSR：水面/湿润表面反射天空与岸边（参考图溪流反光感）
-	env.ssr_enabled = true
-	env.ssr_max_steps = 64
-	env.ssr_fade_in = 0.12
-	env.ssr_fade_out = 1.5
-	env.ssr_depth_tolerance = 0.15
-	# Glow 实测观感：开启后水面/天空高光泛光过重，画面"一片泛光看不清"，
-	# 追求可玩性直接关闭（无辉光也能保持 FILMIC 色调）
-	env.glow_enabled = false
-	env_node.environment = env
+	add_child(WorldLighting.create_environment())
 
 func _build_light() -> void:
-	var light := DirectionalLight3D.new()
-	light.name = "Sun"
-	light.rotation_degrees = Vector3(-30, 35, 0)
-	light.light_energy = 0.62
-	light.light_color = Color(1.0, 0.97, 0.90)
-	light.shadow_enabled = true
-	add_child(light)
+	add_child(WorldLighting.create_sun())
 
 
 ## 河流中心线 Z 坐标：高度生成/水面网格/睡莲水草共用此公式，改河道只改这里

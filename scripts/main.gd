@@ -51,38 +51,16 @@ func _ready() -> void:
 	_build_player()
 	_build_enemies()
 	_build_portal()
+	_build_voxel_lab_portal()
 
 func _process(_delta: float) -> void:
 	if _player_dead and Input.is_key_pressed(KEY_R):
 		LoadingScreenScript.reload_scene()
 
 func _build_environment() -> void:
-	var env := Environment.new()
-	env.background_mode = Environment.BG_SKY
-	var sky := Sky.new()
-	var proc := ProceduralSkyMaterial.new()
-	proc.sky_top_color = Color(0.16, 0.22, 0.38)
-	proc.sky_horizon_color = Color(0.28, 0.32, 0.44)
-	proc.ground_horizon_color = Color(0.08, 0.10, 0.16)
-	proc.ground_bottom_color = Color(0.03, 0.04, 0.06)
-	sky.sky_material = proc
-	env.sky = sky
-	env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
-	env.ambient_light_energy = 0.7
-	env.fog_enabled = true
-	env.fog_light_color = Color(0.35, 0.4, 0.55)
-	env.fog_density = 0.006
-	var we := WorldEnvironment.new()
-	we.environment = env
-	add_child(we)
-
-	var sun := DirectionalLight3D.new()
-	sun.name = "Sun"
-	sun.rotation_degrees = Vector3(-48, -28, 0)
-	sun.light_energy = 1.2
-	sun.shadow_enabled = true
-	sun.directional_shadow_max_distance = 60.0
-	add_child(sun)
+	var lighting := preload("res://scripts/world_lighting.gd")
+	add_child(lighting.create_environment())
+	add_child(lighting.create_sun())
 
 func _build_ground() -> void:
 	var ground := StaticBody3D.new()
@@ -461,3 +439,12 @@ func _on_enemy_killed() -> void:
 		_status_bar.set_kills(_kills)
 	if _player_status != null:
 		_player_status.set_kills(_kills)
+
+func _build_voxel_lab_portal() -> void:
+	var portal := preload("res://scripts/voxel_lab/lab_portal.gd").new()
+	portal.name = "VoxelLabPortal"
+	portal.target_scene = "res://scenes/voxel_lab.tscn"
+	portal.label_text = "体素试验场\n走入测试挖掘 / 建造"
+	portal.portal_color = Color(0.3, 0.9, 0.5)
+	portal.position = Vector3(4.5, 1.4, 3.5)
+	add_child(portal)

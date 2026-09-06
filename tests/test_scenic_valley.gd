@@ -20,8 +20,9 @@ func _ready() -> void:
 	check(scene.get_script().resource_path == "res://scenes/scenic_valley.gd", "portal destination uses new valley")
 	check(player.is_on_floor(), "arrival settles on terrain")
 	var ground := t.data.get_height(player.position)
-	# Player controller raises its capsule by half the standing height: root is feet.
-	check(absf(player.position.y - ground) < 0.35, "player feet follow terrain")
+	var capsule_node: CollisionShape3D=player.find_children("","CollisionShape3D",false,false)[0]
+	var feet_y: float=capsule_node.global_position.y-capsule_node.shape.height*0.5
+	check(absf(feet_y - ground) < 0.35, "player feet follow terrain")
 	check(t.collision.get_rid().is_valid(), "terrain collision RID")
 	var portal: Area3D = scene.get_node("ReturnPortal")
 	check(portal.target_scene == "res://scenes/main.tscn", "return destination preserved")
@@ -224,7 +225,8 @@ func _test_scenery_layers(scene: Node3D) -> void:
 	for point in vertices:
 		if is_zero_approx(point.y):
 			roots += 1
-	check(vertices.size() == 36 and roots == 6, "three curved grass blades retain six ground vertices")
+	check(vertices.size() == 40 and roots == 10, "five narrow grass blades retain ten ground vertices")
+	check(grass.surface_get_array_index_len(0) == 90, "near grass stays within 30 triangles per tuft")
 	var low := INF
 	var high := -INF
 	for x in range(-240, -20, 3):
