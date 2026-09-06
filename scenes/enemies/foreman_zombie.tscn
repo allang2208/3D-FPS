@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/foreman_zombie.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/foreman_zombie/foreman_v08.glb" id="2"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.52
+height = 2.45
+
+[node name="ForemanZombie" type="CharacterBody3D"]
+script = ExtResource("1")
+max_hp = 1600
+chase_speed = 0.65
+walk_bob_amp = 0.0
+head_hitbox_radius = 0.19
+head_hitbox_offset = Vector3(0, 0.12, 0)
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 1.225, 0)
+shape = SubResource("Body")
+
+[node name="Model" parent="." instance=ExtResource("2")]

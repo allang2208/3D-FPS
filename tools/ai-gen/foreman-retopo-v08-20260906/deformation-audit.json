@@ -1,0 +1,48 @@
+{
+  "V07": {
+    "rest": {
+      "edge_stretch_p99": 1.0000027908249705,
+      "fraction_edges_over_3x": 0.0,
+      "front_apron_max_displacement_m": 2.9802322387695312e-08,
+      "same_source_edges_p99": 1.0000027908249705,
+      "same_source_edges_over_3x": 0
+    },
+    "shoulder90": {
+      "edge_stretch_p99": 2.375121688586211,
+      "fraction_edges_over_3x": 0.005593648502345724,
+      "front_apron_max_displacement_m": 2.9802322387695312e-08,
+      "same_source_edges_p99": 2.375121688586211,
+      "same_source_edges_over_3x": 31
+    },
+    "elbow90": {
+      "edge_stretch_p99": 1.51497882049985,
+      "fraction_edges_over_3x": 0.0,
+      "front_apron_max_displacement_m": 2.9802322387695312e-08,
+      "same_source_edges_p99": 1.51497882049985,
+      "same_source_edges_over_3x": 0
+    }
+  },
+  "V08": {
+    "rest": {
+      "edge_stretch_p99": 1.0000035139625356,
+      "fraction_edges_over_3x": 0.0,
+      "front_apron_max_displacement_m": 2.9802322387695312e-08,
+      "same_source_edges_p99": 1.0000029106352522,
+      "same_source_edges_over_3x": 0
+    },
+    "shoulder90": {
+      "edge_stretch_p99": 2.2126650764822156,
+      "fraction_edges_over_3x": 0.0041048728813559325,
+      "front_apron_max_displacement_m": 2.9802322387695312e-08,
+      "same_source_edges_p99": 2.2497893842584604,
+      "same_source_edges_over_3x": 20
+    },
+    "elbow90": {
+      "edge_stretch_p99": 1.5468367468807007,
+      "fraction_edges_over_3x": 0.00039724576271186443,
+      "front_apron_max_displacement_m": 2.9802322387695312e-08,
+      "same_source_edges_p99": 1.4951658444333542,
+      "same_source_edges_over_3x": 0
+    }
+  }
+}

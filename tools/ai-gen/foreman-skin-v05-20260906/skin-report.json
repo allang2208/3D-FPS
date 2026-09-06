@@ -1,0 +1,15 @@
+{
+  "before": {
+    "edge_stretch_p99": 4.559404046518132,
+    "edges_over_3x": 248
+  },
+  "after": {
+    "edge_stretch_p99": 1.9816403438987427,
+    "edges_over_3x": 31
+  },
+  "finger_controls": [
+    "fingers_cup.L",
+    "fingers_cup.R"
+  ],
+  "scope": "Grouped four-finger curl; thumb and individual phalanges remain source geometry."
+}

@@ -15,6 +15,10 @@ const BuffsDb := preload("res://ui/buffs_db.gd")
 @export var model_offset_y := 0.0
 @export var walk_bob_amp := 0.03
 @export var walk_bob_speed := 14.0
+@export var headshot_multiplier := 2.0
+@export var head_hitbox_radius := 0.22
+## Head-bone local coordinates, transformed with model scale and animation.
+@export var head_hitbox_offset := Vector3.ZERO
 
 const CHASE_DIST := 14.0
 const RESPAWN_TIME := 3.0
@@ -37,6 +41,9 @@ var _attack_t := 0.0
 var _wander_target := Vector3.ZERO
 var _wander_timer := 0.0
 var _shape_multipliers: Array[float] = []
+var _head_skeleton: Skeleton3D
+var _head_bone := -1
+var _head_hitbox: CollisionShape3D
 var _buffs: BuffSystem = BuffSystem.new()
 var _overload_matk := 0
 var _overload_intt := 0
@@ -82,6 +89,16 @@ func _build_head_hitbox() -> void:
 	var col := get_node_or_null("Collision") as CollisionShape3D
 	if col == null or not (col.shape is CapsuleShape3D):
 		return
+	if _model and _model.has_method("get_head_hitbox_profile"):
+		var profile: Dictionary = _model.get_head_hitbox_profile()
+		head_hitbox_radius = profile.get("radius", head_hitbox_radius)
+		head_hitbox_offset = profile.get("offset", head_hitbox_offset)
+	_head_skeleton = _find_skeleton(_model)
+	if _head_skeleton:
+		for i in _head_skeleton.get_bone_count():
+			if _head_skeleton.get_bone_name(i).to_lower() == "head":
+				_head_bone = i
+				break
 	var head_local := _find_head_local()
 	if head_local == Vector3.ZERO:
 		return
@@ -89,11 +106,29 @@ func _build_head_hitbox() -> void:
 	hb.name = "HitboxHead"
 	hb.set_script(HitboxShapeScript)
 	var sphere := SphereShape3D.new()
-	sphere.radius = 0.22
+	sphere.radius = head_hitbox_radius
 	hb.shape = sphere
 	hb.position = head_local
-	hb.multiplier = 2.0
+	hb.multiplier = headshot_multiplier
 	add_child(hb)
+	_head_hitbox = hb
+	_sync_head_hitbox()
+	if _head_skeleton:
+		_head_skeleton.skeleton_updated.connect(_sync_head_hitbox)
+
+## Read local poses with forward kinematics: valid after manual seek/blend and
+## in headless physics, where Skeleton3D's cached global pose can be stale.
+func _sync_head_hitbox() -> void:
+	if not is_instance_valid(_head_hitbox) or _head_skeleton == null or _head_bone < 0:
+		return
+	if not is_inside_tree() or not _head_skeleton.is_inside_tree():
+		return
+	var pose := _head_skeleton.get_bone_pose(_head_bone)
+	var parent := _head_skeleton.get_bone_parent(_head_bone)
+	while parent >= 0:
+		pose = _head_skeleton.get_bone_pose(parent) * pose
+		parent = _head_skeleton.get_bone_parent(parent)
+	_head_hitbox.position = to_local(_head_skeleton.to_global(pose * head_hitbox_offset))
 
 ## 头部本地坐标（模型骨骼 head 绑定姿势；无骨骼时取碰撞盒顶端）
 func _find_head_local() -> Vector3:
@@ -326,6 +361,7 @@ func _die() -> void:
 		_kill_cb.call()
 
 func _physics_process(delta: float) -> void:
+	_sync_head_hitbox()
 	_flash_t = maxf(0.0, _flash_t - delta)
 	if _mat:
 		if _flash_t > 0.0:

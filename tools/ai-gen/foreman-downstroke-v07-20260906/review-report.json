@@ -1,0 +1,45 @@
+{
+  "Idle": {
+    "seconds": 1,
+    "loop_pose_error": 0.0,
+    "loop_derivative_error": 0.009684562683105469,
+    "mesh_low_z": [
+      0.0049997176975011826,
+      0.005000247620046139
+    ],
+    "max_pelvis_step": 0.0001442432403564453
+  },
+  "Walk": {
+    "seconds": 1.5,
+    "loop_pose_error": 0.0,
+    "loop_derivative_error": 0.1286792755126953,
+    "mesh_low_z": [
+      0.0049580298364162445,
+      0.005335363559424877
+    ],
+    "max_pelvis_step": 0.0015103665880261804,
+    "max_stance_speed_error_mps": 0.00048439989807791406
+  },
+  "Attack": {
+    "seconds": 1.5,
+    "loop_pose_error": 0.0028991672259550683,
+    "loop_derivative_error": 1.6615676879882812,
+    "mesh_low_z": [
+      0.004949084483087063,
+      0.005219325888901949
+    ],
+    "max_pelvis_step": 0.006330847837817795,
+    "wrist_downstroke_m": 1.392090916633606,
+    "wrist_forward_travel_m": 0.8037974834442139
+  },
+  "Death": {
+    "seconds": 1.4,
+    "loop_pose_error": 2.2090362310409546,
+    "loop_derivative_error": 0.6435739994049072,
+    "mesh_low_z": [
+      0.004461086355149746,
+      0.008496642112731934
+    ],
+    "max_pelvis_step": 0.014579479135916652
+  }
+}

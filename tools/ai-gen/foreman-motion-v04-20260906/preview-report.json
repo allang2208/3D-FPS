@@ -1,0 +1,27 @@
+{
+  "Idle": {
+    "frames": 24,
+    "duration_ms": 1000,
+    "source": "Godot default D3D12 actual GLB render"
+  },
+  "Walk": {
+    "frames": 36,
+    "duration_ms": 1500,
+    "source": "Godot default D3D12 actual GLB render"
+  },
+  "Attack": {
+    "frames": 36,
+    "duration_ms": 1500,
+    "source": "Godot default D3D12 actual GLB render"
+  },
+  "Death": {
+    "frames": 35,
+    "duration_ms": 2400,
+    "source": "Godot default D3D12 actual GLB render"
+  },
+  "WalkGameSpeed": {
+    "frames": 24,
+    "duration_ms": 990,
+    "source": "Godot default D3D12 actual GLB render"
+  }
+}

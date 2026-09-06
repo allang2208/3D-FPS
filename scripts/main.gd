@@ -51,6 +51,7 @@ func _ready() -> void:
 	_build_player()
 	_build_enemies()
 	_build_portal()
+	add_child(load("res://scripts/foreman_portal.gd").new())
 	_build_voxel_lab_portal()
 
 func _process(_delta: float) -> void:

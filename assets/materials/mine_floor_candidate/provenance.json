@@ -1,0 +1,19 @@
+{
+  "model": "flux2-dev-fp8",
+  "steps": 12,
+  "seed": 906031,
+  "host": "192.168.3.142:8188",
+  "raw": "raw.png",
+  "periodic_method": "E:\\\u65e0\u5c3d\u8f6e\u56de\\\u957f\u671f\u5907\u4efd\\2026-7-13-1\\game-dev\\tools\\ai-gen\\prepare-mine-v3-stone.py",
+  "base_rgb": [
+    87,
+    92,
+    94
+  ],
+  "normal": "shallow inferred detail, not measured geometry",
+  "roughness": "art-directed 0.78-0.97",
+  "tile_world_meters": 4,
+  "stage": "user approved and integrated into main ground on 2026-09-06",
+  "edge_x_mean": 1.9025690921740146,
+  "edge_y_mean": 2.028178232180595
+}

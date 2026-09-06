@@ -1,0 +1,108 @@
+{
+  "1": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "foreman-apose-20260906-v01.png"
+    }
+  },
+  "2": {
+    "class_type": "Trellis2LoadModel",
+    "inputs": {
+      "modelname": "microsoft/TRELLIS.2-4B",
+      "backend": "sdpa",
+      "device": "cuda",
+      "low_vram": true,
+      "keep_models_loaded": false,
+      "conv_backend": "flex_gemm",
+      "sparse_backend": "xformers",
+      "use_reconviagen": false
+    }
+  },
+  "3": {
+    "class_type": "Trellis2MeshWithVoxelGenerator",
+    "inputs": {
+      "pipeline": [
+        "2",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ],
+      "seed": 906744,
+      "pipeline_type": "512",
+      "sparse_structure_steps": 12,
+      "shape_steps": 12,
+      "texture_steps": 12,
+      "max_num_tokens": 49152,
+      "max_views": 1,
+      "sparse_structure_resolution": 32,
+      "generate_texture_slat": true,
+      "use_tiled_decoder": true,
+      "sampler": "euler",
+      "fill_holes": false,
+      "hole_iterations": 1,
+      "hole_fill_algorithm": "flood_fill",
+      "keep_only_shell": false
+    }
+  },
+  "4": {
+    "class_type": "Trellis2ReconstructMeshWithQuad",
+    "inputs": {
+      "mesh": [
+        "3",
+        0
+      ],
+      "remesh_band": 1.0,
+      "resolution": 512,
+      "remove_floaters": true,
+      "remove_inner_faces": false
+    }
+  },
+  "5": {
+    "class_type": "Trellis2SimplifyMesh",
+    "inputs": {
+      "mesh": [
+        "4",
+        0
+      ],
+      "target_face_num": 30000,
+      "method": "Meshlib"
+    }
+  },
+  "6": {
+    "class_type": "Trellis2UnWrapAndRasterizer",
+    "inputs": {
+      "mesh": [
+        "5",
+        0
+      ],
+      "mesh_cluster_threshold_cone_half_angle_rad": 60.0,
+      "mesh_cluster_refine_iterations": 0,
+      "mesh_cluster_global_iterations": 1,
+      "mesh_cluster_smooth_strength": 1,
+      "texture_size": 2048,
+      "texture_alpha_mode": "OPAQUE",
+      "double_side_material": false,
+      "bake_on_vertices": false,
+      "use_custom_normals": false,
+      "bvh": [
+        "3",
+        1
+      ],
+      "inpainting": "telea",
+      "reorient_vertices": "90 degrees"
+    }
+  },
+  "7": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "6",
+        0
+      ],
+      "filename_prefix": "3D/foreman_20260906_v01",
+      "file_format": "glb"
+    }
+  }
+}

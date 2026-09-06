@@ -16,6 +16,7 @@ const WALK_REFERENCE_SPEED := 0.305
 @export var impact_range := 1.4
 @export var impact_half_width := 0.48
 @export var corpse_hold := 1.0
+@export var walk_reference_speed := WALK_REFERENCE_SPEED
 var state: State = State.IDLE
 var attack_elapsed := -1.0
 var cooldown_remaining := 0.0
@@ -26,15 +27,16 @@ var _locked_target: Node3D
 var _locked_direction := Vector3.FORWARD
 var _ap: AnimationPlayer
 var _skeleton: Skeleton3D
-var _head_index := -1
+var _transition_from: Array[Transform3D] = []
+var _transition_elapsed := 0.0
+const POSE_BLEND_SECONDS := 0.10
+const DEATH_BLEND_SECONDS := 0.32
 
 func _ready() -> void:
 	super._ready()
 	_hp = max_hp
 	_ap = _model.find_child("AnimationPlayer", true, false) as AnimationPlayer
 	_skeleton = _find_skeleton(_model)
-	if _skeleton:
-		_head_index = _skeleton.find_bone("head")
 	if _ap:
 		_ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 		for clip in ["Idle", "Walk", "Attack", "Death"]:
@@ -61,7 +63,7 @@ func _physics_process(delta: float) -> void:
 	if _dead:
 		_dead_t += delta
 		state = State.DYING if _dead_t < DEATH_DURATION else State.CORPSE
-		_sync_pose("Death", minf(_dead_t, DEATH_DURATION))
+		_sync_pose("Death", minf(_dead_t, DEATH_DURATION), delta)
 		if _dead_t >= DEATH_DURATION + corpse_hold:
 			queue_free()
 		return
@@ -73,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		_cancel_attack()
 		state = State.STUNNED
 		velocity = Vector3.ZERO
-		_sync_pose("Idle", 0.0)
+		_sync_pose("Idle", 0.0, delta)
 		return
 	if _knock_vel.length_squared() > 0.01:
 		_cancel_attack()
@@ -81,7 +83,7 @@ func _physics_process(delta: float) -> void:
 		velocity = _knock_vel
 		move_and_slide()
 		_knock_vel = _knock_vel.lerp(Vector3.ZERO, minf(1.0, 8.0 * delta))
-		_sync_pose("Idle", 0.0)
+		_sync_pose("Idle", 0.0, delta)
 		return
 	if attack_elapsed >= 0.0:
 		_tick_attack(delta)
@@ -109,8 +111,9 @@ func _physics_process(delta: float) -> void:
 		velocity.z = direction.z * chase_speed * _buffs.speed_mul()
 		_move_grounded(delta)
 		var actual_speed := Vector2(get_real_velocity().x, get_real_velocity().z).length()
-		_clip_time = fmod(_clip_time + delta * actual_speed / WALK_REFERENCE_SPEED, 2.25)
-		_sync_pose("Walk" if actual_speed > 0.015 else "Idle", _clip_time)
+		var duration := _ap.get_animation("Walk").length if _ap and _ap.has_animation("Walk") else 2.25
+		_clip_time = fmod(_clip_time + delta * actual_speed / maxf(walk_reference_speed, .01), duration)
+		_sync_pose("Walk" if actual_speed > 0.015 else "Idle", _clip_time, delta)
 
 func _move_grounded(delta: float) -> void:
 	velocity.y = -0.1 if is_on_floor() else velocity.y - 9.8 * delta
@@ -121,8 +124,9 @@ func _idle(delta: float) -> void:
 	velocity.x = 0.0
 	velocity.z = 0.0
 	_move_grounded(delta)
-	_clip_time = fmod(_clip_time + delta, 4.8)
-	_sync_pose("Idle", _clip_time)
+	var duration := _ap.get_animation("Idle").length if _ap and _ap.has_animation("Idle") else 4.8
+	_clip_time = fmod(_clip_time + delta, duration)
+	_sync_pose("Idle", _clip_time, delta)
 
 func _start_attack(direction: Vector3) -> void:
 	if _buffs.has("fear"):
@@ -136,7 +140,7 @@ func _start_attack(direction: Vector3) -> void:
 	state = State.WINDUP
 	velocity.x = 0.0
 	velocity.z = 0.0
-	_sync_pose("Attack", 0.0)
+	_sync_pose("Attack", 0.0, 0.0)
 
 func _tick_attack(delta: float) -> void:
 	var previous := attack_elapsed
@@ -145,7 +149,7 @@ func _tick_attack(delta: float) -> void:
 	velocity.z = 0.0
 	_move_grounded(delta)
 	state = State.WINDUP if attack_elapsed < ACTIVE_START else (State.STRIKE if attack_elapsed < ACTIVE_END else State.RECOVER)
-	_sync_pose("Attack", minf(attack_elapsed, ATTACK_DURATION))
+	_sync_pose("Attack", minf(attack_elapsed, ATTACK_DURATION), delta)
 	# Interval crossing also works on slow frames, and a target is hit at most once.
 	if not _hit_this_attack and previous < ACTIVE_END and attack_elapsed >= ACTIVE_START and _can_impact():
 		_hit_this_attack = true
@@ -153,7 +157,7 @@ func _tick_attack(delta: float) -> void:
 	if attack_elapsed >= ATTACK_DURATION:
 		_cancel_attack()
 		state = State.IDLE
-		_sync_pose("Idle", 0.0)
+		_sync_pose("Idle", 0.0, 0.0)
 
 func _can_impact() -> bool:
 	if not _target_alive(_locked_target):
@@ -191,16 +195,34 @@ func _die() -> void:
 	state = State.DYING
 	super._die()
 	collision_mask = 0
-	_sync_pose("Death", 0.0)
+	_sync_pose("Death", 0.0, 0.0)
 
-func _sync_pose(clip: String, time: float) -> void:
+func _sync_pose(clip: String, time: float, delta: float = -1.0) -> void:
 	if _ap == null or not _ap.has_animation(clip):
 		return
 	if _clip != clip:
+		_transition_from.clear()
+		_transition_elapsed = 0.0
+		if delta >= 0.0 and _skeleton and not _clip.is_empty():
+			for i in _skeleton.get_bone_count():
+				_transition_from.append(_skeleton.get_bone_pose(i))
 		_clip = clip
 		_ap.play(clip)
 	_ap.seek(time, true)
-	var hb := get_node_or_null("HitboxHead") as CollisionShape3D
-	if hb and _skeleton and _head_index >= 0:
-		var pose := _skeleton.get_bone_global_pose(_head_index)
-		hb.position = to_local(_skeleton.to_global(pose.origin)) + Vector3(0, 0.08, 0)
+	# Blend only the displayed pose. Attack/Death clocks and hit windows keep
+	# advancing without delay; the blend finishes well before attack contact.
+	# Explicit sampling (delta omitted) stays exact for previews and inspection.
+	if delta < 0.0:
+		_transition_from.clear()
+	elif not _transition_from.is_empty() and _skeleton:
+		_transition_elapsed += delta
+		# Carry the struck pose into the first knee buckle instead of resetting
+		# an outstretched attack arm to idle in a tenth of a second.
+		var blend_seconds := DEATH_BLEND_SECONDS if clip == "Death" else POSE_BLEND_SECONDS
+		var weight := clampf(_transition_elapsed / blend_seconds, 0.0, 1.0)
+		weight = weight * weight * (3.0 - 2.0 * weight)
+		for i in _skeleton.get_bone_count():
+			_skeleton.set_bone_pose(i, _transition_from[i].interpolate_with(_skeleton.get_bone_pose(i), weight))
+		if _transition_elapsed >= blend_seconds:
+			_transition_from.clear()
+	_sync_head_hitbox()

@@ -1,0 +1,9 @@
+# Foreman source contract
+Source: game-dev/assets/enemies/foreman_zombie and enemy-config.json#foremanZombie; runtime foreman-zombie.js and attack-timing.js.
+All five complete source contact sheets were viewed before modeling. Identity: obese undead male foreman, helmet lamp, rolled sleeves, brown torn bib overalls, bare feet; whip in anatomical right hand.
+Idle: single static source frame, 1 second loop; subtle 3D breathing is reconstruction.
+Walk: 15 frames / 1.5 seconds loop; heavy alternating steps, belly weight shifts sideways, whip hand low, free arm counter-swings. No unsupported unilateral limp added.
+Whip: 39 variable-duration frames / 1.5 seconds. Opens torso and draws right arm behind, raises whip overhead while left arm balances, steps forward and rotates/bends torso into low forward snap; coils recover while torso returns. 0-based contact frame 21 starts at 0.59625 seconds (NOT 21/39*1.5); sound frame 8 starts at .45 seconds. Event crossing inclusive on reaching start; once only. Motion authored in place with planted feet, controller owns translation.
+Howl: 24 frames / 3 seconds, free left fist rises alongside face then overhead, chin lifts, elbow holds high, settles back to idle. Whip hand stays down. Original runtime applies inspire immediately at action start, despite description saying after release; preserve runtime. Speed x1.33, physical attack x1.5, 15 seconds, 30 second cooldown.
+Death: 14 frames / 1.4 seconds, knees yield, heavy body sits backward then rolls onto back, legs lift/extend, settles supine; holds 1 second then fades .3 seconds. Sound at .8 seconds. Never loop in gameplay.
+Imagegen frontal A pose is identity-preserving 3D reconstruction, removes whip only for separate rig. TRELLIS.2-4B local-owner RTX5080, seed 906744, 512, 12+12+12 steps, DC quad simplification 30000 faces, 2048 texture. Back/depth and skeletal animation are reconstruction, not mocap.
