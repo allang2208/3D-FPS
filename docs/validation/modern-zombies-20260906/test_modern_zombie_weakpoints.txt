@@ -1,0 +1,57 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+
+
+WEAKPOINT zombie_Idle_follows_animated_bone PASS
+
+WEAKPOINT zombie_Idle_head_ray_is_critical PASS
+
+WEAKPOINT zombie_Walk_follows_animated_bone PASS
+
+WEAKPOINT zombie_Walk_head_ray_is_critical PASS
+
+WEAKPOINT zombie_Attack_follows_animated_bone PASS
+
+WEAKPOINT zombie_Attack_head_ray_is_critical PASS
+
+WEAKPOINT zombie_head_moves_between_poses PASS
+
+WEAKPOINT zombie_shape_owner_mapping_survives_reorder PASS
+
+WEAKPOINT zombie_head_damage_2x_then_armor PASS
+
+WEAKPOINT zombie_one_headshot_feedback PASS
+
+WEAKPOINT zombie_torso_damage_1x_then_armor PASS
+
+WEAKPOINT zombie_torso_is_not_critical PASS
+
+WEAKPOINT zombie_corpse_has_no_weakpoint_hit PASS
+
+WEAKPOINT wolf_Idle_follows_animated_bone PASS
+
+WEAKPOINT wolf_Idle_head_ray_is_critical PASS
+
+WEAKPOINT wolf_Gallop_follows_animated_bone PASS
+
+WEAKPOINT wolf_Gallop_head_ray_is_critical PASS
+
+WEAKPOINT wolf_Attack_follows_animated_bone PASS
+
+WEAKPOINT wolf_Attack_head_ray_is_critical PASS
+
+WEAKPOINT wolf_head_moves_between_poses PASS
+
+WEAKPOINT wolf_shape_owner_mapping_survives_reorder PASS
+
+WEAKPOINT wolf_head_damage_2x_then_armor PASS
+
+WEAKPOINT wolf_one_headshot_feedback PASS
+
+WEAKPOINT wolf_torso_damage_1x_then_armor PASS
+
+WEAKPOINT wolf_torso_is_not_critical PASS
+
+WEAKPOINT wolf_corpse_has_no_weakpoint_hit PASS
+
+WEAKPOINT failures=0

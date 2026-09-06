@@ -1,0 +1,69 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+
+
+VARIANT miner_workwear_zombie actual_movement_and_native_locomotion PASS
+
+VARIANT miner_workwear_zombie ground_contact PASS
+
+VARIANT miner_workwear_zombie stats PASS
+
+VARIANT miner_workwear_zombie animated_head_anchor PASS
+
+VARIANT miner_workwear_zombie loop_closes PASS
+
+VARIANT miner_workwear_zombie Idle head_ray_critical PASS
+
+VARIANT miner_workwear_zombie Walk head_ray_critical PASS
+
+VARIANT miner_workwear_zombie Attack head_ray_critical PASS
+
+VARIANT miner_workwear_zombie independent_damage_flash PASS
+
+VARIANT miner_workwear_zombie windup_no_hit PASS
+
+VARIANT miner_workwear_zombie slow_frame_single_contact PASS
+
+VARIANT miner_workwear_zombie alternating_right_attack PASS
+
+VARIANT miner_workwear_zombie freeze_interrupts PASS
+
+VARIANT miner_workwear_zombie sidestep_misses PASS
+
+VARIANT miner_workwear_zombie death_cancels_hit_and_counts_once PASS
+
+VARIANT miner_workwear_zombie corpse_removed PASS
+
+VARIANT runner_zombie actual_movement_and_native_locomotion PASS
+
+VARIANT runner_zombie ground_contact PASS
+
+VARIANT runner_zombie stats PASS
+
+VARIANT runner_zombie animated_head_anchor PASS
+
+VARIANT runner_zombie loop_closes PASS
+
+VARIANT runner_zombie Idle head_ray_critical PASS
+
+VARIANT runner_zombie Walk head_ray_critical PASS
+
+VARIANT runner_zombie Attack head_ray_critical PASS
+
+VARIANT runner_zombie independent_damage_flash PASS
+
+VARIANT runner_zombie windup_no_hit PASS
+
+VARIANT runner_zombie slow_frame_single_contact PASS
+
+VARIANT runner_zombie alternating_right_attack PASS
+
+VARIANT runner_zombie freeze_interrupts PASS
+
+VARIANT runner_zombie sidestep_misses PASS
+
+VARIANT runner_zombie death_cancels_hit_and_counts_once PASS
+
+VARIANT runner_zombie corpse_removed PASS
+
+HUMANOID_VARIANTS failures=0

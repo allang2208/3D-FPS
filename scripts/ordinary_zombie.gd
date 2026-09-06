@@ -17,6 +17,13 @@ const WALK_REFERENCE_SPEED := 0.305
 @export var impact_half_width := 0.48
 @export var corpse_hold := 1.0
 @export var walk_reference_speed := WALK_REFERENCE_SPEED
+@export var attack_active_start := ACTIVE_START
+@export var attack_active_end := ACTIVE_END
+@export var attack_duration := ATTACK_DURATION
+@export var death_duration := DEATH_DURATION
+@export var attack_clip_choices: Array[String] = ["Attack"]
+var _attack_clip := "Attack"
+var _next_attack_clip := 0
 var state: State = State.IDLE
 var attack_elapsed := -1.0
 var cooldown_remaining := 0.0
@@ -39,7 +46,7 @@ func _ready() -> void:
 	_skeleton = _find_skeleton(_model)
 	if _ap:
 		_ap.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
-		for clip in ["Idle", "Walk", "Attack", "Death"]:
+		for clip in ["Idle", "Walk", "Attack", "Death"] + attack_clip_choices:
 			if not _ap.has_animation(clip):
 				push_error("OrdinaryZombie missing animation: " + clip)
 				continue
@@ -62,9 +69,9 @@ func _physics_process(delta: float) -> void:
 		_mat.emission = Color(1.0, 0.25, 0.2) if _flash_t > 0 else Color.BLACK
 	if _dead:
 		_dead_t += delta
-		state = State.DYING if _dead_t < DEATH_DURATION else State.CORPSE
-		_sync_pose("Death", minf(_dead_t, DEATH_DURATION), delta)
-		if _dead_t >= DEATH_DURATION + corpse_hold:
+		state = State.DYING if _dead_t < death_duration else State.CORPSE
+		_sync_pose("Death", minf(_dead_t, death_duration), delta)
+		if _dead_t >= death_duration + corpse_hold:
 			queue_free()
 		return
 	_buffs.tick(delta, self)
@@ -137,6 +144,9 @@ func _start_attack(direction: Vector3) -> void:
 	cooldown_remaining = attack_cd
 	attack_elapsed = 0.0
 	_hit_this_attack = false
+	if not attack_clip_choices.is_empty():
+		_attack_clip = attack_clip_choices[_next_attack_clip % attack_clip_choices.size()]
+		_next_attack_clip += 1
 	state = State.WINDUP
 	velocity.x = 0.0
 	velocity.z = 0.0
@@ -148,13 +158,13 @@ func _tick_attack(delta: float) -> void:
 	velocity.x = 0.0
 	velocity.z = 0.0
 	_move_grounded(delta)
-	state = State.WINDUP if attack_elapsed < ACTIVE_START else (State.STRIKE if attack_elapsed < ACTIVE_END else State.RECOVER)
-	_sync_pose("Attack", minf(attack_elapsed, ATTACK_DURATION), delta)
+	state = State.WINDUP if attack_elapsed < attack_active_start else (State.STRIKE if attack_elapsed < attack_active_end else State.RECOVER)
+	_sync_pose("Attack", minf(attack_elapsed, attack_duration), delta)
 	# Interval crossing also works on slow frames, and a target is hit at most once.
-	if not _hit_this_attack and previous < ACTIVE_END and attack_elapsed >= ACTIVE_START and _can_impact():
+	if not _hit_this_attack and previous < attack_active_end and attack_elapsed >= attack_active_start and _can_impact():
 		_hit_this_attack = true
 		_locked_target.take_damage(contact_damage)
-	if attack_elapsed >= ATTACK_DURATION:
+	if attack_elapsed >= attack_duration:
 		_cancel_attack()
 		state = State.IDLE
 		_sync_pose("Idle", 0.0, 0.0)
@@ -198,6 +208,8 @@ func _die() -> void:
 	_sync_pose("Death", 0.0, 0.0)
 
 func _sync_pose(clip: String, time: float, delta: float = -1.0) -> void:
+	if clip == "Attack":
+		clip = _attack_clip
 	if _ap == null or not _ap.has_animation(clip):
 		return
 	if _clip != clip:

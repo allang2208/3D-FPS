@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/humanoid_variant_zombie.gd" id="1"]
+[ext_resource type="PackedScene" path="res://assets/models/humanoid_variants/miner_zombie_v02.glb" id="2"]
+
+[sub_resource type="CapsuleShape3D" id="Body"]
+radius = 0.28
+height = 1.4
+
+[node name="MinerWorkwearZombie" type="CharacterBody3D"]
+script = ExtResource("1")
+variant_id = "miner"
+max_hp = 160
+physical_defense = 40.0
+chase_speed = 0.35
+wander_speed = 0.2
+contact_damage = 16
+attack_cd = 2.3
+walk_bob_amp = 0.0
+walk_reference_speed = 0.197768
+head_hitbox_radius = 0.14
+head_hitbox_offset = Vector3(9.465928, 2.306772, -0.000078)
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.7, 0)
+shape = SubResource("Body")
+
+[node name="Model" parent="." instance=ExtResource("2")]

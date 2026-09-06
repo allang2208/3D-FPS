@@ -1,0 +1,118 @@
+[
+  {
+    "name": "smoke",
+    "exit": 0,
+    "seconds": 3.1,
+    "passes": 0,
+    "errors": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ],
+    "tail": [
+      "[gun] sight rear=(-0.005883, 0.066337, 0.082124) front=(-0.003268, 0.053582, -0.278373) muzzle=(-0.005882, 0.043602, -0.291794) scale=0.62000003695488",
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "   at: cleanup (core/object/object.cpp:2536)",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details).",
+      "   at: clear (core/io/resource.cpp:822)"
+    ]
+  },
+  {
+    "name": "test_combat",
+    "exit": 0,
+    "seconds": 1.5,
+    "passes": 0,
+    "errors": [
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ],
+    "tail": [
+      "TEST moved=true hp_ok=true player_hurt=true fx_cleaned=true ads_hidden=true",
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "   at: cleanup (core/object/object.cpp:2536)",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details).",
+      "   at: clear (core/io/resource.cpp:822)"
+    ]
+  },
+  {
+    "name": "test_reload",
+    "exit": 0,
+    "seconds": 5.7,
+    "passes": 0,
+    "errors": [],
+    "tail": [
+      "[gun] sight rear=(-0.005883, 0.066337, 0.082124) front=(-0.003268, 0.053582, -0.278373) muzzle=(-0.005882, 0.043602, -0.291794) scale=0.62000003695488",
+      "TEST stageA ammo=0 reserve=10",
+      "TEST auto_reload ammo=10 started=true done=1 ok=true",
+      "TEST stageB ammo=5 reserve=10 + R",
+      "TEST r_reload ammo=15 done=1 ok=true"
+    ]
+  },
+  {
+    "name": "test_ordinary_zombie",
+    "exit": 0,
+    "seconds": 1.4,
+    "passes": 22,
+    "errors": [],
+    "tail": [
+      "ZOMBIE_TEST death_to_corpse PASS",
+      "ZOMBIE_TEST death_cancels_damage_one_kill PASS",
+      "ZOMBIE_TEST corpse_held PASS",
+      "ZOMBIE_TEST corpse_removed_after_animation_and_hold PASS",
+      "ZOMBIE_TEST failures=0"
+    ]
+  },
+  {
+    "name": "test_zombie_motion",
+    "exit": 0,
+    "seconds": 0.3,
+    "passes": 9,
+    "errors": [],
+    "tail": [
+      "ZOMBIE_MOTION death_blend_completes PASS",
+      "ZOMBIE_MOTION corpse_settles_without_late_rebound PASS",
+      "ZOMBIE_MOTION corpse_hold_keeps_exact_final_pose PASS",
+      "ZOMBIE_MOTION walk_loop_pose_continuity PASS",
+      "ZOMBIE_MOTION failures=0"
+    ]
+  },
+  {
+    "name": "test_humanoid_variants",
+    "exit": 0,
+    "seconds": 3.4,
+    "passes": 32,
+    "errors": [],
+    "tail": [
+      "VARIANT runner_zombie freeze_interrupts PASS",
+      "VARIANT runner_zombie sidestep_misses PASS",
+      "VARIANT runner_zombie death_cancels_hit_and_counts_once PASS",
+      "VARIANT runner_zombie corpse_removed PASS",
+      "HUMANOID_VARIANTS failures=0"
+    ]
+  },
+  {
+    "name": "test_modern_zombie_weakpoints",
+    "exit": 0,
+    "seconds": 2.2,
+    "passes": 26,
+    "errors": [],
+    "tail": [
+      "WEAKPOINT wolf_one_headshot_feedback PASS",
+      "WEAKPOINT wolf_torso_damage_1x_then_armor PASS",
+      "WEAKPOINT wolf_torso_is_not_critical PASS",
+      "WEAKPOINT wolf_corpse_has_no_weakpoint_hit PASS",
+      "WEAKPOINT failures=0"
+    ]
+  },
+  {
+    "name": "test_modern_zombie_integration",
+    "exit": 0,
+    "seconds": 3.8,
+    "passes": 8,
+    "errors": [],
+    "tail": [
+      "MODERN_ZOMBIE attack_clip_matches_authoritative_clock PASS",
+      "MODERN_ZOMBIE death_clock_matches_clip PASS",
+      "MODERN_ZOMBIE dungeon_script_keeps_new_motion_contract PASS",
+      "MODERN_ZOMBIE dungeon_head_anchor_preserved PASS",
+      "MODERN_ZOMBIE_INTEGRATION failures=0"
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "samples": 1349,
+  "max_distance_from_hand_m": 6.553254560167622,
+  "clips": {
+    "Attack": 1.5,
+    "Death": 1.399999976158142,
+    "Howl": 3.0,
+    "Idle": 1.0,
+    "Walk": 1.5
+  },
+  "bind_centerline_m": 6.399996579853426
+}

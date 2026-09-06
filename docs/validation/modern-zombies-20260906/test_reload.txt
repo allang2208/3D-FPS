@@ -1,0 +1,17 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+
+
+[gun] sight overrides: rear=(0.009488, 0.106995, -0.132458) front=(0.005271, 0.086422, 0.448989)
+
+[gun] ADS calibrated: pos=(0.005279, -0.063391, -0.424459) rot=(0.035367, 0.007252, 0.000128) rear_dist=0.34
+
+[gun] sight rear=(-0.005883, 0.066337, 0.082124) front=(-0.003268, 0.053582, -0.278373) muzzle=(-0.005882, 0.043602, -0.291794) scale=0.62000003695488
+
+TEST stageA ammo=0 reserve=10
+
+TEST auto_reload ammo=10 started=true done=1 ok=true
+
+TEST stageB ammo=5 reserve=10 + R
+
+TEST r_reload ammo=15 done=1 ok=true

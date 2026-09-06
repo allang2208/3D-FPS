@@ -1,0 +1,49 @@
+Godot Engine v4.7.1.stable.official.a13da4feb - https://godotengine.org
+
+
+
+ZOMBIE_TEST configured_stats PASS
+
+ZOMBIE_TEST clip_Idle PASS
+
+ZOMBIE_TEST clip_Walk PASS
+
+ZOMBIE_TEST clip_Attack PASS
+
+ZOMBIE_TEST clip_Death PASS
+
+ZOMBIE_TEST windup_no_damage PASS
+
+ZOMBIE_TEST before_active_window_no_damage PASS
+
+ZOMBIE_TEST active_window_one_hit_13 PASS
+
+ZOMBIE_TEST no_repeated_hit_and_cooldown PASS
+
+ZOMBIE_TEST sidestep_misses_locked_direction PASS
+
+ZOMBIE_TEST behind_misses PASS
+
+ZOMBIE_TEST stun_cancels_attack PASS
+
+ZOMBIE_TEST wall_blocks_hit PASS
+
+ZOMBIE_TEST slow_frame_crosses_active_window PASS
+
+ZOMBIE_TEST physical_armor_25 PASS
+
+ZOMBIE_TEST elemental_bypasses_physical_armor PASS
+
+ZOMBIE_TEST chase_state PASS
+
+ZOMBIE_TEST outside_aggro_idle PASS
+
+ZOMBIE_TEST death_to_corpse PASS
+
+ZOMBIE_TEST death_cancels_damage_one_kill PASS
+
+ZOMBIE_TEST corpse_held PASS
+
+ZOMBIE_TEST corpse_removed_after_animation_and_hold PASS
+
+ZOMBIE_TEST failures=0

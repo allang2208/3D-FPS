@@ -163,12 +163,16 @@ func _find_skeleton(n: Node) -> Skeleton3D:
 ## 按 shape 索引建立倍率表（Collision 躯干=1.0，HitboxHead=2.0）
 func _rebuild_shape_multipliers() -> void:
 	_shape_multipliers = []
-	for c in get_children():
-		if c is CollisionShape3D:
-			var m := 1.0
-			if c.get_script() == HitboxShapeScript:
-				m = c.multiplier
-			_shape_multipliers.append(m)
+	for owner_id in get_shape_owners():
+		var owner = shape_owner_get_owner(owner_id)
+		var multiplier := 1.0
+		if owner is CollisionShape3D and owner.get_script() == HitboxShapeScript:
+			multiplier = owner.multiplier
+		for i in shape_owner_get_shape_count(owner_id):
+			var index := shape_owner_get_shape_index(owner_id, i)
+			while _shape_multipliers.size() <= index:
+				_shape_multipliers.append(1.0)
+			_shape_multipliers[index] = multiplier
 
 ## 射线命中回调：按命中 shape 返回伤害倍率
 func get_shape_multiplier(shape_idx: int) -> float:

@@ -1,0 +1,37 @@
+{
+  "source": "assets/models/wolf_quaternius.gltf",
+  "before": {
+    "vertices": 3994,
+    "polygons": 1962
+  },
+  "after": {
+    "vertices": 983,
+    "polygons": 1962
+  },
+  "bone_count": 51,
+  "clips": {
+    "Attack": 1.3333333333333333,
+    "Death": 1.0666666666666667,
+    "Eating": 2.533333333333333,
+    "Gallop": 0.5666666666666667,
+    "Gallop_Jump": 0.9333333333333333,
+    "Idle": 3.3333333333333335,
+    "Idle_2": 3.3333333333333335,
+    "Idle_2_HeadLow": 4.0,
+    "Idle_HitReact1": 0.6666666666666666,
+    "Idle_HitReact2": 0.6666666666666666,
+    "Jump_ToIdle": 1.3333333333333333,
+    "Walk": 1.0666666666666667
+  },
+  "split_vertex_skin_difference": 0.0,
+  "max_sculpt_source_units": 0,
+  "runtime_scale": 0.3,
+  "max_skin_weight_error": 4.126923158764839e-08,
+  "max_influences": 4,
+  "wounds": [],
+  "texture_size": [
+    2048,
+    2048
+  ],
+  "geometry_method": "weld matching split vertices, preserve source triangles and positions, smooth normals; no sculpt or subdivision"
+}

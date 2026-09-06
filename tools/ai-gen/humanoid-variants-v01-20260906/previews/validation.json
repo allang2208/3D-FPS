@@ -1,0 +1,52 @@
+{
+  "miner-Idle": {
+    "frames": 176,
+    "source_seconds": 7.333333333333333,
+    "gif_seconds": 7.33
+  },
+  "miner-Walk": {
+    "frames": 68,
+    "source_seconds": 2.8333333333333335,
+    "gif_seconds": 2.83
+  },
+  "miner-Attack": {
+    "frames": 38,
+    "source_seconds": 1.5666666666666667,
+    "gif_seconds": 1.57
+  },
+  "miner-AttackRight": {
+    "frames": 38,
+    "source_seconds": 1.5666666666666667,
+    "gif_seconds": 1.57
+  },
+  "miner-Death": {
+    "frames": 58,
+    "source_seconds": 2.4,
+    "gif_seconds": 2.4
+  },
+  "runner-Idle": {
+    "frames": 176,
+    "source_seconds": 7.333333333333333,
+    "gif_seconds": 7.33
+  },
+  "runner-Walk": {
+    "frames": 47,
+    "source_seconds": 1.9333333333333333,
+    "gif_seconds": 1.93
+  },
+  "runner-Attack": {
+    "frames": 38,
+    "source_seconds": 1.5666666666666667,
+    "gif_seconds": 1.57
+  },
+  "runner-AttackRight": {
+    "frames": 38,
+    "source_seconds": 1.5666666666666667,
+    "gif_seconds": 1.57
+  },
+  "runner-Death": {
+    "frames": 58,
+    "source_seconds": 2.4,
+    "gif_seconds": 2.4
+  }
+}

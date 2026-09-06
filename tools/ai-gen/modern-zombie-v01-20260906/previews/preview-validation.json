@@ -1,0 +1,38 @@
+{
+  "Idle": {
+    "source_frames": 176,
+    "gif_frames": 176,
+    "source_seconds": 7.333333333333333,
+    "gif_seconds": 7.33
+  },
+  "Walk": {
+    "source_frames": 48,
+    "gif_frames": 48,
+    "source_seconds": 2.0,
+    "gif_seconds": 2.0
+  },
+  "Attack": {
+    "source_frames": 38,
+    "gif_frames": 38,
+    "source_seconds": 1.5666666666666667,
+    "gif_seconds": 1.57
+  },
+  "AttackRight": {
+    "source_frames": 38,
+    "gif_frames": 38,
+    "source_seconds": 1.5666666666666667,
+    "gif_seconds": 1.57
+  },
+  "Death": {
+    "source_frames": 58,
+    "gif_frames": 58,
+    "source_seconds": 2.4,
+    "gif_seconds": 2.4
+  },
+  "HitReact": {
+    "source_frames": 8,
+    "gif_frames": 8,
+    "source_seconds": 0.3333333333333333,
+    "gif_seconds": 0.33
+  }
+}

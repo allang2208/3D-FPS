@@ -66,3 +66,15 @@
 - Source: https://ambientcg.com (CC0 - no attribution required)
 - Added 4K sets: Ground106 (forest floor leaves/mud), Ground092C (wet mud),
   packed to Terrain3D channel textures via tools/prepare_terrain_textures.gd.
+
+## Modern ordinary zombie (2026-09-06)
+
+- ZombieMale_A and ten native zombie animations: Denys Almaral, CC BY 4.0.
+- Additional Death01 and Hit_Chest: Quaternius Universal Animation Library, CC0.
+- Restyled materials, UVs, skin normalization, timing and retargeting by this project.
+- Full source links and required attribution: [modern zombie license](../assets/models/modern_zombie/LICENSE.md).
+
+## Workwear miner and runner variants (2026-09-06)
+
+- Derived from Denys Almaral ZombieMale_A and native motions (CC BY 4.0), with Quaternius UAL death/hit animations (CC0).
+- Added model attachments, restyled materials and gameplay locomotion aliases; [variant attribution](../assets/models/humanoid_variants/LICENSE.md).
