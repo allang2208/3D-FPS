@@ -11,6 +11,8 @@ var _dragging := false
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_STOP
+	custom_minimum_size.y = maxf(custom_minimum_size.y, 52)
+	add_theme_stylebox_override("panel", Style.make_slot_style(Style.COLOR_HUD_TRACK, Style.COLOR_PANEL_BORDER))
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_DRAG_BEGIN:

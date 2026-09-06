@@ -46,8 +46,14 @@ func _build() -> void:
 	_shield.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_shield.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_shield)
+	var shade := ColorRect.new()
+	shade.color = Style.COLOR_OVERLAY
+	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_shield.add_child(shade)
 	panel = Panel.new()
 	panel.name = "Panel"
+	panel.theme = Style.make_theme()
 	panel.add_theme_stylebox_override("panel", Style.make_texture_panel_style())
 	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
 	var pw := float(Style.npc("panel_w", 880.0))
@@ -86,7 +92,7 @@ func _build() -> void:
 	gold_label = Label.new()
 	gold_label.name = "Gold"
 	gold_label.theme = Style.make_theme()
-	gold_label.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
+	gold_label.add_theme_font_override("font", Style.make_mono_font())
 	gold_label.add_theme_color_override("font_color", Style.THEME_GOLD)
 	gold_label.add_theme_font_size_override("font_size", Style.font_size("label"))
 	gold_label.visible = false
@@ -94,8 +100,10 @@ func _build() -> void:
 	close_btn = Button.new()
 	close_btn.name = "Close"
 	close_btn.text = "✕"
-	close_btn.focus_mode = Control.FOCUS_NONE
+	close_btn.focus_mode = Control.FOCUS_ALL
 	Style.style_button(close_btn, "body")
+	close_btn.custom_minimum_size = Vector2(32, 32)
+	close_btn.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 	close_btn.pressed.connect(func() -> void: close())
 	header.add_child(close_btn)
 
@@ -130,6 +138,9 @@ func _refresh() -> void:
 
 ## ---- 公开接口 ----
 func open_panel() -> void:
+	var hud := get_node_or_null("/root/HUD")
+	if hud != null and hud.backpack_hud != null:
+		hud.backpack_hud.hide_tooltip()
 	_open = true
 	visible = true
 	_refresh()
@@ -139,7 +150,9 @@ func close() -> void:
 	var hud := get_node_or_null("/root/HUD")
 	if hud != null:
 		hud.request_inventory_save()
-	_hide_tooltip()
+	if _tooltip != null:
+		_tooltip.set_pinned(false)
+		_tooltip.visible = false
 	_open = false
 	visible = false
 	_set_mouse_released(false)
@@ -183,7 +196,7 @@ func _make_label(text: String, size_key := "body", color := Color.WHITE) -> Labe
 func _make_button(text: String, size_key := "body") -> Button:
 	var b := Button.new()
 	b.text = text
-	b.focus_mode = Control.FOCUS_NONE
+	b.focus_mode = Control.FOCUS_ALL
 	Style.style_button(b, size_key)
 	return b
 
@@ -220,7 +233,7 @@ func _cell_size(kind := "std") -> Vector2:
 		float(Style.npc("cell_%s_h" % kind, 52.0)))
 
 func _show_tooltip(item: Dictionary) -> void:
-	if _tooltip == null or item.is_empty():
+	if not _open or _tooltip == null or item.is_empty():
 		return
 	_tooltip.render(item)
 	_tooltip.visible = true
@@ -252,7 +265,7 @@ func _find_bp_slot(item: Dictionary) -> int:
 
 func _make_item_button(item: Dictionary, min_size := Vector2(118, 44)) -> Button:
 	var b := Button.new()
-	b.focus_mode = Control.FOCUS_NONE
+	b.focus_mode = Control.FOCUS_ALL
 	b.custom_minimum_size = min_size
 	var icon := String(item.get("icon_fallback", item.get("icon", "❔")))
 	var stack := int(item.get("stack", 1))

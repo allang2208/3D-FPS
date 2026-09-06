@@ -1,3 +1,5 @@
+> 2026-09-06 冷钢审计：共享主题、NPC面板、物品格、拖放槽及属性数字已校正；[审计报告](../docs/ui-audit-2026-09-06.md)。下方旧“金白”描述不作为当前视觉规则。
+
 # Godot UI 组件注册表（ui/registry.md）
 
 > 借鉴 shadcn/ui 的「注册表 + 组件即代码 + AI 友好」模式，落地到 Godot UI 线：
@@ -40,7 +42,7 @@
 | fusion_panel | panel | ui/fusion_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack | 20 格祭品合成：同稀有度两两升一级 | tests/test_npc_panels.gd |
 | expedition_panel | panel | ui/expedition_panel.gd | stable | style, npc_config, npc_panel, item_db, backpack | `signal depart_requested(items)`；10 格祭品 + 稀有度准入 | tests/test_npc_panels.gd |
 | item_tooltip | tooltip | ui/item_tooltip.gd | stable | style, item_db | `signal close_requested`；`render(item)` / `is_pinned()` / `set_pinned(v)` | tests/test_ui_tokens.gd |
-| backpack_hud | panel | ui/backpack_hud.gd | stable（Vega 金白已升级） | style, backpack, equipment, item_tooltip, icons | `signal player_healed(hp)`；`setup(bp, eq)`；Tab/B 开背包、拖拽、右键使用 | tests/test_backpack.gd + test_ui_tokens（已纳入硬编码扫描） |
+| backpack_hud | panel | ui/backpack_hud.gd | stable（冷钢；SimHei物品名例外） | style, backpack, equipment, item_tooltip, icons | `signal player_healed(hp)`；`setup(bp, eq)`；Tab/B 开背包、拖拽、右键使用 | tests/test_backpack.gd + test_ui_tokens（已纳入硬编码扫描） |
 | backpack | data | ui/backpack.gd | stable | item_db | `signal changed / item_used / item_added / bound`；`add_item` / `remove_item` / `swap_items` / `bind_hotbar` / `resolve_hotbar` | tests/test_backpack.gd |
 | equipment | data | ui/equipment.gd | stable | backpack | `signal changed / equipped`；`equip_from_backpack` / `equip_to_slot` / `unequip` / `swap_equip` / `is_locked` | tests/test_equip.gd |
 | item_db | data | ui/item_db.gd | stable | assets（旧版 equipment.json） | `has_item` / `get_def` / `get_all_ids` / `create_instance` | tests/test_ui_tokens.gd |

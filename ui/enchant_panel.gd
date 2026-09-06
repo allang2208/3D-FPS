@@ -37,12 +37,18 @@ func _build_body() -> void:
 	body.add_child(scroll_drop)
 	_scroll_label = _make_label("卷轴槽：空", "body", Style.THEME_GRAY_LIGHT)
 	_scroll_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_scroll_label.offset_left = 12
+	_scroll_label.offset_right = -12
+	_scroll_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	scroll_drop.add_child(_scroll_label)
 	scroll_drop.dropped.connect(_on_drop_scroll)
 	var equip_drop := _make_drop_slot()
 	body.add_child(equip_drop)
 	_equip_label = _make_label("装备槽：空", "body", Style.THEME_GRAY_LIGHT)
 	_equip_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_equip_label.offset_left = 12
+	_equip_label.offset_right = -12
+	_equip_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	equip_drop.add_child(_equip_label)
 	equip_drop.dropped.connect(_on_drop_equip)
 	_dust_label = _make_label("✨ 魔法粉尘：0", "body", Style.THEME_GOLD)

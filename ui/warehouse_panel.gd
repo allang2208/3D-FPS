@@ -48,6 +48,7 @@ func _build_body() -> void:
 	next_btn.pressed.connect(_page.bind(1))
 	actions.add_child(next_btn)
 	_page_label = _make_label("", "caption", Color.WHITE)
+	_page_label.add_theme_font_override("font", Style.make_mono_font())
 	_page_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 	_page_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	actions.add_child(_page_label)

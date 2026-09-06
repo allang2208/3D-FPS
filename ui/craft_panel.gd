@@ -104,7 +104,7 @@ func _build_body() -> void:
 	bp_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	bp_col.add_child(bp_scroll)
 	_bp_grid = GridContainer.new()
-	_bp_grid.columns = 2
+	_bp_grid.columns = 1
 	_bp_grid.add_theme_constant_override("h_separation", 6)
 	_bp_grid.add_theme_constant_override("v_separation", 6)
 	bp_scroll.add_child(_bp_grid)
@@ -118,7 +118,7 @@ func _build_body() -> void:
 	eq_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	eq_col.add_child(eq_scroll)
 	_eq_grid = GridContainer.new()
-	_eq_grid.columns = 2
+	_eq_grid.columns = 1
 	_eq_grid.add_theme_constant_override("h_separation", 6)
 	_eq_grid.add_theme_constant_override("v_separation", 6)
 	eq_scroll.add_child(_eq_grid)

@@ -40,9 +40,10 @@ func _build() -> void:
 	add_theme_stylebox_override("panel", Style.make_slot_style(
 		Style.COLOR_SLOT_BG, Style.rarity_color(rarity), "sm", 1))
 
+	if Style.theme_active() == "cold_steel":
+		add_theme_stylebox_override("panel", Style.make_slot_style(Style.COLOR_SLOT_BG, Style.COLOR_PANEL_BORDER))
 	if item.is_empty():
 		return
-
 	if Style.theme_active() == "cold_steel":
 		add_theme_stylebox_override("panel", Style.make_slot_texture_style())
 
@@ -69,6 +70,7 @@ func _build() -> void:
 	var icon_path := String(item.get("icon", ""))
 	var icon_s := float(Style.npc("cell_icon_s", 30.0))
 	_icon = TextureRect.new()
+	_icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_icon.custom_minimum_size = Vector2(icon_s, icon_s)
 	_icon.position = Vector2(20, 6)
 	_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -90,10 +92,16 @@ func _build() -> void:
 	_name_lbl = Label.new()
 	_name_lbl.text = String(item.get("name", "?"))
 	_name_lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	_name_lbl.anchor_right = 1.0
+	_name_lbl.offset_right = -5
+	_name_lbl.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_name_lbl.offset_left = 48
 	_name_lbl.offset_bottom = -16
 	_name_lbl.add_theme_font_size_override("font_size", int(Style.npc("cell_name_size", 12)))
-	_name_lbl.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
+	var item_font := FontVariation.new()
+	item_font.base_font = preload("res://assets/ui/fonts/simhei.ttf")
+	item_font.variation_embolden = 0.9
+	_name_lbl.add_theme_font_override("font", item_font)
 	_name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
 	_name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_name_lbl)
@@ -106,8 +114,11 @@ func _build() -> void:
 		_stack_lbl.add_theme_font_size_override("font_size", int(Style.npc("cell_stack_size", 11)))
 		_stack_lbl.add_theme_font_override("font", Style.make_mono_font(600))
 		_stack_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
-		_stack_lbl.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-		_stack_lbl.offset_left = -34
+		_stack_lbl.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+		_stack_lbl.offset_left = -45
+		_stack_lbl.offset_top = -15
+		_stack_lbl.offset_right = -4
+		_stack_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 		_stack_lbl.offset_bottom = -2
 		_stack_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_stack_lbl)
@@ -120,8 +131,8 @@ func _build() -> void:
 		_price_lbl.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 		_price_lbl.offset_left = -60
 		_price_lbl.offset_top = 1
-		_price_lbl.add_theme_font_size_override("font_size", 10)
-		_price_lbl.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
+		_price_lbl.add_theme_font_size_override("font_size", Style.font_size("micro"))
+		_price_lbl.add_theme_font_override("font", Style.make_mono_font())
 		_price_lbl.add_theme_color_override("font_color", Style.THEME_GOLD)
 		_price_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(_price_lbl)

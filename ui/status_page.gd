@@ -57,11 +57,11 @@ func _build() -> void:
 	header.add_child(accent)
 	_name_label = _make_label(header, "轮回者", 20, Style.COLOR_TITLE_TEXT)
 	_name_label.add_theme_font_override("font", Style.make_font(700))
-	_class_label = _make_label(header, "初心者", 13, Style.COLOR_DIM_TEXT)
+	_class_label = _make_label(header, "初心者", Style.font_size("body"), Style.COLOR_DIM_TEXT)
 	_class_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	_lv_label = _make_label(header, "Lv.1", 14, Style.COLOR_TEXT)
-	_lv_label.add_theme_font_override("font", Style.make_font(600))
-	_attr_label = _make_label(header, "属性点: 0", 13, Style.THEME_GOLD)
+	_lv_label.add_theme_font_override("font", Style.make_mono_font())
+	_attr_label = _make_label(header, "属性点: 0", Style.font_size("body"), Style.THEME_GOLD)
 	_attr_label.add_theme_font_override("font", Style.make_font(600))
 
 	# 状态卡
@@ -196,7 +196,7 @@ func _add_bar(parent: Node, label: String, key: String, fill_color: Color) -> vo
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 10)
 	parent.add_child(row)
-	var lbl := _make_label(row, label, 13, Style.COLOR_DIM_TEXT)
+	var lbl := _make_label(row, label, Style.font_size("body"), Style.COLOR_DIM_TEXT)
 	lbl.custom_minimum_size = Vector2(56, 0)
 	var track := Panel.new()
 	track.custom_minimum_size = Vector2(220, 14)
@@ -217,7 +217,8 @@ func _add_bar(parent: Node, label: String, key: String, fill_color: Color) -> vo
 	var fsb := Style.make_style(fill_color, fill_color, 3, 0)
 	fill.add_theme_stylebox_override("panel", fsb)
 	track.add_child(fill)
-	var value := _make_label(row, "", 13, Style.COLOR_TEXT)
+	var value := _make_label(row, "", Style.font_size("body"), Style.COLOR_TEXT)
+	value.add_theme_font_override("font", Style.make_mono_font())
 	value.custom_minimum_size = Vector2(90, 0)
 	value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_bars[key] = {"fill": fill, "style": fsb, "value": value}
@@ -231,9 +232,10 @@ func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 12)
 	card.add_child(row)
-	var name_lbl := _make_label(row, label, 13, Style.COLOR_DIM_TEXT)
+	var name_lbl := _make_label(row, label, Style.font_size("body"), Style.COLOR_DIM_TEXT)
 	name_lbl.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var val_lbl := _make_label(row, "", 13, Style.COLOR_TEXT)
+	var val_lbl := _make_label(row, "", Style.font_size("body"), Style.COLOR_TEXT)
+	val_lbl.add_theme_font_override("font", Style.make_mono_font())
 	val_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_rows[key] = val_lbl
 	if _group == "attr":

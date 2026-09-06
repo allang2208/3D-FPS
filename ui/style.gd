@@ -344,6 +344,7 @@ static func make_theme() -> Theme:
 	var buttons := make_button_style()
 	for state in buttons:
 		t.set_stylebox(state, "Button", buttons[state])
+	t.set_color("font_pressed_color", "Button", THEME_BG)
 	for type in ["VScrollBar", "HScrollBar"]:
 		var track := make_style(COLOR_HUD_TRACK, COLOR_TRANSPARENT, 4, 0)
 		track.content_margin_left = 4
@@ -381,7 +382,8 @@ static func make_button_style() -> Dictionary:
 		for k in base_margin:
 			sb.set(k, base_margin[k])
 	pressed.content_margin_top = int(base_margin["content_margin_top"]) + 1  # 按下内容下沉 1px
-	return {"normal": normal, "hover": hover, "pressed": pressed, "disabled": disabled}
+	return {"normal": normal, "hover": hover, "pressed": pressed, "disabled": disabled,
+		"focus": make_style(COLOR_TRANSPARENT, COLOR_DRAG_OVER_BORDER, RADIUS_SM, 2)}
 
 ## 面板样式（玻璃感：半透明深灰底 + 细边框）
 static func make_panel_style() -> StyleBoxFlat:
@@ -503,6 +505,7 @@ static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
 ## 给 Button 应用三态样式 + 字号
 static func style_button(btn: Button, font_size_key := "body") -> void:
 	var s := make_button_style()
+	btn.add_theme_font_override("font", make_font())
 	btn.add_theme_stylebox_override("normal", s.normal)
 	btn.add_theme_stylebox_override("hover", s.hover)
 	btn.add_theme_stylebox_override("pressed", s.pressed)

@@ -56,8 +56,10 @@ func _run() -> void:
 	_check("shop_buy_gold", int(_econ.get_gold()) == 4900, "gold=" + str(_econ.get_gold()))
 	var rs := _slot_of("rusty_sword")
 	_check("shop_buy_added", rs >= 0)
+	var sold_instance := str(_bp.slots[rs].get("instance_id", ""))
 	shop._add_to_sell(rs)
-	_check("shop_sell_moved", _slot_of("rusty_sword") == -1 and shop._sell.size() == 1)
+	_check("shop_sell_moved", _bp.find_slot(sold_instance) == -1 and shop._sell.size() == 1
+		and str(shop._sell[0].item.get("instance_id", "")) == sold_instance)
 	shop._confirm_sell()
 	_check("shop_sell_gold", int(_econ.get_gold()) == 4950, "gold=" + str(_econ.get_gold()))
 	shop.close()
