@@ -52,7 +52,7 @@ func make_item_name(text: String) -> Label:
 ## 5. 字体排查顺序
 
 1. 核对源CSS层叠、实际DOM角色和内联样式，记录字号/字重/行高/字距/阴影。
-2. 核对打包字体是否正确、TTC face是否为1、控件实际字体及是否发生fallback。
+2. 核对打包字体是否正确、是否为SimHei及正确的0/0.9字重、控件实际字体及是否发生fallback。
 3. 查控件与父级缩放、DPI与viewport，再比较同字号样张。
 4. 查是否遗留局部embolden或引擎默认RichText加粗字体；只修定位明确的差异。
 5. 同文件同参数仍有差异再比较灰度/LCD抗锯齿、hinting等，未经对照不要全局重导字体。
@@ -73,3 +73,5 @@ func make_item_name(text: String) -> Label:
 有用规则更新DESIGN/当前标准/本流程，对应经验写入项目SKILL，新增组件更新registry。原快照只用于来源，不把Godot适配值改写回原CSS；刷新快照另按manifest规则处理。
 
 保留正式脚本、最终截图、源资产和许可证；废案只删除本任务创建且已确认无引用的明确文件，配套UID/import一起处理。禁止全库clean/reset/add -A。提交和普通推送严格按WORKFLOW.md第8节，混合未发布提交使用独立发布工作区；推送后回读SHA。不要把他人未提交实现或模型依赖夹进本任务。
+
+枪械改造页面最终格式见 [改造UI合同](skills/godot-weapon-workflow/references/gunsmith-ui.md)；以本次最终要求为准。

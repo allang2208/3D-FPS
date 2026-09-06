@@ -12,17 +12,17 @@
 
 | 内容语义 | 字体入口 | 字号/处理 |
 |---|---|---|
-| 普通正文、按钮、输入、说明 | Style.make_font() | Microsoft YaHei UI，14px常规 |
+| 普通正文、按钮、输入、说明 | Style.make_font() | SimHei，14px常规，embolden 0 |
 | 辅助信息 | Style.make_font() | 12px；原HUD紧凑标签11px |
-| 面板标题 | Style.make_heading_font(20) | YaHei UI加粗，20px，字距2px |
-| 分区标题 | Style.make_heading_font(16) | YaHei UI加粗，16px，字距1px |
+| 面板标题 | Style.make_heading_font(20) | SimHei加粗（embolden 0.9），20px，字距2px |
+| 分区标题 | Style.make_heading_font(16) | SimHei加粗（embolden 0.9），16px，字距1px |
 | 加载/页面显示标题 | Style.make_heading_font(24) | 24px，字距2px |
 | 物品、武器、配件名称 | Style.make_item_name_font()；Label用Style.style_item_name() | SimHei，统一embolden 0.9，轻阴影 |
-| 纯数字、容量、堆叠、坐标、冷却 | Style.make_mono_font() | Consolas，按所在信息层级选字号 |
+| 纯数字、容量、堆叠、坐标、冷却 | Style.make_mono_font() | SimHei常规（embolden 0），按所在信息层级选字号 |
 
-六档24/20/16/14/12/11px，普通单面板最多四档。背包格物品名12px、装备名称及空槽标签16px；详情标题可20px。稀有度竖标、图标、地牢等级徽章沿用原组件例外，不视为正文。中数混排段落保持UI字体，不强制整段Consolas。
+六档24/20/16/14/12/11px，普通单面板最多四档。背包格物品名12px、装备名称及空槽标签16px；详情标题可20px。稀有度竖标、图标、地牢等级徽章沿用原组件例外，不视为正文。中数混排与纯数字均使用同款常规SimHei。
 
-字体文件由assets/ui/fonts提供，YaHei的TTC face 1是YaHei UI，face 0是YaHei；不能只根据文件名确认。禁止逐面板复制FontVariation或另设0.2/0.3等物品加粗量。RichTextLabel显式使用主题提供的normal_font/bold_font/mono_font。
+字体文件由assets/ui/fonts提供，统一simhei.ttf；标题/名称0.9粗化，正文/数字0粗化。不要各面板另建字重。RichTextLabel使用主题normal_font/bold_font/mono_font，字体家族保持一致。
 
 原CSS标题tracking为0.08em、分区0.04em；2px/1px是Godot整数字距近似。embolden 0.9是用户认可的Godot效果，不是CSS600的换算公式。轻阴影和CSS模糊不逐像素等价。字体不对时依次核对字体文件/face、实际字体、字号、字重、字距、阴影、缩放，最后才比较渲染后端，禁止盲改全局抗锯齿。
 
@@ -52,3 +52,5 @@
 按WORKFLOW.md跑规定检查，测试前设置独立INVENTORY_SAVE_PATH。记录实际通过、失败、未覆盖项，不把复制规则、静态检查、截图或退出码0说成完整业务复刻。
 
 本收尾发布以规则、工作流、SKILL、公共字体接口为界；本地已实现的全屏枪械、时钟及部分面板改进仍与未发布武器/历史UI提交关联，不通过此文声称远端已具备所有本地功能。
+
+枪械改造页面最终格式见 [改造UI合同](../skills/godot-weapon-workflow/references/gunsmith-ui.md)；以本次最终要求为准。

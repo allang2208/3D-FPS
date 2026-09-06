@@ -13,3 +13,5 @@
 # 冷钢 UI 与面板开发
 
 开发或调整游戏UI、HUD、背包/仓库及字体时，必须先读 [冷钢UI技能](skills/godot-cold-steel-ui/SKILL.md)、[当前规则](docs/cold-steel-ui-standard.md) 与 [面板工作流](UI-WORKFLOW.md)。用户认可的枪械改造字体是所有新面板基准；优先公共字体入口，不另造字重或字号方案。原始参考快照保持不变。
+
+枪械改造页面与配件说明改动，先读 [最终格式合同](skills/godot-weapon-workflow/references/gunsmith-ui.md)。该合同取代早期字体分工及重复对比/解释段落格式。

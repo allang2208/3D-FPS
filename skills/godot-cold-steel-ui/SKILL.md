@@ -15,9 +15,9 @@ description: 在3-dfps项目开发、迁移或审计游戏面板、HUD和背包�
 
 ## 决策规则
 
-- 正文/按钮YaHei UI；TTC face 1。标题20px/2px字距、分区16px/1px字距，用Style.make_heading_font。
+- 全部UI使用SimHei；标题/名称embolden 0.9，正文/按钮/数字embolden 0。标题20px/2px字距、分区16px/1px字距，用Style.make_heading_font。
 - 物品/武器/配件名SimHei，统一Style.make_item_name_font的0.9粗化；Label用Style.style_item_name。禁止另造0.2/0.3粗化字体。
-- 数字Consolas；正文14、辅助12，保留紧凑物品格12及已有符号局部例外。
+- 数字同样使用常规SimHei；正文14、辅助12，保留紧凑物品格12及已有符号局部例外。
 - 复用现有Theme、npc_panel生命周期及数据模型。颜色查palette，尺寸查style-config；普通强调冷银而非金色。
 - 背包45%全高，仓库先联动背包；枪械改造全屏是明确例外，不推广到所有面板。
 - 双手副手锁定外观与输入同时禁用；drag-end不能把.6透明度恢复成1；解除锁定时恢复。
@@ -28,3 +28,5 @@ description: 在3-dfps项目开发、迁移或审计游戏面板、HUD和背包�
 按UI-WORKFLOW进行隔离存档、真实渲染及必要行为验证。字体先查文件、face、实际命中、字号、字重、字距、阴影、缩放，再考虑渲染参数。保留同尺寸对照；说明CSS模糊与Godot阴影、整数字距的近似，不把字体名字相同当作完全复刻。
 
 发布与清理必须遵守WORKFLOW第8节，保留他人工作区，不整批推送混合未发布提交。
+
+涉及枪械改造面板，遵守[改造页面最终合同](../godot-weapon-workflow/references/gunsmith-ui.md)。
