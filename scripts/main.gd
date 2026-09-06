@@ -331,6 +331,11 @@ func _build_enemies() -> void:
 	add_child(zombie)
 	zombie.setup(_player, _on_enemy_killed)
 
+	var ore_spider: Node3D = load("res://scenes/enemies/ore_spider.tscn").instantiate()
+	ore_spider.position = Vector3(9, 0, -5)
+	add_child(ore_spider)
+	ore_spider.setup(_player, _on_enemy_killed)
+
 func _build_enemy(enemy_name: String, model: Node3D, pos: Vector3, cfg: Dictionary) -> void:
 	var enemy := CharacterBody3D.new()
 	enemy.name = enemy_name
