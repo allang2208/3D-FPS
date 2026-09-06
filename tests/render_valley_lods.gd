@@ -20,7 +20,7 @@ func run() -> void:
 	environment.environment = env
 	world.add_child(environment)
 	for level in 3:
-		var model: Node3D = load("res://scenes/scenic_conifer.tscn").instantiate()
+		var model: Node3D = load("res://scenes/imported_pine.tscn").instantiate()
 		world.add_child(model)
 		model.setup_lod()
 		model.position.x = (level - 1) * 10
@@ -29,7 +29,7 @@ func run() -> void:
 			mesh.visibility_range_end = 0
 			mesh.visible = mesh.get_meta("scenic_lod") == level
 		var label := Label3D.new()
-		label.text = ["Near: natural pine", "Mid: simplified pine", "Far: 2 tris / 8 views"][level]
+		label.text = ["Near: 4502 tris", "Mid: 2626 tris", "Far: 1389 tris"][level]
 		label.position = Vector3((level - 1) * 10, -1, 0)
 		label.font_size = 40
 		label.pixel_size = 0.008

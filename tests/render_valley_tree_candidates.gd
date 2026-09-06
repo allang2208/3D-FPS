@@ -22,7 +22,7 @@ func run() -> void:
 	var assets := ["island_tree_01/island_tree_01_1k", "island_tree_02/island_tree_02_1k", "tree_small_02/tree_small_02_1k", "pine_sapling_small/pine_sapling_small_1k"]
 	var helper = load("res://scenes/scenic_collision.gd")
 	for i in assets.size():
-		var model: Node3D = load("res://scenes/scenic_conifer.tscn" if i == 0 else "res://assets/models/polyhaven/" + assets[i] + ".gltf").instantiate()
+		var model: Node3D = load("res://scenes/imported_pine.tscn" if i == 0 else "res://assets/models/polyhaven/" + assets[i] + ".gltf").instantiate()
 		world.add_child(model)
 		if "pine_sapling" in assets[i]:
 			var selected: Node3D = model.get_child(0)
@@ -39,7 +39,7 @@ func run() -> void:
 				var mat: Material = mesh.get_active_material(surface)
 				print("[candidate] ", assets[i], " ", mat.resource_name)
 		var label := Label3D.new()
-		label.text = "scenic_conifer" if i == 0 else assets[i].get_slice("/", 0)
+		label.text = "imported_pine" if i == 0 else assets[i].get_slice("/", 0)
 		label.position = Vector3(i * 7 - 10.5, -0.7, 0)
 		label.font_size = 44
 		label.pixel_size = 0.007

@@ -8,7 +8,7 @@ const VALLEY_DATA := "user://terrain_cache/" + CACHE_REVISION
 const ARRIVAL := Vector2(-90.0, 32.0)
 const FIR := "res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf"
 const CANOPY_TREE := "res://assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf"
-const CONIFER := "res://scenes/scenic_conifer.tscn"
+const CONIFER := "res://scenes/imported_pine.tscn"
 const YOUNG_PINE := "res://assets/models/polyhaven/pine_sapling_small/pine_sapling_small_1k.gltf"
 const LEAF_TREE := "res://assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf"
 const BOULDER := "res://assets/models/polyhaven/boulder_01/boulder_01_2k.gltf"
@@ -433,7 +433,7 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	add_child(body)
 	var model: Node3D = load(path).instantiate()
 	if path == CONIFER:
-		model.variant = rng.randi_range(0, 5)
+		model.variant = rng.randi_range(0, 2)
 	body.add_child(model)
 	var variant_key := path + (":" + str(model.variant) if path == CONIFER else "")
 	# The download contains three side-by-side variants, not one tree.
@@ -448,6 +448,14 @@ func _place_valley_tree(p: Vector2, scale_factor: float, path: String = FIR) -> 
 	if not _trunk_collision_geometry.has(variant_key):
 		_trunk_collision_geometry[variant_key] = ScenicCollision.trunk_hulls(model)
 		_root_geometry[variant_key] = ScenicCollision.root_geometry(model, true)
+		if path == CONIFER:
+			# Raise fitting samples to the top of the root flare: the solver then
+			# places the entire flare beneath the lowest terrain sample.
+			var geometry: Dictionary = _root_geometry[variant_key]
+			var support: PackedVector3Array = geometry["support"]
+			for index in support.size():
+				support[index].y += model.burial_depth
+			geometry["support"] = support
 	var root_geometry: Dictionary = _root_geometry[variant_key]
 	var yaw := rng.randf_range(0, TAU)
 	var fit: Dictionary = {}

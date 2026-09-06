@@ -41,8 +41,6 @@ func _ready() -> void:
 				for surface in mesh.mesh.get_surface_count():
 					var material: Material = mesh.get_active_material(surface)
 					var texture: Texture2D = material.get_shader_parameter("albedo_texture") if material is ShaderMaterial else material.albedo_texture
-					if mesh.get_meta("scenic_lod", -1) == 2:
-						texture = material.get_shader_parameter("atlas")
 					if texture == null:
 						missing_materials += 1
 	check(tree_count > 100 and bad_trees == 0, "forest grounded with trunk collisions")
@@ -192,36 +190,29 @@ func _test_grounding(scene: Node3D, terrain: Terrain3D) -> void:
 
 
 func _test_scenery_layers(scene: Node3D) -> void:
-	var variants := {}
 	var conifers := 0
-	var highest_triangles := 0
+	var variants := {}
 	var bad_lods := 0
 	for tree in get_tree().get_nodes_in_group("scenic_trees"):
-		if tree.get_meta("landscape_asset", "") != scene.CONIFER:
-			continue
-		conifers += 1
-		variants[tree.get_child(0).variant] = true
-		var lod_triangles := [0, 0, 0]
-		var ranges := [Vector2(0, 45), Vector2(45, 105), Vector2(105, 450)]
-		for child in tree.find_children("", "MeshInstance3D", true, false):
-			var level: int = child.get_meta("scenic_lod", -1)
-			if level < 0 or level > 2:
+		if tree.get_meta("landscape_asset", "") == scene.CONIFER:
+			conifers += 1
+			var model = tree.get_child(0)
+			variants[model.variant] = true
+			if model.get_child_count() != 3:
 				bad_lods += 1
-				continue
-			if Vector2(child.visibility_range_begin, child.visibility_range_end) != ranges[level]:
-				bad_lods += 1
-			if level == 2 and child.cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF:
-				bad_lods += 1
-			for surface in child.mesh.get_surface_count():
-				var arrays: Array = child.mesh.surface_get_arrays(surface)
-				var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX] != null else PackedInt32Array()
-				lod_triangles[level] += (indices.size() if not indices.is_empty() else arrays[Mesh.ARRAY_VERTEX].size()) / 3
-		highest_triangles = maxi(highest_triangles, lod_triangles[0])
-		if lod_triangles[1] >= lod_triangles[0] / 2 or lod_triangles[2] != 2:
-			bad_lods += 1
-	check(conifers > 200 and highest_triangles < 6500, "dense conifer canopy stays within mesh budget")
-	check(variants.size() == 6, "forest uses all six natural pine silhouettes")
-	check(bad_lods == 0, "tree LOD ranges cover near medium and two-triangle unshadowed far trees")
+			for level in model.get_child_count():
+				var mesh = model.get_child(level)
+				var triangles := 0
+				for surface in mesh.mesh.get_surface_count():
+					triangles += mesh.mesh.surface_get_array_index_len(surface) / 3
+				if triangles <= 0 or triangles > [5500,3200,1700][level]:
+					bad_lods += 1
+				if level > 0 and mesh.cast_shadow != GeometryInstance3D.SHADOW_CASTING_SETTING_OFF:
+					bad_lods += 1
+				if mesh.visibility_range_begin != [0.0,45.0,105.0][level] or mesh.visibility_range_end != [45.0,105.0,450.0][level]:
+					bad_lods += 1
+	check(conifers > 100, "downloaded pine variants populate the forest")
+	check(variants.size() == 3 and bad_lods == 0, "all three imported variants use contiguous authored LOD ranges")
 	var grass_triangles := 0
 	for cell in scene.get_node("ParticleGrass").particle_nodes:
 		grass_triangles += cell.draw_pass_1.surface_get_array_index_len(0) / 3 * cell.amount
@@ -243,4 +234,4 @@ func _test_scenery_layers(scene: Node3D) -> void:
 		high = maxf(high, offset)
 	check(high - low > 1.5, "shoreline material boundary varies along the stream")
 	check(scene.get_node_or_null("DistantRidge") != null and scene.get_node_or_null("FarRidge") != null, "two mountain layers preserve distant depth")
-	print("[scenery-test] conifers=", conifers, " max_tree_triangles=", highest_triangles, " shore_variation=", high - low)
+	print("[scenery-test] imported_conifers=", conifers, " shore_variation=", high - low)

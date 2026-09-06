@@ -1,3 +1,5 @@
+当前实现（2026-09-06）：谷地已切换 LOLIPOP Big 1/2/3 成熟松树，参见 [接入记录](../assets/models/lolipop_pines/INTEGRATION.md) 和 [植被技能](../skills/godot-terrain-vegetation/SKILL.md)。原自制松树、烘焙器、专用着色器和旧图集已清理；以下自制松树相关段落仅为历史试验记录，资源可从 Git 历史恢复。
+
 # 溪谷植被素材与制作记录（2026-09-06）
 
 ## 新增来源
