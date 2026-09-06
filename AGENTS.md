@@ -1,3 +1,7 @@
+# 枪械与改造
+
+枪械开发、枪匠配件、瞄具/ADS、枪口、弹匣、枪托和枪械材质工作，先读 [枪械技能](skills/godot-weapon-workflow/SKILL.md)。涉及改造时必须读取其 ADS 与改造案例；通用瞄具复用、闭锁校准、透明镜片、活动挂点、原件替换和实例保存按同一合同验证。提交及推送遵守 WORKFLOW.md 的仓库整理规则。
+
 # 怪物制作与迁移
 
 怪物建模、绑骨、动作优化、数值和游戏接入工作，先读取 [怪物标准工作流](skills/godot-monster-workflow/SKILL.md)。其他开发仍遵守 WORKFLOW.md 的职责边界。
