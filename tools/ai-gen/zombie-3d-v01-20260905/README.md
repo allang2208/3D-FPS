@@ -1,6 +1,6 @@
 # 普通僵尸制作源与预览
 
-本目录是 2026-09-06 获准接入的僵尸样板可复现文件集。标准流程见 ../../../../skills/godot-monster-workflow/SKILL.md；案例来源和参数见该技能 references/zombie-case.md，游戏接入见 ../../../../docs/ordinary-zombie-integration.md。
+本目录是 2026-09-06 获准接入的僵尸样板可复现文件集。标准流程见 [怪物技能](../../../skills/godot-monster-workflow/SKILL.md)；案例来源和参数见该技能 references/zombie-case.md，游戏接入见 [接入记录](../../../docs/ordinary-zombie-integration.md)。
 
 - zombie-apose-reference.png / reference-prompt.txt：从原二维 idle 补正面 A 姿。
 - zombie-raw.glb：生成网格；zombie-rigged.blend：可编辑蒙皮与四段动作；zombie-preview.glb：正式导出源。
