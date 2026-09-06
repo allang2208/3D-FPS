@@ -25,6 +25,7 @@ func _ready() -> void:
 	add_child(world)
 	_build_ui()
 	_build_preview()
+	toolkit.set_active(false)
 	preview.visible=false
 	grass_base=scene.grass_exclusion.duplicate()
 	grass_texture=ImageTexture.create_from_image(grass_base)
@@ -61,6 +62,7 @@ func _build_ui() -> void:
 func set_enabled(value: bool) -> void:
 	if enabled==value: return
 	enabled=value
+	toolkit.set_active(value)
 	tool_layer.visible=value
 	hint_label.visible=not value
 	player.set_meta("terrain_editing",value)
@@ -113,6 +115,11 @@ func target() -> Dictionary:
 
 func act(dig: bool) -> bool:
 	if not enabled: return false
+	if dig:
+		if not toolkit.resolving:
+			toolkit.begin_use()
+			return false
+		if not toolkit.allows_ground(): return false
 	var hit:=target()
 	if hit.is_empty(): return false
 	var cell: Vector3i=hit.mine if dig else hit.place
@@ -123,11 +130,11 @@ func act(dig: bool) -> bool:
 		world.prepare_at(cell)
 		status.text="正在准备此处地面，完成后即可挖掘"
 		return false
-	var changed: bool=world.mine(cell) if dig else world.place(cell,selected,player_bounds())
+	var changed: bool=toolkit.mine_cell(cell) if dig else world.place(cell,selected,player_bounds())
 	if changed:
 		save_delay=0.5
 		foliage_dirty=true
-		status.text="已挖开草皮，露出泥土" if dig else "已填充 / 搭建"
+		status.text=toolkit.mining_message if dig else "已填充 / 搭建"
 	return changed
 
 func _physics_process(delta: float) -> void:
@@ -156,7 +163,7 @@ func _physics_process(delta: float) -> void:
 	if foliage_dirty and world.jobs.is_empty() and save_delay<0:
 		_refresh_foliage()
 		foliage_dirty=false
-	info.text="当前填充：%s\n泥土 %d · 岩石 %d · 矿石 %d · 砖 %d" % [["","泥土","岩石","矿石","建筑砖"][selected],world.stock[1],world.stock[2],world.stock[3],world.stock[4]]
+	info.text="手持：%s · 木材 %d\n当前填充：%s\n泥土 %d · 岩石 %d · 矿石 %d · 砖 %d" % [toolkit.NAMES[toolkit.equipped],toolkit.wood,["","泥土","岩石","矿石","建筑砖"][selected],world.stock[1],world.stock[2],world.stock[3],world.stock[4]]
 	if world.jobs.is_empty() and status.text=="正在准备此处地面，完成后即可挖掘": status.text="地面已就绪，可以挖掘或填充"
 
 func respawn() -> void:
@@ -170,10 +177,12 @@ func respawn() -> void:
 
 func _save() -> void:
 	var result: Error=world.save_world(save_path)
+	if result==OK: result=toolkit.save_state()
 	status.text="旷野改造已保存" if result==OK else "保存失败："+error_string(result)
 	save_delay=-1.0
 
 func _refresh_foliage() -> void:
+	toolkit.rocks.apply_saved()
 	var mask:=grass_base.duplicate()
 	for p in world.soil_scars:
 		var center:=Vector2i(roundi((p.x+512.0)*2),roundi((p.y+512.0)*2))
@@ -187,11 +196,11 @@ func _refresh_foliage() -> void:
 		for i in record[1].size():
 			var original: Transform3D=record[2][i]
 			var p: Vector3=record[1][i].origin
-			var removed:=_root_removed(p)
+			var removed: bool=record[0].get_meta("quarried_indices",{}).has(i) or _root_removed(p)
 			mm.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*0.00001),Vector3(0,-10000,0)) if removed else original)
 	for child in scene.get_children():
 		if child is StaticBody3D and (child.has_meta("landscape_asset") or child.has_meta("terrain_support_root")):
-			var removed: bool=_root_removed(child.get_meta("terrain_support_root",child.global_position))
+			var removed: bool=child.get_meta("tool_felled",false) or child.get_meta("tool_quarried",false) or _root_removed(child.get_meta("terrain_support_root",child.global_position))
 			child.visible=not removed
 			for shape in child.find_children("","CollisionShape3D",true,false): shape.set_deferred("disabled",removed)
 

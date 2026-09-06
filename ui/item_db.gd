@@ -14,6 +14,19 @@ const EQUIP_ICON_DIRS := [
 ]
 
 var _defs := {
+	"silver_ore": {"name":"银矿", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"res://assets/environment/silver_vein_v1/silver_ore_icon.png", "desc":"矿镐采集的含银矿石，深色围岩中分布银白矿带，可用于后续冶炼制造。"},
+	"gold_ore": {"name":"金矿", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"res://assets/environment/gold_vein_v1/gold_ore_icon.png", "desc":"矿镐采集的含金矿石，石英脉中分布金黄色矿粒，可用于后续冶炼制造。"},
+	"copper_ore": {"name":"铜矿", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"res://assets/environment/copper_vein_v1/copper_ore_icon.png", "desc":"矿镐采集的含铜矿石，赤铜色矿带与青绿色风化矿斑交织，可用于后续冶炼制造。"},
+	"iron_ore": {"name":"铁矿", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"res://assets/environment/iron_vein_v1/iron_ore_icon.png", "desc":"用矿镐从铁矿脉中采集的含铁矿石，可用于后续冶炼与制造。"},
+	"wood": {"name":"木材", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"res://assets/ui/building/floor.png", "desc":"砍伐树木后收集的木材。用于搭建木质体素，每块消耗 1 份。"},
+	"stone": {"name":"石块", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"res://assets/ui/building/stone_floor.png", "desc":"使用矿镐采集石块获得。用于搭建石质体素，每块消耗 1 份。"},
+
 	"hp_potion": {
 		"name": "治疗药水",
 		"type": "消耗品",

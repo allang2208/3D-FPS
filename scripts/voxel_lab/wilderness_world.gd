@@ -9,6 +9,7 @@ var source_pixels: Dictionary = {}
 var loading := false
 var exit_save_path := ""
 var soil_scars: Dictionary = {}
+var quarried_rocks: Dictionary = {}
 
 func _ready() -> void:
 	super._ready()
@@ -50,6 +51,7 @@ func store_cell(_p: Vector3i,_kind: int) -> void:
 func reset_data() -> void:
 	edits.clear()
 	soil_scars.clear()
+	quarried_rocks.clear()
 	edit_history.clear()
 	stock={1:32,2:32,3:0,4:64}
 
@@ -81,9 +83,13 @@ func undo_edit(occupied: AABB) -> bool:
 func save_metadata() -> Dictionary:
 	var scars: Array=[]
 	for p in soil_scars: scars.append([p.x,p.y])
-	return {"soil_scars":scars}
+	return {"soil_scars":scars,"quarried_rocks":quarried_rocks.duplicate()}
 
 func validate_metadata(data: Dictionary) -> bool:
+	var rocks: Variant=data.get("quarried_rocks",{})
+	if not rocks is Dictionary: return false
+	for key in rocks:
+		if not key is String or not rocks[key] is bool or not rocks[key]: return false
 	var scars: Variant=data.get("soil_scars",[])
 	if not scars is Array: return false
 	for row in scars:
@@ -93,6 +99,7 @@ func validate_metadata(data: Dictionary) -> bool:
 	return true
 
 func restore_metadata(data: Dictionary) -> void:
+	quarried_rocks=data.get("quarried_rocks",{}).duplicate()
 	for row in data.get("soil_scars",[]): soil_scars[Vector2i(row[0],row[1])]=true
 
 func is_bedrock(p: Vector3i) -> bool:

@@ -16,6 +16,7 @@ var save_delay := -1.0
 var mine_delay := 0.0
 var hidden_layers: Array[CanvasLayer] = []
 var hud_was_processing := false
+var toolkit: Node3D
 
 func _ready() -> void:
 	if OS.has_environment("VOXEL_LAB_SAVE_PATH"):
@@ -130,6 +131,10 @@ func _build_ui() -> void:
 	layer.add_child(reticle)
 
 func _build_preview() -> void:
+	toolkit=preload("res://scripts/tools/basic_toolkit.gd").new()
+	add_child(toolkit)
+	toolkit.setup(self)
+	info.get_parent().get_child(2).text+="\n5 空手 · 6 伐木斧 · 7 矿镐（3.2 米）"
 	preview = MeshInstance3D.new()
 	var box := BoxMesh.new()
 	box.size = Vector3.ONE * 1.015
@@ -176,6 +181,11 @@ func target() -> Dictionary:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode in [KEY_5,KEY_6,KEY_7]:
+			toolkit.equip({KEY_5:"",KEY_6:"axe",KEY_7:"pickaxe"}[event.keycode])
+			status.text="已装备："+toolkit.NAMES[toolkit.equipped]
+			get_viewport().set_input_as_handled()
+			return
 		if event.ctrl_pressed and event.keycode == KEY_Z:
 			if world.undo_edit(player_bounds()):
 				save_delay = 0.5
@@ -205,13 +215,18 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func act(dig: bool) -> bool:
+	if dig and toolkit!=null:
+		if not toolkit.resolving:
+			toolkit.begin_use()
+			return false
+		if not toolkit.allows_ground(): return false
 	var hit := target()
 	if hit.is_empty():
 		return false
-	var changed: bool = world.mine(hit.mine) if dig else world.place(hit.place, selected, player_bounds())
+	var changed: bool = toolkit.mine_cell(hit.mine) if dig else world.place(hit.place, selected, player_bounds())
 	if changed:
 		save_delay = 0.5
-		status.text = "已挖掘并回收材料" if dig else "已放置，已扣除材料"
+		status.text = toolkit.mining_message if dig else "已放置，已扣除材料"
 	return changed
 
 func _physics_process(delta: float) -> void:
@@ -234,6 +249,7 @@ func _physics_process(delta: float) -> void:
 
 func _save() -> void:
 	var result: Error = world.save_world(save_path)
+	if result==OK and toolkit!=null: result=toolkit.save_state()
 	status.text = "试验场已保存" if result == OK else "保存失败：" + error_string(result)
 	save_delay = -1.0
 

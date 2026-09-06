@@ -5,6 +5,8 @@ description: 维护 Terrain3D 植被、地表材质与平滑挖掘接入，处�
 
 # Terrain3D 植被资产接入
 
+涉及斧镐采集、树桩截面、矿脉随机形态、破碎与采集存档，读取 [可采集树木与矿脉](references/harvestable-deposits.md)。
+
 先遵守项目 WORKFLOW.md；候选预览与正式接入分别按用户授权范围推进。
 
 涉及可挖掘地形、草土衔接、PBR 调校或水面/河床条纹时，读取 [可编辑旷野案例](references/editable-wilderness.md)，其中包含密度源、洞口接缝、存档痕迹和固定机位验证的已验证约束。

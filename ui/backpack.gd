@@ -26,6 +26,13 @@ func _init(db: RefCounted) -> void:
 	slots.resize(max_slots)
 	hotbar.resize(HOTBAR_SIZE)
 
+func count_item(id: String) -> int:
+	var total := 0
+	for item in slots:
+		if item != null and str(item.get("id", "")) == id:
+			total += int(item.get("stack", 1))
+	return total
+
 func item_count() -> int:
 	var n := 0
 	for it in slots:

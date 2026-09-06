@@ -258,8 +258,12 @@ func _prepare_variants(path: String) -> Array:
 	return variants
 
 
-func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
+func _batch_model(path: String, p: Vector2, extent: float, rock: bool, iron: bool=false, copper: bool=false, precious: String="") -> void:
+	var ore_kind := "iron" if iron else ("copper" if copper else precious)
 	var geometry_key := path
+	if iron: geometry_key += ":iron"
+	elif copper: geometry_key += ":copper"
+	elif not precious.is_empty(): geometry_key += ":"+precious
 	if not rock:
 		var variants := _prepare_variants(path)
 		geometry_key = variants[rng.randi_range(0, variants.size() - 1)]
@@ -285,8 +289,49 @@ func _batch_model(path: String, p: Vector2, extent: float, rock: bool) -> void:
 			if Rect2(Vector2(rock_box.position.x, rock_box.position.z), Vector2(rock_box.size.x, rock_box.size.z)).grow(2).has_point(reserve):
 				placement_rejected += 1
 				return
+		# Keep the old source/ground-fit identity so existing mined deposits stay gone.
+		var legacy_position := global_transform * xf.origin
+		var legacy_id := "%s:%.3f:%.3f:%.3f" % [path, legacy_position.x, legacy_position.y, legacy_position.z]
+		if not ore_kind.is_empty():
+			var variants := ["rounded", "slab", "leaning", "ridge", "wedge", "saddle", "tall", "long"]
+			# Position hash is stable and consumes no landscape RNG values.
+			var variant_index := ("%.3f,%.3f" % [p.x, p.y]).hash() % variants.size()
+			path = "res://assets/models/ore_variants/%s/model.scn" % variants[variant_index]
+			geometry_key = path + ":" + ore_kind
+			if not _rock_collision_geometry.has(path):
+				var variant_model: Node3D = load(path).instantiate()
+				add_child(variant_model)
+				var variant_geometry: Dictionary = ScenicCollision.rock_geometry(variant_model)
+				# Sculpted upper overhangs must not pull the entire deposit underground.
+				var base_support := PackedVector3Array()
+				var variant_bounds: AABB = variant_geometry.bounds
+				for point in variant_geometry.support:
+					if point.y <= variant_bounds.position.y + variant_bounds.size.y * 0.12:
+						base_support.append(point)
+				variant_geometry.support = base_support
+				_rock_collision_geometry[path] = variant_geometry
+				variant_model.free()
+			geometry = _rock_collision_geometry[path]
+			var variant_size: Vector3 = geometry.bounds.size
+			scale_factor = extent / maxf(variant_size.x, variant_size.z)
+			xf = ScenicCollision.fit_rock(terrain.data, p, scale_factor, yaw, geometry)
+			if not xf.is_finite():
+				placement_rejected += 1
+				return
+			rock_box = xf * geometry.bounds
 		var rock_body:=ScenicCollision.add_rock(self, xf, geometry)
+		if not ore_kind.is_empty():
+			rock_body.set_meta("harvest_identity", legacy_id)
+			rock_body.set_meta("rock_fragments", load(path.get_base_dir()+"/fragments.res"))
 		rock_body.set_meta("terrain_support_root",xf.origin)
+		var harvest_key:=geometry_key+"@%d,%d" % [floori(p.x/64.0),floori(p.y/64.0)]
+		rock_body.set_meta("rock_source",path)
+		rock_body.set_meta("harvest_item","iron_ore" if iron else ("copper_ore" if copper else "stone"))
+		if not precious.is_empty(): rock_body.set_meta("harvest_item",precious+"_ore")
+		rock_body.set_meta("rock_transform",xf)
+		rock_body.set_meta("rock_extent",extent)
+		rock_body.set_meta("harvest_batch_key",harvest_key)
+		rock_body.set_meta("harvest_index",_detail_meshes[harvest_key].transforms.size() if _detail_meshes.has(harvest_key) else 0)
 		_occupied.append(rock_box.grow(0.2))
 		grounding_records.append({"kind": "rock", "transform": xf, "geometry": geometry})
 	else:
@@ -343,6 +388,13 @@ func _cache_batch_geometry(key: String, path: String, root_model: Node3D) -> voi
 			mesh.surface_set_material(surface, material)
 		geometry.append({"mesh": mesh, "transform": root_model.global_transform.affine_inverse() * mi.global_transform})
 	_batch_geometry[key] = geometry
+	if key.ends_with(":iron") or key.ends_with(":copper") or key.ends_with(":silver") or key.ends_with(":gold"):
+		for part in geometry:
+			var iron_material:=preload("res://scripts/tools/iron_vein_material.gd").create(part.mesh)
+			if key.ends_with(":copper"): iron_material=preload("res://scripts/tools/copper_vein_material.gd").create(part.mesh)
+			if key.ends_with(":silver") or key.ends_with(":gold"):
+				iron_material=preload("res://scripts/tools/precious_vein_material.gd").create(key.get_slice(":",2),part.mesh)
+			for s in part.mesh.get_surface_count(): part.mesh.surface_set_material(s,iron_material)
 
 
 func _flush_batches() -> void:
@@ -365,6 +417,7 @@ func _flush_batches() -> void:
 			var node := MultiMeshInstance3D.new()
 			node.multimesh = mm
 			node.set_meta("ground_roots",batch["transforms"].duplicate())
+			node.set_meta("harvest_batch_key",key)
 			node.visibility_range_end = 420.0 if batch["rock"] else 65.0
 			node.lod_bias = 0.5
 			node.visibility_range_end_margin = 20.0
@@ -526,7 +579,12 @@ func _build_landmark_rocks() -> void:
 		var x := rng.randf_range(-285, 45)
 		var side := -1.0 if i % 2 == 0 else 1.0
 		var p := Vector2(x, _river_center_z(x) + side * (stream_half_width(x) + rng.randf_range(-0.5, 5.0)))
-		_batch_model(BOULDER if i % 3 == 0 else ROCK, p, rng.randf_range(0.18, 1.8), true)
+		var extent:=rng.randf_range(0.18, 1.8)
+		var precious: String=""
+		if extent>=0.65:
+			if i%22==3: precious="silver"
+			elif i%33==7 and i%11!=5: precious="gold"
+		_batch_model(BOULDER if i % 3 == 0 else ROCK, p, extent, true, i%11==0 and extent>=0.65, i%11==5 and extent>=0.65, precious)
 	_flush_batches()
 
 
