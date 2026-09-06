@@ -326,6 +326,10 @@ func _build_enemies() -> void:
 		"offset_y": 0.0, "bob": 0.0, "scale": 0.3,  # 原模脚底 y=0，走路起伏由动画负责
 	})
 	# 测试期：只保留黑狼，僵尸犬/蜘蛛暂时移除（EnemyModels 保留供后续恢复）
+	var zombie: Node3D = load("res://scenes/enemies/ordinary_zombie.tscn").instantiate()
+	zombie.position = Vector3(-3, 0, -4)
+	add_child(zombie)
+	zombie.setup(_player, _on_enemy_killed)
 
 func _build_enemy(enemy_name: String, model: Node3D, pos: Vector3, cfg: Dictionary) -> void:
 	var enemy := CharacterBody3D.new()

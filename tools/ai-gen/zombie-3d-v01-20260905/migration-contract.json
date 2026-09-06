@@ -1,0 +1,19 @@
+{
+  "stage": "godot-main-scene-integrated-and-tested",
+  "runtimeIntegrationActive": true,
+  "runtimeScene": "E:/3d/3-dfps/scenes/enemies/ordinary_zombie.tscn",
+  "sourceCharacter": "game-dev/data/enemy-config.json#zombie",
+  "sourceSheets": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/enemies/zombie/v2",
+  "referenceImage": "zombie-apose-reference.png",
+  "referenceGeneration": "Built-in image_gen; identity reference is original idle.png; front A-pose preparation, not a new character design",
+  "modelGeneration": "User-owned 5080 ComfyUI TRELLIS.2, seed 905122, sparse32, 512, DC-Quad reconstruction, 30000 target triangles, 2048 texture",
+  "animationMethod": "Authored 3D skeletal reconstruction from original sprite key poses; not automatic motion capture",
+  "actions": {
+    "Idle": {"durationSeconds": 4.8, "loop": true},
+    "Attack": {"durationSeconds": 1.0, "loop": false, "contactSeconds": 0.375, "activeStartSeconds": 0.333333, "activeEndSeconds": 0.458333, "cooldownSeconds": 2.0},
+    "Walk": {"durationSeconds": 2.25, "loop": true, "inPlace": true, "matchingSpeedMps": 0.305, "style": "asymmetric-limp", "stage": "preview-complete"},
+    "Death": {"durationSeconds": 2.0, "loop": false, "holdSeconds": 1.0, "stage": "preview-complete"}
+  },
+  "preserve": ["gaunt corpse silhouette", "hunched spine in idle", "skeletal shin", "brown torn shorts", "anticipation-contact-recovery", "one hit per target per attack"],
+  "review": ["front-side-back identity", "shoulder-elbow-knee deformation", "feet contact", "forward lunge and recovery", "no exploded skin weights"]
+}
