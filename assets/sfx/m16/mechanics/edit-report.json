@@ -1,0 +1,54 @@
+{
+  "source": "assets\\sfx\\m16\\source\\263513_4675419-hq.mp3",
+  "rate": 44100,
+  "cues": {
+    "mag_out": {
+      "source_seconds": [
+        0.205,
+        0.5
+      ],
+      "duration": 0.2950113378684807,
+      "peak_dbfs": -8.873949984654255
+    },
+    "mag_insert": {
+      "source_seconds": [
+        1.02,
+        1.2
+      ],
+      "duration": 0.18,
+      "peak_dbfs": -10.457574905606752
+    },
+    "mag_seat": {
+      "source_seconds": [
+        1.525,
+        1.785
+      ],
+      "duration": 0.26,
+      "peak_dbfs": -6.020599913279624
+    },
+    "charge_pull": {
+      "source_seconds": [
+        3.43,
+        3.615
+      ],
+      "duration": 0.18501133786848073,
+      "peak_dbfs": -7.535014192041992
+    },
+    "charge_release": {
+      "source_seconds": [
+        3.62,
+        3.91
+      ],
+      "duration": 0.29,
+      "peak_dbfs": -6.020599913279624
+    },
+    "bolt_release": {
+      "source_seconds": [
+        4.225,
+        4.485
+      ],
+      "duration": 0.26,
+      "peak_dbfs": -6.744843366368518
+    }
+  }
+}
