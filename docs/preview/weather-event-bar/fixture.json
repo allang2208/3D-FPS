@@ -1,0 +1,42 @@
+[
+  {
+    "at": 124.854526519775,
+    "duration_label": "3.1 小时",
+    "end": 312.36079788208,
+    "ends_at_label": "第1日 17:12",
+    "icon": "🌦",
+    "icon_path": "res://assets/ui/event-icons/rain-light.png",
+    "id": "weather:process:124.855",
+    "intensity_name": "雨势有变化",
+    "label": "Main · 降雨",
+    "mode": "light_rain",
+    "position": 0.0563004520734151,
+    "process_name": "降雨",
+    "stages": [
+      {
+        "end": 223.609592437744,
+        "mode": "light_rain",
+        "start": 124.854526519775
+      },
+      {
+        "end": 279.165103912354,
+        "mode": "rain",
+        "start": 223.609592437744
+      },
+      {
+        "end": 312.36079788208,
+        "mode": "light_rain",
+        "start": 279.165103912354
+      }
+    ],
+    "start": 124.854526519775,
+    "starts_at_label": "第1日 14:04",
+    "status": "upcoming",
+    "time_label": "3 小时后",
+    "type": "weather",
+    "type_label": "天气",
+    "warning_label": "本轮降雨结束后转为阴天",
+    "warning_level": "",
+    "world_name": "Main"
+  }
+]

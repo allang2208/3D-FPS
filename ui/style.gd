@@ -294,12 +294,11 @@ static var _font_bold: Font
 static var _font_mono: Font
 
 static func make_font(weight := 400) -> Font:
+	# Same SimHei family: headings bold, descriptive content regular.
 	if weight >= 600:
-		if _font_bold == null:
-			_font_bold = _ui_font_face("res://assets/ui/fonts/MicrosoftYaHeiBold.ttc")
-		return _font_bold
+		return make_item_name_font()
 	if _font_regular == null:
-		_font_regular = _ui_font_face("res://assets/ui/fonts/MicrosoftYaHei.ttc")
+		_font_regular = load("res://assets/ui/fonts/equipment_ui_regular.tres")
 	return _font_regular
 
 ## User-approved gunsmith typography, shared by every panel.
@@ -337,9 +336,8 @@ static func tt_size_value() -> int: return 14
 
 ## 等宽字体（VS Code Consolas 同款）：HUD 数字/弹药/数值用，清晰对齐
 static func make_mono_font(_weight := 400) -> Font:
-	if _font_mono == null:
-		_font_mono = load("res://assets/ui/fonts/Consolas.ttf")
-	return _font_mono
+	# Numeric content uses regular SimHei, regardless of legacy weight arguments.
+	return make_font()
 
 ## emoji 回退字体（旧版图标加载失败时显示 item.icon 字符）
 static func make_emoji_font() -> SystemFont:
@@ -861,3 +859,46 @@ static func release_fonts() -> void:
 	_font_regular = null
 	_font_bold = null
 	_font_mono = null
+
+static func apply_text_role(control: Control, role: StringName) -> void:
+	var font: Font = make_font()
+	var size := 14
+	match role:
+		&"title":
+			font = make_heading_font(20)
+			size = 20
+		&"section":
+			font = make_heading_font(16)
+			size = 16
+		&"name", &"name_body", &"name_title":
+			font = make_item_name_font()
+			size = 20 if role == &"name_title" else 14 if role == &"name_body" else 16
+		&"caption": size = 12
+		&"number", &"number_large":
+			font = make_mono_font()
+			size = 16 if role == &"number_large" else 14
+		&"body": pass
+		_:
+			push_error("Unknown text role: " + str(role))
+			return
+	if control is Label:
+		control.label_settings = null
+	control.add_theme_font_override("font", font)
+	control.add_theme_font_size_override("font_size", size)
+	control.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
+	control.add_theme_constant_override("shadow_offset_x", 0)
+	control.add_theme_constant_override("shadow_offset_y", 0)
+	control.add_theme_constant_override("shadow_outline_size", 0)
+	if role in [&"name", &"name_body", &"name_title"]:
+		control.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
+		control.add_theme_constant_override("shadow_offset_y", 1)
+	control.set_meta("text_role", role)
+
+
+static func make_hud_surface(horizontal := 18, vertical := 7) -> StyleBoxTexture:
+	var result := preload("res://ui/backpack_reference_style.gd").surface("#171d23f2", "#080b0ef5", "#a2bcc88f", 10, 1)
+	result.content_margin_left = horizontal
+	result.content_margin_right = horizontal
+	result.content_margin_top = vertical
+	result.content_margin_bottom = vertical
+	return result

@@ -30,3 +30,5 @@ description: 在3-dfps项目开发、迁移或审计游戏面板、HUD和背包�
 发布与清理必须遵守WORKFLOW第8节，保留他人工作区，不整批推送混合未发布提交。
 
 涉及枪械改造面板，遵守[改造页面最终合同](../godot-weapon-workflow/references/gunsmith-ui.md)。
+
+天气图标和事件进度栏按[天气工作流](../godot-weather-workflow/SKILL.md)：保留原进度条，只显示当前区域一场当前或最近降雨，连续雨势在详情依次展示。

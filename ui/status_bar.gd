@@ -6,6 +6,13 @@ extends CanvasLayer
 
 const Style := preload("res://ui/style.gd")
 
+var _ammo_panel: PanelContainer
+var _ammo_enabled := true
+var _clock_view: Control
+var event_timeline: Control
+var _last_reserve := -1
+var _ammo_flash: Tween
+var _reserve_flash: Tween
 var _ammo_label: Label
 var _ammo_reserve_label: Label
 var _weapon_label: Label
@@ -86,6 +93,14 @@ func _ready() -> void:
 	_font_regular = Style.make_font(400)
 	_font_mono = Style.make_mono_font(600)
 	_build()
+	_clock_view = preload("res://ui/game_clock_hud.gd").new()
+	_clock_view.clock = get_parent().game_clock
+	add_child(_clock_view)
+	get_viewport().size_changed.connect(_position_source_hud)
+	_top_bar.resized.connect(_position_source_hud)
+	_position_source_hud.call_deferred()
+	event_timeline = preload("res://ui/event_timeline.gd").new()
+	add_child(event_timeline)
 
 ## 从 style-config.json "hud" 段读取布局/字号/行为/文案（改配置不改代码）
 func _hud_cfg() -> void:
@@ -161,45 +176,49 @@ func _sync_top_bar() -> void:
 
 func _build() -> void:
 	_build_tooltip()
-	# 左下：武器模式 + 武器名（原项目 weapon-info，金色发光）
-	var wsize := _cfg_int(_weapon_cfg, "size", 16)
-	var wmode := _make_label("武器", Vector2.ZERO, 12, Style.COLOR_DIM_TEXT)
-	wmode.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-	wmode.offset_left = 16.0
-	wmode.offset_top = -204.0
-	_weapon_label = _make_label("", Vector2.ZERO, wsize, Style.THEME_GOLD)
-	_weapon_label.add_theme_font_override("font", _font_bold)
-	_weapon_label.add_theme_color_override("font_color", Style.THEME_GOLD)
-	_weapon_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-	_weapon_label.offset_left = 16.0
-	_weapon_label.offset_top = -182.0
+	# 左下武器读数：与弹药栏同高，名称使用公共冷钢名称角色。
+	var weapon_card := PanelContainer.new()
+	weapon_card.name = "WeaponReadout"
+	weapon_card.add_theme_stylebox_override("panel", Style.make_hud_surface(10, 4))
+	add_child(weapon_card)
+	weapon_card.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
+	weapon_card.offset_left = 16
+	weapon_card.offset_right = 176
+	weapon_card.offset_top = -132
+	weapon_card.offset_bottom = -82
+	var weapon_copy := VBoxContainer.new()
+	weapon_copy.add_theme_constant_override("separation", 0)
+	weapon_card.add_child(weapon_copy)
+	var wmode := _make_label("当前武器", Vector2.ZERO, 12, Style.COLOR_DIM_TEXT)
+	wmode.reparent(weapon_copy)
+	Style.apply_text_role(wmode, &"caption")
+	_weapon_label = _make_label("", Vector2.ZERO, 20, Style.COLOR_AMMO)
+	_weapon_label.reparent(weapon_copy)
+	Style.apply_text_role(_weapon_label, &"name_title")
+	_weapon_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_bind_hover(_weapon_label, _label("weapon_tip_title", "当前武器"), _label("weapon_tip_desc", "正在使用的武器。1~4 键切换，R 键换弹。"),
 		func() -> Array: return [["武器", _weapon_name]])
+	_ammo_panel = PanelContainer.new()
+	_ammo_panel.name = "AmmoReadout"
+	_ammo_panel.add_theme_stylebox_override("panel", Style.make_hud_surface(10, 4))
+	add_child(_ammo_panel)
+	_ammo_panel.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	_ammo_panel.offset_left = -304
+	_ammo_panel.offset_right = -112
+	_ammo_panel.offset_top = -132
+	_ammo_panel.offset_bottom = -82
+	_ammo_panel.visible = _ammo_enabled
 	var ammo_row := HBoxContainer.new()
-	ammo_row.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	ammo_row.offset_left = -220.0
-	ammo_row.offset_top = -82.0
-	ammo_row.offset_right = -16.0
-	ammo_row.offset_bottom = -40.0
 	ammo_row.alignment = BoxContainer.ALIGNMENT_END
 	ammo_row.add_theme_constant_override("separation", 6)
-	add_child(ammo_row)
+	_ammo_panel.add_child(ammo_row)
 	_bind_hover(ammo_row, _label("ammo_tip_title", "弹药"), _label("ammo_tip_desc", "弹匣内子弹 / 备弹。弹匣打空后自动换弹。"),
 		func() -> Array: return [["弹匣", "%d" % _ammo_now], ["备弹", "%d" % _ammo_reserve]])
-	_ammo_label = Label.new()
-	_ammo_label.theme = _theme
-	_ammo_label.add_theme_font_override("font", _font_mono)
-	_ammo_label.add_theme_color_override("font_color", Style.COLOR_AMMO)
-	_ammo_label.add_theme_font_size_override("font_size", _cfg_int(_ammo_cfg, "size", 34))
-	_ammo_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-	ammo_row.add_child(_ammo_label)
-	_ammo_reserve_label = Label.new()
-	_ammo_reserve_label.theme = _theme
-	_ammo_reserve_label.add_theme_font_override("font", _font_mono)
-	_ammo_reserve_label.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
-	_ammo_reserve_label.add_theme_font_size_override("font_size", _cfg_int(_ammo_cfg, "reserve_size", 16))
-	_ammo_reserve_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-	ammo_row.add_child(_ammo_reserve_label)
+	_ammo_label = _make_ammo_column(ammo_row, "弹匣", Style.COLOR_AMMO)
+	var separator := VSeparator.new()
+	separator.modulate = Color(Style.COLOR_DIM_TEXT, 0.35)
+	ammo_row.add_child(separator)
+	_ammo_reserve_label = _make_ammo_column(ammo_row, "备弹", Style.COLOR_DIM_TEXT)
 	_status_label = _make_label("", Vector2.ZERO, _cfg_int(_status_cfg, "size", 16), Style.COLOR_STATUS)
 	_status_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	_status_label.offset_left = -300.0
@@ -261,7 +280,6 @@ func _build() -> void:
 func _build_hud_extras() -> void:
 	_build_top_bar()
 	_build_exp_bar()
-	_build_controls_hint()
 	_build_side_menu()
 
 
@@ -424,24 +442,6 @@ func _build_exp_bar() -> void:
 	_exp_bar.offset_bottom = 0
 	_exp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_exp_bar)
-
-
-func _build_controls_hint() -> void:
-	var p := PanelContainer.new()
-	p.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	p.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_LEFT)
-	p.offset_left = 10
-	p.offset_top = -150
-	p.offset_bottom = -78
-	p.add_theme_stylebox_override("panel",
-		Style.make_style(Color(Style.COLOR_HUD_BG, 0.5), Color(Style.COLOR_HUD_BORDER, 0.4), 8, 1))
-	add_child(p)
-	var l := Label.new()
-	l.text = "WASD 移动 · 左键攻击 · 空格闪避 · Shift 冲刺\n1~4 快捷栏 · Q/E/X/C 技能 · R 换弹\nTab 背包 · CapsLock 状态 · K 技能 · U 图鉴 · L 任务"
-	l.add_theme_font_size_override("font_size", 11)
-	l.add_theme_color_override("font_color", Color(Style.COLOR_HUD_TEXT, 0.75))
-	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	p.add_child(l)
 
 
 func _build_side_menu() -> void:
@@ -781,9 +781,9 @@ func set_mp(mp: int, max_mp: int) -> void:
 	if _top_mp_val != null:
 		_top_mp_val.text = "%d/%d" % [_mp_now, _mp_max]
 
-func set_weapon_name(name: String) -> void:
-	_weapon_name = name
-	_weapon_label.text = name
+func set_weapon_name(weapon_name: String) -> void:
+	_weapon_name = weapon_name if not weapon_name.strip_edges().is_empty() else "空手"
+	_weapon_label.text = _weapon_name
 
 func set_kills(n: int) -> void:
 	_kills = maxi(0, n)
@@ -791,14 +791,20 @@ func set_kills(n: int) -> void:
 func set_ammo(ammo: int, reserve: int) -> void:
 	_ammo_now = maxi(0, ammo)
 	_ammo_reserve = maxi(0, reserve)
-	var changed := ammo != _last_ammo
-	_last_ammo = ammo
-	_ammo_label.text = str(maxi(0, ammo))
+	var spent := _ammo_enabled and _last_ammo >= 0 and _ammo_now < _last_ammo
+	var reserve_spent := _ammo_enabled and _last_reserve >= 0 and _ammo_reserve < _last_reserve
+	_last_ammo = _ammo_now
+	_last_reserve = _ammo_reserve
+	_ammo_label.text = str(_ammo_now)
 	_ammo_label.add_theme_color_override("font_color",
-		Style.THEME_DANGER_RED if ammo <= 0 else Style.COLOR_AMMO)
-	_ammo_reserve_label.text = " / %d" % maxi(0, reserve)
-	if changed:
-		_pulse_label(_ammo_label)
+		Style.THEME_DANGER_RED if _ammo_now == 0 else Style.COLOR_AMMO)
+	_ammo_reserve_label.text = str(_ammo_reserve)
+	if spent:
+		if _ammo_flash != null: _ammo_flash.kill()
+		_ammo_flash = _pulse_label(_ammo_label)
+	if reserve_spent:
+		if _reserve_flash != null: _reserve_flash.kill()
+		_reserve_flash = _pulse_label(_ammo_reserve_label)
 
 func set_stamina(st: int, max_st: int) -> void:
 	_stamina_now = maxi(0, st)
@@ -814,11 +820,16 @@ func set_exp(v: int, max_v: int) -> void:
 	if _exp_bar != null:
 		_exp_bar.anchor_right = clampf(float(_exp_now) / float(_exp_max), 0.0, 1.0)
 
-func _pulse_label(l: Label) -> void:
-	var tw := create_tween()
-	tw.tween_property(l, "modulate",
-		Color(Style.THEME_WHITE.r * 1.35, Style.THEME_WHITE.g * 1.35, Style.THEME_WHITE.b * 1.35, 1.0), 0.07)
-	tw.tween_property(l, "modulate", Color.WHITE, 0.12)
+func _pulse_label(label: Label) -> Tween:
+	# A single local pulse; never hide the number or move its layout during automatic fire.
+	var flash := Color.WHITE * _cfg_num(_ammo_cfg, "flash_gain", 1.35)
+	flash.a = _cfg_num(_ammo_cfg, "flash_alpha", 0.65)
+	label.modulate = flash
+	var tween := create_tween()
+	flash.a = 1.0
+	tween.tween_property(label, "modulate", flash, _cfg_num(_ammo_cfg, "flash_attack", 0.045))
+	tween.tween_property(label, "modulate", Color.WHITE, _cfg_num(_ammo_cfg, "flash_release", 0.14)).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	return tween
 
 func show_status(text: String, duration: float) -> void:
 	_status_label.text = text
@@ -838,3 +849,57 @@ func damage_flash() -> void:
 
 func show_death() -> void:
 	_death_panel.visible = true
+
+func reset_ammo_feedback() -> void:
+	_last_ammo = -1
+	_last_reserve = -1
+	if _ammo_flash != null: _ammo_flash.kill()
+	if _reserve_flash != null: _reserve_flash.kill()
+	if _ammo_label != null: _ammo_label.modulate = Color.WHITE
+	if _ammo_reserve_label != null: _ammo_reserve_label.modulate = Color.WHITE
+
+
+func set_ammo_enabled(enabled: bool) -> void:
+	_ammo_enabled = enabled
+	if _ammo_panel != null:
+		_ammo_panel.visible = enabled
+	if not enabled:
+		reset_ammo_feedback()
+		_status_t = 0
+		_status_label.hide()
+
+
+func _make_ammo_column(row: HBoxContainer, title: String, color: Color) -> Label:
+	var column := VBoxContainer.new()
+	column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	column.add_theme_constant_override("separation", 0)
+	row.add_child(column)
+	var caption := Label.new()
+	Style.apply_text_role(caption, &"caption")
+	caption.text = title
+	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	caption.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
+	column.add_child(caption)
+	var value := Label.new()
+	value.theme = _theme
+	value.add_theme_font_override("font", _font_mono)
+	# Combat readout exception: both values share the existing 24px HUD size tier.
+	value.add_theme_font_size_override("font_size", _cfg_int(_ammo_cfg, "size", 24))
+	value.add_theme_color_override("font_color", color)
+	value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	value.custom_minimum_size.x = _font_mono.get_string_size("000000", HORIZONTAL_ALIGNMENT_LEFT, -1, _cfg_int(_ammo_cfg,"size",24)).x
+	column.add_child(value)
+	return value
+
+
+func _position_source_hud() -> void:
+	var width := get_viewport().get_visible_rect().size.x
+	_top_bar.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	_top_bar.offset_left = -_top_bar.size.x / 2.0
+	_top_bar.offset_right = _top_bar.size.x / 2.0
+	_top_bar.offset_top = 12
+	_clock_view.resize_clock()
+	# 窄窗口保持原始字号，在状态栏下方另起一行，防止互相遮挡。
+	if width * 0.5 + _top_bar.size.x * 0.5 + 8 > width - 398:
+		_clock_view.offset_top = 72
+		_clock_view.offset_bottom = 146

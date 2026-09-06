@@ -56,8 +56,11 @@
       "size": 14
     },
     "ammo": {
-      "size": 34,
-      "reserve_size": 16
+      "flash_gain": 1.35,
+      "flash_alpha": 0.65,
+      "flash_attack": 0.045,
+      "flash_release": 0.14,
+      "size": 24
     },
     "status": {
       "size": 16

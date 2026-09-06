@@ -23,6 +23,7 @@ var _save_queued := false
 var _pending_panels: Dictionary = {}
 var _ground_items: Array = []
 var _inventory_panels: Dictionary = {}
+var game_clock := preload("res://ui/game_clock.gd").new()
 const Save := preload("res://ui/inventory_save.gd")
 
 var _built := false
@@ -33,6 +34,8 @@ var _bind_gun_retries := 0
 
 
 func _process(_delta: float) -> void:
+	if get_tree().current_scene != null and not get_tree().paused:
+		game_clock.advance(_delta)
 	var scene := get_tree().current_scene
 	if scene == null or scene == _last_scene:
 		return
@@ -96,6 +99,7 @@ func _ensure_built() -> void:
 	economy = load("res://ui/economy.gd").new()
 	var saved := Save.read_snapshot()
 	if not saved.is_empty():
+		game_clock.restore(saved.get("game_clock", {}))
 		backpack.restore(saved.get("backpack", {}))
 		equipment.restore(saved.get("equipment", {}))
 		warehouse.restore(saved.get("warehouse", {}))
@@ -176,6 +180,7 @@ func _bind_gun(scene: Node) -> void:
 	if gun == null:
 		return
 	_bound_gun = gun
+	status_bar.reset_ammo_feedback()
 	gun.shot.connect(_on_ammo)
 	gun.reloaded.connect(_on_ammo)
 	gun.reloading.connect(_on_gun_reloading)
@@ -266,7 +271,7 @@ func save_inventory() -> Error:
 	var status := {}
 	for key in ["level", "exp", "str", "dex", "intt", "con", "wis", "luck", "attr_points"]:
 		status[key] = player_status.get(key)
-	var snapshot := {"version": 1, "backpack": backpack.serialize(), "equipment": equipment.serialize(),
+	var snapshot := {"game_clock": game_clock.serialize(), "version": 1, "backpack": backpack.serialize(), "equipment": equipment.serialize(),
 		"warehouse": warehouse.serialize(), "gold": economy.gold, "pending": _pending_panels.duplicate(true),
 		"status": status, "skills": skillbar.assignments.duplicate(true), "ground_items": _ground_items.duplicate(true)}
 	var error := Save.write_snapshot(snapshot)
@@ -325,3 +330,25 @@ func _exit_tree() -> void:
 	if DisplayServer.get_name() != "headless":
 		for shape in [Input.CURSOR_ARROW, Input.CURSOR_POINTING_HAND, Input.CURSOR_DRAG, Input.CURSOR_CAN_DROP]:
 			Input.set_custom_mouse_cursor(null, shape)
+
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.pressed or event.echo:
+		return
+	if event.physical_keycode != KEY_ALT or event.location != KEY_LOCATION_LEFT:
+		return
+	if not is_instance_valid(_bound_player) or bool(_bound_player.get("is_dead")):
+		return
+	get_viewport().set_input_as_handled()
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		return
+	# Keep the cursor available while a modal panel or drag operation owns it.
+	if get_viewport().gui_is_dragging() or (is_instance_valid(backpack_hud) and backpack_hud._panel_open):
+		return
+	for ref in _inventory_panels.values():
+		var panel = ref.get_ref()
+		if panel != null and panel.is_open():
+			return
+	if is_instance_valid(status_bar) and is_instance_valid(status_bar.event_timeline):
+		status_bar.event_timeline.close_popover()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

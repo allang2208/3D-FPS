@@ -75,3 +75,5 @@
 - 需要交互/数据：先看 `backpack.gd` / `equipment.gd` / `item_db.gd` 提供的信号与方法，UI 只消费接口。
 - 需要视觉：一律走 `style.gd` Token；新色值路径 = `DESIGN.md` → `style.gd` → 组件。
 - 需要参考成熟交互：打开本地 shadcn 文档站，把按钮/弹窗/拖拽的无障碍交互要求翻译成 Godot 实现。
+
+- 天气/事件接入：见skills/godot-weather-workflow/SKILL.md。24分钟昼夜、确定性天气、当前区域唯一降雨事件和左Alt鼠标交互；武器栏160×50、弹药24px数字及减少反馈。

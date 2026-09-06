@@ -4,12 +4,12 @@ extends RefCounted
 const HDRI := "res://assets/environment/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
 
 static func create_environment() -> WorldEnvironment:
-	var mat := PanoramaSkyMaterial.new()
-	mat.panorama = load(HDRI)
-	mat.energy_multiplier = 0.9
+	var mat := ShaderMaterial.new()
+	mat.shader = load("res://assets/environment/day_night.gdshader")
 	var sky := Sky.new()
 	sky.sky_material = mat
 	sky.radiance_size = Sky.RADIANCE_SIZE_256
+	sky.process_mode = Sky.PROCESS_MODE_REALTIME
 	var env := Environment.new()
 	env.background_mode = Environment.BG_SKY
 	env.sky = sky
@@ -37,6 +37,7 @@ static func create_environment() -> WorldEnvironment:
 	env.ssr_enabled = false
 	env.glow_enabled = false
 	var node := WorldEnvironment.new()
+	node.set_script(load("res://scripts/day_night_environment.gd"))
 	node.name = "WorldEnvironment"
 	node.environment = env
 	return node
