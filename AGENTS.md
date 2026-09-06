@@ -19,3 +19,7 @@
 # 昼夜、天气与事件预报
 
 添加或优化天气先读[天气技能](skills/godot-weather-workflow/SKILL.md)及[标准工作流](docs/weather-development-workflow.md)，事件进度栏保持当前用户确认格式；清理和推送按WORKFLOW第8节。
+
+# 体素与建筑
+
+玩家可建造体素先读 [体素标准](VOXEL-WORKFLOW.md) 和 [体素技能](skills/godot-voxel-workflow/SKILL.md)；基地、模组拼接及建造系统先读 [建筑工作流](BUILDING-WORKFLOW.md) 和 [建筑技能](skills/godot-building-workflow/SKILL.md)。面板继续使用冷钢UI规则，发布遵守WORKFLOW第8节。
