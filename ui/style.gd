@@ -302,6 +302,23 @@ static func make_font(weight := 400) -> Font:
 		_font_regular = _ui_font_face("res://assets/ui/fonts/MicrosoftYaHei.ttc")
 	return _font_regular
 
+## User-approved gunsmith typography, shared by every panel.
+static var _heading_fonts: Dictionary = {}
+static func make_heading_font(size_px := 20) -> Font:
+	var tracking := 2 if size_px >= 20 else 1
+	if not _heading_fonts.has(tracking):
+		var font := make_font(700 if size_px >= 20 else 600).duplicate() as FontVariation
+		font.spacing_glyph = tracking
+		_heading_fonts[tracking] = font
+	return _heading_fonts[tracking]
+
+static func style_item_name(label: Label) -> void:
+	label.add_theme_font_override("font", make_item_name_font())
+	label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
+	label.add_theme_constant_override("shadow_offset_x", 0)
+	label.add_theme_constant_override("shadow_offset_y", 1)
+	label.add_theme_constant_override("shadow_outline_size", 0)
+
 ## Both TTC files contain face 0 YaHei and face 1 YaHei UI. Match --bp-font-ui.
 static func _ui_font_face(path: String) -> Font:
 	var face := FontVariation.new()
@@ -311,7 +328,7 @@ static func _ui_font_face(path: String) -> Font:
 
 ## 浮窗排版规范（所有 tooltip 统一使用，禁止各组件自造字号/字重）
 static func tt_font_title() -> Font: return make_font(700)
-static func tt_font_value() -> Font: return make_font(600)
+static func tt_font_value() -> Font: return make_mono_font()
 static func tt_font_body() -> Font: return make_font(400)
 static func tt_size_title() -> int: return 20
 static func tt_size_group() -> int: return 12
@@ -330,10 +347,23 @@ static func make_emoji_font() -> SystemFont:
 	f.font_names = PackedStringArray(["Segoe UI Emoji", "Noto Color Emoji", "Apple Color Emoji"])
 	return f
 
+static var _item_name_font: Font
+static func make_item_name_font() -> Font:
+	if _item_name_font == null:
+		var result := FontVariation.new()
+		result.base_font = load("res://assets/ui/fonts/simhei.ttf")
+		result.variation_embolden = 0.9
+		_item_name_font = result
+	return _item_name_font
+
 static func make_theme() -> Theme:
 	var t := Theme.new()
 	t.default_font = make_font()
 	t.default_font_size = 14
+	# Rich text bold spans must not fall back to the engine's default family.
+	t.set_font("normal_font", "RichTextLabel", make_font())
+	t.set_font("bold_font", "RichTextLabel", make_font(700))
+	t.set_font("mono_font", "RichTextLabel", make_mono_font())
 	for type in ["Label", "RichTextLabel", "Button", "CheckBox", "LineEdit", "SpinBox", "PopupMenu"]:
 		t.set_color("font_color", type, COLOR_TEXT)
 		t.set_color("font_hover_color", type, COLOR_WHITE)
@@ -826,6 +856,8 @@ static func _steel_texture(top: Color, bottom: Color, radius: int) -> Texture2D:
 	return texture
 
 static func release_fonts() -> void:
+	_heading_fonts.clear()
+	_item_name_font = null
 	_font_regular = null
 	_font_bold = null
 	_font_mono = null

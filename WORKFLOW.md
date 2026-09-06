@@ -60,7 +60,7 @@ $godot = 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe'
 ## 6. UI 线补充
 
 - UI 风格唯一真源：`DESIGN.md`（设计 DNA / Token / 一致性检查清单）。
-- UI 完整闭环：`UI-WORKFLOW.md`（定风格 → 出图 → 验收 → Token → 组件 → 验证 → 提交）。
+- UI 完整闭环：`UI-WORKFLOW.md`（读取当前冷钢标准 → 对照原组件与交互 → 复用公共Token/字体 → 实现状态与操作 → 同尺寸渲染验收 → 精确提交）。新面板必读 `skills/godot-cold-steel-ui/SKILL.md` 与 `docs/cold-steel-ui-standard.md`；已有用户确认目标无需重新出候选图。
 - UI 线动手前必读 `DESIGN.md` + 本文件；风格变更先改 `DESIGN.md` 再改代码。
 
 ## 7. 资产建模纪律（换模型 / 重导出 / 拆件）

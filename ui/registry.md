@@ -1,3 +1,5 @@
+> 2026-09-06 字体公共接口：普通UI `Style.make_font()`；标题 `Style.make_heading_font(20/16/24)`；物品名 `Style.make_item_name_font()` / `Style.style_item_name(label)`；数字 `Style.make_mono_font()`。新面板必读 [当前冷钢标准](../docs/cold-steel-ui-standard.md) 与 [工作流](../UI-WORKFLOW.md)，不要创建局部字体变体。
+
 > 2026-09-06 冷钢审计：共享主题、NPC面板、物品格、拖放槽及属性数字已校正；[审计报告](../docs/ui-audit-2026-09-06.md)。下方旧“金白”描述不作为当前视觉规则。
 
 # Godot UI 组件注册表（ui/registry.md）

@@ -1,3 +1,7 @@
+> 收尾执行入口：[冷钢UI当前标准](docs/cold-steel-ui-standard.md) · [新面板标准工作流](UI-WORKFLOW.md) · [项目SKILL](skills/godot-cold-steel-ui/SKILL.md)。以下历史章节仅作历史记录。
+
+> 2026-09-06 用户认可枪械改造字体并指定所有面板以此为标准：普通 UI 为 Microsoft YaHei UI，标题20px/分区16px由 `Style.make_heading_font()` 统一提供加粗与2px/1px字距；物品与武器名称统一 `Style.make_item_name_font()` 的 SimHei（embolden 0.9），名称Label使用 `Style.style_item_name()` 的轻阴影；数字Consolas。正文14px、辅助12px保持普通字重，背包紧凑格保留12px，装备/详情依语义使用16/20px。不要将整个界面全部换成黑体，也不要在各面板另建粗细不同的物品字体。此处字距是Godot整数字距的近似，不声称与CSS逐像素一致。
+
 > 2026-09-06 当前 UI 基准：[game-dev 冷钢 UI 完整源快照](docs/reference/game-dev-cold-steel/README.md)。所有 UI 的字号、字体、配色、布局、状态、动效及交互先查源规范、完整 CSS 和对应 UI 源码；本文件下方历史情绪板和近似参数不再决定样式。用户明确指定的 SimHei 物品名例外按快照 README 执行。复制规则与完成运行迁移分开验收。
 
 > 字体补充：原 CSS 优先 Microsoft YaHei UI（TTC face 1）；背包物品名按用户指定使用 SimHei（黑体）12px，堆叠数量与容量统一 Consolas，“背包”标题16px。物品名是用户明确指定的字体例外。右侧栏目使用原项目八张 PNG，68px 图、74px 按钮、25px 间距；详见 docs/backpack-reference.md。
@@ -12,6 +16,7 @@ Godot 唯一颜色入口 ui/palette.json，字体/尺寸入口 ui/style-config.j
 炭黑外壳、冷灰控件、银白信息；普通强调为银灰，金色仅用于金币/升级等游戏语义。
 字号 24/20/16/14/12/11，单面板最多四档；微软雅黑、Consolas 数字。
 右侧背包占屏宽45%、全高，0.25秒水平滑入；圆角10、格子8、滚动条8。
+枪械改造按用户 2026-09-06 指定采用全屏工作台：宽屏左侧枪械、中间预览、右侧配件与说明，窄屏配件移到预览下方；底部确认操作固定。继续使用冷钢颜色及 20/16/14/12px 四档，不套用背包45%宽度。
 按钮有默认、hover、pressed、disabled、focus；禁止持续弹跳/旋转。
 背包操作保留数量及实例属性，取消/失败不消耗；保存包括背包、装备、仓库、快捷栏和加工暂存。
 
