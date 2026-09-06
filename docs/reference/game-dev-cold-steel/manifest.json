@@ -1,0 +1,476 @@
+{
+  "source_root": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev",
+  "source_commit": "afc8961b8cb5ee9b9fb500638154874954153b19",
+  "copied_at": "2026-09-06",
+  "basis": "Source working-tree files, including any uncommitted source edits; byte-identical at copy time.",
+  "files": [
+    {
+      "path": "docs/audits/dungeon-route-1080p-2026-08-30/audit.md",
+      "bytes": 5804
+    },
+    {
+      "path": "docs/dungeon-console-restore-and-concepts.md",
+      "bytes": 2971
+    },
+    {
+      "path": "docs/dungeon-expedition-split-ui.md",
+      "bytes": 3616
+    },
+    {
+      "path": "docs/dungeon-exploration-console-v9.md",
+      "bytes": 26352
+    },
+    {
+      "path": "docs/dungeon-mine-landmark-ui-2026-08-30.md",
+      "bytes": 7320
+    },
+    {
+      "path": "docs/dungeon-route-structure-workflow.md",
+      "bytes": 4349
+    },
+    {
+      "path": "docs/important-information-notification-workflow.md",
+      "bytes": 20523
+    },
+    {
+      "path": "docs/population-economy-publication-2026-08-31.md",
+      "bytes": 3739
+    },
+    {
+      "path": "docs/rts-command-controls.md",
+      "bytes": 10061
+    },
+    {
+      "path": "docs/templates/cold-steel-panel-template.js",
+      "bytes": 2805
+    },
+    {
+      "path": "docs/ui-cold-steel-design-system.md",
+      "bytes": 24898
+    },
+    {
+      "path": "docs/world-map-panel.md",
+      "bytes": 23481
+    },
+    {
+      "path": "game-style.css",
+      "bytes": 224124
+    },
+    {
+      "path": "index.html",
+      "bytes": 2415
+    },
+    {
+      "path": "skill/10-ui-party.md",
+      "bytes": 110688
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 3834
+    },
+    {
+      "path": "src/ui/backpack-dialog-manager.js",
+      "bytes": 5097
+    },
+    {
+      "path": "src/ui/city-hall-detail.js",
+      "bytes": 20433
+    },
+    {
+      "path": "src/ui/city-hall-policy-panel.js",
+      "bytes": 18257
+    },
+    {
+      "path": "src/ui/codex-formula-helper.js",
+      "bytes": 1794
+    },
+    {
+      "path": "src/ui/codex-manager.js",
+      "bytes": 46432
+    },
+    {
+      "path": "src/ui/collision-editor.js",
+      "bytes": 99647
+    },
+    {
+      "path": "src/ui/companion-command-wheel.js",
+      "bytes": 10036
+    },
+    {
+      "path": "src/ui/companion-panel.js",
+      "bytes": 40922
+    },
+    {
+      "path": "src/ui/craft/craft-effects.js",
+      "bytes": 2851
+    },
+    {
+      "path": "src/ui/craft/weapon-image.js",
+      "bytes": 2046
+    },
+    {
+      "path": "src/ui/craft-system.js",
+      "bytes": 48882
+    },
+    {
+      "path": "src/ui/dev-tool.js",
+      "bytes": 132184
+    },
+    {
+      "path": "src/ui/dom-project-image.js",
+      "bytes": 3043
+    },
+    {
+      "path": "src/ui/dungeon-expedition-layout.js",
+      "bytes": 7401
+    },
+    {
+      "path": "src/ui/dungeon-exploration-console.js",
+      "bytes": 50821
+    },
+    {
+      "path": "src/ui/dungeon-route-bundles.js",
+      "bytes": 5013
+    },
+    {
+      "path": "src/ui/enchant-system.js",
+      "bytes": 34608
+    },
+    {
+      "path": "src/ui/enhance-system.js",
+      "bytes": 15972
+    },
+    {
+      "path": "src/ui/environment-lighting-settings.js",
+      "bytes": 1688
+    },
+    {
+      "path": "src/ui/equip/drag-drop-manager.js",
+      "bytes": 53697
+    },
+    {
+      "path": "src/ui/equip/equip-rules.js",
+      "bytes": 3328
+    },
+    {
+      "path": "src/ui/equip/slot-renderer.js",
+      "bytes": 8032
+    },
+    {
+      "path": "src/ui/equip-data-manager.js",
+      "bytes": 123403
+    },
+    {
+      "path": "src/ui/equip-manager.js",
+      "bytes": 42423
+    },
+    {
+      "path": "src/ui/equip-tooltip-manager.js",
+      "bytes": 54116
+    },
+    {
+      "path": "src/ui/expedition-system.js",
+      "bytes": 35915
+    },
+    {
+      "path": "src/ui/first-expedition-guide.js",
+      "bytes": 4845
+    },
+    {
+      "path": "src/ui/fusion-system.js",
+      "bytes": 14227
+    },
+    {
+      "path": "src/ui/game-menu.js",
+      "bytes": 30111
+    },
+    {
+      "path": "src/ui/game-ui-manager.js",
+      "bytes": 64046
+    },
+    {
+      "path": "src/ui/gameplay-pointer-boundary.js",
+      "bytes": 1613
+    },
+    {
+      "path": "src/ui/input.js",
+      "bytes": 21722
+    },
+    {
+      "path": "src/ui/item-drag-controller.js",
+      "bytes": 11712
+    },
+    {
+      "path": "src/ui/mailbox-panel.js",
+      "bytes": 18115
+    },
+    {
+      "path": "src/ui/npc-dialogue.js",
+      "bytes": 28819
+    },
+    {
+      "path": "src/ui/npc-portrait-tool.js",
+      "bytes": 15246
+    },
+    {
+      "path": "src/ui/opening-cinematic.js",
+      "bytes": 12987
+    },
+    {
+      "path": "src/ui/opening-dialogue.js",
+      "bytes": 15280
+    },
+    {
+      "path": "src/ui/panels/base-panel.js",
+      "bytes": 6225
+    },
+    {
+      "path": "src/ui/panels/building-detail-header.js",
+      "bytes": 3233
+    },
+    {
+      "path": "src/ui/panels/building-upgrade-card.js",
+      "bytes": 8194
+    },
+    {
+      "path": "src/ui/panels/building-upgrade-tooltip.js",
+      "bytes": 2118
+    },
+    {
+      "path": "src/ui/panels/dev-tools.js",
+      "bytes": 94210
+    },
+    {
+      "path": "src/ui/panels/game-layer.js",
+      "bytes": 590
+    },
+    {
+      "path": "src/ui/panels/geothermal-power-details.js",
+      "bytes": 5548
+    },
+    {
+      "path": "src/ui/panels/hud-core.js",
+      "bytes": 6421
+    },
+    {
+      "path": "src/ui/panels/hud-panels-expedition-quest-reward.js",
+      "bytes": 10731
+    },
+    {
+      "path": "src/ui/panels/hud-panels-misc.js",
+      "bytes": 33174
+    },
+    {
+      "path": "src/ui/panels/hud-panels-npc.js",
+      "bytes": 2726
+    },
+    {
+      "path": "src/ui/panels/hud-panels-shop-enhance-craft-enchant.js",
+      "bytes": 19882
+    },
+    {
+      "path": "src/ui/panels/hud-panels-system-tabs.js",
+      "bytes": 25381
+    },
+    {
+      "path": "src/ui/panels/menu-layer.js",
+      "bytes": 8500
+    },
+    {
+      "path": "src/ui/panels/mushroom-farm-details.js",
+      "bytes": 10241
+    },
+    {
+      "path": "src/ui/panels/navigation-debug.js",
+      "bytes": 13710
+    },
+    {
+      "path": "src/ui/panels/producer-rally-section.js",
+      "bytes": 4938
+    },
+    {
+      "path": "src/ui/panels/ui-panels.js",
+      "bytes": 3592
+    },
+    {
+      "path": "src/ui/party-ui.js",
+      "bytes": 4249
+    },
+    {
+      "path": "src/ui/population-growth-view.js",
+      "bytes": 18076
+    },
+    {
+      "path": "src/ui/quest-system.js",
+      "bytes": 25185
+    },
+    {
+      "path": "src/ui/quick-bar.js",
+      "bytes": 50247
+    },
+    {
+      "path": "src/ui/recruit-ui.js",
+      "bytes": 8057
+    },
+    {
+      "path": "src/ui/research-report-dock.js",
+      "bytes": 18166
+    },
+    {
+      "path": "src/ui/reward-system.js",
+      "bytes": 16270
+    },
+    {
+      "path": "src/ui/right-sidebar-panel-layer.js",
+      "bytes": 2179
+    },
+    {
+      "path": "src/ui/rts-command-presentation.js",
+      "bytes": 3253
+    },
+    {
+      "path": "src/ui/rts-command.js",
+      "bytes": 135280
+    },
+    {
+      "path": "src/ui/rts-unit-detail-model.js",
+      "bytes": 20073
+    },
+    {
+      "path": "src/ui/shop-system.js",
+      "bytes": 34540
+    },
+    {
+      "path": "src/ui/skill-manager.js",
+      "bytes": 139770
+    },
+    {
+      "path": "src/ui/sound-manager.js",
+      "bytes": 55422
+    },
+    {
+      "path": "src/ui/start-game-choice.js",
+      "bytes": 4546
+    },
+    {
+      "path": "src/ui/status-bar.js",
+      "bytes": 16956
+    },
+    {
+      "path": "src/ui/status-tooltip-helper.js",
+      "bytes": 16554
+    },
+    {
+      "path": "src/ui/strategic-expedition-panel.js",
+      "bytes": 23701
+    },
+    {
+      "path": "src/ui/system-ui.js",
+      "bytes": 10733
+    },
+    {
+      "path": "src/ui/technology-gate.js",
+      "bytes": 5719
+    },
+    {
+      "path": "src/ui/technology-tree-panel.js",
+      "bytes": 62353
+    },
+    {
+      "path": "src/ui/top-notification-queue.js",
+      "bytes": 5544
+    },
+    {
+      "path": "src/ui/typewriter-text.js",
+      "bytes": 4600
+    },
+    {
+      "path": "src/ui/ui-state.js",
+      "bytes": 986
+    },
+    {
+      "path": "src/ui/unit-display-settings.js",
+      "bytes": 1674
+    },
+    {
+      "path": "src/ui/wall-editor.js",
+      "bytes": 54983
+    },
+    {
+      "path": "src/ui/warehouse-system.js",
+      "bytes": 36988
+    },
+    {
+      "path": "src/ui/world-map-army-motion.js",
+      "bytes": 1235
+    },
+    {
+      "path": "src/ui/world-map-army-visuals.js",
+      "bytes": 1006
+    },
+    {
+      "path": "src/ui/world-map-audio.js",
+      "bytes": 3044
+    },
+    {
+      "path": "src/ui/world-map-command-feedback.js",
+      "bytes": 4543
+    },
+    {
+      "path": "src/ui/world-map-display.js",
+      "bytes": 1447
+    },
+    {
+      "path": "src/ui/world-map-relief-visuals.js",
+      "bytes": 1034
+    },
+    {
+      "path": "src/ui/world-map-settlement-visuals.js",
+      "bytes": 671
+    },
+    {
+      "path": "src/ui/world-map-settlers.js",
+      "bytes": 3160
+    },
+    {
+      "path": "src/ui/world-map-support.css",
+      "bytes": 1055
+    },
+    {
+      "path": "src/ui/world-map-support.js",
+      "bytes": 4553
+    },
+    {
+      "path": "src/ui/world-map-terrain-rules.js",
+      "bytes": 1823
+    },
+    {
+      "path": "src/ui/world-map-terrain.js",
+      "bytes": 9332
+    },
+    {
+      "path": "src/ui/world-map-view.js",
+      "bytes": 55745
+    },
+    {
+      "path": "src/ui/world-strategy.css",
+      "bytes": 760
+    },
+    {
+      "path": "src/ui/world-switch-panel.js",
+      "bytes": 119820
+    },
+    {
+      "path": "ui/hand-cursors.generated.css",
+      "bytes": 15823
+    },
+    {
+      "path": "ui/panel-theme-backpack.css",
+      "bytes": 388051
+    },
+    {
+      "path": "ui/technology-tree.css",
+      "bytes": 29471
+    }
+  ]
+}

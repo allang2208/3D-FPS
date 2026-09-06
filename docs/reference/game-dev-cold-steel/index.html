@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>无限轮回 - 俯视角动作RPG</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="game-style.css">
+    <link rel="stylesheet" href="ui/panel-theme-backpack.css">
+    <link rel="stylesheet" href="ui/technology-tree.css">
+    <style>
+        @keyframes toastFade {
+            0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 游戏容器 ===== -->
+    <div id="gameContainer" style="position: relative; width: 100vw; height: 100vh; overflow: hidden; background: #1a1a1a;">
+        <!-- 视觉标记：开发/生产模式 -->
+        <script>
+            const badge = document.createElement('div');
+            badge.id = 'modularBadge';
+            badge.style.cssText = 'position:fixed;bottom:4px;right:4px;background:rgba(90,140,90,0.85);color:#d4e8c5;font-size:10px;padding:2px 6px;border-radius:3px;z-index:9999;pointer-events:none;font-family:monospace;';
+            if (!document.getElementById('modularBadge')) { document.body.appendChild(badge); }
+            if (window.location.protocol === 'file:') { badge.textContent = 'LEGACY'; }
+            else { badge.textContent = 'MODULAR'; }
+            window.electronAPI?.getTestRelease?.().then((release) => {
+                if (!release) return;
+                badge.textContent = '固定测试版 · ' + release.version + ' · ' + release.id;
+                badge.title = '仅手动更新；构建时间：' + release.createdAt;
+                document.title = '无限轮回 · ' + badge.textContent;
+            }).catch((err) => console.warn('读取测试版信息失败', err));
+        </script>
+    </div>
+
+    <!-- 模块化入口（必须先加载，提供全局变量） -->
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>

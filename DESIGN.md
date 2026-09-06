@@ -1,3 +1,5 @@
+> 2026-09-06 当前 UI 基准：[game-dev 冷钢 UI 完整源快照](docs/reference/game-dev-cold-steel/README.md)。所有 UI 的字号、字体、配色、布局、状态、动效及交互先查源规范、完整 CSS 和对应 UI 源码；本文件下方历史情绪板和近似参数不再决定样式。用户明确指定的 SimHei 物品名例外按快照 README 执行。复制规则与完成运行迁移分开验收。
+
 > 字体补充：原 CSS 优先 Microsoft YaHei UI（TTC face 1）；背包物品名按用户指定使用 SimHei（黑体）12px，堆叠数量与容量统一 Consolas，“背包”标题16px。物品名是用户明确指定的字体例外。右侧栏目使用原项目八张 PNG，68px 图、74px 按钮、25px 间距；详见 docs/backpack-reference.md。
 
 > 2026-09-05 最新背包截图优先：背包装备页按用户提供的白色装备底板、白色空槽、深灰已装备槽和深灰背包格还原；具体值见 `ui/backpack_reference_style.gd`，布局证据见 `docs/backpack-reference.md`。这组局部规则覆盖上一版统一深灰槽，不改变其他面板的冷钢主题。
