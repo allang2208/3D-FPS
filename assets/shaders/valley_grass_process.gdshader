@@ -33,6 +33,9 @@ uniform float clod_min_threshold : hint_range(0.0, 1.0, 0.001) = 0.2;
 uniform float clod_max_threshold : hint_range(0.0, 1.0, 0.001) = 0.5;
 uniform float patch_min_threshold : hint_range(0.0, 1.0, 0.001) = 0.025;
 uniform float patch_max_threshold : hint_range(0.0, 1.0, 0.001) = 0.2;
+uniform float meadow_noise_scale = 0.0065;
+uniform float meadow_density_min : hint_range(0.0, 1.0, 0.01) = 0.58;
+uniform float meadow_density_max : hint_range(0.0, 1.0, 0.01) = 0.96;
 
 group_uniforms filtering;
 uniform float condition_dither_range : hint_range(0.0, 1.0, 0.01) = 0.15;
@@ -186,12 +189,27 @@ void start() {
 	// Smaller irregular gaps within broad meadow patches, stable in world space.
 	float detail_patch = textureLod(main_noise, uv * 4.7 + vec2(0.31, 0.73), 0.0).r;
 	patch *= mix(0.72, 1.0, smoothstep(0.22, 0.65, detail_patch));
+	// A second, much broader field prevents the meadow from reading as an
+	// evenly filled carpet.  The analytic river distance makes surviving bank
+	// grass greener and taller without adding a CPU ecology texture or draw pass.
+	float meadow = textureLod(main_noise, pos.xz * meadow_noise_scale + vec2(0.17, 0.61), 0.0).r;
+	float river_center = 9.0 * sin(pos.x / 49.0) + 4.0 * sin(pos.x / 23.0);
+	float river_half_width = 2.8 + 1.2 * sin(pos.x / 31.0) + 0.65 * sin(pos.x / 12.0);
+	float bank_distance = abs(pos.z - river_center) - river_half_width;
+	if (pos.x < -260.0) {
+		vec2 lake_uv = vec2((pos.x + 385.0) / 110.0, pos.z / 150.0);
+		bank_distance = min(bank_distance, (length(lake_uv) - 1.0) * 110.0);
+	}
+	float riparian = 1.0 - smoothstep(5.0, 32.0, max(bank_distance, 0.0));
+	float ecology_moisture = clamp(mix(0.18, 0.82, meadow) + riparian * 0.28, 0.0, 1.0);
+	float slope_health = smoothstep(surface_slope_min - 0.04, 0.96, w_normal.y);
+	float meadow_survival = mix(meadow_density_min, meadow_density_max, smoothstep(0.18, 0.78, meadow));
 	float width_modifier = 1.0 + 0.5 * smoothstep(0., max_dist, length(camera_position - pos));
 
 	// Calculate scale
 	vec3 scale = vec3(
 		mix(min_scale.x, max_scale.x, r.x) * width_modifier,
-		mix(min_scale.y, max_scale.y, r.y) + clods,
+		(mix(min_scale.y, max_scale.y, r.y) + clods) * mix(0.72, 1.12, ecology_moisture) * mix(0.72, 1.0, slope_health),
 		mix(min_scale.z, max_scale.z, r.z) * width_modifier) * patch;
 
 	// Apply scale to offset
@@ -216,6 +234,12 @@ void start() {
 	// For compatibility it seems we must shift as well.
 	// Surface slope filtering
 	if (surface_slope_min > w_normal.y + (r.y - 0.5) * condition_dither_range) {
+		pos.y = 0. / 0.;
+		pos.xz = vec2(100000.0);
+	}
+	// Cull within the existing GPU batch. This lowers fragment overdraw and
+	// creates persistent clearings while retaining one material and one grid.
+	if (r.z > meadow_survival * mix(0.62, 1.0, slope_health)) {
 		pos.y = 0. / 0.;
 		pos.xz = vec2(100000.0);
 	}
@@ -267,8 +291,9 @@ void start() {
 	// Apply the position
 	TRANSFORM[3].xyz = pos.xyz + offset;
 
-	// Save Fixed 2 Random values for Reg/Green color randomness
-	CUSTOM.rg = r.rg;
+	// Moisture drives a dry-olive to wet-green palette; G remains a stable
+	// per-instance variation value for hue, motion and blade diversity.
+	CUSTOM.rg = vec2(ecology_moisture, r.g);
 	// Save Y component scale pre-rotation
 	CUSTOM[3] = scale.y;
 }

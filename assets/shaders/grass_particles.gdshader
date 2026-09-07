@@ -9,7 +9,7 @@ uniform vec2 wind_direction = vec2(1.0, 1.0);
 // 与地面实际渲染色对齐（D3D12 实测：地面 RGB≈(137,172,136) / hue≈119 / sat≈0.21 / val≈0.67）。
 // 注意：贴图文件原始像素是深绿，但场景光照+曝光会把它提亮成低饱和草绿，
 // 草色必须对"渲染结果"而非"贴图文件"。
-uniform vec3 grass_color : source_color = vec3(0.54, 0.67, 0.53);
+uniform vec3 grass_color : source_color = vec3(0.31, 0.38, 0.19);
 
 varying vec4 data;
 
@@ -54,6 +54,6 @@ void fragment() {
 	// 背光减少（过强会让草叶发黄发白，与深绿地表脱节）
 	BACKLIGHT = vec3(0.15);
 	#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
-	ALBEDO = pow(ALBEDO, vec3(0.4));
+	ALBEDO = pow(ALBEDO, vec3(0.65));
 	#endif
 }

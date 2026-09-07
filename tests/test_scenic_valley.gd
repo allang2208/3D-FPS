@@ -17,17 +17,41 @@ func _ready() -> void:
 		await get_tree().physics_frame
 	var t: Terrain3D = scene.terrain
 	var player: CharacterBody3D = scene.get_node("Player")
+	var gun: Node3D = player.get_node("Camera3D/Gun")
+	var editor: Node = scene.get_node("WildernessEditor")
 	check(scene.get_script().resource_path == "res://scenes/scenic_valley.gd", "portal destination uses new valley")
+	check(scene.get_node("WorldEnvironment").get_meta("neutral_ground_ambient", false), "wilderness neutralizes blue daylight fill")
+	check(is_equal_approx(player.walk_speed, 4.5) and is_equal_approx(player.sprint_speed, 7.0), "wilderness uses canonical movement speeds")
+	check(player.floor_constant_speed, "canonical movement stays constant on slopes")
+	check(gun.get_script().resource_path == "res://scripts/gun.gd" and gun.process_mode != Node.PROCESS_MODE_DISABLED and gun.visible, "wilderness starts with canonical gun runtime")
+	check(not editor.enabled and not player.get_meta("terrain_editing", true), "wilderness starts in normal gameplay interaction mode")
+	var original_gun_mode := gun.process_mode
+	var original_gun_visible := gun.visible
+	editor.set_enabled(true)
+	check(gun.process_mode == Node.PROCESS_MODE_DISABLED and not gun.visible and player.get_meta("terrain_editing", false), "F7 tool mode exclusively owns tool input")
+	editor.set_enabled(false)
+	check(gun.process_mode == original_gun_mode and gun.visible == original_gun_visible and not player.get_meta("terrain_editing", true), "leaving tool mode restores gun and gameplay input")
 	check(player.is_on_floor(), "arrival settles on terrain")
 	var ground := t.data.get_height(player.position)
 	var capsule_node: CollisionShape3D=player.find_children("","CollisionShape3D",false,false)[0]
 	var feet_y: float=capsule_node.global_position.y-capsule_node.shape.height*0.5
 	check(absf(feet_y - ground) < 0.35, "player feet follow terrain")
 	check(t.collision.get_rid().is_valid(), "terrain collision RID")
+	var meadow_color: Color = t.data.get_color(Vector3(scene.ARRIVAL.x, 0, scene.ARRIVAL.y))
+	var upland_color: Color = t.data.get_color(Vector3(-120, 0, 70))
+	var river_x := -200.0
+	var river_color: Color = t.data.get_color(Vector3(river_x, 0, scene._river_center_z(river_x)))
+	check(meadow_color.g > meadow_color.r and upland_color.g > upland_color.r, "terrain tint stays vegetation-aligned olive")
+	check(meadow_color.g > meadow_color.b * 2.0 and upland_color.g > upland_color.b * 2.0, "terrain tint stays visibly green instead of blue-grey")
+	var meadow_luminance := meadow_color.r * 0.2126 + meadow_color.g * 0.7152 + meadow_color.b * 0.0722
+	var upland_luminance := upland_color.r * 0.2126 + upland_color.g * 0.7152 + upland_color.b * 0.0722
+	check(maxf(meadow_color.r, maxf(meadow_color.g, meadow_color.b)) < 0.72 and maxf(upland_color.r, maxf(upland_color.g, upland_color.b)) < 0.72, "terrain tint cannot wash back toward white")
+	check(meadow_luminance < 0.62 and upland_luminance < 0.62, "terrain tint keeps grounded meadow luminance")
+	check(minf(river_color.r, minf(river_color.g, river_color.b)) > 0.88 and absf(river_color.r - river_color.b) < 0.05, "riverbed color map preserves pale neutral pebbles")
 	var portal: Area3D = scene.get_node("ReturnPortal")
 	check(portal.target_scene == "res://scenes/main.tscn", "return destination preserved")
 	check(portal.position.distance_to(player.position) > 4.0, "arrival outside return trigger")
-	check(scene.get_node_or_null("MouseKingNpc") != null, "NPC preserved")
+	check(scene.get_node_or_null("MouseKingNpc") == null, "wilderness excludes Mouse King NPC")
 	var tree_count := 0
 	var bad_trees := 0
 	var missing_materials := 0
@@ -57,6 +81,13 @@ func _ready() -> void:
 		if t.data.get_height(Vector3(x, 0, center + w + 3.0)) > level:
 			bank_clear += 1
 	check(submerged == 37 and bank_clear == 37, "stream bed submerged and dry banks above water")
+	var water_material := scene.get_node("River").material_override as ShaderMaterial
+	var water_code := water_material.shader.code
+	check(water_material.shader.resource_path == "res://assets/shaders/valley_water.gdshader", "wilderness uses dedicated clear-water shader")
+	check(water_code.contains("hint_screen_texture") and water_code.contains("shore_foam") and water_code.contains("contact_foam"), "water keeps refraction depth and bank foam layers")
+	check(water_code.contains("smoothstep(0.10, 0.62, shore)"), "contact foam remains confined to the shoreline band")
+	check(not water_code.contains("* smoothstep(0.008, 0.09, thickness)"), "shallow water visibility does not depend on fragile depth gating")
+	check(not water_code.contains("for (float travel"), "wilderness water avoids SSR ray-march cost")
 	check(scene.get_node("ParticleGrass").particle_count <= 190000, "bounded near grass budget")
 	_test_landscape_physics(scene, t)
 	_test_grounding(scene, t)

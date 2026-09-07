@@ -6,8 +6,10 @@ shader_type spatial;
 render_mode skip_vertex_transform, cull_disabled, blend_mix;
 
 uniform vec2 wind_direction = vec2(1.0, 1.0);
-// 溪谷草色；实例颜色继续接收地形颜色图。
+// 溪谷草色；作为枯草与湿草之间的中间色。
 uniform vec3 grass_color : source_color = vec3(0.32, 0.40, 0.18);
+uniform vec3 dry_grass_color : source_color = vec3(0.34, 0.31, 0.14);
+uniform vec3 wet_grass_color : source_color = vec3(0.16, 0.32, 0.10);
 
 varying vec4 data;
 
@@ -42,18 +44,23 @@ void vertex() {
 }
 
 void fragment() {
-	// 草根至叶尖的轻微亮度变化。
-	ALBEDO = grass_color * (0.85 + data[2] * 0.3);
-	ALBEDO.rg *= (data.rg * 0.3 + 0.9);
-	ALBEDO *= COLOR.rgb;
+	// A coherent ecological palette: moisture changes species colour, while
+	// terrain tint is deliberately weak so painted ground cannot turn blades grey.
+	vec3 ecology_color = mix(dry_grass_color, wet_grass_color, smoothstep(0.08, 0.92, data.r));
+	ecology_color = mix(ecology_color, grass_color, 0.18);
+	ecology_color *= 0.92 + (data.g - 0.5) * 0.16;
+	vec3 terrain_tint = max(COLOR.rgb, vec3(0.08));
+	ALBEDO = ecology_color * mix(vec3(1.0), terrain_tint * 1.45, 0.16);
+	// Darker roots visually seat the ribbons into the ground; tips catch light.
+	ALBEDO *= 0.72 + data[2] * 0.34;
 	// Gentle midrib shading gives each ribbon a curved cross-section without more triangles.
 	ALBEDO *= mix(0.88, 1.04, 1.0 - abs(UV.x * 2.0 - 1.0));
 	ROUGHNESS = 0.85;
 	SPECULAR = 0.12;
 
 	// 背光减少（过强会让草叶发黄发白，与深绿地表脱节）
-	BACKLIGHT = vec3(0.15);
+	BACKLIGHT = ecology_color * 0.28;
 	#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
-	ALBEDO = pow(ALBEDO, vec3(0.4));
+	ALBEDO = pow(ALBEDO, vec3(0.65));
 	#endif
 }

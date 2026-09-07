@@ -3,7 +3,7 @@ extends "res://scenes/demo_terrain.gd"
 ## Authored scenic corridor; inherits the existing player/HUD/portal contracts.
 ## Bump CACHE_REVISION when changing the height/control/color recipe. -- --rebuild-valley
 ## regenerates only this scene's cache, never the original demo regions.
-const CACHE_REVISION := "valley_03"
+const CACHE_REVISION := "valley_14_white_pebbles"
 const VALLEY_DATA := "user://terrain_cache/" + CACHE_REVISION
 const ARRIVAL := Vector2(-90.0, 32.0)
 const FIR := "res://assets/models/polyhaven/fir_sapling/fir_sapling_2k.gltf"
@@ -16,6 +16,8 @@ const ROCK := "res://assets/models/polyhaven/rock_09/rock_09_2k.gltf"
 const ScenicCollision := preload("res://scenes/scenic_collision.gd")
 var _land_noise := FastNoiseLite.new()
 var _patch_noise := FastNoiseLite.new()
+var _ridge_noise := FastNoiseLite.new()
+var _gully_noise := FastNoiseLite.new()
 var _detail_meshes: Dictionary = {}
 var _fir_materials: Dictionary = {}
 var _batch_geometry: Dictionary = {}
@@ -38,7 +40,21 @@ func _ready() -> void:
 	_patch_noise.seed = 28061
 	_patch_noise.frequency = 0.17
 	_patch_noise.fractal_octaves = 3
+	_ridge_noise.seed = 17041
+	_ridge_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	_ridge_noise.frequency = 0.0105
+	_ridge_noise.fractal_octaves = 4
+	_gully_noise.seed = 41719
+	_gully_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
+	_gully_noise.frequency = 0.0065
+	_gully_noise.fractal_octaves = 3
 	super._ready()
+	# The valley uses the shared day/night system, but asks it for neutral daylight
+	# fill so blue skylight does not turn green terrain into a cyan-grey sheet.
+	var environment_node := get_node_or_null("WorldEnvironment")
+	if environment_node != null:
+		environment_node.set_meta("neutral_ground_ambient", true)
+		environment_node.environment.adjustment_saturation = 1.08
 	_build_distant_ridge()
 	if _player!=null:
 		var ground_editor:=preload("res://scripts/voxel_lab/wilderness_editor.gd").new()
@@ -100,6 +116,13 @@ func valley_height(p: Vector2) -> float:
 	var ridge_center := 84.0 if p.y > _river_center_z(x) else 72.0
 	h += exp(-pow((d - ridge_center) / 34.0, 2.0)) * enclosed * (18.0 + noise * 9.0)
 	h += noise * 1.3 * smoothstep(0.0, 9.0, bank)
+	# Uplands gain asymmetric rock ribs and narrow rain gullies. Both fade out
+	# before the shared river bank, preserving the walkable shoreline contract.
+	var upland := smoothstep(10.0, 58.0, maxf(0.0, bank))
+	var ridge_signal := maxf(0.0, _ridge_noise.get_noise_2d(x, p.y))
+	var gully_signal := 1.0 - absf(_gully_noise.get_noise_2d(x, p.y))
+	h += pow(ridge_signal, 2.2) * 7.5 * upland
+	h -= pow(maxf(0.0, gully_signal), 9.0) * 3.6 * upland
 	# The lake is a real basin; its water plane stays at a single elevation.
 	var lr := lake_radius(p)
 	if lr < 1.15:
@@ -111,7 +134,7 @@ func _build_terrain() -> Terrain3D:
 	var t := Terrain3D.new()
 	t.name = "Terrain3D"
 	add_child(t)
-	t.region_size = 256
+	t.region_size = Terrain3D.RegionSize.SIZE_256
 	t.material.auto_shader = false
 	t.material.world_background = Terrain3DMaterial.NONE
 	t.material.dual_scaling = true
@@ -152,40 +175,68 @@ func _build_terrain() -> Terrain3D:
 func _generate_maps(t: Terrain3D) -> void:
 	var height := Image.create_empty(1024, 1024, false, Image.FORMAT_RF)
 	var colors := Image.create_empty(1024, 1024, false, Image.FORMAT_RGBA8)
+	# Height is evaluated once. The material pass below reads neighboring pixels
+	# for slope/curvature instead of calling the full terrain formula repeatedly.
+	for iz in 1024:
+		for ix in 1024:
+			var p := Vector2(ix - 512.0, iz - 512.0)
+			height.set_pixel(ix, iz, Color(valley_height(p), 0, 0))
 	# Terrain3D controls are uint32 bit patterns, NOT float numeric values.
 	var bits := PackedByteArray()
 	bits.resize(1024 * 1024 * 4)
 	for iz in 1024:
 		for ix in 1024:
 			var p := Vector2(ix - 512.0, iz - 512.0)
-			var h := valley_height(p)
-			height.set_pixel(ix, iz, Color(h, 0, 0))
+			var h := height.get_pixel(ix, iz).r
 			var bank := shore_material_distance(p)
 			var n := _land_noise.get_noise_2d(p.x, p.y)
-			var slope := Vector2(valley_height(p + Vector2.RIGHT) - h,
-				valley_height(p + Vector2.DOWN) - h).length()
+			var left := height.get_pixel(maxi(0, ix - 1), iz).r
+			var right := height.get_pixel(mini(1023, ix + 1), iz).r
+			var up := height.get_pixel(ix, maxi(0, iz - 1)).r
+			var down := height.get_pixel(ix, mini(1023, iz + 1)).r
+			var slope := Vector2((right - left) * 0.5, (down - up) * 0.5).length()
+			var curvature := (left + right + up + down) * 0.25 - h
 			var base := 0
 			var overlay := 4
 			var blend := clampf((n + 0.15) * 0.35, 0.0, 0.3)
 			if bank < 1.5:
 				base = 1
 				overlay = 2
-				blend = clampf(0.2 + _patch_noise.get_noise_2d(p.x, p.y) * 0.65, 0.05, 0.55)
+				# Mostly rounded pale pebbles, with restrained colluvium in gaps.
+				blend = clampf(0.09 + _patch_noise.get_noise_2d(p.x, p.y) * 0.13, 0.02, 0.22)
 			elif bank < 6.5:
-				overlay = 2
-				blend = 1.0 - smoothstep(1.5, 6.5, bank)
-			elif slope > 0.85:
+				base = 1
+				overlay = 0
+				# Outside the waterline, fade pebbles directly into turf instead of
+				# creating a continuous dark mud/colluvium ring.
+				blend = smoothstep(1.5, 6.5, bank)
+			elif slope > 1.05:
+				base = 2
 				overlay = 3
-				blend = smoothstep(0.85, 1.3, slope)
+				blend = smoothstep(1.05, 1.75, slope)
+			elif slope > 0.38 or curvature > 0.16:
+				overlay = 2
+				blend = clampf(smoothstep(0.38, 1.15, slope) * 0.78 + smoothstep(0.16, 0.55, curvature) * 0.35, 0.18, 0.92)
 			elif p.y < _river_center_z(p.x) - 30.0:
 				overlay = 4
 				blend = clampf(0.35 + n, 0.15, 0.8)
 			var packed := (base << 27) | (overlay << 22) | (int(blend * 255.0) << 14)
 			bits.encode_u32((iz * 1024 + ix) * 4, packed)
-			var tint := Color(0.62, 0.69, 0.55).lerp(Color(0.88, 0.91, 0.79), clampf(n + 0.5, 0, 1))
-			if bank < 7:
-				tint = tint.lerp(Color(0.46, 0.44, 0.39), 1.0 - smoothstep(-0.3, 6.5, bank))
-			var wetness := lerpf(0.3, 0.56, smoothstep(-0.5, 3.0, bank))
+			# Terrain colour is a multiplier, so values near white wash the
+			# photographed turf out. Keep a muted olive variation that shares the
+			# same value range as the grass blades and surrounding vegetation.
+			var tint := Color(0.28, 0.60, 0.15).lerp(Color(0.40, 0.72, 0.22), clampf(n + 0.5, 0, 1))
+			if bank < 1.5:
+				# Pebbles stay neutral and pale beneath the water instead of inheriting
+				# the fresh-green meadow multiplier.
+				tint = Color(0.92, 0.94, 0.90)
+			elif bank < 6.5:
+				# Blend the white-grey stone edge directly into the unchanged turf.
+				tint = Color(0.88, 0.90, 0.86).lerp(tint, smoothstep(1.5, 6.5, bank))
+			# Terrain3D stores roughness correction around the neutral alpha 0.5.
+			# Keep only the immediate shoreline slightly wet; the former 0.56
+			# upland value left grass sparkling under low-angle sun.
+			var wetness := lerpf(0.44, 0.72, smoothstep(-0.5, 3.0, bank))
 			colors.set_pixel(ix, iz, Color(tint.r, tint.g, tint.b, wetness))
 	var control := Image.create_from_data(1024, 1024, false, Image.FORMAT_RF, bits)
 	t.data.import_images([height, control, colors], Vector3(-512, 0, -512), 0.0, 1.0)
@@ -237,7 +288,7 @@ func _blocked(box: AABB) -> bool:
 		var other := Rect2(Vector2(obstacle.position.x, obstacle.position.z), Vector2(obstacle.size.x, obstacle.size.z))
 		if footprint.intersects(other):
 			return true
-	for reserve in [ARRIVAL, ARRIVAL + Vector2(8, 3), ARRIVAL + Vector2(5, -5)]:
+	for reserve in [ARRIVAL, ARRIVAL + Vector2(8, 3)]:
 		if footprint.grow(2.0).has_point(reserve):
 			return true
 	return false
@@ -294,8 +345,8 @@ func _batch_model(path: String, p: Vector2, extent: float, rock: bool, iron: boo
 		if not xf.is_finite() or rock_box.end.y - terrain.data.get_height(rock_box.get_center()) < rock_box.size.y * 0.25:
 			placement_rejected += 1
 			return
-		# Preserve nested outcrops, but keep arrival/NPC/portal clear.
-		for reserve in [ARRIVAL, ARRIVAL + Vector2(8, 3), ARRIVAL + Vector2(5, -5)]:
+		# Preserve nested outcrops, but keep arrival and portal clear.
+		for reserve in [ARRIVAL, ARRIVAL + Vector2(8, 3)]:
 			if Rect2(Vector2(rock_box.position.x, rock_box.position.z), Vector2(rock_box.size.x, rock_box.size.z)).grow(2).has_point(reserve):
 				placement_rejected += 1
 				return
@@ -646,7 +697,9 @@ func _build_particle_grass() -> void:
 	pt.name = "ParticleGrass"
 	pt.mesh = preload("res://scenes/scenic_foliage.gd").grass_mesh()
 	# Configure before binding terrain so the large default grid is never allocated.
-	pt.instance_spacing = 0.25
+	# 0.28m plus shader clearings cuts simulated density by about 20% before
+	# ecological culling, while the five-blade tuft preserves near coverage.
+	pt.instance_spacing = 0.28
 	pt.cell_width = 8.0
 	pt.grid_width = 7
 	var pm: ShaderMaterial = pt.process_material.duplicate()
@@ -659,6 +712,9 @@ func _build_particle_grass() -> void:
 	pm.set_shader_parameter("wind_strength", 0.28)
 	pm.set_shader_parameter("surface_slope_min", 0.7)
 	pm.set_shader_parameter("main_noise_scale", 0.025)
+	pm.set_shader_parameter("meadow_noise_scale", 0.0065)
+	pm.set_shader_parameter("meadow_density_min", 0.58)
+	pm.set_shader_parameter("meadow_density_max", 0.96)
 	pm.set_shader_parameter("random_spacing", 0.85)
 	# Root calibration follows the actual ribbon mesh; no inherited magic offset.
 	pm.set_shader_parameter("position_offset", Vector3(0, -pt.mesh.get_aabb().position.y, 0))
@@ -702,10 +758,8 @@ func _build_return_portal() -> void:
 
 
 func _build_mouse_king() -> void:
-	super._build_mouse_king()
-	var p := Vector3(ARRIVAL.x + 5, 0, ARRIVAL.y - 5)
-	p.y = terrain.data.get_height(p) + 0.9
-	get_node("MouseKingNpc").position = p
+	# The hub/demo still owns this NPC; wilderness intentionally spawns none.
+	pass
 
 
 func _build_distant_ridge() -> void:
