@@ -37,3 +37,7 @@ description: 开发、改造或维护 3-dfps 的枪械、通用瞄具、ADS、�
 ## 装备、机械音、开火模式与镭射分态
 
 调整首次装备、动作音效、单发/三连发、腰射与 ADS 镭射、射程或枪管数值时，阅读[对应分卷](references/actions-audio-fire-modes.md)。其中记录源动作取段、独立音效许可、逐发反馈、当前 ADS 跟准心规则及独立发布边界。
+
+## 前握把动作与材质正式接入
+
+调整侧斜握把、装备回握或材质候选正式接入，阅读[专项复查](references/foregrip-material-integration.md)。
