@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scenes/scenic_valley.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/wilderness_far_field.gd" id="2_far"]
 
 [node name="ScenicValley" type="Node3D"]
 script = ExtResource("1")
+
+[node name="WildernessFarField" type="Node3D" parent="."]
+script = ExtResource("2_far")
