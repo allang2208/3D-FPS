@@ -12,6 +12,7 @@ const WeaponFormula := preload("res://ui/weapon_formula.gd")
 const AreaSkillScript := preload("res://scripts/area_skill.gd")
 const ThunderLanceScript := preload("res://scripts/thunder_lance.gd")
 const LoadingScreenScript := preload("res://ui/loading_screen.gd")
+const GameplayPlayerFactory := preload("res://scripts/gameplay_player_factory.gd")
 
 var _player: Node3D
 var _gun: Node3D
@@ -114,36 +115,11 @@ func _build_wall(pos: Vector3, size: Vector3, color: Color) -> void:
 	add_child(body)
 
 func _build_player() -> void:
-	var player := CharacterBody3D.new()
-	player.name = "Player"
-	player.position = Vector3(0, 0.2, 8)
-	player.set_script(load("res://scripts/player.gd"))
+	var runtime := GameplayPlayerFactory.create(Vector3(0, 0.2, 8))
+	var player: CharacterBody3D = runtime.player
 	player.damaged.connect(_on_player_damaged)
 	player.died.connect(_on_player_died)
-	var col := CollisionShape3D.new()
-	var cap := CapsuleShape3D.new()
-	cap.radius = 0.35
-	cap.height = 1.7
-	col.shape = cap
-	player.add_child(col)
-	var cam := Camera3D.new()
-	cam.name = "Camera3D"
-	cam.position = Vector3(0, 1.62, 0)
-	cam.fov = 75.0
-	player.add_child(cam)
-	# 3D 音效监听点（技能/枪声以玩家相机为听点）
-	var listener := AudioListener3D.new()
-	cam.add_child(listener)
-	var cfx := Node3D.new()
-	cfx.name = "CameraFx"
-	cfx.set_script(load("res://scripts/camera_fx.gd"))
-	cam.add_child(cfx)
-	var gun := Node3D.new()
-	gun.name = "Gun"
-	gun.position = Vector3(0.28, -0.26, -0.5)
-	gun.set_script(load("res://scripts/gun.gd"))
-	cam.add_child(gun)
-	_gun = gun
+	_gun = runtime.gun
 	add_child(player)
 	_player = player
 	_refresh_weapon_mods()

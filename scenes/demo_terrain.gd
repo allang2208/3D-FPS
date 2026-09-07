@@ -8,6 +8,7 @@ const DATA_DIR := "res://assets/terrain_data/demo"
 const NpcConfig := preload("res://ui/npc_config.gd")
 const NpcPanels := preload("res://ui/npc_panels.gd")
 const WeaponFormula := preload("res://ui/weapon_formula.gd")
+const GameplayPlayerFactory := preload("res://scripts/gameplay_player_factory.gd")
 
 var terrain: Terrain3D
 var rng := RandomNumberGenerator.new()
@@ -149,7 +150,7 @@ func _build_terrain() -> Terrain3D:
 	# 地形数据缓存：region 文件已落盘时直接加载，跳过 2×1M 像素的 GDScript 重建
 	# （高度图 + colormap 各 1024² 循环 + 噪声采样），传送门来回不再卡。
 	# 生成器是确定性的（种子固定），缓存与程序化重建数据完全一致，画面零变化。
-	t.region_size = 512
+	t.region_size = Terrain3D.RegionSize.SIZE_256
 	var data_dir_abs := ProjectSettings.globalize_path(DATA_DIR)
 	var region_files: Array[String] = []
 	if DirAccess.dir_exists_absolute(data_dir_abs):
@@ -767,37 +768,12 @@ func _place_scene(path: String, at: Vector3, scale: float) -> void:
 
 
 func _build_player() -> void:
-	var player := CharacterBody3D.new()
-	player.name = "Player"
 	var spawn := Vector3(0, 0, 40)
 	# 出生点在地表上方 2m：Heightfield 碰撞单面，从下方/内部生成会直接掉穿
-	player.position = Vector3(spawn.x, terrain.data.get_height(spawn) + 2.0, spawn.z)
-	player.set_script(load("res://scripts/player.gd"))
+	var runtime := GameplayPlayerFactory.create(Vector3(spawn.x, terrain.data.get_height(spawn) + 2.0, spawn.z))
+	var player: CharacterBody3D = runtime.player
 	player.damaged.connect(_on_player_damaged)
 	player.died.connect(_on_player_died)
-	var col := CollisionShape3D.new()
-	var cap := CapsuleShape3D.new()
-	cap.radius = 0.35
-	cap.height = 1.7
-	col.shape = cap
-	player.add_child(col)
-	var cam := Camera3D.new()
-	cam.name = "Camera3D"
-	cam.position = Vector3(0, 1.62, 0)
-	cam.fov = 75.0
-	cam.current = true  # Terrain3D 需要活动相机，否则报错并停止物理进程
-	player.add_child(cam)
-	var listener := AudioListener3D.new()
-	cam.add_child(listener)
-	var cfx := Node3D.new()
-	cfx.name = "CameraFx"
-	cfx.set_script(load("res://scripts/camera_fx.gd"))
-	cam.add_child(cfx)
-	var gun := Node3D.new()
-	gun.name = "Gun"
-	gun.position = Vector3(0.28, -0.26, -0.5)
-	gun.set_script(load("res://scripts/gun.gd"))
-	cam.add_child(gun)
 	add_child(player)
 	_player = player
 
