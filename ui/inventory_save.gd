@@ -1,8 +1,13 @@
 extends RefCounted
 const PATH := "user://inventory-cold-steel-v1.save"
 
+static func resolved_path(path := PATH) -> String:
+	if OS.has_environment("INVENTORY_SAVE_PATH") and path == PATH:
+		return OS.get_environment("INVENTORY_SAVE_PATH")
+	return path
+
 static func read_snapshot(path := PATH) -> Dictionary:
-	path = OS.get_environment("INVENTORY_SAVE_PATH") if OS.has_environment("INVENTORY_SAVE_PATH") and path == PATH else path
+	path = resolved_path(path)
 	if not FileAccess.file_exists(path):
 		return {}
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -14,7 +19,7 @@ static func read_snapshot(path := PATH) -> Dictionary:
 	return {}
 
 static func write_snapshot(data: Dictionary, path := PATH) -> Error:
-	path = OS.get_environment("INVENTORY_SAVE_PATH") if OS.has_environment("INVENTORY_SAVE_PATH") and path == PATH else path
+	path = resolved_path(path)
 	var file := FileAccess.open(path + ".tmp", FileAccess.WRITE)
 	if file == null:
 		return FileAccess.get_open_error()

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuildPieceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/building/build_piece_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+stable_id = &"marble"
+display_name = "大理石块"
+category = "石材"
+form_label = "通用块"
+description = "冷灰天然纹脉与柔和抛光表面，延续主神空间的石材风格。可用于地面、墙体、顶棚与台阶。"
+thumbnail_path = "res://assets/ui/building/marble.png"
+cost_item = "stone"
+geometry_kind = "cube"
+material_key = "marble"
+max_health = 300
+impact_surface = "concrete"

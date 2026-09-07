@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="BuildPieceDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/building/build_piece_definition.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+stable_id = &"wood"
+display_name = "木材块"
+category = "木材"
+form_label = "通用块"
+description = "深色橡木体素。可用于地面、墙体、顶棚与台阶，具体用途由摆放位置决定。"
+thumbnail_path = "res://assets/ui/building/floor.png"
+cost_item = "wood"
+geometry_kind = "cube"
+material_key = "wood"
+max_health = 100
+impact_surface = "wood"

@@ -33,6 +33,25 @@ func count_item(id: String) -> int:
 			total += int(item.get("stack", 1))
 	return total
 
+func take_items(id: String, requested: int) -> int:
+	requested = maxi(0, requested)
+	if requested == 0 or count_item(id) < requested:
+		return 0
+	var taken := 0
+	for i in slots.size():
+		var item = slots[i]
+		if item == null or str(item.get("id", "")) != id:
+			continue
+		var amount := mini(requested - taken, int(item.get("stack", 1)))
+		taken += amount
+		item.stack = int(item.stack) - amount
+		if int(item.stack) == 0:
+			slots[i] = null
+		if taken == requested:
+			break
+	changed.emit()
+	return taken
+
 func item_count() -> int:
 	var n := 0
 	for it in slots:
