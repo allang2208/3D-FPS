@@ -1,0 +1,38 @@
+{
+  "modern": {
+    "mesh_rig_animation_descriptors_exact": true,
+    "original_binary_bytes_exact": true,
+    "clips": 16,
+    "material_only": true
+  },
+  "miner": {
+    "mesh_rig_animation_descriptors_exact": true,
+    "original_binary_bytes_exact": true,
+    "clips": 16,
+    "material_only": true
+  },
+  "runner": {
+    "mesh_rig_animation_descriptors_exact": true,
+    "original_binary_bytes_exact": true,
+    "clips": 16,
+    "material_only": true
+  },
+  "modern-variant": {
+    "mesh_rig_animation_descriptors_exact": true,
+    "original_binary_bytes_exact": true,
+    "clips": 16,
+    "material_only": true
+  },
+  "miner-variant": {
+    "mesh_rig_animation_descriptors_exact": true,
+    "original_binary_bytes_exact": true,
+    "clips": 16,
+    "material_only": true
+  },
+  "runner-variant": {
+    "mesh_rig_animation_descriptors_exact": true,
+    "original_binary_bytes_exact": true,
+    "clips": 16,
+    "material_only": true
+  }
+}

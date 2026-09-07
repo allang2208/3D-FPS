@@ -28,6 +28,8 @@ description: 制作和迁移 Godot 3D 怪物：从已有原画、2D 动作或视
 
 - 现成带动画人形模型的复用、Low Poly 修形与衣着变体，见 [现代僵尸复用案例](references/modern-zombie-reuse.md)。
 
+- 只改贴图、随机换皮与跨来源风格协调，见 [材质变体](references/material-variants.md)；后倒腿部接地及尸体结束后的地形脓液，见 [后倒与脓液](references/backfall-pus.md)。
+
 ## 3. 蒙皮与动作制作
 
 - 检查绑定姿态、逆绑定矩阵、骨链长度和关节朝向；按目标导入器限制权重数量并归一化。相近但分离的肢体不要因距离算法串权重。
