@@ -26,6 +26,8 @@ var _defs := {
 		"icon":"res://assets/ui/building/floor.png", "desc":"砍伐树木后收集的木材。用于搭建木质体素，每块消耗 1 份。"},
 	"stone": {"name":"石块", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
 		"icon":"res://assets/ui/building/stone_floor.png", "desc":"使用矿镐采集石块获得。用于搭建石质体素，每块消耗 1 份。"},
+	"soil": {"name":"泥土", "type":"材料", "category":"material", "rarity":"common", "stack_max":999,
+		"icon":"", "icon_fallback":"土", "desc":"在旷野使用矿镐挖掘地表获得，可用于后续回填与制作。"},
 
 	"hp_potion": {
 		"name": "治疗药水",

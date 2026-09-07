@@ -57,8 +57,13 @@ func reset_data() -> void:
 
 func mine(p: Vector3i) -> bool:
 	var previous:=soil_scars.has(Vector2i(p.x,p.z))
+	var previous_stock: Dictionary=stock.duplicate()
 	var changed:=p.y>-64 and ready_at(p) and super.mine(p)
-	if changed: edit_history.back()["scar_before"]=previous
+	if changed:
+		# Formal wilderness rewards go to the RPG backpack. Do not also mint a
+		# second copy into the voxel-lab fill reserve.
+		stock=previous_stock
+		edit_history.back()["scar_before"]=previous
 	return changed
 
 func place(p: Vector3i,kind: int,occupied: AABB) -> bool:

@@ -147,8 +147,8 @@ func resolve_contact() -> bool:
 func mine_cell(cell: Vector3i) -> bool:
 	if not allows_ground(): return false
 	var kind: int=editor.world.get_cell(cell)
-	mining_message="已挖掘并回收材料"
-	if kind!=2 and kind!=3: return editor.world.mine(cell)
+	mining_message="已挖掘，材料已收入背包"
+	if kind!=2 and kind!=3: return _mine_ground(cell)
 	if not mining_hits.has(cell): mining_hits.clear()
 	var count: int=mining_hits.get(cell,0)+1
 	mining_hits[cell]=count
@@ -162,7 +162,7 @@ func mine_cell(cell: Vector3i) -> bool:
 		mining_cracks=mining_cracks.filter(is_instance_valid)
 		editor.status.text="%s采集 %d / 3" % ["矿石" if kind==3 else "岩石",count]
 		return false
-	if not editor.world.mine(cell): return false
+	if not _mine_ground(cell): return false
 	mining_hits.erase(cell)
 	for tap in mining_cracks:
 		if is_instance_valid(tap) and is_instance_valid(tap.crack): tap.crack.hide()
@@ -172,6 +172,13 @@ func mine_cell(cell: Vector3i) -> bool:
 	burst.strike(at,normal,3,kind==3,true)
 	mining_message="%s已爆裂，材料已回收" % ("矿石" if kind==3 else "岩石")
 	return true
+
+func _mine_ground(cell: Vector3i) -> bool:
+	# The standalone voxel lab keeps its isolated stock. Formal wilderness
+	# exposes an atomic terrain + backpack harvest entry point instead.
+	if editor.has_method("harvest_ground_cell"):
+		return editor.harvest_ground_cell(cell)
+	return editor.world.mine(cell)
 
 static func is_tree(body: Node) -> bool:
 	return body is StaticBody3D and body.has_meta("landscape_asset") and body.get_meta("impact_surface","")=="wood"

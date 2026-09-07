@@ -1,5 +1,6 @@
 extends "res://scripts/voxel_lab/voxel_lab.gd"
 ## 正式旷野中的地形工具，共用玩家和 HUD，F7 切换武器/地形操作。
+const GROUND_REWARDS := {1:"soil",2:"stone",3:"iron_ore"}
 var scene: Node3D
 var enabled := false
 var tool_layer: CanvasLayer
@@ -25,8 +26,9 @@ func _ready() -> void:
 	add_child(world)
 	_build_ui()
 	_build_preview()
-	toolkit.set_active(false)
-	preview.visible=false
+	# Wilderness enters as an ordinary gameplay map. The editor may take over
+	# input only after an explicit F7 toggle.
+	_sync_gameplay_mode()
 	grass_base=scene.grass_exclusion.duplicate()
 	grass_texture=ImageTexture.create_from_image(grass_base)
 	scene.get_node("ParticleGrass").process_material.set_shader_parameter("solid_exclusion",grass_texture)
@@ -51,7 +53,7 @@ func _build_ui() -> void:
 	var hints:=CanvasLayer.new()
 	add_child(hints)
 	hint_label=Label.new()
-	hint_label.text="F7 地形工具：挖掘 / 填土 / 建造"
+	hint_label.text="B 建造 · 6 伐木斧 · 7 矿镐 · F7 返回武器"
 	hint_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	hint_label.position=Vector2(-220,-42)
 	hint_label.add_theme_color_override("font_shadow_color",Color.BLACK)
@@ -60,14 +62,26 @@ func _build_ui() -> void:
 	hints.add_child(hint_label)
 
 func set_enabled(value: bool) -> void:
-	if enabled==value: return
+	if enabled==value:
+		_sync_gameplay_mode()
+		return
+	if value:
+		var building:=scene.get_node_or_null("BuildingSystem")
+		if building!=null:
+			if building.menu!=null and building.menu.is_open(): building.menu.close()
+			building.set_active(false)
 	enabled=value
-	toolkit.set_active(value)
-	tool_layer.visible=value
-	hint_label.visible=not value
-	player.set_meta("terrain_editing",value)
+	_sync_gameplay_mode()
+	mine_delay=0.25
+
+func _sync_gameplay_mode() -> void:
+	toolkit.set_active(enabled)
+	tool_layer.visible=enabled
+	hint_label.visible=not enabled
+	preview.visible=false
+	player.set_meta("terrain_editing",enabled)
 	if gun!=null:
-		if value:
+		if enabled:
 			gun_mode=gun.process_mode
 			gun_visible=gun.visible
 			gun.process_mode=Node.PROCESS_MODE_DISABLED
@@ -75,12 +89,17 @@ func set_enabled(value: bool) -> void:
 		else:
 			gun.process_mode=gun_mode
 			gun.visible=gun_visible
-	if not value: preview.hide()
-	mine_delay=0.25
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_F7:
 		set_enabled(not enabled)
+		get_viewport().set_input_as_handled()
+		return
+	# Tool hotkeys enter harvesting directly; F7 remains the explicit way back
+	# to the firearm. Possession is still checked by BasicToolkit.equip().
+	if not enabled and event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_5,KEY_6,KEY_7]:
+		set_enabled(true)
+		super._input(event)
 		get_viewport().set_input_as_handled()
 		return
 	if not enabled: return
@@ -144,8 +163,8 @@ func _physics_process(delta: float) -> void:
 	if initial_restore and world.jobs.is_empty():
 		initial_restore=false
 		foliage_dirty=true
-		hint_label.text="F7 地形工具：挖掘 / 填土 / 建造"
-	if hint_label.text=="正在恢复旷野地形…" and world.jobs.is_empty(): hint_label.text="F7 地形工具：挖掘 / 填土 / 建造"
+		hint_label.text="B 建造 · 6 伐木斧 · 7 矿镐 · F7 返回武器"
+	if hint_label.text=="正在恢复旷野地形…" and world.jobs.is_empty(): hint_label.text="B 建造 · 6 伐木斧 · 7 矿镐 · F7 返回武器"
 	mine_delay-=delta
 	if enabled and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
 		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and mine_delay<=0:
@@ -165,6 +184,51 @@ func _physics_process(delta: float) -> void:
 		foliage_dirty=false
 	info.text="手持：%s · 木材 %d\n当前填充：%s\n泥土 %d · 岩石 %d · 矿石 %d · 砖 %d" % [toolkit.NAMES[toolkit.equipped],toolkit.wood,["","泥土","岩石","矿石","建筑砖"][selected],world.stock[1],world.stock[2],world.stock[3],world.stock[4]]
 	if world.jobs.is_empty() and status.text=="正在准备此处地面，完成后即可挖掘": status.text="地面已就绪，可以挖掘或填充"
+
+func harvest_ground_cell(cell: Vector3i) -> bool:
+	var kind: int=world.get_cell(cell)
+	var item_id: String=GROUND_REWARDS.get(kind,"")
+	if item_id.is_empty(): return false
+	var building:=scene.get_node_or_null("BuildingSystem")
+	if building!=null:
+		var foundation_error: String=building.terrain_excavation_error(cell)
+		if not foundation_error.is_empty():
+			status.text=foundation_error
+			return false
+	var hud:=get_node_or_null("/root/HUD")
+	var backpack: RefCounted=hud.backpack if hud!=null else null
+	if backpack==null:
+		status.text="背包尚未就绪"
+		return false
+	var old_slots: Array=backpack.slots.duplicate(true)
+	if not backpack.add_item(item_id,1):
+		status.text="背包空间不足，请整理后继续采集"
+		return false
+	if not world.mine(cell):
+		_restore_backpack(backpack,old_slots)
+		return false
+	# Terrain and inventory are one harvest transaction. Save terrain first;
+	# if either side fails, undo the edit and restore the previous backpack.
+	var terrain_error: Error=world.save_world(save_path)
+	if terrain_error!=OK:
+		world.undo_edit(AABB(Vector3(10000,10000,10000),Vector3.ONE))
+		_restore_backpack(backpack,old_slots)
+		status.text="地形保存失败，本次采集已撤销"
+		return false
+	var inventory_error: Error=hud.save_inventory()
+	if inventory_error!=OK:
+		world.undo_edit(AABB(Vector3(10000,10000,10000),Vector3.ONE))
+		var rollback_error: Error=world.save_world(save_path)
+		_restore_backpack(backpack,old_slots)
+		status.text="背包保存失败，本次采集已撤销" if rollback_error==OK else "采集回滚保存失败，请立即返回标题"
+		return false
+	save_delay=-1.0
+	foliage_dirty=true
+	return true
+
+func _restore_backpack(backpack: RefCounted, old_slots: Array) -> void:
+	backpack.slots=old_slots
+	backpack.changed.emit()
 
 func respawn() -> void:
 	if player==null: return

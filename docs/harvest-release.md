@@ -2,7 +2,7 @@
 
 从 origin/main 独立整理本次基础工具、伐木、石块/矿脉采集、六种背包材料、八种矿脉几何及对应技能。未合并共享 master 上其他会话的未发布提交。
 
-建筑工坊的基础 scripts/building/build_system.gd 与 build_panel.gd 尚不在本次远端基线上，属于另一组未发布工作。本次只发布采集所需 build_costs.gd 与木石物品定义，不带入整套建筑系统。docs/build-materials.md 描述的是原开发工作区已接入的建筑消耗；其面板与扣费调用仍留在原工作区，待建筑基础系统一起发布。
+当时建筑工坊基础尚未发布，因此该批只带入采集所需的 build_costs.gd 与木石物品定义。2026-09-07 的后续批次已从最新 origin/main 独立组合正式 BuildingSystem、五构件目录与旷野接入；本段保留为 2026-09-06 发布边界记录。
 
 保留可编辑 Blender、两把工具源 GLB、Kenney 原包及许可证、贴图原件、烘焙脚本和最终预览。旧铁矿贴图 iron_albedo.png 为生成历史原件，当前使用 iron_albedo_v2.png；旧采集 GIF 保留的是最终材质版本，八种新形态以 ore-variants-preview.png 为准。
 

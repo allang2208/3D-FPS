@@ -44,6 +44,16 @@ func _ready() -> void:
 		var ground_editor:=preload("res://scripts/voxel_lab/wilderness_editor.gd").new()
 		ground_editor.name="WildernessEditor"
 		add_child(ground_editor)
+		var building:=preload("res://scripts/building/build_system.gd").new()
+		building.player_override=_player
+		building.allow_terrain_anchors=true
+		building.terrain_source=terrain
+		# Terrain3D covers roughly -512..512 m. Keep a small safety border and
+		# express the range in the shared half-metre building grid.
+		building.minimum_cell=Vector3i(-992,-128,-992)
+		building.maximum_cell=Vector3i(992,384,992)
+		building.sidecar_suffix=".wilderness-building"
+		add_child(building)
 
 
 func _river_center_z(x: float) -> float:
