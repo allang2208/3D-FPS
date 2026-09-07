@@ -1,5 +1,6 @@
 extends RefCounted
 const Rules := preload("res://ui/item_rules.gd")
+const Spatial := preload("res://ui/spatial_inventory.gd")
 ## 装备栏数据模型（从旧版 EquipManager.equipFromBackpack / unequip 迁移）
 ## - 15 槽位沿用旧版装备页：earring/helmet/ring1/gloves/necklace/cloak/weapon/armor/
 ##   offhand/weapon2/belt/ring2/extra/boots/backpack
@@ -79,7 +80,7 @@ func equip_to_slot(key: String, backpack_slot: int) -> bool:
 			displaced.append(main_key)
 	for old_key in displaced:
 		if next[old_key] != null:
-			proposed = Rules.insert(proposed, next[old_key], _backpack.max_slots, backpack_slot)
+			proposed = Spatial.insert(proposed, next[old_key], backpack_slot)
 			if proposed.is_empty():
 				return false
 		next[old_key] = null
@@ -103,7 +104,7 @@ func unequip(key: String, preferred := -1) -> bool:
 		return equip_to_slot(key, preferred)
 	if preferred < 0:
 		preferred = int(item.get("backpack_slot", -1))
-	var proposed := Rules.insert(_backpack.slots, item, _backpack.max_slots, preferred)
+	var proposed := Spatial.insert(_backpack.slots, item, preferred)
 	if proposed.is_empty():
 		return false
 	slots[key] = null

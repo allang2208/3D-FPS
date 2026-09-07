@@ -1,6 +1,6 @@
 {
   "schema": "ui-registry-v1",
-  "updated": "2026-08-09",
+  "updated": "2026-09-07",
   "reference": "https://ui.shadcn.com/docs (local: E:/3d/shadcn-ui)",
   "rules": [
     "新 UI 任务先查本注册表，能复用绝不新建",
@@ -203,18 +203,36 @@
       "type": "panel",
       "path": "ui/backpack_hud.gd",
       "status": "stable",
-      "deps": ["style", "backpack", "equipment", "item_tooltip"],
-      "interfaces": ["signal player_healed(hp)", "setup(bp, eq)"],
-      "tests": ["tests/test_backpack.gd", "tests/test_ui_tokens.gd"]
+      "deps": ["style", "backpack", "equipment", "spatial_inventory", "item_icon", "item_tooltip"],
+      "interfaces": ["signal player_healed(hp)", "setup(bp, eq)", "full-footprint drag/drop"],
+      "tests": ["tests/test_backpack.gd", "tests/test_backpack_grid_capacity.gd", "tests/test_ui_tokens.gd"]
+    },
+    {
+      "name": "spatial_inventory",
+      "type": "data",
+      "path": "ui/spatial_inventory.gd",
+      "status": "stable",
+      "deps": ["item_rules"],
+      "interfaces": ["footprint", "occupancy", "insert", "move", "pack", "restore_placements"],
+      "tests": ["tests/test_backpack_grid_capacity.gd"]
+    },
+    {
+      "name": "item_icon",
+      "type": "adapter",
+      "path": "ui/item_icon.gd",
+      "status": "stable",
+      "deps": ["assets/ui/icons/equip"],
+      "interfaces": ["path", "backpack_path", "equipment_path"],
+      "tests": ["tests/test_backpack_grid_capacity.gd"]
     },
     {
       "name": "backpack",
       "type": "data",
       "path": "ui/backpack.gd",
       "status": "stable",
-      "deps": ["item_db"],
-      "interfaces": ["signal changed/item_used/item_added/bound", "add_item", "remove_item", "swap_items", "bind_hotbar", "resolve_hotbar"],
-      "tests": ["tests/test_backpack.gd"]
+      "deps": ["item_db", "spatial_inventory"],
+      "interfaces": ["signal changed/item_used/item_added/bound", "add_item", "remove_item", "swap_items", "owner_at_cell", "used_cell_count"],
+      "tests": ["tests/test_backpack.gd", "tests/test_backpack_grid_capacity.gd"]
     },
     {
       "name": "equipment",

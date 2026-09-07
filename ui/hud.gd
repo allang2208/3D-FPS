@@ -297,6 +297,19 @@ func drop_inventory_item(slot: int, item: Dictionary) -> bool:
 	backpack.changed.emit()
 	return true
 
+func drop_equipped_item(key: String, item: Dictionary) -> bool:
+	if not is_instance_valid(_bound_player) or not is_instance_valid(get_tree().current_scene):
+		return false
+	var current: Dictionary = equipment.get_item(key)
+	if current.is_empty() or current != item or equipment.is_locked(key):
+		return false
+	var record := {"item": current.duplicate(true), "scene": get_tree().current_scene.scene_file_path, "position": _bound_player.global_position}
+	_ground_items.append(record)
+	equipment.slots[key] = null
+	_spawn_ground_item(record)
+	equipment.changed.emit()
+	return true
+
 func _spawn_ground_item(record: Dictionary) -> void:
 	var node := preload("res://ui/inventory_ground_item.gd").new()
 	node.record = record

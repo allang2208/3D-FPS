@@ -12,6 +12,7 @@ var items: Array = []
 var current_page := 0
 
 const Rules := preload("res://ui/item_rules.gd")
+const Spatial := preload("res://ui/spatial_inventory.gd")
 
 func _max_stack(item: Dictionary) -> int:
 	return Rules.max_stack(item)
@@ -37,11 +38,21 @@ func store_from_backpack(backpack, source: int, preferred := -1) -> bool:
 	if source < 0 or source >= backpack.slots.size() or backpack.slots[source] == null:
 		return false
 	if preferred >= 0:
-		var moved := Rules.transfer_at(backpack.slots, _as_slots(), source, preferred)
-		if moved.is_empty():
+		if preferred >= CAPACITY:
 			return false
-		backpack.slots = moved.source
-		items = moved.target.filter(func(it): return it != null)
+		var proposed_bp: Array = backpack.slots.duplicate(true)
+		var proposed_wh := _as_slots()
+		var incoming: Dictionary = proposed_bp[source]
+		proposed_bp[source] = null
+		if proposed_wh[preferred] != null:
+			proposed_bp = Spatial.insert(proposed_bp, proposed_wh[preferred], source)
+			if proposed_bp.is_empty():
+				return false
+		var stored := Rules.normalize(incoming)
+		stored.slot = preferred
+		proposed_wh[preferred] = stored
+		backpack.slots = proposed_bp
+		items = proposed_wh.filter(func(it): return it != null)
 		backpack.changed.emit()
 		changed.emit()
 		return true
@@ -59,15 +70,27 @@ func retrieve_to_backpack(backpack, source: int, preferred := -1) -> bool:
 	if item.is_empty():
 		return false
 	if preferred >= 0:
-		var moved := Rules.transfer_at(_as_slots(), backpack.slots, source, preferred)
-		if moved.is_empty():
+		var proposed_wh := _as_slots()
+		var target_anchor := Spatial.owner_at(backpack.slots, preferred)
+		var proposed_bp: Array = backpack.slots.duplicate(true)
+		var displaced = null
+		if target_anchor >= 0:
+			displaced = proposed_bp[target_anchor]
+			proposed_bp[target_anchor] = null
+		var placed := Spatial.insert(proposed_bp, item, preferred)
+		if placed.is_empty():
 			return false
-		items = moved.source.filter(func(it): return it != null)
-		backpack.slots = moved.target
+		proposed_wh[source] = null
+		if displaced != null:
+			var stored := Rules.normalize(displaced)
+			stored.slot = source
+			proposed_wh[source] = stored
+		items = proposed_wh.filter(func(it): return it != null)
+		backpack.slots = placed
 		backpack.changed.emit()
 		changed.emit()
 		return true
-	var proposed := Rules.insert(backpack.slots, item, backpack.max_slots, preferred)
+	var proposed := Spatial.insert(backpack.slots, item, preferred)
 	if proposed.is_empty():
 		return false
 	items.erase(item)

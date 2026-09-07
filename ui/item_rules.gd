@@ -29,7 +29,9 @@ static func can_stack(a: Dictionary, b: Dictionary) -> bool:
 		return false
 	var left := a.duplicate(true)
 	var right := b.duplicate(true)
-	for key in ["instance_id", "itemId", "slot", "backpack_slot", "stack", "_price"]:
+	# Spatial coordinates describe placement, not item identity. They must not
+	# prevent otherwise identical stacks from merging after either item moved.
+	for key in ["instance_id", "itemId", "slot", "backpack_slot", "stack", "_price", "grid_x", "grid_y", "grid_w", "grid_h"]:
 		left.erase(key)
 		right.erase(key)
 	return left == right
