@@ -19,6 +19,9 @@ func _ready() -> void:
 	player=scene._player
 	camera=player.get_node("Camera3D")
 	gun=player.get_node_or_null("Camera3D/Gun")
+	# Enter the wilderness in ordinary FPS mode. F7 explicitly hands input to
+	# terrain editing, so a stale scene/meta value can never suppress the gun.
+	player.set_meta("terrain_editing", false)
 	save_path=OS.get_environment("WILDERNESS_SAVE_PATH") if OS.has_environment("WILDERNESS_SAVE_PATH") else "user://wilderness-terrain-v1.json"
 	world=preload("res://scripts/voxel_lab/wilderness_world.gd").new()
 	world.terrain=scene.terrain
