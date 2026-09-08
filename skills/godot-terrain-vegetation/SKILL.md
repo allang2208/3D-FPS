@@ -22,3 +22,5 @@ description: 维护 Terrain3D 植被、地表材质与平滑挖掘接入，处�
 - 正式验证包括三种变体覆盖、连续距离区间、地形贴合、根部不露、碰撞和传送门；需实际渲染近景/谷地，不能只凭无头退出码宣布视觉通过。基准帧耗必须固定条件比较，单次采样不代表性能提升。
 
 当前案例：`scenes/imported_pine.gd`、`assets/models/lolipop_pines/INTEGRATION.md`。三种 Big 树的 LOD0 为 4502/4793/5485 三角形，远档目前仍为作者简化网格，未启用 Billboard。
+
+涉及旷野帧率、雨天战斗、持续刷怪、换弹停顿或 F10 报告时，读取 [实战性能诊断](references/combat-performance.md)。

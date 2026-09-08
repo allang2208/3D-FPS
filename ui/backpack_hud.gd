@@ -223,10 +223,17 @@ func setup(bp: BackpackScript, eq: EquipmentScript, st: RefCounted = null, sb: S
 
 ## ---------- 数据变化刷新 ----------
 
+var _inventory_view_dirty := false
+
 func _refresh() -> void:
 	if backpack == null:
 		return
 	_refresh_hotbar()
+	# Keep the live hotbar and closing animation current; hidden cards wait.
+	if not _panel_open and not _panel_root.visible:
+		_inventory_view_dirty = true
+		return
+	_inventory_view_dirty = false
 	_refresh_grid()
 	_refresh_equip()
 	if _count_label != null:
@@ -751,6 +758,8 @@ func set_panel_open(open: bool) -> void:
 	var dim := _panel_root.get_node("Dim") as ColorRect
 	if open:
 		_panel_root.visible = true
+		if _inventory_view_dirty:
+			_refresh()
 		dim.modulate.a = 0.0
 		_apply_panel_slide(0.0)
 		_panel_anim = create_tween()

@@ -41,3 +41,5 @@ description: 在3-dfps项目开发、迁移或审计游戏面板、HUD和背包�
 天气图标和事件进度栏按[天气工作流](../godot-weather-workflow/SKILL.md)：保留原进度条，只显示当前区域一场当前或最近降雨，连续雨势在详情依次展示。
 
 卡片词条、快捷栏排布和真实渲染校准见[专项经验](references/card-hotbar.md)。
+
+排查换弹/采集触发隐藏背包刷新时，参照 [实战性能诊断](../godot-terrain-vegetation/references/combat-performance.md)，保留快捷栏实时更新与打开前同步。
