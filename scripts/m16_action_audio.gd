@@ -31,9 +31,15 @@ func _ready() -> void:
 		add_child(voice)
 		_players[cue] = voice
 
-func begin(clip: StringName, clip_length: float, duration: float) -> void:
+func begin(clip: StringName, clip_length: float, duration: float, drum := false) -> void:
+	start_cues(CUES.get(clip, []), clip_length, duration, drum and clip in [&"reload", &"reload_empty"])
+
+func start_cues(cues: Array, clip_length: float, duration: float, drum := false) -> void:
 	stop()
-	_cues = CUES.get(clip, [])
+	_cues = cues.duplicate(true)
+	if drum:
+		for cue in _cues: cue[0] = preload("res://scripts/large_drum_reload.gd").output_time(cue[0],clip_length)
+		clip_length *= 1.75
 	_speed = clip_length / duration if duration > 0.0 else 1.0
 
 func advance(delta: float) -> void:
