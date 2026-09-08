@@ -6,7 +6,15 @@ const Sound := preload("res://ui/sound.gd")
 ## 切换时用 THEME_* 色板整体替换上方旧 2D 暗金 COLOR_*，HUD/背包代码零改动。
 
 const PALETTE_PATH := "res://ui/palette.json"
+const HUD_HP := Color("#bd626d")
+const HUD_MP := Color("#7194ac")
+const HUD_HP_DEEP := Color("#763b43")
+const HUD_MP_DEEP := Color("#36566e")
+const DRAWER_TAB := Color("#2a3238")
+const DRAWER_FOCUS := Color("#8fa6b1")
+const DRAWER_RIM := Color("#71828b")
 const CONFIG_PATH := "res://ui/style-config.json"
+static var GLASS_TOKENS: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://ui/apple-glass-tokens.json"))
 
 # ---------- 风格配置（style-config.json，改配置不改代码） ----------
 static var ACTIVE_THEME := "dark_gold"            # dark_gold | gold_white_gray | gray_white
@@ -284,38 +292,65 @@ static var THEME_DIVIDER_ACCENT: Color = Color(0.8314, 0.6863, 0.2157, 0.6) # �
 
 # ---------- 字体 ----------
 
-## 冷钢字体真源：中文微软雅黑，纯数字 Consolas；组件只选择语义字号和字重。
-## 字体文件直载（绕开系统字体名解析，确保 100% 生效）：
-## - 正文/常规：微软雅黑 MicrosoftYaHei.ttc
-## - 加粗/标题：微软雅黑 Bold MicrosoftYaHeiBold.ttc
-## - 等宽数字：Consolas.ttf（VS Code 同款）
+## 当前字体：加粗宋体正文/标题，Consolas 数字。
+## 中文数字混排回退宋体；emoji独立保留。
 static var _font_regular: Font
 static var _font_bold: Font
 static var _font_mono: Font
 
-static func make_font(weight := 400) -> Font:
-	# Same SimHei family: headings bold, descriptive content regular.
-	if weight >= 600:
-		return make_item_name_font()
-	if _font_regular == null:
-		_font_regular = load("res://assets/ui/fonts/equipment_ui_regular.tres")
-	return _font_regular
+static func make_font(_weight := 400) -> Font:
+	return make_glass_font()
 
 ## User-approved gunsmith typography, shared by every panel.
 static var _heading_fonts: Dictionary = {}
 static func make_heading_font(size_px := 20) -> Font:
-	var tracking := 2 if size_px >= 20 else 1
+	var tracking := 0
 	if not _heading_fonts.has(tracking):
 		var font := make_font(700 if size_px >= 20 else 600).duplicate() as FontVariation
 		font.spacing_glyph = tracking
 		_heading_fonts[tracking] = font
 	return _heading_fonts[tracking]
 
+## Semantic text roles. Applying a new role clears stale name styling.
+static func apply_text_role(control: Control, role: StringName) -> void:
+	var font: Font = make_font()
+	var size := 14
+	match role:
+		&"title":
+			font = make_heading_font(20)
+			size = 20
+		&"section":
+			font = make_heading_font(16)
+			size = 16
+		&"name", &"name_body", &"name_title":
+			font = make_item_name_font()
+			size = 20 if role == &"name_title" else 14 if role == &"name_body" else 16
+		&"caption": size = 12
+		&"number", &"number_large":
+			font = make_mono_font()
+			size = 16 if role == &"number_large" else 14
+		&"body": pass
+		_:
+			push_error("Unknown text role: " + str(role))
+			return
+	if control is Label:
+		control.label_settings = null
+	control.add_theme_font_override("font", font)
+	control.add_theme_font_size_override("font_size", size)
+	control.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
+	control.add_theme_constant_override("shadow_offset_x", 0)
+	control.add_theme_constant_override("shadow_offset_y", 0)
+	control.add_theme_constant_override("shadow_outline_size", 0)
+	if role in [&"name", &"name_body", &"name_title"]:
+		control.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
+		control.add_theme_constant_override("shadow_offset_y", 0)
+	control.set_meta("text_role", role)
+
 static func style_item_name(label: Label) -> void:
 	label.add_theme_font_override("font", make_item_name_font())
 	label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
 	label.add_theme_constant_override("shadow_offset_x", 0)
-	label.add_theme_constant_override("shadow_offset_y", 1)
+	label.add_theme_constant_override("shadow_offset_y", 0)
 	label.add_theme_constant_override("shadow_outline_size", 0)
 
 ## Both TTC files contain face 0 YaHei and face 1 YaHei UI. Match --bp-font-ui.
@@ -326,18 +361,27 @@ static func _ui_font_face(path: String) -> Font:
 	return face
 
 ## 浮窗排版规范（所有 tooltip 统一使用，禁止各组件自造字号/字重）
-static func tt_font_title() -> Font: return make_font(700)
+static func tt_font_title() -> Font: return make_heading_font(tt_size_title())
 static func tt_font_value() -> Font: return make_mono_font()
 static func tt_font_body() -> Font: return make_font(400)
 static func tt_size_title() -> int: return 20
-static func tt_size_group() -> int: return 12
+static func tt_size_group() -> int: return 16
 static func tt_size_body() -> int: return 14
 static func tt_size_value() -> int: return 14
 
 ## 等宽字体（VS Code Consolas 同款）：HUD 数字/弹药/数值用，清晰对齐
-static func make_mono_font(_weight := 400) -> Font:
-	# Numeric content uses regular SimHei, regardless of legacy weight arguments.
-	return make_font()
+static var _number_fonts: Dictionary = {}
+static func make_mono_font(weight := 400) -> Font:
+	var bold := weight >= 600
+	if not _number_fonts.has(bold):
+		var file := FontFile.new()
+		file.load_dynamic_font(_local_font_path("ConsolasBold.ttf", "consolab.ttf") if bold else "res://assets/ui/fonts/Consolas.ttf")
+		file.hinting = TextServer.HINTING_LIGHT
+		file.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_ONE_QUARTER
+		file.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
+		file.fallbacks = [make_font(weight)]
+		_number_fonts[bold] = file
+	return _number_fonts[bold]
 
 ## emoji 回退字体（旧版图标加载失败时显示 item.icon 字符）
 static func make_emoji_font() -> SystemFont:
@@ -345,14 +389,28 @@ static func make_emoji_font() -> SystemFont:
 	f.font_names = PackedStringArray(["Segoe UI Emoji", "Noto Color Emoji", "Apple Color Emoji"])
 	return f
 
+## game-dev 冷钢覆盖层：统一HUD和通用面板壳，避免旧金属底纹覆盖主题。
 static var _item_name_font: Font
 static func make_item_name_font() -> Font:
-	if _item_name_font == null:
-		var result := FontVariation.new()
-		result.base_font = load("res://assets/ui/fonts/simhei.ttf")
-		result.variation_embolden = 0.9
-		_item_name_font = result
-	return _item_name_font
+	return make_glass_font()
+
+## Shared restrained glass surface. Geometry is explicit, never derived from text scale.
+static func make_surface(alpha := 0.9, radius := 16, horizontal := 12, vertical := 10) -> StyleBoxFlat:
+	var box := make_style(Color(Color(GLASS_TOKENS.colors.content), alpha), Color(Color(GLASS_TOKENS.colors.border), GLASS_TOKENS.glass.border_opacity), radius, 1)
+	box.content_margin_left = horizontal
+	box.content_margin_right = horizontal
+	box.content_margin_top = vertical
+	box.content_margin_bottom = vertical
+	box.shadow_color = Color(0, 0, 0, 0.20)
+	box.shadow_size = 5
+	box.shadow_offset = Vector2(0, 3)
+	return box
+
+static func make_hud_surface(horizontal := 18, vertical := 7) -> StyleBoxFlat:
+	return make_surface(0.84, 12, horizontal, vertical)
+
+static func make_cold_panel_surface() -> StyleBoxFlat:
+	return make_surface(0.90, 24, spacing("panel_padding"), spacing("panel_padding"))
 
 static func make_theme() -> Theme:
 	var t := Theme.new()
@@ -362,7 +420,7 @@ static func make_theme() -> Theme:
 	t.set_font("normal_font", "RichTextLabel", make_font())
 	t.set_font("bold_font", "RichTextLabel", make_font(700))
 	t.set_font("mono_font", "RichTextLabel", make_mono_font())
-	for type in ["Label", "RichTextLabel", "Button", "CheckBox", "LineEdit", "SpinBox", "PopupMenu"]:
+	for type in ["Label", "RichTextLabel", "Button", "CheckBox", "LineEdit", "SpinBox", "PopupMenu", "OptionButton", "CheckButton", "TextEdit"]:
 		t.set_color("font_color", type, COLOR_TEXT)
 		t.set_color("font_hover_color", type, COLOR_WHITE)
 		t.set_color("font_focus_color", type, COLOR_WHITE)
@@ -372,14 +430,15 @@ static func make_theme() -> Theme:
 	var buttons := make_button_style()
 	for state in buttons:
 		t.set_stylebox(state, "Button", buttons[state])
-	t.set_color("font_pressed_color", "Button", THEME_BG)
+	t.set_color("font_pressed_color", "Button", THEME_WHITE if ACTIVE_THEME == "cold_steel" else THEME_BG)
 	for type in ["VScrollBar", "HScrollBar"]:
 		var track := make_style(COLOR_HUD_TRACK, COLOR_TRANSPARENT, 4, 0)
 		track.content_margin_left = 4
 		track.content_margin_right = 4
 		t.set_stylebox("scroll", type, track)
 		for state in ["grabber", "grabber_highlight", "grabber_pressed"]:
-			t.set_stylebox(state, type, make_style(COLOR_SLOT_BG if state == "grabber" else COLOR_DRAG_OVER_BORDER, COLOR_HUD_TRACK, 4, 1))
+			var tint := COLOR_SLOT_BG if state == "grabber" else Color("#8ea6b2") if state == "grabber_highlight" else COLOR_DRAG_OVER_BORDER
+			t.set_stylebox(state, type, make_style(tint, COLOR_HUD_TRACK, 4, 1))
 	t.set_stylebox("normal", "LineEdit", make_style(COLOR_HUD_TRACK, COLOR_PANEL_BORDER, 6, 1))
 	t.set_stylebox("focus", "LineEdit", make_style(COLOR_TRANSPARENT, COLOR_DRAG_OVER_BORDER, 6, 2))
 	return t
@@ -399,6 +458,19 @@ static func make_slot_style(bg: Color, border: Color, size_class := "sm", border
 
 ## 按钮三态样式（DESIGN.md 第 5 节）：{normal, hover, pressed, disabled}
 static func make_button_style() -> Dictionary:
+	if ACTIVE_THEME == "cold_steel":
+		var styles := {}
+		for state in ["normal", "hover", "pressed", "disabled", "focus"]:
+			var box := make_surface(0.84, 12, 10, 6)
+			box.shadow_size = 0
+			box.bg_color = Color(GLASS_TOKENS.colors.get("button_" + state, GLASS_TOKENS.colors.button_disabled))
+			if state == "focus":
+				box.bg_color = Color.TRANSPARENT
+				box.border_color = Color(GLASS_TOKENS.colors.focus)
+				box.set_border_width_all(2)
+			if state == "disabled": box.border_color.a = 0.08
+			styles[state] = box
+		return styles
 	# Vega：rounded-md(6px)、px-2.5(10px) / py-1.5(6px)、1px 边框、禁用 50% 透明
 	var base_margin := {"content_margin_left": 10, "content_margin_right": 10,
 		"content_margin_top": 6, "content_margin_bottom": 6}
@@ -414,7 +486,9 @@ static func make_button_style() -> Dictionary:
 		"focus": make_style(COLOR_TRANSPARENT, COLOR_DRAG_OVER_BORDER, RADIUS_SM, 2)}
 
 ## 面板样式（玻璃感：半透明深灰底 + 细边框）
-static func make_panel_style() -> StyleBoxFlat:
+static func make_panel_style() -> StyleBox:
+	if ACTIVE_THEME == "cold_steel":
+		return make_cold_panel_surface()
 	# Vega：rounded-lg(8px)、1px 边框
 	var sb := make_style(Color(THEME_BG, 0.8), THEME_GRAY_MID, RADIUS_MD, 1)
 	sb.content_margin_left = SPACING.get("panel_padding", 10)
@@ -425,24 +499,9 @@ static func make_panel_style() -> StyleBoxFlat:
 
 ## 纹理面板（程序化生成深灰磨砂金属底纹，九宫格平铺；纹理：assets/ui/textures/panel_brushed.png）
 ## 内嵌卡面板（属性页分区卡片）：略亮底 + 顶部高光 + 1px 细框（textures/panel_inner.png）
-static func make_inner_panel_style() -> StyleBoxTexture:
-	var sb := StyleBoxTexture.new()
-	sb.texture = _steel_texture(COLOR_SLOT_BG, THEME_BG, 8) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_inner_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_inner.png")
-	sb.modulate_color = Color(1, 1, 1, 0.72)
-	var m := 12
-	sb.texture_margin_left = m
-	sb.texture_margin_right = m
-	sb.texture_margin_top = m
-	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.content_margin_left = 10
-	sb.content_margin_right = 10
-	sb.content_margin_top = 8
-	sb.content_margin_bottom = 8
-	return sb
+static func make_inner_panel_style() -> StyleBoxFlat:
+	return make_surface(0.52, 16, 10, 8)
 
-## 半透明毛玻璃主面板：深灰半透明底 + 1px 细框 + 投影；毛玻璃质感由面板背后 blur 层提供
 static func make_glass_panel_style(radius := -1, bg_alpha := 0.30) -> StyleBox:
 	var sb := StyleBoxFlat.new()
 	sb.bg_color = Color(THEME_BG, bg_alpha)
@@ -461,76 +520,22 @@ static func make_glass_panel_style(radius := -1, bg_alpha := 0.30) -> StyleBox:
 ## 统一滚动容器：原项目 status-details / inventory-grid 的 overflow-y:auto + 细滚动条
 static func make_scroll_container() -> ScrollContainer:
 	var sc := ScrollContainer.new()
+	sc.theme = make_theme()
 	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	sc.add_theme_stylebox_override("panel",
 		StyleBoxEmpty.new())
-	var track := StyleBoxFlat.new()
-	track.bg_color = Color(THEME_GRAY_MID, 0.25)
-	track.set_corner_radius_all(4)
-	track.content_margin_left = 3
-	track.content_margin_right = 3
-	var grab := StyleBoxFlat.new()
-	grab.bg_color = Color(THEME_GRAY_MID, 0.85)
-	grab.set_corner_radius_all(4)
-	sc.add_theme_stylebox_override("scroll", track)
-	sc.add_theme_stylebox_override("grabber", grab)
-	sc.add_theme_stylebox_override("grabber_highlight", grab)
-	sc.add_theme_constant_override("scrollbar_margin", 3)
 	return sc
 
 ## 格子底纹理（背包/快捷栏/装备槽共用）：textures/panel_slot.png，modulate 控制状态色
-static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxTexture:
-	var sb := StyleBoxTexture.new()
-	sb.texture = _steel_texture(COLOR_SLOT_BG, THEME_BG, 8) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_slot_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_slot.png")
-	sb.modulate_color = modulate
-	var m := 8
-	sb.texture_margin_left = m
-	sb.texture_margin_right = m
-	sb.texture_margin_top = m
-	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.content_margin_left = 4
-	sb.content_margin_right = 4
-	sb.content_margin_top = 4
-	sb.content_margin_bottom = 4
-	return sb
+static func make_slot_texture_style(modulate := Color(1, 1, 1, 1)) -> StyleBoxFlat:
+	return make_surface(0.68 * modulate.a, 12, 4, 4)
 
-## 页签激活态：金上暗下 + 顶底金线（textures/panel_tab.png）
-static func make_tab_active_style() -> StyleBoxTexture:
-	var sb := StyleBoxTexture.new()
-	sb.texture = _steel_texture(COLOR_SLOT_BG, THEME_BG, 8) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_tab_light.png" if ACTIVE_THEME == "gray_white" else "res://assets/ui/textures/panel_tab.png")
-	var m := 12
-	sb.texture_margin_left = m
-	sb.texture_margin_right = m
-	sb.texture_margin_top = m
-	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.content_margin_left = 10
-	sb.content_margin_right = 10
-	sb.content_margin_top = 6
-	sb.content_margin_bottom = 6
-	return sb
+static func make_tab_active_style() -> StyleBoxFlat:
+	return make_surface(0.80, 12, 10, 6)
 
-static func make_texture_panel_style(radius := -1) -> StyleBoxTexture:
-	var sb := StyleBoxTexture.new()
-	sb.texture = _steel_texture(THEME_BG, COLOR_HUD_TRACK, 10) if ACTIVE_THEME == "cold_steel" else load("res://assets/ui/textures/panel_main.png")
-	sb.modulate_color = Color(1, 1, 1, 1)
-	var m := 28
-	sb.texture_margin_left = m
-	sb.texture_margin_right = m
-	sb.texture_margin_top = m
-	sb.texture_margin_bottom = m
-	sb.axis_stretch_horizontal = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.axis_stretch_vertical = StyleBoxTexture.AXIS_STRETCH_MODE_STRETCH
-	sb.content_margin_left = SPACING.get("panel_padding", 10)
-	sb.content_margin_right = SPACING.get("panel_padding", 10)
-	sb.content_margin_top = SPACING.get("panel_padding", 10)
-	sb.content_margin_bottom = SPACING.get("panel_padding", 10)
-	return sb
+static func make_texture_panel_style(_radius := -1) -> StyleBoxFlat:
+	return make_cold_panel_surface()
 
-## 给 Button 应用三态样式 + 字号
 static func style_button(btn: Button, font_size_key := "body") -> void:
 	var s := make_button_style()
 	btn.add_theme_font_override("font", make_font())
@@ -541,7 +546,7 @@ static func style_button(btn: Button, font_size_key := "body") -> void:
 	btn.add_theme_font_size_override("font_size", font_size(font_size_key))
 	btn.add_theme_color_override("font_color", THEME_WHITE)
 	btn.add_theme_color_override("font_hover_color", THEME_WHITE)
-	btn.add_theme_color_override("font_pressed_color", Color(THEME_BG, 1.0))
+	btn.add_theme_color_override("font_pressed_color", THEME_WHITE if ACTIVE_THEME == "cold_steel" else Color(THEME_BG, 1.0))
 	btn.add_theme_color_override("font_disabled_color", Color(THEME_BTN_DISABLED_TEXT, 0.5))
 	btn.add_theme_stylebox_override("focus", make_style(COLOR_TRANSPARENT, COLOR_DRAG_OVER_BORDER, 6, 2))
 	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
@@ -854,51 +859,51 @@ static func _steel_texture(top: Color, bottom: Color, radius: int) -> Texture2D:
 	return texture
 
 static func release_fonts() -> void:
+	_number_fonts.clear()
 	_heading_fonts.clear()
 	_item_name_font = null
 	_font_regular = null
 	_font_bold = null
 	_font_mono = null
 
-static func apply_text_role(control: Control, role: StringName) -> void:
-	var font: Font = make_font()
-	var size := 14
-	match role:
-		&"title":
-			font = make_heading_font(20)
-			size = 20
-		&"section":
-			font = make_heading_font(16)
-			size = 16
-		&"name", &"name_body", &"name_title":
-			font = make_item_name_font()
-			size = 20 if role == &"name_title" else 14 if role == &"name_body" else 16
-		&"caption": size = 12
-		&"number", &"number_large":
-			font = make_mono_font()
-			size = 16 if role == &"number_large" else 14
-		&"body": pass
-		_:
-			push_error("Unknown text role: " + str(role))
-			return
-	if control is Label:
-		control.label_settings = null
-	control.add_theme_font_override("font", font)
-	control.add_theme_font_size_override("font_size", size)
-	control.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
-	control.add_theme_constant_override("shadow_offset_x", 0)
-	control.add_theme_constant_override("shadow_offset_y", 0)
-	control.add_theme_constant_override("shadow_outline_size", 0)
-	if role in [&"name", &"name_body", &"name_title"]:
-		control.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.7))
-		control.add_theme_constant_override("shadow_offset_y", 1)
-	control.set_meta("text_role", role)
 
+# Opt-in approved cold-glass typography; legacy pages retain their existing roles.
+static var _glass_font: FontVariation
+static var _glass_number: FontVariation
+static func make_glass_font(numeric := false) -> Font:
+	if _glass_font == null:
+		var source := FontFile.new()
+		source.load_dynamic_font(_local_font_path("simsun.ttc", "simsun.ttc"))
+		source.antialiasing = TextServer.FONT_ANTIALIASING_GRAY
+		source.hinting = TextServer.HINTING_LIGHT
+		source.subpixel_positioning = TextServer.SUBPIXEL_POSITIONING_ONE_QUARTER
+		_glass_font = FontVariation.new()
+		_glass_font.base_font = source
+		_glass_font.variation_face_index = 0
+		_glass_font.variation_embolden = 0.5
+		_glass_font.spacing_glyph = 0
+	if numeric:
+		if _glass_number == null:
+			_glass_number = FontVariation.new()
+			_glass_number.base_font = load("res://assets/ui/fonts/Consolas.ttf")
+			_glass_number.fallbacks = [_glass_font]
+		return _glass_number
+	return _glass_font
 
-static func make_hud_surface(horizontal := 18, vertical := 7) -> StyleBoxTexture:
-	var result := preload("res://ui/backpack_reference_style.gd").surface("#171d23f2", "#080b0ef5", "#a2bcc88f", 10, 1)
-	result.content_margin_left = horizontal
-	result.content_margin_right = horizontal
-	result.content_margin_top = vertical
-	result.content_margin_bottom = vertical
-	return result
+static func apply_glass_typography(node: Node) -> void:
+	if node is Label or node is Button:
+		var role := str(node.get_meta("text_role", ""))
+		if node.name != "Close":
+			node.add_theme_font_override("font", make_glass_font(role.begins_with("number")))
+			node.add_theme_constant_override("outline_size", 0)
+			node.add_theme_constant_override("shadow_offset_x", 0)
+			node.add_theme_constant_override("shadow_offset_y", 0)
+	for child in node.get_children():
+		apply_glass_typography(child)
+
+# Use the user's installed Windows font when a licensed local copy is not bundled.
+static func _local_font_path(resource_name: String, windows_name: String) -> String:
+	var bundled := "res://assets/ui/fonts/" + resource_name
+	if FileAccess.file_exists(bundled):
+		return bundled
+	return OS.get_environment("WINDIR").path_join("Fonts").path_join(windows_name)

@@ -2,6 +2,7 @@ extends Panel
 ## 物品格（复刻旧版 .inv-cell 排版）：稀有度竖标签 + 图标 + 名称 + 堆叠数 + 强化/改造/附魔徽章。
 ## 面板里调用：var c := _make_item_cell(it, Vector2(120, 52)); c.pressed.connect(...)
 
+const ReferenceStyle := preload("res://ui/backpack_reference_style.gd")
 const Style := preload("res://ui/style.gd")
 
 signal pressed(cell: Panel)
@@ -13,7 +14,7 @@ var item := {}
 var _press_position := Vector2.ZERO
 var _pressed := false
 
-var _rarity_bar: ColorRect
+var _rarity_bar: Panel
 var _rarity_lbl: Label
 var _icon: TextureRect
 var _icon_fallback: Label
@@ -35,7 +36,10 @@ func setup(it: Dictionary, min_size := Vector2(120, 52)) -> void:
 
 func _build() -> void:
 	for c in get_children():
+		remove_child(c)
 		c.queue_free()
+	_stack_lbl = null
+	_price_lbl = null
 	var rarity := String(item.get("rarity", "common"))
 	add_theme_stylebox_override("panel", Style.make_slot_style(
 		Style.COLOR_SLOT_BG, Style.rarity_color(rarity), "sm", 1))
@@ -48,26 +52,32 @@ func _build() -> void:
 		add_theme_stylebox_override("panel", Style.make_slot_texture_style())
 
 	# 稀有度竖条（左缘，色带 + 竖排文字，旧版 writing-mode: vertical-rl）
-	_rarity_bar = ColorRect.new()
-	_rarity_bar.color = Style.rarity_color(rarity)
+	_rarity_bar = Panel.new()
+	_rarity_bar.add_theme_stylebox_override("panel", ReferenceStyle.badge_surface(ReferenceStyle.RARITY_BADGES.get(rarity, Style.rarity_color(rarity))))
 	_rarity_bar.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
+	_rarity_bar.offset_left = 4
 	_rarity_bar.offset_right = 16
+	_rarity_bar.offset_top = 4
+	_rarity_bar.offset_bottom = -4
 	_rarity_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_rarity_bar)
 	_rarity_lbl = Label.new()
 	_rarity_lbl.text = "\n".join(Style.rarity_label(rarity).split(""))
 	_rarity_lbl.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE)
+	_rarity_lbl.offset_left = 4
 	_rarity_lbl.offset_right = 16
+	_rarity_lbl.offset_top = 4
+	_rarity_lbl.offset_bottom = -4
 	_rarity_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_rarity_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_rarity_lbl.add_theme_font_size_override("font_size", 11)
+	_rarity_lbl.add_theme_font_size_override("font_size", 9)
 	_rarity_lbl.add_theme_font_override("font", Style.make_font(Style.font_weight("bold")))
 	_rarity_lbl.add_theme_color_override("font_color", Style.COLOR_BLACK)
 	_rarity_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_rarity_lbl)
 
 	# 图标（图片优先，fallback emoji）
-	var icon_path := String(item.get("icon", ""))
+	var icon_path := preload("res://ui/item_icon.gd").path(item)
 	var icon_s := float(Style.npc("cell_icon_s", 30.0))
 	_icon = TextureRect.new()
 	_icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -98,10 +108,7 @@ func _build() -> void:
 	_name_lbl.offset_left = 48
 	_name_lbl.offset_bottom = -16
 	_name_lbl.add_theme_font_size_override("font_size", int(Style.npc("cell_name_size", 12)))
-	var item_font := FontVariation.new()
-	item_font.base_font = preload("res://assets/ui/fonts/simhei.ttf")
-	item_font.variation_embolden = 0.9
-	_name_lbl.add_theme_font_override("font", item_font)
+	Style.style_item_name(_name_lbl)
 	_name_lbl.add_theme_color_override("font_color", Style.COLOR_WHITE)
 	_name_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_name_lbl)
@@ -145,13 +152,20 @@ func _build() -> void:
 	_badges.add_theme_constant_override("separation", 2)
 	_badges.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(_badges)
-	var enhance := int(item.get("enhanceLevel", 0))
-	if enhance > 0:
-		_badges.add_child(_make_badge("+%d" % enhance, Style.COLOR_BADGE_GOLD_BG, Style.COLOR_BADGE_GOLD_TEXT))
-	if not (item.get("_craftData", {}) as Dictionary).is_empty():
-		_badges.add_child(_make_badge("改", Style.COLOR_BADGE_CRAFT_BG, Style.COLOR_BADGE_CRAFT_TEXT))
-	if bool(item.get("_isEnchanted", false)):
-		_badges.add_child(_make_badge("附", Style.COLOR_BADGE_ENCHANT_BG, Style.COLOR_BADGE_ENCHANT_TEXT))
+	_badges.hide()
+	ReferenceStyle.update_item_badges(self, item)
+	var left := 34 if int(item.get("enhanceLevel", 0)) > 0 else 20
+	var right := ReferenceStyle.name_right_inset(self)
+	_icon.position.x = left
+	_icon_fallback.position.x = left
+	_name_lbl.offset_left = left + icon_s + 2
+	_name_lbl.offset_right = -right
+	if _stack_lbl != null:
+		_stack_lbl.offset_right = -right
+		_stack_lbl.offset_left = -right - 41
+	if _price_lbl != null:
+		_price_lbl.offset_right = -right
+		_price_lbl.offset_left = -right - 60
 
 func _make_badge(text: String, bg: Color, fg: Color) -> Label:
 	var l := Label.new()

@@ -1,56 +1,82 @@
 extends RefCounted
 ## Visual values from the supplied 1912x948 screenshot and game-style.css.
 static var _cache := {}
-const TOOLTIP_TEXT := Color("#2a2520")
-const TOOLTIP_SECONDARY := Color("#4a3f35")
+const TOOLTIP_TEXT := Color("#dce2e6")
+const TOOLTIP_SECONDARY := Color("#b5c0c8")
 const BADGE_CRAFT := Color("#660033")
 const BADGE_ENCHANT := Color("#4a90d9")
 const TOOLTIP_ENCHANT_NAME := Color("#c0a060")
-const TOOLTIP_SEPARATOR := Color("#00000026")
-const ATTRIBUTE_TITLE := Color("#1a1a2e")
-const CRAFT_POS := Color("#00ff00")
-const CRAFT_NEG := Color("#ff0000")
+const TOOLTIP_SEPARATOR := Color("#dceaf033")
+const ATTRIBUTE_TITLE := Color("#dce2e6")
+const CRAFT_POS := Color("#68d5ad")
+const CRAFT_NEG := Color("#ff8193")
 const RARITY_BADGES := {"common": Color(180.0/255,180.0/255,180.0/255,0.85), "uncommon": Color(122.0/255,200.0/255,122.0/255,0.7), "rare": Color(122.0/255,158.0/255,200.0/255,0.7), "epic": Color(180.0/255,122.0/255,200.0/255,0.7), "mythic": Color(230.0/255,150.0/255,60.0/255,0.78), "legendary": Color(215.0/255,60.0/255,55.0/255,0.8)}
 
-# 用户确认的黑化深青冷钢：空格保持微凸，占用格反向压下。
-# 深青只存在于受光面与边缘，避免变成高饱和蓝青主题。
-const EQUIP_GLASS_TOP := "#0f2226"
-const EQUIP_GLASS_BOTTOM := "#091518"
-const EQUIP_GLASS_BORDER := "#31484c"
-const EQUIP_EMPTY_TOP := "#173036"
-const EQUIP_EMPTY_BOTTOM := "#10262b"
-const EQUIP_EMPTY_BORDER := "#28464b"
-const EQUIP_HOVER_TOP := "#214249"
-const EQUIP_HOVER_BOTTOM := "#17343a"
-const EQUIP_HOVER_BORDER := "#789da3"
-const EQUIP_EQUIPPED_TOP := "#214249"
-const EQUIP_EQUIPPED_BOTTOM := "#0f262b"
-const EQUIP_EQUIPPED_BORDER := "#789da3"
-const EQUIP_LOCKED_TOP := "#292e30d9"
-const EQUIP_LOCKED_BOTTOM := "#1c2224e6"
-const EQUIP_LOCKED_BORDER := "#3b4548"
-const EQUIP_TEXT := Color("#dce4e3")
-const EQUIP_TEXT_MUTED := Color("#849497")
-const PANEL_TAB_BG := Color("#2a3238")
-const PANEL_TAB_BORDER := Color("#8fa6b1")
-const PANEL_DIVIDER := Color("#71828b")
-const PANEL_CLOSE_TEXT := Color("#92a3ad")
-const PANEL_GLYPH_SHADOW := Color(1, 1, 1, 0.6)
+# 2026-09-07 approved clock/timeline charcoal direction: quiet, flat interiors.
+const EQUIP_GLASS_TOP := "#0d1115"
+const EQUIP_GLASS_BOTTOM := "#080b0e"
+const EQUIP_GLASS_BORDER := "#272f35"
+const EQUIP_EMPTY_TOP := "#101419"
+const EQUIP_EMPTY_BOTTOM := "#0b0e12"
+const EQUIP_EMPTY_BORDER := "#242a30"
+const EQUIP_HOVER_TOP := "#1b2229"
+const EQUIP_HOVER_BOTTOM := "#12181e"
+const EQUIP_HOVER_BORDER := "#71828d"
+const EQUIP_EQUIPPED_TOP := "#171d23"
+const EQUIP_EQUIPPED_BOTTOM := "#0d1116"
+const EQUIP_EQUIPPED_BORDER := "#53636e"
+const EQUIP_LOCKED_TOP := "#0d1013"
+const EQUIP_LOCKED_BOTTOM := "#090c0f"
+const EQUIP_LOCKED_BORDER := "#22282d"
+const EQUIP_TEXT := Color("#dce2e6")
+const EQUIP_TEXT_MUTED := Color("#9aa4ad")
+const EQUIP_RAIL := Color("#080b0f")
+const EQUIP_RIM_LIGHT := Color("#65737e")
+const EQUIP_RIM_DARK := Color("#040608")
 
-const BACKPACK_EMPTY_TOP := Color("#132d32")
-const BACKPACK_EMPTY_BOTTOM := Color("#10262b")
-const BACKPACK_EMPTY_LIGHT_EDGE := Color("#31484c")
-const BACKPACK_EMPTY_DARK_EDGE := Color("#08191c")
-const BACKPACK_EMPTY_HOVER_TOP := Color("#1a3a40")
-const BACKPACK_EMPTY_HOVER_BOTTOM := Color("#143136")
-const BACKPACK_ITEM_TILE_TOP := Color("#08191c")
-const BACKPACK_ITEM_TILE_BOTTOM := Color("#0d2327")
-const BACKPACK_ITEM_TOP := Color("#08191cb3")
-const BACKPACK_ITEM_BOTTOM := Color("#0d2327b3")
-const BACKPACK_ITEM_DARK_EDGE := Color("#051113")
-const BACKPACK_ITEM_LIGHT_EDGE := Color("#243a3e")
-const BACKPACK_ITEM_HOVER_BOTTOM := Color("#123136cf")
-const BACKPACK_DRAG_BOTTOM := Color("#1d464dd6")
+# Thin machined rim, recessed interior; no change to Control minimum sizes.
+static func equipment_tray(top: String, bottom: String, edge: String, occupied := false) -> StyleBoxTexture:
+	var key := str(["equipment_tray", top, bottom, edge, occupied])
+	if not _cache.has(key):
+		var img := Image.create(128, 128, false, Image.FORMAT_RGBA8)
+		for y in 128:
+			for x in 128:
+				var color := Color(top).lerp(Color(bottom), float(y) / 127.0)
+				if x == 0 or y == 0 or x == 127 or y == 127:
+					color = Color(edge)
+				elif y == 1 or x == 1:
+					color = Color(edge).lerp(EQUIP_RIM_LIGHT, 0.65 if occupied else 0.2)
+				elif y >= 125 or x >= 125:
+					color = EQUIP_RIM_DARK
+				elif y <= 3 or x <= 3:
+					color = EQUIP_RIM_DARK.lerp(Color(top), 0.35)
+				img.set_pixel(x, y, color)
+		_cache[key] = ImageTexture.create_from_image(img)
+	var box := StyleBoxTexture.new()
+	box.texture = _cache[key]
+	for side in [SIDE_LEFT, SIDE_TOP, SIDE_RIGHT, SIDE_BOTTOM]:
+		box.set_texture_margin(side, 4)
+		box.set_content_margin(side, 0)
+	return box
+
+const BACKPACK_EMPTY_TOP := Color("#0b0e12")
+const BACKPACK_EMPTY_BOTTOM := Color("#0b0e12")
+const BACKPACK_EMPTY_LIGHT_EDGE := Color("#1d2329")
+const BACKPACK_EMPTY_DARK_EDGE := Color("#1d2329")
+const BACKPACK_EMPTY_HOVER_TOP := Color("#171d23")
+const BACKPACK_EMPTY_HOVER_BOTTOM := Color("#171d23")
+const BACKPACK_ITEM_TILE_TOP := Color("#0b0e12")
+const BACKPACK_ITEM_TILE_BOTTOM := Color("#0b0e12")
+const BACKPACK_ITEM_TOP := Color("#10151a")
+const BACKPACK_ITEM_BOTTOM := Color("#10151a")
+const BACKPACK_ITEM_DARK_EDGE := Color("#252d34")
+const BACKPACK_ITEM_LIGHT_EDGE := Color("#252d34")
+const BACKPACK_ITEM_HOVER_BOTTOM := Color("#1c252d")
+const BACKPACK_DRAG_BOTTOM := Color("#35434fc0")
+const BACKPACK_DROP_EDGE := Color("#94abb6")
+const BACKPACK_DROP_FILL := Color("#94abb629")
+const BACKPACK_INVALID_FILL := Color("#6a454c29")
+const BACKPACK_DROP_DURATION := 0.22
 const BACKPACK_INVALID_TOP := Color("#39252ad6")
 const BACKPACK_INVALID_BOTTOM := Color("#24171ad6")
 const BACKPACK_INVALID_DARK_EDGE := Color("#140c0e")
@@ -76,6 +102,8 @@ class VerticalBadge extends Control:
 		var font := get_theme_font("font")
 		var font_size := get_theme_font_size("font_size")
 		var chars := text.replace("\n", "")
+		if chars.begins_with("已") and size.y < chars.length() * font_size + 4:
+			chars = chars.substr(1)
 		var gap := minf(get_theme_constant("line_spacing"), maxf(0, (size.y - chars.length() * font_size) / maxf(1, chars.length() - 1)))
 		var advance := font_size + gap
 		var y := (size.y - advance * (chars.length() - 1)) / 2.0
@@ -94,9 +122,9 @@ static func name_right_inset(content: Control, equipment := false) -> int:
 	var enchanted := content.get_node_or_null("SourceBadge2") as Control
 	var crafted := content.get_node_or_null("SourceBadge1") as Control
 	if enchanted != null and enchanted.visible:
-		return 38 if equipment else 28
+		return 42 if equipment else 32
 	if crafted != null and crafted.visible:
-		return 20 if equipment else 16
+		return 24 if equipment else 18
 	return 8 if equipment else 4
 
 static func item_shadow(label: Label, light := false) -> void:
@@ -108,7 +136,7 @@ static func item_shadow(label: Label, light := false) -> void:
 static func update_item_badges(content: Control, item: Dictionary, equipment := false) -> void:
 	var crafted: bool = bool(item.get("_isCrafted", false)) or not item.get("_craftData", {}).is_empty()
 	for value in item.get("gunsmith_parts", {}).values():
-		crafted = crafted or not str(value).is_empty()
+		crafted = crafted or _enabled_part(value)
 	var flags := [int(item.get("enhanceLevel", 0)) > 0, crafted, has_enchantment(item)]
 	var texts := ["已强化", "已改造", "已附魔"]
 	for i in 3:
@@ -116,30 +144,29 @@ static func update_item_badges(content: Control, item: Dictionary, equipment := 
 		if badge == null:
 			badge = VerticalBadge.new()
 			badge.name = "SourceBadge%d" % i
-			badge.text = "\n".join(texts[i].split(""))
-			badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			badge.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-			badge.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-			badge.add_theme_font_size_override("font_size", 10 if equipment else 8)
-			badge.add_theme_font_override("font", preload("res://ui/style.gd").make_font(700))
-			badge.add_theme_constant_override("line_spacing", 2 if equipment and i == 0 else 0)
-			badge.anchor_bottom = 1.0
-			badge.offset_top = 0
-			var width := 14 if equipment else 10
-			if i == 0:
-				badge.offset_left = 21 if equipment else 14
-				badge.offset_right = badge.offset_left + width
-			else:
-				badge.anchor_left = 1.0
-				badge.anchor_right = 1.0
-				badge.offset_right = -2 if i == 1 else (-20 if equipment else -14)
-				badge.offset_left = badge.offset_right - width
-			var tops := ["#ffd700", "#660033", "#4a90d9"]
-			var bottoms := ["#ffaa00", "#660033", "#4a90d9"]
-			badge.add_theme_stylebox_override("normal", surface(tops[i], bottoms[i], tops[i], 3 if equipment else 2, 0, 0, i == 0))
-			badge.add_theme_color_override("font_color", Color("#1a1a2e") if i == 0 else Color.WHITE)
 			content.add_child(badge)
+		badge.text = "\n".join(texts[i].split(""))
+		badge.add_theme_font_size_override("font_size", 10 if equipment else 8)
+		badge.add_theme_font_override("font", preload("res://ui/style.gd").make_font(700))
+		badge.add_theme_constant_override("line_spacing", 0)
+		badge.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE if i == 0 else Control.PRESET_RIGHT_WIDE)
+		badge.offset_top = 4
+		badge.offset_bottom = -4
+		var width := 14 if equipment else 10
+		if i == 0:
+			badge.offset_left = 24 if equipment else 20
+			badge.offset_right = badge.offset_left + width
+		else:
+			badge.offset_right = (-6 if equipment else -4) - (i - 1) * (18 if equipment else 14)
+			badge.offset_left = badge.offset_right - width
+		var palette: Dictionary = preload("res://ui/style.gd").GLASS_TOKENS.processing
+		badge.add_theme_stylebox_override("normal", badge_surface(Color(palette[["enhanced", "crafted", "enchanted"][i]])))
+		badge.add_theme_color_override("font_color", Color.BLACK if i == 0 else Color.WHITE)
 		badge.visible = flags[i]
+
+# A small rounded inset strip stays inside the rounded equipment shell.
+static func badge_surface(color: Color) -> StyleBoxFlat:
+	return preload("res://ui/style.gd").make_style(color, Color.TRANSPARENT, 4, 0)
 
 static func hide_item_badges(content: Control) -> void:
 	for i in 3:
@@ -179,7 +206,7 @@ static func slot_surface(fill_top: Color, fill_bottom: Color, top_left_edge: Col
 				# 单像素低对比边缘避免相邻槽位拼成双重粗分割线。
 				if x < 1 or y < 1:
 					color = top_left_edge
-				elif x >= 127 or y >= 127:
+				elif (x >= 127 or y >= 127) and top_left_edge != bottom_right_edge:
 					color = bottom_right_edge
 				img.set_pixel(x, y, color)
 		_cache[key] = ImageTexture.create_from_image(img)
@@ -201,3 +228,6 @@ static func locked_icon_material() -> ShaderMaterial:
 		_locked_icon = ShaderMaterial.new()
 		_locked_icon.shader = shader
 	return _locked_icon
+
+static func _enabled_part(value: Variant) -> bool:
+	return not value.is_empty() if value is String else value == true

@@ -1,0 +1,155 @@
+{
+  "version": 3,
+  "name": "cold_steel_glass",
+  "status": "shared_theme_and_player_panels_migrated_20260907",
+  "provenance": "Project interpretation of user supplied WWDC25 reference; not official Apple color tokens.",
+  "colors": {
+    "canvas": "#080B0E",
+    "canvas_deep": "#050709",
+    "glass_tint": "#171D23",
+    "content": "#10151A",
+    "text_primary": "#DCE2E6",
+    "text_secondary": "#B5C0C8",
+    "text_tertiary": "#9AA4AD",
+    "accent_blue": "#94ABB6",
+    "accent_violet": "#A5AFBD",
+    "accent_cyan": "#B8D6DF",
+    "success": "#68D5AD",
+    "warning": "#F0BE71",
+    "danger": "#FF8193",
+    "border": "#DCEAF0",
+    "focus": "#B8D6DF",
+    "button_normal": "#28323B",
+    "button_hover": "#36434E",
+    "button_pressed": "#1B242C",
+    "button_disabled": "#19202788"
+  },
+  "glass": {
+    "tint_strength": 0.72,
+    "alpha": 0.96,
+    "blur_lod": 3.5,
+    "refraction_px": 1.5,
+    "corner_radius": 24,
+    "surface_opacity": 0.16,
+    "content_opacity": 0.28,
+    "hover_opacity": 0.24,
+    "pressed_opacity": 0.32,
+    "border_opacity": 0.22,
+    "grid_opacity": 0.1,
+    "shadow_opacity": 0.2
+  },
+  "font": {
+    "implementation": "SimSun",
+    "sizes": {
+      "display": 32,
+      "page": 24,
+      "section": 20,
+      "body": 16,
+      "secondary": 14,
+      "caption": 12
+    },
+    "line_height": {
+      "heading": 1.25,
+      "body": 1.5,
+      "caption": 1.4
+    },
+    "tracking_px": 0,
+    "synthetic_embolden": 0.5,
+    "numeric": "Consolas; native bold for existing bold numeric roles",
+    "badge_px": 10,
+    "fallback": "SimSun",
+    "note": "Gunsmith uses bundled SimSun via opt-in Style.make_glass_font; legacy default font unchanged. Local source: Windows Fonts/simsun.ttc.",
+    "preview_selection": "SimSun face 0, embolden 0.5, tracking 0; accepted cold-glass-simsun-bold preview",
+    "face_index": 0,
+    "backpack_exceptions": {
+      "title": 20,
+      "empty_equipment_label": 16,
+      "item_name": 12,
+      "vertical_badge": 10
+    },
+    "compact_stack_px": 10
+  },
+  "layout": {
+    "reference": [
+      1920,
+      1080
+    ],
+    "spacing": [
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48
+    ],
+    "panel_padding": 24,
+    "section_gap": 24,
+    "row_gap": 12,
+    "card_gap": 8,
+    "header_height": 64,
+    "tab_height": 44,
+    "button_height": 40,
+    "icon_button": 36,
+    "tooltip_width": [
+      320,
+      440
+    ],
+    "radii": {
+      "panel": 24,
+      "card": 16,
+      "control": 12,
+      "grid_item": 2
+    },
+    "backpack_width_ratio": 0.45,
+    "backpack_full_height": true,
+    "equipment_columns": 3,
+    "equipment_rows": 5,
+    "inventory_columns": 18,
+    "inventory_rows": 4,
+    "rifle_footprint": [
+      5,
+      2
+    ],
+    "potion_footprint": [
+      1,
+      1
+    ],
+    "inventory_cell_side": "available_width / 18",
+    "inventory_outer_margin": 12,
+    "inventory_inner_padding": 14,
+    "inventory_frame_radius": 18,
+    "inventory_overflow": "vertical_auto",
+    "inventory_initial_capacity": 72,
+    "inventory_fill_order": "row_major"
+  },
+  "motion_ms": {
+    "hover": 140,
+    "press": 90,
+    "selection": 180,
+    "panel": 260,
+    "tooltip": 140,
+    "placement": 220
+  },
+  "states": {
+    "focus_border_px": 2,
+    "hover_translation_px": 0,
+    "press_scale": 1.0,
+    "invalid_drop": "danger_outline_and_reason",
+    "valid_drop": "cyan_footprint",
+    "reduced_motion": "opacity_only"
+  },
+  "rarity": {
+    "common": "#B9C2D5",
+    "uncommon": "#8BC8AC",
+    "rare": "#85B4E8",
+    "epic": "#B695DE",
+    "mythic": "#E3B278",
+    "legendary": "#E78B9F"
+  },
+  "processing": {
+    "enhanced": "#E9BF63",
+    "crafted": "#9B72C6",
+    "enchanted": "#6FA7DE"
+  }
+}

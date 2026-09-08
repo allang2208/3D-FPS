@@ -35,14 +35,15 @@ const SKILL_KEY_HINTS := ["Q", "E", "X"]
 const SKILL_KEYCODES := [KEY_Q, KEY_E, KEY_X]
 # 旧版技能位配色（quick-slot.skill：#6b5d4f / #3d342b；待 palette.json 落地后并入 style.gd）
 const INV_COLS := Spatial.COLUMNS
-const HOTBAR_SLOT := 52
+const HOTBAR_SLOT := 48
 const CELL_SLOT := 52
+const INVENTORY_CELL_SIDE := 44
 var _drag_origin_rect := Rect2()
 var _drag_active := false
 
 const EQUIP_SLOT_SIZE := Vector2(80, 32)
 const EQUIP_COLS := 3
-const BAR_PAD := 8
+const BAR_PAD := 9
 const BAR_GAP := 8
 const PANEL_MARGIN := 0
 const PANEL_W_RATIO := 0.45
@@ -143,21 +144,21 @@ func _ready() -> void:
 	_font_mono = Style.make_mono_font(600)
 	# 贴图化槽位：panel_slot 底纹 + modulate 状态色（hover=金、拖放=强金、装备=暖亮、锁定=灰）
 	# 快捷栏/技能槽 = 深色 HUD 模块（原项目 quick-slot：深底 + 2px 边框 + 8px 圆角）
-	_s_hotbar_empty = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
-	_s_hotbar_item = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
-	_s_hotbar_hover = Style.make_style(Style.COLOR_HUD_SLOT_HOVER, Style.COLOR_HUD_SLOT_HOVER_BORDER, 8, 2)
-	_s_skill_empty = Style.make_style(Style.COLOR_HUD_SLOT_BG, Style.COLOR_HUD_BORDER, 8, 2)
+	_s_hotbar_empty = _hotbar_style(false)
+	_s_hotbar_item = _hotbar_style(false)
+	_s_hotbar_hover = _hotbar_style(true)
+	_s_skill_empty = _hotbar_style(false)
 	_s_cell_empty = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_EMPTY_TOP, ReferenceStyle.BACKPACK_EMPTY_BOTTOM, ReferenceStyle.BACKPACK_EMPTY_LIGHT_EDGE, ReferenceStyle.BACKPACK_EMPTY_DARK_EDGE)
 	_s_cell_item_tile = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_ITEM_TILE_TOP, ReferenceStyle.BACKPACK_ITEM_TILE_BOTTOM, ReferenceStyle.BACKPACK_ITEM_DARK_EDGE, ReferenceStyle.BACKPACK_ITEM_LIGHT_EDGE)
 	_s_cell_item = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_ITEM_TOP, ReferenceStyle.BACKPACK_ITEM_BOTTOM, ReferenceStyle.BACKPACK_ITEM_DARK_EDGE, ReferenceStyle.BACKPACK_ITEM_LIGHT_EDGE)
 	_s_cell_empty_hover = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_EMPTY_HOVER_TOP, ReferenceStyle.BACKPACK_EMPTY_HOVER_BOTTOM, ReferenceStyle.BACKPACK_EMPTY_LIGHT_EDGE, ReferenceStyle.BACKPACK_ITEM_LIGHT_EDGE)
-	_s_cell_item_hover = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_ITEM_TOP, ReferenceStyle.BACKPACK_ITEM_HOVER_BOTTOM, ReferenceStyle.BACKPACK_ITEM_DARK_EDGE, ReferenceStyle.BACKPACK_EMPTY_LIGHT_EDGE)
-	_s_cell_drag_over = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_ITEM_TOP, ReferenceStyle.BACKPACK_DRAG_BOTTOM, ReferenceStyle.BACKPACK_ITEM_DARK_EDGE, ReferenceStyle.BACKPACK_EMPTY_LIGHT_EDGE)
-	_s_cell_drag_invalid = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_INVALID_TOP, ReferenceStyle.BACKPACK_INVALID_BOTTOM, ReferenceStyle.BACKPACK_INVALID_DARK_EDGE, ReferenceStyle.BACKPACK_INVALID_LIGHT_EDGE)
-	_s_equip_empty = ReferenceStyle.surface(ReferenceStyle.EQUIP_EMPTY_TOP, ReferenceStyle.EQUIP_EMPTY_BOTTOM, ReferenceStyle.EQUIP_EMPTY_BORDER)
-	_s_equip_equipped = ReferenceStyle.surface(ReferenceStyle.EQUIP_EQUIPPED_TOP, ReferenceStyle.EQUIP_EQUIPPED_BOTTOM, ReferenceStyle.EQUIP_EQUIPPED_BORDER)
-	_s_equip_hover = ReferenceStyle.surface(ReferenceStyle.EQUIP_HOVER_TOP, ReferenceStyle.EQUIP_HOVER_BOTTOM, ReferenceStyle.EQUIP_HOVER_BORDER)
-	_s_equip_locked = ReferenceStyle.surface(ReferenceStyle.EQUIP_LOCKED_TOP, ReferenceStyle.EQUIP_LOCKED_BOTTOM, ReferenceStyle.EQUIP_LOCKED_BORDER)
+	_s_cell_item_hover = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_ITEM_HOVER_BOTTOM, ReferenceStyle.BACKPACK_ITEM_HOVER_BOTTOM, ReferenceStyle.BACKPACK_ITEM_LIGHT_EDGE, ReferenceStyle.BACKPACK_ITEM_LIGHT_EDGE)
+	_s_cell_drag_over = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_DRAG_BOTTOM, ReferenceStyle.BACKPACK_DRAG_BOTTOM, ReferenceStyle.BACKPACK_DROP_EDGE, ReferenceStyle.BACKPACK_DROP_EDGE)
+	_s_cell_drag_invalid = ReferenceStyle.slot_surface(ReferenceStyle.BACKPACK_INVALID_BOTTOM, ReferenceStyle.BACKPACK_INVALID_BOTTOM, ReferenceStyle.BACKPACK_INVALID_LIGHT_EDGE, ReferenceStyle.BACKPACK_INVALID_LIGHT_EDGE)
+	_s_equip_empty = ReferenceStyle.equipment_tray(ReferenceStyle.EQUIP_EMPTY_TOP, ReferenceStyle.EQUIP_EMPTY_BOTTOM, ReferenceStyle.EQUIP_EMPTY_BORDER)
+	_s_equip_equipped = ReferenceStyle.equipment_tray(ReferenceStyle.EQUIP_EQUIPPED_TOP, ReferenceStyle.EQUIP_EQUIPPED_BOTTOM, ReferenceStyle.EQUIP_EQUIPPED_BORDER, true)
+	_s_equip_hover = ReferenceStyle.equipment_tray(ReferenceStyle.EQUIP_HOVER_TOP, ReferenceStyle.EQUIP_HOVER_BOTTOM, ReferenceStyle.EQUIP_HOVER_BORDER, true)
+	_s_equip_locked = ReferenceStyle.equipment_tray(ReferenceStyle.EQUIP_LOCKED_TOP, ReferenceStyle.EQUIP_LOCKED_BOTTOM, ReferenceStyle.EQUIP_LOCKED_BORDER)
 	_build_status_label()
 	_status_timer = Timer.new()
 	_status_timer.one_shot = true
@@ -169,6 +170,7 @@ func _ready() -> void:
 	add_child(_drag_clear_timer)
 	_build_hotbar()
 	_build_panel()
+	preload("res://ui/liquid_glass_theme.gd").apply_backpack(self)
 	_build_tooltip()
 	_build_notice()
 	_build_inventory_actions()
@@ -245,7 +247,7 @@ func _refresh_hotbar() -> void:
 			icon.texture = _icon_tex(preload("res://ui/item_icon.gd").path(item))
 			var count: int = item.get("stack", 0)
 			stack.text = str(count)
-			stack.add_theme_color_override("font_color", Style.COLOR_ZERO_TEXT if count <= 0 else Style.COLOR_TEXT)
+			stack.add_theme_color_override("font_color", Style.COLOR_ZERO_TEXT if count <= 0 else Color(Style.GLASS_TOKENS.colors.success))
 			stack.add_theme_font_override("font", _font_mono)
 			slot.add_theme_stylebox_override("panel", _s_hotbar_hover if i == _hovered_hotbar else _s_hotbar_item)
 			slot.tooltip_text = ""
@@ -290,36 +292,45 @@ func _refresh_grid() -> void:
 		else:
 			var item: Dictionary = backpack.slots[i]
 			_set_icon(icon, fallback, item, true)
-			icon.modulate.a = 0.82
-			fallback.modulate.a = 0.82
+			icon.modulate.a = 1.0
+			fallback.modulate.a = 1.0
 			var compact := footprint == Vector2i.ONE
-			var firearm := _is_firearm(item)
-			name_lbl.visible = not compact and not firearm
+			name_lbl.visible = not compact
 			name_lbl.text = String(item.get("name", "")) if name_lbl.visible else ""
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icon.anchor_left = 0.0 if firearm else (0.12 if compact else 0.25)
-			icon.anchor_right = 1.0 if firearm else (0.88 if compact else 0.44)
+			name_lbl.anchor_left = 0.0
+			name_lbl.anchor_right = 1.0
+			name_lbl.anchor_top = 0.0
+			name_lbl.anchor_bottom = 0.0
+			name_lbl.offset_left = 6
+			name_lbl.offset_top = 3
+			name_lbl.offset_bottom = 19
+			name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_TOP
+			name_lbl.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
+			name_lbl.add_theme_constant_override("shadow_outline_size", 0)
+			icon.anchor_left = 0.0 if not compact else 0.08
+			icon.anchor_right = 1.0 if not compact else 0.8
 			icon.anchor_top = 0.0
 			icon.anchor_bottom = 1.0
-			icon.offset_left = 0
-			icon.offset_right = 0
-			icon.offset_top = 0 if firearm else 6
-			icon.offset_bottom = 0 if firearm else -6
-			fallback.anchor_left = 0.0 if firearm else (0.12 if compact else 0.25)
-			fallback.anchor_right = 1.0 if firearm else (0.88 if compact else 0.4)
+			icon.offset_left = 5 if not compact else 0
+			icon.offset_right = -5 if not compact else 0
+			icon.offset_top = 21 if not compact else 3
+			icon.offset_bottom = -4
+			fallback.anchor_left = icon.anchor_left
+			fallback.anchor_right = icon.anchor_right
+			fallback.offset_top = icon.offset_top
+			fallback.offset_bottom = icon.offset_bottom
 			var count: int = item.get("stack", 1)
 			stack_lbl.text = str(count) if count > 1 else ""
 			cell.add_theme_stylebox_override("panel", _drag_cell_style(i, _s_cell_item_hover if i == _hovered_cell else _s_cell_item))
 
-func _drag_cell_style(cell_index: int, normal: StyleBox) -> StyleBox:
-	if _drag_over_cells.has(cell_index):
-		return _s_cell_drag_over if _drag_over_valid else _s_cell_drag_invalid
+func _drag_cell_style(_cell_index: int, normal: StyleBox) -> StyleBox:
+	# The overlay draws exact grid cells, even over a larger occupied card.
 	return normal
 
 func _grid_cell_side() -> float:
-	if _grid == null:
-		return CELL_SLOT * 0.5
-	return maxf(CELL_SLOT * 0.5, _grid.size.x / float(INV_COLS))
+	# Fill each 18-cell row before wrapping; only vertical overflow scrolls.
+	return _grid.size.x / float(INV_COLS) if _grid != null else float(INVENTORY_CELL_SIDE)
 
 func _layout_grid_geometry() -> void:
 	if _grid == null or backpack == null or _cells.is_empty():
@@ -338,10 +349,21 @@ func _layout_grid_geometry() -> void:
 		var cell_size := Vector2(footprint.x * cell_side, footprint.y * cell_side)
 		cell.custom_minimum_size = cell_size
 		cell.size = cell_size
+		var count_label: Label = cell.get_node("Content/Stack")
+		count_label.clip_text = true
+		count_label.offset_left = -cell_size.x + 1
+		count_label.offset_right = -1
+		count_label.offset_top = -13 if cell_side < 32 else -20
+		count_label.offset_bottom = -1
+		count_label.add_theme_font_size_override("font_size", 10 if cell_side < 32 else 12)
+		cell.get_node("GridLines").queue_redraw()
 		if occupied_slot == i:
 			anchors.append(cell)
 	for cell in anchors:
 		_grid.move_child(cell, _grid.get_child_count() - 1)
+	var preview := _grid.get_node_or_null("DropFootprint")
+	if preview != null:
+		preview.queue_redraw()
 
 func _refresh_equip() -> void:
 	if equipment == null:
@@ -358,7 +380,7 @@ func _refresh_equip() -> void:
 		var content := cell.get_node("Content") as Control
 		ReferenceStyle.update_item_badges(content, item, true)
 		var lock := cell.get_node("Content/Lock") as Control
-		name_lbl.add_theme_font_override("font", _make_item_name_font())
+		name_lbl.add_theme_font_override("font", Style.make_font() if item.is_empty() else _make_item_name_font())
 		name_lbl.anchor_left = 0.0 if item.is_empty() else 0.4
 		name_lbl.anchor_right = 1.0
 		name_lbl.offset_left = 8 if item.is_empty() else 2
@@ -366,7 +388,9 @@ func _refresh_equip() -> void:
 		name_lbl.offset_top = 0
 		name_lbl.offset_bottom = 0
 		name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		ReferenceStyle.item_shadow(name_lbl, item.is_empty())
+		name_lbl.add_theme_color_override("font_shadow_color", Color.TRANSPARENT)
+		name_lbl.add_theme_constant_override("shadow_outline_size", 0)
+		name_lbl.add_theme_constant_override("shadow_offset_y", 0)
 		var locked := equipment.is_locked(key)
 		lock.visible = locked
 		cell.modulate.a = 0.6 if locked else 1.0
@@ -384,8 +408,8 @@ func _refresh_equip() -> void:
 		if item.is_empty():
 			icon.texture = null
 			fallback.visible = false
-			name_lbl.text = String(EQUIP_SLOT_LABELS.get(key, key))
-			name_lbl.add_theme_color_override("font_color", ReferenceStyle.EQUIP_TEXT_MUTED if locked else ReferenceStyle.EQUIP_TEXT)
+			name_lbl.text = "双手占用" if locked else String(EQUIP_SLOT_LABELS.get(key, key))
+			name_lbl.add_theme_color_override("font_color", ReferenceStyle.EQUIP_TEXT_MUTED)
 			rarity_lbl.text = ""
 			rarity_lbl.remove_theme_stylebox_override("normal")
 		else:
@@ -394,7 +418,68 @@ func _refresh_equip() -> void:
 			name_lbl.add_theme_color_override("font_color", ReferenceStyle.EQUIP_TEXT_MUTED if locked else ReferenceStyle.EQUIP_TEXT)
 			var rarity_key := String(item.get("rarity", "common"))
 			rarity_lbl.text = _vertical_text(Style.rarity_label(rarity_key))
-			rarity_lbl.add_theme_stylebox_override("normal", Style.make_style(ReferenceStyle.RARITY_BADGES.get(rarity_key, Color.GRAY), Color(0, 0, 0, 0), 3, 0))
+			rarity_lbl.add_theme_stylebox_override("normal", ReferenceStyle.badge_surface(ReferenceStyle.RARITY_BADGES.get(rarity_key, Color.GRAY)))
+		_layout_equipment_card(key)
+
+func _layout_equipment_card(key: String) -> void:
+	var cell: Control = _equip_cells.get(key)
+	if cell == null or equipment == null:
+		return
+	var content := cell.get_node("Content") as Control
+	if not content.has_node("SlotTitle"):
+		return
+	var item: Dictionary = equipment.get_item(key)
+	var occupied := not item.is_empty()
+	var locked := equipment.is_locked(key)
+	var title := content.get_node("SlotTitle") as Label
+	var name_lbl := content.get_node("Name") as Label
+	title.visible = not occupied and not locked
+	title.text = String(EQUIP_SLOT_LABELS.get(key, key))
+	title.add_theme_font_override("font", Style.make_font(600))
+	title.add_theme_font_size_override("font_size", 16)
+	title.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	name_lbl.visible = locked
+	name_lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
+	name_lbl.max_lines_visible = 1
+	name_lbl.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	name_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	name_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	content.get_node("Value").visible = false
+	content.get_node("InfoRail").visible = false
+	var details := content.get_node_or_null("CardDetails")
+	if details != null:
+		details.visible = false
+	ReferenceStyle.update_item_badges(content, item, true)
+	var rarity := content.get_node("Rarity") as Control
+	rarity.visible = occupied
+	rarity.add_theme_font_override("font", Style.make_font(700))
+	rarity.add_theme_color_override("font_color", Color.BLACK)
+	var left_inset := 24.0
+	var right_inset := 8.0
+	for i in 4:
+		var badge := rarity if i == 0 else content.get_node("SourceBadge%d" % (i - 1)) as Control
+		badge.visible = occupied and (i == 0 or badge.visible)
+		badge.set_anchors_and_offsets_preset(Control.PRESET_LEFT_WIDE if i < 2 else Control.PRESET_RIGHT_WIDE)
+		badge.offset_top = 4
+		badge.offset_bottom = -4
+		if i < 2:
+			badge.offset_left = 6 + i * 18
+			badge.offset_right = badge.offset_left + 14
+			if badge.visible: left_inset = badge.offset_right + 8
+		else:
+			badge.offset_right = -6 - (i - 2) * 18
+			badge.offset_left = badge.offset_right - 14
+			if badge.visible: right_inset = maxf(right_inset, -badge.offset_left + 8)
+	# Reserve independent side strips; the illustration never sits under glyphs.
+	for node_name in ["Icon", "Fallback"]:
+		var art := content.get_node(node_name) as Control
+		art.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		art.offset_left = left_inset
+		art.offset_right = -right_inset
+		art.offset_top = 6
+		art.offset_bottom = -6
 
 ## ---------- 输入 ----------
 
@@ -536,9 +621,9 @@ func _pulse_skill_slot(index: int) -> void:
 	var slot: SkillSlot = _skill_slots[index]
 	slot.pivot_offset = Vector2(HOTBAR_SLOT, HOTBAR_SLOT) * 0.5
 	var tw := create_tween()
-	tw.tween_property(slot, "scale", Vector2(1.25, 1.25), 0.1)
+	tw.tween_property(slot, "scale", Vector2(0.96, 0.96), 0.1)
 	tw.tween_property(slot, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	slot.add_theme_stylebox_override("panel", Style.make_style(Style.COLOR_SKILL_SLOT_BG, Style.THEME_GOLD, Style.RADIUS_SM, 2))
+	slot.add_theme_stylebox_override("panel", _s_hotbar_hover)
 	tw.tween_callback(func() -> void:
 		slot.add_theme_stylebox_override("panel", _s_skill_empty))
 
@@ -722,10 +807,10 @@ func _tab_style(active: bool) -> StyleBox:
 	if active:
 		# 原项目 panel-tab：底部 3px 下划线 + 半透明底（灰白/暗金主题自动取色）
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = ReferenceStyle.PANEL_TAB_BG
+		sb.bg_color = Style.DRAWER_TAB
 		sb.set_corner_radius_all(0)
 		sb.set_border_width_all(0)
-		sb.border_color = ReferenceStyle.PANEL_TAB_BORDER
+		sb.border_color = Style.DRAWER_FOCUS
 		sb.border_width_bottom = 5
 		return sb
 	return Style.make_style(Style.COLOR_TRANSPARENT, Style.COLOR_TRANSPARENT, 0, 0)
@@ -851,7 +936,7 @@ func _flash_hotbar(index: int) -> void:
 	var slot: HotbarSlot = _hotbar_slots[index]
 	slot.pivot_offset = Vector2(HOTBAR_SLOT, HOTBAR_SLOT) * 0.5
 	var tw := create_tween()
-	tw.tween_property(slot, "scale", Vector2(1.15, 1.15), 0.14)
+	tw.tween_property(slot, "scale", Vector2(0.96, 0.96), 0.14)
 	tw.tween_property(slot, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _shake_hotbar(index: int) -> void:
@@ -1143,13 +1228,7 @@ func _build_hotbar() -> void:
 	var bar := PanelContainer.new()
 	bar.name = "Hotbar"
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	# 快捷栏容器：半透明玻璃底（与面板毛玻璃一致）
-	bar.add_theme_stylebox_override("panel",
-		Style.make_style(Color(Style.COLOR_HUD_BG, 0.35), Color(Style.COLOR_HUD_BORDER, 0.5), 12, 2))
-	bar.add_theme_constant_override("margin_left", BAR_PAD)
-	bar.add_theme_constant_override("margin_right", BAR_PAD)
-	bar.add_theme_constant_override("margin_top", BAR_PAD)
-	bar.add_theme_constant_override("margin_bottom", BAR_PAD)
+	bar.add_theme_stylebox_override("panel", Style.make_surface(0.90, 10, BAR_PAD, BAR_PAD))
 	bar.z_index = 100  # 快捷栏通用置顶：任何界面（含面板打开）都可见
 	add_child(bar)
 	_hotbar_root = HBoxContainer.new()
@@ -1180,10 +1259,6 @@ func _build_hotbar() -> void:
 		content.add_child(icon)
 		var key := _make_label(content, SKILL_KEY_HINTS[i], 11, Style.COLOR_HUD_GOLD, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
-		var blink := create_tween()
-		blink.set_loops()
-		blink.tween_property(key, "modulate:a", 0.35, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
 		cd.color = Style.COLOR_CD_DIM
@@ -1216,7 +1291,7 @@ func _build_hotbar() -> void:
 	sp.key = "右击"
 	sp.index = -1
 	sp.custom_minimum_size = Vector2(HOTBAR_SLOT, HOTBAR_SLOT)
-	sp.add_theme_stylebox_override("panel", Style.make_style(Color(0.231, 0.208, 0.29), Color(0.353, 0.353, 0.541), 8, 2))
+	sp.add_theme_stylebox_override("panel", _s_skill_empty)
 	sp.visible = false
 	var sp_content := Control.new()
 	sp_content.name = "Content"
@@ -1261,10 +1336,6 @@ func _build_hotbar() -> void:
 		stack.add_theme_font_override("font", _font_mono)
 		var key := _make_label(content, str(i + 1), 11, Style.COLOR_HUD_GOLD, Vector2(HOTBAR_SLOT - 14, HOTBAR_SLOT - 17))
 		key.name = "Key"
-		var blink := create_tween()
-		blink.set_loops()
-		blink.tween_property(key, "modulate:a", 0.35, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		blink.tween_property(key, "modulate:a", 1.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		var cd := ColorRect.new()
 		cd.name = "CD"
 		cd.color = Style.COLOR_CD_DIM
@@ -1281,18 +1352,73 @@ func _build_hotbar() -> void:
 		content.add_child(cd)
 		_hotbar_root.add_child(slot)
 		_hotbar_slots.append(slot)
-	var w := (HOTBAR_SIZE + SKILL_SIZE) * HOTBAR_SLOT + (HOTBAR_SIZE + SKILL_SIZE + 2) * BAR_GAP + 2 * 2 + BAR_PAD * 2
-	var h := HOTBAR_SLOT + BAR_PAD * 2
+	for slot in _skill_slots + _hotbar_slots + [sp]:
+		_layout_hotbar_content(slot, slot in _skill_slots or slot == sp)
 	bar.anchor_left = 0.5
 	bar.anchor_right = 0.5
 	bar.anchor_top = 1.0
 	bar.anchor_bottom = 1.0
 	bar.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	bar.grow_vertical = Control.GROW_DIRECTION_BOTH
-	bar.offset_left = -w / 2.0
-	bar.offset_right = w / 2.0
-	bar.offset_top = -h - 14.0
-	bar.offset_bottom = -14.0
+	bar.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	bar.minimum_size_changed.connect(_fit_hotbar.bind(bar))
+	_fit_hotbar.call_deferred(bar)
+	var glass := preload("res://ui/liquid_glass_theme.gd").mount(bar)
+	glass.material.set_shader_parameter("corner_radius", 10.0)
+
+func _fit_hotbar(bar: Control) -> void:
+	var measured := bar.get_combined_minimum_size()
+	bar.offset_left = -measured.x / 2.0
+	bar.offset_right = measured.x / 2.0
+	bar.offset_top = -measured.y - 12.0
+	bar.offset_bottom = -12.0
+
+func _hotbar_style(hover: bool) -> StyleBoxFlat:
+	var box := Style.make_surface(0.94 if hover else 0.60, 7, 0, 0)
+	box.shadow_size = 0
+	if hover:
+		box.border_color = Style.COLOR_DRAG_OVER_BORDER
+	return box
+
+func _layout_hotbar_content(slot: Control, _skill: bool) -> void:
+	var content := slot.get_node("Content") as Control
+	content.clip_contents = true
+	var icon := content.get_node("Icon") as Control
+	icon.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	icon.offset_left = 4
+	icon.offset_right = -4
+	icon.offset_top = 4
+	icon.offset_bottom = -4
+	var key := content.get_node("Key") as Label
+	key.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	key.offset_left = 6
+	key.offset_right = -4
+	key.offset_top = 30
+	key.offset_bottom = -2
+	key.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	key.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	key.add_theme_font_override("font", _font_mono)
+	key.add_theme_font_size_override("font_size", 11)
+	key.add_theme_color_override("font_color", Style.COLOR_TEXT)
+	key.z_index = 2
+	if content.has_node("Stack"):
+		var stack := content.get_node("Stack") as Label
+		stack.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		stack.offset_top = 1
+		stack.offset_bottom = -32
+		stack.offset_left = 4
+		stack.offset_right = -4
+		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		stack.z_index = 2
+	if content.has_node("CDText"):
+		var text := content.get_node("CDText") as Label
+		text.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		text.offset_top = 0
+		text.offset_bottom = 0
+		text.offset_left = 4
+		text.offset_right = -4
+		text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		text.z_index = 2
+
 
 ## ---------- 构建：装备与背包面板 ----------
 
@@ -1329,7 +1455,7 @@ func _build_panel() -> void:
 	_panel.add_theme_stylebox_override("panel", shell)
 	_panel_root.add_child(_panel)
 	var left_border := ColorRect.new()
-	left_border.color = ReferenceStyle.PANEL_DIVIDER
+	left_border.color = Style.DRAWER_RIM
 	left_border.anchor_bottom = 1.0
 	left_border.offset_right = 3
 	left_border.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -1359,7 +1485,7 @@ func _build_panel() -> void:
 	tex_layer.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tex_layer.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var tex_style := Style.make_texture_panel_style()
-	tex_style.modulate_color = Color(Style.THEME_WHITE, 0.06)
+	tex_style.bg_color.a = 0.06
 	tex_layer.add_theme_stylebox_override("panel", tex_style)
 	content.add_child(tex_layer)
 	tex_layer.visible = Style.theme_active() != "cold_steel"
@@ -1402,13 +1528,13 @@ func _build_panel() -> void:
 	Style.style_button(close_button)
 	close_button.custom_minimum_size = Vector2(32, 32)
 	close_button.add_theme_font_size_override("font_size", 24)
-	close_button.add_theme_color_override("font_color", ReferenceStyle.PANEL_CLOSE_TEXT)
+	close_button.add_theme_color_override("font_color", Style.COLOR_DIM_TEXT)
 	close_button.add_theme_stylebox_override("normal", ReferenceStyle.surface("#293239", "#293239", "#45545e", 5, 1))
 	close_button.pressed.connect(func(): set_panel_open(false))
 	title_row.add_child(close_button)
 	var divider := ColorRect.new()
 	divider.custom_minimum_size.y = 2
-	divider.color = ReferenceStyle.PANEL_DIVIDER
+	divider.color = Style.DRAWER_RIM
 	vbox.add_child(divider)
 	# 页签栏（旧版 SystemUI 页签）
 	var tab_bar := HBoxContainer.new()
@@ -1466,11 +1592,11 @@ func _build_panel() -> void:
 	_equip_grid.add_theme_constant_override("h_separation", 6)
 	_equip_grid.add_theme_constant_override("v_separation", 6)
 	_equip_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	# 用户确认的黑化深青冷钢容器；布局和圆角仍沿用原装备栏。
+	# Quiet charcoal shell; preserve equipment grid sizing and full-height drawer.
 	var equip_glass := PanelContainer.new()
 	equip_glass.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	equip_glass.add_theme_stylebox_override("panel",
-		ReferenceStyle.surface(ReferenceStyle.EQUIP_GLASS_TOP, ReferenceStyle.EQUIP_GLASS_BOTTOM, ReferenceStyle.EQUIP_GLASS_BORDER, 12, 2, 10))
+		ReferenceStyle.surface(ReferenceStyle.EQUIP_GLASS_TOP, ReferenceStyle.EQUIP_GLASS_BOTTOM, ReferenceStyle.EQUIP_GLASS_BORDER, 4, 1, 10))
 	equip_glass.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	equip_col.add_child(equip_glass)
 	_equip_grid.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -1489,6 +1615,26 @@ func _build_panel() -> void:
 		cell_content.custom_minimum_size = EQUIP_SLOT_SIZE
 		cell_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		cell.add_child(cell_content)
+		var info_rail := ColorRect.new()
+		info_rail.name = "InfoRail"
+		info_rail.color = ReferenceStyle.EQUIP_RAIL
+		info_rail.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cell_content.add_child(info_rail)
+		var slot_title := Label.new()
+		slot_title.name = "SlotTitle"
+		Style.apply_text_role(slot_title, &"caption")
+		slot_title.add_theme_color_override("font_color", ReferenceStyle.EQUIP_TEXT_MUTED)
+		slot_title.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		slot_title.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cell_content.add_child(slot_title)
+		var card_value := Label.new()
+		card_value.name = "Value"
+		Style.apply_text_role(card_value, &"caption")
+		card_value.add_theme_font_override("font", _font_mono)
+		card_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		card_value.add_theme_color_override("font_color", ReferenceStyle.EQUIP_TEXT)
+		card_value.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cell_content.add_child(card_value)
 		var icon := TextureRect.new()
 		icon.name = "Icon"
 		icon.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -1572,30 +1718,18 @@ func _build_panel() -> void:
 		lock.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		lock.visible = false
 		cell_content.add_child(lock)
-		var x_lbl := Label.new()
-		x_lbl.text = "✕"
-		x_lbl.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		x_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		x_lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		x_lbl.add_theme_font_size_override("font_size", 32)
-		x_lbl.add_theme_color_override("font_color", Style.COLOR_BLACK)
-		x_lbl.add_theme_font_override("font", Style.make_font(700))
-		x_lbl.add_theme_color_override("font_shadow_color", ReferenceStyle.PANEL_GLYPH_SHADOW)
-		x_lbl.add_theme_constant_override("shadow_offset_x", 0)
-		x_lbl.add_theme_constant_override("shadow_offset_y", 0)
-		x_lbl.add_theme_constant_override("shadow_outline_size", 4)
-		x_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		lock.add_child(x_lbl)
 		_equip_grid.add_child(cell)
 		_equip_cells[key] = cell
-	# 下：16x8 空间背包；半尺寸单格按背包栏 2:1 比例重新铺满。
+		cell.resized.connect(func() -> void: _layout_equipment_card(key))
+	# Fixed-size spatial grid inside a padded, rounded scrolling surface.
 	var inv_col := VBoxContainer.new()
-	inv_col.add_theme_constant_override("separation", 4)
+	inv_col.add_theme_constant_override("separation", 10)
 	inv_col.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var inv_margin := MarginContainer.new()
 	inv_margin.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	inv_margin.add_theme_constant_override("margin_left", 4)
-	inv_margin.add_theme_constant_override("margin_right", 4)
+	inv_margin.add_theme_constant_override("margin_left", 12)
+	inv_margin.add_theme_constant_override("margin_right", 12)
+	inv_margin.add_theme_constant_override("margin_bottom", 12)
 	_equip_page.add_child(inv_margin)
 	inv_margin.add_child(inv_col)
 	var inv_header := HBoxContainer.new()
@@ -1614,13 +1748,24 @@ func _build_panel() -> void:
 	grid_backing.bg_color = ReferenceStyle.BACKPACK_EMPTY_BOTTOM
 	_grid.add_theme_stylebox_override("panel", grid_backing)
 	_grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_grid.custom_minimum_size = Vector2(INV_COLS * CELL_SLOT * 0.5, Spatial.ROWS * CELL_SLOT * 0.5)
+	_grid.custom_minimum_size = Vector2(0, Spatial.ROWS * INVENTORY_CELL_SIDE)
 	_grid.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_grid.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
 	_grid.resized.connect(_layout_grid_geometry)
 	var inv_scroll := Style.make_scroll_container()
+	inv_scroll.name = "InventoryScroll"
 	inv_scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	inv_scroll.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	inv_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	inv_col.add_child(inv_scroll)
+	inv_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	var frame := PanelContainer.new()
+	frame.name = "InventoryFrame"
+	frame.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	var frame_style := Style.make_style(Color("#101a2b99"), Color("#b8cde333"), 18, 1)
+	frame_style.set_content_margin_all(14)
+	frame.add_theme_stylebox_override("panel", frame_style)
+	inv_col.add_child(frame)
+	frame.add_child(inv_scroll)
 	inv_scroll.add_child(_grid)
 	_sync_grid_cells()
 	# 右侧贴边：固定 PANEL_W 宽、全高，初始在屏幕外右侧（复刻旧版 system-panel）
@@ -1655,6 +1800,12 @@ func _sync_grid_cells() -> void:
 		cell.custom_minimum_size = Vector2.ONE * cell_side
 		cell.size = cell.custom_minimum_size
 		cell.add_theme_stylebox_override("panel", _s_cell_empty)
+		var grid_lines := BackpackCellLines.new()
+		grid_lines.name = "GridLines"
+		grid_lines.hud = self
+		grid_lines.slot = i
+		grid_lines.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cell.add_child(grid_lines)
 		var cell_content := Control.new()
 		cell_content.name = "Content"
 		cell_content.custom_minimum_size = Vector2.ZERO
@@ -1695,7 +1846,7 @@ func _sync_grid_cells() -> void:
 		stack.offset_top = -20
 		stack.offset_right = -4
 		stack.offset_bottom = -4
-		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		stack.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		var name_lbl := _make_label(cell_content, "", Style.font_size("caption"), Style.COLOR_WHITE, Vector2.ZERO)
 		name_lbl.name = "Name"
 		name_lbl.add_theme_font_override("font", _make_item_name_font())
@@ -1797,7 +1948,7 @@ func _make_tab_button(label: String) -> Button:
 
 func _make_divider() -> ColorRect:
 	var d := ColorRect.new()
-	d.custom_minimum_size = Vector2(2, HOTBAR_SLOT - 10)
+	d.custom_minimum_size = Vector2(1, HOTBAR_SLOT - 16)
 	d.color = Style.COLOR_BAR_BORDER
 	d.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return d
@@ -1985,6 +2136,22 @@ class HotbarSlot:
 	func _drop_data(_at: Vector2, data) -> void:
 		hud.set_hotbar_drag_over(index, false)
 		hud.drop_on_hotbar(index, data)
+
+class BackpackCellLines:
+	extends Control
+	var hud
+	var slot := 0
+
+	func _draw() -> void:
+		if hud == null or hud.backpack == null or hud.backpack.slots[slot] == null:
+			return
+		var footprint := Spatial.footprint(hud.backpack.slots[slot])
+		var side: float = hud._grid_cell_side()
+		var edge := Color(ReferenceStyle.BACKPACK_EMPTY_LIGHT_EDGE)
+		for x in range(1, footprint.x):
+			draw_line(Vector2(x * side, 1), Vector2(x * side, size.y - 1), edge, 1.0)
+		for y in range(1, footprint.y):
+			draw_line(Vector2(1, y * side), Vector2(size.x - 1, y * side), edge, 1.0)
 
 class BackpackCell:
 	extends PanelContainer
