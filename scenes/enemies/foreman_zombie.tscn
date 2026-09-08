@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/foreman_zombie.gd" id="1"]
-[ext_resource type="PackedScene" path="res://assets/models/foreman_zombie/foreman_v08.glb" id="2"]
+[ext_resource type="PackedScene" path="res://assets/models/foreman_zombie/foreman_v11.glb" id="2"]
 
 [sub_resource type="CapsuleShape3D" id="Body"]
 radius = 0.52

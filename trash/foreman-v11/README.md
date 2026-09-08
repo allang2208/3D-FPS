@@ -1,0 +1,1 @@
+Retired foreman-only scene and portal. Kept solely for recovery; not a supported scene entry. Current test scene: scenes/wilderness_combat_study.tscn with -- --foreman-review. Historical tools referencing foreman_demo require adaptation.

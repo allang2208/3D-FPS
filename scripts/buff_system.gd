@@ -163,7 +163,7 @@ func speed_mul() -> float:
 		m *= 1.0 + int(haste["stacks"]) * per2
 	var inspire := _find("inspire")
 	if not inspire.is_empty():
-		m *= float(inspire["opts"].get("speed_mul", 1.33))
+		m *= float(inspire["opts"].get("meta", inspire["opts"]).get("speed_mul", 1.33))
 	var fear := _find("fear")
 	if not fear.is_empty():
 		m *= maxf(0.01, 1.0 - int(fear["stacks"]) * 0.33)
@@ -174,7 +174,7 @@ func atk_mul() -> float:
 	var inspire := _find("inspire")
 	if inspire.is_empty():
 		return 1.0
-	return float(inspire["opts"].get("atk_mul", 1.5))
+	return float(inspire["opts"].get("meta", inspire["opts"]).get("atk_mul", 1.5))
 
 ## 受击伤害倍率：魔力易伤/感电/无人机易伤/冻结（冻结只对非魔法伤害生效）
 func incoming_damage_mul(damage_type: String) -> float:

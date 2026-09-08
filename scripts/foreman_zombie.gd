@@ -6,6 +6,7 @@ const WHIP_SECONDS := 1.5
 const WHIP_REACH_MULTIPLIER := 2.0 # V07: doubled 3.2 m whip, user-approved reach.
 var config: Dictionary
 var action := ""
+var combat_state: StringName = &"idle"
 var howl_remaining := 0.0
 var _walk_sound := 0.0
 var _sound_done := false
@@ -23,11 +24,13 @@ func _ready() -> void:
 	impact_range = attack_start_range
 	impact_half_width = float(config.attackSkills.whip.width)*.005 + .25
 	attack_cd = float(config.attackSkills.whip.cooldown)*.001
-	walk_reference_speed = .40/(1.5*.62)
+	walk_reference_speed = .32/(1.5*.65)
+	level = int(config.level)
 	aggro_range = 25
 	set_meta("inspire_attack_consumed",true)
 	super._ready()
 	_audio = AudioStreamPlayer3D.new()
+	_audio.bus = "SFX"
 	_audio.max_distance = 22
 	_audio.volume_db = -8
 	add_child(_audio)
@@ -40,6 +43,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if _dead:
 		_dead_t += delta
+		state = State.DYING if _dead_t < 1.4 else State.CORPSE
+		combat_state = &"dying" if _dead_t < 1.4 else &"corpse"
 		_sync_pose("Death",minf(_dead_t,1.4),delta)
 		if not _sound_done and _dead_t >= .8:
 			_sound_done = true
@@ -61,6 +66,8 @@ func _physics_process(delta: float) -> void:
 	howl_remaining = maxf(0,howl_remaining-delta)
 	if _buffs.is_control_locked() or _knock_vel.length_squared()>.01 or _buffs.has("fear"):
 		_cancel_attack()
+		state = State.STUNNED
+		combat_state = &"controlled"
 		if _knock_vel.length_squared()>.01:
 			velocity = _knock_vel
 			_knock_vel = _knock_vel.lerp(Vector3.ZERO,minf(1,delta*8))
@@ -87,6 +94,8 @@ func _physics_process(delta: float) -> void:
 	elif direction.length()<=attack_start_range and cooldown_remaining<=0:
 		_start_attack(direction.normalized())
 	elif direction.length()>attack_start_range*.85:
+		state = State.CHASE
+		combat_state = &"chase"
 		_turn_to(direction.normalized(),delta)
 		velocity = direction.normalized()*chase_speed*_buffs.speed_mul()
 		_move_grounded(delta)
@@ -102,24 +111,29 @@ func _physics_process(delta: float) -> void:
 func _start_attack(direction: Vector3) -> void:
 	super._start_attack(direction)
 	action = "whip"
+	combat_state = &"windup"
 	_sound_done = false
 
 func _start_howl() -> void:
 	action = "howl"
+	combat_state = &"howl"
+	state = State.RECOVER
 	attack_elapsed = 0
-	howl_remaining = 30
+	howl_remaining = float(config.attackSkills.howl.cooldown)*.001
 	velocity = Vector3.ZERO
 	_sound("howl")
-	for enemy in get_parent().get_children():
-		if enemy.has_method("apply_inspire") and enemy.get("_dead") != true:
-			enemy.apply_inspire(15000,1.33,1.5)
+	for enemy in get_tree().current_scene.find_children("*", "CharacterBody3D", true, false):
+		if enemy.has_method("apply_inspire") and enemy.get("_dead") != true and (enemy.collision_layer & 2) != 0 and enemy.get_meta("faction", "enemy") == "enemy":
+			if enemy._buffs.has("statusImmune"):
+				continue
+			enemy.apply_inspire(int(config.attackSkills.howl.buffDuration),float(config.attackSkills.howl.speedMul),float(config.attackSkills.howl.atkMul))
 			if enemy.get_meta("inspire_attack_consumed",false) != true:
 				var adapter = enemy.get_node_or_null("ForemanInspiration")
 				if adapter == null:
 					adapter = load("res://scripts/foreman_inspiration.gd").new()
 					adapter.name = "ForemanInspiration"
 					enemy.add_child(adapter)
-				adapter.refresh()
+				adapter.refresh(float(config.attackSkills.howl.atkMul))
 	_sync_pose("Howl",0,0)
 
 func _tick_attack(delta: float) -> void:
@@ -130,13 +144,15 @@ func _tick_attack(delta: float) -> void:
 	var duration := 3.0 if action=="howl" else WHIP_SECONDS
 	_sync_pose("Howl" if action=="howl" else "Attack",minf(attack_elapsed,duration),delta)
 	if action=="whip":
+		state = State.WINDUP if attack_elapsed < CONTACT else (State.STRIKE if attack_elapsed < CONTACT+.06 else State.RECOVER)
+		combat_state = &"windup" if state == State.WINDUP else (&"strike" if state == State.STRIKE else &"recover")
 		if not _sound_done and attack_elapsed>=.45:
 			_sound_done=true
 			_sound("whip")
 		if not _hit_this_attack and attack_elapsed>=CONTACT:
 			_hit_this_attack=true
 			if _can_impact():
-				_locked_target.take_damage(roundi(contact_damage*2*_buffs.atk_mul()),"physical",self)
+				_locked_target.take_damage(roundi(contact_damage*float(config.attackSkills.whip.damageMul)*_buffs.atk_mul()),"physical",self)
 				if _target_alive(_locked_target) and _locked_target.has_method("apply_buff"):
 					_locked_target.apply_buff("bleed",10000,{"source":self,"bleed_stacks":[{"remaining_s":10.0}]})
 	if attack_elapsed>=duration:
@@ -165,3 +181,7 @@ func _fade(node: Node, amount: float) -> void:
 		node.transparency=amount
 	for child in node.get_children():
 		_fade(child,amount)
+
+func _idle(delta: float) -> void:
+	combat_state = &"idle"
+	super._idle(delta)
