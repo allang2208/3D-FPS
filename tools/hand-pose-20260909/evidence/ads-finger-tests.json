@@ -1,0 +1,75 @@
+{
+  "cases": 255,
+  "failures": [],
+  "max_repeat_error_m": 0.0,
+  "max_unrelated_error_m": 0.0,
+  "release_cases": 326,
+  "spans": [
+    {
+      "drum": false,
+      "left_knuckle_span_after_m": 0.062711238861084,
+      "left_knuckle_span_before_m": 0.0798420086503029,
+      "weapon": "infima_ar"
+    },
+    {
+      "drum": true,
+      "left_knuckle_span_after_m": 0.062711238861084,
+      "left_knuckle_span_before_m": 0.0798420086503029,
+      "weapon": "infima_ar"
+    },
+    {
+      "drum": false,
+      "left_knuckle_span_after_m": 0.0627113208174706,
+      "left_knuckle_span_before_m": 0.0798420757055283,
+      "weapon": "akm_classic"
+    },
+    {
+      "drum": true,
+      "left_knuckle_span_after_m": 0.0627113208174706,
+      "left_knuckle_span_before_m": 0.0798420757055283,
+      "weapon": "akm_classic"
+    },
+    {
+      "drum": false,
+      "left_knuckle_span_after_m": 0.0562942884862423,
+      "left_knuckle_span_before_m": 0.0675637051463127,
+      "weapon": "hk416"
+    },
+    {
+      "drum": true,
+      "left_knuckle_span_after_m": 0.0562942884862423,
+      "left_knuckle_span_before_m": 0.0675637051463127,
+      "weapon": "hk416"
+    },
+    {
+      "drum": false,
+      "left_knuckle_span_after_m": 0.0562942884862423,
+      "left_knuckle_span_before_m": 0.0675637051463127,
+      "weapon": "qbz191"
+    },
+    {
+      "drum": true,
+      "left_knuckle_span_after_m": 0.0562942884862423,
+      "left_knuckle_span_before_m": 0.0675637051463127,
+      "weapon": "qbz191"
+    },
+    {
+      "drum": false,
+      "left_knuckle_span_after_m": 0.0721152648329735,
+      "left_knuckle_span_before_m": 0.085633210837841,
+      "weapon": "m16"
+    },
+    {
+      "drum": true,
+      "left_knuckle_span_after_m": 0.0721152648329735,
+      "left_knuckle_span_before_m": 0.085633210837841,
+      "weapon": "m16"
+    },
+    {
+      "drum": false,
+      "left_knuckle_span_after_m": 0.0463191121816635,
+      "left_knuckle_span_before_m": 0.0548736415803432,
+      "weapon": "infima_handgun"
+    }
+  ]
+}

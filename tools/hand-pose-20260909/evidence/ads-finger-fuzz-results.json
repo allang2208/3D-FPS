@@ -1,0 +1,189 @@
+{
+  "failures": [],
+  "last_trace": [
+    {
+      "clip": "aim",
+      "command": 0,
+      "dt": 0.0166666666666667,
+      "index": 976,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 7,
+      "dt": 0.00694444444444444,
+      "index": 977,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 7,
+      "dt": 0.00694444444444444,
+      "index": 978,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "equip_charge",
+      "command": 2,
+      "dt": 0.0333333333333333,
+      "index": 979,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "aim_fire",
+      "command": 1,
+      "dt": 0.0166666666666667,
+      "index": 980,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 4,
+      "dt": 0.00694444444444444,
+      "index": 981,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 4,
+      "dt": 0.00694444444444444,
+      "index": 982,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 8,
+      "dt": 0.0166666666666667,
+      "index": 983,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 4,
+      "dt": 0.0333333333333333,
+      "index": 984,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "reload",
+      "command": 1,
+      "dt": 0.00694444444444444,
+      "index": 985,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 4,
+      "dt": 0.00694444444444444,
+      "index": 986,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 6,
+      "dt": 0.00694444444444444,
+      "index": 987,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "equip_charge",
+      "command": 1,
+      "dt": 0.0333333333333333,
+      "index": 988,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 7,
+      "dt": 0.0333333333333333,
+      "index": 989,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "inspect",
+      "command": 3,
+      "dt": 0.00694444444444444,
+      "index": 990,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "reload",
+      "command": 0,
+      "dt": 0.0333333333333333,
+      "index": 991,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 8,
+      "dt": 0.00694444444444444,
+      "index": 992,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "aim",
+      "command": 0,
+      "dt": 0.0333333333333333,
+      "index": 993,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "aim_fire",
+      "command": 1,
+      "dt": 0.0333333333333333,
+      "index": 994,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "clip": "aim",
+      "command": 0,
+      "dt": 0.00694444444444444,
+      "index": 995,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 6,
+      "dt": 0.00694444444444444,
+      "index": 996,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 8,
+      "dt": 0.0333333333333333,
+      "index": 997,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 7,
+      "dt": 0.0166666666666667,
+      "index": 998,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    },
+    {
+      "command": 6,
+      "dt": 0.00694444444444444,
+      "index": 999,
+      "seed": 90831,
+      "weapon": "infima_handgun"
+    }
+  ],
+  "operations": 18000,
+  "seeds": [
+    90801,
+    90817,
+    90831
+  ]
+}

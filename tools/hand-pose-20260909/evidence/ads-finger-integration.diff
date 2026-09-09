@@ -1,0 +1,59 @@
+--- before/infima_viewmodel.gd
++++ after/infima_viewmodel.gd
+@@ -15,6 +15,7 @@
+ var tree: AnimationTree
+ var action_node: AnimationNodeAnimation
+ var shot_node: AnimationNodeOneShot
++var _held_hand_pose = preload("res://scripts/held_hand_pose.gd").new()
+ var _drum_hand = preload("res://scripts/large_drum_hand_pose.gd").new()
+ var _drum_clock := -1.0
+ var _drum_source_length := 0.0
+@@ -36,6 +37,7 @@
+ 		next.erase("foregrip") # Numeric barrel variants retain the factory geometry.
+ 	if gunsmith_parts == next:
+ 		return
++	_held_hand_pose.restore(_foregrip_rig.rig)
+ 	_drum_hand.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	_foregrip_pose.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	for part in _mounted_parts.values():
+@@ -136,6 +138,7 @@
+ var _foregrip_pose = preload("res://scripts/foregrip_pose.gd").new()
+ 
+ func advance_pose(ads: float, delta: float) -> void:
++	_held_hand_pose.restore(_foregrip_rig.rig)
+ 	_drum_hand.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	_foregrip_pose.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	tree.set("parameters/ads/blend_amount", ads)
+@@ -153,6 +156,7 @@
+ 		_drum_hand.clear_shell(_mounted_parts.magazine,_foregrip_rig,clearance_weight)
+ 	else:
+ 		_drum_hand.correction_meters=0.0
++	_held_hand_pose.apply(_foregrip_rig.rig, _foregrip_pose, _mounted_parts.has("underbarrel"), ads)
+ 
+ func _build_stable_ads_fire() -> void:
+ 	var aim := player.get_animation(&"aim")
+@@ -267,6 +271,7 @@
+ 	# Ownership may change between two instances of the same model, without a
+ 	# model reload. Cancel both the one-shot and its post-animation pose clocks.
+ 	stop_action_audio()
++	_held_hand_pose.restore(_foregrip_rig.rig)
+ 	_drum_hand.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	_foregrip_pose.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	_drum_clock=-1.0
+@@ -279,6 +284,7 @@
+ func play_action(clip: StringName, duration: float = 0.0) -> void:
+ 	if is_instance_valid(_reload_audio):
+ 		_reload_audio.begin(clip,player.get_animation(clip).length,duration,str(gunsmith_parts.get("magazine",false))=="large_drum")
++	_held_hand_pose.restore(_foregrip_rig.rig)
+ 	_drum_hand.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	_foregrip_pose.restore(_foregrip_rig.rig if _foregrip_rig.rig!=null else skeleton)
+ 	tree.set("parameters/shot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+@@ -300,6 +306,8 @@
+ 	_foregrip_rig.setup(self)
+ 	if _mounted_parts.has("underbarrel"):
+ 		_foregrip_pose.apply(_foregrip_rig.rig,_mounted_parts.underbarrel,_foregrip_rig)
++
++	_held_hand_pose.apply(_foregrip_rig.rig, _foregrip_pose, _mounted_parts.has("underbarrel"), _held_hand_pose.ads)
+ 
+ func socket_position(socket: StringName) -> Vector3:
+ 	if socket == &"SOCKET_Muzzle" and _mounted_parts.has("muzzle"):
