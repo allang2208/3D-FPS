@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-09",
+  "reason": "Superseded AKM migration debug captures and Blender automatic backup. Recoverable local archive; not included in Git.",
+  "files": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\editor_current.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\editor_current.png",
+      "bytes": 934128,
+      "sha256": "C5E35328979E01A33E7A1B4EEF4D85D8001AE958208ACFFDC97BA3CDACB1DE38"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\runtime_missing_viewmodel.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\runtime_missing_viewmodel.png",
+      "bytes": 759131,
+      "sha256": "1A2547B732C0D31CB70BD9ACA503ECE3695AFBBDAA05B0F088DD9F641E6FBE4D"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\ue_reload_empty_editor_after_preview.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\ue_reload_empty_editor_after_preview.png",
+      "bytes": 280815,
+      "sha256": "D3FD22CED116A42E4B18CF7E74306FCAD39906627FAA2B68CB87A3ACB0D5A879"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\ue_reload_empty_fixed_focus.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\ue_reload_empty_fixed_focus.png",
+      "bytes": 606439,
+      "sha256": "AF908A6D8735ED2BBE81503BEC6A159E00392B6FCD5A06AD720B2E97ACF0993F"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\ue_reload_empty_fixed_focus2.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\ue_reload_empty_fixed_focus2.png",
+      "bytes": 765748,
+      "sha256": "9EA8B596B18B9A3DC47B8C7EDF0224866FA98B1CDAEF59778666A4431A10D212"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\ue_reload_empty_fixed.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\ue_reload_empty_fixed.png",
+      "bytes": 606706,
+      "sha256": "18A9E7BC54D2D1468FE1D50660CD4D933CBD7CED7365D516E14D511D6B5716A2"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\ue_reload_empty_preview.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\ue_reload_empty_preview.png",
+      "bytes": 41441,
+      "sha256": "4867577D1D19BC010C1639F34F0E1569DF60B943D4DACBDAEBD860F5309AEF91"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\ue_reload_empty_thumbnail_fixed.png",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\ue_reload_empty_thumbnail_fixed.png",
+      "bytes": 41488,
+      "sha256": "6864D800194A003E2C37B1D6E0DFA27F42964D12B7ADE9C6F709F05BEA8EAAED"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\SK_AKM_Viewmodel_Source.blend1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\akm-migration-20260909\\SK_AKM_Viewmodel_Source.blend1",
+      "bytes": 18510403,
+      "sha256": "09FD279BAC973AF311B8E29AB2CD9E64D7D7F329E29B6012A453545389C6BCBE"
+    }
+  ]
+}

@@ -1,0 +1,898 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\SK_AKM_Viewmodel_Source.blend",
+  "clips": {
+    "idle": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.657593889182252e-08,
+            "max_m": 1.3265381615433736e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.069570619260781e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.751634014387275e-07,
+            "max_m": 1.4966582691061162e-06
+          }
+        ]
+      },
+      {
+        "frame": 2,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.657593889182252e-08,
+            "max_m": 1.3265381615433736e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.069570619260781e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.6957697760306845e-07,
+            "max_m": 1.4975481660844222e-06
+          }
+        ]
+      }
+    ],
+    "aim": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 7.369410111048405e-08,
+            "max_m": 2.006757038932805e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 1.0690082231367895e-07,
+            "max_m": 1.5743363539598598e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 3.1123979743127705e-08,
+            "max_m": 6.155189738369847e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 4.266940000976313e-08,
+            "max_m": 6.253226011656879e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.5583042276057796e-07,
+            "max_m": 1.3861284090647216e-06
+          }
+        ]
+      },
+      {
+        "frame": 2,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 7.369410111048405e-08,
+            "max_m": 2.006757038932805e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 1.0690082231367895e-07,
+            "max_m": 1.5743363539598598e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 3.1123979743127705e-08,
+            "max_m": 6.155189738369847e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 4.266940000976313e-08,
+            "max_m": 6.253226011656879e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.483995879814764e-07,
+            "max_m": 1.3861284090647216e-06
+          }
+        ]
+      }
+    ],
+    "fire": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 6.127805168782539e-08,
+            "max_m": 1.4278119725537896e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.799276227772545e-08,
+            "max_m": 1.3265381615433736e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.047558338940276e-08,
+            "max_m": 8.971687092477304e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.405866579462782e-08,
+            "max_m": 4.59284633619262e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.5659128835473756e-07,
+            "max_m": 1.4914566209377205e-06
+          }
+        ]
+      },
+      {
+        "frame": 13,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.6190812112936295e-08,
+            "max_m": 1.911186477300623e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 4.858771350610716e-08,
+            "max_m": 1.8208249524012113e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.866461229069371e-08,
+            "max_m": 8.462232866585662e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.8161281027338412e-08,
+            "max_m": 5.21540641784668e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.515587438712141e-07,
+            "max_m": 1.5234205626406739e-06
+          }
+        ]
+      },
+      {
+        "frame": 26,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 6.371548017915065e-08,
+            "max_m": 1.9227695316916615e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 7.199337018735878e-08,
+            "max_m": 1.3748289709721456e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 3.744797001146592e-08,
+            "max_m": 8.560065398421926e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.2812650937430356e-08,
+            "max_m": 3.332000937312528e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.4872983680732157e-07,
+            "max_m": 1.4935394541413577e-06
+          }
+        ]
+      }
+    ],
+    "aim_fire": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 7.369410111048405e-08,
+            "max_m": 2.006757038932805e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 1.0519715815118199e-07,
+            "max_m": 1.5956426071444098e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 3.130858004036824e-08,
+            "max_m": 6.155189738369847e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 4.266940000976313e-08,
+            "max_m": 6.253226011656879e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.5583042276057796e-07,
+            "max_m": 1.3861284090647216e-06
+          }
+        ]
+      },
+      {
+        "frame": 13,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 7.989492669676448e-08,
+            "max_m": 2.008037084220294e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 9.666789470946323e-08,
+            "max_m": 1.876984707291124e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 2.7686295092468613e-08,
+            "max_m": 6.728765319357977e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 3.194412663775104e-08,
+            "max_m": 4.949225957852274e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.903410352551603e-07,
+            "max_m": 1.5304007621369085e-06
+          }
+        ]
+      },
+      {
+        "frame": 26,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.6942210506857205e-08,
+            "max_m": 1.4973182832528587e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 3.453239130429983e-08,
+            "max_m": 1.2606957002742377e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 6.826021106363486e-08,
+            "max_m": 1.332832913599469e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 3.8140689182373566e-08,
+            "max_m": 6.009782431246856e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.560492741708797e-07,
+            "max_m": 1.5705710796115445e-06
+          }
+        ]
+      }
+    ],
+    "reload": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.702006674414306e-08,
+            "max_m": 1.3075715880680267e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.175816133466471e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.751634014387275e-07,
+            "max_m": 1.4966582691061162e-06
+          }
+        ]
+      },
+      {
+        "frame": 41,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 8.596031111443139e-08,
+            "max_m": 2.3513635751693695e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 5.1981001922690596e-08,
+            "max_m": 1.0106459234841567e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 7.288871049433218e-08,
+            "max_m": 1.0457388198091238e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.818693583909712e-08,
+            "max_m": 5.960464477539063e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.684601057269473e-07,
+            "max_m": 1.4979929163291683e-06
+          }
+        ]
+      },
+      {
+        "frame": 81,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 6.011648257639306e-08,
+            "max_m": 1.4136482746161726e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 6.83127912388381e-08,
+            "max_m": 1.3144521984739119e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 6.152511761003786e-08,
+            "max_m": 1.2338530392705795e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.7664095385266106e-08,
+            "max_m": 4.842877388000488e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.4470183606228985e-07,
+            "max_m": 1.4603898213507672e-06
+          }
+        ]
+      }
+    ],
+    "reload_empty": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.702006674414306e-08,
+            "max_m": 1.3075715880680267e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.175816133466471e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.751634014387275e-07,
+            "max_m": 1.4966582691061162e-06
+          }
+        ]
+      },
+      {
+        "frame": 52,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 6.186975073846258e-08,
+            "max_m": 1.9371509552001953e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 5.6780990450522446e-08,
+            "max_m": 8.658576899474526e-08
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 5.0795941749001005e-08,
+            "max_m": 8.752450439684637e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.6798796970282046e-08,
+            "max_m": 6.365778852490731e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.620044851423e-07,
+            "max_m": 1.5084987976206518e-06
+          }
+        ]
+      },
+      {
+        "frame": 104,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.702006674414306e-08,
+            "max_m": 1.3075715880680267e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.175816133466471e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.661688195499975e-07,
+            "max_m": 1.4975481660844222e-06
+          }
+        ]
+      }
+    ],
+    "draw": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 8.847550933843294e-08,
+            "max_m": 2.4755668231600746e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 1.5055953560527204e-07,
+            "max_m": 2.1283115233608635e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 1.4086026400183217e-07,
+            "max_m": 2.1696418193818683e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 5.722536423485154e-08,
+            "max_m": 9.730426882661117e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.6959350133271196e-07,
+            "max_m": 1.4884014993734175e-06
+          }
+        ]
+      },
+      {
+        "frame": 15,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 7.025068364812816e-08,
+            "max_m": 2.0047462056687042e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 4.257275053012863e-08,
+            "max_m": 1.257802770743827e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.380781415995486e-08,
+            "max_m": 9.685754776000977e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 4.68385200017251e-08,
+            "max_m": 6.322027276634104e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.7296324437683806e-07,
+            "max_m": 1.4533025431915056e-06
+          }
+        ]
+      },
+      {
+        "frame": 30,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.56945949988206e-08,
+            "max_m": 1.4770200551747538e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 3.350691023732552e-08,
+            "max_m": 1.253935149290177e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 7.300167114901102e-08,
+            "max_m": 1.3348812510944096e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.402258679538109e-08,
+            "max_m": 4.53201124839352e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.91670310180439e-07,
+            "max_m": 1.5225457876258851e-06
+          }
+        ]
+      }
+    ],
+    "holster": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.657593889182252e-08,
+            "max_m": 1.3265381615433736e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.069570619260781e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.751634014387275e-07,
+            "max_m": 1.4966582691061162e-06
+          }
+        ]
+      },
+      {
+        "frame": 12,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 9.850623432547851e-08,
+            "max_m": 2.075491588888186e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.377058319065968e-08,
+            "max_m": 1.837138534477048e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 2.0971173820168558e-07,
+            "max_m": 2.7637536810325694e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 1.008067960123331e-07,
+            "max_m": 1.3348812510944096e-07
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.728740223252078e-07,
+            "max_m": 1.4665536316327079e-06
+          }
+        ]
+      },
+      {
+        "frame": 24,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 1.0202549778804065e-07,
+            "max_m": 2.4496439431270354e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 9.290183224954242e-08,
+            "max_m": 1.769414855098414e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 9.778443536465383e-08,
+            "max_m": 1.97686242482388e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 6.13637223869852e-08,
+            "max_m": 8.940696716308594e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.666127500545883e-07,
+            "max_m": 1.4455326466167463e-06
+          }
+        ]
+      }
+    ],
+    "inspect": [
+      {
+        "frame": 1,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 5.989005241509835e-08,
+            "max_m": 1.3943737203041392e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 8.657593889182252e-08,
+            "max_m": 1.3265381615433736e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.069570619260781e-08,
+            "max_m": 9.094592642585711e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 2.5482637641617572e-08,
+            "max_m": 4.7706993203109864e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.751634014387275e-07,
+            "max_m": 1.4966582691061162e-06
+          }
+        ]
+      },
+      {
+        "frame": 75,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 7.061500000054294e-08,
+            "max_m": 1.9178010099502051e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 6.35253331156914e-08,
+            "max_m": 1.3348812510944096e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 6.975898453651243e-08,
+            "max_m": 1.0751835770653048e-07
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 5.253793078204003e-08,
+            "max_m": 8.17868798974907e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.4272089846992177e-07,
+            "max_m": 1.466932097092333e-06
+          }
+        ]
+      },
+      {
+        "frame": 150,
+        "meshes": [
+          {
+            "mesh": "AKM_Classic_Body",
+            "vertex_count": 2594,
+            "rms_m": 8.333096191802471e-08,
+            "max_m": 2.47135881939858e-07
+          },
+          {
+            "mesh": "AKM_Classic_Bolt",
+            "vertex_count": 90,
+            "rms_m": 4.652554677523347e-08,
+            "max_m": 1.3457530638715954e-07
+          },
+          {
+            "mesh": "AKM_Classic_Magazine",
+            "vertex_count": 80,
+            "rms_m": 4.10669960350724e-08,
+            "max_m": 8.437597493012342e-08
+          },
+          {
+            "mesh": "AKM_Classic_Trigger",
+            "vertex_count": 48,
+            "rms_m": 3.230673755394343e-08,
+            "max_m": 6.064333243705223e-08
+          },
+          {
+            "mesh": "SK_FP_CH_Default_Cubic",
+            "vertex_count": 2490,
+            "rms_m": 3.938960728947612e-07,
+            "max_m": 1.4975481660844222e-06
+          }
+        ]
+      }
+    ]
+  }
+}

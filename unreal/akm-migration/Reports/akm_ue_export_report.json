@@ -1,0 +1,121 @@
+{
+  "source": "E:\\3d\\akm-classic-staging\\akm-classic-unified.blend",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\SK_AKM_Viewmodel_Source.blend",
+  "mesh_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\SK_AKM_Viewmodel.fbx",
+  "fps": 24,
+  "rig": "SK_AKM_Viewmodel",
+  "bone_count": 81,
+  "root_bones": [
+    "VM_Root"
+  ],
+  "meshes": [
+    {
+      "name": "AKM_Classic_Body.001",
+      "vertices": 2594,
+      "polygons": 4914
+    },
+    {
+      "name": "AKM_Classic_Bolt.001",
+      "vertices": 90,
+      "polygons": 170
+    },
+    {
+      "name": "AKM_Classic_Magazine.001",
+      "vertices": 80,
+      "polygons": 150
+    },
+    {
+      "name": "AKM_Classic_Trigger.001",
+      "vertices": 48,
+      "polygons": 88
+    },
+    {
+      "name": "SK_FP_CH_Default_Cubic.001",
+      "vertices": 2490,
+      "polygons": 1238
+    }
+  ],
+  "clips": [
+    {
+      "source": "idle",
+      "action": "AKM_idle",
+      "frame_start": 1,
+      "frame_end": 2,
+      "duration_seconds": 0.041666666666666664,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_idle.fbx"
+    },
+    {
+      "source": "aim",
+      "action": "AKM_aim",
+      "frame_start": 1,
+      "frame_end": 2,
+      "duration_seconds": 0.041666666666666664,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_aim.fbx"
+    },
+    {
+      "source": "fire",
+      "action": "AKM_fire",
+      "frame_start": 1,
+      "frame_end": 26,
+      "duration_seconds": 1.0416666666666667,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_fire.fbx"
+    },
+    {
+      "source": "aim_fire",
+      "action": "AKM_aim_fire",
+      "frame_start": 1,
+      "frame_end": 26,
+      "duration_seconds": 1.0416666666666667,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_aim_fire.fbx"
+    },
+    {
+      "source": "reload",
+      "action": "AKM_reload",
+      "frame_start": 1,
+      "frame_end": 81,
+      "duration_seconds": 3.3333333333333335,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_reload.fbx"
+    },
+    {
+      "source": "reload_empty",
+      "action": "AKM_reload_empty",
+      "frame_start": 1,
+      "frame_end": 104,
+      "duration_seconds": 4.291666666666667,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_reload_empty.fbx"
+    },
+    {
+      "source": "draw",
+      "action": "AKM_draw",
+      "frame_start": 1,
+      "frame_end": 30,
+      "duration_seconds": 1.2083333333333333,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_draw.fbx"
+    },
+    {
+      "source": "holster",
+      "action": "AKM_holster",
+      "frame_start": 1,
+      "frame_end": 24,
+      "duration_seconds": 0.9583333333333334,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_holster.fbx"
+    },
+    {
+      "source": "inspect",
+      "action": "AKM_inspect",
+      "frame_start": 1,
+      "frame_end": 150,
+      "duration_seconds": 6.208333333333333,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKM\\A_AKM_inspect.fbx"
+    }
+  ],
+  "socket_bones": [
+    "WPN_SOCKET_Magazine",
+    "WPN_SOCKET_Default",
+    "WPN_SOCKET_Eject",
+    "WPN_SOCKET_Muzzle",
+    "WPN_SOCKET_Scope",
+    "WPN_SOCKET_Grip",
+    "WPN_SOCKET_Laser"
+  ]
+}
