@@ -1,0 +1,17 @@
+[
+  {
+    "map": "/Game/GameMaps/DayNight_Lighting",
+    "start": "<Struct 'Vector' (0x000002893778B490) {x: -0.061035, y: 0.030518, z: 102.000000}>",
+    "always_loaded": true
+  },
+  {
+    "map": "/Game/GameMaps/L_Normandy_FPS_Test",
+    "start": "<Struct 'Vector' (0x000002893778B030) {x: -2252.078494, y: 34424.747891, z: -11389.556787}>",
+    "always_loaded": true
+  },
+  {
+    "map": "/Game/GameMaps/L_MilitaryTrench_FPS_Test",
+    "start": "<Struct 'Vector' (0x000002893778B440) {x: 2910.000000, y: -740.000000, z: 382.882396}>",
+    "always_loaded": true
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "actor": "/Game/GameMaps/L_MilitaryTrench_FPS_Test.L_MilitaryTrench_FPS_Test:PersistentLevel.StaticMeshActor_UAID_0017B600C5684FAA02_1776864923",
+  "materials": [
+    "<Object '/Game/MilitaryTrench/Materials/MaterialInstances/MI_LocalVolFog.MI_LocalVolFog' (0x000002106142F000) Class 'MaterialInstanceConstant'>"
+  ],
+  "visible": true,
+  "previous_pawn_response": "<CollisionResponseType.ECR_BLOCK: 2>",
+  "new_start": "<Struct 'Vector' (0x0000021046657620) {x: 2910.000000, y: -740.000000, z: 382.882396}>"
+}

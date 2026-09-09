@@ -1,0 +1,652 @@
+{
+  "date": "2026-09-09",
+  "scope": "UE scene tests only",
+  "root": "D:/FPS3D/FPSGAME",
+  "recovery": "Copy each archived file back to original only if original does not exist; verify SHA256. No permanent deletion.",
+  "files": [
+    {
+      "original": "Saved\\SceneTests\\after-fab-windows.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\after-fab-windows.json",
+      "bytes": 310,
+      "sha256": "D4B4DBF7D05E0547D5BC87B369353EC71D0E289F0F4EE39822E5CCE72FEC4782",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\altw.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\altw.json",
+      "bytes": 12606,
+      "sha256": "EDE03589BC7A2E0454BA3C21107D724EC74402081974E18F6970B15994030720",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\build-normandy-backup-2026.09.09-00.45.12.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\build-normandy-backup-2026.09.09-00.45.12.log",
+      "bytes": 334278,
+      "sha256": "EE8DCC5FBB60FA403BE898B22A2DA6AFD9C089535EB4502DAA0E85797F634996",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\build-normandy-backup-2026.09.09-00.47.41.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\build-normandy-backup-2026.09.09-00.47.41.log",
+      "bytes": 274298,
+      "sha256": "BDB633AAFE7C4B831D65C751009325DBE05824F1B8BCFE11C783C82431D02A2D",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\build-normandy-backup-2026.09.09-00.48.08.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\build-normandy-backup-2026.09.09-00.48.08.log",
+      "bytes": 275014,
+      "sha256": "AA1F92EF2D2617783711BBB9B33A241D23CB8987E429D00D28328FEF915FE542",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\build-normandy.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\build-normandy.log",
+      "bytes": 280432,
+      "sha256": "F9BC01BE0003404C91E1F7A2984595994FBA991FE41822E63DE0D66B6CD4F1A4",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\build-trench.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\build-trench.log",
+      "bytes": 1095732,
+      "sha256": "AC611BF5ED6DA0953C90837E243ADF4374DB9B5367EFB47E3903ADF12B8F47DD",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\cef-fabsubmenu-root.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\cef-fabsubmenu-root.txt",
+      "bytes": 197,
+      "sha256": "50ECA9B32D41D1C9BFCEF1B61F3042D59A4F0B944446CB26EFB341D23BA3DB0D",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\cef-fabwindows.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\cef-fabwindows.json",
+      "bytes": 265,
+      "sha256": "6E48B149D64742B4958473EB71B23C6B1A4C267EAF9243588EC65129C2DAE25F",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\cef-main.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\cef-main.txt",
+      "bytes": 5666,
+      "sha256": "4158B0C8BA3705F7841EE447A9D734931645DBF0D46FDE331BAD7061D42AFB87",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\cef-menu.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\cef-menu.txt",
+      "bytes": 5839,
+      "sha256": "2381EB2E4B673F7A343AC0100AFC3533E0968329E77F7A77623D43D9F33977A1",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\cef-menu2.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\cef-menu2.txt",
+      "bytes": 13282,
+      "sha256": "3EB9114D3E37E65B012B8B726AD07E877864909C997CD8DCC5305CDB1AEFA4CE",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\cef-refs.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\cef-refs.txt",
+      "bytes": 30,
+      "sha256": "B928CB95DD43C9181B8A78CC9C1DD86464C9FEE56B770287ABA93C88971ECFCF",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\current-windows.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\current-windows.json",
+      "bytes": 219,
+      "sha256": "E85239CCC595742B3ABAE694478CD5B11FC4D408CF80CC66F7517B0E7674834D",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\dynamic-window.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\dynamic-window.json",
+      "bytes": 6235,
+      "sha256": "107E0EA19DFBE7BA7B106FC292A766B85EEB6D85ECEE498E2E19971650B348EE",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fab-plugin.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fab-plugin.png",
+      "bytes": 183734,
+      "sha256": "6765D48D8D58A33508CF5AB1CEE2FAB195B66B39AD73EDA52B0779561D62B7FB",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fab-restarted.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fab-restarted.png",
+      "bytes": 358651,
+      "sha256": "DF0917C0FC2CCF41B58583CDED07E558CBB9673560CD630A6BEBDAD09BD6162C",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fab-shift1.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fab-shift1.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fab-shifttab.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fab-shifttab.png",
+      "bytes": 356417,
+      "sha256": "55FA18E68C5704F94264AA86910322AE2C4010F6FFD32A30655A032E398D824B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fab-tab1.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fab-tab1.png",
+      "bytes": 356417,
+      "sha256": "55FA18E68C5704F94264AA86910322AE2C4010F6FFD32A30655A032E398D824B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fab-type-test.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fab-type-test.png",
+      "bytes": 356803,
+      "sha256": "AA96603E7F4A421E86895315F58E998DB509F5993648F173D9514BE5E4314A46",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fabroot-restart.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fabroot-restart.txt",
+      "bytes": 598,
+      "sha256": "B25738CFE2852D9CFC98B5B3C09CC96F3F1A6CDCF7ED0DE052918DD3FE77A0B9",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns-backup-2026.09.09-01.37.39.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns-backup-2026.09.09-01.37.39.log",
+      "bytes": 141908,
+      "sha256": "7359C126F2822C6F2BBC20E75B125044D533476B399511478223B55C159B3D0F",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns-backup-2026.09.09-01.38.30.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns-backup-2026.09.09-01.38.30.log",
+      "bytes": 273165,
+      "sha256": "5ACA8F6F94E952AC3DC14211FCEBFC0EA24269823626054D532F949B8A57405B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns-editor-backup-2026.09.09-01.40.04.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns-editor-backup-2026.09.09-01.40.04.log",
+      "bytes": 351628,
+      "sha256": "B7C6D02DC0E4765EAE17737D9841D25AD4B8B22C39A877A7C8990409DE8A3CCE",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns-editor-backup-2026.09.09-01.43.24.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns-editor-backup-2026.09.09-01.43.24.log",
+      "bytes": 348523,
+      "sha256": "D1612C6BAD2D8D286FEFF9C1B3E02F1F0E8C21E355100E55836CBA2A2F439D97",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns-editor-backup-2026.09.09-01.44.28.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns-editor-backup-2026.09.09-01.44.28.log",
+      "bytes": 348929,
+      "sha256": "070963BCE4F3F5284FE2F62946C3E0246FCBBB49D44A76245903188AA4276DA4",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns-editor.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns-editor.log",
+      "bytes": 350990,
+      "sha256": "65CD9C49118841513AE3F6AB68C9A06DDEC531A0BD84226747A82DD175EAC33B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-spawns.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-spawns.log",
+      "bytes": 272237,
+      "sha256": "E26A9ED669EC8A16AB4E7FDDA08FDCEEA71BB2853796D4792C17B70B56461E4B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-trench-blocker-backup-2026.09.09-01.59.27.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-trench-blocker-backup-2026.09.09-01.59.27.log",
+      "bytes": 340475,
+      "sha256": "FC183BB4F56C55D169F38D9D86D92231AEBF3D224B4EA43EB7E8CD35C393EC4E",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fix-trench-blocker.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fix-trench-blocker.log",
+      "bytes": 339861,
+      "sha256": "3C6B0632B0EF2CD5C0F7B04E7BA17B6153304600A339365513C30B86D124A89B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fresh-main.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fresh-main.txt",
+      "bytes": 5664,
+      "sha256": "A2D67C862D18CCB0735DEC347C5F4C6237744F3F24651A16A7357C043943D22D",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fresh-menu.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fresh-menu.txt",
+      "bytes": 13861,
+      "sha256": "559E37FCB55CFE9D30CFE71B6A6AC901C1ED25527824164E2DF0328C7AD711E3",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\fresh-refs.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\fresh-refs.txt",
+      "bytes": 20,
+      "sha256": "90E3411C7F573BBE05B0005FA1F8E5FE554E70EFFDCBD9230C11F4FF458957EB",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\gamemaps-runtime.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\gamemaps-runtime.log",
+      "bytes": 249195,
+      "sha256": "E042B9DBF7F797BC6980588BD74B65FCE48C1DAABEB207E065C53B746AC26029",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\inspect-daynight-collision-backup-2026.09.09-01.33.42.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\inspect-daynight-collision-backup-2026.09.09-01.33.42.log",
+      "bytes": 273242,
+      "sha256": "19190911D2860ED909B2ED570117BA8A53F10B9CA5C5883D1C8E4D510B9FABD9",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\inspect-daynight-collision.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\inspect-daynight-collision.log",
+      "bytes": 274236,
+      "sha256": "95A1018D9ECAFAAE0E8ECBECCA19826D6AAEF8BB6AC548275BFBA55A2DE0D0D7",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\inspect-normandy.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\inspect-normandy.log",
+      "bytes": 313072,
+      "sha256": "B0EA6921E6826109CAEE28817F81F46F79DCDA73DD09AE2A7583B088393FEA33",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\inspect-trench-support-backup-2026.09.09-01.55.15.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\inspect-trench-support-backup-2026.09.09-01.55.15.log",
+      "bytes": 272667,
+      "sha256": "8C99DF5A5EB6CF713DB597063FDFD5BF2E628B099F21B53ACAAFEBB321BBFE84",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\inspect-trench-support.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\inspect-trench-support.log",
+      "bytes": 272324,
+      "sha256": "651FAE4E88C06949F481BF9EE5454BCBA91F72F87F071F9BC7255F3CBF5EC753",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\inspect-trench.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\inspect-trench.log",
+      "bytes": 278318,
+      "sha256": "235B5361CBB6BE5CCD1B379A6191539805546DF9587E810CD143B76FE1DEFD22",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\keyboard-window.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\keyboard-window.json",
+      "bytes": 6235,
+      "sha256": "1D5C3266BAEA3DA37BC212B96366BE433EA041DDA55293AEE1FF9FF6ACB244AC",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\landing-daynight.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\landing-daynight.log",
+      "bytes": 215045,
+      "sha256": "6BD7CE0921B4B8F3806FCE37683CAAD7A9DF48402FD8B2A8E90D9ABF09DF31C3",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\landing-trench-diagnostic.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\landing-trench-diagnostic.log",
+      "bytes": 270422,
+      "sha256": "61CA349CD7061C7030EDE76E6461A3BC042E1DC33EC3C846B9B74F3DAD9D5112",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\landing-trench-final.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\landing-trench-final.log",
+      "bytes": 270652,
+      "sha256": "01956EC338FC96F855DB9D5DD394B9EBD1E7040E77274DF86DB151DA455EAD9B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\landing-trench-fixed.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\landing-trench-fixed.log",
+      "bytes": 270064,
+      "sha256": "CF04103103EC7A668E909D7BB9B996DD4267D5307CB9DFCE86752385F576DA18",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\landing-trench.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\landing-trench.log",
+      "bytes": 270316,
+      "sha256": "FD0C58AEB270F7548F763FCB0680D4A2A7C1C8B738A67921ACCEF73B3814B0C8",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\main-snap.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\main-snap.json",
+      "bytes": 6300,
+      "sha256": "D0A028A8696DB584E85EF8763F1423AB5C4F3C6C1169760C7BC9D15319808A74",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\match.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\match.txt",
+      "bytes": 20,
+      "sha256": "D1EB103B55A1A773CA9F0AFE46D256E7CC9A9A0CEE14D2BFBFD041F92CEC0F5B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\MilitaryTrench-runtime.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\MilitaryTrench-runtime.log",
+      "bytes": 521273,
+      "sha256": "824C55BB9D9D8EB7B9BAA8E3FDD394BE5D6386A8569B9FED48570AED76D41532",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\nestedfab.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\nestedfab.txt",
+      "bytes": 165,
+      "sha256": "D02DA510C0B6CB143489A4DA04544D9A79CD6C5E5A645779F2AB8EF8994015A1",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\nestedrefs.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\nestedrefs.txt",
+      "bytes": 13,
+      "sha256": "579A52DC920BE2A16614A1DC4539A8A061720CB24FDF6FCF01883BDDB1F3449B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\normandy-runtime.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\normandy-runtime.log",
+      "bytes": 1420606,
+      "sha256": "25D68D1A0EAC5C06E53C81BD624FD616D7DC5252E4602C1911D933894C60C18F",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.17.34.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.17.34.log",
+      "bytes": 273649,
+      "sha256": "1AE13B38EB5356E5BE14022A1378B703307843F98601D13D1D4A308520752F6B",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.18.04.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.18.04.log",
+      "bytes": 272245,
+      "sha256": "4884B0AC9D9EB98CC9514C445B1B6E51345462F490CBE7929BD0A9AEC6901125",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.18.42.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.18.42.log",
+      "bytes": 272246,
+      "sha256": "EA5B7E0F41CFC3B688590EACBA5BF91CB3494644631236BB52AC5973AA836ADC",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.20.00.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\organize-maps-backup-2026.09.09-01.20.00.log",
+      "bytes": 272104,
+      "sha256": "AA665E0B0CF417A93570CA1CD5E2F710FF01FF5767BB023D2F731B3AE25E5B18",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\organize-maps.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\organize-maps.log",
+      "bytes": 557149,
+      "sha256": "9156C4B4BAAF247C277CCD56BD43F4DB1042E56F908FB2B48D59CAADC575A5F2",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\postfab-root.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\postfab-root.txt",
+      "bytes": 370,
+      "sha256": "3F31338BD5CFCB436413A82755F268F987E721C03B529865A3CC5DD49D0F8E65",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\restart-fab-windows.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\restart-fab-windows.json",
+      "bytes": 331,
+      "sha256": "A040935335F199498107CF9D21DCBB94B9BD2C6D125A1BC2C80C09C500FD4F1D",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\restart-window-menu.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\restart-window-menu.txt",
+      "bytes": 18932,
+      "sha256": "D93989EB9A39DE88C5E54B523C745248A4BE978813C13FA4149C88476913C54D",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\slate-tools.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\slate-tools.json",
+      "bytes": 10872,
+      "sha256": "091B69A9D2307A2F2FD8EA677396E49FE141C92D0CF687D0F03607D16A4F87B4",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\snapraw.txt",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\snapraw.txt",
+      "bytes": 243,
+      "sha256": "5D0329464D99BB4EF6B2F33C3FF3381A065FC2283AF2A4496E623649EAB48C4F",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\toolsets.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\toolsets.json",
+      "bytes": 12980,
+      "sha256": "61AEB5C15D058E2CE55966E586900A64EBE1B43FDBE15683D987999315610AE4",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\trench-movement-after-fog-fix.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\trench-movement-after-fog-fix.log",
+      "bytes": 270094,
+      "sha256": "37E5A35D07A5BFAEE9C052ECAAC1FCD5D19442A5299CB5CEAA066788A638DEF6",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\trench-movement-state.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\trench-movement-state.log",
+      "bytes": 271079,
+      "sha256": "E75FEE88BCBDE6D018E0E83C10FC8EA176F24B70DB61E1E50EA86B7FBD2A0BB7",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\trench-movement-streaming-fixed.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\trench-movement-streaming-fixed.log",
+      "bytes": 271966,
+      "sha256": "6F7FED6F3D27459504EDC0399C0412801CD62614BB3B34411CDC27FB4645DD2A",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\trench-start-detail.log",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\trench-start-detail.log",
+      "bytes": 272082,
+      "sha256": "9CA258DA4CFF8296BDA895B5DDC5EFF76F2248A43FC944652E79FE65298A5988",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\window-menu-all.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\window-menu-all.json",
+      "bytes": 21409,
+      "sha256": "AFF23EAAE13613EF6F808465505389990C9FFCCEBF2E0A33F42EE6D69350ACF5",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\window-menu-deep.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\window-menu-deep.json",
+      "bytes": 178,
+      "sha256": "B3E144F5F3B74159FA9B2029B877732411160832CE7372B1F8115C6AE464702E",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\window-menu.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\window-menu.json",
+      "bytes": 720,
+      "sha256": "63FBCFF1076F9C92DE2BE3FE5C6B04CFE9BF76F25E78AE6BE9091600B572DB12",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\window-open-good.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\window-open-good.json",
+      "bytes": 6225,
+      "sha256": "AA84A81912B29969664648F66A3A2D8A04E0565B949BC342A7541759398EC3F5",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\window-open-good2.json",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\window-open-good2.json",
+      "bytes": 6225,
+      "sha256": "B2CA572E5229991D3609E282E878178EEFC7436387618AADB3850F6FF0B3080F",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Tools\\SceneTests\\build_normandy.py",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\build_normandy.py",
+      "bytes": 2220,
+      "sha256": "08E60D61B51E16EEB37F425BDBDFA67BEC391B01557EF05ACBAB01CDD4F40D13",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\inspect_daynight_collision.py",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\inspect_daynight_collision.py",
+      "bytes": 1827,
+      "sha256": "B5E6E62E6F94DAC6F514BB3A07F0422E1BC741C7E93CC76897D3BB6AD2C85C55",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\inspect_normandy.py",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\inspect_normandy.py",
+      "bytes": 1078,
+      "sha256": "11B379BE7701E55DE9D448CE35A254F9E2566739227EBB5547CD608303A9A066",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\inspect_trench.py",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\inspect_trench.py",
+      "bytes": 1091,
+      "sha256": "4C48928B6CA9FC65DEF0A41D00413426F47302EC1B8EB28888DB1043D3D6CC58",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\inspect_trench_start.py",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\inspect_trench_start.py",
+      "bytes": 472,
+      "sha256": "1304E09E3EB3551CA1362C7F59109E65D511A4448E2B79708226856790A7F9DA",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\inspect_trench_support.py",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\inspect_trench_support.py",
+      "bytes": 1304,
+      "sha256": "A50CCAE887CD2522A7AE1A240C3CF85CFC38CC0A8BF9987F092E408648B8D8B2",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\mcp_session.ps1",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\mcp_session.ps1",
+      "bytes": 2329,
+      "sha256": "F9E7DC5728BA00F4980393C0247B15FBD685B9E0A44F0CC5B12C48867EE4A5D1",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\mcp_toolset_call.ps1",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\mcp_toolset_call.ps1",
+      "bytes": 1861,
+      "sha256": "9C7B997E6268DFC5614F40B66709CD2B39F043751DF79A2092A060125C3E8FEF",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Tools\\SceneTests\\mcp_toolset_sequence.ps1",
+      "archived": "trash\\scene-tests-20260909\\Tools\\SceneTests\\mcp_toolset_sequence.ps1",
+      "bytes": 2098,
+      "sha256": "01A5168F1E6C470E455478F0F5251980207409DFD7BE57FBCBC4ED7C9A7AC7D7",
+      "reason": "Superseded one-off diagnostic or unsafe provisional Normandy builder"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-01.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-01.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-02.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-02.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-03.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-03.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-04.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-04.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-05.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-05.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-06.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-06.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-07.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-07.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-08.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-08.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-09.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-09.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    },
+    {
+      "original": "Saved\\SceneTests\\tabwalk\\tab-10.png",
+      "archived": "trash\\scene-tests-20260909\\Saved\\SceneTests\\tabwalk\\tab-10.png",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Superseded scene investigation output; final and first-failure evidence retained"
+    }
+  ]
+}

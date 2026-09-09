@@ -1,0 +1,11 @@
+Content/
+Saved/
+Binaries/
+Intermediate/
+DerivedDataCache/
+trash/
+__pycache__/
+*.uasset
+*.umap
+*.log
+*.pyc

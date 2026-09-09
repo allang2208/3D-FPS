@@ -1,0 +1,23 @@
+[
+  {
+    "old": "/Game/Maps/DayNight_Lighting",
+    "new": "/Game/GameMaps/DayNight_Lighting",
+    "actors_before": 3,
+    "actors_after": 3,
+    "world": "/Game/GameMaps/DayNight_Lighting.DayNight_Lighting"
+  },
+  {
+    "old": "/Game/SceneTests/Normandy/L_Normandy_FPS_Test",
+    "new": "/Game/GameMaps/L_Normandy_FPS_Test",
+    "actors_before": 293,
+    "actors_after": 293,
+    "world": "/Game/GameMaps/L_Normandy_FPS_Test.L_Normandy_FPS_Test"
+  },
+  {
+    "old": "/Game/SceneTests/MilitaryTrench/L_MilitaryTrench_FPS_Test",
+    "new": "/Game/GameMaps/L_MilitaryTrench_FPS_Test",
+    "actors_before": 457,
+    "actors_after": 457,
+    "world": "/Game/GameMaps/L_MilitaryTrench_FPS_Test.L_MilitaryTrench_FPS_Test"
+  }
+]
