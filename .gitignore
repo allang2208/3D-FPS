@@ -12,3 +12,6 @@ __pycache__/
 
 # AmbientCG 4K 源贴图（不入库，prepared 4096 输出已在 terrain_prepared）
 assets/textures/terrain/*-4k/
+
+# 本地可恢复废案归档；清单随归档保留，不进入发布历史
+/trash/

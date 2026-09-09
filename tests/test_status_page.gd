@@ -26,7 +26,12 @@ func _initialize() -> void:
 func _process(_delta: float) -> bool:
 	if _stage == 0:
 		_stage = 1
-		_hud = _main.get_node_or_null("StatusBar/BackpackHud")
+		var hud_host := root.get_node_or_null("HUD")
+		if hud_host != null:
+			hud_host._ensure_built()
+			_hud = hud_host.backpack_hud
+		if _hud == null:
+			_hud = _main.find_child("BackpackHud", true, false)
 		_player = _main.get_node_or_null("Player")
 		_check("status_wired", _hud != null and _hud.get("_status_page") != null)
 		if _hud == null or _hud.get("_status_page") == null:
@@ -36,7 +41,7 @@ func _process(_delta: float) -> bool:
 		var st = _hud.get("_status_page").get("status")
 		_check("status_default_tab", String(_hud.get("_current_tab")) == "equip" \
 			and not bool(_hud.get("_status_page").visible))
-		_check("status_row_atk", String(_hud.get("_status_page").get("_rows")["atk"].text) == "12")
+		_check("status_row_atk", String(_hud.get("_status_page").get("_rows")["atk"].text) == str(st.atk()))
 		_check("status_row_hp", String(_hud.get("_status_page").get("_rows")["kills"].text) == "0")
 		# 切页签
 		_hud.set_tab("status")
@@ -50,6 +55,12 @@ func _process(_delta: float) -> bool:
 		page._show_tooltip("str", Vector2(120, 120))
 		_check("status_tooltip", bool(page.get("_tooltip").visible) \
 			and String(page.get("_tooltip_title").text) == "力量")
+		var strength_card: Control = page.get("_rows")["str"].get_parent().get_parent()
+		_check("status_rows_keyboard_focusable", strength_card.focus_mode == Control.FOCUS_ALL)
+		strength_card.grab_focus()
+		_check("status_focus_opens_tooltip", bool(page.get("_tooltip").visible) \
+			and String(page.get("_tooltip_title").text) == "力量")
+		strength_card.release_focus()
 		page.hide_tooltip()
 		_check("status_tooltip_hide", not bool(page.get("_tooltip").visible))
 		# hp / 击杀同步

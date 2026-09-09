@@ -22,6 +22,9 @@ var _tooltip_body: VBoxContainer
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	visibility_changed.connect(func() -> void:
+		if not is_visible_in_tree():
+			hide_tooltip())
 
 func setup(s: PlayerStatusScript) -> void:
 	status = s
@@ -226,6 +229,7 @@ func _add_bar(parent: Node, label: String, key: String, fill_color: Color) -> vo
 
 func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 	var card := PanelContainer.new()
+	card.focus_mode = Control.FOCUS_ALL
 	# 原项目 attr-item：暖灰半透明底 + 4px 圆角 + hover 加深
 	var sb := Style.make_style(Style.COLOR_ATTR_ROW_BG, Style.COLOR_TRANSPARENT, 4, 0)
 	card.add_theme_stylebox_override("panel", sb)
@@ -263,8 +267,16 @@ func _make_row(label: String, key: String, _group: String) -> PanelContainer:
 		card.add_theme_stylebox_override("panel", hover_sb)
 		_show_tooltip(key, get_viewport().get_mouse_position()))
 	card.mouse_exited.connect(func() -> void:
-		card.add_theme_stylebox_override("panel", sb)
-		hide_tooltip())
+		if not card.has_focus():
+			card.add_theme_stylebox_override("panel", sb)
+			hide_tooltip())
+	card.focus_entered.connect(func() -> void:
+		card.add_theme_stylebox_override("panel", hover_sb)
+		_show_tooltip(key, card.get_global_rect().get_center()))
+	card.focus_exited.connect(func() -> void:
+		if not card.get_global_rect().has_point(get_viewport().get_mouse_position()):
+			card.add_theme_stylebox_override("panel", sb)
+			hide_tooltip())
 	return card
 
 func _allocate(key: String) -> void:
@@ -347,8 +359,16 @@ func _build_tooltip() -> void:
 
 func _bind_tooltip(row: Control, key: String) -> void:
 	row.mouse_filter = Control.MOUSE_FILTER_STOP
+	row.focus_mode = Control.FOCUS_ALL
 	row.mouse_entered.connect(func() -> void: _show_tooltip(key, get_viewport().get_mouse_position()))
-	row.mouse_exited.connect(func() -> void: hide_tooltip())
+	row.mouse_exited.connect(func() -> void:
+		if not row.has_focus():
+			hide_tooltip())
+	row.focus_entered.connect(func() -> void:
+		_show_tooltip(key, row.get_global_rect().get_center()))
+	row.focus_exited.connect(func() -> void:
+		if not row.get_global_rect().has_point(get_viewport().get_mouse_position()):
+			hide_tooltip())
 
 func _show_tooltip(key: String, at: Vector2) -> void:
 	if status == null:
