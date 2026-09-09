@@ -18,7 +18,10 @@
 
 # 昼夜、天气与事件预报
 
-添加或优化天气先读[天气技能](skills/godot-weather-workflow/SKILL.md)及[标准工作流](docs/weather-development-workflow.md)，事件进度栏保持当前用户确认格式；清理和推送按WORKFLOW第8节。
+当前 UE5 迁移项目添加或优化昼夜、天气、雨雪、积水、闪电与雷声时，先读
+[UE5 天气技能](skills/ue5-weather-workflow/SKILL.md)。维护旧 Godot 实现时仍读
+[Godot 天气技能](skills/godot-weather-workflow/SKILL.md)及
+[旧标准工作流](docs/weather-development-workflow.md)。事件进度栏保持当前用户确认格式；清理和推送按 WORKFLOW 第 8 节。
 
 # 体素与建筑
 

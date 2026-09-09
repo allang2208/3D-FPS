@@ -1,0 +1,20 @@
+{
+  "archive": "weather-migration-20260909",
+  "created_at": "2026-09-09T09:40:00+08:00",
+  "reason": "Superseded weather validation logs retained as recoverable local trash. Final evidence remains in WeatherCycleValidation.log, WeatherAudioImport.log, and WeatherFinalValidation.log.",
+  "restore_policy": "Before restoring, verify that the original path is free, then move the archived file back and compare SHA-256.",
+  "files": [
+    {
+      "original_path": "D:/FPS3D/FPSGAME/Saved/Logs/WeatherRuntimeValidation.log",
+      "archived_path": "D:/FPS3D/FPSGAME/trash/weather-migration-20260909/WeatherRuntimeValidation.log",
+      "size_bytes": 209409,
+      "sha256": "A40F743191323A5A10E2E02F01C5ED31899F97B4E4EA65F0E992712DA8F854C2"
+    },
+    {
+      "original_path": "D:/FPS3D/FPSGAME/Saved/Logs/WeatherAudioImport-backup-2026.09.09-01.04.38.log",
+      "archived_path": "D:/FPS3D/FPSGAME/trash/weather-migration-20260909/WeatherAudioImport-backup-2026.09.09-01.04.38.log",
+      "size_bytes": 270683,
+      "sha256": "3B910872F2BC8A084DED5E71A9A6DD9530C829E20F41A588B19A0A7318EC6A42"
+    }
+  ]
+}
