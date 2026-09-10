@@ -24,6 +24,7 @@ public class FPSGAME : ModuleRules
         });
         RuntimeDependencies.Add("$(ProjectDir)/Content/ColdSteelData/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("AudioMixer");
+        PrivateDependencyModuleNames.Add("PhysicsCore");
         PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");
     }

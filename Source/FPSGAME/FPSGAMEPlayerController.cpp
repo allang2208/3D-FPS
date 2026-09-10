@@ -4,6 +4,7 @@
 #include "UI/ColdSteelHUDWidget.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelPickup.h"
+#include "UI/ColdSteelWorldInteraction.h"
 #include "UI/ColdSteelWarehouseChest.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
@@ -21,6 +22,7 @@
 #include "UnrealClient.h"
 
 void RunRetiredWeaponsAudit(AFPSGAMEPlayerController* PC);
+void RunWorldInteractionAudit(AFPSGAMEPlayerController* PC);
 
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
@@ -30,6 +32,8 @@ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    if(FParse::Param(FCommandLine::Get(),TEXT("WorldInteractionAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunWorldInteractionAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("GunsmithWorkbenchAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunGunsmithWorkbenchAudit,5.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("M4DrumAudit")))
@@ -189,12 +193,9 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         for(int32 Index=0;Index<4;++Index)if(Params.Key==Keys[Index]){Profile->UseHotbar(Index);return true;}
         if(Params.Key==EKeys::E&&GetPawn())
         {
-            AColdSteelWarehouseChest* Chest=nullptr;float ChestDistance=MAX_flt;
-            for(TActorIterator<AColdSteelWarehouseChest> It(GetWorld());It;++It)if(It->CanInteract(GetPawn())){float D=FVector::DistSquared(GetPawn()->GetActorLocation(),It->GetActorLocation());if(D<ChestDistance){ChestDistance=D;Chest=*It;}}
-            if(Chest){ColdSteelHUD->OpenWarehouse(Chest);return true;}
-            AColdSteelPickup* Nearest=nullptr;float Distance=250.f;
-            for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It){float D=FVector::Dist(GetPawn()->GetActorLocation(),It->GetActorLocation());if(D<Distance){Distance=D;Nearest=*It;}}
-            if(Nearest){Profile->Pickup(Nearest->ItemId);return true;}
+            auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
+            if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
+            if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
         }
     }
     return Super::InputKey(Params);

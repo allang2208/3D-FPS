@@ -57,7 +57,7 @@ void UColdSteelHUDWidget::HideWarehouseDetails(){if(WarehouseDetails){WarehouseD
 void UColdSteelHUDWidget::TickWarehouse(const FGeometry& G,float Delta)
 {
     if(!WarehouseWidget)return;
-    if(bWarehouseOpen&&(!WarehouseChest.IsValid()||!WarehouseChest->CanInteract(GetOwningPlayerPawn())))CloseWarehouse();
+    if(bWarehouseOpen&&(!WarehouseChest.IsValid()||!WarehouseChest->IsWithinReach(GetOwningPlayerPawn())))CloseWarehouse();
     WarehouseElapsed=FMath::Min(.3f,WarehouseElapsed+Delta);
     const float T=WarehouseElapsed/.3f;
     auto Bezier=[](float X,float A,float B){float Low=0,High=1,U=0;for(int N=0;N<16;++N){U=(Low+High)*.5f;float V=3*(1-U)*(1-U)*U*A+3*(1-U)*U*U*B+U*U*U;if(V<X)Low=U;else High=U;}return 3*(1-U)*U*U+U*U*U;};

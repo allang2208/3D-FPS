@@ -27,6 +27,7 @@ UCLASS()
 class FPSGAME_API AFPSGAMECharacter : public ACharacter
 {
     GENERATED_BODY()
+    friend class AColdSteelPickup;
 
     friend class UColdSteelWeaponIcons;
 

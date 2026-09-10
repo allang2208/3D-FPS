@@ -20,6 +20,7 @@ public:
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     bool CanInteract(const APawn* Pawn) const;
+    bool IsWithinReach(const APawn* Pawn) const;
     void SetOpen(bool Open);
     bool IsOpen()const{return bIsOpen;}
     bool IsAnimating()const{return bAnimating;}

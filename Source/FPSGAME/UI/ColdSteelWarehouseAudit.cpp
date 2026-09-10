@@ -49,7 +49,7 @@ void UColdSteelHUDWidget::RunWarehouseAudit()
     if(FParse::Param(FCommandLine::Get(),TEXT("WarehouseLoadAudit"))){FString Expected;Check(FFileHelper::LoadFileToString(Expected,*(R->Output/M->ProfileSlot()+TEXT(".txt")))&&Expected==Signature(M->Items()),TEXT("new process exact item id data ammo place restoration"));UE_LOG(LogTemp,Display,TEXT("WarehouseAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));return;}
     Check(M->WarehouseCapacity()==100,TEXT("five pages twenty slots"));
     int32 Guns=0;for(const auto& I:M->Items())if(I.Place==4&&I.Definition.StartsWith(TEXT("fps_")))++Guns;
-    Check(Guns==0&&M->Snapshot().ArmoryReceived.IsEmpty(),TEXT("retired weapons are no longer granted"));
+    Check(Guns==0&&!M->Snapshot().ArmoryReceived.ContainsByPredicate([](const FString& Id){return Id.StartsWith(TEXT("fps_"));}),TEXT("retired weapons are no longer granted"));
     FString Before=Signature(M->Items());Check(M->GrantStartingArmory()&&Signature(M->Items())==Before,TEXT("armory grant idempotent"));
     auto Empty=M->Snapshot();Empty.Items.Empty();Empty.Hotbar.Init(TEXT(""),4);Empty.HotbarDefinitions.Init(TEXT(""),4);
     auto Gun=M->CreateItem(TEXT("ue_m4a1"));Gun.Place=1;Gun.Cell=6;Gun.Magazine=7;
@@ -100,13 +100,16 @@ void UColdSteelHUDWidget::RunWarehouseAudit()
     AColdSteelWarehouseChest* Chest=nullptr;for(TActorIterator<AColdSteelWarehouseChest> It(GetWorld());It;++It){Chest=*It;break;}
     Check(Chest&&Chest->ChestAsset&&Chest->OpenClip&&Chest->CloseClip,TEXT("real chest and original animation assets loaded"));
     if(!Chest){UE_LOG(LogTemp,Error,TEXT("WarehouseAudit: no chest"));GetOwningPlayer()->ConsoleCommand(TEXT("quit"));return;}
-    Check(Chest->CanInteract(GetOwningPlayerPawn()),TEXT("spawned chest reachable in source interaction radius"));GetOwningPlayer()->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::E,IE_Pressed,1.f));
-    Check(bWarehouseOpen&&bInventoryOpen&&M->WarehousePage==0&&M->bWarehouseOpen,TEXT("open real full backpack and first warehouse page"));
-    Check(GetOwningPlayer()->bShowMouseCursor&&GetOwningPlayer()->IsLookInputIgnored(),TEXT("panel owns focus cursor and blocks gameplay look"));
+    SetInventoryOpen(false);FVector Eye;FRotator View;GetOwningPlayer()->GetPlayerViewPoint(Eye,View);GetOwningPlayer()->SetControlRotation((Chest->GetActorLocation()+FVector(0,0,40)-Eye).Rotation());
+    R->Phase=-1; // Let the normal camera tick apply the aimed view before pressing E.
     TWeakObjectPtr<AColdSteelWarehouseChest> WeakChest=Chest;
     GetWorld()->GetTimerManager().SetTimer(R->Timer,[this,R,M,Check,Signature,WeakChest]() mutable {
         auto* C=WeakChest.Get();if(!C){GetWorld()->GetTimerManager().ClearTimer(R->Timer);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));return;}
-        if(R->Phase==0){
+        if(R->Phase==-1){
+            Check(C->CanInteract(GetOwningPlayerPawn()),TEXT("spawned chest reachable and under camera center"));GetOwningPlayer()->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::E,IE_Pressed,1.f));
+            Check(bWarehouseOpen&&bInventoryOpen&&M->WarehousePage==0&&M->bWarehouseOpen,TEXT("open real full backpack and first warehouse page"));
+            Check(GetOwningPlayer()->bShowMouseCursor&&GetOwningPlayer()->IsLookInputIgnored(),TEXT("panel owns focus cursor and blocks gameplay look"));
+        }else if(R->Phase==0){
             Check(C->IsOpen()&&!C->IsAnimating(),TEXT("original open clip completes and holds"));
             auto* Scroll=Cast<UScrollBox>(EquipmentPage);auto* Board=Scroll?Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)):nullptr;
             if(Board&&WarehouseWidget->Cells.Num()>0){
@@ -126,8 +129,8 @@ void UColdSteelHUDWidget::RunWarehouseAudit()
             }else Check(false,TEXT("live warehouse and backpack widgets available"));
             const auto W=WarehouseWidget->GetCachedGeometry(),B=InventoryPanel->GetCachedGeometry();Check(FMath::Abs(W.GetAbsolutePosition().X+W.GetAbsoluteSize().X-B.GetAbsolutePosition().X)<3,TEXT("warehouse abuts backpack without gap"));
             FScreenshotRequest::RequestScreenshot(R->Output/(M->ProfileSlot()+TEXT("-open.png")),true,false);FTimerHandle CloseLater;GetWorld()->GetTimerManager().SetTimer(CloseLater,[this,Check](){CloseWarehouse();Check(!bWarehouseOpen&&bInventoryOpen,TEXT("close warehouse retains full backpack"));},.2f,false);
-        }else if(R->Phase==1){Check(!C->IsOpen()&&!C->IsAnimating(),TEXT("close motion finishes before chest settles"));OpenWarehouse(C);CloseWarehouse();OpenWarehouse(C);}
-        else if(R->Phase==2){Check(C->IsOpen()&&bWarehouseOpen,TEXT("rapid open close open uses latest requested state"));M->WarehousePage=4;CloseWarehouse();OpenWarehouse(C);Check(M->WarehousePage==0,TEXT("every reopen starts on page one"));
+        }else if(R->Phase==1){Check(!C->IsOpen()&&!C->IsAnimating(),TEXT("close motion finishes before chest settles"));SetInventoryOpen(false);OpenWarehouse(C);CloseWarehouse();SetInventoryOpen(false);OpenWarehouse(C);}
+        else if(R->Phase==2){Check(C->IsOpen()&&bWarehouseOpen,TEXT("rapid open close open uses latest requested state"));M->WarehousePage=4;CloseWarehouse();SetInventoryOpen(false);OpenWarehouse(C);Check(M->WarehousePage==0,TEXT("every reopen starts on page one"));
             GetOwningPlayerPawn()->SetActorLocation(GetOwningPlayerPawn()->GetActorLocation()+FVector(1000,0,0));}
         else if(R->Phase==3){Check(!bWarehouseOpen&&bInventoryOpen,TEXT("leaving radius closes only warehouse"));SetInventoryOpen(false);Check(!GetOwningPlayer()->bShowMouseCursor&&!GetOwningPlayer()->IsLookInputIgnored(),TEXT("closing backpack restores gameplay input"));
             auto P=M->Snapshot();for(auto& I:P.Items)if(I.Place==4){I.Magazine=11;break;}M->CommitState(P);FFileHelper::SaveStringToFile(Signature(M->Items()),*(R->Output/M->ProfileSlot()+TEXT(".txt")));

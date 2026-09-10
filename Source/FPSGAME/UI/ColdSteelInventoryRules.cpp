@@ -154,7 +154,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
         if(Footprint(I)!=FIntPoint(I.Width,I.Height))return false;
         if(I.Place==0&&!Fits(Placed,I,I.Cell))return false;
         if(I.Place==1&&(!CanEquip(I,I.Cell)||Owner(Placed,1,I.Cell)>=0))return false;
-        if(I.Place==2&&(I.Map.IsEmpty()||I.Position.ContainsNaN()))return false;
+        if(I.Place==2&&(I.Map.IsEmpty()||I.Position.ContainsNaN()||I.WorldRotation.ContainsNaN()))return false;
         if(I.Place==4&&(I.Cell<0||I.Cell>=P.WarehousePages*20||Owner(Placed,4,I.Cell)>=0))return false;
         Placed.Add(I);
     }

@@ -1,4 +1,5 @@
 #include "ColdSteelWarehouseChest.h"
+#include "ColdSteelWorldInteraction.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/TextBlock.h"
@@ -44,6 +45,10 @@ void AColdSteelWarehouseChest::BeginPlay()
     UE_LOG(LogTemp,Display,TEXT("WarehouseChest: mesh=%s open=%.3f close=%.3f"),*GetNameSafe(ChestAsset),OpenClip?OpenClip->GetPlayLength():0,CloseClip?CloseClip->GetPlayLength():0);
 }
 bool AColdSteelWarehouseChest::CanInteract(const APawn* Pawn)const
+{
+    return IsWithinReach(Pawn)&&ColdSteelWorldInteraction::IsFocused(Pawn,this,InteractionRadius);
+}
+bool AColdSteelWarehouseChest::IsWithinReach(const APawn* Pawn)const
 {
     return IsValid(Pawn)&&Pawn->GetWorld()==GetWorld()&&Pawn->GetNetMode()==NM_Standalone&&FVector::Dist(Pawn->GetActorLocation(),GetActorLocation()+FVector(0,0,70))<=InteractionRadius;
 }

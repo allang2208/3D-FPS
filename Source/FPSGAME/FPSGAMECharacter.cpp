@@ -113,6 +113,15 @@ AFPSGAMECharacter::AFPSGAMECharacter()
 void AFPSGAMECharacter::BeginPlay()
 {
     Super::BeginPlay();
+    // Actor spawn inherits the global BeginPlay call depth, even in a separate
+    // FPreviewScene. Visual rigs must never attach to the player profile or equip.
+    if (GetWorld()->WorldType == EWorldType::GamePreview ||
+        GetWorld()->WorldType == EWorldType::EditorPreview || !GetGameInstance())
+    {
+        SetActorTickEnabled(false);
+        UE_LOG(LogTemp, Display, TEXT("WeaponPreview: skipped gameplay BeginPlay world=%s"), *GetWorld()->GetName());
+        return;
+    }
     CameraRestLocation = FirstPersonCamera->GetRelativeLocation();
     FirstPersonCamera->SetFieldOfView(VerticalToHorizontalFOV(BaseVerticalFieldOfView));
     SavedGroundFriction = GetCharacterMovement()->GroundFriction;

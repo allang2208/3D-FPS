@@ -187,6 +187,7 @@ void UColdSteelStatusModel::SyncRuntime()
     if(!CurrentPawn.IsValid())return;
     if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
     for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot)I.Magazine=CurrentPawn->GetMagazineAmmo();
+    for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
 }
 void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
 void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn){CurrentPawn=Pawn;if(Current.Health<=0)Current.Health=Derived(TEXT("maxHp"));ApplyToPawn();RefreshDrops();}
@@ -210,12 +211,23 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested)
 bool UColdSteelStatusModel::Drop(const FString& Id)
 {
     if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});if(!I||I->Place>1)return false;
-    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=CurrentPawn->GetActorLocation()+CurrentPawn->GetActorForwardVector()*120;
+    const FVector Origin=CurrentPawn->GetActorLocation();
+    FVector Candidate=Origin+CurrentPawn->GetActorForwardVector()*120;
+    FCollisionQueryParams Query(SCENE_QUERY_STAT(InventoryGroundDrop),false,CurrentPawn.Get());
+    FHitResult Obstacle,Ground;
+    if(GetWorld()->SweepSingleByChannel(Obstacle,Origin,Candidate,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(45),Query))Candidate=Obstacle.Location-CurrentPawn->GetActorForwardVector()*2;
+    auto FindGround=[&](FVector At){return GetWorld()->LineTraceSingleByChannel(Ground,At+FVector(0,0,40),At-FVector(0,0,500),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>=.5f&&FVector::Dist(Origin,Ground.ImpactPoint)<=230;};
+    if(!FindGround(Candidate)&&!FindGround(Origin)){Message=TEXT("附近没有可放置物品的地面");return false;}
+    // Release above the ground; the rigid body resolves the fall and landing.
+    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint;I->Position.Z=FMath::Max(Ground.ImpactPoint.Z+60,Origin.Z+15);
+    I->WorldRotation=FRotator(5,CurrentPawn->GetActorRotation().Yaw,-65);
     if(!CommitState(P))return false;RefreshDrops();return true;
 }
 bool UColdSteelStatusModel::Pickup(const FString& Id)
 {
-    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
+    if(!CurrentPawn.IsValid())return false;
+    AColdSteelPickup* Target=nullptr;for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==Id&&It->CanInteract(CurrentPawn.Get())){Target=*It;break;}
+    if(!Target)return false;SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
     if(N<0||P.Items[N].Map!=UGameplayStatics::GetCurrentLevelName(this,true)||FVector::Dist(CurrentPawn->GetActorLocation(),P.Items[N].Position)>250)return false;
     auto I=P.Items[N];P.Items.RemoveAt(N);if(!Insert(P.Items,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
 }
@@ -224,5 +236,5 @@ void UColdSteelStatusModel::RefreshDrops()
     if(!GetWorld()||!CurrentPawn.IsValid())return;TSet<FString> Existing;
     for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It){const auto* I=FindItem(It->ItemId);if(!I||I->Place!=2)It->Destroy();else Existing.Add(It->ItemId);}
     const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
-    for(const auto& I:Current.Items)if(I.Place==2&&I.Map==Map&&!Existing.Contains(I.InstanceId)){auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,FRotator::ZeroRotator);if(A)A->InitializeItem(I);}
+    for(const auto& I:Current.Items)if(I.Place==2&&I.Map==Map&&!Existing.Contains(I.InstanceId)){FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,I.WorldRotation,Spawn);if(A)A->InitializeItem(I);}
 }

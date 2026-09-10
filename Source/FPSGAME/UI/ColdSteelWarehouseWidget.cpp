@@ -1,4 +1,5 @@
 #include "ColdSteelWarehouseWidget.h"
+#include "ColdSteelWarehouseSortOption.h"
 #include "ColdSteelItemTooltip.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWarehouseRules.h"
@@ -156,7 +157,8 @@ void UColdSteelWarehouseWidget::NativeDestruct(){if(Model)Model->OnChanged.Remov
 void UColdSteelWarehouseWidget::ResetPage(){Model->WarehousePage=0;Scroll->ScrollToStart();Refresh();}
 void UColdSteelWarehouseWidget::Refresh(){if(!Model||!Capacity)return;int32 Used=0;for(const auto& I:Model->Items())if(I.Place==4)++Used;Capacity->SetText(FText::FromString(FString::Printf(TEXT("%d / %d"),Used,Model->WarehouseCapacity())));Page->SetText(FText::FromString(FString::Printf(TEXT("%d / %d"),Model->WarehousePage+1,Model->WarehouseCapacity()/20)));Message->SetText(FText::FromString(Model->ResultMessage()));Previous->SetIsEnabled(Model->WarehousePage>0);Next->SetIsEnabled(Model->WarehousePage<Model->WarehouseCapacity()/20-1);for(int32 N=0;N<Cells.Num();++N)Cells[N]->Configure(Model,Model->WarehousePage*20+N);}
 void UColdSteelWarehouseWidget::Close(){if(HUD)HUD->CloseWarehouse();}
-UWidget* UColdSteelWarehouseWidget::SortOption(FString Item){return Label(WidgetTree,Item,13,ColdSteelUI::PixelScale(this));}
+void UColdSteelWarehouseSortOption::SetCaption(const FString& Caption){WidgetTree->RootWidget=Label(WidgetTree,Caption,13,ColdSteelUI::PixelScale(this));}
+UWidget* UColdSteelWarehouseWidget::SortOption(FString Item){auto* Option=CreateWidget<UColdSteelWarehouseSortOption>(GetOwningPlayer());Option->SetCaption(Item);return Option;}
 void UColdSteelWarehouseWidget::StoreAll(){Model->WarehouseBatch(false);Refresh();}
 void UColdSteelWarehouseWidget::Matching(){Model->WarehouseBatch(true);Refresh();}
 void UColdSteelWarehouseWidget::PreviousPage(){Model->WarehousePage=FMath::Max(0,Model->WarehousePage-1);Scroll->ScrollToStart();Refresh();}

@@ -20,6 +20,7 @@ struct FColdSteelItem
     UPROPERTY() int32 BackpackCell = -1;
     UPROPERTY() FString Map;
     UPROPERTY() FVector Position = FVector::ZeroVector;
+    UPROPERTY() FRotator WorldRotation = FRotator::ZeroRotator;
     UPROPERTY() float Cooldown = 0;
     UPROPERTY() int32 Magazine = 30;
     UPROPERTY() int32 Reserve = 90;
