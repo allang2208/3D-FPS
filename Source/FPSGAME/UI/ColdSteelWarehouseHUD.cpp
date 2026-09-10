@@ -1,8 +1,10 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelItemTooltip.h"
 #include "ColdSteelWarehouseWidget.h"
 #include "ColdSteelWarehouseChest.h"
 #include "ColdSteelStatusModel.h"
 #include "Blueprint/WidgetTree.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/Button.h"
@@ -68,10 +70,18 @@ void UColdSteelHUDWidget::TickWarehouse(const FGeometry& G,float Delta)
     WarehouseWidget->SetRenderTranslation(FVector2D((1-WarehouseMotion)*ReferenceUnits(Pixels),0));WarehouseWidget->SetRenderOpacity(WarehouseMotion);
     if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid())WarehouseChest->SetOpen(false);WarehouseChest.Reset();}
 }
-FReply UColdSteelHUDWidget::NativeOnMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
+FReply UColdSteelHUDWidget::NativeOnPreviewMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
 {
-    if(bWarehouseOpen&&WarehouseElapsed>=.3f&&E.GetEffectingButton()==EKeys::LeftMouseButton){
-        const float Left=WarehouseWidget->GetCachedGeometry().GetAbsolutePosition().X;
-        if(E.GetScreenSpacePosition().X<Left){CloseWarehouse();return FReply::Handled();}}
-    return Super::NativeOnMouseButtonDown(G,E);
+    if(bInventoryOpen&&E.GetEffectingButton()==EKeys::LeftMouseButton&&!UWidgetBlueprintLibrary::IsDragDropping()){
+        const FVector2D Position=E.GetScreenSpacePosition();
+        const bool InBag=InventoryPanel&&InventoryPanel->GetCachedGeometry().IsUnderLocation(Position);
+        const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
+        const bool InDetails=WarehouseDetails&&WarehouseDetails->GetCachedGeometry().IsUnderLocation(Position);
+        const auto Inside=[&](UWidget* W){return W&&W->IsVisible()&&W->GetCachedGeometry().IsUnderLocation(Position);};
+        const bool InTooltip=Inside(ItemTooltip)||Inside(StatusTooltip)||Inside(EquipmentTooltip);
+        if(!InBag&&!InWarehouse&&!InDetails&&!InTooltip){SetInventoryOpen(false);return FReply::Handled();}
+    }
+    return Super::NativeOnPreviewMouseButtonDown(G,E);
 }
+
+FReply UColdSteelHUDWidget::NativeOnMouseButtonDown(const FGeometry& G,const FPointerEvent& E){return Super::NativeOnMouseButtonDown(G,E);}

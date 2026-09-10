@@ -241,7 +241,7 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
     if (Key != EKeys::Tab && Key != EKeys::CapsLock) return false;
     if (bRepeat) return true;
     const bool bStatus = Key == EKeys::CapsLock;
-    if (bInventoryOpen && bStatusTabActive == bStatus)
+    if (bInventoryOpen && (Key == EKeys::Tab || bStatusTabActive == bStatus))
     {
         SetInventoryOpen(false);
         return true;
@@ -1264,6 +1264,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     if(!bOpen)CloseWarehouse();
     if (bInventoryOpen == bOpen) return;
     bInventoryOpen = bOpen;
+    SetVisibility(bOpen?ESlateVisibility::Visible:ESlateVisibility::SelfHitTestInvisible);
     if(auto* Scroll=Cast<UScrollBox>(EquipmentPage))if(auto* Board=Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)))Board->CancelInteraction();
     if(bOpen){if(auto* Pawn=GetOwningPlayerPawn<AFPSGAMECharacter>())Pawn->SuspendWeaponForMenu();}
     else UWidgetBlueprintLibrary::CancelDragDrop();
@@ -1278,7 +1279,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     {
         RefreshStatus();
         InventoryBlur->SetVisibility(ESlateVisibility::HitTestInvisible);
-        InventoryBackdrop->SetVisibility(ESlateVisibility::HitTestInvisible);
+        InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
         InventoryPanel->SetVisibility(ESlateVisibility::Visible);
     }
     if (APlayerController* PC = GetOwningPlayer())

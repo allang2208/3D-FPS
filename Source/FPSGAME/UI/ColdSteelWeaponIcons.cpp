@@ -1,4 +1,5 @@
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelPickupStudio.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Animation/AnimSequence.h"
@@ -86,6 +87,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     Capture->SetWorldLocation(FVector(Bounds.Min.X-200,Center.Y,Center.Z));Capture->SetWorldRotation(FRotator::ZeroRotator);Capture->OrthoWidth=FMath::Max(float(Size.Y),float(Size.Z)*Aspect)/.91f;
     Capture->bAutoCalculateOrthoPlanes=false;Capture->bUseCustomProjectionMatrix=true;Capture->CustomProjectionMatrix=FReversedZOrthoMatrix(Capture->OrthoWidth*.5f,Capture->OrthoWidth*.5f/Aspect,1.f/2000.f,-.1f);
     Mesh->PrestreamTextures(1.f,true);for(auto* Child:Children)if(auto* Part=Cast<UMeshComponent>(Child))Part->PrestreamTextures(1.f,true);
+    GetGameInstance()->GetSubsystem<UColdSteelPickupStudio>()->Warm(I);
     UE_LOG(LogTemp,Display,TEXT("WeaponIcon: prepare key=%s mesh=%s parts=%d bounds=%s"),*Key(I),*Asset->GetPathName(),Capture->ShowOnlyComponents.Num(),*Size.ToString());
     return true;
 }

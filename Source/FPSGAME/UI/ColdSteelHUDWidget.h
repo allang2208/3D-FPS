@@ -44,6 +44,7 @@ public:
     void RunWeaponIconAudit();
     void RunInventoryVisualAudit();
     void RunInventoryDragAudit();
+    void RunDropHitchAudit();
     void RunItemTooltipAudit();
     void RunTopVitalsAudit();
     void ShowItemTooltip(const FString& Id,FVector2D ScreenAnchor,bool Pinned=false,UWidget* Source=nullptr);
@@ -66,6 +67,7 @@ protected:
     virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
     virtual FReply NativeOnPreviewKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
     virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
+    virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
     virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
 private:

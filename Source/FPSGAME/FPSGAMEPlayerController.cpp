@@ -32,6 +32,8 @@ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    if(FParse::Param(FCommandLine::Get(),TEXT("DropHitchAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){if(ColdSteelHUD)ColdSteelHUD->RunDropHitchAudit();}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("WorldInteractionAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunWorldInteractionAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("GunsmithWorkbenchAudit")))

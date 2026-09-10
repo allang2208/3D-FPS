@@ -28,7 +28,8 @@ public:
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UBoxComponent> Body;
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UPoseableMeshComponent> Weapon;
 private:
-    bool BuildWeapon(const FColdSteelItem& Item);
+    friend class UColdSteelPickupStudio;
+    bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);
     UPROPERTY() TObjectPtr<class UStaticMeshComponent> Mesh;
     UPROPERTY() TObjectPtr<class UWidgetComponent> Prompt;

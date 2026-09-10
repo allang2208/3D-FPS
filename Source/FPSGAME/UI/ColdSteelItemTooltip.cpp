@@ -23,7 +23,17 @@
 #include "ImageUtils.h"
 #include "InputCoreTypes.h"
 #include "Misc/Paths.h"
-using namespace ColdSteelUI;
+// Keep style imports narrow: unity builds also compile warehouse and Niagara code.
+using ColdSteelUI::PixelScale;
+using ColdSteelUI::RoundedBrush;
+using ColdSteelUI::NumberFont;
+using ColdSteelUI::TextFont;
+using ColdSteelUI::ItemTooltipNegative;
+using ColdSteelUI::ItemTooltipPositive;
+using ColdSteelUI::ItemTooltipBorder;
+using ColdSteelUI::ItemTooltipText;
+using ColdSteelUI::ItemTooltipSecondary;
+using ColdSteelUI::ItemTooltipSurface;
 
 void UColdSteelItemTooltip::NativeOnInitialized()
 {

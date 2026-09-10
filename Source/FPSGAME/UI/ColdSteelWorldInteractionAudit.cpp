@@ -29,6 +29,9 @@ void RunWorldInteractionAudit(AFPSGAMEPlayerController* PC)
     auto* M=PC->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();auto* Pawn=PC->GetCharacter();if(!M||!M->IsAudit()||!Pawn)return;
     struct FRun{int32 Phase=0,Checks=0,Failures=0,Wait=0;uint64 LastFrame=MAX_uint64;FTimerHandle Timer;FString Gun,AK;FColdSteelItem Original;FColdSteelProfile Dropped;FVector Initial,SavedPosition;FRotator SavedRotation;TWeakObjectPtr<AColdSteelPickup> Pickup;TWeakObjectPtr<AColdSteelWarehouseChest> Chest;TWeakObjectPtr<AActor> Wall;};auto R=MakeShared<FRun>();
     auto Check=[R](bool OK,const TCHAR* Name){++R->Checks;if(!OK)++R->Failures;UE_LOG(LogTemp,Display,TEXT("WorldInteractionAudit: %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),Name);};
+    static double GCBegin=0;
+    FCoreUObjectDelegates::GetPreGarbageCollectDelegate().AddWeakLambda(PC,[](){GCBegin=FPlatformTime::Seconds();});
+    FCoreUObjectDelegates::GetPostGarbageCollect().AddWeakLambda(PC,[](){UE_LOG(LogTemp,Display,TEXT("DropTiming: GC %.3f ms"),(FPlatformTime::Seconds()-GCBegin)*1000);});
     auto* World=PC->GetWorld();const FVector Floor(50000,50000,5000);
     if(FParse::Param(FCommandLine::Get(),TEXT("WorldInteractionRestoreAudit"))){
         int32 RestoredM4=0,RestoredAK=0;
