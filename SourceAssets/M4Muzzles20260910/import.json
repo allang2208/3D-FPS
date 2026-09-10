@@ -1,0 +1,58 @@
+{
+  "source_material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+  "parent_material": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+  "assets": {
+    "suppressor": {
+      "asset": "/Game/Weapons/M4MuzzlesV1/SM_M4_suppressor.SM_M4_suppressor",
+      "origin": [
+        -7.152557373046875e-07,
+        -9.050000131130219,
+        0.0
+      ],
+      "extent": [
+        2.4000003337860107,
+        9.550000250339508,
+        2.4000000953674316
+      ],
+      "materials": [
+        "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+        "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      ]
+    },
+    "brake": {
+      "asset": "/Game/Weapons/M4MuzzlesV1/SM_M4_brake.SM_M4_brake",
+      "origin": [
+        -1.7881393432617188e-07,
+        -2.900000274181366,
+        0.0
+      ],
+      "extent": [
+        1.6200000643730164,
+        3.9000003933906555,
+        1.6200000047683716
+      ],
+      "materials": [
+        "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+        "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      ]
+    },
+    "titanium_brake": {
+      "asset": "/Game/Weapons/M4MuzzlesV1/SM_M4_titanium_brake.SM_M4_titanium_brake",
+      "origin": [
+        -1.7881393432617188e-07,
+        -3.5249999463558197,
+        0.0
+      ],
+      "extent": [
+        1.8200001120567322,
+        3.7250000536441803,
+        1.8200000524520874
+      ],
+      "materials": [
+        "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+        "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+        "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+      ]
+    }
+  }
+}

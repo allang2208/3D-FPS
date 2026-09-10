@@ -1,0 +1,30 @@
+[
+  {
+    "path": "E:/3d/3-dfps/assets/models/attachments/akm/suppressor_01.glb",
+    "sha256": "bee191da0b1b5b741b7cc6abf551f23c1f429a32c66a1b2d21eaf4399414f9cf"
+  },
+  {
+    "path": "E:/3d/3-dfps/assets/models/attachments/muzzle_brake/brake_01.glb",
+    "sha256": "bbd98c9e2fc8b0454948009ddcdc59b4dfb68b261ce4ee0ef3e46923e1b4ee96"
+  },
+  {
+    "path": "E:/3d/3-dfps/assets/models/attachments/titanium_brake_candidate/titanium_brake.glb",
+    "sha256": "9add02e528845a24cc5a38b0f94917e68b771789720b2bc23a226c4a56cc803c"
+  },
+  {
+    "path": "E:/3d/3-dfps/scripts/weapon_feedback.gd",
+    "sha256": "d023c6553e2d361a00cab74e3edfd554c65a0f643df9f376bea22e9548ee23f5"
+  },
+  {
+    "path": "E:/3d/3-dfps/scripts/muzzle_variants.gd",
+    "sha256": "f5ed543e52c41e82b5e7d32a5de73e935a34e50cf9d51b5ce862a9d4c2defcf6"
+  },
+  {
+    "path": "E:/3d/3-dfps/scripts/weapon_data.gd",
+    "sha256": "61b829355ba37e6412e18ee9bafd9fab714b82de4e92d2d98dcdda0bac3c500a"
+  },
+  {
+    "path": "E:/3d/3-dfps/assets/sfx/suppressor/akm_recorded_shot.wav",
+    "sha256": "6a93347e0fd929e7e87327857ab6f23d89d0951d2b52ec7a390bc9fc9cfea81f"
+  }
+]

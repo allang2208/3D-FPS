@@ -1,0 +1,42 @@
+{
+  "suppressor": {
+    "triangles": 40512,
+    "source_triangles": 1728,
+    "length_m": 0.1860000044107437,
+    "materials": [
+      "RifleMetal",
+      "RecessMetal"
+    ]
+  },
+  "brake": {
+    "triangles": 7016,
+    "source_triangles": 1688,
+    "length_m": 0.06800000369548798,
+    "materials": [
+      "RifleMetal",
+      "RecessMetal"
+    ]
+  },
+  "titanium_brake": {
+    "triangles": 32432,
+    "source_triangles": 9632,
+    "length_m": 0.07249999791383743,
+    "materials": [
+      "RifleMetal",
+      "RecessMetal",
+      "TitaniumTrim"
+    ]
+  },
+  "fit": {
+    "factory_length_cm": 4.694624006697268,
+    "rear_from_socket_cm": -4.836329531008232,
+    "axis": [
+      0.00022747268667444587,
+      0.9999995827674866,
+      -0.000869530369527638
+    ],
+    "flash_materials": [
+      "Flash Hider.001"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-10",
+  "project": "D:/FPS3D/FPSGAME/FPSGAME.uproject",
+  "native_build": "passed",
+  "runs": [
+    {"id": "first-60", "simulation_hz": 60, "pass": 51, "fail": 0},
+    {"id": "warmed-30", "simulation_hz": 30, "pass": 51, "fail": 0},
+    {"id": "muzzle-regression-60", "simulation_hz": 60, "pass": 49, "fail": 0}
+  ],
+  "actual_ue_images_reviewed": ["warmed-30/true-workbench.png", "first-60/titanium_brake-workbench.png", "first-60/brake-hip.png", "first-60/true-ads.png"],
+  "models": {
+    "suppressor": {"triangles": 40512, "speed_mps": 72, "recoil": 75, "shake": 75},
+    "brake": {"triangles": 7016, "speed_mps": 90, "recoil": 85, "shake": 85},
+    "titanium_brake": {"triangles": 32432, "speed_mps": 90, "recoil": 70, "shake": 80}
+  },
+  "binary_delivery": "Local Content/Weapons/M4MuzzlesV1 and SourceAssets/M4Muzzles20260910; not publicly redistributed",
+  "source_archive": "Historical E-drive source retired; set GODOT_SOURCE_ROOT before regenerating from the original Godot meshes"
+}
