@@ -1,0 +1,14 @@
+{
+  "source_entries": 43,
+  "archived_files": 76,
+  "archived_bytes": 16498325,
+  "python_syntax": true,
+  "linked_documents": true,
+  "binary_content_excluded": true,
+  "editor_build": true,
+  "game_build": true,
+  "rain_runs_passed": 7,
+  "storm_checks_passed": 30,
+  "asset_presence_after_retirement": true,
+  "known_unrelated_commandlet_error": "GameFeatureData primary asset scan rule missing; weather asset assertions passed. No unrelated plugin settings changed."
+}

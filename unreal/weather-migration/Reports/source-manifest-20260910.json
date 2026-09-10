@@ -1,0 +1,303 @@
+[
+  {
+    "source": "Source/FPSGAME/FPSWeatherManager.h",
+    "target": "Source/FPSWeatherManager.h",
+    "bytes": 5412,
+    "source_sha256": "0966aac1246524d970cae3fa223bbe2ff3fd70f2804583ab76975d2a62dd67f8",
+    "published_lf_sha256": "0966aac1246524d970cae3fa223bbe2ff3fd70f2804583ab76975d2a62dd67f8"
+  },
+  {
+    "source": "Source/FPSGAME/FPSWeatherManager.cpp",
+    "target": "Source/FPSWeatherManager.cpp",
+    "bytes": 22046,
+    "source_sha256": "94e73326ce831edb83e2012849537a74ecdea089c6d34f63f4fa0c68221446f4",
+    "published_lf_sha256": "94e73326ce831edb83e2012849537a74ecdea089c6d34f63f4fa0c68221446f4"
+  },
+  {
+    "source": "Source/FPSGAME/WeatherSurfaceComponent.h",
+    "target": "Source/WeatherSurfaceComponent.h",
+    "bytes": 1953,
+    "source_sha256": "da90ea7fef61e16c37d69a407770be992e341390f8c48859c9482bf0f1d1b216",
+    "published_lf_sha256": "da90ea7fef61e16c37d69a407770be992e341390f8c48859c9482bf0f1d1b216"
+  },
+  {
+    "source": "Source/FPSGAME/WeatherSurfaceComponent.cpp",
+    "target": "Source/WeatherSurfaceComponent.cpp",
+    "bytes": 8580,
+    "source_sha256": "7c670c67a61583b5c5cea2299a82db2edc273221bf8274575c77db8b6916ce81",
+    "published_lf_sha256": "7c670c67a61583b5c5cea2299a82db2edc273221bf8274575c77db8b6916ce81"
+  },
+  {
+    "source": "Source/FPSGAME/StormCloudComponent.h",
+    "target": "Source/StormCloudComponent.h",
+    "bytes": 2055,
+    "source_sha256": "88ba73e5031f08f5702113c34745f69f522cc7b0e4264e6c78f6e8ddd9ef3eba",
+    "published_lf_sha256": "88ba73e5031f08f5702113c34745f69f522cc7b0e4264e6c78f6e8ddd9ef3eba"
+  },
+  {
+    "source": "Source/FPSGAME/StormCloudComponent.cpp",
+    "target": "Source/StormCloudComponent.cpp",
+    "bytes": 7759,
+    "source_sha256": "4c07a5071a9301fbbcb89182ae3d4ef4e3c943318862b66de97ebdb325183874",
+    "published_lf_sha256": "4c07a5071a9301fbbcb89182ae3d4ef4e3c943318862b66de97ebdb325183874"
+  },
+  {
+    "source": "Source/FPSGAME/LightingConflictValidation.h",
+    "target": "Source/LightingConflictValidation.h",
+    "bytes": 106,
+    "source_sha256": "368bd8eba618f20613463301132dd49845e6e711cccfd1dbd23d2976ab463f5d",
+    "published_lf_sha256": "368bd8eba618f20613463301132dd49845e6e711cccfd1dbd23d2976ab463f5d"
+  },
+  {
+    "source": "Source/FPSGAME/LightingConflictValidation.cpp",
+    "target": "Source/LightingConflictValidation.cpp",
+    "bytes": 4021,
+    "source_sha256": "edc613908cc56e875157ae245af8f3e1411f1a9eb97538d1dd985b29a9c913be",
+    "published_lf_sha256": "edc613908cc56e875157ae245af8f3e1411f1a9eb97538d1dd985b29a9c913be"
+  },
+  {
+    "source": "Source/FPSGAME/RainUpgradeValidation.h",
+    "target": "Source/RainUpgradeValidation.h",
+    "bytes": 101,
+    "source_sha256": "cd2ac67a86da508216c1e6c74583de91ff5a88493a18f1d004de7297af26bca1",
+    "published_lf_sha256": "cd2ac67a86da508216c1e6c74583de91ff5a88493a18f1d004de7297af26bca1"
+  },
+  {
+    "source": "Source/FPSGAME/RainUpgradeValidation.cpp",
+    "target": "Source/RainUpgradeValidation.cpp",
+    "bytes": 12873,
+    "source_sha256": "ea3c0e6e969fc2177be041b444fca6724b5ccec2944c3fcf86ad2961e2058394",
+    "published_lf_sha256": "ea3c0e6e969fc2177be041b444fca6724b5ccec2944c3fcf86ad2961e2058394"
+  },
+  {
+    "source": "Source/FPSGAME/StormCloudValidation.h",
+    "target": "Source/StormCloudValidation.h",
+    "bytes": 100,
+    "source_sha256": "977391f9ad53b99e12a1cdda584e0c395fe9614dec26012a0f3e562b98f6428e",
+    "published_lf_sha256": "977391f9ad53b99e12a1cdda584e0c395fe9614dec26012a0f3e562b98f6428e"
+  },
+  {
+    "source": "Source/FPSGAME/StormCloudValidation.cpp",
+    "target": "Source/StormCloudValidation.cpp",
+    "bytes": 9453,
+    "source_sha256": "22f8806153b41bb25e4bcadeb408b6c33870ee856e07910a578f3d1ba3641905",
+    "published_lf_sha256": "22f8806153b41bb25e4bcadeb408b6c33870ee856e07910a578f3d1ba3641905"
+  },
+  {
+    "source": "Source/FPSGAME/RainAssetEditor.h",
+    "target": "Source/RainAssetEditor.h",
+    "bytes": 808,
+    "source_sha256": "863eea7c30c6943d8a57320d680d57a1bce3d8f00bb2f4625fb24dfa6ae1188d",
+    "published_lf_sha256": "863eea7c30c6943d8a57320d680d57a1bce3d8f00bb2f4625fb24dfa6ae1188d"
+  },
+  {
+    "source": "Source/FPSGAME/RainAssetEditor.cpp",
+    "target": "Source/RainAssetEditor.cpp",
+    "bytes": 2374,
+    "source_sha256": "27d29d6facdf72d798bbe1527545e2bed7f388008af692d2e082aea9c322edf8",
+    "published_lf_sha256": "27d29d6facdf72d798bbe1527545e2bed7f388008af692d2e082aea9c322edf8"
+  },
+  {
+    "source": "Source/FPSGAME/UI/WeatherControlWidget.h",
+    "target": "Source/UI/WeatherControlWidget.h",
+    "bytes": 1489,
+    "source_sha256": "272eef37fb1086ba71dce3bffc92cbcf4854399dc5871f1d468bb7dab2a8ceac",
+    "published_lf_sha256": "272eef37fb1086ba71dce3bffc92cbcf4854399dc5871f1d468bb7dab2a8ceac"
+  },
+  {
+    "source": "Source/FPSGAME/UI/WeatherControlWidget.cpp",
+    "target": "Source/UI/WeatherControlWidget.cpp",
+    "bytes": 10018,
+    "source_sha256": "7f90e37a8b048241ce7b56a1942649e0f865fc96f22adba73ec1d8ebb71b0522",
+    "published_lf_sha256": "7f90e37a8b048241ce7b56a1942649e0f865fc96f22adba73ec1d8ebb71b0522"
+  },
+  {
+    "source": "Source/FPSGAME/UI/WeatherPanelValidation.h",
+    "target": "Source/UI/WeatherPanelValidation.h",
+    "bytes": 176,
+    "source_sha256": "a7afbc6ff0a91aa637c8d436722e74b8a5a1b32e4d9f7f82714b47bcc1796463",
+    "published_lf_sha256": "a7afbc6ff0a91aa637c8d436722e74b8a5a1b32e4d9f7f82714b47bcc1796463"
+  },
+  {
+    "source": "Source/FPSGAME/UI/WeatherPanelValidation.cpp",
+    "target": "Source/UI/WeatherPanelValidation.cpp",
+    "bytes": 9107,
+    "source_sha256": "7817eeecf6cd919f4f7a8c281bc08ec194ec72719b6ebaba1b51c1041a74a7ac",
+    "published_lf_sha256": "7817eeecf6cd919f4f7a8c281bc08ec194ec72719b6ebaba1b51c1041a74a7ac"
+  },
+  {
+    "source": "Tools/Weather/build_rain_assets.py",
+    "target": "Tools/Weather/build_rain_assets.py",
+    "bytes": 10894,
+    "source_sha256": "b110778ec83f847030004e15d7463338a5cafd2573dd0e6a69312801adf5e662",
+    "published_lf_sha256": "b110778ec83f847030004e15d7463338a5cafd2573dd0e6a69312801adf5e662"
+  },
+  {
+    "source": "Tools/Weather/validate_rain_assets.py",
+    "target": "Tools/Weather/validate_rain_assets.py",
+    "bytes": 4883,
+    "source_sha256": "4edb47230eccbba7c3a9e790ff28b46f57e656a9da0946dc1991d2dbe3e60111",
+    "published_lf_sha256": "4edb47230eccbba7c3a9e790ff28b46f57e656a9da0946dc1991d2dbe3e60111"
+  },
+  {
+    "source": "Tools/Weather/read_rain_inputs.py",
+    "target": "Tools/Weather/read_rain_inputs.py",
+    "bytes": 1698,
+    "source_sha256": "c1d0d80f6e57b427030c183c51d3b5db325f2ca1023f1e2048ddf38ff8b541cd",
+    "published_lf_sha256": "c1d0d80f6e57b427030c183c51d3b5db325f2ca1023f1e2048ddf38ff8b541cd"
+  },
+  {
+    "source": "Tools/Weather/inspect_map_rain.py",
+    "target": "Tools/Weather/inspect_map_rain.py",
+    "bytes": 798,
+    "source_sha256": "88b5ac6998e68d9045feedd3d0ab4f64078e6c037f519a7ad60a30731deb729f",
+    "published_lf_sha256": "88b5ac6998e68d9045feedd3d0ab4f64078e6c037f519a7ad60a30731deb729f"
+  },
+  {
+    "source": "Tools/Weather/inspect_storm_clouds.py",
+    "target": "Tools/Weather/inspect_storm_clouds.py",
+    "bytes": 2015,
+    "source_sha256": "20a35884eaba18b8648f62f0b252343d987962179f966446efff2a2940f279e3",
+    "published_lf_sha256": "20a35884eaba18b8648f62f0b252343d987962179f966446efff2a2940f279e3"
+  },
+  {
+    "source": "Tools/Weather/retire_legacy_rain.ps1",
+    "target": "Tools/Weather/retire_legacy_rain.ps1",
+    "bytes": 2099,
+    "source_sha256": "904483276f8f459d846e8aee67905d703f7012a0c2f3d87341cb60f960169d8d",
+    "published_lf_sha256": "904483276f8f459d846e8aee67905d703f7012a0c2f3d87341cb60f960169d8d"
+  },
+  {
+    "source": "Tools/Weather/run_rain_validation.ps1",
+    "target": "Tools/Weather/run_rain_validation.ps1",
+    "bytes": 2323,
+    "source_sha256": "afc58e28623d5d92b53a0756f262dd80da51db9ed62f21f8626758f08e0b63d9",
+    "published_lf_sha256": "afc58e28623d5d92b53a0756f262dd80da51db9ed62f21f8626758f08e0b63d9"
+  },
+  {
+    "source": "Tools/Weather/run_storm_validation.ps1",
+    "target": "Tools/Weather/run_storm_validation.ps1",
+    "bytes": 1117,
+    "source_sha256": "4a17e4bcda8995fe261168938939d9a1d5c9d6d0bd5e5575df01df6223d17d73",
+    "published_lf_sha256": "4a17e4bcda8995fe261168938939d9a1d5c9d6d0bd5e5575df01df6223d17d73"
+  },
+  {
+    "source": "Tools/ConfigureWeatherMcp.ps1",
+    "target": "Tools/ConfigureWeatherMcp.ps1",
+    "bytes": 703,
+    "source_sha256": "0cb2eef7b631706ae982c2e5034f7c5a9b10974b86777f909a212c3e8492a54f",
+    "published_lf_sha256": "a437496706201cced1920ffcd7b4192f067948ad3eedd25e65e55bc319fcc5aa"
+  },
+  {
+    "source": "Docs/RAIN_UPGRADE_20260910.md",
+    "target": "Reports/RAIN_UPGRADE_20260910.md",
+    "bytes": 5690,
+    "source_sha256": "d11457049f8b610b78931b3a2bae7e41153a6a8b70771dce168738bfd89dd617",
+    "published_lf_sha256": "d11457049f8b610b78931b3a2bae7e41153a6a8b70771dce168738bfd89dd617"
+  },
+  {
+    "source": "Docs/STORM_CLOUDS_20260910.md",
+    "target": "Reports/STORM_CLOUDS_20260910.md",
+    "bytes": 3743,
+    "source_sha256": "a2814b5b72af35aa8ad5f621cb668636eb983a82e7f34c9f91dcc0d9e3debdde",
+    "published_lf_sha256": "a2814b5b72af35aa8ad5f621cb668636eb983a82e7f34c9f91dcc0d9e3debdde"
+  },
+  {
+    "source": "Docs/LIGHTING_CONFLICT_AUDIT_20260910.md",
+    "target": "Reports/LIGHTING_CONFLICT_AUDIT_20260910.md",
+    "bytes": 5031,
+    "source_sha256": "e18d4a2e73ee8ca02950bca2fef8c8ab9422b75f71f334f70f1dc55df8946a0f",
+    "published_lf_sha256": "e18d4a2e73ee8ca02950bca2fef8c8ab9422b75f71f334f70f1dc55df8946a0f"
+  },
+  {
+    "source": "Saved/RainUpgrade/validation-results.json",
+    "target": "Reports/rain-validation-results.json",
+    "bytes": 1242,
+    "source_sha256": "73c22cdf3040e51e4555cb39dc2e010617fb8753dd3a633a2df53cd5cbe36701",
+    "published_lf_sha256": "1614f20843b4ba9aca4504486811b3f844561177b3b46cb44a9b4cb44e304fa4"
+  },
+  {
+    "source": "Saved/StormClouds/results.json",
+    "target": "Reports/storm-validation-results.json",
+    "bytes": 448,
+    "source_sha256": "750e8c61b02ad120796194078f99ab775ce874307056a7e25695a3c98db5a71f",
+    "published_lf_sha256": "6cbb8971523095d8824c92e1254faa16b69e87871885923956d88f585f62daf5"
+  },
+  {
+    "source": "trash/weather-upgrade-20260910/manifest.json",
+    "target": "Reports/cleanup-20260910.json",
+    "bytes": 25734,
+    "source_sha256": "4b23520aba187db0b3a3796071159e9e768321acf93607efcafb579778b7de3b",
+    "published_lf_sha256": "1864053f25ef961f55fe2cd802df01d6238506fa5cc0a89d5ac47483774b6568"
+  },
+  {
+    "source": "Saved/RainUpgrade/retirement.json",
+    "target": "Reports/retired-rain-assets.json",
+    "bytes": 769,
+    "source_sha256": "cfbf6eae13706683d91f7a4c6f746e1695c56290e4e4e663279b3b28b7685d50",
+    "published_lf_sha256": "5a5104984da153186ea5484b88335af843a31b10d43034ad2c1852de552fcf8f"
+  },
+  {
+    "source": "Saved/StormClouds/build-cleanup.json",
+    "target": "Reports/previous-build-cleanup.json",
+    "bytes": 985,
+    "source_sha256": "5fd94f39e7e946e52940335831b15277104d36bd5d1c9b3249c5b6116671b32a",
+    "published_lf_sha256": "a9a5a1e7df22fa6a0b79a7462335f33e5c51919f4a7e9514984542e84ced1ed6"
+  },
+  {
+    "source": "Saved/StormClouds/DayNight_Lighting-storm.png",
+    "target": "Preview/DayNight_Lighting-storm.png",
+    "bytes": 1249579,
+    "source_sha256": "672b6058268efda096bc8439d708c8564dab6963d68273d8c0a3c94522c7a588",
+    "published_lf_sha256": "672b6058268efda096bc8439d708c8564dab6963d68273d8c0a3c94522c7a588"
+  },
+  {
+    "source": "Saved/StormClouds/L_MilitaryTrench_FPS_Test-storm.png",
+    "target": "Preview/L_MilitaryTrench_FPS_Test-storm.png",
+    "bytes": 1667587,
+    "source_sha256": "29b0c3968c91ecb51d78dc490103a059184179179a9774b6f8b1552029ad102c",
+    "published_lf_sha256": "29b0c3968c91ecb51d78dc490103a059184179179a9774b6f8b1552029ad102c"
+  },
+  {
+    "source": "Saved/StormClouds/L_Normandy_FPS_Test-storm.png",
+    "target": "Preview/L_Normandy_FPS_Test-storm.png",
+    "bytes": 1334981,
+    "source_sha256": "1a37d8cb1cf18a4ecd8533d29054779ea23ed1bdfdb258ae1e62da40e65c12c6",
+    "published_lf_sha256": "1a37d8cb1cf18a4ecd8533d29054779ea23ed1bdfdb258ae1e62da40e65c12c6"
+  },
+  {
+    "source": "Saved/StormClouds/DayNight_Lighting-clear.png",
+    "target": "Preview/DayNight_Lighting-clear.png",
+    "bytes": 1359100,
+    "source_sha256": "eaeab8621677a76ad8a757e9777b48d49023e456ccdaf5934f0e385b3910ae80",
+    "published_lf_sha256": "eaeab8621677a76ad8a757e9777b48d49023e456ccdaf5934f0e385b3910ae80"
+  },
+  {
+    "source": "Saved/StormClouds/DayNight_Lighting-restored.png",
+    "target": "Preview/DayNight_Lighting-restored.png",
+    "bytes": 1367081,
+    "source_sha256": "41ecb6de7b7132ac2db190aa9f084c6c40da9884d3c044740663d3b96a77a4cc",
+    "published_lf_sha256": "41ecb6de7b7132ac2db190aa9f084c6c40da9884d3c044740663d3b96a77a4cc"
+  },
+  {
+    "source": "Saved/RainUpgrade/L_Normandy_FPS_Test-validated.png",
+    "target": "Preview/L_Normandy_FPS_Test-rain.png",
+    "bytes": 1758759,
+    "source_sha256": "98283d0e7c9f67b5397c4ce9dadae83656f61359f745c36c24555761a6614176",
+    "published_lf_sha256": "98283d0e7c9f67b5397c4ce9dadae83656f61359f745c36c24555761a6614176"
+  },
+  {
+    "source": "Tools/Weather/verify_weather_publication.py",
+    "target": "Tools/Weather/verify_weather_publication.py",
+    "bytes": 1062,
+    "source_sha256": "a9ec0b7af874374e4c066603794bcd7ae5bb128c3eb9125e649b17a13db7d466",
+    "published_lf_sha256": "a9ec0b7af874374e4c066603794bcd7ae5bb128c3eb9125e649b17a13db7d466"
+  },
+  {
+    "source": "Saved/StormClouds/publication-assets.json",
+    "target": "Reports/publication-assets.json",
+    "bytes": 486,
+    "source_sha256": "51607c7ff9416f22dad461d2520b2df129a519c617d2383cce7b8dd4dfbb5802",
+    "published_lf_sha256": "cdd86702b07f8b7277e24ef539f8070719930ca4118a126ef0d5a2c0d6bdb412"
+  }
+]

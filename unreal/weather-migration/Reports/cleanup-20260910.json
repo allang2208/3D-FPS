@@ -1,0 +1,446 @@
+[
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\Backup\\ConfigureWeatherMcp.ps1",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\backup\\ConfigureWeatherMcp.ps1",
+    "bytes": 10132,
+    "sha256": "55FB4A57871EED374C27D3990523E126EAEECB8AC0449FBA2B08B1D872F7CAB9"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\Backup\\FPSWeatherManager.cpp",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\backup\\FPSWeatherManager.cpp",
+    "bytes": 23790,
+    "sha256": "4EAB319B4FC8E0298CE6283A62344FF827ACD8C3E0855CDA2CCB948BAB1F00E8"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\Backup\\FPSWeatherManager.h",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\backup\\FPSWeatherManager.h",
+    "bytes": 5236,
+    "sha256": "4DE9208DFA8579FBC42C614B43B878A95DCB28441311A2BF8DF5354FDE294A1F"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\Backup\\NS_FPS_Rain.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\backup\\NS_FPS_Rain.uasset",
+    "bytes": 699476,
+    "sha256": "1EDD262A29F9DF0ECE0A7596A6BEBC47B464823E34A170E9FE362E2754E0453A"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\Backup\\NS_FPS_RainSplashes.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\backup\\NS_FPS_RainSplashes.uasset",
+    "bytes": 374832,
+    "sha256": "C22788739F5A3A3C65F247788BB16EEE6FCFF203E43A2862F61BABFBD657D6B6"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Tools\\Weather\\inspect_rain.py",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\obsolete-tools\\inspect_rain.py",
+    "bytes": 2073,
+    "sha256": "516AEC400AA7F5A3A19751CEBE3A061A0C38950A4CA617EC95B551AA381FA2CB"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\accepted.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\accepted.log",
+    "bytes": 261700,
+    "sha256": "800AE2C326B9BF7BF70CB8D523D4D1419D36F8A2D63A250BB8FDB0C762B242FF"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\after.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\after.log",
+    "bytes": 257281,
+    "sha256": "6DA228984EDEB843D3E9875D50D3DB99E85B6DD2C6168FDACC2C6E90FFADEEF9"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-build-backup-2026.09.10-02.37.47.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-build-backup-2026.09.10-02.37.47.log",
+    "bytes": 266551,
+    "sha256": "DD12C232BBE0F99FDD5DC298C7469BF0C1FE44EE0D9F0101DCBAE118F4FFBB6D"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-build-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-build-console.log",
+    "bytes": 41553,
+    "sha256": "30E3FF68EF9811FCED2E2AB4E4CDF41270E82D3BC5A86B2564FC524B9E4B6C2C"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-build.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-build.log",
+    "bytes": 282450,
+    "sha256": "524099AC8B73AFB8754988DE87DFD839C46D62FAE45BBECD8669E4D7AEE912BD"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-console.txt",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-console.txt",
+    "bytes": 55776,
+    "sha256": "D5DB81B0EE5551FAB15F537C9AE52BCEC572B9E9E14DD25EAC8D6D154FB7DFCA"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-final-backup-2026.09.10-02.48.03.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-final-backup-2026.09.10-02.48.03.log",
+    "bytes": 278006,
+    "sha256": "2B4E237030A4907409A7ECF41F94C6AC298E65C068DBFA14F10942BE253F77AA"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-final-backup-2026.09.10-02.50.47.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-final-backup-2026.09.10-02.50.47.log",
+    "bytes": 278004,
+    "sha256": "0B81E2A884EDD88E7D9131C07A6CADA2681EFB786EC4F75E3BFC9AB4EEB34EEE"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-final-backup-2026.09.10-02.54.25.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-final-backup-2026.09.10-02.54.25.log",
+    "bytes": 284412,
+    "sha256": "FD0EE43A4EAE3B4007F0CDFB3B626A42C43D66C52022FED72415E754BADD8AF6"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-final-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-final-console.log",
+    "bytes": 30974,
+    "sha256": "ACF5E988BEB0B7B5C7655829CCCD33B40D9B42A057F5EA8AE3E7DCB12B392CA4"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-final.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-final.log",
+    "bytes": 271500,
+    "sha256": "4164888DE0BFA221D57C8B45E794E9A240DB3C9D67D5A1B00634487D1F4CF72E"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-validation-backup-2026.09.10-02.40.53.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-validation-backup-2026.09.10-02.40.53.log",
+    "bytes": 269386,
+    "sha256": "7A9B39109716372365A82850E08F584FB3028DF2C9C68917244037986C2E736F"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-validation-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-validation-console.log",
+    "bytes": 31879,
+    "sha256": "E45F58E2193D72FFCEC4BEED4C997CF5895DA6421F5787353F44E841714D5996"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-validation.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-validation.log",
+    "bytes": 274137,
+    "sha256": "AC5C25F5A52FCC449CEBC4BAA9D26DC555D281940148314EFC365F3DFEE692C9"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-verified-backup-2026.09.10-02.55.12.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-verified-backup-2026.09.10-02.55.12.log",
+    "bytes": 269630,
+    "sha256": "12E14F5D20FEE0B9E832A8E724204057E39B071A4FA6ED7F93BDDED273E2672F"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-verified-backup-2026.09.10-03.09.46.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-verified-backup-2026.09.10-03.09.46.log",
+    "bytes": 268549,
+    "sha256": "E064C10B9B6939C1142A2FF5E9D414AB87A3DEAE41F53409FDF2D51005C03C2D"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-verified-backup-2026.09.10-03.19.52.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-verified-backup-2026.09.10-03.19.52.log",
+    "bytes": 268564,
+    "sha256": "A388E3AB436A83E7B4F1AB1CA3B2FDDCFBB607194A074682536C9DA9E367272A"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets-verified-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets-verified-console.log",
+    "bytes": 30467,
+    "sha256": "8B351E51519384840E5F11EA0734A9E1D19DABBA454D0CA6B8CD7A63DF8F37A4"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\assets.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\assets.log",
+    "bytes": 293395,
+    "sha256": "837BA0CA3D5FAB1143990389C6ED69F854BC0899E782D79E067DD0DFB28D423C"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\build-baseline2.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\build-baseline2.log",
+    "bytes": 13879,
+    "sha256": "8F9E3444C804378DDEAA292B4AEE38BD1C745FE794B07208DE9F628439DE9108"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\DayNight_Lighting-panel-backup-2026.09.10-03.16.38.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\DayNight_Lighting-panel-backup-2026.09.10-03.16.38.log",
+    "bytes": 263018,
+    "sha256": "DC28630C8C444155F720D939307D7FA9990F7DE5290E65A030521A357EB0E81E"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\DayNight_Lighting-render-backup-2026.09.10-03.13.56.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\DayNight_Lighting-render-backup-2026.09.10-03.13.56.log",
+    "bytes": 237194,
+    "sha256": "A6267800714516D2B5216323E8D4187D1BABF405213C31746B1DF20618659D96"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\diagnostic.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\diagnostic.log",
+    "bytes": 261419,
+    "sha256": "A2CE429BAF71A18F6C8FDF24E0DF032E004D079D1DDFEEBF0FD33D8E38F4E5AB"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\final.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\final.log",
+    "bytes": 258262,
+    "sha256": "0B5BFBE42D2D53A64D4ACAC62D3ABDF7915E8ADEDF67168CFD8BCE903C47DFA4"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\highlight.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\highlight.log",
+    "bytes": 260166,
+    "sha256": "AA8EE57AA36F41DB86857F28960867527DCE66F626E1EF928E1BC4063F44BC4A"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inputs-readback-backup-2026.09.10-02.45.40.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inputs-readback-backup-2026.09.10-02.45.40.log",
+    "bytes": 261313,
+    "sha256": "57404662C29506B5FCC21A833AC93B5E4AEDBCFA7C48F2FAABF03E08DCA1FC9A"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inputs-readback-backup-2026.09.10-02.57.09.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inputs-readback-backup-2026.09.10-02.57.09.log",
+    "bytes": 262112,
+    "sha256": "D713646FFFF1F8FECF91D4AABDAB7A456BB6BB50CFF49C082F44D03421085311"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inputs-readback-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inputs-readback-console.log",
+    "bytes": 29999,
+    "sha256": "027EBFED4C012CBF425C2206EA269C354AABC811EFCDCEE7BBFA480A221280A8"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.20.38.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.20.38.log",
+    "bytes": 272362,
+    "sha256": "7A9D17B6D887B65B9C2EDFC0AEF5831C1301D3FD6463E4D403A7F63E4F4391B5"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.21.23.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.21.23.log",
+    "bytes": 270626,
+    "sha256": "01F465401B81CF205C2C4AA4D8D6380B7DD04480D2CF4BD8130D7FF7F2A0AC97"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.23.53.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.23.53.log",
+    "bytes": 272235,
+    "sha256": "E62400744E31B41A56268707F7589C4CE16A26F4D3495AF742D7EB6782F8359F"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.24.56.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inspect-backup-2026.09.10-02.24.56.log",
+    "bytes": 274239,
+    "sha256": "811A887132AE508D79881C0CD9EF52B8D155F36FE5986FBECD015054E7C5513C"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\inspect-console.txt",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\inspect-console.txt",
+    "bytes": 39620,
+    "sha256": "F572D7E5AE8911E7DC7A5F67906D2918F55762670C873F0F5AA0D473899F181E"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_MilitaryTrench_FPS_Test-render-backup-2026.09.10-03.14.51.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_MilitaryTrench_FPS_Test-render-backup-2026.09.10-03.14.51.log",
+    "bytes": 292530,
+    "sha256": "85053DAF96D5542D80E15F65CAFDF9D73D3918529B10D86D8C2A6FC2B0F857CE"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-accepted.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-accepted.csv",
+    "bytes": 5518,
+    "sha256": "E6EF16E0153909278F1F42CFB7DCB7E3D19FD2B80BC66DDA640BE06ED7E59138"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-after.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-after.csv",
+    "bytes": 5518,
+    "sha256": "7FA3C64B4E7622F7E582CD505C121A72CA312BA251884C549C7D1A3699FDC192"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-diagnostic.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-diagnostic.csv",
+    "bytes": 2038,
+    "sha256": "0A4858A84B1745169F7D438094DE12AD74FDE6F243A315A468F794B16652C8AA"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-final.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-final.csv",
+    "bytes": 5518,
+    "sha256": "0CF2D23616BE851F857A9A0BD017E8E55A56880A190D0485E6C18BB13775A46F"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-highlight.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-highlight.csv",
+    "bytes": 2038,
+    "sha256": "41F601E05F98990571D4D4D726FFA2437DAF6D2499BE815FDBF2892083F00852"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-panel-backup-2026.09.10-03.18.29.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-panel-backup-2026.09.10-03.18.29.log",
+    "bytes": 288000,
+    "sha256": "66040BE905BA023A8DA200A3AD42A85F85326C155176472D7DEB3266A55902ED"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-polish.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-polish.csv",
+    "bytes": 5518,
+    "sha256": "4E76F26BFCC5C72166E73A0809D755813DE0AF9E80535CA9B96B591C5D437643"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-positions.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-positions.csv",
+    "bytes": 2038,
+    "sha256": "0D6099A66D6BA1DCD0745C92CCAD24792ABE4AE535570DBFDED666AE8C737283"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-release.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-release.csv",
+    "bytes": 5521,
+    "sha256": "6BC9F1EF0E7B888E158BEAC6B31A3B31C8F75FC07184B71333AFD558D66AFF71"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-render-backup-2026.09.10-03.12.54.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-render-backup-2026.09.10-03.12.54.log",
+    "bytes": 261255,
+    "sha256": "4E893786DC774A2667EDDEF32F990B99E519D49E9656AFADFE2A7AF86470DF35"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-surface-backup-2026.09.10-03.15.44.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-surface-backup-2026.09.10-03.15.44.log",
+    "bytes": 259429,
+    "sha256": "0F5645ECD237E6167195257BB1B7DBE2443A16AFC02AA64BC64695DED74E906B"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-visible.csv",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-visible.csv",
+    "bytes": 2038,
+    "sha256": "863BA3E596D143134B36426A083F02F31AC4D3EDCBF1A203046602AB0BA6687F"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\map-inspect-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\map-inspect-console.log",
+    "bytes": 31796,
+    "sha256": "306BCD4AF781FA67E70541D0E84C2DFFA5A5720EE0AFC58AE4E96E8249425289"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\NS_FPS_Rain.t3d",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\NS_FPS_Rain.t3d",
+    "bytes": 1359054,
+    "sha256": "2157F08443CBA7EB8BBB0C9FF2F1C4E1F32E0E211C9DFF95DD3B22E412BD4B59"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\NS_FPS_RainSplashes.t3d",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\NS_FPS_RainSplashes.t3d",
+    "bytes": 844574,
+    "sha256": "5A460827C064ED0AA209A3A932CD21B040EC53156EDEBA8A9EB6642B234F0602"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\polish.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\polish.log",
+    "bytes": 259222,
+    "sha256": "27AEB310564748A8CA72D0BC581475157A101B448C1A0A6A95B7AA5FD47C1049"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\positions-backup-2026.09.10-03.03.09.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\positions-backup-2026.09.10-03.03.09.log",
+    "bytes": 260029,
+    "sha256": "3A5C225928C2FAF8A590B267C7B8AABFB592E98EAB44DAB1BB8D9F137FB2D163"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\positions.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\positions.log",
+    "bytes": 260362,
+    "sha256": "098B682906606BE422E8D8C818B5E3C45412423AD7C9F99453D1D7FC44F3B897"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\release.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\release.log",
+    "bytes": 257514,
+    "sha256": "02BCB4A574035D6C71EF553EC10C61D0F1C0B5E32E81D92675B60B884D602AB8"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\topology.txt",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\topology.txt",
+    "bytes": 63,
+    "sha256": "B6B8BABA9EE7C16FFAD2CFFBDBA87D17785D6FEB996AE5CE145120CABED17D4A"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\values.txt",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\values.txt",
+    "bytes": 58,
+    "sha256": "2D799B0FA398F91E7BDD025E738E575E55AE499F5D2DF44BB2B54FE7B4177114"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\visible.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\RainUpgrade\\visible.log",
+    "bytes": 262745,
+    "sha256": "D1D3271E4FCD5D2D369827203000B003A2C41D770AC99F28BC7FD8C883AFB4A3"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.11.25.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.11.25.log",
+    "bytes": 236357,
+    "sha256": "8B242F87155B88244F6B6C7D581279662AF380340F13E8E54E5A5CF41109C819"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.13.31.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.13.31.log",
+    "bytes": 235756,
+    "sha256": "3DAACCDB30AC349B307BBB01D4A24AC9BC3E022D796AEADCB1F0476A29B5AA88"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.18.28.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.18.28.log",
+    "bytes": 235524,
+    "sha256": "895D7ED0D800636FE3391F8AD859F62E5868CCEFB6849A4C1B323AE9763317C5"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.20.28.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\DayNight_Lighting-backup-2026.09.10-05.20.28.log",
+    "bytes": 236276,
+    "sha256": "730CBA751CAA7083F0C64E140982CFD43CCE1145097F8BDB109BDA56C2B89B44"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\inspect-backup-2026.09.10-05.04.17.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\inspect-backup-2026.09.10-05.04.17.log",
+    "bytes": 7515,
+    "sha256": "D46325625858E470D862318088E52CBDFC8663A9180BDDF79BC501F94A637114"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\inspect-console.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\inspect-console.log",
+    "bytes": 31320,
+    "sha256": "F3FF7ECA4049499DC6BCDEC7837C02B72F297569FF21301D26664BFE7C20921E"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\L_MilitaryTrench_FPS_Test-backup-2026.09.10-05.14.27.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\L_MilitaryTrench_FPS_Test-backup-2026.09.10-05.14.27.log",
+    "bytes": 291823,
+    "sha256": "3F748940C48C52FC9344BCC8529C93DA64F2FC93837D4F7D3824AA73F8730C14"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\L_MilitaryTrench_FPS_Test-backup-2026.09.10-05.17.33.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\L_MilitaryTrench_FPS_Test-backup-2026.09.10-05.17.33.log",
+    "bytes": 291679,
+    "sha256": "E92F0D2C0339F29C88DC1925790499B2D3594AF95154F0F35525A68C007D93B5"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\L_MilitaryTrench_FPS_Test-backup-2026.09.10-05.21.25.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\L_MilitaryTrench_FPS_Test-backup-2026.09.10-05.21.25.log",
+    "bytes": 291971,
+    "sha256": "2453AAD449585FA012AB2C9B459CB6F0B531BFA440D16224C123691CEEE8A4BC"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\L_Normandy_FPS_Test-backup-2026.09.10-05.15.26.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\L_Normandy_FPS_Test-backup-2026.09.10-05.15.26.log",
+    "bytes": 265668,
+    "sha256": "AF1A4E60CF865C6FC0AD730D9E476239765998132B786380912CE525FC4F9B87"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\L_Normandy_FPS_Test-backup-2026.09.10-05.19.27.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\L_Normandy_FPS_Test-backup-2026.09.10-05.19.27.log",
+    "bytes": 260122,
+    "sha256": "E42B15AD52564AA1D918B4079E4A8B282A93067A53F685EB3924109665071A3D"
+  },
+  {
+    "original": "D:\\FPS3D\\FPSGAME\\Saved\\StormClouds\\L_Normandy_FPS_Test-backup-2026.09.10-05.22.25.log",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\weather-upgrade-20260910\\superseded\\Saved\\StormClouds\\L_Normandy_FPS_Test-backup-2026.09.10-05.22.25.log",
+    "bytes": 261433,
+    "sha256": "40615897666158A520C2A4D61F029869ECAF5BF51D6F9AC09AAFBB7A06FDAA88"
+  }
+]

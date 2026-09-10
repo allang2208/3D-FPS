@@ -1,0 +1,44 @@
+[
+  {
+    "map": "L_MilitaryTrench_FPS_Test",
+    "mode": "panel",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_MilitaryTrench_FPS_Test-panel.log"
+  },
+  {
+    "map": "L_Normandy_FPS_Test",
+    "mode": "surface",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-surface.log"
+  },
+  {
+    "map": "DayNight_Lighting",
+    "mode": "panel",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\DayNight_Lighting-panel.log"
+  },
+  {
+    "map": "L_Normandy_FPS_Test",
+    "mode": "panel",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-panel.log"
+  },
+  {
+    "map": "L_Normandy_FPS_Test",
+    "mode": "render",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_Normandy_FPS_Test-render.log"
+  },
+  {
+    "map": "DayNight_Lighting",
+    "mode": "render",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\DayNight_Lighting-render.log"
+  },
+  {
+    "map": "L_MilitaryTrench_FPS_Test",
+    "mode": "render",
+    "passed": true,
+    "log": "D:\\FPS3D\\FPSGAME\\Saved\\RainUpgrade\\L_MilitaryTrench_FPS_Test-render.log"
+  }
+]

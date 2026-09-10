@@ -4,6 +4,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 ---
 
 # Quick Start
+- For weather/cloud validation, read [weather transition diagnostics](../ue5-weather-workflow/references/storm-rain-integration.md); sample after all light writers and distinguish editor actor enumeration from runtime world state.
 - For imported maps, spawn/floating bugs and relocation, read [scene validation](references/scene-import-spawn-validation.md).
 - Reproduce issue with minimal steps.
 - Collect output log lines and relevant actor/asset state.

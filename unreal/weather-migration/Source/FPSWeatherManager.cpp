@@ -1,10 +1,20 @@
 #include "FPSWeatherManager.h"
+#include "LightingConflictValidation.h"
+#include "RainUpgradeValidation.h"
+#include "WeatherSurfaceComponent.h"
+#include "StormCloudValidation.h"
+#include "StormCloudComponent.h"
 
 #include "Camera/PlayerCameraManager.h"
 #include "Components/AudioComponent.h"
 #include "Components/DecalComponent.h"
 #include "Components/PointLightComponent.h"
 #include "Components/SceneComponent.h"
+#include "Components/DirectionalLightComponent.h"
+#include "Components/SkyLightComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/RectLightComponent.h"
+#include "Engine/SkyLight.h"
 #include "Engine/EngineTypes.h"
 #include "EngineUtils.h"
 #include "GameFramework/Pawn.h"
@@ -23,7 +33,6 @@ namespace FPSWeatherNames
 {
     static const FName RainIntensity(TEXT("User.RainIntensity"));
     static const FName SpawnRate(TEXT("User.SpawnRate"));
-    static const FName WindVelocity(TEXT("User.WindVelocity"));
     static const FName Wetness(TEXT("WeatherWetness"));
     static const FName Cloudiness(TEXT("WeatherCloudiness"));
     static const FName Lightning(TEXT("WeatherLightning"));
@@ -40,10 +49,14 @@ AFPSWeatherManager::AFPSWeatherManager()
     RainComponent->SetupAttachment(SceneRoot);
     RainComponent->SetAutoActivate(false);
 
-    SplashComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("GroundSplashes"));
-    SplashComponent->SetupAttachment(SceneRoot);
-    SplashComponent->SetRelativeLocation(FVector(0.0, 0.0, -1080.0));
-    SplashComponent->SetAutoActivate(false);
+    MistComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("DistantRainMist"));
+    MistComponent->SetupAttachment(SceneRoot);
+    MistComponent->SetRelativeLocation(FVector(0.0, 0.0, -700.0));
+    MistComponent->SetAutoActivate(false);
+    RainComponent->SetCastShadow(false);
+    MistComponent->SetCastShadow(false);
+    SurfaceEffects = CreateDefaultSubobject<UWeatherSurfaceComponent>(TEXT("RainSurfaces"));
+    StormClouds = CreateDefaultSubobject<UStormCloudComponent>(TEXT("StormClouds"));
 
     LightRainAudio = CreateDefaultSubobject<UAudioComponent>(TEXT("LightRainAudio"));
     LightRainAudio->SetupAttachment(SceneRoot);
@@ -69,9 +82,13 @@ AFPSWeatherManager::AFPSWeatherManager()
     LightningLight->SetCastShadows(false);
 
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> RainFinder(
-        TEXT("/Game/Weather/VFX/NS_FPS_Rain.NS_FPS_Rain"));
+        TEXT("/Game/Weather/VFX/NS_FPS_RainFine.NS_FPS_RainFine"));
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> SplashFinder(
-        TEXT("/Game/Weather/VFX/NS_FPS_RainSplashes.NS_FPS_RainSplashes"));
+        TEXT("/Game/Weather/VFX/NS_FPS_SurfaceSplashes.NS_FPS_SurfaceSplashes"));
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> MistFinder(
+        TEXT("/Game/Weather/VFX/NS_FPS_RainMist.NS_FPS_RainMist"));
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> DripFinder(
+        TEXT("/Game/Weather/VFX/NS_FPS_RoofDrips.NS_FPS_RoofDrips"));
     static ConstructorHelpers::FObjectFinder<UMaterialParameterCollection> WeatherParametersFinder(
         TEXT("/Game/Weather/Materials/MPC_FPS_Weather.MPC_FPS_Weather"));
     static ConstructorHelpers::FObjectFinder<USoundBase> LightRainFinder(
@@ -81,7 +98,7 @@ AFPSWeatherManager::AFPSWeatherManager()
     static ConstructorHelpers::FObjectFinder<USoundBase> HeavyRainFinder(
         TEXT("/Game/Weather/Audio/S_Rain_Patter_Loop.S_Rain_Patter_Loop"));
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> PuddleMaterialFinder(
-        TEXT("/Game/JVAD3D_SimpleWaterPuddles/Materials/MI_JVAD3D_SimpleWaterPuddles_A.MI_JVAD3D_SimpleWaterPuddles_A"));
+        TEXT("/Game/Weather/Materials/M_RainWetSurface.M_RainWetSurface"));
     static ConstructorHelpers::FObjectFinder<USoundBase> ThunderOneFinder(
         TEXT("/Game/Thunder_Sounds/CUE/CUE_Thunder_Lightning_I_Without_rain_wind_background_noise_Cue.CUE_Thunder_Lightning_I_Without_rain_wind_background_noise_Cue"));
     static ConstructorHelpers::FObjectFinder<USoundBase> ThunderTwoFinder(
@@ -90,6 +107,8 @@ AFPSWeatherManager::AFPSWeatherManager()
         TEXT("/Game/Thunder_Sounds/CUE/CUE_Thunder_Lightning_III_Without_rain_wind_background_noise_Cue.CUE_Thunder_Lightning_III_Without_rain_wind_background_noise_Cue"));
     if (RainFinder.Succeeded()) RainSystem = RainFinder.Object;
     if (SplashFinder.Succeeded()) SplashSystem = SplashFinder.Object;
+    if (MistFinder.Succeeded()) MistSystem = MistFinder.Object;
+    if (DripFinder.Succeeded()) RoofDripSystem = DripFinder.Object;
     if (WeatherParametersFinder.Succeeded()) WeatherParameters = WeatherParametersFinder.Object;
     if (LightRainFinder.Succeeded()) LightRainSound = LightRainFinder.Object;
     if (RainAudioFinder.Succeeded()) RainSound = RainAudioFinder.Object;
@@ -103,16 +122,25 @@ AFPSWeatherManager::AFPSWeatherManager()
 void AFPSWeatherManager::BeginPlay()
 {
     Super::BeginPlay();
+    StormClouds->AddTickPrerequisiteActor(this);
 
     WeatherRandom.Initialize(WeatherSeed);
     RainComponent->SetAsset(RainSystem);
-    SplashComponent->SetAsset(SplashSystem);
+    MistComponent->SetAsset(MistSystem);
+    SurfaceEffects->Initialize(SplashSystem, RoofDripSystem, PuddleDecalMaterial);
     LightRainAudio->SetSound(LightRainSound);
     RainAudio->SetSound(RainSound);
     HeavyRainAudio->SetSound(HeavyRainSound);
     UpdatePlayerFollowing();
-    TrySynchronizeWithSkyClock();
-    ApplyState(ResolveScheduledState());
+    bSkyClockConnected = TrySynchronizeWithSkyClock();
+    const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
+    if (!bSkyClockConnected && (Map == TEXT("L_Normandy_FPS_Test") || Map == TEXT("L_MilitaryTrench_FPS_Test")))
+    {
+        // Start the imported scenes at 09:00 so first entry is in daylight.
+        NormalizedDayTime = 0.375f;
+        WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
+    }
+    ApplyState(bAutomaticSchedule ? ResolveScheduledState() : CurrentState);
 
     UE_LOG(LogTemp, Display,
         TEXT("FPSWeatherManager ready: day=%.0fs state=%d rain=%s splashes=%s puddles=%s rainAudio=%d thunder=%d"),
@@ -123,13 +151,17 @@ void AFPSWeatherManager::BeginPlay()
         PuddleDecalMaterial ? TEXT("yes") : TEXT("no"),
         static_cast<int32>(LightRainSound != nullptr) + static_cast<int32>(RainSound != nullptr) + static_cast<int32>(HeavyRainSound != nullptr),
         ThunderSounds.Num());
+    StartLightingConflictValidation(this);
+    StartRainUpgradeValidation(this);
+    StartStormCloudValidation(this);
 }
 
 void AFPSWeatherManager::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 
-    if (!TrySynchronizeWithSkyClock())
+    bSkyClockConnected = TrySynchronizeWithSkyClock();
+    if (!bSkyClockConnected)
     {
         const float Previous = NormalizedDayTime;
         WeatherClockSeconds = FMath::Fmod(WeatherClockSeconds + DeltaSeconds, RealSecondsPerGameDay);
@@ -144,14 +176,14 @@ void AFPSWeatherManager::Tick(float DeltaSeconds)
     UpdateShelter(DeltaSeconds);
     UpdateSchedule();
     UpdateEffects(DeltaSeconds);
+    UpdateSceneDayNight(DeltaSeconds);
     UpdateLightning(DeltaSeconds);
 
-    PuddleRefreshAccumulator += DeltaSeconds;
-    if (PuddleRefreshAccumulator >= 3.0f)
-    {
-        PuddleRefreshAccumulator = 0.0f;
-        RefreshRuntimePuddles();
-    }
+}
+
+float AFPSWeatherManager::GetSurfaceWetness() const
+{
+    return SurfaceEffects ? SurfaceEffects->GetWetness() : 0;
 }
 
 void AFPSWeatherManager::SetWeatherState(EFPSWeatherState NewState, bool bDisableAutomaticSchedule)
@@ -228,19 +260,6 @@ void AFPSWeatherManager::UpdatePlayerFollowing()
         const FVector CameraLocation = Camera->GetCameraLocation();
         SetActorLocation(CameraLocation + FVector(0.0, 0.0, 900.0));
 
-        FCollisionQueryParams Params(SCENE_QUERY_STAT(FPSWeatherSplashGround), false);
-        if (APawn* Pawn = UGameplayStatics::GetPlayerPawn(this, 0))
-        {
-            Params.AddIgnoredActor(Pawn);
-        }
-        FHitResult GroundHit;
-        const FVector TraceStart = CameraLocation + FVector(0.0, 0.0, 200.0);
-        const FVector TraceEnd = CameraLocation - FVector(0.0, 0.0, 2500.0);
-        if (GetWorld()->LineTraceSingleByChannel(GroundHit, TraceStart, TraceEnd, ECC_Visibility, Params) &&
-            GroundHit.ImpactNormal.Z > 0.5f)
-        {
-            SplashComponent->SetWorldLocation(GroundHit.ImpactPoint + GroundHit.ImpactNormal * 3.0f);
-        }
     }
 }
 
@@ -276,22 +295,24 @@ void AFPSWeatherManager::UpdateEffects(float DeltaSeconds)
     const float Speed = 1.0f / FMath::Max(TransitionSeconds, 0.1f);
     const float OutdoorIntensity = FMath::FInterpTo(EffectiveRainIntensity, TargetRainIntensity, DeltaSeconds, Speed * 5.0f);
     EffectiveRainIntensity = OutdoorIntensity;
-    const float VisibleIntensity = OutdoorIntensity * FMath::Lerp(1.0f, 0.08f, ShelterAmount);
+    const int32 Quality = UWeatherSurfaceComponent::GetQuality();
+    const float VisibleIntensity = Quality > 0 ? OutdoorIntensity * (1.0f-ShelterAmount) : 0;
     const float AudioShelter = FMath::Lerp(1.0f, 0.25f, ShelterAmount);
 
     RainComponent->SetFloatParameter(FPSWeatherNames::RainIntensity, VisibleIntensity);
-    RainComponent->SetFloatParameter(FPSWeatherNames::SpawnRate, VisibleIntensity * 1200.0f);
-    RainComponent->SetVariableVec3(FPSWeatherNames::WindVelocity, FVector(180.0f, 60.0f, -1900.0f));
-    SplashComponent->SetFloatParameter(FPSWeatherNames::RainIntensity, VisibleIntensity);
-    SplashComponent->SetFloatParameter(FPSWeatherNames::SpawnRate, VisibleIntensity * 180.0f);
+    RainComponent->SetFloatParameter(FPSWeatherNames::SpawnRate, VisibleIntensity * (Quality==1?800.0f:Quality==3?2000.0f:1400.0f));
+    const float MistRate=Quality>=2?VisibleIntensity*3.0f:0;
+    MistComponent->SetFloatParameter(FPSWeatherNames::SpawnRate,MistRate);
+    MistComponent->SetFloatParameter(FPSWeatherNames::RainIntensity,VisibleIntensity);
+    SurfaceEffects->SetRain(OutdoorIntensity);
 
     const bool bShouldRun = VisibleIntensity > 0.01f;
     if (bShouldRun && !RainComponent->IsActive()) RainComponent->Activate();
     if (!bShouldRun && RainComponent->IsActive()) RainComponent->Deactivate();
-    if (bShouldRun && !SplashComponent->IsActive()) SplashComponent->Activate();
-    if (!bShouldRun && SplashComponent->IsActive()) SplashComponent->Deactivate();
+    if (MistRate>.01f && !MistComponent->IsActive()) MistComponent->Activate();
+    if (MistRate<=.01f && MistComponent->IsActive()) MistComponent->Deactivate();
 
-    const float LightLayer = FMath::Clamp(1.0f - FMath::Abs(OutdoorIntensity - 0.3f) / 0.35f, 0.0f, 1.0f) * AudioShelter;
+    const float LightLayer = FMath::Clamp(1.0f - FMath::Abs(OutdoorIntensity - 0.3f) / 0.35f, 0.0f, 1.0f) * AudioShelter * FMath::Clamp(OutdoorIntensity / 0.1f, 0.0f, 1.0f);
     const float MidLayer = FMath::Clamp(1.0f - FMath::Abs(OutdoorIntensity - 0.65f) / 0.4f, 0.0f, 1.0f) * AudioShelter;
     const float HeavyLayer = FMath::Clamp((OutdoorIntensity - 0.65f) / 0.35f, 0.0f, 1.0f) * AudioShelter;
     UAudioComponent* RainLayers[] = { LightRainAudio, RainAudio, HeavyRainAudio };
@@ -309,7 +330,7 @@ void AFPSWeatherManager::UpdateEffects(float DeltaSeconds)
         {
             const float Cloudiness = CurrentState == EFPSWeatherState::Clear ? 0.12f :
                 CurrentState == EFPSWeatherState::Cloudy ? 0.7f : FMath::Lerp(0.72f, 1.0f, OutdoorIntensity);
-            Instance->SetScalarParameterValue(FPSWeatherNames::Wetness, OutdoorIntensity);
+            Instance->SetScalarParameterValue(FPSWeatherNames::Wetness, GetSurfaceWetness());
             Instance->SetScalarParameterValue(FPSWeatherNames::Cloudiness, Cloudiness);
             Instance->SetScalarParameterValue(FPSWeatherNames::Lightning, LightningFlashTime > 0.0f ? 1.0f : 0.0f);
         }
@@ -358,7 +379,7 @@ void AFPSWeatherManager::PlayDelayedThunder(float DelaySeconds)
     FTimerHandle Handle;
     GetWorldTimerManager().SetTimer(Handle, [WeakThis, SoundIndex]()
     {
-        if (WeakThis.IsValid() && WeakThis->ThunderSounds.IsValidIndex(SoundIndex))
+        if (WeakThis.IsValid() && WeakThis->CurrentState == EFPSWeatherState::Storm && WeakThis->ThunderSounds.IsValidIndex(SoundIndex))
         {
             WeakThis->ThunderAudio->SetSound(WeakThis->ThunderSounds[SoundIndex]);
             WeakThis->ThunderAudio->Play();
@@ -366,49 +387,62 @@ void AFPSWeatherManager::PlayDelayedThunder(float DelaySeconds)
     }, DelaySeconds, false);
 }
 
-void AFPSWeatherManager::RefreshRuntimePuddles()
+void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
 {
-    if (!PuddleDecalMaterial || RuntimePuddleCount <= 0 || EffectiveRainIntensity < 0.2f)
+    // The imported test scenes have no BP_FPS_DayNightManager. Drive their
+    // existing lights only in the running world; shared source sublevels stay intact.
+    const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
+    if (bSkyClockConnected || (Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test"))) return;
+    SceneLightingRefresh += DeltaSeconds;
+    if (SceneLightingRefresh < 0.1f) return;
+    SceneLightingRefresh = 0.0f;
+    const float SunHeight = FMath::Sin((NormalizedDayTime - 0.25f) * 2.0f * PI);
+    const float Daylight = FMath::SmoothStep(-0.12f, 0.35f, SunHeight);
+    const float Clouds = CurrentState == EFPSWeatherState::Clear ? 0.0f :
+        CurrentState == EFPSWeatherState::Cloudy ? 0.5f : FMath::Lerp(0.55f, 1.0f, EffectiveRainIntensity);
+    for (TActorIterator<AActor> It(GetWorld()); It; ++It)
     {
-        for (UDecalComponent* Decal : RuntimePuddles)
+        AActor* Actor = *It;
+        if (Actor == this) continue;
+        // Normandy's baked blue sky dome would otherwise remain bright at midnight.
+        if (Map == TEXT("L_Normandy_FPS_Test"))
         {
-            if (Decal) Decal->SetVisibility(false);
+            for (UStaticMeshComponent* Mesh : TInlineComponentArray<UStaticMeshComponent*>(Actor))
+            {
+                if (Mesh->GetStaticMesh() && Mesh->GetStaticMesh()->GetName().Contains(TEXT("SkySphere")))
+                    Mesh->SetVisibility(false);
+            }
         }
-        return;
-    }
-
-    while (RuntimePuddles.Num() < RuntimePuddleCount)
-    {
-        UDecalComponent* Decal = NewObject<UDecalComponent>(this);
-        Decal->SetupAttachment(SceneRoot);
-        Decal->RegisterComponent();
-        Decal->SetDecalMaterial(PuddleDecalMaterial);
-        Decal->DecalSize = FVector(32.0f, 120.0f, 120.0f);
-        Decal->SetFadeScreenSize(0.002f);
-        RuntimePuddles.Add(Decal);
-    }
-
-    APlayerCameraManager* Camera = UGameplayStatics::GetPlayerCameraManager(this, 0);
-    if (!Camera) return;
-    const FVector Origin = Camera->GetCameraLocation();
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(FPSWeatherPuddles), false);
-    for (int32 Index = 0; Index < RuntimePuddles.Num(); ++Index)
-    {
-        const float Radius = FMath::Sqrt(WeatherRandom.FRand()) * 1600.0f;
-        const float Angle = WeatherRandom.FRandRange(0.0f, 2.0f * PI);
-        const FVector2D Offset(FMath::Cos(Angle) * Radius, FMath::Sin(Angle) * Radius);
-        const FVector Start = Origin + FVector(Offset.X, Offset.Y, 1000.0f);
-        const FVector End = Start - FVector(0.0f, 0.0f, 4000.0f);
-        FHitResult Hit;
-        const bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, Params);
-        UDecalComponent* Decal = RuntimePuddles[Index];
-        Decal->SetVisibility(bHit && Hit.ImpactNormal.Z > 0.85f);
-        if (bHit)
+        for (ULightComponentBase* Light : TInlineComponentArray<ULightComponentBase*>(Actor))
         {
-            Decal->SetWorldLocation(Hit.ImpactPoint + Hit.ImpactNormal * 2.0f);
-            Decal->SetWorldRotation(FRotationMatrix::MakeFromX(-Hit.ImpactNormal).Rotator());
-            const float Scale = WeatherRandom.FRandRange(0.65f, 1.5f);
-            Decal->DecalSize = FVector(32.0f, 120.0f * Scale, 120.0f * Scale);
+            UDirectionalLightComponent* Sun = Cast<UDirectionalLightComponent>(Light);
+            USkyLightComponent* Sky = Cast<USkyLightComponent>(Light);
+            URectLightComponent* Fill = Map == TEXT("L_Normandy_FPS_Test") ? Cast<URectLightComponent>(Light) : nullptr;
+            if (!Sun && !Sky && !Fill) continue;
+            const TWeakObjectPtr<ULightComponentBase> Key(Light);
+            if (!SceneLightIntensities.Contains(Key))
+            {
+                SceneLightIntensities.Add(Key, Light->Intensity);
+                SceneLightColors.Add(Key, FLinearColor(Light->LightColor));
+                Light->SetMobility(EComponentMobility::Movable);
+                if (Sun) Sun->SetAtmosphereSunLight(true);
+                if (Sky) Sky->SetRealTimeCaptureEnabled(true);
+                UE_LOG(LogTemp, Display, TEXT("WeatherScene: bound %s %s base=%.2f"), *Map, *Light->GetPathName(), Light->Intensity);
+            }
+            const float Base = SceneLightIntensities[Key];
+            if (Sun)
+            {
+                // Use a dim, cool light on the opposite arc at night. A sky capture
+                // alone is black without a light source and leaves these scenes unreadable.
+                const bool bNight = SunHeight < 0.0f;
+                const float Pitch = -(NormalizedDayTime - 0.25f) * 360.0f + (bNight ? 180.0f : 0.0f);
+                Sun->SetWorldRotation(FRotator(Pitch, -35.0f, 0.0f));
+                Sun->SetLightColor(bNight ? FLinearColor(0.46f, 0.60f, 1.0f) : SceneLightColors[Key]);
+                Sun->SetIntensity(Base * FMath::Abs(SunHeight) * (bNight ? 0.035f : 1.0f) * FMath::Lerp(1.0f, 0.35f, Clouds));
+                bSceneDayNightActive = true;
+            }
+            if (Sky) Sky->SetIntensity(Base * FMath::Lerp(0.06f, 1.0f, Daylight) * FMath::Lerp(1.0f, 0.65f, Clouds));
+            if (Fill) Fill->SetIntensity(Base * FMath::Lerp(0.025f, 1.0f, Daylight) * FMath::Lerp(1.0f, 0.4f, Clouds));
         }
     }
 }

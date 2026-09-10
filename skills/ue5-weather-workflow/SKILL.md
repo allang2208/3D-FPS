@@ -23,6 +23,9 @@ old Godot implementation.
 
 ## Effects integration
 
+For cloud/solar conflicts, coarse rain particles, pooled wet surfaces or transition
+acceptance, read [storm and rain integration](references/storm-rain-integration.md).
+
 - Attach camera-local rain to the player view instead of filling the world with
   emitters. Ground-trace splash placement and cap spawn rates for scalability.
 - Detect shelter with a periodic upward visibility trace. Smooth attenuation

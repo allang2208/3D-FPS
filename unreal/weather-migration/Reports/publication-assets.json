@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "systems": [
+    {
+      "asset": "/Game/Weather/VFX/NS_FPS_RainFine",
+      "class": "NiagaraSystem"
+    },
+    {
+      "asset": "/Game/Weather/VFX/NS_FPS_SurfaceSplashes",
+      "class": "NiagaraSystem"
+    },
+    {
+      "asset": "/Game/Weather/VFX/NS_FPS_RainMist",
+      "class": "NiagaraSystem"
+    },
+    {
+      "asset": "/Game/Weather/VFX/NS_FPS_RoofDrips",
+      "class": "NiagaraSystem"
+    }
+  ],
+  "legacy_assets_absent": true
+}

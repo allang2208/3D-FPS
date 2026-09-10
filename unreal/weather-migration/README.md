@@ -1,74 +1,91 @@
-# UE5 day/night and weather migration snapshot — 2026-09-09
+# UE5 weather integration snapshot — 2026-09-10
 
-This directory preserves the reproducible source, MCP configuration, validation
-evidence, previews, and licensing notes from `D:/FPS3D/FPSGAME`. It is an
-integration snapshot for the existing UE 5.8 `FPSGAME` module, not a standalone
-Unreal project.
+Subsequent development targets UE5. The active local project is
+`D:/FPS3D/FPSGAME/FPSGAME.uproject` (UE 5.8.2).
+This directory updates the weather source/evidence snapshot. It is **not a
+standalone Unreal project**, and does not include the complete host game or
+licensed binary assets.
 
-## Implemented contract
+## Current behavior
 
-- Game time advances from Unreal's `DeltaSeconds`, so elapsed game time is
-  independent of frame count. One complete game day is `2160` real seconds
-  (36 minutes).
-- `AFPSGAMEGameMode::BeginPlay` creates one `AFPSWeatherManager` when a map using
-  that game mode has no existing manager. Scripted audit worlds can opt out.
-- Deterministic schedule states are Clear, Cloudy, Light Rain, Rain, and Storm.
-- Rain follows the local camera; splash emitters are ground-traced; an upward
-  shelter trace reduces rain visuals and the three rain audio layers indoors.
-- `MPC_FPS_Weather` receives wetness, cloudiness, and lightning values. Runtime
-  puddle decals use traced outdoor surfaces.
-- Storm lightning drives a flash value and delayed randomized thunder playback.
+- The existing sky Blueprint owns the main map clock; native scene lighting
+  handles Normandy and MilitaryTrench. The normal day remains 2160 seconds.
+- Fine camera-local rain, mist, world-fixed wet surfaces, surface splashes,
+  eaves drips and step ripples use fixed pools and quality caps.
+- Storm clouds smoothly cover/darken the sky and suppress the sun disk. The
+  main map's baked sunny sky fades out. Existing cloud layers are reused;
+  Normandy creates one reusable fallback. Clear weather restores original
+  materials, visibility, layer properties and clock-derived light values.
+- Only the three supported gameplay maps use cloud overrides. No new
+  directional light is created, and weapon-preview maps are excluded.
+- Layered rain audio, shelter attenuation, lightning and delayed thunder remain.
 
-## Snapshot contents
+See [rain implementation](Reports/RAIN_UPGRADE_20260910.md),
+[storm implementation](Reports/STORM_CLOUDS_20260910.md) and
+[lighting audit](Reports/LIGHTING_CONFLICT_AUDIT_20260910.md).
 
-- `Source/`: manager implementation, game-mode integration, and the module
-  dependency snapshot used for the successful build.
-- `Tools/ConfigureWeatherMcp.ps1`: reproducible Niagara and material-parameter
-  configuration through the connected Unreal MCP server. It targets
-  `127.0.0.1:8000` and uses the UE 5.8 fallback that saves all dirty content
-  packages; run it only with unrelated editor packages already saved or in an
-  isolated editor session.
-- `Tools/ImportWeatherAudio.py`: imports the three existing Godot rain loops as
-  looping Unreal sound waves. Its local source paths must be adapted on another
-  machine.
-- `ThirdPartyNotices/WEATHER_ASSETS.md`: provenance, license, and use notes.
-- `Preview/`: morning and night/rain captures from the generated lighting map.
-- `Reports/`: runtime/build evidence and the recoverable local cleanup manifest.
+## Integration and prerequisites
 
-## Required local content
+Copy current weather files from `Source/` into the host `Source/FPSGAME/`,
+and the weather UI files into its `UI/` directory. Merge module dependencies
+instead of replacing the host Build.cs. The unchanged GameMode files here are
+the **2026-09-09 historical spawn integration**, not the latest game mode;
+preserve current portals, UI, weapons and other host changes.
 
-The source expects these project assets:
+Runtime dependencies include Engine, Niagara, UMG/Slate and the existing host
+game classes/UI style. The diagnostic harness also uses RenderCore/RHI.
+The editor-only rain authoring bridge requires NiagaraEditor; the Python
+authoring tools use the UE 5.8 NiagaraToolset_System / NiagaraExt APIs and
+therefore need those editor capabilities enabled.
 
-- `/Game/Weather/VFX/NS_FPS_Rain`
-- `/Game/Weather/VFX/NS_FPS_RainSplashes`
-- `/Game/Weather/Materials/MPC_FPS_Weather`
-- `/Game/Weather/Audio/S_Rain_Light_Loop`
-- `/Game/Weather/Audio/S_Rain_Soft_Loop`
-- `/Game/Weather/Audio/S_Rain_Patter_Loop`
-- `/Game/JVAD3D_SimpleWaterPuddles/.../MI_JVAD3D_SimpleWaterPuddles_A`
-- three no-background thunder cues under `/Game/Thunder_Sounds/CUE`
+The local project must already contain these Niagara graphs and user bindings:
 
-The local project also contains the Fab Niagara Examples Pack, Free Thunder
-Sounds, and Simple Water Puddles. Their binary assets are deliberately not
-republished here; acquire them from Fab under their own terms. Generated Unreal
-assets, maps, caches, build products, and editor settings are also excluded.
+- `/Game/Weather/VFX/NS_FPS_RainFine`
+- `/Game/Weather/VFX/NS_FPS_SurfaceSplashes`
+- `/Game/Weather/VFX/NS_FPS_RainMist`
+- `/Game/Weather/VFX/NS_FPS_RoofDrips`
 
-## Validation boundary
+`Tools/Weather/build_rain_assets.py` **reconfigures these existing graphs** and
+creates the procedural rain/wet-surface materials. It does not reconstruct all
+Niagara emitter graphs from an empty project. Binary graphs are retained in the
+local project and are not included in this public source snapshot.
 
-The native `FPSGAMEEditor Win64 Development` and `FPSGAME Win64 Development`
-targets compiled successfully. MCP inspection confirmed Niagara, material,
-puddle-decal, and thunder-cue types. Standalone runtime logs confirmed all
-required weather assets loaded and the automatic schedule transitioned through
-rain and storm. See `Reports/weather-validation.md`.
+Other prerequisites are `MPC_FPS_Weather`, the three `/Game/Weather/Audio`
+rain loops, the no-background thunder cues under `/Game/Thunder_Sounds/CUE`,
+the main day/night Blueprint, the three gameplay maps and their licensed
+content. Storm clouds reuse the engine SimpleVolumetricCloud material or the
+map's existing compatible instance. No new cloud textures are downloaded.
+See [asset notices](ThirdPartyNotices/WEATHER_ASSETS.md).
 
-The automated runs do not replace a normal GPU PIE review of precipitation,
-puddle placement, shelter transitions, or an audible mix review. A packaged
-cook was not part of this checkpoint.
+Install `Tools/` under the host project root. `ConfigureWeatherMcp.ps1` now
+launches the isolated rain authoring commandlet; it no longer rebuilds the old
+blue-card/Fountain rain. Adapt engine paths on another machine.
 
-## Cleanup
+## Verified outcomes and limits
 
-Two superseded logs were moved locally to
-`D:/FPS3D/FPSGAME/trash/weather-migration-20260909`. The manifest records their
-original paths, sizes, and SHA-256 hashes. Final evidence, previews, editable
-source, import tooling, licensing, and the map-organization recovery backup were
-retained.
+- Local FPSGAMEEditor and FPSGAME Development builds passed.
+- Rain upgrade: 7/7 runs passed (three renders, three weather-panel checks and
+  the surface/roof/quality contract run).
+- Storm clouds: 10 checks on each of three maps, 30/30 passed. Two storm/clear
+  cycles verify recovery and unique cloud/light ownership. Actual rendered
+  images are in `Preview/`; concise checks are in `Reports/`.
+- GPU samples were contaminated by concurrent workloads and startup stalls.
+  They do not establish net cloud cost or an FPS guarantee. Packaged cook,
+  multiplayer and audible mix acceptance are not claimed.
+- These results were obtained in the complete local host project, not by
+  launching this incomplete source snapshot alone.
+
+`Tools/Weather/run_storm_validation.ps1` reproduces the storm checks in the
+host. `run_rain_validation.ps1` also requires the host weather-panel/UI wiring.
+
+## Recoverable retirement
+
+The old two rain Niagara packages, pre-upgrade backups, the retired inspection
+script and superseded debug outputs were moved locally into
+`trash/weather-upgrade-20260910` (76 files, original paths and SHA-256 recorded).
+Trash, caches, build products and licensed binary content are not published.
+The current retirement script moves exact legacy packages to trash, checks
+their archived backup hashes and leaves locked editors alone.
+
+Earlier 2026-09-09 reports/previews remain historical evidence; current status
+is this README and the 2026-09-10 reports.

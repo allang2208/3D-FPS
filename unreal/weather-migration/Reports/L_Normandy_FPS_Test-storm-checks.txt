@@ -1,0 +1,14 @@
+[2026.09.10-05.34.56:709][ 38]LogTemp: Display: STORM_CHECK PASS storm transition interpolates
+[2026.09.10-05.35.05:108][113]LogTemp: Display: STORM_CHECK PASS storm has visible cloud layer
+[2026.09.10-05.35.05:108][113]LogTemp: Display: STORM_CHECK PASS overcast coverage preserves cloud erosion
+[2026.09.10-05.35.05:108][113]LogTemp: Display: STORM_RENDER hidden=0 ownerHidden=0 mainpass=1
+[2026.09.10-05.35.05:108][113]LogTemp: Display: STORM_CHECK PASS sun disk and direct sunlight suppressed
+[2026.09.10-05.35.05:108][113]LogTemp: Display: STORM_LIGHT clear=144.376740 storm=13.007589
+[2026.09.10-05.35.15:088][220]LogTemp: Display: STORM_CHECK PASS clear transition completes
+[2026.09.10-05.35.15:088][220]LogTemp: Display: STORM_CHECK PASS original cloud material and visibility restored
+[2026.09.10-05.35.15:088][220]LogTemp: Display: STORM_CHECK PASS sunlight restored without accumulated dimming
+[2026.09.10-05.35.24:199][317]LogTemp: Display: STORM_CHECK PASS repeat storm reuses cloud component
+[2026.09.10-05.35.24:200][317]LogTemp: Display: STORM_CHECK PASS one active cloud layer and directional light
+[2026.09.10-05.35.31:428][351]LogTemp: Display: STORM_CHECK PASS second clear restores sun
+[2026.09.10-05.35.31:428][351]LogTemp: Display: STORM_CLOUD_AUDIT_PASS failures=0
+[2026.09.10-05.35.31:428][351]LogTemp: Display: STORM_GPU whole_scene clear_median=379.207 storm_median=77.136 clear_samples=12 storm_samples=49

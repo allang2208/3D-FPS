@@ -13,6 +13,7 @@ class UNiagaraSystem;
 class UPointLightComponent;
 class USceneComponent;
 class USoundBase;
+class UWeatherSurfaceComponent;
 
 UENUM(BlueprintType)
 enum class EFPSWeatherState : uint8
@@ -43,6 +44,10 @@ public:
 
     UFUNCTION(BlueprintPure, Category="Weather")
     float GetEffectiveRainIntensity() const { return EffectiveRainIntensity; }
+    float GetSurfaceWetness() const;
+
+    bool IsSkyClockConnected() const { return bSkyClockConnected; }
+    bool IsSceneDayNightActive() const { return bSceneDayNightActive; }
 
     UPROPERTY(BlueprintAssignable, Category="Weather")
     FFPSWeatherChanged OnWeatherChanged;
@@ -65,6 +70,12 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Rain")
     TObjectPtr<UNiagaraSystem> SplashSystem;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Rain")
+    TObjectPtr<UNiagaraSystem> MistSystem;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Rain")
+    TObjectPtr<UNiagaraSystem> RoofDripSystem;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Audio")
     TObjectPtr<USoundBase> LightRainSound;
 
@@ -83,9 +94,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Surface")
     TObjectPtr<UMaterialInterface> PuddleDecalMaterial;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Surface", meta=(ClampMin="0", ClampMax="24"))
-    int32 RuntimePuddleCount = 8;
-
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weather")
     EFPSWeatherState CurrentState = EFPSWeatherState::Clear;
 
@@ -103,7 +111,13 @@ private:
     TObjectPtr<UNiagaraComponent> RainComponent;
 
     UPROPERTY(VisibleAnywhere)
-    TObjectPtr<UNiagaraComponent> SplashComponent;
+    TObjectPtr<UNiagaraComponent> MistComponent;
+
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<UWeatherSurfaceComponent> SurfaceEffects;
+
+    UPROPERTY(VisibleAnywhere)
+    TObjectPtr<class UStormCloudComponent> StormClouds;
 
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<UAudioComponent> LightRainAudio;
@@ -120,9 +134,6 @@ private:
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<UPointLightComponent> LightningLight;
 
-    UPROPERTY(Transient)
-    TArray<TObjectPtr<UDecalComponent>> RuntimePuddles;
-
     float WeatherClockSeconds = 540.0f;
     float LastSkyTimeUnits = -1.0f;
     int32 DaySerial = 0;
@@ -130,10 +141,16 @@ private:
     float EffectiveRainIntensity = 0.0f;
     float ShelterAmount = 0.0f;
     float ShelterCheckAccumulator = 0.0f;
-    float PuddleRefreshAccumulator = 0.0f;
     float LightningCountdown = 8.0f;
     float LightningFlashTime = 0.0f;
     FRandomStream WeatherRandom;
+    bool bSkyClockConnected = false;
+    bool bSceneDayNightActive = false;
+    float SceneLightingRefresh = 1.0f;
+    TMap<TWeakObjectPtr<class ULightComponentBase>, float> SceneLightIntensities;
+    TMap<TWeakObjectPtr<class ULightComponentBase>, FLinearColor> SceneLightColors;
+
+    void UpdateSceneDayNight(float DeltaSeconds);
 
     void ApplyState(EFPSWeatherState NewState);
     void UpdateSchedule();
@@ -141,7 +158,6 @@ private:
     void UpdateShelter(float DeltaSeconds);
     void UpdateEffects(float DeltaSeconds);
     void UpdateLightning(float DeltaSeconds);
-    void RefreshRuntimePuddles();
     bool TrySynchronizeWithSkyClock();
     EFPSWeatherState ResolveScheduledState() const;
     float StateIntensity(EFPSWeatherState State) const;

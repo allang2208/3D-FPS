@@ -1,3 +1,9 @@
+# 当前开发方向（2026-09-10）
+
+后续开发转向 UE5，当前本地工程 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（UE 5.8.2）。先确认实际 `.uproject`，使用对应 UE5 技能；下方 Godot 专项规则用于维护旧原型或作为迁移参考，不代表新工作仍应写入 Godot。天气读 `skills/ue5-weather-workflow/SKILL.md`，运行诊断读 `skills/ue5-debug-validation/SKILL.md`。源码快照与完整工程的区别见 [unreal/README.md](unreal/README.md)。
+
+本次或后续任务确认淘汰的文件移入 `trash/<task>/`，保留原路径、大小、SHA-256 清单；只整理任务范围内文件。推送继续执行 WORKFLOW 第 8 节。
+
 # 枪械与改造
 
 枪械开发、枪匠配件、瞄具/ADS、枪口、弹匣、枪托和枪械材质工作，先读 [枪械技能](skills/godot-weapon-workflow/SKILL.md)。涉及改造时必须读取其 ADS 与改造案例；通用瞄具复用、闭锁校准、透明镜片、活动挂点、原件替换和实例保存按同一合同验证。提交及推送遵守 WORKFLOW.md 的仓库整理规则。

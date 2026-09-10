@@ -1,4 +1,8 @@
-# 无尽轮回 3D FPS（Godot 4.7）
+# 无尽轮回 3D FPS（后续开发转 UE5）
+
+**2026-09-10 起，后续开发以 Unreal Engine 5 为主。** 当前本地工程为 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（UE 5.8.2）。新功能、天气、场景与武器迁移使用对应 UE5 技能。
+
+根目录保留 Godot 原型和历史；[unreal/](unreal/README.md) 保存已发布的 UE5 源码与验证快照，尚不包含完整可独立运行的 UE 工程和受许可限制的美术资源。下方 Godot 操作说明用于维护旧原型。
 
 从 three.js 原型迁移到 Godot 的 3D FPS 工程，资产沿用 AI 管线（AI 生图 → TRELLIS.2 → GLB）。
 
