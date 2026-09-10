@@ -1,0 +1,26 @@
+{
+  "reload": {
+    "keys": 1009,
+    "duration": 2.0999999046325684,
+    "samples_960hz": 2017,
+    "held_drift_mm": 0.16006845004034526,
+    "grasp_drift_mm": 0.2542524771604089,
+    "hook_drift_mm": 0
+  },
+  "reload_empty": {
+    "keys": 1297,
+    "duration": 2.700000047683716,
+    "samples_960hz": 2593,
+    "held_drift_mm": 0.3747392161930456,
+    "grasp_drift_mm": 0.07483554010728008,
+    "hook_drift_mm": 0
+  },
+  "equip_charge": {
+    "keys": 305,
+    "duration": 0.6333333253860474,
+    "samples_960hz": 609,
+    "held_drift_mm": 0.30527214161549643,
+    "grasp_drift_mm": 0,
+    "hook_drift_mm": 0.017737413264226037
+  }
+}

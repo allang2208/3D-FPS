@@ -1,0 +1,10 @@
+{
+  "reload_empty": {
+    "keys": 1297,
+    "duration": 2.700000047683716,
+    "samples_960hz": 2593,
+    "held_drift_mm": 0.37428297307822245,
+    "grasp_drift_mm": 0.07461422118124238,
+    "hook_drift_mm": 0
+  }
+}

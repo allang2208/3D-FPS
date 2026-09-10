@@ -1,12 +1,12 @@
 # 当前开发方向（2026-09-10）
 
-后续开发转向 UE5，当前本地工程 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（UE 5.8.2）。先确认实际 `.uproject`，使用对应 UE5 技能；下方 Godot 专项规则用于维护旧原型或作为迁移参考，不代表新工作仍应写入 Godot。天气读 `skills/ue5-weather-workflow/SKILL.md`，运行诊断读 `skills/ue5-debug-validation/SKILL.md`。源码快照与完整工程的区别见 [unreal/README.md](unreal/README.md)。
+本 FPS 后续开发全面转向 UE5，当前本地工程 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（UE 5.8.2）。先确认实际 `.uproject`，使用对应 UE5 技能；下方 Godot 专项规则用于维护旧原型或作为迁移参考，不代表新工作仍应写入 Godot。天气读 `skills/ue5-weather-workflow/SKILL.md`，运行诊断读 `skills/ue5-debug-validation/SKILL.md`。源码快照与完整工程的区别见 [unreal/README.md](unreal/README.md)。
 
 本次或后续任务确认淘汰的文件移入 `trash/<task>/`，保留原路径、大小、SHA-256 清单；只整理任务范围内文件。推送继续执行 WORKFLOW 第 8 节。
 
 # 枪械与改造
 
-枪械开发、枪匠配件、瞄具/ADS、枪口、弹匣、枪托和枪械材质工作，先读 [枪械技能](skills/godot-weapon-workflow/SKILL.md)。涉及改造时必须读取其 ADS 与改造案例；通用瞄具复用、闭锁校准、透明镜片、活动挂点、原件替换和实例保存按同一合同验证。提交及推送遵守 WORKFLOW.md 的仓库整理规则。
+当前枪械开发使用 [UE5 枪械标准](skills/ue5-weapon-workflow/SKILL.md)；手臂、抓握、甩匣换弹、拉栓、装备与 MAT 精修使用 [UE5 手臂动画](skills/ue5-fps-arms-animation/SKILL.md)。实际宿主为 D:/FPS3D/FPSGAME；旧 Godot 枪械入口已退役，仅按明确要求维护旧原型。发布遵守 WORKFLOW 第 8 节。
 
 # 怪物制作与迁移
 
@@ -20,7 +20,7 @@
 
 开发或调整游戏UI、HUD、背包/仓库及字体时，必须先读 [冷钢UI技能](skills/godot-cold-steel-ui/SKILL.md)、[当前规则](docs/cold-steel-ui-standard.md) 与 [面板工作流](UI-WORKFLOW.md)。用户认可的枪械改造字体是所有新面板基准；优先公共字体入口，不另造字重或字号方案。原始参考快照保持不变。
 
-枪械改造页面与配件说明改动，先读 [最终格式合同](skills/godot-weapon-workflow/references/gunsmith-ui.md)。该合同取代早期字体分工及重复对比/解释段落格式。
+仅维护旧 Godot 枪械改造页面与配件说明时，先读 [最终格式合同](skills/godot-weapon-workflow/references/gunsmith-ui.md)。该合同取代早期字体分工及重复对比/解释段落格式。
 
 # 昼夜、天气与事件预报
 

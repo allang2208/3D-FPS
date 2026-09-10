@@ -1,0 +1,11 @@
+{
+  "host": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+  "sha256": "59c7ee918585935d6de7abf72e409417156ed123614e30ad7b62771fd3476135",
+  "functions": [
+    "ReloadPressed",
+    "PlayWeaponAnimation",
+    "LoadAKMAnimation",
+    "EmitMechanicalCue"
+  ],
+  "note": "Scoped integration reference; apply within the licensed host, do not overwrite a current shared character file."
+}

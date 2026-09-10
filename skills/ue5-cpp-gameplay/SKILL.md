@@ -33,6 +33,8 @@ description: UE5.6-UE5.8 gameplay C++ implementation for Actors, Components, Dat
 - If any item is missing, the implementation spec is incomplete.
 
 # Workflow
+For FPSGAME weapon work, start with [UE5 weapon workflow](../ue5-weapon-workflow/SKILL.md); arms/reload/MAT use [arms animation](../ue5-fps-arms-animation/SKILL.md).
+
 For Godot first-person weapon ports, read [migration contracts and validation](references/godot-weapon-migration.md) before translating camera transforms, animation timing, recoil, or action audio.
 
 ## 1) Type and File Shape

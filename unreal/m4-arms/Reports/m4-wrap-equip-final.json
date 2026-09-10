@@ -1,0 +1,13 @@
+{
+  "label": "m4-wrap-equip-final",
+  "requested_hz": 60,
+  "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+  "rhi": "-d3d11",
+  "process_exit": 0,
+  "pass": 21,
+  "fail": 0,
+  "completion_marker": true,
+  "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-wrap-equip-final\\assertions.log",
+  "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\runtime-m4-wrap-equip-final.log",
+  "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+}

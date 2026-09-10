@@ -1,0 +1,13 @@
+{
+  "label": "m4-tactical-toss",
+  "requested_hz": 60,
+  "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+  "rhi": "-d3d11",
+  "process_exit": 0,
+  "pass": 50,
+  "fail": 0,
+  "completion_marker": true,
+  "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-tactical-toss\\assertions.log",
+  "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\runtime-m4-tactical-toss.log",
+  "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+}

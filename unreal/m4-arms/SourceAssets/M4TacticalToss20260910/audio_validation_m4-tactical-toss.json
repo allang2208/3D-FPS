@@ -1,0 +1,114 @@
+{
+  "recording": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-tactical-toss\\GunplayAudio.wav",
+  "duration": 29.44,
+  "rate": 48000,
+  "channels": 2,
+  "fire_attack_correlation": 0.9994734080215024,
+  "recording_wall_seconds": 29.45,
+  "peak": 0.360748291015625,
+  "rms": 0.02339764119018911,
+  "clipped_samples": 0,
+  "first_audit_elapsed": 0.161,
+  "events": [
+    {
+      "empty": false,
+      "name": "mag_out",
+      "correlation": 0.9952081905628012,
+      "wave_start": 6.08,
+      "log_seconds": 6.034,
+      "audio_vs_log_seconds": 0.04600000000000026,
+      "game_event_lateness": 0.013136
+    },
+    {
+      "empty": false,
+      "name": "mag_insert",
+      "correlation": 0.9907915091119367,
+      "wave_start": 6.8693333333333335,
+      "log_seconds": 6.826,
+      "audio_vs_log_seconds": 0.04333333333333389,
+      "game_event_lateness": 0.022912
+    },
+    {
+      "empty": false,
+      "name": "mag_seat",
+      "correlation": 0.9909397320699491,
+      "wave_start": 7.168,
+      "log_seconds": 7.125,
+      "audio_vs_log_seconds": 0.04300000000000015,
+      "game_event_lateness": 0.004538
+    },
+    {
+      "empty": true,
+      "name": "mag_out",
+      "correlation": 0.9952081905628012,
+      "wave_start": 9.130666666666666,
+      "log_seconds": 9.081,
+      "audio_vs_log_seconds": 0.04966666666666697,
+      "game_event_lateness": 0.000737
+    },
+    {
+      "empty": true,
+      "name": "mag_insert",
+      "correlation": 0.9907915091119368,
+      "wave_start": 9.706666666666667,
+      "log_seconds": 9.64,
+      "audio_vs_log_seconds": 0.06666666666666643,
+      "game_event_lateness": 0.009014
+    },
+    {
+      "empty": true,
+      "name": "mag_seat",
+      "correlation": 0.9909397320699492,
+      "wave_start": 10.112,
+      "log_seconds": 10.081,
+      "audio_vs_log_seconds": 0.031000000000000583,
+      "game_event_lateness": 0.016839
+    },
+    {
+      "empty": true,
+      "name": "bolt_release",
+      "correlation": 0.9981776179197593,
+      "wave_start": 10.986666666666666,
+      "log_seconds": 10.903,
+      "audio_vs_log_seconds": 0.08366666666666589,
+      "game_event_lateness": 0.005971
+    },
+    {
+      "empty": true,
+      "name": "mag_out",
+      "correlation": 0.8020816649118879,
+      "wave_start": 20.736,
+      "log_seconds": 20.728,
+      "audio_vs_log_seconds": 0.007999999999999119,
+      "game_event_lateness": 0.01507
+    },
+    {
+      "empty": true,
+      "name": "mag_insert",
+      "correlation": 0.9907915091119367,
+      "wave_start": 21.290666666666667,
+      "log_seconds": 21.277,
+      "audio_vs_log_seconds": 0.013666666666665606,
+      "game_event_lateness": 0.015112
+    },
+    {
+      "empty": true,
+      "name": "mag_seat",
+      "correlation": 0.9909397320699491,
+      "wave_start": 21.738666666666667,
+      "log_seconds": 21.711,
+      "audio_vs_log_seconds": 0.027666666666668505,
+      "game_event_lateness": 0.015115
+    },
+    {
+      "empty": true,
+      "name": "bolt_release",
+      "correlation": 0.9981776179197593,
+      "wave_start": 22.549333333333333,
+      "log_seconds": 22.544,
+      "audio_vs_log_seconds": 0.005333333333332746,
+      "game_event_lateness": 0.015121
+    }
+  ],
+  "note": "Waveform correlation against final source clips; audio versus log includes render-buffer latency and recording-start offset. Frame export is 20 Hz."
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "UE5 枪械标准工作流"
+  short_description: "UE5 枪械接入、骨架装配、ADS、音效及装备存档的标准流程"
+  default_prompt: "使用 $ue5-weapon-workflow 完成当前 UE5 枪械修改，并验证实际游戏接入。"
+policy:
+  allow_implicit_invocation: true

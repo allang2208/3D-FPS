@@ -1,5 +1,7 @@
 # Godot → UE first-person weapon migration
 
+Historical AKM reference. Current FPSGAME weapons follow [UE5 weapon workflow](../../ue5-weapon-workflow/SKILL.md); the durations and offsets below are not current M4 defaults.
+
 Use source runtime state, not only serialized weapon settings. The AKM case is a partial migration in D:/FPS3D/FPSGAME; its fixed offsets are specific to that exported mesh.
 
 ## Coordinate and ADS contract

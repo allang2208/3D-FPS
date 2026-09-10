@@ -1,0 +1,130 @@
+// Reference excerpts from the existing FPSGAME host; not an independent translation unit.
+
+void AFPSGAMECharacter::ReloadPressed()
+{
+    if (!bInventoryWeaponReady || IsWeaponBusy() || MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)) return;
+    StopMechanicalAudio();
+    GetWorldTimerManager().ClearTimer(FireTimerHandle);
+    SetAimingState(false);
+    bPendingEmptyReload = MagazineAmmo == 0;
+    WeaponState = bPendingEmptyReload ? EAKMWeaponState::ReloadingEmpty : EAKMWeaponState::Reloading;
+    WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
+    WeaponStateElapsed = 0.0f;
+    WeaponStateDuration = bPendingEmptyReload ? EmptyReloadDuration : ReloadDuration;
+    UAnimSequence* Animation = bPendingEmptyReload ? ReloadEmptyAnimation : ReloadAnimation;
+    if(bDrumInstalled)Animation=bPendingEmptyReload?DrumReloadEmptyAnimation:DrumReloadAnimation;
+    const float ClipLength = Animation ? Animation->GetPlayLength() : WeaponStateDuration;
+    PlayWeaponAnimation(Animation, false, ClipLength / WeaponStateDuration);
+
+    const float SourceLength = bPendingEmptyReload ? 4.291667f : 3.333333f;
+    const float Scale = WeaponStateDuration / SourceLength;
+    MechanicalCueTimes = bPendingEmptyReload
+        ? TArray<float>{0.416667f * Scale, 1.15f * Scale, 1.466667f * Scale, 2.133333f * Scale, 2.333333f * Scale}
+        : TArray<float>{0.433333f * Scale, 1.233333f * Scale, 1.483333f * Scale};
+    MechanicalCueSounds.Reset();
+    if (bPendingEmptyReload)
+    {
+        MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound, ChargePullSound, ChargeReleaseSound};
+    }
+    else
+    {
+        MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
+    }
+    NextMechanicalCue = 0;
+    for (float& Cue : MechanicalCueTimes) Cue = ReloadRuntimeTime(Cue / Scale);
+    if (bUsingM4Infima)
+    {
+        // Source animation seconds, evaluated by the very same clock as the pose.
+        MechanicalCueTimes = bPendingEmptyReload
+            ? TArray<float>{21.0f / 60.0f, 54.0f / 60.0f, 80.0f / 60.0f}
+            : TArray<float>{29.0f / 60.0f, 76.0f / 60.0f, 95.0f / 60.0f};
+        MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
+        if (bPendingEmptyReload)
+        {
+            MechanicalCueTimes.Add(130.0f / 60.0f);
+            MechanicalCueSounds.Add(BoltReleaseSound);
+        }
+    }
+}
+
+void AFPSGAMECharacter::PlayWeaponAnimation(UAnimSequence* Animation, bool bLoop, float PlayRate, float StartPosition)
+{
+    if (!Animation || !AKMViewmodel->GetSkeletalMeshAsset()) return;
+    if (GunplayAnimation)
+    {
+        if (bLoop) return; // The idle/aim graph remains running underneath every action.
+        ActiveActionAnimation = Animation;
+        ActionElapsed = 0.0f;
+        ActionStartPosition = StartPosition;
+        ActionPlayRate = PlayRate;
+        ActionDuration = FMath::Max(0.01f, (Animation->GetPlayLength() - StartPosition) / FMath::Max(0.01f, PlayRate));
+        ActionBlendIn = (Animation == FireAnimation || Animation == AimFireAnimation) ? 0.008f : 0.035f;
+        return;
+    }
+    AKMViewmodel->PlayAnimation(Animation, bLoop);
+    AKMViewmodel->SetPlayRate(PlayRate);
+    if (StartPosition > 0.0f) AKMViewmodel->SetPosition(StartPosition, false);
+}
+
+UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
+{
+    if (bUsingM4Infima)
+    {
+        const TCHAR* Clip = nullptr;
+        if (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0) Clip = TEXT("reload");
+        else if (FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0) Clip = TEXT("reload_empty");
+        else if (FCString::Strcmp(AssetName, TEXT("A_AKM_equip")) == 0) Clip = TEXT("equip_charge");
+        if (Clip)
+        {
+            const FString Path = FString::Printf(TEXT("/Game/Weapons/%s/A_M4_HK416_%s.A_M4_HK416_%s"),
+                FCString::Strcmp(Clip, TEXT("reload_empty")) == 0 ? TEXT("M4SlapImpactFinal")
+                : (FCString::Strcmp(Clip, TEXT("reload")) == 0 ? TEXT("M4TacticalTossFinal") : TEXT("M4WrapGripFinal")), Clip, Clip);
+            UAnimSequence* Animation = LoadObject<UAnimSequence>(nullptr, *Path);
+            UE_LOG(LogTemp, Display, TEXT("M4_ANIMATION_AUDIT_ACTIVE clip=%s loaded=%d duration=%.4f"),
+                *Path, Animation != nullptr, Animation ? Animation->GetPlayLength() : 0.0f);
+            return Animation;
+        }
+    }
+    FString Folder = bUsingM4Infima ? TEXT("M4ContactImpactFinal") : (bUsingReplacement ? TEXT("AKMReplacement") : TEXT("AKM"));
+    const bool bCurledReload = bUsingM4Infima && (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0
+        || FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0);
+    if (bCurledReload) Folder += TEXT("/ReloadFinger");
+    const FString Path = FString::Printf(TEXT("/Game/Weapons/%s/%s.%s"), *Folder, AssetName, AssetName);
+    UAnimSequence* Animation = LoadObject<UAnimSequence>(nullptr, *Path);
+    if (bCurledReload && Animation) UE_LOG(LogTemp, Display, TEXT("M4_RELOAD_FINGER_ACTIVE %s"), *Path);
+    return Animation;
+}
+
+void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
+{
+    USoundBase* Sound = MechanicalCueSounds.IsValidIndex(CueIndex) ? MechanicalCueSounds[CueIndex].Get() : nullptr;
+    const float ScheduledTime = bUsingM4Infima ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
+    const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
+    // Do not emit an obsolete burst of old contacts after a long game-thread stall.
+    const float ContactVolume = AKMSource::ActionVolume *
+        ((bUsingM4Infima && !bDrumInstalled && bPendingEmptyReload && CueIndex == 3) ? 1.25f : 1.0f);
+    // A short clip is still relevant until the next contact (or action end).
+    // Using clip duration here dropped the seat click on a 170 ms render hitch.
+    const float ContactValidUntil = MechanicalCueTimes.IsValidIndex(CueIndex + 1)
+        ? (bUsingM4Infima ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex + 1]) : MechanicalCueTimes[CueIndex + 1])
+        : WeaponStateDuration;
+    const bool bPlayContact = Sound && ((bUsingM4Infima && !bDrumInstalled)
+        ? WeaponStateElapsed < ContactValidUntil
+        : Lateness < Sound->GetDuration());
+    if (bPlayContact) PlayMechanicalSound(Sound, ContactVolume);
+    if (bRunGunplayAcceptance && bUsingM4Infima && !FParse::Param(FCommandLine::Get(), TEXT("EquipFramingAudit")))
+    {
+        if (bPendingEmptyReload) ++AuditEmptyMechanicalCues; else ++AuditNormalMechanicalCues;
+        if (bPendingEmptyReload && CueIndex == 3) ++AuditBoltReleaseCues;
+        AuditMaxMechanicalLateness = FMath::Max(AuditMaxMechanicalLateness, Lateness);
+        UE_LOG(LogTemp, Display, TEXT("M4_AUDIO_CUE empty=%d index=%d source=%.6f target=%.6f runtime=%.6f late=%.6f sound=%s played=%d"),
+            bPendingEmptyReload, CueIndex, ReloadSourceTime(WeaponStateElapsed), MechanicalCueTimes[CueIndex], WeaponStateElapsed, Lateness, *GetNameSafe(Sound), bPlayContact);
+    }
+    if (CueIndex == 2 || (bUsingM4Infima ? CueIndex == 3 : CueIndex == 4))
+    {
+        // A seated magazine and released bolt push the whole supported weapon; wrists retain their source pose.
+        GunKickPositionVelocity.Z += CueIndex == 2 ? 0.10f : 0.16f;
+        GunKickRotationVelocity.X += CueIndex == 2 ? -0.08f : 0.14f;
+        CameraKickPitchVelocity += 0.018f;
+    }
+}

@@ -10,6 +10,7 @@ This directory publishes selected source/evidence integration snapshots:
 - [Weather, rain and storm clouds](weather-migration/README.md)
 - [Imported scene and spawn integration](scene-tests/README.md)
 - [Historical AKM migration](akm-migration/README.md)
+- [M4 arms, reload and MAT workflow](m4-arms/README.md)
 
 These snapshots do not contain a complete, independently runnable UE project.
 They require the local FPSGAME host module and documented licensed assets.

@@ -1,0 +1,21 @@
+{
+  "label": "m4-wrap-equip-final",
+  "recording_start_game_time_from_stop": 0.18377233333333365,
+  "events": [
+    {
+      "equip_at": 1.6078,
+      "wave_start": 1.5146666666666666,
+      "correlation": 0.9976464080133525,
+      "audio_vs_game_seconds": 0.09063900000000036
+    },
+    {
+      "equip_at": 3.5063,
+      "wave_start": 3.4133333333333336,
+      "correlation": 0.9976464080133525,
+      "audio_vs_game_seconds": 0.09080566666666723
+    }
+  ],
+  "peak": 0.2703857421875,
+  "duration": 7.018666666666666,
+  "note": "Actual mixer recording; complete equip waveforms matched. Sample origin uses recording end because startup buffering makes the first-frame origin unreliable. Offset includes mixer-buffer latency; no individual sound is moved."
+}

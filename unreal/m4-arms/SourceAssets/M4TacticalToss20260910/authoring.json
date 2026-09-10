@@ -1,0 +1,62 @@
+{
+  "source_sha256": "e9d880f9a090e5a66a108096c8d27ad0baa56a17b1b06bcedb217e03a512eb55",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+  "reference": "M4_MAT_reload_empty, accepted visible toss and retrieval",
+  "time_map_normal_to_empty": [
+    [
+      0,
+      0
+    ],
+    [
+      8,
+      8
+    ],
+    [
+      28,
+      20
+    ],
+    [
+      29,
+      21
+    ],
+    [
+      43,
+      35
+    ],
+    [
+      61,
+      43
+    ],
+    [
+      76,
+      54
+    ],
+    [
+      95,
+      80
+    ],
+    [
+      98,
+      88
+    ]
+  ],
+  "transition_relative_error_mm": {
+    "hand_l": 0.0008752311699560832,
+    "lowerarm_l": 0.000832333567367133,
+    "index_03_l": 0.0008293436678065975,
+    "thumb_03_l": 0.0009513983185000508,
+    "WPN_SOCKET_Magazine": 2.1073424255447017e-05
+  },
+  "duration": 2.1,
+  "sample_rate": 480,
+  "grasp_frames": [
+    61,
+    98
+  ],
+  "mechanical_cues_seconds": [
+    0.48333333333333334,
+    1.2666666666666666,
+    1.5833333333333333
+  ],
+  "bolt": "Preserve loaded-chamber normal-reload mechanical poses; no empty slap or bolt release"
+}

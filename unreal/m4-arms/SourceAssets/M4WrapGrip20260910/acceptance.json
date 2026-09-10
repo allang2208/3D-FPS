@@ -1,0 +1,265 @@
+{
+  "runtime": {
+    "reload": {
+      "label": "m4-wrap-accepted",
+      "requested_hz": 60,
+      "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+      "rhi": "-d3d11",
+      "process_exit": 0,
+      "pass": 50,
+      "fail": 0,
+      "completion_marker": true,
+      "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-wrap-accepted\\assertions.log",
+      "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\runtime-m4-wrap-accepted.log",
+      "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+    },
+    "equip": {
+      "label": "m4-wrap-equip-final",
+      "requested_hz": 60,
+      "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+      "rhi": "-d3d11",
+      "process_exit": 0,
+      "pass": 21,
+      "fail": 0,
+      "completion_marker": true,
+      "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-wrap-equip-final\\assertions.log",
+      "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\runtime-m4-wrap-equip-final.log",
+      "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+    }
+  },
+  "source_hand_magazine_samples": 578,
+  "source_hand_magazine_intersections": 0,
+  "natural_finger_angles": {
+    "index": {
+      "local_euler_degrees": [
+        [
+          0.0,
+          -0.0,
+          9.300000088041347
+        ],
+        [
+          0.0,
+          -0.0,
+          45.00000125223908
+        ],
+        [
+          0.0,
+          -0.0,
+          30.000007665015225
+        ]
+      ],
+      "PIP_IP_and_DIP_bend_degrees": [
+        59.89259011476449,
+        42.51623369641521
+      ]
+    },
+    "middle": {
+      "local_euler_degrees": [
+        [
+          0.0,
+          -0.0,
+          -3.9999995421277097
+        ],
+        [
+          0.0,
+          -0.0,
+          42.99999891985429
+        ],
+        [
+          0.0,
+          -0.0,
+          30.000007665015225
+        ]
+      ],
+      "PIP_IP_and_DIP_bend_degrees": [
+        63.769186921610284,
+        40.000015911844606
+      ]
+    },
+    "ring": {
+      "local_euler_degrees": [
+        [
+          0.0,
+          -0.0,
+          -8.000000791802712
+        ],
+        [
+          0.0,
+          -0.0,
+          39.000004500368455
+        ],
+        [
+          0.0,
+          -0.0,
+          30.000007665015225
+        ]
+      ],
+      "PIP_IP_and_DIP_bend_degrees": [
+        57.9638334856121,
+        39.16806130489662
+      ]
+    },
+    "pinky": {
+      "local_euler_degrees": [
+        [
+          0.0,
+          -0.0,
+          -9.99999970909292
+        ],
+        [
+          0.0,
+          -0.0,
+          40.00000225146627
+        ],
+        [
+          0.0,
+          -0.0,
+          25.00000695669512
+        ]
+      ],
+      "PIP_IP_and_DIP_bend_degrees": [
+        61.287505988577855,
+        29.917225772274673
+      ]
+    },
+    "thumb": {
+      "local_euler_degrees": [
+        [
+          15.90689073729252,
+          9.242236324456904,
+          22.123332768866263
+        ],
+        [
+          -0.13854622516718318,
+          -8.929954099188397,
+          -18.131642151863876
+        ],
+        [
+          13.821652766707842,
+          2.8971052046270676,
+          6.01963183818712
+        ]
+      ],
+      "PIP_IP_and_DIP_bend_degrees": [
+        6.4296506553839246,
+        20.5004644541456
+      ]
+    }
+  },
+  "ue_compressed_contact": {
+    "reload": {
+      "keys": 1009,
+      "duration": 2.0999999046325684,
+      "samples_960hz": 2017,
+      "held_drift_mm": 0.16006845004034526,
+      "grasp_drift_mm": 0.2542524771604089,
+      "hook_drift_mm": 0
+    },
+    "reload_empty": {
+      "keys": 1297,
+      "duration": 2.700000047683716,
+      "samples_960hz": 2593,
+      "held_drift_mm": 0.3747392161930456,
+      "grasp_drift_mm": 0.07483554010728008,
+      "hook_drift_mm": 0
+    },
+    "equip_charge": {
+      "keys": 305,
+      "duration": 0.6333333253860474,
+      "samples_960hz": 609,
+      "held_drift_mm": 0.30527214161549643,
+      "grasp_drift_mm": 0,
+      "hook_drift_mm": 0.017737413264226037
+    }
+  },
+  "mat_saved": {
+    "reload": {
+      "channels": 909,
+      "keys": 917181
+    },
+    "reload_empty": {
+      "channels": 909,
+      "keys": 1178973
+    },
+    "equip_charge": {
+      "channels": 909,
+      "keys": 277245
+    }
+  },
+  "audio": {
+    "reload_contacts": 11,
+    "minimum_waveform_correlation": 0.8461889149771329,
+    "audio_vs_log_range_seconds": [
+      0.027333333333332988,
+      0.09299999999999997
+    ],
+    "equip": {
+      "label": "m4-wrap-equip-final",
+      "recording_start_game_time_from_stop": 0.18377233333333365,
+      "events": [
+        {
+          "equip_at": 1.6078,
+          "wave_start": 1.5146666666666666,
+          "correlation": 0.9976464080133525,
+          "audio_vs_game_seconds": 0.09063900000000036
+        },
+        {
+          "equip_at": 3.5063,
+          "wave_start": 3.4133333333333336,
+          "correlation": 0.9976464080133525,
+          "audio_vs_game_seconds": 0.09080566666666723
+        }
+      ],
+      "peak": 0.2703857421875,
+      "duration": 7.018666666666666,
+      "note": "Actual mixer recording; complete equip waveforms matched. Sample origin uses recording end because startup buffering makes the first-frame origin unreliable. Offset includes mixer-buffer latency; no individual sound is moved."
+    }
+  },
+  "assets": {
+    "reload": {
+      "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+      "duration": 2.0999999046325684,
+      "before_sha256": "a720316d0a45896ab38f4ea559f12d01432c895677c57680b0c5a005a0914271",
+      "after_sha256": "bc67d4f681ddbdf05a413c38f3a1b33137047bb7e8a618d68ea46e12ebb02dd2",
+      "keys": 1009,
+      "compression_error_cm": 0.0008038384230062684
+    },
+    "reload_empty": {
+      "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+      "duration": 2.700000047683716,
+      "before_sha256": "8620baec3128d12ff9eb211dce5814c360468c89f884c0f77189ed04d545edae",
+      "after_sha256": "5cbe504ad232e91788a397e0b9072f897d3fa6a8d1653f16fea355d0f664b3ed",
+      "keys": 1297,
+      "compression_error_cm": 0.0010425770801882636
+    },
+    "equip_charge": {
+      "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+      "duration": 0.6333333253860474,
+      "before_sha256": "0f026224c58ee2aa0aa184b7e3d130f569fcbb0785c27f9bfcf4a94ae115dfff",
+      "after_sha256": "7277d617e477b8447fc47a290ddf29e0f14523702ca1dcf39ca57329be3f70e2",
+      "keys": 305,
+      "compression_error_cm": 0.0008669305685929206
+    }
+  },
+  "previews": [
+    {
+      "run": "m4-wrap-accepted",
+      "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\Delivery\\M4_甩弹匣与左手抓握_实际录音.mp4",
+      "fps": 20,
+      "source_frames": 279,
+      "held_missing_frames": 5,
+      "audio_origin_trim": 2.6279999999999997,
+      "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+    },
+    {
+      "run": "m4-wrap-equip-final",
+      "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\Delivery\\M4_装备拉栓与切枪_实际录音.mp4",
+      "fps": 20,
+      "source_frames": 134,
+      "held_missing_frames": 10,
+      "audio_origin_trim": -0.18377233333333365,
+      "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+    }
+  ],
+  "scope": "M4 ordinary curved magazine; preserved previous visible toss. Drum branch retained. Source C++ also has unrelated parallel edits."
+}
