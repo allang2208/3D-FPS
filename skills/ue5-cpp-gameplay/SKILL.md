@@ -76,6 +76,12 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 - Keep server-authoritative checks explicit for any network-affecting gameplay action.
 
 # Failure Handling
+- Symptom: adding an unrelated source file causes ambiguous names in Unity builds.
+  - Locate: file-scope `using namespace` directives leaking into other `.cpp` files in the generated Unity translation unit (FPSGAME example: UI names such as `Tooltip` colliding with other modules).
+  - Fix: qualify symbols or import only the names the file uses, then validate the normal Unity build; disabling Unity alone does not repair the source dependency.
+- Symptom: UHT rejects a reflected parameter name, or compilation rejects direct physics-field access.
+  - Locate: parameter shadowing of inherited members and the current engine header's access modifiers.
+  - Fix: use distinct parameter names and the supported setter (UE 5.8 example: `FBodyInstance::SetMassOverride`); include `Engine/DamageEvents.h` when accessing `FDamageEvent` members.
 - Symptom: class compiles but is missing from Blueprint.
   - Locate: missing `BlueprintType`/`Blueprintable`/`BlueprintCallable` metadata.
   - Fix: add required reflection specifiers and regenerate project files/build.

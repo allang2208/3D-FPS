@@ -1,0 +1,146 @@
+[
+  {
+    "source": "Saved/stage_inventory_drag.py",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/stage_inventory_drag.py",
+    "bytes": 2591,
+    "sha256": "1F07776994B97A6C916F7D011F8EC61F02F9334EE21996BF498E2282F34CF42C",
+    "reason": "Completed one-off staging script tied to old HEAD",
+    "replacement": "Completed commits a5a6b41, 44c966f, d8b9224, 9b00699; current Git index workflow"
+  },
+  {
+    "source": "Saved/stage_world_interaction.py",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/stage_world_interaction.py",
+    "bytes": 4204,
+    "sha256": "D0B1CF0E626440248077333FD4A9F488AD3439071CD8DDF68BF784AD455A00D9",
+    "reason": "Completed one-off staging script tied to old HEAD",
+    "replacement": "Completed commits a5a6b41, 44c966f, d8b9224, 9b00699; current Git index workflow"
+  },
+  {
+    "source": "Saved/stage_drop_hitch.py",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/stage_drop_hitch.py",
+    "bytes": 3499,
+    "sha256": "78C320C1BED84C59CD0802886F23CAAEB9AD9F92D1C05D29FF30403B1385DB71",
+    "reason": "Completed one-off staging script tied to old HEAD",
+    "replacement": "Completed commits a5a6b41, 44c966f, d8b9224, 9b00699; current Git index workflow"
+  },
+  {
+    "source": "Saved/stage_drop_review.py",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/stage_drop_review.py",
+    "bytes": 2107,
+    "sha256": "C4A74AB84E31A971EF8E6D71223901A09CB907BC83D15C12FB9B8DC3E22F3B09",
+    "reason": "Completed one-off staging script tied to old HEAD",
+    "replacement": "Completed commits a5a6b41, 44c966f, d8b9224, 9b00699; current Git index workflow"
+  },
+  {
+    "source": "Saved/WorldInteractionBefore/ColdSteelInventoryTypes.h",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/WorldInteractionBefore/ColdSteelInventoryTypes.h",
+    "bytes": 3138,
+    "sha256": "B66B9647455A76903771FAE15278A13ECD68D81FC07A8A0D8B6E33E2EBCF208E",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/WorldInteractionBefore/ColdSteelProfileRuntime.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/WorldInteractionBefore/ColdSteelProfileRuntime.cpp",
+    "bytes": 19866,
+    "sha256": "750CF51BB13AE631CD746E3B6FA26B11F47260447F8B8761D15B8798FE60307B",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/WorldInteractionBefore/ColdSteelWarehouseAudit.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/WorldInteractionBefore/ColdSteelWarehouseAudit.cpp",
+    "bytes": 17444,
+    "sha256": "293DDC12E52DB1B3E06450A0754309610E36E8E84C02210F54C7DDDF7F90E939",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/WorldInteractionBefore/ColdSteelWarehouseHUD.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/WorldInteractionBefore/ColdSteelWarehouseHUD.cpp",
+    "bytes": 5510,
+    "sha256": "80A0ED2D78442C4D979FA59345FAB6CC50F2386CA0D975DD23A8BBA6C69FFCAE",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/WorldInteractionBefore/FPSGAMECharacter.h",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/WorldInteractionBefore/FPSGAMECharacter.h",
+    "bytes": 20545,
+    "sha256": "3D44046B0DB0675882A948594771F19412B20684588345D5CC6CDA4C2BCB467F",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/WorldInteractionBefore/FPSGAMEPlayerController.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/WorldInteractionBefore/FPSGAMEPlayerController.cpp",
+    "bytes": 12948,
+    "sha256": "74D4917D20474833072E4C3B52714DEDA11FD06E5749DDD2B8135490DCA1E1DD",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelHotbarDrag.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelHotbarDrag.cpp",
+    "bytes": 6698,
+    "sha256": "DC7D2E07DFB6BCFA41169EC3B95D39B855C49634E9E879B5108BD1F9613C632B",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelHUDWidget.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelHUDWidget.cpp",
+    "bytes": 85682,
+    "sha256": "7B0DC58EB88B0908B97C28C11CD84D3E64B79675348D297746DB4F4187408006",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelPickup.h",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelPickup.h",
+    "bytes": 1111,
+    "sha256": "DEE3CEF14AD375AC80CBCB999061927E968989D34B1E435638D232387E057A9E",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelPickupWeapon.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelPickupWeapon.cpp",
+    "bytes": 5921,
+    "sha256": "261B06826DA80B2D87181C73D99E22FEBBDE08CF043730814B753630591B371E",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelProfileRuntime.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelProfileRuntime.cpp",
+    "bytes": 20588,
+    "sha256": "903F2F7E7FA49719EA3ACFA2B2810A1857BA572CA0764EFECD78B4E2BBCCA8AC",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelWarehouseHUD.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelWarehouseHUD.cpp",
+    "bytes": 5512,
+    "sha256": "7CB1AD5A5B39789C28FE6F943527F8274DD74DD9313FC40BA0465C098A9DE927",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelWeaponIcons.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelWeaponIcons.cpp",
+    "bytes": 10325,
+    "sha256": "F36D4AB15C1A980F8985AEE0C3ACBC88FAA3123EE51ADE6C4FDC87BF3A292F79",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  },
+  {
+    "source": "Saved/DropHitchBefore/ColdSteelWorldInteractionAudit.cpp",
+    "destination": "trash/inventory-world-interaction-20260911/Saved/DropHitchBefore/ColdSteelWorldInteractionAudit.cpp",
+    "bytes": 11264,
+    "sha256": "1EC72A02CDF6B532A42644B98986290D71D91DDBC738849DAB69174A8DBBE84A",
+    "reason": "Pre-fix source snapshot retained for recovery",
+    "replacement": "Current Source/FPSGAME and committed regression audits"
+  }
+]
