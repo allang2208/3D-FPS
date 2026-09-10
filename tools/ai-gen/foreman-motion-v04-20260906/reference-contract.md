@@ -1,7 +1,0 @@
-# Foreman V04 motion contract
-Read updated skills/godot-monster-workflow/references/humanoid-motion.md and zombie-case.md. All complete original Idle/Walk/Attack/Death contact sheets inspected before authoring.
-Attack: 39 variable frames, 1.5s, zero-based frame21 starts .59625s, sound .45s. Right-handed overhead windup, left arm opens for balance, planted forward left step, chest drives snap, elbow/wrist follow, low forward contact, continuing recoil then relaxed recovery. Preserve exact hit clock. Previous arm patches paused at each smoothstep waypoint and oriented wrists in world space; rebuild coordinated torso/limbs using C1 curves and parent-relative frames.
-Walk: 15 frames, 1.5s; heavy alternating gait without unsupported unilateral limp. Stance .62, travel .40m, matched speed .4301075m/s. Foot stance velocity matches controller; swing endpoint tangent matches stance. Pelvis load leads chest counterturn and hand follow-through.
-Idle: original single frame held 1s; subtle low-amplitude cyclic breathing and relaxed arm balance are 3D reconstruction, not an original multi-frame action.
-Death: 14 frames, 1.4s; initial loss of support, knees buckle, pelvis sits back/down, spine rolls onto back, head and arms lag, legs extend at different times. Single playback +1s hold +.3s fade. Ground using actual deformed vertices along WORLD Z (Blender), not root local Z.
-Howl remains from validated source; no redesign requested. Body mesh identity/material and 33 unit-scale sibling whip bones remain. No per-finger rig; hand shape remains limited by source mesh.

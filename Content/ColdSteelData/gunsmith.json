@@ -1,0 +1,199 @@
+{
+  "categories": [
+    "瞄具",
+    "枪口",
+    "弹匣",
+    "枪管",
+    "后握把",
+    "枪托",
+    "扳机",
+    "战术挂件",
+    "前握把"
+  ],
+  "defaults": [
+    "原厂瞄具",
+    "标准枪口",
+    "标准弹匣",
+    "标准枪管",
+    "原厂后握把",
+    "原厂枪托",
+    "标准扳机",
+    "无战术挂件",
+    "无前握把"
+  ],
+  "fixtures": [],
+  "slots": [
+    "optic",
+    "muzzle",
+    "magazine",
+    "foregrip",
+    "reargrip",
+    "stock",
+    "trigger",
+    "tactical",
+    "underbarrel"
+  ],
+  "version": 1,
+  "weapons": [
+    {
+      "id": "ue_m4a1",
+      "model": "M4FoldingSights",
+      "name": "M4A1",
+      "allowed": [
+        "optic",
+        "magazine",
+        "muzzle"
+      ],
+      "base": {
+        "ammo_item_id": "ammo_556",
+        "ads_smooth": 12.482217806475,
+        "mag_size": 30,
+        "recoil": 100,
+        "camera_shake": 100,
+        "fire_interval": 0.12,
+        "reload_time": 2.1,
+        "empty_reload_time": 2.7,
+        "damage": 30,
+        "bullet_speed": 90,
+        "effective_range": 1000
+      },
+      "options": {
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂机械瞄具",
+            "description": "使用 M4 原有照门与准星。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "1×环形分划全息瞄准镜；安装在 M4 顶部导轨，保持原枪开镜速度。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜时间不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂弹匣",
+            "description": "30 发标准弹匣。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "large_drum",
+            "name": "大弹鼓",
+            "description": "50 发大容量弹鼓，延长持续射击时间，装填耗时更长。",
+            "effects": [
+              {
+                "text": "弹匣容量增加20发",
+                "benefit": 1
+              },
+              {
+                "text": "换弹时间增加75%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜速度提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "mag_delta": 20,
+              "reload_mult": 1.75,
+              "ads_percent": -0.13043478260869565
+            }
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂枪口",
+            "description": "恢复 M4 原厂枪口装置。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "true",
+            "name": "消音器",
+            "description": "细化外壳与端盖，使用原项目选定的消音开火声。",
+            "effects": [
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "射击晃动降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低20%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "shake_mult": 0.75,
+              "bullet_speed_mult": 0.8
+            }
+          },
+          {
+            "id": "brake",
+            "name": "枪口制退器",
+            "description": "保留三组开放侧孔，增加倒角与连接细节。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "射击晃动降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "shake_mult": 0.85,
+              "ads_percent": 0.1
+            }
+          },
+          {
+            "id": "titanium_brake",
+            "name": "钛金制退器",
+            "description": "深色金属外壳与钛金嵌边，保留原版开放孔形。",
+            "effects": [
+              {
+                "text": "后坐力降低30%",
+                "benefit": 1
+              },
+              {
+                "text": "射击晃动降低20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜速度降低15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "shake_mult": 0.8,
+              "ads_percent": 0.17647058823529416
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

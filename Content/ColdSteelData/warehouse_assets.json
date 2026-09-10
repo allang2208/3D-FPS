@@ -1,0 +1,18 @@
+{
+  "mesh": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid.warehouse_chest_rigid",
+  "close": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose.warehouse_chest_rigidClose",
+  "open": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen.warehouse_chest_rigidOpen",
+  "materials": {
+    "Brass_Frame": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+    "Brass_Hardware": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Hardware.MI_Ritual_Hardware",
+    "Brass_Strap": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Strap.MI_Ritual_Strap",
+    "Gold_PBR": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+    "Interior_Magic_Blue": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Interior_Magic_Blue.Surface_Interior_Magic_Blue",
+    "Navy_Velvet": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Navy_Velvet.Surface_Navy_Velvet",
+    "Sapphire_PBR": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Sapphire.MI_Ritual_Sapphire",
+    "White_Marble_PBR": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/MI_Chest_Ziarat_4K.MI_Chest_Ziarat_4K",
+    "Ritual_Gunmetal": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+    "Ritual_Champagne": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Champagne.MI_Ritual_Champagne",
+    "Ritual_Engraving": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Engraving.MI_Ritual_Engraving"
+  }
+}

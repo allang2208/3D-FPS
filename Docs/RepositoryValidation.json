@@ -1,0 +1,24 @@
+{
+  "date": "2026-09-10",
+  "archive_files": 6199,
+  "archive_bytes": 4551481865,
+  "archive_sha256_check": "PASS",
+  "current_python_syntax_files": 107,
+  "current_json_files": 40,
+  "case_sensitive_relative_links": 66,
+  "snapshot_hashes": 325,
+  "skill_metadata_packages": 5,
+  "editor_build": "PASS",
+  "game_build": "PASS",
+  "build_project": "E:\\3d\\publish-ue5-m4-20260910\\FPSGAME.uproject",
+  "build_flags": [
+    "-WaitMutex",
+    "-NoUBA",
+    "-NoHotReloadFromIDE",
+    "-NoHotReload"
+  ],
+  "compile_fix": "Re-read host M4MuzzleVisual.cpp: rename Mesh local to MuzzleMesh (C4458).",
+  "runtime_assets": "Excluded licensed binaries; restore local Content before full game validation.",
+  "runtime_animation": "Unchanged by repository migration; historical checks are not new runtime acceptance.",
+  "sensitive_pattern_scan": "No private key, GitHub token, AWS key, or literal credential assignment patterns found in new source/tool/doc payload."
+}

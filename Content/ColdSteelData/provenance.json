@@ -1,0 +1,437 @@
+[
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\铝矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\aluminumOre.png",
+    "sha256": "6f2e9a53a58b4f9fcc1c151866c07b4ad90873ef39d4cdd4d7f17aacd6973920"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InventoryIcons\\ammo_556_green_box_v1.png",
+    "target": "Content\\ColdSteelData\\Icons\\ammo_556.png",
+    "sha256": "e716b0005397a61ed9e87caa0dcb4439297026c1ecc251bbaa1836112de6f259"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\ui\\icons\\equip\\ammo_58.png",
+    "target": "Content\\ColdSteelData\\Icons\\ammo_58.png",
+    "sha256": "2b35682371ebd233ae9468b675dcce0ca3f654d1575b6323d01aa75a624ae05f"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\ui\\icons\\equip\\ammo_762.png",
+    "target": "Content\\ColdSteelData\\Icons\\ammo_762.png",
+    "sha256": "14225f3c1231a3daf9bf41109c0a457f982be49fe4e453f4d80b981d234b2a01"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\ui\\icons\\equip\\ammo_9.png",
+    "target": "Content\\ColdSteelData\\Icons\\ammo_9.png",
+    "sha256": "69a980a2ea29478264a8a34df3eeff14bca77ee89caf1cc89ffc7386fae5b410"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\ui\\icons\\dungeon-key-token.png",
+    "target": "Content\\ColdSteelData\\Icons\\anchorTokenA.png",
+    "sha256": "696225b96b3a46f3f325fd0c7c84ae83084e6f5adcbe78ae9434ebc11144a6c5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\ui\\icons\\dungeon-key-token.png",
+    "target": "Content\\ColdSteelData\\Icons\\anchorTokenB.png",
+    "sha256": "696225b96b3a46f3f325fd0c7c84ae83084e6f5adcbe78ae9434ebc11144a6c5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\ui\\icons\\dungeon-key-token.png",
+    "target": "Content\\ColdSteelData\\Icons\\anchorTokenC.png",
+    "sha256": "696225b96b3a46f3f325fd0c7c84ae83084e6f5adcbe78ae9434ebc11144a6c5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\ui\\icons\\dungeon-key-token.png",
+    "target": "Content\\ColdSteelData\\Icons\\anchorTokenD.png",
+    "sha256": "696225b96b3a46f3f325fd0c7c84ae83084e6f5adcbe78ae9434ebc11144a6c5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\ui\\icons\\dungeon-key-token.png",
+    "target": "Content\\ColdSteelData\\Icons\\anchorTokenE.png",
+    "sha256": "696225b96b3a46f3f325fd0c7c84ae83084e6f5adcbe78ae9434ebc11144a6c5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\ui\\icons\\dungeon-key-token.png",
+    "target": "Content\\ColdSteelData\\Icons\\anchorTokenF.png",
+    "sha256": "696225b96b3a46f3f325fd0c7c84ae83084e6f5adcbe78ae9434ebc11144a6c5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\苹果.png",
+    "target": "Content\\ColdSteelData\\Icons\\apple.png",
+    "sha256": "8b2f0fac2fca74012d83a3fb6a9e574421e7f440c2784bd6b35c89afbb31f2ad"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\蓝莓.png",
+    "target": "Content\\ColdSteelData\\Icons\\blueberry.png",
+    "sha256": "107ca34c2c065c88d0ae5348442f19a9c5db1f0eade5f0af5711f2e85fd1c3ae"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\白菜.png",
+    "target": "Content\\ColdSteelData\\Icons\\cabbage.png",
+    "sha256": "0f59ca739d64a81f0ea29bfae2eaf253425bf9110e61ed02236876c5580bfad5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\胡萝卜.png",
+    "target": "Content\\ColdSteelData\\Icons\\carrot.png",
+    "sha256": "2f7fc3f53666bc0ee0448b66ab64c5ef87629f4a8241ef2c3ac43a54f0447847"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\辣椒.png",
+    "target": "Content\\ColdSteelData\\Icons\\chili.png",
+    "sha256": "660f22204b4bb40a2cf7b34f3b33e687253771b074dbfca201da9f036dc83fbc"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\煤矿.png",
+    "target": "Content\\ColdSteelData\\Icons\\coalOre.png",
+    "sha256": "80ac6f7b1c12351a105e6819c7494c2be9c0e379eda3039d4e9d8a0079a4f29b"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\铜矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\copperOre.png",
+    "sha256": "d4df829d0fe2ccd0616a385a6f6554929b81948e14501c35857526b65eb5993e"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\environment\\copper_vein_v1\\copper_ore_icon.png",
+    "target": "Content\\ColdSteelData\\Icons\\copper_ore.png",
+    "sha256": "ad3436e1b90dac99d3d42ee91bf2c19aa5ee0f85c5783a4761b906ffe78c5ecb"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\玉米.png",
+    "target": "Content\\ColdSteelData\\Icons\\corn.png",
+    "sha256": "e37fe41ef9c365a323dfca4d3537b31f1e7c27aeea91885ea9c21f4587729b25"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\熊头骨壁挂.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_bear_skull.png",
+    "sha256": "963f6db9b54201e4f92b047aa855407e4ff0cd7865c9998aa63006e773c6f283"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\血藤缠杖.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_bloodvine_staff.png",
+    "sha256": "5787c95e04f513d514a160936aa3c5f254c1ebb3aced9f5ed108f9b3cafda967"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\骨雕战面.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_bone_mask.png",
+    "sha256": "840265777959e45595daa5787a8e956bfd8abc059d6d13c10634c791dc9ab5a0"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\点将台微雕.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_command_podium.png",
+    "sha256": "277b5402e329c549678486074453532639fcd157c1dd5998048607fbd2a7fa33"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\燧石打火镰.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_flint_striker.png",
+    "sha256": "4a24bead766a5d5e78bcfe58e187e4a8735523b66aed856e16e563c424e4f313"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\将校泥塑.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_general_figurine.png",
+    "sha256": "85e0e5678e1d989e342284150f9c0e2075d88b26d4bf80f740e5898ec818dbd8"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\鎏金狩猎壶.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_gilded_pitcher.png",
+    "sha256": "934223de6592dbc5140fa10116ebf80b81df666bdca7b0363cb34d81507190d1"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\黄金星象仪.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_gold_astrolabe.png",
+    "sha256": "007e4c0bd7d2dd285fd61ccc31b204cee08f44b47a436c1e524a27276f147199"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\草编仓鼠窝.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_grass_nest.png",
+    "sha256": "ae439755475c32f6ead7d91437668fe56498f6f32281019c678a016d892928e8"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\翡翠螳螂雕.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_jade_mantis.png",
+    "sha256": "7ac8644aa87b7de3665c8ccf52000a4e87660eb845680056addd23fbe79dd160"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\双身翡翠神像.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_jade_twins.png",
+    "sha256": "5d01d2433b40b29195ef166096938a3f9d8b594e040547544063edc631463f74"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\仓鼠行军鼓.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_march_drum.png",
+    "sha256": "d39cb16ef64ceca4b1eea1cb7f61e95ff9a647cff1de85e9a4479eeae7194a3d"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\木刻符牌.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_rune_plaque.png",
+    "sha256": "8aff862d8340ee08d0320f8f3b5c6426d0b42acb827bdc4155050626920ee385"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\粗陶盐罐.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_salt_jar.png",
+    "sha256": "942c9797580bd1af19437a7fcdbdf3279ebdb036b097b23cd96a7b9f9c223098"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\彩绘汤钵.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_soup_bowl.png",
+    "sha256": "1acf10f6c1b8306c71d425d35b58059619a2c57c0d074e15c0d1fd02e878e9d5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\双人陶偶.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_twin_dolls.png",
+    "sha256": "26d08e23537ed6162ece0bdb9bc6e43f9ddad928946d7bd228ca9b6865516cb6"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\藤编足环.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_vine_anklet.png",
+    "sha256": "01e1e4b3fba2c64d89c1fa8edf3d624c8c8b290fbe0c7ce675ae29b7ca3e61c8"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\藤月竖琴.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_vine_harp.png",
+    "sha256": "4276d9c9e171b58e1f02cb1e6c2d907516b9c10ec835ac3306830c3802fe7403"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\蜂蜡烛台.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_wax_candle.png",
+    "sha256": "1c2ef88858625ba41647ec83b68c044533acfb2af9094005dad82527db4e64db"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\crafts\\狼烟图腾旗.png",
+    "target": "Content\\ColdSteelData\\Icons\\craft_wolf_banner.png",
+    "sha256": "83bbf446575618bc4d4fd0ceb98af7e495422c457078e4738ea074229f255bf9"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\黄瓜.png",
+    "target": "Content\\ColdSteelData\\Icons\\cucumber.png",
+    "sha256": "e3aab47f28193dd83bda64b6c7c786fc948d2f7283bb0ec490d9a24d627734eb"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\金刚石_.png",
+    "target": "Content\\ColdSteelData\\Icons\\diamond.png",
+    "sha256": "5e334d8aed14d0ef8fd74d2b0997a2942cab2cbe009028452a53bbb9b9542fa7"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\火龙果.png",
+    "target": "Content\\ColdSteelData\\Icons\\dragonFruit.png",
+    "sha256": "8337760a5ddd4ef596db195438f26f037be0999cf7e7980da0f4e506b533c9c0"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\蟠桃.png",
+    "target": "Content\\ColdSteelData\\Icons\\flatPeach.png",
+    "sha256": "08ef90407d8cbac63ee3dd3ca0de1be8a56ac678aea0c9f8be2a00e8b0d1b6a8"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\大蒜.png",
+    "target": "Content\\ColdSteelData\\Icons\\garlic.png",
+    "sha256": "502822f10002c59e275704004685688a4f1978bef317d308b8c4bffc6e62b9a0"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\千年人参.png",
+    "target": "Content\\ColdSteelData\\Icons\\ginseng.png",
+    "sha256": "ec6d325cb6247f6beb6fc2b6d23e12ec357c69664edf588287a7735f4c97ddde"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\金矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\goldOre.png",
+    "sha256": "29fbbb264b8ff19061f50c0ba72be2581a84004629091e6f9d42849ad0108e7f"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\environment\\gold_vein_v1\\gold_ore_icon.png",
+    "target": "Content\\ColdSteelData\\Icons\\gold_ore.png",
+    "sha256": "17398c59f211f515e7172b6d6fbf90de566b5eefa7eaa0a0e96425edc13919d1"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\葡萄.png",
+    "target": "Content\\ColdSteelData\\Icons\\grape.png",
+    "sha256": "cfc6071a38366982e00a43a7b9e16a01795b4b044ee1b4133c9473d9728966e9"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\health_potion.png",
+    "target": "Content\\ColdSteelData\\Icons\\hp_potion.png",
+    "sha256": "a5a02ceb5758f577ef9414089c1c9adfe4a34f22f51eee81d0c65e34be9f755b"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\health_potion_high.png",
+    "target": "Content\\ColdSteelData\\Icons\\hp_potion_high.png",
+    "sha256": "3b8acc5b90c94b65ac297fd7bf0722f20cc30cf6a249544b5eab02bea27be9de"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\health_potion_medium.png",
+    "target": "Content\\ColdSteelData\\Icons\\hp_potion_medium.png",
+    "sha256": "e27dc6bbb8471e37111df969c788aafc253c64dd09b3c39c734dbc6863c328e3"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\health_potion_special.png",
+    "target": "Content\\ColdSteelData\\Icons\\hp_potion_special.png",
+    "sha256": "ca0ec9cc8a5fff5cf58dc6170c911ee2c2a8a40323445dedcf866d10d0550ae5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\铁矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\ironOre.png",
+    "sha256": "5a5657d92bf93a2ea1befe6d969e48dbee8dc262bf01ef9df20b24e58b3ba66c"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\environment\\iron_vein_v1\\iron_ore_icon.png",
+    "target": "Content\\ColdSteelData\\Icons\\iron_ore.png",
+    "sha256": "23cdf64fa26ab55c7afa46cc5aaa26bdd1dbb930dc3d2211d31be20dd8cec420"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\铅矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\leadOre.png",
+    "sha256": "111be0db6c4b4fd5c33f996bc4bc0b6d16d2b357f6bbe99100b4d9f4ff75bf02"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\石灰岩.png",
+    "target": "Content\\ColdSteelData\\Icons\\limestone.png",
+    "sha256": "d273b74f250ec872709e41b72f8e7f728fde7a711a0569ce0887c253dd97bb93"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\锂矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\magnetite.png",
+    "sha256": "18e66082160666ccf44c5f28cd35aa5334677dbb76ee9d88cd9c91fdf530909a"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\大理石.png",
+    "target": "Content\\ColdSteelData\\Icons\\marble.png",
+    "sha256": "3347ca4d1e42df414621f5d685d80fb7e58aaef21f0dfae4ac4b94e870aca384"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\松茸.png",
+    "target": "Content\\ColdSteelData\\Icons\\matsutake.png",
+    "sha256": "1c217da3795a63c5a422f8b44d26f845082bfdf1edbd31a3b5fd20d5cc5fcaf5"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\铂金.png",
+    "target": "Content\\ColdSteelData\\Icons\\mithrilOre.png",
+    "sha256": "6251f8003a420c792c666ce10f15ee2e6eeeb8dbb1fd15404db532ce7b3f6214"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\月光石.png",
+    "target": "Content\\ColdSteelData\\Icons\\moonstone.png",
+    "sha256": "ab767e3fea7719c0a842b99d14d64f1d355bf3e6fc943ff099de449ff38a1579"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\mana_potion.png",
+    "target": "Content\\ColdSteelData\\Icons\\mp_potion.png",
+    "sha256": "f88854b6f2b73f0f61382241d378a6f496e541e727315fbd9b01c5a85f6cc24c"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\mana_potion_high.png",
+    "target": "Content\\ColdSteelData\\Icons\\mp_potion_high.png",
+    "sha256": "d76ff7ab42554a6b253d842dd90c750bbce91599893b4ba3ad94f28bcf4a1c39"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\mana_potion_medium.png",
+    "target": "Content\\ColdSteelData\\Icons\\mp_potion_medium.png",
+    "sha256": "61aa23cfa2780c87ca6de4aa1ecba7c293442ecd3ba971d362cda7eb99e69de8"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\mana_potion_special.png",
+    "target": "Content\\ColdSteelData\\Icons\\mp_potion_special.png",
+    "sha256": "6ed6539d1f585a85065403c04830efda34349e5aaa2f1eec473d5f54242c8b99"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\黑曜石.png",
+    "target": "Content\\ColdSteelData\\Icons\\obsidian.png",
+    "sha256": "c6bc1efe167465df5e32522eb67b047785bfd0c269b7bddd6db608ed3b652f64"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\洋葱.png",
+    "target": "Content\\ColdSteelData\\Icons\\onion.png",
+    "sha256": "cf1bd3ac79f86ac52647fc7af69af3bc7bced5486981300a564a512bd2ac7f1d"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\贤者之石.png",
+    "target": "Content\\ColdSteelData\\Icons\\philosopherStone.png",
+    "sha256": "cde3001eec98a068a263ff1d8b185a6088fc972b937880e9ce13335c9248e47b"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\土豆.png",
+    "target": "Content\\ColdSteelData\\Icons\\potato.png",
+    "sha256": "9171238d857145c3c4054df962bf6f7bff74820b8c943558e7fa9147eecebf5c"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\南瓜.png",
+    "target": "Content\\ColdSteelData\\Icons\\pumpkin.png",
+    "sha256": "c1366c5121e696344b6dfbbdc4c12b7e34dd13c92a71dce6dbb965c27e495503"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\石英石.png",
+    "target": "Content\\ColdSteelData\\Icons\\quartz.png",
+    "sha256": "39c292efb7a012f762960a53bcced6ee785075105186c0b8fa0d6cf654c76089"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\银矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\silverOre.png",
+    "sha256": "ec084b28abbcf2273e34ed93950ddf36dd68182376a23387111f640c66c52d4a"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\environment\\silver_vein_v1\\silver_ore_icon.png",
+    "target": "Content\\ColdSteelData\\Icons\\silver_ore.png",
+    "sha256": "d5752b6a8753a62196750e7e8a6b589de6f41cdd732efde0a03807e7991a9ce3"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\天山雪莲.png",
+    "target": "Content\\ColdSteelData\\Icons\\snowLotus.png",
+    "sha256": "5479ebcb11bbab193db3f03e572f24a847628dd3a4d8196dcf9f928ff64cbe44"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\星光蓝宝石.png",
+    "target": "Content\\ColdSteelData\\Icons\\starSapphire.png",
+    "sha256": "333fb89295590febd42cdf6fea0f0882af8323d8cb2c2b1ae1a77bdf4929ea19"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\ui\\building\\stone_floor.png",
+    "target": "Content\\ColdSteelData\\Icons\\stone.png",
+    "sha256": "1dbdf944f2f3374ba1fa527c2ea50626b046e7e327c5dbea89221d58c4fdc3f2"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\草莓.png",
+    "target": "Content\\ColdSteelData\\Icons\\strawberry.png",
+    "sha256": "c49d67215998a648d9eec6ce42ff0b9cb781e8b8a28b5e748795fb1d3c6d2255"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\硫磺.png",
+    "target": "Content\\ColdSteelData\\Icons\\sulfurOre.png",
+    "sha256": "27301d79e027b73f3d413064182b89af150e8aa21521d361f1e3e0c85edbcf6a"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\锡矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\tinOre.png",
+    "sha256": "bf5a6889ea9ad6e69f4bb7f2a270763cbc21b45e2c4265423bf0ccca30f944c1"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\钛合金.png",
+    "target": "Content\\ColdSteelData\\Icons\\titaniumOre.png",
+    "sha256": "662f5520f3efb7755fff7871fdaefcc0a13ec7f09972f2ff5be829e6c6178806"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\番茄.png",
+    "target": "Content\\ColdSteelData\\Icons\\tomato.png",
+    "sha256": "b07dfde215495cb0dc43c9a940016b39cf47b21bd4362cb4893f0d24483962a7"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\ores\\钨矿石.png",
+    "target": "Content\\ColdSteelData\\Icons\\tungstenOre.png",
+    "sha256": "5b6b8d2aa661d8295d624767856cf457d674be3cc5f61b080d901d6517477007"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\tributes\\plants\\西瓜.png",
+    "target": "Content\\ColdSteelData\\Icons\\watermelon.png",
+    "sha256": "7fde02f488c90bb6fc1bc01b154e230147b67bd15e14c04fccb7c2a9f2df5e1a"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\original_ui\\assets\\items\\麦穗.png",
+    "target": "Content\\ColdSteelData\\Icons\\wheat.png",
+    "sha256": "54fbdf4abe606b5a6f5f31414d0731a5f36ed775feec56f7bb77a6961a95c8c2"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\ui\\building\\floor.png",
+    "target": "Content\\ColdSteelData\\Icons\\wood.png",
+    "sha256": "6a92f4c3fb32c6c0a560a7188a5412eba8756df607c368a6f4ee83b5f4cf5715"
+  },
+  {
+    "source": "E:\\3d\\3-dfps\\assets\\ui\\icons\\equip\\fps_hk416.png",
+    "target": "Content\\ColdSteelData\\Icons\\ue_m4a1.png",
+    "sha256": "fc972311c40a963ef8416a3fb5877581b42969b1725fbe7174cb42173297aa5e"
+  }
+]

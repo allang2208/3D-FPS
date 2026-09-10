@@ -1,9 +1,0 @@
-# Regenerable review frames and editor backups
-*.blend1
-rendered/**/[0-9]*.png
-rendered/**/[0-9]*.png.import
-
-# Local provenance snapshots; model/animation sources retain their own licenses
-denys-viewer.html
-ual-viewer.html
-ual-official-viewer.pck

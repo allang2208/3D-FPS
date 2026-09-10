@@ -1,0 +1,2748 @@
+{
+  "aluminumOre": {
+    "category": "tribute",
+    "desc": "轻盈坚韧，只是不够硬。",
+    "dropImage": "assets/items/tributes/ores/铝矿石.png",
+    "effects": {
+      "atkPercent": -2.0,
+      "moveSpeedPercent": 2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/铝矿石.png",
+    "iconImage": "assets/items/tributes/ores/铝矿石.png",
+    "icon_fallback": "⬜",
+    "id": "aluminumOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "铝矿石",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "移动速度",
+        "value": "+2%"
+      },
+      {
+        "name": "物理攻击",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/aluminumOre.png"
+  },
+  "ammo_556": {
+    "category": "material",
+    "desc": "HK416与M16A2使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "icon": "res://assets/ui/icons/equip/ammo_556.png",
+    "icon_fallback": "▥",
+    "id": "ammo_556",
+    "name": "5.56mm 弹药",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药",
+    "ue_icon": "Icons/ammo_556.png"
+  },
+  "ammo_58": {
+    "category": "material",
+    "desc": "QBZ-191 使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "icon": "res://assets/ui/icons/equip/ammo_58.png",
+    "icon_fallback": "▥",
+    "id": "ammo_58",
+    "name": "5.8mm 弹药",
+    "price": 2,
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药",
+    "ue_icon": "Icons/ammo_58.png"
+  },
+  "ammo_762": {
+    "category": "material",
+    "desc": "AKM与AK-105使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "icon": "res://assets/ui/icons/equip/ammo_762.png",
+    "icon_fallback": "▥",
+    "id": "ammo_762",
+    "name": "7.62mm 弹药",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药",
+    "ue_icon": "Icons/ammo_762.png"
+  },
+  "ammo_9": {
+    "category": "material",
+    "desc": "P9 使用的弹药。换弹时自动从背包取用，每发独立计数。",
+    "icon": "res://assets/ui/icons/equip/ammo_9.png",
+    "icon_fallback": "▥",
+    "id": "ammo_9",
+    "name": "9mm 弹药",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药",
+    "ue_icon": "Icons/ammo_9.png"
+  },
+  "anchorTokenA": {
+    "category": "tribute",
+    "desc": "A 级地牢钥匙。出征时自动从背包或仓库消耗 1 枚，不能献祭；仅能通过商店购买获得。",
+    "icon": "res://assets/original_ui/assets/ui/icons/dungeon-key-token.png",
+    "iconImage": "assets/ui/icons/dungeon-key-token.png",
+    "icon_fallback": "🌀",
+    "id": "anchorTokenA",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "A 级时空锚点代币",
+    "price": 3200.0,
+    "rarity": "legendary",
+    "shopOnly": true,
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "用途",
+        "value": "A 级地牢钥匙"
+      }
+    ],
+    "type": "地牢钥匙",
+    "ue_icon": "Icons/anchorTokenA.png"
+  },
+  "anchorTokenB": {
+    "category": "tribute",
+    "desc": "B 级地牢钥匙。出征时自动从背包或仓库消耗 1 枚，不能献祭；仅能通过商店购买获得。",
+    "icon": "res://assets/original_ui/assets/ui/icons/dungeon-key-token.png",
+    "iconImage": "assets/ui/icons/dungeon-key-token.png",
+    "icon_fallback": "🌀",
+    "id": "anchorTokenB",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "B 级时空锚点代币",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "shopOnly": true,
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "用途",
+        "value": "B 级地牢钥匙"
+      }
+    ],
+    "type": "地牢钥匙",
+    "ue_icon": "Icons/anchorTokenB.png"
+  },
+  "anchorTokenC": {
+    "category": "tribute",
+    "desc": "C 级地牢钥匙。出征时自动从背包或仓库消耗 1 枚，不能献祭；仅能通过商店购买获得。",
+    "icon": "res://assets/original_ui/assets/ui/icons/dungeon-key-token.png",
+    "iconImage": "assets/ui/icons/dungeon-key-token.png",
+    "icon_fallback": "🌀",
+    "id": "anchorTokenC",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "C 级时空锚点代币",
+    "price": 800.0,
+    "rarity": "epic",
+    "shopOnly": true,
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "用途",
+        "value": "C 级地牢钥匙"
+      }
+    ],
+    "type": "地牢钥匙",
+    "ue_icon": "Icons/anchorTokenC.png"
+  },
+  "anchorTokenD": {
+    "category": "tribute",
+    "desc": "D 级地牢钥匙。出征时自动从背包或仓库消耗 1 枚，不能献祭；仅能通过商店购买获得。",
+    "icon": "res://assets/original_ui/assets/ui/icons/dungeon-key-token.png",
+    "iconImage": "assets/ui/icons/dungeon-key-token.png",
+    "icon_fallback": "🌀",
+    "id": "anchorTokenD",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "D 级时空锚点代币",
+    "price": 400.0,
+    "rarity": "rare",
+    "shopOnly": true,
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "用途",
+        "value": "D 级地牢钥匙"
+      }
+    ],
+    "type": "地牢钥匙",
+    "ue_icon": "Icons/anchorTokenD.png"
+  },
+  "anchorTokenE": {
+    "category": "tribute",
+    "desc": "E 级地牢钥匙。出征时自动从背包或仓库消耗 1 枚，不能献祭；仅能通过商店购买获得。",
+    "icon": "res://assets/original_ui/assets/ui/icons/dungeon-key-token.png",
+    "iconImage": "assets/ui/icons/dungeon-key-token.png",
+    "icon_fallback": "🌀",
+    "id": "anchorTokenE",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "E 级时空锚点代币",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "shopOnly": true,
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "用途",
+        "value": "E 级地牢钥匙"
+      }
+    ],
+    "type": "地牢钥匙",
+    "ue_icon": "Icons/anchorTokenE.png"
+  },
+  "anchorTokenF": {
+    "category": "tribute",
+    "desc": "F 级地牢钥匙。出征时自动从背包或仓库消耗 1 枚，不能献祭；新轮回可从小鼠大王处领取 1 枚，之后由商店补购。",
+    "icon": "res://assets/original_ui/assets/ui/icons/dungeon-key-token.png",
+    "iconImage": "assets/ui/icons/dungeon-key-token.png",
+    "icon_fallback": "🌀",
+    "id": "anchorTokenF",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "F 级时空锚点代币",
+    "price": 100.0,
+    "rarity": "common",
+    "shopOnly": true,
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "用途",
+        "value": "F 级地牢钥匙"
+      }
+    ],
+    "type": "地牢钥匙",
+    "ue_icon": "Icons/anchorTokenF.png"
+  },
+  "apple": {
+    "category": "tribute",
+    "desc": "脆甜轻身，可惜不耐存放。",
+    "dropImage": "assets/items/tributes/plants/苹果.png",
+    "effects": {
+      "atkPercent": -2.0,
+      "moveSpeedPercent": 2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/苹果.png",
+    "iconImage": "assets/items/tributes/plants/苹果.png",
+    "icon_fallback": "🍎",
+    "id": "apple",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "苹果",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "移动速度",
+        "value": "+2%"
+      },
+      {
+        "name": "物理攻击",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/apple.png"
+  },
+  "blueberry": {
+    "category": "tribute",
+    "desc": "明目抗衰，小颗却金贵。",
+    "dropImage": "assets/items/tributes/plants/蓝莓.png",
+    "effects": {
+      "hpRegenPercent": 18.0,
+      "mpRegenPercent": 18.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/蓝莓.png",
+    "iconImage": "assets/items/tributes/plants/蓝莓.png",
+    "icon_fallback": "🫐",
+    "id": "blueberry",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "蓝莓",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+18%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "+18%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/blueberry.png"
+  },
+  "cabbage": {
+    "category": "tribute",
+    "desc": "水嫩清淡，缺些油水。",
+    "dropImage": "assets/items/tributes/plants/白菜.png",
+    "effects": {
+      "atkPercent": -1.0,
+      "mpRegenPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/白菜.png",
+    "iconImage": "assets/items/tributes/plants/白菜.png",
+    "icon_fallback": "🥬",
+    "id": "cabbage",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "白菜",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+4%"
+      },
+      {
+        "name": "物理攻击",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/cabbage.png"
+  },
+  "carrot": {
+    "category": "tribute",
+    "desc": "明目脆甜，只是糖分偏高。",
+    "dropImage": "assets/items/tributes/plants/胡萝卜.png",
+    "effects": {
+      "critPercent": 1.0,
+      "mdefPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/胡萝卜.png",
+    "iconImage": "assets/items/tributes/plants/胡萝卜.png",
+    "icon_fallback": "🥕",
+    "id": "carrot",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "胡萝卜",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "暴击率",
+        "value": "+1%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/carrot.png"
+  },
+  "chili": {
+    "category": "tribute",
+    "desc": "火爆脾气，烧得胃里发烫。",
+    "dropImage": "assets/items/tributes/plants/辣椒.png",
+    "effects": {
+      "atkPercent": 6.0,
+      "mdefPercent": -3.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/辣椒.png",
+    "iconImage": "assets/items/tributes/plants/辣椒.png",
+    "icon_fallback": "🌶️",
+    "id": "chili",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "辣椒",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+6%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "-3%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/chili.png"
+  },
+  "coalOre": {
+    "category": "tribute",
+    "desc": "燃烧的富矿，烟尘呛人。",
+    "dropImage": "assets/items/tributes/ores/煤矿.png",
+    "effects": {
+      "goldPercent": 2.0,
+      "mdefPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/煤矿.png",
+    "iconImage": "assets/items/tributes/ores/煤矿.png",
+    "icon_fallback": "⚫",
+    "id": "coalOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "煤矿",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+2%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/coalOre.png"
+  },
+  "copperOre": {
+    "category": "tribute",
+    "desc": "导魔性良好，可惜质地偏软。",
+    "dropImage": "assets/items/tributes/ores/铜矿石.png",
+    "effects": {
+      "defPercent": -1.0,
+      "matkPercent": 2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/铜矿石.png",
+    "iconImage": "assets/items/tributes/ores/铜矿石.png",
+    "icon_fallback": "🟤",
+    "id": "copperOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "铜矿石",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法攻击",
+        "value": "+2%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/copperOre.png"
+  },
+  "copper_ore": {
+    "category": "material",
+    "desc": "矿镐采集的含铜矿石，赤铜色矿带与青绿色风化矿斑交织，可用于后续冶炼制造。",
+    "icon": "res://assets/environment/copper_vein_v1/copper_ore_icon.png",
+    "name": "铜矿",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料",
+    "ue_icon": "Icons/copper_ore.png"
+  },
+  "corn": {
+    "category": "tribute",
+    "desc": "高产粗粮，金灿灿的平凡之味。",
+    "dropImage": "assets/items/tributes/plants/玉米.png",
+    "effects": {
+      "defPercent": -1.0,
+      "goldPercent": 2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/玉米.png",
+    "iconImage": "assets/items/tributes/plants/玉米.png",
+    "icon_fallback": "🌽",
+    "id": "corn",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "玉米",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+2%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/corn.png"
+  },
+  "craft_bear_skull": {
+    "category": "tribute",
+    "desc": "猎人的勋章。浴血，更勇。",
+    "dropImage": "assets/items/tributes/crafts/熊头骨壁挂.png",
+    "effects": {
+      "atkPercent": 8.0,
+      "killHpHealPercent": 2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/熊头骨壁挂.png",
+    "iconImage": "assets/items/tributes/crafts/熊头骨壁挂.png",
+    "icon_fallback": "🐻",
+    "id": "craft_bear_skull",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "熊头骨壁挂",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+8%"
+      },
+      {
+        "name": "击杀回血",
+        "value": "+2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_bear_skull.png"
+  },
+  "craft_bloodvine_staff": {
+    "category": "tribute",
+    "desc": "血藤缠杖而生，饮血反哺。",
+    "dropImage": "assets/items/tributes/crafts/血藤缠杖.png",
+    "effects": {
+      "hpRegenPercent": 22.0,
+      "matkPercent": 10.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/血藤缠杖.png",
+    "iconImage": "assets/items/tributes/crafts/血藤缠杖.png",
+    "icon_fallback": "🩸",
+    "id": "craft_bloodvine_staff",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "血藤缠杖",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "special": {
+      "friendlyLifestealPercent": 10.0
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法攻击",
+        "value": "+10%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "+22%"
+      },
+      {
+        "name": "血藤寄生",
+        "value": "吸血"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_bloodvine_staff.png"
+  },
+  "craft_bone_mask": {
+    "category": "tribute",
+    "desc": "獠牙怒目的半脸骨面具。未战，先怯敌三分。",
+    "dropImage": "assets/items/tributes/crafts/骨雕战面.png",
+    "effects": {
+      "monsterDamageTakenPercent": 4.0,
+      "mpRegenPercent": -2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/骨雕战面.png",
+    "iconImage": "assets/items/tributes/crafts/骨雕战面.png",
+    "icon_fallback": "🎭",
+    "id": "craft_bone_mask",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "骨雕战面",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "怪物承伤",
+        "value": "+4%"
+      },
+      {
+        "name": "魔法恢复",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_bone_mask.png"
+  },
+  "craft_command_podium": {
+    "category": "tribute",
+    "desc": "掌上阅兵，号令三军。",
+    "dropImage": "assets/items/tributes/crafts/点将台微雕.png",
+    "effects": {
+      "friendlyAtkPercent": 7.0,
+      "friendlyMoveSpeedPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/点将台微雕.png",
+    "iconImage": "assets/items/tributes/crafts/点将台微雕.png",
+    "icon_fallback": "🏟️",
+    "id": "craft_command_podium",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "点将台微雕",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "友方单位攻击",
+        "value": "+7%"
+      },
+      {
+        "name": "友方单位移速",
+        "value": "+4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_command_podium.png"
+  },
+  "craft_flint_striker": {
+    "category": "tribute",
+    "desc": "火种燎原，玩火者自灼。",
+    "dropImage": "assets/items/tributes/crafts/燧石打火镰.png",
+    "effects": {
+      "mdefPercent": -3.0,
+      "monsterDamageTakenPercent": 5.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/燧石打火镰.png",
+    "iconImage": "assets/items/tributes/crafts/燧石打火镰.png",
+    "icon_fallback": "🔥",
+    "id": "craft_flint_striker",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "燧石打火镰",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "怪物承伤",
+        "value": "+5%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "-3%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_flint_striker.png"
+  },
+  "craft_general_figurine": {
+    "category": "tribute",
+    "desc": "泥塑的将校偶兵列阵持旗，替主分忧。",
+    "dropImage": "assets/items/tributes/crafts/将校泥塑.png",
+    "effects": {
+      "atkPercent": -2.0,
+      "friendlyMaxHpPercent": 6.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/将校泥塑.png",
+    "iconImage": "assets/items/tributes/crafts/将校泥塑.png",
+    "icon_fallback": "🎖️",
+    "id": "craft_general_figurine",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "将校泥塑",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "友方单位生命",
+        "value": "+6%"
+      },
+      {
+        "name": "物理攻击",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_general_figurine.png"
+  },
+  "craft_gilded_pitcher": {
+    "category": "tribute",
+    "desc": "壶身绘猎获满载图，讨个丰收口彩。",
+    "dropImage": "assets/items/tributes/crafts/鎏金狩猎壶.png",
+    "effects": {
+      "dropChancePercent": 7.0,
+      "goldPercent": 8.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/鎏金狩猎壶.png",
+    "iconImage": "assets/items/tributes/crafts/鎏金狩猎壶.png",
+    "icon_fallback": "🏺",
+    "id": "craft_gilded_pitcher",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "鎏金狩猎壶",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+8%"
+      },
+      {
+        "name": "祭品掉落",
+        "value": "+7%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_gilded_pitcher.png"
+  },
+  "craft_gold_astrolabe": {
+    "category": "tribute",
+    "desc": "黄铜环圈咬合星图。观星知天时，风调雨顺。",
+    "dropImage": "assets/items/tributes/crafts/黄金星象仪.png",
+    "effects": {
+      "expPercent": 13.0,
+      "visionRangePercent": 100.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/黄金星象仪.png",
+    "iconImage": "assets/items/tributes/crafts/黄金星象仪.png",
+    "icon_fallback": "🌟",
+    "id": "craft_gold_astrolabe",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "黄金星象仪",
+    "price": 3200.0,
+    "rarity": "legendary",
+    "special": {
+      "productionResourcePercent": 50.0
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "基础视野",
+        "value": "+100%"
+      },
+      {
+        "name": "经验获取",
+        "value": "+13%"
+      },
+      {
+        "name": "风调雨顺",
+        "value": "产出×1.5"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_gold_astrolabe.png"
+  },
+  "craft_grass_nest": {
+    "category": "tribute",
+    "desc": "给士兵们编的安乐窝，软乎保暖，就是背着沉。",
+    "dropImage": "assets/items/tributes/crafts/草编仓鼠窝.png",
+    "effects": {
+      "friendlyMaxHpPercent": 2.0,
+      "moveSpeedPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/草编仓鼠窝.png",
+    "iconImage": "assets/items/tributes/crafts/草编仓鼠窝.png",
+    "icon_fallback": "🧺",
+    "id": "craft_grass_nest",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "草编仓鼠窝",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "友方单位生命",
+        "value": "+2%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_grass_nest.png"
+  },
+  "craft_jade_mantis": {
+    "category": "tribute",
+    "desc": "薄翼刀锋，攻其不备，自守亦薄。",
+    "dropImage": "assets/items/tributes/crafts/翡翠螳螂雕.png",
+    "effects": {
+      "critPercent": 3.0,
+      "defPercent": -3.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/翡翠螳螂雕.png",
+    "iconImage": "assets/items/tributes/crafts/翡翠螳螂雕.png",
+    "icon_fallback": "🦗",
+    "id": "craft_jade_mantis",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "翡翠螳螂雕",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "暴击率",
+        "value": "+3%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-3%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_jade_mantis.png"
+  },
+  "craft_jade_twins": {
+    "category": "tribute",
+    "desc": "背对背的翡翠双身像，一个看家，一个招兵。",
+    "dropImage": "assets/items/tributes/crafts/双身翡翠神像.png",
+    "effects": {
+      "defPercent": 12.0,
+      "hpRegenPercent": 30.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/双身翡翠神像.png",
+    "iconImage": "assets/items/tributes/crafts/双身翡翠神像.png",
+    "icon_fallback": "🗿",
+    "id": "craft_jade_twins",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "双身翡翠神像",
+    "price": 3200.0,
+    "rarity": "legendary",
+    "special": {
+      "recruitCountMul": 2.0
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "生命恢复",
+        "value": "+30%"
+      },
+      {
+        "name": "物理防御",
+        "value": "+12%"
+      },
+      {
+        "name": "双身",
+        "value": "募兵×2"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_jade_twins.png"
+  },
+  "craft_march_drum": {
+    "category": "tribute",
+    "desc": "鼓面绘着仓鼠爪印。鼓点催征，闻者忘餐。",
+    "dropImage": "assets/items/tributes/crafts/仓鼠行军鼓.png",
+    "effects": {
+      "friendlyAtkPercent": 3.0,
+      "hpRegenPercent": -4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/仓鼠行军鼓.png",
+    "iconImage": "assets/items/tributes/crafts/仓鼠行军鼓.png",
+    "icon_fallback": "🥁",
+    "id": "craft_march_drum",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "仓鼠行军鼓",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "友方单位攻击",
+        "value": "+3%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "-4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_march_drum.png"
+  },
+  "craft_rune_plaque": {
+    "category": "tribute",
+    "desc": "刻着歪斜符咒的木牌。符咒慑敌，也分了持牌人的心。",
+    "dropImage": "assets/items/tributes/crafts/木刻符牌.png",
+    "effects": {
+      "critPercent": -1.0,
+      "monsterAtkDownPercent": 1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/木刻符牌.png",
+    "iconImage": "assets/items/tributes/crafts/木刻符牌.png",
+    "icon_fallback": "🪵",
+    "id": "craft_rune_plaque",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "木刻符牌",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "怪物攻击",
+        "value": "-1%"
+      },
+      {
+        "name": "暴击率",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_rune_plaque.png"
+  },
+  "craft_salt_jar": {
+    "category": "tribute",
+    "desc": "手捏粗陶，绳纹沿口。盐即是财，攥紧了口袋却干了喉咙。",
+    "dropImage": "assets/items/tributes/crafts/粗陶盐罐.png",
+    "effects": {
+      "goldPercent": 1.0,
+      "mpRegenPercent": -4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/粗陶盐罐.png",
+    "iconImage": "assets/items/tributes/crafts/粗陶盐罐.png",
+    "icon_fallback": "🧂",
+    "id": "craft_salt_jar",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "粗陶盐罐",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+1%"
+      },
+      {
+        "name": "魔法恢复",
+        "value": "-4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_salt_jar.png"
+  },
+  "craft_soup_bowl": {
+    "category": "tribute",
+    "desc": "赭红底彩绘蛙纹。吃得滋补，宴席费钱。",
+    "dropImage": "assets/items/tributes/crafts/彩绘汤钵.png",
+    "effects": {
+      "goldPercent": -2.0,
+      "hpRegenPercent": 8.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/彩绘汤钵.png",
+    "iconImage": "assets/items/tributes/crafts/彩绘汤钵.png",
+    "icon_fallback": "🥣",
+    "id": "craft_soup_bowl",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "彩绘汤钵",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "生命恢复",
+        "value": "+8%"
+      },
+      {
+        "name": "金币掉落",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_soup_bowl.png"
+  },
+  "craft_twin_dolls": {
+    "category": "tribute",
+    "desc": "成对供奉才灵验。背负双偶，行路自沉。",
+    "dropImage": "assets/items/tributes/crafts/双人陶偶.png",
+    "effects": {
+      "moveSpeedPercent": -2.0,
+      "mpRegenPercent": 12.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/双人陶偶.png",
+    "iconImage": "assets/items/tributes/crafts/双人陶偶.png",
+    "icon_fallback": "🎎",
+    "id": "craft_twin_dolls",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "双人陶偶",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+12%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_twin_dolls.png"
+  },
+  "craft_vine_anklet": {
+    "category": "tribute",
+    "desc": "青藤三股绞编而成。赤足轻健，藤刺硌肉。",
+    "dropImage": "assets/items/tributes/crafts/藤编足环.png",
+    "effects": {
+      "hpRegenPercent": -4.0,
+      "moveSpeedPercent": 1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/藤编足环.png",
+    "iconImage": "assets/items/tributes/crafts/藤编足环.png",
+    "icon_fallback": "🦶",
+    "id": "craft_vine_anklet",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "藤编足环",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "移动速度",
+        "value": "+1%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "-4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_vine_anklet.png"
+  },
+  "craft_vine_harp": {
+    "category": "tribute",
+    "desc": "月下抚琴，心有所悟。",
+    "dropImage": "assets/items/tributes/crafts/藤月竖琴.png",
+    "effects": {
+      "expPercent": 7.0,
+      "mpRegenPercent": 18.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/藤月竖琴.png",
+    "iconImage": "assets/items/tributes/crafts/藤月竖琴.png",
+    "icon_fallback": "🎻",
+    "id": "craft_vine_harp",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "藤月竖琴",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+18%"
+      },
+      {
+        "name": "经验获取",
+        "value": "+7%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_vine_harp.png"
+  },
+  "craft_wax_candle": {
+    "category": "tribute",
+    "desc": "烛照夜路，蜂蜡沉手。",
+    "dropImage": "assets/items/tributes/crafts/蜂蜡烛台.png",
+    "effects": {
+      "moveSpeedPercent": -1.0,
+      "staminaRegenPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/蜂蜡烛台.png",
+    "iconImage": "assets/items/tributes/crafts/蜂蜡烛台.png",
+    "icon_fallback": "🕯️",
+    "id": "craft_wax_candle",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "蜂蜡烛台",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "体力恢复",
+        "value": "+4%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_wax_candle.png"
+  },
+  "craft_wolf_banner": {
+    "category": "tribute",
+    "desc": "旗面绘奔狼，猎猎如有狼烟升起。",
+    "dropImage": "assets/items/tributes/crafts/狼烟图腾旗.png",
+    "effects": {
+      "atkPercent": 9.0,
+      "friendlyAtkPercent": 10.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/crafts/狼烟图腾旗.png",
+    "iconImage": "assets/items/tributes/crafts/狼烟图腾旗.png",
+    "icon_fallback": "🚩",
+    "id": "craft_wolf_banner",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "狼烟图腾旗",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "special": {
+      "friendlyAuraMoveSpeedPercent": 10.0,
+      "friendlyAuraRadius": 1200.0
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "友方单位攻击",
+        "value": "+10%"
+      },
+      {
+        "name": "物理攻击",
+        "value": "+9%"
+      },
+      {
+        "name": "狼烟结界",
+        "value": "光环"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/craft_wolf_banner.png"
+  },
+  "cucumber": {
+    "category": "tribute",
+    "desc": "清爽解渴，就是太寡淡。",
+    "dropImage": "assets/items/tributes/plants/黄瓜.png",
+    "effects": {
+      "defPercent": -1.0,
+      "mpRegenPercent": 8.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/黄瓜.png",
+    "iconImage": "assets/items/tributes/plants/黄瓜.png",
+    "icon_fallback": "🥒",
+    "id": "cucumber",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "黄瓜",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+8%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/cucumber.png"
+  },
+  "diamond": {
+    "category": "tribute",
+    "desc": "万物最坚。献祭生效期间，特效「金刚不坏」使单次伤害不超过最大生命值的 15%。",
+    "dropImage": "assets/items/tributes/ores/金刚石_.png",
+    "effects": {
+      "atkPercent": 10.0,
+      "critPercent": 5.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/金刚石_.png",
+    "iconImage": "assets/items/tributes/ores/金刚石_.png",
+    "icon_fallback": "💎",
+    "id": "diamond",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "金刚石",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "special": {
+      "surviveCapPercent": 15.0
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+10%"
+      },
+      {
+        "name": "暴击率",
+        "value": "+5%"
+      },
+      {
+        "name": "金刚不坏",
+        "value": "单次伤害≤15%生命"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/diamond.png"
+  },
+  "dragonFruit": {
+    "category": "tribute",
+    "desc": "异域烈性，甜中带火。",
+    "dropImage": "assets/items/tributes/plants/火龙果.png",
+    "effects": {
+      "atkPercent": 8.0,
+      "critPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/火龙果.png",
+    "iconImage": "assets/items/tributes/plants/火龙果.png",
+    "icon_fallback": "🐉",
+    "id": "dragonFruit",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "火龙果",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+8%"
+      },
+      {
+        "name": "暴击率",
+        "value": "+4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/dragonFruit.png"
+  },
+  "enchant_scroll_heavy": {
+    "category": "consumable",
+    "desc": "可以给近战武器附魔前缀「沉重」。",
+    "grade": "common",
+    "icon": "",
+    "icon_fallback": "⚔️",
+    "name": "附魔卷轴：沉重",
+    "price": 500,
+    "scroll_id": "heavy",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_sharp": {
+    "category": "consumable",
+    "desc": "可以给剑类武器附魔前缀「锋利的」。",
+    "grade": "common",
+    "icon": "",
+    "icon_fallback": "⚔️",
+    "name": "附魔卷轴：锋利的",
+    "price": 500,
+    "scroll_id": "sharp",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_skeleton": {
+    "category": "consumable",
+    "desc": "可以给枪械类武器附魔后缀「骷髅射手」。",
+    "grade": "rare",
+    "icon": "",
+    "icon_fallback": "🦴",
+    "name": "附魔卷轴：骷髅射手",
+    "price": 2000,
+    "scroll_id": "skeletonArcher",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_tarantula": {
+    "category": "consumable",
+    "desc": "可以给任意武器附魔后缀「狼蛛」。",
+    "grade": "uncommon",
+    "icon": "",
+    "icon_fallback": "🕷️",
+    "name": "附魔卷轴：狼蛛",
+    "price": 1000,
+    "scroll_id": "tarantula",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enhancement_stone": {
+    "category": "material",
+    "desc": "用于强化装备的基础材料。",
+    "icon": "",
+    "icon_fallback": "💎",
+    "name": "强化石",
+    "price": 50,
+    "rarity": "common",
+    "stack_max": 99,
+    "type": "材料"
+  },
+  "flatPeach": {
+    "category": "tribute",
+    "desc": "三千年一熟的仙家上品。献祭生效期间可在死亡 3 秒后以 30% 最大生命原地复活一次，重新献祭后刷新次数。",
+    "dropImage": "assets/items/tributes/plants/蟠桃.png",
+    "effects": {
+      "atkPercent": 13.0,
+      "hpRegenPercent": 30.0,
+      "revivePercent": 30.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/蟠桃.png",
+    "iconImage": "assets/items/tributes/plants/蟠桃.png",
+    "icon_fallback": "🍑",
+    "id": "flatPeach",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "蟠桃",
+    "price": 3200.0,
+    "rarity": "legendary",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+13%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "+30%"
+      },
+      {
+        "name": "原地复活",
+        "value": "30%生命×1次"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/flatPeach.png"
+  },
+  "garlic": {
+    "category": "tribute",
+    "desc": "杀菌健体，气味实在冲。",
+    "dropImage": "assets/items/tributes/plants/大蒜.png",
+    "effects": {
+      "hpRegenPercent": -4.0,
+      "mdefPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/大蒜.png",
+    "iconImage": "assets/items/tributes/plants/大蒜.png",
+    "icon_fallback": "🧄",
+    "id": "garlic",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "大蒜",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法防御",
+        "value": "+4%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "-4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/garlic.png"
+  },
+  "ginseng": {
+    "category": "tribute",
+    "desc": "百草之王，须发皆全。特效：击杀目标后 1 秒内回复 5% 最大魔法值。",
+    "dropImage": "assets/items/tributes/plants/千年人参.png",
+    "effects": {
+      "atkPercent": 10.0,
+      "killMpHealPercent": 5.0,
+      "matkPercent": 9.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/千年人参.png",
+    "iconImage": "assets/items/tributes/plants/千年人参.png",
+    "icon_fallback": "🌿",
+    "id": "ginseng",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "千年人参",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+10%"
+      },
+      {
+        "name": "魔法攻击",
+        "value": "+9%"
+      },
+      {
+        "name": "击杀回蓝",
+        "value": "5%最大魔法/秒"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/ginseng.png"
+  },
+  "goldOre": {
+    "category": "tribute",
+    "desc": "贪多嚼不烂。",
+    "dropImage": "assets/items/tributes/ores/金矿石.png",
+    "effects": {
+      "defPercent": -3.0,
+      "goldPercent": 6.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/金矿石.png",
+    "iconImage": "assets/items/tributes/ores/金矿石.png",
+    "icon_fallback": "🥇",
+    "id": "goldOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "金矿石",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+6%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-3%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/goldOre.png"
+  },
+  "gold_ore": {
+    "category": "material",
+    "desc": "矿镐采集的含金矿石，石英脉中分布金黄色矿粒，可用于后续冶炼制造。",
+    "icon": "res://assets/environment/gold_vein_v1/gold_ore_icon.png",
+    "name": "金矿",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料",
+    "ue_icon": "Icons/gold_ore.png"
+  },
+  "grape": {
+    "category": "tribute",
+    "desc": "酿酒上品，贪杯难免误事。",
+    "dropImage": "assets/items/tributes/plants/葡萄.png",
+    "effects": {
+      "goldPercent": 6.0,
+      "moveSpeedPercent": -2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/葡萄.png",
+    "iconImage": "assets/items/tributes/plants/葡萄.png",
+    "icon_fallback": "🍇",
+    "id": "grape",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "葡萄",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+6%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/grape.png"
+  },
+  "hp_potion": {
+    "category": "consumable",
+    "desc": "一瓶红色的基础药水。饮用后恢复30点生命值。",
+    "dropImage": "assets/items/health_potion.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/health_potion.png",
+    "iconImage": "assets/items/health_potion.png",
+    "icon_fallback": "🧪",
+    "id": "hp_potion",
+    "level": 1.0,
+    "maxStack": 99.0,
+    "name": "治疗药水",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 5.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复生命",
+        "value": "+30"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "hp": 30.0
+    },
+    "ue_icon": "Icons/hp_potion.png"
+  },
+  "hp_potion_high": {
+    "category": "consumable",
+    "desc": "由深钢瓶箍保护的高纯生命药剂。饮用后恢复150点生命值。",
+    "dropImage": "assets/items/health_potion_high.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/health_potion_high.png",
+    "iconImage": "assets/items/health_potion_high.png",
+    "icon_fallback": "🧪",
+    "id": "hp_potion_high",
+    "level": 20.0,
+    "maxStack": 99.0,
+    "name": "高级生命药水",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复生命",
+        "value": "+150"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "hp": 150.0
+    },
+    "ue_icon": "Icons/hp_potion_high.png"
+  },
+  "hp_potion_medium": {
+    "category": "consumable",
+    "desc": "加厚棱面瓶中封存着浓缩生命药剂。饮用后恢复80点生命值。",
+    "dropImage": "assets/items/health_potion_medium.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/health_potion_medium.png",
+    "iconImage": "assets/items/health_potion_medium.png",
+    "icon_fallback": "🧪",
+    "id": "hp_potion_medium",
+    "level": 10.0,
+    "maxStack": 99.0,
+    "name": "中级生命药水",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复生命",
+        "value": "+80"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "hp": 80.0
+    },
+    "ue_icon": "Icons/hp_potion_medium.png"
+  },
+  "hp_potion_special": {
+    "category": "consumable",
+    "desc": "白金冠架封存的特级生命精华。饮用后恢复180点生命值，并额外恢复最大生命值的20%。",
+    "dropImage": "assets/items/health_potion_special.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/health_potion_special.png",
+    "iconImage": "assets/items/health_potion_special.png",
+    "icon_fallback": "🧪",
+    "id": "hp_potion_special",
+    "level": 30.0,
+    "maxStack": 99.0,
+    "name": "特级生命药水",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复生命",
+        "value": "+180 + 最大生命值20%"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "hp": 180.0,
+      "maxHpPercent": 20.0
+    },
+    "ue_icon": "Icons/hp_potion_special.png"
+  },
+  "ironOre": {
+    "category": "tribute",
+    "desc": "最常见的基础矿石，沉甸而扎实。",
+    "dropImage": "assets/items/tributes/ores/铁矿石.png",
+    "effects": {
+      "atkPercent": 2.0,
+      "moveSpeedPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/铁矿石.png",
+    "iconImage": "assets/items/tributes/ores/铁矿石.png",
+    "icon_fallback": "⛏️",
+    "id": "ironOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "铁矿石",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+2%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/ironOre.png"
+  },
+  "iron_ore": {
+    "category": "material",
+    "desc": "用矿镐从铁矿脉中采集的含铁矿石，可用于后续冶炼与制造。",
+    "icon": "res://assets/environment/iron_vein_v1/iron_ore_icon.png",
+    "name": "铁矿",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料",
+    "ue_icon": "Icons/iron_ore.png"
+  },
+  "leadOre": {
+    "category": "tribute",
+    "desc": "沉重拖累，敌我皆受其累。",
+    "dropImage": "assets/items/tributes/ores/铅矿石.png",
+    "effects": {
+      "monsterMoveSlowPercent": 2.0,
+      "moveSpeedPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/铅矿石.png",
+    "iconImage": "assets/items/tributes/ores/铅矿石.png",
+    "icon_fallback": "🟦",
+    "id": "leadOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "铅矿石",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "怪物移速降低",
+        "value": "+2%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/leadOre.png"
+  },
+  "limestone": {
+    "category": "tribute",
+    "desc": "厚重迟钝的沉积岩。",
+    "dropImage": "assets/items/tributes/ores/石灰岩.png",
+    "effects": {
+      "critPercent": -1.0,
+      "defPercent": 2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/石灰岩.png",
+    "iconImage": "assets/items/tributes/ores/石灰岩.png",
+    "icon_fallback": "🪨",
+    "id": "limestone",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "石灰岩",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理防御",
+        "value": "+2%"
+      },
+      {
+        "name": "暴击率",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/limestone.png"
+  },
+  "magic_dust": {
+    "category": "material",
+    "desc": "用于附魔的魔法粉尘。",
+    "icon": "",
+    "icon_fallback": "✨",
+    "name": "魔法粉尘",
+    "price": 10,
+    "rarity": "mythic",
+    "stack_max": 999,
+    "type": "材料"
+  },
+  "magnetite": {
+    "category": "tribute",
+    "desc": "银白色的轻金属，微弱的电流刺激着神经。",
+    "dropImage": "assets/items/tributes/ores/锂矿石.png",
+    "effects": {
+      "defPercent": -3.0,
+      "matkPercent": 5.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/锂矿石.png",
+    "iconImage": "assets/items/tributes/ores/锂矿石.png",
+    "icon_fallback": "🧲",
+    "id": "magnetite",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "锂矿石",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法攻击",
+        "value": "+5%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-3%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/magnetite.png"
+  },
+  "marble": {
+    "category": "tribute",
+    "desc": "一块光滑的大理石，蕴含着大地的守护之力。放入祭品池后，玩家的物理防御增加2%，击杀敌方单位后，1秒内回复最大生命值的1%。",
+    "dropImage": "assets/items/tributes/ores/大理石.png",
+    "effects": {
+      "defPercent": 2.0,
+      "killHpHealPercent": 1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/大理石.png",
+    "iconImage": "assets/items/tributes/ores/大理石.png",
+    "icon_fallback": "🗿",
+    "id": "marble",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "大理石",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理防御",
+        "value": "+2%"
+      },
+      {
+        "name": "击杀回血",
+        "value": "1%最大生命/秒"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/marble.png"
+  },
+  "matsutake": {
+    "category": "tribute",
+    "desc": "山中珍馐，一口鲜掉眉毛。",
+    "dropImage": "assets/items/tributes/plants/松茸.png",
+    "effects": {
+      "defPercent": 8.0,
+      "mdefPercent": 7.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/松茸.png",
+    "iconImage": "assets/items/tributes/plants/松茸.png",
+    "icon_fallback": "🍄",
+    "id": "matsutake",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "松茸",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理防御",
+        "value": "+8%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "+7%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/matsutake.png"
+  },
+  "mithrilOre": {
+    "category": "tribute",
+    "desc": "精灵之银，魔力在其中流淌。",
+    "dropImage": "assets/items/tributes/ores/铂金.png",
+    "effects": {
+      "matkPercent": 8.0,
+      "mdefPercent": 7.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/铂金.png",
+    "iconImage": "assets/items/tributes/ores/铂金.png",
+    "icon_fallback": "✨",
+    "id": "mithrilOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "铂金",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法攻击",
+        "value": "+8%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "+7%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/mithrilOre.png"
+  },
+  "moonstone": {
+    "category": "tribute",
+    "desc": "月华凝成的宝石。特效「月影」：进入战斗/精英/Boss 战房间无敌 15 秒；精英与 Boss 战中物理魔法伤害 +5%。",
+    "dropImage": "assets/items/tributes/ores/月光石.png",
+    "effects": {
+      "hpRegenPercent": 18.0,
+      "mpRegenPercent": 22.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/月光石.png",
+    "iconImage": "assets/items/tributes/ores/月光石.png",
+    "icon_fallback": "🌙",
+    "id": "moonstone",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "月光石",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "special": {
+      "moonshadowDamagePercent": 5.0,
+      "moonshadowDuration": 15000.0
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+22%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "+18%"
+      },
+      {
+        "name": "月影",
+        "value": "入战无敌15s/精B增伤5%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/moonstone.png"
+  },
+  "mp_potion": {
+    "category": "consumable",
+    "desc": "一瓶蓝色的基础药水。饮用后恢复25点魔法值。",
+    "dropImage": "assets/items/mana_potion.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/mana_potion.png",
+    "iconImage": "assets/items/mana_potion.png",
+    "icon_fallback": "💧",
+    "id": "mp_potion",
+    "level": 1.0,
+    "maxStack": 99.0,
+    "name": "魔力药水",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 3.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复魔法",
+        "value": "+25"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "mp": 25.0
+    },
+    "ue_icon": "Icons/mp_potion.png"
+  },
+  "mp_potion_high": {
+    "category": "consumable",
+    "desc": "由深钢瓶箍保护的高纯魔力药剂。饮用后恢复120点魔法值。",
+    "dropImage": "assets/items/mana_potion_high.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/mana_potion_high.png",
+    "iconImage": "assets/items/mana_potion_high.png",
+    "icon_fallback": "💧",
+    "id": "mp_potion_high",
+    "level": 20.0,
+    "maxStack": 99.0,
+    "name": "高级魔法药水",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复魔法",
+        "value": "+120"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "mp": 120.0
+    },
+    "ue_icon": "Icons/mp_potion_high.png"
+  },
+  "mp_potion_medium": {
+    "category": "consumable",
+    "desc": "加厚棱面瓶中流动着浓缩魔力药剂。饮用后恢复60点魔法值。",
+    "dropImage": "assets/items/mana_potion_medium.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/mana_potion_medium.png",
+    "iconImage": "assets/items/mana_potion_medium.png",
+    "icon_fallback": "💧",
+    "id": "mp_potion_medium",
+    "level": 10.0,
+    "maxStack": 99.0,
+    "name": "中级魔法药水",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复魔法",
+        "value": "+60"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "mp": 60.0
+    },
+    "ue_icon": "Icons/mp_potion_medium.png"
+  },
+  "mp_potion_special": {
+    "category": "consumable",
+    "desc": "白金冠架封存的特级魔力精华。饮用后恢复150点魔法值，并额外恢复最大魔法值的20%。",
+    "dropImage": "assets/items/mana_potion_special.png",
+    "equipSlot": "",
+    "icon": "res://assets/original_ui/assets/items/mana_potion_special.png",
+    "iconImage": "assets/items/mana_potion_special.png",
+    "icon_fallback": "💧",
+    "id": "mp_potion_special",
+    "level": 30.0,
+    "maxStack": 99.0,
+    "name": "特级魔法药水",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "恢复魔法",
+        "value": "+150 + 最大魔法值20%"
+      }
+    ],
+    "type": "消耗品",
+    "useEffect": {
+      "maxMpPercent": 20.0,
+      "mp": 150.0
+    },
+    "ue_icon": "Icons/mp_potion_special.png"
+  },
+  "obsidian": {
+    "category": "tribute",
+    "desc": "锋利无比，却脆如薄冰。",
+    "dropImage": "assets/items/tributes/ores/黑曜石.png",
+    "effects": {
+      "critPercent": 3.0,
+      "mdefPercent": -3.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/黑曜石.png",
+    "iconImage": "assets/items/tributes/ores/黑曜石.png",
+    "icon_fallback": "🖤",
+    "id": "obsidian",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "黑曜石",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "暴击率",
+        "value": "+3%"
+      },
+      {
+        "name": "魔法防御",
+        "value": "-3%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/obsidian.png"
+  },
+  "onion": {
+    "category": "tribute",
+    "desc": "辛辣提神，熏得人睁不开眼。",
+    "dropImage": "assets/items/tributes/plants/洋葱.png",
+    "effects": {
+      "atkPercent": 4.0,
+      "mpRegenPercent": -2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/洋葱.png",
+    "iconImage": "assets/items/tributes/plants/洋葱.png",
+    "icon_fallback": "🧅",
+    "id": "onion",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "洋葱",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+4%"
+      },
+      {
+        "name": "魔法恢复",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/onion.png"
+  },
+  "philosopherStone": {
+    "category": "tribute",
+    "desc": "炼金术的终极。特效「点石成金」：拾取祭品时品质提升一级；若为传说祭品，则额外再获得一件随机传说祭品。",
+    "dropImage": "assets/items/tributes/ores/贤者之石.png",
+    "effects": {
+      "goldPercent": 13.0,
+      "monsterDamageTakenPercent": 12.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/贤者之石.png",
+    "iconImage": "assets/items/tributes/ores/贤者之石.png",
+    "icon_fallback": "🧱",
+    "id": "philosopherStone",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "贤者之石",
+    "price": 3200.0,
+    "rarity": "legendary",
+    "special": {
+      "oreUpgrade": true
+    },
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币掉落",
+        "value": "+13%"
+      },
+      {
+        "name": "怪物承伤",
+        "value": "+12%"
+      },
+      {
+        "name": "点石成金",
+        "value": "拾取祭品品质+1"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/philosopherStone.png"
+  },
+  "potato": {
+    "category": "tribute",
+    "desc": "朴实的块茎，淀粉顶饱，生食却涩口。",
+    "dropImage": "assets/items/tributes/plants/土豆.png",
+    "effects": {
+      "hpRegenPercent": 4.0,
+      "mpRegenPercent": -2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/土豆.png",
+    "iconImage": "assets/items/tributes/plants/土豆.png",
+    "icon_fallback": "🥔",
+    "id": "potato",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "土豆",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "生命恢复",
+        "value": "+4%"
+      },
+      {
+        "name": "魔法恢复",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/potato.png"
+  },
+  "pumpkin": {
+    "category": "tribute",
+    "desc": "厚重耐储，抱在怀里沉甸甸的。",
+    "dropImage": "assets/items/tributes/plants/南瓜.png",
+    "effects": {
+      "defPercent": 2.0,
+      "moveSpeedPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/南瓜.png",
+    "iconImage": "assets/items/tributes/plants/南瓜.png",
+    "icon_fallback": "🎃",
+    "id": "pumpkin",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "南瓜",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理防御",
+        "value": "+2%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/pumpkin.png"
+  },
+  "quartz": {
+    "category": "tribute",
+    "desc": "性寒刺骨的晶体。",
+    "dropImage": "assets/items/tributes/ores/石英石.png",
+    "effects": {
+      "hpRegenPercent": -2.0,
+      "mpRegenPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/石英石.png",
+    "iconImage": "assets/items/tributes/ores/石英石.png",
+    "icon_fallback": "🔮",
+    "id": "quartz",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "石英石",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法恢复",
+        "value": "+4%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/quartz.png"
+  },
+  "reforge_ticket": {
+    "category": "material",
+    "desc": "用于武器改造的票券（首次 1 张，替换 4 张）。",
+    "icon": "",
+    "icon_fallback": "🔧",
+    "name": "改造券",
+    "price": 200,
+    "rarity": "uncommon",
+    "stack_max": 99,
+    "type": "材料"
+  },
+  "silverOre": {
+    "category": "tribute",
+    "desc": "驱邪之银，可惜太脆。",
+    "dropImage": "assets/items/tributes/ores/银矿石.png",
+    "effects": {
+      "defPercent": -2.0,
+      "monsterDamageTakenPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/银矿石.png",
+    "iconImage": "assets/items/tributes/ores/银矿石.png",
+    "icon_fallback": "🥈",
+    "id": "silverOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "银矿石",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "怪物承伤",
+        "value": "+4%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/silverOre.png"
+  },
+  "silver_ore": {
+    "category": "material",
+    "desc": "矿镐采集的含银矿石，深色围岩中分布银白矿带，可用于后续冶炼制造。",
+    "icon": "res://assets/environment/silver_vein_v1/silver_ore_icon.png",
+    "name": "银矿",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料",
+    "ue_icon": "Icons/silver_ore.png"
+  },
+  "snowLotus": {
+    "category": "tribute",
+    "desc": "极寒绝壁上的圣药。献祭生效期间经验获取 +25%。",
+    "dropImage": "assets/items/tributes/plants/天山雪莲.png",
+    "effects": {
+      "expPercent": 25.0,
+      "hpRegenPercent": 22.0,
+      "mdefPercent": 10.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/天山雪莲.png",
+    "iconImage": "assets/items/tributes/plants/天山雪莲.png",
+    "icon_fallback": "🪷",
+    "id": "snowLotus",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "天山雪莲",
+    "price": 1600.0,
+    "rarity": "mythic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法防御",
+        "value": "+10%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "+22%"
+      },
+      {
+        "name": "经验获取",
+        "value": "+25%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/snowLotus.png"
+  },
+  "soil": {
+    "category": "material",
+    "desc": "在旷野使用矿镐挖掘地表获得，可用于后续回填与制作。",
+    "icon": "",
+    "icon_fallback": "土",
+    "name": "泥土",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料"
+  },
+  "starSapphire": {
+    "category": "tribute",
+    "desc": "福缘深厚：随机事件概率 +8pp（战斗同步 -8pp）。",
+    "dropImage": "assets/items/tributes/ores/星光蓝宝石.png",
+    "effects": {
+      "combatChanceDelta": -8.0,
+      "dropChancePercent": 7.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/星光蓝宝石.png",
+    "iconImage": "assets/items/tributes/ores/星光蓝宝石.png",
+    "icon_fallback": "💠",
+    "id": "starSapphire",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "星光蓝宝石",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "随机事件概率",
+        "value": "+8pp"
+      },
+      {
+        "name": "祭品掉率",
+        "value": "+7%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/starSapphire.png"
+  },
+  "stone": {
+    "category": "material",
+    "desc": "使用矿镐采集石块获得。用于搭建石质体素，每块消耗 1 份。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "石块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料",
+    "ue_icon": "Icons/stone.png"
+  },
+  "strawberry": {
+    "category": "tribute",
+    "desc": "娇嫩欲滴的浆果，碰一碰就坏。",
+    "dropImage": "assets/items/tributes/plants/草莓.png",
+    "effects": {
+      "defPercent": -2.0,
+      "hpRegenPercent": 12.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/草莓.png",
+    "iconImage": "assets/items/tributes/plants/草莓.png",
+    "icon_fallback": "🍓",
+    "id": "strawberry",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "草莓",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "生命恢复",
+        "value": "+12%"
+      },
+      {
+        "name": "物理防御",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/strawberry.png"
+  },
+  "sulfurOre": {
+    "category": "tribute",
+    "desc": "刺鼻的气息让人难以安睡。",
+    "dropImage": "assets/items/tributes/ores/硫磺.png",
+    "effects": {
+      "atkPercent": 4.0,
+      "hpRegenPercent": -4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/硫磺.png",
+    "iconImage": "assets/items/tributes/ores/硫磺.png",
+    "icon_fallback": "🟡",
+    "id": "sulfurOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "硫磺矿",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "+4%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "-4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/sulfurOre.png"
+  },
+  "tinOre": {
+    "category": "tribute",
+    "desc": "钝感安稳，魔力却难以激荡。",
+    "dropImage": "assets/items/tributes/ores/锡矿石.png",
+    "effects": {
+      "matkPercent": -2.0,
+      "mdefPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/锡矿石.png",
+    "iconImage": "assets/items/tributes/ores/锡矿石.png",
+    "icon_fallback": "🔩",
+    "id": "tinOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "锡矿石",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "魔法防御",
+        "value": "+4%"
+      },
+      {
+        "name": "魔法攻击",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/tinOre.png"
+  },
+  "titaniumOre": {
+    "category": "tribute",
+    "desc": "轻且坚的未来金属。",
+    "dropImage": "assets/items/tributes/ores/钛合金.png",
+    "effects": {
+      "defPercent": 8.0,
+      "moveSpeedPercent": 4.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/钛合金.png",
+    "iconImage": "assets/items/tributes/ores/钛合金.png",
+    "icon_fallback": "🔷",
+    "id": "titaniumOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "钛合金",
+    "price": 800.0,
+    "rarity": "epic",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理防御",
+        "value": "+8%"
+      },
+      {
+        "name": "移动速度",
+        "value": "+4%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/titaniumOre.png"
+  },
+  "tomato": {
+    "category": "tribute",
+    "desc": "多汁饱腹，吃多了有些撑。",
+    "dropImage": "assets/items/tributes/plants/番茄.png",
+    "effects": {
+      "hpRegenPercent": 8.0,
+      "moveSpeedPercent": -1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/番茄.png",
+    "iconImage": "assets/items/tributes/plants/番茄.png",
+    "icon_fallback": "🍅",
+    "id": "tomato",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "番茄",
+    "price": 200.0,
+    "rarity": "uncommon",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "生命恢复",
+        "value": "+8%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-1%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/tomato.png"
+  },
+  "tribute_common": {
+    "category": "tribute",
+    "desc": "来自时空裂隙的普通祭品。",
+    "icon": "",
+    "icon_fallback": "🪨",
+    "name": "时空遗物·普通",
+    "price": 50,
+    "rarity": "common",
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "防御",
+        "value": "+1%"
+      }
+    ],
+    "type": "祭品"
+  },
+  "tribute_epic": {
+    "category": "tribute",
+    "desc": "史诗级的时空祭品。",
+    "icon": "",
+    "icon_fallback": "🏆",
+    "name": "时空遗物·史诗",
+    "price": 800,
+    "rarity": "epic",
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "防御",
+        "value": "+10%"
+      }
+    ],
+    "type": "祭品"
+  },
+  "tribute_legendary": {
+    "category": "tribute",
+    "desc": "传说级的时空祭品。",
+    "icon": "",
+    "icon_fallback": "🌟",
+    "name": "时空遗物·传说",
+    "price": 3200,
+    "rarity": "legendary",
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "防御",
+        "value": "+22%"
+      }
+    ],
+    "type": "祭品"
+  },
+  "tribute_mythic": {
+    "category": "tribute",
+    "desc": "神话级的时空祭品。",
+    "icon": "",
+    "icon_fallback": "👑",
+    "name": "时空遗物·神话",
+    "price": 1600,
+    "rarity": "mythic",
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "防御",
+        "value": "+15%"
+      }
+    ],
+    "type": "祭品"
+  },
+  "tribute_rare": {
+    "category": "tribute",
+    "desc": "稀有的时空祭品。",
+    "icon": "",
+    "icon_fallback": "💠",
+    "name": "时空遗物·稀有",
+    "price": 400,
+    "rarity": "rare",
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "防御",
+        "value": "+6%"
+      }
+    ],
+    "type": "祭品"
+  },
+  "tribute_uncommon": {
+    "category": "tribute",
+    "desc": "品质稍好的时空祭品。",
+    "icon": "",
+    "icon_fallback": "🪙",
+    "name": "时空遗物·优质",
+    "price": 150,
+    "rarity": "uncommon",
+    "stack_max": 99,
+    "stats": [
+      {
+        "name": "防御",
+        "value": "+3%"
+      }
+    ],
+    "type": "祭品"
+  },
+  "tungstenOre": {
+    "category": "tribute",
+    "desc": "沉稳迟滞，以重制敌。",
+    "dropImage": "assets/items/tributes/ores/钨矿石.png",
+    "effects": {
+      "monsterAtkDownPercent": 6.0,
+      "moveSpeedPercent": -2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/ores/钨矿石.png",
+    "iconImage": "assets/items/tributes/ores/钨矿石.png",
+    "icon_fallback": "⚙️",
+    "id": "tungstenOre",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "钨矿石",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "怪物攻击降低",
+        "value": "+6%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/tungstenOre.png"
+  },
+  "watermelon": {
+    "category": "tribute",
+    "desc": "解暑圣品，就是太沉。",
+    "dropImage": "assets/items/tributes/plants/西瓜.png",
+    "effects": {
+      "defPercent": 6.0,
+      "moveSpeedPercent": -2.0
+    },
+    "icon": "res://assets/original_ui/assets/items/tributes/plants/西瓜.png",
+    "iconImage": "assets/items/tributes/plants/西瓜.png",
+    "icon_fallback": "🍉",
+    "id": "watermelon",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "西瓜",
+    "price": 400.0,
+    "rarity": "rare",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "物理防御",
+        "value": "+6%"
+      },
+      {
+        "name": "移动速度",
+        "value": "-2%"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/watermelon.png"
+  },
+  "wheat": {
+    "category": "tribute",
+    "desc": "一束金色的麦穗，蕴含着丰收的祝福。放入祭品池后，击杀怪物时掉落的金币增加25%，玩家生命值自然恢复每秒加1。",
+    "dropImage": "assets/items/麦穗.png",
+    "effects": {
+      "goldPercent": 25.0,
+      "hpRegenFlat": 1.0
+    },
+    "icon": "res://assets/original_ui/assets/items/麦穗.png",
+    "iconImage": "assets/items/麦穗.png",
+    "icon_fallback": "🌾",
+    "id": "wheat",
+    "level": 1.0,
+    "maxStack": 999.0,
+    "name": "麦穗",
+    "price": 100.0,
+    "rarity": "common",
+    "stack": 1.0,
+    "stack_max": 999,
+    "stats": [
+      {
+        "name": "金币加成",
+        "value": "+25%"
+      },
+      {
+        "name": "生命恢复",
+        "value": "+1/秒"
+      }
+    ],
+    "type": "祭品",
+    "ue_icon": "Icons/wheat.png"
+  },
+  "wood": {
+    "category": "material",
+    "desc": "砍伐树木后收集的木材。用于搭建木质体素，每块消耗 1 份。",
+    "icon": "res://assets/ui/building/floor.png",
+    "name": "木材",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "材料",
+    "ue_icon": "Icons/wood.png"
+  },
+  "ue_m4a1": {
+    "category": "weapon",
+    "desc": "当前 UE 第一人称 M4A1。使用 5.56mm 弹药。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_m4a1.png",
+    "id": "ue_m4a1",
+    "isTwoHanded": true,
+    "name": "M4A1",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "24"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "ue_icon": "Icons/ue_m4a1.png"
+  }
+}

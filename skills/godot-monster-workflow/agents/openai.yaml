@@ -1,4 +1,0 @@
-interface:
-  display_name: "怪物标准开发工作流"
-  short_description: "从原动画参考到建模绑骨、动作状态机、数值接入与游戏验证的完整怪物工作流"
-  default_prompt: "使用 $godot-monster-workflow，先查看现有角色动画，再按授权阶段制作并验证怪物。"

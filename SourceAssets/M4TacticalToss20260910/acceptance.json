@@ -1,0 +1,148 @@
+{
+  "status": "applied_runtime_verified",
+  "repro": "M4 standard curved magazine, ammo 15/30, press reload; expected visible throw then offscreen retrieval, grasp insertion, immediate idle without empty-bolt slap. Old normal reload grasped and lowered the departing magazine.",
+  "first_difference": "runtime normal asset M4WrapGripFinal/A_M4_HK416_reload, early left-hand and magazine tracks",
+  "hypotheses": [
+    {
+      "hypothesis": "Normal and empty reload use different early authoring tracks",
+      "result": "confirmed by source inspection and accepted empty toss frames"
+    },
+    {
+      "hypothesis": "Runtime uses wrong clip",
+      "result": "not the cause: separate normal branch intentional; updated only normal candidate routing"
+    }
+  ],
+  "reference": "M4SlapImpact20260910/M4_Hand_MAT_Editable.blend: M4_MAT_reload_empty 0..88; normal return from frame 98",
+  "authoring": {
+    "source_sha256": "e9d880f9a090e5a66a108096c8d27ad0baa56a17b1b06bcedb217e03a512eb55",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "reference": "M4_MAT_reload_empty, accepted visible toss and retrieval",
+    "time_map_normal_to_empty": [
+      [
+        0,
+        0
+      ],
+      [
+        8,
+        8
+      ],
+      [
+        28,
+        20
+      ],
+      [
+        29,
+        21
+      ],
+      [
+        43,
+        35
+      ],
+      [
+        61,
+        43
+      ],
+      [
+        76,
+        54
+      ],
+      [
+        95,
+        80
+      ],
+      [
+        98,
+        88
+      ]
+    ],
+    "transition_relative_error_mm": {
+      "hand_l": 0.0008752311699560832,
+      "lowerarm_l": 0.000832333567367133,
+      "index_03_l": 0.0008293436678065975,
+      "thumb_03_l": 0.0009513983185000508,
+      "WPN_SOCKET_Magazine": 2.1073424255447017e-05
+    },
+    "duration": 2.1,
+    "sample_rate": 480,
+    "grasp_frames": [
+      61,
+      98
+    ],
+    "mechanical_cues_seconds": [
+      0.48333333333333334,
+      1.2666666666666666,
+      1.5833333333333333
+    ],
+    "bolt": "Preserve loaded-chamber normal-reload mechanical poses; no empty slap or bolt release"
+  },
+  "runtime": {
+    "label": "m4-tactical-toss",
+    "requested_hz": 60,
+    "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+    "rhi": "-d3d11",
+    "process_exit": 0,
+    "pass": 50,
+    "fail": 0,
+    "completion_marker": true,
+    "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-tactical-toss\\assertions.log",
+    "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\runtime-m4-tactical-toss.log",
+    "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+  },
+  "ue_saved": {
+    "reload": {
+      "keys": 1009,
+      "duration": 2.0999999046325684,
+      "samples_960hz": 2017,
+      "held_drift_mm": 0.1598537152511459,
+      "grasp_drift_mm": 0.121236944159739,
+      "hook_drift_mm": 0
+    }
+  },
+  "mat_saved": {
+    "reload": {
+      "channels": 909,
+      "keys": 917181
+    }
+  },
+  "hand_mag_samples": 253,
+  "hand_mag_triangle_pairs": 0,
+  "body_remaining": "Only existing idle endpoint contact: 9 pairs at frame 0 and 126; stock 0.",
+  "audio_events": 11,
+  "audio_min_correlation": 0.8020816649118879,
+  "normal_audio_events": [
+    {
+      "empty": false,
+      "name": "mag_out",
+      "correlation": 0.9952081905628012,
+      "wave_start": 6.08,
+      "log_seconds": 6.034,
+      "audio_vs_log_seconds": 0.04600000000000026,
+      "game_event_lateness": 0.013136
+    },
+    {
+      "empty": false,
+      "name": "mag_insert",
+      "correlation": 0.9907915091119367,
+      "wave_start": 6.8693333333333335,
+      "log_seconds": 6.826,
+      "audio_vs_log_seconds": 0.04333333333333389,
+      "game_event_lateness": 0.022912
+    },
+    {
+      "empty": false,
+      "name": "mag_seat",
+      "correlation": 0.9909397320699491,
+      "wave_start": 7.168,
+      "log_seconds": 7.125,
+      "audio_vs_log_seconds": 0.04300000000000015,
+      "game_event_lateness": 0.004538
+    }
+  ],
+  "preview": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\Delivery\\非空仓换弹_实际游戏.mp4",
+  "preview_source_range_game_seconds": [
+    5.5,
+    8.2
+  ],
+  "preview_notes": "Actual same-run render and mixer. Focused video trims full capture at 2.7 seconds for 2.7 seconds. 20 Hz source with 5 missed screenshot indices held across full 14.2 seconds.",
+  "visual_review": "Viewed eight actual frames: old magazine flies separately at 6.20/6.25, left hand and replacement return from below camera, grasped insertion at 6.95/7.30, support-grip recovery at 7.70. First-person view does not expose an actual rear pouch contact."
+}

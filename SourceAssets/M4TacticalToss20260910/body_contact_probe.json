@@ -1,0 +1,2791 @@
+{
+  "reload": [
+    {
+      "frame": 0.0,
+      "body": {
+        "pairs": 9,
+        "bones": {
+          "hand_l": 27
+        }
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 0.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 1.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 1.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 2.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 2.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 3.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 3.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 4.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 4.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 5.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 5.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 6.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 6.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 7.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 7.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 8.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 8.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 9.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 9.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 10.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 10.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 11.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 11.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 12.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 12.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 13.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 13.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 14.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 14.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 15.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 15.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 16.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 16.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 17.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 17.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 18.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 18.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 19.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 19.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 20.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 20.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 21.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 21.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 22.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 22.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 23.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 23.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 24.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 24.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 25.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 25.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 26.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 26.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 27.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 27.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 28.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 28.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 29.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 29.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 30.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 30.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 31.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 31.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 32.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 32.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 33.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 33.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 34.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 34.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 35.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 35.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 36.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 36.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 37.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 37.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 38.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 38.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 39.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 39.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 40.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 40.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 41.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 41.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 42.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 42.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 43.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 43.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 44.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 44.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 45.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 45.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 46.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 46.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 47.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 47.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 48.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 48.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 49.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 49.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 50.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 50.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 51.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 51.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 52.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 52.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 53.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 53.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 54.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 54.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 55.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 55.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 56.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 56.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 57.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 57.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 58.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 58.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 59.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 59.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 60.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 60.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 61.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 61.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 62.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 62.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 63.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 63.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 64.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 64.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 65.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 65.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 66.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 66.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 67.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 67.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 68.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 68.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 69.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 69.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 70.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 70.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 71.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 71.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 72.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 72.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 73.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 73.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 74.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 74.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 75.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 75.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 76.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 76.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 77.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 77.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 78.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 78.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 79.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 79.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 80.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 80.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 81.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 81.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 82.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 82.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 83.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 83.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 84.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 84.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 85.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 85.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 86.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 86.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 87.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 87.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 88.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 88.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 89.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 89.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 90.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 90.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 91.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 91.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 92.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 92.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 93.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 93.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 94.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 94.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 95.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 95.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 96.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 96.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 97.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 97.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 98.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 98.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 99.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 99.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 100.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 100.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 101.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 101.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 102.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 102.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 103.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 103.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 104.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 104.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 105.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 105.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 106.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 106.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 107.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 107.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 108.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 108.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 109.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 109.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 110.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 110.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 111.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 111.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 112.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 112.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 113.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 113.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 114.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 114.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 115.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 115.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 116.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 116.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 117.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 117.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 118.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 118.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 119.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 119.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 120.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 120.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 121.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 121.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 122.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 122.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 123.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 123.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 124.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 124.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 125.0,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 125.5,
+      "body": {
+        "pairs": 0,
+        "bones": {}
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    },
+    {
+      "frame": 126.0,
+      "body": {
+        "pairs": 9,
+        "bones": {
+          "hand_l": 27
+        }
+      },
+      "stock": {
+        "pairs": 0,
+        "bones": {}
+      }
+    }
+  ]
+}

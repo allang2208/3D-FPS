@@ -1,95 +1,39 @@
-# 并行开发工作流（动画线 ↔ UI 迁移线）
+# UE5 开发与仓库发布规则
 
-## 当前引擎与验证范围（2026-09-10）
+## 1. 当前工程
 
-后续开发转向 UE5，工程位置及发布边界见 [unreal/README.md](unreal/README.md)。下列 Godot 职责表和第 4 节命令用于旧原型；UE5 改动使用对应编辑器/游戏目标编译及实际场景验证。仅文档、技能或已验证源码快照的整理，检查快照一致性、依赖说明、技能结构和暂存差异，不将旧 Godot 测试冒充 UE5 验收。
+根目录 `FPSGAME.uproject` 和 `Source/FPSGAME` 是当前源码真源。UE 5.8.2；完整本机宿主 `D:/FPS3D/FPSGAME`。新功能使用 UE5，旧 Godot 仅通过归档标签取回作为迁移参考。`unreal/` 保留历史证据，不是用于覆盖当前模块的第二份实现。
 
-第 8 节对两种引擎均适用。任务归属明确的废案移入 `trash/<task>/` 并记录来源、去向、大小和 SHA-256；有用源文件、许可证与最终证据保留。缓存、构建产物、trash 和未获再分发许可的资产不随源码快照上传。
+## 2. 修改与验证
 
-本仓库同时有两条开发线：
-- **动画线**：3D 敌人动画 / 弹道手感 / 模型调优
-- **UI 线**：把 2D 像素 UI 迁到 Godot（HUD / 菜单 / 背包等）
+先核对实际文件、运行加载和并行修改。维护角色、UI、库存、弹药和存档合同，按明确范围提交。原生源码用 Editor/Game 对应目标编译；改动玩法时运行相应 `Tools` 验收并检查真实游戏画面。编译成功不代表动画、素材恢复或打包验收。仅整理仓库和文档时，检查来源散列、结构、链接、脚本语法和 diff。
 
-两条线**可以并行**，靠“文件所有权 + 谁先改谁提交”避免冲突，**不建 git 分支**。
-两个会话共享同一个工作目录，互相能立刻看到改动——所以所有权就是防冲突的第一道墙。
+## 3. 枪械与动画
 
-## 1. 文件所有权
+读 [枪械技能](skills/ue5-weapon-workflow/SKILL.md) 和 [手臂技能](skills/ue5-fps-arms-animation/SKILL.md)。先查看原有动画，再记录姿态、接触和音效时序；保留用户选定枪型，使用独立候选验证后接入。完整可编辑源及已许可素材留在本机，发布文件清单明确缺失依赖。
 
-| 文件 / 目录 | 动画线 | UI 线 |
-|---|---|---|
-| `scripts/enemy.gd`、`enemy_models.gd` | ✅ | ❌ |
-| `scripts/projectile.gd`、`gun.gd` | ✅（不改信号签名） | 只读 |
-| `scripts/player.gd` | ✅（不动 take_damage/信号） | ✅（HUD 接线） |
-| `scripts/main.gd` | 仅场景搭建 / 敌人配置 | 仅 `_build_hud` 与 `_on_*` 处理 |
-| `assets/models/**` | ✅ | ❌ |
-| `assets/sfx/**`（枪械/战斗音效） | ✅（枪声/换弹等） | ✅（`ui/` 子目录） |
-| `assets/ui/**`、`ui/**`、`scenes/ui/**` | ❌ | ✅ |
-| `project.godot` | ❌ | ✅（主题/字体/输入映射） |
-| `tests/test_combat.gd`、`test_reload.gd` | ✅ | 只读 |
-| `README.md`、`WORKFLOW.md` | ✅（改完即提交） | ✅ |
+## 4. 目录及归档
 
-`main.gd` 是唯一共享文件：**动画线只碰场景搭建与敌人配置，UI 线只碰 HUD 相关函数**。
-动手前先看对方有没有未提交的改动。
+正式 C++ 放 `Source/`，工具放 `Tools/`，作者脚本/参数放 `SourceAssets/`，说明和结果放 `Docs/`。确认退役的文件移到 `trash/<task>/`，记录原路径、目标、大小、SHA-256、原因和保留替代物。移动前验证所有绝对路径属于本次授权范围，移动后读回校验。不要凭旧日期或候选名判断废案。
 
-## 2. 提交纪律（谁先改谁提交）
+## 5. 内容依赖
 
-1. 动手前：`git status --short`，确认工作区只有自己的改动（或干净）。
-2. 改完**立即提交**，不要跨任务攒改动。
-3. 提交前必须跑无头验证（见第 4 节），通过才提交。
-4. 发现对方未提交的改动 → 不要覆盖，先停下协调。
-5. 提交信息建议带前缀：`anim:` 或 `ui:`，方便回溯。
+按 [资源恢复](Docs/AssetSetup.md) 管理 Content。商用授权和原始资产再分发许可分开检查。默认不提交未核准二进制、引擎、插件、字体、缓存、日志和 `trash`；需要新增合法资产时，核准来源后精确更新忽略规则。完整本机工程的备份不等于公开 Git 源码发布。
 
-## 3. 稳定契约（UI 的数据源，禁止改签名）
+## 6. 技能与文档
 
-- `player.gd`：`signal damaged(hp)`、`signal died`、`var hp`、`take_damage(d)`
-- `gun.gd`：`signal shot(ammo, reserve)`、`signal hit`、`signal reloading`、
-  `signal reloaded(ammo, reserve)`、`signal empty`、`var ammo`、`var reserve`
-- `enemy.gd`：`take_damage(d)`；接触伤害由敌人自行结算
+维护相关 UE5 技能，个人技能和工程镜像同步；当前入口使用仓库相对链接。案例日期和历史验收不能写成当前重新测试结果。Godot 的旧命令和旧标准留在归档历史。
 
-UI 只消费这些信号/属性；动画线改内部实现时必须保持这些接口不变。
+## 7. 并行工作
 
-## 4. 无头验证（提交前必跑）
-
-```powershell
-$godot = 'E:\3d\Godot_v4.7.1-stable_win64.exe\Godot_v4.7.1-stable_win64.exe'
-& $godot --headless --path 'E:\3d\3-dfps' --import          # 新增脚本/资产后
-& $godot --headless --path 'E:\3d\3-dfps' --quit-after 180  # 语法与运行
-& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_combat.gd
-& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_reload.gd
-```
-
-## 5. 冲突处理
-
-- 同文件冲突时：后改的一方把改动暂存（`git stash`），先让对方提交，再 `git stash pop` 应用并手工合并。
-- 尽量把 `main.gd` 的改动拆成独立小提交，减少合并面。
-
-## 6. UI 线补充
-
-- UI 风格唯一真源：`DESIGN.md`（设计 DNA / Token / 一致性检查清单）。
-- UI 完整闭环：`UI-WORKFLOW.md`（读取当前冷钢标准 → 对照原组件与交互 → 复用公共Token/字体 → 实现状态与操作 → 同尺寸渲染验收 → 精确提交）。新面板必读 `skills/godot-cold-steel-ui/SKILL.md` 与 `docs/cold-steel-ui-standard.md`；已有用户确认目标无需重新出候选图。
-- UI 线动手前必读 `DESIGN.md` + 本文件；风格变更先改 `DESIGN.md` 再改代码。
-
-## 7. 资产建模纪律（换模型 / 重导出 / 拆件）
-
-重建模或换枪模时，**绝对不要让游戏处于“引用坏掉”的中间态**（否则编辑器/游戏直接打不开）。
-
-1. **新资产先独立生成**：一律用新文件名（如 `akm_voxel_v2.obj`），不要先覆盖正式文件名。
-2. **先验证再置入**：在独立环境验证通过后，更新正式引用 → `--import` → 对应资产验证与冒烟 → 提交。保留有效 `.import`；仅在确认单个资源导入缓存异常时定点处理。枪械还需 `test_ads_calibration`。
-3. **不要提前动 `.import` / `.tres` / 正式资产**：中途删改会导致引用缺失、项目无法打开，
-   用户还要测其他功能，禁止制造这种状态。
-4. Godot OBJ 导入会把网格归一化到原点（0..1.005），`gun.gd` 已按 AABB 中心反移居中；
-   换新网格后必须跑 `test_ads_calibration`（瞄具/枪口/ADS 自动校准是否仍正确）。
-5. 部件拆分（弹匣等）：源 GLB 用 `tools/ai-gen/strip_mag_glb.py`，体素用
-   `tools/ai-gen/voxelize_glb.py`（自动 split_magazine）；拆完验证弹匣区无残留
-   （源 GLB 弹匣区 `y<-0.05` 顶点数 = 0；体素枪体只剩弹匣井自然底面）。
-6. 详细体素管线见 `docs/voxel-pipeline.md`。
+不 stash/reset/clean 共享目录，不覆盖他人未提交修改或暂存区。`E:/3d/3-dfps` 仍是旧共享本机 checkout，其 master 不代表远端 main；不要为让它“干净”而强行切换。发布目录与可运行宿主分别记录，迁移快照保存取样时间与散列。
 
 ## 8. 仓库整理与推送
 
-1. 先核对当前仓库根目录、`git remote -v`、分支及上游。用户指定 URL 与 origin 不一致时，确认目标后再推送，不自行改远端或把两个项目历史合并。
-2. 清理仅限本次任务归属明确的废案、临时文件及已无引用的派生资源。先搜索代码、场景、工具的引用；有用原始源文件、许可证、可复现脚本和最终预览保留。历史记录注明已淘汰，不伪装为当前实现。
-3. 禁止全库 `git clean`、`reset --hard`、`git add -A`；不删他人文件、不处理无关未提交改动。删除使用明确路径，Godot 的配套 UID/import 随对应源文件同步整理，不例行清空 `.godot`。
-4. 只暂存本次明确文件。暂存区已有他人内容时不代为提交；检查 `git diff --cached --name-status`、完整差异、`--check`、新增大文件和许可证。提交消息说明当前结果及验证范围。
-5. 推送前 `git fetch origin`，核对 `origin/<目标分支>..HEAD` 的每个待推提交。包含无关未发布提交时不得整批推送；在独立发布工作区整理本次提交，保留用户工作区。常规并行开发仍遵守不新建分支约定，此项仅用于有必要的隔离发布。
-6. 运行第 4 节检查和本次相关场景测试；区分已有故障、当前失败与未验证范围。只用普通非强制推送并显式指定目标分支。非快进拒绝后重新 fetch、检查差异，不强推覆盖。
-7. 推送成功后用 `git ls-remote` 回读目标分支 SHA，确认与本次提交一致，报告提交、目标和未包含的改动。
+1. 核对仓库根、origin、远端默认分支和授权 URL。当前目标为 `https://github.com/allang2208/3D-FPS.git` 的 `main`。
+2. 推送前 fetch 并检查目标分支到 HEAD 的所有提交。共享脏目录或历史分叉时，在基于远端 main 的隔离工作区发布当前明确范围。
+3. 使用精确路径清单暂存。禁止全库 `git add -A`、`git add .`、`git clean`、`reset --hard`，不夹带其他未发布历史。
+4. 检查完整暂存差异、`git diff --cached --check`、大小、敏感信息、许可及与改动相关的验证。文档更新不用跑旧 Godot 测试。
+5. 仓库换引擎时先保留旧主线归档标签，再用普通新提交替换当前树，不使用 orphan 或强推抹去历史。
+6. 只普通非强制推送，显式指定 `HEAD:main`。拒绝后重新 fetch 审查差异，不覆盖新增提交。
+7. 成功后通过 `git ls-remote` 回读分支及归档标签，记录提交 SHA、发布目录、验证和剩余内容依赖。

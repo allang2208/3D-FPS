@@ -1,0 +1,19 @@
+{
+  "source_sha256": "59c58c908cc7baf8a5145bd4484a69762b9d792a3dcfc99987d980fc37588477",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+  "strike_speed_multiplier": 1.5,
+  "old_strike_frames": [
+    125,
+    130
+  ],
+  "new_strike_frames": [
+    126.66666666666667,
+    130
+  ],
+  "impact_seconds": 2.1666666666666665,
+  "duration": 2.7,
+  "additional_shake_peak_mm": 2.1927713943115053,
+  "additional_shake_peak_degrees": 0.634270896399542,
+  "additional_shake_duration": 0.17,
+  "sample_rate": 480
+}

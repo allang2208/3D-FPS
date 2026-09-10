@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "source": "E:/3d/3-dfps/ui/apple-glass-tokens.json",
+  "colors": {
+    "canvas": "#080B0E",
+    "canvas_deep": "#050709",
+    "glass_tint": "#171D23",
+    "content": "#10151A",
+    "text_primary": "#DCE2E6",
+    "text_secondary": "#B5C0C8",
+    "text_tertiary": "#9AA4AD",
+    "focus": "#B8D6DF",
+    "success": "#68D5AD",
+    "warning": "#F0BE71",
+    "danger": "#FF8193"
+  },
+  "layout": {
+    "backpack_width_ratio": 0.45,
+    "equipment_columns": 3,
+    "equipment_rows": 5,
+    "inventory_columns": 18,
+    "inventory_rows": 4,
+    "hotbar_slot": 48,
+    "hotbar_gap": 8,
+    "panel_padding": 24
+  },
+  "smart_modular_ui": {
+    "status": "awaiting_plugin_install_for_ue_5_8",
+    "menu_tags": [
+      "UI.Menu.Inventory",
+      "UI.Menu.Equipment",
+      "UI.Menu.Gunsmith",
+      "UI.Menu.Settings"
+    ]
+  }
+}

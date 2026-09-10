@@ -1,0 +1,2287 @@
+{
+  "captured_at": "2026-09-10T15:52:30.777977+08:00",
+  "host": "D:\\FPS3D\\FPSGAME",
+  "base_commit": "a56dd1dbf562fd66c09e00908b0256c4edb707f4",
+  "files": [
+    {
+      "path": "Source/FPSGAME/DrumGripAudit.cpp",
+      "host_bytes": 5860,
+      "host_sha256": "1e547f7ff55242b4b7b01229317421bb9a54c2d8e86d6e49e27a806bdbb962f9",
+      "repository_bytes": 5860,
+      "repository_sha256": "1e547f7ff55242b4b7b01229317421bb9a54c2d8e86d6e49e27a806bdbb962f9"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.Build.cs",
+      "host_bytes": 923,
+      "host_sha256": "41223255189294852b67f0e5332eadbfe11b57155f9806199fcf98392ac0ef74",
+      "repository_bytes": 923,
+      "repository_sha256": "41223255189294852b67f0e5332eadbfe11b57155f9806199fcf98392ac0ef74"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.cpp",
+      "host_bytes": 132,
+      "host_sha256": "ea13759ba932ec8f246ce52977a73f89aa180840310fab8f46275a6ea595a846",
+      "repository_bytes": 132,
+      "repository_sha256": "ea13759ba932ec8f246ce52977a73f89aa180840310fab8f46275a6ea595a846"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.h",
+      "host_bytes": 39,
+      "host_sha256": "021d1e841155967ae887365541994a3c2c18cb0fa19921d0346794d6bf323187",
+      "repository_bytes": 39,
+      "repository_sha256": "021d1e841155967ae887365541994a3c2c18cb0fa19921d0346794d6bf323187"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "host_bytes": 70681,
+      "host_sha256": "9fb910342e30c1363f38eae10e7fe1c59876f4c8dcf5f3349bcf68da4d139b2b",
+      "repository_bytes": 69485,
+      "repository_sha256": "bdae8796e9b46761ef71a51957f95762519d08ad64ccba02359f24d96bac7f42"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "host_bytes": 19389,
+      "host_sha256": "964f69063b4ca7f58df2939139ee73401ecb6a9f5bbfc570b2e5e6ab8e490055",
+      "repository_bytes": 19389,
+      "repository_sha256": "964f69063b4ca7f58df2939139ee73401ecb6a9f5bbfc570b2e5e6ab8e490055"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "host_bytes": 3303,
+      "host_sha256": "c631efa67fa9ee246011d73e63934a4761b3ea3265286e25d6385c7476f01648",
+      "repository_bytes": 3303,
+      "repository_sha256": "c631efa67fa9ee246011d73e63934a4761b3ea3265286e25d6385c7476f01648"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEEquipAudit.cpp",
+      "host_bytes": 8743,
+      "host_sha256": "5e71f0ca6830eb54c01bb0f752f355e6631f1b9e08d9c9dff9fa63a1c1de3f70",
+      "repository_bytes": 8743,
+      "repository_sha256": "5e71f0ca6830eb54c01bb0f752f355e6631f1b9e08d9c9dff9fa63a1c1de3f70"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEGameMode.cpp",
+      "host_bytes": 2867,
+      "host_sha256": "113ab0cf8f36c59f07a67e5bebf4830248c1b54fd936838b1a7417388fa065bb",
+      "repository_bytes": 2867,
+      "repository_sha256": "113ab0cf8f36c59f07a67e5bebf4830248c1b54fd936838b1a7417388fa065bb"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEGameMode.h",
+      "host_bytes": 436,
+      "host_sha256": "45b96b7cc74cf441dbabfa096c0d307c9e25ca0918c82ef05b99f06ad509c61b",
+      "repository_bytes": 436,
+      "repository_sha256": "45b96b7cc74cf441dbabfa096c0d307c9e25ca0918c82ef05b99f06ad509c61b"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEGunplayAudit.cpp",
+      "host_bytes": 38332,
+      "host_sha256": "7f4aba0ea75106e17d7fba0e616e925f2e43aeb1e643eb43c799a2b38bcc0479",
+      "repository_bytes": 37807,
+      "repository_sha256": "7bec7b3c0b87646a4529ccb199a88e55ef28df074b6e382f4ec17116a4f4c218"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "host_bytes": 11964,
+      "host_sha256": "08f543c308d22d53d75189a5c5a0d3bb5fef81defd8fa9d018e3429d5a18df34",
+      "repository_bytes": 11964,
+      "repository_sha256": "08f543c308d22d53d75189a5c5a0d3bb5fef81defd8fa9d018e3429d5a18df34"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "host_bytes": 1284,
+      "host_sha256": "24c1436fd147f8ec556b17001cd870a916f76d38f43d1f34ec2d434cb96336c0",
+      "repository_bytes": 1284,
+      "repository_sha256": "24c1436fd147f8ec556b17001cd870a916f76d38f43d1f34ec2d434cb96336c0"
+    },
+    {
+      "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+      "host_bytes": 22046,
+      "host_sha256": "94e73326ce831edb83e2012849537a74ecdea089c6d34f63f4fa0c68221446f4",
+      "repository_bytes": 22046,
+      "repository_sha256": "94e73326ce831edb83e2012849537a74ecdea089c6d34f63f4fa0c68221446f4"
+    },
+    {
+      "path": "Source/FPSGAME/FPSWeatherManager.h",
+      "host_bytes": 5412,
+      "host_sha256": "0966aac1246524d970cae3fa223bbe2ff3fd70f2804583ab76975d2a62dd67f8",
+      "repository_bytes": 5412,
+      "repository_sha256": "0966aac1246524d970cae3fa223bbe2ff3fd70f2804583ab76975d2a62dd67f8"
+    },
+    {
+      "path": "Source/FPSGAME/InfiniteAmmoAudit.cpp",
+      "host_bytes": 2283,
+      "host_sha256": "4079e19af61bf61c36d15134d4ebb3085c8c91604821c8cd53ba8c1248f6ae34",
+      "repository_bytes": 2283,
+      "repository_sha256": "4079e19af61bf61c36d15134d4ebb3085c8c91604821c8cd53ba8c1248f6ae34"
+    },
+    {
+      "path": "Source/FPSGAME/LightingConflictValidation.cpp",
+      "host_bytes": 4021,
+      "host_sha256": "edc613908cc56e875157ae245af8f3e1411f1a9eb97538d1dd985b29a9c913be",
+      "repository_bytes": 4021,
+      "repository_sha256": "edc613908cc56e875157ae245af8f3e1411f1a9eb97538d1dd985b29a9c913be"
+    },
+    {
+      "path": "Source/FPSGAME/LightingConflictValidation.h",
+      "host_bytes": 106,
+      "host_sha256": "368bd8eba618f20613463301132dd49845e6e711cccfd1dbd23d2976ab463f5d",
+      "repository_bytes": 106,
+      "repository_sha256": "368bd8eba618f20613463301132dd49845e6e711cccfd1dbd23d2976ab463f5d"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "host_bytes": 2592,
+      "host_sha256": "fbf2a4539db74554d8d6426f33b64bc73aed4a5c27c2e532a8e98149743dc0cc",
+      "repository_bytes": 2592,
+      "repository_sha256": "fbf2a4539db74554d8d6426f33b64bc73aed4a5c27c2e532a8e98149743dc0cc"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+      "host_bytes": 876,
+      "host_sha256": "d07253d6ec3fee312dc59b87517e67d17779497842286e646e5b2b30e782cc1a",
+      "repository_bytes": 876,
+      "repository_sha256": "d07253d6ec3fee312dc59b87517e67d17779497842286e646e5b2b30e782cc1a"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "host_bytes": 10571,
+      "host_sha256": "0a34c40ba789f7c21b84299dfd8f18344b04c1af2ce3acffa5b0f200c523c871",
+      "repository_bytes": 10571,
+      "repository_sha256": "0a34c40ba789f7c21b84299dfd8f18344b04c1af2ce3acffa5b0f200c523c871"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.h",
+      "host_bytes": 3453,
+      "host_sha256": "e6fc5e699b144570063d94593bccfae2d812b00801957cbf6066fd9b2a0ee700",
+      "repository_bytes": 3453,
+      "repository_sha256": "e6fc5e699b144570063d94593bccfae2d812b00801957cbf6066fd9b2a0ee700"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombieAudit.cpp",
+      "host_bytes": 8721,
+      "host_sha256": "99e699503f151909fd19c599e260902a550e399f6ce43f43efa089a355b15dc0",
+      "repository_bytes": 8721,
+      "repository_sha256": "99e699503f151909fd19c599e260902a550e399f6ce43f43efa089a355b15dc0"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombieAudit.h",
+      "host_bytes": 734,
+      "host_sha256": "b9a738ff44f9451083d9bdf52976e2325a67a6553347ca9b879e4c57986ea251",
+      "repository_bytes": 734,
+      "repository_sha256": "b9a738ff44f9451083d9bdf52976e2325a67a6553347ca9b879e4c57986ea251"
+    },
+    {
+      "path": "Source/FPSGAME/MuzzleMigrationAudit.cpp",
+      "host_bytes": 10137,
+      "host_sha256": "32c7bbba233c92d08a39e1ad304c0f67aa090bf662b2e85a4961c89364247a28",
+      "repository_bytes": 10137,
+      "repository_sha256": "32c7bbba233c92d08a39e1ad304c0f67aa090bf662b2e85a4961c89364247a28"
+    },
+    {
+      "path": "Source/FPSGAME/RainAssetEditor.cpp",
+      "host_bytes": 2374,
+      "host_sha256": "27d29d6facdf72d798bbe1527545e2bed7f388008af692d2e082aea9c322edf8",
+      "repository_bytes": 2374,
+      "repository_sha256": "27d29d6facdf72d798bbe1527545e2bed7f388008af692d2e082aea9c322edf8"
+    },
+    {
+      "path": "Source/FPSGAME/RainAssetEditor.h",
+      "host_bytes": 808,
+      "host_sha256": "863eea7c30c6943d8a57320d680d57a1bce3d8f00bb2f4625fb24dfa6ae1188d",
+      "repository_bytes": 808,
+      "repository_sha256": "863eea7c30c6943d8a57320d680d57a1bce3d8f00bb2f4625fb24dfa6ae1188d"
+    },
+    {
+      "path": "Source/FPSGAME/RainUpgradeValidation.cpp",
+      "host_bytes": 12873,
+      "host_sha256": "ea3c0e6e969fc2177be041b444fca6724b5ccec2944c3fcf86ad2961e2058394",
+      "repository_bytes": 12873,
+      "repository_sha256": "ea3c0e6e969fc2177be041b444fca6724b5ccec2944c3fcf86ad2961e2058394"
+    },
+    {
+      "path": "Source/FPSGAME/RainUpgradeValidation.h",
+      "host_bytes": 101,
+      "host_sha256": "cd2ac67a86da508216c1e6c74583de91ff5a88493a18f1d004de7297af26bca1",
+      "repository_bytes": 101,
+      "repository_sha256": "cd2ac67a86da508216c1e6c74583de91ff5a88493a18f1d004de7297af26bca1"
+    },
+    {
+      "path": "Source/FPSGAME/SceneSpawnValidation.cpp",
+      "host_bytes": 9493,
+      "host_sha256": "ab7df99c15f7f7c349d6bd00b1fa899b3beedec7af2e464cdee758b8440ee299",
+      "repository_bytes": 9493,
+      "repository_sha256": "ab7df99c15f7f7c349d6bd00b1fa899b3beedec7af2e464cdee758b8440ee299"
+    },
+    {
+      "path": "Source/FPSGAME/SceneSpawnValidation.h",
+      "host_bytes": 1252,
+      "host_sha256": "13d67da2f5638a92a287318c9449a3dd075054059818ce0c91b68e9dae472d9d",
+      "repository_bytes": 1252,
+      "repository_sha256": "13d67da2f5638a92a287318c9449a3dd075054059818ce0c91b68e9dae472d9d"
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.cpp",
+      "host_bytes": 5804,
+      "host_sha256": "874e7669c2e1cf9eb0af296a317449eff9729bdd7300f98dd74eb91ae9d7b0bd",
+      "repository_bytes": 5804,
+      "repository_sha256": "874e7669c2e1cf9eb0af296a317449eff9729bdd7300f98dd74eb91ae9d7b0bd"
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.h",
+      "host_bytes": 946,
+      "host_sha256": "67072f48e62215df481a32371333ddd109fb4d8b6c215b0c601cabab4f356666",
+      "repository_bytes": 946,
+      "repository_sha256": "67072f48e62215df481a32371333ddd109fb4d8b6c215b0c601cabab4f356666"
+    },
+    {
+      "path": "Source/FPSGAME/StormCloudComponent.cpp",
+      "host_bytes": 7759,
+      "host_sha256": "4c07a5071a9301fbbcb89182ae3d4ef4e3c943318862b66de97ebdb325183874",
+      "repository_bytes": 7759,
+      "repository_sha256": "4c07a5071a9301fbbcb89182ae3d4ef4e3c943318862b66de97ebdb325183874"
+    },
+    {
+      "path": "Source/FPSGAME/StormCloudComponent.h",
+      "host_bytes": 2055,
+      "host_sha256": "88ba73e5031f08f5702113c34745f69f522cc7b0e4264e6c78f6e8ddd9ef3eba",
+      "repository_bytes": 2055,
+      "repository_sha256": "88ba73e5031f08f5702113c34745f69f522cc7b0e4264e6c78f6e8ddd9ef3eba"
+    },
+    {
+      "path": "Source/FPSGAME/StormCloudValidation.cpp",
+      "host_bytes": 9453,
+      "host_sha256": "22f8806153b41bb25e4bcadeb408b6c33870ee856e07910a578f3d1ba3641905",
+      "repository_bytes": 9453,
+      "repository_sha256": "22f8806153b41bb25e4bcadeb408b6c33870ee856e07910a578f3d1ba3641905"
+    },
+    {
+      "path": "Source/FPSGAME/StormCloudValidation.h",
+      "host_bytes": 100,
+      "host_sha256": "977391f9ad53b99e12a1cdda584e0c395fe9614dec26012a0f3e562b98f6428e",
+      "repository_bytes": 100,
+      "repository_sha256": "977391f9ad53b99e12a1cdda584e0c395fe9614dec26012a0f3e562b98f6428e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "host_bytes": 5655,
+      "host_sha256": "58db72a358072071bc6ecd0cd0281a994b9f3e1f41473608e1c0eb412625e5fd",
+      "repository_bytes": 5655,
+      "repository_sha256": "58db72a358072071bc6ecd0cd0281a994b9f3e1f41473608e1c0eb412625e5fd"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.h",
+      "host_bytes": 1107,
+      "host_sha256": "5cc11844002e183e46e4fcba533d490a8a11060e07c5a06087c940eae0a9968d",
+      "repository_bytes": 1107,
+      "repository_sha256": "5cc11844002e183e46e4fcba533d490a8a11060e07c5a06087c940eae0a9968d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadoutPreview.cpp",
+      "host_bytes": 2429,
+      "host_sha256": "3355eb37fd1fb574d49dcc42525cb1c75890bcfd6bb232220ff758c99dbd2a79",
+      "repository_bytes": 2429,
+      "repository_sha256": "3355eb37fd1fb574d49dcc42525cb1c75890bcfd6bb232220ff758c99dbd2a79"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+      "host_bytes": 23435,
+      "host_sha256": "45b934712a729112663d4f06869b2814b8c82a9d6e40d76013c49977dccda639",
+      "repository_bytes": 23139,
+      "repository_sha256": "c9eae0593fdfe58c5334db58cd25dab7ef09318bcb41a30a8956d8af5c9bda96"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDetailRow.cpp",
+      "host_bytes": 5858,
+      "host_sha256": "7643f272d46fe2e35b97c5fd9324958195f7da412250f570bb925101bd45fa29",
+      "repository_bytes": 5858,
+      "repository_sha256": "7643f272d46fe2e35b97c5fd9324958195f7da412250f570bb925101bd45fa29"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDetailRow.h",
+      "host_bytes": 1414,
+      "host_sha256": "f96b2001390edf0b86a02933e4c77335eeb18ed81de650a62a7c192b8582f08e",
+      "repository_bytes": 1414,
+      "repository_sha256": "f96b2001390edf0b86a02933e4c77335eeb18ed81de650a62a7c192b8582f08e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "host_bytes": 85513,
+      "host_sha256": "2fffaa92cd70133a25a052b41733224a1614cb47919f9f068ce10d712005a2a9",
+      "repository_bytes": 85513,
+      "repository_sha256": "2fffaa92cd70133a25a052b41733224a1614cb47919f9f068ce10d712005a2a9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "host_bytes": 13529,
+      "host_sha256": "f9a144c440c11fbb5d208ff1251d9bba6fc060b4367b818cc51bbd598b1d02f9",
+      "repository_bytes": 13235,
+      "repository_sha256": "fd5ac14f5ba585d1e8395430ff4030a96fe3e8d5e2fee5daed718cd2a83549bc"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryAudit.cpp",
+      "host_bytes": 16659,
+      "host_sha256": "c413424f46c109fc26a408f8369ef08ad550aeefa30afcbd8610a928cb55551a",
+      "repository_bytes": 16521,
+      "repository_sha256": "58493db87cc6546d0db17a72b75479b10a2ff81a710752dca75b5696b97ae4bc"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryDragAudit.cpp",
+      "host_bytes": 15798,
+      "host_sha256": "6042cf8bf02f7a00e615ac3133bc7c7e7033b36e8eace1ceaf08e4271690b091",
+      "repository_bytes": 15653,
+      "repository_sha256": "def8fd0716af01d69a379ab56235812d21af2966f3221509455bfffe1e20133d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+      "host_bytes": 7881,
+      "host_sha256": "618262013ce2664e9743e1ca4d2ce9792e31614213dcbf880600c635ce4041b1",
+      "repository_bytes": 7821,
+      "repository_sha256": "b2e50edb7634f5533513925e2676c0d4424ba1259a821cbd8a1c490a49f4b4e7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPopup.h",
+      "host_bytes": 1718,
+      "host_sha256": "78520a8ea6361686ba3ca9bd0f205f2099251d4945e1157331fb5bff4d0df1ce",
+      "repository_bytes": 1680,
+      "repository_sha256": "287f6c0455e9a4a8254fd19917899df73dee7b489a7d810fd1702cea0d80a9f5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "host_bytes": 11404,
+      "host_sha256": "c07238e0b145e34aef23eef83fc0a64f24b0fb38b8b60b6d5bdd2ae23bb144d0",
+      "repository_bytes": 11253,
+      "repository_sha256": "9edfe841623049bd2ad97329d6ef821f475ba27f705595d7e234d65f754d65e5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "host_bytes": 3086,
+      "host_sha256": "1d193abdcbe157ab0388e6bc9939dc9ba5d438c141e4b4f8504f7c926906f0e3",
+      "repository_bytes": 3086,
+      "repository_sha256": "1d193abdcbe157ab0388e6bc9939dc9ba5d438c141e4b4f8504f7c926906f0e3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "host_bytes": 21791,
+      "host_sha256": "909451f0f2c037dc68f34016536dac94580d8e1c451c714f4621a70382db0003",
+      "repository_bytes": 21551,
+      "repository_sha256": "779a5d0f9678e37aa3397600fef39d08f090329049f27babd130a6843c00339d",
+      "publication_adjustment": "Remove spaces from one blank line; no gameplay change"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+      "host_bytes": 3729,
+      "host_sha256": "8bd7c8200250cb5d14c8b3e7c75f9ab72c8f73ad715803f38f926d75e6b06066",
+      "repository_bytes": 3654,
+      "repository_sha256": "40454c4ee4867bf592da16cc028f28c5f58aa3f06dad40470899f503a4d9a1f7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltip.cpp",
+      "host_bytes": 12351,
+      "host_sha256": "a8d922c63d061bd5ae12a99a745632f1afd1db3524448c8db4c5bf95ec2e71f6",
+      "repository_bytes": 12351,
+      "repository_sha256": "a8d922c63d061bd5ae12a99a745632f1afd1db3524448c8db4c5bf95ec2e71f6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltip.h",
+      "host_bytes": 2278,
+      "host_sha256": "6c1c8f5f8f84227794c1e2410938cd8dcbabe609b936ecb63a09d4231dcd01f2",
+      "repository_bytes": 2278,
+      "repository_sha256": "6c1c8f5f8f84227794c1e2410938cd8dcbabe609b936ecb63a09d4231dcd01f2"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipAudit.cpp",
+      "host_bytes": 8569,
+      "host_sha256": "3d68913300f31156ce685dc9155c2ee74f7134311ac64ef74a20b79fa93a872c",
+      "repository_bytes": 8495,
+      "repository_sha256": "fe513e6189032078261e7ca59f5038c732c93f959f49b778e4858a9833730092"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "host_bytes": 15485,
+      "host_sha256": "6fcf6532641603cca3f9cf03b179907200d9a9fe6f4f3152a6c4563a274d5a07",
+      "repository_bytes": 15485,
+      "repository_sha256": "6fcf6532641603cca3f9cf03b179907200d9a9fe6f4f3152a6c4563a274d5a07"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.h",
+      "host_bytes": 706,
+      "host_sha256": "96a06d8c966eb723852d61d8371bf971d43426160eb625527f70c2b82f1779b6",
+      "repository_bytes": 706,
+      "repository_sha256": "96a06d8c966eb723852d61d8371bf971d43426160eb625527f70c2b82f1779b6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp",
+      "host_bytes": 998,
+      "host_sha256": "e9cf6c9f18064337083fd3371ecb90a5ed4960cd1232ce3009033aabae20d22d",
+      "repository_bytes": 998,
+      "repository_sha256": "e9cf6c9f18064337083fd3371ecb90a5ed4960cd1232ce3009033aabae20d22d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.cpp",
+      "host_bytes": 1061,
+      "host_sha256": "0bcd00a3c447631b49ce4e8863ad6292279f27efb7a917d0c562a4fb4f6b7478",
+      "repository_bytes": 1061,
+      "repository_sha256": "0bcd00a3c447631b49ce4e8863ad6292279f27efb7a917d0c562a4fb4f6b7478"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickup.h",
+      "host_bytes": 470,
+      "host_sha256": "6ca544873b6330637e7b84acfa50c04b2c54013343071d385e582b202bc8388c",
+      "repository_bytes": 470,
+      "repository_sha256": "6ca544873b6330637e7b84acfa50c04b2c54013343071d385e582b202bc8388c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "host_bytes": 18990,
+      "host_sha256": "701298e197837fbc1608bbd49ed8e8ed71f54f7aef4a6ade6cf601190264c616",
+      "repository_bytes": 18762,
+      "repository_sha256": "d3199d9b6c124cf2d52ad987664baf3d3bf04fab135ce9bf5c118d9325021aee"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelResourceMeter.cpp",
+      "host_bytes": 2756,
+      "host_sha256": "5bbcebcf2c6695879483d8e5ad120ac4503971281cfb6305754c66f8bac7cc58",
+      "repository_bytes": 2756,
+      "repository_sha256": "5bbcebcf2c6695879483d8e5ad120ac4503971281cfb6305754c66f8bac7cc58"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelResourceMeter.h",
+      "host_bytes": 637,
+      "host_sha256": "7f0e5341fd0d7d68c295347fe9bc2102895815416496c2810e932d637dc4a2a9",
+      "repository_bytes": 637,
+      "repository_sha256": "7f0e5341fd0d7d68c295347fe9bc2102895815416496c2810e932d637dc4a2a9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelRetiredWeaponsAudit.cpp",
+      "host_bytes": 4055,
+      "host_sha256": "5f89fc0e734bccdf5e887944856af35cc21a29a9ed311cd8f5597236b3de53be",
+      "repository_bytes": 4055,
+      "repository_sha256": "5f89fc0e734bccdf5e887944856af35cc21a29a9ed311cd8f5597236b3de53be"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "host_bytes": 1482,
+      "host_sha256": "106555924500e6c3648378eb4e9143ec92fd9d9e095665aa64e4d6198711c3f8",
+      "repository_bytes": 1482,
+      "repository_sha256": "106555924500e6c3648378eb4e9143ec92fd9d9e095665aa64e4d6198711c3f8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "host_bytes": 4955,
+      "host_sha256": "f4c006d5aa18230f686b89ae2405152511b19b36bb92b82446e41ba3bb12d707",
+      "repository_bytes": 4955,
+      "repository_sha256": "f4c006d5aa18230f686b89ae2405152511b19b36bb92b82446e41ba3bb12d707"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTopVitals.cpp",
+      "host_bytes": 4545,
+      "host_sha256": "dc1679d9312e2ef39cbd2d175c13cdd6e084ac07c17e4133b987b153c172462e",
+      "repository_bytes": 4545,
+      "repository_sha256": "dc1679d9312e2ef39cbd2d175c13cdd6e084ac07c17e4133b987b153c172462e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTopVitalsAudit.cpp",
+      "host_bytes": 4662,
+      "host_sha256": "8f343fdb3bd1f524f369c3da91b2fafa58fa6cffc3617cffacaf7b16f592b851",
+      "repository_bytes": 4662,
+      "repository_sha256": "8f343fdb3bd1f524f369c3da91b2fafa58fa6cffc3617cffacaf7b16f592b851"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.cpp",
+      "host_bytes": 3089,
+      "host_sha256": "43bd552b0a6f1ba2abdd559f723c5eb87c50c876c611d1fc0f762c4450376364",
+      "repository_bytes": 3089,
+      "repository_sha256": "43bd552b0a6f1ba2abdd559f723c5eb87c50c876c611d1fc0f762c4450376364"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "host_bytes": 2932,
+      "host_sha256": "d9283cf78cc5367dff1177913b8b18abe843cda4e80c0008ec2c9b49688128d5",
+      "repository_bytes": 2932,
+      "repository_sha256": "d9283cf78cc5367dff1177913b8b18abe843cda4e80c0008ec2c9b49688128d5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUpgradeAudit.cpp",
+      "host_bytes": 196,
+      "host_sha256": "096181efc3931b6b93aa45e005b93a376b33cbff9261cd4dd796e64172f91dc2",
+      "repository_bytes": 196,
+      "repository_sha256": "096181efc3931b6b93aa45e005b93a376b33cbff9261cd4dd796e64172f91dc2"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseAudit.cpp",
+      "host_bytes": 17444,
+      "host_sha256": "293ddc12e52db1b3e06450a0754309610e36e8e84c02210f54c7dddf7f90e939",
+      "repository_bytes": 17306,
+      "repository_sha256": "2fc077d5cc9e60b7c7a8a59b4d102799b5ebda3e204761e07d46d94baef07a98"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseChest.cpp",
+      "host_bytes": 4513,
+      "host_sha256": "802a5e053df9fb04d8b3f40f76d8bf8c90f2492d00ee5bd4bf9c4a8be525a81a",
+      "repository_bytes": 4513,
+      "repository_sha256": "802a5e053df9fb04d8b3f40f76d8bf8c90f2492d00ee5bd4bf9c4a8be525a81a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseChest.h",
+      "host_bytes": 1451,
+      "host_sha256": "2f26d0eabc97e850bef7df84b4e460df4596b326f3e6d13ae35ed809b40f591d",
+      "repository_bytes": 1451,
+      "repository_sha256": "2f26d0eabc97e850bef7df84b4e460df4596b326f3e6d13ae35ed809b40f591d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "host_bytes": 5462,
+      "host_sha256": "ce4551d8d7a8a1722513d2e2350312552a13f667d00359f576b6a2b24daab6b4",
+      "repository_bytes": 5462,
+      "repository_sha256": "ce4551d8d7a8a1722513d2e2350312552a13f667d00359f576b6a2b24daab6b4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "host_bytes": 5979,
+      "host_sha256": "b8528c229275d4e864c9124518c80c0d58c7f06961bdc0351dbe0be07acf0f4b",
+      "repository_bytes": 5979,
+      "repository_sha256": "b8528c229275d4e864c9124518c80c0d58c7f06961bdc0351dbe0be07acf0f4b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseRules.cpp",
+      "host_bytes": 4343,
+      "host_sha256": "9db1fcd91bd6e18ea7670635d76de07908fce9821f2933526d6546c8a275a57c",
+      "repository_bytes": 4343,
+      "repository_sha256": "9db1fcd91bd6e18ea7670635d76de07908fce9821f2933526d6546c8a275a57c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseRules.h",
+      "host_bytes": 445,
+      "host_sha256": "8b902d14172088b773a5caed2e5f011b86935c888527526867c02f7400160613",
+      "repository_bytes": 445,
+      "repository_sha256": "8b902d14172088b773a5caed2e5f011b86935c888527526867c02f7400160613"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseWidget.cpp",
+      "host_bytes": 19486,
+      "host_sha256": "d19161d7c4ed4b4fb793d6073d75eb2a391f6305e4c057930599f3ea6aa6c139",
+      "repository_bytes": 19322,
+      "repository_sha256": "93cddd55df56a8c28f83138e39eddfcbc3da98b613068971a64cfe71270fca11"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseWidget.h",
+      "host_bytes": 3955,
+      "host_sha256": "6b4e155b2c85e1249b0edd5541835bffdd3efc1a70f27aa4714964e7bb32ae07",
+      "repository_bytes": 3955,
+      "repository_sha256": "6b4e155b2c85e1249b0edd5541835bffdd3efc1a70f27aa4714964e7bb32ae07"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GunsmithLayoutAudit.cpp",
+      "host_bytes": 6744,
+      "host_sha256": "40236347519da2737f39e100fbc8d002e58e73fdb9721cba036076eb24f3c120",
+      "repository_bytes": 6744,
+      "repository_sha256": "40236347519da2737f39e100fbc8d002e58e73fdb9721cba036076eb24f3c120"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GunsmithWorkbenchAudit.cpp",
+      "host_bytes": 9800,
+      "host_sha256": "836b8f0fc4f17393d8413e35714a513bf8528eedc96f92854a71d1819971c776",
+      "repository_bytes": 9800,
+      "repository_sha256": "836b8f0fc4f17393d8413e35714a513bf8528eedc96f92854a71d1819971c776"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4DrumAudit.cpp",
+      "host_bytes": 10069,
+      "host_sha256": "99a9fa592749f5776ce3a0cbe09a556fc991dc2a381f512a30c73c3c7f5633d9",
+      "repository_bytes": 10069,
+      "repository_sha256": "99a9fa592749f5776ce3a0cbe09a556fc991dc2a381f512a30c73c3c7f5633d9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithAudit.cpp",
+      "host_bytes": 9331,
+      "host_sha256": "38fe253df1e0955aaf69e5bd4746a2ca6302abc81ec06e9d078e6654e39219de",
+      "repository_bytes": 9331,
+      "repository_sha256": "38fe253df1e0955aaf69e5bd4746a2ca6302abc81ec06e9d078e6654e39219de"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithController.cpp",
+      "host_bytes": 1898,
+      "host_sha256": "3118bb22611bfafee2d133526cbb26e6e4e1ff66e4d33e19196d29ecd5a22305",
+      "repository_bytes": 1898,
+      "repository_sha256": "3118bb22611bfafee2d133526cbb26e6e4e1ff66e4d33e19196d29ecd5a22305"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "host_bytes": 12793,
+      "host_sha256": "c60db4d1485303d8256be3e6290c095b775a2a5152bd94df5955f0bdb7e8c3ff",
+      "repository_bytes": 12793,
+      "repository_sha256": "c60db4d1485303d8256be3e6290c095b775a2a5152bd94df5955f0bdb7e8c3ff"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "host_bytes": 7047,
+      "host_sha256": "967079581d1e765f67a9482cf38451fad8ffda9d35e7494f02deaa50537250ef",
+      "repository_bytes": 7047,
+      "repository_sha256": "967079581d1e765f67a9482cf38451fad8ffda9d35e7494f02deaa50537250ef"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreview.cpp",
+      "host_bytes": 8584,
+      "host_sha256": "26e2b003604588c83273ddbf0e9f338b5278b1be824dfb24b657ae9706b787a5",
+      "repository_bytes": 8584,
+      "repository_sha256": "26e2b003604588c83273ddbf0e9f338b5278b1be824dfb24b657ae9706b787a5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.cpp",
+      "host_bytes": 3767,
+      "host_sha256": "cb2ad460df75fd00b9a8fe4ce67e324197b9921e33fab8559b22a4d4e6a056e0",
+      "repository_bytes": 3766,
+      "repository_sha256": "0fc8e2a28f3132126a32fd47467a3a5b96669132286690bd8437c724aff3e651"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+      "host_bytes": 2919,
+      "host_sha256": "145e29b7293917afed79861e968f52f101b3bcdaafbebfc48b9ec267d2090d99",
+      "repository_bytes": 2919,
+      "repository_sha256": "145e29b7293917afed79861e968f52f101b3bcdaafbebfc48b9ec267d2090d99"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SM4PreviewSurface.h",
+      "host_bytes": 2339,
+      "host_sha256": "a938cee7f8c8e3271513ea132d9f0c80def2a7e911f079324c8f609463b44eb0",
+      "repository_bytes": 2339,
+      "repository_sha256": "a938cee7f8c8e3271513ea132d9f0c80def2a7e911f079324c8f609463b44eb0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/WeatherControlWidget.cpp",
+      "host_bytes": 10018,
+      "host_sha256": "7f90e37a8b048241ce7b56a1942649e0f865fc96f22adba73ec1d8ebb71b0522",
+      "repository_bytes": 10018,
+      "repository_sha256": "7f90e37a8b048241ce7b56a1942649e0f865fc96f22adba73ec1d8ebb71b0522"
+    },
+    {
+      "path": "Source/FPSGAME/UI/WeatherControlWidget.h",
+      "host_bytes": 1489,
+      "host_sha256": "272eef37fb1086ba71dce3bffc92cbcf4854399dc5871f1d468bb7dab2a8ceac",
+      "repository_bytes": 1489,
+      "repository_sha256": "272eef37fb1086ba71dce3bffc92cbcf4854399dc5871f1d468bb7dab2a8ceac"
+    },
+    {
+      "path": "Source/FPSGAME/UI/WeatherPanelValidation.cpp",
+      "host_bytes": 9107,
+      "host_sha256": "7817eeecf6cd919f4f7a8c281bc08ec194ec72719b6ebaba1b51c1041a74a7ac",
+      "repository_bytes": 9107,
+      "repository_sha256": "7817eeecf6cd919f4f7a8c281bc08ec194ec72719b6ebaba1b51c1041a74a7ac"
+    },
+    {
+      "path": "Source/FPSGAME/UI/WeatherPanelValidation.h",
+      "host_bytes": 176,
+      "host_sha256": "a7afbc6ff0a91aa637c8d436722e74b8a5a1b32e4d9f7f82714b47bcc1796463",
+      "repository_bytes": 176,
+      "repository_sha256": "a7afbc6ff0a91aa637c8d436722e74b8a5a1b32e4d9f7f82714b47bcc1796463"
+    },
+    {
+      "path": "Source/FPSGAME/WeaponHandlingAudit.cpp",
+      "host_bytes": 10915,
+      "host_sha256": "bca101338d38a5a1d67d7ce85357974916cc44d6fbc48487bf6064070f64ebf4",
+      "repository_bytes": 10915,
+      "repository_sha256": "bca101338d38a5a1d67d7ce85357974916cc44d6fbc48487bf6064070f64ebf4"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp",
+      "host_bytes": 2145,
+      "host_sha256": "37be78cdc2f31bf2c52b8789ecd68042925f92ac35578a262d7dec5917a83e9b",
+      "repository_bytes": 2145,
+      "repository_sha256": "37be78cdc2f31bf2c52b8789ecd68042925f92ac35578a262d7dec5917a83e9b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.h",
+      "host_bytes": 1013,
+      "host_sha256": "c264a64aca4e7e95e31d411dac380df9ccc4cc44eff37582cd9bf19e7a3a66c0",
+      "repository_bytes": 1013,
+      "repository_sha256": "c264a64aca4e7e95e31d411dac380df9ccc4cc44eff37582cd9bf19e7a3a66c0"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.cpp",
+      "host_bytes": 2239,
+      "host_sha256": "f5a809126eccbe0e81e27e5cefc5bd9b51029df2564586304a0b3f25a3ffcd47",
+      "repository_bytes": 2239,
+      "repository_sha256": "f5a809126eccbe0e81e27e5cefc5bd9b51029df2564586304a0b3f25a3ffcd47"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.h",
+      "host_bytes": 806,
+      "host_sha256": "a22081aca67b2dc48d19ff9a8ffe29279e63aa0cd7b5cbcab1a0febe6bb61fb3",
+      "repository_bytes": 806,
+      "repository_sha256": "a22081aca67b2dc48d19ff9a8ffe29279e63aa0cd7b5cbcab1a0febe6bb61fb3"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "host_bytes": 20927,
+      "host_sha256": "d0219741a5b12bc5eed0aa7b9681d7cfafc0ce3319601c06aaa7c611af16c2bb",
+      "repository_bytes": 20927,
+      "repository_sha256": "d0219741a5b12bc5eed0aa7b9681d7cfafc0ce3319601c06aaa7c611af16c2bb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.h",
+      "host_bytes": 4288,
+      "host_sha256": "5164b8e5544d060c2f338fe1227101df1e1b7e1a63d6dc55d8aaa02f2379947f",
+      "repository_bytes": 4288,
+      "repository_sha256": "5164b8e5544d060c2f338fe1227101df1e1b7e1a63d6dc55d8aaa02f2379947f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "host_bytes": 8599,
+      "host_sha256": "a6025ecd69b001699500c2176708f454dfcd0c909ee3139518aacac3d797b56f",
+      "repository_bytes": 8599,
+      "repository_sha256": "a6025ecd69b001699500c2176708f454dfcd0c909ee3139518aacac3d797b56f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "host_bytes": 2674,
+      "host_sha256": "417160a5b14959525ce7d2becccf6ccdb58871d6177852c9abd181f6c2e868f3",
+      "repository_bytes": 2674,
+      "repository_sha256": "417160a5b14959525ce7d2becccf6ccdb58871d6177852c9abd181f6c2e868f3"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+      "host_bytes": 7122,
+      "host_sha256": "62b8d7695f612b17265f5291e2f5266248bc5d05f2ad0cc6d0596a39e98d232f",
+      "repository_bytes": 7122,
+      "repository_sha256": "62b8d7695f612b17265f5291e2f5266248bc5d05f2ad0cc6d0596a39e98d232f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4FoldingSights.cpp",
+      "host_bytes": 3300,
+      "host_sha256": "18264f0ceb72473b9d962fbcaa882b258689880af4a57d8c418ef778c70467bf",
+      "repository_bytes": 3300,
+      "repository_sha256": "18264f0ceb72473b9d962fbcaa882b258689880af4a57d8c418ef778c70467bf"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "host_bytes": 4272,
+      "host_sha256": "2e9cf6d9b97a7ad9a1701f6a37c36f78462b31b54167a238d364a65579155a93",
+      "repository_bytes": 4272,
+      "repository_sha256": "2e9cf6d9b97a7ad9a1701f6a37c36f78462b31b54167a238d364a65579155a93"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "host_bytes": 3981,
+      "host_sha256": "30da888be19d3c365efb3e7b947cb7f8e740a58dd55e3508795a8e1ab59aebcc",
+      "repository_bytes": 3981,
+      "repository_sha256": "30da888be19d3c365efb3e7b947cb7f8e740a58dd55e3508795a8e1ab59aebcc",
+      "refreshed_at": "2026-09-10T15:58:02.340420+08:00",
+      "publication_adjustment": "Re-read existing host fix: Mesh local renamed MuzzleMesh to resolve C4458"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponHandling.cpp",
+      "host_bytes": 1638,
+      "host_sha256": "59a2e2352167e93421c702614582bf5eb0be4547084c5d00b9f570309c7420ff",
+      "repository_bytes": 1638,
+      "repository_sha256": "59a2e2352167e93421c702614582bf5eb0be4547084c5d00b9f570309c7420ff"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponHandling.h",
+      "host_bytes": 1039,
+      "host_sha256": "2f51ade45e94b0e6b863f2a2f3f3b753642d833d996f5f924027097b0b71943c",
+      "repository_bytes": 1039,
+      "repository_sha256": "2f51ade45e94b0e6b863f2a2f3f3b753642d833d996f5f924027097b0b71943c"
+    },
+    {
+      "path": "Source/FPSGAME/WeatherSurfaceComponent.cpp",
+      "host_bytes": 8580,
+      "host_sha256": "7c670c67a61583b5c5cea2299a82db2edc273221bf8274575c77db8b6916ce81",
+      "repository_bytes": 8580,
+      "repository_sha256": "7c670c67a61583b5c5cea2299a82db2edc273221bf8274575c77db8b6916ce81"
+    },
+    {
+      "path": "Source/FPSGAME/WeatherSurfaceComponent.h",
+      "host_bytes": 1953,
+      "host_sha256": "da90ea7fef61e16c37d69a407770be992e341390f8c48859c9482bf0f1d1b216",
+      "repository_bytes": 1953,
+      "repository_sha256": "da90ea7fef61e16c37d69a407770be992e341390f8c48859c9482bf0f1d1b216"
+    },
+    {
+      "path": "Source/FPSGAME.Target.cs",
+      "host_bytes": 367,
+      "host_sha256": "36b9b73a05d82c5b865b5800e186970838bb6fe0aaca6fa5b3d8a17ed8dfcadd",
+      "repository_bytes": 367,
+      "repository_sha256": "36b9b73a05d82c5b865b5800e186970838bb6fe0aaca6fa5b3d8a17ed8dfcadd"
+    },
+    {
+      "path": "Source/FPSGAMEEditor.Target.cs",
+      "host_bytes": 381,
+      "host_sha256": "ee5aa818a5f028bbdb7ad7e60db1d4b8f6edc678dae6f1bc2516ae84a8eba22b",
+      "repository_bytes": 381,
+      "repository_sha256": "ee5aa818a5f028bbdb7ad7e60db1d4b8f6edc678dae6f1bc2516ae84a8eba22b"
+    },
+    {
+      "path": "Config/ColdSteelUI.json",
+      "host_bytes": 838,
+      "host_sha256": "6d1fd16d54768636a9ae003230f73973ab115f7e8742ca5db1ffd6ecd6f89c3f",
+      "repository_bytes": 838,
+      "repository_sha256": "6d1fd16d54768636a9ae003230f73973ab115f7e8742ca5db1ffd6ecd6f89c3f"
+    },
+    {
+      "path": "Config/DefaultEditor.ini",
+      "host_bytes": 58482,
+      "host_sha256": "25920e87560682479062a06afef5e0046d23789e72200634d852becbe1db407b",
+      "repository_bytes": 58475,
+      "repository_sha256": "69952e8ceac8c42e1b70a5b3a49869ab70023440da17b13b327557df4f2a0265"
+    },
+    {
+      "path": "Config/DefaultEngine.ini",
+      "host_bytes": 3080,
+      "host_sha256": "1305d0117a4ff9ce4b5e32c7297bf3896f3069b38e746e9e3868ef5016bc35e9",
+      "repository_bytes": 2982,
+      "repository_sha256": "bd4f7d7de52113279375f2c37f34a4fb3d1dccb20f681131046b8a8f488b7a10"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "host_bytes": 702,
+      "host_sha256": "6fb0e29698ad320d7fa7cb7248f0de6e725f68f50dfcb1702dc9e7e7aeb0b3cc",
+      "repository_bytes": 702,
+      "repository_sha256": "6fb0e29698ad320d7fa7cb7248f0de6e725f68f50dfcb1702dc9e7e7aeb0b3cc"
+    },
+    {
+      "path": "Config/DefaultGameplayTags.ini",
+      "host_bytes": 780,
+      "host_sha256": "02451a6ba9237b0c8fdb2b6e2226a3c86fa666e6a6f4c5393adb344867090902",
+      "repository_bytes": 780,
+      "repository_sha256": "02451a6ba9237b0c8fdb2b6e2226a3c86fa666e6a6f4c5393adb344867090902"
+    },
+    {
+      "path": "Config/DefaultInput.ini",
+      "host_bytes": 9895,
+      "host_sha256": "8ab396b3625ce0f6a2bbad22f7a5cf39ef31cb08e7e6e01c4fdceda915c94b64",
+      "repository_bytes": 9813,
+      "repository_sha256": "cda43b4683b8741ef2c6b8a239ca9158cff5459988b5d50cf5a13e983be32ce4"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_akm_replacement.py",
+      "host_bytes": 13316,
+      "host_sha256": "871a80c35e0d69d697c14645afe0c479ad3e00b953a1c4a784e7967dcd898f27",
+      "repository_bytes": 13316,
+      "repository_sha256": "871a80c35e0d69d697c14645afe0c479ad3e00b953a1c4a784e7967dcd898f27"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_akm_runtime_materials.py",
+      "host_bytes": 4599,
+      "host_sha256": "af029ef1c5ca4a3d5bf82a7f74ca55be813ffa3059b821bd195f1247cbb62f92",
+      "repository_bytes": 4599,
+      "repository_sha256": "af029ef1c5ca4a3d5bf82a7f74ca55be813ffa3059b821bd195f1247cbb62f92"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_akm_ue.py",
+      "host_bytes": 10344,
+      "host_sha256": "ce9bb0afef8da49751b5c0799335509aa4c29b35b624ea680403de8a11f160cb",
+      "repository_bytes": 10344,
+      "repository_sha256": "ce9bb0afef8da49751b5c0799335509aa4c29b35b624ea680403de8a11f160cb"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_arms_replacement.py",
+      "host_bytes": 7823,
+      "host_sha256": "7c6550c98a07b58677e4c719d2f1f99319e3adf60afc607902141a3219960d34",
+      "repository_bytes": 7823,
+      "repository_sha256": "7c6550c98a07b58677e4c719d2f1f99319e3adf60afc607902141a3219960d34"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_gunplay_fx.py",
+      "host_bytes": 9635,
+      "host_sha256": "1981f33d20a65fa0393d5af620adf17ba8bcbdbb902c08787e6d6911aac38bcc",
+      "repository_bytes": 9635,
+      "repository_sha256": "1981f33d20a65fa0393d5af620adf17ba8bcbdbb902c08787e6d6911aac38bcc"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_m4_drum.py",
+      "host_bytes": 7942,
+      "host_sha256": "138e39134c10c29253db74c26080e04f2a3db89e5bba31c58253b5c705938b12",
+      "repository_bytes": 7942,
+      "repository_sha256": "138e39134c10c29253db74c26080e04f2a3db89e5bba31c58253b5c705938b12"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_m4_drum_reload.py",
+      "host_bytes": 5521,
+      "host_sha256": "6b1ea040d012045d2f03172dc24964602002a361f225048140fc50bf28cb62c6",
+      "repository_bytes": 5521,
+      "repository_sha256": "6b1ea040d012045d2f03172dc24964602002a361f225048140fc50bf28cb62c6"
+    },
+    {
+      "path": "Tools/AssetPipeline/build_m4_folding_sights.py",
+      "host_bytes": 4245,
+      "host_sha256": "d702d21868e4313f581eeffbdbb9472c51a2b848ed91e34ea90beee16e92cfe0",
+      "repository_bytes": 4245,
+      "repository_sha256": "d702d21868e4313f581eeffbdbb9472c51a2b848ed91e34ea90beee16e92cfe0"
+    },
+    {
+      "path": "Tools/AssetPipeline/capture_editor_image.ps1",
+      "host_bytes": 531,
+      "host_sha256": "92ef34babe02ebbcb20aa085b717271f856be83a4b86f51af22f8c8cd6db1850",
+      "repository_bytes": 531,
+      "repository_sha256": "92ef34babe02ebbcb20aa085b717271f856be83a4b86f51af22f8c8cd6db1850"
+    },
+    {
+      "path": "Tools/AssetPipeline/capture_mcp_image.ps1",
+      "host_bytes": 2037,
+      "host_sha256": "7314bce9b0f7d90cf24e1cfaee95931d568e3ba03752b05886d397827eb10b42",
+      "repository_bytes": 2037,
+      "repository_sha256": "7314bce9b0f7d90cf24e1cfaee95931d568e3ba03752b05886d397827eb10b42"
+    },
+    {
+      "path": "Tools/AssetPipeline/detail_akm_replacement.py",
+      "host_bytes": 1720,
+      "host_sha256": "1f08ad0bde02696b4d4387e4219d38efaafef17323a9a20ab20791f21c6cba69",
+      "repository_bytes": 1720,
+      "repository_sha256": "1f08ad0bde02696b4d4387e4219d38efaafef17323a9a20ab20791f21c6cba69"
+    },
+    {
+      "path": "Tools/AssetPipeline/finalize_akm_replacement_ue.py",
+      "host_bytes": 2542,
+      "host_sha256": "1524bb4b3d693a8b6443abc4399591f4fbe001942ea79bf88c799b991a9393e0",
+      "repository_bytes": 2542,
+      "repository_sha256": "1524bb4b3d693a8b6443abc4399591f4fbe001942ea79bf88c799b991a9393e0"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_akm_audio_ue.py",
+      "host_bytes": 2290,
+      "host_sha256": "42524349c0db4cc28fc895c0995db2be9a0aa705b9500617c0c96677c70c0fe9",
+      "repository_bytes": 2290,
+      "repository_sha256": "42524349c0db4cc28fc895c0995db2be9a0aa705b9500617c0c96677c70c0fe9"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_akm_replacement_ue.py",
+      "host_bytes": 5232,
+      "host_sha256": "3b31d65378ff4d3d5f42305ffabea762cc9cb6f0728c04d8a79618f0f839a723",
+      "repository_bytes": 5232,
+      "repository_sha256": "3b31d65378ff4d3d5f42305ffabea762cc9cb6f0728c04d8a79618f0f839a723"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_akm_ue.py",
+      "host_bytes": 2822,
+      "host_sha256": "41b0143bc39f31958a69a597eca615216b711fe40e00f54ff615591143cacc14",
+      "repository_bytes": 2822,
+      "repository_sha256": "41b0143bc39f31958a69a597eca615216b711fe40e00f54ff615591143cacc14"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_gunsmith_workbench.py",
+      "host_bytes": 2704,
+      "host_sha256": "7b9addd62f8c4e1d185507ee7fd92545f7dee795c6bfb3cceba7c7b850619cde",
+      "repository_bytes": 2704,
+      "repository_sha256": "7b9addd62f8c4e1d185507ee7fd92545f7dee795c6bfb3cceba7c7b850619cde"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_m4_drum.py",
+      "host_bytes": 3782,
+      "host_sha256": "bd78322a8f4dedfaaff7443e00674343084ce5aca5a3ab5f00a705aae14c9f9e",
+      "repository_bytes": 3782,
+      "repository_sha256": "bd78322a8f4dedfaaff7443e00674343084ce5aca5a3ab5f00a705aae14c9f9e"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_m4_drum_reload.py",
+      "host_bytes": 1612,
+      "host_sha256": "9655594ce98719fa38f6523fae82811df31aafff38a283308bb06cfbdeed9e22",
+      "repository_bytes": 1612,
+      "repository_sha256": "9655594ce98719fa38f6523fae82811df31aafff38a283308bb06cfbdeed9e22"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_m4_folding_sights.py",
+      "host_bytes": 1646,
+      "host_sha256": "9942b8b3560816fc84fa0bcd83927a3888685ed0363ab2e0b28b7259a6e56ef7",
+      "repository_bytes": 1646,
+      "repository_sha256": "9942b8b3560816fc84fa0bcd83927a3888685ed0363ab2e0b28b7259a6e56ef7"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_m4_holo.py",
+      "host_bytes": 3419,
+      "host_sha256": "51f4119f7ff65d89a50be9bc165fb65fec7df776fd869df859f6ccc89df67c6c",
+      "repository_bytes": 3419,
+      "repository_sha256": "51f4119f7ff65d89a50be9bc165fb65fec7df776fd869df859f6ccc89df67c6c"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_repaired_hands_ue.py",
+      "host_bytes": 3123,
+      "host_sha256": "9e9f8c2172ab33690c1cecdb2e55033eaa9d36c5f37efe48b357eac0eaac8a3d",
+      "repository_bytes": 3123,
+      "repository_sha256": "9e9f8c2172ab33690c1cecdb2e55033eaa9d36c5f37efe48b357eac0eaac8a3d"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_akm_blend.py",
+      "host_bytes": 3325,
+      "host_sha256": "26b45133b33352f5d5f837fa7dc7923fc6d4d84886a7e347b4b63c39bad294ea",
+      "repository_bytes": 3325,
+      "repository_sha256": "26b45133b33352f5d5f837fa7dc7923fc6d4d84886a7e347b4b63c39bad294ea"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_akm_match_details.py",
+      "host_bytes": 3014,
+      "host_sha256": "b27526b147715c91ff5af163f90cbfdb0c863d928b5c96861216ccc31ea1d4c0",
+      "repository_bytes": 3014,
+      "repository_sha256": "b27526b147715c91ff5af163f90cbfdb0c863d928b5c96861216ccc31ea1d4c0"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_akm_replacement.py",
+      "host_bytes": 3161,
+      "host_sha256": "15bee7f9afa8c0d34822c98ec25e4d0f6a092e615da1d25bfc9ed81423859f86",
+      "repository_bytes": 3161,
+      "repository_sha256": "15bee7f9afa8c0d34822c98ec25e4d0f6a092e615da1d25bfc9ed81423859f86"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_akm_unreal_pose.py",
+      "host_bytes": 1364,
+      "host_sha256": "5db97a22be6cfab1e14e029c1d0f9608c705fe55626ad8e1418610cee2b65f37",
+      "repository_bytes": 1364,
+      "repository_sha256": "5db97a22be6cfab1e14e029c1d0f9608c705fe55626ad8e1418610cee2b65f37"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_arms_replacement.py",
+      "host_bytes": 1215,
+      "host_sha256": "798bd3474612baf3ab1737472798ae74fe6b360e5056f9cf1f141799d76fe89a",
+      "repository_bytes": 1215,
+      "repository_sha256": "798bd3474612baf3ab1737472798ae74fe6b360e5056f9cf1f141799d76fe89a"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_hand_deformation.py",
+      "host_bytes": 2721,
+      "host_sha256": "b3f1c8ae500f979de2a5c9ac378fd454b0f27721ef992a3b6432fd78e1a81c93",
+      "repository_bytes": 2721,
+      "repository_sha256": "b3f1c8ae500f979de2a5c9ac378fd454b0f27721ef992a3b6432fd78e1a81c93"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_holo_glass.py",
+      "host_bytes": 855,
+      "host_sha256": "0415fde15eb98a2e992334b4d7657183d9357a75f14536b568d80b785ddff3a8",
+      "repository_bytes": 855,
+      "repository_sha256": "0415fde15eb98a2e992334b4d7657183d9357a75f14536b568d80b785ddff3a8"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_holo_roll.py",
+      "host_bytes": 1411,
+      "host_sha256": "80354dd6f57a13903964bf7e6ae458f3c9156f747279ac28eba70152fe3b888a",
+      "repository_bytes": 1411,
+      "repository_sha256": "80354dd6f57a13903964bf7e6ae458f3c9156f747279ac28eba70152fe3b888a"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_m4_drum.py",
+      "host_bytes": 2435,
+      "host_sha256": "b31e7d19d68020b77543d7f0cd664dbe6db78ea26ab1a633397f2d7a20fb2ad7",
+      "repository_bytes": 2435,
+      "repository_sha256": "b31e7d19d68020b77543d7f0cd664dbe6db78ea26ab1a633397f2d7a20fb2ad7"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_m4_front.py",
+      "host_bytes": 2060,
+      "host_sha256": "42d476bb9375b6d7a0a3c9983058ed6f64393386d0c4613bd7a3dacda41de4b7",
+      "repository_bytes": 2058,
+      "repository_sha256": "e3f706e2b3b8521fd51facec5ed08f60ae86ea645694a08888e12d73ca9c396a"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_m4_holo.py",
+      "host_bytes": 706,
+      "host_sha256": "f1276d7594038abe91bd42c55ed6c3afab34652a4bdddb052287cff4b36b6694",
+      "repository_bytes": 706,
+      "repository_sha256": "f1276d7594038abe91bd42c55ed6c3afab34652a4bdddb052287cff4b36b6694"
+    },
+    {
+      "path": "Tools/AssetPipeline/inspect_m4_irons.py",
+      "host_bytes": 2071,
+      "host_sha256": "39102140763aeb2fc2de3f3358ab9ec4fe7b954aa722ae03d51df92e45780c83",
+      "repository_bytes": 2071,
+      "repository_sha256": "39102140763aeb2fc2de3f3358ab9ec4fe7b954aa722ae03d51df92e45780c83"
+    },
+    {
+      "path": "Tools/AssetPipeline/integrate_repaired_hands.py",
+      "host_bytes": 3439,
+      "host_sha256": "b635c2f24128c17bdf0c4d3db284fc65da3a09122cf4de7ec7364055bb3f6950",
+      "repository_bytes": 3439,
+      "repository_sha256": "b635c2f24128c17bdf0c4d3db284fc65da3a09122cf4de7ec7364055bb3f6950"
+    },
+    {
+      "path": "Tools/AssetPipeline/mcp_call.ps1",
+      "host_bytes": 1342,
+      "host_sha256": "3a5a5c3b3625d230e8caae3c5c78272b30b6cfef091b0d5471a611190dec7d9f",
+      "repository_bytes": 1342,
+      "repository_sha256": "3a5a5c3b3625d230e8caae3c5c78272b30b6cfef091b0d5471a611190dec7d9f"
+    },
+    {
+      "path": "Tools/AssetPipeline/mcp_probe.ps1",
+      "host_bytes": 1251,
+      "host_sha256": "16bd83e4fbccfda3e34973577ef6a7b2f5f469bfde6f0588325f53b981920881",
+      "repository_bytes": 1251,
+      "repository_sha256": "16bd83e4fbccfda3e34973577ef6a7b2f5f469bfde6f0588325f53b981920881"
+    },
+    {
+      "path": "Tools/AssetPipeline/prepare_m4_holo.py",
+      "host_bytes": 2252,
+      "host_sha256": "f8eada3ba440b75cfd3ade5d0f654297f1c88a96d46b23fba385a7ecd9fc5481",
+      "repository_bytes": 2252,
+      "repository_sha256": "f8eada3ba440b75cfd3ade5d0f654297f1c88a96d46b23fba385a7ecd9fc5481"
+    },
+    {
+      "path": "Tools/AssetPipeline/probe_godot_akm_ads.gd",
+      "host_bytes": 817,
+      "host_sha256": "40ccec2c6d2f6f6c3b9a63a8c1ed742fcb8627fbf4f296adcc94d016bb5e55c3",
+      "repository_bytes": 817,
+      "repository_sha256": "40ccec2c6d2f6f6c3b9a63a8c1ed742fcb8627fbf4f296adcc94d016bb5e55c3"
+    },
+    {
+      "path": "Tools/AssetPipeline/reference_akm_replacement.py",
+      "host_bytes": 3075,
+      "host_sha256": "281034efe6bfbbcebee53872736f20661f92640f52d2f28ba9390588c7726009",
+      "repository_bytes": 3075,
+      "repository_sha256": "281034efe6bfbbcebee53872736f20661f92640f52d2f28ba9390588c7726009"
+    },
+    {
+      "path": "Tools/AssetPipeline/render_akm_candidate_preview.py",
+      "host_bytes": 2589,
+      "host_sha256": "8499e3396459b5af4f7ebbaf9a405e7d249d2bf80133192946f39872c63df452",
+      "repository_bytes": 2589,
+      "repository_sha256": "8499e3396459b5af4f7ebbaf9a405e7d249d2bf80133192946f39872c63df452"
+    },
+    {
+      "path": "Tools/AssetPipeline/render_akm_replacement.py",
+      "host_bytes": 3264,
+      "host_sha256": "424e368cc9d214cb58202a8fe7920f034ce6775b3cddda924fe47c4a241b215f",
+      "repository_bytes": 3264,
+      "repository_sha256": "424e368cc9d214cb58202a8fe7920f034ce6775b3cddda924fe47c4a241b215f"
+    },
+    {
+      "path": "Tools/AssetPipeline/render_arms_replacement.py",
+      "host_bytes": 1686,
+      "host_sha256": "fd7ea522f3d4013183eb2df7752f899f082451fb235b7399f93250b193117eec",
+      "repository_bytes": 1686,
+      "repository_sha256": "fd7ea522f3d4013183eb2df7752f899f082451fb235b7399f93250b193117eec"
+    },
+    {
+      "path": "Tools/AssetPipeline/render_gunplay_preview.py",
+      "host_bytes": 10501,
+      "host_sha256": "20a62cf782a80dc21eb9c55178db5ec11a33ab1599556a0ea0a031b39a5b1272",
+      "repository_bytes": 10501,
+      "repository_sha256": "20a62cf782a80dc21eb9c55178db5ec11a33ab1599556a0ea0a031b39a5b1272"
+    },
+    {
+      "path": "Tools/AssetPipeline/render_hand_review_sheet.py",
+      "host_bytes": 947,
+      "host_sha256": "ec841fca854bcbfa469fea3878e866e7561c7a28966530f0f3c83e04e8a13872",
+      "repository_bytes": 947,
+      "repository_sha256": "ec841fca854bcbfa469fea3878e866e7561c7a28966530f0f3c83e04e8a13872"
+    },
+    {
+      "path": "Tools/AssetPipeline/render_motion_akm_replacement.py",
+      "host_bytes": 1169,
+      "host_sha256": "12813de2b99e559cf8489451827c8361f10d0182f5afb74a89624322fab5a9a7",
+      "repository_bytes": 1169,
+      "repository_sha256": "12813de2b99e559cf8489451827c8361f10d0182f5afb74a89624322fab5a9a7"
+    },
+    {
+      "path": "Tools/AssetPipeline/repair_arms_skinning.py",
+      "host_bytes": 19752,
+      "host_sha256": "85737eed6c13729011b7219d943aa3453ad3066a491ef56fde93d58f4e28383b",
+      "repository_bytes": 19752,
+      "repository_sha256": "85737eed6c13729011b7219d943aa3453ad3066a491ef56fde93d58f4e28383b"
+    },
+    {
+      "path": "Tools/AssetPipeline/root_render_palms.py",
+      "host_bytes": 3139,
+      "host_sha256": "8ca260adb0b6818e7e2557046434049cec5db67295fd478138bc94e0928b8fd9",
+      "repository_bytes": 3139,
+      "repository_sha256": "8ca260adb0b6818e7e2557046434049cec5db67295fd478138bc94e0928b8fd9"
+    },
+    {
+      "path": "Tools/AssetPipeline/run_gunplay_acceptance.ps1",
+      "host_bytes": 3051,
+      "host_sha256": "2c86dc60ce0a961ab3b46aeb3bf3d44d292a0f3a05e136547a20682491b3ce51",
+      "repository_bytes": 3051,
+      "repository_sha256": "2c86dc60ce0a961ab3b46aeb3bf3d44d292a0f3a05e136547a20682491b3ce51"
+    },
+    {
+      "path": "Tools/AssetPipeline/set_akm_preview_mesh.py",
+      "host_bytes": 465,
+      "host_sha256": "e7e9c6dc371080518c552ee38ed034c2f9310479256c16850ccc2e71a6ecaa4a",
+      "repository_bytes": 465,
+      "repository_sha256": "e7e9c6dc371080518c552ee38ed034c2f9310479256c16850ccc2e71a6ecaa4a"
+    },
+    {
+      "path": "Tools/AssetPipeline/sights_akm_replacement.py",
+      "host_bytes": 468,
+      "host_sha256": "5415782e00b224e5f6720252f542a8a341fef97c939e1ed64880d8502b2a9de9",
+      "repository_bytes": 468,
+      "repository_sha256": "5415782e00b224e5f6720252f542a8a341fef97c939e1ed64880d8502b2a9de9"
+    },
+    {
+      "path": "Tools/AssetPipeline/thumb_fit_probe.py",
+      "host_bytes": 4273,
+      "host_sha256": "b52d13129b1ad51d90fed9235fc6db9a1e5be45bf7cbb96f658b83b96f78c3d3",
+      "repository_bytes": 4273,
+      "repository_sha256": "b52d13129b1ad51d90fed9235fc6db9a1e5be45bf7cbb96f658b83b96f78c3d3"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_akm_bake.py",
+      "host_bytes": 2206,
+      "host_sha256": "562c9d0cd6a3eb9c0a92ff49e28d178e3895c5d7aa26fbab66f134bbf81cd0bc",
+      "repository_bytes": 2206,
+      "repository_sha256": "562c9d0cd6a3eb9c0a92ff49e28d178e3895c5d7aa26fbab66f134bbf81cd0bc"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_akm_replacement.py",
+      "host_bytes": 3508,
+      "host_sha256": "75f5811659971f07919903df2bc7e3505610828433ee92d2a163e77fef450227",
+      "repository_bytes": 3508,
+      "repository_sha256": "75f5811659971f07919903df2bc7e3505610828433ee92d2a163e77fef450227"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_akm_replacement_ue.py",
+      "host_bytes": 3181,
+      "host_sha256": "d34548f5acb358ae4d0a1e63255c638b4acd7478b86ed06fe35dc026ed18b6bc",
+      "repository_bytes": 3181,
+      "repository_sha256": "d34548f5acb358ae4d0a1e63255c638b4acd7478b86ed06fe35dc026ed18b6bc"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_akm_source_actions.py",
+      "host_bytes": 2874,
+      "host_sha256": "e3344aca04b901ae5f7ac8b861d7b30770bf85d5c9d6f5bfe892c225facd91b3",
+      "repository_bytes": 2874,
+      "repository_sha256": "e3344aca04b901ae5f7ac8b861d7b30770bf85d5c9d6f5bfe892c225facd91b3"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_akm_vertex_match.py",
+      "host_bytes": 2798,
+      "host_sha256": "ca6c98a38b1ae2a328cfbcd6ec56efc27312779a857f141afd5e564326799be2",
+      "repository_bytes": 2798,
+      "repository_sha256": "ca6c98a38b1ae2a328cfbcd6ec56efc27312779a857f141afd5e564326799be2"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_arms_replacement.py",
+      "host_bytes": 2195,
+      "host_sha256": "70b2b59b88b6bc170a41a6d27a1420863231eae7e69c3b6213e9b2b538334af2",
+      "repository_bytes": 2195,
+      "repository_sha256": "70b2b59b88b6bc170a41a6d27a1420863231eae7e69c3b6213e9b2b538334af2"
+    },
+    {
+      "path": "Tools/AssetPipeline/validate_m4_drum.py",
+      "host_bytes": 2322,
+      "host_sha256": "827b9c66750dedef3c2c7d8dd9cf098c7552da0b6bad206bf1ce05cc284e1975",
+      "repository_bytes": 2322,
+      "repository_sha256": "827b9c66750dedef3c2c7d8dd9cf098c7552da0b6bad206bf1ce05cc284e1975"
+    },
+    {
+      "path": "Tools/AssetPipeline/verify_fire_clock.py",
+      "host_bytes": 11025,
+      "host_sha256": "f026ffcda464322097dc0f301cbc71bded0e4e19f413ad1c1a19ca82552547b6",
+      "repository_bytes": 11025,
+      "repository_sha256": "f026ffcda464322097dc0f301cbc71bded0e4e19f413ad1c1a19ca82552547b6"
+    },
+    {
+      "path": "Tools/AssetPipeline/verify_fx_time_invariance.py",
+      "host_bytes": 8910,
+      "host_sha256": "69158a48ff8d8c929852d39e6f155b3c08b74d7935c079354cd79696a2a50df8",
+      "repository_bytes": 8910,
+      "repository_sha256": "69158a48ff8d8c929852d39e6f155b3c08b74d7935c079354cd79696a2a50df8"
+    },
+    {
+      "path": "Tools/ConfigureWeatherMcp.ps1",
+      "host_bytes": 703,
+      "host_sha256": "0cb2eef7b631706ae982c2e5034f7c5a9b10974b86777f909a212c3e8492a54f",
+      "repository_bytes": 702,
+      "repository_sha256": "a437496706201cced1920ffcd7b4192f067948ad3eedd25e65e55bc319fcc5aa"
+    },
+    {
+      "path": "Tools/ImportWeatherAudio.py",
+      "host_bytes": 1507,
+      "host_sha256": "acfbafedde9dd8b7e064c85588195e8402831ed37dd7c55e516c8760516a7f86",
+      "repository_bytes": 1507,
+      "repository_sha256": "acfbafedde9dd8b7e064c85588195e8402831ed37dd7c55e516c8760516a7f86"
+    },
+    {
+      "path": "Tools/NurseZombie/inspect_nurse.py",
+      "host_bytes": 1452,
+      "host_sha256": "bb191f788f9d490e1be539c12ed752f1e19d7612e7f8d73d3e35cc63980cb7fd",
+      "repository_bytes": 1452,
+      "repository_sha256": "bb191f788f9d490e1be539c12ed752f1e19d7612e7f8d73d3e35cc63980cb7fd"
+    },
+    {
+      "path": "Tools/NurseZombie/integrate_nurse.py",
+      "host_bytes": 4643,
+      "host_sha256": "7e3fc591c9ffd4eb6798933e37e59b4dce912256afbc052afbaec4cc8d3d539c",
+      "repository_bytes": 4643,
+      "repository_sha256": "7e3fc591c9ffd4eb6798933e37e59b4dce912256afbc052afbaec4cc8d3d539c"
+    },
+    {
+      "path": "Tools/NurseZombie/Open-NurseTest.ps1",
+      "host_bytes": 660,
+      "host_sha256": "55a79439c79a8f8163b32d65ac44bc0f2036b9685fce6250649f9536b15622f5",
+      "repository_bytes": 660,
+      "repository_sha256": "55a79439c79a8f8163b32d65ac44bc0f2036b9685fce6250649f9536b15622f5"
+    },
+    {
+      "path": "Tools/NurseZombie/README.md",
+      "host_bytes": 4340,
+      "host_sha256": "197c7a19d71352f67cc9114b0ff1d6d7d48149e22ed1e2afe1a9450ef9fe0f45",
+      "repository_bytes": 4340,
+      "repository_sha256": "197c7a19d71352f67cc9114b0ff1d6d7d48149e22ed1e2afe1a9450ef9fe0f45"
+    },
+    {
+      "path": "Tools/NurseZombie/render_source.py",
+      "host_bytes": 2335,
+      "host_sha256": "71960f69d3a0b0cd669781ff21087c6ed63d4e4372d38b7d7891f90491bf0808",
+      "repository_bytes": 2335,
+      "repository_sha256": "71960f69d3a0b0cd669781ff21087c6ed63d4e4372d38b7d7891f90491bf0808"
+    },
+    {
+      "path": "Tools/NurseZombie/verify_saved_nurse.py",
+      "host_bytes": 1542,
+      "host_sha256": "ecf7214cc903b528e92b1c63d16b3d9bb993dc5aaacd0efba7e96fa1ff366a57",
+      "repository_bytes": 1542,
+      "repository_sha256": "ecf7214cc903b528e92b1c63d16b3d9bb993dc5aaacd0efba7e96fa1ff366a57"
+    },
+    {
+      "path": "Tools/SceneTests/audit_lighting_conflicts.py",
+      "host_bytes": 2078,
+      "host_sha256": "f3aa353fee0cef6df2c9353b7acb485a077cd3928b94cf6f73e282f25a7af542",
+      "repository_bytes": 2078,
+      "repository_sha256": "f3aa353fee0cef6df2c9353b7acb485a077cd3928b94cf6f73e282f25a7af542"
+    },
+    {
+      "path": "Tools/SceneTests/build_trench.py",
+      "host_bytes": 2417,
+      "host_sha256": "7a125a5d2588b686b53e5d0fccf81666f876fdd450daa0123ed498f0cab23b7e",
+      "repository_bytes": 2417,
+      "repository_sha256": "7a125a5d2588b686b53e5d0fccf81666f876fdd450daa0123ed498f0cab23b7e"
+    },
+    {
+      "path": "Tools/SceneTests/fix_preview_light_priority.py",
+      "host_bytes": 1723,
+      "host_sha256": "fcf21d850e9d052806aa04cfed3cf1969521e9c188ef135848e29eff71d333f9",
+      "repository_bytes": 1723,
+      "repository_sha256": "fcf21d850e9d052806aa04cfed3cf1969521e9c188ef135848e29eff71d333f9"
+    },
+    {
+      "path": "Tools/SceneTests/fix_scene_spawns.py",
+      "host_bytes": 3576,
+      "host_sha256": "2ba46b907baca3dac4f16b7244f19dfb310ace2b654b55cd99b28d7512111430",
+      "repository_bytes": 3576,
+      "repository_sha256": "2ba46b907baca3dac4f16b7244f19dfb310ace2b654b55cd99b28d7512111430"
+    },
+    {
+      "path": "Tools/SceneTests/fix_trench_blocker.py",
+      "host_bytes": 2162,
+      "host_sha256": "6babe38111fbf7d86e44dded1af854eb40fd23874e94cb93ae9e1ee2544d3bcd",
+      "repository_bytes": 2162,
+      "repository_sha256": "6babe38111fbf7d86e44dded1af854eb40fd23874e94cb93ae9e1ee2544d3bcd"
+    },
+    {
+      "path": "Tools/SceneTests/inspect_scene_weather.py",
+      "host_bytes": 1462,
+      "host_sha256": "dcf600f36062680d2f208e8be872fcb336efee6d5fb13ef6593ba18969379fa5",
+      "repository_bytes": 1462,
+      "repository_sha256": "dcf600f36062680d2f208e8be872fcb336efee6d5fb13ef6593ba18969379fa5"
+    },
+    {
+      "path": "Tools/SceneTests/Open-SceneTest.ps1",
+      "host_bytes": 755,
+      "host_sha256": "d21dcae22048155b40b6f82921176d7de33c5ba2dd842302ddc09872c88227b5",
+      "repository_bytes": 755,
+      "repository_sha256": "d21dcae22048155b40b6f82921176d7de33c5ba2dd842302ddc09872c88227b5"
+    },
+    {
+      "path": "Tools/SceneTests/organize_maps.py",
+      "host_bytes": 1708,
+      "host_sha256": "b1bf2fc9b68cafe549973627b9cef6972eb2ea12ccf2efe5e51355b196ded73d",
+      "repository_bytes": 1708,
+      "repository_sha256": "b1bf2fc9b68cafe549973627b9cef6972eb2ea12ccf2efe5e51355b196ded73d"
+    },
+    {
+      "path": "Tools/SceneTests/README.md",
+      "host_bytes": 4854,
+      "host_sha256": "6cabe1fcc1b0f006c1c1e8bb6bf516e7b143e07339fb2f8e62cf5323599c7e20",
+      "repository_bytes": 4854,
+      "repository_sha256": "6cabe1fcc1b0f006c1c1e8bb6bf516e7b143e07339fb2f8e62cf5323599c7e20"
+    },
+    {
+      "path": "Tools/SceneTests/WEATHER_CONTROL.md",
+      "host_bytes": 4210,
+      "host_sha256": "7cafbbf829d5858ecf02261fce9ab37e9a73d878b884ec5644677d69505e6b1b",
+      "repository_bytes": 4210,
+      "repository_sha256": "7cafbbf829d5858ecf02261fce9ab37e9a73d878b884ec5644677d69505e6b1b"
+    },
+    {
+      "path": "Tools/UI/export_godot_inventory_cases.gd",
+      "host_bytes": 1438,
+      "host_sha256": "de926ae1e6482b42e2942f7715b7c3d4e2d20051fa9ab4f67338591f4942906b",
+      "repository_bytes": 1407,
+      "repository_sha256": "f7f70e7f0fbbdd2d45ddff099c99203972d8c9c4b416b981d6441ee12ecac47a"
+    },
+    {
+      "path": "Tools/UI/export_inventory_reference.gd",
+      "host_bytes": 469,
+      "host_sha256": "09f5a60cdaa18f58d266ae190d56c39b3f044212f8eb11ffd0b82fcfe36dd132",
+      "repository_bytes": 469,
+      "repository_sha256": "09f5a60cdaa18f58d266ae190d56c39b3f044212f8eb11ffd0b82fcfe36dd132"
+    },
+    {
+      "path": "Tools/UI/fixtures/godot_inventory_cases.json",
+      "host_bytes": 444682,
+      "host_sha256": "6fce54693a75bfa54bc07d5b694cd18f386da0083c13211917b51ecaae466a9b",
+      "repository_bytes": 444683,
+      "repository_sha256": "eb40537cc9799493d4a35ff97633a2e8967466b7c3c901a3654259d70dc09a89"
+    },
+    {
+      "path": "Tools/UI/prepare_inventory_assets.py",
+      "host_bytes": 1337,
+      "host_sha256": "105105726ae8f2a20699ee594d0dc99f8ecc12def8d1296c093e24e2c119c9d2",
+      "repository_bytes": 1337,
+      "repository_sha256": "105105726ae8f2a20699ee594d0dc99f8ecc12def8d1296c093e24e2c119c9d2"
+    },
+    {
+      "path": "Tools/UI/prepare_local_simsun.py",
+      "host_bytes": 2650,
+      "host_sha256": "3c7fdc2d30d57d909a1f9aede7f10d03e0503896b4164b8c4bda30521dee9f3b",
+      "repository_bytes": 2650,
+      "repository_sha256": "3c7fdc2d30d57d909a1f9aede7f10d03e0503896b4164b8c4bda30521dee9f3b"
+    },
+    {
+      "path": "Tools/UI/reference_item_tooltip.gd",
+      "host_bytes": 1645,
+      "host_sha256": "ab0b784be3ed56908b8a86e1b69abda6093a2d0bc93541cf58990b22b9f517ed",
+      "repository_bytes": 1645,
+      "repository_sha256": "ab0b784be3ed56908b8a86e1b69abda6093a2d0bc93541cf58990b22b9f517ed"
+    },
+    {
+      "path": "Tools/UI/render_godot_reference.gd",
+      "host_bytes": 622,
+      "host_sha256": "d8aea1a45d028d4f1a043c0927638dbf9489994d297cd36c84200ff1453d230f",
+      "repository_bytes": 622,
+      "repository_sha256": "d8aea1a45d028d4f1a043c0927638dbf9489994d297cd36c84200ff1453d230f"
+    },
+    {
+      "path": "Tools/UI/run_gunsmith_workbench.ps1",
+      "host_bytes": 1574,
+      "host_sha256": "12f04d85389c02fdabbca8469685ba280455277e801a26f858fff1ddb3dc9e4c",
+      "repository_bytes": 1574,
+      "repository_sha256": "12f04d85389c02fdabbca8469685ba280455277e801a26f858fff1ddb3dc9e4c"
+    },
+    {
+      "path": "Tools/UI/run_inventory_acceptance.ps1",
+      "host_bytes": 1748,
+      "host_sha256": "50401dbe0811795bbe898245256ee7a65f8ebe2236cc5349d5c9c7a3f65a2a2a",
+      "repository_bytes": 1726,
+      "repository_sha256": "5ba80e1d33b4dc5a979ee4fef2c3e523321eaa50a877e512e2d4754ab853423c"
+    },
+    {
+      "path": "Tools/UI/run_inventory_drag_acceptance.ps1",
+      "host_bytes": 1337,
+      "host_sha256": "08f03b8dfcd49cb6a059fc60c8f4f70c8aec6cab4f91c94dc62deabfe390cc8d",
+      "repository_bytes": 1337,
+      "repository_sha256": "08f03b8dfcd49cb6a059fc60c8f4f70c8aec6cab4f91c94dc62deabfe390cc8d"
+    },
+    {
+      "path": "Tools/UI/run_inventory_gunplay_acceptance.ps1",
+      "host_bytes": 1116,
+      "host_sha256": "1fbbcd8f3fdf67868aba9ad3b4130df524adee07dfc1f9b74452b33462c41716",
+      "repository_bytes": 1116,
+      "repository_sha256": "1fbbcd8f3fdf67868aba9ad3b4130df524adee07dfc1f9b74452b33462c41716"
+    },
+    {
+      "path": "Tools/UI/run_inventory_parity_regression.ps1",
+      "host_bytes": 1407,
+      "host_sha256": "4e3f75b57631ac4519b98c8e2cfac006d9e89fec72c5e6e858ba154f5b383ce4",
+      "repository_bytes": 1407,
+      "repository_sha256": "4e3f75b57631ac4519b98c8e2cfac006d9e89fec72c5e6e858ba154f5b383ce4"
+    },
+    {
+      "path": "Tools/UI/run_item_tooltip_acceptance.ps1",
+      "host_bytes": 1119,
+      "host_sha256": "9c161056c8081a3081022fffab49ad53740433ebcea2613a391e7dd04a1e9e82",
+      "repository_bytes": 1119,
+      "repository_sha256": "9c161056c8081a3081022fffab49ad53740433ebcea2613a391e7dd04a1e9e82"
+    },
+    {
+      "path": "Tools/UI/run_m4_drum_acceptance.ps1",
+      "host_bytes": 1598,
+      "host_sha256": "333abdef179c7161a1be10e9be3694df957a88460e8bf7e53faaec9e897eae9f",
+      "repository_bytes": 1598,
+      "repository_sha256": "333abdef179c7161a1be10e9be3694df957a88460e8bf7e53faaec9e897eae9f"
+    },
+    {
+      "path": "Tools/UI/run_m4_gunsmith_acceptance.ps1",
+      "host_bytes": 1496,
+      "host_sha256": "3676273373d1b7347b6190f92ba8950dcc7f4b3eb301c3aea4da94b60d9e17f9",
+      "repository_bytes": 1496,
+      "repository_sha256": "3676273373d1b7347b6190f92ba8950dcc7f4b3eb301c3aea4da94b60d9e17f9"
+    },
+    {
+      "path": "Tools/UI/run_top_vitals_acceptance.ps1",
+      "host_bytes": 1235,
+      "host_sha256": "6a61954fbc9b202d3884d6f52cb8dd7ef4719f9a348ca1e9131cf958089e15ea",
+      "repository_bytes": 1235,
+      "repository_sha256": "6a61954fbc9b202d3884d6f52cb8dd7ef4719f9a348ca1e9131cf958089e15ea"
+    },
+    {
+      "path": "Tools/UI/run_upgrade_acceptance.ps1",
+      "host_bytes": 269,
+      "host_sha256": "4d41d6bbe793111add6bf07699e54e5f9fb8d9636d7944baee8b5a68f4b21adc",
+      "repository_bytes": 270,
+      "repository_sha256": "14638db54d90680fb45cce732e9f641ebd146a4d19c8c10ffbb5902fc4bbf19e"
+    },
+    {
+      "path": "Tools/UI/run_weapon_handling_acceptance.ps1",
+      "host_bytes": 1482,
+      "host_sha256": "45ab3f48124b6922851d1aca6f83f89b2669782bdb463af633da569cf91cc08d",
+      "repository_bytes": 1482,
+      "repository_sha256": "45ab3f48124b6922851d1aca6f83f89b2669782bdb463af633da569cf91cc08d"
+    },
+    {
+      "path": "Tools/Weather/build_rain_assets.py",
+      "host_bytes": 10894,
+      "host_sha256": "b110778ec83f847030004e15d7463338a5cafd2573dd0e6a69312801adf5e662",
+      "repository_bytes": 10894,
+      "repository_sha256": "b110778ec83f847030004e15d7463338a5cafd2573dd0e6a69312801adf5e662"
+    },
+    {
+      "path": "Tools/Weather/inspect_map_rain.py",
+      "host_bytes": 798,
+      "host_sha256": "88b5ac6998e68d9045feedd3d0ab4f64078e6c037f519a7ad60a30731deb729f",
+      "repository_bytes": 798,
+      "repository_sha256": "88b5ac6998e68d9045feedd3d0ab4f64078e6c037f519a7ad60a30731deb729f"
+    },
+    {
+      "path": "Tools/Weather/inspect_storm_clouds.py",
+      "host_bytes": 2015,
+      "host_sha256": "20a35884eaba18b8648f62f0b252343d987962179f966446efff2a2940f279e3",
+      "repository_bytes": 2015,
+      "repository_sha256": "20a35884eaba18b8648f62f0b252343d987962179f966446efff2a2940f279e3"
+    },
+    {
+      "path": "Tools/Weather/read_rain_inputs.py",
+      "host_bytes": 1698,
+      "host_sha256": "c1d0d80f6e57b427030c183c51d3b5db325f2ca1023f1e2048ddf38ff8b541cd",
+      "repository_bytes": 1698,
+      "repository_sha256": "c1d0d80f6e57b427030c183c51d3b5db325f2ca1023f1e2048ddf38ff8b541cd"
+    },
+    {
+      "path": "Tools/Weather/retire_legacy_rain.ps1",
+      "host_bytes": 2099,
+      "host_sha256": "904483276f8f459d846e8aee67905d703f7012a0c2f3d87341cb60f960169d8d",
+      "repository_bytes": 2099,
+      "repository_sha256": "904483276f8f459d846e8aee67905d703f7012a0c2f3d87341cb60f960169d8d"
+    },
+    {
+      "path": "Tools/Weather/run_rain_validation.ps1",
+      "host_bytes": 2323,
+      "host_sha256": "afc58e28623d5d92b53a0756f262dd80da51db9ed62f21f8626758f08e0b63d9",
+      "repository_bytes": 2323,
+      "repository_sha256": "afc58e28623d5d92b53a0756f262dd80da51db9ed62f21f8626758f08e0b63d9"
+    },
+    {
+      "path": "Tools/Weather/run_storm_validation.ps1",
+      "host_bytes": 1117,
+      "host_sha256": "4a17e4bcda8995fe261168938939d9a1d5c9d6d0bd5e5575df01df6223d17d73",
+      "repository_bytes": 1117,
+      "repository_sha256": "4a17e4bcda8995fe261168938939d9a1d5c9d6d0bd5e5575df01df6223d17d73"
+    },
+    {
+      "path": "Tools/Weather/validate_rain_assets.py",
+      "host_bytes": 4883,
+      "host_sha256": "4edb47230eccbba7c3a9e790ff28b46f57e656a9da0946dc1991d2dbe3e60111",
+      "repository_bytes": 4883,
+      "repository_sha256": "4edb47230eccbba7c3a9e790ff28b46f57e656a9da0946dc1991d2dbe3e60111"
+    },
+    {
+      "path": "Tools/Weather/verify_weather_publication.py",
+      "host_bytes": 1062,
+      "host_sha256": "a9ec0b7af874374e4c066603794bcd7ae5bb128c3eb9125e649b17a13db7d466",
+      "repository_bytes": 1062,
+      "repository_sha256": "a9ec0b7af874374e4c066603794bcd7ae5bb128c3eb9125e649b17a13db7d466"
+    },
+    {
+      "path": "ThirdPartyNotices/WEATHER_ASSETS.md",
+      "host_bytes": 1432,
+      "host_sha256": "82c0e5b7cea3963c3111036bcc3064e29585ed3a6c33bd47e0b5825652c5ae01",
+      "repository_bytes": 1432,
+      "repository_sha256": "82c0e5b7cea3963c3111036bcc3064e29585ed3a6c33bd47e0b5825652c5ae01"
+    },
+    {
+      "path": "Content/ColdSteelData/gunsmith.json",
+      "host_bytes": 5247,
+      "host_sha256": "fe21eb38a4300cc851b4cad72de7b12f1a2cda5ad58129843d95d6524c7ee84e",
+      "repository_bytes": 5048,
+      "repository_sha256": "e291db8b72db5efeba0b33e1f405830139f56c96b7240c40c4f24bd0a7e4785a"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "host_bytes": 72986,
+      "host_sha256": "eed36a21dfba74786b507327306062b66c235468e313b653a044f564c90f3052",
+      "repository_bytes": 72986,
+      "repository_sha256": "eed36a21dfba74786b507327306062b66c235468e313b653a044f564c90f3052"
+    },
+    {
+      "path": "Content/ColdSteelData/provenance.json",
+      "host_bytes": 21805,
+      "host_sha256": "78f8db1bb883ab8fb043b6ecb21f842702ac8b10bfde0858b84e2aaa86772c11",
+      "repository_bytes": 21805,
+      "repository_sha256": "78f8db1bb883ab8fb043b6ecb21f842702ac8b10bfde0858b84e2aaa86772c11"
+    },
+    {
+      "path": "Content/ColdSteelData/tooltip-reference.json",
+      "host_bytes": 2375,
+      "host_sha256": "5af33a0d484c36432ccbf0a3352189bc80e305db1223702960a5e379523900e9",
+      "repository_bytes": 2375,
+      "repository_sha256": "5af33a0d484c36432ccbf0a3352189bc80e305db1223702960a5e379523900e9"
+    },
+    {
+      "path": "Content/ColdSteelData/warehouse_assets.json",
+      "host_bytes": 1756,
+      "host_sha256": "3231e0e57d7360f375b17f7ac1b52a7c3432c59abfdcf860170d57269c79d921",
+      "repository_bytes": 1738,
+      "repository_sha256": "478e8ed1151b9a18b6a11ce4547b61ca5f53f18c7f88a7796531e7fb9f9e1168"
+    },
+    {
+      "path": "FPSGAME.uproject",
+      "host_bytes": 1019,
+      "host_sha256": "e03d0623a8acaa82295d5e2640dacf3f343ecfbbf0956d1d03da1efe12bd1704",
+      "repository_bytes": 1015,
+      "repository_sha256": "3573fe92cff3ad435dfb7ca3330c3d6dea452d190e085deb24bac984a2495071"
+    },
+    {
+      "path": "Docs/first-person-arms-standard.md",
+      "host_bytes": 716,
+      "host_sha256": "6ba8977f54c9fa3f8339669821e4904fc5926a4b133cfe56b461c1f7d4199084",
+      "repository_bytes": 709,
+      "repository_sha256": "904b5ce7dfa1c49e0f67d5fcbc1290ca959c55bf4af5315f1b1a6b5bb7ad073d"
+    },
+    {
+      "path": "Docs/LIGHTING_CONFLICT_AUDIT_20260910.md",
+      "host_bytes": 5031,
+      "host_sha256": "e18d4a2e73ee8ca02950bca2fef8c8ab9422b75f71f334f70f1dc55df8946a0f",
+      "repository_bytes": 5031,
+      "repository_sha256": "e18d4a2e73ee8ca02950bca2fef8c8ab9422b75f71f334f70f1dc55df8946a0f"
+    },
+    {
+      "path": "Docs/RAIN_UPGRADE_20260910.md",
+      "host_bytes": 5690,
+      "host_sha256": "d11457049f8b610b78931b3a2bae7e41153a6a8b70771dce168738bfd89dd617",
+      "repository_bytes": 5690,
+      "repository_sha256": "d11457049f8b610b78931b3a2bae7e41153a6a8b70771dce168738bfd89dd617"
+    },
+    {
+      "path": "Docs/STORM_CLOUDS_20260910.md",
+      "host_bytes": 3743,
+      "host_sha256": "a2814b5b72af35aa8ad5f621cb668636eb983a82e7f34c9f91dcc0d9e3debdde",
+      "repository_bytes": 3743,
+      "repository_sha256": "a2814b5b72af35aa8ad5f621cb668636eb983a82e7f34c9f91dcc0d9e3debdde"
+    },
+    {
+      "path": "Docs/UI/ammo-readout-20260909.md",
+      "host_bytes": 1710,
+      "host_sha256": "0523be7e41721a666c134b0e5b5f1145536f7f1849751815d7a2fe600652b349",
+      "repository_bytes": 1710,
+      "repository_sha256": "0523be7e41721a666c134b0e5b5f1145536f7f1849751815d7a2fe600652b349"
+    },
+    {
+      "path": "Docs/UI/cold-steel-upgrade-20260909.md",
+      "host_bytes": 7398,
+      "host_sha256": "848f58aab096275d3c5d213622d4ee857b61d30d0da33e92975b11bcf1f1064d",
+      "repository_bytes": 7398,
+      "repository_sha256": "848f58aab096275d3c5d213622d4ee857b61d30d0da33e92975b11bcf1f1064d"
+    },
+    {
+      "path": "Docs/UI/gunsmith-layout-review-20260910.md",
+      "host_bytes": 4208,
+      "host_sha256": "bfe4a5911806160cc855f40dd3d3b656c7a410ac913592e4f1ab9a13c2f26dc8",
+      "repository_bytes": 4208,
+      "repository_sha256": "bfe4a5911806160cc855f40dd3d3b656c7a410ac913592e4f1ab9a13c2f26dc8"
+    },
+    {
+      "path": "Docs/UI/gunsmith-workbench-20260910.md",
+      "host_bytes": 6383,
+      "host_sha256": "8fb736b24b21b71fbea361e5156a0d2f40c15498433d03d4aebb0517eebc30aa",
+      "repository_bytes": 6383,
+      "repository_sha256": "8fb736b24b21b71fbea361e5156a0d2f40c15498433d03d4aebb0517eebc30aa"
+    },
+    {
+      "path": "Docs/UI/inventory-drag-parity-20260909.md",
+      "host_bytes": 5755,
+      "host_sha256": "c73927488bfcde9ddfa7b039fb877e71061120dd3bbbbf910aa02b922b266dd3",
+      "repository_bytes": 5706,
+      "repository_sha256": "c3d7ea7029919e307b25a6f2489399f28916546beb3021e4fe046eb8750b4a70"
+    },
+    {
+      "path": "Docs/UI/item-tooltip-upgrade-20260909.md",
+      "host_bytes": 6508,
+      "host_sha256": "134522a738f2231b51b5339d2b0f3cb487702f27eb54b1862eedff4c897b9103",
+      "repository_bytes": 6508,
+      "repository_sha256": "134522a738f2231b51b5339d2b0f3cb487702f27eb54b1862eedff4c897b9103"
+    },
+    {
+      "path": "Docs/UI/m4-holographic-gunsmith-20260909.md",
+      "host_bytes": 6641,
+      "host_sha256": "9535ad46d07d9e729155d2cbd606a7724991eba314b8e2c5219e67e259433011",
+      "repository_bytes": 6641,
+      "repository_sha256": "9535ad46d07d9e729155d2cbd606a7724991eba314b8e2c5219e67e259433011"
+    },
+    {
+      "path": "Docs/UI/m4-large-drum-migration-20260909.md",
+      "host_bytes": 4597,
+      "host_sha256": "4aaf97af3aa58fee4baeabeae905ce15e777f63e0a381e9dfeecb6cfe95db5a2",
+      "repository_bytes": 4597,
+      "repository_sha256": "4aaf97af3aa58fee4baeabeae905ce15e777f63e0a381e9dfeecb6cfe95db5a2"
+    },
+    {
+      "path": "Docs/UI/progression-inventory-migration-20260909.md",
+      "host_bytes": 9363,
+      "host_sha256": "207eaa61ea562dc479df2163472915c97a3f975443a4bfe0a6273100b9626790",
+      "repository_bytes": 9291,
+      "repository_sha256": "31992d73cd8a682e2a65ee8a6ae1101121a444acd5e6361bd16363cc0f5a27e0"
+    },
+    {
+      "path": "Docs/UI/top-vitals-20260909.md",
+      "host_bytes": 3459,
+      "host_sha256": "d93cf8df1dc4f1875e41bdb6af3f6f3897a336a717dd05c847b47c8ee9cbefee",
+      "repository_bytes": 3459,
+      "repository_sha256": "d93cf8df1dc4f1875e41bdb6af3f6f3897a336a717dd05c847b47c8ee9cbefee"
+    },
+    {
+      "path": "Docs/UI/warehouse-migration-20260909.md",
+      "host_bytes": 7101,
+      "host_sha256": "fd3148f10aee2567dc80f732bfb834d8ab58587ff6965f55968e8eaa88cacedd",
+      "repository_bytes": 7101,
+      "repository_sha256": "fd3148f10aee2567dc80f732bfb834d8ab58587ff6965f55968e8eaa88cacedd"
+    },
+    {
+      "path": "Docs/UI/weapon-handling-20260910.md",
+      "host_bytes": 5231,
+      "host_sha256": "3603f289b80249bcc5499c11d1b059aabf499cb2efba7bfc6b4374bf7553cb4e",
+      "repository_bytes": 5231,
+      "repository_sha256": "3603f289b80249bcc5499c11d1b059aabf499cb2efba7bfc6b4374bf7553cb4e"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/acceptance.json",
+      "host_bytes": 2654,
+      "host_sha256": "a9ae8e68608f2efe8171bc193928eeb56596bc4e2e94ee03cf1cda4008af91cc",
+      "repository_bytes": 2576,
+      "repository_sha256": "65535e4bbc95d534c125022ca7933548089b2a64f3588b04c05ed6322a8db1b0"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/audio_validation_m4-slap-impact.json",
+      "host_bytes": 3448,
+      "host_sha256": "d1594f7f25bb1a33785f12ba5fde2e1ce12df9ff10b5e51e24e49370f9195b53",
+      "repository_bytes": 3334,
+      "repository_sha256": "eb12e1b0fb767fbe1c4eeeaccdc6ade2f798d30a20f037d291d1c323556481f1"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/author_slap.py",
+      "host_bytes": 3449,
+      "host_sha256": "d4c64de132f3badbdc05e4915aa9618fa97d942863576c6257c4957d2216ebbf",
+      "repository_bytes": 3448,
+      "repository_sha256": "8143470457ef00071a0159f9957c4fd0ab0cea06b75066b81f29fd62abd62e9f"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/authoring.json",
+      "host_bytes": 568,
+      "host_sha256": "8895f18783f45f3baf20699544d4953c11a52574caaf6d2f0870e96ebaf5b97c",
+      "repository_bytes": 551,
+      "repository_sha256": "7b490d3d1878fb22361511b179373498df17f62e0799bf585122ded0ba75ec50"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/body_contact_probe.json",
+      "host_bytes": 11509,
+      "host_sha256": "ad396199729bf83793409a99be519340ac0030586f47abc550d8a680e8ff319a",
+      "repository_bytes": 10790,
+      "repository_sha256": "4762de847f4eb634ba1363b7527e701aebbf88b9a9f5dd8d0af66a75011e7399"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/build_mat_sequences.py",
+      "host_bytes": 2769,
+      "host_sha256": "3fbc5a06132cbdaebfe35ce4fb950b7dd129685a3e8f0a10002399057ada54f5",
+      "repository_bytes": 2745,
+      "repository_sha256": "b9578fd11dbd81d3ac0ff1cfdb5c80d151ee4d5141229807628e433100fb359f"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/check_audio.py",
+      "host_bytes": 4212,
+      "host_sha256": "b26d431059b6bae33360bdd3a0c6d735747cfa7602c8c235226c439646525916",
+      "repository_bytes": 4154,
+      "repository_sha256": "c6bc1553d788cdb424a85148eba1b91e5a305c6f3e04d126d5012c40d77f2e14"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/make_delivery.py",
+      "host_bytes": 2464,
+      "host_sha256": "95cb0998deb466e54ca1587ac5bb3ca00b0458c3b3192658655abc3a36c257a8",
+      "repository_bytes": 2437,
+      "repository_sha256": "000829d6d47f47f54fe34ca8c9b2006e27761cc6db45691b09492873133db794"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/mat_saved_validation.json",
+      "host_bytes": 73,
+      "host_sha256": "35307b919f4146150b8b630c2fcebd7417928e2532000ff0a390ece87799553b",
+      "repository_bytes": 69,
+      "repository_sha256": "1f754ca5e5f0d9ba83ba256a1880b220a01dd12aab16634c2487fa5b216e7fcf"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/mat_sequences.json",
+      "host_bytes": 237,
+      "host_sha256": "aa79119c549b0559829bd38056edac7b363bcf8ecf3a3f43063ac51ea21b7aa7",
+      "repository_bytes": 230,
+      "repository_sha256": "4461a4702bb38b9c5d652f5a4e3316b29de924210ef2f5a31c27a83bcb8c3aa4"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/mechanical_contract.json",
+      "host_bytes": 1659,
+      "host_sha256": "a45018cb17c68796cbafd4bf4b808d3d88f509d3acb9e1e5255ec1ec73df4a41",
+      "repository_bytes": 1597,
+      "repository_sha256": "b2628c872d86977b6e3bba0da062ccece3fd68dec8278c1306f1b843813fb80d"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/probe_body.py",
+      "host_bytes": 1960,
+      "host_sha256": "11e4d732f7e05b7662e1d56d865fa63f2cdf8c7883d3f4e4a5a04de8d9e22406",
+      "repository_bytes": 1935,
+      "repository_sha256": "e36e6ed8bb90898dfdde85ec61ecc20dbde4c21fc0e45754937a6ef3226d6dd1"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/publish.py",
+      "host_bytes": 3379,
+      "host_sha256": "64174c7519ff5bc332a0f6ab9d33c32e85ed5390e802078ae583ab1774cdceb5",
+      "repository_bytes": 3347,
+      "repository_sha256": "584ca33e3efb0a9b5be4acc4e80e2d9c0bc12745bb969d3baa860375ec7dc9b5"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/publish_report.json",
+      "host_bytes": 411,
+      "host_sha256": "13c5213078ff1f36f8382d275c92da92a3a7eff72fc7527e83c73426870c465e",
+      "repository_bytes": 403,
+      "repository_sha256": "cc4cd4703b3ae02967981a549bb8ccdcecd0e6c260cb40b1b237025970a46ba3"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/run_validation.ps1",
+      "host_bytes": 2988,
+      "host_sha256": "5849ab0fe0c90fa2715b61619c1e0bf1ec569cf3981a0e5af3c2e80f399fc5c5",
+      "repository_bytes": 2942,
+      "repository_sha256": "7bc87adc50029f0197b982e891c4f890ede954150b3b832fe0bb5948ddef604a"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/triangle_contact_probe.json",
+      "host_bytes": 4254,
+      "host_sha256": "93a535e80ba9ea6b72c9edb8fdcbb7c3ce1a3f61bcff696ca3b41d92112464a0",
+      "repository_bytes": 3992,
+      "repository_sha256": "821f9ef4e8fd1ca4ca23622062f4bac8c0b1c43c637a8ba8b642aad6e02a6dab"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/triangle_contact_probe.py",
+      "host_bytes": 1711,
+      "host_sha256": "dedc6fc34ea24b343e243ff6e1455b2d643bc86dbef1da4232828a416101fbd8",
+      "repository_bytes": 1690,
+      "repository_sha256": "c882d06bccc470bf9332423e46db4627cf86614fcce0fd987fc8986ed375364b"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/ue_saved_contract.json",
+      "host_bytes": 224,
+      "host_sha256": "57a71cac65f63befbe77d7fa5ecd43f01cef4b8e92d28507beeacfbdda596159",
+      "repository_bytes": 216,
+      "repository_sha256": "e778d02c8057e2df6df12186e93c87ca3f47d20215545d6f4ac9c227012c551d"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/validate_surface.py",
+      "host_bytes": 2506,
+      "host_sha256": "a9f902c06528111f04a9c53dc534d52c935721558f1d6ad3afc5c2b711aaeb00",
+      "repository_bytes": 2475,
+      "repository_sha256": "dd3ce6581aa3ccbd64b5e4ecaaeec911f67411d02e42463e4b356d3829234783"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/verify_all_saved.py",
+      "host_bytes": 179,
+      "host_sha256": "9bb311af2a5a8679eaa7ce0bf198d7e436f5ae049dc7b67bd0afb2ccfb8b36d8",
+      "repository_bytes": 175,
+      "repository_sha256": "da9b6bf42997de1a3bf91d848f6d3268475801b477d431ac8c5e30a1028e5b81"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/verify_assets.py",
+      "host_bytes": 1638,
+      "host_sha256": "3f156ca3450884e298238d2f7f5df2dcd7d81934bad5c9efb4ce3afdab66b247",
+      "repository_bytes": 1614,
+      "repository_sha256": "436b769b28040bf20bb834c6fa8bf1458aed6246c13cec3fbd4a0e4b0c905554"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/verify_contract.py",
+      "host_bytes": 2595,
+      "host_sha256": "6c6b6e167a5a344905a0091915965c2adf5de00bd6a9425c276a25db5715c7f9",
+      "repository_bytes": 2570,
+      "repository_sha256": "f3fc01c4da95b49f708517f2b24032b00558dd9187d7329f509d2c017e9c7e52"
+    },
+    {
+      "path": "SourceAssets/M4SlapImpact20260910/verify_mat_saved.py",
+      "host_bytes": 701,
+      "host_sha256": "9dcc5e71d6d43aea886bff7bbe66759c7f6fbaa6137092a38b56823f12a425c4",
+      "repository_bytes": 687,
+      "repository_sha256": "83aad7649cd2512d41cb33a390ccde38053996c128ea3e51dd8c9a82ba000649"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/acceptance.json",
+      "host_bytes": 4879,
+      "host_sha256": "170bf4e7dcd48daa453dbe19186d42773aeba53d1ad26bfad2edd9384e5398be",
+      "repository_bytes": 4733,
+      "repository_sha256": "304580e3be206bc41e884b294244573478c51428fda907c37aaffb1e841f9974"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/audio_validation_m4-tactical-toss.json",
+      "host_bytes": 3454,
+      "host_sha256": "e212460bf0420508d5f5c180b9f79202df1a10909f6186cca4249979d97356f9",
+      "repository_bytes": 3340,
+      "repository_sha256": "51464c30397eb4ab7db9297b9833b776ac4a0346bc719b9a8c2a3b09609b9009"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/author_toss.py",
+      "host_bytes": 3933,
+      "host_sha256": "cc4e7fbf1716899efae2ca4a10e2c1c1a19873ff633a6a8aae8f257fc8a5a893",
+      "repository_bytes": 3884,
+      "repository_sha256": "27d784ef822e4ae9aefed207bc959e42f35e566106437a7de74d6524969ffead"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/authoring.json",
+      "host_bytes": 1181,
+      "host_sha256": "32d80ebac46d1bb9477424a4e47ab85e66748446340b44ed3cacb93b83b16c01",
+      "repository_bytes": 1121,
+      "repository_sha256": "460be9ab481a420005119890c19bae2f4b3c6e9de08017ed68dede62116746dc"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/body_contact_probe.json",
+      "host_bytes": 44399,
+      "host_sha256": "1e9ae8fce2c2b44577de8d40c80c91a18a9421d7d9e36c9ef613c618e89be23e",
+      "repository_bytes": 41610,
+      "repository_sha256": "5d24cbbc3e8c7efc1791d58ffea21bda15da4a79d8c44f7b380e9c4a31a138fc"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/build_mat_sequences.py",
+      "host_bytes": 2773,
+      "host_sha256": "eb9e3f5d8f5b42f97c0009f742e1eeb0e74b335a859e8191ba44dcf76c9d32b3",
+      "repository_bytes": 2749,
+      "repository_sha256": "69bf4c436ac51992ab9e9aa78a556dca1a15e6725f248b0e6a2fd5ea5418110b"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/check_audio.py",
+      "host_bytes": 4212,
+      "host_sha256": "b26d431059b6bae33360bdd3a0c6d735747cfa7602c8c235226c439646525916",
+      "repository_bytes": 4154,
+      "repository_sha256": "c6bc1553d788cdb424a85148eba1b91e5a305c6f3e04d126d5012c40d77f2e14"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/make_delivery.py",
+      "host_bytes": 2470,
+      "host_sha256": "3ff0080ccbab1bae40900a85a3bae7c3ebdd6e6b846c3ba5134d63585e137eec",
+      "repository_bytes": 2443,
+      "repository_sha256": "f9a0a9e6094266d495cf1d4686fd184fba3546eb1092bc5612bd63132a39c4c1"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/mat_saved_validation.json",
+      "host_bytes": 66,
+      "host_sha256": "168ea2d82a1d26a255b18f6c39982cdb13f6d52796bcb4c63e30d42a6c5a75eb",
+      "repository_bytes": 62,
+      "repository_sha256": "97f608d716722df59c4c69a8f0900b707fa0075dae66ea02b04dfc380ccffc00"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/mat_sequences.json",
+      "host_bytes": 225,
+      "host_sha256": "952f2d34f4aebc11cef5d69ec67e6af2eaf87f1674eaf1b766c57bf1a78157f7",
+      "repository_bytes": 218,
+      "repository_sha256": "3007d1731d7bc34f906c80cd3f17b02608a207c283d2f2d83b8deda7efb17572"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/mechanical_contract.json",
+      "host_bytes": 974,
+      "host_sha256": "de2d304b9afbd6469924c0d606dd6b487531ac367d7480e4d536e7f5743f188a",
+      "repository_bytes": 938,
+      "repository_sha256": "34673e5fdc060f7c7ec596ca5ee1d813cba995fefec342122a6c18c24f68266b"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/probe_body.py",
+      "host_bytes": 1954,
+      "host_sha256": "aae36bab35f7f0bab0f7e7103ffe1ccc0f65202bac13431e1f1d177869f2b823",
+      "repository_bytes": 1929,
+      "repository_sha256": "4775935e8c3a244ca86f64308058be3ab4600ae329f8878a1f252e3e8a8b9ba5"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/publish.py",
+      "host_bytes": 3375,
+      "host_sha256": "24403b0473936d70fc1393810d587d464c711231bc2a5f2fab9148dce085ca35",
+      "repository_bytes": 3343,
+      "repository_sha256": "6ec5dfc472c33e20a1f5356b43e2212f65c774730b45c9478939f936bdfe5e3f"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/publish_report.json",
+      "host_bytes": 396,
+      "host_sha256": "8ce7c589f13e908196831bc9944cb2b690c662def3bad2c8049334a5d6712132",
+      "repository_bytes": 388,
+      "repository_sha256": "ad9e3157a71db2c992dde451760f5e742af17d63ae301fba724b2c1c191495f6"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/run_validation.ps1",
+      "host_bytes": 2988,
+      "host_sha256": "5849ab0fe0c90fa2715b61619c1e0bf1ec569cf3981a0e5af3c2e80f399fc5c5",
+      "repository_bytes": 2942,
+      "repository_sha256": "7bc87adc50029f0197b982e891c4f890ede954150b3b832fe0bb5948ddef604a"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/triangle_contact_probe.json",
+      "host_bytes": 16248,
+      "host_sha256": "2b79227bfab1c2b5efd2dcbed4a57a138164bb78fe8471a5dc4168981521e65f",
+      "repository_bytes": 15234,
+      "repository_sha256": "3c97c5568f5fb4ddef307a1beb5b0eca14c5ef824000bd3acf7e68e9233df10c"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/triangle_contact_probe.py",
+      "host_bytes": 1701,
+      "host_sha256": "45cf31e5d36ca1e4a7dd02699f84482cd17a93e56cf73b617cdd48ef3a7f33ed",
+      "repository_bytes": 1680,
+      "repository_sha256": "6518ae7c6f194cd09a99e6514736acecd71d63f1f9afb6bfcef0ac66f9006411"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/ue_saved_contract.json",
+      "host_bytes": 216,
+      "host_sha256": "702966018fc1c651cc7086eab46a68ac7ef4b97266d2c69e9a1751518b06d881",
+      "repository_bytes": 208,
+      "repository_sha256": "a391e49faeb426a5b87a28bd2fd0681673d5a95eb5cdb8bd1175be8dfc4e22dc"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/verify_all_saved.py",
+      "host_bytes": 179,
+      "host_sha256": "9bb311af2a5a8679eaa7ce0bf198d7e436f5ae049dc7b67bd0afb2ccfb8b36d8",
+      "repository_bytes": 175,
+      "repository_sha256": "da9b6bf42997de1a3bf91d848f6d3268475801b477d431ac8c5e30a1028e5b81"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/verify_assets.py",
+      "host_bytes": 1634,
+      "host_sha256": "b40aa3bbd631bc4c6f016e6ec38881ba22f9fa2ed61348861e0d2d21382172db",
+      "repository_bytes": 1610,
+      "repository_sha256": "de530cd3315b7cb866434d00d18021fc50b8cabe6a8d1c754ad5290201bf665b"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/verify_contract.py",
+      "host_bytes": 2589,
+      "host_sha256": "7b68e0790bec39bbb8ec6275a6711671faf9c28ee4073cbc0f4ee8efc186dd04",
+      "repository_bytes": 2564,
+      "repository_sha256": "cefe9d78332f5cab8cc9be37c2084d7f5ca6eadbae4c0072b16da766e4ee70ef"
+    },
+    {
+      "path": "SourceAssets/M4TacticalToss20260910/verify_mat_saved.py",
+      "host_bytes": 699,
+      "host_sha256": "de9defe971a1c1754ef79da0ec252b11e45ec3daed138b49d601f2143460604a",
+      "repository_bytes": 685,
+      "repository_sha256": "386428becde9e5a98d671ef38d39c1f08d61dc32e594ae168f8efc2598f723ec"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/acceptance.json",
+      "host_bytes": 8073,
+      "host_sha256": "96682dffc87a4a78402619f0cfbee526430fe81e3dd103a98f561e68bf2ef900",
+      "repository_bytes": 7810,
+      "repository_sha256": "ed11b141b390f65b1d73c3a369b1a07b8ed8a3f618727a97c7e38ee6a1c5b1e8"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/apply_arm_reference.py",
+      "host_bytes": 3203,
+      "host_sha256": "9b8749d0d575497691ecfed0f6124e8ae8fefa662002e643486348ed5723e0b8",
+      "repository_bytes": 3202,
+      "repository_sha256": "87d36d5d8eab9cff3d85dbc5854aa6460edced26c67c7faccd921a8058957db9"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/apply_entry_clearance.py",
+      "host_bytes": 1638,
+      "host_sha256": "59b4c3703c82d511310d660f93c76c95210406a3695d1610faf79bd7537d5dae",
+      "repository_bytes": 1637,
+      "repository_sha256": "740203174cc5fa9fd6f497de68c389c502e91e2f439b1a40b72de5b01d4c148c"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/audio_validation_m4-wrap-accepted.json",
+      "host_bytes": 3465,
+      "host_sha256": "8ab7241306b17cab45e0b0661383079b55a1cd1ac29d42c5178fcac58c84d356",
+      "repository_bytes": 3351,
+      "repository_sha256": "b356071bfa5d4788f8a07e972a93930a9fb1b4e49b59105d71f91c4b78d22a58"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/build_candidate.ps1",
+      "host_bytes": 560,
+      "host_sha256": "f9eb11f1b1692891871799f8d9ed722c582551970ea762929f06e412b0ebfa08",
+      "repository_bytes": 556,
+      "repository_sha256": "b39c588e57ea64439113c43ae5d3381656c84fd4474d2b9e0df9693d6c9257e6"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/build_mat_sequences.py",
+      "host_bytes": 2796,
+      "host_sha256": "fc39a5afc3c4eaf31f294dd69973dd1ae48f869804c0d5021a6bddc95af95f69",
+      "repository_bytes": 2772,
+      "repository_sha256": "5e7a4efe5fb893112bb274d8a135aa5277dc02d736da2b8c5e2076cdb90a7b69"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/equip_audio_validation.json",
+      "host_bytes": 777,
+      "host_sha256": "93f5a92329a2ac4a2fdb5ad361e0edc8b7e82a5013be92f2ce5cc5b7086b4658",
+      "repository_bytes": 758,
+      "repository_sha256": "4c1a1711ef330b4aa072017c60c91bd37c3f137b24a06d72f37140fced9187e1"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/finger_anatomy.json",
+      "host_bytes": 4929,
+      "host_sha256": "5e75ffd1068d7577ba5d3c15b36d0fd999715edb4bed889c95f2d86491708dcf",
+      "repository_bytes": 4695,
+      "repository_sha256": "4acca1b6f8c3f15525d8705a6b3f52558be0729d07ba39dffd33d80e7934433d"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/fitted_grip.json",
+      "host_bytes": 3224,
+      "host_sha256": "9fc82b2aa726baf66e3fa6bdde6e56d5b6b24b62d72242df952f0851c6573ca2",
+      "repository_bytes": 3042,
+      "repository_sha256": "8958d9ea5fd644c6e6f66b7aa65250f122ad6424d89f632d0a671ba208f6924b"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/mat_saved_validation.json",
+      "host_bytes": 205,
+      "host_sha256": "0a67ab92aa426954f86c872b4969853d7f8249ea31b7d8cbdb62a2d6b7134b88",
+      "repository_bytes": 193,
+      "repository_sha256": "ddd1e21c880fef1653e7cb237979ca6b93f709c76b9ca86425ac6250d095d81c"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/mechanical_contract.json",
+      "host_bytes": 2895,
+      "host_sha256": "ca0932125a14b060d8e14ad3b216dbeef3b5dbac8226e75b9ce71c7088fe01e9",
+      "repository_bytes": 2788,
+      "repository_sha256": "2bdb84050e6635af9511d58b1f5ace4034e7bea8cd509e79652860a329ada7e5"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/probe_body.py",
+      "host_bytes": 2003,
+      "host_sha256": "6bb93bc37f494b3201776d41dbdbef05b2257d91ae22953a035e29e787aca00f",
+      "repository_bytes": 1978,
+      "repository_sha256": "aadfd28cd0957dd07698265d62286edca26a4a90fa3b49499c3f1c85c8de621a"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/publish.py",
+      "host_bytes": 3392,
+      "host_sha256": "22198915c9b6c7065482fc9cc4e299a0fef9efc800b105db9b2d7266daa435e9",
+      "repository_bytes": 3360,
+      "repository_sha256": "0da960307cb76f5294bc84719f476907138bcb4478a8bda77788e4e72f71235e"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/release_path_clearance.json",
+      "host_bytes": 878,
+      "host_sha256": "f8357d4cf02d6585218f079d30f035d7113b9ea60def524ab5b26f92110a1df7",
+      "repository_bytes": 831,
+      "repository_sha256": "a8175757025871ee4b6a863bfc0adabb9757bde4489a044d5566c3293ae2a47d"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/repair_authored.py",
+      "host_bytes": 22585,
+      "host_sha256": "bf5727f11fdeede380310ae47b1724aa41fc9478b6eedf862a5a306000c2a9b5",
+      "repository_bytes": 22271,
+      "repository_sha256": "01b427179227f28ee7ac948d95f0479b0bdb28ed287b5a9314882d900e6a83c1"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/triangle_contact_probe.py",
+      "host_bytes": 1744,
+      "host_sha256": "062ebf7d9db343d4a7eb2b2db7ec59f7fbb6c7d37028527f811f02e85d26e4a7",
+      "repository_bytes": 1723,
+      "repository_sha256": "b2b8e9dfd8b7add4bb5f42cce48d14713f6589123daf6a778966514a62903660"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/ue_saved_contract.json",
+      "host_bytes": 659,
+      "host_sha256": "6d22dcd81bf8db5e31cd64e243ce9a411aa3df3a40e3e375c0af170633d4670e",
+      "repository_bytes": 635,
+      "repository_sha256": "37f6919b627e37d1a3e2c8c74ed63156e67dab133676b84d8a08f1ac95d3f31f"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/verify_assets.py",
+      "host_bytes": 1671,
+      "host_sha256": "781cd5eb7d1ac290f603965455374a4f2f4d5b1cc024ad5b6d694ac2818d3004",
+      "repository_bytes": 1647,
+      "repository_sha256": "6f0bd0f8994ff8bbb4fdcc528b01d3a0d8736108bb9eb8f8110d8f756de92a6a"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/verify_contract.py",
+      "host_bytes": 2630,
+      "host_sha256": "ce921a5b517598b702438b244b13754dbd97d44b1df5575fcad9ea881c33173c",
+      "repository_bytes": 2605,
+      "repository_sha256": "4f4a92ae559c4d67572fcb602c1e390eb81f8dc190eb31d96332655b71a0b197"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/verify_mat_saved.py",
+      "host_bytes": 721,
+      "host_sha256": "88cf37e5886d85b05cd1d1f5fdcd9c8c5ae74a977e9960a2a9611ba14759b809",
+      "repository_bytes": 707,
+      "repository_sha256": "33f439b4ac0f2a182f467692b66adc7c06fb6cd762d4514cc83973f5be4bf07b"
+    },
+    {
+      "path": "SourceAssets/M4WrapGrip20260910/wrap_fit.json",
+      "host_bytes": 4157,
+      "host_sha256": "5d3cfedc4c39d74191ece1ee5c5efebe0e108907c02e18bf08211850d673dc43",
+      "repository_bytes": 3919,
+      "repository_sha256": "64b9a74ab26b93d95e9179430c2d3178cda5f2dfa234aaec07fccf4a226c3db0"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/agents/openai.yaml",
+      "host_bytes": 335,
+      "host_sha256": "d3606c12f6183ca72a65d79a0bed3e3d612d45affc98b608c2266886bc525a7f",
+      "repository_bytes": 335,
+      "repository_sha256": "d3606c12f6183ca72a65d79a0bed3e3d612d45affc98b608c2266886bc525a7f"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/m4-baseline.md",
+      "host_bytes": 5161,
+      "host_sha256": "19d1284081f73282fad4eb82832c81187327ac3b6cec7c38f64c63ffab48bf28",
+      "repository_bytes": 5161,
+      "repository_sha256": "19d1284081f73282fad4eb82832c81187327ac3b6cec7c38f64c63ffab48bf28"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/mat-editing.md",
+      "host_bytes": 3534,
+      "host_sha256": "e3b6b09d294f3e60198ad7859e492f64b176f403ea19187e6687f57a3ac52295",
+      "repository_bytes": 3534,
+      "repository_sha256": "e3b6b09d294f3e60198ad7859e492f64b176f403ea19187e6687f57a3ac52295"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/pose-contact.md",
+      "host_bytes": 3711,
+      "host_sha256": "72effd8bd0b87a59c07d8a3f1e338b66121f412a6c00fef9000461b2787017ba",
+      "repository_bytes": 3711,
+      "repository_sha256": "72effd8bd0b87a59c07d8a3f1e338b66121f412a6c00fef9000461b2787017ba"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/validation.md",
+      "host_bytes": 5213,
+      "host_sha256": "7812d47f6c641d42fc091f74ef86efaa204b050bfc006159296c3bd1aaac7d5b",
+      "repository_bytes": 5213,
+      "repository_sha256": "7812d47f6c641d42fc091f74ef86efaa204b050bfc006159296c3bd1aaac7d5b"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "host_bytes": 2848,
+      "host_sha256": "1910272098e619a1713e2c02566a458fb6b2fc8eb95cd03b09700578e050dee0",
+      "repository_bytes": 2848,
+      "repository_sha256": "1910272098e619a1713e2c02566a458fb6b2fc8eb95cd03b09700578e050dee0"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/agents/openai.yaml",
+      "host_bytes": 308,
+      "host_sha256": "f54bc8bc740441ce6f03515c962c98324b65a7a838678ab9dbf19e71dcecdeaf",
+      "repository_bytes": 308,
+      "repository_sha256": "f54bc8bc740441ce6f03515c962c98324b65a7a838678ab9dbf19e71dcecdeaf"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/integration.md",
+      "host_bytes": 3577,
+      "host_sha256": "ea000be56427741fb2d8f8d458deb0f2359f24ae168d4ea040f47f4a3933fafd",
+      "repository_bytes": 3577,
+      "repository_sha256": "ea000be56427741fb2d8f8d458deb0f2359f24ae168d4ea040f47f4a3933fafd"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/publication.md",
+      "host_bytes": 3022,
+      "host_sha256": "04cb0561974b7dc90c906fc298afa44010db1612fb91d6162f5fcd9b099910ab",
+      "repository_bytes": 3891,
+      "repository_sha256": "d1b06bce5be06416edaf6047d9746b5a606b21c419b2e03425afe37e4e1f6d5f",
+      "publication_adjustment": "UE5 root workflow documentation"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/SKILL.md",
+      "host_bytes": 3545,
+      "host_sha256": "5b36c40f92b9b62289758ecbf6c096aed44649127c5f8c5c5fc91ed94f15e1a9",
+      "repository_bytes": 3702,
+      "repository_sha256": "143223316f14042cacb0ce4f095c4e82526ab0f1b402ee207c71ce69ce8ed070",
+      "publication_adjustment": "UE5 root workflow documentation"
+    }
+  ]
+}

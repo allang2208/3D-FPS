@@ -1,0 +1,80 @@
+{
+  "status": "applied_and_runtime_verified",
+  "authoring": {
+    "source_sha256": "59c58c908cc7baf8a5145bd4484a69762b9d792a3dcfc99987d980fc37588477",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+    "strike_speed_multiplier": 1.5,
+    "old_strike_frames": [
+      125,
+      130
+    ],
+    "new_strike_frames": [
+      126.66666666666667,
+      130
+    ],
+    "impact_seconds": 2.1666666666666665,
+    "duration": 2.7,
+    "additional_shake_peak_mm": 2.1927713943115053,
+    "additional_shake_peak_degrees": 0.634270896399542,
+    "additional_shake_duration": 0.17,
+    "sample_rate": 480
+  },
+  "runtime": {
+    "label": "m4-slap-impact",
+    "requested_hz": 60,
+    "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+    "rhi": "-d3d11",
+    "process_exit": 0,
+    "pass": 50,
+    "fail": 0,
+    "completion_marker": true,
+    "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-slap-impact\\assertions.log",
+    "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\runtime-m4-slap-impact.log",
+    "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+  },
+  "hand_mag_samples": 65,
+  "hand_mag_triangle_pairs": 0,
+  "ue_saved_contract": {
+    "reload_empty": {
+      "keys": 1297,
+      "duration": 2.700000047683716,
+      "samples_960hz": 2593,
+      "held_drift_mm": 0.37428297307822245,
+      "grasp_drift_mm": 0.07461422118124238,
+      "hook_drift_mm": 0
+    }
+  },
+  "mat_saved": {
+    "reload_empty": {
+      "channels": 909,
+      "keys": 1178973
+    }
+  },
+  "audio_events": 11,
+  "audio_min_correlation": 0.846188914977133,
+  "audio_log_latency_range_ms": [
+    13.333333333331865,
+    80.99999999999952
+  ],
+  "slap_events": [
+    {
+      "empty": true,
+      "name": "bolt_release",
+      "correlation": 0.9981776179197593,
+      "wave_start": 10.986666666666666,
+      "log_seconds": 10.93,
+      "audio_vs_log_seconds": 0.05666666666666664,
+      "game_event_lateness": 0.023886
+    },
+    {
+      "empty": true,
+      "name": "bolt_release",
+      "correlation": 0.9981776179197593,
+      "wave_start": 22.549333333333333,
+      "log_seconds": 22.536,
+      "audio_vs_log_seconds": 0.013333333333331865,
+      "game_event_lateness": 0.014277
+    }
+  ],
+  "visual_review": "Reviewed actual rendered frames from 10.95 to 11.20 seconds. Accelerated approach, contact and separation are visible; no new finger collapse visible. Preview is 20 Hz, not a frame-rate benchmark."
+}

@@ -5,7 +5,7 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 # UE5 枪械标准工作流
 
-本 FPS 项目于 2026-09-10 全面转向 UE5，当前本地宿主为 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（已验证 UE 5.8.2）。`E:/3d/3-dfps` 是旧 Godot 原型及源码发布仓库；默认新功能落在 UE 工程。用户明确要求维护旧原型时才使用 Godot 实现。此选择不改变其他项目的引擎。
+本 FPS 项目于 2026-09-10 全面转向 UE5，当前本地宿主为 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（已验证 UE 5.8.2）。Git 远端 `3D-FPS` 的 main 已以根目录 `FPSGAME.uproject` / `Source` 发布 UE5 当前源码；`E:/3d/3-dfps` 仍是旧共享本机 checkout，不能直接推送其分叉 master。默认新功能落在 UE 工程。用户明确要求维护旧原型时才使用 Godot 实现。此选择不改变其他项目的引擎。
 
 ## 按任务读取
 
@@ -29,4 +29,4 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 上述是可复用方法；M4 的 2.1/2.7 秒、接触帧、480 Hz 烘焙和具体资产路径是当前案例参数。换枪时重新测量接触、局部轴、眼距和动作时长；保留用户选择的型号，不为方便动画擅自换成 HK416。
 
-个人技能目录为维护源；本机 UE 宿主与旧源码仓库的 `skills/ue5-weapon-workflow`、`skills/ue5-fps-arms-animation` 保留同版镜像。更新时同步两者并检查散列，不在三个副本分别演化不同标准。发布仍按项目 AGENTS/WORKFLOW 的隔离发布规则执行。
+个人技能目录为维护源；本机 UE 宿主、当前 Git 发布目录与旧本机参考目录的 `skills/ue5-weapon-workflow`、`skills/ue5-fps-arms-animation` 保留同版镜像。更新时同步两者并检查散列，不在各副本分别演化不同标准。发布仍按项目 AGENTS/WORKFLOW 的隔离发布规则执行。

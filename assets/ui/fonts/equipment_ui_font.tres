@@ -1,9 +1,0 @@
-[gd_resource type="FontVariation" load_steps=2 format=3]
-
-[sub_resource type="SystemFont" id="SystemFont_local"]
-font_names = PackedStringArray("SimSun")
-
-[resource]
-base_font = SubResource("SystemFont_local")
-variation_embolden = 0.5
-variation_face_index = 0

@@ -1,34 +1,10 @@
-# 当前开发方向（2026-09-10）
+# 当前开发方向
 
-本 FPS 后续开发全面转向 UE5，当前本地工程 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（UE 5.8.2）。先确认实际 `.uproject`，使用对应 UE5 技能；下方 Godot 专项规则用于维护旧原型或作为迁移参考，不代表新工作仍应写入 Godot。天气读 `skills/ue5-weather-workflow/SKILL.md`，运行诊断读 `skills/ue5-debug-validation/SKILL.md`。源码快照与完整工程的区别见 [unreal/README.md](unreal/README.md)。
+当前工程为根目录 `FPSGAME.uproject`（UE 5.8.2）。用户已指定后续全面转向 UE5；Godot 只作为归档参考。完整本机宿主为 `D:/FPS3D/FPSGAME`，Git main 的当前源码直接位于根目录，不再仅发布 `unreal/<topic>` 摘录。
 
-本次或后续任务确认淘汰的文件移入 `trash/<task>/`，保留原路径、大小、SHA-256 清单；只整理任务范围内文件。推送继续执行 WORKFLOW 第 8 节。
-
-# 枪械与改造
-
-当前枪械开发使用 [UE5 枪械标准](skills/ue5-weapon-workflow/SKILL.md)；手臂、抓握、甩匣换弹、拉栓、装备与 MAT 精修使用 [UE5 手臂动画](skills/ue5-fps-arms-animation/SKILL.md)。实际宿主为 D:/FPS3D/FPSGAME；旧 Godot 枪械入口已退役，仅按明确要求维护旧原型。发布遵守 WORKFLOW 第 8 节。
-
-# 怪物制作与迁移
-
-怪物建模、绑骨、动作优化、数值和游戏接入工作，先读取 [怪物标准工作流](skills/godot-monster-workflow/SKILL.md)。其他开发仍遵守 WORKFLOW.md 的职责边界。
-
-用户于 2026-09-06 指定：制作每个动作前，先实际查看已有 2D 动画或源视频，并读取时长、循环、接触帧与状态配置；记录关键姿态、重心和左右差异后才制作 3D 动作。
-
-普通僵尸已获得游戏接入及测试授权。后续怪物按各自授权阶段推进，不能把本次授权泛化成所有资产的接入批准。
-
-# 冷钢 UI 与面板开发
-
-开发或调整游戏UI、HUD、背包/仓库及字体时，必须先读 [冷钢UI技能](skills/godot-cold-steel-ui/SKILL.md)、[当前规则](docs/cold-steel-ui-standard.md) 与 [面板工作流](UI-WORKFLOW.md)。用户认可的枪械改造字体是所有新面板基准；优先公共字体入口，不另造字重或字号方案。原始参考快照保持不变。
-
-仅维护旧 Godot 枪械改造页面与配件说明时，先读 [最终格式合同](skills/godot-weapon-workflow/references/gunsmith-ui.md)。该合同取代早期字体分工及重复对比/解释段落格式。
-
-# 昼夜、天气与事件预报
-
-当前 UE5 迁移项目添加或优化昼夜、天气、雨雪、积水、闪电与雷声时，先读
-[UE5 天气技能](skills/ue5-weather-workflow/SKILL.md)。维护旧 Godot 实现时仍读
-[Godot 天气技能](skills/godot-weather-workflow/SKILL.md)及
-[旧标准工作流](docs/weather-development-workflow.md)。事件进度栏保持当前用户确认格式；清理和推送按 WORKFLOW 第 8 节。
-
-# 体素与建筑
-
-玩家可建造体素先读 [体素标准](VOXEL-WORKFLOW.md) 和 [体素技能](skills/godot-voxel-workflow/SKILL.md)；基地、模组拼接及建造系统先读 [建筑工作流](BUILDING-WORKFLOW.md) 和 [建筑技能](skills/godot-building-workflow/SKILL.md)。面板继续使用冷钢UI规则，发布遵守WORKFLOW第8节。
+- 开发和发布先读 [WORKFLOW.md](WORKFLOW.md)，仓库整理、归档与推送遵守第 8 节。
+- 枪械读 [ue5-weapon-workflow](skills/ue5-weapon-workflow/SKILL.md)，手臂和 MAT 读 [ue5-fps-arms-animation](skills/ue5-fps-arms-animation/SKILL.md)。先参考现有动作，核对实际运行加载，再修改。
+- 天气读 [ue5-weather-workflow](skills/ue5-weather-workflow/SKILL.md)，调试读 [ue5-debug-validation](skills/ue5-debug-validation/SKILL.md)。
+- 保留动画时序、UI、库存、存档和并行修改。源码编译与真实运行验收分别报告。
+- 本机宿主尚无独立 Git；旧共享 `E:/3d/3-dfps` 不得 reset/clean 或直接推送其分叉 master。使用基于远端 main 的发布工作区。
+- 退役文件放 `trash/<task>/` 并记录散列。二进制资源及恢复边界见 [AssetSetup](Docs/AssetSetup.md)，未审核再分发许可的原始资源不公开提交。
