@@ -1,5 +1,10 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelDragVisual.h"
+#include "Framework/Application/SlateApplication.h"
+#include "Engine/Engine.h"
+#include "Engine/GameViewportClient.h"
+#include "Widgets/SWindow.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelUIStyle.h"
@@ -19,7 +24,7 @@ void UColdSteelHUDWidget::RunInventoryVisualAudit()
 {
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!P||!P->IsAudit())return;
     auto* Icons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
-    struct FRun{int32 Phase=0,Checks=0,Failures=0,Frame=0;FColdSteelProfile Fixture;FTimerHandle Timer,AnimationTimer;FString Gun,Potion;};auto R=MakeShared<FRun>();
+    struct FRun{int32 Phase=0,Checks=0,Failures=0,Frame=0;FColdSteelProfile Fixture;FTimerHandle Timer,AnimationTimer;FString Gun,Potion;FVector2D Start,Last,Anchor,VisualSize;TWeakObjectPtr<UColdSteelItemDrag> Drag;};auto R=MakeShared<FRun>();
     auto Check=[R](bool OK,const TCHAR* Name){++R->Checks;if(!OK)++R->Failures;UE_LOG(LogTemp,Display,TEXT("InventoryVisualAudit: %s %s"),OK?TEXT("PASS"):TEXT("FAIL"),Name);};
     auto State=P->Snapshot();State.Items.Empty();State.Hotbar.Init(TEXT(""),4);State.HotbarDefinitions.Init(TEXT(""),4);
     const TCHAR* Rarities[]={TEXT("common"),TEXT("uncommon"),TEXT("rare"),TEXT("epic"),TEXT("mythic"),TEXT("legendary")};
@@ -35,6 +40,38 @@ void UColdSteelHUDWidget::RunInventoryVisualAudit()
         if(!Icons->IsIdle())return;auto* Scroll=Cast<UScrollBox>(EquipmentPage);auto* Board=Scroll?Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)):nullptr;if(!Board)return;
         const auto G=Board->GetCachedGeometry();const auto L=Board->Layout(G);const int32 Width=UWidgetLayoutLibrary::GetViewportSize(this).X;
         auto Shot=[&](const TCHAR* Name){HideItemTooltip(true);const FString Dir=FPaths::ProjectSavedDir()/TEXT("InventoryVisual");IFileManager::Get().MakeDirectory(*Dir,true);FScreenshotRequest::RequestScreenshot(Dir/FString::Printf(TEXT("%s-%d.png"),Name,Width),true,false);};
+        if(FParse::Param(FCommandLine::Get(),TEXT("InventoryDragVisualAudit"))&&R->Phase>=5&&R->Phase<18){
+            auto& App=FSlateApplication::Get();
+            auto Pointer=[](FVector2D At,FVector2D Last,bool Down,FKey Key=EKeys::Invalid){return FPointerEvent(0,At,Last,Down?TSet<FKey>{EKeys::LeftMouseButton}:TSet<FKey>{},Key,0,FModifierKeysState());};
+            auto Move=[&](FVector2D At){App.ProcessMouseMoveEvent(Pointer(At,R->Last,true));R->Last=At;};
+            auto Press=[&](FVector2D At){R->Start=R->Last=At;App.ProcessMouseMoveEvent(Pointer(At,At,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(At,At,true,EKeys::LeftMouseButton));};
+            auto Release=[&](){App.ProcessMouseButtonUpEvent(Pointer(R->Last,R->Last,false,EKeys::LeftMouseButton));};
+            auto Gear=G.LocalToAbsolute(FVector2D(12+L.GearWidth*.46,L.GearY+2*L.GearPitch+L.GearHeight*.65)/Board->Scale);
+            auto Bag=G.LocalToAbsolute(FVector2D(12+14.5*L.Cell,L.BagY+3.5*L.Cell)/Board->Scale);
+            const FString Equipped=R->Fixture.Items[0].InstanceId;
+            switch(R->Phase++-5){
+            case 0:Board->PreviewPlace=-1;Scroll->ScrollToEnd();HideItemTooltip(true);break;
+            case 1:Press(Gear);break;
+            case 2:{
+                Move(R->Start+FVector2D(12,0));R->Drag=Board->ActivePointerDrag;
+                auto* D=R->Drag.Get();Check(App.IsDragDropping()&&D&&D->PointerVisual&&D->PointerVisual->IsInViewport(),TEXT("real equipment drag creates pointer overlay immediately"));
+                if(D&&D->PointerVisual){R->Anchor=R->Last-D->PointerVisual->ScreenOrigin();R->VisualSize=D->PointerVisual->ScreenSize();
+                    bool Follows=true;for(const FVector2D Delta:{FVector2D(23,7),FVector2D(-9,11),FVector2D(5,-13)}){Move(R->Last+Delta);Follows&=(D->PointerVisual->ScreenOrigin()+R->Anchor-R->Last).Size()<.01;}
+                    Check(Follows,TEXT("first 150ms pointer moves have zero interpolation or accumulated lag"));}
+                Shot(TEXT("drag-start"));break;}
+            case 3:Move(Bag);Check(Board->bPreviewValid&&Board->PreviewCell==48,TEXT("equipment center grab resolves legal bag footprint"));Shot(TEXT("drag-to-bag"));break;
+            case 4:{auto* D=R->Drag.Get();Check(D&&D->PointerVisual&&(D->PointerVisual->ScreenOrigin()+R->Anchor-R->Last).Size()<.01&&D->PointerVisual->ScreenSize().Equals(R->VisualSize)&&D->Offset.IsZero(),TEXT("crossing gear to bag keeps exact anchor size and zero snap offset"));Check(D&&D->PointerVisual&&D->PointerVisual->GetCachedGeometry().GetLocalSize().X>500,TEXT("drag overlay has full viewport paint geometry"));Release();break;}
+            case 5:Check(P->FindItem(Equipped)->Place==0&&P->FindItem(Equipped)->Cell==48&&!App.IsDragDropping()&&(!R->Drag.IsValid()||!R->Drag->PointerVisual),TEXT("release commits once and removes overlay"));Shot(TEXT("drag-dropped"));break;
+            case 6:Press(Bag);break;
+            case 7:Move(Bag+FVector2D(12,0));R->Drag=Board->ActivePointerDrag;Move(Gear);Shot(TEXT("drag-to-gear"));break;
+            case 8:Release();Check(P->FindItem(Equipped)->Place==1&&P->FindItem(Equipped)->Cell==6,TEXT("reverse drag equips original instance"));break;
+            case 9:Press(Gear);break;
+            case 10:Move(Gear+FVector2D(12,0));R->Drag=Board->ActivePointerDrag;App.CancelDragDrop();Release();Check(!App.IsDragDropping()&&(!R->Drag.IsValid()||!R->Drag->PointerVisual)&&P->FindItem(Equipped)->Place==1,TEXT("cancellation removes overlay and preserves source"));break;
+            case 11:Press(Gear);break;
+            case 12:Move(Gear+FVector2D(12,0));R->Drag=Board->ActivePointerDrag;SetInventoryOpen(false);App.CancelDragDrop();Release();Check(!R->Drag.IsValid()||!R->Drag->PointerVisual,TEXT("closing inventory cleans up active visual"));break;
+            }
+            return;
+        }
         switch(R->Phase++){
         case 0:{
             bool Hits=true;for(int32 N=0;N<72;++N){int32 Place,Cell;Hits&=Board->Hit(G,G.LocalToAbsolute(FVector2D(12+(N%18+.5f)*L.Cell,L.BagY+(N/18+.5f)*L.Cell)/Board->Scale),Place,Cell)&&Place==0&&Cell==N;}

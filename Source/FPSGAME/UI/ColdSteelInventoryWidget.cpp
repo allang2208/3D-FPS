@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelDragVisual.h"
 #include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
@@ -18,9 +19,11 @@
 #include "Framework/Application/SlateApplication.h"
 #include "InputCoreTypes.h"
 using namespace ColdSteelInventory;
-void UColdSteelItemDrag::Drop_Implementation(const FPointerEvent& E){if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::Drop_Implementation(E);}
-void UColdSteelItemDrag::DragCancelled_Implementation(const FPointerEvent& E){if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::DragCancelled_Implementation(E);}
-void UColdSteelInventoryWidget::FinishDrag(){DraggedItem.Empty();bPendingClick=false;PreviewPlace=-1;}
+void UColdSteelItemDrag::ReleaseVisual(){if(PointerVisual)PointerVisual->RemoveFromParent();PointerVisual=nullptr;}
+void UColdSteelItemDrag::Dragged_Implementation(const FPointerEvent& E){if(PointerVisual)PointerVisual->MoveTo(E.GetScreenSpacePosition());Super::Dragged_Implementation(E);}
+void UColdSteelItemDrag::Drop_Implementation(const FPointerEvent& E){ReleaseVisual();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::Drop_Implementation(E);}
+void UColdSteelItemDrag::DragCancelled_Implementation(const FPointerEvent& E){ReleaseVisual();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::DragCancelled_Implementation(E);}
+void UColdSteelInventoryWidget::FinishDrag(){if(auto Drag=ActivePointerDrag.Get())Drag->ReleaseVisual();ActivePointerDrag.Reset();DraggedItem.Empty();bPendingClick=false;PreviewPlace=-1;}
 void UColdSteelInventoryWidget::CancelInteraction(){FinishDrag();Selected.Empty();KeyboardCarry.Empty();KeyboardHotbar=-1;bConfirmDrop=false;InteractionMessage.Empty();if(ItemMenu)ItemMenu->Close(false);ItemMenu=nullptr;}
 void UColdSteelInventoryWidget::OpenItemMenu(FVector2D Anchor,bool SplitOnly){if(ItemMenu)ItemMenu->Close(false);if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);ItemMenu=CreateWidget<UColdSteelInventoryPopup>(GetOwningPlayer());ItemMenu->Open(this,Model,Selected,Anchor,SplitOnly);}
 
@@ -155,11 +158,24 @@ void UColdSteelInventoryWidget::NativeOnDragDetected(const FGeometry& G,const FP
     const auto* I=Model->FindItem(Selected);if(!I||IdAt(PressPlace,PressCell)!=Selected)return;
     auto* Drag=NewObject<UColdSteelItemDrag>(this);Drag->ItemId=Selected;Drag->HotbarIndex=PressPlace==3?PressCell:-1;Drag->SourceBoard=this;
     Drag->SourcePlace=I->Place;Drag->SourceCell=I->Cell;if(PressPlace==0)Drag->GrabOffset=FIntPoint(PressCell%18-I->Cell%18,PressCell/18-I->Cell/18);
-    auto* Visual=NewObject<UImage>(this);if(const auto* Brush=ItemBrush(*I))Visual->SetBrush(*Brush);
-    auto* Frame=NewObject<USizeBox>(this);Frame->SetWidthOverride(I->Width*Layout(G).Cell/Scale);Frame->SetHeightOverride(I->Height*Layout(G).Cell/Scale);
-    auto* Fit=NewObject<UScaleBox>(this);Fit->SetStretch(EStretch::ScaleToFit);Fit->SetContent(Visual);Frame->SetContent(Fit);Frame->SetRenderOpacity(.65f);Frame->SetVisibility(ESlateVisibility::HitTestInvisible);
-    Drag->DefaultDragVisual=Frame;Drag->Pivot=EDragPivot::TopLeft;
-    Drag->Offset=FVector2D(-(Drag->GrabOffset.X+.5f)/I->Width,-(Drag->GrabOffset.Y+.5f)/I->Height);
+    const auto L=Layout(G);const FVector2D Press=G.AbsoluteToLocal(PressPosition)*Scale;
+    FVector2D Origin(12+I->Cell%18*L.Cell,L.BagY+I->Cell/18*L.Cell),Size(I->Width*L.Cell,I->Height*L.Cell);
+    if(PressPlace==1){Origin=FVector2D(12+PressCell%3*(L.GearWidth+6),L.GearY+PressCell/3*L.GearPitch);Size=FVector2D(L.GearWidth,L.GearHeight);}
+    else if(PressPlace==3){Origin=FVector2D(12+PressCell*54,L.HotY);Size=FVector2D(48,46);}
+    const FVector2D Grab(FMath::Clamp((Press.X-Origin.X)/Size.X,0.0,1.0),FMath::Clamp((Press.Y-Origin.Y)/Size.Y,0.0,1.0));
+    if(PressPlace==1)Drag->GrabOffset=FIntPoint(FMath::Min(I->Width-1,int32(Grab.X*I->Width)),FMath::Min(I->Height-1,int32(Grab.Y*I->Height)));
+    const auto* Brush=ItemBrush(*I);
+    FVector2D ImageSize=Size;
+    if(Brush){ImageSize=Brush->ImageSize;ImageSize*=FMath::Min((Size.X-8)/FMath::Max(1.0,ImageSize.X),(Size.Y-8)/FMath::Max(1.0,ImageSize.Y));}
+    const FVector2D ImageOrigin=Origin+(Size-ImageSize)*.5+FVector2D(0,PressPlace==0?2:0);
+    const FVector2D ScreenOrigin=G.LocalToAbsolute(ImageOrigin/Scale);
+    const FVector2D ScreenSize=G.LocalToAbsolute((ImageOrigin+ImageSize)/Scale)-ScreenOrigin;
+    Drag->PointerVisual=CreateWidget<UColdSteelDragVisual>(GetOwningPlayer());
+    Drag->PointerVisual->Configure(Brush,ScreenSize,PressPosition-ScreenOrigin,E.GetScreenSpacePosition());
+    Drag->PointerVisual->AddToViewport(1000);ActivePointerDrag=Drag;
+    // Suppress UMG's 150ms source-widget-origin interpolation; only the overlay is visible.
+    auto* Empty=NewObject<USizeBox>(this);Empty->SetVisibility(ESlateVisibility::HitTestInvisible);
+    Drag->DefaultDragVisual=Empty;Drag->Pivot=EDragPivot::TopLeft;Drag->Offset=FVector2D::ZeroVector;
     DraggedItem=Selected;Out=Drag;
 }
 bool UColdSteelInventoryWidget::NativeOnDragOver(const FGeometry& G,const FDragDropEvent& E,UDragDropOperation* O)
@@ -179,7 +195,6 @@ bool UColdSteelInventoryWidget::NativeOnDragOver(const FGeometry& G,const FDragD
             const int32 Target=Model->Items()[N].Cell;const auto Swap=Model->ProposeMove(D->ItemId,0,Target);
             if(Swap.bValid){PreviewCell=Target;Proposal=Swap;}else Proposal.Reason=Swap.Reason;
         }}
-        if(Proposal.bValid){const auto L=Layout(G);const auto Local=G.AbsoluteToLocal(E.GetScreenSpacePosition())*Scale;D->Offset=FVector2D((12+PreviewCell%18*L.Cell-Local.X)/(Source->Width*L.Cell),(L.BagY+PreviewCell/18*L.Cell-Local.Y)/(Source->Height*L.Cell));}
         bPreviewValid=Proposal.bValid;PreviewReason=Proposal.bValid?TEXT("松开放置 / 交换物品"):Proposal.Reason;
     }
     else if(PreviewPlace==3){bPreviewValid=Source->Place==0&&Text(*Source,TEXT("category"))==TEXT("consumable");PreviewReason=bPreviewValid?TEXT("松开绑定快捷物品"):TEXT("快捷栏仅接受背包中的消耗品");}

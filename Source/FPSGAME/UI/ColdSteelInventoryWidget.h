@@ -14,6 +14,9 @@ public:
     int32 HotbarIndex=-1;
     int32 SourcePlace=-1,SourceCell=-1;
     TWeakObjectPtr<class UColdSteelInventoryWidget> SourceBoard;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelDragVisual> PointerVisual;
+    void ReleaseVisual();
+    virtual void Dragged_Implementation(const FPointerEvent&)override;
     virtual void Drop_Implementation(const FPointerEvent&)override;
     virtual void DragCancelled_Implementation(const FPointerEvent&)override;
 };
@@ -64,6 +67,7 @@ private:
     FString HoverPreview;
     FString DraggedItem,InteractionMessage,PreviewReason,PressedItem;
     FVector2D PressPosition;
+    TWeakObjectPtr<UColdSteelItemDrag> ActivePointerDrag;
     bool bPendingClick=false;
     int32 KeyboardHotbar=-1;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelInventoryPopup> ItemMenu;

@@ -1,4 +1,4 @@
-param([int[]]$Widths=@(1280,960,1920),[switch]$CaptureGlints)
+param([int[]]$Widths=@(1280,960,1920),[switch]$CaptureGlints,[switch]$DragVisual)
 $ErrorActionPreference='Stop'
 $projectRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $runId=Get-Date -Format 'yyyyMMddHHmmss'
@@ -7,6 +7,7 @@ foreach($width in $Widths){
     $height=[int]($width*9/16);$logPath="$projectRoot/Saved/InventoryVisual/$runId-$width.log"
     $arguments='"{0}/FPSGAME.uproject" /Game/GameMaps/DayNight_Lighting -game -windowed -ResX={1} -ResY={2} -ForceRes -unattended -nosound -NoSplash -ColdSteelInventoryAudit -InventoryVisualAudit -ColdSteelProfile=InventoryVisualAudit_{3}_{1} -abslog="{4}"' -f $projectRoot,$width,$height,$runId,$logPath
     if($CaptureGlints){$arguments+=' -InventoryCornerGlintAudit'}
+    if($DragVisual){$arguments+=' -InventoryDragVisualAudit'}
     $audit=Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe' -ArgumentList $arguments -WindowStyle Hidden -PassThru
     if(!$audit.WaitForExit(180000)){$audit.Kill();throw "Owned inventory visual audit timed out: $logPath"}
     $log=[IO.File]::ReadAllText($logPath)
