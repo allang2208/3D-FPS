@@ -42,3 +42,8 @@ __pycache__/
 /SourceAssets/**/*.gltf
 /SourceAssets/**/*.bin
 /Config/DefaultEditorPerProjectUserSettings.ini
+
+# Local migration audits and external source package
+/Docs/git-host-migration-20260910/
+/MilitaryTrenchMegascansSa/
+/FAB_MAT58.uproject

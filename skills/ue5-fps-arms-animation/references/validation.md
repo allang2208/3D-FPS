@@ -42,7 +42,7 @@ UE 命令行位于 `E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/`，Blen
 
 ## 编译和辅助进程
 
-- 无 Git 的宿主备份精确文件，写入前核对原字节未被并行任务修改。模块使用尚未占用的唯一 `-ModuleWithSuffix=FPSGAME,<suffix>`；不恢复旧 UnrealEditor.modules 来覆盖另一任务构建。
+- 当前宿主 `D:/FPS3D/FPSGAME` 已是独立 Git 仓库，直接在这里精确提交推送；写入前核对原字节未被并行任务修改。模块使用尚未占用的唯一 `-ModuleWithSuffix=FPSGAME,<suffix>`；不恢复旧 UnrealEditor.modules 来覆盖另一任务构建。
 - 查明持有 DLL 的编辑器归属，不反复关闭用户/其他任务的实例。新建自己的隐藏辅助进程；有已打开用户编辑器时明确区分新测试进程已验证与用户编辑器是否已重新加载。
 - 实际混音录制时避免同时运行 Blender 渲染、MAT 烘焙或其他重 UE 检查，减少截图遗漏和事件延迟。仍要报告实际缺图。
 - commandlet 的既有 GameFeatureData 或 MCP 端口报错与动画检查分开判断。保留退出码、错误和明确产物读回证据；新错误不能一律列为“已有”。MAT 保存后的已知 Sequencer 退出问题见 [MAT 实操](mat-editing.md)。

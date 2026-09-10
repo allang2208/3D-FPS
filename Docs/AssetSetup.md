@@ -4,7 +4,7 @@
 
 ## 本机继续开发
 
-本机原工程未移动，仍打开 `D:/FPS3D/FPSGAME/FPSGAME.uproject`。如使用新的 Git checkout，在确认拥有使用许可后，从完整宿主复制 `Content`，保持相对路径和 World Partition 的 `__ExternalActors__`/`__ExternalObjects__` 成套；不要用旧快照覆盖当前源码。复制前处理目标同名文件的差异，不批量覆盖新工作。
+本机原工程未移动，仍打开 `D:/FPS3D/FPSGAME/FPSGAME.uproject`；本目录现已接入独立 Git，日常开发、提交、推送全部在 D 盘完成，不需复制到 E 盘。如使用新的 Git checkout，在确认拥有使用许可后，从完整宿主复制 `Content`，保持相对路径和 World Partition 的 `__ExternalActors__`/`__ExternalObjects__` 成套；不要用旧快照覆盖当前源码。复制前处理目标同名文件的差异，不批量覆盖新工作。
 
 作者编辑还需要本机 `SourceAssets` 中的 Blend、FBX、声音和引用源；仓库只包含当前 M4 三段依赖链的作者脚本及记录，恢复本地源目录可补齐其输入。`Tools` 中部分旧参考导出器仍指向本机 Godot 归档，不参与 UE 游戏运行。历史工具带绝对宿主路径，运行前检查其输入和输出路径。
 

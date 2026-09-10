@@ -1,6 +1,6 @@
 # UE5 枪械与手臂标准
 
-当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主 `D:/FPS3D/FPSGAME`。
+当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主及 Git 工作目录都是 `D:/FPS3D/FPSGAME`，直接在该目录提交和推送。
 
 - [枪械标准](skills/ue5-weapon-workflow/SKILL.md)：模型/许可、骨架/挂点、ADS、枪匠、装备与存档。
 - [手臂动画](skills/ue5-fps-arms-animation/SKILL.md)：自然抓握、甩匣、取弹插入、拉栓、MAT 和音效。

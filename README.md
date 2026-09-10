@@ -16,7 +16,7 @@
 | `ThirdPartyNotices/` | 已记录的第三方来源说明 |
 | `unreal/` | 迁移期间的历史快照；当前代码以根目录 `Source/` 为准 |
 
-先读 [开发与发布规则](WORKFLOW.md) 和 [资源恢复](Docs/AssetSetup.md)。本机完整宿主仍位于 `D:/FPS3D/FPSGAME`，不要用历史快照覆盖它。
+先读 [开发与发布规则](WORKFLOW.md) 和 [资源恢复](Docs/AssetSetup.md)。本机唯一日常工作目录是 **`D:/FPS3D/FPSGAME`**：直接在这里开发、提交和推送 `origin/main`，无需 E 盘同步副本。详见 [D 盘直接使用 Git](Docs/DirectGitWorkflow.md)。不要用历史快照覆盖现有工程。
 
 安装 UE 5.8.2 及其 Windows C++ 工具链，在 PowerShell 中编译：
 
