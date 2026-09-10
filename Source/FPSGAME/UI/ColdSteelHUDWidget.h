@@ -30,6 +30,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Cold Steel UI")
     void ToggleInventory();
     bool HandlePanelShortcut(const FKey& Key, bool bRepeat = false);
+    bool HandleInventoryOutsideClick(FVector2D ScreenPosition);
 
     UFUNCTION(BlueprintPure, Category = "Cold Steel UI")
     bool IsInventoryOpen() const { return bInventoryOpen; }

@@ -4,10 +4,18 @@
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelPickupStudio.h"
 #include "ColdSteelPickup.h"
+#include "ColdSteelWarehouseChest.h"
+#include "ColdSteelWarehouseWidget.h"
+#include "Camera/PlayerCameraManager.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Components/ScrollBox.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/PoseableMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
+#include "Rendering/SkeletalMeshRenderData.h"
+#include "Serialization/JsonSerializer.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -21,6 +29,17 @@
 #include "UnrealClient.h"
 #include "Misc/Paths.h"
 #include "HAL/FileManager.h"
+
+static FString PickupRecipeFingerprint(AColdSteelPickup* Pickup)
+{
+    auto* Asset=Cast<USkeletalMesh>(Pickup->Weapon->GetSkinnedAsset());if(!Asset)return TEXT("missing model");
+    FString Result=Asset->GetPathName()+Pickup->Body->GetUnscaledBoxExtent().ToString()+Pickup->Weapon->GetRelativeTransform().ToString();
+    if(const auto* Render=Asset->GetResourceForRendering())for(int32 L=0;L<Render->LODRenderData.Num();++L)
+        for(const auto& S:Render->LODRenderData[L].RenderSections)Result+=Pickup->Weapon->IsMaterialSectionShown(S.MaterialIndex,L)?TEXT("1"):TEXT("0");
+    TArray<UStaticMeshComponent*> Components;Pickup->GetComponents(Components);TArray<FString> Parts;
+    for(auto* C:Components)if(C->IsVisible()&&C->GetStaticMesh())Parts.Add(C->GetStaticMesh()->GetPathName()+C->GetRelativeTransform().ToString());
+    Parts.Sort();for(const auto& Part:Parts)Result+=Part;return Result;
+}
 
 void UColdSteelHUDWidget::RunDropHitchAudit()
 {
@@ -53,6 +72,32 @@ void UColdSteelHUDWidget::RunDropHitchAudit()
         case 10:{const double Begin=FPlatformTime::Seconds();App.ProcessMouseButtonUpEvent(Pointer(R->Outside,R->Outside,false,EKeys::LeftMouseButton));const double Ms=(FPlatformTime::Seconds()-Begin)*1000;UE_LOG(LogTemp,Display,TEXT("DropTiming: native mouse release %.3f ms"),Ms);const auto* I=M->FindItem(R->Id);Check(I&&I->Place==2&&I->Magazine==13,TEXT("real mouse release drops exact rifle and ammo"));break;}
         case 11:Click(R->Outside);Check(!bInventoryOpen&&!PC->bShowMouseCursor,TEXT("outside close still works after ending a drag"));for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==R->Id){FVector Eye;FRotator View;PC->GetPlayerViewPoint(Eye,View);PC->SetControlRotation((It->GetActorLocation()-Eye).Rotation());Check(It->Body->IsSimulatingPhysics(),TEXT("dropped rifle keeps gravity physics"));}break;
         case 12:{const FString Dir=FPaths::ProjectSavedDir()/TEXT("DropHitch");IFileManager::Get().MakeDirectory(*Dir,true);FScreenshotRequest::RequestScreenshot(Dir/TEXT("native-drag-ground.png"),true,false);break;}
+        case 13:{auto State=M->Snapshot();for(auto& I:State.Items)if(I.InstanceId==R->Id){I.Place=0;I.Cell=0;}Check(M->CommitState(State),TEXT("restore item for close boundary tests"));SetInventoryOpen(true);break;}
+        case 14:Board->SelectItem(R->Id);Board->OpenItemMenu(R->Start,false);break;
+        case 15:Click(R->Outside);Check(!bInventoryOpen&&!PC->bShowMouseCursor,TEXT("outside click closes backpack through detached item popup"));SetInventoryOpen(true);break;
+        case 16:App.ProcessMouseMoveEvent(Pointer(R->Start,R->Outside,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));break;
+        case 17:App.ProcessMouseMoveEvent(Pointer(R->Start+FVector2D(12,0),R->Start,true));break;
+        case 18:App.ProcessMouseMoveEvent(Pointer(R->Outside,R->Start+FVector2D(12,0),true));Check(App.IsDragDropping(),TEXT("TAB cancellation fixture has active outside drag"));Tab();Check(!bInventoryOpen&&!App.IsDragDropping(),TEXT("TAB cancels active outside drag and closes backpack"));break;
+        case 19:App.ProcessMouseButtonUpEvent(Pointer(R->Outside,R->Outside,false,EKeys::LeftMouseButton));Check(M->FindItem(R->Id)&&M->FindItem(R->Id)->Place==0,TEXT("release after TAB cancellation does not discard item"));break;
+        case 20:{auto* Chest=GetWorld()->SpawnActor<AColdSteelWarehouseChest>(FVector(50145,50000,5010),FRotator::ZeroRotator);FVector Eye;FRotator View;PC->GetPlayerViewPoint(Eye,View);PC->SetControlRotation((Chest->GetActorLocation()+FVector(0,0,40)-Eye).Rotation());PC->PlayerCameraManager->UpdateCamera(0);OpenWarehouse(Chest);Check(bWarehouseOpen,TEXT("focused warehouse opens for close boundary tests"));break;}
+        case 21:{const auto WG=WarehouseWidget->GetCachedGeometry();Click(WG.LocalToAbsolute(WG.GetLocalSize()*FVector2D(.5,.08)));Check(bWarehouseOpen&&bInventoryOpen,TEXT("click inside warehouse keeps both panels open"));break;}
+        case 22:Click(R->Outside);Check(!bWarehouseOpen&&!bInventoryOpen&&!PC->IsLookInputIgnored(),TEXT("outside click closes warehouse and restores gameplay"));break;
+        case 23:{auto State=M->Snapshot();State.Items.Empty();auto Potion=M->CreateItem(TEXT("hp_potion"),5);Potion.Cell=0;R->Id=Potion.InstanceId;State.Items.Add(Potion);Check(M->CommitState(State),TEXT("split popup fixture"));SetInventoryOpen(true);break;}
+        case 24:Board->SelectItem(R->Id);Board->OpenItemMenu(R->Start,true);break;
+        case 25:Click(R->Outside);Check(!bInventoryOpen&&M->FindItem(R->Id)&&M->FindItem(R->Id)->Count==5,TEXT("outside click closes split popup without changing quantity"));break;
+        case 26:{
+            auto Stock=M->CreateItem(TEXT("ue_m4a1"));auto Modified=Stock;TSharedPtr<FJsonObject> Data;
+            if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Modified.Data),Data)){Check(false,TEXT("parse weapon recipe fixture"));break;}
+            auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("optic"),TEXT("holographic"));Parts->SetStringField(TEXT("magazine"),TEXT("large_drum"));Parts->SetStringField(TEXT("muzzle"),TEXT("true"));Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Modified.Data.Empty();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Modified.Data));
+            auto Spawn=[&](const FColdSteelItem& I){auto* P=GetWorld()->SpawnActor<AColdSteelPickup>();P->InitializeItem(I);P->Body->SetSimulatePhysics(false);P->SetActorTickEnabled(false);P->SetActorHiddenInGame(true);return P;};
+            auto* First=Spawn(Stock);const FString Original=PickupRecipeFingerprint(First);auto* Mod=Spawn(Modified);const FString Changed=PickupRecipeFingerprint(Mod);
+            auto* Pool=GetGameInstance()->GetSubsystem<UColdSteelPickupStudio>();Check(Pool->Key(Stock)!=Pool->Key(Modified)&&Original!=Changed,TEXT("modified recipe has distinct cache and visible assembly"));
+            CollectGarbage(GARBAGE_COLLECTION_KEEPFLAGS);auto* Again=Spawn(Stock);
+            Check(PickupRecipeFingerprint(Again)==Original,TEXT("pooled rig resets attachments and sections after modified recipe and GC"));
+            Check(PickupRecipeFingerprint(First)==Original&&PickupRecipeFingerprint(Mod)==Changed,TEXT("existing ground models remain unchanged when pooled rig is reused"));
+            Check(PC->GetPawn()&&PC->GetPawn()->IsActorTickEnabled(),TEXT("pooled recipe rebuild preserves active player"));
+            First->Destroy();Mod->Destroy();Again->Destroy();break;
+        }
         default:GetWorld()->GetTimerManager().ClearTimer(R->Timer);UE_LOG(LogTemp,Display,TEXT("DropHitchAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);PC->ConsoleCommand(TEXT("quit"));break;
         }
     }),.35f,true);

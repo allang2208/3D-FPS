@@ -70,17 +70,21 @@ void UColdSteelHUDWidget::TickWarehouse(const FGeometry& G,float Delta)
     WarehouseWidget->SetRenderTranslation(FVector2D((1-WarehouseMotion)*ReferenceUnits(Pixels),0));WarehouseWidget->SetRenderOpacity(WarehouseMotion);
     if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid())WarehouseChest->SetOpen(false);WarehouseChest.Reset();}
 }
-FReply UColdSteelHUDWidget::NativeOnPreviewMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
+bool UColdSteelHUDWidget::HandleInventoryOutsideClick(FVector2D Position)
 {
-    if(bInventoryOpen&&E.GetEffectingButton()==EKeys::LeftMouseButton&&!UWidgetBlueprintLibrary::IsDragDropping()){
-        const FVector2D Position=E.GetScreenSpacePosition();
+    if(bInventoryOpen&&!UWidgetBlueprintLibrary::IsDragDropping()){
         const bool InBag=InventoryPanel&&InventoryPanel->GetCachedGeometry().IsUnderLocation(Position);
         const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
         const bool InDetails=WarehouseDetails&&WarehouseDetails->GetCachedGeometry().IsUnderLocation(Position);
         const auto Inside=[&](UWidget* W){return W&&W->IsVisible()&&W->GetCachedGeometry().IsUnderLocation(Position);};
         const bool InTooltip=Inside(ItemTooltip)||Inside(StatusTooltip)||Inside(EquipmentTooltip);
-        if(!InBag&&!InWarehouse&&!InDetails&&!InTooltip){SetInventoryOpen(false);return FReply::Handled();}
+        if(!InBag&&!InWarehouse&&!InDetails&&!InTooltip){SetInventoryOpen(false);return true;}
     }
+    return false;
+}
+FReply UColdSteelHUDWidget::NativeOnPreviewMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
+{
+    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&HandleInventoryOutsideClick(E.GetScreenSpacePosition()))return FReply::Handled();
     return Super::NativeOnPreviewMouseButtonDown(G,E);
 }
 

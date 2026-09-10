@@ -71,7 +71,13 @@ void UColdSteelInventoryPopup::QuantityCommitted(const FText&,ETextCommit::Type 
 void UColdSteelInventoryPopup::Cancel(){Close();}
 void UColdSteelInventoryPopup::Close(bool RestoreFocus){RemoveFromParent();if(RestoreFocus&&OwnerBoard.IsValid()&&OwnerBoard->IsVisible())OwnerBoard->SetKeyboardFocus();}
 FReply UColdSteelInventoryPopup::NativeOnKeyDown(const FGeometry& G,const FKeyEvent& E){if(E.GetKey()==EKeys::Escape){Close();return FReply::Handled();}return Super::NativeOnKeyDown(G,E);}
-FReply UColdSteelInventoryPopup::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&){Close();return FReply::Handled();}
+FReply UColdSteelInventoryPopup::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent& E)
+{
+    // This popup is a separate viewport root, so the HUD never receives its background click.
+    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&OwnerBoard.IsValid())
+        if(auto* HUD=OwnerBoard->TooltipHUD();HUD&&HUD->HandleInventoryOutsideClick(E.GetScreenSpacePosition()))return FReply::Handled();
+    Close();return FReply::Handled();
+}
 FReply UColdSteelInventoryPopup::NativeOnPreviewKeyDown(const FGeometry& G,const FKeyEvent& E)
 {
     if(E.GetKey()==EKeys::Escape){Close();return FReply::Handled();}

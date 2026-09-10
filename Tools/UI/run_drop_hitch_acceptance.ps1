@@ -9,6 +9,6 @@ $arguments='"{0}/FPSGAME.uproject" /Game/GameMaps/DayNight_Lighting -game -windo
 $audit=Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe' -ArgumentList $arguments -WindowStyle Hidden -PassThru
 if(!$audit.WaitForExit(180000)){$audit.Kill();throw "Owned drop hitch audit timed out: $logPath"}
 $log=[IO.File]::ReadAllText($logPath)
-if($audit.ExitCode -ne 0 -or $log -notmatch 'DropHitchAudit: COMPLETE checks=\d+ failures=0' -or $log -match 'DropHitchAudit: FAIL'){throw "Drop hitch audit failed: $logPath (exit $($audit.ExitCode))"}
+if($audit.ExitCode -ne 0 -or $log -notmatch 'DropHitchAudit: COMPLETE checks=25 failures=0' -or $log -match 'DropHitchAudit: FAIL'){throw "Drop hitch audit failed: $logPath (exit $($audit.ExitCode))"}
 Select-String -Path $logPath -Pattern 'DropTiming:|DropHitchAudit: COMPLETE' | ForEach-Object Line
 Write-Output "PASS: $logPath"
