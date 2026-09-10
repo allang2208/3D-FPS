@@ -72,18 +72,8 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
         const bool SelectedItem=I.InstanceId==Selected,Hovered=I.InstanceId==HoverId;
         Box(X+1,Y+1,W-2,H-2,Hovered?ColdSteelUI::ButtonHover:ColdSteelUI::ButtonNormal,SelectedItem?ColdSteelUI::Accent:Fade(ColdSteelUI::Border,.65f),2,SelectedItem?2:1);
         if(Name){for(int32 N=1;N<I.Width;++N)Box(X+N*L.Cell,Y+2,1,H-4,Fade(ColdSteelUI::Border,.22f),FLinearColor::Transparent,0);for(int32 N=1;N<I.Height;++N)Box(X+2,Y+N*L.Cell,W-4,1,Fade(ColdSteelUI::Border,.22f),FLinearColor::Transparent,0);}
-        float Left=4,Right=4;
+        const float Left=4,Right=4;
         const float CornerSize=FMath::Min(FMath::Clamp(H*.28f,7.f,18.f),(W-6)/3);
-        // Source contract: side badges belong to wide equipment/items, never obscure a 1x1 icon.
-        auto Badge=[&](const FString& Text,float BX,FLinearColor Color,float BW){
-            const float Height=H-10-(P&&P->Enchanted?CornerSize-3:0);
-            Box(BX,Y+5,BW,Height,Fade(Color,.16f),Fade(Color,.4f),4);
-            const float Top=Y+5+(Height-Text.Len()*11)/2;for(int32 N=0;N<Text.Len();++N)Label(Text.Mid(N,1),BX+(BW-10)/2,Top+N*11,10,Color,BW);
-        };
-        if(P&&!Hotbar&&W>=80&&H>=36){
-            const FString Rarity=ColdSteelUI::RarityLabel(P->Rarity);
-            if(!Rarity.IsEmpty()){Badge(Rarity,X+5,ColdSteelUI::RarityColor(P->Rarity),12);Left=21;}
-        }
         if(const auto* Brush=ItemBrush(I)){
             FVector2D Size=Brush->ImageSize;const float Fit=FMath::Min(FMath::Max(1.f,W-Left-Right)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,H-8)/FMath::Max(1.f,float(Size.Y)));Size*=Fit;
             FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform(FVector2D(X+Left+(W-Left-Right-Size.X)/2,Y+(H-Size.Y)/2+(Name?2:0))/Scale)),Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,Opacity));
