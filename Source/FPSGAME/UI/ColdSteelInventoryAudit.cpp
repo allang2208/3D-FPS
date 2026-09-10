@@ -23,6 +23,7 @@
 using namespace ColdSteelInventory;
 void UColdSteelHUDWidget::RunInventoryAudit()
 {
+    if(FParse::Param(FCommandLine::Get(),TEXT("WeaponIconAudit"))){RunWeaponIconAudit();return;}
     if(FParse::Param(FCommandLine::Get(),TEXT("ColdSteelDragAudit"))){RunInventoryDragAudit();return;}
     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!M||!M->IsAudit())return;
     struct FRun{int32 Failures=0,Checks=0,Phase=0;FTimerHandle Timer;FColdSteelProfile Original;};auto Run=MakeShared<FRun>();Run->Original=M->Snapshot();

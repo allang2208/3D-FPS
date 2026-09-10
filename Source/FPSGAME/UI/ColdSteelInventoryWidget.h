@@ -54,6 +54,9 @@ private:
     friend class UColdSteelInventoryPopup;
     UPROPERTY() TObjectPtr<UColdSteelStatusModel> Model;
     FDelegateHandle ModelHandle;
+    FDelegateHandle IconHandle;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelWeaponIcons> WeaponIcons;
+    const FSlateBrush* ItemBrush(const struct FColdSteelItem& Item) const;
     UPROPERTY() TMap<FString,TObjectPtr<class UTexture2D>> Icons;
     TMap<FString,FSlateBrush> IconBrushes;
     FString Selected;

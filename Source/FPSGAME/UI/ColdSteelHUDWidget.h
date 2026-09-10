@@ -41,6 +41,7 @@ public:
     void SetInventoryAuditState(int32 State);
     void RunUpgradeAudit();
     void RunInventoryAudit();
+    void RunWeaponIconAudit();
     void RunInventoryDragAudit();
     void RunItemTooltipAudit();
     void RunTopVitalsAudit();

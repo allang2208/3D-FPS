@@ -2,6 +2,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelWeaponIcons.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/SizeBox.h"
@@ -27,10 +28,11 @@ void UColdSteelInventoryWidget::NativeOnInitialized()
 {
     Super::NativeOnInitialized();SetIsFocusable(true);Scale=ColdSteelUI::PixelScale(this);
     Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    WeaponIcons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
     if(!WidgetTree->RootWidget){auto* Size=WidgetTree->ConstructWidget<USizeBox>();WidgetTree->RootWidget=Size;}
     SetVisibility(ESlateVisibility::Visible);LoadIcons();
 }
-void UColdSteelInventoryWidget::NativeConstruct(){Super::NativeConstruct();if(Model&&!ModelHandle.IsValid())ModelHandle=Model->OnChanged.AddUObject(this,&ThisClass::LoadIcons);LoadIcons();}
+void UColdSteelInventoryWidget::NativeConstruct(){Super::NativeConstruct();if(Model&&!ModelHandle.IsValid())ModelHandle=Model->OnChanged.AddUObject(this,&ThisClass::LoadIcons);if(WeaponIcons&&!IconHandle.IsValid())IconHandle=WeaponIcons->OnReady.AddUObject(this,&ThisClass::LoadIcons);LoadIcons();}
 void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
 {
     Super::NativeTick(G,Delta);
@@ -39,14 +41,20 @@ void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
         if(!FMath::IsNearlyEqual(Size->GetMinDesiredHeight(),Height,.5f))Size->SetMinDesiredHeight(Height);
     }
 }
-void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();CancelInteraction();Super::NativeDestruct();}
+void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();if(WeaponIcons)WeaponIcons->OnReady.Remove(IconHandle);IconHandle.Reset();CancelInteraction();Super::NativeDestruct();}
 void UColdSteelInventoryWidget::LoadIcons()
 {
     if(!Model)return;for(const auto& I:Model->Items()) {
+        if(WeaponIcons&&WeaponIcons->Supports(I)){if(I.Place==0||I.Place==1)WeaponIcons->Request(I);continue;}
         if(Icons.Contains(I.Definition))continue;const FString File=Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
         auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/File);if(!Texture)continue;
         Icons.Add(I.Definition,Texture);FSlateBrush Brush;Brush.SetResourceObject(Texture);Brush.ImageSize=FVector2D(Texture->GetSizeX(),Texture->GetSizeY());Brush.DrawAs=ESlateBrushDrawType::Image;IconBrushes.Add(I.Definition,Brush);
     }
+}
+const FSlateBrush* UColdSteelInventoryWidget::ItemBrush(const FColdSteelItem& I) const
+{
+    if(WeaponIcons&&WeaponIcons->Supports(I))return WeaponIcons->Find(I);
+    return IconBrushes.Find(I.Definition);
 }
 UColdSteelInventoryWidget::FBoardLayout UColdSteelInventoryWidget::Layout(const FGeometry& G)const
 {
@@ -89,7 +97,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     auto Item=[&](const FColdSteelItem& I,float X,float Y,float W,float H,bool Name){
         ItemOpacity=I.InstanceId==DraggedItem?.3f:1.f;
         Box(X+1,Y+1,W-2,H-2,ColdSteelUI::ButtonNormal,I.InstanceId==Selected?ColdSteelUI::Accent:ColdSteelUI::Border);
-        if(const auto* Brush=IconBrushes.Find(I.Definition)){FVector2D Size=Brush->ImageSize;float Fit=FMath::Min((W-6)/FMath::Max(1.f,float(Size.X)),(H-6)/FMath::Max(1.f,float(Size.Y)));Size*=Fit;FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform(FVector2D(X+(W-Size.X)/2,Y+(H-Size.Y)/2)/Scale)),Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,ItemOpacity));}
+        if(const auto* Brush=ItemBrush(I)){FVector2D Size=Brush->ImageSize;float Fit=FMath::Min((W-6)/FMath::Max(1.f,float(Size.X)),(H-6)/FMath::Max(1.f,float(Size.Y)));Size*=Fit;FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform(FVector2D(X+(W-Size.X)/2,Y+(H-Size.Y)/2)/Scale)),Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,ItemOpacity));}
         else Label(Text(I,TEXT("name")).Left(FMath::Max(1,int32((W-6)/12))),X+4,Y+5,12,ColdSteelUI::TextPrimary);
         if(Name&&W>60)Label(Text(I,TEXT("name")).Left(int32((W-8)/12)),X+4,Y+2,12,ColdSteelUI::TextPrimary);
         if(I.Count>1)Label(FString::Printf(TEXT("%lld"),I.Count),X+FMath::Max(2.f,W-9*FString::Printf(TEXT("%lld"),I.Count).Len()),Y+H-13,11,ColdSteelUI::TextPrimary,true);
@@ -182,7 +190,7 @@ void UColdSteelInventoryWidget::NativeOnDragDetected(const FGeometry& G,const FP
     const auto* I=Model->FindItem(Selected);if(!I||IdAt(PressPlace,PressCell)!=Selected)return;
     auto* Drag=NewObject<UColdSteelItemDrag>(this);Drag->ItemId=Selected;Drag->HotbarIndex=PressPlace==3?PressCell:-1;Drag->SourceBoard=this;
     Drag->SourcePlace=I->Place;Drag->SourceCell=I->Cell;if(PressPlace==0)Drag->GrabOffset=FIntPoint(PressCell%18-I->Cell%18,PressCell/18-I->Cell/18);
-    auto* Visual=NewObject<UImage>(this);if(const auto* Brush=IconBrushes.Find(I->Definition))Visual->SetBrush(*Brush);
+    auto* Visual=NewObject<UImage>(this);if(const auto* Brush=ItemBrush(*I))Visual->SetBrush(*Brush);
     auto* Frame=NewObject<USizeBox>(this);Frame->SetWidthOverride(I->Width*Layout(G).Cell/Scale);Frame->SetHeightOverride(I->Height*Layout(G).Cell/Scale);
     auto* Fit=NewObject<UScaleBox>(this);Fit->SetStretch(EStretch::ScaleToFit);Fit->SetContent(Visual);Frame->SetContent(Fit);Frame->SetRenderOpacity(.65f);Frame->SetVisibility(ESlateVisibility::HitTestInvisible);
     Drag->DefaultDragVisual=Frame;Drag->Pivot=EDragPivot::TopLeft;

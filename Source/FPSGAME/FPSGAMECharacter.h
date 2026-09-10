@@ -28,6 +28,8 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
 {
     GENERATED_BODY()
 
+    friend class UColdSteelWeaponIcons;
+
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     AFPSGAMECharacter();
