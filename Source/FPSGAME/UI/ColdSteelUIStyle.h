@@ -35,4 +35,10 @@ namespace ColdSteelUI
     FPSGAME_API FSlateFontInfo TextFont(float Size);
     FPSGAME_API FSlateFontInfo NumberFont(float Size, bool bBold = false);
     FPSGAME_API float PixelScale(const UObject* Context);
+    // Source cold-steel rarity/processing tokens; keep item semantics shared by UI surfaces.
+    FPSGAME_API FLinearColor RarityColor(const FString& Rarity);
+    FPSGAME_API FString RarityLabel(const FString& Rarity);
+    inline const FLinearColor Enhanced = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E9BF63FF")));
+    inline const FLinearColor Crafted = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("9B72C6FF")));
+    inline const FLinearColor Enchanted = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6FA7DEFF")));
 }

@@ -42,6 +42,7 @@ public:
     void RunUpgradeAudit();
     void RunInventoryAudit();
     void RunWeaponIconAudit();
+    void RunInventoryVisualAudit();
     void RunInventoryDragAudit();
     void RunItemTooltipAudit();
     void RunTopVitalsAudit();

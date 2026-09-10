@@ -68,6 +68,7 @@ private:
     int32 KeyboardHotbar=-1;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelInventoryPopup> ItemMenu;
     bool bPreviewValid=false;
+    TArray<FIntRect> SwapDestinations;
     int32 PreviewPlace=-1,PreviewCell=-1;
     int32 FocusPlace=0,FocusCell=0;
     int32 PressPlace=-1,PressCell=-1;
@@ -78,4 +79,9 @@ private:
     bool Hit(const FGeometry&,FVector2D Screen,int32& Place,int32& Cell)const;
     FString IdAt(int32 Place,int32 Cell)const;
     void LoadIcons();
+    void RefreshPresentation();
+    struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;bool Crafted=false,Enchanted=false;};
+    TMap<FString,FItemPresentation> Presentation;
+    int32 HoverPlace=-1,PointerCell=-1;
+    bool bSortHovered=false;
 };

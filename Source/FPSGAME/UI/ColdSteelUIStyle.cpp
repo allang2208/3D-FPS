@@ -22,6 +22,16 @@ namespace
     }
 }
 
+FLinearColor ColdSteelUI::RarityColor(const FString& Rarity)
+{
+    static const TMap<FString,FString> Colors={{TEXT("common"),TEXT("B9C2D5FF")},{TEXT("uncommon"),TEXT("8BC8ACFF")},{TEXT("rare"),TEXT("85B4E8FF")},{TEXT("epic"),TEXT("B695DEFF")},{TEXT("mythic"),TEXT("E3B278FF")},{TEXT("legendary"),TEXT("E78B9FFF")}};
+    const auto* Hex=Colors.Find(Rarity);return Hex?FLinearColor::FromSRGBColor(FColor::FromHex(*Hex)):TextSecondary;
+}
+FString ColdSteelUI::RarityLabel(const FString& Rarity)
+{
+    static const TMap<FString,FString> Names={{TEXT("common"),TEXT("普通")},{TEXT("uncommon"),TEXT("优秀")},{TEXT("rare"),TEXT("稀有")},{TEXT("epic"),TEXT("史诗")},{TEXT("mythic"),TEXT("神话")},{TEXT("legendary"),TEXT("传说")}};
+    const auto* Name=Names.Find(Rarity);return Name?*Name:TEXT("");
+}
 FSlateBrush ColdSteelUI::RoundedBrush(const FLinearColor& Fill, float Radius, const FLinearColor& Outline, float OutlineWidth)
 {
     return FSlateRoundedBoxBrush(Fill, Radius, Outline, OutlineWidth);

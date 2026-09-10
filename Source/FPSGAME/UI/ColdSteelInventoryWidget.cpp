@@ -44,6 +44,7 @@ void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
 void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();if(WeaponIcons)WeaponIcons->OnReady.Remove(IconHandle);IconHandle.Reset();CancelInteraction();Super::NativeDestruct();}
 void UColdSteelInventoryWidget::LoadIcons()
 {
+    RefreshPresentation();
     if(!Model)return;for(const auto& I:Model->Items()) {
         if(WeaponIcons&&WeaponIcons->Supports(I)){if(I.Place==0||I.Place==1)WeaponIcons->Request(I);continue;}
         if(Icons.Contains(I.Definition))continue;const FString File=Text(I,TEXT("ue_icon"));if(File.IsEmpty())continue;
@@ -66,7 +67,7 @@ UColdSteelInventoryWidget::FBoardLayout UColdSteelInventoryWidget::Layout(const 
     L.GearY=32;L.GearPitch=L.GearHeight+6;
     L.BagY=L.GearY+5*L.GearPitch-6+48;
     L.HotY=L.BagY+4*L.Cell+32;
-    L.Height=L.HotY+46+36;
+    L.Height=L.HotY+46+48;
     return L;
 }
 bool UColdSteelInventoryWidget::Hit(const FGeometry& G,FVector2D Screen,int32& Place,int32& Cell)const
@@ -86,43 +87,6 @@ FString UColdSteelInventoryWidget::IdAt(int32 Place,int32 Cell)const
 {
     if(!Model)return TEXT("");if(Place==3){auto* I=Model->ResolveHotbar(Cell);return I?I->InstanceId:TEXT("");}
     int32 N=Owner(Model->Items(),Place,Cell);return N>=0?Model->Items()[N].InstanceId:TEXT("");
-}
-int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry& G,const FSlateRect& C,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& S,bool Enabled)const
-{
-    Layer=Super::NativePaint(A,G,C,Out,Layer,S,Enabled);if(!Model)return Layer;
-    const auto L=Layout(G);
-    float ItemOpacity=1;
-    auto Box=[&](float X,float Y,float W,float H,FLinearColor Color,FLinearColor Edge=FLinearColor::Transparent){Color.A*=ItemOpacity;Edge.A*=ItemOpacity;auto B=ColdSteelUI::RoundedBrush(Color,2/Scale,Edge,1/Scale);FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(FVector2D(W,H)/Scale,FSlateLayoutTransform(FVector2D(X,Y)/Scale)),&B,ESlateDrawEffect::None,Color);};
-    auto Label=[&](FString T,float X,float Y,float Size,FLinearColor Color,bool Numeric=false){Color.A*=ItemOpacity;FSlateDrawElement::MakeText(Out,Layer+2,G.ToPaintGeometry(FVector2D(L.Width,30)/Scale,FSlateLayoutTransform(FVector2D(X,Y)/Scale)),T,Numeric?ColdSteelUI::NumberFont(Size*.75f/Scale):ColdSteelUI::TextFont(Size*.75f/Scale),ESlateDrawEffect::None,Color);};
-    auto Item=[&](const FColdSteelItem& I,float X,float Y,float W,float H,bool Name){
-        ItemOpacity=I.InstanceId==DraggedItem?.3f:1.f;
-        Box(X+1,Y+1,W-2,H-2,ColdSteelUI::ButtonNormal,I.InstanceId==Selected?ColdSteelUI::Accent:ColdSteelUI::Border);
-        if(const auto* Brush=ItemBrush(I)){FVector2D Size=Brush->ImageSize;float Fit=FMath::Min((W-6)/FMath::Max(1.f,float(Size.X)),(H-6)/FMath::Max(1.f,float(Size.Y)));Size*=Fit;FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform(FVector2D(X+(W-Size.X)/2,Y+(H-Size.Y)/2)/Scale)),Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,ItemOpacity));}
-        else Label(Text(I,TEXT("name")).Left(FMath::Max(1,int32((W-6)/12))),X+4,Y+5,12,ColdSteelUI::TextPrimary);
-        if(Name&&W>60)Label(Text(I,TEXT("name")).Left(int32((W-8)/12)),X+4,Y+2,12,ColdSteelUI::TextPrimary);
-        if(I.Count>1)Label(FString::Printf(TEXT("%lld"),I.Count),X+FMath::Max(2.f,W-9*FString::Printf(TEXT("%lld"),I.Count).Len()),Y+H-13,11,ColdSteelUI::TextPrimary,true);
-        if(I.Cooldown>0)Label(FString::Printf(TEXT("%.1f"),I.Cooldown),X+3,Y+2,11,ColdSteelUI::Warning,true);
-        ItemOpacity=1;
-    };
-    Label(TEXT("装备栏"),12,4,16,ColdSteelUI::TextPrimary);
-
-    for(int32 N=0;N<15;++N){float X=12+(N%3)*(L.GearWidth+6),Y=L.GearY+(N/3)*L.GearPitch;Box(X,Y,L.GearWidth,L.GearHeight,ColdSteelUI::Content,ColdSteelUI::Border);int32 Index=Owner(Model->Items(),1,N);if(Index>=0)Item(Model->Items()[Index],X,Y,L.GearWidth,L.GearHeight,false);else Label(Locked(Model->Items(),N)?TEXT("双手占用"):SlotNames()[N],X+8,Y+(L.GearHeight-16)/2,16,ColdSteelUI::TextSecondary);}
-    int32 Cells=0,Items=0;for(const auto& I:Model->Items())if(I.Place==0){Cells+=I.Width*I.Height;++Items;}
-    Label(TEXT("背包"),12,L.BagY-28,16,ColdSteelUI::TextPrimary);Label(FString::Printf(TEXT("%d/72 格 · %d 件"),Cells,Items),FMath::Max(100.f,L.Width-212),L.BagY-26,12,ColdSteelUI::TextSecondary,true);
-    Box(L.Width-60,L.BagY-30,48,24,ColdSteelUI::ButtonNormal,ColdSteelUI::Border);Label(TEXT("整理"),L.Width-50,L.BagY-25,12,ColdSteelUI::TextPrimary);
-    for(int32 N=0;N<72;++N)if(Owner(Model->Items(),0,N)<0)Box(12+N%18*L.Cell,L.BagY+N/18*L.Cell,L.Cell,L.Cell,ColdSteelUI::Content,ColdSteelUI::Border);
-    for(const auto& I:Model->Items())if(I.Place==0)Item(I,12+I.Cell%18*L.Cell,L.BagY+I.Cell/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
-    if(PreviewPlace>=0&&PreviewCell>=0){const auto* I=Model->FindItem(HoverPreview);float X=12,Y=0,W=48,H=L.GearHeight;
-        if(PreviewPlace==0){X+=PreviewCell%18*L.Cell;Y=L.BagY+PreviewCell/18*L.Cell;W=(I?I->Width:1)*L.Cell;H=(I?I->Height:1)*L.Cell;W=FMath::Min(W,L.Width-X-12);H=FMath::Min(H,L.BagY+4*L.Cell-Y);}
-        else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+6);Y=L.GearY+PreviewCell/3*L.GearPitch;W=L.GearWidth;}
-        else{X+=PreviewCell*54;Y=L.HotY;H=46;}
-        auto Color=bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger;Color.A=.35f;Box(X,Y,W,H,Color,bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger);
-    }
-    if(!PreviewReason.IsEmpty()&&PreviewPlace>=0)Label(PreviewReason,12,L.HotY+54,11,bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger);
-    else if(!InteractionMessage.IsEmpty())Label(InteractionMessage,12,L.HotY+54,11,ColdSteelUI::Accent);
-    Label(TEXT("快捷物品"),12,L.HotY-20,12,ColdSteelUI::TextSecondary);
-    for(int32 N=0;N<4;++N){float X=12+N*54;Box(X,L.HotY,48,46,ColdSteelUI::Content,ColdSteelUI::Border);if(const auto* I=Model->ResolveHotbar(N))Item(*I,X,L.HotY,48,46,false);Label(FString::FromInt(N+1),X+3,L.HotY+30,12,ColdSteelUI::TextPrimary,true);}
-    return Layer+3;
 }
 FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
 {
@@ -237,6 +201,8 @@ FReply UColdSteelInventoryWidget::NativeOnMouseMove(const FGeometry& G,const FPo
 {
     if(E.GetCursorDelta().IsNearlyZero())return Super::NativeOnMouseMove(G,E);
     bKeyboardTooltip=false;int32 Place,Cell;
+    Hit(G,E.GetScreenSpacePosition(),HoverPlace,PointerCell);const auto L=Layout(G);const auto Local=G.AbsoluteToLocal(E.GetScreenSpacePosition())*Scale;
+    bSortHovered=Local.X>=L.Width-60&&Local.X<L.Width-12&&Local.Y>=L.BagY-30&&Local.Y<L.BagY-6;
     if(auto* HUD=TooltipHUD()){
         if(bPendingClick||FSlateApplication::Get().IsDragDropping()||!KeyboardCarry.IsEmpty()){HUD->HideItemTooltip(true);return FReply::Handled();}
         const FString Id=Hit(G,E.GetScreenSpacePosition(),Place,Cell)?IdAt(Place,Cell):TEXT("");
@@ -244,5 +210,5 @@ FReply UColdSteelInventoryWidget::NativeOnMouseMove(const FGeometry& G,const FPo
     }
     return FReply::Handled();
 }
-void UColdSteelInventoryWidget::NativeOnMouseLeave(const FPointerEvent& E){Super::NativeOnMouseLeave(E);if(!bKeyboardTooltip)if(auto* HUD=TooltipHUD())HUD->HideItemTooltip();}
+void UColdSteelInventoryWidget::NativeOnMouseLeave(const FPointerEvent& E){Super::NativeOnMouseLeave(E);HoverPlace=-1;PointerCell=-1;bSortHovered=false;if(!bKeyboardTooltip)if(auto* HUD=TooltipHUD())HUD->HideItemTooltip();}
 void UColdSteelInventoryWidget::NativeOnFocusLost(const FFocusEvent& E){Super::NativeOnFocusLost(E);bKeyboardTooltip=false;if(!IsHovered())if(auto* HUD=TooltipHUD())HUD->HideItemTooltip();}
