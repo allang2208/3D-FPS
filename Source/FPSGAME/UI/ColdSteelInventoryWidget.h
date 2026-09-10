@@ -84,4 +84,6 @@ private:
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;
     bool bSortHovered=false;
+    bool bProcessingAnimated=false;
+    float GlintSeconds=0;
 };

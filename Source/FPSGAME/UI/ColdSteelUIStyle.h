@@ -39,6 +39,6 @@ namespace ColdSteelUI
     FPSGAME_API FLinearColor RarityColor(const FString& Rarity);
     FPSGAME_API FString RarityLabel(const FString& Rarity);
     inline const FLinearColor Enhanced = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E9BF63FF")));
-    inline const FLinearColor Crafted = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("9B72C6FF")));
+    inline const FLinearColor Crafted = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("54D9DCFF")));
     inline const FLinearColor Enchanted = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6FA7DEFF")));
 }

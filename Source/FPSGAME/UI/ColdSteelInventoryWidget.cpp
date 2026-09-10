@@ -36,6 +36,7 @@ void UColdSteelInventoryWidget::NativeConstruct(){Super::NativeConstruct();if(Mo
 void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
 {
     Super::NativeTick(G,Delta);
+    if(IsVisible()&&bProcessingAnimated){GlintSeconds+=Delta;if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);}
     if(auto* Size=Cast<USizeBox>(WidgetTree->RootWidget)){
         const float Height=Layout(G).Height/Scale;
         if(!FMath::IsNearlyEqual(Size->GetMinDesiredHeight(),Height,.5f))Size->SetMinDesiredHeight(Height);

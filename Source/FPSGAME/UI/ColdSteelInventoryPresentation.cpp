@@ -8,11 +8,37 @@
 #include "Rendering/SlateRenderer.h"
 #include "Rendering/DrawElements.h"
 #include "Serialization/JsonSerializer.h"
+#include "Styling/CoreStyle.h"
+
+namespace
+{
+// A narrow highlight crosses a tessellated triangle; all light stays inside the item corner.
+void DrawProcessingCorner(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,float Scale,
+    FVector2f Corner,FVector2f AxisX,FVector2f AxisY,float Size,FLinearColor Color,float Time,float Opacity)
+{
+    constexpr int32 Steps=10;
+    TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;Verts.Reserve(66);Indices.Reserve(300);
+    const float Sweep=FMath::Fmod(Time,3.2f)*1.5f-.35f;
+    auto Index=[](int32 I,int32 J){return I*(Steps+1)-I*(I-1)/2+J;};
+    for(int32 I=0;I<=Steps;++I)for(int32 J=0;J<=Steps-I;++J){
+        const float U=float(I)/Steps,V=float(J)/Steps;
+        const float Distance=(U+V*.7f-Sweep)/.13f,Flash=FMath::Exp(-Distance*Distance);
+        auto Tint=FMath::Lerp(Color*(.68f+.24f*U+.12f*V),FMath::Lerp(Color,FLinearColor::White,.66f),Flash);
+        Tint.A=Opacity*.98f;
+        const FVector2f Position=(Corner+(AxisX*U+AxisY*V)*Size)/Scale;
+        Verts.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(G.GetAccumulatedRenderTransform(),Position,FVector2f(.5f,.5f),Tint.ToFColor(true)));
+        if(I+J<Steps){Indices.Append({SlateIndex(Index(I,J)),SlateIndex(Index(I+1,J)),SlateIndex(Index(I,J+1))});
+            if(I+J<Steps-1)Indices.Append({SlateIndex(Index(I+1,J)),SlateIndex(Index(I+1,J+1)),SlateIndex(Index(I,J+1))});}
+    }
+    const auto Resource=FSlateApplication::Get().GetRenderer()->GetResourceHandle(*FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")));
+    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Verts,Indices,nullptr,0,0);
+}
+}
 
 using namespace ColdSteelInventory;
 void UColdSteelInventoryWidget::RefreshPresentation()
 {
-    Presentation.Empty();if(!Model)return;
+    Presentation.Empty();bProcessingAnimated=false;if(!Model)return;
     auto* Guns=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
     for(const auto& I:Model->Items()){
         TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)||!Data)continue;
@@ -21,6 +47,7 @@ void UColdSteelInventoryWidget::RefreshPresentation()
         const TSharedPtr<FJsonObject>* Craft=nullptr;const TSharedPtr<FJsonObject>* Enchant=nullptr;
         P.Crafted=(Guns&&!Guns->Installed(I).IsEmpty())||(Data->TryGetObjectField(TEXT("_craftData"),Craft)&&!(*Craft)->Values.IsEmpty());
         if(Data->TryGetObjectField(TEXT("_enchantData"),Enchant)){const TSharedPtr<FJsonObject>* Affix=nullptr;P.Enchanted=(*Enchant)->TryGetObjectField(TEXT("prefix"),Affix)||(*Enchant)->TryGetObjectField(TEXT("suffix"),Affix);}
+        bProcessingAnimated|=(I.Place==0||I.Place==1)&&(P.Enhancement>0||P.Crafted||P.Enchanted);
     }
 }
 
@@ -46,30 +73,36 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
         Box(X+1,Y+1,W-2,H-2,Hovered?ColdSteelUI::ButtonHover:ColdSteelUI::ButtonNormal,SelectedItem?ColdSteelUI::Accent:Fade(ColdSteelUI::Border,.65f),2,SelectedItem?2:1);
         if(Name){for(int32 N=1;N<I.Width;++N)Box(X+N*L.Cell,Y+2,1,H-4,Fade(ColdSteelUI::Border,.22f),FLinearColor::Transparent,0);for(int32 N=1;N<I.Height;++N)Box(X+2,Y+N*L.Cell,W-4,1,Fade(ColdSteelUI::Border,.22f),FLinearColor::Transparent,0);}
         float Left=4,Right=4;
+        const float CornerSize=FMath::Min(FMath::Clamp(H*.28f,7.f,18.f),(W-6)/3);
         // Source contract: side badges belong to wide equipment/items, never obscure a 1x1 icon.
         auto Badge=[&](const FString& Text,float BX,FLinearColor Color,float BW){
-            Box(BX,Y+5,BW,H-10,Fade(Color,.16f),Fade(Color,.4f),4);
-            const float Top=Y+(H-Text.Len()*11)/2;for(int32 N=0;N<Text.Len();++N)Label(Text.Mid(N,1),BX+(BW-10)/2,Top+N*11,10,Color,BW);
+            const float Height=H-10-(P&&P->Enchanted?CornerSize-3:0);
+            Box(BX,Y+5,BW,Height,Fade(Color,.16f),Fade(Color,.4f),4);
+            const float Top=Y+5+(Height-Text.Len()*11)/2;for(int32 N=0;N<Text.Len();++N)Label(Text.Mid(N,1),BX+(BW-10)/2,Top+N*11,10,Color,BW);
         };
         if(P&&!Hotbar&&W>=80&&H>=36){
             const FString Rarity=ColdSteelUI::RarityLabel(P->Rarity);
             if(!Rarity.IsEmpty()){Badge(Rarity,X+5,ColdSteelUI::RarityColor(P->Rarity),12);Left=21;}
-            if(P->Enhancement>0){Badge(TEXT("+")+FString::FromInt(P->Enhancement),X+Left,ColdSteelUI::Enhanced,10);Left+=14;}
-            if(P->Crafted){Right+=14;Badge(TEXT("改造"),X+W-Right,ColdSteelUI::Crafted,10);}
-            if(P->Enchanted){Right+=14;Badge(TEXT("附魔"),X+W-Right,ColdSteelUI::Enchanted,10);}
         }
         if(const auto* Brush=ItemBrush(I)){
             FVector2D Size=Brush->ImageSize;const float Fit=FMath::Min(FMath::Max(1.f,W-Left-Right)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,H-8)/FMath::Max(1.f,float(Size.Y)));Size*=Fit;
             FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform(FVector2D(X+Left+(W-Left-Right-Size.X)/2,Y+(H-Size.Y)/2+(Name?2:0))/Scale)),Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,Opacity));
         }else Label(P?P->Name:I.Definition,X+Left,Y+H/2-6,12,ColdSteelUI::TextPrimary,W-Left-Right);
         if(Name&&W>=80){
-            const FString Title=P?P->Name:I.Definition;const auto Font=ColdSteelUI::TextFont(9/Scale);const float Width=FMath::Min(float(Measure->Measure(Title,Font).X*Scale)+6,W-Left-Right);
-            Box(X+Left,Y+2,Width,15,ColdSteelUI::ButtonNormal,FLinearColor::Transparent,2,0,3);Label(Title,X+Left+2,Y+2,12,ColdSteelUI::TextPrimary,W-Left-Right-4);
+            const float TitleSpace=W-Left-Right-(P&&P->Enhancement>0?CornerSize:0);
+            const FString Title=P?P->Name:I.Definition;const auto Font=ColdSteelUI::TextFont(9/Scale);const float Width=FMath::Min(float(Measure->Measure(Title,Font).X*Scale)+6,TitleSpace);
+            Box(X+Left,Y+2,Width,15,ColdSteelUI::ButtonNormal,FLinearColor::Transparent,2,0,3);Label(Title,X+Left+2,Y+2,12,ColdSteelUI::TextPrimary,TitleSpace-4);
         }
-        if(I.Count>1){const FString Count=FString::Printf(TEXT("%lld"),I.Count);const float FontSize=L.Width<480?10:12;const float Width=FMath::Min(W-4,float(Measure->Measure(Count,ColdSteelUI::NumberFont(FontSize*.75f/Scale)).X*Scale)+5);
-            const float CountX=Hotbar?X+(W-Width)/2:X+W-Width-2,CountY=Hotbar?Y+2:Y+H-FontSize-4;
+        if(I.Count>1){const FString Count=FString::Printf(TEXT("%lld"),I.Count);const float FontSize=L.Width<480?10:12;const float Width=FMath::Min(W-4-(!Hotbar&&P&&P->Crafted?CornerSize+1:0),float(Measure->Measure(Count,ColdSteelUI::NumberFont(FontSize*.75f/Scale)).X*Scale)+5);
+            const float CountX=Hotbar?X+(W-Width)/2:X+W-Width-2-(P&&P->Crafted?CornerSize+1:0),CountY=Hotbar?Y+2:Y+H-FontSize-4;
             Box(CountX,CountY,Width,FontSize+2,ColdSteelUI::Content,FLinearColor::Transparent,2,0,3);Label(Count,CountX+2,CountY,FontSize,Hotbar?ColdSteelUI::Success:ColdSteelUI::TextPrimary,Width-2,true);}
         if(I.Cooldown>0){Box(X+2,Y+2,W-4,H-4,Fade(ColdSteelUI::GlassTint,.65f),FLinearColor::Transparent,2,0,3);Label(FString::Printf(TEXT("%.1f"),I.Cooldown),X+4,Y+H/2-6,12,ColdSteelUI::Warning,W-8,true);}
+        if(P&&!Hotbar){
+            const float Time=GlintSeconds+float(GetTypeHash(I.InstanceId)%1000)/1000.f;
+            if(P->Enhancement>0)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(X+W-3,Y+3),FVector2f(-1,0),FVector2f(0,1),CornerSize,ColdSteelUI::Enhanced,Time,Opacity);
+            if(P->Crafted)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(X+W-3,Y+H-3),FVector2f(-1,0),FVector2f(0,-1),CornerSize,ColdSteelUI::Crafted,Time+.7f,Opacity);
+            if(P->Enchanted)DrawProcessingCorner(Out,Layer+4,G,Scale,FVector2f(X+3,Y+H-3),FVector2f(1,0),FVector2f(0,-1),CornerSize,ColdSteelUI::Enchanted,Time+1.4f,Opacity);
+        }
         Opacity=1;
     };
     // Quiet group surfaces, single grid lines, restrained silver hierarchy.
