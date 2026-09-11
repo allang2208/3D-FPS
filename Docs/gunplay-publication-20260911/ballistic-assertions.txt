@@ -1,0 +1,72 @@
+BALLISTIC PASS isolated profile has weapon
+BALLISTIC PASS Epic Niagara muzzle and smoke assets loaded
+BALLISTIC PASS standing hip spread reaches 35 cm per axis at 10 m
+BALLISTIC PASS 512 hip shots random inside tuned angular bounds
+BALLISTIC PASS 2048 projected impacts fill and stay inside crosshair inner edges
+BALLISTIC PASS HUD DPI scaling preserves physical spread boundary
+BALLISTIC PASS attachment halves hip angular spread
+BALLISTIC PASS moving airborne crosshair tracks full spread without clamp
+BALLISTIC PASS 512 ADS shots identical despite max movement and bloom
+BALLISTIC PASS ADS consumes no scatter RNG
+BALLISTIC PASS shot follows displaced animated sight
+BALLISTIC PASS held hip fire accumulates visible bloom
+BALLISTIC PASS actual ADS settled
+BALLISTIC PASS real shots emit depth-tested tracer segments
+BALLISTIC PASS real rounds impact fixture
+BALLISTIC PASS rounds stop after impact
+BALLISTIC PASS wall impacts never trigger target hit marker
+BALLISTIC PASS zero damage does not trigger marker
+BALLISTIC PASS actual projectile damage triggers translucent marker
+BALLISTIC PASS marker fades after hold
+BALLISTIC PASS repeated hits refresh without stacking opacity
+BALLISTIC PASS marker expires
+BALLISTIC PASS ADS confirmed hit marker visible
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS visible sight ray reaches test surface
+BALLISTIC PASS ADS burst fires through clear muzzle
+BALLISTIC PASS ADS recoil burst actual impact matches pre-shot sight ray within 1 mm
+BALLISTIC PASS tested both horizontal recoil directions
+ADS_RECOIL_BURST shots=9 max_error_cm=0.000004
+BALLISTIC PASS attachment launch point lies on front exit plane
+BALLISTIC PASS modified muzzle extends beyond original muzzle
+MUZZLE_ORIGIN variant=true extension_cm=13.7637
+BALLISTIC PASS actual projectile starts 2 cm beyond pre-animation muzzle exit
+BALLISTIC PASS attachment launch point lies on front exit plane
+BALLISTIC PASS modified muzzle extends beyond original muzzle
+MUZZLE_ORIGIN variant=brake extension_cm=1.9637
+BALLISTIC PASS actual projectile starts 2 cm beyond pre-animation muzzle exit
+BALLISTIC PASS attachment launch point lies on front exit plane
+BALLISTIC PASS modified muzzle extends beyond original muzzle
+MUZZLE_ORIGIN variant=titanium_brake extension_cm=2.4137
+BALLISTIC PASS actual projectile starts 2 cm beyond pre-animation muzzle exit
+BALLISTIC PASS removal restores original muzzle origin
+BALLISTIC PASS actual projectile starts 2 cm beyond pre-animation muzzle exit
+BALLISTIC PASS real fire drives Epic flash and heat smoke
+BALLISTIC PASS lateral fire has bounded current flight segments without accumulated trails
+BALLISTIC PASS previous frame tracer segments are retired
+BALLISTIC PASS no tracer remains after projectiles stop
+BALLISTIC PASS Epic flashes and smoke finish after cooling without looping
+BALLISTIC_COMPLETE checks=67 failures=0 tracers=291

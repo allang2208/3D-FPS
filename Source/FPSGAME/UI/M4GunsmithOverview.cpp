@@ -12,6 +12,7 @@ namespace {
 TSharedRef<STextBlock> Text(const FString& S,int32 Size,FLinearColor Color,bool Number=false)
 {return SNew(STextBlock).Text(FText::FromString(S)).Font(Number?ColdSteelUI::NumberFont(Size):ColdSteelUI::TextFont(Size)).ColorAndOpacity(Color).AutoWrapText(true);}
 FString Value(double N,int32 Digits,const TCHAR* Unit){return FString::Printf(TEXT("%.*f%s"),Digits,N,Unit);}
+FLinearColor BenefitColor(int32 Benefit){return Benefit>0?ColdSteelUI::Success:Benefit<0?ColdSteelUI::Danger:ColdSteelUI::TextSecondary;}
 }
 void UM4GunsmithWidget::RefreshPresentation()
 {
@@ -39,6 +40,8 @@ void UM4GunsmithWidget::RefreshPresentation()
     Row(TEXT("枪械稳定性 ↑"),B.Handling.Stability,S.Handling.Stability,1,TEXT(" 分"));
     Row(TEXT("首发上跳"),B.Handling.FirstShotDegrees(),S.Handling.FirstShotDegrees(),3,TEXT("°"),true);
     Row(TEXT("连射上跳/发"),B.Handling.MaxVerticalDegrees(),S.Handling.MaxVerticalDegrees(),3,TEXT("°"),true);
+    Row(TEXT("ADS首发水平/发"),B.Handling.FirstHorizontalDegrees(),S.Handling.FirstHorizontalDegrees(),3,TEXT("°"),true);
+    Row(TEXT("ADS水平上限/发"),B.Handling.MaxHorizontalDegrees(),S.Handling.MaxHorizontalDegrees(),3,TEXT("°"),true);
     Row(TEXT("抖动幅度指数 ↓"),B.Shake,S.Shake,1,TEXT(""),true);
     Row(TEXT("镜头回稳90%"),B.Handling.ADSRecoveryMilliseconds(),S.Handling.ADSRecoveryMilliseconds(),0,TEXT(" ms"),true);
     Row(TEXT("腰射散布系数"),B.Spread,S.Spread,2,TEXT("×"),true);
@@ -72,7 +75,7 @@ void UM4GunsmithWidget::RefreshPresentation()
         for(const auto& SlotKey:G->Slots())if(const auto* O=G->Option(G->Definition(),SlotKey,G->Draft().FindRef(SlotKey)))
         {
             ModificationList->AddSlot().AutoHeight().Padding(0,0,0,2)[Text(O->Name,15,ColdSteelUI::TextPrimary)];
-            for(const auto& Effect:O->Effects)ModificationList->AddSlot().AutoHeight().Padding(8,0,0,1)[Text(Effect.Key,13,Effect.Value>0?ColdSteelUI::Success:Effect.Value<0?ColdSteelUI::Warning:ColdSteelUI::TextSecondary)];
+            for(const auto& Effect:O->Effects)ModificationList->AddSlot().AutoHeight().Padding(8,0,0,1)[Text(Effect.Key,13,BenefitColor(Effect.Value))];
         }
         if(S.ActiveParts==0)ModificationList->AddSlot().AutoHeight()[Text(TEXT("原厂配置 · 无已选改造部件"),14,ColdSteelUI::TextSecondary)];
     }
@@ -89,11 +92,12 @@ void UM4GunsmithWidget::RefreshPresentation()
         OverviewList->AddSlot().AutoHeight()[Cells({TEXT("项目"),bCompareFactory?TEXT("原厂"):TEXT("当前"),TEXT("改造后"),TEXT("变化")},13,ColdSteelUI::Accent,true)];
         for(const auto& R:Overview)
         {
-            const auto Color=R.Benefit>0?ColdSteelUI::Success:R.Benefit<0?ColdSteelUI::Warning:ColdSteelUI::TextPrimary;
+            const auto Color=BenefitColor(R.Benefit);
             FString Hint;
             if(R.Label.Contains(TEXT("稳定性")))Hint=TEXT("0–100分，越高越好。综合开火抖动幅度与回稳速度；原厂参考值50分，不代表命中率。");
             else if(R.Label.Contains(TEXT("回稳")))Hint=TEXT("开镜状态下，镜头震荡包络衰减90%的理论时间。不会自动把瞄准点拉回开火前的位置。");
             else if(R.Label.Contains(TEXT("上跳")))Hint=TEXT("控制瞄准方向的逐发垂直后坐角度。首发为完全恢复后的第一枪；连射值为第9发起的单发上限，不包含随机晃动。");
+            else if(R.Label.Contains(TEXT("水平")))Hint=TEXT("ADS逐发水平后坐角度的绝对值，越低越好。首发向右，连射按固定左右节奏循环；上限是单发最大偏转，不是随机散布或累计偏移。配件后坐力倍率同时缩放垂直和水平角度。");
             else if(R.Label.Contains(TEXT("后坐力")))Hint=TEXT("后坐力指数，越低越好。统一参考值100；配件倍率相乘，实际射击与面板使用相同结果。");
             OverviewList->AddSlot().AutoHeight().Padding(0,0,0,1)[SNew(SBorder).BorderImage(&RowBrush).Padding(4,0).ToolTipText(FText::FromString(Hint))[Cells({R.Label,R.Current,R.Final,R.Delta},13,Color,false)]];
         }

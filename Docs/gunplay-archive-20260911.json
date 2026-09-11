@@ -1,0 +1,106 @@
+[
+  {
+    "source": "Tools/AssetPipeline/build_epic_gun_fx.py",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Tools\\AssetPipeline\\build_epic_gun_fx.py",
+    "bytes": 2637,
+    "sha256": "FAE876C7A6A3539DD96B2CAE5C4A9C32D1D067CF8BB4520B1F2C8CA7D2B3EDFD",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Tools/AssetPipeline/build_muzzle_presentation_v3.py",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Tools\\AssetPipeline\\build_muzzle_presentation_v3.py",
+    "bytes": 2315,
+    "sha256": "4C93E2B3389C630FADE80C71BDAD8AB824DBF1FE17D35033DD7550F4137C0D97",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Tools/AssetPipeline/build_muzzle_presentation_v4.py",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Tools\\AssetPipeline\\build_muzzle_presentation_v4.py",
+    "bytes": 2446,
+    "sha256": "39D69DC56ED4AC703ED3459A484ADA604A502EFE578B19AA24EA76AC2FF645A8",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_MuzzleEpic.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_MuzzleEpic.uasset",
+    "bytes": 2704067,
+    "sha256": "77ED9CCC62E4883C8E22C68597E18ECFEEFD888B99C38E069E26F2E5C7C6A5B0",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_MuzzleEpicV2.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_MuzzleEpicV2.uasset",
+    "bytes": 2684107,
+    "sha256": "E1264D9935871A8546A2D6755284B8F7066CC2CCBADA67F7BA7F59B5B159EB57",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_MuzzleEpicV3.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_MuzzleEpicV3.uasset",
+    "bytes": 2674654,
+    "sha256": "321F55F9AB170E99A597A688DF8E229014632F7E41EEA5BBAF7F6AA3140CEF2E",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_MuzzleEpicV4.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_MuzzleEpicV4.uasset",
+    "bytes": 2700978,
+    "sha256": "D593BEC260033AE25CD5BCAE26CC30063D964BE83A6B40BDBCC651F558311432",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_MuzzleEpicV5RebuildProbe.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_MuzzleEpicV5RebuildProbe.uasset",
+    "bytes": 2708710,
+    "sha256": "A9FE333F925F1B8B68C71881837C580EC921444C8889837BA9391170D79BFAA4",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_BarrelSmokeEpic.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_BarrelSmokeEpic.uasset",
+    "bytes": 802038,
+    "sha256": "5033DC2AE2D56C3151C486A86F974EF0CD49F4731B906A7C1FC354974B2AF9A0",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_BarrelSmokeEpicV2.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_BarrelSmokeEpicV2.uasset",
+    "bytes": 801838,
+    "sha256": "09306EEEB7A1993BFEFBE7E9321BA4133C3D2962D09DB65AFB95B150450AE37C",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_BarrelSmokeEpicV3.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_BarrelSmokeEpicV3.uasset",
+    "bytes": 775805,
+    "sha256": "DE4E3311DEC82FF629EB3EEA5DA7DDE2641817898D46B84CBD9891C060C44FC3",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_BarrelSmokeEpicV4.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_BarrelSmokeEpicV4.uasset",
+    "bytes": 775805,
+    "sha256": "DE65B2EF8A6545DBC26F3E28E6CF43FE5A305E6C88C94EE2DC514F1D9E330AE7",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  },
+  {
+    "source": "Content/Weapons/GunplayFX/NS_FPS_BarrelSmokeEpicV5RebuildProbe.uasset",
+    "destination": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-vfx-20260911\\Content\\Weapons\\GunplayFX\\NS_FPS_BarrelSmokeEpicV5RebuildProbe.uasset",
+    "bytes": 800295,
+    "sha256": "C1CE7BCF673619606D8D2D37DB023DFF80291B0FF96901BBAF2009FB26B98919",
+    "reason": "Superseded candidate or rebuild probe; no asset referencers",
+    "replacement": "NS_FPS_*EpicV5; build_muzzle_presentation_v5.py"
+  }
+]

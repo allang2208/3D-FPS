@@ -21,6 +21,8 @@ public:
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn) override;
     int32 ActiveCount()const{return Rounds.Num();}
     int32 ImpactCount=0;
+    FVector LastLaunchStart=FVector::ZeroVector;
+    FVector LastImpactPoint=FVector::ZeroVector;
 private:
     TArray<FFPSFlyingRound> Rounds;
     UPROPERTY(Transient) TObjectPtr<UFPSWeaponFXComponent> WeaponFX;

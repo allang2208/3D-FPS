@@ -23,6 +23,9 @@ struct FWeaponHandling
     float RecoveryRate() const { return 1.f / RecoveryTimeScale; }
     float FirstShotDegrees() const;
     float MaxVerticalDegrees() const;
+    float ADSHorizontalDegrees(int32 ShotIndex) const;
+    float FirstHorizontalDegrees() const { return FMath::Abs(ADSHorizontalDegrees(0)); }
+    float MaxHorizontalDegrees() const;
     // 90% decay of the ADS camera spring envelope, not return of control aim.
     float ADSRecoveryMilliseconds() const;
 };

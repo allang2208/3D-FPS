@@ -4,6 +4,8 @@
 #include "Components/ActorComponent.h"
 #include "FPSWeaponFXComponent.generated.h"
 
+class UNiagaraSystem;
+class UNiagaraComponent;
 class UCameraComponent;
 class USkeletalMeshComponent;
 class UStaticMeshComponent;
@@ -45,6 +47,14 @@ public:
     void Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
+    void OnTracerSegment(const FVector& Start,const FVector& End);
+    int32 TracerSegments=0;
+    int32 GetActiveTracerCount() const;
+    int32 ExpiredTracerSegments=0;
+    int32 EpicMuzzleBursts=0, EpicSmokeBursts=0;
+    int32 GetActiveEpicFXCount() const;
+    bool HasEpicGunFX() const { return EpicMuzzleSystem && EpicSmokeSystem; }
+    FVector LastTracerEnd=FVector::ZeroVector;
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void StopEmission();
     UFUNCTION(BlueprintPure, Category="Weapon FX") int32 GetActiveParticleCount() const;
     UFUNCTION(BlueprintPure, Category="Weapon FX") bool IsReady() const { return bReady; }
@@ -58,6 +68,10 @@ public:
     UPROPERTY(EditAnywhere, Category="Weapon FX", meta=(ClampMin="0.0", ClampMax="1.0")) float SmokeOpacity = 0.36f;
 
 private:
+    bool SpawnEpicFX(bool bSmokeOnly, FVector Position, FVector Forward, float Scale, float Opacity);
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicMuzzleSystem;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicSmokeSystem;
+    UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> EpicFXPool;
     FFPSWeaponFXParticle* Acquire(uint8 Kind, UStaticMesh* Geometry, UMaterialInterface* Material);
     void Release(FFPSWeaponFXParticle& Particle);
     void SpawnSmoke(bool bImmediate, float InitialAge, const FVector& BirthPosition,
@@ -74,12 +88,14 @@ private:
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> FlashMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> SmokeMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> BrassMaterial;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> TracerMaterial;
     UPROPERTY(Transient) TArray<FFPSWeaponFXParticle> Particles;
     static constexpr int32 MaxParticles = 64;
     float BarrelHeat = 0.0f;
     // Shots arrive at the current game time, after the interval represented by this Tick.
     float PendingHeat = 0.0f;
     double SmokeClock = 0.0;
+    double LastFXShotTime = -10.0;
     FVector PreviousMuzzlePosition = FVector::ZeroVector;
     FVector PreviousMuzzleForward = FVector::ForwardVector;
     float FlashTime = 0.0f;

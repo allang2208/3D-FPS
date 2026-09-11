@@ -1,0 +1,20 @@
+{
+  "Source/FPSGAME/BallisticAuditTarget.cpp": "5c9ad63bc36b17f766dddbe0dff6338cb7f5df8c69f691eb73159bdfd680d745",
+  "Source/FPSGAME/BallisticAuditTarget.h": "641d33fb15d90b01b756ae04516568f107568f6e9712774e3d83a1072b82c7f6",
+  "Source/FPSGAME/BallisticPresentationAudit.cpp": "e7fd89d4db6085008aabbfd1a72e9be3c5a459282834afd991009a6dd06570a5",
+  "Source/FPSGAME/FPSGAMECharacter.cpp": "e0948f4e792f2608ee4eb8bf8d84a322bd096ae80e721fc8090f092fe97e86ff",
+  "Source/FPSGAME/FPSGAMECharacter.h": "14d40a9ab372b7b37e63705a45a22fa1ea1f66b04001521d412839f5da6a06c1",
+  "Source/FPSGAME/FPSGAMECharacterProfile.cpp": "deb9fe96698a6ebbcb56e10340939acab261a98b24c9d1d7c32bd0a7ff6ce3e3",
+  "Source/FPSGAME/UI/ColdSteelCrosshair.cpp": "f65bea2cfe892c755fb781fa3f309642c4e90d3a7c2764af1c3d4fc663e7355c",
+  "Source/FPSGAME/UI/ColdSteelHUDWidget.h": "0d4d04ef0c95ff38697a04b1ece9f8cfe218b56e5eda84814b2e7ba0d3686f3d",
+  "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp": "1589ad8ff508ba288da6acf0b7cf57d855bd3539f60fe7f17cc6eb7ca37a4a18",
+  "Source/FPSGAME/UI/M4GunsmithLayout.cpp": "9a85e532632b7f49976246f17792c94fa050294b7ceca0c6c7e7d7d3e50a5d24",
+  "Source/FPSGAME/UI/M4GunsmithOverview.cpp": "fefe8d4640a7dc54d3d9f1e25653d9e87ef7ed5e92b04666225f8211a9e93c43",
+  "Source/FPSGAME/WeaponHandlingAudit.cpp": "7cff9621b27d1fd0d2e9d890c5c3b55701c66c5bc9a580acf943fe9cc35b015d",
+  "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp": "fba07ad4653dc6752deccac5d37e21e95b39d19359c20e3fa39d6919bdf465e6",
+  "Source/FPSGAME/Weapons/FPSBallisticsComponent.h": "2bd09877a8cb6bb45ea4d202e8770b7642b52b86abaa79da8d05c7f58cc5428f",
+  "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp": "9f458f3f08eab2d64afeb50fb6b75d10b5b750682e4d46e35e7c3291b1922bd9",
+  "Source/FPSGAME/Weapons/FPSWeaponFXComponent.h": "826dabab48c2dd0dbac47322cb9b58ef759b0c7ec1dd69eb6710dcc0e12023f3",
+  "Source/FPSGAME/Weapons/WeaponHandling.cpp": "81b0a488e8d63edb209f1755e7e0d773723fbaed653ffc2e1d7010fb37c7ce45",
+  "Source/FPSGAME/Weapons/WeaponHandling.h": "a7058dbfc3fe71607c9719f7cc9e7fbaaa4a5e83dbf9ee28ce88e7c36d6d1325"
+}

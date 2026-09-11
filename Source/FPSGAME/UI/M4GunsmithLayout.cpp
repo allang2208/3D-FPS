@@ -92,7 +92,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
                 +SHorizontalBox::Slot().FillWidth(1).Padding(4,0,0,0)[CompareButton(true)]]
             +SVerticalBox::Slot().FillHeight(1)[SNew(SScrollBox).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
                 +SScrollBox::Slot()[SAssignNew(OverviewList,SVerticalBox)]]
-            +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色：收益  ·  琥珀：代价\n后坐力越低越好；稳定性0–100分，越高越好。"),11,ColdSteelUI::TextTertiary)]];
+            +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色：增强  ·  红色：削弱  ·  灰色：不变\n后坐力越低越好；枪械稳定性越高越好。"),11,ColdSteelUI::TextTertiary)]];
     FLinearColor Shell=ColdSteelUI::GlassTint;Shell.A=1;
     return SNew(SBorder).BorderImage(FCoreStyle::Get().GetBrush("WhiteBrush")).BorderBackgroundColor(Shell).Padding(0)
         [SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[SNew(SBox).WidthOverride(1600).HeightOverride(900)

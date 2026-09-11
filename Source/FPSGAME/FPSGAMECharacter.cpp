@@ -255,6 +255,7 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateDrumDropVisual();
     UpdateFoldingSights(DeltaSeconds);
     if (bRunWeaponAudit) RunWeaponAudit(DeltaSeconds);
+    if (FParse::Param(FCommandLine::Get(), TEXT("BallisticPresentationAudit"))) RunBallisticPresentationAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("InfiniteAmmoAudit"))) RunInfiniteAmmoAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("DrumGripAudit"))) RunDrumGripAudit();
     if (bRunGunplayAcceptance) RunGunplayAcceptance(DeltaSeconds);
@@ -505,12 +506,12 @@ void AFPSGAMECharacter::UpdateWeaponFeedback(float DeltaSeconds)
     AdvanceSpring(CameraJitterRotation, CameraJitterRotationVelocity, AKMSource::JitterStiffness, AKMSource::JitterDamping, FeedbackDelta);
     FireTrauma *= FMath::Exp(-AKMSource::ShakeDecay * FeedbackDelta);
     FOVPunch *= FMath::Exp(-AKMSource::FOVPunchDecay * DeltaSeconds);
-    const float RecoveryDelta = FMath::Max(0.0f, DeltaSeconds - SpreadRecoveryLeft);
-    SpreadRecoveryLeft = FMath::Max(0.0f, SpreadRecoveryLeft - DeltaSeconds);
-    CurrentSpread = FMath::Max(0.0f, CurrentSpread - RecoveryDelta * 0.03f);
-    const float TargetMoveSpread = FMath::Clamp((HorizontalSpeed() / 100.0f) * 0.0018f, 0.0f, 0.012f);
+    // Hold bloom across automatic shots, then recover continuously after release.
+    const float SpreadRecoveryDelta=FMath::Clamp(static_cast<float>(GetWorld()->GetTimeSeconds()-LastShotWorldTime-.18),0.f,DeltaSeconds);
+    CurrentSpread = FMath::Max(0.0f, CurrentSpread - SpreadRecoveryDelta * 0.018f);
+    const float TargetMoveSpread = FMath::Clamp((HorizontalSpeed() / 100.0f) * 0.004f, 0.0f, 0.020f);
     MoveSpread = FMath::Lerp(MoveSpread, TargetMoveSpread, 1.0f - FMath::Exp(-6.0f * DeltaSeconds));
-    const float TargetAirSpread = (!GetCharacterMovement()->IsMovingOnGround() && !bIsAiming) ? 0.015f : 0.0f;
+    const float TargetAirSpread = (!GetCharacterMovement()->IsMovingOnGround() && !bIsAiming) ? 0.025f : 0.0f;
     AirSpread = FMath::Lerp(AirSpread, TargetAirSpread, 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
 }
 
@@ -736,6 +737,7 @@ void AFPSGAMECharacter::FireShot()
     // Snapshot visible aim before restarting the mechanical action or adding recoil.
     const FVector TraceStart = FirstPersonCamera->GetComponentLocation();
     const FVector TraceDirection = ComputeShotDirection();
+    const FVector Muzzle = GetEffectiveMuzzleLocation() + GetEffectiveMuzzleForward().GetSafeNormal() * 2.f; // Snapshot before restarting animation.
     UAnimSequence* Animation = bIsAiming ? AimFireAnimation : FireAnimation;
     PlayWeaponAnimation(Animation, false);
     GetWorldTimerManager().ClearTimer(WeaponPoseTimerHandle);
@@ -757,40 +759,45 @@ void AFPSGAMECharacter::FireShot()
     FHitResult AimHit;
     const bool bAimHit = GetWorld()->LineTraceSingleByChannel(AimHit, TraceStart, TraceStart + TraceDirection * TraceDistance, ECC_Visibility, Params);
     const FVector AimTarget = bAimHit ? AimHit.ImpactPoint : TraceStart + TraceDirection * TraceDistance;
-    const FVector Muzzle = GetEffectiveMuzzleLocation();
     // A muzzle beyond a wall must not damage targets through it, even if the camera can see them.
     bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, Muzzle, ECC_Visibility, Params);
     bLastShotMuzzleBlocked = bHit;
     if (!bHit)
     {
-        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget+TraceDirection*2.f-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,DamagePerShot,WeaponFX,CriticalHitSound);
-        else bHit=GetWorld()->LineTraceSingleByChannel(Hit,Muzzle,AimTarget+TraceDirection*2.f,ECC_Visibility,Params);
+        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,DamagePerShot,WeaponFX,CriticalHitSound);
+        else {
+            bHit=GetWorld()->LineTraceSingleByChannel(Hit,Muzzle,AimTarget+TraceDirection*2.f,ECC_Visibility,Params);
+            WeaponFX->OnTracerSegment(Muzzle,bHit?Hit.ImpactPoint:AimTarget);
+        }
     }
     if (bHit && Hit.GetActor())
     {
-        UGameplayStatics::ApplyPointDamage(Hit.GetActor(), DamagePerShot, TraceDirection, Hit, Controller, this, nullptr);
+        NotifyConfirmedWeaponHit(Hit.GetActor(), UGameplayStatics::ApplyPointDamage(Hit.GetActor(), DamagePerShot, TraceDirection, Hit, Controller, this, nullptr));
         if (Hit.BoneName.ToString().Contains(TEXT("head"), ESearchCase::IgnoreCase))
             PlaySound2D(CriticalHitSound, AKMSource::ActionVolume);
     }
     WeaponFX->OnShot(bIsAiming);
     if (bHit) WeaponFX->OnImpact(Hit);
     ApplyShotFeedback();
-    SpreadRecoveryLeft = 0.20f;
-    CurrentSpread = FMath::Min(0.024f, CurrentSpread + 0.002f);
+    if(!bIsAiming)CurrentSpread = FMath::Min(0.018f, CurrentSpread + 0.003f);
 }
 
 void AFPSGAMECharacter::ApplyShotFeedback()
 {
     const int32 PatternCount = FWeaponHandling::PatternCount;
     const FVector2D Pattern = FWeaponHandling::Pattern(RecoilPatternIndex);
+    if(RecoilPatternIndex==0)ADSHorizontalRecoilIndex=0;
+    const float HorizontalDegrees=bIsAiming?WeaponHandling.ADSHorizontalDegrees(ADSHorizontalRecoilIndex)
+        :FMath::RadiansToDegrees(Pattern.Y)*BallisticRecoilScale;
     if (Controller)
     {
         FRotator Aim = Controller->GetControlRotation();
         Aim.Pitch = FMath::Clamp(FRotator::NormalizeAxis(Aim.Pitch) + FMath::RadiansToDegrees(Pattern.X) * BallisticRecoilScale, -85.0f, 85.0f);
-        Aim.Yaw += FMath::RadiansToDegrees(Pattern.Y) * BallisticRecoilScale;
+        Aim.Yaw += HorizontalDegrees;
         Controller->SetControlRotation(Aim);
     }
     RecoilPatternIndex = FMath::Min(RecoilPatternIndex + 1, PatternCount - 1);
+    if(bIsAiming)ADSHorizontalRecoilIndex=(ADSHorizontalRecoilIndex+1)%FWeaponHandling::PatternCount;
     TimeSinceLastShot = 0.0f;
     PatternRecoveryAccumulator = 0.0f;
     const float Horizontal = FMath::Clamp(Pattern.Y / 0.003f + FMath::FRandRange(-0.35f, 0.35f), -1.0f, 1.0f);
@@ -814,23 +821,21 @@ void AFPSGAMECharacter::ApplyShotFeedback()
 
 FVector AFPSGAMECharacter::ComputeShotDirection() const
 {
-    if((bIsAiming||WeaponADSFactor>.98f)&&GetScopePresentationAlpha()>.5f)return FirstPersonCamera->GetForwardVector();
-    if (bHolographicOptic && WeaponADSFactor > 0.98f)
+    const bool bPreciseAim = bIsAiming || WeaponADSFactor > 0.98f;
+    // The optical overlay is camera-centered, including recoil feedback.
+    if (bPreciseAim && GetScopePresentationAlpha() > .5f)
+        return FirstPersonCamera->GetForwardVector();
+    if (bHolographicOptic && bPreciseAim)
         return (HolographicAimPoint() - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     const FVector Forward = FirstPersonCamera->GetForwardVector();
-    if (WeaponADSFactor > 0.98f && AKMViewmodel->DoesSocketExist(TEXT("WPN_FrontSight")))
+    if (bPreciseAim && AKMViewmodel->DoesSocketExist(TEXT("WPN_FrontSight")))
         return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight")) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
-    int32 Width = 1920, Height = 1080;
-    if (const APlayerController* PC = Cast<APlayerController>(Controller))
-        PC->GetViewportSize(Width, Height);
-    const float BloomRatio = FMath::Clamp(CurrentSpread / 0.024f, 0.0f, 1.0f);
-    const float RadiusPixels = 36.0f * (static_cast<float>(Height) / 1080.0f) * (1.0f + BloomRatio + (MoveSpread + AirSpread) / 0.024f) * (1.0f - WeaponADSFactor);
-    const float Angle = FMath::FRandRange(0.0f, 2.0f * PI);
-    const float Radius = FMath::Sqrt(FMath::FRand()) * RadiusPixels;
-    const float FocalPixels = (static_cast<float>(Height) * 0.5f) / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
+    if (bPreciseAim) return Forward;
+    // Godot gun.gd: independent uniform offsets in camera right/up, in angular space.
+    const float Spread = GetHipSpread();
     return (Forward
-        + FirstPersonCamera->GetRightVector() * (FMath::Cos(Angle) * Radius / FocalPixels)
-        - FirstPersonCamera->GetUpVector() * (FMath::Sin(Angle) * Radius / FocalPixels)).GetSafeNormal();
+        + FirstPersonCamera->GetRightVector() * FMath::FRandRange(-Spread, Spread)
+        + FirstPersonCamera->GetUpVector() * FMath::FRandRange(-Spread, Spread)).GetSafeNormal();
 }
 
 void AFPSGAMECharacter::RunWeaponAudit(float DeltaSeconds)
@@ -1316,4 +1321,37 @@ void AFPSGAMECharacter::AdvanceSpring(float& Position, float& Velocity, float St
     const float OldPosition = Position;
     Position = OldPosition * C0 + Velocity * C1;
     Velocity = OldPosition * C2 + Velocity * C3;
+}
+
+
+FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
+{
+    const auto* PC=Cast<APlayerController>(Controller);
+    if(!PC)return FVector2D::ZeroVector;
+    int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
+    if(Width<=0||Height<=0)return FVector2D::ZeroVector;
+    const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
+    const float Spread=GetHipSpread()*1000.f;
+    FVector2D ScreenCenter,Right,Up;
+    if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
+        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread,Right,true)
+        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread,Up,true))return FVector2D::ZeroVector;
+    return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
+        FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
+}
+
+
+void AFPSGAMECharacter::NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage)
+{
+    if (Target != this && Cast<APawn>(Target) && AppliedDamage > 0.f && GetWorld())
+        LastConfirmedWeaponHitTime = GetWorld()->GetTimeSeconds();
+}
+
+
+float AFPSGAMECharacter::GetHitMarkerOpacity() const
+{
+    if (!GetWorld()) return 0.f;
+    const double Age = GetWorld()->GetTimeSeconds() - LastConfirmedWeaponHitTime;
+    // Hold for 60 ms, then fade over 180 ms. Repeated hits refresh the same marker.
+    return .65f * FMath::Clamp(static_cast<float>((.24 - Age) / .18), 0.f, 1.f);
 }

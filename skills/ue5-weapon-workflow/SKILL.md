@@ -9,6 +9,8 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 ## 按任务读取
 
+- 准心、散布、后坐力、枪口烟火或曳光：[Gunplay 与 Niagara 验收](references/gunplay-vfx.md)。
+
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
 - 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-11 用户确认，以此取代旧配件流程。
 - 跨枪型复用瞄具、枪口、安装座或统一枪钢：[跨枪型瞄具与材质](references/cross-weapon-optics.md)。

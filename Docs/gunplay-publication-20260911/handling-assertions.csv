@@ -1,0 +1,79 @@
+case,pass
+open equipped instance,1
+select recoil stability fixture,1
+draft computes physical indices,1
+draft does not change live shooting,1
+undo restores original,1
+multiplicative stacking 20 and 10 percent gives 28 percent,1
+less shake gives higher bounded stability,1
+failed save leaves shooting unchanged,1
+apply saves installed modifiers,1
+installed modifiers reach live pawn,1
+profile rebind never compounds recoil,1
+saved instance restores handling,1
+equipment tooltip exposes stability,1
+equipped tooltip uses saved vertical and horizontal angles at three decimals,1
+weapon base indices also drive handling,1
+ADS first shot actual yaw equals quantified horizontal value,1
+UI first-shot degrees equal actual control impulse,1
+recoil reduction changes actual aim by 20 percent,1
+recoil attachment scales horizontal impulse by same 20 percent,1
+recoil does not double-scale independent jitter,1
+stability does not grant extra recoil compensation,1
+shake stability does not change horizontal control recoil,1
+stability scales gun and camera impulses once,1
+settling never auto aims back to pre-shot position,1
+sustained shot upper limit matches UI,1
+sustained shot upper limit matches UI,1
+sustained shot upper limit matches UI,1
+sustained shot upper limit matches UI,1
+zero recoil removes horizontal impulse,1
+zero indices remove their respective impulses,1
+zero shake has full stability and no shake recovery,1
+invalid range is bounded before UI and runtime,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+actual ADS yaw follows repeatable pattern including sustained fire,1
+horizontal recoil reaches UI maximum and kicks both directions,1
+90 percent envelope settling bound holds,1
+90 percent envelope settling bound holds,1
+30 60 144 Hz spring partition invariance,1
+90 percent envelope settling bound holds,1
+30 60 144 Hz spring partition invariance,1
+single hitch equals multi-frame settling,1
+90 percent envelope settling bound holds,1
+90 percent envelope settling bound holds,1
+30 60 144 Hz spring partition invariance,1
+90 percent envelope settling bound holds,1
+30 60 144 Hz spring partition invariance,1
+single hitch equals multi-frame settling,1
+removing parts restores factory shooting,1
+removal persists,1
+actual workbench highlights improved stability green,1
+workbench horizontal current draft delta and benefit match physical angles,1
+less recoil and more stability both classify as green improvements,1
+more recoil and less stability both classify as red penalties,1

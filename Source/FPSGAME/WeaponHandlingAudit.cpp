@@ -64,6 +64,11 @@ void AFPSGAMECharacter::RunWeaponHandlingAudit()
     for(const auto& Card:Tooltip.Cards)for(const auto& Row:Card.Rows)
         if(Row.Label.Contains(TEXT("枪械稳定性")))TooltipStability=true;
     Check(TooltipStability,TEXT("equipment tooltip exposes stability"));
+    bool TooltipHorizontal=false,TooltipVertical=false;
+    for(const auto& Card:Tooltip.Cards)for(const auto& Row:Card.Rows){
+        if(Row.Label==TEXT("ADS水平上限/发"))TooltipHorizontal=Row.Value==TEXT("0.432°");
+        if(Row.Label==TEXT("连射上跳/发"))TooltipVertical=Row.Value==FString::Printf(TEXT("%.3f°"),WeaponHandling.MaxVerticalDegrees());}
+    Check(TooltipHorizontal&&TooltipVertical,TEXT("equipped tooltip uses saved vertical and horizontal angles at three decimals"));
     W->Base.Recoil=150;W->Base.Shake=144;
     const auto NonDefault=G->Calculate(W->Id,{});
     Check(Near(NonDefault.Handling.RecoilScale,1.5)&&Near(NonDefault.Handling.ShakeScale,1.44),TEXT("weapon base indices also drive handling"));
@@ -79,18 +84,23 @@ void AFPSGAMECharacter::RunWeaponHandlingAudit()
         CameraJitterPosition=CameraJitterPositionVelocity=CameraJitterRotation=CameraJitterRotationVelocity=FVector::ZeroVector;
         GunFlip=GunFlipVelocity=CameraKickPitch=CameraKickPitchVelocity=CameraKickYaw=CameraKickYawVelocity=0;
         CameraADSFactor=WeaponADSFactor=1;TimeSinceLastShot=0;PatternRecoveryAccumulator=0;
+        bIsAiming=true;
         FMath::RandInit(81723);
     };
     Reset(100,100);ApplyShotFeedback();
     const float BasePitch=PC->GetControlRotation().Pitch;
+    const float BaseYaw=PC->GetControlRotation().Yaw;
+    Check(Near(BaseYaw,.18f)&&Near(BaseYaw,WeaponHandling.FirstHorizontalDegrees()),TEXT("ADS first shot actual yaw equals quantified horizontal value"));
     const FVector BaseJitter=GunJitterRotationVelocity;
     const float BaseCamera=CameraKickPitchVelocity;
     Check(Near(BasePitch,WeaponHandling.FirstShotDegrees()),TEXT("UI first-shot degrees equal actual control impulse"));
     Reset(80,100);ApplyShotFeedback();
     Check(Near(PC->GetControlRotation().Pitch,BasePitch*.8),TEXT("recoil reduction changes actual aim by 20 percent"));
+    Check(Near(PC->GetControlRotation().Yaw,BaseYaw*.8),TEXT("recoil attachment scales horizontal impulse by same 20 percent"));
     Check(GunJitterRotationVelocity.Equals(BaseJitter,.0001),TEXT("recoil does not double-scale independent jitter"));
     Reset(100,64);ApplyShotFeedback();
     Check(Near(PC->GetControlRotation().Pitch,BasePitch),TEXT("stability does not grant extra recoil compensation"));
+    Check(Near(PC->GetControlRotation().Yaw,BaseYaw),TEXT("shake stability does not change horizontal control recoil"));
     Check(GunJitterRotationVelocity.Equals(BaseJitter*.64,.0001)&&Near(CameraKickPitchVelocity,BaseCamera*.64),TEXT("stability scales gun and camera impulses once"));
     const FRotator ControlBeforeRecovery=PC->GetControlRotation();
     UpdateWeaponFeedback(.6f);
@@ -100,9 +110,18 @@ void AFPSGAMECharacter::RunWeaponHandlingAudit()
     for(int32 I=0;I<12;++I){ApplyShotFeedback();const float Current=PC->GetControlRotation().Pitch;
         if(I>=8)Check(Near(Current-Previous,WeaponHandling.MaxVerticalDegrees()),TEXT("sustained shot upper limit matches UI"));Previous=Current;}
     Reset(0,0);ApplyShotFeedback();
+    Check(Near(PC->GetControlRotation().Yaw,0),TEXT("zero recoil removes horizontal impulse"));
     Check(Near(PC->GetControlRotation().Pitch,0)&&GunJitterRotationVelocity.IsNearlyZero()&&Near(CameraKickPitchVelocity,0),TEXT("zero indices remove their respective impulses"));
     Check(Near(WeaponHandling.Stability,100)&&Near(WeaponHandling.ADSRecoveryMilliseconds(),0),TEXT("zero shake has full stability and no shake recovery"));
     Check(Near(FWeaponHandling::FromIndices(-10,900).RecoilIndex,0)&&Near(FWeaponHandling::FromIndices(-10,900).ShakeIndex,400),TEXT("invalid range is bounded before UI and runtime"));
+    Reset(100,100);
+    bool Left=false,Right=false,Within=true;float ObservedMax=0;
+    for(int32 I=0;I<27;++I){const float Yaw=PC->GetControlRotation().Yaw;ApplyShotFeedback();
+        const float Delta=FRotator::NormalizeAxis(PC->GetControlRotation().Yaw-Yaw);
+        Left|=Delta<0;Right|=Delta>0;ObservedMax=FMath::Max(ObservedMax,FMath::Abs(Delta));
+        Within&=FMath::Abs(Delta)<=WeaponHandling.MaxHorizontalDegrees()+.0001f;
+        Check(Near(Delta,WeaponHandling.ADSHorizontalDegrees(I)),TEXT("actual ADS yaw follows repeatable pattern including sustained fire"));}
+    Check(Left&&Right&&Within&&Near(ObservedMax,.6f),TEXT("horizontal recoil reaches UI maximum and kicks both directions"));
 
     // Measure actual analytic spring response at multiple frame rates and a hitch.
     // The time at 10% envelope is independent of frame partitioning.
@@ -136,6 +155,24 @@ void AFPSGAMECharacter::RunWeaponHandlingAudit()
     bool RowsOK=false;
     for(const auto& Row:Panel->GetOverviewRows())if(Row.Label==TEXT("枪械稳定性 ↑"))RowsOK=Row.Benefit==1;
     Check(RowsOK,TEXT("actual workbench highlights improved stability green"));
+    bool HorizontalRow=false;
+    for(const auto& Row:Panel->GetOverviewRows())if(Row.Label==TEXT("ADS水平上限/发"))
+        HorizontalRow=Row.Current==TEXT("0.600°")&&Row.Final==TEXT("0.432°")&&Row.Delta==TEXT("-0.168°")&&Row.Benefit==1;
+    Check(HorizontalRow,TEXT("workbench horizontal current draft delta and benefit match physical angles"));
+    bool RecoilImproved=false,StabilityImproved=false;
+    for(const auto& Row:Panel->GetOverviewRows()){
+        if(Row.Label==TEXT("后坐力 ↓"))RecoilImproved=Row.Benefit==1&&Row.Delta.StartsWith(TEXT("-"));
+        if(Row.Label==TEXT("枪械稳定性 ↑"))StabilityImproved=Row.Benefit==1&&Row.Delta.StartsWith(TEXT("+"));}
+    Check(RecoilImproved&&StabilityImproved,TEXT("less recoil and more stability both classify as green improvements"));
+    Drum->Recoil=1.2;Drum->Shake=1.44;Optic->Recoil=1.1;Optic->Shake=1.21;
+    Panel->RefreshPresentation();
+    bool RecoilWorse=false,StabilityWorse=false;
+    for(const auto& Row:Panel->GetOverviewRows()){
+        if(Row.Label==TEXT("后坐力 ↓"))RecoilWorse=Row.Benefit==-1&&Row.Delta.StartsWith(TEXT("+"));
+        if(Row.Label==TEXT("枪械稳定性 ↑"))StabilityWorse=Row.Benefit==-1&&Row.Delta.StartsWith(TEXT("-"));}
+    Check(RecoilWorse&&StabilityWorse,TEXT("more recoil and less stability both classify as red penalties"));
+    Drum->Recoil=.8;Drum->Shake=.64;Optic->Recoil=.9;Optic->Shake=.81;
+    Panel->RefreshPresentation();
     const FString Directory=FPaths::ProjectSavedDir()/TEXT("WeaponHandlingAudit");
     IFileManager::Get().MakeDirectory(*Directory,true);
     FFileHelper::SaveStringToFile(Report,*(Directory/TEXT("assertions.csv")));

@@ -1,4 +1,6 @@
 #include "FPSWeaponFXComponent.h"
+#include "NiagaraComponent.h"
+#include "NiagaraSystem.h"
 #include "../FPSGAMECharacter.h"
 
 #include "Camera/CameraComponent.h"
@@ -14,7 +16,7 @@
 
 namespace WeaponFX
 {
-    enum : uint8 { FlashCore, FlashTongue, Smoke, Spark, Casing, Dust };
+    enum : uint8 { FlashCore, FlashTongue, Smoke, Spark, Casing, Dust, Tracer };
     const FLinearColor Flame(1.0f, 0.42f, 0.075f);
     const FLinearColor HotCore(1.0f, 0.76f, 0.27f);
     constexpr double SmokePeriod = 0.11;
@@ -41,6 +43,11 @@ UFPSWeaponFXComponent::UFPSWeaponFXComponent()
     FlashMaterial = Flash.Object;
     SmokeMaterial = Smoke.Object;
     BrassMaterial = Brass.Object;
+    static ConstructorHelpers::FObjectFinder<UMaterialInterface> Tracer(TEXT("/Game/Weapons/GunplayFX/M_BallisticTracer.M_BallisticTracer"));
+    TracerMaterial = Tracer.Object;
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicMuzzle(TEXT("/Game/Weapons/GunplayFX/NS_FPS_MuzzleEpicV5.NS_FPS_MuzzleEpicV5"));
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> EpicSmoke(TEXT("/Game/Weapons/GunplayFX/NS_FPS_BarrelSmokeEpicV5.NS_FPS_BarrelSmokeEpicV5"));
+    EpicMuzzleSystem=EpicMuzzle.Object;EpicSmokeSystem=EpicSmoke.Object;
 }
 
 void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera)
@@ -140,6 +147,53 @@ void UFPSWeaponFXComponent::Release(FFPSWeaponFXParticle& P)
     if (P.Mesh) P.Mesh->SetVisibility(false);
 }
 
+void UFPSWeaponFXComponent::OnTracerSegment(const FVector& Start,const FVector& End)
+{
+    if(!bReady||!TracerMaterial)return;
+    const FVector Travel=End-Start;
+    const float Length=FMath::Min(static_cast<float>(Travel.Size()),45.f);
+    if(Length<.1f)return;
+    if(auto* P=Acquire(WeaponFX::Tracer,CylinderMesh,TracerMaterial))
+    {
+        ++TracerSegments;LastTracerEnd=End;
+        P->Position=End-Travel.GetSafeNormal()*(Length*.5f);
+        P->Rotation=FRotationMatrix::MakeFromZ(Travel).Rotator();
+        P->Size=FVector(.35f,.35f,Length);
+        P->Lifetime=1.f; // Render only the current frame; retired explicitly below.
+        P->Material->SetVectorParameterValue(TEXT("Tint"),FLinearColor(1.f,.68f,.22f));
+        P->Material->SetScalarParameterValue(TEXT("Emission"),4.f);
+        ApplyParticleTransform(*P);
+    }
+}
+
+bool UFPSWeaponFXComponent::SpawnEpicFX(bool bSmokeOnly,FVector Position,FVector Forward,float Scale,float Opacity)
+{
+    UNiagaraSystem* System=bSmokeOnly?EpicSmokeSystem.Get():EpicMuzzleSystem.Get();
+    if(!System)return false;
+    UNiagaraComponent* FX=nullptr;
+    for(const auto& Candidate:EpicFXPool)if(Candidate->GetAsset()==System&&!Candidate->IsActive()){FX=Candidate;break;}
+    if(!FX&&EpicFXPool.Num()<24){
+        FX=NewObject<UNiagaraComponent>(GetOwner());FX->SetAutoActivate(false);FX->SetAutoDestroy(false);
+        FX->SetAsset(System);FX->SetCastShadow(false);FX->RegisterComponent();EpicFXPool.Add(FX);
+    }
+    if(!FX)return true; // Bounded cosmetic pool; never interrupt an existing smoke puff.
+    FX->SetWorldLocationAndRotation(Position,Forward.Rotation());
+    FX->SetVariableFloat(TEXT("User.Global Scale"),Scale);
+    FX->SetVariableFloat(TEXT("User.Length Randomness"),.55f);
+    const FLinearColor SourceFlash=System->GetExposedParameters().GetParameterValue<FLinearColor>(
+        FNiagaraVariable(FNiagaraTypeDefinition::GetColorDef(),TEXT("User.Flash Base Color")));
+    FX->SetVariableLinearColor(TEXT("User.Flash Base Color"),FLinearColor(SourceFlash.R*.3f,SourceFlash.G*.3f,SourceFlash.B*.3f,SourceFlash.A));
+    if(!bSmokeOnly&&EpicMuzzleBursts==0)UE_LOG(LogTemp,Display,TEXT("EPIC_GUN_FX source_flash=%s"),*SourceFlash.ToString());
+    FX->SetVariableLinearColor(TEXT("User.Smoke Color"),FLinearColor(.42f,.44f,.46f,Opacity));
+    FX->SetVariableBool(TEXT("User.Use Bullet Shell"),false);
+    FX->SetVariableBool(TEXT("User.Use Smoke"),true);
+    FX->SetVariableBool(TEXT("User.Use Sparks"),false);
+    FX->SetVariableBool(TEXT("User.Use Flash Side"),LastSuppression>.5f);
+    FX->Activate(true);
+    if(bSmokeOnly)++EpicSmokeBursts;else ++EpicMuzzleBursts;
+    return true;
+}
+
 void UFPSWeaponFXComponent::OnShot(bool bADS)
 {
     if (!bReady) return;
@@ -148,7 +202,10 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
     LastSuppression=Suppression;
     LastADSMultiplier = bADS ? 0.78f : 1.0f;
     const float Scale = FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier;
-    for (int32 Layer = 0; Layer < 2; ++Layer)
+    LastFXShotTime=GetWorld()->GetTimeSeconds();
+    const float ShotVariation=FMath::FRandRange(.82f,1.12f);
+    const bool Epic=SpawnEpicFX(false,MuzzleLocation(),MuzzleForward(),Scale*ShotVariation*(Suppression<1.f?.07f:.19f),bADS?.40f:.55f);
+    for (int32 Layer = 0; !Epic && Layer < 2; ++Layer)
     {
         if (FFPSWeaponFXParticle* P = Acquire(Layer == 0 ? WeaponFX::FlashCore : WeaponFX::FlashTongue, CardMesh, FlashMaterial))
         {
@@ -165,7 +222,7 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
             ApplyParticleTransform(*P);
         }
     }
-    for (int32 I = 0; I < (Suppression<1.f?0:2); ++I)
+    for (int32 I = 0; I < (Epic||Suppression<1.f?0:2); ++I)
     {
         if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Spark, CardMesh, FlashMaterial))
         {
@@ -190,18 +247,24 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
         ApplyParticleTransform(*P);
     }
     PendingHeat = FMath::Min(1.0f, PendingHeat + 0.18f);
-    SpawnSmoke(true, 0.0f, MuzzleLocation(), MuzzleForward(), FMath::Min(1.0f, BarrelHeat + PendingHeat));
-    FlashTime = 0.045f;
+    if(!Epic)SpawnSmoke(true, 0.0f, MuzzleLocation(), MuzzleForward(), FMath::Min(1.0f, BarrelHeat + PendingHeat));
+    FlashTime = Epic?0.f:0.045f;
     FlashBirthFrame = GFrameCounter;
     FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
     FlashLight->SetIntensity(950.0f * Scale * LastSuppression);
-    FlashLight->SetVisibility(Scale > 0.0f);
+    FlashLight->SetVisibility(!Epic && Scale > 0.0f);
     SetComponentTickEnabled(true);
 }
 
 void UFPSWeaponFXComponent::SpawnSmoke(bool bImmediate, float InitialAge, const FVector& BirthPosition,
     const FVector& BirthForward, float HeatAtBirth)
 {
+    if(EpicSmokeSystem){
+        // Heat wisps start after a sustained burst; do not stack them on each shot puff.
+        if(GetWorld()->GetTimeSeconds()-LastFXShotTime>.14 && HeatAtBirth>.35f && InitialAge<.15f)SpawnEpicFX(true,BirthPosition,BirthForward,
+            .16f*LastADSMultiplier,SmokeOpacity*HeatAtBirth*.70f*LastADSMultiplier);
+        return;
+    }
     const float Lifetime = FMath::FRandRange(0.80f, WeaponFX::SmokeMaxLifetime);
     if (InitialAge >= Lifetime) return; // Do not occupy the pool with already expired catch-up particles.
     if (FFPSWeaponFXParticle* P = Acquire(WeaponFX::Smoke, CardMesh, SmokeMaterial))
@@ -253,7 +316,9 @@ void UFPSWeaponFXComponent::ApplyParticleTransform(FFPSWeaponFXParticle& P)
     FVector Size = P.Size;
     float Alpha = P.Opacity * (1.0f - Life);
     FRotator Rotation = P.Rotation;
-    if (P.Kind != WeaponFX::Casing)
+    if (P.Kind == WeaponFX::Tracer)
+        P.Material->SetScalarParameterValue(TEXT("Opacity"),Alpha);
+    else if (P.Kind != WeaponFX::Casing)
     {
         Rotation = FRotationMatrix::MakeFromZ(Camera->GetComponentLocation() - P.Position).Rotator();
         const FQuat Billboard = Rotation.Quaternion() * FQuat(FVector::UpVector, FMath::DegreesToRadians(P.Rotation.Roll));
@@ -331,6 +396,8 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         SetComponentTickEnabled(false);
         return;
     }
+    for(const auto& FX:EpicFXPool)if(FX->IsActive()&&FX->GetAsset()==EpicMuzzleSystem)
+        FX->SetWorldLocationAndRotation(MuzzleLocation(),MuzzleForward().Rotation());
     DeltaTime = FMath::Max(0.0f, DeltaTime);
     if (FlashBirthFrame != GFrameCounter) FlashTime = FMath::Max(0.0f, FlashTime - DeltaTime);
     if (FlashTime > 0.0f)
@@ -342,6 +409,9 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     for (FFPSWeaponFXParticle& P : Particles)
     {
         if (!P.bActive) continue;
+        // A tracer is the current swept flight segment, never a stationary history trail.
+        if (P.Kind == WeaponFX::Tracer && P.BirthFrame != GFrameCounter)
+        { Release(P); ++ExpiredTracerSegments; continue; }
         // An OnShot/OnImpact particle was born at this frame's current time.
         // Both its age and motion start next Tick, preserving a zero-age first display.
         if (P.BirthFrame != GFrameCounter) AdvanceParticle(P, DeltaTime);
@@ -405,6 +475,7 @@ int32 UFPSWeaponFXComponent::GetActiveParticleCount() const
 
 void UFPSWeaponFXComponent::StopEmission()
 {
+    for(const auto& FX:EpicFXPool)if(FX)FX->DeactivateImmediate();
     BarrelHeat = PendingHeat = FlashTime = 0.0f;
     SmokeClock = 0.0;
     if (FlashLight) FlashLight->SetVisibility(false);
@@ -415,6 +486,22 @@ void UFPSWeaponFXComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
     StopEmission();
     for (FFPSWeaponFXParticle& P : Particles) if (P.Mesh) P.Mesh->DestroyComponent();
     Particles.Reset();
+    for(const auto& FX:EpicFXPool)if(FX)FX->DestroyComponent();
+    EpicFXPool.Reset();
     if (FlashLight) FlashLight->DestroyComponent();
     Super::EndPlay(EndPlayReason);
+}
+
+int32 UFPSWeaponFXComponent::GetActiveEpicFXCount() const
+{
+    int32 Count=0;
+    for(const auto& FX:EpicFXPool)if(FX&&FX->IsActive())++Count;
+    return Count;
+}
+
+int32 UFPSWeaponFXComponent::GetActiveTracerCount() const
+{
+    int32 Count=0;
+    for(const auto& P:Particles) if(P.bActive && P.Kind==WeaponFX::Tracer) ++Count;
+    return Count;
 }

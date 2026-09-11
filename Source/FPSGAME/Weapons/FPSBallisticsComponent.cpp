@@ -1,4 +1,5 @@
 #include "FPSBallisticsComponent.h"
+#include "../FPSGAMECharacter.h"
 #include "FPSWeaponFXComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
@@ -9,6 +10,7 @@ UFPSBallisticsComponent::UFPSBallisticsComponent()
 void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot)
 {
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
+    LastLaunchStart=Start;
     WeaponFX=FX;HeadshotSound=Headshot;
     Rounds.Add({Start,Direction.GetSafeNormal(),SpeedCM,RangeCM,Damage,GetWorld()->GetTimeSeconds()});
     SetComponentTickEnabled(true);
@@ -27,11 +29,15 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         if(GetWorld()->LineTraceSingleByChannel(Hit,R.Position,End,ECC_Visibility,Params))
         {
             ++ImpactCount;
-            if(Hit.GetActor())UGameplayStatics::ApplyPointDamage(Hit.GetActor(),R.Damage,R.Direction,Hit,Pawn?Pawn->GetController():nullptr,GetOwner(),nullptr);
+            LastImpactPoint=Hit.ImpactPoint;
+            if(Hit.GetActor()){const float Applied=UGameplayStatics::ApplyPointDamage(Hit.GetActor(),R.Damage,R.Direction,Hit,Pawn?Pawn->GetController():nullptr,GetOwner(),nullptr);
+                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied);}
             if(WeaponFX)WeaponFX->OnImpact(Hit);
             if(HeadshotSound&&Hit.BoneName.ToString().Contains(TEXT("head"),ESearchCase::IgnoreCase))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
+            if(WeaponFX)WeaponFX->OnTracerSegment(R.Position,Hit.ImpactPoint);
             Rounds.RemoveAtSwap(I);continue;
         }
+        if(WeaponFX)WeaponFX->OnTracerSegment(R.Position,End);
         R.Position=End;R.Remaining-=Distance;
         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);
     }

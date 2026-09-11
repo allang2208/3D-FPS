@@ -86,7 +86,11 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("攻击间隔"),N(FMath::RoundToInt(S.Interval*1000/(Model?FMath::Max(1.f,Model->Derived(TEXT("aspd"))):1)))+TEXT("ms"));
         Row(Main,TEXT("换弹时间"),N(FMath::RoundToInt(S.Reload*1000))+TEXT("ms"));Row(Main,TEXT("空仓换弹"),N(FMath::RoundToInt(S.EmptyReload*1000))+TEXT("ms"));
         Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(S.ADS*1000))+TEXT("ms"));Row(Main,TEXT("后坐力（越低越好）"),N(S.Recoil));Row(Main,TEXT("枪械稳定性（越高越好）"),N(S.Handling.Stability)+TEXT(" /100"));
-        Row(Main,TEXT("首发上跳"),N(S.Handling.FirstShotDegrees())+TEXT("°"));Row(Main,TEXT("镜头回稳90%"),N(FMath::RoundToInt(S.Handling.ADSRecoveryMilliseconds()))+TEXT("ms"));
+        Row(Main,TEXT("首发上跳"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstShotDegrees()));
+        Row(Main,TEXT("连射上跳/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxVerticalDegrees()));
+        Row(Main,TEXT("ADS首发水平/发"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstHorizontalDegrees()));
+        Row(Main,TEXT("ADS水平上限/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxHorizontalDegrees()));
+        Row(Main,TEXT("镜头回稳90%"),N(FMath::RoundToInt(S.Handling.ADSRecoveryMilliseconds()))+TEXT("ms"));
         Row(Main,TEXT("有效射程"),N(S.Range)+TEXT("m"));
         Row(Main,TEXT("子弹速度"),S.Speed<=0?TEXT("即时命中"):N(S.Speed)+TEXT("m/s"));
         Row(Main,TEXT("腰射散布倍率"),N(S.Spread)+TEXT("×"));

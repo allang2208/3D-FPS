@@ -38,6 +38,10 @@ public:
     AFPSGAMECharacter();
     void ApplyColdSteelProfile(class UColdSteelStatusModel* Profile);
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
+    float GetHipSpread() const { return 2.f * (0.0175f + CurrentSpread + MoveSpread + AirSpread) * HipSpreadMultiplier; }
+    FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
+    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage);
+    float GetHitMarkerOpacity() const;
     void SuspendWeaponForMenu(){FireReleased();AimReleased();}
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
@@ -90,6 +94,10 @@ protected:
     FVector MuzzleLocalTip=FVector::ZeroVector;
     FVector MuzzleLocalAxis=FVector::ForwardVector;
     float ProjectileSpeedCM=9000.f;
+    float HipSpreadMultiplier=1.f;
+    int32 ADSHorizontalRecoilIndex=0;
+    double LastConfirmedWeaponHitTime=-1000.0;
+    void RunBallisticPresentationAudit();
     void RunMuzzleMigrationAudit();
     FWeaponHandling WeaponHandling;
     void RunWeaponHandlingAudit();
@@ -367,7 +375,6 @@ private:
     float TimeSinceLastShot = 100.0f;
     float PatternRecoveryAccumulator = 0.0f;
     float CurrentSpread = 0.0f;
-    float SpreadRecoveryLeft = 0.0f;
     float MoveSpread = 0.0f;
     float AirSpread = 0.0f;
 

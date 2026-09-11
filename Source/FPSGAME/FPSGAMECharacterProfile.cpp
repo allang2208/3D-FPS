@@ -28,6 +28,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     WeaponHandling=FWeaponHandling();
     BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale;
     ProjectileSpeedCM=9000.f;
+    HipSpreadMultiplier=1.f;
     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
     FireInterval=Defaults->FireInterval/FMath::Max(1.f,Profile->Derived(TEXT("aspd")));
     if(auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
@@ -44,7 +45,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
         if(I&&Gunsmith->Weapon(I->Definition))
         {const auto Stats=Gunsmith->Calculate(I->Definition,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
-            WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;}
+            WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));}
     }
     MagazineAmmo=I?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=Profile->AmmoCount();
 }

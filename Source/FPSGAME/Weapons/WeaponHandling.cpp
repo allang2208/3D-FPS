@@ -32,3 +32,16 @@ float FWeaponHandling::MaxVerticalDegrees() const
 { return FMath::RadiansToDegrees(Pattern(PatternCount - 1).X) * ReferenceBallisticScale * RecoilScale; }
 float FWeaponHandling::ADSRecoveryMilliseconds() const
 { return ShakeScale == 0.f ? 0.f : 2000.f * FMath::Loge(10.f) / (CameraDamping + CameraADSDamping) * RecoveryTimeScale; }
+
+float FWeaponHandling::ADSHorizontalDegrees(int32 ShotIndex) const
+{
+    // Repeatable lateral recoil, not random projectile spread. Positive yaw is right.
+    static constexpr float Degrees[]={.18f,.24f,-.30f,-.36f,.42f,.48f,-.54f,-.60f,.60f};
+    return Degrees[FMath::Max(0,ShotIndex)%UE_ARRAY_COUNT(Degrees)]*RecoilScale;
+}
+float FWeaponHandling::MaxHorizontalDegrees() const
+{
+    float Result=0.f;
+    for(int32 I=0;I<PatternCount;++I)Result=FMath::Max(Result,FMath::Abs(ADSHorizontalDegrees(I)));
+    return Result;
+}
