@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Movement/FPSTraversalComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -14,13 +15,14 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     bInventoryWeaponReady=I&&I->Definition==TEXT("ue_m4a1");
     if(ActiveInventoryWeapon!=Id){
+        if (IsTraversing()) Traversal->Cancel();
         StopMechanicalAudio();
         FireReleased();AimReleased();
         ActiveInventoryWeapon=Id;
         if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");InitializeWeaponVisuals();StartEquipCharge();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
-    AKMViewmodel->SetVisibility(bInventoryWeaponReady,true);
+    AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),true);
     // Existing UE weapon tuning is retained as the weapon contribution; six-dimensional base attack is additive.
     const auto* Defaults=GetClass()->GetDefaultObject<AFPSGAMECharacter>();
     WeaponHandling=FWeaponHandling();

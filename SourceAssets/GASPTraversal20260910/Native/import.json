@@ -1,0 +1,18 @@
+{
+  "mesh": "/Game/Movement/Traversal/Native/SK_TraversalArms.SK_TraversalArms",
+  "clips": {
+    "Vault": {
+      "path": "/Game/Movement/Traversal/Native/A_Traversal_Vault.A_Traversal_Vault",
+      "duration": 0.800000011920929
+    },
+    "Mantle": {
+      "path": "/Game/Movement/Traversal/Native/A_Traversal_Mantle.A_Traversal_Mantle",
+      "duration": 2.0
+    },
+    "Climb": {
+      "path": "/Game/Movement/Traversal/Native/A_Traversal_Climb.A_Traversal_Climb",
+      "duration": 3.3333332538604736
+    }
+  },
+  "runtime_mesh": "/Game/Movement/Traversal/Native/SK_TraversalArms_AnimatedBounds.SK_TraversalArms_AnimatedBounds"
+}

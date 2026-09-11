@@ -22,6 +22,8 @@ description: 制作、迁移和修正 UE5 第一人称持枪手臂动画，包�
 
 ## 按问题读取
 
+- 第一人称翻越/攀爬、斜墙误判、收手后摇和表面适配：[攀爬接触与镜头交接](references/traversal-contact.md)。
+
 - 手指扭曲、穿模、抓握、腕肘变形、重定时或冲击感：[姿态与接触方法](references/pose-contact.md)。
 - MAT 编辑器、FK Control Rig、关键帧、烘焙及保存：[MAT 实操与边界](references/mat-editing.md)。
 - 继续 M4 或防止恢复废案：[当前资产、时序与作者源](references/m4-baseline.md)。

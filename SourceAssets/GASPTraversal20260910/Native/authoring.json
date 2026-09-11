@@ -1,0 +1,49 @@
+{
+  "geometry_before": "fa8b7ac2afca71bfc7b483a84ea7310929918cba94925eb006e914184922576a",
+  "materials": [
+    "MI_Manny_01",
+    "MI_Manny_02"
+  ],
+  "clips": {
+    "Vault": {
+      "duration": 0.8,
+      "contact": 0.27,
+      "release": 0.58,
+      "reference_height": 1.0,
+      "edge_blender": [
+        0.012285932898521423,
+        0.8001140356063843,
+        1.0
+      ],
+      "max_bone_error_m": 2.537542763136891e-07,
+      "max_hand_error_m": 0.0
+    },
+    "Mantle": {
+      "duration": 2.0,
+      "contact": 0.345,
+      "release": 1.1,
+      "reference_height": 1.0,
+      "edge_blender": [
+        -0.073147252202034,
+        0.6200072169303894,
+        1.0
+      ],
+      "max_bone_error_m": 2.913481728650247e-07,
+      "max_hand_error_m": 0.0
+    },
+    "Climb": {
+      "duration": 3.3333333333333335,
+      "contact": 0.74,
+      "release": 2.25,
+      "reference_height": 2.5,
+      "edge_blender": [
+        0.018117815256118774,
+        0.6735223531723022,
+        2.5
+      ],
+      "max_bone_error_m": 6.213783940722806e-07,
+      "max_hand_error_m": 0.0
+    }
+  },
+  "geometry_after": "fa8b7ac2afca71bfc7b483a84ea7310929918cba94925eb006e914184922576a"
+}

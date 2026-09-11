@@ -1,0 +1,34 @@
+[
+  {
+    "source": "Tools/SceneTests/probe_traversal_course.py",
+    "archive": "trash/traversal-publication-20260911/Tools/SceneTests/probe_traversal_course.py",
+    "bytes": 1024,
+    "sha256": "6ca6ffd727ecf84844c77c3f344d5a3ec12e0f67bd553e70f200e0a875ce2737",
+    "reason": "Unregistered component editor probe superseded by real PlayerController course audit",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp"
+  },
+  {
+    "source": "SourceAssets/GASPTraversal20260910/Native/TraversalArms_Editable.blend1",
+    "archive": "trash/traversal-publication-20260911/SourceAssets/GASPTraversal20260910/Native/TraversalArms_Editable.blend1",
+    "bytes": 143099876,
+    "sha256": "32743d500805219d098accd5e5e1b771ad8abf223f565e2266020b20c959daf0",
+    "reason": "Previous Blender save superseded by retained validated editable .blend",
+    "replacement": "SourceAssets/GASPTraversal20260910/Native/TraversalArms_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/GASPTraversal20260910/Reference/Mantle.blend1",
+    "archive": "trash/traversal-publication-20260911/SourceAssets/GASPTraversal20260910/Reference/Mantle.blend1",
+    "bytes": 1369120,
+    "sha256": "f9409f60970aa2e47657924d8998380657314d7857ff4cd09515f6a7f4b56dd0",
+    "reason": "Previous Blender save superseded by retained validated editable .blend",
+    "replacement": "SourceAssets/GASPTraversal20260910/Reference/Mantle.blend"
+  },
+  {
+    "source": "SourceAssets/GASPTraversal20260910/Reference/Vault.blend1",
+    "archive": "trash/traversal-publication-20260911/SourceAssets/GASPTraversal20260910/Reference/Vault.blend1",
+    "bytes": 1579927,
+    "sha256": "8dd1e01299ddbd59d7d0834964b95874b5029d3b97cb249fe8b4d07b498ed18c",
+    "reason": "Previous Blender save superseded by retained validated editable .blend",
+    "replacement": "SourceAssets/GASPTraversal20260910/Reference/Vault.blend"
+  }
+]

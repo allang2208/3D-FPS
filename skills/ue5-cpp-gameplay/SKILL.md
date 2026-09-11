@@ -108,3 +108,5 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 # Escalation
 - Escalate when user asks for plugin/module-level refactor beyond a single gameplay class.
 - Escalate when solution needs custom engine source modifications.
+
+FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](../ue5-fps-arms-animation/references/traversal-contact.md).

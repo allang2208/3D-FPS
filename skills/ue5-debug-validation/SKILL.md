@@ -108,3 +108,5 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 # Escalation
 - Escalate when failure is inside engine/plugin internals not owned by project code.
 - Escalate when diagnosis needs platform-specific profiling tools unavailable in current environment.
+
+FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](../ue5-fps-arms-animation/references/traversal-contact.md).

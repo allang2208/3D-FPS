@@ -209,7 +209,8 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)
             if(auto* C=Cast<AFPSGAMECharacter>(GetPawn());C&&C->AdjustOpticMagnification(Params.Key==EKeys::MouseScrollUp?.5f:-.5f))return true;
         auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-        if(Params.Key==EKeys::G){Profile->CycleWeapon();return true;}
+        if(Params.Key==EKeys::G || Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
+        {if (const auto* C=Cast<AFPSGAMECharacter>(GetPawn()); !C || !C->IsTraversing()) Profile->CycleWeapon();return true;}
         const FKey Keys[]={EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four};
         for(int32 Index=0;Index<4;++Index)if(Params.Key==Keys[Index]){Profile->UseHotbar(Index);return true;}
         if(Params.Key==EKeys::E&&GetPawn())

@@ -28,10 +28,12 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
 {
     GENERATED_BODY()
     friend class AColdSteelPickup;
+    friend class UFPSTraversalComponent;
 
     friend class UColdSteelWeaponIcons;
 
 public:
+    bool IsTraversing() const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     AFPSGAMECharacter();
     void ApplyColdSteelProfile(class UColdSteelStatusModel* Profile);
@@ -80,6 +82,7 @@ public:
     UFUNCTION(BlueprintPure, Category = "AKM") EAKMWeaponState GetWeaponState() const { return WeaponState; }
 
 protected:
+    UPROPERTY(VisibleAnywhere, Category="FPS Movement") TObjectPtr<class UFPSTraversalComponent> Traversal;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MuzzleAttachment;
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UFPSBallisticsComponent> Ballistics;
     UPROPERTY(Transient) TObjectPtr<USoundBase> SuppressedFireSound;

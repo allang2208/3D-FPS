@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Movement/FPSTraversalComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
@@ -52,6 +53,7 @@ namespace AKMSource
 AFPSGAMECharacter::AFPSGAMECharacter()
 {
     PrimaryActorTick.bCanEverTick = true;
+    Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
@@ -231,6 +233,7 @@ void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
 void AFPSGAMECharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    Traversal->Advance(DeltaSeconds);
     if (auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Profile->TickRuntime(DeltaSeconds, this);
     SprintToFireLeft = static_cast<float>(FMath::Max(0.0, SprintFireUnlockTime - GetWorld()->GetTimeSeconds()));
     SlideBoostCooldownRemaining = FMath::Max(0.0f, SlideBoostCooldownRemaining - DeltaSeconds);
@@ -245,6 +248,7 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
     UpdateScopePresentation();
+    Traversal->UpdatePresentation();
     ServiceHeldFire();
     UpdateActionPose(DeltaSeconds);
     UpdateDrumDropVisual();
@@ -284,13 +288,24 @@ void AFPSGAMECharacter::SprintReleased() { bSprintHeld = false; }
 
 void AFPSGAMECharacter::SlidePressed()
 {
+    if (IsTraversing()) return;
     if (bIsSliding) { StopSlide(false); return; }
     if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
     if (GetCharacterMovement()->IsMovingOnGround() && HorizontalSpeed() >= SlideMinimumSpeed) StartSlide(); else Crouch();
 }
 
-void AFPSGAMECharacter::JumpPressed() { JumpBufferRemaining = JumpInputBufferTime; TryBufferedJump(); }
-void AFPSGAMECharacter::JumpReleased() { StopJumping(); }
+void AFPSGAMECharacter::JumpPressed()
+{
+    if (IsTraversing()) return;
+    if (Traversal->BeginJumpHold(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
+    JumpBufferRemaining = JumpInputBufferTime;
+    TryBufferedJump();
+}
+void AFPSGAMECharacter::JumpReleased()
+{
+    StopJumping();
+    if (Traversal->ReleaseJumpHold()) JumpBufferRemaining=JumpInputBufferTime;
+}
 
 void AFPSGAMECharacter::FirePressed()
 {
@@ -1072,7 +1087,8 @@ bool AFPSGAMECharacter::CanStand() const
     return !GetWorld()->OverlapBlockingTestByProfile(TestLocation, FQuat::Identity, Capsule->GetCollisionProfileName(), FCollisionShape::MakeCapsule(Radius, StandingCapsuleHalfHeight), Params);
 }
 
-bool AFPSGAMECharacter::IsWeaponBusy() const { return WeaponState != EAKMWeaponState::Idle; }
+bool AFPSGAMECharacter::IsTraversing() const { return Traversal && Traversal->IsTraversing(); }
+bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || WeaponState != EAKMWeaponState::Idle; }
 float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
 
 float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const
