@@ -25,10 +25,14 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void PlayerTick(float DeltaTime) override;
     virtual void SetupInputComponent() override;
     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 
 private:
+    bool bScopePanelsHidden=false;
+    TMap<TWeakObjectPtr<class UUserWidget>,uint8> ScopePanelVisibility;
+    UPROPERTY(Transient) TObjectPtr<class ULPVOScopeWidget> ScopeOverlay;
     UPROPERTY(Transient) TObjectPtr<class UM4GunsmithWidget> GunsmithPanel;
     void ToggleInventory();
     void BeginTimelineInteraction();

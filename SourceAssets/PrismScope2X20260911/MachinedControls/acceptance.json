@@ -1,0 +1,94 @@
+{
+  "mesh": {
+    "source": "scope2x_textured_master_00001_.glb",
+    "source_triangles": 96513,
+    "aim_point_cm": [
+      -6.15,
+      0,
+      4
+    ],
+    "base_width_cm": 2.5,
+    "meshes": [
+      {
+        "name": "SM_PrismScope2X_Body",
+        "triangles": 17072,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Coated_Lens",
+        "triangles": 126,
+        "boundary_edges": 128,
+        "nonmanifold_edges": 128,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Coated_Lens.001",
+        "triangles": 126,
+        "boundary_edges": 128,
+        "nonmanifold_edges": 128,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Center_Dot",
+        "triangles": 284,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Horizontal_Stadia",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Vertical_Stadia",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Horizontal_Stadia.001",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Vertical_Stadia.001",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      }
+    ],
+    "triangles": 18040
+  },
+  "runs": {
+    "write": {
+      "checks": 59,
+      "failures": 0
+    },
+    "reload": {
+      "checks": 55,
+      "failures": 0
+    }
+  },
+  "asset": "/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X.SM_PrismScope2X",
+  "import_exit_code": 1,
+  "native_build": "Succeeded",
+  "visual_review": "Blender control closeup and game hip/ADS reviewed; regular knobs, preserved clear bore",
+  "sha256": {
+    "SM_PrismScope2X.fbx": "044b8ace0ac06dd0e182cda5d6f9c6337229165e384a8578a54dac2f3a1055ac",
+    "PrismScope2X_Editable.blend": "d0c1ab1425926f07f6baff7765139b30cd4a5845eadd33b2078481ad28594749",
+    "Scope2X_SeparateParts.blend": "05f299268d7f1b6542f5659ddd5677cd6a62fe286301cd5d54491932678adc6b",
+    "T_Scope2X_BaseColor.png": "670c5a60102f819e1c0d262e0fc9e3adb46a814f6abc47e1af450655fe6298cf",
+    "T_Scope2X_Roughness.png": "3525a49abd318e6d07a94fece6fa0f020aee11d02c52dbec25e3856e45086962",
+    "T_Scope2X_Metallic.png": "13835cd8d7a850d16dc346727e62786a915371aab51736946d636259b6df6055",
+    "T_Scope2X_Normal.png": "1d68f0080d7967656afdd6ee684f6faabcee9ba3a0d836f9fb899260f428c129"
+  }
+}

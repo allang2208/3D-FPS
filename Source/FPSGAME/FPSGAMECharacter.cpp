@@ -143,6 +143,9 @@ void AFPSGAMECharacter::BeginPlay()
 
 void AFPSGAMECharacter::InitializeWeaponVisuals()
 {
+    if(LPVORing)LPVORing->DestroyComponent();
+    if(HolographicOptic)HolographicOptic->DestroyComponent();
+    LPVORing=nullptr;HolographicOptic=nullptr;LPVOMagnification=1.f;OpticVariant.Reset();bHolographicOptic=false;
     bSightCalibrated = false;
     bUsingM4Infima = false;
     USkeletalMesh* ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMReplacement/HandsRepair/SK_AKM_HandsRepair.SK_AKM_HandsRepair"), nullptr, LOAD_NoWarn);
@@ -241,6 +244,7 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateWeaponFeedback(DeltaSeconds);
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
+    UpdateScopePresentation();
     ServiceHeldFire();
     UpdateActionPose(DeltaSeconds);
     UpdateDrumDropVisual();
@@ -552,7 +556,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
-    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, ADSVerticalFieldOfView, CameraADSFactor) + FOVPunch);
+    float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);
     SprintCameraFactor = FMath::Lerp(SprintCameraFactor, bIsSprinting ? 1.0f : 0.0f, 1.0f - FMath::Exp(-9.0f * DeltaSeconds));
     TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
@@ -793,6 +797,7 @@ void AFPSGAMECharacter::ApplyShotFeedback()
 
 FVector AFPSGAMECharacter::ComputeShotDirection() const
 {
+    if((bIsAiming||WeaponADSFactor>.98f)&&GetScopePresentationAlpha()>.5f)return FirstPersonCamera->GetForwardVector();
     if (bHolographicOptic && WeaponADSFactor > 0.98f)
         return (HolographicAimPoint() - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     const FVector Forward = FirstPersonCamera->GetForwardVector();
@@ -1078,7 +1083,7 @@ float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const
 float AFPSGAMECharacter::LookSensitivityScale() const
 {
     // Match screen-space motion across magnification; mouse deltas stay raw (no aim smoothing).
-    const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, ADSVerticalFieldOfView, CameraADSFactor)) * 0.5f)
+    const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor)) * 0.5f)
         / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
     return FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
 }
@@ -1134,7 +1139,7 @@ void AFPSGAMECharacter::UpdateADSPose()
             Root=Root*Local;
         }
         const FTransform Mount=HolographicMount*Root;
-        Rear=Mount.TransformPosition(FVector(-0.653782f,0,5.175324f))*ViewmodelScale;
+        Rear=Mount.TransformPosition(OpticLocalAimPoint())*ViewmodelScale;
         Front=Rear+Mount.GetRotation().RotateVector(FVector::ForwardVector)*10.f;
         SightUp=Mount.GetRotation().RotateVector(FVector::UpVector);
     }
@@ -1145,7 +1150,7 @@ void AFPSGAMECharacter::UpdateADSPose()
     // Mapping a single axis leaves roll unconstrained. Align the complete optic
     // frame with camera forward/up so ADS is level without twisting it off the rail.
     if(bHolographicOptic)CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
-    CalibratedADSLocation = FVector(bHolographicOptic ? 26.0f : ADSRearEyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
+    CalibratedADSLocation = FVector(bHolographicOptic ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
     bSightCalibrated = true;
     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_ADS_CALIBRATED rear=%s front=%s offset=%s rotation=%s"), *Rear.ToCompactString(), *Front.ToCompactString(), *CalibratedADSLocation.ToCompactString(), *CalibratedADSRotation.Rotator().ToCompactString());
 }

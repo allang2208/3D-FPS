@@ -1,0 +1,69 @@
+{
+  "source": "scope2x_textured_master_00001_.glb",
+  "source_triangles": 96513,
+  "aim_point_cm": [
+    -6.15,
+    0,
+    4
+  ],
+  "base_width_cm": 2.5,
+  "meshes": [
+    {
+      "name": "SM_PrismScope2X_Body",
+      "triangles": 17072,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Coated_Lens",
+      "triangles": 126,
+      "boundary_edges": 128,
+      "nonmanifold_edges": 128,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Coated_Lens.001",
+      "triangles": 126,
+      "boundary_edges": 128,
+      "nonmanifold_edges": 128,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Center_Dot",
+      "triangles": 284,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Horizontal_Stadia",
+      "triangles": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Vertical_Stadia",
+      "triangles": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Horizontal_Stadia.001",
+      "triangles": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Vertical_Stadia.001",
+      "triangles": 108,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    }
+  ],
+  "triangles": 18040
+}

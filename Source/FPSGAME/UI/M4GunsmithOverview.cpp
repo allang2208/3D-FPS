@@ -46,8 +46,8 @@ void UM4GunsmithWidget::RefreshPresentation()
     if(S.Speed<=0)Overview.Add({TEXT("子弹速度"),TEXT("即时命中"),TEXT("即时命中"),TEXT("—"),0});
     else Row(TEXT("子弹速度"),B.Speed,S.Speed,0,TEXT(" m/s"));
     const auto BeforeParts=bCompareFactory?FGunsmithParts():G->Installed(*I);
-    Overview.Add({TEXT("瞄具倍率"),TEXT("1×"),TEXT("1×"),TEXT("—"),0});
-    Overview.Add({TEXT("机械瞄具"),BeforeParts.FindRef(TEXT("optic"))==TEXT("holographic")?TEXT("折下"):TEXT("竖起"),G->Draft().FindRef(TEXT("optic"))==TEXT("holographic")?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
+    Overview.Add({TEXT("瞄具倍率"),BeforeParts.FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):BeforeParts.FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),G->Draft().FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):G->Draft().FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),TEXT("—"),0});
+    Overview.Add({TEXT("机械瞄具"),BeforeParts.Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),G->Draft().Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
     StatusText=FString::Printf(TEXT("待应用 · %d 项     %s"),G->Pending(),*G->Message());
     if(OptionScroll)
     {

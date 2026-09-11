@@ -1,0 +1,32 @@
+{
+  "status": "rerolled_reviewed_candidate",
+  "prompt_id": "890b097f-68ec-405c-9b40-684e0510732b",
+  "raw_triangles": 8004116,
+  "master_triangles": 99829,
+  "generation_seconds": 220.921,
+  "input": "reference_white.png",
+  "visual_findings": [
+    "Large side cavities substantially reduced; continuous frame and open window",
+    "Base planes substantially cleaner than first result",
+    "Inferred buttons and dials differ in placement; small surface waviness remains"
+  ],
+  "game_integrated": false,
+  "files": {
+    "reroll03_candidate.blend": {
+      "bytes": 12151046,
+      "sha256": "2259aa508aaa51770661f6e5b2222e13378b2d10652a9f3d2fed3478867104a6"
+    },
+    "reroll03_candidate.fbx": {
+      "bytes": 3788988,
+      "sha256": "efb29451f899825314580ab0b165ec2b7b2efdbeb8ecf0d4eb94da9b2f96948a"
+    },
+    "reroll03_raw_00001_.glb": {
+      "bytes": 143038488,
+      "sha256": "ba23a46d3d587871199e7caa6f0cc388aeadcec92fde272b53176b7150a0b374"
+    },
+    "reroll03_textured_master_00001_.glb": {
+      "bytes": 11237584,
+      "sha256": "848418978d4e75a0ded3490352630b9dd9a6ba4c292b4a6ed40fed7a8f0787ff"
+    }
+  }
+}

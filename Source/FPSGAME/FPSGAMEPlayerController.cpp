@@ -2,6 +2,8 @@
 #include "FPSGAMECharacter.h"
 
 #include "UI/ColdSteelHUDWidget.h"
+#include "UI/LPVOScopeWidget.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelPickup.h"
 #include "UI/ColdSteelWorldInteraction.h"
@@ -69,6 +71,8 @@ void AFPSGAMEPlayerController::BeginPlay()
     if (WeatherPanel) WeatherPanel->AddToPlayerScreen(40);
     StartWeatherPanelValidation(this, WeatherPanel);
     ColdSteelHUD = CreateWidget<UColdSteelHUDWidget>(this, UColdSteelHUDWidget::StaticClass());
+    ScopeOverlay=CreateWidget<ULPVOScopeWidget>(this,ULPVOScopeWidget::StaticClass());
+    if(ScopeOverlay){ScopeOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);ScopeOverlay->AddToPlayerScreen(10);}
     if (ColdSteelHUD)
     {
         ColdSteelHUD->AddToPlayerScreen(20);
@@ -202,6 +206,8 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     }
     if(Params.Event==IE_Pressed&&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
     {
+        if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)
+            if(auto* C=Cast<AFPSGAMECharacter>(GetPawn());C&&C->AdjustOpticMagnification(Params.Key==EKeys::MouseScrollUp?.5f:-.5f))return true;
         auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         if(Params.Key==EKeys::G){Profile->CycleWeapon();return true;}
         const FKey Keys[]={EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four};
@@ -270,4 +276,24 @@ void AFPSGAMEPlayerController::CaptureInventoryAudit(const FString& Filename, in
     const FString Directory = FPaths::ProjectSavedDir() / TEXT("UIAudit/2026-09-09");
     IFileManager::Get().MakeDirectory(*Directory, true);
     FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
+}
+
+void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
+{
+    Super::PlayerTick(DeltaTime);
+    const auto* ScopeCharacter=Cast<AFPSGAMECharacter>(GetPawn());
+    const bool Hide=IsLocalController()&&!bShowMouseCursor&&ScopeCharacter&&ScopeCharacter->GetScopePresentationAlpha()>.5f;
+    if(Hide==bScopePanelsHidden)return;
+    bScopePanelsHidden=Hide;
+    if(Hide){
+        TArray<UUserWidget*> Panels;
+        UWidgetBlueprintLibrary::GetAllWidgetsOfClass(this,Panels,UUserWidget::StaticClass(),true);
+        for(auto* Panel:Panels)if(Panel!=ScopeOverlay&&Panel->GetOwningPlayer()==this){
+            ScopePanelVisibility.Add(Panel,static_cast<uint8>(Panel->GetVisibility()));
+            Panel->SetVisibility(ESlateVisibility::Hidden);
+        }
+    }else{
+        for(const auto& Entry:ScopePanelVisibility)if(Entry.Key.IsValid())Entry.Key->SetVisibility(static_cast<ESlateVisibility>(Entry.Value));
+        ScopePanelVisibility.Reset();
+    }
 }

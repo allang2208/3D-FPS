@@ -34,7 +34,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         // Autosave republishes the profile every five seconds; keep the active
         // instance's transient preview until Apply/Undo/Close resolves it.
         const auto& VisualParts=I&&Gunsmith->IsOpen()&&Gunsmith->Instance()==I->InstanceId?Gunsmith->Draft():Parts;
-        SetGunsmithOptic(VisualParts.FindRef(TEXT("optic"))==TEXT("holographic"));
+        SetGunsmithOpticVariant(VisualParts.FindRef(TEXT("optic")));
         SetGunsmithDrum(VisualParts.FindRef(TEXT("magazine"))==TEXT("large_drum"));
         SetGunsmithMuzzle(VisualParts.FindRef(TEXT("muzzle")));
         bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum");

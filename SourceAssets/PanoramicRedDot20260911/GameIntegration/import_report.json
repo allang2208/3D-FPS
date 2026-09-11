@@ -1,0 +1,13 @@
+{
+  "asset": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot.SM_PanoramicRedDot",
+  "bounds_cm": [
+    "<Struct 'Vector' (0x000001F4A4C71140) {x: -2.975000, y: -2.766324, z: 0.000000}>",
+    "<Struct 'Vector' (0x000001F4A4C71158) {x: 2.950000, y: 2.763171, z: 4.749289}>"
+  ],
+  "triangles": 15894,
+  "materials": [
+    "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+    "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+    "/Game/Weapons/PanoramicRedDot/M_Panoramic_Body.M_Panoramic_Body"
+  ]
+}

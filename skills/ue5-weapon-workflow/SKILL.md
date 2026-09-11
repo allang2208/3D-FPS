@@ -10,12 +10,16 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 ## 按任务读取
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
+- 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-11 用户确认，以此取代旧配件流程。
+- 瞄具、倍率、镜内视野和开镜面板：[瞄具成像与验收](references/optic-presentation.md)，先定成像与可用视野，再制作模型。
 - 手臂、抓握、甩弹匣、普通/空仓换弹、拉栓、装备、奔跑及拍击：[手臂动画技能](../ue5-fps-arms-animation/SKILL.md)。
 - 继续当前 M4：[当前案例与证据](../ue5-fps-arms-animation/references/m4-baseline.md)。先核对实际加载路径，不能按文件夹的日期或 Final 名称选资产。
 - 原生编译/运行或用户反馈“没有应用”：[UE 验证操作](../ue5-fps-arms-animation/references/validation.md)。纯文档更新只检查内容、链接及技能元数据，不启动游戏。
 - 整理废案、更新 Git 或用户授权推送：[清理与发布](references/publication.md)。
 
 ## 执行主线
+
+**项目默认手模（用户于 2026-09-10 指定）**：本 FPS 以后所有枪械默认复用当前 M4 的同一套手臂、手套网格及材质，包括 AKM。当前源为 `SourceAssets/M4TacticalToss20260910/M4_Hand_MAT_Editable.blend` 的 `SK_Manny_Arms_Export`，运行外观以 `/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416` 为准；先核对最新实际加载。新枪只适配骨架、绑定、握持和动作，保留该手模的外观与网格身份；不自动恢复 WRAD/Cubic 或资产包自带手臂。只有用户明确要求换手模才改变这一默认。
 
 1. 读取宿主 AGENTS、当前文件、资产引用和用户选择。当前宿主已有独立 Git；按精确路径检查并暂存，逐块修改共享源码，不回退并行工作。新增候选用独立目录和资产名。
 2. 查看现有游戏中的枪和动作，再检查源模型。记录型号、手模、骨架、活动部件、材质和许可；区分网格外观、动作轨道、运行时姿态层及游戏状态问题。

@@ -1,0 +1,115 @@
+{
+  "2": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "panoramic_reroll03_white.png"
+    }
+  },
+  "3": {
+    "class_type": "Trellis2PreProcessImage",
+    "inputs": {
+      "image": [
+        "2",
+        0
+      ],
+      "padding": 64,
+      "remove_background": true,
+      "max_size": 2048
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        0
+      ],
+      "filename_prefix": "PanoramicRedDot20260911/Reroll03/segmented_input"
+    }
+  },
+  "1": {
+    "class_type": "Trellis2LoadModel",
+    "inputs": {
+      "modelname": "microsoft/TRELLIS.2-4B",
+      "backend": "sdpa",
+      "device": "cuda",
+      "low_vram": true,
+      "keep_models_loaded": false,
+      "conv_backend": "flex_gemm",
+      "sparse_backend": "xformers",
+      "use_reconviagen": false
+    }
+  },
+  "4": {
+    "class_type": "Trellis2MeshWithVoxelGenerator",
+    "inputs": {
+      "seed": 91144,
+      "pipeline_type": "1024_cascade",
+      "sparse_structure_steps": 16,
+      "shape_steps": 32,
+      "texture_steps": 24,
+      "max_num_tokens": 999999,
+      "max_views": 4,
+      "sparse_structure_resolution": 32,
+      "generate_texture_slat": true,
+      "use_tiled_decoder": true,
+      "sampler": "euler",
+      "fill_holes": false,
+      "hole_iterations": 1,
+      "hole_fill_algorithm": "flood_fill",
+      "keep_only_shell": true,
+      "pipeline": [
+        "1",
+        0
+      ],
+      "image": [
+        "3",
+        0
+      ]
+    }
+  },
+  "5": {
+    "class_type": "Trellis2MeshWithVoxelToTrimesh",
+    "inputs": {
+      "mesh": [
+        "4",
+        0
+      ],
+      "reorient_vertices": "90 degrees"
+    }
+  },
+  "6": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "5",
+        0
+      ],
+      "filename_prefix": "PanoramicRedDot20260911/Reroll03/reroll03_raw",
+      "file_format": "glb"
+    }
+  },
+  "7": {
+    "class_type": "Trellis2OvoxelExportToGLB",
+    "inputs": {
+      "mesh": [
+        "4",
+        0
+      ],
+      "resolution": 1024,
+      "texture_size": 2048,
+      "target_face_num": 100000
+    }
+  },
+  "8": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "7",
+        0
+      ],
+      "filename_prefix": "PanoramicRedDot20260911/Reroll03/reroll03_textured_master",
+      "file_format": "glb"
+    }
+  }
+}

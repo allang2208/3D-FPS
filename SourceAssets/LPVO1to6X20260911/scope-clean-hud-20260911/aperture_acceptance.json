@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "screenshots": 12,
+  "hud_restoration_checked": true,
+  "measurements": [
+    {
+      "file": "write-lpvo-1x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "write-lpvo-2x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "write-lpvo-4x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "write-lpvo-6x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "write-lpvo-reopen-4x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "write-lpvo-reopen-2x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "reload-lpvo-1x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "reload-lpvo-2x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "reload-lpvo-4x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "reload-lpvo-6x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "reload-lpvo-reopen-4x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    },
+    {
+      "file": "reload-lpvo-reopen-2x.png",
+      "measured_chord_px": 776,
+      "expected_chord_px": 773.7499596122768,
+      "clear_diameter_screen_fraction": 0.85,
+      "reticle_center": true,
+      "hud_visible": false
+    }
+  ]
+}

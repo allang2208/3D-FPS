@@ -1,0 +1,18 @@
+{
+  "asset": "/Game/Weapons/LPVO1to6X/SM_LPVO1to6X.SM_LPVO1to6X",
+  "bounds_cm": [
+    "<Struct 'Vector' (0x000001DD408DCF80) {x: -12.500000, y: -2.052999, z: 0.000000}>",
+    "<Struct 'Vector' (0x000001DD408DCF98) {x: 12.500000, y: 2.293500, z: 6.293500}>"
+  ],
+  "triangles": 20608,
+  "materials": [
+    "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+    "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+    "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body"
+  ],
+  "ring_triangles": 2204,
+  "ring_bounds": [
+    "<Struct 'Vector' (0x000001DD408DC900) {x: -0.800000, y: -1.971000, z: -1.971000}>",
+    "<Struct 'Vector' (0x000001DD408DCC58) {x: 0.760000, y: 1.971000, z: 3.000000}>"
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "asset": "/Game/Weapons/LPVO1to6X/SM_LPVO1to6X.SM_LPVO1to6X",
+  "mesh": {
+    "source": "lpvo_textured_master_00001_.glb",
+    "source_triangles": 98219,
+    "aim_point_cm": [
+      -12.15,
+      0,
+      4
+    ],
+    "base_width_cm": 2.5,
+    "meshes": [
+      {
+        "name": "SM_LPVO1to6X_Body",
+        "triangles": 19640,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Coated_Lens",
+        "triangles": 126,
+        "boundary_edges": 128,
+        "nonmanifold_edges": 128,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Coated_Lens.001",
+        "triangles": 126,
+        "boundary_edges": 128,
+        "nonmanifold_edges": 128,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Center_Dot",
+        "triangles": 284,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Horizontal_Stadia",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Vertical_Stadia",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Horizontal_Stadia.001",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Vertical_Stadia.001",
+        "triangles": 108,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "SM_LPVORing",
+        "triangles": 2204,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      }
+    ],
+    "triangles": 22812
+  },
+  "runs": {
+    "write": {
+      "checks": 82,
+      "failures": 0,
+      "zoom_measurements": [
+        [
+          "1.00",
+          "1.00000",
+          "0.0000"
+        ],
+        [
+          "2.00",
+          "2.00000",
+          "0.0000"
+        ],
+        [
+          "4.00",
+          "4.00000",
+          "0.0000"
+        ],
+        [
+          "6.00",
+          "6.00000",
+          "0.0000"
+        ]
+      ],
+      "center_and_clear_aperture_pixels": true
+    },
+    "reload": {
+      "checks": 78,
+      "failures": 0,
+      "zoom_measurements": [
+        [
+          "1.00",
+          "1.00000",
+          "0.0000"
+        ],
+        [
+          "2.00",
+          "2.00000",
+          "0.0000"
+        ],
+        [
+          "4.00",
+          "4.00000",
+          "0.0000"
+        ],
+        [
+          "6.00",
+          "6.00000",
+          "0.0000"
+        ]
+      ],
+      "center_and_clear_aperture_pixels": true
+    }
+  },
+  "import_exit_code": 1,
+  "import_marker": "LPVO_IMPORT_PASS",
+  "native_build": "Succeeded",
+  "limitations": [
+    "Whole-camera ADS zoom, not picture-in-picture optics",
+    "Zoom resets to 1x on weapon rebuild; attachment installation persists"
+  ],
+  "sha256": {
+    "SM_LPVO1to6X.fbx": "6284bec50122183d994990d34cf9b10533e2555b7b5eec4f365ef75f955657f9",
+    "SM_LPVORing.fbx": "ac33d8f504a2ac9a6d0587c0bdd46d84c0edb087107101ebc3c32cd994f6f83e",
+    "LPVO_Editable.blend": "91d97a42103c76bc413b0a775ba09993abfbcdd10b8c37461a00e670762abf49",
+    "LPVO_SeparateParts.blend": "e36b73715f547e2628fe1b07c8a759e4c2da0ad30f070e2487dafb588ae274dc",
+    "T_LPVO_BaseColor.png": "db1364888524c2cd67e4b8c94ae1d08e290d7951e91e44958f43c7589d448dd2",
+    "T_LPVO_Roughness.png": "70d68986966df9e9bbebc26ca988951d151ecae37b85713b6136854c2892d60c",
+    "T_LPVO_Metallic.png": "85461296d35aae720132cdd7094aa30fcab320440ad445c561641d69693d5fd4",
+    "T_LPVO_Normal.png": "18ef23211824107e41a42a5fd89a102bce81f0f05d896c71de86af8a831579e0",
+    "three_views.png": "ace073e3b91c9a7547af4f179dc795a3dc644e7cee9395781ec44b188adddf45",
+    "reference_white.png": "33ba34fe5f86a679946c767b76877dae54cea0b1c610f56544d5fc96e00aec1f"
+  }
+}

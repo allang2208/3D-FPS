@@ -38,6 +38,17 @@ public:
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
     void SuspendWeaponForMenu(){FireReleased();AimReleased();}
     void SetGunsmithOptic(bool bHolographic);
+    void SetGunsmithOpticVariant(const FString& Variant);
+    const FString& GetGunsmithOpticVariant() const { return OpticVariant; }
+    float GetOpticMagnification() const { return OpticVariant==TEXT("lpvo_1_6x")?LPVOMagnification:(OpticVariant==TEXT("prism_scope_2x")?2.f:1.f); }
+    float EffectiveADSVerticalFOV() const;
+    bool AdjustOpticMagnification(float Delta);
+    void SetLPVOMagnification(float Value);
+    float GetScopePresentationAlpha() const;
+    void UpdateScopePresentation();
+private:
+    TArray<TWeakObjectPtr<class UPrimitiveComponent>> ScopeHiddenParts;
+public:
     void SetGunsmithDrum(bool bDrum);
     void SetGunsmithMuzzle(const FString& Variant);
     FVector GetEffectiveMuzzleLocation() const;
@@ -158,6 +169,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> HolographicOptic;
     FTransform HolographicMount;
     bool bHolographicOptic=false;
+    FString OpticVariant;
+    float LPVOMagnification=1.f;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> LPVORing;
+    FVector OpticLocalAimPoint() const;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> LargeDrum;
     FTransform DrumMount;
     bool bDrumVisual=false;

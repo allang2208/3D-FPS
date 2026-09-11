@@ -29,7 +29,7 @@ bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Con
     auto* Source=Rig->AKMViewmodel.Get();if(!Source||!Source->GetSkeletalMeshAsset())return false;
     Source->SetWorldTransform(FTransform::Identity);Source->PlayAnimation(Rig->IdleAnimation,false);Source->SetPosition(0,false);Source->TickAnimation(0,false);Source->RefreshBoneTransforms();Source->UpdateComponentToWorld();
     const auto Parts=Context->GetSubsystem<UGunsmithSystem>()->Installed(Item);
-    ApplyUnderbarrel(Rig,Parts.FindRef(TEXT("underbarrel")));Rig->SetGunsmithOptic(Parts.FindRef(TEXT("optic"))==TEXT("holographic"));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->UpdateFoldingSights(1);
+    ApplyUnderbarrel(Rig,Parts.FindRef(TEXT("underbarrel")));Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->UpdateFoldingSights(1);
     Source->RefreshBoneTransforms();Source->UpdateChildTransforms();
     auto* Asset=Source->GetSkeletalMeshAsset();const auto* Render=Asset->GetResourceForRendering();if(!Render||Render->LODRenderData.IsEmpty())return false;
     Weapon->SetSkinnedAssetAndUpdate(Asset);Weapon->CopyPoseFromSkeletalComponent(Source);

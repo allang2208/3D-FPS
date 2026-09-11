@@ -77,6 +77,42 @@
               }
             ],
             "stats": {}
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜时间不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与中心十字分划，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "2×瞄准放大；开镜时间不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆；瞄准时滚轮调节 1～6×，每格 0.5×。",
+            "effects": [
+              {
+                "text": "1～6×可调放大；开镜时间不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
           }
         ],
         "magazine": [

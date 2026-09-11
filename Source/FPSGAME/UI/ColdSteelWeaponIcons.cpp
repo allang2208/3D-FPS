@@ -60,7 +60,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     Mesh->SetRelativeTransform(FTransform::Identity);Mesh->SetVisibility(true,true);
     Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
     const auto Parts=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
-    Rig->SetGunsmithOptic(Parts.FindRef(TEXT("optic"))==TEXT("holographic"));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->UpdateFoldingSights(1.f);
+    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->UpdateFoldingSights(1.f);
     const auto* Asset=Mesh->GetSkeletalMeshAsset();const auto* Render=Asset->GetResourceForRendering();if(!Render||Render->LODRenderData.IsEmpty())return false;
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();

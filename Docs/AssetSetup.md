@@ -10,6 +10,8 @@
 
 ## 主要资源依赖
 
+2026-09-11 瞄具恢复补充：本次发布源码与作者脚本，二进制仍按本文件的本机恢复规则处理。需要 `Content/Weapons/PanoramicRedDot`、`PrismScope2XMachined`、`LPVO1to6X`（镜身与倍率环两网格）。对应 `SourceAssets/PanoramicRedDot20260911/GameIntegration` 依赖同案例 `Reroll03` 母版；`PrismScope2X20260911/MachinedControls` 依赖上级 scope2x 母版；LPVO 依赖本目录母版、三视图、参考和四张 PBR 贴图。不要从 trash 的旧瞄具输出恢复当前资源。生成图、源 GLB/Blend/FBX、uasset 和第三方参考图此次未公开上传。
+
 | 内容 | 当前恢复位置/说明 |
 | --- | --- |
 | 启动地图 | `/Game/GameMaps/DayNight_Lighting`；按 Config 的真实路径恢复 |

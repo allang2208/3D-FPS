@@ -1,0 +1,134 @@
+{
+  "date": "2026-09-11T09:04:22.803212",
+  "state": "integrated_and_runtime_validated",
+  "weapon": "ue_m4a1",
+  "optic_id": "panoramic_red_dot",
+  "source_triangles": 99829,
+  "final_triangles": 15894,
+  "reduction_percent": 84.08,
+  "base_width_mm": 25,
+  "previous_base_width_mm": 52.5,
+  "frame_width_mm": 55.295,
+  "frame_size_preserved": true,
+  "checks": [
+    {
+      "phase": "write",
+      "checks": 58,
+      "failures": 0,
+      "reticle_error_px": 0.0
+    },
+    {
+      "phase": "reload",
+      "checks": 54,
+      "failures": 0,
+      "reticle_error_px": 0.0
+    }
+  ],
+  "total_checks": 112,
+  "red_dot_visual_check": [
+    {
+      "phase": "write",
+      "resolution": [
+        1600,
+        900
+      ],
+      "center_red_pixels": [
+        [
+          799,
+          449,
+          204,
+          19,
+          48
+        ],
+        [
+          800,
+          449,
+          204,
+          19,
+          49
+        ],
+        [
+          799,
+          450,
+          205,
+          21,
+          49
+        ],
+        [
+          800,
+          450,
+          205,
+          21,
+          49
+        ]
+      ]
+    },
+    {
+      "phase": "reload",
+      "resolution": [
+        1600,
+        900
+      ],
+      "center_red_pixels": [
+        [
+          799,
+          449,
+          204,
+          17,
+          45
+        ],
+        [
+          800,
+          449,
+          204,
+          24,
+          52
+        ],
+        [
+          799,
+          450,
+          203,
+          22,
+          50
+        ],
+        [
+          800,
+          450,
+          205,
+          21,
+          48
+        ]
+      ]
+    }
+  ],
+  "native_build": "Succeeded; fresh game processes",
+  "import_commandlet_exit_code": 1,
+  "import_marker": "PANORAMIC_IMPORT_PASS",
+  "existing_import_errors": [
+    "GameFeatureData asset-manager rule",
+    "HTTP listener 8000 already in use"
+  ],
+  "runtime_process_exit_codes": [
+    0,
+    0
+  ],
+  "hashes": {
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\PanoramicRedDot_Editable.blend": "96f7eb76a30a1bf6b8fa721864d3536967372ca3b62f2149047b99dde54f0ab3",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\SM_PanoramicRedDot.fbx": "ddfd29384713b666cd0e825b16f695ea83adcb6642dd1e0bc1f337ae78171f71",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\build_model.py": "f79bd5e32c84938989a487ef7160355ff5b7cb7943849b8bd8c48fd1f481dd17",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\import_assets.py": "cd20eeb7ac02907c842a542c87e383522d62ffdcffce6f8a22d728a918182ce4",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_BaseColor.png": "7ff60358c792f92aca798ac8dd899aa742c7701db33ed36c8558c14ec00e5602",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_Metallic.png": "cd0a9323b10e82951622ea3326b76e6d83e3550d58a301020fcfd8ccf8ac8982",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_Normal.png": "a8963fdd1a30298e5566b7f872605bedf5f5a26fa4260228bc0ac5891ea6b098",
+    "SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_Roughness.png": "3faa6f91d780a9211177ae6337ada2b05846512c0e14b61635253ac74c3fc4b7",
+    "Content\\Weapons\\PanoramicRedDot\\M_Panoramic_Body.uasset": "5d96b61355260634781bf9e9a87e9ab3ab9dfc52d46b3e34c4ae46d0217cd178",
+    "Content\\Weapons\\PanoramicRedDot\\M_Panoramic_Glass.uasset": "632903c963cc8261b48c25de8ec7b69f3f19818cd8b527850bb9f8dc50c3be5a",
+    "Content\\Weapons\\PanoramicRedDot\\M_Panoramic_Reticle.uasset": "8f1766af2f7fc753999ca8684c9808be91b144e32cf27ea5d7f9c4b0ed7bab20",
+    "Content\\Weapons\\PanoramicRedDot\\SM_PanoramicRedDot.uasset": "17fef836e54024c85bfb49cd21003342ed4c10d3b98612982823e080f01a3469",
+    "Content\\Weapons\\PanoramicRedDot\\T_Panoramic_BaseColor.uasset": "38ecd2c9a8863607cbad0742759915d41ecc9988c8d5130abc367bb1ff2a0ddc",
+    "Content\\Weapons\\PanoramicRedDot\\T_Panoramic_Metallic.uasset": "2ad31e2568da60006d81f188db7caa015225d22bbf0d4563af19f156fa99aff9",
+    "Content\\Weapons\\PanoramicRedDot\\T_Panoramic_Normal.uasset": "9872e851294e71c902b15b20142018ade03a1789941e6f29115e7fec9b4645a5",
+    "Content\\Weapons\\PanoramicRedDot\\T_Panoramic_Roughness.uasset": "3af1ebd0e2a004e4a5e7c827438771a8a9d8f912feb5462db336bcbf85b9de4f"
+  },
+  "validation_directory": "panoramic-final"
+}

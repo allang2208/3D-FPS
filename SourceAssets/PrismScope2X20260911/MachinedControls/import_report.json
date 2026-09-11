@@ -1,0 +1,13 @@
+{
+  "asset": "/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X.SM_PrismScope2X",
+  "bounds_cm": [
+    "<Struct 'Vector' (0x0000028F0B5A6C40) {x: -6.480000, y: -1.855989, z: 0.000000}>",
+    "<Struct 'Vector' (0x0000028F0B5A6C58) {x: 6.480000, y: 2.553231, z: 6.622577}>"
+  ],
+  "triangles": 18040,
+  "materials": [
+    "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+    "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+    "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Body.M_Scope2X_Body"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "source": "Reroll03/reroll03_textured_master_00001_.glb",
+  "source_triangles": 99829,
+  "aim_point_cm": [
+    2.15,
+    0,
+    3.25
+  ],
+  "meshes": [
+    {
+      "name": "SM_PanoramicRedDot_Body",
+      "triangles": 15388,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Optical_Lens",
+      "triangles": 126,
+      "boundary_edges": 128,
+      "nonmanifold_edges": 128,
+      "degenerate_faces": 0
+    },
+    {
+      "name": "Red_Dot",
+      "triangles": 380,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "degenerate_faces": 0
+    }
+  ],
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_BaseColor.png",
+    "Roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_Roughness.png",
+    "Metallic": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_Metallic.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\T_Panoramic_Normal.png"
+  },
+  "revision": "generated upper frame retained; distorted base replaced; machined controls; UV baked anodizing",
+  "triangles": 15894
+}
