@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Perception/AISense_Hearing.h"
 #include "Movement/FPSTraversalComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
@@ -728,6 +729,7 @@ void AFPSGAMECharacter::FireShot()
     }
     --MagazineAmmo;
     ++ShotsFired;
+    UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,IsMuzzleSuppressed()?500.f:1800.f,TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
     NextAllowedShotTime += FMath::Max(0.001, static_cast<double>(FireInterval));

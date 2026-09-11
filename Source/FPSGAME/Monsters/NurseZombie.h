@@ -6,7 +6,7 @@
 class UAnimSequence;
 class USkeletalMesh;
 UENUM(BlueprintType)
-enum class ENurseState : uint8 { Idle, Chase, Attack, Stagger, Dead };
+enum class ENurseState : uint8 { Idle, Chase, Attack, Stagger, Dead, Recovery };
 
 UCLASS(Blueprintable)
 class FPSGAME_API ANurseZombie : public ACharacter
@@ -14,6 +14,8 @@ class FPSGAME_API ANurseZombie : public ACharacter
     GENERATED_BODY()
 public:
     ANurseZombie();
+    friend class UMonsterCombatComponent;
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
     virtual void OnConstruction(const FTransform& Transform) override;
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;

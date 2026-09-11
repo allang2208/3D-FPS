@@ -1,5 +1,8 @@
 #include "NurseZombieAudit.h"
 #include "NurseZombie.h"
+#include "HandBrainMonster.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "Engine/GameInstance.h"
 #include "FPSCombatHealthComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -66,6 +69,8 @@ void UNurseZombieAudit::Step()
         }
         if (Count!=2) return;
         Check(TEXT("two_saved_nurses_spawned"),Count==2);
+        // Isolate the nurse combat contract from the village boss encounter.
+        for (TActorIterator<AHandBrainMonster> It(GetWorld());It;++It) It->SetActorTickEnabled(false);
         for (TActorIterator<ANurseZombie> It(GetWorld());It;++It) if (*It!=Nurse.Get()) It->AggroRadius=0;
         Start=Nurse->SpawnPosition;PlayerStart=Player->GetActorLocation();
         if (auto* Controller=Cast<APlayerController>(Player->GetController()))
@@ -84,6 +89,8 @@ void UNurseZombieAudit::Step()
         Check(TEXT("player_health_connected"),Health!=nullptr);
         if (!Health) {FPlatformMisc::RequestExitWithStatus(false,1);return;}
         PlaceForMelee();Nurse->InterruptAttack(.25f);Nurse->SuccessfulHits=0;
+        const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        ExpectedContactDamage=FMath::Max(1.f,Nurse->AttackDamage-(Profile?Profile->Derived(TEXT("def")):0.f));
         BeforeHealth=Health->Health;SawAttack=false;Stage=2;StageClock=0;return;
     }
     if (Stage==2)
@@ -93,14 +100,14 @@ void UNurseZombieAudit::Step()
         if (StageClock<1.25f && Health->Health!=BeforeHealth) {Check(TEXT("no_windup_damage"),false);StageClock=1.25f;}
         if (StageClock>1.75f)
         {
-            Check(TEXT("one_contact_hit"),Health->Health==BeforeHealth-Nurse->AttackDamage && Nurse->SuccessfulHits==1);
+            Check(TEXT("one_contact_hit"),FMath::IsNearlyEqual(Health->Health,BeforeHealth-ExpectedContactDamage) && Nurse->SuccessfulHits==1);
             Capture(TEXT("nurse-attack"));Stage=3;StageClock=0;
         }
         return;
     }
     if (Stage==3 && StageClock>1.8f)
     {
-        Check(TEXT("no_duplicate_hit_in_swing"),Health->Health==BeforeHealth-Nurse->AttackDamage && Nurse->SuccessfulHits==1);
+        Check(TEXT("no_duplicate_hit_in_swing"),FMath::IsNearlyEqual(Health->Health,BeforeHealth-ExpectedContactDamage) && Nurse->SuccessfulHits==1);
         BeforeHealth=Health->Health;SawAttack=false;Stage=4;StageClock=0;return;
     }
     if (Stage==4)
@@ -166,7 +173,8 @@ void UNurseZombieAudit::Step()
     if (Stage==10 && StageClock>2.7f)
     {
         ACharacter* NewPlayer=UGameplayStatics::GetPlayerCharacter(this,0);
-        Check(TEXT("player_respawned"),NewPlayer && NewPlayer!=Player.Get() && NewPlayer->FindComponentByClass<UFPSCombatHealthComponent>()->Health==100.f);
+        const auto* NewHealth=NewPlayer?NewPlayer->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+        Check(TEXT("player_respawned"),NewPlayer && NewPlayer!=Player.Get() && NewHealth && NewHealth->MaxHealth>0.f && FMath::IsNearlyEqual(NewHealth->Health,NewHealth->MaxHealth));
         UE_LOG(LogTemp,Display,TEXT("NURSE_ACCEPTANCE_COMPLETE failures=%d"),Failures);
         FPlatformMisc::RequestExitWithStatus(false,Failures?1:0);
     }

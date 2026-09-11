@@ -1,0 +1,758 @@
+[
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\animate_howl.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\animate_howl.py",
+    "bytes": 4658,
+    "sha256": "B39268F5E0FD128C38282BDD5A2DEC79B4E35A373228936C7A22431AE9AB035F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\baseline_deformation.npz",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\baseline_deformation.npz",
+    "bytes": 7860421,
+    "sha256": "F8346E7D04CBCE96EA08238B6D35CE5B053AFC3B3D8AF102D0BF599FCC5448A2",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\baseline_samples.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\baseline_samples.json",
+    "bytes": 3180,
+    "sha256": "424108BB7F290AA9FCABF2EEF903ABCA12920DBA88D720539FE6B62556570BAD",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\build_howl_rig.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\build_howl_rig.py",
+    "bytes": 6373,
+    "sha256": "CAEB2C1241258989A972A8A002F592864B98A2008486C73B55465B069293886D",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\build_report.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\build_report.json",
+    "bytes": 344,
+    "sha256": "944095511A8426870B2EEC00B89B1FC4C0DDE42A1143E24B70FF237F987DB234",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\capture_baseline.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\capture_baseline.py",
+    "bytes": 1221,
+    "sha256": "BC4F9181C2640743CDD47E55F1C5CA48DA666CF95ECA1EF557333EF9AD894FE1",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery_validation.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery_validation.json",
+    "bytes": 4797,
+    "sha256": "9CD797A0EAF36FC4E93A116B32BD0678525CD0C6D6C4EE6F8C87891719F4099E",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\export_ue_textures.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\export_ue_textures.py",
+    "bytes": 1594,
+    "sha256": "B38C5FA1047C40FFCCF63C83B7D6EAB0E51428CCB48C4C9984AB3388971F18D9",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\generation_provenance.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\generation_provenance.json",
+    "bytes": 693,
+    "sha256": "FEF74B020A3EAFF32B6CC4E6A479C4CC64F8DB2BA1E60016E047AE501365261F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source_clean.glb",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source_clean.glb",
+    "bytes": 45166588,
+    "sha256": "54C56E00B5CF4EA2516AAD17F46E63F5D35F7FDDFF7D8009C61B796E704A4ED4",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source.blend",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source.blend",
+    "bytes": 46265440,
+    "sha256": "E91B2C0E5F74D5451696BCFE831E117E2F589FFC697100893794F360DCE4157F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source.fbx",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source.fbx",
+    "bytes": 37381772,
+    "sha256": "500BCF1CFBDB527ABAE09DE8CA51D67B80CF23F6D941BF4D08D3BCE2F98A1912",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source.glb",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\handbrain_howl_source.glb",
+    "bytes": 45166536,
+    "sha256": "0AACE6529A757E039DF42C3359686E12C8DC21441E72226F9C7AEB0C7D658B34",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\howl_pose.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\howl_pose.py",
+    "bytes": 1069,
+    "sha256": "604E45B62A7E32CB4394BDEF491BDE26B07693608EAD1E783CDBC76D6E0F4BC6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\Howl_Rig.blend",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\Howl_Rig.blend",
+    "bytes": 145194851,
+    "sha256": "80CF460A32D20BD4CB94D8F01A8DEEE2DF296E46FD2B6A73D6E68A08E3132436",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\Howl_Rig.blend1",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\Howl_Rig.blend1",
+    "bytes": 145195967,
+    "sha256": "2BA2FC9830075C9F9029D5F26DF5DBCE3FF87EA12030A0E3FDA1AD4ACD3AC39B",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\inspect_fragment.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\inspect_fragment.py",
+    "bytes": 1028,
+    "sha256": "C529D576513992CFAF1EE1EE47104AD31612747AC5AB508ADE2D6B0A1ACBBDC5",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\legacy_preservation.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\legacy_preservation.json",
+    "bytes": 1281,
+    "sha256": "069E4CB683A57EB2D6C05B1DD8F34CB3C83779B293BFC387F410BD8A6221E682",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\model_report.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\model_report.json",
+    "bytes": 598,
+    "sha256": "E36246F6A244D398713D73E7DEFDB8A8F89F31FC7F1A89BA76E22D8613C1CDD6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\package_preview.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\package_preview.py",
+    "bytes": 1827,
+    "sha256": "3A13E2CB6C8424C1AE4C134195D79BDA9B257C9742002EFF81EC732A37BA2920",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\pose_0.5.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\pose_0.5.png",
+    "bytes": 707600,
+    "sha256": "55EBC34BFC62860DA6026679A28C2C4BA9BE4F6CCE863B9252178E77B2D6FEB7",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\pose_0.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\pose_0.png",
+    "bytes": 709576,
+    "sha256": "366BEBB8E9ADD04A0876F3342E12B5F027CB11832BBE7CAC11C8D96FB602CECF",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\pose_1.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\pose_1.png",
+    "bytes": 747961,
+    "sha256": "7B917BEF3500EAD02303B0FD6EC6E20F278DBB0DD5DCBEC77D835781ADD32D12",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\pose_front.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\pose_front.png",
+    "bytes": 752045,
+    "sha256": "FB408F70156EA675665215E5CF906B7BC76E9AF9F5719CFE2EC0E3C2CD9BB754",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\rebuild_local.ps1",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\rebuild_local.ps1",
+    "bytes": 717,
+    "sha256": "97E8EB728BD9EE49DBB4C47216DDD8C0A8CE4A21628D2D8E841C8F890FC1967F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\REFERENCE.md",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\REFERENCE.md",
+    "bytes": 2188,
+    "sha256": "45E919A3D6C7670690B40375236D024B502069ECFEF65942532F4E78089BDFF2",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_back.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_back.png",
+    "bytes": 1166648,
+    "sha256": "17E8B3D6984EA1EE26E8D3C749D08FFA4548851EF698CB7967A0A97733E74337",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_front.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_front.png",
+    "bytes": 1190065,
+    "sha256": "C3E76E0FF8E7E45AC10F456AF1DCC7C9B1D991E26F2365517B8388157265A872",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_hero.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_hero.png",
+    "bytes": 1218006,
+    "sha256": "CB4D693F5A90DADE73EFA32BB669285387FBDCB5AC91F80B363C61AB94594DEC",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_howl.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_howl.py",
+    "bytes": 770,
+    "sha256": "7473FCEE1A68A22EDAD5FCE3C2846EE1366C8A6288EFDCD08F41A448E76A187A",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_import_proof.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_import_proof.py",
+    "bytes": 821,
+    "sha256": "E934719AD25DCD9AF937FA033A180DD98D33196D5F88C12F1BDB80916716F0A5",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_left.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_left.png",
+    "bytes": 1148978,
+    "sha256": "85D3DE4575BFBCEA0F08A035BCC96604CAEAF47ADD088F45D3B78A7046EEDBE4",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_pose_checks.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_pose_checks.py",
+    "bytes": 869,
+    "sha256": "1209AEE771C776FA903FBE59C1AE66EE6FD1D950DEB111ECA7638AFB116184CF",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_right.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_right.png",
+    "bytes": 1197734,
+    "sha256": "BF2C1F31FEC6F2D423A8A9D3940FC072F499389D452218C6FBAF90043B35732B",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\render_source.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\render_source.py",
+    "bytes": 3697,
+    "sha256": "41B2FF9DF9A68B1AC5EF357BCF735EDB4EAE3D676E9CA5DA0F4402A4E174DF0D",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\studio.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\studio.py",
+    "bytes": 1393,
+    "sha256": "20637C8B2E39E16F9719A58576CF29F15EE46F8C92005A9763A801E32BEEA90D",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\validate_delivery.py",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\validate_delivery.py",
+    "bytes": 3271,
+    "sha256": "AF022297A7800273CA7A18C71E337A363BEB5EA1F5DAA1A7502102707AF07B43",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\animation_contract.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\animation_contract.json",
+    "bytes": 810,
+    "sha256": "54B5B9D34C54C7E8269BDB2EE5EB5C8CADA24C48A9142AD2793F25A4E9175DEF",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\artifact_manifest.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\artifact_manifest.json",
+    "bytes": 801,
+    "sha256": "472AFC11C3AF21C789F565DBA715B5EB61AF316E969A533D6A82FFE45CB5E671",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Attack_Howl.gif",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Attack_Howl.gif",
+    "bytes": 6423411,
+    "sha256": "D9F54A8E0C974C9E159C750B466BD1CCAA9466C3B29D79FFA73ACBDFCDDC8A48",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Attack_Howl.mp4",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Attack_Howl.mp4",
+    "bytes": 412482,
+    "sha256": "F59E49FA593DDE41DE88E3BC6DFD86A4D95873EBFBB27431D756466862231284",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\FBX_howl_closed.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\FBX_howl_closed.png",
+    "bytes": 631125,
+    "sha256": "1F601E367E662C26F029D391C36A800F3540166A8F7786DC7143E112122C7EFF",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\FBX_howl_end.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\FBX_howl_end.png",
+    "bytes": 631147,
+    "sha256": "FD6BA45DA6F4B44D008973AC958714038DCCB787D437A6750A6AA06E30085F7F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\FBX_howl_open.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\FBX_howl_open.png",
+    "bytes": 669131,
+    "sha256": "42D4F6A243A8B1C4FB5476D5562E0C10D8F4760396A3E1823942130D0EA44E2A",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\HandBrain_FourActions.blend",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\HandBrain_FourActions.blend",
+    "bytes": 145308786,
+    "sha256": "F0001B54FFCC1746AFC7E32D59A8BB0974B60F37DFD6487BB3FF9AF0D76AF9E6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\HandBrain_FourActions.blend1",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\HandBrain_FourActions.blend1",
+    "bytes": 145309904,
+    "sha256": "79D7DE2F744C7F4FE9D0C3ABA88AABFF67E1448B3CF6D615096B14DE1AA7D8E6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\HandBrain_FourActions.glb",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\HandBrain_FourActions.glb",
+    "bytes": 109743760,
+    "sha256": "EB46FC950E20F7A7EE310778A1B48E5A88D9BB914BC47E325ACCED9AA8949425",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Howl_contact_sheet.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Howl_contact_sheet.png",
+    "bytes": 604056,
+    "sha256": "4E61A111CD97B770F078D333EE006009C88AED885ADD9C473F58CE414E2BFE3C",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Howl_silent.mp4",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\Howl_silent.mp4",
+    "bytes": 338773,
+    "sha256": "730A9B0A19A370DC39792A25287AC41DB798824369A31C7BD99CA1BEE1B7E8E6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\howling.mp3",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\howling.mp3",
+    "bytes": 56476,
+    "sha256": "1AD7ED928D140478EB321A2862B235AE1CAF1481C0E65A60D3E4C49E8D7FCA2D",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\README.md",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\README.md",
+    "bytes": 2167,
+    "sha256": "1E681F492BF4821CD2851E5816804EB70C9BEDB9409832DDE90BC161460115E0",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\SK_HandBrain_FourActions.fbx",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\SK_HandBrain_FourActions.fbx",
+    "bytes": 101533004,
+    "sha256": "081F460C6800071DD1453140FFE2CB1F4F71E6BB0D0771CE4CD6E8F180212549",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\ue_materials.json",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\ue_materials.json",
+    "bytes": 1955,
+    "sha256": "BF2E47BFE6A0A43CEADE5D97B1EFBCA3B01DF0459A247472902107C1A7B37EB1",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_AttackArm_BaseColor.001.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_AttackArm_BaseColor.001.png",
+    "bytes": 16305164,
+    "sha256": "7CB90C4AF20DD7C2F510D4F1388AEC7318B6D712AC4C5BA8FEBD980B765DDCA6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_AttackArm_Normal_DirectX.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_AttackArm_Normal_DirectX.png",
+    "bytes": 8531625,
+    "sha256": "9C893A231978F5B3841A60FDA2EB072E2B210D0AB6CB8B320C5670D20C27BDC5",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_AttackArm_Roughness.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_AttackArm_Roughness.png",
+    "bytes": 4866885,
+    "sha256": "096A16FA3E31E630D5462FB52E170237589DB993E81E5E614EC01A089EF20C05",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_Body_BaseColor.001.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_Body_BaseColor.001.png",
+    "bytes": 16662230,
+    "sha256": "0E13D8C451A51A1E94D13D5D8DE316D2F3D06ADE168D8F52D1BF246A3C5C51D3",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_Body_Normal_DirectX.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_Body_Normal_DirectX.png",
+    "bytes": 8264171,
+    "sha256": "F5830CB571612E104333883C48D6ED7160CB42505C98E6AC1201C1FFB4272D52",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_Body_Roughness.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_Body_Roughness.png",
+    "bytes": 4814514,
+    "sha256": "219483041DEE998988520971C6310956C1138231232DBC4389BF789D80B054B3",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_CrownHands_BaseColor.001.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_CrownHands_BaseColor.001.png",
+    "bytes": 16305164,
+    "sha256": "7CB90C4AF20DD7C2F510D4F1388AEC7318B6D712AC4C5BA8FEBD980B765DDCA6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_CrownHands_Normal_DirectX.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_CrownHands_Normal_DirectX.png",
+    "bytes": 8531625,
+    "sha256": "9C893A231978F5B3841A60FDA2EB072E2B210D0AB6CB8B320C5670D20C27BDC5",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_CrownHands_Roughness.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_CrownHands_Roughness.png",
+    "bytes": 4866885,
+    "sha256": "096A16FA3E31E630D5462FB52E170237589DB993E81E5E614EC01A089EF20C05",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlFace_BaseColor.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlFace_BaseColor.png",
+    "bytes": 15596762,
+    "sha256": "D08D91A012908EA9E85F56612E7D0A75748D1F190376194F10DFAD93FC6DF0AC",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlFace_Normal_DirectX.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlFace_Normal_DirectX.png",
+    "bytes": 6902868,
+    "sha256": "311B96DFD4DBCC14B897548011D90717540E6973945DA40E55264E86010682DA",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlFace_Roughness.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlFace_Roughness.png",
+    "bytes": 5182603,
+    "sha256": "000BF1E7134647A420020BE05090C9F2A8DDEE9376A60476C4B2228354A44C7B",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlHands_BaseColor.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlHands_BaseColor.png",
+    "bytes": 15596762,
+    "sha256": "D08D91A012908EA9E85F56612E7D0A75748D1F190376194F10DFAD93FC6DF0AC",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlHands_Normal_DirectX.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlHands_Normal_DirectX.png",
+    "bytes": 6902868,
+    "sha256": "311B96DFD4DBCC14B897548011D90717540E6973945DA40E55264E86010682DA",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlHands_Roughness.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\delivery\\textures\\HandBrain_HowlHands_Roughness.png",
+    "bytes": 5182603,
+    "sha256": "000BF1E7134647A420020BE05090C9F2A8DDEE9376A60476C4B2228354A44C7B",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\000.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\000.png",
+    "bytes": 526707,
+    "sha256": "203B7C48F5AFEB6956581A8FFFB8DAE81CE64E30B0A2AEFC7B71E7812FCC5C44",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\001.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\001.png",
+    "bytes": 526249,
+    "sha256": "60EB38DF9C21B028C4928DA95AD35E32887B836EF6605CBF0C1EAC0B2A6EBFF3",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\002.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\002.png",
+    "bytes": 521697,
+    "sha256": "BBE5D1DF51980926CC0E760B990DE02C37D615F25A66C93DA85EAE21154B32E1",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\003.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\003.png",
+    "bytes": 520353,
+    "sha256": "2DC855CFA8179279128239A38FF3B090A8C53711D0FEE231C96A2A8BABF7AA3A",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\004.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\004.png",
+    "bytes": 526570,
+    "sha256": "642FF7C7EBD6FAAC0E6EB0F4E52B6CE0C012F34BCAC9CA35DAB61287FC4003B3",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\005.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\005.png",
+    "bytes": 531500,
+    "sha256": "33A415356B93FC952EC137940ED92F3D107C31E1464B8774B013366C979CE162",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\006.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\006.png",
+    "bytes": 535072,
+    "sha256": "0C938C5C1C064B89CA3F480800274D5EFA7792B24C533B700DBFF80897B8957F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\007.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\007.png",
+    "bytes": 541063,
+    "sha256": "D2455271C528193F08C6C2D6B413B707F49E4316C8A8CDDD2D9934208BF229A9",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\008.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\008.png",
+    "bytes": 549343,
+    "sha256": "064EF4EE8362382D0628760253B9B137462EB6011340DBACC17ED15FEDC132EF",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\009.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\009.png",
+    "bytes": 553899,
+    "sha256": "58DCF3F1B9E9117A6D3FBEC8732F5729F786FA15E8D41164A60ED4CAA75EA3C6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\010.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\010.png",
+    "bytes": 557522,
+    "sha256": "B8CCE6C834304C0630146DABF09EA6AA49CCFA6420E60517A5EB02C1AD0092E6",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\011.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\011.png",
+    "bytes": 558051,
+    "sha256": "B6C8C590110FE653BB9A7483ABB2B77302979AD9DF19A3D6974255A124390352",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\012.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\012.png",
+    "bytes": 558822,
+    "sha256": "F2C1DC06113001B258E1D11F1099003771D2C1C533BD0B2A142984CB3FFB4EE2",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\013.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\013.png",
+    "bytes": 558339,
+    "sha256": "0E3E1C96BA761C016D1D415C5783AEA96040AEF6711185BCD8E81C4EF941E5FB",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\014.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\014.png",
+    "bytes": 556647,
+    "sha256": "7354C7C6A0553AF9B960B8EAE1AD6281D6FAC91CB3B9464AD6A4812F60D7B520",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\015.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\015.png",
+    "bytes": 557994,
+    "sha256": "514EF9727D147F19F0E101C6F3439F86DAA9F0506763EDA38E7B16617CF99088",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\016.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\016.png",
+    "bytes": 558005,
+    "sha256": "79E9718527EA921B705F4FEA2D9D707ED4C508FBCEAB5479DC00C581E16FE93E",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\017.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\017.png",
+    "bytes": 556567,
+    "sha256": "978793472E1577D85F1EB2C891AFF4B49A940D1A0FDF737ABA502909F7C19703",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\018.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\018.png",
+    "bytes": 558756,
+    "sha256": "DAB64F0C7FA13DE5CF224B665FA88FCCCEC348AEB68BF783F312FF5B3CC22942",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\019.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\019.png",
+    "bytes": 559113,
+    "sha256": "77D76DAAE448B98DD22D4246EA22D355884695B43A6E8E506BF47AD08A0FE834",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\020.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\020.png",
+    "bytes": 557906,
+    "sha256": "93854C8A991EDFD52639BF1B0279C80BE212121F0B00CBF59DB1166AFCE8C5F7",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\021.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\021.png",
+    "bytes": 558970,
+    "sha256": "11A8C0312DC934AF0FDD3A8BA5D105B525EA224B6F4F456DC3244B2614E25D89",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\022.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\022.png",
+    "bytes": 558717,
+    "sha256": "94A94CC5C393DA05D77A9ED39E2A8CD1748CCF329AF7D096FECB7F7CE31D2C4A",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\023.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\023.png",
+    "bytes": 546321,
+    "sha256": "008352C1FD3391643BC41BCA467FF57A3186240D1F3160AC5808821AED9E3419",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\024.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\024.png",
+    "bytes": 536149,
+    "sha256": "B6865849214CB392E155E1917540841A210FC2E1034362732B48D71171340A95",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\025.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\025.png",
+    "bytes": 529228,
+    "sha256": "C83485DE6DDE603FF72B7476C6EB015B232C32B60CA2BA3436D235F7674E3E84",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\026.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\026.png",
+    "bytes": 527639,
+    "sha256": "3A196A37F1E365E6E8E8BEFB506B9C2889FC5752FE3D81AFE2DC0EA08649DB2C",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\027.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\027.png",
+    "bytes": 523829,
+    "sha256": "FF3A4CC3D2DDE9CBF8B35CB967A7C80F64EB99C0DF0086BE8A528453C59879EC",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\028.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\028.png",
+    "bytes": 520573,
+    "sha256": "A769C7F2B88B5761C1DD790697EA4D08183F3D6853DD219E09B780E59DB0D26D",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\029.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\029.png",
+    "bytes": 523100,
+    "sha256": "535CBE3CEF01630E27E34045A5D042FA19B3885BD3875F7A1B9A6D3FDB2A71EE",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\030.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\030.png",
+    "bytes": 525041,
+    "sha256": "14BB57186592E0C73047EAC174EFBD135F47A6C1BBC2AD41F8165408C7E42841",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\031.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\031.png",
+    "bytes": 526303,
+    "sha256": "941A72632B3116876C3E47375DD6758205D1C84CBCF682D82F855C0E8803C4D0",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\032.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\032.png",
+    "bytes": 526741,
+    "sha256": "B6D6BE5EA8ECFC1A25C10E27E4DAB23269BD6854355A5D92712B02C656B95D35",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\033.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\033.png",
+    "bytes": 526678,
+    "sha256": "A91E0273BB3B79C5D3144A75F86B658CEB33B9645F531913047CCB4B15F85D1F",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\034.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\034.png",
+    "bytes": 526776,
+    "sha256": "F8FD6DF4C98E1689F4BEF8032758F2616960313DDBDB274272297A8DCFD8E6C1",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\035.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\preview_frames\\035.png",
+    "bytes": 526576,
+    "sha256": "FBE8BDC1ACB9613ABB2D8A4868B6A9D05E6441D3C86758D93D32EC852FB58B7C",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\textures\\Howl_BaseColor.png",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\textures\\Howl_BaseColor.png",
+    "bytes": 14417308,
+    "sha256": "F8306B092FF51255610635FD2D33A962125EC2CC1AA263DD033C3D6714DE08A3",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\__pycache__\\howl_pose.cpython-313.pyc",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\__pycache__\\howl_pose.cpython-313.pyc",
+    "bytes": 2840,
+    "sha256": "D36AB531B45A0BCB6E8E117C42CAC2FC59FDAE6051D512EDE17F424902FC9F05",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "SourceAssets\\HandBrain20260910\\howl_v01\\__pycache__\\studio.cpython-313.pyc",
+    "destination": "trash/monster-workflow-20260911/SourceAssets\\HandBrain20260910\\howl_v01\\__pycache__\\studio.cpython-313.pyc",
+    "bytes": 3476,
+    "sha256": "F213FE0CD5059EAF437F8223D3F6FF3D05D1629CC6B4283CC86C0BFE57577214",
+    "reason": "Rejected face-overlay howl; replaced by howl_rebuild_v02"
+  },
+  {
+    "source": "Tools\\MonsterAI\\fix_test_controller.py",
+    "destination": "trash/monster-workflow-20260911/Tools\\MonsterAI\\fix_test_controller.py",
+    "bytes": 574,
+    "sha256": "C0ED88332F186498C60B4FEF3B4415CC3155138E0405FB8BC3870B1BE7E66776",
+    "reason": "One-time fix incorporated in install_ai.py"
+  }
+]

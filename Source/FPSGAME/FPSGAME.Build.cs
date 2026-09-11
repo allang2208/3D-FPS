@@ -19,6 +19,9 @@ public class FPSGAME : ModuleRules
             "CommonUI",
             "EnhancedInput",
             "GameplayTags",
+            "AIModule",
+            "NavigationSystem",
+            "GameplayTasks",
             "ImageWrapper"
             ,"Json"
         });
@@ -28,5 +31,6 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");
+        if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("UnrealEd");
     }
 }

@@ -1,4 +1,6 @@
 #include "NurseZombie.h"
+#include "MonsterCombatComponent.h"
+#include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
@@ -21,6 +23,8 @@
 ANurseZombie::ANurseZombie()
 {
     PrimaryActorTick.bCanEverTick = true;
+    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
     GetCapsuleComponent()->InitCapsuleSize(34.f, 92.f);
     GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Ignore);
     GetMesh()->SetRelativeLocation(FVector(0,0,-92.f));
@@ -68,7 +72,7 @@ void ANurseZombie::SetState(ENurseState NewState)
     State = NewState;
     StateTime = 0.f;
     UAnimSequence* Clip = State == ENurseState::Chase ? WalkClip : State == ENurseState::Attack ? AttackClip : IdleClip;
-    if (State != ENurseState::Dead && Clip)
+    if (State != ENurseState::Dead && State != ENurseState::Stagger && Clip)
     {
         GetMesh()->PlayAnimation(Clip, State != ENurseState::Attack);
         GetMesh()->SetPlayRate(1.f);
@@ -106,17 +110,9 @@ void ANurseZombie::Tick(float DeltaSeconds)
     const float Previous = StateTime;
     StateTime += DeltaSeconds;
     Cooldown = FMath::Max(0.f,Cooldown-DeltaSeconds);
-    if (!Target.IsValid()) Target = UGameplayStatics::GetPlayerPawn(this,0);
-    const UFPSCombatHealthComponent* TargetHealth = Target.IsValid() ? Target->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
-    if (!Target.IsValid() || (TargetHealth && TargetHealth->IsDead()))
-    {
-        Target.Reset();
-        if (State != ENurseState::Idle) SetState(ENurseState::Idle);
-        return;
-    }
     if (State == ENurseState::Stagger)
     {
-        if (StateTime >= StaggerSeconds) SetState(ENurseState::Idle);
+        if (StateTime >= StaggerSeconds) Combat->FinishReaction();
         return;
     }
     if (State == ENurseState::Attack)
@@ -126,36 +122,21 @@ void ANurseZombie::Tick(float DeltaSeconds)
         if (StateTime >= AttackClip->GetPlayLength())
         {
             Cooldown = RecoveryTime;
-            SetState(ENurseState::Idle);
+            State=ENurseState::Recovery;StateTime=0;
         }
         return;
     }
-    const FVector Offset = Target->GetActorLocation() - GetActorLocation();
-    const float Distance = Offset.Size2D();
-    if (Distance > AggroRadius || !CanSee(Target.Get()))
-    {
-        if (State != ENurseState::Idle) SetState(ENurseState::Idle);
-        return;
-    }
-    if (Distance <= AttackRange-15.f)
-    {
-        if (State != ENurseState::Idle) SetState(ENurseState::Idle);
-        SetActorRotation(FRotator(0,Offset.Rotation().Yaw,0));
-        if (Cooldown <= 0.f) SetState(ENurseState::Attack);
-        return;
-    }
-    if (State != ENurseState::Chase) SetState(ENurseState::Chase);
-    AddMovementInput(Offset.GetSafeNormal2D(),1.f,true);
-    GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f));
+    if(State==ENurseState::Chase)GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f));
 }
 
 void ANurseZombie::InterruptAttack(float Seconds)
 {
-    if (State == ENurseState::Dead) return;
+    if (!HasAuthority() || State == ENurseState::Dead) return;
     bAttackConsumed = true;
     StaggerSeconds = FMath::Max(.01f,Seconds);
     Cooldown = FMath::Max(Cooldown,.6f);
     SetState(ENurseState::Stagger);
+    Combat->BeginReaction(StaggerSeconds);
 }
 
 float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer)
@@ -164,10 +145,11 @@ float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AControl
     const float Applied = FMath::Min(Health,Damage);
     Health -= Applied;
     Super::TakeDamage(Applied,Event,EventInstigator,Causer);
-    if (Health > 0.f) InterruptAttack();
+    if (Health > 0.f) Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer));
     else
     {
         SetState(ENurseState::Dead);
+        if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
         bAttackConsumed = true;
         Target.Reset();
         GetCharacterMovement()->DisableMovement();

@@ -1,0 +1,2 @@
+$taskArgs=@('"D:/FPS3D/FPSGAME/FPSGAME.uproject"','/Game/GameMaps/L_Normandy_FPS_Test','-game','-windowed','-ResX=1280','-ResY=720','-RenderOffscreen','-NurseAudit','-NurseCapture','-unattended','-nosplash','-abslog="D:/FPS3D/FPSGAME/Saved/MonsterAI/nurse-regression.log"',('-ColdSteelProfile=NurseAI_'+(Get-Date -Format yyyyMMddHHmmss)))
+Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe' -ArgumentList $taskArgs -WindowStyle Hidden -PassThru | Select-Object Id

@@ -1,4 +1,5 @@
 #include "FPSCombatHealthComponent.h"
+#include "HandBrainMonster.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Engine.h"
@@ -17,12 +18,12 @@ void UFPSCombatHealthComponent::BeginPlay()
     GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UFPSCombatHealthComponent::OnDamage);
 }
 
-void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDamageType*, AController*, AActor*)
+void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDamageType* Type, AController*, AActor*)
 {
     if (!Actor->HasAuthority() || IsDead() || Damage <= 0.f) return;
     if(GetWorld()->GetNetMode()==NM_Standalone)
         if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-            Damage=FMath::Max(1.f,Damage-Profile->Derived(TEXT("def")));
+            Damage=FMath::Max(1.f,Damage-Profile->Derived(Type && Type->IsA<UHandBrainMagicDamage>() ? TEXT("mdef") : TEXT("def")));
     Health = FMath::Max(0.f, Health - Damage);
     UE_LOG(LogTemp, Display, TEXT("PLAYER_DAMAGE amount=%.1f health=%.1f"), Damage, Health);
     if (GEngine) GEngine->AddOnScreenDebugMessage(91401, 3.f, FColor::Red,

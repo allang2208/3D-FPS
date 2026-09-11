@@ -21,6 +21,6 @@ private:
     TWeakObjectPtr<ACharacter> Player;
     FVector Start,PlayerStart;
     int32 Stage=0,Failures=0;
-    float Clock=0,StageClock=0,BeforeHealth=0;
+    float Clock=0,StageClock=0,BeforeHealth=0,ExpectedContactDamage=0;
     bool SawAttack=false;
 };
