@@ -1,0 +1,293 @@
+{
+  "recorded_utc": "2026-09-11T13:22:15.224630+00:00",
+  "engine": "UE 5.8.2, standalone game process, D3D12",
+  "scope": "Tool-driven runtime and rendered visual inspection; no packaged or multiplayer acceptance",
+  "suites": {
+    "poison_maggot_arena": {
+      "passed_count": 34,
+      "failed_count": 0,
+      "checks": [
+        "behavior_tree_loaded",
+        "nav_path_around_obstacle",
+        "imported_five_clips_and_material",
+        "runtime_pbr_texture_bindings",
+        "hit_uses_dedicated_clip",
+        "hit_stops_movement",
+        "real_navigation_displacement",
+        "spit_starts",
+        "windup_has_no_projectiles_or_damage",
+        "release_occurs_in_window",
+        "exactly_24_emissions",
+        "scheduled_window_and_interval",
+        "attack_locks_translation_and_yaw",
+        "visible_projectiles_hit_player",
+        "cooldown_rejects_early_attack",
+        "cooldown_releases",
+        "dodge_attack_starts",
+        "locked_spray_can_be_dodged",
+        "wall_blocks_attack_decision",
+        "wall_blocks_flying_venom",
+        "interrupt_fixture_starts",
+        "hits_interrupt_and_stun",
+        "weak_hit_does_not_shorten_stun",
+        "interrupted_windup_never_emits",
+        "stun_releases",
+        "poison_five_ticks_and_single_layer_decay",
+        "poison_expires_without_lingering_tick",
+        "real_weapon_hits_rig",
+        "death_cancels_pending_emissions",
+        "death_removes_active_projectiles",
+        "kill_reward_once",
+        "ragdoll_active",
+        "corpse_support_above_ground",
+        "corpse_recycled_and_respawned_once"
+      ],
+      "report": {
+        "path": "Saved/PoisonMaggot/arena-final/acceptance.json",
+        "sha256": "aaa957b464589bfcb19c0abdfe3c4bf623d86db78097ac7565e01690db66f79f",
+        "modified_utc": "2026-09-11T13:16:58.010726+00:00"
+      },
+      "log": {
+        "path": "Saved/PoisonMaggot/arena-final/play.log",
+        "sha256": "fe1e2a9fbe039f30fd8cd01fd6a33003b76e85d9c0693e0f6a03d13741a6bba4",
+        "modified_utc": "2026-09-11T13:16:59.394842+00:00"
+      }
+    },
+    "poison_maggot_village": {
+      "passed_count": 6,
+      "failed_count": 0,
+      "checks": [
+        "village_saved_spawner_runs",
+        "village_nav_path_valid",
+        "village_actual_chase",
+        "village_attack_emits",
+        "village_death_and_reward",
+        "village_ragdoll_terrain_support"
+      ],
+      "report": {
+        "path": "Saved/PoisonMaggot/village-final/acceptance.json",
+        "sha256": "73baf23650b5719bf67777047a7d6d15ef251679deb0c8782a1a2bc3e6827dfd",
+        "modified_utc": "2026-09-11T13:15:18.168601+00:00"
+      },
+      "log": {
+        "path": "Saved/PoisonMaggot/village-final/village-play.log",
+        "sha256": "133582eafec9f3df8c3e99576ef9c5c2b9fad3f082785fab4d1e52b70f02b90c",
+        "modified_utc": "2026-09-11T13:15:19.392670+00:00"
+      }
+    },
+    "shared_monster_ai": {
+      "passed_count": 16,
+      "failed_count": 0,
+      "checks": [
+        "behavior_tree_controller_loaded",
+        "path_routes_around_wall",
+        "hit_enters_stagger",
+        "stagger_uses_hit_clip",
+        "stagger_stops_motion",
+        "recovers_to_chase",
+        "actual_motion_around_wall",
+        "navigation_requests_used",
+        "accumulated_hits_stun",
+        "weak_followup_retains_stun",
+        "stun_outlasts_short_stagger",
+        "stun_releases",
+        "real_gun_damage",
+        "real_gun_stagger",
+        "post_gun_control_released",
+        "can_attack_after_recovery"
+      ],
+      "report": {
+        "path": "Saved/MonsterAI/acceptance.json",
+        "sha256": "94899aaaed170f5a460115fc5151a9a72e718a9fc60bb0ec532c99849aa86f21",
+        "modified_utc": "2026-09-11T12:18:50.242213+00:00"
+      },
+      "log": {
+        "path": "Saved/MonsterAI/play.log",
+        "sha256": "755d40f060097b4f22c18029b5c0132b36cd8b47db0cfe7b0cd27b464c914883",
+        "modified_utc": "2026-09-11T12:18:51.021348+00:00"
+      }
+    },
+    "nurse_regression": {
+      "passed_count": 15,
+      "failed_count": 0,
+      "checks": [
+        "two_saved_nurses_spawned",
+        "matching_mesh_clips",
+        "chase_actual_displacement",
+        "nurse_grounded",
+        "player_health_connected",
+        "one_contact_hit",
+        "no_duplicate_hit_in_swing",
+        "evaded_swing_no_damage",
+        "interrupted_swing_no_damage",
+        "real_gun_input_damages_mesh",
+        "death_disables_damage_collision",
+        "ragdoll_enabled",
+        "corpse_removed",
+        "dead_nurse_cannot_hit",
+        "player_respawned"
+      ],
+      "report": {
+        "path": "Saved/NurseZombie/validation-result.json",
+        "sha256": "0052b2046501fa77bdc047f3b625d4fe130035f7551cc4392859cac4e7dfe500",
+        "modified_utc": "2026-09-09T03:07:54.930473+00:00"
+      },
+      "log": {
+        "path": "Saved/MonsterAI/nurse-regression.log",
+        "sha256": "b1fb1f94c4f6c8e8047c563b1eac035c05d76a23aaeb6c3833fe1a46b7d80f75",
+        "modified_utc": "2026-09-11T12:23:35.821807+00:00"
+      }
+    },
+    "handbrain_regression": {
+      "passed_count": 30,
+      "failed_count": 0,
+      "checks": [
+        "village_spawner_created_one",
+        "default_respawn_300s",
+        "lord_stats",
+        "five_clips_loaded",
+        "three_ragdoll_bodies",
+        "real_gun_input_damages_handbrain",
+        "chase_displaces_monster",
+        "slam_started",
+        "slam_windup_no_damage",
+        "slam_exact_contact_hit",
+        "slam_no_duplicate_hit",
+        "slam_cooldown_blocks_restart",
+        "slam_restart_after_cooldown",
+        "interrupted_slam_cannot_hit",
+        "howl_started",
+        "howl_immediate_first_tick",
+        "fear_stacks_and_moves_away",
+        "howl_six_ticks_without_end_duplicate",
+        "fear_expires_and_releases_input",
+        "occlusion_howl_started",
+        "wall_blocks_howl_damage",
+        "dodge_slam_started",
+        "leaving_slam_area_avoids_hit",
+        "death_once_and_kill_reward_once",
+        "death_transitions_to_ragdoll",
+        "death_cancels_howl_damage",
+        "ragdoll_finite_near_spawn",
+        "ragdoll_stays_above_terrain",
+        "corpse_removed",
+        "village_respawns_one_new_monster"
+      ],
+      "report": {
+        "path": "Saved/HandBrain/acceptance.json",
+        "sha256": "a4cb968d704b1d964131a8c084db9ff147f7853c625696280d8e7711f94c9bd9",
+        "modified_utc": "2026-09-11T13:18:33.208498+00:00"
+      },
+      "log": {
+        "path": "Saved/PoisonMaggot/handbrain-regression.log",
+        "sha256": "c86b1863905b8b15a6376833e7ca03c44d04cd5ca41bebedddca019ab2f6f6f0",
+        "modified_utc": "2026-09-11T13:18:34.497281+00:00"
+      }
+    }
+  },
+  "exports": {
+    "Idle": {
+      "imported_action_range": [
+        2.0,
+        92.0
+      ],
+      "seconds": 3.0,
+      "bones": 37,
+      "vertices": 20170,
+      "max_weight_error": 4.470348358154297e-08,
+      "loop_max_vertex_delta_m": 0.0,
+      "min_z_m": 0.005000036209821701,
+      "max_z_m": 0.8121655583381653
+    },
+    "Move": {
+      "imported_action_range": [
+        2.0,
+        77.0
+      ],
+      "seconds": 2.5,
+      "bones": 37,
+      "vertices": 20170,
+      "max_weight_error": 4.470348358154297e-08,
+      "loop_max_vertex_delta_m": 0.0,
+      "min_z_m": 0.004999566823244095,
+      "max_z_m": 0.8353762626647949
+    },
+    "Spit": {
+      "imported_action_range": [
+        2.0,
+        92.0
+      ],
+      "seconds": 3.0,
+      "bones": 37,
+      "vertices": 20170,
+      "max_weight_error": 4.470348358154297e-08,
+      "loop_max_vertex_delta_m": null,
+      "min_z_m": 0.004999713972210884,
+      "max_z_m": 0.9411307573318481
+    },
+    "Death": {
+      "imported_action_range": [
+        2.0,
+        56.0
+      ],
+      "seconds": 1.8,
+      "bones": 37,
+      "vertices": 20170,
+      "max_weight_error": 4.470348358154297e-08,
+      "loop_max_vertex_delta_m": null,
+      "min_z_m": 0.00499959010630846,
+      "max_z_m": 1.1250020265579224
+    },
+    "Hit": {
+      "imported_action_range": [
+        2.0,
+        20.0
+      ],
+      "seconds": 0.6,
+      "bones": 37,
+      "vertices": 20170,
+      "max_weight_error": 4.470348358154297e-08,
+      "loop_max_vertex_delta_m": null,
+      "min_z_m": 0.004999869503080845,
+      "max_z_m": 0.8219611048698425
+    }
+  },
+  "measurements_cm": {
+    "arena_max_side": 436.985107421875,
+    "arena_actual_surface_min_z": -0.536,
+    "village_actual_surface_min_ground_gap": -0.19,
+    "allowed_ground_penetration": 3.0
+  },
+  "visual_evidence": [
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/previews/PoisonMaggot_Actions.gif",
+      "sha256": "f3a82ee05ea89a492dd5131b3afb762c7b1c38a744bd52fe6db15540a4fca41e",
+      "modified_utc": "2026-09-11T13:22:15.146459+00:00"
+    },
+    {
+      "path": "Saved/PoisonMaggot/arena-final/spit-release.png",
+      "sha256": "9cb0ba0ed319494f23e6dcdfef64016fb6befe989a99c9d18fee5f4377850ad7",
+      "modified_utc": "2026-09-11T13:16:18.480735+00:00"
+    },
+    {
+      "path": "Saved/PoisonMaggot/arena-final/corpse.png",
+      "sha256": "465e717eb87fa1be9db1865bf3095d27cb1afdfc08519d5a5e9f8dcf07b03560",
+      "modified_utc": "2026-09-11T13:16:53.116506+00:00"
+    },
+    {
+      "path": "Saved/PoisonMaggot/arena-final/weapon-hit.png",
+      "sha256": "5f47b42b2ef05b8d0f4eac6e9c998c88c2a61406b3b73d11fc21d655d84fac92",
+      "modified_utc": "2026-09-11T13:16:45.845993+00:00"
+    },
+    {
+      "path": "Saved/PoisonMaggot/village-final/village-spit.png",
+      "sha256": "941f3091bce8d4f7696b06b07a10461fe33e5d9f68d6015ddb647b59e9eeb3db",
+      "modified_utc": "2026-09-11T13:15:11.475306+00:00"
+    },
+    {
+      "path": "Saved/PoisonMaggot/village-final/village-corpse.png",
+      "sha256": "db3bc55cb82dd49630d16648b32eb6338fa607afa5850ccabbbe31039e33928f",
+      "modified_utc": "2026-09-11T13:15:17.848965+00:00"
+    }
+  ]
+}

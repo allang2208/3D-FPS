@@ -1,0 +1,265 @@
+{
+  "date": "2026-09-11",
+  "host": "D:/FPS3D/FPSGAME",
+  "content_publication": "local binaries only; Git contains code, tools, documents and hashes",
+  "generated_candidate": "poison_maggot_v01",
+  "job_id": "1489949901173243904",
+  "mesh_vertices": 20170,
+  "source_quads": 20168,
+  "semantic_bones": 37,
+  "max_influences": 4,
+  "physics_support_hulls": 9,
+  "noncolliding_root_body": 1,
+  "files": [
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Death.fbm/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Death.fbm/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Death.fbm/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Death.fbx",
+      "bytes": 1801100,
+      "sha256": "af6077ffe9b4592ccac5039f56978d6a9059a01953ee40c0b3808e848715757b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Hit.fbm/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Hit.fbm/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Hit.fbm/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Hit.fbx",
+      "bytes": 1714188,
+      "sha256": "dc9b2199af9fe98dfd7de8ce133292c1b98952f516198cb06b975522e7366df2"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Idle.fbm/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Idle.fbm/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Idle.fbm/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Idle.fbx",
+      "bytes": 1893244,
+      "sha256": "8ab4c27523ead63d55ba9763c11d2a2c12143ae0d10fd70ba45534333ba9817a"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Move.fbm/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Move.fbm/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Move.fbm/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Move.fbx",
+      "bytes": 1877260,
+      "sha256": "845f44fd42d1a04274662cc46c3b986bd4818d1c84dc2a13a62b1f4cc744b29d"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Spit.fbm/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Spit.fbm/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Spit.fbm/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/A_PoisonMaggot_Spit.fbx",
+      "bytes": 1886716,
+      "sha256": "be367a5689b8a515b69ced9874b76bee3b2cbfab97eeb49654d707bcde35c3fc"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/PoisonMaggot_Animated.blend",
+      "bytes": 57279897,
+      "sha256": "b246817513741593303a21b95ed05f2c35c60f29c649be0e90ef4e1185a49421"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/PoisonMaggot_Retopology.blend",
+      "bytes": 55776397,
+      "sha256": "ba94d4bc598cb313adb1c0488cd57ce2e0a27a980827d6bb9d9107afe1d89b86"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/rig_animation.json",
+      "bytes": 1545,
+      "sha256": "80dbef17e0f13eec0cd86f596331975b73a430f7cb6d7989c0b5336c6c726a71"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/S_Maggot_Spit.wav",
+      "bytes": 15038,
+      "sha256": "95e5683e6585621fdbc77487f037779a3955ec651f3a3dd00c6ca264d62ddb89"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/SK_PoisonMaggot.fbm/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/SK_PoisonMaggot.fbm/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/SK_PoisonMaggot.fbm/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/SK_PoisonMaggot.fbx",
+      "bytes": 1467580,
+      "sha256": "6143913ce8c47fa95b900f45fc3dedec26dacb49bf5aff92f8d7a06fdb2dfc8a"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/T_Maggot_BaseColor.png",
+      "bytes": 8564568,
+      "sha256": "ebfd40053509d4bb888592836f3bdad09c3cfe3dff98c89c7e030660d423d18b"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/T_Maggot_Normal.png",
+      "bytes": 8711531,
+      "sha256": "5713d95e13b71dab836620495cc0afdaf7892f9d2b483eb48d37ce46c0384286"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/T_Maggot_Normal_DirectX.png",
+      "bytes": 7430287,
+      "sha256": "8e2b843bac241afa445da2ed119d91766152aaebbdedb8fed44a4f11e0c9d8fa"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/T_Maggot_Roughness.png",
+      "bytes": 6087380,
+      "sha256": "bd70b83554ffecf7b31a1c992011466c87ec405dbc4ea9761a635d1132771fd0"
+    },
+    {
+      "path": "SourceAssets/PoisonMaggot20260911/delivery/topology.json",
+      "bytes": 578,
+      "sha256": "b73e26979104caf4305ae6b115a197c3071b91aadae3606cf1ca8892d0e6c173"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/A_PoisonMaggot_Death.uasset",
+      "bytes": 425449,
+      "sha256": "cb5530ddbf5cc52a705d9833674e998ba60fd84e6078f1344b0b456c41d1eada"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/A_PoisonMaggot_Hit.uasset",
+      "bytes": 223885,
+      "sha256": "278d69e76ba0d705d5041b0a0dc735556340cb70bbf6f9808b44b393b972ed76"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/A_PoisonMaggot_Idle.uasset",
+      "bytes": 955730,
+      "sha256": "879f826caefdddce2cabc1eb151271da7f51b50d7d62c5f03e56cefb1090dba7"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/A_PoisonMaggot_Move.uasset",
+      "bytes": 895739,
+      "sha256": "c9b2f412d5952dfb4150901948b4466b0869e87992edf16bf71ea5130109f338"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/A_PoisonMaggot_Spit.uasset",
+      "bytes": 1022715,
+      "sha256": "66adff1faa97970fadb08301560e82378ed0db713aef91e5f51a50e1e1262019"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Audio/S_PoisonMaggot_Spit.uasset",
+      "bytes": 13840,
+      "sha256": "329edfa5957525af753a5f3414eae5b765b60d66957feb2413c1eb16b2f5a393"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/BP_PoisonMaggot.uasset",
+      "bytes": 27259,
+      "sha256": "cbff25c7cfafd4aa4f2c904060856cda50b40bb56071e7db5e9930c9693424d3"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Materials/M_AuditGround.uasset",
+      "bytes": 5254,
+      "sha256": "04400add4798e03d3d5068b82e350e8f135fb459a0503dd20e7d657359f53e1a"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Materials/M_PoisonMaggot_Skin.uasset",
+      "bytes": 9911,
+      "sha256": "216a6ea43e39348d95f15081a733f7e52c59185572548eb6b72d6de7ebefc7fc"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Materials/M_PoisonMaggot_Venom.uasset",
+      "bytes": 6382,
+      "sha256": "049c52340e875c8ed29ca6a9b27eb11a9ce5223a9fea6c8c8ecf2168ffdea985"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/PA_PoisonMaggot.uasset",
+      "bytes": 761065,
+      "sha256": "22cd9c5a9dbe369bc5c40c134aa81438a4de86770ac7a376518e787ca1852f4f"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/SK_PoisonMaggot.uasset",
+      "bytes": 6441677,
+      "sha256": "35e0a8b8b532562f700ade9afb7f6828748644a8b91994fada819369c889dde2"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/SK_PoisonMaggot_Skeleton.uasset",
+      "bytes": 9739,
+      "sha256": "6a26e44e8ef2aba684a07a3fc4d7c8bd75073240996d7ae5215e79a38d41c05d"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Textures/T_PoisonMaggot_BaseColor.uasset",
+      "bytes": 8490005,
+      "sha256": "74f1ec971866cf37293dc0133f0aa1112ddcfa11149ad495dbfeb0aef3e146e3"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Textures/T_PoisonMaggot_Normal_DirectX.uasset",
+      "bytes": 8606602,
+      "sha256": "86b312989a997de1ee4c2def57da028a330ac5b86271b453bf56b11dcf5abb10"
+    },
+    {
+      "path": "Content/Monsters/PoisonMaggot/Textures/T_PoisonMaggot_Roughness.uasset",
+      "bytes": 4757766,
+      "sha256": "a604ad67c14ba06c5a9ee6628e25b9cf217e22ca27167481e20618d5a76a3ae8"
+    },
+    {
+      "path": "Content/Tests/PoisonMaggot/L_PoisonMaggot.umap",
+      "bytes": 27051,
+      "sha256": "36026b47a8f58cc033e365c66e0305bf30aab7d536f91275be2df8d8af0ff53c"
+    }
+  ]
+}

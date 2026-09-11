@@ -2,6 +2,7 @@
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
 #include "HandBrainMonster.h"
+#include "PoisonMaggotMonster.h"
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -15,12 +16,14 @@ bool UMonsterCombatComponent::IsDead() const
 {
  if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->State==ENurseState::Dead;
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Dead();
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Dead();
  return true;
 }
 bool UMonsterCombatComponent::IsControlled() const
 {
  if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->State==ENurseState::Stagger;
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->State==EHandBrainState::Stagger;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->State==EPoisonMaggotState::Stagger;
  return false;
 }
 bool UMonsterCombatComponent::IsBusy() const
@@ -28,16 +31,19 @@ bool UMonsterCombatComponent::IsBusy() const
  if(IsDead()||IsControlled())return true;
  if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->State==ENurseState::Attack;
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->State==EHandBrainState::Slam||H->State==EHandBrainState::Howl;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->State==EPoisonMaggotState::Spitting;
  return false;
 }
 void UMonsterCombatComponent::SetTarget(APawn* P)
 {
  if(auto* N=Cast<ANurseZombie>(GetOwner()))N->Target=P;
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Target=P;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->SetTarget(P);
 }
 bool UMonsterCombatComponent::CanAttack(APawn* P) const
 {
  if(!IsValid(P)||IsBusy())return false;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->CanSpit(P);
  const float D=FVector::Dist2D(P->GetActorLocation(),GetOwner()->GetActorLocation());
  if(auto* N=Cast<ANurseZombie>(GetOwner()))return D<=N->AttackRange-15&&N->Cooldown<=0&&N->CanSee(P)&&FMath::Abs(P->GetActorLocation().Z-N->GetActorLocation().Z)<90;
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->CanSee(P,H->GetActorLocation()+FVector(0,0,30))&&((D<=H->SlamTriggerRange&&H->SlamLeft<=0)||(D<=H->HowlRadius&&H->HowlLeft<=0));
@@ -46,6 +52,7 @@ bool UMonsterCombatComponent::CanAttack(APawn* P) const
 bool UMonsterCombatComponent::TryAttack(APawn* P)
 {
  if(!GetOwner()->HasAuthority()||!CanAttack(P))return false;SetTarget(P);
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->StartSpit(P);
  if(auto* N=Cast<ANurseZombie>(GetOwner())){N->SetActorRotation(FRotator(0,(P->GetActorLocation()-N->GetActorLocation()).Rotation().Yaw,0));N->SetState(ENurseState::Attack);return true;}
  if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->StartAttack(!(FVector::Dist2D(P->GetActorLocation(),H->GetActorLocation())<=H->SlamTriggerRange&&H->SlamLeft<=0));
  return false;
@@ -53,14 +60,15 @@ bool UMonsterCombatComponent::TryAttack(APawn* P)
 void UMonsterCombatComponent::SetLocomotion(bool Moving,bool Returning)
 {
  if(IsBusy())return;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner())){auto S=Moving?(Returning?EPoisonMaggotState::Returning:EPoisonMaggotState::Chase):EPoisonMaggotState::Idle;if(M->State!=S)M->SetState(S);}
  if(auto* N=Cast<ANurseZombie>(GetOwner())){auto S=Moving?ENurseState::Chase:ENurseState::Idle;if(N->State!=S)N->SetState(S);}
  if(auto* H=Cast<AHandBrainMonster>(GetOwner())){auto S=Moving?(Returning?EHandBrainState::Returning:EHandBrainState::Chase):EHandBrainState::Idle;if(H->State!=S)H->SetState(S);}
 }
-float UMonsterCombatComponent::AggroRange() const{if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->AggroRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->AggroRadius;return 0;}
-float UMonsterCombatComponent::LeashRange() const{if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->LeashRadius;return 2400;}
-float UMonsterCombatComponent::StopRange() const{if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,N->AttackRange-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
-FVector UMonsterCombatComponent::Home() const{if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
-void UMonsterCombatComponent::ReachedHome(){if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;SetLocomotion(false);}
+float UMonsterCombatComponent::AggroRange() const{if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->AggroRadius;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->AggroRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->AggroRadius;return 0;}
+float UMonsterCombatComponent::LeashRange() const{if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->LeashRadius;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->LeashRadius;return 2400;}
+float UMonsterCombatComponent::StopRange() const{if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->AttackRange*.72f;if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,N->AttackRange-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
+FVector UMonsterCombatComponent::Home() const{if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
+void UMonsterCombatComponent::ReachedHome(){if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->Health=M->MaxHealth;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;SetLocomotion(false);}
 void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker)
 {
  if(!GetOwner()->HasAuthority()||IsDead())return;
@@ -69,6 +77,7 @@ void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker)
  const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
  bStunned=TriggerStun||(bStunned&&Remaining>0);
  if(TriggerStun)Poise=0;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(FMath::Max(Remaining,TriggerStun?StunDuration:StaggerDuration));
  if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(FMath::Max(Remaining,TriggerStun?StunDuration:StaggerDuration));
  else if(auto* H=Cast<AHandBrainMonster>(GetOwner())){if(TriggerStun)H->InterruptAttack(FMath::Max(Remaining,StunDuration));}
 }
@@ -86,6 +95,7 @@ void UMonsterCombatComponent::BeginReaction(float Duration)
 void UMonsterCombatComponent::FinishReaction()
 {
  bStunned=false;
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))if(M->State==EPoisonMaggotState::Stagger)M->SetState(EPoisonMaggotState::Recovery);
  if(auto* N=Cast<ANurseZombie>(GetOwner())){if(N->State==ENurseState::Stagger){N->State=ENurseState::Recovery;N->StateTime=0;}}
  if(auto* H=Cast<AHandBrainMonster>(GetOwner())){if(H->State==EHandBrainState::Stagger){H->State=EHandBrainState::Recovery;H->StateSeconds=0;}}
  if(auto* P=Cast<APawn>(GetOwner()))if(auto* AI=Cast<AMonsterAIController>(P->GetController()))AI->UpdateKnowledge();
