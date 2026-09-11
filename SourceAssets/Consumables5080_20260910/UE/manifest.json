@@ -1,0 +1,151 @@
+{
+  "hp_potion": {
+    "materials": {
+      "Clear thick glass": {
+        "Base Color": [
+          0.9850000143051147,
+          0.9950000047683716,
+          1.0,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.054999999701976776,
+        "Transmission Weight": 1.0
+      },
+      "Health liquid": {
+        "Base Color": [
+          0.75,
+          0.017999999225139618,
+          0.02500000037252903,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.09000000357627869,
+        "Transmission Weight": 0.75
+      },
+      "Natural cork": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.8600000143051147,
+        "Transmission Weight": 0.0,
+        "texture": "hp_potion_2_base.png"
+      }
+    },
+    "slots": [
+      "Clear thick glass",
+      "Health liquid",
+      "Natural cork"
+    ]
+  },
+  "mp_potion": {
+    "materials": {
+      "Clear thick glass": {
+        "Base Color": [
+          0.9850000143051147,
+          0.9950000047683716,
+          1.0,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.054999999701976776,
+        "Transmission Weight": 1.0
+      },
+      "Mana liquid": {
+        "Base Color": [
+          0.03500000014901161,
+          0.6200000047683716,
+          0.8500000238418579,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.09000000357627869,
+        "Transmission Weight": 0.75
+      },
+      "Brushed silver": {
+        "Base Color": [
+          0.6800000071525574,
+          0.7099999785423279,
+          0.75,
+          1.0
+        ],
+        "Metallic": 1.0,
+        "Roughness": 0.20000000298023224,
+        "Transmission Weight": 0.0
+      }
+    },
+    "slots": [
+      "Clear thick glass",
+      "Mana liquid",
+      "Brushed silver"
+    ]
+  },
+  "ammo_556": {
+    "materials": {
+      "Material_0": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.5,
+        "Transmission Weight": 0.0,
+        "texture": "ammo_556_0_base.png"
+      },
+      "Reference cardboard print": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.8999999761581421,
+        "Transmission Weight": 0.0,
+        "texture": "ammo_556_1_base.png"
+      }
+    },
+    "slots": [
+      "Material_0",
+      "Reference cardboard print"
+    ]
+  },
+  "ammo_762": {
+    "materials": {
+      "Material_0": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.5,
+        "Transmission Weight": 0.0,
+        "texture": "ammo_762_0_base.png"
+      },
+      "Reference cardboard print": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.8999999761581421,
+        "Transmission Weight": 0.0,
+        "texture": "ammo_762_1_base.png"
+      }
+    },
+    "slots": [
+      "Material_0",
+      "Reference cardboard print"
+    ]
+  }
+}

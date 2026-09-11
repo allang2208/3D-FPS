@@ -1,0 +1,43 @@
+{
+  "asset": "magic_scroll",
+  "source": "magic_scroll.glb",
+  "bounds_original": [
+    0.0640205442905426,
+    0.07058132439851761,
+    0.24061697721481323
+  ],
+  "meshes": [
+    {
+      "name": "Magic scroll LOD0",
+      "vertices": 23294,
+      "triangles": 19999,
+      "materials": [
+        "Material_0.001"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": [
+    {
+      "name": "Image_0",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "magic_scroll_lod0_normal",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ]
+}

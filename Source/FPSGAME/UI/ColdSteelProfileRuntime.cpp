@@ -97,7 +97,25 @@ bool UColdSteelStatusModel::ReloadProfile()
     for(const TCHAR* S:{TEXT("_A"),TEXT("_B")}) {auto* Save=ReadCheckedProfile(SaveSlot+S); if(Save&&Validate(Save->Profile,Reason)&&(!Best||Save->Profile.Generation>Best->Profile.Generation))Best=Save;}
     if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
     auto Clean=Best->Profile;
-    const bool Removed=RemoveRetiredWeapons(Clean);
+    bool Removed=RemoveRetiredWeapons(Clean);
+    // Refresh authorized material rarity and scroll presentation on existing instances.
+    for(auto& I:Clean.Items)
+    {
+        const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
+        if(!Material&&I.Definition!=TEXT("enchant_scroll_heavy")&&I.Definition!=TEXT("enchant_scroll_sharp")&&I.Definition!=TEXT("enchant_scroll_skeleton")&&I.Definition!=TEXT("enchant_scroll_tarantula"))continue;
+        const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
+        TSharedPtr<FJsonObject> CurrentData,DefinitionData;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),CurrentData)||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),DefinitionData))continue;
+        bool Updated=false;
+        for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("rarity"),TEXT("grade")})
+        {
+            if(Material&&FString(Key)!=TEXT("rarity")&&FString(Key)!=TEXT("grade"))continue;
+            if(!Material&&FString(Key)==TEXT("grade"))continue;
+            FString NewIcon,OldIcon;CurrentData->TryGetStringField(Key,OldIcon);
+            if(DefinitionData->TryGetStringField(Key,NewIcon)&&!NewIcon.IsEmpty()&&OldIcon!=NewIcon){CurrentData->SetStringField(Key,NewIcon);Updated=true;}
+        }
+        if(Updated){I.Data.Empty();FJsonSerializer::Serialize(CurrentData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+    }
     Publish(Clean);bPersistenceBlocked=false;
     // Commit through the checked A/B transaction; never reset the player's save.
     if(Removed&&!CommitState(Clean))return false;
@@ -129,7 +147,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
     if(const FString* Data=Definitions.Find(Def))I.Data=*Data;
     I.Magazine=Number(I,TEXT("gunsmith_base_mag"),30);
     I.StackMax=Number(I,TEXT("maxStack"),Number(I,TEXT("stack_max"),1));
-    if(Def==TEXT("enhancement_stone")||Def==TEXT("reforge_ticket"))I.StackMax=9999;
+    if(Def==TEXT("reforge_ticket"))I.StackMax=9999;
     if(Text(I,TEXT("category"))==TEXT("gold"))I.StackMax=9007199254740991ll;
     const auto Size=Footprint(I);I.Width=Size.X;I.Height=Size.Y;
     return I;

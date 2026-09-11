@@ -1263,10 +1263,12 @@
     "ue_icon": "Icons/dragonFruit.png"
   },
   "enchant_scroll_heavy": {
+    "rarity": "common",
     "category": "consumable",
     "desc": "可以给近战武器附魔前缀「沉重」。",
     "grade": "common",
-    "icon": "",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
     "icon_fallback": "⚔️",
     "name": "附魔卷轴：沉重",
     "price": 500,
@@ -1275,10 +1277,12 @@
     "type": "附魔卷轴"
   },
   "enchant_scroll_sharp": {
+    "rarity": "common",
     "category": "consumable",
     "desc": "可以给剑类武器附魔前缀「锋利的」。",
     "grade": "common",
-    "icon": "",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
     "icon_fallback": "⚔️",
     "name": "附魔卷轴：锋利的",
     "price": 500,
@@ -1287,10 +1291,12 @@
     "type": "附魔卷轴"
   },
   "enchant_scroll_skeleton": {
+    "rarity": "rare",
     "category": "consumable",
     "desc": "可以给枪械类武器附魔后缀「骷髅射手」。",
     "grade": "rare",
-    "icon": "",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
     "icon_fallback": "🦴",
     "name": "附魔卷轴：骷髅射手",
     "price": 2000,
@@ -1299,10 +1305,12 @@
     "type": "附魔卷轴"
   },
   "enchant_scroll_tarantula": {
+    "rarity": "uncommon",
     "category": "consumable",
     "desc": "可以给任意武器附魔后缀「狼蛛」。",
     "grade": "uncommon",
-    "icon": "",
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
     "icon_fallback": "🕷️",
     "name": "附魔卷轴：狼蛛",
     "price": 1000,
@@ -1311,15 +1319,17 @@
     "type": "附魔卷轴"
   },
   "enhancement_stone": {
-    "category": "material",
+    "category": "enhancement",
     "desc": "用于强化装备的基础材料。",
-    "icon": "",
+    "icon": "Icons/enhancement_stone_realistic_v1.png",
+    "ue_icon": "Icons/enhancement_stone_realistic_v1.png",
+    "maxStack": 99999,
     "icon_fallback": "💎",
     "name": "强化石",
     "price": 50,
-    "rarity": "common",
-    "stack_max": 99,
-    "type": "材料"
+    "rarity": "epic",
+    "stack_max": 99999,
+    "type": "强化材料"
   },
   "flatPeach": {
     "category": "tribute",
@@ -1721,15 +1731,17 @@
     "ue_icon": "Icons/limestone.png"
   },
   "magic_dust": {
-    "category": "material",
+    "category": "enhancement",
     "desc": "用于附魔的魔法粉尘。",
-    "icon": "",
+    "icon": "Icons/magic_dust_realistic_v1.png",
+    "ue_icon": "Icons/magic_dust_realistic_v1.png",
+    "maxStack": 99999,
     "icon_fallback": "✨",
     "name": "魔法粉尘",
     "price": 10,
-    "rarity": "mythic",
-    "stack_max": 999,
-    "type": "材料"
+    "rarity": "epic",
+    "stack_max": 99999,
+    "type": "强化材料"
   },
   "magnetite": {
     "category": "tribute",

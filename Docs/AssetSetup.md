@@ -29,3 +29,7 @@
 C++ 编译不需要先公开地图素材；成功编译也不意味着缺失地图/动画可以运行。恢复资源后用对应 `Tools` 脚本和真实游戏镜头验证；重建原生模块后启动新编辑器进程，避免旧模块仍在内存。
 
 Windows 系统字体及其派生字体仅按工具中的本地用途处理，不随本仓库公开发布。现有天气来源说明见 [ThirdPartyNotices](../ThirdPartyNotices/WEATHER_ASSETS.md)。
+
+## 非枪械物品（2026-09-11）
+
+物品模型、材质和光效恢复 `Content/Items/{Consumables,EnhancementMaterials,MagicScroll,LootFX}`；背包图标恢复 `Content/ColdSteelData/Icons` 中相应文件。精确路径、大小与 SHA-256 见 [本机素材清单](Art/non-weapon-items-local-content-20260911.json)。三视图、原始高模、可编辑 Blend 和 UE 导入输入仍需从完整本机 SourceAssets 恢复。此次只发布源码、作者脚本、参数/证据和技能，未开放整套素材二进制；不代表完整资产远程备份。

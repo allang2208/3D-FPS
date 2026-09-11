@@ -1,0 +1,300 @@
+{
+  "distribution": "Local content only; no binary redistribution approval inferred. Original script and source publication does not include these assets.",
+  "files": [
+    {
+      "path": "Content/ColdSteelData/Icons/enhancement_stone_realistic_v1.png",
+      "bytes": 2246847,
+      "sha256": "8fa3ded9d95ca5b20697d7dae46d852660ba3d905c02e910b536a403d1e15333"
+    },
+    {
+      "path": "Content/ColdSteelData/Icons/magic_dust_realistic_v1.png",
+      "bytes": 2163597,
+      "sha256": "fc856cbce9af96f99d1e77ece418b6823c75b3800399e8e94cab83b17f766ab0"
+    },
+    {
+      "path": "Content/ColdSteelData/Icons/magic_scroll_realistic_v1.png",
+      "bytes": 119184,
+      "sha256": "e399e487daf3d9ec29481c877c5e57dba0d5b5c0cc0411301b110e86fae07047"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_556/M_ammo_556_0.uasset",
+      "bytes": 6649,
+      "sha256": "d5e2cca397deafbdfec04c47ce08fe39a45daa57336175251677e775b123af76"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_556/M_ammo_556_1.uasset",
+      "bytes": 6649,
+      "sha256": "afccaf8b02b9d68de0a2d257fc18c2d11ffafe31bd1eb87c2a28b393eb55254e"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_556/SM_ammo_556.uasset",
+      "bytes": 976010,
+      "sha256": "db2b94891172f6ee105a435e6b05a63b678ee5a0b3856b726c9ddd0da5dd35e0"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_556/T_ammo_556_0.uasset",
+      "bytes": 6464884,
+      "sha256": "1b0c50137f394612d0f9a05bfd9fc87bad8330d47e085ae0f680922d4f178627"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_556/T_ammo_556_1.uasset",
+      "bytes": 802156,
+      "sha256": "9105728e2297e8b551d51588db1f434f3bc82dc2770b043c5f70583647ae8048"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_762/M_ammo_762_0.uasset",
+      "bytes": 6649,
+      "sha256": "b7aa2f1e98ea63f65af1c11bd00af7bddceaf8a2c8546396b326f799a04b2d82"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_762/M_ammo_762_1.uasset",
+      "bytes": 6649,
+      "sha256": "b4ff1a5431e304cff31a85480d6d1cf6fe50ceeedc9a884bf65daf15e4da0e4e"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_762/SM_ammo_762.uasset",
+      "bytes": 1026490,
+      "sha256": "d1d4017b93dfe04f18ea3ca0071a7cb794f7a3a02ed90e64818c62ed7959b079"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_762/T_ammo_762_0.uasset",
+      "bytes": 7537901,
+      "sha256": "b1c487b9c70e1972022eb24295b106f06509ec2dbaa8d917821141c4aca930c3"
+    },
+    {
+      "path": "Content/Items/Consumables/ammo_762/T_ammo_762_1.uasset",
+      "bytes": 896996,
+      "sha256": "6c705488225d3f596952758e8489fd200c3d5384d96845e1f9f70b95bfb8982f"
+    },
+    {
+      "path": "Content/Items/Consumables/hp_potion/M_hp_potion_0.uasset",
+      "bytes": 6699,
+      "sha256": "d7915bcc085bbc631cb228753dac6c6d33ee0afdf3b40e8873439afe129c3781"
+    },
+    {
+      "path": "Content/Items/Consumables/hp_potion/M_hp_potion_1.uasset",
+      "bytes": 6201,
+      "sha256": "3e2c429bf37966078157567186e28e1efac7f926adfa47cb469963977dc27d8c"
+    },
+    {
+      "path": "Content/Items/Consumables/hp_potion/M_hp_potion_2.uasset",
+      "bytes": 6627,
+      "sha256": "7e20144d4723a221059e4fb23da1843a2f92d7ba2f16a88dd31f87cd78ed2d7b"
+    },
+    {
+      "path": "Content/Items/Consumables/hp_potion/SM_hp_potion.uasset",
+      "bytes": 215155,
+      "sha256": "d42e91bd44418f3381db232f944a8d2257c43fa369e96136d10e89632f2871b9"
+    },
+    {
+      "path": "Content/Items/Consumables/hp_potion/T_hp_potion_2.uasset",
+      "bytes": 649218,
+      "sha256": "bab6389819d7586ba9426baf6fbde1cc931858b9880f35d034f5b69de33b6f15"
+    },
+    {
+      "path": "Content/Items/Consumables/mp_potion/M_mp_potion_0.uasset",
+      "bytes": 6735,
+      "sha256": "2c5e0dce361c73e7c3d0fed3c0abf1b271a74b7964b28a9928cac967c0063b41"
+    },
+    {
+      "path": "Content/Items/Consumables/mp_potion/M_mp_potion_1.uasset",
+      "bytes": 6002,
+      "sha256": "98224d9ea840e2919f516e7c20b319310a5710a0a79c90cea0d5bf8df5cc802d"
+    },
+    {
+      "path": "Content/Items/Consumables/mp_potion/M_mp_potion_2.uasset",
+      "bytes": 5809,
+      "sha256": "c2f360054fa62aa2be235ad04f3d9aad028fb50ce80c7b7afaec11e91f9fe40c"
+    },
+    {
+      "path": "Content/Items/Consumables/mp_potion/SM_mp_potion.uasset",
+      "bytes": 401633,
+      "sha256": "cc737a9e25e26dd3913b7d74e613e4ac3412e47dffac875de2067497c396149d"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/M_enhancement_stone_0.uasset",
+      "bytes": 7523,
+      "sha256": "c6316f4012369b6bb3773452f415a0ace20b049790052a869888b5b1ea08680e"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/M_enhancement_stone_amethyst.uasset",
+      "bytes": 10127,
+      "sha256": "16292ee3b0bb3908570a581ab623c36e40e32c8dd4371dfce42be5cd1cd8d7eb"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/SM_enhancement_stone.uasset",
+      "bytes": 1100146,
+      "sha256": "079e6913a48bada77a1d6b96a2ce4a249bb9e859e1ac259a5f0ff0d86becc83e"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/T_enhancement_stone_0_Base_Color.uasset",
+      "bytes": 8227109,
+      "sha256": "1597516e0891c639cc3997a830f175187cab9d5f47bc0ff1e4346b55133a65b7"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/T_enhancement_stone_0_Metallic.uasset",
+      "bytes": 6686090,
+      "sha256": "1b7b25b1fc0e80e82f65ace00bf205492ef12d98a0026e61e378e29f69c8988b"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/T_enhancement_stone_0_Normal.uasset",
+      "bytes": 5741014,
+      "sha256": "d3f0fbf62e4d75b800fe38a8f3a0f425996bf3455fe455115506a19a7a1225e1"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/enhancement_stone/T_enhancement_stone_0_Roughness.uasset",
+      "bytes": 6686112,
+      "sha256": "b16b5707c90e75372f7d83600b1a24f03f625ee9c3a8f8ff664eabd119016140"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/M_magic_dust_0.uasset",
+      "bytes": 7300,
+      "sha256": "2ec06df3235b43378dd5767f08fd64c073a5fd3583b2ea96af14e0209b91fa56"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/M_magic_dust_1.uasset",
+      "bytes": 5534,
+      "sha256": "a55b88429bf4b7e28472eb3cedadd8b4fb2e8f9c7c21a7e82bf01de52b5ff7fb"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/M_magic_dust_2.uasset",
+      "bytes": 8271,
+      "sha256": "c9a6d46ac41254ae296b1cea8eaa327a16d4eb14064dcc6174262a6259b46a2d"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/M_magic_dust_3.uasset",
+      "bytes": 8271,
+      "sha256": "f4f2e5c779bf79e10950d4c6440275eae533fde4dad0a8069eaafd58f65b9d45"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/M_magic_dust_blue_grains.uasset",
+      "bytes": 6812,
+      "sha256": "d111bad57ea0d39e7b15742a7c175bd0fbbf8d5f8da1e2b7dfa76341f01deeeb"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/M_magic_dust_blue_powder.uasset",
+      "bytes": 9990,
+      "sha256": "f141db96eead18e4ef6499cf65cc3223b950188813c1abe8c655b8cb4e25c75c"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/SM_magic_dust.uasset",
+      "bytes": 358222,
+      "sha256": "5d4e61d885370170f35e9383466494aa2c2e2f7d35380dee3e2392be4cc23111"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_2_Base_Color.uasset",
+      "bytes": 2177029,
+      "sha256": "23faee6ec04aecc51bf5980504210244d5b516633ebd7e262d3e0f1d7a61e90f"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_2_Metallic.uasset",
+      "bytes": 824865,
+      "sha256": "8ad28c5267398a9ef596ed54cd608f4d9ec9eb3d00420ff1d520577d79ec1321"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_2_Normal.uasset",
+      "bytes": 1958021,
+      "sha256": "458791f2472a8e69154b7e44af7d019c894f23bff8ae51e8b76e41b6a0b21cc4"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_2_Roughness.uasset",
+      "bytes": 824887,
+      "sha256": "8654fe2286a6a92217669139e15ef1866226ef5b45291d86cbfc23705bae789b"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_3_Base_Color.uasset",
+      "bytes": 3671251,
+      "sha256": "da492fd96f5fdb4153dc0903930c128994ff0aa7c8b609788786cfc797352809"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_3_Metallic.uasset",
+      "bytes": 965390,
+      "sha256": "fb7d4c54a012489361eb7a9ed62960dd7701b518094f2d2cde23135a8a1112f2"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_3_Normal.uasset",
+      "bytes": 6328925,
+      "sha256": "66e11ce71a58ac26648ce8b84571ccdd046d5d8725dd41858fa2461c8375216d"
+    },
+    {
+      "path": "Content/Items/EnhancementMaterials/magic_dust/T_magic_dust_3_Roughness.uasset",
+      "bytes": 965412,
+      "sha256": "6d90280df34c930b3ef100991166a741c3cd7fc32be87c809fd1324686016af3"
+    },
+    {
+      "path": "Content/Items/LootFX/M_LootBeam.uasset",
+      "bytes": 9163,
+      "sha256": "d3cfeac18bf4786d6d8b1ea127c14ad025f0febb3f14fcbfe0a0332a603dae36"
+    },
+    {
+      "path": "Content/Items/LootFX/M_LootCenter.uasset",
+      "bytes": 9247,
+      "sha256": "7315b1f4e8e73e38c360d05c2dd2d8354b0466f7ca0b60d81d3419c7244bef97"
+    },
+    {
+      "path": "Content/Items/MagicScroll/magic_scroll/M_magic_scroll_0.uasset",
+      "bytes": 7374,
+      "sha256": "d09f25adefa3f8596b6a1a4c6f779b393b7cfca799554fffc335c2ea9a6d990d"
+    },
+    {
+      "path": "Content/Items/MagicScroll/magic_scroll/SM_magic_scroll.uasset",
+      "bytes": 1521389,
+      "sha256": "4af2c446c15c15be0fa03966bc05bafce08b941a12962e10181f2ef9f7486fdd"
+    },
+    {
+      "path": "Content/Items/MagicScroll/magic_scroll/T_magic_scroll_0_Base_Color.uasset",
+      "bytes": 6542706,
+      "sha256": "a26d903dfc2e90a38987960d302847d2bb54ba1d7619a8a810eeb9b569ef3daa"
+    },
+    {
+      "path": "Content/Items/MagicScroll/magic_scroll/T_magic_scroll_0_Metallic.uasset",
+      "bytes": 1831475,
+      "sha256": "ba064f5ecf412fbd8c731f3a1f501314ec0e3c0ffda3c3f93fb70261180508f9"
+    },
+    {
+      "path": "Content/Items/MagicScroll/magic_scroll/T_magic_scroll_0_Normal.uasset",
+      "bytes": 4257127,
+      "sha256": "da36788d9d9bb82a69e97aab1be40749d4e2a36220c95334cefe41eca388d6a6"
+    },
+    {
+      "path": "Content/Items/MagicScroll/magic_scroll/T_magic_scroll_0_Roughness.uasset",
+      "bytes": 1831497,
+      "sha256": "66dd2b97de6ce6480d8228635ad6e1196f9ea566b2feaf958508c35573f03484"
+    },
+    {
+      "path": "SourceAssets/Consumables5080_20260910/ammo_556_candidate_v02.glb",
+      "bytes": 10783948,
+      "sha256": "9e7b446c4b11a36d7bbb7f61c5eef2b826bb51e613cc757146986885e16dd2a9"
+    },
+    {
+      "path": "SourceAssets/Consumables5080_20260910/ammo_762_candidate_v02.glb",
+      "bytes": 12648668,
+      "sha256": "09f87086c1a8bf8fb9c75b58a9f0a7a1f022c05edbf703713a98eb65a2d57a5e"
+    },
+    {
+      "path": "SourceAssets/Consumables5080_20260910/hp_potion_candidate_v02.glb",
+      "bytes": 767464,
+      "sha256": "9349045a81d16c2c5f185c07011f8aaef17da7df82655ac8fcf9c4ac56f62b10"
+    },
+    {
+      "path": "SourceAssets/Consumables5080_20260910/mp_potion_candidate_v02.glb",
+      "bytes": 323596,
+      "sha256": "64ae8d2b3c8a9c651ac955f2b06d43442b902d550e33b7da0a9412ac21f2f001"
+    },
+    {
+      "path": "SourceAssets/EnhancementMaterials5080_20260911/Delivery/enhancement_stone.glb",
+      "bytes": 21058016,
+      "sha256": "c1bdc767c5fa0bae2b3d7728f054c833c4cadf4d90c09dd6f627e93c2247afd0"
+    },
+    {
+      "path": "SourceAssets/EnhancementMaterials5080_20260911/Delivery/magic_dust.glb",
+      "bytes": 17909724,
+      "sha256": "4973bb0766e425a523d67bc7ef3d7c447f09257c3fc8b9694219bd6d675db550"
+    },
+    {
+      "path": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+      "bytes": 13108092,
+      "sha256": "66aab962dc2a2eaa88de233a1baf6adfc4139da95e665fe02773004503420498"
+    }
+  ]
+}

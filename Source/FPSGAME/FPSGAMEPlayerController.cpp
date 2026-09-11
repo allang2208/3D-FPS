@@ -24,6 +24,11 @@
 void RunRetiredWeaponsAudit(AFPSGAMEPlayerController* PC);
 void RunWorldInteractionAudit(AFPSGAMEPlayerController* PC);
 
+void RunConsumablePickupAudit(AFPSGAMEPlayerController* PC);
+void RunEnhancementMaterialPickupAudit(AFPSGAMEPlayerController* PC);
+void RunMagicScrollAudit(AFPSGAMEPlayerController* PC);
+void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
+
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
     bShowMouseCursor = false;
@@ -32,6 +37,14 @@ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    if(FParse::Param(FCommandLine::Get(),TEXT("ConsumablePickupAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunConsumablePickupAudit(this);}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("EnhancementMaterialPickupAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunEnhancementMaterialPickupAudit(this);}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("MagicScrollAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunMagicScrollAudit(this);}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("LootGlowAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunLootGlowAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("DropHitchAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){if(ColdSteelHUD)ColdSteelHUD->RunDropHitchAudit();}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("WorldInteractionAudit")))

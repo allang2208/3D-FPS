@@ -1,0 +1,133 @@
+{
+  "enhancement_stone": {
+    "materials": {
+      "Material_0.001": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.5,
+        "Transmission Weight": 0.0,
+        "maps": {
+          "Base Color": {
+            "file": "enhancement_stone_0_Base_Color.png",
+            "channel": "RGB",
+            "factor": 1.0
+          },
+          "Metallic": {
+            "file": "enhancement_stone_0_Metallic.png",
+            "channel": "B",
+            "factor": 1.0
+          },
+          "Roughness": {
+            "file": "enhancement_stone_0_Roughness.png",
+            "channel": "G",
+            "factor": 1.0
+          },
+          "Normal": {
+            "file": "enhancement_stone_0_Normal.png",
+            "channel": "RGB",
+            "factor": 1.0
+          }
+        }
+      }
+    }
+  },
+  "magic_dust": {
+    "materials": {
+      "Thick clear glass": {
+        "Base Color": [
+          0.9599999785423279,
+          0.9850000143051147,
+          1.0,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.06499999761581421,
+        "Transmission Weight": 1.0,
+        "maps": {}
+      },
+      "Pale blue mineral grains": {
+        "Base Color": [
+          0.6499999761581421,
+          0.8299999833106995,
+          0.949999988079071,
+          1.0
+        ],
+        "Metallic": 0.05000000074505806,
+        "Roughness": 0.20999999344348907,
+        "Transmission Weight": 0.3499999940395355,
+        "maps": {}
+      },
+      "Weathered silver steel.001": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.5,
+        "Transmission Weight": 0.0,
+        "maps": {
+          "Base Color": {
+            "file": "magic_dust_2_Base_Color.png",
+            "channel": "RGB",
+            "factor": 1.0
+          },
+          "Metallic": {
+            "file": "magic_dust_2_Metallic.png",
+            "channel": "B",
+            "factor": 0.9200000166893005
+          },
+          "Roughness": {
+            "file": "magic_dust_2_Roughness.png",
+            "channel": "G",
+            "factor": 1.0
+          },
+          "Normal": {
+            "file": "magic_dust_2_Normal.png",
+            "channel": "RGB",
+            "factor": 1.0
+          }
+        }
+      },
+      "Fine silver mineral powder.003": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.5,
+        "Transmission Weight": 0.0,
+        "maps": {
+          "Base Color": {
+            "file": "magic_dust_3_Base_Color.png",
+            "channel": "RGB",
+            "factor": 1.0
+          },
+          "Metallic": {
+            "file": "magic_dust_3_Metallic.png",
+            "channel": "B",
+            "factor": 0.12999999523162842
+          },
+          "Roughness": {
+            "file": "magic_dust_3_Roughness.png",
+            "channel": "G",
+            "factor": 1.0
+          },
+          "Normal": {
+            "file": "magic_dust_3_Normal.png",
+            "channel": "RGB",
+            "factor": 1.0
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "replacement": "SourceAssets/Consumables5080_20260910/*_three_views.png",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/Consumables5080_20260910/hp_potion_stylized_draft.png",
+    "sha256": "F89BFB27EFF32C86A68FE8382AB7EEB8ADADCAF417C40BBEF0F2CC50256244AB",
+    "bytes": 1157979,
+    "reason": "Superseded by photorealistic three views",
+    "original": "SourceAssets/Consumables5080_20260910/hp_potion_stylized_draft.png"
+  },
+  {
+    "replacement": "SourceAssets/Consumables5080_20260910/*_three_views.png",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/Consumables5080_20260910/mp_potion_stylized_draft.png",
+    "sha256": "39368025DDED1ED45B7AD7E82B0D379DCD61E094C37434D2D8A811643785CC06",
+    "bytes": 1167661,
+    "reason": "Superseded by photorealistic three views",
+    "original": "SourceAssets/Consumables5080_20260910/mp_potion_stylized_draft.png"
+  },
+  {
+    "replacement": "SourceAssets/EnhancementMaterials5080_20260911/Delivery/enhancement_stone.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/EnhancementMaterials5080_20260911/enhancement_stone_raw_bake_rejected_normal.png",
+    "sha256": "DF3CC2102A4F0663CF17D8DD3F18E3643A18FD171F7C602150487D324C1F609C",
+    "bytes": 9996493,
+    "reason": "Rejected black-spot normal bake",
+    "original": "SourceAssets/EnhancementMaterials5080_20260911/enhancement_stone_raw_bake_rejected_normal.png"
+  },
+  {
+    "replacement": "SourceAssets/EnhancementMaterials5080_20260911/Delivery/enhancement_stone.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/EnhancementMaterials5080_20260911/enhancement_stone_raw_bake_rejected.glb",
+    "sha256": "3611B5C9E8589A5F256C0F89B3DBBD1C43B686E8A75E0A8FB83913B212A188AF",
+    "bytes": 25469852,
+    "reason": "Rejected black-spot normal bake",
+    "original": "SourceAssets/EnhancementMaterials5080_20260911/enhancement_stone_raw_bake_rejected.glb"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_back.png",
+    "sha256": "9513F6DC2CAF60829B16DFD60E863FDC5CA9B0DE415D9826EDB63C16C88360BD",
+    "bytes": 743990,
+    "reason": "Wrong-axis preview; accepted delivery is already Z-up",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_back.png"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_beauty.png",
+    "sha256": "42580F8BD74CE4779B2668BC4717270DE42FBF6C681AD6EA1B2A1173E9305D2B",
+    "bytes": 797630,
+    "reason": "Wrong-axis preview; accepted delivery is already Z-up",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_beauty.png"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_front.png",
+    "sha256": "70F417C4B9230D01FEE1A93101DE93561AF97B81FB1A28FD3566359C6E9E073C",
+    "bytes": 757814,
+    "reason": "Wrong-axis preview; accepted delivery is already Z-up",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_front.png"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_candidate.blend",
+    "sha256": "B230DC9E2C0AE3BB7746D471530EB2ED8BE98EB73A609D3B181FBD074F92FEEB",
+    "bytes": 12533582,
+    "reason": "Wrong-axis preview; accepted delivery is already Z-up",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_candidate.blend"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_mesh_report.json",
+    "sha256": "13A1A5FFA0B19CA0FF954E576E11F1573535A57A6C2657C77D8A10DD9C115538",
+    "bytes": 607,
+    "reason": "Wrong-axis preview; accepted delivery is already Z-up",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_upright_mesh_report.json"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_candidate.blend1",
+    "sha256": "A37E236F8E23105DFD5CFA20DC01F32CF52A564804A87306D4A24F6FFC5E08AE",
+    "bytes": 13986844,
+    "reason": "Superseded pre-fix Blender backup",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_candidate.blend1"
+  },
+  {
+    "replacement": "SourceAssets/MagicScroll5080_20260911/Delivery/magic_scroll.glb",
+    "archive": "trash/non-weapon-items-20260911/SourceAssets/MagicScroll5080_20260911/magic_scroll_lod0_editable.blend1",
+    "sha256": "331E158162D61C3FC6809646041D152D0AE2E5C9F44663FB87392F53B651336D",
+    "bytes": 14144183,
+    "reason": "Superseded pre-fix Blender backup",
+    "original": "SourceAssets/MagicScroll5080_20260911/magic_scroll_lod0_editable.blend1"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "magic_scroll": {
+    "materials": {
+      "Material_0.001": {
+        "Base Color": [
+          0.800000011920929,
+          0.800000011920929,
+          0.800000011920929,
+          1.0
+        ],
+        "Metallic": 0.0,
+        "Roughness": 0.5,
+        "Transmission Weight": 0.0,
+        "maps": {
+          "Base Color": {
+            "file": "magic_scroll_0_Base_Color.png",
+            "channel": "RGB",
+            "factor": 1.0
+          },
+          "Metallic": {
+            "file": "magic_scroll_0_Metallic.png",
+            "channel": "B",
+            "factor": 1.0
+          },
+          "Roughness": {
+            "file": "magic_scroll_0_Roughness.png",
+            "channel": "G",
+            "factor": 1.0
+          },
+          "Normal": {
+            "file": "magic_scroll_0_Normal.png",
+            "channel": "RGB",
+            "factor": 1.0
+          }
+        }
+      }
+    }
+  }
+}
