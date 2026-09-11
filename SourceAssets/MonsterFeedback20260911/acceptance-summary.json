@@ -1,0 +1,150 @@
+{
+  "tests": {
+    "Maggot-collision-fixed": {
+      "passed": 7,
+      "failed": 0,
+      "report": "Maggot-collision-fixed.json",
+      "log_sha256": "9883ebbafd61462f48a9ae2e8b6bcfbc66e818ad064ced2c02eeaa7157287ec7"
+    },
+    "Arena-final": {
+      "passed": 34,
+      "failed": 0,
+      "report": "Arena-final.json",
+      "log_sha256": "df8c6ea09bbf5ec347d7845adc743c47f4c9fdcd19bb93ce26570acd5b82b7b8"
+    },
+    "HandBrain-fitted": {
+      "passed": 31,
+      "failed": 0,
+      "report": "HandBrain-fitted.json",
+      "log_sha256": "5f6dd80b7271937033459f7bbeeb82633dd94533b7f50bae85b548731acae296",
+      "skin_ground": {
+        "min_cm": 2.163,
+        "underground": 0,
+        "sampled": 10210,
+        "missing": 0
+      }
+    },
+    "HandBrain-yaw90": {
+      "passed": 31,
+      "failed": 0,
+      "report": "HandBrain-yaw90.json",
+      "log_sha256": "7498696b5294d24a3e8e7626018c934415090f152d033597d8728e3ab1eed4a0",
+      "skin_ground": {
+        "min_cm": 2.277,
+        "underground": 0,
+        "sampled": 10210,
+        "missing": 0
+      }
+    },
+    "HandBrain-yaw180": {
+      "passed": 31,
+      "failed": 0,
+      "report": "HandBrain-yaw180.json",
+      "log_sha256": "083bc725f2c9087f771c046c84791999e67de6e5fa6b55353e16fced9ec26d1c",
+      "skin_ground": {
+        "min_cm": 2.487,
+        "underground": 0,
+        "sampled": 10210,
+        "missing": 0
+      }
+    },
+    "Status-final720": {
+      "passed": 20,
+      "failed": 0,
+      "report": "Status-final720.json",
+      "log_sha256": "9ffd1c33f00cb9a9d8436e577490463b540b2f288d837cff30c629c586aed435"
+    },
+    "Status-forced1080": {
+      "passed": 20,
+      "failed": 0,
+      "report": "Status-forced1080.json",
+      "log_sha256": "e3fcce720c80670c2f250ac9149bd43e0145f84fc6b70fa134da3e697b9b4409"
+    },
+    "AI-final": {
+      "passed": 16,
+      "failed": 0,
+      "report": "AI-final.json",
+      "log_sha256": "15dab194a921ac46d24910695e70233934648fc06ba3045e0d76c9365bfac72a"
+    },
+    "Nurse-final": {
+      "passed": 15,
+      "failed": 0,
+      "report": "Nurse-final.json",
+      "log_sha256": "fc303d2820fcbbcc090b247bbee0a98e60725ee57a31bb1faf23ef8e81112d56"
+    }
+  },
+  "images": {
+    "Status-final720": {
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "8951e293a5f594de5d51360c031ca7afa7eea5fadfff8447335030cc581935cc"
+    },
+    "Status-forced1080": {
+      "size": [
+        1920,
+        1080
+      ],
+      "sha256": "d952b832d1015bd48890e4679d23b150798eb98489893aacaff197c134f75886"
+    },
+    "HandBrain-before": {
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "dd87fa578507c78811e740954976509cf16847b2738665d4453ae8bc8452e968"
+    },
+    "HandBrain-fitted": {
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "9a3b85fdee08071b8a545ec6f9b84ddeb46460bfa000057e2799bd7088dbec1a"
+    },
+    "HandBrain-yaw90": {
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "91ff3033ec87edff9df91560a3441dceefe87ee2a160aa56e11c9b0048eb7628"
+    },
+    "HandBrain-yaw180": {
+      "size": [
+        1280,
+        720
+      ],
+      "sha256": "248c5b794e317bec6e5c3284d7408c80cc9dad0c145bf519a263e83e6fa9991d"
+    }
+  },
+  "active_local_assets": {
+    "Content/Monsters/HandBrain/SurfaceV07/PA_HandBrain.uasset": {
+      "bytes": 3487674,
+      "sha256": "b0b863fcef6b4fa8697a221c6db6711dcb8d69a75ccc830333b102797a87a926"
+    },
+    "Content/Monsters/HandBrain/SurfaceV07/SK_HandBrain_Surface.uasset": {
+      "bytes": 40486951,
+      "sha256": "e035463faf94ba4a11b0b2c6365eb191cb88a41896ac8d13d936d74ead2fef56"
+    },
+    "Content/Monsters/HandBrain/BP_HandBrain.uasset": {
+      "bytes": 29222,
+      "sha256": "e1893d241bc6da64e004be4459702a146a81016ef05007d8a5c5dcdd47ca0c0e"
+    },
+    "Content/ColdSteelData/status_effects.json": {
+      "bytes": 6494,
+      "sha256": "7547a5a349d63938877023487b76dcfdff1e6656bbebe4bfdb2bd6d5626bcb91"
+    }
+  },
+  "original_catalog_count": 31,
+  "live_gameplay_adapters": [
+    "poison",
+    "fear"
+  ],
+  "build": "build-9119010.log",
+  "limits": [
+    "Development standalone; no packaged or multiplayer acceptance.",
+    "Generic buff records validate presentation, not additional buff mechanics.",
+    "The initial requested 1080p run autosized to 888x500; retained separately and repeated with ForceRes.",
+    "Binary assets and screenshots remain in the licensed local host."
+  ]
+}

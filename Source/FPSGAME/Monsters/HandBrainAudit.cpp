@@ -1,4 +1,5 @@
 #include "HandBrainAudit.h"
+#include "MonsterSurfaceAudit.h"
 #include "HandBrainMonster.h"
 #include "HandBrainVillageSpawner.h"
 #include "HandBrainFearComponent.h"
@@ -59,7 +60,7 @@ void UHandBrainAudit::Step()
   Check(TEXT("village_spawner_created_one"),Spawner->SpawnCount==1);Check(TEXT("default_respawn_300s"),Spawner->RespawnSeconds==300);
   Check(TEXT("lord_stats"),Brain->MaxHealth==1500&&Brain->PhysicalAttack==50&&Brain->MagicAttack==55&&Brain->SlamCooldown==6&&Brain->HowlCooldown==30);
   Check(TEXT("five_clips_loaded"),Brain->IdleClip&&Brain->MoveClip&&Brain->SlamClip&&Brain->HowlClip&&Brain->DeathClip);
-  Check(TEXT("three_ragdoll_bodies"),Brain->GetMesh()->GetPhysicsAsset()&&Brain->GetMesh()->GetPhysicsAsset()->SkeletalBodySetups.Num()==3);
+  Check(TEXT("root_and_three_fitted_ragdoll_bodies"),Brain->GetMesh()->GetPhysicsAsset()&&Brain->GetMesh()->GetPhysicsAsset()->SkeletalBodySetups.Num()==4);
   Health->MaxHealth=10000;Health->Health=10000;Brain->AggroRadius=3000;Brain->HowlRadius=0;PlacePlayer(400);Start=Brain->GetActorLocation();BeforeHealth=Brain->Health;
   if(auto* FPS=Cast<AFPSGAMECharacter>(Player.Get())){BeforeAmmo=FPS->GetMagazineAmmo();}
   Brain->SetActorTickEnabled(false);Stage=18;StageClock=0;return;
@@ -104,7 +105,8 @@ void UHandBrainAudit::Step()
  if(Stage==12&&StageClock>2.2f)
  {
   Check(TEXT("leaving_slam_area_avoids_hit"),Brain->SlamHits==BeforeHits);PlacePlayer(420);BeforeHowl=Brain->HowlHits;Brain->CorpseSeconds=5;Spawner->RespawnSeconds=2;
-  auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();BeforeKills=Model->Kills();Brain->StartAttack(true);
+  auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();BeforeKills=Model->Kills();Brain->StartAttack(true);DeathFloor=Brain->GetCharacterMovement()->CurrentFloor.HitResult.GetComponent();
+  float CorpseYaw=0;FParse::Value(FCommandLine::Get(),TEXT("HandBrainCorpseYaw="),CorpseYaw);Brain->AddActorWorldRotation(FRotator(0,CorpseYaw,0));
   UGameplayStatics::ApplyDamage(Brain.Get(),10000,Player->GetController(),Player.Get(),nullptr);UGameplayStatics::ApplyDamage(Brain.Get(),10000,Player->GetController(),Player.Get(),nullptr);
   Check(TEXT("death_once_and_kill_reward_once"),Brain->State==EHandBrainState::Dying&&Model->Kills()==BeforeKills+1);BeforeHowl=Brain->HowlHits;Stage=13;StageClock=0;return;
  }
@@ -113,30 +115,13 @@ void UHandBrainAudit::Step()
  if(Stage==15&&StageClock>2.f)
  {
   FVector P=Brain->GetMesh()->GetSocketLocation(TEXT("cranium"));Check(TEXT("ragdoll_finite_near_spawn"),!P.ContainsNaN()&&FVector::Dist(P,Brain->GetActorLocation())<1200);
-  FHitResult Ground;FCollisionQueryParams Q(SCENE_QUERY_STAT(HandBrainCorpseGround),false,Brain.Get());Q.AddIgnoredActor(Player.Get());
-  bool Hit=GetWorld()->LineTraceSingleByChannel(Ground,P+FVector(0,0,500),P-FVector(0,0,1000),ECC_WorldStatic,Q);
-  // The cranium joint is offset 47 cm from its capsule centre. After tumbling,
-  // joint height is not the contact surface; test the actual simulated shape.
   auto* Body=Brain->GetMesh()->GetBodyInstance(TEXT("cranium"));
-  const auto& Shape=Brain->GetMesh()->GetPhysicsAsset()->SkeletalBodySetups[2]->AggGeom.SphylElems[0];
-  FTransform BodyTM=Body->GetUnrealWorldTransform();
-  const FVector Center=BodyTM.TransformPosition(Shape.Center*Body->Scale3D);
-  const FVector Axis=BodyTM.TransformVectorNoScale(Shape.Rotation.Quaternion().GetAxisZ());
-  Hit=GetWorld()->LineTraceSingleByChannel(Ground,Center+FVector(0,0,500),Center-FVector(0,0,1000),ECC_WorldStatic,Q);
-  const float PlaneSupport=FVector::DotProduct(Center-Ground.ImpactPoint,Ground.ImpactNormal)-Body->Scale3D.GetAbsMax()*(Shape.Radius+.5f*Shape.Length*FMath::Abs(FVector::DotProduct(Axis,Ground.ImpactNormal)));
-  // A single terrain triangle's infinite plane can cross a capsule even when the
-  // finite triangle does not. Sweep the actual capsule against scene geometry.
-  const float ShapeScale=Body->Scale3D.GetAbsMax();
-  FHitResult Contact;
-  Hit=GetWorld()->SweepSingleByChannel(Contact,Center+FVector(0,0,150),Center-FVector(0,0,100),BodyTM.GetRotation()*Shape.Rotation.Quaternion(),ECC_PhysicsBody,FCollisionShape::MakeCapsule(Shape.Radius*ShapeScale,(Shape.Radius+.5f*Shape.Length)*ShapeScale),Q);
-  const float Support=Center.Z-Contact.Location.Z;
-  Hit=Hit&&!Contact.bStartPenetrating;
-  Check(TEXT("ragdoll_stays_above_terrain"),Hit&&Support>-5&&Support<80);
-  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_CAPSULE_SUPPORT gap_cm=%.3f center=%s"),Support,*Center.ToString());
-  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_CONTACT_DIAGNOSTIC plane_gap_cm=%.3f sweep_hit=%d surface=%s"),PlaneSupport,Hit,*GetNameSafe(Contact.GetActor()));
-  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_CORPSE position=%s ground=%s"),*P.ToString(),*Ground.ImpactPoint.ToString());
-  FVector CameraPos=P+FVector(120,80,450);
-  auto* Camera=GetWorld()->SpawnActor<ACameraActor>(CameraPos,(P-CameraPos).Rotation());if(auto* PC=Cast<APlayerController>(Player->GetController()))PC->SetViewTarget(Camera);
+  Check(TEXT("ragdoll_physics_matches_render_bones"),Body&&(Body->GetUnrealWorldTransform().GetLocation()-P).Size()<.5f);
+  const auto Surface=MonsterSurfaceAudit::Ground(Brain->GetMesh(),DeathFloor.Get());
+  Check(TEXT("ragdoll_visible_surface_above_terrain"),Surface.Samples>100&&Surface.Missing==0&&Surface.Minimum> -3&&Surface.Minimum<20);
+  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_SURFACE min=%.3f below=%d sampled=%d missing=%d bounds=%s body_delta=%s"),Surface.Minimum,Surface.Underground,Surface.Samples,Surface.Missing,*Surface.Bounds.ToString(),*(Body->GetUnrealWorldTransform().GetLocation()-Brain->GetMesh()->GetSocketLocation(TEXT("cranium"))).ToString());
+  const FVector Look=Surface.Bounds.GetCenter();FVector CameraPos=Look+FVector(300,250,450);
+  auto* Camera=GetWorld()->SpawnActor<ACameraActor>(CameraPos,(Look-CameraPos).Rotation());if(auto* PC=Cast<APlayerController>(Player->GetController()))PC->SetViewTarget(Camera);
   Stage=16;StageClock=0;return;
  }
  if(Stage==16&&StageClock>.15f&&StageClock<.22f)Capture(TEXT("village-ragdoll"));

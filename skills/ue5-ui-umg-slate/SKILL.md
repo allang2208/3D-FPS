@@ -102,3 +102,6 @@ description: UE5.6-UE5.8 UI development workflow using UMG and Slate integration
 # Escalation
 - Escalate when behavior requires engine-level Slate customization beyond project scope.
 - Escalate when UI architecture conflicts with existing CommonUI framework decisions.
+
+# FPSGAME Reference
+- For this project's Buff / Debuff display, read [the status-effects bridge](references/fpsgame-status-effects.md).

@@ -26,6 +26,11 @@
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "PhysicsEngine/SkeletalBodySetup.h"
 #include "PhysicsEngine/PhysicsConstraintTemplate.h"
+#include "PhysicsEngine/BodyInstance.h"
+#if WITH_EDITOR
+#include "Rendering/SkeletalMeshModel.h"
+#include "Rendering/SkeletalMeshLODModel.h"
+#endif
 
 AHandBrainMonster::AHandBrainMonster()
 {
@@ -162,6 +167,9 @@ void AHandBrainMonster::EnterRagdoll()
  GetMesh()->RefreshBoneTransforms();GetMesh()->bPauseAnims=true;GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
  GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
  GetMesh()->SetAllBodiesSimulatePhysics(true);GetMesh()->SetSimulatePhysics(true);GetMesh()->SetAllPhysicsLinearVelocity(FVector::ZeroVector);GetMesh()->WakeAllRigidBodies();GetMesh()->AddImpulse(LastImpulse,TEXT("cranium"),true);
+ // The animated death_pivot is above the old first physics bone. A root body
+ // keeps component and simulation space aligned after that pivot has moved.
+ if(auto* RootBody=GetMesh()->GetBodyInstance(TEXT("root")))RootBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
  SetState(EHandBrainState::Ragdoll);UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_RAGDOLL active=%d"),GetMesh()->IsSimulatingPhysics());
 }
 UPhysicsAsset* AHandBrainMonster::CreatePhysicsAsset(USkeletalMesh* InMesh)
@@ -180,16 +188,40 @@ bool AHandBrainMonster::BuildPhysicsAsset(USkeletalMesh* Mesh,UPhysicsAsset* Ass
 #if WITH_EDITOR
  if(!Mesh||!Asset)return false;Asset->Modify();Asset->SkeletalBodySetups.Empty();Asset->ConstraintSetup.Empty();Asset->CollisionDisableTable.Empty();
  const auto& Ref=Mesh->GetRefSkeleton();TArray<FTransform> CS=Ref.GetRefBonePose();for(int32 I=0;I<CS.Num();++I)if(Ref.GetParentIndex(I)>=0)CS[I]=CS[I]*CS[Ref.GetParentIndex(I)];
- const FName Names[]={TEXT("base"),TEXT("neck"),TEXT("cranium")};const float Z[]={27,85,152};const float Radius[]={32,42,46};const float Length[]={20,25,32};
- for(int32 I=0;I<3;++I)
+ const FName Names[]={TEXT("root"),TEXT("base"),TEXT("neck"),TEXT("cranium")};const float Z[]={0,27,85,152};const float Radius[]={2,32,42,46};const float Length[]={0,20,25,32};
+ TArray<TArray<FVector>> HullPoints;HullPoints.SetNum(4);
+ // The visible body includes broad palms outside the old axial capsules.
+ // Alternate attack/fan meshes shrink in Death, so they must not enlarge the
+ // persistent body hulls to their full attack-pose extent.
+ if(auto* Model=Mesh->GetImportedModel())if(Model->LODModels.Num())
+ for(const auto& Section:Model->LODModels[0].Sections)for(const auto& Vertex:Section.SoftVertices)
+ {
+  int32 Influence=0;for(int32 J=1;J<MAX_TOTAL_INFLUENCES;++J)if(Vertex.InfluenceWeights[J]>Vertex.InfluenceWeights[Influence])Influence=J;
+  int32 Bone=Section.BoneMap[Vertex.InfluenceBones[Influence]],Region=INDEX_NONE;bool Alternate=false;
+  while(Bone>=0&&Region==INDEX_NONE)
+  {
+   const FName Name=Ref.GetBoneName(Bone);if(Name==TEXT("arm_mount")||Name==TEXT("fan_mount")){Alternate=true;break;}
+   for(int32 J=1;J<4;++J)if(Name==Names[J]){Region=J;break;}
+   if(Region==INDEX_NONE)Bone=Ref.GetParentIndex(Bone);
+  }
+  if(!Alternate&&Region!=INDEX_NONE)HullPoints[Region].Add(CS[Bone].InverseTransformPosition(FVector(Vertex.Position)));
+ }
+ for(int32 I=0;I<4;++I)
  {
   int32 B=Ref.FindBoneIndex(Names[I]);if(B==INDEX_NONE)return false;auto* Setup=NewObject<USkeletalBodySetup>(Asset,NAME_None,RF_Transactional);Setup->BoneName=Names[I];Setup->PhysicsType=PhysType_Default;Setup->CollisionTraceFlag=CTF_UseSimpleAsComplex;
   // Dimensions are specified in component-space centimetres; Chaos applies the
   // imported bone scale to the local shape, just as it does to its centre.
   const float BoneScale=CS[B].GetScale3D().GetAbsMax();
   if(BoneScale<=UE_SMALL_NUMBER)return false;
-  FKSphylElem Capsule;Capsule.Center=CS[B].InverseTransformPosition(FVector(0,0,Z[I]));Capsule.Rotation=CS[B].GetRotation().Inverse().Rotator();Capsule.Radius=Radius[I]/BoneScale;Capsule.Length=Length[I]/BoneScale;Setup->AggGeom.SphylElems.Add(Capsule);
-  Setup->DefaultInstance.SetCollisionProfileName(TEXT("Ragdoll"));Setup->DefaultInstance.LinearDamping=1.2f;Setup->DefaultInstance.AngularDamping=4.f;Setup->DefaultInstance.SetMassOverride(I==2?90:45);
+  if(I>0&&HullPoints[I].Num()>8)
+  {
+   FKConvexElem Hull;Hull.VertexData=HullPoints[I];Hull.UpdateElemBox();
+   // Two centimetres cover the small crown relaxation and blended joint skin.
+   const FVector Center=Hull.ElemBox.GetCenter();for(auto& V:Hull.VertexData)V+=(V-Center).GetSafeNormal()*(2.f/BoneScale);
+   Hull.UpdateElemBox();Setup->AggGeom.ConvexElems.Add(Hull);
+  }
+  else{FKSphylElem Capsule;Capsule.Center=CS[B].InverseTransformPosition(FVector(0,0,Z[I]));Capsule.Rotation=CS[B].GetRotation().Inverse().Rotator();Capsule.Radius=Radius[I]/BoneScale;Capsule.Length=Length[I]/BoneScale;Setup->AggGeom.SphylElems.Add(Capsule);}
+  Setup->DefaultInstance.SetCollisionProfileName(TEXT("Ragdoll"));Setup->DefaultInstance.LinearDamping=1.2f;Setup->DefaultInstance.AngularDamping=4.f;Setup->DefaultInstance.SetMassOverride(I==0?.1f:I==3?90:45);
   // Keep the three heavy, constrained bodies stable through the death handoff.
   Setup->DefaultInstance.bUseCCD=true;
   Setup->DefaultInstance.PositionSolverIterationCount=16;
@@ -202,7 +234,7 @@ bool AHandBrainMonster::BuildPhysicsAsset(USkeletalMesh* Mesh,UPhysicsAsset* Ass
    D.SetLinearXLimit(LCM_Locked,0);D.SetLinearYLimit(LCM_Locked,0);D.SetLinearZLimit(LCM_Locked,0);D.SetAngularSwing1Limit(ACM_Limited,12);D.SetAngularSwing2Limit(ACM_Limited,12);D.SetAngularTwistLimit(ACM_Limited,8);D.SetDisableCollision(true);Asset->ConstraintSetup.Add(C);
   }
  }
- for(int32 I=0;I<3;++I)for(int32 J=I+1;J<3;++J)Asset->DisableCollision(I,J);
+ for(int32 I=0;I<4;++I)for(int32 J=I+1;J<4;++J)Asset->DisableCollision(I,J);
  Asset->UpdateBodySetupIndexMap();Asset->UpdateBoundsBodiesArray();Asset->MarkPackageDirty();Mesh->SetPhysicsAsset(Asset);Mesh->MarkPackageDirty();return true;
 #else
  return false;

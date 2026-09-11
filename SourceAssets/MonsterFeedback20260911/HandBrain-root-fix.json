@@ -1,0 +1,39 @@
+{
+	"passed": [
+		"village_spawner_created_one",
+		"default_respawn_300s",
+		"lord_stats",
+		"five_clips_loaded",
+		"real_gun_input_damages_handbrain",
+		"chase_displaces_monster",
+		"slam_started",
+		"slam_windup_no_damage",
+		"slam_exact_contact_hit",
+		"slam_no_duplicate_hit",
+		"slam_cooldown_blocks_restart",
+		"slam_restart_after_cooldown",
+		"interrupted_slam_cannot_hit",
+		"howl_started",
+		"howl_immediate_first_tick",
+		"fear_stacks_and_moves_away",
+		"howl_six_ticks_without_end_duplicate",
+		"fear_expires_and_releases_input",
+		"occlusion_howl_started",
+		"wall_blocks_howl_damage",
+		"dodge_slam_started",
+		"leaving_slam_area_avoids_hit",
+		"death_once_and_kill_reward_once",
+		"death_transitions_to_ragdoll",
+		"death_cancels_howl_damage",
+		"ragdoll_finite_near_spawn",
+		"ragdoll_stays_above_terrain",
+		"corpse_removed",
+		"village_respawns_one_new_monster"
+	],
+	"failed": [
+		"three_ragdoll_bodies",
+		"ragdoll_visible_surface_above_terrain"
+	],
+	"complete": true,
+	"map": "L_Normandy_FPS_Test"
+}

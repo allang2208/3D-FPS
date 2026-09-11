@@ -1,0 +1,22 @@
+{
+	"passed": [
+		"behavior_tree_controller_loaded",
+		"path_routes_around_wall",
+		"hit_enters_stagger",
+		"stagger_uses_hit_clip",
+		"stagger_stops_motion",
+		"recovers_to_chase",
+		"actual_motion_around_wall",
+		"navigation_requests_used",
+		"accumulated_hits_stun",
+		"weak_followup_retains_stun",
+		"stun_outlasts_short_stagger",
+		"stun_releases",
+		"real_gun_damage",
+		"real_gun_stagger",
+		"post_gun_control_released",
+		"can_attack_after_recovery"
+	],
+	"failed": [],
+	"max_side_cm": 456.03466796875
+}

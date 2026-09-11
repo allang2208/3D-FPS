@@ -6,6 +6,9 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
+#include "../UI/StatusEffectsComponent.h"
 APoisonMaggotProjectile::APoisonMaggotProjectile()
 {
  PrimaryActorTick.bCanEverTick=true;
@@ -27,8 +30,20 @@ void APoisonMaggotProjectile::Tick(float Dt)
  FCollisionQueryParams Q(SCENE_QUERY_STAT(MaggotVenom),false,this);Q.AddIgnoredActor(Shooter.Get());FHitResult Hit;
  // The FPS capsule ignores Visibility to avoid blocking its own weapon traces.
  FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_WorldStatic);Objects.AddObjectTypesToQuery(ECC_WorldDynamic);Objects.AddObjectTypesToQuery(ECC_Pawn);
- if(GetWorld()->SweepSingleByObjectType(Hit,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(4.75f),Q))
+ // Object queries include overlap-only fog/trigger boxes. Gather all contacts so
+ // an overlap volume cannot hide a real blocking surface or the player capsule.
+ TArray<FHitResult> Contacts;GetWorld()->SweepMultiByObjectType(Contacts,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(4.75f),Q);
+ bool Blocking=false;
+ for(const auto& Contact:Contacts)
  {
+  const auto* Component=Contact.GetComponent();const auto* Pawn=Cast<APawn>(Contact.GetActor());
+  const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Component&&Component==Pawn->GetRootComponent();
+  if(!Component||(!PlayerBody&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block))continue;
+  if(!Blocking||Contact.Time<Hit.Time){Hit=Contact;Blocking=true;}
+ }
+ if(Blocking)
+ {
+  if(FParse::Param(FCommandLine::Get(),TEXT("MonsterFeedbackProbe")))UE_LOG(LogTemp,Display,TEXT("MAGGOT_IMPACT_PROBE actor=%s component=%s profile=%s visibility=%d pawn=%d initial=%d"),*GetPathNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.GetComponent()?*Hit.GetComponent()->GetCollisionProfileName().ToString():TEXT("none"),Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Visibility)):-1,Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)):-1,Hit.bStartPenetrating);
   if(auto* P=Cast<APawn>(Hit.GetActor()))if(P->IsPlayerControlled())
   {
    auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();
@@ -48,11 +63,12 @@ void UMaggotPoisonComponent::AddStack(APoisonMaggotMonster* Source)
  if(!GetOwner()->HasAuthority()||!IsValid(Source))return;
  auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead())return;
  if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;DamageInstigator=Source->GetController();SetComponentTickEnabled(true);
+ UStatusEffectsComponent::Notify(GetOwner());
 }
 void UMaggotPoisonComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
  Super::TickComponent(Dt,Type,Tick);if(!GetOwner()->HasAuthority())return;
- auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead()){Stacks=0;SetComponentTickEnabled(false);return;}
+ const int32 Before=Stacks;auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead()){Stacks=0;SetComponentTickEnabled(false);if(Before)UStatusEffectsComponent::Notify(GetOwner());return;}
  // Process tick/decay events in temporal order even when a frame crosses both.
  while(Dt>0&&Stacks>0&&!H->IsDead())
  {
@@ -61,4 +77,5 @@ void UMaggotPoisonComponent::TickComponent(float Dt,ELevelTick Type,FActorCompon
   if(DecayLeft<=UE_KINDA_SMALL_NUMBER){--Stacks;DecayLeft=5;}
  }
  if(H->IsDead())Stacks=0;if(Stacks==0)SetComponentTickEnabled(false);
+ if(Stacks!=Before)UStatusEffectsComponent::Notify(GetOwner());
 }

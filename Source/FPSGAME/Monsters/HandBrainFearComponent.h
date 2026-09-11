@@ -13,6 +13,7 @@ public:
  virtual void TickComponent(float Dt,ELevelTick TickType,FActorComponentTickFunction* Tick) override;
  virtual void EndPlay(const EEndPlayReason::Type Reason) override;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Fear") int32 Stacks=0;
+ float GetRemainingSeconds() const;
 private:
  void Release();
  TWeakObjectPtr<AActor> Threat;

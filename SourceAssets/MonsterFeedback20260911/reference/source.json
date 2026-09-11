@@ -1,0 +1,21 @@
+{
+  "source": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev",
+  "files": {
+    "src/ui/status-bar.js": "429d7a18d12ea20901291323eec950c47e45c87b63925c6fa663eee541216805",
+    "src/ui/panels/hud-core.js": "66ac43321ec9928e10a71eb6c83fff4ae533112466f9b76d418dc42aa03bc525",
+    "game-style.css": "63ee6d604284d104d0c2be491c25cee20e6afb8d1709a9a256802fe1b2cc208e"
+  },
+  "layout_px": {
+    "left": 104,
+    "top": 12,
+    "width": 252,
+    "height": 44,
+    "tile_width": 54,
+    "tile_height": 44,
+    "column_gap": 12,
+    "row_gap": 6,
+    "radius": 7,
+    "border": 2
+  },
+  "catalog_count": 31
+}

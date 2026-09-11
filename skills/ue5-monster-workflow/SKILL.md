@@ -56,3 +56,5 @@ description: 制作与接入 UE5 怪物，涵盖混元模型、本地拓扑绑�
 - 修改怪物 AI、枪击硬直、眩晕、寻路和行为选择时读 [Behavior Tree 约定](references/monster-ai.md)。
 
 - 继续手脑或复用混元、Blender、UE 导入工具时读 [手脑案例与工具入口](references/handbrain-pipeline.md)。数值和骨架数量属于案例；历史失败保留为追溯，当前状态以文首记录和本次回归为准。
+
+- 排查尸体穿地、雾体吞掉毒滴或玩家状态显示时读 [2026-09-11 反馈回归](references/monster-feedback-20260911.md)。物理接触和发射次数不能替代真实蒙皮接地与伤害验收。

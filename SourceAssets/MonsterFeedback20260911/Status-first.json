@@ -1,0 +1,25 @@
+{
+	"passed": [
+		"empty_bar_hidden",
+		"four_cards_from_live_poison_fear_and_display_records",
+		"live_poison_stack_decay_countdown",
+		"live_fear_stack_countdown",
+		"original_persistent_label",
+		"original_104_12_position_54_44_tile_12_gap",
+		"tooltip_within_viewport",
+		"refresh_merges_type_preserves_longer_duration",
+		"overflow_and_battle_count",
+		"expired_effects_removed",
+		"poison_decay_updates_existing_tile",
+		"poison_still_applies_real_damage",
+		"fear_releases_movement_input",
+		"death_hides_all_effects_and_tooltip",
+		"actual_respawn_rebinds_same_hud",
+		"respawn_new_effect_appears",
+		"countdown_expiry_hides_empty_bar"
+	],
+	"failed": [
+		"real_pointer_hover_opens_poison_tooltip"
+	],
+	"complete": true
+}

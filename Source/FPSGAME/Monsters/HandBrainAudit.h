@@ -16,4 +16,5 @@ private:
  FVector Start,PlayerBefore;TArray<FString> Passed,Failed;
  bool bGunReleased=false;int32 BeforeAmmo=0;
  TWeakObjectPtr<AHandBrainMonster> Brain;TWeakObjectPtr<AHandBrainVillageSpawner> Spawner;TWeakObjectPtr<ACharacter> Player;TWeakObjectPtr<UFPSCombatHealthComponent> Health;TWeakObjectPtr<AActor> Wall;
+ TWeakObjectPtr<class UPrimitiveComponent> DeathFloor;
 };

@@ -1,0 +1,221 @@
+{
+  "effects": [
+    {
+      "type": "stun",
+      "icon": "💫",
+      "name": "眩晕",
+      "color": "#9a7a5a",
+      "description": "无法移动、攻击、使用技能与物品。"
+    },
+    {
+      "type": "poison",
+      "icon": "☠️",
+      "name": "中毒",
+      "color": "#7a9a5a",
+      "description": "每秒受到层数点毒素伤害。"
+    },
+    {
+      "type": "minePoison",
+      "icon": "☣",
+      "name": "矿毒",
+      "color": "#a1b052",
+      "description": "矿洞毒气：每秒以最大生命0.5%为基准结算魔法伤害；离开毒区后最多残留3秒，可净化。"
+    },
+    {
+      "type": "slow",
+      "icon": "🐌",
+      "name": "减速",
+      "color": "#5a7a9a",
+      "description": "移动速度降低 50%。"
+    },
+    {
+      "type": "waxSealSlow",
+      "icon": "🕯️",
+      "name": "封蜡减速",
+      "color": "#ba9272",
+      "description": "封蜡诅咒使移动速度降低20%，持续2秒；再次命中只刷新时间，不叠层。"
+    },
+    {
+      "type": "buff",
+      "icon": "✨",
+      "name": "增益",
+      "color": "#9a9a5a",
+      "description": "获得临时增益效果。"
+    },
+    {
+      "type": "shield",
+      "icon": "🛡️",
+      "name": "护盾",
+      "color": "#5a8a9a",
+      "description": "获得护盾，减免受到的伤害。"
+    },
+    {
+      "type": "bleed",
+      "icon": "🩸",
+      "name": "流血",
+      "color": "#9a3a3a",
+      "description": "持续流失生命值。"
+    },
+    {
+      "type": "corrosion",
+      "icon": "🧪",
+      "name": "腐蚀",
+      "color": "#9ab84f",
+      "description": "每层使物理防御降低 5%；每次倒计时结束只消退 1 层。"
+    },
+    {
+      "type": "magicVulnerability",
+      "icon": "🔮",
+      "name": "魔力易伤",
+      "color": "#8a5a9a",
+      "description": "每层使受到的魔法伤害提高 5%。"
+    },
+    {
+      "type": "droneVulnerability",
+      "icon": "🛸",
+      "name": "无人机易伤",
+      "color": "#5a7a9a",
+      "description": "每层使受到的所有伤害提高 10%。"
+    },
+    {
+      "type": "marbleHeal",
+      "icon": "🗿",
+      "name": "大理石守护",
+      "color": "#8a9a8a",
+      "description": "击杀目标后 1 秒内回复生命值。"
+    },
+    {
+      "type": "goddessBless",
+      "icon": "✨",
+      "name": "女神祝福",
+      "color": "#e8c878",
+      "description": "本场战斗攻击/防御/移速提升，按场消耗。"
+    },
+    {
+      "type": "demonPrayer",
+      "icon": "🔥",
+      "name": "恶魔祈祷",
+      "color": "#9a3a3a",
+      "description": "攻击力大幅提升的恶魔交易，伴随代价。"
+    },
+    {
+      "type": "fear",
+      "icon": "😨",
+      "name": "恐惧",
+      "color": "#6a5a8a",
+      "description": "失控地远离恐惧源，每层移速再降 33%（上限 99%）。"
+    },
+    {
+      "type": "tributeSnowLotus",
+      "icon": "🪷",
+      "name": "雪莲祝福",
+      "color": "#9ad0ff",
+      "description": "本次地牢获得经验 +25%。"
+    },
+    {
+      "type": "tributeGinseng",
+      "icon": "🌿",
+      "name": "人参回气",
+      "color": "#6a9a5a",
+      "description": "本次地牢击杀目标后 1 秒内回复最大魔法值 5%。"
+    },
+    {
+      "type": "tributePeach",
+      "icon": "🍑",
+      "name": "蟠桃续命",
+      "color": "#e8a06a",
+      "description": "本次地牢死亡后 3 秒以 30% 最大生命原地复活一次。"
+    },
+    {
+      "type": "tributeDiamond",
+      "icon": "💎",
+      "name": "金刚不坏",
+      "color": "#7ab0e0",
+      "description": "单次受到的伤害不超过最大生命值的 15%。"
+    },
+    {
+      "type": "tributeMoonstone",
+      "icon": "🌙",
+      "name": "月影庇护",
+      "color": "#b0a0e0",
+      "description": "进入战斗获得无敌；Boss/精英战斗中物理魔法伤害 +5%。"
+    },
+    {
+      "type": "tributePhilosopher",
+      "icon": "🪨",
+      "name": "点石成金",
+      "color": "#e0c060",
+      "description": "获得随机传说祭品（若为传说祭品则额外再得一份）。"
+    },
+    {
+      "type": "holyRenewal",
+      "icon": "💚",
+      "name": "圣光续疗",
+      "color": "#7aff9a",
+      "description": "每秒恢复最大生命值 1%×层数 的生命值。"
+    },
+    {
+      "type": "holyWard",
+      "icon": "🛡️",
+      "name": "圣佑",
+      "color": "#ffe7a3",
+      "description": "持续期间降低受到的最终伤害。"
+    },
+    {
+      "type": "chainSpell",
+      "icon": "🔗",
+      "name": "链式强化",
+      "color": "#8a7a6a",
+      "description": "下次施法的魔法伤害与 MP 消耗按层数提高。"
+    },
+    {
+      "type": "weaponHaste",
+      "icon": "➤",
+      "name": "命中动能",
+      "color": "#69e7e3",
+      "description": "P4040命中后移动速度提高10%；再次命中刷新持续时间。"
+    },
+    {
+      "type": "chill",
+      "icon": "❄️",
+      "name": "寒冷",
+      "color": "#7ab8e0",
+      "description": "每层降低 5% 移动速度；层数加法叠加，最终乘算。"
+    },
+    {
+      "type": "burn",
+      "icon": "🔥",
+      "name": "灼伤",
+      "color": "#ff6b35",
+      "description": "每 0.5 秒受到施法者魔法攻击×0.5 的魔法伤害。"
+    },
+    {
+      "type": "frozen",
+      "icon": "🧊",
+      "name": "冻结",
+      "color": "#a0d8ff",
+      "description": "无法移动、攻击、使用技能与物品；受到的非魔法伤害提高 50%。"
+    },
+    {
+      "type": "petrified",
+      "icon": "🗿",
+      "name": "石化",
+      "color": "#929292",
+      "description": "持续期间停在当前动画帧，无法移动或执行任何动作；受到的魔法伤害提高 50%。"
+    },
+    {
+      "type": "flameArmor",
+      "icon": "🔥",
+      "name": "灼锋焰甲",
+      "color": "#ff7a3a",
+      "description": "攻击附带魔法伤害并迸发火花；每 0.5 秒灼烧周围敌人；武器持续上浮火焰粒子。"
+    },
+    {
+      "type": "electrified",
+      "icon": "⚡",
+      "name": "感电",
+      "color": "#b98cff",
+      "description": "每层使受到的电系伤害提高 3%；叠满 5 层触发过载：眩晕并释放电弧传导。"
+    }
+  ]
+}

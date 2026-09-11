@@ -13,6 +13,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/CameraActor.h"
@@ -109,6 +110,7 @@ void UPoisonMaggotAudit::Step()
   {
    Check(TEXT("real_navigation_displacement"),MaxSide>400&&AI->NavigationRequests>0);Arena();Monster->PoisonChance=0;
    Camera=GetWorld()->SpawnActor<ACameraActor>();Camera->SetActorLocation(FVector(10,-1510,345));Camera->SetActorRotation((FVector(-400,-900,65)-Camera->GetActorLocation()).Rotation());Camera->GetCameraComponent()->SetFieldOfView(58);PC->SetViewTarget(Camera.Get());BeforeLocation=Monster->GetActorLocation();BeforeYaw=Monster->GetActorRotation().Yaw;
+   auto* Trigger=GetWorld()->SpawnActor<AActor>();auto* Box=NewObject<UBoxComponent>(Trigger);Trigger->SetRootComponent(Box);Box->SetBoxExtent(FVector(350,250,200));Box->SetCollisionProfileName(TEXT("OverlapAllDynamic"));Box->RegisterComponent();Trigger->SetActorLocation(FVector(-250,-900,100));
    Check(TEXT("spit_starts"),Monster->StartSpit(Player.Get()));Next();return;
   }
  }
@@ -119,7 +121,7 @@ void UPoisonMaggotAudit::Step()
   Check(TEXT("exactly_24_emissions"),Monster->ProjectilesFired-BeforeShots==24&&Monster->EmissionTimes.Num()==24);
   bool Times=Monster->EmissionTimes.Num()==24;for(int32 I=0;I<Monster->EmissionTimes.Num();++I)Times&=FMath::IsNearlyEqual(Monster->EmissionTimes[I],Monster->FirstEmission+I*.05f,.0001f)&&Monster->EmissionTimes[I]<Monster->EndEmission;
   Check(TEXT("scheduled_window_and_interval"),Times);Check(TEXT("attack_locks_translation_and_yaw"),FVector::Dist2D(Monster->GetActorLocation(),BeforeLocation)<2&&FMath::Abs(Monster->GetActorRotation().Yaw-BeforeYaw)<1);
-  Check(TEXT("visible_projectiles_hit_player"),Monster->ProjectileHits>BeforeHits&&H->Health<BeforeHealth);Check(TEXT("cooldown_rejects_early_attack"),!Monster->StartSpit(Player.Get()));Next();return;
+  Check(TEXT("visible_projectiles_cross_overlap_volume_and_hit_player"),Monster->ProjectileHits>BeforeHits&&H->Health<BeforeHealth);Check(TEXT("cooldown_rejects_early_attack"),!Monster->StartSpit(Player.Get()));Next();return;
  }
  if(Stage==6&&T>4.2f)
  {
@@ -211,7 +213,7 @@ void UPoisonMaggotAudit::VillageStep()
   if(Time-LastNavLog>5){LastNavLog=Time;auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());FNavLocation A,B;const auto& Props=Monster->GetNavAgentPropertiesRef();bool At=Nav&&Nav->ProjectPointToNavigation(Monster->GetActorLocation(),A,FVector(200,200,300),&Props);bool To=Nav&&Nav->ProjectPointToNavigation(P,B,FVector(200,200,300),&Props);UE_LOG(LogTemp,Display,TEXT("MAGGOT_VILLAGE_NAV time=%.2f building=%d start=%d end=%d valid=%d partial=%d points=%d target=%s"),Time,UNavigationSystemV1::IsNavigationBeingBuiltOrLocked(this),At,To,Path&&Path->IsValid(),Path&&Path->IsPartial(),Path?Path->PathPoints.Num():0,*P.ToString());}
   if(!Path||!Path->IsValid()||Path->IsPartial())return;
   Player->SetActorLocation(P,false,nullptr,ETeleportType::TeleportPhysics);
-  Check(TEXT("village_saved_spawner_runs"),Spawner->SpawnCount==1);Check(TEXT("village_nav_path_valid"),true);BeforeLocation=Monster->GetActorLocation();BeforeShots=Monster->ProjectilesFired;
+  Check(TEXT("village_saved_spawner_runs"),Spawner->SpawnCount==1);Check(TEXT("village_nav_path_valid"),true);BeforeLocation=Monster->GetActorLocation();BeforeShots=Monster->ProjectilesFired;BeforeHits=Monster->ProjectileHits;
   Camera=GetWorld()->SpawnActor<ACameraActor>();FrameVillageCamera();Cast<APlayerController>(Player->GetController())->SetViewTarget(Camera.Get());
   AI->SetDecisionEnabled(true);UGameplayStatics::ApplyDamage(Monster.Get(),10,Player->GetController(),Player.Get(),nullptr);StartTime=GetWorld()->GetTimeSeconds();Next();return;
  }
@@ -223,6 +225,7 @@ void UPoisonMaggotAudit::VillageStep()
   if(Monster->State==EPoisonMaggotState::Spitting&&Monster->StateSeconds>1.65f){Check(TEXT("village_actual_chase"),FVector::Dist2D(Monster->GetActorLocation(),BeforeLocation)>200);Check(TEXT("village_attack_emits"),Monster->ProjectilesFired>BeforeShots);FrameVillageCamera();AI->SetDecisionEnabled(false);Next();return;}
  }
  if(Stage==2&&T>.3f&&!Flag){Capture(TEXT("village-spit"));Flag=true;}
+ if(Stage==2&&T>1.6f)Check(TEXT("village_venom_reaches_player"),Monster->ProjectileHits>BeforeHits);
  if(Stage==2&&T>1.6f){VillageGround=Monster->GetCharacterMovement()->CurrentFloor.HitResult.GetComponent();UE_LOG(LogTemp,Display,TEXT("MAGGOT_VILLAGE_GROUND component=%s floor=%s"),*GetPathNameSafe(VillageGround.Get()),*Monster->GetCharacterMovement()->CurrentFloor.HitResult.ImpactPoint.ToString());Monster->CorpseSeconds=12;UGameplayStatics::ApplyDamage(Monster.Get(),100000,Player->GetController(),Player.Get(),nullptr);if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>())H->Health=H->MaxHealth;if(auto* P=Player->FindComponentByClass<UMaggotPoisonComponent>()){P->Stacks=0;P->SetComponentTickEnabled(false);}Next();return;}
  if(Stage==3&&T>5)
  {

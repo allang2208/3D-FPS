@@ -1,0 +1,15 @@
+{
+	"passed": [
+		"village_saved_spawner_runs",
+		"village_nav_path_valid",
+		"village_actual_chase",
+		"village_attack_emits",
+		"village_death_and_reward",
+		"village_ragdoll_terrain_support"
+	],
+	"failed": [
+		"village_venom_reaches_player"
+	],
+	"max_side_cm": 0,
+	"complete": true
+}

@@ -1,0 +1,21 @@
+{
+  "passed": [
+    "two_saved_nurses_spawned",
+    "matching_mesh_clips",
+    "chase_actual_displacement",
+    "nurse_grounded",
+    "player_health_connected",
+    "one_contact_hit",
+    "no_duplicate_hit_in_swing",
+    "evaded_swing_no_damage",
+    "interrupted_swing_no_damage",
+    "real_gun_input_damages_mesh",
+    "death_disables_damage_collision",
+    "ragdoll_enabled",
+    "corpse_removed",
+    "dead_nurse_cannot_hit",
+    "player_respawned"
+  ],
+  "failed": [],
+  "complete": true
+}

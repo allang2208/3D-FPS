@@ -30,6 +30,7 @@ public:
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Poison") int32 Stacks=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Poison") int32 TicksApplied=0;
+ float GetDecayRemaining() const {return Stacks>0?DecayLeft:0.f;}
 private:
  TWeakObjectPtr<AController> DamageInstigator;
  TWeakObjectPtr<AActor> DamageSource;

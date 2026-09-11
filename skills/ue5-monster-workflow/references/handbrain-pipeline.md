@@ -87,3 +87,8 @@ V06 exact skin-weight hashes and sampled bone poses match V05; the five action c
 Tools use the `surface_v07` suffix under `Tools/HandBrain`. Bake a new normal only within the SurfaceRegion mask and retain color/roughness/oral maps. Keep sculpt attributes in the source; remove bake-only attributes from the export copy before joining. Compare clay and textured renders under identical lighting. Broad original planar forms and occluded/thumb/attack/crown anatomy remain a stated quality limit.
 
 Fresh V07 village run at 13:19 passed 30/30, with -0.057 cm capsule sweep gap and a visible grounded corpse; evidence is in `surface_v07/runtime`. This is one regression run, not a new LOD or packaging-performance acceptance.
+
+
+### 2026-09-11 玩家反馈修正验收边界
+
+旧 V07 的胶囊接地通过遗漏了实际渲染表面穿地。后续复现最低表面低于地面 88.367 cm，约 72% 采样点穿地；根因包括物理根缺失和轴向胶囊未覆盖手掌。当前采用不碰撞 root 与主体拟合凸包，具体修复、真实蒙皮读法、当前回归和失败证据见 [反馈回归](monster-feedback-20260911.md)。上面的历史 30/30 不能用作当前尸体表面合格的依据。
