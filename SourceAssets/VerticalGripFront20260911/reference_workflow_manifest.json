@@ -1,0 +1,42 @@
+[
+  {
+    "path": "ReferenceWorkflow/akm_preview_visibility.py",
+    "sha256": "de308e811bffb58b1b35c0b493d0635ab192f17f9be6aa5e863cc28e6f2ac9d5",
+    "sha256_lf": "de308e811bffb58b1b35c0b493d0635ab192f17f9be6aa5e863cc28e6f2ac9d5"
+  },
+  {
+    "path": "ReferenceWorkflow/assemble_editable.py",
+    "sha256": "108a2059ab068d8b4fe5dc9eb9755b31e3d1957df0fb82e193ca3b22cc895275",
+    "sha256_lf": "88c8a792a3c42ba9f4c4ad49447f25dc0cd903ff39240484e85b590bf505d80f"
+  },
+  {
+    "path": "ReferenceWorkflow/build_akm.py",
+    "sha256": "b74fb45447f8cd8159ff7c0c642903b07dfebcf51590164f74f5539e54cfa9f8",
+    "sha256_lf": "3f83fda9f28e86feddb3f506a759eed1828b35f95930e9790544366613a81d5a"
+  },
+  {
+    "path": "ReferenceWorkflow/build_m4.py",
+    "sha256": "ac6d9b95d4c1ce30bef288dc2013bb6b1f2bf7df29afbee93f94a9b9d33f54e3",
+    "sha256_lf": "b6e364f84fa8c07f5188502d951117017a7ef1cd05960cba3b9e4e094dccd8b3"
+  },
+  {
+    "path": "ReferenceWorkflow/check_geometry.py",
+    "sha256": "98fd043409399264c28b21d563aba357b28a7eaf3e9906e58ab4958dc7e4493c",
+    "sha256_lf": "7f73b976abfde28934ba7f7b3dca6d1945e7ce3523fe357aef25dd827bcf2968"
+  },
+  {
+    "path": "ReferenceWorkflow/compare_source_self.py",
+    "sha256": "1255423c063b66e3141309c4800045ad8a06962e0d2861a06fcf730a57095e86",
+    "sha256_lf": "1255423c063b66e3141309c4800045ad8a06962e0d2861a06fcf730a57095e86"
+  },
+  {
+    "path": "ReferenceWorkflow/validate_source.py",
+    "sha256": "7dc363279f55fcad7eda7b61d0763965edd1bb1872a0a7e6f98d8767a3ec768b",
+    "sha256_lf": "7dc363279f55fcad7eda7b61d0763965edd1bb1872a0a7e6f98d8767a3ec768b"
+  },
+  {
+    "path": "ReferenceWorkflow/verify_assets.py",
+    "sha256": "90e4b2bd4987de621cbce353aeb6504976d70f6e9b0f8503f82433733f7bdce6",
+    "sha256_lf": "e3c2df4c5d211515793f820e27e0f71e43a08c12e83f1d7f13d8bde54901b8cd"
+  }
+]

@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Weapons/VerticalGripAnimationFamily.h
++++ b/Source/FPSGAME/Weapons/VerticalGripAnimationFamily.h
+@@ -14 +14 @@
+-            bPrism ? TEXT("/Game/Weapons/M4VerticalGripErgonomic/Prism") : TEXT("/Game/Weapons/M4VerticalGripErgonomic/Vertical"),
++            bPrism ? TEXT("/Game/Weapons/M4VerticalGripErgonomic/Prism") : TEXT("/Game/Weapons/M4VerticalGripOpposed/Vertical"),
+--- a/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
++++ b/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
+@@ -9 +9,2 @@
+-    return FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/%s/A_AKM_%s_%s"),Key,Key,Clip);
++    const TCHAR* Family=FCString::Strcmp(Key,TEXT("vertical"))==0?TEXT("GripOpposed"):TEXT("GripErgonomic");
++    return FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/%s/%s/A_AKM_%s_%s"),Family,Key,Key,Clip);
+--- a/Source/FPSGAME/ForegripAudit.cpp
++++ b/Source/FPSGAME/ForegripAudit.cpp
+@@ -198 +198,12 @@
+-    if(ForegripAuditStage==21){FScreenshotRequest::RequestScreenshot(Out/TEXT("wrist_review.png"),false,false);ForegripAuditStage=bAKM?25:27;ForegripAuditNextTime=Now+.5f;return;}
++    if(ForegripAuditStage==21){FScreenshotRequest::RequestScreenshot(Out/TEXT("wrist_review.png"),false,false);ForegripAuditStage=31;ForegripAuditNextTime=Now+.5f;return;}
++    if(ForegripAuditStage==31)
++    {
++        if(auto* ReviewCamera=Cast<ACameraActor>(PC->GetViewTarget()))
++        {
++            const FVector Focus=AKMViewmodel->GetSocketLocation(TEXT("hand_l"))*.35f+AKMViewmodel->GetSocketLocation(TEXT("thumb_02_l"))*.65f;
++            const FVector Eye=FirstPersonCamera->GetComponentLocation();
++            ReviewCamera->SetActorLocationAndRotation(Eye,(Focus-Eye).Rotation());ReviewCamera->GetCameraComponent()->SetFieldOfView(30);
++        }
++        ForegripAuditStage=32;ForegripAuditNextTime=Now+.5f;return;
++    }
++    if(ForegripAuditStage==32){FScreenshotRequest::RequestScreenshot(Out/TEXT("player_grasp_review.png"),false,false);ForegripAuditStage=bAKM?25:27;ForegripAuditNextTime=Now+.5f;return;}
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -40,0 +41 @@
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4VerticalGripOpposed")

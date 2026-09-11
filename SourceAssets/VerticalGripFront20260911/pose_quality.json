@@ -1,0 +1,24 @@
+{
+  "m4/vertical": {
+    "before": {
+      "wrist_axis_bend_deg": 26.77213710289536,
+      "elbow_bend_deg": 43.21185772752975
+    },
+    "after": {
+      "wrist_axis_bend_deg": 5.075511864689183,
+      "elbow_bend_deg": 13.826484271771982
+    },
+    "four_finger_rotation_max_change_deg": 0.0
+  },
+  "akm/vertical": {
+    "before": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.305017758783713
+    },
+    "after": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.077630516030233
+    },
+    "four_finger_rotation_max_change_deg": 0.0
+  }
+}

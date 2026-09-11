@@ -1,0 +1,164 @@
+{
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_idle": {
+    "duration": 3.0,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0005670574702970142,
+    "compression_rotation_deg": 6.389056940260479e-05,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_reload": {
+    "duration": 2.0999999046325684,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0006866907969186248,
+    "compression_rotation_deg": 0.0004012045792925991,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 4.386384399968287e-05,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_aim": {
+    "duration": 0.03333333507180214,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0005344743699068744,
+    "compression_rotation_deg": 4.6887644301306027e-05,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_fire": {
+    "duration": 0.7666666507720947,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0005819335831249361,
+    "compression_rotation_deg": 6.551287306347348e-05,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_aim_fire": {
+    "duration": 0.7666666507720947,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0005693073427230844,
+    "compression_rotation_deg": 0.0001429452693690718,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_equip": {
+    "duration": 0.6333333253860474,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0006165249360986471,
+    "compression_rotation_deg": 0.0007845506237289729,
+    "preserved_nonleft_cm": 1.3938759982107425e-06,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_reload_empty": {
+    "duration": 2.700000047683716,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0007079183884817503,
+    "compression_rotation_deg": 0.0002024145891708876,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 3.524003931216706e-05,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_drum_reload": {
+    "duration": 2.0999999046325684,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0006873862309553817,
+    "compression_rotation_deg": 0.0024466370183096474,
+    "preserved_nonleft_cm": 1.1713252225526364e-06,
+    "preserved_reload_contact_cm": 8.851461661451158e-05,
+    "passed": true
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_drum_reload_empty": {
+    "duration": 2.4666666984558105,
+    "samples_hz": 60,
+    "compression_position_cm": 0.0006814051595494708,
+    "compression_rotation_deg": 0.0006333872729248226,
+    "preserved_nonleft_cm": 0,
+    "preserved_reload_contact_cm": 0.00028171897276445837,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_idle": {
+    "duration": 0.0416666679084301,
+    "samples_hz": 120,
+    "compression_position_cm": 0.00016201729462526953,
+    "compression_rotation_deg": 2.7106472927070668e-05,
+    "preserved_nonleft_cm": 1.9693367648992135e-05,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_aim": {
+    "duration": 0.0416666679084301,
+    "samples_hz": 120,
+    "compression_position_cm": 0.00017052007543890687,
+    "compression_rotation_deg": 2.5269392327350503e-05,
+    "preserved_nonleft_cm": 2.192200106003497e-05,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_fire": {
+    "duration": 0.10000000149011612,
+    "samples_hz": 120,
+    "compression_position_cm": 0.00016201729462526953,
+    "compression_rotation_deg": 2.7106472927070668e-05,
+    "preserved_nonleft_cm": 1.9693367648992135e-05,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_aim_fire": {
+    "duration": 0.10000000149011612,
+    "samples_hz": 120,
+    "compression_position_cm": 0.00017052007543890687,
+    "compression_rotation_deg": 2.5269392327350503e-05,
+    "preserved_nonleft_cm": 2.192200106003497e-05,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_equip": {
+    "duration": 1.7000000476837158,
+    "samples_hz": 120,
+    "compression_position_cm": 0.00018142440229179898,
+    "compression_rotation_deg": 0.00014249581907454874,
+    "preserved_nonleft_cm": 0.0001812833626007692,
+    "preserved_reload_contact_cm": 0,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_reload": {
+    "duration": 3.3333332538604736,
+    "samples_hz": 120,
+    "compression_position_cm": 0.0001746198697109051,
+    "compression_rotation_deg": 0.00011512972213720781,
+    "preserved_nonleft_cm": 0.00018735641140835913,
+    "preserved_reload_contact_cm": 0.0003623132722175967,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_reload_empty": {
+    "duration": 4.291666507720947,
+    "samples_hz": 120,
+    "compression_position_cm": 0.0014227326550407364,
+    "compression_rotation_deg": 0.009191590834836262,
+    "preserved_nonleft_cm": 0.0001801774970129733,
+    "preserved_reload_contact_cm": 0.0034520062284564266,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_drum_reload": {
+    "duration": 3.3333332538604736,
+    "samples_hz": 120,
+    "compression_position_cm": 0.0001749815416067518,
+    "compression_rotation_deg": 0.00011573593811640868,
+    "preserved_nonleft_cm": 0.0002155756835061308,
+    "preserved_reload_contact_cm": 0.0002575325980510638,
+    "passed": true
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "samples_hz": 120,
+    "compression_position_cm": 0.0014773509283499589,
+    "compression_rotation_deg": 0.009213128503398633,
+    "preserved_nonleft_cm": 0.0001801774970129733,
+    "preserved_reload_contact_cm": 0.0035075691758198343,
+    "passed": true
+  }
+}

@@ -1,0 +1,1000 @@
+{
+  "date": "2026-09-11",
+  "scope": "M4 and AKM vertical grip opposed-thumb refinement; 18 animations; small handstops deferred under user wrap-around preference",
+  "native_build": {
+    "module_suffix": "2026096304",
+    "result": "Succeeded"
+  },
+  "runtime": {
+    "opposed-m4-vertical": {
+      "passed_log_checks": 118,
+      "failures": 0
+    },
+    "opposed-akm-vertical": {
+      "passed_log_checks": 336,
+      "failures": 0
+    }
+  },
+  "geometry": {
+    "m4/vertical": {
+      "samples": 447,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 51
+    },
+    "akm/vertical": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 237
+    }
+  },
+  "thumb_gun": {
+    "m4/vertical": {
+      "samples": 330,
+      "intersection_sample_times": 0
+    },
+    "akm/vertical": {
+      "samples": 418,
+      "intersection_sample_times": 22,
+      "new_only_parts_at_sample": {},
+      "before_contact_samples": 24
+    }
+  },
+  "reported_new_finger_contact_samples": {
+    "m4/vertical": [
+      [
+        "reload",
+        11.5,
+        {
+          "index-thumb": 26
+        }
+      ],
+      [
+        "reload",
+        12.0,
+        {
+          "index-thumb": 52
+        }
+      ],
+      [
+        "reload",
+        12.5,
+        {
+          "index-thumb": 97
+        }
+      ],
+      [
+        "reload",
+        13.0,
+        {
+          "index-thumb": 127
+        }
+      ],
+      [
+        "reload",
+        13.5,
+        {
+          "index-thumb": 122
+        }
+      ],
+      [
+        "reload",
+        104.5,
+        {
+          "index-thumb": 42
+        }
+      ],
+      [
+        "reload",
+        105.0,
+        {
+          "index-thumb": 122
+        }
+      ],
+      [
+        "reload",
+        105.5,
+        {
+          "index-thumb": 136
+        }
+      ],
+      [
+        "reload",
+        106.0,
+        {
+          "index-thumb": 97
+        }
+      ],
+      [
+        "reload",
+        106.5,
+        {
+          "index-thumb": 46
+        }
+      ],
+      [
+        "reload",
+        107.0,
+        {
+          "index-thumb": 28
+        }
+      ],
+      [
+        "reload_empty",
+        11.5,
+        {
+          "index-thumb": 26
+        }
+      ],
+      [
+        "reload_empty",
+        12.0,
+        {
+          "index-thumb": 52
+        }
+      ],
+      [
+        "reload_empty",
+        12.5,
+        {
+          "index-thumb": 97
+        }
+      ],
+      [
+        "reload_empty",
+        13.0,
+        {
+          "index-thumb": 127
+        }
+      ],
+      [
+        "reload_empty",
+        13.5,
+        {
+          "index-thumb": 122
+        }
+      ],
+      [
+        "drum_reload",
+        23.5,
+        {
+          "index-thumb": 68
+        }
+      ],
+      [
+        "drum_reload",
+        24.0,
+        {
+          "index-thumb": 106
+        }
+      ],
+      [
+        "drum_reload",
+        24.5,
+        {
+          "index-thumb": 19
+        }
+      ],
+      [
+        "drum_reload",
+        105.5,
+        {
+          "index-thumb": 18
+        }
+      ],
+      [
+        "drum_reload",
+        106.0,
+        {
+          "index-thumb": 108
+        }
+      ],
+      [
+        "drum_reload",
+        106.5,
+        {
+          "index-thumb": 68
+        }
+      ],
+      [
+        "drum_reload",
+        107.0,
+        {
+          "index-thumb": 50
+        }
+      ],
+      [
+        "drum_reload",
+        107.5,
+        {
+          "index-thumb": 16
+        }
+      ],
+      [
+        "drum_reload_empty",
+        22.5,
+        {
+          "index-thumb": 31
+        }
+      ],
+      [
+        "drum_reload_empty",
+        23.0,
+        {
+          "index-thumb": 36
+        }
+      ],
+      [
+        "drum_reload_empty",
+        23.5,
+        {
+          "index-thumb": 93
+        }
+      ],
+      [
+        "drum_reload_empty",
+        24.0,
+        {
+          "index-thumb": 33
+        }
+      ],
+      [
+        "drum_reload_empty",
+        127.5,
+        {
+          "index-thumb": 70
+        }
+      ],
+      [
+        "drum_reload_empty",
+        128.0,
+        {
+          "index-thumb": 98
+        }
+      ],
+      [
+        "drum_reload_empty",
+        128.5,
+        {
+          "index-thumb": 75
+        }
+      ],
+      [
+        "drum_reload_empty",
+        129.0,
+        {
+          "index-thumb": 43
+        }
+      ],
+      [
+        "drum_reload_empty",
+        129.5,
+        {
+          "index-thumb": 28
+        }
+      ]
+    ],
+    "akm/vertical": [
+      [
+        "reload",
+        24.0,
+        {
+          "index-thumb": 10
+        }
+      ],
+      [
+        "reload",
+        24.5,
+        {
+          "index-thumb": 32
+        }
+      ],
+      [
+        "reload",
+        25.0,
+        {
+          "index-thumb": 40
+        }
+      ],
+      [
+        "reload",
+        25.5,
+        {
+          "index-thumb": 47
+        }
+      ],
+      [
+        "reload",
+        26.0,
+        {
+          "index-thumb": 46
+        }
+      ],
+      [
+        "reload",
+        26.5,
+        {
+          "index-thumb": 88
+        }
+      ],
+      [
+        "reload",
+        27.0,
+        {
+          "index-thumb": 132
+        }
+      ],
+      [
+        "reload",
+        27.5,
+        {
+          "index-thumb": 126
+        }
+      ],
+      [
+        "reload",
+        28.0,
+        {
+          "index-thumb": 112
+        }
+      ],
+      [
+        "reload",
+        285.5,
+        {
+          "index-thumb": 15
+        }
+      ],
+      [
+        "reload",
+        286.0,
+        {
+          "index-thumb": 21
+        }
+      ],
+      [
+        "reload",
+        286.5,
+        {
+          "index-thumb": 26
+        }
+      ],
+      [
+        "reload",
+        287.0,
+        {
+          "index-thumb": 47
+        }
+      ],
+      [
+        "reload",
+        287.5,
+        {
+          "index-thumb": 68
+        }
+      ],
+      [
+        "reload",
+        288.0,
+        {
+          "index-thumb": 61
+        }
+      ],
+      [
+        "reload",
+        288.5,
+        {
+          "index-thumb": 48
+        }
+      ],
+      [
+        "reload",
+        289.0,
+        {
+          "index-thumb": 44
+        }
+      ],
+      [
+        "reload",
+        289.5,
+        {
+          "index-thumb": 42
+        }
+      ],
+      [
+        "reload",
+        290.0,
+        {
+          "index-thumb": 42
+        }
+      ],
+      [
+        "reload",
+        290.5,
+        {
+          "index-thumb": 46
+        }
+      ],
+      [
+        "reload",
+        291.0,
+        {
+          "index-thumb": 41
+        }
+      ],
+      [
+        "reload",
+        291.5,
+        {
+          "index-thumb": 41
+        }
+      ],
+      [
+        "reload",
+        292.0,
+        {
+          "index-thumb": 36
+        }
+      ],
+      [
+        "reload",
+        292.5,
+        {
+          "index-thumb": 38
+        }
+      ],
+      [
+        "reload",
+        293.0,
+        {
+          "index-thumb": 34
+        }
+      ],
+      [
+        "reload",
+        293.5,
+        {
+          "index-thumb": 30
+        }
+      ],
+      [
+        "reload",
+        294.0,
+        {
+          "index-thumb": 14
+        }
+      ],
+      [
+        "reload",
+        294.5,
+        {
+          "index-thumb": 12
+        }
+      ],
+      [
+        "reload",
+        295.0,
+        {
+          "index-thumb": 5
+        }
+      ],
+      [
+        "reload",
+        329.5,
+        {
+          "index-thumb": 10
+        }
+      ],
+      [
+        "reload_empty",
+        24.0,
+        {
+          "index-thumb": 10
+        }
+      ],
+      [
+        "reload_empty",
+        24.5,
+        {
+          "index-thumb": 30
+        }
+      ],
+      [
+        "reload_empty",
+        25.0,
+        {
+          "index-thumb": 42
+        }
+      ],
+      [
+        "reload_empty",
+        25.5,
+        {
+          "index-thumb": 46
+        }
+      ],
+      [
+        "reload_empty",
+        26.0,
+        {
+          "index-thumb": 50
+        }
+      ],
+      [
+        "reload_empty",
+        26.5,
+        {
+          "index-thumb": 112
+        }
+      ],
+      [
+        "reload_empty",
+        27.0,
+        {
+          "index-thumb": 142
+        }
+      ],
+      [
+        "reload_empty",
+        27.5,
+        {
+          "index-thumb": 126
+        }
+      ],
+      [
+        "reload_empty",
+        28.0,
+        {
+          "index-thumb": 116
+        }
+      ],
+      [
+        "reload_empty",
+        403.0,
+        {
+          "index-thumb": 56
+        }
+      ],
+      [
+        "reload_empty",
+        403.5,
+        {
+          "index-thumb": 41
+        }
+      ],
+      [
+        "reload_empty",
+        404.0,
+        {
+          "index-thumb": 36
+        }
+      ],
+      [
+        "reload_empty",
+        404.5,
+        {
+          "index-thumb": 35
+        }
+      ],
+      [
+        "reload_empty",
+        405.0,
+        {
+          "index-thumb": 31
+        }
+      ],
+      [
+        "reload_empty",
+        405.5,
+        {
+          "index-thumb": 22
+        }
+      ],
+      [
+        "reload_empty",
+        406.0,
+        {
+          "index-thumb": 11
+        }
+      ],
+      [
+        "drum_reload",
+        24.0,
+        {
+          "index-thumb": 2
+        }
+      ],
+      [
+        "drum_reload",
+        24.5,
+        {
+          "index-thumb": 37
+        }
+      ],
+      [
+        "drum_reload",
+        25.0,
+        {
+          "index-thumb": 38
+        }
+      ],
+      [
+        "drum_reload",
+        25.5,
+        {
+          "index-thumb": 49
+        }
+      ],
+      [
+        "drum_reload",
+        26.0,
+        {
+          "index-thumb": 45
+        }
+      ],
+      [
+        "drum_reload",
+        26.5,
+        {
+          "index-thumb": 57
+        }
+      ],
+      [
+        "drum_reload",
+        27.0,
+        {
+          "index-thumb": 122
+        }
+      ],
+      [
+        "drum_reload",
+        27.5,
+        {
+          "index-thumb": 117
+        }
+      ],
+      [
+        "drum_reload",
+        28.0,
+        {
+          "index-thumb": 108
+        }
+      ],
+      [
+        "drum_reload",
+        28.5,
+        {
+          "index-thumb": 74
+        }
+      ],
+      [
+        "drum_reload",
+        285.5,
+        {
+          "index-thumb": 15
+        }
+      ],
+      [
+        "drum_reload",
+        286.0,
+        {
+          "index-thumb": 21
+        }
+      ],
+      [
+        "drum_reload",
+        286.5,
+        {
+          "index-thumb": 26
+        }
+      ],
+      [
+        "drum_reload",
+        287.0,
+        {
+          "index-thumb": 47
+        }
+      ],
+      [
+        "drum_reload",
+        287.5,
+        {
+          "index-thumb": 68
+        }
+      ],
+      [
+        "drum_reload",
+        288.0,
+        {
+          "index-thumb": 61
+        }
+      ],
+      [
+        "drum_reload",
+        288.5,
+        {
+          "index-thumb": 48
+        }
+      ],
+      [
+        "drum_reload",
+        289.0,
+        {
+          "index-thumb": 44
+        }
+      ],
+      [
+        "drum_reload",
+        289.5,
+        {
+          "index-thumb": 42
+        }
+      ],
+      [
+        "drum_reload",
+        290.0,
+        {
+          "index-thumb": 42
+        }
+      ],
+      [
+        "drum_reload",
+        290.5,
+        {
+          "index-thumb": 46
+        }
+      ],
+      [
+        "drum_reload",
+        291.0,
+        {
+          "index-thumb": 41
+        }
+      ],
+      [
+        "drum_reload",
+        291.5,
+        {
+          "index-thumb": 41
+        }
+      ],
+      [
+        "drum_reload",
+        292.0,
+        {
+          "index-thumb": 36
+        }
+      ],
+      [
+        "drum_reload",
+        292.5,
+        {
+          "index-thumb": 38
+        }
+      ],
+      [
+        "drum_reload",
+        293.0,
+        {
+          "index-thumb": 34
+        }
+      ],
+      [
+        "drum_reload",
+        293.5,
+        {
+          "index-thumb": 30
+        }
+      ],
+      [
+        "drum_reload",
+        294.0,
+        {
+          "index-thumb": 14
+        }
+      ],
+      [
+        "drum_reload",
+        294.5,
+        {
+          "index-thumb": 12
+        }
+      ],
+      [
+        "drum_reload",
+        295.0,
+        {
+          "index-thumb": 5
+        }
+      ],
+      [
+        "drum_reload",
+        329.5,
+        {
+          "index-thumb": 10
+        }
+      ],
+      [
+        "drum_reload_empty",
+        24.0,
+        {
+          "index-thumb": 4
+        }
+      ],
+      [
+        "drum_reload_empty",
+        24.5,
+        {
+          "index-thumb": 30
+        }
+      ],
+      [
+        "drum_reload_empty",
+        25.0,
+        {
+          "index-thumb": 40
+        }
+      ],
+      [
+        "drum_reload_empty",
+        25.5,
+        {
+          "index-thumb": 50
+        }
+      ],
+      [
+        "drum_reload_empty",
+        26.0,
+        {
+          "index-thumb": 44
+        }
+      ],
+      [
+        "drum_reload_empty",
+        26.5,
+        {
+          "index-thumb": 90
+        }
+      ],
+      [
+        "drum_reload_empty",
+        27.0,
+        {
+          "index-thumb": 131
+        }
+      ],
+      [
+        "drum_reload_empty",
+        27.5,
+        {
+          "index-thumb": 128
+        }
+      ],
+      [
+        "drum_reload_empty",
+        28.0,
+        {
+          "index-thumb": 114
+        }
+      ],
+      [
+        "drum_reload_empty",
+        28.5,
+        {
+          "index-thumb": 16
+        }
+      ],
+      [
+        "drum_reload_empty",
+        403.0,
+        {
+          "index-thumb": 56
+        }
+      ],
+      [
+        "drum_reload_empty",
+        403.5,
+        {
+          "index-thumb": 41
+        }
+      ],
+      [
+        "drum_reload_empty",
+        404.0,
+        {
+          "index-thumb": 36
+        }
+      ],
+      [
+        "drum_reload_empty",
+        404.5,
+        {
+          "index-thumb": 35
+        }
+      ],
+      [
+        "drum_reload_empty",
+        405.0,
+        {
+          "index-thumb": 31
+        }
+      ],
+      [
+        "drum_reload_empty",
+        405.5,
+        {
+          "index-thumb": 22
+        }
+      ],
+      [
+        "drum_reload_empty",
+        406.0,
+        {
+          "index-thumb": 11
+        }
+      ]
+    ]
+  },
+  "geometry_scope": "Sampled skinned finger/grip and inter-finger surfaces. Extra thumb/gun check covers visible main gun and factory magazine, excludes separate SM_AKM drum mesh. Source reload contacts remain; this is not continuous collision certification.",
+  "animation_assets_passed": 18,
+  "compression_maxima": {
+    "compression_position_cm": 0.0014773509283499589,
+    "compression_rotation_deg": 0.009213128503398633,
+    "preserved_nonleft_cm": 0.0002155756835061308,
+    "preserved_reload_contact_cm": 0.0035075691758198343
+  },
+  "pose_quality": {
+    "m4/vertical": {
+      "before": {
+        "wrist_axis_bend_deg": 26.77213710289536,
+        "elbow_bend_deg": 43.21185772752975
+      },
+      "after": {
+        "wrist_axis_bend_deg": 5.075511864689183,
+        "elbow_bend_deg": 13.826484271771982
+      },
+      "four_finger_rotation_max_change_deg": 0.0
+    },
+    "akm/vertical": {
+      "before": {
+        "wrist_axis_bend_deg": 0.24787220737396423,
+        "elbow_bend_deg": 31.305017758783713
+      },
+      "after": {
+        "wrist_axis_bend_deg": 0.12354069976706185,
+        "elbow_bend_deg": 31.077630516030233
+      },
+      "four_finger_rotation_max_change_deg": 0.0
+    }
+  },
+  "pose_metric_scope": "Rig axis directions at idle, not anatomical clinical joint angles. Four non-thumb finger local rotations retained.",
+  "formal_animation_paths": [
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_idle",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_reload",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_aim",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_fire",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_aim_fire",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_equip",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_reload_empty",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_drum_reload",
+    "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_drum_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_drum_reload_empty"
+  ],
+  "formal_new_static_paths": [],
+  "editable_families": [
+    "m4/vertical/M4_vertical_Family_Editable.blend",
+    "akm/vertical/AKM_vertical_Family_Editable.blend"
+  ],
+  "commandlet_environment": "Import/readback scripts passed. Commandlet exit 1 includes preexisting GameFeatureData AssetManager configuration and HTTP 8000 contention. Fresh runtime processes exited 0.",
+  "preview": "Actual UE captures. Player-view comparison uses the player eye position and FOV 30, with aim focused on the moving hand/thumb. Videos use capture timestamps and are silent visual evidence.",
+  "user_visual_acceptance": "Previous forward-thumb iteration rejected. This opposed-thumb vertical-grip iteration awaits user review.",
+  "finger_contact_sample_times_also_present_in_source": 161,
+  "self_contact_comparison_scope": "Source comparison counts whether any finger contact exists at the same time; per-pair details are in preserved_source_contacts.json. It does not classify all same-time contact pairs as inherited."
+}

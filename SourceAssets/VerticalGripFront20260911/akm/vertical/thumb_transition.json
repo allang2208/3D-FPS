@@ -1,0 +1,26 @@
+{
+  "reload": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "degrees": -3,
+    "start": 30,
+    "peak": 36,
+    "end": 42,
+    "new_gun_or_grip_hits": 0
+  },
+  "reload_empty": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "degrees": -15,
+    "start": 30,
+    "peak": 36,
+    "end": 42,
+    "new_gun_or_grip_hits": 0
+  }
+}
