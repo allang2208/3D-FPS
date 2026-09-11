@@ -1,0 +1,22 @@
+{
+  "panoramic": {
+    "checks": 58,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMBridgeRefine20260911\\panoramic-bridge2\\write.log"
+  },
+  "scope2x": {
+    "checks": 59,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMBridgeRefine20260911\\scope2x-bridge2\\write.log"
+  },
+  "lpvo": {
+    "checks": 116,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMBridgeRefine20260911\\lpvo-bridge2\\write.log"
+  },
+  "assets": {
+    "SM_AKM_Mount_lpvo_1_6x.uasset": "70859d13592de0275a5b6644e822d41fc9023e47d14a6257860079f0a68408ab",
+    "SM_AKM_Mount_panoramic_red_dot.uasset": "b3ee46f5078f5043be302e6aba6666a4b1834e8df25424181e373c63e07d84cc",
+    "SM_AKM_Mount_prism_scope_2x.uasset": "18f6e34941856781d860fb65412b100e1d0374fd298335e848f6fac309a70d5c"
+  }
+}

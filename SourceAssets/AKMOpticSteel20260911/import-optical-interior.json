@@ -1,0 +1,27 @@
+{
+  "prism_scope_2x": {
+    "mesh": "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_PrismScope2X.SM_PrismScope2X",
+    "triangles": 18040,
+    "materials": {
+      "Scope2X_Reticle": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+      "Scope2X_Glass": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+      "Scope2X_Body": "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_Scope2X_Body.M_AKM_Scope2X_Body"
+    }
+  },
+  "lpvo_1_6x": {
+    "mesh": "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_LPVO1to6X.SM_LPVO1to6X",
+    "triangles": 20608,
+    "materials": {
+      "LPVO_Reticle": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+      "LPVO_Glass": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+      "LPVO_Body": "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_LPVO_Body.M_AKM_LPVO_Body"
+    }
+  },
+  "ring": {
+    "mesh": "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_LPVORing.SM_LPVORing",
+    "triangles": 2204,
+    "materials": {
+      "LPVO_Body": "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_LPVO_Body.M_AKM_LPVO_Body"
+    }
+  }
+}

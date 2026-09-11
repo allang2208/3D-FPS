@@ -41,3 +41,9 @@ Windows 系统字体及其派生字体仅按工具中的本地用途处理，不
 恢复本机 `Content/Movement/Traversal/Native`（手臂网格、动画及动画包围盒版本），以及初始地图及其 ExternalActors/ExternalObjects。测试障碍可由 `Tools/SceneTests/place_traversal_course.py` 在已打开的初始地图重建。源参考与可编辑工程位于 `SourceAssets/GASPTraversal20260910/{Reference,Native}`，作者脚本还依赖本机 `SourceAssets/M4TacticalToss20260910/M4_Hand_MAT_Editable.blend`。需自行取得官方 Game Animation Sample 的使用许可；原始动画、FBX、Blend、参考截图与运动采样数据本次不公开分发。
 
 Git 包含攀爬 C++、配置、作者工具、导入/包围盒/作者校验摘要和技能。AKM 完整宿主集成属于独立内容依赖；发布核心的攀爬测试在缺少 AKM 目录定义时使用第二把 M4，不将其报告为 AKM 素材验收。完整宿主之前的 AKM 运行记录保留在攀爬文档。
+
+## AKM 瞄具与枪钢（2026-09-11）
+
+本机当前恢复还需要 `Content/Weapons/AKMIntegration/SovietFab/{Attachments,ArmSupport,Optics,OpticSteel}`，以及同枪的动画、原始 Soviet Fab 模型/贴图和 M4 共用手模。`Optics` 为当前侧装桥架，`OpticSteel` 为 AKM 独立瞄具及材质，保留共享 M4 镜片/分划等依赖。完整材质来源仍遵守原 Fab 许可，不能从本次公开脚本推断获得了原资产分发权。
+
+作者复现源需要 `SourceAssets/AKMArmSupport20260911`、`AKMAttachments20260911`、当前 M4 瞄具源以及 `AKMBridgeRefine20260911`、`AKMOpticSteel20260911` 的本机二进制输入；按各案例 README 顺序执行。旧方块底座和失败中间件已移入 trash，当前恢复不从旧文件覆盖正式资产。此次只整理发布工作流、脚本与记录；未将混合并行修改的 AKM 运行模块当作新源码基线发布。见 [整理与验收记录](Weapons/akm-optics-workflow-20260911.md)。

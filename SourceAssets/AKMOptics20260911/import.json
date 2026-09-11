@@ -1,0 +1,29 @@
+{
+  "SM_AKM_Mount_lpvo_1_6x": {
+    "bounds": "<Struct 'BoxSphereBounds' (0x000001E52C4CC1C0) {origin: {x: -0.334999, y: 14.599999, z: 9.150000}, box_extent: {x: 2.015000, y: 4.200000, z: 2.150000}, sphere_radius: 4.964689}>",
+    "triangles": 540,
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+  },
+  "SM_AKM_Mount_panoramic_red_dot": {
+    "bounds": "<Struct 'BoxSphereBounds' (0x000001E51A593680) {origin: {x: -0.335000, y: 6.000000, z: 9.150000}, box_extent: {x: 2.015000, y: 3.600000, z: 2.150000}, sphere_radius: 4.472543}>",
+    "triangles": 540,
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+  },
+  "SM_AKM_Mount_prism_scope_2x": {
+    "bounds": "<Struct 'BoxSphereBounds' (0x000001E51A595AC0) {origin: {x: -0.334999, y: 10.500000, z: 9.150000}, box_extent: {x: 2.015000, y: 3.500000, z: 2.150000}, sphere_radius: 4.393125}>",
+    "triangles": 540,
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+  },
+  "suppressor": {
+    "triangles": 40512,
+    "same_current_M4_materials": true
+  },
+  "brake": {
+    "triangles": 7016,
+    "same_current_M4_materials": true
+  },
+  "titanium_brake": {
+    "triangles": 32304,
+    "same_current_M4_materials": true
+  }
+}

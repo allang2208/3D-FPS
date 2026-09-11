@@ -1,0 +1,1162 @@
+[
+  {
+    "original": "SourceAssets/AKMOptics20260911/muzzle-v1/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/muzzle-v1/write.log",
+    "bytes": 262625,
+    "sha256": "A4CC16D857034861BA4C52907FE3AF0A9F762E4D334C0B501ECC7C68798D186C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/muzzle-v2/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/muzzle-v2/write.log",
+    "bytes": 259835,
+    "sha256": "F4C6C6FE8C1A258A821746F163384A2613EA2B629E7E127388BC4CD8529B392E",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/Before/SM_AKM_Mount_lpvo_1_6x.uasset",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/Before/SM_AKM_Mount_lpvo_1_6x.uasset",
+    "bytes": 85726,
+    "sha256": "E652253878DFD796AC1CCB32F9852A27F8B7EA3709DDD7DDFBDC09BA86B808C3",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/Before/SM_AKM_Mount_panoramic_red_dot.uasset",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/Before/SM_AKM_Mount_panoramic_red_dot.uasset",
+    "bytes": 85883,
+    "sha256": "15A6DC549AEB91FF4380C76ED246A4A52CD9D6F4DCC1A811166A52D5F075CE73",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/Before/SM_AKM_Mount_prism_scope_2x.uasset",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/Before/SM_AKM_Mount_prism_scope_2x.uasset",
+    "bytes": 85808,
+    "sha256": "661F8527F346D1E6FCA7D1AEBC08F65B51E5DC3A0C92381917363868E73F2BB3",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-gunsmith-panel.png",
+    "bytes": 281908,
+    "sha256": "644B5A9C16A48D77522BE5935E62D2040D8AF75C072E9B0B9ACD71D014CDF840",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-ads.png",
+    "bytes": 998775,
+    "sha256": "905F14C0032841043DD9400D8AD66B4E96B4C4E7F290D921397264520D662E1C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-fire.png",
+    "bytes": 1866963,
+    "sha256": "D9B74FEEAAF933F5D60D7CE3A2177C80C3099C2A3AC1A8E5615E48BC7180130B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-hip.png",
+    "bytes": 1820190,
+    "sha256": "A6EF56E6E563511D44745CE702177D16975D67226A3458049E877501C8E18B41",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-holographic-reload.png",
+    "bytes": 1983261,
+    "sha256": "7407CEE4B43A6F7E03653817245A2006CE3BFCD4A94BF86FE7FAB847088DBCFF",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-m4-iron-restored.png",
+    "bytes": 980877,
+    "sha256": "312118302E4173407F23A52CE7D57BA7F181A176DCF035F844D3DB84333E7FE1",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-gameplay-ads.png",
+    "bytes": 1820477,
+    "sha256": "A13369B6542A6E28728E007D493926FC82DD5BD6C7CD16CAC803A694276F885C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-inventory-icon.png",
+    "bytes": 12827,
+    "sha256": "E5093A8C5B4E1B8756AF4ABF0ACF688AB8B1B0511C45889BA41FAA68160A6FE5",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-rotated.png",
+    "bytes": 960760,
+    "sha256": "4D245159BB6BCCA1ADDACC4B8D379A736DB89F11950939A110ABDBA1F6DD06B8",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-panoramic-side.png",
+    "bytes": 1000383,
+    "sha256": "BFEBC04A0389A20FC9D5801187B41AB360E4B3081F71F3713106F73133D8E6F7",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write-result.txt",
+    "bytes": 20,
+    "sha256": "DE82A2F06D874085BC8E8B6ACD047C1E86115CF0AE8DC699AC1947966E4E445F",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic-bridge1/write.log",
+    "bytes": 262222,
+    "sha256": "04E5473322AAB4AAE349923C9F0505AA27562F2075B2FB1D05BFCD8E951C0210",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-gunsmith-panel.png",
+    "bytes": 281885,
+    "sha256": "A3CC49E9CD6BD797648630F2CD335106789B80CA4F78EA0E53730E3E43D3540D",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-ads.png",
+    "bytes": 996484,
+    "sha256": "AA7ABD673B05C028C13741EDFF1411544075D6406E7D3DF83B151D45C9A52355",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-fire.png",
+    "bytes": 1771472,
+    "sha256": "8F895116753678268B89B5917CCCF315E9D9D8A5F9B77E9AB6DA30DB8418F2D0",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-hip.png",
+    "bytes": 1837764,
+    "sha256": "0D2114CA80C6FCB35AF757AC232730D01F39A45C966D28D3E138BD2F6BB51D55",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-holographic-reload.png",
+    "bytes": 1991587,
+    "sha256": "90D36CADF662C4C504BB5259A537C36C50326E3488C6BFCB116B1F036E99C796",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-m4-iron-restored.png",
+    "bytes": 981053,
+    "sha256": "4DA822AE70116D67985A93E805E0BD9A65B16051E57B0511696DDC28960EF802",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-gameplay-ads.png",
+    "bytes": 1731189,
+    "sha256": "1CCB4BD52D0A6EC22DCB1D71537A0F0B6DF54A33CE5C44D742E1DB430167E6B4",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-inventory-icon.png",
+    "bytes": 13168,
+    "sha256": "8D4F40458B4886DA53A02A7D289EE09212C90706F06E794D90AF411E1D8BB810",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-rotated.png",
+    "bytes": 964583,
+    "sha256": "E1CF2A6F885A923297E08DCB4EBA1A282AFF746B1728A942D1C450E257C9E38D",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-panoramic-side.png",
+    "bytes": 1001106,
+    "sha256": "E33444ECEE490BFBBD7CFA9D3F3727B7BB84C36C3A42FA1922FD733487F65C52",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write-result.txt",
+    "bytes": 20,
+    "sha256": "97C71C5F4A61659C86E311BE60E9C6BB0E8F6C6E558DE0A37CBD9FEDD1FFB225",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/scope2x-bridge1/write.log",
+    "bytes": 262351,
+    "sha256": "2C81A3ED29FF896F0162144D783FD769AED5D0921D0709B5D7E1088A4241F21B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-1x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-1x.png",
+    "bytes": 665957,
+    "sha256": "E34392CFD323A8416FAB4A1685DFEB6C4EE9056D5676369A3F88A5161EB994C6",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-2x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-2x.png",
+    "bytes": 618110,
+    "sha256": "93789B1455A3A09AE94D86740DE18640CFA37A294951AC0DBDCA39F786B31AA2",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-4x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-4x.png",
+    "bytes": 600603,
+    "sha256": "8663D5103DDBD3A33B35BCE5D17FA4A1A88C054D4101B0B53098EDACE3F4D4D1",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-6x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-6x.png",
+    "bytes": 585589,
+    "sha256": "55B639298600525D58C2D1849EA12A78760FB89570678D62C6876A022E61CDC7",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-hip-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-hip-restored.png",
+    "bytes": 1841893,
+    "sha256": "5816C43B352187B0BD472632D985CCA595E832989A11BC0A4EA723F571F7CC5A",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-reopen-2x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-reopen-2x.png",
+    "bytes": 621849,
+    "sha256": "057CAF500A49791E0ECCFDB5A3AA55AFA2403272C6565F56A10E50E5FF997A1E",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-reopen-4x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-lpvo-reopen-4x.png",
+    "bytes": 601941,
+    "sha256": "D99924A445E9CF07522E7142B78AB7C22C1514317F5110B483160F6C64C55F21",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-gunsmith-panel.png",
+    "bytes": 281576,
+    "sha256": "043538814B3301854AEEDBAFD89A41F1B80DFE752FE510C3E259A44F8868EA28",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-ads.png",
+    "bytes": 1005632,
+    "sha256": "C5B02E5F86F8B1247710E295CEA4F5066E8662D342AF3B1A218B4DCC580D99BB",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-fire.png",
+    "bytes": 683222,
+    "sha256": "C7DC657282C088C3BAC1BEF57ED01EBAF9B00C1454C09B51F0AD0B692CE99F96",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-hip.png",
+    "bytes": 1826253,
+    "sha256": "27190E0B9CF14075A1037E8B822CAE90639E9D30CCE2A11CA7E59C92ACF11E29",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-holographic-reload.png",
+    "bytes": 2002219,
+    "sha256": "9389A0750037E9516DA107F5D03CC43795E6C7FB7585CC11023C3C23DF8AC396",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-m4-iron-restored.png",
+    "bytes": 981109,
+    "sha256": "A11D16FE53AAEB1F2D420F42E8FBED17E5D72926BDB17AABDB2DA00117BBC5FA",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-gameplay-ads.png",
+    "bytes": 662640,
+    "sha256": "FEFF93CFBC2C525B681E86927766E2E5ACCF677FE72FFC114ECF04F328D562C2",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-inventory-icon.png",
+    "bytes": 13684,
+    "sha256": "C3A654DBC43ACD778A4A84E8586EEA6238BDFAE104251AE3597195C2FE8F4B62",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-rotated.png",
+    "bytes": 964730,
+    "sha256": "4312F726E69D7A3C24B1CFCDAA1ADF47DE4DAE894C6EB98E776E8608FC41B5FC",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-panoramic-side.png",
+    "bytes": 1000548,
+    "sha256": "103FD8614BE034A83A6188A0D3FDE1EECE488D990BDA49713CD3DA4AAA41642C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write-result.txt",
+    "bytes": 21,
+    "sha256": "1E43DD40122ABA77D2C12141A22609A2F6266DFDE8AC93870ED9A2014D132B3B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo-bridge1/write.log",
+    "bytes": 270979,
+    "sha256": "3FD159B8143DE4D8C5E5673DFEA74F3572D495BAC6256B47FD75E1C0C626C226",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/holographic-steel1/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/holographic-steel1/write.log",
+    "bytes": 268773,
+    "sha256": "6B4D68542EB43435648EE15419C3F1968139756DE49F8EB202A8DC7B24CD6ED5",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-gunsmith-panel.png",
+    "bytes": 281885,
+    "sha256": "A3CC49E9CD6BD797648630F2CD335106789B80CA4F78EA0E53730E3E43D3540D",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-ads.png",
+    "bytes": 1004597,
+    "sha256": "5FF15150A3E2AC2BE2F6C8CA2B209957DA7F4950CE1BFACFB126F711DD961593",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-fire.png",
+    "bytes": 1835700,
+    "sha256": "F00BAA5B260CD52D104F4F1CF4CF14A9AE5A9AEBFBAD5C7AC2EC506C7DA51870",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-hip.png",
+    "bytes": 1844510,
+    "sha256": "19AC374092C6D5D61603AE8571DC9FF05EA1563116D46C9F9666311FC25B40D3",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-holographic-reload.png",
+    "bytes": 2006408,
+    "sha256": "608E01A760C7EA3F0B230C45D44BA1E1E9DE3A0B4A24ED40C070E28423E685E8",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-m4-iron-restored.png",
+    "bytes": 981213,
+    "sha256": "CE5B3D0578CF2C473EA5E3AAC3A634A9B877A925FB6A28308E33763982483492",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-gameplay-ads.png",
+    "bytes": 1798594,
+    "sha256": "E5E159C3A94D9FF90ECF71D675C751540B407FE7E00F5D8518ED836ADCEAD08A",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-inventory-icon.png",
+    "bytes": 13092,
+    "sha256": "A44767E3032C60F0B194615CD25EE0DCA7430BC4305D7EFB57671A73840DAD6C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-rotated.png",
+    "bytes": 964405,
+    "sha256": "53AC75424321CE861E1F0C757D4DBF9F6FBA20888A07C7650FD5ED57D9579CF2",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-panoramic-side.png",
+    "bytes": 1002226,
+    "sha256": "83D95EE31E4980AF1E114F94311DDC829565FEA83EEC6F6C71E9005450EC48CB",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write-result.txt",
+    "bytes": 20,
+    "sha256": "97C71C5F4A61659C86E311BE60E9C6BB0E8F6C6E558DE0A37CBD9FEDD1FFB225",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel2/write.log",
+    "bytes": 263616,
+    "sha256": "32C1AF983FEFE4DB826AA33DAC0EDDB3AC14CA8BFBC15FBDA608D9B870A41E05",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-1x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-1x.png",
+    "bytes": 666603,
+    "sha256": "ECBF3C30FEAB5377A3339D9262D6B43A2A36F070285007E80F9B7123575DD587",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-2x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-2x.png",
+    "bytes": 619483,
+    "sha256": "0C34F4EB1ABA7C8F93ADCCFA20395700B763ED8D2AD449CBD65AAEB7FE6748AA",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-4x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-4x.png",
+    "bytes": 600701,
+    "sha256": "8EA21DC16EB0B3C4184FC74C4F9CD95AC2EF471F24433F04940AB729843782B0",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-6x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-6x.png",
+    "bytes": 585506,
+    "sha256": "12EF171A9E69B9DAA156F083267E44EF43717178F52129E32E993AC28CC62B1C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-hip-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-hip-restored.png",
+    "bytes": 1849418,
+    "sha256": "C2FA9647F92A6CD9AB9B594306D4B57FD83533D9CA1CCC487108C750C51E6CF7",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-reopen-2x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-reopen-2x.png",
+    "bytes": 622732,
+    "sha256": "BB6743AFC3D7BA429671A4FA60E18B5D64305308D701524394EB8D46E5F2A35F",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-reopen-4x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-lpvo-reopen-4x.png",
+    "bytes": 602078,
+    "sha256": "7B6BC90FAC4F35AF3DDD18FF6328EF57F602669E9FED6C2F345153440216B67F",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-gunsmith-panel.png",
+    "bytes": 281576,
+    "sha256": "043538814B3301854AEEDBAFD89A41F1B80DFE752FE510C3E259A44F8868EA28",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-ads.png",
+    "bytes": 1006213,
+    "sha256": "8ABEC105FBF7EF3E37E1A2D67C785C5AEC4DEE0B368F0E7E361344C19B163B8A",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-fire.png",
+    "bytes": 682733,
+    "sha256": "53ECB8332615C3FDE4433C9D628C904C2823E9DD02A1EF0851519DC528DD02C2",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-hip.png",
+    "bytes": 1833189,
+    "sha256": "B38C6C8BF7DFFE21AAD8E05F1BD8B1338CF18FB8218423228E3F63EEEF3E053E",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-holographic-reload.png",
+    "bytes": 2016519,
+    "sha256": "9B1230E3D8FB0860F2E8BBB6A110B1ADBC468FE60D7EA401126B395DA525BB4A",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-m4-iron-restored.png",
+    "bytes": 981163,
+    "sha256": "4466929A1FB6EE60F8CD63FDB00A0573AE93CC6736C0CE6A447193E3417FB9F6",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-gameplay-ads.png",
+    "bytes": 662604,
+    "sha256": "15A3905E38991ED497204D56F056CC2391AC3DB6A1934270ADBCCF37B352A257",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-inventory-icon.png",
+    "bytes": 13614,
+    "sha256": "B0CCF4F6279A8E650EC1BB5BC281731620ACE42F38006CA6E25A2FEF33A08721",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-rotated.png",
+    "bytes": 963852,
+    "sha256": "96BB51F31B767F6EA37137C3739DA9FD42C0DF613FE1EA5DE3DAC8DBA07E1DC9",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-panoramic-side.png",
+    "bytes": 1001895,
+    "sha256": "757241FCF7D35D6E22BA16F9E8A219B345FF115A3A7F94927E9463240D6BEBA7",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write-result.txt",
+    "bytes": 21,
+    "sha256": "1E43DD40122ABA77D2C12141A22609A2F6266DFDE8AC93870ED9A2014D132B3B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel2/write.log",
+    "bytes": 272309,
+    "sha256": "B4B11A42C0B53B001E2C081E3E9A067AC58C334E23F452A57F44FA5198407232",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-gunsmith-panel.png",
+    "bytes": 281885,
+    "sha256": "A3CC49E9CD6BD797648630F2CD335106789B80CA4F78EA0E53730E3E43D3540D",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-ads.png",
+    "bytes": 1004330,
+    "sha256": "C1AC7F394B1337588F80D0D0FB86503355DF2A41871DD1590AEE335A8152A6F2",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-fire.png",
+    "bytes": 1834054,
+    "sha256": "15948B91451E0CC6179551811CEF1B578B1258ED51675C3D201A7BA52BD09742",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-hip.png",
+    "bytes": 1839424,
+    "sha256": "8D225C6074EB2347FBD70669ADFC2495ED1DFDCD47E422A95823240D1BCB3A64",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-holographic-reload.png",
+    "bytes": 2003287,
+    "sha256": "E3DA18E7C9130A3ED0F68976AB6974C4AC84445331F0EEB999892C412F60DB99",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-m4-iron-restored.png",
+    "bytes": 980923,
+    "sha256": "60CB6AADFEC1FA8CE84A8C66C1380CDF8CB082012FE2B1FF9BC6F66C13349605",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-gameplay-ads.png",
+    "bytes": 1795968,
+    "sha256": "0A45F27BEE4F638F32D6EBFFA2B4CB9C714501697F7D36E7B1E5A8BBE382305A",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-inventory-icon.png",
+    "bytes": 13314,
+    "sha256": "D77454AED2E7F8950EF8400ACDFBC3CD07CBCE511BB6911D47683985A687BD73",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-rotated.png",
+    "bytes": 964292,
+    "sha256": "AC202DB7BC7FBF510135419B36FA3CC9C48948D8AD25BFE2503D89F716B77F3F",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-panoramic-side.png",
+    "bytes": 1002052,
+    "sha256": "E252238BDCD99CFADF83A2DFAED4F58A7F9D5B10638C43FC292B93966995BB86",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write-result.txt",
+    "bytes": 20,
+    "sha256": "97C71C5F4A61659C86E311BE60E9C6BB0E8F6C6E558DE0A37CBD9FEDD1FFB225",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/scope2x-steel3/write.log",
+    "bytes": 261737,
+    "sha256": "435CCB7804C63DA6EBC74AD9B4182A0C5D0E3AE563BE354E60F6FD7FD2F85EBD",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-1x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-1x.png",
+    "bytes": 665780,
+    "sha256": "6A5834476EA371F7482756541D90E50B65867CEF8FEFDDBB1EEBD9AEEB80608F",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-2x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-2x.png",
+    "bytes": 619197,
+    "sha256": "F8BD505D6341C3A173FCB21C0D71ADC7E5B616951165475F7B1CCBA65626DA58",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-4x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-4x.png",
+    "bytes": 601458,
+    "sha256": "0A091C1744BAB419092289D829BDC7865F79965D6188088A9C8513E22BD2785F",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-6x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-6x.png",
+    "bytes": 585487,
+    "sha256": "C8C45D01D840E5B619C85380A4D53AE166C3141384FCFA14C679A0BC337B79CA",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-hip-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-hip-restored.png",
+    "bytes": 1846146,
+    "sha256": "9521DF3BDD25714E862D7F8150C5DFC71F11BE323D893E1BDE4ADF74E0FA9BB8",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-reopen-2x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-reopen-2x.png",
+    "bytes": 621932,
+    "sha256": "1067C97CD57A27486F1E88AE1B45A33CCAEC98A89E75FA585BAEC2A77437FA99",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-reopen-4x.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-lpvo-reopen-4x.png",
+    "bytes": 603097,
+    "sha256": "7E73667E576F99392451B626955103B65DC38F6EB5FAB487413F2AA0A4FFBFC0",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-gunsmith-panel.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-gunsmith-panel.png",
+    "bytes": 281576,
+    "sha256": "043538814B3301854AEEDBAFD89A41F1B80DFE752FE510C3E259A44F8868EA28",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-ads.png",
+    "bytes": 1006217,
+    "sha256": "7BAE546F641AD36DFBC59146F88945149028C43C11339538DB1C95B10ECDA78C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-fire.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-fire.png",
+    "bytes": 681898,
+    "sha256": "8915191C89DD1C345753C282572268A3ACB29B863967D328ED403C92F31455A4",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-hip.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-hip.png",
+    "bytes": 1830881,
+    "sha256": "EE2CCC42D8EB40602CECEF27047EEF6BC7372D649C077B75A436591392BEA33B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-reload.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-holographic-reload.png",
+    "bytes": 2013517,
+    "sha256": "E3A45CD8EB4968857A5155668A5BA8D54522592B8ABEE188FB37F5D76BCAFEA1",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-iron-restored.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-m4-iron-restored.png",
+    "bytes": 981180,
+    "sha256": "DD69C80068F4BDC63CCFFB36F8F2EA498905C028B67EFB32BE67F60A5ABCBF3C",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-gameplay-ads.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-gameplay-ads.png",
+    "bytes": 661561,
+    "sha256": "0C5BBF228CAD737D0657A9A4CDAC7EBFD6B4D815A7A2CFDB79EE4EAA1492341B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-inventory-icon.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-inventory-icon.png",
+    "bytes": 13638,
+    "sha256": "52DFDC8877CFE5CCEFF9F417594FF0031894B63340FC8AB6EE499FEBA2BA05EA",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-rotated.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-rotated.png",
+    "bytes": 963922,
+    "sha256": "A2E4C67E4E5D27DC31974D991E66B41350F53018FAEEA985885EAFB231C7AD93",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-side.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-panoramic-side.png",
+    "bytes": 1001950,
+    "sha256": "29CDCD114A5172F1F0413950EA836EFD6621A5AACD01E192181EC59ADF6B6BA5",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-result.txt",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write-result.txt",
+    "bytes": 21,
+    "sha256": "1E43DD40122ABA77D2C12141A22609A2F6266DFDE8AC93870ED9A2014D132B3B",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/lpvo-steel3/write.log",
+    "bytes": 270970,
+    "sha256": "2A7EC0BFE42AE9E781BBFA277EBA768EC6A912747582EF6E68FF12F98D69B127",
+    "reason": "Superseded intermediate run or rollback copy; final accepted assets and runs retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/lpvo_1_6x_AKM_Editable.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/lpvo_1_6x_AKM_Editable.blend1",
+    "bytes": 200920076,
+    "sha256": "31CC4DBD5631817275015C8333B23C89225219EEB6382AD4A23736C163647D54",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/panoramic_red_dot_AKM_Editable.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/panoramic_red_dot_AKM_Editable.blend1",
+    "bytes": 201022117,
+    "sha256": "219E029CCC059EDF1EB13865A099940998DD93BA409246A6D1C3F5D4E59FB91D",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/prism_scope_2x_AKM_Editable.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/prism_scope_2x_AKM_Editable.blend1",
+    "bytes": 200876384,
+    "sha256": "1C6E0185345051BB754F6272313666C9079897175A1658570DE0A7537E08056E",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/SM_AKM_optic.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/SM_AKM_optic.blend1",
+    "bytes": 368272,
+    "sha256": "8B4F7A95588D473E531BAE97F48875A9590B3A7432F4B88BD192B2FF299945DE",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/SM_LPVO1to6X.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/SM_LPVO1to6X.blend1",
+    "bytes": 546204,
+    "sha256": "F355B88C9E938147B9098E527A6F18082CE727DCDC0005560163665745F340A8",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/SM_LPVORing.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/SM_LPVORing.blend1",
+    "bytes": 141915,
+    "sha256": "90D288D6F1500D2C43DDA157FDAD0417EFD2450C062AE298C633F6B1F25CC134",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/SM_PanoramicRedDot.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/SM_PanoramicRedDot.blend1",
+    "bytes": 673087,
+    "sha256": "9C1BE58AFC23FC7F8688981119588EF6F4CC2BB1026DE2644894A8F287B61F87",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/SM_PrismScope2X.blend1",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/SM_PrismScope2X.blend1",
+    "bytes": 505939,
+    "sha256": "7921998D348955734300F7B5543C9A6FD64B2D6F0E9D86E8292EFEF9D3F76432",
+    "reason": "Blender backup; final editable .blend retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/lpvo_1_6x_AKM_Editable.blend",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/lpvo_1_6x_AKM_Editable.blend",
+    "bytes": 200837697,
+    "sha256": "414CB69BC03833BFA33AB691630159C99942E1DAB263B5350582BF246D0A1B5C",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/panoramic_red_dot_AKM_Editable.blend",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/panoramic_red_dot_AKM_Editable.blend",
+    "bytes": 200948026,
+    "sha256": "E42D58E013611C932EE2CD6393BE3C72E1D834AB71F8D8743D2B51E2827C652F",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/prism_scope_2x_AKM_Editable.blend",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/prism_scope_2x_AKM_Editable.blend",
+    "bytes": 200801773,
+    "sha256": "F72DA46D24BDEC9F3429E380683BC86B34DF46AF08D6E88518E562020B74F79F",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/SM_AKM_Mount_lpvo_1_6x.fbx",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/SM_AKM_Mount_lpvo_1_6x.fbx",
+    "bytes": 31772,
+    "sha256": "CF0219FDFBF84F38B7E15F88D30CA17A4D5C939A845E821D25DD2591D2E206CE",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/SM_AKM_Mount_panoramic_red_dot.fbx",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/SM_AKM_Mount_panoramic_red_dot.fbx",
+    "bytes": 31836,
+    "sha256": "504C18000D74C4BADD2B76A852622F92564B9D47D52C27AD9CE10972D9D2FB18",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/SM_AKM_Mount_prism_scope_2x.fbx",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/SM_AKM_Mount_prism_scope_2x.fbx",
+    "bytes": 31804,
+    "sha256": "FC710B0D46B9D150CB83BF88ABA29DFD0346DF938EFD8521A1A475AB465A490D",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/lpvo_1_6x_mount.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/lpvo_1_6x_mount.png",
+    "bytes": 657713,
+    "sha256": "D12DBA61D64430FAA0586B3122455CF4459334FC0ACCE8BB3C8B7A7CE28F2E1F",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/panoramic_red_dot_mount.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/panoramic_red_dot_mount.png",
+    "bytes": 630616,
+    "sha256": "DE2647C0259FD22136229CC1F9C17F8B5270C47FBC2CE0B91B736AB191187A33",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/prism_scope_2x_mount.png",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/prism_scope_2x_mount.png",
+    "bytes": 644354,
+    "sha256": "FC9CCEABBB2F6A80FB34AEBEB8977DDDF400AB4E564F860AF802628E2ED2AA3D",
+    "reason": "Block bridge replaced by AKMBridgeRefine20260911 final side bridge.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/adapt_audits.py",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/adapt_audits.py",
+    "bytes": 2759,
+    "sha256": "F9F23ECA4A5505049979F3652D0A823EF20FDEDB1BCAD9EF889D88E11E86E9D8",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/build_mounts.py",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/build_mounts.py",
+    "bytes": 3680,
+    "sha256": "E6EA788A3F1D0113911BDBFB991B31B3F91432D419272D51D6C60634DC3D7010",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/import.py",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/import.py",
+    "bytes": 1708,
+    "sha256": "7CA30B26C5E5C6BD1F4319F1706E2B03CC7ACC7978B5EDAF5C103379B0B008D2",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/build-native.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/build-native.log",
+    "bytes": 23241,
+    "sha256": "4CE32100A249424CF715C1E9357CACE11AFA287EFB8DFAB5D134F879BE9A31CA",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOptics20260911/catalog-before.json",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOptics20260911/catalog-before.json",
+    "bytes": 13694,
+    "sha256": "673B4B1D7D61F13890727CFF5E757D93D4EAAAC39E58EAEDDF733ABA788A24BD",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/import.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/import.log",
+    "bytes": 280323,
+    "sha256": "00FDFF85ACB457F8018219562C2CECE2166F2A76ADB624637262B2DF3A3F1336",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMBridgeRefine20260911/import-console.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMBridgeRefine20260911/import-console.log",
+    "bytes": 41176,
+    "sha256": "27E115EE53DA8BE071881C08E23B47EEDB3B8BB67E4CC69E67A34430315C0C1C",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/textures.py",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/textures.py",
+    "bytes": 451,
+    "sha256": "549B2F0FB57ED37784F4E7D9A441A8A3650910C9364C17CCDE4B683D61404BD4",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/textures.json",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/textures.json",
+    "bytes": 608,
+    "sha256": "0CB870A21F21EFB1A530416F6F8D0D8336537C4BB20A1A67A9F470EEF277D425",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/probe_color.py",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/probe_color.py",
+    "bytes": 540,
+    "sha256": "A103A915101D86F39B94ACD6688488790A0B594B495DA6288F0996690FE06E56",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/color.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/color.log",
+    "bytes": 2112,
+    "sha256": "D457764C12BC82E89CDE95AA7170D650E34931785113ABBE298C494E227F71E0",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/import.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/import.log",
+    "bytes": 266500,
+    "sha256": "1DD1E9554AFA23D4CD34EBA0C13146897006B4B7999CF2427F385DF7F65FA4B2",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/import-console.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/import-console.log",
+    "bytes": 30697,
+    "sha256": "2DB76DAEF49F0DEDC98A0AE261D151CF8244926AEBA34B7070D65091D2CBBDB0",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/import-final.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/import-final.log",
+    "bytes": 297386,
+    "sha256": "7592BE73FF0067BBAD6D2FE647EE3F407F13C8D3DA65058B5929AF4BA73BEACD",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/import-final-console.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/import-final-console.log",
+    "bytes": 46573,
+    "sha256": "884AC7AB65ED398D401E68E6AEB610E40D31646175D5B5AC2DB61DBA8FF3922E",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/import-interior.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/import-interior.log",
+    "bytes": 288218,
+    "sha256": "5688C922A653729109F98A6E599F812D9586EE507F716E020B70291BD88E2371",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  },
+  {
+    "original": "SourceAssets/AKMOpticSteel20260911/import-interior-console.log",
+    "archive": "trash/akm-optics-workflow-20260911/SourceAssets/AKMOpticSteel20260911/import-interior-console.log",
+    "bytes": 42087,
+    "sha256": "4D1B1A3A2A4AC1CA1DC03312C4E71CD035CBEE9FDF0CCBE34404DDBF850DC1E4",
+    "reason": "Superseded construction/diagnostic iteration; final reproduction scripts and acceptance retained.",
+    "replacement": "SourceAssets/AKMBridgeRefine20260911 and AKMOpticSteel20260911 final sources and acceptance"
+  }
+]

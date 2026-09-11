@@ -1,0 +1,38 @@
+{
+  "panoramic_red_dot": {
+    "mount_in_root_m": [
+      0.0008,
+      0.06,
+      0.113
+    ],
+    "optic_scale": 1,
+    "bridge_center_y_m": 0.06,
+    "bridge_length_m": 0.072,
+    "mount_footprint_supported": true,
+    "triangles": 4480
+  },
+  "prism_scope_2x": {
+    "mount_in_root_m": [
+      0.0008,
+      0.105,
+      0.113
+    ],
+    "optic_scale": 1,
+    "bridge_center_y_m": 0.105,
+    "bridge_length_m": 0.07,
+    "mount_footprint_supported": true,
+    "triangles": 4480
+  },
+  "lpvo_1_6x": {
+    "mount_in_root_m": [
+      0.0008,
+      0.16,
+      0.113
+    ],
+    "optic_scale": 1,
+    "bridge_center_y_m": 0.146,
+    "bridge_length_m": 0.084,
+    "mount_footprint_supported": true,
+    "triangles": 5048
+  }
+}

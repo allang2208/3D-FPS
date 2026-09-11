@@ -1,0 +1,33 @@
+{
+  "holographic": {
+    "checks": 41,
+    "failures": 0,
+    "material_compile_fallback": false
+  },
+  "panoramic": {
+    "checks": 58,
+    "failures": 0,
+    "material_compile_fallback": false
+  },
+  "scope2x": {
+    "checks": 59,
+    "failures": 0,
+    "material_compile_fallback": false
+  },
+  "lpvo": {
+    "checks": 116,
+    "failures": 0,
+    "material_compile_fallback": false
+  },
+  "assets": {
+    "M_AKM_LPVO_Body.uasset": "6b74301a5195b2bb437fb80268e90062723a44f85cb6db97ac1e3e69ac77aff9",
+    "M_AKM_optic_Holosight.uasset": "7ccbc57ced6a3b2a715db2c483a32faf34230082ed3a3a2659dd8c658f3c32a8",
+    "M_AKM_Panoramic_Body.uasset": "3b34b40c9b919744b8335b1546adf640019d1610f37e4b8a845854578cce40a1",
+    "M_AKM_Scope2X_Body.uasset": "1f682aaf01e8cbdc8891a6ec28db01fb66b0cd8bb0918e1c73e3f05861e97a50",
+    "SM_AKM_optic.uasset": "30f432b578dfb5e8b41a366eec732e98e8e32f7ea0af3178e81444e5dc2c4513",
+    "SM_LPVO1to6X.uasset": "30b064a396a2756fcb1d56d9821b9208f95fbd6203ffc5d8c3205e7aafcf4359",
+    "SM_LPVORing.uasset": "ec495bd222f8741a8e5b5f0096ee93e1f30e17809aab4b0cd3177577dd0c8d30",
+    "SM_PanoramicRedDot.uasset": "2340f73f13c97baa12579e3e6c817f0bb7f8cdfba9565e75fd199e6fae54ae66",
+    "SM_PrismScope2X.uasset": "7dc7efc0952132581eb4016a9f30c6ef8e13789bfe210d67f36e4c1a1d5190ec"
+  }
+}

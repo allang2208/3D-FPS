@@ -1,0 +1,37 @@
+{
+  "panoramic-write": {
+    "checks": 58,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\panoramic-v1\\write.log"
+  },
+  "panoramic-reload": {
+    "checks": 54,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\panoramic-v1\\reload.log"
+  },
+  "scope2x-write": {
+    "checks": 59,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\scope2x-v1\\write.log"
+  },
+  "scope2x-reload": {
+    "checks": 55,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\scope2x-v1\\reload.log"
+  },
+  "lpvo-write": {
+    "checks": 116,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\lpvo-v1\\write.log"
+  },
+  "lpvo-reload": {
+    "checks": 112,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\lpvo-v1\\reload.log"
+  },
+  "muzzle-write": {
+    "checks": 48,
+    "failures": 0,
+    "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMOptics20260911\\muzzle-v3\\write.log"
+  }
+}

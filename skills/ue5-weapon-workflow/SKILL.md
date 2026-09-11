@@ -11,6 +11,7 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
 - 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-11 用户确认，以此取代旧配件流程。
+- 跨枪型复用瞄具、枪口、安装座或统一枪钢：[跨枪型瞄具与材质](references/cross-weapon-optics.md)。
 - 瞄具、倍率、镜内视野和开镜面板：[瞄具成像与验收](references/optic-presentation.md)，先定成像与可用视野，再制作模型。
 - 手臂、抓握、甩弹匣、普通/空仓换弹、拉栓、装备、奔跑及拍击：[手臂动画技能](../ue5-fps-arms-animation/SKILL.md)。
 - 继续当前 M4：[当前案例与证据](../ue5-fps-arms-animation/references/m4-baseline.md)。先核对实际加载路径，不能按文件夹的日期或 Final 名称选资产。

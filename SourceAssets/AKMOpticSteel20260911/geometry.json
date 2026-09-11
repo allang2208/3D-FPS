@@ -1,0 +1,37 @@
+{
+  "panoramic_red_dot": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanoramicRedDot20260911\\GameIntegration\\SM_PanoramicRedDot.fbx",
+    "fbx": "SM_PanoramicRedDot.fbx",
+    "vertices_unchanged": true,
+    "original_uv_unchanged": true,
+    "triangles": 15894
+  },
+  "prism_scope_2x": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PrismScope2X20260911\\MachinedControls\\SM_PrismScope2X.fbx",
+    "fbx": "SM_PrismScope2X.fbx",
+    "vertices_unchanged": true,
+    "original_uv_unchanged": true,
+    "triangles": 18040
+  },
+  "lpvo_1_6x": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LPVO1to6X20260911\\SM_LPVO1to6X.fbx",
+    "fbx": "SM_LPVO1to6X.fbx",
+    "vertices_unchanged": true,
+    "original_uv_unchanged": true,
+    "triangles": 20608
+  },
+  "ring": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\LPVO1to6X20260911\\SM_LPVORing.fbx",
+    "fbx": "SM_LPVORing.fbx",
+    "vertices_unchanged": true,
+    "original_uv_unchanged": true,
+    "triangles": 2204
+  },
+  "holographic": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMArmSupport20260911\\SM_AKM_optic.fbx",
+    "fbx": "SM_AKM_optic.fbx",
+    "vertices_unchanged": true,
+    "original_uv_unchanged": true,
+    "triangles": 9220
+  }
+}

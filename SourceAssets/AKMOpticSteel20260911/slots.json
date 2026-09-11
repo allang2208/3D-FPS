@@ -1,0 +1,84 @@
+{
+  "panoramic_red_dot": {
+    "asset": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot",
+    "triangles": 15894,
+    "materials": [
+      {
+        "slot": "Panoramic_Glass",
+        "asset": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+      },
+      {
+        "slot": "Panoramic_Reticle",
+        "asset": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+      },
+      {
+        "slot": "Panoramic_Body",
+        "asset": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Body.M_Panoramic_Body"
+      }
+    ]
+  },
+  "prism_scope_2x": {
+    "asset": "/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X",
+    "triangles": 18040,
+    "materials": [
+      {
+        "slot": "Scope2X_Reticle",
+        "asset": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle"
+      },
+      {
+        "slot": "Scope2X_Glass",
+        "asset": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass"
+      },
+      {
+        "slot": "Scope2X_Body",
+        "asset": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Body.M_Scope2X_Body"
+      }
+    ]
+  },
+  "lpvo_1_6x": {
+    "asset": "/Game/Weapons/LPVO1to6X/SM_LPVO1to6X",
+    "triangles": 20608,
+    "materials": [
+      {
+        "slot": "LPVO_Reticle",
+        "asset": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle"
+      },
+      {
+        "slot": "LPVO_Glass",
+        "asset": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass"
+      },
+      {
+        "slot": "LPVO_Body",
+        "asset": "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body"
+      }
+    ]
+  },
+  "ring": {
+    "asset": "/Game/Weapons/LPVO1to6X/SM_LPVORing",
+    "triangles": 2204,
+    "materials": [
+      {
+        "slot": "LPVO_Body",
+        "asset": "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body"
+      }
+    ]
+  },
+  "holographic": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/SM_AKM_optic",
+    "triangles": 9220,
+    "materials": [
+      {
+        "slot": "optic_Holosight",
+        "asset": "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody"
+      },
+      {
+        "slot": "optic_Red_Dot",
+        "asset": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+      },
+      {
+        "slot": "AKM_Soviet_MountSteel",
+        "asset": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+      }
+    ]
+  }
+}
