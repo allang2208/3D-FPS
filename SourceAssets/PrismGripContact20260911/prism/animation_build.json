@@ -1,0 +1,95 @@
+{
+  "idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_idle",
+    "frames": 180,
+    "duration": 3.0,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null
+  },
+  "aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_aim",
+    "frames": 2,
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null
+  },
+  "fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_fire",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null
+  },
+  "aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_aim_fire",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null
+  },
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_MAT_equip_charge",
+    "frames": 38,
+    "duration": 0.6333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null
+  },
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_MAT_reload",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0.07135098208376103,
+    "unchanged_contact_interval_frames": [
+      16,
+      102
+    ]
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "M4_MAT_reload_empty",
+    "frames": 162,
+    "duration": 2.7,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      138
+    ]
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_DrumContact_reload",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      102
+    ]
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_DrumContact_reload_empty",
+    "frames": 148,
+    "duration": 2.466666666666667,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      124
+    ]
+  }
+}

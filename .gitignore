@@ -47,3 +47,9 @@ __pycache__/
 /Docs/git-host-migration-20260910/
 /MilitaryTrenchMegascansSa/
 /FAB_MAT58.uproject
+
+# Prism horizontal-grip full pose data stays with the licensed local authoring source.
+/SourceAssets/PrismGripContact20260911/common_hand_pose.json
+/SourceAssets/PrismGripContact20260911/prism/fit_final.json
+/SourceAssets/PrismGripContact20260911/prism/contact_overrides.json
+/SourceAssets/PrismGripContact20260911/prism/release_profile.json

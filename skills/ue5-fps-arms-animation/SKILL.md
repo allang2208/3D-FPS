@@ -22,6 +22,8 @@ description: 制作、迁移和修正 UE5 第一人称持枪手臂动画，包�
 
 ## 按问题读取
 
+- 直立握把与棱镜阻手器共用动作、新增“垂直握把类”成员：[垂直握把类母版](references/vertical-grip-family.md)。复用类别母版与动作时序，按尺寸校准掌面、握点及有限指节覆盖。
+
 - 第一人称翻越/攀爬、斜墙误判、收手后摇和表面适配：[攀爬接触与镜头交接](references/traversal-contact.md)。
 
 - 手指扭曲、穿模、抓握、腕肘变形、重定时或冲击感：[姿态与接触方法](references/pose-contact.md)。

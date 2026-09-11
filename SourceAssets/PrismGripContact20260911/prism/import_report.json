@@ -1,0 +1,74 @@
+{
+  "idle": {
+    "duration": 3.0,
+    "compression_error_cm": 0.0005165335426270876,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_idle.A_M4_Prism_idle",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+    "right_weapon_difference_cm": 3.65422529225155e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "aim": {
+    "duration": 0.03333333507180214,
+    "compression_error_cm": 0.0004671949929378253,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_aim.A_M4_Prism_aim",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+    "right_weapon_difference_cm": 1.7366625949812517e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "fire": {
+    "duration": 0.7666666507720947,
+    "compression_error_cm": 0.0005251574896825505,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_fire.A_M4_Prism_fire",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+    "right_weapon_difference_cm": 3.179254179637135e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "aim_fire": {
+    "duration": 0.7666666507720947,
+    "compression_error_cm": 0.00047850154215922544,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_aim_fire.A_M4_Prism_aim_fire",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+    "right_weapon_difference_cm": 2.7758796202234874e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "equip": {
+    "duration": 0.6333333253860474,
+    "compression_error_cm": 0.0005582473246024343,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_equip.A_M4_Prism_equip",
+    "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+    "right_weapon_difference_cm": 0.0001719183978516974,
+    "preserved_contact_difference_cm": 0
+  },
+  "reload": {
+    "duration": 2.0999999046325684,
+    "compression_error_cm": 0.0015053783375959353,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_reload.A_M4_Prism_reload",
+    "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+    "right_weapon_difference_cm": 0.0001546683194607958,
+    "preserved_contact_difference_cm": 8.372852958873808e-05
+  },
+  "reload_empty": {
+    "duration": 2.700000047683716,
+    "compression_error_cm": 0.0007012448958335241,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_reload_empty.A_M4_Prism_reload_empty",
+    "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+    "right_weapon_difference_cm": 0.0001744400509046272,
+    "preserved_contact_difference_cm": 0.002259062018659612
+  },
+  "drum_reload": {
+    "duration": 2.0999999046325684,
+    "compression_error_cm": 0.0006222870948968992,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_drum_reload.A_M4_Prism_drum_reload",
+    "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+    "right_weapon_difference_cm": 4.836159536722441e-05,
+    "preserved_contact_difference_cm": 9.111776759582168e-05
+  },
+  "drum_reload_empty": {
+    "duration": 2.4666666984558105,
+    "compression_error_cm": 0.0005888268211449288,
+    "asset": "/Game/Weapons/M4PrismHorizontalGrip/A_M4_Prism_drum_reload_empty.A_M4_Prism_drum_reload_empty",
+    "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+    "right_weapon_difference_cm": 5.200323149196949e-05,
+    "preserved_contact_difference_cm": 9.480389219285702e-05
+  }
+}

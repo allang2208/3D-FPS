@@ -1,0 +1,38 @@
+{
+  "family": "vertical_grip",
+  "variant": "prism",
+  "animation_prefix": "A_M4_Prism_",
+  "fitted_mesh": "M4_Prism_Fitted.blend",
+  "mesh_prefix": "PH_",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PrismHandstop20260910\\GripAnimation",
+  "shoulder_offset": [
+    -0.031846970319747925,
+    0.12138701975345612,
+    0.05487290024757385
+  ],
+  "forearm_direction": [
+    0.8880124688148499,
+    -0.360262930393219,
+    -0.2857348918914795
+  ],
+  "raise_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripClass20260911\\prism",
+  "horizontal_grasp_rotation_degrees": 37.60968534386651,
+  "old_flexion_plane_normal": [
+    -0.49042367935180664,
+    0.36321499943733215,
+    0.792186439037323
+  ],
+  "base_contact_translation_m": [
+    0.0,
+    -0.004000000189989805,
+    -0.00800000037997961
+  ],
+  "base_elbow_raise_in_mount_m": [
+    -0.008451067842543125,
+    0.003380514681339264,
+    0.022093871608376503
+  ],
+  "contact_transform_source": "fit_final.json",
+  "contact_revision": "horizontal-wrap-20260911",
+  "release_rule": "Keep palm-plane and metacarpal corrections throughout release; add 4 degree pinky abduction while opening."
+}

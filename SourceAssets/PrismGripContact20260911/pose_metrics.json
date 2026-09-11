@@ -1,0 +1,40 @@
+{
+  "before": {
+    "index": {
+      "plane_from_horizontal_degrees": 46.408403282472214,
+      "mcp_z_mm": -39.4994355738163
+    },
+    "middle": {
+      "plane_from_horizontal_degrees": 40.639713153973915,
+      "mcp_z_mm": -58.24434384703636
+    },
+    "ring": {
+      "plane_from_horizontal_degrees": 35.51270032855641,
+      "mcp_z_mm": -76.81327313184738
+    },
+    "pinky": {
+      "plane_from_horizontal_degrees": 32.373387130212826,
+      "mcp_z_mm": -91.62957221269608
+    },
+    "wrist_axis_bend_degrees": 21.308713182031767
+  },
+  "after": {
+    "index": {
+      "plane_from_horizontal_degrees": 0.019782341029446364,
+      "mcp_z_mm": -26.503173634409904
+    },
+    "middle": {
+      "plane_from_horizontal_degrees": 0.0,
+      "mcp_z_mm": -50.881389528512955
+    },
+    "ring": {
+      "plane_from_horizontal_degrees": 0.0,
+      "mcp_z_mm": -73.09111952781677
+    },
+    "pinky": {
+      "plane_from_horizontal_degrees": 0.0,
+      "mcp_z_mm": -91.49613976478577
+    },
+    "wrist_axis_bend_degrees": 21.30857145560649
+  }
+}

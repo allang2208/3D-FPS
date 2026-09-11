@@ -1,0 +1,285 @@
+{
+  "note": "Local licensed asset and full pose data recovery inventory; hashes are not redistribution authorization.",
+  "files": [
+    {
+      "path": "SourceAssets/PrismGripContact20260911/common_hand_pose.json",
+      "bytes": 46836,
+      "sha256": "5fc2143764a66f9a175374c32021b8da445716f086b5af220f7a5538a6d2ebfe"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/fit_final.json",
+      "bytes": 111958,
+      "sha256": "134ced8ffa56520d02d24141f9d3afa1f0df0caa723704d0ed784c1fee6757c5"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/contact_overrides.json",
+      "bytes": 14150,
+      "sha256": "59c00b7a45ca2de5ea9015fc1704bd837fc8b2c7f41d1818fb4543fd66e43261"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/release_profile.json",
+      "bytes": 207900,
+      "sha256": "e993c9d8ec1dc184e6aede8e6b1ab53e081b7c2ce1fe98a82b87f0cffeffe953"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_aim.blend",
+      "bytes": 97656443,
+      "sha256": "e0c35a1c795a614aed9c8803649969d76862bad3a12535b492b1b0ef5b440c85"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_aim_fire.blend",
+      "bytes": 98352843,
+      "sha256": "cd76f40f7fb52dbb34c146bf629cefe5b81887cda91b91735d798b6ab6a5bc55"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_drum_reload.blend",
+      "bytes": 126534179,
+      "sha256": "8c9845e58d3865394c5b7547711639fd802227bc42eb26b92cdce94d4efcef07"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_drum_reload_empty.blend",
+      "bytes": 127750228,
+      "sha256": "080907aa11df1919b369b3f697d9b38b83ab2ad7b91b1817f28899f13336c08e"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_equip.blend",
+      "bytes": 114567762,
+      "sha256": "896d44614c933ca92951c335cb2008b33b0d56964440d4b2e701ad9682fd349b"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_fire.blend",
+      "bytes": 98365952,
+      "sha256": "b5205d5cf3dc3bc8246f4787a2398ac7be82b006c1804dd5d26bc9d732279e4b"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_idle.blend",
+      "bytes": 100406300,
+      "sha256": "05b2e4e1bd5c82b9f9649fc827f907ded13c91b652eeaa587ddc46978b6f3287"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_reload.blend",
+      "bytes": 152899343,
+      "sha256": "609ba4ff8ca831b37266a91a2213dc4b285e17e56b544a28667ab0124db7ad73"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_reload_empty.blend",
+      "bytes": 144973726,
+      "sha256": "94ed712cbdb663cddf6c34c586608fe960ddcff6b65edcdfaefe5a14128b7566"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/M4_Prism_Family_Editable.blend",
+      "bytes": 143658508,
+      "sha256": "126b4894af07cb9bbbe58ba966e4401130322453228e874600d6bc673f0747d3"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/M4_Prism_Fitted.blend",
+      "bytes": 97551565,
+      "sha256": "5d9cf4854574742d43e680ece7d98366c0b5308ae61fe5ad559d00b8bfc28861"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_aim.fbx",
+      "bytes": 625548,
+      "sha256": "345f30e9e60fe6589d60d65904999b6d3f66f0da6abd9e8f04720980928dc8c4"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_aim_fire.fbx",
+      "bytes": 1155148,
+      "sha256": "399cf72750f63e5c9214cf87a812ae48317446cf6429673b1e92bd45c867b316"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_drum_reload.fbx",
+      "bytes": 3650956,
+      "sha256": "03df14ec132966cd8123c86d216554b6efbc53a6c7a092c4ef9abbd3f5ffe568"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_drum_reload_empty.fbx",
+      "bytes": 4160556,
+      "sha256": "41e147844776856d6d1638d13e9ca7cf7fbf091ccacbb3a193b532f655ede8f5"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_equip.fbx",
+      "bytes": 1125308,
+      "sha256": "c79c46b732fc60dc943ffc53ca60f46732f2842bc7f54412798662619ab11857"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_fire.fbx",
+      "bytes": 1157612,
+      "sha256": "8a4f2a13726d1b62aa84f59b7b324e890f76be8c04b3a674ef637d94d24638fe"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_idle.fbx",
+      "bytes": 2487436,
+      "sha256": "8e9b097adb556cbd08d648c7604e41e0d26992dbe5d3af8955ecc71d85abb7a2"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_reload.fbx",
+      "bytes": 6541868,
+      "sha256": "3f463ac2709bc4f60a9180bbe4d3174d7eac52b593182fac4f740b948606971b"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_reload_empty.fbx",
+      "bytes": 8231020,
+      "sha256": "fe39fd87d69a4c3bd0f24232451f363b0b1555f09ba71e3e5b581f8d896f4ea9"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/ads.png",
+      "bytes": 892329,
+      "sha256": "fa6b8334b6e80247322097b4d2955e07faa5aafbb853964eae4c492d5d91aa5a"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/final_back.png",
+      "bytes": 787898,
+      "sha256": "078429834c5d800cf07aadd2656fdd27fc43293e31caab08dbf6cbcb229f0148"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/final_front.png",
+      "bytes": 966006,
+      "sha256": "91fd59e4309535a2017d677aa0e24994ea1cbea470f46e0e094558f6da589acc"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/final_grasp.png",
+      "bytes": 845449,
+      "sha256": "5535c07bba13e59f04226f29b2432bf9f2ccf27d580d184ce1739cb7611cba41"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/final_grasp_back.png",
+      "bytes": 816872,
+      "sha256": "aa4e159bb7a633a876188b37fd67e73cb3e84957170e4601e46041c2496ddb94"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/final_palm.png",
+      "bytes": 898781,
+      "sha256": "85cce107fa8c4b02b8903c6c51d01d62984e53f1e42b473d733028714a467724"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/grasp_closeup.png",
+      "bytes": 1000017,
+      "sha256": "94c83ffa5eb5b8d110862ebf5c802d9321fb1a4385f66268a723d1540ce284b2"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/grasp_front.png",
+      "bytes": 739681,
+      "sha256": "9ec8f767182b0674376d13bc87ec528f6b6fef24b50bb009f3b807ef09f597ca"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/idle.png",
+      "bytes": 953329,
+      "sha256": "2be9316d47a769d13fb30c4d60f6b75ffe958f1922d2450f860c0a07ec64c393"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/returned_12.png",
+      "bytes": 944547,
+      "sha256": "b7e98ed1727d4c3d5f1dd841973a5e3b70e864440081ba61cf5abcab2b138ca3"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/returned_8.png",
+      "bytes": 940322,
+      "sha256": "6a64ee0a84f66632d490a2d512ec60d72d0f80454f3a1239aa67223cd12718c5"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_drum_reload_empty_128.png",
+      "bytes": 522687,
+      "sha256": "729404b00929e035cd1e79be815bf2ae85710465c1016fda39fe45c3de9045df"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_drum_reload_empty_148.png",
+      "bytes": 665519,
+      "sha256": "8613b95ebff9d193c52e27a8685d66d6c72dee2369b16b33f6d87158f7ea2633"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_idle_0.png",
+      "bytes": 665815,
+      "sha256": "30bbc3895bb9233577d1b577c1b576ef3487ce2eb33e05e6867e4e47663151f7"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_106.png",
+      "bytes": 559966,
+      "sha256": "6adb827e01cde6aafb231e47f6a564f3a51049f56dfe8fddf4c204b1a8672238"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_108.png",
+      "bytes": 614324,
+      "sha256": "db57cd8eb0a94cdae70826f3aa34f6cb4d19371893a0f19b325138cbd0c66b2a"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_126.png",
+      "bytes": 665638,
+      "sha256": "20d36086c765656cc9520d2d2beb5b4ca308dd64b600594a93e93409729d2680"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_empty_140.png",
+      "bytes": 531391,
+      "sha256": "fd65a1090d62aaddd8a287f8667b095e244ef52b37d304bc4324c0c4f81166ae"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_empty_141.png",
+      "bytes": 571994,
+      "sha256": "afaf2c102055c6696cda1e4f27c9bc9330f2d85de5865e36b3223656fa708cff"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_empty_142.png",
+      "bytes": 592431,
+      "sha256": "2e4b14cf5d6693070a69df087874bae1dd16512c17464bcf65f09f98177cbe08"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/review_reload_empty_162.png",
+      "bytes": 665899,
+      "sha256": "30d4170b1f241b63437e7efae7aa75eccbfb433d1110ad8f00df5f911a3c7ed0"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/wrist_review.png",
+      "bytes": 892579,
+      "sha256": "7fc891b28558c36925bf76bd0010edd7ad4da0c3dcb0a22e5e428f38b4db6f9f"
+    },
+    {
+      "path": "SourceAssets/PrismGripContact20260911/prism/M4_Prism_Horizontal_Gameplay.mp4",
+      "bytes": 3143833,
+      "sha256": "8a80596278c5701bf8b72aa3520464cd50ca0dbe7279ac662f9458288b04fe5c"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_aim.uasset",
+      "bytes": 290282,
+      "sha256": "5895a7abd00794fd94df0c91caba351d2f33dc82cd1cf9a76bbc1d9a077cc47b"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_aim_fire.uasset",
+      "bytes": 415342,
+      "sha256": "f6ccc64b98314a48419c812b3a9223a02fa4e0bff391fe4d8aad68fd05157c61"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_drum_reload.uasset",
+      "bytes": 4685912,
+      "sha256": "ccafe64704744e357c6a6b53b688cd515eee6e1fc5ef9b3820eedded80bc8a40"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_drum_reload_empty.uasset",
+      "bytes": 5034472,
+      "sha256": "310c90914e26fdf653f2054b83024dab0565671a1e5bd0d4c0be9b7df3382e2e"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_equip.uasset",
+      "bytes": 807751,
+      "sha256": "5299555f7a998fd7ca9af215f7078c53f0e4891355de5a396f74c484f3854ad8"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_fire.uasset",
+      "bytes": 421242,
+      "sha256": "ea2d9918744de4425463a603b9041102547ceedd1fe18c1e7f9b56033aad9155"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_idle.uasset",
+      "bytes": 717717,
+      "sha256": "39f0e1553a8a5626f55ce1630f207e6ce5866c5618c42c0db7ac94c0271ee814"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_reload.uasset",
+      "bytes": 8394618,
+      "sha256": "6d6667b6ccc20e9a66f4dbbd04203ba9215303c348d7fc330d43b78928dfd705"
+    },
+    {
+      "path": "Content/Weapons/M4PrismHorizontalGrip/A_M4_Prism_reload_empty.uasset",
+      "bytes": 10334376,
+      "sha256": "c6bcbe2c7ea906d60cccebe09f79fb071c309efb23132801915c25bd77c45ac1"
+    }
+  ]
+}

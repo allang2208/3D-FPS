@@ -1,0 +1,952 @@
+{
+  "scope": "SourceAssets/PrismGripContact20260911",
+  "files": [
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align11.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align11.log",
+      "bytes": 1071,
+      "sha256": "e46a09384a9b87dd2e3407a555ac8c5a39fee4a06519cedf7464086de5183eac",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align13.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align13.log",
+      "bytes": 1071,
+      "sha256": "63b69899e7aea77fdd7dd407edd53cf3f92af8f27979d45edd25f5abd973bf2d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align15.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align15.log",
+      "bytes": 1071,
+      "sha256": "cc2c5fe4c904e21759b2cd64d50ee24f9fa4252ea15b86aee26619aa22cd0e1d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align3.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align3.log",
+      "bytes": 1071,
+      "sha256": "c5f37c56d32bae9c35642f3eca2094441a1335fa1c3d4db267fe017bb7efd109",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align4.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align4.log",
+      "bytes": 1071,
+      "sha256": "cc2c5fe4c904e21759b2cd64d50ee24f9fa4252ea15b86aee26619aa22cd0e1d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align5.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align5.log",
+      "bytes": 1071,
+      "sha256": "4fe33d5bf3d9acecf7e854f0be90aff231c3ffdbbbef576cf39eb782e5590e16",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align7.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align7.log",
+      "bytes": 1071,
+      "sha256": "cc2c5fe4c904e21759b2cd64d50ee24f9fa4252ea15b86aee26619aa22cd0e1d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align_digit_planes.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align_digit_planes.py",
+      "bytes": 1463,
+      "sha256": "78bac5ded6d0bccec178177b22af2d463e0e795150383a141fed0eba9c03b974",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align_horizontal.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align_horizontal.log",
+      "bytes": 1071,
+      "sha256": "cc2c5fe4c904e21759b2cd64d50ee24f9fa4252ea15b86aee26619aa22cd0e1d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/align_horizontal.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/align_horizontal.py",
+      "bytes": 2373,
+      "sha256": "419b0fefbad9a4a4615014e89ea812c36590322e87f136debd470c13f2b9564b",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/build_family.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/build_family.py",
+      "bytes": 8945,
+      "sha256": "2413282e06f661490cbfb6a9094259834e9e5874edf2903ed11acc9d936fca1f",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/build_final.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/build_final.log",
+      "bytes": 8258,
+      "sha256": "41b02a846a0b3be2bb4e09ce3739b642ef7f2bd078dd5bb714424127e0b3410d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check10.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check10.log",
+      "bytes": 1125,
+      "sha256": "ecc6f6ad0507cd18978b70fc3f69080b7fe71cb354a6962f7455a9df77b02c6a",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check14.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check14.log",
+      "bytes": 1125,
+      "sha256": "313b91028a7e3f8e16cfde7450d70b3468ff052845e36a402ff2b8cd74bd579c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check16.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check16.log",
+      "bytes": 1125,
+      "sha256": "f7f2c7bc68d35701aed384cac52b058acecd0fcb0c870829eb974658f84e2302",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check18.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check18.log",
+      "bytes": 1125,
+      "sha256": "3cab470ce5785a14ae7f0c0c1d122e16faa9085317967febe96d754fa70bfc29",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check5.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check5.log",
+      "bytes": 1336,
+      "sha256": "0c481de9ad5e09317bfd34c47ec1ff7f3e9359f3e76fa5e019317adde12fed1c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check6.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check6.log",
+      "bytes": 1125,
+      "sha256": "9f932cf1f2eff21670857fb98f7e08f5071a38e27aa95075b084d0b389a6aae0",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check8.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check8.log",
+      "bytes": 1125,
+      "sha256": "3cab470ce5785a14ae7f0c0c1d122e16faa9085317967febe96d754fa70bfc29",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check9.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check9.log",
+      "bytes": 1295,
+      "sha256": "369ad83ea805c923126285f56c3d6e7939bf051b52e4a1ac3957875609770bbf",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check_self_contact.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check_self_contact.log",
+      "bytes": 1844,
+      "sha256": "28a7db994f2d8e9886458926e23ce53a8650e35c821344c3c33c064756aabc76",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/check_self_contact.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/check_self_contact.py",
+      "bytes": 1178,
+      "sha256": "654eb540f584f07135f86ae8e26de1ccc750c31721cd4d556d56d2148581f716",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger10.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger10.log",
+      "bytes": 6072,
+      "sha256": "ee88702b01fec5a353b206f105aea5c86c9fd6cfbc03a916a837d4f4cbfb4110",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger11.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger11.log",
+      "bytes": 6899,
+      "sha256": "be9888b28dfb7e45219072c8dc26d7d78eac86705ca62e8bb5b645c0e0bf45bc",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger13.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger13.log",
+      "bytes": 6837,
+      "sha256": "b09cde65d790b621d2fce11fb5c0b3b0d87b48d5ea6e062aa3c39116103d087c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger16.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger16.log",
+      "bytes": 1306,
+      "sha256": "6423374f8ffc4323413408c7e96244c76fb6de12eb12594367780d572c5aab05",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger17.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger17.log",
+      "bytes": 2353,
+      "sha256": "2ff0f9b0d57f5377aa31394fe93a53ac57d200dc4bc664df4f7fc2e411fd305a",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger4.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger4.log",
+      "bytes": 2252,
+      "sha256": "099fb19de4ccc8e3e48b2d93d968cf457c828de115a2d8d0e61cb9e19ea3a913",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger5.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger5.log",
+      "bytes": 2238,
+      "sha256": "3e8c18726556242775d7f8ce8075a4bbfda689c6944c08e08faf65e58c3ce6c8",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger6.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger6.log",
+      "bytes": 4270,
+      "sha256": "6a9b44c6c805ea91162742e1f37ebf894a22d61ea4d12dc78255dd6823d446d6",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/finger7.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/finger7.log",
+      "bytes": 7353,
+      "sha256": "dcde31cee920b444db78c2199ef405f5fe9f726cd6aa980d5b3b9bf261f1f7cf",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_contact_only.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_contact_only.py",
+      "bytes": 5030,
+      "sha256": "6e321534009e221ab48e596b6e8baa52a59719c4c08c1f293dd189cbf09c4edb",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_horizontal_contact.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_horizontal_contact.log",
+      "bytes": 1978,
+      "sha256": "9d72be5040b2d5fa9ec4279b29b21da3685a011f4a5d95f1ed60f19cf281c6f6",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_horizontal_contact.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_horizontal_contact.py",
+      "bytes": 2506,
+      "sha256": "2598d751b3418e05f502fa333b3c54d5d0012ecccd537f0204be5b031aa64c39",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_horizontal_fingers.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_horizontal_fingers.log",
+      "bytes": 2222,
+      "sha256": "8af3cb1f12803ebbb23e54485054e3fb40478d17e9643a631ef84e1b9febc25c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_horizontal_fingers.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_horizontal_fingers.py",
+      "bytes": 5998,
+      "sha256": "a721ef48789c4ea3f9b80ba72c3c26b6bab44d17fe9bbbf40dae4c36e6d42071",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_horizontal_fingers_v6.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_horizontal_fingers_v6.py",
+      "bytes": 4451,
+      "sha256": "629222a7b09e1976242eee7e2cfdd54093fe1051af7bc2664ca769e34869fbec",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_horizontal_fingers_v7.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_horizontal_fingers_v7.py",
+      "bytes": 5030,
+      "sha256": "6e321534009e221ab48e596b6e8baa52a59719c4c08c1f293dd189cbf09c4edb",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_pinky_safe.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_pinky_safe.py",
+      "bytes": 5966,
+      "sha256": "432edb5f174c3709fb781a4d1693b1fec535fbf8d3ac010dab0e099559219c77",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_prism_withdrawal.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_prism_withdrawal.py",
+      "bytes": 3252,
+      "sha256": "a57f51e3d4968752b31ff25260e38d87878c471344b2330d208e13584845cd94",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_upper_fingers.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_upper_fingers.log",
+      "bytes": 3920,
+      "sha256": "ea0c248af29c17324f9166749296e4adce56d297c47aaff138f34d166b91e6a9",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_upper_fingers.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_upper_fingers.py",
+      "bytes": 4857,
+      "sha256": "f4815a38bd607b4f3dc4fe50d0a35c90a8ae9103ad38fda24b188609997f8fe8",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/fit_upper_safe.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/fit_upper_safe.py",
+      "bytes": 5985,
+      "sha256": "223ed78659c0ecffb90be6543cb93cec0100c4c2f023aa4718ac368f62ac5649",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/geometry_final.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/geometry_final.log",
+      "bytes": 57126,
+      "sha256": "09613851ccbf965c26203fa98c6c693c52192fa3e74da9010f8b07e72db28ead",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/horizontal_grid2.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/horizontal_grid2.log",
+      "bytes": 1031,
+      "sha256": "548fa9dd19f8490ca1d5d5d7337c4fbe48ca0e92a5a27f5b240485f5e7f564bc",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle10.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle10.log",
+      "bytes": 1235,
+      "sha256": "cd27eaf0d67ad0b50623fbab23b40ef4fa35a662f4693ddc24ef48118fb34465",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle11a.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle11a.log",
+      "bytes": 1235,
+      "sha256": "854ee8a6f5eaa24c54f51b0b99392196430f22fafa2f92c4afa1cdc1ed359302",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle11b.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle11b.log",
+      "bytes": 1235,
+      "sha256": "e719ea4838a026fe522c02f07c837b87797b2484c576de9783215b39d8e5e9e3",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle12.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle12.log",
+      "bytes": 1235,
+      "sha256": "88a79bdfb6c601d043e54779d8103d9774c3f646c371c418df7a5c71e2666a17",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle13a.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle13a.log",
+      "bytes": 1235,
+      "sha256": "145faa1d0816ac677bd1bfd5138623a6e4e7d63eb9eaa7eac81321c689baaf90",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle13b.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle13b.log",
+      "bytes": 1235,
+      "sha256": "6c153471c588e0fadd7e4a65e4f38edfc2db35939be15221a396b1edf5a48986",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle14.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle14.log",
+      "bytes": 1235,
+      "sha256": "759d7e4338993b197b28119baba78857e73eaa6f73d8e55474a0deaf0378fd2e",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle15a.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle15a.log",
+      "bytes": 1235,
+      "sha256": "ff54ab6890e03604f6f850793888db384634c38e8faac4fa164d1ae0fc4eb134",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle15b.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle15b.log",
+      "bytes": 1235,
+      "sha256": "b904f5afc122990847ba34a4c8b0d8807cbf203249f54027d7ac227e91242d68",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle16a.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle16a.log",
+      "bytes": 1235,
+      "sha256": "8abea4e17bddeb67962de09995ae27318d3429eadb29a4d90cdc9f1c981886f9",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle16b.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle16b.log",
+      "bytes": 1235,
+      "sha256": "62b0af2b627a108463064c0ff50fa8b9c94bbe6ff6c922a57bd95c6f2992e738",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle17.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle17.log",
+      "bytes": 1235,
+      "sha256": "bd49473100013c3b95d77e9dd6c84888c002dede3dcd11eb566f65181916a63a",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle18.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle18.log",
+      "bytes": 1235,
+      "sha256": "7165b42f1e687ac029400b5fafd100f83516e62b963ea967dc93a2dc17144171",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle3.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle3.log",
+      "bytes": 1235,
+      "sha256": "b2ee79440a16539d79213180a506ea964b0ff4c63d7dd5bec91093f43ad43d86",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle4.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle4.log",
+      "bytes": 1235,
+      "sha256": "f8b7efde4ae5f7d41ef660c324c9d56b8f2dc14e780f35ccdc0d19c704fcc6ef",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle5.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle5.log",
+      "bytes": 1235,
+      "sha256": "0d761015504b75ab695db4cf2a571f486cedcf91a06a601c92c034e74b008010",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle6.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle6.log",
+      "bytes": 1235,
+      "sha256": "fd7e339412053171a48a158ad619972f9ed183ad6cc956d3528588230d4eedce",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle7.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle7.log",
+      "bytes": 1235,
+      "sha256": "71f3ddec7cf907d4f1f14964ab67a262bd0ed06bb0111644b5de2c8c665b2ae2",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle8.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle8.log",
+      "bytes": 1235,
+      "sha256": "b92f90c9f34b924a8acd906c6c194e08ae66dc2a7f0929c13fc7c2eec3ed724f",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/idle9.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/idle9.log",
+      "bytes": 1235,
+      "sha256": "49c919bad6405728a3b573d551db41230156f9303b25b1f037eb64dc418c14b2",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/measure_pose.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/measure_pose.log",
+      "bytes": 1836,
+      "sha256": "38b19a17367f9df02024681e8592641c3b7ff37a790733ab4ca3a6e4af13003f",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/measure_pose.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/measure_pose.py",
+      "bytes": 997,
+      "sha256": "c19bd34dadce6d5580f7a1981757eabcafc465dea696f59b31dc654a964c1878",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/plane11.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/plane11.log",
+      "bytes": 1558,
+      "sha256": "a1bea7ddcf9f8735a014ae28a27b2c2b53cb7847f7d36f3d3e2d9231186d1c1c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/plane13.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/plane13.log",
+      "bytes": 1557,
+      "sha256": "29e9fb45db29d1cbd6a8b980326b6b43f671ee56f9366a47dae835882ad4b3c1",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/plane15.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/plane15.log",
+      "bytes": 1559,
+      "sha256": "bceaf6464a14f930f345d2ea081ecc06f06d78f7393d39a299cb3b247268d901",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/plane9.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/plane9.log",
+      "bytes": 1559,
+      "sha256": "e7c7bdd67a45a0f52ee7ef49d2a7ec3b7fe3d15f75e390abe9484f8144d08fa9",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/raise_grip.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/raise_grip.log",
+      "bytes": 1001,
+      "sha256": "e3d4cb07f2d87c2c3a452b06bbe568c8c241a7cfdc902ed319d92f2c84bdccfa",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/raise_grip.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/raise_grip.py",
+      "bytes": 1227,
+      "sha256": "8a9a2b62924e4d0511cc1c7f0e1d64c79574ab643bd96dd279cac445494b87e1",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/release18.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/release18.log",
+      "bytes": 343,
+      "sha256": "9470b284deb704210cacb9202b4d22be54bda53c96667089c0203f1d76455ad6",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/release20.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/release20.log",
+      "bytes": 343,
+      "sha256": "9470b284deb704210cacb9202b4d22be54bda53c96667089c0203f1d76455ad6",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/release_self20.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/release_self20.log",
+      "bytes": 1223,
+      "sha256": "a23b9614319fb8fa14817af58050867a06ff324e7beca33fcab176f43633968d",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/restore15.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/restore15.log",
+      "bytes": 343,
+      "sha256": "9470b284deb704210cacb9202b4d22be54bda53c96667089c0203f1d76455ad6",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/restore_contact8.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/restore_contact8.py",
+      "bytes": 998,
+      "sha256": "9cfc2e9b2ff46fb6a21f7d693b167438068cc7cbb5e38d1863337aa8b6dfebf9",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/retarget_release.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/retarget_release.log",
+      "bytes": 343,
+      "sha256": "9470b284deb704210cacb9202b4d22be54bda53c96667089c0203f1d76455ad6",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review10.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review10.log",
+      "bytes": 1118,
+      "sha256": "45d5866db0be141752c9865ddd9c4e4d8002a35c8c7a5da57bd4acaadfeec6f9",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review12.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review12.log",
+      "bytes": 1118,
+      "sha256": "68ba4631ea6a83e23883ddc87ccb3ae9ed840ac6e31e824376be8327a88bf2d4",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review14.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review14.log",
+      "bytes": 1118,
+      "sha256": "1aeddc6f6a4019114593a793b358457114b28300590e0e5d2a79e5238377a70e",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review16.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review16.log",
+      "bytes": 1118,
+      "sha256": "3a1d7cb53fc91aac06d904d827fc32fdc2d536eb54eef85d60309fe00fb2bb31",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review17.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review17.log",
+      "bytes": 1118,
+      "sha256": "2ebdbe0c94fdeea576cf0cc86a751fafc8a8f478c63bc3bd3ae343347278a814",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review3.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review3.log",
+      "bytes": 1118,
+      "sha256": "d25ec2e9357bd0112bfb6111448b7d88f346bedfe1999f70131bc8b78c31cfde",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review5.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review5.log",
+      "bytes": 1118,
+      "sha256": "788222bf957af7f4f96bbfc68215f8574704929f697c5fef3aa74e218092b24c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review6.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review6.log",
+      "bytes": 1118,
+      "sha256": "0aabbf9b51f26e7e433e7e4bfca59ff004635b73611149f57b7d0fe01275a1c8",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review8.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review8.log",
+      "bytes": 1118,
+      "sha256": "ee1943bcbe8c22e25710aa941aaf8df95fb20e2a8f1dad3e18bb47c7b44b78ae",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/review9.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/review9.log",
+      "bytes": 1118,
+      "sha256": "98387f190a06b1df957006b8894b1b1ac1a0cf36d3677fb4cf4f43c2f9ac87e5",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self10.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self10.log",
+      "bytes": 1839,
+      "sha256": "d6d8f476e683ff0de5a0b8976ba7a285562722ae25c607424cf2a3f7e95f92c9",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self14.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self14.log",
+      "bytes": 1839,
+      "sha256": "b9b401100c1fbf5a6f032c1cc6115f94507f194f4fa6ed458da5da15b8e5a7f7",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self16.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self16.log",
+      "bytes": 1841,
+      "sha256": "ed78dec91190640d702eb10f572d80619db8a0be4ba12412baecea394c85029e",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self17.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self17.log",
+      "bytes": 1840,
+      "sha256": "e419202871f8857ed08bc6f665dea1b65eea561cdfad1beb369a1a15f5735a06",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self18.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self18.log",
+      "bytes": 1839,
+      "sha256": "f5a1771b70436bff3bba3a6eba055eee9a956acf8a403e9c6416646984b0699c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self8.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self8.log",
+      "bytes": 1843,
+      "sha256": "053c8f0da1be8377a0829441a66725a4302456da4cf68336246f6f315e63aa5c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self9.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self9.log",
+      "bytes": 1843,
+      "sha256": "d09a1ed0c3f09f6d1e74880943ed3694cfe423ff32c2f7fdf62a22e6f888f9ad",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/self_transitions.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/self_transitions.log",
+      "bytes": 1684,
+      "sha256": "13bf8bc2cecc6f9605724274f00d62d83d9ae92b47445a3d21508c243d972a12",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/space18.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/space18.log",
+      "bytes": 999,
+      "sha256": "6cd7707ff4875da73fa4e55a25c1bcc6066db58af3f8cd6a9bdbf136bd628c57",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/space_lower_digits.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/space_lower_digits.py",
+      "bytes": 1392,
+      "sha256": "76e56fc3cbd9ed94b313d608d4bd090bfee61673b0e3683a3b24b63ed3c66c84",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/space_pinky_final.py",
+      "destination": "trash/prism-horizontal-cleanup-20260911/space_pinky_final.py",
+      "bytes": 1380,
+      "sha256": "993ad96d1f10df3c973d5903689ff60f032f35e01a7fb4852e588f4d1306a410",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/spacing16.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/spacing16.log",
+      "bytes": 999,
+      "sha256": "1c52a4611f36b67d7a8acd70f68a21188b274130717504bcc3728d1b263697e7",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/validate_final.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/validate_final.log",
+      "bytes": 6311,
+      "sha256": "ea00f0bbc698d312bc5a3f16ff94ba8c71eb9369174b143893a9189652a03b87",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/withdraw18.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/withdraw18.log",
+      "bytes": 2737,
+      "sha256": "54342e7b1cd8eafa72df6787e70f81bc04e3ec92ae8a79c164b0edae2b327d58",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/withdraw19.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/withdraw19.log",
+      "bytes": 1380,
+      "sha256": "b8f0f8507ed330900cfbbfbf5552d2347972c4480b5f626ba0f786e433b93d52",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/withdraw20.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/withdraw20.log",
+      "bytes": 1047,
+      "sha256": "fe2454ea7d8d0445a13a6f9fd7efa9345f6d577f394be4911057132e4dab8c09",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_drum_reload.blend1",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/A_M4_Prism_drum_reload.blend1",
+      "bytes": 126542214,
+      "sha256": "d7585d49180582cb052d8d48abd43a0a7e22c8bc630b4bd294a85f462ef32c8f",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_drum_reload_empty.blend1",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/A_M4_Prism_drum_reload_empty.blend1",
+      "bytes": 127759208,
+      "sha256": "ec66c3ee3431ad7972a3a8948aa360f920adad1afdbe80ea4de374c98f715eac",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_idle.blend1",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/A_M4_Prism_idle.blend1",
+      "bytes": 100406300,
+      "sha256": "05b2e4e1bd5c82b9f9649fc827f907ded13c91b652eeaa587ddc46978b6f3287",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_reload.blend1",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/A_M4_Prism_reload.blend1",
+      "bytes": 152920899,
+      "sha256": "5193a0ed088b10c9309981817bb133acbd8c533f02d1cf80efe98baf9542092c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/A_M4_Prism_reload_empty.blend1",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/A_M4_Prism_reload_empty.blend1",
+      "bytes": 144990000,
+      "sha256": "3df8fd9cf3d6985ce8e1a1e1daa80d486feb01acb740fe7ea92bc0b65d6595f5",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/build_idle.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/build_idle.log",
+      "bytes": 1235,
+      "sha256": "d53cec7e7319f4313a427ab1862fd985bceca6b21ccf3bdb9ec5348957c2a8a4",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/check_idle.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/check_idle.log",
+      "bytes": 1321,
+      "sha256": "28f9a073279c704c02b12ba3a216407e80402ccd210285c8b12da81e1d82e1f0",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/fit_pre_plane.json",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/fit_pre_plane.json",
+      "bytes": 64802,
+      "sha256": "ee80d62c1c80e49f648b3f9fa530cd90ca6158a09fef7c48ab59c4ab6bdf316c",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/fit_withdrawal.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/fit_withdrawal.log",
+      "bytes": 1281,
+      "sha256": "571c42cd84fba5532e7e5127d28f586ff7a68760793eb1a831a32e9039423f42",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/plane_alignment.json",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/plane_alignment.json",
+      "bytes": 732,
+      "sha256": "736c8bf8c259fa9c1ffa21707f00ac05df64447a96c393a91cc6ab35e6f39dd5",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/review_idle.log",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/review_idle.log",
+      "bytes": 1118,
+      "sha256": "2033ac4dc549bd40080feed43988d1006e66fb3b48e4a9aa35bcbd5e1d277997",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/trial_grid_translation.json",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/trial_grid_translation.json",
+      "bytes": 168,
+      "sha256": "70190b725363311b5f2cba20fb0e328d699340de8653426c5601ef8884be84aa",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    },
+    {
+      "source": "SourceAssets/PrismGripContact20260911/prism/trial_pinky17_fit.json",
+      "destination": "trash/prism-horizontal-cleanup-20260911/prism/trial_pinky17_fit.json",
+      "bytes": 253,
+      "sha256": "1afa5ec58b08b6970fad38e70bf8411061d4959e01e141a348987caa796eeb53",
+      "reason": "Superseded fitting trial, stale intermediate report, duplicate generator or automatic backup",
+      "replacement": "SourceAssets/PrismGripContact20260911/prism final configuration and VerticalGripClass20260911/build_family.py"
+    }
+  ],
+  "count": 118,
+  "bytes": 652962053,
+  "hash_readback_verified": true
+}
