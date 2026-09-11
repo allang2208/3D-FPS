@@ -1,0 +1,62 @@
+[
+  {
+    "path": "Config/DefaultGame.ini",
+    "baseline_normalized_sha256": "222b425098bc24c3ebb596bcc98fe03b80fc8377531d00c97609bde5bfe619b7",
+    "task_result_normalized_sha256": "b0e8937d388bf39cb15988c9dd94916fac30fdefa8cb65c4746dde7daec146ba",
+    "working_file_normalized_sha256": "b9ba71c65cbb1b2d02643fc55d99b0d27afdd1ceaaf9277353e4830859d3a713"
+  },
+  {
+    "path": "Content/ColdSteelData/gunsmith.json",
+    "baseline_normalized_sha256": "9a0621ad725958b1cc0a0d33e8a92bf061c5b3f7941d9cc1af6acff0ade18c63",
+    "task_result_normalized_sha256": "ae917e40e5f7b0c656e591b68d404f704f75cae42e2c0fbfc655e809c1182273",
+    "working_file_normalized_sha256": "ae917e40e5f7b0c656e591b68d404f704f75cae42e2c0fbfc655e809c1182273"
+  },
+  {
+    "path": "Source/FPSGAME/ForegripAudit.cpp",
+    "baseline_normalized_sha256": "008f5996096655b7b307fcf22c0d81bb1b984f28b25c8ddae63d60dc0dd0b9b3",
+    "task_result_normalized_sha256": "9edfd26fade86c8345779cb504d9e24c62747c6387dd77a72d4f43bf7e8b6008",
+    "working_file_normalized_sha256": "9edfd26fade86c8345779cb504d9e24c62747c6387dd77a72d4f43bf7e8b6008"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "baseline_normalized_sha256": "6173ac5f55420c7ce5f4b29216f194cc0c24469eda2e9236c60b79607dec87e6",
+    "task_result_normalized_sha256": "99170782ed950424161de21abcdc1b83562a86002d5220891f254e63d5e0c2e4",
+    "working_file_normalized_sha256": "311512680887d6a7fbcecdd108d4cb3ff6c074ec8796132013ee9e515688e3b7"
+  },
+  {
+    "path": "Source/FPSGAME/UI/CantedForegripAudit.cpp",
+    "baseline_normalized_sha256": "5bcedecd32f85de0ce207c0d3c8531b9d835e35e24019f462b97c94c51288142",
+    "task_result_normalized_sha256": "733080f799ee23209a8b533926df66a43bab8dbae3dbbb44e130e80cd90de071",
+    "working_file_normalized_sha256": "733080f799ee23209a8b533926df66a43bab8dbae3dbbb44e130e80cd90de071"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/AKMAttachmentVisual.h",
+    "baseline_normalized_sha256": "f8a9486c2dd2f4d69384bf83bfa55cdb7b62037c3c1092a96b632e61ca1393e1",
+    "task_result_normalized_sha256": "a0df2cf660a360b8b7c70bb7feabcca0c5337f9a2452a592c3d8c7ce84b3a5bc",
+    "working_file_normalized_sha256": "a0df2cf660a360b8b7c70bb7feabcca0c5337f9a2452a592c3d8c7ce84b3a5bc"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4AngledForegrip.cpp",
+    "baseline_normalized_sha256": "adf54cf9256ba823b017d9b21c9da51a106b8b20cbf056b1b88425624b1ac013",
+    "task_result_normalized_sha256": "ddb3469e97719b9f8fead9acbfc9f56b75a80283e4f4c5f492d0ef86fecd83d7",
+    "working_file_normalized_sha256": "ddb3469e97719b9f8fead9acbfc9f56b75a80283e4f4c5f492d0ef86fecd83d7"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4CantedForegrip.cpp",
+    "baseline_normalized_sha256": "4b2a0ee8363c28c1b631b81872b815c7d9fb57ac99d98d75b0a361202cec4e5a",
+    "task_result_normalized_sha256": "567b83f1d98154af7fa75ec83291a20bddf02661fbbfc7a96ab33595afc0cc51",
+    "working_file_normalized_sha256": "567b83f1d98154af7fa75ec83291a20bddf02661fbbfc7a96ab33595afc0cc51"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+    "baseline_normalized_sha256": "ebe2accefef4cad7233ad63adfc430213fc5298f9ccb44264681385fdb140da7",
+    "task_result_normalized_sha256": "6ca00f98fb03b22b685921fd6f96bbf02b100f9d5c12279a3d13beed80904aab",
+    "working_file_normalized_sha256": "6ca00f98fb03b22b685921fd6f96bbf02b100f9d5c12279a3d13beed80904aab"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4VerticalForegrip.cpp",
+    "baseline_normalized_sha256": "3783300b8ee2e504a122c0ae1e85a951ea04614be8e4cdd91cfa5154bfa3d8bd",
+    "task_result_normalized_sha256": "832dc67ebfac21394f8f9f84541aa6b7fb2350647e75199cae76a88508b1a807",
+    "working_file_normalized_sha256": "832dc67ebfac21394f8f9f84541aa6b7fb2350647e75199cae76a88508b1a807"
+  }
+]

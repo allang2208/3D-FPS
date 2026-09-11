@@ -1,0 +1,192 @@
+diff --git a/Config/DefaultGame.ini b/Config/DefaultGame.ini
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -38,0 +39,2 @@
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4CantedErgonomic")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4VerticalGripErgonomic")
+diff --git a/Content/ColdSteelData/gunsmith.json b/Content/ColdSteelData/gunsmith.json
+--- a/Content/ColdSteelData/gunsmith.json
++++ b/Content/ColdSteelData/gunsmith.json
+@@ -307,0 +308,14 @@
++            "id": "vertical_foregrip",
++            "name": "垂直握把",
++            "description": "直筒式前握把，四指环握与拇指对握，安装于 AKM 护木转接座，使用专用支撑及换弹回握动作。",
++            "effects": [],
++            "stats": {}
++          },
++          {
++            "id": "canted_foregrip",
++            "name": "45°侧倾握把",
++            "description": "向枪身左下方侧倾，左手外侧包握，安装于 AKM 护木转接座，使用专用支撑及换弹回握动作。",
++            "effects": [],
++            "stats": {}
++          },
++          {
+diff --git a/Source/FPSGAME/ForegripAudit.cpp b/Source/FPSGAME/ForegripAudit.cpp
+--- a/Source/FPSGAME/ForegripAudit.cpp
++++ b/Source/FPSGAME/ForegripAudit.cpp
+@@ -32 +32 @@
+-    const TCHAR* Prefix=bCantedAudit?TEXT("A_M4_Canted_"):bVerticalAudit?TEXT("A_M4_Vertical_"):bAKM?(bPrismAudit?TEXT("A_AKM_prism_"):TEXT("A_AKM_angled_")):(bPrismAudit?TEXT("A_M4_Prism_"):TEXT("A_M4_Foregrip_"));
++    const TCHAR* Prefix=bAKM?(bCantedAudit?TEXT("A_AKM_canted_"):bVerticalAudit?TEXT("A_AKM_vertical_"):bPrismAudit?TEXT("A_AKM_prism_"):TEXT("A_AKM_angled_")):(bCantedAudit?TEXT("A_M4_Canted_"):bVerticalAudit?TEXT("A_M4_Vertical_"):bPrismAudit?TEXT("A_M4_Prism_"):TEXT("A_M4_Foregrip_"));
+@@ -47,0 +48,9 @@
++        if(bAKM)
++        {
++            const auto* Standard=G->Weapon(TEXT("ue_m4a1"));
++            for(const auto& Slot:Standard->Options)for(const auto& Option:Slot.Value)
++            {
++                const auto* Other=G->Option(TEXT("ue_akm"),Slot.Key,Option.Id);
++                Check(Other&&Other->ADS==Option.ADS&&Other->Recoil==Option.Recoil&&Other->Shake==Option.Shake&&Other->Speed==Option.Speed&&Other->Interval==Option.Interval&&Other->Spread==Option.Spread&&Other->Range==Option.Range&&Other->Reload==Option.Reload&&Other->Magazine==Option.Magazine,TEXT("AKM accessory catalog and values match M4"));
++            }
++        }
+@@ -95,0 +105 @@
++        UE_LOG(LogTemp,Display,TEXT("FOREGRIP_AUDIT_LOADED idle=%s mesh=%s"),*GunplayAnimation->IdleClip->GetPathName(),*(bCantedAudit?CantedForegrip:bVerticalAudit?VerticalForegrip:bPrismAudit?PrismHandstop:AngledForegrip)->GetStaticMesh()->GetPathName());
+@@ -188 +198 @@
+-    if(ForegripAuditStage==21){FScreenshotRequest::RequestScreenshot(Out/TEXT("wrist_review.png"),false,false);ForegripAuditStage=bAKM?25:22;ForegripAuditNextTime=Now+.5f;return;}
++    if(ForegripAuditStage==21){FScreenshotRequest::RequestScreenshot(Out/TEXT("wrist_review.png"),false,false);ForegripAuditStage=bAKM?25:27;ForegripAuditNextTime=Now+.5f;return;}
+@@ -201 +211,22 @@
+-    if(ForegripAuditStage==26){FScreenshotRequest::RequestScreenshot(Out/TEXT("optic_mount_review.png"),false,false);ForegripAuditStage=22;ForegripAuditNextTime=Now+.5f;return;}
++    if(ForegripAuditStage==26){FScreenshotRequest::RequestScreenshot(Out/TEXT("optic_mount_review.png"),false,false);ForegripAuditStage=27;ForegripAuditNextTime=Now+.5f;return;}
++    if(ForegripAuditStage==27)
++    {
++        PC->SetViewTarget(this);auto S=P->Snapshot();auto Other=P->CreateItem(bAKM?TEXT("ue_m4a1"):TEXT("ue_akm"));Other.Place=1;Other.Cell=6;Other.Magazine=11;S.Items.Add(Other);S.ActiveWeaponSlot=6;
++        Check(P->CommitState(S),TEXT("switch to other rifle"));
++        ForegripAuditStage=28;ForegripAuditNextTime=Now+2.f;return;
++    }
++    if(ForegripAuditStage==28){Install(TEXT("underbarrel"),Variant);ForegripAuditStage=30;ForegripAuditNextTime=Now+.5f;return;}
++    if(ForegripAuditStage==30)
++    {
++        auto* Part=(bCantedAudit?CantedForegrip:bVerticalAudit?VerticalForegrip:bPrismAudit?PrismHandstop:AngledForegrip).Get();
++        const TCHAR* Expected=!bAKM?TEXT("/AKMIntegration/"):bPrismAudit?TEXT("/PrismHandstopV1/"):TEXT("/Game/Weapons/M4");
++        Check(HasGrip()&&Part->GetStaticMesh()->GetPathName().Contains(Expected),TEXT("other rifle uses its own attachment mesh"));
++        Check(GunplayAnimation->IdleClip==GripAnimations.FindRef(IdleAnimation)&&MagazineAmmo==11,TEXT("other rifle uses its own grip animation and ammunition"));Capture(TEXT("other_rifle"));
++        auto S=P->Snapshot();S.ActiveWeaponSlot=9;Check(P->CommitState(S),TEXT("switch back to original rifle"));ForegripAuditStage=29;ForegripAuditNextTime=Now+2.f;return;
++    }
++    if(ForegripAuditStage==29)
++    {
++        auto* Part=(bCantedAudit?CantedForegrip:bVerticalAudit?VerticalForegrip:bPrismAudit?PrismHandstop:AngledForegrip).Get();
++        const TCHAR* Expected=bAKM?TEXT("/AKMIntegration/"):bPrismAudit?TEXT("/PrismHandstopV1/"):TEXT("/Game/Weapons/M4");
++        Check(HasGrip()&&Part->GetStaticMesh()->GetPathName().Contains(Expected)&&GunplayAnimation->IdleClip==GripAnimations.FindRef(IdleAnimation),TEXT("switch back restores original rifle mesh and grip animation"));Capture(TEXT("switch_back"));ForegripAuditStage=22;ForegripAuditNextTime=Now+.5f;return;
++    }
+diff --git a/Source/FPSGAME/FPSGAMECharacter.cpp b/Source/FPSGAME/FPSGAMECharacter.cpp
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -171 +171 @@
+-    for(auto* Part:{LPVORing.Get(),AKMOpticBridge.Get(),HolographicOptic.Get(),LargeDrum.Get(),MuzzleAttachment.Get(),PrismHandstop.Get(),AngledForegrip.Get()})if(Part)Part->DestroyComponent();
++    for(auto* Part:{LPVORing.Get(),AKMOpticBridge.Get(),HolographicOptic.Get(),LargeDrum.Get(),MuzzleAttachment.Get(),PrismHandstop.Get(),AngledForegrip.Get(),VerticalForegrip.Get(),CantedForegrip.Get()})if(Part)Part->DestroyComponent();
+@@ -173 +173 @@
+-    LPVORing=nullptr;LPVOMagnification=1.f;HolographicOptic=nullptr;LargeDrum=nullptr;MuzzleAttachment=nullptr;PrismHandstop=nullptr;AngledForegrip=nullptr;
++    LPVORing=nullptr;LPVOMagnification=1.f;HolographicOptic=nullptr;LargeDrum=nullptr;MuzzleAttachment=nullptr;PrismHandstop=nullptr;AngledForegrip=nullptr;VerticalForegrip=nullptr;CantedForegrip=nullptr;
+diff --git a/Source/FPSGAME/UI/CantedForegripAudit.cpp b/Source/FPSGAME/UI/CantedForegripAudit.cpp
+--- a/Source/FPSGAME/UI/CantedForegripAudit.cpp
++++ b/Source/FPSGAME/UI/CantedForegripAudit.cpp
+@@ -8,0 +9 @@
++#include "Engine/StaticMesh.h"
+@@ -11,0 +13,2 @@
++#include "Misc/CommandLine.h"
++#include "Misc/Parse.h"
+@@ -18,0 +22,5 @@
++    const bool bAKM=FParse::Param(FCommandLine::Get(),TEXT("AKMAttachmentAudit"));
++    const bool bVertical=FParse::Param(FCommandLine::Get(),TEXT("AuditVerticalGrip"));
++    const FString Definition=bAKM?TEXT("ue_akm"):TEXT("ue_m4a1");
++    const FString Variant=bVertical?TEXT("vertical_foregrip"):TEXT("canted_foregrip");
++    auto HasGrip=[C,bVertical](){return bVertical?C->HasVerticalForegrip():C->HasCantedForegrip();};
+@@ -22 +30 @@
+-    const FString Dir=FPaths::ProjectSavedDir()/TEXT("CantedForegripAudit");IFileManager::Get().MakeDirectory(*Dir,true);
++    const FString Dir=FPaths::ProjectSavedDir()/TEXT("CantedForegripAudit")/FPaths::MakeValidFileName(P->ProfileSlot());IFileManager::Get().MakeDirectory(*Dir,true);
+@@ -24,5 +32,5 @@
+-    auto State=P->Snapshot();State.Items.Reset();auto I=P->CreateItem(TEXT("ue_m4a1"));I.Place=1;I.Cell=9;I.Magazine=17;State.Items.Add(I);State.ActiveWeaponSlot=9;Check(P->CommitState(State),TEXT("seed isolated M4"));
+-    Later(3,[this,P,G,C,Check](){Check(OpenGunsmith(),TEXT("open workbench"));if(!GunsmithPanel)return;
+-        Check(G->Option(TEXT("ue_m4a1"),TEXT("underbarrel"),TEXT("canted_foregrip"))!=nullptr,TEXT("catalog option exists"));
+-        GunsmithPanel->SelectCategory(TEXT("underbarrel"));GunsmithPanel->ChooseOption(TEXT("underbarrel"),TEXT("canted_foregrip"));
+-        Check(C->HasCantedForegrip()&&G->Pending()==1,TEXT("select displays draft handstop"));
++    auto State=P->Snapshot();State.Items.Reset();auto I=P->CreateItem(Definition);I.Place=1;I.Cell=9;I.Magazine=17;State.Items.Add(I);State.ActiveWeaponSlot=9;Check(P->CommitState(State),TEXT("seed isolated weapon"));
++    Later(3,[this,P,G,C,Check,Definition,Variant,HasGrip](){Check(OpenGunsmith(),TEXT("open workbench"));if(!GunsmithPanel)return;
++        Check(G->Option(Definition,TEXT("underbarrel"),Variant)!=nullptr,TEXT("catalog option exists"));
++        GunsmithPanel->SelectCategory(TEXT("underbarrel"));GunsmithPanel->ChooseOption(TEXT("underbarrel"),Variant);
++        Check(HasGrip()&&G->Pending()==1,TEXT("select displays draft handstop"));
+@@ -32 +40 @@
+-        for(auto* Part:Parts)if(Part->GetName()==TEXT("M4CantedForegrip"))Mounted=Part->GetAttachSocketName()==TEXT("WPN_root")&&Part->GetAttachParent()&&Part->GetCollisionEnabled()==ECollisionEnabled::NoCollision;
++        for(auto* Part:Parts)if(Part->IsVisible()&&Part->GetStaticMesh()&&Part->GetStaticMesh()->GetName().Contains(Variant==TEXT("vertical_foregrip")?TEXT("ertical"):TEXT("anted")))Mounted=Part->GetAttachSocketName()==TEXT("WPN_root")&&Part->GetAttachParent()&&Part->GetCollisionEnabled()==ECollisionEnabled::NoCollision;
+@@ -38,4 +46,4 @@
+-    Later(8,[this,C,P,G,Check](){CloseGunsmith();Check(!C->HasCantedForegrip(),TEXT("close cancels unsaved visual"));Check(OpenGunsmith(),TEXT("reopen"));if(!GunsmithPanel)return;
+-        GunsmithPanel->SelectCategory(TEXT("underbarrel"));GunsmithPanel->ChooseOption(TEXT("underbarrel"),TEXT("canted_foregrip"));
+-        P->AuditFailNextSave=true;Check(!GunsmithPanel->ApplyDraft()&&G->Pending()==1&&C->HasCantedForegrip(),TEXT("failed save retains draft"));
+-        Check(GunsmithPanel->ApplyDraft(),TEXT("apply saves handstop"));CloseGunsmith();Check(P->ReloadProfile()&&C->HasCantedForegrip(),TEXT("reload restores installed handstop"));
++    Later(8,[this,C,P,G,Check,Definition,Variant,HasGrip](){CloseGunsmith();Check(!HasGrip(),TEXT("close cancels unsaved visual"));Check(OpenGunsmith(),TEXT("reopen"));if(!GunsmithPanel)return;
++        GunsmithPanel->SelectCategory(TEXT("underbarrel"));GunsmithPanel->ChooseOption(TEXT("underbarrel"),Variant);
++        P->AuditFailNextSave=true;Check(!GunsmithPanel->ApplyDraft()&&G->Pending()==1&&HasGrip(),TEXT("failed save retains draft"));
++        Check(GunsmithPanel->ApplyDraft(),TEXT("apply saves handstop"));CloseGunsmith();Check(P->ReloadProfile()&&HasGrip(),TEXT("reload restores installed handstop"));
+@@ -45 +53 @@
+-    Later(11,[this,P,C,Check](){Check(GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->Find(*P->Equipped())!=nullptr,TEXT("equipped configuration icon renders"));
++    Later(11,[this,P,C,Check,Definition,Variant,HasGrip](){Check(GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->Find(*P->Equipped())!=nullptr,TEXT("equipped configuration icon renders"));
+@@ -49,3 +57,3 @@
+-    Later(14,[this,P,C,G,Check](){CloseGunsmith();Check(OpenGunsmith(),TEXT("open for removal"));if(!GunsmithPanel)return;
+-        GunsmithPanel->ChooseOption(TEXT("underbarrel"),TEXT("false"));Check(!C->HasCantedForegrip(),TEXT("remove preview hides attachment"));
+-        Check(GunsmithPanel->ApplyDraft(),TEXT("save removal"));CloseGunsmith();Check(P->ReloadProfile()&&!C->HasCantedForegrip(),TEXT("reload keeps removal"));
++    Later(14,[this,P,C,G,Check,Definition,Variant,HasGrip](){CloseGunsmith();Check(OpenGunsmith(),TEXT("open for removal"));if(!GunsmithPanel)return;
++        GunsmithPanel->ChooseOption(TEXT("underbarrel"),TEXT("false"));Check(!HasGrip(),TEXT("remove preview hides attachment"));
++        Check(GunsmithPanel->ApplyDraft(),TEXT("save removal"));CloseGunsmith();Check(P->ReloadProfile()&&!HasGrip(),TEXT("reload keeps removal"));
+@@ -54,2 +62,2 @@
+-    Later(16,[this,P,C,Check](){auto S=P->Snapshot();auto Other=P->CreateItem(TEXT("ue_m4a1"));Other.Place=0;Other.Cell=0;Other.Magazine=11;S.Items.Add(Other);Check(P->CommitState(S)&&OpenGunsmith(Other.InstanceId),TEXT("open unequipped instance"));if(!GunsmithPanel)return;
+-        GunsmithPanel->ChooseOption(TEXT("underbarrel"),TEXT("canted_foregrip"));Check(!C->HasCantedForegrip(),TEXT("unequipped draft does not affect active gun"));Check(GunsmithPanel->ApplyDraft(),TEXT("save unequipped attachment"));CloseGunsmith();Check(P->ReloadProfile(),TEXT("reload unequipped data"));
++    Later(16,[this,P,C,Check,Definition,Variant,HasGrip](){auto S=P->Snapshot();auto Other=P->CreateItem(Definition);Other.Place=0;Other.Cell=0;Other.Magazine=11;S.Items.Add(Other);Check(P->CommitState(S)&&OpenGunsmith(Other.InstanceId),TEXT("open unequipped instance"));if(!GunsmithPanel)return;
++        GunsmithPanel->ChooseOption(TEXT("underbarrel"),Variant);Check(!HasGrip(),TEXT("unequipped draft does not affect active gun"));Check(GunsmithPanel->ApplyDraft(),TEXT("save unequipped attachment"));CloseGunsmith();Check(P->ReloadProfile(),TEXT("reload unequipped data"));
+@@ -57 +65 @@
+-    Later(18,[this,P,G,Check,Counts](){const auto S=P->Snapshot();bool Found=false;for(const auto& Item:S.Items)if(Item.Place==0)Found|=G->Installed(Item).FindRef(TEXT("underbarrel"))==TEXT("canted_foregrip");Check(Found,TEXT("unequipped instance retains attachment"));UE_LOG(LogTemp,Display,TEXT("CANTED_UI_AUDIT COMPLETE checks=%d failures=%d"),Counts->X,Counts->Y);ConsoleCommand(TEXT("quit"));});
++    Later(18,[this,P,G,Check,Counts,Variant](){const auto S=P->Snapshot();bool Found=false;for(const auto& Item:S.Items)if(Item.Place==0)Found|=G->Installed(Item).FindRef(TEXT("underbarrel"))==Variant;Check(Found,TEXT("unequipped instance retains attachment"));UE_LOG(LogTemp,Display,TEXT("CANTED_UI_AUDIT COMPLETE checks=%d failures=%d"),Counts->X,Counts->Y);ConsoleCommand(TEXT("quit"));});
+diff --git a/Source/FPSGAME/Weapons/AKMAttachmentVisual.h b/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
+--- a/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
++++ b/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
+@@ -6,0 +7,4 @@
++inline FString GripAnimationPath(const TCHAR* Key,const TCHAR* Clip)
++{
++    return FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/%s/A_AKM_%s_%s"),Key,Key,Clip);
++}
+@@ -10,2 +14,3 @@
+-    const TCHAR* Directory=FCString::Strcmp(Key,TEXT("optic"))==0?TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_AKM_"):TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_");
+-    auto* Mesh=LoadObject<UStaticMesh>(nullptr,*(FString(Directory)+Key));
++    const bool NewGrip=FCString::Strcmp(Key,TEXT("canted"))==0||FCString::Strcmp(Key,TEXT("vertical"))==0||FCString::Strcmp(Key,TEXT("angled"))==0;
++    const TCHAR* Directory=NewGrip?TEXT("/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_"):FCString::Strcmp(Key,TEXT("optic"))==0?TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_AKM_"):TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_");
++    auto* Mesh=LoadObject<UStaticMesh>(nullptr,*(FString(Directory)+Key+(FCString::Strcmp(Key,TEXT("canted"))==0?TEXT("_CompactMount"):TEXT(""))));
+diff --git a/Source/FPSGAME/Weapons/M4AngledForegrip.cpp b/Source/FPSGAME/Weapons/M4AngledForegrip.cpp
+--- a/Source/FPSGAME/Weapons/M4AngledForegrip.cpp
++++ b/Source/FPSGAME/Weapons/M4AngledForegrip.cpp
+@@ -22 +22 @@
+-        const FString ResolvedPath=AKMSoviet::Matches(AKMViewmodel)?Path.Replace(TEXT("/Attachments/"),TEXT("/ArmSupportFinalV2/")):Path;
++        const FString ResolvedPath=AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("angled"),Pair.Value):Path;
+diff --git a/Source/FPSGAME/Weapons/M4CantedForegrip.cpp b/Source/FPSGAME/Weapons/M4CantedForegrip.cpp
+--- a/Source/FPSGAME/Weapons/M4CantedForegrip.cpp
++++ b/Source/FPSGAME/Weapons/M4CantedForegrip.cpp
+@@ -12 +12 @@
+-    if(!bUsingM4Infima)return;
++    if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel))return;
+@@ -21 +21 @@
+-        const FString Path=FString::Printf(TEXT("/Game/Weapons/M4CantedThumbClose/A_M4_Canted_%s"),Pair.Value);
++        const FString Path=AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4CantedErgonomic/A_M4_Canted_%s"),Pair.Value);
+@@ -29,0 +30 @@
++    if(AKMSoviet::Matches(AKMViewmodel)){CantedForegrip=AKMAttachment::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
+@@ -63 +64 @@
+-}
+\ No newline at end of file
++}
+diff --git a/Source/FPSGAME/Weapons/M4HandstopVisual.cpp b/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
+--- a/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
++++ b/Source/FPSGAME/Weapons/M4HandstopVisual.cpp
+@@ -23 +23 @@
+-        const FString ResolvedPath=AKMSoviet::Matches(AKMViewmodel)?Path.Replace(TEXT("/Attachments/"),TEXT("/ArmSupportFinalV2/")):Path;
++        const FString ResolvedPath=AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("prism"),Pair.Value):Path;
+diff --git a/Source/FPSGAME/Weapons/M4VerticalForegrip.cpp b/Source/FPSGAME/Weapons/M4VerticalForegrip.cpp
+--- a/Source/FPSGAME/Weapons/M4VerticalForegrip.cpp
++++ b/Source/FPSGAME/Weapons/M4VerticalForegrip.cpp
+@@ -13 +13 @@
+-    if(!bUsingM4Infima)return;
++    if(!bUsingM4Infima&&!AKMSoviet::Matches(AKMViewmodel))return;
+@@ -22 +22 @@
+-        const FString Path=VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
++        const FString Path=AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
+@@ -30,0 +31 @@
++    if(AKMSoviet::Matches(AKMViewmodel)){VerticalForegrip=AKMAttachment::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
+@@ -64 +65 @@
+-}
+\ No newline at end of file
++}

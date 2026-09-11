@@ -1,0 +1,144 @@
+{
+  "date": "2026-09-11",
+  "scope": "M4 canted refinement; four AKM grip families and M4 attachment stat parity",
+  "native_build": {
+    "module_suffix": "2026096228",
+    "result": "Succeeded"
+  },
+  "runtime": {
+    "m4-canted-accepted": {
+      "passed_checks": 344,
+      "failures": 0
+    },
+    "akm-canted-accepted": {
+      "passed_checks": 822,
+      "failures": 0
+    },
+    "akm-vertical-accepted": {
+      "passed_checks": 806,
+      "failures": 0
+    },
+    "akm-prism-accepted": {
+      "passed_checks": 800,
+      "failures": 0
+    },
+    "akm-angled-accepted": {
+      "passed_checks": 815,
+      "failures": 0
+    },
+    "akm-canted-ui-accepted": {
+      "passed_checks": 24,
+      "failures": 0
+    },
+    "akm-vertical-ui-accepted": {
+      "passed_checks": 24,
+      "failures": 0
+    }
+  },
+  "geometry": {
+    "m4/canted": {
+      "samples": 447,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 12
+    },
+    "akm/canted": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 85
+    },
+    "akm/vertical": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 95
+    },
+    "akm/prism": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 95
+    },
+    "akm/angled": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 100
+    }
+  },
+  "inherited_finger_self_intersection_sample_times": 387,
+  "new_only_self_intersection_sample_times": 0,
+  "geometry_scope": "Sampled actual skinned finger surfaces against grip meshes plus inter-finger surfaces; not all arm/gun surfaces or continuous time.",
+  "animation_assets_passed": 45,
+  "compression_maxima": {
+    "compression_position_cm": 0.0014777336692661396,
+    "compression_rotation_deg": 0.009406993649897928,
+    "preserved_nonleft_cm": 0.00030387270902989974,
+    "preserved_reload_contact_cm": 0.0035114200911186355
+  },
+  "source_to_runtime_idle_pair_distance_error_cm": {
+    "m4/canted": 0.0004744078178831046,
+    "akm/vertical": 0.00012076724335052802,
+    "akm/prism": 0.00011599653013583122,
+    "akm/angled": 0.00010612418171618287,
+    "akm/canted": 0.00012146629669729236
+  },
+  "formal_animation_paths": [
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/vertical/A_AKM_vertical_drum_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_drum_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/angled/A_AKM_angled_drum_reload_empty",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_idle",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_aim",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_fire",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_aim_fire",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_equip",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_reload",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_reload_empty",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_drum_reload",
+    "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_drum_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_drum_reload_empty"
+  ],
+  "formal_new_static_paths": [
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_canted_CompactMount",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_vertical",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_angled"
+  ],
+  "editable_families": [
+    "m4\\canted\\M4_canted_Family_Editable.blend",
+    "akm\\canted\\AKM_canted_Family_Editable.blend",
+    "akm\\vertical\\AKM_vertical_Family_Editable.blend",
+    "akm\\prism\\AKM_prism_Family_Editable.blend",
+    "akm\\angled\\AKM_angled_Family_Editable.blend"
+  ],
+  "commandlet_environment": "Import/readback scripts passed. Commandlet process exit 1 includes preexisting GameFeatureData AssetManager configuration and HTTP 8000 contention. Fresh runtime processes exited 0.",
+  "preview": "Actual UE screenshots; video frame durations recovered from screenshot log timestamps; silent visual evidence, no new audio synchronization claim.",
+  "user_visual_acceptance": "Awaiting user review of this iteration; implementation and scoped automated/visual verification complete."
+}

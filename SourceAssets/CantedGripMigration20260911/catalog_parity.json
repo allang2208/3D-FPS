@@ -1,0 +1,212 @@
+[
+  {
+    "slot": "underbarrel",
+    "id": "canted_foregrip",
+    "stats": {},
+    "effects": [],
+    "matched": true
+  },
+  {
+    "slot": "underbarrel",
+    "id": "vertical_foregrip",
+    "stats": {},
+    "effects": [],
+    "matched": true
+  },
+  {
+    "slot": "underbarrel",
+    "id": "false",
+    "stats": {},
+    "effects": [],
+    "matched": true
+  },
+  {
+    "slot": "underbarrel",
+    "id": "prism_handstop",
+    "stats": {},
+    "effects": [
+      {
+        "text": "外观配件；枪械数值不变",
+        "benefit": 0
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "underbarrel",
+    "id": "angled_foregrip",
+    "stats": {},
+    "effects": [
+      {
+        "text": "专用左手抓握姿态；枪械数值不变",
+        "benefit": 0
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "optic",
+    "id": "false",
+    "stats": {},
+    "effects": [],
+    "matched": true
+  },
+  {
+    "slot": "optic",
+    "id": "holographic",
+    "stats": {},
+    "effects": [
+      {
+        "text": "1×全息瞄具；开镜时间不变",
+        "benefit": 0
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "optic",
+    "id": "panoramic_red_dot",
+    "stats": {},
+    "effects": [
+      {
+        "text": "1×红点瞄具；开镜时间不变",
+        "benefit": 0
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "optic",
+    "id": "prism_scope_2x",
+    "stats": {},
+    "effects": [
+      {
+        "text": "2×瞄准放大；开镜时间不变",
+        "benefit": 0
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "optic",
+    "id": "lpvo_1_6x",
+    "stats": {},
+    "effects": [
+      {
+        "text": "1～6×可调放大；开镜时间不变",
+        "benefit": 0
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "magazine",
+    "id": "false",
+    "stats": {},
+    "effects": [],
+    "matched": true
+  },
+  {
+    "slot": "magazine",
+    "id": "large_drum",
+    "stats": {
+      "mag_delta": 20,
+      "reload_mult": 1.75,
+      "ads_percent": -0.13043478260869565
+    },
+    "effects": [
+      {
+        "text": "弹匣容量增加20发",
+        "benefit": 1
+      },
+      {
+        "text": "换弹时间增加75%",
+        "benefit": -1
+      },
+      {
+        "text": "开镜速度提高15%",
+        "benefit": 1
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "muzzle",
+    "id": "false",
+    "stats": {},
+    "effects": [],
+    "matched": true
+  },
+  {
+    "slot": "muzzle",
+    "id": "true",
+    "stats": {
+      "recoil_mult": 0.75,
+      "shake_mult": 0.75,
+      "bullet_speed_mult": 0.8
+    },
+    "effects": [
+      {
+        "text": "后坐力降低25%",
+        "benefit": 1
+      },
+      {
+        "text": "射击晃动降低25%",
+        "benefit": 1
+      },
+      {
+        "text": "子弹速度降低20%",
+        "benefit": -1
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "muzzle",
+    "id": "brake",
+    "stats": {
+      "recoil_mult": 0.85,
+      "shake_mult": 0.85,
+      "ads_percent": 0.1
+    },
+    "effects": [
+      {
+        "text": "后坐力降低15%",
+        "benefit": 1
+      },
+      {
+        "text": "射击晃动降低15%",
+        "benefit": 1
+      },
+      {
+        "text": "开镜耗时增加10%",
+        "benefit": -1
+      }
+    ],
+    "matched": true
+  },
+  {
+    "slot": "muzzle",
+    "id": "titanium_brake",
+    "stats": {
+      "recoil_mult": 0.7,
+      "shake_mult": 0.8,
+      "ads_percent": 0.17647058823529416
+    },
+    "effects": [
+      {
+        "text": "后坐力降低30%",
+        "benefit": 1
+      },
+      {
+        "text": "射击晃动降低20%",
+        "benefit": 1
+      },
+      {
+        "text": "开镜速度降低15%",
+        "benefit": -1
+      }
+    ],
+    "matched": true
+  }
+]
