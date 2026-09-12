@@ -1,5 +1,7 @@
 # QR 高性能后托
 
+**当前游戏资产为用户随后要求的细节精修版，入口见 [DetailRefine/README.md](DetailRefine/README.md)。本文件以下内容保留初版 5080 制作记录；`GunsmithScreenshots` 的截图属于精修前版本。**
+
 用户于 2026-09-12 提供的 QR 高性能后托图片为本轮造型参考。三视图由 imagegen 根据该图重新制作，随后送入 RTX 5080 的 TRELLIS.2 管线。该配件独立使用 `stock: qr_performance`；此前的 `skeleton` 选项保留。
 
 ## 制作入口

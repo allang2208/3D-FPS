@@ -1,0 +1,24 @@
+{
+  "m4": {
+    "triangles": 92306,
+    "author_dimensions_cm": [
+      17.920000076293945,
+      4.5320000648498535,
+      13.124980926513672
+    ],
+    "source": "5080 reconstruction and model_views.png",
+    "method": "hard surface retopology; separate hardware, three windows, inset cheek panels and shoulder pad",
+    "testing": "not performed; user will test"
+  },
+  "akm": {
+    "triangles": 96650,
+    "author_dimensions_cm": [
+      18.020000457763672,
+      4.5320000648498535,
+      13.124980926513672
+    ],
+    "source": "5080 reconstruction and model_views.png",
+    "method": "hard surface retopology; separate hardware, three windows, inset cheek panels and shoulder pad",
+    "testing": "not performed; user will test"
+  }
+}
