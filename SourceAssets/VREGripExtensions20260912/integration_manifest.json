@@ -1,0 +1,22 @@
+[
+  {
+    "path": "Source/FPSGAME/Weapons/VerticalGripAnimationFamily.h",
+    "before_sha256": "ef7fee4a3e6da81a73d71df4d688c7aeb25f08c448c272faaf0d11a243baaf80",
+    "after_sha256": "d8681fe62e86ea7eaa6210a6c6aee6bed08cae19543e4a79536082a0b061e69b"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/AKMAttachmentVisual.h",
+    "before_sha256": "e7562610c2e4eb20eafee1223b4cdb36950675c88a50313580586d7c7ad911a1",
+    "after_sha256": "2434793b84f23d385d7b224c3c46943e229c1816ee51ec62b9282deeeb2c109f"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/M4CantedForegrip.cpp",
+    "before_sha256": "b08d9df588f04069a3650539b237a4f2710a2c81720141ff978c8667f8f7fe82",
+    "after_sha256": "c18142ae4f66b208c12b5535dc1595d321ae912fe8464f17a7d64eeeb15806d8"
+  },
+  {
+    "path": "Config/DefaultGame.ini",
+    "before_sha256": "567e6085dd525fa9f3216ffe44654512fd71a6ca5cb3884aee837b0e65d9365e",
+    "after_sha256": "266c7c519a4c661bebcb181d2447c1d7c7ce94397b220fb369ace33d97e6b354"
+  }
+]

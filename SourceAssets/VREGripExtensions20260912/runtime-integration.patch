@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Weapons/VerticalGripAnimationFamily.h
++++ b/Source/FPSGAME/Weapons/VerticalGripAnimationFamily.h
+@@ -12,5 +12,5 @@
+         const bool bPrism = Profile == EContactProfile::Prism;
+         return FString::Printf(TEXT("%s/A_M4_%s_%s"),
+-            bPrism ? TEXT("/Game/Weapons/M4VerticalGripErgonomic/Prism") : TEXT("/Game/Weapons/M4VerticalGripVRENatural/Vertical"),
++            bPrism ? TEXT("/Game/Weapons/M4VREGripExtensions/Prism") : TEXT("/Game/Weapons/M4VerticalGripVRENatural/Vertical"),
+             bPrism ? TEXT("Prism") : TEXT("Vertical"), Clip);
+     }
+--- a/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
++++ b/Source/FPSGAME/Weapons/AKMAttachmentVisual.h
+@@ -7,5 +7,6 @@
+ inline FString GripAnimationPath(const TCHAR* Key,const TCHAR* Clip)
+ {
+-    const TCHAR* Family=FCString::Strcmp(Key,TEXT("vertical"))==0?TEXT("GripVRENatural"):TEXT("GripErgonomic");
++    const TCHAR* Family=FCString::Strcmp(Key,TEXT("vertical"))==0?TEXT("GripVRENatural"):
++        (FCString::Strcmp(Key,TEXT("canted"))==0||FCString::Strcmp(Key,TEXT("prism"))==0)?TEXT("GripVREExtensions"):TEXT("GripErgonomic");
+     return FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/%s/%s/A_AKM_%s_%s"),Family,Key,Key,Clip);
+ }
+--- a/Source/FPSGAME/Weapons/M4CantedForegrip.cpp
++++ b/Source/FPSGAME/Weapons/M4CantedForegrip.cpp
+@@ -19,5 +19,5 @@
+     for(const auto& Pair:Clips)
+     {
+-        const FString Path=AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4CantedErgonomic/A_M4_Canted_%s"),Pair.Value);
++        const FString Path=AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_%s"),Pair.Value);
+         auto* Clip=LoadObject<UAnimSequence>(nullptr,*Path);
+         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))CantedGripAnimations.Add(Pair.Key,Clip);
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -41,4 +41,5 @@
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4VerticalGripOpposed")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4VerticalGripVRENatural")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/M4VREGripExtensions")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/AKMIntegration/SovietFab")
+ +DirectoriesToAlwaysCook=(Path="/Game/Movement/Traversal/Native")

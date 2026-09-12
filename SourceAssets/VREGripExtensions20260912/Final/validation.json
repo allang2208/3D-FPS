@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-12",
+  "scope": "M4/AKM canted and prism, nine clips per family",
+  "donor": "VRE GrabAnimation reused from MannyGraspDonor20260912",
+  "source_contract_passed": 36,
+  "ue_asset_readback_passed": 36,
+  "native_build": "9122820 Succeeded",
+  "runtime": {
+    "m4:canted": {
+      "run": "vre-extended-m4-canted",
+      "checks": 298,
+      "failures": 0,
+      "loaded_idle": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_idle.A_M4_Canted_idle",
+      "exit_code": 0
+    },
+    "m4:prism": {
+      "run": "vre-extended-m4-prism",
+      "checks": 312,
+      "failures": 0,
+      "loaded_idle": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_idle.A_M4_Prism_idle",
+      "exit_code": 0
+    },
+    "akm:canted": {
+      "run": "vre-extended-akm-canted",
+      "checks": 813,
+      "failures": 0,
+      "loaded_idle": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_idle.A_AKM_canted_idle",
+      "exit_code": 0
+    },
+    "akm:prism": {
+      "run": "vre-extended-akm-prism",
+      "checks": 819,
+      "failures": 0,
+      "loaded_idle": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_idle.A_AKM_prism_idle",
+      "exit_code": 0
+    }
+  },
+  "geometry": {
+    "m4:canted": {
+      "samples": 59,
+      "grip_intersection_samples": 27,
+      "finger_self_intersection_samples": 27
+    },
+    "m4:prism": {
+      "samples": 59,
+      "grip_intersection_samples": 29,
+      "finger_self_intersection_samples": 24
+    },
+    "akm:canted": {
+      "samples": 71,
+      "grip_intersection_samples": 31,
+      "finger_self_intersection_samples": 31
+    },
+    "akm:prism": {
+      "samples": 71,
+      "grip_intersection_samples": 31,
+      "finger_self_intersection_samples": 28
+    }
+  },
+  "geometry_scope": "Sampled skinned glove/attachment and finger/finger surfaces. Residual contacts remain. Prism internal overlap explicitly allowed; no zero-intersection claim for canted.",
+  "arm": {
+    "m4:canted": {
+      "wrist_axis_bend_deg": 2.029315369868373,
+      "elbow_bend_deg": 49.89849681175634,
+      "shoulder_delta_m": [
+        -0.022118598222732544,
+        -0.030947081744670868,
+        0.014700070023536682
+      ],
+      "twist_deg": 28.619839304743092
+    },
+    "m4:prism": {
+      "wrist_axis_bend_deg": 1.265477172295864,
+      "elbow_bend_deg": 34.95501962481975,
+      "shoulder_delta_m": [
+        -0.013792335987091064,
+        -0.012883316725492477,
+        -0.0019558221101760864
+      ],
+      "twist_deg": 65.55561940488298
+    },
+    "akm:canted": {
+      "wrist_axis_bend_deg": 1.3647270780121423,
+      "elbow_bend_deg": 52.911214707473505,
+      "shoulder_delta_m": [
+        -0.013934984803199768,
+        -0.021262500435113907,
+        0.013767048716545105
+      ],
+      "twist_deg": 26.33683357702011
+    },
+    "akm:prism": {
+      "wrist_axis_bend_deg": 0.46097645735588927,
+      "elbow_bend_deg": 37.5473257167443,
+      "shoulder_delta_m": [
+        0.00505375862121582,
+        0.005200520157814026,
+        -0.002404041588306427
+      ],
+      "twist_deg": 30.55118369536569
+    }
+  },
+  "compression_maxima": {
+    "compression_position_cm": 0.0016647829605256242,
+    "compression_rotation_deg": 0.010995689109487507,
+    "preserved_nonleft_cm": 3.401354886381666e-06,
+    "preserved_contact_cm": 0.002022923363602461
+  },
+  "animation_times": "Existing duration, sample rates, right-hand and mechanical motion, reload contact intervals retained. Quaternion sign equivalence respected.",
+  "preview": "Source renders and actual UE screenshots. Player-eye closeups use FOV30. Silent timestamp-based sequences, not native30fps video or audio validation.",
+  "materials": "Current runtime material retained; source Blender files use earlier patterned material.",
+  "user_visual_acceptance": "Vertical donor direction approved; these canted/prism variants await user review."
+}

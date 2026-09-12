@@ -1,0 +1,800 @@
+{
+  "m4:canted:idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_idle.001",
+    "frames": 180,
+    "duration": 3.0,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_idle.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_idle.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 2.029315369868373,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_idle",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_idle"
+  },
+  "m4:canted:aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_aim.001",
+    "frames": 2,
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_aim.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_aim.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 2.029315369868373,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_aim",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_aim"
+  },
+  "m4:canted:fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_fire.001",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_fire.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 2.029315369868373,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_fire",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_fire"
+  },
+  "m4:canted:aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_aim_fire.001",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_aim_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_aim_fire.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 2.029315369868373,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_aim_fire",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_aim_fire"
+  },
+  "m4:canted:equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_equip.001",
+    "frames": 38,
+    "duration": 0.6333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_equip.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_equip.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 2.029315369868373,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_equip",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_equip"
+  },
+  "m4:canted:reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_reload.001",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      102
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_reload.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 6.00070751843113,
+    "preserved_samples": 689,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_reload",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_reload"
+  },
+  "m4:canted:reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Canted_reload_empty.001",
+    "frames": 162,
+    "duration": 2.7,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      138
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_reload_empty.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 5.994889904805572,
+    "preserved_samples": 977,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_reload_empty",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_reload_empty"
+  },
+  "m4:canted:drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_Canted_drum_reload.001",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      102
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_drum_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_drum_reload.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 5.982254481727872,
+    "preserved_samples": 297,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_drum_reload",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_drum_reload"
+  },
+  "m4:canted:drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_Canted_drum_reload_empty.001",
+    "frames": 148,
+    "duration": 2.466666666666667,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      124
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\m4\\canted\\A_M4_Canted_drum_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_drum_reload_empty.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 5.982254481727872,
+    "preserved_samples": 385,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_drum_reload_empty",
+    "baseline_asset": "/Game/Weapons/M4CantedErgonomic/A_M4_Canted_drum_reload_empty"
+  },
+  "m4:prism:idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_idle.001",
+    "frames": 180,
+    "duration": 3.0,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_idle.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_idle.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 1.265477172295864,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_idle",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_idle"
+  },
+  "m4:prism:aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_aim.001",
+    "frames": 2,
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_aim.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_aim.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 1.265477172295864,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_aim",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim"
+  },
+  "m4:prism:fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_fire.001",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_fire.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 1.265477172295864,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_fire",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_fire"
+  },
+  "m4:prism:aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_aim_fire.001",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_aim_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_aim_fire.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 1.265477172295864,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_aim_fire",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim_fire"
+  },
+  "m4:prism:equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_equip.001",
+    "frames": 38,
+    "duration": 0.6333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_equip.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_equip.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 1.2657864517992186,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_equip",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_equip"
+  },
+  "m4:prism:reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_reload.001",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      102
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_reload.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 10.187076882912278,
+    "preserved_samples": 689,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_reload",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload"
+  },
+  "m4:prism:reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Prism_reload_empty.001",
+    "frames": 162,
+    "duration": 2.7,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      138
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_reload_empty.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 10.18159138723511,
+    "preserved_samples": 977,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_reload_empty",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload_empty"
+  },
+  "m4:prism:drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_Prism_drum_reload.001",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      102
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_drum_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_drum_reload.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 10.167284702244872,
+    "preserved_samples": 297,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload"
+  },
+  "m4:prism:drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_Prism_drum_reload_empty.001",
+    "frames": 148,
+    "duration": 2.466666666666667,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      124
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\A_M4_Prism_drum_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_drum_reload_empty.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 10.167304339038736,
+    "preserved_samples": 385,
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload_empty",
+    "baseline_asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload_empty"
+  },
+  "akm:canted:idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098390010200964,
+      "elbow_bend_deg": 58.940475404843056,
+      "shoulder_delta_m": [
+        0.014223111793398857,
+        0.0380500853061676,
+        -0.029538528993725777
+      ]
+    },
+    "nonleft_error_m": 4.332402106230336e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "action": "A_AKM_canted_idle.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_idle.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_idle.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 1.3647270780121423,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_idle",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_idle"
+  },
+  "akm:canted:aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.154230648647226,
+      "elbow_bend_deg": 56.06765685880067,
+      "shoulder_delta_m": [
+        0.00993052963167429,
+        0.04033956304192543,
+        -0.026851164177060127
+      ]
+    },
+    "nonleft_error_m": 4.017197068665021e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "action": "A_AKM_canted_aim.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_aim.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_aim.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 1.605959541100061,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_aim",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_aim"
+  },
+  "akm:canted:fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098390010200964,
+      "elbow_bend_deg": 58.940475404843056,
+      "shoulder_delta_m": [
+        0.014223111793398857,
+        0.0380500853061676,
+        -0.029538528993725777
+      ]
+    },
+    "nonleft_error_m": 4.332402106230336e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "action": "A_AKM_canted_fire.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_fire.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 1.3647270780121423,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_fire",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_fire"
+  },
+  "akm:canted:aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.154230648647226,
+      "elbow_bend_deg": 56.06765685880067,
+      "shoulder_delta_m": [
+        0.00993052963167429,
+        0.04033956304192543,
+        -0.026851164177060127
+      ]
+    },
+    "nonleft_error_m": 4.017197068665021e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "action": "A_AKM_canted_aim_fire.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_aim_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_aim_fire.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 1.605959541100061,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_aim_fire",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_aim_fire"
+  },
+  "akm:canted:equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 1.7,
+    "frames": 204,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098428430015045,
+      "elbow_bend_deg": 58.940441253897205,
+      "shoulder_delta_m": [
+        0.014223163947463036,
+        0.03805014491081238,
+        -0.029538528993725777
+      ]
+    },
+    "nonleft_error_m": 7.178896349934282e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 6.07850493620966e-07,
+    "action": "A_AKM_canted_equip.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_equip.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_equip.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 1.38451488308961,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_equip",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_equip"
+  },
+  "akm:canted:reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098390010200964,
+      "elbow_bend_deg": 58.94048906522139,
+      "shoulder_delta_m": [
+        0.014223122037947178,
+        0.0380500853061676,
+        -0.029538506641983986
+      ]
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 4.933162140025749e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 6.58354819845394e-07,
+    "action": "A_AKM_canted_reload.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_reload.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 5.509577216632663,
+    "preserved_samples": 229,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_reload"
+  },
+  "akm:canted:reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098390010200964,
+      "elbow_bend_deg": 58.94048906522139,
+      "shoulder_delta_m": [
+        0.014223122037947178,
+        0.0380500853061676,
+        -0.029538506641983986
+      ]
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "action": "A_AKM_canted_reload_empty.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_reload_empty.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 3.8192112649866425,
+    "preserved_samples": 339,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload_empty",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_reload_empty"
+  },
+  "akm:canted:drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098390010200964,
+      "elbow_bend_deg": 58.94048906522139,
+      "shoulder_delta_m": [
+        0.014223122037947178,
+        0.0380500853061676,
+        -0.029538506641983986
+      ]
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 5.006878857735229e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 6.58354819845394e-07,
+    "action": "A_AKM_canted_drum_reload.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_drum_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_drum_reload.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 5.509577216632663,
+    "preserved_samples": 229,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_drum_reload",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_drum_reload"
+  },
+  "akm:canted:drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 5.098390010200964,
+      "elbow_bend_deg": 58.94048906522139,
+      "shoulder_delta_m": [
+        0.014223122037947178,
+        0.0380500853061676,
+        -0.029538506641983986
+      ]
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "action": "A_AKM_canted_drum_reload_empty.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\canted\\A_AKM_canted_drum_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_drum_reload_empty.fbx",
+    "closure": 0.8,
+    "max_wrist_axis_bend_deg": 3.8192112649866425,
+    "preserved_samples": 339,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_drum_reload_empty",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/canted/A_AKM_canted_drum_reload_empty"
+  },
+  "akm:prism:idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.191404624520722,
+      "elbow_bend_deg": 30.754367907897283,
+      "shoulder_delta_m": [
+        -0.003719314932823181,
+        -0.005083461757749319,
+        0.0017600901192054152
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 9.075777613951311e-07,
+    "scale_error": 5.527507362065139e-07,
+    "action": "A_AKM_prism_idle.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_idle.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_idle.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 0.46097645735588927,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_idle",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_idle"
+  },
+  "akm:prism:aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 2.0419102386978762,
+      "elbow_bend_deg": 24.610880834395736,
+      "shoulder_delta_m": [
+        -0.004067704081535339,
+        -0.007502205669879913,
+        0.0018366678850725293
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 8.427070754048448e-07,
+    "scale_error": 5.623090941939713e-07,
+    "action": "A_AKM_prism_aim.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_aim.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_aim.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 0.14536995767399616,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_aim",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_aim"
+  },
+  "akm:prism:fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.191404624520722,
+      "elbow_bend_deg": 30.754367907897283,
+      "shoulder_delta_m": [
+        -0.003719314932823181,
+        -0.005083461757749319,
+        0.0017600901192054152
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 8.569472673109062e-07,
+    "scale_error": 3.4240261593687705e-07,
+    "action": "A_AKM_prism_fire.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_fire.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 0.46097645735588927,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_fire",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_fire"
+  },
+  "akm:prism:aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 2.0419102386978762,
+      "elbow_bend_deg": 24.610880834395736,
+      "shoulder_delta_m": [
+        -0.004067704081535339,
+        -0.007502205669879913,
+        0.0018366678850725293
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 8.036167121167097e-07,
+    "scale_error": 2.9200193199910854e-07,
+    "action": "A_AKM_prism_aim_fire.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_aim_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_aim_fire.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 0.14536995767399616,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_aim_fire",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_aim_fire"
+  },
+  "akm:prism:equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 1.7,
+    "frames": 204,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.1915688692259196,
+      "elbow_bend_deg": 30.754388398464794,
+      "shoulder_delta_m": [
+        -0.0037192211020737886,
+        -0.005083310417830944,
+        0.0017600379651412368
+      ]
+    },
+    "nonleft_error_m": 7.178896349934282e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 1.0031452013563662e-06,
+    "scale_error": 9.291444580626426e-07,
+    "action": "A_AKM_prism_equip.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_equip.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_equip.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 0.46267125140455156,
+    "preserved_samples": 0,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_equip",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_equip"
+  },
+  "akm:prism:reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.1915688692259196,
+      "elbow_bend_deg": 30.754402058843134,
+      "shoulder_delta_m": [
+        -0.003719314932823181,
+        -0.00508344080299139,
+        0.0017600796418264508
+      ]
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 4.933162140025749e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 6.976544803809897e-07,
+    "action": "A_AKM_prism_reload.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_reload.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 5.637811456978714,
+    "preserved_samples": 229,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_reload"
+  },
+  "akm:prism:reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.1915688692259196,
+      "elbow_bend_deg": 30.754402058843134,
+      "shoulder_delta_m": [
+        -0.003719314932823181,
+        -0.00508344080299139,
+        0.0017600796418264508
+      ]
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "action": "A_AKM_prism_reload_empty.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_reload_empty.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 3.821927545842192,
+    "preserved_samples": 339,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload_empty",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_reload_empty"
+  },
+  "akm:prism:drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.1915688692259196,
+      "elbow_bend_deg": 30.754402058843134,
+      "shoulder_delta_m": [
+        -0.003719314932823181,
+        -0.00508344080299139,
+        0.0017600796418264508
+      ]
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 5.006878857735229e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 5.462855929083633e-07,
+    "action": "A_AKM_prism_drum_reload.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_drum_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_drum_reload.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 5.637811456978714,
+    "preserved_samples": 229,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_drum_reload",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_drum_reload"
+  },
+  "akm:prism:drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.1915688692259196,
+      "elbow_bend_deg": 30.754402058843134,
+      "shoulder_delta_m": [
+        -0.003719314932823181,
+        -0.00508344080299139,
+        0.0017600796418264508
+      ]
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "action": "A_AKM_prism_drum_reload_empty.001",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedGripMigration20260911\\akm\\prism\\A_AKM_prism_drum_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_drum_reload_empty.fbx",
+    "closure": 0.9,
+    "max_wrist_axis_bend_deg": 3.821927545842192,
+    "preserved_samples": 339,
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_drum_reload_empty",
+    "baseline_asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/prism/A_AKM_prism_drum_reload_empty"
+  }
+}
