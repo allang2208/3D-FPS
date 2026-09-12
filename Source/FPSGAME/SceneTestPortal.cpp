@@ -5,6 +5,8 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "Engine/Engine.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
@@ -47,6 +49,7 @@ void ASceneTestPortal::Configure(const FString& Map, const FString& Label, const
 {
     Destination = Map;
     DestinationOptions = Options;
+    DestinationLabel = Label;
     Sign->SetText(FText::FromString(Label + TEXT("\n[E] Travel (within 2m)")));
     Sign->SetTextRenderColor(Color);
 }
@@ -60,6 +63,7 @@ void ASceneTestPortal::BeginPlay()
     {
         // Portal spacing keeps the 2m interaction areas separate.
         InputComponent->BindKey(EKeys::E, IE_Pressed, this, &ASceneTestPortal::UsePortal).bConsumeInput = false;
+        InputComponent->BindKey(EKeys::Escape, IE_Pressed, this, &ASceneTestPortal::CancelLoading).bConsumeInput = false;
     }
 }
 
@@ -77,8 +81,40 @@ void ASceneTestPortal::UsePortal()
         return;
     }
     bTravelling = true;
+    if (Destination == ScenePortalMaps::Hills)
+    {
+        Sign->SetText(FText::FromString(TEXT("Preparing hills...\n[Esc] Cancel")));
+        const FString ObjectPath=Destination+TEXT(".")+FPackageName::GetShortName(Destination);
+        PreloadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(FSoftObjectPath(ObjectPath),FStreamableDelegate::CreateUObject(this,&ASceneTestPortal::FinishLoading));
+        return;
+    }
     UE_LOG(LogTemp, Display, TEXT("ScenePortal: Travel %s"), *Destination);
     UGameplayStatics::OpenLevel(this, FName(*Destination), true, DestinationOptions);
+}
+
+void ASceneTestPortal::FinishLoading()
+{
+    if (!bTravelling) return;
+    if (!PreloadHandle || !PreloadHandle->GetLoadedAsset())
+    {
+        CancelLoading();
+        Sign->SetText(FText::FromString(TEXT("Hills could not load\n[E] Retry")));
+        return;
+    }
+    UGameplayStatics::OpenLevel(this,FName(*Destination),true,DestinationOptions);
+}
+
+void ASceneTestPortal::CancelLoading()
+{
+    if (!PreloadHandle) return;
+    PreloadHandle->CancelHandle();PreloadHandle.Reset();bTravelling=false;
+    Sign->SetText(FText::FromString(DestinationLabel+TEXT("\n[E] Travel (within 2m)")));
+}
+
+void ASceneTestPortal::EndPlay(const EEndPlayReason::Type Reason)
+{
+    if(PreloadHandle){PreloadHandle->CancelHandle();PreloadHandle.Reset();}
+    Super::EndPlay(Reason);
 }
 
 void USceneTestPortalSubsystem::OnWorldBeginPlay(UWorld& InWorld)
@@ -96,6 +132,8 @@ void USceneTestPortalSubsystem::SpawnPortals()
     APawn* Pawn = UGameplayStatics::GetPlayerPawn(World, 0);
     if (!Pawn)
     {
+        // The asynchronous hills startup can outlive the old 20-second portal timer.
+        if(UGameplayStatics::GetCurrentLevelName(World,true)==TEXT("L_TemperateHills_Initial"))return;
         if (++Attempts >= 40) World->GetTimerManager().ClearTimer(SpawnTimer);
         return;
     }

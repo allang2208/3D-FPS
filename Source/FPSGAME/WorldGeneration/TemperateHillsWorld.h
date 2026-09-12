@@ -17,6 +17,7 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UInstancedStaticMeshComponent;
 class ACameraActor;
+struct FTemperateHillsStreamingState;
 
 /** Curated environment references. No level/assembly imports from the source packs. */
 UCLASS(BlueprintType)
@@ -24,15 +25,15 @@ class FPSGAME_API UTemperateHillsAssets : public UDataAsset
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere) TObjectPtr<UMaterialInterface> GroundMaterial;
-    UPROPERTY(EditAnywhere) TObjectPtr<UMaterialInterface> ValleyFogMaterial;
-    UPROPERTY(EditAnywhere) TSubclassOf<AActor> ValleyFogClass;
-    UPROPERTY(EditAnywhere) TObjectPtr<UStaticMesh> TrunkCollisionMesh;
-    UPROPERTY(EditAnywhere) TArray<TObjectPtr<USkeletalMesh>> Trees;
-    UPROPERTY(EditAnywhere) TArray<TObjectPtr<UStaticMesh>> Rocks;
-    UPROPERTY(EditAnywhere) TArray<TObjectPtr<UStaticMesh>> Shrubs;
-    UPROPERTY(EditAnywhere) TArray<TObjectPtr<UStaticMesh>> Grass;
-    UPROPERTY(EditAnywhere) TArray<TObjectPtr<UPCGGraph>> Graphs;
+    UPROPERTY(EditAnywhere) TSoftObjectPtr<UMaterialInterface> GroundMaterial;
+    UPROPERTY(EditAnywhere) TSoftObjectPtr<UMaterialInterface> ValleyFogMaterial;
+    UPROPERTY(EditAnywhere) TSoftClassPtr<AActor> ValleyFogClass;
+    UPROPERTY(EditAnywhere) TSoftObjectPtr<UStaticMesh> TrunkCollisionMesh;
+    UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<USkeletalMesh>> Trees;
+    UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Rocks;
+    UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Shrubs;
+    UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Grass;
+    UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UPCGGraph>> Graphs;
 };
 
 /** V1 stores the world identity/seed. It does not claim harvest/building persistence. */
@@ -65,6 +66,8 @@ public:
     UPROPERTY(EditAnywhere, Category="Hills") TObjectPtr<UTemperateHillsAssets> Assets;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Hills") int32 Seed = 122;
     UPROPERTY(EditAnywhere, Category="Hills", meta=(ClampMin="256",ClampMax="1024")) float SizeMeters = 1024.f;
+    UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="96",ClampMax="256")) float DetailRadiusMeters = 160.f;
+    UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="256",ClampMax="512")) float ViewRadiusMeters = 384.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bReady = false;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") FGuid WorldId;
     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
@@ -93,18 +96,19 @@ private:
     int32 AuditStage = 0;
     double AuditNext = 0;
     double StartSeconds = 0;
-    bool bAwaitingTerrain = false;
-    double TerrainReadyDeadline = 0;
+    TSharedPtr<FTemperateHillsStreamingState> Streaming;
     TArray<double> FrameSamples;
     double Noise(double X, double Y, uint32 Salt) const;
     double PathDistance(double X, double Y) const;
     double ForestWeight(double X, double Y) const;
     bool TreeCandidate(int32 GX, int32 GY, FTemperatePlacement& Out) const;
-    void BuildTerrain();
-    void BuildVegetation();
+    void BeginStreaming();
+    void TickStreaming();
+    void EndStreaming();
+    void LoadNextEnvironmentStage();
+    void ActivateVegetationLayer(int32 Layer);
     void BuildValleyFog();
     void ResolveSession();
-    void FinishTerrainStartup();
     void RunAudit();
     void AuditCheck(bool Pass, const TCHAR* Message);
 };

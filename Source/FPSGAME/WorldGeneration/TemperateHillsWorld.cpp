@@ -1,4 +1,5 @@
 #include "TemperateHillsWorld.h"
+#include "TemperateHillsSurface.h"
 #include "PCGComponent.h"
 #include "PCGGraph.h"
 #include "PCGWorldActor.h"
@@ -49,6 +50,7 @@ struct FLayerRadii : FPCGRuntimeGenerationRadii
         Radius12800.Default=Radius;
         Radius6400.Default=Radius;
         Radius3200.Default=Radius;
+        Radius1600.Default=Radius;
         CleanupRadiusScalar.Default=1.3f;
         ComputeHash();
     }
@@ -120,47 +122,11 @@ void ATemperateHillsWorld::BeginPlay()
     StartSeconds=FPlatformTime::Seconds();
     if(GetNetMode()!=NM_Standalone){UE_LOG(LogTemp,Error,TEXT("HILLS_V1 supports standalone only"));return;}
     ResolveSession();
-    if(Slot.IsEmpty()||!Assets||!Assets->GroundMaterial||Assets->Trees.IsEmpty()||Assets->Graphs.Num()!=4)
+    if(Slot.IsEmpty()||!Assets||Assets->GroundMaterial.IsNull()||Assets->Trees.IsEmpty()||Assets->Graphs.Num()!=4)
     {UE_LOG(LogTemp,Error,TEXT("HILLS_ASSETS missing curated biome data"));return;}
     SizeMeters=FMath::Clamp(FMath::RoundToFloat(SizeMeters/128)*128,256.f,1024.f);
     GenerationBounds->SetBoxExtent(FVector(SizeMeters*50,SizeMeters*50,50000));
-    BuildTerrain();
-    BuildValleyFog();
-    bAwaitingTerrain=true;
-    TerrainReadyDeadline=GetWorld()->GetTimeSeconds()+10;
-}
-
-void ATemperateHillsWorld::FinishTerrainStartup()
-{
-    // The first-person controller is only released after terrain collision exists.
-    FHitResult Hit;
-    const FVector Start=GetStartLocation();
-    bReady=GetWorld()->LineTraceSingleByChannel(Hit,Start+FVector(0,0,1000),Start-FVector(0,0,2000),ECC_Pawn);
-    if(!bReady)
-    {
-        if(GetWorld()->GetTimeSeconds()>TerrainReadyDeadline)
-        {
-            bAwaitingTerrain=false;
-            UE_LOG(LogTemp,Error,TEXT("HILLS_TERRAIN collision unavailable after physics update: start=%s chunks=%d"),*Start.ToString(),Terrain.Num());
-            for(auto& C:Terrain)
-            {
-                if(C->Bounds.GetBox().IsInsideXY(Start)||C==Terrain[0]||C==Terrain[34])
-                {
-                    FHitResult LocalHit;FCollisionQueryParams Q;Q.bTraceComplex=true;
-                    const bool Local=C->LineTraceComponent(LocalHit,Start+FVector(0,0,1000),Start-FVector(0,0,2000),Q);
-                    UE_LOG(LogTemp,Error,TEXT("HILLS_COLLISION chunk=%s pos=%s bounds=%s body=%d enabled=%d localhit=%d"),*C->GetName(),*C->GetComponentLocation().ToString(),*C->Bounds.GetBox().ToString(),C->IsPhysicsStateCreated(),int32(C->GetCollisionEnabled()),Local);
-                }
-            }
-            if(bAudit)FPlatformMisc::RequestExitWithStatus(false,1);
-        }
-        return;
-    }
-    bAwaitingTerrain=false;
-    BuildVegetation();
-    UE_LOG(LogTemp,Display,TEXT("HILLS_READY seed=%d world=%s size_m=%.0f terrain_chunks=%d tree_candidates=%d terrain_ms=%.2f"),
-        Seed,*WorldId.ToString(),SizeMeters,Terrain.Num(),Trunks?Trunks->GetInstanceCount():0,(FPlatformTime::Seconds()-StartSeconds)*1000);
-    for(int32 Layer=0;Layer<4;++Layer)UE_LOG(LogTemp,Display,TEXT("HILLS_LAYOUT seed=%d layer=%d hash=%u"),Seed,Layer,LayoutHash(Layer));
-    AuditNext=GetWorld()->GetTimeSeconds()+(bNullAudit?3:24);
+    BeginStreaming();
 }
 
 double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
@@ -173,16 +139,10 @@ double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
 
 double ATemperateHillsWorld::PathDistance(double X,double Y) const {return FMath::Abs(Y-TemperateHills::ValleyY(X,Seed));}
 double ATemperateHillsWorld::Height(double X,double Y) const
-{
-    const double Warp=Noise(X*.000024,Y*.000024,14)*4200;
-    const double Hill=Noise((X+Warp)*.000055,(Y-Warp*.5)*.000055,73);
-    const double Large=Noise(X*.000020+1.31,Y*.000020-2.1,91);
-    const double Valley=FMath::Exp(-FMath::Square(PathDistance(X,Y)/9000.0));
-    const double Detail=Noise(X*.00035,Y*.00035,26)*95+Noise(X*.0011,Y*.0011,88)*14;
-    return FMath::RoundToDouble(5400+Large*3200+Hill*2400-Valley*1200+Detail);
-}
+{return TemperateHillsSurface::Height(X,Y,Seed);}
 FVector ATemperateHillsWorld::SurfaceNormal(double X,double Y) const
-{return FVector(-(Height(X+100,Y)-Height(X-100,Y))/200,-(Height(X,Y+100)-Height(X,Y-100))/200,1).GetSafeNormal();}
+{return TemperateHillsSurface::Normal(X,Y,Seed);}
+
 double ATemperateHillsWorld::ForestWeight(double X,double Y) const
 {return TemperateHills::Smooth((Noise(X*.00014,Y*.00014,173)+.45)/1.05);}
 FVector ATemperateHillsWorld::GetStartLocation() const
@@ -205,7 +165,7 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
     if(TemperateHills::Unit(K+3)>.045+Forest*.48)return false;
     const double Scale=.68+TemperateHills::Unit(K+5)*.4;
     Out.Transform=FTransform(FRotator(0,TemperateHills::Unit(K+4)*360,0),FVector(X,Y,Height(X,Y)-10),FVector(Scale));
-    Out.Mesh=FSoftObjectPath(Assets->Trees[K%Assets->Trees.Num()]);Out.Key=K;Out.CandidateId=TemperateHills::CellId(GX,GY);
+    Out.Mesh=Assets->Trees[K%Assets->Trees.Num()].ToSoftObjectPath();Out.Key=K;Out.CandidateId=TemperateHills::CellId(GX,GY);
     return !Out.Mesh.IsNull();
 }
 
@@ -217,6 +177,8 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
     const double MinX=FMath::Max(-Half,Bounds.Min.X),MinY=FMath::Max(-Half,Bounds.Min.Y);
     const double MaxX=FMath::Min(Half,Bounds.Max.X),MaxY=FMath::Min(Half,Bounds.Max.Y);
     if(MinX>=MaxX||MinY>=MaxY)return;
+    TMap<FIntPoint,FTemperatePlacement> TreeCache;
+    TSet<FIntPoint> EmptyTreeCells;
     for(int32 GY=FMath::FloorToInt(MinY/Spacing)-1;GY<=FMath::FloorToInt(MaxY/Spacing)+1;++GY)
     for(int32 GX=FMath::FloorToInt(MinX/Spacing)-1;GX<=FMath::FloorToInt(MaxX/Spacing)+1;++GX)
     {
@@ -237,14 +199,20 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             bool TrunkOverlap=false;
             for(int32 TY=FMath::FloorToInt(Y/1200)-1;TY<=FMath::FloorToInt(Y/1200)+1&&!TrunkOverlap;++TY)
             for(int32 TX=FMath::FloorToInt(X/1200)-1;TX<=FMath::FloorToInt(X/1200)+1;++TX)
-            {FTemperatePlacement T;if(TreeCandidate(TX,TY,T)&&FVector2D::Distance(FVector2D(X,Y),FVector2D(T.Transform.GetLocation()))<(Layer==1?500:100)){TrunkOverlap=true;break;}}
+            {
+                const FIntPoint Cell(TX,TY);
+                if(EmptyTreeCells.Contains(Cell))continue;
+                FTemperatePlacement* T=TreeCache.Find(Cell);
+                if(!T){FTemperatePlacement Candidate;if(!TreeCandidate(TX,TY,Candidate)){EmptyTreeCells.Add(Cell);continue;}T=&TreeCache.Add(Cell,MoveTemp(Candidate));}
+                if(FVector2D::Distance(FVector2D(X,Y),FVector2D(T->Transform.GetLocation()))<(Layer==1?500:100)){TrunkOverlap=true;break;}
+            }
             if(TrunkOverlap)continue;
-            const TArray<TObjectPtr<UStaticMesh>>& List=Layer==1?Assets->Rocks:(Layer==2?Assets->Shrubs:Assets->Grass);
+            const TArray<TSoftObjectPtr<UStaticMesh>>& List=Layer==1?Assets->Rocks:(Layer==2?Assets->Shrubs:Assets->Grass);
             if(List.IsEmpty())continue;
             const double Scale=Layer==1?.7+TemperateHills::Unit(K+5)*1.4:(Layer==2?.65+TemperateHills::Unit(K+5)*.5:.65+TemperateHills::Unit(K+5)*.6);
             const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Layer==1?35:3)),FVector(Scale));
-            P.Mesh=FSoftObjectPath(List[K%List.Num()]);P.Key=K;P.CandidateId=TemperateHills::CellId(GX,GY);
+            P.Mesh=List[K%List.Num()].ToSoftObjectPath();P.Key=K;P.CandidateId=TemperateHills::CellId(GX,GY);
         }
         const FVector Pos=P.Transform.GetLocation();
         // Half-open ownership ensures no duplicates when HiGen cells share an edge.
@@ -261,105 +229,23 @@ uint32 ATemperateHillsWorld::LayoutHash(int32 Layer) const
     return H;
 }
 
-void ATemperateHillsWorld::BuildTerrain()
+void ATemperateHillsWorld::ActivateVegetationLayer(int32 Layer)
 {
-    GroundMID=UMaterialInstanceDynamic::Create(Assets->GroundMaterial,this);
-    const int32 ChunkCount=FMath::RoundToInt(SizeMeters/128);
-    constexpr int32 Quads=64;constexpr double Step=200;
-    const double Half=SizeMeters*50;
-    for(int32 CY=0;CY<ChunkCount;++CY)for(int32 CX=0;CX<ChunkCount;++CX)
+    const float Radii[]={18000,12000,8000,4500};
+    auto* C=PCGLayers[Layer].Get();C->Seed=Seed;
+    C->GenerationRadii=TemperateHills::FLayerRadii(Radii[Layer]);
+    C->SetGraph(Assets->Graphs[Layer].Get());
+    if(auto* Sub=GetWorld()->GetSubsystem<UPCGSubsystem>())
     {
-        UE::Geometry::FDynamicMesh3 Mesh;
-        Mesh.EnableAttributes();
-        auto* Normals=Mesh.Attributes()->PrimaryNormals();
-        auto* UVs=Mesh.Attributes()->PrimaryUV();
-        const double OX=-Half+CX*12800,OY=-Half+CY*12800;
-        for(int32 Y=0;Y<=Quads;++Y)for(int32 X=0;X<=Quads;++X)
-        {
-            const double WX=OX+X*Step,WY=OY+Y*Step;
-            Mesh.AppendVertex(FVector3d(X*Step,Y*Step,Height(WX,WY)));
-            Normals->AppendElement(FVector3f(SurfaceNormal(WX,WY)));
-            UVs->AppendElement(FVector2f(WX/400,WY/400));
-        }
-        auto Tri=[&](int32 A,int32 B,int32 C){const int32 ID=Mesh.AppendTriangle(A,B,C);Normals->SetTriangle(ID,UE::Geometry::FIndex3i(A,B,C));UVs->SetTriangle(ID,UE::Geometry::FIndex3i(A,B,C));};
-        for(int32 Y=0;Y<Quads;++Y)for(int32 X=0;X<Quads;++X)
-        // Match UE's rectangle generator winding so the rendered and collision faces point upward.
-        {const int32 A=Y*(Quads+1)+X;Tri(A,A+Quads+2,A+1);Tri(A,A+Quads+1,A+Quads+2);}
-        auto* Component=NewObject<UDynamicMeshComponent>(this,*FString::Printf(TEXT("Terrain_%d_%d"),CX,CY));
-        AddInstanceComponent(Component);Component->SetupAttachment(RootComponent);
-        Component->SetRelativeLocation(FVector(OX,OY,0));Component->SetMobility(EComponentMobility::Movable);
-        Component->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
-        Component->SetMaterial(0,GroundMID);
-        Component->SetComplexAsSimpleCollisionEnabled(true,false);
-        Component->SetCollisionProfileName(TEXT("BlockAll"));
-        Component->SetCanEverAffectNavigation(false); // V1 is a vegetation study; no monster/navigation import.
-        Component->SetMesh(MoveTemp(Mesh));Component->RegisterComponent();
-        Component->NotifyMeshUpdated();Component->UpdateBounds();Component->UpdateCollision(false);
-        if(CX==2&&CY==4)UE_LOG(LogTemp,Display,TEXT("HILLS_CHUNK vertices=%d triangles=%d pos=%s bounds=%s"),Component->GetMesh()->VertexCount(),Component->GetMesh()->TriangleCount(),*Component->GetComponentLocation().ToString(),*Component->Bounds.GetBox().ToString());
-        Terrain.Add(Component);
-    }
-}
-
-void ATemperateHillsWorld::BuildVegetation()
-{
-    if(Assets->TrunkCollisionMesh)
-    {
-        Trunks=NewObject<UInstancedStaticMeshComponent>(this,TEXT("BlackPoplarTrunkCollision"));
-        AddInstanceComponent(Trunks);Trunks->SetupAttachment(RootComponent);Trunks->SetStaticMesh(Assets->TrunkCollisionMesh);
-        Trunks->SetCollisionProfileName(TEXT("BlockAll"));Trunks->SetVisibility(false);Trunks->SetCastShadow(false);
-        Trunks->SetCanEverAffectNavigation(false);Trunks->RegisterComponent();
-        TArray<FTemperatePlacement> Trees;const double H=SizeMeters*50;
-        GetPlacements(0,FBox(FVector(-H,-H,-50000),FVector(H,H,50000)),Trees);
-        for(const auto& Tree:Trees)
-        {
-            const double S=Tree.Transform.GetScale3D().X;
-            FTransform T(Tree.Transform.GetRotation(),Tree.Transform.GetLocation()+FVector(0,0,300*S),FVector(.42*S,.42*S,6*S));
-            Trunks->AddInstance(T,true);
-        }
-    }
-    const float Radii[]={72000,55000,26000,12000};
-    for(int32 Layer=0;Layer<4;++Layer)
-    {
-        auto* C=PCGLayers[Layer].Get();C->Seed=Seed;
-        C->GenerationRadii=TemperateHills::FLayerRadii(Radii[Layer]);
-        C->SetGraph(Assets->Graphs[Layer]);
-        if(auto* Sub=GetWorld()->GetSubsystem<UPCGSubsystem>())
-        {
-            Sub->RegisterOrUpdateExecutionSource(C);
-            Sub->RefreshRuntimeGenExecutionSource(C,EPCGChangeType::GenerationGrid);
-            UE_LOG(LogTemp,Display,TEXT("HILLS_PCG layer=%d world_actor=%d bounds=%s runtime=%d"),Layer,Sub->GetPCGWorldActor()!=nullptr,*C->GetGridBounds().ToString(),C->IsManagedByRuntimeGenSystem());
-        }
-    }
-}
-
-void ATemperateHillsWorld::BuildValleyFog()
-{
-    if(!Assets->ValleyFogClass)return;
-    for(int32 I=0;I<9;++I)
-    {
-        const double X=(-.42+I*.105)*SizeMeters*100;
-        const double Y=TemperateHills::ValleyY(X,Seed)+(TemperateHills::Unit(uint32(Seed)+I*133)-.5)*4500;
-        FActorSpawnParameters Params;Params.Owner=this;
-        auto* Fog=GetWorld()->SpawnActor<AActor>(Assets->ValleyFogClass,FVector(X,Y,Height(X,Y)+90),FRotator(0,I*41,0),Params);
-        if(!Fog)continue;
-        TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
-        for(auto* M:Meshes)
-        {
-            M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCanEverAffectNavigation(false);M->SetCastShadow(false);
-            if(Assets->ValleyFogMaterial)
-            {auto* MID=UMaterialInstanceDynamic::Create(Assets->ValleyFogMaterial,this);MID->SetScalarParameterValue(TEXT("FogOverallDensity"),.12f);M->SetMaterial(0,MID);FogMaterials.Add(MID);}
-        }
-        Fog->SetActorEnableCollision(false);
-        FVector Center,Extent;Fog->GetActorBounds(false,Center,Extent);
-        if(Extent.GetMin()>1)Fog->SetActorScale3D(Fog->GetActorScale3D()*FVector(4200/Extent.X,2700/Extent.Y,220/Extent.Z));
-        ValleyFog.Add(Fog);
+        Sub->RegisterOrUpdateExecutionSource(C);
+        Sub->RefreshRuntimeGenExecutionSource(C,EPCGChangeType::GenerationGrid);
     }
 }
 
 void ATemperateHillsWorld::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    if(bAwaitingTerrain)FinishTerrainStartup();
+    TickStreaming();
     if(!bReady)return;
     for(TActorIterator<AFPSWeatherManager> It(GetWorld());It;++It)
     {
@@ -484,6 +370,7 @@ void ATemperateHillsWorld::RunAudit()
 void ATemperateHillsWorld::EndPlay(const EEndPlayReason::Type Reason)
 {
     bReady=false;
+    EndStreaming();
     Super::EndPlay(Reason);
 }
 
