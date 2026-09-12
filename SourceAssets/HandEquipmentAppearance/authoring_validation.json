@@ -1,0 +1,22 @@
+{
+  "texture_sha256": {
+    "T_Manny_GloveMask.png": "a295c5b48062dae663ef3410c9fd3b13993dbc0646cc4671e18eb385beb5964c",
+    "T_Manny_LeatherRegions.png": "43efd6231ecb99a3272d6a801283cd0dbeb8341e04cee7084f965b54909d45e7",
+    "T_Manny_StitchNormal.png": "c75c01c400771b9d7439e55af99d096361ae2c009005faa9a198231ab7fa7149",
+    "T_Manny_ForearmRegions.png": "57cc923a8f1075d3fa5172c665f86e90d823530dcd95df144a39b220d6b172d5",
+    "T_Manny_Cuff3cmField.png": "180bfce4a50b2559e0d66eea393e2af32363dfafd686ce24d22166f52db2d5ca",
+    "T_Manny_Cuff3cmRollNormal.png": "a16e90b09e04f8adfd42cd93ab86dfec67df6ee36daac7eda9e864b1a25981af"
+  },
+  "byte_identical_to_accepted": true,
+  "source_blend_sha256": "d4122b918119bf0e2ccd3555bc5c82a0bf3b1cfb0913786dcadaf519293cab0f",
+  "source_blend_unchanged": true,
+  "scripts_exercised": [
+    "inspect_regions.py",
+    "bake_glove_mask.py",
+    "inspect_leather.py",
+    "bake_leather_regions.py",
+    "export_surface.py",
+    "bake_forearm_regions.py",
+    "bake_rolled_edge.py"
+  ]
+}

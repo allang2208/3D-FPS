@@ -1,6 +1,6 @@
 interface:
-  display_name: "UE5 手臂与换弹动画"
-  short_description: "修正持枪手臂、自然抓握、甩匣换弹、拉栓拍击与实际音画同步"
-  default_prompt: "使用 $ue5-fps-arms-animation 检查并优化当前换弹动作，保留已确认的抓握和音效时序。"
+  display_name: "UE5 手臂动画与装备外观"
+  short_description: "制作手臂动画与手部装备外观，修正抓握、换弹、皮肤、衣袖和手套袖口"
+  default_prompt: "使用 $ue5-fps-arms-animation 处理当前手臂动画或手部装备外观需求，保留已确认的握姿和动作时序，并检查实际游戏表现。"
 policy:
   allow_implicit_invocation: true

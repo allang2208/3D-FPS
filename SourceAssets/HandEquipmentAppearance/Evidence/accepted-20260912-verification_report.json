@@ -1,0 +1,18 @@
+{
+  "parent": "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02.M_Manny_RolledCuff3cm_02",
+  "cuff_start": 0.8899123072624207,
+  "skin_scattering": 0.18000000715255737,
+  "cuff_field": "/Game/Characters/ArmsGloveCuff3cmCandidate/T_Manny_Cuff3cmField.T_Manny_Cuff3cmField",
+  "cuff_field_encoding": "Uncompressed linear G8 local distance, t=0.8849122968+R*0.0450000000",
+  "sleeve_parent": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01.M_Manny_Sleeve_01",
+  "hosts": [
+    {
+      "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    },
+    {
+      "mesh": "/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ]
+}

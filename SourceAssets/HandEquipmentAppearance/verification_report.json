@@ -1,0 +1,92 @@
+{
+  "parent": "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02.M_Manny_RolledCuff3cm_02",
+  "cuff_start": 0.8899123072624207,
+  "skin_scattering": 0.18000000715255737,
+  "cuff_field": "/Game/Characters/ArmsGloveCuff3cmCandidate/T_Manny_Cuff3cmField.T_Manny_Cuff3cmField",
+  "cuff_field_encoding": "Uncompressed linear G8 local distance, t=0.8849122968+R*0.0450000000",
+  "sleeve_parent": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01.M_Manny_Sleeve_01",
+  "hosts": [
+    {
+      "mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    },
+    {
+      "mesh": "/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ],
+  "textures": [
+    {
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_BaseColor",
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "srgb": true,
+      "flip_green": null,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/Source/Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_BaseColor.jpg"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_Normal",
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "srgb": false,
+      "flip_green": true,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/Source/Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Normal.jpg"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_Roughness",
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "srgb": false,
+      "flip_green": null,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/Source/Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Roughness.jpg"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Manny_LeatherRegions",
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "srgb": false,
+      "flip_green": null,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/T_Manny_LeatherRegions.png"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Manny_StitchNormal",
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "srgb": false,
+      "flip_green": false,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/T_Manny_StitchNormal.png"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsSkinSleeveCandidate/T_Manny_ForearmRegions",
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "srgb": false,
+      "flip_green": null,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/T_Manny_ForearmRegions.png"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsGloveCuff3cmCandidate/T_Manny_Cuff3cmField",
+      "compression": "<TextureCompressionSettings.TC_GRAYSCALE: 3>",
+      "srgb": false,
+      "flip_green": null,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/T_Manny_Cuff3cmField.png"
+      ]
+    },
+    {
+      "asset": "/Game/Characters/ArmsGloveCuff3cmCandidate/T_Manny_Cuff3cmRollNormal",
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "srgb": false,
+      "flip_green": false,
+      "source_files": [
+        "D:/FPS3D/FPSGAME/SourceAssets/HandEquipmentAppearance/T_Manny_Cuff3cmRollNormal.png"
+      ]
+    }
+  ]
+}

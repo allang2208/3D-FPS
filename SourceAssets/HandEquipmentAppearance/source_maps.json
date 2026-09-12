@@ -1,0 +1,71 @@
+{
+  "listing": "https://www.fab.com/listings/ccd7a956-27f6-4417-b4e0-d1eb92e55ea0",
+  "title": "Fabric Generic Leather Top Grain Brown",
+  "publisher": "Quixel Megascans",
+  "download_package": "C:\\Users\\allan\\Downloads\\fabric_generic_leather_top_grain_brown_xjghdgl_4k.zip",
+  "package_sha256": "04ceb8684d80e4d0ff1ceafc10fd15b28d0633829bed8f9fd0add172f3dab0a5",
+  "basecolor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\Source\\Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_BaseColor.jpg",
+  "normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\Source\\Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Normal.jpg",
+  "roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\Source\\Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Roughness.jpg",
+  "color_midpoint_linear": 0.06943667240440846,
+  "scan_width_metres": 0.25,
+  "normal_convention": "OpenGL",
+  "normal_convention_note": "Measured against included bump: R opposes image-X slope, G follows image-Y slope. Flip G on UE import.",
+  "normal_height_correlations": {
+    "R_vs_dx": -0.8502149092648861,
+    "G_vs_dy": 0.8997557752616145
+  },
+  "redistribution": "Licensed local project dependency; original scans not for public source publication.",
+  "files": [
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_AO.jpg",
+      "bytes": 12872570,
+      "sha256": "86ebda10550924f23eadcd9c280dd2ade4a6ce80b481e5c0aa3d67929cc0e464"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_BaseColor.jpg",
+      "bytes": 13674128,
+      "sha256": "add5d4f9778303cc1731154494a988fad799aab98686011b0ab7501b4545eb7b"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Bump.jpg",
+      "bytes": 11154246,
+      "sha256": "c7df7930e1655c7693fd4a9ad3b8af2ee30711c58faff08a6e82c806fab826bd"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Cavity.jpg",
+      "bytes": 12931833,
+      "sha256": "246b15754ee547106ada430df7e010b6592ccdd62aa2df3c387a3b87718dddc9"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Displacement.jpg",
+      "bytes": 8146228,
+      "sha256": "328c5ee62f8ea6859e154a9039764aa72537dec0d835245970eaa8fa0ec98c3a"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Gloss.jpg",
+      "bytes": 10571322,
+      "sha256": "d2e11895427177103c40b05a89b637dac3b90b523aa9bfe9ff2b4797370d632a"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Normal.jpg",
+      "bytes": 27270842,
+      "sha256": "73bf61fc76e7ecb661a99ecf5272e9f04f522c1c60df8005af50bd9a81eccf39"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Roughness.jpg",
+      "bytes": 10232697,
+      "sha256": "6687c4c99862e5356fc9ed3e8fa67804fbeac34e65a954415264a48d3ea80bdc"
+    },
+    {
+      "name": "Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Specular.jpg",
+      "bytes": 7902848,
+      "sha256": "b7630dc74cf84a1a55c378d262defb0a641de3144330bfe2cdcaefba3e9dc021"
+    },
+    {
+      "name": "xjghdgl.json",
+      "bytes": 12927,
+      "sha256": "d0c9cba0a33ae02c7e5cca8c6489bd65c3f37b467a37b6a3aa9a7a5db61f68a5"
+    }
+  ]
+}

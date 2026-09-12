@@ -1,0 +1,32 @@
+{
+  "listing": "https://www.fab.com/listings/ccd7a956-27f6-4417-b4e0-d1eb92e55ea0",
+  "fab_imported": true,
+  "runtime_applied": false,
+  "textures": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\T_Manny_LeatherRegions.png",
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Manny_LeatherRegions.T_Manny_LeatherRegions",
+      "sha256": "43efd6231ecb99a3272d6a801283cd0dbeb8341e04cee7084f965b54909d45e7"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\T_Manny_StitchNormal.png",
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Manny_StitchNormal.T_Manny_StitchNormal",
+      "sha256": "c75c01c400771b9d7439e55af99d096361ae2c009005faa9a198231ab7fa7149"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\Source\\Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_BaseColor.jpg",
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_BaseColor.T_Fab_Leather_BaseColor",
+      "sha256": "add5d4f9778303cc1731154494a988fad799aab98686011b0ab7501b4545eb7b"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\Source\\Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Normal.jpg",
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_Normal.T_Fab_Leather_Normal",
+      "sha256": "73bf61fc76e7ecb661a99ecf5272e9f04f522c1c60df8005af50bd9a81eccf39"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandEquipmentAppearance\\Source\\Fabric_Generic_Leather_Top_Grain_Brown_xjghdgl_4K_Roughness.jpg",
+      "asset": "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_Roughness.T_Fab_Leather_Roughness",
+      "sha256": "6687c4c99862e5356fc9ed3e8fa67804fbeac34e65a954415264a48d3ea80bdc"
+    }
+  ]
+}

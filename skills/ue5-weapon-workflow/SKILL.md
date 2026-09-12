@@ -9,6 +9,8 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 ## 按任务读取
 
+- 衣物/手套装备的第一人称表现、皮肤分区、皮革材质和袖口：[手部装备表现标准](../ue5-fps-arms-animation/references/hand-equipment-appearance.md)。复用已接受 Manny 基线；装备数据/存档与外观作者管线按实际任务分别验收。
+
 - 准心、散布、后坐力、枪口烟火或曳光：[Gunplay 与 Niagara 验收](references/gunplay-vfx.md)。
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。

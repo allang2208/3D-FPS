@@ -1,0 +1,9 @@
+Source/
+Preview/
+*.png
+*.log
+__pycache__/
+glove_uv_faces.json
+region_faces.json
+seam_segments.json
+forearm_faces.json

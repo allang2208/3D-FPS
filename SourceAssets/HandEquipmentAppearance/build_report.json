@@ -1,0 +1,12 @@
+{
+  "scope": "Brown leather glove cuff extended 3 cm behind each wrist with a thin rolled hem, with existing skin and sleeves",
+  "skin_source": "Locally authored procedural shader; no human scan or new skin texture download",
+  "mesh_modified": false,
+  "materials": [
+    {
+      "instance": "/Game/Weapons/M4InfimaV3/MI_Manny_02",
+      "role": "accepted 3 cm rolled glove cuff",
+      "candidate_parent": "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02.M_Manny_RolledCuff3cm_02"
+    }
+  ]
+}

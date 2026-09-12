@@ -1,0 +1,12 @@
+{
+  "scope": "Exposed forearm skin, charcoal upper sleeves and original brown Fab leather gloves",
+  "skin_source": "Locally authored procedural shader; no human scan or new skin texture download",
+  "mesh_modified": false,
+  "materials": [
+    {
+      "instance": "/Game/Weapons/M4InfimaV3/MI_Manny_01",
+      "role": "accepted charcoal sleeve",
+      "candidate_parent": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01.M_Manny_Sleeve_01"
+    }
+  ]
+}

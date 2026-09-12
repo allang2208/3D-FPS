@@ -1,0 +1,95 @@
+{
+  "active_roots": [
+    "/Game/Weapons/M4InfimaV3/MI_Manny_01",
+    "/Game/Weapons/M4InfimaV3/MI_Manny_02"
+  ],
+  "active_dependency_closure": [
+    "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02",
+    "/Game/Characters/ArmsGloveCuff3cmCandidate/T_Manny_Cuff3cmField",
+    "/Game/Characters/ArmsGloveCuff3cmCandidate/T_Manny_Cuff3cmRollNormal",
+    "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_BaseColor",
+    "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_Normal",
+    "/Game/Characters/ArmsLeatherCandidate/Textures/T_Fab_Leather_Roughness",
+    "/Game/Characters/ArmsLeatherCandidate/Textures/T_Manny_LeatherRegions",
+    "/Game/Characters/ArmsLeatherCandidate/Textures/T_Manny_StitchNormal",
+    "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01",
+    "/Game/Characters/ArmsSkinSleeveCandidate/SSP_ForearmSkin",
+    "/Game/Characters/ArmsSkinSleeveCandidate/T_Manny_ForearmRegions",
+    "/Game/Weapons/M4InfimaV3/MI_Manny_01",
+    "/Game/Weapons/M4InfimaV3/MI_Manny_02",
+    "/Game/Weapons/M4InfimaV3/T_Manny_01_D",
+    "/Game/Weapons/M4InfimaV3/T_Manny_01_N",
+    "/Game/Weapons/M4InfimaV3/T_Manny_02_D",
+    "/Game/Weapons/M4InfimaV3/T_Manny_02_N"
+  ],
+  "retired": [
+    {
+      "package": "/Game/Characters/ArmsBlackWhiteTrial/M_Manny_BlackWhite_01",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsBlackWhiteTrial/M_Manny_BlackWhite_02",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsBlackWhiteTrial/T_Manny_GloveMask",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsBlackWhiteTrial/Backup/MI_Manny_01_Original",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsBlackWhiteTrial/Backup/MI_Manny_02_Original",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsLeatherCandidate/M_Manny_WhiteLeather",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsLeatherCandidate/M_Manny_OriginalLeather",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsLeatherCandidate/Backup/MI_Manny_02_BeforeLeather",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_SkinGlove_02",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsGloveCuffCandidate/M_Manny_LongCuff_02",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    },
+    {
+      "package": "/Game/Characters/ArmsGloveCuffCandidate/T_Manny_LongCuffField",
+      "exists": false,
+      "referencers": [],
+      "external_referencers": []
+    }
+  ],
+  "retired_in_active_closure": [],
+  "external_referencers": {}
+}

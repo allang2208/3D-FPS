@@ -1,0 +1,34 @@
+{
+  "label": "hand-equipment-standard-20260912",
+  "process_exit": 0,
+  "width": 2560,
+  "height": 1440,
+  "rhi": "DX12",
+  "pass": 47,
+  "fail": 2,
+  "completed": true,
+  "note": "High-resolution material visual review; fixed simulation 60 Hz, not an FPS benchmark.",
+  "failed_assertions": [
+    "GUNPLAY_ASSERT FAIL fx_particles_expire t=20.417 active=2",
+    "GUNPLAY_ASSERT FAIL fx_expire_after_input_regressions t=29.616 active=5 held=0"
+  ],
+  "visual_review": {
+    "reviewed": [
+      "07_EmptyReload_Charge.png",
+      "10_Final_Recovered.png"
+    ],
+    "result": "3 cm coverage, thin rolled opening and skin transition retained after authoring consolidation and asset rebuild",
+    "scope": "M4 actual game capture; AKM validated through shared material references"
+  },
+  "images": [
+    {
+      "path": "Saved/GunplayUpgrade/hand-equipment-standard-20260912/07_EmptyReload_Charge.png",
+      "sha256": "619767739bec50197fa081d900910f8d93372d43ac2dca9f1ed8dc84f23ddd29"
+    },
+    {
+      "path": "Saved/GunplayUpgrade/hand-equipment-standard-20260912/10_Final_Recovered.png",
+      "sha256": "0aa9675a9944cdd0b033b0736edf9355c68490a068b61eaf12680bdd01c7fdda"
+    }
+  ],
+  "commandlet_notes": "Fresh readback and dependency audit passed; commandlets exit 1 due existing GameFeatureData configuration errors."
+}
