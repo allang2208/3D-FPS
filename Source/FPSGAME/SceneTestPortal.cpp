@@ -18,6 +18,7 @@ namespace ScenePortalMaps
     const TCHAR* Hub = TEXT("/Game/GameMaps/DayNight_Lighting");
     const TCHAR* Normandy = TEXT("/Game/GameMaps/L_Normandy_FPS_Test");
     const TCHAR* Trench = TEXT("/Game/GameMaps/L_MilitaryTrench_FPS_Test");
+    const TCHAR* Hills = TEXT("/Game/GameMaps/L_TemperateHills_Initial");
 }
 
 ASceneTestPortal::ASceneTestPortal()
@@ -42,10 +43,12 @@ ASceneTestPortal::ASceneTestPortal()
     Sign->SetTextRenderColor(FColor::Cyan);
 }
 
-void ASceneTestPortal::Configure(const FString& Map, const FString& Label)
+void ASceneTestPortal::Configure(const FString& Map, const FString& Label, const FString& Options, FColor Color)
 {
     Destination = Map;
+    DestinationOptions = Options;
     Sign->SetText(FText::FromString(Label + TEXT("\n[E] Travel (within 2m)")));
+    Sign->SetTextRenderColor(Color);
 }
 
 void ASceneTestPortal::BeginPlay()
@@ -55,7 +58,7 @@ void ASceneTestPortal::BeginPlay()
     EnableInput(UGameplayStatics::GetPlayerController(this, 0));
     if (InputComponent)
     {
-        // Both portals receive E, but only the nearby one is eligible.
+        // Portal spacing keeps the 2m interaction areas separate.
         InputComponent->BindKey(EKeys::E, IE_Pressed, this, &ASceneTestPortal::UsePortal).bConsumeInput = false;
     }
 }
@@ -75,7 +78,7 @@ void ASceneTestPortal::UsePortal()
     }
     bTravelling = true;
     UE_LOG(LogTemp, Display, TEXT("ScenePortal: Travel %s"), *Destination);
-    UGameplayStatics::OpenLevel(this, FName(*Destination));
+    UGameplayStatics::OpenLevel(this, FName(*Destination), true, DestinationOptions);
 }
 
 void USceneTestPortalSubsystem::OnWorldBeginPlay(UWorld& InWorld)
@@ -83,7 +86,7 @@ void USceneTestPortalSubsystem::OnWorldBeginPlay(UWorld& InWorld)
     Super::OnWorldBeginPlay(InWorld);
     if (!InWorld.IsGameWorld() || InWorld.GetNetMode() != NM_Standalone) return;
     const FString Map = UGameplayStatics::GetCurrentLevelName(&InWorld, true);
-    if (Map != TEXT("DayNight_Lighting") && Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test")) return;
+    if (Map != TEXT("DayNight_Lighting") && Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test") && Map != TEXT("L_TemperateHills_Initial")) return;
     InWorld.GetTimerManager().SetTimer(SpawnTimer, this, &USceneTestPortalSubsystem::SpawnPortals, 0.5f, true);
 }
 
@@ -98,29 +101,56 @@ void USceneTestPortalSubsystem::SpawnPortals()
     }
     World->GetTimerManager().ClearTimer(SpawnTimer);
     const FString Current = UGameplayStatics::GetCurrentLevelName(World, true);
-    const FString Maps[] = {ScenePortalMaps::Hub, ScenePortalMaps::Normandy, ScenePortalMaps::Trench};
-    const FString Labels[] = {TEXT("HOME / Main Map"), TEXT("NORMANDY VILLAGE"), TEXT("MILITARY TRENCH")};
+    struct FDestination
+    {
+        FString Map;
+        FString Label;
+        FString Options;
+        FColor Color = FColor::Cyan;
+    };
+    TArray<FDestination> Destinations;
+    if (Current == TEXT("L_TemperateHills_Initial"))
+    {
+        // The hills GameMode releases the pawn only after terrain collision is ready.
+        Destinations.Add({ScenePortalMaps::Hub, TEXT("HOME / Main Map"), FString()});
+    }
+    else
+    {
+        const FString Maps[] = {ScenePortalMaps::Hub, ScenePortalMaps::Normandy, ScenePortalMaps::Trench};
+        const FString Labels[] = {TEXT("HOME / Main Map"), TEXT("NORMANDY VILLAGE"), TEXT("MILITARY TRENCH")};
+        for (int32 Index = 0; Index < UE_ARRAY_COUNT(Maps); ++Index)
+            if (FPackageName::GetShortName(Maps[Index]) != Current)
+                Destinations.Add({Maps[Index], Labels[Index], FString()});
+        if (Current == TEXT("DayNight_Lighting"))
+            Destinations.Add({ScenePortalMaps::Hills, TEXT("TEMPERATE HILLS\nBlack Poplar"), TEXT("HillsContinue"), FColor(100, 255, 145)});
+    }
     const FRotator Facing(0, Pawn->GetActorRotation().Yaw, 0);
     const FVector Forward = Facing.Vector();
     const FVector Right = FRotationMatrix(Facing).GetUnitAxis(EAxis::Y);
-    int32 Slot = 0;
-    for (int32 Index = 0; Index < 3; ++Index)
+    int32 Installed = 0;
+    for (int32 Index = 0; Index < Destinations.Num(); ++Index)
     {
-        if (FPackageName::GetShortName(Maps[Index]) == Current) continue;
-        FVector Position = Pawn->GetActorLocation() + Forward * 350.f + Right * (Slot++ == 0 ? -220.f : 220.f);
+        const FDestination& Entry = Destinations[Index];
+        const float Side = (Index - (Destinations.Num() - 1) * .5f) * 440.f;
+        FVector Position = Pawn->GetActorLocation() + Forward * 350.f + Right * Side;
         FHitResult Hit;
         FCollisionQueryParams Params;
         Params.AddIgnoredActor(Pawn);
-        if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200), Position - FVector(0, 0, 1500), ECC_Visibility, Params))
+        // Fog volumes can block Visibility while deliberately ignoring the player.
+        if (World->LineTraceSingleByChannel(Hit, Position + FVector(0, 0, 200), Position - FVector(0, 0, 1500), ECC_Pawn, Params))
             Position.Z = Hit.ImpactPoint.Z + 5.f;
         else
             Position.Z -= 90.f;
         FActorSpawnParameters SpawnParams;
         SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         ASceneTestPortal* Portal = World->SpawnActor<ASceneTestPortal>(Position, FRotator(0, Facing.Yaw + 180.f, 0), SpawnParams);
-        if (Portal) Portal->Configure(Maps[Index], Labels[Index]);
+        if (Portal)
+        {
+            Portal->Configure(Entry.Map, Entry.Label, Entry.Options, Entry.Color);
+            ++Installed;
+        }
     }
-    UE_LOG(LogTemp, Display, TEXT("ScenePortal: Installed two portals in %s"), *Current);
+    UE_LOG(LogTemp, Display, TEXT("ScenePortal: Installed %d portals in %s"), Installed, *Current);
 }
 
 void USceneTestPortalSubsystem::Deinitialize()

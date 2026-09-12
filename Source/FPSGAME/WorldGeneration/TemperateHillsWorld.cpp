@@ -92,8 +92,11 @@ void ATemperateHillsWorld::ResolveSession()
     AuditDir=FPaths::ProjectSavedDir()/TEXT("TemperateHills")/Label;
     Slot=bAudit?TEXT("TemperateHills_Audit"):TEXT("TemperateHills_World");
     int32 Requested=Seed;
-    const bool Explicit=FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
-    const bool NewWorld=FParse::Param(FCommandLine::Get(),TEXT("HillsNewWorld"));
+    // Portal re-entry continues the existing world even when this process was
+    // originally launched with a new-world or explicit-seed command-line flag.
+    const bool ContinueWorld=GetWorld()->URL.HasOption(TEXT("HillsContinue"));
+    const bool Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
+    const bool NewWorld=!ContinueWorld&&FParse::Param(FCommandLine::Get(),TEXT("HillsNewWorld"));
     UTemperateHillsSave* Saved=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
     if(Saved&&!NewWorld&&!Explicit&&Saved->Version!=1)
     {

@@ -9,8 +9,9 @@
 旧 `landing-trench-final.log` 仅站立通过但未识别雾体支撑，已经归档；当前战壕证据以 `trench-movement-final.log` 为准。下文 `landing-*-final.log` 现仅指 DayNight 和 Normandy。
 
 项目：`D:\FPS3D\FPSGAME\FPSGAME.uproject`，引擎 UE 5.8。
-三张游戏入口地图统一放在 Content/GameMaps。默认启动 DayNight_Lighting。
-单人模式出生点前方生成两座测试门，靠近 2 米内按 E；返回和场景互换均通过门操作。
+游戏入口地图统一放在 Content/GameMaps。默认启动 DayNight_Lighting。
+主场景出生点前方生成三座门：Normandy、Military Trench、温带丘陵（绿色文字 `TEMPERATE HILLS / Black Poplar`，位于右侧）。单人模式靠近 2 米内按 E。
+Normandy 和 Military Trench 仍生成原有的两座门；温带丘陵出生点前方只生成返回主场景的 `HOME / Main Map` 门。丘陵往返沿用已保存种子，详见 [植被初版说明](../../Docs/WorldGeneration/temperate-hills-initial.md)。传送门新增部分按 2026-09-12 项目规则未主动执行运行测试。
 地图切换会重新创建角色和场景，不代表已接入跨地图存档。
 
 ## 战壕雾体碰撞修复（2026-09-09）
@@ -27,6 +28,7 @@
 | Normandy FPS 测试 | `/Game/GameMaps/L_Normandy_FPS_Test` |
 | Normandy 组件展示 | `/Game/UnrealNormandy/Levels/ML_Overview` |
 | Military Trench FPS 测试 | `/Game/GameMaps/L_MilitaryTrench_FPS_Test` |
+| 温带丘陵植被初版 | `/Game/GameMaps/L_TemperateHills_Initial` |
 | Military Trench 组件展示 | `/Game/MilitaryTrench/Maps/AssetZoo` |
 | Military Trench PCG 展示 | `/Game/MilitaryTrench/Tutorial/Scenes/PCG_Zoo` |
 

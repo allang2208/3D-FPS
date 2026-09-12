@@ -12,17 +12,18 @@ class FPSGAME_API ASceneTestPortal : public AActor
     GENERATED_BODY()
 public:
     ASceneTestPortal();
-    void Configure(const FString& Map, const FString& Label);
+    void Configure(const FString& Map, const FString& Label, const FString& Options = FString(), FColor Color = FColor::Cyan);
 protected:
     virtual void BeginPlay() override;
 private:
     void UsePortal();
     UPROPERTY() TObjectPtr<UTextRenderComponent> Sign;
     UPROPERTY() FString Destination;
+    UPROPERTY() FString DestinationOptions;
     bool bTravelling = false;
 };
 
-// Installs inspection portals only in the three explicitly supported test maps.
+// Installs scene links in the hub/test maps and a home link in the hills prototype.
 UCLASS()
 class FPSGAME_API USceneTestPortalSubsystem : public UWorldSubsystem
 {
