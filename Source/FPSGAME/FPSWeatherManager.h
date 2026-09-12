@@ -45,9 +45,15 @@ public:
     UFUNCTION(BlueprintPure, Category="Weather")
     float GetEffectiveRainIntensity() const { return EffectiveRainIntensity; }
     float GetSurfaceWetness() const;
+    float GetRainExposure() const { return 1.0f - ShelterAmount; }
+    FVector GetWeatherWind() const { return WeatherWind; }
+    class UWeatherPresentationAssets* GetPresentationAssets() const { return PresentationAssets; }
 
     bool IsSkyClockConnected() const { return bSkyClockConnected; }
     bool IsSceneDayNightActive() const { return bSceneDayNightActive; }
+
+    UPROPERTY(EditDefaultsOnly, Category="Weather|Presentation")
+    TSoftObjectPtr<class UWeatherPresentationAssets> PresentationLibrary;
 
     UPROPERTY(BlueprintAssignable, Category="Weather")
     FFPSWeatherChanged OnWeatherChanged;
@@ -120,6 +126,12 @@ private:
     TObjectPtr<class UStormCloudComponent> StormClouds;
 
     UPROPERTY(VisibleAnywhere)
+    TObjectPtr<class UWeatherViewEffectsComponent> ViewEffects;
+
+    UPROPERTY()
+    TObjectPtr<class UWeatherPresentationAssets> PresentationAssets;
+
+    UPROPERTY(VisibleAnywhere)
     TObjectPtr<UAudioComponent> LightRainAudio;
 
     UPROPERTY(VisibleAnywhere)
@@ -140,6 +152,8 @@ private:
     float TargetRainIntensity = 0.0f;
     float EffectiveRainIntensity = 0.0f;
     float ShelterAmount = 0.0f;
+    float ShelterTarget = 0.0f;
+    FVector WeatherWind = FVector(120.0, 40.0, 0.0);
     float ShelterCheckAccumulator = 0.0f;
     float LightningCountdown = 8.0f;
     float LightningFlashTime = 0.0f;

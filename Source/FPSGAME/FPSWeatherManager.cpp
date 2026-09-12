@@ -4,6 +4,7 @@
 #include "WeatherSurfaceComponent.h"
 #include "StormCloudValidation.h"
 #include "StormCloudComponent.h"
+#include "WeatherViewEffectsComponent.h"
 
 #include "Camera/PlayerCameraManager.h"
 #include "Components/AudioComponent.h"
@@ -57,6 +58,9 @@ AFPSWeatherManager::AFPSWeatherManager()
     MistComponent->SetCastShadow(false);
     SurfaceEffects = CreateDefaultSubobject<UWeatherSurfaceComponent>(TEXT("RainSurfaces"));
     StormClouds = CreateDefaultSubobject<UStormCloudComponent>(TEXT("StormClouds"));
+    ViewEffects = CreateDefaultSubobject<UWeatherViewEffectsComponent>(TEXT("WeatherViewEffects"));
+    PresentationLibrary=TSoftObjectPtr<UWeatherPresentationAssets>(FSoftObjectPath(
+        TEXT("/Game/Weather/NaturalV2/DA_WeatherPresentation.DA_WeatherPresentation")));
 
     LightRainAudio = CreateDefaultSubobject<UAudioComponent>(TEXT("LightRainAudio"));
     LightRainAudio->SetupAttachment(SceneRoot);
@@ -123,6 +127,16 @@ void AFPSWeatherManager::BeginPlay()
 {
     Super::BeginPlay();
     StormClouds->AddTickPrerequisiteActor(this);
+    ViewEffects->AddTickPrerequisiteActor(this);
+    PresentationAssets=PresentationLibrary.LoadSynchronous();
+    ViewEffects->Initialize(PresentationAssets);
+    if (PresentationAssets)
+    {
+        if (PresentationAssets->Rain) RainSystem = PresentationAssets->Rain;
+        if (PresentationAssets->Splashes) SplashSystem = PresentationAssets->Splashes;
+        if (PresentationAssets->Mist) MistSystem = PresentationAssets->Mist;
+        if (PresentationAssets->Drips) RoofDripSystem = PresentationAssets->Drips;
+    }
 
     WeatherRandom.Initialize(WeatherSeed);
     RainComponent->SetAsset(RainSystem);
@@ -265,6 +279,8 @@ void AFPSWeatherManager::UpdatePlayerFollowing()
 
 void AFPSWeatherManager::UpdateShelter(float DeltaSeconds)
 {
+    // Probe at a coarse rate, but integrate the measured exposure every frame.
+    ShelterAmount = FMath::Lerp(ShelterAmount, ShelterTarget, 1.f-FMath::Exp(-DeltaSeconds*4.f));
     ShelterCheckAccumulator += DeltaSeconds;
     if (ShelterCheckAccumulator < 0.25f)
     {
@@ -287,7 +303,7 @@ void AFPSWeatherManager::UpdateShelter(float DeltaSeconds)
         Params.AddIgnoredActor(Pawn);
     }
     const bool bSheltered = GetWorld()->LineTraceSingleByChannel(Hit, Start, End, ECC_Visibility, Params);
-    ShelterAmount = FMath::FInterpTo(ShelterAmount, bSheltered ? 1.0f : 0.0f, 0.25f, 8.0f);
+    ShelterTarget = bSheltered ? 1.0f : 0.0f;
 }
 
 void AFPSWeatherManager::UpdateEffects(float DeltaSeconds)
@@ -295,11 +311,17 @@ void AFPSWeatherManager::UpdateEffects(float DeltaSeconds)
     const float Speed = 1.0f / FMath::Max(TransitionSeconds, 0.1f);
     const float OutdoorIntensity = FMath::FInterpTo(EffectiveRainIntensity, TargetRainIntensity, DeltaSeconds, Speed * 5.0f);
     EffectiveRainIntensity = OutdoorIntensity;
+    const float WindTime = GetWorld()->GetTimeSeconds();
+    const float Gust = 1.f + .18f*FMath::Sin(WindTime*.37f) + .09f*FMath::Sin(WindTime*.83f);
+    const FVector WindTarget = FVector(1.f,.32f+.12f*FMath::Sin(WindTime*.07f),0.f) * FMath::Lerp(100.f,360.f,OutdoorIntensity)*Gust;
+    WeatherWind = FMath::Lerp(WeatherWind,WindTarget,1.f-FMath::Exp(-DeltaSeconds*.8f));
     const int32 Quality = UWeatherSurfaceComponent::GetQuality();
     const float VisibleIntensity = Quality > 0 ? OutdoorIntensity * (1.0f-ShelterAmount) : 0;
     const float AudioShelter = FMath::Lerp(1.0f, 0.25f, ShelterAmount);
 
     RainComponent->SetFloatParameter(FPSWeatherNames::RainIntensity, VisibleIntensity);
+    RainComponent->SetVariableVec3(TEXT("User.WeatherWind"), WeatherWind);
+    MistComponent->SetVariableVec3(TEXT("User.WeatherWind"), WeatherWind*.35f);
     RainComponent->SetFloatParameter(FPSWeatherNames::SpawnRate, VisibleIntensity * (Quality==1?800.0f:Quality==3?2000.0f:1400.0f));
     const float MistRate=Quality>=2?VisibleIntensity*3.0f:0;
     MistComponent->SetFloatParameter(FPSWeatherNames::SpawnRate,MistRate);
@@ -398,8 +420,8 @@ void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
     SceneLightingRefresh = 0.0f;
     const float SunHeight = FMath::Sin((NormalizedDayTime - 0.25f) * 2.0f * PI);
     const float Daylight = FMath::SmoothStep(-0.12f, 0.35f, SunHeight);
-    const float Clouds = CurrentState == EFPSWeatherState::Clear ? 0.0f :
-        CurrentState == EFPSWeatherState::Cloudy ? 0.5f : FMath::Lerp(0.55f, 1.0f, EffectiveRainIntensity);
+    // Cloud component applies the single weather attenuation after the clock.
+    // This controller only supplies the unmodified time-of-day baseline.
     for (TActorIterator<AActor> It(GetWorld()); It; ++It)
     {
         AActor* Actor = *It;
@@ -438,11 +460,11 @@ void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
                 const float Pitch = -(NormalizedDayTime - 0.25f) * 360.0f + (bNight ? 180.0f : 0.0f);
                 Sun->SetWorldRotation(FRotator(Pitch, -35.0f, 0.0f));
                 Sun->SetLightColor(bNight ? FLinearColor(0.46f, 0.60f, 1.0f) : SceneLightColors[Key]);
-                Sun->SetIntensity(Base * FMath::Abs(SunHeight) * (bNight ? 0.035f : 1.0f) * FMath::Lerp(1.0f, 0.35f, Clouds));
+                Sun->SetIntensity(Base * FMath::Abs(SunHeight) * (bNight ? 0.035f : 1.0f));
                 bSceneDayNightActive = true;
             }
-            if (Sky) Sky->SetIntensity(Base * FMath::Lerp(0.06f, 1.0f, Daylight) * FMath::Lerp(1.0f, 0.65f, Clouds));
-            if (Fill) Fill->SetIntensity(Base * FMath::Lerp(0.025f, 1.0f, Daylight) * FMath::Lerp(1.0f, 0.4f, Clouds));
+            if (Sky) Sky->SetIntensity(Base * FMath::Lerp(0.06f, 1.0f, Daylight));
+            if (Fill) Fill->SetIntensity(Base * FMath::Lerp(0.025f, 1.0f, Daylight));
         }
     }
 }

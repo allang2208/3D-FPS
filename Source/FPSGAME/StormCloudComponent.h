@@ -49,6 +49,9 @@ private:
     float OriginalBottom=2, OriginalHeight=2, OriginalOcclusion=0;
     float Coverage=0, Density=0, Storm=0;
     FLinearColor Albedo=FLinearColor::White;
+    FLinearColor WindControls=FLinearColor(1.f,.32f,.12f,.333333f);
+    FLinearColor LayoutPlacement=FLinearColor::Black;
+    FVector2D WindOffset=FVector2D::ZeroVector;
     bool bOriginalVisible=false, bCreatedCloud=false, bOverride=false;
     void Discover();
     void Restore();

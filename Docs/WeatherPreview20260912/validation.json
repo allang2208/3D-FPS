@@ -1,0 +1,265 @@
+{
+  "date": "2026-09-12",
+  "engine": "UE 5.8.2",
+  "render": "D3D12 SM6, 1280x720, RenderOffscreen, nosound",
+  "builds": [
+    {
+      "log": "editor-final.log",
+      "result": [
+        "Result: Succeeded"
+      ]
+    },
+    {
+      "log": "game-final.log",
+      "result": [
+        "Result: Succeeded"
+      ]
+    }
+  ],
+  "runs": [
+    {
+      "label": "DayNight-final",
+      "log": "Saved\\WeatherPresentation20260912\\DayNight-final\\runtime.log",
+      "markers": [
+        "[2026.09.12-10.29.59:601][984]LogTemp: Display: WEATHER_PRESENTATION_AUDIT_PASS failures=0 screen=0.000 gun=0.615 materials=8"
+      ],
+      "presentation_checks": 20,
+      "shader_or_niagara_failures": 0
+    },
+    {
+      "label": "Normandy-final",
+      "log": "Saved\\WeatherPresentation20260912\\Normandy-final\\runtime.log",
+      "markers": [
+        "[2026.09.12-10.33.19:536][156]LogTemp: Display: WEATHER_PRESENTATION_AUDIT_PASS failures=0 screen=0.000 gun=0.615 materials=8"
+      ],
+      "presentation_checks": 20,
+      "shader_or_niagara_failures": 0
+    },
+    {
+      "label": "Trench-final",
+      "log": "Saved\\WeatherPresentation20260912\\Trench-final\\runtime.log",
+      "markers": [
+        "[2026.09.12-10.37.05:341][ 38]LogTemp: Display: WEATHER_PRESENTATION_AUDIT_PASS failures=0 screen=0.000 gun=0.616 materials=8"
+      ],
+      "presentation_checks": 20,
+      "shader_or_niagara_failures": 0
+    },
+    {
+      "label": "Storm-regression",
+      "log": "Saved\\WeatherPresentation20260912\\Storm-regression\\runtime.log",
+      "markers": [
+        "[2026.09.12-10.39.32:023][347]LogTemp: Display: STORM_CLOUD_AUDIT_PASS failures=0"
+      ],
+      "presentation_checks": 0,
+      "shader_or_niagara_failures": 0
+    },
+    {
+      "label": "Clock-panel-regression",
+      "log": "Saved\\WeatherPresentation20260912\\Clock-panel-regression\\runtime.log",
+      "markers": [
+        "[2026.09.12-10.41.18:589][891]LogTemp: Display: WEATHER_PANEL_AUDIT_PASS map=L_Normandy_FPS_Test failures=0"
+      ],
+      "presentation_checks": 0,
+      "shader_or_niagara_failures": 0
+    }
+  ],
+  "generated_packages": [
+    {
+      "path": "Content/Weather/NaturalV2/DA_WeatherPresentation.uasset",
+      "size": 10256,
+      "sha256": "7A5DD91E925C22796B74A54A03ABED943B00E2C1663485566E7430C7D54C2C05"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Atmospheric_M_Cubemap_Sky_Material_c3b1beab.uasset",
+      "size": 18961,
+      "sha256": "FDFF7DC6A5C72D0DCEC12C9A1B1C20A354A8C9F094D794154863ABE23515AE30"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Natural_mist.uasset",
+      "size": 9099,
+      "sha256": "61DDC70FF327827A0E05E27255C30A4762F372F1BC58C8160C313C1EF60F55C1"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Natural_rain.uasset",
+      "size": 9860,
+      "sha256": "C466C6F79950E72A82858E67E34B8EC1A7EB1282FB4D90B66C306E167809274D"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Natural_splash.uasset",
+      "size": 9857,
+      "sha256": "5F74C5F26A6BACF5F8EDF3A3C0DB83731E820F2C61B50E66AE45B7EEE5BB64F1"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_ScreenEdgeRain.uasset",
+      "size": 10025,
+      "sha256": "701E4D078F5D28016AABB465D8D7F303156373E786EFE196A7165174DFC2ABDE"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_FBXLegacyPhongSurfaceMaterial_7dde7f0d85.uasset",
+      "size": 60354,
+      "sha256": "429306438D215FC53E03149DEF09CB9C833EE5C31CD4143E9D84C9A4E1641C5A"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_AKM_LPVO_Body_2e8a792837.uasset",
+      "size": 18601,
+      "sha256": "0A443966B795A0583E48D10A249462A3CFB54FD2558F08A4C1371A5F0082048E"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_AKM_optic_Holosight_dbe375d017.uasset",
+      "size": 17350,
+      "sha256": "4705A6951CF841705A17F92970C29AE36742706DEC9F973992B042CDB67FBB73"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_AKM_Panoramic_Body_9e2d1e6050.uasset",
+      "size": 18289,
+      "sha256": "C586BE6F3837916A36C767110223E15FC35C1BF6532E90E5893E6D16A975DF4C"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_AKM_Scope2X_Body_326c7484eb.uasset",
+      "size": 18359,
+      "sha256": "180E51F0C0BEFCEFBB8958F4FA6FD58C11F406D54CA52FC969FA684F9AF2AF65"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_AKM_Soviet_MountSteel_5c76055edc.uasset",
+      "size": 12642,
+      "sha256": "B742DD5F28F877AD0F5D8E3F3629BB23C28CA496FE4C21E29AEFA1A73A6DDA5C"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_AKM_Soviet_PBR_74c2286707.uasset",
+      "size": 12543,
+      "sha256": "DEC79A2DDC3E52B69036FB127AE96C716198BA0C68F8DC30ECE42E85DB8291EB"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_HoloBody_ccb785d065.uasset",
+      "size": 11548,
+      "sha256": "D15176541F53F1D23887987A4B88B1113AC2FADB6BB3F3E7131E91CCB092A580"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_LPVO_Body_bf1e93ab5f.uasset",
+      "size": 12108,
+      "sha256": "B638A91246BA7CDE467F05DE1BE9D0BB18DCAEEF4E8D6D4529B0F0D26C0596C9"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_M4DrumFasteners_8ae9396099.uasset",
+      "size": 11528,
+      "sha256": "2CEB85056A2C78717A4F407E54C51CC64ABE4806554A6CEEF869006FAC678E69"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_M4DrumIndex_eb90deb882.uasset",
+      "size": 10573,
+      "sha256": "08C8ABEE3221B7CB9A84A3F0E3D70D5598CC58262FD6B5931A16D8A9406F5CB4"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_M4DrumPolymer_4647942573.uasset",
+      "size": 13774,
+      "sha256": "07A58A672BECE7B19B45A882B117A5CD2011DB70508679146A0DE9E8C4EB2DFE"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_Panoramic_Body_448e294794.uasset",
+      "size": 12522,
+      "sha256": "672C8226EBCE2219BAEA20880012C0AE2CA1F50575D1A7BF0C2267345186CED5"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_Prism_Polymer_867740d45f.uasset",
+      "size": 11257,
+      "sha256": "192966340B68A9C609A5A344A4F5AE7DA0F6204F9964B0F6BCFE2003AC980EBD"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_Prism_Saddle_ed76c23d51.uasset",
+      "size": 11252,
+      "sha256": "6492EDBB50D5CCDCD24BEE7C19B905232CA7A86CCE8C069060A1FC653624F9E8"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/M_Wet_M_Scope2X_Body_037793b97b.uasset",
+      "size": 11866,
+      "sha256": "C3D045F0795100BA4527F3B8D660F824857071368FD2EEDE61AAF959030AF74D"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_HDR_Night_Sky_02430b3e.uasset",
+      "size": 5723,
+      "sha256": "701DAD66CED4A3C5280918EE7AAC1109E77B9B363B58ED0C9A5761EC41E968B7"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_Overcast_Sky_384be5f3.uasset",
+      "size": 4845,
+      "sha256": "49008C6DC0900C125C3738F057D4AA9A37D1AF2E19BED2B6266A8011625FFF86"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_Sky_Sunrise_fbeff943.uasset",
+      "size": 5271,
+      "sha256": "A0096EACB39281D10074F1B4AF72E38A12623FF8C877E2A20FB9F412DB1B6CA1"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_Sky_Sunset_02_2aa2527e.uasset",
+      "size": 5285,
+      "sha256": "985665960DC8485087F7A62F5027454FD1CF25CF586172793938E217D1828755"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_Sky_Sunset_9ed988a9.uasset",
+      "size": 5264,
+      "sha256": "A3E144D74AC4240130A12B9F1675D3785EB89BB5FE931124D84370149A45207C"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_Sky_Sunshine_01951044.uasset",
+      "size": 5278,
+      "sha256": "0679DAD539A4D6EDBD8E6394E71669969D977990E81E800012F5D23877994191"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Atmospheric_MI_Sky_Sunshine_02_499567d3.uasset",
+      "size": 5299,
+      "sha256": "D37873337E81C4C6DACA1B2BFEAA722D4D1BE45D9F295B6B0E1255FF841E8AC6"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Wet_Body_001_facc68ca83.uasset",
+      "size": 66931,
+      "sha256": "2DB678A4EFE3FB9017932616F7B9F7BE4A41649BE76DFE4887EA8DC0F578409E"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Wet_Classic_Stock_001_54577e5f00.uasset",
+      "size": 67615,
+      "sha256": "BD5C1FCE3158B7DB8CCAFC9E39DF1466B1A1599616760D26AF16955F12757A4A"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Wet_Flash_Hider_001_9a3d152e65.uasset",
+      "size": 67463,
+      "sha256": "567B35477511D345590D272BEB96FC37026888A280BEAC09935BFAE4F6D46890"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Wet_Grip_Default_001_21c1bea595.uasset",
+      "size": 67539,
+      "sha256": "EA68AEB80469175B680539972235544E6A656CB7443D42102616B5C569B952DC"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Wet_Keymod_material_001_7080d3e6c5.uasset",
+      "size": 67767,
+      "sha256": "4E45DC6B3E87B94846E0ECC0816851DBA96169F5A28C922F9ED78790799E6925"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/MI_Wet_Magazine_Light_001_612d2e6c95.uasset",
+      "size": 67691,
+      "sha256": "C5C7D3FAC60F77F7D3BFEBA7001ADEF63EC02BE7D7A08C1B3DF62D8B1608E748"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/NS_Natural_RainFine.uasset",
+      "size": 801517,
+      "sha256": "6BB5F49582A1D3FB43CBD25E0AD8A87286AD588A60D9F0A20F521974083E4A51"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/NS_Natural_RainMist.uasset",
+      "size": 458314,
+      "sha256": "2993305B2783C5D487E82919BF47D6EDF9B73B46FDA2AAFA1BF16E1A9FD630A6"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/NS_Natural_RoofDrips.uasset",
+      "size": 794764,
+      "sha256": "0955AF9A2F18B984E9310F1F08AD0EE52C1886E909DF6A0E36A179B78CE802C9"
+    },
+    {
+      "path": "Content/Weather/NaturalV2/NS_Natural_SurfaceSplashes.uasset",
+      "size": 539322,
+      "sha256": "09814478CB0ABD95AE2D9D9343B9C19D74E06CA886856015EB019A4B5022E4AD"
+    }
+  ],
+  "packaged_cook_tested": false,
+  "audio_listening_tested": false
+}

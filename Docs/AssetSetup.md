@@ -54,3 +54,7 @@ Git 包含攀爬 C++、配置、作者工具、导入/包围盒/作者校验摘�
 恢复 `Content/NiagaraExamples`（已获授权的 Epic Niagara Examples Pack）及 `Content/Weapons/GunplayFX`。当前引用为 `NS_FPS_MuzzleEpicV5`、`NS_FPS_BarrelSmokeEpicV5`、`M_BallisticTracer`，以及原有枪口、烟、弹壳材质。第三方派生 Niagara uasset 仅本机保留，本次没有上传其二进制。
 
 最终生成器 [build_muzzle_presentation_v5.py](../Tools/AssetPipeline/build_muzzle_presentation_v5.py) 直接以原包 `FX_Weapons/MuzzleFlashes/NS_MuzzleFlash` 重建，不需要 trash 中的旧候选。需项目 `RainAssetEditor`、UE 5.8 NiagaraToolset 和原始素材；`-MuzzleRebuildProbe` 写独立测试资产。曳光材质用 [build_ballistic_tracer.py](../Tools/AssetPipeline/build_ballistic_tracer.py) 创建。参数、历史迭代和本机证据见 [烟火记录](muzzle-smoke-presentation-20260911.md)，归档记录见 [清单](gunplay-archive-20260911.json)。
+
+## 云、雨与附着水滴（2026-09-12）
+
+当前表现库为 `Content/Weather/NaturalV2/DA_WeatherPresentation.uasset`。恢复既有 `Weather/VFX`、`PWL_Light_Manager/Shader`、M4InfimaV3、M4HK416Replica、AKM SovietFab 和现用配件后，编译 FPSGAMEEditor，再运行 [天气生成器](../Tools/Weather/build_natural_weather.py)。它以本机已授权资产生成 39 个独立副本及程序化材质，不下载资源。原始 HLSL 位于 `SourceAssets/WeatherNatural20260912`；新库中的枪械及天空材质仍依赖原包纹理与函数，不能把衍生 uasset 当作可自由分发的美术包。具体范围、控制参数与验收见 [天气升级记录](WeatherNaturalUpgrade-20260912.md)。

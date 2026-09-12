@@ -61,7 +61,7 @@ void UFPSTraversalComponent::RunRuntimeAudit()
         {
             const TCHAR* Labels[]={TEXT("TraversalTest_Low"),TEXT("TraversalTest_Medium"),TEXT("TraversalTest_High"),TEXT("TraversalTest_Platform")};
             for (TActorIterator<AStaticMeshActor> It(GetWorld());It;++It)
-                if (It->GetActorLabel()==Labels[AuditCase]) AuditWall=*It;
+                if (It->GetActorNameOrLabel()==Labels[AuditCase]) AuditWall=*It;
             if (!IsValid(AuditWall)) { Check(false,TEXT("course obstacle present")); bRuntimeAudit=false; return; }
             FVector Center,Extent; AuditWall->GetActorBounds(false,Center,Extent);
             Origin=FVector(Center.X-Extent.X-102,Center.Y,Center.Z-Extent.Z);

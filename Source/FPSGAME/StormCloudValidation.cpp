@@ -79,7 +79,7 @@ struct FStormAudit
             auto* C=Clouds->GetCloud();FirstCloud=C;
             Check(Clouds->GetStormBlend()==1&&C&&C->IsVisible(),TEXT("storm has visible cloud layer"));
             float Coverage=0,Density=0;if(C&&C->GetMaterial()){C->GetMaterial()->GetScalarParameterValue(FMaterialParameterInfo(TEXT("Cloud_GlobalCoverage")),Coverage);C->GetMaterial()->GetScalarParameterValue(FMaterialParameterInfo(TEXT("Cloud_GlobalDensity")),Density);}
-            Check(FMath::IsNearlyEqual(Coverage,.1f,.0001f)&&FMath::IsNearlyZero(Density,.0001f),TEXT("overcast coverage preserves cloud erosion"));
+            Check(FMath::IsNearlyEqual(Coverage,.045f,.0001f)&&FMath::IsNearlyZero(Density,.0001f),TEXT("overcast coverage preserves cloud erosion"));
             if(C)UE_LOG(LogTemp,Display,TEXT("STORM_RENDER hidden=%d ownerHidden=%d mainpass=%d"),C->bHiddenInGame,C->GetOwner()->IsHidden(),C->bRenderInMainPass);
             StormSun=Sun.IsValid()?Sun->Intensity:0;
             Check(Sun.IsValid()&&Sun->AtmosphereSunDiskColorScale.R<.01f&&StormSun<ClearSun*.3f,TEXT("sun disk and direct sunlight suppressed"));

@@ -1,5 +1,6 @@
 #include "StormCloudComponent.h"
 #include "FPSWeatherManager.h"
+#include "WeatherViewEffectsComponent.h"
 #include "Components/VolumetricCloudComponent.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Components/SkyLightComponent.h"
@@ -74,6 +75,7 @@ void UStormCloudComponent::Discover()
         OriginalMaterial->GetScalarParameterValue(FMaterialParameterInfo(TEXT("Cloud_GlobalDensity")),Density);
         OriginalMaterial->GetScalarParameterValue(FMaterialParameterInfo(TEXT("StormClouds")),Storm);
         OriginalMaterial->GetVectorParameterValue(FMaterialParameterInfo(TEXT("Cloud_AlbedoColor")),Albedo);
+        OriginalMaterial->GetVectorParameterValue(FMaterialParameterInfo(TEXT("Layout_GlobalTexturePlacement")),LayoutPlacement);
         UE_LOG(LogTemp,Display,TEXT("StormClouds: bound %s material=%s created=%d"),*C->GetPathName(),*OriginalMaterial->GetPathName(),bCreatedCloud);
     }
 }
@@ -82,7 +84,19 @@ void UStormCloudComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
 {
     Super::TickComponent(Delta,Type,Tick);
     auto* Weather=Cast<AFPSWeatherManager>(GetOwner());if(!Weather)return;
-    const float Target=Weather->CurrentState==EFPSWeatherState::Storm?1.f:0.f;
+    float Target=0.f;
+    switch(Weather->CurrentState)
+    {
+        case EFPSWeatherState::Cloudy: Target=.30f;break;
+        case EFPSWeatherState::LightRain: Target=.52f;break;
+        case EFPSWeatherState::Rain: Target=.76f;break;
+        case EFPSWeatherState::Storm: Target=1.f;break;
+        default:break;
+    }
+    // Integrate wind displacement; multiplying world time by a changing wind
+    // would make cloud patterns jump when a gust changes direction.
+    const FVector Wind=Weather->GetWeatherWind();
+    WindOffset+=FVector2D(Wind.X,Wind.Y)*Delta/18000000.f;
     Blend=FMath::FInterpConstantTo(Blend,Target,Delta,1.f/FMath::Max(.1f,Weather->TransitionSeconds));
     DiscoveryTime-=Delta;
     if(DiscoveryTime<=0 || (Blend>0&&!CloudMaterial)){Discover();DiscoveryTime=1;}
@@ -91,14 +105,16 @@ void UStormCloudComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
     if(auto* C=Cloud.Get();C&&CloudMaterial)
     {
         C->SetMaterial(CloudMaterial);C->SetVisibility(true);
-        C->SetLayerBottomAltitude(FMath::Lerp(OriginalBottom,1.2f,Blend));
-        C->SetLayerHeight(FMath::Lerp(OriginalHeight,.8f,Blend));
-        C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,.3f,Blend));
-        CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),FMath::Lerp(bOriginalVisible?Coverage:-1.f,.1f,Blend));
+        C->SetLayerBottomAltitude(FMath::Lerp(OriginalBottom,1.55f,Blend));
+        C->SetLayerHeight(FMath::Lerp(OriginalHeight,1.1f,Blend));
+        C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,.22f,Blend));
+        CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),FMath::Lerp(bOriginalVisible?Coverage:-.35f,.045f,Blend));
         CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalDensity"),FMath::Lerp(bOriginalVisible?Density:0.f,0.f,Blend));
-        CloudMaterial->SetScalarParameterValue(TEXT("StormClouds"),FMath::Lerp(Storm,.3f,Blend));
-        CloudMaterial->SetVectorParameterValue(TEXT("Cloud_AlbedoColor"),FMath::Lerp(Albedo,FLinearColor(.75f,.75f,.75f,Albedo.A),Blend));
-        CloudMaterial->SetVectorParameterValue(TEXT("Storm_AlbedoColor"),FLinearColor(.4f,.4f,.4f,.333333f));
+        CloudMaterial->SetScalarParameterValue(TEXT("StormClouds"),FMath::Lerp(Storm,.22f,Blend));
+        CloudMaterial->SetVectorParameterValue(TEXT("Cloud_AlbedoColor"),FMath::Lerp(Albedo,FLinearColor(.92f,.94f,.96f,Albedo.A),Blend));
+        CloudMaterial->SetVectorParameterValue(TEXT("Storm_AlbedoColor"),FLinearColor(.58f,.62f,.67f,.333333f));
+        CloudMaterial->SetVectorParameterValue(TEXT("Layout_WindControls"),WindControls);
+        CloudMaterial->SetVectorParameterValue(TEXT("Layout_GlobalTexturePlacement"),LayoutPlacement+FLinearColor(WindOffset.X,WindOffset.Y,0.f,0.f));
         // Lightning remains owned by the weather manager, not a second material timer.
         CloudMaterial->SetVectorParameterValue(TEXT("Storm_LightningColor"),FLinearColor::Black);
     }
@@ -111,18 +127,36 @@ void UStormCloudComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
             {
                 S.Original=Current;
                 S.Original->GetScalarParameterValue(FMaterialParameterInfo(TEXT("Sky Intensity")),S.Brightness);
-                S.Dynamic=UMaterialInstanceDynamic::Create(S.Original,this);
+                UMaterialInterface* Source=S.Original;
+                if(auto* Assets=Weather->GetPresentationAssets())
+                    for(UMaterialInterface* Candidate=Source;Candidate;)
+                    {
+                        if(auto* Replacement=Assets->SkyMaterials.Find(Candidate->GetPathName())){Source=*Replacement;break;}
+                        if(auto* Instance=Cast<UMaterialInstance>(Candidate))Candidate=Instance->Parent;
+                        else break;
+                    }
+                S.Dynamic=UMaterialInstanceDynamic::Create(Source,this);
+                S.Dynamic->CopyMaterialUniformParameters(S.Original);
+                UE_LOG(LogTemp,Display,TEXT("WeatherSky: %s -> %s"),*S.Original->GetPathName(),*Source->GetPathName());
             }
             M->SetMaterial(0,S.Dynamic);
         }
-        if(S.Dynamic)S.Dynamic->SetScalarParameterValue(TEXT("Sky Intensity"),S.Brightness*(1.f-Blend));
+        if(S.Dynamic)
+        {
+            // Blend the authored HDRI into atmospheric sky instead of multiplying
+            // an opaque skydome to black beneath the moving volume clouds.
+            S.Dynamic->SetScalarParameterValue(TEXT("Sky Intensity"),S.Brightness);
+            S.Dynamic->SetScalarParameterValue(TEXT("WeatherSkyBlend"),Blend);
+            const float Day=FMath::Clamp(FMath::Sin((Weather->NormalizedDayTime-.25f)*2.f*PI)*3.f+.1f,0.f,1.f);
+            S.Dynamic->SetScalarParameterValue(TEXT("WeatherSkyDaylight"),Day);
+        }
     }
     for(auto& Pair:Lights) if(auto* L=Pair.Key.Get())
     {
         auto& S=Pair.Value;
         // A fresh value from the clock is the baseline; never compound our own value.
         if(!FMath::IsNearlyEqual(L->Intensity,S.Applied,1.e-5f))S.Base=L->Intensity;
-        S.Applied=S.Base*FMath::Lerp(1.f,Cast<UDirectionalLightComponent>(L)?.25f:.85f,Blend);
+        S.Applied=S.Base*FMath::Lerp(1.f,Cast<UDirectionalLightComponent>(L)?.25f:.72f,Blend);
         SetStormLightIntensity(L,S.Applied);
         if(auto* Sun=Cast<UDirectionalLightComponent>(L))Sun->SetAtmosphereSunDiskColorScale(S.Disk*FMath::Lerp(1.f,.005f,Blend));
     }
