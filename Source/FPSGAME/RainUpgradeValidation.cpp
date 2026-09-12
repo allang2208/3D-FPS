@@ -68,8 +68,8 @@ struct FRainSurfaceAudit
         if(Step==8)
         {
             Check(Surface->GetPatchCount()==16&&Particles.Num()==22,TEXT("fixed pool: 16 surfaces, 22 particle components"));
-            Check(Visible>0&&Visible<=9&&Surface->GetWetness()>.1f,TEXT("balanced wet surfaces accumulate"));
-            Check(Weather->RainSystem&&Weather->RainSystem->GetName()==TEXT("NS_FPS_RainFine")&&Weather->SplashSystem->GetName()==TEXT("NS_FPS_SurfaceSplashes"),TEXT("only replacement rain assets active"));
+            Check(Visible>0&&Visible<=16&&Surface->GetWetness()>.1f,TEXT("balanced wet surfaces accumulate"));
+            Check(Rain&&Rain->GetAsset()==Weather->RainSystem&&Weather->SplashSystem,TEXT("configured rain assets active"));
             for(auto* D:Decals)if(D->IsVisible())Positions.Add(D->GetFName(),D->GetComponentLocation());
             if(Pawn)Pawn->AddActorWorldOffset(FVector(30,0,0),true);
         }
@@ -122,7 +122,18 @@ struct FRainSurfaceAudit
         {
             // The nearby melee fixture can block a swept move; use deterministic ground displacement.
             const FVector Before=Pawn->GetActorLocation();
-            Pawn->AddActorWorldOffset(FVector(0,120,0),false,nullptr,ETeleportType::TeleportPhysics);
+            UDecalComponent* Nearest=nullptr;
+            for(auto* D:Decals)if(D->IsVisible()&&(!Nearest||FVector::DistSquared2D(Before,D->GetComponentLocation())<FVector::DistSquared2D(Before,Nearest->GetComponentLocation())))Nearest=D;
+            FVector Destination=Before+FVector(180,0,0);
+            if(Nearest)
+            {
+                const FVector Contact=Nearest->GetComponentLocation();
+                FVector Direction=(Contact-Before).GetSafeNormal2D();
+                if(Direction.IsNearlyZero())Direction=FVector::ForwardVector;
+                Destination=Contact+Direction*180;
+                Destination.Z=Contact.Z+Pawn->GetSimpleCollisionHalfHeight()+4;
+            }
+            Pawn->SetActorLocation(Destination,false,nullptr,ETeleportType::TeleportPhysics);
             UE_LOG(LogTemp,Display,TEXT("RAIN_FOOTSTEP_FIXTURE moved=%.1f wet=%.3f"),FVector::Dist2D(Before,Pawn->GetActorLocation()),Surface->GetWetness());
         }
         if(Step==23)
@@ -148,13 +159,22 @@ struct FRainAudit : TSharedFromThis<FRainAudit>
     FString Label;
     FString Rows = TEXT("sample,frame_ms,gpu_ms,game_ms,render_ms,resident_mb,rain\n");
     TArray<double> GPU, Frame;
+    int32 VisibilityFailures=0,MaxVisibilityTraces=0;
+    TWeakObjectPtr<AActor> VisibilityRoof;
+    void CheckVisibility(bool Pass,const TCHAR* Name)
+    {
+        VisibilityFailures+=!Pass;
+        UE_LOG(LogTemp,Display,TEXT("RAIN_VISIBILITY_CHECK %s %s"),Pass?TEXT("PASS"):TEXT("FAIL"),Name);
+    }
     void Tick()
     {
         if (!Weather.IsValid()) return;
         UWorld* World = Weather->GetWorld();
         ++Step;
         const bool Quick=FParse::Param(FCommandLine::Get(),TEXT("RainQuick"));
-        const int32 EndStep=Quick?64:160;
+        const bool Visibility=FParse::Param(FCommandLine::Get(),TEXT("RainVisibilityAudit"));
+        const int32 EndStep=Visibility?208:Quick?64:160;
+        if(Visibility)MaxVisibilityTraces=FMath::Max(MaxVisibilityTraces,Weather->FindComponentByClass<UWeatherSurfaceComponent>()->GetTraceCount());
         if (Step == 1)
         {
             Weather->TransitionSeconds = 1;
@@ -174,7 +194,7 @@ struct FRainAudit : TSharedFromThis<FRainAudit>
             for(UNiagaraComponent* FX:TInlineComponentArray<UNiagaraComponent*>(Weather.Get()))
             {
                 Bytes+=FX->GetApproxMemoryUsage();
-                if(Quick&&FX->GetFName()==TEXT("CameraRain"))
+                if((Quick||Visibility)&&FX->GetFName()==TEXT("CameraRain"))
                 {
                     UNiagaraSimCache* Cache=nullptr;
                     if(UNiagaraSimCacheFunctionLibrary::CaptureNiagaraSimCacheImmediate(NewObject<UNiagaraSimCache>(FX),FNiagaraSimCacheCreateParameters(),FX,Cache))
@@ -184,6 +204,25 @@ struct FRainAudit : TSharedFromThis<FRainAudit>
                         Cache->ReadVector2Attribute(S,TEXT("SpriteSize"),TEXT("RainDrops"));
                         Cache->ReadFloatAttribute(Ages,TEXT("NormalizedAge"),TEXT("RainDrops"));
                         FBox Box(ForceInit);for(FVector V:P)Box+=V;
+                        if(Visibility)
+                        {
+                            TArray<FVector> Velocities;
+                            Cache->ReadVectorAttribute(Velocities,TEXT("Velocity"),TEXT("RainDrops"));
+                            int32 Falling=0,InView=0;
+                            const auto* Camera=UGameplayStatics::GetPlayerCameraManager(World,0);
+                            auto* PC=UGameplayStatics::GetPlayerController(World,0);
+                            for(int32 I=0;I<P.Num();++I)
+                            {
+                                const bool Down=Velocities.IsValidIndex(I)&&Velocities[I].Z<-300;
+                                Falling+=Down;
+                                FVector2D Screen;
+                                if(Down&&P[I].Z>Camera->GetCameraLocation().Z-170&&
+                                    PC->ProjectWorldLocationToScreen(P[I],Screen)&&Screen.X>0&&Screen.X<1280&&Screen.Y>0&&Screen.Y<720)++InView;
+                            }
+                            UE_LOG(LogTemp,Display,TEXT("RAIN_VISIBLE_GPU total=%d falling=%d falling_in_view_above_ground=%d"),P.Num(),Falling,InView);
+                            CheckVisibility(P.Num()>200&&Falling>100&&InView>10,TEXT("GPU particles fall through the gameplay view"));
+                            CheckVisibility(!S.IsEmpty()&&FMath::IsNearlyEqual(S[0].X,3.2f,.01f),TEXT("revised rain asset is actually loaded"));
+                        }
                         UE_LOG(LogTemp,Display,TEXT("RAIN_GPU_CAPTURE count=%d bounds=%s size=%s age=%.3f component_bounds=%s"),P.Num(),*Box.ToString(),S.IsEmpty()?TEXT("none"):*S[0].ToString(),Ages.IsEmpty()?-1:Ages[0],*FX->Bounds.GetBox().ToString());
                     }
                 }
@@ -208,6 +247,63 @@ struct FRainAudit : TSharedFromThis<FRainAudit>
         }
         const FString Dir = FPaths::ProjectSavedDir()/TEXT("RainUpgrade");
         const FString Name = UGameplayStatics::GetCurrentLevelName(World,true)+TEXT("-")+Label;
+        if(Visibility)
+        {
+            auto* PC=UGameplayStatics::GetPlayerController(World,0);
+            TInlineComponentArray<UNiagaraComponent*> Particles(Weather.Get());
+            UNiagaraComponent* RainFX=nullptr;
+            for(auto* FX:Particles)if(FX->GetFName()==TEXT("CameraRain"))RainFX=FX;
+            if(Step>=40&&Step<56)
+                FScreenshotRequest::RequestScreenshot(Dir/(Name+FString::Printf(TEXT("-frame-%02d.png"),Step-40)),true,false);
+            if(Step==144)
+            {
+                TArray<FVector> Locations;
+                float Furthest=0,FurthestProjected=0,ClosestPair=MAX_flt;
+                const FVector Camera=UGameplayStatics::GetPlayerCameraManager(World,0)->GetCameraLocation();
+                for(auto* D:TInlineComponentArray<UDecalComponent*>(Weather.Get()))if(D->IsVisible())
+                {
+                    Furthest=FMath::Max(Furthest,float(FVector::Dist2D(Camera,D->GetComponentLocation())));
+                    FVector2D Screen;
+                    if(PC->ProjectWorldLocationToScreen(D->GetComponentLocation(),Screen)&&Screen.X>0&&Screen.X<1280&&Screen.Y>0&&Screen.Y<720)
+                        FurthestProjected=FMath::Max(FurthestProjected,float(FVector::Dist2D(Camera,D->GetComponentLocation())));
+                    for(const FVector& P:Locations)ClosestPair=FMath::Min(ClosestPair,float(FVector::Dist2D(P,D->GetComponentLocation())));
+                    Locations.Add(D->GetComponentLocation());
+                }
+                UE_LOG(LogTemp,Display,TEXT("PUDDLE_COVERAGE visible=%d farthest_cm=%.1f in_view_cm=%.1f minimum_spacing_cm=%.1f particle_components=%d"),Locations.Num(),Furthest,FurthestProjected,ClosestPair,Particles.Num());
+                CheckVisibility(Locations.Num()>0&&Locations.Num()<=16&&Particles.Num()==22,TEXT("extended puddle coverage retains the fixed pool"));
+                // Decals are offset 2cm along each receiver normal, including its XY
+                // component on slopes; allow both offsets when measuring the grid.
+                CheckVisibility(Furthest>2400&&ClosestPair>=1596,TEXT("puddles extend beyond 24m with a 16m grid (4cm normal-offset tolerance)"));
+                if(UGameplayStatics::GetCurrentLevelName(World,true)==TEXT("DayNight_Lighting"))
+                    CheckVisibility(FurthestProjected>3000,TEXT("a puddle center beyond 30m projects into the gameplay view"));
+                FScreenshotRequest::RequestScreenshot(Dir/(Name+TEXT("-puddles.png")),true,false);
+            }
+            if(Step==152)IConsoleManager::Get().FindConsoleVariable(TEXT("fps.RainQuality"))->Set(0,ECVF_SetByCode);
+            if(Step==156)
+            {
+                bool Zero=true,Valid=false;for(auto* FX:Particles)Zero&=FX->GetVariableFloat(TEXT("User.SpawnRate"),Valid)<.1f;
+                for(auto* D:TInlineComponentArray<UDecalComponent*>(Weather.Get()))Zero&=!D->IsVisible();
+                CheckVisibility(Zero,TEXT("quality zero clears all weather emissions and decals"));
+                IConsoleManager::Get().FindConsoleVariable(TEXT("fps.RainQuality"))->Set(2,ECVF_SetByCode);
+            }
+            if(Step==160)
+            {
+                AActor* A=World->SpawnActor<AActor>();VisibilityRoof=A;
+                auto* Box=NewObject<UBoxComponent>(A);A->SetRootComponent(Box);Box->SetBoxExtent(FVector(350,350,15));
+                Box->SetCollisionEnabled(ECollisionEnabled::QueryOnly);Box->SetCollisionResponseToAllChannels(ECR_Block);Box->RegisterComponent();
+                A->SetActorLocation(UGameplayStatics::GetPlayerCameraManager(World,0)->GetCameraLocation()+FVector(0,0,400));
+            }
+            if(Step==180)
+            {
+                bool Valid=false;CheckVisibility(RainFX&&RainFX->GetVariableFloat(TEXT("User.SpawnRate"),Valid)<.1f,TEXT("shelter stops new camera rain"));
+                if(VisibilityRoof.IsValid())VisibilityRoof->Destroy();
+            }
+            if(Step==204)
+            {
+                bool Valid=false;CheckVisibility(RainFX&&RainFX->GetVariableFloat(TEXT("User.SpawnRate"),Valid)>900,TEXT("falling rain resumes outdoors"));
+                CheckVisibility(MaxVisibilityTraces<=8,TEXT("surface raycasts stay within the existing budget"));
+            }
+        }
         if (Step == (Quick?40:100))
             FScreenshotRequest::RequestScreenshot(Dir/(Name+TEXT(".png")),true,false);
         if (Step == EndStep)
@@ -217,6 +313,7 @@ struct FRainAudit : TSharedFromThis<FRainAudit>
             UE_LOG(LogTemp,Display,TEXT("RAIN_PERF label=%s samples=%d gpu_median=%.3f gpu_p95=%.3f frame_median=%.3f frame_p95=%.3f"),
                 *Label,GPU.Num(),GPU[GPU.Num()/2],GPU[FMath::FloorToInt(GPU.Num()*.95)],Frame[Frame.Num()/2],Frame[FMath::FloorToInt(Frame.Num()*.95)]);
             UE_LOG(LogTemp,Display,TEXT("RAIN_RENDER_AUDIT_PASS rain=%.3f"),Weather->GetEffectiveRainIntensity());
+            if(Visibility)UE_LOG(LogTemp,Display,TEXT("RAIN_VISIBILITY_AUDIT_%s failures=%d"),VisibilityFailures?TEXT("FAIL"):TEXT("PASS"),VisibilityFailures);
             World->GetTimerManager().ClearTimer(Timer);
             if (APlayerController* PC = UGameplayStatics::GetPlayerController(World,0)) PC->ConsoleCommand(TEXT("quit"));
         }

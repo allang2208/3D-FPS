@@ -60,7 +60,7 @@ AFPSWeatherManager::AFPSWeatherManager()
     StormClouds = CreateDefaultSubobject<UStormCloudComponent>(TEXT("StormClouds"));
     ViewEffects = CreateDefaultSubobject<UWeatherViewEffectsComponent>(TEXT("WeatherViewEffects"));
     PresentationLibrary=TSoftObjectPtr<UWeatherPresentationAssets>(FSoftObjectPath(
-        TEXT("/Game/Weather/NaturalV2/DA_WeatherPresentation.DA_WeatherPresentation")));
+        TEXT("/Game/Weather/RainVisibility/DA_WeatherPresentation.DA_WeatherPresentation")));
 
     LightRainAudio = CreateDefaultSubobject<UAudioComponent>(TEXT("LightRainAudio"));
     LightRainAudio->SetupAttachment(SceneRoot);
@@ -136,6 +136,7 @@ void AFPSWeatherManager::BeginPlay()
         if (PresentationAssets->Splashes) SplashSystem = PresentationAssets->Splashes;
         if (PresentationAssets->Mist) MistSystem = PresentationAssets->Mist;
         if (PresentationAssets->Drips) RoofDripSystem = PresentationAssets->Drips;
+        if (PresentationAssets->Puddles) PuddleDecalMaterial = PresentationAssets->Puddles;
     }
 
     WeatherRandom.Initialize(WeatherSeed);

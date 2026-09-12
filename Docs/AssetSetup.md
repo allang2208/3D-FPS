@@ -57,4 +57,6 @@ Git 包含攀爬 C++、配置、作者工具、导入/包围盒/作者校验摘�
 
 ## 云、雨与附着水滴（2026-09-12）
 
-当前表现库为 `Content/Weather/NaturalV2/DA_WeatherPresentation.uasset`。恢复既有 `Weather/VFX`、`PWL_Light_Manager/Shader`、M4InfimaV3、M4HK416Replica、AKM SovietFab 和现用配件后，编译 FPSGAMEEditor，再运行 [天气生成器](../Tools/Weather/build_natural_weather.py)。它以本机已授权资产生成 39 个独立副本及程序化材质，不下载资源。原始 HLSL 位于 `SourceAssets/WeatherNatural20260912`；新库中的枪械及天空材质仍依赖原包纹理与函数，不能把衍生 uasset 当作可自由分发的美术包。具体范围、控制参数与验收见 [天气升级记录](WeatherNaturalUpgrade-20260912.md)。
+先恢复 `Content/Weather/NaturalV2/DA_WeatherPresentation.uasset` 基础表现库。恢复既有 `Weather/VFX`、`PWL_Light_Manager/Shader`、M4InfimaV3、M4HK416Replica、AKM SovietFab 和现用配件后，编译 FPSGAMEEditor，再运行 [天气生成器](../Tools/Weather/build_natural_weather.py)。它以本机已授权资产生成 39 个独立副本及程序化材质，不下载资源。原始 HLSL 位于 `SourceAssets/WeatherNatural20260912`；新库中的枪械及天空材质仍依赖原包纹理与函数，不能把衍生 uasset 当作可自由分发的美术包。具体范围、控制参数与验收见 [天气升级记录](WeatherNaturalUpgrade-20260912.md)。
+
+随后运行 [雨滴可见性修正生成器](../Tools/Weather/fix_rain_visibility.py)，生成 `Content/Weather/RainVisibility` 下四个修正版资产。当前运行入口是该目录的 `DA_WeatherPresentation`；它沿用 NaturalV2 的屏幕、枪械、天空与其余雨效，仅替换下落雨丝和水坑材质。原始雨丝着色器在 `SourceAssets/RainVisibility20260912`，详见 [雨滴与水坑修正](RainVisibility-20260912.md)。两个生成器都通过 UE Python commandlet 执行。

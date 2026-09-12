@@ -1,0 +1,74 @@
+{
+  "date": "2026-09-12",
+  "editor_build": true,
+  "game_build": true,
+  "maps": [
+    {
+      "map": "DayNight_Lighting",
+      "log": "Saved\\RainVisibility20260912\\DayNight_Lighting-lighting-final.log",
+      "checks": 9,
+      "failures": 0,
+      "gpu": {
+        "total": 1016,
+        "falling": 880,
+        "falling_in_view_above_ground": 46
+      },
+      "puddles": {
+        "visible": 16.0,
+        "farthest_cm": 3394.2,
+        "in_view_cm": 3394.2,
+        "minimum_spacing_cm": 1600.0,
+        "particle_components": 22.0
+      }
+    },
+    {
+      "map": "L_Normandy_FPS_Test",
+      "log": "Saved\\RainVisibility20260912\\L_Normandy_FPS_Test-lighting-verified.log",
+      "checks": 8,
+      "failures": 0,
+      "gpu": {
+        "total": 1283,
+        "falling": 1147,
+        "falling_in_view_above_ground": 76
+      },
+      "puddles": {
+        "visible": 14.0,
+        "farthest_cm": 4404.2,
+        "in_view_cm": 3457.4,
+        "minimum_spacing_cm": 1599.2,
+        "particle_components": 22.0
+      }
+    },
+    {
+      "map": "L_MilitaryTrench_FPS_Test",
+      "log": "Saved\\RainVisibility20260912\\L_MilitaryTrench_FPS_Test-lighting-final.log",
+      "checks": 8,
+      "failures": 0,
+      "gpu": {
+        "total": 1071,
+        "falling": 935,
+        "falling_in_view_above_ground": 87
+      },
+      "puddles": {
+        "visible": 15.0,
+        "farthest_cm": 4035.0,
+        "in_view_cm": 3139.4,
+        "minimum_spacing_cm": 1599.9,
+        "particle_components": 22.0
+      }
+    }
+  ],
+  "surface_regression": {
+    "passed": true,
+    "checks": 16,
+    "log": "Saved/RainUpgrade/L_Normandy_FPS_Test-surface.log"
+  },
+  "visual_review": "Actual D3D12 game frames inspected in all three maps; GIF uses 16 captured frames at 4fps without interpolation.",
+  "limitations": [
+    "Not a performance benchmark or full cook.",
+    "Existing texture streaming budget warnings appear in the village.",
+    "Village spacing assertion corrected to allow up to 4cm for opposing 2cm decal normal offsets."
+  ],
+  "shader_sha256": "9450488bda35b78cfe490cea67d41dfd27ece46b2e62eae9c8eb42a33d299064",
+  "generator_sha256": "a332bbb95a37979639cf77afaca4494723bc42dd5e2450686cae1f0ecd86e0dc"
+}

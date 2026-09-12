@@ -24,6 +24,7 @@ public:
     UPROPERTY(EditAnywhere) TObjectPtr<UNiagaraSystem> Splashes;
     UPROPERTY(EditAnywhere) TObjectPtr<UNiagaraSystem> Mist;
     UPROPERTY(EditAnywhere) TObjectPtr<UNiagaraSystem> Drips;
+    UPROPERTY(EditAnywhere) TObjectPtr<UMaterialInterface> Puddles;
 };
 
 USTRUCT()

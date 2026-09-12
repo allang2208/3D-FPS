@@ -11,6 +11,12 @@
 static TAutoConsoleVariable<int32> CVarRainQuality(TEXT("fps.RainQuality"),2,
     TEXT("Rain quality: 0 off, 1 low, 2 balanced, 3 high (footstep ripples)."),ECVF_Scalability);
 
+namespace RainSurface
+{
+    constexpr double CellSize=1600.0;
+    constexpr float PatchRadius=450.f;
+}
+
 UWeatherSurfaceComponent::UWeatherSurfaceComponent()
 {
     PrimaryComponentTick.bCanEverTick=true;
@@ -30,8 +36,8 @@ void UWeatherSurfaceComponent::Initialize(UNiagaraSystem* Splashes,UNiagaraSyste
         FWeatherSurfacePatch& Patch=Patches.AddDefaulted_GetRef();
         Patch.Decal=NewObject<UDecalComponent>(GetOwner(),*FString::Printf(TEXT("RainWetPatch%d"),Index));
         Patch.Decal->SetAbsolute(true,true,true);
-        Patch.Decal->DecalSize=FVector(14,330,330);
-        Patch.Decal->SetFadeScreenSize(.002f);
+        Patch.Decal->DecalSize=FVector(14,RainSurface::PatchRadius,RainSurface::PatchRadius);
+        Patch.Decal->SetFadeScreenSize(.0002f);
         Patch.Decal->SetVisibility(false);
         Patch.Decal->RegisterComponent();
         if(Material)
@@ -62,7 +68,7 @@ bool UWeatherSurfaceComponent::Trace(const FVector& Start,const FVector& End,FHi
 }
 void UWeatherSurfaceComponent::Place(FWeatherSurfacePatch& Patch,FIntPoint Cell,const FVector& Camera)
 {
-    constexpr double CellSize=600;
+    constexpr double CellSize=RainSurface::CellSize;
     const FVector Origin((Cell.X+.5)*CellSize,(Cell.Y+.5)*CellSize,Camera.Z+2000);
     FHitResult Hit;
     const bool bWasValid=Patch.bValid&&Patch.Cell==Cell;
@@ -89,9 +95,11 @@ void UWeatherSurfaceComponent::TickComponent(float Dt,ELevelTick TickType,FActor
     auto* Camera=UGameplayStatics::GetPlayerCameraManager(this,0);
     if(!Camera || Patches.IsEmpty())return;
     const FVector Position=Camera->GetCameraLocation();
-    const int32 Side=Quality==3?4:Quality==2?3:Quality==1?2:0;
+    const int32 Side=Quality>=2?4:Quality==1?2:0;
     TArray<FIntPoint,TInlineAllocator<16>> Wanted;
-    const FIntPoint Center(FMath::FloorToInt(Position.X/600),FMath::FloorToInt(Position.Y/600));
+    // Even-sided grids center on the nearest cell boundary, avoiding a full-cell
+    // backward bias (especially when the player straddles world coordinate zero).
+    const FIntPoint Center(FMath::RoundToInt(Position.X/RainSurface::CellSize),FMath::RoundToInt(Position.Y/RainSurface::CellSize));
     for(int32 X=0;X<Side;++X)for(int32 Y=0;Y<Side;++Y)Wanted.Add(Center+FIntPoint(X-Side/2,Y-Side/2));
     // At most two placements per update. Existing cells never drift with the camera.
     if(Rain>.01f || Wetness>.01f)
@@ -119,7 +127,9 @@ void UWeatherSurfaceComponent::TickComponent(float Dt,ELevelTick TickType,FActor
             Patch.Material->SetScalarParameterValue(TEXT("Wetness"),Enabled?Wetness:0);
             Patch.Material->SetScalarParameterValue(TEXT("Rain"),Rain);
         }
-        const float Rate=Enabled?Rain*(Quality==1?5.f:14.f):0;
+        // Far puddles retain reflections; tiny splash particles are useful only nearby.
+        const float SplashFade=1.f-FMath::Clamp((FVector::Dist2D(Position,Patch.Contact)-800.f)/600.f,0.f,1.f);
+        const float Rate=Enabled?Rain*(Quality==1?5.f:14.f)*SplashFade:0;
         Patch.Splash->SetFloatParameter(TEXT("User.SpawnRate"),Rate);
         Patch.Splash->SetFloatParameter(TEXT("User.RainIntensity"),Rain);
         if(Rate>.1f&&!Patch.Splash->IsActive())Patch.Splash->Activate();
