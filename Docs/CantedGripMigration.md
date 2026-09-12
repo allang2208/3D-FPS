@@ -1,5 +1,7 @@
 # M4 45° 抓握与 AKM 配件迁移，2026-09-11
 
+2026-09-12 更新：本文为历史迁移记录。当前已接受的 M4/AKM 45° 与阻手器抓握采用 [VRE 扩展](../SourceAssets/VREGripExtensions20260912/README.md)，垂直握把采用 [VRE 垂直手型](../SourceAssets/MannyGraspDonor20260912/README.md)。本文原动画保留为制作/验证输入，配件数据迁移结论按原记录，不因更新握姿改变。
+
 本机已完成 M4 45° 侧倾握把的腕肘方向、并指、拇指对握和松手路径修正，并接入 AKM 的 45°、垂直、棱镜和共振四种握把。每个动作族覆盖九条动画，共 45 条。AKM 枪匠补齐两种缺失握把，16 个 M4 配件选项的数值及效果已核验一致；AKM 基础数值、弹药及原换弹时序保持。
 
 切换 M4 / AKM 时会销毁并重建垂直与侧倾握把组件，避免复用另一把枪的网格。新资源分别由 `M4CantedForegrip.cpp`、`M4VerticalForegrip.cpp`、`M4HandstopVisual.cpp`、`M4AngledForegrip.cpp` 与 `AKMAttachmentVisual.h` 选择。

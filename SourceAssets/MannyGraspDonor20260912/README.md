@@ -1,6 +1,6 @@
 # GitHub 抓握迁移：M4 / AKM 垂直握把
 
-2026-09-12：已将 VRE `GrabAnimation` 抓握迁移到当前 Manny 手臂，接入 M4 / AKM 各 9 条动画。本轮仍待用户视觉评价；前一版 Opposed 已被指出不及预期。
+2026-09-12：已将 VRE `GrabAnimation` 抓握迁移到当前 Manny 手臂，接入 M4 / AKM 各 9 条动画。用户已认可垂直握把改善方向，并在同法完成 45°/阻手器后确认成功、要求沉淀配件标准；前一版 Opposed 已被指出不及预期。
 
 ## 看结果
 
@@ -28,9 +28,9 @@ VRE 仓库提供 [MIT 许可证](https://github.com/mordentral/VRExpPluginExampl
 
 仍有手套与握把内部及相邻手指表面交叠。42 个抽查姿态中，M4 有 14 个握把相交、15 个指间相交，AKM 为 16 / 20。这是表面抽查计数，不能当作肉眼缺陷数量或零穿模验收。M4 静态近表面法线估计最大内部深度从完全闭合约 8.3 mm 降至 80% 闭合约 5.0 mm，不等同于连续碰撞测量。自然外观仍须看实际近景。
 
-本轮仅垂直握把；45°、阻手器及配件游戏数值沿用此前配置，没有记为此次重新完成。用户指定的小阻手器后续可直接由自然握拳包裹、接受内部穿模。
+本制作轮次仅垂直握把；随后完成并获用户确认的 45°/阻手器见 [扩展案例](../VREGripExtensions20260912/README.md)。配件游戏数值没有在本制作轮次修改。用户指定的小阻手器后续可直接由自然握拳包裹、接受内部穿模。
 
-UE 实机当前 `MI_Manny_01/02` 父材质为 `ArmsBlackWhiteTrial`，因此显示白手套/深色前臂；这是共享工程已有的材质状态，本轮只查询、未修改。Blender 对照图保留原花纹材质，图中分别标明。
+本轮历史截图中 `MI_Manny_01/02` 父材质为 `ArmsBlackWhiteTrial`，因此显示白手套/深色前臂；这是共享工程已有的材质状态，本轮只查询、未修改。Blender 对照图保留原花纹材质，图中分别标明。
 
 ## 引用及可编辑源
 
@@ -41,7 +41,7 @@ M4：`/Game/Weapons/M4VerticalGripVRENatural/Vertical`；AKM：`/Game/Weapons/AK
 - 各动作 `.blend` / `.fbx` 位于相同目录；[38 文件散列](Final/delivery_manifest.json)。
 - 原始姿态：`Donor/vre_Grasp_Original.blend`；选择参数：`Opening/0.8/aligned_fit.json`。
 
-`Final/` 是当前接入及报告；根目录同名报告和 `m4/`、`akm/` 为完全闭合的早期实验，不是当前引用。没有强行覆盖编辑器占用的旧动画包。
+`Final/` 是当前接入及报告；原根目录同名报告、`m4/`、`akm/` 及 `render_family.py` 为完全闭合的早期实验，已归档至 `trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/`。原始抓握、闭合幅度对照、`donor_fit.json` 与 `Opening/0.8` 仍是复现输入，继续保留。没有强行覆盖编辑器占用的旧动画包。
 
 ## 验证和复现
 
@@ -52,3 +52,5 @@ M4：`/Game/Weapons/M4VerticalGripVRENatural/Vertical`；AKM：`/Game/Weapons/AK
 制作顺序：`export_donor.py`（StudyProject，允许渲染导出网格）→ `inspect_donor.py -- --vre` → `retarget_pose.py` → `preview_opening.py` → `build_family.py` → `verify_source.py` → `import_family.py` → `verify_assets.py` → `assemble_editable.py` → `run.ps1`（两枪）→ `make_delivery.py`。工具为 Blender 5.1.2 / UE 5.8.2。复用 `VerticalGripFront20260911` 的整臂 solver 和原动作源，不能仅克隆本目录独立还原全部素材。FBX 对象级单位曲线不叠加到已有单位变换的源网格上。
 
 接入改动保存为 [精确补丁](runtime-integration.patch)，相对于本轮 `IntegrationBaseline`。接入头文件包含共享未提交工作，公开提交不夹带其余内容；本机实际代码已经修改。二进制和第三方依赖按工程 AssetSetup 恢复。
+
+2026-09-12 标准化与归档见 [本轮整理记录](../../Docs/Weapons/grasp-standard-20260912.md)。当前 Final、所需原动作、冻结参考和许可保留；明确废案按清单移入任务 trash。

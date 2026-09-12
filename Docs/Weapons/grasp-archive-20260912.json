@@ -1,0 +1,1597 @@
+{
+  "date": "2026-09-12",
+  "scope": [
+    "SourceAssets/MannyGraspDonor20260912",
+    "SourceAssets/VREGripExtensions20260912",
+    "SourceAssets/VerticalGripFront20260911"
+  ],
+  "status": "moved_and_sha256_verified",
+  "count": 198,
+  "bytes": 20499011158,
+  "files": [
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim_fire.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim_fire.blend",
+      "bytes": 137113285,
+      "sha256": "027b966b050383768f3ec238e18be455bf7b98813d451da968194a26f9936c3b",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim_fire.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim_fire.fbx",
+      "bytes": 1158108,
+      "sha256": "b8b15cf3ee07b2be2d4b392220ab82fb00d74e3ed6bfe92ae9184c9bd10ae162",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim.blend",
+      "bytes": 135686276,
+      "sha256": "8b56b231a4446a8788e420e20a4ac52e6b67aecf985f14aee48c89706c1af7f5",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_aim.fbx",
+      "bytes": 625548,
+      "sha256": "070637f1344d1accfef35a51e65eb6e27f754e18c7647b1feb7b223feeb1d45a",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload_empty.blend",
+      "bytes": 173039659,
+      "sha256": "a201b593e21db730640ab35bba51ba2bdb1ca30290a7ce54e6fa9371e4a2cc51",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload_empty.fbx",
+      "bytes": 4167468,
+      "sha256": "6f246d78334f8126c2855e7a5adc05ef6c3078945945771b61fead62d46b9075",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload.blend",
+      "bytes": 170605484,
+      "sha256": "cb57e37173f6d9052d5ca11470839f1f7303b105c0de318468a76a0cc5983d51",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_drum_reload.fbx",
+      "bytes": 3655260,
+      "sha256": "a32fccfdb34514917cc8d1354e4056328fdb364ae330b0b28527474ac7a686df",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_equip.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_equip.blend",
+      "bytes": 153597560,
+      "sha256": "8c0ba297bd524043d7354921c5b3208409a1b0d53833c3ff5323052ae1624bea",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_equip.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_equip.fbx",
+      "bytes": 1125148,
+      "sha256": "d6a6e83b3a79cd9cd50a75b13cdba1775c1241abfb67a5f0962c63a5255f500e",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_fire.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_fire.blend",
+      "bytes": 137141798,
+      "sha256": "c3cb14ed974bb415fbb6c42b25b9e7c8bd79ef79bde69f074304c76f3d08aa3e",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_fire.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_fire.fbx",
+      "bytes": 1160076,
+      "sha256": "e80d7925f7f2af3b17a0efa9f6ae4472ff2635fa22a20e3d0f1fea4ff2487a44",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_idle.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_idle.blend",
+      "bytes": 141322401,
+      "sha256": "4e971c27e4b77de899cd9fcd2f13a52c69f2adafcdf461c6dea88e48c90dfee3",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_idle.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_idle.blend1",
+      "bytes": 141322401,
+      "sha256": "4e971c27e4b77de899cd9fcd2f13a52c69f2adafcdf461c6dea88e48c90dfee3",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_idle.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_idle.fbx",
+      "bytes": 2493452,
+      "sha256": "62c2a5e739a1bab5cb832be0faead30de12bac7977ab9f19c91403b27afad9e7",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload_empty.blend",
+      "bytes": 198530458,
+      "sha256": "1e2a2accc1959ce1ce36d4fd5710cff7b3776d3f834ee2b03cd0b77e6ba77c40",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload_empty.fbx",
+      "bytes": 8243100,
+      "sha256": "7922265a822a03019faea48c220cd448655a93a64435c2d07fa4c143a6514dd7",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload.blend",
+      "bytes": 203163777,
+      "sha256": "f7d862e17728fdc33f515fdfb8e8428907f6f94ad79fa8786fb8abce812bec67",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/A_M4_Vertical_reload.fbx",
+      "bytes": 6554268,
+      "sha256": "8fd5c3640766dcdad1429eba5edb663cdf588d71096787f56e650603873bde9c",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/animation_build.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/animation_build.json",
+      "bytes": 6580,
+      "sha256": "683e7d7b1bd54e2951c44c246f398521894978c622ca18941178e3d95cdb0bea",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/m4/vertical/geometry.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/m4/vertical/geometry.json",
+      "bytes": 8451,
+      "sha256": "8b7b418c4815d84641b9528f138569183e95b6a17d05b5167b43f08964b5b683",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/m4/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim_fire.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim_fire.blend",
+      "bytes": 239320827,
+      "sha256": "8356b99fa0ed86e91657060872671ff6d88abfc32840582c9213983718a5577a",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim_fire.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim_fire.fbx",
+      "bytes": 712828,
+      "sha256": "ac4eaa64748ceb42cc773d2440b021cb89e1a9b328756579687dca7c58a2891f",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim.blend",
+      "bytes": 239071053,
+      "sha256": "46da0afbab08216132634b04a4e968d930a071a7c87643ac89b17268458e858e",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_aim.fbx",
+      "bytes": 636460,
+      "sha256": "b93d77534374d813420634403e4022e9f4f45f58a9413f3b6a91a40e6ab26457",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "bytes": 252304643,
+      "sha256": "c18238824d21b7cbb3e0641937b50aa8403b27023d5bb6b48ed69b7fe9135030",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "bytes": 3416028,
+      "sha256": "0e96cc5d3bebd4cce39b0c2fc5251957e21a3473acfd3b0c8180087d3a974825",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload.blend",
+      "bytes": 249197574,
+      "sha256": "14df248babe140668f066db06f6bcadc6fdd40874a86738bbfe406653c460ee9",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_drum_reload.fbx",
+      "bytes": 2792812,
+      "sha256": "50820e5747544166de3c9de011e63c7d8d5e7313f9fb643e7b9877ec1cb60a0c",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_equip.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_equip.blend",
+      "bytes": 243134527,
+      "sha256": "6b117f363ffdcb7db3220b72ae02217cfe493c376551c37d8413729baf4b4572",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_equip.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_equip.fbx",
+      "bytes": 1815372,
+      "sha256": "46901d69ce293172c62112e8a7632d8f462612b89ea0afe961c27ed4cc640e9b",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_fire.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_fire.blend",
+      "bytes": 239320844,
+      "sha256": "00a3b2322aca9ba0f34d0d37c5c418a1c6f661041379c03b2662715f88e41beb",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_fire.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_fire.fbx",
+      "bytes": 712828,
+      "sha256": "9ee0ca11c18471e933e005f20221b48478fbaea0c76a512bbdbf0d32f4d82720",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_idle.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_idle.blend",
+      "bytes": 239070910,
+      "sha256": "e06cea570e3b72164d9c951ec84f1badeee26a5d288cc1dd41223b3f096e0357",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_idle.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_idle.blend1",
+      "bytes": 239070829,
+      "sha256": "ddbffcc6561dd256c79ef3b53fc1d0e98ae9daeaf6164366c65a95fae6b4afa6",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_idle.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_idle.fbx",
+      "bytes": 636460,
+      "sha256": "683a5a3d7ee18ac5b72a60c8f3af1a0001c78bb6165cc384b8092cdece77bfce",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload_empty.blend",
+      "bytes": 252268404,
+      "sha256": "7b37ddf08172ac37cd57266fa53b7e74afd990abf2828c543218dd0506989c16",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload_empty.fbx",
+      "bytes": 3417084,
+      "sha256": "253e3d178350810f6f1a12b47b710e4335e8b3669327a2d048c7f976fdeba055",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload.blend",
+      "bytes": 249145793,
+      "sha256": "e454805e27c8e877a85003661c619cd03ec2d7740f6b8baadc09663edf3783ee",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/A_AKM_vertical_reload.fbx",
+      "bytes": 2793420,
+      "sha256": "6b3c7ed83ac734587a1ab3949cbd002b0583626c8d1266a0d147292b3caa2b33",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/build.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/build.json",
+      "bytes": 10483,
+      "sha256": "bb353357615a9be2bc4161769d37533a88f0adbcdda4b95d0780b26259234cdc",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/akm/vertical/geometry.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/akm/vertical/geometry.json",
+      "bytes": 9049,
+      "sha256": "c71e97d85bfe3f3152bf6fece80c4a2d6eb069a30a5de6b5c9b738dc3ed0a6bc",
+      "reason": "Superseded full-closure animation family; current generator writes Final",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final/akm/vertical"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/asset_validation.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/asset_validation.json",
+      "bytes": 7375,
+      "sha256": "9a7610943a4021ae53a27189294be7ac56cded24114057596186044338795650",
+      "reason": "Superseded full-closure report or renderer",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/build.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/build.json",
+      "bytes": 17123,
+      "sha256": "49fcc8ce759a8c057766d5aa212eebda4362660b1fc233b33e61065b89779af0",
+      "reason": "Superseded full-closure report or renderer",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/import.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/import.json",
+      "bytes": 5297,
+      "sha256": "2a4c0d1c13cf3805d186fd9cbf580bea077c8ff2ca1a9ffcc032ca8982d5a12d",
+      "reason": "Superseded full-closure report or renderer",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/source_validation.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/source_validation.json",
+      "bytes": 3616,
+      "sha256": "10f4418eb97e328bac86217ee7a6d3b468a163e348e9b91478e851c889f6ae2e",
+      "reason": "Superseded full-closure report or renderer",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/render_family.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/render_family.py",
+      "bytes": 596,
+      "sha256": "28ff0015876a9e14df31a4eb39025183d9d1c5805f6037a3a12216a8eaae880d",
+      "reason": "Superseded full-closure report or renderer",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/acceptance.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/acceptance.json",
+      "bytes": 7551,
+      "sha256": "6c41930085f6fd9368a151b33572f76a30b1e13a70c5122bf49ef35491c32e90",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/delivery_manifest.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/delivery_manifest.json",
+      "bytes": 13152,
+      "sha256": "bcb18a60b35d2b992f30a7746c8bc795d642ce2503ffe1e3d6f00d0171950689",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/fit_front.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/fit_front.py",
+      "bytes": 5500,
+      "sha256": "7c29958cd901ef86b861e3e22d577f73b59d1dce9596e30562fe406fdb58a0ac",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/fit_release_front.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/fit_release_front.py",
+      "bytes": 3945,
+      "sha256": "32dbff0652d29dad3ec563c853e8e137cb5d68c39472dc1cbde6c4aab0b146fe",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/README.md",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/README.md",
+      "bytes": 6101,
+      "sha256": "c0d0e08abc6a3acb8c8fab354ab6d85b58498320ce2f3b8b8095c107c1fbebda",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/refresh_release.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/refresh_release.py",
+      "bytes": 4284,
+      "sha256": "30aa454e16910a6b3e9e292f373c175a14720f3ff1393705d214f58c60e6c9c7",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/STATUS.md",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/STATUS.md",
+      "bytes": 448,
+      "sha256": "2f323df903a596ab454cc69d07dbe380c0f2ec24545254cadbaf1777bdf0df7b",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/prism/AKM_prism_Family_Editable.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/prism/AKM_prism_Family_Editable.blend",
+      "bytes": 218180696,
+      "sha256": "455105ee8f994030307f7a75ae851c6a0e2056a434f3b4eb74604e1553da27a7",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/prism/thumb_transition.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/prism/thumb_transition.json",
+      "bytes": 722,
+      "sha256": "f05fc4f1c2602cac4d026740ce0ae40c0b2968ef139f02aa3931b298c32e52be",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/vertical/AKM_vertical_Family_Editable.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/vertical/AKM_vertical_Family_Editable.blend",
+      "bytes": 256900477,
+      "sha256": "8dbcb93e0b88ce8020d005fe24dfd2b9ffbc6a1c41d526f7f30cb9c29e5eb67f",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/vertical/thumb_transition.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/akm/vertical/thumb_transition.json",
+      "bytes": 185,
+      "sha256": "0ecbbafdddda334d74dd5c6d1b9e6ab4050b2d381f1f9bb04b3b91c45d2419c0",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/fit_final.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/fit_final.json",
+      "bytes": 71211,
+      "sha256": "410569eba014190b07fe09a9682f135848cd254b8db2f09fe9ea8f9fd40189a3",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/Fitted.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/Fitted.blend",
+      "bytes": 100404358,
+      "sha256": "ec822ed459a92597db8a495d57215c3f6dda6d6863a6705a82df21f22ea716a1",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/M4_prism_Family_Editable.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/M4_prism_Family_Editable.blend",
+      "bytes": 143551229,
+      "sha256": "b0f739058e50d456ab39e613f7fc88ac87aff961bc7c4db5a55fda74624b9133",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/release_profile.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/prism/release_profile.json",
+      "bytes": 366596,
+      "sha256": "37a9ea97a8817defb599f6179a8cb7ad02e793e9dd5684fffb3f7d839cf18063",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/fit_final.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/fit_final.json",
+      "bytes": 71503,
+      "sha256": "0963d9fcf391d55a24d1ed423904ce1437cd4baefdc0f81e1ad32be854fddca6",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/Fitted.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/Fitted.blend",
+      "bytes": 138446071,
+      "sha256": "36bd7b5906d700466236e8413b396bdd1a8095f1fe577cb54b5feda856685df2",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/M4_vertical_Family_Editable.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/M4_vertical_Family_Editable.blend",
+      "bytes": 181603463,
+      "sha256": "f23d237ac44a9f1eddcc7713207733a412fa38238960500e28e579e3388fd626",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/release_profile.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/m4/vertical/release_profile.json",
+      "bytes": 365997,
+      "sha256": "e7568c1b617e8bd1aed05563711fe657cd39f44439ec03e63ee4883f754c73fe",
+      "reason": "Forward-thumb pose rejected; two seed configurations retained byte-for-byte in ReferenceWorkflow/opposed_seed",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload_empty.blend",
+      "bytes": 209101368,
+      "sha256": "6302bb844ed0bfb0c63d8f23df1c2d4b3a42b397b609cf7fdd4dd80c35719996",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload_empty.fbx",
+      "bytes": 3413836,
+      "sha256": "6f2bf277f9324ca2d56c9bc14f671999e39bd053b5c902d5a2518fb527677cbf",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload.blend",
+      "bytes": 207051994,
+      "sha256": "3b4826165d374cf2439bb580b28812b7fd9eb8497a700e1f6b6894b5189fa2e6",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_drum_reload.fbx",
+      "bytes": 2790540,
+      "sha256": "cf2f8cb650235fda6a70056065dda8514aa31da2d4fbe3e184327e1a892af175",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload_empty.blend",
+      "bytes": 209071238,
+      "sha256": "559e13e91a1ea28122e44c10beb234b0de3ea3b5442cb50bcc200d0fc2a9c78b",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload_empty.fbx",
+      "bytes": 3414700,
+      "sha256": "e0095ce84e6cf0fb1c346458e7da09b42e6095195bafe73dd69b284b7b0248d3",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload.blend",
+      "bytes": 207000981,
+      "sha256": "d24d6e4a92acdae8dcb1d3d87c5e2be4164c2be3073453baa36b4865289a7bc9",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/prism/A_AKM_prism_reload.fbx",
+      "bytes": 2791372,
+      "sha256": "41b15506628beaf9c2920fe78c5111c73fa828dfbf3a178960b885c7cbb0ff46",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim_fire.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim_fire.blend",
+      "bytes": 239120956,
+      "sha256": "b232f48ced075490e760df0f9abbb26c66fbf9571b2dc7d04cc514ccccca3840",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim_fire.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim_fire.fbx",
+      "bytes": 712828,
+      "sha256": "7e34538612219b3030d059165e7df26e708cde7605f4c4fb72d529aa6bf2136c",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim.blend",
+      "bytes": 239287821,
+      "sha256": "e0b15256e623919de1c48c644d6b287a49a6922e3530d015e5291a3761135a08",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_aim.fbx",
+      "bytes": 636460,
+      "sha256": "a54dc9116d3b52156bd89200a1741c119c46ee7192ee085226d4556fe791628d",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload_empty.blend",
+      "bytes": 247824202,
+      "sha256": "beba0b0e8b6a94d0675637661cc19e75ddbc71e3a48f5f5beeccbabdeb79a949",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload_empty.fbx",
+      "bytes": 3414236,
+      "sha256": "eb419cd9aed26487565ae60ff5ef677f1d98b000c66c0c2407289ba8f64fdbf0",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload.blend",
+      "bytes": 245775112,
+      "sha256": "0771bdc0f42845332cdeb76656f5fc9b295a5b59e24f0a9fb9b98c622e3b4de5",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_drum_reload.fbx",
+      "bytes": 2790748,
+      "sha256": "a8d476cb0bf60c2e050c1478134941bd1c9d91cb4a1a1986ff9e6ce045c4c72b",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_equip.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_equip.blend",
+      "bytes": 241124144,
+      "sha256": "952e6d38b2acf61baf7632edc0aed92b4a43043860c13cbe82122b5baef91a57",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_equip.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_equip.fbx",
+      "bytes": 1815388,
+      "sha256": "a8317cb58aa031a0cea95e30e467d578acd665c9de86ea741513b6e36c5d396b",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_fire.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_fire.blend",
+      "bytes": 239120788,
+      "sha256": "f43d46ff852352731a72d525aa3c14a83d3a66258e3fed04baade82e7912cd21",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_fire.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_fire.fbx",
+      "bytes": 712828,
+      "sha256": "ac1ee01c82f85fbf730379ab27d7d20299012ef2cf34be4bb190acb9ae0b5634",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_idle.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_idle.blend",
+      "bytes": 239287465,
+      "sha256": "fa5e16a5f0caefebfb3f4ec85cf53f3ac4cb7d9a8a616cc1175642e6ddc26ac2",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_idle.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_idle.fbx",
+      "bytes": 636460,
+      "sha256": "ba0d4c1cadbe6af9b83d0d43c3728d3dfc663ddfb95e98d18ce45b6cfc4fa3c6",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload_empty.blend",
+      "bytes": 247791448,
+      "sha256": "0563a1b34dc5cdd28a1483196e18a9836c2f3092e8ce39f99fd1576dc6454fa4",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload_empty.fbx",
+      "bytes": 3415148,
+      "sha256": "1d5c4872273b5941296300d8796f575c60aeee8bd3bcde9c6a2a3f1463c6ea8e",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload.blend",
+      "bytes": 245731514,
+      "sha256": "e716951a8d0309372e85030cf4e26c449d62de1a972cac09508030d6e23f56cc",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/akm/vertical/A_AKM_vertical_reload.fbx",
+      "bytes": 2791548,
+      "sha256": "ff689cd5cb6c9e96445257426f00a84c1c0fe34c047d38c874eee01586b0a68d",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload_empty.blend",
+      "bytes": 127729601,
+      "sha256": "2288ad4340e808e99398a5c1944d777ec9dffdfaf3f6748efa608df16b305fa3",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload_empty.fbx",
+      "bytes": 4161100,
+      "sha256": "43734180bacf35bd3b44573cf9768a99813e201ec01cd9abf68eeefa1404801a",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload.blend",
+      "bytes": 126514283,
+      "sha256": "aa1e8344972e1b853aedfd83202e5d7c268929fa7453eadb729f0e0143b118e3",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_drum_reload.fbx",
+      "bytes": 3647628,
+      "sha256": "adb682eada61f2357d3e80d0ab5c267695c2a1feae322aa783ff947e66afef9d",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload_empty.blend",
+      "bytes": 144945567,
+      "sha256": "124c7606973992cdcc168d2153b1bbe881e8ae2a98f7946258a113e3f890414d",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload_empty.fbx",
+      "bytes": 8227804,
+      "sha256": "c04780044be4bc813e356e8b549d1e0748ad20e4e470b411f935f771dfc9a1f1",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload.blend",
+      "bytes": 152867759,
+      "sha256": "57e9b327e63146cf5af5901b2d3feb51a3b8443dea21a9b664cba3bf038bdb49",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/prism/A_M4_Prism_reload.fbx",
+      "bytes": 6538508,
+      "sha256": "5ada6dd1e6b102a94df2124eaaba0f4ad0c4622838505fc4e6e14a1bb7462000",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload_empty.blend",
+      "bytes": 165808990,
+      "sha256": "38fe523b1c385069cc511a71fd0fab05d3cc9da81fa916effcefd4b1e6131f9a",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload_empty.fbx",
+      "bytes": 4160988,
+      "sha256": "2af0afcb7162453f83c117070ac5a89243e55603bc3d5bde799c350cafd0b6b1",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload.blend",
+      "bytes": 164570989,
+      "sha256": "3fff1f863ec7f81343bb23587d2d69a13eaa85a591a2325874140ee7c0dcc758",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_drum_reload.fbx",
+      "bytes": 3648108,
+      "sha256": "7348c027ef55f6035413a07e732f48e698aceef29d0a3a117547aca76c4a43b6",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload_empty.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload_empty.blend",
+      "bytes": 182992459,
+      "sha256": "323dfb7ec54bef0b53e06691eec2d3695fa1882a9e42932873fcb8fc400b05b7",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload_empty.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload_empty.fbx",
+      "bytes": 8228588,
+      "sha256": "2be3a06f30a618a291c297110141db984ef85e59aec001745a610933eca010cd",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload.blend",
+      "bytes": 190922676,
+      "sha256": "28351421878acc69196045f73b992e9afb68065a1e811babead421a2ddd718cc",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload.fbx",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/BeforeReleaseFix/m4/vertical/A_M4_Vertical_reload.fbx",
+      "bytes": 6539324,
+      "sha256": "f4100cdd1d69773cf8f7c0618338180b6d249d0a131723d36a17d416a7f431e6",
+      "reason": "Backup before release/return corrections; corrected source remains in m4 and akm",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4; SourceAssets/VerticalGripFront20260911/akm"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/build_all.ps1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/build_all.ps1",
+      "bytes": 768,
+      "sha256": "68f514eb5d964bb6d5ae10db468a0833bdf5d0ea3704f534ea8a0eaf4135d0b0",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_a_arm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_a_arm.png",
+      "bytes": 644142,
+      "sha256": "b17515abe7a87a99d2018472af182d7cab11249ec09e13b569b5e09f43112556",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_a_front.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_a_front.png",
+      "bytes": 823785,
+      "sha256": "b658906103b004e7a5393fce8852d6dac943c47df301bf93ea03cf2908370249",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_a_palm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_a_palm.png",
+      "bytes": 740742,
+      "sha256": "da6f1d27aaabc87aa6211a6ab8b0fc42f9ef8eff2f84df4cb58eb14873207bd3",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_a_player.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_a_player.png",
+      "bytes": 770695,
+      "sha256": "9242625ccb51c75118f0f69682f2ec46d84ce8848972c941cb20bc90ff309b7f",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_a.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_a.blend",
+      "bytes": 138446312,
+      "sha256": "160334b11eaa18e32c4ee10e06dcded1e1e87cb342004037b854b7b28357dd84",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_b_arm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_b_arm.png",
+      "bytes": 643317,
+      "sha256": "e6e540aab7f063ac96759b2354d38b2e9136172d0102a55501cd7fc8c8da5d7e",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_b_front.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_b_front.png",
+      "bytes": 823389,
+      "sha256": "96d73cbe098def916eb21e87ff488e20e4efe79a76a2a6522ef29edea9cbfc7c",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_b_palm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_b_palm.png",
+      "bytes": 741978,
+      "sha256": "d54b716ad3ac01fee8023cb0441e4f4baac79dde96b4971deae8ddc55e56a997",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_b_player.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_b_player.png",
+      "bytes": 768596,
+      "sha256": "710edbfd250a8d61580ffb289c1ceb069bd83f4795551f656f2f45783e5e4c82",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_b.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_b.blend",
+      "bytes": 138446453,
+      "sha256": "0c9da630fe5cd2759e1795f161670e5b79f4cf23616e621c004dcbec6bd1a21b",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_c_arm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_c_arm.png",
+      "bytes": 643200,
+      "sha256": "c3490585d4bf4543149d9c04239af2b5b5ae17f432b3eb4d5c60375a05a91312",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_c_front.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_c_front.png",
+      "bytes": 822737,
+      "sha256": "99709d5227943bac760ab0fc48681821002d6ee1a29137ca772c5eae925c5366",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_c_palm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_c_palm.png",
+      "bytes": 742879,
+      "sha256": "716d8cbff5d0533d29b921572c8c7f44b2334b1e85dce35608c8ddab9e811ea1",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_c_player.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_c_player.png",
+      "bytes": 768130,
+      "sha256": "fbda22260f516bd2fcb3dfa72465238fe3f302d3b738fed1ba0569455d5e21d5",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_c.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_c.blend",
+      "bytes": 138446437,
+      "sha256": "63fa16c8272fd127317339bd8ff9d7294582995db5bd39e0873bfc094eec0cb8",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_d_arm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_d_arm.png",
+      "bytes": 644830,
+      "sha256": "6bb3a3586f5dca4c652538c4bb3acda7885d6d183e197027f9fce82247a8d21a",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_d_front.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_d_front.png",
+      "bytes": 830985,
+      "sha256": "9c8e57775a4fdf8452656f01c5acdb0b7ee7786c29aacb686f5ae8c1b0ce3210",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_d_palm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_d_palm.png",
+      "bytes": 747112,
+      "sha256": "7f4d2c85960007b184caa0f6447913614470c85e772402a53e56568598ab039c",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_d_player.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_d_player.png",
+      "bytes": 773663,
+      "sha256": "e2983bbf63cc157bc7839da8ca4b72b4bcd9961efb1c19e444d917173a555748",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_d.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_d.blend",
+      "bytes": 138446291,
+      "sha256": "102264d182f9fb35e98618cacb0bfbf855ca8528268c4eb1308eb02ee144c6bd",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_e_arm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_e_arm.png",
+      "bytes": 644036,
+      "sha256": "2cad7e84e9db8725e09c6cfe2b7ba484ad224154f6fd8398b34b2ae658820ab5",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_e_front.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_e_front.png",
+      "bytes": 829202,
+      "sha256": "5cf4f2d4a513d0a8be8a9bb6e431f7f2ecc9bc4a3c4ff1099ee45a21b2ccf124",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_e_palm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_e_palm.png",
+      "bytes": 743914,
+      "sha256": "f3b31bbb40076eca495913d6603f643f73ad0f79a5fd182cb07523e60e31ab4c",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_e_player.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_e_player.png",
+      "bytes": 770350,
+      "sha256": "b7844ce036ea49ef5cc47581db9e60514c5f1665d1ac04dd8041b0151d5eba82",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_e.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_e.blend",
+      "bytes": 138446314,
+      "sha256": "304c27b2d38b83fdbf08c67644bc08998ebbfeb2d2cc7af4e9e74e2fd919ae24",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_f_arm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_f_arm.png",
+      "bytes": 645054,
+      "sha256": "6112893235345507d899761f483bbecb8181a65cddcea31a675f004abe5aa752",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_f_front.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_f_front.png",
+      "bytes": 833233,
+      "sha256": "6c64950d78c3a26b7e10387f69612f894ac79f9382e969f9664dfe720943a580",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_f_palm.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_f_palm.png",
+      "bytes": 747042,
+      "sha256": "5d0b7e660a5130c30797ce101b12685778e16c4d77d9bb9bea59ac15c8b0e36b",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_f_player.png",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_f_player.png",
+      "bytes": 775587,
+      "sha256": "b8d952c87d382b83a0cd4cc4e3bd52b08f69327cfac277cfbf7d05b3e91a4a79",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_f.blend",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_f.blend",
+      "bytes": 138446463,
+      "sha256": "4275b95945f6a7bc6eb94f5ceb1b9a1ad938bda58168f50261416e3c77638904",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidate_metrics.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidate_metrics.json",
+      "bytes": 3532,
+      "sha256": "5ea68a070e2a1f252f54e99d7bfe883c867e8016667d35f31ddc9d04a28a9d77",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/candidates.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/candidates.py",
+      "bytes": 1603,
+      "sha256": "d2036db79f18ed51de87f2caf61a82f768d777657edf968b7b8e4593969e9c51",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/fit_front.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/fit_front.py",
+      "bytes": 5500,
+      "sha256": "7c29958cd901ef86b861e3e22d577f73b59d1dce9596e30562fe406fdb58a0ac",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/prepare_build.py",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/prepare_build.py",
+      "bytes": 1284,
+      "sha256": "e3d0ffc6afeb10f1de2bd031c285940803b37d0ff734c98df5a7f47e9fcd8796",
+      "reason": "Rejected procedural thumb search and its entry points",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/retarget_pose.py; SourceAssets/MannyGraspDonor20260912/Final"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/strict_axis_trial.json",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/strict_axis_trial.json",
+      "bytes": 50234,
+      "sha256": "ab54e48a9ee3603b7227d8562df44249d009f63be17c460131828721112dbf63",
+      "reason": "Strict shaft alignment caused excessive forearm twist",
+      "replacement": "SourceAssets/VREGripExtensions20260912/fits.json; SourceAssets/VREGripExtensions20260912/canted_clock_audit.json"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/M4_Donor_Aligned.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/M4_Donor_Aligned.blend1",
+      "bytes": 138447044,
+      "sha256": "eb075773d52f4b2b3b0b353ecbdd09a1fdfeebf1d6f0e16c6ea9bcb1d85f99cd",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/M4_Donor_Aligned.blend"
+    },
+    {
+      "original": "SourceAssets/MannyGraspDonor20260912/Donor/Epic_XR_Grasp_Original.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/MannyGraspDonor20260912/Donor/Epic_XR_Grasp_Original.blend1",
+      "bytes": 405376,
+      "sha256": "e8b037460910000a0fe870feac13070a2c98ccee16ac2cf91c21d7b1684bfad5",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/MannyGraspDonor20260912/Donor/Epic_XR_Grasp_Original.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_aim_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_aim_fire.blend1",
+      "bytes": 239334105,
+      "sha256": "9fee3bf62233b01f59e5d3192facd5c88803c62705db192f2f55d8e49aed0a06",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_aim_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_aim.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_aim.blend1",
+      "bytes": 239085839,
+      "sha256": "695c8b0ab82021f6bee40b53e222b615541512a62ea294b8d54a3737a83c5284",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_aim.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_drum_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_drum_reload_empty.blend1",
+      "bytes": 252371054,
+      "sha256": "4f38aea0fd45c5f1e45293b008f4a21291051fdf3b8ae3ab2cb6dcb3f305fa6a",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_drum_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_drum_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_drum_reload.blend1",
+      "bytes": 249238957,
+      "sha256": "9ce3aa11fadc113f148787417d462c74028a675f1d030e671d6ce93d901d0482",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_drum_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_equip.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_equip.blend1",
+      "bytes": 243207330,
+      "sha256": "fadbe167d00bb2a1ccac8c308590d8adeee19de83bdd39100f7134ce066b1f2a",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_equip.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_fire.blend1",
+      "bytes": 239334580,
+      "sha256": "5cc1b6689370a6067c1bf2ef92a9c2e27074606aa3dd41949c94c3cadf546920",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_idle.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_idle.blend1",
+      "bytes": 239087387,
+      "sha256": "31ad726cdd4a7c121c648809f023c82373201cd14bbdbac21be74945a39e7cbd",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_idle.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload_empty.blend1",
+      "bytes": 252325379,
+      "sha256": "09f9190a4cbc83b41e4a8d67a31e28fc2d600f1a7da434f01d26b4eff8238dc8",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload.blend1",
+      "bytes": 249189172,
+      "sha256": "426ce67ab5b02fb599a0676519d3a1be3927fd047c22ec95ef1c04f3e01603aa",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_aim_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_aim_fire.blend1",
+      "bytes": 137143392,
+      "sha256": "9f38f5539b20b2084253362e87012a3a5f574d87bc7482dc0e446eaa487c5c01",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_aim_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_aim.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_aim.blend1",
+      "bytes": 135727936,
+      "sha256": "06cb8035a516b673126fbd46149f1b3e7a121ba514fed204608305d117b91adf",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_aim.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_drum_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_drum_reload_empty.blend1",
+      "bytes": 173078967,
+      "sha256": "ee6e07d9c4a7e5260133ec1989a7d4eb973fc2bcffaaa0812f598641a2c26002",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_drum_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_drum_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_drum_reload.blend1",
+      "bytes": 170664938,
+      "sha256": "291f2f1e754126de44c4070a584c64ec69df77825c4d03742cfc63d9094b475d",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_drum_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_equip.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_equip.blend1",
+      "bytes": 153631304,
+      "sha256": "f56fee4ce7d82a5e6f882eed474bef19fbf4244fe49581e0fc9ea43bfaac46b3",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_equip.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_fire.blend1",
+      "bytes": 137169831,
+      "sha256": "ad8d247a250ee4d65285cd6374f8b7c545ecbbce920d436ce67b10e810669e1f",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_idle.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_idle.blend1",
+      "bytes": 141368989,
+      "sha256": "34b1d8d32878e01c61570203310e90e18af052e1cad6ae8283258772b33a8389",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_idle.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_reload_empty.blend1",
+      "bytes": 198607137,
+      "sha256": "21dee656226540519f221df91a5e5e31e9bd6ebfc886182810fe25d71e168c8f",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_reload.blend1",
+      "bytes": 203209992,
+      "sha256": "39dff1b0e8a4422e163d22ed7c665e02bbdac93ac25fea4f59cd85d1b378484a",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Static/akm/canted/Grasp_Editable.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Static/akm/canted/Grasp_Editable.blend1",
+      "bytes": 239301328,
+      "sha256": "d857e2e8fdc1a2641317ce743a35415a7d91edcb7c76f326c79625b87826f805",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Static/akm/canted/Grasp_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/VREGripExtensions20260912/Static/m4/canted/Grasp_Editable.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/Static/m4/canted/Grasp_Editable.blend1",
+      "bytes": 138455612,
+      "sha256": "62b4605cef934dd61d3bbe149d976b154b731aff75e143602eefb89a0bbd2cbb",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VREGripExtensions20260912/Static/m4/canted/Grasp_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_drum_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_drum_reload_empty.blend1",
+      "bytes": 209098843,
+      "sha256": "89d9658dbb2f21a3d1a3dbaa37d2a7392ea6f05677a0705bfa9350b338615711",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_drum_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_drum_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_drum_reload.blend1",
+      "bytes": 207048498,
+      "sha256": "c03cc298d8ccd6daf21d4c0db6b7f42e125b64021fe7d64d9ffd86ebffee4d55",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_drum_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_reload_empty.blend1",
+      "bytes": 209066851,
+      "sha256": "b99cc11402cc9746148edce251e1a9335b656b1a0c06ab87d1c7cba2c00f1737",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_reload.blend1",
+      "bytes": 206997948,
+      "sha256": "ed41893f7ce6d0bb237a7605792c934bcc229e3404d0986426ea922dec142494",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/prism/A_AKM_prism_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/prism/AKM_prism_Family_Editable.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/prism/AKM_prism_Family_Editable.blend1",
+      "bytes": 218180747,
+      "sha256": "dd0c5d130ac30501cef31104aa266d14229c6271cdf6eb1780e410b3f619fa0a",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/prism/AKM_prism_Family_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_aim_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_aim_fire.blend1",
+      "bytes": 239120786,
+      "sha256": "ea28103c569eaef9ca46f38c08942b99a35db4975c41bc426941271458642074",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_aim_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_aim.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_aim.blend1",
+      "bytes": 239287342,
+      "sha256": "ceac2e5e8be2f0c4185752e448a47ac0c27772534ed23bf66f5b0ac6dd8a2036",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_aim.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_drum_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_drum_reload_empty.blend1",
+      "bytes": 247817351,
+      "sha256": "22d6827156f61fe9105f2b685ab700095a6aca87518ac908125dd29870c1d2db",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_drum_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_drum_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_drum_reload.blend1",
+      "bytes": 245769495,
+      "sha256": "adc9ea312f5ee4e6b7919029f010f647616da7c4d0bf4a24161e42052a60a6b0",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_drum_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_equip.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_equip.blend1",
+      "bytes": 241110001,
+      "sha256": "4bfa7944236674d875973c65032b4de19b020400fcf149e88c698294270624d1",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_equip.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_fire.blend1",
+      "bytes": 239120827,
+      "sha256": "2aa29e986ad81facbc49055b68974a88b1edf8a91793a0126f92789431035699",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_idle.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_idle.blend1",
+      "bytes": 239287439,
+      "sha256": "79d7f0cc26f401df8ab8bce52a71e6d0f19208c7980bda293d2977255366998b",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_idle.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_reload_empty.blend1",
+      "bytes": 247784397,
+      "sha256": "2a28595b393d2ecc1ba78c635882b742205ed46b0113c595c08ec6312ad5c7e9",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_reload.blend1",
+      "bytes": 245727040,
+      "sha256": "d1694d21e619c5232d58276d80ccfdeb590118e51a901bbac1071de3f18fb82b",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/A_AKM_vertical_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/akm/vertical/AKM_vertical_Family_Editable.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/akm/vertical/AKM_vertical_Family_Editable.blend1",
+      "bytes": 256886743,
+      "sha256": "1100897950876dccca9d45ef7ce34f65369a20dbfc3054dd722d9360c1b3b239",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/akm/vertical/AKM_vertical_Family_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_drum_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_drum_reload_empty.blend1",
+      "bytes": 127729601,
+      "sha256": "2288ad4340e808e99398a5c1944d777ec9dffdfaf3f6748efa608df16b305fa3",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_drum_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_drum_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_drum_reload.blend1",
+      "bytes": 126514283,
+      "sha256": "aa1e8344972e1b853aedfd83202e5d7c268929fa7453eadb729f0e0143b118e3",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_drum_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_reload_empty.blend1",
+      "bytes": 144945567,
+      "sha256": "124c7606973992cdcc168d2153b1bbe881e8ae2a98f7946258a113e3f890414d",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_reload.blend1",
+      "bytes": 152867759,
+      "sha256": "57e9b327e63146cf5af5901b2d3feb51a3b8443dea21a9b664cba3bf038bdb49",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/prism/A_M4_Prism_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/prism/Fitted.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/prism/Fitted.blend1",
+      "bytes": 100409345,
+      "sha256": "b42afb5cd95538857c0697e4abcb03b271380827acf857346ad21312a74ed554",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/prism/Fitted.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/prism/M4_prism_Family_Editable.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/prism/M4_prism_Family_Editable.blend1",
+      "bytes": 143551229,
+      "sha256": "b0f739058e50d456ab39e613f7fc88ac87aff961bc7c4db5a55fda74624b9133",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/prism/M4_prism_Family_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_aim_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_aim_fire.blend1",
+      "bytes": 136391404,
+      "sha256": "55c8c58d3ea71b292b10ef8388f5c49e50d127c03b69708022e69e727301eb8a",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_aim_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_aim.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_aim.blend1",
+      "bytes": 135695080,
+      "sha256": "f87174605fe368e2e1b0a4ea9639f9d3c5f1d12c42d90563cdb0239f8dd2e437",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_aim.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_drum_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_drum_reload_empty.blend1",
+      "bytes": 165801993,
+      "sha256": "ae59a0f47a9c81ee7b6930c67630d1d050da93bff2c499cf64e8658ae71412d5",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_drum_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_drum_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_drum_reload.blend1",
+      "bytes": 164565343,
+      "sha256": "56bf0fbed00b2cdf4dda44d1d28660a0307c4e98c3e8f4b21e06e6ff3ef1c4f8",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_drum_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_equip.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_equip.blend1",
+      "bytes": 152602565,
+      "sha256": "ec629dbf5fac2158afa7a5eed5c4fcbbbd9a56d8a8cb3641cc54960b2a2fd839",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_equip.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_fire.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_fire.blend1",
+      "bytes": 136405965,
+      "sha256": "fd11d3222ae05c80bbe8325f0f68cf825d91d24cb4a8f7c595a4b588a35fb839",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_fire.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_idle.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_idle.blend1",
+      "bytes": 138453010,
+      "sha256": "8999c63029ea88bde38fcbba23b6b66d04d3a1e60e4b146429ccdfa925b70bd2",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_idle.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_reload_empty.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_reload_empty.blend1",
+      "bytes": 182987229,
+      "sha256": "52f93f52a137e181454789c6e54a6f3f28997a09e64466c62a902e1f8a594f99",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_reload_empty.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_reload.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_reload.blend1",
+      "bytes": 190918283,
+      "sha256": "2999f99c91474fd3b312624b4c9c17caf710a6d6ccd27a4cb7e767c7a92955ec",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/A_M4_Vertical_reload.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/Fitted.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/Fitted.blend1",
+      "bytes": 138451111,
+      "sha256": "7316e7f7e9ae5010d1ef13cf6a85684a8d87bc980dc2254bcc16b016b4254e52",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/Fitted.blend"
+    },
+    {
+      "original": "SourceAssets/VerticalGripFront20260911/m4/vertical/M4_vertical_Family_Editable.blend1",
+      "destination": "trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/m4/vertical/M4_vertical_Family_Editable.blend1",
+      "bytes": 181625868,
+      "sha256": "0c1f06fe8601e05eb65100b1a455c9f703c764eff32155de885267598317ffb9",
+      "reason": "Automatic Blender backup; paired current editable file retained",
+      "replacement": "SourceAssets/VerticalGripFront20260911/m4/vertical/M4_vertical_Family_Editable.blend"
+    }
+  ]
+}

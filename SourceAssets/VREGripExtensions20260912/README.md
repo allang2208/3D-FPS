@@ -1,6 +1,6 @@
 # 45° 侧倾握把与棱镜阻手器：VRE 抓握迁移
 
-2026-09-12。沿用用户认可方向的 [垂直握把 VRE 手型](../MannyGraspDonor20260912/README.md)，更新 M4、AKM 的 45° 侧倾握把和棱镜阻手器，各 9 条动画，共 36 条。本轮外观仍待用户评价。
+2026-09-12。沿用用户认可方向的 [垂直握把 VRE 手型](../MannyGraspDonor20260912/README.md)，更新 M4、AKM 的 45° 侧倾握把和棱镜阻手器，各 9 条动画，共 36 条。用户于 2026-09-12 明确确认“成功了”，并要求沉淀为配件标准。
 
 ## 预览与编辑
 
@@ -35,6 +35,8 @@ M4 动画为 `/Game/Weapons/M4VREGripExtensions/{Canted,Prism}`；AKM 为 `/Game
 
 `fit_static.py → build_family.py → verify_source.py → import_assets.py → verify_assets.py → assemble_editable.py → run.ps1 → make_delivery.py`。几何记录由 `check_geometry.py -- <m4|akm> <canted|prism>` 生成。使用 Blender 5.1.2、UE 5.8.2；Blender 使用 `--python-exit-code 1` 区分脚本失败与正常退出。
 
-`fits.json`、`Static/` 是当前静态作者源；`strict_axis_trial.json` 和 `audit_canted_clock.py` 保留诊断试验，不能当当前姿态。`case.py` 指向原 CantedGripMigration / VerticalGripErgonomic 动作，`ReferenceWorkflow` 冻结整臂和渲染辅助脚本。完整原动作、手模、材质、握把、VRE 动作矩阵及二进制留本机，公开作者脚本、验证摘要与来源；仅克隆此目录不能独立恢复整个素材工程。
+`fits.json`、`Static/` 是当前静态作者源；过度扭臂的 `strict_axis_trial.json` 已归档至 `trash/grasp-workflow-20260912/SourceAssets/VREGripExtensions20260912/`；`audit_canted_clock.py` 与 `canted_clock_audit.json` 保留诊断方法和结果，不是当前姿态。`case.py` 指向原 CantedGripMigration / VerticalGripErgonomic 动作，`ReferenceWorkflow` 冻结整臂和渲染辅助脚本。完整原动作、手模、材质、握把、VRE 动作矩阵及二进制留本机，公开作者脚本、验证摘要与来源；仅克隆此目录不能独立恢复整个素材工程。
 
 [运行接入补丁](runtime-integration.patch) 对应本轮 `IntegrationBaseline`，本机已应用。共享接入文件含其他未提交工作，不整体夹带进此次源码发布。不要关闭未保存的编辑器或恢复旧 `.modules` 清单来覆盖其他构建；用户已打开的旧编辑器与本轮新测试进程分别记录。
+
+2026-09-12 标准化与归档见 [本轮整理记录](../../Docs/Weapons/grasp-standard-20260912.md)。当前 Final、所需原动作、冻结参考和许可保留；明确废案按清单移入任务 trash。

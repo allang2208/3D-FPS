@@ -12,7 +12,7 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 - 准心、散布、后坐力、枪口烟火或曳光：[Gunplay 与 Niagara 验收](references/gunplay-vfx.md)。
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
-- 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-11 用户确认，以此取代旧配件流程。
+- 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-12 用户确认 VRE 成组抓握迁移成功；握把分支优先复用已接受手型并适配整手与腕臂，小阻手器按用户许可整体包握。
 - 跨枪型复用瞄具、枪口、安装座或统一枪钢：[跨枪型瞄具与材质](references/cross-weapon-optics.md)。
 - 瞄具、倍率、镜内视野和开镜面板：[瞄具成像与验收](references/optic-presentation.md)，先定成像与可用视野，再制作模型。
 - 手臂、抓握、甩弹匣、普通/空仓换弹、拉栓、装备、奔跑及拍击：[手臂动画技能](../ue5-fps-arms-animation/SKILL.md)。

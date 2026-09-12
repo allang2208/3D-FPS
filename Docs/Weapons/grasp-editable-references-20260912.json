@@ -1,0 +1,344 @@
+[
+  {
+    "source": "SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\M4_Vertical_VRE_Editable.blend",
+    "actions": [
+      "A_M4_Vertical_aim_VRE",
+      "A_M4_Vertical_aim_fire_VRE",
+      "A_M4_Vertical_drum_reload_VRE",
+      "A_M4_Vertical_drum_reload_empty_VRE",
+      "A_M4_Vertical_equip_VRE",
+      "A_M4_Vertical_fire_VRE",
+      "A_M4_Vertical_idle_VRE",
+      "A_M4_Vertical_reload_VRE",
+      "A_M4_Vertical_reload_empty_VRE"
+    ],
+    "references_to_archived_files": 0,
+    "external_references": [
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "exists": true
+      },
+      {
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "exists": false
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "source": "SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\M4_canted_VRE_Editable.blend",
+    "actions": [
+      "A_M4_Canted_aim_VRE",
+      "A_M4_Canted_aim_fire_VRE",
+      "A_M4_Canted_drum_reload_VRE",
+      "A_M4_Canted_drum_reload_empty_VRE",
+      "A_M4_Canted_equip_VRE",
+      "A_M4_Canted_fire_VRE",
+      "A_M4_Canted_idle_VRE",
+      "A_M4_Canted_reload_VRE",
+      "A_M4_Canted_reload_empty_VRE"
+    ],
+    "references_to_archived_files": 0,
+    "external_references": [
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "exists": true
+      },
+      {
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "exists": false
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "source": "SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\M4_prism_VRE_Editable.blend",
+    "actions": [
+      "A_M4_Prism_aim_VRE",
+      "A_M4_Prism_aim_fire_VRE",
+      "A_M4_Prism_drum_reload_VRE",
+      "A_M4_Prism_drum_reload_empty_VRE",
+      "A_M4_Prism_equip_VRE",
+      "A_M4_Prism_fire_VRE",
+      "A_M4_Prism_idle_VRE",
+      "A_M4_Prism_reload_VRE",
+      "A_M4_Prism_reload_empty_VRE"
+    ],
+    "references_to_archived_files": 0,
+    "external_references": [
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "exists": true
+      },
+      {
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "exists": false
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "source": "SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\AKM_Vertical_VRE_Editable.blend",
+    "actions": [
+      "A_AKM_vertical_aim_VRE",
+      "A_AKM_vertical_aim_fire_VRE",
+      "A_AKM_vertical_drum_reload_VRE",
+      "A_AKM_vertical_drum_reload_empty_VRE",
+      "A_AKM_vertical_equip_VRE",
+      "A_AKM_vertical_fire_VRE",
+      "A_AKM_vertical_idle_VRE",
+      "A_AKM_vertical_reload_VRE",
+      "A_AKM_vertical_reload_empty_VRE"
+    ],
+    "references_to_archived_files": 0,
+    "external_references": [
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "exists": true
+      },
+      {
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "exists": false
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "source": "SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\AKM_canted_VRE_Editable.blend",
+    "actions": [
+      "A_AKM_canted_aim_VRE",
+      "A_AKM_canted_aim_fire_VRE",
+      "A_AKM_canted_drum_reload_VRE",
+      "A_AKM_canted_drum_reload_empty_VRE",
+      "A_AKM_canted_equip_VRE",
+      "A_AKM_canted_fire_VRE",
+      "A_AKM_canted_idle_VRE",
+      "A_AKM_canted_reload_VRE",
+      "A_AKM_canted_reload_empty_VRE"
+    ],
+    "references_to_archived_files": 0,
+    "external_references": [
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "exists": true
+      },
+      {
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "exists": false
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "exists": true
+      }
+    ]
+  },
+  {
+    "source": "SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\AKM_prism_VRE_Editable.blend",
+    "actions": [
+      "A_AKM_prism_aim_VRE",
+      "A_AKM_prism_aim_fire_VRE",
+      "A_AKM_prism_drum_reload_VRE",
+      "A_AKM_prism_drum_reload_empty_VRE",
+      "A_AKM_prism_equip_VRE",
+      "A_AKM_prism_fire_VRE",
+      "A_AKM_prism_idle_VRE",
+      "A_AKM_prism_reload_VRE",
+      "A_AKM_prism_reload_empty_VRE"
+    ],
+    "references_to_archived_files": 0,
+    "external_references": [
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "exists": true
+      },
+      {
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "exists": false
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "exists": true
+      },
+      {
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "exists": true
+      }
+    ]
+  }
+]

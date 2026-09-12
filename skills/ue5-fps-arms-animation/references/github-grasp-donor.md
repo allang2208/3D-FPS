@@ -1,6 +1,6 @@
 # 使用现成抓握源：先确认内容再重定向
 
-2026-09-12 本机案例：`SourceAssets/MannyGraspDonor20260912/README.md`。VRE GrabAnimation 已接入 M4 / AKM 垂直握把各 9 动作。用户已认可改善方向，未宣称整套动画全部验收；后续授权的适配见 [45° 握把与阻手器](grasp-canted-handstop.md)。
+2026-09-12 本机案例：`SourceAssets/MannyGraspDonor20260912/README.md`。VRE GrabAnimation 已接入 M4 / AKM 垂直握把各 9 动作。用户先认可垂直握把改善方向，随后确认同法扩展成功并要求作为配件标准；已接受扩展见 [45° 握把与阻手器](grasp-canted-handstop.md)。
 
 - 实际导出并查看原始骨骼和网格。Epic XR Grasp 与 VRE GrabAnimation 内容不同，前者未闭合食指和拇指；同类命名不能证明可直接使用。
 - 静态手型只解决指骨朝向。左右手镜像基于手掌解剖方向和 rest 坐标系，保留骨长、位置、缩放。整臂、握把挂点及退握回握仍需适配，保留换弹和机械接触时钟。

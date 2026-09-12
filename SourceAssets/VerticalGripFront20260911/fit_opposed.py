@@ -6,7 +6,7 @@ from mathutils.bvhtree import BVHTree
 O=Path(__file__).parent;S=O.parent;sys.path.insert(0,str(O));from front_pose import apply
 from inspect_pose import render
 ORIG=json.loads((O/'before_bones.json').read_text())['original']
-variant=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else 'vertical';title=variant.title();src=O/'RejectedForwardThumb'/'m4'/variant;D=O/'m4'/variant;D.mkdir(parents=True,exist_ok=True)
+variant=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else 'vertical';title=variant.title();src=O/'ReferenceWorkflow'/'opposed_seed'/variant;D=O/'m4'/variant;D.mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(O/'m4'/variant/f'A_M4_{title}_idle.blend'));r=bpy.data.objects['SK_M4_Infima'];s=bpy.context.scene;s.frame_set(0);old={b.name:b.matrix.copy() for b in r.pose.bones};rest={b.name:b.matrix_local.copy() for b in r.data.bones};basis={b.name:b.matrix_basis.copy() for b in r.pose.bones};r.animation_data.action=None
 fit=json.loads((src/'fit_final.json').read_text());G=old['WPN_root']@Matrix(fit['grip_in_root']);H=old['hand_l'].copy();prefix='VG_' if variant=='vertical' else 'PH_';ob=bpy.data.objects['SK_Manny_Arms_Export'];groups={g.index:g.name for g in ob.vertex_groups};ob.data.calc_loop_triangles();faces={};ids={}
 for digit in ['index','middle','ring','pinky','thumb']:

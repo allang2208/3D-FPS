@@ -1,0 +1,33 @@
+{
+  "date": "2026-09-12",
+  "scope": "Accepted-grasp workflow documentation and scoped archive; animation/runtime unchanged",
+  "archived_files": 198,
+  "archived_bytes": 20499011158,
+  "archive_move_sha256": "All 198 checked before and after move by PowerShell; locations and sizes independently checked",
+  "retained_blend_fbx_sha256_passed": 114,
+  "editable_projects_opened": 6,
+  "editable_actions_present": 54,
+  "editable_references_to_archived_files": 0,
+  "missing_external_references_outside_archive_scope": 6,
+  "frozen_seed_sha256_passed": 2,
+  "skill_mirrors_identical": 7,
+  "skill_quick_validate": "Both skills valid with Python -X utf8",
+  "python_syntax": "Changed author scripts parsed successfully",
+  "native_or_game_retested": false,
+  "prior_validation": "18 + 36 source and UE contracts and 2 + 4 runtime runs are prior implementation evidence, with user acceptance now recorded",
+  "prior_document_snapshots": [
+    {
+      "original": "Docs\\VerticalGripClass.md",
+      "snapshot": "trash\\grasp-workflow-20260912\\BeforeDocs\\Docs\\VerticalGripClass.md",
+      "bytes": 7953,
+      "sha256": "af3ef5b56cc440aab36c7c9e14f7fa1a5de6734ba1792b336e843b67e7dee930"
+    },
+    {
+      "original": "skills\\ue5-fps-arms-animation\\references\\vertical-grip-family.md",
+      "snapshot": "trash\\grasp-workflow-20260912\\BeforeDocs\\skills\\ue5-fps-arms-animation\\references\\vertical-grip-family.md",
+      "bytes": 8503,
+      "sha256": "a697d1845175b93c00ee857283b834484d919a386975580ed973210d4f6b0b70"
+    }
+  ],
+  "local_markdown_links_checked": 98
+}

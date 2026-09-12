@@ -1,6 +1,8 @@
-# 垂直握把：横向收拢的拇指对握
+# 历史对照：横向收拢的拇指对握
 
-本轮按用户最新要求，先完成 M4 与 AKM 的垂直握把。上一版把拇指沿手背向前伸出的理解已被用户拒绝，源汇总和报告保留在 `RejectedForwardThumb/`，不作为视觉接受结果。阻手器等小改造件后续采用用户参考图的握拳姿态整体包裹，允许内部穿模，不再以精确贴合配件表面作为阻碍。本次小配件运行路径恢复到之前的 Ergonomic 分支。
+此目录手型已被后续 VRE 方案取代。当前作者入口见 [垂直握把](../MannyGraspDonor20260912/README.md) 和 [45°/阻手器](../VREGripExtensions20260912/README.md)。此处仍保留新方案所需原动作与冻结参考，不能整目录当作废案；以下为当时制作记录。
+
+本轮按用户最新要求，先完成 M4 与 AKM 的垂直握把。上一版把拇指沿手背向前伸出的理解已被用户拒绝，源汇总和报告已归档到 `trash/grasp-workflow-20260912/SourceAssets/VerticalGripFront20260911/RejectedForwardThumb/`，不作为视觉接受结果。阻手器等小改造件后续采用用户参考图的握拳姿态整体包裹，允许内部穿模，不再以精确贴合配件表面作为阻碍。本次小配件运行路径恢复到之前的 Ergonomic 分支。
 
 ## 查看结果
 
@@ -34,11 +36,11 @@
 
 1375 个手指/握把表面采样没有刚性配件交叉。待机、瞄准、装备的指间采样无交叉；退握/回握时拇指与食指有短暂表面交叠，已单独记录，并不宣称整个动作零自接触。原换弹动作还保留既有指间接触。额外拇指检查覆盖可见主枪身及工厂弹匣，不包含独立弹鼓网格；检查范围是采样时刻而非连续时间。
 
-原生模块 `2026096304` 构建成功。导入与压缩读回脚本的 PASS、进程退出码及游戏运行分别记录；Commandlet 的已有 GameFeatureData 配置错误/HTTP 端口争用可导致退出码 1。前一次重建还遇到并行攀爬源文件尚未加入时的链接错误，在该源文件完成后重新构建成功，未修改攀爬功能。当前新姿态尚待用户视觉评价。
+原生模块 `2026096304` 构建成功。导入与压缩读回脚本的 PASS、进程退出码及游戏运行分别记录；Commandlet 的已有 GameFeatureData 配置错误/HTTP 端口争用可导致退出码 1。前一次重建还遇到并行攀爬源文件尚未加入时的链接错误，在该源文件完成后重新构建成功，未修改攀爬功能。该 Opposed 手型随后被用户指出仍不及预期，当前采用已获认可的 VRE 手型。
 
 ## 复现与公开边界
 
-使用本轮最终本机 `fit_final.json`、`release_profile.json` 和 AKM 修正参数，运行 `build_m4.py -- vertical`，再运行 `build_akm.py -- vertical` 和 `refresh_release.py -- akm vertical`。`fit_opposed.py`、`fit_release_front.py`、`fit_akm_clearance.py`、`fit_akm_transition.py` 记录拟合过程；重新拟合需要重新检查视觉效果。`fit_front.py`、`prepare_build.py` 和 `build_all.ps1` 属于已拒绝的前伸拇指尝试，不是当前生产入口。
+使用本轮最终本机 `fit_final.json`、`release_profile.json` 和 AKM 修正参数，运行 `build_m4.py -- vertical`，再运行 `build_akm.py -- vertical` 和 `refresh_release.py -- akm vertical`。`fit_opposed.py`、`fit_release_front.py`、`fit_akm_clearance.py`、`fit_akm_transition.py` 记录拟合过程；重新拟合需要重新检查视觉效果。`fit_front.py`、`prepare_build.py`、`build_all.ps1` 及候选搜索输出属于已拒绝尝试，已归档到上述任务 trash。`fit_opposed.py` 所需两份原始配置以同散列保留在 `ReferenceWorkflow/opposed_seed/`，供旧母版复现使用。
 
 用 `run_opposed.ps1` 先导入两支枪全部 18 条动画、压缩读回，再分别运行两支枪（运行检查包含互相切枪）；`verify_assets.py` 读回当前 18 条动画。`check_geometry.py`、`check_thumb_gun.py`、`validate_m4.py`、`compare_source_self.py` 做相应测量；`assemble_editable.py` 汇总源动作，`make_opposed_delivery.py` 生成本轮交付。
 

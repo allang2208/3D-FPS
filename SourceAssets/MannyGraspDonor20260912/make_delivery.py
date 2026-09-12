@@ -14,8 +14,8 @@ def shot(w,n):return P/f'Saved/ForegripAudit/vre-natural-{w}-vertical/{n}.png'
 board('Grip_Comparison.png',[
  ('前一版 M4 · 已拒绝',P/'Saved/ForegripAudit/opposed-m4-vertical/grasp_closeup.png'),
  ('本轮 M4 · 原始手套材质的 Blender 预览',O/'Opening/0.8/aligned_palm.png'),
- ('本轮 M4 · UE 当前白手套材质',shot('m4','grasp_closeup')),
- ('本轮 AKM · UE 当前白手套材质',shot('akm','grasp_closeup'))])
+ ('本轮 M4 · UE 本轮截图中的白手套材质',shot('m4','grasp_closeup')),
+ ('本轮 AKM · UE 本轮截图中的白手套材质',shot('akm','grasp_closeup'))])
 board('Player_Wrist_Views.png',[(f'{w.upper()} · {label}',shot(w,n)) for n,label in [('player_grasp_review','玩家视点近景'),('wrist_review','腕肘连接')] for w in ['m4','akm']])
 board('Original_Donor.png',[('GitHub GrabAnimation · 原始手模',O/'vre_back.png'),('转入当前手套 · 统一闭合幅度 80%',O/'Opening/0.8/aligned_palm.png')])
 runtime={}
@@ -42,7 +42,7 @@ assert len(assets)==len(source)==18 and all(x['passed'] for x in assets.values()
 geometry={}
 for w in ['m4','akm']:
  data=json.loads((O/f'Final/{w}/vertical/geometry.json').read_text());geometry[w]={'samples':len(data),'grip_intersection_samples':sum(bool(x['crossing_hand_triangles']) for x in data.values()),'finger_self_intersection_samples':sum(bool(x['self']) for x in data.values())}
-result={'date':'2026-09-12','candidate':'VRE GrabAnimation anatomical mirror, closure 0.8, rigid fist alignment','scope':'M4 and AKM vertical grip, nine clips each; canted and handstops unchanged','source_contract_passed':18,'ue_asset_readback_passed':18,'runtime':runtime,'native_build':'9122750 Succeeded; concurrent later builds preserved','geometry':geometry,'geometry_status':'Residual glove/grip and adjacent-finger surface intersections remain; not zero-penetration acceptance. Sampled surfaces only.','compression_maxima':{k:max(x[k] for x in assets.values()) for k in ['compression_position_cm','compression_rotation_deg','preserved_nonleft_cm','preserved_contact_cm']},'materials':'Current shared MI_Manny_01/02 parent is ArmsBlackWhiteTrial; this task did not change it. Blender donor previews retain earlier patterned material.','video':'Actual UE screenshot sequence using logged capture intervals, encoded 30 fps; silent, not native 30 fps recording or sound acceptance.','user_visual_acceptance':'Awaiting user review; prior opposed-thumb iteration rejected.'}
+result={'date':'2026-09-12','candidate':'VRE GrabAnimation anatomical mirror, closure 0.8, rigid fist alignment','scope':'M4 and AKM vertical grip, nine clips each; canted and handstops unchanged','source_contract_passed':18,'ue_asset_readback_passed':18,'runtime':runtime,'native_build':'9122750 Succeeded; concurrent later builds preserved','geometry':geometry,'geometry_status':'Residual glove/grip and adjacent-finger surface intersections remain; not zero-penetration acceptance. Sampled surfaces only.','compression_maxima':{k:max(x[k] for x in assets.values()) for k in ['compression_position_cm','compression_rotation_deg','preserved_nonleft_cm','preserved_contact_cm']},'materials':'At the original capture time MI_Manny_01/02 parent was ArmsBlackWhiteTrial; this task did not change it. Blender donor previews retain earlier patterned material.','video':'Actual UE screenshot sequence using logged capture intervals, encoded 30 fps; silent, not native 30 fps recording or sound acceptance.','user_visual_acceptance':'2026-09-12: user approved the vertical-grip direction and later confirmed the same-method canted/handstop result successful, requesting workflow standardization. Prior opposed-thumb iteration rejected.'}
 (O/'Final/validation.json').write_text(json.dumps(result,indent=2,ensure_ascii=False))
 manifest=[]
 for p in sorted((O/'Final').rglob('*')):
