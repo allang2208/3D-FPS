@@ -150,9 +150,16 @@ void AFPSWeatherManager::BeginPlay()
     UpdatePlayerFollowing();
     bSkyClockConnected = TrySynchronizeWithSkyClock();
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
-    if (!bSkyClockConnected && (Map == TEXT("L_Normandy_FPS_Test") || Map == TEXT("L_MilitaryTrench_FPS_Test")))
+    const bool bTemperateHills = Map == TEXT("L_TemperateHills_Initial");
+    if (bTemperateHills)
     {
-        // Start the imported scenes at 09:00 so first entry is in daylight.
+        // Existing hills maps were authored with the schedule disabled for the
+        // vegetation study. Enable gameplay weather without regenerating the map.
+        bAutomaticSchedule = true;
+    }
+    if (!bSkyClockConnected && (Map == TEXT("L_Normandy_FPS_Test") || Map == TEXT("L_MilitaryTrench_FPS_Test") || bTemperateHills))
+    {
+        // Start outdoor scenes at 09:00 so first entry is in daylight.
         NormalizedDayTime = 0.375f;
         WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
     }
@@ -418,10 +425,10 @@ void AFPSWeatherManager::PlayDelayedThunder(float DelaySeconds)
 
 void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
 {
-    // The imported test scenes have no BP_FPS_DayNightManager. Drive their
+    // These outdoor scenes have no BP_FPS_DayNightManager. Drive their
     // existing lights only in the running world; shared source sublevels stay intact.
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
-    if (bSkyClockConnected || (Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test"))) return;
+    if (bSkyClockConnected || (Map != TEXT("L_Normandy_FPS_Test") && Map != TEXT("L_MilitaryTrench_FPS_Test") && Map != TEXT("L_TemperateHills_Initial"))) return;
     SceneLightingRefresh += DeltaSeconds;
     if (SceneLightingRefresh < 0.1f) return;
     SceneLightingRefresh = 0.0f;

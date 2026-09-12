@@ -29,7 +29,7 @@ void UStormCloudComponent::BeginPlay()
 {
     Super::BeginPlay();
     const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
-    SetComponentTickEnabled(Map==TEXT("DayNight_Lighting")||Map==TEXT("L_Normandy_FPS_Test")||Map==TEXT("L_MilitaryTrench_FPS_Test"));
+    SetComponentTickEnabled(Map==TEXT("DayNight_Lighting")||Map==TEXT("L_Normandy_FPS_Test")||Map==TEXT("L_MilitaryTrench_FPS_Test")||Map==TEXT("L_TemperateHills_Initial"));
 }
 
 void UStormCloudComponent::Discover()

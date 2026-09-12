@@ -98,6 +98,7 @@ namespace
         if (Map.Contains(TEXT("DayNight_Lighting"))) return TEXT("天空基地");
         if (Map.Contains(TEXT("L_Normandy_FPS_Test"))) return TEXT("诺曼底村庄");
         if (Map.Contains(TEXT("L_MilitaryTrench_FPS_Test"))) return TEXT("战壕");
+        if (Map.Contains(TEXT("L_TemperateHills_Initial"))) return TEXT("温带丘陵");
         return TEXT("当前区域");
     }
 

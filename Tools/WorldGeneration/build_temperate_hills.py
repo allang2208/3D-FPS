@@ -184,7 +184,7 @@ air.component.set_editor_property('fog_height_falloff',.20)
 air.component.set_editor_property('enable_volumetric_fog',True)
 air.component.set_editor_property('volumetric_fog_distance',85000)
 weather=actors.spawn_actor_from_class(u.FPSWeatherManager,u.Vector(0,0,0))
-weather.set_editor_property('automatic_schedule',False)
+weather.set_editor_property('automatic_schedule',True)
 # A fixed exposure keeps the vegetation study comparable across seed captures.
 post=actors.spawn_actor_from_class(u.PostProcessVolume,u.Vector(0,0,0))
 post.set_editor_property('unbound',True)
