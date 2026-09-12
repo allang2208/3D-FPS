@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp
++++ b/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp
+@@ -18,20 +18,27 @@
+     auto* Rifle=AKMViewmodel.Get();auto* Asset=Rifle?Rifle->GetSkeletalMeshAsset():nullptr;
+     if(!Asset)return;
+     const bool AKM=AKMSoviet::Matches(Rifle);
+-    const bool Enabled=Variant==TEXT("skeleton")&&(bUsingM4Infima||AKM)&&bInventoryWeaponReady;
++    const bool QR=Variant==TEXT("qr_performance");
++    const bool Enabled=(Variant==TEXT("skeleton")||QR)&&(bUsingM4Infima||AKM)&&bInventoryWeaponReady;
+     bool HasSection=false;
+     for(const auto& Material:Asset->GetMaterials())HasSection|=IsFactoryStock(Material.MaterialSlotName.ToString());
+     if(Enabled&&!HasSection){UE_LOG(LogTemp,Error,TEXT("SKELETON_STOCK: factory stock section missing on %s"),*Asset->GetPathName());return;}
+-    if(Enabled&&!StockAttachment)
++    if(Enabled)
+     {
+-        const TCHAR* StockPath=AKM?TEXT("/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock"):TEXT("/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock");
++        const TCHAR* StockPath=QR
++            ?(AKM?TEXT("/Game/Weapons/QRPerformanceStock/AKM/SM_QRPerformanceStock.SM_QRPerformanceStock"):TEXT("/Game/Weapons/QRPerformanceStock/M4/SM_QRPerformanceStock.SM_QRPerformanceStock"))
++            :(AKM?TEXT("/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock"):TEXT("/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock"));
+         auto* StockMesh=LoadObject<UStaticMesh>(nullptr,StockPath);
+         if(!StockMesh){UE_LOG(LogTemp,Error,TEXT("SKELETON_STOCK: mesh missing"));return;}
++        if(!StockAttachment)
++        {
+         StockAttachment=NewObject<UStaticMeshComponent>(this,TEXT("SkeletonStock"));
+-        StockAttachment->SetStaticMesh(StockMesh);
+         StockAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+         StockAttachment->SetCastShadow(false);StockAttachment->bReceivesDecals=false;
+         StockAttachment->SetupAttachment(Rifle,TEXT("WPN_root"));StockAttachment->RegisterComponent();
++        }
++        // Replace the mesh when changing options on an existing workbench/icon rig.
++        StockAttachment->SetStaticMesh(StockMesh);
+         // Author frame: +X toward buttpad. FBX reflects Blender Y; root inherits 100x scale.
+         // Each receiver was measured in root space; the shared stock keeps physical size.
+         StockMount=FTransform(FQuat(FVector::UpVector,-PI*.5f),AKM?FVector(.0008f,-.083f,.035f):FVector(0,-.0385f,.0725f),FVector(.01f));
+--- a/Content/ColdSteelData/gunsmith.json
++++ b/Content/ColdSteelData/gunsmith.json
+@@ -309,6 +309,13 @@
+               "recoil_mult": 1.1,
+               "shake_mult": 1.1
+             }
++          },
++          {
++            "id": "qr_performance",
++            "name": "QR高性能后托",
++            "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，使用对应枪型的安装接口。",
++            "effects": [],
++            "stats": {}
+           }
+         ]
+       }
+@@ -587,6 +594,13 @@
+               "recoil_mult": 1.1,
+               "shake_mult": 1.1
+             }
++          },
++          {
++            "id": "qr_performance",
++            "name": "QR高性能后托",
++            "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，使用对应枪型的安装接口。",
++            "effects": [],
++            "stats": {}
+           }
+         ]
+       }
+--- a/Config/DefaultGame.ini
++++ b/Config/DefaultGame.ini
+@@ -66,3 +66,4 @@
+ [/Script/UnrealEd.ProjectPackagingSettings]
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/SkeletonStock")
+ +DirectoriesToAlwaysCook=(Path="/Game/Weapons/ReferenceStock5080")
+++DirectoriesToAlwaysCook=(Path="/Game/Weapons/QRPerformanceStock")

@@ -1,0 +1,36 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QRPerformanceStock20260912\\qr_performance_stock_textured_master_00001_.glb",
+  "author_length_cm": 18.0,
+  "front_generated_x_max": false,
+  "mounts_root_m": {
+    "m4": [
+      0,
+      -0.0385,
+      0.0725
+    ],
+    "akm": [
+      0.0008,
+      -0.083,
+      0.035
+    ]
+  },
+  "variants": {
+    "m4": {
+      "triangles": 48000,
+      "dimensions_cm": [
+        18.004657745361328,
+        4.482146263122559,
+        13.313529968261719
+      ]
+    },
+    "akm": {
+      "triangles": 64850,
+      "dimensions_cm": [
+        18.09291648864746,
+        4.482146263122559,
+        13.313529968261719
+      ]
+    }
+  },
+  "testing": "not performed; user will test"
+}
