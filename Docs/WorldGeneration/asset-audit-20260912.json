@@ -1,0 +1,511 @@
+{
+  "date": "2026-09-12",
+  "engine": "5.8.2",
+  "scope": "Current local UE assets and local VaultCache, not a cloud account entitlement audit",
+  "method": "UE Asset Registry plus read-only StaticMesh, FoliageType and PCGGraph metadata; no level loads or asset saves",
+  "projects": [
+    {
+      "project": "FPSGAME",
+      "packages": [
+        {
+          "root": "/Game/UnrealNormandy",
+          "assets": 498,
+          "classes": {
+            "World": 14,
+            "Blueprint": 9,
+            "LandscapeLayerInfoObject": 6,
+            "MaterialFunction": 40,
+            "MaterialInstanceConstant": 71,
+            "MaterialParameterCollection": 2,
+            "Material": 22,
+            "PCGGraph": 2,
+            "FoliageType_InstancedStaticMesh": 23,
+            "StaticMesh": 105,
+            "Texture2D": 191,
+            "TextureCube": 3,
+            "VolumeTexture": 2,
+            "StaticSparseVolumeTexture": 3,
+            "NiagaraSystem": 5
+          },
+          "static_mesh_metadata": {
+            "total": 105,
+            "loaded": 105,
+            "nanite_enabled": 92,
+            "simple_collision_present": 96,
+            "multiple_lods": 0,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/MilitaryTrench",
+          "assets": 989,
+          "classes": {
+            "MaterialInstanceConstant": 187,
+            "StaticMesh": 182,
+            "Texture2D": 503,
+            "Blueprint": 15,
+            "World": 20,
+            "PCGDataAsset": 6,
+            "MaterialFunction": 36,
+            "Material": 21,
+            "MaterialParameterCollection": 1,
+            "TextureCube": 1,
+            "ParticleSystem": 3,
+            "RuntimeVirtualTexture": 3,
+            "PCGGraph": 4,
+            "MoviePipelineQueue": 1,
+            "MoviePipelinePrimaryConfig": 1,
+            "LandscapeLayerInfoObject": 3,
+            "LevelSequence": 2
+          },
+          "static_mesh_metadata": {
+            "total": 182,
+            "loaded": 182,
+            "nanite_enabled": 181,
+            "simple_collision_present": 166,
+            "multiple_lods": 13,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/SD_Art",
+          "assets": 301,
+          "classes": {
+            "MaterialInstanceConstant": 38,
+            "StaticMesh": 152,
+            "Texture2D": 91,
+            "Blueprint": 1,
+            "World": 1,
+            "TextureCube": 2,
+            "Material": 8,
+            "MaterialFunction": 8
+          },
+          "static_mesh_metadata": {
+            "total": 152,
+            "loaded": 152,
+            "nanite_enabled": 132,
+            "simple_collision_present": 150,
+            "multiple_lods": 2,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/PWL_Light_Manager",
+          "assets": 56,
+          "classes": {
+            "Blueprint": 3,
+            "BP_Light_Data_C": 16,
+            "BP_Season_Data_C": 2,
+            "UserDefinedStruct": 9,
+            "UserDefinedEnum": 1,
+            "World": 1,
+            "MaterialParameterCollection": 1,
+            "MaterialInstanceConstant": 11,
+            "Material": 3,
+            "Texture2D": 2,
+            "TextureCube": 7
+          },
+          "static_mesh_metadata": {
+            "total": 0,
+            "loaded": 0,
+            "nanite_enabled": 0,
+            "simple_collision_present": 0,
+            "multiple_lods": 0,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/RPGEnvironmentVFX",
+          "assets": 81,
+          "classes": {
+            "World": 2,
+            "Material": 23,
+            "MaterialInstanceConstant": 18,
+            "StaticMesh": 7,
+            "Texture2D": 9,
+            "NiagaraSystem": 22
+          },
+          "static_mesh_metadata": {
+            "total": 7,
+            "loaded": 7,
+            "nanite_enabled": 0,
+            "simple_collision_present": 7,
+            "multiple_lods": 0,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/AnimalVarietyPack",
+          "assets": 220,
+          "classes": {
+            "AnimSequence": 146,
+            "World": 5,
+            "MapBuildDataRegistry": 5,
+            "Material": 17,
+            "SkeletalMesh": 6,
+            "PhysicsAsset": 6,
+            "Skeleton": 6,
+            "Texture2D": 29
+          },
+          "static_mesh_metadata": {
+            "total": 0,
+            "loaded": 0,
+            "nanite_enabled": 0,
+            "simple_collision_present": 0,
+            "multiple_lods": 0,
+            "unavailable_properties": 0
+          }
+        }
+      ],
+      "graphs": [
+        {
+          "path": "/Game/UnrealNormandy/PCG/PCG_Forest_00A",
+          "hierarchical": false,
+          "node_count": 89,
+          "uses_landscape": true,
+          "uses_ray_hit": false,
+          "node_classes": [
+            "PCGAttributeRemapSettings",
+            "PCGBlueprintSettings",
+            "PCGBoundsModifierSettings",
+            "PCGCollapseSettings",
+            "PCGDensityFilterSettings",
+            "PCGDifferenceSettings",
+            "PCGDistanceSettings",
+            "PCGGetLandscapeSettings",
+            "PCGGetSplineSettings",
+            "PCGMetadataMathsSettings",
+            "PCGProjectionSettings",
+            "PCGSpatialNoiseSettings",
+            "PCGSplineSamplerSettings",
+            "PCGStaticMeshSpawnerSettings",
+            "PCGTransformPointsSettings"
+          ]
+        },
+        {
+          "path": "/Game/UnrealNormandy/PCG/PCG_Grass_00A",
+          "hierarchical": false,
+          "node_count": 23,
+          "uses_landscape": true,
+          "uses_ray_hit": false,
+          "node_classes": [
+            "PCGAttributeRemapSettings",
+            "PCGBlueprintSettings",
+            "PCGDistanceSettings",
+            "PCGGetLandscapeSettings",
+            "PCGGetSplineSettings",
+            "PCGMetadataMathsSettings",
+            "PCGProjectionSettings",
+            "PCGSpatialNoiseSettings",
+            "PCGSplineSamplerSettings",
+            "PCGStaticMeshSpawnerSettings",
+            "PCGTransformPointsSettings"
+          ]
+        },
+        {
+          "path": "/Game/MilitaryTrench/Tutorial/PCG/Graphs/PCG_ClosedSplineScattering",
+          "hierarchical": false,
+          "node_count": 24,
+          "uses_landscape": true,
+          "uses_ray_hit": true,
+          "node_classes": [
+            "PCGBlueprintSettings",
+            "PCGCollapseSettings",
+            "PCGDataFromActorSettings",
+            "PCGDebugSettings",
+            "PCGDifferenceSettings",
+            "PCGGetActorPropertySettings",
+            "PCGGetLandscapeSettings",
+            "PCGGetSplineSettings",
+            "PCGProjectionSettings",
+            "PCGSplineSamplerSettings",
+            "PCGStaticMeshSpawnerSettings",
+            "PCGSubgraphSettings",
+            "PCGTransformPointsSettings",
+            "PCGWorldRayHitSettings"
+          ]
+        },
+        {
+          "path": "/Game/MilitaryTrench/Tutorial/PCG/Graphs/PCG_LevelInstance",
+          "hierarchical": false,
+          "node_count": 33,
+          "uses_landscape": false,
+          "uses_ray_hit": true,
+          "node_classes": [
+            "PCGCollapseSettings",
+            "PCGCopyPointsSettings",
+            "PCGDataFromActorSettings",
+            "PCGDebugSettings",
+            "PCGDensityFilterSettings",
+            "PCGDifferenceSettings",
+            "PCGGetActorPropertySettings",
+            "PCGGetVolumeSettings",
+            "PCGLoadDataAssetSettings",
+            "PCGNormalToDensitySettings",
+            "PCGProjectionSettings",
+            "PCGStaticMeshSpawnerSettings",
+            "PCGSubgraphSettings",
+            "PCGSurfaceSamplerSettings",
+            "PCGTransformPointsSettings",
+            "PCGUserParameterGetSettings",
+            "PCGWorldRayHitSettings"
+          ]
+        },
+        {
+          "path": "/Game/MilitaryTrench/Tutorial/PCG/Graphs/PCG_OnMeshSpawning",
+          "hierarchical": false,
+          "node_count": 21,
+          "uses_landscape": false,
+          "uses_ray_hit": false,
+          "node_classes": [
+            "PCGAttributeNoiseSettings",
+            "PCGAttributeRemapSettings",
+            "PCGBlueprintSettings",
+            "PCGBoundsFromMeshSettings",
+            "PCGBoundsModifierSettings",
+            "PCGCopyPointsSettings",
+            "PCGDataFromActorSettings",
+            "PCGDebugSettings",
+            "PCGDensityFilterSettings",
+            "PCGMatchAndSetAttributesSettings",
+            "PCGMeshSamplerSettings",
+            "PCGMetadataMathsSettings",
+            "PCGNormalToDensitySettings",
+            "PCGSelfPruningSettings",
+            "PCGSpatialNoiseSettings",
+            "PCGStaticMeshSpawnerSettings",
+            "PCGTransformPointsSettings",
+            "PCGUserParameterGetSettings"
+          ]
+        },
+        {
+          "path": "/Game/MilitaryTrench/Tutorial/PCG/Graphs/PCG_ScatterSubgraph",
+          "hierarchical": false,
+          "node_count": 18,
+          "uses_landscape": false,
+          "uses_ray_hit": false,
+          "node_classes": [
+            "PCGAttributeNoiseSettings",
+            "PCGAttributeRemapSettings",
+            "PCGBlueprintSettings",
+            "PCGBoundsFromMeshSettings",
+            "PCGBoundsModifierSettings",
+            "PCGDensityFilterSettings",
+            "PCGMatchAndSetAttributesSettings",
+            "PCGMetadataMathsSettings",
+            "PCGRerouteSettings",
+            "PCGSelfPruningSettings",
+            "PCGSpatialNoiseSettings",
+            "PCGTransformPointsSettings"
+          ]
+        }
+      ],
+      "asset_load_errors": [],
+      "raw_report": "D:/FPS3D/FPSGAME/Saved/WorldGenerationAudit/FPSGAME-assets.json",
+      "raw_sha256": "E1EF89795375851DA1771CB5612F8BB15BFE0D0A92E1250B7EDB27A50FD8CC56"
+    },
+    {
+      "project": "FabNatureExport",
+      "packages": [
+        {
+          "root": "/Game/GrassLandscape",
+          "assets": 65,
+          "classes": {
+            "World": 1,
+            "MapBuildDataRegistry": 1,
+            "LandscapeLayerInfoObject": 7,
+            "Material": 3,
+            "MaterialInstanceConstant": 3,
+            "MaterialFunction": 21,
+            "StaticMesh": 1,
+            "Texture2D": 28
+          },
+          "static_mesh_metadata": {
+            "total": 1,
+            "loaded": 1,
+            "nanite_enabled": 0,
+            "simple_collision_present": 1,
+            "multiple_lods": 0,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/Megaplant_Library",
+          "assets": 179,
+          "classes": {
+            "StaticMesh": 58,
+            "SkeletalMesh": 49,
+            "Skeleton": 49,
+            "MaterialInstanceConstant": 4,
+            "ProceduralVegetation": 4,
+            "Texture2D": 9,
+            "ProceduralVegetationGrowerPreset": 5,
+            "ObjectRedirector": 1
+          },
+          "static_mesh_metadata": {
+            "total": 58,
+            "loaded": 0,
+            "nanite_enabled": 0,
+            "simple_collision_present": 0,
+            "multiple_lods": 0,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/MWLandscapeAutoMaterial",
+          "assets": 100,
+          "classes": {
+            "Blueprint": 1,
+            "World": 3,
+            "LandscapeLayerInfoObject": 1,
+            "MaterialInstanceConstant": 14,
+            "Material": 4,
+            "MaterialFunction": 15,
+            "PhysicalMaterial": 6,
+            "StaticMesh": 16,
+            "LandscapeGrassType": 5,
+            "TextureRenderTarget2D": 3,
+            "Texture2D": 32
+          },
+          "static_mesh_metadata": {
+            "total": 16,
+            "loaded": 16,
+            "nanite_enabled": 15,
+            "simple_collision_present": 10,
+            "multiple_lods": 12,
+            "unavailable_properties": 0
+          }
+        },
+        {
+          "root": "/Game/PN_FoliageCollection",
+          "assets": 1474,
+          "classes": {
+            "Blueprint": 4,
+            "FoliageType_InstancedStaticMesh": 278,
+            "World": 2,
+            "LandscapeLayerInfoObject": 7,
+            "Material": 7,
+            "MaterialInstanceConstant": 281,
+            "MaterialFunction": 29,
+            "MaterialParameterCollection": 2,
+            "StaticMesh": 278,
+            "Texture2D": 574,
+            "AnimSequence": 7,
+            "AnimBlueprint": 1,
+            "BlendSpace1D": 1,
+            "SkeletalMesh": 1,
+            "PhysicsAsset": 1,
+            "Skeleton": 1
+          },
+          "static_mesh_metadata": {
+            "total": 278,
+            "loaded": 278,
+            "nanite_enabled": 0,
+            "simple_collision_present": 179,
+            "multiple_lods": 278,
+            "unavailable_properties": 0
+          }
+        }
+      ],
+      "graphs": [],
+      "asset_load_errors": [],
+      "raw_report": "D:/FPS3D/FPSGAME/Saved/WorldGenerationAudit/FabNatureExport-assets.json",
+      "raw_sha256": "B3A39855121C3C3039213D44243D96E697E19E9053281BBACA71A97CD7007393"
+    }
+  ],
+  "vault": {
+    "root": "C:/ProgramData/Epic/EpicGamesLauncher/VaultCache/FabLibrary",
+    "folder_count": 28,
+    "folders": [
+      "______-880e319a",
+      "_Free__Dynamic_Sky___Light_Manager-83f525a4",
+      "ANIMAL_VARIETY_PACK-2dd7964c",
+      "Dirty_Metal-17d58a5d",
+      "Free_Thunder_Sounds-c832a656",
+      "Grass_Landscape_Material_Vol__I-029abeaf",
+      "Holographic_Sight-f87b8689",
+      "Industrial_Infrastructure-60cf60a7",
+      "Knife_FPS_Animations-ccff0d84",
+      "Landscape_Material___MW_Landscape_Auto_Material-6602874e",
+      "M4_Modular_Kit-b5b0c0ba",
+      "Megaplants__Black_Poplar-6b22075c",
+      "Megaplants__Huckleberry_Oak-ccd9583a",
+      "Megaplants__Wood_Anemone-636348cc",
+      "Metahuman_Animation_Tool__MAT_-843baea2",
+      "Military_Trench_Megascans_Sample-f18c343f",
+      "Niagara_Examples_Pack-0e188eca",
+      "Organic_Surface_Material-e41a57c0",
+      "Orphans_of_the_Great_War_-_Props_for_characters_-_Asset_Pack-b78b786a",
+      "Realistic_Starter_VFX_Pack_Vol_2-ac2818b3",
+      "RPG_-_Crafting___Environment_VFX-a5077033",
+      "Sharur_s_Normandy_Village___PCG_Plants-bf734560",
+      "Simple_Water_Puddles__Free_-5718b8ac",
+      "Soviet_Assault_Rifle-d14e05e8",
+      "temperate_Vegetation__Foliage_Collection-6a5ae8db",
+      "Walnut_Veneer-67d7d60c",
+      "Ziarat_White_Marble-3a50ef74",
+      "Zombie_Female__Nurse-35246f73"
+    ],
+    "readable_json_manifest_count": 4,
+    "readable_json_manifests": [
+      {
+        "name": "ANIMAL VARIETY PACK",
+        "listing": "https://www.fab.com/listings/2dd7964c-a601-4264-a53d-465dcae1644c",
+        "catalog_folder": "ANIMAL_VARIETY_PACK-2dd7964c",
+        "app": "ANIMALVAc661d0a95645V1",
+        "compatible": "UE_4.15,UE_4.16,UE_4.17,UE_4.18,UE_4.19,UE_4.20,UE_4.21,UE_4.22,UE_4.23,UE_4.24,UE_4.25,UE_4.26,UE_4.27,UE_5.0,UE_5.1,UE_5.2,UE_5.3,UE_5.4,UE_5.5",
+        "manifest_files": 220,
+        "local_data_exists": true,
+        "license": "Not established by cache metadata"
+      },
+      {
+        "name": "Grass Landscape Material Vol. I",
+        "listing": "https://www.fab.com/listings/029abeaf-f109-4a66-9761-98ed53a511bb",
+        "catalog_folder": "Grass_Landscape_Material_Vol__I-029abeaf",
+        "app": "GrassLan0613fd44dea9V1",
+        "compatible": "UE_4.19,UE_4.20,UE_4.21,UE_4.22,UE_4.23,UE_4.24,UE_4.25,UE_4.26,UE_4.27,UE_5.0,UE_5.1,UE_5.2,UE_5.3,UE_5.4",
+        "manifest_files": 67,
+        "local_data_exists": true,
+        "license": "Not established by cache metadata"
+      },
+      {
+        "name": "Realistic Starter VFX Pack Vol 2",
+        "listing": "https://www.fab.com/listings/ac2818b3-7d35-4cf5-a1af-cbf8ff5c61c1",
+        "catalog_folder": "Realistic_Starter_VFX_Pack_Vol_2-ac2818b3",
+        "app": "Realistif489377b0596V2",
+        "compatible": "UE_5.0,UE_5.1,UE_5.2,UE_5.3,UE_5.4,UE_5.5,UE_5.6,UE_5.7,UE_5.8",
+        "manifest_files": 188,
+        "local_data_exists": true,
+        "license": "Not established by cache metadata"
+      },
+      {
+        "name": "temperate Vegetation: Foliage Collection",
+        "listing": "https://www.fab.com/listings/6a5ae8db-d80f-4b23-b276-87da390cfe56",
+        "catalog_folder": "temperate_Vegetation__Foliage_Collection-6a5ae8db",
+        "app": "interacta475993b0c13V3",
+        "compatible": "UE_4.19,UE_4.20,UE_4.21,UE_4.22,UE_4.23,UE_4.24,UE_4.25,UE_4.26,UE_4.27,UE_5.0,UE_5.1,UE_5.2,UE_5.3,UE_5.4",
+        "manifest_files": 1474,
+        "local_data_exists": true,
+        "license": "Not established by cache metadata"
+      }
+    ],
+    "note": "Other manifests were not decoded. Folder names alone are not download or license confirmation."
+  },
+  "verification": {
+    "host_marker": "WORLD_ASSET_AUDIT_COMPLETE FPSGAME meshes=446 errors=0",
+    "nature_marker": "WORLD_ASSET_AUDIT_COMPLETE FabNatureExport meshes=353 errors=0",
+    "host_exit_code": 1,
+    "host_exit_reason": "Existing GameFeatureData AssetManager configuration errors; audit completed",
+    "nature_exit_code": 0,
+    "visual_evidence": "Viewed existing local atlas_sheet.jpg and MWGroundReview/swatches.jpg; not current runtime world acceptance",
+    "gameplay_changes": false,
+    "asset_imports": false,
+    "runtime_world_tested": false
+  },
+  "findings": [
+    "PN_FoliageCollection: 96 flower + 110 grass + 72 ground cover variants, all 278 read with four LODs; not tree species count.",
+    "Megaplants: 58 StaticMesh records were registry-only, not full high-density source loads; whole Black Poplar A-D are SkeletalMesh.",
+    "Normandy: both PCG graphs sample Landscape; all six audited graphs have hierarchical generation disabled.",
+    "Metadata indicates configuration only; collisions, materials, wind and performance require in-game validation."
+  ]
+}

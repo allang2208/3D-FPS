@@ -30,6 +30,7 @@ public class FPSGAME : ModuleRules
         PrivateDependencyModuleNames.Add("PhysicsCore");
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });
+        PrivateDependencyModuleNames.AddRange(new[] { "PCG", "GeometryCore", "GeometryFramework" });
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("NiagaraEditor");
         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add("UnrealEd");
     }

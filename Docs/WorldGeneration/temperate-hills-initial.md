@@ -1,0 +1,71 @@
+# 温带丘陵植被初版
+
+独立地图：`/Game/GameMaps/L_TemperateHills_Initial`。范围为 1.024 × 1.024 km，UE 5.8.2。
+
+## 打开
+
+在项目根运行：
+
+```powershell
+& ./Tools/WorldGeneration/Open-TemperateHills.ps1
+& ./Tools/WorldGeneration/Open-TemperateHills.ps1 -Continue
+& ./Tools/WorldGeneration/Open-TemperateHills.ps1 -Seed 122
+```
+
+第一条建立随机种子的新世界，第二条沿用本样地上次的种子和世界 ID，第三条建立指定种子的世界。样地使用独立玩家档案 `TemperateHillsStudy`、世界槽 `TemperateHills_World`。标准 FPS 移动操作可在生成地面行走。
+
+## 生成规则
+
+1. 全局坐标与种子决定连续高度：大尺度起伏、扭曲丘陵、弯曲谷地、小尺度地表细节。64 块 128 m 地形使用相同的高度及法线函数，顶点间距 2 m。
+2. 地形碰撞完成后才生成玩家。谷地保留无树走廊，出生点周围保留空地。
+3. 四层 PCG Graph 使用项目的 `TemperateHillsPoints` 节点输出带 `Mesh` 和 `CandidateKey` 属性的点，再接 UE 原生实例生成器。黑杨使用 Skinned Mesh Spawner；岩石、灌木和草使用 Static Mesh Spawner。关卡保存 PCG World Actor；运行时完成地形后明确注册各层执行源。
+4. 黑杨使用 12 m 抖动候选网格与低频林地密度，拒绝陡坡、谷地和出生点；四种模型随机旋转、缩放。草、灌木、岩石采用独立种子盐和间距，避免贴近树干。
+5. PCG 使用 128/64/32 m 网格，树木/岩石/灌木/草的生成半径分别为 720/550/260/120 m；清理半径为生成半径的 1.3 倍。格子使用半开边界，每个点只有一个所属格，加载顺序不会改变布局。
+6. 9 处谷地低雾使用 Normandy 现有雾体蓝图和材质的独立实例，贴合本世界高度。地表材质混合草苔、草土和碎石，并读取现有天气管理器的地表湿度。
+
+## 本次使用的资产
+
+| 来源 | 选用内容 | 用法 |
+|---|---|---|
+| Megaplants: Black Poplar | `Tree_Black_Poplar_01_A/B/C/D` | 原生 Nanite 骨骼树木实例；资产没有 PhysicsAsset，样地单独生成轻量树干碰撞 |
+| Normandy | `SM_Grass_00A/01A/02A`、`SM_GrassTall_00A` | 地表草丛 |
+| Normandy | `SM_PlantTypeA/B/C_00A` | 林下灌木 |
+| Normandy | `SM_LS_Rock_00A` 至 `03A` | 坡地岩石 |
+| Normandy | `GroundGrassMoss/GrassSoil/RockyRoad` 三组贴图 | 本项目生成地形的独立材质 |
+| Normandy | `BP_LocalFogVolume_Master`、`MI_VolumeFog_01A` | 独立稀薄低雾实例 |
+| Military Trench / Industrial Infrastructure | 本轮未选用 | 当前纯自然样地没有需要接入的军事或工业设施 |
+
+源包资产保持原样；只保存 `WorldGeneration/TemperateHills` 中本次生成的配置、PCG 图、材质、用于实例化的四棵树木副本，以及独立样地地图。没有复制源包示例关卡。具体引用由 `Saved/TemperateHills/authoring.json` 记录，原资产属性探查见 `source-probe.json`。
+
+黑杨依赖引擎的 **ProceduralVegetationEditor** 插件内容：两个原始材质实例的父材质为 `/ProceduralVegetationEditor/SampleAssets/Materials/MasterMaterials/MA_Foliage_Trees`。工程已启用该插件及其声明的 DynamicWind 等依赖，以及 `r.Nanite.Foliage=1`（需要重启编辑器、首次编译对应着色器）。黑杨的枝叶使用 Nanite Assemblies/Voxels，普通 Nanite 开关不足以显示完整树冠，参见 [Epic 的 Nanite Foliage 说明](https://dev.epicgames.com/documentation/unreal-engine/nanite-foliage)。
+
+本项目复制父材质、两个材质实例及四棵现有树木到样地目录，仅补充 InstancedSkinnedMesh 材质用途并重定向材质；几何和原始源资产不改动。UE 5.8 的 Skinned Mesh Spawner 尚未实现描述符材质覆盖，因此需要这层项目内副本。这里使用现有树型输出，不进行 PVE 树型重建；风动仍需单独视觉验收。
+
+## 实现与复建
+
+- `Source/FPSGAME/WorldGeneration/TemperateHillsWorld.*`：种子、地形、植被规则、玩家落地、碰撞、低雾与运行验证。
+- `Source/FPSGAME/WorldGeneration/TemperateHillsPCG.*`：运行时 PCG 点数据。
+- `Tools/WorldGeneration/build_temperate_hills.py`：UE Editor Python 作者脚本；先编译原生模块，再用独立命令行编辑器执行。
+- `-HillsAudit -HillsSeed=122 -HillsLabel=seed122`：运行验证并将实际游戏截图与布局摘要写入 `Saved/TemperateHills/seed122`。
+
+在已恢复 Black Poplar、Normandy 资产并编译 Editor 模块的本机执行资产生成：
+
+```powershell
+& 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' 'D:/FPS3D/FPSGAME/FPSGAME.uproject' -run=pythonscript -script='D:/FPS3D/FPSGAME/Tools/WorldGeneration/build_temperate_hills.py' -unattended -multiprocess -NullRHI -nosplash
+```
+
+Git 发布源码、作者脚本和说明。树木、贴图、引擎插件及生成的二进制地图/材质保留在本机，不随源码公开再分发；新机器需要先恢复相同内容依赖。普通启动脚本不会启用 `HillsAudit`，也不会自动执行测试。
+
+## 初版边界
+
+这是单机、可行走的植被样地。地形当前在开始时全部建立，尚未实现大世界地形流送和远景 LOD；仅植被使用 PCG 按距离调度。世界存档只保存种子、版本与世界 ID，尚无砍树、采集、建筑、怪物导航和这些行为的持久化。光照用于此次样地观察，完整日夜天气联动和树木风动另行验收。地图边缘是样地边界，尚无正式世界边界玩法。
+
+## 构建与交付状态
+
+2026-09-12：Editor 与 Game 原生目标编译成功，作者脚本已生成独立地图、四层 PCG 和项目内资产副本。
+
+在项目更新“由用户自行测试”的规则之前，开发运行曾完成 64 块地形、81 处高度碰撞射线、玩家落地、树干阻挡、候选点唯一性、存档读回和实例生成检查。种子 122 的采样地形高程为 37.390–76.310 m，黑杨实例数为 1,844；这些是此前开发运行的记录，不代表最终画面验收。
+
+最后补充了 `r.Nanite.Foliage=1` 以开启黑杨依赖的 Nanite Assemblies/Voxels。发现项目最新规则后已停止自动运行，**此设置后的完整树冠、风动、新建随机世界与跨进程继续游戏尚未完成最终测试**。此前截图含不完整树冠，不作为最终效果图。首次打开需等待树木渲染数据和着色器编译；已打开的编辑器需要重启才能使用新设置。
+
+此地图尚未接入主菜单；请使用上方启动脚本进入。完整大世界、地形流送、性能及打包验收不属于本次已完成范围。
