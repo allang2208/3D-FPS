@@ -26,6 +26,9 @@ void UFPSTraversalComponent::RunRuntimeAudit()
     auto* P=C?C->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     const float Now=GetWorld()->GetTimeSeconds();
     if (!P || !P->ProfileSlot().Contains(TEXT("TraversalRuntimeAudit")) || Now<5) return;
+    if (FParse::Param(FCommandLine::Get(),TEXT("TraversalVillageAudit"))) { RunVillageAudit(); return; }
+    if (FParse::Param(FCommandLine::Get(),TEXT("TraversalAirAudit"))) { RunAirAudit(); return; }
+    if (FParse::Param(FCommandLine::Get(),TEXT("TraversalBoundaryAudit"))) { RunBoundaryAudit(); return; }
     const auto Check=[&](bool OK,const TCHAR* Label) { if(!OK) ++AuditFailures; UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_RUNTIME %s case=%d %s"),OK?TEXT("PASS"):TEXT("FAIL"),AuditCase,Label); };
     const auto Box=[&](FVector Pos,FVector Size)
     {
@@ -70,7 +73,11 @@ void UFPSTraversalComponent::RunRuntimeAudit()
         {
             if (IsValid(AuditWall)) AuditWall->Destroy();
             AuditWall=Box(Origin+FVector(102+Depth*.5f,0,H*.5f),FVector(Depth,400,H));
-            if (bSurfaceAudit && (AuditCase==1||AuditCase==2)) AuditWall->SetActorRotation(FRotator(0,0,AuditCase==1?6.f:-6.f));
+            if (bSurfaceAudit && (AuditCase==1||AuditCase==2))
+            {
+                CastChecked<AStaticMeshActor>(AuditWall)->SetMobility(EComponentMobility::Movable);
+                AuditWall->SetActorRotation(FRotator(0,0,AuditCase==1?6.f:-6.f));
+            }
         }
         C->GetCharacterMovement()->StopMovementImmediately();C->SetActorLocationAndRotation(Origin+FVector(54,0,98),FRotator::ZeroRotator);
         C->GetCharacterMovement()->SetMovementMode(MOVE_Walking); C->Controller->SetControlRotation(FRotator::ZeroRotator);
@@ -95,38 +102,33 @@ void UFPSTraversalComponent::RunRuntimeAudit()
             C->Controller->SetControlRotation(C->GetActorRotation());
         }
         const auto Probe=FindTarget(true,true);
+        if (bSurfaceAudit && (AuditCase==1||AuditCase==2))
+            Check(FMath::Abs(AuditWall->GetActorRotation().Roll)>5.9f && Probe.Handholds.Num()==2 &&
+                FMath::Abs(Probe.Handholds[0].Position.Z-Probe.Handholds[1].Position.Z)>5.f,
+                TEXT("real sloped fixture produces independently elevated handholds"));
         UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_COURSE_PROBE case=%d reason=%s target=%s"),AuditCase,*Probe.Reason,*GetNameSafe(Probe.Obstacle));
         if (AuditCase==0 && !bCourse)
         {
-            C->JumpPressed(); Check(bPendingJumpHold&&!bTraversing,TEXT("press near wall waits for hold"));
-            AdvanceJumpHold(.15f); Check(bPendingJumpHold&&!bTraversing,TEXT("150 ms hold cannot traverse"));
-            C->JumpReleased(); Check(!bPendingJumpHold&&!bTraversing&&C->JumpBufferRemaining>0,TEXT("short press queues ordinary jump"));
-            C->JumpBufferRemaining=0;
-            C->JumpPressed(); C->SetActorRotation(FRotator(0,90,0)); AdvanceJumpHold(.4f);
-            Check(!bPendingJumpHold&&!bTraversing,TEXT("turning away cancels hold")); C->JumpReleased();
+            C->Controller->SetControlRotation(FRotator(0,90,0)); C->JumpPressed();
+            Check(!bTraversing,TEXT("press facing away uses normal jump")); C->JumpReleased();
+            C->JumpBufferRemaining=0; C->StopJumping();
+            C->Controller->SetControlRotation(FRotator::ZeroRotator);
             C->SetActorRotation(FRotator::ZeroRotator);
-            C->JumpPressed(); C->SetActorLocation(Origin+FVector(0,0,98)); AdvanceJumpHold(.4f);
-            Check(!bPendingJumpHold&&!bTraversing,TEXT("leaving wall cancels hold")); C->JumpReleased();
-            C->SetActorLocation(Origin+FVector(54,0,98));
         }
-        if (bCourse) GetWorld()->GetFirstPlayerController()->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::SpaceBar,IE_Pressed,1));
-        else C->JumpPressed();
-        Check(!bTraversing,TEXT("wall press defers traversal"));
-        AuditStage=10; AuditAt=Now; return;
+        // The press and release can arrive within one input frame. A tap still
+        // consumes jump exactly once and cannot cancel an accepted traversal.
+        auto* PC=GetWorld()->GetFirstPlayerController();
+        PC->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::SpaceBar,IE_Pressed,1));
+        PC->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::SpaceBar,IE_Released,0));
+        AuditStage=11; AuditAt=Now; return;
     }
-    if (AuditStage==10 && Now-AuditAt>.15f)
+    if (AuditStage==11)
     {
-        // A long render frame may already cross the hold threshold.
-        if (Now-AuditAt<GetDefault<UFPSTraversalSettings>()->HoldToTraverseTime)
-            Check(!bTraversing,TEXT("hold below threshold cannot traverse"));
-        AuditStage=11; return;
-    }
-    if (AuditStage==11 && Now-AuditAt>.30f)
-    {
-        Check(bTraversing&&!bPendingJumpHold,TEXT("continuous wall-facing hold starts traversal"));
-        if (bCourse) GetWorld()->GetFirstPlayerController()->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::SpaceBar,IE_Released,0));
-        else C->JumpReleased();
+        Check(bTraversing,TEXT("space tap starts traversal without hold delay"));
+        Check(C->JumpBufferRemaining==0,TEXT("accepted tap does not queue a second jump"));
         if (!bTraversing) { AuditStage=3;AuditAt=Now;return; }
+        if (LastJumpTarget.Action==EFPSTraversalAction::Vault)
+            Check(FMath::IsNearlyEqual(Duration/PlaybackRate,.4f,.001f),TEXT("vault body and animation finish in 0.4 seconds"));
         C->FirePressed();C->AimPressed();C->ReloadPressed();
         Check(!C->IsAiming()&&!C->IsReloading()&&C->MagazineAmmo==AuditAmmo,TEXT("hands occupied blocks fire ADS reload"));
         const FString Weapon=C->ActiveInventoryWeapon;
@@ -152,14 +154,17 @@ void UFPSTraversalComponent::RunRuntimeAudit()
         if(AuditCase==4&&bTraversing&&Elapsed>.2f) {AuditWall->Destroy();}
         if(!bTraversing || Now-AuditAt>6) {
             Check(!bTraversing,TEXT("executor exits within duration"));
-            if(AuditCase!=4)Check(LastExitLocation.Equals(LastJumpTarget.Destination,5.f),TEXT("capsule reaches supported destination"));
-            else Check(!LastExitLocation.Equals(LastJumpTarget.Destination,5.f),TEXT("removed obstacle interrupts movement"));
+            if (AuditCase!=4)
+                Check(FMath::Abs((Now-AuditAt)-Duration/PlaybackRate)<.1f,TEXT("measured execution time matches playback rate"));
+            if(AuditCase!=4)Check(bLastTraversalSucceeded && C->GetCharacterMovement()->IsMovingOnGround() && LastExitLocation.Equals(LastJumpTarget.Destination,5.f),TEXT("capsule reaches live supported destination"));
+            else Check(!bLastTraversalSucceeded && !LastExitLocation.Equals(LastJumpTarget.Destination,5.f),TEXT("removed obstacle interrupts movement"));
             Check(C->GetCharacterMovement()->MovementMode!=MOVE_None && C->AKMViewmodel->IsVisible(),TEXT("movement and weapon restored"));
             Check(C->MagazineAmmo==AuditAmmo,TEXT("traversal preserves ammunition"));
             if (bSurfaceAudit && AuditCase!=4)
             {
                 auto* SurfaceArms=CastChecked<UFPSTraversalArmsComponent>(Arms);
                 Check(SurfaceArms->SurfaceCorrections>0,TEXT("surface-aware arm correction executed"));
+                Check(SurfaceArms->AnchoredHandCount()==2,TEXT("both hands use detector-approved contacts"));
                 Check(SurfaceArms->MaxBoneLengthError<.05f,TEXT("surface IK preserves limb lengths"));
                 Check(!Arms->IsVisible(),TEXT("traversal arms removed before free look resumes"));
                 Check(Duration<=Release+.301f,TEXT("released animation tail no longer stalls traversal"));

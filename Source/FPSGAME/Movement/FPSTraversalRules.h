@@ -23,10 +23,12 @@ struct FPSGAME_API FFPSTraversalProbe
     UPROPERTY(EditAnywhere, BlueprintReadWrite) float LandingHeightDelta = 0.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bJumpPressed = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bStandingGrounded = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAirborne = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bAirReachable = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTraversalAvailable = false;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bStaticObstacle = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bStableObstacle = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bApproachClear = false;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTopWalkable = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTopGrippable = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bTopStandingSpace = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bVaultPathClear = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) bool bLandingStandingSpace = false;
@@ -39,16 +41,19 @@ class FPSGAME_API UFPSTraversalSettings : public UObject
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(Config, EditAnywhere, Category="Traversal|Input", meta=(ClampMin="0.1")) float HoldToTraverseTime = .25f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Height") float StepHeight = 50.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Height") float VaultMaxHeight = 120.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Height") float MantleMaxHeight = 200.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float VaultMaxDepth = 120.f;
-    UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MantleMinDepth = 100.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxEdgeDistance = 20.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxFacingAngle = 40.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxLandingDrop = 60.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Geometry") float MaxLandingRise = 50.f;
+    UPROPERTY(Config, EditAnywhere, Category="Traversal|Air") float AirMinLedgeHeight = 20.f;
+    UPROPERTY(Config, EditAnywhere, Category="Traversal|Air") float AirMaxLedgeHeight = 200.f;
+    UPROPERTY(Config, EditAnywhere, Category="Traversal|Air") float AirMaxFallSpeed = 900.f;
+    UPROPERTY(Config, EditAnywhere, Category="Traversal|Air") float AirMaxLandingDrop = 200.f;
+    UPROPERTY(Config, EditAnywhere, Category="Traversal|Animation", meta=(ClampMin="0.1")) float VaultPlaybackRate = 2.f;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Animation") TSoftObjectPtr<class USkeletalMesh> ArmsMesh;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Animation") TSoftObjectPtr<class UAnimSequence> VaultAnimation;
     UPROPERTY(Config, EditAnywhere, Category="Traversal|Animation") TSoftObjectPtr<class UAnimSequence> MantleAnimation;

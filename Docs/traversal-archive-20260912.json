@@ -1,0 +1,258 @@
+[
+  {
+    "source": "Saved/TraversalAir20260911/Before/Config/DefaultGame.ini",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Config/DefaultGame.ini",
+    "bytes": 2851,
+    "sha256": "29a23b875946d99b11998e75345779af4a68ba64b9cbe6e728f8a49372df2911",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Config/DefaultGame.ini"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "bytes": 81872,
+    "sha256": "c0ecbea9bfd887932c9bf608f8f9b67663c13511aa802b5202ff77f544190d4e",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/FPSGAMECharacter.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.cpp",
+    "bytes": 6814,
+    "sha256": "9026b10355552d63b52d85b4dc4018ad7eab41c53e4d09553189d1429f7f098a",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalArmsComponent.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.h",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.h",
+    "bytes": 1004,
+    "sha256": "b2dcf5ed46c22108a9406d45ce7a39ee59615a1b1cf987d23ed9d34221eb2bcc",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalArmsComponent.h"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+    "bytes": 12070,
+    "sha256": "4d09c5f376b61c3d86d7eda82025d2761ad159cad624391daba996540c2e3129",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalComponent.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.h",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.h",
+    "bytes": 3350,
+    "sha256": "a005257580e251e2678bf878110002f094263ae2a3bf3812c16ddd02ee73eb59",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalComponent.h"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+    "bytes": 11794,
+    "sha256": "74339154a5a624c566e7972d1f9c776c684603226291056714555005bc44d2bd",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalExecution.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRules.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRules.cpp",
+    "bytes": 2944,
+    "sha256": "3bbf02e161cfe07cd76cbcdde9eab5d55cdd39731549fae904ccd15b11239f53",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRules.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRules.h",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRules.h",
+    "bytes": 3907,
+    "sha256": "86a89e679f847290aebc08547e3e1c821efd95a2574af74d33210c9833775e01",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRules.h"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRulesAuditCommandlet.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRulesAuditCommandlet.cpp",
+    "bytes": 4189,
+    "sha256": "1dc16d11a3951c31a5a95074358581e61b6d711a680e89ffbf03db4bade0fc80",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRulesAuditCommandlet.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRulesAuditCommandlet.h",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRulesAuditCommandlet.h",
+    "bytes": 266,
+    "sha256": "8e518bd0f9b13561ec3ccda73425e4ed5b9b4b2f5c08eb7f9aeac82caceaa303",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRulesAuditCommandlet.h"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp",
+    "bytes": 11217,
+    "sha256": "325ab18dc652fe2ddd5a641c7a9b2fdfbd19af4c99681ab295d5674c64f16314",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp",
+    "bytes": 5806,
+    "sha256": "439151b0dfa543e0c59aafa49ee897a56eb139f755bc85a62b7f785236b633c8",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalAir20260911/Before/Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp",
+    "bytes": 8523,
+    "sha256": "553ebb78353d6f47bec3ab145dd4f6a01aadc70389697c87c9043343cde202f1",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalView20260911/Before/Docs/traversal-air-catch-20260911.md",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalView20260911/Before/Docs/traversal-air-catch-20260911.md",
+    "bytes": 5685,
+    "sha256": "1cbd9008c08fa1af76c068bfa3f82b6dcf184f26ca99f787fd7ce3374d8710fe",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Docs/traversal-air-catch-20260911.md"
+  },
+  {
+    "source": "Saved/TraversalView20260911/Before/Docs/traversal-trigger-rules.md",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalView20260911/Before/Docs/traversal-trigger-rules.md",
+    "bytes": 15611,
+    "sha256": "29e1aa51f42f10bd5801a498727be136f3edf3d1d3230ebdec9fae26823f03a3",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Docs/traversal-trigger-rules.md"
+  },
+  {
+    "source": "Saved/TraversalView20260911/Before/skills/ue5-fps-arms-animation/references/traversal-contact.md",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalView20260911/Before/skills/ue5-fps-arms-animation/references/traversal-contact.md",
+    "bytes": 6817,
+    "sha256": "87f28eefa8d1e8c7e61c3376bb60f676540c42c1fbcc3329c3d2dcf75cdf18d9",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "skills/ue5-fps-arms-animation/references/traversal-contact.md"
+  },
+  {
+    "source": "Saved/TraversalView20260911/Before/Source/FPSGAME/Movement/FPSTraversalAirAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalView20260911/Before/Source/FPSGAME/Movement/FPSTraversalAirAudit.cpp",
+    "bytes": 9158,
+    "sha256": "fed1153da42bfecd57eac9aed90d6fb687accc6ffd3320297cf2e3d306b981f9",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalAirAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalView20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalView20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+    "bytes": 13228,
+    "sha256": "ab54970b08bf612abe93eb411fd203a95771555fc0edae064623063969f6cea9",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalComponent.cpp"
+  },
+  {
+    "source": "Saved/TraversalView20260911/Before/Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalView20260911/Before/Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp",
+    "bytes": 9815,
+    "sha256": "bec624ec2671a2cdf0d672bc20b8c2f83e976cc6cc0ea6428d5010bbf0529fdf",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "bytes": 81935,
+    "sha256": "0e4d52449f931868b64644624e4e08c10b0b6f92ffe25e35d47e238cb0330ef4",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/FPSGAMECharacter.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Monsters/HandBrainFearComponent.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Monsters/HandBrainFearComponent.cpp",
+    "bytes": 2694,
+    "sha256": "476da683785095bc191b9367a7d1c6954380d1ede2a2e0a5593917c7fb3ad856",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Monsters/HandBrainFearComponent.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalAirAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalAirAudit.cpp",
+    "bytes": 10440,
+    "sha256": "f5823cae40d8cc37f1bdc4a8ce6aaddf70cf9d6464b15f64366e64a5ccb87887",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalAirAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.cpp",
+    "bytes": 6814,
+    "sha256": "9026b10355552d63b52d85b4dc4018ad7eab41c53e4d09553189d1429f7f098a",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalArmsComponent.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.h",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalArmsComponent.h",
+    "bytes": 1004,
+    "sha256": "b2dcf5ed46c22108a9406d45ce7a39ee59615a1b1cf987d23ed9d34221eb2bcc",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalArmsComponent.h"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.cpp",
+    "bytes": 13239,
+    "sha256": "db03ee1ea1917209a1e574322a43aa067dff713a338a8b0da0f2b850bd7cf113",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalComponent.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.h",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalComponent.h",
+    "bytes": 3791,
+    "sha256": "19d6a7f31181b6a9129598a4c04278b16a1124f11e3dc86af91e1d256085b8df",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalComponent.h"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+    "bytes": 12833,
+    "sha256": "7099d38c2709cafe6423bd4acbf45107ce6018fc642a18ad2f1f7a018199eec5",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalExecution.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp",
+    "bytes": 11314,
+    "sha256": "11b6702713f06dae379d38b3d066bac10fabb66b205ca831eed8ca63da480248",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalRuntimeAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp",
+    "bytes": 5806,
+    "sha256": "439151b0dfa543e0c59aafa49ee897a56eb139f755bc85a62b7f785236b633c8",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp"
+  },
+  {
+    "source": "Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp",
+    "archive": "trash/traversal-publication-20260912/Saved/TraversalFix20260911/Before/Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp",
+    "bytes": 11523,
+    "sha256": "69f0fca5ed444b3d242d1a15f91a8d975c0b048613554c85bfeebbf348c85b04",
+    "reason": "Pre-change source backup superseded by validated traversal implementation",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalWorldAudit.cpp"
+  },
+  {
+    "source": "Tools/SceneTests/inspect_village_traversal.py",
+    "archive": "trash/traversal-publication-20260912/Tools/SceneTests/inspect_village_traversal.py",
+    "bytes": 2274,
+    "sha256": "7a437b21a8b89914c909631a5296bc304dccec60db0bbb594c74cd0be4f63c60",
+    "reason": "Editor-only preliminary probe superseded by actual possessed-character VillageAudit",
+    "replacement": "Source/FPSGAME/Movement/FPSTraversalVillageAudit.cpp"
+  }
+]

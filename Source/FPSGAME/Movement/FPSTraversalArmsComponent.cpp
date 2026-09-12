@@ -1,13 +1,21 @@
 #include "FPSTraversalArmsComponent.h"
+#include "FPSTraversalComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/Character.h"
 #include "TwoBoneIK.h"
 
-void UFPSTraversalArmsComponent::SetSurfaceContact(UPrimitiveComponent* Surface,FVector Edge,FVector Outward,float Weight)
+void UFPSTraversalArmsComponent::SetSurfaceContact(const FFPSTraversalTarget& Target,float Weight)
 {
-    ContactSurface=Surface; EdgePoint=Edge; WallOut=Outward; ContactWeight=Weight;
+    ContactSurface=Target.Obstacle; WallOut=Target.WallNormal; ContactWeight=Weight;
+    if (Weight>0.f && Target.Handholds.Num()==2)
+        for (int32 Side=0;Side<2;++Side)
+        {
+            Anchors[Side]=Target.Handholds[Side].Position;
+            SurfaceNormals[Side]=Target.Handholds[Side].Normal;
+            bAnchored[Side]=true;
+        }
 }
 void UFPSTraversalArmsComponent::ResetSurfaceContact()
 {
@@ -26,8 +34,6 @@ void UFPSTraversalArmsComponent::FitSurfacePose()
     const FTransform MeshToWorld=GetComponentTransform();
     FCollisionQueryParams Query(SCENE_QUERY_STAT(TraversalArmSurface),false,GetOwner());
     const FName Profile=CastChecked<ACharacter>(GetOwner())->GetCapsuleComponent()->GetCollisionProfileName();
-    const auto Ray=[&](FHitResult& Hit,FVector From,FVector To)
-    { return GetWorld()->LineTraceSingleByProfile(Hit,From,To,Profile,Query) && !Hit.bStartPenetrating; };
     const auto ClearPoint=[&](FVector Point,float Radius)
     {
         // Approach from free space; this also finds penetrations whose end point
@@ -50,26 +56,6 @@ void UFPSTraversalArmsComponent::FitSurfacePose()
         if (!Pose.IsValidIndex(U)||!Pose.IsValidIndex(L)||!Pose.IsValidIndex(H)) continue;
         const FVector Wrist=MeshToWorld.TransformPosition(Pose[H].GetLocation());
         FVector Wanted=Wrist;
-        if (!bAnchored[Side])
-        {
-            // Each hand samples its own top and front face: uneven/chamfered
-            // ledges need not share the centre probe's height or front plane.
-            FVector Seed=Wrist-WallOut*FVector::DotProduct(Wrist-EdgePoint,WallOut)-WallOut*8.f;
-            Seed.Z=EdgePoint.Z;
-            FHitResult Top,Front;
-            if (Ray(Top,Seed+FVector::UpVector*35.f,Seed-FVector::UpVector*35.f) &&
-                Top.GetComponent()==ContactSurface.Get() && Top.Normal.Z>.65f)
-            {
-                FVector Face=Top.ImpactPoint-FVector::UpVector*4.f;
-                if (Ray(Front,Face+WallOut*60.f,Face-WallOut*20.f) && Front.GetComponent()==ContactSurface.Get())
-                {
-                    Anchors[Side]=Front.ImpactPoint+Front.Normal*5.f;
-                    Anchors[Side].Z=Top.ImpactPoint.Z+3.f;
-                    SurfaceNormals[Side]=Top.ImpactNormal;
-                    bAnchored[Side]=true;
-                }
-            }
-        }
         if (bAnchored[Side]) Wanted=FMath::Lerp(Wrist,Anchors[Side],ContactWeight);
         // Preserve finger pose and add clearance for glove/palm volume, instead
         // of forcing only a zero-radius wrist joint onto a mathematical surface.

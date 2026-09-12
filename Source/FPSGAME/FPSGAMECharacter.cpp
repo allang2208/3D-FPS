@@ -249,7 +249,7 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
     UpdateScopePresentation();
-    Traversal->UpdatePresentation();
+    Traversal->UpdatePresentation(DeltaSeconds);
     ServiceHeldFire();
     UpdateActionPose(DeltaSeconds);
     UpdateDrumDropVisual();
@@ -298,15 +298,16 @@ void AFPSGAMECharacter::SlidePressed()
 
 void AFPSGAMECharacter::JumpPressed()
 {
+    Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;
-    if (Traversal->BeginJumpHold(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
+    if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
     JumpBufferRemaining = JumpInputBufferTime;
     TryBufferedJump();
 }
 void AFPSGAMECharacter::JumpReleased()
 {
+    Traversal->SetJumpHeld(false);
     StopJumping();
-    if (Traversal->ReleaseJumpHold()) JumpBufferRemaining=JumpInputBufferTime;
 }
 
 void AFPSGAMECharacter::FirePressed()
@@ -562,7 +563,8 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     const float NoiseRight = FMath::PerlinNoise1D(FeedbackTime * 11.0f) * 4.5f * TraumaStrength;
     const float NoiseUp = FMath::PerlinNoise1D(FeedbackTime * 13.0f + 91.3f) * 4.5f * TraumaStrength;
     TargetLocation += FVector(-CameraJitterPosition.Z * 100.0f, CameraJitterPosition.X * 100.0f + NoiseRight, CameraJitterPosition.Y * 100.0f + NoiseUp);
-    FirstPersonCamera->SetRelativeLocation(FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
+    FirstPersonCamera->SetRelativeLocation(Traversal->IsCameraRecovering()?TargetLocation:
+        FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
     const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;
     const float NoiseYaw = FMath::PerlinNoise1D(FeedbackTime * 7.0f + 55.0f) * 0.03f * TraumaStrength;

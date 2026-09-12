@@ -5,6 +5,7 @@
 #include "GameFramework/Controller.h"
 #include "Engine/World.h"
 #include "../UI/StatusEffectsComponent.h"
+#include "../Movement/FPSTraversalComponent.h"
 float UHandBrainFearComponent::GetRemainingSeconds() const {return Expirations.IsEmpty()?0.f:FMath::Max(0.f,float(Expirations.Last()-GetWorld()->GetTimeSeconds()));}
 UHandBrainFearComponent::UHandBrainFearComponent(){ PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false; }
 void UHandBrainFearComponent::Apply(AActor* Source)
@@ -14,6 +15,8 @@ void UHandBrainFearComponent::Apply(AActor* Source)
  const double Now=GetWorld()->GetTimeSeconds();Expirations.RemoveAll([Now](double T){return T<=Now;});
  if(Expirations.Num()>=3)Expirations.RemoveAt(0);Expirations.Add(Now+3.0);Stacks=Expirations.Num();
  if(!LockedController.IsValid()&&C->GetController()){LockedController=C->GetController();LockedController->SetIgnoreMoveInput(true);}
+ // Fear takes physical control; ordinary UI input locks do not drop the player.
+ if(auto* Traversal=C->FindComponentByClass<UFPSTraversalComponent>())Traversal->Cancel();
  // Movement already ticks before its owner; placing fear before both avoids a cycle.
  C->GetCharacterMovement()->AddTickPrerequisiteComponent(this);SetComponentTickEnabled(true);
  UStatusEffectsComponent::Notify(GetOwner());

@@ -27,73 +27,37 @@ void UFPSTraversalComponent::InitializePresentation()
     Arms->RegisterComponent(); Arms->SetComponentTickEnabled(false);
 }
 
-bool UFPSTraversalComponent::BeginJumpHold(bool bAvailable)
-{
-    if (bPendingJumpHold) return true;
-    if (bTraversing || !Arms || GetNetMode()!=NM_Standalone)
-    {
-        UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_INPUT_REJECT presentation=%d net=%d active=%d"),Arms!=nullptr,(int32)GetNetMode(),bTraversing);
-        return false;
-    }
-    const auto Target=FindTarget(true,bAvailable);
-    if (Target.Action!=EFPSTraversalAction::Vault && Target.Action!=EFPSTraversalAction::Mantle)
-    {
-        UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_INPUT_REJECT reason=%s available=%d grounded=%d distance=%.2f facing=%.3f approach=%d pos=%s"),
-            *Target.Reason,bAvailable,Target.Probe.bStandingGrounded,Target.Probe.EdgeDistance,Target.Probe.FacingDot,Target.Probe.bApproachClear,*GetOwner()->GetActorLocation().ToString());
-        return false;
-    }
-    auto* Clip=Target.Action==EFPSTraversalAction::Vault?VaultClip.Get():
-        (Target.Probe.Height>GetDefault<UFPSTraversalSettings>()->VaultMaxHeight?ClimbClip.Get():MantleClip.Get());
-    if (!Clip || Clip->GetPlayLength()<=0.f || Clip->GetSkeleton()!=Arms->GetSkeletalMeshAsset()->GetSkeleton()) return false;
-    HoldObstacle=Target.Obstacle; JumpHoldElapsed=0.f; bPendingJumpHold=true;
-    return true;
-}
-
-bool UFPSTraversalComponent::ReleaseJumpHold()
-{
-    const bool bTap=bPendingJumpHold && JumpHoldElapsed<GetDefault<UFPSTraversalSettings>()->HoldToTraverseTime;
-    bPendingJumpHold=false; JumpHoldElapsed=0.f; HoldObstacle.Reset();
-    return bTap;
-}
-
-void UFPSTraversalComponent::AdvanceJumpHold(float DeltaSeconds)
-{
-    if (!bPendingJumpHold) return;
-    auto* C=Cast<AFPSGAMECharacter>(GetOwner());
-    const bool bAvailable=C && C->Controller && !C->Controller->IsMoveInputIgnored() &&
-        !C->bIsSliding && !C->IsWeaponBusy();
-    const auto Target=FindTarget(true,bAvailable);
-    if (Target.Action==EFPSTraversalAction::None || !HoldObstacle.IsValid() || Target.Obstacle!=HoldObstacle.Get())
-    {
-        ReleaseJumpHold(); return;
-    }
-    JumpHoldElapsed+=FMath::Max(0.f,DeltaSeconds);
-    if (JumpHoldElapsed>=GetDefault<UFPSTraversalSettings>()->HoldToTraverseTime)
-    {
-        ReleaseJumpHold();
-        if (TryStart(bAvailable)) { C->JumpBufferRemaining=0.f; C->StopJumping(); }
-    }
-}
-
-bool UFPSTraversalComponent::TryStart(bool bAvailable)
+bool UFPSTraversalComponent::TryStart(bool bAvailable, bool bLogRejection)
 {
     if (bTraversing) return false;
-    InspectJump(bAvailable);
     auto* C=Cast<AFPSGAMECharacter>(GetOwner());
+    InspectJump(bAvailable && C && C->Controller && !C->Controller->IsMoveInputIgnored());
     if (!C || !Arms || GetNetMode()!=NM_Standalone) return false;
     const auto& T=LastJumpTarget;
     const bool bVault=T.Action==EFPSTraversalAction::Vault;
     const bool bHigh=T.Probe.Height>GetDefault<UFPSTraversalSettings>()->VaultMaxHeight;
-    if (!bVault && T.Action!=EFPSTraversalAction::Mantle) return false;
+    if (!bVault && T.Action!=EFPSTraversalAction::Mantle)
+    {
+        if (bLogRejection || bDebugQueries) UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_INPUT_REJECT reason=%s available=%d grounded=%d distance=%.2f facing=%.3f height=%.1f obstacle=%s mobility=%d pos=%s"),
+            *T.Reason,bAvailable,T.Probe.bStandingGrounded,T.Probe.EdgeDistance,T.Probe.FacingDot,T.Probe.Height,
+            *GetNameSafe(T.Obstacle),T.Obstacle?(int32)T.Obstacle->Mobility:-1,*C->GetActorLocation().ToString());
+        return false;
+    }
     ActiveClip=bVault?VaultClip:(bHigh?ClimbClip:MantleClip);
     if (!ActiveClip || ActiveClip->GetPlayLength()<=0.f || ActiveClip->GetSkeleton()!=Arms->GetSkeletalMeshAsset()->GetSkeleton()) return false;
     ClipDuration=ActiveClip->GetPlayLength(); Elapsed=0;
+    bReturningCamera=false; bLastTraversalSucceeded=false;
+    PlaybackRate=bVault?GetDefault<UFPSTraversalSettings>()->VaultPlaybackRate:1.f;
     CastChecked<UFPSTraversalArmsComponent>(Arms)->ResetSurfaceContact();
     Contact=bVault?.27f:(bHigh?.74f:.345f); Release=bVault?.58f:(bHigh?2.25f:1.1f);
     // Keep the grasp/push timings; compress only the released recovery tail.
     Duration=FMath::Min(ClipDuration,Release+(bVault?.22f:.30f));
+    EntryVelocity=T.Probe.bAirborne?C->GetVelocity():FVector::ZeroVector;
     EntryView=(C->Controller?C->Controller->GetControlRotation():C->GetActorRotation()).GetNormalized();
     StartLocation=C->GetActorLocation(); StartCamera=LastCamera=C->FirstPersonCamera->GetComponentLocation();
+    LastCameraRotation=C->FirstPersonCamera->GetComponentQuat();
+    const float LiftDistance=T.RaisedStart.Z-StartLocation.Z;
+    EntryLiftTangent=LiftDistance>1.f?FMath::Clamp(EntryVelocity.Z*(Duration*.4f/PlaybackRate)/LiftDistance,0.f,3.f):0.f;
     StartFoot=StartLocation-FVector(0,0,C->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()+2.f);
     Facing=(-T.WallNormal).Rotation().Quaternion();
     const FQuat MeshRotation=Facing*FRotator(0,90,0).Quaternion();
@@ -112,23 +76,31 @@ bool UFPSTraversalComponent::TryStart(bool bAvailable)
         (Arms->GetSocketLocation(TEXT("head"))+CameraOffset+EdgeCorrection);
     Arms->SetPosition(0,false); Arms->TickAnimation(0,false); Arms->RefreshBoneTransforms();
     ObstacleTransform=T.Obstacle->GetComponentTransform();
+    SupportTransforms.Reset(T.Supports.Num());
+    for (const auto& Support:T.Supports) SupportTransforms.Add(Support->GetComponentTransform());
     bSavedControllerYaw=C->bUseControllerRotationYaw; C->bUseControllerRotationYaw=false;
     C->FireReleased(); C->SetAimingState(false); C->bIsSprinting=false;
     C->GetCharacterMovement()->StopMovementImmediately(); C->ConsumeMovementInputVector();
+    C->JumpBufferRemaining=0.f; C->StopJumping(); bJumpRequestConsumed=true;
     C->GetCharacterMovement()->DisableMovement(); bTraversing=true;
-    UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_START action=%d height=%.1f clip=%s destination=%s"),(int32)T.Action,T.Probe.Height,*ActiveClip->GetName(),*T.Destination.ToString());
+    UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_START action=%d height=%.1f clip=%s destination=%s rate=%.2f seconds=%.3f air=%d entry_vz=%.1f"),(int32)T.Action,T.Probe.Height,*ActiveClip->GetName(),*T.Destination.ToString(),PlaybackRate,Duration/PlaybackRate,T.Probe.bAirborne,EntryVelocity.Z);
     return true;
 }
 
 void UFPSTraversalComponent::Advance(float DeltaSeconds)
 {
-    AdvanceJumpHold(DeltaSeconds);
     if (bRuntimeAudit) RunRuntimeAudit();
+    if (!bTraversing) TryAirCatch();
     if (!bTraversing) return;
     auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
-    if (!IsValid(LastJumpTarget.Obstacle) || !LastJumpTarget.Obstacle->GetComponentTransform().Equals(ObstacleTransform,.1f)) { Finish(false); return; }
+    if (!IsBlockingSupport(LastJumpTarget.Obstacle) || !LastJumpTarget.Obstacle->GetComponentTransform().Equals(ObstacleTransform,.1f)) { Finish(false); return; }
+    for (int32 I=0;I<LastJumpTarget.Supports.Num();++I)
+        if (!IsBlockingSupport(LastJumpTarget.Supports[I]) ||
+            !LastJumpTarget.Supports[I]->GetComponentTransform().Equals(SupportTransforms[I],.1f))
+        { Finish(false); return; }
     C->ConsumeMovementInputVector();
-    const float Next=FMath::Min(Duration,Elapsed+FMath::Max(0.f,DeltaSeconds));
+    // One source-time clock accelerates body, camera, grasp and release together.
+    const float Next=FMath::Min(Duration,Elapsed+FMath::Max(0.f,DeltaSeconds)*PlaybackRate);
     // Visit each corner even on a long frame: never sweep diagonally through the wall.
     const float Boundaries[]={Duration*.40f,Duration*.78f,Duration};
     const FVector Points[]={StartLocation,LastJumpTarget.RaisedStart,LastJumpTarget.RaisedEnd,LastJumpTarget.Destination};
@@ -138,7 +110,15 @@ void UFPSTraversalComponent::Advance(float DeltaSeconds)
         const float Begin=I?Boundaries[I-1]:0.f,End=Boundaries[I];
         if (Cursor>=End || Next<=Begin) continue;
         const float Time=FMath::Min(Next,End);
-        const FVector Position=FMath::Lerp(Points[I],Points[I+1],Ease(Begin,End,Time));
+        float Alpha=Ease(Begin,End,Time);
+        if (I==0 && EntryLiftTangent>0.f)
+        {
+            const float T=FMath::Clamp(Time/End,0.f,1.f);
+            // Monotone Hermite: carry compatible upward velocity into the lift,
+            // ease to zero at the corner, never overshoot the swept segment.
+            Alpha+=EntryLiftTangent*T*(1.f-T)*(1.f-T);
+        }
+        const FVector Position=FMath::Lerp(Points[I],Points[I+1],Alpha);
         FHitResult Hit; C->SetActorLocation(Position,true,&Hit);
         if (Hit.bBlockingHit) { Finish(false); return; }
         Cursor=Time;
@@ -147,24 +127,23 @@ void UFPSTraversalComponent::Advance(float DeltaSeconds)
     if (Elapsed>=Duration) Finish(true);
 }
 
-void UFPSTraversalComponent::UpdatePresentation()
+void UFPSTraversalComponent::UpdatePresentation(float DeltaSeconds)
 {
-    if (!bTraversing) return;
+    if (!bTraversing) { if (bReturningCamera) UpdateCameraReturn(DeltaSeconds); return; }
     auto* C=CastChecked<AFPSGAMECharacter>(GetOwner());
     const float Enter=Ease(0.f,Contact,Elapsed), Exit=Ease(Release,Duration,Elapsed);
     Arms->SetWorldLocation(StartFoot+EdgeCorrection*Enter+EndCorrection*Exit);
     const float SampleTime=Elapsed<=Release?Elapsed:FMath::Lerp(Release,ClipDuration,Ease(Release,Duration,Elapsed));
     const float Plant=Ease(Contact-.12f,Contact,Elapsed)*(1.f-Ease(Release-.12f,Release+.12f,Elapsed));
-    CastChecked<UFPSTraversalArmsComponent>(Arms)->SetSurfaceContact(LastJumpTarget.Obstacle,LastJumpTarget.FrontEdge,LastJumpTarget.WallNormal,Plant);
+    CastChecked<UFPSTraversalArmsComponent>(Arms)->SetSurfaceContact(LastJumpTarget,Plant);
     Arms->SetPosition(SampleTime,false); Arms->TickAnimation(0,false); Arms->RefreshBoneTransforms();
     Arms->UpdateBounds(); Arms->MarkRenderTransformDirty(); Arms->MarkRenderDynamicDataDirty();
     const FVector HeadCamera=Arms->GetSocketLocation(TEXT("head"))+Facing.RotateVector(CameraLocalOffset);
-    FVector Camera=FMath::Lerp(StartCamera,HeadCamera,Ease(0,.15f,Elapsed));
+    const float EntryTime=Elapsed/PlaybackRate;
+    const FVector EntryCamera=StartCamera+FVector(0,0,EntryVelocity.Z)*EntryTime*(1.f-Ease(0.f,.15f,EntryTime));
+    FVector Camera=FMath::Lerp(EntryCamera,HeadCamera,Ease(0,.15f,Elapsed));
     Camera=FMath::Lerp(Camera,LastJumpTarget.Destination+FVector(0,0,C->StandingCameraHeight),Ease(Release,Duration,Elapsed));
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(TraversalCamera),false,C);
-    FHitResult Hit;
-    if (GetWorld()->SweepSingleByChannel(Hit,LastCamera,Camera,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(5),Params))
-        Camera=Hit.bStartPenetrating?LastCamera:Hit.Location;
+    Camera=SweepCamera(LastCamera,Camera);
     LastCamera=Camera; C->FirstPersonCamera->SetWorldLocation(Camera);
     const FVector Hands=(Arms->GetSocketLocation(TEXT("hand_l"))+Arms->GetSocketLocation(TEXT("hand_r")))*.5f;
     const float Glance=FMath::Clamp((Hands-Camera).Rotation().Pitch,-40.f,40.f)*Enter*(1.f-Exit);
@@ -180,6 +159,7 @@ void UFPSTraversalComponent::UpdatePresentation()
     View.Roll=0.f;
     if (C->Controller) C->Controller->SetControlRotation(View);
     View.Pitch=FMath::ClampAngle(View.Pitch+Glance,-80.f,80.f); C->FirstPersonCamera->SetWorldRotation(View);
+    LastCameraRotation=C->FirstPersonCamera->GetComponentQuat();
     const float Stow=Ease(0,.12f,Elapsed)*(1.f-Ease(Release+.12f,Duration,Elapsed));
     // Retract out of the view before restoring unrestricted look.
     Arms->AddWorldOffset(FVector(0,0,-35.f*Ease(Release,Release+.12f,Elapsed)));
@@ -200,8 +180,24 @@ void UFPSTraversalComponent::Finish(bool bSuccess)
     // Falling performs a fresh floor query, including when the support was removed mid-action.
     auto* Movement=C->GetCharacterMovement();
     FFindFloorResult Floor;
-    if (bSuccess) Movement->FindFloor(C->GetActorLocation(),Floor,false);
-    Movement->SetMovementMode(bSuccess && Floor.IsWalkableFloor()?MOVE_Walking:MOVE_Falling);
+    if (bSuccess)
+    {
+        Movement->FindFloor(C->GetActorLocation(),Floor,false);
+        const auto* Capsule=C->GetCapsuleComponent();
+        const FCollisionQueryParams Query(SCENE_QUERY_STAT(TraversalFinish),false,C);
+        bSuccess=Floor.IsWalkableFloor() && Floor.GetDistanceToFloor()<=12.f &&
+            IsBlockingSupport(Floor.HitResult.GetComponent()) &&
+            !GetWorld()->OverlapBlockingTestByProfile(C->GetActorLocation(),Capsule->GetComponentQuat(),
+                Capsule->GetCollisionProfileName(),Capsule->GetCollisionShape(),Query);
+    }
+    bLastTraversalSucceeded=bSuccess;
+    Movement->SetMovementMode(bSuccess?MOVE_Walking:MOVE_Falling);
+    if (!bSuccess)
+    {
+        // Resume physics immediately. Only the rendered view returns gradually.
+        bReturningCamera=true; CameraReturnSpeed=0.f; CameraReturnCapsule=C->GetActorLocation();
+        C->FirstPersonCamera->SetWorldLocationAndRotation(LastCamera,LastCameraRotation);
+    }
     if (bSuccess && C->Controller && !C->Controller->IsMoveInputIgnored())
     {
         const FRotationMatrix Basis(FRotator(0,C->Controller->GetControlRotation().Yaw,0));
@@ -213,7 +209,7 @@ void UFPSTraversalComponent::Finish(bool bSuccess)
     C->FireReleased(); C->ResumeWeaponPose();
     UE_LOG(LogTemp,Display,TEXT("TRAVERSAL_END success=%d location=%s"),bSuccess,*C->GetActorLocation().ToString());
 }
-void UFPSTraversalComponent::Cancel() { ReleaseJumpHold(); if (bTraversing) Finish(false); }
+void UFPSTraversalComponent::Cancel() { bJumpHeld=false; bJumpRequestConsumed=true; if (bTraversing) Finish(false); }
 void UFPSTraversalComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
     Cancel(); Super::EndPlay(Reason);
