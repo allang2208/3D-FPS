@@ -54,7 +54,7 @@ namespace
     constexpr int32 InventoryRows = 4;
     constexpr float TimelineCompactWidth = 360.0f;
     constexpr float TimelineExpandedWidth = 560.0f;
-    constexpr int32 WeatherSegmentsPerDay = 8;
+    constexpr int32 WeatherSegmentsPerDay = AFPSWeatherManager::ScheduleSegmentsPerDay;
     constexpr float TimelineHorizonDays = 5.0f;
 
     const FLinearColor DrawerHeader = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("29323AFF")));
@@ -92,18 +92,13 @@ namespace
         return State == EFPSWeatherState::LightRain || State == EFPSWeatherState::Rain || State == EFPSWeatherState::Storm;
     }
 
-    EFPSWeatherState ScheduledWeatherAt(int32 Seed, int32 Day, int32 Segment)
+    FString WeatherRegionName(const UWorld* World)
     {
-        uint32 Hash = static_cast<uint32>(Seed) ^ static_cast<uint32>(Day * 7919 + Segment * 104729);
-        Hash ^= Hash << 13;
-        Hash ^= Hash >> 17;
-        Hash ^= Hash << 5;
-        const float Pick = static_cast<float>(Hash & 0x00FFFFFFu) / static_cast<float>(0x01000000u);
-        if (Pick < 0.35f) return EFPSWeatherState::Clear;
-        if (Pick < 0.60f) return EFPSWeatherState::Cloudy;
-        if (Pick < 0.76f) return EFPSWeatherState::LightRain;
-        if (Pick < 0.92f) return EFPSWeatherState::Rain;
-        return EFPSWeatherState::Storm;
+        const FString Map = World ? World->GetMapName() : FString();
+        if (Map.Contains(TEXT("DayNight_Lighting"))) return TEXT("天空基地");
+        if (Map.Contains(TEXT("L_Normandy_FPS_Test"))) return TEXT("诺曼底村庄");
+        if (Map.Contains(TEXT("L_MilitaryTrench_FPS_Test"))) return TEXT("战壕");
+        return TEXT("当前区域");
     }
 
     FString WeatherName(EFPSWeatherState State)
@@ -397,7 +392,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
     UBorder* TrackBackground = MakeSurface(TimelineTrackColor, 3.0f, TimelineLineColor, 1.0f);
     FillSlot(TimelineTrack->AddChildToCanvas(TrackBackground), FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
 
-    TimelineGradientTexture = UTexture2D::CreateTransient(256, 1, PF_B8G8R8A8, TEXT("TimelineProgressGradient"));
+    TimelineGradientTexture = UTexture2D::CreateTransient(256, 1, PF_B8G8R8A8);
     if (TimelineGradientTexture && TimelineGradientTexture->GetPlatformData())
     {
         static const FLinearColor Stops[] = {
@@ -846,6 +841,8 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
     }
 
     bTimelineHasEvent = false;
+    bTimelineEventActive = false;
+    bTimelineManual = Weather && !Weather->bAutomaticSchedule;
     TimelineStageStates.Reset();
     TimelineStageStarts.Reset();
     TimelineStageEnds.Reset();
@@ -855,11 +852,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
         const float DaySeconds = FMath::Max(60.0f, Weather->RealSecondsPerGameDay);
         TimelineDaySeconds = DaySeconds;
         const float DayFraction = FMath::Clamp(Weather->NormalizedDayTime, 0.0f, 0.999999f);
-        if (TimelineLastDayFraction >= 0.0f && DayFraction + 0.5f < TimelineLastDayFraction)
-        {
-            ++TimelineDaySerial;
-        }
-        TimelineLastDayFraction = DayFraction;
+        TimelineDaySerial = Weather->GetScheduleDay();
         const float Now = TimelineDaySerial * DaySeconds + DayFraction * DaySeconds;
         const float SegmentSeconds = DaySeconds / WeatherSegmentsPerDay;
         const int32 CurrentGlobalSegment = TimelineDaySerial * WeatherSegmentsPerDay
@@ -886,7 +879,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 const int32 GlobalSegment = CurrentGlobalSegment + Offset;
                 const int32 Day = FMath::FloorToInt(static_cast<float>(GlobalSegment) / WeatherSegmentsPerDay);
                 const int32 Segment = FMath::FloorToInt(FMath::Fmod(static_cast<float>(GlobalSegment), static_cast<float>(WeatherSegmentsPerDay)) + WeatherSegmentsPerDay) % WeatherSegmentsPerDay;
-                const EFPSWeatherState State = Offset == 0 ? Weather->CurrentState : ScheduledWeatherAt(Weather->WeatherSeed, Day, Segment);
+                const EFPSWeatherState State = Offset == 0 ? Weather->CurrentState : Weather->GetScheduledStateAt(Day, Segment);
                 if (IsWetWeather(State))
                 {
                     FirstWetSegment = GlobalSegment;
@@ -900,7 +893,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                     const int32 Previous = FirstWetSegment - 1;
                     const int32 PreviousDay = Previous / WeatherSegmentsPerDay;
                     const int32 PreviousSegment = Previous % WeatherSegmentsPerDay;
-                    if (!IsWetWeather(ScheduledWeatherAt(Weather->WeatherSeed, PreviousDay, PreviousSegment))) break;
+                    if (!IsWetWeather(Weather->GetScheduledStateAt(PreviousDay, PreviousSegment))) break;
                     --FirstWetSegment;
                 }
                 EndWetSegment = FirstWetSegment;
@@ -908,7 +901,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 {
                     const int32 Day = EndWetSegment / WeatherSegmentsPerDay;
                     const int32 Segment = EndWetSegment % WeatherSegmentsPerDay;
-                    if (!IsWetWeather(ScheduledWeatherAt(Weather->WeatherSeed, Day, Segment))) break;
+                    if (!IsWetWeather(Weather->GetScheduledStateAt(Day, Segment))) break;
                     ++EndWetSegment;
                 }
             }
@@ -935,7 +928,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 {
                     const int32 Day = GlobalSegment / WeatherSegmentsPerDay;
                     const int32 Segment = GlobalSegment % WeatherSegmentsPerDay;
-                    const EFPSWeatherState State = ScheduledWeatherAt(Weather->WeatherSeed, Day, Segment);
+                    const EFPSWeatherState State = Weather->GetScheduledStateAt(Day, Segment);
                     const float StageStart = GlobalSegment * SegmentSeconds;
                     const float StageEnd = (GlobalSegment + 1) * SegmentSeconds;
                     bTimelineContainsStorm |= State == EFPSWeatherState::Storm;
@@ -956,8 +949,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
             if (bTimelineEventActive) DisplayState = Weather->CurrentState;
             else if (bTimelineContainsStorm) DisplayState = EFPSWeatherState::Storm;
 
-            const FString RegionName = GetWorld() && GetWorld()->GetMapName().Contains(TEXT("DayNight"))
-                ? TEXT("天空基地") : TEXT("当前区域");
+            const FString RegionName = WeatherRegionName(GetWorld());
             TimelineEventLabel = RegionName + (bTimelineContainsStorm ? TEXT(" · 降雨 · 有雷暴") : TEXT(" · 降雨"));
             TimelineIntensityLabel = !bTimelineEventActive && TimelineStageStates.Num() > 1
                 ? TEXT("雨势有变化") : WeatherName(DisplayState);
@@ -968,7 +960,8 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 : FString::Printf(TEXT("%.1f 小时"), (TimelineEventEnd - TimelineEventStart) / DaySeconds * 24.0f);
             TimelineWarningLabel = bTimelineManual
                 ? TEXT("手动天气，自动预报暂停")
-                : bTimelineContainsStorm ? TEXT("本轮降雨包含雷暴，请留意雨势变化") : TEXT("本轮降雨结束后转为阴天");
+                : bTimelineContainsStorm ? TEXT("本轮降雨包含雷暴，请留意雨势变化")
+                : TEXT("本轮降雨结束后转为") + WeatherName(Weather->GetScheduledStateAt(EndWetSegment / WeatherSegmentsPerDay, EndWetSegment % WeatherSegmentsPerDay));
             TimelineEventFraction = bTimelineEventActive
                 ? 0.04f
                 : 0.04f + FMath::Clamp((TimelineEventStart - Now) / (DaySeconds * TimelineHorizonDays), 0.0f, 1.0f) * 0.94f;
@@ -1009,8 +1002,8 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
     TimelineEventLine->SetVisibility(bTimelineHasEvent ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
     if (!bTimelineHasEvent && TimelinePopover) TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
 
-    const FString NewSignature = FString::Printf(TEXT("%d|%d|%d|%s|%s|%s|%s"), bTimelineHasEvent, bTimelineEventActive,
-        bTimelineContainsStorm, *TimelineEventLabel, *TimelineStartLabel, *TimelineEndLabel, *TimelineWarningLabel);
+    const FString NewSignature = FString::Printf(TEXT("%d|%d|%d|%s|%s|%s|%s|%s"), bTimelineHasEvent, bTimelineEventActive,
+        bTimelineContainsStorm, *TimelineEventLabel, *TimelineStartLabel, *TimelineEndLabel, *TimelineWarningLabel, *TimelineIntensityLabel);
     if (bForce || NewSignature != TimelineDetailSignature)
     {
         TimelineDetailSignature = NewSignature;
@@ -1131,7 +1124,7 @@ void UColdSteelHUDWidget::RebuildEventDetails()
     DetailGrid->SetSlotPadding(FMargin(2.5f));
     TimelineDetailContent->AddChildToVerticalBox(DetailGrid);
     const TArray<TPair<FString, FString>> DetailPairs = {
-        {TEXT("位面"), TEXT("天空基地")}, {TEXT("强度"), TimelineIntensityLabel},
+        {TEXT("位面"), WeatherRegionName(GetWorld())}, {TEXT("强度"), TimelineIntensityLabel},
         {TEXT("开始"), TimelineStartLabel}, {TEXT("结束"), TimelineEndLabel},
         {TEXT("持续"), TimelineDurationLabel}, {TEXT("强度提示"), TimelineWarningLabel},
         {TEXT("状态"), bTimelineEventActive ? TEXT("正在发生") : TEXT("预测中")}
@@ -1144,6 +1137,7 @@ void UColdSteelHUDWidget::RebuildEventDetails()
         Cell->SetContent(Row);
         Row->AddChildToHorizontalBox(MakeText(DetailPairs[Index].Key, 11, ColdSteelUI::TextTertiary));
         UTextBlock* Value = MakeText(DetailPairs[Index].Value, 11, ColdSteelUI::TextPrimary);
+        Value->SetAutoWrapText(true);
         Value->SetJustification(ETextJustify::Right);
         Value->SetToolTipText(FText::FromString(DetailPairs[Index].Value));
         Row->AddChildToHorizontalBox(Value)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));

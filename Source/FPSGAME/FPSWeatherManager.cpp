@@ -1,6 +1,7 @@
 #include "FPSWeatherManager.h"
 #include "LightingConflictValidation.h"
 #include "RainUpgradeValidation.h"
+#include "WeatherWorldValidation.h"
 #include "WeatherSurfaceComponent.h"
 #include "StormCloudValidation.h"
 #include "StormCloudComponent.h"
@@ -169,6 +170,7 @@ void AFPSWeatherManager::BeginPlay()
     StartLightingConflictValidation(this);
     StartRainUpgradeValidation(this);
     StartStormCloudValidation(this);
+    StartWeatherWorldValidation(this);
 }
 
 void AFPSWeatherManager::Tick(float DeltaSeconds)
@@ -242,9 +244,13 @@ void AFPSWeatherManager::UpdateSchedule()
 
 EFPSWeatherState AFPSWeatherManager::ResolveScheduledState() const
 {
-    constexpr int32 SegmentsPerDay = 8;
-    const int32 Segment = FMath::Clamp(FMath::FloorToInt(NormalizedDayTime * SegmentsPerDay), 0, SegmentsPerDay - 1);
-    uint32 Hash = static_cast<uint32>(WeatherSeed) ^ static_cast<uint32>(DaySerial * 7919 + Segment * 104729);
+    const int32 Segment = FMath::Clamp(FMath::FloorToInt(NormalizedDayTime * ScheduleSegmentsPerDay), 0, ScheduleSegmentsPerDay - 1);
+    return GetScheduledStateAt(DaySerial, Segment);
+}
+
+EFPSWeatherState AFPSWeatherManager::GetScheduledStateAt(int32 Day, int32 Segment) const
+{
+    uint32 Hash = static_cast<uint32>(WeatherSeed) ^ (static_cast<uint32>(Day) * 7919u + static_cast<uint32>(Segment) * 104729u);
     Hash ^= Hash << 13;
     Hash ^= Hash >> 17;
     Hash ^= Hash << 5;

@@ -73,6 +73,7 @@ protected:
     virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
 private:
+    friend struct FWeatherWorldAudit;
     UPROPERTY() TObjectPtr<class UColdSteelItemTooltip> ItemTooltip;
     void BuildInterface();
     void BuildWarehouse(UCanvasPanel* Root);
@@ -312,7 +313,6 @@ private:
     float TimelineEventStart = 0.0f;
     float TimelineEventEnd = 0.0f;
     float TimelineDaySeconds = 1440.0f;
-    float TimelineLastDayFraction = -1.0f;
     int32 TimelineDaySerial = 0;
     bool bTimelineCompact = true;
     bool bTimelineHasEvent = false;

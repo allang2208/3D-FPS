@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "checks": 87,
+  "routes": [
+    {
+      "map": "DayNight_Lighting",
+      "route": 0,
+      "checks": 27,
+      "failures": 0,
+      "samples": 285,
+      "transitions": 7,
+      "states": 4
+    },
+    {
+      "map": "L_Normandy_FPS_Test",
+      "route": 1,
+      "checks": 27,
+      "failures": 0,
+      "samples": 286,
+      "transitions": 7,
+      "states": 4
+    },
+    {
+      "map": "L_MilitaryTrench_FPS_Test",
+      "route": 2,
+      "checks": 27,
+      "failures": 0,
+      "samples": 286,
+      "transitions": 7,
+      "states": 4
+    },
+    {
+      "map": "DayNight_Lighting",
+      "route": 3,
+      "checks": 6,
+      "failures": 0,
+      "samples": 0,
+      "transitions": 0,
+      "states": 0
+    }
+  ],
+  "clocks": [
+    {
+      "map": "DayNight_Lighting",
+      "external": true,
+      "elapsed": 3.002,
+      "clock": 3.003
+    },
+    {
+      "map": "L_Normandy_FPS_Test",
+      "external": false,
+      "elapsed": 3.22,
+      "clock": 3.22
+    },
+    {
+      "map": "L_MilitaryTrench_FPS_Test",
+      "external": false,
+      "elapsed": 3.163,
+      "clock": 3.163
+    },
+    {
+      "map": "DayNight_Lighting",
+      "external": true,
+      "elapsed": 3.255,
+      "clock": 3.255
+    }
+  ],
+  "failed_checks": [],
+  "fatal_errors": [],
+  "renderer": "D3D12",
+  "normal_day_seconds": 2160,
+  "accelerated_day_seconds": 60,
+  "seed": 122,
+  "runtime_weather_states": [
+    "Clear",
+    "Cloudy",
+    "Rain",
+    "Storm"
+  ],
+  "light_rain_validation": "32-day schedule sample; not a separate rendered light-rain run",
+  "log": "Saved\\WeatherWorldAudit20260912\\verified.log",
+  "travel": "DayNight -> Normandy -> Trench -> DayNight",
+  "UI": "Live data; no EventTimelineUIAudit fixture; Alt, expand, details, filters, forecast arrival, midnight and rebuilt HUD",
+  "screenshots": {
+    "hub-compact.png": "7d0de50d71fbfc6bee17ee9bd7102be49d16a6fa9a082c820f2803bd5b159c51",
+    "hub-details.png": "d5deb0229853b2c58a7ab26c07b875937ce42bd92554ddccfe800330bda5fa59",
+    "village-details.png": "a048966275eb9db80bf2ebae9a8f8d982047e6d05b3547f0c32c7afcf7118efd",
+    "trench-details.png": "93b9570fc5599e433a945746c5bd6913163f059628b7c863ad19ca7b262a47ff",
+    "trench-storm.png": "bf5343583d79206c6246ab3810f215a595dd038912e933eaf088fb066bd38d10",
+    "hub-return.png": "aa6f621c1baaefe000a0561d6d2554e0c2233f291b2689432b411698099729d0"
+  },
+  "snapshot_source_hashes": {
+    "Source/FPSGAME/FPSWeatherManager.cpp": "0909ffb99b9bd32dbdeeb8f0bd6d7c7cf90a9c3a372a45d76cc9e4112ff6ffc0",
+    "Source/FPSGAME/FPSWeatherManager.h": "98b32eeea7d183769d16cce4066f18c54c17317bd08bfa1285a7d9a9d1d071ed",
+    "Source/FPSGAME/WeatherWorldValidation.cpp": "bc06945a1692b62210466c87b2c36cab18a6972629b73951834a22aef56f4462",
+    "Source/FPSGAME/WeatherWorldValidation.h": "ef6117c59a9f1b34b73de77220e6c77a9126c8b3e3f02aa7653edc4437fec285",
+    "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp": "1f10b56a8c10a673c3e8e039028d8fe8c60f906846423c8a3d9b2272794b171f"
+  },
+  "builds": {
+    "isolated_editor": true,
+    "isolated_game": true,
+    "host_editor": true,
+    "host_game": true
+  },
+  "scope": "Three currently open maps. Rendered acceptance used an isolated source snapshot while unrelated new-world source was being compiled in the shared project.",
+  "runtime_warnings": "Village texture streaming pool budget warning; no fatal errors or ensures. Audio mix, cook and isolated performance are not covered."
+}

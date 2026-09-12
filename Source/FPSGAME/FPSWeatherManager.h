@@ -52,6 +52,11 @@ public:
     bool IsSkyClockConnected() const { return bSkyClockConnected; }
     bool IsSceneDayNightActive() const { return bSceneDayNightActive; }
 
+    // Forecasts and rebuilt HUDs read the same calendar and schedule as the simulation.
+    static constexpr int32 ScheduleSegmentsPerDay = 8;
+    int32 GetScheduleDay() const { return DaySerial; }
+    EFPSWeatherState GetScheduledStateAt(int32 Day, int32 Segment) const;
+
     UPROPERTY(EditDefaultsOnly, Category="Weather|Presentation")
     TSoftObjectPtr<class UWeatherPresentationAssets> PresentationLibrary;
 
@@ -110,6 +115,7 @@ protected:
     virtual void BeginPlay() override;
 
 private:
+    friend struct FWeatherWorldAudit;
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<USceneComponent> SceneRoot;
 
