@@ -1,0 +1,370 @@
+{
+  "date": "2026-09-12",
+  "version": "CMU 02_07 human optical mocap, first complete strike",
+  "evidence_policy": "Previously completed evidence only. No additional isolated-map run after reading the new user-testing rule.",
+  "artistic_user_acceptance": "Pending user review; hand/grasp accepted before motion replacement.",
+  "build": {
+    "success": true,
+    "log": "Saved/InfectedMiner/build-cmu-final.log"
+  },
+  "import": {
+    "source": "CMU 02_07 optical human capture",
+    "clip": "/Game/Monsters/InfectedMiner/CMU02_07/A_Miner_CMUStrike.A_Miner_CMUStrike",
+    "mesh_preserved": "/Game/Monsters/InfectedMiner/AuthoredChopFinal/SK_InfectedMiner.SK_InfectedMiner",
+    "seconds": 2.200000047683716,
+    "contact_time": 1.5,
+    "contact_end": 1.75,
+    "range_cm": 150.0,
+    "sha256": "9808496b8d1d3a6f30a24c4eaf3308afb0ddba601ead68bcaf1cf82d3285f17d",
+    "saved": true
+  },
+  "hand_lock": {
+    "accepted_mesh_weights_bind_unchanged": true,
+    "geometry_bind_hash": "3bad50b1656f325b7d2c2ce2a82755c80ad6c7a9951d7b84f5a0d82d04a362ff",
+    "accepted_mesh_fbx_sha256": "7d232fdfa032c5c2c3aba24b8e5813c124c1b5f3864c17dc134fec6f41e60aa2",
+    "attack_samples": 67,
+    "finger_basis_max_error": 1.1920928955078125e-07
+  },
+  "fbx": {
+    "rest": {
+      "min": [
+        -0.7563885450363159,
+        -0.8347949981689453,
+        0.00029794147121720016
+      ],
+      "max": [
+        0.7563909888267517,
+        0.20627477765083313,
+        1.8999764919281006
+      ]
+    },
+    "bones": 160,
+    "clips": {
+      "Idle": {
+        "seconds": 10.266666666666667,
+        "minimum_z": 0.0029997669626027346,
+        "maximum_z": 1.9006669521331787,
+        "loop_max_vertex_gap_m": 1.3127882841164596e-06
+      },
+      "Walk": {
+        "seconds": 3.2666666666666666,
+        "minimum_z": 0.002999610733240843,
+        "maximum_z": 1.9629311561584473,
+        "loop_max_vertex_gap_m": 9.37893160332412e-07
+      },
+      "Attack": {
+        "seconds": 2.2,
+        "minimum_z": 0.002999624004587531,
+        "maximum_z": 2.158888339996338
+      },
+      "Hit": {
+        "seconds": 0.6,
+        "minimum_z": 0.003000197233632207,
+        "maximum_z": 1.8988088369369507
+      }
+    }
+  },
+  "roundtrip": {
+    "range": [
+      1.0,
+      67.0
+    ],
+    "frames": {
+      "1": {
+        "pelvis": {
+          "position_cm": 1.1920934773564915e-05,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 1.9909402659565163e-06,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 2.543312190279109e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 7.77863451012265e-06,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 1.9082797281243946e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 3.157719199028737e-05,
+          "angle_deg": 0.0
+        }
+      },
+      "12": {
+        "pelvis": {
+          "position_cm": 5.9623854755373516e-06,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 1.199421360339405e-05,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 2.773778210429294e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 1.884864366154897e-05,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 3.998401124775034e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 5.061496146192416e-05,
+          "angle_deg": 0.0
+        }
+      },
+      "24": {
+        "pelvis": {
+          "position_cm": 1.1922384057793958e-05,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 1.215188610432659e-05,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 4.8474601923266415e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 4.220607590159341e-05,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 1.341104507446289e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 2.669762502188819e-05,
+          "angle_deg": 0.0
+        }
+      },
+      "36": {
+        "pelvis": {
+          "position_cm": 6.0097373295209105e-06,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 1.210146089701413e-05,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 4.9387852606703494e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 5.991714649115583e-05,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 6.056547591954939e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 4.9623327867229916e-05,
+          "angle_deg": 0.0
+        }
+      },
+      "46": {
+        "pelvis": {
+          "position_cm": 1.2038222426218186e-05,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 7.679882693323606e-06,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 4.900562396442159e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 4.45292973443387e-05,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 6.421345897440684e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 6.616455368227817e-05,
+          "angle_deg": 0.0
+        }
+      },
+      "54": {
+        "pelvis": {
+          "position_cm": 6.143906154658885e-06,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 2.1073424255447017e-06,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 1.30385160446167e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 2.33240065611877e-05,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 1.862645149230957e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 2.879316890017235e-05,
+          "angle_deg": 0.0
+        }
+      },
+      "67": {
+        "pelvis": {
+          "position_cm": 2.532033249735832e-07,
+          "angle_deg": 0.0
+        },
+        "spine_03": {
+          "position_cm": 1.4774897705802277e-05,
+          "angle_deg": 0.0
+        },
+        "head": {
+          "position_cm": 4.860076315614334e-05,
+          "angle_deg": 0.0
+        },
+        "upperarm_l": {
+          "position_cm": 3.384893146634265e-05,
+          "angle_deg": 0.0
+        },
+        "lowerarm_l": {
+          "position_cm": 3.698370947239058e-05,
+          "angle_deg": 0.0
+        },
+        "hand_l": {
+          "position_cm": 4.934887098393584e-05,
+          "angle_deg": 0.0
+        }
+      }
+    }
+  },
+  "ue_mesh_color_export": {
+    "geometry_rest_max_error": 0.0,
+    "weights_unchanged": true,
+    "bones": 160,
+    "mesh_vertices": {
+      "Pickaxe_ForgedHead": 84,
+      "Miner_Retopology": 12237,
+      "Miner_WorkGlove_r": 8353,
+      "Miner_WorkGlove_l": 8353,
+      "Pickaxe_HickoryHandle": 260
+    },
+    "change": "UE color layer selection only"
+  },
+  "village": {
+    "failures": 0,
+    "map": "L_Normandy_FPS_Test",
+    "checks": [
+      {
+        "name": "owned_mesh_and_clips",
+        "passed": true
+      },
+      {
+        "name": "shared_behavior_tree",
+        "passed": true
+      },
+      {
+        "name": "ai_chase_displacement",
+        "passed": true
+      },
+      {
+        "name": "walking_grounded",
+        "passed": true
+      },
+      {
+        "name": "player_health_connected",
+        "passed": true
+      },
+      {
+        "name": "windup_no_damage",
+        "passed": true
+      },
+      {
+        "name": "pickaxe_contact_damage_once",
+        "passed": true
+      },
+      {
+        "name": "no_duplicate_swing_damage",
+        "passed": true
+      },
+      {
+        "name": "dodge_avoids_damage",
+        "passed": true
+      },
+      {
+        "name": "hit_reaction_entered",
+        "passed": true
+      },
+      {
+        "name": "interruption_cancels_pending_hit",
+        "passed": true
+      },
+      {
+        "name": "control_released",
+        "passed": true
+      },
+      {
+        "name": "wall_blocks_damage",
+        "passed": true
+      },
+      {
+        "name": "real_weapon_input_hits_miner",
+        "passed": true
+      },
+      {
+        "name": "death_and_reward_once",
+        "passed": true
+      },
+      {
+        "name": "ragdoll_enabled",
+        "passed": true
+      },
+      {
+        "name": "corpse_limb_length_preserved",
+        "passed": true
+      },
+      {
+        "name": "corpse_render_surface_grounded",
+        "passed": true
+      },
+      {
+        "name": "death_cancels_damage",
+        "passed": true
+      },
+      {
+        "name": "corpse_recycled",
+        "passed": true
+      },
+      {
+        "name": "one_new_miner_respawned",
+        "passed": true
+      }
+    ],
+    "log": "Saved/InfectedMiner/cmu-village-pass.log",
+    "surface_measurements": [
+      "MINER_SURFACE min=0.044 samples=2049 missing=0 below=0"
+    ],
+    "limb_measurements": [
+      "MINER_PHYSICS_LENGTH calf_before=46.536 calf_after=46.503 scale=X=1.000 Y=1.000 Z=1.000"
+    ]
+  },
+  "isolated": {
+    "run_for_current_motion": false
+  }
+}

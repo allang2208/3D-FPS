@@ -1,0 +1,277 @@
+{
+  "character": "InfectedMiner",
+  "date": "2026-09-12",
+  "host": "UE 5.8.2",
+  "generation": {
+    "provider": "TokenHub",
+    "model": "hy-3d-3.1",
+    "job_id": "1490283299431399424",
+    "submissions": 1,
+    "cache": "Saved/Hunyuan3D/Candidates/infected-miner-male-v01-20260912"
+  },
+  "sources": [
+    {
+      "asset": "/Game/ZombieFemale/Asset/Meshes/ZombieFemale_NurseOutfit",
+      "role": "Local humanoid hierarchy and base animations",
+      "redistribution": "Binary publication not cleared"
+    },
+    {
+      "asset": "SourceAssets/MannyGraspDonor20260912",
+      "role": "Accepted mature forearm/hand skin and VRE grouped grasp",
+      "redistribution": "Local only; original source licenses apply"
+    },
+    {
+      "asset": "Authored pickaxe",
+      "role": "Original rigid wood/iron tool geometry"
+    },
+    {
+      "asset": "https://github.com/una-dinosauria/cmu-mocap",
+      "clip": "02_07.bvh",
+      "sha256": "40999e80d85823b2a10f0d1175065d86543d22cd115bad759d3c10ddf712c6de",
+      "role": "Human optical capture, mirrored retarget with source timing",
+      "terms": "CMU permits research and commercial use. Bruce Hahne adds no restrictions to the BVH conversion. See READMEFIRST.txt; not a CC0 declaration."
+    }
+  ],
+  "body_topology": "Generated head, torso and legs; mature continuous forearms and hands",
+  "accepted_hand_snapshot": "Review/Hand_UserAccepted_20260912",
+  "active_mesh": "/Game/Monsters/InfectedMiner/AuthoredChopFinal/SK_InfectedMiner.SK_InfectedMiner",
+  "active_attack": "/Game/Monsters/InfectedMiner/CMU02_07/A_Miner_CMUStrike.A_Miner_CMUStrike",
+  "attack_contract": {
+    "version": "CMU 02_07 human optical mocap, first complete strike",
+    "source": "https://github.com/una-dinosauria/cmu-mocap",
+    "source_file": "Reference/CMU/02_07.bvh",
+    "source_fps": 120,
+    "source_frames_including_added_t_pose": [
+      2,
+      266
+    ],
+    "source_seconds": [
+      0,
+      2.2
+    ],
+    "seconds": 2.2,
+    "frames": 66,
+    "contact_time": 1.5,
+    "contact_end": 1.75,
+    "source_timing_preserved": true,
+    "mirrored_for_left_grip": true,
+    "source_heading_alignment_degrees": 21.428753432841553,
+    "custom_attack_ik": false,
+    "minimum_surface_z_m": 0.002999999999999999,
+    "ground_translation_m": [
+      -0.00018710925057530397,
+      -0.00019304689764976495,
+      0.00025539446808397776,
+      -0.0007351143546402454,
+      -0.0006999653093516826,
+      0.0007765106596052647,
+      -0.0016485066413879394,
+      -0.00021546313352882856,
+      -0.0009174174889922141,
+      -0.0018723956570029258,
+      -0.0011443468071520328,
+      -0.0009624595083296298,
+      -0.0009296294562518596,
+      0.00013307875208556658,
+      -0.0010306542068719863,
+      0.0013168769394978882,
+      0.00020048322342336184,
+      0.0010071091558784247,
+      0.0021153812734410167,
+      0.0007783656213432551,
+      0.0007822196669876576,
+      0.0016212969524785877,
+      0.00233290365152061,
+      0.0033775298537220807,
+      0.003613034935668111,
+      0.0030407683837693185,
+      0.00260941553581506,
+      0.0019303088514134288,
+      0.0019278388675302268,
+      0.001086623032577336,
+      0.00018205584213137633,
+      -0.002632178857922554,
+      -0.0018410603776574134,
+      -0.003573339458554983,
+      -0.004795870304107666,
+      -0.00709134016931057,
+      -0.008100973933935166,
+      -0.010247835449874402,
+      -0.011523324556648732,
+      -0.015406586721539498,
+      -0.019423632442951203,
+      -0.020673322051763535,
+      -0.020318402469158173,
+      -0.01872393724322319,
+      -0.016349176436662675,
+      -0.015581433221697808,
+      -0.014809605225920678,
+      -0.01375296761095524,
+      -0.01273491282761097,
+      -0.01133480903506279,
+      -0.009706102803349496,
+      -0.009389499694108964,
+      -0.006984190575778484,
+      -0.007747632943093777,
+      -0.00829170134663582,
+      -0.005995108306407928,
+      -0.008039969511330129,
+      -0.006146794676780701,
+      -0.00624319215118885,
+      -0.006942800737917423,
+      -0.006122367016971111,
+      -0.007440366342663765,
+      -0.008919099837541581,
+      -0.008618535034358502,
+      -0.009199467979371549,
+      -0.009034787796437741,
+      -0.008579466052353383
+    ],
+    "mapping": {
+      "pelvis": "Hips",
+      "spine_01": "LowerBack",
+      "spine_02": "Spine",
+      "spine_03": "Spine",
+      "spine_04": "Spine1",
+      "spine_05": "Spine1",
+      "neck_01": "Neck",
+      "neck_02": "Neck1",
+      "head": "Head",
+      "clavicle_l": "RightShoulder",
+      "clavicle_r": "LeftShoulder",
+      "upperarm_l": "RightArm",
+      "upperarm_r": "LeftArm",
+      "lowerarm_l": "RightForeArm",
+      "lowerarm_r": "LeftForeArm",
+      "hand_l": "RightHand",
+      "hand_r": "LeftHand",
+      "thigh_l": "RightUpLeg",
+      "thigh_r": "LeftUpLeg",
+      "calf_l": "RightLeg",
+      "calf_r": "LeftLeg",
+      "foot_l": "RightFoot",
+      "foot_r": "LeftFoot",
+      "ball_l": "RightToeBase",
+      "ball_r": "LeftToeBase"
+    }
+  },
+  "attack_range_cm": 150,
+  "artistic_user_acceptance": "Pending user review; hand/grasp accepted before motion replacement.",
+  "files": [
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/A_Miner_Attack.fbx",
+      "bytes": 4451932,
+      "sha256": "9808496b8d1d3a6f30a24c4eaf3308afb0ddba601ead68bcaf1cf82d3285f17d"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/A_Miner_Hit.fbx",
+      "bytes": 3978220,
+      "sha256": "2dc312e69ff223562818e3d1fee760d6e95591c7b58b1be8ca8eb8da243279d4"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/A_Miner_Idle.fbx",
+      "bytes": 6768540,
+      "sha256": "26f01de6813a7b88d69988a9a42967a14098dc84ee531894e16ec7f43a51b419"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/A_Miner_Walk.fbx",
+      "bytes": 4798540,
+      "sha256": "b23d3949c0a40fd337af3725976bb40319fdfba5504368df974a76e310bb8726"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/attack-authoring.json",
+      "bytes": 3257,
+      "sha256": "7b88f823eecae27ec4c785e54c07b6b0b4a3b1153780fce42bbf38bf748993c4"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/grip-authoring.json",
+      "bytes": 17199,
+      "sha256": "9c0bea09508376b31d42f1aa92cffd7cb45f36eb3aa0af3ceee33713b026c9c6"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/InfectedMiner_Editable.blend",
+      "bytes": 63147976,
+      "sha256": "b58c53dc6f5dcb767cecef072ee49413c36a1a985af5c219414494f1cae660d3"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/Miner_Retopology.blend",
+      "bytes": 52804904,
+      "sha256": "53c0fc51649e00d7a3beee1626b61cb25879fb6fae23a304246de46251be9e02"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/rigging.json",
+      "bytes": 1760,
+      "sha256": "b609ee263451e5e4d239e17a0cc82719cab1516822789485526fe5ebfd67f970"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/SK_InfectedMiner.fbx",
+      "bytes": 2939500,
+      "sha256": "7d232fdfa032c5c2c3aba24b8e5813c124c1b5f3864c17dc134fec6f41e60aa2"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/SK_InfectedMiner_UE.fbx",
+      "bytes": 2936892,
+      "sha256": "f8dbcdd8ad3fe9eb61446bac340bdb0cb5977e99bae13afa7284288bd5ee1f79"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/T_Miner_BaseColor.png",
+      "bytes": 8299498,
+      "sha256": "6527e2d2ae9589b36707c797e72230b7ce13e41e69efe045350363060c50dc9c"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/T_Miner_Normal.png",
+      "bytes": 9234461,
+      "sha256": "5eb9ce2454c7b8397f012f608f843fbaa7cdc99803771c35b46c200857d08766"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/T_Miner_Roughness.png",
+      "bytes": 3828439,
+      "sha256": "efa35145ffe706135255686bd78194d63edc66be767f2b439bb33877825d0264"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Delivery/topology.json",
+      "bytes": 317,
+      "sha256": "f25609e4fed07d2fe0c2212107a84eeb4427ec91ace8f2bf2f30786e4b25ace8"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/FBX/ue-mesh-export-validation.json",
+      "bytes": 320,
+      "sha256": "fd8a3b3c23b53f0a68879bc96b592b5e270b9b1132dc9367bde17c5ca7c56232"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/FBX_CMU/accepted-hand-validation.json",
+      "bytes": 322,
+      "sha256": "32f69cf750a745653dc6a8f9a430760e01c50f53ab9b399fa1e39770f7cdbe91"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/FBX_CMU/attack-pose-roundtrip.json",
+      "bytes": 4550,
+      "sha256": "efd0b52b5d8510c218d2b84c399b17040f8cab1c293884357737d3298d8c6c0f"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/FBX_CMU/fbx-validation.json",
+      "bytes": 917,
+      "sha256": "5bc8ea6cf80043be5b5d118c1f3b99e2224c304ffabb65b68ee7169c1c957b6b"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/InfectedMiner_Attack.gif",
+      "bytes": 3753573,
+      "sha256": "c380282885de97269811923e383ff009061a47a97550986b9fd310c581a979fc"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/InfectedMiner_Attack.mp4",
+      "bytes": 442477,
+      "sha256": "c97cea4530708b442e05bfe9b3a3ef3a27f4ca4e2799287a3c93450a19e75f85"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/InfectedMiner_CMU_Attack.gif",
+      "bytes": 3753573,
+      "sha256": "c380282885de97269811923e383ff009061a47a97550986b9fd310c581a979fc"
+    },
+    {
+      "path": "SourceAssets/InfectedMiner20260912/Previews/InfectedMiner_CMU_Attack.mp4",
+      "bytes": 442477,
+      "sha256": "c97cea4530708b442e05bfe9b3a3ef3a27f4ca4e2799287a3c93450a19e75f85"
+    }
+  ]
+}

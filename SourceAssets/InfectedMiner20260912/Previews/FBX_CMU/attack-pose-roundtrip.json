@@ -1,0 +1,190 @@
+{
+  "range": [
+    1.0,
+    67.0
+  ],
+  "frames": {
+    "1": {
+      "pelvis": {
+        "position_cm": 1.1920934773564915e-05,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 1.9909402659565163e-06,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 2.543312190279109e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 7.77863451012265e-06,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 1.9082797281243946e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 3.157719199028737e-05,
+        "angle_deg": 0.0
+      }
+    },
+    "12": {
+      "pelvis": {
+        "position_cm": 5.9623854755373516e-06,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 1.199421360339405e-05,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 2.773778210429294e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 1.884864366154897e-05,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 3.998401124775034e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 5.061496146192416e-05,
+        "angle_deg": 0.0
+      }
+    },
+    "24": {
+      "pelvis": {
+        "position_cm": 1.1922384057793958e-05,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 1.215188610432659e-05,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 4.8474601923266415e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 4.220607590159341e-05,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 1.341104507446289e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 2.669762502188819e-05,
+        "angle_deg": 0.0
+      }
+    },
+    "36": {
+      "pelvis": {
+        "position_cm": 6.0097373295209105e-06,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 1.210146089701413e-05,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 4.9387852606703494e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 5.991714649115583e-05,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 6.056547591954939e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 4.9623327867229916e-05,
+        "angle_deg": 0.0
+      }
+    },
+    "46": {
+      "pelvis": {
+        "position_cm": 1.2038222426218186e-05,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 7.679882693323606e-06,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 4.900562396442159e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 4.45292973443387e-05,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 6.421345897440684e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 6.616455368227817e-05,
+        "angle_deg": 0.0
+      }
+    },
+    "54": {
+      "pelvis": {
+        "position_cm": 6.143906154658885e-06,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 2.1073424255447017e-06,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 1.30385160446167e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 2.33240065611877e-05,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 1.862645149230957e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 2.879316890017235e-05,
+        "angle_deg": 0.0
+      }
+    },
+    "67": {
+      "pelvis": {
+        "position_cm": 2.532033249735832e-07,
+        "angle_deg": 0.0
+      },
+      "spine_03": {
+        "position_cm": 1.4774897705802277e-05,
+        "angle_deg": 0.0
+      },
+      "head": {
+        "position_cm": 4.860076315614334e-05,
+        "angle_deg": 0.0
+      },
+      "upperarm_l": {
+        "position_cm": 3.384893146634265e-05,
+        "angle_deg": 0.0
+      },
+      "lowerarm_l": {
+        "position_cm": 3.698370947239058e-05,
+        "angle_deg": 0.0
+      },
+      "hand_l": {
+        "position_cm": 4.934887098393584e-05,
+        "angle_deg": 0.0
+      }
+    }
+  }
+}

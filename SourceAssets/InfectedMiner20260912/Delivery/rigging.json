@@ -1,0 +1,51 @@
+{
+  "skeleton_source": "Nurse humanoid hierarchy; existing animations",
+  "weight_source": "Generated body: mature reference skin transfer. Accepted forearm through hand: original Manny continuous skin and bind.",
+  "bones": 160,
+  "body_vertices": 12237,
+  "transfer_distance_p95_m": 0.08457467705011368,
+  "transfer_distance_max_m": 0.11751998960971832,
+  "arm_joint_lateral_adjustment_m": 0.055,
+  "leg_joint_lateral_adjustment_m": 0.025,
+  "tool_palm_m": [
+    0.6906389594078064,
+    -0.07378555834293365,
+    1.0705214738845825
+  ],
+  "actions": {
+    "Idle": {
+      "seconds": 10.266666666666667,
+      "frames": 308,
+      "source_min_z": -0.004033263772726059,
+      "source_max_min_z": -0.002672224072739482
+    },
+    "Walk": {
+      "seconds": 3.2666666666666666,
+      "frames": 98,
+      "source_min_z": -0.10268598049879074,
+      "source_max_min_z": -0.004013639409095049
+    },
+    "Attack": {
+      "seconds": 2.2,
+      "frames": 66,
+      "contact_time": 1.5,
+      "contact_end": 1.75,
+      "minimum_surface_z_m": 0.002999999999999999,
+      "sample_rate": 30,
+      "samples": 67,
+      "custom_attack_ik": false
+    },
+    "Hit": {
+      "seconds": 0.6,
+      "frames": 18,
+      "source_min_z": -0.0032891822047531605,
+      "source_max_min_z": -0.0032891822047531605
+    }
+  },
+  "body_vertices_before_accepted_forearm_replacement": 14241,
+  "forearm_hand_vertices_each": 8353,
+  "initial_body_transfer_maximum_influences": 4,
+  "initial_transfer_statistics_scope": "Original generated body only; excludes mature forearm/hand replacement.",
+  "accepted_hand_snapshot": "Review/Hand_UserAccepted_20260912",
+  "attack_source": "CMU 02_07 human optical mocap, first complete strike"
+}

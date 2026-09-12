@@ -1,0 +1,61 @@
+{
+  "source": "CMU Graphics Lab optical human motion capture; Bruce Hahne BVH conversion",
+  "repository": "https://github.com/una-dinosauria/cmu-mocap",
+  "files": [
+    {
+      "file": "READMEFIRST.txt",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/READMEFIRST.txt",
+      "bytes": 13248,
+      "sha256": "8e6fe2e640b3728ef2e43e722cb5ae9cdf0010028c0517c4226ed165f9037930"
+    },
+    {
+      "file": "cmu-mocap-index-text.txt",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/cmu-mocap-index-text.txt",
+      "bytes": 68400,
+      "sha256": "b611669b7e8e4cb653cbda3b47ebc42c4151d019e4d28f2ed3e052e4e240ffbd"
+    },
+    {
+      "file": "79_01.bvh",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/data/079/79_01.bvh",
+      "bytes": 447615,
+      "sha256": "397e7883dccc8037eec1183b93b91cc0527ab28060b840c0d4996632b237721f"
+    },
+    {
+      "file": "79_04.bvh",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/data/079/79_04.bvh",
+      "bytes": 686886,
+      "sha256": "268766a01c8a74739fc7595091301172b2249292ce96f410a905322c99dd05b8"
+    },
+    {
+      "file": "80_71.bvh",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/data/080/80_71.bvh",
+      "bytes": 827772,
+      "sha256": "b59ebaeb2c08170147b237e4ef56fd51780966dcf3b530a3144d6721c435ae0d"
+    },
+    {
+      "file": "02_07.bvh",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/data/002/02_07.bvh",
+      "bytes": 1706582,
+      "sha256": "40999e80d85823b2a10f0d1175065d86543d22cd115bad759d3c10ddf712c6de"
+    },
+    {
+      "file": "02_08.bvh",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/data/002/02_08.bvh",
+      "bytes": 1137312,
+      "sha256": "6b0e2dfc0d3f5085851952673c295057e3586961ec91a78f8ea52ec7b2ba85da"
+    },
+    {
+      "file": "02_09.bvh",
+      "url": "https://raw.githubusercontent.com/una-dinosauria/cmu-mocap/master/data/002/02_09.bvh",
+      "bytes": 790078,
+      "sha256": "a3a4b23537931c50b6a0f4fb7f15382fe15d4cf5e4520a8dc2e6020e9eb5d009"
+    }
+  ],
+  "date": "2026-09-12",
+  "selected_clip": "02_07.bvh",
+  "source_fps": 120,
+  "official_clip_index": "https://mocap.cs.cmu.edu/search.php?subjectnumber=2",
+  "revision_pin": "Downloaded file SHA-256; repository commit unavailable.",
+  "use_terms": "CMU permits research and commercial use. Bruce Hahne adds no restrictions to the BVH conversion. See READMEFIRST.txt; not a CC0 declaration.",
+  "credit": "CMU Graphics Lab Motion Capture Database, funded by NSF EIA-0196217; BVH conversion by Bruce Hahne."
+}
