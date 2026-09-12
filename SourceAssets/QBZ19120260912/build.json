@@ -1,0 +1,87 @@
+{
+  "clips": {
+    "idle": {
+      "source": "M4_idle",
+      "duration": 3.0,
+      "frames": 180,
+      "fps": 60,
+      "sample_rate": 120
+    },
+    "aim": {
+      "source": "M4_aim",
+      "duration": 0.03333333333333333,
+      "frames": 2,
+      "fps": 60,
+      "sample_rate": 120
+    },
+    "fire": {
+      "source": "M4_fire",
+      "duration": 0.7666666666666667,
+      "frames": 46,
+      "fps": 60,
+      "sample_rate": 120
+    },
+    "aim_fire": {
+      "source": "M4_aim_fire",
+      "duration": 0.7666666666666667,
+      "frames": 46,
+      "fps": 60,
+      "sample_rate": 120
+    },
+    "reload": {
+      "source": "M4_MAT_reload",
+      "duration": 2.1,
+      "frames": 126,
+      "fps": 60,
+      "sample_rate": 120
+    },
+    "equip_charge": {
+      "source": "M4_MAT_equip_charge",
+      "duration": 0.6333333333333333,
+      "frames": 38,
+      "fps": 60,
+      "sample_rate": 120
+    },
+    "reload_empty": {
+      "source": "M4_MAT_reload",
+      "duration": 2.7333333333333334,
+      "frames": 164,
+      "fps": 60,
+      "sample_rate": 120
+    }
+  },
+  "mesh_vertices": 19048,
+  "source_transform": [
+    -0.004999999888241291,
+    -0.10999999940395355,
+    0.06499999761581421
+  ],
+  "markers": {
+    "WPN_RearSight": [
+      0.000688,
+      0.009231,
+      0.122149
+    ],
+    "WPN_FrontSight": [
+      0.000689,
+      -0.343514,
+      0.12049
+    ],
+    "WPN_SOCKET_Muzzle": [
+      0.001,
+      -0.562,
+      0.057
+    ],
+    "WPN_SOCKET_Eject": [
+      0.025,
+      -0.09,
+      0.077
+    ]
+  },
+  "parts": {
+    "magazine": 93,
+    "trigger": 85,
+    "charging_handle": 89
+  },
+  "hands_source": "M4TacticalToss20260910/SK_Manny_Arms_Export"
+}
