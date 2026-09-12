@@ -1,0 +1,437 @@
+{
+  "m4:idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_idle.001",
+    "frames": 180,
+    "duration": 3.0,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_idle.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.6305604494937855,
+      "preserved_frames": 0
+    }
+  },
+  "m4:reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_reload.001",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      102
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_reload.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 1.1289991070650196,
+      "preserved_frames": 689
+    }
+  },
+  "m4:aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_aim.001",
+    "frames": 2,
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_aim.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_aim.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.3045456219708657,
+      "preserved_frames": 0
+    }
+  },
+  "m4:fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_fire.001",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_fire.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.8556942634296897,
+      "preserved_frames": 0
+    }
+  },
+  "m4:aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_aim_fire.001",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_aim_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_aim_fire.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.435212556919778,
+      "preserved_frames": 0
+    }
+  },
+  "m4:equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_equip.001",
+    "frames": 38,
+    "duration": 0.6333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_equip.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_equip.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.6977350931765964,
+      "preserved_frames": 0
+    }
+  },
+  "m4:reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "action": "A_M4_Vertical_reload_empty.001",
+    "frames": 162,
+    "duration": 2.7,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      138
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_reload_empty.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.950181232777795,
+      "preserved_frames": 977
+    }
+  },
+  "m4:drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_Vertical_drum_reload.001",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      102
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_drum_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_drum_reload.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 3.7584857606233517,
+      "preserved_frames": 297
+    }
+  },
+  "m4:drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+    "action": "A_M4_Vertical_drum_reload_empty.001",
+    "frames": 148,
+    "duration": 2.466666666666667,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      28,
+      124
+    ],
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_drum_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_drum_reload_empty.fbx",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 3.6394872166956276,
+      "preserved_frames": 385
+    }
+  },
+  "akm:idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.07761002546272,
+      "shoulder_delta_m": [
+        -0.001027137041091919,
+        -0.0012925788760185242,
+        0.0004911720752716064
+      ],
+      "twist_deg": 29.15358759153969
+    },
+    "nonleft_error_m": 4.332402106230336e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_idle.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_idle.fbx",
+    "action": "A_AKM_vertical_idle.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.2668786228021263,
+      "preserved_frames": 0
+    }
+  },
+  "akm:aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5370479026803179,
+      "elbow_bend_deg": 24.186459709560314,
+      "shoulder_delta_m": [
+        -0.002903878688812256,
+        -0.004853002727031708,
+        0.0013341531157493591
+      ],
+      "twist_deg": 23.978198905572196
+    },
+    "nonleft_error_m": 4.017197068665021e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_aim.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_aim.fbx",
+    "action": "A_AKM_vertical_aim.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.01978234059262607,
+      "preserved_frames": 0
+    }
+  },
+  "akm:fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.07761002546272,
+      "shoulder_delta_m": [
+        -0.001027137041091919,
+        -0.0012925788760185242,
+        0.0004911720752716064
+      ],
+      "twist_deg": 29.15358759153969
+    },
+    "nonleft_error_m": 4.332402106230336e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_fire.fbx",
+    "action": "A_AKM_vertical_fire.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.2668786228021263,
+      "preserved_frames": 0
+    }
+  },
+  "akm:aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5370479026803179,
+      "elbow_bend_deg": 24.186459709560314,
+      "shoulder_delta_m": [
+        -0.002903878688812256,
+        -0.004853002727031708,
+        0.0013341531157493591
+      ],
+      "twist_deg": 23.978198905572196
+    },
+    "nonleft_error_m": 4.017197068665021e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_aim_fire.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_aim_fire.fbx",
+    "action": "A_AKM_vertical_aim_fire.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.01978234059262607,
+      "preserved_frames": 0
+    }
+  },
+  "akm:equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 1.7,
+    "frames": 204,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.077616855651893,
+      "shoulder_delta_m": [
+        -0.0010270476341247559,
+        -0.0012924522161483765,
+        0.0004911273717880249
+      ],
+      "twist_deg": 29.1536772765087
+    },
+    "nonleft_error_m": 7.178896349934282e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 6.07850493620966e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_equip.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_equip.fbx",
+    "action": "A_AKM_vertical_equip.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.2668786228021263,
+      "preserved_frames": 0
+    }
+  },
+  "akm:reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.077630516030233,
+      "shoulder_delta_m": [
+        -0.0010271668434143066,
+        -0.0012926086783409119,
+        0.0004911720752716064
+      ],
+      "twist_deg": 29.15360465963851
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 4.933162140025749e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 8.36591055847299e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_reload.fbx",
+    "action": "A_AKM_vertical_reload.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.7607902790162435,
+      "preserved_frames": 229
+    }
+  },
+  "akm:reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.077630516030233,
+      "shoulder_delta_m": [
+        -0.0010271668434143066,
+        -0.0012926086783409119,
+        0.0004911720752716064
+      ],
+      "twist_deg": 29.15360465963851
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_reload_empty.fbx",
+    "action": "A_AKM_vertical_reload_empty.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.41684070875419243,
+      "preserved_frames": 339
+    }
+  },
+  "akm:drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.077630516030233,
+      "shoulder_delta_m": [
+        -0.0010271668434143066,
+        -0.0012926086783409119,
+        0.0004911720752716064
+      ],
+      "twist_deg": 29.15360465963851
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 5.006878857735229e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 8.36591055847299e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_drum_reload.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_drum_reload.fbx",
+    "action": "A_AKM_vertical_drum_reload.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.7607902790162435,
+      "preserved_frames": 229
+    }
+  },
+  "akm:drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.12354069976706185,
+      "elbow_bend_deg": 31.077630516030233,
+      "shoulder_delta_m": [
+        -0.0010271668434143066,
+        -0.0012926086783409119,
+        0.0004911720752716064
+      ],
+      "twist_deg": 29.15360465963851
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance",
+    "previous_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_drum_reload_empty.blend",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_drum_reload_empty.fbx",
+    "action": "A_AKM_vertical_drum_reload_empty.001",
+    "donor": "VRExpPluginExample/GrabAnimation",
+    "closure": 0.8,
+    "metrics": {
+      "max_wrist_bend_deg": 0.41684070875419243,
+      "preserved_frames": 339
+    }
+  }
+}

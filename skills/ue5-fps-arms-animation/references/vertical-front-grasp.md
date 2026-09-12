@@ -7,7 +7,7 @@
 3. 闭合拇指的松手路径需要重新制作，不能直接复用前伸拇指的展开曲线。退握/回握允许自然的拇指与食指表面接触，但应单独报告交叠时刻；它与刚性握把穿透、手腕折断或手指翻转是不同问题。保留取弹、插入、拉栓主要接触和机械时钟。
 4. AKM 的原动作混合段还需检查主枪身及弹匣，局部修正应在原取弹接触前归零。一个配件通过不代表另一种配件或跨枪迁移通过。保留实际正面图片和动作视频，尚未得到用户评价时写明新迭代待评价。
 
-本轮先完成 M4 / AKM 垂直握把，入口 `SourceAssets/VerticalGripFront20260911/README.md`。当前目录为 `/Game/Weapons/M4VerticalGripOpposed/Vertical` 与 `/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical`，各 9 条动画；继续工作先核对 `VerticalGripAnimationFamily.h` 和 `AKMAttachmentVisual.h`。之前 ForwardThumb 结果已被拒绝，不作为接受基线。
+2026-09-11 的 Opposed 迭代入口为 `SourceAssets/VerticalGripFront20260911/README.md`，用户后来指出仍不及预期，不能作为接受基线。2026-09-12 改用现成 VRE 抓握源，见 [GitHub 抓握迁移案例](github-grasp-donor.md)；当前接入为 M4 `M4VerticalGripVRENatural/Vertical` 和 AKM `SovietFab/GripVRENatural/vertical`，仍待视觉评价。继续工作先核对 `VerticalGripAnimationFamily.h` 和 `AKMAttachmentVisual.h`。
 
 用户明确指定的小配件后续方式：阻手器等较小改造件直接采用参考图的握拳姿态，将整个件包裹住，内部穿模可以接受。不应再为精确匹配小配件模型反复阻塞制作；优先手指、虎口和腕臂的自然轮廓。这一许可适用于该用户指定的小配件，不能概括成所有枪械或全部穿模都无需检查。
 

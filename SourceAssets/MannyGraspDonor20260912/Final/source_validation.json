@@ -1,0 +1,110 @@
+{
+  "m4:idle": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "m4:reload": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  },
+  "m4:aim": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "m4:fire": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "m4:aim_fire": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "m4:equip": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "m4:reload_empty": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  },
+  "m4:drum_reload": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  },
+  "m4:drum_reload_empty": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.4901161193847656e-07,
+    "frames_and_rest_preserved": true
+  },
+  "akm:idle": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "akm:aim": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "akm:fire": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "akm:aim_fire": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "akm:equip": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 0.0,
+    "frames_and_rest_preserved": true
+  },
+  "akm:reload": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  },
+  "akm:reload_empty": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  },
+  "akm:drum_reload": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  },
+  "akm:drum_reload_empty": {
+    "unchanged_nonleft_tracks": 0.0,
+    "unchanged_joint_locations_and_scale": 0.0,
+    "reload_contact_track_error": 1.7881393432617188e-07,
+    "frames_and_rest_preserved": true
+  }
+}

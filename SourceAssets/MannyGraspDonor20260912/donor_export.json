@@ -1,0 +1,52 @@
+[
+  {
+    "asset": "/Game/XRMannequins/Meshes/SKM_MannyXR_right",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\SKM_MannyXR_right.fbx",
+    "class": "SkeletalMesh"
+  },
+  {
+    "asset": "/Game/XRMannequins/Meshes/SKM_MannyXR_left",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\SKM_MannyXR_left.fbx",
+    "class": "SkeletalMesh"
+  },
+  {
+    "asset": "/Game/XRMannequins/Animations/A_MannequinsXR_Grasp_Right",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\A_MannequinsXR_Grasp_Right.fbx",
+    "class": "AnimSequence",
+    "duration": 0.0833333358168602,
+    "frames": 1,
+    "skeleton": "/Game/XRMannequins/Meshes/SK_MannequinsXR.SK_MannequinsXR"
+  },
+  {
+    "asset": "/Game/XRMannequins/Animations/A_MannequinsXR_Idle_Right",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\A_MannequinsXR_Idle_Right.fbx",
+    "class": "AnimSequence",
+    "duration": 0.75,
+    "frames": 9,
+    "skeleton": "/Game/XRMannequins/Meshes/SK_MannequinsXR.SK_MannequinsXR"
+  },
+  {
+    "asset": "/Game/XRMannequins/Animations/A_MannequinsXR_IndexCurl_Right",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\A_MannequinsXR_IndexCurl_Right.fbx",
+    "class": "AnimSequence",
+    "duration": 0.0833333358168602,
+    "frames": 1,
+    "skeleton": "/Game/XRMannequins/Meshes/SK_MannequinsXR.SK_MannequinsXR"
+  },
+  {
+    "asset": "/Game/XRMannequins/Animations/A_MannequinsXR_ThumbUp_Right",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\A_MannequinsXR_ThumbUp_Right.fbx",
+    "class": "AnimSequence",
+    "duration": 0.0833333358168602,
+    "frames": 1,
+    "skeleton": "/Game/XRMannequins/Meshes/SK_MannequinsXR.SK_MannequinsXR"
+  },
+  {
+    "asset": "/Game/VRE/Core/GraspingHands/VRHandMeshes/Animations/GrabAnimation",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Donor\\GrabAnimation.fbx",
+    "class": "AnimSequence",
+    "duration": 1.0,
+    "frames": 1,
+    "skeleton": "/Game/VRE/Core/GraspingHands/VRHandMeshes/Meshes/SK_MannequinsXR.SK_MannequinsXR"
+  }
+]

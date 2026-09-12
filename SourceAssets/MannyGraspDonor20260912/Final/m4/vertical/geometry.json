@@ -1,0 +1,427 @@
+{
+  "idle_0": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "idle_90.0": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "idle_180": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_0": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_3": {
+    "crossing_hand_triangles": 225,
+    "pairs_by_digit": {
+      "index": 402,
+      "middle": 180,
+      "ring": 70,
+      "pinky": 537
+    },
+    "parts": {
+      "VG_Grip": 1189
+    },
+    "self": {}
+  },
+  "reload_6": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_9": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_12": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "index-thumb": 52
+    }
+  },
+  "reload_15": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_16": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_20": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_24": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_28": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_102": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_106": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "index-thumb": 97
+    }
+  },
+  "reload_110": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_114": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_117": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_120": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_123": {
+    "crossing_hand_triangles": 220,
+    "pairs_by_digit": {
+      "index": 392,
+      "middle": 197,
+      "ring": 57,
+      "pinky": 544
+    },
+    "parts": {
+      "VG_Grip": 1190
+    },
+    "self": {}
+  },
+  "reload_126": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "aim_0": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "ring": 63,
+      "pinky": 681,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "aim_1.0": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "ring": 63,
+      "pinky": 681,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "aim_2": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "ring": 63,
+      "pinky": 681,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_empty_0": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_empty_3": {
+    "crossing_hand_triangles": 225,
+    "pairs_by_digit": {
+      "index": 402,
+      "middle": 180,
+      "ring": 70,
+      "pinky": 537
+    },
+    "parts": {
+      "VG_Grip": 1189
+    },
+    "self": {}
+  },
+  "reload_empty_6": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_9": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_12": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "index-thumb": 52
+    }
+  },
+  "reload_empty_15": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_16": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_20": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_24": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_28": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_138": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "index-middle": 223,
+      "middle-ring": 258,
+      "ring-pinky": 94
+    }
+  },
+  "reload_empty_142": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "index-middle": 73,
+      "index-thumb": 73,
+      "middle-ring": 166,
+      "ring-pinky": 72
+    }
+  },
+  "reload_empty_146": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_150": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_153": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_156": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_159": {
+    "crossing_hand_triangles": 220,
+    "pairs_by_digit": {
+      "index": 392,
+      "middle": 197,
+      "pinky": 544,
+      "ring": 57
+    },
+    "parts": {
+      "VG_Grip": 1190
+    },
+    "self": {}
+  },
+  "reload_empty_162": {
+    "crossing_hand_triangles": 503,
+    "pairs_by_digit": {
+      "pinky": 681,
+      "ring": 63,
+      "middle": 237,
+      "index": 398,
+      "thumb": 395
+    },
+    "parts": {
+      "VG_Grip": 1774
+    },
+    "self": {
+      "index-middle": 141,
+      "index-thumb": 116,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  }
+}

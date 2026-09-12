@@ -1,0 +1,26 @@
+{
+  "1.0": {
+    "VG_Grip": {
+      "crossing_triangles": 598,
+      "inside_vertices_nearest_normal": 329,
+      "max_depth_mm": 8.322769775986671,
+      "p95_depth_mm": 6.08543585985899
+    }
+  },
+  "0.9": {
+    "VG_Grip": {
+      "crossing_triangles": 536,
+      "inside_vertices_nearest_normal": 256,
+      "max_depth_mm": 7.055026479065418,
+      "p95_depth_mm": 4.951953422278166
+    }
+  },
+  "0.8": {
+    "VG_Grip": {
+      "crossing_triangles": 440,
+      "inside_vertices_nearest_normal": 176,
+      "max_depth_mm": 5.036157555878162,
+      "p95_depth_mm": 3.799108788371086
+    }
+  }
+}
