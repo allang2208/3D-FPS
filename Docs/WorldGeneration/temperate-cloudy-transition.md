@@ -20,6 +20,16 @@
 
 自有云材质已保存，作者日志输出 `TEMPERATE_SKY_AUTHORING_COMPLETE`。作者进程因工程已有的 `GameFeatureData` 资源管理配置错误返回 1，不代表命令行整体成功。
 
-Editor/Game 必要构建暂被同时修改中的建筑模块阻塞：`VoxelBuildWorld` 的声明/运行时类型问题，以及 `VoxelCollapseFragment::TakeDamage` 的 `Instigator` 参数遮蔽成员错误。未改动这些建筑代码；天气原生逻辑需待工程构建成功并重启编辑器后生效。日志位于 `Saved/WeatherCloudTransition`。
+上次 Editor/Game 必要构建被建筑模块阻塞，原始日志保留在 `Saved/WeatherCloudTransition`。
+
+### 2026-09-13 续接构建
+
+用户完成建筑修改后继续构建。期间补上 `GunsmithSystem.cpp` 中 JSON 共享字符串键到 `FString` 的显式转换，并等待建筑接口的并行更新同步完成。该一行枪匠兼容修改保留在本地共享工作区，其所在代码段尚未纳入当前 Git 版本；本次发布天气交付记录。
+
+- Editor 最终构建成功，生成 `UnrealEditor-FPSGAME-91385.dll`。
+- Game 最终构建成功，生成 `Binaries/Win64/FPSGAME.exe`。
+- 本次日志目录：`Saved/WeatherCloudTransition/Resume-20260913-170959`，最终结果分别见 `build-editor-complete-console.log` 与 `build-game-complete-console.log`。
+
+晴天疏云、多云天气、雨前聚云与面板预报修改已进入新的构建产物。仍打开的编辑器需要重启后加载新版模块。
 
 按用户规则未启动游戏，未执行自动测试、截图或渲染验收，由用户实机测试。
