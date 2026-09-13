@@ -1,4 +1,5 @@
 #include "ProductionToolComponent.h"
+#include "ProductionHarvestSubsystem.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelPickup.h"
@@ -53,6 +54,8 @@ void UProductionToolComponent::RefreshHeldTool()
     if (LoadHandle) { LoadHandle->CancelHandle(); LoadHandle.Reset(); }
     if (!Item) return;
     Kind=ColdSteelInventory::Text(*Item,TEXT("tool_kind")); ToolName=ColdSteelInventory::Text(*Item,TEXT("name"));
+    if(Kind==TEXT("axe")||Kind==TEXT("pickaxe"))
+        if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->Prepare(Kind==TEXT("axe"));
     SwingSeconds=FMath::Max(.4f,float(ColdSteelInventory::Number(*Item,TEXT("swing_seconds"),.68)));
     ContactSeconds=FMath::Clamp(float(ColdSteelInventory::Number(*Item,TEXT("contact_seconds"),.24)),.1f,SwingSeconds-.1f);
     const float Scale=ColdSteelInventory::Number(*Item,TEXT("tool_scale"),.65);
@@ -126,10 +129,11 @@ void UProductionToolComponent::ResolveContact()
     }
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     bool Depleted=false;
+    Target.Direction=Camera->GetForwardVector();
     if (!Profile->CommitHarvestStrike(Target,Depleted)) { Feedback=Profile->ResultMessage(); FeedbackSeconds=3; return; }
     Feedback=Profile->ResultMessage(); FeedbackSeconds=2;
     if (HitSound) UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,.65f);
-    if (ImpactDust) UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactDust,Hit.ImpactPoint,Hit.ImpactNormal.Rotation(),FVector(.35f));
+    if (ImpactDust&&(!Depleted||Target.Layer==2)) UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactDust,Hit.ImpactPoint,Hit.ImpactNormal.Rotation(),FVector(.25f),true,EPSCPoolMethod::AutoRelease);
     if (Depleted && Target.World.IsValid()) Target.World->CompleteProductionHarvest(Target,Hit,Camera->GetForwardVector());
 }
 

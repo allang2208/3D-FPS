@@ -1,5 +1,7 @@
 # 生产工具与温带丘陵采集初版
 
+本文记录初版。当前砍树／采矿已改为落地材料、`E` 拾取与受预算控制的破碎效果，见 [后续优化](ProductionHarvestFX-20260913.md)。
+
 ## 素材可复用范围
 
 本机 `Content/EasyBuildingSystem` 已包含 `BP_EBS_Tree`、`BP_EBS_Mine`、`BP_EBS_ResourcesComponent`，以及斧头、矿镐、工具动作、命中音效和粉尘效果。其蓝图依赖 EBS 的玩家接口、交互组件和资源结构，不能直接替换 FPSGAME 的玩家与冷钢背包。本次复用素材和采集规则，使用原生适配代码接入当前系统。

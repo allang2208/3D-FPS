@@ -2,6 +2,7 @@
 #include "ColdSteelWarehouseRules.h"
 #include "../Production/ProductionResource.h"
 #include "../Production/ProductionToolComponent.h"
+#include "../Production/ProductionHarvestSubsystem.h"
 #include "../FPSGAMECharacter.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Dom/JsonObject.h"
@@ -30,6 +31,7 @@ const FColdSteelItem* UColdSteelStatusModel::ActiveProductionTool() const
 
 void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
 {
+    for(auto& I:P.Items)if(I.Place!=2)I.HarvestWorldId.Invalidate();
     const auto* Item = P.Items.FindByPredicate([&](const auto& I){return I.InstanceId == P.ActiveProductionTool && I.Place == 0;});
     if (!Item || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) P.ActiveProductionTool.Reset();
 }
@@ -99,17 +101,32 @@ bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Targe
     if (Before >= FProductionResource::RequiredHits) { Message=TEXT("此处资源已经采尽"); return false; }
     SyncRuntime(); auto P=Snapshot();
     const int32 After=Before+1;
+    TArray<FString> Drops;
     if (After == FProductionResource::RequiredHits)
+    {
+        if(Target.Layer<2)
+        {
+            auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>();
+            if(!Harvest){Message=TEXT("当前世界无法生成采集物");return false;}
+            Harvest->Prepare(Target.Layer==0);
+            if(!Harvest->Ready(Target.Layer==0)){Message=TEXT("正在准备采集物模型，稍后再挥动一次");return false;}
+            if(!StageProductionDrops(P,Target,Drops))return false;
+        }
+        else
         for (const auto& Reward : Target.Rewards)
         {
             const auto Item=CreateItem(Reward.Key,Reward.Value);
             if (Item.Data.IsEmpty() || !ColdSteelInventory::Insert(P.Items,Item))
             { Message=TEXT("背包空间不足，资源保留；整理后继续采集"); return false; }
         }
+    }
     P.HarvestProgress.Add(Target.Id,After);
-    // Resource state and rewards are saved in the same existing A/B profile commit.
+    // Depletion and every ground pickup are one profile transaction, before visuals.
     if (!CommitState(MoveTemp(P))) return false;
     Depleted=After == FProductionResource::RequiredHits;
-    Message=Depleted ? Target.Name+TEXT("已采集，材料收入背包") : FString::Printf(TEXT("%s  %d / %d"),*Target.Name,After,FProductionResource::RequiredHits);
+    if(!Drops.IsEmpty())GetWorld()->GetSubsystem<UProductionHarvestSubsystem>()->DelayDrops(Drops,Target.Layer==0?2.8f:.25f);
+    Message=Depleted ? (Target.Layer==0?TEXT("树木正在倒下，落地后对准木材按 E 拾取"):
+        Target.Layer==1?TEXT("岩石已破碎，对准石材或矿石按 E 拾取"):TEXT("表土已采集，材料收入背包")) :
+        FString::Printf(TEXT("%s  %d / %d"),*Target.Name,After,FProductionResource::RequiredHits);
     return true;
 }

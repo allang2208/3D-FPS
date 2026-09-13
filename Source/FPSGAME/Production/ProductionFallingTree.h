@@ -6,7 +6,7 @@
 struct FProductionResource;
 class USkeletalMeshComponent;
 
-/** Short-lived cosmetic fall. Resources were already committed by the profile. */
+/** Cosmetic fall; persistent ground drops are committed before the animation starts. */
 UCLASS(NotBlueprintable)
 class FPSGAME_API AProductionFallingTree : public AActor
 {
@@ -19,5 +19,9 @@ private:
     UPROPERTY() TObjectPtr<USkeletalMeshComponent> Tree;
     FQuat InitialRotation=FQuat::Identity;
     FVector FallAxis=FVector::RightVector;
+    FVector LandingPoint=FVector::ZeroVector;
+    float LandingAngle=88.f;
+    uint32 EffectSeed=0;
+    bool Landed=false;
     float Elapsed=0;
 };

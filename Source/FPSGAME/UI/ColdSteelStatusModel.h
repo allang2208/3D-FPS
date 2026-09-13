@@ -113,5 +113,7 @@ private:
     void RefreshDrops();
     void LoadProductionDefinitions();
     void NormalizeProductionState(FColdSteelProfile& State) const;
+    bool StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids);
+    void StampProductionDrop(FColdSteelItem& Item) const;
     friend class AColdSteelPickup;
 };

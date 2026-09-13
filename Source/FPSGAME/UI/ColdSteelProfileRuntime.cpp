@@ -253,6 +253,7 @@ bool UColdSteelStatusModel::Drop(const FString& Id)
     // Release above the ground; the rigid body resolves the fall and landing.
     I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint;I->Position.Z=FMath::Max(Ground.ImpactPoint.Z+60,Origin.Z+15);
     I->WorldRotation=FRotator(5,CurrentPawn->GetActorRotation().Yaw,-65);
+    StampProductionDrop(*I);
     const double Begin=FPlatformTime::Seconds();if(!CommitState(P))return false;const double Saved=FPlatformTime::Seconds();RefreshDrops();
     if(bAudit)UE_LOG(LogTemp,Display,TEXT("DropTiming: save %.3f ms spawn %.3f ms"),(Saved-Begin)*1000,(FPlatformTime::Seconds()-Saved)*1000);return true;
 }
@@ -269,5 +270,6 @@ void UColdSteelStatusModel::RefreshDrops()
     if(!GetWorld()||!CurrentPawn.IsValid())return;TSet<FString> Existing;
     for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It){const auto* I=FindItem(It->ItemId);if(!I||I->Place!=2)It->Destroy();else Existing.Add(It->ItemId);}
     const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
-    for(const auto& I:Current.Items)if(I.Place==2&&I.Map==Map&&!Existing.Contains(I.InstanceId)){FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,I.WorldRotation,Spawn);if(A)A->InitializeItem(I);}
+    // Harvest drops stream independently with a world GUID, range and spawn budget.
+    for(const auto& I:Current.Items)if(I.Place==2&&!I.HarvestWorldId.IsValid()&&I.Map==Map&&!Existing.Contains(I.InstanceId)){FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,I.WorldRotation,Spawn);if(A)A->InitializeItem(I);}
 }

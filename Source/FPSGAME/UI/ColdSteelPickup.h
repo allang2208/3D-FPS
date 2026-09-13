@@ -32,6 +32,12 @@ private:
     bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);
     bool BuildProductionTool(const FColdSteelItem& Item);
+    bool BuildProductionMaterial(const FColdSteelItem& Item);
+    void InstallProductionMaterial(class UStaticMesh* Asset,bool Wood);
+    void TickProductionMaterial(float Delta);
+    bool bProductionMaterial=false;
+    bool bProductionMaterialReady=false;
+    float ProductionSettleSeconds=0;
     TSharedPtr<struct FStreamableHandle> ProductionToolLoad;
     void BuildLootGlow(const FColdSteelItem& Item);
     void FaceLootBeam(const class APlayerController* PC);

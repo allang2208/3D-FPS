@@ -36,9 +36,9 @@ AColdSteelPickup::AColdSteelPickup()
 }
 void AColdSteelPickup::InitializeItem(const FColdSteelItem& Item)
 {
-    ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun&&!BuildProductionTool(Item))BuildConsumable(Item);Mesh->SetVisibility(!Gun);
+    ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun&&!BuildProductionTool(Item)&&!BuildProductionMaterial(Item))BuildConsumable(Item);Mesh->SetVisibility(!Gun);
     auto* Surface=NewObject<UPhysicalMaterial>(this);Surface->Friction=.8f;Surface->Restitution=.08f;Body->SetPhysMaterialOverride(Surface);
-    Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(true);
+    Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:bProductionMaterial?1.2f:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(!bProductionMaterial||bProductionMaterialReady);
     BuildLootGlow(Item);
     Prompt->InitWidget();if(auto* UI=Cast<UColdSteelPickupPrompt>(Prompt->GetUserWidgetObject())){
         FString Name=ColdSteelInventory::Text(Item,TEXT("name"));if(Name.IsEmpty())Name=Item.Definition;
@@ -49,6 +49,7 @@ bool AColdSteelPickup::CanInteract(const APawn* Pawn)const{return !ItemId.IsEmpt
 void AColdSteelPickup::Tick(float Delta)
 {
     Super::Tick(Delta);auto* PC=UGameplayStatics::GetPlayerController(this,0);
+    if(bProductionMaterial)TickProductionMaterial(Delta);
     FaceLootBeam(PC);
     Prompt->SetWorldLocation(GetActorLocation()+FVector(0,0,Body->Bounds.BoxExtent.Z+15));Prompt->SetVisibility(PC&&CanInteract(PC->GetPawn()));
 }

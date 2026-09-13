@@ -22,6 +22,7 @@ struct FColdSteelItem
     UPROPERTY() FString Map;
     UPROPERTY() FVector Position = FVector::ZeroVector;
     UPROPERTY() FRotator WorldRotation = FRotator::ZeroRotator;
+    UPROPERTY() FGuid HarvestWorldId; // Ground resources belong to one generated world.
     UPROPERTY() float Cooldown = 0;
     UPROPERTY() int32 Magazine = 30;
     UPROPERTY() int32 Reserve = 90;

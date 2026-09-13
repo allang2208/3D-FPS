@@ -1,8 +1,10 @@
 #include "TemperateHillsWorld.h"
 #include "../Production/ProductionResource.h"
 #include "../Production/ProductionFallingTree.h"
+#include "../Production/ProductionHarvestSubsystem.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Components/InstancedSkinnedMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Engine/GameInstance.h"
@@ -78,21 +80,25 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
 {
     if (Resource.Layer==2) return; // Soil is a finite surface harvest, not terrain excavation.
     if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);
+    if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
+        Harvest->Burst(Resource.Layer==0,Hit.ImpactPoint,Resource.Seed);
     if (Resource.Layer==0)
     {
+        // Remove only the rendered tree instance. Stable candidate IDs remain in
+        // the profile, so subsequent PCG streaming cannot restore the felled tree.
+        for(TObjectIterator<UInstancedSkinnedMeshComponent> It;It;++It)
+        {
+            auto* Trees=*It;
+            if(Trees->GetWorld()!=GetWorld()||Trees->GetSkinnedAsset()!=Resource.Mesh.ResolveObject())continue;
+            for(int32 N=Trees->GetInstanceCount()-1;N>=0;--N)
+            {
+                const auto Id=Trees->GetInstanceId(N);FTransform Transform;
+                if(Trees->GetInstanceTransform(Id,Transform,true)&&FVector::DistSquared(Transform.GetLocation(),Resource.Transform.GetLocation())<4)
+                {Trees->RemoveInstance(Id);break;}
+            }
+        }
         FActorSpawnParameters Spawn; Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         if (auto* Fall=GetWorld()->SpawnActor<AProductionFallingTree>(Resource.Transform.GetLocation(),Resource.Transform.Rotator(),Spawn)) Fall->InitializeFall(Resource,Direction);
     }
-    // Only the already streamed local PCG cell is scheduled. No whole-world
-    // regenerate, synchronous biome loading or permanent actor for every tree.
-    const FVector P=Resource.Transform.GetLocation();
-    for (TObjectIterator<UPCGComponent> It;It;++It)
-    {
-        auto* C=*It;
-        if (C->GetWorld()!=GetWorld() || C==PCGLayers[Resource.Layer] || C->GetOriginalComponent()!=PCGLayers[Resource.Layer]) continue;
-        const FBox B=C->GetGridBounds();
-        if (P.X<B.Min.X || P.X>=B.Max.X || P.Y<B.Min.Y || P.Y>=B.Max.Y) continue;
-        // The point source is not cached; forced generation also works in game builds.
-        C->GenerateLocal(EPCGComponentGenerationTrigger::GenerateAtRuntime,true,PCGHiGenGrid::UninitializedGridSize());
-    }
+    // No PCG cell regeneration on each harvest; only the affected instances change.
 }
