@@ -1,0 +1,132 @@
+{
+  "date": "2026-09-13",
+  "task": "Panel and section workflow",
+  "archiveRoot": "trash/ui-panel-workflow-20260913",
+  "scope": "Rejected UI concepts and superseded proposal only",
+  "files": [
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/01-drawer.png",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/01-drawer.png",
+      "bytes": 1572060,
+      "sha256": "4af8659f740d2610e893ff39017271f5bbb223fbf41707fb4518533873287782",
+      "reason": "未采用的改造界面方案；保留已采用的 02 工作台来源",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/03-compare.png",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/03-compare.png",
+      "bytes": 1465621,
+      "sha256": "2445b747a20da8efc0379b137529cdf10857e3ed7b46076a68547a6010e049cc",
+      "reason": "未采用的改造界面方案；保留已采用的 02 工作台来源",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/04-loadouts.png",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/04-loadouts.png",
+      "bytes": 1569221,
+      "sha256": "1924348b99823d70b1029be0b0963d1739f29601269da6d1574da598f264292c",
+      "reason": "未采用的改造界面方案；保留已采用的 02 工作台来源",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/05-hotspots.png",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/05-hotspots.png",
+      "bytes": 1630497,
+      "sha256": "db479ece2a036a8a538893e3e836cb10e8d3587770476e07630a20c1c86d6812",
+      "reason": "未采用的改造界面方案；保留已采用的 02 工作台来源",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/README.md",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/README.md",
+      "bytes": 2897,
+      "sha256": "55aea30358092f9a483201d08a330d07705b308bcdcda9896c8b030c141289ac",
+      "reason": "五方案旧入口与旧字体说明退役；重新生成仅含已采用 02 的来源记录",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/gallery.md",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/gallery.md",
+      "bytes": 1228,
+      "sha256": "f0df6f4557b5c3af8ed49cad946c126db8c13074ba1aa6f1c07d678c89b12c81",
+      "reason": "五方案旧入口与旧字体说明退役；重新生成仅含已采用 02 的来源记录",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/Concepts/EquipmentGunsmith-20260910/prompts.json",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/Concepts/EquipmentGunsmith-20260910/prompts.json",
+      "bytes": 13974,
+      "sha256": "7db361cb5ae9bd5db188d81ae0a558e113b1b5f383ef7de66bec1ec4405e64f0",
+      "reason": "五方案旧入口与旧字体说明退役；重新生成仅含已采用 02 的来源记录",
+      "replacement": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "verifiedAfterMove": true
+    },
+    {
+      "original": "Docs/UI/gunsmith-cold-glass-plan-20260912.md",
+      "archived": "trash/ui-panel-workflow-20260913/Docs/UI/gunsmith-cold-glass-plan-20260912.md",
+      "bytes": 17742,
+      "sha256": "cae8543dd4b0b7596985122af912e17911d00fba43e97972bfe39ec33e7a7531",
+      "reason": "旧五背景与字体候选提案已由当前黑灰玻璃正式规则替代",
+      "replacement": "Docs/UI/ui-cold-steel-design-system.md",
+      "verifiedAfterMove": true
+    }
+  ],
+  "retainedSources": [
+    {
+      "path": "Docs/UI/Concepts/EquipmentGunsmith-20260910/02-workbench.png",
+      "bytes": 1594737,
+      "sha256": "f6cfa1ce45d96d2fb80afdcf06155688076f03bf3f843a13301d2ade719c900e"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/01-optic-candidate-v1.png",
+      "bytes": 1462612,
+      "sha256": "6bc708aa5713e416ba0e223c0918751ff86ce46162415b5a2de536c7a7b02998"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/02-muzzle-candidate-v1.png",
+      "bytes": 1439862,
+      "sha256": "3f991410b7dbd4051594b87fdaee7f3eec5b61c35b58c28177a1b7c09bd6f356"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/03-magazine-candidate-v1.png",
+      "bytes": 1659412,
+      "sha256": "a6d2dad234e810094bd874e4c06139ece4774895d762a8871ff1ca6130763a00"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/04-underbarrel-candidate-v1.png",
+      "bytes": 1331505,
+      "sha256": "7435afca969ef927a3e7a1568f7375695e9c4555bd1dc7d3f8aa416b10dff357"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/05-barrel-candidate-v1.png",
+      "bytes": 1144643,
+      "sha256": "dbef9261c9d301cabb1c72f5e666bd4461aeb3c2b283feafee393b64447e8968"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/06-reargrip-candidate-v1.png",
+      "bytes": 1450162,
+      "sha256": "400f316abb0ed28ebbf375f348389fa19e165c3643e0b9aed4d54d06133bf59a"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/07-stock-candidate-v1.png",
+      "bytes": 1421998,
+      "sha256": "76fbc82ffbb228fbbd74869ee2d939eee319d09d9b686a80f064bd472a2ced0f"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/08-trigger-candidate-v1.png",
+      "bytes": 1424419,
+      "sha256": "a2b84675f194848a213c3957b7becc08f0e50915bca6ded85df7118b60f28f7d"
+    },
+    {
+      "path": "SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/09-tactical-candidate-v1.png",
+      "bytes": 1589297,
+      "sha256": "4a63b6d0e81cce9365b013679c42ba2405258114de651d006e9ee1ba7f8d1e60"
+    }
+  ]
+}

@@ -1,9 +1,10 @@
 ---
 name: ue5-ui-umg-slate
-description: UE5.6-UE5.8 UI development workflow using UMG and Slate integration. Use when requests involve Widget Blueprint setup, Slate host widgets, lifecycle binding, input and focus handling, tooltip behavior, or viewport clamping logic.
+description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and popups using UMG and Slate. Use for new UI or UI upgrades, FPSGAME Cold Steel design rules, panel/column workflows, Widget Blueprint setup, lifecycle binding, data visibility, input/focus, tooltips and viewport layout.
 ---
 
 # Quick Start
+- For FPSGAME new panels, tabs, sections, cards, or UI upgrades, first read [panel planning and Cold Steel rules](references/fpsgame-panels.md). Plan structure, layout, data scope and states before implementation; use the project's current design system.
 - For FPSGAME inventory drawers, detached item menus, or drag/close regressions, read [inventory input and validation](references/fpsgame-inventory-input.md).
 - Identify whether feature belongs to UMG, Slate, or hybrid bridge.
 - Define data source component/subsystem and UI binding point.
@@ -37,6 +38,12 @@ description: UE5.6-UE5.8 UI development workflow using UMG and Slate integration
 - If any item is missing, the UI implementation is incomplete.
 
 # Workflow
+## 0) Panel / Section Plan
+- Locate the nearest existing panel and current project design system before changing UI.
+- Define information hierarchy, responsive layout, fixed/scrolling regions, shared visual roles, data scope, empty/disabled/selected states, and action/save ownership.
+- Continue within the user's authorized phase. A planning step does not require an extra approval when implementation is already authorized.
+- In FPSGAME, do not launch checks, tests, screenshots, or acceptance runs unless explicitly requested; necessary development and builds still proceed.
+
 ## 1) UI Architecture Decision
 - Select UMG for standard game HUD/menu work.
 - Select Slate for custom rendering/input behavior that UMG cannot express cleanly.

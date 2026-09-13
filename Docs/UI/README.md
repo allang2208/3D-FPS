@@ -1,6 +1,18 @@
 # 当前 UE5 UI 与库存
 
-实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。以下是按主题保留的实现记录，具体状态以当前代码及相应运行验收为准：
+实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。新面板和栏目先走 [面板与栏目工作流](../../UI-WORKFLOW.md)，使用 [规划模板](panel-column-plan-template.md)；视觉统一使用 [冷钢 UI 正式规则](ui-cold-steel-design-system.md)，冲突的旧字体、配色、透明度和按钮条款由该文替换。
+
+- [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
+- [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
+- [装备／背包图标修复经验](inventory-icons-20260913.md)
+
+- [状态页与顶部状态栏同步升级](status-cold-glass-20260912.md)
+- [强化／附魔 UI 审计与同步升级](enhancement-cold-glass-20260913.md)
+- [仓库空间网格与四按钮规则](warehouse-spatial-cold-glass-20260912.md)
+- [背包装备玻璃升级](inventory-cold-glass-20260912.md)
+- [改造台正式接入](gunsmith-cold-glass-implementation-20260912.md)
+
+以下是历史实现记录，结果只代表对应版本；默认由用户自行测试：
 
 - [ammo-readout-20260909](ammo-readout-20260909.md)
 - [cold-steel-upgrade-20260909](cold-steel-upgrade-20260909.md)

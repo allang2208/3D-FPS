@@ -1,0 +1,124 @@
+{
+  "title": "冷钢部件分类图标候选 V1",
+  "date": "2026-09-12",
+  "stage": "visual-candidates-only",
+  "currentIntegration": {
+    "recorded": "2026-09-13",
+    "status": "All nine source icons retained and integrated into the UE gunsmith workbench after user approval",
+    "sourceFormat": "Original RGB PNG; near-black background composited by M_CategoryIcon; no separate RGBA source claimed",
+    "historyNote": "stage, runtimeChanged, review and per-image available below describe the original candidate delivery, not current runtime availability",
+    "record": "Docs/UI/gunsmith-cold-glass-implementation-20260912.md"
+  },
+  "tool": "built-in image_gen.imagegen",
+  "model": "not exposed by tool; user authorized current built-in generator; not claimed to be image2.5",
+  "referenceRole": "Generated optic image used only as style reference for eight further images",
+  "runtimeChanged": false,
+  "uiContext": "Keep original armory scene, outer black-gray background, right full detail summary.",
+  "review": {
+    "fullResolutionInspected": true,
+    "smallSizeRuntimeInspected": false,
+    "alphaProductionReady": false,
+    "notes": "Nine generated images visually inspected. Deep-background PNG candidates; varied object aspect ratios. Next stage: transparent extraction and optical sizing at actual UI DPI."
+  },
+  "images": [
+    {
+      "key": "optic",
+      "label": "瞄具",
+      "filename": "01-optic-candidate-v1.png",
+      "available": true,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/01-optic-candidate-v1.png",
+      "styleReference": null,
+      "prompt": "Use case: ui-mockup. Asset type: ONE category icon for a dark black/gray gunsmith interface, the master style reference for a nine-icon matching family. Subject: a clearly recognizable compact holographic gun sight with its protective rectangular hood, dark lens opening, and short mounting foot; not a whole firearm. Design it as a substantial 2.5D machined-metal relief pictogram, broad readable forms that still work at 32 and 48 screen pixels, rather than a detailed catalog photo. Orthographic view with a small consistent 12 degree yaw and 8 degree downward viewing angle. Materials: satin brushed silver-gray front faces, darker graphite recessed areas, fine bright chamfer along silhouette, moderate roughness, realistic subdued metal shading. Neutral grayscale only, soft key light from upper left, very soft short contact shadow. Entire icon centered in a SQUARE canvas, fills about 68 percent in each relevant dimension, generous uniform safe margin. Background must be perfectly uniform solid #181818 across the entire square. The icon is the object itself: no backing tile, no badge, no enclosing circle or square, no frame. No blue tint, colored lenses, neon, bloom, emissive glow, rust, dirt, heavy scratches, excessive screws, letters, numbers, labels, brand marks, watermarks or extra objects. Crisp clean silhouette. This is a navigation icon style proposal; do not show mechanical diagrams or assembly instructions.",
+      "visualReview": "矩形镜罩、暗镜片与底座可辨；银灰主面和石墨内层形成清晰明暗。"
+    },
+    {
+      "key": "muzzle",
+      "label": "枪口",
+      "filename": "02-muzzle-candidate-v1.png",
+      "available": true,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-6888e856-2652-4476-87c6-9853416ca7f2.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/02-muzzle-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: a short substantial cylindrical muzzle-brake pictogram, a few broad rectangular side vents and a clearly visible dark circular front opening. The short barrel-like cylinder angles from lower left toward upper right, in the same restrained object-render style as the sight. Only the muzzle device, no sight and no attached gun.",
+      "visualReview": "短筒、前孔与大侧孔形成区别于枪管的轮廓；材质延续瞄具。"
+    },
+    {
+      "key": "magazine",
+      "label": "弹匣",
+      "filename": "03-magazine-candidate-v1.png",
+      "available": true,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-ab5d185b-aabf-484b-8f0f-35eede214b73.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/03-magazine-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one gently curved box magazine pictogram with a clean top feed end and broad shallow longitudinal ribs. A simple bold curved rectangular silhouette, satin silver outer shell with dark graphite recessed ribs. Only the detached magazine, no sight and no gun. Keep its entire outline inside the canvas.",
+      "visualReview": "弧形盒式弹匣与纵向凹槽可辨；表示类别，不等同当前大弹鼓。"
+    },
+    {
+      "key": "underbarrel",
+      "label": "前握把",
+      "filename": "04-underbarrel-candidate-v1.png",
+      "available": true,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-a0ea86ab-d665-4960-8ac4-7c4f83889be0.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/04-underbarrel-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one upright vertical foregrip pictogram with a short horizontal rail-clamp cap across its top and a thick straight vertical grip below. Its silhouette must be a clear T shape with a vertical grip, visibly different from an angled pistol grip. Subtle broad grip channels, silver-gray shell and graphite recesses, no sight and no gun.",
+      "visualReview": "竖直握柄与横向夹座形成 T 形，区别于带掌托的后握把。"
+    },
+    {
+      "key": "barrel",
+      "label": "枪管",
+      "filename": "05-barrel-candidate-v1.png",
+      "available": false,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-3fa31dae-bbcd-46e8-be8b-2c6521586136.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/05-barrel-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one long slender detached firearm barrel pictogram, arranged diagonally from lower left to upper right to fit the square. A simple straight stepped silver-gray tube with a small understated collar around one end, no handguard, no sight and no gun. Make the tube thick enough for a clear small UI silhouette. Minimal broad forms and no technical dimensions.",
+      "visualReview": "斜向长管与端部台阶明确；轮廓较概括，小尺寸试排时需关注是否过于像普通管件。"
+    },
+    {
+      "key": "reargrip",
+      "label": "后握把",
+      "filename": "06-reargrip-candidate-v1.png",
+      "available": false,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-3acfa47b-5498-4d7b-9009-6c7c0eeebad4.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/06-reargrip-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one detached angled pistol-grip category pictogram: broad top attachment neck, slightly rearward-slanting thick handle, gentle palm swell and rounded base. Clean silver-gray front planes with graphite side inset. Its angled silhouette must be clearly different from a straight vertical foregrip. No trigger, no sight and no gun.",
+      "visualReview": "倾斜握柄、指槽和掌心弧面可辨；与前握把的竖直轮廓不同。"
+    },
+    {
+      "key": "stock",
+      "label": "枪托",
+      "filename": "07-stock-candidate-v1.png",
+      "available": false,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-6085598a-ab9d-4e43-8ed3-590553b15cf0.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/07-stock-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one detached compact shoulder stock pictogram with a distinctive broad hollow triangular center, a short top mounting sleeve and a vertical dark graphite buttpad on its rear edge. Left-facing front attachment and buttpad on the right. Silver-gray skeletal outer structure. Only the stock, no sight and no gun; entire silhouette comfortably inside canvas.",
+      "visualReview": "中空三角枪托及深色肩垫可辨。"
+    },
+    {
+      "key": "trigger",
+      "label": "扳机",
+      "filename": "08-trigger-candidate-v1.png",
+      "available": false,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-0b97831a-fe99-4aa5-bd89-fa46c10585af.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/08-trigger-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one clean recognizable curved trigger pictogram: a thick smooth curved hook with a small solid hinge stub at its top. Broad brushed silver-gray face, dark graphite side thickness, fine chamfer. A simple single curved component, not a gun, not a trigger guard, not an exploded mechanism or technical diagram. Large easily readable hook-shaped silhouette.",
+      "visualReview": "单一弯钩和上部转轴凸部可辨，无额外机制图。"
+    },
+    {
+      "key": "tactical",
+      "label": "战术挂件",
+      "filename": "09-tactical-candidate-v1.png",
+      "available": false,
+      "source": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-3015be46-c672-40a2-a880-2a70127bc5d7.png",
+      "destination": "D:/FPS3D/FPSGAME/SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1/09-tactical-candidate-v1.png",
+      "styleReference": "C:\\Users\\allan\\.codex\\generated_images\\01a094dd-2b21-71b0-ae35-b7111208bcba\\exec-05118251-e397-45c4-b219-97ce08c793d2.png",
+      "prompt": "Use case: ui-mockup. Create ONE separate square gunsmith category icon, belonging to the exact same family as the provided reference. Input image is STYLE REFERENCE ONLY: preserve its satin brushed silver-gray metal, dark graphite recesses, fine bright chamfers, restrained realistic 2.5D shading, soft upper-left key lighting, black/gray palette and dark #181818 background, but REPLACE THE SUBJECT COMPLETELY with the subject requested below. Keep visual weight and image framing consistent with the reference: centered, object occupies about 68 percent of the canvas, generous safe margins, broad simple recognizable silhouette. Modest three-quarter orthographic view with slight downward angle, like the reference. This is a game interface category pictogram, readable at 32 and 48 pixels; emphasize broad forms, avoid intricate microdetails. Neutral grayscale only. Background should be uniform solid #181818. No backing tile, badges, frames, borders, labels, text, brand marks, watermarks, colors, neon, emissive glow, dirt, rust, excessive scratches, multiple objects, whole firearm, technical diagram or assembly instructions. Subject: one compact weapon-mounted flashlight category pictogram, with a short broad cylindrical body, a slightly wider round lamp head, a dark lens face and a small horizontal rail mounting foot on top. Body extends diagonally lower-left to upper-right, showing head opening. Silver-gray casing and graphite recesses. No emitted beam, no colored glass, no sight and no gun.",
+      "visualReview": "短筒、前镜面与上部安装座形成战术灯轮廓，无光束。"
+    }
+  ]
+}
