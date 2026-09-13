@@ -30,3 +30,5 @@ UMG 的 `UM4GunsmithWidget` 管理预览世界、资源与生命周期，Slate �
 ## 共享源码发布边界
 
 两份既有预览源码包含本轮开始前尚未发布的独立预览、正交取景和其他 UI 修改。运行文件直接在 D 盘工程接入；为避免夹带这些既有修改，Git 发布本轮材质生成器、本文及 `SourceAssets/GunsmithPreviewQuality20260913/runtime-integration.patch`。补丁包括本次两个共享文件的增量和新增资源辅助实现，基线／交付散列见同目录 `integration-boundary.json`；它不是对远端较旧 UI 的无条件整文件覆盖。
+
+后续整理见 [归档与技能沉淀](gunsmith-session-cleanup-20260913.md)；可复用方法已收录到 [UE UI 预览渲染参考](../../skills/ue5-ui-umg-slate/references/preview-rendering.md)。
