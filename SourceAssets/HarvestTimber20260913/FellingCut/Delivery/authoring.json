@@ -1,0 +1,122 @@
+{
+  "SM_CutStump_A": {
+    "triangles": 6112,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark",
+      "MI_BlackPoplarPCG_Foliage",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": false,
+    "dimensions_m": [
+      0.9979409575462341,
+      1.0029217004776,
+      0.41999998688697815
+    ]
+  },
+  "SM_CutUpper_A": {
+    "triangles": 338474,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark",
+      "MI_BlackPoplarPCG_Foliage",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": true,
+    "dimensions_m": [
+      4.846107482910156,
+      4.699297904968262,
+      31.354875564575195
+    ]
+  },
+  "SM_CutStump_B": {
+    "triangles": 7294,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark.001",
+      "MI_BlackPoplarPCG_Foliage.001",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": false,
+    "dimensions_m": [
+      0.9807833433151245,
+      0.9973443150520325,
+      0.41999998688697815
+    ]
+  },
+  "SM_CutUpper_B": {
+    "triangles": 774251,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark.001",
+      "MI_BlackPoplarPCG_Foliage.001",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": true,
+    "dimensions_m": [
+      6.591008186340332,
+      7.408383369445801,
+      25.544193267822266
+    ]
+  },
+  "SM_CutStump_C": {
+    "triangles": 11691,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark.002",
+      "MI_BlackPoplarPCG_Foliage.002",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": false,
+    "dimensions_m": [
+      0.6653047204017639,
+      0.6751596331596375,
+      0.44776296615600586
+    ]
+  },
+  "SM_CutUpper_C": {
+    "triangles": 621310,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark.002",
+      "MI_BlackPoplarPCG_Foliage.002",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": true,
+    "dimensions_m": [
+      5.081647872924805,
+      4.659693717956543,
+      19.981399536132812
+    ]
+  },
+  "SM_CutStump_D": {
+    "triangles": 10318,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark.003",
+      "MI_BlackPoplarPCG_Foliage.003",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": false,
+    "dimensions_m": [
+      0.4162089228630066,
+      0.42375364899635315,
+      0.41999998688697815
+    ]
+  },
+  "SM_CutUpper_D": {
+    "triangles": 514617,
+    "materials": [
+      "MI_BlackPoplarPCG_Bark.003",
+      "MI_BlackPoplarPCG_Foliage.003",
+      "CutEndGrain"
+    ],
+    "cut_height_cm": 42,
+    "upper": true,
+    "dimensions_m": [
+      4.083529949188232,
+      4.04344367980957,
+      17.17434310913086
+    ]
+  }
+}

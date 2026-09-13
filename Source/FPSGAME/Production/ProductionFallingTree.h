@@ -18,7 +18,6 @@ public:
     virtual void Tick(float Delta) override;
 private:
     UPROPERTY() TObjectPtr<USkeletalMeshComponent> Tree;
-    UPROPERTY() TObjectPtr<class UStaticMeshComponent> CutCap;
     UPROPERTY() TArray<TObjectPtr<class UMaterialInstanceDynamic>> Materials;
     FProductionTreeFallPlan Plan;
     FVector Scale=FVector::OneVector;

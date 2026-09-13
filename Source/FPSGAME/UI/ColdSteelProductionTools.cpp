@@ -132,6 +132,11 @@ bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Targe
             auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>();
             if(!Harvest){Message=TEXT("当前世界无法生成采集物");return false;}
             Harvest->Prepare(Target.Layer==0);
+            if(Target.Layer==0)
+            {
+                Harvest->PrepareFall(Target);
+                if(!Harvest->ReadyFall(Target)){Message=TEXT("正在准备倒树模型，稍后再挥动一次");return false;}
+            }
             if(!Harvest->Ready(Target.Layer==0)){Message=TEXT("正在准备采集物模型，稍后再挥动一次");return false;}
             if(!StageProductionDrops(P,Target,Drops))return false;
         }

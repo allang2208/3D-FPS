@@ -21,11 +21,15 @@ public:
     virtual void Deinitialize() override;
     void Prepare(bool Wood);
     bool Ready(bool Wood) const;
+    void PrepareFall(const FProductionResource& Resource);
+    bool ReadyFall(const FProductionResource& Resource) const;
+    void ReleasePreparedFall(const FProductionResource& Resource);
     void DelayDrops(const TArray<FString>& Ids,float Delay);
     void Burst(bool Wood,const FVector& At,uint32 Seed,bool Landing=false);
-    void RefreshStumps(){bStumpsDirty=true;}
+    void ShowStumpAtCut(const FProductionResource& Resource);
 private:
     TSharedPtr<FStreamableHandle> WoodLoad,StoneLoad;
+    TSharedPtr<FStreamableHandle> FallLoads[4];
     TMap<FString,TWeakObjectPtr<AColdSteelPickup>> Pickups;
     TMap<FString,double> VisibleAfter;
     TArray<TWeakObjectPtr<AProductionBreakEffect>> Effects;

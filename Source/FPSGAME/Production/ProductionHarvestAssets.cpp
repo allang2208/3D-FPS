@@ -25,7 +25,17 @@ int32 TreeVariant(const FSoftObjectPath& Tree)
 FSoftObjectPath Stump(int32 Variant)
 {
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
-    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_OriginalStump_%c.SM_OriginalStump_%c"),Letter,Letter));
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_CutStump_%c.SM_CutStump_%c"),Letter,Letter));
+}
+FSoftObjectPath FallingMesh(int32 Variant)
+{
+    const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SK_CutUpper_%c.SK_CutUpper_%c"),Letter,Letter));
+}
+FSoftObjectPath CutProfile(int32 Variant)
+{
+    const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/DA_TreeCut_%c.DA_TreeCut_%c"),Letter,Letter));
 }
 FSoftObjectPath CutCap(int32 Variant)
 {
@@ -35,8 +45,9 @@ FSoftObjectPath CutCap(int32 Variant)
 }
 FSoftObjectPath FallingMaterial(int32 Slot)
 {
-    return FSoftObjectPath(Slot==0?TEXT("/Game/Items/HarvestTimber/MI_FallingPoplar_Bark.MI_FallingPoplar_Bark"):
-        TEXT("/Game/Items/HarvestTimber/MI_FallingPoplar_Foliage.MI_FallingPoplar_Foliage"));
+    if(Slot==2)return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"));
+    return FSoftObjectPath(Slot==0?TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark"):
+        TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage"));
 }
 FSoftObjectPath TreeSound(bool Landing)
 {
@@ -59,8 +70,8 @@ TArray<FSoftObjectPath> LoadSet(bool Wood)
         FSoftObjectPath(TEXT("/Engine/BasicShapes/Plane.Plane"))};
     if(Wood)
     {
-        Paths.Append({PickupMesh(TEXT("wood"),1),PickupMesh(TEXT("wood"),2),CutCap(),FallingMaterial(0),FallingMaterial(1),TreeSound(false),TreeSound(true)});
-        for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutCap(Variant)});
+        Paths.Append({PickupMesh(TEXT("wood"),1),PickupMesh(TEXT("wood"),2),FallingMaterial(0),FallingMaterial(1),FallingMaterial(2),TreeSound(false),TreeSound(true)});
+        for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutProfile(Variant)});
     }
     return Paths;
 }

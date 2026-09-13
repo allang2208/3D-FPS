@@ -130,6 +130,8 @@ void UProductionToolComponent::ResolveContact()
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     bool Depleted=false;
     Target.Direction=Camera->GetForwardVector();
+    if(Target.Layer==0)
+        if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->PrepareFall(Target);
     if (!Profile->CommitHarvestStrike(Target,Depleted)) { Feedback=Profile->ResultMessage(); FeedbackSeconds=3; return; }
     Feedback=Profile->ResultMessage(); FeedbackSeconds=2;
     if (HitSound) UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,.65f);

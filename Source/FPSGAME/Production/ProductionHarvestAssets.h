@@ -8,6 +8,8 @@ namespace ProductionHarvestAssets
     int32 TreeVariant(const FSoftObjectPath& Tree);
     FSoftObjectPath Stump(int32 Variant=0);
     FSoftObjectPath CutCap(int32 Variant=INDEX_NONE);
+    FSoftObjectPath FallingMesh(int32 Variant);
+    FSoftObjectPath CutProfile(int32 Variant);
     FSoftObjectPath FallingMaterial(int32 Slot);
     FSoftObjectPath TreeSound(bool Landing);
     FSoftObjectPath Destruction(bool Wood);

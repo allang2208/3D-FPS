@@ -1,6 +1,7 @@
 #include "ProductionHarvestSubsystem.h"
 #include "ProductionHarvestAssets.h"
 #include "ProductionBreakEffect.h"
+#include "ProductionResource.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelPickup.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
@@ -32,6 +33,33 @@ bool UProductionHarvestSubsystem::Ready(bool Wood) const
     if(Wood)
         for(const auto& Path:ProductionHarvestAssets::LoadSet(true))if(!Path.ResolveObject())return false;
     return ProductionHarvestAssets::PickupMesh(Wood?TEXT("wood"):TEXT("stone")).ResolveObject()!=nullptr;
+}
+void UProductionHarvestSubsystem::PrepareFall(const FProductionResource& Resource)
+{
+    const int32 Variant=ProductionHarvestAssets::TreeVariant(Resource.Mesh);
+    if(Variant==INDEX_NONE)return;
+    Prepare(true);
+    if(!FallLoads[Variant])FallLoads[Variant]=UAssetManager::GetStreamableManager().RequestAsyncLoad(ProductionHarvestAssets::FallingMesh(Variant));
+}
+bool UProductionHarvestSubsystem::ReadyFall(const FProductionResource& Resource) const
+{
+    const int32 Variant=ProductionHarvestAssets::TreeVariant(Resource.Mesh);
+    return Variant!=INDEX_NONE&&FallLoads[Variant]&&FallLoads[Variant]->HasLoadCompleted()&&
+        ProductionHarvestAssets::FallingMesh(Variant).ResolveObject()!=nullptr;
+}
+void UProductionHarvestSubsystem::ReleasePreparedFall(const FProductionResource& Resource)
+{
+    const int32 Variant=ProductionHarvestAssets::TreeVariant(Resource.Mesh);
+    if(Variant!=INDEX_NONE&&FallLoads[Variant])
+    {FallLoads[Variant]->ReleaseHandle();FallLoads[Variant].Reset();}
+}
+void UProductionHarvestSubsystem::ShowStumpAtCut(const FProductionResource& Resource)
+{
+    Hills=Resource.World;bStumpsDirty=true;
+    const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
+    // Run before removing the standing tree and spawning the upper section,
+    // in the same game-thread operation instead of waiting for the stream tick.
+    UpdateStumps(Pawn?Pawn->GetActorLocation():Resource.Transform.GetLocation(),GetWorld()->GetTimeSeconds());
 }
 void UProductionHarvestSubsystem::DelayDrops(const TArray<FString>& Ids,float Delay)
 {
@@ -103,6 +131,7 @@ void UProductionHarvestSubsystem::Deinitialize()
     for(auto& Component:Stumps)if(Component)Component->DestroyComponent();Stumps.Empty();
     if(WoodLoad)WoodLoad->CancelHandle();if(StoneLoad)StoneLoad->CancelHandle();
     WoodLoad.Reset();StoneLoad.Reset();
+    for(auto& Handle:FallLoads){if(Handle)Handle->CancelHandle();Handle.Reset();}
     Super::Deinitialize();
 }
 

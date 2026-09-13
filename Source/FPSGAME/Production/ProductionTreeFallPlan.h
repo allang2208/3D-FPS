@@ -6,6 +6,7 @@ struct FProductionResource;
 struct FProductionTreeFallPlan
 {
     FVector Pivot=FVector::ZeroVector, Axis=FVector::RightVector, Direction=FVector::ForwardVector;
+    FVector LocalHinge=FVector(0,0,42);
     FVector TrunkContact=FVector::ZeroVector, CrownContact=FVector::ZeroVector;
     float LandingAngle=90, CrownAngle=86, FallSeconds=2.6f, LocalHeight=3000;
     static constexpr float CutHeight=42.f, AnticipationSeconds=.42f, SettleSeconds=.75f, FadeSeconds=.7f;

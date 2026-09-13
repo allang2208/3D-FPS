@@ -83,7 +83,7 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
     if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
     {
         Harvest->Burst(Resource.Layer==0,Hit.ImpactPoint,Resource.Seed);
-        if(Resource.Layer==0)Harvest->RefreshStumps();
+        if(Resource.Layer==0)Harvest->ShowStumpAtCut(Resource);
     }
     if (Resource.Layer==0)
     {
@@ -101,7 +101,13 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
             }
         }
         FActorSpawnParameters Spawn; Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-        if (auto* Fall=GetWorld()->SpawnActor<AProductionFallingTree>(Resource.Transform.GetLocation(),Resource.Transform.Rotator(),Spawn)) Fall->InitializeFall(Resource,Direction);
+        if (auto* Fall=GetWorld()->SpawnActor<AProductionFallingTree>(Resource.Transform.GetLocation(),Resource.Transform.Rotator(),Spawn))
+        {
+            Fall->InitializeFall(Resource,Direction);
+            // The falling component now owns the mesh; do not retain every tree
+            // variant in the preload cache for the rest of the world session.
+            if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->ReleasePreparedFall(Resource);
+        }
     }
     // No PCG cell regeneration on each harvest; only the affected instances change.
 }
