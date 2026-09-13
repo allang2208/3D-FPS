@@ -77,7 +77,9 @@ void UStormCloudComponent::Discover()
         OriginalMaterial->GetScalarParameterValue(FMaterialParameterInfo(TEXT("StormClouds")),Storm);
         OriginalMaterial->GetVectorParameterValue(FMaterialParameterInfo(TEXT("Cloud_AlbedoColor")),Albedo);
         OriginalMaterial->GetVectorParameterValue(FMaterialParameterInfo(TEXT("Layout_GlobalTexturePlacement")),LayoutPlacement);
-        UE_LOG(LogTemp,Display,TEXT("StormClouds: bound %s material=%s created=%d"),*C->GetPathName(),*OriginalMaterial->GetPathName(),bCreatedCloud);
+        UE_LOG(LogTemp,Display,TEXT("StormClouds: bound %s material=%s created=%d authoredDensity=%.5f baselineDensity=%.5f stormDensity=%.5f"),
+            *C->GetPathName(),*OriginalMaterial->GetPathName(),bCreatedCloud,Density,
+            bHillsClouds||Density<=0?CloudDensity:Density,StormCloudDensity);
     }
 }
 
@@ -165,7 +167,10 @@ void UStormCloudComponent::UpdateCloudLayer()
     const float HillsCoverage=Blend<=.3f?FMath::Lerp(ClearCloudCoverage,CloudyCloudCoverage,Blend/.3f):
         FMath::Lerp(CloudyCloudCoverage,.045f,(Blend-.3f)/.7f);
     CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),bHillsClouds?HillsCoverage:FMath::Lerp(bOriginalVisible?Coverage:-.35f,.045f,Blend));
-    CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalDensity"),bHillsClouds?0.f:FMath::Lerp(bOriginalVisible?Density:0.f,0.f,Blend));
+    // This is an extinction multiplier, not the cloud coverage/density bias.
+    // The former zero write erased the entire clear-weather density field.
+    const float BaseDensity=FMath::Max(.0001f,bHillsClouds||!bOriginalVisible||Density<=0?CloudDensity:Density);
+    CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalDensity"),FMath::Lerp(BaseDensity,FMath::Max(.0001f,StormCloudDensity),Blend));
     CloudMaterial->SetScalarParameterValue(TEXT("StormClouds"),FMath::Lerp(Storm,.22f,Blend));
     CloudMaterial->SetVectorParameterValue(TEXT("Cloud_AlbedoColor"),FMath::Lerp(Albedo,FLinearColor(.92f,.94f,.96f,Albedo.A),Blend));
     CloudMaterial->SetVectorParameterValue(TEXT("Storm_AlbedoColor"),FLinearColor(.58f,.62f,.67f,.333333f));

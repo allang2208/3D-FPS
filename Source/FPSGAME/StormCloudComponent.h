@@ -34,10 +34,16 @@ public:
     UVolumetricCloudComponent* GetCloud() const { return Cloud.Get(); }
     UPROPERTY(EditDefaultsOnly, Category="Weather|Clouds")
     TSoftObjectPtr<UMaterialInterface> FallbackCloudMaterial;
+    // SimpleVolumetricCloud multiplies the shaped field by this density.
+    // Zero makes clear-weather clouds transparent; coverage is a separate bias.
+    UPROPERTY(EditAnywhere, Category="Weather|Clouds",meta=(ClampMin="0.0001",ClampMax="0.05"))
+    float CloudDensity = .008f;
+    UPROPERTY(EditAnywhere, Category="Weather|Clouds",meta=(ClampMin="0.0001",ClampMax="0.05"))
+    float StormCloudDensity = .010f;
     UPROPERTY(EditAnywhere, Category="Weather|Hills Clouds")
-    float ClearCloudCoverage = .008f;
+    float ClearCloudCoverage = -.18f;
     UPROPERTY(EditAnywhere, Category="Weather|Hills Clouds")
-    float CloudyCloudCoverage = .028f;
+    float CloudyCloudCoverage = -.04f;
 private:
     UPROPERTY(Transient) TWeakObjectPtr<UVolumetricCloudComponent> Cloud;
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> OriginalMaterial;
