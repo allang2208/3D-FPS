@@ -57,7 +57,15 @@ private:
     int32 Brush=0;
     void TryInitializeWorld();
     void UpdateTarget();
+    void ValidatePlacement();
     void UpdateWidget();
     FIntVector BrushSize() const;
     void FillBrush(FIntVector Base,TArray<FIntVector>& Result) const;
+    double PlacementCheckAt=0;
+    uint64 CheckedRevision=MAX_uint64;
+    FName CheckedMaterial;
+    FGuid CheckedVolume;
+    FIntVector CheckedFirst=FIntVector::ZeroValue,CheckedBrush=FIntVector::ZeroValue;
+    FString CheckedMessage;
+    bool bCheckedSnap=true,bCheckedValid=false;
 };

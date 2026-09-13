@@ -1,4 +1,5 @@
 #include "VoxelBuildComponent.h"
+#include "VoxelCollapseFragment.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildWidget.h"
@@ -140,14 +141,14 @@ void UVoxelBuildComponent::UpdateTarget()
             else Base[Axis]+=Hit.ImpactNormal[Axis]>0?1+Size[Axis]/2:-(Size[Axis]-Size[Axis]/2);
         }
         FillBrush(Base,Placement);
-        bCanPlace=BuildWorld->CanPlaceInVolume(PlacementVolume,Placement,SelectedMaterial,TargetMessage);
+        ValidatePlacement();
     }
     else
     {
         // Continuous world position: no floor/round/quantization in free mode.
         PlacementOrigin=Hit.ImpactPoint+Hit.ImpactNormal*FVector::DotProduct(Hit.ImpactNormal.GetAbs(),Half)-Half;
         FillBrush(FIntVector(Size.X/2,Size.Y/2,0),Placement);
-        bCanPlace=BuildWorld->CanPlaceFree(PlacementOrigin,Placement,SelectedMaterial,TargetMessage);
+        ValidatePlacement();
     }
     if(Preview&&!Placement.IsEmpty())
     {
@@ -161,6 +162,23 @@ void UVoxelBuildComponent::UpdateTarget()
         Preview->SetHiddenInGame(false);
         Preview->SetVisibility(true);
     }
+}
+
+void UVoxelBuildComponent::ValidatePlacement()
+{
+    const double Now=GetWorld()->GetTimeSeconds();
+    const bool Changed=CheckedRevision!=BuildWorld->StructureRevision()||CheckedMaterial!=SelectedMaterial||
+        bCheckedSnap!=bSnapEnabled||CheckedVolume!=PlacementVolume||CheckedBrush!=BrushSize()||
+        (bSnapEnabled&&!Placement.IsEmpty()&&CheckedFirst!=Placement[0]);
+    if(Changed||Now>=PlacementCheckAt)
+    {
+        bCheckedValid=bSnapEnabled?BuildWorld->CanPlaceInVolume(PlacementVolume,Placement,SelectedMaterial,CheckedMessage):
+            BuildWorld->CanPlaceFree(PlacementOrigin,Placement,SelectedMaterial,CheckedMessage);
+        CheckedRevision=BuildWorld->StructureRevision();CheckedMaterial=SelectedMaterial;bCheckedSnap=bSnapEnabled;
+        CheckedVolume=PlacementVolume;CheckedBrush=BrushSize();CheckedFirst=Placement.IsEmpty()?FIntVector::ZeroValue:Placement[0];
+        PlacementCheckAt=Now+.1;
+    }
+    bCanPlace=bCheckedValid;TargetMessage=CheckedMessage;
 }
 
 bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMenuOpen)
@@ -191,7 +209,7 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     {
         if(Pressed)
         {
-            UpdateTarget();
+            PlacementCheckAt=0;UpdateTarget();
             if(Key==EKeys::LeftMouseButton)
             {
                 if(bCanPlace)
@@ -202,7 +220,10 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
                 }
                 else {bFeedbackValid=false;Feedback=TargetMessage;}
             }
-            else {if(!Removal.IsEmpty()){bFeedbackValid=BuildWorld->EditVolumeCells(HitCell.Volume,Removal,NAME_None);Feedback=BuildWorld->ResultMessage();}else {bFeedbackValid=false;Feedback=TEXT("只能拆除自己建造的体素");}}
+            else if(!Removal.IsEmpty()){bFeedbackValid=BuildWorld->EditVolumeCells(HitCell.Volume,Removal,NAME_None);Feedback=BuildWorld->ResultMessage();}
+            else if(auto* Debris=Cast<AVoxelCollapseFragment>(Hit.GetActor()))
+            {BuildWorld->QueueFragmentDamage(Debris,Hit.ImpactPoint-Hit.ImpactNormal*.25,1000000,0,0);bFeedbackValid=true;Feedback=TEXT("已提交残骸拆除");}
+            else {bFeedbackValid=false;Feedback=TEXT("只能拆除自己建造的体素和残骸");}
             FeedbackTime=2;
         }
         return true;
@@ -219,7 +240,8 @@ void UVoxelBuildComponent::UpdateWidget()
     const FString Name=Entry?Entry->DisplayName.ToString():SelectedMaterial.ToString();
     const TCHAR* Shape=Brush==0?TEXT("单格"):Brush==1?TEXT("地板"):TEXT("墙面");
     Widget->ShowState(Name,FString::Printf(TEXT("%s · %d × %d × %d cm"),Shape,Size.X,Size.Y,Size.Z),
-        FeedbackTime>0?Feedback:TargetMessage,FeedbackTime>0?bFeedbackValid:bCanPlace,BuildWorld->BlockCount(),bSnapEnabled);
+        (FeedbackTime>0?Feedback:TargetMessage)+TEXT("\n")+BuildWorld->StructureStatus(),
+        FeedbackTime>0?bFeedbackValid:bCanPlace,BuildWorld->BlockCount(),bSnapEnabled);
 }
 
 void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)

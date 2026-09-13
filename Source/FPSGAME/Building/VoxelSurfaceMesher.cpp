@@ -86,13 +86,22 @@ namespace VoxelSurface
         FField Field;Field.Halo=Side+2;Field.Radius=FMath::Clamp(Radius,.25,3.0);
         Field.Slots.SetNumUninitialized(Field.Halo*Field.Halo*Field.Halo);
         int32 Occupied=0;
+        FIntVector First(Side),Last(-1);
         for(int32 Z=-1;Z<=Side;++Z)for(int32 Y=-1;Y<=Side;++Y)for(int32 X=-1;X<=Side;++X)
         {
             const int32 Slot=SampleSlot(Origin+FIntVector(X,Y,Z));
             Field.Slots[X+1+Field.Halo*(Y+1+Field.Halo*(Z+1))]=Slot;
             Occupied+=Slot!=INDEX_NONE;
+            if(Slot!=INDEX_NONE)
+            {
+                First=First.ComponentMin(FIntVector(X,Y,Z));Last=Last.ComponentMax(FIntVector(X,Y,Z));
+            }
         }
         if(Occupied==0||Occupied==Field.Slots.Num())return;
+        // Sparse free-placement volumes must not evaluate all 512,000 sample
+        // cubes of an otherwise empty 16^3 chunk.
+        First=(First-FIntVector(1)).ComponentMax(FIntVector(0))*Subdivisions;
+        Last=(Last+FIntVector(2)).ComponentMin(FIntVector(Side))*Subdivisions;
         const int32 Steps=Side*Subdivisions,Nodes=Steps+1;
         TArray<double> Coordinates;TArray<FBlend> Blends;
         const double R=Field.Radius,Offsets[]={0,R*.5,R,CellSize-R,CellSize-R*.5};
@@ -102,7 +111,7 @@ namespace VoxelSurface
             Coordinates.Add(P);Blends.Add(Field.Blend(P));
         }
         TArray<float> Values;Values.SetNumUninitialized(Nodes*Nodes*Nodes);
-        for(int32 Z=0;Z<Nodes;++Z)for(int32 Y=0;Y<Nodes;++Y)for(int32 X=0;X<Nodes;++X)
+        for(int32 Z=First.Z;Z<=Last.Z;++Z)for(int32 Y=First.Y;Y<=Last.Y;++Y)for(int32 X=First.X;X<=Last.X;++X)
             Values[X+Nodes*(Y+Nodes*Z)]=float(Field.Value(Blends[X],Blends[Y],Blends[Z]));
 
         auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
@@ -135,7 +144,7 @@ namespace VoxelSurface
         // of retaining the fine edge tessellation across the whole building.
         TMap<FIntVector,TArray<int32>> FlatMasks;
         constexpr int32 Tets[6][4]={{0,1,3,7},{0,3,2,7},{0,2,6,7},{0,6,4,7},{0,4,5,7},{0,5,1,7}};
-        for(int32 Z=0;Z<Steps;++Z)for(int32 Y=0;Y<Steps;++Y)for(int32 X=0;X<Steps;++X)
+        for(int32 Z=First.Z;Z<Last.Z;++Z)for(int32 Y=First.Y;Y<Last.Y;++Y)for(int32 X=First.X;X<Last.X;++X)
         {
             float F[8];int32 InsideCount=0;
             for(int32 I=0;I<8;++I)

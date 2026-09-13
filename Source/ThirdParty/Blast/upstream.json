@@ -1,0 +1,511 @@
+{
+  "repository": "https://github.com/NVIDIA-Omniverse/PhysX",
+  "revision": "4f2103c3a9052906296defb12166753450ef787c",
+  "version": "5.0.6",
+  "files": [
+    {
+      "path": "LICENSE.md",
+      "sha256": "eb3e67b17b48c56ef26d8bf6634c0837503fefc28a916f98d4f02272eda50011"
+    },
+    {
+      "path": "blast/VERSION.md",
+      "sha256": "210f18f837cb2308e4aa904cc113716ed8415176bd270dbb2dc399e3cdf1ad56"
+    },
+    {
+      "path": "blast/include/extensions/stress/NvBlastExtStressSolver.h",
+      "sha256": "285df1557dbc3897c12b6ee69e5307f23c9515ecdc0b6806818a8f55a6bf2d00"
+    },
+    {
+      "path": "blast/include/globals/NvBlastAllocator.h",
+      "sha256": "bc43869df895eaf804f5fd6de9729ca60911082afcf49450012b2beffc74cefd"
+    },
+    {
+      "path": "blast/include/globals/NvBlastDebugRender.h",
+      "sha256": "0444c0524f7af6237f74379685469b511830c2caed3f52b3386a768e1eb0d52a"
+    },
+    {
+      "path": "blast/include/globals/NvBlastGlobals.h",
+      "sha256": "07b7e4b2409e719266ca832c8fbc412c0d3a5def817b7aa6bdc427500dad7372"
+    },
+    {
+      "path": "blast/include/globals/NvCMath.h",
+      "sha256": "dc5337f7183175e7910bba6f21305571b5b00355f89be312b0a82f5e46083787"
+    },
+    {
+      "path": "blast/include/lowlevel/NvBlast.h",
+      "sha256": "e27c14923d3ea50fa728d3522f861d3bf96581b112e773ea97d7249efbff461f"
+    },
+    {
+      "path": "blast/include/lowlevel/NvBlastTypes.h",
+      "sha256": "4a0b21cf3bf008d34716c10ec1555523bcc2d4158b0bbac16e64c8ac9d1677ae"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/Nv.h",
+      "sha256": "5936223aaba8a641e442d6749d108f8ba851c3cdfb36e49579b850f0543bf988"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvAllocatorCallback.h",
+      "sha256": "965b851feb9564c9a4df7ace44e7df121d03617d20d02411b2fe5f629242f4d8"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvAssert.h",
+      "sha256": "2bcee8de1f3b5961ce3ea5224c2a74781d48100ea0cc8a5ffc78cd359101c0ee"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvBounds3.h",
+      "sha256": "b3caf392b89c9be3b31d440228ec5b9f8b402bded2de02176aca9405611777fe"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvCTypes.h",
+      "sha256": "62e05609ff6280d9bb9ea04dc40646b1d8e51f51aba273167f0ffaf51dc35230"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvErrorCallback.h",
+      "sha256": "7db978fa5d86188ae291b91dd56a878da55593beb131d5fe6b8f52fdff806c33"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvErrors.h",
+      "sha256": "a9a80dcdc627fa0034893c4a4a696665e062d46a42dca1e42f525941cf983327"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvFlags.h",
+      "sha256": "e7929be8e2c031c5c22bc4dfd06432375ec890d942a645e0c630f33494177db6"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvIO.h",
+      "sha256": "f913d3902099e409aa706e8ec8c19554a65ee034ad5741fec39473f1ef2b71e3"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvIntrinsics.h",
+      "sha256": "bcb1e780f42234564f6c63304ca95f35c9a170e0b655094b6c34825d23f73f8f"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvMat33.h",
+      "sha256": "d5566d0eca4e783dd6244a04f37b3a974044f66617f432c303839d6889705986"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvMat44.h",
+      "sha256": "de34705b52e52c8f9c46020bce44325643860b4ba6d8cb9c784bc5f8960997d2"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvMath.h",
+      "sha256": "76479a30d2435111e0fb609d9302df8f0d0458c75b4fe0de6dc7a7b8b8138f0b"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvPlane.h",
+      "sha256": "8a6798a02afad774d726de7500757115e48c97ba2161fa8bd3485d89381bd638"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvPreprocessor.h",
+      "sha256": "b7354d41e2315873f88f46d55417d20465f2bd4a3bb18bedb64bd2547651b297"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvProfiler.h",
+      "sha256": "fc34fff2d896cf513d0f7835284dd619bd3b349ea83a63045d9846636d200e36"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvQuat.h",
+      "sha256": "0237ae47943b171cae1bb3e1ce2fd53cde0aa110e9ea6f1997c5ff0939b76d53"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvSimpleTypes.h",
+      "sha256": "785d319c142e8ef1edcd9dab5161a8eacbd297de1e63ebb7a6f7c93d43b20174"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvTransform.h",
+      "sha256": "9d8f139de360d5b49f1d0c9936d8add043f678136218d094cbb864efcfb3d21d"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvVec2.h",
+      "sha256": "5d9177c5601bb08de379587d358dd773c53ebd8b554bafe84be31614045b69bd"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvVec3.h",
+      "sha256": "bd8cb42dba96ac8b15b899735d2479f0411c73483182ea7eb3c07f9e3f76e20e"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/NvVec4.h",
+      "sha256": "64fead9c20c4af5eb5133557266eaaa747d5e20875ca78abfb6ff84f0ad99144"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/platform/unix/NvUnixIntrinsics.h",
+      "sha256": "0ca633caa6123a18b21f0c47103ab7fe45ccb71e402cdd8b2671f2eb6e522b19"
+    },
+    {
+      "path": "blast/include/shared/NvFoundation/platform/windows/NvWindowsIntrinsics.h",
+      "sha256": "306939d1f70ba770751c05a1c8f119d32b950b07e676fc0926691a2a900b81fc"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastArray.h",
+      "sha256": "f996c7e5080dac32bdd033f05b466f57eda36b1d603c08d38cc7038f929a15cd"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastAssert.cpp",
+      "sha256": "ebdee1c5ad3bae4b52a6f794595c388cc92e2fd4f2c93cb4fdbab24a1c22e756"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastAssert.h",
+      "sha256": "674629145666092bf32fa68e08c568d2c3031e83fdc37867827c82b952ceaf1e"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastAtomic.cpp",
+      "sha256": "3e527c0b370698c4f703fef600698dc513ac609effed80c040295a87356d78db"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastAtomic.h",
+      "sha256": "d2dfeaafc64328383b89158a771f2380892516e7738a0b344535a6ba3a5b59a7"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastDLink.h",
+      "sha256": "b9a3473d1b41d1ed792633aaf0044463d0bd76ef27a7813c24e0d658894fbb55"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastFixedArray.h",
+      "sha256": "2bbdb62ad7042a612fddee2564ed91d4db767f2b38d59afdbf4da06e6bc0148f"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastFixedBitmap.h",
+      "sha256": "601cb83a5ccf6326adb6e0e7b483cb3d66f84c2ed00e41d2bb623d4d0e2a7170"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastFixedBoolArray.h",
+      "sha256": "c02bdcb2e9157781f979585100ec72e0869cfc297bcbc13aabf02d81b6e973d9"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastFixedPriorityQueue.h",
+      "sha256": "1827af2797372816f7d0240744c237ea1699a2a09dd276d155bb2ec3260a36f1"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastFixedQueue.h",
+      "sha256": "5c5070fa0f27cd667fcdc1091b5fff8d1b03e66bb4e6ec2d04e813b122c3f309"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastGeometry.h",
+      "sha256": "1f6d814780d0440049423a076244ad2513a4bcd89b3ef7bef2bfcc1d9b1986cb"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastHashMap.h",
+      "sha256": "edae0141572fd077badcfeeb6e6bc6b99908d4924d5d04a32e315a6376322d52"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastHashSet.h",
+      "sha256": "9c5e118334a26c3d29a96d3c850f85e31a4106036c84775118bf5b8302f7f20e"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastIncludeWindows.h",
+      "sha256": "ff88208dc5e038cb973fce43762eeeb1cb847e5aaf4ee78308cc085563270dff"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastIndexFns.h",
+      "sha256": "4ed6e7d921d7f203b933d6e82a2fc3afcdc6f435313585d2097e4e00aaa8704e"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastIteratorBase.h",
+      "sha256": "0e218e8064680a362e5db504a641b5ee2c378e8ecf6d77dcb9ec524c7a43e378"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastMath.h",
+      "sha256": "4d7fa705a6255d385e1c3ef3f6b60f016508a44d2da5c7a81de70a5b9a2fbbee"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastMemory.h",
+      "sha256": "fae6dfb703bb2da371a3457aa219ec99902d6c7cbb72e9f8a8500610107e4c7f"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastNvSharedHelpers.h",
+      "sha256": "7b9be1667d9a49213783f9f1175cb09efef268937a977dd48eb9acedcb56d44f"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastPreprocessorInternal.h",
+      "sha256": "e1c437a7a33bbbbaeb86ccd9d119fc32d5bd269f35f67ec967224389e8e54344"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastTime.cpp",
+      "sha256": "5ba54859716dad26b556ddd6ac6b2d4def8cd449f6362b30b0e6413def36c0c6"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastTime.h",
+      "sha256": "910038482cef586cc24adeb4861a2d30c3d4d56850f7a500eca78be2c72fbb21"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastTimers.cpp",
+      "sha256": "31b5c75341e27daff46921b16abd3903c8fd487e928b167d80560e5f786221ac"
+    },
+    {
+      "path": "blast/source/sdk/common/NvBlastVolumeIntegrals.h",
+      "sha256": "5182e4215529ce736d42084eb96aa5bf5ceafd6427caf86002335f63ce351d70"
+    },
+    {
+      "path": "blast/source/sdk/extensions/stress/NvBlastExtStressSolver.cpp",
+      "sha256": "2da71df9db94973fa1c1b645062a7bc588fea8cca3251fdb16ea5634c7b40e69"
+    },
+    {
+      "path": "blast/source/sdk/globals/NvBlastGlobals.cpp",
+      "sha256": "adf4edc413413aa520efaefafb559862636090d6347fb16e646f9c31b15a23f8"
+    },
+    {
+      "path": "blast/source/sdk/globals/NvBlastInternalProfiler.cpp",
+      "sha256": "98f68ec9e60d908d3aed63be907b8848cfc65c53f716dcdd0378a6a06331df29"
+    },
+    {
+      "path": "blast/source/sdk/globals/NvBlastInternalProfiler.h",
+      "sha256": "239ea68b022078a1fcb6707382ea1c80f008b85f97e44561fd471a7183df916c"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastActor.cpp",
+      "sha256": "af72ff2a94ad681ff01c3e04ae80aae28958b3c344417f4f0ded5916a7301e15"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastActor.h",
+      "sha256": "805b0275b4cad31aa213d6aa33d91c51dbd1f1dd7a92b507a8fd91e597221774"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastActorSerializationBlock.cpp",
+      "sha256": "1ca75fb45f9328a33aaad16b276ded906594c5efa15966122eef12ee877af2d9"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastActorSerializationBlock.h",
+      "sha256": "7210c23702aa9c3170cde9f1a1e88e534dec939b0fb6fd6b9dece759e62c80ac"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastAsset.cpp",
+      "sha256": "d9fd71a67d6fd004f63e3f2639960d6f9036d87f11e48a1ae7b8510f631a0c74"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastAsset.h",
+      "sha256": "38428109d614d34601e0378d8170bdd8892038c1cc00a470b0633341269fcecf"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastAssetHelper.cpp",
+      "sha256": "9fb6ff5632e6d10e2879099f6f25a4ce9257f0b820136a72fe5a1693f6dcdec6"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastChunkHierarchy.h",
+      "sha256": "37b5a10f6adfc824e3dfbf022e9eef3eeadcfec9cb6a49d932ae98f711820acd"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastFamily.cpp",
+      "sha256": "372b9bc6320680cc69ec96200edff90bf3af2520c76aac4f2d8584fd81504263"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastFamily.h",
+      "sha256": "28fe56abbc996f42f77b256f8d28b0be78fc87b02153347edc10cb4bf6866a00"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastFamilyGraph.cpp",
+      "sha256": "f7e076abe2efc9990247c4da06b71a0a70110393a2a355ac19eb120cf61ee40d"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastFamilyGraph.h",
+      "sha256": "e9851b3c0e3e023a7eb7673b366e6a40e5791025a34d110bd092d87dea791061"
+    },
+    {
+      "path": "blast/source/sdk/lowlevel/NvBlastSupportGraph.h",
+      "sha256": "1c45dc9a4d6bc8858c8fb5dc226a9283ed53a01abc7e6f45a293dc86c3a1a309"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/Ns.h",
+      "sha256": "98c7cdb70aea60cd6685975baa8974da58554dec37421a46bd0dd90ec5115cba"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsAlignedMalloc.h",
+      "sha256": "b9b9fbf978e987014f4aba59eecc681ed7482c45a4d3ff4dca480117361c34d5"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsAllocator.h",
+      "sha256": "470b5ba686c4f3387f88857b1347c688f34775909b958f8f53c7df30706b2bd4"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsAoS.h",
+      "sha256": "56558e9b58fd4ab685b8c529329ff5ba4049ee57321a3c59d9852e9c43d3f9dd"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsArray.h",
+      "sha256": "f89f780a62ab6015f5418a8cdb35bb200182787019d10122fd7bb1b0863d9d97"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsBasicTemplates.h",
+      "sha256": "5fb08462e761dc5462a72c8fe87f8902bd2f09727b8e2a67cb764dc0594f45d1"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsBitUtils.h",
+      "sha256": "9f6abdc2a509d1024416c3cba117276ff3ba08e977a7c7522337c383b1b247ea"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsFPU.h",
+      "sha256": "b3b86945d4f8885cff9a3a4a17163a852085df55d44b4fa25769a7b31ba4d93f"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsGlobals.h",
+      "sha256": "7683cb3afeb4d46c53997b487a9a4f67195586f196b9aa3dc0d76a325cc313de"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsHash.h",
+      "sha256": "1f334fad4fdfe4a2a103034f0db5ed1c87bcddeb907ed383497007daf51d7962"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsHashInternals.h",
+      "sha256": "4582986fb893c7f4835e119925c5bb9fe092176b8434fc86d1e50bdf323b1189"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsHashMap.h",
+      "sha256": "23f128dbe70ac99116687c2df3ce62731e4051033cac13c43c4cd02783fb45ea"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsHashSet.h",
+      "sha256": "b2bfc7e16c039c4cc9f026fa0504d03f7226f1ab078e0e96d53eda097db663d1"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsInlineAllocator.h",
+      "sha256": "06e2d7aed0b5eb3d2f794e333fba7ce0b17591ba280be86137d13038130ddfdb"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsInlineAoS.h",
+      "sha256": "81dae3598e390f9417a4932edc44c6b48283c19fe88ce1df203a4def29bc2800"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsInlineArray.h",
+      "sha256": "5b8cba3660e5ccb4ca6e1c4469a3f37642d60bb1aaf2c0e946fcd9ee58e45365"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsIntrinsics.h",
+      "sha256": "19068f69be38c2b81743c085afd19c2c36867ae37821eb27a970b613a75dd2d4"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsUserAllocated.h",
+      "sha256": "387eef0198dd361b8eda78f9366268dc1a910496622e34ca83fbee5927c60857"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsVecMath.h",
+      "sha256": "1c8b38796a3e21f3d761547fccb41dfd56069a4477084362cad23ab1ca8cfda0"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsVecMathAoSScalar.h",
+      "sha256": "dfdb0930f610c68fe0a33061cff604c01081065768588033523ed369d222f680"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsVecMathAoSScalarInline.h",
+      "sha256": "a89f06398a661e0a20ae1f0b2bb3882bfce3d54b650f26da22ad5e8bc29d1af0"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NsVecQuat.h",
+      "sha256": "71a023690929fab9fdfe428cf2490d6f76e3473327d1ac053adc8869481870ed"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/NvUnionCast.h",
+      "sha256": "57f2fb0b799a4bceba50d659fa56ac5c2ce35184b074ed0cd7280a77905af42e"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/NsUnixAoS.h",
+      "sha256": "f5d3890ffb5edbae28f8388270518fc7d4b6f2158b72c9854f4ca356e6ff6a67"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/NsUnixFPU.h",
+      "sha256": "ca14dbed093aba6d69f01ac637f51f6c8e78e76f86b58e716ba2498e9b12ebc9"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/NsUnixInlineAoS.h",
+      "sha256": "e4f17a8f275ae194adc3c14c763f62ab1f2e1ae53df18cf1cf9444c684df8a49"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/NsUnixIntrinsics.h",
+      "sha256": "c597473091448948cbf9e49ff41f4d6a4ab3f7fa945893754226419b953416a0"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/NsUnixTrigConstants.h",
+      "sha256": "2b25b151752d16d16c661f215757538605b33c5831785d8c3dae82c74ccfea87"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/neon/NsUnixNeonAoS.h",
+      "sha256": "7f1740f2bd9a38a73dd9f99a139b45e1547d01c96b1aae6f236cf87e1e340070"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/neon/NsUnixNeonInlineAoS.h",
+      "sha256": "a20f2c5da18fd6a9c7ddf344a6f63878c6f8e0d10457a46c0d2a72caa471dd97"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/sse2/NsUnixSse2AoS.h",
+      "sha256": "13279cbadb7262732962c1dff833fb8b6a8afa10eb1e8b5512b645d5ab343c2d"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/unix/sse2/NsUnixSse2InlineAoS.h",
+      "sha256": "6841a7d193f92f7df2528cec8d097b21ef4ddc607c17f55230842ec1b90ce001"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/windows/NsWindowsAoS.h",
+      "sha256": "5a76663720230d43ac941e58ada3b528ca4703164bee3f895e140c53b9410297"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/windows/NsWindowsFPU.h",
+      "sha256": "748fb3206071eaf873a549d1846fc1200097c88b9e3632fc6f9340f6890110c8"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/windows/NsWindowsInlineAoS.h",
+      "sha256": "477028f02ad08cb31c8afbca4c3d1109ef0405ebf0f363c7c41fbea622275955"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/windows/NsWindowsIntrinsics.h",
+      "sha256": "4dad4f057ca1851e9909e413de9235f5852d7df5eaf743fc5de4695a16526c76"
+    },
+    {
+      "path": "blast/source/shared/NsFoundation/include/platform/windows/NsWindowsTrigConstants.h",
+      "sha256": "ae8ad9e12497bb808c6a8774bfe6e219128db9925a3f12ff4567443766800646"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/anglin6.h",
+      "sha256": "2c91e05757d05a2535ba92f44da5ddaff2a5cf7dcff9b1861863a09647a8665e"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/bond.h",
+      "sha256": "b25a32b75953d656c0631292853eae50bab3a789cd48bf79aac0dd28d04b328a"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/buffer.h",
+      "sha256": "54c9983122e43db8b4911984da65d91ba07951e5fb4e6b61ce8362dd9317b84e"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/coupling.h",
+      "sha256": "e85a773aea222f85cdd95b1d282d2e6647785a2c08c88e65dc564c7fa4522160"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/inertia.h",
+      "sha256": "e7ff1edea451e40a65b280ee4cdc645ff93773e07ed1b3c0925be2d57520ab53"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/math/cgnr.h",
+      "sha256": "779750a94eaa95e8c0c081ba0f2007a63d94786b4c2a3148eac71ac0eed5905c"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/simd/simd.h",
+      "sha256": "07e5509a254f41be51317e2a64e6354a071f147c5c3ec3c10b2594197beca258"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/simd/simd_device_query.h",
+      "sha256": "24044306ce5ab87db016494651f4a00dfaaf2922870f789c1401bfd57d893a13"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/solver_types.h",
+      "sha256": "6bbf6a83f3015171a727790878c027d2525f250170d8b859af47b30a3bc41e82"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/stress.cpp",
+      "sha256": "ff5b35f91788d6395d2884ffff57acf6179b8692114c7ce14fb8bd33c96e498c"
+    },
+    {
+      "path": "blast/source/shared/stress_solver/stress.h",
+      "sha256": "80309d31635480fa2e745ff63e1a70e1380ffb1c0bc3aaec2b00ae48d6da8286"
+    },
+    {
+      "path": "blast/PACKAGE-LICENSES/blast-sdk-LICENSE.md",
+      "sha256": "3f9ab13f4b26908285c8b86ae264d98916afaeeaf5bb0108190305cad7679273"
+    },
+    {
+      "path": "blast/PACKAGE-LICENSES/boost-LICENSE.md",
+      "sha256": "c9bff75738922193e67fa726fa225535870d2aa1059f91452c411736284ad566"
+    },
+    {
+      "path": "blast/PACKAGE-LICENSES/vhacd-LICENSE.md",
+      "sha256": "88ba67796d63e1e7f8fc54293d7bf8277e390e219cfd203d1718676a57285bd9"
+    }
+  ]
+}

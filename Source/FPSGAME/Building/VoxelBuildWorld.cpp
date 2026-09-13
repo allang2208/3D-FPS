@@ -1,32 +1,35 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPalette.h"
-#include "VoxelSurfaceMesher.h"
-#include "VoxelSupportGraph.h"
+#include "VoxelBuildRuntime.h"
+#include "VoxelBuildPersistence.h"
+#include "VoxelCollapseFragment.h"
+
 #include "Components/DynamicMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "DynamicMesh/DynamicMesh3.h"
-#include "DynamicMesh/DynamicMeshAttributeSet.h"
-#include "Materials/MaterialInterface.h"
 #include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 #include "Misc/SecureHash.h"
 #include "EngineUtils.h"
+#include "PhysicalMaterials/PhysicalMaterial.h"
 
-namespace VoxelGrid
-{
-    const FIntVector Neighbors[]={FIntVector(1,0,0),FIntVector(-1,0,0),FIntVector(0,1,0),FIntVector(0,-1,0),FIntVector(0,0,1),FIntVector(0,0,-1)};
-    int32 FloorChunk(int32 N){return N>=0?N/16:-int32((-(int64)N+15)/16);}
-}
+// Keep construction cleanup of the runtime pointer where its type is complete.
+AVoxelBuildWorld::AVoxelBuildWorld(FVTableHelper& Helper) : Super(Helper) {}
 
 AVoxelBuildWorld::AVoxelBuildWorld()
 {
-    PrimaryActorTick.bCanEverTick=false;
+    PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.TickGroup=TG_PrePhysics;
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("VoxelRoot")));
+    Runtime=MakeUnique<FVoxelBuildRuntime>();SetCanBeDamaged(true);
 }
-FIntVector AVoxelBuildWorld::ToCell(const FVector& P){return FIntVector(FMath::FloorToInt(P.X/CellSizeCm),FMath::FloorToInt(P.Y/CellSizeCm),FMath::FloorToInt(P.Z/CellSizeCm));}
-FVector AVoxelBuildWorld::CellMin(FIntVector P){return FVector(P)*CellSizeCm;}
-FVector AVoxelBuildWorld::CellCenter(FIntVector P){return CellMin(P)+FVector(CellSizeCm*.5);}
-FIntVector AVoxelBuildWorld::ChunkFor(FIntVector P){return FIntVector(VoxelGrid::FloorChunk(P.X),VoxelGrid::FloorChunk(P.Y),VoxelGrid::FloorChunk(P.Z));}
+AVoxelBuildWorld::~AVoxelBuildWorld()=default;
+FIntVector AVoxelBuildWorld::ToCell(const FVector& P){return FIntVector(FMath::FloorToInt(P.X/20),FMath::FloorToInt(P.Y/20),FMath::FloorToInt(P.Z/20));}
+FVector AVoxelBuildWorld::CellMin(FIntVector P){return FVector(P)*20;}
+FVector AVoxelBuildWorld::CellCenter(FIntVector P){return CellMin(P)+FVector(10);}
+FIntVector AVoxelBuildWorld::ChunkFor(FIntVector P)
+{
+    auto Floor=[](int32 N){return N>=0?N/16:-int32((-(int64)N+15)/16);};
+    return FIntVector(Floor(P.X),Floor(P.Y),Floor(P.Z));
+}
 FName AVoxelBuildWorld::MaterialAt(FIntVector P) const {const auto* Value=Cells.Find(P);return Value?*Value:NAME_None;}
 bool AVoxelBuildWorld::OwnsSurface(const UPrimitiveComponent* C) const {return C&&C->GetOwner()==this;}
 
@@ -44,22 +47,25 @@ int32 AVoxelBuildWorld::BlockCount() const
 {
     int32 Count=Cells.Num();for(const auto& Entry:FreeVolumes)Count+=Entry.Value.Cells.Num();return Count;
 }
-int32 AVoxelBuildWorld::UnsupportedBlockCount() const
-{
-    if(!SupportGraph)return 0;
-    int32 Count=0;for(int32 I=0;I<SupportGraph->Nodes.Num();++I)Count+=!SupportGraph->IsSupported(I);return Count;
-}
+int32 AVoxelBuildWorld::UnsupportedBlockCount() const {return SupportGraph?SupportGraph->Nodes.Num()-SupportGraph->Supported.Num():0;}
 bool AVoxelBuildWorld::ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) const
 {
-    const auto* Volume=CollisionVolumes.Find(Hit.GetComponent());if(!Volume)return false;
-    Key.Volume=*Volume;Key.Cell=ToCell(Hit.ImpactPoint-Hit.ImpactNormal*.5-VolumeOrigin(*Volume));
-    return !VolumeMaterialAt(Key.Volume,Key.Cell).IsNone();
+    if(!OwnsSurface(Hit.GetComponent())||!SupportGraph)return false;
+    const FVector Point=Hit.ImpactPoint-Hit.ImpactNormal*.5;
+    for(const auto& Candidate:SupportGraph->Near(Point-FVector(10)))
+    {
+        const FVector Min=SupportGraph->Nodes.FindChecked(Candidate).Min;
+        if(FBox(Min-FVector(.01),Min+FVector(20.01)).IsInsideOrOn(Point)){Key=Candidate;return true;}
+    }
+    return false;
 }
 
-bool AVoxelBuildWorld::Initialize(const FString& InWorldKey, UVoxelBuildPalette* InPalette)
+bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette)
 {
     if(GetNetMode()!=NM_Standalone||bReady||!InPalette)return false;
     Palette=InPalette;WorldKey=InWorldKey;
+    StructuralContact=NewObject<UPhysicalMaterial>(this);
+    StructuralContact->Friction=.8f;StructuralContact->Restitution=.03f;
     FTCHARToUTF8 KeyBytes(*WorldKey);FMD5 KeyHash;uint8 Digest[16];
     KeyHash.Update(reinterpret_cast<const uint8*>(KeyBytes.Get()),KeyBytes.Length());KeyHash.Final(Digest);
     SaveSlot=TEXT("Voxel20_")+BytesToHex(Digest,16);
@@ -70,17 +76,18 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey, UVoxelBuildPalette*
         MaterialSlots.Add(Entry.Id,SurfaceMaterials.Add(Surface));
     }
     if(SurfaceMaterials.IsEmpty()){Message=TEXT("没有可用的建造材质");return false;}
+    UVoxelBuildSave* LoadedData=nullptr;
     if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
     {
-        auto* Data=Cast<UVoxelBuildSave>(UGameplayStatics::LoadGameFromSlot(SaveSlot,0));
-        if(!Data||(Data->Version!=1&&Data->Version!=2)||Data->CellSizeCm!=CellSizeCm||Data->WorldKey!=WorldKey)
+        LoadedData=VoxelPersistence::Load(SaveSlot);
+        if(!LoadedData||LoadedData->Version<1||LoadedData->Version>3||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
         {Message=TEXT("建筑存档版本不兼容，已保留原档");return false;}
-        for(const auto& Cell:Data->Cells)
+        for(const auto& Cell:LoadedData->Cells)
         {
             if(!MaterialSlots.Contains(Cell.Material)){Message=TEXT("建筑存档缺少材料定义，已保留原档");return false;}
             Cells.Add(Cell.Position,Cell.Material);
         }
-        for(const auto& Volume:Data->FreeVolumes)
+        for(const auto& Volume:LoadedData->FreeVolumes)
         {
             if(!Volume.Id.IsValid()||Volume.Origin.ContainsNaN()||FreeVolumes.Contains(Volume.Id))
             {Message=TEXT("自由建筑存档无效，已保留原档");return false;}
@@ -88,36 +95,37 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey, UVoxelBuildPalette*
             {Message=TEXT("自由建筑存档缺少材料定义，已保留原档");return false;}
             FreeVolumes.Add(Volume.Id,Volume);
         }
+        TSet<FGuid> FragmentIds;
+        for(const auto& F:LoadedData->Fragments)
+        {
+            if(!F.Id.IsValid()||FragmentIds.Contains(F.Id)||F.Transform.ContainsNaN())
+            {Message=TEXT("残骸存档无效，已保留原档");return false;}
+            FragmentIds.Add(F.Id);
+            for(const auto& C:F.Cells)if(!MaterialSlots.Contains(C.Material)||C.Min.ContainsNaN())
+            {Message=TEXT("残骸材料或位置无效，已保留原档");return false;}
+        }
+        CellDamage=LoadedData->Damage;LegacyProtected=LoadedData->LegacyProtected;
     }
     RefreshSupportGraph();
-    TArray<FVoxelEditCell> Loaded;for(const auto& Entry:Cells)Loaded.Add({Entry.Key,NAME_None,Entry.Value,{}});
-    for(const auto& Volume:FreeVolumes)for(const auto& Entry:Volume.Value.Cells)Loaded.Add({Entry.Key,NAME_None,Entry.Value,Volume.Key});
-    RebuildAffected(Loaded);
-    // Preserve older unsupported buildings; never delete player work on load.
-    const int32 Unsupported=UnsupportedBlockCount();
-    bReady=true;Message=Unsupported?FString::Printf(TEXT("建筑已载入 · %d 格需要补充支撑"),Unsupported):TEXT("自由建造 · 材料不限量");return true;
-}
-
-bool AVoxelBuildWorld::Save()
-{
-    if(!bReady||GetNetMode()!=NM_Standalone)return false;
-    auto* Data=Cast<UVoxelBuildSave>(UGameplayStatics::CreateSaveGameObject(UVoxelBuildSave::StaticClass()));
-    Data->WorldKey=WorldKey;Data->Cells.Reserve(Cells.Num());
-    for(const auto& Entry:Cells){auto& Cell=Data->Cells.AddDefaulted_GetRef();Cell.Position=Entry.Key;Cell.Material=Entry.Value;}
-    for(const auto& Entry:FreeVolumes)if(!Entry.Value.Cells.IsEmpty())Data->FreeVolumes.Add(Entry.Value);
-    if(!UGameplayStatics::SaveGameToSlot(Data,SaveSlot,0)){Message=TEXT("建筑保存失败，本次操作未生效");return false;}
+    if(LoadedData)
+    {
+        for(const auto& B:LoadedData->BrokenBonds)SupportGraph->Break(B);
+        SupportGraph->SolveConnectivity();
+        if(LoadedData->Version<3)for(const auto& E:SupportGraph->Nodes)LegacyProtected.Add(E.Key);
+    }
+    TArray<FVoxelEditCell> Loaded;for(const auto& E:Cells)Loaded.Add({E.Key,NAME_None,E.Value,{}});
+    for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Loaded.Add({E.Key,NAME_None,E.Value,V.Key});
+    RebuildAffected(Loaded);bReady=true;
+    for(const auto& E:SupportGraph->Nodes)if(!LegacyProtected.Contains(E.Key))Runtime->DirtySupport.Add(E.Key);
+    if(LoadedData)for(const auto& F:LoadedData->Fragments)EnqueueFragment(F);
+    Message=LegacyProtected.IsEmpty()?TEXT("建筑已载入 · 承重系统已启用"):TEXT("旧建筑已保留 · 编辑相关结构后启用承重");
     return true;
 }
 
 bool AVoxelBuildWorld::CanPlace(const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
-{
-    return CanPlaceInVolume({},Positions,Material,Reason);
-}
-
+{return CanPlaceInVolume({},Positions,Material,Reason);}
 bool AVoxelBuildWorld::EditCells(const TArray<FIntVector>& Positions,FName Material)
-{
-    return EditVolumeCells({},Positions,Material);
-}
+{return EditVolumeCells({},Positions,Material);}
 
 bool AVoxelBuildWorld::CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
 {
@@ -140,7 +148,8 @@ bool AVoxelBuildWorld::IsGroundAnchor(FVector Min) const
     {
         const FVector Foot=Min+FVector(X,Y,0);FHitResult Hit;
         if(!GetWorld()->LineTraceSingleByChannel(Hit,Foot+FVector(0,0,20.5),Foot-FVector(0,0,.5),ECC_Visibility,Query)
-            ||Hit.ImpactNormal.Z<.5||!Hit.GetComponent()||Hit.GetComponent()->IsSimulatingPhysics())return false;
+            ||Hit.ImpactNormal.Z<.5||!Hit.GetComponent()||Hit.GetComponent()->IsSimulatingPhysics()
+            ||Cast<AVoxelCollapseFragment>(Hit.GetActor()))return false;
     }
     return true;
 }
@@ -153,7 +162,8 @@ bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason) const
         {Reason=TEXT("位置被角色占用");return false;}
     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelObstruction),true,this);FHitResult Ground;
     const FVector Foot(Center.X,Center.Y,Min.Z);
-    const bool GroundSupport=GetWorld()->LineTraceSingleByChannel(Ground,Foot+FVector(0,0,21),Foot-FVector(0,0,.5),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>.5;
+    const bool GroundSupport=GetWorld()->LineTraceSingleByChannel(Ground,Foot+FVector(0,0,21),Foot-FVector(0,0,.5),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>.5
+        &&!Cast<AVoxelCollapseFragment>(Ground.GetActor())&&Ground.GetComponent()&&!Ground.GetComponent()->IsSimulatingPhysics();
     for(const FVector Axis:{FVector(1,0,0),FVector(0,1,0),FVector(0,0,1)})
     {
         FHitResult Obstacle;
@@ -166,17 +176,28 @@ bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason) const
 
 void AVoxelBuildWorld::RefreshSupportGraph()
 {
-    SupportGraph=MakeShared<FVoxelSupportGraph>();SupportGraph->MaxSpanCm=FMath::Max(0.f,Palette->MaxCantileverCm);
+    SupportGraph=MakeShared<FVoxelSupportGraph>();
     auto Add=[&](FGuid Volume,FIntVector Cell,FName Material)
     {
         const FVoxelBuildKey Key{Volume,Cell};const FVector Min=VolumeOrigin(Volume)+CellMin(Cell);
-        const bool* Cached=AnchorCache.Find(Key);const bool Anchor=Cached?*Cached:IsGroundAnchor(Min);AnchorCache.Add(Key,Anchor);
         const auto* Definition=Palette->Find(Material);
-        SupportGraph->Add({Key,Min,Anchor,Definition&&Definition->bSupportsWeight});
+        SupportGraph->Add({Key,Min,false,Definition&&Definition->bSupportsWeight,Material,Palette->Physical(Material),CellDamage.FindRef(Key)});
     };
-    for(const auto& Entry:Cells)Add({},Entry.Key,Entry.Value);
-    for(const auto& Volume:FreeVolumes)for(const auto& Entry:Volume.Value.Cells)Add(Volume.Key,Entry.Key,Entry.Value);
-    SupportGraph->Solve();
+    for(const auto& E:Cells)Add({},E.Key,E.Value);
+    for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Add(V.Key,E.Key,E.Value);
+    // Only exposed bottoms can form a foundation. Interior voxels in tall
+    // solid structures need no terrain raycasts during world initialization.
+    for(auto& E:SupportGraph->Nodes)
+    {
+        bool Covered=false;
+        if(const auto* Edges=SupportGraph->Edges.Find(E.Key))for(const auto& Other:*Edges)
+        {
+            FVoxelContact Contact;const auto& Below=SupportGraph->Nodes.FindChecked(Other);
+            if(FVoxelSupportGraph::Contact(E.Value.Min,Below.Min,Contact)&&Contact.Normal.Z<-.5&&Contact.Area>.0399){Covered=true;break;}
+        }
+        E.Value.bAnchor=!Covered&&IsGroundAnchor(E.Value.Min);AnchorCache.Add(E.Key,E.Value.bAnchor);
+    }
+    SupportGraph->SolveConnectivity();
 }
 
 bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
@@ -184,23 +205,26 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
     if(!bReady||!SupportGraph){Reason=Message;return false;}
     const auto* Definition=Palette->Find(Material);
     if(!Definition||Positions.IsEmpty()||Origin.ContainsNaN()){Reason=TEXT("请选择有效的建筑位置和材料");return false;}
-    FVoxelSupportGraph Trial=*SupportGraph;const int32 First=Trial.Nodes.Num();TSet<FIntVector> Seen;
-    const FGuid Draft=FGuid::NewGuid();
+    FVoxelSupportGraph Draft;const FGuid DraftId=FGuid::NewGuid();TSet<FIntVector> Seen;
     for(const auto& Cell:Positions)
     {
         if(Seen.Contains(Cell))continue;Seen.Add(Cell);
         const FVector Min=Origin+CellMin(Cell);
-        if(Trial.Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");return false;}
+        if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");return false;}
         if(!ScenePlacementAllowed(Min,Reason))return false;
-        Trial.Add({{Draft,Cell},Min,IsGroundAnchor(Min),Definition->bSupportsWeight});
+        bool Anchored=IsGroundAnchor(Min);
+        for(const auto& Key:SupportGraph->Near(Min))
+        {
+            const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;
+            if(Existing.bBearing&&SupportGraph->Supported.Contains(Key)&&!Runtime->PendingCells.Contains(Key)
+                &&FVoxelSupportGraph::Contact(Existing.Min,Min,Contact))Anchored=true;
+        }
+        Draft.Add({{DraftId,Cell},Min,Anchored,Definition->bSupportsWeight});
     }
-    Trial.Solve();float Span=0;
-    for(int32 I=First;I<Trial.Nodes.Num();++I)
-    {
-        if(!Trial.IsSupported(I)){Reason=FString::Printf(TEXT("缺少承重路径，或横向悬挑超过 %.1f 米"),Trial.MaxSpanCm/100);return false;}
-        Span=FMath::Max(Span,Trial.Cost[I]);
-    }
-    Reason=FString::Printf(TEXT("可放置 %d 格 · 支撑横距 %.1f / %.1f 米"),Seen.Num(),Span/100,Trial.MaxSpanCm/100);return true;
+    Draft.SolveConnectivity();
+    if(Draft.Supported.Num()!=Draft.Nodes.Num()){Reason=TEXT("缺少与地基相连的接触面");return false;}
+    Reason=FString::Printf(TEXT("可放置 %d 格 · 新增 %.1f kg · 放置后计算承重"),Seen.Num(),Seen.Num()*Palette->Physical(Material).DensityKgM3*.008f);
+    return true;
 }
 
 bool AVoxelBuildWorld::EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material)
@@ -229,31 +253,19 @@ bool AVoxelBuildWorld::PlaceFree(FVector Origin,const TArray<FIntVector>& Positi
 
 bool AVoxelBuildWorld::CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const
 {
-    TMap<FVoxelBuildKey,FName> Changes;
     for(const auto& E:Edit)
     {
+        const FVoxelBuildKey Key{E.Volume,E.Position};
         if(VolumeMaterialAt(E.Volume,E.Position)!=E.Before||(E.Volume.IsValid()&&!FreeVolumes.Contains(E.Volume)))
         {Reason=TEXT("建筑已改变，本次编辑未生效");return false;}
-        Changes.Add({E.Volume,E.Position},E.After);
-    }
-    FVoxelSupportGraph Trial;Trial.MaxSpanCm=SupportGraph->MaxSpanCm;
-    for(const auto& Node:SupportGraph->Nodes)if(!Changes.Contains(Node.Key))Trial.Add(Node);
-    const int32 FirstNew=Trial.Nodes.Num();
-    for(const auto& E:Edit)if(!E.After.IsNone())
-    {
-        const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);const auto* Definition=Palette->Find(E.After);
-        if(!Definition||Trial.Overlaps(Min)){Reason=TEXT("编辑位置与已有建筑重叠");return false;}
-        if(!ScenePlacementAllowed(Min,Reason))return false;
-        Trial.Add({{E.Volume,E.Position},Min,IsGroundAnchor(Min),Definition->bSupportsWeight});
-    }
-    Trial.Solve();
-    for(int32 I=FirstNew;I<Trial.Nodes.Num();++I)if(!Trial.IsSupported(I))
-    {Reason=TEXT("编辑后的方块缺少承重支撑");return false;}
-    for(int32 I=0;I<SupportGraph->Nodes.Num();++I)
-    {
-        const auto* Remaining=Trial.Indices.Find(SupportGraph->Nodes[I].Key);
-        if(Remaining&&SupportGraph->IsSupported(I)&&!Trial.IsSupported(*Remaining))
-        {Reason=TEXT("拆除会使结构失去支撑，请先拆上层或增加支柱");return false;}
+        if(Runtime->PendingCells.Contains(Key)){Reason=TEXT("该结构正在倒塌，请稍候");return false;}
+        if(!E.After.IsNone())
+        {
+            if(!Palette->Find(E.After)){Reason=TEXT("缺少建筑材料定义");return false;}
+            const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
+            if(!ScenePlacementAllowed(Min,Reason))return false;
+            if(E.Before.IsNone()&&SupportGraph->Overlaps(Min)){Reason=TEXT("编辑位置与已有建筑重叠");return false;}
+        }
     }
     return true;
 }
@@ -265,19 +277,43 @@ void AVoxelBuildWorld::SetCell(const FVoxelEditCell& E,bool bAfter)
     if(Material.IsNone())Target.Remove(E.Position);else Target.Add(E.Position,Material);
 }
 
+void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
+{
+    for(const auto& E:Edit)
+    {
+        const FVoxelBuildKey Key{E.Volume,E.Position};
+        Runtime->NodeEpoch.Add(Key,Revision+1);
+        if(const auto* Existing=SupportGraph->Nodes.Find(Key);Existing&&Existing->AddedMassKg>0)
+            for(auto It=Runtime->Loads.CreateIterator();It;++It)if(It.Value().Key==Key)It.RemoveCurrent();
+        if(const auto* Edges=SupportGraph->Edges.Find(Key))
+            for(const auto& Neighbor:*Edges){Runtime->DirtySupport.Add(Neighbor);Runtime->NodeEpoch.Add(Neighbor,Revision+1);}
+        SupportGraph->Remove(Key);SetCell(E,true);AnchorCache.Remove(Key);CellDamage.Remove(Key);
+        Runtime->LoadRatios.Remove(Key);LegacyProtected.Remove(Key);
+        if(!E.After.IsNone())
+        {
+            // A newly built block has fresh joints; old debris has independent identities.
+            for(auto It=SupportGraph->Broken.CreateIterator();It;++It)if(It->A==Key||It->B==Key)It.RemoveCurrent();
+            const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);const bool Anchor=IsGroundAnchor(Min);
+            const auto* Definition=Palette->Find(E.After);AnchorCache.Add(Key,Anchor);
+            SupportGraph->Add({Key,Min,Anchor,Definition&&Definition->bSupportsWeight,E.After,Palette->Physical(E.After)});
+            // Connectivity remains provisional until the worker publishes stresses.
+            bool Supported=Anchor;
+            if(const auto* Edges=SupportGraph->Edges.Find(Key))for(const auto& Neighbor:*Edges)
+            {Supported|=SupportGraph->Supported.Contains(Neighbor);Runtime->NodeEpoch.Add(Neighbor,Revision+1);}
+            if(Supported)SupportGraph->Supported.Add(Key);
+            Runtime->DirtySupport.Add(Key);
+        }
+    }
+    ++Revision;Runtime->NextIterations=256;Runtime->StructureAt=GetWorld()->GetTimeSeconds()+.08;
+    RebuildAffected(Edit);MarkSaveDirty();
+}
+
 bool AVoxelBuildWorld::Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember)
 {
     if(!CanCommit(Edit,Message))return false;
-    for(const auto& E:Edit)SetCell(E,true);
-    if(!Save())
-    {
-        for(const auto& E:Edit)SetCell(E,false);
-        return false;
-    }
-    for(const auto& E:Edit)AnchorCache.Remove({E.Volume,E.Position});
-    RefreshSupportGraph();RebuildAffected(Edit);
+    ApplyChanges(Edit);
     if(bRemember){History.Add(Edit);if(History.Num()>32)History.RemoveAt(0);}
-    Message=FString::Printf(TEXT("已保存 · 本次修改 %d 格"),Edit.Num());return true;
+    Message=FString::Printf(TEXT("已修改 %d 格 · 正在计算承重并保存"),Edit.Num());return true;
 }
 
 bool AVoxelBuildWorld::Undo()
@@ -285,111 +321,38 @@ bool AVoxelBuildWorld::Undo()
     if(!bReady||History.IsEmpty()){Message=TEXT("没有可撤销的操作");return false;}
     TArray<FVoxelEditCell> Reverse;for(const auto& E:History.Last())Reverse.Add({E.Position,E.After,E.Before,E.Volume});
     if(!Commit(Reverse,false))return false;
-    History.Pop();Message=TEXT("已撤销并保存");return true;
+    History.Pop();Message=TEXT("已撤销 · 正在保存");return true;
 }
 
-void AVoxelBuildWorld::RebuildAffected(const TArray<FVoxelEditCell>& Edit)
+void AVoxelBuildWorld::Tick(float Delta)
 {
-    TSet<FVoxelBuildKey> Keys;
-    // Rounded corners also depend on diagonal neighbors across chunk borders.
-    for(const auto& E:Edit)
-        for(int32 Z=-1;Z<=1;++Z)for(int32 Y=-1;Y<=1;++Y)for(int32 X=-1;X<=1;++X)
-            Keys.Add({E.Volume,ChunkFor(E.Position+FIntVector(X,Y,Z))});
-    for(const auto& Key:Keys)RebuildChunk(Key);
+    Super::Tick(Delta);if(!bReady||bClosing)return;
+    for(const auto& E:Fragments)if(IsValid(E.Value))E.Value->SampleVelocity();
+    TickDamage();TickMeshes();TickFragments();TickStructure();TickPersistence();
 }
 
-void AVoxelBuildWorld::RebuildChunk(FVoxelBuildKey Key)
+void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)
 {
-    using namespace UE::Geometry;
-    FDynamicMesh3 Mesh;Mesh.EnableAttributes();Mesh.Attributes()->EnableMaterialID();
-    auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
-    const FIntVector Origin=Key.Cell*ChunkSide;const FVector Offset=VolumeOrigin(Key.Volume);
-    for(int32 Axis=0;Axis<3;++Axis)for(int32 Sign:{-1,1})
+    bClosing=true;
+    if(bReady)
     {
-        const int32 U=Axis==0?1:0,V=Axis==2?1:2;
-        FIntVector Neighbor=FIntVector::ZeroValue;Neighbor[Axis]=Sign;
-        FVector3f Normal=FVector3f::ZeroVector;Normal[Axis]=float(Sign);
-        for(int32 Layer=0;Layer<ChunkSide;++Layer)
-        {
-            int32 Mask[ChunkSide*ChunkSide];
-            for(int32 Y=0;Y<ChunkSide;++Y)for(int32 X=0;X<ChunkSide;++X)
-            {
-                FIntVector Cell=Origin;Cell[Axis]+=Layer;Cell[U]+=X;Cell[V]+=Y;
-                const int32* Slot=MaterialSlots.Find(VolumeMaterialAt(Key.Volume,Cell));
-                Mask[X+Y*ChunkSide]=Slot&&VolumeMaterialAt(Key.Volume,Cell+Neighbor).IsNone()?*Slot+1:0;
-            }
-            for(int32 Y=0;Y<ChunkSide;++Y)for(int32 X=0;X<ChunkSide;)
-            {
-                const int32 Slot=Mask[X+Y*ChunkSide];if(!Slot){++X;continue;}
-                int32 Width=1,Height=1;
-                while(X+Width<ChunkSide&&Mask[X+Width+Y*ChunkSide]==Slot)++Width;
-                bool Extend=true;
-                while(Y+Height<ChunkSide&&Extend)
-                {
-                    for(int32 I=0;I<Width;++I)if(Mask[X+I+(Y+Height)*ChunkSide]!=Slot){Extend=false;break;}
-                    if(Extend)++Height;
-                }
-                FVector3d P=FVector3d::ZeroVector;P[Axis]=(Layer+(Sign>0?1:0))*CellSizeCm;P[U]=X*CellSizeCm;P[V]=Y*CellSizeCm;
-                FVector3d DU=FVector3d::ZeroVector,DV=FVector3d::ZeroVector;DU[U]=Width*CellSizeCm;DV[V]=Height*CellSizeCm;
-                const FVector3d Corners[]={P,P+DU,P+DU+DV,P+DV};
-                int32 Vertices[4],NIDs[4],UVIds[4];
-                for(int32 I=0;I<4;++I)
-                {
-                    Vertices[I]=Mesh.AppendVertex(Corners[I]);NIDs[I]=Normals->AppendElement(Normal);
-                    const FVector3d World=FVector3d(Offset+CellMin(Origin))+Corners[I];
-                    UVIds[I]=UVs->AppendElement(FVector2f(World[U]/80.0,World[V]/80.0));
-                }
-                auto Triangle=[&](int32 A,int32 B,int32 C)
-                {
-                    const int32 T=Mesh.AppendTriangle(Vertices[A],Vertices[B],Vertices[C]);
-                    Normals->SetTriangle(T,FIndex3i(NIDs[A],NIDs[B],NIDs[C]));
-                    UVs->SetTriangle(T,FIndex3i(UVIds[A],UVIds[B],UVIds[C]));
-                    Mesh.Attributes()->GetMaterialID()->SetValue(T,Slot-1);
-                };
-                // Unreal front faces wind clockwise when seen from the outside.
-                const int32 CrossSign=Axis==1?-1:1;
-                if(Sign==CrossSign){Triangle(0,2,1);Triangle(0,3,2);}else{Triangle(0,1,2);Triangle(0,2,3);}
-                for(int32 J=0;J<Height;++J)for(int32 I=0;I<Width;++I)Mask[X+I+(Y+J)*ChunkSide]=0;
-                X+=Width;
-            }
-        }
+        while(!Runtime->DamageQueue.IsEmpty())TickDamage();
+        // Join only at world teardown; workers own snapshots and never touch UObjects.
+        if(Runtime->Stress.IsValid())Runtime->Stress.Wait();
+        for(auto& Job:Runtime->MeshJobs)if(Job.Future.IsValid())Job.Future.Wait();
+        for(auto& E:Runtime->PendingFragments)if(E.Value->Future.IsValid())E.Value->Future.Wait();
+        TickPersistence(true);
     }
-    if(Mesh.TriangleCount()==0)
-    {
-        if(auto* Existing=Chunks.Find(Key)){CollisionVolumes.Remove(*Existing);(*Existing)->DestroyComponent();Chunks.Remove(Key);}
-    }
-    else
-    {
-        // Keep the exact 20 cm collider for traces, stairs and build selection.
-        // Rounded visual normals must not redirect the placement brush.
-        UDynamicMeshComponent* Component=Chunks.FindRef(Key);
-        if(!Component)
-        {
-            Component=NewObject<UDynamicMeshComponent>(this);AddInstanceComponent(Component);Component->SetupAttachment(RootComponent);
-            Component->SetRelativeLocation(Offset+CellMin(Origin));Component->SetMobility(EComponentMobility::Movable);
-            Component->SetCollisionProfileName(TEXT("BlockAll"));Component->SetComplexAsSimpleCollisionEnabled(true,false);
-            Component->SetVisibility(false);Component->SetHiddenInGame(true);Component->SetCastShadow(false);
-            Component->SetCanEverAffectNavigation(false);
-            Component->RegisterComponent();Chunks.Add(Key,Component);CollisionVolumes.Add(Component,Key.Volume);
-        }
-        Component->SetMesh(MoveTemp(Mesh));Component->NotifyMeshUpdated();Component->UpdateBounds();Component->UpdateCollision(false);
-    }
-    FDynamicMesh3 Surface;
-    VoxelSurface::Build(Surface,Origin,ChunkSide,Palette->EdgeRadiusCm,[this,Key](FIntVector Cell)
-    {const int32* Slot=MaterialSlots.Find(VolumeMaterialAt(Key.Volume,Cell));return Slot?*Slot:INDEX_NONE;});
-    if(Surface.TriangleCount()==0)
-    {
-        if(auto* Existing=RoundedChunks.Find(Key)){(*Existing)->DestroyComponent();RoundedChunks.Remove(Key);}return;
-    }
-    UDynamicMeshComponent* Visible=RoundedChunks.FindRef(Key);
-    if(!Visible)
-    {
-        Visible=NewObject<UDynamicMeshComponent>(this);AddInstanceComponent(Visible);Visible->SetupAttachment(RootComponent);
-        Visible->SetRelativeLocation(Offset+CellMin(Origin));Visible->SetMobility(EComponentMobility::Movable);
-        Visible->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
-        Visible->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visible->SetCanEverAffectNavigation(false);
-        for(int32 I=0;I<SurfaceMaterials.Num();++I)Visible->SetMaterial(I,SurfaceMaterials[I]);
-        Visible->RegisterComponent();RoundedChunks.Add(Key,Visible);
-    }
-    Visible->SetMesh(MoveTemp(Surface));Visible->NotifyMeshUpdated();Visible->UpdateBounds();
+    Super::EndPlay(Reason);
+}
+
+FString AVoxelBuildWorld::StructureStatus() const
+{
+    if(Runtime->bSaveFailed)return TEXT("保存失败 · 建筑仍在内存中，将重试");
+    if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())
+        return FString::Printf(TEXT("倒塌处理中 · 活动物理块 %d"),Runtime->AwakeBodies);
+    if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())return TEXT("正在计算承重");
+    if(Runtime->bStressApproximate)return TEXT("结构求解未收敛 · 未应用估算破坏");
+    if(!LegacyProtected.IsEmpty())return TEXT("旧建筑保留 · 编辑或破坏后计算承重");
+    return Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?TEXT("正在保存"):TEXT("承重已更新");
 }

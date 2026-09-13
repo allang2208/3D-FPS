@@ -37,3 +37,36 @@ struct FVoxelEditCell
     FName After;
     FGuid Volume;
 };
+
+USTRUCT()
+struct FVoxelBrokenBond
+{
+    GENERATED_BODY()
+    UPROPERTY() FVoxelBuildKey A;
+    UPROPERTY() FVoxelBuildKey B;
+    bool operator==(const FVoxelBrokenBond& O) const {return (A==O.A&&B==O.B)||(A==O.B&&B==O.A);}
+    friend uint32 GetTypeHash(const FVoxelBrokenBond& B){return GetTypeHash(B.A)^GetTypeHash(B.B);}
+};
+
+USTRUCT()
+struct FVoxelDebrisCell
+{
+    GENERATED_BODY()
+    UPROPERTY() FVoxelBuildKey Key;
+    UPROPERTY() FVector Min=FVector::ZeroVector;
+    UPROPERTY() FName Material;
+    UPROPERTY() float Damage=0;
+};
+
+USTRUCT()
+struct FVoxelFragmentSave
+{
+    GENERATED_BODY()
+    UPROPERTY() FGuid Id;
+    UPROPERTY() FTransform Transform;
+    UPROPERTY() TArray<FVoxelDebrisCell> Cells;
+    UPROPERTY() TSet<FVoxelBrokenBond> BrokenBonds;
+    UPROPERTY() FVector Velocity=FVector::ZeroVector;
+    UPROPERTY() FVector AngularVelocity=FVector::ZeroVector;
+    UPROPERTY() bool bSleeping=false;
+};
