@@ -148,9 +148,9 @@ double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
 
 double ATemperateHillsWorld::PathDistance(double X,double Y) const {return FMath::Abs(Y-TemperateHills::ValleyY(X,Seed));}
 double ATemperateHillsWorld::Height(double X,double Y) const
-{return TemperateHillsSurface::Height(X,Y,Seed);}
+{return RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed);}
 FVector ATemperateHillsWorld::SurfaceNormal(double X,double Y) const
-{return TemperateHillsSurface::Normal(X,Y,Seed);}
+{return RiverPlan?RiverPlan->Normal(X,Y,Seed):TemperateHillsSurface::Normal(X,Y,Seed);}
 
 double ATemperateHillsWorld::ForestWeight(double X,double Y) const
 {return TemperateHills::Smooth((Noise(X*.00014,Y*.00014,173)+.45)/1.05);}
@@ -161,6 +161,19 @@ FVector ATemperateHillsWorld::GetStartLocation() const
     return FVector(X,Y,Height(X,Y)+106);
 }
 
+FRotator ATemperateHillsWorld::GetStartRotation() const
+{
+    if(!RiverPlan||RiverPlan->Points.IsEmpty())return FRotator(0,18,0);
+    const FVector2D Start(GetStartLocation());
+    FVector2D Target=RiverPlan->Points[0].XY;double Best=DBL_MAX;
+    for(const auto& Point:RiverPlan->Points)
+    {
+        const double D=FVector2D::DistSquared(Start,Point.XY);
+        if(D<Best){Best=D;Target=Point.XY;}
+    }
+    return FRotator(0,FMath::RadiansToDegrees(FMath::Atan2(Target.Y-Start.Y,Target.X-Start.X)),0);
+}
+
 bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& Out) const
 {
     if(!Assets||Assets->Trees.IsEmpty())return false;
@@ -168,6 +181,7 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
     const double X=(GX+.5+(TemperateHills::Unit(K+1)-.5)*.56)*1200;
     const double Y=(GY+.5+(TemperateHills::Unit(K+2)-.5)*.56)*1200;
     const double Half=SizeMeters*50-1000;
+    if(RiverPlan&&RiverPlan->Sample(X,Y).Bank>.02)return false;
     if(FMath::Abs(X)>Half||FMath::Abs(Y)>Half||PathDistance(X,Y)<1150||
         FVector2D::Distance(FVector2D(X,Y),FVector2D(GetStartLocation()))<2200||SurfaceNormal(X,Y).Z<.87)return false;
     const double Forest=ForestWeight(X,Y);
@@ -199,6 +213,8 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             const double X=(GX+.5+(TemperateHills::Unit(K+1)-.5)*.8)*Spacing;
             const double Y=(GY+.5+(TemperateHills::Unit(K+2)-.5)*.8)*Spacing;
             if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY||FMath::Abs(X)>Half-500||FMath::Abs(Y)>Half-500)continue;
+            // Keep ordinary slope stones and vegetation out of the carved river corridor.
+            if(RiverPlan&&RiverPlan->Sample(X,Y).Bank>(Layer==3?.08:.02))continue;
             const FVector N=SurfaceNormal(X,Y);
             if(N.Z<(Layer==1?.72:.83)||PathDistance(X,Y)<(Layer==3?240:700))continue;
             if(Layer<3&&FVector2D::Distance(FVector2D(X,Y),FVector2D(GetStartLocation()))<1600)continue;
@@ -226,6 +242,33 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
         const FVector Pos=P.Transform.GetLocation();
         // Half-open ownership ensures no duplicates when HiGen cells share an edge.
         if(Pos.X>=MinX&&Pos.X<MaxX&&Pos.Y>=MinY&&Pos.Y<MaxY)Out.Add(P);
+    }
+    // River stones reuse the existing 64 m PCG rock layer, radius and collision
+    // lifecycle. Candidate keys occupy a separate ID namespace from slope stones.
+    if(Layer==1&&RiverPlan&&!Assets->RiverRocks.IsEmpty())
+    {
+        constexpr double RiverSpacing=750;
+        for(int32 GY=FMath::FloorToInt(MinY/RiverSpacing)-1;GY<=FMath::FloorToInt(MaxY/RiverSpacing);++GY)
+        for(int32 GX=FMath::FloorToInt(MinX/RiverSpacing)-1;GX<=FMath::FloorToInt(MaxX/RiverSpacing);++GX)
+        {
+            const uint32 K=TemperateHills::Key(GX,GY,Seed,809);
+            const double X=(GX+.2+TemperateHills::Unit(K+1)*.6)*RiverSpacing;
+            const double Y=(GY+.2+TemperateHills::Unit(K+2)*.6)*RiverSpacing;
+            if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY||FMath::Abs(X)>Half-400||FMath::Abs(Y)>Half-400)continue;
+            const auto River=RiverPlan->Sample(X,Y);
+            if(River.Bank<.65||River.Distance>River.HalfWidth+550||River.Distance<River.HalfWidth*.3)continue;
+            if(TemperateHills::Unit(K+3)>(River.Wet>.7?.22:.48))continue;
+            const FVector N=SurfaceNormal(X,Y);if(N.Z<.90)continue;
+            const double Scale=.45+TemperateHills::Unit(K+5)*.60;
+            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
+            FTemperatePlacement P;
+            const auto& Rock=Assets->RiverRocks[K%Assets->RiverRocks.Num()];
+            const double Base=Rock.IsValid()?Rock.Get()->GetBoundingBox().Min.Z:0;
+            P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Base+18)*Scale),FVector(Scale));
+            P.Mesh=Rock.ToSoftObjectPath();P.Key=K;
+            P.CandidateId=TemperateHills::CellId(GX,GY)^0x4000000000000000ULL;
+            Out.Add(P);
+        }
     }
 }
 
@@ -387,7 +430,7 @@ void ATemperateHillsGameMode::RestartPlayer(AController* NewPlayer)
 {
     if(!IsValid(NewPlayer)||NewPlayer->GetPawn())return;
     for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
-        if(It->bSurfaceReady){RestartPlayerAtTransform(NewPlayer,FTransform(FRotator(0,18,0),It->GetStartLocation()));return;}
+        if(It->bSurfaceReady){RestartPlayerAtTransform(NewPlayer,FTransform(It->GetStartRotation(),It->GetStartLocation()));return;}
     FTimerHandle Retry;
     GetWorldTimerManager().SetTimer(Retry,FTimerDelegate::CreateWeakLambda(this,[this,Weak=TWeakObjectPtr<AController>(NewPlayer)](){if(Weak.IsValid())RestartPlayer(Weak.Get());}),.15f,false);
 }

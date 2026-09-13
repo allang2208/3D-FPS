@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/SaveGame.h"
 #include "../FPSGAMEGameMode.h"
+#include "TemperateHillsRiver.h"
 #include "TemperateHillsWorld.generated.h"
 
 class UPCGComponent;
@@ -35,6 +36,8 @@ public:
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Shrubs;
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Grass;
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UPCGGraph>> Graphs;
+    UPROPERTY(EditAnywhere, Category="River") TSoftObjectPtr<UMaterialInterface> RiverMaterial;
+    UPROPERTY(EditAnywhere, Category="River") TArray<TSoftObjectPtr<UStaticMesh>> RiverRocks;
 };
 
 /** V1 stores the world identity/seed. It does not claim harvest/building persistence. */
@@ -74,6 +77,7 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bSurfaceReady = false;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") FGuid WorldId;
     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
+    FRotator GetStartRotation() const;
     double Height(double X, double Y) const;
     FVector SurfaceNormal(double X, double Y) const;
     void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
@@ -101,6 +105,7 @@ private:
     double AuditNext = 0;
     double StartSeconds = 0;
     TSharedPtr<FTemperateHillsStreamingState> Streaming;
+    TemperateRiver::FPlanPtr RiverPlan;
     TArray<double> FrameSamples;
     double Noise(double X, double Y, uint32 Salt) const;
     double PathDistance(double X, double Y) const;

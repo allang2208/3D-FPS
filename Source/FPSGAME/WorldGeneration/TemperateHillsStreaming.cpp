@@ -42,6 +42,7 @@ struct FMeshResult
     FIntPoint Key;
     bool Detailed=false;
     UE::Geometry::FDynamicMesh3 Mesh;
+    UE::Geometry::FDynamicMesh3 Water;
 };
 struct FJob
 {
@@ -53,6 +54,7 @@ struct FCell
     TWeakObjectPtr<UDynamicMeshComponent> Mesh;
     TWeakObjectPtr<UDynamicMeshComponent> Pending;
     TWeakObjectPtr<UInstancedStaticMeshComponent> Trunks;
+    TWeakObjectPtr<UDynamicMeshComponent> Water;
     bool Detailed=false;
     bool PendingDetailed=false;
 };
@@ -63,22 +65,29 @@ struct FCVarOverride
     float Applied=0;
 };
 
-TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed,double Half,int32 Seed)
+TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed,double Half,int32 Seed,TemperateRiver::FPlanPtr River)
 {
     auto Result=MakeShared<FMeshResult,ESPMode::ThreadSafe>();Result->Key=Key;Result->Detailed=Detailed;
-    auto& Mesh=Result->Mesh;Mesh.EnableAttributes();
+    auto& Mesh=Result->Mesh;Mesh.EnableAttributes();Mesh.Attributes()->EnablePrimaryColors();
     auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
-    const int32 Quads=Detailed?32:8;
-    const double Step=CellSize/Quads,OX=-Half+Key.X*CellSize,OY=-Half+Key.Y*CellSize;
+    auto* Colors=Mesh.Attributes()->PrimaryColors();
+    const double OX=-Half+Key.X*CellSize,OY=-Half+Key.Y*CellSize;
+    const bool RiverCell=River&&River->IntersectsCell(OX,OY,CellSize);
+    // Even distant river cells retain 2 m terrain spacing to avoid a coarse LOD
+    // spanning across the shallow channel and covering its water surface.
+    const int32 Quads=RiverCell?(Detailed?64:32):(Detailed?32:8);
+    const double Step=CellSize/Quads;
     for(int32 Y=0;Y<=Quads;++Y)for(int32 X=0;X<=Quads;++X)
     {
         const double WX=OX+X*Step,WY=OY+Y*Step;
-        Mesh.AppendVertex(FVector3d(X*Step,Y*Step,TemperateHillsSurface::Height(WX,WY,Seed)));
-        Normals->AppendElement(FVector3f(TemperateHillsSurface::Normal(WX,WY,Seed)));
+        Mesh.AppendVertex(FVector3d(X*Step,Y*Step,River?River->Height(WX,WY,Seed):TemperateHillsSurface::Height(WX,WY,Seed)));
+        Normals->AppendElement(FVector3f(River?River->Normal(WX,WY,Seed):TemperateHillsSurface::Normal(WX,WY,Seed)));
         UVs->AppendElement(FVector2f(WX/400,WY/400));
+        const auto Bank=River?River->Sample(WX,WY):TemperateRiver::FSample();
+        Colors->AppendElement(FVector4f(Bank.Bank,Bank.Wet,0,1));
     }
     auto Tri=[&](int32 A,int32 B,int32 C)
-    {const int32 ID=Mesh.AppendTriangle(A,B,C);Normals->SetTriangle(ID,UE::Geometry::FIndex3i(A,B,C));UVs->SetTriangle(ID,UE::Geometry::FIndex3i(A,B,C));};
+    {const int32 ID=Mesh.AppendTriangle(A,B,C);const UE::Geometry::FIndex3i Indices(A,B,C);Normals->SetTriangle(ID,Indices);UVs->SetTriangle(ID,Indices);Colors->SetTriangle(ID,Indices);};
     for(int32 Y=0;Y<Quads;++Y)for(int32 X=0;X<Quads;++X)
     {const int32 A=Y*(Quads+1)+X;Tri(A,A+Quads+2,A+1);Tri(A,A+Quads+1,A+Quads+2);}
     // Downward skirts cover the different edge subdivisions at the LOD boundary.
@@ -92,8 +101,10 @@ TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed
     {
         Bottom.Add(Mesh.AppendVertex(Mesh.GetVertex(Top)-FVector3d(0,0,800)));
         Normals->AppendElement(Normals->GetElement(Top));UVs->AppendElement(UVs->GetElement(Top));
+        Colors->AppendElement(Colors->GetElement(Top));
     }
     for(int32 I=0;I<Edge.Num();++I){const int32 J=(I+1)%Edge.Num();Tri(Edge[I],Bottom[J],Bottom[I]);Tri(Edge[I],Edge[J],Bottom[J]);}
+    if(RiverCell)River->BuildWaterMesh(OX,OY,CellSize,Result->Water);
     return Result;
 }
 template<class T> void AddPaths(TArray<FSoftObjectPath>& Out,const TArray<TSoftObjectPtr<T>>& Values)
@@ -106,6 +117,8 @@ struct FTemperateHillsStreamingState
 {
     TMap<FIntPoint,HillsStreaming::FCell> Cells;
     TArray<HillsStreaming::FJob> Jobs;
+    TFuture<TemperateRiver::FPlanPtr> RiverJob;
+    bool RiverPending=false;
     TArray<TSharedPtr<FStreamableHandle>> Handles;
     TArray<HillsStreaming::FCVarOverride> CVars;
     TMap<int32,TWeakObjectPtr<AActor>> Fog;
@@ -142,6 +155,12 @@ void ATemperateHillsWorld::BeginStreaming()
     ViewRadiusMeters=FMath::Clamp(ViewRadiusMeters,DetailRadiusMeters+96.f,512.f);
     const double Half=SizeMeters*50;
     const FVector Start=GetStartLocation();
+    if(!Assets->RiverMaterial.IsNull())
+    {
+        S.RiverPending=true;
+        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start)]()
+            {return TemperateRiver::Generate(WorldSeed,Half,Spawn);});
+    }
     S.StartCell=FIntPoint(FMath::FloorToInt((Start.X+Half)/HillsStreaming::CellSize),FMath::FloorToInt((Start.Y+Half)/HillsStreaming::CellSize));
     // Apply only while this world exists; returning home restores previous budgets.
     for(const auto& Setting:TArray<TPair<const TCHAR*,float>>{
@@ -150,11 +169,13 @@ void ATemperateHillsWorld::BeginStreaming()
         if(auto* C=IConsoleManager::Get().FindConsoleVariable(Setting.Key))
         {S.CVars.Add({C,C->GetFloat(),Setting.Value});C->Set(Setting.Value,ECVF_SetByCode);}
     S.LoadingAssets=true;
-    S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(Assets->GroundMaterial.ToSoftObjectPath(),FStreamableDelegate::CreateWeakLambda(this,[this]()
+    TArray<FSoftObjectPath> SurfacePaths={Assets->GroundMaterial.ToSoftObjectPath()};
+    if(!Assets->RiverMaterial.IsNull())SurfacePaths.Add(Assets->RiverMaterial.ToSoftObjectPath());
+    S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(SurfacePaths,FStreamableDelegate::CreateWeakLambda(this,[this]()
     {
         if(!Streaming||Streaming->Stopping)return;
         Streaming->LoadingAssets=false;
-        if(auto* Ground=Assets->GroundMaterial.Get())
+        if(auto* Ground=Assets->GroundMaterial.Get();Ground&&(Assets->RiverMaterial.IsNull()||Assets->RiverMaterial.IsValid()))
         {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);Streaming->GroundReady=true;}
         else
         {
@@ -177,7 +198,7 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
         Paths.Add(Assets->Graphs[Layer].ToSoftObjectPath());
         if(Stage==0)HillsStreaming::AddPaths(Paths,Assets->Grass);
         if(Stage==1)HillsStreaming::AddPaths(Paths,Assets->Shrubs);
-        if(Stage==2)HillsStreaming::AddPaths(Paths,Assets->Rocks);
+        if(Stage==2){HillsStreaming::AddPaths(Paths,Assets->Rocks);HillsStreaming::AddPaths(Paths,Assets->RiverRocks);}
         S.Status=FText::FromString(Stage==0?TEXT("正在载入附近草地…"):Stage==1?TEXT("正在载入林下灌木…"):TEXT("正在载入坡地岩石…"));
     }
     else if(Stage<7)
@@ -225,6 +246,17 @@ void ATemperateHillsWorld::TickStreaming()
 {
     if(!Streaming||Streaming->Stopping||!Streaming->GroundReady)return;
     auto& S=*Streaming;
+    if(S.RiverPending)
+    {
+        if(!S.RiverJob.IsReady())
+        {
+            if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+                Loading->UpdatePreparation(FText::FromString(TEXT("正在计算河道与河滩…")),.01f);
+            return;
+        }
+        RiverPlan=S.RiverJob.Get();S.RiverPending=false;
+        UE_LOG(LogTemp,Display,TEXT("HILLS_RIVER seed=%d samples=%d length_m=%.1f"),Seed,RiverPlan->Points.Num(),RiverPlan->Points.IsEmpty()?0:RiverPlan->Points.Last().Distance/100);
+    }
     constexpr double Size=HillsStreaming::CellSize;
     const int32 Count=FMath::RoundToInt(SizeMeters*100/Size);
     const double Half=SizeMeters*50;
@@ -279,6 +311,16 @@ void ATemperateHillsWorld::TickStreaming()
         C->SetMesh(MoveTemp(Result->Mesh));C->RegisterComponent();
         if(Result->Detailed)C->UpdateCollision(false);
         Terrain.Add(C);Cell.Pending=C;Cell.PendingDetailed=Result->Detailed;
+        if(!Cell.Water.IsValid()&&Result->Water.TriangleCount()>0&&Assets->RiverMaterial.IsValid())
+        {
+            auto* Water=NewObject<UDynamicMeshComponent>(this);
+            AddInstanceComponent(Water);Water->SetupAttachment(RootComponent);Water->SetRelativeLocation(CellOrigin(Result->Key));
+            Water->SetMobility(EComponentMobility::Movable);Water->SetCanEverAffectNavigation(false);
+            Water->SetCollisionEnabled(ECollisionEnabled::NoCollision);Water->SetCastShadow(false);
+            Water->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
+            Water->SetMaterial(0,Assets->RiverMaterial.Get());Water->SetMesh(MoveTemp(Result->Water));
+            Water->RegisterComponent();Water->PrecachePSOs();Cell.Water=Water;Terrain.Add(Water);
+        }
         break;
     }
     // A single unload per frame avoids a matching destruction spike when moving.
@@ -286,6 +328,7 @@ void ATemperateHillsWorld::TickStreaming()
     {
         if(DistanceSquared(It.Key())<=FMath::Square(ViewRadiusMeters*100.0+Size))continue;
         RemoveMesh(It.Value().Mesh.Get());RemoveMesh(It.Value().Pending.Get());
+        RemoveMesh(It.Value().Water.Get());
         if(auto* T=It.Value().Trunks.Get()){RemoveInstanceComponent(T);T->DestroyComponent();}
         It.RemoveCurrent();break;
     }
@@ -304,7 +347,7 @@ void ATemperateHillsWorld::TickStreaming()
         }
         if(Best.X<0)break;
         HillsStreaming::FJob Job;Job.Key=Best;
-        Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed);});
+        Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed,River=RiverPlan](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed,River);});
         S.Jobs.Add(MoveTemp(Job));
     }
     if(!bSurfaceReady)
@@ -400,6 +443,7 @@ void ATemperateHillsWorld::TickPreparation()
     // Use the same instanced vertex factories as PCG, including all four tree variants.
     const int32 TreeCount=Assets->Trees.Num();
     TArray<TSoftObjectPtr<UStaticMesh>> StaticAssets=Assets->Rocks;
+    StaticAssets.Append(Assets->RiverRocks);
     StaticAssets.Append(Assets->Shrubs);StaticAssets.Append(Assets->Grass);
     const int32 AssetCount=TreeCount+StaticAssets.Num();
     if(S.WarmupAsset<AssetCount)
@@ -541,5 +585,5 @@ void ATemperateHillsWorld::EndStreaming()
     if(!S.ResourcesRetained)for(auto& H:S.Handles)if(H){H->CancelHandle();H->ReleaseHandle();}
     for(auto& C:S.CVars)if(FMath::IsNearlyEqual(C.Variable->GetFloat(),C.Applied))C.Variable->Set(C.Previous,ECVF_SetByCode);
     // Pending numerical jobs contain no actor references and may finish after unload.
-    Streaming.Reset();
+    Streaming.Reset();RiverPlan.Reset();
 }
