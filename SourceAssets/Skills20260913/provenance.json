@@ -1,0 +1,21 @@
+{
+  "sourceProject": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev",
+  "sourceConfig": "data/audio-config.json:uiCues.playerUpgrade",
+  "usage": "Reuse from the user's existing project; no new redistribution license asserted. Source binaries stay local.",
+  "icon": {
+    "source": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\skills\\步枪精通.png",
+    "sha256": "6d33159882ace7c80881847bb66d5e94a69cb6e1e4dc74830d6cb43dc1dfca84",
+    "runtime": "Skills/rifle_mastery.png",
+    "operation": "unchanged copy"
+  },
+  "audio": {
+    "source": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\sounds\\ui\\player_upgrade.mp3",
+    "sourceSha256": "541e86ec858ea348c7c11b1ff3a8bb45480776526526a5e03aa4cd7fcdd10b49",
+    "runtime": "Skills/player_upgrade.wav",
+    "sha256": "17dcac442d4f72ea85546b1b6dcb2254e88d8697e31007f8ad92198ea5027ed0",
+    "sampleRate": 44100,
+    "channels": 2,
+    "bits": 16,
+    "durationSeconds": 1.1280045351473922
+  }
+}

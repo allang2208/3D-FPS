@@ -5,6 +5,11 @@
 - [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
 - [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
 - [装备／背包图标修复经验](inventory-icons-20260913.md)
+- [技能栏与步枪精通规划](rifle-mastery-plan-20260913.md)
+- [步枪精通操作与升级反馈](rifle-mastery-usage.md)
+- [事件进度栏布局与折叠动画](event-timeline-plan-20260913.md)
+- [顶部资源栏与世界时钟](top-vitals-clock-plan-20260913.md)
+- [本批 UI 源码发布与资源恢复边界](hud-skills-publication-20260913.md)
 
 - [状态页与顶部状态栏同步升级](status-cold-glass-20260912.md)
 - [强化／附魔 UI 审计与同步升级](enhancement-cold-glass-20260913.md)

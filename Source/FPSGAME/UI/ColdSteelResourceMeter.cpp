@@ -19,7 +19,7 @@ public:
         FSlateDrawElement::MakeBox(Out,Layer,G.ToPaintGeometry(),&Track,ESlateDrawEffect::None,(!bMana&&Ratio<=.25f?ColdSteelUI::Danger:ColdSteelUI::Border)*Tint);
         const auto Inner=ColdSteelUI::RoundedBrush(FLinearColor::White,2*Unit,FLinearColor::Transparent,0);
         const FVector2D InnerSize=G.GetLocalSize()-FVector2D(2*Unit);
-        FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(InnerSize,FSlateLayoutTransform(FVector2D(Unit))),&Inner,ESlateDrawEffect::None,FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("080B0EFF")))*Tint);
+        FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(InnerSize,FSlateLayoutTransform(FVector2D(Unit))),&Inner,ESlateDrawEffect::None,ColdSteelUI::Content*Tint);
         const FVector2D Size(FMath::Max(0.f,float(G.GetLocalSize().X-2*Unit))*Ratio,FMath::Max(0.f,float(G.GetLocalSize().Y-2*Unit)));
         if(Size.X>0&&Size.Y>0){
             const auto Deep=FLinearColor::FromSRGBColor(FColor::FromHex(bMana?TEXT("36566E"):TEXT("763B43")));

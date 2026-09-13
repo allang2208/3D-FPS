@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelSkillPage.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "ColdSteelDetailRow.h"
 #include "ColdSteelStatusModel.h"
@@ -58,9 +59,9 @@ void UColdSteelHUDWidget::NativeDestruct()
 
 UVerticalBox* UColdSteelHUDWidget::AddCharacterCard(UVerticalBox* Parent, const FString& Title)
 {
-    auto* Surface = MakeSurface(ColdSteelUI::StatusCard, ReferenceUnits(8), FLinearColor::Transparent, 0);
-    Surface->SetPadding(FMargin(ReferenceUnits(14), ReferenceUnits(10)));
-    Parent->AddChildToVerticalBox(Surface)->SetPadding(FMargin(ReferenceUnits(14), ReferenceUnits(4)));
+    auto* Surface = MakeSurface(ColdSteelUI::StatusCard, ReferenceUnits(ColdSteelUI::CardRadius), ColdSteelUI::Border, ReferenceUnits(1));
+    Surface->SetPadding(FMargin(ReferenceUnits(14), ReferenceUnits(12)));
+    Parent->AddChildToVerticalBox(Surface)->SetPadding(FMargin(ReferenceUnits(12), ReferenceUnits(6)));
     auto* Column = WidgetTree->ConstructWidget<UVerticalBox>(); Surface->SetContent(Column);
     if (!Title.IsEmpty())
     {
@@ -70,7 +71,7 @@ UVerticalBox* UColdSteelHUDWidget::AddCharacterCard(UVerticalBox* Parent, const 
         auto* AccentSize = WidgetTree->ConstructWidget<USizeBox>();
         AccentSize->SetWidthOverride(ReferenceUnits(3)); AccentSize->SetHeightOverride(ReferenceUnits(16)); Accent->SetContent(AccentSize);
         Heading->AddChildToHorizontalBox(Accent)->SetPadding(FMargin(0, 0, ReferenceUnits(7), 0));
-        Heading->AddChildToHorizontalBox(MakeReferenceText(Title, 16, ColdSteelUI::TextPrimary));
+        Heading->AddChildToHorizontalBox(MakeInventoryText(Title, 16, ColdSteelUI::TextPrimary, false, true));
         auto* Divider = MakeSurface(ColdSteelUI::Border, 0, FLinearColor::Transparent, 0);
         auto* DividerSize = WidgetTree->ConstructWidget<USizeBox>(); DividerSize->SetHeightOverride(ReferenceUnits(1)); Divider->SetContent(DividerSize);
         auto* DividerSlot = Heading->AddChildToHorizontalBox(Divider); DividerSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
@@ -82,7 +83,7 @@ UVerticalBox* UColdSteelHUDWidget::AddCharacterCard(UVerticalBox* Parent, const 
 UColdSteelDetailRow* UColdSteelHUDWidget::AddCharacterRow(UVerticalBox* Parent, const FString& Label, const FString& Key, const FString& Detail)
 {
     auto* Row = CreateWidget<UColdSteelDetailRow>(GetOwningPlayer());
-    Row->Configure(Label, ColdSteelUI::PixelScale(this));
+    Row->Configure(Label, ColdSteelUI::PixelScale(this), Key!=TEXT("weapon")&&Key!=TEXT("crit")&&Key!=TEXT("rank"));
     CharacterRows.Add(Key, Row); CharacterTitles.Add(Key, Label); CharacterDetails.Add(Key, Detail);
     Row->ShowDetail.BindWeakLambda(this, [this, Key]() { ShowStatusTooltip(Key); });
     Row->HideDetail.BindWeakLambda(this, [this, Key]() { if (ActiveStatusKey == Key) HideStatusTooltip(); });
@@ -94,22 +95,27 @@ UColdSteelDetailRow* UColdSteelHUDWidget::AddCharacterRow(UVerticalBox* Parent, 
 UWidget* UColdSteelHUDWidget::BuildStatusPage()
 {
     StatusScroll = WidgetTree->ConstructWidget<UScrollBox>();
-    StatusScroll->SetScrollbarThickness(FVector2D(ReferenceUnits(5), ReferenceUnits(5)));
+    StatusScroll->SetScrollbarThickness(FVector2D(ReferenceUnits(6), ReferenceUnits(6)));
+    StatusScroll->SetAllowOverscroll(false);
     StatusScroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
     auto* Content = WidgetTree->ConstructWidget<UVerticalBox>(); StatusScroll->AddChild(Content);
     auto* Identity = AddCharacterCard(Content, TEXT(""));
     auto* IdentityRow = WidgetTree->ConstructWidget<UHorizontalBox>(); Identity->AddChildToVerticalBox(IdentityRow);
-    CharacterNameText = MakeReferenceText(TEXT("轮回者"), 24, ColdSteelUI::TextPrimary);
-    IdentityRow->AddChildToHorizontalBox(CharacterNameText)->SetVerticalAlignment(VAlign_Center);
-    CharacterClassText = MakeReferenceText(TEXT("初心者"), 16, ColdSteelUI::TextSecondary);
-    auto* ClassSlot = IdentityRow->AddChildToHorizontalBox(CharacterClassText);
-    ClassSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill)); ClassSlot->SetVerticalAlignment(VAlign_Center);
-    ClassSlot->SetPadding(FMargin(ReferenceUnits(10), 0, 0, 0));
-    CharacterLevelText = MakeReferenceText(TEXT("Lv.1"), 16, ColdSteelUI::TextPrimary, true, true);
-    IdentityRow->AddChildToHorizontalBox(CharacterLevelText)->SetVerticalAlignment(VAlign_Center);
-    AttributePointsText = MakeReferenceText(TEXT("属性点 0"), 12, ColdSteelUI::Accent);
-    auto* PointsSlot = IdentityRow->AddChildToHorizontalBox(AttributePointsText);
-    PointsSlot->SetPadding(FMargin(ReferenceUnits(10), 0, 0, 0)); PointsSlot->SetVerticalAlignment(VAlign_Center);
+    auto* IdentityNames=WidgetTree->ConstructWidget<UVerticalBox>();
+    auto* NameColumn=IdentityRow->AddChildToHorizontalBox(IdentityNames);NameColumn->SetSize(FSlateChildSize(ESlateSizeRule::Fill));NameColumn->SetVerticalAlignment(VAlign_Center);
+    CharacterNameText = MakeInventoryText(TEXT("轮回者"), 20, ColdSteelUI::TextPrimary, false, true);
+    CharacterNameText->SetAutoWrapText(true);IdentityNames->AddChildToVerticalBox(CharacterNameText);
+    CharacterClassText = MakeInventoryText(TEXT("初心者"), 12, ColdSteelUI::TextSecondary);
+    IdentityNames->AddChildToVerticalBox(CharacterClassText)->SetPadding(FMargin(0,ReferenceUnits(4),0,0));
+    auto* LevelBadge=MakeSurface(ColdSteelUI::Content,ReferenceUnits(ColdSteelUI::ButtonRadius),ColdSteelUI::Border,ReferenceUnits(1));
+    LevelBadge->SetPadding(FMargin(ReferenceUnits(12),ReferenceUnits(8)));
+    auto* BadgeSlot=IdentityRow->AddChildToHorizontalBox(LevelBadge);BadgeSlot->SetVerticalAlignment(VAlign_Center);BadgeSlot->SetPadding(FMargin(ReferenceUnits(12),0,0,0));
+    auto* LevelColumn=WidgetTree->ConstructWidget<UVerticalBox>();LevelBadge->SetContent(LevelColumn);
+    CharacterLevelText = MakeInventoryText(TEXT("Lv.1"), 16, ColdSteelUI::TextPrimary, true, true);
+    CharacterLevelText->SetJustification(ETextJustify::Right);LevelColumn->AddChildToVerticalBox(CharacterLevelText);
+    AttributePointsText = MakeInventoryText(TEXT("属性点 0"), 12, ColdSteelUI::Accent);
+    AttributePointsText->SetJustification(ETextJustify::Right);
+    LevelColumn->AddChildToVerticalBox(AttributePointsText)->SetPadding(FMargin(0,ReferenceUnits(4),0,0));
 
     auto* State = AddCharacterCard(Content, TEXT("状态"));
     const float Scale = ColdSteelUI::PixelScale(this);
@@ -135,7 +141,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
         Cell->SetHorizontalAlignment(HAlign_Fill);
     }
     auto* Combat = AddCharacterCard(Content, TEXT("战斗属性"));
-    auto* BaseNote = MakeReferenceText(TEXT("角色基础值"), 12, ColdSteelUI::TextTertiary);
+    auto* BaseNote = MakeInventoryText(TEXT("角色基础值"), 12, ColdSteelUI::TextTertiary);
     Combat->AddChildToVerticalBox(BaseNote)->SetPadding(FMargin(ReferenceUnits(8), 0, 0, ReferenceUnits(4)));
     AddCharacterRow(Combat, TEXT("物理攻击"), TEXT("atk"), TEXT("基础物攻 = 四舍五入(10 + 力量×0.05 + 敏捷×0.10)。当前枪械伤害单独列于武器实值。"));
     AddCharacterRow(Combat, TEXT("物理防御"), TEXT("def"), TEXT("物防 = 向下取整(体质×1.2 + 力量×0.3)。"));
@@ -192,9 +198,10 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         if(ManaBar)ManaBar->SetPercent(StatusModel->Mana()/FMath::Max(1.f,StatusModel->Derived(TEXT("maxMp"))));
         SetCharacterValue(TEXT("kills"),FString::FromInt(StatusModel->Kills()));
         CharacterDetails.Add(TEXT("kills"),TEXT("实际击杀累计，每个敌人死亡只结算一次，随角色保存。"));
+        CharacterDetails.Add(TEXT("wis"),FString::Printf(TEXT("精神提升魔法防御、魔法攻击与魔力上限。基础 %d + 步枪精通 %d；技能加成常驻，不占用属性点。"),StatusModel->Attributes.FindRef(TEXT("wis")),StatusModel->RifleEffect().Wisdom));
         for (const auto& Pair : StatusModel->Attributes)
         {
-            SetCharacterValue(Pair.Key.ToString(), FString::FromInt(Pair.Value));
+            SetCharacterValue(Pair.Key.ToString(), FString::FromInt(StatusModel->Attribute(Pair.Key)));
             if (auto* Row = CharacterRows.Find(Pair.Key.ToString())) (*Row)->SetCanAllocate(StatusModel->AttributePoints > 0);
         }
         for (const TCHAR* Key : {TEXT("atk"), TEXT("def"), TEXT("matk"), TEXT("mdef")}) SetCharacterValue(Key, FString::Printf(TEXT("%.0f"), StatusModel->Derived(Key)));
@@ -242,12 +249,17 @@ void UColdSteelHUDWidget::ShowStatusTooltip(const FString& InKey)
     ActiveStatusKey = Key;
     StatusTooltipTitle->SetText(FText::FromString(CharacterTitles.FindRef(Key)));
     StatusTooltipDescription->SetText(FText::FromString(Description));
-    StatusTooltipDescription->SetWrapTextAt(ReferenceUnits(288));
+    StatusTooltipDescription->SetWrapTextAt(ReferenceUnits(286));
     StatusTooltipRowsBox->ClearChildren();
-    AddTooltipRow(StatusTooltipRowsBox, TEXT("当前值"), Value, ColdSteelUI::TextPrimary, true);
+    auto* CurrentRow=WidgetTree->ConstructWidget<UHorizontalBox>();StatusTooltipRowsBox->AddChildToVerticalBox(CurrentRow);
+    auto* CurrentLabel=CurrentRow->AddChildToHorizontalBox(MakeReferenceText(TEXT("当前值"),12,ColdSteelUI::TextSecondary));
+    CurrentLabel->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CurrentLabel->SetVerticalAlignment(VAlign_Center);
+    auto* CurrentValue=MakeReferenceText(Value,14,ColdSteelUI::TextPrimary,Key!=TEXT("weapon")&&Key!=TEXT("crit")&&Key!=TEXT("rank"),true);
+    CurrentValue->SetAutoWrapText(true);CurrentValue->SetJustification(ETextJustify::Right);
+    auto* CurrentValueSlot=CurrentRow->AddChildToHorizontalBox(CurrentValue);CurrentValueSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CurrentValueSlot->SetPadding(FMargin(ReferenceUnits(8),0,0,0));
     const bool bBase = StatusModel && (StatusModel->Attributes.Contains(*Key) || Key == TEXT("atk") || Key == TEXT("def") || Key == TEXT("matk") || Key == TEXT("mdef") || Key == TEXT("critRes") || Key == TEXT("aspd") || Key == TEXT("staminaRegen"));
     StatusTooltipNote->SetText(FText::FromString(bBase ? TEXT("物攻加入枪械伤害；物防抵消伤害（最低 1）；攻速倍率缩短射击间隔。体质、精神影响资源上限。魔法技能尚未迁移。") : TEXT("")));
-    StatusTooltipNote->SetWrapTextAt(ReferenceUnits(288));
+    StatusTooltipNote->SetWrapTextAt(ReferenceUnits(286));
     StatusTooltipNote->SetVisibility(bBase ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
     StatusTooltip->SetVisibility(ESlateVisibility::HitTestInvisible);
     // Signature is stored separately from tooltip metadata to avoid nested stock tooltips.
@@ -292,6 +304,7 @@ void UColdSteelHUDWidget::OpenStatus() { SetInventoryTab(true); SetInventoryOpen
 FReply UColdSteelHUDWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry, const FKeyEvent& Event)
 {
     if (HandlePanelShortcut(Event.GetKey(), Event.IsRepeat())) return FReply::Handled();
+    if(Event.GetKey()==EKeys::Escape && (bTimelineDetailsOpen || TimelineDetailMotion>0)){SetTimelineDetailsOpen(false);return FReply::Handled();}
     if(Event.GetKey()==EKeys::Escape&&HasPinnedItemTooltip()){HideItemTooltip(true);return FReply::Handled();}
     if(bInventoryOpen&&Event.GetKey()==EKeys::G&&StatusModel){StatusModel->CycleWeapon();return FReply::Handled();}
     if (bInventoryOpen && Event.GetKey() == EKeys::Escape)
@@ -299,6 +312,7 @@ FReply UColdSteelHUDWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry, co
         if(Event.GetKey()==EKeys::Escape&&UWidgetBlueprintLibrary::IsDragDropping()){UWidgetBlueprintLibrary::CancelDragDrop();return FReply::Handled();}
         if(WarehouseDetails&&Event.GetKey()==EKeys::Escape){HideWarehouseDetails();return FReply::Handled();}
         if(bWarehouseOpen&&Event.GetKey()==EKeys::Escape){CloseWarehouse();return FReply::Handled();}
+        if(bSkillsTabActive && SkillPage && SkillPage->GoBack())return FReply::Handled();
         SetInventoryOpen(false);
         return FReply::Handled();
     }

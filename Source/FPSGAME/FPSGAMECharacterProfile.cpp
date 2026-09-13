@@ -47,6 +47,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         {const auto Stats=Gunsmith->Calculate(I->Definition,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
             WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));}
     }
+    if(I)DamagePerShot=Profile->RifleWeaponDamage(*I,DamagePerShot-Profile->Derived(TEXT("atk")))+Profile->Derived(TEXT("atk"));
     MagazineAmmo=I?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=Profile->AmmoCount();
 }
 void AFPSGAMECharacter::EndPlay(const EEndPlayReason::Type Reason)

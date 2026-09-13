@@ -15,7 +15,8 @@ class FPSGAME_API UColdSteelDetailRow : public UUserWidget
 {
     GENERATED_BODY()
 public:
-    void Configure(const FString& Label, float Scale);
+    void Configure(const FString& Label, float Scale, bool bNumeric = true);
+    void UpdateScale(float Scale);
     void SetValue(const FString& Value, bool bAvailable = true);
     FString GetValue() const;
     FSimpleDelegate ShowDetail;
@@ -31,9 +32,16 @@ protected:
 private:
     void RefreshHighlight();
     UPROPERTY(Transient) TObjectPtr<UBorder> Surface;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> NameText;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> ValueText;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlusText;
     UPROPERTY(Transient) TObjectPtr<UButton> PlusButton;
+    UPROPERTY(Transient) TObjectPtr<class USizeBox> PlusSize;
+    UPROPERTY(Transient) TObjectPtr<class USizeBox> MeterTrack;
+    UPROPERTY(Transient) TObjectPtr<UProgressBar> Meter;
     UPROPERTY(Transient) TObjectPtr<UHorizontalBox> Line;
     UFUNCTION() void HandleAllocate();
     bool bPointerInside = false;
+    bool bNumericValue = true;
+    float VisualScale = 1.f;
 };

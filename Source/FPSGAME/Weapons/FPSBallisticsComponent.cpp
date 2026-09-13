@@ -1,4 +1,5 @@
 #include "FPSBallisticsComponent.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
 #include "FPSWeaponFXComponent.h"
 #include "Engine/World.h"
@@ -12,7 +13,8 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
     LastLaunchStart=Start;
     WeaponFX=FX;HeadshotSound=Headshot;
-    Rounds.Add({Start,Direction.GetSafeNormal(),SpeedCM,RangeCM,Damage,GetWorld()->GetTimeSeconds()});
+    FFPSFlyingRound Round{Start,Direction.GetSafeNormal(),SpeedCM,RangeCM,Damage,GetWorld()->GetTimeSeconds()};
+    Round.Training=ColdSteelSkills::Snapshot(GetOwner());Rounds.Add(MoveTemp(Round));
     SetComponentTickEnabled(true);
 }
 void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
@@ -20,7 +22,6 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     Super::TickComponent(Delta,Type,Fn);
     const double Now=GetWorld()->GetTimeSeconds();
     FCollisionQueryParams Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;
-    const auto* Pawn=Cast<APawn>(GetOwner());
     for(int32 I=Rounds.Num()-1;I>=0;--I)
     {
         auto& R=Rounds[I];const float Distance=FMath::Min(R.Remaining,R.Speed*static_cast<float>(FMath::Max(0.,Now-R.Timestamp)));
@@ -30,7 +31,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         {
             ++ImpactCount;
             LastImpactPoint=Hit.ImpactPoint;
-            if(Hit.GetActor()){const float Applied=UGameplayStatics::ApplyPointDamage(Hit.GetActor(),R.Damage,R.Direction,Hit,Pawn?Pawn->GetController():nullptr,GetOwner(),nullptr);
+            if(Hit.GetActor()){const float Applied=ColdSteelSkills::ApplyHit(GetOwner(),Hit,R.Damage,R.Direction,R.Training);
                 if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied);}
             if(WeaponFX)WeaponFX->OnImpact(Hit);
             if(HeadshotSound&&Hit.BoneName.ToString().Contains(TEXT("head"),ESearchCase::IgnoreCase))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);

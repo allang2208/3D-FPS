@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "rifleMastery": {
+    "name": "步枪精通",
+    "description": "精通步枪的精准射击，每颗子弹都命中要害。持续使用步枪，在实战中积累修炼。",
+    "icon": "Skills/rifle_mastery.png",
+    "upgradeSound": "Skills/player_upgrade.wav",
+    "maxLevel": 20,
+    "experiencePerLevel": 100,
+    "killExperience": 10,
+    "criticalExperience": 5,
+    "damagePercentPerLevel": 0.01,
+    "flatDamagePerLevel": 1,
+    "wisdomPerLevel": 1,
+    "weakpointPercentPerLevel": 0.01,
+    "criticalPolicy": "weakpoint-only",
+    "sourceCriticalRule": "Original critRateBonus = level. UE preserves weakpoint qualification and uses +1% weakpoint damage per level."
+  }
+}

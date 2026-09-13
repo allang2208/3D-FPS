@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "../Skills/ColdSteelSkillTypes.h"
 #include "ColdSteelInventoryTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -47,6 +48,8 @@ struct FColdSteelProfile
     UPROPERTY() float Mana = 250;
     UPROPERTY() int32 WarehousePages = 5;
     UPROPERTY() TArray<FString> ArmoryReceived;
+    UPROPERTY() int32 SkillProgressVersion = 0;
+    UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
 };
 
 UCLASS()

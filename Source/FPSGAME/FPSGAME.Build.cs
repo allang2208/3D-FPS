@@ -26,6 +26,7 @@ public class FPSGAME : ModuleRules
             ,"Json"
         });
         RuntimeDependencies.Add("$(ProjectDir)/Content/ColdSteelData/...", StagedFileType.UFS);
+        RuntimeDependencies.Add("$(ProjectDir)/Content/UI/GunsmithWorkbench/Fonts/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("AudioMixer");
         PrivateDependencyModuleNames.Add("MoviePlayer");
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);

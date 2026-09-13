@@ -3,52 +3,77 @@
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
+#include "Components/ButtonSlot.h"
 #include "Components/ProgressBar.h"
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 
-void UColdSteelDetailRow::Configure(const FString& Label, float Scale)
+void UColdSteelDetailRow::Configure(const FString& Label, float Scale, bool bNumeric)
 {
     SetIsFocusable(true);
+    bNumericValue=bNumeric;
     Surface = WidgetTree->ConstructWidget<UBorder>();
     WidgetTree->RootWidget = Surface;
-    Surface->SetPadding(FMargin(8 / Scale, 4 / Scale));
     auto* Height = WidgetTree->ConstructWidget<USizeBox>();
-    Height->SetMinDesiredHeight(20 / Scale);
     Surface->SetContent(Height);
     auto* Row = WidgetTree->ConstructWidget<UHorizontalBox>();
     Line = Row;
     Height->SetContent(Row);
-    auto* Name = WidgetTree->ConstructWidget<UTextBlock>();
-    Name->SetText(FText::FromString(Label));
-    Name->SetFont(ColdSteelUI::TextFont(9 / Scale));
-    Name->SetColorAndOpacity(ColdSteelUI::TextSecondary);
-    Name->SetVisibility(ESlateVisibility::HitTestInvisible);
-    auto* NameSlot = Row->AddChildToHorizontalBox(Name);
+    NameText = WidgetTree->ConstructWidget<UTextBlock>();
+    NameText->SetText(FText::FromString(Label));
+    NameText->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    NameText->SetVisibility(ESlateVisibility::HitTestInvisible);
+    auto* NameSlot = Row->AddChildToHorizontalBox(NameText);
     NameSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     NameSlot->SetVerticalAlignment(VAlign_Center);
     ValueText = WidgetTree->ConstructWidget<UTextBlock>();
-    ValueText->SetFont(ColdSteelUI::NumberFont(10.5f / Scale, true));
     ValueText->SetJustification(ETextJustify::Right);
+    ValueText->SetAutoWrapText(!bNumericValue);
     ValueText->SetVisibility(ESlateVisibility::HitTestInvisible);
     auto* ValueSlot = Row->AddChildToHorizontalBox(ValueText);
-    ValueSlot->SetPadding(FMargin(12 / Scale, 0, 0, 0));
+    if(!bNumericValue){auto Fill=FSlateChildSize(ESlateSizeRule::Fill);Fill.Value=2;ValueSlot->SetSize(Fill);}
     ValueSlot->SetVerticalAlignment(VAlign_Center);
     PlusButton = WidgetTree->ConstructWidget<UButton>();
-    PlusButton->SetStyle(FButtonStyle().SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonNormal, 4))
-        .SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, 4, ColdSteelUI::Accent))
-        .SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed, 4, ColdSteelUI::Accent)));
-    auto* Plus = WidgetTree->ConstructWidget<UTextBlock>();
-    Plus->SetText(FText::FromString(TEXT("+")));
-    Plus->SetFont(ColdSteelUI::NumberFont(10.5f / Scale, true));
-    Plus->SetColorAndOpacity(ColdSteelUI::Accent);
-    PlusButton->SetContent(Plus);
+    PlusText = WidgetTree->ConstructWidget<UTextBlock>();
+    PlusText->SetText(FText::FromString(TEXT("+")));
+    PlusText->SetColorAndOpacity(ColdSteelUI::Accent);
+    PlusText->SetJustification(ETextJustify::Center);
+    PlusButton->SetContent(PlusText);
+    Cast<UButtonSlot>(PlusText->Slot)->SetPadding(FMargin(0));
+    PlusButton->SetToolTipText(FText::FromString(TEXT("分配 1 点")+Label));
     PlusButton->OnClicked.AddDynamic(this, &ThisClass::HandleAllocate);
-    Row->AddChildToHorizontalBox(PlusButton)->SetPadding(FMargin(8 / Scale, 0, 0, 0));
+    PlusSize=WidgetTree->ConstructWidget<USizeBox>();PlusSize->SetContent(PlusButton);
+    Row->AddChildToHorizontalBox(PlusSize)->SetVerticalAlignment(VAlign_Center);
     SetCanAllocate(false);
     SetValue(TEXT("—"), false);
+    UpdateScale(Scale);
+}
+
+void UColdSteelDetailRow::UpdateScale(float Scale)
+{
+    VisualScale=Scale;
+    const float Points=14.f*.75f/Scale;
+    NameText->SetFont(ColdSteelUI::TextFont(Points));
+    ValueText->SetFont(bNumericValue?ColdSteelUI::NumberFont(Points,true):ColdSteelUI::TextFont(Points,true));
+    PlusText->SetFont(ColdSteelUI::NumberFont(Points,true));
+    Surface->SetPadding(FMargin(8/Scale,6/Scale));
+    Cast<USizeBox>(Surface->GetContent())->SetMinDesiredHeight(24/Scale);
+    PlusButton->SetStyle(ColdSteelUI::ButtonStyle(Scale));
+    PlusSize->SetWidthOverride(24/Scale);PlusSize->SetHeightOverride(24/Scale);
+    Cast<UHorizontalBoxSlot>(PlusSize->Slot)->SetPadding(FMargin(8/Scale,0,0,0));
+    Cast<UHorizontalBoxSlot>(ValueText->Slot)->SetPadding(FMargin(Meter?0:12/Scale,0,0,0));
+    if(Meter)
+    {
+        NameText->SetMinDesiredWidth(44/Scale);ValueText->SetMinDesiredWidth(100/Scale);
+        MeterTrack->SetHeightOverride(8/Scale);
+        Cast<UHorizontalBoxSlot>(MeterTrack->Slot)->SetPadding(FMargin(8/Scale,0,12/Scale,0));
+        FProgressBarStyle Style;
+        Style.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,4/Scale,ColdSteelUI::Border,1/Scale));
+        Style.SetFillImage(ColdSteelUI::RoundedBrush(FLinearColor::White,3/Scale,FLinearColor::Transparent,0));
+        Meter->SetWidgetStyle(Style);
+    }
     RefreshHighlight();
 }
 
@@ -59,37 +84,29 @@ void UColdSteelDetailRow::SetValue(const FString& Value, bool bAvailable)
     ValueText->SetColorAndOpacity(bAvailable ? ColdSteelUI::TextPrimary : ColdSteelUI::TextTertiary);
 }
 FString UColdSteelDetailRow::GetValue() const { return ValueText ? ValueText->GetText().ToString() : FString(); }
-void UColdSteelDetailRow::SetCanAllocate(bool bCanAllocate) { if (PlusButton) PlusButton->SetVisibility(bCanAllocate ? ESlateVisibility::Visible : ESlateVisibility::Collapsed); }
+void UColdSteelDetailRow::SetCanAllocate(bool bCanAllocate) { if (PlusSize) PlusSize->SetVisibility(bCanAllocate ? ESlateVisibility::Visible : ESlateVisibility::Collapsed); }
 void UColdSteelDetailRow::HandleAllocate() { Allocate.ExecuteIfBound(); }
 UProgressBar* UColdSteelDetailRow::AddMeter(const FLinearColor& Color, float Scale)
 {
-    Surface->SetPadding(FMargin(0, 2 / Scale));
-    Cast<USizeBox>(Surface->GetContent())->SetMinDesiredHeight(14 / Scale);
-    auto* Name = Cast<UTextBlock>(Line->GetChildAt(0));
-    Name->SetMinDesiredWidth(44 / Scale);
-    Cast<UHorizontalBoxSlot>(Name->Slot)->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
+    Cast<UHorizontalBoxSlot>(NameText->Slot)->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
     // Insert before values while the widget tree is still being constructed.
-    Line->RemoveChild(ValueText); Line->RemoveChild(PlusButton);
-    auto* Meter = WidgetTree->ConstructWidget<UProgressBar>();
-    FProgressBarStyle Style;
-    Style.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, 4, ColdSteelUI::Border));
-    Style.SetFillImage(ColdSteelUI::RoundedBrush(FLinearColor::White, 3, FLinearColor::Transparent, 0));
-    Meter->SetWidgetStyle(Style); Meter->SetFillColorAndOpacity(Color); Meter->SetPercent(0);
-    auto* Track = WidgetTree->ConstructWidget<USizeBox>();
-    Track->SetHeightOverride(14 / Scale); Track->SetContent(Meter);
-    auto* TrackSlot = Line->AddChildToHorizontalBox(Track);
+    Line->RemoveChild(ValueText); Line->RemoveChild(PlusSize);
+    Meter = WidgetTree->ConstructWidget<UProgressBar>();
+    Meter->SetFillColorAndOpacity(Color); Meter->SetPercent(0);
+    MeterTrack = WidgetTree->ConstructWidget<USizeBox>();
+    MeterTrack->SetContent(Meter);
+    auto* TrackSlot = Line->AddChildToHorizontalBox(MeterTrack);
     TrackSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill)); TrackSlot->SetVerticalAlignment(VAlign_Center);
-    TrackSlot->SetPadding(FMargin(8 / Scale, 0, 12 / Scale, 0));
-    ValueText->SetMinDesiredWidth(92 / Scale);
     Line->AddChildToHorizontalBox(ValueText)->SetVerticalAlignment(VAlign_Center);
-    Line->AddChildToHorizontalBox(PlusButton);
+    Line->AddChildToHorizontalBox(PlusSize)->SetVerticalAlignment(VAlign_Center);
+    UpdateScale(Scale);
     return Meter;
 }
 void UColdSteelDetailRow::RefreshHighlight()
 {
     const bool Active = bPointerInside || HasKeyboardFocus();
     if (Surface) Surface->SetBrush(ColdSteelUI::RoundedBrush(Active ? ColdSteelUI::ButtonHover : ColdSteelUI::AttributeRow,
-        4, Active ? ColdSteelUI::Accent : FLinearColor::Transparent, Active ? 1 : 0));
+        ColdSteelUI::ButtonRadius/VisualScale, Active ? ColdSteelUI::Accent : FLinearColor::Transparent, Active ? 1/VisualScale : 0));
 }
 void UColdSteelDetailRow::NativeOnMouseEnter(const FGeometry& G, const FPointerEvent& E)
 {

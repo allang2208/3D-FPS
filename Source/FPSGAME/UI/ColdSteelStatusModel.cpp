@@ -1,5 +1,5 @@
 #include "ColdSteelStatusModel.h"
-int32 UColdSteelStatusModel::Attribute(FName Key) const { const int32* Value = Attributes.Find(Key); return Value ? *Value : 0; }
+int32 UColdSteelStatusModel::Attribute(FName Key) const { const int32* Value = Attributes.Find(Key); return (Value ? *Value : 0)+(Key==TEXT("wis")?RifleEffect().Wisdom:0); }
 bool UColdSteelStatusModel::AllocateAttribute(FName Key)
 {
     SyncRuntime(); auto Next=Snapshot(); int32* Value=Next.Attributes.Find(Key);

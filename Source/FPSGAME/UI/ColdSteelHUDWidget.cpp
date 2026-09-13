@@ -1,4 +1,6 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelSkillPage.h"
+#include "ColdSteelProgressNotification.h"
 #include "ColdSteelAmmoReadout.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelStatusModel.h"
@@ -9,6 +11,7 @@
 #include "../FPSWeatherManager.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "ColdSteelUIStyle.h"
+#include "GunsmithUIStyle.h"
 
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -47,13 +50,11 @@
 
 namespace
 {
-    // Layout contract: Godot reference drawer at 45% width, 3x5 gear and 18x4 storage.
+    // Preserve the 3x5 equipment and 18x4 storage contract while the drawer adapts.
     constexpr float HotbarSlotSize = 48.0f;
     constexpr float HotbarGap = 8.0f;
     constexpr int32 InventoryColumns = 18;
     constexpr int32 InventoryRows = 4;
-    constexpr float TimelineCompactWidth = 360.0f;
-    constexpr float TimelineExpandedWidth = 560.0f;
     constexpr int32 WeatherSegmentsPerDay = AFPSWeatherManager::ScheduleSegmentsPerDay;
     constexpr float TimelineHorizonDays = 5.0f;
 
@@ -62,8 +63,6 @@ namespace
     const FLinearColor SlotDark = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("10151AE8")));
     const FLinearColor SlotEquipped = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("283139F2")));
     const FLinearColor GridLine = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("71828B42")));
-    const FLinearColor TimelineTrackColor = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("101419FF")));
-    const FLinearColor TimelineLineColor = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B5CDD92E")));
     const FLinearColor TimelineWeatherColor = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("45BFFFFF")));
     const FLinearColor TimelineCriticalColor = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF665CFF")));
     const FLinearColor StatusCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("172028D9")));
@@ -144,6 +143,8 @@ void UColdSteelHUDWidget::NativeOnInitialized()
 void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
+    UpdateTopHUDLayout(MyGeometry);
+    UpdateInventoryLayout(MyGeometry);
     TickWarehouse(MyGeometry,InDeltaTime);
     AmmoRefreshAccumulator += InDeltaTime;
     if (AmmoRefreshAccumulator >= 0.05f)
@@ -151,6 +152,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
         AmmoRefreshAccumulator = 0.0f;
         RefreshAmmo();
         RefreshTopVitals();
+        RefreshWorldClock();
     }
     StatusRefreshAccumulator += InDeltaTime;
     if (StatusRefreshAccumulator >= 0.10f && bInventoryOpen)
@@ -162,6 +164,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
 
     TimelineRefreshAccumulator += InDeltaTime;
     TimelinePulse += InDeltaTime;
+    TickEventTimelinePresentation(InDeltaTime);
     if (TimelineRefreshAccumulator >= 0.25f)
     {
         TimelineRefreshAccumulator = 0.0f;
@@ -179,7 +182,7 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     DrawerProgress = FMath::FInterpConstantTo(DrawerProgress, Target, InDeltaTime, 4.0f);
     if (InventoryPanel)
     {
-        const float DrawerWidth = FMath::Max(1.0f, MyGeometry.GetLocalSize().X * 0.45f);
+        const float DrawerWidth = FMath::Max(1.0f, InventoryWidth / ColdSteelUI::PixelScale(this));
         InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerProgress) * DrawerWidth, 0.0f));
     }
     if (InventoryBackdrop)
@@ -207,7 +210,7 @@ FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
     if (HandlePanelShortcut(InKeyEvent.GetKey(), InKeyEvent.IsRepeat())) return FReply::Handled();
     if (InKeyEvent.GetKey() == EKeys::Escape && TimelinePopover && TimelinePopover->IsVisible())
     {
-        TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
+        SetTimelineDetailsOpen(false);
         return FReply::Handled();
     }
     if (bInventoryOpen)
@@ -215,6 +218,7 @@ FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const F
         const FKey Key = InKeyEvent.GetKey();
         if (Key == EKeys::Escape)
         {
+            if(bSkillsTabActive && SkillPage && SkillPage->GoBack())return FReply::Handled();
             SetInventoryOpen(false);
             return FReply::Handled();
         }
@@ -234,10 +238,10 @@ void UColdSteelHUDWidget::ToggleInventory()
 
 bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
 {
-    if (Key != EKeys::Tab && Key != EKeys::CapsLock) return false;
+    if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P) return false;
     if (bRepeat) return true;
     const bool bStatus = Key == EKeys::CapsLock;
-    if (bInventoryOpen && (Key == EKeys::Tab || bStatusTabActive == bStatus))
+    if (bInventoryOpen && (Key == EKeys::Tab || (Key==EKeys::P?bSkillsTabActive:bStatusTabActive)))
     {
         SetInventoryOpen(false);
         return true;
@@ -245,8 +249,8 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
     UWidgetBlueprintLibrary::CancelDragDrop();
     if (auto* Scroll = Cast<UScrollBox>(EquipmentPage))
         if (auto* Board = Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0))) Board->CancelInteraction();
-    if (bStatus) CloseWarehouse();
-    SetInventoryTab(bStatus);
+    if (bStatus || Key==EKeys::P) CloseWarehouse();
+    SetInventoryPage(Key==EKeys::P?2:(bStatus?0:1));
     SetInventoryOpen(true);
     if (CloseButton) CloseButton->SetKeyboardFocus();
     return true;
@@ -262,8 +266,11 @@ void UColdSteelHUDWidget::BuildInterface()
     BuildInventory(Root);
     BuildCharacterSummary(Root);
     BuildWarehouse(Root);
+    ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
+    FillSlot(Root->AddChildToCanvas(ProgressNotification),FAnchors(0,0,1,1),FMargin(0),90);
     RefreshAmmo();
     RefreshEventTimeline(true);
+    RefreshWorldClock();
 }
 
 void UColdSteelHUDWidget::BuildAmmoReadout(UCanvasPanel* Root)
@@ -311,247 +318,47 @@ void UColdSteelHUDWidget::BuildHotbar(UCanvasPanel* Root)
     CanvasSlot->SetZOrder(30);
 }
 
-void UColdSteelHUDWidget::BuildEventTimeline(UCanvasPanel* Root)
-{
-    auto MakeTimelineButton = [this](const FString& Text, int32 FontSize, bool bSelected = false)
-    {
-        UButton* Button = WidgetTree->ConstructWidget<UButton>();
-        const FLinearColor NormalFill = bSelected
-            ? FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("263038F0")))
-            : TimelineTrackColor;
-        Button->SetStyle(FButtonStyle()
-            .SetNormal(ColdSteelUI::RoundedBrush(NormalFill, 6.0f, bSelected ? ColdSteelUI::Accent : TimelineLineColor, 1.0f))
-            .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("232B33FF"))), 6.0f, ColdSteelUI::Accent, 1.0f))
-            .SetPressed(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("1B242CFF"))), 6.0f, ColdSteelUI::Accent, 1.0f)));
-        Button->SetContent(MakeText(Text, FontSize, bSelected ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary));
-        return Button;
-    };
-
-    TimelineWidthBox = WidgetTree->ConstructWidget<USizeBox>();
-    TimelineWidthBox->SetWidthOverride(TimelineCompactWidth);
-    UCanvasPanelSlot* TimelineRootSlot = Root->AddChildToCanvas(TimelineWidthBox);
-    TimelineRootSlot->SetAnchors(FAnchors(0.5f, 0.0f));
-    TimelineRootSlot->SetAlignment(FVector2D(0.5f, 0.0f));
-    TimelineRootSlot->SetPosition(FVector2D(0.0f, 76.0f));
-    TimelineRootSlot->SetAutoSize(true);
-    TimelineRootSlot->SetZOrder(28);
-
-    TimelinePanel = MakeSurface(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("171D23F2"))), 8.0f,
-        FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A2BCC88F"))), 1.0f);
-    TimelinePanel->SetPadding(FMargin(8.0f, 3.0f, 8.0f, 2.0f));
-    TimelineWidthBox->SetContent(TimelinePanel);
-    UVerticalBox* TimelineColumn = WidgetTree->ConstructWidget<UVerticalBox>();
-    TimelinePanel->SetContent(TimelineColumn);
-
-    TimelineExpandedContent = WidgetTree->ConstructWidget<UVerticalBox>();
-    TimelineExpandedContent->SetVisibility(ESlateVisibility::Collapsed);
-    TimelineExpandedContent->SetRenderOpacity(1.0f);
-    TimelineColumn->AddChildToVerticalBox(TimelineExpandedContent);
-
-    UHorizontalBox* Heading = WidgetTree->ConstructWidget<UHorizontalBox>();
-    TimelineExpandedContent->AddChildToVerticalBox(Heading);
-    UHorizontalBoxSlot* TitleSlot = Heading->AddChildToHorizontalBox(MakeText(TEXT("时间进度栏"), 12, ColdSteelUI::TextPrimary, false, true));
-    TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    TimelineWindowText = MakeText(TEXT("未来5日 · 1个事件"), 11, ColdSteelUI::TextSecondary);
-    Heading->AddChildToHorizontalBox(TimelineWindowText)->SetVerticalAlignment(VAlign_Center);
-
-    UBorder* Divider = MakeSurface(TimelineLineColor, 0.0f, FLinearColor::Transparent, 0.0f);
-    USizeBox* DividerHeight = WidgetTree->ConstructWidget<USizeBox>();
-    DividerHeight->SetHeightOverride(1.0f);
-    Divider->SetContent(DividerHeight);
-    TimelineExpandedContent->AddChildToVerticalBox(Divider)->SetPadding(FMargin(0.0f, 3.0f, 0.0f, 4.0f));
-
-    UHorizontalBox* Filters = WidgetTree->ConstructWidget<UHorizontalBox>();
-    TimelineExpandedContent->AddChildToVerticalBox(Filters)->SetHorizontalAlignment(HAlign_Center);
-    TimelineAllFilterButton = MakeTimelineButton(TEXT("全部 1"), 10, true);
-    TimelineAllFilterText = MakeText(TEXT("全部 1"), 10, ColdSteelUI::TextPrimary);
-    TimelineAllFilterButton->SetContent(TimelineAllFilterText);
-    TimelineAllFilterButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleTimelineFilterAllClicked);
-    Filters->AddChildToHorizontalBox(TimelineAllFilterButton)->SetPadding(FMargin(0.0f, 0.0f, 2.0f, 2.0f));
-    TimelineWeatherFilterButton = MakeTimelineButton(TEXT("天气 1"), 10, false);
-    TimelineWeatherFilterText = MakeText(TEXT("天气 1"), 10, ColdSteelUI::TextSecondary);
-    TimelineWeatherFilterButton->SetContent(TimelineWeatherFilterText);
-    TimelineWeatherFilterButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleTimelineFilterWeatherClicked);
-    Filters->AddChildToHorizontalBox(TimelineWeatherFilterButton)->SetPadding(FMargin(2.0f, 0.0f, 0.0f, 2.0f));
-
-    UHorizontalBox* InvasionRow = WidgetTree->ConstructWidget<UHorizontalBox>();
-    TimelineExpandedContent->AddChildToVerticalBox(InvasionRow)->SetHorizontalAlignment(HAlign_Center);
-    UTextBlock* InvasionGlyph = MakeText(TEXT("⚔"), 12, ColdSteelUI::TextPrimary);
-PRAGMA_DISABLE_DEPRECATION_WARNINGS
-    InvasionGlyph->SetFont(FSlateFontInfo(TEXT("C:/Windows/Fonts/seguisym.ttf"), 12));
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-    InvasionRow->AddChildToHorizontalBox(InvasionGlyph)->SetPadding(FMargin(0.0f, 0.0f, 4.0f, 0.0f));
-    TimelineInvasionText = MakeText(TEXT("暂无入侵情报"), 12, ColdSteelUI::TextPrimary);
-    InvasionRow->AddChildToHorizontalBox(TimelineInvasionText);
-
-    TimelineTrackSize = WidgetTree->ConstructWidget<USizeBox>();
-    TimelineTrackSize->SetHeightOverride(30.0f);
-    TimelineColumn->AddChildToVerticalBox(TimelineTrackSize)->SetPadding(FMargin(0.0f, 1.0f, 0.0f, 0.0f));
-    TimelineTrack = WidgetTree->ConstructWidget<UCanvasPanel>();
-    TimelineTrackSize->SetContent(TimelineTrack);
-
-    UBorder* TrackBackground = MakeSurface(TimelineTrackColor, 3.0f, TimelineLineColor, 1.0f);
-    FillSlot(TimelineTrack->AddChildToCanvas(TrackBackground), FAnchors(0.0f, 0.0f, 1.0f, 1.0f));
-
-    TimelineGradientTexture = UTexture2D::CreateTransient(256, 1, PF_B8G8R8A8);
-    if (TimelineGradientTexture && TimelineGradientTexture->GetPlatformData())
-    {
-        static const FLinearColor Stops[] = {
-            FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E5413EFF"))),
-            FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F1C13FFF"))),
-            FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("418BE7FF"))),
-            FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("3DC45BFF")))
-        };
-        FColor* Pixels = static_cast<FColor*>(TimelineGradientTexture->GetPlatformData()->Mips[0].BulkData.Lock(LOCK_READ_WRITE));
-        for (int32 X = 0; X < 256; ++X)
-        {
-            const float Position = static_cast<float>(X) / 255.0f;
-            const float Scaled = Position * 3.0f;
-            const int32 Segment = FMath::Clamp(FMath::FloorToInt(Scaled), 0, 2);
-            Pixels[X] = FMath::Lerp(Stops[Segment], Stops[Segment + 1], Scaled - Segment).ToFColor(true);
-        }
-        TimelineGradientTexture->GetPlatformData()->Mips[0].BulkData.Unlock();
-        TimelineGradientTexture->UpdateResource();
-        LoadedTextures.Add(TimelineGradientTexture);
-    }
-    TimelineGradient = WidgetTree->ConstructWidget<UImage>();
-    TimelineGradient->SetBrushFromTexture(TimelineGradientTexture, false);
-    FillSlot(TimelineTrack->AddChildToCanvas(TimelineGradient), FAnchors(0.0f, 1.0f, 1.0f, 1.0f), FMargin(0.0f, -3.0f, 0.0f, 3.0f), 1);
-
-    TimelineCursorLine = MakeSurface(ColdSteelUI::TextPrimary, 0.0f, FLinearColor::Transparent, 0.0f);
-    FillSlot(TimelineTrack->AddChildToCanvas(TimelineCursorLine), FAnchors(0.04f, 0.0f, 0.04f, 1.0f), FMargin(-1.0f, -3.0f, 2.0f, 5.0f), 3);
-
-    TimelineEventLine = MakeSurface(TimelineWeatherColor, 0.0f, FLinearColor::Transparent, 0.0f);
-    FillSlot(TimelineTrack->AddChildToCanvas(TimelineEventLine), FAnchors(0.064f, 0.0f, 0.064f, 1.0f), FMargin(-1.0f, -1.0f, 2.0f, 2.0f), 2);
-
-    TimelineMarkerButton = WidgetTree->ConstructWidget<UButton>();
-    TimelineMarkerButton->SetStyle(FButtonStyle()
-        .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent, 0.0f, FLinearColor::Transparent, 0.0f))
-        .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("232B3388"))), 4.0f, ColdSteelUI::Accent, 1.0f))
-        .SetPressed(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("1B242CCC"))), 4.0f, ColdSteelUI::Accent, 1.0f)));
-    TimelineMarkerButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleTimelineMarkerClicked);
-    UHorizontalBox* MarkerRow = WidgetTree->ConstructWidget<UHorizontalBox>();
-    TimelineMarkerButton->SetContent(MarkerRow);
-    TimelineMarkerImage = WidgetTree->ConstructWidget<UImage>();
-    if (UTexture2D* RainTexture = LoadUiTexture(TEXT("rain-light.png"))) TimelineMarkerImage->SetBrushFromTexture(RainTexture, true);
-    USizeBox* MarkerIconSize = WidgetTree->ConstructWidget<USizeBox>();
-    MarkerIconSize->SetWidthOverride(18.0f);
-    MarkerIconSize->SetHeightOverride(18.0f);
-    MarkerIconSize->SetContent(TimelineMarkerImage);
-    MarkerRow->AddChildToHorizontalBox(MarkerIconSize);
-    TimelineMarkerTimeText = MakeText(TEXT("3 小时后"), 9, ColdSteelUI::TextPrimary);
-    MarkerRow->AddChildToHorizontalBox(TimelineMarkerTimeText)->SetPadding(FMargin(3.0f, 1.0f, 0.0f, 0.0f));
-    UCanvasPanelSlot* MarkerSlot = TimelineTrack->AddChildToCanvas(TimelineMarkerButton);
-    MarkerSlot->SetAnchors(FAnchors(0.064f, 0.0f));
-    MarkerSlot->SetAlignment(FVector2D(0.15f, 0.0f));
-    MarkerSlot->SetPosition(FVector2D(0.0f, 2.0f));
-    MarkerSlot->SetAutoSize(true);
-    MarkerSlot->SetZOrder(4);
-
-    TimelineNowText = MakeText(TEXT("现在"), 9, ColdSteelUI::TextPrimary);
-    UCanvasPanelSlot* NowSlot = TimelineTrack->AddChildToCanvas(TimelineNowText);
-    NowSlot->SetAnchors(FAnchors(0.04f, 1.0f));
-    NowSlot->SetAlignment(FVector2D(0.5f, 0.0f));
-    NowSlot->SetPosition(FVector2D(0.0f, -5.0f));
-    NowSlot->SetAutoSize(true);
-    NowSlot->SetZOrder(4);
-
-    UHorizontalBox* ToggleRow = WidgetTree->ConstructWidget<UHorizontalBox>();
-    TimelineColumn->AddChildToVerticalBox(ToggleRow)->SetHorizontalAlignment(HAlign_Fill);
-    USpacer* ToggleLeft = WidgetTree->ConstructWidget<USpacer>();
-    ToggleRow->AddChildToHorizontalBox(ToggleLeft)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    USizeBox* ToggleSize = WidgetTree->ConstructWidget<USizeBox>();
-    ToggleSize->SetWidthOverride(46.0f);
-    ToggleSize->SetHeightOverride(16.0f);
-    TimelineToggleButton = MakeTimelineButton(TEXT("⌄"), 12, false);
-    if (UTextBlock* ToggleGlyph = Cast<UTextBlock>(TimelineToggleButton->GetContent()))
-    {
-PRAGMA_DISABLE_DEPRECATION_WARNINGS
-        ToggleGlyph->SetFont(FSlateFontInfo(TEXT("C:/Windows/Fonts/seguisym.ttf"), 12));
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-    }
-    TimelineToggleButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleTimelineToggleClicked);
-    TimelineToggleButton->SetToolTipText(FText::FromString(TEXT("展开详细时间进度栏")));
-    ToggleSize->SetContent(TimelineToggleButton);
-    ToggleRow->AddChildToHorizontalBox(ToggleSize);
-    USpacer* ToggleRight = WidgetTree->ConstructWidget<USpacer>();
-    ToggleRow->AddChildToHorizontalBox(ToggleRight)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-
-    TimelinePopover = MakeSurface(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("171D23F5"))), 9.0f,
-        FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A2BCC88F"))), 1.0f);
-    TimelinePopover->SetPadding(FMargin(8.0f, 7.0f));
-    TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
-    UCanvasPanelSlot* PopoverSlot = Root->AddChildToCanvas(TimelinePopover);
-    PopoverSlot->SetAnchors(FAnchors(0.5f, 0.0f));
-    PopoverSlot->SetAlignment(FVector2D(0.5f, 0.0f));
-    PopoverSlot->SetPosition(FVector2D(0.0f, 246.0f));
-    PopoverSlot->SetSize(FVector2D(410.0f, 291.0f));
-    PopoverSlot->SetZOrder(29);
-
-    UVerticalBox* PopoverColumn = WidgetTree->ConstructWidget<UVerticalBox>();
-    TimelinePopover->SetContent(PopoverColumn);
-    UHorizontalBox* PopoverHeading = WidgetTree->ConstructWidget<UHorizontalBox>();
-    PopoverColumn->AddChildToVerticalBox(PopoverHeading);
-    TimelinePopoverTitle = MakeText(TEXT("天气预报详情"), 12, ColdSteelUI::TextPrimary, false, true);
-    PopoverHeading->AddChildToHorizontalBox(TimelinePopoverTitle)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    UButton* PopoverClose = MakeTimelineButton(TEXT("×"), 18, false);
-    PopoverClose->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleTimelineDetailsCloseClicked);
-    USizeBox* PopoverCloseSize = WidgetTree->ConstructWidget<USizeBox>();
-    PopoverCloseSize->SetWidthOverride(24.0f);
-    PopoverCloseSize->SetHeightOverride(24.0f);
-    PopoverCloseSize->SetContent(PopoverClose);
-    PopoverHeading->AddChildToHorizontalBox(PopoverCloseSize);
-    UBorder* PopoverDivider = MakeSurface(TimelineLineColor, 0.0f, FLinearColor::Transparent, 0.0f);
-    USizeBox* PopoverDividerHeight = WidgetTree->ConstructWidget<USizeBox>();
-    PopoverDividerHeight->SetHeightOverride(1.0f);
-    PopoverDivider->SetContent(PopoverDividerHeight);
-    PopoverColumn->AddChildToVerticalBox(PopoverDivider)->SetPadding(FMargin(0.0f, 3.0f, 0.0f, 5.0f));
-    TimelineDetailContent = WidgetTree->ConstructWidget<UVerticalBox>();
-    TimelineDetailContent->SetClipping(EWidgetClipping::ClipToBounds);
-    PopoverColumn->AddChildToVerticalBox(TimelineDetailContent)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-
-    SetEventTimelineCompact(true);
-}
-
 void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
 {
-    InventoryBlur = WidgetTree->ConstructWidget<UBackgroundBlur>();
-    InventoryBlur->SetBlurStrength(4.0f);
-    InventoryBlur->SetApplyAlphaToBlur(true);
-    InventoryBlur->SetVisibility(ESlateVisibility::Collapsed);
-    FillSlot(Root->AddChildToCanvas(InventoryBlur), FAnchors(0.0f, 0.0f, 1.0f, 1.0f), FMargin(0.0f), 39);
-
-    InventoryBackdrop = MakeSurface(FLinearColor(0.0f, 0.0f, 0.0f, 0.65f), 0.0f, FLinearColor::Transparent, 0.0f);
+    InventoryBackdrop = MakeSurface(FLinearColor(0.0f, 0.0f, 0.0f, 0.40f), 0.0f, FLinearColor::Transparent, 0.0f);
     InventoryBackdrop->SetVisibility(ESlateVisibility::Collapsed);
     FillSlot(Root->AddChildToCanvas(InventoryBackdrop), FAnchors(0.0f, 0.0f, 1.0f, 1.0f), FMargin(0.0f), 40);
 
-    InventoryPanel = MakeSurface(ColdSteelUI::GlassTint, ReferenceUnits(18), ColdSteelUI::Border, 1.0f);
-    InventoryPanel->SetPadding(FMargin(3.0f, 0.0f, 0.0f, 0.0f));
+    InventoryPanel = MakeSurface(FLinearColor::Transparent, ReferenceUnits(10), GunsmithUI::Edge, ReferenceUnits(1));
+    InventoryPanel->SetPadding(FMargin(ReferenceUnits(1)));
     InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);
-    FillSlot(Root->AddChildToCanvas(InventoryPanel), FAnchors(0.55f, 0.0f, 1.0f, 1.0f), FMargin(0.0f), 41);
+    InventoryPanelSlot=Root->AddChildToCanvas(InventoryPanel);
+    InventoryPanelSlot->SetAnchors(FAnchors(1,0,1,1));InventoryPanelSlot->SetAlignment(FVector2D(1,0));InventoryPanelSlot->SetZOrder(41);
+    InventoryPanelSlot->SetOffsets(FMargin(-ReferenceUnits(12),ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
+    InventoryBlur=WidgetTree->ConstructWidget<UBackgroundBlur>();InventoryBlur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);InventoryBlur->SetOverrideAutoRadiusCalculation(true);InventoryBlur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
+    InventoryBlur->SetCornerRadius(FVector4(10,10,10,10));InventoryBlur->SetApplyAlphaToBlur(true);
+    InventoryBlur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius));
+    InventoryPanel->SetContent(InventoryBlur);
+    auto* Glass=MakeSurface(ColdSteelUI::GlassTint,ReferenceUnits(ColdSteelUI::PanelRadius),FLinearColor::Transparent,0);
+    Glass->SetPadding(FMargin(0));InventoryBlur->SetContent(Glass);
 
     UVerticalBox* Body = WidgetTree->ConstructWidget<UVerticalBox>();
-    InventoryPanel->SetContent(Body);
+    Glass->SetContent(Body);
 
-    UBorder* HeaderSurface = MakeSurface(DrawerHeader, 0.0f, FLinearColor::Transparent, 0.0f);
-    HeaderSurface->SetPadding(FMargin(ReferenceUnits(18), ReferenceUnits(10)));
+    UBorder* HeaderSurface = MakeSurface(ColdSteelUI::HeaderTint, ReferenceUnits(ColdSteelUI::PanelRadius), FLinearColor::Transparent, 0.0f);
+    InventoryHeaderSurface=HeaderSurface;
+    HeaderSurface->SetPadding(FMargin(ReferenceUnits(18), ReferenceUnits(12)));
     USizeBox* HeaderHeight = WidgetTree->ConstructWidget<USizeBox>();
+    InventoryHeaderSize=HeaderHeight;
     HeaderHeight->SetHeightOverride(ReferenceUnits(36));
     HeaderSurface->SetContent(HeaderHeight);
     Body->AddChildToVerticalBox(HeaderSurface)->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
     UHorizontalBox* Header = WidgetTree->ConstructWidget<UHorizontalBox>();
     HeaderHeight->SetContent(Header);
-    InventoryTitleText = MakeReferenceText(TEXT("装备与背包"), 20, ColdSteelUI::TextPrimary, false, true);
+    InventoryTitleText = MakeInventoryText(TEXT("装备与背包"),20,GunsmithUI::Text,false,true);
     UHorizontalBoxSlot* TitleSlot = Header->AddChildToHorizontalBox(InventoryTitleText);
     TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     TitleSlot->SetVerticalAlignment(VAlign_Center);
 
     CloseButton = WidgetTree->ConstructWidget<UButton>();
-    CloseButton->SetStyle(FButtonStyle()
-        .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor(0.16f, 0.20f, 0.23f, 0.7f), 5.0f, ColdSteelUI::Border, 1.0f))
-        .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor(0.22f, 0.27f, 0.31f, 0.95f), 5.0f, ColdSteelUI::Accent, 1.0f))
-        .SetPressed(ColdSteelUI::RoundedBrush(FLinearColor(0.10f, 0.13f, 0.16f, 1.0f), 5.0f)));
-    CloseButton->SetContent(MakeText(TEXT("×"), 24, ColdSteelUI::TextSecondary));
+    CloseButton->SetStyle(ColdSteelUI::ButtonStyle(ColdSteelUI::PixelScale(this)));
+    CloseButton->SetContent(MakeInventoryText(TEXT("Esc  返回"),14,GunsmithUI::Text));
+    Cast<UButtonSlot>(CloseButton->GetContent()->Slot)->SetPadding(FMargin(ReferenceUnits(12),ReferenceUnits(8)));
     CloseButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleCloseClicked);
     Header->AddChildToHorizontalBox(CloseButton)->SetVerticalAlignment(VAlign_Center);
 
@@ -561,8 +368,8 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
         UButton* Button = WidgetTree->ConstructWidget<UButton>();
         Button->SetStyle(FButtonStyle()
             .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent, 0.0f, FLinearColor::Transparent, 0.0f))
-            .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor(0.18f, 0.22f, 0.25f, 0.45f), 0.0f, FLinearColor::Transparent, 0.0f))
-            .SetPressed(ColdSteelUI::RoundedBrush(FLinearColor(0.10f, 0.13f, 0.16f, 0.75f), 0.0f, FLinearColor::Transparent, 0.0f)));
+            .SetHovered(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(110,45),7,FLinearColor::Transparent,0))
+            .SetPressed(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(24,180),7,FLinearColor::Transparent,0)));
         OutSurface = MakeTab(Caption, bActive);
         UOverlay* Layer = Cast<UOverlay>(Cast<USizeBox>(OutSurface->GetContent())->GetContent());
         OutText = Layer ? Cast<UTextBlock>(Layer->GetChildAt(0)) : nullptr;
@@ -584,7 +391,8 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     TObjectPtr<UBorder> DummySurface = nullptr;
     TObjectPtr<UTextBlock> DummyText = nullptr;
     TObjectPtr<UBorder> DummyUnderline = nullptr;
-    AddTab(TEXT("技能"), false, DummySurface, DummyText, DummyUnderline, false);
+    UButton* SkillButton=AddTab(TEXT("技能"), false, SkillTabSurface, SkillTabText, SkillTabUnderline, true);
+    SkillButton->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::OpenSkills);
     AddTab(TEXT("图鉴"), false, DummySurface, DummyText, DummyUnderline, false);
     StatusButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleStatusTabClicked);
     EquipmentButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleEquipmentTabClicked);
@@ -594,6 +402,11 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     EquipmentPage = BuildEquipmentPage();
     Body->AddChildToVerticalBox(StatusPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body->AddChildToVerticalBox(EquipmentPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    SkillPage=CreateWidget<UColdSteelSkillPage>(GetOwningPlayer());
+    Body->AddChildToVerticalBox(SkillPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    auto* Footer=Body->AddChildToVerticalBox(MakeInventoryText(TEXT("Tab 收起  ·  Caps 状态  ·  P 技能  ·  右键物品操作"),12,GunsmithUI::Muted));
+    InventoryFooterSlot=Footer;
+    Footer->SetPadding(FMargin(ReferenceUnits(18),ReferenceUnits(8),ReferenceUnits(18),ReferenceUnits(10)));
     BuildStatusTooltip(Root);
     BuildEquipmentTooltip(Root);
     SetInventoryTab(false);
@@ -604,6 +417,8 @@ UWidget* UColdSteelHUDWidget::BuildEquipmentPage()
 {
     auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
     Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
+    Scroll->SetScrollbarThickness(FVector2D(ReferenceUnits(6),ReferenceUnits(6)));
+    Scroll->SetAllowOverscroll(false);
     auto* Board = CreateWidget<UColdSteelInventoryWidget>(GetOwningPlayer());
     Scroll->AddChild(Board);
     return Scroll;
@@ -635,28 +450,34 @@ UWidget* UColdSteelHUDWidget::MakeAttributeRow(const FString& Label, const FStri
 
 void UColdSteelHUDWidget::BuildStatusTooltip(UCanvasPanel* Root)
 {
-    StatusTooltip = MakeSurface(TooltipSurface, ReferenceUnits(16.0f), FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7187928A"))), 1.0f);
-    StatusTooltip->SetPadding(FMargin(ReferenceUnits(16.0f), ReferenceUnits(12.0f)));
+    StatusTooltip = MakeSurface(FLinearColor::Transparent, ReferenceUnits(ColdSteelUI::PanelRadius), ColdSteelUI::Border, ReferenceUnits(1));
+    StatusTooltip->SetPadding(FMargin(ReferenceUnits(1)));
     StatusTooltip->SetVisibility(ESlateVisibility::Collapsed);
     StatusTooltipCanvasSlot = Root->AddChildToCanvas(StatusTooltip);
     StatusTooltipCanvasSlot->SetAnchors(FAnchors(0.56f, 0.51f));
     StatusTooltipCanvasSlot->SetPosition(FVector2D(0.0f, 0.0f));
     StatusTooltipCanvasSlot->SetSize(FVector2D(ReferenceUnits(260.0f), ReferenceUnits(142.0f)));
     StatusTooltipCanvasSlot->SetZOrder(60);
+    auto* Blur=WidgetTree->ConstructWidget<UBackgroundBlur>();Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);
+    Blur->SetOverrideAutoRadiusCalculation(true);Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
+    Blur->SetCornerRadius(FVector4(10,10,10,10));Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius));
+    StatusTooltip->SetContent(Blur);
+    auto* Tint=MakeSurface(ColdSteelUI::Tooltip,ReferenceUnits(ColdSteelUI::PanelRadius),FLinearColor::Transparent,0);
+    Tint->SetPadding(FMargin(ReferenceUnits(16),ReferenceUnits(12)));Blur->SetContent(Tint);
     UVerticalBox* Column = WidgetTree->ConstructWidget<UVerticalBox>();
-    StatusTooltip->SetContent(Column);
-    StatusTooltipTitle = MakeReferenceText(TEXT("力量"), 16, FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E4E9EBFF"))), false, true);
+    Tint->SetContent(Column);
+    StatusTooltipTitle = MakeInventoryText(TEXT("力量"), 16, ColdSteelUI::TextPrimary, false, true);
     Column->AddChildToVerticalBox(StatusTooltipTitle);
-    UBorder* Divider = MakeSurface(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B8D6DF50"))), 0.0f, FLinearColor::Transparent, 0.0f);
+    UBorder* Divider = MakeSurface(ColdSteelUI::Border, 0.0f, FLinearColor::Transparent, 0.0f);
     USizeBox* DividerHeight = WidgetTree->ConstructWidget<USizeBox>();
     DividerHeight->SetHeightOverride(ReferenceUnits(1.0f)); Divider->SetContent(DividerHeight);
     Column->AddChildToVerticalBox(Divider)->SetPadding(FMargin(0, ReferenceUnits(4), 0, ReferenceUnits(6)));
-    StatusTooltipDescription = MakeReferenceText(TEXT("提升物理攻击与少量物理防御。"), 14, ColdSteelUI::TextPrimary);
+    StatusTooltipDescription = MakeInventoryText(TEXT("提升物理攻击与少量物理防御。"), 14, ColdSteelUI::TextPrimary);
     StatusTooltipDescription->SetAutoWrapText(true);
     Column->AddChildToVerticalBox(StatusTooltipDescription);
     StatusTooltipRowsBox = WidgetTree->ConstructWidget<UVerticalBox>();
     Column->AddChildToVerticalBox(StatusTooltipRowsBox)->SetPadding(FMargin(0, ReferenceUnits(4), 0, 0));
-    StatusTooltipNote = MakeReferenceText(TEXT("每点力量 ≈ +0.05 物理攻击"), 12, ColdSteelUI::TextSecondary);
+    StatusTooltipNote = MakeInventoryText(TEXT("每点力量 ≈ +0.05 物理攻击"), 12, ColdSteelUI::TextSecondary);
     StatusTooltipNote->SetAutoWrapText(true);
     Column->AddChildToVerticalBox(StatusTooltipNote)->SetPadding(FMargin(0, ReferenceUnits(4), 0, 0));
 }
@@ -831,12 +652,13 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
         return;
     }
 
-    AFPSWeatherManager* Weather = nullptr;
-    if (UWorld* World = GetWorld())
+    AFPSWeatherManager* Weather = HUDWeatherSource.Get();
+    if (!Weather) if (UWorld* World = GetWorld())
     {
         for (TActorIterator<AFPSWeatherManager> It(World); It; ++It)
         {
             Weather = *It;
+            HUDWeatherSource = Weather;
             break;
         }
     }
@@ -1001,7 +823,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
     UpdateEventTimelineFilterButtons();
     TimelineMarkerButton->SetVisibility(bTimelineHasEvent ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
     TimelineEventLine->SetVisibility(bTimelineHasEvent ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
-    if (!bTimelineHasEvent && TimelinePopover) TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
+    if (!bTimelineHasEvent) SetTimelineDetailsOpen(false);
 
     const FString NewSignature = FString::Printf(TEXT("%d|%d|%d|%s|%s|%s|%s|%s"), bTimelineHasEvent, bTimelineEventActive,
         bTimelineContainsStorm, *TimelineEventLabel, *TimelineStartLabel, *TimelineEndLabel, *TimelineWarningLabel, *TimelineIntensityLabel);
@@ -1013,160 +835,52 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
     UpdateEventTimelineLayout();
 }
 
-void UColdSteelHUDWidget::UpdateEventTimelineLayout()
-{
-    if (!TimelineWidthBox || !TimelineTrackSize) return;
-    float VitalsOffset = 0.f;
-    auto* TimelineRootSlot = Cast<UCanvasPanelSlot>(TimelineWidthBox->Slot);
-    if (auto* LiveTimelineSlot = TimelineWidthBox ? Cast<UCanvasPanelSlot>(TimelineWidthBox->Slot) : nullptr; TopVitalsSurface && LiveTimelineSlot)
-    {
-        const auto& VitalsGeometry = TopVitalsSurface->GetCachedGeometry();
-        if (VitalsGeometry.GetLocalSize().Y > 0)
-        {
-            const float Bottom = GetCachedGeometry().AbsoluteToLocal(VitalsGeometry.LocalToAbsolute(VitalsGeometry.GetLocalSize())).Y;
-            VitalsOffset = FMath::Max(0.f, Bottom + ReferenceUnits(8) - 76.f);
-            LiveTimelineSlot->SetPosition(FVector2D(0, 76.f + VitalsOffset));
-        }
-    }
-    const float Width = bTimelineCompact ? TimelineCompactWidth : TimelineExpandedWidth;
-    TimelineWidthBox->SetWidthOverride(Width);
-    TimelineTrackSize->SetHeightOverride(bTimelineCompact ? 30.0f : 44.0f);
-    if (UVerticalBoxSlot* TrackSlot = Cast<UVerticalBoxSlot>(TimelineTrackSize->Slot))
-    {
-        const float SideMargin = bTimelineCompact ? 3.0f : 5.0f;
-        TrackSlot->SetPadding(FMargin(SideMargin, 1.0f, SideMargin, 0.0f));
-    }
-    TimelineExpandedContent->SetVisibility(bTimelineCompact ? ESlateVisibility::Collapsed : ESlateVisibility::SelfHitTestInvisible);
-    TimelineNowText->SetVisibility(bTimelineCompact ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
-    TimelineMarkerTimeText->SetVisibility(bTimelineCompact ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
-    TimelineToggleButton->GetContent()->SetToolTipText(FText::GetEmpty());
-    if (UTextBlock* ToggleText = Cast<UTextBlock>(TimelineToggleButton->GetContent()))
-    {
-        ToggleText->SetText(FText::FromString(bTimelineCompact ? TEXT("⌄") : TEXT("⌃")));
-    }
-    TimelineToggleButton->SetToolTipText(FText::FromString(bTimelineCompact ? TEXT("展开详细时间进度栏") : TEXT("收起为简化时间进度栏")));
-    TimelinePanel->SetPadding(bTimelineCompact ? FMargin(8.0f, 3.0f, 8.0f, 7.0f) : FMargin(10.0f, 8.0f, 10.0f, 17.0f));
-    if (UCanvasPanelSlot* PopoverSlot = Cast<UCanvasPanelSlot>(TimelinePopover->Slot))
-    {
-        PopoverSlot->SetPosition(FVector2D(0.0f, (bTimelineCompact ? 140.0f : 246.0f) + VitalsOffset));
-    }
-
-    if (UCanvasPanelSlot* GradientSlot = Cast<UCanvasPanelSlot>(TimelineGradient->Slot))
-    {
-        GradientSlot->SetOffsets(FMargin(0.0f, bTimelineCompact ? -3.0f : -5.0f, 0.0f, bTimelineCompact ? 3.0f : 5.0f));
-    }
-    if (UCanvasPanelSlot* EventLineSlot = Cast<UCanvasPanelSlot>(TimelineEventLine->Slot))
-    {
-        EventLineSlot->SetAnchors(FAnchors(TimelineEventFraction, 0.0f, TimelineEventFraction, 1.0f));
-    }
-    if (UCanvasPanelSlot* MarkerSlot = Cast<UCanvasPanelSlot>(TimelineMarkerButton->Slot))
-    {
-        MarkerSlot->SetAnchors(FAnchors(TimelineEventFraction, 0.0f));
-        MarkerSlot->SetAlignment(FVector2D(TimelineEventFraction <= 0.08f ? 0.08f : TimelineEventFraction >= 0.92f ? 0.92f : 0.5f, 0.0f));
-        MarkerSlot->SetPosition(FVector2D(0.0f, bTimelineCompact ? 1.0f : 2.0f));
-    }
-    TimelineMarkerImage->SetDesiredSizeOverride(FVector2D(bTimelineCompact ? 14.0f : 18.0f));
-}
-
-void UColdSteelHUDWidget::UpdateEventTimelineFilterButtons()
-{
-    if (!TimelineAllFilterButton || !TimelineWeatherFilterButton) return;
-    auto ApplyStyle = [](UButton* Button, bool bSelected)
-    {
-        const FLinearColor Fill = bSelected
-            ? FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("263038F0")))
-            : TimelineTrackColor;
-        Button->SetStyle(FButtonStyle()
-            .SetNormal(ColdSteelUI::RoundedBrush(Fill, 6.0f, bSelected ? ColdSteelUI::Accent : TimelineLineColor, 1.0f))
-            .SetHovered(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("232B33FF"))), 6.0f, ColdSteelUI::Accent, 1.0f))
-            .SetPressed(ColdSteelUI::RoundedBrush(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("1B242CFF"))), 6.0f, ColdSteelUI::Accent, 1.0f)));
-    };
-    ApplyStyle(TimelineAllFilterButton, !bTimelineWeatherFilter);
-    ApplyStyle(TimelineWeatherFilterButton, bTimelineWeatherFilter);
-    TimelineAllFilterText->SetColorAndOpacity(!bTimelineWeatherFilter ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary);
-    TimelineWeatherFilterText->SetColorAndOpacity(bTimelineWeatherFilter ? ColdSteelUI::TextPrimary : ColdSteelUI::TextSecondary);
-}
-
 void UColdSteelHUDWidget::RebuildEventDetails()
 {
-    if (!TimelineDetailContent) return;
+    if(!TimelineDetailContent)return;
+    const float S=ColdSteelUI::PixelScale(this);
+    const float Scroll=TimelineDetailScroll?TimelineDetailScroll->GetScrollOffset():0;
     TimelineDetailContent->ClearChildren();
-    if (!bTimelineHasEvent) return;
-
-    UHorizontalBox* Summary = WidgetTree->ConstructWidget<UHorizontalBox>();
-    TimelineDetailContent->AddChildToVerticalBox(Summary)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 4.0f));
-    UImage* SummaryImage = WidgetTree->ConstructWidget<UImage>();
-    const EFPSWeatherState SummaryState = bTimelineContainsStorm ? EFPSWeatherState::Storm
-        : static_cast<EFPSWeatherState>(TimelineStageStates[0]);
-    if (UTexture2D* Texture = LoadUiTexture(WeatherIconFile(SummaryState))) SummaryImage->SetBrushFromTexture(Texture, true);
-    USizeBox* SummaryIconSize = WidgetTree->ConstructWidget<USizeBox>();
-    SummaryIconSize->SetWidthOverride(28.0f);
-    SummaryIconSize->SetHeightOverride(28.0f);
-    SummaryIconSize->SetContent(SummaryImage);
-    Summary->AddChildToHorizontalBox(SummaryIconSize)->SetPadding(FMargin(0.0f, 0.0f, 7.0f, 0.0f));
-    UTextBlock* SummaryName = MakeText(TimelineEventLabel, 12, ColdSteelUI::TextPrimary, false, true);
-    SummaryName->SetAutoWrapText(true);
-    Summary->AddChildToHorizontalBox(SummaryName)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-
-    if (TimelineStageStates.Num() > 1)
+    if(!bTimelineHasEvent || TimelineStageStates.IsEmpty())return;
+    auto* Summary=WidgetTree->ConstructWidget<UHorizontalBox>();
+    TimelineDetailContent->AddChildToVerticalBox(Summary)->SetPadding(FMargin(0,0,0,12/S));
+    auto* Icon=WidgetTree->ConstructWidget<UImage>();
+    const auto State=bTimelineContainsStorm?EFPSWeatherState::Storm:static_cast<EFPSWeatherState>(TimelineStageStates[0]);
+    if(auto* T=LoadUiTexture(WeatherIconFile(State)))Icon->SetBrushFromTexture(T,true);
+    auto* IconSize=WidgetTree->ConstructWidget<USizeBox>();IconSize->SetWidthOverride(36/S);IconSize->SetHeightOverride(36/S);IconSize->SetContent(Icon);
+    Summary->AddChildToHorizontalBox(IconSize)->SetPadding(FMargin(0,0,10/S,0));
+    auto* Name=MakeTimelineText(TimelineEventLabel,16,ColdSteelUI::TextPrimary,false,true);Name->SetAutoWrapText(true);
+    auto* NameSlot=Summary->AddChildToHorizontalBox(Name);NameSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));NameSlot->SetVerticalAlignment(VAlign_Center);
+    const TArray<TPair<FString,FString>> Pairs={
+        {TEXT("位面"),WeatherRegionName(GetWorld())},{TEXT("强度"),TimelineIntensityLabel},
+        {TEXT("开始"),TimelineStartLabel},{TEXT("结束"),TimelineEndLabel},
+        {TEXT("持续"),TimelineDurationLabel},{TEXT("状态"),bTimelineEventActive?TEXT("正在发生"):TEXT("预测中")}};
+    auto* Grid=WidgetTree->ConstructWidget<UUniformGridPanel>();Grid->SetSlotPadding(FMargin(2/S));TimelineDetailContent->AddChildToVerticalBox(Grid);
+    const int32 Columns=TimelineDetailWidth>0 && TimelineDetailWidth<440?1:2;
+    for(int32 I=0;I<Pairs.Num();++I)
     {
-        FString Sequence = TEXT("依次变化：");
-        for (int32 Index = 0; Index < TimelineStageStates.Num(); ++Index)
-        {
-            if (Index > 0) Sequence += TEXT(" → ");
-            Sequence += WeatherName(static_cast<EFPSWeatherState>(TimelineStageStates[Index]));
-        }
-        UTextBlock* SequenceText = MakeText(Sequence, 12, ColdSteelUI::TextPrimary);
-        SequenceText->SetAutoWrapText(true);
-        TimelineDetailContent->AddChildToVerticalBox(SequenceText)->SetPadding(FMargin(0.0f, 0.0f, 0.0f, 4.0f));
-    }
-
-    UUniformGridPanel* DetailGrid = WidgetTree->ConstructWidget<UUniformGridPanel>();
-    DetailGrid->SetSlotPadding(FMargin(2.5f));
-    TimelineDetailContent->AddChildToVerticalBox(DetailGrid);
-    const TArray<TPair<FString, FString>> DetailPairs = {
-        {TEXT("位面"), WeatherRegionName(GetWorld())}, {TEXT("强度"), TimelineIntensityLabel},
-        {TEXT("开始"), TimelineStartLabel}, {TEXT("结束"), TimelineEndLabel},
-        {TEXT("持续"), TimelineDurationLabel}, {TEXT("强度提示"), TimelineWarningLabel},
-        {TEXT("状态"), bTimelineEventActive ? TEXT("正在发生") : TEXT("预测中")}
-    };
-    for (int32 Index = 0; Index < DetailPairs.Num(); ++Index)
-    {
-        UBorder* Cell = MakeSurface(TimelineTrackColor, 4.0f, TimelineLineColor, 1.0f);
-        Cell->SetPadding(FMargin(5.0f, 2.0f));
-        UHorizontalBox* Row = WidgetTree->ConstructWidget<UHorizontalBox>();
-        Cell->SetContent(Row);
-        Row->AddChildToHorizontalBox(MakeText(DetailPairs[Index].Key, 11, ColdSteelUI::TextTertiary));
-        UTextBlock* Value = MakeText(DetailPairs[Index].Value, 11, ColdSteelUI::TextPrimary);
-        Value->SetAutoWrapText(true);
-        Value->SetJustification(ETextJustify::Right);
-        Value->SetToolTipText(FText::FromString(DetailPairs[Index].Value));
+        auto* Cell=MakeSurface(ColdSteelUI::StatusCard,8/S,ColdSteelUI::Border,1/S);Cell->SetPadding(FMargin(10/S,8/S));
+        auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();Cell->SetContent(Row);
+        auto* Key=MakeTimelineText(Pairs[I].Key,12,ColdSteelUI::TextSecondary);Row->AddChildToHorizontalBox(Key)->SetPadding(FMargin(0,0,8/S,0));
+        bool Numeric=false;for(TCHAR C:Pairs[I].Value)Numeric|=FChar::IsDigit(C);
+        auto* Value=MakeTimelineText(Pairs[I].Value,14,ColdSteelUI::TextPrimary,Numeric);Value->SetAutoWrapText(true);Value->SetJustification(ETextJustify::Right);
         Row->AddChildToHorizontalBox(Value)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-        UUniformGridSlot* GridSlot = DetailGrid->AddChildToUniformGrid(Cell, Index / 2, Index % 2);
-        GridSlot->SetHorizontalAlignment(HAlign_Fill);
-        GridSlot->SetVerticalAlignment(VAlign_Fill);
+        auto* CellSlot=Grid->AddChildToUniformGrid(Cell,I/Columns,I%Columns);CellSlot->SetHorizontalAlignment(HAlign_Fill);CellSlot->SetVerticalAlignment(VAlign_Fill);
     }
-
-    if (TimelineStageStates.Num() > 1)
+    auto* Note=MakeTimelineText(TimelineWarningLabel,14,bTimelineContainsStorm?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);Note->SetAutoWrapText(true);
+    TimelineDetailContent->AddChildToVerticalBox(Note)->SetPadding(FMargin(2/S,10/S,2/S,8/S));
+    if(TimelineStageStates.Num()>1)
     {
-        TimelineDetailContent->AddChildToVerticalBox(MakeText(TEXT("本轮雨势变化（依次发生）"), 12, ColdSteelUI::TextPrimary, false, true))
-            ->SetPadding(FMargin(0.0f, 4.0f, 0.0f, 1.0f));
-        for (int32 Index = 0; Index < TimelineStageStates.Num(); ++Index)
+        TimelineDetailContent->AddChildToVerticalBox(MakeTimelineText(TEXT("雨势变化"),16,ColdSteelUI::TextPrimary,false,true))->SetPadding(FMargin(2/S,8/S,0,4/S));
+        for(int32 I=0;I<TimelineStageStates.Num();++I)
         {
-            const FString Phase = FString::Printf(TEXT("%s  %s — %s"),
-                *WeatherName(static_cast<EFPSWeatherState>(TimelineStageStates[Index])),
-                *FormatTimelineAbsolute(TimelineStageStarts[Index], TimelineDaySeconds),
-                *FormatTimelineAbsolute(TimelineStageEnds[Index], TimelineDaySeconds));
-            TimelineDetailContent->AddChildToVerticalBox(MakeText(Phase, 11, ColdSteelUI::TextPrimary));
+            auto* Phase=WidgetTree->ConstructWidget<UVerticalBox>();TimelineDetailContent->AddChildToVerticalBox(Phase)->SetPadding(FMargin(2/S,6/S));
+            Phase->AddChildToVerticalBox(MakeTimelineText(WeatherName(static_cast<EFPSWeatherState>(TimelineStageStates[I])),14,ColdSteelUI::TextPrimary));
+            auto* Time=MakeTimelineText(FormatTimelineAbsolute(TimelineStageStarts[I],TimelineDaySeconds)+TEXT(" — ")+FormatTimelineAbsolute(TimelineStageEnds[I],TimelineDaySeconds),12,ColdSteelUI::TextSecondary,true);
+            Time->SetAutoWrapText(true);Phase->AddChildToVerticalBox(Time);
         }
     }
-}
-
-void UColdSteelHUDWidget::SetEventTimelineCompact(bool bCompact)
-{
-    bTimelineCompact = bCompact;
-    if (bTimelineCompact && TimelinePopover) TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
-    UpdateEventTimelineLayout();
+    if(TimelineDetailScroll)TimelineDetailScroll->SetScrollOffset(Scroll);
 }
 
 void UColdSteelHUDWidget::ApplyEventTimelineAuditFixture()
@@ -1218,7 +932,7 @@ void UColdSteelHUDWidget::SetEventTimelineAuditState(int32 State)
     if (State >= 2 && bTimelineHasEvent)
     {
         RebuildEventDetails();
-        TimelinePopover->SetVisibility(ESlateVisibility::Visible);
+        SetTimelineDetailsOpen(true);
     }
 }
 
@@ -1231,26 +945,26 @@ void UColdSteelHUDWidget::HandleTimelineMarkerClicked()
 {
     if (!bTimelineHasEvent) return;
     RebuildEventDetails();
-    TimelinePopover->SetVisibility(TimelinePopover->IsVisible() ? ESlateVisibility::Collapsed : ESlateVisibility::Visible);
+    SetTimelineDetailsOpen(!bTimelineDetailsOpen);
 }
 
 void UColdSteelHUDWidget::HandleTimelineDetailsCloseClicked()
 {
-    TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
+    SetTimelineDetailsOpen(false);
 }
 
 void UColdSteelHUDWidget::HandleTimelineFilterAllClicked()
 {
     bTimelineWeatherFilter = false;
     RefreshEventTimeline(true);
-    if (TimelinePopover) TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
+    SetTimelineDetailsOpen(false);
 }
 
 void UColdSteelHUDWidget::HandleTimelineFilterWeatherClicked()
 {
     bTimelineWeatherFilter = true;
     RefreshEventTimeline(true);
-    if (TimelinePopover) TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);
+    SetTimelineDetailsOpen(false);
 }
 
 void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
@@ -1273,7 +987,7 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
     if (bOpen)
     {
         RefreshStatus();
-        InventoryBlur->SetVisibility(ESlateVisibility::HitTestInvisible);
+        InventoryBlur->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
         InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
         InventoryPanel->SetVisibility(ESlateVisibility::Visible);
     }
@@ -1298,25 +1012,36 @@ void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
 }
 
 void UColdSteelHUDWidget::SetInventoryTab(bool bStatusTab)
+{ SetInventoryPage(bStatusTab?0:1); }
+
+void UColdSteelHUDWidget::OpenSkills()
+{
+    UWidgetBlueprintLibrary::CancelDragDrop(); CloseWarehouse();
+    SetInventoryPage(2); SetInventoryOpen(true);
+    if(CloseButton)CloseButton->SetKeyboardFocus();
+}
+
+void UColdSteelHUDWidget::SetInventoryPage(int32 Page)
 {
     HideItemTooltip(true);
-    bStatusTabActive = bStatusTab;
-    if (StatusPage) StatusPage->SetVisibility(bStatusTab ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
-    if (EquipmentPage) EquipmentPage->SetVisibility(bStatusTab ? ESlateVisibility::Collapsed : ESlateVisibility::Visible);
-    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(bStatusTab ? TEXT("角色状态") : TEXT("装备与背包")));
-    if (StatusTabSurface) StatusTabSurface->SetBrush(ColdSteelUI::RoundedBrush(
-        bStatusTab ? FLinearColor(0.12f, 0.16f, 0.19f, 0.88f) : FLinearColor(0.08f, 0.10f, 0.12f, 0.5f),
-        0.0f, FLinearColor::Transparent, 0.0f));
-    if (EquipmentTabSurface) EquipmentTabSurface->SetBrush(ColdSteelUI::RoundedBrush(
-        bStatusTab ? FLinearColor(0.08f, 0.10f, 0.12f, 0.5f) : FLinearColor(0.12f, 0.16f, 0.19f, 0.88f),
-        0.0f, FLinearColor::Transparent, 0.0f));
-    if (StatusTabText) StatusTabText->SetColorAndOpacity(bStatusTab ? ColdSteelUI::TextPrimary : ColdSteelUI::TextTertiary);
-    if (EquipmentTabText) EquipmentTabText->SetColorAndOpacity(bStatusTab ? ColdSteelUI::TextTertiary : ColdSteelUI::TextPrimary);
-    if (StatusTabUnderline) StatusTabUnderline->SetVisibility(bStatusTab ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
-    if (EquipmentTabUnderline) EquipmentTabUnderline->SetVisibility(bStatusTab ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
-    HideStatusTooltip();
-    if (bStatusTab)
+    bStatusTabActive=Page==0; bSkillsTabActive=Page==2;
+    if (StatusPage) StatusPage->SetVisibility(Page==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (EquipmentPage) EquipmentPage->SetVisibility(Page==1?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (SkillPage) SkillPage->SetVisibility(Page==2?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):Page==1?TEXT("装备与背包"):TEXT("技能")));
+    UBorder* Surfaces[]={StatusTabSurface,EquipmentTabSurface,SkillTabSurface};
+    UBorder* Underlines[]={StatusTabUnderline,EquipmentTabUnderline,SkillTabUnderline};
+    UTextBlock* Labels[]={StatusTabText,EquipmentTabText,SkillTabText};
+    for(int32 I=0;I<3;++I)
     {
+        if(Surfaces[I])Surfaces[I]->SetBrush(ColdSteelUI::RoundedBrush(I==Page?GunsmithUI::Gray(75,110):GunsmithUI::Gray(18,32),ReferenceUnits(7),FLinearColor::Transparent,0));
+        if(Labels[I])Labels[I]->SetColorAndOpacity(I==Page?GunsmithUI::Text:GunsmithUI::Muted);
+        if(Underlines[I])Underlines[I]->SetVisibility(I==Page?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    }
+    HideStatusTooltip();
+    if (Page!=1)
+    {
+        if(auto* Scroll=Cast<UScrollBox>(EquipmentPage))if(auto* Board=Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0)))Board->CancelInteraction();
         bEquipmentTooltipPinned = false;
         HideEquipmentTooltip();
     }
@@ -1383,7 +1108,7 @@ void UColdSteelHUDWidget::RefreshStatus()
 
 void UColdSteelHUDWidget::ShowEquipmentTooltip()
 {
-    if (!EquipmentTooltip || !bInventoryOpen || bStatusTabActive) return;
+    if (!EquipmentTooltip || !bInventoryOpen || bStatusTabActive || bSkillsTabActive) return;
     RefreshStatus();
     EquipmentTooltip->SetVisibility(ESlateVisibility::Visible);
     EquipmentTooltipScroll->ScrollToEnd();
@@ -1468,7 +1193,7 @@ UTextBlock* UColdSteelHUDWidget::MakeText(const FString& Text, int32 Size, const
 {
     UTextBlock* Label = WidgetTree->ConstructWidget<UTextBlock>(UTextBlock::StaticClass(), *FString::Printf(TEXT("Text_%d"), WidgetSerial++));
     Label->SetText(FText::FromString(Text));
-    Label->SetFont(bNumeric ? ColdSteelUI::NumberFont(Size, bBold) : ColdSteelUI::TextFont(Size));
+    Label->SetFont(bNumeric ? ColdSteelUI::NumberFont(Size, bBold) : ColdSteelUI::TextFont(Size, bBold));
     Label->SetColorAndOpacity(Color);
     Label->SetShadowOffset(FVector2D(0.0f, 1.0f));
     Label->SetShadowColorAndOpacity(FLinearColor(0.0f, 0.0f, 0.0f, 0.55f));
@@ -1486,7 +1211,7 @@ UTextBlock* UColdSteelHUDWidget::MakeReferenceText(const FString& Text, float Pi
     auto* Label = MakeText(Text, 12, Color, bNumeric, bBold);
     // Slate uses points at 96 DPI; the reference contract specifies physical pixels.
     const float Points = ReferenceUnits(PixelSize) * .75f;
-    Label->SetFont(bNumeric ? ColdSteelUI::NumberFont(Points, bBold) : ColdSteelUI::TextFont(Points));
+    Label->SetFont(bNumeric ? ColdSteelUI::NumberFont(Points, bBold) : ColdSteelUI::TextFont(Points, bBold));
     return Label;
 }
 
@@ -1568,24 +1293,25 @@ UBorder* UColdSteelHUDWidget::MakeEquipmentSlot(const FString& Caption, bool bEq
 
 UBorder* UColdSteelHUDWidget::MakeTab(const FString& Caption, bool bActive)
 {
-    UBorder* Surface = MakeSurface(bActive ? FLinearColor(0.12f, 0.16f, 0.19f, 0.88f) : FLinearColor(0.08f, 0.10f, 0.12f, 0.5f), 0.0f, FLinearColor::Transparent, 0.0f);
+    UBorder* Surface = MakeSurface(bActive?GunsmithUI::Gray(75,110):GunsmithUI::Gray(18,32),ReferenceUnits(7),FLinearColor::Transparent,0);
     USizeBox* Height = WidgetTree->ConstructWidget<USizeBox>();
-    Height->SetHeightOverride(ReferenceUnits(50));
+    Height->SetHeightOverride(ReferenceUnits(40));
+    InventoryTabSizes.Add(Height);
     Surface->SetContent(Height);
     UOverlay* Layer = WidgetTree->ConstructWidget<UOverlay>();
     Height->SetContent(Layer);
-    UTextBlock* Label = MakeReferenceText(Caption, 16, bActive ? ColdSteelUI::TextPrimary : ColdSteelUI::TextTertiary);
+    UTextBlock* Label = MakeInventoryText(Caption,14,bActive?GunsmithUI::Text:GunsmithUI::Muted,false,bActive);
     Label->SetJustification(ETextJustify::Center);
     UOverlaySlot* LabelSlot = Layer->AddChildToOverlay(Label);
     LabelSlot->SetHorizontalAlignment(HAlign_Fill);
     LabelSlot->SetVerticalAlignment(VAlign_Center);
-    UBorder* Underline = MakeSurface(ColdSteelUI::Accent, 0.0f, FLinearColor::Transparent, 0.0f);
+    UBorder* Underline = MakeSurface(GunsmithUI::Silver,0,FLinearColor::Transparent,0);
     Underline->SetVisibility(bActive ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
     UOverlaySlot* UnderlineSlot = Layer->AddChildToOverlay(Underline);
     UnderlineSlot->SetHorizontalAlignment(HAlign_Fill);
     UnderlineSlot->SetVerticalAlignment(VAlign_Bottom);
     USizeBox* UnderlineHeight = WidgetTree->ConstructWidget<USizeBox>();
-    UnderlineHeight->SetHeightOverride(3.0f);
+    UnderlineHeight->SetHeightOverride(ReferenceUnits(2));
     Underline->SetContent(UnderlineHeight);
     return Surface;
 }

@@ -2,7 +2,7 @@
 
 #include "Brushes/SlateRoundedBoxBrush.h"
 #include "Fonts/SlateFontInfo.h"
-#include "HAL/FileManager.h"
+#include "Styling/SlateTypes.h"
 #include "Misc/Paths.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Engine/World.h"
@@ -16,9 +16,10 @@
 
 namespace
 {
-    FString ExistingFontOrFallback(const FString& Preferred, const FString& Fallback)
+    TSharedPtr<FCompositeFont> MakeThemeFont(const TCHAR* File)
     {
-        return IFileManager::Get().FileExists(*Preferred) ? Preferred : Fallback;
+        return MakeShared<FCompositeFont>(TEXT("Regular"), FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts")/File,
+            EFontHinting::AutoLight,EFontLoadingPolicy::LazyLoad);
     }
 }
 
@@ -37,27 +38,32 @@ FSlateBrush ColdSteelUI::RoundedBrush(const FLinearColor& Fill, float Radius, co
     return FSlateRoundedBoxBrush(Fill, Radius, Outline, OutlineWidth);
 }
 
-FSlateFontInfo ColdSteelUI::TextFont(float Size)
+FButtonStyle ColdSteelUI::ButtonStyle(float Scale)
 {
-    const FString Fallback = FPaths::EngineContentDir() / TEXT("Slate/Fonts/Roboto-Regular.ttf");
-    const FString LocalFont = FPaths::ProjectSavedDir() / TEXT("UIFonts/SimSun-ColdSteel-0p5.ttf");
-    static TSharedPtr<FCompositeFont> Font = MakeShared<FCompositeFont>(TEXT("Regular"),
-        ExistingFontOrFallback(LocalFont, ExistingFontOrFallback(TEXT("C:/Windows/Fonts/simsun.ttc"), Fallback)), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
-    return FSlateFontInfo(Font, Size);
+    return FButtonStyle().SetNormal(RoundedBrush(ButtonNormal,ButtonRadius/Scale,Border,1/Scale))
+        .SetHovered(RoundedBrush(ButtonHover,ButtonRadius/Scale,Accent,1/Scale))
+        .SetPressed(RoundedBrush(ButtonPressed,ButtonRadius/Scale,Border,1/Scale))
+        .SetDisabled(RoundedBrush(ButtonDisabled,ButtonRadius/Scale,Border,1/Scale));
+}
+
+FSlateFontInfo ColdSteelUI::TextFont(float Size, bool bMedium)
+{
+    static TSharedPtr<FCompositeFont> Regular=MakeThemeFont(TEXT("NotoSansSC-Regular.otf"));
+    static TSharedPtr<FCompositeFont> Medium=MakeThemeFont(TEXT("NotoSansSC-Medium.otf"));
+    return FSlateFontInfo(bMedium?Medium:Regular,Size);
 }
 
 FSlateFontInfo ColdSteelUI::NumberFont(float Size, bool bBold)
 {
-    const FString Fallback = FPaths::EngineContentDir() / TEXT("Slate/Fonts/RobotoMono-Regular.ttf");
-    auto MakeNumeric = [&Fallback](const TCHAR* Path)
+    auto MakeNumeric = [](const TCHAR* File)
     {
-        auto Font = MakeShared<FCompositeFont>(TEXT("Regular"), ExistingFontOrFallback(Path, Fallback), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
+        auto Font = MakeThemeFont(File);
         Font->FallbackTypeface.Typeface.Fonts.Add(FTypefaceEntry(TEXT("Chinese"),
-            ExistingFontOrFallback(FPaths::ProjectSavedDir() / TEXT("UIFonts/SimSun-ColdSteel-0p5.ttf"), TEXT("C:/Windows/Fonts/simsun.ttc")), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad));
+            FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts/NotoSansSC-Regular.otf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad));
         return Font;
     };
-    static TSharedPtr<FCompositeFont> Regular = MakeNumeric(TEXT("C:/Windows/Fonts/consola.ttf"));
-    static TSharedPtr<FCompositeFont> Bold = MakeNumeric(TEXT("C:/Windows/Fonts/consolab.ttf"));
+    static TSharedPtr<FCompositeFont> Regular = MakeNumeric(TEXT("JetBrainsMono-Regular.ttf"));
+    static TSharedPtr<FCompositeFont> Bold = MakeNumeric(TEXT("JetBrainsMono-Medium.ttf"));
     return FSlateFontInfo(bBold ? Bold : Regular, Size);
 }
 

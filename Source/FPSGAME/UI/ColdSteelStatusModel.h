@@ -18,6 +18,12 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character") int32 AttributePoints = 0;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character") TMap<FName, int32> Attributes;
     FColdSteelStatusChanged OnChanged;
+    const FColdSteelSkillDefinition& RifleDefinition() const { return RifleSkill; }
+    UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress RifleProgress() const;
+    FColdSteelSkillEffect RifleEffect(int32 AtLevel=-1) const;
+    float RifleWeaponDamage(const FColdSteelItem& Item,float WeaponDamage) const;
+    float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot);
+    bool PopProgressNotice(FColdSteelProgressNotice& Out);
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     virtual void Deinitialize() override;
     int32 Attribute(FName Key) const;
@@ -81,6 +87,11 @@ public:
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
 private:
+    FColdSteelSkillDefinition RifleSkill;
+    TArray<FColdSteelProgressNotice> ProgressNotices;
+    struct FTrainingHit { AActor* Victim=nullptr; bool bEligible=false,bCritical=false,bKillAttempted=false; };
+    FTrainingHit* ActiveTrainingHit=nullptr;
+    void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
     FColdSteelProfile Current;
     TMap<FString,FString> Definitions;
     TSet<TWeakObjectPtr<AActor>> RewardedVictims;

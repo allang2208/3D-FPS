@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Skills/ColdSteelSkillRules.h"
 #include "Perception/AISense_Hearing.h"
 #include "Movement/FPSTraversalComponent.h"
 #include "UI/ColdSteelStatusModel.h"
@@ -755,6 +756,8 @@ void AFPSGAMECharacter::FireShot()
     }
     else PlaySound2D(ShotSound, AKMSource::FireVolume);
 
+    const float ShotDamage=DamagePerShot;
+    const auto Training=ColdSteelSkills::Snapshot(this);
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
     Params.bReturnPhysicalMaterial = true;
@@ -774,7 +777,7 @@ void AFPSGAMECharacter::FireShot()
     }
     if (bHit && Hit.GetActor())
     {
-        NotifyConfirmedWeaponHit(Hit.GetActor(), UGameplayStatics::ApplyPointDamage(Hit.GetActor(), DamagePerShot, TraceDirection, Hit, Controller, this, nullptr));
+        NotifyConfirmedWeaponHit(Hit.GetActor(), ColdSteelSkills::ApplyHit(this,Hit,ShotDamage,TraceDirection,Training));
         if (Hit.BoneName.ToString().Contains(TEXT("head"), ESearchCase::IgnoreCase))
             PlaySound2D(CriticalHitSound, AKMSource::ActionVolume);
     }

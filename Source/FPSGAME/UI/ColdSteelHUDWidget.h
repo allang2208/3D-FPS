@@ -53,6 +53,7 @@ public:
     bool HasPinnedItemTooltip()const;
     void FocusItemTooltip();
     void OpenStatus();
+    UFUNCTION(BlueprintCallable,Category="Cold Steel UI") void OpenSkills();
     void OpenWarehouse(class AColdSteelWarehouseChest* Chest);
     void CloseWarehouse();
     bool IsWarehouseOpen() const { return bWarehouseOpen; }
@@ -87,6 +88,17 @@ private:
     void BuildHotbar(UCanvasPanel* Root);
     void BuildAmmoReadout(UCanvasPanel* Root);
     void BuildInventory(UCanvasPanel* Root);
+    void UpdateInventoryLayout(const FGeometry& Geometry);
+    UTextBlock* MakeInventoryText(const FString& Text,float Pixels,const FLinearColor& Color,bool Numeric=false,bool Medium=false);
+    struct FInventoryLabel {TWeakObjectPtr<UTextBlock> Widget;float Pixels;bool Numeric,Medium;};
+    TArray<FInventoryLabel> InventoryLabels;
+    FVector2D InventoryLayoutSize=FVector2D::ZeroVector;
+    float InventoryLayoutScale=0,InventoryWidth=0;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> InventoryPanelSlot;
+    UPROPERTY(Transient) TObjectPtr<UBorder> InventoryHeaderSurface;
+    UPROPERTY(Transient) TObjectPtr<class USizeBox> InventoryHeaderSize;
+    TArray<TWeakObjectPtr<class USizeBox>> InventoryTabSizes;
+    UPROPERTY(Transient) TObjectPtr<class UVerticalBoxSlot> InventoryFooterSlot;
     UWidget* BuildStatusPage();
     UWidget* BuildEquipmentPage();
     void BuildStatusTooltip(UCanvasPanel* Root);
@@ -94,6 +106,7 @@ private:
     void BuildEventTimeline(UCanvasPanel* Root);
     void SetInventoryOpen(bool bOpen);
     void SetInventoryTab(bool bStatusTab);
+    void SetInventoryPage(int32 Page);
     void RefreshAmmo();
     void RefreshStatus();
     void RefreshCharacterSheet();
@@ -101,6 +114,21 @@ private:
     void BuildCharacterSummary(UCanvasPanel* Root);
     void BuildTopVitals(UCanvasPanel* Root);
     void RefreshTopVitals();
+    void UpdateTopHUDLayout(const FGeometry& Geometry);
+    void RefreshWorldClock();
+    UTextBlock* MakeTopHUDText(const FString& Text,float Pixels,const FLinearColor& Color,bool Numeric=false,bool Medium=false);
+    TArray<FInventoryLabel> TopHUDLabels;
+    FVector2D TopHUDViewport=FVector2D::ZeroVector;
+    float TopHUDScale=0,TopHUDBottom=0;
+    TWeakObjectPtr<class AFPSWeatherManager> HUDWeatherSource;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelWorldClock> WorldClock;
+    UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> TopVitalsBlur;
+    UPROPERTY(Transient) TObjectPtr<UBorder> TopVitalsTint;
+    UPROPERTY(Transient) TObjectPtr<class UGridPanel> TopVitalsGrid;
+    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> TopResourceCards;
+    UPROPERTY(Transient) TArray<TObjectPtr<USizeBox>> TopMeterSizes;
+    UPROPERTY(Transient) TObjectPtr<UBorder> TopLevelSurface;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> TopLevelSize;
     UPROPERTY(Transient) TObjectPtr<UBorder> TopVitalsSurface;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TopHealthValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TopManaValue;
@@ -120,6 +148,10 @@ private:
     void RefreshEventTimeline(bool bForce = false);
     void ApplyEventTimelineAuditFixture();
     void UpdateEventTimelineLayout();
+    void TickEventTimelinePresentation(float Delta);
+    void SetTimelineDetailsOpen(bool Open);
+    UTextBlock* MakeTimelineText(const FString& Text,float Pixels,const FLinearColor& Color,bool Numeric=false,bool Medium=false);
+    TArray<FInventoryLabel> TimelineLabels;
     void UpdateEventTimelineFilterButtons();
     void RebuildEventDetails();
     void SetEventTimelineCompact(bool bCompact);
@@ -202,6 +234,11 @@ private:
     FString StatusDetailSignature;
     FDelegateHandle StatusModelHandle;
     UPROPERTY(Transient) TObjectPtr<UWidget> EquipmentPage;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelSkillPage> SkillPage;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelProgressNotification> ProgressNotification;
+    UPROPERTY(Transient) TObjectPtr<UBorder> SkillTabSurface;
+    UPROPERTY(Transient) TObjectPtr<UBorder> SkillTabUnderline;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> SkillTabText;
     UPROPERTY(Transient) TObjectPtr<UBorder> StatusTabSurface;
     UPROPERTY(Transient) TObjectPtr<UBorder> EquipmentTabSurface;
     UPROPERTY(Transient) TObjectPtr<UBorder> StatusTabUnderline;
@@ -237,6 +274,24 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UBorder> TimelinePanel;
+    UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> TimelineShellBlur;
+    UPROPERTY(Transient) TObjectPtr<UBorder> TimelineContentPadding;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> TimelineExpandedClip;
+    UPROPERTY(Transient) TObjectPtr<UScrollBox> TimelineExpandedScroll;
+    UPROPERTY(Transient) TObjectPtr<UScrollBox> TimelineDetailScroll;
+    UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> TimelineDetailBlur;
+    UPROPERTY(Transient) TObjectPtr<UBorder> TimelineDetailSurface;
+    UPROPERTY(Transient) TObjectPtr<UBorder> TimelineTrackBackground;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> TimelineMarkerIconSize;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> TimelineToggleSize;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanel> TimelineToggleGlyph;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> TimelineToggleGlyphSize;
+    UPROPERTY(Transient) TArray<TObjectPtr<USizeBox>> TimelineButtonSizes;
+    UPROPERTY(Transient) TObjectPtr<UButton> TimelineDetailsClose;
+    float TimelineExpansion=0,TimelineDetailMotion=0,TimelineScale=0;
+    float TimelineShownEventFraction=.04f,TimelineEventMoveFrom=.04f,TimelineEventMoveTarget=.04f,TimelineEventMoveTime=.18f;
+    float TimelineDetailWidth=0;
+    bool bTimelineDetailsOpen=false;
 
     UPROPERTY(Transient)
     TObjectPtr<UVerticalBox> TimelineExpandedContent;
@@ -306,6 +361,7 @@ private:
     float AmmoRefreshAccumulator = 0.0f;
     float StatusRefreshAccumulator = 0.0f;
     bool bStatusTabActive = false;
+    bool bSkillsTabActive = false;
     bool bEquipmentTooltipPinned = false;
     float TimelineRefreshAccumulator = 0.0f;
     float TimelinePulse = 0.0f;

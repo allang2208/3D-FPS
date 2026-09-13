@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "../Skills/ColdSteelSkillTypes.h"
 #include "FPSBallisticsComponent.generated.h"
 class UFPSWeaponFXComponent;
 class USoundBase;
@@ -9,6 +10,7 @@ struct FFPSFlyingRound
     FVector Position,Direction;
     float Speed=0,Remaining=0,Damage=0;
     double Timestamp=0;
+    FColdSteelSkillShot Training;
 };
 /** Straight swept projectiles, matching the source Godot zero-gravity fire path. */
 UCLASS()

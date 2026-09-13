@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -51,6 +52,8 @@ UColdSteelProfileSave* ReadCheckedProfile(const FString& Slot)
 void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
+    RifleSkill=ColdSteelSkills::LoadDefinition();
+    ColdSteelSkills::Migrate(Current);
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
         for(const auto& Pair:Root->Values){FString Data;FJsonSerializer::Serialize(Pair.Value->AsObject().ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Data));Definitions.Add(FString(*Pair.Key),Data);}
@@ -78,6 +81,7 @@ bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
     if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
+    ColdSteelSkills::Migrate(State);
     FString Reason;if(!Validate(State,Reason)){Message=Reason;return false;}
     if(bAudit&&AuditFailNextSave){AuditFailNextSave=false;Message=TEXT("验收注入：保存失败，操作未提交");return false;}
     State.Version=2;
@@ -89,6 +93,7 @@ bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
     if(!UGameplayStatics::LoadDataFromSlot(Written,Slot,0)||!FFileHelper::SaveStringToFile(HashBytes(Written),*ChecksumPath(Slot))){Message=TEXT("完整性记录写入失败，操作未提交");return false;}
     auto* Verify=ReadCheckedProfile(Slot);
     if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){Message=TEXT("存档写入校验失败，操作未提交");return false;}
+    QueueProgressNotices(Current,State);
     Publish(State);Message=TEXT("已保存");ApplyToPawn();OnChanged.Broadcast();return true;
 }
 bool UColdSteelStatusModel::ReloadProfile()
@@ -97,7 +102,8 @@ bool UColdSteelStatusModel::ReloadProfile()
     for(const TCHAR* S:{TEXT("_A"),TEXT("_B")}) {auto* Save=ReadCheckedProfile(SaveSlot+S); if(Save&&Validate(Save->Profile,Reason)&&(!Best||Save->Profile.Generation>Best->Profile.Generation))Best=Save;}
     if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
     auto Clean=Best->Profile;
-    bool Removed=RemoveRetiredWeapons(Clean);
+    const bool SkillsMigrated=ColdSteelSkills::Migrate(Clean);
+    bool Removed=RemoveRetiredWeapons(Clean)||SkillsMigrated;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -134,6 +140,11 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 {
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
     SyncRuntime();auto P=Snapshot();P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=Reward;
+    if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
+    {
+        ActiveTrainingHit->bKillAttempted=true;
+        ColdSteelSkills::AddExperience(P,RifleSkill,RifleSkill.KillExperience+(ActiveTrainingHit->bCritical?RifleSkill.CriticalExperience:0));
+    }
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
     if(!CommitState(P))return false;RewardedVictims.Add(Victim);return true;

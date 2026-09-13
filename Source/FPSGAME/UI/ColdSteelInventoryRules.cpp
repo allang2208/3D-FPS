@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryTypes.h"
+#include "../Skills/ColdSteelSkillRules.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -142,6 +143,7 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
 }
 bool Validate(const FColdSteelProfile& P,FString& Reason)
 {
+    if(!ColdSteelSkills::Validate(P,Reason))return false;
     Reason=TEXT("存档数据未通过校验，保留原文件");
     if((P.Version!=1&&P.Version!=2)||P.WarehousePages<1||P.WarehousePages>500||P.Level<1||P.Level>10000||P.Experience<0||P.Points<0||P.Kills<0||P.Generation<0||P.Items.Num()>10000||P.Hotbar.Num()!=4||P.HotbarDefinitions.Num()!=4||!FMath::IsFinite(P.Health)||!FMath::IsFinite(P.Mana)||P.Health<0||P.Mana<0)return false;
     if(P.Experience >= (20ll+P.Level*20ll+P.Level*int64(P.Level)*12)*8)return false;
