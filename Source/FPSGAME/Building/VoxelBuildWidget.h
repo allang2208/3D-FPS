@@ -12,7 +12,7 @@ class FPSGAME_API UVoxelBuildWidget : public UUserWidget
 {
     GENERATED_BODY()
 public:
-    void ShowState(const FString& Material,const FString& Brush,const FString& Message,bool bValid,int32 Count);
+    void ShowState(const FString& Material,const FString& Brush,const FString& Message,bool bValid,int32 Count,bool bSnapEnabled);
 protected:
     virtual void NativeOnInitialized() override;
     virtual void NativeTick(const FGeometry& Geometry,float Delta) override;

@@ -45,11 +45,21 @@ void UVoxelBuildComponent::TryInitializeWorld()
     BuildWorld=GetWorld()->SpawnActor<AVoxelBuildWorld>();
     if(!BuildWorld||!BuildWorld->Initialize(Key,Palette))
     {InitializationMessage=BuildWorld?BuildWorld->ResultMessage():TEXT("无法创建建筑世界");bInitializeFailed=true;return;}
-    Preview=NewObject<UStaticMeshComponent>(GetOwner(),TEXT("VoxelPlacementGhost"));
+    // AController is hidden by default. A component owned by it cannot be
+    // made visible with SetVisibility alone, so the ghost needs its own Actor.
+    FActorSpawnParameters PreviewSpawn;PreviewSpawn.Owner=PC;PreviewSpawn.ObjectFlags|=RF_Transient;
+    PreviewSpawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    PreviewActor=GetWorld()->SpawnActor<AActor>(AActor::StaticClass(),FVector::ZeroVector,FRotator::ZeroRotator,PreviewSpawn);
+    PreviewActor->SetActorHiddenInGame(false);PreviewActor->SetActorEnableCollision(false);
+    Preview=NewObject<UStaticMeshComponent>(PreviewActor,TEXT("VoxelPlacementGhost"));
+    PreviewActor->AddInstanceComponent(Preview);PreviewActor->SetRootComponent(Preview);
     Preview->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube")));
     Preview->SetCollisionEnabled(ECollisionEnabled::NoCollision);Preview->SetCastShadow(false);
+    Preview->SetMobility(EComponentMobility::Movable);
     Preview->SetCanEverAffectNavigation(false);Preview->SetVisibility(false);Preview->RegisterComponent();
-    if(auto* Material=Palette->PreviewMaterial.LoadSynchronous())
+    auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Building/Voxels/Rounded/M_Voxel_PlacementPreview.M_Voxel_PlacementPreview"));
+    if(!Material)Material=Palette->PreviewMaterial.LoadSynchronous();
+    if(Material)
     {PreviewMID=UMaterialInstanceDynamic::Create(Material,this);Preview->SetMaterial(0,PreviewMID);}
     Widget=CreateWidget<UVoxelBuildWidget>(PC);if(Widget){Widget->AddToPlayerScreen(18);Widget->SetVisibility(ESlateVisibility::Collapsed);}
 }
@@ -68,6 +78,12 @@ void UVoxelBuildComponent::SetBuildMode(bool Enabled)
     if(bActive==Enabled)return;
     if(auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr)Character->SuspendWeaponForMenu();
     bActive=Enabled;FeedbackTime=0;bUndoModifier=false;
+    if(Enabled)bSnapEnabled=true;
+    if(Enabled&&BuildWorld->UnsupportedBlockCount()>0)
+    {
+        Feedback=FString::Printf(TEXT("已有 %d 格需要补充支撑，原建筑已保留"),BuildWorld->UnsupportedBlockCount());
+        FeedbackTime=4;bFeedbackValid=false;
+    }
     if(Preview)Preview->SetVisibility(false);
     if(Widget)Widget->SetVisibility(Enabled?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
     if(Enabled){UpdateTarget();UpdateWidget();}
@@ -95,33 +111,54 @@ void UVoxelBuildComponent::FillBrush(FIntVector Base,TArray<FIntVector>& Result)
 
 void UVoxelBuildComponent::UpdateTarget()
 {
-    Placement.Reset();Removal.Reset();bCanPlace=false;
-    if(Preview)Preview->SetVisibility(false);
+    Placement.Reset();Removal.Reset();bCanPlace=false;PlacementVolume={};HitCell={};
     auto* PC=Cast<APlayerController>(GetOwner());
     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
     const FVector Start=PC->PlayerCameraManager->GetCameraLocation();
-    const FVector End=Start+PC->PlayerCameraManager->GetCameraRotation().Vector()*600;
+    const FVector Direction=PC->PlayerCameraManager->GetCameraRotation().Vector();
+    const FVector End=Start+Direction*600;const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelAim),true,PC->GetPawn());
-    if(!GetWorld()->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Query))
-    {TargetMessage=TEXT("瞄准 6 米内的地面或方块");return;}
-    FIntVector Base=AVoxelBuildWorld::ToCell(Hit.ImpactPoint+Hit.ImpactNormal*.5);
-    if(BuildWorld->OwnsSurface(Hit.GetComponent()))
+    const bool HasHit=GetWorld()->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Query);
+    const bool BuildingHit=HasHit&&BuildWorld->ResolveHit(Hit,HitCell);
+    if(BuildingHit)FillBrush(HitCell.Cell,Removal);
+    if(!HasHit)
     {
-        const FIntVector Inside=AVoxelBuildWorld::ToCell(Hit.ImpactPoint-Hit.ImpactNormal*.5);
-        FillBrush(Inside,Removal);
-        // Align the whole brush beyond the targeted face, including wide walls.
-        int32 Axis=0;const FVector N=Hit.ImpactNormal.GetAbs();if(N.Y>N.X)Axis=1;if(N.Z>N[Axis])Axis=2;
-        const FIntVector Size=BrushSize();Base=Inside;
-        if(Axis==2)Base.Z+=Hit.ImpactNormal.Z>0?1:-Size.Z;
-        else Base[Axis]+=Hit.ImpactNormal[Axis]>0?1+Size[Axis]/2:-(Size[Axis]-Size[Axis]/2);
+        PlacementOrigin=Start+Direction*250-Half;
+        if(bSnapEnabled)PlacementOrigin=AVoxelBuildWorld::CellMin(AVoxelBuildWorld::ToCell(PlacementOrigin));
+        FillBrush(FIntVector(Size.X/2,Size.Y/2,0),Placement);
+        TargetMessage=TEXT("未命中可放置表面 · 瞄准 6 米内的地面或方块");
     }
-    FillBrush(Base,Placement);
-    bCanPlace=BuildWorld->CanPlace(Placement,SelectedMaterial,TargetMessage);
+    else if(bSnapEnabled)
+    {
+        PlacementVolume=BuildingHit?HitCell.Volume:FGuid();PlacementOrigin=BuildWorld->VolumeOrigin(PlacementVolume);
+        FIntVector Base=AVoxelBuildWorld::ToCell(Hit.ImpactPoint+Hit.ImpactNormal*.5-PlacementOrigin);
+        if(BuildingHit)
+        {
+            int32 Axis=0;const FVector N=Hit.ImpactNormal.GetAbs();if(N.Y>N.X)Axis=1;if(N.Z>N[Axis])Axis=2;
+            Base=HitCell.Cell;
+            if(Axis==2)Base.Z+=Hit.ImpactNormal.Z>0?1:-Size.Z;
+            else Base[Axis]+=Hit.ImpactNormal[Axis]>0?1+Size[Axis]/2:-(Size[Axis]-Size[Axis]/2);
+        }
+        FillBrush(Base,Placement);
+        bCanPlace=BuildWorld->CanPlaceInVolume(PlacementVolume,Placement,SelectedMaterial,TargetMessage);
+    }
+    else
+    {
+        // Continuous world position: no floor/round/quantization in free mode.
+        PlacementOrigin=Hit.ImpactPoint+Hit.ImpactNormal*FVector::DotProduct(Hit.ImpactNormal.GetAbs(),Half)-Half;
+        FillBrush(FIntVector(Size.X/2,Size.Y/2,0),Placement);
+        bCanPlace=BuildWorld->CanPlaceFree(PlacementOrigin,Placement,SelectedMaterial,TargetMessage);
+    }
     if(Preview&&!Placement.IsEmpty())
     {
-        const FIntVector Size=BrushSize();const FVector Min=AVoxelBuildWorld::CellMin(Placement[0]);
-        Preview->SetWorldLocation(Min+FVector(Size)*10);Preview->SetWorldScale3D(FVector(Size)*.2+FVector(.001));
-        if(PreviewMID)PreviewMID->SetVectorParameterValue(TEXT("Tint"),bCanPlace?FLinearColor(.2f,.7f,.48f):FLinearColor(.9f,.22f,.18f));
+        const FVector Min=PlacementOrigin+AVoxelBuildWorld::CellMin(Placement[0]);
+        Preview->SetWorldLocation(Min+Half);Preview->SetWorldScale3D(FVector(Size)*.2+FVector(.0002));
+        if(PreviewMID)
+        {
+            PreviewMID->SetVectorParameterValue(TEXT("Tint"),bCanPlace?FLinearColor(.06f,1.f,.15f):FLinearColor(1.f,.035f,.02f));
+            PreviewMID->SetVectorParameterValue(TEXT("PreviewOrigin"),FLinearColor(Min.X,Min.Y,Min.Z));
+        }
+        Preview->SetHiddenInGame(false);
         Preview->SetVisibility(true);
     }
 }
@@ -143,26 +180,35 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     if(Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown)
     {if(Pressed){Brush=(Brush+(Key==EKeys::MouseScrollUp?1:2))%3;FeedbackTime=0;}return true;}
     if(Key==EKeys::R){if(Pressed){bRotate=!bRotate;FeedbackTime=0;}return true;}
+    if(Key==EKeys::F){if(Pressed){bSnapEnabled=!bSnapEnabled;FeedbackTime=0;UpdateTarget();UpdateWidget();}return true;}
     if(Key==EKeys::LeftControl||Key==EKeys::RightControl)
     {bUndoModifier=Event.Event!=IE_Released;return true;}
     if(Key==EKeys::Z&&bUndoModifier)
-    {if(Pressed){BuildWorld->Undo();Feedback=BuildWorld->ResultMessage();FeedbackTime=2;}return true;}
+    {if(Pressed){bFeedbackValid=BuildWorld->Undo();Feedback=BuildWorld->ResultMessage();FeedbackTime=2;}return true;}
     if(Key==EKeys::MiddleMouseButton)
-    {if(Pressed){UpdateTarget();if(!Removal.IsEmpty())SelectMaterial(BuildWorld->MaterialAt(AVoxelBuildWorld::ToCell(Hit.ImpactPoint-Hit.ImpactNormal*.5)));}return true;}
+    {if(Pressed){UpdateTarget();if(!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));}return true;}
     if(Key==EKeys::LeftMouseButton||Key==EKeys::RightMouseButton)
     {
         if(Pressed)
         {
             UpdateTarget();
             if(Key==EKeys::LeftMouseButton)
-            {if(bCanPlace){BuildWorld->EditCells(Placement,SelectedMaterial);Feedback=BuildWorld->ResultMessage();}else Feedback=TargetMessage;}
-            else {if(!Removal.IsEmpty()){BuildWorld->EditCells(Removal,NAME_None);Feedback=BuildWorld->ResultMessage();}else Feedback=TEXT("只能拆除自己建造的体素");}
+            {
+                if(bCanPlace)
+                {
+                    if(bSnapEnabled)bFeedbackValid=BuildWorld->EditVolumeCells(PlacementVolume,Placement,SelectedMaterial);
+                    else bFeedbackValid=BuildWorld->PlaceFree(PlacementOrigin,Placement,SelectedMaterial);
+                    Feedback=BuildWorld->ResultMessage();
+                }
+                else {bFeedbackValid=false;Feedback=TargetMessage;}
+            }
+            else {if(!Removal.IsEmpty()){bFeedbackValid=BuildWorld->EditVolumeCells(HitCell.Volume,Removal,NAME_None);Feedback=BuildWorld->ResultMessage();}else {bFeedbackValid=false;Feedback=TEXT("只能拆除自己建造的体素");}}
             FeedbackTime=2;
         }
         return true;
     }
     // Consume weapon selection/reload/interaction shortcuts while building.
-    if(Key==EKeys::G||Key==EKeys::Three||Key==EKeys::Four||Key==EKeys::E||Key==EKeys::F)return true;
+    if(Key==EKeys::G||Key==EKeys::Three||Key==EKeys::Four||Key==EKeys::E)return true;
     return false;
 }
 
@@ -173,7 +219,7 @@ void UVoxelBuildComponent::UpdateWidget()
     const FString Name=Entry?Entry->DisplayName.ToString():SelectedMaterial.ToString();
     const TCHAR* Shape=Brush==0?TEXT("单格"):Brush==1?TEXT("地板"):TEXT("墙面");
     Widget->ShowState(Name,FString::Printf(TEXT("%s · %d × %d × %d cm"),Shape,Size.X,Size.Y,Size.Z),
-        FeedbackTime>0?Feedback:TargetMessage,bCanPlace,BuildWorld->BlockCount());
+        FeedbackTime>0?Feedback:TargetMessage,FeedbackTime>0?bFeedbackValid:bCanPlace,BuildWorld->BlockCount(),bSnapEnabled);
 }
 
 void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
@@ -190,6 +236,6 @@ void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
 void UVoxelBuildComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
     SetBuildMode(false);
-    if(Preview)Preview->DestroyComponent();if(Widget)Widget->RemoveFromParent();
+    if(PreviewActor)PreviewActor->Destroy();if(Widget)Widget->RemoveFromParent();
     Super::EndPlay(Reason);
 }

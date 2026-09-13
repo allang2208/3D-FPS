@@ -2,6 +2,8 @@
 
 用户指定最小单元为 20 × 20 cm，本次按立方体解释为 20 × 20 × 20 cm。`wood`、`stone` 是材料类型；墙、地板是同一材料的使用方式。当前阶段为单机自由建造原型，材料不限量，不改现有背包或伪装为已经完成 Crafting。
 
+预览、F 完全自由放置、v2 存档及旧 Godot 支撑规则的最新接入见[预览与承重说明](placement-support-20260913.md)。
+
 ## 架构与职责
 
 沿用 FPSGAME 运行模块，依赖现有 GeometryCore／GeometryFramework、UMG／Slate。结构为 PlayerController → VoxelBuildComponent → VoxelBuildWorld → 体素分块；显示控件只读取建造组件。材料资源由 VoxelBuildPalette 提供，不依赖 EBS 的角色、GameMode 或背包。
@@ -9,7 +11,7 @@
 | 所有者 | 责任／接口 |
 | --- | --- |
 | `UVoxelBuildPalette` | 稳定材料 ID、名称、PBR 材质、20 cm 示例网格与放置预览材质 |
-| `AVoxelBuildWorld` | 20 cm 整数坐标、16³ 单元分块、网格碰撞与圆滑表面、编辑、撤销、保存 |
+| `AVoxelBuildWorld` | 20 cm 局部格坐标与自由原点、16³ 分块、网格碰撞与圆滑表面、支撑、编辑、撤销、保存 |
 | `VoxelSurface`／`UVoxelSurfaceLibrary` | 相邻体素整体轮廓的平滑表面；运行建筑与示例资产共用生成器 |
 | `UVoxelBuildComponent` | 本地玩家生命周期、射线选格、刷子、输入拦截、状态提示 |
 | `UVoxelBuildWidget` | 当前材料、刷子尺寸、放置状态、自由建造标识与按键说明 |
@@ -19,7 +21,8 @@
 ## 行为范围
 
 - 单格、1 m 地板、1 m 墙面刷子；墙面可 90° 旋转。每次确认作为一个编辑记录，支持撤销。
-- 放置预览与实际提交共用选格和合法性逻辑，拒绝重复占格及与角色重叠；新结构须连接现有体素或接触场景支撑面。
+- 放置预览与实际提交共用位置和合法性逻辑，拒绝建筑／角色重叠；新结构须存在通往真实地基的支撑路径，横向累计跨度默认不超过 2 米。拆除与撤销会检查剩余结构。
+- 默认体素吸附；F 关闭后按连续世界位置放置，允许偏离世界 20 cm 网格。自由体积内部仍是 20 cm 单元，吸附到自由建筑时沿用该建筑的原点。
 - 删除只处理本系统创建的体素，不挖原场景地形。首版不做悬空结构坍塌、大范围自由曲面塑形、家具、Crafting 配方或生产队列。
 - 用世界坐标连续铺设 PBR 纹理；邻接块不保留内部面，跨分块边界编辑会刷新相邻分块。建筑碰撞响应 Visibility，供天气遮雨与枪械射线使用。
 - 建筑保存独立于玩家背包：玩家档案 + 地图身份；丘陵再加入 WorldId。采用版本化、明确 20 cm 格距的独立存档，不改丘陵种子档。编辑先保存后公布，保存失败撤销本次修改。
@@ -50,6 +53,7 @@
 | 操作 | 按键 |
 | --- | --- |
 | 进入／退出建造 | V；Esc 也可退出 |
+| 体素吸附／完全自由位置 | F；每次进入建造默认开启吸附 |
 | 木材／石头 | 1／2 |
 | 单格／1 m 地板／1 m 墙面 | 鼠标滚轮 |
 | 旋转墙面 | R |
@@ -66,11 +70,16 @@
 - `SM_Voxel20_Wood`、`SM_Voxel20_Stone`：20 cm 示例静态网格及简单碰撞。
 - `M_Voxel_Wood`、`M_Voxel_Stone`：木纹／石面贴图、法线、粗糙度；世界坐标连续投射，接入 `MPC_FPS_Weather.WeatherWetness`。
 - `M_Voxel_Preview`：20 cm 网格线与有效／受阻颜色的半透明放置预览。
+- `M_Voxel_PlacementPreview`：当前运行使用的清晰红绿填充与网格预览，绑定独立可见 Actor。
 - `DA_VoxelBuildPalette`：稳定 ID 为 `wood`、`stone` 的材料定义，运行组件默认引用它。
 
 `Tools/Building/import_ebs.ps1` 可从下载目录导入参考库；目标已存在时保留现有内容。编译 Editor 目标后，用 `Tools/Building/create_voxel_assets.py` 在 UE Python 中生成本项目体素资产；需要已有 Normandy 贴图与天气参数集合。作者脚本只保存本次资产，不保存地图或其他脏包。资源制作记录留在 `Saved/VoxelFoundation20260913/authoring.json`；EBS 数据表来源摘录在同目录 `ebs-definitions.json`。
 
+`Tools/Building/create_build_preview.py` 单独生成当前放置预览材质，不需要 EBS、Normandy 或游戏模块。必要时可在临时 UE 制作宿主中生成相同 `/Game/Building/Voxels/Rounded` 包路径，再导入工程；本轮使用该方式完成材质制作，记录在 `Saved/VoxelPlacementSupport20260913`。
+
 ## 交付状态
+
+预览、自由放置与支撑图升级已完成必要编译，最终模块为 `UnrealEditor-FPSGAME-913603.dll`，预览材质已生成并导入。新状态以[本轮说明](placement-support-20260913.md)为准，未运行游戏或渲染测试。
 
 圆角升级的 Editor 目标编译完成，输出模块 `UnrealEditor-FPSGAME-913522.dll`。资源作者脚本已执行成功并保存 Rounded 目录的木材、石头、预览和调色板资源。该 commandlet 进程仍因工程已有的 GameFeatureData 配置条目错误返回 1；这与 Python 作者脚本的成功结果分开记录，本次未修改全局插件设置。编译及作者脚本记录位于 `Saved/VoxelRoundedEdges20260913`。
 

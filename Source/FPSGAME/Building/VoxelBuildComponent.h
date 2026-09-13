@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "VoxelBuildTypes.h"
 #include "VoxelBuildComponent.generated.h"
 
 class AVoxelBuildWorld;
@@ -22,6 +23,7 @@ public:
     UFUNCTION(BlueprintCallable,Category="Building") void SetBuildMode(bool Enabled);
     UFUNCTION(BlueprintCallable,Category="Building") void SelectMaterial(FName Id);
     UFUNCTION(BlueprintPure,Category="Building") bool IsBuilding() const { return bActive; }
+    UFUNCTION(BlueprintPure,Category="Building") bool IsSnapEnabled() const { return bSnapEnabled; }
     bool HandleInput(const FInputKeyEventArgs& Event,bool bMenuOpen);
 
 protected:
@@ -31,9 +33,13 @@ private:
     UPROPERTY() TObjectPtr<AVoxelBuildWorld> BuildWorld;
     UPROPERTY() TObjectPtr<UVoxelBuildWidget> Widget;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> Preview;
+    UPROPERTY() TObjectPtr<AActor> PreviewActor;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> PreviewMID;
     FName SelectedMaterial=TEXT("wood");
     FHitResult Hit;
+    FVoxelBuildKey HitCell;
+    FGuid PlacementVolume;
+    FVector PlacementOrigin=FVector::ZeroVector;
     TArray<FIntVector> Placement;
     TArray<FIntVector> Removal;
     FString TargetMessage;
@@ -44,6 +50,8 @@ private:
     bool bInitializeFailed=false;
     bool bActive=false;
     bool bCanPlace=false;
+    bool bFeedbackValid=false;
+    bool bSnapEnabled=true;
     bool bRotate=false;
     bool bUndoModifier=false;
     int32 Brush=0;
