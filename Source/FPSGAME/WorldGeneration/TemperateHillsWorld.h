@@ -17,6 +17,7 @@ class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UInstancedStaticMeshComponent;
 class ACameraActor;
+class UPrimitiveComponent;
 struct FTemperateHillsStreamingState;
 
 /** Curated environment references. No level/assembly imports from the source packs. */
@@ -69,6 +70,8 @@ public:
     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="96",ClampMax="256")) float DetailRadiusMeters = 160.f;
     UPROPERTY(EditAnywhere, Category="Hills|Streaming", meta=(ClampMin="256",ClampMax="512")) float ViewRadiusMeters = 384.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bReady = false;
+    // Allows the loading camera/pawn and PCG to prepare before gameplay is released.
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bSurfaceReady = false;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") FGuid WorldId;
     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
     double Height(double X, double Y) const;
@@ -88,6 +91,7 @@ private:
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> GroundMID;
     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Trunks;
     UPROPERTY() TObjectPtr<ACameraActor> AuditCamera;
+    UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> WarmupComponents;
     FString Slot;
     FString AuditDir;
     bool bAudit = false;
@@ -106,6 +110,7 @@ private:
     void TickStreaming();
     void EndStreaming();
     void LoadNextEnvironmentStage();
+    void TickPreparation();
     void ActivateVegetationLayer(int32 Layer);
     void BuildValleyFog();
     void ResolveSession();

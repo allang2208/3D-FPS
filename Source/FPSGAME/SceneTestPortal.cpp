@@ -14,6 +14,8 @@
 #include "UObject/ConstructorHelpers.h"
 #include "TimerManager.h"
 #include "InputCoreTypes.h"
+#include "UI/TransitLoadingSubsystem.h"
+#include "Engine/GameInstance.h"
 
 namespace ScenePortalMaps
 {
@@ -81,6 +83,8 @@ void ASceneTestPortal::UsePortal()
         return;
     }
     bTravelling = true;
+    if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+        Loading->BeginTransition(Destination,FSimpleDelegate::CreateUObject(this,&ASceneTestPortal::CancelLoading));
     if (Destination == ScenePortalMaps::Hills)
     {
         Sign->SetText(FText::FromString(TEXT("Preparing hills...\n[Esc] Cancel")));
@@ -106,8 +110,10 @@ void ASceneTestPortal::FinishLoading()
 
 void ASceneTestPortal::CancelLoading()
 {
-    if (!PreloadHandle) return;
-    PreloadHandle->CancelHandle();PreloadHandle.Reset();bTravelling=false;
+    if (!bTravelling) return;
+    if(PreloadHandle){PreloadHandle->CancelHandle();PreloadHandle.Reset();}
+    bTravelling=false;
+    if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())Loading->CancelTransition();
     Sign->SetText(FText::FromString(DestinationLabel+TEXT("\n[E] Travel (within 2m)")));
 }
 
@@ -149,7 +155,8 @@ void USceneTestPortalSubsystem::SpawnPortals()
     TArray<FDestination> Destinations;
     if (Current == TEXT("L_TemperateHills_Initial"))
     {
-        // The hills GameMode releases the pawn only after terrain collision is ready.
+        // The loading pawn is created after ground collision; the transition UI
+        // keeps gameplay input blocked until the remaining preparation completes.
         Destinations.Add({ScenePortalMaps::Hub, TEXT("HOME / Main Map"), FString()});
     }
     else

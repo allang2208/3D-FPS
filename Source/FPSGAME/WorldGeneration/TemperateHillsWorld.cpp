@@ -1,5 +1,7 @@
 #include "TemperateHillsWorld.h"
 #include "TemperateHillsSurface.h"
+#include "../UI/TransitLoadingSubsystem.h"
+#include "Engine/GameInstance.h"
 #include "PCGComponent.h"
 #include "PCGGraph.h"
 #include "PCGWorldActor.h"
@@ -119,11 +121,18 @@ void ATemperateHillsWorld::ResolveSession()
 void ATemperateHillsWorld::BeginPlay()
 {
     Super::BeginPlay();
+    if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+        Loading->UpdatePreparation(FText::FromString(TEXT("正在准备温带丘陵…")),0);
     StartSeconds=FPlatformTime::Seconds();
     if(GetNetMode()!=NM_Standalone){UE_LOG(LogTemp,Error,TEXT("HILLS_V1 supports standalone only"));return;}
     ResolveSession();
     if(Slot.IsEmpty()||!Assets||Assets->GroundMaterial.IsNull()||Assets->Trees.IsEmpty()||Assets->Graphs.Num()!=4)
-    {UE_LOG(LogTemp,Error,TEXT("HILLS_ASSETS missing curated biome data"));return;}
+    {
+        UE_LOG(LogTemp,Error,TEXT("HILLS_ASSETS missing curated biome data"));
+        if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+            Loading->FailPreparation(FText::FromString(TEXT("世界数据无法读取，请返回主场景后重试。")));
+        return;
+    }
     SizeMeters=FMath::Clamp(FMath::RoundToFloat(SizeMeters/128)*128,256.f,1024.f);
     GenerationBounds->SetBoxExtent(FVector(SizeMeters*50,SizeMeters*50,50000));
     BeginStreaming();
@@ -378,7 +387,7 @@ void ATemperateHillsGameMode::RestartPlayer(AController* NewPlayer)
 {
     if(!IsValid(NewPlayer)||NewPlayer->GetPawn())return;
     for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
-        if(It->bReady){RestartPlayerAtTransform(NewPlayer,FTransform(FRotator(0,18,0),It->GetStartLocation()));return;}
+        if(It->bSurfaceReady){RestartPlayerAtTransform(NewPlayer,FTransform(FRotator(0,18,0),It->GetStartLocation()));return;}
     FTimerHandle Retry;
     GetWorldTimerManager().SetTimer(Retry,FTimerDelegate::CreateWeakLambda(this,[this,Weak=TWeakObjectPtr<AController>(NewPlayer)](){if(Weak.IsValid())RestartPlayer(Weak.Get());}),.15f,false);
 }

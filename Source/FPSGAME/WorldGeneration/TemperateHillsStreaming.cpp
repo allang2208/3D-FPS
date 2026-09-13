@@ -1,13 +1,16 @@
 #include "TemperateHillsWorld.h"
 #include "TemperateHillsSurface.h"
+#include "../UI/TransitLoadingSubsystem.h"
 #include "Async/Async.h"
 #include "Algo/AllOf.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Components/InstancedSkinnedMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
 #include "Engine/AssetManager.h"
+#include "Engine/GameInstance.h"
 #include "Engine/StreamableManager.h"
 #include "Engine/GameViewportClient.h"
 #include "Engine/World.h"
@@ -20,9 +23,16 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "HAL/IConsoleManager.h"
 #include "PCGGraph.h"
-#include "Widgets/Layout/SBorder.h"
-#include "Widgets/SOverlay.h"
-#include "Widgets/Text/STextBlock.h"
+#include "PCGComponent.h"
+#include "PCGGraphExecutionStateInterface.h"
+#include "Subsystems/PCGSubsystem.h"
+#include "ShaderPipelineCache.h"
+#include "ContentStreaming.h"
+#include "RenderCommandFence.h"
+#if WITH_EDITOR
+#include "AssetCompilingManager.h"
+#include "ShaderCompiler.h"
+#endif
 
 namespace HillsStreaming
 {
@@ -99,7 +109,6 @@ struct FTemperateHillsStreamingState
     TArray<TSharedPtr<FStreamableHandle>> Handles;
     TArray<HillsStreaming::FCVarOverride> CVars;
     TMap<int32,TWeakObjectPtr<AActor>> Fog;
-    TSharedPtr<SWidget> LoadingWidget;
     TWeakObjectPtr<ACharacter> HeldPawn;
     FText Status=FText::FromString(TEXT("正在准备出生区域…"));
     bool GroundReady=false;
@@ -109,8 +118,17 @@ struct FTemperateHillsStreamingState
     bool Stopping=false;
     bool Failed=false;
     TArray<FSoftObjectPath> CompilingPaths;
-    int32 PendingLayer=INDEX_NONE;
     int32 Stage=0;
+    int32 CompletedStages=0;
+    int32 ActivatedLayers=0;
+    int32 WarmupAsset=0;
+    int32 SettledFrames=0;
+    int32 InitialPCGTotal=0;
+    int32 InitialPCGReady=0;
+    bool ResourcesRetained=false;
+    bool WarmupRemoved=false;
+    FRenderCommandFence RenderFence;
+    double TextureWaitStart=0;
     double NextAssetTime=0;
     double NextFogTime=0;
     FIntPoint StartCell;
@@ -126,19 +144,11 @@ void ATemperateHillsWorld::BeginStreaming()
     const FVector Start=GetStartLocation();
     S.StartCell=FIntPoint(FMath::FloorToInt((Start.X+Half)/HillsStreaming::CellSize),FMath::FloorToInt((Start.Y+Half)/HillsStreaming::CellSize));
     // Apply only while this world exists; returning home restores previous budgets.
-    for(const auto& Setting:TArray<TPair<const TCHAR*,float>>{{TEXT("pcg.FrameTime"),2.f},{TEXT("pcg.RuntimeGeneration.NumGeneratingComponents"),2.f},{TEXT("pcg.RuntimeGeneration.BasePoolSize"),16.f}})
+    for(const auto& Setting:TArray<TPair<const TCHAR*,float>>{
+        {TEXT("pcg.FrameTime"),2.f},{TEXT("pcg.RuntimeGeneration.NumGeneratingComponents"),2.f},{TEXT("pcg.RuntimeGeneration.BasePoolSize"),16.f},
+        {TEXT("s.AsyncLoadingTimeLimit"),2.f},{TEXT("s.LevelStreamingActorsUpdateTimeLimit"),2.f},{TEXT("s.UnregisterComponentsTimeLimit"),1.f}})
         if(auto* C=IConsoleManager::Get().FindConsoleVariable(Setting.Key))
         {S.CVars.Add({C,C->GetFloat(),Setting.Value});C->Set(Setting.Value,ECVF_SetByCode);}
-    const TWeakObjectPtr<ATemperateHillsWorld> Weak(this);
-    if(auto* Viewport=GetWorld()->GetGameViewport())
-    {
-        S.LoadingWidget=SNew(SOverlay)+SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Bottom).Padding(24,0,0,130)
-            [SNew(SBorder).Padding(14).BorderBackgroundColor(FLinearColor(.015,.025,.02,.85))
-                .Visibility_Lambda([Weak](){return Weak.IsValid()&&Weak->Streaming&&(!Weak->bReady||Weak->Streaming->LoadingAssets||Weak->Streaming->Stage<8||Weak->Streaming->HeldPawn.IsValid()||Weak->Streaming->Failed)?EVisibility::HitTestInvisible:EVisibility::Collapsed;})
-                [SNew(STextBlock).ColorAndOpacity(FLinearColor(.8,1,.85,1))
-                    .Text_Lambda([Weak](){return Weak.IsValid()&&Weak->Streaming?Weak->Streaming->Status:FText::GetEmpty();})]];
-        Viewport->AddViewportWidgetContent(S.LoadingWidget.ToSharedRef(),30);
-    }
     S.LoadingAssets=true;
     S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(Assets->GroundMaterial.ToSoftObjectPath(),FStreamableDelegate::CreateWeakLambda(this,[this]()
     {
@@ -146,14 +156,19 @@ void ATemperateHillsWorld::BeginStreaming()
         Streaming->LoadingAssets=false;
         if(auto* Ground=Assets->GroundMaterial.Get())
         {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);Streaming->GroundReady=true;}
-        else{Streaming->Failed=true;Streaming->Status=FText::FromString(TEXT("地面资源加载失败，请返回主场景。"));}
+        else
+        {
+            Streaming->Failed=true;
+            if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+                Loading->FailPreparation(FText::FromString(TEXT("地面资源加载失败，请返回主场景。")));
+        }
     })));
 }
 
 void ATemperateHillsWorld::LoadNextEnvironmentStage()
 {
     auto& S=*Streaming;
-    if(S.LoadingAssets||S.Stage>=8||GetWorld()->GetTimeSeconds()<S.NextAssetTime)return;
+    if(S.LoadingAssets||S.Failed||S.Stage>=8||GetWorld()->GetTimeSeconds()<S.NextAssetTime)return;
     const int32 Stage=S.Stage++;
     TArray<FSoftObjectPath> Paths;
     const int32 Layer=Stage==0?3:(Stage==1?2:(Stage==2?1:0));
@@ -170,7 +185,7 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
         const int32 Variant=Stage-3;
         if(Assets->Trees.IsValidIndex(Variant))Paths.Add(Assets->Trees[Variant].ToSoftObjectPath());
         if(Stage==3){Paths.Add(Assets->Graphs[0].ToSoftObjectPath());Paths.Add(Assets->TrunkCollisionMesh.ToSoftObjectPath());}
-        S.Status=FText::FromString(FString::Printf(TEXT("正在载入黑杨 %d/4，可在附近活动…"),Variant+1));
+        S.Status=FText::FromString(FString::Printf(TEXT("正在准备黑杨 %d/4…"),Variant+1));
     }
     else
     {
@@ -182,19 +197,25 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
     S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this,Stage,Layer,Paths]()
     {
         if(!Streaming||Streaming->Stopping)return;
-        auto& State=*Streaming;State.LoadingAssets=false;State.NextAssetTime=GetWorld()->GetTimeSeconds()+.5;
+        auto& State=*Streaming;State.LoadingAssets=false;State.NextAssetTime=GetWorld()->GetTimeSeconds();
         State.CompilingPaths=Paths;
+        State.Failed=Paths.ContainsByPredicate([](const FSoftObjectPath& Path){return !Path.ResolveObject();});
+        if(State.Failed)
+        {
+            State.Status=FText::FromString(TEXT("环境资源未能载入，请返回主场景后重试。"));
+            UE_LOG(LogTemp,Error,TEXT("HILLS_PREP asset stage %d failed"),Stage);
+            return;
+        }
         if(Stage<3)
         {
             const bool Ready=Stage==0?HillsStreaming::Loaded(Assets->Grass):Stage==1?HillsStreaming::Loaded(Assets->Shrubs):HillsStreaming::Loaded(Assets->Rocks);
-            if(Ready&&Assets->Graphs[Layer].IsValid())State.PendingLayer=Layer;
-            else UE_LOG(LogTemp,Error,TEXT("HILLS_STREAM layer %d asset load failed"),Layer);
+            State.Failed=!(Ready&&Assets->Graphs[Layer].IsValid());
         }
         else if(Stage==6)
         {
             if(HillsStreaming::Loaded(Assets->Trees)&&Assets->Graphs[0].IsValid())
-            {State.PendingLayer=0;}
-            else UE_LOG(LogTemp,Error,TEXT("HILLS_STREAM tree asset load failed"));
+            {}
+            else State.Failed=true;
         }
         else if(Stage==7)State.FogReady=Assets->ValleyFogClass.IsValid()&&Assets->ValleyFogMaterial.IsValid();
     })));
@@ -219,7 +240,7 @@ void ATemperateHillsWorld::TickStreaming()
     auto Wanted=[&](FIntPoint K,bool& Detailed)
     {
         if(K.X<0||K.Y<0||K.X>=Count||K.Y>=Count)return false;
-        if(!bReady){Detailed=true;return IsStart(K);}
+        if(!bSurfaceReady){Detailed=true;return IsStart(K);}
         const auto* Existing=S.Cells.Find(K);
         const double FineRadius=DetailRadiusMeters*100+(Existing&&Existing->Detailed?Size:0);
         Detailed=DistanceSquared(K)<=FMath::Square(FineRadius);
@@ -286,7 +307,7 @@ void ATemperateHillsWorld::TickStreaming()
         Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed);});
         S.Jobs.Add(MoveTemp(Job));
     }
-    if(!bReady)
+    if(!bSurfaceReady)
     {
         int32 Ready=0,Required=0;
         for(int32 Y=S.StartCell.Y-1;Y<=S.StartCell.Y+1;++Y)for(int32 X=S.StartCell.X-1;X<=S.StartCell.X+1;++X)
@@ -294,40 +315,23 @@ void ATemperateHillsWorld::TickStreaming()
             if(X<0||Y<0||X>=Count||Y>=Count)continue;
             ++Required;const auto* Cell=S.Cells.Find(FIntPoint(X,Y));if(Cell&&Cell->Mesh.IsValid()&&Cell->Detailed)++Ready;
         }
-        S.Status=FText::FromString(FString::Printf(TEXT("正在生成出生区域 %d/%d…"),Ready,Required));
+        if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+            Loading->UpdatePreparation(FText::FromString(FString::Printf(TEXT("正在生成出生区域 %d/%d…"),Ready,Required)),.1f*Ready/FMath::Max(1,Required));
         if(Ready==Required&&Required>0)
         {
-            bReady=true;S.NextAssetTime=GetWorld()->GetTimeSeconds()+1;
-            AuditNext=GetWorld()->GetTimeSeconds()+24;
-            UE_LOG(LogTemp,Display,TEXT("HILLS_READY seed=%d world=%s startup_cells=%d startup_ms=%.2f"),Seed,*WorldId.ToString(),Ready,(FPlatformTime::Seconds()-StartSeconds)*1000);
+            bSurfaceReady=true;
+            UE_LOG(LogTemp,Display,TEXT("HILLS_SURFACE_READY seed=%d startup_cells=%d ms=%.2f"),Seed,Ready,(FPlatformTime::Seconds()-StartSeconds)*1000);
         }
         return;
     }
-    bool Compiling=false;
-#if WITH_EDITOR
-    // Async package completion does not imply Nanite/skinned render-data completion.
-    // Never let the PCG spawner force FinishCompilation on the game thread.
-    for(const auto& Path:S.CompilingPaths)
-    {
-        if(auto* Mesh=Cast<USkeletalMesh>(Path.ResolveObject()))Compiling|=Mesh->IsCompiling();
-        if(auto* Mesh=Cast<UStaticMesh>(Path.ResolveObject()))Compiling|=Mesh->IsCompiling();
-    }
-#endif
-    if(Compiling)S.Status=FText::FromString(TEXT("正在准备植被渲染数据，可在附近活动…"));
-    else
-    {
-        S.CompilingPaths.Reset();
-        if(S.PendingLayer!=INDEX_NONE)
-        {ActivateVegetationLayer(S.PendingLayer);if(S.PendingLayer==0)S.TreesActive=true;S.PendingLayer=INDEX_NONE;}
-        LoadNextEnvironmentStage();
-    }
+    if(!bReady)TickPreparation();
     // Guard an uncooked frontier or a teleport while its local collision catches up.
     if(Pawn)
     {
         const FVector Probe=Pawn->GetActorLocation()+Pawn->GetVelocity()*.35;
         const FIntPoint K(FMath::FloorToInt((Probe.X+Half)/Size),FMath::FloorToInt((Probe.Y+Half)/Size));
         const auto* Cell=S.Cells.Find(K);
-        const bool Ready=Cell&&Cell->Detailed&&Cell->Mesh.IsValid();
+        const bool Ready=bReady&&Cell&&Cell->Detailed&&Cell->Mesh.IsValid();
         auto* Move=Pawn->GetCharacterMovement();
         if(!Ready&&!S.HeldPawn.IsValid())
         {Move->StopMovementImmediately();Move->DisableMovement();S.HeldPawn=Pawn;}
@@ -352,6 +356,154 @@ void ATemperateHillsWorld::TickStreaming()
         T->AddInstances(Transforms,false,true,false);Cell.Trunks=T;break;
     }
     if(S.FogReady&&GetWorld()->GetTimeSeconds()>=S.NextFogTime){BuildValleyFog();S.NextFogTime=GetWorld()->GetTimeSeconds()+.5;}
+}
+
+void ATemperateHillsWorld::TickPreparation()
+{
+    auto& S=*Streaming;
+    auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
+    auto Report=[&](const FText& Text,float Progress){if(Loading)Loading->UpdatePreparation(Text,Progress);};
+    if(S.Failed)
+    {
+        if(Loading)Loading->FailPreparation(FText::FromString(TEXT("环境资源未能准备完成，请返回主场景后重试。")));
+        return;
+    }
+    // Includes assembly children and shader jobs, not just the top-level four trees.
+    // In uncooked -game builds the editor's usual compilation tick may be absent.
+    int32 RemainingAssets=0,RemainingShaders=0;
+#if WITH_EDITOR
+    FAssetCompilingManager::Get().ProcessAsyncTasks(true);
+    RemainingAssets=FAssetCompilingManager::Get().GetNumRemainingAssets();
+    if(GShaderCompilingManager)RemainingShaders=GShaderCompilingManager->GetNumRemainingJobs();
+#endif
+    if(RemainingAssets>0||RemainingShaders>0)
+    {
+        Report(FText::FromString(FString::Printf(TEXT("正在准备渲染资源：%d 项，着色器：%d 项…"),RemainingAssets,RemainingShaders)),.1f+.6f*S.CompletedStages/8);
+        return;
+    }
+    if(!S.LoadingAssets&&!S.CompilingPaths.IsEmpty())
+    {
+        S.CompilingPaths.Reset();S.CompletedStages=S.Stage;
+        UE_LOG(LogTemp,Display,TEXT("HILLS_PREP resources=%d/8 elapsed=%.2fs"),S.CompletedStages,FPlatformTime::Seconds()-StartSeconds);
+    }
+    if(S.CompletedStages<8)
+    {
+        LoadNextEnvironmentStage();
+        Report(S.Status,.1f+.6f*S.CompletedStages/8);
+        return;
+    }
+    if(!S.ResourcesRetained&&Loading){Loading->RetainBiomeResources(S.Handles);S.ResourcesRetained=true;}
+    if(!UGameplayStatics::GetPlayerPawn(this,0))
+    {Report(FText::FromString(TEXT("正在准备角色与视野…")),.7f);return;}
+
+    // Register one small sample per asset/frame under the opaque loading overlay.
+    // Use the same instanced vertex factories as PCG, including all four tree variants.
+    const int32 TreeCount=Assets->Trees.Num();
+    TArray<TSoftObjectPtr<UStaticMesh>> StaticAssets=Assets->Rocks;
+    StaticAssets.Append(Assets->Shrubs);StaticAssets.Append(Assets->Grass);
+    const int32 AssetCount=TreeCount+StaticAssets.Num();
+    if(S.WarmupAsset<AssetCount)
+    {
+        const int32 Index=S.WarmupAsset++;
+        UPrimitiveComponent* Sample=nullptr;
+        if(Index<TreeCount)
+        {
+            auto* C=NewObject<UInstancedSkinnedMeshComponent>(this);
+            C->SetSkinnedAsset(Assets->Trees[Index].Get());C->AddInstance(FTransform::Identity,0);
+            Sample=C;
+        }
+        else
+        {
+            auto* C=NewObject<UInstancedStaticMeshComponent>(this);
+            C->SetStaticMesh(StaticAssets[Index-TreeCount].Get());C->AddInstance(FTransform::Identity);
+            Sample=C;
+        }
+        AddInstanceComponent(Sample);Sample->SetupAttachment(RootComponent);
+        Sample->SetRelativeLocation(GetStartLocation()+FVector(4000,(Index-AssetCount*.5)*600,-100));
+        Sample->SetCollisionEnabled(ECollisionEnabled::NoCollision);Sample->SetCanEverAffectNavigation(false);
+        Sample->RegisterComponent();Sample->PrecachePSOs();WarmupComponents.Add(Sample);
+        Report(FText::FromString(TEXT("正在准备植被显示…")),.7f+.04f*S.WarmupAsset/FMath::Max(1,AssetCount));
+        return;
+    }
+    if(S.ActivatedLayers<4)
+    {
+        const int32 Layer=S.ActivatedLayers++;
+        ActivateVegetationLayer(Layer);if(Layer==0)S.TreesActive=true;
+        Report(FText::FromString(TEXT("正在布置出生区域植被…")),.75f);
+        return;
+    }
+
+    // Count the actual grid cells the runtime scheduler must generate around the
+    // loading pawn's view. Missing cells count as pending, so an empty queue cannot
+    // falsely release the player before the scheduler discovers those cells.
+    FVector Center=GetStartLocation();FRotator Rotation;
+    if(auto* PC=UGameplayStatics::GetPlayerController(this,0))PC->GetPlayerViewPoint(Center,Rotation);
+    Center.Z=0;
+    constexpr uint32 Grids[]={6400,6400,3200,1600};
+    int32 Required=0,Complete=0;
+    const double Half=SizeMeters*50;
+    for(int32 Layer=0;Layer<4;++Layer)
+    {
+        const uint32 Grid=Grids[Layer];
+        auto& State=PCGLayers[Layer]->GetExecutionState();
+        const double Radius=State.GetGenerationRadiusFromGrid(Grid);
+        const FPCGGridDescriptor Descriptor=FPCGGridDescriptor().SetGridSize(Grid).SetIs2DGrid(true).SetIsRuntime(true);
+        const int32 MinX=FMath::FloorToInt(FMath::Max(-Half,Center.X-Radius)/Grid);
+        const int32 MaxX=FMath::FloorToInt(FMath::Min(Half-1,Center.X+Radius)/Grid);
+        const int32 MinY=FMath::FloorToInt(FMath::Max(-Half,Center.Y-Radius)/Grid);
+        const int32 MaxY=FMath::FloorToInt(FMath::Min(Half-1,Center.Y+Radius)/Grid);
+        for(int32 Y=MinY;Y<=MaxY;++Y)for(int32 X=MinX;X<=MaxX;++X)
+        {
+            const double DX=FMath::Max(0.0,FMath::Abs(Center.X-(X+.5)*Grid)-Grid*.5);
+            const double DY=FMath::Max(0.0,FMath::Abs(Center.Y-(Y+.5)*Grid)-Grid*.5);
+            if(DX*DX+DY*DY>Radius*Radius)continue;
+            ++Required;
+            if(auto* Local=State.GetLocalSource(Descriptor,FIntVector(X,Y,0)))
+                if(Local->GetExecutionState().IsGenerated()&&!Local->GetExecutionState().IsGenerating())++Complete;
+        }
+    }
+    S.InitialPCGTotal=Required;S.InitialPCGReady=Complete;
+    if(Required==0||Complete<Required)
+    {
+        S.SettledFrames=0;
+        Report(FText::FromString(FString::Printf(TEXT("正在布置附近植被 %d/%d…"),Complete,Required)),.75f+.15f*Complete/FMath::Max(1,Required));
+        return;
+    }
+    // Build the initial view ring and trunk collision before release. Subsequent
+    // movement still uses two terrain jobs and one mesh/trunk submission per frame.
+    const int32 Count=FMath::RoundToInt(SizeMeters*100/HillsStreaming::CellSize);
+    bool TerrainPending=!S.Jobs.IsEmpty();
+    for(int32 Y=0;Y<Count;++Y)for(int32 X=0;X<Count;++X)
+    {
+        const double DX=FMath::Max(0.0,FMath::Abs(Center.X+Half-(X+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
+        const double DY=FMath::Max(0.0,FMath::Abs(Center.Y+Half-(Y+.5)*HillsStreaming::CellSize)-HillsStreaming::CellSize*.5);
+        const double D=DX*DX+DY*DY;
+        if(D>FMath::Square(ViewRadiusMeters*100.0))continue;
+        const auto* Cell=S.Cells.Find(FIntPoint(X,Y));
+        TerrainPending|=!Cell||!Cell->Mesh.IsValid()||Cell->Pending.IsValid();
+        if(Cell&&D<=FMath::Square(9600.0))TerrainPending|=!Cell->Trunks.IsValid();
+    }
+    if(TerrainPending)
+    {S.SettledFrames=0;Report(FText::FromString(TEXT("正在准备视野内地形与树干碰撞…")),.91f);return;}
+
+    const uint32 PSOs=FShaderPipelineCache::NumPrecompilesRemaining();
+    if(PSOs>0)
+    {S.SettledFrames=0;Report(FText::FromString(FString::Printf(TEXT("正在准备显示效果：剩余 %u 项…"),PSOs)),.93f);return;}
+    if(S.TextureWaitStart==0)S.TextureWaitStart=FPlatformTime::Seconds();
+    // Streaming textures obey the VRAM budget. Don't demand all top mips resident
+    // forever on machines where the pool cannot contain them.
+    if(IStreamingManager::Get().GetNumWantingResources()>0&&FPlatformTime::Seconds()-S.TextureWaitStart<10)
+    {Report(FText::FromString(TEXT("正在细化附近纹理…")),.95f);return;}
+    if(!WarmupComponents.IsEmpty())
+    {
+        auto* C=WarmupComponents.Pop().Get();RemoveInstanceComponent(C);C->DestroyComponent();
+        Report(FText::FromString(TEXT("正在完成场景准备…")),.98f);return;
+    }
+    if(!S.WarmupRemoved){S.WarmupRemoved=true;S.RenderFence.BeginFence();return;}
+    if(!S.RenderFence.IsFenceComplete()||++S.SettledFrames<3)return;
+    bReady=true;AuditNext=GetWorld()->GetTimeSeconds()+24;
+    if(Loading)Loading->CompletePreparation();
+    UE_LOG(LogTemp,Display,TEXT("HILLS_READY seed=%d world=%s pcg_cells=%d/%d preparation_ms=%.2f"),Seed,*WorldId.ToString(),Complete,Required,(FPlatformTime::Seconds()-StartSeconds)*1000);
 }
 
 void ATemperateHillsWorld::BuildValleyFog()
@@ -385,8 +537,8 @@ void ATemperateHillsWorld::EndStreaming()
 {
     if(!Streaming)return;
     auto& S=*Streaming;S.Stopping=true;
-    for(auto& H:S.Handles)if(H){H->CancelHandle();H->ReleaseHandle();}
-    if(S.LoadingWidget)if(auto* Viewport=GetWorld()->GetGameViewport())Viewport->RemoveViewportWidgetContent(S.LoadingWidget.ToSharedRef());
+    // Completed handles transferred to the GameInstance keep the curated biome cached.
+    if(!S.ResourcesRetained)for(auto& H:S.Handles)if(H){H->CancelHandle();H->ReleaseHandle();}
     for(auto& C:S.CVars)if(FMath::IsNearlyEqual(C.Variable->GetFloat(),C.Applied))C.Variable->Set(C.Previous,ECVF_SetByCode);
     // Pending numerical jobs contain no actor references and may finish after unload.
     Streaming.Reset();

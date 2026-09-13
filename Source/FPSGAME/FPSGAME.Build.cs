@@ -27,6 +27,8 @@ public class FPSGAME : ModuleRules
         });
         RuntimeDependencies.Add("$(ProjectDir)/Content/ColdSteelData/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("AudioMixer");
+        PrivateDependencyModuleNames.Add("MoviePlayer");
+        RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("PhysicsCore");
         PrivateDependencyModuleNames.Add("AnimationCore");
         PrivateDependencyModuleNames.AddRange(new[] { "RenderCore", "RHI" });

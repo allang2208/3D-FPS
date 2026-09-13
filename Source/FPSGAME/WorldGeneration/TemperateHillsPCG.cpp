@@ -17,7 +17,7 @@ protected:
         auto* Component = Cast<UPCGComponent>(Context->ExecutionSource.Get());
         auto* Original = Component ? Component->GetOriginalComponent() : nullptr;
         auto* World = Original ? Cast<ATemperateHillsWorld>(Original->GetOwner()) : nullptr;
-        if (!World || !World->bReady) return true;
+        if (!World || !World->bSurfaceReady) return true;
         const auto* Settings = Context->GetInputSettings<UTemperateHillsPointsSettings>();
         TArray<FTemperatePlacement> Placements;
         World->GetPlacements(Settings->Layer, Component->GetGridBounds(), Placements);
