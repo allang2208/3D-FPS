@@ -42,7 +42,8 @@ void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),SavedData)||
            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),VisualData))continue;
         bool Changed=false;
-        for(const TCHAR* Key:{TEXT("tool_mesh"),TEXT("tool_scale"),TEXT("mount_pitch"),TEXT("mount_yaw"),TEXT("mount_roll")})
+        for(const TCHAR* Key:{TEXT("tool_mesh"),TEXT("tool_scale"),TEXT("mount_pitch"),TEXT("mount_yaw"),TEXT("mount_roll"),
+            TEXT("tool_viewmodel"),TEXT("tool_animation_prefix"),TEXT("tool_swing_sound")})
         {
             const auto* Value=VisualData->Values.Find(Key);if(!Value)continue;
             const auto* OldValue=SavedData->Values.Find(Key);

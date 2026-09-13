@@ -4,6 +4,9 @@
     "grid_w": 2, "grid_h": 3, "ue_icon": "ProductionTools/axe.png",
     "desc": "用于砍伐温带丘陵的树木。6 装备，左键挥动，F7 收起；三次有效命中获得木材。",
     "tool_mesh": "/Game/Items/ProductionTools/FreeFab20260913/Axe/SM_Free_Axe.SM_Free_Axe",
+    "tool_viewmodel": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
+    "tool_animation_prefix": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_",
+    "tool_swing_sound": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing",
     "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Chopping/SC_Hatchet_Hit.SC_Hatchet_Hit",
     "swing_seconds": 0.68, "contact_seconds": 0.24, "tool_scale": 1.0,
     "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18
@@ -13,6 +16,9 @@
     "grid_w": 2, "grid_h": 3, "ue_icon": "ProductionTools/pickaxe.png",
     "desc": "用于开采温带丘陵的独立岩块与矿石。7 装备，左键挥动，F7 收起；材料进入正式背包。",
     "tool_mesh": "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/SM_Free_Pickaxe.SM_Free_Pickaxe",
+    "tool_viewmodel": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Pickaxe.SK_Harvest_Pickaxe",
+    "tool_animation_prefix": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Pickaxe_",
+    "tool_swing_sound": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing",
     "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Mining/SC_Pickaxe_Hit.SC_Pickaxe_Hit",
     "swing_seconds": 0.68, "contact_seconds": 0.24, "tool_scale": 1.0,
     "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18
