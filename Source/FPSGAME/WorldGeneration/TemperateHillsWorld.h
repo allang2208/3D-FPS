@@ -20,6 +20,7 @@ class UInstancedStaticMeshComponent;
 class ACameraActor;
 class UPrimitiveComponent;
 class UTexture2D;
+class UVolumetricCloudComponent;
 struct FTemperateHillsStreamingState;
 struct FTemperateBackdropState;
 
@@ -46,6 +47,9 @@ public:
     UPROPERTY(EditAnywhere, Category="River") TSoftObjectPtr<UMaterialInterface> RiverMaterial;
     UPROPERTY(EditAnywhere, Category="River") TArray<TSoftObjectPtr<UStaticMesh>> RiverRocks;
     UPROPERTY(EditAnywhere, Category="Backdrop") TSoftObjectPtr<UMaterialInterface> BackdropMaterial;
+    // Native default also upgrades existing biome assets that predate this field.
+    UPROPERTY(EditAnywhere, Category="Sky") TSoftObjectPtr<UMaterialInterface> SkyCloudMaterial =
+        TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/Sky/MI_HillsClouds.MI_HillsClouds")));
     UPROPERTY(EditAnywhere, Category="Fog", meta=(ClampMin="0",ClampMax="1")) float ValleyFogDensity = .32f;
 };
 
@@ -106,6 +110,7 @@ private:
     UPROPERTY() TObjectPtr<UTexture2D> BackdropColor;
     UPROPERTY() TObjectPtr<UTexture2D> BackdropCoverage;
     UPROPERTY() TArray<TObjectPtr<UDynamicMeshComponent>> BackdropMeshes;
+    UPROPERTY() TObjectPtr<UVolumetricCloudComponent> HillsClouds;
     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Trunks;
     UPROPERTY() TObjectPtr<ACameraActor> AuditCamera;
     UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> WarmupComponents;
@@ -134,6 +139,8 @@ private:
     void ActivateVegetationLayer(int32 Layer);
     void BuildValleyFog();
     void TickBackdrop();
+    void BeginSkyClouds();
+    void ActivateSkyClouds();
     bool IsBackdropReady() const;
     void SetBackdropCellVisible(FIntPoint Cell, bool Visible);
     void EndBackdrop();

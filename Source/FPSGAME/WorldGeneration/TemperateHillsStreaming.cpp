@@ -153,6 +153,7 @@ struct FTemperateHillsStreamingState
 void ATemperateHillsWorld::BeginStreaming()
 {
     Streaming=MakeShared<FTemperateHillsStreamingState>();
+    BeginSkyClouds();
     auto& S=*Streaming;
     DetailRadiusMeters=FMath::Clamp(DetailRadiusMeters,96.f,256.f);
     ViewRadiusMeters=FMath::Clamp(ViewRadiusMeters,DetailRadiusMeters+96.f,512.f);
@@ -175,18 +176,22 @@ void ATemperateHillsWorld::BeginStreaming()
     TArray<FSoftObjectPath> SurfacePaths={Assets->GroundMaterial.ToSoftObjectPath()};
     if(!Assets->RiverMaterial.IsNull())SurfacePaths.Add(Assets->RiverMaterial.ToSoftObjectPath());
     if(!Assets->BackdropMaterial.IsNull())SurfacePaths.Add(Assets->BackdropMaterial.ToSoftObjectPath());
+    // The cloud component uses a soft material in UE 5.8. Retain and
+    // prepare that material under loading, before a later weather transition.
+    if(!Assets->SkyCloudMaterial.IsNull())SurfacePaths.Add(Assets->SkyCloudMaterial.ToSoftObjectPath());
     S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(SurfacePaths,FStreamableDelegate::CreateWeakLambda(this,[this]()
     {
         if(!Streaming||Streaming->Stopping)return;
         Streaming->LoadingAssets=false;
         if(auto* Ground=Assets->GroundMaterial.Get();Ground&&(Assets->RiverMaterial.IsNull()||Assets->RiverMaterial.IsValid())&&
-            (Assets->BackdropMaterial.IsNull()||Assets->BackdropMaterial.IsValid()))
-        {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);Streaming->GroundReady=true;}
+            (Assets->BackdropMaterial.IsNull()||Assets->BackdropMaterial.IsValid())&&
+            (Assets->SkyCloudMaterial.IsNull()||Assets->SkyCloudMaterial.IsValid()))
+        {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);ActivateSkyClouds();Streaming->GroundReady=true;}
         else
         {
             Streaming->Failed=true;
             if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
-                Loading->FailPreparation(FText::FromString(TEXT("地面资源加载失败，请返回主场景。")));
+                Loading->FailPreparation(FText::FromString(TEXT("地表与天空资源加载失败，请返回主场景。")));
         }
     })));
 }

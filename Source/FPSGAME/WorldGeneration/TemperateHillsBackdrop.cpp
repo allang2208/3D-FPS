@@ -6,6 +6,7 @@
 #include "Components/DynamicMeshComponent.h"
 #include "Components/ExponentialHeightFogComponent.h"
 #include "Components/SkyAtmosphereComponent.h"
+#include "Components/VolumetricCloudComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
 #include "Engine/Texture2D.h"
@@ -133,6 +134,35 @@ struct FTemperateBackdropState
     double NextAtmosphere=0;
 };
 
+void ATemperateHillsWorld::BeginSkyClouds()
+{
+    if(Assets->SkyCloudMaterial.IsNull())return;
+    // Reserve one component before weather ticking begins. Its presence prevents
+    // StormCloudComponent from synchronously loading a second fallback layer.
+    for(TActorIterator<AActor> It(GetWorld());It;++It)
+        if(It->FindComponentByClass<UVolumetricCloudComponent>())return;
+    HillsClouds=NewObject<UVolumetricCloudComponent>(this,TEXT("HillsWeatherClouds"));
+    AddInstanceComponent(HillsClouds);HillsClouds->SetupAttachment(RootComponent);
+    // SetMaterial(nullptr) is a no-op while its lifetime pointer is still null;
+    // clear the default soft path before OnRegister can load the engine fallback.
+    HillsClouds->Material.Reset();HillsClouds->SetVisibility(false);
+    HillsClouds->SetMobility(EComponentMobility::Movable);
+    HillsClouds->SetLayerBottomAltitude(2);HillsClouds->SetLayerHeight(1.2f);
+    HillsClouds->SetTracingMaxDistance(30);HillsClouds->SetViewSampleCountScale(.7f);
+    HillsClouds->SetReflectionViewSampleCountScale(.25f);HillsClouds->SetShadowViewSampleCountScale(.4f);
+    HillsClouds->SetShadowReflectionViewSampleCountScale(.2f);HillsClouds->SetSkyLightCloudBottomOcclusion(.05f);
+    HillsClouds->RegisterComponent();
+}
+
+void ATemperateHillsWorld::ActivateSkyClouds()
+{
+    if(!HillsClouds)return;
+    // Async load has finished; the weather component discovers this visible
+    // baseline and restores it when rain/storm clears. No second clock is added.
+    HillsClouds->SetMaterial(Assets->SkyCloudMaterial.Get());HillsClouds->SetVisibility(true);
+    UE_LOG(LogTemp,Display,TEXT("HILLS_SKY cloud=%s material=%s"),*HillsClouds->GetName(),*Assets->SkyCloudMaterial.ToString());
+}
+
 void ATemperateHillsWorld::TickBackdrop()
 {
     if(!Assets||!Assets->BackdropMaterial.IsValid())return;
@@ -146,13 +176,19 @@ void ATemperateHillsWorld::TickBackdrop()
         {
             if(auto* F=It->FindComponentByClass<UExponentialHeightFogComponent>())
             {
-                S.Fog=F;F->SetFogDensity(.014f);F->SetFogHeightFalloff(.08f);
-                F->SetStartDistance(16000);F->SetFogMaxOpacity(.92f);
+                S.Fog=F;F->SetFogDensity(.008f);F->SetFogHeightFalloff(.20f);
+                F->SetStartDistance(16000);F->SetFogMaxOpacity(.75f);
+                // Haze covers the backdrop, not the sky at effectively infinite depth.
+                F->SetFogCutoffDistance(1000000);
                 // Local Normandy volumes also need this existing volumetric pass.
                 F->SetVolumetricFog(true);
             }
             if(auto* Sky=It->FindComponentByClass<USkyAtmosphereComponent>())
-            {Sky->SetMieScatteringScale(1.25f);Sky->SetAerialPespectiveViewDistanceScale(1.4f);}
+            {
+                // Preserve the authored scattering coefficients. MieScatteringScale
+                // is ~0.003996 at sea level, not a multiplier with a baseline of 1.
+                Sky->SetAerialPespectiveViewDistanceScale(1.05f);
+            }
             if(auto* Weather=Cast<AFPSWeatherManager>(*It))S.Weather=Weather;
         }
     }
@@ -223,6 +259,7 @@ void ATemperateHillsWorld::SetBackdropCellVisible(FIntPoint Cell,bool Visible)
 
 void ATemperateHillsWorld::EndBackdrop()
 {
+    if(HillsClouds){RemoveInstanceComponent(HillsClouds);HillsClouds->DestroyComponent();HillsClouds=nullptr;}
     for(const auto& Entry:BackdropMeshes)if(auto* C=Entry.Get()){RemoveInstanceComponent(C);C->DestroyComponent();}
     BackdropMeshes.Empty();BackdropMID=nullptr;BackdropColor=nullptr;BackdropCoverage=nullptr;
     Backdrop.Reset();
