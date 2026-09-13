@@ -54,3 +54,13 @@ VRE 仓库 MIT 与 Manny/Infima/Fab 内容许可分别沿用已有来源记录�
 导入使用 `-Multiprocess` 避免启动时重复 SDK 探测等待另一构建任务；原生构建通过工程 `Tools/Build/Build-Editor.ps1`，使用普通模块。用户关闭编辑器后，最终构建返回 `Succeeded`（目标已为最新，0 个待编译动作），日志为 `Saved/BuildEditor/build-20260913-222826.log`。这是原生构建结果，不代表游戏内表现验收。
 
 按照用户规则未主动运行游戏测试、PIE、渲染或截图验收；握持构图、手腕外观与力度感由用户进游戏确认。使用 `6` 装备斧头、`7` 装备矿镐、左键采集、`F7` 收起。
+
+## 资源恢复、归档与经验沉淀
+
+克隆公开源码后，仍需从有使用许可的本机备份恢复 `Content/Items/ProductionTools/GripMotion20260913`，以及它使用的 FreeFab20260913 工具 PBR 贴图、M4/Manny 手臂材质和压缩设置。重新制作还需要 `SourceAssets/ProductionToolGrip20260913` 的两份 Blend 与 `Export`、`MannyGraspDonor20260912` 的母版/80% 拟合记录、`FreeProductionTools20260913/UE` 的原工具 FBX，以及 `RuneSword20260913/Reference` 的动作参考与 `Sword_Swing.wav`。这些有效输入继续保留本机，不从 trash 恢复旧快照覆盖现用资源。
+
+本次参数见 [authoring.json](../SourceAssets/ProductionToolGrip20260913/authoring.json)，已保存资产路径见 [import_receipt.json](../SourceAssets/ProductionToolGrip20260913/import_receipt.json)。公开仓库发布作者脚本、参数与文字记录；Blend、FBX、贴图、声音、uasset 和日志保持本机。
+
+本次没有弃用的模型或动画成品。已将两个失败/停滞导入日志、五份修改前快照及三个已完成的发布临时文件移到 `trash/production-tool-grip-20260913`，共 10 个文件、632,224 字节。原路径、归档路径、原因、保留替代物及逐文件 SHA-256 见 [归档清单](AssetArchives/production-tool-grip-20260913.json)；移动后已比对大小与散列。归档不上传 Git，成功导入日志继续留在原位置。
+
+通用经验已写入 [单手工具动作 SKILL 参考](../skills/ue5-fps-arms-animation/references/single-hand-tools.md)，并同步个人技能目录与工程镜像。参数明确标记为本案例制作值，未将尚未游戏内测试的表现写成已接受标准。本轮仅做归档与发布范围检查，没有追加游戏测试或构建。

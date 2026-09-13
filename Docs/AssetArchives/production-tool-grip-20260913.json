@@ -1,0 +1,98 @@
+{
+  "task": "production-tool-grip-20260913",
+  "scope": "Single-hand axe and pickaxe grip-animation task only",
+  "files": [
+    {
+      "source": "Saved/ToolGripMotion/import.log",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/import.log",
+      "bytes": 293378,
+      "sha256": "310bade21849b2d3b45aacacc8dbbbb4be9bba4b69c45a9ff92b812143d13929",
+      "reason": "First import failed on Python sampling-property assignment",
+      "retained_replacement": "Tools/Production/import_tool_grip_motion.py; Saved/ToolGripMotion/import-multiprocess.log"
+    },
+    {
+      "source": "Saved/ToolGripMotion/import-final.log",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/import-final.log",
+      "bytes": 100639,
+      "sha256": "001f6fe43d77c2615ab260f5820be3c8e66dbd207caacd18471e12612b92eaeb",
+      "reason": "Superseded import stalled in SDK probing and was stopped",
+      "retained_replacement": "Saved/ToolGripMotion/import-multiprocess.log"
+    },
+    {
+      "source": "Saved/ToolGripMotion/publish.head",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/publish.head",
+      "bytes": 41,
+      "sha256": "10a791dd3f4ded61f6a43711899479664f6980bb39979436e206db81ea6329cd",
+      "reason": "Completed previous publication temporary HEAD snapshot",
+      "retained_replacement": "Git commit 5b7d6b5486d5f2763a308b12ee75ad87fcb96b04"
+    },
+    {
+      "source": "Saved/ToolGripMotion/publish.index",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/publish.index",
+      "bytes": 207694,
+      "sha256": "39c28748f432be512918018b732e27399b53d15132939a7b2895f031300e39d8",
+      "reason": "Completed previous publication private staging index",
+      "retained_replacement": "Git commit 5b7d6b5486d5f2763a308b12ee75ad87fcb96b04"
+    },
+    {
+      "source": "Saved/ToolGripMotion/publish.py",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/publish.py",
+      "bytes": 2649,
+      "sha256": "a429a3d0c648e39fab94d45e3b1efe82360a729230cab40b768bc49f8e3ce6c3",
+      "reason": "One-off helper for the completed previous publication",
+      "retained_replacement": "Git commit 5b7d6b5486d5f2763a308b12ee75ad87fcb96b04"
+    },
+    {
+      "source": "Saved/ToolGripMotion/Before/Config/DefaultGame.ini",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/Before/Config/DefaultGame.ini",
+      "bytes": 5633,
+      "sha256": "fdbc7cb6c1f3416f888ae3d940620babca0db2a16e6d7bdcfea86c2ed7a95018",
+      "reason": "Pre-change recovery snapshot; preserve only as archive",
+      "retained_replacement": "Config/DefaultGame.ini"
+    },
+    {
+      "source": "Saved/ToolGripMotion/Before/Content/ColdSteelData/production_tools.json",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/Before/Content/ColdSteelData/production_tools.json",
+      "bytes": 2067,
+      "sha256": "2129af407c2c204fe2ccb12aff0bf41bf334fe4f7cf3a2b0ba28d14ac5617b36",
+      "reason": "Pre-change recovery snapshot; preserve only as archive",
+      "retained_replacement": "Content/ColdSteelData/production_tools.json"
+    },
+    {
+      "source": "Saved/ToolGripMotion/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/Before/Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "bytes": 10293,
+      "sha256": "99d7d0e3559f1a7e1cf14528c62049e939764560a7ee3738753141e030e71635",
+      "reason": "Pre-change recovery snapshot; preserve only as archive",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolComponent.cpp"
+    },
+    {
+      "source": "Saved/ToolGripMotion/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/Before/Source/FPSGAME/Production/ProductionToolComponent.h",
+      "bytes": 1987,
+      "sha256": "b22c2a76b22811934819d6ece27f45259d7b16dfe60205c5b60938b8fed06408",
+      "reason": "Pre-change recovery snapshot; preserve only as archive",
+      "retained_replacement": "Source/FPSGAME/Production/ProductionToolComponent.h"
+    },
+    {
+      "source": "Saved/ToolGripMotion/Before/Source/FPSGAME/UI/ColdSteelProductionTools.cpp",
+      "destination": "trash/production-tool-grip-20260913/Saved/ToolGripMotion/Before/Source/FPSGAME/UI/ColdSteelProductionTools.cpp",
+      "bytes": 7843,
+      "sha256": "af9d593d0818387e1eb9b9fc7d8103d9abbbcf8c959d282b72c100fb400c340d",
+      "reason": "Pre-change recovery snapshot; preserve only as archive",
+      "retained_replacement": "Source/FPSGAME/UI/ColdSteelProductionTools.cpp"
+    }
+  ],
+  "count": 10,
+  "total_bytes": 632224.0,
+  "verification": "Each destination SHA-256 and size matched its source after moving",
+  "retained": [
+    "SourceAssets/ProductionToolGrip20260913",
+    "Content/Items/ProductionTools/GripMotion20260913",
+    "SourceAssets/MannyGraspDonor20260912",
+    "SourceAssets/FreeProductionTools20260913",
+    "SourceAssets/RuneSword20260913/Reference",
+    "Saved/ToolGripMotion/import-multiprocess.log"
+  ],
+  "runtime_tested": false
+}

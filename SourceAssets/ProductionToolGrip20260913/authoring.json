@@ -1,0 +1,45 @@
+{
+  "runtime_tested": false,
+  "grasp_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912",
+  "motion_reference_commit": "592b08e2e1fe81a51f712fa65d806fa3621e2032",
+  "tools": {
+    "Axe": {
+      "mesh": "SK_Harvest_Axe",
+      "clips": {
+        "Idle": 1.6,
+        "Walk": 0.8,
+        "Equip": 0.32,
+        "Swing": 0.68,
+        "HitRecover": 0.44
+      },
+      "fps": 150,
+      "contact_seconds": 0.24,
+      "hit_hold_seconds": 0.0333333333,
+      "grip_center_in_static_mesh_m": [
+        -0.07511119544506073,
+        -4.470348358154297e-08,
+        -0.25999999046325684
+      ],
+      "grasp_roll_degrees": -141.0
+    },
+    "Pickaxe": {
+      "mesh": "SK_Harvest_Pickaxe",
+      "clips": {
+        "Idle": 1.6,
+        "Walk": 0.8,
+        "Equip": 0.32,
+        "Swing": 0.68,
+        "HitRecover": 0.44
+      },
+      "fps": 150,
+      "contact_seconds": 0.24,
+      "hit_hold_seconds": 0.0466666667,
+      "grip_center_in_static_mesh_m": [
+        -0.00015124306082725525,
+        -4.470348358154297e-08,
+        -0.20999999344348907
+      ],
+      "grasp_roll_degrees": -63.0
+    }
+  }
+}
