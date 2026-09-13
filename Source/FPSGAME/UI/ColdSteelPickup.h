@@ -31,6 +31,8 @@ private:
     friend class UColdSteelPickupStudio;
     bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);
+    bool BuildProductionTool(const FColdSteelItem& Item);
+    TSharedPtr<struct FStreamableHandle> ProductionToolLoad;
     void BuildLootGlow(const FColdSteelItem& Item);
     void FaceLootBeam(const class APlayerController* PC);
     UPROPERTY() TObjectPtr<class USceneComponent> LootFXRoot;

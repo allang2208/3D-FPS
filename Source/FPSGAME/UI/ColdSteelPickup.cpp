@@ -36,7 +36,7 @@ AColdSteelPickup::AColdSteelPickup()
 }
 void AColdSteelPickup::InitializeItem(const FColdSteelItem& Item)
 {
-    ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun)BuildConsumable(Item);Mesh->SetVisibility(!Gun);
+    ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun&&!BuildProductionTool(Item))BuildConsumable(Item);Mesh->SetVisibility(!Gun);
     auto* Surface=NewObject<UPhysicalMaterial>(this);Surface->Friction=.8f;Surface->Restitution=.08f;Body->SetPhysMaterialOverride(Surface);
     Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(true);
     BuildLootGlow(Item);

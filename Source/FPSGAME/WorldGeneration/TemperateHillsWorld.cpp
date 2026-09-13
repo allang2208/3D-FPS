@@ -241,6 +241,7 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             P.Mesh=List[K%List.Num()].ToSoftObjectPath();P.Key=K;P.CandidateId=TemperateHills::CellId(GX,GY);
         }
         const FVector Pos=P.Transform.GetLocation();
+        if(Layer<=1&&IsProductionDepleted(Layer,P.CandidateId))continue;
         // Half-open ownership ensures no duplicates when HiGen cells share an edge.
         if(Pos.X>=MinX&&Pos.X<MaxX&&Pos.Y>=MinY&&Pos.Y<MaxY)Out.Add(P);
     }
@@ -268,6 +269,7 @@ void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<F
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Base+18)*Scale),FVector(Scale));
             P.Mesh=Rock.ToSoftObjectPath();P.Key=K;
             P.CandidateId=TemperateHills::CellId(GX,GY)^0x4000000000000000ULL;
+            if(IsProductionDepleted(1,P.CandidateId))continue;
             Out.Add(P);
         }
     }

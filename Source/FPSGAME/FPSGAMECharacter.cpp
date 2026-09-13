@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Production/ProductionToolComponent.h"
 #include "Skills/ColdSteelSkillRules.h"
 #include "Perception/AISense_Hearing.h"
 #include "Movement/FPSTraversalComponent.h"
@@ -59,6 +60,7 @@ AFPSGAMECharacter::AFPSGAMECharacter()
 {
     PrimaryActorTick.bCanEverTick = true;
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
+    CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
@@ -360,6 +362,8 @@ void AFPSGAMECharacter::JumpReleased()
 
 void AFPSGAMECharacter::FirePressed()
 {
+    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
+    {ExitSprintForWeapon();Tools->BeginUse();return;}
     if (!bFireHeld)
     {
         NextAllowedShotTime = FMath::Max(NextAllowedShotTime, static_cast<double>(GetWorld()->GetTimeSeconds()));
@@ -374,6 +378,7 @@ void AFPSGAMECharacter::FireReleased() { bFireHeld = false; GetWorldTimerManager
 
 void AFPSGAMECharacter::AimPressed()
 {
+    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
     bAimHeld = true;
     ExitSprintForWeapon();
     if (!IsWeaponBusy() && !bIsSliding) { SetAimingState(true); ResumeWeaponPose(); }

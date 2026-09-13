@@ -23,6 +23,7 @@ class UTexture2D;
 class UVolumetricCloudComponent;
 struct FTemperateHillsStreamingState;
 struct FTemperateBackdropState;
+struct FProductionResource;
 
 /** Curated environment references. No level/assembly imports from the source packs. */
 UCLASS(BlueprintType)
@@ -95,6 +96,10 @@ public:
     FVector SurfaceNormal(double X, double Y) const;
     void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
     uint32 LayoutHash(int32 Layer) const;
+    FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
+    bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
+    bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;
+    void CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction);
 
 protected:
     virtual void BeginPlay() override;

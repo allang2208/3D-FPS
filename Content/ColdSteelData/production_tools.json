@@ -1,0 +1,29 @@
+{
+  "tool_axe": {
+    "name": "伐木斧", "category": "tool", "tool_kind": "axe", "rarity": "common", "stack_max": 1,
+    "grid_w": 2, "grid_h": 3, "ue_icon": "ProductionTools/axe.png",
+    "desc": "用于砍伐温带丘陵的树木。6 装备，左键挥动，F7 收起；三次有效命中获得木材。",
+    "tool_mesh": "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Hatchet.SM_Polygonal_Hatchet",
+    "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Chopping/SC_Hatchet_Hit.SC_Hatchet_Hit",
+    "swing_seconds": 0.68, "contact_seconds": 0.24, "tool_scale": 0.65,
+    "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18
+  },
+  "tool_pickaxe": {
+    "name": "矿镐", "category": "tool", "tool_kind": "pickaxe", "rarity": "common", "stack_max": 1,
+    "grid_w": 2, "grid_h": 3, "ue_icon": "ProductionTools/pickaxe.png",
+    "desc": "用于开采温带丘陵的独立岩块与矿石。7 装备，左键挥动，F7 收起；材料进入正式背包。",
+    "tool_mesh": "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Pickaxe.SM_Polygonal_Pickaxe",
+    "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Mining/SC_Pickaxe_Hit.SC_Pickaxe_Hit",
+    "swing_seconds": 0.68, "contact_seconds": 0.24, "tool_scale": 0.65,
+    "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18
+  },
+  "tool_shovel": {
+    "name": "铁铲", "category": "tool", "tool_kind": "shovel", "rarity": "common", "stack_max": 1,
+    "grid_w": 2, "grid_h": 3, "ue_icon": "ProductionTools/shovel.png",
+    "desc": "用于采集温带丘陵的干燥表土。8 装备，左键铲土，F7 收起；同一小片表土只能采集一次。当前不挖空地形。",
+    "tool_mesh": "/Game/MilitaryTrench/Assets/3D/Ind_Mine_Tool_Shovel_Old_01/StaticMeshes/SM_Ind_Mine_Tool_Shovel_Old_01.SM_Ind_Mine_Tool_Shovel_Old_01",
+    "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Mining/SC_Pickaxe_Hit.SC_Pickaxe_Hit",
+    "swing_seconds": 0.82, "contact_seconds": 0.32, "tool_scale": 0.8,
+    "mount_pitch": 65, "mount_yaw": 0, "mount_roll": -12
+  }
+}

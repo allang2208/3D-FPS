@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Production/ProductionToolComponent.h"
 #include "Movement/FPSTraversalComponent.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Monsters/FPSCombatHealthComponent.h"
@@ -13,8 +14,9 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const auto P=Profile->Snapshot();
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
-    bInventoryWeaponReady=I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191"));
-    if(ActiveInventoryWeapon!=Id){
+    const bool WasWeaponReady=bInventoryWeaponReady;
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191"));
+    if(ActiveInventoryWeapon!=Id||WasWeaponReady!=bInventoryWeaponReady){
         if (IsTraversing()) Traversal->Cancel();
         StopMechanicalAudio();
         FireReleased();AimReleased();
@@ -23,6 +25,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),true);
+    if(auto* Tools=FindComponentByClass<UProductionToolComponent>())Tools->RefreshHeldTool();
     // Existing UE weapon tuning is retained as the weapon contribution; six-dimensional base attack is additive.
     const auto* Defaults=GetClass()->GetDefaultObject<AFPSGAMECharacter>();
     WeaponHandling=FWeaponHandling();

@@ -48,6 +48,10 @@ struct FColdSteelProfile
     UPROPERTY() float Mana = 250;
     UPROPERTY() int32 WarehousePages = 5;
     UPROPERTY() TArray<FString> ArmoryReceived;
+    // Optional tagged fields: legacy profiles start with no tools or depleted nodes.
+    UPROPERTY() int32 ProductionSupplyVersion = 0;
+    UPROPERTY() FString ActiveProductionTool;
+    UPROPERTY() TMap<FString,int32> HarvestProgress; // world GUID:v1:layer:candidate -> 1..3 hits
     UPROPERTY() int32 SkillProgressVersion = 0;
     UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
 };

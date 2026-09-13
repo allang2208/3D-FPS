@@ -61,6 +61,13 @@ public:
     bool WarehouseBatch(bool bMatching);
     bool SortWarehouse(const FString& Mode,int32 Category=-1);
     bool GrantStartingArmory();
+    bool GrantProductionTools();
+    const FColdSteelItem* ActiveProductionTool() const;
+    bool ToggleProductionTool(const FString& InstanceId);
+    bool SelectProductionTool(const FString& Definition);
+    bool StowProductionTool();
+    int32 HarvestProgress(const FString& Id) const;
+    bool CommitHarvestStrike(const struct FProductionResource& Target,bool& Depleted);
     bool AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred=-1);
     int64 WarehouseRemainingCapacity(const FColdSteelItem& Item) const;
     int64 DepositWarehouseAmount(const FColdSteelItem& Item);
@@ -104,5 +111,7 @@ private:
     void Publish(const FColdSteelProfile& State);
     void ApplyToPawn();
     void RefreshDrops();
+    void LoadProductionDefinitions();
+    void NormalizeProductionState(FColdSteelProfile& State) const;
     friend class AColdSteelPickup;
 };

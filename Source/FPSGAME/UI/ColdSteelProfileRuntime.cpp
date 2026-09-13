@@ -57,6 +57,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
         for(const auto& Pair:Root->Values){FString Data;FJsonSerializer::Serialize(Pair.Value->AsObject().ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Data));Definitions.Add(FString(*Pair.Key),Data);}
+    LoadProductionDefinitions();
     SaveSlot=TEXT("ColdSteelPlayer"); FString Requested;
     bAudit=FString(FCommandLine::Get()).Contains(TEXT("Audit"));
     if(FParse::Value(FCommandLine::Get(),TEXT("ColdSteelProfile="),Requested)) {
@@ -81,6 +82,7 @@ bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
     if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
+    NormalizeProductionState(State);
     ColdSteelSkills::Migrate(State);
     FString Reason;if(!Validate(State,Reason)){Message=Reason;return false;}
     if(bAudit&&AuditFailNextSave){AuditFailNextSave=false;Message=TEXT("验收注入：保存失败，操作未提交");return false;}
@@ -151,7 +153,7 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 }
 const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{return Current.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id;});}
 const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
-bool UColdSteelStatusModel::CycleWeapon(){SyncRuntime();auto P=Snapshot();int32 Other=P.ActiveWeaponSlot==6?9:6;if(Owner(P.Items,1,Other)<0){Message=TEXT("另一组武器槽为空");return false;}P.ActiveWeaponSlot=Other;return CommitState(P);}
+bool UColdSteelStatusModel::CycleWeapon(){if(ActiveProductionTool())return StowProductionTool();SyncRuntime();auto P=Snapshot();int32 Other=P.ActiveWeaponSlot==6?9:6;if(Owner(P.Items,1,Other)<0){Message=TEXT("另一组武器槽为空");return false;}P.ActiveWeaponSlot=Other;return CommitState(P);}
 FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)const
 {
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
@@ -188,6 +190,7 @@ const FColdSteelItem* UColdSteelStatusModel::ResolveHotbar(int32 Index)const{if(
 bool UColdSteelStatusModel::UseHotbar(int32 Index){const auto* I=ResolveHotbar(Index);return I&&UseItem(I->InstanceId);}
 bool UColdSteelStatusModel::UseItem(const FString& Id)
 {
+    if(const auto* Tool=FindItem(Id);Tool&&Text(*Tool,TEXT("category"))==TEXT("tool"))return ToggleProductionTool(Id);
     SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});if(N<0||P.Items[N].Place!=0)return false;
     auto& I=P.Items[N];if(I.Cooldown>0){Message=TEXT("物品冷却中");return false;}
     TSharedPtr<FJsonObject> O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O);const TSharedPtr<FJsonObject>* Effect=nullptr;
@@ -206,7 +209,7 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
     if(I.Place==4)return TransferWarehouse(Id,0);
     if(bWarehouseOpen&&(I.Place==0||I.Place==1))return TransferWarehouse(Id,4);
     if(I.Place==1)return MoveItem(Id,0,-1);
-    if(Text(I,TEXT("category"))==TEXT("consumable"))return UseItem(Id);
+    if(Text(I,TEXT("category"))==TEXT("consumable")||Text(I,TEXT("category"))==TEXT("tool"))return UseItem(Id);
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     for(int32 S=0;S<15;++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
     Message=TEXT("该物品不能穿戴或使用");return false;

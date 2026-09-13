@@ -213,6 +213,10 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)
             if(auto* C=Cast<AFPSGAMECharacter>(GetPawn());C&&C->AdjustOpticMagnification(Params.Key==EKeys::MouseScrollUp?.5f:-.5f))return true;
         auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        if(Params.Key==EKeys::Six){Profile->SelectProductionTool(TEXT("tool_axe"));return true;}
+        if(Params.Key==EKeys::Seven){Profile->SelectProductionTool(TEXT("tool_pickaxe"));return true;}
+        if(Params.Key==EKeys::Eight){Profile->SelectProductionTool(TEXT("tool_shovel"));return true;}
+        if(Params.Key==EKeys::F7){Profile->StowProductionTool();return true;}
         if(Params.Key==EKeys::G || Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
         {if (const auto* C=Cast<AFPSGAMECharacter>(GetPawn()); !C || !C->IsTraversing()) Profile->CycleWeapon();return true;}
         const FKey Keys[]={EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four};
