@@ -1,5 +1,7 @@
 # 感染矿工单手挥镐
 
+当前 Attack 为 `OuterSwing/`：替换穿过躯干的回转路径，改成外侧抬镐、上方前挥及外侧收回。Idle/Walk 沿用 `NaturalWrist`，人物与放大后的矿镐沿用 `DragGround`。见 [当前攻击说明](../../Docs/InfectedMinerOuterSwing20260913.md)。未进行游戏测试；以下是历史阶段记录。
+
 当前使用 `NaturalWrist/` 的三段修正动画，模型沿用 `DragGround` 放大后的矿镐。手腕回到中性附近，肘部和前臂配合镐头方向，原蓝图已替换引用。见 [当前说明](../../Docs/InfectedMinerNaturalWrist20260913.md)。预览位于 `NaturalWrist/Previews/`，未进行游戏测试。下文为各阶段历史记录。
 
 当前版本为 `DragGround/`：矿镐整体放大 25%，待机与移动在身后拖镐，攻击延续已认可方向并前倾砸地，状态切换增加 0.16 秒姿态混合。见 [当前说明](../../Docs/InfectedMinerDragGround20260913.md)。以下 `PickaxeSingleHand/` 保留为已认可的前一版本。

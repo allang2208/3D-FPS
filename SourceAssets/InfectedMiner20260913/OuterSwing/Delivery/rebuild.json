@@ -1,0 +1,730 @@
+{
+  "version": "continuous outside pickaxe swing and recovery",
+  "source_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\NaturalWrist\\Delivery\\InfectedMiner_Editable.blend",
+  "pickaxe_scale": 1.25,
+  "handle_length_m": 1.2,
+  "head_span_m": 0.9,
+  "preserved": "body/hand geometry, rest skeleton, skin weights, finger grip, materials; accepted windup source",
+  "authored_changes": "continuous unwrapped weapon orbit and complete left arm; current idle/walk/body/grip retained",
+  "contact_time": 0.7333333333333333,
+  "contact_end": 0.8333333333333334,
+  "ground_contact_time": 0.8,
+  "state_blend_seconds": 0.16,
+  "ground_reference": "flat local ground; not runtime terrain-conforming IK",
+  "clips": {
+    "Idle": {
+      "seconds": 2.6333333333333333,
+      "loop": true,
+      "path": "/Game/Monsters/InfectedMiner/NaturalWrist20260913/A_Miner_NaturalWrist_Idle.A_Miner_NaturalWrist_Idle"
+    },
+    "Walk": {
+      "seconds": 1.0333333333333334,
+      "loop": true,
+      "path": "/Game/Monsters/InfectedMiner/NaturalWrist20260913/A_Miner_NaturalWrist_Walk.A_Miner_NaturalWrist_Walk"
+    },
+    "Attack": {
+      "seconds": 1.8,
+      "loop": false,
+      "path": "/Game/Monsters/InfectedMiner/OuterSwing20260913/A_Miner_OuterSwing_Attack.A_Miner_OuterSwing_Attack"
+    }
+  },
+  "gameplay_tested": false,
+  "delivery_mesh": "/Game/Monsters/InfectedMiner/DragGround20260913/SK_InfectedMiner_DragGround.SK_InfectedMiner_DragGround",
+  "blueprint": "/Game/Monsters/InfectedMiner/BP_InfectedMiner.BP_InfectedMiner",
+  "geometry_bind_skin_materials_changed": false,
+  "weapon_angle_keys": [
+    [
+      1,
+      -40.307639672167014
+    ],
+    [
+      5,
+      -28
+    ],
+    [
+      10,
+      0
+    ],
+    [
+      14,
+      28
+    ],
+    [
+      16,
+      38
+    ],
+    [
+      19,
+      100
+    ],
+    [
+      22,
+      172
+    ],
+    [
+      25,
+      211
+    ],
+    [
+      29,
+      214
+    ],
+    [
+      34,
+      230
+    ],
+    [
+      41,
+      271
+    ],
+    [
+      48,
+      303
+    ],
+    [
+      55,
+      319.692360327833
+    ]
+  ],
+  "forearm_roll_keys": [
+    [
+      1,
+      0
+    ],
+    [
+      5,
+      -65
+    ],
+    [
+      9,
+      -130
+    ],
+    [
+      13,
+      -155
+    ],
+    [
+      29,
+      -155
+    ],
+    [
+      41,
+      -155
+    ],
+    [
+      46,
+      -115
+    ],
+    [
+      51,
+      -35
+    ],
+    [
+      55,
+      0
+    ]
+  ],
+  "wrist_position_keys": [
+    [
+      1,
+      [
+        0.2878945469856262,
+        -0.05657230317592621,
+        0.898676872253418
+      ]
+    ],
+    [
+      5,
+      [
+        0.43,
+        0.01,
+        1.11
+      ]
+    ],
+    [
+      10,
+      [
+        0.46,
+        0.05,
+        1.57
+      ]
+    ],
+    [
+      14,
+      [
+        0.42,
+        0.04,
+        1.73
+      ]
+    ],
+    [
+      16,
+      [
+        0.42,
+        -0.02,
+        1.76
+      ]
+    ],
+    [
+      19,
+      [
+        0.43,
+        -0.26,
+        1.6
+      ]
+    ],
+    [
+      22,
+      [
+        0.42,
+        -0.42,
+        1.12
+      ]
+    ],
+    [
+      25,
+      [
+        0.41,
+        -0.36,
+        0.85
+      ]
+    ],
+    [
+      29,
+      [
+        0.42,
+        -0.35,
+        0.87
+      ]
+    ],
+    [
+      34,
+      [
+        0.48,
+        -0.23,
+        1.03
+      ]
+    ],
+    [
+      41,
+      [
+        0.48,
+        -0.02,
+        1.28
+      ]
+    ],
+    [
+      48,
+      [
+        0.4,
+        0.01,
+        1.13
+      ]
+    ],
+    [
+      55,
+      [
+        0.2878945469856262,
+        -0.05657230317592621,
+        0.898676872253418
+      ]
+    ]
+  ],
+  "authoring_samples": [
+    {
+      "frame": 1,
+      "unwrapped_shaft_pitch_degrees": -40.307639672167014,
+      "wrist": [
+        0.2878945469856262,
+        -0.056572526693344116,
+        0.898676872253418
+      ]
+    },
+    {
+      "frame": 2,
+      "unwrapped_shaft_pitch_degrees": -39.12924976905899,
+      "wrist": [
+        0.3378637731075287,
+        -0.00038858503103256226,
+        0.9181181788444519
+      ]
+    },
+    {
+      "frame": 3,
+      "unwrapped_shaft_pitch_degrees": -36.13962995786503,
+      "wrist": [
+        0.39759474992752075,
+        0.07487951219081879,
+        0.9681308269500732
+      ]
+    },
+    {
+      "frame": 4,
+      "unwrapped_shaft_pitch_degrees": -32.15710508578031,
+      "wrist": [
+        0.46749231219291687,
+        0.11454891413450241,
+        1.0362471342086792
+      ]
+    },
+    {
+      "frame": 5,
+      "unwrapped_shaft_pitch_degrees": -28.0,
+      "wrist": [
+        0.5266895294189453,
+        0.10314483940601349,
+        1.1100001335144043
+      ]
+    },
+    {
+      "frame": 6,
+      "unwrapped_shaft_pitch_degrees": -23.541718599675203,
+      "wrist": [
+        0.5407452583312988,
+        0.08087262511253357,
+        1.1936259269714355
+      ]
+    },
+    {
+      "frame": 7,
+      "unwrapped_shaft_pitch_degrees": -18.27110009130127,
+      "wrist": [
+        0.5200191736221313,
+        0.060971423983573914,
+        1.2923791408538818
+      ]
+    },
+    {
+      "frame": 8,
+      "unwrapped_shaft_pitch_degrees": -12.429622283089738,
+      "wrist": [
+        0.4806886911392212,
+        0.047949716448783875,
+        1.3953194618225098
+      ]
+    },
+    {
+      "frame": 9,
+      "unwrapped_shaft_pitch_degrees": -6.258762983252131,
+      "wrist": [
+        0.4446984529495239,
+        0.03912845253944397,
+        1.491506576538086
+      ]
+    },
+    {
+      "frame": 10,
+      "unwrapped_shaft_pitch_degrees": 0.0,
+      "wrist": [
+        0.4099119007587433,
+        0.027978137135505676,
+        1.5700000524520874
+      ]
+    },
+    {
+      "frame": 11,
+      "unwrapped_shaft_pitch_degrees": 6.78125,
+      "wrist": [
+        0.3710278272628784,
+        0.01288498193025589,
+        1.6269688606262207
+      ]
+    },
+    {
+      "frame": 12,
+      "unwrapped_shaft_pitch_degrees": 14.194444444444445,
+      "wrist": [
+        0.36000001430511475,
+        -0.06192191317677498,
+        1.6692501306533813
+      ]
+    },
+    {
+      "frame": 13,
+      "unwrapped_shaft_pitch_degrees": 21.510416666666668,
+      "wrist": [
+        0.3599735498428345,
+        -0.16409637033939362,
+        1.6809918880462646
+      ]
+    },
+    {
+      "frame": 14,
+      "unwrapped_shaft_pitch_degrees": 28.0,
+      "wrist": [
+        0.3599739372730255,
+        -0.19654572010040283,
+        1.698375940322876
+      ]
+    },
+    {
+      "frame": 15,
+      "unwrapped_shaft_pitch_degrees": 32.445346320346324,
+      "wrist": [
+        0.35997480154037476,
+        -0.22141817212104797,
+        1.7245607376098633
+      ]
+    },
+    {
+      "frame": 16,
+      "unwrapped_shaft_pitch_degrees": 38.0,
+      "wrist": [
+        0.35997599363327026,
+        -0.25069093704223633,
+        1.7442634105682373
+      ]
+    },
+    {
+      "frame": 17,
+      "unwrapped_shaft_pitch_degrees": 52.717394269633076,
+      "wrist": [
+        0.3599775433540344,
+        -0.31722894310951233,
+        1.7321405410766602
+      ]
+    },
+    {
+      "frame": 18,
+      "unwrapped_shaft_pitch_degrees": 75.84460094907855,
+      "wrist": [
+        0.35997989773750305,
+        -0.39312565326690674,
+        1.6644947528839111
+      ]
+    },
+    {
+      "frame": 19,
+      "unwrapped_shaft_pitch_degrees": 100.0,
+      "wrist": [
+        0.35998135805130005,
+        -0.41394948959350586,
+        1.5524755716323853
+      ]
+    },
+    {
+      "frame": 20,
+      "unwrapped_shaft_pitch_degrees": 124.78956568508806,
+      "wrist": [
+        0.35998088121414185,
+        -0.4060484766960144,
+        1.42125403881073
+      ]
+    },
+    {
+      "frame": 21,
+      "unwrapped_shaft_pitch_degrees": 150.77316122092242,
+      "wrist": [
+        0.3742610514163971,
+        -0.3816523253917694,
+        1.2762962579727173
+      ]
+    },
+    {
+      "frame": 22,
+      "unwrapped_shaft_pitch_degrees": 172.0,
+      "wrist": [
+        0.39335423707962036,
+        -0.40740329027175903,
+        1.1200000047683716
+      ]
+    },
+    {
+      "frame": 23,
+      "unwrapped_shaft_pitch_degrees": 189.29145509145508,
+      "wrist": [
+        0.38782215118408203,
+        -0.39482998847961426,
+        1.0038888454437256
+      ]
+    },
+    {
+      "frame": 24,
+      "unwrapped_shaft_pitch_degrees": 204.0063336063336,
+      "wrist": [
+        0.3761827349662781,
+        -0.35566723346710205,
+        0.9111109972000122
+      ]
+    },
+    {
+      "frame": 25,
+      "unwrapped_shaft_pitch_degrees": 211.0,
+      "wrist": [
+        0.35999995470046997,
+        -0.2767057418823242,
+        0.7927865982055664
+      ]
+    },
+    {
+      "frame": 26,
+      "unwrapped_shaft_pitch_degrees": 212.03862917146145,
+      "wrist": [
+        0.35999998450279236,
+        -0.29035937786102295,
+        0.8013019561767578
+      ]
+    },
+    {
+      "frame": 27,
+      "unwrapped_shaft_pitch_degrees": 212.60149597238203,
+      "wrist": [
+        0.35999998450279236,
+        -0.29898566007614136,
+        0.8058083057403564
+      ]
+    },
+    {
+      "frame": 28,
+      "unwrapped_shaft_pitch_degrees": 213.1136147871116,
+      "wrist": [
+        0.35999998450279236,
+        -0.3046582043170929,
+        0.809840977191925
+      ]
+    },
+    {
+      "frame": 29,
+      "unwrapped_shaft_pitch_degrees": 214.0,
+      "wrist": [
+        0.3600415289402008,
+        -0.3075518012046814,
+        0.8166707754135132
+      ]
+    },
+    {
+      "frame": 30,
+      "unwrapped_shaft_pitch_degrees": 215.7795133170946,
+      "wrist": [
+        0.3864109218120575,
+        -0.3048698306083679,
+        0.8930628299713135
+      ]
+    },
+    {
+      "frame": 31,
+      "unwrapped_shaft_pitch_degrees": 218.5203121031825,
+      "wrist": [
+        0.39820730686187744,
+        -0.28290504217147827,
+        0.9233885407447815
+      ]
+    },
+    {
+      "frame": 32,
+      "unwrapped_shaft_pitch_degrees": 221.97135423072316,
+      "wrist": [
+        0.4114195704460144,
+        -0.256178617477417,
+        0.9581828117370605
+      ]
+    },
+    {
+      "frame": 33,
+      "unwrapped_shaft_pitch_degrees": 225.88159757217588,
+      "wrist": [
+        0.42327845096588135,
+        -0.22618618607521057,
+        0.9946514368057251
+      ]
+    },
+    {
+      "frame": 34,
+      "unwrapped_shaft_pitch_degrees": 230.0,
+      "wrist": [
+        0.43117645382881165,
+        -0.19418583810329437,
+        1.0299999713897705
+      ]
+    },
+    {
+      "frame": 35,
+      "unwrapped_shaft_pitch_degrees": 234.68310986910893,
+      "wrist": [
+        0.434684157371521,
+        -0.15789255499839783,
+        1.0678484439849854
+      ]
+    },
+    {
+      "frame": 36,
+      "unwrapped_shaft_pitch_degrees": 240.25561612842955,
+      "wrist": [
+        0.4356253743171692,
+        -0.11642441153526306,
+        1.1111952066421509
+      ]
+    },
+    {
+      "frame": 37,
+      "unwrapped_shaft_pitch_degrees": 246.41868754144167,
+      "wrist": [
+        0.4350943863391876,
+        -0.07400965690612793,
+        1.1563148498535156
+      ]
+    },
+    {
+      "frame": 38,
+      "unwrapped_shaft_pitch_degrees": 252.873492871625,
+      "wrist": [
+        0.43390804529190063,
+        -0.03487296402454376,
+        1.1994810104370117
+      ]
+    },
+    {
+      "frame": 39,
+      "unwrapped_shaft_pitch_degrees": 259.3212008824593,
+      "wrist": [
+        0.4321315884590149,
+        -0.001591309905052185,
+        1.2369680404663086
+      ]
+    },
+    {
+      "frame": 40,
+      "unwrapped_shaft_pitch_degrees": 265.4629803374244,
+      "wrist": [
+        0.4291311204433441,
+        0.025865405797958374,
+        1.2650495767593384
+      ]
+    },
+    {
+      "frame": 41,
+      "unwrapped_shaft_pitch_degrees": 271.0,
+      "wrist": [
+        0.42472514510154724,
+        0.04654945433139801,
+        1.2799999713897705
+      ]
+    },
+    {
+      "frame": 42,
+      "unwrapped_shaft_pitch_degrees": 276.16147904967096,
+      "wrist": [
+        0.4239867925643921,
+        0.05672912299633026,
+        1.2802740335464478
+      ]
+    },
+    {
+      "frame": 43,
+      "unwrapped_shaft_pitch_degrees": 281.3045480949332,
+      "wrist": [
+        0.4292330741882324,
+        0.05439215898513794,
+        1.268668293952942
+      ]
+    },
+    {
+      "frame": 44,
+      "unwrapped_shaft_pitch_degrees": 286.3222430427836,
+      "wrist": [
+        0.43481820821762085,
+        0.042380109429359436,
+        1.2479703426361084
+      ]
+    },
+    {
+      "frame": 45,
+      "unwrapped_shaft_pitch_degrees": 291.10759980021874,
+      "wrist": [
+        0.4363832175731659,
+        0.02350977063179016,
+        1.2209672927856445
+      ]
+    },
+    {
+      "frame": 46,
+      "unwrapped_shaft_pitch_degrees": 295.5536542742353,
+      "wrist": [
+        0.4299221634864807,
+        0.004471525549888611,
+        1.190446376800537
+      ]
+    },
+    {
+      "frame": 47,
+      "unwrapped_shaft_pitch_degrees": 299.5534423718303,
+      "wrist": [
+        0.4154125452041626,
+        -0.026560619473457336,
+        1.1591947078704834
+      ]
+    },
+    {
+      "frame": 48,
+      "unwrapped_shaft_pitch_degrees": 303.0,
+      "wrist": [
+        0.43533629179000854,
+        -0.09645351767539978,
+        1.1299999952316284
+      ]
+    },
+    {
+      "frame": 49,
+      "unwrapped_shaft_pitch_degrees": 306.22739167804014,
+      "wrist": [
+        0.43241867423057556,
+        0.15372760593891144,
+        1.0971750020980835
+      ]
+    },
+    {
+      "frame": 50,
+      "unwrapped_shaft_pitch_degrees": 309.5075253522418,
+      "wrist": [
+        0.4062517285346985,
+        0.10843111574649811,
+        1.0563468933105469
+      ]
+    },
+    {
+      "frame": 51,
+      "unwrapped_shaft_pitch_degrees": 312.64020207009537,
+      "wrist": [
+        0.370025098323822,
+        0.06995870172977448,
+        1.0122730731964111
+      ]
+    },
+    {
+      "frame": 52,
+      "unwrapped_shaft_pitch_degrees": 315.425222879091,
+      "wrist": [
+        0.33018070459365845,
+        0.035551898181438446,
+        0.9697113633155823
+      ]
+    },
+    {
+      "frame": 53,
+      "unwrapped_shaft_pitch_degrees": 317.66238882671894,
+      "wrist": [
+        0.31583651900291443,
+        0.0014495179057121277,
+        0.9334194660186768
+      ]
+    },
+    {
+      "frame": 54,
+      "unwrapped_shaft_pitch_degrees": 319.15150096046955,
+      "wrist": [
+        0.30196449160575867,
+        -0.037914060056209564,
+        0.9081555604934692
+      ]
+    },
+    {
+      "frame": 55,
+      "unwrapped_shaft_pitch_degrees": 319.692360327833,
+      "wrist": [
+        0.2878945469856262,
+        -0.05657274276018143,
+        0.8986768126487732
+      ]
+    }
+  ]
+}

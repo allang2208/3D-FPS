@@ -7,10 +7,12 @@ ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/InfectedMiner20260913')
 if '--pickaxe' in sys.argv:ROOT=ROOT/'PickaxeSingleHand'
 if '--drag-ground' in sys.argv:ROOT=ROOT/'DragGround'
 if '--natural-wrist' in sys.argv:ROOT=ROOT/'NaturalWrist'
+if '--outer-swing' in sys.argv:ROOT=ROOT/'OuterSwing'
 state=sys.argv[sys.argv.index('--state')+1] if '--state' in sys.argv else 'Attack'
 OUT=ROOT/('Previews/SingleHandPickaxe' if '--pickaxe' in sys.argv else 'Previews/DefaultAxe')
 if '--drag-ground' in sys.argv:OUT=ROOT/'Previews'/state
 if '--natural-wrist' in sys.argv:OUT=ROOT/'Previews'/state
+if '--outer-swing' in sys.argv:OUT=ROOT/'Previews'/state
 OUT.mkdir(parents=True,exist_ok=True)
 contract=json.loads((ROOT/'Delivery/rebuild.json').read_text())
 bpy.ops.wm.open_mainfile(filepath=str(ROOT/'Delivery/InfectedMiner_Editable.blend'))
@@ -85,7 +87,8 @@ for name,offset in views:
     folder=OUT/name;folder.mkdir(exist_ok=True)
     for i,frame in enumerate(frames):
         if '--still' in sys.argv and i!=0:continue
-        if '--keyposes' in sys.argv and i not in [0,5,9,11]:continue
+        keyposes=[0,2,4,7,9,12,18,21,24,26] if '--outer-swing' in sys.argv else [0,5,9,11]
+        if '--keyposes' in sys.argv and i not in keyposes:continue
         destination=folder/f'{i:04d}.png'
         if destination.exists() and '--replace' not in sys.argv:continue
         scene.frame_set(frame)
