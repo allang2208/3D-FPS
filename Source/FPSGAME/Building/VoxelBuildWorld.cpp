@@ -138,42 +138,6 @@ bool AVoxelBuildWorld::CanPlaceFree(FVector Origin,const TArray<FIntVector>& Pos
     return CanPlaceAt(Origin,Positions,Material,Reason);
 }
 
-bool AVoxelBuildWorld::IsGroundAnchor(FVector Min) const
-{
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelGroundAnchor),true,this);
-    for(TActorIterator<APawn> It(GetWorld());It;++It)Query.AddIgnoredActor(*It);
-    // Four samples require a real base, not a single point on a cliff edge.
-    // A bottom voxel may intersect sloping terrain, as in the original grid.
-    for(double X:{2.,18.})for(double Y:{2.,18.})
-    {
-        const FVector Foot=Min+FVector(X,Y,0);FHitResult Hit;
-        if(!GetWorld()->LineTraceSingleByChannel(Hit,Foot+FVector(0,0,20.5),Foot-FVector(0,0,.5),ECC_Visibility,Query)
-            ||Hit.ImpactNormal.Z<.5||!Hit.GetComponent()||Hit.GetComponent()->IsSimulatingPhysics()
-            ||Cast<AVoxelCollapseFragment>(Hit.GetActor()))return false;
-    }
-    return true;
-}
-
-bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason) const
-{
-    const FVector Center=Min+FVector(10);const FBox Box(Min+FVector(.25),Min+FVector(19.75));
-    for(TActorIterator<ACharacter> It(GetWorld());It;++It)
-        if(auto* Capsule=It->GetCapsuleComponent();Capsule&&Capsule->IsCollisionEnabled()&&Box.Intersect(Capsule->Bounds.GetBox()))
-        {Reason=TEXT("位置被角色占用");return false;}
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelObstruction),true,this);FHitResult Ground;
-    const FVector Foot(Center.X,Center.Y,Min.Z);
-    const bool GroundSupport=GetWorld()->LineTraceSingleByChannel(Ground,Foot+FVector(0,0,21),Foot-FVector(0,0,.5),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>.5
-        &&!Cast<AVoxelCollapseFragment>(Ground.GetActor())&&Ground.GetComponent()&&!Ground.GetComponent()->IsSimulatingPhysics();
-    for(const FVector Axis:{FVector(1,0,0),FVector(0,1,0),FVector(0,0,1)})
-    {
-        FHitResult Obstacle;
-        if(GetWorld()->LineTraceSingleByChannel(Obstacle,Center-Axis*8,Center+Axis*8,ECC_Visibility,Query)
-            &&!(GroundSupport&&Obstacle.GetComponent()==Ground.GetComponent()&&Obstacle.ImpactPoint.Z<=Ground.ImpactPoint.Z+1))
-        {Reason=TEXT("位置与场景障碍重叠");return false;}
-    }
-    return true;
-}
-
 void AVoxelBuildWorld::RefreshSupportGraph()
 {
     SupportGraph=MakeShared<FVoxelSupportGraph>();
@@ -211,8 +175,8 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
         if(Seen.Contains(Cell))continue;Seen.Add(Cell);
         const FVector Min=Origin+CellMin(Cell);
         if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");return false;}
-        if(!ScenePlacementAllowed(Min,Reason))return false;
-        bool Anchored=IsGroundAnchor(Min);
+        bool Anchored=false;
+        if(!ScenePlacementAllowed(Min,Reason,&Anchored))return false;
         for(const auto& Key:SupportGraph->Near(Min))
         {
             const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;

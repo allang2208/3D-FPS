@@ -8,6 +8,7 @@ class AVoxelBuildWorld;
 class UVoxelBuildPalette;
 class UVoxelBuildWidget;
 class UStaticMeshComponent;
+class UInstancedStaticMeshComponent;
 class UMaterialInstanceDynamic;
 struct FInputKeyEventArgs;
 
@@ -33,6 +34,7 @@ private:
     UPROPERTY() TObjectPtr<AVoxelBuildWorld> BuildWorld;
     UPROPERTY() TObjectPtr<UVoxelBuildWidget> Widget;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> Preview;
+    UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> FoundationPreview;
     UPROPERTY() TObjectPtr<AActor> PreviewActor;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> PreviewMID;
     FName SelectedMaterial=TEXT("wood");
@@ -40,6 +42,8 @@ private:
     FVoxelBuildKey HitCell;
     FGuid PlacementVolume;
     FVector PlacementOrigin=FVector::ZeroVector;
+    FName PlacementMaterial;
+    bool bPlacementSnap=true;
     TArray<FIntVector> Placement;
     TArray<FIntVector> Removal;
     FString TargetMessage;
@@ -58,14 +62,17 @@ private:
     void TryInitializeWorld();
     void UpdateTarget();
     void ValidatePlacement();
+    void UpdatePreview(FIntVector Size);
     void UpdateWidget();
     FIntVector BrushSize() const;
     void FillBrush(FIntVector Base,TArray<FIntVector>& Result) const;
     double PlacementCheckAt=0;
+    double TargetUpdateAt=0;
     uint64 CheckedRevision=MAX_uint64;
     FName CheckedMaterial;
     FGuid CheckedVolume;
-    FIntVector CheckedFirst=FIntVector::ZeroValue,CheckedBrush=FIntVector::ZeroValue;
+    FVector CheckedOrigin=FVector::ZeroVector;
+    TArray<FIntVector> CheckedCells;
     FString CheckedMessage;
     bool bCheckedSnap=true,bCheckedValid=false;
 };

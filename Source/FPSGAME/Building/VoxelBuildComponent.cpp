@@ -7,6 +7,7 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/InstancedStaticMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Engine/StaticMesh.h"
@@ -52,16 +53,24 @@ void UVoxelBuildComponent::TryInitializeWorld()
     PreviewSpawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     PreviewActor=GetWorld()->SpawnActor<AActor>(AActor::StaticClass(),FVector::ZeroVector,FRotator::ZeroRotator,PreviewSpawn);
     PreviewActor->SetActorHiddenInGame(false);PreviewActor->SetActorEnableCollision(false);
+    auto* PreviewRoot=NewObject<USceneComponent>(PreviewActor,TEXT("VoxelPreviewRoot"));
+    PreviewActor->AddInstanceComponent(PreviewRoot);PreviewActor->SetRootComponent(PreviewRoot);
+    PreviewRoot->SetMobility(EComponentMobility::Movable);PreviewRoot->RegisterComponent();
     Preview=NewObject<UStaticMeshComponent>(PreviewActor,TEXT("VoxelPlacementGhost"));
-    PreviewActor->AddInstanceComponent(Preview);PreviewActor->SetRootComponent(Preview);
+    PreviewActor->AddInstanceComponent(Preview);Preview->SetupAttachment(PreviewRoot);
     Preview->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Cube.Cube")));
     Preview->SetCollisionEnabled(ECollisionEnabled::NoCollision);Preview->SetCastShadow(false);
     Preview->SetMobility(EComponentMobility::Movable);
     Preview->SetCanEverAffectNavigation(false);Preview->SetVisibility(false);Preview->RegisterComponent();
+    FoundationPreview=NewObject<UInstancedStaticMeshComponent>(PreviewActor,TEXT("VoxelFoundationGhost"));
+    PreviewActor->AddInstanceComponent(FoundationPreview);FoundationPreview->SetupAttachment(PreviewRoot);
+    FoundationPreview->SetStaticMesh(Preview->GetStaticMesh());FoundationPreview->SetMobility(EComponentMobility::Movable);
+    FoundationPreview->SetCollisionEnabled(ECollisionEnabled::NoCollision);FoundationPreview->SetCastShadow(false);
+    FoundationPreview->SetCanEverAffectNavigation(false);FoundationPreview->SetVisibility(false);FoundationPreview->RegisterComponent();
     auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Building/Voxels/Rounded/M_Voxel_PlacementPreview.M_Voxel_PlacementPreview"));
     if(!Material)Material=Palette->PreviewMaterial.LoadSynchronous();
     if(Material)
-    {PreviewMID=UMaterialInstanceDynamic::Create(Material,this);Preview->SetMaterial(0,PreviewMID);}
+    {PreviewMID=UMaterialInstanceDynamic::Create(Material,this);Preview->SetMaterial(0,PreviewMID);FoundationPreview->SetMaterial(0,PreviewMID);}
     Widget=CreateWidget<UVoxelBuildWidget>(PC);if(Widget){Widget->AddToPlayerScreen(18);Widget->SetVisibility(ESlateVisibility::Collapsed);}
 }
 
@@ -86,13 +95,14 @@ void UVoxelBuildComponent::SetBuildMode(bool Enabled)
         FeedbackTime=4;bFeedbackValid=false;
     }
     if(Preview)Preview->SetVisibility(false);
+    if(FoundationPreview)FoundationPreview->SetVisibility(false);
     if(Widget)Widget->SetVisibility(Enabled?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
     if(Enabled){UpdateTarget();UpdateWidget();}
 }
 
 void UVoxelBuildComponent::SelectMaterial(FName Id)
 {
-    if(Palette&&Palette->Find(Id)){SelectedMaterial=Id;FeedbackTime=0;}
+    if(Palette&&Palette->Find(Id)){SelectedMaterial=Id;FeedbackTime=0;TargetUpdateAt=0;}
 }
 
 FIntVector UVoxelBuildComponent::BrushSize() const
@@ -113,6 +123,7 @@ void UVoxelBuildComponent::FillBrush(FIntVector Base,TArray<FIntVector>& Result)
 void UVoxelBuildComponent::UpdateTarget()
 {
     Placement.Reset();Removal.Reset();bCanPlace=false;PlacementVolume={};HitCell={};
+    PlacementMaterial=SelectedMaterial;bPlacementSnap=bSnapEnabled;
     auto* PC=Cast<APlayerController>(GetOwner());
     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
     const FVector Start=PC->PlayerCameraManager->GetCameraLocation();
@@ -128,6 +139,16 @@ void UVoxelBuildComponent::UpdateTarget()
         if(bSnapEnabled)PlacementOrigin=AVoxelBuildWorld::CellMin(AVoxelBuildWorld::ToCell(PlacementOrigin));
         FillBrush(FIntVector(Size.X/2,Size.Y/2,0),Placement);
         TargetMessage=TEXT("未命中可放置表面 · 瞄准 6 米内的地面或方块");
+    }
+    else if(!BuildingHit)
+    {
+        FString GroundingMessage;
+        if(BuildWorld->ResolveGroundPlacement(Hit,Size,bSnapEnabled,PlacementOrigin,Placement,GroundingMessage))
+        {
+            ValidatePlacement();
+            if(bCanPlace)TargetMessage=GroundingMessage+TEXT("\n")+TargetMessage;
+        }
+        else TargetMessage=GroundingMessage;
     }
     else if(bSnapEnabled)
     {
@@ -150,8 +171,14 @@ void UVoxelBuildComponent::UpdateTarget()
         FillBrush(FIntVector(Size.X/2,Size.Y/2,0),Placement);
         ValidatePlacement();
     }
+    UpdatePreview(Size);
+}
+
+void UVoxelBuildComponent::UpdatePreview(FIntVector Size)
+{
     if(Preview&&!Placement.IsEmpty())
     {
+        const FVector Half=FVector(Size)*10;
         const FVector Min=PlacementOrigin+AVoxelBuildWorld::CellMin(Placement[0]);
         Preview->SetWorldLocation(Min+Half);Preview->SetWorldScale3D(FVector(Size)*.2+FVector(.0002));
         if(PreviewMID)
@@ -161,21 +188,50 @@ void UVoxelBuildComponent::UpdateTarget()
         }
         Preview->SetHiddenInGame(false);
         Preview->SetVisibility(true);
+        // One instanced box per foundation column, not an Actor per voxel.
+        // All transforms use the same world-space plan that is committed.
+        if(FoundationPreview)
+        {
+            TMap<FIntPoint,int32> Bottoms;
+            const int32 MainCells=Size.X*Size.Y*Size.Z;
+            for(int32 I=MainCells;I<Placement.Num();++I)
+            {
+                const auto Cell=Placement[I];const FIntPoint Column(Cell.X,Cell.Y);
+                if(auto* Bottom=Bottoms.Find(Column))*Bottom=FMath::Min(*Bottom,Cell.Z);
+                else Bottoms.Add(Column,Cell.Z);
+            }
+            TArray<FTransform> Transforms;
+            for(const auto& Column:Bottoms)
+            {
+                const FVector Bottom=PlacementOrigin+AVoxelBuildWorld::CellMin(FIntVector(Column.Key.X,Column.Key.Y,Column.Value));
+                const double Height=Min.Z-Bottom.Z;
+                Transforms.Emplace(FQuat::Identity,Bottom+FVector(10,10,Height*.5),FVector(.2,.2,Height/100.));
+            }
+            if(FoundationPreview->GetInstanceCount()==Transforms.Num())
+            {
+                if(!Transforms.IsEmpty())FoundationPreview->BatchUpdateInstancesTransforms(0,Transforms,true,true,true);
+            }
+            else
+            {
+                FoundationPreview->ClearInstances();
+                if(!Transforms.IsEmpty())FoundationPreview->AddInstances(Transforms,false,true,false);
+            }
+            FoundationPreview->SetHiddenInGame(false);FoundationPreview->SetVisibility(!Transforms.IsEmpty());
+        }
     }
 }
 
 void UVoxelBuildComponent::ValidatePlacement()
 {
     const double Now=GetWorld()->GetTimeSeconds();
-    const bool Changed=CheckedRevision!=BuildWorld->StructureRevision()||CheckedMaterial!=SelectedMaterial||
-        bCheckedSnap!=bSnapEnabled||CheckedVolume!=PlacementVolume||CheckedBrush!=BrushSize()||
-        (bSnapEnabled&&!Placement.IsEmpty()&&CheckedFirst!=Placement[0]);
+    const bool Changed=CheckedRevision!=BuildWorld->StructureRevision()||CheckedMaterial!=PlacementMaterial||
+        bCheckedSnap!=bPlacementSnap||CheckedVolume!=PlacementVolume||CheckedOrigin!=PlacementOrigin||CheckedCells!=Placement;
     if(Changed||Now>=PlacementCheckAt)
     {
-        bCheckedValid=bSnapEnabled?BuildWorld->CanPlaceInVolume(PlacementVolume,Placement,SelectedMaterial,CheckedMessage):
-            BuildWorld->CanPlaceFree(PlacementOrigin,Placement,SelectedMaterial,CheckedMessage);
-        CheckedRevision=BuildWorld->StructureRevision();CheckedMaterial=SelectedMaterial;bCheckedSnap=bSnapEnabled;
-        CheckedVolume=PlacementVolume;CheckedBrush=BrushSize();CheckedFirst=Placement.IsEmpty()?FIntVector::ZeroValue:Placement[0];
+        bCheckedValid=bPlacementSnap?BuildWorld->CanPlaceInVolume(PlacementVolume,Placement,PlacementMaterial,CheckedMessage):
+            BuildWorld->CanPlaceFree(PlacementOrigin,Placement,PlacementMaterial,CheckedMessage);
+        CheckedRevision=BuildWorld->StructureRevision();CheckedMaterial=PlacementMaterial;bCheckedSnap=bPlacementSnap;
+        CheckedVolume=PlacementVolume;CheckedOrigin=PlacementOrigin;CheckedCells=Placement;
         PlacementCheckAt=Now+.1;
     }
     bCanPlace=bCheckedValid;TargetMessage=CheckedMessage;
@@ -196,26 +252,28 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     if(Key==EKeys::One||Key==EKeys::Two)
     {if(Pressed)SelectMaterial(Key==EKeys::One?FName(TEXT("wood")):FName(TEXT("stone")));return true;}
     if(Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown)
-    {if(Pressed){Brush=(Brush+(Key==EKeys::MouseScrollUp?1:2))%3;FeedbackTime=0;}return true;}
-    if(Key==EKeys::R){if(Pressed){bRotate=!bRotate;FeedbackTime=0;}return true;}
-    if(Key==EKeys::F){if(Pressed){bSnapEnabled=!bSnapEnabled;FeedbackTime=0;UpdateTarget();UpdateWidget();}return true;}
+    {if(Pressed){Brush=(Brush+(Key==EKeys::MouseScrollUp?1:2))%3;FeedbackTime=0;TargetUpdateAt=0;}return true;}
+    if(Key==EKeys::R){if(Pressed){bRotate=!bRotate;FeedbackTime=0;TargetUpdateAt=0;}return true;}
+    if(Key==EKeys::F){if(Pressed){bSnapEnabled=!bSnapEnabled;FeedbackTime=0;TargetUpdateAt=0;}return true;}
     if(Key==EKeys::LeftControl||Key==EKeys::RightControl)
     {bUndoModifier=Event.Event!=IE_Released;return true;}
     if(Key==EKeys::Z&&bUndoModifier)
     {if(Pressed){bFeedbackValid=BuildWorld->Undo();Feedback=BuildWorld->ResultMessage();FeedbackTime=2;}return true;}
     if(Key==EKeys::MiddleMouseButton)
-    {if(Pressed){UpdateTarget();if(!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));}return true;}
+    {if(Pressed&&!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));return true;}
     if(Key==EKeys::LeftMouseButton||Key==EKeys::RightMouseButton)
     {
         if(Pressed)
         {
-            PlacementCheckAt=0;UpdateTarget();
+            // Input runs before the next camera/preview tick. Recasting here
+            // would commit an unseen target. The world revalidates this exact
+            // displayed plan without changing its origin or cells.
             if(Key==EKeys::LeftMouseButton)
             {
                 if(bCanPlace)
                 {
-                    if(bSnapEnabled)bFeedbackValid=BuildWorld->EditVolumeCells(PlacementVolume,Placement,SelectedMaterial);
-                    else bFeedbackValid=BuildWorld->PlaceFree(PlacementOrigin,Placement,SelectedMaterial);
+                    if(bPlacementSnap)bFeedbackValid=BuildWorld->EditVolumeCells(PlacementVolume,Placement,PlacementMaterial);
+                    else bFeedbackValid=BuildWorld->PlaceFree(PlacementOrigin,Placement,PlacementMaterial);
                     Feedback=BuildWorld->ResultMessage();
                 }
                 else {bFeedbackValid=false;Feedback=TargetMessage;}
@@ -225,6 +283,7 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
             {BuildWorld->QueueFragmentDamage(Debris,Hit.ImpactPoint-Hit.ImpactNormal*.25,1000000,0,0);bFeedbackValid=true;Feedback=TEXT("已提交残骸拆除");}
             else {bFeedbackValid=false;Feedback=TEXT("只能拆除自己建造的体素和残骸");}
             FeedbackTime=2;
+            PlacementCheckAt=0;TargetUpdateAt=0;
         }
         return true;
     }
@@ -252,7 +311,12 @@ void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
     auto* PC=Cast<APlayerController>(GetOwner());
     if(!PC||!PC->GetPawn()||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored())
     {SetBuildMode(false);return;}
-    FeedbackTime=FMath::Max(0.f,FeedbackTime-Delta);UpdateTarget();UpdateWidget();
+    FeedbackTime=FMath::Max(0.f,FeedbackTime-Delta);
+    // Bound terrain probes and draft connectivity work independently of FPS.
+    // Keep the displayed plan fixed between updates, including its validity.
+    const double Now=GetWorld()->GetTimeSeconds();
+    if(Now>=TargetUpdateAt){UpdateTarget();TargetUpdateAt=Now+1./30.;}
+    UpdateWidget();
 }
 
 void UVoxelBuildComponent::EndPlay(const EEndPlayReason::Type Reason)

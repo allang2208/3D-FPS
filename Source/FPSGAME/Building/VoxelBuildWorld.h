@@ -64,6 +64,8 @@ public:
     bool CanPlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
     bool EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material);
     bool PlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material);
+    bool ResolveGroundPlacement(const FHitResult& Surface,FIntVector Size,bool bSnap,
+        FVector& Origin,TArray<FIntVector>& Positions,FString& Reason) const;
     bool ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) const;
     bool IsReady() const {return bReady;}
     const FString& ResultMessage() const {return Message;}
@@ -94,7 +96,7 @@ private:
     bool bReady=false,bClosing=false;
     bool Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember);
     bool CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
-    bool ScenePlacementAllowed(FVector Min,FString& Reason) const;
+    bool ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor=nullptr) const;
     bool IsGroundAnchor(FVector Min) const;
     bool CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const;
     void RefreshSupportGraph();
