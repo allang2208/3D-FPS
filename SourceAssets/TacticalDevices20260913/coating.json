@@ -1,0 +1,38 @@
+{
+  "QBZ191_laser": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\QBZ191_laser.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\Textures\\T_QBZ191_Coating_QBZ191_laser_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\Textures\\T_QBZ191_Coating_QBZ191_laser_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      "M_Tactical_laser",
+      "M_Tactical_Collar"
+    ],
+    "export_slots": [
+      "M_Tactical_laser",
+      "M_Tactical_Collar"
+    ]
+  },
+  "QBZ191_flashlight": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\QBZ191_flashlight.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      "M_Tactical_flashlight",
+      "M_Tactical_Collar"
+    ],
+    "export_slots": [
+      "M_Tactical_flashlight",
+      "M_Tactical_Collar.001"
+    ]
+  }
+}

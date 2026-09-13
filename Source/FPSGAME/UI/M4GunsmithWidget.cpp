@@ -31,6 +31,7 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
             C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
             C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
             C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
+            C->SetGunsmithTactical(Model()->Draft().FindRef(TEXT("tactical")));
         }
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)

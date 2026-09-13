@@ -10,7 +10,7 @@ using FGunsmithParts = TMap<FString,FString>;
 struct FGunsmithStats
 {
     FWeaponHandling Handling;
-    double ADS=0.3, ADSPercent=0, Recoil=100, Shake=100, RecoilMultiplier=1, ShakeMultiplier=1;
+    double ADS=0.3, ADSPercent=0, ADSSeconds=0, Recoil=100, Shake=100, RecoilMultiplier=1, ShakeMultiplier=1;
     double Interval=0.13, Reload=1.5, EmptyReload=1.5, Speed=90, Range=40, Spread=1, Damage=25;
     int32 Capacity=30, ActiveParts=0;
 };
@@ -18,7 +18,7 @@ struct FGunsmithOption
 {
     FString Id, Name, Description;
     TArray<TPair<FString,int32>> Effects;
-    double ADS=0, Recoil=1, Shake=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1;
+    double ADS=0, ADSSeconds=0, Recoil=1, Shake=1, Speed=1, Interval=1, Spread=1, Range=1, Reload=1;
     int32 Magazine=0;
 };
 struct FGunsmithWeapon

@@ -1,0 +1,407 @@
+[
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\authoring.json",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\authoring.json",
+    "bytes": 2064,
+    "sha256": "7FE2EE67752ADF776408B517FF5D92BD2DB72EF7D5B68D610F05887AED263572",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\coating.json",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\coating.json",
+    "bytes": 827,
+    "sha256": "DCE1B94A8DB7BF817F65842EEBE210BD63EDA56601CFBEAA7149DDD1E85EB5D6",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\installed.json",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\installed.json",
+    "bytes": 322,
+    "sha256": "4A0433D58E84021F8E8EBD2049A2EC07E39382300B5788800A56F51677B66333",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191_flashlight.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191_flashlight.fbx",
+    "bytes": 1308572,
+    "sha256": "D64D34FA9259C98B5BCD30094E9A010D04DD869C6D116FF5F7E88D9B8AC22C47",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191_TacticalCoating_Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191_TacticalCoating_Editable.blend",
+    "bytes": 841391,
+    "sha256": "795DFCB65A78609A2BFE176176905A7DCBD0C862537E09E2D9BFE110ED3C89B2",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\AKM\\Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\AKM\\Editable.blend",
+    "bytes": 35454999,
+    "sha256": "4DC53F5C3953B3EF139C4855536331E2543C33776C941F25C7CD46C0ECD36CD5",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\AKM\\SM_TacticalDevice.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\AKM\\SM_TacticalDevice.fbx",
+    "bytes": 1260588,
+    "sha256": "109004BBBF423C55EC53974C1B0FBF12285FFC4CFD4340DCA11D0472E8CF25BA",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\M4\\Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\M4\\Editable.blend",
+    "bytes": 35450509,
+    "sha256": "3A504BA89FDE0BCBB987EE61991149B36CB6E1B42211D13246479769B62A5338",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\M4\\SM_TacticalDevice.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\M4\\SM_TacticalDevice.fbx",
+    "bytes": 1259388,
+    "sha256": "F71FC93AB42B89B98ED44158D4DF1316FA12FF8D14F49714F649F7E6CB0CAFE6",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191\\Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191\\Editable.blend",
+    "bytes": 35446388,
+    "sha256": "88963D3E46AB73B77A661A834233FDAEB4579429C6141E319BFA4246A12B5C91",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191\\SM_TacticalDevice.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191\\SM_TacticalDevice.fbx",
+    "bytes": 1266204,
+    "sha256": "6DF2C922FFDAC68A5AE53A811AB4D0B593C408BD63684E80A16286D83B7C8EAD",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_BaseColor.png",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_BaseColor.png",
+    "bytes": 1493368,
+    "sha256": "90A6BE57A4953AC87AB0D3A5EB68BCFEBAE609B469035032E6A440C0C0E9A9A1",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_ORM.png",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_ORM.png",
+    "bytes": 1322491,
+    "sha256": "506E303DCD3821B26E33FE9609BB83804E68EC79533A8CE36140A0E58E351C96",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\AKM\\laser\\M_AKM_laser_Body.uasset",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\AKM\\laser\\M_AKM_laser_Body.uasset",
+    "bytes": 10960,
+    "sha256": "910686C6A125CD43E4A139D6C60203E766D3DF4688C92980C9A6132DFFAA3C3B",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\Effects\\M_LaserBeam.uasset",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\Effects\\M_LaserBeam.uasset",
+    "bytes": 6175,
+    "sha256": "0896BC81DB3091242F7232D66DC2863DCFF2290326091C81F84D8388D928D8F8",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\Effects\\M_LaserDot.uasset",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\Effects\\M_LaserDot.uasset",
+    "bytes": 5295,
+    "sha256": "30FF1D3B2102AAB41E58C3BD388A9D0AED8B2EAF7A9DFF0525D00DE70BDFF11A",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\M4\\laser\\M_M4_laser_Body.uasset",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\M4\\laser\\M_M4_laser_Body.uasset",
+    "bytes": 15715,
+    "sha256": "E99243A9A138A490F42FBFFA32AAC751EC80305B790C8DFC2528D04AA0226FD3",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\QBZ191\\laser\\M_QBZ191_laser_Body.uasset",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\BeforeRedBrightness\\Weapons\\TacticalDevices20260913\\QBZ191\\laser\\M_QBZ191_laser_Body.uasset",
+    "bytes": 10401,
+    "sha256": "58E7E81AE66FBBF371430D4E511438E0039D12EB90546B2772BF12895A5305B6",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\EditableMaster.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\EditableMaster.blend",
+    "bytes": 56667378,
+    "sha256": "30BAD161A2732C6CB6833491214C1E8543C7708D6B29C3A04481830D73557708",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\history.json",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\history.json",
+    "bytes": 8614,
+    "sha256": "7611F0F1A7A4B20238D133E65331FF72140D061CACDC61A4B76B34B8C7F5F9E2",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\raw_00001_.glb",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\raw_00001_.glb",
+    "bytes": 134683188,
+    "sha256": "EADCB2817D7781DABD50F4ADF73ED6A8ACAD00198525383DCB4587FB7420269F",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\receipt.json",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\receipt.json",
+    "bytes": 98,
+    "sha256": "23881490C7559806B293AC307D8E05B3DEA9D8AA1F2C6F8089C5C0C27A42E6B6",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\textured_master_00001_.glb",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\textured_master_00001_.glb",
+    "bytes": 53484016,
+    "sha256": "529C9300D4ED075E2ECFBDD235E98B932746FDE737977152CB79A0C9557A1838",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\workflow.json",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\flashlight\\seed_91827\\workflow.json",
+    "bytes": 5528,
+    "sha256": "0795DA7F37EF98A90FA5C103DBBC7A49A6E492CDD7BE1F506E78A4F586316438",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\M4\\flashlight\\Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\M4\\flashlight\\Editable.blend",
+    "bytes": 37693142,
+    "sha256": "0C579A7FAA851F1CAA27F6DBBF2427E501A45C0ED20C5BB0940050454944EEB9",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\M4\\flashlight\\Editable.blend1",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\M4\\flashlight\\Editable.blend1",
+    "bytes": 37737758,
+    "sha256": "B516C3795696BC9B9324F9E9801C2612934BC54EE87C0B71F979940C1C52BE2A",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\M4\\flashlight\\SM_TacticalDevice.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\M4\\flashlight\\SM_TacticalDevice.fbx",
+    "bytes": 6747468,
+    "sha256": "235E8DC349F266E87DE27372B97519F165C399F60A2EE817F6B87445C4BE3D96",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\AKM\\flashlight\\Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\AKM\\flashlight\\Editable.blend",
+    "bytes": 37711532,
+    "sha256": "67FDBD7EC68D9BD48527A104E0F1EAFFCFBC288275E6A99FF744CD448B48550D",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\AKM\\flashlight\\Editable.blend1",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\AKM\\flashlight\\Editable.blend1",
+    "bytes": 37740606,
+    "sha256": "092DF6DDD0AAE04297D04E2B97967EBE1F4366B064FA063AB92D4F542144C01B",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\AKM\\flashlight\\SM_TacticalDevice.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\AKM\\flashlight\\SM_TacticalDevice.fbx",
+    "bytes": 6752860,
+    "sha256": "A97F7C760247BEDA1B3D4924C04FB2556CC8E9C1B5ACAE633F35D5F2067BE2BE",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\QBZ191\\flashlight\\Editable.blend",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\QBZ191\\flashlight\\Editable.blend",
+    "bytes": 37707694,
+    "sha256": "2ABE37476B4A4168ED121E621A66FAAB5465EF015865946E6EA6862F8F65E80E",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\QBZ191\\flashlight\\Editable.blend1",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\QBZ191\\flashlight\\Editable.blend1",
+    "bytes": 37740060,
+    "sha256": "C28320AC2C98A617A2F0A36E1F2E330951329B8739AF3ECB01410F83F3E2CB9F",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\QBZ191\\flashlight\\SM_TacticalDevice.fbx",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\QBZ191\\flashlight\\SM_TacticalDevice.fbx",
+    "bytes": 6755004,
+    "sha256": "557A20FE9CB0462DABCC8892053B3C3CF07F4272FB3896E23AABCB5B30A9AD0B",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\rebuild_flashlight.py",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\rebuild_flashlight.py",
+    "bytes": 5612,
+    "sha256": "1573BFB0CE86ED2312F08EC95045FAFC2B56CB03BF77D1023AD5D4F4951A2DAA",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\bake_flashlight_v2.py",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\bake_flashlight_v2.py",
+    "bytes": 6389,
+    "sha256": "F35F4C8054558FE90689474561E4107046F9F98EFC910A1D1187AD530B97D969",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "SourceAssets\\TacticalDevices20260913\\import_flashlight_v2.py",
+    "target": "trash\\tactical-rejected-20260913\\SourceAssets\\TacticalDevices20260913\\import_flashlight_v2.py",
+    "bytes": 3366,
+    "sha256": "27DBAD1A3CA62EDD53BB7C7EA9CBF20ADDC6187E4569CC71EA7D6177F3F94F5F",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\AKM\\SM_TacticalDevice.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\AKM\\SM_TacticalDevice.uasset",
+    "bytes": 892974,
+    "sha256": "9411B676166DCDB913B63F09790A047546FB35477C946543F7C691BD5876F5D3",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\M4\\SM_TacticalDevice.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\M4\\SM_TacticalDevice.uasset",
+    "bytes": 887768,
+    "sha256": "75FF363399D6806E8036B106D9A388827532DC4A1C64A32C15AB532988E2744E",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_LED.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_LED.uasset",
+    "bytes": 5500,
+    "sha256": "FE2D4A8C5F343E0F54A690325E5FA8FA27766829585EF717A59416221587A718",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_QBZ191_Coating.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_QBZ191_Coating.uasset",
+    "bytes": 7546,
+    "sha256": "784B971AA01486FEBC21AA14A58FCAB92552D5E3195D82F5DCB9ED6D958D16C5",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_Reflector.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_Reflector.uasset",
+    "bytes": 5559,
+    "sha256": "9E4A06A1DED151725D52FE69FEF37F259A81B04199FF54746530F5543EA5016A",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_Rubber.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Materials\\M_Rubber.uasset",
+    "bytes": 5515,
+    "sha256": "9528E48926A7D56CCB95C876F0E9FCCF39D323ED5F66D957DE89DB1118806370",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191\\SM_TacticalDevice.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\QBZ191\\SM_TacticalDevice.uasset",
+    "bytes": 979604,
+    "sha256": "799226F48FA30BA055D03C919C902A804F6ABFA68528EBBF0E0CC63C2E05D148",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_BaseColor.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_BaseColor.uasset",
+    "bytes": 1267640,
+    "sha256": "A04C1EC175B5DA0805ABA8D1B516317953001A82C7D72D80B3AFE68118EF75E5",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  },
+  {
+    "source": "Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_ORM.uasset",
+    "target": "trash\\tactical-rejected-20260913\\Content\\Weapons\\TacticalDevices20260913\\HardSurfaceV2\\Textures\\T_QBZ191_Coating_QBZ191_flashlight_ORM.uasset",
+    "bytes": 1059466,
+    "sha256": "73E67A3F11A12C01ED4EA6493B7352048A3970C376E471EDA38C63F5CBB40155",
+    "reason": "Rejected flashlight iteration or pre-brightness backup",
+    "replacement": "SourceAssets/TacticalDevices20260913/HunyuanV3; current laser OpticalV2",
+    "state": "archived"
+  }
+]

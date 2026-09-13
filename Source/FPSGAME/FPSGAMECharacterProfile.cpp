@@ -45,6 +45,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         SetGunsmithMuzzle(VisualParts.FindRef(TEXT("muzzle")));
         SetGunsmithHandstop(VisualParts.FindRef(TEXT("underbarrel")));
         SetGunsmithStock(VisualParts.FindRef(TEXT("stock")));
+        SetGunsmithTactical(VisualParts.FindRef(TEXT("tactical")));
         bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum");
         ADSInDuration=Defaults->ADSInDuration;
         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;

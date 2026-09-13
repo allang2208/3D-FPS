@@ -31,6 +31,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UFPSTraversalComponent;
 
     friend class UColdSteelWeaponIcons;
+    friend class UTacticalDeviceComponent;
 
 public:
     bool IsTraversing() const;
@@ -60,6 +61,9 @@ public:
     void SetGunsmithMuzzle(const FString& Variant);
     void SetGunsmithHandstop(const FString& Variant);
     void SetGunsmithStock(const FString& Variant);
+    void SetGunsmithTactical(const FString& Variant);
+    UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
     bool HasSkeletonStock() const;
     bool ValidateStockAttachment() const;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> StockAttachment;
