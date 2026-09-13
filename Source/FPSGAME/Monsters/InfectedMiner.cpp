@@ -28,7 +28,7 @@ AInfectedMiner::AInfectedMiner():Super()
 {
     Tags.Remove(TEXT("NurseZombie")); Tags.Add(TEXT("InfectedMiner"));
     MaxHealth=180.f; AttackDamage=24.f; AttackRange=150.f;
-    AggroRadius=1100.f; WalkSpeed=55.f; ContactTime=11.f/30.f; ContactEnd=17.f/30.f;
+    AggroRadius=1100.f; WalkSpeed=55.f; ContactTime=21.f*54.f/(30.f*65.f); ContactEnd=27.f*54.f/(30.f*65.f);
     RecoveryTime=1.15f; CorpseSeconds=20.f; ExperienceReward=280;
 }
 bool AInfectedMiner::ApplyAcceptedGrip(UAnimSequence* TargetClip,UAnimSequence* AcceptedIdle)

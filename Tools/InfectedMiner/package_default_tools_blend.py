@@ -3,10 +3,10 @@
 Only animation data is replaced. Bone rest frames, mesh, weights and materials
 come from the accepted snapshot. No rendering or acceptance checks are run.
 """
-import bpy,json
+import bpy,json,sys
 from pathlib import Path
 R=Path('D:/FPS3D/FPSGAME/SourceAssets')
-O=R/'InfectedMiner20260913/Delivery'
+O=R/('InfectedMiner20260913/PickaxeSingleHand/Delivery' if '--pickaxe' in sys.argv else 'InfectedMiner20260913/Delivery')
 contract=json.loads((O/'rebuild.json').read_text())
 bpy.ops.wm.open_mainfile(filepath=str(R/'InfectedMiner20260912/Review/Hand_UserAccepted_20260912/InfectedMiner_Editable.blend'))
 rig=bpy.data.objects['MinerRig'];scene=bpy.context.scene;scene.render.fps=30

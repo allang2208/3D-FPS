@@ -1,0 +1,43 @@
+{
+  "version": "single-hand composite from EBS PickAxe mining cycle",
+  "source_mesh": "/Game/EasyBuildingSystem/Mannequin/Mesh/SK_Mannequin.SK_Mannequin",
+  "target_mesh": "/Game/Monsters/InfectedMiner/AuthoredChopFinal/SK_InfectedMiner.SK_InfectedMiner",
+  "sources": {
+    "Attack": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_PickAxe_Act",
+    "Idle": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Pickaxe_Idle",
+    "Walk": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Pickaxe_Walk"
+  },
+  "retargeter": "/Game/Monsters/InfectedMiner/PickaxeSingleHand20260913/RTG_EBS_Pickaxe_Miner.RTG_EBS_Pickaxe_Miner",
+  "clips": {
+    "Attack": {
+      "path": "/Game/Monsters/InfectedMiner/PickaxeSingleHand20260913/A_Miner_SingleHand_PickAxe_Act.A_Miner_SingleHand_PickAxe_Act",
+      "seconds": 1.7999999523162842,
+      "source_seconds": 2.1666667461395264,
+      "baked_speed": 1.203703779742553
+    },
+    "Idle": {
+      "path": "/Game/Monsters/InfectedMiner/PickaxeSingleHand20260913/A_Miner_SingleHand_Pickaxe_Idle.A_Miner_SingleHand_Pickaxe_Idle",
+      "seconds": 2.633333444595337,
+      "source_seconds": 2.633333444595337,
+      "baked_speed": 1.0
+    },
+    "Walk": {
+      "path": "/Game/Monsters/InfectedMiner/PickaxeSingleHand20260913/A_Miner_SingleHand_Pickaxe_Walk.A_Miner_SingleHand_Pickaxe_Walk",
+      "seconds": 1.0333333015441895,
+      "source_seconds": 1.0333333015441895,
+      "baked_speed": 1.0
+    }
+  },
+  "contact_time": 0.581538424802251,
+  "contact_end": 0.7476922604600371,
+  "source_play_rate": 1.203703779742553,
+  "custom_attack_ik": false,
+  "composition": "source body/legs/left arm; existing accepted idle right arm; accepted fingers",
+  "original_source_is_single_hand": false,
+  "source_ebs_notifies_removed": true,
+  "accepted_pose_source": "/Game/Monsters/InfectedMiner/AuthoredChopFinal/A_Miner_Idle.A_Miner_Idle",
+  "mesh_rest_skin_materials_weapon": "body, hands, bind, weights and materials retained; rigid pick head rotated 90 degrees about handle",
+  "gameplay_tested": false,
+  "pick_head_rotation_degrees": 90,
+  "delivery_mesh": "/Game/Monsters/InfectedMiner/PickaxeSingleHand20260913/SK_InfectedMiner_Pickaxe.SK_InfectedMiner_Pickaxe"
+}

@@ -4,7 +4,8 @@ from pathlib import Path
 from mathutils import Vector
 
 ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/InfectedMiner20260913')
-OUT=ROOT/'Previews/DefaultAxe'
+if '--pickaxe' in sys.argv:ROOT=ROOT/'PickaxeSingleHand'
+OUT=ROOT/('Previews/SingleHandPickaxe' if '--pickaxe' in sys.argv else 'Previews/DefaultAxe')
 OUT.mkdir(parents=True,exist_ok=True)
 contract=json.loads((ROOT/'Delivery/rebuild.json').read_text())
 bpy.ops.wm.open_mainfile(filepath=str(ROOT/'Delivery/InfectedMiner_Editable.blend'))
@@ -77,7 +78,9 @@ for name,offset in views:
     camera_data.ortho_scale=max(width,height*620/720)*1.12
     framing[name]={'scale':camera_data.ortho_scale,'center':list(center),'offset':list(offset)}
     folder=OUT/name;folder.mkdir(exist_ok=True)
-    for i,frame in enumerate(frames[:1] if '--still' in sys.argv else frames):
+    for i,frame in enumerate(frames):
+        if '--still' in sys.argv and i!=0:continue
+        if '--keyposes' in sys.argv and i not in [0,5,9,11]:continue
         destination=folder/f'{i:04d}.png'
         if destination.exists() and '--replace' not in sys.argv:continue
         scene.frame_set(frame)
@@ -86,6 +89,7 @@ for name,offset in views:
         print(f'MINER_PREVIEW_FRAME {name} {i+1}/{len(frames)}',flush=True)
 (OUT/'render.json').write_text(json.dumps({'source':str(ROOT/'Delivery/InfectedMiner_Editable.blend'),
     'action':'A_Miner_Attack','seconds':contract['clips']['Attack']['seconds'],
+    'baked_speed':contract.get('source_play_rate',1),
     'source_frames_1_based':frames,'framing':framing,'size_per_view':[620,720],
     'render':'offline Blender Cycles; UE-baked animation and accepted model/materials',
     'gameplay_tested':False},indent=2))

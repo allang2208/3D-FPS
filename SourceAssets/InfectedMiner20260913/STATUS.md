@@ -1,4 +1,8 @@
-# 感染矿工原始工具动作重建
+# 感染矿工单手挥镐
+
+当前交付已转为 `PickaxeSingleHand/`，使用实际 `A_Mannequin_PickAxe_Act` 的身体/腿/持镐左臂，配合已有放松右臂和已认可手指姿态，合成为 1.8 秒单手挥镐。参见 [当前说明](../../Docs/InfectedMinerPickaxe20260913.md)。当前 GIF 为 `PickaxeSingleHand/Previews/InfectedMiner_SingleHand_Pickaxe_Attack.gif`。未做游戏测试。
+
+以下为上一版被拒绝的斧击记录，根目录旧 `Delivery`、`Previews` 与旧 GIF 不再是当前输出。
 
 当前源为工程已导入的 Easy Building System V10 工具动画。UE 原生 IK Retargeter 输出同套待机、移动和挥击，替换被用户拒绝的 CMU 动作；不在旧攻击上继续编排姿态。
 
