@@ -1,0 +1,38 @@
+{
+  "source": "QBZ191Machined20260913/QBZ191_Machined_Editable.blend",
+  "rail_crown_m": 0.096473,
+  "fold_duration_seconds": 0.18,
+  "heads": [
+    {
+      "name": "SM_QBZ191_RearSight",
+      "hinge_root_m": [
+        0.0006880000000819564,
+        -0.00923100020736456,
+        0.10000000149011612
+      ],
+      "axis_ue": [
+        1,
+        0,
+        0
+      ],
+      "angle_ue": 90,
+      "triangles": 2604
+    },
+    {
+      "name": "SM_QBZ191_FrontSight",
+      "hinge_root_m": [
+        0.0006880000000819564,
+        0.34351399540901184,
+        0.10000000149011612
+      ],
+      "axis_ue": [
+        1,
+        0,
+        0
+      ],
+      "angle_ue": -90,
+      "triangles": 2452
+    }
+  ],
+  "status": "authored and exported; no rendered or gameplay acceptance"
+}

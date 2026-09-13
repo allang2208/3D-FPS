@@ -129,7 +129,7 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     else if(const auto* P=Presentation.Find(Selected)){Message=TEXT("已选中 · ")+P->Name;Tone=ColdSteelUI::TextPrimary;}
     Label(Message,12,L.HotY+54,12,Tone,L.Width-24);
     const auto* Selection=Model->FindItem(Selected);
-    const bool Gun=Selection&&(Selection->Definition==TEXT("ue_m4a1")||Selection->Definition==TEXT("ue_akm"));
+    const bool Gun=Selection&&(Selection->Definition==TEXT("ue_m4a1")||Selection->Definition==TEXT("ue_akm")||Selection->Definition==TEXT("ue_qbz191"));
     Label(Gun?TEXT("单击查看 · 右键装备 · J 改造"):TEXT("单击查看 · 右键使用 · Shift+单击拆分"),12,L.HotY+73,12,ColdSteelUI::TextTertiary,L.Width-24);
     return Layer+6;
 }

@@ -39,7 +39,7 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
         if(I->Place==0&&I->Count>1&&Text(*I,TEXT("category"))!=TEXT("gold"))Button(TEXT("拆分数量…"))->OnClicked.AddDynamic(this,&ThisClass::Split);
         Button(TEXT("查看详情"))->OnClicked.AddDynamic(this,&ThisClass::Details);
         auto* D=Button(TEXT("丢下物品…"));DropCaption=Cast<UTextBlock>(D->GetContent());D->OnClicked.AddDynamic(this,&ThisClass::Drop);
-        if(I->Definition==TEXT("ue_m4a1"))Button(TEXT("改造武器"))->OnClicked.AddDynamic(this,&ThisClass::OpenGunsmith);
+        if((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")))Button(TEXT("改造武器"))->OnClicked.AddDynamic(this,&ThisClass::OpenGunsmith);
         Button(TEXT("整理背包"))->OnClicked.AddDynamic(this,&ThisClass::SortBag);
         Button(TEXT("保存背包"))->OnClicked.AddDynamic(this,&ThisClass::SaveBag);
     }

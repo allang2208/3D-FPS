@@ -6,6 +6,9 @@
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
+#include "Weapons/AKMSovietCalibration.h"
+#include "Weapons/AKMAttachmentVisual.h"
+#include "Weapons/M4DrumReloadTiming.h"
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/FPSBallisticsComponent.h"
 
@@ -147,15 +150,36 @@ void AFPSGAMECharacter::BeginPlay()
 
 void AFPSGAMECharacter::InitializeWeaponVisuals()
 {
-    if(LPVORing)LPVORing->DestroyComponent();
-    if(HolographicOptic)HolographicOptic->DestroyComponent();
-    LPVORing=nullptr;HolographicOptic=nullptr;LPVOMagnification=1.f;OpticVariant.Reset();bHolographicOptic=false;
+    if(StockAttachment)StockAttachment->DestroyComponent();
+    StockAttachment=nullptr;bSkeletonStock=false;
+    // Mounts and meshes belong to a weapon definition; rebuild them on a weapon swap.
+    for(auto* Part:{LPVORing.Get(),AKMOpticBridge.Get(),HolographicOptic.Get(),LargeDrum.Get(),MuzzleAttachment.Get(),PrismHandstop.Get(),AngledForegrip.Get(),VerticalForegrip.Get(),CantedForegrip.Get()})if(Part)Part->DestroyComponent();
+    AKMOpticBridge=nullptr;
+    LPVORing=nullptr;LPVOMagnification=1.f;HolographicOptic=nullptr;LargeDrum=nullptr;MuzzleAttachment=nullptr;PrismHandstop=nullptr;AngledForegrip=nullptr;VerticalForegrip=nullptr;CantedForegrip=nullptr;
+    bHolographicOptic=false;OpticVariant.Reset();bDrumVisual=false;MuzzleVariant.Reset();
     bSightCalibrated = false;
     bUsingM4Infima = false;
-    USkeletalMesh* ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMReplacement/HandsRepair/SK_AKM_HandsRepair.SK_AKM_HandsRepair"), nullptr, LOAD_NoWarn);
+    // Each weapon starts from its own framing, never the previous rifle's ADS.
+    HipViewmodelLocation=M4HipViewmodelLocation;
+    ADSRearEyeDistance=18.f;
+    EquipAnimation=nullptr;
+    USkeletalMesh* ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/WalnutFab/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (ViewmodelMesh && ViewmodelMesh->GetPathName().Contains(TEXT("/AKMIntegration/SovietFab/")))
+        HipViewmodelLocation = M4HipViewmodelLocation + FVector(6.f, 0.f, 0.f);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SourceMatched/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/Materials/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/Native/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMReplacement/Rendering/SK_AKM_Replacement_Game.SK_AKM_Replacement_Game"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMReplacement/SK_AKM_Replacement.SK_AKM_Replacement"), nullptr, LOAD_NoWarn);
-    if (bUseM4Infima)
+    if (!ViewmodelMesh || ViewmodelMesh->GetName()!=TEXT("SK_AKM_MannyNative"))
+    {
+        HipViewmodelLocation=FVector(10.f,31.f,-3.f);
+        ADSRearEyeDistance=42.f;
+    }
+    if (bUseM4Infima || bUseQBZ191)
     {
         if (USkeletalMesh* M4Mesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416.SK_M4_FoldingSights_HK416"), nullptr, LOAD_NoWarn))
         {
@@ -166,11 +190,22 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
             UE_LOG(LogTemp, Display, TEXT("M4_INFIMA_ACTIVE mesh=%s"), *M4Mesh->GetPathName());
         }
     }
+    if (bUseQBZ191)
+    {
+        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/QBZ191/Attachments20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"));
+        bUsingM4Infima = ViewmodelMesh != nullptr;
+        HipViewmodelLocation = M4HipViewmodelLocation;
+        ADSRearEyeDistance = 12.f;
+        UE_LOG(LogTemp, Display, TEXT("QBZ191_ACTIVE mesh=%s"), *GetPathNameSafe(ViewmodelMesh));
+    }
     bUsingReplacement = ViewmodelMesh != nullptr;
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
     if (ViewmodelMesh)
     {
         AKMViewmodel->SetSkeletalMeshAsset(ViewmodelMesh);
+        // Component LOD visibility survives a mesh swap when the LOD count is
+        // unchanged. M4 suppressor/drum section indices are unrelated to AKM.
+        for(int32 L=0;L<ViewmodelMesh->GetLODNum();++L)AKMViewmodel->ShowAllMaterialSections(L);
         InitializeFoldingSights();
     }
     IdleAnimation = LoadAKMAnimation(TEXT("A_AKM_idle"));
@@ -179,18 +214,30 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     AimFireAnimation = LoadAKMAnimation(TEXT("A_AKM_aim_fire"));
     ReloadAnimation = LoadAKMAnimation(TEXT("A_AKM_reload"));
     ReloadEmptyAnimation = LoadAKMAnimation(TEXT("A_AKM_reload_empty"));
-    DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Throw/A_M4_DrumThrow_reload.A_M4_DrumThrow_reload"));
-    DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Throw/A_M4_DrumThrow_reload_empty.A_M4_DrumThrow_reload_empty"));
+    DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload"));
+    DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty"));
+    if(AKMSoviet::Matches(AKMViewmodel)){
+        ReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload"));
+        ReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_reload_empty"));
+        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload"));
+        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload_empty"));
+    }
+    if (bUseQBZ191) { DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload")); DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty")); }
     InspectAnimation = bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
-    if (bUsingM4Infima)
+    if (bUsingM4Infima && !bUseQBZ191)
         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
             if (Base)
             {
                 const FString Path=FString::Printf(TEXT("/Game/Weapons/M4DrumGripRebuilt/Support/%s.%s"),*Base->GetName(),*Base->GetName());
                 if (auto* Support=LoadObject<UAnimSequence>(nullptr,*Path))DrumSupportAnimations.Add(Base,Support);
             }
+    ForegripAnimations.Reset(); PrismGripAnimations.Reset(); VerticalGripAnimations.Reset(); CantedGripAnimations.Reset();
+    InitializeForegripAnimations();
+    InitializePrismGripAnimations();
+    InitializeVerticalGripAnimations();
+    InitializeCantedGripAnimations();
     AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
     GunplayAnimation = Cast<UFPSGunplayAnimInstance>(AKMViewmodel->GetAnimInstance());
     if (GunplayAnimation)
@@ -344,11 +391,14 @@ void AFPSGAMECharacter::ReloadPressed()
     WeaponState = bPendingEmptyReload ? EAKMWeaponState::ReloadingEmpty : EAKMWeaponState::Reloading;
     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
     WeaponStateElapsed = 0.0f;
-    WeaponStateDuration = bPendingEmptyReload ? EmptyReloadDuration : ReloadDuration;
+    WeaponStateDuration = FMath::Max(0.01f, bPendingEmptyReload ? EmptyReloadDuration : ReloadDuration);
     UAnimSequence* Animation = bPendingEmptyReload ? ReloadEmptyAnimation : ReloadAnimation;
     if(bDrumInstalled)Animation=bPendingEmptyReload?DrumReloadEmptyAnimation:DrumReloadAnimation;
     const float ClipLength = Animation ? Animation->GetPlayLength() : WeaponStateDuration;
     PlayWeaponAnimation(Animation, false, ClipLength / WeaponStateDuration);
+    // The state owns completion. Animation and all contact events consume this
+    // same duration; changing a reload stat scales the complete action.
+    ActionDuration = WeaponStateDuration;
 
     const float SourceLength = bPendingEmptyReload ? 4.291667f : 3.333333f;
     const float Scale = WeaponStateDuration / SourceLength;
@@ -365,6 +415,7 @@ void AFPSGAMECharacter::ReloadPressed()
         MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
     }
     NextMechanicalCue = 0;
+    if(AKMSoviet::Matches(AKMViewmodel)&&bDrumInstalled)MechanicalCueTimes[0]=.5f*Scale;
     for (float& Cue : MechanicalCueTimes) Cue = ReloadRuntimeTime(Cue / Scale);
     if (bUsingM4Infima)
     {
@@ -377,6 +428,21 @@ void AFPSGAMECharacter::ReloadPressed()
         {
             MechanicalCueTimes.Add(130.0f / 60.0f);
             MechanicalCueSounds.Add(BoltReleaseSound);
+        }
+        if(bDrumInstalled)
+        {
+            MechanicalCueTimes=bPendingEmptyReload
+                ? TArray<float>{14.0f/60.0f,54.0f/60.0f,80.0f/60.0f,116.0f/60.0f}
+                : TArray<float>{18.0f/60.0f,76.0f/60.0f,95.0f/60.0f};
+        }
+        if (bUseQBZ191)
+        {
+            MechanicalCueTimes = {29.f/60.f, 76.f/60.f, 95.f/60.f};
+            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
+            if(bPendingEmptyReload){
+                MechanicalCueTimes.Append({142.f/60.f,151.f/60.f});
+                MechanicalCueSounds.Append({ChargePullSound,ChargeReleaseSound});
+            }
         }
     }
 }
@@ -833,6 +899,8 @@ FVector AFPSGAMECharacter::ComputeShotDirection() const
     if (bHolographicOptic && bPreciseAim)
         return (HolographicAimPoint() - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     const FVector Forward = FirstPersonCamera->GetForwardVector();
+    if (bPreciseAim && AKMSoviet::Matches(AKMViewmodel))
+        return (AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Front) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     if (bPreciseAim && AKMViewmodel->DoesSocketExist(TEXT("WPN_FrontSight")))
         return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight")) - FirstPersonCamera->GetComponentLocation()).GetSafeNormal();
     if (bPreciseAim) return Forward;
@@ -929,7 +997,20 @@ void AFPSGAMECharacter::StartEquipCharge()
     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
     WeaponStateElapsed = 0.0f;
     MechanicalCueTimes.Reset(); MechanicalCueSounds.Reset(); NextMechanicalCue = 0;
-    PlayMechanicalSound(EquipSound, AKMSource::ActionVolume);
+    const bool bAKMChargeOnly = !bUsingM4Infima && EquipAnimation && EquipAnimation->GetPathName().Contains(TEXT("/AKMIntegration/EquipCharge/"));
+    if (bAKMChargeOnly)
+    {
+        MechanicalCueTimes = {0.55f, 0.80f};
+        MechanicalCueSounds = {ChargePullSound, ChargeReleaseSound};
+        UE_LOG(LogTemp, Display, TEXT("AKM_EQUIP_CHARGE: clip=%s magazine=attached left=idle duration=%.3f"), *EquipAnimation->GetPathName(), EquipAnimation->GetPlayLength());
+    }
+    else if (bUseQBZ191)
+    {
+        // Equip audio uses the same 38-frame source mapped to the .72s action.
+        MechanicalCueTimes = {16.f / 38.f * .72f, 25.f / 38.f * .72f};
+        MechanicalCueSounds = {ChargePullSound, ChargeReleaseSound};
+    }
+    else PlayMechanicalSound(EquipSound, AKMSource::ActionVolume);
     if (EquipAnimation)
     {
         WeaponStateDuration = bUsingM4Infima ? 0.72f : EquipAnimation->GetPlayLength();
@@ -1044,6 +1125,13 @@ void AFPSGAMECharacter::StopMechanicalAudio()
 
 UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 {
+    if (bUseQBZ191)
+    {
+        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
+        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
+        const TCHAR* Revision=(Clip.Contains(TEXT("reload")) || Clip==TEXT("equip_charge"))?TEXT("Attachments20260913"):TEXT("Refined20260913");
+        return LoadObject<UAnimSequence>(nullptr, *FString::Printf(TEXT("/Game/Weapons/QBZ191/%s/Animations/base/A_QBZ191_%s.A_QBZ191_%s"), Revision, *Clip, *Clip));
+    }
     if (bUsingM4Infima)
     {
         const TCHAR* Clip = nullptr;
@@ -1061,10 +1149,14 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
             return Animation;
         }
     }
-    FString Folder = bUsingM4Infima ? TEXT("M4ContactImpactFinal") : (bUsingReplacement ? TEXT("AKMReplacement") : TEXT("AKM"));
+    FString Folder = bUsingM4Infima ? TEXT("M4ContactImpactFinal") : (AKMViewmodel->GetSkeletalMeshAsset() && AKMViewmodel->GetSkeletalMeshAsset()->GetName()==TEXT("SK_AKM_MannyNative") ? TEXT("AKMIntegration/Native") : (bUsingReplacement ? TEXT("AKMReplacement") : TEXT("AKM")));
+    if (!bUsingM4Infima && AKMViewmodel->GetSkeletalMeshAsset() && (AKMViewmodel->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/AKMIntegration/SourceMatched/")) || AKMViewmodel->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/AKMIntegration/WalnutFab/")) || AKMViewmodel->GetSkeletalMeshAsset()->GetPathName().Contains(TEXT("/AKMIntegration/SovietFab/"))))
+        Folder = TEXT("AKMIntegration/SourceMatched");
     const bool bCurledReload = bUsingM4Infima && (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0
         || FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0);
     if (bCurledReload) Folder += TEXT("/ReloadFinger");
+    if (!bUsingM4Infima && Folder == TEXT("AKMIntegration/SourceMatched") && FCString::Strcmp(AssetName, TEXT("A_AKM_equip")) == 0)
+        Folder = TEXT("AKMIntegration/EquipCharge");
     const FString Path = FString::Printf(TEXT("/Game/Weapons/%s/%s.%s"), *Folder, AssetName, AssetName);
     UAnimSequence* Animation = LoadObject<UAnimSequence>(nullptr, *Path);
     if (bCurledReload && Animation) UE_LOG(LogTemp, Display, TEXT("M4_RELOAD_FINGER_ACTIVE %s"), *Path);
@@ -1157,6 +1249,18 @@ void AFPSGAMECharacter::UpdateADSPose()
     FVector Rear = PositionAtRestAim(RearIndex);
     FVector Front = PositionAtRestAim(FrontIndex);
     FVector SightUp = FVector::UpVector;
+    if (AKMSoviet::Matches(AKMViewmodel))
+    {
+        FTransform Root = FTransform::Identity;
+        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+        {
+            FTransform Local;
+            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
+            Root=Root*Local;
+        }
+        Rear=Root.TransformPosition(AKMSoviet::Rear)*ViewmodelScale;
+        Front=Root.TransformPosition(AKMSoviet::Front)*ViewmodelScale;
+    }
     if (bHolographicOptic)
     {
         FTransform Root = FTransform::Identity;
@@ -1168,7 +1272,7 @@ void AFPSGAMECharacter::UpdateADSPose()
         }
         const FTransform Mount=HolographicMount*Root;
         Rear=Mount.TransformPosition(OpticLocalAimPoint())*ViewmodelScale;
-        Front=Rear+Mount.GetRotation().RotateVector(FVector::ForwardVector)*10.f;
+        Front=Rear+Mount.GetRotation().RotateVector(AKMSoviet::Matches(AKMViewmodel)&&OpticVariant==TEXT("holographic")?FVector::RightVector:FVector::ForwardVector)*10.f;
         SightUp=Mount.GetRotation().RotateVector(FVector::UpVector);
     }
     const FVector Axis = (Front - Rear).GetSafeNormal();
@@ -1187,37 +1291,17 @@ float AFPSGAMECharacter::ReloadSourceTime(float RuntimeTime) const
 {
     if (bUsingM4Infima)
     {
-        const UAnimSequence* Clip = bPendingEmptyReload ? ReloadEmptyAnimation : ReloadAnimation;
+        const UAnimSequence* Clip = ActiveActionAnimation;
         float Phase=FMath::Clamp(RuntimeTime / FMath::Max(WeaponStateDuration, 0.01f), 0.0f, 1.0f);
-        if(bDrumInstalled)
-        {
-            // Godot drum's hand and mechanical tracks share this same time mapping.
-            const float Source[]={0,.20f,.38f,.56f,.72f,.88f,1};
-            const float Target[]={0,.13f,.36f,.60f,.82f,.93f,1};
-            for(int32 I=1;I<7;++I)if(Phase<=Target[I]){Phase=FMath::Lerp(Source[I-1],Source[I],(Phase-Target[I-1])/(Target[I]-Target[I-1]));break;}
-        }
+        if(bDrumInstalled&&!bUseQBZ191)return M4DrumReloadTiming::SourceSeconds(Phase,bPendingEmptyReload);
         return Phase*(Clip ? Clip->GetPlayLength() : 0.0f);
     }
-    const float Length = bPendingEmptyReload ? 4.291667f : 3.333333f;
-    // Contact landmarks stay fixed; approach accelerates and the last part seats with a short settle.
-    const TArray<float> Source = bPendingEmptyReload
-        ? TArray<float>{0.0f, 0.416667f, 1.15f, 1.466667f, 2.133333f, 2.333333f, Length}
-        : TArray<float>{0.0f, 0.433333f, 1.233333f, 1.483333f, Length};
-    const TArray<float> RuntimeFractions = bPendingEmptyReload
-        ? TArray<float>{0.0f, 0.105f, 0.29f, 0.365f, 0.53f, 0.58f, 1.0f}
-        : TArray<float>{0.0f, 0.12f, 0.36f, 0.44f, 1.0f};
+    const float Length = ActiveActionAnimation ? ActiveActionAnimation->GetPlayLength()
+        : (bPendingEmptyReload ? 4.291667f : 3.333333f);
+    // AKM contact shaping is already authored into the clips. Stat changes
+    // adjust the speed of the entire clip, including its return to the grip.
     const float Fraction = FMath::Clamp(RuntimeTime / FMath::Max(WeaponStateDuration, 0.01f), 0.0f, 1.0f);
-    for (int32 Index = 1; Index < Source.Num(); ++Index)
-    {
-        if (Fraction <= RuntimeFractions[Index])
-        {
-            float Alpha = (Fraction - RuntimeFractions[Index - 1]) / (RuntimeFractions[Index] - RuntimeFractions[Index - 1]);
-            // Blend only 25% easing so the limbs never freeze at every landmark.
-            Alpha = FMath::Lerp(Alpha, FMath::SmoothStep(0.0f, 1.0f, Alpha), 0.25f);
-            return FMath::Lerp(Source[Index - 1], Source[Index], Alpha);
-        }
-    }
-    return Length;
+    return Fraction * Length;
 }
 
 float AFPSGAMECharacter::ReloadRuntimeTime(float SourceTime) const
@@ -1234,20 +1318,23 @@ float AFPSGAMECharacter::ReloadRuntimeTime(float SourceTime) const
 void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
 {
     USoundBase* Sound = MechanicalCueSounds.IsValidIndex(CueIndex) ? MechanicalCueSounds[CueIndex].Get() : nullptr;
-    const float ScheduledTime = bUsingM4Infima ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
+    const bool bSourceCueClock = bUsingM4Infima && IsReloading();
+    const float ScheduledTime = bSourceCueClock ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
     const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
     // Do not emit an obsolete burst of old contacts after a long game-thread stall.
     const float ContactVolume = AKMSource::ActionVolume *
-        ((bUsingM4Infima && !bDrumInstalled && bPendingEmptyReload && CueIndex == 3) ? 1.25f : 1.0f);
+        ((bUsingM4Infima && bPendingEmptyReload && CueIndex == 3) ? 1.25f : 1.0f);
     // A short clip is still relevant until the next contact (or action end).
     // Using clip duration here dropped the seat click on a 170 ms render hitch.
     const float ContactValidUntil = MechanicalCueTimes.IsValidIndex(CueIndex + 1)
-        ? (bUsingM4Infima ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex + 1]) : MechanicalCueTimes[CueIndex + 1])
+        ? (bSourceCueClock ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex + 1]) : MechanicalCueTimes[CueIndex + 1])
         : WeaponStateDuration;
     const bool bPlayContact = Sound && ((bUsingM4Infima && !bDrumInstalled)
         ? WeaponStateElapsed < ContactValidUntil
         : Lateness < Sound->GetDuration());
     if (bPlayContact) PlayMechanicalSound(Sound, ContactVolume);
+    if (bDrumInstalled && FParse::Param(FCommandLine::Get(),TEXT("DrumGripAudit")))
+        UE_LOG(LogTemp,Display,TEXT("DRUM_AUDIO: empty=%d index=%d target=%.6f runtime=%.6f late=%.6f sound=%s played=%d"),bPendingEmptyReload,CueIndex,MechanicalCueTimes[CueIndex],WeaponStateElapsed,Lateness,*GetNameSafe(Sound),bPlayContact);
     if (bRunGunplayAcceptance && bUsingM4Infima && !FParse::Param(FCommandLine::Get(), TEXT("EquipFramingAudit")))
     {
         if (bPendingEmptyReload) ++AuditEmptyMechanicalCues; else ++AuditNormalMechanicalCues;
@@ -1270,6 +1357,10 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     if (!GunplayAnimation) return;
     const auto DrumPose=[this](UAnimSequence* Clip)->UAnimSequence*
     {
+        if(HasAngledForegrip())if(const auto* Support=ForegripAnimations.Find(Clip))return Support->Get();
+        if(HasCantedForegrip())if(const auto* Support=CantedGripAnimations.Find(Clip))return Support->Get();
+        if(HasVerticalForegrip())if(const auto* Support=VerticalGripAnimations.Find(Clip))return Support->Get();
+        if(HasPrismHandstop())if(const auto* Support=PrismGripAnimations.Find(Clip))return Support->Get();
         if(bDrumInstalled)if(const auto* Support=DrumSupportAnimations.Find(Clip))return Support->Get();
         return Clip;
     };
@@ -1279,10 +1370,15 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     GunplayAnimation->AimAlpha = WeaponADSFactor;
     if (ActiveActionAnimation)
     {
-        ActionElapsed += DeltaSeconds;
+        // A reload can start during input, before this frame's Tick. Adding
+        // DeltaSeconds counts time before that input and used to retire the
+        // animation early (especially on a hitch) while firing stayed locked.
+        if (IsReloading() || (bUseQBZ191 && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
+        else ActionElapsed += DeltaSeconds;
         const bool bFireAction = ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation;
-        const float BlendOut = bFireAction ? 0.028f : 0.10f;
-        const float In = FMath::Clamp(ActionElapsed / ActionBlendIn, 0.0f, 1.0f);
+        const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
+        const float BlendOut = (bFireAction ? 0.028f : 0.10f) * BlendScale;
+        const float In = FMath::Clamp(ActionElapsed / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
         const float Out = FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
         GunplayAnimation->ActionAlpha = FMath::Min(In, Out);
@@ -1291,7 +1387,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         else if (WeaponState == EAKMWeaponState::Equipping && !EquipAnimation)
             SourceTime = ActionStartPosition + FMath::Max(0.0f, ActionElapsed - 0.18f);
         GunplayAnimation->ActionTime = FMath::Min(SourceTime, ActiveActionAnimation->GetPlayLength());
-        if (ActionElapsed >= ActionDuration)
+        if (!IsReloading() && ActionElapsed >= ActionDuration)
         {
             ActiveActionAnimation = nullptr;
             GunplayAnimation->ActionAlpha = 0.0f;

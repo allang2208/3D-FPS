@@ -8,8 +8,22 @@ FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int
 bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell){SyncRuntime();return CommitProposal(ProposeWarehouse(Id,Place,Cell));}
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
-    // The six migrated weapons were retired by the user.
-    return true;
+    auto State=Snapshot();bool Changed=false;
+    for (const TCHAR* Definition : {TEXT("ue_akm"), TEXT("ue_qbz191")})
+    {
+        if(State.ArmoryReceived.Contains(Definition))continue;
+        auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
+        Gun.Magazine=30;
+        if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
+        if(FString(Definition)==TEXT("ue_qbz191"))
+        {
+            auto Ammo=CreateItem(TEXT("ammo_58"),120);
+            if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
+        }
+
+        State.ArmoryReceived.Add(Definition);Changed=true;
+    }
+    return !Changed || CommitState(State);
 }
 bool UColdSteelStatusModel::WarehouseBatch(bool bMatching)
 {

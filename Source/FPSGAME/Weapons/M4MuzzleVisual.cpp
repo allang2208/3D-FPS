@@ -1,4 +1,7 @@
 #include "../FPSGAMECharacter.h"
+#include "AKMSovietCalibration.h"
+#include "AKMAttachmentVisual.h"
+#include "QBZ191Attachments.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -10,6 +13,31 @@
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
     const bool Valid=Variant==TEXT("true")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
+    if(bUseQBZ191){
+        const bool Enabled=Valid&&bInventoryWeaponReady;
+        const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
+        MuzzleAttachment=QBZ191Attachments::ConfigureFitted(this,AKMViewmodel,MuzzleAttachment,Key,Enabled);
+        MuzzleVariant=Enabled?Variant:TEXT("");
+        if(Enabled&&MuzzleAttachment){
+            const auto Bounds=MuzzleAttachment->GetStaticMesh()->GetBounds();
+            MuzzleLocalAxis=FVector::RightVector;
+            MuzzleLocalTip=FVector(.0759f,Bounds.Origin.Y+Bounds.BoxExtent.Y,6.0775f);
+        }
+        if(auto* Rifle=AKMViewmodel->GetSkeletalMeshAsset())if(const auto* Render=Rifle->GetResourceForRendering())
+            for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
+                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+                if(Rifle->GetMaterials().IsValidIndex(M)&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Flash_Hider")))AKMViewmodel->ShowMaterialSection(M,S,!Enabled,L);
+            }
+        if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
+        return;
+    }
+    if(AKMSoviet::Matches(AKMViewmodel)){
+        const bool Enabled=Valid&&bInventoryWeaponReady;const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
+        MuzzleAttachment=AKMAttachment::Configure(this,AKMViewmodel,MuzzleAttachment,*Key,Enabled);
+        MuzzleVariant=Enabled?Variant:TEXT("");
+        if(Enabled&&MuzzleAttachment){const auto B=MuzzleAttachment->GetStaticMesh()->GetBounds();MuzzleLocalAxis=FVector::RightVector;MuzzleLocalTip=FVector(AKMSoviet::Muzzle.X*100.f,B.Origin.Y+B.BoxExtent.Y,AKMSoviet::Muzzle.Z*100.f);}
+        if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));return;
+    }
     const FString Desired=Valid&&bUsingM4Infima&&bInventoryWeaponReady?Variant:TEXT("");
     auto* Rifle=AKMViewmodel->GetSkeletalMeshAsset();if(!Rifle)return;
     if(!Desired.IsEmpty())
@@ -42,7 +70,10 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     }
 }
 FVector AFPSGAMECharacter::GetEffectiveMuzzleLocation() const
-{return !MuzzleVariant.IsEmpty()&&MuzzleAttachment?MuzzleAttachment->GetComponentTransform().TransformPosition(MuzzleLocalTip):AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));}
+{
+    if(AKMSoviet::Matches(AKMViewmodel)&&MuzzleVariant.IsEmpty())return AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
+    return !MuzzleVariant.IsEmpty()&&MuzzleAttachment?MuzzleAttachment->GetComponentTransform().TransformPosition(MuzzleLocalTip):AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
+}
 FVector AFPSGAMECharacter::GetEffectiveMuzzleForward() const
 {
     if(!MuzzleVariant.IsEmpty()&&MuzzleAttachment)return MuzzleAttachment->GetComponentQuat().RotateVector(MuzzleLocalAxis);

@@ -35,6 +35,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
 public:
     bool IsTraversing() const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
     AFPSGAMECharacter();
     void ApplyColdSteelProfile(class UColdSteelStatusModel* Profile);
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
@@ -57,6 +58,17 @@ private:
 public:
     void SetGunsmithDrum(bool bDrum);
     void SetGunsmithMuzzle(const FString& Variant);
+    void SetGunsmithHandstop(const FString& Variant);
+    void SetGunsmithStock(const FString& Variant);
+    bool HasSkeletonStock() const;
+    bool ValidateStockAttachment() const;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> StockAttachment;
+    FTransform StockMount;
+    bool bSkeletonStock=false;
+    bool HasPrismHandstop() const;
+    bool HasVerticalForegrip() const;
+    bool HasCantedForegrip() const;
+    bool HasAngledForegrip() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
     bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true");}
@@ -87,6 +99,21 @@ public:
 
 protected:
     UPROPERTY(VisibleAnywhere, Category="FPS Movement") TObjectPtr<class UFPSTraversalComponent> Traversal;
+    void SetAngledForegrip(bool bEnabled);
+    void InitializeForegripAnimations();
+    void InitializePrismGripAnimations();
+    void InitializeCantedGripAnimations();
+    void SetCantedForegrip(bool bEnabled);
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> CantedForegrip;
+    UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> CantedGripAnimations;
+    void InitializeVerticalGripAnimations();
+    void SetVerticalForegrip(bool bEnabled);
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> VerticalForegrip;
+    UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> VerticalGripAnimations;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> AngledForegrip;
+    UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> ForegripAnimations;
+    UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> PrismGripAnimations;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> PrismHandstop;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MuzzleAttachment;
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UFPSBallisticsComponent> Ballistics;
     UPROPERTY(Transient) TObjectPtr<USoundBase> SuppressedFireSound;
@@ -178,6 +205,7 @@ private:
     int32 InfiniteAmmoAuditStage = 0;
     int32 InfiniteAmmoAuditReserve = 0;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> HolographicOptic;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> AKMOpticBridge;
     FTransform HolographicMount;
     bool bHolographicOptic=false;
     FString OpticVariant;
@@ -200,6 +228,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> DrumReloadEmptyAnimation;
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> FoldingSightHeads;
     TArray<FTransform> FoldingSightMounts;
+    TArray<FVector> FoldingSightAxes;
+    TArray<float> FoldingSightAngles;
     float SightFoldAlpha=0.f;
     void InitializeFoldingSights();
     void UpdateFoldingSights(float DeltaSeconds);

@@ -39,8 +39,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UTextureRenderTarget2D> Target;
     TUniquePtr<FPreviewScene> Studio;
     FString RigDefinition;
-    float Warmup=0;
+    TSharedPtr<TAtomic<bool>,ESPMode::ThreadSafe> CaptureMaterialsReady;
+    float Warmup=0,JobSeconds=0;
     int32 Stage=0,Completed=0;
     bool Prepare(const FColdSteelItem& Item);
     bool Readback(const FString& Key);
+    void FinishJob(bool bSuccess);
 };

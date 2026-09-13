@@ -1,4 +1,6 @@
 #include "../FPSGAMECharacter.h"
+#include "AKMAttachmentVisual.h"
+#include "QBZ191Attachments.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -17,11 +19,40 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     const bool Scope2X=Variant==TEXT("prism_scope_2x");
     bool bHolographic=Variant==TEXT("holographic")||Panoramic||Scope2X||LPVO;
     if(LPVORing&&!LPVO)LPVORing->SetVisibility(false);
+    if(AKMSoviet::Matches(AKMViewmodel)){
+        bHolographic=bHolographic&&bInventoryWeaponReady;
+        const bool Modern=bHolographic&&(Panoramic||Scope2X||LPVO);
+        if(Modern){
+            const TCHAR* Path=LPVO?TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_LPVO1to6X"):Scope2X?TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_PrismScope2X"):TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_PanoramicRedDot");
+            auto* AKMOpticMesh=LoadObject<UStaticMesh>(nullptr,Path);
+            auto* Bridge=LoadObject<UStaticMesh>(nullptr,*(TEXT("/Game/Weapons/AKMIntegration/SovietFab/Optics/SM_AKM_Mount_")+Variant));
+            if(!AKMOpticMesh||!Bridge){UE_LOG(LogTemp,Error,TEXT("AKM_OPTIC missing model or bridge for %s"),*Variant);return;}
+            auto MakePart=[&](UStaticMeshComponent* Part){if(!Part){Part=NewObject<UStaticMeshComponent>(this);Part->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);Part->bReceivesDecals=false;Part->RegisterComponent();}return Part;};
+            HolographicOptic=MakePart(HolographicOptic);HolographicOptic->SetStaticMesh(AKMOpticMesh);
+            HolographicMount=FTransform(FQuat(FVector::UpVector,PI*.5f),FVector(.0008f,LPVO?.16f:Scope2X?.105f:.06f,.113f),FVector(.01f));
+            HolographicOptic->SetRelativeTransform(HolographicMount);
+            AKMOpticBridge=MakePart(AKMOpticBridge);AKMOpticBridge->SetStaticMesh(Bridge);AKMOpticBridge->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
+        }else{
+            HolographicOptic=AKMAttachment::Configure(this,AKMViewmodel,HolographicOptic,TEXT("optic"),bHolographic);
+            HolographicMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+        }
+        if(AKMOpticBridge)AKMOpticBridge->SetVisibility(Modern);
+        if(bHolographicOptic!=bHolographic||OpticVariant!=Variant)bSightCalibrated=false;
+        if(OpticVariant!=Variant)LPVOMagnification=1.f;
+        bHolographicOptic=bHolographic;OpticVariant=bHolographic?Variant:FString();
+        if(LPVO&&bHolographic&&!LPVORing){
+            auto* RingMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_LPVORing"));
+            if(RingMesh){LPVORing=NewObject<UStaticMeshComponent>(this);LPVORing->SetStaticMesh(RingMesh);LPVORing->SetCollisionEnabled(ECollisionEnabled::NoCollision);LPVORing->SetCastShadow(false);LPVORing->SetupAttachment(HolographicOptic);LPVORing->RegisterComponent();LPVORing->SetRelativeLocation(FVector(-7.1f,0,4.f));}
+        }
+        if(LPVORing){LPVORing->SetVisibility(LPVO&&bHolographic);LPVORing->SetRelativeRotation(FRotator(0,0,(LPVOMagnification-1.f)*24.f));}
+        if(HolographicOptic)HolographicOptic->SetVisibility(bHolographic);
+        return;
+    }
     bHolographic = bHolographic && bUsingM4Infima && bInventoryWeaponReady;
     if(bHolographic && (!HolographicOptic || OpticVariant!=Variant))
     {
-        const TCHAR* MeshPath=LPVO?TEXT("/Game/Weapons/LPVO1to6X/SM_LPVO1to6X.SM_LPVO1to6X"):Scope2X?TEXT("/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X.SM_PrismScope2X"):(Panoramic?TEXT("/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot.SM_PanoramicRedDot"):TEXT("/Game/Weapons/M4Holographic/SM_M4_Holographic.SM_M4_Holographic"));
-        auto* OpticMesh=LoadObject<UStaticMesh>(nullptr,MeshPath);
+        const TCHAR* MeshPath=LPVO?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVO1to6X"):Scope2X?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismScope2X"):(Panoramic?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PanoramicRedDot"):TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_Holographic"));
+        auto* OpticMesh=LoadObject<UStaticMesh>(nullptr,bUseQBZ191?*QBZ191Attachments::MeshPath(Variant):MeshPath);
         if(!OpticMesh){UE_LOG(LogTemp,Error,TEXT("M4_HOLO: missing optic mesh"));return;}
         if(!HolographicOptic){
         HolographicOptic=NewObject<UStaticMeshComponent>(this,TEXT("M4HolographicOptic"));
@@ -40,15 +71,16 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
         const FVector RailUp=Rear.GetRotation().RotateVector(FVector::UpVector);
         const FQuat Rotation=FRotationMatrix::MakeFromXZ(Axis,RailUp).ToQuat();
         const FTransform Mount(Rotation,Rear.GetLocation()+Axis*8.f-RailUp*3.2f,FVector::OneVector);
-        HolographicMount=Mount.GetRelativeTransform(Root);
+        HolographicMount=bUseQBZ191?QBZ191Attachments::OpticMount(Variant):Mount.GetRelativeTransform(Root);
         HolographicOptic->SetRelativeTransform(HolographicMount);
     }
     if(bHolographicOptic!=bHolographic || OpticVariant!=Variant)bSightCalibrated=false;
     bHolographicOptic=bHolographic;
     if(OpticVariant!=Variant)LPVOMagnification=1.f;
     OpticVariant=bHolographic?Variant:FString();
+    UpdateFoldingSights(0.f);
     if(LPVO&&bHolographic&&!LPVORing){
-        auto* RingMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/LPVO1to6X/SM_LPVORing.SM_LPVORing"));
+        auto* RingMesh=LoadObject<UStaticMesh>(nullptr,bUseQBZ191?*QBZ191Attachments::MeshPath(TEXT("lpvo_ring")):TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing"));
         if(RingMesh){LPVORing=NewObject<UStaticMeshComponent>(this,TEXT("LPVOMagnificationRing"));LPVORing->SetStaticMesh(RingMesh);LPVORing->SetCollisionEnabled(ECollisionEnabled::NoCollision);LPVORing->SetCastShadow(false);LPVORing->SetupAttachment(HolographicOptic);LPVORing->RegisterComponent();LPVORing->SetRelativeLocation(FVector(-7.1f,0,4.f));}
     }
     if(LPVORing){LPVORing->SetVisibility(LPVO&&bHolographic);LPVORing->SetRelativeRotation(FRotator(0,0,(LPVOMagnification-1.f)*24.f));}
@@ -61,6 +93,7 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
+    if(AKMSoviet::Matches(AKMViewmodel)&&OpticVariant==TEXT("holographic"))return AKMAttachment::HoloPointCM;
     if(OpticVariant==TEXT("lpvo_1_6x"))return FVector(-12.15f,0,4.f);
     if(OpticVariant==TEXT("prism_scope_2x"))return FVector(-6.15f,0,4.f);
     return OpticVariant==TEXT("panoramic_red_dot")?FVector(2.125f,0,3.25f):FVector(-.653782f,0,5.175324f);
@@ -88,7 +121,7 @@ bool AFPSGAMECharacter::MeasureHolographicOrientation(float& ScreenRollDegrees,f
     ScreenRollDegrees=RailErrorDegrees=180.f;
     if(!bHolographicOptic||!HolographicOptic)return false;
     const FVector OpticUp=HolographicOptic->GetUpVector();
-    const FVector RailUp=AKMViewmodel->GetSocketTransform(TEXT("WPN_RearSight")).GetRotation().RotateVector(FVector::UpVector);
+    const FVector RailUp=AKMViewmodel->GetSocketTransform(AKMSoviet::Matches(AKMViewmodel)?TEXT("WPN_root"):TEXT("WPN_RearSight")).GetRotation().RotateVector(FVector::UpVector);
     RailErrorDegrees=FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(FVector::DotProduct(OpticUp,RailUp),-1.0,1.0)));
     const auto* PC=Cast<APlayerController>(GetController());if(!PC)return false;
     FVector2D Center,Top;
@@ -112,7 +145,7 @@ bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 
 float AFPSGAMECharacter::GetScopePresentationAlpha() const
 {
-    if(OpticVariant!=TEXT("lpvo_1_6x")||!bInventoryWeaponReady||IsWeaponBusy())return 0.f;
+    if(OpticVariant!=TEXT("lpvo_1_6x")||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
     return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
 }
 

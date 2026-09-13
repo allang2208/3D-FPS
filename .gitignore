@@ -53,3 +53,13 @@ __pycache__/
 /SourceAssets/PrismGripContact20260911/prism/fit_final.json
 /SourceAssets/PrismGripContact20260911/prism/contact_overrides.json
 /SourceAssets/PrismGripContact20260911/prism/release_profile.json
+
+# QBZ and receiver-finish licensed inputs, derived motion data and recovery copies.
+/SourceAssets/QBZ19120260912/Source/
+/SourceAssets/QBZ191*/Before/
+/SourceAssets/WeaponAttachmentFinish20260913/Before/
+/SourceAssets/FoldingSightState20260913/Before/
+/SourceAssets/QBZ191Attachments20260913/m4_reference_motion.json
+/SourceAssets/QBZ191ContactWear20260913/geometry.json
+/SourceAssets/QBZ191*/**/*.gif
+/SourceAssets/QBZ191*/**/*.ffconcat

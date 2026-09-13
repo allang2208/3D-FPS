@@ -20,7 +20,7 @@ AFPSGAMECharacter* UColdSteelPickupStudio::Acquire(const FString& Definition,boo
 }
 void UColdSteelPickupStudio::Warm(const FColdSteelItem& Item)
 {
-    if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_akm"))return;
+    if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_akm")&&Item.Definition!=TEXT("ue_qbz191"))return;
     if(Bounds.Contains(Key(Item)))return;
     // The icon studio has already loaded this recipe. Prepare collision bounds before mouse release.
     // Acquire/build must initialize a new rig together, so only create the world here.

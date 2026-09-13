@@ -13,13 +13,13 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const auto P=Profile->Snapshot();
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
-    bInventoryWeaponReady=I&&I->Definition==TEXT("ue_m4a1");
+    bInventoryWeaponReady=I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191"));
     if(ActiveInventoryWeapon!=Id){
         if (IsTraversing()) Traversal->Cancel();
         StopMechanicalAudio();
         FireReleased();AimReleased();
         ActiveInventoryWeapon=Id;
-        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");InitializeWeaponVisuals();StartEquipCharge();}
+        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");InitializeWeaponVisuals();StartEquipCharge();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),true);
@@ -40,12 +40,15 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         SetGunsmithOpticVariant(VisualParts.FindRef(TEXT("optic")));
         SetGunsmithDrum(VisualParts.FindRef(TEXT("magazine"))==TEXT("large_drum"));
         SetGunsmithMuzzle(VisualParts.FindRef(TEXT("muzzle")));
+        SetGunsmithHandstop(VisualParts.FindRef(TEXT("underbarrel")));
+        SetGunsmithStock(VisualParts.FindRef(TEXT("stock")));
         bDrumInstalled=Parts.FindRef(TEXT("magazine"))==TEXT("large_drum");
         ADSInDuration=Defaults->ADSInDuration;
         MagazineCapacity=Defaults->MagazineCapacity;ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
         if(I&&Gunsmith->Weapon(I->Definition))
         {const auto Stats=Gunsmith->Calculate(I->Definition,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
-            WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));}
+            WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));
+            if(I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")){DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval/FMath::Max(1.f,Profile->Derived(TEXT("aspd")));}}
     }
     if(I)DamagePerShot=Profile->RifleWeaponDamage(*I,DamagePerShot-Profile->Derived(TEXT("atk")))+Profile->Derived(TEXT("atk"));
     MagazineAmmo=I?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=Profile->AmmoCount();

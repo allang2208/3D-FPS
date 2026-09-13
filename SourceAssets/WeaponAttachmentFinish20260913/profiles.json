@@ -1,0 +1,36 @@
+{
+  "M4": {
+    "reference_material": "/Game/Weapons/M4InfimaV3/Body_001",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\SK_M4_Infima.fbm",
+    "crop_image_coordinates": [
+      0.53,
+      0.16,
+      0.65,
+      0.21
+    ],
+    "physical_tile_m": [
+      0.12,
+      0.05
+    ],
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Textures\\T_M4_Receiver_BaseColor.png",
+      "Roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Textures\\T_M4_Receiver_Roughness.png"
+    },
+    "response": "Existing MF_PhongToMetalRoughness conversion, SpecularColor=.2; preserve current receiver sRGB shininess sampling."
+  },
+  "AKM": {
+    "reference_material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMArmSupport20260911\\Metal",
+    "crop_image_coordinates": [
+      0.055,
+      0.908,
+      0.285,
+      0.947
+    ],
+    "physical_tile_m": [
+      0.12,
+      0.025
+    ],
+    "response": "Existing Soviet receiver Base_color, Metallic and Roughness tile."
+  }
+}

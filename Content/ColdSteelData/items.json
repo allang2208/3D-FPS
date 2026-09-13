@@ -2756,5 +2756,53 @@
     "type": "武器",
     "weaponType": "rifle",
     "ue_icon": "Icons/ue_m4a1.png"
+  },
+  "ue_qbz191": {
+    "category": "weapon",
+    "desc": "QBZ-191 自动步枪，使用独立的 5.8mm 弹药与 30 发标准弹匣。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_qbz191.png",
+    "id": "ue_qbz191",
+    "isTwoHanded": true,
+    "name": "QBZ-191",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "32"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "ue_icon": "Icons/ue_qbz191.png"
+  },
+  "ue_akm": {
+    "category": "weapon",
+    "desc": "AKM，使用 7.62mm 弹药，30 发标准弹匣。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_akm.png",
+    "id": "ue_akm",
+    "isTwoHanded": true,
+    "name": "AKM",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "35"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "ue_icon": "Icons/ue_akm.png"
   }
 }

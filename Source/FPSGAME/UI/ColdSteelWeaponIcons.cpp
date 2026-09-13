@@ -8,6 +8,7 @@
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Engine/GameInstance.h"
+#include "Engine/World.h"
 #include "Engine/Texture2D.h"
 #include "Engine/TextureCube.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -16,8 +17,12 @@
 #include "Rendering/SkeletalMeshRenderData.h"
 #include "TextureResource.h"
 #include "RenderingThread.h"
+#include "Materials/Material.h"
+#include "MaterialShared.h"
+#include "Materials/MaterialRenderProxy.h"
+#include "SceneInterface.h"
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm");}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191");}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();const auto Parts=G->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
@@ -55,12 +60,13 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
     }
     if(Rig->HasActorBegunPlay())return false;
-    if(RigDefinition!=I.Definition){Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->InitializeWeaponVisuals();RigDefinition=I.Definition;}
+    if(RigDefinition!=I.Definition){Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->InitializeWeaponVisuals();RigDefinition=I.Definition;}
     auto* Mesh=Rig->AKMViewmodel.Get();if(!Mesh||!Mesh->GetSkeletalMeshAsset())return false;
     Mesh->SetRelativeTransform(FTransform::Identity);Mesh->SetVisibility(true,true);
     Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
     const auto Parts=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
-    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->UpdateFoldingSights(1.f);
+    Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));
+    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->UpdateFoldingSights(1.f);
     const auto* Asset=Mesh->GetSkeletalMeshAsset();const auto* Render=Asset->GetResourceForRendering();if(!Render||Render->LODRenderData.IsEmpty())return false;
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
@@ -104,11 +110,49 @@ bool UColdSteelWeaponIcons::Readback(const FString& K)
     Textures.Add(K,Texture);auto& E=Cache.Add(K);E.Use=++Serial;E.Brush.SetResourceObject(Texture);E.Brush.ImageSize=FVector2D(768,320);E.Brush.DrawAs=ESlateBrushDrawType::Image;
     ++Completed;UE_LOG(LogTemp,Display,TEXT("WeaponIcon: ready key=%s visible=%d renders=%d"),*K,Visible,Completed);return true;
 }
+void UColdSteelWeaponIcons::FinishJob(bool bSuccess)
+{
+    const FString K=Queue[0].Key;
+    if(!bSuccess){UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: render failed %s; using catalog image"),*K);Failed.Add(K);}
+    Pending.Remove(K);Queue.RemoveAt(0);Stage=0;Warmup=0;JobSeconds=0;CaptureMaterialsReady.Reset();
+    OnReady.Broadcast();
+}
 void UColdSteelWeaponIcons::Tick(float Delta)
 {
     if(Queue.IsEmpty())return;
-    if(Stage==0){if(Prepare(Queue[0].Item)){Warmup=0;Stage=1;return;}}
-    else if(Stage==1){Warmup+=Delta;if(Warmup<.3f)return;Capture->CaptureScene();Stage=2;return;}
-    else if(Readback(Queue[0].Key)){const FString K=Queue[0].Key;Queue.RemoveAt(0);Pending.Remove(K);Stage=0;OnReady.Broadcast();return;}
-    UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: render failed %s"),*Queue[0].Key);Failed.Add(Queue[0].Key);Pending.Remove(Queue[0].Key);Queue.RemoveAt(0);Stage=0;
+    // A missing shader map must not hold every later weapon behind this job indefinitely.
+    if(Stage!=0){JobSeconds+=Delta;if(JobSeconds>=10.f){UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: material readiness timed out %s"),*Queue[0].Key);FinishJob(false);return;}}
+    if(Stage==0){JobSeconds=0;if(Prepare(Queue[0].Item)){Warmup=0;Stage=1;return;}}
+    else if(Stage==1){
+        Warmup+=Delta;if(Warmup<.3f)return;
+        CaptureMaterialsReady.Reset();
+        if(Queue[0].Item.Definition==TEXT("ue_qbz191")){
+            CaptureMaterialsReady=MakeShared<TAtomic<bool>,ESPMode::ThreadSafe>(false);
+            const auto Ready=CaptureMaterialsReady;TArray<const FMaterialRenderProxy*> Proxies;
+            for(auto* Material:Rig->AKMViewmodel->GetMaterials())if(Material&&Material->GetName().StartsWith(TEXT("M_QBZ191_"))){
+#if WITH_EDITOR
+                if(const auto* Resource=Material->GetMaterialResource(Studio->GetScene()->GetShaderPlatform());Resource&&!Resource->GetCompileErrors().IsEmpty()){
+                    UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: material compile failed %s: %s"),*Material->GetPathName(),*FString::Join(Resource->GetCompileErrors(),TEXT("; ")));
+                    FinishJob(false);return;
+                }
+#endif
+                Proxies.Add(Material->GetRenderProxy());
+            }
+            if(Proxies.IsEmpty()){FinishJob(false);return;}
+            const auto Level=Studio->GetScene()->GetFeatureLevel();
+            // Warm captures are required to prepare this preview's render resources.
+            // Only cache an image once the render thread uses the actual materials.
+            ENQUEUE_RENDER_COMMAND(QBZIconMaterialsReady)([Ready,Proxies,Level](FRHICommandListImmediate&){
+                bool Complete=!Proxies.IsEmpty();for(const auto* Proxy:Proxies){const FMaterialRenderProxy* Fallback=nullptr;const auto& Material=Proxy->GetMaterialWithFallback(Level,Fallback);Complete&=!Fallback&&Material.IsRenderingThreadShaderMapComplete();}Ready->Store(Complete);
+            });
+        }
+        Capture->CaptureScene();Stage=2;return;
+    }
+    else if(CaptureMaterialsReady.IsValid()&&!CaptureMaterialsReady->Load()){Warmup=0;Stage=1;return;}
+    else if(Stage==2&&CaptureMaterialsReady.IsValid()){
+        Rig->AKMViewmodel->MarkRenderStateDirty();Studio->GetWorld()->SendAllEndOfFrameUpdates();
+        Capture->CaptureScene();Stage=3;return;
+    }
+    else if(Readback(Queue[0].Key)){FinishJob(true);return;}
+    FinishJob(false);
 }

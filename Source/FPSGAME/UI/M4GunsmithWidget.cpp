@@ -26,9 +26,11 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
     if(P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
-            C->SetGunsmithOptic(Model()->Draft().FindRef(TEXT("optic"))==TEXT("holographic"));
+            C->SetGunsmithOpticVariant(Model()->Draft().FindRef(TEXT("optic")));
             C->SetGunsmithDrum(Model()->Draft().FindRef(TEXT("magazine"))==TEXT("large_drum"));
             C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
+            C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
+            C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
         }
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)

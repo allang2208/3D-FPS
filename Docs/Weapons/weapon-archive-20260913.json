@@ -1,0 +1,255 @@
+{
+  "files": 31,
+  "bytes": 5065827,
+  "sha256_readback_matched": true,
+  "entries": [
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect.log",
+      "size": 142468,
+      "sha256": "E8B59F062CA452EE9B1763472A912C02572CAD8FB1B066F63D8EADB246066050",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_console.log",
+      "size": 14860,
+      "sha256": "CDBB65AB2FE569A934E743E2F63EFC5BACE05D81FDC8FEED819638E8862FC971",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_retry.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_retry.log",
+      "size": 266859,
+      "sha256": "2AB6A7C619F9A56BA82A56CCD3B6766589F6E52F0BFBD52D5BAB71896BDFE351",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_retry_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_retry_console.log",
+      "size": 30955,
+      "sha256": "012FB847FC7D1BB71823F808A122C02226743C407F5DC9358CF4507F53163095",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_current.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_current.log",
+      "size": 268501,
+      "sha256": "1AB379F0ED1F81C49E4B47B82C43DA66E62265548BEC80E4C93F766925E33B02",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_current_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_current_console.log",
+      "size": 32291,
+      "sha256": "B6F273AC3D61C2ADCE4BE236E0CA0EDC4B32E13BA6BDB7A60AF2CAD1F66AF6D3",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_resolved.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_resolved.log",
+      "size": 268808,
+      "sha256": "9272B1021A2022CED135588D92F8A9C1F7A428014DA148AEB00E511352EEC87D",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/inspect_resolved_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/inspect_resolved_console.log",
+      "size": 32734,
+      "sha256": "B2B975AFBCEC07439C2B4FC3F0D9923007B1F0CB2181592C88415DC42BBFD5DB",
+      "reason": "Superseded material inspection attempts; resolved binding report retained",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/inspect_bindings.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/export.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/export.log",
+      "size": 268819,
+      "sha256": "AE3DF8AA17B9347CD2F5A2678A3728AFFDEC4731995ED10C750529E1A18FC544",
+      "reason": "Superseded material-function API export attempt",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/export_resolved.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/export_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/export_console.log",
+      "size": 30853,
+      "sha256": "7626D4E415FDBEA4B3A3275F6D87EB220CD95AC796A85F7A14A6EB18EAB01566",
+      "reason": "Superseded material-function API export attempt",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/export_resolved.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/import.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/import.log",
+      "size": 299727,
+      "sha256": "08B4B942E1BB31EA856FE5BC5466EF69F6AE156D47F68E3FC4ED5B934A523D6C",
+      "reason": "Source asset lock and SDK-wait attempts replaced by private variant import",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/import_final.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/import_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/import_console.log",
+      "size": 45326,
+      "sha256": "2E7FC5DB0152794A75345FB85018994B06A8E5DDF29D92701F8CA4C05BC82E2D",
+      "reason": "Source asset lock and SDK-wait attempts replaced by private variant import",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/import_final.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/import_variants.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/import_variants.log",
+      "size": 100407,
+      "sha256": "57956DA8795CF32134C6DEAE799F2E044415AE00BA3A1344AABF0E8DF969EBFA",
+      "reason": "Source asset lock and SDK-wait attempts replaced by private variant import",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/import_final.log"
+    },
+    {
+      "source": "SourceAssets/WeaponAttachmentFinish20260913/import_variants_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/WeaponAttachmentFinish20260913/import_variants_console.log",
+      "size": 7237,
+      "sha256": "94460195CEE1598C278B45A0F71FBBBF5B99D933D2FE060CB7636B99A3D0B0C0",
+      "reason": "Source asset lock and SDK-wait attempts replaced by private variant import",
+      "replacement": "SourceAssets/WeaponAttachmentFinish20260913/import_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191Attachments20260913/import_assets.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191Attachments20260913/import_assets.log",
+      "size": 320001,
+      "sha256": "DE5B1EE9A91D418626D0BEC561C4D7E678D8A81BE09120D1400F92D11626142F",
+      "reason": "Material expression connection attempts superseded by completed import",
+      "replacement": "SourceAssets/QBZ191Attachments20260913/import_assets_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191Attachments20260913/import_assets_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191Attachments20260913/import_assets_console.log",
+      "size": 68082,
+      "sha256": "9EF00BDDDFDBAE4511F9FF0FD3A3673D7D430A887FE5E1203F01E7FDB548C77A",
+      "reason": "Material expression connection attempts superseded by completed import",
+      "replacement": "SourceAssets/QBZ191Attachments20260913/import_assets_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191Attachments20260913/import_assets_retry.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191Attachments20260913/import_assets_retry.log",
+      "size": 308731,
+      "sha256": "04F48711415003728EC1E5B97313E0A8D4841E591AF3F19FA68C12F3E85C6858",
+      "reason": "Material expression connection attempts superseded by completed import",
+      "replacement": "SourceAssets/QBZ191Attachments20260913/import_assets_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191Attachments20260913/import_assets_retry_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191Attachments20260913/import_assets_retry_console.log",
+      "size": 56288,
+      "sha256": "4F69F5CE436921641392DD0F305E12336252EBA8F5EE7602D6943928FD776D8C",
+      "reason": "Material expression connection attempts superseded by completed import",
+      "replacement": "SourceAssets/QBZ191Attachments20260913/import_assets_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191Attachments20260913/import_motion.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191Attachments20260913/import_motion.log",
+      "size": 141301,
+      "sha256": "37B906CDFD2C7C058CD0FC097CA37C77F7FD817DA6002CC058A52CD827322706",
+      "reason": "Initial module-loading attempt superseded by animation import",
+      "replacement": "SourceAssets/QBZ191Attachments20260913/import_motion_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191Attachments20260913/import_motion_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191Attachments20260913/import_motion_console.log",
+      "size": 13909,
+      "sha256": "0C73706DC7A7BBE2DA9A21E2ECDE71832B8D6C7D08C229A7862695873F234C9C",
+      "reason": "Initial module-loading attempt superseded by animation import",
+      "replacement": "SourceAssets/QBZ191Attachments20260913/import_motion_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/bake.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/bake.log",
+      "size": 1218,
+      "sha256": "5E80304C59ABB5AD01A9D588727784A35D4AD8C2D4C2924D2BE4DCA4B7880C71",
+      "reason": "Initial missing material bake target superseded by completed bake",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/bake_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/import.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/import.log",
+      "size": 298004,
+      "sha256": "A041E5170087A93DDC076C2584DBBF5242D45A3B24508658397EECE85B4083A3",
+      "reason": "Initial coating import attempt superseded by final saved binding",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/import_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/import_console.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/import_console.log",
+      "size": 42591,
+      "sha256": "29E1E90AFEA0FA7535541754FF64554FEAC97F95E6F8EA8EBCDE1F0B097FC169",
+      "reason": "Initial coating import attempt superseded by final saved binding",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/import_final.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render.log",
+      "size": 345279,
+      "sha256": "175C5DEDC79899614963AE1F7B8ECF2DA9E1558CD5EC1DD594BC196D2BB7750A",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_capture.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_capture.log",
+      "size": 329856,
+      "sha256": "2A033DE1F94DABF94DB082FF6DBBE241E48E23C5EA4248C44740198557292B00",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_delivery.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_delivery.log",
+      "size": 329882,
+      "sha256": "40F892DB374604C28BE7C4861E8DFD56CF1B830C28D2730EE2A485D1389F3130",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_final.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_final.log",
+      "size": 338289,
+      "sha256": "1339AFFB50AC4E05FA199AE50B17F8D75157A3E8198B7AF39F9E4FCC75F280A4",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_present.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_present.log",
+      "size": 331334,
+      "sha256": "F15BE78EF53AF0422A6C46735206E27E99EA04E942CC57166E4EBF3E54F84046",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_balanced.log",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_balanced.log",
+      "size": 330740,
+      "sha256": "1A1B91AE4D12CF96F902FF0B3C1C7E0C8CE966A930F840D2E65DC669465E6579",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_error.txt",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_error.txt",
+      "size": 470,
+      "sha256": "4F4BC7C7AD8B4D995B101A66B642CE8797343F03042B6D57DAB339632F53D12F",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    },
+    {
+      "source": "SourceAssets/QBZ191MetalCoat20260913/render_pid.txt",
+      "destination": "trash/weapon-finish-publication-20260913/SourceAssets/QBZ191MetalCoat20260913/render_pid.txt",
+      "size": 7,
+      "sha256": "4AEC9D530DC62DEC184F733B7291071C278834334DB1415E32260F836670ECDB",
+      "reason": "Old capture/exposure attempts and stale error/PID; final four previews and completion record retained",
+      "replacement": "SourceAssets/QBZ191MetalCoat20260913/render_finish.log"
+    }
+  ]
+}

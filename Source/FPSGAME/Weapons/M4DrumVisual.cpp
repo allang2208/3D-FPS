@@ -1,4 +1,6 @@
 #include "../FPSGAMECharacter.h"
+#include "AKMAttachmentVisual.h"
+#include "QBZ191Attachments.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -24,7 +26,7 @@ void AFPSGAMECharacter::UpdateGunsmithCapture(USceneCaptureComponent2D* Capture,
 
 void AFPSGAMECharacter::SetGunsmithInspection(bool bInspect)
 {
-    bGunsmithInspection=bInspect&&bUsingM4Infima;
+    bGunsmithInspection=bInspect&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel));
     const auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();if(!WeaponMesh)return;
     if(const auto* Render=WeaponMesh->GetResourceForRendering())
         for(int32 L=0;L<Render->LODRenderData.Num();++L)
@@ -38,11 +40,19 @@ void AFPSGAMECharacter::SetGunsmithInspection(bool bInspect)
 
 void AFPSGAMECharacter::SetGunsmithDrum(bool bDrum)
 {
-    bDrum=bDrum&&bUsingM4Infima&&bInventoryWeaponReady;
+    bDrum=bDrum&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel))&&bInventoryWeaponReady;
     auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();if(!WeaponMesh)return;
-    if(bDrum&&!LargeDrum)
+    if(bUseQBZ191){
+        LargeDrum=QBZ191Attachments::ConfigureFitted(this,AKMViewmodel,LargeDrum,TEXT("drum"),bDrum,TEXT("WPN_SOCKET_Magazine"));
+        DrumMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+    }
+    if(AKMSoviet::Matches(AKMViewmodel)){
+        LargeDrum=AKMAttachment::Configure(this,AKMViewmodel,LargeDrum,TEXT("drum"),bDrum,TEXT("WPN_SOCKET_Magazine"));
+        DrumMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+    }
+    if(bDrum&&!LargeDrum&&!bUseQBZ191)
     {
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/M4Drum/SM_M4_LargeDrum.SM_M4_LargeDrum"));
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_LargeDrum"));
         if(!Asset){UE_LOG(LogTemp,Error,TEXT("M4_DRUM: missing mesh"));return;}
         LargeDrum=NewObject<UStaticMeshComponent>(this,TEXT("M4LargeDrum"));LargeDrum->SetStaticMesh(Asset);
         LargeDrum->SetCollisionEnabled(ECollisionEnabled::NoCollision);LargeDrum->SetCastShadow(false);LargeDrum->bReceivesDecals=false;
@@ -84,8 +94,9 @@ void AFPSGAMECharacter::UpdateDrumDropVisual()
         LargeDrum->SetVisibility(bDrumVisual);return;
     }
     const float Frame=ReloadSourceTime(WeaponStateElapsed)*60.0f;
-    const float Release=bPendingEmptyReload?14.0f:18.0f;
-    const float Pickup=bPendingEmptyReload?31.0f:36.0f;
+    // AKM: the authored 120 Hz pull clears the magazine well before fingers open at frame 86.
+    const float Release=bUseQBZ191?36.f:AKMSoviet::Matches(AKMViewmodel)?43.f:(bPendingEmptyReload?14.0f:18.0f);
+    const float Pickup=bUseQBZ191?49.f:AKMSoviet::Matches(AKMViewmodel)?56.f:(bPendingEmptyReload?31.0f:36.0f);
     if(Frame>=Release&&!bDrumReleasedDuringReload)
     {
         bDrumReleasedDuringReload=true;
@@ -97,7 +108,8 @@ void AFPSGAMECharacter::UpdateDrumDropVisual()
             Body->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);Body->SetCollisionObjectType(ECC_PhysicsBody);Body->SetCollisionResponseToAllChannels(ECR_Ignore);Body->SetCollisionResponseToChannel(ECC_WorldStatic,ECR_Block);Body->RegisterComponent();Body->SetWorldLocationAndRotation(Center,LargeDrum->GetComponentQuat());
             auto* Visual=NewObject<UStaticMeshComponent>(Dropped,TEXT("DroppedDrumMesh"));Visual->SetStaticMesh(LargeDrum->GetStaticMesh());Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visual->SetCastShadow(true);Visual->SetupAttachment(Body);Visual->RegisterComponent();Visual->SetWorldTransform(LargeDrum->GetComponentTransform());
             Body->SetSimulatePhysics(true);Body->SetMassOverrideInKg(NAME_None,2.5f,true);
-            Body->SetPhysicsLinearVelocity(GetVelocity()+FirstPersonCamera->GetRightVector()*-180.0f+FirstPersonCamera->GetForwardVector()*65.0f+FVector(0,0,-110));
+            const bool bAKMDrum=AKMSoviet::Matches(AKMViewmodel);
+            Body->SetPhysicsLinearVelocity(GetVelocity()+FirstPersonCamera->GetRightVector()*(bAKMDrum?-85.f:-180.f)+FirstPersonCamera->GetForwardVector()*(bAKMDrum?45.f:65.f)+FVector(0,0,bAKMDrum?-140.f:-110.f));
             Body->SetPhysicsAngularVelocityInDegrees(FirstPersonCamera->GetForwardVector()*140.0f+FirstPersonCamera->GetRightVector()*60.0f);Dropped->SetLifeSpan(8);
             LastDroppedDrum=Dropped;LastDrumDropStart=Center;
             ++DrumDropCount;UE_LOG(LogTemp,Display,TEXT("DRUM_DROP: released frame=%.2f count=%d"),Frame,DrumDropCount);
