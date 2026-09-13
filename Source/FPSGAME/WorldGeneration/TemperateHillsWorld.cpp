@@ -195,7 +195,8 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
 void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
     if(!Assets||Layer<0||Layer>3)return;
-    const double Spacing=Layer==0?1200:(Layer==1?2400:(Layer==2?650:145));
+    if(Layer==3){GetGrassPlacements(Bounds,Out);return;}
+    const double Spacing=Layer==0?1200:(Layer==1?2400:650);
     const double Half=SizeMeters*50;
     const double MinX=FMath::Max(-Half,Bounds.Min.X),MinY=FMath::Max(-Half,Bounds.Min.Y);
     const double MaxX=FMath::Min(Half,Bounds.Max.X),MaxY=FMath::Min(Half,Bounds.Max.Y);
@@ -283,7 +284,8 @@ uint32 ATemperateHillsWorld::LayoutHash(int32 Layer) const
 
 void ATemperateHillsWorld::ActivateVegetationLayer(int32 Layer)
 {
-    const float Radii[]={18000,12000,8000,4500};
+    // Grass is invisible by 50 m, with a 10 m generation lead and 78 m cleanup.
+    const float Radii[]={18000,12000,8000,6000};
     auto* C=PCGLayers[Layer].Get();C->Seed=Seed;
     C->GenerationRadii=TemperateHills::FLayerRadii(Radii[Layer]);
     C->SetGraph(Assets->Graphs[Layer].Get());

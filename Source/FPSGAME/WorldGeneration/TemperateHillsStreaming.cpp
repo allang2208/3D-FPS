@@ -196,7 +196,7 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
     if(Stage<3)
     {
         Paths.Add(Assets->Graphs[Layer].ToSoftObjectPath());
-        if(Stage==0)HillsStreaming::AddPaths(Paths,Assets->Grass);
+        if(Stage==0){HillsStreaming::AddPaths(Paths,Assets->Grass);HillsStreaming::AddPaths(Paths,Assets->GrassAccents);}
         if(Stage==1)HillsStreaming::AddPaths(Paths,Assets->Shrubs);
         if(Stage==2){HillsStreaming::AddPaths(Paths,Assets->Rocks);HillsStreaming::AddPaths(Paths,Assets->RiverRocks);}
         S.Status=FText::FromString(Stage==0?TEXT("正在载入附近草地…"):Stage==1?TEXT("正在载入林下灌木…"):TEXT("正在载入坡地岩石…"));
@@ -229,7 +229,7 @@ void ATemperateHillsWorld::LoadNextEnvironmentStage()
         }
         if(Stage<3)
         {
-            const bool Ready=Stage==0?HillsStreaming::Loaded(Assets->Grass):Stage==1?HillsStreaming::Loaded(Assets->Shrubs):HillsStreaming::Loaded(Assets->Rocks);
+            const bool Ready=Stage==0?(HillsStreaming::Loaded(Assets->Grass)&&HillsStreaming::Loaded(Assets->GrassAccents)):Stage==1?HillsStreaming::Loaded(Assets->Shrubs):HillsStreaming::Loaded(Assets->Rocks);
             State.Failed=!(Ready&&Assets->Graphs[Layer].IsValid());
         }
         else if(Stage==6)
@@ -445,6 +445,7 @@ void ATemperateHillsWorld::TickPreparation()
     TArray<TSoftObjectPtr<UStaticMesh>> StaticAssets=Assets->Rocks;
     StaticAssets.Append(Assets->RiverRocks);
     StaticAssets.Append(Assets->Shrubs);StaticAssets.Append(Assets->Grass);
+    StaticAssets.Append(Assets->GrassAccents);
     const int32 AssetCount=TreeCount+StaticAssets.Num();
     if(S.WarmupAsset<AssetCount)
     {

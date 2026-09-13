@@ -34,7 +34,12 @@ public:
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<USkeletalMesh>> Trees;
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Rocks;
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Shrubs;
-    UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UStaticMesh>> Grass;
+    UPROPERTY(EditAnywhere, Category="Grass") TArray<TSoftObjectPtr<UStaticMesh>> Grass;
+    UPROPERTY(EditAnywhere, Category="Grass") TArray<TSoftObjectPtr<UStaticMesh>> GrassAccents;
+    UPROPERTY(EditAnywhere, Category="Grass", meta=(ClampMin="45",ClampMax="200",Units="cm")) float GrassSpacingCm = 55.f;
+    UPROPERTY(EditAnywhere, Category="Grass", meta=(ClampMin="0",ClampMax="1")) float GrassCoverage = .94f;
+    UPROPERTY(EditAnywhere, Category="Grass", meta=(ClampMin="120",ClampMax="500",Units="cm")) float GrassAccentSpacingCm = 180.f;
+    UPROPERTY(EditAnywhere, Category="Grass", meta=(ClampMin="0",ClampMax="1")) float GrassAccentCoverage = .5f;
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UPCGGraph>> Graphs;
     UPROPERTY(EditAnywhere, Category="River") TSoftObjectPtr<UMaterialInterface> RiverMaterial;
     UPROPERTY(EditAnywhere, Category="River") TArray<TSoftObjectPtr<UStaticMesh>> RiverRocks;
@@ -111,6 +116,7 @@ private:
     double PathDistance(double X, double Y) const;
     double ForestWeight(double X, double Y) const;
     bool TreeCandidate(int32 GX, int32 GY, FTemperatePlacement& Out) const;
+    void GetGrassPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
     void BeginStreaming();
     void TickStreaming();
     void EndStreaming();
