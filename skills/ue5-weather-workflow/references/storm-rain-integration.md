@@ -17,6 +17,12 @@ Test at the end of world actor ticking. Timers can observe a light between the d
 - Disable an independent material lightning timer when the weather manager already owns lightning and delayed thunder.
 - Never add another sun to solve a weather problem. ForwardShadingPriority selects a preferred forward light; it does not remove a redundant light or resolve two controllers writing the same component.
 
+## Canopy shadow readability
+
+For dark outdoor shadows, read the map's sky-light baseline and exposure limits together with weather attenuation. With extended luminance range enabled, exposure min/max are EV100; equal values disable eye adaptation. Tune diffuse sky fill and local shadow exposure before increasing direct sunlight. Bound any extra eye-adaptation range and fade daytime readability compensation out with the authoritative day/night clock.
+
+Apply map-specific gameplay corrections through an owned transient post-process component when existing maps must receive them without regeneration. Preserve authored light baselines, account for cloud-bottom occlusion as well as the sky-light weather multiplier, and avoid new per-tree shadow lights. The 2026-09-13 hills settings are an untested tuning revision documented in `Docs/Weather/hills-canopy-lighting-20260913.md`, not a measured performance or visual acceptance result.
+
 ## Rain, splashes and resource budgets
 
 Niagara user spawn rate may control only one emitter. Inspect all conventional and stateless emitter handles: an extra Fountain emitter caused coarse blue particles independent of the weather rate. Verify emitter count and actual GPU particles, not only a successful SetVariable call.

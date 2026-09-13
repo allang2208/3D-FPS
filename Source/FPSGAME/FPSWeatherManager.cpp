@@ -11,6 +11,7 @@
 #include "Components/AudioComponent.h"
 #include "Components/DecalComponent.h"
 #include "Components/PointLightComponent.h"
+#include "Components/PostProcessComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Components/SkyLightComponent.h"
@@ -163,6 +164,7 @@ void AFPSWeatherManager::BeginPlay()
         NormalizedDayTime = 0.375f;
         WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
     }
+    if (bTemperateHills) InitializeHillsLighting();
     RequestState(bAutomaticSchedule ? ResolveScheduledState() : CurrentState);
 
     UE_LOG(LogTemp, Display,
@@ -462,6 +464,34 @@ void AFPSWeatherManager::PlayDelayedThunder(float DelaySeconds)
     }, DelaySeconds, false);
 }
 
+void AFPSWeatherManager::InitializeHillsLighting()
+{
+    // Existing maps lock exposure at EV100 1 for the old vegetation study.
+    // Override only exposure in the running hills world, including saved worlds;
+    // the weather actor owns this component through travel and EndPlay.
+    HillsExposure = NewObject<UPostProcessComponent>(this, TEXT("HillsCanopyExposure"), RF_Transient);
+    HillsExposure->SetupAttachment(SceneRoot);
+    HillsExposure->bUnbound = true;
+    HillsExposure->Priority = 10.0f;
+    HillsExposure->BlendWeight = 1.0f;
+    FPostProcessSettings& Settings = HillsExposure->Settings;
+    Settings.bOverride_AutoExposureMethod = true;
+    Settings.AutoExposureMethod = AEM_Histogram;
+    Settings.bOverride_AutoExposureMinBrightness = true;
+    Settings.bOverride_AutoExposureMaxBrightness = true;
+    Settings.AutoExposureMinBrightness = 1.0f - HillsShadeExposureAllowance;
+    Settings.AutoExposureMaxBrightness = 1.0f;
+    Settings.bOverride_AutoExposureSpeedUp = true;
+    Settings.bOverride_AutoExposureSpeedDown = true;
+    Settings.AutoExposureSpeedUp = 3.0f;
+    Settings.AutoExposureSpeedDown = 1.0f;
+    Settings.bOverride_LocalExposureMethod = true;
+    Settings.LocalExposureMethod = ELocalExposureMethod::Bilateral;
+    Settings.bOverride_LocalExposureShadowContrastScale = true;
+    Settings.LocalExposureShadowContrastScale = HillsDayShadowContrast;
+    HillsExposure->RegisterComponent();
+}
+
 void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
 {
     // These outdoor scenes have no BP_FPS_DayNightManager. Drive their
@@ -473,6 +503,14 @@ void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
     SceneLightingRefresh = 0.0f;
     const float SunHeight = FMath::Sin((NormalizedDayTime - 0.25f) * 2.0f * PI);
     const float Daylight = FMath::SmoothStep(-0.12f, 0.35f, SunHeight);
+    const bool bTemperateHills = Map == TEXT("L_TemperateHills_Initial");
+    if (HillsExposure)
+    {
+        // Allow at most 0.75 stop of eye adaptation under a canopy in daylight.
+        // Fade that allowance and the extra local shadow lift out at night.
+        HillsExposure->Settings.AutoExposureMinBrightness = 1.0f - HillsShadeExposureAllowance * Daylight;
+        HillsExposure->Settings.LocalExposureShadowContrastScale = FMath::Lerp(0.8f, HillsDayShadowContrast, Daylight);
+    }
     // Cloud component applies the single weather attenuation after the clock.
     // This controller only supplies the unmodified time-of-day baseline.
     for (TActorIterator<AActor> It(GetWorld()); It; ++It)
@@ -516,7 +554,13 @@ void AFPSWeatherManager::UpdateSceneDayNight(float DeltaSeconds)
                 Sun->SetIntensity(Base * FMath::Abs(SunHeight) * (bNight ? 0.035f : 1.0f));
                 bSceneDayNightActive = true;
             }
-            if (Sky) Sky->SetIntensity(Base * FMath::Lerp(0.06f, 1.0f, Daylight));
+            if (Sky)
+            {
+                // Lift diffuse sky illumination without increasing direct sun
+                // or adding another shadow-casting light beneath every tree.
+                const float CanopyFill = bTemperateHills ? FMath::Lerp(1.0f, HillsDaySkyLightScale, Daylight) : 1.0f;
+                Sky->SetIntensity(Base * FMath::Lerp(0.06f, 1.0f, Daylight) * CanopyFill);
+            }
             if (Fill) Fill->SetIntensity(Base * FMath::Lerp(0.025f, 1.0f, Daylight));
         }
     }

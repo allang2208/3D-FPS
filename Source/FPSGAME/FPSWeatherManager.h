@@ -11,6 +11,7 @@ class UMaterialParameterCollection;
 class UNiagaraComponent;
 class UNiagaraSystem;
 class UPointLightComponent;
+class UPostProcessComponent;
 class USceneComponent;
 class USoundBase;
 class UWeatherSurfaceComponent;
@@ -82,6 +83,17 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Transition", meta=(ClampMin="1.0", Units="s"))
     float RainCloudLeadSeconds = 30.0f;
+
+    // Hills lighting is applied to the authored clock baseline, never to the
+    // previous frame's weather-attenuated intensity.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Hills Lighting", meta=(ClampMin="1.0", ClampMax="4.0"))
+    float HillsDaySkyLightScale = 1.8f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Hills Lighting", meta=(ClampMin="0.0", ClampMax="1.5"))
+    float HillsShadeExposureAllowance = 0.75f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Hills Lighting", meta=(ClampMin="0.6", ClampMax="1.0"))
+    float HillsDayShadowContrast = 0.65f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Rain")
     TObjectPtr<UNiagaraSystem> RainSystem;
@@ -160,6 +172,9 @@ private:
     UPROPERTY(VisibleAnywhere)
     TObjectPtr<UPointLightComponent> LightningLight;
 
+    UPROPERTY(Transient)
+    TObjectPtr<UPostProcessComponent> HillsExposure;
+
     float WeatherClockSeconds = 540.0f;
     float LastSkyTimeUnits = -1.0f;
     int32 DaySerial = 0;
@@ -182,6 +197,7 @@ private:
     TMap<TWeakObjectPtr<class ULightComponentBase>, FLinearColor> SceneLightColors;
 
     void UpdateSceneDayNight(float DeltaSeconds);
+    void InitializeHillsLighting();
 
     void ApplyState(EFPSWeatherState NewState);
     void RequestState(EFPSWeatherState NewState);

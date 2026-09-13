@@ -151,7 +151,10 @@ void UStormCloudComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
         auto& S=Pair.Value;
         // A fresh value from the clock is the baseline; never compound our own value.
         if(!FMath::IsNearlyEqual(L->Intensity,S.Applied,1.e-5f))S.Base=L->Intensity;
-        S.Applied=S.Base*FMath::Lerp(1.f,Cast<UDirectionalLightComponent>(L)?.25f:.72f,Blend);
+        // Hills already receive cloud occlusion in the real-time sky capture.
+        // Keep diffuse fill under trees while direct sunlight fades in rain.
+        const float StormSkyScale=bHillsClouds?.90f:.72f;
+        S.Applied=S.Base*FMath::Lerp(1.f,Cast<UDirectionalLightComponent>(L)?.25f:StormSkyScale,Blend);
         SetStormLightIntensity(L,S.Applied);
         if(auto* Sun=Cast<UDirectionalLightComponent>(L))Sun->SetAtmosphereSunDiskColorScale(S.Disk*FMath::Lerp(1.f,.005f,Blend));
     }
@@ -163,7 +166,7 @@ void UStormCloudComponent::UpdateCloudLayer()
     C->SetMaterial(CloudMaterial);C->SetVisibility(true);
     C->SetLayerBottomAltitude(FMath::Lerp(OriginalBottom,1.55f,Blend));
     C->SetLayerHeight(FMath::Lerp(OriginalHeight,1.1f,Blend));
-    C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,.22f,Blend));
+    C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,bHillsClouds?.10f:.22f,Blend));
     const float HillsCoverage=Blend<=.3f?FMath::Lerp(ClearCloudCoverage,CloudyCloudCoverage,Blend/.3f):
         FMath::Lerp(CloudyCloudCoverage,.045f,(Blend-.3f)/.7f);
     CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),bHillsClouds?HillsCoverage:FMath::Lerp(bOriginalVisible?Coverage:-.35f,.045f,Blend));
