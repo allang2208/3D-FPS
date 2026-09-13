@@ -69,3 +69,7 @@ Git 包含攀爬 C++、配置、作者工具、导入/包围盒/作者校验摘�
 M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`，包含 14 个网格、逐槽材料和 M4 机匣裁片。它们仍依赖原配件法线、光学材料、M4InfimaV3 材质函数和 AKM SovietFab ArmSupport 枪钢纹理；先恢复这些来源，再使用 `SourceAssets/WeaponAttachmentFinish20260913` 中导出、纹理准备、UV 制作和导入脚本。QBZ 涂层依次运行其 MetalCoat 目录的 export_current、bake_coating、record_export_slots、import_coating、finish_editable；输入及前置版本见 [材质记录](Weapons/qbz191-receiver-coating-20260913.md)。
 
 最终可编辑源、贴图与已交付预览保留本机，不提交 Git。公开制作脚本需要已有授权资产，不能单靠克隆仓库恢复画面。归档及本次发布范围见 [整理记录](Weapons/weapon-publication-20260913.md)。
+
+## 感染矿工退役（2026-09-13）
+
+感染矿工整案已判废，`Content/Monsters/InfectedMiner`、`Content/Tests/InfectedMiner`、两日作者源与专用代码/工具移入本机 `trash/infected-miner-rejected-20260913`。恢复 Content 时使用已删除 `InfectedMiner_Village_01` 的村庄关卡，不从旧快照恢复该矿工；共享护士、AI、EBS 动作库继续保留。废案边界与逐文件散列见 [废案记录](Rejected/infected-miner-20260913.md)。trash 和授权不允许再分发的原始素材不在公开仓库内。

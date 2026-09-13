@@ -1,0 +1,28 @@
+{
+  "status": "removed_and_saved",
+  "external_referencers": [
+    "/Game/GameMaps/L_Normandy_FPS_Test"
+  ],
+  "removed_actors": [
+    {
+      "name": "InfectedMinerSpawner_0",
+      "label": "InfectedMiner_Village_01",
+      "class": "InfectedMinerSpawner",
+      "path": "/Game/GameMaps/L_Normandy_FPS_Test.L_Normandy_FPS_Test:PersistentLevel.InfectedMinerSpawner_0"
+    }
+  ],
+  "backups": [
+    {
+      "source": "Content/GameMaps/L_Normandy_FPS_Test.umap",
+      "target": "trash/infected-miner-rejected-20260913/BeforeSceneRemoval/Content/GameMaps/L_Normandy_FPS_Test.umap",
+      "bytes": 91202943,
+      "sha256": "8d12ba94789e75097a98ace2e8424e3893253dde63e21cb74de7ee3e47d66f90",
+      "reason": "Before removing only the rejected miner encounter; shared level retained",
+      "replacement": "Current village level without miner encounter",
+      "state": "copied"
+    }
+  ],
+  "replacement": null,
+  "map": "/Game/GameMaps/L_Normandy_FPS_Test",
+  "saved_map_sha256": "fdc9e37d062a9535d0b4407fc59e01f3a7037eb8c7bd223b081c4ce84fdbc1a2"
+}
