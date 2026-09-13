@@ -5,13 +5,16 @@ from mathutils import Vector
 
 ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/InfectedMiner20260913')
 if '--pickaxe' in sys.argv:ROOT=ROOT/'PickaxeSingleHand'
+if '--drag-ground' in sys.argv:ROOT=ROOT/'DragGround'
+state=sys.argv[sys.argv.index('--state')+1] if '--state' in sys.argv else 'Attack'
 OUT=ROOT/('Previews/SingleHandPickaxe' if '--pickaxe' in sys.argv else 'Previews/DefaultAxe')
+if '--drag-ground' in sys.argv:OUT=ROOT/'Previews'/state
 OUT.mkdir(parents=True,exist_ok=True)
 contract=json.loads((ROOT/'Delivery/rebuild.json').read_text())
 bpy.ops.wm.open_mainfile(filepath=str(ROOT/'Delivery/InfectedMiner_Editable.blend'))
 scene=bpy.context.scene
 rig=bpy.data.objects['MinerRig']
-action=bpy.data.actions['A_Miner_Attack']
+action=bpy.data.actions['A_Miner_'+state]
 rig.animation_data.action=action
 rig.animation_data.action_slot=action.slots[0]
 meshes=[o for o in scene.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.object==rig for m in o.modifiers)]
@@ -42,7 +45,7 @@ for location,power,size in [((3,-4,4.5),850,4),((-3,-1,3),500,3),((1,3,4),1000,3
     obj=bpy.data.objects.new('PreviewSoftbox',data);scene.collection.objects.link(obj)
     obj.location=location;obj.rotation_euler=(Vector((0,0,1.1))-obj.location).to_track_quat('-Z','Y').to_euler()
 
-frames=list(range(1,round(contract['clips']['Attack']['seconds']*30)+1,2))
+frames=list(range(1,round(contract['clips'][state]['seconds']*30)+1,2))
 points=[]
 for frame in frames:
     scene.frame_set(frame);bpy.context.view_layer.update()
@@ -88,9 +91,9 @@ for name,offset in views:
         bpy.ops.render.render(write_still=True)
         print(f'MINER_PREVIEW_FRAME {name} {i+1}/{len(frames)}',flush=True)
 (OUT/'render.json').write_text(json.dumps({'source':str(ROOT/'Delivery/InfectedMiner_Editable.blend'),
-    'action':'A_Miner_Attack','seconds':contract['clips']['Attack']['seconds'],
+    'action':'A_Miner_'+state,'seconds':contract['clips'][state]['seconds'],
     'baked_speed':contract.get('source_play_rate',1),
     'source_frames_1_based':frames,'framing':framing,'size_per_view':[620,720],
-    'render':'offline Blender Cycles; UE-baked animation and accepted model/materials',
+    'render':'offline Blender Cycles; editable animation and current model/materials',
     'gameplay_tested':False},indent=2))
 print('MINER_DEFAULT_PREVIEW_RENDERED',flush=True)

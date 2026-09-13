@@ -1,0 +1,102 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\DragGround\\Delivery\\InfectedMiner_Editable.blend",
+  "action": "A_Miner_Attack",
+  "seconds": 1.8,
+  "baked_speed": 1,
+  "source_frames_1_based": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29,
+    31,
+    33,
+    35,
+    37,
+    39,
+    41,
+    43,
+    45,
+    47,
+    49,
+    51,
+    53
+  ],
+  "framing": {
+    "front": {
+      "scale": 2.472334623336792,
+      "center": [
+        -0.1403561532497406,
+        -0.269887238740921,
+        1.1115202903747559
+      ],
+      "offset": [
+        2.700000047683716,
+        -6.0,
+        1.5
+      ]
+    },
+    "side": {
+      "scale": 2.783933639526367,
+      "center": [
+        -0.1403561532497406,
+        -0.269887238740921,
+        1.1115202903747559
+      ],
+      "offset": [
+        6.0,
+        -0.6499999761581421,
+        1.149999976158142
+      ]
+    }
+  },
+  "size_per_view": [
+    620,
+    720
+  ],
+  "render": "offline Blender Cycles; editable animation and current model/materials",
+  "gameplay_tested": false,
+  "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\DragGround\\Previews\\InfectedMiner_DragGround_Attack.gif",
+  "mp4": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\DragGround\\Previews\\InfectedMiner_DragGround_Attack.mp4",
+  "gif_durations_ms": [
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70
+  ],
+  "gif_total_ms": 1800,
+  "rendered_frames": 27
+}

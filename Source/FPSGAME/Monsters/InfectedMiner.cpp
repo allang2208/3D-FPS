@@ -1,4 +1,7 @@
 #include "InfectedMiner.h"
+#include "MinerStateAnimInstance.h"
+#include "Animation/AnimSingleNodeInstance.h"
+#include "Animation/AnimSequence.h"
 #include "MonsterCombatComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -28,7 +31,7 @@ AInfectedMiner::AInfectedMiner():Super()
 {
     Tags.Remove(TEXT("NurseZombie")); Tags.Add(TEXT("InfectedMiner"));
     MaxHealth=180.f; AttackDamage=24.f; AttackRange=150.f;
-    AggroRadius=1100.f; WalkSpeed=55.f; ContactTime=21.f*54.f/(30.f*65.f); ContactEnd=27.f*54.f/(30.f*65.f);
+    AggroRadius=1100.f; WalkSpeed=55.f; ContactTime=22.f/30.f; ContactEnd=25.f/30.f;
     RecoveryTime=1.15f; CorpseSeconds=20.f; ExperienceReward=280;
 }
 bool AInfectedMiner::ApplyAcceptedGrip(UAnimSequence* TargetClip,UAnimSequence* AcceptedIdle)
@@ -57,6 +60,33 @@ bool AInfectedMiner::ApplyAcceptedGrip(UAnimSequence* TargetClip,UAnimSequence* 
 #else
     return false;
 #endif
+}
+void AInfectedMiner::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
+{
+    FPoseSnapshot Previous;
+    auto* Anim=Cast<UMinerStateAnimInstance>(GetMesh()->GetAnimInstance());
+    const auto* Single=GetMesh()->GetSingleNodeInstance();
+    if((Anim&&Anim->CurrentClip)||(Single&&Single->GetAnimationAsset()))GetMesh()->SnapshotPose(Previous);
+    if(!Anim)
+    {
+        GetMesh()->SetAnimInstanceClass(UMinerStateAnimInstance::StaticClass());
+        Anim=Cast<UMinerStateAnimInstance>(GetMesh()->GetAnimInstance());
+    }
+    if(Anim)Anim->StartClip(Clip,bLoop,Previous);
+}
+void AInfectedMiner::SetAttackAnimationTime(float Seconds)
+{
+    // The authored last pose matches the carry idle, including during cooldown.
+    if(AttackClip&&IdleClip&&Seconds>=AttackClip->GetPlayLength())
+    {
+        StartStateAnimation(IdleClip,true);
+        return;
+    }
+    if(auto* Anim=Cast<UMinerStateAnimInstance>(GetMesh()->GetAnimInstance()))Anim->ClipTime=Seconds;
+}
+void AInfectedMiner::SetWalkAnimationRate(float Rate)
+{
+    if(auto* Anim=Cast<UMinerStateAnimInstance>(GetMesh()->GetAnimInstance()))Anim->PlayRate=Rate;
 }
 void AInfectedMiner::BeginPlay()
 {

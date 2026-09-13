@@ -1,0 +1,34 @@
+{
+  "version": "accepted single-hand mining swing with trailing carry and ground follow-through",
+  "source_editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\PickaxeSingleHand\\Delivery\\InfectedMiner_Editable.blend",
+  "pickaxe_scale": 1.25,
+  "handle_length_m": 1.2,
+  "head_span_m": 0.9,
+  "preserved": "body/hand geometry, rest skeleton, skin weights, finger grip, materials; accepted windup source",
+  "authored_changes": "left arm carry and ground reach, upper-body forward follow-through, carry endpoints",
+  "contact_time": 0.7333333333333333,
+  "contact_end": 0.8333333333333334,
+  "ground_contact_time": 0.8,
+  "state_blend_seconds": 0.16,
+  "ground_reference": "flat local ground; not runtime terrain-conforming IK",
+  "clips": {
+    "Idle": {
+      "seconds": 2.6333333333333333,
+      "loop": true,
+      "path": "/Game/Monsters/InfectedMiner/DragGround20260913/A_Miner_DragGround_Idle.A_Miner_DragGround_Idle"
+    },
+    "Walk": {
+      "seconds": 1.0333333333333334,
+      "loop": true,
+      "path": "/Game/Monsters/InfectedMiner/DragGround20260913/A_Miner_DragGround_Walk.A_Miner_DragGround_Walk"
+    },
+    "Attack": {
+      "seconds": 1.8,
+      "loop": false,
+      "path": "/Game/Monsters/InfectedMiner/DragGround20260913/A_Miner_DragGround_Attack.A_Miner_DragGround_Attack"
+    }
+  },
+  "gameplay_tested": false,
+  "delivery_mesh": "/Game/Monsters/InfectedMiner/DragGround20260913/SK_InfectedMiner_DragGround.SK_InfectedMiner_DragGround",
+  "blueprint": "/Game/Monsters/InfectedMiner/BP_InfectedMiner.BP_InfectedMiner"
+}

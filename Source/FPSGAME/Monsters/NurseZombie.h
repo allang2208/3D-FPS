@@ -44,6 +44,10 @@ public:
     UFUNCTION(BlueprintCallable, Category="Nurse|Animation") static bool PrepareInPlaceAnimation(UAnimSequence* Clip);
     UFUNCTION(BlueprintCallable, Category="Nurse|Placement", meta=(WorldContext="WorldContextObject"))
     static bool FindTestSpawn(UObject* WorldContextObject, FVector Origin, FRotator Facing, float PreferredDistance, float Side, FVector& Location);
+protected:
+    virtual void StartStateAnimation(UAnimSequence* Clip,bool bLoop);
+    virtual void SetAttackAnimationTime(float Seconds);
+    virtual void SetWalkAnimationRate(float Rate);
 private:
     void SetState(ENurseState NewState);
     bool CanSee(const AActor* Actor) const;

@@ -1,5 +1,7 @@
 # 感染矿工单手挥镐
 
+当前版本为 `DragGround/`：矿镐整体放大 25%，待机与移动在身后拖镐，攻击延续已认可方向并前倾砸地，状态切换增加 0.16 秒姿态混合。见 [当前说明](../../Docs/InfectedMinerDragGround20260913.md)。以下 `PickaxeSingleHand/` 保留为已认可的前一版本。
+
 当前交付已转为 `PickaxeSingleHand/`，使用实际 `A_Mannequin_PickAxe_Act` 的身体/腿/持镐左臂，配合已有放松右臂和已认可手指姿态，合成为 1.8 秒单手挥镐。参见 [当前说明](../../Docs/InfectedMinerPickaxe20260913.md)。当前 GIF 为 `PickaxeSingleHand/Previews/InfectedMiner_SingleHand_Pickaxe_Attack.gif`。未做游戏测试。
 
 以下为上一版被拒绝的斧击记录，根目录旧 `Delivery`、`Previews` 与旧 GIF 不再是当前输出。

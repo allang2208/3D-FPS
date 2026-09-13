@@ -15,6 +15,10 @@ public:
     UFUNCTION(BlueprintCallable,Category="Miner|Assets") static class UPhysicsAsset* CreatePhysicsAsset(USkeletalMesh* TargetMesh);
     UFUNCTION(BlueprintCallable,Category="Miner|Assets") static bool ApplyAcceptedGrip(class UAnimSequence* TargetClip,class UAnimSequence* AcceptedIdle);
     UFUNCTION(BlueprintCallable,Category="Miner|Assets",meta=(WorldContext="Context")) static bool BakeTestNavigation(UObject* Context);
+protected:
+    virtual void StartStateAnimation(UAnimSequence* Clip,bool bLoop) override;
+    virtual void SetAttackAnimationTime(float Seconds) override;
+    virtual void SetWalkAnimationRate(float Rate) override;
 };
 
 UCLASS(Blueprintable)

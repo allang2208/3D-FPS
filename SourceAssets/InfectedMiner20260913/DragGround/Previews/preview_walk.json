@@ -1,0 +1,80 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\DragGround\\Delivery\\InfectedMiner_Editable.blend",
+  "action": "A_Miner_Walk",
+  "seconds": 1.0333333333333334,
+  "baked_speed": 1,
+  "source_frames_1_based": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29,
+    31
+  ],
+  "framing": {
+    "front": {
+      "scale": 2.1003925800323486,
+      "center": [
+        0.014061331748962402,
+        0.18761935830116272,
+        0.9283260703086853
+      ],
+      "offset": [
+        2.700000047683716,
+        -6.0,
+        1.5
+      ]
+    },
+    "side": {
+      "scale": 1.999536395072937,
+      "center": [
+        0.014061331748962402,
+        0.18761935830116272,
+        0.9283260703086853
+      ],
+      "offset": [
+        6.0,
+        -0.6499999761581421,
+        1.149999976158142
+      ]
+    }
+  },
+  "size_per_view": [
+    620,
+    720
+  ],
+  "render": "offline Blender Cycles; editable animation and current model/materials",
+  "gameplay_tested": false,
+  "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\DragGround\\Previews\\InfectedMiner_DragGround_Walk.gif",
+  "mp4": "D:\\FPS3D\\FPSGAME\\SourceAssets\\InfectedMiner20260913\\DragGround\\Previews\\InfectedMiner_DragGround_Walk.mp4",
+  "gif_durations_ms": [
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    70,
+    60,
+    70,
+    30
+  ],
+  "gif_total_ms": 1030,
+  "rendered_frames": 16
+}

@@ -1,5 +1,9 @@
 # Infected miner: single-hand pickaxe composite
 
+Latest: [enlarged pickaxe, trailing carry and ground slam](../../Docs/InfectedMinerDragGround20260913.md). Run Blender `author_drag_ground.py`, build the editor module, then run UE Python `import_drag_ground.py`. This extends the accepted single-hand version without changing its bind or skin. Current assets use `DragGround20260913`, and local editable/export files are under `SourceAssets/InfectedMiner20260913/DragGround/Delivery`. Requested preview scripts use `--drag-ground`, optionally `--state Walk`.
+
+The following workflow produces the earlier accepted single-hand version and remains its source history.
+
 Current route: [single-hand pickaxe correction](../../Docs/InfectedMinerPickaxe20260913.md). Run `rebuild_pickaxe_tools.py` in UE Python, then Blender `package_default_tools_blend.py -- --pickaxe`. Requested previews use Blender `render_default_preview.py -- --pickaxe` and Python `package_default_preview.py --pickaxe`. Outputs are in `SourceAssets/InfectedMiner20260913/PickaxeSingleHand/`; UE assets are in `/Game/Monsters/InfectedMiner/PickaxeSingleHand20260913/`.
 
 This uses the actual EBS PickAxe body/legs/left arm, existing relaxed right arm and accepted fingers, uniformly sped up to 1.8 seconds. It is a composite from a two-hand source, not native one-hand mocap. `AnimPoseExtensions` plus the existing editor animation controller bake the layer without adding a new C++ asset API. The existing miner BP and its contact window are updated. Body/hand geometry, rest skeleton, skin and materials are retained.

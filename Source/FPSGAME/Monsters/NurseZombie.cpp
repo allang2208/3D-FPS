@@ -74,13 +74,19 @@ void ANurseZombie::SetState(ENurseState NewState)
     UAnimSequence* Clip = State == ENurseState::Chase ? WalkClip : State == ENurseState::Attack ? AttackClip : IdleClip;
     if (State != ENurseState::Dead && State != ENurseState::Stagger && Clip)
     {
-        GetMesh()->PlayAnimation(Clip, State != ENurseState::Attack);
-        GetMesh()->SetPlayRate(1.f);
-        if (State == ENurseState::Attack) GetMesh()->SetPlayRate(0.f); // Combat clock owns the exact animation time.
+        StartStateAnimation(Clip,State!=ENurseState::Attack);
     }
     if (State != ENurseState::Chase) GetCharacterMovement()->StopMovementImmediately();
     if (State == ENurseState::Attack) bAttackConsumed = false;
 }
+
+void ANurseZombie::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
+{
+    GetMesh()->PlayAnimation(Clip,bLoop);
+    GetMesh()->SetPlayRate(bLoop?1.f:0.f);
+}
+void ANurseZombie::SetAttackAnimationTime(float Seconds) { GetMesh()->SetPosition(Seconds,false); }
+void ANurseZombie::SetWalkAnimationRate(float Rate) { GetMesh()->SetPlayRate(Rate); }
 
 bool ANurseZombie::CanSee(const AActor* Actor) const
 {
@@ -117,7 +123,7 @@ void ANurseZombie::Tick(float DeltaSeconds)
     }
     if (State == ENurseState::Attack)
     {
-        GetMesh()->SetPosition(FMath::Min(StateTime,AttackClip->GetPlayLength()),false);
+        SetAttackAnimationTime(FMath::Min(StateTime,AttackClip->GetPlayLength()));
         if (Previous <= ContactEnd && StateTime >= ContactTime) TryMelee();
         if (StateTime >= AttackClip->GetPlayLength())
         {
@@ -126,7 +132,7 @@ void ANurseZombie::Tick(float DeltaSeconds)
         }
         return;
     }
-    if(State==ENurseState::Chase)GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f));
+    if(State==ENurseState::Chase)SetWalkAnimationRate(FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f));
 }
 
 void ANurseZombie::InterruptAttack(float Seconds)
