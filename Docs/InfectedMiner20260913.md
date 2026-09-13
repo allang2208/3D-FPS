@@ -40,3 +40,11 @@
 试玩仍使用村庄 `/Game/GameMaps/L_Normandy_FPS_Test` 内原 `InfectedMiner_Village_01`。无需另加怪物或重存整个地图。打开旧游戏或编辑器的用户需重启以载入新模块和资源。
 
 原生 `FPSGAMEEditor` 构建完成，日志为 `Saved/InfectedMiner/build-default-tools.log`；UE 制作与接入日志为 `Saved/InfectedMiner/rebuild-default-tools-final.log`。本轮只完成制作、导出、接入及必要构建，不运行测试、不渲染预览。旧 CMU/KayKit 的验收记录属于被拒绝的历史版本，不能用作本轮结果。
+
+## 后续用户请求的 GIF 预览
+
+用户随后明确要求“生成预览 gif 给我检查”。针对已交付版本生成正面斜视与侧面并排的离线模型预览，使用 `Delivery/InfectedMiner_Editable.blend` 内 UE 烘焙后的 `A_Miner_Attack`，保留当前材质、模型和矿镐；不修改动作或重新导入游戏资产。
+
+输出为 `SourceAssets/InfectedMiner20260913/Previews/InfectedMiner_Default_Axe_Attack.gif`，同时提供同名 MP4。两个视角各 620×720，合成含说明栏的 1240×786，原速播放 65/30 秒，GIF 以 10 毫秒为单位取整为 2.17 秒。循环是预览播放方式，不改变游戏攻击为单次执行的设置。
+
+制作脚本为 `Tools/InfectedMiner/render_default_preview.py` 和 `package_default_preview.py`。前者仅渲染用户指定动作；后者合成双视角 GIF/MP4。`Previews/preview.json` 记录输入、采样帧和实际播放时长。本次不启动游戏、不执行战斗回归；这份离线预览不代表 UE 游戏画面或最终观感已通过。
