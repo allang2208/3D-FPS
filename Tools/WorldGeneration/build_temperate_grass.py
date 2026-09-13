@@ -61,6 +61,61 @@ if opacity.get_editor_property('desc')!='TemperateMeadowDistanceFade':
     if not LIB.connect_material_expressions(opacity,output,multiply,'A'):raise RuntimeError('Opacity connection failed')
     if not LIB.connect_material_expressions(fade,'',multiply,'B'):raise RuntimeError('Fade connection failed')
     if not LIB.connect_material_property(multiply,'',u.MaterialProperty.MP_OPACITY_MASK):raise RuntimeError('Mask connection failed')
+
+# Recolour the original texture luminance instead of merely multiplying a green
+# albedo by yellow. Apply the same remap to subsurface transmission, which would
+# otherwise remain vivid green when the player looks towards the sun.
+DRY_COLOR_CODE='''
+float patch=.5+.25*sin(P.x*.0011+P.y*.0007)+.25*sin(P.y*.0015-P.x*.0004);
+float dry=saturate(Dryness+(R-.5)*Variation+(patch-.5)*.22);
+float mix=saturate(.65+(R-.5)*.45+(patch-.5)*.35);
+float3 tint=lerp(OliveTint,DryTint,mix);
+float luminance=dot(C,float3(.299,.587,.114));
+return lerp(C,luminance*tint,dry);
+'''
+
+def scalar(name,value):
+    expr=LIB.create_material_expression(master,u.MaterialExpressionScalarParameter)
+    expr.set_editor_property('parameter_name',name)
+    expr.set_editor_property('default_value',value)
+    return expr
+
+def tint(name,rgb):
+    expr=LIB.create_material_expression(master,u.MaterialExpressionVectorParameter)
+    expr.set_editor_property('parameter_name',name)
+    expr.set_editor_property('default_value',u.LinearColor(*rgb,1))
+    return expr
+
+color_inputs=None
+for property_name in ('BASE_COLOR','SUBSURFACE_COLOR'):
+    prop=getattr(u.MaterialProperty,'MP_'+property_name)
+    source_color=LIB.get_material_property_input_node(master,prop)
+    if source_color is None:raise RuntimeError('Missing grass colour input: '+property_name)
+    marker='TemperateDryMeadow_'+property_name
+    if source_color.get_editor_property('desc')==marker:
+        source_color.set_editor_property('code',DRY_COLOR_CODE)
+        continue
+    if color_inputs is None:
+        color_inputs={'P':LIB.create_material_expression(master,u.MaterialExpressionWorldPosition),
+                      'R':LIB.create_material_expression(master,u.MaterialExpressionPerInstanceRandom),
+                      'Dryness':scalar('MeadowDryness',.92),
+                      'Variation':scalar('MeadowColorVariation',.16),
+                      'DryTint':tint('MeadowDryTint',(1.60,1.21,.57)),
+                      'OliveTint':tint('MeadowOliveTint',(1.12,1.05,.62))}
+    output=LIB.get_material_property_input_node_output_name(master,prop)
+    expr=LIB.create_material_expression(master,u.MaterialExpressionCustom)
+    expr.set_editor_property('desc',marker)
+    expr.set_editor_property('code',DRY_COLOR_CODE)
+    expr.set_editor_property('output_type',u.CustomMaterialOutputType.CMOT_FLOAT3)
+    inputs={'C':source_color,**color_inputs}
+    pins=[]
+    for name in inputs:
+        pin=u.CustomInput();pin.set_editor_property('input_name',name);pins.append(pin)
+    expr.set_editor_property('inputs',pins)
+    for name,value in inputs.items():
+        if not LIB.connect_material_expressions(value,output if name=='C' else '',expr,name):
+            raise RuntimeError('Could not connect dry grass colour '+name)
+    if not LIB.connect_material_property(expr,'',prop):raise RuntimeError('Could not connect '+property_name)
 LIB.recompile_material(master)
 save(master)
 materials={}
@@ -74,9 +129,13 @@ def mesh_copy(name,group):
         if key not in materials:
             mat=copy(key,DEST+'/MI_Meadow_'+original.get_name())
             LIB.set_material_instance_parent(mat,master)
-            # A restrained palette for the temperate woodland ground material.
-            LIB.set_material_instance_scalar_parameter_value(mat,'Brightness',.92)
-            LIB.set_material_instance_scalar_parameter_value(mat,'Saturation',.9)
+            # Predominantly straw/khaki, with grey olive variation between tufts.
+            LIB.set_material_instance_scalar_parameter_value(mat,'Brightness',.85)
+            LIB.set_material_instance_scalar_parameter_value(mat,'Saturation',.65)
+            LIB.set_material_instance_scalar_parameter_value(mat,'Subsurface Saturation',.7)
+            LIB.set_material_instance_scalar_parameter_value(mat,'Subsurface Strengh',.55)
+            LIB.set_material_instance_scalar_parameter_value(mat,'MeadowDryness',.92)
+            LIB.set_material_instance_scalar_parameter_value(mat,'MeadowColorVariation',.16)
             # Keep the pack's blade wind, without evaluating the unused demo
             # character-bending system for every vertex in the dense meadow.
             for level in (1,2,3):
@@ -117,6 +176,8 @@ for name,value in {'grass_spacing_cm':55.0,'grass_coverage':.94,
     assets.set_editor_property(name,value)
 save(assets)
 REPORT['configuration']=assets.get_path_name()
+REPORT['palette']={'dryness':.92,'variation':.16,'dry_tint':[1.60,1.21,.57],
+                   'olive_tint':[1.12,1.05,.62],'brightness':.85,'subsurface_strength':.55}
 REPORT['wind_defaults']={}
 for name in ('PN_WindParameters','MaterialFunctions/PN_BendingParameters'):
     collection=load(SOURCE+'/Materials/'+name)

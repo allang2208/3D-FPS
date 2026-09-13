@@ -27,23 +27,36 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
         if(Meshes.IsEmpty())continue;
         const double Spacing=Accent?FMath::Clamp(Assets->GrassAccentSpacingCm,120.f,500.f):FMath::Clamp(Assets->GrassSpacingCm,45.f,200.f);
         const double Coverage=FMath::Clamp(Accent?Assets->GrassAccentCoverage:Assets->GrassCoverage,0.f,1.f);
-        for(int32 GY=FMath::FloorToInt(MinY/Spacing);GY<=FMath::FloorToInt(MaxY/Spacing);++GY)
-        for(int32 GX=FMath::FloorToInt(MinX/Spacing);GX<=FMath::FloorToInt(MaxX/Spacing);++GX)
+        // A tile is only an enumeration bucket, not a one-plant planting grid.
+        // Its 2..6 independent candidates average the previous candidate density
+        // while allowing adjacent tufts, empty pockets and uneven spacing.
+        const double TileSize=Spacing*2;
+        for(int32 GY=FMath::FloorToInt(MinY/TileSize);GY<=FMath::FloorToInt(MaxY/TileSize);++GY)
+        for(int32 GX=FMath::FloorToInt(MinX/TileSize);GX<=FMath::FloorToInt(MaxX/TileSize);++GX)
         {
-            const uint32 K=Key(GX,GY,uint32(Seed),Accent?1327:1301);
-            // Each jittered candidate stays inside its global lattice cell.
-            const double X=(GX+.5+(Unit(K+1)-.5)*.6)*Spacing;
-            const double Y=(GY+.5+(Unit(K+2)-.5)*.6)*Spacing;
+            const uint32 TileKey=Key(GX,GY,uint32(Seed),Accent?1427:1401);
+            const int32 Count=2+int32(Unit(TileKey+11)*5);
+            for(int32 Candidate=0;Candidate<Count;++Candidate)
+            {
+            const uint32 K=Mix(TileKey^((uint32(Candidate)+1)*0x9e3779b9U));
+            const double X=(GX+Unit(K+1))*TileSize;
+            const double Y=(GY+Unit(K+2))*TileSize;
             if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY)continue;
             const double Path=PathDistance(X,Y);
             if(Path<240)continue;
             const auto Bank=RiverPlan?RiverPlan->Sample(X,Y):TemperateRiver::FSample();
             if(Bank.Bank>.08)continue;
-            const double Meadow=Noise(X*.00028,Y*.00028,1309)*.5+.5;
+            // Warp the larger fields so species and density transitions do not
+            // follow the rectangular PCG grid or the enumeration tile edges.
+            const double WX=X+Noise(X*.0004,Y*.0004,1411)*650;
+            const double WY=Y+Noise(X*.0004,Y*.0004,1417)*650;
+            const double Meadow=Noise(WX*.00028,WY*.00028,1309)*.5+.5;
+            const double Tuft=Noise(WX*.0031,WY*.0031,1423)*.5+.5;
             const double Forest=ForestWeight(X,Y);
-            // The low layer stays continuous between broad meadow patches.
-            // Taller species concentrate in the patches and recede at paths.
-            const double Patch=Accent?Smooth((Meadow-.32)/.42):(.88+.12*Meadow);
+            // Dense tufts connect through thinner ground cover, with small
+            // irregular gaps instead of a nearly uniform lawn everywhere.
+            const double Clump=Smooth((Meadow*.35+Tuft*.65-.27)/.46);
+            const double Patch=Accent?Smooth((Meadow-.32)/.42)*Clump:(.28+.72*Clump);
             const double PathBlend=Smooth((Path-240)/(Accent?550.0:180.0));
             const double BankBlend=1-Smooth(Bank.Bank/.08);
             const double Chance=Coverage*Patch*(1-Forest*(Accent?.45:.16))*PathBlend*BankBlend;
@@ -57,21 +70,23 @@ void ATemperateHillsWorld::GetGrassPlacements(const FBox& Bounds,TArray<FTempera
 
             // Select species from a smoothly blended 40 m field. Neighbours
             // share a few dominant species, independent of PCG cell boundaries.
-            const double PX=X/4000.0,PY=Y/4000.0;
+            const double PX=WX/4000.0,PY=WY/4000.0;
             int32 IX=FMath::FloorToInt(PX),IY=FMath::FloorToInt(PY);
             if(Unit(K+6)<Smooth(PX-IX))++IX;
             if(Unit(K+7)<Smooth(PY-IY))++IY;
             const uint32 Species=Key(IX,IY,uint32(Seed),Accent?1367:1361);
             const FSoftObjectPath Mesh=Meshes[Species%Meshes.Num()].ToSoftObjectPath();
             if(Mesh.IsNull())continue;
-            const double Scale=Accent?(.8+Unit(K+5)*.35):(.98+Unit(K+5)*.26);
+            const double Scale=Accent?(.65+Unit(K+5)*.55+Clump*.10):(.78+Unit(K+5)*.40+Clump*.12);
             const FQuat Rotation=FQuat(N,Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
             FTemperatePlacement& P=Out.Emplace_GetRef();
             P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-1.5),FVector(Scale));
             P.Mesh=Mesh;P.Key=K;
-            // Grid coordinates are small in this bounded world; bit 31 of Y
-            // distinguishes accent candidates without colliding with base IDs.
-            P.CandidateId=(uint64(uint32(GX))<<32)|(uint32(GY)^uint32(Accent?0x80000000U:0));
+            // Signed coordinates fit well within 24 bits in this bounded world;
+            // the low byte reserves a pass bit and the tile-local candidate ID.
+            P.CandidateId=(uint64(uint32(GX)&0x00ffffffU)<<32)|
+                (uint64(uint32(GY)&0x00ffffffU)<<8)|uint64((Accent?0x80:0)|Candidate);
+            }
         }
     }
 }
