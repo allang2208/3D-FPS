@@ -36,7 +36,7 @@ void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
     // Refresh only presentation fields; saved identity, placement and harvesting data stay intact.
     for(auto& I:P.Items)
     {
-        if(I.Definition!=TEXT("tool_axe"))continue;
+        if(I.Definition!=TEXT("tool_axe")&&I.Definition!=TEXT("tool_pickaxe"))continue;
         const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
         TSharedPtr<FJsonObject> SavedData,VisualData;
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),SavedData)||
