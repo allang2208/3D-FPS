@@ -12,7 +12,7 @@ FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant)
     if(Definition==TEXT("wood"))
     {
         const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,2);
-        return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_PoplarLog_%c.SM_PoplarLog_%c"),Letter,Letter));
+        return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_PoplarLog_Solid_%c.SM_PoplarLog_Solid_%c"),Letter,Letter));
     }
     return FSoftObjectPath(TEXT("/Game/RuralAustralia/StaticMeshes/Rocks/Rock_S_02/SM_Rock_S_02.SM_Rock_S_02"));
 }

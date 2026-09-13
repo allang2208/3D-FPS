@@ -25,3 +25,11 @@ No acceptance rendering, PIE session, gameplay test or audio audition was perfor
 At the user's request, runtime stumps now derive directly from the four existing `SK_BlackPoplarPCG_A/B/C/D` source meshes, cut at local Z=42 cm. `original_stumps_export.py` copies editor `SOURCE_MODEL` geometry through Geometry Script; the ordinary skeletal FBX export contains incomplete fallback geometry for these Nanite trees. `original_stumps_cut.py` retains the original bark UVs, root geometry and origin, and creates matching stump and falling-trunk cut surfaces. `original_stumps_import.py` saves the eight derivatives and reuses the existing bark materials and this revision's end-grain texture. Editable FBX/Blend sources are under `OriginalStumps`.
 
 These derivatives inherit the existing tree asset's license restrictions and remain local binary dependencies. The generated three log variants remain in use; the first generated stump is retained as an earlier local candidate. No new generation or purchase was required for this follow-up.
+
+## Closed timber repair
+
+The user reported that the pickup logs appeared as hollow bark. Focused FBX inspection confirmed fragmented surfaces and absent end caps. The textured mother has duplicated UV-island vertices, plus residual boundary cracks even after welding. The first reduction operated before welding and amplified these defects.
+
+`repair_solid_logs.py` samples the same retained mother's outer shape into a continuous surface, rebakes BaseColor/Roughness/Normal onto new cylindrical UVs, and constructs closed, triangulated end caps using the original generated end-grain reference. No new AI generation, purchased asset or third-party download was used. Runtime now selects `SM_PoplarLog_Solid_A/B/C`; original logs remain local historical candidates.
+
+`SolidRepair/SolidTimber_Editable.blend` and `SolidRepair/Delivery` contain editable geometry and production files. The user explicitly requested inspection for this repair: saved UE meshes were re-exported, checked for connected/closed/outward geometry, and rendered in Blender with their corresponding source PBR. `SolidRepair/engine_logs.png` is a Blender inspection image of UE-exported geometry, not a gameplay screenshot. No PIE or full gameplay regression was run.

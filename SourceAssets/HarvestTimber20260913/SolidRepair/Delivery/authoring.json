@@ -1,0 +1,39 @@
+{
+  "mother": {
+    "vertices": 105581,
+    "boundary_edges": 100220,
+    "welded_boundary_edges": 1752
+  },
+  "meshes": {
+    "SM_PoplarLog_Solid_A": {
+      "triangles": 6332,
+      "boundary_edges": 0,
+      "signed_volume_m3": 0.04932973631128274,
+      "dimensions_m": [
+        0.800000011920929,
+        0.304431676864624,
+        0.30655568838119507
+      ]
+    },
+    "SM_PoplarLog_Solid_B": {
+      "triangles": 5756,
+      "boundary_edges": 0,
+      "signed_volume_m3": 0.039582047037163545,
+      "dimensions_m": [
+        0.7299999594688416,
+        0.2837480902671814,
+        0.28451257944107056
+      ]
+    },
+    "SM_PoplarLog_Solid_C": {
+      "triangles": 6332,
+      "boundary_edges": 0,
+      "signed_volume_m3": 0.058614819919361724,
+      "dimensions_m": [
+        0.7900000214576721,
+        0.3340522050857544,
+        0.33586668968200684
+      ]
+    }
+  }
+}

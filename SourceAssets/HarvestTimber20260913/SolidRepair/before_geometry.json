@@ -1,0 +1,266 @@
+{
+  "A": {
+    "raw_boundary_edges": 10700,
+    "welded_boundary_edges": 10698,
+    "non_manifold_edges": 10698,
+    "vertices": 35139,
+    "faces": 6336,
+    "signed_volume_m3": 0.03152176545215865,
+    "components": [
+      {
+        "verts": 29,
+        "faces": 29,
+        "area": 0.013340796183911152
+      },
+      {
+        "verts": 40,
+        "faces": 35,
+        "area": 0.01234880039737618
+      },
+      {
+        "verts": 42,
+        "faces": 33,
+        "area": 0.010861055357963778
+      },
+      {
+        "verts": 34,
+        "faces": 32,
+        "area": 0.010486784674867522
+      },
+      {
+        "verts": 21,
+        "faces": 20,
+        "area": 0.010349662861699471
+      },
+      {
+        "verts": 26,
+        "faces": 28,
+        "area": 0.009672057280113222
+      },
+      {
+        "verts": 31,
+        "faces": 25,
+        "area": 0.008966112771304324
+      },
+      {
+        "verts": 33,
+        "faces": 29,
+        "area": 0.008382094181797584
+      },
+      {
+        "verts": 32,
+        "faces": 33,
+        "area": 0.008226219597418094
+      },
+      {
+        "verts": 25,
+        "faces": 24,
+        "area": 0.008167177173163509
+      },
+      {
+        "verts": 31,
+        "faces": 27,
+        "area": 0.008116615488688694
+      },
+      {
+        "verts": 27,
+        "faces": 27,
+        "area": 0.008001314525245107
+      }
+    ],
+    "ends": [
+      {
+        "x": -0.400001585483551,
+        "faces": 0,
+        "area_m2": 0,
+        "material_slots": [],
+        "outward_faces": 0
+      },
+      {
+        "x": 0.400001585483551,
+        "faces": 3,
+        "area_m2": 2.744463600823366e-09,
+        "material_slots": [
+          0
+        ],
+        "outward_faces": 0
+      }
+    ]
+  },
+  "B": {
+    "raw_boundary_edges": 10131,
+    "welded_boundary_edges": 10129,
+    "non_manifold_edges": 10129,
+    "vertices": 33065,
+    "faces": 5952,
+    "signed_volume_m3": 0.025350065097992987,
+    "components": [
+      {
+        "verts": 30,
+        "faces": 29,
+        "area": 0.012423787207808346
+      },
+      {
+        "verts": 42,
+        "faces": 35,
+        "area": 0.011058932830565027
+      },
+      {
+        "verts": 34,
+        "faces": 32,
+        "area": 0.009782916604308411
+      },
+      {
+        "verts": 21,
+        "faces": 20,
+        "area": 0.009233772787410999
+      },
+      {
+        "verts": 34,
+        "faces": 29,
+        "area": 0.009182294423226267
+      },
+      {
+        "verts": 26,
+        "faces": 28,
+        "area": 0.009034057415192365
+      },
+      {
+        "verts": 33,
+        "faces": 29,
+        "area": 0.007820980899850838
+      },
+      {
+        "verts": 25,
+        "faces": 24,
+        "area": 0.007619954001711449
+      },
+      {
+        "verts": 28,
+        "faces": 27,
+        "area": 0.007461435434379382
+      },
+      {
+        "verts": 32,
+        "faces": 33,
+        "area": 0.007427351377941704
+      },
+      {
+        "verts": 32,
+        "faces": 29,
+        "area": 0.007299251519725658
+      },
+      {
+        "verts": 28,
+        "faces": 25,
+        "area": 0.007263258317834698
+      }
+    ],
+    "ends": [
+      {
+        "x": -0.365003377199173,
+        "faces": 0,
+        "area_m2": 0,
+        "material_slots": [],
+        "outward_faces": 0
+      },
+      {
+        "x": 0.365003377199173,
+        "faces": 1,
+        "area_m2": 6.339755387330115e-10,
+        "material_slots": [
+          0
+        ],
+        "outward_faces": 0
+      }
+    ]
+  },
+  "C": {
+    "raw_boundary_edges": 10672,
+    "welded_boundary_edges": 10670,
+    "non_manifold_edges": 10670,
+    "vertices": 34938,
+    "faces": 6306,
+    "signed_volume_m3": 0.036584924651985574,
+    "components": [
+      {
+        "verts": 29,
+        "faces": 29,
+        "area": 0.014681816326628905
+      },
+      {
+        "verts": 40,
+        "faces": 35,
+        "area": 0.013491788226019708
+      },
+      {
+        "verts": 41,
+        "faces": 33,
+        "area": 0.011558030060768942
+      },
+      {
+        "verts": 34,
+        "faces": 32,
+        "area": 0.011552981326531153
+      },
+      {
+        "verts": 21,
+        "faces": 20,
+        "area": 0.011282725805358496
+      },
+      {
+        "verts": 26,
+        "faces": 28,
+        "area": 0.010634924186888384
+      },
+      {
+        "verts": 31,
+        "faces": 25,
+        "area": 0.009729164361488074
+      },
+      {
+        "verts": 33,
+        "faces": 29,
+        "area": 0.009229482944647316
+      },
+      {
+        "verts": 32,
+        "faces": 33,
+        "area": 0.008993766986350238
+      },
+      {
+        "verts": 25,
+        "faces": 24,
+        "area": 0.0089925278807641
+      },
+      {
+        "verts": 31,
+        "faces": 27,
+        "area": 0.008846933569657267
+      },
+      {
+        "verts": 27,
+        "faces": 27,
+        "area": 0.008808279037111788
+      }
+    ],
+    "ends": [
+      {
+        "x": -0.3950042724609375,
+        "faces": 0,
+        "area_m2": 0,
+        "material_slots": [],
+        "outward_faces": 0
+      },
+      {
+        "x": 0.3950042724609375,
+        "faces": 3,
+        "area_m2": 5.160496974188078e-09,
+        "material_slots": [
+          0
+        ],
+        "outward_faces": 0
+      }
+    ]
+  }
+}
