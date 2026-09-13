@@ -36,4 +36,4 @@ Editor 原生构建成功，资源导入脚本执行成功。未运行 PIE 或�
 - `SolidRepair/SolidTimber_Editable.blend`：可编辑修复源；`SolidRepair/Delivery`：FBX 和 PBR 贴图。
 - `Saved/Logs/SolidTimber-Build.log`、`SolidTimber-Import.log`：本次构建和导入记录。
 
-仍使用上一轮生成母版及年轮参考，没有购买新资产。初版二进制和作者脚本保留为历史来源；运行版本的重建入口以 `repair_solid_logs.py` 为准。
+仍使用上一轮生成母版及年轮参考，没有购买新资产。初版二进制和旧作者脚本已移入本机 `trash/harvest-timber-superseded-20260913`；冻结母版与当前重建依赖照常保留。运行版本的重建入口以 `repair_solid_logs.py` 为准，恢复顺序见 [当前制作入口](../SourceAssets/HarvestTimber20260913/README.md)。

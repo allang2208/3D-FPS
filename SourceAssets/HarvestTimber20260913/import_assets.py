@@ -118,36 +118,6 @@ atten.set_editor_property('attenuation',settings);save(atten)
 for name in ('S_TreeCrack','S_TreeLanding'):
     sound=import_file(OUT/(name+'.wav'),name);sound.set_editor_property('attenuation_settings',atten);save(sound)
 
-if (OUT/'authoring.json').exists():
-    author=json.loads((OUT/'authoring.json').read_text());textures={}
-    for kind,filename in author['textures'].items():
-        texture=import_file(OUT/filename,'T_Poplar_'+kind)
-        texture.srgb=kind=='BaseColor'
-        if kind=='Normal':
-            texture.compression_settings=u.TextureCompressionSettings.TC_NORMALMAP
-            texture.set_editor_property('flip_green_channel',True)
-        elif kind=='ORM':texture.compression_settings=u.TextureCompressionSettings.TC_MASKS
-        save(texture);textures[kind]=texture
-    bark=asset('M_PoplarBark',u.Material,u.MaterialFactoryNew())
-    for old in list(L.get_material_expressions(bark)):L.delete_material_expression(bark,old)
-    for kind,prop,pin in [('BaseColor',u.MaterialProperty.MP_BASE_COLOR,'RGB'),('ORM',u.MaterialProperty.MP_ROUGHNESS,'G'),('Normal',u.MaterialProperty.MP_NORMAL,'RGB')]:
-        if kind in textures:
-            tex=node(bark,u.MaterialExpressionTextureSample,texture=textures[kind])
-            if kind=='Normal':tex.set_editor_property('sampler_type',u.MaterialSamplerType.SAMPLERTYPE_NORMAL)
-            elif kind=='ORM':tex.set_editor_property('sampler_type',u.MaterialSamplerType.SAMPLERTYPE_MASKS)
-            output(tex,pin,prop)
-    if 'ORM' not in textures:output(node(bark,u.MaterialExpressionConstant,r=.85),'',u.MaterialProperty.MP_ROUGHNESS)
-    L.recompile_material(bark);save(bark)
-    for name in author['meshes']:
-        options=u.FbxImportUI();options.automated_import_should_detect_type=False
-        options.mesh_type_to_import=u.FBXImportType.FBXIT_STATIC_MESH
-        options.import_materials=False;options.import_textures=False;options.import_animations=False
-        options.static_mesh_import_data.set_editor_property('combine_meshes',True)
-        mesh=import_file(OUT/(name+'.fbx'),name,options)
-        slots=mesh.get_editor_property('static_materials')
-        for index,slot in enumerate(slots):
-            slot.material_interface=cap if 'EndGrain' in str(slot.material_slot_name) else bark;slots[index]=slot
-        mesh.set_editor_property('static_materials',slots);save(mesh)
-        report[name]={'path':mesh.get_path_name(),'bounds':str(mesh.get_bounds()),'slots':[str(s.material_slot_name) for s in slots]}
-(ROOT/'import.json').write_text(json.dumps(report,indent=2))
-u.log('HARVEST_TIMBER_IMPORT_COMPLETE meshes='+str(sum(name.startswith('SM_') for name in report)))
+report['base_assets']=['T_PoplarEndReference','M_PoplarEnd','M_FallingPoplar','MI_FallingPoplar_Bark','MI_FallingPoplar_Foliage','SA_Timber','S_TreeCrack','S_TreeLanding']
+(ROOT/'base_import.json').write_text(json.dumps(report,indent=2))
+u.log('HARVEST_TIMBER_BASE_IMPORTED')

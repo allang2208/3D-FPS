@@ -37,12 +37,6 @@ FSoftObjectPath CutProfile(int32 Variant)
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
     return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/DA_TreeCut_%c.DA_TreeCut_%c"),Letter,Letter));
 }
-FSoftObjectPath CutCap(int32 Variant)
-{
-    if(Variant==INDEX_NONE)return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/SM_PoplarCutCap.SM_PoplarCutCap"));
-    const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
-    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_OriginalCut_%c.SM_OriginalCut_%c"),Letter,Letter));
-}
 FSoftObjectPath FallingMaterial(int32 Slot)
 {
     if(Slot==2)return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"));

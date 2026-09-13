@@ -1,0 +1,448 @@
+{
+  "date": "2026-09-13",
+  "scope": "Harvest timber retired outputs only",
+  "archive_root": "trash/harvest-timber-superseded-20260913",
+  "files": [
+    {
+      "original": "SourceAssets/HarvestTimber20260913/author_meshes.py",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/author_meshes.py",
+      "bytes": 8094,
+      "sha256": "a5da383303fc3eb11e680d3230c3012275e8db53f4d7df2e325c2dea7a5d1d46",
+      "reason": "Superseded fragmented low-mesh authoring; retained mother preparation is separated",
+      "replacement": "prepare_timber_mother.py and repair_solid_logs.py",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/author_meshes.log",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/author_meshes.log",
+      "bytes": 3728,
+      "sha256": "b203b26b2c1ff71914b133b2c896aaefc4e0599c49214c48a9215d4002efcd42",
+      "reason": "Superseded fragmented low-mesh authoring; retained mother preparation is separated",
+      "replacement": "prepare_timber_mother.py and repair_solid_logs.py",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/original_stumps_cut.py",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/original_stumps_cut.py",
+      "bytes": 4216,
+      "sha256": "991ea431dfbd07ac8df245fe9a9cecd9e83a992eef92e332d56ddcdb11818cad",
+      "reason": "Old stump and separate-cap pipeline replaced by matching cut sections",
+      "replacement": "export_tree_sections.py, cut_tree_sections.py, import_tree_sections.py",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/original_stumps_export.py",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/original_stumps_export.py",
+      "bytes": 2240,
+      "sha256": "6b991165e422247cde790d0a883c59f3e69f21777bdea4906e63ee540f190d3a",
+      "reason": "Old stump and separate-cap pipeline replaced by matching cut sections",
+      "replacement": "export_tree_sections.py, cut_tree_sections.py, import_tree_sections.py",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/original_stumps_import.py",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/original_stumps_import.py",
+      "bytes": 1834,
+      "sha256": "a65b4a8cebf9e1060bb9ec0e0fdad444c431bd1177da92791366213c9e41f63e",
+      "reason": "Old stump and separate-cap pipeline replaced by matching cut sections",
+      "replacement": "export_tree_sections.py, cut_tree_sections.py, import_tree_sections.py",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/authoring.json",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/authoring.json",
+      "bytes": 1988,
+      "sha256": "e128efa1f8a1d9ede5d2aac90380f258cac4e2ac89c6b942e2f807ecd769de00",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/authoring.log",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/authoring.log",
+      "bytes": 4068,
+      "sha256": "07a8fc8e0c59ecd638254b4d4455438e2eada39fbb1f62e9a97ee0cd59803fd6",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/import.json",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/import.json",
+      "bytes": 3002,
+      "sha256": "51ef6458c326ff90c390d03259a980e15600dee27ee92c5dbfe73fc386e9bd18",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/OriginalTreeStumps.blend",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/OriginalTreeStumps.blend",
+      "bytes": 1436351,
+      "sha256": "43fafe5ed6532bd2e34d0f2d0aeaea35c13d57e1891f11a4e92e72c1d4f35d14",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_A.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_A.fbx",
+      "bytes": 33468,
+      "sha256": "eea6cf405ff539bfcbfa3c1003910759be20225e9203aa34bcbaf76e74c605e6",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_B.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_B.fbx",
+      "bytes": 33340,
+      "sha256": "b325816d0e828570807a54ca1dcf0ca8125701babb161dec1287a5322ba1d649",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_C.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_C.fbx",
+      "bytes": 43308,
+      "sha256": "c2d10fb473ee8baec2ed8c58c414b3e0d4e179462fa42d7a13056a6470de4bb2",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_D.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalCut_D.fbx",
+      "bytes": 32908,
+      "sha256": "2e24c7318910ef36fdd9102e53f9a10f964b325049fff3b9a1f81c9ddf89e341",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_A.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_A.fbx",
+      "bytes": 223964,
+      "sha256": "c0c610d33d4fce614645f712e0c70b4d9632434a3a793c1d3052aac424a83e5b",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_B.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_B.fbx",
+      "bytes": 260716,
+      "sha256": "42b0300f5a9a1ad540d3a4459b01a8762e86032f9c00c5b192c02763cbfa6c8a",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_C.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_C.fbx",
+      "bytes": 421196,
+      "sha256": "49a24b7e4cbd9cbd59b085429156f7e6324faca6b66b756bfccea07ce082b9e5",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_D.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SM_OriginalStump_D.fbx",
+      "bytes": 352188,
+      "sha256": "75acca3d34aa44867da20c6ea09b7d274fe9c62d276b4220e4aaefc4c2277279",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/sources.json",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/sources.json",
+      "bytes": 1239,
+      "sha256": "cced346d0bb953679ffdf06aedc2647fc9e8c59843e5073644f467ce2d1ed00b",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_A.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_A.fbx",
+      "bytes": 11367520,
+      "sha256": "d437a7c0b003ef1cdfde5f699b0fe2f2de4fb93b8916f1c79f2dd7b24d59eb2d",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_B.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_B.fbx",
+      "bytes": 29004784,
+      "sha256": "d3b0a6b88b004d74072260b3c1c5bea8f3afc4f0a5ea650db9cdc7286d97c782",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_C.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_C.fbx",
+      "bytes": 23482544,
+      "sha256": "77db6bef30f53a085d5ff4a4009b91e9c0eb622863c0ecd4f5f3be7a672637cb",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_D.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/OriginalStumps/SourceTree_D.fbx",
+      "bytes": 18967104,
+      "sha256": "0ffc6ea8bac7222beec24283603f14652148ff1a3852bf883ca59db52bbb8100",
+      "reason": "Superseded original-stump export, mesh or production record",
+      "replacement": "FellingCut source geometry and matched cut sections",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarLog_A.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarLog_A.fbx",
+      "bytes": 874876,
+      "sha256": "bda52ec30960bf7137ceab05d32367347f965c7d553c177816838544b5a67556",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarLog_B.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarLog_B.fbx",
+      "bytes": 826876,
+      "sha256": "6f129d54355ceb090f40bdd7c7502c08e6e0a31a69fe92c7d74b1497b10d79c2",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarLog_C.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarLog_C.fbx",
+      "bytes": 870412,
+      "sha256": "7cb9dc35eab2eb07b56bc1aadd00510b8a5a37de4ece1004ff49e35ed1b98e9c",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarStump.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarStump.fbx",
+      "bytes": 488876,
+      "sha256": "199d37fad6f51366d7e81c866b3da9a3ed3ba2b71e653258227151617bd64162",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarCutCap.fbx",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/SM_PoplarCutCap.fbx",
+      "bytes": 20060,
+      "sha256": "5294cadd994feae6fd77637d2ae7bc3726b45af8d8783fadc950106b280bbda4",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/T_Poplar_Normal.png",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/T_Poplar_Normal.png",
+      "bytes": 5815671,
+      "sha256": "50c7e3e3f9e604a5eb36ce6be6e8f6b530931ac514a289dd6cd96652c03a41ca",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/Delivery/authoring.json",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/Delivery/authoring.json",
+      "bytes": 1650,
+      "sha256": "0d02d96cd8a46bc5ada4607bfc2c59e981ec1b2f1065124344b66c071a471368",
+      "reason": "Initial candidate output replaced by closed logs and matching stumps",
+      "replacement": "SolidRepair/Delivery and FellingCut/Delivery",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/import.json",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/import.json",
+      "bytes": 1864,
+      "sha256": "7ebd6505b37bfd4798740acee6f67253979d360e03e180c8d4785bd62be4be5e",
+      "reason": "Import receipt for retired initial meshes",
+      "replacement": "base_import.json; SolidRepair/import.json; FellingCut/import.json",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/FellingCut/MatchedTreeSections.blend1",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/FellingCut/MatchedTreeSections.blend1",
+      "bytes": 188226072,
+      "sha256": "ced63c5ef45ef5e57e5dd36863b58430cfaf7ec395a8531d5028d989049b8e5b",
+      "reason": "Previous automatic snapshot superseded by current editable cut sections",
+      "replacement": "FellingCut/MatchedTreeSections.blend",
+      "verified_after_move": true
+    },
+    {
+      "original": "SourceAssets/HarvestTimber20260913/import_assets.py",
+      "destination": "trash/harvest-timber-superseded-20260913/SourceAssets/HarvestTimber20260913/import_assets.py",
+      "bytes": 10513,
+      "sha256": "8fda6cffd69402853fcb438bd479ccd694b72c819faf936eae349d8d68a72c42",
+      "reason": "Snapshot of base importer before removal of retired mesh creation",
+      "replacement": "Current import_assets.py retains common materials and sound only",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_PoplarLog_A.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_PoplarLog_A.uasset",
+      "bytes": 841625,
+      "sha256": "1107d3edcccce406963d83372cb7b9cebd97ac614b9baace735b01498ede964a",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_PoplarLog_B.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_PoplarLog_B.uasset",
+      "bytes": 815042,
+      "sha256": "e486a26f1df7716d764d6503b749b51d8789b24aff74680e744cf162f46b039c",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_PoplarLog_C.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_PoplarLog_C.uasset",
+      "bytes": 843109,
+      "sha256": "d5e66d769721cc6f85ff5e4833a766b4df0dc9d28fde012fe948c45ce019265d",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_PoplarStump.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_PoplarStump.uasset",
+      "bytes": 510122,
+      "sha256": "507491968594b2d9016db24d72ce32d0e6c6748835e47516d78868da1b8532b5",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_PoplarCutCap.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_PoplarCutCap.uasset",
+      "bytes": 72569,
+      "sha256": "a71ed04190721d337ad297f7509a30ff7f413017dd97e40f8eccc7a60d205f28",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalStump_A.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalStump_A.uasset",
+      "bytes": 274704,
+      "sha256": "f5a3bf66c7b4d0b72dbfd47fd199fddb6f1f4b7f42d641db6ece9f3e46fae929",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalStump_B.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalStump_B.uasset",
+      "bytes": 272830,
+      "sha256": "ab4a38adae1126702cdc65f096899cffa2e2c33dc81cb931f12b9367f1b9d836",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalStump_C.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalStump_C.uasset",
+      "bytes": 447954,
+      "sha256": "4390a4f69ac2cf02f172c1fac2ae86530e9dc34af6e0d1ebbef1e430ec1fc601",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalStump_D.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalStump_D.uasset",
+      "bytes": 371211,
+      "sha256": "4a4aa6eef242b623d43efc39b7833958673ca21d037abde2a036405d2bf305c0",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalCut_A.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalCut_A.uasset",
+      "bytes": 95763,
+      "sha256": "d50b564ddcc02e9e782e358e004535cbb6e684796f5b2fa564592be0292aa7a0",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalCut_B.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalCut_B.uasset",
+      "bytes": 95406,
+      "sha256": "928af4a7d50686e7f4b26487ba9887ada60435f66c050862b4c4c74620338b77",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalCut_C.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalCut_C.uasset",
+      "bytes": 109896,
+      "sha256": "037c0093435457270f22f351d7640abf77084871e5f2383004fa1654cc237a8b",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/SM_OriginalCut_D.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/SM_OriginalCut_D.uasset",
+      "bytes": 94495,
+      "sha256": "dc2c2a5ecc38540f6bed932807724541b3acce95ccdbde72b2cc3bab44a56cd8",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/M_PoplarBark.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/M_PoplarBark.uasset",
+      "bytes": 6218,
+      "sha256": "fb73a517e0b5ccfab057ca22d6cf68a28d81c1aa5bf91e2b112eaccd0f803424",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/T_Poplar_BaseColor.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/T_Poplar_BaseColor.uasset",
+      "bytes": 7727430,
+      "sha256": "d18a2ecb430613e797a07c54d6a6bd7af2c8e265c07d48140f9c9c67f2cda69c",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/T_Poplar_Normal.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/T_Poplar_Normal.uasset",
+      "bytes": 6423816,
+      "sha256": "d45aa27f579ee6609ce31bba90ed0241bb7c1b8e1356747707f6e0aa3633284b",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    },
+    {
+      "original": "Content/Items/HarvestTimber/T_Poplar_ORM.uasset",
+      "destination": "trash/harvest-timber-superseded-20260913/Content/Items/HarvestTimber/T_Poplar_ORM.uasset",
+      "bytes": 1150741,
+      "sha256": "ef666aa7971c7a0142fe680f25546d29fccaa4a71668549959a7725df96bf70b",
+      "reason": "Unreferenced retired candidate package",
+      "replacement": "Current Solid and Cut meshes/materials",
+      "verified_after_move": true
+    }
+  ]
+}

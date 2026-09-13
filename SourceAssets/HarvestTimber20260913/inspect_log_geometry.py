@@ -3,7 +3,7 @@ import bpy,bmesh,json,math,sys
 from pathlib import Path
 from mathutils import Vector,Matrix
 ROOT=Path(__file__).parent;OUT=ROOT/'SolidRepair';OUT.mkdir(exist_ok=True)
-mode=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else 'before'
+mode=sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else 'engine'
 fixed=mode!='before'
 bpy.ops.wm.read_factory_settings(use_empty=True)
 report={};models=[]
@@ -12,9 +12,14 @@ bark_name='TimberSolidBark' if fixed else 'TimberBark'
 end_name='TimberSolidEndGrain' if fixed else 'TimberEndGrain'
 with bpy.data.libraries.load(str(blend),link=False) as (a,b):
     b.materials=[n for n in a.materials if n in (bark_name,end_name)]
+archive=ROOT.parents[1]/'trash'/'harvest-timber-superseded-20260913'/'SourceAssets'/'HarvestTimber20260913'
+if not fixed:
+    for image in bpy.data.images:
+        if Path(image.filepath).name=='T_Poplar_Normal.png':
+            image.filepath=str(archive/'Delivery'/'T_Poplar_Normal.png')
 for index,kind in enumerate('ABC'):
     before=set(bpy.data.objects)
-    folder=OUT/('UEExport' if mode=='engine' else 'Delivery') if fixed else ROOT/'Delivery'
+    folder=OUT/('UEExport' if mode=='engine' else 'Delivery') if fixed else archive/'Delivery'
     name=('SM_PoplarLog_Solid_' if fixed else 'SM_PoplarLog_')+kind+'.fbx'
     bpy.ops.import_scene.fbx(filepath=str(folder/name),use_anim=False)
     obj=next(o for o in set(bpy.data.objects)-before if o.type=='MESH')

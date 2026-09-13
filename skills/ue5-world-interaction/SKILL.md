@@ -4,6 +4,7 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 ---
 
 # Quick Start
+- For harvested trees, original stumps, cut-plane hinges, or Nanite tree crowns, read [tree cutting and falling](references/tree-harvest-cut-and-fall.md).
 - For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
 - For FPSGAME item art, three-view references, or RTX 5080 model generation, use the `ue5-item-asset-workflow` skill for photorealistic item style and asset validation.
 - Define interaction model: overlap-driven, trace-driven, or explicit use key.

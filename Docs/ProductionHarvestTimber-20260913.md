@@ -1,5 +1,7 @@
 # 免费采集树木表现升级
 
+当前制作与恢复入口见 [README](../SourceAssets/HarvestTimber20260913/README.md)。本页初版原木、自制树桩及圆片已退役并归档；最新倒树实现见 [切口修复](TreeCutHingeFix-20260913.md)，[归档清单](AssetArchives/harvest-timber-superseded-20260913.md) 记录实际移动范围。
+
 原木修复：针对用户指出的空心树皮，已重建闭合网格并切换到 `SM_PoplarLog_Solid_A/B/C`，完成定向模型检查，见 [原木修复记录](SolidTimberRepair-20260913.md)。
 
 后续调整：用户指定保留原树根部后，运行时树桩及倒树断面已换为四种原树直接截取的模型，见 [原树树桩说明](OriginalTreeStumps-20260913.md)。下文的自制树桩为初版记录，三款原木继续使用。
