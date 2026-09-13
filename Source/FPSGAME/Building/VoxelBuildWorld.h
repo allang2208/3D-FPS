@@ -61,6 +61,7 @@ public:
 private:
     UPROPERTY() TObjectPtr<UVoxelBuildPalette> Palette;
     UPROPERTY() TMap<FIntVector,TObjectPtr<UDynamicMeshComponent>> Chunks;
+    UPROPERTY() TMap<FIntVector,TObjectPtr<UDynamicMeshComponent>> RoundedChunks;
     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> SurfaceMaterials;
     TMap<FIntVector,FName> Cells;
     TArray<TArray<FVoxelEditCell>> History;

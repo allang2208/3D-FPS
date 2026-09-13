@@ -20,7 +20,7 @@ UVoxelBuildComponent::UVoxelBuildComponent()
 {
     PrimaryComponentTick.bCanEverTick=true;
     PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
-    PaletteAsset=TSoftObjectPtr<UVoxelBuildPalette>(FSoftObjectPath(TEXT("/Game/Building/Voxels/DA_VoxelBuildPalette.DA_VoxelBuildPalette")));
+    PaletteAsset=TSoftObjectPtr<UVoxelBuildPalette>(FSoftObjectPath(TEXT("/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette")));
 }
 
 void UVoxelBuildComponent::TryInitializeWorld()

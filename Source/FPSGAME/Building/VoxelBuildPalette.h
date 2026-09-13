@@ -24,5 +24,6 @@ class FPSGAME_API UVoxelBuildPalette : public UDataAsset
 public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly) TArray<FVoxelBuildMaterial> Materials;
     UPROPERTY(EditAnywhere, BlueprintReadOnly) TSoftObjectPtr<UMaterialInterface> PreviewMaterial;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Surface", meta=(ClampMin="0.25",ClampMax="3.0",Units="cm")) float EdgeRadiusCm=1.4f;
     const FVoxelBuildMaterial* Find(FName Id) const;
 };

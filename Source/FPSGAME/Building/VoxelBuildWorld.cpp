@@ -1,5 +1,6 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPalette.h"
+#include "VoxelSurfaceMesher.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
@@ -53,7 +54,10 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey, UVoxelBuildPalette*
             Cells.Add(Cell.Position,Cell.Material);
         }
     }
-    TSet<FIntVector> Keys;for(const auto& Entry:Cells)Keys.Add(ChunkFor(Entry.Key));
+    TSet<FIntVector> Keys;
+    for(const auto& Entry:Cells)
+        for(int32 Z=-1;Z<=1;++Z)for(int32 Y=-1;Y<=1;++Y)for(int32 X=-1;X<=1;++X)
+            Keys.Add(ChunkFor(Entry.Key+FIntVector(X,Y,Z)));
     for(const auto& Key:Keys)RebuildChunk(Key);
     bReady=true;Message=TEXT("自由建造 · 材料不限量");return true;
 }
@@ -143,7 +147,10 @@ bool AVoxelBuildWorld::Undo()
 void AVoxelBuildWorld::RebuildAffected(const TArray<FVoxelEditCell>& Edit)
 {
     TSet<FIntVector> Keys;
-    for(const auto& E:Edit){Keys.Add(ChunkFor(E.Position));for(const auto& N:VoxelGrid::Neighbors)Keys.Add(ChunkFor(E.Position+N));}
+    // Rounded corners also depend on diagonal neighbors across chunk borders.
+    for(const auto& E:Edit)
+        for(int32 Z=-1;Z<=1;++Z)for(int32 Y=-1;Y<=1;++Y)for(int32 X=-1;X<=1;++X)
+            Keys.Add(ChunkFor(E.Position+FIntVector(X,Y,Z)));
     for(const auto& Key:Keys)RebuildChunk(Key);
 }
 
@@ -205,18 +212,40 @@ void AVoxelBuildWorld::RebuildChunk(FIntVector Key)
     }
     if(Mesh.TriangleCount()==0)
     {
-        if(auto* Existing=Chunks.Find(Key)){(*Existing)->DestroyComponent();Chunks.Remove(Key);}return;
+        if(auto* Existing=Chunks.Find(Key)){(*Existing)->DestroyComponent();Chunks.Remove(Key);}
     }
-    UDynamicMeshComponent* Component=Chunks.FindRef(Key);
-    if(!Component)
+    else
     {
-        Component=NewObject<UDynamicMeshComponent>(this);AddInstanceComponent(Component);Component->SetupAttachment(RootComponent);
-        Component->SetRelativeLocation(CellMin(Origin));Component->SetMobility(EComponentMobility::Movable);
-        Component->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
-        Component->SetCollisionProfileName(TEXT("BlockAll"));Component->SetComplexAsSimpleCollisionEnabled(true,false);
-        Component->SetCanEverAffectNavigation(false);
-        for(int32 I=0;I<SurfaceMaterials.Num();++I)Component->SetMaterial(I,SurfaceMaterials[I]);
-        Component->RegisterComponent();Chunks.Add(Key,Component);
+        // Keep the exact 20 cm collider for traces, stairs and build selection.
+        // Rounded visual normals must not redirect the placement brush.
+        UDynamicMeshComponent* Component=Chunks.FindRef(Key);
+        if(!Component)
+        {
+            Component=NewObject<UDynamicMeshComponent>(this);AddInstanceComponent(Component);Component->SetupAttachment(RootComponent);
+            Component->SetRelativeLocation(CellMin(Origin));Component->SetMobility(EComponentMobility::Movable);
+            Component->SetCollisionProfileName(TEXT("BlockAll"));Component->SetComplexAsSimpleCollisionEnabled(true,false);
+            Component->SetVisibility(false);Component->SetHiddenInGame(true);Component->SetCastShadow(false);
+            Component->SetCanEverAffectNavigation(false);
+            Component->RegisterComponent();Chunks.Add(Key,Component);
+        }
+        Component->SetMesh(MoveTemp(Mesh));Component->NotifyMeshUpdated();Component->UpdateBounds();Component->UpdateCollision(false);
     }
-    Component->SetMesh(MoveTemp(Mesh));Component->NotifyMeshUpdated();Component->UpdateBounds();Component->UpdateCollision(false);
+    FDynamicMesh3 Surface;
+    VoxelSurface::Build(Surface,Origin,ChunkSide,Palette->EdgeRadiusCm,[this](FIntVector Cell)
+    {const int32* Slot=MaterialSlots.Find(MaterialAt(Cell));return Slot?*Slot:INDEX_NONE;});
+    if(Surface.TriangleCount()==0)
+    {
+        if(auto* Existing=RoundedChunks.Find(Key)){(*Existing)->DestroyComponent();RoundedChunks.Remove(Key);}return;
+    }
+    UDynamicMeshComponent* Visible=RoundedChunks.FindRef(Key);
+    if(!Visible)
+    {
+        Visible=NewObject<UDynamicMeshComponent>(this);AddInstanceComponent(Visible);Visible->SetupAttachment(RootComponent);
+        Visible->SetRelativeLocation(CellMin(Origin));Visible->SetMobility(EComponentMobility::Movable);
+        Visible->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);
+        Visible->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visible->SetCanEverAffectNavigation(false);
+        for(int32 I=0;I<SurfaceMaterials.Num();++I)Visible->SetMaterial(I,SurfaceMaterials[I]);
+        Visible->RegisterComponent();RoundedChunks.Add(Key,Visible);
+    }
+    Visible->SetMesh(MoveTemp(Surface));Visible->NotifyMeshUpdated();Visible->UpdateBounds();
 }
