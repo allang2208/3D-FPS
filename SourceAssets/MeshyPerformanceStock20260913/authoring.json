@@ -1,0 +1,40 @@
+{
+  "source_front_x_max": false,
+  "source_mount_center": [
+    -0.9508119821548462,
+    0.0009804964065551758,
+    0.5018230080604553
+  ],
+  "length_m": 0.18,
+  "variants": {
+    "M4": {
+      "triangles": 573816,
+      "front_offset_m": 0.007,
+      "materials": [
+        "StockMetal_M4",
+        "StockPolymer_M4",
+        "StockRubber_M4"
+      ]
+    },
+    "AKM": {
+      "triangles": 575032,
+      "front_offset_m": 0.0028,
+      "materials": [
+        "StockMetal_AKM",
+        "StockPolymer_AKM",
+        "StockRubber_AKM",
+        "StockAdapter_AKM"
+      ]
+    },
+    "QBZ191": {
+      "triangles": 574192,
+      "front_offset_m": 0.0,
+      "materials": [
+        "StockMetal_QBZ191",
+        "StockPolymer_QBZ191",
+        "StockRubber_QBZ191",
+        "StockAdapter_QBZ191"
+      ]
+    }
+  }
+}

@@ -27,7 +27,7 @@ void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
     if(Enabled)
     {
         const TCHAR* StockPath=QR
-            ?(AKM?TEXT("/Game/Weapons/QRPerformanceStock/AKM/SM_QRPerformanceStock.SM_QRPerformanceStock"):TEXT("/Game/Weapons/QRPerformanceStock/M4/SM_QRPerformanceStock.SM_QRPerformanceStock"))
+            ?(AKM?TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/SM_PerformanceStock.SM_PerformanceStock"):TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/M4/SM_PerformanceStock.SM_PerformanceStock"))
             :(AKM?TEXT("/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock"):TEXT("/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock"));
         auto* StockMesh=LoadObject<UStaticMesh>(nullptr,bUseQBZ191?*QBZ191Attachments::MeshPath(Variant):StockPath);
         if(!StockMesh){UE_LOG(LogTemp,Error,TEXT("SKELETON_STOCK: mesh missing"));return;}

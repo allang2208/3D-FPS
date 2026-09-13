@@ -10,6 +10,8 @@ namespace QBZ191Attachments
 {
 inline FString MeshPath(const FString& Key)
 {
+    if(Key==TEXT("qr_performance"))return TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/QBZ191/SM_PerformanceStock");
+    if(Key==TEXT("angled"))return TEXT("/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/QBZ191/SM_ResonanceGrip");
     return TEXT("/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_")+Key;
 }
 inline UStaticMeshComponent* ConfigureFitted(AActor* Owner,USkeletalMeshComponent* Rifle,UStaticMeshComponent* Part,const FString& Key,bool Enabled,const TCHAR* Bone=TEXT("WPN_root"))

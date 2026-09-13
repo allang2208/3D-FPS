@@ -1,0 +1,950 @@
+{
+  "status": "moved and SHA256 matched",
+  "entries": [
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/seed_91847/history.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/seed_91847/history.json",
+      "bytes": 8546,
+      "sha256": "73e0713f44ead5b59ba0420a2e71579974dcf573e2a17ee5b409eac9efc2c40f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/seed_91847/raw_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/seed_91847/raw_00001_.glb",
+      "bytes": 176050996,
+      "sha256": "f11c349a382e3d9bcea593a8042eac08ee7fb8b0a171b0db48e16259da8e9e43",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/seed_91847/README.md",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/seed_91847/README.md",
+      "bytes": 526,
+      "sha256": "38e5deeaf4f7bc94e70b6475ff51d33541d6a1244c9b8616e036f9a478cd39e8",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/seed_91847/receipt.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/seed_91847/receipt.json",
+      "bytes": 98,
+      "sha256": "a22925388e50b51d2ea362701be816404e817f7f9de84dbcd8c165b8a836a8b8",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/seed_91847/textured_master_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/seed_91847/textured_master_00001_.glb",
+      "bytes": 51641760,
+      "sha256": "ec209a65626dd698cb6e4f381c69443482a62905fec2a875a3c6bafaa1651b8b",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/seed_91847/workflow.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/seed_91847/workflow.json",
+      "bytes": 5492,
+      "sha256": "9293525d897611d3f6d0f99b70c696679db3ce564ea431914b32bf5823dbadc1",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91813_quarter_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91813_quarter_clay.png",
+      "bytes": 1142567,
+      "sha256": "07da9649d6da940bd6037c4329885e04e8424c8f099b4a2bef1d17dfab7d97b3",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91813_quarter_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91813_quarter_material.png",
+      "bytes": 1202870,
+      "sha256": "87c630aa63125e5a45c3e5dacb83669a6aad2df1eb9d3a6713e415dcd7bdf936",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91813_side_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91813_side_clay.png",
+      "bytes": 1143420,
+      "sha256": "005bfbd0107f8ed376311339703b9c0b29afbbcf7a51d1c35f5f89e5bb3a3285",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91813_side_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91813_side_material.png",
+      "bytes": 1203160,
+      "sha256": "d263c71dbbd75b9f52bdb971c9247f0b2496d9da1e95c05d8bad3e5764bdc622",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91847_quarter_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91847_quarter_clay.png",
+      "bytes": 1150776,
+      "sha256": "d38aaca254e63c7e05bca0dbb169240312d25336803ec6fd8f5805c6dbe842a8",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91847_quarter_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91847_quarter_material.png",
+      "bytes": 1200128,
+      "sha256": "ab7aae252f7c084a984182d93762c2f2028a4ab83ace98a6aaef43d28881a9c5",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91847_side_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91847_side_clay.png",
+      "bytes": 1155344,
+      "sha256": "f69135bb1c4613bc75fc167a6c459ca85255f728c9ea11f2fc6d846e18b2c19e",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/91847_side_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/91847_side_material.png",
+      "bytes": 1205446,
+      "sha256": "724eded1b0835c3d8e1dccb5338a4d8b53df632508efac764a1fbb4e42982c06",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/model_data.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/model_data.json",
+      "bytes": 1278,
+      "sha256": "0be9aa28be5d5c074ac99b153ef159aeeaaf8b7f835065b3b47d882be3163006",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91847/README.md",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91847/README.md",
+      "bytes": 1487,
+      "sha256": "a45f5fbe50b8cf84ca6e4b0285c64dd6508d11dd867be123cfc1696ce6c05464",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_back_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_back_clay.png",
+      "bytes": 1130137,
+      "sha256": "31f0a7819d74145798621b0b26e4100d911c9cc1ae3c3f6767777250b30facf0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_back_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_back_material.png",
+      "bytes": 1200286,
+      "sha256": "52b6c59db7bf715737e7172f6511603f4ea433b53ef2fed43ab5d975a67176d6",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_broad_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_broad_clay.png",
+      "bytes": 1134943,
+      "sha256": "2178fb1975932415bf2f10e531ded30238abbc2f95e67f80c9b7af30e86e00f2",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_broad_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_broad_material.png",
+      "bytes": 1205340,
+      "sha256": "680ca82c8828c83c3b49ef01f5828562e866b8d5e116ae16b3cf76cc35ad89ac",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_quarter_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_quarter_clay.png",
+      "bytes": 1106164,
+      "sha256": "c36b9d8caab02cc6bdd2c81ee13147bed60bf3ec9d21d7023bd9c585168774f2",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_quarter_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_quarter_material.png",
+      "bytes": 1156487,
+      "sha256": "6ba0d820953f9e46698271d06ed6ed045317375d2550f907aa958890a3741812",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_side_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_side_clay.png",
+      "bytes": 1003163,
+      "sha256": "5bfb4a364ad648c8f7c022fb7077b726677140ad429aeb5394e5c5cd70034609",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/91871_side_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/91871_side_material.png",
+      "bytes": 1022037,
+      "sha256": "9e79db51090d16261dbfec316860fe5e38b746ee8f37f53418b7b58fa2e11bb6",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/Review91871/model_data.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/Review91871/model_data.json",
+      "bytes": 639,
+      "sha256": "2eb0bbd9276acbde07a3b37f8a2eb136a5e873a7db7451665cfa946a01bfedea",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/generate.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/generate.py",
+      "bytes": 3683,
+      "sha256": "6fb148eb8afe793da910f75c51988a91706d7f189862d9e4c7ab4903cbd072b3",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/generator_schema.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/generator_schema.json",
+      "bytes": 4498,
+      "sha256": "9a72a3205bb6d3455d893f84e8023c392c85c13f66117074bdc9bdcc41abc969",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/README.md",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/README.md",
+      "bytes": 1121,
+      "sha256": "033db09618a4f355925a15aa34594dfe2a8be9bbfdf983af58afbd580933702a",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/review.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/review.log",
+      "bytes": 2940,
+      "sha256": "1afa2e2afcce752aa37d4ad82bf56c4f7214e68adf378dffb90f5ce954bc67cb",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/review.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/review.py",
+      "bytes": 2876,
+      "sha256": "92d2dad48835f7d6f4cee5d3e2eefff1172ae7432a677343b47d972ab8aa8900",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/three_views.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/three_views.png",
+      "bytes": 1205678,
+      "sha256": "6c190e73272540a6e0958bfe9baed690799c425a7160301911d6a7597a0fa8b0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/upload.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/upload.json",
+      "bytes": 81,
+      "sha256": "8b64aa76e603ab37f3bec132d615e216aef84e35f496836f9131fd58dcf6c10d",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_back_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_back_clay.png",
+      "bytes": 1133483,
+      "sha256": "2b36b90bff330bd45e9a135e6e3e9a50a7687a6e88a08655447b2fd67b0e7277",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_back_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_back_material.png",
+      "bytes": 1143045,
+      "sha256": "340265f814411680958c360ad224d676346444f11b842dcc6458316b9a0ae22a",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_quarter_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_quarter_clay.png",
+      "bytes": 1146979,
+      "sha256": "5aee861b8857e01a667cbaeda0172769f9320103e25d5d9a654c0de31845ce11",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_quarter_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_quarter_material.png",
+      "bytes": 1145028,
+      "sha256": "8b9dab32c57de697b8a3de176de3f3d0c29f73bc021d63e01568ab1de22bf980",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_side_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_side_clay.png",
+      "bytes": 1149265,
+      "sha256": "607a544580be77a9f8363f0f3e1a906c5cc9978c2ef2a53a3ab2d7a17cb9bdf0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_side_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/91903_side_material.png",
+      "bytes": 1145323,
+      "sha256": "61d6262b11e06a5fdfaee809beebba3fc0b1979c9576047c8f5699ba3d09d6d9",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/Review/model_data.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/Review/model_data.json",
+      "bytes": 640,
+      "sha256": "c5a334af62f20a8a71c63e1b50aea309f5cd93cb9b67c5f550c6c4ae63a38ae6",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/history.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/history.json",
+      "bytes": 8587,
+      "sha256": "8e85c96216f76992309436914993004008702acc7d5d62ef8515e5d7ca8e74be",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/raw_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/raw_00001_.glb",
+      "bytes": 201402304,
+      "sha256": "46f92bc450bbeadcef54aab97ebfb9da54cd47384ae2d08f8bb26d7be25651ca",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/receipt.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/receipt.json",
+      "bytes": 98,
+      "sha256": "d59b49708fa19e5ab52562a6972011c3ef0cc4a6d2cd45c6c039e89f51c49d87",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/textured_master_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/textured_master_00001_.glb",
+      "bytes": 51915128,
+      "sha256": "eb5f88fe48a79f367dda4fc8e46f4842cb15acdcf3fcaebd39c826f92dcd639a",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/workflow.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/ClayReferenceReroll/seed_91903/workflow.json",
+      "bytes": 5517,
+      "sha256": "6e01c1e3a544aa943c6b3a2cb6a268f1e1294f315c167e8a5f4f40ad33e28641",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/fetch.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/fetch.py",
+      "bytes": 864,
+      "sha256": "9be878afb641ca2a89f338bb147fea7c0efbfeec51afb0da343a8cd4f3f01926",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/generate.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/generate.py",
+      "bytes": 2049,
+      "sha256": "c3e5c17e1ce79464533a4956acb977b60b51ef96c4401027756cf48c83122e3f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/history.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/history.json",
+      "bytes": 5297,
+      "sha256": "b940e59ede5a08dd5c4fc7c4a2968ac53068484fe89f2f1075988fe917afecf2",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/raw_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/raw_00001_.glb",
+      "bytes": 66574828,
+      "sha256": "6982ed487b30b959e81ab513e7d05a6a3df858017675d4aa842ab345f034f7b0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/README.md",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/README.md",
+      "bytes": 1251,
+      "sha256": "817baf1268cfe9c6a9496804a4d1e6b3b3b3c5274b958ec2de45b4c9e8fe5c8c",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/receipt.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/receipt.json",
+      "bytes": 98,
+      "sha256": "5abeb63a20cbd784106d01303845e4fc8724432e23dfc0e90771a2fa288e74fb",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/reference.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/reference.png",
+      "bytes": 1205678,
+      "sha256": "6c190e73272540a6e0958bfe9baed690799c425a7160301911d6a7597a0fa8b0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/ResonanceGrip_Pixal_Editable.blend",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/ResonanceGrip_Pixal_Editable.blend",
+      "bytes": 41063821,
+      "sha256": "7d768a93b3523b2e8df14857bf7e3bfc0d7d4dd494fd7283ab4c69047e543a8d",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/ResonanceGrip_Pixal_Editable.blend1",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/ResonanceGrip_Pixal_Editable.blend1",
+      "bytes": 41063816,
+      "sha256": "f82260d58aedc112bb857ef7c81b4fe579cff2c5faa03e58009a9eba3dba6e9f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/review.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/review.log",
+      "bytes": 2993,
+      "sha256": "5b2b57254c03739dd6e731171377a57db5f195ae19f3e2f1d57c19021db3100a",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/review.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/review.py",
+      "bytes": 3048,
+      "sha256": "a416b527f18ac3ffed74c9564ad97e7da80d52f66b145c88c60b5f96cbed88f9",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/textured_master_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/textured_master_00001_.glb",
+      "bytes": 36966140,
+      "sha256": "e73b67a487f0163713e4a0a508c047d8b5bacab1bbeb643a62ee5d15efead322",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/upload.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/upload.json",
+      "bytes": 87,
+      "sha256": "8076455c68a1f8ced34dc0283ba1d01bf4fcc6d091962ea330bb7e0ed89fddb0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/workflow.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/workflow.json",
+      "bytes": 3418,
+      "sha256": "0e8d754ae52c2f0bb1d04e7407d272d77b9a4fbe7f923d0fb133b496eccd55cc",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/91927_back_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/91927_back_clay.png",
+      "bytes": 1134678,
+      "sha256": "6a6e58f4856d62457e21ba8928ce3907483507ca4eae9d823f79d729984b6f4a",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/91927_back_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/91927_back_material.png",
+      "bytes": 1110947,
+      "sha256": "9e9e05a48f32124da3c0c0ed524894408c3e7a70e9a4fb8aea82aace45b618d4",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/91927_quarter_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/91927_quarter_clay.png",
+      "bytes": 1092422,
+      "sha256": "b7e1902d7512ba48e1d7b7c8941867280de9321cf1eefe509c30dcf217d2e83c",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/91927_quarter_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/91927_quarter_material.png",
+      "bytes": 1073553,
+      "sha256": "e73ee3e3a7d1f0b48dd803f3cfb9bf348e9e2850d1336ef8424325e1038d93d0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/91927_side_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/91927_side_clay.png",
+      "bytes": 1129928,
+      "sha256": "ea5474c00a39744c9016527c5bc87294c717c6dc49e79013c0741dea8e24359d",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/91927_side_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/91927_side_material.png",
+      "bytes": 1116938,
+      "sha256": "3eafc2225487a6578f2c9ae56c4fa56c6f8628f23aa6c3aa2c575245bf7ae373",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalClayComparison/Review/model_data.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalClayComparison/Review/model_data.json",
+      "bytes": 641,
+      "sha256": "9de05ecfdbda67c14808b4a5acae12b115d0c144764b20aee63144cda5f74675",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/fetch.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/fetch.py",
+      "bytes": 867,
+      "sha256": "15b0328b343d7020f1a4ec4519fbb9f07a474763e48d24359b5f59ee055f91ea",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/generate.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/generate.py",
+      "bytes": 1958,
+      "sha256": "cfff4198c6a1a40f0802ad0717151ef471c962b718c521ed24fcb97eaa562e54",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/history.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/history.json",
+      "bytes": 5092,
+      "sha256": "ce37021cfe3e627adc6a3536471c3942a33fcc28aa56c2f03fdcb573d23891b4",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/raw_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/raw_00001_.glb",
+      "bytes": 93278892,
+      "sha256": "f7b1677c1e94e007edf141074bf54a1a765fdf1b0a2fe29db5e1ad014db2d4e2",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/README.md",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/README.md",
+      "bytes": 787,
+      "sha256": "dc18bc86b7f7ee120f4318a6a2c338491cb3d9f1e86ac90e672cca6495665ae8",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/receipt.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/receipt.json",
+      "bytes": 98,
+      "sha256": "3ca1b386898eda8360a75f98bd70348e0395b6753b93eb955b186a37a5fb8b9f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/reference.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/reference.png",
+      "bytes": 1071260,
+      "sha256": "4fa38b008e0ba9e3a04866bf383b5b2342c6d2460e401003084efab8585b7afe",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/ResonanceGrip_Pixal_Editable.blend",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/ResonanceGrip_Pixal_Editable.blend",
+      "bytes": 46773326,
+      "sha256": "dba5e7b1bac123ee2e10e42dbfeee5086c47be939b304bd4ea3e82b3d38f6c85",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/review.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/review.log",
+      "bytes": 3020,
+      "sha256": "d530862113c8c34610a8ad1b2c05a5392bfad5658cb00b0dbab8c396702c3357",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/review.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/review.py",
+      "bytes": 3048,
+      "sha256": "a416b527f18ac3ffed74c9564ad97e7da80d52f66b145c88c60b5f96cbed88f9",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/textured_master_00001_.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/textured_master_00001_.glb",
+      "bytes": 42689372,
+      "sha256": "e3b5b38affb3be1e75c719c319add5f838e06f8bd0248e17266bbfa48ed9d69c",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/upload.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/upload.json",
+      "bytes": 90,
+      "sha256": "7d7e36f4777b20970a14df657a08c33fc3d17ef1210006c271ea449f9ec75a41",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/workflow.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/workflow.json",
+      "bytes": 3230,
+      "sha256": "fecdcd37ce8b63f508c317caf36d0f948440eae5af229fdcc395429143305d85",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_back_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_back_clay.png",
+      "bytes": 1208156,
+      "sha256": "439502bb995b08ef3becfd7ab6299b223c808223b21c8c1993c19f9ff2be5d56",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_back_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_back_material.png",
+      "bytes": 1217070,
+      "sha256": "d30da2980e4ed40db541ad28b5671d6f16550c8d03c7243a5dcefdc3c5a77908",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_quarter_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_quarter_clay.png",
+      "bytes": 1175442,
+      "sha256": "563f52dcc32556b3ecaf31372dde4fdc50e68b16837215bfe4f98f61ae68aa6b",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_quarter_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_quarter_material.png",
+      "bytes": 1185739,
+      "sha256": "b7438e399ad880d50abb3701c2e4c536851793f5885550c5b33471edafd6f186",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_side_clay.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_side_clay.png",
+      "bytes": 1221141,
+      "sha256": "5af322df846f92e282526c9d594ccdf514a6264570269c9504bc2192ebc88e4e",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_side_material.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/91927_side_material.png",
+      "bytes": 1234420,
+      "sha256": "dc1cd4a51e00a86f91f42fb93629e3960b4554a22d9bfa71253af7f8c734793f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/PixalObliqueComparison/Review/model_data.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/PixalObliqueComparison/Review/model_data.json",
+      "bytes": 637,
+      "sha256": "0c464202880dd102ebac2b116d2abbc19a33ec07502b9eb277c95687c5e9174e",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/bake_polymer.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/bake_polymer.log",
+      "bytes": 967,
+      "sha256": "68706457d48f4a7865ba03e371e489b6c99b26e5612211e894599883fd740ef5",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/bake_polymer.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/bake_polymer.py",
+      "bytes": 1837,
+      "sha256": "bfc63670c89e9c6ee7a64c37e0c62f836831296c758293b201c57e642e472aba",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/build.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/build.json",
+      "bytes": 82737,
+      "sha256": "c4c37b53948f9065edd627084b863e9a7b312cf8084ecd38eccf4768c51bed9b",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/build.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/build.log",
+      "bytes": 29439,
+      "sha256": "354b0b727673b8b1ed2575addef9e2edcf2e452c856cc1b013081a2f225dda43",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/build_stdout.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/build_stdout.log",
+      "bytes": 24103,
+      "sha256": "5a70666aa2fde5c686c3d08f42cfacdd0b2ed2c752eb3f15570e061b9aacc6af",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/finish_blender.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/finish_blender.log",
+      "bytes": 3610,
+      "sha256": "c38840d414f9d94c477668a5ae0cde6fa0fb879d31544cda763fe7d03f48e524",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/finish_blender.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/finish_blender.py",
+      "bytes": 2572,
+      "sha256": "f957ebd0adc5927587473f62d15fa6c270e5d0028a8318d0d3b07b524a6c2957",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/import.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/import.log",
+      "bytes": 37237,
+      "sha256": "dac028479124bcb1e6953a96fe715c0655be6816ebf562a1338e63e6718c4c00",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/import_assets.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/import_assets.py",
+      "bytes": 6284,
+      "sha256": "ae34a5756871a9c93e0d9ba79c4398dcb96e85d74514705d2ff5e22994e98129",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/import_results.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/import_results.json",
+      "bytes": 310,
+      "sha256": "5612cb92d25d56b602028f21c66c1fcddd443eaa62827799d19775be6827113d",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/PolymerMicrograin_Source.blend",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/PolymerMicrograin_Source.blend",
+      "bytes": 262052,
+      "sha256": "2b650067399513c301d676205b0489efc5cc660408c33519c9b5bf89f4d5d00e",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/README.md",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/README.md",
+      "bytes": 1471,
+      "sha256": "c351e1e761f4465ff445620cd1282dfe47d5769db86a953e7b4fe2ca03fefde7",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/surface_regions.json",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/surface_regions.json",
+      "bytes": 626,
+      "sha256": "c54845f3af9da2c78c9925cdfd1dd338b11ea78c5573db99ed0e4a507d7dd00e",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/T_Resonance_Polymer_Normal.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/T_Resonance_Polymer_Normal.png",
+      "bytes": 238532,
+      "sha256": "30caa813bfe13cf19c20d43c0ce5bec86088b7fe434f55cedb82ce06f56957c3",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/T_Resonance_Polymer_Roughness.png",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/T_Resonance_Polymer_Roughness.png",
+      "bytes": 171544,
+      "sha256": "b4c83cd43d99fb03048c8d6533a5524d51800d7be89b9c758de2208ddcecfa2f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/AKM/ResonanceGrip_Surface.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/AKM/ResonanceGrip_Surface.glb",
+      "bytes": 3827776,
+      "sha256": "f48457d7039a52a61cfdb385c15114e8fa07953d278e6a820c382b3dfcab8c28",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/AKM/ResonanceGrip_Surface_Editable.blend",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/AKM/ResonanceGrip_Surface_Editable.blend",
+      "bytes": 65145294,
+      "sha256": "19a1967c96f08366c59142fec035cb393a1d38589facf6b682cb190e5331ff10",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/AKM/SM_ResonanceGrip.fbx",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/AKM/SM_ResonanceGrip.fbx",
+      "bytes": 7798924,
+      "sha256": "4debe63846cd4373a0559097244756622f5e53e2e21c78bf40542b0944ed9507",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/M4/ResonanceGrip_Surface.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/M4/ResonanceGrip_Surface.glb",
+      "bytes": 3277828,
+      "sha256": "5607cab09484806ef0ad49aa2a35afee8e1bce4e9ecf11a3e8af61c5ce0651cc",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/M4/ResonanceGrip_Surface_Editable.blend",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/M4/ResonanceGrip_Surface_Editable.blend",
+      "bytes": 64133658,
+      "sha256": "6843bc0f2c8edfb0d7d9bd0477c3921c1d386980d8c1c126c8f90eff32548c98",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/M4/SM_ResonanceGrip.fbx",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/M4/SM_ResonanceGrip.fbx",
+      "bytes": 7702924,
+      "sha256": "a83342ba37832716224da607173455e787a6d488de86e66cfc710e262acdee52",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/QBZ191/ResonanceGrip_Surface.glb",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/QBZ191/ResonanceGrip_Surface.glb",
+      "bytes": 4219068,
+      "sha256": "8921677f43984755c392e3fef64b51c0fa6588ee18f7a32f1f890dfba9d210f0",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/QBZ191/ResonanceGrip_Surface_Editable.blend",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/QBZ191/ResonanceGrip_Surface_Editable.blend",
+      "bytes": 65154526,
+      "sha256": "45f629dff14a5c8f81ebe8c5951322d1499a2ec8a2a370d7e978a5df53c29f1f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/SurfaceRefine/QBZ191/SM_ResonanceGrip.fbx",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/SurfaceRefine/QBZ191/SM_ResonanceGrip.fbx",
+      "bytes": 7700764,
+      "sha256": "1105368351da69a65873bacdf8024ad07bcb361375e948147238d8f1012f8e91",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/refine_surface.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/refine_surface.py",
+      "bytes": 3697,
+      "sha256": "41ec8bd397553e0bba2ce8e6f7b4617de617e18d8d23db52a5759ae4e6cbba6d",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/refine_surface.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/refine_surface.log",
+      "bytes": 2281,
+      "sha256": "fb32b67ac6efc42105bd3f884d4bb1c371efd2a52a598899e35e9498a8c83c98",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/review_model.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/review_model.py",
+      "bytes": 2807,
+      "sha256": "172ef721c5af86d655b8712c334ad84295bc0ca7f1bedbdf234f884c19a67647",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/review.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/review.log",
+      "bytes": 3401,
+      "sha256": "0a197a6b6a5c446e7b5cdee334a8bcfe63f1a0df25937c1065dc395c50d9420f",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/review_91871.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/review_91871.py",
+      "bytes": 2803,
+      "sha256": "eeffde4f67921a7767fb2ee307bbb27a08c68f3b01b176e3f853c3f6d7b47d93",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/review_91871.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/review_91871.log",
+      "bytes": 2556,
+      "sha256": "55729a3122ff45a005fec9ede33e677b3ddd60aeb626b7e0ab439b8cde4eb8cf",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/review_91871_broad.py",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/review_91871_broad.py",
+      "bytes": 2801,
+      "sha256": "4adc815886bb07f5d93e058e11084ff961bd9836079f0aecb247790691bd6aa9",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    },
+    {
+      "original": "SourceAssets/ResonanceGrip20260913/review_91871_broad.log",
+      "destination": "trash/resonance-meshy-20260913/ResonanceGrip20260913/review_91871_broad.log",
+      "bytes": 2570,
+      "sha256": "b059f478d8dcd5017b7121a73523135d342b66ee9e070dc263da1ae0e7a879b9",
+      "reason": "Superseded candidate or its review/material trial; not used by current Meshy authoring inputs",
+      "replacement": "SourceAssets/ResonanceGrip20260913/MeshyIntegration"
+    }
+  ],
+  "retained": [
+    "MeshyIntegration and MeshyPerformanceStock20260913: current assets",
+    "Repaired91871/Game: current material-region transfer source",
+    "Repaired91871/ImportHost: active import host; Content is a junction, do not recurse",
+    "Integration and seed_91813: dependencies of retained repair authoring chain",
+    "seed_91871 and ShadingDiagnosis: key raw/textured/repaired diagnosis evidence",
+    "MeshyInspection: selected-source diagnosis",
+    "Existing UE Content assets: retained restoration dependencies"
+  ]
+}

@@ -39,7 +39,7 @@ void AFPSGAMECharacter::SetAngledForegrip(bool bEnabled)
     const auto& Ref=Rifle->GetRefSkeleton();const int32 Root=Ref.FindBoneIndex(TEXT("WPN_root"));if(Root==INDEX_NONE)return;
     if(!AngledForegrip)
     {
-        auto* GripMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/M4AngledForegripCompact75/SM_M4_AngledForegrip"));if(!GripMesh)return;
+        auto* GripMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/M4/SM_ResonanceGrip"));if(!GripMesh)return;
         AngledForegrip=NewObject<UStaticMeshComponent>(this,TEXT("M4AngledForegrip"));AngledForegrip->SetStaticMesh(GripMesh);
         AngledForegrip->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));AngledForegrip->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         AngledForegrip->SetCastShadow(false);AngledForegrip->bReceivesDecals=false;AngledForegrip->RegisterComponent();

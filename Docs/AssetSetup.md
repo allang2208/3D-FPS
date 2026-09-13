@@ -73,3 +73,12 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 ## 感染矿工退役（2026-09-13）
 
 感染矿工整案已判废，`Content/Monsters/InfectedMiner`、`Content/Tests/InfectedMiner`、两日作者源与专用代码/工具移入本机 `trash/infected-miner-rejected-20260913`。恢复 Content 时使用已删除 `InfectedMiner_Village_01` 的村庄关卡，不从旧快照恢复该矿工；共享护士、AI、EBS 动作库继续保留。废案边界与逐文件散列见 [废案记录](Rejected/infected-miner-20260913.md)。trash 和授权不允许再分发的原始素材不在公开仓库内。
+
+## Meshy 共振握把与高性能后托（2026-09-13）
+
+- 共振握把作者入口：[MeshyIntegration](../SourceAssets/ResonanceGrip20260913/MeshyIntegration/README.md)。本地源 Selected_Meshy_Source.fbx 的原路径与 SHA256 见 source.json；每枪参考 FBX、输出 Blend/FBX/GLB 和微表面贴图需从合法本地备份恢复。仍依赖 AngledForegrip20260910/WristNatural 的 M4 idle Blend、其引用库，以及 ResonanceGrip20260913/Repaired91871/Game 的三枪材质区域参考 Blend。
+- 后托作者入口：[MeshyPerformanceStock20260913](../SourceAssets/MeshyPerformanceStock20260913/README.md)。用户 ZIP 的路径和 SHA256 见 provenance.json；Source/、Imported.blend、Textures/ 和三枪输出均为本地依赖。
+- 材质依赖：WeaponAttachmentFinish20260913 的 M4 机匣纹理、AKMArmSupport20260911/Metal、StableAntiSlipRearGrip20260913/Selected91727/Textures。UE 需恢复 AttachmentFinish20260913/M4/Textures、AKMIntegration/SovietFab/ArmSupport/Textures 和引擎 MF_PhongToMetalRoughness。
+- 运行 Content：Weapons/ResonanceGrip20260913/MeshyIntegration 与 Weapons/QRPerformanceStock/Meshy20260913，下含 M4、AKM、QBZ191 专用网格/材质。先恢复已有枪体、骨架和装配依赖，再按作者及导入脚本恢复资源；只克隆源码不能得到可运行的完整模型工程。
+- 本次使用 Repaired91871/ImportHost 内容宿主导入，其 Content 是正式 Content 的目录联接，不可递归移走或删除；主项目曾有 AutoFootstep 启动冲突，此方法不代表该冲突已修复。
+- 用户提供资源的公开再分发权尚未确认，源 ZIP/FBX、贴图、Blend、GLB、uasset 及渲染不提交公开仓库。保留源与当前资源，仅归档明确淘汰版本，见 [清单](AssetArchives/resonance-meshy-20260913.json)。本次整理未启动游戏测试。
