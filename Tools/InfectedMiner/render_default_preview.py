@@ -6,9 +6,11 @@ from mathutils import Vector
 ROOT=Path('D:/FPS3D/FPSGAME/SourceAssets/InfectedMiner20260913')
 if '--pickaxe' in sys.argv:ROOT=ROOT/'PickaxeSingleHand'
 if '--drag-ground' in sys.argv:ROOT=ROOT/'DragGround'
+if '--natural-wrist' in sys.argv:ROOT=ROOT/'NaturalWrist'
 state=sys.argv[sys.argv.index('--state')+1] if '--state' in sys.argv else 'Attack'
 OUT=ROOT/('Previews/SingleHandPickaxe' if '--pickaxe' in sys.argv else 'Previews/DefaultAxe')
 if '--drag-ground' in sys.argv:OUT=ROOT/'Previews'/state
+if '--natural-wrist' in sys.argv:OUT=ROOT/'Previews'/state
 OUT.mkdir(parents=True,exist_ok=True)
 contract=json.loads((ROOT/'Delivery/rebuild.json').read_text())
 bpy.ops.wm.open_mainfile(filepath=str(ROOT/'Delivery/InfectedMiner_Editable.blend'))

@@ -1,5 +1,7 @@
 # Infected miner: single-hand pickaxe composite
 
+Current: [natural wrist and forearm correction](../../Docs/InfectedMinerNaturalWrist20260913.md). Run Blender `relax_wrist_chain.py`, then UE Python `import_natural_wrist.py`. It replaces the three clips in the original miner BP with `NaturalWrist20260913` animations and reuses the enlarged `DragGround` mesh, bind, grip and materials. Editable/export files are under `SourceAssets/InfectedMiner20260913/NaturalWrist/Delivery`. Requested previews use `--natural-wrist`, optionally `--state Walk`. No native rebuild or gameplay test was performed for this revision.
+
 Latest: [enlarged pickaxe, trailing carry and ground slam](../../Docs/InfectedMinerDragGround20260913.md). Run Blender `author_drag_ground.py`, build the editor module, then run UE Python `import_drag_ground.py`. This extends the accepted single-hand version without changing its bind or skin. Current assets use `DragGround20260913`, and local editable/export files are under `SourceAssets/InfectedMiner20260913/DragGround/Delivery`. Requested preview scripts use `--drag-ground`, optionally `--state Walk`.
 
 The following workflow produces the earlier accepted single-hand version and remains its source history.
