@@ -21,7 +21,7 @@
 
 namespace
 {
-    const TCHAR* PresetNames[] = {TEXT("晴天"), TEXT("阴天"), TEXT("小雨"), TEXT("中雨"), TEXT("暴风雨")};
+    const TCHAR* PresetNames[] = {TEXT("晴天"), TEXT("多云"), TEXT("小雨"), TEXT("中雨"), TEXT("暴风雨")};
 }
 
 void UWeatherControlWidget::NativeOnInitialized()
@@ -73,7 +73,7 @@ void UWeatherControlWidget::NativeOnInitialized()
     Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     auto* Presets = WidgetTree->ConstructWidget<UVerticalBox>();
     Scroll->AddChild(Presets);
-    const TCHAR* Captions[] = {TEXT("晴天 · 停雨"), TEXT("阴天 · 无降雨"), TEXT("小雨 · 35% · 轻柔雨声"),
+    const TCHAR* Captions[] = {TEXT("晴天 · 疏云"), TEXT("多云 · 无降雨"), TEXT("小雨 · 35% · 轻柔雨声"),
         TEXT("中雨 · 68% · 密集雨滴"), TEXT("暴风雨 · 100% · 闪电与雷声"), TEXT("恢复自动天气")};
     for (int32 Index = 0; Index < 6; ++Index)
         PresetButtons.Add(AddButton(Presets, Captions[Index], *FString::Printf(TEXT("WeatherPreset%d"), Index)));
@@ -84,7 +84,7 @@ void UWeatherControlWidget::NativeOnInitialized()
     PresetButtons[4]->OnClicked.AddDynamic(this, &ThisClass::StormClicked);
     PresetButtons[5]->OnClicked.AddDynamic(this, &ThisClass::AutoClicked);
     auto* Help = WidgetTree->ConstructWidget<UTextBlock>();
-    Help->SetText(FText::FromString(TEXT("雨量约 8 秒渐变；手动选择会暂停自动天气。\n昼夜继续运行，进入遮蔽物后雨滴与雨声减弱。")));
+    Help->SetText(FText::FromString(TEXT("降雨前先转多云，再渐增雨量；手动选择会暂停自动天气。\n昼夜继续运行，进入遮蔽物后雨滴与雨声减弱。")));
     Help->SetFont(ColdSteelUI::TextFont(9 / PixelScale));
     Help->SetColorAndOpacity(ColdSteelUI::TextSecondary);
     Help->SetAutoWrapText(true);
@@ -157,10 +157,14 @@ void UWeatherControlWidget::RefreshStatus()
     const int32 Minutes = FMath::FloorToInt(Manager->NormalizedDayTime * 1440.0f) % 1440;
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
     const FString Scene = Map == TEXT("L_Normandy_FPS_Test") ? TEXT("村庄") : Map == TEXT("L_MilitaryTrench_FPS_Test") ? TEXT("战壕") : Map;
-    Status->SetText(FText::FromString(FString::Printf(TEXT("%s  ·  %02d:%02d\n%s · %s  |  当前雨量 %.0f%%\n昼夜：%s"),
+    FString StatusText = FString::Printf(TEXT("%s  ·  %02d:%02d\n%s · %s  |  当前雨量 %.0f%%\n昼夜：%s"),
         *Scene, Minutes / 60, Minutes % 60, Manager->bAutomaticSchedule ? TEXT("自动天气") : TEXT("手动天气"),
         PresetNames[FMath::Clamp(static_cast<int32>(Manager->CurrentState), 0, 4)], Manager->GetEffectiveRainIntensity() * 100,
-        Manager->IsSkyClockConnected() ? TEXT("已连接天空时钟") : Manager->IsSceneDayNightActive() ? TEXT("已连接场景光照") : TEXT("未连接场景光照"))));
+        Manager->IsSkyClockConnected() ? TEXT("已连接天空时钟") : Manager->IsSceneDayNightActive() ? TEXT("已连接场景光照") : TEXT("未连接场景光照"));
+    if (Manager->IsRainPending())
+        StatusText += FString::Printf(TEXT("\n云层正在聚集，约 %d 秒后开始%s"), FMath::CeilToInt(Manager->GetRainLeadInRemaining()),
+            PresetNames[FMath::Clamp(static_cast<int32>(Manager->GetPendingRainState()), 0, 4)]);
+    Status->SetText(FText::FromString(StatusText));
     for (int32 Index = 0; Index < PresetButtons.Num(); ++Index)
         PresetButtons[Index]->SetBackgroundColor((Index == 5 ? Manager->bAutomaticSchedule :
             static_cast<int32>(Manager->CurrentState) == Index) ? ColdSteelUI::Accent : FLinearColor::White);

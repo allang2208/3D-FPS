@@ -51,6 +51,11 @@ public:
 
     bool IsSkyClockConnected() const { return bSkyClockConnected; }
     bool IsSceneDayNightActive() const { return bSceneDayNightActive; }
+    UFUNCTION(BlueprintPure, Category="Weather")
+    bool IsRainPending() const { return bRainPending; }
+    UFUNCTION(BlueprintPure, Category="Weather")
+    float GetRainLeadInRemaining() const;
+    EFPSWeatherState GetPendingRainState() const { return PendingRainState; }
 
     // Forecasts and rebuilt HUDs read the same calendar and schedule as the simulation.
     static constexpr int32 ScheduleSegmentsPerDay = 8;
@@ -74,6 +79,9 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Transition", meta=(ClampMin="0.1"))
     float TransitionSeconds = 8.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Transition", meta=(ClampMin="1.0", Units="s"))
+    float RainCloudLeadSeconds = 30.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Rain")
     TObjectPtr<UNiagaraSystem> RainSystem;
@@ -157,6 +165,9 @@ private:
     int32 DaySerial = 0;
     float TargetRainIntensity = 0.0f;
     float EffectiveRainIntensity = 0.0f;
+    float CloudyElapsedSeconds = 0.0f;
+    EFPSWeatherState PendingRainState = EFPSWeatherState::Clear;
+    bool bRainPending = false;
     float ShelterAmount = 0.0f;
     float ShelterTarget = 0.0f;
     FVector WeatherWind = FVector(120.0, 40.0, 0.0);
@@ -173,6 +184,7 @@ private:
     void UpdateSceneDayNight(float DeltaSeconds);
 
     void ApplyState(EFPSWeatherState NewState);
+    void RequestState(EFPSWeatherState NewState);
     void UpdateSchedule();
     void UpdatePlayerFollowing();
     void UpdateShelter(float DeltaSeconds);

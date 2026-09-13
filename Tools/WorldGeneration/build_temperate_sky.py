@@ -47,7 +47,7 @@ path = DEST+'/MI_HillsClouds'
 cloud_mat = load(path) if EAL.does_asset_exist(path) else TOOLS.create_asset(
     'MI_HillsClouds', DEST, u.MaterialInstanceConstant, u.MaterialInstanceConstantFactoryNew())
 LIB.set_material_instance_parent(cloud_mat, source)
-scalars = {'Cloud_GlobalCoverage': -.10, 'Cloud_GlobalDensity': 0, 'StormClouds': 0}
+scalars = {'Cloud_GlobalCoverage': .008, 'Cloud_GlobalDensity': 0, 'StormClouds': 0}
 REPORT['source'] = {'material': source.get_path_name(), 'parameters': {
     str(n): LIB.get_material_instance_scalar_parameter_value(source, n)
     for n in LIB.get_scalar_parameter_names(source)}}

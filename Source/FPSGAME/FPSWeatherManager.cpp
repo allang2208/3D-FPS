@@ -163,7 +163,7 @@ void AFPSWeatherManager::BeginPlay()
         NormalizedDayTime = 0.375f;
         WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
     }
-    ApplyState(bAutomaticSchedule ? ResolveScheduledState() : CurrentState);
+    RequestState(bAutomaticSchedule ? ResolveScheduledState() : CurrentState);
 
     UE_LOG(LogTemp, Display,
         TEXT("FPSWeatherManager ready: day=%.0fs state=%d rain=%s splashes=%s puddles=%s rainAudio=%d thunder=%d"),
@@ -198,6 +198,7 @@ void AFPSWeatherManager::Tick(float DeltaSeconds)
 
     UpdatePlayerFollowing();
     UpdateShelter(DeltaSeconds);
+    if (CurrentState == EFPSWeatherState::Cloudy) CloudyElapsedSeconds += DeltaSeconds;
     UpdateSchedule();
     UpdateEffects(DeltaSeconds);
     UpdateSceneDayNight(DeltaSeconds);
@@ -216,13 +217,36 @@ void AFPSWeatherManager::SetWeatherState(EFPSWeatherState NewState, bool bDisabl
     {
         bAutomaticSchedule = false;
     }
-    ApplyState(NewState);
+    RequestState(NewState);
 }
 
 void AFPSWeatherManager::ResumeAutomaticSchedule()
 {
     bAutomaticSchedule = true;
-    ApplyState(ResolveScheduledState());
+    RequestState(ResolveScheduledState());
+}
+
+float AFPSWeatherManager::GetRainLeadInRemaining() const
+{
+    return bRainPending
+        ? FMath::Max(0.f, FMath::Max(RainCloudLeadSeconds, TransitionSeconds) - CloudyElapsedSeconds) : 0.f;
+}
+
+void AFPSWeatherManager::RequestState(EFPSWeatherState NewState)
+{
+    const float LeadSeconds = FMath::Max(RainCloudLeadSeconds, TransitionSeconds);
+    // A repeated schedule request or a different queued rain intensity does not
+    // restart the lead-in. Existing rain can change intensity without stopping.
+    if (StateIntensity(NewState) > 0 && TargetRainIntensity <= 0 &&
+        (CurrentState != EFPSWeatherState::Cloudy || CloudyElapsedSeconds < LeadSeconds))
+    {
+        PendingRainState = NewState;
+        bRainPending = true;
+        ApplyState(EFPSWeatherState::Cloudy);
+        return;
+    }
+    bRainPending = false;
+    ApplyState(NewState);
 }
 
 void AFPSWeatherManager::ApplyState(EFPSWeatherState NewState)
@@ -233,6 +257,7 @@ void AFPSWeatherManager::ApplyState(EFPSWeatherState NewState)
     }
 
     const EFPSWeatherState Previous = CurrentState;
+    if (Previous != NewState) CloudyElapsedSeconds = 0.f;
     CurrentState = NewState;
     TargetRainIntensity = StateIntensity(NewState);
     LightningCountdown = WeatherRandom.FRandRange(6.0f, 18.0f);
@@ -245,7 +270,11 @@ void AFPSWeatherManager::UpdateSchedule()
 {
     if (bAutomaticSchedule)
     {
-        ApplyState(ResolveScheduledState());
+        RequestState(ResolveScheduledState());
+    }
+    else if (bRainPending)
+    {
+        RequestState(PendingRainState);
     }
 }
 
@@ -257,17 +286,27 @@ EFPSWeatherState AFPSWeatherManager::ResolveScheduledState() const
 
 EFPSWeatherState AFPSWeatherManager::GetScheduledStateAt(int32 Day, int32 Segment) const
 {
-    uint32 Hash = static_cast<uint32>(WeatherSeed) ^ (static_cast<uint32>(Day) * 7919u + static_cast<uint32>(Segment) * 104729u);
-    Hash ^= Hash << 13;
-    Hash ^= Hash >> 17;
-    Hash ^= Hash << 5;
-    const float Pick = static_cast<float>(Hash & 0x00FFFFFFu) / static_cast<float>(0x01000000u);
-
-    if (Pick < 0.35f) return EFPSWeatherState::Clear;
-    if (Pick < 0.60f) return EFPSWeatherState::Cloudy;
-    if (Pick < 0.76f) return EFPSWeatherState::LightRain;
-    if (Pick < 0.92f) return EFPSWeatherState::Rain;
-    return EFPSWeatherState::Storm;
+    auto Raw = [this](int32 D, int32 S)
+    {
+        uint32 Hash = static_cast<uint32>(WeatherSeed) ^ (static_cast<uint32>(D) * 7919u + static_cast<uint32>(S) * 104729u);
+        Hash ^= Hash << 13;
+        Hash ^= Hash >> 17;
+        Hash ^= Hash << 5;
+        const float Pick = static_cast<float>(Hash & 0x00FFFFFFu) / static_cast<float>(0x01000000u);
+        if (Pick < .35f) return EFPSWeatherState::Clear;
+        if (Pick < .60f) return EFPSWeatherState::Cloudy;
+        if (Pick < .76f) return EFPSWeatherState::LightRain;
+        if (Pick < .92f) return EFPSWeatherState::Rain;
+        return EFPSWeatherState::Storm;
+    };
+    const EFPSWeatherState State = Raw(Day, Segment);
+    const int32 NextSegment = (Segment + 1) % ScheduleSegmentsPerDay;
+    const int32 NextDay = Day + (NextSegment == 0 ? 1 : 0);
+    // Forecast and simulation share a full cloudy segment before an automatic
+    // rain spell, including spells starting across midnight.
+    if (State == EFPSWeatherState::Clear && StateIntensity(Raw(NextDay, NextSegment)) > 0)
+        return EFPSWeatherState::Cloudy;
+    return State;
 }
 
 float AFPSWeatherManager::StateIntensity(EFPSWeatherState State) const

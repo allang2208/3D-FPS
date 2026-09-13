@@ -108,7 +108,7 @@ namespace
         case EFPSWeatherState::LightRain: return TEXT("小雨");
         case EFPSWeatherState::Rain: return TEXT("中雨");
         case EFPSWeatherState::Storm: return TEXT("暴风雨");
-        case EFPSWeatherState::Cloudy: return TEXT("阴天");
+        case EFPSWeatherState::Cloudy: return TEXT("多云");
         default: return TEXT("晴天");
         }
     }
@@ -687,7 +687,7 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
 
         if (!Weather->bAutomaticSchedule)
         {
-            if (IsWetWeather(Weather->CurrentState))
+            if (IsWetWeather(Weather->CurrentState) || Weather->IsRainPending())
             {
                 FirstWetSegment = CurrentGlobalSegment;
                 EndWetSegment = CurrentGlobalSegment + 1;
@@ -702,7 +702,9 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 const int32 GlobalSegment = CurrentGlobalSegment + Offset;
                 const int32 Day = FMath::FloorToInt(static_cast<float>(GlobalSegment) / WeatherSegmentsPerDay);
                 const int32 Segment = FMath::FloorToInt(FMath::Fmod(static_cast<float>(GlobalSegment), static_cast<float>(WeatherSegmentsPerDay)) + WeatherSegmentsPerDay) % WeatherSegmentsPerDay;
-                const EFPSWeatherState State = Offset == 0 ? Weather->CurrentState : Weather->GetScheduledStateAt(Day, Segment);
+                const EFPSWeatherState State = Offset == 0
+                    ? (Weather->IsRainPending() ? Weather->GetPendingRainState() : Weather->CurrentState)
+                    : Weather->GetScheduledStateAt(Day, Segment);
                 if (IsWetWeather(State))
                 {
                     FirstWetSegment = GlobalSegment;
@@ -735,15 +737,18 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
             bTimelineHasEvent = true;
             TimelineEventStart = bTimelineManual ? Now : FirstWetSegment * SegmentSeconds;
             TimelineEventEnd = bTimelineManual ? Now : EndWetSegment * SegmentSeconds;
-            bTimelineEventActive = bTimelineManual || TimelineEventStart <= Now;
+            const bool bWaitingForClouds = Weather->IsRainPending() && FirstWetSegment <= CurrentGlobalSegment;
+            if (bWaitingForClouds) TimelineEventStart = Now + Weather->GetRainLeadInRemaining();
+            bTimelineEventActive = !bWaitingForClouds && (bTimelineManual || TimelineEventStart <= Now);
             bTimelineContainsStorm = false;
 
             if (bTimelineManual)
             {
-                TimelineStageStates.Add(static_cast<int32>(Weather->CurrentState));
-                TimelineStageStarts.Add(Now);
-                TimelineStageEnds.Add(Now);
-                bTimelineContainsStorm = Weather->CurrentState == EFPSWeatherState::Storm;
+                const EFPSWeatherState State = bWaitingForClouds ? Weather->GetPendingRainState() : Weather->CurrentState;
+                TimelineStageStates.Add(static_cast<int32>(State));
+                TimelineStageStarts.Add(TimelineEventStart);
+                TimelineStageEnds.Add(TimelineEventStart);
+                bTimelineContainsStorm = State == EFPSWeatherState::Storm;
             }
             else
             {
@@ -752,8 +757,9 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                     const int32 Day = GlobalSegment / WeatherSegmentsPerDay;
                     const int32 Segment = GlobalSegment % WeatherSegmentsPerDay;
                     const EFPSWeatherState State = Weather->GetScheduledStateAt(Day, Segment);
-                    const float StageStart = GlobalSegment * SegmentSeconds;
+                    const float StageStart = FMath::Max(GlobalSegment * SegmentSeconds, TimelineEventStart);
                     const float StageEnd = (GlobalSegment + 1) * SegmentSeconds;
+                    if (StageEnd <= StageStart) continue;
                     bTimelineContainsStorm |= State == EFPSWeatherState::Storm;
                     if (!TimelineStageStates.IsEmpty() && TimelineStageStates.Last() == static_cast<int32>(State))
                     {
@@ -768,6 +774,15 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 }
             }
 
+            // A short automatic rain window can end before the cloud lead-in;
+            // keep the pending forecast readable until the schedule cancels it.
+            if (TimelineStageStates.IsEmpty())
+            {
+                TimelineStageStates.Add(static_cast<int32>(Weather->GetPendingRainState()));
+                TimelineStageStarts.Add(TimelineEventStart);
+                TimelineStageEnds.Add(TimelineEventStart);
+            }
+            TimelineEventEnd = FMath::Max(TimelineEventEnd, TimelineEventStart);
             EFPSWeatherState DisplayState = static_cast<EFPSWeatherState>(TimelineStageStates[0]);
             if (bTimelineEventActive) DisplayState = Weather->CurrentState;
             else if (bTimelineContainsStorm) DisplayState = EFPSWeatherState::Storm;
@@ -785,6 +800,8 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                 ? TEXT("手动天气，自动预报暂停")
                 : bTimelineContainsStorm ? TEXT("本轮降雨包含雷暴，请留意雨势变化")
                 : TEXT("本轮降雨结束后转为") + WeatherName(Weather->GetScheduledStateAt(EndWetSegment / WeatherSegmentsPerDay, EndWetSegment % WeatherSegmentsPerDay));
+            if (bWaitingForClouds)
+                TimelineWarningLabel = TEXT("云层正在聚集，随后开始") + WeatherName(Weather->GetPendingRainState());
             TimelineEventFraction = bTimelineEventActive
                 ? 0.04f
                 : 0.04f + FMath::Clamp((TimelineEventStart - Now) / (DaySeconds * TimelineHorizonDays), 0.0f, 1.0f) * 0.94f;
@@ -898,7 +915,7 @@ void UColdSteelHUDWidget::ApplyEventTimelineAuditFixture()
     TimelineStartLabel = TEXT("第1日 14:04");
     TimelineEndLabel = TEXT("第1日 17:12");
     TimelineDurationLabel = TEXT("3.1 小时");
-    TimelineWarningLabel = TEXT("本轮降雨结束后转为阴天");
+    TimelineWarningLabel = TEXT("本轮降雨结束后转为多云");
     TimelineStageStates = {
         static_cast<int32>(EFPSWeatherState::LightRain),
         static_cast<int32>(EFPSWeatherState::Rain),

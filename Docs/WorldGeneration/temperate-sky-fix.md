@@ -1,5 +1,7 @@
 # 丘陵天空泛灰与缺云修复（2026-09-13）
 
+后续晴天云量与雨前天气规则见 [晴天疏云与雨前多云](temperate-cloudy-transition.md)。下文保留最初修复记录。
+
 ## 排查结论
 
 本次读取了 `L_TemperateHills_Initial` 的天空组件、材质参数及 UE 5.8 引擎实现，没有启动 PIE。

@@ -34,6 +34,10 @@ public:
     UVolumetricCloudComponent* GetCloud() const { return Cloud.Get(); }
     UPROPERTY(EditDefaultsOnly, Category="Weather|Clouds")
     TSoftObjectPtr<UMaterialInterface> FallbackCloudMaterial;
+    UPROPERTY(EditAnywhere, Category="Weather|Hills Clouds")
+    float ClearCloudCoverage = .008f;
+    UPROPERTY(EditAnywhere, Category="Weather|Hills Clouds")
+    float CloudyCloudCoverage = .028f;
 private:
     UPROPERTY(Transient) TWeakObjectPtr<UVolumetricCloudComponent> Cloud;
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> OriginalMaterial;
@@ -53,6 +57,8 @@ private:
     FLinearColor LayoutPlacement=FLinearColor::Black;
     FVector2D WindOffset=FVector2D::ZeroVector;
     bool bOriginalVisible=false, bCreatedCloud=false, bOverride=false;
+    bool bHillsClouds=false;
     void Discover();
+    void UpdateCloudLayer();
     void Restore();
 };

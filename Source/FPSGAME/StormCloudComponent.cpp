@@ -29,6 +29,7 @@ void UStormCloudComponent::BeginPlay()
 {
     Super::BeginPlay();
     const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
+    bHillsClouds=Map==TEXT("L_TemperateHills_Initial");
     SetComponentTickEnabled(Map==TEXT("DayNight_Lighting")||Map==TEXT("L_Normandy_FPS_Test")||Map==TEXT("L_MilitaryTrench_FPS_Test")||Map==TEXT("L_TemperateHills_Initial"));
 }
 
@@ -100,24 +101,16 @@ void UStormCloudComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
     Blend=FMath::FInterpConstantTo(Blend,Target,Delta,1.f/FMath::Max(.1f,Weather->TransitionSeconds));
     DiscoveryTime-=Delta;
     if(DiscoveryTime<=0 || (Blend>0&&!CloudMaterial)){Discover();DiscoveryTime=1;}
-    if(Blend<=0){if(bOverride)Restore();return;}
-    bOverride=true;
-    if(auto* C=Cloud.Get();C&&CloudMaterial)
+    if(Blend<=0)
     {
-        C->SetMaterial(CloudMaterial);C->SetVisibility(true);
-        C->SetLayerBottomAltitude(FMath::Lerp(OriginalBottom,1.55f,Blend));
-        C->SetLayerHeight(FMath::Lerp(OriginalHeight,1.1f,Blend));
-        C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,.22f,Blend));
-        CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),FMath::Lerp(bOriginalVisible?Coverage:-.35f,.045f,Blend));
-        CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalDensity"),FMath::Lerp(bOriginalVisible?Density:0.f,0.f,Blend));
-        CloudMaterial->SetScalarParameterValue(TEXT("StormClouds"),FMath::Lerp(Storm,.22f,Blend));
-        CloudMaterial->SetVectorParameterValue(TEXT("Cloud_AlbedoColor"),FMath::Lerp(Albedo,FLinearColor(.92f,.94f,.96f,Albedo.A),Blend));
-        CloudMaterial->SetVectorParameterValue(TEXT("Storm_AlbedoColor"),FLinearColor(.58f,.62f,.67f,.333333f));
-        CloudMaterial->SetVectorParameterValue(TEXT("Layout_WindControls"),WindControls);
-        CloudMaterial->SetVectorParameterValue(TEXT("Layout_GlobalTexturePlacement"),LayoutPlacement+FLinearColor(WindOffset.X,WindOffset.Y,0.f,0.f));
-        // Lightning remains owned by the weather manager, not a second material timer.
-        CloudMaterial->SetVectorParameterValue(TEXT("Storm_LightningColor"),FLinearColor::Black);
+        if(bOverride)Restore();
+        // Clear weather keeps a sparse animated baseline, including old hills
+        // instances whose saved material still has the former negative coverage.
+        if(bHillsClouds)UpdateCloudLayer();
+        return;
     }
+    bOverride=true;
+    UpdateCloudLayer();
     for(auto& S:SkyMeshes) if(auto* M=S.Mesh.Get())
     {
         if(M->GetMaterial(0)!=S.Dynamic)
@@ -160,6 +153,26 @@ void UStormCloudComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
         SetStormLightIntensity(L,S.Applied);
         if(auto* Sun=Cast<UDirectionalLightComponent>(L))Sun->SetAtmosphereSunDiskColorScale(S.Disk*FMath::Lerp(1.f,.005f,Blend));
     }
+}
+
+void UStormCloudComponent::UpdateCloudLayer()
+{
+    auto* C=Cloud.Get();if(!C||!CloudMaterial)return;
+    C->SetMaterial(CloudMaterial);C->SetVisibility(true);
+    C->SetLayerBottomAltitude(FMath::Lerp(OriginalBottom,1.55f,Blend));
+    C->SetLayerHeight(FMath::Lerp(OriginalHeight,1.1f,Blend));
+    C->SetSkyLightCloudBottomOcclusion(FMath::Lerp(OriginalOcclusion,.22f,Blend));
+    const float HillsCoverage=Blend<=.3f?FMath::Lerp(ClearCloudCoverage,CloudyCloudCoverage,Blend/.3f):
+        FMath::Lerp(CloudyCloudCoverage,.045f,(Blend-.3f)/.7f);
+    CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalCoverage"),bHillsClouds?HillsCoverage:FMath::Lerp(bOriginalVisible?Coverage:-.35f,.045f,Blend));
+    CloudMaterial->SetScalarParameterValue(TEXT("Cloud_GlobalDensity"),bHillsClouds?0.f:FMath::Lerp(bOriginalVisible?Density:0.f,0.f,Blend));
+    CloudMaterial->SetScalarParameterValue(TEXT("StormClouds"),FMath::Lerp(Storm,.22f,Blend));
+    CloudMaterial->SetVectorParameterValue(TEXT("Cloud_AlbedoColor"),FMath::Lerp(Albedo,FLinearColor(.92f,.94f,.96f,Albedo.A),Blend));
+    CloudMaterial->SetVectorParameterValue(TEXT("Storm_AlbedoColor"),FLinearColor(.58f,.62f,.67f,.333333f));
+    CloudMaterial->SetVectorParameterValue(TEXT("Layout_WindControls"),WindControls);
+    CloudMaterial->SetVectorParameterValue(TEXT("Layout_GlobalTexturePlacement"),LayoutPlacement+FLinearColor(WindOffset.X,WindOffset.Y,0.f,0.f));
+    // Lightning remains owned by the weather manager, not a second material timer.
+    CloudMaterial->SetVectorParameterValue(TEXT("Storm_LightningColor"),FLinearColor::Black);
 }
 
 void UStormCloudComponent::Restore()
