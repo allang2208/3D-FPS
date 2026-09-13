@@ -1,5 +1,6 @@
 #include "TemperateHillsWorld.h"
 #include "TemperateHillsSurface.h"
+#include "TemperateHillsBackdrop.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Async/Async.h"
 #include "Algo/AllOf.h"
@@ -99,7 +100,9 @@ TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed
     TArray<int32> Bottom;
     for(int32 Top:Edge)
     {
-        Bottom.Add(Mesh.AppendVertex(Mesh.GetVertex(Top)-FVector3d(0,0,800)));
+        const FVector3d P=Mesh.GetVertex(Top);
+        const double Proxy=TemperateBackdrop::CoreTriangleHeight(OX+P.X,OY+P.Y,Half,Seed,River);
+        Bottom.Add(Mesh.AppendVertex(FVector3d(P.X,P.Y,FMath::Min(P.Z-800,Proxy-50))));
         Normals->AppendElement(Normals->GetElement(Top));UVs->AppendElement(UVs->GetElement(Top));
         Colors->AppendElement(Colors->GetElement(Top));
     }
@@ -171,11 +174,13 @@ void ATemperateHillsWorld::BeginStreaming()
     S.LoadingAssets=true;
     TArray<FSoftObjectPath> SurfacePaths={Assets->GroundMaterial.ToSoftObjectPath()};
     if(!Assets->RiverMaterial.IsNull())SurfacePaths.Add(Assets->RiverMaterial.ToSoftObjectPath());
+    if(!Assets->BackdropMaterial.IsNull())SurfacePaths.Add(Assets->BackdropMaterial.ToSoftObjectPath());
     S.Handles.Add(UAssetManager::GetStreamableManager().RequestAsyncLoad(SurfacePaths,FStreamableDelegate::CreateWeakLambda(this,[this]()
     {
         if(!Streaming||Streaming->Stopping)return;
         Streaming->LoadingAssets=false;
-        if(auto* Ground=Assets->GroundMaterial.Get();Ground&&(Assets->RiverMaterial.IsNull()||Assets->RiverMaterial.IsValid()))
+        if(auto* Ground=Assets->GroundMaterial.Get();Ground&&(Assets->RiverMaterial.IsNull()||Assets->RiverMaterial.IsValid())&&
+            (Assets->BackdropMaterial.IsNull()||Assets->BackdropMaterial.IsValid()))
         {GroundMID=UMaterialInstanceDynamic::Create(Ground,this);Streaming->GroundReady=true;}
         else
         {
@@ -290,7 +295,11 @@ void ATemperateHillsWorld::TickStreaming()
             const double Z=Height(O.X,O.Y);FHitResult Hit;FCollisionQueryParams Q;Q.bTraceComplex=true;
             Ready=Pending->LineTraceComponent(Hit,FVector(O.X,O.Y,Z+500),FVector(O.X,O.Y,Z-500),Q);
         }
-        if(Ready){RemoveMesh(Cell.Mesh.Get());Pending->SetVisibility(true);Cell.Mesh=Pending;Cell.Pending.Reset();Cell.Detailed=Cell.PendingDetailed;}
+        if(Ready)
+        {
+            RemoveMesh(Cell.Mesh.Get());Pending->SetVisibility(true);Cell.Mesh=Pending;Cell.Pending.Reset();Cell.Detailed=Cell.PendingDetailed;
+            SetBackdropCellVisible(Pair.Key,true);
+        }
     }
     // At most one completed mesh is submitted to rendering/physics in a frame.
     for(int32 I=0;I<S.Jobs.Num();++I)
@@ -303,7 +312,7 @@ void ATemperateHillsWorld::TickStreaming()
         auto* C=NewObject<UDynamicMeshComponent>(this);
         AddInstanceComponent(C);C->SetupAttachment(RootComponent);C->SetRelativeLocation(CellOrigin(Result->Key));
         C->SetMobility(EComponentMobility::Movable);C->SetCanEverAffectNavigation(false);
-        C->SetVisibility(!Cell.Mesh.IsValid());
+        C->SetVisibility(false);
         C->SetTangentsType(EDynamicMeshComponentTangentsMode::AutoCalculated);C->SetMaterial(0,GroundMID);
         C->bUseAsyncCooking=true;C->SetDeferredCollisionUpdatesEnabled(true,false);
         C->SetComplexAsSimpleCollisionEnabled(Result->Detailed,false);
@@ -327,6 +336,7 @@ void ATemperateHillsWorld::TickStreaming()
     for(auto It=S.Cells.CreateIterator();It;++It)
     {
         if(DistanceSquared(It.Key())<=FMath::Square(ViewRadiusMeters*100.0+Size))continue;
+        SetBackdropCellVisible(It.Key(),false);
         RemoveMesh(It.Value().Mesh.Get());RemoveMesh(It.Value().Pending.Get());
         RemoveMesh(It.Value().Water.Get());
         if(auto* T=It.Value().Trunks.Get()){RemoveInstanceComponent(T);T->DestroyComponent();}
@@ -350,6 +360,9 @@ void ATemperateHillsWorld::TickStreaming()
         Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed,River=RiverPlan](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed,River);});
         S.Jobs.Add(MoveTemp(Job));
     }
+    // The worker starts before the first cell can finish; mask uploads follow all
+    // cell swaps/removals in this frame. Submit at most one backdrop mesh per tick.
+    TickBackdrop();
     if(!bSurfaceReady)
     {
         int32 Ready=0,Required=0;
@@ -435,6 +448,8 @@ void ATemperateHillsWorld::TickPreparation()
         Report(S.Status,.1f+.6f*S.CompletedStages/8);
         return;
     }
+    if(!IsBackdropReady())
+    {Report(FText::FromString(TEXT("正在准备远景丘陵…")),.7f);return;}
     if(!S.ResourcesRetained&&Loading){Loading->RetainBiomeResources(S.Handles);S.ResourcesRetained=true;}
     if(!UGameplayStatics::GetPlayerPawn(this,0))
     {Report(FText::FromString(TEXT("正在准备角色与视野…")),.7f);return;}
@@ -555,31 +570,67 @@ void ATemperateHillsWorld::BuildValleyFog()
 {
     auto& S=*Streaming;const auto* Pawn=UGameplayStatics::GetPlayerPawn(this,0);
     const FVector Center=Pawn?Pawn->GetActorLocation():GetStartLocation();
+    // Update a small fixed pool, fading before it leaves the retention radius.
     for(auto It=S.Fog.CreateIterator();It;++It)
-        if(auto* Fog=It.Value().Get())if(FVector::DistSquared2D(Fog->GetActorLocation(),Center)>FMath::Square(18000.f))
-        {ValleyFog.Remove(Fog);Fog->Destroy();It.RemoveCurrent();return;}
-    if(S.Fog.Num()>=3)return;
-    for(int32 I=0;I<9;++I)
     {
-        if(S.Fog.Contains(I))continue;
-        const double X=(-.42+I*.105)*SizeMeters*100;
-        const double Y=TemperateHillsSurface::ValleyY(X,Seed)+(TemperateHillsSurface::Unit(uint32(Seed)+I*133)-.5)*4500;
-        const FVector Position(X,Y,Height(X,Y)+90);
-        if(FVector::DistSquared2D(Position,Center)>FMath::Square(14000.f))continue;
-        FActorSpawnParameters Params;Params.Owner=this;
-        auto* Fog=GetWorld()->SpawnActor<AActor>(Assets->ValleyFogClass.Get(),Position,FRotator(0,I*41,0),Params);
-        if(!Fog)return;
+        auto* Fog=It.Value().Get();
+        if(!Fog){It.RemoveCurrent();continue;}
+        const double Distance=FVector::Dist2D(Fog->GetActorLocation(),Center);
+        if(Distance>18000)
+        {ValleyFog.Remove(Fog);Fog->Destroy();It.RemoveCurrent();return;}
+        const float Fade=(1-FMath::SmoothStep(14000.0,18000.0,Distance))*FMath::Clamp(Fog->GetGameTimeSinceCreation()/1.5f,0.f,1.f);
         TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
         for(auto* M:Meshes)
-        {M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCanEverAffectNavigation(false);M->SetCastShadow(false);M->SetMaterial(0,Assets->ValleyFogMaterial.Get());}
-        Fog->SetActorEnableCollision(false);FVector Origin,Extent;Fog->GetActorBounds(false,Origin,Extent);
-        if(Extent.GetMin()>1)Fog->SetActorScale3D(Fog->GetActorScale3D()*FVector(4200/Extent.X,2700/Extent.Y,220/Extent.Z));
-        ValleyFog.Add(Fog);S.Fog.Add(I,Fog);return;
+            if(auto* MID=Cast<UMaterialInstanceDynamic>(M->GetMaterial(0)))MID->SetScalarParameterValue(TEXT("FogOverallDensity"),Assets->ValleyFogDensity*Fade);
     }
+    if(S.Fog.Num()>=4)return;
+    const double Half=SizeMeters*50;const int32 Count=FMath::RoundToInt(SizeMeters/64);
+    const int32 CX=FMath::FloorToInt((Center.X+Half)/6400),CY=FMath::FloorToInt((Center.Y+Half)/6400);
+    int32 Best=-1;double BestScore=DBL_MAX;FVector Position,Normal;
+    for(int32 Y=FMath::Max(0,CY-3);Y<=FMath::Min(Count-1,CY+3);++Y)
+    for(int32 X=FMath::Max(0,CX-3);X<=FMath::Min(Count-1,CX+3);++X)
+    {
+        const int32 ID=Y*Count+X;if(S.Fog.Contains(ID))continue;
+        const uint32 Key=TemperateHillsSurface::Key(X,Y,Seed,1731);
+        const double WX=-Half+(X+.5)*6400+(TemperateHillsSurface::Unit(Key)-.5)*3000;
+        const double WY=-Half+(Y+.5)*6400+(TemperateHillsSurface::Unit(Key+1)-.5)*3000;
+        const FVector P(WX,WY,Height(WX,WY)+90);const double Distance=FVector::DistSquared2D(P,Center);
+        if(Distance>FMath::Square(14000.0))continue;
+        const FVector N=SurfaceNormal(WX,WY);if(N.Z<.9)continue;
+        const double Nearby=(Height(WX-2000,WY)+Height(WX+2000,WY)+Height(WX,WY-2000)+Height(WX,WY+2000))*.25;
+        const auto Bank=RiverPlan?RiverPlan->Sample(WX,WY):TemperateRiver::FSample();
+        const bool Low=Bank.Bank>.02||Bank.Wet>.02||PathDistance(WX,WY)<4500||P.Z-90<Nearby-15;
+        if(!Low)continue;
+        const double Score=Distance+(Bank.Bank>.02||Bank.Wet>.02?0:16000000);
+        if(Score<BestScore){Best=ID;BestScore=Score;Position=P;Normal=N;}
+    }
+    if(Best<0)return;
+    const float Yaw=TemperateHillsSurface::Unit(uint32(Seed)+Best*133)*2*PI;
+    const FRotator Rotation=FRotationMatrix::MakeFromZX(Normal,FVector(FMath::Cos(Yaw),FMath::Sin(Yaw),0)).Rotator();
+    FActorSpawnParameters Params;Params.Owner=this;
+    auto* Fog=GetWorld()->SpawnActor<AActor>(Assets->ValleyFogClass.Get(),Position,Rotation,Params);
+    if(!Fog)return;
+    Fog->SetActorEnableCollision(false);Fog->SetActorHiddenInGame(false);
+    TInlineComponentArray<UStaticMeshComponent*> Meshes(Fog);
+    for(auto* M:Meshes)
+    {
+        if(!M->GetStaticMesh())continue;
+        const auto Bounds=M->GetStaticMesh()->GetBounds();
+        const FVector Scale=FVector(1400,1000,180)/Bounds.BoxExtent;
+        // Mesh bounds exclude the Blueprint's editor-only box/billboard bounds.
+        M->SetRelativeScale3D(Scale);M->SetRelativeLocation(-Bounds.Origin*Scale);
+        M->SetCollisionEnabled(ECollisionEnabled::NoCollision);M->SetCanEverAffectNavigation(false);M->SetCastShadow(false);
+        auto* MID=UMaterialInstanceDynamic::Create(Assets->ValleyFogMaterial.Get(),Fog);
+        MID->SetScalarParameterValue(TEXT("FogOverallDensity"),0);
+        M->SetMaterial(0,MID);M->SetVisibility(true);M->SetHiddenInGame(false);M->PrecachePSOs();
+    }
+    // This also runs under the loading overlay, warming the volume shader before play.
+    ValleyFog.Add(Fog);S.Fog.Add(Best,Fog);
 }
 
 void ATemperateHillsWorld::EndStreaming()
 {
+    EndBackdrop();
     if(!Streaming)return;
     auto& S=*Streaming;S.Stopping=true;
     // Completed handles transferred to the GameInstance keep the curated biome cached.

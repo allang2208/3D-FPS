@@ -19,7 +19,9 @@ class UMaterialInstanceDynamic;
 class UInstancedStaticMeshComponent;
 class ACameraActor;
 class UPrimitiveComponent;
+class UTexture2D;
 struct FTemperateHillsStreamingState;
+struct FTemperateBackdropState;
 
 /** Curated environment references. No level/assembly imports from the source packs. */
 UCLASS(BlueprintType)
@@ -43,6 +45,8 @@ public:
     UPROPERTY(EditAnywhere) TArray<TSoftObjectPtr<UPCGGraph>> Graphs;
     UPROPERTY(EditAnywhere, Category="River") TSoftObjectPtr<UMaterialInterface> RiverMaterial;
     UPROPERTY(EditAnywhere, Category="River") TArray<TSoftObjectPtr<UStaticMesh>> RiverRocks;
+    UPROPERTY(EditAnywhere, Category="Backdrop") TSoftObjectPtr<UMaterialInterface> BackdropMaterial;
+    UPROPERTY(EditAnywhere, Category="Fog", meta=(ClampMin="0",ClampMax="1")) float ValleyFogDensity = .32f;
 };
 
 /** V1 stores the world identity/seed. It does not claim harvest/building persistence. */
@@ -98,6 +102,10 @@ private:
     UPROPERTY() TArray<TObjectPtr<AActor>> ValleyFog;
     UPROPERTY() TArray<TObjectPtr<UMaterialInstanceDynamic>> FogMaterials;
     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> GroundMID;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> BackdropMID;
+    UPROPERTY() TObjectPtr<UTexture2D> BackdropColor;
+    UPROPERTY() TObjectPtr<UTexture2D> BackdropCoverage;
+    UPROPERTY() TArray<TObjectPtr<UDynamicMeshComponent>> BackdropMeshes;
     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Trunks;
     UPROPERTY() TObjectPtr<ACameraActor> AuditCamera;
     UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> WarmupComponents;
@@ -110,6 +118,7 @@ private:
     double AuditNext = 0;
     double StartSeconds = 0;
     TSharedPtr<FTemperateHillsStreamingState> Streaming;
+    TSharedPtr<FTemperateBackdropState> Backdrop;
     TemperateRiver::FPlanPtr RiverPlan;
     TArray<double> FrameSamples;
     double Noise(double X, double Y, uint32 Salt) const;
@@ -124,6 +133,10 @@ private:
     void TickPreparation();
     void ActivateVegetationLayer(int32 Layer);
     void BuildValleyFog();
+    void TickBackdrop();
+    bool IsBackdropReady() const;
+    void SetBackdropCellVisible(FIntPoint Cell, bool Visible);
+    void EndBackdrop();
     void ResolveSession();
     void RunAudit();
     void AuditCheck(bool Pass, const TCHAR* Message);
