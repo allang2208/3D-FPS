@@ -33,6 +33,28 @@ const FColdSteelItem* UColdSteelStatusModel::ActiveProductionTool() const
 void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
 {
     for(auto& I:P.Items)if(I.Place!=2)I.HarvestWorldId.Invalidate();
+    // Refresh only presentation fields; saved identity, placement and harvesting data stay intact.
+    for(auto& I:P.Items)
+    {
+        if(I.Definition!=TEXT("tool_axe"))continue;
+        const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
+        TSharedPtr<FJsonObject> SavedData,VisualData;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),SavedData)||
+           !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),VisualData))continue;
+        bool Changed=false;
+        for(const TCHAR* Key:{TEXT("tool_mesh"),TEXT("tool_scale"),TEXT("mount_pitch"),TEXT("mount_yaw"),TEXT("mount_roll")})
+        {
+            const auto* Value=VisualData->Values.Find(Key);if(!Value)continue;
+            const auto* OldValue=SavedData->Values.Find(Key);
+            if(OldValue&&FJsonValue::CompareEqual(**OldValue,**Value))continue;
+            SavedData->SetField(Key,*Value);Changed=true;
+        }
+        if(Changed)
+        {
+            I.Data.Reset();
+            FJsonSerializer::Serialize(SavedData.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));
+        }
+    }
     const auto* Item = P.Items.FindByPredicate([&](const auto& I){return I.InstanceId == P.ActiveProductionTool && I.Place == 0;});
     if (!Item || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) P.ActiveProductionTool.Reset();
 }

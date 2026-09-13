@@ -63,3 +63,6 @@ __pycache__/
 /SourceAssets/QBZ191ContactWear20260913/geometry.json
 /SourceAssets/QBZ191*/**/*.gif
 /SourceAssets/QBZ191*/**/*.ffconcat
+
+# Downloaded Fab production-tool source packages remain local.
+/SourceAssets/FreeProductionTools20260913/Original/

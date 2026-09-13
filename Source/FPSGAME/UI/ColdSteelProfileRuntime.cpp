@@ -124,6 +124,7 @@ bool UColdSteelStatusModel::ReloadProfile()
         }
         if(Updated){I.Data.Empty();FJsonSerializer::Serialize(CurrentData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
     }
+    NormalizeProductionState(Clean);
     Publish(Clean);bPersistenceBlocked=false;
     // Commit through the checked A/B transaction; never reset the player's save.
     if(Removed&&!CommitState(Clean))return false;
