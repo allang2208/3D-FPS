@@ -1,0 +1,237 @@
+diff --git a/Source/FPSGAME/UI/M4GunsmithPreview.cpp b/Source/FPSGAME/UI/M4GunsmithPreview.cpp
+--- a/Source/FPSGAME/UI/M4GunsmithPreview.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithPreview.cpp
+@@ -22,9 +22,13 @@
+     PreviewTarget=NewObject<UTextureRenderTarget2D>(this);
+     PreviewTarget->RenderTargetFormat=RTF_RGBA16f;PreviewTarget->ClearColor=FLinearColor(0,0,0,1);
+     PreviewTarget->InitAutoFormat(1200,800);PreviewTarget->UpdateResourceImmediate(true);
+-    auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/M_WeaponPreview.M_WeaponPreview"));
++    PreviewCoverageTarget=NewObject<UTextureRenderTarget2D>(this);
++    PreviewCoverageTarget->RenderTargetFormat=RTF_RGBA8;PreviewCoverageTarget->ClearColor=FLinearColor(0,0,0,1);
++    PreviewCoverageTarget->InitAutoFormat(1200,800);PreviewCoverageTarget->UpdateResourceImmediate(true);
++    auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/M_WeaponPreviewResolved.M_WeaponPreviewResolved"));
+     if(!Material)return;
+     PreviewMaterial=UMaterialInstanceDynamic::Create(Material,this);PreviewMaterial->SetTextureParameterValue(TEXT("PreviewTexture"),PreviewTarget);
++    PreviewMaterial->SetTextureParameterValue(TEXT("PreviewCoverage"),PreviewCoverageTarget);
+     PreviewBrush.SetResourceObject(PreviewMaterial);PreviewBrush.ImageSize=FVector2D(1200,800);PreviewBrush.DrawAs=ESlateBrushDrawType::Image;
+     Studio=MakeUnique<FPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
+     Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
+@@ -33,13 +37,28 @@
+     Studio->AddComponent(StudioFill,FTransform(FRotator(-15,150,0)));
+     Studio->UpdateCaptureContents();
+     Capture=NewObject<USceneCaptureComponent2D>(GetTransientPackage(),NAME_None,RF_Transient);
+-    Capture->TextureTarget=PreviewTarget;Capture->CaptureSource=SCS_SceneColorHDR;
++    // Resolve the filmic tone curve before Slate composites the gun over the workbench.
++    Capture->TextureTarget=PreviewTarget;Capture->CaptureSource=SCS_FinalToneCurveHDR;
+     Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
+     Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;
+     Capture->ShowFlags.SetAtmosphere(false);Capture->ShowFlags.SetFog(false);Capture->ShowFlags.SetVolumetricFog(false);
+     Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetBloom(false);
++    // Spatial AA remains stable for an intermittently captured, draggable preview.
++    Capture->ShowFlags.SetAntiAliasing(true);Capture->ShowFlags.SetTemporalAA(false);
+     Capture->PostProcessSettings.bOverride_AutoExposureMethod=true;Capture->PostProcessSettings.AutoExposureMethod=AEM_Manual;
++    Capture->PostProcessSettings.bOverride_AutoExposureApplyPhysicalCameraExposure=true;Capture->PostProcessSettings.AutoExposureApplyPhysicalCameraExposure=false;
++    Capture->PostProcessSettings.bOverride_AutoExposureBias=true;Capture->PostProcessSettings.AutoExposureBias=0.f;
+     Studio->AddComponent(Capture,FTransform::Identity);
++    // Final-color alpha depends on a project-wide postprocess setting. A separate
++    // unlit coverage pass preserves holes and translucent lenses without changing it.
++    PreviewCoverageCapture=NewObject<USceneCaptureComponent2D>(GetTransientPackage(),NAME_None,RF_Transient);
++    PreviewCoverageCapture->TextureTarget=PreviewCoverageTarget;PreviewCoverageCapture->CaptureSource=SCS_SceneColorHDR;
++    PreviewCoverageCapture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
++    PreviewCoverageCapture->bCaptureEveryFrame=false;PreviewCoverageCapture->bCaptureOnMovement=false;
++    PreviewCoverageCapture->ShowFlags=Capture->ShowFlags;
++    PreviewCoverageCapture->ShowFlags.SetLighting(false);PreviewCoverageCapture->ShowFlags.SetDynamicShadows(false);
++    PreviewCoverageCapture->bUseRayTracingIfEnabled=false;
++    Studio->AddComponent(PreviewCoverageCapture,FTransform::Identity);
+ }
+ void UM4GunsmithWidget::SyncStudioPreview()
+ {
+@@ -67,7 +86,7 @@
+                 AssemblyRotation=Turn*LayFlat*Align;
+                 Target=ViewTransform.TransformPosition(FVector(500.f,0.f,0.f));break;
+             }
+-    for(auto& Pair:StudioCopies)if(Pair.Value)Pair.Value->SetVisibility(false);
++    TSet<UMeshComponent*> VisibleCopies;
+     for(const auto& Weak:Sources)
+     {
+         auto* Source=Cast<UMeshComponent>(Weak.Get());if(!Source||!Source->IsVisible())continue;
+@@ -77,25 +96,28 @@
+             if(auto* Skinned=Cast<USkeletalMeshComponent>(Source))
+             {
+                 auto* NewMesh=NewObject<USkeletalMeshComponent>(GetTransientPackage(),NAME_None,RF_Transient);
+-                NewMesh->SetSkeletalMeshAsset(Skinned->GetSkeletalMeshAsset());NewMesh->SetLeaderPoseComponent(Skinned);Copy=NewMesh;
++                NewMesh->SetSkeletalMeshAsset(Skinned->GetSkeletalMeshAsset());NewMesh->SetLeaderPoseComponent(Skinned);NewMesh->SetForcedLOD(1);Copy=NewMesh;
+             }
+             else if(auto* Static=Cast<UStaticMeshComponent>(Source))
+             {
+                 auto* NewMesh=NewObject<UStaticMeshComponent>(GetTransientPackage(),NAME_None,RF_Transient);
+-                NewMesh->SetStaticMesh(Static->GetStaticMesh());Copy=NewMesh;
++                NewMesh->SetStaticMesh(Static->GetStaticMesh());NewMesh->SetForcedLodModel(1);Copy=NewMesh;
+             }
+             if(!Copy)continue;
+             Copy->SetCollisionEnabled(ECollisionEnabled::NoCollision);Copy->SetCastShadow(false);
+             Studio->AddComponent(Copy,Source->GetComponentTransform());
++            bPreviewStreamingDirty=true;
+         }
+         if(auto* SourceStatic=Cast<UStaticMeshComponent>(Source))
+-            if(auto* CopyStatic=Cast<UStaticMeshComponent>(Copy);CopyStatic&&CopyStatic->GetStaticMesh()!=SourceStatic->GetStaticMesh())CopyStatic->SetStaticMesh(SourceStatic->GetStaticMesh());
++            if(auto* CopyStatic=Cast<UStaticMeshComponent>(Copy);CopyStatic&&CopyStatic->GetStaticMesh()!=SourceStatic->GetStaticMesh())
++            {CopyStatic->EmptyOverrideMaterials();CopyStatic->SetStaticMesh(SourceStatic->GetStaticMesh());bPreviewStreamingDirty=true;}
+         if(auto* SourceSkinned=Cast<USkeletalMeshComponent>(Source))
+             if(auto* CopySkinned=Cast<USkeletalMeshComponent>(Copy);CopySkinned&&CopySkinned->GetSkeletalMeshAsset()!=SourceSkinned->GetSkeletalMeshAsset())
+-            {CopySkinned->SetSkeletalMeshAsset(SourceSkinned->GetSkeletalMeshAsset());CopySkinned->SetLeaderPoseComponent(SourceSkinned);}
++            {CopySkinned->EmptyOverrideMaterials();CopySkinned->SetSkeletalMeshAsset(SourceSkinned->GetSkeletalMeshAsset());CopySkinned->SetLeaderPoseComponent(SourceSkinned);bPreviewStreamingDirty=true;}
+         FTransform Pose=Source->GetComponentTransform();
+         if(!bAimPreview){Pose.SetLocation(Target+AssemblyRotation.RotateVector(Pose.GetLocation()-Pivot));Pose.SetRotation(AssemblyRotation*Pose.GetRotation());}
+-        Copy->SetWorldTransform(Pose);Copy->SetVisibility(true);
++        if(!Copy->IsVisible())bPreviewStreamingDirty=true;
++        Copy->SetWorldTransform(Pose);Copy->SetVisibility(true);VisibleCopies.Add(Copy);
+         if(!bAimPreview)
+         {
+             FBox LocalBounds(ForceInit);FTransform BoundsFrame=Source->GetComponentTransform();
+@@ -134,7 +156,8 @@
+                 PreviewFramingBounds+=ViewTransform.InverseTransformPosition(World);
+             }
+         }
+-        for(int32 M=0;M<Source->GetNumMaterials();++M)Copy->SetMaterial(M,Source->GetMaterial(M));
++        for(int32 M=0;M<Source->GetNumMaterials();++M)if(Copy->GetMaterial(M)!=Source->GetMaterial(M))
++        {Copy->SetMaterial(M,Source->GetMaterial(M));bPreviewStreamingDirty=true;}
+         if(auto* Skinned=Cast<USkeletalMeshComponent>(Source))
+             if(const auto* Asset=Skinned->GetSkeletalMeshAsset())if(const auto* Render=Asset->GetResourceForRendering())
+                 for(int32 L=0;L<Render->LODRenderData.Num();++L)
+@@ -145,6 +168,14 @@
+                     }
+         Capture->ShowOnlyComponent(Copy);
+     }
++    for(auto It=StudioCopies.CreateIterator();It;++It)
++    {
++        if(!It.Key().IsValid())
++        {Studio->RemoveComponent(It.Value());It.Value()->DestroyComponent();PreviewBoundsCache.Remove(It.Key());It.RemoveCurrent();bPreviewStreamingDirty=true;}
++        else if(!VisibleCopies.Contains(It.Value())&&It.Value()->IsVisible())
++        {It.Value()->SetVisibility(false);bPreviewStreamingDirty=true;}
++    }
++    if(bPreviewStreamingDirty)PreviewMotion=FMath::Max(PreviewMotion,2.f);
+     if(!bAimPreview&&PreviewFramingBounds.IsValid)
+     {
+         const float Aspect=float(PreviewTarget->SizeX)/FMath::Max(1,PreviewTarget->SizeY);
+@@ -178,10 +209,13 @@
+     if(PreviewSurface&&PreviewSurface->HasMouseCapture()&&FSlateApplication::IsInitialized())FSlateApplication::Get().ReleaseMouseCapture();
+     PreviewSurface.Reset();
+     if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();Capture=nullptr;}
++    if(PreviewCoverageCapture){PreviewCoverageCapture->TextureTarget=nullptr;Studio->RemoveComponent(PreviewCoverageCapture);PreviewCoverageCapture->DestroyComponent();PreviewCoverageCapture=nullptr;}
+     StudioCopies.Reset();PreviewBoundsCache.Reset();StudioFill=nullptr;Studio.Reset();
++    PreviewStreamedTextures.Reset();PreviewStreamingAccumulator=1.f;bPreviewStreamingDirty=true;bPreviewStreamingPending=false;
+     PreviewBrush.SetResourceObject(nullptr);
+-    if(bStandalone&&PreviewTarget)PreviewTarget->ReleaseResource();
+-    PreviewMaterial=nullptr;PreviewTarget=nullptr;
++    if(PreviewTarget)PreviewTarget->ReleaseResource();
++    if(PreviewCoverageTarget)PreviewCoverageTarget->ReleaseResource();
++    PreviewMaterial=nullptr;PreviewTarget=nullptr;PreviewCoverageTarget=nullptr;
+ }
+ void UM4GunsmithWidget::NativeTick(const FGeometry& Geometry,float Delta)
+ {
+@@ -190,22 +224,24 @@
+ void UM4GunsmithWidget::TickCapture(float Delta)
+ {
+     CaptureAccumulator+=Delta;PreviewMotion=FMath::Max(0.f,PreviewMotion-Delta);
++    UpdatePreviewStreaming(Delta);
+     if(PreviewTarget&&PreviewSurface)
+     {
+-        const FVector2D Size=PreviewSurface->GetCachedGeometry().GetLocalSize()-FVector2D(16,28);
++        const auto& Geometry=PreviewSurface->GetCachedGeometry();
++        const FVector2D Size=(Geometry.GetLocalSize()-FVector2D(16,28))*Geometry.GetAccumulatedLayoutTransform().GetScale();
+         if(Size.X>32&&Size.Y>32)
+         {
+-            const float Scale=FMath::Min(1.5f,1600.f/float(FMath::Max(Size.X,Size.Y)));
++            const float Scale=FMath::Min(2.f,2048.f/float(FMath::Max(Size.X,Size.Y)));
+             const int32 Width=FMath::Max(32,FMath::RoundToInt(Size.X*Scale)),Height=FMath::Max(32,FMath::RoundToInt(Size.Y*Scale));
+             if(FMath::Abs(PreviewTarget->SizeX-Width)>2||FMath::Abs(PreviewTarget->SizeY-Height)>2)
+-            {PreviewTarget->ResizeTarget(Width,Height);PreviewBrush.ImageSize=FVector2D(Width,Height);CaptureAccumulator=1.f;}
++            {PreviewTarget->ResizeTarget(Width,Height);PreviewCoverageTarget->ResizeTarget(Width,Height);PreviewBrush.ImageSize=FVector2D(Width,Height);CaptureAccumulator=1.f;PreviewMotion=FMath::Max(PreviewMotion,1.f);}
+         }
+     }
+-    if(!Capture||CaptureAccumulator<(PreviewMotion>0?1.f/30.f:1.f))return;
++    if(!Capture||CaptureAccumulator<((PreviewMotion>0||bPreviewStreamingPending)?1.f/30.f:.2f))return;
+     CaptureAccumulator=0;
+-    if(bStandalone){if(StandaloneRig){StandaloneRig->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();Capture->CaptureScene();}return;}
++    if(bStandalone){if(StandaloneRig){StandaloneRig->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();CapturePreview();}return;}
+     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!P->Equipped()||P->Equipped()->InstanceId!=Model()->Instance())return;
+     if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
+-    {C->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();Capture->CaptureScene();}
+-}
++    {C->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();CapturePreview();}
++}
+diff --git a/Source/FPSGAME/UI/M4GunsmithWidget.h b/Source/FPSGAME/UI/M4GunsmithWidget.h
+--- a/Source/FPSGAME/UI/M4GunsmithWidget.h
++++ b/Source/FPSGAME/UI/M4GunsmithWidget.h
+@@ -54,6 +54,8 @@
+     void InitializePreview();
+     void ReleasePreview();
+     void SyncStudioPreview();
++    void UpdatePreviewStreaming(float Delta);
++    void CapturePreview();
+     void TickCapture(float Delta);
+     void PoseStandalone();
+     bool bStandalone=false;
+@@ -92,8 +94,14 @@
+     FButtonStyle NormalButton,SelectedButton,PrimaryButton;
+     UPROPERTY() TObjectPtr<class UTexture2D> BackgroundTexture;
+     UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewTarget;
++    UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewCoverageTarget;
+     UPROPERTY() TObjectPtr<class UMaterialInstanceDynamic> PreviewMaterial;
+     UPROPERTY() TObjectPtr<class USceneCaptureComponent2D> Capture;
++    UPROPERTY() TObjectPtr<class USceneCaptureComponent2D> PreviewCoverageCapture;
++    TArray<TWeakObjectPtr<class UTexture2D>> PreviewStreamedTextures;
++    float PreviewStreamingAccumulator=1.f;
++    bool bPreviewStreamingDirty=true;
++    bool bPreviewStreamingPending=false;
+     float CaptureAccumulator=0;
+     float PreviewMotion=1.f;
+     bool bAimPreview=false;
+diff --git a/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp b/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
+new file mode 100644
+--- /dev/null
++++ b/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
+@@ -0,0 +1,41 @@
++#include "M4GunsmithWidget.h"
++#include "Components/MeshComponent.h"
++#include "Components/SceneCaptureComponent2D.h"
++#include "Engine/Texture2D.h"
++#include "Materials/MaterialInterface.h"
++
++void UM4GunsmithWidget::UpdatePreviewStreaming(float Delta)
++{
++    PreviewStreamingAccumulator+=Delta;
++    if(bPreviewStreamingDirty||PreviewStreamingAccumulator>=1.f)
++    {
++        PreviewStreamingAccumulator=0.f;bPreviewStreamingDirty=false;
++        PreviewStreamedTextures.Reset();
++        for(const auto& Pair:StudioCopies)if(Pair.Key.IsValid()&&Pair.Value&&Pair.Value->IsVisible())
++        {
++            TArray<UTexture*> Textures;
++            Pair.Value->GetUsedTextures(Textures,GetCurrentMaterialQualityLevelChecked());
++            for(auto* Texture:Textures)if(auto* Texture2D=Cast<UTexture2D>(Texture))PreviewStreamedTextures.AddUnique(Texture2D);
++        }
++        // Renew a short lease for this assembly only. It expires after closing or
++        // changing parts, without clearing another preview's residency request.
++        for(const auto& Weak:PreviewStreamedTextures)if(auto* Texture=Weak.Get())Texture->SetForceMipLevelsToBeResident(3.f);
++    }
++    bPreviewStreamingPending=false;
++    for(const auto& Weak:PreviewStreamedTextures)if(auto* Texture=Weak.Get())bPreviewStreamingPending|=Texture->HasPendingInitOrStreaming();
++}
++
++void UM4GunsmithWidget::CapturePreview()
++{
++    UpdatePreviewStreaming(0.f);
++    PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
++    PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
++    PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;
++    PreviewCoverageCapture->FOVAngle=Capture->FOVAngle;
++    PreviewCoverageCapture->OrthoWidth=Capture->OrthoWidth;
++    PreviewCoverageCapture->bAutoCalculateOrthoPlanes=Capture->bAutoCalculateOrthoPlanes;
++    PreviewCoverageCapture->bUseCustomProjectionMatrix=Capture->bUseCustomProjectionMatrix;
++    PreviewCoverageCapture->CustomProjectionMatrix=Capture->CustomProjectionMatrix;
++    PreviewCoverageCapture->CaptureScene();
++    Capture->CaptureScene();
++}

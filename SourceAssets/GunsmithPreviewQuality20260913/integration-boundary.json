@@ -1,0 +1,21 @@
+{
+  "scope": "Only this preview-quality change, against the existing local shared baseline. Earlier uncommitted UI changes are not included.",
+  "runtime_tested": false,
+  "files": [
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreview.cpp",
+      "baseline_sha256": "25ff3459d6b966f931b46977ec54c47171aae8fad042cb97e39f74a8851bfe55",
+      "delivery_sha256": "189196d50a201db8de1ed777522f0ccdb868fa8fdf00817ab8303f337679e065"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+      "baseline_sha256": "89aec7af7160f79a1df718d5735c7e0333d717a8638ba7e339797a1d0dd48202",
+      "delivery_sha256": "135630a16c6d50c8a30e8a467475b44717e965daf943aa308b842899256c3073"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp",
+      "baseline_sha256": null,
+      "delivery_sha256": "baf6accf6b734708f30ae296c673782a0b84442aa8332131ede002427a577eb9"
+    }
+  ]
+}
