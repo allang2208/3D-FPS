@@ -4,6 +4,7 @@
 #include "Styling/SlateBrush.h"
 #include "Styling/SlateTypes.h"
 #include "PreviewScene.h"
+#include "ColdSteelInventoryTypes.h"
 #include "M4GunsmithWidget.generated.h"
 struct FGunsmithOverviewRow
 {
@@ -19,6 +20,7 @@ public:
     void ChooseDrum(bool bDrum);
     void ChooseOption(const FString& SlotKey,const FString& Id);
     bool ApplyDraft();
+    void UndoDraft();
     void SetAimPreview(bool bAim);
     void SetSidePreview(bool bSide);
     void SelectCategory(const FString& SlotKey);
@@ -29,6 +31,11 @@ public:
     TSharedPtr<class SWidget> GetPreviewSurface() const {return PreviewSurface;}
     const TArray<FGunsmithOverviewRow>& GetOverviewRows() const {return Overview;}
     bool HasWorkbenchCapture() const {return Capture!=nullptr&&PreviewTarget!=nullptr;}
+    void SetStandaloneItem(const FColdSteelItem& Item);
+    void TickStandalonePreview(float Delta,TSharedPtr<class SWidget> Surface);
+    void CloseStandalonePreview();
+    const FSlateBrush* StandaloneBrush()const{return &PreviewBrush;}
+    bool IsAimPreview()const{return bAimPreview;}
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
     virtual FReply NativeOnKeyDown(const FGeometry&,const FKeyEvent&) override;
@@ -37,16 +44,33 @@ protected:
     virtual void NativeTick(const FGeometry&,float Delta) override;
 private:
     friend class AFPSGAMEPlayerController;
+    friend class AFPSGAMECharacter;
     class UGunsmithSystem* Model() const;
     TSharedRef<SWidget> BuildWorkbench();
     TSharedRef<SWidget> BuildOption(const FString& SlotKey,const FString& Id);
+    void LoadCategoryIcons();
     void InitializePreview();
     void ReleasePreview();
     void SyncStudioPreview();
+    void UpdatePreviewStreaming(float Delta);
+    void CapturePreview();
+    void TickCapture(float Delta);
+    void PoseStandalone();
+    bool bStandalone=false;
+    FString StandaloneKey;
+    TMap<FString,FString> StandaloneParts;
+    UPROPERTY(Transient) TObjectPtr<class AFPSGAMECharacter> StandaloneRig;
     TUniquePtr<FPreviewScene> Studio;
     TMap<TWeakObjectPtr<class UPrimitiveComponent>,class UMeshComponent*> StudioCopies;
+    struct FPreviewBoundsCache { uint32 Signature=0; FBox Box=FBox(ForceInit); };
+    TMap<TWeakObjectPtr<class UPrimitiveComponent>,FPreviewBoundsCache> PreviewBoundsCache;
+    FBox PreviewFramingBounds=FBox(ForceInit);
     class UDirectionalLightComponent* StudioFill=nullptr;
     TSharedPtr<class SVerticalBox> ModificationList,OverviewList;
+    TMap<FString,TSharedPtr<FSlateBrush>> CategoryBrushes,AttachmentBrushes;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> CategoryTextures;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> AttachmentTextures;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UMaterialInstanceDynamic>> CategoryMaterials;
     TSharedPtr<class SScrollBox> OptionScroll;
     TMap<FString,TSharedPtr<class SWidget>> OptionCards;
     FString OptionsSignature,OptionsCategory;
@@ -61,8 +85,14 @@ private:
     FButtonStyle NormalButton,SelectedButton,PrimaryButton;
     UPROPERTY() TObjectPtr<class UTexture2D> BackgroundTexture;
     UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewTarget;
+    UPROPERTY() TObjectPtr<class UTextureRenderTarget2D> PreviewCoverageTarget;
     UPROPERTY() TObjectPtr<class UMaterialInstanceDynamic> PreviewMaterial;
     UPROPERTY() TObjectPtr<class USceneCaptureComponent2D> Capture;
+    UPROPERTY() TObjectPtr<class USceneCaptureComponent2D> PreviewCoverageCapture;
+    TArray<TWeakObjectPtr<class UTexture2D>> PreviewStreamedTextures;
+    float PreviewStreamingAccumulator=1.f;
+    bool bPreviewStreamingDirty=true;
+    bool bPreviewStreamingPending=false;
     float CaptureAccumulator=0;
     float PreviewMotion=1.f;
     bool bAimPreview=false;

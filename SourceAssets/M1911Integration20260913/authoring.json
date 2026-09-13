@@ -1,0 +1,180 @@
+{
+  "clips": {
+    "idle": {
+      "frames": 180,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 3.0,
+      "loop": true
+    },
+    "idle_empty": {
+      "frames": 180,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 3.0,
+      "loop": true
+    },
+    "aim": {
+      "frames": 2,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.03333333333333333,
+      "loop": false
+    },
+    "aim_empty": {
+      "frames": 2,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.03333333333333333,
+      "loop": false
+    },
+    "fire": {
+      "frames": 24,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.4,
+      "loop": false
+    },
+    "aim_fire": {
+      "frames": 24,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.4,
+      "loop": false
+    },
+    "fire_last": {
+      "frames": 24,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.4,
+      "loop": false
+    },
+    "aim_fire_last": {
+      "frames": 24,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.4,
+      "loop": false
+    },
+    "reload": {
+      "frames": 108,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 1.8,
+      "loop": false
+    },
+    "reload_empty": {
+      "frames": 156,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 2.6,
+      "loop": false
+    },
+    "equip_charge": {
+      "frames": 54,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.9,
+      "loop": false
+    },
+    "equip_charge_empty": {
+      "frames": 54,
+      "fps": 60,
+      "sample_rate": 120,
+      "duration": 0.9,
+      "loop": false
+    }
+  },
+  "markers": {
+    "WPN_Slide": [
+      0,
+      0.018,
+      0.03
+    ],
+    "WPN_Barrel": [
+      0,
+      -0.02,
+      0.022
+    ],
+    "WPN_Hammer": [
+      2.742267080080296e-09,
+      0.0475405678153038,
+      0.009653110057115555
+    ],
+    "WPN_MagRelease": [
+      0.006649824324995279,
+      -0.002798364032059908,
+      -0.022934719920158386
+    ],
+    "WPN_SlideRelease": [
+      0.0066498201340436935,
+      -0.035584937781095505,
+      0.007753511890769005
+    ],
+    "WPN_Safety": [
+      0.006649827118963003,
+      0.049318235367536545,
+      0.0030225086957216263
+    ],
+    "WPN_SOCKET_Magazine": [
+      2.7244155820227434e-09,
+      0.02976096048951149,
+      -0.036719005554914474
+    ],
+    "WPN_Trigger": [
+      -1.0525437188491082e-09,
+      -0.012166742235422134,
+      -0.015309115871787071
+    ],
+    "WPN_Bullet": [
+      6.183686895866458e-10,
+      0.019836584106087685,
+      0.010784182697534561
+    ],
+    "WPN_Follower": [
+      4.655885676996263e-10,
+      0.017812950536608696,
+      0.010784182697534561
+    ],
+    "WPN_SOCKET_Muzzle": [
+      0,
+      -0.156,
+      0.023
+    ],
+    "WPN_SOCKET_Eject": [
+      -0.008,
+      -0.009,
+      0.034
+    ],
+    "WPN_RearSight": [
+      0,
+      0.046,
+      0.045
+    ],
+    "WPN_FrontSight": [
+      0,
+      -0.139,
+      0.0445
+    ]
+  },
+  "source": "Xeradev M1911 FBX; existing Manny mesh and grouped hand poses",
+  "animation_status": "Locally authored pistol baseline; not a mature GitHub animation pack; not playtested",
+  "contacts_frames": {
+    "reload": [
+      18,
+      78,
+      84
+    ],
+    "reload_empty": [
+      18,
+      78,
+      84,
+      116,
+      124
+    ],
+    "equip_charge": [
+      28,
+      34
+    ]
+  }
+}

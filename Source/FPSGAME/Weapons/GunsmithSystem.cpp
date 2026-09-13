@@ -1,5 +1,7 @@
 #include "GunsmithSystem.h"
 #include "M4DrumReloadTiming.h"
+#include "M1911WeaponAssets.h"
+#include "Animation/AnimSequence.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
@@ -22,15 +24,41 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
     for(const auto& V:Catalog->GetArrayField(TEXT("weapons"))){
         const auto O=V->AsObject();FGunsmithWeapon W;W.Source=O;
         W.Id=O->GetStringField(TEXT("id"));W.Model=O->GetStringField(TEXT("model"));W.Name=O->GetStringField(TEXT("name"));W.Allowed=Strings(O,TEXT("allowed"));
+        // Common numeric parts apply to every catalog weapon, including future entries.
+        const TSharedPtr<FJsonObject>* Common=nullptr;
+        if(Catalog->TryGetObjectField(TEXT("common_options"),Common))
+        {
+            auto Options=O->GetObjectField(TEXT("options"));
+            for(const auto& Slot:(*Common)->Values)
+            {
+                W.Allowed.AddUnique(FString(*Slot.Key));
+                TArray<TSharedPtr<FJsonValue>> Merged;
+                const TArray<TSharedPtr<FJsonValue>>* Existing=nullptr;
+                if(Options->TryGetArrayField(Slot.Key,Existing))Merged=*Existing;
+                for(const auto& Entry:Slot.Value->AsArray())
+                {
+                    const FString Id=Entry->AsObject()->GetStringField(TEXT("id"));
+                    if(!Merged.ContainsByPredicate([&](const auto& V){return V->AsObject()->GetStringField(TEXT("id"))==Id;}))Merged.Add(Entry);
+                }
+                Options->SetArrayField(Slot.Key,Merged);
+            }
+        }
         const auto B=O->GetObjectField(TEXT("base"));W.Ammo=B->GetStringField(TEXT("ammo_item_id"));
         W.Base.ADS=FMath::Loge(20.)/Num(B,TEXT("ads_smooth"),9.98577424518);W.Base.Capacity=Num(B,TEXT("mag_size"),30);
         W.Base.Recoil=Num(B,TEXT("recoil"),100);W.Base.Shake=Num(B,TEXT("camera_shake"),100);W.Base.Interval=Num(B,TEXT("fire_interval"),.13);
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
+        // M1911 uses its imported action lengths as the base for both stats and
+        // playback. Attachment reload multipliers still scale the whole action.
+        if(W.Id==TEXT("ue_m1911"))
+        {
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M1911WeaponAssets::AnimationPath(TEXT("reload"))))W.Base.Reload=Clip->GetPlayLength();
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M1911WeaponAssets::AnimationPath(TEXT("reload_empty"))))W.Base.EmptyReload=Clip->GetPlayLength();
+        }
         W.Base.Damage=Num(B,TEXT("damage"),25);W.Base.Speed=Num(B,TEXT("bullet_speed"),90);W.Base.Range=Num(B,TEXT("effective_range"),40);
         for(const auto& S:O->GetObjectField(TEXT("options"))->Values){TArray<FGunsmithOption> Options;
             for(const auto& Entry:S.Value->AsArray()){const auto P=Entry->AsObject();FGunsmithOption A;A.Id=P->GetStringField(TEXT("id"));A.Name=P->GetStringField(TEXT("name"));A.Description=P->GetStringField(TEXT("description"));
                 for(const auto& E:P->GetArrayField(TEXT("effects")))A.Effects.Emplace(E->AsObject()->GetStringField(TEXT("text")),Num(E->AsObject(),TEXT("benefit")));
-                const auto T=P->GetObjectField(TEXT("stats"));A.ADS=Num(T,TEXT("ads_percent"));A.Recoil=Num(T,TEXT("recoil_mult"),1);A.Shake=Num(T,TEXT("shake_mult"),1);
+                const auto T=P->GetObjectField(TEXT("stats"));A.ADS=Num(T,TEXT("ads_percent"));A.Recoil=Num(T,TEXT("recoil_mult"),1);A.Shake=Num(T,TEXT("shake_mult"),1);A.Stability=Num(T,TEXT("stability_mult"),1);
                 A.ADSSeconds=Num(T,TEXT("ads_seconds"));A.Speed=Num(T,TEXT("bullet_speed_mult"),1);A.Interval=Num(T,TEXT("fire_interval_mult"),1);A.Spread=Num(T,TEXT("hip_spread_mult"),1);A.Range=Num(T,TEXT("range_mult"),1);A.Reload=Num(T,TEXT("reload_mult"),1);A.Magazine=Num(T,TEXT("mag_delta"));Options.Add(A);
             }W.Options.Add(FString(*S.Key),Options);
         }Weapons.Add(W.Id,W);
@@ -52,11 +80,11 @@ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P)const
 {
     const auto* W=Weapon(D);if(!W)return {};auto R=W->Base;
-    for(const auto& Pair:Normalize(D,P)){const auto& A=*Option(D,Pair.Key,Pair.Value);R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.Reload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;}
+    for(const auto& Pair:Normalize(D,P)){const auto& A=*Option(D,Pair.Key,Pair.Value);R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.Reload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;}
     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))
     {R.Reload*=M4DrumReloadTiming::NormalDurationScale;R.EmptyReload*=M4DrumReloadTiming::EmptyDurationScale;}
     R.ADS=FMath::Max(.001,R.ADS*(1+R.ADSPercent)+R.ADSSeconds);
-    R.Handling=FWeaponHandling::FromIndices(R.Recoil*R.RecoilMultiplier,R.Shake*R.ShakeMultiplier);
+    R.Handling=FWeaponHandling::FromIndices(R.Recoil*R.RecoilMultiplier,R.Shake*R.ShakeMultiplier,R.StabilityMultiplier);
     R.Recoil=R.Handling.RecoilIndex;R.Shake=R.Handling.ShakeIndex;return R;
 }
 bool UGunsmithSystem::Begin(const FString& Id)

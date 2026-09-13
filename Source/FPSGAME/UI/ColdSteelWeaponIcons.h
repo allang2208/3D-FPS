@@ -26,6 +26,10 @@ public:
     FColdSteelWeaponIconReady OnReady;
     int32 RenderCount() const {return Completed;}
     bool IsIdle() const {return Queue.IsEmpty();}
+#if WITH_EDITOR
+    /** Author a base catalog PNG with the same assembly and materials as live inventory icons. */
+    bool ExportCatalogIcon(const FString& Definition,const FString& Filename);
+#endif
 private:
     struct FJob {FColdSteelItem Item;FString Key;};
     struct FEntry {FSlateBrush Brush;uint64 Use=0;};
@@ -37,11 +41,15 @@ private:
     UPROPERTY(Transient) TObjectPtr<class AFPSGAMECharacter> Rig;
     UPROPERTY(Transient) TObjectPtr<class USceneCaptureComponent2D> Capture;
     UPROPERTY(Transient) TObjectPtr<class UTextureRenderTarget2D> Target;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UMeshComponent>> CaptureMeshes;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UMaterialInterface>> CaptureMaterials;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture>> CaptureTextures;
     TUniquePtr<FPreviewScene> Studio;
     FString RigDefinition;
     TSharedPtr<TAtomic<bool>,ESPMode::ThreadSafe> CaptureMaterialsReady;
     float Warmup=0,JobSeconds=0;
     int32 Stage=0,Completed=0;
+    bool bCatalogExport=false;
     bool Prepare(const FColdSteelItem& Item);
     bool Readback(const FString& Key);
     void FinishJob(bool bSuccess);

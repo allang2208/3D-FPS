@@ -31,6 +31,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UFPSTraversalComponent;
 
     friend class UColdSteelWeaponIcons;
+    friend class UM4GunsmithWidget;
     friend class UTacticalDeviceComponent;
 
 public:
@@ -132,6 +133,7 @@ protected:
     void RunMuzzleMigrationAudit();
     FWeaponHandling WeaponHandling;
     void RunWeaponHandlingAudit();
+    void RunM1911DevelopmentAudit();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     void InitializeWeaponVisuals();
@@ -264,6 +266,7 @@ private:
     void UpdateCamera(float DeltaSeconds);
     void SetAimingState(bool bNewAiming);
     void UpdateADSProgress();
+    FRotator GetViewmodelBaseRotation() const;
     void UpdateViewmodel(float DeltaSeconds);
     void UpdateActionPose(float DeltaSeconds);
     void UpdateADSPose();
@@ -278,6 +281,9 @@ private:
     float LookSensitivityScale() const;
     void FireShot();
     void StartEquipCharge();
+    void InterruptPistolEquip();
+    void SetM1911Optic(const FString& Variant);
+    void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
     void FinishWeaponAction();
     void FinishReload();
@@ -289,6 +295,12 @@ private:
     void ResumeWeaponPose();
     void PlaySound2D(USoundBase* Sound, float VolumeMultiplier) const;
     UAnimSequence* LoadAKMAnimation(const TCHAR* AssetName);
+    // Pistol-only presentation on the common first-person rig and action clock.
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolIdleEmptyAnimation;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolAimEmptyAnimation;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolFireLastAnimation;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolAimFireLastAnimation;
+    bool bPistolShotPending = false;
     USoundBase* LoadAKMSound(const TCHAR* AssetName);
     bool CanStand() const;
     bool IsWeaponBusy() const;

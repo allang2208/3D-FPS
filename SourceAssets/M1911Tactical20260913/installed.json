@@ -1,0 +1,39 @@
+{
+  "parts": {
+    "laser": {
+      "mesh": "/Game/Weapons/M1911/Tactical20260913/laser/SM_TacticalDevice.SM_TacticalDevice",
+      "body_material": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_laser_Body.M_M1911_laser_Body",
+      "collar_material": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_Tactical_Collar.M_M1911_Tactical_Collar",
+      "coating_uv": 1,
+      "physical_tile_m": 0.1,
+      "reference_material": "/Game/Weapons/M1911/RearFinish20260913/Materials/M_M1911_RearUnified_Steel",
+      "emitter_author_ue_cm": [
+        -0.008459733362542465,
+        15.04323035478592,
+        -2.7173997834324837
+      ]
+    },
+    "flashlight": {
+      "mesh": "/Game/Weapons/M1911/Tactical20260913/flashlight/SM_TacticalDevice.SM_TacticalDevice",
+      "body_material": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_flashlight_Body.M_M1911_flashlight_Body",
+      "collar_material": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_Tactical_Collar.M_M1911_Tactical_Collar",
+      "coating_uv": 1,
+      "physical_tile_m": 0.1,
+      "reference_material": "/Game/Weapons/M1911/RearFinish20260913/Materials/M_M1911_RearUnified_Steel",
+      "emitter_author_ue_cm": [
+        -0.0025328434276161715,
+        18.504001200199127,
+        -2.0753787830471992
+      ]
+    }
+  },
+  "dry_to_wet": {
+    "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_Tactical_Collar.M_M1911_Tactical_Collar": "/Game/Weapons/M1911/Tactical20260913/Wet/M_Wet_M_M1911_Tactical_Collar.M_Wet_M_M1911_Tactical_Collar",
+    "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_laser_Body.M_M1911_laser_Body": "/Game/Weapons/M1911/Tactical20260913/Wet/M_Wet_M_M1911_laser_Body.M_Wet_M_M1911_laser_Body",
+    "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_flashlight_Body.M_M1911_flashlight_Body": "/Game/Weapons/M1911/Tactical20260913/Wet/M_Wet_M_M1911_flashlight_Body.M_Wet_M_M1911_flashlight_Body"
+  },
+  "weather_libraries": {
+    "/Game/Weather/RainVisibility/DA_WeatherPresentation": "Merged three M1911 tactical material mappings",
+    "/Game/Weather/NaturalV2/DA_WeatherPresentation": "Merged three M1911 tactical material mappings"
+  }
+}

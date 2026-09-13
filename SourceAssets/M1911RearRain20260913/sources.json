@@ -1,0 +1,426 @@
+{
+  "weapons": {
+    "M1911": {
+      "/Game/Weapons/M1911/Hero20260913/SK_M1911_Manny.SK_M1911_Manny": [
+        {
+          "slot": "M_M1911_Hero_Ammo",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Ammo.M_M1911_Hero_Ammo"
+        },
+        {
+          "slot": "M_M1911_Hero_Slide",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Slide.M_M1911_Hero_Slide"
+        },
+        {
+          "slot": "M_M1911_Hero_Frame",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Frame.M_M1911_Hero_Frame"
+        },
+        {
+          "slot": "M_M1911_Hero_Grip",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Grip.M_M1911_Hero_Grip"
+        },
+        {
+          "slot": "M_M1911_Hero_Steel",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Steel.M_M1911_Hero_Steel"
+        },
+        {
+          "slot": "M_M1911_Hero_Magazine",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Magazine.M_M1911_Hero_Magazine"
+        },
+        {
+          "slot": "M_M1911_Hero_Sights",
+          "material": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Sights.M_M1911_Hero_Sights"
+        },
+        {
+          "slot": "MI_Manny_01",
+          "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+        },
+        {
+          "slot": "MI_Manny_02",
+          "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+        }
+      ],
+      "/Game/Weapons/M1911/Attachments20260913/Meshes/SM_M1911_holographic.SM_M1911_holographic": [
+        {
+          "slot": "Holosight",
+          "material": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_holographic_0.M_M1911_holographic_0"
+        },
+        {
+          "slot": "Red_Dot",
+          "material": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+        },
+        {
+          "slot": "M1911_AdapterSteel",
+          "material": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_holographic_Adapter.M_M1911_holographic_Adapter"
+        }
+      ],
+      "/Game/Weapons/M1911/Attachments20260913/Meshes/SM_M1911_panoramic_red_dot.SM_M1911_panoramic_red_dot": [
+        {
+          "slot": "Panoramic_Glass",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+        },
+        {
+          "slot": "Panoramic_Reticle",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+        },
+        {
+          "slot": "Panoramic_Body",
+          "material": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_2.M_M1911_panoramic_red_dot_2"
+        },
+        {
+          "slot": "M1911_AdapterSteel",
+          "material": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_Adapter.M_M1911_panoramic_red_dot_Adapter"
+        }
+      ],
+      "/Game/Weapons/M1911/Attachments20260913/Meshes/SM_M1911_suppressor.SM_M1911_suppressor": [
+        {
+          "slot": "RifleMetal",
+          "material": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_0.M_M1911_suppressor_0"
+        },
+        {
+          "slot": "RecessMetal",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+        },
+        {
+          "slot": "M1911_AdapterSteel",
+          "material": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_Adapter.M_M1911_suppressor_Adapter"
+        }
+      ]
+    },
+    "QBZ191": {
+      "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny": [
+        {
+          "slot": "M_QBZ191_Wear_Body",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal.M_QBZ191_Unified_M_QBZ191_Wear_Body_metal"
+        },
+        {
+          "slot": "M_QBZ191_FactoryStock_Metal",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal.M_QBZ191_Unified_M_QBZ191_Wear_Body_metal"
+        },
+        {
+          "slot": "M_QBZ191_Wear_Steel",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal.M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal"
+        },
+        {
+          "slot": "M_QBZ191_Flash_Hider",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal.M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal"
+        },
+        {
+          "slot": "M_QBZ191_FactoryStock_Polymer",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer"
+        },
+        {
+          "slot": "M_QBZ191_FactoryRearGrip",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer"
+        },
+        {
+          "slot": "M_QBZ191_Wear_Rail",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Rail_metal.M_QBZ191_Unified_M_QBZ191_Wear_Rail_metal"
+        },
+        {
+          "slot": "M_QBZ191_Wear_Sights",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal.M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal"
+        },
+        {
+          "slot": "M_QBZ191_Wear_Magazine",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer"
+        },
+        {
+          "slot": "MI_Manny_01",
+          "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+        },
+        {
+          "slot": "MI_Manny_02",
+          "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_angled.SM_QBZ191_angled": [
+        {
+          "slot": "Body_002",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_angled_0.M_QBZ191_Receiver_angled_0"
+        },
+        {
+          "slot": "Grip_Default_002",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Grip_Default_001_polymer.M_QBZ191_Unified_Grip_Default_001_polymer"
+        },
+        {
+          "slot": "Recess_shadow",
+          "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_brake.SM_QBZ191_brake": [
+        {
+          "slot": "QBZ_SRC_brake_0",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_brake_0.M_QBZ191_Receiver_brake_0"
+        },
+        {
+          "slot": "QBZ_SRC_brake_1",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_canted.SM_QBZ191_canted": [
+        {
+          "slot": "Body_004",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_canted_0.M_QBZ191_Receiver_canted_0"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_drum.SM_QBZ191_drum": [
+        {
+          "slot": "QBZ_SRC_drum_0",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_drum_0.M_QBZ191_Receiver_drum_0"
+        },
+        {
+          "slot": "QBZ_SRC_drum_1",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_drum_1.M_QBZ191_Receiver_drum_1"
+        },
+        {
+          "slot": "QBZ_SRC_drum_2",
+          "material": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_FrontSight.SM_QBZ191_FrontSight": [
+        {
+          "slot": "M_QBZ191_Hero_Sights",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal.M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_holographic.SM_QBZ191_holographic": [
+        {
+          "slot": "Holosight",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_holographic_0.M_QBZ191_Receiver_holographic_0"
+        },
+        {
+          "slot": "Red_Dot",
+          "material": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_lpvo_1_6x.SM_QBZ191_lpvo_1_6x": [
+        {
+          "slot": "LPVO_Reticle",
+          "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle"
+        },
+        {
+          "slot": "LPVO_Glass",
+          "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass"
+        },
+        {
+          "slot": "LPVO_Body",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_lpvo_1_6x_2.M_QBZ191_Receiver_lpvo_1_6x_2"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_lpvo_ring.SM_QBZ191_lpvo_ring": [
+        {
+          "slot": "LPVO_Body",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_lpvo_ring_0.M_QBZ191_Receiver_lpvo_ring_0"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_panoramic_red_dot.SM_QBZ191_panoramic_red_dot": [
+        {
+          "slot": "Panoramic_Glass",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+        },
+        {
+          "slot": "Panoramic_Reticle",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+        },
+        {
+          "slot": "Panoramic_Body",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_panoramic_red_dot_2.M_QBZ191_Receiver_panoramic_red_dot_2"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_prism.SM_QBZ191_prism": [
+        {
+          "slot": "Prism_Polymer",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_prism_0.M_QBZ191_Receiver_prism_0"
+        },
+        {
+          "slot": "Prism_Saddle",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_prism_1.M_QBZ191_Receiver_prism_1"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_prism_scope_2x.SM_QBZ191_prism_scope_2x": [
+        {
+          "slot": "Scope2X_Reticle",
+          "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle"
+        },
+        {
+          "slot": "Scope2X_Glass",
+          "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass"
+        },
+        {
+          "slot": "Scope2X_Body",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_prism_scope_2x_2.M_QBZ191_Receiver_prism_scope_2x_2"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_qr_performance.SM_QBZ191_qr_performance": [
+        {
+          "slot": "QBZ_SRC_qr_performance_0",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_qr_performance_0.M_QBZ191_Receiver_qr_performance_0"
+        },
+        {
+          "slot": "QBZ_SRC_qr_performance_1",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QR_RefinedPolymer_polymer.M_QBZ191_Unified_M_QR_RefinedPolymer_polymer"
+        },
+        {
+          "slot": "QBZ_SRC_qr_performance_2",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QR_RefinedRubber_rubber.M_QBZ191_Unified_M_QR_RefinedRubber_rubber"
+        },
+        {
+          "slot": "QBZ_AdapterMetal",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_qr_performance_3.M_QBZ191_Receiver_qr_performance_3"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_RearSight.SM_QBZ191_RearSight": [
+        {
+          "slot": "M_QBZ191_Hero_Sights",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal.M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_skeleton.SM_QBZ191_skeleton": [
+        {
+          "slot": "QBZ_SRC_skeleton_0",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_skeleton_0.M_QBZ191_Receiver_skeleton_0"
+        },
+        {
+          "slot": "QBZ_SRC_skeleton_1",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_StockPolymer_polymer.M_QBZ191_Unified_M_StockPolymer_polymer"
+        },
+        {
+          "slot": "QBZ_SRC_skeleton_2",
+          "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_StockRubber_rubber.M_QBZ191_Unified_M_StockRubber_rubber"
+        },
+        {
+          "slot": "QBZ_AdapterMetal",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_skeleton_3.M_QBZ191_Receiver_skeleton_3"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_suppressor.SM_QBZ191_suppressor": [
+        {
+          "slot": "QBZ_SRC_suppressor_0",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_suppressor_0.M_QBZ191_Receiver_suppressor_0"
+        },
+        {
+          "slot": "QBZ_SRC_suppressor_1",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_titanium_brake.SM_QBZ191_titanium_brake": [
+        {
+          "slot": "QBZ_SRC_titanium_brake_0",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_titanium_brake_0.M_QBZ191_Receiver_titanium_brake_0"
+        },
+        {
+          "slot": "QBZ_SRC_titanium_brake_1",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+        },
+        {
+          "slot": "QBZ_SRC_titanium_brake_2",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+        }
+      ],
+      "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_vertical.SM_QBZ191_vertical": [
+        {
+          "slot": "Body_004",
+          "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_vertical_0.M_QBZ191_Receiver_vertical_0"
+        }
+      ],
+      "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/SM_BalancedRearGrip.SM_BalancedRearGrip": [
+        {
+          "slot": "M_BalancedRearGrip",
+          "material": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body"
+        },
+        {
+          "slot": "M_BalancedRearGrip_Collar",
+          "material": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar"
+        }
+      ],
+      "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/SM_PhantomRearGrip.SM_PhantomRearGrip": [
+        {
+          "slot": "M_PhantomRearGrip",
+          "material": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body"
+        },
+        {
+          "slot": "M_PhantomRearGrip_Collar",
+          "material": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar"
+        }
+      ],
+      "/Game/Weapons/ResonanceGrip20260913/Repaired91871/QBZ191/SM_ResonanceGrip.SM_ResonanceGrip": [
+        {
+          "slot": "Resonance_Metal_QBZ191",
+          "material": "/Game/Weapons/ResonanceGrip20260913/Repaired91871/QBZ191/M_Resonance_QBZ191.M_Resonance_QBZ191"
+        }
+      ],
+      "/Game/Weapons/TacticalDevices20260913/QBZ191/flashlight/SM_TacticalDevice.SM_TacticalDevice": [
+        {
+          "slot": "M_Tactical_flashlight",
+          "material": "/Game/Weapons/TacticalDevices20260913/QBZ191/flashlight/M_QBZ191_flashlight_Body.M_QBZ191_flashlight_Body"
+        },
+        {
+          "slot": "M_Tactical_Collar_001",
+          "material": "/Game/Weapons/TacticalDevices20260913/QBZ191/flashlight/M_QBZ191_flashlight_Collar.M_QBZ191_flashlight_Collar"
+        }
+      ],
+      "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/SM_TacticalDevice.SM_TacticalDevice": [
+        {
+          "slot": "M_Tactical_laser",
+          "material": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Body.M_QBZ191_laser_Body"
+        },
+        {
+          "slot": "M_Tactical_Collar",
+          "material": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Collar.M_QBZ191_laser_Collar"
+        }
+      ]
+    }
+  },
+  "weather_libraries": {
+    "/Game/Weather/RainVisibility/DA_WeatherPresentation": {
+      "mapping": {
+        "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001": "/Game/Weather/NaturalV2/MI_Wet_Flash_Hider_001_9a3d152e65.MI_Wet_Flash_Hider_001_9a3d152e65",
+        "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001": "/Game/Weather/NaturalV2/MI_Wet_Grip_Default_001_21c1bea595.MI_Wet_Grip_Default_001_21c1bea595",
+        "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001": "/Game/Weather/NaturalV2/MI_Wet_Keymod_material_001_7080d3e6c5.MI_Wet_Keymod_material_001_7080d3e6c5",
+        "/Game/Weapons/M4InfimaV3/Body_001.Body_001": "/Game/Weather/NaturalV2/MI_Wet_Body_001_facc68ca83.MI_Wet_Body_001_facc68ca83",
+        "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001": "/Game/Weather/NaturalV2/MI_Wet_Magazine_Light_001_612d2e6c95.MI_Wet_Magazine_Light_001_612d2e6c95",
+        "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001": "/Game/Weather/NaturalV2/MI_Wet_Classic_Stock_001_54577e5f00.MI_Wet_Classic_Stock_001_54577e5f00",
+        "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Soviet_PBR_74c2286707.M_Wet_M_AKM_Soviet_PBR_74c2286707",
+        "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer": "/Game/Weather/NaturalV2/M_Wet_M_M4DrumPolymer_4647942573.M_Wet_M_M4DrumPolymer_4647942573",
+        "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners": "/Game/Weather/NaturalV2/M_Wet_M_M4DrumFasteners_8ae9396099.M_Wet_M_M4DrumFasteners_8ae9396099",
+        "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex": "/Game/Weather/NaturalV2/M_Wet_M_M4DrumIndex_eb90deb882.M_Wet_M_M4DrumIndex_eb90deb882",
+        "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer": "/Game/Weather/NaturalV2/M_Wet_M_Prism_Polymer_867740d45f.M_Wet_M_Prism_Polymer_867740d45f",
+        "/Game/Weapons/PrismHandstopV1/M_Prism_Saddle.M_Prism_Saddle": "/Game/Weather/NaturalV2/M_Wet_M_Prism_Saddle_ed76c23d51.M_Wet_M_Prism_Saddle_ed76c23d51",
+        "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody": "/Game/Weather/NaturalV2/M_Wet_M_HoloBody_ccb785d065.M_Wet_M_HoloBody_ccb785d065",
+        "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body": "/Game/Weather/NaturalV2/M_Wet_M_LPVO_Body_bf1e93ab5f.M_Wet_M_LPVO_Body_bf1e93ab5f",
+        "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Body.M_Scope2X_Body": "/Game/Weather/NaturalV2/M_Wet_M_Scope2X_Body_037793b97b.M_Wet_M_Scope2X_Body_037793b97b",
+        "/Game/Weapons/PanoramicRedDot/M_Panoramic_Body.M_Panoramic_Body": "/Game/Weather/NaturalV2/M_Wet_M_Panoramic_Body_448e294794.M_Wet_M_Panoramic_Body_448e294794",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_optic_Holosight.M_AKM_optic_Holosight": "/Game/Weather/NaturalV2/M_Wet_M_AKM_optic_Holosight_dbe375d017.M_Wet_M_AKM_optic_Holosight_dbe375d017",
+        "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Soviet_MountSteel_5c76055edc.M_Wet_M_AKM_Soviet_MountSteel_5c76055edc",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_LPVO_Body.M_AKM_LPVO_Body": "/Game/Weather/NaturalV2/M_Wet_M_AKM_LPVO_Body_2e8a792837.M_Wet_M_AKM_LPVO_Body_2e8a792837",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_Panoramic_Body.M_AKM_Panoramic_Body": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Panoramic_Body_9e2d1e6050.M_Wet_M_AKM_Panoramic_Body_9e2d1e6050",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_Scope2X_Body.M_AKM_Scope2X_Body": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Scope2X_Body_326c7484eb.M_Wet_M_AKM_Scope2X_Body_326c7484eb"
+      }
+    },
+    "/Game/Weather/NaturalV2/DA_WeatherPresentation": {
+      "mapping": {
+        "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001": "/Game/Weather/NaturalV2/MI_Wet_Flash_Hider_001_9a3d152e65.MI_Wet_Flash_Hider_001_9a3d152e65",
+        "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001": "/Game/Weather/NaturalV2/MI_Wet_Grip_Default_001_21c1bea595.MI_Wet_Grip_Default_001_21c1bea595",
+        "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001": "/Game/Weather/NaturalV2/MI_Wet_Keymod_material_001_7080d3e6c5.MI_Wet_Keymod_material_001_7080d3e6c5",
+        "/Game/Weapons/M4InfimaV3/Body_001.Body_001": "/Game/Weather/NaturalV2/MI_Wet_Body_001_facc68ca83.MI_Wet_Body_001_facc68ca83",
+        "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001": "/Game/Weather/NaturalV2/MI_Wet_Magazine_Light_001_612d2e6c95.MI_Wet_Magazine_Light_001_612d2e6c95",
+        "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001": "/Game/Weather/NaturalV2/MI_Wet_Classic_Stock_001_54577e5f00.MI_Wet_Classic_Stock_001_54577e5f00",
+        "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Soviet_PBR_74c2286707.M_Wet_M_AKM_Soviet_PBR_74c2286707",
+        "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer": "/Game/Weather/NaturalV2/M_Wet_M_M4DrumPolymer_4647942573.M_Wet_M_M4DrumPolymer_4647942573",
+        "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners": "/Game/Weather/NaturalV2/M_Wet_M_M4DrumFasteners_8ae9396099.M_Wet_M_M4DrumFasteners_8ae9396099",
+        "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex": "/Game/Weather/NaturalV2/M_Wet_M_M4DrumIndex_eb90deb882.M_Wet_M_M4DrumIndex_eb90deb882",
+        "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer": "/Game/Weather/NaturalV2/M_Wet_M_Prism_Polymer_867740d45f.M_Wet_M_Prism_Polymer_867740d45f",
+        "/Game/Weapons/PrismHandstopV1/M_Prism_Saddle.M_Prism_Saddle": "/Game/Weather/NaturalV2/M_Wet_M_Prism_Saddle_ed76c23d51.M_Wet_M_Prism_Saddle_ed76c23d51",
+        "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody": "/Game/Weather/NaturalV2/M_Wet_M_HoloBody_ccb785d065.M_Wet_M_HoloBody_ccb785d065",
+        "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body": "/Game/Weather/NaturalV2/M_Wet_M_LPVO_Body_bf1e93ab5f.M_Wet_M_LPVO_Body_bf1e93ab5f",
+        "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Body.M_Scope2X_Body": "/Game/Weather/NaturalV2/M_Wet_M_Scope2X_Body_037793b97b.M_Wet_M_Scope2X_Body_037793b97b",
+        "/Game/Weapons/PanoramicRedDot/M_Panoramic_Body.M_Panoramic_Body": "/Game/Weather/NaturalV2/M_Wet_M_Panoramic_Body_448e294794.M_Wet_M_Panoramic_Body_448e294794",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_optic_Holosight.M_AKM_optic_Holosight": "/Game/Weather/NaturalV2/M_Wet_M_AKM_optic_Holosight_dbe375d017.M_Wet_M_AKM_optic_Holosight_dbe375d017",
+        "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Soviet_MountSteel_5c76055edc.M_Wet_M_AKM_Soviet_MountSteel_5c76055edc",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_LPVO_Body.M_AKM_LPVO_Body": "/Game/Weather/NaturalV2/M_Wet_M_AKM_LPVO_Body_2e8a792837.M_Wet_M_AKM_LPVO_Body_2e8a792837",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_Panoramic_Body.M_AKM_Panoramic_Body": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Panoramic_Body_9e2d1e6050.M_Wet_M_AKM_Panoramic_Body_9e2d1e6050",
+        "/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/M_AKM_Scope2X_Body.M_AKM_Scope2X_Body": "/Game/Weather/NaturalV2/M_Wet_M_AKM_Scope2X_Body_326c7484eb.M_Wet_M_AKM_Scope2X_Body_326c7484eb"
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "materials": {
+    "M_M1911_Hero_Slide": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Slide.M_M1911_Hero_Slide",
+    "M_M1911_Hero_Frame": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Frame.M_M1911_Hero_Frame",
+    "M_M1911_Hero_Grip": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Grip.M_M1911_Hero_Grip",
+    "M_M1911_Hero_Steel": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Steel.M_M1911_Hero_Steel",
+    "M_M1911_Hero_Magazine": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Magazine.M_M1911_Hero_Magazine",
+    "M_M1911_Hero_Sights": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Sights.M_M1911_Hero_Sights",
+    "M_M1911_Hero_Ammo": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Ammo.M_M1911_Hero_Ammo"
+  },
+  "textures": {
+    "Slide": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Slide_BaseColor.T_M1911_Hero_Slide_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Slide_ORM.T_M1911_Hero_Slide_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Slide_NormalGL.T_M1911_Hero_Slide_NormalGL"
+    },
+    "Frame": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Frame_BaseColor.T_M1911_Hero_Frame_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Frame_ORM.T_M1911_Hero_Frame_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Frame_NormalGL.T_M1911_Hero_Frame_NormalGL"
+    },
+    "Grip": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Grip_BaseColor.T_M1911_Hero_Grip_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Grip_ORM.T_M1911_Hero_Grip_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Grip_NormalGL.T_M1911_Hero_Grip_NormalGL"
+    },
+    "Steel": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Steel_BaseColor.T_M1911_Hero_Steel_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Steel_ORM.T_M1911_Hero_Steel_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Steel_NormalGL.T_M1911_Hero_Steel_NormalGL"
+    },
+    "Magazine": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Magazine_BaseColor.T_M1911_Hero_Magazine_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Magazine_ORM.T_M1911_Hero_Magazine_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Magazine_NormalGL.T_M1911_Hero_Magazine_NormalGL"
+    },
+    "Sights": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Sights_BaseColor.T_M1911_Hero_Sights_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Sights_ORM.T_M1911_Hero_Sights_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Sights_NormalGL.T_M1911_Hero_Sights_NormalGL"
+    },
+    "Ammo": {
+      "BaseColor": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Ammo_BaseColor.T_M1911_Hero_Ammo_BaseColor",
+      "ORM": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Ammo_ORM.T_M1911_Hero_Ammo_ORM",
+      "Normal": "/Game/Weapons/M1911/Hero20260913/Textures/T_M1911_Hero_Ammo_NormalGL.T_M1911_Hero_Ammo_NormalGL"
+    }
+  },
+  "mesh": "/Game/Weapons/M1911/Hero20260913/SK_M1911_Manny.SK_M1911_Manny",
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "animations": "Existing P9Retarget20260913 clips retained without reimport",
+  "material_slots": {
+    "M_M1911_Hero_Ammo": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Ammo.M_M1911_Hero_Ammo",
+    "M_M1911_Hero_Slide": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Slide.M_M1911_Hero_Slide",
+    "M_M1911_Hero_Frame": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Frame.M_M1911_Hero_Frame",
+    "M_M1911_Hero_Grip": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Grip.M_M1911_Hero_Grip",
+    "M_M1911_Hero_Steel": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Steel.M_M1911_Hero_Steel",
+    "M_M1911_Hero_Magazine": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Magazine.M_M1911_Hero_Magazine",
+    "M_M1911_Hero_Sights": "/Game/Weapons/M1911/Hero20260913/Materials/M_M1911_Hero_Sights.M_M1911_Hero_Sights",
+    "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+  },
+  "state": "Imported; no rendered or gameplay testing"
+}

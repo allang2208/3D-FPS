@@ -1,0 +1,29 @@
+{
+  "mesh": "/Game/Weapons/M1911/Integrated20260913/SK_M1911_Manny.SK_M1911_Manny",
+  "skeleton": "/Game/Weapons/M1911/Integrated20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "materials": {
+    "M_M1911_Grip": "/Game/Weapons/AKMIntegration/WalnutFab/M_AKM_SatinWalnut.M_AKM_SatinWalnut",
+    "M_M1911_Slide": "/Game/Weapons/M1911/Integrated20260913/Materials/MI_M1911_Slide.MI_M1911_Slide",
+    "M_M1911_Frame": "/Game/Weapons/M1911/Integrated20260913/Materials/MI_M1911_Frame.MI_M1911_Frame",
+    "M_M1911_Barrel": "/Game/Weapons/M1911/Integrated20260913/Materials/MI_M1911_Barrel.MI_M1911_Barrel",
+    "M_M1911_Ammo": "/Game/Weapons/M1911/Integrated20260913/Materials/MI_M1911_Ammo.MI_M1911_Ammo",
+    "M_M1911_Mag": "/Game/Weapons/M1911/Integrated20260913/Materials/MI_M1911_Mag.MI_M1911_Mag",
+    "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+  },
+  "animations": {
+    "A_M1911_aim": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_aim.A_M1911_aim",
+    "A_M1911_aim_empty": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_aim_empty.A_M1911_aim_empty",
+    "A_M1911_aim_fire": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_aim_fire.A_M1911_aim_fire",
+    "A_M1911_aim_fire_last": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_aim_fire_last.A_M1911_aim_fire_last",
+    "A_M1911_equip_charge": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_equip_charge.A_M1911_equip_charge",
+    "A_M1911_equip_charge_empty": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_equip_charge_empty.A_M1911_equip_charge_empty",
+    "A_M1911_fire": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_fire.A_M1911_fire",
+    "A_M1911_fire_last": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_fire_last.A_M1911_fire_last",
+    "A_M1911_idle": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_idle.A_M1911_idle",
+    "A_M1911_idle_empty": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_idle_empty.A_M1911_idle_empty",
+    "A_M1911_reload": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_reload.A_M1911_reload",
+    "A_M1911_reload_empty": "/Game/Weapons/M1911/Integrated20260913/Animations/A_M1911_reload_empty.A_M1911_reload_empty"
+  },
+  "status": "imported; user testing pending"
+}

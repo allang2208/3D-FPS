@@ -12,6 +12,7 @@
 
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
+    if (bUseM1911) { SetM1911Muzzle(Variant); return; }
     const bool Valid=Variant==TEXT("true")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
     if(bUseQBZ191){
         const bool Enabled=Valid&&bInventoryWeaponReady;
@@ -77,6 +78,7 @@ FVector AFPSGAMECharacter::GetEffectiveMuzzleLocation() const
 FVector AFPSGAMECharacter::GetEffectiveMuzzleForward() const
 {
     if(!MuzzleVariant.IsEmpty()&&MuzzleAttachment)return MuzzleAttachment->GetComponentQuat().RotateVector(MuzzleLocalAxis);
+    if(bUseM1911)return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
     FVector F=AKMViewmodel->GetSocketQuaternion(TEXT("WPN_SOCKET_Muzzle")).GetAxisY();
     return FVector::DotProduct(F,FirstPersonCamera->GetForwardVector())<0?-F:F;
 }

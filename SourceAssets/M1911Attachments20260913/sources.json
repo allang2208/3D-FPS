@@ -1,0 +1,76 @@
+{
+  "parts": {
+    "holographic": {
+      "path": "/Game/Weapons/M4Holographic/SM_M4_Holographic",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Attachments20260913\\Sources\\holographic.fbx",
+      "slots": [
+        {
+          "slot": "Holosight",
+          "material": "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody"
+        },
+        {
+          "slot": "Red_Dot",
+          "material": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+        }
+      ]
+    },
+    "panoramic_red_dot": {
+      "path": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Attachments20260913\\Sources\\panoramic_red_dot.fbx",
+      "slots": [
+        {
+          "slot": "Panoramic_Glass",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+        },
+        {
+          "slot": "Panoramic_Reticle",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+        },
+        {
+          "slot": "Panoramic_Body",
+          "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Body.M_Panoramic_Body"
+        }
+      ]
+    },
+    "suppressor": {
+      "path": "/Game/Weapons/M4MuzzlesV1/SM_M4_suppressor",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Attachments20260913\\Sources\\suppressor.fbx",
+      "slots": [
+        {
+          "slot": "RifleMetal",
+          "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001"
+        },
+        {
+          "slot": "RecessMetal",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+        }
+      ]
+    }
+  },
+  "clips": {
+    "reload": {
+      "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_reload",
+      "duration": 2.2333333492279053
+    },
+    "reload_empty": {
+      "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_reload_empty",
+      "duration": 2.7333333492279053
+    },
+    "equip_charge": {
+      "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_equip_charge",
+      "duration": 0.9333333373069763
+    },
+    "equip_charge_empty": {
+      "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_equip_charge_empty",
+      "duration": 0.9333333373069763
+    },
+    "idle": {
+      "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_idle",
+      "duration": 3.0
+    },
+    "aim": {
+      "path": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_aim",
+      "duration": 0.03333333507180214
+    }
+  }
+}

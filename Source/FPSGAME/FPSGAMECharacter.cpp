@@ -10,6 +10,8 @@
 #include "Weapons/AKMSovietCalibration.h"
 #include "Weapons/AKMAttachmentVisual.h"
 #include "Weapons/M4DrumReloadTiming.h"
+#include "Weapons/M1911WeaponAssets.h"
+#include "Weapons/GunsmithSystem.h"
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/FPSBallisticsComponent.h"
 
@@ -56,6 +58,15 @@ namespace AKMSource
     constexpr float RecoveryInterval = 0.05f;
 }
 
+namespace M1911Source
+{
+    constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/M1911/RearFinish20260913/SK_M1911_Manny.SK_M1911_Manny");
+    constexpr float MagazineOut = 38.f / 120.f;
+    constexpr float MagazineInsert = 126.f / 120.f;
+    constexpr float MagazineSeat = 128.f / 120.f;
+    constexpr float SlideRelease = 192.f / 120.f;
+}
+
 AFPSGAMECharacter::AFPSGAMECharacter()
 {
     PrimaryActorTick.bCanEverTick = true;
@@ -80,7 +91,7 @@ AFPSGAMECharacter::AFPSGAMECharacter()
     AKMViewmodel = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("AKMViewmodel"));
     AKMViewmodel->SetupAttachment(FirstPersonCamera);
     AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
-    AKMViewmodel->SetRelativeRotation(ViewmodelRotation);
+    AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
     AKMViewmodel->SetRelativeScale3D(ViewmodelScale);
     AKMViewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     AKMViewmodel->SetCastShadow(false);
@@ -200,11 +211,24 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         ADSRearEyeDistance = 12.f;
         UE_LOG(LogTemp, Display, TEXT("QBZ191_ACTIVE mesh=%s"), *GetPathNameSafe(ViewmodelMesh));
     }
+    if (bUseM1911)
+    {
+        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, M1911Source::MeshPath);
+        bUsingM4Infima = ViewmodelMesh != nullptr; // Common Manny pose/cue clock.
+        HipViewmodelLocation = FVector(0.f, 6.f, -5.f);
+        ADSRearEyeDistance = 38.f;
+        bPistolShotPending = false;
+    }
     bUsingReplacement = ViewmodelMesh != nullptr;
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
     if (ViewmodelMesh)
     {
+        // Restore the family baseline on swaps; a pistol's reference-pose bounds
+        // otherwise cull the live receiver while its static attachments survive.
+        AKMViewmodel->SetBoundsScale(bUseM1911 ? M1911WeaponAssets::ViewmodelBoundsScale : 1.f);
         AKMViewmodel->SetSkeletalMeshAsset(ViewmodelMesh);
+        AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
+        AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
         // Component LOD visibility survives a mesh swap when the LOD count is
         // unchanged. M4 suppressor/drum section indices are unrelated to AKM.
         for(int32 L=0;L<ViewmodelMesh->GetLODNum();++L)AKMViewmodel->ShowAllMaterialSections(L);
@@ -225,10 +249,11 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload_empty"));
     }
     if (bUseQBZ191) { DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload")); DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty")); }
-    InspectAnimation = bUsingM4Infima ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+    // The accepted pistol set has no inspection clip; do not resolve a fictional asset.
+    InspectAnimation = bUsingM4Infima || bUseM1911 ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
-    if (bUsingM4Infima && !bUseQBZ191)
+    if (bUsingM4Infima && !bUseQBZ191 && !bUseM1911)
         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
             if (Base)
             {
@@ -236,10 +261,19 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
                 if (auto* Support=LoadObject<UAnimSequence>(nullptr,*Path))DrumSupportAnimations.Add(Base,Support);
             }
     ForegripAnimations.Reset(); PrismGripAnimations.Reset(); VerticalGripAnimations.Reset(); CantedGripAnimations.Reset();
-    InitializeForegripAnimations();
-    InitializePrismGripAnimations();
-    InitializeVerticalGripAnimations();
-    InitializeCantedGripAnimations();
+    if (!bUseM1911)
+    {
+        InitializeForegripAnimations();
+        InitializePrismGripAnimations();
+        InitializeVerticalGripAnimations();
+        InitializeCantedGripAnimations();
+    }
+    PistolIdleEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_idle_empty")) : nullptr;
+    PistolAimEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_empty")) : nullptr;
+    PistolFireLastAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_fire_last")) : nullptr;
+    PistolAimFireLastAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_fire_last")) : nullptr;
+    if (bUseM1911) { DrumReloadAnimation = nullptr; DrumReloadEmptyAnimation = nullptr; }
+    ActiveActionAnimation = nullptr;
     AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
     GunplayAnimation = Cast<UFPSGunplayAnimInstance>(AKMViewmodel->GetAnimInstance());
     if (GunplayAnimation)
@@ -305,6 +339,7 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateDrumDropVisual();
     UpdateFoldingSights(DeltaSeconds);
     if (bRunWeaponAudit) RunWeaponAudit(DeltaSeconds);
+    if (FParse::Param(FCommandLine::Get(), TEXT("M1911Audit"))) RunM1911DevelopmentAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("BallisticPresentationAudit"))) RunBallisticPresentationAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("InfiniteAmmoAudit"))) RunInfiniteAmmoAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("DrumGripAudit"))) RunDrumGripAudit();
@@ -369,17 +404,20 @@ void AFPSGAMECharacter::FirePressed()
         NextAllowedShotTime = FMath::Max(NextAllowedShotTime, static_cast<double>(GetWorld()->GetTimeSeconds()));
         TriggerFirstShotWorldTime = -1.0;
     }
+    if (bUseM1911 && !bFireHeld) bPistolShotPending = true;
     bFireHeld = true;
+    InterruptPistolEquip();
     ExitSprintForWeapon();
     ServiceHeldFire();
 }
 
-void AFPSGAMECharacter::FireReleased() { bFireHeld = false; GetWorldTimerManager().ClearTimer(FireTimerHandle); }
+void AFPSGAMECharacter::FireReleased() { bFireHeld = false; bPistolShotPending = false; GetWorldTimerManager().ClearTimer(FireTimerHandle); }
 
 void AFPSGAMECharacter::AimPressed()
 {
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
     bAimHeld = true;
+    InterruptPistolEquip();
     ExitSprintForWeapon();
     if (!IsWeaponBusy() && !bIsSliding) { SetAimingState(true); ResumeWeaponPose(); }
 }
@@ -400,6 +438,14 @@ void AFPSGAMECharacter::ReloadPressed()
     UAnimSequence* Animation = bPendingEmptyReload ? ReloadEmptyAnimation : ReloadAnimation;
     if(bDrumInstalled)Animation=bPendingEmptyReload?DrumReloadEmptyAnimation:DrumReloadAnimation;
     const float ClipLength = Animation ? Animation->GetPlayLength() : WeaponStateDuration;
+    if (bUseM1911 && Animation)
+    {
+        float DurationScale = 1.f;
+        if (const auto* Gunsmith = GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+            if (const auto* Weapon = Gunsmith->Weapon(TEXT("ue_m1911")))
+                DurationScale = WeaponStateDuration / FMath::Max(.01f, static_cast<float>(bPendingEmptyReload ? Weapon->Base.EmptyReload : Weapon->Base.Reload));
+        WeaponStateDuration = FMath::Max(.01f, ClipLength * DurationScale);
+    }
     PlayWeaponAnimation(Animation, false, ClipLength / WeaponStateDuration);
     // The state owns completion. Animation and all contact events consume this
     // same duration; changing a reload stat scales the complete action.
@@ -439,6 +485,16 @@ void AFPSGAMECharacter::ReloadPressed()
             MechanicalCueTimes=bPendingEmptyReload
                 ? TArray<float>{14.0f/60.0f,54.0f/60.0f,80.0f/60.0f,116.0f/60.0f}
                 : TArray<float>{18.0f/60.0f,76.0f/60.0f,95.0f/60.0f};
+        }
+        if (bUseM1911)
+        {
+            MechanicalCueTimes = {M1911Source::MagazineOut, M1911Source::MagazineInsert, M1911Source::MagazineSeat};
+            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
+            if (bPendingEmptyReload)
+            {
+                MechanicalCueTimes.Add(M1911Source::SlideRelease);
+                MechanicalCueSounds.Add(ChargeReleaseSound);
+            }
         }
         if (bUseQBZ191)
         {
@@ -653,12 +709,19 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
 }
 
+FRotator AFPSGAMECharacter::GetViewmodelBaseRotation() const
+{
+    // P9 is authored toward Blender -Y and imports toward UE +Y.
+    // Its camera basis is the opposite of the existing rifle assets (-Y).
+    return bUseM1911 ? FRotator(0.f, -90.f, 0.f) : ViewmodelRotation;
+}
+
 void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 {
     UpdateADSPose();
     // Reload/inspection need room for the support hand. Equip is performed at
     // this weapon's hip anchor and must not visit the centered action framing.
-    const bool bUseActionFraming = bUsingM4Infima && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
+    const bool bUseActionFraming = bUsingM4Infima && !bUseM1911 && !IsTraversing() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
     if (bDrumInstalled && IsReloading())
     {
@@ -741,14 +804,15 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     ADSKickAngles.Y = GunKickRotation.Y * AKMSource::ADSHorizontalScale + GunJitterRotation.Y;
     ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale;
     const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress;
-    const FRotator HipRotation(ViewmodelRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), ViewmodelRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), ViewmodelRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
+    const FRotator BaseRotation = GetViewmodelBaseRotation();
+    const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
     // rotates about the wrong axis and fails to raise the muzzle.
     const FRotator SprintAngles = M4SprintRotation + FRotator(0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Cos(M4SprintPhase));
     const FQuat SprintRotation = bUsingM4Infima
         ? FQuat::Slerp(FQuat::Identity, SprintAngles.Quaternion(), SprintPoseFactor)
         : FQuat::Identity;
-    const FQuat ADSBase = bSightCalibrated ? CalibratedADSRotation : ADSViewmodelRotation.Quaternion();
+    const FQuat ADSBase = bSightCalibrated ? CalibratedADSRotation : (bUseM1911 ? BaseRotation : ADSViewmodelRotation).Quaternion();
     const FQuat ADSRotation = FRotator(FMath::RadiansToDegrees(ADSKickAngles.X), -FMath::RadiansToDegrees(ADSKickAngles.Y), -FMath::RadiansToDegrees(ADSKickAngles.Z)).Quaternion() * ADSBase;
     AKMViewmodel->SetRelativeLocation(TargetLocation);
     AKMViewmodel->SetRelativeRotation(FQuat::Slerp(SprintRotation * HipRotation.Quaternion(), ADSRotation, WeaponADSFactor));
@@ -762,7 +826,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 
 void AFPSGAMECharacter::ServiceHeldFire()
 {
-    if (!bFireHeld) return;
+    if (!bFireHeld || (bUseM1911 && !bPistolShotPending)) return;
     const double Now = GetWorld()->GetTimeSeconds();
     if (IsWeaponBusy() || bIsSliding || bIsSprinting)
     {
@@ -778,6 +842,7 @@ void AFPSGAMECharacter::ServiceHeldFire()
     {
         const double PreviousDeadline = NextAllowedShotTime;
         FireShot();
+        if (bUseM1911) break;
         if (IsWeaponBusy() || bIsSliding || bIsSprinting || !bFireHeld
             || NextAllowedShotTime <= PreviousDeadline) break;
     }
@@ -803,6 +868,7 @@ void AFPSGAMECharacter::FireShot()
         return;
     }
     --MagazineAmmo;
+    if (bUseM1911) bPistolShotPending = false;
     ++ShotsFired;
     UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,IsMuzzleSuppressed()?500.f:1800.f,TEXT("Gunshot"));
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
@@ -813,6 +879,8 @@ void AFPSGAMECharacter::FireShot()
     const FVector TraceDirection = ComputeShotDirection();
     const FVector Muzzle = GetEffectiveMuzzleLocation() + GetEffectiveMuzzleForward().GetSafeNormal() * 2.f; // Snapshot before restarting animation.
     UAnimSequence* Animation = bIsAiming ? AimFireAnimation : FireAnimation;
+    if (bUseM1911 && MagazineAmmo == 0)
+        Animation = bIsAiming ? PistolAimFireLastAnimation : PistolFireLastAnimation;
     PlayWeaponAnimation(Animation, false);
     GetWorldTimerManager().ClearTimer(WeaponPoseTimerHandle);
     USoundBase* ShotSound=IsMuzzleSuppressed()&&SuppressedFireSound?SuppressedFireSound.Get():FireSound.Get();
@@ -821,11 +889,11 @@ void AFPSGAMECharacter::FireShot()
         // Match Godot's single AudioStreamPlayer: restart each shot at original pitch.
         M4FireVoice->Stop();
         M4FireVoice->SetSound(ShotSound);
-        M4FireVoice->SetVolumeMultiplier(AKMSource::FireVolume);
+        M4FireVoice->SetVolumeMultiplier(AKMSource::FireVolume * (bUseM1911 ? 1.5f : 1.0f));
         M4FireVoice->SetPitchMultiplier(1.0f);
         M4FireVoice->Play();
     }
-    else PlaySound2D(ShotSound, AKMSource::FireVolume);
+    else PlaySound2D(ShotSound, AKMSource::FireVolume * (bUseM1911 ? 1.5f : 1.0f));
 
     const float ShotDamage=DamagePerShot;
     const auto Training=ColdSteelSkills::Snapshot(this);
@@ -984,6 +1052,12 @@ void AFPSGAMECharacter::RunWeaponAudit(float DeltaSeconds)
 
 void AFPSGAMECharacter::StartEquipCharge()
 {
+    if (bUseM1911)
+    {
+        const auto* Profile = GetGameInstance() ? GetGameInstance()->GetSubsystem<UColdSteelStatusModel>() : nullptr;
+        const auto* Item = Profile ? Profile->Equipped() : nullptr;
+        EquipAnimation = LoadAKMAnimation(Item && Item->Magazine == 0 ? TEXT("A_AKM_equip_charge_empty") : TEXT("A_AKM_equip_charge"));
+    }
     StopMechanicalAudio();
     // Switching can interrupt ADS, reload or sprint. Their cached presentation
     // offsets belong to the previous weapon, not the new equip animation.
@@ -992,7 +1066,7 @@ void AFPSGAMECharacter::StartEquipCharge()
     ADSStartedAt = GetWorld()->GetTimeSeconds();
     M4ActionFramingAlpha = SprintPoseFactor = 0.0f;
     AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
-    AKMViewmodel->SetRelativeRotation(ViewmodelRotation);
+    AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
     if (GunplayAnimation)
     {
         GunplayAnimation->AimAlpha = 0.0f;
@@ -1000,6 +1074,7 @@ void AFPSGAMECharacter::StartEquipCharge()
     }
     WeaponState = EAKMWeaponState::Equipping;
     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
+    if (bUseM1911) NextAllowedShotTime = WeaponActionStartedAt;
     WeaponStateElapsed = 0.0f;
     MechanicalCueTimes.Reset(); MechanicalCueSounds.Reset(); NextMechanicalCue = 0;
     const bool bAKMChargeOnly = !bUsingM4Infima && EquipAnimation && EquipAnimation->GetPathName().Contains(TEXT("/AKMIntegration/EquipCharge/"));
@@ -1008,6 +1083,12 @@ void AFPSGAMECharacter::StartEquipCharge()
         MechanicalCueTimes = {0.55f, 0.80f};
         MechanicalCueSounds = {ChargePullSound, ChargeReleaseSound};
         UE_LOG(LogTemp, Display, TEXT("AKM_EQUIP_CHARGE: clip=%s magazine=attached left=idle duration=%.3f"), *EquipAnimation->GetPathName(), EquipAnimation->GetPlayLength());
+    }
+    else if (bUseM1911)
+    {
+        // Original P9 Unholster: no slide pull occurs in the equip donor.
+        MechanicalCueTimes.Reset();
+        MechanicalCueSounds.Reset();
     }
     else if (bUseQBZ191)
     {
@@ -1018,7 +1099,7 @@ void AFPSGAMECharacter::StartEquipCharge()
     else PlayMechanicalSound(EquipSound, AKMSource::ActionVolume);
     if (EquipAnimation)
     {
-        WeaponStateDuration = bUsingM4Infima ? 0.72f : EquipAnimation->GetPlayLength();
+        WeaponStateDuration = bUsingM4Infima && !bUseM1911 ? 0.72f : EquipAnimation->GetPlayLength();
         PlayWeaponAnimation(EquipAnimation, false, EquipAnimation->GetPlayLength() / WeaponStateDuration);
     }
     else if (ReloadEmptyAnimation)
@@ -1032,6 +1113,16 @@ void AFPSGAMECharacter::StartEquipCharge()
     else WeaponStateDuration = 0.1f;
 }
 
+void AFPSGAMECharacter::InterruptPistolEquip()
+{
+    if (!bUseM1911 || !bInventoryWeaponReady || IsTraversing() || WeaponState != EAKMWeaponState::Equipping) return;
+    StopMechanicalAudio();
+    // Finish at this input, not at the original draw deadline. Fire/ADS may
+    // interrupt a pistol draw, while reload, inspection and traversal stay busy.
+    WeaponStateDuration = FMath::Max(0.f, static_cast<float>(GetWorld()->GetTimeSeconds() - WeaponActionStartedAt));
+    FinishWeaponAction();
+}
+
 void AFPSGAMECharacter::FinishWeaponAction()
 {
     const double CompletedAt = WeaponActionStartedAt + WeaponStateDuration;
@@ -1041,6 +1132,12 @@ void AFPSGAMECharacter::FinishWeaponAction()
     WeaponState = EAKMWeaponState::Idle;
     if (bFireHeld) ExitSprintForWeapon(CompletedAt);
     WeaponStateElapsed = WeaponStateDuration = 0.0f;
+    if (bUseM1911)
+    {
+        ActiveActionAnimation = nullptr;
+        ActionElapsed = ActionDuration = 0.f;
+        if (GunplayAnimation) GunplayAnimation->ActionAlpha = 0.f;
+    }
     MechanicalCueTimes.Reset(); MechanicalCueSounds.Reset(); NextMechanicalCue = 0;
     SetAimingState(bAimHeld && !bIsSliding);
     ResumeWeaponPose();
@@ -1078,7 +1175,7 @@ void AFPSGAMECharacter::PlayWeaponAnimation(UAnimSequence* Animation, bool bLoop
         ActionStartPosition = StartPosition;
         ActionPlayRate = PlayRate;
         ActionDuration = FMath::Max(0.01f, (Animation->GetPlayLength() - StartPosition) / FMath::Max(0.01f, PlayRate));
-        ActionBlendIn = (Animation == FireAnimation || Animation == AimFireAnimation) ? 0.008f : 0.035f;
+        ActionBlendIn = (Animation == FireAnimation || Animation == AimFireAnimation || Animation == PistolFireLastAnimation || Animation == PistolAimFireLastAnimation) ? 0.008f : 0.035f;
         return;
     }
     AKMViewmodel->PlayAnimation(Animation, bLoop);
@@ -1130,6 +1227,12 @@ void AFPSGAMECharacter::StopMechanicalAudio()
 
 UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 {
+    if (bUseM1911)
+    {
+        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
+        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
+        return LoadObject<UAnimSequence>(nullptr, *M1911WeaponAssets::AnimationPath(*Clip));
+    }
     if (bUseQBZ191)
     {
         FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
@@ -1170,6 +1273,8 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 
 USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
 {
+    if (bUseM1911 && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
+        return LoadObject<USoundBase>(nullptr, TEXT("/Game/Weapons/M1911/Integrated20260913/Audio/S_M1911_Fire.S_M1911_Fire"));
     if (bUsingM4Infima)
     {
         const TCHAR* HKName = nullptr;
@@ -1269,7 +1374,7 @@ void AFPSGAMECharacter::UpdateADSPose()
     if (bHolographicOptic)
     {
         FTransform Root = FTransform::Identity;
-        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+        for (int32 Index=Ref.FindBoneIndex(bUseM1911 ? TEXT("WPN_Slide") : TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
         {
             FTransform Local;
             AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
@@ -1282,12 +1387,24 @@ void AFPSGAMECharacter::UpdateADSPose()
     }
     const FVector Axis = (Front - Rear).GetSafeNormal();
     if (Axis.IsNearlyZero() || Rear.ContainsNaN() || Front.ContainsNaN()) return;
-    const FQuat Base = ViewmodelRotation.Quaternion();
+    const FQuat Base = GetViewmodelBaseRotation().Quaternion();
     CalibratedADSRotation = FQuat::FindBetweenNormals(Base.RotateVector(Axis), FVector::ForwardVector) * Base;
     // Mapping a single axis leaves roll unconstrained. Align the complete optic
     // frame with camera forward/up so ADS is level without twisting it off the rail.
-    if(bHolographicOptic)CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
-    CalibratedADSLocation = FVector(bHolographicOptic ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
+    if (bUseM1911 && !bHolographicOptic)
+    {
+        FTransform Root = FTransform::Identity;
+        for (int32 Index=Ref.FindBoneIndex(TEXT("WPN_root")); Index!=INDEX_NONE; Index=Ref.GetParentIndex(Index))
+        {
+            FTransform Local;
+            AimAnimation->GetBoneTransform(Local,FSkeletonPoseBoneIndex(Index),FAnimExtractContext(0.0,false),false);
+            Root=Root*Local;
+        }
+        SightUp=Root.GetRotation().RotateVector(FVector::UpVector);
+    }
+    if(bHolographicOptic || bUseM1911)CalibratedADSRotation=FRotationMatrix::MakeFromXZ(Axis,SightUp).ToQuat().Inverse();
+    const float EyeDistance = bHolographicOptic && !bUseM1911 ? (OpticVariant==TEXT("lpvo_1_6x")?28.f:(GetOpticMagnification()>1.f?20.f:26.f)) : ADSRearEyeDistance;
+    CalibratedADSLocation = FVector(EyeDistance, 0.0f, 0.0f) - CalibratedADSRotation.RotateVector(Rear);
     bSightCalibrated = true;
     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_ADS_CALIBRATED rear=%s front=%s offset=%s rotation=%s"), *Rear.ToCompactString(), *Front.ToCompactString(), *CalibratedADSLocation.ToCompactString(), *CalibratedADSRotation.Rotator().ToCompactString());
 }
@@ -1369,8 +1486,20 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         if(bDrumInstalled)if(const auto* Support=DrumSupportAnimations.Find(Clip))return Support->Get();
         return Clip;
     };
-    GunplayAnimation->IdleClip=DrumPose(IdleAnimation);
-    GunplayAnimation->AimClip=DrumPose(AimAnimation);
+    bool bPistolWorkbench = false;
+    if (bUseM1911 && GetGameInstance())
+    {
+        const auto* Gunsmith = GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+        const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        bPistolWorkbench = Gunsmith && Gunsmith->IsOpen() && Profile && Profile->Equipped()
+            && Profile->Equipped()->InstanceId == Gunsmith->Instance();
+    }
+    // The workbench presents an assembled, closed-slide pistol independently of
+    // ammunition. Closing it restores the live empty/action pose on the next tick.
+    const bool PistolEmpty = bUseM1911 && !bPistolWorkbench && MagazineAmmo == 0
+        && (!IsReloading() || ReloadSourceTime(WeaponStateElapsed) < M1911Source::SlideRelease);
+    GunplayAnimation->IdleClip=PistolEmpty ? PistolIdleEmptyAnimation.Get() : DrumPose(IdleAnimation);
+    GunplayAnimation->AimClip=PistolEmpty ? PistolAimEmptyAnimation.Get() : DrumPose(AimAnimation);
     GunplayAnimation->BaseTime = FeedbackTime;
     GunplayAnimation->AimAlpha = WeaponADSFactor;
     if (ActiveActionAnimation)
@@ -1378,11 +1507,11 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         // A reload can start during input, before this frame's Tick. Adding
         // DeltaSeconds counts time before that input and used to retire the
         // animation early (especially on a hitch) while firing stayed locked.
-        if (IsReloading() || (bUseQBZ191 && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
+        if (IsReloading() || ((bUseQBZ191 || bUseM1911) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
         else ActionElapsed += DeltaSeconds;
-        const bool bFireAction = ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation;
+        const bool bFireAction = ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || ActiveActionAnimation == PistolFireLastAnimation || ActiveActionAnimation == PistolAimFireLastAnimation;
         const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
-        const float BlendOut = (bFireAction ? 0.028f : 0.10f) * BlendScale;
+        const float BlendOut = (bFireAction ? 0.028f : (bUseM1911 && IsReloading() ? 0.025f : 0.10f)) * BlendScale;
         const float In = FMath::Clamp(ActionElapsed / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
         const float Out = FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
@@ -1399,6 +1528,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         }
     }
     else GunplayAnimation->ActionAlpha = 0.0f;
+    if (bPistolWorkbench) GunplayAnimation->ActionAlpha = 0.0f;
 }
 
 void AFPSGAMECharacter::AdvanceSpring(FVector& Position, FVector& Velocity, float Stiffness, float Damping, float DeltaSeconds)

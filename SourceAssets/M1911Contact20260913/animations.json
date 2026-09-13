@@ -1,0 +1,67 @@
+{
+  "idle": {
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "M1911_Contact_idle"
+  },
+  "idle_empty": {
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "M1911_Contact_idle_empty"
+  },
+  "aim": {
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_aim"
+  },
+  "aim_empty": {
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_aim_empty"
+  },
+  "fire": {
+    "duration": 0.7333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_fire"
+  },
+  "aim_fire": {
+    "duration": 0.7333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_aim_fire"
+  },
+  "fire_last": {
+    "duration": 0.7333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_fire_last"
+  },
+  "aim_fire_last": {
+    "duration": 0.7333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_aim_fire_last"
+  },
+  "reload": {
+    "duration": 2.2333333333333334,
+    "sample_rate": 120,
+    "action": "M1911_Contact_reload"
+  },
+  "reload_empty": {
+    "duration": 2.7333333333333334,
+    "sample_rate": 120,
+    "action": "M1911_Contact_reload_empty"
+  },
+  "equip_charge": {
+    "duration": 0.9333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_equip_charge"
+  },
+  "equip_charge_empty": {
+    "duration": 0.9333333333333333,
+    "sample_rate": 120,
+    "action": "M1911_Contact_equip_charge_empty"
+  },
+  "inspect": {
+    "duration": 4.966666666666667,
+    "sample_rate": 120,
+    "action": "M1911_Contact_inspect"
+  }
+}

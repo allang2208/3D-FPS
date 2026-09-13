@@ -1,0 +1,186 @@
+{
+  "holographic": {
+    "mesh": "/Game/Weapons/M1911/CompactFit20260913/Meshes/SM_M1911_holographic.SM_M1911_holographic",
+    "slots": {
+      "Holosight": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_holographic_0.M_M1911_holographic_0",
+      "Red_Dot": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_holographic_Adapter.M_M1911_holographic_Adapter"
+    },
+    "bounds_cm": {
+      "min": [
+        -2.8000001907348633,
+        -1.5500001907348633,
+        -1.436294436454773
+      ],
+      "max": [
+        2.8000001907348633,
+        1.5500001907348633,
+        3.9738030433654785
+      ]
+    },
+    "sockets_cm": {
+      "MountForward": [
+        2.999999932944763,
+        -2.622683345164142e-07,
+        0.0
+      ],
+      "MountUp": [
+        0.0,
+        0.0,
+        2.9999999329447746
+      ],
+      "AimCenter": [
+        -0.35958008375018696,
+        3.143549059944951e-08,
+        2.846428006887436
+      ]
+    },
+    "coating_uv": 3,
+    "material_policy": "reuse installed M1911 dry materials and existing rain mappings"
+  },
+  "panoramic_red_dot": {
+    "mesh": "/Game/Weapons/M1911/CompactFit20260913/Meshes/SM_M1911_panoramic_red_dot.SM_M1911_panoramic_red_dot",
+    "slots": {
+      "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+      "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+      "Panoramic_Body": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_2.M_M1911_panoramic_red_dot_2",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_Adapter.M_M1911_panoramic_red_dot_Adapter"
+    },
+    "bounds_cm": {
+      "min": [
+        -1.9000000953674316,
+        -1.7500001192092896,
+        -1.436294436454773
+      ],
+      "max": [
+        1.9000000953674316,
+        1.7500001192092896,
+        2.94455885887146
+      ]
+    },
+    "sockets_cm": {
+      "MountForward": [
+        2.999999932944763,
+        -2.622683345164142e-07,
+        0.0
+      ],
+      "MountUp": [
+        0.0,
+        0.0,
+        2.9999999329447746
+      ],
+      "AimCenter": [
+        1.3174999505281397,
+        -1.1517950849128748e-07,
+        2.0150000229477882
+      ]
+    },
+    "coating_uv": 3,
+    "material_policy": "reuse installed M1911 dry materials and existing rain mappings"
+  },
+  "suppressor": {
+    "mesh": "/Game/Weapons/M1911/CompactFit20260913/Meshes/SM_M1911_suppressor.SM_M1911_suppressor",
+    "slots": {
+      "RifleMetal": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_0.M_M1911_suppressor_0",
+      "RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_Adapter.M_M1911_suppressor_Adapter"
+    },
+    "bounds_cm": {
+      "min": [
+        -1.7000011205673218,
+        -13.020000457763672,
+        -1.7000000476837158
+      ],
+      "max": [
+        1.6999995708465576,
+        1.2400001287460327,
+        1.7000000476837158
+      ]
+    },
+    "sockets_cm": {
+      "MountForward": [
+        -2.622683345164142e-07,
+        -2.999999932944763,
+        0.0
+      ],
+      "MountUp": [
+        0.0,
+        0.0,
+        2.9999999329447746
+      ],
+      "Muzzle": [
+        -1.138244585153922e-06,
+        -13.019999861717174,
+        0.0
+      ]
+    },
+    "coating_uv": 2,
+    "material_policy": "reuse installed M1911 dry materials and existing rain mappings"
+  },
+  "laser": {
+    "mesh": "/Game/Weapons/M1911/CompactFit20260913/laser/SM_TacticalDevice.SM_TacticalDevice",
+    "slots": {
+      "M_Tactical_laser": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_laser_Body.M_M1911_laser_Body",
+      "M_Tactical_Collar": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_Tactical_Collar.M_M1911_Tactical_Collar"
+    },
+    "bounds_cm": {
+      "min": [
+        -1.0710818767547607,
+        6.399999618530273,
+        -3.18294620513916
+      ],
+      "max": [
+        1.0710830688476562,
+        12.380261421203613,
+        0.2858911156654358
+      ]
+    },
+    "sockets_cm": {
+      "Emitter": [
+        -0.005921097591862589,
+        12.450261414568741,
+        -1.8971798941493034
+      ],
+      "AimGuide": [
+        -0.005920835323511786,
+        15.45026153377802,
+        -1.8971798941493034
+      ]
+    },
+    "coating_uv": 1,
+    "material_policy": "reuse installed M1911 dry materials and existing rain mappings"
+  },
+  "flashlight": {
+    "mesh": "/Game/Weapons/M1911/CompactFit20260913/flashlight/SM_TacticalDevice.SM_TacticalDevice",
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_flashlight_Body.M_M1911_flashlight_Body",
+      "M_Tactical_Collar": "/Game/Weapons/M1911/Tactical20260913/Materials/M_M1911_Tactical_Collar.M_M1911_Tactical_Collar"
+    },
+    "bounds_cm": {
+      "min": [
+        -1.3824349641799927,
+        6.400000095367432,
+        -2.8586647510528564
+      ],
+      "max": [
+        1.382437825202942,
+        15.042882919311523,
+        0.2858911156654358
+      ]
+    },
+    "sockets_cm": {
+      "Emitter": [
+        -0.0018219533758850458,
+        15.114879608313634,
+        -1.486272644251585
+      ],
+      "AimGuide": [
+        -0.0018216911075342455,
+        18.114879727522915,
+        -1.486272644251585
+      ]
+    },
+    "coating_uv": 1,
+    "material_policy": "reuse installed M1911 dry materials and existing rain mappings"
+  }
+}

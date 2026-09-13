@@ -1,0 +1,41 @@
+{
+  "durations": {
+    "idle": 3.0,
+    "idle_empty": 3.0,
+    "aim": 0.03333333333333333,
+    "aim_empty": 0.03333333333333333,
+    "fire": 0.7333333333333333,
+    "aim_fire": 0.7333333333333333,
+    "fire_last": 0.7333333333333333,
+    "aim_fire_last": 0.7333333333333333,
+    "reload": 2.2333333333333334,
+    "reload_empty": 2.7333333333333334,
+    "equip_charge": 0.9333333333333333,
+    "equip_charge_empty": 0.9333333333333333,
+    "inspect": 4.966666666666667
+  },
+  "events": {
+    "reload": {
+      "mag_out": 0.31666666666666665,
+      "mag_insert": 1.05,
+      "mag_seat": 1.0666666666666667
+    },
+    "reload_empty": {
+      "mag_out": 0.31666666666666665,
+      "mag_insert": 1.05,
+      "mag_seat": 1.0666666666666667,
+      "slide_release": 1.6
+    },
+    "equip_charge": {}
+  },
+  "sample_rate": 120,
+  "grip_offset": [
+    -2.1513551473617554e-07,
+    0.02988855168223381,
+    0.020969543606042862
+  ],
+  "source_slide_travel": 0.042000085065859255,
+  "source": "Original Infima P9 FBX tracks",
+  "manny": "Existing target rest, mesh and weights preserved",
+  "runtime_testing": "Not performed; user testing pending"
+}

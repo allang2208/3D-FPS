@@ -1,0 +1,77 @@
+{
+  "panoramic_red_dot": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911MuzzleRedDot20260913\\SM_M1911_panoramic_red_dot.fbx",
+    "coating_uv": 3,
+    "slots": [
+      "M_Panoramic_Glass",
+      "M_Panoramic_Reticle",
+      "M_Panoramic_Body",
+      "M1911_AdapterSteel"
+    ],
+    "bounds_author_m": {
+      "min": [
+        -0.01899999938905239,
+        -0.017131658270955086,
+        -0.014362944290041924
+      ],
+      "max": [
+        0.01899999938905239,
+        0.017151208594441414,
+        0.0294455885887146
+      ]
+    },
+    "source": "M1911CompactFit20260913/M1911_CompactOptics_Editable.blend",
+    "reticle_diameter_scale": 2.5,
+    "reticle_diameter_m": 0.001395,
+    "plate_width_m": 0.025,
+    "mount_root_m": [
+      0,
+      0.03,
+      0.0495
+    ],
+    "aim_center_ue_cm": [
+      1.3175,
+      0,
+      2.015
+    ]
+  },
+  "brake": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911MuzzleRedDot20260913\\SM_M1911_brake.fbx",
+    "coating_uv": 2,
+    "slots": [
+      "RifleMetal",
+      "RecessMetal",
+      "M1911_AdapterSteel"
+    ],
+    "bounds_author_m": {
+      "min": [
+        -0.012000000104308128,
+        -0.006399999838322401,
+        -0.012000000104308128
+      ],
+      "max": [
+        0.012000000104308128,
+        0.03400000184774399,
+        0.012000000104308128
+      ]
+    },
+    "source": "M4Muzzles20260910/brake-editable.blend",
+    "body_length_m": 0.04,
+    "outer_diameter_m": 0.024,
+    "mount_root_m": [
+      0,
+      -0.16187465,
+      0.02898
+    ],
+    "muzzle_tip_ue_cm": [
+      0,
+      -3.4,
+      0
+    ],
+    "axis_ue": [
+      0,
+      -1,
+      0
+    ]
+  }
+}

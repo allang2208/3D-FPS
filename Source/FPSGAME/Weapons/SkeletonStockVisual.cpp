@@ -16,6 +16,7 @@ bool IsFactoryStock(FString Name)
 
 void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
 {
+    if (bUseM1911) return;
     auto* Rifle=AKMViewmodel.Get();auto* Asset=Rifle?Rifle->GetSkeletalMeshAsset():nullptr;
     if(!Asset)return;
     const bool AKM=AKMSoviet::Matches(Rifle);

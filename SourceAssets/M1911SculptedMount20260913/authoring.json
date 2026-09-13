@@ -1,0 +1,25 @@
+{
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911SculptedMount20260913\\SM_M1911_panoramic_red_dot.fbx",
+  "source": "M1911MuzzleRedDot20260913/M1911_panoramic_red_dot_Editable.blend",
+  "adapter_max_width_m": 0.0248,
+  "coating_uv": 3,
+  "physical_tile_m": 0.1,
+  "mount_root_m": [
+    0,
+    0.03,
+    0.0495
+  ],
+  "aim_point_ue_cm": [
+    1.3175,
+    0,
+    2.015
+  ],
+  "reticle": "previous enlarged geometry retained",
+  "details": "rounded lofted shoulder, curved slide footprint, radiused rear-sight tunnel, four recessed socket heads",
+  "slots": [
+    "M_Panoramic_Glass",
+    "M_Panoramic_Reticle",
+    "M_Panoramic_Body",
+    "M1911_AdapterSteel"
+  ]
+}

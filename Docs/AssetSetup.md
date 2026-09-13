@@ -82,3 +82,14 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 - 运行 Content：Weapons/ResonanceGrip20260913/MeshyIntegration 与 Weapons/QRPerformanceStock/Meshy20260913，下含 M4、AKM、QBZ191 专用网格/材质。先恢复已有枪体、骨架和装配依赖，再按作者及导入脚本恢复资源；只克隆源码不能得到可运行的完整模型工程。
 - 本次使用 Repaired91871/ImportHost 内容宿主导入，其 Content 是正式 Content 的目录联接，不可递归移走或删除；主项目曾有 AutoFootstep 启动冲突，此方法不代表该冲突已修复。
 - 用户提供资源的公开再分发权尚未确认，源 ZIP/FBX、贴图、Blend、GLB、uasset 及渲染不提交公开仓库。保留源与当前资源，仅归档明确淘汰版本，见 [清单](AssetArchives/resonance-meshy-20260913.json)。本次整理未启动游戏测试。
+
+## M1911 手枪（2026-09-13）
+
+公共仓库包含手枪运行代码、物品/枪匠参数、制作/导入脚本、来源记录和审计入口。完整枪体、手臂、原始 P9 动作及其采样、Blend/FBX/uasset、贴图与音频保留本机；克隆仓库本身不恢复完整模型画面。M1911、Manny、P9、枪钢、光学和声音分别沿用各自许可，第三方 GitHub 镜像不能作为原资产再分发授权。
+
+- 当前枪身：`Content/Weapons/M1911/RearFinish20260913`；当前动作：`Contact20260913` 的待机/射击/拔枪以及 `ReloadReady20260913` 的普通/空仓换弹。枪声仍依赖 `Integrated20260913/Audio`。不要将整份 Integrated 目录当废案删除。
+- 配件：`CompactFit20260913` 的全息/普通消音器/激光/手电；`MuzzleRedDot20260913` 的制退器；`SculptedMount20260913` 的全景红点。保留 `Attachments20260913/Materials`、`Tactical20260913/Materials` 和 Wet 依赖，以及来源 M4 光学玻璃/分划、枪口内腔材料。
+- 后部涂层与雨滴：从 `SourceAssets/M1911RearRain20260913/install_finish_and_rain.py`、`M1911Tactical20260913/register_rain.py` 恢复实际材料映射，包括 RainVisibility / NaturalV2 的 `DA_WeatherPresentation`；需先恢复项目天气母材质与参数。
+- 图标：恢复本机 `Content/ColdSteelData` 中 M1911 原厂图标、`AttachmentIcons20260913` 的轻型扳机、短/长枪管、枪口及战术配件图标。动态武器图标还依赖既有 GunsmithWorkbench 的工作室环境和预览材质。
+- 源重建顺序及保留输入见 [手枪标准](../skills/ue5-weapon-workflow/references/pistols.md)。首先恢复当前 M4/Manny 可编辑源、用户 M1911 FBX 与合法取得的 P9 源；旧源目录即使不再直接加载，仍可能参与重建。
+- 已退役首版输出和备份位于本机 `trash/m1911-development-20260913`；[归档清单](AssetArchives/m1911-development-20260913.json) 保存原路径、替代物和散列。[审计记录](Weapons/m1911-development-audit-20260913.md) 区分本次检查与历史未测试制作。

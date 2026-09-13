@@ -1,0 +1,120 @@
+{
+  "holographic": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\FBX\\holographic.fbx",
+    "uv_index": 3,
+    "physical_tile_m": 0.1,
+    "source_export_slots": [
+      "M_HoloBody",
+      "M_HoloReticle"
+    ],
+    "export_slots": [
+      "M_HoloBody",
+      "M_HoloReticle",
+      "M1911_AdapterSteel"
+    ],
+    "bounds_m": {
+      "min": [
+        -0.02800000086426735,
+        -0.01549999974668026,
+        -0.014362944290041924
+      ],
+      "max": [
+        0.02800000086426735,
+        0.01549999974668026,
+        0.03973802924156189
+      ]
+    },
+    "body_scale": 0.55,
+    "mount_root_m": [
+      0,
+      0.03,
+      0.0495
+    ],
+    "aim_point_ue_cm": [
+      -0.3595800995826721,
+      0.0,
+      2.846428155899048
+    ],
+    "contact": "curved slide shoulders; retained rear sight relief; chamber opening forward of base"
+  },
+  "panoramic_red_dot": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\FBX\\panoramic_red_dot.fbx",
+    "uv_index": 3,
+    "physical_tile_m": 0.1,
+    "source_export_slots": [
+      "M_Panoramic_Glass",
+      "M_Panoramic_Reticle",
+      "M_Panoramic_Body"
+    ],
+    "export_slots": [
+      "M_Panoramic_Glass",
+      "M_Panoramic_Reticle",
+      "M_Panoramic_Body",
+      "M1911_AdapterSteel"
+    ],
+    "bounds_m": {
+      "min": [
+        -0.01899999938905239,
+        -0.017500000074505806,
+        -0.014362944290041924
+      ],
+      "max": [
+        0.01899999938905239,
+        0.017500000074505806,
+        0.0294455885887146
+      ]
+    },
+    "body_scale": 0.62,
+    "mount_root_m": [
+      0,
+      0.03,
+      0.0495
+    ],
+    "aim_point_ue_cm": [
+      1.3174999952316284,
+      0.0,
+      2.015000104904175
+    ],
+    "contact": "curved slide shoulders; retained rear sight relief; chamber opening forward of base"
+  },
+  "suppressor": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\FBX\\suppressor.fbx",
+    "uv_index": 2,
+    "physical_tile_m": 0.1,
+    "source_export_slots": [
+      "Flash_Hider_001",
+      "MI_MuzzleRecess"
+    ],
+    "export_slots": [
+      "Flash_Hider_001",
+      "MI_MuzzleRecess",
+      "M1911_AdapterSteel"
+    ],
+    "bounds_m": {
+      "min": [
+        -0.017000004649162292,
+        -0.012400000356137753,
+        -0.017000000923871994
+      ],
+      "max": [
+        0.016999997198581696,
+        0.13019999861717224,
+        0.017000000923871994
+      ]
+    },
+    "axial_scale": 0.7,
+    "outer_diameter_m": 0.034,
+    "exit_bore_m": 0.013,
+    "extension_m": 0.012,
+    "mount_root_m": [
+      0,
+      -0.16787465,
+      0.02898
+    ],
+    "muzzle_tip_ue_cm": [
+      0,
+      -13.02,
+      0
+    ]
+  }
+}

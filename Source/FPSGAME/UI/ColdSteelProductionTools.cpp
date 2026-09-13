@@ -71,7 +71,7 @@ bool UColdSteelStatusModel::GrantProductionTools()
         if (Item.Data.IsEmpty()) { Message=TEXT("生产工具目录未加载"); return false; }
         if (!ColdSteelInventory::Insert(P.Items, Item))
         {
-            if (!ColdSteelWarehouse::Insert(P.Items,Item,P.WarehousePages*ColdSteelWarehouse::CellsPerPage))
+            if (!ColdSteelWarehouse::Insert(P.Items,Item,WarehouseCapacity()))
             { Message=TEXT("背包和仓库空间不足，腾出空间后按 6 / 7 / 8 领取工具"); return false; }
         }
     }

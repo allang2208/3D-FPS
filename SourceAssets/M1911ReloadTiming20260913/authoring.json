@@ -1,0 +1,20 @@
+{
+  "reload": {
+    "source_action": "M1911_Contact_reload",
+    "action": "M1911_ReloadReady_reload",
+    "unchanged_until_seconds": 1.6,
+    "duration": 1.75,
+    "sample_rate": 120,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911ReloadTiming20260913\\Animations\\A_M1911_reload.fbx",
+    "source_duration": 2.2333333333333334
+  },
+  "reload_empty": {
+    "source_action": "M1911_Contact_reload_empty",
+    "action": "M1911_ReloadReady_reload_empty",
+    "unchanged_until_seconds": 2.1,
+    "duration": 2.25,
+    "sample_rate": 120,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911ReloadTiming20260913\\Animations\\A_M1911_reload_empty.fbx",
+    "source_duration": 2.7333333333333334
+  }
+}

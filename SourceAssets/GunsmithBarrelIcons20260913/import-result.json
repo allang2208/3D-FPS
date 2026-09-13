@@ -1,0 +1,11 @@
+{
+  "category_texture": "/Game/UI/GunsmithWorkbench/ColdGlass/T_Category_barrel.T_Category_barrel",
+  "category_material": "/Game/UI/GunsmithWorkbench/ColdGlass/M_CategoryIcon.M_CategoryIcon",
+  "category_display": "Existing near-black keyed UI material",
+  "option_images": [
+    "Content/ColdSteelData/AttachmentIcons20260913/barrel_short.png",
+    "Content/ColdSteelData/AttachmentIcons20260913/barrel_long.png"
+  ],
+  "factory_option": "Existing category brush fallback",
+  "tests": "Not run, per user instruction"
+}

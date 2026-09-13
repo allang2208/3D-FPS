@@ -2804,5 +2804,45 @@
     "type": "武器",
     "weaponType": "rifle",
     "ue_icon": "Icons/ue_akm.png"
+  },
+  "ue_m1911": {
+    "id": "ue_m1911",
+    "name": "M1911",
+    "icon": "Icons/ue_m1911.png",
+    "ue_icon": "Icons/ue_m1911.png",
+    "category": "weapon",
+    "weaponType": "pistol",
+    "rangedType": "pistol",
+    "weaponTypeTag": "手枪",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "rarity": "common",
+    "stack_max": 1,
+    "grid_w": 3,
+    "grid_h": 2,
+    "type": "武器",
+    "desc": "M1911 半自动手枪，使用 .45 ACP 弹药和 7 发标准弹匣。",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "36"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "7"
+      }
+    ]
+  },
+  "ammo_45acp": {
+    "category": "material",
+    "desc": "M1911 使用的 .45 ACP 弹药。",
+    "icon": "res://assets/ui/icons/equip/ammo_556.png",
+    "icon_fallback": "▥",
+    "id": "ammo_45acp",
+    "name": ".45 ACP 手枪弹",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "弹药",
+    "ue_icon": "Icons/ammo_556.png"
   }
 }

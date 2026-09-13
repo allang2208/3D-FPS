@@ -9,6 +9,8 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 ## 按任务读取
 
+- 手枪接入、末发/空仓状态、小型配件或拔枪打断：[手枪标准](references/pistols.md)，从 M1911 案例沉淀，具体尺寸和时长按新枪重新测量。
+
 - 新枪、新改造件或跨枪复用的材质制作：[枪身与配件材质统一](references/weapon-finish.md)，每枪以自身当前主体为基准，覆盖配件金属区域并保留非金属与光学区域。
 
 - 衣物/手套装备的第一人称表现、皮肤分区、皮革材质和袖口：[手部装备表现标准](../ue5-fps-arms-animation/references/hand-equipment-appearance.md)。复用已接受 Manny 基线；装备数据/存档与外观作者管线按实际任务分别验收。

@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-13",
+  "generator": "Built-in imagegen; one call per asset",
+  "images": [
+    {
+      "key": "category_barrel",
+      "source": "C:/Users/allan/.codex/generated_images/01a099a6-4add-7863-8ae9-9701c486fb20/exec-9a64b608-990a-4017-a44d-5d24ae7deac5.png",
+      "file": "category_barrel.png",
+      "runtime": "/Game/UI/GunsmithWorkbench/ColdGlass/T_Category_barrel.T_Category_barrel",
+      "prompt": "Generate ONE premium photorealistic 2D UI category icon for BARREL in a cold-steel video game gunsmith menu. A single detached generic standard rifle barrel, medium length, gently stepped steel tube with one slightly broader rear chamber collar and a clearly visible dark hollow muzzle, no other components. Arrange diagonally from lower-left foreground muzzle to upper-right rear end in a restrained three-quarter view, fully inside the square with about 14 percent border padding. The barrel is a readable medium-weight silhouette with satin silver-gray brushed steel highlights on the top-left edges, graphite dark recesses and subtle bevels, crisp details optimized for a tiny 48 x 48 pixel category icon. Neutral monochrome cold steel palette, soft upper-left studio lighting. A PERFECTLY PURE SOLID BLACK RGB (0,0,0) background everywhere outside the isolated object: no gradient, no ground plane, no cast shadow outside the object, no vignette. This black background is deliberately required for the game's existing black-key UI material. Square 1024 x 1024 bitmap. No text, letters, logos, labels, numbers, frame, UI panel, bullet, cartridge, complete firearm, hands, suppressor, muzzle brake, gas tube, attachments, dimensions or diagrams. Decorative game UI art, not a technical manufacturing reference."
+    },
+    {
+      "key": "barrel_short",
+      "source": "C:/Users/allan/.codex/generated_images/01a099a6-4add-7863-8ae9-9701c486fb20/exec-bbcd0dff-2f5b-4c04-a703-66166f5e229e.png",
+      "file": "barrel_short.png",
+      "runtime": "Content/ColdSteelData/AttachmentIcons20260913/barrel_short.png",
+      "prompt": "Create ONE photorealistic premium cold-steel game inventory icon: LIGHTWEIGHT SHORT BARREL, a detached generic compact rifle barrel upgrade, decorative 2D UI artwork only. Square 1024 x 1024 image with a genuinely transparent alpha background; no opaque background and no fake checkerboard. The single barrel has a visibly SHORT, LIGHT, compact silhouette, a slim satin silver-gray metal tube with a compact rear chamber collar, subtle fine longitudinal fluting for visual lightness and one simple dark hollow muzzle. Entire object clearly visible, no separate pieces. Three-quarter view, muzzle at lower-left and rear end at upper-right, occupying around 72 percent of the square diagonal with comfortable clear padding. Show a comparatively squat barrel body: roughly three times as long as the rear collar is wide, clearly distinguishable from a long heavy barrel when used as a tiny 64 pixel icon. Satin brushed steel, graphite recesses, restrained bright silver bevels, soft upper-left studio illumination, sharp object silhouette, simple readable geometry, realistic worn-free premium metal. No external gas tube, handguard, suppressor, muzzle brake, firearm receiver, ammunition, hands, floor, cast shadow on a background, frame, labels, text, lettering, logo, dimensions or technical schematics."
+    },
+    {
+      "key": "barrel_long",
+      "source": "C:/Users/allan/.codex/generated_images/01a099a6-4add-7863-8ae9-9701c486fb20/exec-a1133254-eff7-4540-81f4-4233169fd197.png",
+      "file": "barrel_long.png",
+      "runtime": "Content/ColdSteelData/AttachmentIcons20260913/barrel_long.png",
+      "prompt": "Generate ONE high-quality photorealistic square game inventory icon for HEAVY LONG BARREL, matching a cold-steel tactical gunsmith UI. A single detached generic LONG heavy rifle barrel with an elongated, substantial straight steel tube, simple broad cylindrical rear chamber collar and a plain dark hollow muzzle. Smooth uninterrupted weighty body, NO fluting, NO holes along the body, NO perforations or slots. This long barrel must have an unmistakably stretched silhouette compared with a short compact barrel: tube length about seven rear-collar diameters. Three-quarter product view diagonally across the square, muzzle in lower-left foreground and rear collar at upper-right, complete uncropped object with 10 percent clear border padding. Satin silver-gray brushed gun steel, restrained bright upper-left beveled edges, graphite dark shaded metal, soft top-left studio light, clean premium surface, legible silhouette and dark muzzle opening at a tiny 64 x 64 pixel UI size. Genuinely TRANSPARENT alpha background, no opaque black rectangle, no white background, no fake checkerboard, no ground plane or cast shadow outside the object. Square 1024 x 1024 bitmap. Decorative 2D game UI asset only. No text, labels, logos, letters, numbers, border, UI panel, hands, ammunition, whole firearm, sights, gas tube, handguard, suppressor, muzzle brake, dimensions or technical schematics."
+    }
+  ],
+  "factory_option": "barrel/false uses the existing category brush fallback",
+  "tests": "Not run, per user instruction"
+}

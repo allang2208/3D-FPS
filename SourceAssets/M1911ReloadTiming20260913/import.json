@@ -1,0 +1,12 @@
+{
+  "reload": {
+    "path": "/Game/Weapons/M1911/ReloadReady20260913/Animations/A_M1911_reload.A_M1911_reload",
+    "duration": 1.75,
+    "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton"
+  },
+  "reload_empty": {
+    "path": "/Game/Weapons/M1911/ReloadReady20260913/Animations/A_M1911_reload_empty.A_M1911_reload_empty",
+    "duration": 2.25,
+    "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton"
+  }
+}

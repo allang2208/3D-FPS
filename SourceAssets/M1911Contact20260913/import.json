@@ -1,0 +1,20 @@
+{
+  "mesh": "/Game/Weapons/M1911/Hero20260913/SK_M1911_Manny.SK_M1911_Manny",
+  "skeleton": "/Game/Weapons/M1911/P9Retarget20260913/SK_M1911_Manny_Skeleton.SK_M1911_Manny_Skeleton",
+  "animations": {
+    "A_M1911_aim": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_aim.A_M1911_aim",
+    "A_M1911_aim_empty": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_aim_empty.A_M1911_aim_empty",
+    "A_M1911_aim_fire": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_aim_fire.A_M1911_aim_fire",
+    "A_M1911_aim_fire_last": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_aim_fire_last.A_M1911_aim_fire_last",
+    "A_M1911_equip_charge": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_equip_charge.A_M1911_equip_charge",
+    "A_M1911_equip_charge_empty": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_equip_charge_empty.A_M1911_equip_charge_empty",
+    "A_M1911_fire": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_fire.A_M1911_fire",
+    "A_M1911_fire_last": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_fire_last.A_M1911_fire_last",
+    "A_M1911_idle": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_idle.A_M1911_idle",
+    "A_M1911_idle_empty": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_idle_empty.A_M1911_idle_empty",
+    "A_M1911_inspect": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_inspect.A_M1911_inspect",
+    "A_M1911_reload": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_reload.A_M1911_reload",
+    "A_M1911_reload_empty": "/Game/Weapons/M1911/Contact20260913/Animations/A_M1911_reload_empty.A_M1911_reload_empty"
+  },
+  "state": "Imported; not gameplay tested"
+}

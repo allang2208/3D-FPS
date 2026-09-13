@@ -1,0 +1,282 @@
+[
+  {
+    "source": "SourceAssets/M1911Attachments20260913/M1911_Attachments_Editable.blend1",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Attachments20260913/M1911_Attachments_Editable.blend1",
+    "bytes": 2896423,
+    "sha256": "6db34535d7777ef111068c3be2a0becdc03069bf2bd37cbc27f45dd6121dab04",
+    "reason": "Automatic backup; editable source retained",
+    "replacement": "SourceAssets/M1911Attachments20260913/M1911_Attachments_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/M1911CompactFit20260913/M1911_CompactOptics_Editable.blend1",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911CompactFit20260913/M1911_CompactOptics_Editable.blend1",
+    "bytes": 3172829,
+    "sha256": "159fb4e144b42a772ae74d516e43cecdb7e96571cc0de884f6c099759369e430",
+    "reason": "Automatic backup; editable source retained",
+    "replacement": "SourceAssets/M1911CompactFit20260913/M1911_CompactOptics_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/M1911_Manny_Editable.blend1",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/M1911_Manny_Editable.blend1",
+    "bytes": 149815762,
+    "sha256": "51cb0d794033371fbef3c6efe11905d5e388612d90b936397021c67b359c30e7",
+    "reason": "Automatic backup; editable source retained",
+    "replacement": "SourceAssets/M1911Integration20260913/M1911_Manny_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/M1911P9Retarget20260913/M1911_P9_Manny_Editable.blend1",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911P9Retarget20260913/M1911_P9_Manny_Editable.blend1",
+    "bytes": 169977130,
+    "sha256": "8d85d62e56b085b480372c2c809a4a7000389c72cc59dc469af92a567745a8f2",
+    "reason": "Automatic backup; editable source retained",
+    "replacement": "SourceAssets/M1911P9Retarget20260913/M1911_P9_Manny_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Content/ColdSteelData/gunsmith.json",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Content/ColdSteelData/gunsmith.json",
+    "bytes": 30979,
+    "sha256": "ec1ac64ea82d8b32949e60d797cf010302d084833508b009adb131da4f63dcd8",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Content/ColdSteelData/items.json",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Content/ColdSteelData/items.json",
+    "bytes": 77809,
+    "sha256": "cb5e24c7f250c650608c3b5ffbcde1476505dbe0881ccc8a3868cbb94809c620",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/FPSGAMECharacter.cpp",
+    "bytes": 85286,
+    "sha256": "a5cc0bd0f9f7258c41c1d5a99af057b559c56afae84160b1a03ceece4ecf4a1a",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "bytes": 4650,
+    "sha256": "49e5c2f7b0b264761b621244a5831eb060a06085dfbbc3768094444f7388ce56",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+    "bytes": 5698,
+    "sha256": "027b8bb60fe47b8fdb6df82cccc64bd1282366259d3530573b8230bab58e9e97",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+    "bytes": 10213,
+    "sha256": "fed4dc6078651fb7c7f37c928cb70b7a601212eb430e406ac4c40d7d61a86867",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+    "bytes": 14629,
+    "sha256": "27379c2cde50cc4c70b665fca8f17b740e16d9609dc295ee2e15da9efa81819f",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+    "bytes": 23464,
+    "sha256": "891badeb03bb57f20d6f15485a9b033029d1b6e8b5fab2ae99bf8893fe3311a7",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+    "bytes": 2358,
+    "sha256": "9afab91a9fb03433cf601fc2fcbd48641b8fc5c4f474e32b5f32739f01d914d1",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "bytes": 5866,
+    "sha256": "45ac3e54b5da77842a22c24510d35cf5d5838c73bd188f7ddfdd8af6cb3e4f91",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+    "bytes": 9024,
+    "sha256": "cfa31a6aef783da0c93e49669986565c70790431e5c890e26f58ca8f053da455",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "bytes": 13255,
+    "sha256": "0de62e59ba9188f42371a577384903d3c8fffc2f7df326540dc590b0a139de45",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/M4StandalonePreview.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/UI/M4StandalonePreview.cpp",
+    "bytes": 3624,
+    "sha256": "30e6b3cc710694944ee53dd1d4457f939f1956e475820a133dfb2d7242e3a466",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+    "bytes": 8079,
+    "sha256": "a9662e5c1ae0adf6a3adf94ebe759d98abe28e662dd4acbe5b0a6cd4b0c6dc00",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+    "bytes": 11286,
+    "sha256": "b3b3dcf89a7ddc905172e6d72a6c880e5b8919d94109f848fabf4c8ec00a7893",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+    "bytes": 6215,
+    "sha256": "ecfba09e9dce8668af8e39173e4e8ad7b47520cb62d9f69d34838cff8c80bd84",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/Before/Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+    "bytes": 4374,
+    "sha256": "d7e9631f6a0a08315451296ddd9a78694edd9f4801d22697acaa81a178316905",
+    "reason": "Pre-integration recovery snapshot; no active reader",
+    "replacement": "Source/ and current Git history"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_aim.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_aim.fbx",
+    "bytes": 674188,
+    "sha256": "80a45bded7e093b1f6beefc282be33fb1036b7277195535d4821cbacf33f40f5",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_aim_empty.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_aim_empty.fbx",
+    "bytes": 674188,
+    "sha256": "6d2a4c87172707bd5844c9cb6f611bac70485a135b66543e1632b50f7ef43d78",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_aim_fire.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_aim_fire.fbx",
+    "bytes": 944956,
+    "sha256": "dd85c82e7fde002bb07d46a76baa7cf657f1fff835d468b1c2b837e645a8c5ee",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_aim_fire_last.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_aim_fire_last.fbx",
+    "bytes": 944940,
+    "sha256": "99bdc3d56477c4105a90913b9ad95edbbe1acb94dc2ff823a327028b0a420016",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_equip_charge.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_equip_charge.fbx",
+    "bytes": 1254204,
+    "sha256": "6c19e6074e4ba810237cb873607cef3251b660187cf048d413a7f3fdc2be8dbc",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_equip_charge_empty.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_equip_charge_empty.fbx",
+    "bytes": 1254140,
+    "sha256": "0eae98321b6e56193be24fc72539e0164bf64a710463749421063bcde6b28dd1",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_fire.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_fire.fbx",
+    "bytes": 944956,
+    "sha256": "b29d3b1af141ca268696e3353166776ea8bafec2ceae40fba8265add47822895",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_fire_last.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_fire_last.fbx",
+    "bytes": 944940,
+    "sha256": "6512ea9916135c16e099dea5ab6ee9294a02c9d6ec8d20b5dfa3b39f6a0fbccd",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_idle.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_idle.fbx",
+    "bytes": 2619068,
+    "sha256": "a227ac340c93b77e952a2612f5618dd13208c6d896d54d49ed1e712151a1bf0f",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_idle_empty.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_idle_empty.fbx",
+    "bytes": 2619388,
+    "sha256": "12f13124578d6ff3b9c71d5b2defeccbce201f1550928b814911bbe175cbfd20",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_reload.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_reload.fbx",
+    "bytes": 1895996,
+    "sha256": "36c56b2f87f77ba50da11bcf71648ad55d59aa020757f6de66e2d8bef7050284",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/A_M1911_reload_empty.fbx",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/A_M1911_reload_empty.fbx",
+    "bytes": 2431916,
+    "sha256": "7795b9c58dae5bb960f20ee61e10d3f8a530f769edd295360a9cca24a3bddaf5",
+    "reason": "Rejected first-generation authored animation export; P9/contact actions supersede it",
+    "replacement": "SourceAssets/M1911Contact20260913; SourceAssets/M1911ReloadTiming20260913"
+  },
+  {
+    "source": "SourceAssets/M1911Integration20260913/integrate_runtime.py",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Integration20260913/integrate_runtime.py",
+    "bytes": 10668,
+    "sha256": "752ee94b8cd98f6a9bba92723a6d689b2cfd574c27d545995aaf91515a53c4f4",
+    "reason": "Retired one-off text patch installer; not a rebuild entry",
+    "replacement": "Source/FPSGAME and Content/ColdSteelData"
+  },
+  {
+    "source": "SourceAssets/M1911Hero20260913/M1911_Hero_Working.blend",
+    "destination": "trash/m1911-development-20260913/SourceAssets/M1911Hero20260913/M1911_Hero_Working.blend",
+    "bytes": 109234785,
+    "sha256": "9c669f3f7f68c3e4d82279cfe1b6645bb147789e66db7b9d1cbba2009ed20b6f",
+    "reason": "Intermediate pre-export snapshot; final editable source exists",
+    "replacement": "SourceAssets/M1911Hero20260913/M1911_Hero_Editable.blend"
+  }
+]

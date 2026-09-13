@@ -1,6 +1,7 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
+#include "M1911WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -14,6 +15,7 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if (bUseM1911) { SetM1911Optic(Variant); return; }
     const bool LPVO=Variant==TEXT("lpvo_1_6x");
     const bool Panoramic=Variant==TEXT("panoramic_red_dot");
     const bool Scope2X=Variant==TEXT("prism_scope_2x");
@@ -93,6 +95,9 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
+    if(bUseM1911)return OpticVariant==TEXT("panoramic_red_dot")
+        ?FVector(2.125f,0,3.25f)*M1911WeaponAssets::PanoramicBodyScale
+        :FVector(-.653782f,0,5.175324f)*M1911WeaponAssets::HolographicBodyScale;
     if(AKMSoviet::Matches(AKMViewmodel)&&OpticVariant==TEXT("holographic"))return AKMAttachment::HoloPointCM;
     if(OpticVariant==TEXT("lpvo_1_6x"))return FVector(-12.15f,0,4.f);
     if(OpticVariant==TEXT("prism_scope_2x"))return FVector(-6.15f,0,4.f);

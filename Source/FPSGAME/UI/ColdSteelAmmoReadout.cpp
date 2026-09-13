@@ -59,7 +59,7 @@ void UColdSteelAmmoReadout::Refresh(const AFPSGAMECharacter* Character,const UCo
     }
     const auto* Item=Model?Model->Equipped():nullptr;
     FString AmmoName;
-    if(Model){const FString Definition=Model->AmmoDefinition();AmmoName=Definition==TEXT("ammo_556")?TEXT("5.56 mm"):Definition==TEXT("ammo_762")?TEXT("7.62 mm"):TEXT("");}
+    if(Model){const FString Definition=Model->AmmoDefinition();AmmoName=Definition==TEXT("ammo_556")?TEXT("5.56 mm"):Definition==TEXT("ammo_45acp")?TEXT(".45 ACP"):Definition==TEXT("ammo_58")?TEXT("5.8 mm"):Definition==TEXT("ammo_762")?TEXT("7.62 mm"):TEXT("");}
     Present(Item?ColdSteelInventory::Text(*Item,TEXT("name")):TEXT(""),AmmoName,Character?Character->GetMagazineAmmo():0,Character?Character->GetReserveAmmo():0,Character?Character->GetMagazineCapacity():0,Character&&Character->IsReloading(),Character&&Character->HasInventoryWeapon()&&Item);
     if(Character && Item && Character->HasInventoryWeapon() && Character->HasInfiniteReserveAmmo())
     {

@@ -1,0 +1,37 @@
+{
+  "hands": {
+    "r": {
+      "translation_m": [
+        0.0,
+        -0.014,
+        -0.004
+      ],
+      "rotation_rad": [
+        -0.023561944901923454,
+        0.12217304763960307,
+        -0.10471975511965978
+      ],
+      "closure_middle_ring_pinky": 1.036,
+      "closure_index": 0.977,
+      "closure_thumb_distal": 0.976,
+      "author_objective": 0.00022505045090423433
+    },
+    "l": {
+      "translation_m": [
+        0.012,
+        -0.0054,
+        -0.018600000000000002
+      ],
+      "rotation_rad": [
+        0.16318828506146982,
+        0.16318828506146982,
+        -0.13962634015954636
+      ],
+      "closure_middle_ring_pinky": 0.985,
+      "closure_index": 1.03,
+      "closure_thumb_distal": 1.031,
+      "author_objective": 0.0005274890213947092
+    }
+  },
+  "status": "Surface fitting parameters, not an acceptance report"
+}

@@ -15,13 +15,17 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const bool WasWeaponReady=bInventoryWeaponReady;
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191"));
-    if(ActiveInventoryWeapon!=Id||WasWeaponReady!=bInventoryWeaponReady){
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_m1911"));
+    const bool ChangedWeapon=ActiveInventoryWeapon!=Id||WasWeaponReady!=bInventoryWeaponReady;
+    const bool PistolInput=ChangedWeapon&&bInventoryWeaponReady&&I->Definition==TEXT("ue_m1911");
+    const bool ResumePistolAim=PistolInput&&bAimHeld;
+    const bool ResumePistolFire=PistolInput&&bFireHeld;
+    if(ChangedWeapon){
         if (IsTraversing()) Traversal->Cancel();
         StopMechanicalAudio();
         FireReleased();AimReleased();
         ActiveInventoryWeapon=Id;
-        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");InitializeWeaponVisuals();StartEquipCharge();}
+        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseM1911=I->Definition==TEXT("ue_m1911");InitializeWeaponVisuals();StartEquipCharge();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),true);
@@ -52,10 +56,17 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         if(I&&Gunsmith->Weapon(I->Definition))
         {const auto Stats=Gunsmith->Calculate(I->Definition,Parts);ADSInDuration=Stats.ADS;MagazineCapacity=Stats.Capacity;ReloadDuration=Stats.Reload;EmptyReloadDuration=Stats.EmptyReload;
             WeaponHandling=Stats.Handling;BallisticRecoilScale=FWeaponHandling::ReferenceBallisticScale*WeaponHandling.RecoilScale;ProjectileSpeedCM=Stats.Speed*100.f;HipSpreadMultiplier=FMath::Max(0.f,static_cast<float>(Stats.Spread));
-            if(I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")){DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval/FMath::Max(1.f,Profile->Derived(TEXT("aspd")));}}
+            if(I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_m1911")){DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval/FMath::Max(1.f,Profile->Derived(TEXT("aspd")));}}
     }
     if(I)DamagePerShot=Profile->RifleWeaponDamage(*I,DamagePerShot-Profile->Derived(TEXT("atk")))+Profile->Derived(TEXT("atk"));
     MagazineAmmo=I?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=Profile->AmmoCount();
+    // Attachment setters above own each child's equipped visibility. Propagating
+    // here would resurrect optics and tactical bodies just switched to factory.
+    AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing());
+    // Reapply held input only after the new pistol's magazine and stats exist.
+    // A held trigger starts one semiautomatic shot, then still requires release.
+    if(ResumePistolAim)AimPressed();
+    if(ResumePistolFire)FirePressed();
 }
 void AFPSGAMECharacter::EndPlay(const EEndPlayReason::Type Reason)
 {

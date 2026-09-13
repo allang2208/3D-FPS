@@ -40,6 +40,7 @@ void AFPSGAMECharacter::SetGunsmithInspection(bool bInspect)
 
 void AFPSGAMECharacter::SetGunsmithDrum(bool bDrum)
 {
+    if (bUseM1911) return;
     bDrum=bDrum&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel))&&bInventoryWeaponReady;
     auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();if(!WeaponMesh)return;
     if(bUseQBZ191){

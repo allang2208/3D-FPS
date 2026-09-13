@@ -1,0 +1,27 @@
+{
+  "mesh": "/Game/Weapons/M1911/SculptedMount20260913/Meshes/SM_M1911_panoramic_red_dot.SM_M1911_panoramic_red_dot",
+  "materials": {
+    "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+    "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+    "Panoramic_Body": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_2.M_M1911_panoramic_red_dot_2",
+    "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_Adapter.M_M1911_panoramic_red_dot_Adapter"
+  },
+  "coating_uv": 3,
+  "sockets_cm": {
+    "AimCenter": [
+      1.3175000436603972,
+      -1.1517951663316835e-07,
+      2.0150000229477882
+    ],
+    "MountForward": [
+      2.999999932944763,
+      -2.622683345164142e-07,
+      0.0
+    ],
+    "MountUp": [
+      0.0,
+      0.0,
+      2.9999999329447746
+    ]
+  }
+}

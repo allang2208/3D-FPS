@@ -1,0 +1,58 @@
+{
+  "laser": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Tactical20260913\\laser\\SM_TacticalDevice.fbx",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\M4\\laser\\Editable.blend",
+    "body_scale": 1.0,
+    "reference_frame": "M1911 WPN_root authoring metres; FBX centimetres, +Y forward",
+    "uv_index": 1,
+    "physical_tile_m": 0.1,
+    "emitter_blender_m": [
+      -8.459733362542465e-05,
+      -0.1504323035478592,
+      -0.027173997834324837
+    ],
+    "emitter_ue_cm": [
+      -0.008459733362542465,
+      15.04323035478592,
+      -2.7173997834324837
+    ],
+    "tail_y_m": -0.064,
+    "saddle_center_m": [
+      0,
+      -0.086
+    ],
+    "saddle_bridged_samples": 0,
+    "slots": [
+      "M_Tactical_laser.001",
+      "M_Tactical_Collar.001"
+    ]
+  },
+  "flashlight": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Tactical20260913\\flashlight\\SM_TacticalDevice.fbx",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\HunyuanV3\\M4\\flashlight\\Editable.blend",
+    "body_scale": 1.0,
+    "reference_frame": "M1911 WPN_root authoring metres; FBX centimetres, +Y forward",
+    "uv_index": 1,
+    "physical_tile_m": 0.1,
+    "emitter_blender_m": [
+      -2.5328434276161715e-05,
+      -0.18504001200199127,
+      -0.020753787830471992
+    ],
+    "emitter_ue_cm": [
+      -0.0025328434276161715,
+      18.504001200199127,
+      -2.0753787830471992
+    ],
+    "tail_y_m": -0.064,
+    "saddle_center_m": [
+      0,
+      -0.086
+    ],
+    "saddle_bridged_samples": 2,
+    "slots": [
+      "M_Tactical_flashlight.001",
+      "M_Tactical_Collar.001"
+    ]
+  }
+}

@@ -13,6 +13,22 @@ void UM4GunsmithWidget::Choose(bool bHolo)
     ChooseOption(TEXT("optic"),bHolo?TEXT("holographic"):TEXT("false"));
 }
 bool UM4GunsmithWidget::ApplyDraft(){const bool Result=Model()->Apply();RefreshPresentation();return Result;}
+void UM4GunsmithWidget::UndoDraft()
+{
+    Model()->Undo();
+    // Synchronize all current variants, including variable optics and underbarrel options.
+    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
+        if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
+        {
+            C->SetGunsmithOpticVariant(Model()->Draft().FindRef(TEXT("optic")));
+            C->SetGunsmithDrum(Model()->Draft().FindRef(TEXT("magazine"))==TEXT("large_drum"));
+            C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
+            C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
+            C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
+            C->SetGunsmithTactical(Model()->Draft().FindRef(TEXT("tactical")));
+        }
+    RefreshPresentation();
+}
 void UM4GunsmithWidget::ChooseDrum(bool bDrum)
 {
     ChooseOption(TEXT("magazine"),bDrum?TEXT("large_drum"):TEXT("false"));
@@ -36,6 +52,7 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)
 {
+    if(bStandalone){bAimPreview=bAim;bSidePreview=!bAim;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;
     SetSidePreview(false);
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
@@ -44,6 +61,7 @@ void UM4GunsmithWidget::SetAimPreview(bool bAim)
 }
 void UM4GunsmithWidget::SetSidePreview(bool bSide)
 {
+    if(bStandalone){bSidePreview=bSide;bAimPreview=false;if(bSide)PreviewOrbit=FVector2D::ZeroVector;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;
     if(bSide)PreviewOrbit=FVector2D::ZeroVector;
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
@@ -60,7 +78,13 @@ void UM4GunsmithWidget::SelectCategory(const FString& CategorySlot)
     if(const auto* W=Model()->Weapon(Model()->Definition()))if(W->Allowed.Contains(CategorySlot)){SelectedCategory=CategorySlot;RefreshPresentation();}
 }
 void UM4GunsmithWidget::SetCompareFactory(bool bFactory){bCompareFactory=bFactory;RefreshPresentation();}
-TSharedRef<SWidget> UM4GunsmithWidget::RebuildWidget(){SetIsFocusable(true);return BuildWorkbench();}
+TSharedRef<SWidget> UM4GunsmithWidget::RebuildWidget()
+{
+    SetIsFocusable(true);
+    if(const auto* W=Model()->Weapon(Model()->Definition());W&&!W->Allowed.Contains(SelectedCategory)&&!W->Allowed.IsEmpty())
+        SelectedCategory=W->Allowed[0];
+    return BuildWorkbench();
+}
 void UM4GunsmithWidget::NativeConstruct()
 {
     Super::NativeConstruct();

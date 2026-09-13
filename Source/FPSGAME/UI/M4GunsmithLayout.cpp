@@ -1,3 +1,6 @@
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Misc/Paths.h"
+#include "ImageUtils.h"
 #include "M4GunsmithWidget.h"
 #include "SM4PreviewSurface.h"
 #include "ColdSteelUIStyle.h"
@@ -21,6 +24,27 @@ namespace {
 TSharedRef<STextBlock> Label(const FString& Text,int32 Size=16,FLinearColor Color=ColdSteelUI::TextPrimary)
 {return SNew(STextBlock).Text(FText::FromString(Text)).Font(ColdSteelUI::TextFont(Size)).ColorAndOpacity(Color).AutoWrapText(true);}
 }
+void UM4GunsmithWidget::LoadCategoryIcons()
+{
+    CategoryBrushes.Reset();CategoryTextures.Reset();CategoryMaterials.Reset();
+    auto* IconMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/M_CategoryIcon.M_CategoryIcon"));
+    for(const auto& Key:Model()->Slots())
+    {
+        const FString Asset=TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/T_Category_")+Key;
+        auto* Texture=LoadObject<UTexture2D>(nullptr,*(Asset+TEXT(".T_Category_")+Key));
+        if(!Texture)continue;
+        CategoryTextures.Add(Texture);
+        auto Brush=MakeShared<FSlateBrush>();Brush->ImageSize=FVector2D(48,48);Brush->DrawAs=ESlateBrushDrawType::Image;
+        if(IconMaterial)
+        {
+            auto* Material=UMaterialInstanceDynamic::Create(IconMaterial,this);
+            Material->SetTextureParameterValue(TEXT("IconTexture"),Texture);CategoryMaterials.Add(Material);Brush->SetResourceObject(Material);
+        }
+        else Brush->SetResourceObject(Texture);
+        CategoryBrushes.Add(Key,Brush);
+    }
+}
+
 TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
 {
     OptionsSignature.Reset();OptionsCategory.Reset();OptionCards.Reset();
@@ -36,7 +60,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     PrimaryButton.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::TextPrimary,5));
     BackgroundTexture=LoadObject<UTexture2D>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_WorkshopBackground.T_WorkshopBackground"));
     BackgroundBrush.SetResourceObject(BackgroundTexture);BackgroundBrush.ImageSize=FVector2D(1672,941);BackgroundBrush.DrawAs=ESlateBrushDrawType::Image;
-    InitializePreview();
+    LoadCategoryIcons();InitializePreview();
     auto Button=[this](const FString& Text,TFunction<void()> Fn,bool Primary=false){return SNew(SButton).ButtonStyle(Primary?&PrimaryButton:&NormalButton).ContentPadding(FMargin(14,9)).OnClicked_Lambda([Fn](){Fn();return FReply::Handled();})[SNew(STextBlock).Text(FText::FromString(Text)).Font(ColdSteelUI::TextFont(16)).ColorAndOpacity(Primary?FLinearColor(.025f,.035f,.045f,1):ColdSteelUI::TextPrimary)];};
     auto Rail=SNew(SVerticalBox);
     const auto* W=Model()->Weapon(Model()->Definition());
@@ -47,10 +71,10 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         [SNew(SBorder).Padding(2).BorderImage_Lambda([this,Key]()->const FSlateBrush*{return SelectedCategory==Key?&SelectedButton.Normal:FCoreStyle::Get().GetBrush("NoBrush");})
         [SNew(SButton).ButtonStyle(&NormalButton).ForegroundColor_Lambda([this,Key](){return SelectedCategory==Key?ColdSteelUI::Accent:ColdSteelUI::TextPrimary;}).IsEnabled(Enabled).ContentPadding(FMargin(10,8))
             .OnClicked_Lambda([this,Key](){SelectCategory(Key);return FReply::Handled();})
-            [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[SNew(STextBlock).Text(FText::FromString(Name)).Font(ColdSteelUI::TextFont(17)).ColorAndOpacity_Lambda([this,Key](){return SelectedCategory==Key?ColdSteelUI::Accent:ColdSteelUI::TextPrimary;})]+SVerticalBox::Slot().AutoHeight().Padding(0,3,0,0)[Label(Enabled?TEXT("选择部件"):TEXT("待扩展"),11,ColdSteelUI::TextTertiary)]]]];
+            [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[SNew(SBox).WidthOverride(40).HeightOverride(40)[SNew(SImage).Image(CategoryBrushes.Contains(Key)?CategoryBrushes.FindChecked(Key).Get():FCoreStyle::Get().GetBrush("NoBrush"))]]+SVerticalBox::Slot().AutoHeight()[SNew(STextBlock).Text(FText::FromString(Name)).Font(ColdSteelUI::TextFont(17)).ColorAndOpacity_Lambda([this,Key](){return SelectedCategory==Key?ColdSteelUI::Accent:ColdSteelUI::TextPrimary;})]+SVerticalBox::Slot().AutoHeight().Padding(0,3,0,0)[Label(Enabled?TEXT("选择部件"):TEXT("待扩展"),11,ColdSteelUI::TextTertiary)]]]];
     }
     auto Header=SNew(SHorizontalBox)
-        +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(TEXT("装备改造  /  装配工作台"),26)]+SVerticalBox::Slot().AutoHeight().Padding(0,5,0,0)[Label(TEXT("M4A1   ·   5.56 mm   /   选择配件预览，应用后保存"),14,ColdSteelUI::TextSecondary)]]
+        +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(TEXT("装备改造  /  装配工作台"),26)]+SVerticalBox::Slot().AutoHeight().Padding(0,5,0,0)[Label((W?W->Name:TEXT("武器"))+(W&&W->Ammo==TEXT("ammo_45acp")?TEXT("   /   .45 ACP"):W&&W->Ammo==TEXT("ammo_58")?TEXT("   /   5.8 mm"):W&&W->Ammo==TEXT("ammo_762")?TEXT("   /   7.62 mm"):TEXT("   /   5.56 mm"))+TEXT("   /   选择配件预览，应用后保存"),14,ColdSteelUI::TextSecondary)]]
         +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Button(TEXT("Esc  返回"),[this](){if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->CloseGunsmith();})];
     auto Stage=SNew(SOverlay)
         +SOverlay::Slot()[SNew(SScaleBox).Stretch(EStretch::ScaleToFill)[SNew(SImage).Image(&BackgroundBrush)]]
@@ -104,7 +128,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
                 +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(520)[Inspector]]]
             +SVerticalBox::Slot().AutoHeight().Padding(20,14,20,16)[SNew(SHorizontalBox)
                 +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,16,0)[SNew(STextBlock).Text_Lambda([this](){return FText::FromString(StatusText);}).Font(ColdSteelUI::TextFont(14)).ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]
-                +SHorizontalBox::Slot().AutoWidth().Padding(0,0,12,0)[Button(TEXT("撤销更改"),[this](){Model()->Undo();Choose(Model()->Draft().FindRef(TEXT("optic"))==TEXT("holographic"));ChooseDrum(Model()->Draft().FindRef(TEXT("magazine"))==TEXT("large_drum"));})]
+                +SHorizontalBox::Slot().AutoWidth().Padding(0,0,12,0)[Button(TEXT("撤销更改"),[this](){UndoDraft();})]
                 +SHorizontalBox::Slot().AutoWidth()[Button(TEXT("应用并保存"),[this](){ApplyDraft();},true)]]]]];
 }
 
@@ -114,12 +138,26 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     FString Summary=O->Description.Replace(TEXT("\r"),TEXT(" ")).Replace(TEXT("\n"),TEXT(" "));
     if(Summary.Len()>32)Summary=Summary.Left(32)+TEXT("…");
     auto Selected=[this,SlotKey,Id](){return Model()->Draft().FindRef(SlotKey)==Id||(Id==TEXT("false")&&!Model()->Draft().Contains(SlotKey));};
+    const FString IconKey=SlotKey+TEXT("_")+Id;
+    if(!AttachmentBrushes.Contains(IconKey))
+    {
+        const FString IconPath=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913")/(IconKey+TEXT(".png"));
+        if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
+        {
+            AttachmentTextures.Add(Texture);
+            auto Brush=MakeShared<FSlateBrush>();Brush->ImageSize=FVector2D(64,64);
+            Brush->DrawAs=ESlateBrushDrawType::Image;Brush->SetResourceObject(Texture);
+            AttachmentBrushes.Add(IconKey,Brush);
+        }
+    }
+    const FSlateBrush* Icon=AttachmentBrushes.Contains(IconKey)?AttachmentBrushes.FindChecked(IconKey).Get():
+        (CategoryBrushes.Contains(SlotKey)?CategoryBrushes.FindChecked(SlotKey).Get():FCoreStyle::Get().GetBrush("NoBrush"));
     return SNew(SBox).WidthOverride(310).HeightOverride(122)
         [SNew(SBorder).Padding(2).BorderImage_Lambda([this,Selected]()->const FSlateBrush*{return Selected()?&SelectedButton.Normal:FCoreStyle::Get().GetBrush("NoBrush");})
         [SNew(SButton).ButtonStyle(&NormalButton).ContentPadding(FMargin(12,8)).ToolTipText(FText::FromString(O->Name+TEXT("\n")+O->Description))
             .OnClicked_Lambda([this,SlotKey,Id](){ChooseOption(SlotKey,Id);return FReply::Handled();})
             [SNew(SVerticalBox)
                 +SVerticalBox::Slot().AutoHeight()[SNew(STextBlock).Text(FText::FromString(O->Name)).Font(ColdSteelUI::TextFont(17)).ColorAndOpacity(ColdSteelUI::TextPrimary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]
-                +SVerticalBox::Slot().FillHeight(1).Padding(0,5,0,4)[SNew(SBox).Clipping(EWidgetClipping::ClipToBounds)[Label(Summary,12,ColdSteelUI::TextSecondary)]]
+                +SVerticalBox::Slot().FillHeight(1).Padding(0,5,0,4)[SNew(SHorizontalBox)+SHorizontalBox::Slot().AutoWidth().Padding(0,0,8,0)[SNew(SBox).WidthOverride(48).HeightOverride(48)[SNew(SImage).Image(Icon)]]+SHorizontalBox::Slot().FillWidth(1)[SNew(SBox).Clipping(EWidgetClipping::ClipToBounds)[Label(Summary,12,ColdSteelUI::TextSecondary)]]]
                 +SVerticalBox::Slot().AutoHeight()[SNew(STextBlock).Text_Lambda([Selected](){return FText::FromString(Selected()?TEXT("已选择"):TEXT("选择配件"));}).Font(ColdSteelUI::TextFont(12)).ColorAndOpacity_Lambda([Selected](){return Selected()?ColdSteelUI::Accent:ColdSteelUI::TextTertiary;})]]]];
 }

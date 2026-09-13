@@ -1,0 +1,33 @@
+{
+  "holographic": {
+    "mesh": "/Game/Weapons/M1911/Attachments20260913/Meshes/SM_M1911_holographic.SM_M1911_holographic",
+    "source": "/Game/Weapons/M4Holographic/SM_M4_Holographic",
+    "slots": {
+      "Holosight": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_holographic_0.M_M1911_holographic_0",
+      "Red_Dot": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_holographic_Adapter.M_M1911_holographic_Adapter"
+    },
+    "coating_uv": 3
+  },
+  "panoramic_red_dot": {
+    "mesh": "/Game/Weapons/M1911/Attachments20260913/Meshes/SM_M1911_panoramic_red_dot.SM_M1911_panoramic_red_dot",
+    "source": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot",
+    "slots": {
+      "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+      "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+      "Panoramic_Body": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_2.M_M1911_panoramic_red_dot_2",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_Adapter.M_M1911_panoramic_red_dot_Adapter"
+    },
+    "coating_uv": 3
+  },
+  "suppressor": {
+    "mesh": "/Game/Weapons/M1911/Attachments20260913/Meshes/SM_M1911_suppressor.SM_M1911_suppressor",
+    "source": "/Game/Weapons/M4MuzzlesV1/SM_M4_suppressor",
+    "slots": {
+      "RifleMetal": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_0.M_M1911_suppressor_0",
+      "RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_Adapter.M_M1911_suppressor_Adapter"
+    },
+    "coating_uv": 2
+  }
+}

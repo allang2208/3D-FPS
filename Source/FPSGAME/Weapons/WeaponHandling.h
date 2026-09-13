@@ -9,6 +9,8 @@ struct FWeaponHandling
     static constexpr float CameraStiffness = 170.f;
     static constexpr float CameraDamping = 15.f;
     static constexpr float CameraADSDamping = 8.f;
+    static constexpr float ADSJitterMultiplier = 0.45f;
+    static constexpr float MinimumRecoveryTimeScale = 0.25f;
 
     float RecoilIndex = 100.f;
     float ShakeIndex = 100.f;
@@ -17,7 +19,7 @@ struct FWeaponHandling
     float RecoveryTimeScale = 1.f;
     float Stability = 50.f;
 
-    static FWeaponHandling FromIndices(double Recoil, double Shake);
+    static FWeaponHandling FromIndices(double Recoil, double Shake, double StabilityMultiplier = 1.);
     static FVector2D Pattern(int32 ShotIndex);
     static constexpr int32 PatternCount = 9;
     float RecoveryRate() const { return 1.f / RecoveryTimeScale; }

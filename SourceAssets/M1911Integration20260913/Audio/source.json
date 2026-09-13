@@ -1,0 +1,12 @@
+{
+  "source": "The Free Firearm Sound Library, 1911 A_34P",
+  "license": "CC0-1.0",
+  "original": "https://opengameart.org/content/the-free-firearm-sound-library",
+  "mirror": "https://github.com/petroulacl/fps-asset-kit",
+  "edit": {
+    "offset_seconds": 1.53,
+    "duration_seconds": 1.5,
+    "mix": "mono, peak -1.3dB"
+  },
+  "listened_or_tested": false
+}

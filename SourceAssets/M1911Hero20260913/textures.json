@@ -1,0 +1,122 @@
+{
+  "Slide": {
+    "size": 4096,
+    "material": "M_M1911_Hero_Slide",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Slide_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Slide_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Slide_NormalGL.png"
+    },
+    "objects": [
+      "M1911_Slide"
+    ]
+  },
+  "Frame": {
+    "size": 4096,
+    "material": "M_M1911_Hero_Frame",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Frame_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Frame_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Frame_NormalGL.png"
+    },
+    "objects": [
+      "M1911_Frame",
+      "M1911_GripSafety",
+      "M1911_MainspringHousing"
+    ]
+  },
+  "Grip": {
+    "size": 2048,
+    "material": "M_M1911_Hero_Grip",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Grip_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Grip_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Grip_NormalGL.png"
+    },
+    "objects": [
+      "M1911_LeftWoodPanel",
+      "M1911_RightWoodPanel"
+    ]
+  },
+  "Steel": {
+    "size": 2048,
+    "material": "M_M1911_Hero_Steel",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Steel_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Steel_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Steel_NormalGL.png"
+    },
+    "objects": [
+      "M1911_Hammer",
+      "M1911_LanyardLoop",
+      "M1911_MuzzleBushing",
+      "M1911_MagRelease",
+      "M1911_SlideStop",
+      "M1911_Trigger",
+      "M1911_ThumbSafety",
+      "M1911_Detail21",
+      "M1911_RecoilPlug",
+      "M1911_Detail23",
+      "M1911_Detail24",
+      "M1911_Detail25",
+      "M1911_Detail26",
+      "M1911_Detail27",
+      "M1911_Detail30",
+      "M1911_Detail31",
+      "M1911_Detail32",
+      "M1911_Detail34",
+      "M1911_Detail35",
+      "M1911_Detail37",
+      "M1911_Detail38",
+      "M1911_Barrel_Rebuilt",
+      "M1911_ChamberHood",
+      "M1911_Bore_ShadowInsert",
+      "M1911_ChamberRearShadow",
+      "M1911_ExposedGuideSurface",
+      "M1911_GripScrew_17",
+      "M1911_GripScrew_18",
+      "M1911_GripScrew_19",
+      "M1911_GripScrew_20"
+    ]
+  },
+  "Magazine": {
+    "size": 2048,
+    "material": "M_M1911_Hero_Magazine",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Magazine_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Magazine_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Magazine_NormalGL.png"
+    },
+    "objects": [
+      "M1911_MagazineShell",
+      "M1911_MagazineFloorplate",
+      "M1911_MagazineFollower"
+    ]
+  },
+  "Sights": {
+    "size": 1024,
+    "material": "M_M1911_Hero_Sights",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Sights_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Sights_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Sights_NormalGL.png"
+    },
+    "objects": [
+      "M1911_RearSight",
+      "M1911_FrontSight"
+    ]
+  },
+  "Ammo": {
+    "size": 1024,
+    "material": "M_M1911_Hero_Ammo",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Ammo_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Ammo_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911Hero20260913\\Textures\\T_M1911_Hero_Ammo_NormalGL.png"
+    },
+    "objects": [
+      "M1911_Detail7",
+      "M1911_Detail9"
+    ]
+  }
+}

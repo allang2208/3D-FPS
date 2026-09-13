@@ -1,0 +1,27 @@
+{
+  "targets": [
+    "M1911_Detail23",
+    "M1911_Detail24",
+    "M1911_Detail26",
+    "M1911_Detail27",
+    "M1911_Detail30",
+    "M1911_Detail31",
+    "M1911_Detail32",
+    "M1911_Detail34",
+    "M1911_Detail35",
+    "M1911_Detail37",
+    "M1911_Detail38",
+    "M1911_GripScrew_17",
+    "M1911_GripScrew_18",
+    "M1911_GripScrew_19",
+    "M1911_GripScrew_20",
+    "M1911_Hammer",
+    "M1911_LanyardLoop",
+    "M1911_ThumbSafety"
+  ],
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\Textures\\T_M1911_RearUnified_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\Textures\\T_M1911_RearUnified_ORM.png"
+  },
+  "preserved": "Original steel-island UVs, structural normal, AO, barrel/chamber finish, bore cavities, accepted mesh and animations"
+}

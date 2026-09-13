@@ -8,8 +8,33 @@
 #include "Components/SpotLightComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/SkeletalMesh.h"
 #include "Materials/MaterialInterface.h"
 #include "Engine/World.h"
+
+namespace
+{
+FTransform PistolTacticalMount(const USkeletalMeshComponent* Mesh)
+{
+    const auto& Ref=Mesh->GetSkeletalMeshAsset()->GetRefSkeleton();
+    auto Bone=[&Ref](const TCHAR* Name)
+    {
+        FTransform Pose=FTransform::Identity;
+        for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))
+            Pose=Pose*Ref.GetRefBonePose()[I];
+        return Pose;
+    };
+    const FTransform Root=Bone(TEXT("WPN_root"));
+    const FVector Up=Root.GetRotation().GetAxisZ();
+    const FVector Forward=FVector::VectorPlaneProject(
+        Bone(TEXT("WPN_FrontSight")).GetLocation()-Bone(TEXT("WPN_RearSight")).GetLocation(),Up).GetSafeNormal();
+    // The fitted FBX is in centimetres, with +Y along the barrel and +Z up.
+    // Resolve the skeletal bone frame without inheriting the rifles' metre scale.
+    const FQuat SourceFrame=FRotationMatrix::MakeFromXZ(FVector::RightVector,FVector::UpVector).ToQuat();
+    const FTransform Mount(FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat()*SourceFrame.Inverse(),Root.GetLocation());
+    return Mount.GetRelativeTransform(Root);
+}
+}
 
 UTacticalDeviceComponent::UTacticalDeviceComponent()
 {
@@ -30,7 +55,10 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     const bool Active=Enabled&&Rifle&&(Variant==TEXT("laser")||Variant==TEXT("flashlight"));
     SetComponentTickEnabled(Active);
     if(!Active)return;
-    const FString Path=Variant==TEXT("flashlight")
+    const bool Pistol=Family==TEXT("M1911");
+    const FString Path=Pistol
+        ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
+        :Variant==TEXT("flashlight")
         ?FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/SM_TacticalDevice"),*Family)
         :FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/%s/SM_TacticalDevice"),*Family,*Variant);
     if(!Body)
@@ -45,7 +73,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
         Body->EmptyOverrideMaterials();
         Body->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,*Path));AssetPath=Path;
     }
-    if(Variant==TEXT("laser"))
+    if(!Pistol&&Variant==TEXT("laser"))
     {
         const FString OpticalPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/laser/M_%s_laser_Body_OpticalV2"),*Family,*Family);
         if(auto* Optical=LoadObject<UMaterialInterface>(nullptr,*OpticalPath))
@@ -54,7 +82,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,Optical);
         }
     }
-    if(Variant==TEXT("flashlight"))
+    if(!Pistol&&Variant==TEXT("flashlight"))
     {
         const FString MaterialPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/M_%s_flashlight_Body_MetalTail"),*Family,*Family);
         if(auto* MetalTail=LoadObject<UMaterialInterface>(nullptr,*MaterialPath))
@@ -63,7 +91,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,MetalTail);
         }
     }
-    Body->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
+    Body->SetRelativeTransform(Pistol?PistolTacticalMount(Rifle):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
     Body->SetVisibility(Body->GetStaticMesh()!=nullptr);
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
@@ -155,6 +183,6 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
         if(Variant!=TEXT("laser")&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
-    const FString Family=bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
-    TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady&&!bUseM1911);
+    const FString Family=bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
 }

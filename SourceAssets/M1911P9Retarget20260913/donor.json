@@ -1,0 +1,165 @@
+{
+  "source_files": {
+    "idle": "Idle_Pose",
+    "aim": "Aim_Pose",
+    "fire": "Fire",
+    "aim_fire": "Aim_Fire",
+    "reload": "Reload",
+    "reload_empty": "Reload_Empty",
+    "draw": "Unholster",
+    "holster": "Holster",
+    "inspect": "Inspect"
+  },
+  "arms": 68,
+  "weapon_bones": [
+    "root",
+    "magazine",
+    "SOCKET_Magazine",
+    "slide",
+    "SOCKET_Default",
+    "SOCKET_Scope",
+    "hammer",
+    "SOCKET_Muzzle",
+    "SOCKET_Eject",
+    "SOCKET_Grip",
+    "SOCKET_Laser"
+  ],
+  "sample_rate": 120,
+  "clips": {
+    "idle": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 2.0,
+      "duration": 0.03333333333333333,
+      "samples": 5
+    },
+    "aim": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 23.0,
+      "duration": 0.7333333333333333,
+      "samples": 89
+    },
+    "fire": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 23.0,
+      "duration": 0.7333333333333333,
+      "samples": 89
+    },
+    "aim_fire": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 23.0,
+      "duration": 0.7333333333333333,
+      "samples": 89
+    },
+    "reload": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 68.0,
+      "duration": 2.2333333333333334,
+      "samples": 269
+    },
+    "reload_empty": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 83.0,
+      "duration": 2.7333333333333334,
+      "samples": 329
+    },
+    "draw": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 29.0,
+      "duration": 0.9333333333333333,
+      "samples": 113
+    },
+    "holster": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 24.0,
+      "duration": 0.7666666666666667,
+      "samples": 93
+    },
+    "inspect": {
+      "fps": 30,
+      "start": 1.0,
+      "end": 150.0,
+      "duration": 4.966666666666667,
+      "samples": 597
+    }
+  },
+  "weapon_meshes": [
+    {
+      "object": "SM_Handgun_03",
+      "material": "Body",
+      "min": [
+        -0.009943989515304565,
+        -0.0340798544883728,
+        -0.08028645515441894
+      ],
+      "max": [
+        0.00994352638721466,
+        0.108431978225708,
+        0.06418169975280762
+      ]
+    },
+    {
+      "object": "SM_Handgun_03",
+      "material": "Details",
+      "min": [
+        -0.0173634934425354,
+        -0.13145607948303223,
+        -0.07149309635162354
+      ],
+      "max": [
+        0.017363048791885376,
+        0.10025740623474122,
+        0.06046672344207764
+      ]
+    },
+    {
+      "object": "SM_Handgun_03",
+      "material": "Grip",
+      "min": [
+        -0.015517706871032716,
+        0.02297177791595459,
+        -0.07731712341308594
+      ],
+      "max": [
+        0.0155172598361969,
+        0.1099425983428955,
+        0.02943117380142212
+      ]
+    },
+    {
+      "object": "SM_Handgun_03",
+      "material": "Hammer",
+      "min": [
+        -0.003626024127006531,
+        0.06820915222167968,
+        0.031290960311889646
+      ],
+      "max": [
+        0.0036255770921707156,
+        0.09159247398376465,
+        0.061685218811035156
+      ]
+    },
+    {
+      "object": "SM_Handgun_03",
+      "material": "Slide",
+      "min": [
+        -0.011051058769226074,
+        -0.12762696266174317,
+        0.020917007923126223
+      ],
+      "max": [
+        0.011051048040390015,
+        0.08932806015014648,
+        0.06744135856628418
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "panoramic_red_dot": {
+    "mesh": "/Game/Weapons/M1911/MuzzleRedDot20260913/Meshes/SM_M1911_panoramic_red_dot.SM_M1911_panoramic_red_dot",
+    "coating_uv": 3,
+    "materials": {
+      "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+      "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+      "Panoramic_Body": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_2.M_M1911_panoramic_red_dot_2",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_panoramic_red_dot_Adapter.M_M1911_panoramic_red_dot_Adapter"
+    },
+    "sockets_cm": {
+      "AimCenter": [
+        1.3175000436603972,
+        -1.1517951663316835e-07,
+        2.0150000229477882
+      ],
+      "MountForward": [
+        2.999999932944763,
+        -2.622683345164142e-07,
+        0.0
+      ],
+      "MountUp": [
+        0.0,
+        0.0,
+        2.9999999329447746
+      ]
+    }
+  },
+  "brake": {
+    "mesh": "/Game/Weapons/M1911/MuzzleRedDot20260913/Meshes/SM_M1911_brake.SM_M1911_brake",
+    "coating_uv": 2,
+    "materials": {
+      "RifleMetal": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_0.M_M1911_suppressor_0",
+      "RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "M1911_AdapterSteel": "/Game/Weapons/M1911/Attachments20260913/Materials/M_M1911_suppressor_Adapter.M_M1911_suppressor_Adapter"
+    },
+    "sockets_cm": {
+      "Muzzle": [
+        -2.9723746858253575e-07,
+        -3.400000184774386,
+        0.0
+      ],
+      "MountForward": [
+        -2.622683345164142e-07,
+        -2.999999932944763,
+        0.0
+      ],
+      "MountUp": [
+        0.0,
+        0.0,
+        2.9999999329447746
+      ]
+    }
+  }
+}

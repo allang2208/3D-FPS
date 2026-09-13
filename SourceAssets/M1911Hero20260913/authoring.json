@@ -1,0 +1,44 @@
+{
+  "groups": {
+    "Slide": {
+      "triangles": 5436,
+      "parts": 1
+    },
+    "Frame": {
+      "triangles": 5502,
+      "parts": 3
+    },
+    "Grip": {
+      "triangles": 2120,
+      "parts": 2
+    },
+    "Steel": {
+      "triangles": 18262,
+      "parts": 30
+    },
+    "Magazine": {
+      "triangles": 4398,
+      "parts": 3
+    },
+    "Sights": {
+      "triangles": 668,
+      "parts": 2
+    },
+    "Ammo": {
+      "triangles": 1440,
+      "parts": 2
+    }
+  },
+  "notes": [
+    {
+      "slide_original_open_edges": 0
+    }
+  ],
+  "reassigned": {
+    "Hammer": "WPN_Hammer",
+    "MuzzleBushing": "WPN_Slide",
+    "RecoilPlug": "WPN_Slide"
+  },
+  "preserved": "Accepted P9 clips, Manny skin and skeleton rest, weapon transforms and event timings",
+  "state": "Authored, baked and exported; no rendered or gameplay test"
+}
