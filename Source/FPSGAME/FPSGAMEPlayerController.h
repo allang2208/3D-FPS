@@ -30,6 +30,7 @@ protected:
     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 
 private:
+    UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVoxelBuildComponent> VoxelBuilder;
     bool bScopePanelsHidden=false;
     TMap<TWeakObjectPtr<class UUserWidget>,uint8> ScopePanelVisibility;
     UPROPERTY(Transient) TObjectPtr<class ULPVOScopeWidget> ScopeOverlay;

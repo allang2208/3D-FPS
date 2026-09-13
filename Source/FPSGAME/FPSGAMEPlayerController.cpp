@@ -1,5 +1,6 @@
 #include "FPSGAMEPlayerController.h"
 #include "FPSGAMECharacter.h"
+#include "Building/VoxelBuildComponent.h"
 
 #include "UI/ColdSteelHUDWidget.h"
 #include "UI/LPVOScopeWidget.h"
@@ -33,6 +34,7 @@ void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
 
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
+    VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));
     bShowMouseCursor = false;
 }
 
@@ -186,6 +188,8 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    const bool BuildMenuOpen=GunsmithPanel||(WeatherPanel&&WeatherPanel->IsPanelOpen())||(ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen());
+    if(VoxelBuilder&&VoxelBuilder->HandleInput(Params,BuildMenuOpen))return true;
     if(GunsmithPanel)
     {
         if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::J||Params.Key==EKeys::Tab))CloseGunsmith();
