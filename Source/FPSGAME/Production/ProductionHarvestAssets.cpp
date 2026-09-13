@@ -16,8 +16,23 @@ FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant)
     }
     return FSoftObjectPath(TEXT("/Game/RuralAustralia/StaticMeshes/Rocks/Rock_S_02/SM_Rock_S_02.SM_Rock_S_02"));
 }
-FSoftObjectPath Stump(){return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/SM_PoplarStump.SM_PoplarStump"));}
-FSoftObjectPath CutCap(){return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/SM_PoplarCutCap.SM_PoplarCutCap"));}
+int32 TreeVariant(const FSoftObjectPath& Tree)
+{
+    for(int32 Index=0;Index<4;++Index)
+        if(Tree.GetAssetName()==FString::Printf(TEXT("SK_BlackPoplarPCG_%c"),TEXT('A')+Index))return Index;
+    return INDEX_NONE;
+}
+FSoftObjectPath Stump(int32 Variant)
+{
+    const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_OriginalStump_%c.SM_OriginalStump_%c"),Letter,Letter));
+}
+FSoftObjectPath CutCap(int32 Variant)
+{
+    if(Variant==INDEX_NONE)return FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/SM_PoplarCutCap.SM_PoplarCutCap"));
+    const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_OriginalCut_%c.SM_OriginalCut_%c"),Letter,Letter));
+}
 FSoftObjectPath FallingMaterial(int32 Slot)
 {
     return FSoftObjectPath(Slot==0?TEXT("/Game/Items/HarvestTimber/MI_FallingPoplar_Bark.MI_FallingPoplar_Bark"):
@@ -42,7 +57,11 @@ TArray<FSoftObjectPath> LoadSet(bool Wood)
         FSoftObjectPath(TEXT("/Game/Items/LootFX/M_LootBeam.M_LootBeam")),
         FSoftObjectPath(TEXT("/Game/Items/LootFX/M_LootCenter.M_LootCenter")),
         FSoftObjectPath(TEXT("/Engine/BasicShapes/Plane.Plane"))};
-    if(Wood)Paths.Append({PickupMesh(TEXT("wood"),1),PickupMesh(TEXT("wood"),2),Stump(),CutCap(),FallingMaterial(0),FallingMaterial(1),TreeSound(false),TreeSound(true)});
+    if(Wood)
+    {
+        Paths.Append({PickupMesh(TEXT("wood"),1),PickupMesh(TEXT("wood"),2),CutCap(),FallingMaterial(0),FallingMaterial(1),TreeSound(false),TreeSound(true)});
+        for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutCap(Variant)});
+    }
     return Paths;
 }
 }

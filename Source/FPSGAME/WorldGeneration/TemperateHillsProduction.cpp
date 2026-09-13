@@ -106,7 +106,7 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
     // No PCG cell regeneration on each harvest; only the affected instances change.
 }
 
-void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTransform>& Out) const
+void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
     // Reconstruct from the same seeded candidates and persisted depletion IDs.
     // No second stump save schema, and no tree/PCG regeneration on each chop.
@@ -115,6 +115,6 @@ void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTransfo
     {
         FTemperatePlacement P;
         if(TreeCandidate(X,Y,P)&&Bounds.IsInsideXY(P.Transform.GetLocation())&&IsProductionDepleted(0,P.CandidateId))
-            Out.Add(P.Transform);
+            Out.Add(P);
     }
 }

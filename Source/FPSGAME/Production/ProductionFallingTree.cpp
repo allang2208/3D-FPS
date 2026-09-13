@@ -37,7 +37,7 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
             MID->SetScalarParameterValue(TEXT("HarvestTreeHeight"),Plan.LocalHeight);
             Tree->SetMaterial(Index,MID);Materials.Add(MID);
         }
-    CutCap->SetStaticMesh(Cast<UStaticMesh>(ProductionHarvestAssets::CutCap().ResolveObject()));
+    CutCap->SetStaticMesh(Cast<UStaticMesh>(ProductionHarvestAssets::CutCap(ProductionHarvestAssets::TreeVariant(Resource.Mesh)).ResolveObject()));
     CutCap->SetRelativeLocation(FVector(0,0,Plan.CutHeight));
     if(auto* Source=CutCap->GetMaterial(0))
     {

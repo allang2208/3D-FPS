@@ -100,7 +100,7 @@ public:
     uint32 LayoutHash(int32 Layer) const;
     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
-    void GetHarvestedStumps(const FBox& Bounds,TArray<FTransform>& Out) const;
+    void GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;
     void CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction);
 

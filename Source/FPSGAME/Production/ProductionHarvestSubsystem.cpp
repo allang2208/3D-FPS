@@ -100,7 +100,7 @@ void UProductionHarvestSubsystem::Deinitialize()
         if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SyncRuntime();
     for(auto& Pair:Pickups)if(auto* Pickup=Pair.Value.Get())Pickup->Destroy();
     Pickups.Empty();VisibleAfter.Empty();Effects.Empty();
-    if(Stumps)Stumps->DestroyComponent();Stumps=nullptr;
+    for(auto& Component:Stumps)if(Component)Component->DestroyComponent();Stumps.Empty();
     if(WoodLoad)WoodLoad->CancelHandle();if(StoneLoad)StoneLoad->CancelHandle();
     WoodLoad.Reset();StoneLoad.Reset();
     Super::Deinitialize();
@@ -111,21 +111,30 @@ void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
     if(Now<NextStumpRefresh&&!bStumpsDirty)return;
     NextStumpRefresh=Now+1;
     const FIntPoint Cell(FMath::FloorToInt(Eye.X/800),FMath::FloorToInt(Eye.Y/800));
-    if(!bStumpsDirty&&Cell==StumpCell&&Stumps)return;
+    if(!bStumpsDirty&&Cell==StumpCell&&Stumps.Num()==4)return;
     Prepare(true);
-    auto* Mesh=Cast<UStaticMesh>(ProductionHarvestAssets::Stump().ResolveObject());if(!Mesh)return;
-    if(!Stumps)
+    // Four small meshes cut from the four source trees. No hidden full-tree mesh.
+    for(int32 Variant=0;Variant<4;++Variant)
+        if(!ProductionHarvestAssets::Stump(Variant).ResolveObject())return;
+    if(Stumps.IsEmpty())
     {
-        Stumps=NewObject<UInstancedStaticMeshComponent>(Hills.Get(),TEXT("HarvestedStumps"));
-        Hills->AddInstanceComponent(Stumps);Stumps->SetStaticMesh(Mesh);
-        Stumps->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        Stumps->SetCanEverAffectNavigation(false);Stumps->SetCullDistances(5200,6400);
-        Stumps->SetMobility(EComponentMobility::Movable);Stumps->RegisterComponent();
+        for(int32 Variant=0;Variant<4;++Variant)
+        {
+            auto* Component=NewObject<UInstancedStaticMeshComponent>(Hills.Get(),FName(*FString::Printf(TEXT("OriginalStumps_%d"),Variant)));
+            Hills->AddInstanceComponent(Component);
+            Component->SetStaticMesh(Cast<UStaticMesh>(ProductionHarvestAssets::Stump(Variant).ResolveObject()));
+            Component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            Component->SetCanEverAffectNavigation(false);Component->SetCullDistances(5200,6400);
+            Component->SetMobility(EComponentMobility::Movable);Component->RegisterComponent();Stumps.Add(Component);
+        }
     }
-    TArray<FTransform> Places;Hills->GetHarvestedStumps(FBox(Eye-FVector(6400,6400,50000),Eye+FVector(6400,6400,50000)),Places);
-    Places.RemoveAll([&](const auto& P){return FVector::DistSquared2D(P.GetLocation(),Eye)>FMath::Square(6400.f);});
-    Places.Sort([&](const auto& A,const auto& B){return FVector::DistSquared2D(A.GetLocation(),Eye)<FVector::DistSquared2D(B.GetLocation(),Eye);});
+    TArray<FTemperatePlacement> Places;Hills->GetHarvestedStumps(FBox(Eye-FVector(6400,6400,50000),Eye+FVector(6400,6400,50000)),Places);
+    Places.RemoveAll([&](const auto& P){return ProductionHarvestAssets::TreeVariant(P.Mesh)==INDEX_NONE||FVector::DistSquared2D(P.Transform.GetLocation(),Eye)>FMath::Square(6400.f);});
+    Places.Sort([&](const auto& A,const auto& B){return FVector::DistSquared2D(A.Transform.GetLocation(),Eye)<FVector::DistSquared2D(B.Transform.GetLocation(),Eye);});
     if(Places.Num()>64)Places.SetNum(64);
-    Stumps->ClearInstances();Stumps->AddInstances(Places,false,true,false);
+    TArray<FTransform> Groups[4];
+    for(const auto& Place:Places)Groups[ProductionHarvestAssets::TreeVariant(Place.Mesh)].Add(Place.Transform);
+    for(int32 Variant=0;Variant<4;++Variant)
+    {Stumps[Variant]->ClearInstances();Stumps[Variant]->AddInstances(Groups[Variant],false,true,false);}
     StumpCell=Cell;bStumpsDirty=false;
 }

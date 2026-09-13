@@ -19,3 +19,9 @@ Binary assets and authoring sources remain in the local project under its existi
 Photorealistic freshly cut poplar trunk segment, roughly 80 cm long and 30 cm across, thick grey-brown longitudinal bark, irregular but solid cylindrical trunk, clearly readable pale end grain with annual rings and restrained radial splits, natural non-uniform silhouette, no branches, no thin sticks, neutral lighting and plain background. One image supplies front/right/end-grain; the generation condition supplies front/right/back views of the same upright object.
 
 No acceptance rendering, PIE session, gameplay test or audio audition was performed for this revision. Texture baking and import are production steps, not visual acceptance.
+
+## Original-tree stump follow-up
+
+At the user's request, runtime stumps now derive directly from the four existing `SK_BlackPoplarPCG_A/B/C/D` source meshes, cut at local Z=42 cm. `original_stumps_export.py` copies editor `SOURCE_MODEL` geometry through Geometry Script; the ordinary skeletal FBX export contains incomplete fallback geometry for these Nanite trees. `original_stumps_cut.py` retains the original bark UVs, root geometry and origin, and creates matching stump and falling-trunk cut surfaces. `original_stumps_import.py` saves the eight derivatives and reuses the existing bark materials and this revision's end-grain texture. Editable FBX/Blend sources are under `OriginalStumps`.
+
+These derivatives inherit the existing tree asset's license restrictions and remain local binary dependencies. The generated three log variants remain in use; the first generated stump is retained as an earlier local candidate. No new generation or purchase was required for this follow-up.

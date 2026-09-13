@@ -30,7 +30,7 @@ private:
     TMap<FString,double> VisibleAfter;
     TArray<TWeakObjectPtr<AProductionBreakEffect>> Effects;
     TWeakObjectPtr<ATemperateHillsWorld> Hills;
-    UPROPERTY(Transient) TObjectPtr<class UInstancedStaticMeshComponent> Stumps;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UInstancedStaticMeshComponent>> Stumps;
     FIntPoint StumpCell=FIntPoint(MAX_int32,MAX_int32);
     bool bStumpsDirty=true;
     double NextStumpRefresh=0;
