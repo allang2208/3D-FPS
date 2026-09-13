@@ -16,6 +16,9 @@
 #include "NavigationSystem.h"
 #include "NavigationData.h"
 #if WITH_EDITOR
+#include "Animation/AnimSequence.h"
+#include "Animation/AnimData/IAnimationDataModel.h"
+#include "Animation/AnimData/IAnimationDataController.h"
 #include "Animation/Skeleton.h"
 #include "Rendering/SkeletalMeshModel.h"
 #include "Rendering/SkeletalMeshLODModel.h"
@@ -25,8 +28,35 @@ AInfectedMiner::AInfectedMiner():Super()
 {
     Tags.Remove(TEXT("NurseZombie")); Tags.Add(TEXT("InfectedMiner"));
     MaxHealth=180.f; AttackDamage=24.f; AttackRange=150.f;
-    AggroRadius=1100.f; WalkSpeed=55.f; ContactTime=1.5f; ContactEnd=1.75f;
+    AggroRadius=1100.f; WalkSpeed=55.f; ContactTime=11.f/30.f; ContactEnd=17.f/30.f;
     RecoveryTime=1.15f; CorpseSeconds=20.f; ExperienceReward=280;
+}
+bool AInfectedMiner::ApplyAcceptedGrip(UAnimSequence* TargetClip,UAnimSequence* AcceptedIdle)
+{
+#if WITH_EDITOR
+    if(!TargetClip||!AcceptedIdle||TargetClip==AcceptedIdle||TargetClip->GetSkeleton()!=AcceptedIdle->GetSkeleton())return false;
+    const IAnimationDataModel* SourceModel=AcceptedIdle->GetDataModel();
+    const IAnimationDataModel* TargetModel=TargetClip->GetDataModel();
+    if(!SourceModel||!TargetModel)return false;
+    TArray<FName> SourceTracks,TargetTracks;
+    SourceModel->GetBoneTrackNames(SourceTracks);TargetModel->GetBoneTrackNames(TargetTracks);
+    auto& Controller=TargetClip->GetController();Controller.OpenBracket(FText::FromString(TEXT("Preserve accepted miner grip")),false);
+    bool bApplied=true;
+    for(FName Bone:SourceTracks)
+    {
+        const FString Name=Bone.ToString();
+        if(!(Name.StartsWith(TEXT("thumb"))||Name.StartsWith(TEXT("index"))||Name.StartsWith(TEXT("middle"))||Name.StartsWith(TEXT("ring"))||Name.StartsWith(TEXT("pinky"))))continue;
+        const FTransform Pose=SourceModel->GetBoneTrackTransform(Bone,FFrameNumber(0));
+        TArray<FVector> Positions,Scales;TArray<FQuat> Rotations;
+        const int32 Keys=TargetModel->GetNumberOfKeys();
+        Positions.Init(Pose.GetTranslation(),Keys);Rotations.Init(Pose.GetRotation(),Keys);Scales.Init(Pose.GetScale3D(),Keys);
+        if(!TargetTracks.Contains(Bone))Controller.AddBoneCurve(Bone,false);
+        bApplied=Controller.SetBoneTrackKeys(Bone,Positions,Rotations,Scales,false)&&bApplied;
+    }
+    Controller.CloseBracket(false);TargetClip->MarkPackageDirty();return bApplied;
+#else
+    return false;
+#endif
 }
 void AInfectedMiner::BeginPlay()
 {

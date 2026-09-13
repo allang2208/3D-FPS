@@ -1,0 +1,62 @@
+{
+  "version": "EBS original axe tool cycle via native UE IK Retargeter",
+  "source_mesh": "/Game/EasyBuildingSystem/Mannequin/Mesh/SK_Mannequin.SK_Mannequin",
+  "target_mesh": "/Game/Monsters/InfectedMiner/AuthoredChopFinal/SK_InfectedMiner.SK_InfectedMiner",
+  "sources": [
+    "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Axe_Act",
+    "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Axe_Idle",
+    "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Axe_Walk"
+  ],
+  "retargeter": "/Game/Monsters/InfectedMiner/EBSDefault20260913/RTG_EBS_Default_Miner.RTG_EBS_Default_Miner",
+  "ops": [
+    {
+      "name": "Pelvis Motion",
+      "type": "IKRetargetPelvisMotionController",
+      "enabled": true
+    },
+    {
+      "name": "FK Chains",
+      "type": "IKRetargetFKChainsController",
+      "enabled": true
+    },
+    {
+      "name": "Run IK Rig",
+      "type": "IKRetargetRunIKRigController",
+      "enabled": false
+    },
+    {
+      "name": "Root Motion",
+      "type": "IKRetargetRootMotionController",
+      "enabled": true
+    },
+    {
+      "name": "Remap Curves",
+      "type": "IKRetargetCurveRemapController",
+      "enabled": true
+    }
+  ],
+  "clips": {
+    "Attack": {
+      "path": "/Game/Monsters/InfectedMiner/EBSDefault20260913/A_Miner_Default_Axe_Act.A_Miner_Default_Axe_Act",
+      "seconds": 2.1666667461395264
+    },
+    "Idle": {
+      "path": "/Game/Monsters/InfectedMiner/EBSDefault20260913/A_Miner_Default_Axe_Idle.A_Miner_Default_Axe_Idle",
+      "seconds": 2.633333444595337
+    },
+    "Walk": {
+      "path": "/Game/Monsters/InfectedMiner/EBSDefault20260913/A_Miner_Default_Axe_Walk.A_Miner_Default_Axe_Walk",
+      "seconds": 1.0333333015441895
+    }
+  },
+  "contact_time": 0.36666666666666664,
+  "contact_end": 0.5666666666666667,
+  "source_play_rate": 1,
+  "custom_attack_ik": false,
+  "custom_attack_keys": false,
+  "source_ebs_notifies_removed": true,
+  "accepted_finger_grip": "/Game/Monsters/InfectedMiner/AuthoredChopFinal/A_Miner_Idle.A_Miner_Idle",
+  "weapon_mesh": "existing pickaxe retained; free Fab candidate found, not downloaded",
+  "tested": false,
+  "rendered": false
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "name": "A_Mannequin_Axe_Act",
+    "source": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Axe_Act.A_Mannequin_Axe_Act",
+    "seconds": 2.1666667461395264,
+    "frames": 65,
+    "skeleton": "/Game/EasyBuildingSystem/Mannequin/Mesh/UE4_Mannequin_Skeleton.UE4_Mannequin_Skeleton"
+  },
+  {
+    "name": "A_Mannequin_Axe_Idle",
+    "source": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Axe_Idle.A_Mannequin_Axe_Idle",
+    "seconds": 2.633333444595337,
+    "frames": 79,
+    "skeleton": "/Game/EasyBuildingSystem/Mannequin/Mesh/UE4_Mannequin_Skeleton.UE4_Mannequin_Skeleton"
+  },
+  {
+    "name": "A_Mannequin_Axe_Walk",
+    "source": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_Axe_Walk.A_Mannequin_Axe_Walk",
+    "seconds": 1.0333333015441895,
+    "frames": 31,
+    "skeleton": "/Game/EasyBuildingSystem/Mannequin/Mesh/UE4_Mannequin_Skeleton.UE4_Mannequin_Skeleton"
+  },
+  {
+    "name": "A_Mannequin_PickAxe_Act",
+    "source": "/Game/EasyBuildingSystem/Mannequin/Animations/A_Mannequin_PickAxe_Act.A_Mannequin_PickAxe_Act",
+    "seconds": 2.1666667461395264,
+    "frames": 65,
+    "skeleton": "/Game/EasyBuildingSystem/Mannequin/Mesh/UE4_Mannequin_Skeleton.UE4_Mannequin_Skeleton"
+  }
+]

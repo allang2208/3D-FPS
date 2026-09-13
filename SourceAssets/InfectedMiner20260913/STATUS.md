@@ -1,0 +1,11 @@
+# 感染矿工原始工具动作重建
+
+当前源为工程已导入的 Easy Building System V10 工具动画。UE 原生 IK Retargeter 输出同套待机、移动和挥击，替换被用户拒绝的 CMU 动作；不在旧攻击上继续编排姿态。
+
+本轮输出在 `Delivery`：三个 `A_Miner_*.fbx`、可编辑 `InfectedMiner_Editable.blend`、资源及时序记录 `rebuild.json`。身体、手部、绑定、权重、材质和当前矿镐保留已认可版本。
+
+免费替代候选为 [Basic Pickaxe](https://www.fab.com/listings/46ea08b2-1947-40f8-b1e7-f1254d49a912)，尚未下载和接入。用户先前提供的 Orphans 道具包是斧头，不作为十字矿镐替换。
+
+村庄仍使用原矿工蓝图。原生构建及资产接入完成；未运行测试或渲染，交由用户试玩。旧交付目录和旧验收日志保留为历史，不能当成本轮结果。
+
+详见 [本轮说明](../../Docs/InfectedMiner20260913.md) 和 [制作入口](../../Tools/InfectedMiner/README.md)。原始商店素材及派生二进制只保存在本机，不随公开 Git 再分发。

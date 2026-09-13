@@ -13,6 +13,7 @@ public:
     virtual void BeginPlay() override;
     virtual float TakeDamage(float Damage,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer) override;
     UFUNCTION(BlueprintCallable,Category="Miner|Assets") static class UPhysicsAsset* CreatePhysicsAsset(USkeletalMesh* TargetMesh);
+    UFUNCTION(BlueprintCallable,Category="Miner|Assets") static bool ApplyAcceptedGrip(class UAnimSequence* TargetClip,class UAnimSequence* AcceptedIdle);
     UFUNCTION(BlueprintCallable,Category="Miner|Assets",meta=(WorldContext="Context")) static bool BakeTestNavigation(UObject* Context);
 };
 
