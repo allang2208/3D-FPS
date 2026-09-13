@@ -13,7 +13,8 @@ bool AColdSteelPickup::BuildProductionMaterial(const FColdSteelItem& Item)
     if(!ProductionHarvestAssets::IsMaterial(Item.Definition))return false;
     bProductionMaterial=true;SetActorTickInterval(.15f);
     Body->SetSimulatePhysics(false);Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetStaticMesh(nullptr);
-    const bool Wood=Item.Definition==TEXT("wood");const auto Path=ProductionHarvestAssets::PickupMesh(Item.Definition);
+    const bool Wood=Item.Definition==TEXT("wood");
+    const auto Path=ProductionHarvestAssets::PickupMesh(Item.Definition,GetTypeHash(Item.InstanceId)%3);
     if(auto* Asset=Cast<UStaticMesh>(Path.ResolveObject()))InstallProductionMaterial(Asset,Wood);
     else ProductionToolLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Path,
         FStreamableDelegate::CreateWeakLambda(this,[this,Path,Wood]()
@@ -23,17 +24,31 @@ bool AColdSteelPickup::BuildProductionMaterial(const FColdSteelItem& Item)
 void AColdSteelPickup::InstallProductionMaterial(UStaticMesh* Asset,bool Wood)
 {
     const auto Bounds=Asset->GetBounds();
-    const float Scale=(Wood?85.f:24.f)/FMath::Max(1.f,2.f*float(Bounds.BoxExtent.GetMax()));
+    // Authored timber variants already carry their real 73-80 cm dimensions.
+    const float Scale=Wood?1.f:24.f/FMath::Max(1.f,2.f*float(Bounds.BoxExtent.GetMax()));
     Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(Scale));Mesh->SetRelativeLocation(-Bounds.Origin*Scale);
     Body->SetBoxExtent((Bounds.BoxExtent*Scale).ComponentMax(FVector(3)));
     Body->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);Body->SetCollisionResponseToChannel(ECC_PhysicsBody,ECR_Ignore);
-    Body->SetLinearDamping(1.8f);Body->SetAngularDamping(4.f);Body->SetSimulatePhysics(true);Body->SetMassOverrideInKg(NAME_None,Wood?1.2f:.8f);
-    bProductionMaterialReady=true;ProductionSettleSeconds=2.f;
+    const FVector Size=Bounds.BoxExtent*(2*Scale);
+    ProductionMassKg=Wood?FMath::Clamp(float(Size.X*Size.Y*Size.Z)*.000001f*.7854f*550.f,4.f,40.f):.8f;
+    Body->SetLinearDamping(Wood?.7f:1.8f);Body->SetAngularDamping(Wood?1.2f:4.f);
+    Body->SetSimulatePhysics(true);Body->SetMassOverrideInKg(NAME_None,ProductionMassKg);
+    // Older saves contain narrow branch-sized drops; lift a wider replacement out of the ground.
+    for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
+    {
+        FVector At=GetActorLocation();const float Floor=It->Height(At.X,At.Y)+Body->Bounds.BoxExtent.Z+2;
+        if(At.Z<Floor){At.Z=Floor;SetActorLocation(At,false,nullptr,ETeleportType::TeleportPhysics);}break;
+    }
+    bProductionMaterialReady=true;ProductionSettleSeconds=6.f;ProductionQuietSeconds=0;
 }
 void AColdSteelPickup::TickProductionMaterial(float Delta)
 {
     if(!bProductionMaterialReady||ProductionSettleSeconds<=0)return;
-    ProductionSettleSeconds-=Delta;if(ProductionSettleSeconds>0)return;
+    ProductionSettleSeconds-=Delta;
+    const bool Quiet=Body->GetPhysicsLinearVelocity().SizeSquared()<9.f&&Body->GetPhysicsAngularVelocityInDegrees().SizeSquared()<36.f;
+    ProductionQuietSeconds=Quiet?ProductionQuietSeconds+Delta:0;
+    if(ProductionSettleSeconds>0&&ProductionQuietSeconds<.6f)return;
+    ProductionSettleSeconds=0;
     Body->SetPhysicsLinearVelocity(FVector::ZeroVector);Body->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);
     Body->SetSimulatePhysics(false);Body->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     // If terrain collision was streaming during the release, restore to its analytic surface.

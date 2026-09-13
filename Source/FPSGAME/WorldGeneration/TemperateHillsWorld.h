@@ -93,11 +93,14 @@ public:
     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
     FRotator GetStartRotation() const;
     double Height(double X, double Y) const;
+    TemperateRiver::FSample SampleRiver(double X, double Y) const
+    { return RiverPlan ? RiverPlan->Sample(X, Y) : TemperateRiver::FSample(); }
     FVector SurfaceNormal(double X, double Y) const;
     void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
     uint32 LayoutHash(int32 Layer) const;
     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
+    void GetHarvestedStumps(const FBox& Bounds,TArray<FTransform>& Out) const;
     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;
     void CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction);
 

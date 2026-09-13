@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ProductionTreeFallPlan.h"
 #include "ProductionFallingTree.generated.h"
 
 struct FProductionResource;
@@ -17,11 +18,15 @@ public:
     virtual void Tick(float Delta) override;
 private:
     UPROPERTY() TObjectPtr<USkeletalMeshComponent> Tree;
+    UPROPERTY() TObjectPtr<class UStaticMeshComponent> CutCap;
+    UPROPERTY() TArray<TObjectPtr<class UMaterialInstanceDynamic>> Materials;
+    FProductionTreeFallPlan Plan;
+    FVector Scale=FVector::OneVector;
+    FVector LocalFallDirection=FVector::ForwardVector;
     FQuat InitialRotation=FQuat::Identity;
-    FVector FallAxis=FVector::RightVector;
-    FVector LandingPoint=FVector::ZeroVector;
-    float LandingAngle=88.f;
+    float CrownBend=0,PreviousAngle=0;
     uint32 EffectSeed=0;
     bool Landed=false;
+    bool CrownTouched=false;
     float Elapsed=0;
 };

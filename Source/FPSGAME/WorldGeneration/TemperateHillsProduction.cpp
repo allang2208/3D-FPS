@@ -81,7 +81,10 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
     if (Resource.Layer==2) return; // Soil is a finite surface harvest, not terrain excavation.
     if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);
     if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
+    {
         Harvest->Burst(Resource.Layer==0,Hit.ImpactPoint,Resource.Seed);
+        if(Resource.Layer==0)Harvest->RefreshStumps();
+    }
     if (Resource.Layer==0)
     {
         // Remove only the rendered tree instance. Stable candidate IDs remain in
@@ -101,4 +104,17 @@ void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& 
         if (auto* Fall=GetWorld()->SpawnActor<AProductionFallingTree>(Resource.Transform.GetLocation(),Resource.Transform.Rotator(),Spawn)) Fall->InitializeFall(Resource,Direction);
     }
     // No PCG cell regeneration on each harvest; only the affected instances change.
+}
+
+void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTransform>& Out) const
+{
+    // Reconstruct from the same seeded candidates and persisted depletion IDs.
+    // No second stump save schema, and no tree/PCG regeneration on each chop.
+    for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200);Y<=FMath::FloorToInt(Bounds.Max.Y/1200);++Y)
+    for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200);X<=FMath::FloorToInt(Bounds.Max.X/1200);++X)
+    {
+        FTemperatePlacement P;
+        if(TreeCandidate(X,Y,P)&&Bounds.IsInsideXY(P.Transform.GetLocation())&&IsProductionDepleted(0,P.CandidateId))
+            Out.Add(P.Transform);
+    }
 }

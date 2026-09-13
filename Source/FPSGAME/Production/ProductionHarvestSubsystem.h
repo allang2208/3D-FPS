@@ -23,11 +23,17 @@ public:
     bool Ready(bool Wood) const;
     void DelayDrops(const TArray<FString>& Ids,float Delay);
     void Burst(bool Wood,const FVector& At,uint32 Seed,bool Landing=false);
+    void RefreshStumps(){bStumpsDirty=true;}
 private:
     TSharedPtr<FStreamableHandle> WoodLoad,StoneLoad;
     TMap<FString,TWeakObjectPtr<AColdSteelPickup>> Pickups;
     TMap<FString,double> VisibleAfter;
     TArray<TWeakObjectPtr<AProductionBreakEffect>> Effects;
     TWeakObjectPtr<ATemperateHillsWorld> Hills;
+    UPROPERTY(Transient) TObjectPtr<class UInstancedStaticMeshComponent> Stumps;
+    FIntPoint StumpCell=FIntPoint(MAX_int32,MAX_int32);
+    bool bStumpsDirty=true;
+    double NextStumpRefresh=0;
+    void UpdateStumps(const FVector& Eye,double Now);
     float ScanCountdown=0;
 };

@@ -38,6 +38,8 @@ private:
     bool bProductionMaterial=false;
     bool bProductionMaterialReady=false;
     float ProductionSettleSeconds=0;
+    float ProductionQuietSeconds=0;
+    float ProductionMassKg=1.2f;
     TSharedPtr<struct FStreamableHandle> ProductionToolLoad;
     void BuildLootGlow(const FColdSteelItem& Item);
     void FaceLootBeam(const class APlayerController* PC);

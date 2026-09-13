@@ -3,6 +3,7 @@
 #include "../Production/ProductionResource.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Production/ProductionHarvestSubsystem.h"
+#include "../Production/ProductionTreeFallPlan.h"
 #include "../FPSGAMECharacter.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Dom/JsonObject.h"
@@ -124,7 +125,8 @@ bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Targe
     // Depletion and every ground pickup are one profile transaction, before visuals.
     if (!CommitState(MoveTemp(P))) return false;
     Depleted=After == FProductionResource::RequiredHits;
-    if(!Drops.IsEmpty())GetWorld()->GetSubsystem<UProductionHarvestSubsystem>()->DelayDrops(Drops,Target.Layer==0?2.8f:.25f);
+    if(!Drops.IsEmpty())GetWorld()->GetSubsystem<UProductionHarvestSubsystem>()->DelayDrops(Drops,
+        Target.Layer==0?FProductionTreeFallPlan::Make(Target).ReleaseSeconds():.25f);
     Message=Depleted ? (Target.Layer==0?TEXT("树木正在倒下，落地后对准木材按 E 拾取"):
         Target.Layer==1?TEXT("岩石已破碎，对准石材或矿石按 E 拾取"):TEXT("表土已采集，材料收入背包")) :
         FString::Printf(TEXT("%s  %d / %d"),*Target.Name,After,FProductionResource::RequiredHits);

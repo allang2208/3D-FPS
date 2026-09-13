@@ -10,6 +10,8 @@
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
+#include "Components/InstancedStaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
 
 bool UProductionHarvestSubsystem::ShouldCreateSubsystem(UObject* Outer) const
 {
@@ -26,7 +28,10 @@ void UProductionHarvestSubsystem::Prepare(bool Wood)
 bool UProductionHarvestSubsystem::Ready(bool Wood) const
 {
     const auto& Handle=Wood?WoodLoad:StoneLoad;
-    return Handle&&Handle->HasLoadCompleted()&&ProductionHarvestAssets::PickupMesh(Wood?TEXT("wood"):TEXT("stone")).ResolveObject();
+    if(!Handle||!Handle->HasLoadCompleted())return false;
+    if(Wood)
+        for(const auto& Path:ProductionHarvestAssets::LoadSet(true))if(!Path.ResolveObject())return false;
+    return ProductionHarvestAssets::PickupMesh(Wood?TEXT("wood"):TEXT("stone")).ResolveObject()!=nullptr;
 }
 void UProductionHarvestSubsystem::DelayDrops(const TArray<FString>& Ids,float Delay)
 {
@@ -54,6 +59,7 @@ void UProductionHarvestSubsystem::Tick(float Delta)
     const auto WorldId=Hills->WorldId;
     const FVector Eye=Pawn->GetActorLocation();
     const double Now=GetWorld()->GetTimeSeconds();
+    UpdateStumps(Eye,Now);
     for(auto It=VisibleAfter.CreateIterator();It;++It)if(It.Value()<=Now)It.RemoveCurrent();
     struct FCandidate {FString Id;double Distance;};
     TArray<FCandidate> Candidates;
@@ -94,7 +100,32 @@ void UProductionHarvestSubsystem::Deinitialize()
         if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SyncRuntime();
     for(auto& Pair:Pickups)if(auto* Pickup=Pair.Value.Get())Pickup->Destroy();
     Pickups.Empty();VisibleAfter.Empty();Effects.Empty();
+    if(Stumps)Stumps->DestroyComponent();Stumps=nullptr;
     if(WoodLoad)WoodLoad->CancelHandle();if(StoneLoad)StoneLoad->CancelHandle();
     WoodLoad.Reset();StoneLoad.Reset();
     Super::Deinitialize();
+}
+
+void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
+{
+    if(Now<NextStumpRefresh&&!bStumpsDirty)return;
+    NextStumpRefresh=Now+1;
+    const FIntPoint Cell(FMath::FloorToInt(Eye.X/800),FMath::FloorToInt(Eye.Y/800));
+    if(!bStumpsDirty&&Cell==StumpCell&&Stumps)return;
+    Prepare(true);
+    auto* Mesh=Cast<UStaticMesh>(ProductionHarvestAssets::Stump().ResolveObject());if(!Mesh)return;
+    if(!Stumps)
+    {
+        Stumps=NewObject<UInstancedStaticMeshComponent>(Hills.Get(),TEXT("HarvestedStumps"));
+        Hills->AddInstanceComponent(Stumps);Stumps->SetStaticMesh(Mesh);
+        Stumps->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        Stumps->SetCanEverAffectNavigation(false);Stumps->SetCullDistances(5200,6400);
+        Stumps->SetMobility(EComponentMobility::Movable);Stumps->RegisterComponent();
+    }
+    TArray<FTransform> Places;Hills->GetHarvestedStumps(FBox(Eye-FVector(6400,6400,50000),Eye+FVector(6400,6400,50000)),Places);
+    Places.RemoveAll([&](const auto& P){return FVector::DistSquared2D(P.GetLocation(),Eye)>FMath::Square(6400.f);});
+    Places.Sort([&](const auto& A,const auto& B){return FVector::DistSquared2D(A.GetLocation(),Eye)<FVector::DistSquared2D(B.GetLocation(),Eye);});
+    if(Places.Num()>64)Places.SetNum(64);
+    Stumps->ClearInstances();Stumps->AddInstances(Places,false,true,false);
+    StumpCell=Cell;bStumpsDirty=false;
 }
