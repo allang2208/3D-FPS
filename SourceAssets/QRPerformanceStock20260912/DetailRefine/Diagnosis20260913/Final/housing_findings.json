@@ -1,0 +1,18 @@
+{
+  "M4": {
+    "housing_material": [
+      "StockMetal_Refined"
+    ],
+    "planar_side_max_corner_normal_degrees": 1.876280072315771,
+    "planar_faces_above_5_degrees": 0,
+    "mount_gun_surface_crossings": []
+  },
+  "AKM": {
+    "housing_material": [
+      "StockMetal_Refined"
+    ],
+    "planar_side_max_corner_normal_degrees": 1.876280072315771,
+    "planar_faces_above_5_degrees": 0,
+    "mount_gun_surface_crossings": []
+  }
+}

@@ -109,10 +109,25 @@ def map_uv(o,key):
   for li in f.loop_indices:
    p=o.data.vertices[o.data.loops[li].vertex_index].co
    a=(p[ua]+.5)/19.5;b=(p[va]+11.5)/15.5
-   if is_metal and key=='akm':a=p[ua]/12-tu;b=p[va]/2.5-tv
+   if is_metal and key=='akm':
+    a=p[ua]/12-tu;b=p[va]/2.5-tv
+    # Reflect alternate atlas tiles so neighboring metal panels share the
+    # same sampled edge, rather than jumping from one atlas edge to another.
+    if tu%2:a=1-a
+    if tv%2:b=1-b
    if is_metal:uv.data[li].uv=(box[0]+(box[2]-box[0])*max(.005,min(.995,a)),box[1]+(box[3]-box[1])*max(.005,min(.995,b)))
    else:uv.data[li].uv=(a,b)
  uv.active_render=True
+ # Boolean cuts and AKM atlas splits change topology after the first normal
+ # pass. Rebuild normals here, after the last geometry edit, before export.
+ o.data.normals_split_custom_set([(0,0,0)]*len(o.data.loops))
+ finish(o,0)
+ # Extruded planar faces must stay planar even beside tiny inset bevels.
+ normals=[tuple(n.vector) for n in o.data.corner_normals]
+ for face in o.data.polygons:
+  if max(abs(v) for v in face.normal)>.99999 and face.area>.015:
+   for li in face.loop_indices:normals[li]=tuple(face.normal)
+ o.data.normals_split_custom_set(normals)
 
 for key in ['m4','akm']:
  bpy.ops.wm.open_mainfile(filepath=str(P/key.upper()/'QRPerformanceStock_Editable.blend'))
@@ -137,20 +152,24 @@ for key in ['m4','akm']:
  # An inset channel follows the long front diagonal on both sides.
  channel=xy([(304,424),(321,426),(474,616),(492,632),(506,629),(498,645),(478,648),(461,629)])
  for side in [-1,1]:cut(frame,prism('Diagonal_channel_tool',channel,.24,metal,y=side*1.04,edge=.045),'Diagonal relief channel')
+ if key=='m4':cut(frame,block('M4_endplate_clearance',(-.20,0,0),(1.80,6,8),metal,edge=0),'Clear M4 receiver endplate')
  finish(frame,.08,4)
 
  # The housing steps up from the existing front mount. Its inner passage is
  # continuous and its cheek panels have separate seams and fine geometry.
- housing=prism('Rounded_cheek_housing',[(.28,-1.64),(.28,1.63),(1.08,TOP),(15.94,TOP),(16.48,TOP-.11),(16.59,TOP-.45),(16.58,-1.79),(16.18,-2.04),(6.91,-2.04),(4.86,-1.57),(3.75,-1.15),(1.3,-1.15)],4.34,poly)
- cut(housing,cylinder('Continuous_mount_passage',(8,0,0),1.22,18,poly,axis='X',segments=96),'Open buffer tube passage')
+ front=.70 if key=='m4' else .28
+ housing=prism('Rounded_cheek_housing',[(front,-1.64),(front,1.63),(1.08,TOP),(15.94,TOP),(16.48,TOP-.11),(16.59,TOP-.45),(16.58,-1.79),(16.18,-2.04),(6.91,-2.04),(4.86,-1.57),(3.75,-1.15),(1.3,-1.15)],4.34,metal)
+ cut(housing,cylinder('Continuous_mount_passage',(8,0,0),1.22,18,metal,axis='X',segments=96),'Open buffer tube passage')
+ if key=='akm':cut(housing,block('AKM_tang_pocket',(.51,0,1.06),(1.62,2.34,1.32),metal,edge=0),'Clear AKM upper receiver tang')
  finish(housing,.22,5)
  # Thin annular front coupling: a real opening and a small readable rim.
- collar=cylinder('Front_metal_coupling',(.27,0,0),1.46,.52,metal,axis='X',segments=96)
- cut(collar,cylinder('Collar_opening',(.27,0,0),1.22,1.3,metal,axis='X',segments=96),'Open mounting ring');finish(collar,.035,4)
+ collar_x=.92 if key=='m4' else 1.60
+ collar=cylinder('Front_metal_coupling',(collar_x,0,0),1.46,.52,metal,axis='X',segments=96)
+ cut(collar,cylinder('Collar_opening',(collar_x,0,0),1.22,1.3,metal,axis='X',segments=96),'Open mounting ring');finish(collar,.035,4)
 
  pad_profile=xy([(212,133),(644,133),(656,145),(654,220),(641,234),(332,234),(245,195),(219,181)])
  for side in [-1,1]:
-  cut(housing,prism('Cheek_panel_recess',pad_profile,.20,poly,y=side*2.16,edge=.075),'Inset cheek panel seam')
+  cut(housing,prism('Cheek_panel_recess',pad_profile,.20,metal,y=side*2.16,edge=.075),'Inset cheek panel seam')
   # Slightly inset edge leaves a narrow continuous shadow line around insert.
   cx=sum(p[0] for p in pad_profile)/len(pad_profile);cz=sum(p[1] for p in pad_profile)/len(pad_profile)
   inset=[(cx+(x-cx)*.987,cz+(z-cz)*.943) for x,z in pad_profile]
@@ -177,8 +196,11 @@ for key in ['m4','akm']:
   z=TOP-.96-i*.404;block('Shoulder_pad_tread_%02d'%i,(17.83,0,z),(.20,2.82,.13),rubber,.045)
 
  if key=='akm':
-  adapter=block('AKM_receiver_cover',(.16,0,-.25),(.50,4.10,3.80),metal,edge=0)
-  cut(adapter,cylinder('AKM_cover_passage',(.16,0,0),1.35,1.5,metal,axis='X',segments=96),'AKM independent receiver passage');finish(adapter,.055,4)
+  # The receiver's retained rim reaches X=.282 cm in this stock frame.
+  # Start the cover at .31 cm; retain the shared gun-root mount and silhouette.
+  adapter=block('AKM_receiver_cover',(.48,0,-.25),(.34,4.10,3.80),metal,edge=0)
+  cut(adapter,cylinder('AKM_cover_passage',(.48,0,0),1.35,1.5,metal,axis='X',segments=96),'AKM independent receiver passage')
+  cut(adapter,block('AKM_cover_tang_pocket',(.48,0,1.06),(1.5,2.34,1.32),metal,edge=0),'Clear AKM cover tang');finish(adapter,.055,4)
 
  for o in parts:map_uv(o,key)
  out=R/key.upper();out.mkdir(parents=True,exist_ok=True)

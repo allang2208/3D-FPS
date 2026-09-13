@@ -1,5 +1,5 @@
 """Import the user-requested QR detail rebuild. No tests or asset audit."""
-import unreal as u
+import unreal as u, json
 from pathlib import Path
 R=Path(__file__).parent;D='/Game/Weapons/QRPerformanceStock';A=u.AssetToolsHelpers.get_asset_tools();L=u.EditorAssetLibrary;M=u.MaterialEditingLibrary
 
@@ -20,4 +20,5 @@ for key,path in [('M4','/Game/Weapons/M4InfimaV3/Body_001'),('AKM','/Game/Weapon
  for index,slot in enumerate(mesh.static_materials):
   name=str(slot.material_slot_name);mesh.set_material(index,poly if 'Polymer' in name else rubber if 'Rubber' in name else body)
  L.save_loaded_asset(mesh,False);u.log('QR_REFINED_IMPORTED '+task.destination_path+'/SM_QRPerformanceStock')
-u.log('QR refinement import completed. No validation or runtime tests executed.')
+ u.log('QR_MATERIAL_BINDINGS '+json.dumps({'gun':key,'slots':[{'slot':str(s.material_slot_name),'material':s.material_interface.get_path_name() if s.material_interface else None} for s in mesh.static_materials]}))
+u.log('QR refinement import completed. Runtime gameplay tests not executed.')
