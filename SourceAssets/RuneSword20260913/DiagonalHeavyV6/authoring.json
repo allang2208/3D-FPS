@@ -1,0 +1,63 @@
+{
+  "revision": "DiagonalHeavyV6",
+  "geometry_scale_from_v3": 0.8,
+  "idle_blade_roll_degrees": 115,
+  "blade_contact_orientation": "width axis tangent to diagonal arc; independent of idle face",
+  "windup_seconds": 0.4,
+  "hold_seconds": 0.5,
+  "fast_phase_seconds": [
+    0.9,
+    1.015
+  ],
+  "attack_seconds": 1.65,
+  "contact_arc_degrees": 220,
+  "followthrough_arc_end_degrees": 208,
+  "load_guard_cm": [
+    27,
+    30,
+    10
+  ],
+  "finish_guard_cm": [
+    -37,
+    26,
+    -31
+  ],
+  "second_slash": "mirror weapon trajectory across X; preserve anatomical left/right grips",
+  "ready_grasp_degrees": {
+    "l": -25.000000000000004,
+    "r": -126.99999999999999
+  },
+  "clips": {
+    "Slash1": {
+      "duration": 1.65,
+      "fps": 240,
+      "frames": 397,
+      "loop": false,
+      "contact_window": [
+        0.9,
+        1.015
+      ],
+      "hold_window": [
+        0.4,
+        0.9
+      ]
+    },
+    "Slash2": {
+      "duration": 1.65,
+      "fps": 240,
+      "frames": 397,
+      "loop": false,
+      "contact_window": [
+        0.9,
+        1.015
+      ],
+      "hold_window": [
+        0.4,
+        0.9
+      ]
+    }
+  },
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "retained_actions_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\AzureRunesword_Manny_Editable.blend",
+  "arm_solution": "continuous grasp path, fixed load hold, joint elbow separation, unchanged bone lengths/rest/weights"
+}

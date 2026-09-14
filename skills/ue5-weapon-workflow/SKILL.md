@@ -1,13 +1,15 @@
 ---
 name: ue5-weapon-workflow
-description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、枪匠配件、ADS、机械部件、音效、武器数据与装备存档闭环。用于 FPSGAME 的枪械标准工作流；手臂姿态与换弹精修转 ue5-fps-arms-animation。
+description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻重攻击、连击、突刺、格挡，以及新枪与手模接入、枪匠配件、ADS、机械部件、音效、武器数据与装备存档闭环。用于 FPSGAME 的武器标准工作流；手臂姿态与换弹精修转 ue5-fps-arms-animation。
 ---
 
-# UE5 枪械标准工作流
+# UE5 武器标准工作流
 
 本 FPS 项目于 2026-09-10 全面转向 UE5，当前本地宿主为 `D:/FPS3D/FPSGAME/FPSGAME.uproject`（已验证 UE 5.8.2）。Git 远端 `3D-FPS` 的 main 已以根目录 `FPSGAME.uproject` / `Source` 发布 UE5 当前源码；本地 Git 根目录就是 `D:/FPS3D/FPSGAME`，直接在这里开发、提交和推送 `origin/main`；E 盘旧仓库与发布副本已归档，不再作为同步入口。默认新功能落在 UE 工程。用户明确要求维护旧原型时才使用 Godot 实现。此选择不改变其他项目的引擎。
 
 ## 按任务读取
+
+- 近战武器、双手剑、轻重攻击、三段连击、突刺和格挡：[近战标准](references/melee.md)。双手动作转手臂技能；未获满意的格挡不能作为成功母版。
 
 - 手枪接入、末发/空仓状态、小型配件或拔枪打断：[手枪标准](references/pistols.md)，从 M1911 案例沉淀，具体尺寸和时长按新枪重新测量。
 

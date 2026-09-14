@@ -1,0 +1,45 @@
+{
+  "revision": "WristRiftV3",
+  "assets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\A_RuneSword_Idle.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Idle.A_RuneSword_Idle"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\A_RuneSword_Walk.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Walk.A_RuneSword_Walk"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\A_RuneSword_Slash1.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash1.A_RuneSword_Slash1"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\A_RuneSword_Slash2.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash2.A_RuneSword_Slash2"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\A_RuneSword_Equip.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Equip.A_RuneSword_Equip"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\A_RuneSword_Sprint.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Sprint.A_RuneSword_Sprint"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\SM_RuneRift_Slash1.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/WristRiftV3/SM_RuneRift_Slash1.SM_RuneRift_Slash1"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Export\\SM_RuneRift_Slash2.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/WristRiftV3/SM_RuneRift_Slash2.SM_RuneRift_Slash2"
+    }
+  ],
+  "refraction": {
+    "material": "/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift.M_RuneRift",
+    "existing_noise": "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_NoiseNormal_A.T_NoiseNormal_A",
+    "reference_material": "/Game/RPGEnvironmentVFX/Essentials/Materials/M_HeatDistortion",
+    "method": "IndexOfRefraction",
+    "depth_test": true,
+    "translucency_pass": "BeforeDOF"
+  }
+}

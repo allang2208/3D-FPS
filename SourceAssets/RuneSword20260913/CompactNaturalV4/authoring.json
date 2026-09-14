@@ -1,0 +1,271 @@
+{
+  "revision": "CompactNaturalV4",
+  "geometry_scale_from_v3": 0.8,
+  "blade_roll_from_v3_degrees": -20,
+  "ready_guard_cm": [
+    13,
+    48,
+    -8
+  ],
+  "idle_blade_roll_delta_degrees": 70,
+  "fast_phase_seconds": [
+    0.23,
+    0.345
+  ],
+  "fast_phase_speed_multiplier": 2,
+  "ready_grasp_degrees": {
+    "l": -25.000000000000004,
+    "r": -126.99999999999999
+  },
+  "contact_yaw_degrees": 160,
+  "sweep_keys_in_v2_source_time": {
+    "Slash1": [
+      [
+        0,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        65
+      ],
+      [
+        0.07,
+        0.14,
+        0.36,
+        -0.07,
+        -82,
+        -18,
+        45
+      ],
+      [
+        0.14,
+        0.18,
+        0.32,
+        -0.03,
+        -100,
+        -80,
+        30
+      ],
+      [
+        0.23,
+        0.18,
+        0.34,
+        -0.06,
+        -80,
+        -85,
+        25
+      ],
+      [
+        0.335,
+        0,
+        0.42,
+        -0.04,
+        0,
+        -85,
+        25
+      ],
+      [
+        0.46,
+        -0.18,
+        0.34,
+        -0.09,
+        80,
+        -85,
+        25
+      ],
+      [
+        0.55,
+        -0.2,
+        0.32,
+        -0.12,
+        96,
+        -85,
+        30
+      ],
+      [
+        0.65,
+        -0.12,
+        0.35,
+        -0.06,
+        95,
+        -18,
+        45
+      ],
+      [
+        0.75,
+        0.08,
+        0.44,
+        -0.07,
+        40,
+        -18,
+        60
+      ],
+      [
+        0.8333333333333334,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        65
+      ]
+    ],
+    "Slash2": [
+      [
+        0,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        65
+      ],
+      [
+        0.07,
+        -0.1,
+        0.36,
+        -0.08,
+        85,
+        -18,
+        45
+      ],
+      [
+        0.14,
+        -0.18,
+        0.32,
+        -0.09,
+        100,
+        -85,
+        30
+      ],
+      [
+        0.23,
+        -0.18,
+        0.34,
+        -0.09,
+        80,
+        -85,
+        25
+      ],
+      [
+        0.34,
+        0,
+        0.42,
+        -0.04,
+        0,
+        -85,
+        25
+      ],
+      [
+        0.46,
+        0.18,
+        0.34,
+        -0.06,
+        -80,
+        -85,
+        25
+      ],
+      [
+        0.54,
+        0.2,
+        0.32,
+        -0.03,
+        -96,
+        -82,
+        30
+      ],
+      [
+        0.65,
+        0.16,
+        0.35,
+        -0.04,
+        -95,
+        -18,
+        45
+      ],
+      [
+        0.75,
+        0.14,
+        0.44,
+        -0.07,
+        -40,
+        -18,
+        60
+      ],
+      [
+        0.8333333333333334,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        65
+      ]
+    ]
+  },
+  "clips": {
+    "Idle": {
+      "duration": 3.3333333333333335,
+      "fps": 240,
+      "frames": 801,
+      "loop": true,
+      "reference": "Sword_Idle",
+      "contact_window": null
+    },
+    "Walk": {
+      "duration": 0.9166666666666666,
+      "fps": 240,
+      "frames": 221,
+      "loop": true,
+      "reference": "Sword_Walk",
+      "contact_window": null
+    },
+    "Slash1": {
+      "duration": 0.8333333333333334,
+      "fps": 240,
+      "frames": 201,
+      "loop": false,
+      "reference": "Sword_Slash1",
+      "contact_window": [
+        0.23,
+        0.345
+      ]
+    },
+    "Slash2": {
+      "duration": 0.8333333333333334,
+      "fps": 240,
+      "frames": 201,
+      "loop": false,
+      "reference": "Sword_Slash2",
+      "contact_window": [
+        0.23,
+        0.345
+      ]
+    },
+    "Equip": {
+      "duration": 0.55,
+      "fps": 240,
+      "frames": 133,
+      "loop": false,
+      "reference": null,
+      "contact_window": null
+    },
+    "Sprint": {
+      "duration": 0.9166666666666666,
+      "fps": 240,
+      "frames": 221,
+      "loop": true,
+      "reference": "Sword_Walk",
+      "contact_window": null
+    }
+  },
+  "grips_cm": {
+    "right_below_guard": 7.2,
+    "left_below_guard": 17.2
+  },
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "donor": "BigAndCrispy/Unity-First-Person-Melee CC0 (one-handed phases reconstructed as two-handed sweeps)",
+  "source_triangles": 96082,
+  "game_triangles": 48000
+}

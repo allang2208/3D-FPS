@@ -1,0 +1,66 @@
+{
+  "clips": {
+    "Idle": {
+      "duration": 3.3333333333333335,
+      "fps": 120,
+      "frames": 401,
+      "loop": true,
+      "reference": "Sword_Idle",
+      "contact_window": null
+    },
+    "Walk": {
+      "duration": 0.9166666666666666,
+      "fps": 120,
+      "frames": 111,
+      "loop": true,
+      "reference": "Sword_Walk",
+      "contact_window": null
+    },
+    "Slash1": {
+      "duration": 0.8333333333333334,
+      "fps": 120,
+      "frames": 101,
+      "loop": false,
+      "reference": "Sword_Slash1",
+      "contact_window": [
+        0.23,
+        0.46
+      ]
+    },
+    "Slash2": {
+      "duration": 0.8333333333333334,
+      "fps": 120,
+      "frames": 101,
+      "loop": false,
+      "reference": "Sword_Slash2",
+      "contact_window": [
+        0.23,
+        0.46
+      ]
+    },
+    "Equip": {
+      "duration": 0.55,
+      "fps": 120,
+      "frames": 67,
+      "loop": false,
+      "reference": null,
+      "contact_window": null
+    },
+    "Sprint": {
+      "duration": 0.9166666666666666,
+      "fps": 120,
+      "frames": 111,
+      "loop": true,
+      "reference": "Sword_Walk",
+      "contact_window": null
+    }
+  },
+  "grips_cm": {
+    "right_below_guard": 9,
+    "left_below_guard": 21.5
+  },
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "donor": "BigAndCrispy/Unity-First-Person-Melee CC0 (one-handed motion adapted to two hands)",
+  "source_triangles": 96082,
+  "game_triangles": 48000
+}

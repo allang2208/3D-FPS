@@ -1,0 +1,251 @@
+{
+  "revision": "WristRiftV3",
+  "ready_guard_cm": [
+    13,
+    48,
+    -8
+  ],
+  "idle_blade_roll_delta_degrees": 90,
+  "fast_phase_seconds": [
+    0.23,
+    0.345
+  ],
+  "fast_phase_speed_multiplier": 2,
+  "ready_grasp_degrees": {
+    "l": -49.0603385331022,
+    "r": -146.44398977566723
+  },
+  "contact_yaw_degrees": 160,
+  "sweep_keys_in_v2_source_time": {
+    "Slash1": [
+      [
+        0,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        85
+      ],
+      [
+        0.1,
+        0.28,
+        0.43,
+        -0.04,
+        -42,
+        -48,
+        -9
+      ],
+      [
+        0.18,
+        0.34,
+        0.4,
+        0.015,
+        -100,
+        -77,
+        -12
+      ],
+      [
+        0.23,
+        0.33,
+        0.44,
+        -0.015,
+        -80,
+        -84,
+        -6
+      ],
+      [
+        0.335,
+        0.025,
+        0.56,
+        -0.11,
+        0,
+        -90,
+        0
+      ],
+      [
+        0.46,
+        -0.33,
+        0.44,
+        -0.2,
+        80,
+        -95,
+        9
+      ],
+      [
+        0.55,
+        -0.37,
+        0.4,
+        -0.23,
+        106,
+        -102,
+        14
+      ],
+      [
+        0.67,
+        -0.16,
+        0.45,
+        -0.15,
+        61,
+        -62,
+        3
+      ],
+      [
+        0.8333333333333334,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        85
+      ]
+    ],
+    "Slash2": [
+      [
+        0,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        85
+      ],
+      [
+        0.1,
+        -0.18,
+        0.44,
+        -0.1,
+        55,
+        -65,
+        8
+      ],
+      [
+        0.18,
+        -0.34,
+        0.41,
+        -0.13,
+        102,
+        -104,
+        12
+      ],
+      [
+        0.23,
+        -0.33,
+        0.44,
+        -0.14,
+        80,
+        -100,
+        9
+      ],
+      [
+        0.34,
+        0,
+        0.57,
+        -0.075,
+        0,
+        -88,
+        0
+      ],
+      [
+        0.46,
+        0.34,
+        0.44,
+        -0.03,
+        -80,
+        -82,
+        -8
+      ],
+      [
+        0.54,
+        0.38,
+        0.4,
+        0.005,
+        -108,
+        -73,
+        -15
+      ],
+      [
+        0.67,
+        0.26,
+        0.45,
+        -0.045,
+        -54,
+        -43,
+        -8
+      ],
+      [
+        0.8333333333333334,
+        0.13,
+        0.48,
+        -0.08,
+        0,
+        -18,
+        85
+      ]
+    ]
+  },
+  "clips": {
+    "Idle": {
+      "duration": 3.3333333333333335,
+      "fps": 240,
+      "frames": 801,
+      "loop": true,
+      "reference": "Sword_Idle",
+      "contact_window": null
+    },
+    "Walk": {
+      "duration": 0.9166666666666666,
+      "fps": 240,
+      "frames": 221,
+      "loop": true,
+      "reference": "Sword_Walk",
+      "contact_window": null
+    },
+    "Slash1": {
+      "duration": 0.8333333333333334,
+      "fps": 240,
+      "frames": 201,
+      "loop": false,
+      "reference": "Sword_Slash1",
+      "contact_window": [
+        0.23,
+        0.345
+      ]
+    },
+    "Slash2": {
+      "duration": 0.8333333333333334,
+      "fps": 240,
+      "frames": 201,
+      "loop": false,
+      "reference": "Sword_Slash2",
+      "contact_window": [
+        0.23,
+        0.345
+      ]
+    },
+    "Equip": {
+      "duration": 0.55,
+      "fps": 240,
+      "frames": 133,
+      "loop": false,
+      "reference": null,
+      "contact_window": null
+    },
+    "Sprint": {
+      "duration": 0.9166666666666666,
+      "fps": 240,
+      "frames": 221,
+      "loop": true,
+      "reference": "Sword_Walk",
+      "contact_window": null
+    }
+  },
+  "grips_cm": {
+    "right_below_guard": 9,
+    "left_below_guard": 21.5
+  },
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "donor": "BigAndCrispy/Unity-First-Person-Melee CC0 (one-handed phases reconstructed as two-handed sweeps)",
+  "source_triangles": 96082,
+  "game_triangles": 48000
+}

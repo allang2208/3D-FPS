@@ -1,0 +1,23 @@
+{
+  "revision": "GuardPoseV19",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\AzureRunesword_Manny_Editable.blend",
+  "pose_basis": "A_RuneSword_Slash1 frame 0 (accepted ready)",
+  "fps": 480,
+  "guard_raise_seconds": 0.2,
+  "guard_hit_seconds": 0.22083333333333333,
+  "guard_break_seconds": 0.4,
+  "guard_hilt_m": [
+    -0.10000000149011612,
+    0.5400000214576721,
+    -0.014999999664723873
+  ],
+  "blade_direction": [
+    0.9352572560310364,
+    0.14003852009773254,
+    0.32508939504623413
+  ],
+  "grip": "exact fixed ready hand-to-sword transforms; no independent hilt-roll search",
+  "arms": "same-side elbow guides, shortest swing, retained finger and twist-helper relations",
+  "scope": "3 animation replacements only; no native, gameplay, camera, input, audio or attack changes",
+  "reference": "rico345100 firstperson.fbx.meta GuardStart / Guarding / GuardEnd; no external animation curves or meshes copied"
+}

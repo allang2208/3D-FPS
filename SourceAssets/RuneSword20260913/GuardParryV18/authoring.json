@@ -1,0 +1,18 @@
+{
+  "revision": "GuardParryV18",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\AzureRunesword_Manny_Editable.blend",
+  "donor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "fps": 480,
+  "guard_raise_seconds": 0.2,
+  "guard_lower_seconds": 0.18,
+  "guard_hit_seconds": 0.22083333333333335,
+  "guard_break_seconds": 0.4,
+  "guard_hilt_m": [
+    0.2,
+    0.46,
+    -0.14
+  ],
+  "loop": "hold final Guard pose; non-looping hit/break",
+  "retained": "existing sword, Manny mesh, weights, two-hand grip, accepted attacks",
+  "reference": "gamedev player-shield-walk-lower-20260902/shield-all-standing-guard.png"
+}

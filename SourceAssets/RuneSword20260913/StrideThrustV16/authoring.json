@@ -1,0 +1,35 @@
+{
+  "revision": "StrideThrustV16",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\AzureRunesword_Manny_Editable.blend",
+  "donor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "clip": "A_RuneSword_Thrust",
+  "seconds": 1.25,
+  "fps": 480,
+  "loop": false,
+  "load_end": 0.4,
+  "extension_end": 0.58,
+  "contact_seconds": [
+    0.48,
+    0.64
+  ],
+  "arrest_end": 0.64,
+  "return_corner": 0.94,
+  "lunge_seconds": [
+    0.4,
+    0.64
+  ],
+  "lunge_cm": 100.0,
+  "load_guard_cm": [
+    10,
+    30,
+    -12
+  ],
+  "extended_guard_cm": [
+    3,
+    79,
+    -7
+  ],
+  "rift_max_width_cm": 18,
+  "retained": "Manny mesh, weights, bones, two-hand hilt contacts, V8 normal slashes and V12 charged heavy",
+  "arm_solution": "continuous grasp plus joint elbow-plane optimisation; fixed held load; quaternion-continuous bake"
+}

@@ -1,0 +1,65 @@
+{
+  "revision": "CompactRecoveryV8",
+  "windup_end": 0.65,
+  "load_hold": 0.2,
+  "contact_start": 0.85,
+  "contact_end": 0.965,
+  "follow_end": 1.115,
+  "unload_end": 1.14,
+  "return_corner": 1.44,
+  "attack_end": 1.775,
+  "windup_time_pairs": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      0.08,
+      0.02
+    ],
+    [
+      0.22,
+      0.105
+    ],
+    [
+      0.38,
+      0.235
+    ],
+    [
+      0.54,
+      0.355
+    ],
+    [
+      0.65,
+      0.4
+    ]
+  ],
+  "windup_slopes": [
+    0.0,
+    0.34124087591240876,
+    0.6927417107829478,
+    0.7799999999999998,
+    0.5199714693295295,
+    0.0
+  ],
+  "source_revision": "DiagonalHeavyV6",
+  "method": "Preserve V7 windup time map and V6 complete pose path; shorter hold and more connected recovery. No IK or pose refit.",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\AzureRunesword_Manny_Editable.blend",
+  "clips": [
+    {
+      "clip": "Slash1",
+      "duration": 1.775,
+      "fps": 240,
+      "frames": 427,
+      "source_action": "REF_V6_A_RuneSword_Slash1"
+    },
+    {
+      "clip": "Slash2",
+      "duration": 1.775,
+      "fps": 240,
+      "frames": 427,
+      "source_action": "REF_V6_A_RuneSword_Slash2"
+    }
+  ],
+  "retained": "V6 entire pose trajectory and blade alignment; V5 idle; meshes, materials and rift geometry unchanged"
+}

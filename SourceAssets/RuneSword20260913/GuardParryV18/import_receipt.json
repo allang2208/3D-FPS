@@ -1,0 +1,22 @@
+[
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\Export\\A_RuneSword_Guard.fbx",
+    "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard.A_RuneSword_Guard"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\Export\\A_RuneSword_GuardHit.fbx",
+    "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardHit.A_RuneSword_GuardHit"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\Export\\A_RuneSword_GuardBreak.fbx",
+    "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak.A_RuneSword_GuardBreak"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\Audio\\S_RuneSword_Block.wav",
+    "asset": "/Game/Weapons/AzureRunesword20260913/S_RuneSword_Block.S_RuneSword_Block"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\Audio\\S_RuneSword_Parry.wav",
+    "asset": "/Game/Weapons/AzureRunesword20260913/S_RuneSword_Parry.S_RuneSword_Parry"
+  }
+]

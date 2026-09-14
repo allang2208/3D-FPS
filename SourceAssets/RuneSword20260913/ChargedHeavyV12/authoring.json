@@ -1,0 +1,39 @@
+{
+  "revision": "ChargedHeavyV12",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\AzureRunesword_Manny_Editable.blend",
+  "donor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "clips": [
+    {
+      "clip": "HeavyCharge",
+      "seconds": 2.0,
+      "fps": 480,
+      "loop": false
+    },
+    {
+      "clip": "HeavyRelease",
+      "seconds": 1.0,
+      "fps": 480,
+      "loop": false
+    }
+  ],
+  "charge_seconds": 2.0,
+  "contact_seconds": [
+    0,
+    0.075
+  ],
+  "release_end": 1.0,
+  "cut_arc_degrees": 243,
+  "load_guard_cm": [
+    28,
+    27,
+    16
+  ],
+  "blade_angle_degrees": -48,
+  "rift_radial_cm": [
+    12,
+    112
+  ],
+  "arm_solution": "continuous full-chain grasp and coupled elbow solution, split on identical held pose; original bone lengths/rest/weights",
+  "normal_actions": "retained V8 unchanged",
+  "retained_actions_at_480hz": true
+}

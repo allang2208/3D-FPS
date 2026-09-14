@@ -1,0 +1,2579 @@
+{
+  "date": "2026-09-14",
+  "status": "archived",
+  "project": "D:\\FPS3D\\FPSGAME",
+  "trash": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914",
+  "targets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\README.pre-workflow.md",
+      "reason": "Historical first-version entry; replaced with current V19 pause and V16/V17 baseline",
+      "replacement": "README.md and Docs/Weapons/runesword-baseline-20260914.md"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\Before",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\Before",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\__pycache__",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\__pycache__",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\author_guard_body.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\author_guard_body.py",
+      "reason": "Assembly intermediate duplicated by the executable author script",
+      "replacement": "GuardParryV18/author_guard.py"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\read_author_source.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\read_author_source.py",
+      "reason": "One-off authoring read; final author script reads its source directly",
+      "replacement": "GuardPoseV19/author_guard.py"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\build-first-attempt.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\build-first-attempt.log",
+      "reason": "Superseded failed build log; final build log and result retained",
+      "replacement": "GuardParryV18/build.log"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\accepted_idle_source.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\accepted_idle_source.json",
+      "reason": "Unused dense pose read from licensed Manny source",
+      "replacement": "GuardPoseV19/author_guard.py and retained Blend"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    }
+  ],
+  "files": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\README.pre-workflow.md",
+      "bytes": 9217,
+      "sha256": "E386230714676A2D8F041D874F54EEC93FBDFCBD1F8FA38D18E4DF823297BDC8",
+      "reason": "Historical first-version entry; replaced with current V19 pause and V16/V17 baseline",
+      "replacement": "README.md and Docs/Weapons/runesword-baseline-20260914.md"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\arm_solver.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\arm_solver.py",
+      "bytes": 14258,
+      "sha256": "5E7D5F41005835442C0220FC9C0CE3897F243AF78F1275629FF81DBC66F57E4A",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\author_thrust.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\author_thrust.py",
+      "bytes": 6489,
+      "sha256": "9BB160EF8D6584CB7DFE40DB4212FBC6D295910F87C694C523108E2DC4DAA106",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\author.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\author.log",
+      "bytes": 2210,
+      "sha256": "82BBA2C55263FD0899CA459A19907E06360B4E53FC1FBD87F6381D9E3D4CB28A",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\authoring.json",
+      "bytes": 924,
+      "sha256": "FD4CDDD8137749912C2B9D08CD7B9D9BC1D90DAF641E1A20EFE697B1FB623966",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\AzureRunesword_Manny_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\AzureRunesword_Manny_Editable.blend",
+      "bytes": 82575853,
+      "sha256": "1170879837EA5E9B582D0DCD89D5EE4BEF393180AD52D5CBEC946592A7F3E7FB",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\build_install.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\build_install.ps1",
+      "bytes": 1119,
+      "sha256": "F7D57DF0FDBB1B9F3722C0E152C0576602E489BB7758FF0F4846FF03F4D4AF34",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\build.log",
+      "bytes": 45353,
+      "sha256": "4B94BC6E1975382F0D67E929E55FE01D0C8E52E030972166473C4BBE9DCF5B8A",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\diagonal_motion.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\diagonal_motion.py",
+      "bytes": 3584,
+      "sha256": "33E0A45F52F00AF1084AAB2AB3A616AE3E996E0AC8AAC2BD47CBAA20F05276FC",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import_console.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import_console.log",
+      "bytes": 20053,
+      "sha256": "732C7D0E969F2DCDE6053A8281C589B752B7C353E41B268310242865D008CB11",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import_receipt.json",
+      "bytes": 455,
+      "sha256": "571F84E239AB61E3790EBDCBFB3B5FB4C051EDEE36AA80C56A812D04607CB0B5",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import_revision.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import_revision.py",
+      "bytes": 2629,
+      "sha256": "E094EB98F24272FD1FA99F846E00EEEB6C448938A751F9EDC955A6A5892CB7AB",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\import.log",
+      "bytes": 236922,
+      "sha256": "EE5B5C58078CA86D95EAFDAB37496F5407412F12AE79D7CF9D607DA3DD412493",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\README.md",
+      "bytes": 2669,
+      "sha256": "C59948B1018363AC3F363589BDCC0ACB4F17BCA8CEDD93EEAAFB339389B08123",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\run_import.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\run_import.ps1",
+      "bytes": 667,
+      "sha256": "A9517FC0A11B1223D159DADEFAF2C638ED7CC067E35C57DA6D71460AD78B3ECB",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\thrust_motion.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\thrust_motion.py",
+      "bytes": 1804,
+      "sha256": "801621466047C7769723A9564435C926F09B935DA4273605DEDF1252AE5DCE31",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Movement\\FPSCharacterMovementComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Movement\\FPSCharacterMovementComponent.h",
+      "bytes": 2480,
+      "sha256": "C1AA53494965C2719E11F19D57E0A7E0AB03E12301BC997229264571FFC4B237",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\UI\\ColdSteelItemTooltipData.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\UI\\ColdSteelItemTooltipData.cpp",
+      "bytes": 17386,
+      "sha256": "CCEAD0787998964C567D858061520354AF7D035376ECF205950F88FFFA2D5E53",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordComponent.cpp",
+      "bytes": 24065,
+      "sha256": "8925EE650B68572238FF76A9CDF8281BE0EBA4839FA4F2D09C0E8F8A69D56DBA",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordComponent.h",
+      "bytes": 4495,
+      "sha256": "942951D139DC52EE3B4CD8C5BA475279F3E8444190656EA22602D47CE044F501",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordHitQuery.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordHitQuery.cpp",
+      "bytes": 2886,
+      "sha256": "681ADDF2B9E568E0AFBAAC204296B212B26A05B9864224A64D2CE34028E15CAA",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordHitQuery.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Before\\Weapons\\RuneSwordHitQuery.h",
+      "bytes": 471,
+      "sha256": "1797C749EEAF30DD3412A1781C97D73F12087B6A67C4A72A88371BFBBA58746E",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Export\\A_RuneSword_Thrust.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Export\\A_RuneSword_Thrust.fbx",
+      "bytes": 3843596,
+      "sha256": "C8325D5A5C53319D8352AFE33000730D6C1F2C9D5E71E65DECCEAC992945FD0D",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Export\\SM_RuneRift_Thrust.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\Export\\SM_RuneRift_Thrust.fbx",
+      "bytes": 178988,
+      "sha256": "E69C2D65BE404FED697506DE10398597BA38DADBB06A6F392928080768C6AF5A",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49155.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49155.dll",
+      "bytes": 139776,
+      "sha256": "6AAB08BB3551FE3C109ADB0B71F043B066306985418E7F34300CD816CD9CE0D8",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49155.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49155.dll",
+      "bytes": 130560,
+      "sha256": "9F3F7AACA9DC3BF574F475D1FAD2D68AC47467C190D06DEE250A3B74A822B9F4",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "F9F5EFA7EF1375BFB96949D30A53B445C1C8E51E5509A73AE54237D2305AE63C",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49155.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49155.dll",
+      "bytes": 7136768,
+      "sha256": "450B6FEEF8EB22FCEA843547E3D70650FCB30700D8E8C5612122AF9C25C03AA2",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "BA675A7A64F98D59912722AAA325672621548721503148C84ED7467E01913D19",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 27417,
+      "sha256": "F3CC7BF417946BEFF7335B1EF3CF24D0CFA0779952277BA03E76533F6B1A4942",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "bytes": 6211,
+      "sha256": "D2D61C12FFA039AC6C0BAFD71E8B9636CFCF328CE3F44B54541C2057C1608A89",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\__pycache__\\thrust_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ThrustComboV15\\__pycache__\\thrust_motion.cpython-313.pyc",
+      "bytes": 2908,
+      "sha256": "E3718E639BCDD8840D5A7EBD5039ECCF1B804E64FFE83916ABA5F5AA55DD0402",
+      "reason": "Superseded short thrust; V16 independently reads V12",
+      "replacement": "StrideThrustV16"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\author.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\author.log",
+      "bytes": 1508,
+      "sha256": "1C58C74407F52D08EB7486E1A36AD18AA65EA0FB38E1B580A22DB0F76921E80D",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\authoring.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\authoring.json",
+      "bytes": 1350,
+      "sha256": "D73B925D2C128A2535B6C3F3AFB98B44F1822AFE90D151FA8EA70A2E295D5E8B",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\AzureRunesword_Manny_Editable.blend",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\AzureRunesword_Manny_Editable.blend",
+      "bytes": 174790954,
+      "sha256": "5389A4A9681941A2F2A8FA41AF2DD113EDD92C6D9116B5CFD3B3BD5BE5D462DF",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_first_attempt.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_first_attempt.log",
+      "bytes": 82809,
+      "sha256": "C63EDC30F4C2DC7677DA931F61FA4B3D35788D2DF9A4B8DAFD15B7F45586107B",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_install.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_install.ps1",
+      "bytes": 1100,
+      "sha256": "999E5CA075FC398A4CA7A60343AB4C506876877FC7A9954681592BB9C02A015E",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_second_attempt.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_second_attempt.log",
+      "bytes": 18985,
+      "sha256": "B00431A9ED6DA04C77CBF40FC3916FB67C8BB3CAD380A409E50235D16637622B",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_third_attempt.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build_third_attempt.log",
+      "bytes": 32521,
+      "sha256": "ACFF14F1FE92266EC7CCFB63773B82A4AE2D4B3F6C16EA845E636D1ACEA893B3",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\build.log",
+      "bytes": 32980,
+      "sha256": "C13CC95E228941534E3BBEAACF65293B4290A4430433F6ADDFBBB106AA6E2B7B",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import_console.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import_console.log",
+      "bytes": 20436,
+      "sha256": "81C259B539B573623A9496603002939482D0B7775E990CA12A4D3A10C1CDF3BA",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import_receipt.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import_receipt.json",
+      "bytes": 447,
+      "sha256": "2A9191D0D2BA83140DE0EDD3D95F788D0D9482BB3E325BEC2707A16EA645388B",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import_revision.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import_revision.py",
+      "bytes": 1841,
+      "sha256": "70770C239D1024E711A5E21EC2538DBE04D85E1A8C96AE0C00D229A607BB681D",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\import.log",
+      "bytes": 230517,
+      "sha256": "8123BDD19B10280964A97CBE61AF716CCD66E39A95EE6D1888B03EE64C5096CD",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\README.md",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\README.md",
+      "bytes": 3712,
+      "sha256": "8ADAECFC3C355CD9031E1A3644989A2D4004D6B109670568BBA305A779594FEA",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\retime_animations.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\retime_animations.py",
+      "bytes": 3149,
+      "sha256": "261974577772DBD1BD5A8357F0F649112BCF119C229895A2C8B465E27CCE4821",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\rhythm_clock.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\rhythm_clock.py",
+      "bytes": 1945,
+      "sha256": "095D952112447DEE4A58A62A0B74010ED1120DB681D8B2F18C029AF628637DDD",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\run_import.ps1",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\run_import.ps1",
+      "bytes": 669,
+      "sha256": "D3D56F2D7357A34BC9369B64DC1A781D4A0CF1B3C64743C107DA96F84ACBF16E",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\write_timing_header.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\write_timing_header.py",
+      "bytes": 2430,
+      "sha256": "278FBBE92C012148AF9FDD1FC207668ED9CE1D578458EE688B08285DDE0B1E30",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 2018579,
+      "sha256": "68057D57141C49CEFE3C8546D4539BE915C522CAAE5A466146D52EA8FB622926",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 2031283,
+      "sha256": "4CE5B5CF967D6B40DA47ACE301E1CA0EE16EFCAD43F462D027BDFB6E326BA8D7",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 17171,
+      "sha256": "367CBD26AAD9A36B7D7BFF6EC0964B9CE6852C36D17B4C6A30222BD75366A179",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\Source\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Before\\Source\\RuneSwordComponent.h",
+      "bytes": 3226,
+      "sha256": "638D0C420D18AF842C532FF27CD82F2D55EB6E1EDAE3DF9D2C14F9AB92B84752",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Export\\A_RuneSword_Slash1.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Export\\A_RuneSword_Slash1.fbx",
+      "bytes": 3476780,
+      "sha256": "9D8136F078588E8A355E918D953825862EF98D068B5984AFAFC237992B0E3FF0",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Export\\A_RuneSword_Slash2.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\Export\\A_RuneSword_Slash2.fbx",
+      "bytes": 3475948,
+      "sha256": "610EF8CF59D72F7E72149A9ADCB16C2F48E90B4D470837675DEE45F96292DBEB",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-71402.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-71402.dll",
+      "bytes": 145408,
+      "sha256": "8508FA018944F66BCDAA4FFF361FF318F557FEEF6CDF35D880615949A1C2B515",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-71402.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-71402.dll",
+      "bytes": 134144,
+      "sha256": "3DF0A3146083666A86F4633A0E77FBBF91D54B1DD60F6A3447F46AA90E479225",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "BD44A75917A5948603EBCA344A53F38E35893F2C5AE22958CE40851E1CE64649",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-71402.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-71402.dll",
+      "bytes": 6959616,
+      "sha256": "466FD9DD9D69463A1B33524BBF76C86CA0B7CDE317E655E09B1CF32893A8115E",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "074F44F67803577CBAECF527BA271F7A40A8933B83AB0B642B7C4FA18DEA5F22",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\__pycache__\\rhythm_clock.cpython-312.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\__pycache__\\rhythm_clock.cpython-312.pyc",
+      "bytes": 4243,
+      "sha256": "6C3C75AEF9A5494A70E5A3C007E188AC7170D95DB9226D04A7D1F9336B07CC32",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\__pycache__\\rhythm_clock.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightedRhythmV7\\__pycache__\\rhythm_clock.cpython-313.pyc",
+      "bytes": 4200,
+      "sha256": "CD3138478F73A2EF759E2330A10EA53364D515AB680580A4CA22638801F1FD66",
+      "reason": "Superseded timing attempt; V8 reads V6 directly",
+      "replacement": "CompactRecoveryV8"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\config",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\config",
+      "bytes": 374,
+      "sha256": "7B9FA1524B05F31D4DB675F9112E8C80D078B5C5F976432D315296B1EE1D43E1",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\description",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\description",
+      "bytes": 73,
+      "sha256": "85AB6C163D43A17EA9CF7788308BCA1466F1B0A8D1CC92E26E9BF63DA4062AEE",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\HEAD",
+      "bytes": 21,
+      "sha256": "28D25BF82AF4C0E2B72F50959B2BEB859E3E60B9630A5E8C603DAD4DDB2B6E80",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\packed-refs",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\packed-refs",
+      "bytes": 112,
+      "sha256": "0BC3038A0369390D0269525B0C8F5698490AC58DE1F5C8BBDD70FF4685233495",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\shallow",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\shallow",
+      "bytes": 41,
+      "sha256": "7E29DCFAED9C4751E49A8B1015843BD0C2F5D8E5120E4ACC830A5D57F30F620F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\applypatch-msg.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\applypatch-msg.sample",
+      "bytes": 478,
+      "sha256": "0223497A0B8B033AA58A3A521B8629869386CF7AB0E2F101963D328AA62193F7",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\commit-msg.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\commit-msg.sample",
+      "bytes": 1972,
+      "sha256": "EFC1401B0E99D1FF51494D154D98B46C1E99059BCD8BF9F73CECDE19FD3EB23B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\fsmonitor-watchman.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\fsmonitor-watchman.sample",
+      "bytes": 4611,
+      "sha256": "9159720099AD5595B8E66645CBFD47763C1E920F46E0B50AE75E642BBEC57EF0",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\post-update.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\post-update.sample",
+      "bytes": 189,
+      "sha256": "81765AF2DAEF323061DCBC5E61FC16481CB74B3BAC9AD8A174B186523586F6C5",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-applypatch.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-applypatch.sample",
+      "bytes": 424,
+      "sha256": "E15C5B469EA3E0A695BEA6F2C82BCF8E62821074939DDD85B77E0007FF165475",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-commit.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-commit.sample",
+      "bytes": 1649,
+      "sha256": "57185B7B9F05239D7AB52DB045F5B89EB31348D7B2177EAB214F5EB872E1971B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-merge-commit.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-merge-commit.sample",
+      "bytes": 416,
+      "sha256": "D3825A70337940EBBD0A5C072984E13245920CDF8898BD225C8D27A6DFC9CB53",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-push.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-push.sample",
+      "bytes": 1374,
+      "sha256": "ECCE9C7E04D3F5DD9D8ADA81753DD1D549A9634B26770042B58DDA00217D086A",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-rebase.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-rebase.sample",
+      "bytes": 4898,
+      "sha256": "4FEBCE867790052338076F4E66CC47EFB14879D18097D1D61C8261859EAAA7B3",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-receive.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\pre-receive.sample",
+      "bytes": 544,
+      "sha256": "A4C3D2B9C7BB3FD8D1441C31BD4EE71A595D66B44FCF49DDB310252320169989",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\prepare-commit-msg.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\prepare-commit-msg.sample",
+      "bytes": 1492,
+      "sha256": "E9DDCAA4189FDDD25ED97FC8C789ECA7B6CA16390B2392AE3276F0C8E1AA4619",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\push-to-checkout.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\push-to-checkout.sample",
+      "bytes": 2783,
+      "sha256": "A53D0741798B287C6DD7AFA64AEE473F305E65D3F49463BB9D7408EC3B12BF5F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\sendemail-validate.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\sendemail-validate.sample",
+      "bytes": 2308,
+      "sha256": "44EBFC923DC5466BC009602F0ECF067B9C65459ABFE8868DDC49B78E6CED7A92",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\update.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\hooks\\update.sample",
+      "bytes": 3650,
+      "sha256": "8D5F2FA83E103CF08B57EAA67521DF9194F45CBDBCB37DA52AD586097A14D106",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\info\\exclude",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\info\\exclude",
+      "bytes": 240,
+      "sha256": "6671FE83B7A07C8932EE89164D1F2793B2318058EB8B98DC5C06EE0A5A3B0EC1",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\logs\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\logs\\HEAD",
+      "bytes": 211,
+      "sha256": "FCFA9D66A83529C8B55F038901B25C753DB16625ABBBA8DDC3C7C8D4D97C037F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\logs\\refs\\heads\\main",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\logs\\refs\\heads\\main",
+      "bytes": 211,
+      "sha256": "FCFA9D66A83529C8B55F038901B25C753DB16625ABBBA8DDC3C7C8D4D97C037F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\logs\\refs\\remotes\\origin\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\logs\\refs\\remotes\\origin\\HEAD",
+      "bytes": 211,
+      "sha256": "FCFA9D66A83529C8B55F038901B25C753DB16625ABBBA8DDC3C7C8D4D97C037F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.idx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.idx",
+      "bytes": 1100,
+      "sha256": "5DAD5C9AE049014BBB22ECDE7A031E3AEE3BD40B6EB4EEBC3142E63EA1D5E822",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.pack",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.pack",
+      "bytes": 1680,
+      "sha256": "40FADC3F5B31FE42EDC5E30761E5BA36ED040590C957FDF8C0C0D635E623CDF8",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.promisor",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.promisor",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.rev",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-9f58770adfb6720f5b3ab1e7eccacd5a1192783e.rev",
+      "bytes": 56,
+      "sha256": "6CACD0D5DA6275910AE8F95D41D0F90AD845DDEC4AC8FCE9B6DB566535308898",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.idx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.idx",
+      "bytes": 1576,
+      "sha256": "873B88C0108797AA720AF35F3E9A243A00C9C9D1CC03F1152C384FA93A0D8159",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.pack",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.pack",
+      "bytes": 4823,
+      "sha256": "58FF00AB68F913FBE21A3D9AF2DACBDDDD8866D10B760DCDFC78F64CD8CE6498",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.promisor",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.promisor",
+      "bytes": 103,
+      "sha256": "73252903D7650D81FF80FF70752EC60ECEF30417E98E9A109420E5799A9C61E3",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.rev",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\objects\\pack\\pack-c2993c795997fe3ef1ac8aa3bdd3b45cb645613f.rev",
+      "bytes": 124,
+      "sha256": "798AF0358986D40B6E3E7099092B10F9A208F3E39F0D33AA106594456137C3CA",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\refs\\heads\\main",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\refs\\heads\\main",
+      "bytes": 41,
+      "sha256": "7E29DCFAED9C4751E49A8B1015843BD0C2F5D8E5120E4ACC830A5D57F30F620F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\refs\\remotes\\origin\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\crispy-source\\.git\\refs\\remotes\\origin\\HEAD",
+      "bytes": 30,
+      "sha256": "2BB6A24AA0FC6C484100F5D51A29BBAD841CD2C755F5D93FAA204E5DBB4EB2B4",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\config",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\config",
+      "bytes": 399,
+      "sha256": "A5CCFCC17AC08CB2989D7FDF184F9BA99908F37E742539FB63FE8949431659D4",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\description",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\description",
+      "bytes": 73,
+      "sha256": "85AB6C163D43A17EA9CF7788308BCA1466F1B0A8D1CC92E26E9BF63DA4062AEE",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\HEAD",
+      "bytes": 23,
+      "sha256": "F6F2B945F6C411B02BA3DA9C7ACE88DCF71B6AF65BA2E0D89AA82900042B5A10",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\packed-refs",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\packed-refs",
+      "bytes": 114,
+      "sha256": "0C7C74DB05571126CA12B202A81DFA298C20C189D4CEA7E9EA5530766364FDF6",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\shallow",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\shallow",
+      "bytes": 41,
+      "sha256": "7CACA7A0EB8FF772F14E185E5BA9D07B46B30A7AD13AA65688C9F6F1B7C5935E",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\applypatch-msg.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\applypatch-msg.sample",
+      "bytes": 478,
+      "sha256": "0223497A0B8B033AA58A3A521B8629869386CF7AB0E2F101963D328AA62193F7",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\commit-msg.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\commit-msg.sample",
+      "bytes": 1972,
+      "sha256": "EFC1401B0E99D1FF51494D154D98B46C1E99059BCD8BF9F73CECDE19FD3EB23B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\fsmonitor-watchman.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\fsmonitor-watchman.sample",
+      "bytes": 4611,
+      "sha256": "9159720099AD5595B8E66645CBFD47763C1E920F46E0B50AE75E642BBEC57EF0",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\post-update.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\post-update.sample",
+      "bytes": 189,
+      "sha256": "81765AF2DAEF323061DCBC5E61FC16481CB74B3BAC9AD8A174B186523586F6C5",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-applypatch.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-applypatch.sample",
+      "bytes": 424,
+      "sha256": "E15C5B469EA3E0A695BEA6F2C82BCF8E62821074939DDD85B77E0007FF165475",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-commit.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-commit.sample",
+      "bytes": 1649,
+      "sha256": "57185B7B9F05239D7AB52DB045F5B89EB31348D7B2177EAB214F5EB872E1971B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-merge-commit.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-merge-commit.sample",
+      "bytes": 416,
+      "sha256": "D3825A70337940EBBD0A5C072984E13245920CDF8898BD225C8D27A6DFC9CB53",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-push.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-push.sample",
+      "bytes": 1374,
+      "sha256": "ECCE9C7E04D3F5DD9D8ADA81753DD1D549A9634B26770042B58DDA00217D086A",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-rebase.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-rebase.sample",
+      "bytes": 4898,
+      "sha256": "4FEBCE867790052338076F4E66CC47EFB14879D18097D1D61C8261859EAAA7B3",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-receive.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\pre-receive.sample",
+      "bytes": 544,
+      "sha256": "A4C3D2B9C7BB3FD8D1441C31BD4EE71A595D66B44FCF49DDB310252320169989",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\prepare-commit-msg.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\prepare-commit-msg.sample",
+      "bytes": 1492,
+      "sha256": "E9DDCAA4189FDDD25ED97FC8C789ECA7B6CA16390B2392AE3276F0C8E1AA4619",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\push-to-checkout.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\push-to-checkout.sample",
+      "bytes": 2783,
+      "sha256": "A53D0741798B287C6DD7AFA64AEE473F305E65D3F49463BB9D7408EC3B12BF5F",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\sendemail-validate.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\sendemail-validate.sample",
+      "bytes": 2308,
+      "sha256": "44EBFC923DC5466BC009602F0ECF067B9C65459ABFE8868DDC49B78E6CED7A92",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\update.sample",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\hooks\\update.sample",
+      "bytes": 3650,
+      "sha256": "8D5F2FA83E103CF08B57EAA67521DF9194F45CBDBCB37DA52AD586097A14D106",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\info\\exclude",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\info\\exclude",
+      "bytes": 240,
+      "sha256": "6671FE83B7A07C8932EE89164D1F2793B2318058EB8B98DC5C06EE0A5A3B0EC1",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\logs\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\logs\\HEAD",
+      "bytes": 228,
+      "sha256": "C0888A41F4DF23D647A50B4E2EC0978EF03E83DEAA2DDDC6ECD4E663459ED31B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\logs\\refs\\heads\\master",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\logs\\refs\\heads\\master",
+      "bytes": 228,
+      "sha256": "C0888A41F4DF23D647A50B4E2EC0978EF03E83DEAA2DDDC6ECD4E663459ED31B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\logs\\refs\\remotes\\origin\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\logs\\refs\\remotes\\origin\\HEAD",
+      "bytes": 228,
+      "sha256": "C0888A41F4DF23D647A50B4E2EC0978EF03E83DEAA2DDDC6ECD4E663459ED31B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.idx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.idx",
+      "bytes": 1100,
+      "sha256": "31C0F8CD7E7295D502823016CEA409A9BD5203352B3551A632D5A6E1C8AE22DC",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.pack",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.pack",
+      "bytes": 537740,
+      "sha256": "92EDE3FB7FE1AE5695E82B11EB7CDD11C80428BF6AD132915A6A53A53CB20A80",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.promisor",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.promisor",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.rev",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-44b7adc6b1e1520538b8f1e954dc7c2894f0877d.rev",
+      "bytes": 56,
+      "sha256": "1FD3EC248EB53B25F5FEC418FD1824A1B2919219A8F4A6BAE3D034CE1D810BEF",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.idx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.idx",
+      "bytes": 1100,
+      "sha256": "C7672CFD2034B48D4BB37481815912901EA74ED2E8C9077A010A2B80E928157E",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.pack",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.pack",
+      "bytes": 2866,
+      "sha256": "DAFE3E3ACA77AD476BC13BD717DA039227E31C18FCC4BFA83C4D3E283AEB1932",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.promisor",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.promisor",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.rev",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-75c8dc536715c72c1f65edcdf19333b89ee469cf.rev",
+      "bytes": 56,
+      "sha256": "618DC7B9B6A3B75F02E81B1EE7BC5A7F316D5BAFE69527C250D74F23AABFB516",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.idx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.idx",
+      "bytes": 6168,
+      "sha256": "383EE2E4189CB59F627A4867AA5E6CF061EC7DACDC8D41C93D3F8305A93FFC30",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.pack",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.pack",
+      "bytes": 35469,
+      "sha256": "5B43DEB168A23DC841217E5B9F74BED3A290BE7423267726A28233F9153D95C5",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.promisor",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.promisor",
+      "bytes": 105,
+      "sha256": "AD5C2B50AB2FE21784EA3AB292B42CF76D7F08872709479D240EB0433231DA01",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.rev",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\objects\\pack\\pack-968224f9b0ac938c17af9d70f9e20273b1431dba.rev",
+      "bytes": 780,
+      "sha256": "278F51F7BFDAF1B15D7D304907E4E680DA8E8AA00A039B45F693D80E9D43FC7B",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\refs\\heads\\master",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\refs\\heads\\master",
+      "bytes": 41,
+      "sha256": "7CACA7A0EB8FF772F14E185E5BA9D07B46B30A7AD13AA65688C9F6F1B7C5935E",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\.git\\refs\\remotes\\origin\\HEAD",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\.git\\refs\\remotes\\origin\\HEAD",
+      "bytes": 32,
+      "sha256": "CDC65E67690C4C6475174E5EC662B70655246A2F3924354778835AB3BE70AA76",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\Assets\\Models\\firstperson.fbx",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\Assets\\Models\\firstperson.fbx",
+      "bytes": 2380572,
+      "sha256": "49C998E62C52293E91BD44AAF1A7D807C899C3397590632E52BD51D9B37CB968",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "C:\\Users\\allan\\AppData\\Local\\Temp\\RuneSwordGuardResearch20260914\\rico\\Assets\\Models\\firstperson.fbx.meta",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\TemporaryResearch\\RuneSwordGuardResearch20260914\\rico\\Assets\\Models\\firstperson.fbx.meta",
+      "bytes": 71787,
+      "sha256": "B636A44027478A91E791D119F92C34EA3EBDF143B6E87D2D78D64A5975CE7ACB",
+      "reason": "Temporary public GitHub research clones; no current author/import references",
+      "replacement": "GuardPoseV19/README.md reference provenance"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Equip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Equip.uasset",
+      "bytes": 325365,
+      "sha256": "97D61AA08D39DECC958935BF098847BEDD0BDD9F5B6A2E422483D808971D628F",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Idle.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Idle.uasset",
+      "bytes": 1255122,
+      "sha256": "A267BDC78AEA4F97A5E6C296EB30F58BFEA2B5BF49F6F8BC8AA87BBB7845F9F2",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 604446,
+      "sha256": "FDF8BA1E5D7E4A84E035A157B9709BD5C27AE2BA11589DBAC51EFBC2F9A67EDF",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 610910,
+      "sha256": "6D800AEC99207A4018166B329D96E7B7AF79AE8D895127306F03A095BB69D95B",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Sprint.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Sprint.uasset",
+      "bytes": 512287,
+      "sha256": "CC717D6AA7A66413B7BA8DE332ECA36EEAF6C9F3BEEB798FDBDAAD6C7A02152F",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Walk.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\A_RuneSword_Walk.uasset",
+      "bytes": 419923,
+      "sha256": "DB62CEE98E1EAD1D28AE2B4E97EA329395A881C8A33AC15B5A64D3BBD6213675",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "bytes": 23201,
+      "sha256": "725815837830CF97E640440D580427C105DDE1509FBECBFC8303430673DA3FE0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\UnrealEditor.modules.AutoFootstep.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\UnrealEditor.modules.AutoFootstep.json",
+      "bytes": 182,
+      "sha256": "F31F09094CA0D26A25568F47A0076D31DC882D9FA6CE1BBA7CA10418F8DDB706",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\UnrealEditor.modules.FPSGAME.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WristRiftV3\\Before\\UnrealEditor.modules.FPSGAME.json",
+      "bytes": 100,
+      "sha256": "C43E7750327DE5841ABBA1B4EA9899F9046DEADB976517DA639695B3B3102B79",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Equip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Equip.uasset",
+      "bytes": 318990,
+      "sha256": "F493D3A1EFC562039CD50D5A9511FF1EACD3ED63827412834A3B6DD0344D7E71",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Idle.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Idle.uasset",
+      "bytes": 1255179,
+      "sha256": "3272AC36A7590AD81A692B4C199B7FF441769CE1ECA9E6E3BAECABC5CC957379",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 552791,
+      "sha256": "07A4B21EE0AC1EED898E81F5BE3B34D295C8E1C1F5E72A652FC0ECB492D6AF37",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 585111,
+      "sha256": "5E71FCED642D59CB28C7481AE7D10BA248BBAA196A435BAE7F35968D6D8A84B1",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Sprint.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Sprint.uasset",
+      "bytes": 515895,
+      "sha256": "A7C3FCB80DC1CCA4ED487C702134029CB41AE5DB842B52B663A6A97E82264CB5",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Walk.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\A_RuneSword_Walk.uasset",
+      "bytes": 419979,
+      "sha256": "9384EDA99442261A40A2B2BACBF4E668087EE864A3CD0B685AD6AF6A9743B2F6",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\M_AzureRunesword.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\M_AzureRunesword.uasset",
+      "bytes": 9141,
+      "sha256": "3AF8D687011CD2886D5784E8F4AF45B48E46E4B083CC61E40E2622009E992F64",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "bytes": 23201,
+      "sha256": "725815837830CF97E640440D580427C105DDE1509FBECBFC8303430673DA3FE0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Equip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Equip.uasset",
+      "bytes": 564159,
+      "sha256": "31C952D6375E54E27F167D552B6E49E8073D957B092D5FA16174E905034A5446",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Idle.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Idle.uasset",
+      "bytes": 2202073,
+      "sha256": "DA777DC2195A4085E1CDDE36692C2827D91FEE3F3492BBA2EFE0AA8416A98DF7",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 1148678,
+      "sha256": "D3977AB1ADFBAB231825B64EDBD8BC9E9CEDEB669514C796102768A6624D453E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 1161541,
+      "sha256": "2E02991F3A5DEDF2BF234EFE9C7D39D1CC96927A6FCBC6606570D718A262E8E0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Sprint.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Sprint.uasset",
+      "bytes": 1005477,
+      "sha256": "7BE80818523E1479F5D2A26124E50895213D8E7F7A04FD5EF9EDEF40BDB42263",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Walk.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\A_RuneSword_Walk.uasset",
+      "bytes": 871097,
+      "sha256": "558328704E7720513F13CF8A9D388B6396F04543BEDE2C942ECA30CE4EAD75DD",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "bytes": 23201,
+      "sha256": "725815837830CF97E640440D580427C105DDE1509FBECBFC8303430673DA3FE0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\SK_AzureRunesword_Manny.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\SK_AzureRunesword_Manny.uasset",
+      "bytes": 12235334,
+      "sha256": "08838D5BA391B962733301AC61072DFACBD7747B327B12D0583E733D22C45A27",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\SM_AzureRunesword.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\SM_AzureRunesword.uasset",
+      "bytes": 2481050,
+      "sha256": "76D9443F6C6E14BEFBAA34EEA0286DB211DD8C4CCFECDA1A99D56FF0A1FB2291",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\Source\\FPSGAMECharacter.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\Source\\FPSGAMECharacter.cpp",
+      "bytes": 97408,
+      "sha256": "41D38231EB3DD0514ED034E7A5065DC65C2FF69D60B2E2F664B6B0C23A40E431",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 14252,
+      "sha256": "0275250F75F207B8F4D53E1D3468D4F482BB1D08C97B3A11394C29814895F9B2",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\Source\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\Source\\RuneSwordComponent.h",
+      "bytes": 2898,
+      "sha256": "4AA5E7E9967761D77DA0E2F12DF995CDB9EBB06CB13E153419C482A626328E87",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\WristRiftV3\\SM_RuneRift_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\WristRiftV3\\SM_RuneRift_Slash1.uasset",
+      "bytes": 57924,
+      "sha256": "DF32723EB548C6582097853A865A355C625180B89D7D1F329FC8C48279F65BD3",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\WristRiftV3\\SM_RuneRift_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\Before\\WristRiftV3\\SM_RuneRift_Slash2.uasset",
+      "bytes": 58066,
+      "sha256": "A4361FD32ECF7191C617073BE6DE761943E7DCA393BB49E34C4AC1795B3EA30F",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before\\Source\\ColdSteelFireballHUD.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before\\Source\\ColdSteelFireballHUD.cpp",
+      "bytes": 549,
+      "sha256": "F7F3C22EF10A0CBE1AB23CB30DE0263B65B73397CA737E247D0520A53B3F4186",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before\\Source\\ColdSteelQuickSlot.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before\\Source\\ColdSteelQuickSlot.cpp",
+      "bytes": 6918,
+      "sha256": "2BADC8AE7A109403C35CC87F47D3FA22B15C7050C30C608704CC1C7696567BB7",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 17702,
+      "sha256": "8DCAA4BD6DD91820EC8568587E380EDA6F52BAD102576EEC5C8D57D585EDF8F8",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\Before\\UI\\ColdSteelItemTooltipData.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\Before\\UI\\ColdSteelItemTooltipData.cpp",
+      "bytes": 18028,
+      "sha256": "9E7278F775585177859EB23F79EC78A3062F1518B6B2C32FD81806B31A8A3D3D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\Before\\Weapons\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\Before\\Weapons\\RuneSwordComponent.cpp",
+      "bytes": 29877,
+      "sha256": "0BA8D22AA049A0F3A22AEBC28A3F113FA91433260093E2E730261111B80360BF",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 18016,
+      "sha256": "B4C68F0C210F13B3AF97E7BD5E3F81D828C0C371B73078FF69EDC38F4727B499",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\ColdSteelItemTooltipData.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\ColdSteelItemTooltipData.cpp",
+      "bytes": 17383,
+      "sha256": "AD83E2369006C14DD6280D4BDD1918772A06C95170A634400B90D015BF1A7C58",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\FPSGAMECharacter.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\FPSGAMECharacter.cpp",
+      "bytes": 111359,
+      "sha256": "108BB6D7E084D83220A90B7985F6CCC0AFAC5C8E7D459C9DE476DE61BD4AC65F",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\FPSGAMECharacter.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\FPSGAMECharacter.h",
+      "bytes": 28135,
+      "sha256": "CF77BF06B84AD1AB1B2F2F96C518B6E17B698CFB887003A1821B92D01F33C1DB",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\RuneSwordComponent.cpp",
+      "bytes": 23215,
+      "sha256": "55CC7DB2B5CA4901417EDFF76784EBD8839809B51074D8007B65FE651FA312D4",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\Before\\RuneSwordComponent.h",
+      "bytes": 4327,
+      "sha256": "5401DE0E80FFEB0726AD7E7D66484277D199B12626FFA4DBD0134ECD1C9BBA73",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\FPSGAMECharacter.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\FPSGAMECharacter.cpp",
+      "bytes": 107543,
+      "sha256": "3F229268BC5B93AF94C7828023BF3FB17392CB105DB10DB8D4423F5571B25C9C",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\FPSGAMECharacter.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\FPSGAMECharacter.h",
+      "bytes": 27435,
+      "sha256": "ABCC4A76B7B8055227E82CD3471AB4947F2A1CC4587BFD2FE448BEEFDF4DDE4B",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 18065,
+      "sha256": "41F40589101A1911EE5180F6214CF9C7C83415878AE42BE2972168D2EDA80515",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\Before\\Source\\RuneSwordComponent.h",
+      "bytes": 3324,
+      "sha256": "2FE18003DD5187AD4C88EA2D24E8DC62A5D3DD9F0A29D6794BA86CE61E1ADB68",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\ColdSteelItemTooltipData.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\ColdSteelItemTooltipData.cpp",
+      "bytes": 17146,
+      "sha256": "90313454D14E168926E0649B46A0AB7C71E6FB884D6A2D9E3E1C4EAE20EF3DBB",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\FPSGAMECharacter.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\FPSGAMECharacter.cpp",
+      "bytes": 109963,
+      "sha256": "226690209F9C1015EE5C0AEC3D74BFDCAF3CA76CD7AEE95A05CDF8C0661C4FBA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 18038,
+      "sha256": "FD73714CAC5D1E4BF2820643A9B3A7EF23D2C9A4875C84334782067E970BD78C",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\Before\\Source\\RuneSwordComponent.h",
+      "bytes": 3526,
+      "sha256": "DCABBC29B84D129C4D7206820CF27729FE0E17691312BB3AC0D3BDB45194F8D0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 1366797,
+      "sha256": "497FEF2CDC38BCE5AC6498F7CF7714F5B76559617AD2D5BAF8646735D7EC36DA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 1366797,
+      "sha256": "8B5DEF1DCC621D9A05B428BF80B3CD758C3DAB0F103329C759C9ECF7C492502E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\UnrealEditor.modules.AutoFootstep.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\UnrealEditor.modules.AutoFootstep.json",
+      "bytes": 178,
+      "sha256": "59758D5F720B45027256A3CD6ADD3B31A028E3E72AA05262E6F2F044BE6D52E3",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\UnrealEditor.modules.FPSGAME.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\UnrealEditor.modules.FPSGAME.json",
+      "bytes": 98,
+      "sha256": "3899D896D8098482A2CFC6C96E8966B58C2D84E54C6489B307AD1702FA931631",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 17038,
+      "sha256": "00F74C22564D9A90D3B83AA235C86645641A4ABB709E0D37652BFEE13BBB36E8",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\Source\\RuneSwordComponent.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\Source\\RuneSwordComponent.h",
+      "bytes": 3160,
+      "sha256": "03B14E290A5A13FAA4262DD7FCDF03C6020CA4911A2AFA21C34C354EAE87698B",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\WristRiftV3\\SM_RuneRift_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\WristRiftV3\\SM_RuneRift_Slash1.uasset",
+      "bytes": 57616,
+      "sha256": "2EC4CBBFE8834ACFED8337FD98C63F706A1C110A0652A2297CCA87FADA34F62C",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\WristRiftV3\\SM_RuneRift_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\Before\\WristRiftV3\\SM_RuneRift_Slash2.uasset",
+      "bytes": 57675,
+      "sha256": "7E07E0C1CC9BC64A4ACB12FF37DA080B4F8B6274C7EF807C47E063B84992CD9D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\A_RuneSword_Thrust.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\A_RuneSword_Thrust.uasset",
+      "bytes": 2869764,
+      "sha256": "904A9558E080B6BDA70F6CA787CECB53F15A524CFE7489FAEF24069331BBBAD6",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\Movement\\FPSMeleeLungeMovement.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\Movement\\FPSMeleeLungeMovement.cpp",
+      "bytes": 1571,
+      "sha256": "A9CFBE83E5D3FDF06EFB082B68F676E2432D5F2D737613F91C735D6D57DF3911",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\UI\\ColdSteelItemTooltipData.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\UI\\ColdSteelItemTooltipData.cpp",
+      "bytes": 18023,
+      "sha256": "C22CD5669A78E3619A4DDEF1BD07F1964F1C8172A256B33FDDA899985538D0E0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\Weapons\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\Weapons\\RuneSwordComponent.cpp",
+      "bytes": 28770,
+      "sha256": "0A04CDA1A1C1AB1D067A49F731A860D7E2FD400BE259E1975C1D36F9784160DE",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\Weapons\\RuneSwordThrustRhythm.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\Weapons\\RuneSwordThrustRhythm.h",
+      "bytes": 709,
+      "sha256": "5DE3F732BEA91576AA2F5B078FFF95246A5503429A65B2BD72017648B8F45E9E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\WristRiftV3\\SM_RuneRift_Thrust.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\Before\\WristRiftV3\\SM_RuneRift_Thrust.uasset",
+      "bytes": 120513,
+      "sha256": "D48B113B9A4EDE826110D72DA63338635C94275FEE116F58434F0FA4173ECA2D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Equip.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Equip.uasset",
+      "bytes": 657781,
+      "sha256": "5001C15E0A670BE8A994EEF3C2A101220711884E5620500CB5A951A2353E1C6B",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Idle.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Idle.uasset",
+      "bytes": 2560911,
+      "sha256": "17A5471FBBC469FE90CA1B3713D7753B735F29BB13D579F3B66570A342E5851E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 1148667,
+      "sha256": "3FF4465715FBD7603927AA2C44FCD7EFA6344A0476C18401C25AC48DF0890219",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 1155099,
+      "sha256": "12B7BB2F7651E90D296DA3C1E02BD1F9E66ED907FC31AF38F1F07B09EDC9ED0F",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Sprint.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Sprint.uasset",
+      "bytes": 1132763,
+      "sha256": "50649C7290660E105857E7282206CFAF0ECE0A73EF5D9216D72F961FF756BACA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Walk.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\A_RuneSword_Walk.uasset",
+      "bytes": 1054959,
+      "sha256": "37759561664278C568009F30345667BFE4DF59769C43B38D8A0183FDDA09B214",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\SK_AzureRunesword_Manny_Skeleton.uasset",
+      "bytes": 23201,
+      "sha256": "725815837830CF97E640440D580427C105DDE1509FBECBFC8303430673DA3FE0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\SK_AzureRunesword_Manny.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\SK_AzureRunesword_Manny.uasset",
+      "bytes": 12232347,
+      "sha256": "478C517747B020407A76C1B111493254ADA8C3E7B925EBC647266B86734AD7BF",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\SM_AzureRunesword.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\SM_AzureRunesword.uasset",
+      "bytes": 2476291,
+      "sha256": "DFAD5D4AE90D8D357691107CB92EFD645C3CB1DCB38CE3A1378B45601F1F2CF5",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\WristRiftV3\\SM_RuneRift_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\WristRiftV3\\SM_RuneRift_Slash1.uasset",
+      "bytes": 57357,
+      "sha256": "3377B42534D5B6B34758C46088C22828B96DAA2AE27352BDE95E10C3AB0C0CDB",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\WristRiftV3\\SM_RuneRift_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\Before\\WristRiftV3\\SM_RuneRift_Slash2.uasset",
+      "bytes": 57042,
+      "sha256": "E8DEC824C08A18A680C448788D4A4B2F1B63125F5897356FA28CEADD9E0D8436",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\A_RuneSword_Slash1.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\A_RuneSword_Slash1.uasset",
+      "bytes": 2766325,
+      "sha256": "23D99B291CAC6C8E0A84E01EB71F58A1374A96818D4E9824BCE88A19ADC50342",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\A_RuneSword_Slash2.uasset",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\A_RuneSword_Slash2.uasset",
+      "bytes": 2766325,
+      "sha256": "1D251340CF0DDEFDB333BD27F799046AC3AE3B958933B59F06236BD397A96FA0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\Source\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\Source\\RuneSwordComponent.cpp",
+      "bytes": 17448,
+      "sha256": "741E4D6D89D5BA0DF36F074BE22CE16F1746A4C87DB0E4670AA306CE0D59D9BA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\Source\\RuneSwordRhythm.h",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\Before\\Source\\RuneSwordRhythm.h",
+      "bytes": 2125,
+      "sha256": "8DFA3126C884EBE4A84FE6D637CE2610AFAA1A12C2B0FE66452C145FDC106CDA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 18067,
+      "sha256": "8D184374796D5A6F88C5DD3DBF177EE890C21631559DC89E08F6F7F326BBAF6A",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 27416,
+      "sha256": "129967BCB918931CBD9AE6A39470003E84A6E0AB5449C51858180C37214E556F",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "bytes": 6210,
+      "sha256": "4C8BA0CB651162DD0197C2D97B759112C362A6FDF277D9D4E1C69B5D5310B48E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__\\guard_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\__pycache__\\guard_motion.cpython-313.pyc",
+      "bytes": 1848,
+      "sha256": "BA8EDC73A2C11061B1127DD68F8C8442226F690B619975DAABE5A999B2BE5132",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\Before\\ColdSteelItemTooltipData.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\Before\\ColdSteelItemTooltipData.cpp",
+      "bytes": 17383,
+      "sha256": "97328DB24580433CE61C2DE3D4765E06B38231A66A72D404FF3C6271A50DEEED",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\Before\\RuneSwordComponent.cpp",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\Before\\RuneSwordComponent.cpp",
+      "bytes": 22135,
+      "sha256": "BEBB1553F9A2C4E0334F5FAB505749753E40F19C5E7B5492CB8D133D58A56DFF",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\action_timebase.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\action_timebase.cpython-313.pyc",
+      "bytes": 1072,
+      "sha256": "71F2ED4F932BB303E2F506953EE2BEEF56F76D4416CF09C83C27AA34694750D3",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 27418,
+      "sha256": "8191C3EE42B6CEB18A1CFDF136F19DACACED344011742902EB3899E77477AB9C",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "bytes": 6212,
+      "sha256": "2169E898132B4F0E96A46E193D323C734A4B57DD0EE01F5EFAC8EE34AF1E6C62",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\heavy_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\__pycache__\\heavy_motion.cpython-313.pyc",
+      "bytes": 3323,
+      "sha256": "FEE338570166587C49649838223A8BF1BDE5484F590FEE97C5F396398D13F4A7",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 27418,
+      "sha256": "4313D61FDE5277C3B8B2EB4F2FB4B007C938C3853D32190762F69AC692D4D4FF",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "bytes": 6212,
+      "sha256": "C27DD794C9C91F543D7072FABCF05399DFF86F34FA7DB46029A8EB973FDD472E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__\\thrust_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\__pycache__\\thrust_motion.cpython-313.pyc",
+      "bytes": 2924,
+      "sha256": "941FA3D6593BC34A5DC184DAA26C849228A2DC3DA79D8B87FA4BFA902B7F7452",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 27418,
+      "sha256": "DA5D27B24C5801194518538BC07D82FEFD828030942EE5C253B15E78D4A850BE",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\__pycache__\\diagonal_motion.cpython-313.pyc",
+      "bytes": 6212,
+      "sha256": "E182DEFBAFCC563B9B20CDBF7944F49E7FD555A25809982CEEAC44E6CBA3F108",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\__pycache__\\arm_solver.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactNaturalV4\\__pycache__\\arm_solver.cpython-313.pyc",
+      "bytes": 17194,
+      "sha256": "E56BDF24CCD0F0AAFC2CE62A35D1159F9DC3961DFBB748859A2F558E7E8FB9CA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\__pycache__\\rhythm_clock.cpython-312.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\__pycache__\\rhythm_clock.cpython-312.pyc",
+      "bytes": 4361,
+      "sha256": "EFEE54D2D43CCD9760EB45E4D83B7B5BC5B49031D102AC14D1B2472328FED484",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\__pycache__\\rhythm_clock.cpython-313.pyc",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\__pycache__\\rhythm_clock.cpython-313.pyc",
+      "bytes": 4318,
+      "sha256": "48444166845D09444F94F6AA1A90F7EAFFFD65C87436B2E6A1EF16C084AC4128",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49149.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49149.dll",
+      "bytes": 145408,
+      "sha256": "55FE85B463F8133CF91148EC9A39FBBF379ADC07E854EC48F12E7B7E59CD2EF6",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49149.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49149.dll",
+      "bytes": 134144,
+      "sha256": "8E9F125AB1B04BEED9190847CC4E0D18A93274FAF49360B72A364F5F0922C76E",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "07D09BA5483F58CF75C8A868B27E624AF176706958B55D9A004975E269DC4EC7",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49149.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49149.dll",
+      "bytes": 7155200,
+      "sha256": "FD08DCD1B0B9F34CA352728468AA8A2B8461563BFB43EBBE8C020B6BEF97B73D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraBaseV9\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "B11F77F074A1CED34A42BA7ECC1DE1DF86D6C56A0EA558ACC8A52BC8F2F9D364",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep.dll",
+      "bytes": 139776,
+      "sha256": "4C37999BB46E29A2523E359511BE883361A71ABC96E4A1CBEBC99C00E7980DF8",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor.dll",
+      "bytes": 130560,
+      "sha256": "7D99AA7E2A94CBA92ED7E27D26AB7437F2F9D8C38D29FA9ACE2A09A8443DA106",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 166,
+      "sha256": "D7E5252DBC58071BC3DF5DA3EDE77E70A6760857CE5071F1F090050D1B7D5EE0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME.dll",
+      "bytes": 6567424,
+      "sha256": "860B0BA06E800315C5028AF06BFAB1588596FE806F06D4E95753C88CE73CD915",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 92,
+      "sha256": "98CC7280A8F067E7F3ABE301F7324653BD182384734C32B6C8A4D3322C152064",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49154.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49154.dll",
+      "bytes": 139776,
+      "sha256": "9925EB9E08EF6AED4DC9A6A522F9B2C95274BBACFF7F8B19D481CC6C8495812D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49154.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49154.dll",
+      "bytes": 130560,
+      "sha256": "10E5765502336581AE23A8409B41ABBB095B392BFB8DAF109A7F87B448C51BAD",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "70590262669CCFC1385DF6224D9A793FF8FCF51E1BE1114824E83001157DD35A",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49154.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49154.dll",
+      "bytes": 7055360,
+      "sha256": "D8FE730084CE53D85CF8A2D80F422E3E243DF9C3E3B8871A8CEC86EC4E3AB856",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\LeftPrimaryV14\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "7B748E95372D2AABD6F17B65DAE814E932DCC787542C18CFA318622B5367AF4D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49151.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49151.dll",
+      "bytes": 145408,
+      "sha256": "2ECF69BF57DF8352F9C28CB8F1AA6450E495272FE78F543136CCBB3DC1F3E2D6",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49151.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49151.dll",
+      "bytes": 134144,
+      "sha256": "CD06EC9CCEC51C9F34F0DD855248BF1B27E994B4B90176105DF15CF9DD6733D7",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "9E61E93A6B7D9BBD0EE68281B5B46B021DF53B2197D4186736D4F869261533AF",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49151.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49151.dll",
+      "bytes": 7294976,
+      "sha256": "45FA0AA34978B47647CED5F1EEAA0684300411AAED1C88A8105D8D004C1BB69A",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CombatAuditV11\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "7C44368EC569FCFC5EDEEF6E49DA930C2F65B796D2E543788187E33969CF2D5B",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\author_guard_body.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\author_guard_body.py",
+      "bytes": 4076,
+      "sha256": "B029835048015C06D94669624A3ED3B661E4001D2465963D817214097C21CF77",
+      "reason": "Assembly intermediate duplicated by the executable author script",
+      "replacement": "GuardParryV18/author_guard.py"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49157.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49157.dll",
+      "bytes": 139776,
+      "sha256": "49250D053043C0E83ADE2CDD8FB10A409F6C9239EC969F7A6CE43A723F9D103D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49157.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49157.dll",
+      "bytes": 130560,
+      "sha256": "81613795ABD6DD8D8A42D03A55C4A9E7C5E324F0D09064BCE852AA0DBB7A8238",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "15C30651044166C1A920A112D6D9EA860F661AED4E23B53D424D1B6A777151EC",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49157.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49157.dll",
+      "bytes": 7162880,
+      "sha256": "0514B059F82E4D592CE1FC7BBEDB1978D59138B227A7762CFF0E4DE4F652FAC1",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DoubleRangeV17\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "124C399FA1F2C9860A24D1295E36D5D4D3F8EFB3C0F3C925B483A92CF42A2840",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49150.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49150.dll",
+      "bytes": 145408,
+      "sha256": "EA9FF1FE5964162A6F7D52DC2661458FD967F142D56159C17FE88596C349C612",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49150.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49150.dll",
+      "bytes": 134144,
+      "sha256": "1F255597606DC9DF269FE9538603ACC1B1EC7B6C71BB909B9314519EB5E10026",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "C1EDCF883F0F2ADD3C22622F0E054D310C6F4F2CE6A96D2FEBB2905256533613",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49150.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49150.dll",
+      "bytes": 7173632,
+      "sha256": "D136CBB0D678807CC12E7765663D7C53A75A065ED6119E4E52907ED9429CC39A",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CameraHeavyV10\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "47956DEA728E9A94C465AE5319D0EC8F23772D2BBBA2842290F2D5974429DC35",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\read_author_source.py",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\read_author_source.py",
+      "bytes": 1293,
+      "sha256": "C7DA5B8D3C8F80FB798A821F06F3BD32D9DFEF735A46802A61CE72F89F7DAB00",
+      "reason": "One-off authoring read; final author script reads its source directly",
+      "replacement": "GuardPoseV19/author_guard.py"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49156.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49156.dll",
+      "bytes": 139776,
+      "sha256": "BF917A2B92E756192DF94F912C700340BA3E5852496BACDFD640150F169A8552",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49156.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49156.dll",
+      "bytes": 130560,
+      "sha256": "7602EBDF58184F75370E72CB168A9E1BAC306F3DFD86341E699F19A4E23A45F5",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "CEC9DE49132AE1CFB945CEB3C9257A85923F2BF681DE9A72DAD8C67EB9419104",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49156.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49156.dll",
+      "bytes": 7156736,
+      "sha256": "3B399B5E4B7E03D91937D859C872248229672F30E715715C8537DA287CDD70BA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\StrideThrustV16\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "FF0840849F79382D4F6C5124472A20488AFF53CE4F96BF80B05B35851EDFEF1D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-61433.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-61433.dll",
+      "bytes": 139776,
+      "sha256": "0EFDEB6DA9D1C8280D20EED461AC3F7CC223B2A54640BD2A819C803AA450CBE1",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-61433.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-61433.dll",
+      "bytes": 130560,
+      "sha256": "DCA5FDA62B0B6DCC15E87E367931900A94471B952418CE399E79483CB99BD532",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "BF2D35560DC4A2762223B02D8E7D831C80575783EAE009F3EBECD245CFCF18DA",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-61433.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-61433.dll",
+      "bytes": 7044608,
+      "sha256": "F3472A2E3BBC14E3DC0313EC6B27788E19DE090A2094A64A6D43C62D37200114",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ChargedHeavyV12\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "4B5AFB4274D70B3CBCABE48C7C60A54C83B7C0809B8E9395FD16E14F2C55DE0B",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49146.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49146.dll",
+      "bytes": 139776,
+      "sha256": "CD512725D5D252E3EC771B33FA1565F5D14003EAC11E33BEF23F9B9A881BA920",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49146.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49146.dll",
+      "bytes": 130560,
+      "sha256": "9F941F0E51EA6F0662B67624406C7D5E33467CE87F583D6B37B7F94BCA6A3B25",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "59758D5F720B45027256A3CD6ADD3B31A028E3E72AA05262E6F2F044BE6D52E3",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49146.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49146.dll",
+      "bytes": 6594048,
+      "sha256": "F44E832241B8E7DF6BE27041B91BC28B8B62A474C61606E50FF24979BACB5A1D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\DiagonalHeavyV6\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "3899D896D8098482A2CFC6C96E8966B58C2D84E54C6489B307AD1702FA931631",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49148.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep-49148.dll",
+      "bytes": 145408,
+      "sha256": "23562059C040A6175801FA0E1971684FA8B77AD3A26FAB5DDAF509CFA1F2F30D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49148.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor-49148.dll",
+      "bytes": 134144,
+      "sha256": "13E609C497CE147909B7E8491B77A34D27CDDC810CD08360B473831A5531F6F5",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 178,
+      "sha256": "AB6ADE9EB9688C7013D582BCE6385632EE10FCB1443DBAAF209E49F3EE4B1830",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49148.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME-49148.dll",
+      "bytes": 7096320,
+      "sha256": "A4506ECAC5B33C49AA1022F558FF18BC329BD44AB268F818DE390A91438E8B51",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\CompactRecoveryV8\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 98,
+      "sha256": "E7D03448D61439FB47C460260F02D794EA6EF54FD9D55F887E14DCADDDA74968",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardParryV18\\build-first-attempt.log",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardParryV18\\build-first-attempt.log",
+      "bytes": 65287,
+      "sha256": "AC42C5778FA6AAFF1AE4080391A5F9938D32034941446BE3208FA2C09AE05F72",
+      "reason": "Superseded failed build log; final build log and result retained",
+      "replacement": "GuardParryV18/build.log"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\accepted_idle_source.json",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\accepted_idle_source.json",
+      "bytes": 62874,
+      "sha256": "A4D97929C1613B15F169D8879688BBEB0CCABD0E5D055AC7FABA4E526371C53E",
+      "reason": "Unused dense pose read from licensed Manny source",
+      "replacement": "GuardPoseV19/author_guard.py and retained Blend"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstep.dll",
+      "bytes": 139776,
+      "sha256": "444B97E32F442D2BD64127FC896A9014B3A8B7AF75D319026256515228603E3D",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor-AutoFootstepEditor.dll",
+      "bytes": 130560,
+      "sha256": "DBF8433B5A7D744FA6DF2B4045EE52D912B8FDFD0973D6D77FA517AFCAB6F4AC",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\AutoFootstep\\UnrealEditor.modules",
+      "bytes": 166,
+      "sha256": "D7E5252DBC58071BC3DF5DA3EDE77E70A6760857CE5071F1F090050D1B7D5EE0",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME.dll",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor-FPSGAME.dll",
+      "bytes": 7053824,
+      "sha256": "DEAE6840CB78F305A3579181C901793AAB3BDEEA2DFD4A17B18E63B6067FA277",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "destination": "D:\\FPS3D\\FPSGAME\\trash\\runesword-melee-superseded-20260914\\SourceAssets\\RuneSword20260913\\ReleaseFallbackV13\\NativeBuildSnapshot\\FPSGAME\\UnrealEditor.modules",
+      "bytes": 92,
+      "sha256": "98CC7280A8F067E7F3ABE301F7324653BD182384734C32B6C8A4D3322C152064",
+      "reason": "Historical recovery/build/cache output; not an input of current authoring",
+      "replacement": "Current sources, V18 native snapshot, V18/V19 rollback assets"
+    }
+  ],
+  "count": 290,
+  "bytes": 435726884.0,
+  "preserved": [
+    "Original/Reference and current asset dependency chain",
+    "ReachSweepV2 and V3/V4 key failure comparison inputs",
+    "WeightLeftV5 including ImportHost",
+    "V6 -> V8 -> V12 -> V16 -> V18 -> V19 editable source chain",
+    "Installed V19 guard remains paused and not accepted"
+  ]
+}

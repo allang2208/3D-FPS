@@ -1,0 +1,30 @@
+{
+  "material": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword.M_AzureRunesword",
+  "used_with_skeletal_mesh": true,
+  "animations": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Export\\A_RuneSword_Idle.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Idle.A_RuneSword_Idle"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Export\\A_RuneSword_Walk.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Walk.A_RuneSword_Walk"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Export\\A_RuneSword_Slash1.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash1.A_RuneSword_Slash1"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Export\\A_RuneSword_Slash2.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash2.A_RuneSword_Slash2"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Export\\A_RuneSword_Equip.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Equip.A_RuneSword_Equip"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ReachSweepV2\\Export\\A_RuneSword_Sprint.fbx",
+      "asset": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Sprint.A_RuneSword_Sprint"
+    }
+  ]
+}
