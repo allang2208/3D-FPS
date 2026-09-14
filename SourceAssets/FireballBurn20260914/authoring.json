@@ -1,0 +1,22 @@
+{
+  "source_package": "Epic Niagara Examples Pack (existing locally acquired assets)",
+  "source_system": "/Game/NiagaraExamples/FX_Misc/NS_Fire.NS_Fire",
+  "source_emitter": "/Game/NiagaraExamples/FX_Misc/NS_Fire.NS_Fire:FlamesOnly_0",
+  "source_material": "/Game/NiagaraExamples/Materials/MI_Flames",
+  "runtime_system": "/Game/Skills/Fireball/NS_FireballBurningCore.NS_FireballBurningCore",
+  "runtime_material": "/Game/Skills/Fireball/MI_FireballSurfaceFlames.MI_FireballSurfaceFlames",
+  "surface_flames_per_second": 32,
+  "surface_embers_per_second": 7,
+  "flame_lifetime_seconds": [
+    0.32,
+    0.48
+  ],
+  "ember_lifetime_seconds": [
+    0.38,
+    0.56
+  ],
+  "local_space": true,
+  "existing_trail_and_impact": "unchanged",
+  "status": "authored and compiled; no game test or rendered acceptance",
+  "license": "Keep original Epic package license and content dependencies; no redistribution grant."
+}

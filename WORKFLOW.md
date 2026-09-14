@@ -28,6 +28,8 @@
 
 新建或改造面板／栏目先走 [UI-WORKFLOW](UI-WORKFLOW.md)，使用 [规划模板](Docs/UI/panel-column-plan-template.md) 定义信息结构、响应布局、数据范围和交互状态，按 [冷钢 UI 正式规则](Docs/UI/ui-cold-steel-design-system.md) 制作。数值规范在正式规则中维护，可复用经验进入 `ue5-ui-umg-slate`；确认退役的本次废案按第 4 节归档，保留已采用素材与来源。
 
+技能／魔法制作遵循 [专用工作流](skills/ue5-skill-magic-workflow/SKILL.md)，施法手臂与蒙皮细节进入 [手臂技能](skills/ue5-fps-arms-animation/references/casting-arm-volume.md)。2026-09-14 火球左手 V3 为用户认可的制作基线；认可范围、构建和未测试部分分别记录。
+
 ## 7. 并行工作
 
 不 stash/reset/clean 工程，不覆盖他人未提交修改或暂存区。`D:/FPS3D/FPSGAME` 的 `.git` 独立管理当前工程；旧 E 盘仓库及发布工作区已归档，不再作为开发或同步入口。保留并行修改，按本次明确路径暂存，不为整理仓库夹带未验收功能。

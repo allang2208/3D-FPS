@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-14",
+  "recordStage": "Initial migration source record; adaptation below describes that stage, before subsequent hand and VFX revisions.",
+  "currentWorkflow": "Docs/Skills/skills-magic-publication-20260914.md",
+  "skill": "fireball",
+  "status": "integrated; not game-tested",
+  "ruleSource": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/data/skills.json:skills.fireball",
+  "ruleSnapshot": "game-dev-fireball.json",
+  "ruleImplementation": [
+    "src/entities/components/fireball-system.js",
+    "src/entities/components/bolt-skill-system.js",
+    "src/ui/skill-manager.js:addFireballExp",
+    "src/phaser/scenes/GameScene.js:_ensureFireballEmitters"
+  ],
+  "icon": {
+    "tool": "built-in image_gen",
+    "styleReference": "Content/ColdSteelData/Skills/rifle_mastery_cold_steel.png",
+    "sourceImage": "fireball_cold_steel.png",
+    "generatedSource": "C:/Users/allan/.codex/generated_images/01a0902e-4abe-7c50-a826-64f4c54c4f4f/exec-518f03db-8366-473a-9601-37ae06663af7.png",
+    "runtime": "Content/ColdSteelData/Skills/fireball_cold_steel.png",
+    "prompt": "prompt.txt",
+    "operation": "unchanged copy of generated output"
+  },
+  "vfx": {
+    "sourcePackage": "Epic Niagara Examples Pack",
+    "listing": "https://www.fab.com/listings/0e188eca-4e54-4fb2-a9ed-d8b8a565e600",
+    "acquisitionEvidence": "Docs/Skills/fireball-asset-selection-20260914.md",
+    "usage": "Derived project assets from the locally acquired package; retain the original package license and dependencies.",
+    "sources": [
+      "/Game/NiagaraExamples/Materials/MI_FireBall_8x8",
+      "/Game/NiagaraExamples/FX_Misc/NS_Fire",
+      "/Game/NiagaraExamples/FX_Explosions/Emitters/NE_Core",
+      "/Game/NiagaraExamples/FX_Weapons/Trails/NS_RocketTrail",
+      "/Game/NiagaraExamples/FX_Explosions/NS_Explosion_Small"
+    ],
+    "outputs": "created-assets.json",
+    "authoringScript": "Tools/Skills/build_fireball_assets.py",
+    "shockwave": "Project-authored radial additive material; depth testing retained."
+  },
+  "audio": {
+    "source": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/skills/fireball_hit.mp3",
+    "preservedSource": "fireball_hit.mp3",
+    "importSource": "fireball_hit.wav",
+    "conversion": "ffmpeg PCM 16-bit mono 48000 Hz; original audio retained",
+    "runtime": "/Game/Skills/Fireball/S_FireballImpact"
+  },
+  "adaptation": "Q prepare / launch; original damage and progression retained. World scale is 1 source unit = 1.5 cm, giving 24 m/s, 18 m range, and level-dependent 1.275-2.7 m explosion radius. UE explosion uses spherical range and visibility occlusion. No new first-person arm animation was authored."
+}

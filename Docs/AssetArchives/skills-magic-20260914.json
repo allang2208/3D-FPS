@@ -1,0 +1,167 @@
+{
+  "date": "2026-09-14",
+  "scope": "Accepted fireball left-hand V3 workflow publication",
+  "file_count": 19,
+  "total_bytes": 343448467,
+  "verified_move_sha256": true,
+  "retained": [
+    "Current Fireball_LeftHand_Editable.blend and Export",
+    "Current author_cast.py and reference photos",
+    "GASPTraversal20260910/Native authoring input",
+    "Fireball VFX builder chain and licensed source packages"
+  ],
+  "files": [
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/authoring.json",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/authoring.json",
+      "bytes": 1772,
+      "sha256": "e177fdc85dfdce6d97c491f2e4c8e17e455d654a410b321022bc325ed509f40a",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/authoring.json"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Fireball_LeftHand_Editable.blend",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Fireball_LeftHand_Editable.blend",
+      "bytes": 145115526,
+      "sha256": "1cd24e624fc3314ed5bfd8ba1431b142adde7a16d191c6d0106592745d5e927c",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Fireball_LeftHand_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Gather.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Gather.fbx",
+      "bytes": 4015756,
+      "sha256": "7b22a1f2cdef8736811029db903f1611f8cc9759c9ab6cc3db88ca59c9583920",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Gather.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_GatherRecover.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_GatherRecover.fbx",
+      "bytes": 3479196,
+      "sha256": "b7d58f0e56f77038529e3aa7cceb5d5dbb5218a12a61a3ac3b2ae91177c2eb2f",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_GatherRecover.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Hold.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Hold.fbx",
+      "bytes": 4384780,
+      "sha256": "3a720973468d3a2027636a6f7d838048a27808e5c2b1aa3ac3d311a473b637b2",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Hold.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Recover.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Recover.fbx",
+      "bytes": 3479788,
+      "sha256": "0350900a071eeaaf548b3537cfb8d16f1975b60d3d7a31aa08f5128042f0078d",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Recover.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Release.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_Release.fbx",
+      "bytes": 3321756,
+      "sha256": "98f7644c206e1415f57ae61b2f8b197272bf7a67f21934b5bd8fc20e40e85c55",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Release.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_ReleaseDetached.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_ReleaseDetached.fbx",
+      "bytes": 3321628,
+      "sha256": "9dbc82e7feb5130ed4e1446fd8cd126f93289cb0046625d4a07c0183bfa58a57",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_ReleaseDetached.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_ReleaseWindup.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeNaturalV2/Export/A_Fireball_ReleaseWindup.fbx",
+      "bytes": 3277084,
+      "sha256": "aae5ea38b28361bb40cef595a34d0e5f3a4cf8f948f3f10c586d7fb059cd5886",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_ReleaseWindup.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/authoring.json",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/authoring.json",
+      "bytes": 1977,
+      "sha256": "68d344e79a2eb187e079a36a2424f80ba782070991d164c29066d623a2e9a54b",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/authoring.json"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Fireball_LeftHand_Editable.blend",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Fireball_LeftHand_Editable.blend",
+      "bytes": 146243345,
+      "sha256": "9f5075fd44d90f68c3a7cd39fc115cb71884adb3452711018b3510b679116796",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Fireball_LeftHand_Editable.blend"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Gather.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Gather.fbx",
+      "bytes": 4439484,
+      "sha256": "5d9ba52f0ca2fd5d2a12816dfe8e4a2902ff2d8b2685ffe36dec014fdd86bbe9",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Gather.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_GatherRecover.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_GatherRecover.fbx",
+      "bytes": 3709084,
+      "sha256": "de2cdb1e2a9305171de8c4476af0f9f0e8f6b64c4135463cf276855e44ffd065",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_GatherRecover.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Hold.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Hold.fbx",
+      "bytes": 4384700,
+      "sha256": "3ef149b49a750ddf2825c9ee10cb0d02f2fbb770442a64b4454e628d6f0e8be4",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Hold.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Recover.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Recover.fbx",
+      "bytes": 3709212,
+      "sha256": "af1268b3933cb9b5b89f4b67b7f51d20e8f69906f2d76a5905904c6a757f2932",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Recover.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Release.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_Release.fbx",
+      "bytes": 3554668,
+      "sha256": "0526ef76d6506df969e5cce956c341a254ef667466ab0b0cf6a36599f4bd68c0",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_Release.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_ReleaseDetached.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_ReleaseDetached.fbx",
+      "bytes": 3554924,
+      "sha256": "1fe062214758a86cf22842fde538c886892c7e866de523c13922bf37835cb37f",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_ReleaseDetached.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_ReleaseWindup.fbx",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/BeforeArmVolumeV3/Export/A_Fireball_ReleaseWindup.fbx",
+      "bytes": 3451564,
+      "sha256": "31499ae91bb6ecd801882da26f45b61cca298593abd79dfce7176b76d3948794",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/Export/A_Fireball_ReleaseWindup.fbx"
+    },
+    {
+      "original": "SourceAssets/FireballCast20260914/natural-v2-author.log",
+      "archived": "trash/skills-magic-20260914/SourceAssets/FireballCast20260914/natural-v2-author.log",
+      "bytes": 2223,
+      "sha256": "1fad6484eb5e7364e8aca5609a6f323e3f75eed2b11bc0a5fe9ef814bf2ba7f2",
+      "reason": "Superseded cast motion output; user accepted arm-volume V3",
+      "replacement": "SourceAssets/FireballCast20260914/arm-volume-v3-author.log"
+    }
+  ]
+}

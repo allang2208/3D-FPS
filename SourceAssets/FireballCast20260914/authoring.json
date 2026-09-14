@@ -1,0 +1,88 @@
+{
+  "references": [
+    "reference-gather.jpg",
+    "reference-release.jpg"
+  ],
+  "source_mesh": "SK_Manny_Arms_Export",
+  "pose_config": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Skills\\fireball_hand_pose.json",
+  "clips": [
+    {
+      "name": "A_Fireball_Gather",
+      "fps": 300,
+      "frames": [
+        0,
+        285
+      ],
+      "duration": 0.95,
+      "loop": false
+    },
+    {
+      "name": "A_Fireball_GatherRecover",
+      "fps": 300,
+      "frames": [
+        0,
+        132
+      ],
+      "duration": 0.44,
+      "loop": false
+    },
+    {
+      "name": "A_Fireball_ReleaseWindup",
+      "fps": 300,
+      "frames": [
+        0,
+        78
+      ],
+      "duration": 0.26,
+      "loop": false
+    },
+    {
+      "name": "A_Fireball_ReleaseDetached",
+      "fps": 300,
+      "frames": [
+        0,
+        102
+      ],
+      "duration": 0.34,
+      "loop": false
+    },
+    {
+      "name": "A_Fireball_Recover",
+      "fps": 300,
+      "frames": [
+        0,
+        132
+      ],
+      "duration": 0.44,
+      "loop": false
+    },
+    {
+      "name": "A_Fireball_Hold",
+      "fps": 300,
+      "frames": [
+        0,
+        300
+      ],
+      "duration": 1.0,
+      "loop": true
+    },
+    {
+      "name": "A_Fireball_Release",
+      "fps": 300,
+      "frames": [
+        0,
+        102
+      ],
+      "duration": 0.34,
+      "loop": false
+    }
+  ],
+  "release_contact_seconds": 0.2,
+  "release_windup_seconds": 0.26,
+  "motion_revision": "Arm volume V3: whole-segment skinning transforms and supported shoulder advance; V2 rhythm retained",
+  "timing_source": "Source/FPSGAME/Skills/FireballCastMotion.h + FPSFireballComponent.h",
+  "detached_hover": true,
+  "hold_clip_usage": "reference pose only; runtime releases the hand after gathering",
+  "runtime": "FPSCastingMeshComponent retargets palm and finger directions to each equipped skeleton",
+  "renders_or_tests_run": false
+}

@@ -1,0 +1,39 @@
+{
+  "id": "fireball",
+  "name": "火球",
+  "icon": "🔥",
+  "iconImage": "assets/skills/fireball_icon.png",
+  "description": "释放后在角色身前凝聚火球，再次释放将火球瞄准鼠标方向射出，命中后造成范围爆炸伤害",
+  "sounds": {
+    "hit": "assets/sounds/skills/fireball_hit.mp3"
+  },
+  "maxLevel": 20,
+  "tags": [
+    {
+      "name": "魔法",
+      "type": "magic"
+    },
+    {
+      "name": "主动",
+      "type": "active"
+    }
+  ],
+  "effectFormula": {
+    "damageBase": "80 + level * 10",
+    "magicMul": "2 + 0.5 * level",
+    "intMul": "2.5 + 0.75 * level",
+    "cooldown": 20,
+    "mpCost": 50,
+    "explosionRadius": "80 + level * 5",
+    "duration": 30,
+    "flySpeed": 1600,
+    "maxRange": 1200
+  },
+  "expFormula": "100 + (level - 1) * 100",
+  "expRewards": {
+    "hit": 4,
+    "kill": 12,
+    "multiHit": 10,
+    "multiKill": 10
+  }
+}

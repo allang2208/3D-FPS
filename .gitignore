@@ -18,12 +18,19 @@ __pycache__/
 *.py[cod]
 /trash/
 # External licensed binary content and authoring files remain local.
+# Fireball source skeleton/material graph exports retain third-party data.
+/SourceAssets/FireballCast20260914/source_pose.json
+/SourceAssets/FireballBurn20260914/source-inputs.json
+/SourceAssets/FireballSlowBurn20260914/material-source.json
 # A reviewed, redistributable asset can be explicitly allowlisted later.
 /Content/*
 !/Content/README.md
 !/Content/ColdSteelData/
 /Content/ColdSteelData/*
 !/Content/ColdSteelData/*.json
+!/Content/ColdSteelData/Skills/
+/Content/ColdSteelData/Skills/*
+!/Content/ColdSteelData/Skills/fireball_hand_pose.json
 /Plugins/
 *.uasset
 *.umap

@@ -1,0 +1,47 @@
+{
+  "runtime_core": "/Game/Skills/Fireball/NS_FireballSlowBurnCore.NS_FireballSlowBurnCore",
+  "source": "Owned local Epic Niagara Examples FireBall and FireRoil 8x8 looping atlases",
+  "materials": [
+    "/Game/Skills/Fireball/M_FireballSoftSprites.M_FireballSoftSprites",
+    "/Game/Skills/Fireball/MI_FireballSoftInner.MI_FireballSoftInner",
+    "/Game/Skills/Fireball/MI_FireballSlowRoil.MI_FireballSlowRoil"
+  ],
+  "inner": {
+    "rate": 3,
+    "life_seconds": [
+      1.5,
+      2
+    ],
+    "origin_radius_cm": [
+      1,
+      4
+    ]
+  },
+  "roil": {
+    "rate": 10,
+    "life_seconds": [
+      1.2,
+      1.8
+    ],
+    "origin_radius_cm": [
+      2,
+      8
+    ],
+    "hover_lift_cm_per_second": 3
+  },
+  "animation": {
+    "atlas_frames": 64,
+    "frames_per_second": [
+      10,
+      13
+    ],
+    "random_start_frame": true,
+    "blend_frames": true
+  },
+  "edge": "Soft warped falloff before premultiplication; no alpha clip or velocity stretch",
+  "flight": "60 ms transition into a bounded 22 cm rear envelope; hover lift removed at transition end",
+  "embers_and_smoke": "disabled in this first calm-fire version",
+  "trail": "Existing NS_FireballVelocityTrail unchanged",
+  "license": "Derived from existing local Epic assets; original dependencies and license retained",
+  "status": "authored and compiled; no game test or visual acceptance"
+}

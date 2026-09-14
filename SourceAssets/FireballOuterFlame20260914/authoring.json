@@ -1,0 +1,46 @@
+{
+  "system": "/Game/Skills/Fireball/NS_FireballSlowBurnCore.NS_FireballSlowBurnCore",
+  "emitter": "FireballOuterFireFlame",
+  "material": "/Game/Skills/Fireball/MI_FireballOuterFireFlame.MI_FireballOuterFireFlame",
+  "texture": "/Game/_SplineVFX/_GenericSource/Texture/T_Vfx_Stamp_FireFlame_88",
+  "source_pack": "Dr.Game Free Spline VFX (user imported)",
+  "source_listing": "https://www.fab.com/listings/2b923e61-b02d-4cc9-bd0b-b067c9e6056e",
+  "source_reference_layer": "NS_Spline_Fire / Fire_B",
+  "spawn_rate": 8,
+  "lifetime_seconds": [
+    0.9,
+    1.4
+  ],
+  "root_radius_cm": [
+    8,
+    10
+  ],
+  "sprite_width_cm": [
+    10,
+    13
+  ],
+  "sprite_height_cm": [
+    13,
+    16
+  ],
+  "root_pivot_uv": [
+    0.5,
+    0.82
+  ],
+  "atlas": {
+    "columns": 8,
+    "rows": 8,
+    "fps": [
+      12,
+      16
+    ],
+    "independent_phase": true,
+    "frame_blend": true
+  },
+  "hover": "Short upward/outward flames, embedded soft roots, no ring or axial orbit",
+  "flight": "Existing 60 ms blend; root positions and baked flame axis both turn toward local -X",
+  "material_alpha": "RGB coverage; smooth bottom/side masking; depth fade then premultiplied emissive",
+  "dependencies": "FireFlame texture only from Spline VFX; existing core emitter template from Epic Niagara Examples",
+  "license": "Keep acquired source-package terms and dependencies; no new redistribution grant",
+  "status": "authored and compiled; no game test or rendered acceptance"
+}

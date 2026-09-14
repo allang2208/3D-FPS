@@ -1,0 +1,30 @@
+{
+  "version": 3,
+  "coordinates": "camera centimetres: X forward, Y right, Z up",
+  "shoulder": [-3.2, -19.0, -19.0],
+  "elbow_pole": [0.0, -43.0, -42.0],
+  "gather_wrist": [33.0, -24.0, -26.0],
+  "release_wrist": [54.0, -22.0, -19.0],
+  "withdraw_wrist": [23.0, -35.0, -37.0],
+  "windup_wrist": [29.0, -28.0, -28.0],
+  "release_shoulder": [10.8, -19.0, -19.0],
+  "release_elbow_pole": [14.0, -43.0, -42.0],
+  "gather_depart": [-4.0, -7.0, -5.0],
+  "gather_approach": [-8.0, -3.0, -2.0],
+  "windup_depart": [-3.0, -6.0, -3.0],
+  "windup_approach": [-4.0, -2.0, -2.0],
+  "recovery_depart": [-9.0, -5.0, -3.0],
+  "gather_forward": [0.94, 0.22, 0.20],
+  "gather_normal": [-0.20, 0.0, 0.98],
+  "release_forward": [1.0, 0.02, -0.04],
+  "release_mid_normal": [0.0, -1.0, 0.0],
+  "release_normal": [0.0, 0.0, -1.0],
+  "orb_offset": [12.0, 0.0, 18.0],
+  "digits": {
+    "index": {"spread": [0.0, 0.0, 0.0], "gather_flex": [6.0, 11.0, 14.0], "release_flex": [2.0, 4.0, 6.0]},
+    "middle": {"spread": [0.0, 0.0, 0.0], "gather_flex": [6.0, 11.0, 14.0], "release_flex": [2.0, 4.0, 6.0]},
+    "ring": {"spread": [0.0, 0.0, 0.0], "gather_flex": [7.0, 12.0, 15.0], "release_flex": [3.0, 5.0, 7.0]},
+    "pinky": {"spread": [0.0, 0.0, 0.0], "gather_flex": [8.0, 13.0, 16.0], "release_flex": [4.0, 6.0, 8.0]},
+    "thumb": {"spread": [-48.0, -43.0, -38.0], "gather_flex": [12.0, 16.0, 20.0], "release_flex": [7.0, 10.0, 13.0]}
+  }
+}

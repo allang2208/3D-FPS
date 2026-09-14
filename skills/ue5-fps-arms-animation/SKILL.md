@@ -26,6 +26,8 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 双手剑、双手近战挥砍/重击/突刺和格挡，或手腕扭转、左右臂交叉：[双手近战动作](references/two-handed-melee.md)。固定双手握点、分离剑身展示角与攻击刃向；符文剑 V18/V19 格挡尚未接受，暂停保留。
 
+- 技能／魔法的左手凝聚、发射、脱手恢复，或翻掌导致手臂变细：[施法与完整骨段](references/casting-arm-volume.md)。业务状态和资源存档另读 [技能／魔法工作流](../ue5-skill-magic-workflow/SKILL.md)。
+
 - 手枪动作、M1911/P9 迁移、空仓机械与回握缩尾：[手枪动作适配](references/pistol-adaptation.md)。M4 的拍击/装备拉栓合同不直接套到手枪。
 
 - 单手斧头、十字镐等采集工具的抓握与力度：[单手工具动作](references/single-hand-tools.md)。固定手与工具接触，联动腕臂，以采集提交驱动命中停顿和回弹；已有导入/构建结果不等于游戏内接受。

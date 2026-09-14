@@ -1,0 +1,14 @@
+{
+  "runtime_core": "/Game/Skills/Fireball/NS_FireballAerodynamicCore.NS_FireballAerodynamicCore",
+  "runtime_trail": "/Game/Skills/Fireball/NS_FireballVelocityTrail.NS_FireballVelocityTrail",
+  "source": "Existing project FireballBurningCore and FireballTrail, derived from owned Epic Niagara Examples",
+  "hover": "Original buoyant flames",
+  "flight_surface": "Local -X aligned with opposite projectile velocity; no upward lift",
+  "trail": "World-space swept path, velocity sampled at birth, no gravity/wind/upward lift",
+  "trail_lifetime_seconds": [
+    0.1,
+    0.14
+  ],
+  "trail_spawn_spacing_cm": 10,
+  "status": "authored and compiled; not game-tested or rendered"
+}
