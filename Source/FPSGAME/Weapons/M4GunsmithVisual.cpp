@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/StaticMeshSocket.h"
 #include "Engine/SkeletalMesh.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -15,6 +16,7 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if (bUseDanWesson715) { SetDanWesson715Optic(Variant); return; }
     if (bUseM1911) { SetM1911Optic(Variant); return; }
     const bool LPVO=Variant==TEXT("lpvo_1_6x");
     const bool Panoramic=Variant==TEXT("panoramic_red_dot");
@@ -95,6 +97,9 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
+    if (bUseDanWesson715 && HolographicOptic && HolographicOptic->GetStaticMesh())
+        if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
+            return Center->RelativeLocation;
     if(bUseM1911)return OpticVariant==TEXT("panoramic_red_dot")
         ?FVector(2.125f,0,3.25f)*M1911WeaponAssets::PanoramicBodyScale
         :FVector(-.653782f,0,5.175324f)*M1911WeaponAssets::HolographicBodyScale;

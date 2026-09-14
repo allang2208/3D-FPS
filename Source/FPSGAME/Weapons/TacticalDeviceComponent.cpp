@@ -2,6 +2,7 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMSovietCalibration.h"
 #include "GunsmithSystem.h"
+#include "DanWesson715WeaponAssets.h"
 #include "Engine/GameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -55,8 +56,9 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     const bool Active=Enabled&&Rifle&&(Variant==TEXT("laser")||Variant==TEXT("flashlight"));
     SetComponentTickEnabled(Active);
     if(!Active)return;
-    const bool Pistol=Family==TEXT("M1911");
-    const FString Path=Pistol
+    const bool Revolver=Family==TEXT("DanWesson715");
+    const bool Pistol=Family==TEXT("M1911")||Revolver;
+    const FString Path=Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
         ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
         :Variant==TEXT("flashlight")
         ?FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/SM_TacticalDevice"),*Family)
@@ -183,6 +185,6 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
         if(Variant!=TEXT("laser")&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
-    const FString Family=bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    const FString Family=bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
     TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
 }

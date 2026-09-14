@@ -35,6 +35,12 @@
 - 第一人称主网格也要覆盖动画后的真实蒙皮范围，不能只修预览副本。M1911 以 12 个动作、904 个姿态求完整顶点包络，加 10% 余量得到 `BoundsScale=4.17`；切回其他枪恢复家族基线。该值属于当前导入资产，资产或动作变化后按授权重新计算。
 - 枪型标题按实际弹药口径显示；默认改造类别必须属于该枪的 Allowed 列表。字符串加载的主体、动作、枪声、配件目录须进入 Cook 清单，编辑器能加载不等于已具备打包依赖。
 
+## 715 小型配件与雨滴（2026-09-14）
+
+715 配件补充（2026-09-14）：`SourceAssets/DanWesson715Attachments20260914` / `Docs/Weapons/dan-wesson715-attachments-rain-20260914.md`。715 没有套筒，瞄具应固定于 `WPN_root`，不能照抄 M1911 的 `WPN_Slide`。本例瞄具位于弹仓前方护罩，激光/手电支架从护罩下表面取接触；0.55/0.62 镜身为复用的手枪级尺寸，全息分划再独立扩大 1.35，红点直径 1.395 mm。ADS 眼距沿用手枪 38 cm，光心读取实际 `AimCenter`。这些位置和数值仅适用于当前 715。
+
+715 战术设备具有独立家族和导入挂点，不能回落到 M4 尺寸或方向。配件金属复用本枪 MetalFinish 的独立物理图块，结构法线保持 UV0；新增干材质需逐项补入当前雨天资源表。本次按用户要求检查了枪体 7 类和配件 7 类材质的映射与湿润参数/输出连接；没有进行实机视觉或改造行为测试，不将该记录视为完整验收。
+
 ## 当前 M1911 与源文件保留
 
 运行路径以 `Source/FPSGAME/Weapons/M1911WeaponAssets.h` 和角色加载代码为准。2026-09-13 基线：
@@ -51,3 +57,16 @@
 枪身源链为 Integration → P9Retarget → Hero → Contact → ReloadTiming → RearRain；配件链为 Attachments/Tactical → CompactFit → MuzzleRedDot → SculptedMount。前一版本的 Blend、脚本、材料和参数可能仍是后一版本输入，不能按日期或“旧版”批量清空。按 [清理与发布](publication.md) 移动已确认废案，保留清单、许可证及可重建输入；第三方源模型、动作采样和派生二进制默认留在本机。
 
 本次审计范围与结果见仓库 `Docs/Weapons/m1911-development-audit-20260913.md`；方法纳入标准不表示未执行的人工手感或声音验收已通过。
+
+
+## Dan-Wesson 715 逐发默认与速装改造（2026-09-14）
+
+- 用户指定逐发装填为默认，六发速装器为枪匠改造。运行入口 `DanWesson715WeaponAssets.h`；当前主体为 `DanWesson715/Chrome20260914`，使用用户认可的官方 Chromium 材质；最新配件和雨滴入口按下一条分流。逐发动作在 `DanWesson715/LeftRecovery20260914/Animations`，速装动作在 `DanWesson715/LeftRecovery20260914/LoaderStow`。首次接入见 `Docs/Weapons/dan-wesson715-single-load-20260914.md`；最新左手回握见 `Docs/Weapons/dan-wesson715-left-recovery-20260914.md`；已撤回的模型精修记录见 `Docs/Rejected/dan-wesson715-models-20260914.md`。用户先后否定 Precision 几何重建与 Polish 局部精修的效果，两者均已撤回并移入 `trash/dan-wesson715-rejected-models-20260914`，不得作为已接受基线或默认重新接入；Chrome 材质升级已获用户反馈明显改善。
+- 配件后续分流：用户指定手电、激光器及全息瞄准镜使用自身聚合物材质，当前这三种配件改为 `AccessoryPolymer20260914/Attachments`；独立雨滴汇总表移至 `AccessoryPolymer20260914/DA_DW715_WetMaterials`。主体及全景红点仍用 Chrome。前述恢复 Chrome 为模型回退历史，本条为其后的配件材质例外。
+- `reload_device` 未安装／false 为逐发，`dw715_speedloader` 为速装器。只用已应用的实例配件选择真实动作；枪匠草稿沿用预览／应用／撤销事务，不提前改变当前换弹方式。旧存档无键自动使用逐发。
+- 逐发使用剩余实弹数和本次可补数量选完整片段；每次入膛从同一源时间时钟结算一发并保存，完成时不再整组补满；若宿主接入换弹修炼，奖励只在最后一次成功入膛时结算。非空仓保留实弹并直接补弹，开巢时省略空壳表现；空仓先由左手从弹仓前方按压整组退壳，再逐发装填。用户后续指定速装器每次换弹均整组退弹并丢弃全部未击发子弹，不返还背包；统一使用 `A_DW715_speed_0` 的完整退弹动作，普通/空仓基础耗时均 3.85 秒。余弹损失在退弹完成接触时与弹壳清空一起保存，完成后从备弹按实际数量成组装填；枪匠说明必须写清损失代价。换弹中的档案刷新不能重置动作时长。详见 `Docs/Weapons/dan-wesson715-speedloader-discard-20260914.md`，未实机测试。
+- 21 段逐发片段的手部路径参考 GitHub ZenXChaos/ThirdPersonShooter-AnimationSets 固定提交与 Unlicense，715 机械及接触另行制作；不声称下载了现成 Manny 第一人称动画。原始参考仍保留在 Upgrade20260914/Reference。
+- 弹巢及子部件绕枪体模型空间轴心共轭旋转，不能将模型轴直接当骨骼局部轴。保留原 Skeleton；新 Blend／FBX 和旧升级源共同保留。制作和导入不等同实机验收，本轮依用户规则未自测。
+- Flick 上游确定 +模型 X 对应玩家左侧、弹巢吊架绕模型 Y 轴 +78° 打开；Split 定义空仓拆分与稳定左肘，非空仓／空仓循环始点 .60／1.50 秒，每发 1.10 秒，循环 .64 秒入膛。当前作者入口为 `SourceAssets/DanWesson715LeftRecovery20260914`，继承 Natural 的 30° 基础俯仰、66°／70° 开闭主摆、整段缓慢重心变化及连续切线插值。保持接触时左右手使用同一枪根变换；合仓前左手脱离后必须转为独立视模空间回收，不能再随枪根主甩或 `clearance(D)` 一起转动。逐发末次退让后直接回握，速装器撤出后随左手回收，枪体回稳时渐进恢复包握。
+- 715 手动／自动换弹请求必须等当前开火片段完整结束：依据实际发射时刻与动作时长，不能只看弹药为零、WeaponState Idle 或射击间隔。请求由 `ServiceRevolverReloadAfterFire` 执行，切枪取消；开火动画也按实际发射时刻推进。详见 `Docs/Weapons/dan-wesson715-reload-natural-20260914.md`，本次未测试，不复用历史采样作为新动作验收。
+- 715 用户录音入口为 `RecordedAudio20260914`：`715-fire.mp3` 降噪后作为开火声，`715-reloading.mp3` 按七个机械瞬态切段，仅供已安装速装器的换弹。速装器整组退弹规则启用后，非空仓也播放完整退弹声；默认逐发保留原音效及空仓分支。事件按动画源时钟扣除音频前导，改装换弹速度不改变录音音高；禁止把整段换弹录音或步枪固定事件索引直接套入。无源视频时机械归属须标为推断；来源、处理参数与接触表见 `Docs/Weapons/dan-wesson715-recorded-audio-20260914.md`。录音制作与本次规则修改均未实机试听。

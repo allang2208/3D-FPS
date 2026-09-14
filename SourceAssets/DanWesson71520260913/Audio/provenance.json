@@ -1,0 +1,16 @@
+{
+  "source_page": "https://opengameart.org/content/the-free-firearm-sound-library",
+  "source_file": "sfx/firearm_sfx/Prepared SFX Library/Smith & Wesson 642/V_22P.wav",
+  "download": "https://raw.githubusercontent.com/petroulacl/fps-asset-kit/a19b7458a593598211c95ec46ef4eb4b6d1f94d7/sfx/firearm_sfx/Prepared%20SFX%20Library/Smith%20%26%20Wesson%20642/V_22P.wav",
+  "license": "CC0-1.0",
+  "authors": [
+    "Ben Jaszczak",
+    "Brian Nelson",
+    "Kevin Heras",
+    "Matthew Nanney"
+  ],
+  "fire": "Designed from S&W 642 revolver recording; not a recording of an actual 715",
+  "offset_seconds": 0.671,
+  "mechanics": "Original deterministic synthesis in this script",
+  "listening_test": false
+}

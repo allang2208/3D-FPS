@@ -1,0 +1,43 @@
+{
+  "repo": "https://github.com/ZenXChaos/ThirdPersonShooter-AnimationSets",
+  "commit": "f19adc2ece4cab0f89c9236223abb97d4d2badea",
+  "license": "Unlicense",
+  "use": "Third-person hand/forearm motion reference; new 715 mechanical tracks and contact adaptation",
+  "files": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\license.md",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/license.md",
+      "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\README.md",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/README.md",
+      "sha256": "999fc61cfeabc7026564aa5cb0ceb371e49720516a702d693c269b914b46e003"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\RevolverAimIdle.fbx",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/RevolverAnims/RevolverAimIdle.fbx",
+      "sha256": "84e41255b97ccc078bcc818b9296394898b329401afd9dbb1596bb891fe25d8a"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\RevolverReloadInit.fbx",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/RevolverAnims/RevolverReloadInit.fbx",
+      "sha256": "13e3517df4c91d3b147a6209937134e1520487939f5967b3c6e7a9c17887b8d5"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\RevolverReloadLoop.fbx",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/RevolverAnims/RevolverReloadLoop.fbx",
+      "sha256": "80718ec96c55d2a615578e5054dfa9719662fcc33421bccd7e5c3d37d349beb8"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\RevolverReloadEnd.fbx",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/RevolverAnims/RevolverReloadEnd.fbx",
+      "sha256": "fc432f3b3cf6c3e393233dce368b3292ec2c6dbda8bebafdcd7739fa80083fe0"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Upgrade20260914\\Reference\\RevolverSearchAmmo.fbx",
+      "source": "https://raw.githubusercontent.com/ZenXChaos/ThirdPersonShooter-AnimationSets/f19adc2ece4cab0f89c9236223abb97d4d2badea/RevolverAnims/RevolverSearchAmmo.fbx",
+      "sha256": "36e357f06c34defd5cb07a09e8bc6e475e35874d4e9b5329153643ec7946b232"
+    }
+  ]
+}

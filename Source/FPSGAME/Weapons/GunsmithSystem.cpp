@@ -1,6 +1,7 @@
 #include "GunsmithSystem.h"
 #include "M4DrumReloadTiming.h"
 #include "M1911WeaponAssets.h"
+#include "DanWesson715WeaponAssets.h"
 #include "Animation/AnimSequence.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
@@ -49,6 +50,13 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         W.Base.Reload=Num(B,TEXT("reload_time"),1.5);W.Base.EmptyReload=Num(B,TEXT("empty_reload_time"));if(W.Base.EmptyReload<=0)W.Base.EmptyReload=W.Base.Reload;
         // M1911 uses its imported action lengths as the base for both stats and
         // playback. Attachment reload multipliers still scale the whole action.
+        if(W.Id==DanWesson715WeaponAssets::Definition)
+        {
+            W.Base.Reload=DanWesson715WeaponAssets::SingleDuration(5);
+            W.Base.EmptyReload=DanWesson715WeaponAssets::SingleDuration(6, true);
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(1,5)))W.Base.Reload=Clip->GetPlayLength();
+            if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*DanWesson715WeaponAssets::SingleAnimationPath(0,6)))W.Base.EmptyReload=Clip->GetPlayLength();
+        }
         if(W.Id==TEXT("ue_m1911"))
         {
             if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M1911WeaponAssets::AnimationPath(TEXT("reload"))))W.Base.Reload=Clip->GetPlayLength();
@@ -80,6 +88,8 @@ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P)const
 {
     const auto* W=Weapon(D);if(!W)return {};auto R=W->Base;
+    if(D==DanWesson715WeaponAssets::Definition&&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==DanWesson715WeaponAssets::Speedloader)
+    {R.Reload=DanWesson715WeaponAssets::EmptyReload;R.EmptyReload=DanWesson715WeaponAssets::EmptyReload;}
     for(const auto& Pair:Normalize(D,P)){const auto& A=*Option(D,Pair.Key,Pair.Value);R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.Reload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;}
     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))
     {R.Reload*=M4DrumReloadTiming::NormalDurationScale;R.EmptyReload*=M4DrumReloadTiming::EmptyDurationScale;}

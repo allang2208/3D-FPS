@@ -13,6 +13,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
 #include "UI/ColdSteelStatusModel.h"
+#include "Weapons/DanWesson715WeaponAssets.h"
 #include "HAL/IConsoleManager.h"
 
 static TAutoConsoleVariable<float> CVarScreenRain(TEXT("fps.ScreenRain"),.75f,TEXT("Screen edge water strength, 0 disables."),ECVF_Scalability);
@@ -43,6 +44,11 @@ UWeatherViewEffectsComponent::UWeatherViewEffectsComponent()
 void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAssets)
 {
     Assets=InAssets;
+    // The 715's material-only revision supplies its dry/wet pairs separately
+    // from the shared weather profiles, which may be open in another editor.
+    if(Assets)
+        if(const auto* PistolMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715WeaponAssets::WetMaterialsPath))
+            for(const auto& Entry:PistolMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     if(Assets&&Assets->ScreenMaterial)
     {
         LensMaterial=UMaterialInstanceDynamic::Create(Assets->ScreenMaterial,this);

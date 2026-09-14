@@ -27,7 +27,7 @@
 #include "Misc/FileHelper.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_m1911");}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
@@ -66,7 +66,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
     }
     if(Rig->HasActorBegunPlay())return false;
-    if(RigDefinition!=I.Definition){Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseM1911=I.Definition==TEXT("ue_m1911");Rig->InitializeWeaponVisuals();RigDefinition=I.Definition;}
+    if(RigDefinition!=I.Definition){Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseM1911=I.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();RigDefinition=I.Definition;}
     auto* Mesh=Rig->AKMViewmodel.Get();if(!Mesh||!Mesh->GetSkeletalMeshAsset())return false;
     Mesh->SetRelativeTransform(FTransform::Identity);Mesh->SetVisibility(true,true);
     Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
@@ -102,7 +102,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     const FVector Extent=Mesh->Bounds.BoxExtent;
     const float CullingScale=FMath::Max3(float(Required.X/FMath::Max(Extent.X,.01)),float(Required.Y/FMath::Max(Extent.Y,.01)),float(Required.Z/FMath::Max(Extent.Z,.01)));
     Mesh->SetBoundsScale(FMath::Max(1.f,CullingScale*1.02f));Mesh->InvalidateCachedBounds();Mesh->UpdateBounds();
-    const int32 Width=I.Definition==TEXT("ue_m1911")?480:768;
+    const int32 Width=(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"))?480:768;
     if(Target->SizeX!=Width)Target->ResizeTarget(Width,320);
     const FVector Size=Bounds.GetSize(),Center=Bounds.GetCenter();const float Aspect=float(Width)/320.f;
     Capture->SetWorldLocation(FVector(Bounds.Min.X-200,Center.Y,Center.Z));Capture->SetWorldRotation(FRotator::ZeroRotator);Capture->OrthoWidth=FMath::Max(float(Size.Y),float(Size.Z)*Aspect)/.91f;

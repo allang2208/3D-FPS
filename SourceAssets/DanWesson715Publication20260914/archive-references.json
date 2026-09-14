@@ -1,0 +1,41 @@
+{
+  "retired_roots": [
+    "/Game/Weapons/DanWesson715/Precision20260914",
+    "/Game/Weapons/DanWesson715/Polish20260914"
+  ],
+  "packages": [
+    "/Game/Weapons/DanWesson715/Polish20260914/DA_DW715_WetMaterials",
+    "/Game/Weapons/DanWesson715/Polish20260914/Materials/MI_DW715_Polish_Cylinder",
+    "/Game/Weapons/DanWesson715/Polish20260914/Materials/MI_DW715_Polish_Cylinder_Wet",
+    "/Game/Weapons/DanWesson715/Polish20260914/Materials/MI_DW715_Polish_Frame",
+    "/Game/Weapons/DanWesson715/Polish20260914/Materials/MI_DW715_Polish_Frame_Wet",
+    "/Game/Weapons/DanWesson715/Polish20260914/Materials/MI_DW715_Polish_Steel",
+    "/Game/Weapons/DanWesson715/Polish20260914/Materials/MI_DW715_Polish_Steel_Wet",
+    "/Game/Weapons/DanWesson715/Polish20260914/SK_DW715_Manny",
+    "/Game/Weapons/DanWesson715/Polish20260914/Textures/T_DW715_Polish_Cylinder_NormalGL",
+    "/Game/Weapons/DanWesson715/Polish20260914/Textures/T_DW715_Polish_Cylinder_ORM",
+    "/Game/Weapons/DanWesson715/Polish20260914/Textures/T_DW715_Polish_Frame_NormalGL",
+    "/Game/Weapons/DanWesson715/Polish20260914/Textures/T_DW715_Polish_Frame_ORM",
+    "/Game/Weapons/DanWesson715/Polish20260914/Textures/T_DW715_Polish_Steel_NormalGL",
+    "/Game/Weapons/DanWesson715/Polish20260914/Textures/T_DW715_Polish_Steel_ORM",
+    "/Game/Weapons/DanWesson715/Precision20260914/DA_DW715_WetMaterials",
+    "/Game/Weapons/DanWesson715/Precision20260914/Materials/M_DW715_Precision_Cylinder",
+    "/Game/Weapons/DanWesson715/Precision20260914/Materials/M_DW715_Precision_Cylinder_Wet",
+    "/Game/Weapons/DanWesson715/Precision20260914/Materials/M_DW715_Precision_Frame",
+    "/Game/Weapons/DanWesson715/Precision20260914/Materials/M_DW715_Precision_Frame_Wet",
+    "/Game/Weapons/DanWesson715/Precision20260914/Materials/M_DW715_Precision_Steel",
+    "/Game/Weapons/DanWesson715/Precision20260914/Materials/M_DW715_Precision_Steel_Wet",
+    "/Game/Weapons/DanWesson715/Precision20260914/SK_DW715_Manny",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Cylinder_BaseColor",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Cylinder_NormalGL",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Cylinder_ORM",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Frame_BaseColor",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Frame_NormalGL",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Frame_ORM",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Steel_BaseColor",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Steel_NormalGL",
+    "/Game/Weapons/DanWesson715/Precision20260914/Textures/T_DW715_Precision_Steel_ORM"
+  ],
+  "external_referencers": [],
+  "scope": "Archive dependency check only; no game or visual testing"
+}

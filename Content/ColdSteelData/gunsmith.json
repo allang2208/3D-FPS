@@ -8,7 +8,8 @@
     "枪托",
     "扳机",
     "战术挂件",
-    "前握把"
+    "前握把",
+    "装填装置"
   ],
   "defaults": [
     "原厂瞄具",
@@ -19,7 +20,8 @@
     "原厂枪托",
     "标准扳机",
     "无战术挂件",
-    "无前握把"
+    "无前握把",
+    "逐发装填"
   ],
   "fixtures": [],
   "slots": [
@@ -31,7 +33,8 @@
     "stock",
     "trigger",
     "tactical",
-    "underbarrel"
+    "underbarrel",
+    "reload_device"
   ],
   "version": 1,
   "weapons": [
@@ -1187,6 +1190,159 @@
         "damage": 36,
         "bullet_speed": 253,
         "effective_range": 50
+      }
+    },
+    {
+      "id": "ue_dan_wesson715",
+      "model": "Dan-Wesson715",
+      "name": "Dan-Wesson 715",
+      "allowed": [
+        "trigger",
+        "barrel",
+        "reload_device",
+        "optic",
+        "tactical"
+      ],
+      "options": {
+        "reload_device": [
+          {
+            "id": "false",
+            "name": "逐发装填",
+            "description": "原厂逐发装填。非空仓保留余弹并直接补入子弹；空仓先从弹仓前方按压退壳，再逐发装填。按缺弹数和背包余弹决定次数，少补时更快。",
+            "effects": [
+              {
+                "text": "逐发入膛结算；少量补弹耗时更短",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "dw715_speedloader",
+            "name": "六发速装器",
+            "description": "每次换弹都会退出弹仓内全部弹药，未击发子弹直接丢失，不返还背包。普通与空仓均执行按压退弹、速装器装入、释放和闭巢回握；按背包余弹最多装入6发。",
+            "effects": [
+              {
+                "text": "普通与空仓换弹均为3.85秒（基础值）",
+                "benefit": 1
+              },
+              {
+                "text": "每次换弹丢弃弹仓内全部余弹，不返还背包",
+                "benefit": -1
+              }
+            ],
+            "stats": {}
+          }
+        ],
+        "trigger": [
+          {
+            "id": "false",
+            "name": "原厂双动扳机",
+            "description": "按次扣动，一次一发。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "dw715_lightweight_fast",
+            "name": "轻型快速扳机",
+            "description": "最短点射间隔减少20%，仍须松开扳机再开火。",
+            "effects": [
+              {
+                "text": "射击间隔减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "fire_interval_mult": 0.8
+            }
+          }
+        ],
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂机械瞄具",
+            "description": "使用 715 原厂照门与准星。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "手枪尺寸全息瞄具，专用上护罩底座与独立放大的分划；固定于枪体，不随弹仓摆动。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜时间不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "手枪尺寸全景红点瞄具，保留开阔镜窗与清晰红点，使用 715 曲面安装座。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜时间不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          }
+        ],
+        "tactical": [
+          {
+            "id": "false",
+            "name": "无战术挂件",
+            "description": "卸下战术配件，关闭照明和激光。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "laser",
+            "name": "红色激光镭射",
+            "description": "80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+            "effects": [
+              {
+                "text": "腰射随机散布减少50%",
+                "benefit": 1
+              },
+              {
+                "text": "ADS瞄准耗时减少200ms",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.5,
+              "ads_seconds": -0.2
+            }
+          },
+          {
+            "id": "flashlight",
+            "name": "战术手电筒",
+            "description": "持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+            "effects": [
+              {
+                "text": "提供前向照明",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
+          }
+        ]
+      },
+      "base": {
+        "ammo_item_id": "ammo_357",
+        "mag_size": 6,
+        "ads_smooth": 13.616964,
+        "recoil": 155,
+        "camera_shake": 125,
+        "fire_interval": 0.32,
+        "reload_time": 6.8,
+        "empty_reload_time": 8.8,
+        "damage": 68,
+        "bullet_speed": 420,
+        "effective_range": 65
       }
     }
   ],

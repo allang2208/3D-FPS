@@ -39,6 +39,7 @@ public:
     bool IsTraversing() const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
+    int32 GetRevolverCaseCount() const { return RevolverCaseCount; }
     AFPSGAMECharacter();
     void ApplyColdSteelProfile(class UColdSteelStatusModel* Profile);
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
@@ -192,6 +193,12 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint") FRotator M4SprintRotation = FRotator(35.0f, -12.0f, -8.0f);
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint", meta = (ClampMin = "0.0", ClampMax = "4.0")) float M4SprintSwayCM = 1.8f;
     float M4SprintPhase = 0.0f;
+    // Zero-mean motion around the pistol's existing hip grip, in camera space.
+    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Sprint") FVector PistolSprintAmplitudeCM = FVector(0.18f, 2.2f, 0.22f);
+    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Sprint") FRotator PistolSprintAngularAmplitude = FRotator(0.35f, 1.5f, 1.8f);
+    FVector PistolSprintOffset = FVector::ZeroVector;
+    FRotator PistolSprintRotation = FRotator::ZeroRotator;
+    float PistolSprintPhase = 0.0f;
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FVector ADSViewmodelLocation = FVector(11.8734f, -0.0085f, 1.6058f);
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FVector ViewmodelScale = FVector(1.0f);
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FRotator ViewmodelRotation = FRotator(0.0f, 90.0f, 0.0f);
@@ -280,7 +287,7 @@ private:
     void StartSprintToFireLock(double StartTime);
     void ServiceHeldFire();
     void EmitMechanicalCue(int32 CueIndex);
-    void PlayMechanicalSound(USoundBase* Sound, float Volume);
+    void PlayMechanicalSound(USoundBase* Sound, float Volume, float StartTime = 0.f);
     void StopMechanicalAudio();
     float ReloadSourceTime(float RuntimeTime) const;
     float ReloadRuntimeTime(float SourceTime) const;
@@ -289,6 +296,7 @@ private:
     void StartEquipCharge();
     void InterruptPistolEquip();
     void SetM1911Optic(const FString& Variant);
+    void SetDanWesson715Optic(const FString& Variant);
     void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
     void FinishWeaponAction();
@@ -307,6 +315,16 @@ private:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolFireLastAnimation;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolAimFireLastAnimation;
     bool bPistolShotPending = false;
+    int32 RevolverCaseCount = 6;
+    bool bRevolverSpeedloaderInstalled = false;
+    bool bRevolverSingleReload = false;
+    bool bRevolverCasesCleared = false;
+    bool bRevolverReloadAfterFire = false;
+    bool IsRevolverFireActionPlaying() const;
+    void ServiceRevolverReloadAfterFire();
+    int32 RevolverReloadStartLive = 0;
+    int32 RevolverReloadCount = 0;
+    int32 RevolverReloadCommitted = 0;
     USoundBase* LoadAKMSound(const TCHAR* AssetName);
     bool CanStand() const;
     bool IsWeaponBusy() const;
@@ -347,6 +365,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UFPSGunplayAnimInstance> GunplayAnimation;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ActiveActionAnimation;
     UPROPERTY(Transient) TObjectPtr<USoundBase> FireSound;
+    UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> RevolverSpeedloaderSounds;
     UPROPERTY(VisibleAnywhere, Category = "M4|Audio") TObjectPtr<UAudioComponent> M4FireVoice;
     UPROPERTY(Transient) TMap<FName, TObjectPtr<UAudioComponent>> MechanicalVoices;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BoltReleaseSound;

@@ -130,3 +130,7 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 ## 改造配件图标：水平左向与单件机瞄（2026-09-14）
 
 当前图标加载优先使用 `Content/ColdSteelData/AttachmentIcons20260913` 中的武器专属透明 PNG，再回退共享 PNG；分类图也使用同一透明规则。恢复本轮 104 张 PNG 和对应 UE Texture，不能仅恢复旧黑底分类图。5 张已接受枪托 PNG 保留，99 张替换／新增图已在本机导入。实际模型渲染和含第三方资产的可编辑场景保留本机，未核准为可公开再分发素材。精确图标哈希、来源、脚本依赖和制作阶段构建记录见 [配件图标发布与恢复说明](Weapons/attachment-icons-publication-20260914.md)。
+
+## Dan-Wesson 715（2026-09-14）
+
+当前资源入口、Fab/Manny/用户录音许可边界、保留的上游制作链及恢复顺序见 [715 资源恢复说明](Weapons/dan-wesson715-publication-20260914.md)。主体保持 Chrome，手电/激光/全息镜使用独立聚合物材质。两轮已否决模型在本机 trash 归档，清单见 [715 废案记录](Rejected/dan-wesson715-models-20260914.md)。二进制及受许可约束的密集派生数据不进入公开源码。

@@ -84,7 +84,8 @@ public:
     void AttachPawn(class AFPSGAMECharacter* Pawn);
     void TickRuntime(float Delta,class AFPSGAMECharacter* Pawn);
     void SyncRuntime();
-    int32 ConsumeAmmo(int32 Requested);
+    int32 ConsumeAmmo(int32 Requested, bool bCompletedReload=false, bool bReloadStep=false);
+    bool ClearRevolverSpentCases(bool bDiscardLiveRounds = false);
     int32 AmmoCount() const;
     FString AmmoDefinition() const;
     const FString& ResultMessage() const { return Message; }

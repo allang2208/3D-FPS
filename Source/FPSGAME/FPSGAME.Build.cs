@@ -28,6 +28,7 @@ public class FPSGAME : ModuleRules
         RuntimeDependencies.Add("$(ProjectDir)/Content/ColdSteelData/...", StagedFileType.UFS);
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/GunsmithWorkbench/Fonts/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("AudioMixer");
+        PrivateDependencyModuleNames.Add("AutoFootstep");
         PrivateDependencyModuleNames.Add("MoviePlayer");
         RuntimeDependencies.Add("$(ProjectDir)/Content/UI/TransitLoading/...", StagedFileType.UFS);
         PrivateDependencyModuleNames.Add("PhysicsCore");

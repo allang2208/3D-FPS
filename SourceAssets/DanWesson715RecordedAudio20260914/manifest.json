@@ -1,0 +1,180 @@
+{
+  "source": "User supplied D:/FPS3D/资产/715; no synchronized source video",
+  "rights": "User-authorized local game integration; redistribution rights unspecified; do not publish source or derived audio",
+  "phase_classification": "inferred from transient chronology; not confirmed by listening or source video",
+  "sample_rate": 48000,
+  "channels": 2,
+  "format": "PCM16 WAV",
+  "asset_root": "/Game/Weapons/DanWesson715/RecordedAudio20260914",
+  "processing": {
+    "reload_highpass_hz": 200,
+    "fire_highpass_hz": 85,
+    "stft_size": 2048,
+    "hop": 256,
+    "reload_noise_spans": [
+      [
+        0.65,
+        1.65
+      ],
+      [
+        2.28,
+        2.65
+      ],
+      [
+        4.47,
+        4.82
+      ],
+      [
+        5.6,
+        6.35
+      ]
+    ],
+    "reload_soft_mask_floor": 0.075,
+    "fire_soft_mask_floor": 0.45,
+    "shared_stereo_mask": true,
+    "time_stretch": false
+  },
+  "originals": {
+    "715-fire.mp3": {
+      "sha256": "bd944060b101b9d973d4dfebdcddd553b5eb1c3c8a34b5444255fe9d7fa0b2e2",
+      "bytes": 25084
+    },
+    "715-reloading.mp3": {
+      "sha256": "13aa35f5611b5ded7e0e4179a755f432a6cd56f991857d7cda2d45f6b84135e7",
+      "bytes": 113778
+    }
+  },
+  "quiet_band_reduction_db_before_normalization": {
+    "20-200Hz": 21.563280256898597,
+    "200-1000Hz": 5.076494113399117,
+    "1000-12000Hz": 5.35599618842375
+  },
+  "clips": [
+    {
+      "name": "Open",
+      "label": "Open cylinder",
+      "start": 0.305,
+      "end": 0.555,
+      "anchor": 0.4125,
+      "contact": 0.48,
+      "peak": 0.52,
+      "asset": "S_DW715_Loader_Open",
+      "lead_seconds": 0.1075,
+      "gain_db": -5.13839196076564,
+      "output_peak": 0.52,
+      "duration": 0.25,
+      "empty_only": false
+    },
+    {
+      "name": "Eject",
+      "label": "Empty-only eject",
+      "start": 1.8,
+      "end": 2.23,
+      "anchor": 2.0575,
+      "contact": 1.03,
+      "peak": 0.46,
+      "empty_only": true,
+      "asset": "S_DW715_Loader_Eject",
+      "lead_seconds": 0.2575,
+      "gain_db": -5.854645404427107,
+      "output_peak": 0.4600000000000001,
+      "duration": 0.43
+    },
+    {
+      "name": "Retrieve",
+      "label": "Retrieve loader",
+      "start": 2.78,
+      "end": 3.03,
+      "anchor": 2.8475,
+      "contact": 1.44,
+      "peak": 0.2,
+      "asset": "S_DW715_Loader_Retrieve",
+      "lead_seconds": 0.0675,
+      "gain_db": -6.354850092004845,
+      "output_peak": 0.2,
+      "duration": 0.25,
+      "empty_only": false
+    },
+    {
+      "name": "Insert",
+      "label": "Insert cartridges",
+      "start": 3.19,
+      "end": 3.76,
+      "anchor": 3.6125,
+      "contact": 2.2,
+      "peak": 0.42,
+      "asset": "S_DW715_Loader_Insert",
+      "lead_seconds": 0.4225,
+      "gain_db": -7.635852111032239,
+      "output_peak": 0.42,
+      "duration": 0.57,
+      "empty_only": false
+    },
+    {
+      "name": "Release",
+      "label": "Release cartridges",
+      "start": 3.895,
+      "end": 4.04,
+      "anchor": 3.9375,
+      "contact": 2.42,
+      "peak": 0.33,
+      "asset": "S_DW715_Loader_Release",
+      "lead_seconds": 0.0425,
+      "gain_db": -6.890776449540437,
+      "output_peak": 0.33,
+      "duration": 0.145,
+      "empty_only": false
+    },
+    {
+      "name": "Withdraw",
+      "label": "Withdraw loader",
+      "start": 4.08,
+      "end": 4.385,
+      "anchor": 4.2825,
+      "contact": 2.68,
+      "peak": 0.18,
+      "asset": "S_DW715_Loader_Withdraw",
+      "lead_seconds": 0.2025,
+      "gain_db": -13.678742819609361,
+      "output_peak": 0.18,
+      "duration": 0.305,
+      "empty_only": false
+    },
+    {
+      "name": "Close",
+      "label": "Close cylinder",
+      "start": 4.94,
+      "end": 5.42,
+      "anchor": 5.0075,
+      "contact": 3.05,
+      "peak": 0.58,
+      "asset": "S_DW715_Loader_Close",
+      "lead_seconds": 0.0675,
+      "gain_db": -4.47679084293454,
+      "output_peak": 0.58,
+      "duration": 0.48,
+      "empty_only": false
+    }
+  ],
+  "fire": {
+    "asset": "S_DW715_Fire_Recorded",
+    "source_start": 0.04,
+    "source_end": 0.984,
+    "gain_db": -8.596895486812679,
+    "peak": 0.5,
+    "runtime_gain": 1.687023,
+    "timing": "played on actual shot; 40 ms source lead removed"
+  },
+  "preview": {
+    "tactical": {
+      "duration": 3.6,
+      "peak": 0.7319101199999999,
+      "kind": "offline editorial reference, not gameplay"
+    },
+    "empty": {
+      "duration": 3.85,
+      "peak": 0.7319101199999999,
+      "kind": "offline editorial reference, not gameplay"
+    }
+  }
+}

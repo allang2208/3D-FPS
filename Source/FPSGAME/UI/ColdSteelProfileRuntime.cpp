@@ -18,6 +18,13 @@
 using namespace ColdSteelInventory;
 namespace
 {
+void StoreRevolverCaseCount(FColdSteelItem& Item, int32 Count)
+{
+    TSharedPtr<FJsonObject> Data;
+    if (!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Data) || !Data) return;
+    Data->SetNumberField(TEXT("revolver_case_count"), Count);
+    Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
+}
 bool IsRetiredWeapon(const FString& Id)
 {
     static const TSet<FString> Retired = {TEXT("fps_akm"),TEXT("fps_hk416"),TEXT("fps_m16"),TEXT("fps_akm_classic"),TEXT("fps_qbz191"),TEXT("fps_p9")};
@@ -219,7 +226,14 @@ void UColdSteelStatusModel::SyncRuntime()
 {
     if(!CurrentPawn.IsValid())return;
     if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
-    for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot)I.Magazine=CurrentPawn->GetMagazineAmmo();
+    for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot)
+    {
+        I.Magazine=CurrentPawn->GetMagazineAmmo();
+        if(I.Definition==TEXT("ue_dan_wesson715") && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
+        {
+            StoreRevolverCaseCount(I,CurrentPawn->GetRevolverCaseCount());
+        }
+    }
     for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
 }
 void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
@@ -231,15 +245,44 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
 }
 FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();if(I)if(const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())if(const auto* W=G->Weapon(I->Definition))return W->Ammo;return TEXT("ammo_556");}
 int32 UColdSteelStatusModel::AmmoCount()const{if(!Equipped())return 0;int64 Total=0;const FString Def=AmmoDefinition();for(const auto&I:Current.Items)if(I.Place==0&&I.Definition==Def)Total+=I.Count;return FMath::Min<int64>(Total,MAX_int32);}
-int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested)
+int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload, bool bReloadStep)
 {
     if(Requested<=0||!CurrentPawn.IsValid()||!Equipped()||!CurrentPawn->HasInventoryWeapon())return 0;
     SyncRuntime();Requested=FMath::Min(Requested,CurrentPawn->GetMagazineCapacity()-CurrentPawn->GetMagazineAmmo());if(Requested<=0)return 0;
-    auto P=Snapshot();int32 Left=Requested;FString Def=AmmoDefinition();
-    for(auto& I:P.Items)if(I.Place==0&&I.Definition==Def){int32 N=FMath::Min<int64>(Left,I.Count);Left-=N;I.Count-=N;}
+    // Each range insertion may refill without creating inventory stacks.
+    // The same successful save publishes the inserted ammunition.
+    const bool Infinite=(bCompletedReload||bReloadStep)&&CurrentPawn->HasInfiniteReserveAmmo();
+    auto P=Snapshot();int32 Left=Infinite?0:Requested;FString Def=AmmoDefinition();
+    if(!Infinite)for(auto& I:P.Items)if(I.Place==0&&I.Definition==Def){int32 N=FMath::Min<int64>(Left,I.Count);Left-=N;I.Count-=N;}
     P.Items.RemoveAll([](const auto&I){return I.Count<=0;});int32 Taken=Requested-Left;
-    for(auto& I:P.Items)if(I.Place==1&&I.Cell==P.ActiveWeaponSlot)I.Magazine+=Taken;
+    for(auto& I:P.Items)if(I.Place==1&&I.Cell==P.ActiveWeaponSlot)
+    {
+        I.Magazine+=Taken;
+        if(I.Definition==TEXT("ue_dan_wesson715"))
+        {
+            StoreRevolverCaseCount(I,bReloadStep?FMath::Max(I.Magazine,CurrentPawn->GetRevolverCaseCount()):I.Magazine);
+        }
+    }
     return Taken>0&&CommitState(P)?Taken:0;
+}
+bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
+{
+    if (!CurrentPawn.IsValid() || !CurrentPawn->HasInventoryWeapon() || !Equipped()
+        || Equipped()->Definition != TEXT("ue_dan_wesson715")) return false;
+    const int32 RetainedRounds = bDiscardLiveRounds ? 0 : CurrentPawn->GetMagazineAmmo();
+    if (CurrentPawn->GetRevolverCaseCount() == RetainedRounds
+        && CurrentPawn->GetMagazineAmmo() == RetainedRounds) return true;
+    SyncRuntime();
+    auto P = Snapshot();
+    for (auto& I : P.Items) if (I.Place == 1 && I.Cell == P.ActiveWeaponSlot)
+    {
+        // A speedloader discards live rounds at extraction. Save the loss with
+        // the cleared cases; do not refund reserves or grant reload experience.
+        if (bDiscardLiveRounds) I.Magazine = 0;
+        StoreRevolverCaseCount(I, I.Magazine);
+        return CommitState(P);
+    }
+    return false;
 }
 bool UColdSteelStatusModel::Drop(const FString& Id)
 {

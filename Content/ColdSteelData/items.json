@@ -2844,5 +2844,47 @@
     "stack_max": 999,
     "type": "弹药",
     "ue_icon": "Icons/ammo_556.png"
+  },
+  "ue_dan_wesson715": {
+    "id": "ue_dan_wesson715",
+    "name": "Dan-Wesson 715",
+    "icon": "Icons/ue_dan_wesson715.png",
+    "ue_icon": "Icons/ue_dan_wesson715.png",
+    "icon_fallback": "715",
+    "category": "weapon",
+    "weaponType": "pistol",
+    "rangedType": "pistol",
+    "weaponTypeTag": "左轮手枪",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "rarity": "common",
+    "stack_max": 1,
+    "grid_w": 3,
+    "grid_h": 2,
+    "type": "武器",
+    "gunsmith_base_mag": 6,
+    "desc": "Dan-Wesson 715 六发左轮手枪，使用 .357 Magnum 弹药。按次点射，弹壳保留至开巢换弹。",
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "68"
+      },
+      {
+        "name": "弹巢容量",
+        "value": "6"
+      }
+    ]
+  },
+  "ammo_357": {
+    "id": "ammo_357",
+    "name": ".357 Magnum 左轮弹",
+    "category": "material",
+    "type": "弹药",
+    "rarity": "common",
+    "stack_max": 999,
+    "icon": "Icons/ammo_556.png",
+    "ue_icon": "Icons/ammo_556.png",
+    "icon_fallback": "▥",
+    "desc": "供 Dan-Wesson 715 使用的 .357 Magnum 弹药。"
   }
 }

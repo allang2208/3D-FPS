@@ -108,3 +108,16 @@ __pycache__/
 /SourceAssets/FatZombieMeshy20260913/damage_collision_rig.json
 /SourceAssets/FatZombieMeshy20260913/damage_collision_shapes.json
 /SourceAssets/FatZombieMeshy20260913/**/*.gif
+
+# Dan-Wesson 715: publish author code/docs and provenance, not licensed payloads.
+/SourceAssets/DanWesson715*/**
+!/SourceAssets/DanWesson715*/**/
+!/SourceAssets/DanWesson715*/**/*.py
+!/SourceAssets/DanWesson715*/**/*.ps1
+!/SourceAssets/DanWesson715*/**/*.md
+!/SourceAssets/DanWesson715*/**/provenance.json
+!/SourceAssets/DanWesson715Publication20260914/archive-*.json
+!/SourceAssets/DanWesson715RecordedAudio20260914/manifest.json
+/SourceAssets/DanWesson715*/Original/
+/SourceAssets/DanWesson715*/Before/
+/SourceAssets/DanWesson715*/Local/

@@ -19,6 +19,9 @@ public:
     float AimAlpha = 0.0f;
     float ActionTime = 0.0f;
     float ActionAlpha = 0.0f;
+    bool bRevolver = false;
+    int32 RevolverLiveRounds = 6;
+    int32 RevolverCartridges = 6;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;
