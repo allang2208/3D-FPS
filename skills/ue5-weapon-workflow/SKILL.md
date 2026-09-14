@@ -48,3 +48,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 个人技能目录为维护源；本机 UE/Git 工程的 `skills/ue5-weapon-workflow`、`skills/ue5-fps-arms-animation` 保留同版镜像。更新时同步两者并检查散列，不在各副本分别演化不同标准。直接在 D 盘提交推送，遵守项目 AGENTS/WORKFLOW 的精确暂存规则；仅必要时临时隔离，不常驻额外仓库。
 
 - 战术手电、镭射及光学杂点处理：[战术灯与镭射](references/tactical-devices.md)。
+
+## 武器公式与DPS调参
+
+调整基础攻击、强化成长或比较DPS时，读取 [武器公式与DPS调参](references/weapon-formula-balancing.md)。

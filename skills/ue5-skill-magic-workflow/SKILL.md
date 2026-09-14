@@ -45,3 +45,7 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 技能与参考文档同步个人目录和工程 `skills/` 镜像。公开 Git 只提交本次合法源码、配置、作者脚本及记录；Manny/Fab 二进制、完整源姿态、私人参考照和缓存保持本机。交付区分用户确认、历史构建、本轮检查和未测试范围。
 
 当前实现与归档边界：项目 `Docs/Skills/fireball-left-hand-20260914.md`、`Docs/Skills/skills-magic-publication-20260914.md`。
+
+## 蓄力近战与修炼
+
+开发重击等蓄力近战技能时，读取 [蓄力近战与修炼](references/charged-melee-training.md)。

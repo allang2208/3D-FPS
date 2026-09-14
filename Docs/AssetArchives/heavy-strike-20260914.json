@@ -1,0 +1,23 @@
+[
+  {
+    "original": "SourceAssets/HeavyStrike20260914/PreviousSquare/heavy_strike_cold_steel.png",
+    "archived": "trash/heavy-strike-20260914/SourceAssets/HeavyStrike20260914/PreviousSquare/heavy_strike_cold_steel.png",
+    "bytes": 2752189,
+    "sha256": "078D083F3392B4FDCDF06D1999E44F9253236E98CB2BE9DBF9C993D7A1E03D30",
+    "reason": "Rejected square-frame icon; replaced by hexagonal icon at SourceAssets/HeavyStrike20260914/heavy_strike_cold_steel.png"
+  },
+  {
+    "original": "Tools/Skills/implement_heavy_strike.py",
+    "archived": "trash/heavy-strike-20260914/Tools/Skills/implement_heavy_strike.py",
+    "bytes": 8889,
+    "sha256": "28C4BC8F8666EEEAE0B0ADA1B49D80A337C39ADBA06122C016D36C5E44B4725B",
+    "reason": "One-time source patch helper already applied; current Source files and authoring.json replace it, not a reusable restoration tool"
+  },
+  {
+    "original": "Tools/Skills/implement_heavy_strike_ui.py",
+    "archived": "trash/heavy-strike-20260914/Tools/Skills/implement_heavy_strike_ui.py",
+    "bytes": 7060,
+    "sha256": "87359827C17BB539D10E5CCDEDB79AE792C6F12AB87E32DB43F9F047B2CBE802",
+    "reason": "One-time source patch helper already applied; current Source files and authoring.json replace it, not a reusable restoration tool"
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "scope": "Definition snapshot for local runtime; mixed runtime code not published in this commit",
+  "skillId": "heavyStrike",
+  "skill": {
+    "name": "重击",
+    "description": "限定近战武器。按住攻击键蓄满后松开，或用快捷栏自动蓄满施放。每次重击只结算最高达成的一个修炼档。",
+    "icon": "Skills/heavy_strike_cold_steel.png",
+    "maxLevel": 20,
+    "experiencePerLevel": 100,
+    "strengthPerLevel": 1,
+    "heavyMultiplierBase": 2.5,
+    "heavyMultiplierPerLevel": 0.1,
+    "heavyChargeBase": 2,
+    "heavyChargeReductionPerLevel": 0.05,
+    "useExperience": 1,
+    "heavyHit2Experience": 5,
+    "heavyKill2Experience": 12,
+    "heavyHit5Experience": 25,
+    "heavyKill5Experience": 60
+  },
+  "weaponId": "ue_rune_sword",
+  "attackFormula": {
+    "source": "RUNE_SWORD_ITEM",
+    "base": 40,
+    "enhanceFlat": 5,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 4.5,
+        "perEnhance": 0.9
+      },
+      {
+        "key": "str",
+        "base": 3.5,
+        "perEnhance": 0.6
+      }
+    ]
+  },
+  "trainingPolicy": "highest-tier-once-per-release",
+  "referenceAttributes": {
+    "int": 10,
+    "str": 10
+  },
+  "historyBuild": "9142351 succeeded; not a runtime test"
+}

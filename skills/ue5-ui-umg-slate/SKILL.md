@@ -115,3 +115,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 # FPSGAME Reference
 - For this project's Buff / Debuff display, read [the status-effects bridge](references/fpsgame-status-effects.md).
+
+## 技能图标系列
+
+生成或替换冷钢技能图标时，读取 [技能图标系列](references/skill-icon-series.md)。

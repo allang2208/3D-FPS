@@ -1,0 +1,104 @@
+{
+  "ue_m4a1": {
+    "source": "M416_ITEM",
+    "base": 7,
+    "enhanceFlat": 0.5,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.27,
+        "perEnhance": 0.04
+      },
+      {
+        "key": "wis",
+        "base": 0.27,
+        "perEnhance": 0.04
+      }
+    ]
+  },
+  "ue_akm": {
+    "source": "AKM_ITEM",
+    "base": 8,
+    "enhanceFlat": 0.6,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.29,
+        "perEnhance": 0.045
+      },
+      {
+        "key": "wis",
+        "base": 0.29,
+        "perEnhance": 0.045
+      }
+    ]
+  },
+  "ue_qbz191": {
+    "source": "QBZ191_ITEM",
+    "base": 6,
+    "enhanceFlat": 0.4,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.21,
+        "perEnhance": 0.035
+      },
+      {
+        "key": "wis",
+        "base": 0.21,
+        "perEnhance": 0.035
+      }
+    ]
+  },
+  "ue_m1911": {
+    "source": "M1911A1_ITEM",
+    "base": 7,
+    "enhanceFlat": 0.45,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 0.35,
+        "perEnhance": 0.05
+      },
+      {
+        "key": "wis",
+        "base": 0.3,
+        "perEnhance": 0.04
+      }
+    ]
+  },
+  "ue_dan_wesson715": {
+    "source": "REVOLVER357_ITEM",
+    "base": 26,
+    "enhanceFlat": 0,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 0.8,
+        "perEnhance": 0.1
+      },
+      {
+        "key": "wis",
+        "base": 1.6,
+        "perEnhance": 0.15
+      }
+    ]
+  },
+  "ue_rune_sword": {
+    "source": "RUNE_SWORD_ITEM",
+    "base": 40,
+    "enhanceFlat": 5,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 4.5,
+        "perEnhance": 0.9
+      },
+      {
+        "key": "str",
+        "base": 3.5,
+        "perEnhance": 0.6
+      }
+    ]
+  }
+}

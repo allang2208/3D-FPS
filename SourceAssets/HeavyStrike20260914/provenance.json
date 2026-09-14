@@ -1,0 +1,13 @@
+{
+  "tool": "imagegen",
+  "selected": "heavy_strike_cold_steel.png",
+  "references": [
+    "Content/ColdSteelData/Skills/critical_strike_cold_steel.png",
+    "Content/ColdSteelData/Skills/rifle_mastery_cold_steel.png"
+  ],
+  "style": "Brushed silver hexagonal frame, graphite inset, monochrome sword impact relief, upper-left lighting",
+  "sha256": "13ad20f3bc832b82070b3f9a8a5dec79eecda7ecd0748ec9f6fcce5c3d6da084",
+  "bytes": 1776407,
+  "publication": "PNG remains local under existing binary policy; source metadata and restoration script published",
+  "superseded": "trash/heavy-strike-20260914/SourceAssets/HeavyStrike20260914/PreviousSquare/heavy_strike_cold_steel.png"
+}
