@@ -65,13 +65,19 @@ public:
     UPROPERTY(EditAnywhere, Category="Weapon FX|Sockets") FName MuzzleSocket = TEXT("WPN_SOCKET_Muzzle");
     UPROPERTY(EditAnywhere, Category="Weapon FX|Sockets") FName EjectSocket = TEXT("WPN_SOCKET_Eject");
     UPROPERTY(EditAnywhere, Category="Weapon FX", meta=(ClampMin="0.0", ClampMax="2.0")) float FlashScale = 1.0f;
-    UPROPERTY(EditAnywhere, Category="Weapon FX", meta=(ClampMin="0.0", ClampMax="1.0")) float SmokeOpacity = 0.36f;
+    UPROPERTY(EditAnywhere, Category="Weapon FX", meta=(ClampMin="0.0", ClampMax="1.0")) float PistolFlashScale = 0.45f;
+    UPROPERTY(EditAnywhere, Category="Weapon FX", meta=(ClampMin="0.0", ClampMax="1.0")) float SmokeOpacity = 0.55f;
+    UPROPERTY(EditAnywhere, Category="Weapon FX|Smoke", meta=(ClampMin="1.0", ClampMax="2.5")) float SmokeSpreadScale = 1.6f;
 
 private:
-    bool SpawnEpicFX(bool bSmokeOnly, FVector Position, FVector Forward, float Scale, float Opacity);
+    void SpawnCasing();
+    bool ShouldHideCasings() const;
+    bool SpawnEpicFX(FVector Position, FVector Forward, float Scale);
+    void UpdateSmokeStream(float DeltaTime);
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicMuzzleSystem;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UNiagaraSystem> EpicSmokeSystem;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> EpicFXPool;
+    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> SmokeStream;
     FFPSWeaponFXParticle* Acquire(uint8 Kind, UStaticMesh* Geometry, UMaterialInterface* Material);
     void Release(FFPSWeaponFXParticle& Particle);
     void SpawnSmoke(bool bImmediate, float InitialAge, const FVector& BirthPosition,
@@ -85,6 +91,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UPointLightComponent> FlashLight;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UStaticMesh> CardMesh;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UStaticMesh> CylinderMesh;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UStaticMesh> RifleCasingMesh;
+    UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> RifleCasingMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> FlashMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> SmokeMaterial;
     UPROPERTY(EditDefaultsOnly, Category="Weapon FX|Assets") TObjectPtr<UMaterialInterface> BrassMaterial;
@@ -96,11 +104,19 @@ private:
     float PendingHeat = 0.0f;
     double SmokeClock = 0.0;
     double LastFXShotTime = -10.0;
+    double SmokeFeedUntil = -10.0;
+    double SmokeTailUntil = -10.0;
+    float SmokeHeatAtLastShot = 0.0f;
+    double LastSmokeFeedTime = -10.0;
+    float SmokeEmissionRate = 0.0f;
     FVector PreviousMuzzlePosition = FVector::ZeroVector;
     FVector PreviousMuzzleForward = FVector::ForwardVector;
     float FlashTime = 0.0f;
     uint64 FlashBirthFrame = 0;
     float LastADSMultiplier = 1.0f;
+    float LastWeaponFlashMultiplier = 1.0f;
     float LastSuppression = 1.0f;
+    // Authored rifle frame relative to WPN_root; independent of camera and folding sights.
+    FQuat CasingFrameInRoot = FQuat::Identity;
     bool bReady = false;
 };

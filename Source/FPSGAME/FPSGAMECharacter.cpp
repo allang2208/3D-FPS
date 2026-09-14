@@ -30,6 +30,7 @@
 #include "HAL/PlatformMisc.h"
 #include "HighResScreenshot.h"
 #include "Sound/SoundBase.h"
+#include "Weapons/FPSVisualRecoil.h"
 #include "TimerManager.h"
 
 namespace AKMSource
@@ -411,7 +412,14 @@ void AFPSGAMECharacter::FirePressed()
     ServiceHeldFire();
 }
 
-void AFPSGAMECharacter::FireReleased() { bFireHeld = false; bPistolShotPending = false; GetWorldTimerManager().ClearTimer(FireTimerHandle); }
+void AFPSGAMECharacter::FireReleased()
+{
+    bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
+    const double Now=GetWorld()->GetTimeSeconds();
+    AdvanceVisualWeaponRecoil(Now);
+    // Preserve the initial kick even when a tap is released in the shot frame.
+    VisualRecoverAt=FMath::Min(VisualRecoverAt,FMath::Max(Now,LastVisualShotAt+.055));
+}
 
 void AFPSGAMECharacter::AimPressed()
 {
@@ -624,11 +632,7 @@ void AFPSGAMECharacter::UpdateWeaponFeedback(float DeltaSeconds)
     // Scale spring time, not frame-dependent interpolation or damping alone.
     // Peak impulse response retains its amplitude; higher stability settles sooner.
     const float FeedbackDelta = DeltaSeconds * WeaponHandling.RecoveryRate();
-    AdvanceSpring(GunKickPosition, GunKickPositionVelocity, AKMSource::KickStiffness, AKMSource::KickDamping, FeedbackDelta);
-    AdvanceSpring(GunKickRotation, GunKickRotationVelocity, AKMSource::KickStiffness, AKMSource::KickDamping, FeedbackDelta);
-    AdvanceSpring(GunJitterPosition, GunJitterPositionVelocity, AKMSource::JitterStiffness, AKMSource::JitterDamping, FeedbackDelta);
-    AdvanceSpring(GunJitterRotation, GunJitterRotationVelocity, AKMSource::JitterStiffness, AKMSource::JitterDamping, FeedbackDelta);
-    AdvanceSpring(GunFlip, GunFlipVelocity, AKMSource::FlipStiffness, AKMSource::FlipDamping, FeedbackDelta);
+    AdvanceVisualWeaponRecoil(GetWorld()->GetTimeSeconds());
     AdvanceSpring(CameraKickPitch, CameraKickPitchVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
     AdvanceSpring(CameraKickYaw, CameraKickYawVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
     AdvanceSpring(CameraJitterPosition, CameraJitterPositionVelocity, AKMSource::JitterStiffness, AKMSource::JitterDamping, FeedbackDelta);
@@ -778,9 +782,13 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         : FVector::ZeroVector;
     const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress;
     const FVector UEHipPose(-GodotPose.Z * 100.0f, GodotPose.X * 100.0f, GodotPose.Y * 100.0f);
+    const float ScopeWeight=GetScopePresentationAlpha();
+    const float ScopeConvergence=FMath::Lerp(1.f,FMath::Clamp(
+        FMath::Tan(FMath::DegreesToRadians(EffectiveADSVerticalFOV()*.5f)) /
+        FMath::Max(.01f,FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView*.5f))),.22f,1.f),ScopeWeight);
     const float RecoilDistance = FMath::Clamp(GunKickPosition.Z * AKMSource::ADSAxialScale, -0.01f, 0.055f);
     FVector2D Lateral(GunKickPosition.X * AKMSource::ADSHorizontalScale + GunJitterPosition.X, GunKickPosition.Y + GunJitterPosition.Y);
-    Lateral = Lateral.GetClampedToMaxSize(0.012f);
+    Lateral = Lateral.GetClampedToMaxSize(0.012f) * ScopeConvergence;
     const FVector UEADSRecoil(-RecoilDistance * 100.0f, Lateral.X * 18.0f, Lateral.Y * 18.0f);
     FHitResult WallHit;
     const FVector Eye = FirstPersonCamera->GetComponentLocation();
@@ -802,7 +810,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 
     FVector ADSKickAngles = GunKickRotation + GunJitterRotation + FVector(GunFlip, 0.0f, 0.0f);
     ADSKickAngles.Y = GunKickRotation.Y * AKMSource::ADSHorizontalScale + GunJitterRotation.Y;
-    ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale;
+    ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale * ScopeConvergence;
     const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress;
     const FRotator BaseRotation = GetViewmodelBaseRotation();
     const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
@@ -900,6 +908,7 @@ void AFPSGAMECharacter::FireShot()
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
     Params.bReturnPhysicalMaterial = true;
+    Params.bReturnFaceIndex = true; // Reuse the hit triangle for cosmetic surface selection; no extra trace.
     FHitResult AimHit;
     const bool bAimHit = GetWorld()->LineTraceSingleByChannel(AimHit, TraceStart, TraceStart + TraceDirection * TraceDistance, ECC_Visibility, Params);
     const FVector AimTarget = bAimHit ? AimHit.ImpactPoint : TraceStart + TraceDirection * TraceDistance;
@@ -928,6 +937,16 @@ void AFPSGAMECharacter::FireShot()
 
 void AFPSGAMECharacter::ApplyShotFeedback()
 {
+    const double VisualNow=GetWorld()->GetTimeSeconds();
+    AdvanceVisualWeaponRecoil(VisualNow);
+    const double BurstReset=FMath::Clamp(static_cast<double>(FireInterval)*2.5,.25,.45);
+    VisualBurstIndex=VisualNow-LastVisualShotAt>BurstReset?0:FMath::Min(VisualBurstIndex+1,8);
+    LastVisualShotAt=VisualNow;
+    VisualRecoverAt=VisualNow+FMath::Clamp(static_cast<double>(FireInterval)*.8,.065,.12);
+    const auto VisualProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
+    // A defined first pulse followed by smaller settled pulses, rather than
+    // increasing random tumbling as the automatic burst continues.
+    const float BurstGain=VisualBurstIndex==0?1.12f:FMath::Lerp(1.f,.86f,VisualBurstIndex/8.f);
     const int32 PatternCount = FWeaponHandling::PatternCount;
     const FVector2D Pattern = FWeaponHandling::Pattern(RecoilPatternIndex);
     if(RecoilPatternIndex==0)ADSHorizontalRecoilIndex=0;
@@ -946,13 +965,13 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     PatternRecoveryAccumulator = 0.0f;
     const float Horizontal = FMath::Clamp(Pattern.Y / 0.003f + FMath::FRandRange(-0.35f, 0.35f), -1.0f, 1.0f);
     const float RecoilLoad = (1.0f + FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f);
-    GunKickPositionVelocity += FVector(-Horizontal * 0.24f, FMath::FRandRange(0.04f, 0.10f), FMath::FRandRange(0.55f, 0.85f)) * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale;
-    GunKickRotationVelocity += FVector(FMath::FRandRange(0.55f, 1.0f), Horizontal * 0.50f, FMath::FRandRange(-0.7f, 0.7f)) * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale;
+    GunKickPositionVelocity += FVector(-Horizontal * 0.24f, FMath::FRandRange(0.04f, 0.10f), FMath::FRandRange(0.55f, 0.85f)) * VisualProfile.Position * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale * BurstGain;
+    GunKickRotationVelocity += FVector(FMath::FRandRange(0.55f, 1.0f), Horizontal * 0.50f, FMath::FRandRange(-0.7f, 0.7f)) * VisualProfile.Rotation * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale * BurstGain;
     const FVector PositionImpulse = FVector(FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f)) * RecoilLoad * WeaponHandling.ShakeScale;
     const FVector RotationImpulse = FVector(FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f)) * RecoilLoad * WeaponHandling.ShakeScale;
-    GunJitterPositionVelocity += PositionImpulse;
-    GunJitterRotationVelocity += RotationImpulse;
-    GunFlipVelocity += 1.5f * RecoilLoad * WeaponHandling.RecoilScale;
+    GunJitterPositionVelocity += PositionImpulse * VisualProfile.Jitter;
+    GunJitterRotationVelocity += RotationImpulse * VisualProfile.Jitter;
+    GunFlipVelocity += 1.5f * RecoilLoad * WeaponHandling.RecoilScale * VisualProfile.Flip * BurstGain;
     CameraJitterPositionVelocity += PositionImpulse * 0.06f * AKMSource::FeedbackScale;
     CameraJitterRotationVelocity += RotationImpulse * 0.18f * AKMSource::FeedbackScale;
     const float ImpulseScale = FMath::Lerp(9.0f, 13.0f, WeaponADSFactor) * VisualRecoilScale * WeaponHandling.ShakeScale;

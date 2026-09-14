@@ -21,6 +21,10 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     const bool ResumePistolAim=PistolInput&&bAimHeld;
     const bool ResumePistolFire=PistolInput&&bFireHeld;
     if(ChangedWeapon){
+        VisualRecoilUpdatedAt=-1.;LastVisualShotAt=VisualRecoverAt=-10.;VisualBurstIndex=0;
+        GunKickPosition=GunKickPositionVelocity=GunKickRotation=GunKickRotationVelocity=FVector::ZeroVector;
+        GunJitterPosition=GunJitterPositionVelocity=GunJitterRotation=GunJitterRotationVelocity=FVector::ZeroVector;
+        GunFlip=GunFlipVelocity=0.f;
         if (IsTraversing()) Traversal->Cancel();
         StopMechanicalAudio();
         FireReleased();AimReleased();

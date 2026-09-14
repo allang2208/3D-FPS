@@ -15,7 +15,7 @@ description: 开发和维护 UE5 游戏枪械，包括新枪与手模接入、�
 
 - 衣物/手套装备的第一人称表现、皮肤分区、皮革材质和袖口：[手部装备表现标准](../ue5-fps-arms-animation/references/hand-equipment-appearance.md)。复用已接受 Manny 基线；装备数据/存档与外观作者管线按实际任务分别验收。
 
-- 准心、散布、后坐力、枪口烟火或曳光：[Gunplay 与 Niagara 验收](references/gunplay-vfx.md)。
+- 准心、散布、后坐力、枪口烟火、曳光、抛壳及表面命中/落血：[Gunplay 与 Niagara 验收](references/gunplay-vfx.md)。
 
 - 新枪、模型/材质、枪匠或瞄具：[接入与装配](references/integration.md)。
 - 制作或修改改造配件：[改造配件标准](references/attachment-standard.md)，覆盖生成修整、装配、展览、真实包握、换弹回握和游戏验收；2026-09-12 用户确认 VRE 成组抓握迁移成功；握把分支优先复用已接受手型并适配整手与腕臂，小阻手器按用户许可整体包握。

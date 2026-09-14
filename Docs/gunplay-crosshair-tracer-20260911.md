@@ -40,7 +40,7 @@
 
 新增 `Source/FPSGAME/UI/ColdSteelCrosshair.cpp`；逐块修改 Character、CharacterProfile、Ballistics 和 WeaponFX；保留这些共享文件原有并行改动。
 
-`Tools/AssetPipeline/build_ballistic_tracer.py` 生成 `/Game/Weapons/GunplayFX/M_BallisticTracer`。材质为本次程序化创建，几何复用引擎基础圆柱，无外部图片或新增第三方素材。二进制留在本机 Content；可用脚本重建。
+历史首版使用 `Tools/AssetPipeline/build_ballistic_tracer.py` 生成 `/Game/Weapons/GunplayFX/M_BallisticTracer`。材质为程序化创建，几何复用引擎基础圆柱，无外部图片或新增第三方素材。2026-09-14 已被 V12 替代，旧脚本与材质移入本机 `trash/gunplay-20260914`；当前恢复入口见 [V12 记录](Weapons/gunplay-visibility-v12-20260914.md)。
 
 ## 验证
 

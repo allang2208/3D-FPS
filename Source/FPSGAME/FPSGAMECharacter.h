@@ -65,6 +65,8 @@ public:
     void SetGunsmithTactical(const FString& Variant);
     UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseDanWesson715 = false;
+    bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
     bool HasSkeletonStock() const;
     bool ValidateStockAttachment() const;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> StockAttachment;
@@ -405,6 +407,11 @@ private:
     FVector GunJitterRotationVelocity = FVector::ZeroVector;
     float GunFlip = 0.0f;
     float GunFlipVelocity = 0.0f;
+    void AdvanceVisualWeaponRecoil(double Now);
+    double VisualRecoilUpdatedAt = -1.0;
+    double LastVisualShotAt = -10.0;
+    double VisualRecoverAt = -10.0;
+    int32 VisualBurstIndex = 0;
 
     float CameraKickPitch = 0.0f;
     float CameraKickPitchVelocity = 0.0f;

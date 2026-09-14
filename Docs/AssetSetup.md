@@ -51,9 +51,25 @@ Git 包含攀爬 C++、配置、作者工具、导入/包围盒/作者校验摘�
 
 ## Gunplay 与枪口 VFX（2026-09-11）
 
-恢复 `Content/NiagaraExamples`（已获授权的 Epic Niagara Examples Pack）及 `Content/Weapons/GunplayFX`。当前引用为 `NS_FPS_MuzzleEpicV5`、`NS_FPS_BarrelSmokeEpicV5`、`M_BallisticTracer`，以及原有枪口、烟、弹壳材质。第三方派生 Niagara uasset 仅本机保留，本次没有上传其二进制。
+恢复 `Content/NiagaraExamples`（已获授权的 Epic Niagara Examples Pack）及 `Content/Weapons/GunplayFX`。当前引用为 `NS_FPS_MuzzleFlashV10`、`NS_FPS_MuzzleSmokeStreamV12`、`M_BallisticTracerVisibleV12`，以及枪口后备、烟、弹壳材质；以下 V5–V11 记录保留作者依赖与迭代过程。第三方派生 Niagara uasset 仅本机保留，本次没有上传其二进制。
 
-最终生成器 [build_muzzle_presentation_v5.py](../Tools/AssetPipeline/build_muzzle_presentation_v5.py) 直接以原包 `FX_Weapons/MuzzleFlashes/NS_MuzzleFlash` 重建，不需要 trash 中的旧候选。需项目 `RainAssetEditor`、UE 5.8 NiagaraToolset 和原始素材；`-MuzzleRebuildProbe` 写独立测试资产。曳光材质用 [build_ballistic_tracer.py](../Tools/AssetPipeline/build_ballistic_tracer.py) 创建。参数、历史迭代和本机证据见 [烟火记录](muzzle-smoke-presentation-20260911.md)，归档记录见 [清单](gunplay-archive-20260911.json)。
+基础生成器 [build_muzzle_presentation_v5.py](../Tools/AssetPipeline/build_muzzle_presentation_v5.py) 直接以原包 `FX_Weapons/MuzzleFlashes/NS_MuzzleFlash` 重建，不需要 trash 中的旧候选。需项目 `RainAssetEditor`、UE 5.8 NiagaraToolset 和原始素材；`-MuzzleRebuildProbe` 写独立测试资产。当前曳光材质由 [V6 制作器](../Tools/AssetPipeline/build_gunplay_presentation_v6.py) 创建基础，再用 [V12 制作器](../Tools/AssetPipeline/build_gunplay_visibility_v12.py) 升级。参数、历史迭代和本机证据见 [烟火记录](muzzle-smoke-presentation-20260911.md)，归档记录见 [清单](gunplay-archive-20260911.json)。
+
+2026-09-13 步枪抛壳源码新增引用原包 `FX_Weapons/MuzzleFlashes/Meshes/SM_BulletShell` 与 `MI_BulletShell_FX`，恢复时连同该目录的颜色/法线贴图和父材质一起保留；没有新增公开分发的第三方二进制。曳光与烟雾升级建议、LPVO 隐藏弹壳规则和未测试交付边界见 [Gunplay 升级建议与抛壳修改](Weapons/gunplay-vfx-casing-20260913.md)。
+
+后续已接入 `NS_FPS_MuzzleEpicV6`、`NS_FPS_BarrelSmokeEpicV6` 和 `M_BallisticTracerSoftV2`。新生成器为 `Tools/AssetPipeline/build_gunplay_presentation_v6.py`，依赖上述 V5 两套系统以及 Epic 原包的枪口烟雾、wispy 材质和配套贴图。保留新材质副本 `MI_MuzzleSmokeV6`、`MI_BarrelWispyV6`；完整当前依赖、构建与未测试边界见 [V6 交付记录](Weapons/gunplay-vfx-v6-20260913.md)。
+
+2026-09-14 烟火继续升级为 `NS_FPS_MuzzleEpicV7`、`NS_FPS_BarrelSmokeEpicV7`，配套 `MI_MuzzleSmokeV7`、`MI_BarrelWispyV7`；曳光仍用 `M_BallisticTracerSoftV2`。运行 `Tools/AssetPipeline/build_gunplay_presentation_v7.py` 从本机 V6 恢复增强烟量和动态焰瓣，保留 V5/V6 作为作者依赖。参数和未测试交付边界见 [V7 交付记录](Weapons/gunplay-vfx-v7-20260914.md)。
+
+同日白烟与火光边缘精修转为 V8 两套 Niagara 系统，新增 `M_MuzzleFlashFeatherV8` 及四项烟火材质实例。`Tools/AssetPipeline/build_gunplay_presentation_v8.py` 依赖 V7、Epic `M_SmokeAndFire_Sprites` 母材质及其纹理/材质函数；保持原包和 V7 作为重建输入。完整资产名与参数见 [V8 交付记录](Weapons/gunplay-vfx-v8-20260914.md)。
+
+后续 V9 改为 `NS_FPS_MuzzleFlashV9` 与独立 `NS_FPS_MuzzleSmokeStreamV9`：手枪火光缩放、步枪保留 V8 火光，烟雾改为连续供烟和扩散。`Tools/AssetPipeline/build_gunplay_presentation_v9.py` 依赖 V8；新材质 `M_MuzzleSmokeSheetV9` 从项目源 `SourceAssets/GunplayVFX20260914/ContinuousSmoke.hlsl` 创建。原资产与 V8 继续作为恢复输入，见 [V9 交付记录](Weapons/gunplay-vfx-v9-20260914.md)。
+
+V10 使用 `NS_FPS_MuzzleFlashV10` 和 `NS_FPS_MuzzleSmokeStreamV10`，扩大白烟扩散、增加停火余烟并细化火光柔边。`Tools/AssetPipeline/build_gunplay_presentation_v10.py` 从 V8/V9 创建新版，烟材质沿用已修复 Niagara Sprite 标记的 V9；新增火光源为 `SourceAssets/GunplayVFX20260914/FlashFeatherV10.hlsl`。见 [V10 制作记录](Weapons/gunplay-vfx-v10-20260914.md)。
+
+V11 烟雾降低透明度与累积烟量、加快消散，并保留连续扩散和少量余烟，以持续射击视线清晰为先。`Tools/AssetPipeline/build_gunplay_smoke_v11.py` 依赖 V9 材质及 V10 烟系统，创建 `M_MuzzleSmokeSheetV11` 与 `NS_FPS_MuzzleSmokeStreamV11`；火光保持 V10。作者源为 `SourceAssets/GunplayVFX20260914/SmokeSightlineV11.hlsl`，见 [V11 调整记录](Weapons/gunplay-smoke-v11-20260914.md)。
+
+当前烟雾和曳光使用 V12：恢复新生烟气密度，保留短寿命，并补足曳光端部发光及可见宽度。`Tools/AssetPipeline/build_gunplay_visibility_v12.py` 从 V11 烟雾和 V2 曳光创建 `M_MuzzleSmokeSheetV12`、`NS_FPS_MuzzleSmokeStreamV12`、`M_BallisticTracerVisibleV12`；火光仍为 V10。材质源在 `SourceAssets/GunplayVFX20260914`，见 [V12 调整记录](Weapons/gunplay-visibility-v12-20260914.md)。
 
 ## 云、雨与附着水滴（2026-09-12）
 
@@ -93,3 +109,11 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 - 图标：恢复本机 `Content/ColdSteelData` 中 M1911 原厂图标、`AttachmentIcons20260913` 的轻型扳机、短/长枪管、枪口及战术配件图标。动态武器图标还依赖既有 GunsmithWorkbench 的工作室环境和预览材质。
 - 源重建顺序及保留输入见 [手枪标准](../skills/ue5-weapon-workflow/references/pistols.md)。首先恢复当前 M4/Manny 可编辑源、用户 M1911 FBX 与合法取得的 P9 源；旧源目录即使不再直接加载，仍可能参与重建。
 - 已退役首版输出和备份位于本机 `trash/m1911-development-20260913`；[归档清单](AssetArchives/m1911-development-20260913.json) 保存原路径、替代物和散列。[审计记录](Weapons/m1911-development-audit-20260913.md) 区分本次检查与历史未测试制作。
+
+## 表面命中反馈（2026-09-14）
+
+运行资源位于 `Content/Weapons/GunplayFX/Impacts`，由 [制作入口](../Tools/AssetPipeline/build_surface_impact_assets.py) 在 UE Python commandlet 中生成，包含实例化火星/粉尘/碎屑材质、弹痕及 18 个短命中音效。作者源 `SourceAssets/SurfaceImpacts20260914` 使用本项目原创程序化 HLSL 和合成 PCM；几何及淡出依赖引擎 BasicShapes Plane/Cube 和 DitherTemporalAA 函数，不必复制 Niagara 命中示例包。先生成资源，再编译原生世界共享池；仅源码不能替代本机 uasset。表面绑定规则、固定性能预算、枪型后坐力参数与未测试范围见 [接入记录](Weapons/gunplay-impacts-recoil-20260914.md)。
+
+肉体血雾后续升级还需恢复合法本地包 `Realistic_Starter_VFX_Pack_Vol2` 的 `T_Smoke_Wisp`、`T_Droplets_A`，再运行 [血液材质制作器](../Tools/AssetPipeline/build_flesh_impact_assets.py)，生成 `Impacts/Blood` 中的血雾和血滴两个材质。作者 HLSL 和来源记录在 `SourceAssets/FleshImpacts20260914`，未改源包或新购资产；血液材质仍引用第三方贴图，不作为可独立公开再分发的素材包。初版参数仅作为历史记录，见 [血雾接入记录](Weapons/flesh-impact-blood-20260914.md)。
+
+当前落地血迹使用 `M_FleshStainV2`，还需运行 [落地血迹 V2 制作器](../Tools/AssetPipeline/build_flesh_ground_v2.py)。它沿用同一来源贴图，扩大血迹轮廓并加入共享材质的湿/干变化；最新预算为 192 活动命中粒子、48 独立血迹贴花及原有 24 普通弹痕。恢复说明、历史构建和用户确认以 [V2 记录](Weapons/flesh-impact-ground-v2-20260914.md) 为准。已退役文件及保留的制作依赖见 [本轮整理记录](Weapons/gunplay-publication-20260914.md)。

@@ -1,0 +1,137 @@
+{
+  "archive": "D:\\FPS3D\\FPSGAME\\trash\\gunplay-20260914",
+  "retained_authoring": "V5-V11 muzzle assets/scripts and TracerSoftV2 remain inputs to current V10/V12 construction; no active pack textures, geometry, sounds or materials moved",
+  "date": "2026-09-14",
+  "root": "D:\\FPS3D\\FPSGAME",
+  "task": "Gunplay effects and accepted ground blood V2",
+  "files": [
+    {
+      "retained": "Content/Weapons/GunplayFX/M_GunFlash_Exposure.uasset",
+      "bytes": 10252,
+      "sha256": "1dfb72c7db7db7b65ad7f6df6268c7d83662429067661e23d4372160f36ecb03",
+      "reason": "No runtime or asset referencer; exposure-aware fallback retained",
+      "destination": "trash/gunplay-20260914/Content/Weapons/GunplayFX/M_GunFlash.uasset",
+      "source": "Content/Weapons/GunplayFX/M_GunFlash.uasset"
+    },
+    {
+      "retained": "Content/Weapons/GunplayFX/M_BallisticTracerVisibleV12.uasset",
+      "bytes": 7643,
+      "sha256": "4f4f9dce68cf7dc7619580ba262c514808069560b766135aa9d3cddc6a24e7b5",
+      "reason": "Superseded tracer; current V6/V12 authoring does not read this material",
+      "destination": "trash/gunplay-20260914/Content/Weapons/GunplayFX/M_BallisticTracer.uasset",
+      "source": "Content/Weapons/GunplayFX/M_BallisticTracer.uasset"
+    },
+    {
+      "retained": "Content/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV2.uasset",
+      "bytes": 9061,
+      "sha256": "e08f90fbbc3adf75a571f05c40adf637579f29487298eb7cf71085a898dbbf5a",
+      "reason": "User accepted V2 ground visibility; no current asset/runtime reference",
+      "destination": "trash/gunplay-20260914/Content/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV1.uasset",
+      "source": "Content/Weapons/GunplayFX/Impacts/Blood/M_FleshStainV1.uasset"
+    },
+    {
+      "retained": "SourceAssets/FleshImpacts20260914/GroundV2/StainMask.hlsl",
+      "bytes": 678,
+      "sha256": "8ce40bb4b69157fd1c1797b85fc1251cc44c75f4477230e8c18f5905db7589ed",
+      "reason": "Retired V1 ground mask; removed from current authoring entry",
+      "destination": "trash/gunplay-20260914/SourceAssets/FleshImpacts20260914/StainMask.hlsl",
+      "source": "SourceAssets/FleshImpacts20260914/StainMask.hlsl"
+    },
+    {
+      "retained": "Tools/AssetPipeline/build_gunplay_visibility_v12.py",
+      "bytes": 2176,
+      "sha256": "1bb87851e7bee3b291cc4077938b3caf706c1c4479604adb91fb1cb85da9d78b",
+      "reason": "Only authors retired original tracer; current construction is V6 then V12",
+      "destination": "trash/gunplay-20260914/Tools/AssetPipeline/build_ballistic_tracer.py",
+      "source": "Tools/AssetPipeline/build_ballistic_tracer.py"
+    },
+    {
+      "retained": "SourceAssets/FleshImpacts20260914/CREDITS.md",
+      "bytes": 1969,
+      "sha256": "6883ccd026f3ec63dde184a73373409cae864d1c092c85b09b10d2f8672b16b5",
+      "reason": "Completed one-time source-reading intermediate; source metadata and art remain archived",
+      "destination": "trash/gunplay-20260914/Tools/AssetPipeline/read_flesh_impact_source.py",
+      "source": "Tools/AssetPipeline/read_flesh_impact_source.py"
+    },
+    {
+      "retained": "Tools/AssetPipeline/build_gunplay_presentation_v10.py",
+      "bytes": 2793,
+      "sha256": "806c89e1feb8a2aec362fd8c9eda4763f6b7126de154992ce667f6991ea31c21",
+      "reason": "Completed V7 graph-reading intermediate; accepted V10 authoring retained",
+      "destination": "trash/gunplay-20260914/Tools/AssetPipeline/read_gunplay_flash_material_source.py",
+      "source": "Tools/AssetPipeline/read_gunplay_flash_material_source.py"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 2432,
+      "sha256": "bb32a005167fa2357428e70dc221c3e77b2e19cbc59fd9775a91d1da50602098",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/source.json",
+      "source": "Saved/FleshImpactAuthoring20260914/source.json"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 1567076,
+      "sha256": "1d12f9fbd928073318c0fba9cf5ecb67e7bdf970e7e0622df9f149e9d4c0ffab",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Droplets_A.png",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Droplets_A.png"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 12582930,
+      "sha256": "5d708cf1f575a4e41a1537b7593c93b5ffddedcc87906cc2f48159b8e7a7e62f",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Droplets_A.tga",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Droplets_A.tga"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 139661,
+      "sha256": "d7c1abf8385573fba2eace07642963a4d1e7a046aa7c10dc3647235ed3f5d4fe",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Smoke_Wisp.png",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Smoke_Wisp.png"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 4194322,
+      "sha256": "84793dc3b762010d0da9314ddda7e6b1f09a8e48cd90041b50b79d705b7c05e9",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Smoke_Wisp.tga",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Smoke_Wisp.tga"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 52729,
+      "sha256": "1395d02acf712fc12b23cb18cb73c07dfbb095ededdbc2c3e39ab17e9e825116",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Splash_A.png",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Splash_A.png"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 1048594,
+      "sha256": "a5466bd48aa18bb7754361ce3412f9b7bd140032f9a1f14edfa81629f99bb8c7",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Splash_A.tga",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Splash_A.tga"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 5746,
+      "sha256": "abf62481e3c0f8e237fc3c489303c0375e8d98ed7f0f648d5e4bdab1cff2450d",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Splat.png",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Splat.png"
+    },
+    {
+      "retained": "Content/Realistic_Starter_VFX_Pack_Vol2/Textures",
+      "bytes": 49170,
+      "sha256": "487b79aa020652c5bfa304eea39f66dd765cf8ebd0abe2f1b59bd11ea8aa9e78",
+      "reason": "Temporary exported source texture/metadata used to inspect channel layouts; original licensed textures retained",
+      "destination": "trash/gunplay-20260914/Saved/FleshImpactAuthoring20260914/T_Splat.tga",
+      "source": "Saved/FleshImpactAuthoring20260914/T_Splat.tga"
+    }
+  ]
+}

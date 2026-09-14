@@ -21,7 +21,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
 {
     Super::TickComponent(Delta,Type,Fn);
     const double Now=GetWorld()->GetTimeSeconds();
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;
+    FCollisionQueryParams Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;
     for(int32 I=Rounds.Num()-1;I>=0;--I)
     {
         auto& R=Rounds[I];const float Distance=FMath::Min(R.Remaining,R.Speed*static_cast<float>(FMath::Max(0.,Now-R.Timestamp)));
