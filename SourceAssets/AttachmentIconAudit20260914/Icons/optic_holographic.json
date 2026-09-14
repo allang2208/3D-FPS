@@ -1,0 +1,32 @@
+{
+  "key": "optic_holographic",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+  "objects": [
+    "M4_holographic"
+  ],
+  "frame": "X",
+  "finish": "M4",
+  "offsets": {},
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.04899591580033302,
+      -0.027484988793730736,
+      -0.00031950511038303375
+    ],
+    [
+      0.05047927796840668,
+      0.02796192839741707,
+      0.07225096225738525
+    ]
+  ],
+  "triangles": 8680,
+  "material_note": "Real source textures retained. Receiver coating in Blender approximates UE Phong conversion using the same coating source."
+}

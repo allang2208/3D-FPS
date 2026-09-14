@@ -1,0 +1,31 @@
+{
+  "key": "underbarrel_vertical_foregrip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Compact75\\M4_Vertical_Fitted.blend",
+  "objects": [
+    "VG_Grip"
+  ],
+  "frame": "fit",
+  "fit": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Compact75\\fit_final.json",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.01799999736249447,
+      -0.01650000549852848,
+      -0.10349997878074646
+    ],
+    [
+      0.017999999225139618,
+      0.016499986872076988,
+      4.656612873077393e-10
+    ]
+  ],
+  "triangles": 26324,
+  "material_note": "Real source materials retained."
+}

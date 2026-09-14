@@ -1,0 +1,707 @@
+{
+  "task": "AttachmentIconAudit20260914",
+  "date": "2026-09-14",
+  "scope": "Only retired files from this attachment-icon task; current game assets, editable sources, evidence, and parallel tasks retained.",
+  "archive_root": "trash/AttachmentIconAudit20260914",
+  "move_verification": "All 87 files checked before moving and read back with matching SHA-256 after moving.",
+  "file_count": 87,
+  "bytes": 68357483,
+  "files": [
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Code/M4GunsmithLayout.cpp",
+      "target": "trash/AttachmentIconAudit20260914/Before/Code/M4GunsmithLayout.cpp",
+      "bytes": 22397,
+      "sha256": "f8215031225251d265db95e79f957bc9c0b2fde6b44a94787747b982f16c269c",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/barrel_long.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/barrel_long.png",
+      "bytes": 453485,
+      "sha256": "0702d13d3c3d8589449471f20f396afb1a05d41f8e3b4667b9758679f0d0acd6",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/barrel_long.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/barrel_long.uasset",
+      "bytes": 419686,
+      "sha256": "f7658b433a0c29e895661831671624c84bad073148ec972a82820c8147cd1424",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/barrel_short.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/barrel_short.png",
+      "bytes": 759487,
+      "sha256": "7992c9876518f26421d73377e16ce5c35a428b2d7d9bd64f84601800a06405c6",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/barrel_short.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/barrel_short.uasset",
+      "bytes": 709830,
+      "sha256": "b9fdf57da2b305a5f999fafdb70e071f815df49f676304339d37466a85b3f76f",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/magazine_false.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/magazine_false.png",
+      "bytes": 1356069,
+      "sha256": "1f84743abedb65ee8ace1bfbe11df33ceac8b91e01fd024238be14ee6bbe0749",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/magazine_false.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/magazine_false.uasset",
+      "bytes": 1566089,
+      "sha256": "157a3ffe79f8d3fd7e8be04e7646f546b091fa0375693827bcab4a60a09aded4",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/magazine_large_drum.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/magazine_large_drum.png",
+      "bytes": 1664213,
+      "sha256": "f405f5844f764eaf7eb45e287f2aee73d4c419693a8fe608f6a24b3d867d46e8",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/magazine_large_drum.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/magazine_large_drum.uasset",
+      "bytes": 1827907,
+      "sha256": "1701c2c00faaa50e80d118c73edc019d8ade7885f5a0e6c63467a2b50773d264",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_brake.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_brake.png",
+      "bytes": 1383477,
+      "sha256": "f520eb6ec346554b7b4773a052bfb2f1edc6ec649c024ce856c6d40202285bc0",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_brake.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_brake.uasset",
+      "bytes": 1560787,
+      "sha256": "abd287d7c2c3d4ddf64df9d5d9dad7140a6f95718e0e8861b88d810fbf70a0b2",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_false.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_false.png",
+      "bytes": 1480096,
+      "sha256": "87e98693b7f2b85aeae68375a5d98176eef7bd682b8fe6ddb647e57e4a57a86e",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_false.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_false.uasset",
+      "bytes": 1644084,
+      "sha256": "2d2cbf31c2aff4e4c499c8db0401befb27a54ada5f56509b9e8c6f00609a6e99",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_tactical_suppressor.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_tactical_suppressor.png",
+      "bytes": 248343,
+      "sha256": "cc016a736fbc91971feed46432f5996e6a5f7b6419d537d57ab89d3d2cc37cc9",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_tactical_suppressor.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_tactical_suppressor.uasset",
+      "bytes": 269809,
+      "sha256": "9716415fe7a6e718a89307005697c95e938686b9a0c40ddd991af812eaf1f1f0",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_titanium_brake.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_titanium_brake.png",
+      "bytes": 1465861,
+      "sha256": "d85b983de365b13d19bea726c05b65bacf8f3422861ade2497974f6eed0246b4",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_titanium_brake.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_titanium_brake.uasset",
+      "bytes": 1670399,
+      "sha256": "1c3725c45b7547ca183aa9be8a3eaa1aa8777825cbde291721b4c8a4b8743550",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_true.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_true.png",
+      "bytes": 1351707,
+      "sha256": "100d4a938de12a0a47d9b07d3fb362b77ec54d8daef544ea091307d906031b3b",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/muzzle_true.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/muzzle_true.uasset",
+      "bytes": 1530416,
+      "sha256": "fcc5a55787e0c7c3fcbb31b068a6984b79f74289187318b904dd84a3327ad0fd",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_false.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_false.png",
+      "bytes": 1600281,
+      "sha256": "5be407f4a6a704ac8ddde8c2a21acb8e6a46d92007b93736db1062b66c932666",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_false.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_false.uasset",
+      "bytes": 1792337,
+      "sha256": "5311ae75aefac697ce095876d40d090865528e845cd355aa6e647119783d1eef",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_holographic.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_holographic.png",
+      "bytes": 1624262,
+      "sha256": "169466229e503d7c9736ef48cf238c3264d3e866e8b18b7f92849a1badef352f",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_holographic.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_holographic.uasset",
+      "bytes": 1802664,
+      "sha256": "93ab33328d766fb98c6916b650d7caa6c94c838e9ada877f1c464d7fc1f2e125",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_lpvo_1_6x.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_lpvo_1_6x.png",
+      "bytes": 1269125,
+      "sha256": "86e5431c4dc90609ab38a7927440a21e76774d0cef4da8b8ef96227393017456",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_lpvo_1_6x.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_lpvo_1_6x.uasset",
+      "bytes": 1459436,
+      "sha256": "f4ee6f0902908d549eff95a9b3324b3bb7697a80195bbb67184093d75e64d306",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_panoramic_red_dot.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_panoramic_red_dot.png",
+      "bytes": 1373011,
+      "sha256": "b9d5660ae685a2834eb91b15e53b5b2c1127c378fe1754fbdd1f22ef303d8784",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_panoramic_red_dot.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_panoramic_red_dot.uasset",
+      "bytes": 1586795,
+      "sha256": "cf7a9a33efcfe3a38ecad9b3a9c3835c1c5f670f818241b60521c9701933f705",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_prism_scope_2x.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_prism_scope_2x.png",
+      "bytes": 1469329,
+      "sha256": "1c328a73368206a24d683b25d68950f950c1fe88ccdab1ed859b77062095d10f",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/optic_prism_scope_2x.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/optic_prism_scope_2x.uasset",
+      "bytes": 1654682,
+      "sha256": "7301106bed5b80df8f7bb0211ccf901ebf939d1ddab97ed62421a2c4c5ff6ad9",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reargrip_false.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reargrip_false.png",
+      "bytes": 1646678,
+      "sha256": "de211ff88549c80a90437b508514c7be12cfe3db7ace4daedc753fcd04f2f73b",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reargrip_false.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reargrip_false.uasset",
+      "bytes": 1810747,
+      "sha256": "abb48cdc76ac1c21e837b82433722b4ea849a744dae8935d5d0d9aa078847bad",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reargrip_phantom_reargrip.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reargrip_phantom_reargrip.png",
+      "bytes": 957530,
+      "sha256": "9af73d4872c6baecadef4dfdb549566982e3906c8f453c941b9e740294ed8dec",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reargrip_phantom_reargrip.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reargrip_phantom_reargrip.uasset",
+      "bytes": 906750,
+      "sha256": "56b9b0079db01585dea7bc680c06ae72e09606c43ceb28afc3e6553b31b38ff0",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reargrip_stable_antislip_reargrip.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reargrip_stable_antislip_reargrip.png",
+      "bytes": 1657807,
+      "sha256": "37f1964f10c10bc4088d091abdc7cda8291c83bf75ef499f27921d6560b495f2",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reargrip_stable_antislip_reargrip.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reargrip_stable_antislip_reargrip.uasset",
+      "bytes": 1867576,
+      "sha256": "394cbbb7efc720712700b2d2fe9b2d0b47b7f565517d4a620991b383bcce0bc1",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reload_device_dw715_speedloader.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reload_device_dw715_speedloader.png",
+      "bytes": 29383,
+      "sha256": "8c2056b879b31642fc042a5f60491c4c44ebb32ad4f2f003338a70a3e708cce7",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reload_device_dw715_speedloader.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reload_device_dw715_speedloader.uasset",
+      "bytes": 41016,
+      "sha256": "1bc92698b2672801b9b013dab6f8bee1eb675b1bd938eaa84dcb0931321a4f2b",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reload_device_false.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reload_device_false.png",
+      "bytes": 4739,
+      "sha256": "ce950ff67013494b210c42c4f1ca948f7deb274516961e2fe5d66992f1497fa5",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/reload_device_false.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/reload_device_false.uasset",
+      "bytes": 18338,
+      "sha256": "d2ca93e30da0e58403d42f9093cc492b8b8593db60fc660b6cbcc56c468837a0",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/trigger_dw715_lightweight_fast.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/trigger_dw715_lightweight_fast.png",
+      "bytes": 906843,
+      "sha256": "8fe1b90e5b1d91aa9847bdb601e669a17586caca3f6469698e25106e6b3e15bc",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/trigger_dw715_lightweight_fast.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/trigger_dw715_lightweight_fast.uasset",
+      "bytes": 838425,
+      "sha256": "a91c1525e2ab51b9d4bbdaf35097d6ff344343123ae06ca84949fab68bd08081",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/trigger_m1911_lightweight_fast.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/trigger_m1911_lightweight_fast.png",
+      "bytes": 906843,
+      "sha256": "8fe1b90e5b1d91aa9847bdb601e669a17586caca3f6469698e25106e6b3e15bc",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/trigger_m1911_lightweight_fast.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/trigger_m1911_lightweight_fast.uasset",
+      "bytes": 838425,
+      "sha256": "604d2c7455910e041a483ebfad9fde97a7f885ab1a512ee17705337ce7fcd52d",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_angled_foregrip.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_angled_foregrip.png",
+      "bytes": 1456715,
+      "sha256": "01d612ec07c82c0d930037d94789471e0622141247ba97d5711cc19f2debed63",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_angled_foregrip.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_angled_foregrip.uasset",
+      "bytes": 1667021,
+      "sha256": "adc7bdb049f82bc36b695bb7cbc1262ad543b12133f0099db4fca10485fce8d1",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_canted_foregrip.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_canted_foregrip.png",
+      "bytes": 1430487,
+      "sha256": "1f29018071d528e28ca0d3cb0b3f969db621f6d05f5e1de09553ef9d2cc57031",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_canted_foregrip.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_canted_foregrip.uasset",
+      "bytes": 1644225,
+      "sha256": "254207e49b5b9b7c5bcbdbfa3b0eb04f197b339a445e20a322355e9a91d7028a",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_false.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_false.png",
+      "bytes": 1358724,
+      "sha256": "57881003eb67f4d867361dbf9ca81c504aa9df8b54ba2d9d6ba5894aca55c49b",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_false.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_false.uasset",
+      "bytes": 1557781,
+      "sha256": "33eed9fbdf89d86ab6392324c8a0abcc5eae3330b8455c71a3dce32ef409514a",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_prism_handstop.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_prism_handstop.png",
+      "bytes": 1383940,
+      "sha256": "05c9434180783fdd993495a316a042daac0b712fd480013c08f62a6c5861fe04",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_prism_handstop.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_prism_handstop.uasset",
+      "bytes": 1601915,
+      "sha256": "a5e7fc565e3046c83459303f28ea3e0524e7d44383e3ae78eada5d4cd43e6a6f",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_vertical_foregrip.png",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_vertical_foregrip.png",
+      "bytes": 1441146,
+      "sha256": "b52ec5a372b2f81441ec763074159eb415eeb1f746d997fe59d564d9dbdc0605",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Icons/underbarrel_vertical_foregrip.uasset",
+      "target": "trash/AttachmentIconAudit20260914/Before/Icons/underbarrel_vertical_foregrip.uasset",
+      "bytes": 1680183,
+      "sha256": "3346e44943f1fa521561e57a5af5cf1cdb417a394ce435c00cb6ae0f37fce852",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Workflow/personal_asset-model-workflow_SKILL.md",
+      "target": "trash/AttachmentIconAudit20260914/Before/Workflow/personal_asset-model-workflow_SKILL.md",
+      "bytes": 8214,
+      "sha256": "299e2015961dc8cd06e7eeab3f99ba911e045546e8bf92be4911cde8cae6ade0",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Workflow/personal_ue5-weapon-workflow_references_attachment-standard.md",
+      "target": "trash/AttachmentIconAudit20260914/Before/Workflow/personal_ue5-weapon-workflow_references_attachment-standard.md",
+      "bytes": 10676,
+      "sha256": "0e311982f32c425916f30bccdf5cc7aee79127eef0b847742cfebe8a3ce20d7d",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Workflow/personal_ue5-weapon-workflow_SKILL.md",
+      "target": "trash/AttachmentIconAudit20260914/Before/Workflow/personal_ue5-weapon-workflow_SKILL.md",
+      "bytes": 6758,
+      "sha256": "e6797243868fb0fc3964955ac44f1cadb84f9ddef7be88a6307cb2077ae806af",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Workflow/project_asset-model-workflow_SKILL.md",
+      "target": "trash/AttachmentIconAudit20260914/Before/Workflow/project_asset-model-workflow_SKILL.md",
+      "bytes": 8214,
+      "sha256": "299e2015961dc8cd06e7eeab3f99ba911e045546e8bf92be4911cde8cae6ade0",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Workflow/project_ue5-weapon-workflow_references_attachment-standard.md",
+      "target": "trash/AttachmentIconAudit20260914/Before/Workflow/project_ue5-weapon-workflow_references_attachment-standard.md",
+      "bytes": 10676,
+      "sha256": "0e311982f32c425916f30bccdf5cc7aee79127eef0b847742cfebe8a3ce20d7d",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/Before/Workflow/project_ue5-weapon-workflow_SKILL.md",
+      "target": "trash/AttachmentIconAudit20260914/Before/Workflow/project_ue5-weapon-workflow_SKILL.md",
+      "bytes": 6754,
+      "sha256": "0b7d4e90590afcc9467806ce710794abb40cbe80b834f61e530cd6675f6d7395",
+      "reason": "Superseded pre-change backup; retained for rollback in trash.",
+      "retained_replacement": "Content/ColdSteelData/AttachmentIcons20260913; current Source/FPSGAME/UI/M4GunsmithLayout.cpp and skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/before_categories.png",
+      "target": "trash/AttachmentIconAudit20260914/before_categories.png",
+      "bytes": 618579,
+      "sha256": "5fc61a0f110b3e8a6692a336ac24c372e7e05d0bc02e17fb44529e1eebf61920",
+      "reason": "Pre-change comparison; current delivery is complete.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/after_icons_1.png through after_icons_5.png; audit_report.json"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/before_icons_1.png",
+      "target": "trash/AttachmentIconAudit20260914/before_icons_1.png",
+      "bytes": 893253,
+      "sha256": "4151fba7d7a4eaec968e3564cbb98747f4c3c21d6924ea75b14717065824daff",
+      "reason": "Pre-change comparison; current delivery is complete.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/after_icons_1.png through after_icons_5.png; audit_report.json"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/before_icons_2.png",
+      "target": "trash/AttachmentIconAudit20260914/before_icons_2.png",
+      "bytes": 605550,
+      "sha256": "e2b103a3570b6d1bb2d3678e96f710f717cd7509e782a4e85cbc5c01bfdf3416",
+      "reason": "Pre-change comparison; current delivery is complete.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/after_icons_1.png through after_icons_5.png; audit_report.json"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/before_icons_3.png",
+      "target": "trash/AttachmentIconAudit20260914/before_icons_3.png",
+      "bytes": 473344,
+      "sha256": "5d8a0363471f9c0838f0725f8350d118cd70df02eb68569cfd99669172a09f9a",
+      "reason": "Pre-change comparison; current delivery is complete.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/after_icons_1.png through after_icons_5.png; audit_report.json"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/akm_components_summary.json",
+      "target": "trash/AttachmentIconAudit20260914/akm_components_summary.json",
+      "bytes": 24338,
+      "sha256": "f2b0ee588a295a3971da9219216e06bcd21b57b63f87b8bf152fe14778212366",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/current_inventory.json",
+      "target": "trash/AttachmentIconAudit20260914/current_inventory.json",
+      "bytes": 390128,
+      "sha256": "f459f2a6e4c6c30901d0c15724886d38fda0b1a523486aa38287e5f9728daa13",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/source_inventory.json",
+      "target": "trash/AttachmentIconAudit20260914/source_inventory.json",
+      "bytes": 481831,
+      "sha256": "1a781e90d779cf0db66125df4d087fa62412a8b581ffe7e9197ea10bc2cf57aa",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/diagnose_render.py",
+      "target": "trash/AttachmentIconAudit20260914/diagnose_render.py",
+      "bytes": 1707,
+      "sha256": "5713cd2c592ece93671b592e59f58697e5c4a65ffd72a8b2404256c2b2bf230c",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/diagnose_render.log",
+      "target": "trash/AttachmentIconAudit20260914/diagnose_render.log",
+      "bytes": 2714,
+      "sha256": "918c551606abe2f0ec274e29971012359470faedc51f1e7945d6e4a58b001ffe",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/frames_report.json",
+      "target": "trash/AttachmentIconAudit20260914/frames_report.json",
+      "bytes": 2267,
+      "sha256": "1ad3ac2aaeb071f6e40c9a93919b24b4526f02c587f29ba66cf7757fc85b2bbc",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_components.py",
+      "target": "trash/AttachmentIconAudit20260914/inspect_components.py",
+      "bytes": 921,
+      "sha256": "11ae3e4a3287190dae2509f3b74a1f286014ee40fdd6cabddfd424cc022bda52",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_components.log",
+      "target": "trash/AttachmentIconAudit20260914/inspect_components.log",
+      "bytes": 2784,
+      "sha256": "b3ed0256931c543f86f22684ed5fd3d86014f93a4b24448038d219d3040c8616",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_current.py",
+      "target": "trash/AttachmentIconAudit20260914/inspect_current.py",
+      "bytes": 2583,
+      "sha256": "791b3ff7c4765ca06828b0b08d3ad4ace82fc39a17f7ccebab8150436c3e28a9",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_current.log",
+      "target": "trash/AttachmentIconAudit20260914/inspect_current.log",
+      "bytes": 5136,
+      "sha256": "9e44289c6dcb189600481387b5c118fa27bd9305c9c8e85ee9fc1af96b92657e",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_frames.py",
+      "target": "trash/AttachmentIconAudit20260914/inspect_frames.py",
+      "bytes": 1532,
+      "sha256": "9d3cf2535d9ea57b02a7655ac614ac5c523bff4ce9d43418852fbf7b9bba7ffc",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_frames.log",
+      "target": "trash/AttachmentIconAudit20260914/inspect_frames.log",
+      "bytes": 3207,
+      "sha256": "f84f2b97594f194590f117a86e601af8edec8e42e94c63dfb8fb8ce6b9cd3433",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_shader_slots.py",
+      "target": "trash/AttachmentIconAudit20260914/inspect_shader_slots.py",
+      "bytes": 1006,
+      "sha256": "24151efae5b68ae1c4d6bc1e27f02b9ab3809eb51cf8d9c50ca38294ff0458e4",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_sources.py",
+      "target": "trash/AttachmentIconAudit20260914/inspect_sources.py",
+      "bytes": 2991,
+      "sha256": "5df9bf3d6d9fbb2606bd1d6d891a00ad8d6453e1f633b03c287358a948bcb8fa",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inspect_sources.log",
+      "target": "trash/AttachmentIconAudit20260914/inspect_sources.log",
+      "bytes": 5174,
+      "sha256": "4f311734131eff5a21621fc9f2e01e370dadb5ce2bf4c7c5bea36c9766ad031d",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/m4_components.json",
+      "target": "trash/AttachmentIconAudit20260914/m4_components.json",
+      "bytes": 14588,
+      "sha256": "a6153d1fe27e495e5b0bf05253407eda1977da4c48b32076c0473b2d0a53ccc9",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/render_diagnosis.json",
+      "target": "trash/AttachmentIconAudit20260914/render_diagnosis.json",
+      "bytes": 39783,
+      "sha256": "6cac9150549587aacf81280ef063e2915c8d6e0a48292255e4fcf36b6a1c04c1",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/shader_slots.log",
+      "target": "trash/AttachmentIconAudit20260914/shader_slots.log",
+      "bytes": 2817,
+      "sha256": "461ca31f777bfb3fbc2509cde9b02055b18650b2ddd1aa013bce2152741d7115",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/render_all.log",
+      "target": "trash/AttachmentIconAudit20260914/render_all.log",
+      "bytes": 37565,
+      "sha256": "f0886d1349f36bf0e0488ea1c7166eddfb1fc3b35c84bf18a675f204ab49c0b1",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/render_first.log",
+      "target": "trash/AttachmentIconAudit20260914/render_first.log",
+      "bytes": 4169,
+      "sha256": "91d48d1963ff19fb3001a70005977afaebf04d58b51a13ff42960ed6b4695358",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/inventory_icons.py",
+      "target": "trash/AttachmentIconAudit20260914/inventory_icons.py",
+      "bytes": 1868,
+      "sha256": "74cf542d7cf0c25d944d8199a22baffd575960e0e8519f80a1bdeaa706248694",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/update_workflow.py",
+      "target": "trash/AttachmentIconAudit20260914/update_workflow.py",
+      "bytes": 1953,
+      "sha256": "6b8a79aaca05806ad70a4482ba5637646bdcc5859272c29b56815b3757bb3c8e",
+      "reason": "Completed discovery probe, superseded trial log, or one-time migration; no longer a current rebuild dependency.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/source_paths.json; frame_reference.json; render_manifest.json; inventory.json; render_final.log; current skills/"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/__pycache__/icon_geometry.cpython-313.pyc",
+      "target": "trash/AttachmentIconAudit20260914/__pycache__/icon_geometry.cpython-313.pyc",
+      "bytes": 5924,
+      "sha256": "ce29ae884e2ffd1d026ee4986852b2e97900fa87a8f0bd263465f197325499ad",
+      "reason": "Disposable Python bytecode cache.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/icon_geometry.py; icon_materials.py"
+    },
+    {
+      "original": "SourceAssets/AttachmentIconAudit20260914/__pycache__/icon_materials.cpython-313.pyc",
+      "target": "trash/AttachmentIconAudit20260914/__pycache__/icon_materials.cpython-313.pyc",
+      "bytes": 9178,
+      "sha256": "c090aba0e6aea9c3e0cddee0e7f234d286263b80299b1cc4b324a2dbbf7b3aa6",
+      "reason": "Disposable Python bytecode cache.",
+      "retained_replacement": "SourceAssets/AttachmentIconAudit20260914/icon_geometry.py; icon_materials.py"
+    }
+  ]
+}

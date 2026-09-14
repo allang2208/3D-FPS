@@ -1,0 +1,30 @@
+{
+  "key": "muzzle_titanium_brake",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\titanium_brake-editable.blend",
+  "objects": [
+    "SM_M4_titanium_brake"
+  ],
+  "frame": "Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.07249999791383743,
+      -0.018199998885393143,
+      -0.018200000748038292
+    ],
+    [
+      0.0020000010263174772,
+      0.01820000261068344,
+      0.018200000748038292
+    ]
+  ],
+  "triangles": 32432,
+  "material_note": "Real source materials retained."
+}

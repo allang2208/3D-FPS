@@ -1,0 +1,33 @@
+{
+  "key": "reload_device_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+  "objects": [
+    "DW715_Case_0",
+    "DW715_Projectile_0",
+    "DW715_Primer_0"
+  ],
+  "frame": "root",
+  "rig": "SK_DW715_Manny",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.07242664694786072,
+      -0.0051805488765239716,
+      0.037912383675575256
+    ],
+    [
+      -0.026450008153915405,
+      0.005199447274208069,
+      0.048292387276887894
+    ]
+  ],
+  "triangles": 7808,
+  "material_note": "Real source materials retained."
+}

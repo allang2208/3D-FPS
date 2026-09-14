@@ -1,0 +1,3395 @@
+{
+  "scope": "Requested complete gunsmith option and category icon audit; no gameplay tests.",
+  "weapons": 5,
+  "effective_option_rows": 124,
+  "unique_current_option_images": 74,
+  "before_png_count": 31,
+  "missing_before_option_rows": 25,
+  "missing_before_unique_common_keys": [
+    "barrel_false",
+    "reargrip_balanced_reargrip",
+    "tactical_false",
+    "tactical_flashlight",
+    "tactical_laser",
+    "trigger_false"
+  ],
+  "actual_model_renders": 55,
+  "neutral_state_renders": 1,
+  "preserved_accepted_stocks": 5,
+  "intentional_aliases": 43,
+  "after_png_count": 104,
+  "replaced_pngs": 26,
+  "added_pngs": 73,
+  "missing_after": 0,
+  "options": [
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "optic",
+      "id": "false",
+      "name": "原厂机械瞄具",
+      "icon": "optic_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "optic",
+      "id": "holographic",
+      "name": "全息瞄准镜",
+      "icon": "optic_holographic",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "optic",
+      "id": "panoramic_red_dot",
+      "name": "全景薄框红点瞄具",
+      "icon": "optic_panoramic_red_dot",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "optic",
+      "id": "prism_scope_2x",
+      "name": "紧凑型二倍棱镜瞄具",
+      "icon": "optic_prism_scope_2x",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "optic",
+      "id": "lpvo_1_6x",
+      "name": "1–6× 低倍可变瞄准镜",
+      "icon": "optic_lpvo_1_6x",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "magazine",
+      "id": "false",
+      "name": "原厂弹匣",
+      "icon": "magazine_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "magazine",
+      "id": "large_drum",
+      "name": "大弹鼓",
+      "icon": "magazine_large_drum",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "muzzle",
+      "id": "false",
+      "name": "原厂枪口",
+      "icon": "muzzle_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "muzzle",
+      "id": "true",
+      "name": "消音器",
+      "icon": "muzzle_true",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "muzzle",
+      "id": "tactical_suppressor",
+      "name": "战术消音器",
+      "icon": "muzzle_tactical_suppressor",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "muzzle",
+      "id": "brake",
+      "name": "枪口制退器",
+      "icon": "muzzle_brake",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "muzzle",
+      "id": "titanium_brake",
+      "name": "钛金制退器",
+      "icon": "muzzle_titanium_brake",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "underbarrel",
+      "id": "canted_foregrip",
+      "name": "45°侧倾握把",
+      "icon": "underbarrel_canted_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "underbarrel",
+      "id": "vertical_foregrip",
+      "name": "垂直握把",
+      "icon": "underbarrel_vertical_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "underbarrel",
+      "id": "false",
+      "name": "无前握把",
+      "icon": "underbarrel_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "underbarrel",
+      "id": "prism_handstop",
+      "name": "棱镜阻手器",
+      "icon": "underbarrel_prism_handstop",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "underbarrel",
+      "id": "angled_foregrip",
+      "name": "共振二代前握把",
+      "icon": "underbarrel_angled_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "stock",
+      "id": "false",
+      "name": "原厂枪托",
+      "icon": "stock_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "stock",
+      "id": "skeleton",
+      "name": "骨架枪托",
+      "icon": "stock_skeleton",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "stock",
+      "id": "core_stock",
+      "name": "镂空轻型枪托",
+      "icon": "stock_core_stock",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "stock",
+      "id": "qr_performance",
+      "name": "高性能后托",
+      "icon": "stock_qr_performance",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "stock",
+      "id": "tactical_telescopic",
+      "name": "战术伸缩枪托",
+      "icon": "stock_tactical_telescopic",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "reargrip",
+      "id": "false",
+      "name": "原厂后握把",
+      "icon": "reargrip_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "reargrip",
+      "id": "phantom_reargrip",
+      "name": "幻影后握把",
+      "icon": "reargrip_phantom_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "reargrip",
+      "id": "stable_antislip_reargrip",
+      "name": "稳固防滑后握",
+      "icon": "reargrip_stable_antislip_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "reargrip",
+      "id": "balanced_reargrip",
+      "name": "均衡后握把",
+      "icon": "reargrip_balanced_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "tactical",
+      "id": "false",
+      "name": "无战术挂件",
+      "icon": "tactical_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "tactical",
+      "id": "laser",
+      "name": "红色激光镭射",
+      "icon": "tactical_laser",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "tactical",
+      "id": "flashlight",
+      "name": "战术手电筒",
+      "icon": "tactical_flashlight",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "barrel",
+      "id": "false",
+      "name": "标准枪管",
+      "icon": "barrel_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "barrel",
+      "id": "short",
+      "name": "轻型短枪管",
+      "icon": "barrel_short",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m4a1",
+      "weapon_name": "M4A1",
+      "slot": "barrel",
+      "id": "long",
+      "name": "重型长枪管",
+      "icon": "barrel_long",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "optic",
+      "id": "false",
+      "name": "原厂机械瞄具",
+      "icon": "ue_akm_optic_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "optic",
+      "id": "holographic",
+      "name": "全息瞄准镜",
+      "icon": "optic_holographic",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "optic",
+      "id": "panoramic_red_dot",
+      "name": "全景薄框红点瞄具",
+      "icon": "optic_panoramic_red_dot",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "optic",
+      "id": "prism_scope_2x",
+      "name": "紧凑型二倍棱镜瞄具",
+      "icon": "optic_prism_scope_2x",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "optic",
+      "id": "lpvo_1_6x",
+      "name": "1–6× 低倍可变瞄准镜",
+      "icon": "optic_lpvo_1_6x",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "magazine",
+      "id": "false",
+      "name": "原厂弹匣",
+      "icon": "ue_akm_magazine_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "magazine",
+      "id": "large_drum",
+      "name": "大弹鼓",
+      "icon": "magazine_large_drum",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "muzzle",
+      "id": "false",
+      "name": "原厂枪口",
+      "icon": "ue_akm_muzzle_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "muzzle",
+      "id": "true",
+      "name": "消音器",
+      "icon": "muzzle_true",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "muzzle",
+      "id": "tactical_suppressor",
+      "name": "战术消音器",
+      "icon": "muzzle_tactical_suppressor",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "muzzle",
+      "id": "brake",
+      "name": "枪口制退器",
+      "icon": "muzzle_brake",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "muzzle",
+      "id": "titanium_brake",
+      "name": "钛金制退器",
+      "icon": "muzzle_titanium_brake",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "underbarrel",
+      "id": "vertical_foregrip",
+      "name": "垂直握把",
+      "icon": "underbarrel_vertical_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "underbarrel",
+      "id": "canted_foregrip",
+      "name": "45°侧倾握把",
+      "icon": "underbarrel_canted_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "underbarrel",
+      "id": "false",
+      "name": "无前握把",
+      "icon": "underbarrel_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "underbarrel",
+      "id": "prism_handstop",
+      "name": "棱镜阻手器",
+      "icon": "underbarrel_prism_handstop",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "underbarrel",
+      "id": "angled_foregrip",
+      "name": "共振二代前握把",
+      "icon": "underbarrel_angled_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "stock",
+      "id": "false",
+      "name": "原厂枪托",
+      "icon": "ue_akm_stock_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "stock",
+      "id": "skeleton",
+      "name": "骨架枪托",
+      "icon": "stock_skeleton",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "stock",
+      "id": "core_stock",
+      "name": "镂空轻型枪托",
+      "icon": "stock_core_stock",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "stock",
+      "id": "qr_performance",
+      "name": "高性能后托",
+      "icon": "stock_qr_performance",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "stock",
+      "id": "tactical_telescopic",
+      "name": "战术伸缩枪托",
+      "icon": "stock_tactical_telescopic",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "reargrip",
+      "id": "false",
+      "name": "原厂后握把",
+      "icon": "ue_akm_reargrip_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "reargrip",
+      "id": "phantom_reargrip",
+      "name": "幻影后握把",
+      "icon": "reargrip_phantom_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "reargrip",
+      "id": "stable_antislip_reargrip",
+      "name": "稳固防滑后握",
+      "icon": "reargrip_stable_antislip_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "reargrip",
+      "id": "balanced_reargrip",
+      "name": "均衡后握把",
+      "icon": "reargrip_balanced_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "tactical",
+      "id": "false",
+      "name": "无战术挂件",
+      "icon": "tactical_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "tactical",
+      "id": "laser",
+      "name": "红色激光镭射",
+      "icon": "tactical_laser",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "tactical",
+      "id": "flashlight",
+      "name": "战术手电筒",
+      "icon": "tactical_flashlight",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "barrel",
+      "id": "false",
+      "name": "标准枪管",
+      "icon": "ue_akm_barrel_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "barrel",
+      "id": "short",
+      "name": "轻型短枪管",
+      "icon": "ue_akm_barrel_short",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_akm",
+      "weapon_name": "AKM",
+      "slot": "barrel",
+      "id": "long",
+      "name": "重型长枪管",
+      "icon": "ue_akm_barrel_long",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "optic",
+      "id": "false",
+      "name": "原厂机械瞄具",
+      "icon": "ue_qbz191_optic_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "optic",
+      "id": "holographic",
+      "name": "全息瞄准镜",
+      "icon": "optic_holographic",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "optic",
+      "id": "panoramic_red_dot",
+      "name": "全景薄框红点瞄具",
+      "icon": "optic_panoramic_red_dot",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "optic",
+      "id": "prism_scope_2x",
+      "name": "紧凑型二倍棱镜瞄具",
+      "icon": "optic_prism_scope_2x",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "optic",
+      "id": "lpvo_1_6x",
+      "name": "1–6× 低倍可变瞄准镜",
+      "icon": "optic_lpvo_1_6x",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "magazine",
+      "id": "false",
+      "name": "原厂弹匣",
+      "icon": "ue_qbz191_magazine_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "magazine",
+      "id": "large_drum",
+      "name": "大弹鼓",
+      "icon": "magazine_large_drum",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "muzzle",
+      "id": "false",
+      "name": "原厂枪口",
+      "icon": "ue_qbz191_muzzle_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "muzzle",
+      "id": "true",
+      "name": "消音器",
+      "icon": "muzzle_true",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "muzzle",
+      "id": "tactical_suppressor",
+      "name": "战术消音器",
+      "icon": "muzzle_tactical_suppressor",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "muzzle",
+      "id": "brake",
+      "name": "枪口制退器",
+      "icon": "muzzle_brake",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "muzzle",
+      "id": "titanium_brake",
+      "name": "钛金制退器",
+      "icon": "muzzle_titanium_brake",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "underbarrel",
+      "id": "canted_foregrip",
+      "name": "45°侧倾握把",
+      "icon": "underbarrel_canted_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "underbarrel",
+      "id": "vertical_foregrip",
+      "name": "垂直握把",
+      "icon": "underbarrel_vertical_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "underbarrel",
+      "id": "false",
+      "name": "无前握把",
+      "icon": "underbarrel_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "underbarrel",
+      "id": "prism_handstop",
+      "name": "棱镜阻手器",
+      "icon": "underbarrel_prism_handstop",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "underbarrel",
+      "id": "angled_foregrip",
+      "name": "共振二代前握把",
+      "icon": "underbarrel_angled_foregrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "stock",
+      "id": "false",
+      "name": "原厂枪托",
+      "icon": "ue_qbz191_stock_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "stock",
+      "id": "skeleton",
+      "name": "骨架枪托",
+      "icon": "stock_skeleton",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "stock",
+      "id": "core_stock",
+      "name": "镂空轻型枪托",
+      "icon": "stock_core_stock",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "stock",
+      "id": "qr_performance",
+      "name": "高性能后托",
+      "icon": "stock_qr_performance",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "stock",
+      "id": "tactical_telescopic",
+      "name": "战术伸缩枪托",
+      "icon": "stock_tactical_telescopic",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "reargrip",
+      "id": "false",
+      "name": "原厂后握把",
+      "icon": "ue_qbz191_reargrip_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "reargrip",
+      "id": "phantom_reargrip",
+      "name": "幻影后握把",
+      "icon": "reargrip_phantom_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "reargrip",
+      "id": "stable_antislip_reargrip",
+      "name": "稳固防滑后握",
+      "icon": "reargrip_stable_antislip_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "reargrip",
+      "id": "balanced_reargrip",
+      "name": "均衡后握把",
+      "icon": "reargrip_balanced_reargrip",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "tactical",
+      "id": "false",
+      "name": "无战术挂件",
+      "icon": "tactical_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "tactical",
+      "id": "laser",
+      "name": "红色激光镭射",
+      "icon": "tactical_laser",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "tactical",
+      "id": "flashlight",
+      "name": "战术手电筒",
+      "icon": "tactical_flashlight",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "barrel",
+      "id": "false",
+      "name": "标准枪管",
+      "icon": "ue_qbz191_barrel_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "barrel",
+      "id": "short",
+      "name": "轻型短枪管",
+      "icon": "ue_qbz191_barrel_short",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_qbz191",
+      "weapon_name": "QBZ-191",
+      "slot": "barrel",
+      "id": "long",
+      "name": "重型长枪管",
+      "icon": "ue_qbz191_barrel_long",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "optic",
+      "id": "false",
+      "name": "原厂机械瞄具",
+      "icon": "ue_m1911_optic_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "optic",
+      "id": "holographic",
+      "name": "全息瞄准镜",
+      "icon": "ue_m1911_optic_holographic",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "optic",
+      "id": "panoramic_red_dot",
+      "name": "全景薄框红点瞄具",
+      "icon": "ue_m1911_optic_panoramic_red_dot",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "muzzle",
+      "id": "false",
+      "name": "原厂枪口",
+      "icon": "ue_m1911_muzzle_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "muzzle",
+      "id": "true",
+      "name": "消音器",
+      "icon": "ue_m1911_muzzle_true",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "muzzle",
+      "id": "tactical_suppressor",
+      "name": "战术消音器",
+      "icon": "ue_m1911_muzzle_tactical_suppressor",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "muzzle",
+      "id": "brake",
+      "name": "枪口制退器",
+      "icon": "ue_m1911_muzzle_brake",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "trigger",
+      "id": "false",
+      "name": "标准扳机",
+      "icon": "ue_m1911_trigger_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "trigger",
+      "id": "m1911_lightweight_fast",
+      "name": "轻型快速扳机",
+      "icon": "trigger_m1911_lightweight_fast",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "tactical",
+      "id": "false",
+      "name": "无战术挂件",
+      "icon": "tactical_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "tactical",
+      "id": "laser",
+      "name": "红色激光镭射",
+      "icon": "ue_m1911_tactical_laser",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "tactical",
+      "id": "flashlight",
+      "name": "战术手电筒",
+      "icon": "ue_m1911_tactical_flashlight",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "barrel",
+      "id": "false",
+      "name": "标准枪管",
+      "icon": "ue_m1911_barrel_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "barrel",
+      "id": "short",
+      "name": "轻型短枪管",
+      "icon": "ue_m1911_barrel_short",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_m1911",
+      "weapon_name": "M1911",
+      "slot": "barrel",
+      "id": "long",
+      "name": "重型长枪管",
+      "icon": "ue_m1911_barrel_long",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "trigger",
+      "id": "false",
+      "name": "原厂双动扳机",
+      "icon": "ue_dan_wesson715_trigger_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "trigger",
+      "id": "dw715_lightweight_fast",
+      "name": "轻型快速扳机",
+      "icon": "trigger_dw715_lightweight_fast",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "barrel",
+      "id": "false",
+      "name": "标准枪管",
+      "icon": "ue_dan_wesson715_barrel_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "barrel",
+      "id": "short",
+      "name": "轻型短枪管",
+      "icon": "ue_dan_wesson715_barrel_short",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "barrel",
+      "id": "long",
+      "name": "重型长枪管",
+      "icon": "ue_dan_wesson715_barrel_long",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "reload_device",
+      "id": "false",
+      "name": "逐发装填",
+      "icon": "reload_device_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "reload_device",
+      "id": "dw715_speedloader",
+      "name": "六发速装器",
+      "icon": "reload_device_dw715_speedloader",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "optic",
+      "id": "false",
+      "name": "原厂机械瞄具",
+      "icon": "ue_dan_wesson715_optic_false",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "optic",
+      "id": "holographic",
+      "name": "全息瞄准镜",
+      "icon": "ue_dan_wesson715_optic_holographic",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "optic",
+      "id": "panoramic_red_dot",
+      "name": "全景薄框红点瞄具",
+      "icon": "ue_dan_wesson715_optic_panoramic_red_dot",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "tactical",
+      "id": "false",
+      "name": "无战术挂件",
+      "icon": "tactical_false",
+      "weapon_override": false
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "tactical",
+      "id": "laser",
+      "name": "红色激光镭射",
+      "icon": "ue_dan_wesson715_tactical_laser",
+      "weapon_override": true
+    },
+    {
+      "weapon": "ue_dan_wesson715",
+      "weapon_name": "Dan-Wesson 715",
+      "slot": "tactical",
+      "id": "flashlight",
+      "name": "战术手电筒",
+      "icon": "ue_dan_wesson715_tactical_flashlight",
+      "weapon_override": true
+    }
+  ],
+  "files": [
+    {
+      "key": "barrel_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        481,
+        947,
+        543
+      ],
+      "opaque_fraction": 0.047882080078125,
+      "sha256": "430904e26188c4993f13ec698b5f5720d6d8ea806cd1ba5145eb9b04cf6cb987",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "barrel_long",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        481,
+        947,
+        543
+      ],
+      "opaque_fraction": 0.047882080078125,
+      "sha256": "430904e26188c4993f13ec698b5f5720d6d8ea806cd1ba5145eb9b04cf6cb987",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "barrel_short",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        481,
+        947,
+        543
+      ],
+      "opaque_fraction": 0.047882080078125,
+      "sha256": "430904e26188c4993f13ec698b5f5720d6d8ea806cd1ba5145eb9b04cf6cb987",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_barrel",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        481,
+        947,
+        543
+      ],
+      "opaque_fraction": 0.047882080078125,
+      "sha256": "430904e26188c4993f13ec698b5f5720d6d8ea806cd1ba5145eb9b04cf6cb987",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_magazine",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        301,
+        77,
+        724,
+        947
+      ],
+      "opaque_fraction": 0.2533283233642578,
+      "sha256": "cc379e1fb6d8726d39933d6e7159f698177dd2b895cd368694ed031f830795e1",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_muzzle",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        339,
+        947,
+        685
+      ],
+      "opaque_fraction": 0.22274398803710938,
+      "sha256": "611ad4b011536162069eae163dfdb60ef4b7e5e818d1e810e955f08276475ec7",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_optic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        338,
+        77,
+        686,
+        947
+      ],
+      "opaque_fraction": 0.1769733428955078,
+      "sha256": "f12d099af3e6b13ce3e40fd6cb8d36909a645cba7154790250404b9ddbd87191",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_reargrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        134,
+        77,
+        890,
+        947
+      ],
+      "opaque_fraction": 0.3378896713256836,
+      "sha256": "c78064b5353733e6efa711f0d6497acdc3989d892d01350f8dec8151f40880f6",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_reload_device",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        203,
+        77,
+        821,
+        947
+      ],
+      "opaque_fraction": 0.3378105163574219,
+      "sha256": "1a8e9a81ed1fb431e7cb943fb0bf7c14b841a87b042628c276dbf10704e746c3",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_stock",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        245,
+        947,
+        779
+      ],
+      "opaque_fraction": 0.24767684936523438,
+      "sha256": "fd09e0de7a9668155c74cf1068a8d62ee80f8597117661e4b8daad378ff5747c",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_tactical",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        356,
+        947,
+        669
+      ],
+      "opaque_fraction": 0.23781585693359375,
+      "sha256": "b19bf8ab2c9613562725f532a0e599830088517c592117a6378e50a70c55c2ac",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_trigger",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        220,
+        77,
+        803,
+        947
+      ],
+      "opaque_fraction": 0.38772106170654297,
+      "sha256": "2017dda41f72dc6a43af41239c0a5c9186309902a9f8f6b0a8a3f5e144f0cd2b",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "category_underbarrel",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        360,
+        77,
+        664,
+        947
+      ],
+      "opaque_fraction": 0.1776447296142578,
+      "sha256": "2d9acd962b95ebaee383aa6f82b4e4832325c151568da345c5b9f1d198f1e5af",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "magazine_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        301,
+        77,
+        724,
+        947
+      ],
+      "opaque_fraction": 0.2533283233642578,
+      "sha256": "cc379e1fb6d8726d39933d6e7159f698177dd2b895cd368694ed031f830795e1",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "magazine_large_drum",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        337,
+        77,
+        687,
+        947
+      ],
+      "opaque_fraction": 0.2555837631225586,
+      "sha256": "7b6053cf99afd4599205c891bcfe0f6ff997a44d953c40c52bcc2518398c6c28",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "muzzle_brake",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        331,
+        947,
+        694
+      ],
+      "opaque_fraction": 0.2474813461303711,
+      "sha256": "14c87e8a8ef3d1d07727416f7f8ab5cf6464fb1b4b7fe4c8c93c0a652f5a2006",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "muzzle_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        339,
+        947,
+        685
+      ],
+      "opaque_fraction": 0.22274398803710938,
+      "sha256": "611ad4b011536162069eae163dfdb60ef4b7e5e818d1e810e955f08276475ec7",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "muzzle_tactical_suppressor",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        81,
+        431,
+        947,
+        593
+      ],
+      "opaque_fraction": 0.11224842071533203,
+      "sha256": "044d3af05bb8d014688718b05ed0b313eb285c6071ef92954dfa082dc14cd6f9",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "muzzle_titanium_brake",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        299,
+        947,
+        725
+      ],
+      "opaque_fraction": 0.27092742919921875,
+      "sha256": "4a6c51cb159616e2c74c77ce1a91241758dd6a0967040490ff9dfd5ae51ad744",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "muzzle_true",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        402,
+        947,
+        622
+      ],
+      "opaque_fraction": 0.16631507873535156,
+      "sha256": "308946c7bee7f8283bb8cd34d33df706bf43efdee0f8e3ee6565a1adeb59187d",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "optic_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        338,
+        77,
+        686,
+        947
+      ],
+      "opaque_fraction": 0.1769733428955078,
+      "sha256": "f12d099af3e6b13ce3e40fd6cb8d36909a645cba7154790250404b9ddbd87191",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "optic_holographic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        194,
+        947,
+        830
+      ],
+      "opaque_fraction": 0.3454561233520508,
+      "sha256": "c179a4e06636c287ce86e689df76b2cfabe516bb110f8241c51ba9e0c9d63776",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "optic_lpvo_1_6x",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        389,
+        947,
+        635
+      ],
+      "opaque_fraction": 0.1118326187133789,
+      "sha256": "53ef9769319146ddc1e0e170d14dce4f8eb3e816502813ea46a9f9d9a0e8e1a9",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "optic_panoramic_red_dot",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        163,
+        947,
+        861
+      ],
+      "opaque_fraction": 0.2460460662841797,
+      "sha256": "3ca9545afe556e50ef754f42ae112387b86941ed7f9fc2d99af941827e7856b3",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "optic_prism_scope_2x",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        289,
+        947,
+        735
+      ],
+      "opaque_fraction": 0.2361612319946289,
+      "sha256": "dc80231bf497f990cf62b03c2ddf28611310738c3a4d9f65f5ab1ef433bb6f2a",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "reargrip_balanced_reargrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        223,
+        77,
+        765,
+        947
+      ],
+      "opaque_fraction": 0.24573135375976562,
+      "sha256": "c585cdaa04f363e5fc8dbb3829e9147c4c19f39a7d3f04c5c432c7618c816c04",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "reargrip_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        134,
+        77,
+        890,
+        947
+      ],
+      "opaque_fraction": 0.3378896713256836,
+      "sha256": "c78064b5353733e6efa711f0d6497acdc3989d892d01350f8dec8151f40880f6",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "reargrip_phantom_reargrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        235,
+        78,
+        789,
+        947
+      ],
+      "opaque_fraction": 0.16534042358398438,
+      "sha256": "208df83325c58549f842a841e113cf91d6a6c9b04caf339e57e664c59d14f91b",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "reargrip_stable_antislip_reargrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        268,
+        77,
+        756,
+        946
+      ],
+      "opaque_fraction": 0.2668008804321289,
+      "sha256": "6a8d22f8cf63bff90e9d78110cb1223bfd265772ee44f81bd884825bc26878c4",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "reload_device_dw715_speedloader",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        203,
+        77,
+        821,
+        947
+      ],
+      "opaque_fraction": 0.3378105163574219,
+      "sha256": "1a8e9a81ed1fb431e7cb943fb0bf7c14b841a87b042628c276dbf10704e746c3",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "reload_device_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        413,
+        947,
+        611
+      ],
+      "opaque_fraction": 0.13892650604248047,
+      "sha256": "636e09afe85bd39a1e212f64e55a80f328f3cd87dc3af4fa0956462bbba1d665",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "stock_core_stock",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        201,
+        947,
+        823
+      ],
+      "opaque_fraction": 0.2679147720336914,
+      "sha256": "b29495479239f80d8559cfa1ef961f15ecfc11cb6ca3b9fd34a594bcccf7d55d",
+      "kind": "accepted_stock"
+    },
+    {
+      "key": "stock_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        245,
+        947,
+        779
+      ],
+      "opaque_fraction": 0.24767684936523438,
+      "sha256": "fd09e0de7a9668155c74cf1068a8d62ee80f8597117661e4b8daad378ff5747c",
+      "kind": "accepted_stock"
+    },
+    {
+      "key": "stock_qr_performance",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        174,
+        947,
+        850
+      ],
+      "opaque_fraction": 0.3031959533691406,
+      "sha256": "027a3ceab6af1875483ba3e810f0657e81dcb7091cfe1e03113818399ce0a4ae",
+      "kind": "accepted_stock"
+    },
+    {
+      "key": "stock_skeleton",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        301,
+        947,
+        723
+      ],
+      "opaque_fraction": 0.1553020477294922,
+      "sha256": "890673d141917bde1e63181e1d1b2f47bd9a99ea9193ea8be9fbd3bbcd7ee0bc",
+      "kind": "accepted_stock"
+    },
+    {
+      "key": "stock_tactical_telescopic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        296,
+        947,
+        728
+      ],
+      "opaque_fraction": 0.16287612915039062,
+      "sha256": "4a55619d22e4290462d8d7e470494bb66185998e3c5120aa90d8948934871bd2",
+      "kind": "accepted_stock"
+    },
+    {
+      "key": "tactical_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        77,
+        947,
+        947
+      ],
+      "opaque_fraction": 0.1760272979736328,
+      "sha256": "224e96c3aa97316da21c8972f12c61b8471c886836fc2248fe70a95a259fefbc",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "tactical_flashlight",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        372,
+        947,
+        652
+      ],
+      "opaque_fraction": 0.15733051300048828,
+      "sha256": "7e71a0f02b9eef834e669effee074597de8c5f3efed2b49ee0bed9ffc9033ae7",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "tactical_laser",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        356,
+        947,
+        669
+      ],
+      "opaque_fraction": 0.23781585693359375,
+      "sha256": "b19bf8ab2c9613562725f532a0e599830088517c592117a6378e50a70c55c2ac",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "trigger_dw715_lightweight_fast",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        179,
+        77,
+        845,
+        947
+      ],
+      "opaque_fraction": 0.18651294708251953,
+      "sha256": "cef63368add0afebdc97978a15bc944c84946892f143e0c49bc0bf11f326f8d8",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "trigger_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        409,
+        77,
+        615,
+        947
+      ],
+      "opaque_fraction": 0.08636665344238281,
+      "sha256": "fa25be6d135de9b7e92cdd57ba4a2e9d689590b328cff81d92e3c781fb0e9e26",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "trigger_m1911_lightweight_fast",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        220,
+        77,
+        803,
+        947
+      ],
+      "opaque_fraction": 0.38772106170654297,
+      "sha256": "2017dda41f72dc6a43af41239c0a5c9186309902a9f8f6b0a8a3f5e144f0cd2b",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_barrel_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        475,
+        947,
+        549
+      ],
+      "opaque_fraction": 0.030335426330566406,
+      "sha256": "585476b54b35e233c7f56ebec05d32c11e30699947a513bd7c89f93897b90e84",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_akm_barrel_long",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        475,
+        947,
+        549
+      ],
+      "opaque_fraction": 0.030335426330566406,
+      "sha256": "585476b54b35e233c7f56ebec05d32c11e30699947a513bd7c89f93897b90e84",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_barrel_short",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        475,
+        947,
+        549
+      ],
+      "opaque_fraction": 0.030335426330566406,
+      "sha256": "585476b54b35e233c7f56ebec05d32c11e30699947a513bd7c89f93897b90e84",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_category_barrel",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        475,
+        947,
+        549
+      ],
+      "opaque_fraction": 0.030335426330566406,
+      "sha256": "585476b54b35e233c7f56ebec05d32c11e30699947a513bd7c89f93897b90e84",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_category_magazine",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        165,
+        77,
+        859,
+        947
+      ],
+      "opaque_fraction": 0.24685382843017578,
+      "sha256": "2b02e0adf46fb0e2b1ea35891c7090508d214e03ba947b9c7ed0e89b6883d730",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_category_muzzle",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        475,
+        947,
+        549
+      ],
+      "opaque_fraction": 0.030335426330566406,
+      "sha256": "585476b54b35e233c7f56ebec05d32c11e30699947a513bd7c89f93897b90e84",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_category_optic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        385,
+        947,
+        639
+      ],
+      "opaque_fraction": 0.1528759002685547,
+      "sha256": "ac33d8d0d934ee8c58615761369aeb3f3327cfd177f24ac650e594b67ddeda3c",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_category_reargrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        200,
+        77,
+        824,
+        947
+      ],
+      "opaque_fraction": 0.3147163391113281,
+      "sha256": "4c0368f2549ed5366b82fea8c48dea9ae9a890026c1e1a3233e6f39bbf133c77",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_category_stock",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        268,
+        947,
+        757
+      ],
+      "opaque_fraction": 0.2515544891357422,
+      "sha256": "fe6e24926ccea4f3ec44f821b2d26ef15998791bbb8dedee93820a687e136976",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_magazine_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        165,
+        77,
+        859,
+        947
+      ],
+      "opaque_fraction": 0.24685382843017578,
+      "sha256": "2b02e0adf46fb0e2b1ea35891c7090508d214e03ba947b9c7ed0e89b6883d730",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_akm_muzzle_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        475,
+        947,
+        549
+      ],
+      "opaque_fraction": 0.030335426330566406,
+      "sha256": "585476b54b35e233c7f56ebec05d32c11e30699947a513bd7c89f93897b90e84",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_akm_optic_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        385,
+        947,
+        639
+      ],
+      "opaque_fraction": 0.1528759002685547,
+      "sha256": "ac33d8d0d934ee8c58615761369aeb3f3327cfd177f24ac650e594b67ddeda3c",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_akm_reargrip_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        200,
+        77,
+        824,
+        947
+      ],
+      "opaque_fraction": 0.3147163391113281,
+      "sha256": "4c0368f2549ed5366b82fea8c48dea9ae9a890026c1e1a3233e6f39bbf133c77",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_akm_stock_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        268,
+        947,
+        757
+      ],
+      "opaque_fraction": 0.2515544891357422,
+      "sha256": "fe6e24926ccea4f3ec44f821b2d26ef15998791bbb8dedee93820a687e136976",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        420,
+        947,
+        604
+      ],
+      "opaque_fraction": 0.13372516632080078,
+      "sha256": "e1a9a3d9659616a13f4ff6c5e09142fdcf45292c92fc334d8d1dea95effcaf61",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_long",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        420,
+        947,
+        604
+      ],
+      "opaque_fraction": 0.13372516632080078,
+      "sha256": "e1a9a3d9659616a13f4ff6c5e09142fdcf45292c92fc334d8d1dea95effcaf61",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_short",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        420,
+        947,
+        604
+      ],
+      "opaque_fraction": 0.13372516632080078,
+      "sha256": "e1a9a3d9659616a13f4ff6c5e09142fdcf45292c92fc334d8d1dea95effcaf61",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_dan_wesson715_category_barrel",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        420,
+        947,
+        604
+      ],
+      "opaque_fraction": 0.13372516632080078,
+      "sha256": "e1a9a3d9659616a13f4ff6c5e09142fdcf45292c92fc334d8d1dea95effcaf61",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_dan_wesson715_category_optic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        81,
+        947,
+        943
+      ],
+      "opaque_fraction": 0.4946002960205078,
+      "sha256": "1b795b1842bdd520e3bb8ad5a49e4f29e44a6983f51e8ae31eecb11b562027e2",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_dan_wesson715_category_trigger",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        179,
+        77,
+        845,
+        947
+      ],
+      "opaque_fraction": 0.18651294708251953,
+      "sha256": "cef63368add0afebdc97978a15bc944c84946892f143e0c49bc0bf11f326f8d8",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        81,
+        947,
+        943
+      ],
+      "opaque_fraction": 0.4946002960205078,
+      "sha256": "1b795b1842bdd520e3bb8ad5a49e4f29e44a6983f51e8ae31eecb11b562027e2",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_holographic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        124,
+        947,
+        900
+      ],
+      "opaque_fraction": 0.4492177963256836,
+      "sha256": "51e200d59fdcf1689e5e2ba336750a87caab2ecc72e38cb46ed33f3557e5d16c",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_panoramic_red_dot",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        93,
+        77,
+        931,
+        947
+      ],
+      "opaque_fraction": 0.3855628967285156,
+      "sha256": "98a68f18bd5761b0e53149ff274857f3188e5e2f77f6f720f716260e8fdd11bb",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_tactical_flashlight",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        317,
+        947,
+        707
+      ],
+      "opaque_fraction": 0.20094585418701172,
+      "sha256": "025070bdd98471b302b3147eba6c82fb7b67dfeb8a3a1d1f40111ec1d74b5cc8",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_tactical_laser",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        207,
+        947,
+        816
+      ],
+      "opaque_fraction": 0.3548440933227539,
+      "sha256": "1aa83f70744dd5f1872fefb14b387eb5e418dcaf36f7faa07e93418d0a4b99c7",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_dan_wesson715_trigger_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        179,
+        77,
+        845,
+        947
+      ],
+      "opaque_fraction": 0.18651294708251953,
+      "sha256": "cef63368add0afebdc97978a15bc944c84946892f143e0c49bc0bf11f326f8d8",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_barrel_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        452,
+        947,
+        572
+      ],
+      "opaque_fraction": 0.07940483093261719,
+      "sha256": "59eeb0896f8c66f925e3fd3c18a148da6f811014dd624156df1670322a00d998",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_barrel_long",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        452,
+        947,
+        572
+      ],
+      "opaque_fraction": 0.07940483093261719,
+      "sha256": "59eeb0896f8c66f925e3fd3c18a148da6f811014dd624156df1670322a00d998",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_m1911_barrel_short",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        452,
+        947,
+        572
+      ],
+      "opaque_fraction": 0.07940483093261719,
+      "sha256": "59eeb0896f8c66f925e3fd3c18a148da6f811014dd624156df1670322a00d998",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_m1911_category_barrel",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        452,
+        947,
+        572
+      ],
+      "opaque_fraction": 0.07940483093261719,
+      "sha256": "59eeb0896f8c66f925e3fd3c18a148da6f811014dd624156df1670322a00d998",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_m1911_category_muzzle",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        404,
+        77,
+        620,
+        947
+      ],
+      "opaque_fraction": 0.09053802490234375,
+      "sha256": "eb1e416efae1e887bc2ab3d56715fcf9213465fe7451dc69634f421a8d395a48",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_m1911_category_optic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        110,
+        947,
+        914
+      ],
+      "opaque_fraction": 0.3945884704589844,
+      "sha256": "9c03417a25fdcf0d2580f622e76bd894b7368102a2941a2328cfa8ac763e6a34",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_m1911_category_trigger",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        220,
+        77,
+        803,
+        947
+      ],
+      "opaque_fraction": 0.38772106170654297,
+      "sha256": "2017dda41f72dc6a43af41239c0a5c9186309902a9f8f6b0a8a3f5e144f0cd2b",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_m1911_muzzle_brake",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        253,
+        947,
+        771
+      ],
+      "opaque_fraction": 0.34711551666259766,
+      "sha256": "1c1ba7545a2b4c31fbfab10bd608eddc5dffd0b15aa8f7b9a1b9b6eabf8d7c0c",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_muzzle_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        404,
+        77,
+        620,
+        947
+      ],
+      "opaque_fraction": 0.09053802490234375,
+      "sha256": "eb1e416efae1e887bc2ab3d56715fcf9213465fe7451dc69634f421a8d395a48",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_muzzle_tactical_suppressor",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        80,
+        436,
+        947,
+        588
+      ],
+      "opaque_fraction": 0.10460376739501953,
+      "sha256": "44f512adfedf2c5377b51087d50066fe57e77560be690c2b47a5c70d3434c243",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_muzzle_true",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        407,
+        947,
+        617
+      ],
+      "opaque_fraction": 0.15651798248291016,
+      "sha256": "51f08b77c6d088a832e2114920ca3eec162c4ca229bb85cc177ee3bca2559fa8",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_optic_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        110,
+        947,
+        914
+      ],
+      "opaque_fraction": 0.3945884704589844,
+      "sha256": "9c03417a25fdcf0d2580f622e76bd894b7368102a2941a2328cfa8ac763e6a34",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_optic_holographic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        91,
+        947,
+        933
+      ],
+      "opaque_fraction": 0.4284658432006836,
+      "sha256": "6e94f1694dd0b51beaa9d14df643b833045999c5c32ccc47672ccf0cf778f128",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_optic_panoramic_red_dot",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        123,
+        77,
+        902,
+        947
+      ],
+      "opaque_fraction": 0.36357975006103516,
+      "sha256": "eb535ebe60c9e36bd93af14b1c148f74d0fcc35261654d5af0d4c4bb6b9d9583",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_tactical_flashlight",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        353,
+        947,
+        671
+      ],
+      "opaque_fraction": 0.18695735931396484,
+      "sha256": "46eae41a7e621617a0ef656ed3ae477543dec22c28ee02933fda11272460f5bf",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_tactical_laser",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        259,
+        947,
+        765
+      ],
+      "opaque_fraction": 0.3219594955444336,
+      "sha256": "113cf6c5d6d3fe2d1e4daeaa49157780ed086ff7ad12a2fe5f45c28c7fe2bf66",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_m1911_trigger_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        220,
+        77,
+        803,
+        947
+      ],
+      "opaque_fraction": 0.38772106170654297,
+      "sha256": "2017dda41f72dc6a43af41239c0a5c9186309902a9f8f6b0a8a3f5e144f0cd2b",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_qbz191_barrel_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        479,
+        947,
+        545
+      ],
+      "opaque_fraction": 0.02527904510498047,
+      "sha256": "b36d6015a3b32f790a98a7052fd666b9d50a6fe8a11fe3ba7af2bad002638794",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_qbz191_barrel_long",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        479,
+        947,
+        545
+      ],
+      "opaque_fraction": 0.02527904510498047,
+      "sha256": "b36d6015a3b32f790a98a7052fd666b9d50a6fe8a11fe3ba7af2bad002638794",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_barrel_short",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        479,
+        947,
+        545
+      ],
+      "opaque_fraction": 0.02527904510498047,
+      "sha256": "b36d6015a3b32f790a98a7052fd666b9d50a6fe8a11fe3ba7af2bad002638794",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_category_barrel",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        479,
+        947,
+        545
+      ],
+      "opaque_fraction": 0.02527904510498047,
+      "sha256": "b36d6015a3b32f790a98a7052fd666b9d50a6fe8a11fe3ba7af2bad002638794",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_category_magazine",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        231,
+        77,
+        793,
+        947
+      ],
+      "opaque_fraction": 0.24876880645751953,
+      "sha256": "69c0cce3107828db9409011f2b51edd2b94466785787faeb88a3f5f6313b6fd1",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_category_muzzle",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        392,
+        946,
+        631
+      ],
+      "opaque_fraction": 0.15660572052001953,
+      "sha256": "e3bed19eaeb2fd04df607c7323e3046e8940a598c908af54f8814ef5ee9c41bb",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_category_optic",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        424,
+        77,
+        600,
+        947
+      ],
+      "opaque_fraction": 0.09282684326171875,
+      "sha256": "9d7cbe4b90f974ad79810dabfd302233d267d01e19ff5b8ed6e85797429f25ab",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_category_reargrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        173,
+        77,
+        851,
+        947
+      ],
+      "opaque_fraction": 0.2920656204223633,
+      "sha256": "37d347e282d78d9a762a967707143244e045ce2f5c0cb340c026f13d642edb6e",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_category_stock",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        236,
+        947,
+        789
+      ],
+      "opaque_fraction": 0.2639026641845703,
+      "sha256": "5beb75bc1b08d81e74638a8c23a30f1f2a68ce7cc375a8d49c092c56f1697f86",
+      "kind": "intentional_alias"
+    },
+    {
+      "key": "ue_qbz191_magazine_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        231,
+        77,
+        793,
+        947
+      ],
+      "opaque_fraction": 0.24876880645751953,
+      "sha256": "69c0cce3107828db9409011f2b51edd2b94466785787faeb88a3f5f6313b6fd1",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_qbz191_muzzle_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        392,
+        946,
+        631
+      ],
+      "opaque_fraction": 0.15660572052001953,
+      "sha256": "e3bed19eaeb2fd04df607c7323e3046e8940a598c908af54f8814ef5ee9c41bb",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_qbz191_optic_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        424,
+        77,
+        600,
+        947
+      ],
+      "opaque_fraction": 0.09282684326171875,
+      "sha256": "9d7cbe4b90f974ad79810dabfd302233d267d01e19ff5b8ed6e85797429f25ab",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_qbz191_reargrip_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        173,
+        77,
+        851,
+        947
+      ],
+      "opaque_fraction": 0.2920656204223633,
+      "sha256": "37d347e282d78d9a762a967707143244e045ce2f5c0cb340c026f13d642edb6e",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "ue_qbz191_stock_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        236,
+        947,
+        789
+      ],
+      "opaque_fraction": 0.2639026641845703,
+      "sha256": "5beb75bc1b08d81e74638a8c23a30f1f2a68ce7cc375a8d49c092c56f1697f86",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "underbarrel_angled_foregrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        164,
+        947,
+        860
+      ],
+      "opaque_fraction": 0.2836933135986328,
+      "sha256": "842508efe9697b22ae6f10ac4fbc218f5df0ea38084bbbd8fc3291ef73a30869",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "underbarrel_canted_foregrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        323,
+        77,
+        701,
+        947
+      ],
+      "opaque_fraction": 0.2249298095703125,
+      "sha256": "64ba3a6462242642154f56d987d94584809a1a16b9d7f4aadf803d3fdb379728",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "underbarrel_false",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        77,
+        77,
+        947,
+        947
+      ],
+      "opaque_fraction": 0.1760272979736328,
+      "sha256": "224e96c3aa97316da21c8972f12c61b8471c886836fc2248fe70a95a259fefbc",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "underbarrel_prism_handstop",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        118,
+        77,
+        906,
+        947
+      ],
+      "opaque_fraction": 0.37932491302490234,
+      "sha256": "076bac8aa1927224dccef54c0175aa18a122b7b58b7100671af7a7f2afe4dc0f",
+      "kind": "new_actual_model_render"
+    },
+    {
+      "key": "underbarrel_vertical_foregrip",
+      "size": [
+        1024,
+        1024
+      ],
+      "alpha_bbox": [
+        360,
+        77,
+        664,
+        947
+      ],
+      "opaque_fraction": 0.1776447296142578,
+      "sha256": "2d9acd962b95ebaee383aa6f82b4e4832325c151568da345c5b9f1d198f1e5af",
+      "kind": "new_actual_model_render"
+    }
+  ],
+  "changes": [
+    {
+      "key": "barrel_false",
+      "action": "added"
+    },
+    {
+      "key": "barrel_long",
+      "action": "replaced"
+    },
+    {
+      "key": "barrel_short",
+      "action": "replaced"
+    },
+    {
+      "key": "category_barrel",
+      "action": "added"
+    },
+    {
+      "key": "category_magazine",
+      "action": "added"
+    },
+    {
+      "key": "category_muzzle",
+      "action": "added"
+    },
+    {
+      "key": "category_optic",
+      "action": "added"
+    },
+    {
+      "key": "category_reargrip",
+      "action": "added"
+    },
+    {
+      "key": "category_reload_device",
+      "action": "added"
+    },
+    {
+      "key": "category_stock",
+      "action": "added"
+    },
+    {
+      "key": "category_tactical",
+      "action": "added"
+    },
+    {
+      "key": "category_trigger",
+      "action": "added"
+    },
+    {
+      "key": "category_underbarrel",
+      "action": "added"
+    },
+    {
+      "key": "magazine_false",
+      "action": "replaced"
+    },
+    {
+      "key": "magazine_large_drum",
+      "action": "replaced"
+    },
+    {
+      "key": "muzzle_brake",
+      "action": "replaced"
+    },
+    {
+      "key": "muzzle_false",
+      "action": "replaced"
+    },
+    {
+      "key": "muzzle_tactical_suppressor",
+      "action": "replaced"
+    },
+    {
+      "key": "muzzle_titanium_brake",
+      "action": "replaced"
+    },
+    {
+      "key": "muzzle_true",
+      "action": "replaced"
+    },
+    {
+      "key": "optic_false",
+      "action": "replaced"
+    },
+    {
+      "key": "optic_holographic",
+      "action": "replaced"
+    },
+    {
+      "key": "optic_lpvo_1_6x",
+      "action": "replaced"
+    },
+    {
+      "key": "optic_panoramic_red_dot",
+      "action": "replaced"
+    },
+    {
+      "key": "optic_prism_scope_2x",
+      "action": "replaced"
+    },
+    {
+      "key": "reargrip_balanced_reargrip",
+      "action": "added"
+    },
+    {
+      "key": "reargrip_false",
+      "action": "replaced"
+    },
+    {
+      "key": "reargrip_phantom_reargrip",
+      "action": "replaced"
+    },
+    {
+      "key": "reargrip_stable_antislip_reargrip",
+      "action": "replaced"
+    },
+    {
+      "key": "reload_device_dw715_speedloader",
+      "action": "replaced"
+    },
+    {
+      "key": "reload_device_false",
+      "action": "replaced"
+    },
+    {
+      "key": "tactical_false",
+      "action": "added"
+    },
+    {
+      "key": "tactical_flashlight",
+      "action": "added"
+    },
+    {
+      "key": "tactical_laser",
+      "action": "added"
+    },
+    {
+      "key": "trigger_dw715_lightweight_fast",
+      "action": "replaced"
+    },
+    {
+      "key": "trigger_false",
+      "action": "added"
+    },
+    {
+      "key": "trigger_m1911_lightweight_fast",
+      "action": "replaced"
+    },
+    {
+      "key": "ue_akm_barrel_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_barrel_long",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_barrel_short",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_category_barrel",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_category_magazine",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_category_muzzle",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_category_optic",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_category_reargrip",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_category_stock",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_magazine_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_muzzle_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_optic_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_reargrip_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_akm_stock_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_long",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_short",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_category_barrel",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_category_optic",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_category_trigger",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_holographic",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_panoramic_red_dot",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_tactical_flashlight",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_tactical_laser",
+      "action": "added"
+    },
+    {
+      "key": "ue_dan_wesson715_trigger_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_barrel_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_barrel_long",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_barrel_short",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_category_barrel",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_category_muzzle",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_category_optic",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_category_trigger",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_muzzle_brake",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_muzzle_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_muzzle_tactical_suppressor",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_muzzle_true",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_optic_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_optic_holographic",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_optic_panoramic_red_dot",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_tactical_flashlight",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_tactical_laser",
+      "action": "added"
+    },
+    {
+      "key": "ue_m1911_trigger_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_barrel_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_barrel_long",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_barrel_short",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_category_barrel",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_category_magazine",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_category_muzzle",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_category_optic",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_category_reargrip",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_category_stock",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_magazine_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_muzzle_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_optic_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_reargrip_false",
+      "action": "added"
+    },
+    {
+      "key": "ue_qbz191_stock_false",
+      "action": "added"
+    },
+    {
+      "key": "underbarrel_angled_foregrip",
+      "action": "replaced"
+    },
+    {
+      "key": "underbarrel_canted_foregrip",
+      "action": "replaced"
+    },
+    {
+      "key": "underbarrel_false",
+      "action": "replaced"
+    },
+    {
+      "key": "underbarrel_prism_handstop",
+      "action": "replaced"
+    },
+    {
+      "key": "underbarrel_vertical_foregrip",
+      "action": "replaced"
+    }
+  ],
+  "alias_policy": {
+    "tactical_false": {
+      "target": "underbarrel_false",
+      "reason": "No mounted device; neutral empty-state symbol."
+    },
+    "ue_akm_muzzle_false": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Current AKM has an integral bare barrel muzzle, not an M4 flash hider."
+    },
+    "barrel_short": {
+      "target": "barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "barrel_long": {
+      "target": "barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_akm_barrel_short": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_akm_barrel_long": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_qbz191_barrel_short": {
+      "target": "ue_qbz191_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_qbz191_barrel_long": {
+      "target": "ue_qbz191_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_m1911_barrel_short": {
+      "target": "ue_m1911_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_m1911_barrel_long": {
+      "target": "ue_m1911_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_dan_wesson715_barrel_short": {
+      "target": "ue_dan_wesson715_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_dan_wesson715_barrel_long": {
+      "target": "ue_dan_wesson715_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "trigger_m1911_lightweight_fast": {
+      "target": "ue_m1911_trigger_false",
+      "reason": "Numeric-only trigger tuning; use the actual trigger of this weapon."
+    },
+    "trigger_dw715_lightweight_fast": {
+      "target": "ue_dan_wesson715_trigger_false",
+      "reason": "Numeric-only trigger tuning; use the actual trigger of this weapon."
+    },
+    "category_optic": {
+      "target": "optic_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_muzzle": {
+      "target": "muzzle_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_magazine": {
+      "target": "magazine_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_underbarrel": {
+      "target": "underbarrel_vertical_foregrip",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_barrel": {
+      "target": "barrel_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_reargrip": {
+      "target": "reargrip_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_stock": {
+      "target": "stock_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_trigger": {
+      "target": "ue_m1911_trigger_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_tactical": {
+      "target": "tactical_laser",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_reload_device": {
+      "target": "reload_device_dw715_speedloader",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "ue_akm_category_optic": {
+      "target": "ue_akm_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_muzzle": {
+      "target": "ue_akm_muzzle_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_magazine": {
+      "target": "ue_akm_magazine_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_barrel": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_reargrip": {
+      "target": "ue_akm_reargrip_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_stock": {
+      "target": "ue_akm_stock_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_optic": {
+      "target": "ue_qbz191_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_muzzle": {
+      "target": "ue_qbz191_muzzle_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_magazine": {
+      "target": "ue_qbz191_magazine_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_barrel": {
+      "target": "ue_qbz191_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_reargrip": {
+      "target": "ue_qbz191_reargrip_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_stock": {
+      "target": "ue_qbz191_stock_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_optic": {
+      "target": "ue_m1911_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_muzzle": {
+      "target": "ue_m1911_muzzle_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_barrel": {
+      "target": "ue_m1911_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_trigger": {
+      "target": "ue_m1911_trigger_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_dan_wesson715_category_optic": {
+      "target": "ue_dan_wesson715_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_dan_wesson715_category_barrel": {
+      "target": "ue_dan_wesson715_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_dan_wesson715_category_trigger": {
+      "target": "ue_dan_wesson715_trigger_false",
+      "reason": "Weapon-specific factory category representative."
+    }
+  },
+  "findings": [
+    "Original iron sight showed front and rear together; now one rear assembly per weapon, with its fixed mount where split from the receiver.",
+    "Old attachment images used angled concepts and baked black backgrounds; regenerated actual current models at level orthographic front-left.",
+    "M1911 and DW715 trigger images were identical concepts; use their different actual triggers.",
+    "Missing defaults, balanced rear grip and tactical device images used category fallback; all effective catalog options now resolve explicitly.",
+    "Factory parts of different weapon families previously shared M4 images; per-weapon image resolution and cache keys now preserve differences.",
+    "Intermediate FBX exports lose some runtime material graphs; icon scenes restore explicit polymer and receiver/mount coating bindings from current import recipes.",
+    "Shared numeric-only short/long barrel and fast trigger options have no distinct runtime mesh. Deliberately reuse the current real part image; labels/stats differentiate.",
+    "Category navigation images now use the same transparent real-part images; old category material remains a compatibility fallback."
+  ],
+  "limits": [
+    "Blender lighting differs from in-game lighting. M4 Phong conversion is approximated with the same coating source; game materials are unchanged.",
+    "Shared rifle accessory icons use the current M4 body variant. Small rifle-specific mounting adapters and coatings use that representative; differing factory silhouettes and compact pistol variants have dedicated overrides.",
+    "No PIE/gameplay or save regression was run. User tests the updated workbench in game."
+  ]
+}

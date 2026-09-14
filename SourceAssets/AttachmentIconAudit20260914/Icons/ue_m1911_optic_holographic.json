@@ -1,0 +1,30 @@
+{
+  "key": "ue_m1911_optic_holographic",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\M1911_CompactOptics_Editable.blend",
+  "objects": [
+    "M1911_holographic"
+  ],
+  "frame": "X",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.0280000027269125,
+      -0.015500002540647984,
+      -0.014362944290041924
+    ],
+    [
+      0.0280000027269125,
+      0.015500002540647984,
+      0.03973802924156189
+    ]
+  ],
+  "triangles": 10404,
+  "material_note": "Real source materials retained."
+}

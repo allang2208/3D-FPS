@@ -1,0 +1,39 @@
+{
+  "key": "optic_lpvo_1_6x",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+  "objects": [
+    "M4_lpvo_1_6x",
+    "M4_lpvo_ring"
+  ],
+  "frame": "X",
+  "finish": "M4",
+  "offsets": {
+    "M4_lpvo_ring": [
+      -0.071,
+      0,
+      0.04
+    ]
+  },
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.125,
+      -0.02052999846637249,
+      0.0
+    ],
+    [
+      0.125,
+      0.02293499931693077,
+      0.07000000029802322
+    ]
+  ],
+  "triangles": 22812,
+  "material_note": "Real source textures retained. Receiver coating in Blender approximates UE Phong conversion using the same coating source."
+}

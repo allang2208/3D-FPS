@@ -1,0 +1,497 @@
+[
+  {
+    "key": "barrel_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/barrel_false.barrel_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\barrel_false.png"
+  },
+  {
+    "key": "barrel_long",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/barrel_long.barrel_long",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\barrel_long.png"
+  },
+  {
+    "key": "barrel_short",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/barrel_short.barrel_short",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\barrel_short.png"
+  },
+  {
+    "key": "category_barrel",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_barrel.category_barrel",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_barrel.png"
+  },
+  {
+    "key": "category_magazine",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_magazine.category_magazine",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_magazine.png"
+  },
+  {
+    "key": "category_muzzle",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_muzzle.category_muzzle",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_muzzle.png"
+  },
+  {
+    "key": "category_optic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_optic.category_optic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_optic.png"
+  },
+  {
+    "key": "category_reargrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_reargrip.category_reargrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_reargrip.png"
+  },
+  {
+    "key": "category_reload_device",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_reload_device.category_reload_device",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_reload_device.png"
+  },
+  {
+    "key": "category_stock",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_stock.category_stock",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_stock.png"
+  },
+  {
+    "key": "category_tactical",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_tactical.category_tactical",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_tactical.png"
+  },
+  {
+    "key": "category_trigger",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_trigger.category_trigger",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_trigger.png"
+  },
+  {
+    "key": "category_underbarrel",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/category_underbarrel.category_underbarrel",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\category_underbarrel.png"
+  },
+  {
+    "key": "magazine_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/magazine_false.magazine_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\magazine_false.png"
+  },
+  {
+    "key": "magazine_large_drum",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/magazine_large_drum.magazine_large_drum",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\magazine_large_drum.png"
+  },
+  {
+    "key": "muzzle_brake",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/muzzle_brake.muzzle_brake",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\muzzle_brake.png"
+  },
+  {
+    "key": "muzzle_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/muzzle_false.muzzle_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\muzzle_false.png"
+  },
+  {
+    "key": "muzzle_tactical_suppressor",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/muzzle_tactical_suppressor.muzzle_tactical_suppressor",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\muzzle_tactical_suppressor.png"
+  },
+  {
+    "key": "muzzle_titanium_brake",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/muzzle_titanium_brake.muzzle_titanium_brake",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\muzzle_titanium_brake.png"
+  },
+  {
+    "key": "muzzle_true",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/muzzle_true.muzzle_true",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\muzzle_true.png"
+  },
+  {
+    "key": "optic_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/optic_false.optic_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\optic_false.png"
+  },
+  {
+    "key": "optic_holographic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/optic_holographic.optic_holographic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\optic_holographic.png"
+  },
+  {
+    "key": "optic_lpvo_1_6x",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/optic_lpvo_1_6x.optic_lpvo_1_6x",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\optic_lpvo_1_6x.png"
+  },
+  {
+    "key": "optic_panoramic_red_dot",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/optic_panoramic_red_dot.optic_panoramic_red_dot",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\optic_panoramic_red_dot.png"
+  },
+  {
+    "key": "optic_prism_scope_2x",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/optic_prism_scope_2x.optic_prism_scope_2x",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\optic_prism_scope_2x.png"
+  },
+  {
+    "key": "reargrip_balanced_reargrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/reargrip_balanced_reargrip.reargrip_balanced_reargrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\reargrip_balanced_reargrip.png"
+  },
+  {
+    "key": "reargrip_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/reargrip_false.reargrip_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\reargrip_false.png"
+  },
+  {
+    "key": "reargrip_phantom_reargrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/reargrip_phantom_reargrip.reargrip_phantom_reargrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\reargrip_phantom_reargrip.png"
+  },
+  {
+    "key": "reargrip_stable_antislip_reargrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/reargrip_stable_antislip_reargrip.reargrip_stable_antislip_reargrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\reargrip_stable_antislip_reargrip.png"
+  },
+  {
+    "key": "reload_device_dw715_speedloader",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/reload_device_dw715_speedloader.reload_device_dw715_speedloader",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\reload_device_dw715_speedloader.png"
+  },
+  {
+    "key": "reload_device_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/reload_device_false.reload_device_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\reload_device_false.png"
+  },
+  {
+    "key": "tactical_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/tactical_false.tactical_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\tactical_false.png"
+  },
+  {
+    "key": "tactical_flashlight",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/tactical_flashlight.tactical_flashlight",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\tactical_flashlight.png"
+  },
+  {
+    "key": "tactical_laser",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/tactical_laser.tactical_laser",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\tactical_laser.png"
+  },
+  {
+    "key": "trigger_dw715_lightweight_fast",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/trigger_dw715_lightweight_fast.trigger_dw715_lightweight_fast",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\trigger_dw715_lightweight_fast.png"
+  },
+  {
+    "key": "trigger_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/trigger_false.trigger_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\trigger_false.png"
+  },
+  {
+    "key": "trigger_m1911_lightweight_fast",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/trigger_m1911_lightweight_fast.trigger_m1911_lightweight_fast",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\trigger_m1911_lightweight_fast.png"
+  },
+  {
+    "key": "ue_akm_barrel_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_barrel_false.ue_akm_barrel_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_barrel_false.png"
+  },
+  {
+    "key": "ue_akm_barrel_long",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_barrel_long.ue_akm_barrel_long",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_barrel_long.png"
+  },
+  {
+    "key": "ue_akm_barrel_short",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_barrel_short.ue_akm_barrel_short",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_barrel_short.png"
+  },
+  {
+    "key": "ue_akm_category_barrel",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_category_barrel.ue_akm_category_barrel",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_category_barrel.png"
+  },
+  {
+    "key": "ue_akm_category_magazine",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_category_magazine.ue_akm_category_magazine",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_category_magazine.png"
+  },
+  {
+    "key": "ue_akm_category_muzzle",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_category_muzzle.ue_akm_category_muzzle",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_category_muzzle.png"
+  },
+  {
+    "key": "ue_akm_category_optic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_category_optic.ue_akm_category_optic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_category_optic.png"
+  },
+  {
+    "key": "ue_akm_category_reargrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_category_reargrip.ue_akm_category_reargrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_category_reargrip.png"
+  },
+  {
+    "key": "ue_akm_category_stock",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_category_stock.ue_akm_category_stock",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_category_stock.png"
+  },
+  {
+    "key": "ue_akm_magazine_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_magazine_false.ue_akm_magazine_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_magazine_false.png"
+  },
+  {
+    "key": "ue_akm_muzzle_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_muzzle_false.ue_akm_muzzle_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_muzzle_false.png"
+  },
+  {
+    "key": "ue_akm_optic_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_optic_false.ue_akm_optic_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_optic_false.png"
+  },
+  {
+    "key": "ue_akm_reargrip_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_reargrip_false.ue_akm_reargrip_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_reargrip_false.png"
+  },
+  {
+    "key": "ue_akm_stock_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_stock_false.ue_akm_stock_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_stock_false.png"
+  },
+  {
+    "key": "ue_dan_wesson715_barrel_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_barrel_false.ue_dan_wesson715_barrel_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_barrel_false.png"
+  },
+  {
+    "key": "ue_dan_wesson715_barrel_long",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_barrel_long.ue_dan_wesson715_barrel_long",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_barrel_long.png"
+  },
+  {
+    "key": "ue_dan_wesson715_barrel_short",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_barrel_short.ue_dan_wesson715_barrel_short",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_barrel_short.png"
+  },
+  {
+    "key": "ue_dan_wesson715_category_barrel",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_category_barrel.ue_dan_wesson715_category_barrel",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_category_barrel.png"
+  },
+  {
+    "key": "ue_dan_wesson715_category_optic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_category_optic.ue_dan_wesson715_category_optic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_category_optic.png"
+  },
+  {
+    "key": "ue_dan_wesson715_category_trigger",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_category_trigger.ue_dan_wesson715_category_trigger",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_category_trigger.png"
+  },
+  {
+    "key": "ue_dan_wesson715_optic_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_optic_false.ue_dan_wesson715_optic_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_optic_false.png"
+  },
+  {
+    "key": "ue_dan_wesson715_optic_holographic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_optic_holographic.ue_dan_wesson715_optic_holographic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_optic_holographic.png"
+  },
+  {
+    "key": "ue_dan_wesson715_optic_panoramic_red_dot",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_optic_panoramic_red_dot.ue_dan_wesson715_optic_panoramic_red_dot",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_optic_panoramic_red_dot.png"
+  },
+  {
+    "key": "ue_dan_wesson715_tactical_flashlight",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_tactical_flashlight.ue_dan_wesson715_tactical_flashlight",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_tactical_flashlight.png"
+  },
+  {
+    "key": "ue_dan_wesson715_tactical_laser",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_tactical_laser.ue_dan_wesson715_tactical_laser",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_tactical_laser.png"
+  },
+  {
+    "key": "ue_dan_wesson715_trigger_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_dan_wesson715_trigger_false.ue_dan_wesson715_trigger_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_dan_wesson715_trigger_false.png"
+  },
+  {
+    "key": "ue_m1911_barrel_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_barrel_false.ue_m1911_barrel_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_barrel_false.png"
+  },
+  {
+    "key": "ue_m1911_barrel_long",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_barrel_long.ue_m1911_barrel_long",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_barrel_long.png"
+  },
+  {
+    "key": "ue_m1911_barrel_short",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_barrel_short.ue_m1911_barrel_short",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_barrel_short.png"
+  },
+  {
+    "key": "ue_m1911_category_barrel",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_category_barrel.ue_m1911_category_barrel",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_category_barrel.png"
+  },
+  {
+    "key": "ue_m1911_category_muzzle",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_category_muzzle.ue_m1911_category_muzzle",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_category_muzzle.png"
+  },
+  {
+    "key": "ue_m1911_category_optic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_category_optic.ue_m1911_category_optic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_category_optic.png"
+  },
+  {
+    "key": "ue_m1911_category_trigger",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_category_trigger.ue_m1911_category_trigger",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_category_trigger.png"
+  },
+  {
+    "key": "ue_m1911_muzzle_brake",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_muzzle_brake.ue_m1911_muzzle_brake",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_muzzle_brake.png"
+  },
+  {
+    "key": "ue_m1911_muzzle_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_muzzle_false.ue_m1911_muzzle_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_muzzle_false.png"
+  },
+  {
+    "key": "ue_m1911_muzzle_tactical_suppressor",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_muzzle_tactical_suppressor.ue_m1911_muzzle_tactical_suppressor",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_muzzle_tactical_suppressor.png"
+  },
+  {
+    "key": "ue_m1911_muzzle_true",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_muzzle_true.ue_m1911_muzzle_true",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_muzzle_true.png"
+  },
+  {
+    "key": "ue_m1911_optic_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_optic_false.ue_m1911_optic_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_optic_false.png"
+  },
+  {
+    "key": "ue_m1911_optic_holographic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_optic_holographic.ue_m1911_optic_holographic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_optic_holographic.png"
+  },
+  {
+    "key": "ue_m1911_optic_panoramic_red_dot",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_optic_panoramic_red_dot.ue_m1911_optic_panoramic_red_dot",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_optic_panoramic_red_dot.png"
+  },
+  {
+    "key": "ue_m1911_tactical_flashlight",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_tactical_flashlight.ue_m1911_tactical_flashlight",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_tactical_flashlight.png"
+  },
+  {
+    "key": "ue_m1911_tactical_laser",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_tactical_laser.ue_m1911_tactical_laser",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_tactical_laser.png"
+  },
+  {
+    "key": "ue_m1911_trigger_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m1911_trigger_false.ue_m1911_trigger_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m1911_trigger_false.png"
+  },
+  {
+    "key": "ue_qbz191_barrel_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_barrel_false.ue_qbz191_barrel_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_barrel_false.png"
+  },
+  {
+    "key": "ue_qbz191_barrel_long",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_barrel_long.ue_qbz191_barrel_long",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_barrel_long.png"
+  },
+  {
+    "key": "ue_qbz191_barrel_short",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_barrel_short.ue_qbz191_barrel_short",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_barrel_short.png"
+  },
+  {
+    "key": "ue_qbz191_category_barrel",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_category_barrel.ue_qbz191_category_barrel",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_category_barrel.png"
+  },
+  {
+    "key": "ue_qbz191_category_magazine",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_category_magazine.ue_qbz191_category_magazine",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_category_magazine.png"
+  },
+  {
+    "key": "ue_qbz191_category_muzzle",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_category_muzzle.ue_qbz191_category_muzzle",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_category_muzzle.png"
+  },
+  {
+    "key": "ue_qbz191_category_optic",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_category_optic.ue_qbz191_category_optic",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_category_optic.png"
+  },
+  {
+    "key": "ue_qbz191_category_reargrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_category_reargrip.ue_qbz191_category_reargrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_category_reargrip.png"
+  },
+  {
+    "key": "ue_qbz191_category_stock",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_category_stock.ue_qbz191_category_stock",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_category_stock.png"
+  },
+  {
+    "key": "ue_qbz191_magazine_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_magazine_false.ue_qbz191_magazine_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_magazine_false.png"
+  },
+  {
+    "key": "ue_qbz191_muzzle_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_muzzle_false.ue_qbz191_muzzle_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_muzzle_false.png"
+  },
+  {
+    "key": "ue_qbz191_optic_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_optic_false.ue_qbz191_optic_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_optic_false.png"
+  },
+  {
+    "key": "ue_qbz191_reargrip_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_reargrip_false.ue_qbz191_reargrip_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_reargrip_false.png"
+  },
+  {
+    "key": "ue_qbz191_stock_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_stock_false.ue_qbz191_stock_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_stock_false.png"
+  },
+  {
+    "key": "underbarrel_angled_foregrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/underbarrel_angled_foregrip.underbarrel_angled_foregrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\underbarrel_angled_foregrip.png"
+  },
+  {
+    "key": "underbarrel_canted_foregrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/underbarrel_canted_foregrip.underbarrel_canted_foregrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\underbarrel_canted_foregrip.png"
+  },
+  {
+    "key": "underbarrel_false",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/underbarrel_false.underbarrel_false",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\underbarrel_false.png"
+  },
+  {
+    "key": "underbarrel_prism_handstop",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/underbarrel_prism_handstop.underbarrel_prism_handstop",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\underbarrel_prism_handstop.png"
+  },
+  {
+    "key": "underbarrel_vertical_foregrip",
+    "asset": "/Game/ColdSteelData/AttachmentIcons20260913/underbarrel_vertical_foregrip.underbarrel_vertical_foregrip",
+    "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\underbarrel_vertical_foregrip.png"
+  }
+]

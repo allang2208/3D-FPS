@@ -1,0 +1,30 @@
+{
+  "key": "reargrip_balanced_reargrip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BalancedRearGripM4Seam20260914\\M4_BalancedRearGrip_Seam_Editable.blend",
+  "objects": [
+    "SM_BalancedRearGrip"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.02711721509695053,
+      -0.015903515741229057,
+      -0.07142837345600128
+    ],
+    [
+      0.049925535917282104,
+      0.01597987860441208,
+      0.044809285551309586
+    ]
+  ],
+  "triangles": 55318,
+  "material_note": "Real source materials retained."
+}

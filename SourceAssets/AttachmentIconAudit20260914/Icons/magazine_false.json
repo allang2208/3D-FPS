@@ -1,0 +1,31 @@
+{
+  "key": "magazine_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+  "objects": [
+    "M4_Magazine Light.003_Export"
+  ],
+  "frame": "rig",
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.31655392050743103,
+      0.03589054197072983,
+      -0.22277133166790009
+    ],
+    [
+      -0.23133163154125214,
+      0.06172894686460495,
+      -0.04691186174750328
+    ]
+  ],
+  "triangles": 3276,
+  "material_note": "Real source materials retained."
+}

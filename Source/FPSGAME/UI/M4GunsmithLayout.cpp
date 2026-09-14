@@ -30,6 +30,17 @@ void UM4GunsmithWidget::LoadCategoryIcons()
     auto* IconMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/M_CategoryIcon.M_CategoryIcon"));
     for(const auto& Key:Model()->Slots())
     {
+        const FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
+        const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+Key+TEXT(".png"));
+        const FString IconPath=FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+Key+TEXT(".png"));
+        if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
+        {
+            CategoryTextures.Add(Texture);
+            auto Brush=MakeShared<FSlateBrush>();Brush->ImageSize=FVector2D(48,48);
+            Brush->DrawAs=ESlateBrushDrawType::Image;Brush->SetResourceObject(Texture);
+            CategoryBrushes.Add(Key,Brush);
+            continue;
+        }
         const FString Asset=TEXT("/Game/UI/GunsmithWorkbench/ColdGlass/T_Category_")+Key;
         auto* Texture=LoadObject<UTexture2D>(nullptr,*(Asset+TEXT(".T_Category_")+Key));
         if(!Texture)continue;
@@ -138,10 +149,14 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     FString Summary=O->Description.Replace(TEXT("\r"),TEXT(" ")).Replace(TEXT("\n"),TEXT(" "));
     if(Summary.Len()>32)Summary=Summary.Left(32)+TEXT("…");
     auto Selected=[this,SlotKey,Id](){return Model()->Draft().FindRef(SlotKey)==Id||(Id==TEXT("false")&&!Model()->Draft().Contains(SlotKey));};
-    const FString IconKey=SlotKey+TEXT("_")+Id;
+    const FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
+    const FString CommonIconKey=SlotKey+TEXT("_")+Id;
+    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+CommonIconKey;
+    // Cache the resolved weapon-specific image so switching guns keeps each factory part distinct.
+    const FString IconKey=FPaths::FileExists(IconDirectory/(WeaponIconKey+TEXT(".png")))?WeaponIconKey:CommonIconKey;
     if(!AttachmentBrushes.Contains(IconKey))
     {
-        const FString IconPath=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913")/(IconKey+TEXT(".png"));
+        const FString IconPath=IconDirectory/(IconKey+TEXT(".png"));
         if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
         {
             AttachmentTextures.Add(Texture);

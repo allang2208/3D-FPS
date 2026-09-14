@@ -1,0 +1,38 @@
+{
+  "key": "ue_akm_stock_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+  "objects": [
+    "AKM_Soviet_Native"
+  ],
+  "frame": "rig",
+  "selectors": {
+    "AKM_Soviet_Native": {
+      "material": [
+        "M_AKM_FactoryStock"
+      ]
+    }
+  },
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.06116217002272606,
+      0.026463333517313004,
+      -0.16658926010131836
+    ],
+    [
+      0.15034542977809906,
+      0.06971825659275055,
+      -0.047973647713661194
+    ]
+  ],
+  "triangles": 1536,
+  "material_note": "Real source materials retained."
+}

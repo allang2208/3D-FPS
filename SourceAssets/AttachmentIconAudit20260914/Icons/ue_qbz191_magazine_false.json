@@ -1,0 +1,31 @@
+{
+  "key": "ue_qbz191_magazine_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+  "objects": [
+    "QBZ_Magazine"
+  ],
+  "frame": "rig",
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.3560192883014679,
+      0.03400696441531181,
+      -0.2417835146188736
+    ],
+    [
+      -0.23590873181819916,
+      0.06240956857800484,
+      -0.05574784427881241
+    ]
+  ],
+  "triangles": 9864,
+  "material_note": "Real source materials retained."
+}

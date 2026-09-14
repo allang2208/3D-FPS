@@ -1,0 +1,30 @@
+{
+  "key": "reargrip_stable_antislip_reargrip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StableAntiSlipRearGrip20260913\\Selected91727\\M4\\StableAntiSlipRearGrip_Editable.blend",
+  "objects": [
+    "SM_StableAntiSlipRearGrip"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.029778065159916878,
+      -0.017085790634155273,
+      -0.08270667493343353
+    ],
+    [
+      0.02822159044444561,
+      0.014797603711485863,
+      0.02081204578280449
+    ]
+  ],
+  "triangles": 30284,
+  "material_note": "Real source materials retained."
+}

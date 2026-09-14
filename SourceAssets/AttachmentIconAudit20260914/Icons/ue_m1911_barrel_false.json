@@ -1,0 +1,34 @@
+{
+  "key": "ue_m1911_barrel_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+  "objects": [
+    "M1911_Barrel_Rebuilt",
+    "M1911_ChamberHood",
+    "M1911_Bore_ShadowInsert",
+    "M1911_ChamberRearShadow"
+  ],
+  "frame": "root",
+  "rig": "SK_M1911_Manny",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.15587463974952698,
+      -0.010449998080730438,
+      0.018529996275901794
+    ],
+    [
+      0.0028999894857406616,
+      0.010450009256601334,
+      0.04009999334812164
+    ]
+  ],
+  "triangles": 5592,
+  "material_note": "Real source materials retained."
+}

@@ -1,0 +1,32 @@
+{
+  "key": "optic_prism_scope_2x",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+  "objects": [
+    "M4_prism_scope_2x"
+  ],
+  "frame": "X",
+  "finish": "M4",
+  "offsets": {},
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.06480000168085098,
+      -0.018559889867901802,
+      0.0
+    ],
+    [
+      0.06480000168085098,
+      0.025532305240631104,
+      0.06622576713562012
+    ]
+  ],
+  "triangles": 18040,
+  "material_note": "Real source textures retained. Receiver coating in Blender approximates UE Phong conversion using the same coating source."
+}

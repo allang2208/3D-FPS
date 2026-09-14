@@ -1,0 +1,30 @@
+{
+  "key": "ue_dan_wesson715_tactical_laser",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\laser\\DW715_Attachment_Editable.blend",
+  "objects": [
+    "SM_TacticalDevice"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.17480261623859406,
+      -0.010710813105106354,
+      -0.00882946141064167
+    ],
+    [
+      -0.11499999463558197,
+      0.010710829868912697,
+      0.03293546661734581
+    ]
+  ],
+  "triangles": 37066,
+  "material_note": "Real source materials retained."
+}

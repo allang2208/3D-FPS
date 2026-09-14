@@ -1,0 +1,30 @@
+{
+  "key": "muzzle_brake",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\brake-editable.blend",
+  "objects": [
+    "SM_M4_brake"
+  ],
+  "frame": "Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.06800000369548798,
+      -0.016199998557567596,
+      -0.016200000420212746
+    ],
+    [
+      0.010000000707805157,
+      0.016200002282857895,
+      0.016200000420212746
+    ]
+  ],
+  "triangles": 7016,
+  "material_note": "Real source materials retained."
+}

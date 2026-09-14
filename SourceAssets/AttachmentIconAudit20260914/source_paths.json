@@ -1,0 +1,95 @@
+{
+  "M4": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend"
+  },
+  "AKM": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\AKM_Soviet_Editable.blend"
+  },
+  "QBZ191": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\QBZ191_ReceiverCoating_Editable.blend"
+  },
+  "M1911": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend"
+  },
+  "DW715": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend"
+  },
+  "attachment_finish": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend"
+  },
+  "suppressor": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\suppressor-editable.blend"
+  },
+  "brake": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\brake-editable.blend"
+  },
+  "titanium_brake": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\titanium_brake-editable.blend"
+  },
+  "tactical_suppressor": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\KnurlRefinedV1\\Suppressor_KnurlRefinedV1.blend"
+  },
+  "phantom": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\M4\\phantom\\Editable.blend"
+  },
+  "balanced": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BalancedRearGripM4Seam20260914\\M4_BalancedRearGrip_Seam_Editable.blend"
+  },
+  "stable": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StableAntiSlipRearGrip20260913\\Selected91727\\M4\\StableAntiSlipRearGrip_Editable.blend"
+  },
+  "angled": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ResonanceGrip20260913\\MeshyIntegration\\M4\\ResonanceGrip_Surface_Editable.blend"
+  },
+  "laser": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\M4\\laser\\Editable.blend"
+  },
+  "flashlight": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\HunyuanV3\\M4\\flashlight\\Editable.blend"
+  },
+  "dw_optic": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\holographic\\DW715_Attachment_Editable.blend"
+  },
+  "AKM_current": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend"
+  },
+  "QBZ_current": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend"
+  },
+  "tactical_game": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\TacticalSuppressor_FourWeapons_Editable.blend"
+  },
+  "vertical": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Compact75\\M4_Vertical_Fitted.blend"
+  },
+  "canted": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\M4_Canted_Fitted.blend"
+  },
+  "pistol_optics": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\M1911_CompactOptics_Editable.blend"
+  },
+  "pistol_compact": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\M1911_CompactFit_Assembly_Editable.blend"
+  },
+  "pistol_red_dot": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911SculptedMount20260913\\M1911_SculptedMount_Editable.blend"
+  },
+  "pistol_brake": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911MuzzleRedDot20260913\\M1911_brake_Editable.blend"
+  },
+  "pistol_laser": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\laser\\M1911_Device_Editable.blend"
+  },
+  "pistol_light": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\flashlight\\M1911_Device_Editable.blend"
+  },
+  "dw_red_dot": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\panoramic_red_dot\\DW715_Attachment_Editable.blend"
+  },
+  "dw_laser": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\laser\\DW715_Attachment_Editable.blend"
+  },
+  "dw_light": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\flashlight\\DW715_Attachment_Editable.blend"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "key": "optic_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+  "objects": [
+    "SM_M4_RearSight",
+    "M4_M4 Body_Export"
+  ],
+  "frame": "rig",
+  "selectors": {
+    "M4_M4 Body_Export": {
+      "components": [
+        9,
+        15,
+        19,
+        20,
+        23
+      ]
+    }
+  },
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.1901739239692688,
+      0.03817756101489067,
+      -0.005172000266611576
+    ],
+    [
+      -0.17450958490371704,
+      0.058549169450998306,
+      0.03413162752985954
+    ]
+  ],
+  "triangles": 1308,
+  "material_note": "Real source materials retained."
+}

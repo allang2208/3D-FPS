@@ -1,0 +1,33 @@
+{
+  "key": "ue_dan_wesson715_barrel_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+  "objects": [
+    "DW715_BarrelShroud",
+    "DW715_Muzzle_128",
+    "DW715_MuzzleInterior"
+  ],
+  "frame": "root",
+  "rig": "SK_DW715_Manny",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.224781334400177,
+      -0.007492870092391968,
+      0.02603410929441452
+    ],
+    [
+      -0.07400001585483551,
+      0.007634401321411133,
+      0.057539667934179306
+    ]
+  ],
+  "triangles": 13427,
+  "material_note": "Real source materials retained."
+}

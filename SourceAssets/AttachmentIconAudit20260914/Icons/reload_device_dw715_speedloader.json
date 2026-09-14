@@ -1,0 +1,38 @@
+{
+  "key": "reload_device_dw715_speedloader",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+  "objects": [
+    "DW715_LoaderBody",
+    "DW715_LoaderKnob",
+    "DW715_LoaderSocket_0",
+    "DW715_LoaderSocket_1",
+    "DW715_LoaderSocket_2",
+    "DW715_LoaderSocket_3",
+    "DW715_LoaderSocket_4",
+    "DW715_LoaderSocket_5"
+  ],
+  "frame": "root",
+  "rig": "SK_DW715_Manny",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.013400033116340637,
+      -0.017899997532367706,
+      0.013019993901252747
+    ],
+    [
+      0.01199999451637268,
+      0.017899997532367706,
+      0.048819996416568756
+    ]
+  ],
+  "triangles": 14848,
+  "material_note": "Real source materials retained."
+}

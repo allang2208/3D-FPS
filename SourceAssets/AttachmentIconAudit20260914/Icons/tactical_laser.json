@@ -1,0 +1,30 @@
+{
+  "key": "tactical_laser",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\M4\\laser\\Editable.blend",
+  "objects": [
+    "SM_TacticalDevice"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.3627367615699768,
+      -0.07142945379018784,
+      0.06278278678655624
+    ],
+    [
+      -0.27730444073677063,
+      -0.010162717662751675,
+      0.09338513761758804
+    ]
+  ],
+  "triangles": 35360,
+  "material_note": "Real source materials retained."
+}

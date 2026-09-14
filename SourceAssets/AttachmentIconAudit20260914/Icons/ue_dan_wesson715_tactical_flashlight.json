@@ -1,0 +1,30 @@
+{
+  "key": "ue_dan_wesson715_tactical_flashlight",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\flashlight\\DW715_Attachment_Editable.blend",
+  "objects": [
+    "SM_TacticalDevice"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.2014288306236267,
+      -0.013824357651174068,
+      -0.0055866483598947525
+    ],
+    [
+      -0.11500000208616257,
+      0.013824370689690113,
+      0.03293546661734581
+    ]
+  ],
+  "triangles": 36880,
+  "material_note": "Real source materials retained."
+}

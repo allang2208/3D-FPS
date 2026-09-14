@@ -1,0 +1,760 @@
+{
+  "rule": "Actual current model, horizontal orthographic front-left, one attachment assembly, transparent 1024 RGBA; upright parts retain up.",
+  "preserve": [
+    "stock_false",
+    "stock_skeleton",
+    "stock_core_stock",
+    "stock_qr_performance",
+    "stock_tactical_telescopic"
+  ],
+  "renders": [
+    {
+      "key": "optic_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+      "objects": [
+        "SM_M4_RearSight",
+        "M4_M4 Body_Export"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "M4_M4 Body_Export": {
+          "components": [
+            9,
+            15,
+            19,
+            20,
+            23
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "magazine_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+      "objects": [
+        "M4_Magazine Light.003_Export"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "muzzle_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+      "objects": [
+        "M4_Flash Hider Unreal_Export"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "reargrip_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+      "objects": [
+        "M4_Grip Default Unreal_Export"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "barrel_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+      "objects": [
+        "M4_Handguard Kmode Unreal_Export"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "M4_Handguard Kmode Unreal_Export": {
+          "components": [
+            8
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "trigger_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+      "objects": [
+        "M4_Trigger Straight Unreal_Export"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "optic_holographic",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+      "objects": [
+        "M4_holographic"
+      ],
+      "frame": "X",
+      "finish": "M4",
+      "offsets": {}
+    },
+    {
+      "key": "optic_panoramic_red_dot",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+      "objects": [
+        "M4_panoramic_red_dot"
+      ],
+      "frame": "X",
+      "finish": "M4",
+      "offsets": {}
+    },
+    {
+      "key": "optic_prism_scope_2x",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+      "objects": [
+        "M4_prism_scope_2x"
+      ],
+      "frame": "X",
+      "finish": "M4",
+      "offsets": {}
+    },
+    {
+      "key": "optic_lpvo_1_6x",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+      "objects": [
+        "M4_lpvo_1_6x",
+        "M4_lpvo_ring"
+      ],
+      "frame": "X",
+      "finish": "M4",
+      "offsets": {
+        "M4_lpvo_ring": [
+          -0.071,
+          0,
+          0.04
+        ]
+      }
+    },
+    {
+      "key": "underbarrel_prism_handstop",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+      "objects": [
+        "M4_prism"
+      ],
+      "frame": "X",
+      "finish": "M4",
+      "offsets": {}
+    },
+    {
+      "key": "magazine_large_drum",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+      "objects": [
+        "M4_drum"
+      ],
+      "frame": "m4_bind",
+      "finish": "M4"
+    },
+    {
+      "key": "muzzle_true",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\suppressor-editable.blend",
+      "objects": [
+        "SM_M4_suppressor"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "muzzle_brake",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\brake-editable.blend",
+      "objects": [
+        "SM_M4_brake"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "muzzle_titanium_brake",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\titanium_brake-editable.blend",
+      "objects": [
+        "SM_M4_titanium_brake"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "muzzle_tactical_suppressor",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\TacticalSuppressor_FourWeapons_Editable.blend",
+      "objects": [
+        "SM_TacticalSuppressor_M4"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "reargrip_phantom_reargrip",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\M4\\phantom\\Editable.blend",
+      "objects": [
+        "SM_PhantomRearGrip"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "reargrip_balanced_reargrip",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BalancedRearGripM4Seam20260914\\M4_BalancedRearGrip_Seam_Editable.blend",
+      "objects": [
+        "SM_BalancedRearGrip"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "reargrip_stable_antislip_reargrip",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StableAntiSlipRearGrip20260913\\Selected91727\\M4\\StableAntiSlipRearGrip_Editable.blend",
+      "objects": [
+        "SM_StableAntiSlipRearGrip"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "underbarrel_angled_foregrip",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ResonanceGrip20260913\\MeshyIntegration\\M4\\ResonanceGrip_Surface_Editable.blend",
+      "objects": [
+        "SM_ResonanceGrip"
+      ],
+      "frame": "m4_bind"
+    },
+    {
+      "key": "underbarrel_vertical_foregrip",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Compact75\\M4_Vertical_Fitted.blend",
+      "objects": [
+        "VG_Grip"
+      ],
+      "frame": "fit",
+      "fit": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Compact75\\fit_final.json"
+    },
+    {
+      "key": "underbarrel_canted_foregrip",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\M4_Canted_Fitted.blend",
+      "objects": [
+        "CG_GeneratedProfile_Refined"
+      ],
+      "frame": "fit",
+      "fit": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\fit_final.json"
+    },
+    {
+      "key": "tactical_laser",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\M4\\laser\\Editable.blend",
+      "objects": [
+        "SM_TacticalDevice"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "tactical_flashlight",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\HunyuanV3\\M4\\flashlight\\Editable.blend",
+      "objects": [
+        "SM_TacticalDevice"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "underbarrel_false",
+      "source": "state:empty",
+      "objects": [],
+      "frame": "none"
+    },
+    {
+      "key": "ue_akm_optic_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+      "objects": [
+        "AKM_Soviet_Native"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "AKM_Soviet_Native": {
+          "components": [
+            3,
+            5,
+            6
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_akm_reargrip_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+      "objects": [
+        "AKM_Soviet_Native"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "AKM_Soviet_Native": {
+          "material": [
+            "M_AKM_FactoryRearGrip"
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_akm_stock_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+      "objects": [
+        "AKM_Soviet_Native"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "AKM_Soviet_Native": {
+          "material": [
+            "M_AKM_FactoryStock"
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_akm_barrel_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+      "objects": [
+        "AKM_Soviet_Native"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "AKM_Soviet_Native": {
+          "components": [
+            31
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_akm_magazine_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+      "objects": [
+        "AKM_FactoryMagazine_Preview"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_qbz191_optic_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+      "objects": [
+        "SM_QBZ191_RearSight",
+        "QBZ_Sight_FixedMounts"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima",
+      "selectors": {
+        "QBZ_Sight_FixedMounts": {
+          "components": [
+            0,
+            2
+          ]
+        }
+      }
+    },
+    {
+      "key": "ue_qbz191_magazine_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+      "objects": [
+        "QBZ_Magazine"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_qbz191_reargrip_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+      "objects": [
+        "QBZ_PistolGrip"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_qbz191_stock_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+      "objects": [
+        "QBZ_Stock",
+        "QBZ_Part12"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_qbz191_barrel_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+      "objects": [
+        "QBZ_Part19"
+      ],
+      "frame": "rig",
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_qbz191_muzzle_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+      "objects": [
+        "QBZ_Part19"
+      ],
+      "frame": "rig",
+      "selectors": {
+        "QBZ_Part19": {
+          "material": [
+            "M_QBZ191_Flash_Hider"
+          ]
+        }
+      },
+      "rig": "SK_M4_Infima"
+    },
+    {
+      "key": "ue_m1911_optic_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+      "objects": [
+        "M1911_RearSight"
+      ],
+      "frame": "root",
+      "rig": "SK_M1911_Manny"
+    },
+    {
+      "key": "ue_m1911_trigger_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+      "objects": [
+        "M1911_Trigger"
+      ],
+      "frame": "root",
+      "rig": "SK_M1911_Manny"
+    },
+    {
+      "key": "ue_m1911_barrel_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+      "objects": [
+        "M1911_Barrel_Rebuilt",
+        "M1911_ChamberHood",
+        "M1911_Bore_ShadowInsert",
+        "M1911_ChamberRearShadow"
+      ],
+      "frame": "root",
+      "rig": "SK_M1911_Manny"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+      "objects": [
+        "DW715_RearSight"
+      ],
+      "frame": "root",
+      "rig": "SK_DW715_Manny"
+    },
+    {
+      "key": "ue_dan_wesson715_trigger_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+      "objects": [
+        "DW715_DW_Trigger0"
+      ],
+      "frame": "root",
+      "rig": "SK_DW715_Manny"
+    },
+    {
+      "key": "ue_dan_wesson715_barrel_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+      "objects": [
+        "DW715_BarrelShroud",
+        "DW715_Muzzle_128",
+        "DW715_MuzzleInterior"
+      ],
+      "frame": "root",
+      "rig": "SK_DW715_Manny"
+    },
+    {
+      "key": "ue_m1911_muzzle_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+      "objects": [
+        "M1911_MuzzleBushing",
+        "M1911_RecoilPlug"
+      ],
+      "frame": "root",
+      "rig": "SK_M1911_Manny"
+    },
+    {
+      "key": "ue_m1911_optic_holographic",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\M1911_CompactOptics_Editable.blend",
+      "objects": [
+        "M1911_holographic"
+      ],
+      "frame": "X"
+    },
+    {
+      "key": "ue_m1911_optic_panoramic_red_dot",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911SculptedMount20260913\\M1911_SculptedMount_Editable.blend",
+      "objects": [
+        "M1911_panoramic_red_dot"
+      ],
+      "frame": "X"
+    },
+    {
+      "key": "ue_m1911_muzzle_true",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\M1911_CompactOptics_Editable.blend",
+      "objects": [
+        "M1911_suppressor"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "ue_m1911_muzzle_brake",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911MuzzleRedDot20260913\\M1911_brake_Editable.blend",
+      "objects": [
+        "M1911_brake"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "ue_m1911_muzzle_tactical_suppressor",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\TacticalSuppressor_FourWeapons_Editable.blend",
+      "objects": [
+        "SM_TacticalSuppressor_M1911"
+      ],
+      "frame": "Y"
+    },
+    {
+      "key": "ue_m1911_tactical_laser",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\laser\\M1911_Device_Editable.blend",
+      "objects": [
+        "SM_TacticalDevice"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "ue_m1911_tactical_flashlight",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\flashlight\\M1911_Device_Editable.blend",
+      "objects": [
+        "SM_TacticalDevice"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_holographic",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\holographic\\DW715_Attachment_Editable.blend",
+      "objects": [
+        "SM_DW715_holographic"
+      ],
+      "frame": "X"
+    },
+    {
+      "key": "ue_dan_wesson715_optic_panoramic_red_dot",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\panoramic_red_dot\\DW715_Attachment_Editable.blend",
+      "objects": [
+        "SM_DW715_panoramic_red_dot"
+      ],
+      "frame": "X"
+    },
+    {
+      "key": "ue_dan_wesson715_tactical_laser",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\laser\\DW715_Attachment_Editable.blend",
+      "objects": [
+        "SM_TacticalDevice"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "ue_dan_wesson715_tactical_flashlight",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\flashlight\\DW715_Attachment_Editable.blend",
+      "objects": [
+        "SM_TacticalDevice"
+      ],
+      "frame": "-Y"
+    },
+    {
+      "key": "reload_device_dw715_speedloader",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+      "objects": [
+        "DW715_LoaderBody",
+        "DW715_LoaderKnob",
+        "DW715_LoaderSocket_0",
+        "DW715_LoaderSocket_1",
+        "DW715_LoaderSocket_2",
+        "DW715_LoaderSocket_3",
+        "DW715_LoaderSocket_4",
+        "DW715_LoaderSocket_5"
+      ],
+      "frame": "root",
+      "rig": "SK_DW715_Manny"
+    },
+    {
+      "key": "reload_device_false",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715MetalFinish20260914\\DanWesson715_MetalFinish_Editable.blend",
+      "objects": [
+        "DW715_Case_0",
+        "DW715_Projectile_0",
+        "DW715_Primer_0"
+      ],
+      "frame": "root",
+      "rig": "SK_DW715_Manny"
+    }
+  ],
+  "aliases": {
+    "tactical_false": {
+      "target": "underbarrel_false",
+      "reason": "No mounted device; neutral empty-state symbol."
+    },
+    "ue_akm_muzzle_false": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Current AKM has an integral bare barrel muzzle, not an M4 flash hider."
+    },
+    "barrel_short": {
+      "target": "barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "barrel_long": {
+      "target": "barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_akm_barrel_short": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_akm_barrel_long": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_qbz191_barrel_short": {
+      "target": "ue_qbz191_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_qbz191_barrel_long": {
+      "target": "ue_qbz191_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_m1911_barrel_short": {
+      "target": "ue_m1911_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_m1911_barrel_long": {
+      "target": "ue_m1911_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_dan_wesson715_barrel_short": {
+      "target": "ue_dan_wesson715_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "ue_dan_wesson715_barrel_long": {
+      "target": "ue_dan_wesson715_barrel_false",
+      "reason": "Numeric-only barrel tuning; current runtime barrel has no mesh swap."
+    },
+    "trigger_m1911_lightweight_fast": {
+      "target": "ue_m1911_trigger_false",
+      "reason": "Numeric-only trigger tuning; use the actual trigger of this weapon."
+    },
+    "trigger_dw715_lightweight_fast": {
+      "target": "ue_dan_wesson715_trigger_false",
+      "reason": "Numeric-only trigger tuning; use the actual trigger of this weapon."
+    },
+    "category_optic": {
+      "target": "optic_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_muzzle": {
+      "target": "muzzle_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_magazine": {
+      "target": "magazine_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_underbarrel": {
+      "target": "underbarrel_vertical_foregrip",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_barrel": {
+      "target": "barrel_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_reargrip": {
+      "target": "reargrip_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_stock": {
+      "target": "stock_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_trigger": {
+      "target": "ue_m1911_trigger_false",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_tactical": {
+      "target": "tactical_laser",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "category_reload_device": {
+      "target": "reload_device_dw715_speedloader",
+      "reason": "Navigation category representative, one actual part and transparent level side view."
+    },
+    "ue_akm_category_optic": {
+      "target": "ue_akm_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_muzzle": {
+      "target": "ue_akm_muzzle_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_magazine": {
+      "target": "ue_akm_magazine_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_barrel": {
+      "target": "ue_akm_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_reargrip": {
+      "target": "ue_akm_reargrip_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_akm_category_stock": {
+      "target": "ue_akm_stock_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_optic": {
+      "target": "ue_qbz191_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_muzzle": {
+      "target": "ue_qbz191_muzzle_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_magazine": {
+      "target": "ue_qbz191_magazine_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_barrel": {
+      "target": "ue_qbz191_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_reargrip": {
+      "target": "ue_qbz191_reargrip_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_qbz191_category_stock": {
+      "target": "ue_qbz191_stock_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_optic": {
+      "target": "ue_m1911_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_muzzle": {
+      "target": "ue_m1911_muzzle_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_barrel": {
+      "target": "ue_m1911_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_m1911_category_trigger": {
+      "target": "ue_m1911_trigger_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_dan_wesson715_category_optic": {
+      "target": "ue_dan_wesson715_optic_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_dan_wesson715_category_barrel": {
+      "target": "ue_dan_wesson715_barrel_false",
+      "reason": "Weapon-specific factory category representative."
+    },
+    "ue_dan_wesson715_category_trigger": {
+      "target": "ue_dan_wesson715_trigger_false",
+      "reason": "Weapon-specific factory category representative."
+    }
+  },
+  "note": "No gameplay changes or runtime tests. Shared rifle accessory bodies use the actual M4 variant; factory silhouettes and pistol compact adapters use overrides."
+}

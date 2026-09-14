@@ -1,0 +1,32 @@
+{
+  "key": "ue_m1911_muzzle_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+  "objects": [
+    "M1911_MuzzleBushing",
+    "M1911_RecoilPlug"
+  ],
+  "frame": "root",
+  "rig": "SK_M1911_Manny",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.1547529399394989,
+      -0.010331176221370697,
+      0.003719620406627655
+    ],
+    [
+      -0.1461067795753479,
+      0.010331261903047562,
+      0.03884965926408768
+    ]
+  ],
+  "triangles": 1092,
+  "material_note": "Real source materials retained."
+}

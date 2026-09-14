@@ -1,0 +1,30 @@
+{
+  "key": "ue_m1911_optic_panoramic_red_dot",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911SculptedMount20260913\\M1911_SculptedMount_Editable.blend",
+  "objects": [
+    "M1911_panoramic_red_dot"
+  ],
+  "frame": "X",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.01899999938905239,
+      -0.017151206731796265,
+      -0.01301494613289833
+    ],
+    [
+      0.01899999938905239,
+      0.017131660133600235,
+      0.0294455885887146
+    ]
+  ],
+  "triangles": 22602,
+  "material_note": "Real source materials retained."
+}

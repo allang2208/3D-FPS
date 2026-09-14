@@ -1,0 +1,30 @@
+{
+  "key": "ue_m1911_tactical_laser",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911CompactFit20260913\\laser\\M1911_Device_Editable.blend",
+  "objects": [
+    "SM_TacticalDevice"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.12380261719226837,
+      -0.010710815899074078,
+      -0.031829461455345154
+    ],
+    [
+      -0.06399999558925629,
+      0.010710827074944973,
+      0.0028589111752808094
+    ]
+  ],
+  "triangles": 36510,
+  "material_note": "Real source materials retained."
+}

@@ -1,0 +1,30 @@
+{
+  "key": "reargrip_phantom_reargrip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\M4\\phantom\\Editable.blend",
+  "objects": [
+    "SM_PhantomRearGrip"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.027036137878894806,
+      -0.015903515741229057,
+      -0.08270667493343353
+    ],
+    [
+      0.04923439025878906,
+      0.01597987674176693,
+      0.03731204569339752
+    ]
+  ],
+  "triangles": 50784,
+  "material_note": "Real source materials retained."
+}

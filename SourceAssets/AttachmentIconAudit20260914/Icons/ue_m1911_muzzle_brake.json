@@ -1,0 +1,30 @@
+{
+  "key": "ue_m1911_muzzle_brake",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911MuzzleRedDot20260913\\M1911_brake_Editable.blend",
+  "objects": [
+    "M1911_brake"
+  ],
+  "frame": "Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.03400000184774399,
+      -0.011999999172985554,
+      -0.012000000104308128
+    ],
+    [
+      0.006400000769644976,
+      0.012000001035630703,
+      0.012000000104308128
+    ]
+  ],
+  "triangles": 10472,
+  "material_note": "Real source materials retained."
+}

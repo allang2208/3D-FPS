@@ -1,0 +1,31 @@
+{
+  "key": "magazine_large_drum",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+  "objects": [
+    "M4_drum"
+  ],
+  "frame": "m4_bind",
+  "finish": "M4",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.3046863079071045,
+      -0.01284091081470251,
+      -0.24556785821914673
+    ],
+    [
+      -0.22510328888893127,
+      0.11047941446304321,
+      -0.04691186174750328
+    ]
+  ],
+  "triangles": 13908,
+  "material_note": "Real source textures retained. Receiver coating in Blender approximates UE Phong conversion using the same coating source."
+}

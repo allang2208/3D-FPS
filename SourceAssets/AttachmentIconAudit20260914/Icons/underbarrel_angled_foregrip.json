@@ -1,0 +1,30 @@
+{
+  "key": "underbarrel_angled_foregrip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ResonanceGrip20260913\\MeshyIntegration\\M4\\ResonanceGrip_Surface_Editable.blend",
+  "objects": [
+    "SM_ResonanceGrip"
+  ],
+  "frame": "m4_bind",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.49238383769989014,
+      0.021549705415964127,
+      -0.1676778644323349
+    ],
+    [
+      -0.3380212187767029,
+      0.05686817318201065,
+      -0.04439904913306236
+    ]
+  ],
+  "triangles": 112466,
+  "material_note": "Real source materials retained."
+}

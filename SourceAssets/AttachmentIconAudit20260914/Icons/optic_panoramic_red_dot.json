@@ -1,0 +1,32 @@
+{
+  "key": "optic_panoramic_red_dot",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\WeaponAttachmentFinish_Editable.blend",
+  "objects": [
+    "M4_panoramic_red_dot"
+  ],
+  "frame": "X",
+  "finish": "M4",
+  "offsets": {},
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.029500002041459084,
+      -0.02766323648393154,
+      0.0
+    ],
+    [
+      0.029750000685453415,
+      0.027631709352135658,
+      0.04749288409948349
+    ]
+  ],
+  "triangles": 15894,
+  "material_note": "Real source textures retained. Receiver coating in Blender approximates UE Phong conversion using the same coating source."
+}

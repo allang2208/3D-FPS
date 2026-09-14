@@ -117,3 +117,7 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 肉体血雾后续升级还需恢复合法本地包 `Realistic_Starter_VFX_Pack_Vol2` 的 `T_Smoke_Wisp`、`T_Droplets_A`，再运行 [血液材质制作器](../Tools/AssetPipeline/build_flesh_impact_assets.py)，生成 `Impacts/Blood` 中的血雾和血滴两个材质。作者 HLSL 和来源记录在 `SourceAssets/FleshImpacts20260914`，未改源包或新购资产；血液材质仍引用第三方贴图，不作为可独立公开再分发的素材包。初版参数仅作为历史记录，见 [血雾接入记录](Weapons/flesh-impact-blood-20260914.md)。
 
 当前落地血迹使用 `M_FleshStainV2`，还需运行 [落地血迹 V2 制作器](../Tools/AssetPipeline/build_flesh_ground_v2.py)。它沿用同一来源贴图，扩大血迹轮廓并加入共享材质的湿/干变化；最新预算为 192 活动命中粒子、48 独立血迹贴花及原有 24 普通弹痕。恢复说明、历史构建和用户确认以 [V2 记录](Weapons/flesh-impact-ground-v2-20260914.md) 为准。已退役文件及保留的制作依赖见 [本轮整理记录](Weapons/gunplay-publication-20260914.md)。
+
+## 改造配件图标：水平左向与单件机瞄（2026-09-14）
+
+当前图标加载优先使用 `Content/ColdSteelData/AttachmentIcons20260913` 中的武器专属透明 PNG，再回退共享 PNG；分类图也使用同一透明规则。恢复本轮 104 张 PNG 和对应 UE Texture，不能仅恢复旧黑底分类图。5 张已接受枪托 PNG 保留，99 张替换／新增图已在本机导入。实际模型渲染和含第三方资产的可编辑场景保留本机，未核准为可公开再分发素材。精确图标哈希、来源、脚本依赖和制作阶段构建记录见 [配件图标发布与恢复说明](Weapons/attachment-icons-publication-20260914.md)。

@@ -1,0 +1,31 @@
+{
+  "key": "underbarrel_canted_foregrip",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\M4_Canted_Fitted.blend",
+  "objects": [
+    "CG_GeneratedProfile_Refined"
+  ],
+  "frame": "fit",
+  "fit": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\fit_final.json",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.01799999549984932,
+      -0.0692787617444992,
+      -0.08327876776456833
+    ],
+    [
+      0.01799999736249447,
+      0.01649998500943184,
+      2.9103830456733704e-10
+    ]
+  ],
+  "triangles": 26324,
+  "material_note": "Real source materials retained."
+}

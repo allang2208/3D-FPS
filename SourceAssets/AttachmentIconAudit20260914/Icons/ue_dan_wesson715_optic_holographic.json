@@ -1,0 +1,30 @@
+{
+  "key": "ue_dan_wesson715_optic_holographic",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\holographic\\DW715_Attachment_Editable.blend",
+  "objects": [
+    "SM_DW715_holographic"
+  ],
+  "frame": "X",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.0269477516412735,
+      -0.015116745606064796,
+      -0.00901394709944725
+    ],
+    [
+      0.027763603255152702,
+      0.015379060059785843,
+      0.03973802924156189
+    ]
+  ],
+  "triangles": 10296,
+  "material_note": "Real source materials retained."
+}

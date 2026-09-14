@@ -1,0 +1,38 @@
+{
+  "key": "barrel_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+  "objects": [
+    "M4_Handguard Kmode Unreal_Export"
+  ],
+  "frame": "rig",
+  "selectors": {
+    "M4_Handguard Kmode Unreal_Export": {
+      "components": [
+        8
+      ]
+    }
+  },
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.5480923652648926,
+      0.040830474346876144,
+      -0.03910466283559799
+    ],
+    [
+      -0.30967041850090027,
+      0.05690809711813927,
+      -0.02265065908432007
+    ]
+  ],
+  "triangles": 112,
+  "material_note": "Real source materials retained."
+}

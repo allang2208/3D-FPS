@@ -1,0 +1,31 @@
+{
+  "key": "reargrip_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+  "objects": [
+    "M4_Grip Default Unreal_Export"
+  ],
+  "frame": "rig",
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.1710868775844574,
+      0.032976552844047546,
+      -0.18571346998214722
+    ],
+    [
+      -0.08119871467351913,
+      0.06485994905233383,
+      -0.08219478279352188
+    ]
+  ],
+  "triangles": 1076,
+  "material_note": "Real source materials retained."
+}

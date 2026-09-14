@@ -1,0 +1,30 @@
+{
+  "key": "ue_dan_wesson715_optic_panoramic_red_dot",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DanWesson715Attachments20260914\\panoramic_red_dot\\DW715_Attachment_Editable.blend",
+  "objects": [
+    "SM_DW715_panoramic_red_dot"
+  ],
+  "frame": "X",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.01850000023841858,
+      -0.017151208594441414,
+      -0.009013720788061619
+    ],
+    [
+      0.01850000023841858,
+      0.017131658270955086,
+      0.0294455885887146
+    ]
+  ],
+  "triangles": 17510,
+  "material_note": "Real source materials retained."
+}

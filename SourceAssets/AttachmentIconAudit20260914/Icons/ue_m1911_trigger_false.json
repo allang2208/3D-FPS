@@ -1,0 +1,31 @@
+{
+  "key": "ue_m1911_trigger_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M1911RearRain20260913\\M1911_RearFinish_Editable.blend",
+  "objects": [
+    "M1911_Trigger"
+  ],
+  "frame": "root",
+  "rig": "SK_M1911_Manny",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.023118004202842712,
+      -0.004162270575761795,
+      -0.02733253687620163
+    ],
+    [
+      -0.005456164479255676,
+      0.004162289202213287,
+      -0.0009357631206512451
+    ]
+  ],
+  "triangles": 496,
+  "material_note": "Real source materials retained."
+}

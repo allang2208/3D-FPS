@@ -1,0 +1,30 @@
+{
+  "key": "muzzle_true",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Muzzles20260910\\suppressor-editable.blend",
+  "objects": [
+    "SM_M4_suppressor"
+  ],
+  "frame": "Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.1860000044107437,
+      -0.023999998345971107,
+      -0.024000000208616257
+    ],
+    [
+      0.005000001285225153,
+      0.024000009521842003,
+      0.024000000208616257
+    ]
+  ],
+  "triangles": 40512,
+  "material_note": "Real source materials retained."
+}

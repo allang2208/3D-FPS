@@ -1,0 +1,31 @@
+{
+  "key": "ue_akm_magazine_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+  "objects": [
+    "AKM_FactoryMagazine_Preview"
+  ],
+  "frame": "rig",
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.31026941537857056,
+      0.03506985306739807,
+      -0.2845763564109802
+    ],
+    [
+      -0.15814469754695892,
+      0.06116282939910889,
+      -0.09418915957212448
+    ]
+  ],
+  "triangles": 5496,
+  "material_note": "Real source materials retained."
+}

@@ -1,0 +1,30 @@
+{
+  "key": "muzzle_tactical_suppressor",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\TacticalSuppressor_FourWeapons_Editable.blend",
+  "objects": [
+    "SM_TacticalSuppressor_M4"
+  ],
+  "frame": "Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.18686580657958984,
+      -0.018070178106427193,
+      -0.017738664522767067
+    ],
+    [
+      0.00400000112131238,
+      0.017971225082874298,
+      0.01769760251045227
+    ]
+  ],
+  "triangles": 65343,
+  "material_note": "Real source materials retained."
+}

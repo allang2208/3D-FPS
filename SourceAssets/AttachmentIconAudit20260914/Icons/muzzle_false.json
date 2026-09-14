@@ -1,0 +1,31 @@
+{
+  "key": "muzzle_false",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+  "objects": [
+    "M4_Flash Hider Unreal_Export"
+  ],
+  "frame": "rig",
+  "rig": "SK_M4_Infima",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.59233158826828,
+      0.03957955166697502,
+      -0.039682626724243164
+    ],
+    [
+      -0.5453987717628479,
+      0.05787097290158272,
+      -0.021113509312272072
+    ]
+  ],
+  "triangles": 948,
+  "material_note": "Real source materials retained."
+}

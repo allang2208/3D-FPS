@@ -1,0 +1,30 @@
+{
+  "key": "ue_m1911_muzzle_tactical_suppressor",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\TacticalSuppressor_FourWeapons_Editable.blend",
+  "objects": [
+    "SM_TacticalSuppressor_M1911"
+  ],
+  "frame": "Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.1308060586452484,
+      -0.012649125419557095,
+      -0.012417065910995007
+    ],
+    [
+      0.012400001287460327,
+      0.012579858303070068,
+      0.012388322502374649
+    ]
+  ],
+  "triangles": 65343,
+  "material_note": "Real source materials retained."
+}

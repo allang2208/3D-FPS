@@ -1,0 +1,30 @@
+{
+  "key": "tactical_flashlight",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\HunyuanV3\\M4\\flashlight\\Editable.blend",
+  "objects": [
+    "SM_TacticalDevice"
+  ],
+  "frame": "-Y",
+  "front": "left (-X)",
+  "up": "+Z",
+  "projection": "orthographic horizontal side, camera looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "source_bounds": [
+    [
+      -0.38002610206604004,
+      -0.06595810502767563,
+      0.05883064121007919
+    ],
+    [
+      -0.2599860727787018,
+      -0.010162717662751675,
+      0.0972316563129425
+    ]
+  ],
+  "triangles": 35360,
+  "material_note": "Real source materials retained."
+}
