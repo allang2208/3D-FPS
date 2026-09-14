@@ -12,6 +12,16 @@
 #include "Animation/AnimData/IAnimationDataController.h"
 #endif
 UMonsterCombatComponent::UMonsterCombatComponent(){PrimaryComponentTick.bCanEverTick=true;}
+bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
+{
+ if(const auto* N=Cast<ANurseZombie>(GetOwner()))
+ {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
+ if(const auto* H=Cast<AHandBrainMonster>(GetOwner()))
+ {Health=H->Health;MaxHealth=H->MaxHealth;Name=FText::FromString(TEXT("手脑"));return true;}
+ if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner()))
+ {Health=M->Health;MaxHealth=M->MaxHealth;Name=FText::FromString(TEXT("毒蛆"));return true;}
+ return false;
+}
 bool UMonsterCombatComponent::IsDead() const
 {
  if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->State==ENurseState::Dead;
@@ -87,7 +97,8 @@ void UMonsterCombatComponent::BeginReaction(float Duration)
  if(auto* C=Cast<ACharacter>(GetOwner()))
  {
   if(auto* AI=Cast<AMonsterAIController>(C->GetController())){AI->StopMovement();AI->UpdateKnowledge();}
-  if(HitClip){C->GetMesh()->PlayAnimation(HitClip,false);C->GetMesh()->SetPlayRate(0);C->GetMesh()->SetPosition(0,false);}
+  if(auto* N=Cast<ANurseZombie>(C))N->StartHitPresentation(HitClip,Duration);
+  else if(HitClip){C->GetMesh()->PlayAnimation(HitClip,false);C->GetMesh()->SetPlayRate(0);C->GetMesh()->SetPosition(0,false);}
   else {C->GetMesh()->SetPlayRate(0);UE_LOG(LogTemp,Warning,TEXT("MONSTER_HIT_CLIP_MISSING %s"),*GetOwner()->GetName());}
  }
  UE_LOG(LogTemp,Display,TEXT("MONSTER_REACTION %s duration=%.3f stun=%d"),*GetOwner()->GetName(),Duration,bStunned);
@@ -108,7 +119,8 @@ void UMonsterCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorCompo
  {
   ReactionTime+=Dt;
   // Fast recoil, a held recoil pose during long stun, then recovery.
-  if(HitClip)if(auto* C=Cast<ACharacter>(GetOwner()))
+  if(auto* N=Cast<ANurseZombie>(GetOwner()))N->SetHitPresentationTime(HitClip,ReactionTime,ReactionDuration-ReactionTime);
+  else if(HitClip)if(auto* C=Cast<ACharacter>(GetOwner()))
   {
    const float Remaining=ReactionDuration-ReactionTime;
    const float T=ReactionTime<.15f?ReactionTime:(Remaining>.4f?.15f:HitClip->GetPlayLength()-FMath::Max(0.f,Remaining));

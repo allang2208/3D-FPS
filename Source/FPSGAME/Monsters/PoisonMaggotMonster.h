@@ -44,7 +44,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Spit") float ProjectileRange=600;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Spit") float FanDegrees=45;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Spit") float PoisonChance=.33f;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death") float CorpseSeconds=20;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death") float CorpseSeconds=15;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death") float RagdollStartSeconds=1.65f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") EPoisonMaggotState State=EPoisonMaggotState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float Health=800;

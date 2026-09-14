@@ -21,6 +21,7 @@ public:
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction") int32 HitReactions=0;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Reaction") bool bStunned=false;
  bool IsDead() const;
+ bool GetVitals(float& Health,float& MaxHealth,FText& Name) const;
  bool IsBusy() const;
  bool IsControlled() const;
  bool CanAttack(APawn* Target) const;

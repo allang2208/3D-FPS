@@ -1,0 +1,22 @@
+{
+  "A_FatZombie_Raw_Idle": {
+    "asset": "/Game/Monsters/FatZombieMeshy/RetargetedRaw/A_FatZombie_Raw_Idle.A_FatZombie_Raw_Idle",
+    "seconds": 1.3333333730697632,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\native_retarget\\A_FatZombie_Raw_Idle.fbx"
+  },
+  "A_FatZombie_Raw_Walk": {
+    "asset": "/Game/Monsters/FatZombieMeshy/RetargetedRaw/A_FatZombie_Raw_Walk.A_FatZombie_Raw_Walk",
+    "seconds": 1.3333333730697632,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\native_retarget\\A_FatZombie_Raw_Walk.fbx"
+  },
+  "A_FatZombie_Raw_Attack": {
+    "asset": "/Game/Monsters/FatZombieMeshy/RetargetedRaw/A_FatZombie_Raw_Attack.A_FatZombie_Raw_Attack",
+    "seconds": 1.7916666269302368,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\native_retarget\\A_FatZombie_Raw_Attack.fbx"
+  },
+  "A_FatZombie_Raw_Death": {
+    "asset": "/Game/Monsters/FatZombieMeshy/RetargetedRaw/A_FatZombie_Raw_Death.A_FatZombie_Raw_Death",
+    "seconds": 2.1666667461395264,
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\native_retarget\\A_FatZombie_Raw_Death.fbx"
+  }
+}

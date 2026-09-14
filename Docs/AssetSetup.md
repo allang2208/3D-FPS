@@ -1,5 +1,14 @@
 # 恢复完整 UE5 内容
 
+## Meshy 胖子僵尸（2026-09-14）
+
+恢复 `Content/Monsters/FatZombieMeshy` 的网格、Skeleton、物理资产、四段 Animations、Materials/Textures、Pus；动作重建还需 Sources/Rig/RetargetedRaw。主场景保留 `Content/GameMaps/DayNight_Lighting.umap` 与 `Geometry/SM_MainGround_Subdivided`，以及适合怪物胶囊尺寸的导航。脓液素材依赖 WaterMaterials 的河流法线、泡沫及 RuralAustralia 的浑水遮罩，继续按原素材来源恢复。
+
+作者源为 `SourceAssets/FatZombieMeshy20260913`：用户 Meshy ZIP/解包模型、原蒙皮 Blend、成品 Blend/FBX、prepared、native_retarget、四张 PBR 和当前 UEAuthoring。制作顺序与来源见 [作者说明](../SourceAssets/FatZombieMeshy20260913/README.md)，运行和归档边界见 [本次整理](fat-zombie-workflow-publication-20260914.md)。Mesh2Motion 动画的 CC0 许可不覆盖 Meshy 模型或水体资产；本次只发布源码、制作脚本和必要文字记录，不公开上述二进制。
+
+命中反馈的可选音效路径为 `Content/Audio/PlayerHitFeedback20260914/S_Player_MonsterHit`；缺少音效不影响真实生命条、命中和击杀文字。完整本机 F6 开发面板还包含并行的基本调参页，本次怪物核心源码未将整个控制器/UI 并行改动一并发布。
+
+
 源码来自 2026-09-10 的本机 `D:/FPS3D/FPSGAME`。此次换引擎整理保留完整模块与配置，未公开整套本地 Content 和二进制作者源。许可证及图片 provenance 只说明已有记录，不自动授予原始文件公开分发权。
 
 ## 本机继续开发

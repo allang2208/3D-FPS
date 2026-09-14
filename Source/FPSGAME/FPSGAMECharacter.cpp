@@ -144,6 +144,7 @@ void AFPSGAMECharacter::BeginPlay()
         return;
     }
     CameraRestLocation = FirstPersonCamera->GetRelativeLocation();
+    ConfirmedMonsterHitSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/PlayerHitFeedback20260914/S_Player_MonsterHit.S_Player_MonsterHit"));
     FirstPersonCamera->SetFieldOfView(VerticalToHorizontalFOV(BaseVerticalFieldOfView));
     SavedGroundFriction = GetCharacterMovement()->GroundFriction;
     SavedBrakingDeceleration = GetCharacterMovement()->BrakingDecelerationWalking;
@@ -1593,20 +1594,4 @@ FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
         ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread,Up,true))return FVector2D::ZeroVector;
     return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
         FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
-}
-
-
-void AFPSGAMECharacter::NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage)
-{
-    if (Target != this && Cast<APawn>(Target) && AppliedDamage > 0.f && GetWorld())
-        LastConfirmedWeaponHitTime = GetWorld()->GetTimeSeconds();
-}
-
-
-float AFPSGAMECharacter::GetHitMarkerOpacity() const
-{
-    if (!GetWorld()) return 0.f;
-    const double Age = GetWorld()->GetTimeSeconds() - LastConfirmedWeaponHitTime;
-    // Hold for 60 ms, then fade over 180 ms. Repeated hits refresh the same marker.
-    return .65f * FMath::Clamp(static_cast<float>((.24 - Age) / .18), 0.f, 1.f);
 }

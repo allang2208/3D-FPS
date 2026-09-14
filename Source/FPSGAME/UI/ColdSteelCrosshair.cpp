@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelUIStyle.h"
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/PlayerController.h"
 #include "Rendering/DrawElements.h"
@@ -10,11 +11,37 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
 {
     const auto* PC=GetOwningPlayer();
     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
-    const int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
-    if(!Character||!Character->HasInventoryWeapon()||Character->IsTraversing()
-        ||bInventoryOpen||bWarehouseOpen||PC->bShowMouseCursor)return Result;
+    int32 Result=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
+    if(!Character||bInventoryOpen||bWarehouseOpen||PC->bShowMouseCursor)return Result;
     const FVector2D Center=Geometry.GetLocalSize()*.5;
     const float Scale=Geometry.GetLocalSize().Y/1080.f;
+    FMonsterHitFeedback Feedback;
+    const bool bHasFeedback=Character->GetMonsterHitFeedback(Feedback);
+    if(bHasFeedback)
+    {
+        const float S=1.f/ColdSteelUI::PixelScale(this);
+        const FVector2D View=Geometry.GetLocalSize();
+        const float Width=FMath::Min(280.f*S,View.X-24.f*S),Height=64.f*S;
+        const FVector2D At((View.X-Width)*.5f,FMath::Clamp(Center.Y+52.f*S,12.f*S,FMath::Max(12.f*S,View.Y-Height-12.f*S)));
+        const FSlateBrush* Brush=FCoreStyle::Get().GetBrush(TEXT("WhiteBrush"));
+        auto Tint=[&](FLinearColor Color){Color.A*=Feedback.Opacity;return Color;};
+        auto Box=[&](FVector2D Offset,FVector2D Size,FLinearColor Color){
+            FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(Size,FSlateLayoutTransform(At+Offset)),Brush,ESlateDrawEffect::None,Tint(Color));
+        };
+        auto Text=[&](const FString& Value,FVector2D Offset,const FSlateFontInfo& Font,FLinearColor Color){
+            FSlateDrawElement::MakeText(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(Width,22.f*S),FSlateLayoutTransform(At+Offset)),Value,Font,ESlateDrawEffect::None,Tint(Color));
+        };
+        Box(FVector2D::ZeroVector,FVector2D(Width,Height),ColdSteelUI::Content);
+        const FLinearColor HitColor=Feedback.bKilled?ColdSteelUI::Success:ColdSteelUI::Danger;
+        Text(Feedback.Name.ToString()+(Feedback.bKilled?TEXT(" · 击杀"):TEXT("")),FVector2D(10,6)*S,ColdSteelUI::TextFont(14.f*.75f*S,true),Feedback.bKilled?HitColor:ColdSteelUI::TextPrimary);
+        Text(FString::Printf(TEXT("-%.1f"),Feedback.Damage),FVector2D(Width-82.f*S,6.f*S),ColdSteelUI::NumberFont(14.f*.75f*S,true),HitColor);
+        Box(FVector2D(10,31)*S,FVector2D(Width-20.f*S,5.f*S),ColdSteelUI::ButtonNormal);
+        const float Ratio=FMath::Clamp(Feedback.Health/FMath::Max(1.f,Feedback.MaxHealth),0.f,1.f);
+        if(Ratio>0.f)Box(FVector2D(10,31)*S,FVector2D((Width-20.f*S)*Ratio,5.f*S),ColdSteelUI::Danger);
+        Text(TEXT("生命"),FVector2D(10,42)*S,ColdSteelUI::TextFont(12.f*.75f*S),ColdSteelUI::TextSecondary);
+        Text(FString::Printf(TEXT("%.1f / %.0f"),Feedback.Health,Feedback.MaxHealth),FVector2D(55,42)*S,ColdSteelUI::NumberFont(12.f*.75f*S),ColdSteelUI::TextPrimary);
+        Result+=2;
+    }
     const float HitAlpha=Character->GetHitMarkerOpacity();
     if(HitAlpha>0.f)
     {
@@ -24,9 +51,11 @@ int32 UColdSteelHUDWidget::NativePaint(const FPaintArgs& Args,const FGeometry& G
             Points.Add(Center+FVector2D(X*10.f,Y*10.f)*Scale);
             Points.Add(Center+FVector2D(X*20.f,Y*20.f)*Scale);
             FSlateDrawElement::MakeLines(Elements,Result+2,Geometry.ToPaintGeometry(),Points,
-                ESlateDrawEffect::None,FLinearColor(1,1,1,HitAlpha),true,2.f*Scale);
+                ESlateDrawEffect::None,bHasFeedback&&Feedback.bKilled?ColdSteelUI::Success.CopyWithNewOpacity(HitAlpha):FLinearColor(1,1,1,HitAlpha),true,2.f*Scale);
         }
     }
+    // Delayed projectiles and magic can confirm a hit after the weapon is put away.
+    if(!Character->HasInventoryWeapon()||Character->IsTraversing())return Result+2;
     if(Character&&Character->HasInventoryWeapon()&&Character->IsAiming()&&Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
         const FVector2D Size=Geometry.GetLocalSize();
         FSlateDrawElement::MakeBox(Elements,Result+1,Geometry.ToPaintGeometry(FVector2D(150,24),FSlateLayoutTransform(FVector2D(Size.X*.5f-75,Size.Y*.87f-3))),FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")),ESlateDrawEffect::None,FLinearColor(0,0,0,.65f));

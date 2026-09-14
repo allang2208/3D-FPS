@@ -13,7 +13,7 @@ class FPSGAME_API ANurseZombie : public ACharacter
 {
     GENERATED_BODY()
 public:
-    ANurseZombie();
+    ANurseZombie(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     friend class UMonsterCombatComponent;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
     virtual void OnConstruction(const FTransform& Transform) override;
@@ -34,7 +34,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float ContactEnd = 1.7f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float RecoveryTime = .8f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float WalkSpeed = 90.f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float CorpseSeconds = 12.f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float CorpseSeconds = 15.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 120.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") ENurseState State = ENurseState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") int32 SuccessfulHits = 0;
@@ -45,6 +45,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Nurse|Placement", meta=(WorldContext="WorldContextObject"))
     static bool FindTestSpawn(UObject* WorldContextObject, FVector Origin, FRotator Facing, float PreferredDistance, float Side, FVector& Location);
 protected:
+    virtual void StartDeathPresentation();
+    virtual void StartHitPresentation(UAnimSequence* Clip, float Duration);
+    virtual void SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining);
     virtual void StartStateAnimation(UAnimSequence* Clip,bool bLoop);
     virtual void SetAttackAnimationTime(float Seconds);
     virtual void SetWalkAnimationRate(float Rate);

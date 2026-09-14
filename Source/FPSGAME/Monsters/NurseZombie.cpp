@@ -15,12 +15,14 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
+#include "Engine/DamageEvents.h"
 #include "Engine/Engine.h"
 #include "EngineUtils.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 
-ANurseZombie::ANurseZombie()
+ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer)
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
@@ -64,7 +66,7 @@ void ANurseZombie::BeginPlay()
         return;
     }
     SetState(ENurseState::Idle);
-    UE_LOG(LogTemp, Display, TEXT("NURSE_READY %s location=%s attack=%.3f"), *GetName(), *GetActorLocation().ToString(), AttackClip->GetPlayLength());
+    UE_LOG(LogTemp, Display, TEXT("NURSE_READY %s location=%s attack=%.3f health=%.1f/%.1f damage=%.1f"), *GetName(), *GetActorLocation().ToString(), AttackClip->GetPlayLength(), Health, MaxHealth, AttackDamage);
 }
 
 void ANurseZombie::SetState(ENurseState NewState)
@@ -87,6 +89,28 @@ void ANurseZombie::StartStateAnimation(UAnimSequence* Clip,bool bLoop)
 }
 void ANurseZombie::SetAttackAnimationTime(float Seconds) { GetMesh()->SetPosition(Seconds,false); }
 void ANurseZombie::SetWalkAnimationRate(float Rate) { GetMesh()->SetPlayRate(Rate); }
+
+void ANurseZombie::StartHitPresentation(UAnimSequence* Clip, float Duration)
+{
+    if (Clip)
+    {
+        GetMesh()->PlayAnimation(Clip, false);
+        GetMesh()->SetPlayRate(0);
+        GetMesh()->SetPosition(0, false);
+    }
+    else
+    {
+        GetMesh()->SetPlayRate(0);
+        UE_LOG(LogTemp, Warning, TEXT("MONSTER_HIT_CLIP_MISSING %s"), *GetName());
+    }
+}
+
+void ANurseZombie::SetHitPresentationTime(UAnimSequence* Clip, float Elapsed, float Remaining)
+{
+    if (!Clip) return;
+    const float Time = Elapsed < .15f ? Elapsed : (Remaining > .4f ? .15f : Clip->GetPlayLength() - FMath::Max(0.f, Remaining));
+    GetMesh()->SetPosition(FMath::Clamp(Time, 0.f, Clip->GetPlayLength()), false);
+}
 
 bool ANurseZombie::CanSee(const AActor* Actor) const
 {
@@ -148,8 +172,9 @@ void ANurseZombie::InterruptAttack(float Seconds)
 float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer)
 {
     if (!HasAuthority() || State == ENurseState::Dead || Damage <= 0.f) return 0.f;
-    const float Applied = FMath::Min(Health,Damage);
-    Health -= Applied;
+    const float Before = Health;
+    Health = FMath::Max(0.f, Health - Damage);
+    const float Applied = Before - Health;
     Super::TakeDamage(Applied,Event,EventInstigator,Causer);
     if (Health > 0.f) Combat->ReceiveHit(Applied,EventInstigator?EventInstigator->GetPawn().Get():Cast<APawn>(Causer));
     else
@@ -160,18 +185,27 @@ float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AControl
         Target.Reset();
         GetCharacterMovement()->DisableMovement();
         GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
-        GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
-        GetMesh()->SetSimulatePhysics(true);
-        GetMesh()->WakeAllRigidBodies();
-        GetMesh()->AddImpulse(-GetActorForwardVector()*110.f,TEXT("pelvis"),true);
+        StartDeathPresentation();
         SetLifeSpan(CorpseSeconds);
         UE_LOG(LogTemp, Display, TEXT("NURSE_KILLED %s"),*GetName());
         if(auto* PlayerController=Cast<APlayerController>(EventInstigator))
             if(PlayerController->IsLocalController()&&GetGameInstance())
                 GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
     }
+    const FName Bone = Event.IsOfType(FPointDamageEvent::ClassID)
+        ? static_cast<const FPointDamageEvent&>(Event).HitInfo.BoneName : NAME_None;
+    UE_LOG(LogTemp, Display, TEXT("MONSTER_DAMAGE target=%s requested=%.2f applied=%.2f health=%.2f->%.2f/%.2f dead=%d bone=%s causer=%s"),
+        *GetName(), Damage, Applied, Before, Health, MaxHealth, State == ENurseState::Dead, *Bone.ToString(), *GetNameSafe(Causer));
     return Applied;
+}
+
+void ANurseZombie::StartDeathPresentation()
+{
+    GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
+    GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
+    GetMesh()->SetSimulatePhysics(true);
+    GetMesh()->WakeAllRigidBodies();
+    GetMesh()->AddImpulse(-GetActorForwardVector()*110.f,TEXT("pelvis"),true);
 }
 
 bool ANurseZombie::PrepareInPlaceAnimation(UAnimSequence* Clip)

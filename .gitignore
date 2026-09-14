@@ -97,3 +97,14 @@ __pycache__/
 /SourceAssets/RuneSword20260913/**/*.dll
 /SourceAssets/RuneSword20260913/**/*.pdb
 /SourceAssets/RuneSword20260913/**/*.exe
+
+# Meshy fat zombie: keep original models, dense rig data and UE authoring state local.
+/SourceAssets/FatZombieMeshy20260913/.python-deps/
+/SourceAssets/FatZombieMeshy20260913/UEAuthoring/
+/SourceAssets/FatZombieMeshy20260913/WorkProject/
+/SourceAssets/FatZombieMeshy20260913/repair_20260914/
+/SourceAssets/FatZombieMeshy20260913/authoring_inputs.json
+/SourceAssets/FatZombieMeshy20260913/retarget_authoring_input.json
+/SourceAssets/FatZombieMeshy20260913/damage_collision_rig.json
+/SourceAssets/FatZombieMeshy20260913/damage_collision_shapes.json
+/SourceAssets/FatZombieMeshy20260913/**/*.gif

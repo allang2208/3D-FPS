@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Weapons/WeaponHandling.h"
+#include "Monsters/MonsterHitFeedback.h"
 #include "FPSGAMECharacter.generated.h"
 
 class UCameraComponent;
@@ -45,6 +46,7 @@ public:
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage);
     float GetHitMarkerOpacity() const;
+    bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
     void SuspendWeaponForMenu(){FireReleased();AimReleased();}
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
@@ -131,6 +133,8 @@ protected:
     float HipSpreadMultiplier=1.f;
     int32 ADSHorizontalRecoilIndex=0;
     double LastConfirmedWeaponHitTime=-1000.0;
+    UPROPERTY(Transient) TObjectPtr<USoundBase> ConfirmedMonsterHitSound;
+    FMonsterHitFeedback LastMonsterHit;
     void RunBallisticPresentationAudit();
     void RunMuzzleMigrationAudit();
     FWeaponHandling WeaponHandling;

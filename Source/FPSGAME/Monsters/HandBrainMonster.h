@@ -47,7 +47,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlRadius=600.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlCooldown=30.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float RagdollStartSeconds=1.15f;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float CorpseSeconds=20.f;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float CorpseSeconds=15.f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float Health=1500.f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") EHandBrainState State=EHandBrainState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") int32 SlamHits=0;

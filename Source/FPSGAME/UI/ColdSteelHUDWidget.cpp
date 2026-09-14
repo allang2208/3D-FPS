@@ -143,6 +143,7 @@ void UColdSteelHUDWidget::NativeOnInitialized()
 void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
+    if (const auto Widget=GetCachedWidget()) Widget->Invalidate(EInvalidateWidgetReason::Paint);
     UpdateTopHUDLayout(MyGeometry);
     UpdateInventoryLayout(MyGeometry);
     TickWarehouse(MyGeometry,InDeltaTime);

@@ -1,0 +1,31 @@
+{
+  "animation_repository": "Mesh2Motion/mesh2motion-app",
+  "commit": "2d3d1ff03247d9e7e830d1ae375653da4e2146e2",
+  "animation_license": "CC0-1.0",
+  "downloads": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\sources\\human-base-animations.glb",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/static/animations/human-base-animations.glb",
+      "sha256": "406eb0a8dc4ab366e623b79b6e3005a4951392e1bda78ae39c1099d31147733c"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\sources\\human-addon-animations.glb",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/static/animations/human-addon-animations.glb",
+      "sha256": "a0d64d555e0d492026b72d58bf8e16c5e86779295f9093e376dcc001915c2c95"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\sources\\LICENSE-CC0.MD",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/LICENSE-CC0.MD",
+      "sha256": "52fec1c484df708c16b4c27b2bf0d7f0d3994105c57adc4b9e6f95bcfd9de65f"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\sources\\README.md",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/README.md",
+      "sha256": "ce4a2c0cbb3227fadd43de2c4d63226507da0a6241646fb2ef966309300867b5"
+    }
+  ],
+  "user_model": "D:\\FPS3D\\资产\\Meshy_AI_Mutant_Zombie_Charact_biped.zip",
+  "user_model_sha256": "2833f0749160efdf269b71e6c866a41eff2ca9fd6b6e6815fe84513fdf32c132",
+  "user_model_license": "User-provided Meshy creation; separate from CC0 animations",
+  "scope": "Asset authoring, retargeting and UE import only; no runtime testing"
+}

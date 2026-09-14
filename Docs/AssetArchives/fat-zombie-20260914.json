@@ -1,0 +1,386 @@
+{
+  "date": "2026-09-14",
+  "scope": "Meshy fat zombie superseded outputs and local recovery backups only",
+  "archive_root": "trash/fat-zombie-workflow-20260914",
+  "restore_note": "Restore individual files after comparing current assets; never overwrite the current whole map from a historical backup",
+  "files": [
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/FatZombieAuthoring.uproject",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/FatZombieAuthoring.uproject",
+      "bytes": 307,
+      "sha256": "592a62dc78fb9bbeb7f0ff0fda1a6e8d001e253c9d9b88b306c75734826e61d7",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Config/DefaultEngine.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Config/DefaultEngine.ini",
+      "bytes": 386,
+      "sha256": "2ef5e6e010a89076fd20dcc04606f212fe8e9f9e156dcd38dab46ca49bb219fe",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/Build/XmlConfigCache.bin",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/Build/XmlConfigCache.bin",
+      "bytes": 310,
+      "sha256": "ca7096839e4fbc15097034c20290ae72b5aeea2dd0b27097aee74c05ac8d42fb",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/extra_urls.txt",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/extra_urls.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/merged_requirements.in",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/merged_requirements.in",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/pyreqs_plugins.list",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/pyreqs_plugins.list",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/PipInstall/Lib/site-packages/plugin_site_package.pth",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/ShaderAutogen/PCD3D_SM5/AutogenShaderHeaders.ush",
+      "bytes": 18555,
+      "sha256": "fb2d41c40228977ba82276b097ecdd2e64019f2fac24467a8ab0ae0f68b72f53",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Intermediate/ShaderAutogen/PCD3D_SM6/AutogenShaderHeaders.ush",
+      "bytes": 18654,
+      "sha256": "bb2be5496ae74e3993568da581baa92e33bd4538bde729859f99ce7966bab2c9",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-595CD9014537C98CFE8CAE91FEF9B121/CrashReportClient.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-595CD9014537C98CFE8CAE91FEF9B121/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-A677FF98478E84F1876E8EAFE2DCAB9C/CrashReportClient.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-A677FF98478E84F1876E8EAFE2DCAB9C/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-AD2957CD4638751EE60D7EA7C7E09771/CrashReportClient.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-AD2957CD4638751EE60D7EA7C7E09771/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-D67606CA4371E932144D5398EEB0E50A/CrashReportClient.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-D67606CA4371E932144D5398EEB0E50A/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-DB3E6BBD41EB758C6C6B478607695CB5/CrashReportClient.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/CrashReportClient/UECC-Windows-DB3E6BBD41EB758C6C6B478607695CB5/CrashReportClient.ini",
+      "bytes": 239,
+      "sha256": "ce69d7e7bbd1a64729bd4d5724f3c1efc47c6c3d555da9d2c6ad741eddc3d893",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/WindowsEditor/Editor.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/WindowsEditor/Editor.ini",
+      "bytes": 95,
+      "sha256": "0f6e5f6ee35d1d08016aa73927d665b380165b85189cb086957465d6a40923c6",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini",
+      "bytes": 68273,
+      "sha256": "fcabfd6cbb66f13ab920bd50677a2723bd3a8e0d1e19ab60db71a998d58f7bbc",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.00.50.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.00.50.json",
+      "bytes": 12551,
+      "sha256": "3728a248fb762bca33ed545af614316b8d1da10a1c1dc1559d25067350b0d299",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.00.50.txt",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.00.50.txt",
+      "bytes": 4134,
+      "sha256": "4d33be138d41de31c41816b05c110adb65326fb3347c37622ca7b1c369eecca8",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.01.44.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.01.44.json",
+      "bytes": 12551,
+      "sha256": "1b09bd44c960ba1fc211da9ec09513687fc08e376adef14efb21ff3581bdde18",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.01.44.txt",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.01.44.txt",
+      "bytes": 4134,
+      "sha256": "f6acd245ae04b567a88444bd08133184c90f5fb5dbb6f88abcbf8e66995edef9",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.02.29.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.02.29.json",
+      "bytes": 12551,
+      "sha256": "ab6652a766447b90b947fc891bbf5015f314f40cbe8cd2d7c4f168cb6e8c374f",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.02.29.txt",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.02.29.txt",
+      "bytes": 4134,
+      "sha256": "ad07304684dca5353165747129f4264cb295611f6980205ebdcfbf6536d8b710",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.04.55.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.04.55.json",
+      "bytes": 12551,
+      "sha256": "4d5edb575aaea072718ef7e02c70d5a4e1fd5ee2b8af1e633632838f168f58cd",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.04.55.txt",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo-backup-2026.09.13-16.04.55.txt",
+      "bytes": 4134,
+      "sha256": "cc41f1f90829488532289a505ab0fef477134bba8c90f9cf94980130d9151d2d",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo.json",
+      "bytes": 12551,
+      "sha256": "3e72c37abe8ad7e91eb749b55b3e9a3e3572a732565e065a561895313d308e5a",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo.txt",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/Logs/AutoSDKInfo.txt",
+      "bytes": 4134,
+      "sha256": "ad35c18aedab9e5cb625550a3121de50e98d037b5c3efcccda13c89c4aeb3cb9",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/SourceControl/UncontrolledChangelists.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/SourceControl/UncontrolledChangelists.json",
+      "bytes": 5858,
+      "sha256": "7249c7753e7126f952d4922d302cda01f4923560eeca64c08119c93ab07e7819",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/UnrealBuildTool/BuildConfiguration.xml",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/WorkProject/Saved/UnrealBuildTool/BuildConfiguration.xml",
+      "bytes": 132,
+      "sha256": "1e7cd8512dedf37d7b103c5592f5600433e7fe97da23434e69990f8a3370508a",
+      "reason": "Retired authoring host; current UEAuthoring retains the production input and output chain"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Attack.fbx",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Attack.fbx",
+      "bytes": 1615804,
+      "sha256": "e17b3609b261886be5c1a5b0ba44be28e2b179b46e91928c26afd45f009337cc",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Attack.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Attack.uasset",
+      "bytes": 619472,
+      "sha256": "ea4be822f3a004c2555783f9e251d54cb8d53253ac30dc96c48b9c6491558614",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Death.fbx",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Death.fbx",
+      "bytes": 1707084,
+      "sha256": "4d87c396cef3eb91d655adb93dac10f51e669bf6140bf9aad63b517d30b9f26f",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Death.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Death.uasset",
+      "bytes": 743203,
+      "sha256": "f634cb9c15fdd5b5abe3eee745b09ec47f4660a02c46cc3dcb4914ba2b371703",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Idle.fbx",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Idle.fbx",
+      "bytes": 1489612,
+      "sha256": "7f05d222ce871cf8140a3c93cef0f162d4b19d603ea1fed63e66c88e6ccffd5e",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Idle.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Idle.uasset",
+      "bytes": 411752,
+      "sha256": "2d1d9a72f153cb66c3a84938d2829e283a4e2da26fd52fbb64cb9e40c4f6bf1c",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Walk.fbx",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Walk.fbx",
+      "bytes": 1508940,
+      "sha256": "445391dbeef5d487fa70c8e7393e114b59af1ea07a3055b466146e5b88371270",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Walk.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/A_FatZombie_Walk.uasset",
+      "bytes": 472136,
+      "sha256": "cd3b5cf59a5be7531f1a521648ac8875abde391b26ff5f4bdca445da5bb04b19",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/FatZombie_Meshy_Animated.blend",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/FatZombie_Meshy_Animated.blend",
+      "bytes": 57943159,
+      "sha256": "a00b09193bf939bd5a92dd75a70980edd420e8950fd0797cc2bc27acc12420df",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/fit_body_animation.py",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/fit_body_animation.py",
+      "bytes": 10826,
+      "sha256": "1e3f15a6ddeccaff7879ed754ab0a1e95289e5e1abc3cefbeadb8c7fab84cac6",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/repair_20260914/before/manifest.json",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/repair_20260914/before/manifest.json",
+      "bytes": 3267,
+      "sha256": "fbae967492b1e0c6b61d02eabf872f11eb4aa13bcea60d6bfe6247158826f652",
+      "reason": "Superseded animation with repeated 100x translation conversion; repaired final animations are active"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/FatZombie_Meshy_Animated.blend1",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/FatZombie_Meshy_Animated.blend1",
+      "bytes": 57943159,
+      "sha256": "a00b09193bf939bd5a92dd75a70980edd420e8950fd0797cc2bc27acc12420df",
+      "reason": "Previous Blender autosave; current editable .blend retained"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/FatZombie_Meshy_Source.blend1",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/FatZombie_Meshy_Source.blend1",
+      "bytes": 28165772,
+      "sha256": "9cc8f1c0204e490f9d3b71c1bb06b8216ee52bda3ae589f2027e42cfd6a07024",
+      "reason": "Previous Blender autosave; original ZIP and current source .blend retained"
+    },
+    {
+      "original": "SourceAssets/FatZombieMeshy20260913/M2M_SelectedSources.blend1",
+      "archived": "trash/fat-zombie-workflow-20260914/SourceAssets/FatZombieMeshy20260913/M2M_SelectedSources.blend1",
+      "bytes": 36437613,
+      "sha256": "f03e9218ab975e7204298ff9d78653e495e3c0c67251e5752e7df546a43be4d1",
+      "reason": "Previous Blender autosave; current clean donor scene and CC0 sources retained"
+    },
+    {
+      "original": "Saved/FatZombieDamage/before/Authoring_SK_FatZombie_Meshy.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieDamage/before/Authoring_SK_FatZombie_Meshy.uasset",
+      "bytes": 3272851,
+      "sha256": "743680657c322bc60c071ad7275eb340e79e494a76af1ce2c9090a81d6ae76c9",
+      "reason": "Mesh before fitted weapon hit bodies"
+    },
+    {
+      "original": "Saved/FatZombieDamage/before/SK_FatZombie_Meshy.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieDamage/before/SK_FatZombie_Meshy.uasset",
+      "bytes": 3272851,
+      "sha256": "743680657c322bc60c071ad7275eb340e79e494a76af1ce2c9090a81d6ae76c9",
+      "reason": "Mesh before fitted weapon hit bodies"
+    },
+    {
+      "original": "Saved/FatZombieRangedRagdoll/before/SK_FatZombie_Meshy_PhysicsAsset.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieRangedRagdoll/before/SK_FatZombie_Meshy_PhysicsAsset.uasset",
+      "bytes": 16375,
+      "sha256": "f62fbabd09bd75064b8706121eca35549af4732dcc27b86eef8658b48c7e1cca",
+      "reason": "Physics asset before complex-query flags and constrained death simulation"
+    },
+    {
+      "original": "Saved/FatZombiePusVisibility/before/M_FatZombie_Pus.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombiePusVisibility/before/M_FatZombie_Pus.uasset",
+      "bytes": 34639,
+      "sha256": "5db7e4b9312cba5e8af6cc9e27f5818a5ffac86f87cca08193755e687204ae7c",
+      "reason": "Superseded invisible pus material backup"
+    },
+    {
+      "original": "Saved/FatZombiePusVisibility/before/MI_FatZombie_Pus.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombiePusVisibility/before/MI_FatZombie_Pus.uasset",
+      "bytes": 5896,
+      "sha256": "a72881ea5d266b72aa2a3f532bc317f867c96f3a3cd48a194d2b8a5c6be927c0",
+      "reason": "Superseded invisible pus material backup"
+    },
+    {
+      "original": "Saved/FatZombiePusSpread/before/M_FatZombie_Pus.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombiePusSpread/before/M_FatZombie_Pus.uasset",
+      "bytes": 39268,
+      "sha256": "855a08386a13e56235bbdfcff3ee2e4e63193d716d72ebeed862f405ad6dc396",
+      "reason": "Previous full-size instant puddle materials; current spreading materials retained"
+    },
+    {
+      "original": "Saved/FatZombiePusSpread/before/MI_FatZombie_Pus.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombiePusSpread/before/MI_FatZombie_Pus.uasset",
+      "bytes": 5891,
+      "sha256": "80313058b6293ef1a51929788879afa9ed97c2062aefe24f72423ec93007f895",
+      "reason": "Previous full-size instant puddle materials; current spreading materials retained"
+    },
+    {
+      "original": "Saved/FatZombieDeathTiming/before/M_FatZombie_Pus.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieDeathTiming/before/M_FatZombie_Pus.uasset",
+      "bytes": 30498,
+      "sha256": "22607afb212016275cd16032e2488e6bd386822976964f9d2f04435f765dd327",
+      "reason": "Previous death/pus presentation backup; complete death animation and immediate spreading residue retained"
+    },
+    {
+      "original": "Saved/FatZombieDeathTiming/before/MI_FatZombie_Pus.uasset",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieDeathTiming/before/MI_FatZombie_Pus.uasset",
+      "bytes": 5896,
+      "sha256": "95633b12d6dcc59d9af8dd2c4139c896488188abbf1439b655a9d8a3ff5cfcd3",
+      "reason": "Previous death/pus presentation backup; complete death animation and immediate spreading residue retained"
+    },
+    {
+      "original": "Saved/FatZombieNavigation/before_20260914_085949/DayNight_Lighting.umap",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieNavigation/before_20260914_085949/DayNight_Lighting.umap",
+      "bytes": 93497,
+      "sha256": "d4bfcbbf98600bf89c0d9cec2c7be49fc85f7a81e1ab1dfbfeecd0a36353b030",
+      "reason": "Map before the requested development navigation repair"
+    },
+    {
+      "original": "Saved/FatZombieNavigation/before_20260914_090533/DayNight_Lighting.umap",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombieNavigation/before_20260914_090533/DayNight_Lighting.umap",
+      "bytes": 93497,
+      "sha256": "d4bfcbbf98600bf89c0d9cec2c7be49fc85f7a81e1ab1dfbfeecd0a36353b030",
+      "reason": "Map before the successful in-editor development navigation repair"
+    },
+    {
+      "original": "Saved/FatZombiePusVisibility/ground_fix/DayNight_Lighting.before.umap",
+      "archived": "trash/fat-zombie-workflow-20260914/Saved/FatZombiePusVisibility/ground_fix/DayNight_Lighting.before.umap",
+      "bytes": 819153,
+      "sha256": "5ae3ea08077ac521d0d0a928dbfcdf21fe86376864565704d9d8c9a4786b23c2",
+      "reason": "Map with extreme-scale floor before unit-scale subdivided ground replacement"
+    }
+  ]
+}

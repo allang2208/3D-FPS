@@ -1,0 +1,69 @@
+{
+  "mesh": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy.SK_FatZombie_Meshy",
+  "skeleton": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy_Skeleton.SK_FatZombie_Meshy_Skeleton",
+  "clips": {
+    "Idle": {
+      "asset": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Idle.A_FatZombie_Idle",
+      "skeleton": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy_Skeleton.SK_FatZombie_Meshy_Skeleton",
+      "source": "Zombie_Idle",
+      "fps": 120,
+      "frames": [
+        0,
+        192
+      ],
+      "seconds": 1.6,
+      "source_seconds": 1.3333333333333333,
+      "motion_seconds": 1.6,
+      "hold_seconds": 0.0,
+      "loop": true
+    },
+    "Walk": {
+      "asset": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Walk.A_FatZombie_Walk",
+      "skeleton": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy_Skeleton.SK_FatZombie_Meshy_Skeleton",
+      "source": "Zombie_Walk",
+      "fps": 120,
+      "frames": [
+        0,
+        200
+      ],
+      "seconds": 1.6666666666666667,
+      "source_seconds": 1.3333333333333333,
+      "motion_seconds": 1.6666666666666667,
+      "hold_seconds": 0.0,
+      "loop": true
+    },
+    "Attack": {
+      "asset": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Attack.A_FatZombie_Attack",
+      "skeleton": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy_Skeleton.SK_FatZombie_Meshy_Skeleton",
+      "source": "Zombie_Scratch",
+      "fps": 120,
+      "frames": [
+        0,
+        250
+      ],
+      "seconds": 2.0833333333333335,
+      "source_seconds": 1.7916666666666667,
+      "motion_seconds": 2.0833333333333335,
+      "hold_seconds": 0.0,
+      "loop": false
+    },
+    "Death": {
+      "asset": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Death.A_FatZombie_Death",
+      "skeleton": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy_Skeleton.SK_FatZombie_Meshy_Skeleton",
+      "source": "Death_D",
+      "fps": 120,
+      "frames": [
+        0,
+        308
+      ],
+      "seconds": 2.566666666666667,
+      "source_seconds": 2.1666666666666665,
+      "motion_seconds": 2.1666666666666665,
+      "hold_seconds": 0.4,
+      "loop": false
+    }
+  },
+  "content_folder": "/Game/Monsters/FatZombieMeshy",
+  "stage_project": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieMeshy20260913\\UEAuthoring\\FatZombieAuthoring.uproject",
+  "state": "Imported asset package. No runtime, render, or gameplay testing performed."
+}
