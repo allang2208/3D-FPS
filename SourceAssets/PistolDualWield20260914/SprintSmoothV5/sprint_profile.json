@@ -1,0 +1,34 @@
+{
+  "reference": "https://www.bilibili.com/video/BV1PExtzNEBS/",
+  "reference_seconds": [12.75, 13.25, 32.75, 33.0, 33.5],
+  "coordinate_space": "metres, camera forward/right/up; elbow offsets relative to NaturalAimV3",
+  "cycle_seconds": 1.0,
+  "cycle_contract": "One left-right stride, evaluated with the existing footstep distance phase. Continuous periodic motion, no ease-to-zero at intermediate keys.",
+  "hands": {
+    "r": {"pitch": 55.0, "elbow_forward": 0.10, "elbow_height": -0.155},
+    "l": {"pitch": 50.0, "elbow_forward": 0.09, "elbow_height": -0.17}
+  },
+  "weapons": {
+    "M1911": {"pitch_bias": 0.0, "forward_bias": 0.0, "stroke_scale": 1.0, "follow_lag_cycles": 0.045},
+    "DW715": {"pitch_bias": -2.0, "forward_bias": 0.012, "stroke_scale": 0.9, "follow_lag_cycles": 0.055}
+  },
+  "stroke_wave": {
+    "offset": -0.017553838131997485,
+    "harmonics": [[1, 0.9068102069160905, 0.34655696154350235], [2, -0.06751662423336825, 0.10480068898083858]],
+    "derivation": "First two Fourier harmonics of the V4 stroke, normalized to its original -1..1 excursion. Removes intermediate dwell and acceleration discontinuities."
+  },
+  "footfall_phase": 0.10,
+  "pitch_stroke": 5.5,
+  "pitch_footfall": 0.6,
+  "yaw_carry": 0.75,
+  "yaw_stroke": 1.25,
+  "roll_carry": 4.0,
+  "roll_stroke": 1.25,
+  "elbow_forward_stroke": 0.014,
+  "elbow_outward": 0.025,
+  "elbow_side_stroke": 0.006,
+  "elbow_height_stroke": 0.012,
+  "elbow_footfall": 0.004,
+  "shoulder_footfall": 0.003,
+  "intent": "Retain V4 carry heights, angles, grip and elbow-led alternating strokes. Smooth the continuous gait, halve landing bounce, and retain original arm lengths and wrist relationship."
+}

@@ -1,0 +1,33 @@
+{
+  "reference": "https://www.bilibili.com/video/BV1x6AgeTEPd/",
+  "reference_interval_seconds": [29, 34],
+  "cycle_seconds": 1.0,
+  "sample_rate": 120,
+  "camera_axes": "X forward, Y right, Z up; translation in meters, angles in degrees",
+  "weapons": {
+    "M1911": {
+      "source": "M1911Contact20260913/M1911_Contact_Editable.blend",
+      "rig": "SK_M1911_Manny",
+      "idle_actions": {"sprint": "M1911_Contact_idle", "sprint_empty": "M1911_Contact_idle_empty"},
+      "hip_location_cm": [-2.0, 3.0, -6.5],
+      "gun_center_m": [-0.032, 0.022, -0.025],
+      "gun_amplitude_m": [0.009, 0.028, 0.020],
+      "gun_center_pitch_yaw_roll": [12.0, -5.0, -7.0],
+      "gun_amplitude_pitch_yaw_roll": [9.0, 4.0, 5.0],
+      "left_release_m": [-0.08, -0.14, -0.16],
+      "left_amplitude_m": [0.055, 0.012, 0.025]
+    },
+    "DW715": {
+      "source": "DanWesson715Upgrade20260914/DanWesson715_Upgrade_Editable.blend",
+      "rig": "SK_DW715_Manny",
+      "idle_actions": {"sprint": "DW715V2_idle"},
+      "hip_location_cm": [1.0, 3.2, -7.0],
+      "gun_center_m": [-0.026, 0.020, -0.025],
+      "gun_amplitude_m": [0.008, 0.023, 0.017],
+      "gun_center_pitch_yaw_roll": [10.0, -4.0, -6.0],
+      "gun_amplitude_pitch_yaw_roll": [7.0, 3.5, 4.0],
+      "left_release_m": [-0.08, -0.14, -0.16],
+      "left_amplitude_m": [0.050, 0.012, 0.023]
+    }
+  }
+}

@@ -1,0 +1,617 @@
+{
+  "project_root": "D:/FPS3D/FPSGAME",
+  "archive_root": "trash/pistol-animation-20260915",
+  "moves": [
+    {
+      "source": "SourceAssets/DanWesson715EjectHand20260915",
+      "reason": "User rejected single-wield press pose",
+      "replacement": "SourceAssets/DanWesson715PalmClearance20260915"
+    },
+    {
+      "source": "Content/Weapons/DanWesson715/EjectHand20260915",
+      "reason": "Superseded single-wield animation assets",
+      "replacement": "Content/Weapons/DanWesson715/PalmClearance20260915"
+    },
+    {
+      "source": "SourceAssets/DanWesson715DonorPress20260915",
+      "reason": "User rejected single-wield press pose",
+      "replacement": "SourceAssets/DanWesson715PalmClearance20260915"
+    },
+    {
+      "source": "Content/Weapons/DanWesson715/DonorPress20260915",
+      "reason": "Superseded single-wield animation assets",
+      "replacement": "Content/Weapons/DanWesson715/PalmClearance20260915"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/ReferencePoseV2",
+      "reason": "Superseded dual-wield pose or sprint output",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/SprintReferenceV4",
+      "reason": "Superseded dual-wield pose or sprint output",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/r/Animations",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/r/ReferencePoseV2",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/r/SprintReferenceV4",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/M1911/r/Animations",
+      "reason": "Superseded initial animation exports; mesh source retained",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/r/NaturalAimV3/Animations/A_Dual_M1911_r_sprint.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/r/NaturalAimV3/Animations/A_Dual_M1911_r_sprint_empty.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/M1911/r/Animations/A_Dual_M1911_r_sprint.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/M1911/r/Animations/A_Dual_M1911_r_sprint_empty.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/l/Animations",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/l/ReferencePoseV2",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/l/SprintReferenceV4",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/M1911/l/Animations",
+      "reason": "Superseded initial animation exports; mesh source retained",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/l/NaturalAimV3/Animations/A_Dual_M1911_l_sprint.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/M1911/l/NaturalAimV3/Animations/A_Dual_M1911_l_sprint_empty.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/M1911/l/Animations/A_Dual_M1911_l_sprint.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/M1911/l/Animations/A_Dual_M1911_l_sprint_empty.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/Animations",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/ReferencePoseV2",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/SprintReferenceV4",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/DW715/r/Animations",
+      "reason": "Superseded initial animation exports; mesh source retained",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_0_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_0_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_0_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_0_4.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_0_5.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_0_6.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_1_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_1_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_1_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_1_4.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_1_5.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_2_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_2_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_2_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_2_4.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_3_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_3_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_3_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_4_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_4_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_single_5_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_speed_0.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/r/NaturalAimV3/Animations/A_Dual_DW715_r_sprint.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_0_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_0_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_0_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_0_4.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_0_5.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_0_6.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_1_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_1_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_1_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_1_4.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_1_5.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_2_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_2_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_2_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_2_4.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_3_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_3_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_3_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_4_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_4_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_single_5_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_speed_0.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/r/Animations/A_Dual_DW715_r_sprint.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/Animations",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/ReferencePoseV2",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/SprintReferenceV4",
+      "reason": "No longer loaded by current dual-wield animation routing",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/DW715/l/Animations",
+      "reason": "Superseded initial animation exports; mesh source retained",
+      "replacement": "NaturalAimV3 / SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_0_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_0_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_0_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_0_4.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_0_5.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_0_6.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_1_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_1_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_1_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_1_4.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_1_5.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_2_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_2_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_2_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_2_4.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_3_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_3_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_3_3.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_4_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_4_2.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_single_5_1.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_speed_0.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "Content/Weapons/PistolDualWield20260914/DW715/l/NaturalAimV3/Animations/A_Dual_DW715_l_sprint.uasset",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_0_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_0_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_0_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_0_4.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_0_5.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_0_6.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_1_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_1_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_1_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_1_4.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_1_5.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_2_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_2_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_2_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_2_4.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_3_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_3_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_3_3.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_4_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_4_2.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_single_5_1.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_speed_0.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    },
+    {
+      "source": "SourceAssets/PistolDualWield20260914/NaturalAimV3/DW715/l/Animations/A_Dual_DW715_l_sprint.fbx",
+      "reason": "Superseded sprint/revolver reload clip in mixed V3 output",
+      "replacement": "SprintSmoothV5 / RevolverReloadFlickV6"
+    }
+  ],
+  "scope": "This conversation pistol animation outputs only; preserve active authoring inputs and parallel work"
+}

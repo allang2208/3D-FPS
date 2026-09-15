@@ -43,7 +43,7 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     Super::TickComponent(Delta,Type,Fn);ShredTime=FMath::Max(0.f,ShredTime-Delta);WardTime=FMath::Max(0.f,WardTime-Delta);
     if(CorrosionStacks>0){CorrosionTime-=Delta;while(CorrosionTime<=0&&CorrosionStacks>0){--CorrosionStacks;CorrosionTime+=CorrosionDuration;}}
     if(VulnerabilityStacks>0){VulnerabilityTime-=Delta;while(VulnerabilityTime<=0&&VulnerabilityStacks>0){--VulnerabilityStacks;VulnerabilityTime+=5;}}
-    auto Apply=[&](float Damage,AActor* Source,bool Magic){const auto* Pawn=Cast<APawn>(Source);UGameplayStatics::ApplyDamage(GetOwner(),Damage,Pawn?Pawn->GetController():nullptr,Source,Magic?UFireballDamage::StaticClass():UCombatDirectDamage::StaticClass());};
+    auto Apply=[&](float Damage,AActor* Source,bool bMagicDamage){const auto* Pawn=Cast<APawn>(Source);UGameplayStatics::ApplyDamage(GetOwner(),Damage,Pawn?Pawn->GetController():nullptr,Source,bMagicDamage?UFireballDamage::StaticClass():UCombatDirectDamage::StaticClass());};
     if(BleedStacks>0)
     {
         BleedTime-=Delta;BleedTick-=Delta;

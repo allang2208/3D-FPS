@@ -1,0 +1,23 @@
+{
+  "intent": "Preload, throw the wrist while the crane opens, settle, then lower. Opposite hand gestures with the physical gun and crane unmirrored.",
+  "clock": "Seconds on the existing cylinder mechanical source; speedloader uses t * 3.6 / 3.85, individual loading uses t.",
+  "space": "Camera forward/right/up in metres; pitch/yaw/roll in degrees.",
+  "hands": {
+    "r": {"roll": 1, "outward": 1},
+    "l": {"roll": -1, "outward": -1}
+  },
+  "roll": [[0,0],[0.16,-9],[0.32,38],[0.48,11],[0.58,7]],
+  "yaw": [[0,0],[0.16,-3],[0.32,9],[0.48,3],[0.58,2]],
+  "pitch_tactical": [[0,0],[0.16,-5],[0.32,24],[0.48,29],[0.58,24],[0.94,20]],
+  "pitch_empty": [[0,0],[0.16,-5],[0.32,24],[0.48,29],[0.58,24],[0.87,48],[1.10,48],[1.50,20]],
+  "forward": [[0,0],[0.16,-0.008],[0.32,0.012],[0.48,0.006],[0.58,0.004]],
+  "outward": [[0,0],[0.16,-0.008],[0.32,0.026],[0.48,0.014],[0.58,0.012]],
+  "height": [[0,0],[0.16,-0.003],[0.32,0.020],[0.48,0.011],[0.58,0.008]],
+  "arm_follow": [[0,0],[0.16,-0.20],[0.35,1],[0.52,0.40],[0.64,0]],
+  "tactical_lowering": [0.50,0.94],
+  "empty_lowering": [1.12,1.50],
+  "join_below_frame": 0.18,
+  "mechanical_open": [0.25,0.48],
+  "preserved": "Both meshes, hands, fingers, cylinder handedness, mechanical tracks, case ejection, per-round seating, reload duration and closing recovery.",
+  "testing": "Not performed; user testing."
+}

@@ -1,0 +1,53 @@
+{
+  "sample_rate": 120,
+  "adaptation": {
+    "heading_delta_deg": 51.766143055962885,
+    "palm_cant_deg": [
+      -18.34915294587224,
+      -35.0
+    ],
+    "contact_skin_hand_m": [
+      0.050303999334573746,
+      0.03402499854564667,
+      -0.027166999876499176
+    ],
+    "contact_gap_m": 0.003,
+    "solid_clearance_m": 0.006,
+    "withdraw_m": 0.05,
+    "hand_surface_points": 34585,
+    "wrist": "neutral rest relationship; whole forearm follows hand with fixed segment lengths",
+    "reference": "DonorPress20260915 donor phalanx shape; LeftRecovery mechanics",
+    "testing": "Not performed; geometry constraints used only to author the action"
+  },
+  "clips": {
+    "single_0_1": {
+      "duration": 3.3,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    },
+    "single_0_2": {
+      "duration": 4.4,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    },
+    "single_0_3": {
+      "duration": 5.500000000000001,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    },
+    "single_0_4": {
+      "duration": 6.6000000000000005,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    },
+    "single_0_5": {
+      "duration": 7.7,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    },
+    "single_0_6": {
+      "duration": 8.8,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    },
+    "speed_0": {
+      "duration": 3.85,
+      "destination": "/Game/Weapons/DanWesson715/PalmClearance20260915/Animations"
+    }
+  },
+  "testing": "Not performed; user testing"
+}

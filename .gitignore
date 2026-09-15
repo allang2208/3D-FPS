@@ -121,3 +121,13 @@ __pycache__/
 /SourceAssets/DanWesson715*/Original/
 /SourceAssets/DanWesson715*/Before/
 /SourceAssets/DanWesson715*/Local/
+
+# Pistol animation publication: retain licensed meshes and dense pose captures locally.
+/SourceAssets/PistolDualWield20260914/**
+!/SourceAssets/PistolDualWield20260914/**/
+!/SourceAssets/PistolDualWield20260914/**/*.py
+!/SourceAssets/PistolDualWield20260914/**/*.md
+!/SourceAssets/PistolDualWield20260914/NaturalAimV3/pose_profile.json
+!/SourceAssets/PistolDualWield20260914/SprintSmoothV5/sprint_profile.json
+!/SourceAssets/PistolDualWield20260914/RevolverReloadFlickV6/reload_profile.json
+!/SourceAssets/DanWesson715PalmClearance20260915/animation.json

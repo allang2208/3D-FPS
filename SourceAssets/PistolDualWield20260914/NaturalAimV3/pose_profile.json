@@ -1,0 +1,14 @@
+{
+  "reference": "https://www.bilibili.com/video/BV1PExtzNEBS/",
+  "coordinate_space": "metres, camera forward/right/up; right-side values mirrored for left",
+  "grip_forward": {"M1911": 0.315, "DW715": 0.335},
+  "grip_side": 0.185,
+  "grip_height": -0.192,
+  "grip_roll": -3.0,
+  "zero_distance": 12.0,
+  "neutral_wrist_bend": 7.0,
+  "shoulder": [-0.12, 0.205, -0.10],
+  "sprint_pitch": 27.0,
+  "sprint_pitch_amplitude": 14.0,
+  "intent": "Calibrate the actual bore to a 12 m camera-centre target. Build shoulder and elbow support backwards from the fitted hand with unchanged limb lengths. Runtime convergence rotates the entire posed arm and weapon together."
+}
