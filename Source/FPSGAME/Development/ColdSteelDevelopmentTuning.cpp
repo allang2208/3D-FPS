@@ -31,5 +31,6 @@ float UColdSteelStatusModel::FireballCooldown() const
 void UColdSteelStatusModel::RefreshDevelopmentTuning()
 {
     if (HasNoAbilityCooldown()) Current.FireballCooldown = 0.f;
+    if (HasNoAbilityCooldown()) Current.IceSpikeCooldown = 0.f;
     OnChanged.Broadcast();
 }

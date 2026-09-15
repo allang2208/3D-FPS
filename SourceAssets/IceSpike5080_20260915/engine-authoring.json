@@ -1,0 +1,11 @@
+{
+  "meshes": [
+    "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_01.SM_IceSpike_01",
+    "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02.SM_IceSpike_02",
+    "/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03.SM_IceSpike_03"
+  ],
+  "heart": "/Game/Skills/IceSpike/FrostV2/M_IceHeart.M_IceHeart",
+  "shell": "/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell",
+  "cold_mist": "/Game/Skills/IceSpike/FrostV2/NS_ColdMist",
+  "status": "imported and shader compiled; not game tested"
+}

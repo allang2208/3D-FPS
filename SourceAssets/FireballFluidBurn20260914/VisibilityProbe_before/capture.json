@@ -1,0 +1,12 @@
+{
+  "neutral": {
+    "bias": 0,
+    "file": "neutral.png"
+  },
+  "daylight": {
+    "bias": -10,
+    "file": "daylight.png"
+  },
+  "front_material": "None",
+  "editor_frames": 220
+}

@@ -1,0 +1,27 @@
+{
+  "runtime_core": "/Game/Skills/Fireball/NS_FireballSlowBurnCore",
+  "runtime_trail": "/Game/Skills/Fireball/NS_FireballVelocityTrail",
+  "original_simulation": "author_fluid.py / Fireball_Fluid_Editable.blend / Cache",
+  "atlas_bake": "pack_fluid_atlases.py / Textures / atlas.json",
+  "textures_and_materials": "/Game/Skills/Fireball/FluidBurn20260914",
+  "body": "Two original combustion views, offset phases, independent RGBA coverage; old round FireBall sprite removed",
+  "hover": "Baked buoyant rolling flame, small independent source offsets, short uneven outer tongues",
+  "flight": "All upward texture axes rotate to local -X over the existing 60 ms handoff; world-space trail retains birth direction",
+  "trail": "8-13.5 centiseconds, 14 cm spacing, cap 240 particles/sec, variable short broken flames",
+  "secondary": "Sparse thin smoke and hover-only annular sword-rift heat refraction; fades out by 220 ms after launch",
+  "dependencies": [
+    "Epic Niagara Examples emitter templates, thin smoke and distortion",
+    "Dr.Game Free Spline VFX short flame texture and project material",
+    "Realistic Starter VFX Pack Vol2 T_NoiseNormal_A, as used by RuneSword WristRiftV3"
+  ],
+  "authoring_backup": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeFluidBurn/*.uasset",
+  "gameplay": "No changes to gestures, collision, damage, costs, progression, save or quickbar",
+  "status": "Four affected materials repaired, compiled with D3D12 and saved; heat halo retained; no game test after repair",
+  "motion_heat_revision": "SourceAssets/FireballMotionHeat20260914/installation.json",
+  "motion": "AfterDOF and TAA ResponsiveAA; precise Niagara vectors retained, material velocity output disabled for DepthFade compatibility",
+  "velocity_conflict_fix": "SourceAssets/FireballMotionHeat20260914/velocity-conflict-fix.json",
+  "emissive_exposure": "Body and short flames now use EyeAdaptationInverse; alpha and depth fade are unchanged",
+  "exposure_fix": "fix_flame_exposure.py; targeted visibility diagnosis recorded separately",
+  "sprite_cutout": "Inherited explosion CutoutTexture cleared on every core/trail renderer; flame alpha controls coverage",
+  "cutout_fix": "fix_flame_cutout.py; renderer readback in cutout-fix.json"
+}

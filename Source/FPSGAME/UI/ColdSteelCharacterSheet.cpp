@@ -139,7 +139,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
         TEXT("魔攻 = 向下取整(智力×1.5 + 精神×0.5)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
         TEXT("理论生命上限 = 100 + 体质×10 + (等级-1)×10\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%"),
         TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
-        TEXT("幸运不提供随机暴击概率。要害命中由实际命中部位判定。")};
+        TEXT("基础暴击率 = 向下取整(2 + 幸运)%\n随机暴击概率 = 暴击率 − 目标暴击抵抗，最低为零。武器与火球均可触发。")};
     for (int32 I = 0; I < 6; ++I)
     {
         auto* Cell = Grid->AddChildToUniformGrid(AddCharacterRow(nullptr, Labels[I], Keys[I], Details[I]), I / 2, I % 2);

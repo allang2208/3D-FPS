@@ -83,6 +83,7 @@ bool UColdSteelStatusModel::BeginFireballCast()
     if(!CanSpendMana(F.ManaCost)){Message=TEXT("魔法不足");return false;}
     SyncRuntime();auto P=Snapshot();if(!HasInfiniteMana())P.Mana-=F.ManaCost;
     P.bFireballReserved=true;P.FireballCooldown=HasNoAbilityCooldown()?0.f:F.Cooldown;
+    P.FireballCooldownDuration=P.FireballCooldown;
     return CommitState(P);
 }
 
@@ -93,9 +94,11 @@ void UColdSteelStatusModel::FinishFireballCast()
     Current.bFireballReserved=false;SyncRuntime();CommitState(Snapshot());
 }
 
-void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,AActor* DirectTarget)
+void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit)
 {
     if(!Shooter || !GetWorld() || !Shooter->IsPlayerControlled() || !Shooter->HasAuthority())return;
+    AActor* DirectTarget=DirectHit?DirectHit->GetActor():nullptr;
+    const bool DirectWeakpoint=DirectHit&&DirectHit->bBlockingHit&&ColdSteelSkills::IsCriticalHit(*DirectHit);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballBlast),false,Shooter);
     TArray<FOverlapResult> Overlaps;
     GetWorld()->OverlapMultiByObjectType(Overlaps,Center,FQuat::Identity,FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Cast.Radius),Query);
@@ -122,7 +125,7 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
         const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
         Rewards.Victim=Target;
         bool Critical=false;
-        const CombatFormulaRuntime::MagicHit MagicContext{Cast.CriticalChance,Cast.CriticalDamageBonus,Cast.MagicPenetration,Cast.MagicDamageBonus,&Critical};
+        const CombatFormulaRuntime::MagicHit MagicContext{Cast.CriticalChance,Cast.CriticalDamageBonus,Cast.MagicPenetration,Cast.MagicDamageBonus,&Critical,Target==DirectTarget&&DirectWeakpoint};
         TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&MagicContext);
         const float Applied=UGameplayStatics::ApplyDamage(Target,FMath::FloorToFloat(Cast.Damage*(1.f-.5f*Ratio)),Shooter->GetController(),Shooter,UFireballDamage::StaticClass());
         Rewards.Victim=nullptr;

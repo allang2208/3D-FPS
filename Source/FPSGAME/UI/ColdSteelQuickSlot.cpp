@@ -8,6 +8,7 @@
 #include "SColdSteelCooldownMask.h"
 #include "../FPSGAMECharacter.h"
 #include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSIceSpikeComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Image.h"
 #include "Components/Overlay.h"
@@ -115,6 +116,13 @@ void UColdSteelQuickSlot::Refresh()
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
         if(Fraction>0)Remaining=Model->FireballCooldown();
         Dim=!Model->CanSpendMana(Model->FireballStats().ManaCost)&&(!Ability||(!Ability->IsPrepared()&&!Ability->IsFlying()));
+    }
+    else if(Binding.Skill==TEXT("iceSpike"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSIceSpikeComponent>():nullptr;
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();if(Ability->ActiveCount()>0)Count->SetText(FText::AsNumber(Ability->ActiveCount()));}
+        if(Fraction>0)Remaining=Model->IceSpikeCooldown();
+        Dim=!Model->CanSpendMana(Model->IceSpikeStats().ManaCost)&&(!Ability||Ability->ActiveCount()==0);
     }
     else if(Binding.Skill==TEXT("heavyStrike"))
     {

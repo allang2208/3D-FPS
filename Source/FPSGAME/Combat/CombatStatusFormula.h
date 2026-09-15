@@ -23,6 +23,13 @@ public:
     UFUNCTION(BlueprintCallable) void AddBurn(AActor* Source,float MagicAttack,int32 Stacks=1,float Seconds=3,float DamageMultiplier=.5f,float TickSeconds=.5f);
     UFUNCTION(BlueprintCallable) void SetStatusImmune(bool Immune){bImmune=Immune;}
     bool IsImmune()const{return bImmune;}
+    void AddChill(int32 Stacks,float Seconds,float SlowPerStack);
+    void AddHaste(int32 Stacks,float Seconds);
+    void AddChainSpell();
+    void ConsumeChainSpell();
+    int32 ChainSpellStacks()const{return ChainTime>0?ChainStacks:0;}
+    float MovementMultiplier()const{return FrozenTime>0?0.f:FMath::Max(.01f,1-ChillStacks*ChillSlow)*(1+.1f*HasteStacks);}
+    float FrozenRemaining()const{return FrozenTime;}
     float CorrosionMultiplier()const{return FMath::Max(0.f,1-CorrosionStacks*CorrosionReduction);}
     float MagicShred()const{return ShredTime>0?Shred:0;}
     float FinalMultiplier()const{return WardTime>0?Ward:1;}
@@ -30,6 +37,8 @@ public:
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)override;
 private:
     bool bImmune=false;
+    int32 ChillStacks=0,HasteStacks=0,ChainStacks=0;
+    float ChillTime=0,ChillSlow=.05f,FrozenTime=0,HasteTime=0,ChainTime=0;
     int32 CorrosionStacks=0;
     float CorrosionTime=0,CorrosionDuration=5,CorrosionReduction=.05f;
     float ShredTime=0,Shred=0,WardTime=0,Ward=1;

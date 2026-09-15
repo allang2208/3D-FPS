@@ -1,5 +1,15 @@
 # 恢复完整 UE5 内容
 
+## 火球写实命中（2026-09-14）
+
+恢复 `Content/Skills/Fireball/ImpactRealistic20260914` 的爆燃系统、材质、混音和声音衰减资源。新命中引用由 `FPSFireballComponent` 加载，原悬浮／飞行资产仍沿用现有路径。作者入口为 `Tools/Skills/build_fireball_impact_realistic.py`；运行前从 `SourceAssets/FireballImpactRealistic20260914/author_audio.py` 生成混音，保留 Epic `T_Explosion_EOO`／法线、已有薄烟和 `Realistic_Starter_VFX_Pack_Vol2/T_NoiseNormal_A` 的授权依赖。材质制作需真实 RHI 编译。详见 [写实命中接入](Skills/fireball-realistic-impact-20260914.md)。
+
+## 火球流体燃烧贴图（2026-09-14）
+
+同日镜头残影／悬浮热浪调整增加 `M_FluidThinWispMotion` 与 `M_FluidHoverHeatHalo`，继续使用原运行系统路径。热浪依赖剑气同源的 `Realistic_Starter_VFX_Pack_Vol2/Textures/T_NoiseNormal_A`；增量恢复入口为 `Tools/Skills/tune_fireball_motion_heat.py`，完整流体生成器也已同步。参数、备份及未测试范围见 [镜头残影与悬浮热浪](Skills/fireball-motion-heat-20260914.md)。
+
+恢复 `Content/Skills/Fireball/FluidBurn20260914` 的两套纹理／材质，以及更新后的 `NS_FireballSlowBurnCore`、`NS_FireballVelocityTrail`。作者目录 `SourceAssets/FireballFluidBurn20260914` 保存原创 Mantaflow 模拟、可编辑 Blend、缓存、场数据、图集烘焙脚本和两张 RGBA 图集；保留 Epic Niagara Examples 薄烟／热扰动、Dr.Game Free Spline VFX 短外焰及现有父材质依赖。已有两张图集时，运行 `Tools/Skills/build_fireball_fluid_burn.py` 完成 UE 恢复；完整 `build_fireball_assets.py` 已把这一阶段加入末尾。制作与用户测试边界见 [流体燃烧主体](Skills/fireball-fluid-burn-20260914.md)。
+
 ## Meshy 胖子僵尸（2026-09-14）
 
 恢复 `Content/Monsters/FatZombieMeshy` 的网格、Skeleton、物理资产、四段 Animations、Materials/Textures、Pus；动作重建还需 Sources/Rig/RetargetedRaw。主场景保留 `Content/GameMaps/DayNight_Lighting.umap` 与 `Geometry/SM_MainGround_Subdivided`，以及适合怪物胶囊尺寸的导航。脓液素材依赖 WaterMaterials 的河流法线、泡沫及 RuralAustralia 的浑水遮罩，继续按原素材来源恢复。
@@ -134,3 +144,9 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 ## Dan-Wesson 715（2026-09-14）
 
 当前资源入口、Fab/Manny/用户录音许可边界、保留的上游制作链及恢复顺序见 [715 资源恢复说明](Weapons/dan-wesson715-publication-20260914.md)。主体保持 Chrome，手电/激光/全息镜使用独立聚合物材质。两轮已否决模型在本机 trash 归档，清单见 [715 废案记录](Rejected/dan-wesson715-models-20260914.md)。二进制及受许可约束的密集派生数据不进入公开源码。
+
+## 冰锥（2026-09-15）
+
+当前冰体与寒气运行目录 `/Game/Skills/IceSpike/FrostV2`；碎片、命中、冰裂纹贴图与音频仍在 `/Game/Skills/IceSpike`。首轮恢复链：保留 `SourceAssets/IceSpike20260915` 的 `IceSpike.blend`、`SM_IceSpike.fbx`、`ice_impact.wav`、`ThirdParty/CrackedIceSelected/ci_cracks.png` 和许可，UE 执行 `Tools/Skills/build_ice_spike_assets.py`。V2 另恢复 `SourceAssets/IceSpike5080_20260915` 的三视图、TRELLIS 母版、`IceSpike5080_Editable.blend` 与 `Game/` FBX／贴图，再执行 `Tools/Skills/build_ice_spike_frost_v2.py`。生成与导出入口为该源目录的 `generate.py` 和 `Tools/Skills/author_ice_spike_5080.py`，前者不会自动生成验收渲染。图标恢复由 `Tools/UI/prepare_cold_steel_skill_icons.py` 处理。依赖已有 Epic Niagara Examples、火球拖尾结构和 Realistic Starter VFX Pack Vol2，二进制原素材沿用许可边界，不公开提交。详见 [5080 模型与寒气升级](Skills/ice-spike-frost-v2-20260915.md)。
+
+GitHub 冰裂纹采用 MIT（Shader Vault），已保存并随 `Content/ColdSteelData/Licenses/CrackedIce-MIT.txt` 打包。完整来源及生成提示见 `SourceAssets/IceSpike20260915/provenance.json`，迁移公式与范围见 `Docs/Skills/ice-spike-migration-20260915.md`。本轮未测试或渲染验收。

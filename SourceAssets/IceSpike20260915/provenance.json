@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-15",
+  "runtime_folder": "/Game/Skills/IceSpike",
+  "geometry": {
+    "source": "/Game/NiagaraExamples/StaticMesh/SM_SimpleProjectile",
+    "owner": "Epic Niagara Examples, existing local licensed project content",
+    "adaptation": "Existing FBX geometry and UVs reshaped into a 54 cm pointed ice spear. Shared source unchanged.",
+    "editable": "IceSpike.blend",
+    "export": "SM_IceSpike.fbx",
+    "author_script": "Tools/Skills/adapt_ice_spike_mesh.py"
+  },
+  "fragments": {
+    "source_mesh": "/Game/NiagaraExamples/StaticMesh/SM_GlassShard_01",
+    "source_impact": "/Game/Realistic_Starter_VFX_Pack_Vol2/Particles/Hit/P_Ice",
+    "policy": "Project-specific duplicates; original licensed assets remain local, no public redistribution asserted."
+  },
+  "cracks": {
+    "url": "https://github.com/danielpokladek-shaders/cracked-ice",
+    "branch": "main",
+    "path": "Assets/Project/Textures/ci_cracks.png",
+    "local": "ThirdParty/CrackedIceSelected/ci_cracks.png",
+    "reference_shader": "ThirdParty/CrackedIceSelected/CrackedIce.shader",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2026 Shader Vault",
+    "license_url": "https://github.com/danielpokladek-shaders/cracked-ice/blob/main/LICENSE",
+    "license_file": "ThirdParty/CrackedIceSelected/LICENSE",
+    "shipping_notice": "Content/ColdSteelData/Licenses/CrackedIce-MIT.txt",
+    "acquisition": "Selected complete local ZIP entries extracted from a timed-out archive download. Complete repository was not acquired. LICENSE transcribed from the official license page after raw download failed.",
+    "usage": "RGB layers imported as linear masks; UE material independently authors view-dependent layer sampling, subsurface color and glossy solid ice. Unity code is retained as licensed reference, not executed."
+  },
+  "sound": {
+    "source": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/skills/ice.mp3",
+    "import_source": "ice_impact.wav",
+    "conversion": "48 kHz mono PCM, imageio-ffmpeg 0.6.0 tool dependency in Saved/IceSpikeTools",
+    "policy": "Existing project sound; public redistribution license not newly established."
+  },
+  "icon": {
+    "tool": "built-in image_gen",
+    "generated_file": "C:/Users/allan/.codex/generated_images/01a0a011-e289-7b63-9014-ad44bd79f77e/exec-fe8b872c-8cb7-4787-a8ab-8eff4cb989a7.png",
+    "author_source": "ice_spike_cold_steel.png",
+    "runtime": "Content/ColdSteelData/Skills/ice_spike_cold_steel.png",
+    "references": ["Content/ColdSteelData/Skills/fireball_ember_red.png", "game-dev/assets/skills/Icearrow-skill.png"],
+    "prompt": "Create the Ice Spike magic icon for the same realistic Cold Steel RPG UI series. Image 1 is the exact frame, graphite background, square canvas, brushed silver hexagonal bevel proportions and top-left soft lighting reference. Keep these intact. Replace ONLY its central flaming projectile with a strong large icy blue translucent pointed icicle, angled from lower left to upper right, accompanied by two smaller ice spikes set behind it. Faceted but natural frozen-water surfaces, pale cyan edges, deep glacier blue inner core, fine trapped cracks, white frosty roots. Clearly recognizable spear-shaped ice silhouette even at small hotbar sizes. Image 2 is subject identity reference only, NOT its purple/gold style. No text, no numbers, no snowflake symbols, no environment. No purple, no gold, no flames. Preserve neutral graphite panel and silver frame from image 1. Output a square production icon."
+  },
+  "asset_authoring": "Tools/Skills/build_ice_spike_assets.py",
+  "delivery": "Necessary builds/imports only; no game test or rendered acceptance."
+}

@@ -65,6 +65,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     PistolSkill=ColdSteelSkills::LoadDefinition(TEXT("pistolMastery"));
     CriticalStrikeSkill=ColdSteelSkills::LoadDefinition(TEXT("criticalStrike"));
     FireballSkill=ColdSteelSkills::LoadDefinition(TEXT("fireball"));
+    IceSpikeSkill=ColdSteelSkills::LoadDefinition(TEXT("iceSpike"));
     DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
     ColdSteelSkills::Migrate(Current);
@@ -151,7 +152,8 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool QuickBarMigrated=ColdSteelQuickBar::Migrate(Clean);
     const bool StaminaMigrated=NormalizeStamina(Clean);
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball;
+    const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -295,6 +297,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
     if(HasNoAbilityCooldown())Current.FireballCooldown=0.f;
     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
+    if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
+    else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
     TickFormulaBuffs(Delta);
     TickStamina(Delta,Pawn);
     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){

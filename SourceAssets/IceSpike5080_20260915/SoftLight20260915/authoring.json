@@ -1,0 +1,13 @@
+{
+  "changes": [
+    "non-emissive lit frost specks",
+    "smooth alpha fade-in/out",
+    "lower hover spawn rate",
+    "broader weaker body highlights",
+    "normal intensity .35",
+    "mist emissive gain .06"
+  ],
+  "status": "authored and shader/Niagara compiled",
+  "game_tested": false,
+  "root_cause_scope": "material/input evidence only; no in-game reproduction"
+}

@@ -131,3 +131,21 @@ __pycache__/
 !/SourceAssets/PistolDualWield20260914/SprintSmoothV5/sprint_profile.json
 !/SourceAssets/PistolDualWield20260914/RevolverReloadFlickV6/reload_profile.json
 !/SourceAssets/DanWesson715PalmClearance20260915/animation.json
+
+# Skills/magic source publication: simulations, raw licensed snapshots and job state stay local.
+/SourceAssets/FireballFluidBurn20260914/Cache/
+/SourceAssets/FireballFluidBurn20260914/Fields/
+/SourceAssets/FireballFluidBurn20260914/no-flame-diagnosis.json
+/SourceAssets/FireballFluidBurn20260914/material-inputs.json
+/SourceAssets/FireballImpactRealistic20260914/sources.json
+/SourceAssets/FireballMotionHeat20260914/material-properties.txt
+/SourceAssets/IceSpike20260915/mesh_geometry.json
+/SourceAssets/IceSpike20260915/ThirdParty/CrackedIceSelected/CrackedIce.mat
+/SourceAssets/IceSpike20260915/ThirdParty/CrackedIceSelected/CrackedIce.shader
+/SourceAssets/IceSpike5080_20260915/generator_schema.json
+/SourceAssets/IceSpike5080_20260915/upload.json
+/SourceAssets/IceSpike5080_20260915/seed_91571/history.json
+/SourceAssets/IceSpike5080_20260915/seed_91571/receipt.json
+!/Content/ColdSteelData/Licenses/
+/Content/ColdSteelData/Licenses/*
+!/Content/ColdSteelData/Licenses/CrackedIce-MIT.txt

@@ -53,6 +53,10 @@ public:
     float CooldownFraction() const;
     void ProjectileFinished(AFPSFireballProjectile* Projectile);
     void Cancel();
+    // Other projectile spells share the accepted left-arm gesture and action arbitration.
+    bool TryBeginSpellGesture(UActorComponent* Spell,bool bRelease,float Speed,const FSimpleDelegate& Contact);
+    void CancelSpellGesture(UActorComponent* Spell);
+    bool IsSpellGesture(const UActorComponent* Spell) const { return GestureOwner.Get()==Spell; }
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float RaiseDuration=.95f;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float ReleaseDuration=.34f;
     UPROPERTY(EditDefaultsOnly,Category="Skills|Fireball|Hands",meta=(ClampMin="0.01",Units="s")) float ReleaseEntryDuration=.26f;
@@ -81,9 +85,11 @@ private:
     FVector EntryShoulder,EntryElbow;
     void UpdateFallbackHands();
     TWeakObjectPtr<AFPSFireballProjectile> Active;
+    TWeakObjectPtr<UActorComponent> GestureOwner;
+    FSimpleDelegate GestureContact;
+    float GestureSpeed=1.f;
     EFireballHandPhase HandPhase=EFireballHandPhase::None;
     float PhaseAge=0.f;
-    float LastCastCooldown=0.f;
     bool bQueuedCast=false, bQueuedLaunch=false, bLaunchCommitted=false;
     bool bReleaseFromRest=false;
     float RecoveryReleaseAlpha=0.f;

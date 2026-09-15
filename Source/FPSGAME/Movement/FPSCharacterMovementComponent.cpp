@@ -1,4 +1,5 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "Components/SceneComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
@@ -27,6 +28,12 @@ bool UFPSCharacterMovementComponent::IsValidLandingSpot(const FVector& CapsuleLo
 UFPSCharacterMovementComponent::UFPSCharacterMovementComponent()
 {
     MaxStepHeight = 40.f;
+}
+
+float UFPSCharacterMovementComponent::GetMaxSpeed() const
+{
+    const auto* Status=GetOwner()?GetOwner()->FindComponentByClass<UCombatStatusFormula>():nullptr;
+    return Super::GetMaxSpeed()*(Status?Status->MovementMultiplier():1.f);
 }
 
 bool UFPSCharacterMovementComponent::StepUp(const FVector& GravDir, const FVector& Delta,

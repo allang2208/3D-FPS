@@ -1,0 +1,24 @@
+{
+  "source": "Original Mantaflow combustion cache produced by author_fluid.py",
+  "textures": [
+    "Textures/T_FireballFluid_A.png",
+    "Textures/T_FireballFluid_B.png"
+  ],
+  "atlas_grid": [
+    8,
+    8
+  ],
+  "frame_pixels": 256,
+  "frames": 64,
+  "fps": 24,
+  "duration_seconds": 2.6666666666666665,
+  "views": [
+    "along Y",
+    "along X"
+  ],
+  "encoding": "straight sRGB emission RGB and independent linear optical coverage alpha",
+  "loop": "32-frame cosine overlap in premultiplied linear space; seam follows original adjacent frames 112 and 113",
+  "lighting": "Art-directed heat palette from simulated flame concentration; no baked background or sphere mesh",
+  "authoring": "Beer-Lambert volume integration of simulated fields",
+  "status": "Production texture bake only; no visual/runtime testing"
+}

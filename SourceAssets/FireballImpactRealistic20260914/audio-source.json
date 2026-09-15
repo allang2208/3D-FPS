@@ -1,0 +1,13 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Fireball20260914\\fireball_hit.wav",
+  "sample_rate": 48000,
+  "duration_seconds": 1.25,
+  "layers": [
+    "Filtered original impact and short low pressure transient",
+    "Filtered original combustion with short gas noise",
+    "Sparse original procedural crackle"
+  ],
+  "mix": "Single mono spatial sound at runtime; editable stems retained; peak -2.05 dBFS",
+  "license": "Existing project cue and project-authored DSP layers; keep original source rights, no public redistribution",
+  "status": "Offline audio production; not auditioned in game"
+}

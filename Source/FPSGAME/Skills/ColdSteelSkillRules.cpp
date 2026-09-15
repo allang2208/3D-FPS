@@ -16,7 +16,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("dexterousHands")){D.Name=TEXT("巧手");D.Description=TEXT("灵巧的双手带来更高敏捷与更快换弹。完成换弹即可修炼，被动效果常驻。");D.Icon=TEXT("Skills/dexterous_hands.png");}
     if(Id==TEXT("pistolMastery")){D.Name=TEXT("手枪精通");D.Description=TEXT("精通手枪的快速射击，在移动中也能精准命中。");D.Icon=TEXT("Skills/pistol_mastery_cold_steel.png");}
     if(Id==TEXT("criticalStrike")){D.Name=TEXT("暴击");D.Description=TEXT("精通暴击之道，每次暴击都能造成更致命的打击。");D.Icon=TEXT("Skills/critical_strike_cold_steel.png");}
-    if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射，命中后造成范围魔法伤害。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
+    if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射。直击要害必定暴击，普通直击与爆炸波及目标各自随机判定暴击。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
     FString Json; TSharedPtr<FJsonObject> Root;
     if (!FFileHelper::LoadFileToString(Json, *(FPaths::ProjectContentDir()/TEXT("ColdSteelData/skills.json"))) ||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root) return D;
@@ -75,17 +75,50 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.MultiHitExperience=FMath::Clamp(int32(Num(TEXT("multiHitExperience"),20)),0,10000);
         F.MultiKillExperience=FMath::Clamp(int32(Num(TEXT("multiKillExperience"),20)),0,10000);
     }
+    if(Id==TEXT("iceSpike"))
+    {
+        auto& F=D.IceSpike;
+        F.DamageBase=Num(TEXT("damageBase"),30);F.DamagePerLevel=Num(TEXT("damagePerLevel"),5);
+        F.MagicBase=Num(TEXT("magicBase"),1.2);F.MagicPerLevel=Num(TEXT("magicPerLevel"),.25);
+        F.IntBase=Num(TEXT("intBase"),1.2);F.IntPerLevel=Num(TEXT("intPerLevel"),.25);
+        F.CountBase=Num(TEXT("countBase"),2);F.CountLevelStep=FMath::Max(1,int32(Num(TEXT("countLevelStep"),5)));
+        F.Cooldown=Num(TEXT("cooldown"),10);F.ManaCost=Num(TEXT("manaCost"),30);
+        F.HoverDuration=Num(TEXT("hoverDuration"),30);F.Speed=Num(TEXT("flySpeed"),1600);
+        F.Range=Num(TEXT("maxRange"),800);F.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),12);
+        F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
+    }
     return D;
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 8) return false;
-    P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));P.SkillProgressVersion=8;
+    if (P.SkillProgressVersion >= 10) return false;
+    if (P.SkillProgressVersion < 8)
+    {
+        P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
+    }
+    if(P.SkillProgressVersion<9)
+    {
+    P.FireballCooldownDuration=0.f;
+    if (P.FireballCooldown>0.f)
+    {
+        // Legacy saves have no cast-time level/equipment snapshot. Estimate once
+        // from the saved level, preserving the actual remaining cooldown exactly.
+        const auto Definition=LoadDefinition(TEXT("fireball"));
+        const auto* Progress=P.Skills.Find(TEXT("fireball"));
+        const int32 L=FMath::Clamp(Progress?Progress->Level:1,1,Definition.MaxLevel);
+        const float Growth=float(L-1)/FMath::Max(1,Definition.MaxLevel-1);
+        const float Estimated=FMath::Lerp(Definition.Fireball.Cooldown,Definition.Fireball.MinimumCooldown,Growth);
+        P.FireballCooldownDuration=FMath::Max(P.FireballCooldown,Estimated);
+    }
+    }
+    P.Skills.FindOrAdd(TEXT("iceSpike"));
+    P.SkillProgressVersion=10;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>8 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>10 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
     if (P.SkillProgressVersion>=1 && !P.Skills.Contains(TEXT("rifleMastery"))) { Reason=TEXT("技能进度缺失"); return false; }
     if (P.SkillProgressVersion>=2 && !P.Skills.Contains(TEXT("dodge"))) { Reason=TEXT("闪避进度缺失"); return false; }
     if (P.SkillProgressVersion>=3 && !P.Skills.Contains(TEXT("dexterousHands"))) { Reason=TEXT("巧手进度缺失"); return false; }
@@ -93,6 +126,8 @@ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
     if (P.SkillProgressVersion>=5 && !P.Skills.Contains(TEXT("criticalStrike"))) { Reason=TEXT("暴击进度缺失"); return false; }
     if (P.SkillProgressVersion>=6 && (!P.Skills.Contains(TEXT("fireball")) || !FMath::IsFinite(P.FireballCooldown) || P.FireballCooldown<0 || P.FireballCooldown>300)) { Reason=TEXT("火球进度或冷却无效"); return false; }
     if(P.SkillProgressVersion>=8&&!P.Skills.Contains(TEXT("heavyStrike"))){Reason=TEXT("重击进度缺失");return false;}
+    if(P.SkillProgressVersion>=9&&(!FMath::IsFinite(P.FireballCooldownDuration)||P.FireballCooldownDuration<P.FireballCooldown||P.FireballCooldownDuration>300)){Reason=TEXT("火球冷却总时长无效");return false;}
+    if(P.SkillProgressVersion>=10&&(!P.Skills.Contains(TEXT("iceSpike"))||!FMath::IsFinite(P.IceSpikeCooldown)||P.IceSpikeCooldown<0||!FMath::IsFinite(P.IceSpikeCooldownDuration)||P.IceSpikeCooldownDuration<P.IceSpikeCooldown||P.IceSpikeCooldownDuration>300)){Reason=TEXT("冰锥进度或冷却无效");return false;}
     for (const auto& Pair:P.Skills)
         if (Pair.Key.IsNone() || Pair.Value.Level<1 || Pair.Value.Level>20 || Pair.Value.Experience<0 || Pair.Value.Experience>2000000 || (Pair.Value.Level==20 && Pair.Value.Experience!=0))
         { Reason=TEXT("技能等级或修炼值无效"); return false; }

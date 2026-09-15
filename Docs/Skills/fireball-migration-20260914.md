@@ -1,5 +1,7 @@
 # 火球迁移方案与接入（2026-09-14）
 
+2026-09-15 用户授权调整伤害、范围、消耗、冷却和修炼，当前数值以 [火球数值优化](fireball-balance-20260915.md) 为准。本文下面的基础迁移公式保留为历史对照。
+
 本文保留基础迁移阶段的实现记录；后续慢燃核心、外焰及左手 V3 以 [发布与恢复说明](skills-magic-publication-20260914.md) 和其链接记录为准。本轮公开范围不包含下述混合玩法代码。
 
 依据原 game-dev 的 fireball 配置、BoltSkillSystem、FireballSystem 与 Phaser 火球表现制作。使用上轮选定的 Epic Niagara Examples 本地素材，在 `/Game/Skills/Fireball` 创建专用副本，保留原包。

@@ -1,0 +1,25 @@
+{
+  "source": "seed_91571/textured_master_00001_.glb",
+  "source_axis": 2,
+  "source_tip_sign": 1,
+  "master_faces": 476094,
+  "length_cm": 54,
+  "export_axis": "+X points to tip",
+  "textures": "generated base and source maps, 2K tangent normal baked master to game mesh",
+  "variants": [
+    {
+      "name": "SM_IceSpike_01",
+      "faces": 18000
+    },
+    {
+      "name": "SM_IceSpike_02",
+      "faces": 18000
+    },
+    {
+      "name": "SM_IceSpike_03",
+      "faces": 18000
+    }
+  ],
+  "rendered": false,
+  "game_tested": false
+}

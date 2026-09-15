@@ -8,6 +8,7 @@
 #include "../Monsters/WolfMonster.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Skills/FireballDamage.h"
+#include "../UI/StatusEffectsComponent.h"
 UCombatStatusFormula::UCombatStatusFormula(){PrimaryComponentTick.bCanEverTick=true;}
 UCombatStatusFormula* UCombatStatusFormula::GetOrAdd(AActor* Target)
 {
@@ -41,6 +42,9 @@ void UCombatStatusFormula::AddBurn(AActor* Source,float Matk,int32 Stacks,float 
 void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {
     Super::TickComponent(Delta,Type,Fn);ShredTime=FMath::Max(0.f,ShredTime-Delta);WardTime=FMath::Max(0.f,WardTime-Delta);
+    auto Expire=[&](float& Time,int32& Stacks,FName Name){if(Time<=0)return;Time=FMath::Max(0.f,Time-Delta);if(Time==0){Stacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(Name);}};
+    Expire(ChillTime,ChillStacks,TEXT("chill"));Expire(HasteTime,HasteStacks,TEXT("haste"));Expire(ChainTime,ChainStacks,TEXT("chainSpell"));
+    FrozenTime=FMath::Max(0.f,FrozenTime-Delta);
     if(CorrosionStacks>0){CorrosionTime-=Delta;while(CorrosionTime<=0&&CorrosionStacks>0){--CorrosionStacks;CorrosionTime+=CorrosionDuration;}}
     if(VulnerabilityStacks>0){VulnerabilityTime-=Delta;while(VulnerabilityTime<=0&&VulnerabilityStacks>0){--VulnerabilityStacks;VulnerabilityTime+=5;}}
     auto Apply=[&](float Damage,AActor* Source,bool bMagicDamage){const auto* Pawn=Cast<APawn>(Source);UGameplayStatics::ApplyDamage(GetOwner(),Damage,Pawn?Pawn->GetController():nullptr,Source,bMagicDamage?UFireballDamage::StaticClass():UCombatDirectDamage::StaticClass());};
@@ -65,3 +69,32 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
         else while(BurnTick<=0){float Damage=0;AActor* Source=nullptr;for(const auto& B:Burns){Damage+=B.Damage;if(!Source)Source=B.Source.Get();}Apply(Damage,Source,true);BurnTick+=BurnInterval;}
     }
 }
+
+void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,float SlowPerStack)
+{
+    if(bImmune||FrozenTime>0||Stacks<=0||Seconds<=0)return;
+    if(ChillStacks==0)ChillSlow=SlowPerStack;
+    ChillStacks+=Stacks;ChillTime+=Seconds;
+    if(ChillStacks>=20)
+    {
+        ChillStacks-=10;FrozenTime=Seconds;
+        if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(Seconds);
+        if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(Seconds);
+        if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(Seconds);
+        if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->InterruptAttack(Seconds);
+        UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("frozen"),Seconds,1);
+    }
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("chill"),ChillTime,ChillStacks);
+}
+void UCombatStatusFormula::AddHaste(int32 Stacks,float Seconds)
+{
+    if(bImmune||Stacks<=0||Seconds<=0)return;HasteStacks+=Stacks;HasteTime+=Stacks*Seconds;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("haste"),HasteTime,HasteStacks);
+}
+void UCombatStatusFormula::AddChainSpell()
+{
+    if(bImmune)return;++ChainStacks;ChainTime+=10;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("chainSpell"),ChainTime,ChainStacks);
+}
+void UCombatStatusFormula::ConsumeChainSpell()
+{ChainTime=0;ChainStacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("chainSpell"));}

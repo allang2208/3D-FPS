@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "FireballTypes.h"
+#include "IceSpikeTypes.h"
 #include "ColdSteelSkillTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -33,6 +34,7 @@ struct FColdSteelSkillDefinition
     float HeavyMultiplierBase=2.5f,HeavyMultiplierPerLevel=.1f,HeavyChargeBase=2.f,HeavyChargeReductionPerLevel=.05f;
     int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;
     FFireballTuning Fireball;
+    FIceSpikeTuning IceSpike;
 };
 
 struct FColdSteelSkillEffect

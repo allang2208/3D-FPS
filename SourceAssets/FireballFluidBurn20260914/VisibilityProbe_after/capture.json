@@ -1,0 +1,24 @@
+{
+  "neutral": {
+    "bias": 0,
+    "file": "neutral.png"
+  },
+  "daylight": {
+    "bias": -10,
+    "file": "daylight.png"
+  },
+  "without_haze": {
+    "bias": -10,
+    "file": "without_haze.png"
+  },
+  "fire_only": {
+    "bias": -10,
+    "file": "fire_only.png"
+  },
+  "body_only": {
+    "bias": -10,
+    "file": "body_only.png"
+  },
+  "front_material": "None",
+  "editor_frames": 330
+}

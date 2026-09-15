@@ -1,0 +1,11 @@
+{
+  "system": "/Game/Skills/Fireball/ImpactRealistic20260914/NS_FireballImpactRealistic.NS_FireballImpactRealistic",
+  "shockwave": "/Game/Skills/Fireball/ImpactRealistic20260914/M_FireballHeatShockwave.M_FireballHeatShockwave",
+  "audio": "/Game/Skills/Fireball/ImpactRealistic20260914/S_FireballImpactLayered.S_FireballImpactLayered",
+  "emission": "Once; contact 1, combustion 6, wisps 3, embers 14",
+  "flame_atlas": "Epic T_Explosion_EOO, 8x8, non-looping playback",
+  "surface": "Local Z follows hit normal; LocalUp remains world up; SurfaceHit selects outward hemisphere or air burst",
+  "shader": "Depth-tested; DepthFade present; OutputTranslucentVelocity disabled; actual RHI compilation required",
+  "native": "Hit-based origin/orientation, 240 ms shadowed flash, 260 ms surface ring / air sphere",
+  "status": "Assets compiled and saved; no game, preview, screenshot or runtime acceptance"
+}

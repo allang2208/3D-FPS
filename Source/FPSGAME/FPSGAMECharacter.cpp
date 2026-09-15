@@ -6,6 +6,7 @@
 #include "Weapons/RuneSwordGuardTuning.h"
 #include "Skills/ColdSteelSkillRules.h"
 #include "Skills/FPSFireballComponent.h"
+#include "Skills/FPSIceSpikeComponent.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Perception/AISense_Hearing.h"
 #include "Weapons/AKMSovietCalibration.h"
@@ -91,6 +92,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
+    CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
 

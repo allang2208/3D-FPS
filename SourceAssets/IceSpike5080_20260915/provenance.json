@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-15",
+  "authorization": "User approved the proposed realistic ice body/material/hover vapor upgrade and use of the 5080 generation pipeline.",
+  "reference": {
+    "tool": "built-in image_gen",
+    "file": "three_views.png",
+    "prompt": "reference_prompt.txt",
+    "composition": "1536x1024; three 512x1024 panels: front, right side, back; one authored icicle, point up",
+    "preprocessing": "Each panel cropped separately in ComfyUI, background removed separately, passed to actual front/right/back multi-view inputs."
+  },
+  "generation": {
+    "model": "microsoft/TRELLIS.2-4B",
+    "node": "Trellis2MeshWithVoxelMultiViewGenerator",
+    "pipeline": "1024_cascade",
+    "structure_resolution": 64,
+    "steps_structure_shape_texture": [16, 32, 24],
+    "master_texture_size": 4096,
+    "seed": 91571,
+    "prompt_id": "7cefe280-5448-4d05-8940-4d12ff420fcb",
+    "workflow": "seed_91571/workflow.json",
+    "history": "seed_91571/history.json",
+    "node_schema": "generator_schema.json",
+    "node_revision": "Not exposed by the installed node schema; remote git CLI/metadata unavailable. No version inferred.",
+    "fill_holes": true,
+    "keep_only_shell": true,
+    "reason": "Single solid natural icicle without intentional mechanical apertures."
+  },
+  "geometry": {
+    "textured_master": "seed_91571/textured_master_00001_.glb",
+    "raw_master": "seed_91571/raw_00001_.glb",
+    "master_faces": 476094,
+    "game_faces_each": 18000,
+    "variants": 3,
+    "variation": "One generated master with slight authored cross-section and curvature variation, not three separate model generations.",
+    "editable": "IceSpike5080_Editable.blend",
+    "author": "Tools/Skills/author_ice_spike_5080.py",
+    "source_and_game_transform": "geometry-authoring.json",
+    "normal_map": "2K tangent-space normal baked from generated master; imported to UE with green channel flip."
+  },
+  "materials": {
+    "body": "Authored subsurface cloudy interior plus thin translucent lit outer mesh, frost root, generated surface variation, baked normal and layered cracks. No scene-color refraction or ice emissive output.",
+    "cracks": "Existing MIT ci_cracks.png from danielpokladek-shaders/cracked-ice; existing license copy retained.",
+    "vapor": "Project-specific copies of the locally owned Epic Niagara Examples MI_SmokeWispy_8x8_Emissive and its parent; Niagara graph based on existing project IceMotes. No third-party model acquired.",
+    "distribution": "Source-only publication authorized on 2026-09-15; author scripts, workflow and provenance included. Licensed Epic binaries, generated models/textures and job state stay local."
+  },
+  "runtime_folder": "/Game/Skills/IceSpike/FrostV2",
+  "importer": "Tools/Skills/build_ice_spike_frost_v2.py",
+  "game_tested": false,
+  "acceptance_rendered": false
+}

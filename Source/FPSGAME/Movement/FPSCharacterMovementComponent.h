@@ -11,6 +11,7 @@ class FPSGAME_API UFPSCharacterMovementComponent : public UCharacterMovementComp
     GENERATED_BODY()
 public:
     UFPSCharacterMovementComponent();
+    virtual float GetMaxSpeed() const override;
     void SetStairVisualRoot(USceneComponent* InRoot) { StairVisualRoot = InRoot; }
 
     // Local single-player dodge. Direction is captured at activation, in world XY.

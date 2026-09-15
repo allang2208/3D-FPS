@@ -1,0 +1,198 @@
+{
+  "date": "2026-09-15",
+  "status": "moved and SHA-256 matched",
+  "files": [
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeFluidBurn/NS_FireballSlowBurnCore.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeFluidBurn/NS_FireballSlowBurnCore.uasset",
+      "bytes": 1886753,
+      "sha256": "d0688609cde83a60e38749c91c1ab37854065ec5c6434fbef2da8f3102b2d6f4",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeFluidBurn/NS_FireballVelocityTrail.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeFluidBurn/NS_FireballVelocityTrail.uasset",
+      "bytes": 407568,
+      "sha256": "9d8468e4ba19c8c69d36f35a4be03946c2df17d62923ed512dcafcc5c0720bc1",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeExposureFix/M_FireballFluid_A.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeExposureFix/M_FireballFluid_A.uasset",
+      "bytes": 10316,
+      "sha256": "b2d7ec63895b55ac86770343bcd19f9dea87b86b9d9bc6e20ac2f0b51537bda3",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeExposureFix/M_FireballFluid_B.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeExposureFix/M_FireballFluid_B.uasset",
+      "bytes": 10316,
+      "sha256": "589f83f96a36d803e3c35720f0035a007ddb0eaed6c278bed28e2b344b25575d",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeExposureFix/MI_FluidShortFlames.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeExposureFix/MI_FluidShortFlames.uasset",
+      "bytes": 5880,
+      "sha256": "7465676a4fb7836c585d865d91e487915f690bd426d553e43b13b29b104adde0",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeCutoutFix/NS_FireballSlowBurnCore.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeCutoutFix/NS_FireballSlowBurnCore.uasset",
+      "bytes": 2723400,
+      "sha256": "9fd8bcb10e558b4e39d2f4f10935da55eaacb2f3e8d22cd216cd65fdcc03ddb0",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/BeforeCutoutFix/NS_FireballVelocityTrail.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/BeforeCutoutFix/NS_FireballVelocityTrail.uasset",
+      "bytes": 360141,
+      "sha256": "5eaffaee0a89e1278fd6037ae61c5d2ff20575028eba5fd3343048d5f1f191ec",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/NS_FireballSlowBurnCore.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/NS_FireballSlowBurnCore.uasset",
+      "bytes": 2741903,
+      "sha256": "73bfdfc2fb7326cef7cd5b93dccbe6140b94323ba6bf4f853ff078069f55714f",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/NS_FireballVelocityTrail.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/NS_FireballVelocityTrail.uasset",
+      "bytes": 365323,
+      "sha256": "b2b44a6473758a2ec6b873076b80df9434ba3ce39aace422b0df1c34fe5d952f",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/M_FireballFluid_A.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/M_FireballFluid_A.uasset",
+      "bytes": 12342,
+      "sha256": "9949f101a0f29627778389cdd2292d635faf2833915cc1ea5c084bd5d567db72",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/M_FireballFluid_B.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/M_FireballFluid_B.uasset",
+      "bytes": 12342,
+      "sha256": "a348ffd348f3f647e115883adad4d55a62412c1f71a13e3beae28a0ea073d7d8",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/M_FluidShortFlamesExposure.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/M_FluidShortFlamesExposure.uasset",
+      "bytes": 16578,
+      "sha256": "3e552fd3ee0e0fe1aaa9f45f802f84770c4e92c217aceb8b527e2272c4da9d6d",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/MI_FluidShortFlames.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/MI_FluidShortFlames.uasset",
+      "bytes": 5924,
+      "sha256": "7f20132b114c9bf83b5e1444c722fcaecf4c0af7a3d2bb4eca1b3f7e0f43b312",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/MI_FluidThinWisp.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/Before/Skills/Fireball/FluidBurn20260914/MI_FluidThinWisp.uasset",
+      "bytes": 11905,
+      "sha256": "d89b7f6c4e0f330960c716eb6a32ff0bf5fde75674706435b547e6cd1273e8f1",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FireballFluid_A.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FireballFluid_A.uasset",
+      "bytes": 12513,
+      "sha256": "3ae4443ae540ba309c0531da39aa42453e568d8cdd6d8ebfe52b94a81edac519",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FireballFluid_B.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FireballFluid_B.uasset",
+      "bytes": 12513,
+      "sha256": "da07f2cd5071e2540cabfd7e0ea407ca171980b7eefc7fecb6331d49cb6b18cf",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FluidShortFlamesExposure.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FluidShortFlamesExposure.uasset",
+      "bytes": 16749,
+      "sha256": "796e2934998b260672ad77c42d9375f9e9505528efc3663841a4d7792febecd6",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FluidThinWispMotion.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballMotionHeat20260914/BeforeVelocityConflictFix/M_FluidThinWispMotion.uasset",
+      "bytes": 149403,
+      "sha256": "853f6b6c9efc282cfc21a1dd17ad7f78d03d688b4cd09f1f3ebcb2fa2839a76f",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/Fireball; Tools/Skills/build_fireball_fluid_burn.py"
+    },
+    {
+      "source": "SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-M_IceHeart.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-M_IceHeart.uasset",
+      "bytes": 14731,
+      "sha256": "cbc0fad8f0c494b318ea08a087d39469fdf904c756ea8e63ad62c570def9f47b",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/IceSpike/FrostV2; Tools/Skills/build_ice_spike_frost_v2.py"
+    },
+    {
+      "source": "SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-M_IceShell.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-M_IceShell.uasset",
+      "bytes": 14454,
+      "sha256": "ede4f05af342c52e7e166c8ff1a2766dbef4deb43119f354a693ec7cef342302",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/IceSpike/FrostV2; Tools/Skills/build_ice_spike_frost_v2.py"
+    },
+    {
+      "source": "SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-material-inputs.json",
+      "destination": "trash/skills-magic-20260915/SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-material-inputs.json",
+      "bytes": 13857,
+      "sha256": "d766d31e2810811aae90980d14f9452a4966078aaa22a63b67be9154eba9d8be",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/IceSpike/FrostV2; Tools/Skills/build_ice_spike_frost_v2.py"
+    },
+    {
+      "source": "SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-MI_ColdMist.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-MI_ColdMist.uasset",
+      "bytes": 11904,
+      "sha256": "93ae9671dcc725eb26295fbee83c4570741fe54680b2aadacd917ef02049c9d1",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/IceSpike/FrostV2; Tools/Skills/build_ice_spike_frost_v2.py"
+    },
+    {
+      "source": "SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-NS_FrostCrystals.uasset",
+      "destination": "trash/skills-magic-20260915/SourceAssets/IceSpike5080_20260915/SoftLight20260915/before-NS_FrostCrystals.uasset",
+      "bytes": 339706,
+      "sha256": "6af35ac4d50ac9720b5945aab41d0e6024e6452f2bde0974fa7789d3bf430c5e",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "Content/Skills/IceSpike/FrostV2; Tools/Skills/build_ice_spike_frost_v2.py"
+    },
+    {
+      "source": "SourceAssets/FireballFluidBurn20260914/Fireball_Fluid_Editable.blend1",
+      "destination": "trash/skills-magic-20260915/SourceAssets/FireballFluidBurn20260914/Fireball_Fluid_Editable.blend1",
+      "bytes": 113188,
+      "sha256": "65486486efe6f8fade795b0264d66ab83cb944c2d62ed06e3834e00e7145ceb3",
+      "reason": "Superseded pre-fix material/system backup or previous Blender save; current authoring inputs retained",
+      "replacement": "SourceAssets/FireballFluidBurn20260914/Fireball_Fluid_Editable.blend"
+    }
+  ]
+}

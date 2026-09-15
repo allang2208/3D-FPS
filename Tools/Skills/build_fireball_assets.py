@@ -148,6 +148,10 @@ if __name__ == '__main__':
     build_slow_burn()
     from build_fireball_outer_flame import build as build_outer_flame
     build_outer_flame()
+    from build_fireball_fluid_burn import build as build_fluid_burn
+    build_fluid_burn()
+    from build_fireball_impact_realistic import build as build_impact_realistic
+    build_impact_realistic()
     out=ROOT/'SourceAssets/Fireball20260914';out.mkdir(parents=True,exist_ok=True)
     (out/'created-assets.json').write_text(json.dumps(CREATED,indent=2),encoding='utf-8')
     unreal.log('FIREBALL_ASSETS_CREATED')

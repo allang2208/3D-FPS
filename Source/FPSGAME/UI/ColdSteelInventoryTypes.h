@@ -74,7 +74,12 @@ struct FColdSteelProfile
     UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
     UPROPERTY() TArray<FColdSteelFormulaBuff> FormulaBuffs;
     UPROPERTY() float FireballCooldown = 0;
+    // Skill schema v9: total duration captured when this cooldown was committed.
+    UPROPERTY() float FireballCooldownDuration = 0;
     UPROPERTY() bool bFireballReserved = false;
+    UPROPERTY() float IceSpikeCooldown = 0;
+    UPROPERTY() float IceSpikeCooldownDuration = 0;
+    UPROPERTY() bool bIceSpikeReserved = false;
     // Optional tagged fields: legacy profiles start with no tools or depleted nodes.
     UPROPERTY() int32 ProductionSupplyVersion = 0;
     UPROPERTY() FString ActiveProductionTool;

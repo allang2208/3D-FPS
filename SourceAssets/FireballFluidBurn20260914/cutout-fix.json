@@ -1,0 +1,26 @@
+{
+  "NS_FireballSlowBurnCore/FireballFluidBodyA": {
+    "bUseMaterialCutoutTexture": false,
+    "CutoutTexture": "None"
+  },
+  "NS_FireballSlowBurnCore/FireballFluidBodyB": {
+    "bUseMaterialCutoutTexture": false,
+    "CutoutTexture": "None"
+  },
+  "NS_FireballSlowBurnCore/FireballFluidShortFlames": {
+    "bUseMaterialCutoutTexture": false,
+    "CutoutTexture": "None"
+  },
+  "NS_FireballSlowBurnCore/FireballFluidThinWisp": {
+    "bUseMaterialCutoutTexture": false,
+    "CutoutTexture": "None"
+  },
+  "NS_FireballSlowBurnCore/FireballFluidHeatHaze": {
+    "bUseMaterialCutoutTexture": false,
+    "CutoutTexture": "None"
+  },
+  "NS_FireballVelocityTrail/RocketTrail": {
+    "bUseMaterialCutoutTexture": false,
+    "CutoutTexture": "None"
+  }
+}

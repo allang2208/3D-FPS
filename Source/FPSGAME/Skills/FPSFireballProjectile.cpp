@@ -150,7 +150,8 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
     Light->SetIntensity(ImpactLightPeak);
     if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Contact,.72f,FMath::FRandRange(.96f,1.04f));
     UAISense_Hearing::ReportNoiseEvent(this,Center,1.f,Shooter.Get(),1600,TEXT("Fireball"));
-    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())P->ApplyFireballExplosion(Shooter.Get(),WaveOrigin,Cast,Hit?Hit->GetActor():nullptr);
+    // Keep the collision bone for direct-hit weakpoints; airbursts have no hit.
+    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())P->ApplyFireballExplosion(Shooter.Get(),WaveOrigin,Cast,Hit);
     if(Source.IsValid())Source->ProjectileFinished(this);Source.Reset();
     SetLifeSpan(1.2f); // Let the world-space trail finish its existing particles.
 }

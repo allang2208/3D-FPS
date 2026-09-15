@@ -37,6 +37,9 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> PistolIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> CriticalIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> FireballIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> IceSpikeIconTexture;
+    TSharedPtr<SButton> IceSpikeDetailButton;
+    FSlateBrush IceSpikeIconBrush;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> HeavyIconTexture;
     TSharedPtr<SBox> Root;
     TSharedPtr<SScrollBox> Scroll;

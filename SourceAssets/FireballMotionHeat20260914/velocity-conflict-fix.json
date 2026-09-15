@@ -1,0 +1,30 @@
+{
+  "issue": "OutputVelocity conflicts with DepthFade",
+  "materials": [
+    {
+      "asset": "/Game/Skills/Fireball/FluidBurn20260914/M_FireballFluid_A.M_FireballFluid_A",
+      "output_velocity": false,
+      "compiled": true,
+      "saved": true
+    },
+    {
+      "asset": "/Game/Skills/Fireball/FluidBurn20260914/M_FireballFluid_B.M_FireballFluid_B",
+      "output_velocity": false,
+      "compiled": true,
+      "saved": true
+    },
+    {
+      "asset": "/Game/Skills/Fireball/FluidBurn20260914/M_FluidShortFlamesExposure.M_FluidShortFlamesExposure",
+      "output_velocity": false,
+      "compiled": true,
+      "saved": true
+    },
+    {
+      "asset": "/Game/Skills/Fireball/FluidBurn20260914/M_FluidThinWispMotion.M_FluidThinWispMotion",
+      "output_velocity": false,
+      "compiled": true,
+      "saved": true
+    }
+  ],
+  "game_tested": false
+}

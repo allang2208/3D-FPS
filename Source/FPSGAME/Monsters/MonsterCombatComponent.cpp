@@ -1,4 +1,5 @@
 #include "MonsterCombatComponent.h"
+#include "../Combat/CombatStatusFormula.h"
 #include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
 #include "NurseZombie.h"
@@ -95,7 +96,8 @@ void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker)
  if(!GetOwner()->HasAuthority()||IsDead())return;
  if(auto* Pawn=Cast<APawn>(GetOwner()))if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController()))AI->RememberDamage(Attacker);
  Poise+=Damage;SinceHit=0;const bool TriggerStun=Poise>=PoiseThreshold;
- const float Remaining=IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f;
+ const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+ const float Remaining=FMath::Max(IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f,Status?Status->FrozenRemaining():0.f);
  bStunned=TriggerStun||(bStunned&&Remaining>0);
  if(TriggerStun)Poise=0;
  if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(FMath::Max(Remaining,TriggerStun?StunDuration:StaggerDuration));

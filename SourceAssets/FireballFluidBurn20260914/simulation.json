@@ -1,0 +1,34 @@
+{
+  "source": "Project-authored Blender Mantaflow continuous gas combustion",
+  "blender": "5.1.2",
+  "fps": 24,
+  "frames": [
+    1,
+    144
+  ],
+  "capture_frames": [
+    49,
+    144
+  ],
+  "domain_resolution": 96,
+  "noise_upres": 2,
+  "domain_world_size": [
+    2,
+    2,
+    2
+  ],
+  "domain_center": [
+    0,
+    0,
+    0.32
+  ],
+  "burning_rate": 1.25,
+  "fuel_lobes": 3,
+  "buoyancy": 0.65,
+  "outputs": [
+    "Fireball_Fluid_Editable.blend",
+    "Cache",
+    "Fields"
+  ],
+  "purpose": "Production simulation and texture baking; no game/visual acceptance"
+}

@@ -6,6 +6,7 @@
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Monsters/WolfMonster.h"
 #include "../Skills/FireballDamage.h"
+#include "../Skills/IceSpikeDamage.h"
 #include "../Skills/CorrosivePusDamage.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
@@ -25,7 +26,7 @@ CoreCombatFormula::Attributes MonsterAttributes(const AActor* Target)
 thread_local const CombatFormulaRuntime::MagicHit* CombatFormulaRuntime::ActiveMagicHit=nullptr;
 thread_local const double* CombatFormulaRuntime::ActivePhysicalPenetration=nullptr;
 bool CombatFormulaRuntime::IsMagic(const UDamageType* Type)
-{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UCorrosivePusDamage>());}
+{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<UCorrosivePusDamage>());}
 float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
 {
     if(const auto* W=Cast<AWolfMonster>(Target))return Magic?W->MagicDefense:W->PhysicalDefense;
@@ -49,10 +50,11 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     if(Magic&&ActiveMagicHit)Result=std::floor(Result*(1+ActiveMagicHit->DamageBonus));
     else if(Magic&&Player&&Player->IsPlayerControlled()&&Source->GetGameInstance())if(const auto* P=Source->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage"))));
     if(Magic&&Status)Result=std::floor(Result*Status->MagicVulnerabilityMultiplier());
+    if(!Magic&&Status&&Status->FrozenRemaining()>0)Result=std::floor(Result*1.5);
     if(Target->GetGameInstance())if(const auto* P=Target->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Result=std::floor(Result*P->TributeEffect(TEXT("monsterDamageTakenPercent")));
     if(Magic&&ActiveMagicHit)
     {
-        const bool Critical=FMath::FRand()*100<CoreCombatFormula::CriticalChance(ActiveMagicHit->Chance,MonsterCriticalResistance(Target));
+        const bool Critical=ActiveMagicHit->bWeakpoint||FMath::FRand()*100<CoreCombatFormula::CriticalChance(ActiveMagicHit->Chance,MonsterCriticalResistance(Target));
         if(ActiveMagicHit->CriticalResult)*ActiveMagicHit->CriticalResult=Critical;
         if(Critical)Result=CoreCombatFormula::CriticalDamage(Result,ActiveMagicHit->Bonus);
     }

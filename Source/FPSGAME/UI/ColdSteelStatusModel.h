@@ -76,16 +76,25 @@ public:
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress CriticalStrikeProgress() const;
     FColdSteelSkillEffect CriticalStrikeEffect(int32 AtLevel=-1) const;
     const FColdSteelSkillDefinition& FireballDefinition() const { return FireballSkill; }
+    const FColdSteelSkillDefinition& IceSpikeDefinition() const { return IceSpikeSkill; }
+    FColdSteelSkillProgress IceSpikeProgress() const;
+    FIceSpikeCast IceSpikeStats(int32 AtLevel=-1) const;
+    float IceSpikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceSpikeCooldown; }
+    float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
+    bool BeginIceSpikeCast(const FIceSpikeCast& Cast);
+    void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards);
+    void FinishIceSpikeCast(const FIceSpikeRewards& Rewards);
     FColdSteelSkillProgress FireballProgress() const;
     FFireballCast FireballStats(int32 AtLevel=-1) const;
     float FireballCooldown() const;
+    float FireballCooldownDuration() const { return Current.FireballCooldownDuration; }
     bool HasInfiniteMana() const;
     bool CanSpendMana(float Amount) const;
     bool HasNoAbilityCooldown() const;
     void RefreshDevelopmentTuning();
     bool BeginFireballCast();
     void FinishFireballCast();
-    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,AActor* DirectTarget=nullptr);
+    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
     float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot);
     bool PopProgressNotice(FColdSteelProgressNotice& Out);
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
@@ -185,6 +194,7 @@ private:
     FColdSteelSkillDefinition PistolSkill;
     FColdSteelSkillDefinition CriticalStrikeSkill;
     FColdSteelSkillDefinition FireballSkill;
+    FColdSteelSkillDefinition IceSpikeSkill;
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;

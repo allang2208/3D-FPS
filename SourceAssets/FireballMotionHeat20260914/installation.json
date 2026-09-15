@@ -1,0 +1,22 @@
+{
+  "runtime_core": "/Game/Skills/Fireball/NS_FireballSlowBurnCore",
+  "runtime_trail": "/Game/Skills/Fireball/NS_FireballVelocityTrail",
+  "motion": "AfterDOF and TAA ResponsiveAA; precise Niagara vectors retained, material velocity output disabled for DepthFade compatibility",
+  "occlusion": "Keep depth test and depth fade; no AfterMotionBlur depth bypass",
+  "halo": "/Game/Skills/Fireball/FluidBurn20260914/M_FluidHoverHeatHalo.M_FluidHoverHeatHalo",
+  "size_cm": [
+    60,
+    68
+  ],
+  "ior_strength": 0.035,
+  "spawn_per_second": 1.25,
+  "lifetime_seconds": 1.6,
+  "launch_fade_seconds": [
+    0.04,
+    0.22
+  ],
+  "reference": "/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift",
+  "owned_noise": "/Game/Realistic_Starter_VFX_Pack_Vol2/Textures/T_NoiseNormal_A",
+  "status": "Four affected materials repaired, compiled with D3D12 and saved; heat halo retained; no game test after repair",
+  "velocity_conflict_fix": "velocity-conflict-fix.json / conflict-fix-sm6.log"
+}

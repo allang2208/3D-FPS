@@ -86,7 +86,7 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
         ProgressNotices.Add(MoveTemp(N));
     }
-    const FColdSteelSkillDefinition* NoticeDefinitions[]={&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&DodgeSkill,&DexterousHandsSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike"))};
+    const FColdSteelSkillDefinition* NoticeDefinitions[]={&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&DodgeSkill,&DexterousHandsSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike"))};
     for(const auto* Definition:NoticeDefinitions)
     {
     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
@@ -95,6 +95,7 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         FColdSteelProgressNotice N; N.Title=FString::Printf(TEXT("%s升级   Lv.%d → %d"),*Definition->Name,Old->Level,New->Level);
         N.Detail=ColdSteelSkills::EffectSummary(ColdSteelSkills::Effect(*Definition,New->Level)); N.Icon=Definition->Icon;
         if(Definition->Id==TEXT("fireball"))N.Detail=FString::Printf(TEXT("火球威力提升 · 爆炸半径 %.2f 米"),FireballStats(New->Level).Radius/100);
+        if(Definition->Id==TEXT("iceSpike"))N.Detail=FString::Printf(TEXT("冰锥威力提升 · 当前 %d 枚"),IceSpikeStats(New->Level).Count);
         ProgressNotices.Add(MoveTemp(N));
     }
     }
