@@ -1,5 +1,7 @@
 # UE5 冷钢 UI 对照升级 · 2026-09-09
 
+本文件保留 9 月 9 日的实现与验收历史。现行字体、配色、透明度和状态面板规则已由 [冷钢 UI 正式规则 v2](ui-cold-steel-design-system.md) 替换；下文宋体／Consolas、45% 贴边抽屉等不再是当前标准，历史测试也不覆盖新版。
+
 本次以 `E:/3d/3-dfps/ui/status_page.gd`、`ui/player_status.gd`、`ui/apple-glass-tokens.json` 和 `docs/apple-glass-ui-standard.md` 为来源。Godot 参考保持只读；使用独立存档重新渲染三种分辨率。目标为当前 UE5 已有 UI 的升级，重点是角色属性页。当前实现不等于原项目全部玩法迁移完成。
 
 ## 对照结果与实现

@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "TacticalSuppressorAssets.h"
 
 namespace M1911WeaponAssets
 {
@@ -21,6 +22,7 @@ namespace M1911WeaponAssets
     }
     inline FString AttachmentPath(const FString& Part)
     {
+        if (Part == TEXT("tactical_suppressor")) return TacticalSuppressorAssets::MeshPath(TEXT("M1911"));
         if (Part == TEXT("panoramic_red_dot"))
             return TEXT("/Game/Weapons/M1911/SculptedMount20260913/Meshes/SM_M1911_") + Part;
         if (Part == TEXT("brake"))

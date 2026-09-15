@@ -202,7 +202,7 @@ void UM4GunsmithWidget::SyncStudioPreview()
         const float Aspect=float(PreviewTarget->SizeX)/FMath::Max(1,PreviewTarget->SizeY);
         const FVector Size=PreviewFramingBounds.GetSize(),Center=PreviewFramingBounds.GetCenter();
         // Reserve space around all visible parts, including future nested attachments.
-        Capture->OrthoWidth=FMath::Max(30.f,FMath::Max(float(Size.Y)/.84f,float(Size.Z)*Aspect/.60f));
+        Capture->OrthoWidth=FMath::Max(30.f,FMath::Max(float(Size.Y)/.84f,float(Size.Z)*Aspect/.60f))/PreviewZoom;
         const FVector LocalShift(FMath::Max(500.,Size.X*.5+100.)-Center.X,-Center.Y,-Center.Z);
         const FVector Shift=ViewTransform.TransformVector(LocalShift);
         for(const auto& Weak:Capture->ShowOnlyComponents)if(auto* Copy=Weak.Get())Copy->AddWorldOffset(Shift);
@@ -225,10 +225,17 @@ void UM4GunsmithWidget::RotatePreview(FVector2D Delta)
     PreviewOrbit.Y=FMath::Clamp(PreviewOrbit.Y-float(Delta.Y)*.35f,-85.f,85.f);
     PreviewMotion=1.f;CaptureAccumulator=1.f;
 }
+void UM4GunsmithWidget::ZoomPreview(float WheelDelta)
+{
+    if(bAimPreview||!bSidePreview)SetSidePreview(true);
+    PreviewZoom=FMath::Clamp(PreviewZoom*FMath::Pow(1.12f,WheelDelta),.65f,2.25f);
+    PreviewMotion=1.f;CaptureAccumulator=1.f;
+}
 void UM4GunsmithWidget::ReleasePreview()
 {
     if(PreviewSurface&&PreviewSurface->HasMouseCapture()&&FSlateApplication::IsInitialized())FSlateApplication::Get().ReleaseMouseCapture();
     PreviewSurface.Reset();
+    if(StandaloneMelee){Studio->RemoveComponent(StandaloneMelee);StandaloneMelee->DestroyComponent();StandaloneMelee=nullptr;}
     if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();Capture=nullptr;}
     if(PreviewCoverageCapture){PreviewCoverageCapture->TextureTarget=nullptr;Studio->RemoveComponent(PreviewCoverageCapture);PreviewCoverageCapture->DestroyComponent();PreviewCoverageCapture=nullptr;}
     StudioCopies.Reset();PreviewBoundsCache.Reset();StudioFill=nullptr;Studio.Reset();
@@ -240,7 +247,7 @@ void UM4GunsmithWidget::ReleasePreview()
 }
 void UM4GunsmithWidget::NativeTick(const FGeometry& Geometry,float Delta)
 {
-    Super::NativeTick(Geometry,Delta);TickCapture(Delta);
+    Super::NativeTick(Geometry,Delta);UpdateResponsiveLayout();TickCapture(Delta);
 }
 void UM4GunsmithWidget::TickCapture(float Delta)
 {
@@ -260,7 +267,7 @@ void UM4GunsmithWidget::TickCapture(float Delta)
     }
     if(!Capture||CaptureAccumulator<((PreviewMotion>0||bPreviewStreamingPending)?1.f/30.f:.2f))return;
     CaptureAccumulator=0;
-    if(bStandalone){if(StandaloneRig){StandaloneRig->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();CapturePreview();}return;}
+    if(bStandalone){if(StandaloneMelee){SyncStandaloneMeleePreview();CapturePreview();}else if(StandaloneRig){StandaloneRig->UpdateGunsmithCapture(Capture,bAimPreview);SyncStudioPreview();CapturePreview();}return;}
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!P->Equipped()||P->Equipped()->InstanceId!=Model()->Instance())return;
     if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))

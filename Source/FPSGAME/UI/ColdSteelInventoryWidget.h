@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/DragDropOperation.h"
+#include "ColdSteelInventoryTypes.h"
 #include "ColdSteelInventoryWidget.generated.h"
 class UColdSteelStatusModel;
 UCLASS()
@@ -13,7 +14,11 @@ public:
     FIntPoint GrabOffset=FIntPoint::ZeroValue;
     int32 HotbarIndex=-1;
     int32 SourcePlace=-1,SourceCell=-1;
+    FColdSteelItem SourceSnapshot;
+    bool bHasSourceSnapshot=false;
+    bool IsCurrent(const UColdSteelStatusModel* Model) const;
     TWeakObjectPtr<class UColdSteelInventoryWidget> SourceBoard;
+    TWeakObjectPtr<class UColdSteelHUDWidget> SourceHUD;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelDragVisual> PointerVisual;
     void ReleaseVisual();
     virtual void Dragged_Implementation(const FPointerEvent&)override;
@@ -33,6 +38,8 @@ public:
     void FinishDrag();
     void OpenItemMenu(FVector2D Anchor,bool SplitOnly=false);
     FString Selection()const{return Selected;}
+    void ConfigureWarehouse(class UColdSteelHUDWidget* Owner);
+    void ResetStoragePage();
 protected:
     virtual FReply NativeOnMouseMove(const FGeometry&,const FPointerEvent&)override;
     virtual void NativeOnMouseLeave(const FPointerEvent&)override;
@@ -53,8 +60,18 @@ protected:
 private:
     class UColdSteelHUDWidget* TooltipHUD()const;
     bool bKeyboardTooltip=false;
+    FString PendingTooltip;
+    FVector2D TooltipAnchor;
+    float TooltipHoverTime=0;
+    bool bHoverTooltipShown=false;
     friend class UColdSteelHUDWidget;
     friend class UColdSteelInventoryPopup;
+    friend class UColdSteelWarehouseWidget;
+    bool bWarehouse=false;
+    TWeakObjectPtr<class UColdSteelHUDWidget> StorageHUD;
+    int32 StoragePlace()const{return bWarehouse?4:0;}
+    int32 StorageStart()const;
+    int32 StorageRows()const;
     UPROPERTY() TObjectPtr<UColdSteelStatusModel> Model;
     FDelegateHandle ModelHandle;
     FDelegateHandle IconHandle;

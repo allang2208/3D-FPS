@@ -1,9 +1,11 @@
 #include "PoisonMaggotProjectile.h"
 #include "PoisonMaggotMonster.h"
+#include "PoisonMaggotVenomFX.h"
 #include "FPSCombatHealthComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
+#include "Materials/MaterialInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Misc/CommandLine.h"
@@ -14,13 +16,46 @@ APoisonMaggotProjectile::APoisonMaggotProjectile()
  PrimaryActorTick.bCanEverTick=true;
  Visual=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomDroplet"));RootComponent=Visual;
  static ConstructorHelpers::FObjectFinder<UStaticMesh> Sphere(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
+ static ConstructorHelpers::FObjectFinder<UMaterialInterface> Liquid(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid"));
+ static ConstructorHelpers::FObjectFinder<UMaterialInterface> Core(TEXT("/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomCore.M_VenomCore"));
  if(Sphere.Succeeded())Visual->SetStaticMesh(Sphere.Object);
- Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visual->SetCastShadow(false);Visual->SetRelativeScale3D(FVector(.15,.095,.095));
+ Visual->SetMaterial(0,Liquid.Object);
+ Visual->SetCollisionEnabled(ECollisionEnabled::NoCollision);Visual->SetCastShadow(false);Visual->SetRelativeScale3D(FVector(.125,.095,.095));
+ Visual->SetCanEverAffectNavigation(false);Visual->bReceivesDecals=false;Visual->bAffectDistanceFieldLighting=false;
+ Visual->SetBoundsScale(1.15f);
+ LiquidCore=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VenomOpaqueCore"));LiquidCore->SetupAttachment(Visual);
+ LiquidCore->SetStaticMesh(Sphere.Object);LiquidCore->SetMaterial(0,Core.Object);
+ LiquidCore->SetRelativeScale3D(FVector(.80,.78,.78));
+ LiquidCore->SetCollisionEnabled(ECollisionEnabled::NoCollision);LiquidCore->SetCastShadow(false);
+ LiquidCore->SetCanEverAffectNavigation(false);LiquidCore->bReceivesDecals=false;LiquidCore->bAffectDistanceFieldLighting=false;
 }
 void APoisonMaggotProjectile::Launch(APoisonMaggotMonster* Source,FVector Dir,float Speed,float Range,float Damage,float Chance)
 {
  Shooter=Source;Velocity=Dir.GetSafeNormal()*Speed;Remaining=Range;HitDamage=Damage;PoisonChance=Chance;
- SetActorRotation(Dir.Rotation());if(Source->VenomMaterial)Visual->SetMaterial(0,Source->VenomMaterial);SetLifeSpan(Range/FMath::Max(1.f,Speed)+.1f);
+ // Cosmetics use their own random stream, never consuming combat poison/spread RNG.
+ VisualRandom.Initialize(int32(GetUniqueID()));VisualPhase=VisualRandom.FRand()*2.f*PI;
+ SetActorRotation(Dir.Rotation());SetLifeSpan(Range/FMath::Max(1.f,Speed)+.1f);
+}
+void APoisonMaggotProjectile::UpdateLiquidVisual(float Dt,const FVector& Start,const FVector& End)
+{
+ const float PreviousAge=VisualAge;VisualAge+=Dt;
+ const float Stretch=1.f+.09f*FMath::Sin(VisualAge*17.f+VisualPhase);
+ const float Width=1.f/FMath::Sqrt(Stretch);
+ Visual->SetRelativeScale3D(FVector(.125f*Stretch,.095f*Width,.095f*Width));
+ FRotator Direction=Velocity.Rotation();Direction.Roll=FMath::RadiansToDegrees(VisualPhase)+VisualAge*48.f;
+ SetActorRotation(Direction);
+ LiquidCore->SetRelativeScale3D(FVector(.8f,.78f+.025f*FMath::Sin(VisualAge*11.f+VisualPhase),.78f));
+ auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>();
+ if(!FX)return;
+ // Emit along the traveled segment, not as a cluster at the current endpoint.
+ int32 Emitted=0;
+ while(NextTrail<=VisualAge&&Emitted<4)
+ {
+  const float Alpha=Dt>UE_SMALL_NUMBER?FMath::Clamp((NextTrail-PreviousAge)/Dt,0.f,1.f):1.f;
+  FX->AddTrail(FMath::Lerp(Start,End,Alpha),Velocity,(TrailCount++%3)==0);
+  NextTrail+=.065f;++Emitted;
+ }
+ if(NextTrail<=VisualAge)NextTrail=VisualAge+.065f;
 }
 void APoisonMaggotProjectile::Tick(float Dt)
 {
@@ -43,25 +78,27 @@ void APoisonMaggotProjectile::Tick(float Dt)
  }
  if(Blocking)
  {
+  UpdateLiquidVisual(Dt*Hit.Time,Start,Hit.Location);
+  if(auto* FX=GetWorld()->GetSubsystem<UPoisonMaggotVenomFX>())FX->AddImpact(Hit,Velocity);
   if(FParse::Param(FCommandLine::Get(),TEXT("MonsterFeedbackProbe")))UE_LOG(LogTemp,Display,TEXT("MAGGOT_IMPACT_PROBE actor=%s component=%s profile=%s visibility=%d pawn=%d initial=%d"),*GetPathNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.GetComponent()?*Hit.GetComponent()->GetCollisionProfileName().ToString():TEXT("none"),Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Visibility)):-1,Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)):-1,Hit.bStartPenetrating);
   if(auto* P=Cast<APawn>(Hit.GetActor()))if(P->IsPlayerControlled())
   {
    auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();
    if(H&&!H->IsDead())
    {
-    UGameplayStatics::ApplyDamage(P,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass());++Shooter->ProjectileHits;
-    if(!H->IsDead()&&FMath::FRand()<PoisonChance){auto* Poison=P->FindComponentByClass<UMaggotPoisonComponent>();if(!Poison){Poison=NewObject<UMaggotPoisonComponent>(P);P->AddInstanceComponent(Poison);Poison->RegisterComponent();}Poison->AddStack(Shooter.Get());}
+    const float Applied=UGameplayStatics::ApplyDamage(P,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass());++Shooter->ProjectileHits;
+    if(Applied>0.f&&!H->IsDead()&&FMath::FRand()<PoisonChance){auto* Poison=P->FindComponentByClass<UMaggotPoisonComponent>();if(!Poison){Poison=NewObject<UMaggotPoisonComponent>(P);P->AddInstanceComponent(Poison);Poison->RegisterComponent();}Poison->AddStack(Shooter.Get());}
    }
   }
   Destroy();return;
  }
- SetActorLocation(End);Remaining-=Step;if(Remaining<=0)Destroy();
+ SetActorLocation(End);UpdateLiquidVisual(Dt,Start,End);Remaining-=Step;if(Remaining<=0)Destroy();
 }
 UMaggotPoisonComponent::UMaggotPoisonComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
 void UMaggotPoisonComponent::AddStack(APoisonMaggotMonster* Source)
 {
  if(!GetOwner()->HasAuthority()||!IsValid(Source))return;
- auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead())return;
+ auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();if(!H||H->IsDead()||H->IsInvulnerable())return;
  if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;DamageInstigator=Source->GetController();SetComponentTickEnabled(true);
  UStatusEffectsComponent::Notify(GetOwner());
 }

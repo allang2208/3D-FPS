@@ -6,6 +6,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 **用户规则（2026-09-12）：未明确要求时不主动检查、测试或验收；完成必要制作、构建与接入后交由用户测试。**
 
 # Quick Start
+- For FPSGAME persistent panel icons, hotkey effects, dual-pistol layout, or melee stamina readouts, read [HUD navigation and weapon readouts](references/hud-navigation-and-weapon-readouts.md).
 - For FPSGAME new panels, tabs, sections, cards, or UI upgrades, first read [panel planning and Cold Steel rules](references/fpsgame-panels.md). Plan structure, layout, data scope and states before implementation; use the project's current design system.
 - For FPSGAME inventory drawers, detached item menus, or drag/close regressions, read [inventory input and validation](references/fpsgame-inventory-input.md).
 - For a blurry weapon/item preview, incomplete-looking materials, or transparent SceneCapture composition, read [preview rendering and texture residency](references/preview-rendering.md).

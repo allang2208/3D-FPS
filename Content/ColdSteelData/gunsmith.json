@@ -47,7 +47,9 @@
         "magazine",
         "muzzle",
         "underbarrel",
-        "stock"
+        "stock",
+        "reargrip",
+        "tactical"
       ],
       "base": {
         "ammo_item_id": "ammo_556",
@@ -211,38 +213,67 @@
           {
             "id": "true",
             "name": "消音器",
-            "description": "减轻后坐与射击晃动，削弱枪口火光；弹速降低20%。",
+            "description": "降低枪声与枪口火光；后坐力降低10%，枪械稳定性提高10%，子弹速度降低15%。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1,
+              "bullet_speed_mult": 0.85
+            }
+          },
+          {
+            "id": "tactical_suppressor",
+            "name": "战术消音器",
+            "description": "精细斜纹战术消音器，降低枪声与枪口火光；后坐力降低25%，枪械稳定性提高25%，子弹速度降低20%，ADS瞄准速度降低5%。",
             "effects": [
               {
                 "text": "后坐力降低25%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低25%",
+                "text": "枪械稳定性提高25%",
                 "benefit": 1
               },
               {
                 "text": "子弹速度降低20%",
                 "benefit": -1
+              },
+              {
+                "text": "ADS瞄准速度降低5%",
+                "benefit": -1
               }
             ],
             "stats": {
               "recoil_mult": 0.75,
-              "shake_mult": 0.75,
-              "bullet_speed_mult": 0.8
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05263157894736836
             }
           },
           {
             "id": "brake",
             "name": "枪口制退器",
-            "description": "三组侧孔制退结构，减轻后坐与晃动；开镜耗时增加10%。",
+            "description": "三组侧孔制退结构，减轻后坐、提高枪械稳定性；开镜耗时增加10%。",
             "effects": [
               {
                 "text": "后坐力降低15%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低15%",
+                "text": "枪械稳定性提高15%",
                 "benefit": 1
               },
               {
@@ -252,21 +283,21 @@
             ],
             "stats": {
               "recoil_mult": 0.85,
-              "shake_mult": 0.85,
+              "stability_mult": 1.15,
               "ads_percent": 0.1
             }
           },
           {
             "id": "titanium_brake",
             "name": "钛金制退器",
-            "description": "钛金嵌边制退器，后坐力降低30%、晃动降低20%；开镜速度降低15%。",
+            "description": "钛金嵌边制退器，后坐力降低30%、枪械稳定性提高20%；开镜速度降低15%。",
             "effects": [
               {
                 "text": "后坐力降低30%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低20%",
+                "text": "枪械稳定性提高20%",
                 "benefit": 1
               },
               {
@@ -276,7 +307,7 @@
             ],
             "stats": {
               "recoil_mult": 0.7,
-              "shake_mult": 0.8,
+              "stability_mult": 1.2,
               "ads_percent": 0.17647058823529416
             }
           }
@@ -295,30 +326,171 @@
             "description": "双管上梁、镂空后架与橡胶抵肩垫，使用对应枪型的安装接口。",
             "effects": [
               {
-                "text": "ADS瞄准耗时减少20%",
+                "text": "ADS瞄准时间减少20%",
                 "benefit": 1
               },
               {
-                "text": "后坐力增加10%",
+                "text": "后坐力增加15%",
                 "benefit": -1
               },
               {
-                "text": "枪械晃动增加10%",
-                "benefit": -1
+                "text": "枪械稳定性增加10%",
+                "benefit": 1
               }
             ],
             "stats": {
               "ads_percent": -0.2,
-              "recoil_mult": 1.1,
-              "shake_mult": 1.1
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空枪托，使用对应枪型的安装接口。提升后坐力控制和枪械稳定性，不影响ADS瞄准时间。",
+            "effects": [
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
             }
           },
           {
             "id": "qr_performance",
             "name": "高性能后托",
             "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，使用对应枪型的安装接口。",
+            "effects": [
+              {
+                "text": "后坐力减少20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            }
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "可调节贴腮面与伸缩结构，使用对应枪型的安装接口。缩短ADS瞄准时间，降低后坐力并提升枪械稳定性，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "ADS瞄准时间减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力减少15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            }
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂后握把",
+            "description": "拆下改造后握把，恢复这把枪的原厂后握把。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "镂空框架后握把，带横向防滑纹理。降低开镜速度、提高后坐力控制，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "ADS瞄准速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.17647058823529416,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            }
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "实心人体工学后握把，指槽与橡胶防滑面提升枪械稳定性。开镜瞄准速度降低10%，后坐力控制提高20%，枪械稳定性提高15%。",
+            "effects": [
+              {
+                "text": "开镜瞄准速度降低10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力控制提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.11111111111111116,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            }
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件，提升后坐力控制与枪械稳定性。",
+            "effects": [
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
           }
         ],
         "tactical": [
@@ -372,7 +544,9 @@
         "magazine",
         "muzzle",
         "underbarrel",
-        "stock"
+        "stock",
+        "reargrip",
+        "tactical"
       ],
       "base": {
         "ammo_item_id": "ammo_762",
@@ -536,38 +710,67 @@
           {
             "id": "true",
             "name": "消音器",
-            "description": "减轻后坐与射击晃动，削弱枪口火光；弹速降低20%。",
+            "description": "降低枪声与枪口火光；后坐力降低10%，枪械稳定性提高10%，子弹速度降低15%。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1,
+              "bullet_speed_mult": 0.85
+            }
+          },
+          {
+            "id": "tactical_suppressor",
+            "name": "战术消音器",
+            "description": "精细斜纹战术消音器，降低枪声与枪口火光；后坐力降低25%，枪械稳定性提高25%，子弹速度降低20%，ADS瞄准速度降低5%。",
             "effects": [
               {
                 "text": "后坐力降低25%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低25%",
+                "text": "枪械稳定性提高25%",
                 "benefit": 1
               },
               {
                 "text": "子弹速度降低20%",
                 "benefit": -1
+              },
+              {
+                "text": "ADS瞄准速度降低5%",
+                "benefit": -1
               }
             ],
             "stats": {
               "recoil_mult": 0.75,
-              "shake_mult": 0.75,
-              "bullet_speed_mult": 0.8
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05263157894736836
             }
           },
           {
             "id": "brake",
             "name": "枪口制退器",
-            "description": "三组侧孔制退结构，减轻后坐与晃动；开镜耗时增加10%。",
+            "description": "三组侧孔制退结构，减轻后坐、提高枪械稳定性；开镜耗时增加10%。",
             "effects": [
               {
                 "text": "后坐力降低15%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低15%",
+                "text": "枪械稳定性提高15%",
                 "benefit": 1
               },
               {
@@ -577,21 +780,21 @@
             ],
             "stats": {
               "recoil_mult": 0.85,
-              "shake_mult": 0.85,
+              "stability_mult": 1.15,
               "ads_percent": 0.1
             }
           },
           {
             "id": "titanium_brake",
             "name": "钛金制退器",
-            "description": "钛金嵌边制退器，后坐力降低30%、晃动降低20%；开镜速度降低15%。",
+            "description": "钛金嵌边制退器，后坐力降低30%、枪械稳定性提高20%；开镜速度降低15%。",
             "effects": [
               {
                 "text": "后坐力降低30%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低20%",
+                "text": "枪械稳定性提高20%",
                 "benefit": 1
               },
               {
@@ -601,7 +804,7 @@
             ],
             "stats": {
               "recoil_mult": 0.7,
-              "shake_mult": 0.8,
+              "stability_mult": 1.2,
               "ads_percent": 0.17647058823529416
             }
           }
@@ -620,30 +823,171 @@
             "description": "双管上梁、镂空后架与橡胶抵肩垫，使用对应枪型的安装接口。",
             "effects": [
               {
-                "text": "ADS瞄准耗时减少20%",
+                "text": "ADS瞄准时间减少20%",
                 "benefit": 1
               },
               {
-                "text": "后坐力增加10%",
+                "text": "后坐力增加15%",
                 "benefit": -1
               },
               {
-                "text": "枪械晃动增加10%",
-                "benefit": -1
+                "text": "枪械稳定性增加10%",
+                "benefit": 1
               }
             ],
             "stats": {
               "ads_percent": -0.2,
-              "recoil_mult": 1.1,
-              "shake_mult": 1.1
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空枪托，使用对应枪型的安装接口。提升后坐力控制和枪械稳定性，不影响ADS瞄准时间。",
+            "effects": [
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
             }
           },
           {
             "id": "qr_performance",
             "name": "高性能后托",
             "description": "宽贴腮面、镂空斜撑后架与橡胶肩垫，使用对应枪型的安装接口。",
+            "effects": [
+              {
+                "text": "后坐力减少20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            }
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "可调节贴腮面与伸缩结构，使用对应枪型的安装接口。缩短ADS瞄准时间，降低后坐力并提升枪械稳定性，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "ADS瞄准时间减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力减少15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            }
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂后握把",
+            "description": "拆下改造后握把，恢复这把枪的原厂后握把。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "镂空框架后握把，带横向防滑纹理。降低开镜速度、提高后坐力控制，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "ADS瞄准速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.17647058823529416,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            }
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "实心人体工学后握把，指槽与橡胶防滑面提升枪械稳定性。开镜瞄准速度降低10%，后坐力控制提高20%，枪械稳定性提高15%。",
+            "effects": [
+              {
+                "text": "开镜瞄准速度降低10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力控制提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.11111111111111116,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            }
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件，提升后坐力控制与枪械稳定性。",
+            "effects": [
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
           }
         ],
         "tactical": [
@@ -697,7 +1041,9 @@
         "magazine",
         "muzzle",
         "underbarrel",
-        "stock"
+        "stock",
+        "reargrip",
+        "tactical"
       ],
       "base": {
         "ammo_item_id": "ammo_58",
@@ -861,38 +1207,67 @@
           {
             "id": "true",
             "name": "消音器",
-            "description": "减轻后坐与射击晃动，削弱枪口火光；弹速降低20%。",
+            "description": "降低枪声与枪口火光；后坐力降低10%，枪械稳定性提高10%，子弹速度降低15%。",
+            "effects": [
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1,
+              "bullet_speed_mult": 0.85
+            }
+          },
+          {
+            "id": "tactical_suppressor",
+            "name": "战术消音器",
+            "description": "精细斜纹战术消音器，降低枪声与枪口火光；后坐力降低25%，枪械稳定性提高25%，子弹速度降低20%，ADS瞄准速度降低5%。",
             "effects": [
               {
                 "text": "后坐力降低25%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低25%",
+                "text": "枪械稳定性提高25%",
                 "benefit": 1
               },
               {
                 "text": "子弹速度降低20%",
                 "benefit": -1
+              },
+              {
+                "text": "ADS瞄准速度降低5%",
+                "benefit": -1
               }
             ],
             "stats": {
               "recoil_mult": 0.75,
-              "shake_mult": 0.75,
-              "bullet_speed_mult": 0.8
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05263157894736836
             }
           },
           {
             "id": "brake",
             "name": "枪口制退器",
-            "description": "三组侧孔制退结构，减轻后坐与晃动；开镜耗时增加10%。",
+            "description": "三组侧孔制退结构，减轻后坐、提高枪械稳定性；开镜耗时增加10%。",
             "effects": [
               {
                 "text": "后坐力降低15%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低15%",
+                "text": "枪械稳定性提高15%",
                 "benefit": 1
               },
               {
@@ -902,21 +1277,21 @@
             ],
             "stats": {
               "recoil_mult": 0.85,
-              "shake_mult": 0.85,
+              "stability_mult": 1.15,
               "ads_percent": 0.1
             }
           },
           {
             "id": "titanium_brake",
             "name": "钛金制退器",
-            "description": "钛金嵌边制退器，后坐力降低30%、晃动降低20%；开镜速度降低15%。",
+            "description": "钛金嵌边制退器，后坐力降低30%、枪械稳定性提高20%；开镜速度降低15%。",
             "effects": [
               {
                 "text": "后坐力降低30%",
                 "benefit": 1
               },
               {
-                "text": "射击晃动降低20%",
+                "text": "枪械稳定性提高20%",
                 "benefit": 1
               },
               {
@@ -926,7 +1301,7 @@
             ],
             "stats": {
               "recoil_mult": 0.7,
-              "shake_mult": 0.8,
+              "stability_mult": 1.2,
               "ads_percent": 0.17647058823529416
             }
           }
@@ -945,30 +1320,171 @@
             "description": "镂空战术枪托，使用 QBZ-191 专用机匣连接座与贴合肩垫。",
             "effects": [
               {
-                "text": "ADS瞄准耗时减少20%",
+                "text": "ADS瞄准时间减少20%",
                 "benefit": 1
               },
               {
-                "text": "后坐力增加10%",
+                "text": "后坐力增加15%",
                 "benefit": -1
               },
               {
-                "text": "枪械晃动增加10%",
-                "benefit": -1
+                "text": "枪械稳定性增加10%",
+                "benefit": 1
               }
             ],
             "stats": {
               "ads_percent": -0.2,
-              "recoil_mult": 1.1,
-              "shake_mult": 1.1
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "轻量化镂空枪托，使用对应枪型的安装接口。提升后坐力控制和枪械稳定性，不影响ADS瞄准时间。",
+            "effects": [
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
             }
           },
           {
             "id": "qr_performance",
             "name": "高性能后托",
             "description": "高性能后托，保留缓冲肩垫及调节结构，通过专用连接座贴合 QBZ-191 机匣。",
+            "effects": [
+              {
+                "text": "后坐力减少20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            }
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "可调节贴腮面与伸缩结构，使用对应枪型的安装接口。缩短ADS瞄准时间，降低后坐力并提升枪械稳定性，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "ADS瞄准时间减少5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力减少15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性增加15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            }
+          }
+        ],
+        "reargrip": [
+          {
+            "id": "false",
+            "name": "原厂后握把",
+            "description": "拆下改造后握把，恢复这把枪的原厂后握把。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "phantom_reargrip",
+            "name": "幻影后握把",
+            "description": "镂空框架后握把，带横向防滑纹理。降低开镜速度、提高后坐力控制，但增加腰射随机散布。",
+            "effects": [
+              {
+                "text": "ADS瞄准速度降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布增加10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.17647058823529416,
+              "recoil_mult": 0.9,
+              "hip_spread_mult": 1.1
+            }
+          },
+          {
+            "id": "stable_antislip_reargrip",
+            "name": "稳固防滑后握",
+            "description": "实心人体工学后握把，指槽与橡胶防滑面提升枪械稳定性。开镜瞄准速度降低10%，后坐力控制提高20%，枪械稳定性提高15%。",
+            "effects": [
+              {
+                "text": "开镜瞄准速度降低10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力控制提高20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.11111111111111116,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15
+            }
+          },
+          {
+            "id": "balanced_reargrip",
+            "name": "均衡后握把",
+            "description": "实心聚合物后握把，带横向防滑纹理与对应枪型的连接件，提升后坐力控制与枪械稳定性。",
+            "effects": [
+              {
+                "text": "后坐力控制提高10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
           }
         ],
         "tactical": [
@@ -1153,6 +1669,35 @@
             }
           },
           {
+            "id": "tactical_suppressor",
+            "name": "战术消音器",
+            "description": "精细斜纹战术消音器，降低枪声与枪口火光；后坐力降低25%，枪械稳定性提高25%，子弹速度降低20%，ADS瞄准速度降低5%。",
+            "effects": [
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高25%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低20%",
+                "benefit": -1
+              },
+              {
+                "text": "ADS瞄准速度降低5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05263157894736836
+            }
+          },
+          {
             "id": "brake",
             "name": "枪口制退器",
             "description": "紧凑三组侧孔制退器，匹配 M1911 枪口与枪钢材质，减轻后坐、提高枪械稳定性；开镜耗时增加10%。",
@@ -1229,6 +1774,10 @@
               {
                 "text": "每次换弹丢弃弹仓内全部余弹，不返还背包",
                 "benefit": -1
+              },
+              {
+                "text": "巧手与配件换弹加成继续生效",
+                "benefit": 0
               }
             ],
             "stats": {}

@@ -1,4 +1,5 @@
 #include "GunsmithSystem.h"
+#include "PistolDualWieldComponent.h"
 #include "M4DrumReloadTiming.h"
 #include "M1911WeaponAssets.h"
 #include "DanWesson715WeaponAssets.h"
@@ -117,7 +118,13 @@ bool UGunsmithSystem::CanApply(FString& Reason)const
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();const auto* I=P->FindItem(InstanceId);
     if(!I||I->Place>1||I->Definition!=DefinitionId){Reason=TEXT("枪械已不在背包或装备栏中");return false;}
     if(!Installed(*I).OrderIndependentCompareEqual(Original)){Reason=TEXT("枪械改装已发生变化，请重新选择");return false;}
-    if(const auto* Pawn=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0)))if(I->Place==1&&I->Cell==P->Snapshot().ActiveWeaponSlot&&(Pawn->IsReloading()||Pawn->GetWeaponState()==EAKMWeaponState::Equipping)){Reason=TEXT("请等待换弹或装备动作结束");return false;}
+    if(const auto* Pawn=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0)))
+    {
+        const bool ActiveOffhand=Pawn->IsDualWieldingPistols() && Pawn->DualPistols->Hand(1).Item.InstanceId==I->InstanceId;
+        if(I->Place==1 && (I->Cell==P->Snapshot().ActiveWeaponSlot || ActiveOffhand)
+            && (Pawn->IsReloading() || Pawn->GetWeaponState()==EAKMWeaponState::Equipping))
+        {Reason=TEXT("请等待换弹或装备动作结束");return false;}
+    }
     return true;
 }
 bool UGunsmithSystem::Apply()

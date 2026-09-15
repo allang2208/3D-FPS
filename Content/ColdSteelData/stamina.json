@@ -1,0 +1,11 @@
+{
+  "baseMaximum": 100,
+  "perConstitution": 0,
+  "sprintPerSecond": 12,
+  "meleeCost": 15,
+  "harvestCost": 10,
+  "dodgeCost": 25,
+  "recoveryPerSecond": 20,
+  "recoveryDelay": 1,
+  "sprintRestartRatio": 0.2
+}

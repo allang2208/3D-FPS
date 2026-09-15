@@ -1,6 +1,7 @@
 #include "FPSGAMECharacter.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/GunsmithSystem.h"
+#include "Weapons/M4DrumReloadTiming.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/PlayerController.h"
 #include "InputKeyEventArgs.h"
@@ -14,6 +15,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Camera/CameraComponent.h"
+#include "AudioMixerBlueprintLibrary.h"
 
 void AFPSGAMECharacter::RunDrumGripAudit()
 {
@@ -33,7 +35,10 @@ void AFPSGAMECharacter::RunDrumGripAudit()
         auto W=P->CreateItem(TEXT("ue_m4a1"));W.Place=1;W.Cell=9;W.Magazine=17;S.Items.Add(W);S.ActiveWeaponSlot=9;
         auto Ammo=P->CreateItem(TEXT("ammo_556"));Ammo.Place=0;Ammo.Cell=0;Ammo.Count=Ammo.StackMax;S.Items.Add(Ammo);
         Check(P->CommitState(S),TEXT("isolated M4 profile"));
-        Check(DrumReloadAnimation&&DrumReloadAnimation->GetPathName().Contains(TEXT("/M4DrumDrop/"))&&DrumReloadEmptyAnimation,TEXT("drop reload default clips loaded"));
+        Check(DrumReloadAnimation&&DrumReloadAnimation->GetPathName().Contains(TEXT("/M4DrumDrop/Contact/"))&&DrumReloadEmptyAnimation&&DrumReloadEmptyAnimation->GetPathName().Contains(TEXT("/M4DrumDrop/Contact/")),TEXT("contact-corrected reload default clips loaded"));
+        Check(DrumReloadAnimation&&DrumReloadEmptyAnimation&&FMath::IsNearlyEqual(DrumReloadAnimation->GetPlayLength(),2.1f,.001f)&&FMath::IsNearlyEqual(DrumReloadEmptyAnimation->GetPlayLength(),148.f/60.f,.001f),TEXT("revised animation lengths match event clock"));
+        if(FParse::Param(FCommandLine::Get(),TEXT("DrumCaptureAudio")))
+            UAudioMixerBlueprintLibrary::StartRecordingOutput(this,20.0f);
         Check(DrumSupportAnimations.Num()==5,TEXT("drum support clips loaded"));
         for(const auto& Pair:DrumSupportAnimations)Check(FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Pair.Value->GetPlayLength(),.0001f),TEXT("support clip timing preserved"));
         UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: ACTIVE %s"),DrumReloadAnimation?*DrumReloadAnimation->GetPathName():TEXT("missing"));
@@ -41,9 +46,19 @@ void AFPSGAMECharacter::RunDrumGripAudit()
     }
     if(IsReloading())
     {
+        DrumGripAuditReloadDuration=WeaponStateDuration;
         const float RightDepth=FirstPersonCamera->GetComponentTransform().InverseTransformPosition(AKMViewmodel->GetSocketLocation(TEXT("hand_r"))).X;
         DrumGripAuditRightDepthMin=FMath::Min(DrumGripAuditRightDepthMin,RightDepth);
         DrumGripAuditRightDepthMax=FMath::Max(DrumGripAuditRightDepthMax,RightDepth);
+        // Compare the two configurations with identical feedback and camera state.
+        // A bare framing position excludes bob, recoil and near-wall attenuation.
+        const FVector DrumLocation=AKMViewmodel->GetRelativeLocation();
+        bDrumInstalled=false;
+        UpdateViewmodel(0.0f);
+        const float ExpectedDepth=AKMViewmodel->GetRelativeLocation().X;
+        bDrumInstalled=true;
+        AKMViewmodel->SetRelativeLocation(DrumLocation);
+        DrumGripAuditFramingMaxError=FMath::Max(DrumGripAuditFramingMaxError,FMath::Abs(AKMViewmodel->GetRelativeLocation().X-ExpectedDepth));
         if(DrumGripAuditCapture==0)Check(true,bPendingEmptyReload?TEXT("empty reload input accepted"):TEXT("normal reload input accepted"));
         if(WeaponStateElapsed-DrumGripAuditLastCapture>=1.0f/30.0f)
         {
@@ -66,6 +81,7 @@ void AFPSGAMECharacter::RunDrumGripAudit()
         auto S=P->Snapshot();for(auto& I:S.Items){if(I.Place==1&&I.Cell==S.ActiveWeaponSlot)I.Magazine=Empty?0:17;if(I.Place==0&&I.Definition==TEXT("ammo_556"))I.Count=I.StackMax;}
         P->CommitState(S);DrumGripAuditReserve=P->AmmoCount();DrumGripAuditLastCapture=-1;DrumGripAuditCapture=0;
         DrumGripAuditRightDepthMin=MAX_flt;DrumGripAuditRightDepthMax=-MAX_flt;
+        DrumGripAuditFramingMaxError=0;
         PC->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::R,IE_Pressed,1));PC->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::R,IE_Released,0));
         ++DrumGripAuditStage;return;
     }
@@ -79,9 +95,32 @@ void AFPSGAMECharacter::RunDrumGripAudit()
         Check(LastDroppedDrum.IsValid()&&LastDroppedDrum->GetActorLocation().Z<LastDrumDropStart.Z-10.0f,TEXT("released drum falls independently"));
         Check(LastDroppedDrum.IsValid()&&FVector::DotProduct(LastDroppedDrum->GetActorLocation()-LastDrumDropStart,FirstPersonCamera->GetRightVector())<-25.0f,TEXT("old drum thrown sideways"));
         UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: right grip depth range=%.4f cm"),DrumGripAuditRightDepthMax-DrumGripAuditRightDepthMin);
-        // Allow the authored small sway; reject the former 14 cm action shift.
-        Check(DrumGripAuditRightDepthMax-DrumGripAuditRightDepthMin<2.0f,TEXT("no large fore-aft grip excursion"));
+        Check(DrumGripAuditFramingMaxError<.02f,TEXT("same depth framing as ordinary magazine"));
+        const bool Empty=DrumGripAuditStage==4;
+        const float Start=Empty?43.0f:50.0f,End=Empty?80.0f:95.0f,Length=Empty?162.0f:126.0f;
+        const float Duration=DrumGripAuditReloadDuration;
+        const float Baseline=Duration/M4DrumReloadTiming::DurationScale(Empty);
+        const float PreviousInsert=Baseline*(M4DrumReloadTiming::PreviousRuntimeFraction(End/Length)-M4DrumReloadTiming::PreviousRuntimeFraction(Start/Length));
+        const auto RuntimeAt=[Duration,Empty](float Frame){float Low=0,High=1;for(int I=0;I<24;++I){const float Mid=(Low+High)*.5f;if(M4DrumReloadTiming::SourceSeconds(Mid,Empty)*60<Frame)Low=Mid;else High=Mid;}return (Low+High)*.5f*Duration;};
+        const float CurrentInsert=RuntimeAt(End)-RuntimeAt(Start);
+        Check(Duration>1.0f&&CurrentInsert>.1f,TEXT("nonzero captured reload timing"));
+        UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: timing empty=%d duration=%.6f insert_before=%.6f insert_now=%.6f speed_ratio=%.6f framing_error=%.6f"),Empty,Duration,PreviousInsert,CurrentInsert,PreviousInsert/FMath::Max(CurrentInsert,.001f),DrumGripAuditFramingMaxError);
+        Check(FMath::Abs(PreviousInsert/1.5f-CurrentInsert)<.002f,TEXT("insertion playback exactly 1.5x"));
+        if(Empty)
+        {
+            const float FollowThrough=RuntimeAt(116)-RuntimeAt(80);
+            const float Retrieval=RuntimeAt(34)-RuntimeAt(24);
+            UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: flow seat_to_strike=%.6f retrieval=%.6f"),FollowThrough,Retrieval);
+            Check(FollowThrough>.40f&&FollowThrough<.50f,TEXT("empty seat to strike has no long hold"));
+            Check(Retrieval>1.0f,TEXT("time moved to retrieving replacement drum"));
+        }
         ++DrumGripAuditStage;
-        if(DrumGripAuditStage==5){UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: COMPLETE failures=%d"),DrumGripAuditFailures);PC->ConsoleCommand(TEXT("quit"));}
+        if(DrumGripAuditStage==5)
+        {
+            if(FParse::Param(FCommandLine::Get(),TEXT("DrumCaptureAudio")))
+                UAudioMixerBlueprintLibrary::StopRecordingOutput(this,EAudioRecordingExportType::WavFile,TEXT("DrumAudio"),Out+TEXT("/"));
+            UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: COMPLETE failures=%d"),DrumGripAuditFailures);
+            PC->ConsoleCommand(TEXT("quit"));
+        }
     }
 }

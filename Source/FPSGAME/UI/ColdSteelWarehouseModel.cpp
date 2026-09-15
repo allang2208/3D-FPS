@@ -9,18 +9,17 @@ bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int3
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
-    for (const TCHAR* Definition : {TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715")})
+    for (const TCHAR* Definition : {TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
         auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
-        Gun.Magazine=FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_dan_wesson715")?6:30;
+        Gun.Magazine=FString(Definition)==TEXT("ue_rune_sword")?0:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_dan_wesson715")?6:30;
         if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
         if(FString(Definition)==TEXT("ue_qbz191"))
         {
             auto Ammo=CreateItem(TEXT("ammo_58"),120);
             if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
         }
-
         if(FString(Definition)==TEXT("ue_m1911"))
         {
             auto Ammo=CreateItem(TEXT("ammo_45acp"),70);
@@ -45,7 +44,33 @@ bool UColdSteelStatusModel::WarehouseBatch(bool bMatching)
     for(const auto& I:Sources){auto R=ColdSteelWarehouse::Transfer(P.Items,I.InstanceId,bMatching?0:4,-1,WarehouseCapacity(),WarehousePage);
         if(!R.bValid){Blocked=Sources.Num()-Moved;break;}P.Items=MoveTemp(R.Items);++Moved;}
     if(Moved&&!CommitState(P))return false;
-    Message=FString::Printf(TEXT("已%s %d 格物品；%d 格保留原处"),bMatching?TEXT("取出"):TEXT("存入"),Moved,Blocked);OnChanged.Broadcast();return true;
+    Message=FString::Printf(TEXT("已%s %d 件物品；%d 件保留原处"),bMatching?TEXT("取出"):TEXT("存入"),Moved,Blocked);OnChanged.Broadcast();return true;
+}
+bool UColdSteelStatusModel::StoreMatchingToWarehouse()
+{
+    SyncRuntime();auto P=Snapshot();TSet<FString> StoredDefinitions;TArray<FString> Sources;
+    for(const auto& I:P.Items)if(I.Place==4)StoredDefinitions.Add(I.Definition);
+    for(const auto& I:P.Items)
+    {
+        if(I.Place!=0||!StoredDefinitions.Contains(I.Definition))continue;
+        const FString Category=Text(I,TEXT("category"));
+        // Exclude gear by item type, including unequipped weapons and equipment in the backpack.
+        if(Category.Contains(TEXT("weapon"))||Category==TEXT("armor")||Category==TEXT("shield")||Category==TEXT("magic_book")
+            ||!Text(I,TEXT("equipSlot")).IsEmpty()||!Text(I,TEXT("weaponType")).IsEmpty()
+            ||!Text(I,TEXT("rangedType")).IsEmpty()||!Text(I,TEXT("offhandType")).IsEmpty())continue;
+        Sources.Add(I.InstanceId);
+    }
+    int32 Moved=0,Blocked=0;
+    for(const auto& Id:Sources)
+    {
+        auto R=ColdSteelWarehouse::Transfer(P.Items,Id,4,-1,WarehouseCapacity(),WarehousePage);
+        if(!R.bValid){++Blocked;continue;}
+        P.Items=MoveTemp(R.Items);++Moved;
+    }
+    if(Moved&&!CommitState(P))return false;
+    Message=Sources.IsEmpty()?TEXT("没有可存入的同类物品；武器与装备不参与")
+        :FString::Printf(TEXT("已存入 %d 件同类物品；%d 件保留在背包"),Moved,Blocked);
+    OnChanged.Broadcast();return true;
 }
 bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
 {
@@ -63,7 +88,8 @@ bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
         return Text(A,TEXT("name"))<Text(B,TEXT("name"));
     });
     P.Items.RemoveAll([](const auto& I){return I.Place==4;});
-    for(int32 N=0;N<Stored.Num();++N){Stored[N].Cell=N;P.Items.Add(Stored[N]);}
+    for(auto I:Stored){int32 Cell=-1;for(int32 C=0;C<WarehouseCapacity();++C)if(ColdSteelWarehouse::Fits(P.Items,I,C,WarehouseCapacity())){Cell=C;break;}
+        if(Cell<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=Cell;P.Items.Add(I);}
     if(!CommitState(P))return false;WarehousePage=0;OnChanged.Broadcast();return true;
 }
 int64 UColdSteelStatusModel::CountMaterial(const FString& Def)const
@@ -80,16 +106,23 @@ bool UColdSteelStatusModel::ConsumeMaterial(const FString& Def,int64 Amount)
 bool UColdSteelStatusModel::AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred)
 {
     SyncRuntime();auto P=Snapshot();
-    if(Preferred<0)for(int32 C=WarehousePage*20;C<FMath::Min(WarehouseCapacity(),(WarehousePage+1)*20);++C)if(Owner(P.Items,4,C)<0){Preferred=C;break;}
+    if(Preferred<0)for(int32 C=WarehousePage*ColdSteelWarehouse::CellsPerPage;C<FMath::Min(WarehouseCapacity(),(WarehousePage+1)*ColdSteelWarehouse::CellsPerPage);++C)if(ColdSteelWarehouse::Fits(P.Items,Item,C,WarehouseCapacity())){Preferred=C;break;}
     return ColdSteelWarehouse::Insert(P.Items,Item,WarehouseCapacity(),Preferred)&&CommitState(P);
 }
 int64 UColdSteelStatusModel::WarehouseRemainingCapacity(const FColdSteelItem& Item)const
 {
     if(Item.Definition.IsEmpty()||Item.StackMax<1||Item.StackMax>9007199254740991ll)return 0;
-    int32 Used=0;int64 Total=0;
+    if(Item.Width<1||Item.Width>18||Item.Height<1||Item.Height>4)return 0;
+    int64 Total=0;TArray<uint32> Occupied;Occupied.Init(0,WarehouseCapacity()/18);
     auto Add=[&](int64 N){Total+=FMath::Min(N,MAX_int64-Total);};
-    for(const auto& I:Items())if(I.Place==4){++Used;if(Compatible(I,Item))Add(FMath::Max<int64>(0,I.StackMax-I.Count));}
-    for(int32 N=Used;N<WarehouseCapacity();++N)Add(Item.StackMax);return Total;
+    for(const auto& I:Items())if(I.Place==4){if(Compatible(I,Item))Add(FMath::Max<int64>(0,I.StackMax-I.Count));for(int32 Y=0;Y<I.Height;++Y)Occupied[I.Cell/18+Y]|=((1u<<I.Width)-1)<<(I.Cell%18);}
+    for(int32 C=0;C<WarehouseCapacity();++C){
+        if(C%18+Item.Width>18||(C%ColdSteelWarehouse::CellsPerPage)/18+Item.Height>ColdSteelWarehouse::Rows)continue;
+        const uint32 Mask=((1u<<Item.Width)-1)<<(C%18);bool Free=true;
+        for(int32 Y=0;Y<Item.Height;++Y)if(Occupied[C/18+Y]&Mask){Free=false;break;}
+        if(Free){Add(Item.StackMax);for(int32 Y=0;Y<Item.Height;++Y)Occupied[C/18+Y]|=Mask;}
+    }
+    return Total;
 }
 int64 UColdSteelStatusModel::DepositWarehouseAmount(const FColdSteelItem& Item)
 {
@@ -98,9 +131,10 @@ int64 UColdSteelStatusModel::DepositWarehouseAmount(const FColdSteelItem& Item)
 }
 bool UColdSteelStatusModel::RetrieveAllFromWarehouse()
 {
-    SyncRuntime();auto P=Snapshot();const auto Original=P.Items;bool Changed=false;
-    for(const auto& I:Original)if(I.Place==4){auto R=ColdSteelWarehouse::Transfer(P.Items,I.InstanceId,0,-1,WarehouseCapacity(),WarehousePage);if(!R.bValid)break;P.Items=MoveTemp(R.Items);Changed=true;}
-    return !Changed||CommitState(P);
+    SyncRuntime();auto P=Snapshot();const auto Original=P.Items;int32 Moved=0,Blocked=0;
+    for(const auto& I:Original)if(I.Place==4){auto R=ColdSteelWarehouse::Transfer(P.Items,I.InstanceId,0,-1,WarehouseCapacity(),WarehousePage);if(!R.bValid){++Blocked;continue;}P.Items=MoveTemp(R.Items);++Moved;}
+    if(Moved&&!CommitState(P))return false;
+    Message=FString::Printf(TEXT("已取出 %d 件物品；%d 件保留在仓库"),Moved,Blocked);OnChanged.Broadcast();return true;
 }
 int64 UColdSteelStatusModel::CountWarehouseMaterial(TFunctionRef<bool(const FColdSteelItem&)> Predicate)const
 {

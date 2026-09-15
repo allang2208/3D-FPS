@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelSkillPage.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
 #include "ColdSteelDetailRow.h"
@@ -24,12 +25,14 @@ void UColdSteelHUDWidget::UpdateInventoryLayout(const FGeometry& Geometry)
     if(!InventoryPanelSlot)return;
     const float Scale=ColdSteelUI::PixelScale(this);const FVector2D Pixels=Geometry.GetLocalSize()*Scale;
     if(Pixels.X<100||Pixels.Y<100)return;
-    float Width=FMath::Min(float(Pixels.X)-24.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
+    const float RightInset=ColdSteelUI::NavigationDrawerInset;
+    float Width=FMath::Min(float(Pixels.X)-RightInset-12.f,FMath::Clamp(float(Pixels.X)*.48f,720.f,1040.f));
     // Both drawers share their actual size; keep that layout until the left drawer finishes closing.
-    if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-36.f)*.5f);
+    if(bWarehouseOpen||WarehouseMotion>.001f)Width=FMath::Min(Width,(float(Pixels.X)-RightInset-24.f)*.5f);
+    if(SkillPage)SkillPage->SetLayoutWidth(FMath::Max(1.f,Width-2.f));
     if(!Pixels.Equals(InventoryLayoutSize,.5f)||!FMath::IsNearlyEqual(Scale,InventoryLayoutScale,.001f)||!FMath::IsNearlyEqual(Width,InventoryWidth,.5f))
     {
-        InventoryPanelSlot->SetOffsets(FMargin(-12/Scale,12/Scale,Width/Scale,12/Scale));
+        InventoryPanelSlot->SetOffsets(FMargin(-RightInset/Scale,12/Scale,Width/Scale,12/Scale));
         InventoryHeaderSurface->SetPadding(FMargin(18/Scale,12/Scale));InventoryHeaderSize->SetHeightOverride(36/Scale);
         for(auto& WeakSize:InventoryTabSizes)if(auto* Size=WeakSize.Get())Size->SetHeightOverride(40/Scale);
         InventoryFooterSlot->SetPadding(FMargin(18/Scale,8/Scale,18/Scale,10/Scale));

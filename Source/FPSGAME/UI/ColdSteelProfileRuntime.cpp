@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "../Weapons/PistolDualWieldComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
@@ -11,6 +12,7 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "Engine/GameInstance.h"
+#include "Engine/World.h"
 #include "EngineUtils.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Misc/SecureHash.h"
@@ -60,6 +62,11 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
     RifleSkill=ColdSteelSkills::LoadDefinition();
+    PistolSkill=ColdSteelSkills::LoadDefinition(TEXT("pistolMastery"));
+    CriticalStrikeSkill=ColdSteelSkills::LoadDefinition(TEXT("criticalStrike"));
+    FireballSkill=ColdSteelSkills::LoadDefinition(TEXT("fireball"));
+    DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
+    DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
     ColdSteelSkills::Migrate(Current);
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
@@ -72,25 +79,52 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
         else bPersistenceBlocked=true;
     } else if(bAudit)SaveSlot=TEXT("ColdSteel_AuditSession");
     for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")})Current.Attributes.Add(Key,10);
-    Current.Hotbar.SetNum(4);Current.HotbarDefinitions.SetNum(4);Publish(Current);
+    Current.Hotbar.SetNum(4);Current.HotbarDefinitions.SetNum(4);Current.WarehouseLayoutVersion=1;NormalizeStamina(Current);Publish(Current);
     const bool Exists=UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_A"),0)||UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_B"),0);
-    if(Exists){if(ReloadProfile())GrantStartingArmory();return;}
+    if(Exists){if(ReloadProfile()){GrantStartingArmory();if(!bAudit)GrantEnhancementMaterials();}return;}
     auto Seed=Snapshot();auto Weapon=CreateItem(TEXT("ue_m4a1"));Weapon.Place=1;Weapon.Cell=6;Seed.Items.Add(Weapon);
     for(const auto& Pair:TArray<TPair<FString,int64>>{{TEXT("hp_potion"),5},{TEXT("mp_potion"),3},{TEXT("gold"),200},{TEXT("ammo_556"),90},{TEXT("ammo_762"),90}}) {
         auto I=CreateItem(Pair.Key,Pair.Value); if(!I.Data.IsEmpty())Insert(Seed.Items,I);
     }
     for(int32 Index=0;Index<2;++Index){const FString Def=Index==0?TEXT("hp_potion"):TEXT("mp_potion");for(const auto& I:Seed.Items)if(I.Definition==Def){Seed.Hotbar[Index]=I.InstanceId;Seed.HotbarDefinitions[Index]=Def;break;}}
-    if(CommitState(Seed))GrantStartingArmory();
+    if(CommitState(Seed)){GrantStartingArmory();if(!bAudit)GrantEnhancementMaterials();}
 }
 void UColdSteelStatusModel::Deinitialize(){SaveNow();Super::Deinitialize();}
 FColdSteelProfile UColdSteelStatusModel::Snapshot() const {auto P=Current;P.Name=CharacterName;P.Class=CharacterClass;P.Level=Level;P.Points=AttributePoints;P.Attributes=Attributes;return P;}
-void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;}
+void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;OnStaminaChanged.Broadcast();}
 bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
     if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
     NormalizeProductionState(State);
+    if(CurrentPawn.IsValid() && CurrentPawn->IsCastingWithLeftHand())
+    {
+        const auto HeldItem=[](const FColdSteelProfile& P)->FString
+        {
+            if(!P.ActiveProductionTool.IsEmpty())return P.ActiveProductionTool;
+            const int32 Index=Owner(P.Items,1,P.ActiveWeaponSlot);
+            return P.Items.IsValidIndex(Index)?P.Items[Index].InstanceId:FString();
+        };
+        // Reject the equipment transaction before saving or changing the viewmodel.
+        // Ammo, MP, training and changes to unequipped inventory remain independent.
+        if(HeldItem(Current)!=HeldItem(State))
+        { Message=TEXT("施法占用左手，请收手后切换装备");return false; }
+        const auto Offhand=[](const FColdSteelProfile& P)->FString
+        {
+            const int32 I=Owner(P.Items,1,P.ActiveWeaponSlot==6?8:11);
+            return P.Items.IsValidIndex(I)?P.Items[I].InstanceId:FString();
+        };
+        if(Offhand(Current)!=Offhand(State))
+        { Message=TEXT("施法占用左手，请收手后切换副手");return false; }
+    }
     ColdSteelSkills::Migrate(State);
+    ColdSteelQuickBar::Migrate(State);
+    ColdSteelQuickBar::MirrorLegacy(State);
+    NormalizeStamina(State);
+    // Original updateMaxStats preserves the missing HP/MP amount when maxima grow.
+    if(State.Health>0)State.Health=FMath::Clamp(double(State.Health)+ResourceMaximum(State,false)-ResourceMaximum(Current,false),0.,ResourceMaximum(State,false));
+    State.Mana=FMath::Clamp(double(State.Mana)+ResourceMaximum(State,true)-ResourceMaximum(Current,true),0.,ResourceMaximum(State,true));
+    if(!ColdSteelWarehouse::MigrateLayout(State)){Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
     FString Reason;if(!Validate(State,Reason)){Message=Reason;return false;}
     if(bAudit&&AuditFailNextSave){AuditFailNextSave=false;Message=TEXT("验收注入：保存失败，操作未提交");return false;}
     State.Version=2;
@@ -111,8 +145,13 @@ bool UColdSteelStatusModel::ReloadProfile()
     for(const TCHAR* S:{TEXT("_A"),TEXT("_B")}) {auto* Save=ReadCheckedProfile(SaveSlot+S); if(Save&&Validate(Save->Profile,Reason)&&(!Best||Save->Profile.Generation>Best->Profile.Generation))Best=Save;}
     if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
     auto Clean=Best->Profile;
+    const bool Migrated=Clean.WarehouseLayoutVersion==0;
+    if(!ColdSteelWarehouse::MigrateLayout(Clean)){bPersistenceBlocked=true;Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
     const bool SkillsMigrated=ColdSteelSkills::Migrate(Clean);
-    bool Removed=RemoveRetiredWeapons(Clean)||SkillsMigrated;
+    const bool QuickBarMigrated=ColdSteelQuickBar::Migrate(Clean);
+    const bool StaminaMigrated=NormalizeStamina(Clean);
+    const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -132,16 +171,17 @@ bool UColdSteelStatusModel::ReloadProfile()
         if(Updated){I.Data.Empty();FJsonSerializer::Serialize(CurrentData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
     }
     NormalizeProductionState(Clean);
-    Publish(Clean);bPersistenceBlocked=false;
+    const auto Previous=Snapshot();bPersistenceBlocked=false;
     // Commit through the checked A/B transaction; never reset the player's save.
-    if(Removed&&!CommitState(Clean))return false;
+    if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
+    else Publish(Clean);
     ApplyToPawn();RefreshDrops();OnChanged.Broadcast();return true;
 }
 bool UColdSteelStatusModel::SaveNow(){SyncRuntime();return CommitState(Snapshot());}
 int64 UColdSteelStatusModel::MaxExperience()const{return(20ll+Level*20ll+int64(Level)*Level*12)*8;}
 bool UColdSteelStatusModel::GainExperience(int64 Amount)
 {
-    if(Amount<=0||Amount>1000000000000ll)return false;SyncRuntime();auto P=Snapshot();P.Experience+=Amount;
+    if(Amount<=0||Amount>1000000000000ll)return false;SyncRuntime();auto P=Snapshot();P.Experience+=FMath::FloorToInt64(Amount*TributeEffect(TEXT("expPercent")));
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
     return CommitState(P);
@@ -149,11 +189,17 @@ bool UColdSteelStatusModel::GainExperience(int64 Amount)
 bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
 {
     if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
-    SyncRuntime();auto P=Snapshot();P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=Reward;
+    if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
+    SyncRuntime();auto P=Snapshot();P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(Reward*TributeEffect(TEXT("expPercent")));
     if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
     {
         ActiveTrainingHit->bKillAttempted=true;
-        ColdSteelSkills::AddExperience(P,RifleSkill,RifleSkill.KillExperience+(ActiveTrainingHit->bCritical?RifleSkill.CriticalExperience:0));
+        if(!ActiveTrainingHit->SkillId.IsNone())
+        {
+            const auto& Skill=MasteryDefinition(ActiveTrainingHit->SkillId);
+            ColdSteelSkills::AddExperience(P,Skill,Skill.KillExperience+Skill.HitExperience+ActiveTrainingHit->ExtraExperience+(ActiveTrainingHit->bCritical?Skill.CriticalExperience:0));
+        }
+        if(ActiveTrainingHit->bCritical)ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience+CriticalStrikeSkill.CriticalKillExperience);
     }
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
@@ -180,10 +226,15 @@ bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(Count<=0|
 bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
 {
     SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
-    if(!I||I->Place!=0||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
+    if(!I||(I->Place!=0&&I->Place!=4)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
     auto Part=*I;Part.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Part.Count=Count;int32 Cell=-1;
-    for(int32 C=0;C<72;++C)if(Fits(P.Items,Part,C)){Cell=C;break;}if(Cell<0){Message=TEXT("没有空间拆分");return false;}
-    I->Count-=Count;Part.Cell=Cell;P.Items.Add(Part);return CommitState(P);
+    const int32 Capacity=I->Place==4?WarehouseCapacity():72;
+    const int32 Start=I->Place==4?(I->Cell/ColdSteelWarehouse::CellsPerPage)*ColdSteelWarehouse::CellsPerPage:0;
+    for(int32 N=0;N<Capacity;++N){const int32 C=(Start+N)%Capacity;if(I->Place==4?ColdSteelWarehouse::Fits(P.Items,Part,C,Capacity):Fits(P.Items,Part,C)){Cell=C;break;}}
+    if(Cell<0){Message=TEXT("没有连续空间拆分，原数量保留");return false;}
+    I->Count-=Count;Part.Cell=Cell;P.Items.Add(Part);if(!CommitState(P))return false;
+    if(Part.Place==4&&WarehousePage!=Cell/ColdSteelWarehouse::CellsPerPage){WarehousePage=Cell/ColdSteelWarehouse::CellsPerPage;Message=TEXT("已拆分，并切换到新堆叠所在页");OnChanged.Broadcast();}
+    return true;
 }
 bool UColdSteelStatusModel::Sort()
 {
@@ -192,10 +243,10 @@ bool UColdSteelStatusModel::Sort()
     // Sort preserves stack instances (the source pack contract does not merge them).
     for(auto I:Bag){int32 C=-1;for(int32 N=0;N<72;++N)if(Fits(P.Items,I,N)){C=N;break;}if(C<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=C;P.Items.Add(I);}return CommitState(P);
 }
-bool UColdSteelStatusModel::BindHotbar(int32 Index,const FString& Id){if(Index<0||Index>3)return false;SyncRuntime();auto P=Snapshot();const auto* I=FindItem(Id);if(!Id.IsEmpty()&&(!I||I->Place!=0||Text(*I,TEXT("category"))!=TEXT("consumable")))return false;P.Hotbar[Index]=Id;P.HotbarDefinitions[Index]=I?I->Definition:TEXT("");return CommitState(P);}
-bool UColdSteelStatusModel::SwapHotbar(int32 A,int32 B){if(A<0||A>3||B<0||B>3)return false;SyncRuntime();auto P=Snapshot();P.Hotbar.Swap(A,B);P.HotbarDefinitions.Swap(A,B);return CommitState(P);}
-const FColdSteelItem* UColdSteelStatusModel::ResolveHotbar(int32 Index)const{if(Index<0||Index>3)return nullptr;const auto* I=FindItem(Current.Hotbar[Index]);if(I&&I->Place==0)return I;return Current.Items.FindByPredicate([&](const auto& V){return V.Place==0&&V.Definition==Current.HotbarDefinitions[Index]&&Text(V,TEXT("category"))==TEXT("consumable");});}
-bool UColdSteelStatusModel::UseHotbar(int32 Index){const auto* I=ResolveHotbar(Index);return I&&UseItem(I->InstanceId);}
+bool UColdSteelStatusModel::BindHotbar(int32 Index,const FString& Id){return Index>=0&&Index<4&&BindQuickItem(Index+ColdSteelQuickBar::ItemOffset,Id);}
+bool UColdSteelStatusModel::SwapHotbar(int32 A,int32 B){return A>=0&&A<4&&B>=0&&B<4&&SwapQuickBindings(A+ColdSteelQuickBar::ItemOffset,B+ColdSteelQuickBar::ItemOffset);}
+const FColdSteelItem* UColdSteelStatusModel::ResolveHotbar(int32 Index)const{return Index>=0&&Index<4?ResolveQuickItem(Index+ColdSteelQuickBar::ItemOffset):nullptr;}
+bool UColdSteelStatusModel::UseHotbar(int32 Index){return Index>=0&&Index<4&&UseQuickBinding(Index+ColdSteelQuickBar::ItemOffset);}
 bool UColdSteelStatusModel::UseItem(const FString& Id)
 {
     if(const auto* Tool=FindItem(Id);Tool&&Text(*Tool,TEXT("category"))==TEXT("tool"))return ToggleProductionTool(Id);
@@ -207,7 +258,7 @@ bool UColdSteelStatusModel::UseItem(const FString& Id)
     auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>();if(!Health||Health->IsDead())return false;
     const float HP=Num(TEXT("hp"))+Health->MaxHealth*Num(TEXT("maxHpPercent"))*.01;
     const float MP=Num(TEXT("mp"))+Derived(TEXT("maxMp"))*Num(TEXT("maxMpPercent"))*.01;
-    if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||P.Mana>=Derived(TEXT("maxMp")))){Message=TEXT("当前资源已满或效果不可用");return false;}
+    if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||Mana()>=Derived(TEXT("maxMp")))){Message=TEXT("当前资源已满或效果不可用");return false;}
     P.Health=FMath::Clamp(P.Health+FMath::Max(0.f,HP),0.f,Health->MaxHealth);P.Mana=FMath::Clamp(P.Mana+FMath::Max(0.f,MP),0.f,Derived(TEXT("maxMp")));
     I.Cooldown=Number(I,TEXT("useCooldown"));if(--I.Count<=0)P.Items.RemoveAt(N);return CommitState(P);
 }
@@ -225,8 +276,9 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
 void UColdSteelStatusModel::SyncRuntime()
 {
     if(!CurrentPawn.IsValid())return;
+    if(const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>())Dual->SyncInventory(Current.Items);
     if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
-    for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot)
+    for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot&&I.Definition!=TEXT("ue_rune_sword"))
     {
         I.Magazine=CurrentPawn->GetMagazineAmmo();
         if(I.Definition==TEXT("ue_dan_wesson715") && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
@@ -237,10 +289,18 @@ void UColdSteelStatusModel::SyncRuntime()
     for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
 }
 void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
-void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn){CurrentPawn=Pawn;if(Current.Health<=0)Current.Health=Derived(TEXT("maxHp"));ApplyToPawn();RefreshDrops();}
+void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn){CurrentPawn=Pawn;if(Current.Health<=0){Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}ApplyToPawn();RefreshDrops();OnStaminaChanged.Broadcast();}
 void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
 {
     if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
+    if(HasNoAbilityCooldown())Current.FireballCooldown=0.f;
+    else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
+    TickFormulaBuffs(Delta);
+    TickStamina(Delta,Pawn);
+    if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
+        Current.Mana=FMath::Clamp(Current.Mana+Derived(TEXT("mpRegen"))*Delta,0.f,Derived(TEXT("maxMp")));
+        Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
+    }
     SaveAccumulator+=Delta;if(SaveAccumulator>=5){SaveAccumulator=0;SaveNow();}
 }
 FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();if(I)if(const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())if(const auto* W=G->Weapon(I->Definition))return W->Ammo;return TEXT("ammo_556");}
@@ -249,8 +309,8 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload,
 {
     if(Requested<=0||!CurrentPawn.IsValid()||!Equipped()||!CurrentPawn->HasInventoryWeapon())return 0;
     SyncRuntime();Requested=FMath::Min(Requested,CurrentPawn->GetMagazineCapacity()-CurrentPawn->GetMagazineAmmo());if(Requested<=0)return 0;
-    // Each range insertion may refill without creating inventory stacks.
-    // The same successful save publishes the inserted ammunition.
+    // Each range insertion may refill without creating inventory stacks. Only
+    // the last insertion grants training, in the same successful save as ammo.
     const bool Infinite=(bCompletedReload||bReloadStep)&&CurrentPawn->HasInfiniteReserveAmmo();
     auto P=Snapshot();int32 Left=Infinite?0:Requested;FString Def=AmmoDefinition();
     if(!Infinite)for(auto& I:P.Items)if(I.Place==0&&I.Definition==Def){int32 N=FMath::Min<int64>(Left,I.Count);Left-=N;I.Count-=N;}
@@ -263,6 +323,7 @@ int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload,
             StoreRevolverCaseCount(I,bReloadStep?FMath::Max(I.Magazine,CurrentPawn->GetRevolverCaseCount()):I.Magazine);
         }
     }
+    if(Taken>0&&bCompletedReload)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
     return Taken>0&&CommitState(P)?Taken:0;
 }
 bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
@@ -286,7 +347,7 @@ bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
 }
 bool UColdSteelStatusModel::Drop(const FString& Id)
 {
-    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});if(!I||I->Place>1)return false;
+    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});if(!I||(I->Place>1&&!(I->Place==4&&bWarehouseOpen)))return false;
     const FVector Origin=CurrentPawn->GetActorLocation();
     FVector Candidate=Origin+CurrentPawn->GetActorForwardVector()*120;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(InventoryGroundDrop),false,CurrentPawn.Get());

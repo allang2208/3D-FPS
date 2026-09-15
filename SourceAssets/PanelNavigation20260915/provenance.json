@@ -1,0 +1,41 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-09-15",
+  "reference": "Content/ColdSteelData/Skills/rifle_mastery_cold_steel.png",
+  "style": "Existing point-up brushed-silver hexagonal badge, graphite recess, upper-left light",
+  "runtimeDirectory": "Content/ColdSteelUI/Icons/Navigation",
+  "assets": [
+    {
+      "name": "status",
+      "prompt": "Use case: style-transfer. Create ONE square game HUD menu icon matching the attached existing FPSGAME icon. Preserve the identical point-up hexagonal brushed-silver frame, its proportions and margins, recessed graphite interior, neutral near-black outer background, thin bevels, soft upper-left studio lighting and photorealistic metallic relief style. Replace ONLY the central rifle subject as specified below. Keep the whole badge and subject fully in frame, centered, with a bold readable silhouette that works at 44px. Silver and graphite monochrome, no colored glow, no environment, no extra decoration, no words, letters, numbers, UI labels, watermarks or key legends. Return a single square icon image, not a sheet.\nSubject replacement: Character status menu: a single front-facing neutral human head-and-shoulders bust sculpted from brushed silver, shoulders forming a clear broad silhouette, restrained anatomical facial planes, uncluttered and dignified. A character portrait symbol, not armor equipment or a skull.",
+      "source": "SourceAssets/PanelNavigation20260915/status.png",
+      "runtime": "Content/ColdSteelUI/Icons/Navigation/status.png",
+      "output": "Generated images are saved to C:\\Users\\allan\\.codex\\generated_images\\01a09e19-c755-7481-8015-1f97d0bf5d82 as C:\\Users\\allan\\.codex\\generated_images\\01a09e19-c755-7481-8015-1f97d0bf5d82\\exec-b27e2713-6402-49d8-bc93-1b1fff77d570.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "runtime_status": "retired; retained generated source is still an authoring input",
+      "archived_runtime": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/status.png",
+      "current_runtime": "Content/ColdSteelUI/Icons/Navigation/status_subject.png"
+    },
+    {
+      "name": "backpack",
+      "prompt": "Use case: style-transfer. Create ONE square game HUD menu icon matching the attached existing FPSGAME icon. Preserve the identical point-up hexagonal brushed-silver frame, its proportions and margins, recessed graphite interior, neutral near-black outer background, thin bevels, soft upper-left studio lighting and photorealistic metallic relief style. Replace ONLY the central rifle subject as specified below. Keep the whole badge and subject fully in frame, centered, with a bold readable silhouette that works at 44px. Silver and graphite monochrome, no colored glow, no environment, no extra decoration, no words, letters, numbers, UI labels, watermarks or key legends. Return a single square icon image, not a sheet.\nSubject replacement: Inventory menu: one upright compact adventurer's backpack sculpted from silver and graphite, unmistakable top handle, rounded main bag, broad flap, two simple buckles and one large front pocket. Near-frontal view, broad readable silhouette, no weapons or loose objects.",
+      "source": "SourceAssets/PanelNavigation20260915/backpack.png",
+      "runtime": "Content/ColdSteelUI/Icons/Navigation/backpack.png",
+      "output": "Generated images are saved to C:\\Users\\allan\\.codex\\generated_images\\01a09e19-c755-7481-8015-1f97d0bf5d82 as C:\\Users\\allan\\.codex\\generated_images\\01a09e19-c755-7481-8015-1f97d0bf5d82\\exec-a650d64a-9c0e-4fde-b7e9-0dc45f672950.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "runtime_status": "retired; retained generated source is still an authoring input",
+      "archived_runtime": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/backpack.png",
+      "current_runtime": "Content/ColdSteelUI/Icons/Navigation/backpack_subject.png"
+    },
+    {
+      "name": "skills",
+      "prompt": "Use case: style-transfer. Create ONE square game HUD menu icon matching the attached existing FPSGAME icon. Preserve the identical point-up hexagonal brushed-silver frame, its proportions and margins, recessed graphite interior, neutral near-black outer background, thin bevels, soft upper-left studio lighting and photorealistic metallic relief style. Replace ONLY the central rifle subject as specified below. Keep the whole badge and subject fully in frame, centered, with a bold readable silhouette that works at 44px. Silver and graphite monochrome, no colored glow, no environment, no extra decoration, no words, letters, numbers, UI labels, watermarks or key legends. Return a single square icon image, not a sheet.\nSubject replacement: Skills menu: one open thick ability tome sculpted from silver and graphite, clearly separated broad left and right pages with a single bold raised four-point star centered above the binding. Readable learning/abilities symbol, no writing or tiny glyphs, no flame, no spell scene.",
+      "source": "SourceAssets/PanelNavigation20260915/skills.png",
+      "runtime": "Content/ColdSteelUI/Icons/Navigation/skills.png",
+      "output": "Generated images are saved to C:\\Users\\allan\\.codex\\generated_images\\01a09e19-c755-7481-8015-1f97d0bf5d82 as C:\\Users\\allan\\.codex\\generated_images\\01a09e19-c755-7481-8015-1f97d0bf5d82\\exec-e6dbe9f6-b602-4039-a114-a90e7e001540.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "runtime_status": "retired; retained generated source is still an authoring input",
+      "archived_runtime": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/skills.png",
+      "current_runtime": "Content/ColdSteelUI/Icons/Navigation/skills_subject.png"
+    }
+  ],
+  "processing": "Generated PNG copied without pixel editing. No gameplay screenshot or visual test performed.",
+  "archive_manifest": "Docs/UI/ui-panel-archive-20260915.json"
+}

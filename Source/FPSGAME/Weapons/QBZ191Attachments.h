@@ -5,11 +5,15 @@
 #include "Engine/StaticMesh.h"
 #include "GameFramework/Actor.h"
 #include "QBZ191Mounts.inl"
+#include "TacticalSuppressorAssets.h"
 
 namespace QBZ191Attachments
 {
 inline FString MeshPath(const FString& Key)
 {
+    if(Key==TEXT("tactical_suppressor"))return TacticalSuppressorAssets::MeshPath(TEXT("QBZ191"));
+    if(Key==TEXT("core_stock"))return TEXT("/Game/Weapons/CoreStock20260914/Meshy0914005605/QBZ191/SM_CoreStock");
+    if(Key==TEXT("tactical_telescopic"))return TEXT("/Game/Weapons/TacticalTelescopicStock20260914/QBZ191/SM_TacticalTelescopicStock");
     if(Key==TEXT("qr_performance"))return TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/QBZ191/SM_PerformanceStock");
     if(Key==TEXT("angled"))return TEXT("/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/QBZ191/SM_ResonanceGrip");
     return TEXT("/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_")+Key;
@@ -20,6 +24,7 @@ inline UStaticMeshComponent* ConfigureFitted(AActor* Owner,USkeletalMeshComponen
     if(!Enabled)return Part;
     auto* Mesh=LoadObject<UStaticMesh>(nullptr,*MeshPath(Key));if(!Mesh)return Part;
     if(!Part){Part=NewObject<UStaticMeshComponent>(Owner);Part->SetupAttachment(Rifle,Bone);Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);Part->bReceivesDecals=false;Part->RegisterComponent();}
+    if(Part->GetStaticMesh()!=Mesh)Part->EmptyOverrideMaterials();
     Part->SetStaticMesh(Mesh);Part->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));Part->SetVisibility(true);return Part;
 }
 inline FString AnimationPath(const TCHAR* Family,const TCHAR* Clip)

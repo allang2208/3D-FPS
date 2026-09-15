@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "Widgets/SWidget.h"
 #include "ColdSteelSkillPage.h"
 #include "ColdSteelProgressNotification.h"
 #include "ColdSteelAmmoReadout.h"
@@ -143,15 +144,20 @@ void UColdSteelHUDWidget::NativeOnInitialized()
 void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
+    // NativePaint reads transient aim/hit data outside UMG property bindings.
+    // Paint-only invalidation also removes the last frame when a hit expires.
     if (const auto Widget=GetCachedWidget()) Widget->Invalidate(EInvalidateWidgetReason::Paint);
     UpdateTopHUDLayout(MyGeometry);
+    UpdateStaminaLayout(MyGeometry);
     UpdateInventoryLayout(MyGeometry);
+    TickPanelNavigation(MyGeometry,InDeltaTime);
     TickWarehouse(MyGeometry,InDeltaTime);
     AmmoRefreshAccumulator += InDeltaTime;
     if (AmmoRefreshAccumulator >= 0.05f)
     {
         AmmoRefreshAccumulator = 0.0f;
         RefreshAmmo();
+        RefreshQuickBar();
         RefreshTopVitals();
         RefreshWorldClock();
     }
@@ -183,22 +189,22 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     DrawerProgress = FMath::FInterpConstantTo(DrawerProgress, Target, InDeltaTime, 4.0f);
     if (InventoryPanel)
     {
-        const float DrawerWidth = FMath::Max(1.0f, InventoryWidth / ColdSteelUI::PixelScale(this));
+        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset) / ColdSteelUI::PixelScale(this));
         InventoryPanel->SetRenderTranslation(FVector2D((1.0f - DrawerProgress) * DrawerWidth, 0.0f));
     }
     if (InventoryBackdrop)
     {
-        InventoryBackdrop->SetRenderOpacity(DrawerProgress);
+        InventoryBackdrop->SetRenderOpacity(bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen)?0.f:DrawerProgress);
     }
     if (InventoryBlur)
     {
-        InventoryBlur->SetRenderOpacity(DrawerProgress);
+        InventoryBlur->SetRenderOpacity(bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen)?0.f:DrawerProgress);
     }
     if (EquipmentTooltip && EquipmentTooltip->IsVisible() && !bEquipmentTooltipPinned)
     {
         UpdateEquipmentTooltipPlacement();
     }
-    if (!bInventoryOpen && DrawerProgress <= KINDA_SMALL_NUMBER)
+    if (!bInventoryOpen && !IsQuickDragging() && DrawerProgress <= KINDA_SMALL_NUMBER)
     {
         InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);
         InventoryBackdrop->SetVisibility(ESlateVisibility::Collapsed);
@@ -241,6 +247,7 @@ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
 {
     if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P) return false;
     if (bRepeat) return true;
+    if(IsQuickDragging()){CancelQuickDrag();return true;}
     const bool bStatus = Key == EKeys::CapsLock;
     if (bInventoryOpen && (Key == EKeys::Tab || (Key==EKeys::P?bSkillsTabActive:bStatusTabActive)))
     {
@@ -263,10 +270,12 @@ void UColdSteelHUDWidget::BuildInterface()
     WidgetTree->RootWidget = Root;
     BuildAmmoReadout(Root);
     BuildHotbar(Root);
+    BuildStamina(Root);
     BuildEventTimeline(Root);
     BuildInventory(Root);
     BuildCharacterSummary(Root);
     BuildWarehouse(Root);
+    BuildPanelNavigation(Root);
     ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());
     FillSlot(Root->AddChildToCanvas(ProgressNotification),FAnchors(0,0,1,1),FMargin(0),90);
     RefreshAmmo();
@@ -281,8 +290,9 @@ void UColdSteelHUDWidget::BuildAmmoReadout(UCanvasPanel* Root)
     CanvasSlot->SetAnchors(FAnchors(1.0f, 1.0f));
     CanvasSlot->SetAlignment(FVector2D(1.0f, 1.0f));
     CanvasSlot->SetPosition(FVector2D(-ReferenceUnits(20), -ReferenceUnits(20)));
-    CanvasSlot->SetSize(FVector2D(ReferenceUnits(184), ReferenceUnits(38)));
+    CanvasSlot->SetAutoSize(true);
     CanvasSlot->SetZOrder(10);
+    AmmoReadout->UpdateLayout(UColdSteelAmmoReadout::PreferredWidth,20.f);
 }
 
 void UColdSteelHUDWidget::BuildHotbar(UCanvasPanel* Root)
@@ -307,11 +317,15 @@ void UColdSteelHUDWidget::BuildHotbar(UCanvasPanel* Root)
             Divider->SetContent(DividerSize);
             Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
         }
-        Row->AddChildToHorizontalBox(MakeHotbarSlot(Slots[Index].Key, Slots[Index].Value))
+        auto* ItemSlot=MakeHotbarSlot(Slots[Index].Key, Slots[Index].Value);
+        QuickSlotSurfaces.Add(ItemSlot);
+        if(Index>=3)HotbarDropSlots.Add(ItemSlot);
+        Row->AddChildToHorizontalBox(ItemSlot)
             ->SetPadding(FMargin(Index == 0 ? 0.0f : ReferenceUnits(HotbarGap * .5f), 0, ReferenceUnits(HotbarGap * .5f), 0));
     }
 
     UCanvasPanelSlot* CanvasSlot = Root->AddChildToCanvas(Surface);
+    HotbarCanvasSlot=CanvasSlot;
     CanvasSlot->SetAnchors(FAnchors(0.5f, 1.0f));
     CanvasSlot->SetAlignment(FVector2D(0.5f, 1.0f));
     CanvasSlot->SetPosition(FVector2D(0, -ReferenceUnits(12)));
@@ -330,7 +344,7 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);
     InventoryPanelSlot=Root->AddChildToCanvas(InventoryPanel);
     InventoryPanelSlot->SetAnchors(FAnchors(1,0,1,1));InventoryPanelSlot->SetAlignment(FVector2D(1,0));InventoryPanelSlot->SetZOrder(41);
-    InventoryPanelSlot->SetOffsets(FMargin(-ReferenceUnits(12),ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
+    InventoryPanelSlot->SetOffsets(FMargin(-ReferenceUnits(ColdSteelUI::NavigationDrawerInset),ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));
     InventoryBlur=WidgetTree->ConstructWidget<UBackgroundBlur>();InventoryBlur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);InventoryBlur->SetOverrideAutoRadiusCalculation(true);InventoryBlur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
     InventoryBlur->SetCornerRadius(FVector4(10,10,10,10));InventoryBlur->SetApplyAlphaToBlur(true);
     InventoryBlur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius));
@@ -398,13 +412,17 @@ void UColdSteelHUDWidget::BuildInventory(UCanvasPanel* Root)
     StatusButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleStatusTabClicked);
     EquipmentButton->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleEquipmentTabClicked);
     Body->AddChildToVerticalBox(Tabs)->SetSize(FSlateChildSize(ESlateSizeRule::Automatic));
+    // The persistent right rail now owns the three available panel destinations.
+    Tabs->SetVisibility(ESlateVisibility::Collapsed);
 
     StatusPage = BuildStatusPage();
     EquipmentPage = BuildEquipmentPage();
     Body->AddChildToVerticalBox(StatusPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body->AddChildToVerticalBox(EquipmentPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     SkillPage=CreateWidget<UColdSteelSkillPage>(GetOwningPlayer());
-    Body->AddChildToVerticalBox(SkillPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    SkillPage->SetHUD(this);
+    auto* SkillSlot=Body->AddChildToVerticalBox(SkillPage);
+    SkillSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));SkillSlot->SetHorizontalAlignment(HAlign_Fill);
     auto* Footer=Body->AddChildToVerticalBox(MakeInventoryText(TEXT("Tab 收起  ·  Caps 状态  ·  P 技能  ·  右键物品操作"),12,GunsmithUI::Muted));
     InventoryFooterSlot=Footer;
     Footer->SetPadding(FMargin(ReferenceUnits(18),ReferenceUnits(8),ReferenceUnits(18),ReferenceUnits(10)));
@@ -987,6 +1005,7 @@ void UColdSteelHUDWidget::HandleTimelineFilterWeatherClicked()
 
 void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
 {
+    if(!bOpen)CancelQuickDrag();
     if(!bOpen)HideItemTooltip(true);
     if(!bOpen)CloseWarehouse();
     if (bInventoryOpen == bOpen) return;
@@ -1068,20 +1087,31 @@ void UColdSteelHUDWidget::SetInventoryPage(int32 Page)
 
 void UColdSteelHUDWidget::RefreshAmmo()
 {
-    if(StatusModel)for(int32 N=0;N<HotbarCounts.Num();++N)
-    {
-        const auto* Item=StatusModel->ResolveHotbar(N);
-        HotbarCounts[N]->SetText(FText::FromString(Item?FString::Printf(TEXT("%lld"),Item->Count):TEXT("")));
-        if(HotbarImages.IsValidIndex(N)){
-            UTexture2D* Texture=nullptr;const FString Icon=Item?ColdSteelInventory::Text(*Item,TEXT("ue_icon")):TEXT("");
-            if(!Icon.IsEmpty())Texture=LoadUiTexture(TEXT("../../ColdSteelData/")+Icon);
-            HotbarImages[N]->SetVisibility(Texture?ESlateVisibility::HitTestInvisible:ESlateVisibility::Hidden);
-            if(Texture)HotbarImages[N]->SetBrushFromTexture(Texture);
-        }
-    }
+    RefreshQuickBar();
 
     const AFPSGAMECharacter* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
-    if(AmmoReadout)AmmoReadout->Refresh(Character,StatusModel,bInventoryOpen);
+    if(AmmoReadout)
+    {
+        AmmoReadout->Refresh(Character,StatusModel,bInventoryOpen);
+        const float S=ColdSteelUI::PixelScale(this);
+        FVector2D View=GetCachedGeometry().GetLocalSize();
+        if(View.X<100)View=UWidgetLayoutLibrary::GetViewportSize(this)/S;
+        if(View.X>0)
+        {
+            const float Width=FMath::Min(UColdSteelAmmoReadout::PreferredWidth,FMath::Max(1.f,float(View.X)*S-40.f));
+            const FVector2D HotbarSize=HotbarCanvasSlot&&HotbarCanvasSlot->Content?HotbarCanvasSlot->Content->GetDesiredSize():FVector2D::ZeroVector;
+            const float HotbarRight=View.X*.5f+FMath::Max(float(HotbarSize.X),424/S)*.5f;
+            float Bottom=20/S;
+            if(View.X-20/S-Width/S<HotbarRight+12/S)
+            {
+                const float HotbarBottom=HotbarCanvasSlot?-HotbarCanvasSlot->GetPosition().Y:12/S;
+                const float HotbarTop=HotbarBottom+FMath::Max(float(HotbarSize.Y),66/S);
+                const float StaminaTop=StaminaSlot?-StaminaSlot->GetPosition().Y+StaminaSlot->GetSize().Y:HotbarTop;
+                Bottom=FMath::Max(HotbarTop,StaminaTop)+12/S;
+            }
+            AmmoReadout->UpdateLayout(Width,Bottom*S);
+        }
+    }
 }
 
 void UColdSteelHUDWidget::RefreshStatus()
@@ -1098,7 +1128,8 @@ void UColdSteelHUDWidget::RefreshStatus()
     }
     if (AmmoStatusValueText)
     {
-        AmmoStatusValueText->SetText(FText::FromString(FString::Printf(TEXT("%d/%d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo())));
+        const bool Sword=StatusModel&&StatusModel->Equipped()&&StatusModel->Equipped()->Definition==TEXT("ue_rune_sword");
+        AmmoStatusValueText->SetText(FText::FromString(Sword?TEXT("近战"):FString::Printf(TEXT("%d/%d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo())));
     }
     if (MoveSpeedValueText && Character->GetCharacterMovement())
     {
@@ -1119,6 +1150,8 @@ void UColdSteelHUDWidget::RefreshStatus()
         EquipmentIntervalValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), Interval * 1000.0f)));
         EquipmentReloadValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), Reload * 1000.0f)));
         EquipmentAmmoValue->SetText(FText::FromString(FString::Printf(TEXT("%d / %d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo())));
+        if(StatusModel&&StatusModel->Equipped()&&StatusModel->Equipped()->Definition==TEXT("ue_rune_sword"))
+        {EquipmentCapacityValue->SetText(FText::FromString(TEXT("—")));EquipmentReloadValue->SetText(FText::FromString(TEXT("—")));EquipmentAmmoValue->SetText(FText::FromString(TEXT("近战")));}
     }
 }
 
@@ -1243,29 +1276,17 @@ UBorder* UColdSteelHUDWidget::MakeSurface(const FLinearColor& Fill, float Radius
 UBorder* UColdSteelHUDWidget::MakeHotbarSlot(const FString& KeyHint, const FString& Caption)
 {
     UBorder* SlotSurface = MakeSurface(ColdSteelUI::Content, 7.0f, ColdSteelUI::Border);
+    SlotSurface->SetPadding(FMargin(0));
+    SlotSurface->SetHorizontalAlignment(HAlign_Fill);
+    SlotSurface->SetVerticalAlignment(VAlign_Fill);
     USizeBox* Size = WidgetTree->ConstructWidget<USizeBox>();
     Size->SetWidthOverride(ReferenceUnits(HotbarSlotSize));
     Size->SetHeightOverride(ReferenceUnits(HotbarSlotSize));
     SlotSurface->SetContent(Size);
     UOverlay* Overlay = WidgetTree->ConstructWidget<UOverlay>();
     Size->SetContent(Overlay);
-    if(KeyHint.IsNumeric())
-    {
-        auto* Icon=WidgetTree->ConstructWidget<UImage>();Icon->SetVisibility(ESlateVisibility::HitTestInvisible);
-        auto* IconSlot=Overlay->AddChildToOverlay(Icon);IconSlot->SetPadding(FMargin(ReferenceUnits(6)));HotbarImages.Add(Icon);
-        auto* Count=MakeReferenceText(TEXT(""),11,ColdSteelUI::TextPrimary,true);auto* CountSlot=Overlay->AddChildToOverlay(Count);
-        CountSlot->SetHorizontalAlignment(HAlign_Right);CountSlot->SetVerticalAlignment(VAlign_Top);CountSlot->SetPadding(FMargin(ReferenceUnits(2)));HotbarCounts.Add(Count);
-    }
-    if (!Caption.IsEmpty())
-    {
-        UOverlaySlot* CaptionSlot = Overlay->AddChildToOverlay(MakeText(Caption, 11, ColdSteelUI::TextTertiary));
-        CaptionSlot->SetHorizontalAlignment(HAlign_Center);
-        CaptionSlot->SetVerticalAlignment(VAlign_Center);
-    }
-    UOverlaySlot* KeySlot = Overlay->AddChildToOverlay(MakeReferenceText(KeyHint, 12, ColdSteelUI::TextPrimary, true, true));
-    KeySlot->SetHorizontalAlignment(HAlign_Right);
-    KeySlot->SetVerticalAlignment(VAlign_Bottom);
-    KeySlot->SetPadding(FMargin(0.0f, 0.0f, 4.0f, 2.0f));
+    const int32 Index=KeyHint.IsNumeric()?FCString::Atoi(*KeyHint)+2:KeyHint==TEXT("Q")?0:KeyHint==TEXT("E")?1:2;
+    BuildQuickSlot(Overlay,Index);
     return SlotSurface;
 }
 

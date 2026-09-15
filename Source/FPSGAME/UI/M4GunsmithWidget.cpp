@@ -6,13 +6,24 @@
 #include "../FPSGAMEPlayerController.h"
 #include "Engine/GameInstance.h"
 #include "InputCoreTypes.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
+#include "Widgets/Layout/SScrollBox.h"
 
 UGunsmithSystem* UM4GunsmithWidget::Model()const{return GetGameInstance()->GetSubsystem<UGunsmithSystem>();}
 void UM4GunsmithWidget::Choose(bool bHolo)
 {
     ChooseOption(TEXT("optic"),bHolo?TEXT("holographic"):TEXT("false"));
 }
-bool UM4GunsmithWidget::ApplyDraft(){const bool Result=Model()->Apply();RefreshPresentation();return Result;}
+bool UM4GunsmithWidget::ApplyDraft()
+{
+    const bool Result=Model()->Apply();
+    if(Result)
+        if(auto* Sound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/UIConfirm20260914/S_Gunsmith_Confirm.S_Gunsmith_Confirm")))
+            UGameplayStatics::PlaySound2D(this,Sound,1.f,1.f);
+    RefreshPresentation();
+    return Result;
+}
 void UM4GunsmithWidget::UndoDraft()
 {
     Model()->Undo();
@@ -25,6 +36,7 @@ void UM4GunsmithWidget::UndoDraft()
             C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
             C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
             C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
+            C->SetGunsmithRearGrip(Model()->Draft().FindRef(TEXT("reargrip")));
             C->SetGunsmithTactical(Model()->Draft().FindRef(TEXT("tactical")));
         }
     RefreshPresentation();
@@ -47,11 +59,13 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
             C->SetGunsmithMuzzle(Model()->Draft().FindRef(TEXT("muzzle")));
             C->SetGunsmithHandstop(Model()->Draft().FindRef(TEXT("underbarrel")));
             C->SetGunsmithStock(Model()->Draft().FindRef(TEXT("stock")));
+            C->SetGunsmithRearGrip(Model()->Draft().FindRef(TEXT("reargrip")));
             C->SetGunsmithTactical(Model()->Draft().FindRef(TEXT("tactical")));
         }
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)
 {
+    if(bAim&&StandaloneMelee)return;
     if(bStandalone){bAimPreview=bAim;bSidePreview=!bAim;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;
     SetSidePreview(false);
@@ -61,6 +75,7 @@ void UM4GunsmithWidget::SetAimPreview(bool bAim)
 }
 void UM4GunsmithWidget::SetSidePreview(bool bSide)
 {
+    if(bSide)PreviewZoom=1.f;
     if(bStandalone){bSidePreview=bSide;bAimPreview=false;if(bSide)PreviewOrbit=FVector2D::ZeroVector;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;
     if(bSide)PreviewOrbit=FVector2D::ZeroVector;
@@ -75,14 +90,21 @@ void UM4GunsmithWidget::SetSidePreview(bool bSide)
 void UM4GunsmithWidget::SelectCategory(const FString& CategorySlot)
 {
     if(SelectedCategory==CategorySlot)return;
-    if(const auto* W=Model()->Weapon(Model()->Definition()))if(W->Allowed.Contains(CategorySlot)){SelectedCategory=CategorySlot;RefreshPresentation();}
+    if(IsCategoryAvailable(CategorySlot))
+    {
+        SelectedCategory=CategorySlot;RefreshPresentation();
+        if(CategoryScroll&&CategoryButtons.Contains(CategorySlot))CategoryScroll->ScrollDescendantIntoView(CategoryButtons.FindChecked(CategorySlot),false);
+    }
 }
 void UM4GunsmithWidget::SetCompareFactory(bool bFactory){bCompareFactory=bFactory;RefreshPresentation();}
 TSharedRef<SWidget> UM4GunsmithWidget::RebuildWidget()
 {
     SetIsFocusable(true);
-    if(const auto* W=Model()->Weapon(Model()->Definition());W&&!W->Allowed.Contains(SelectedCategory)&&!W->Allowed.IsEmpty())
-        SelectedCategory=W->Allowed[0];
+    if(!IsCategoryAvailable(SelectedCategory))
+    {
+        SelectedCategory.Reset();
+        for(const auto& Key:Model()->Slots())if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
+    }
     return BuildWorkbench();
 }
 void UM4GunsmithWidget::NativeConstruct()

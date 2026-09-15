@@ -1,0 +1,58 @@
+{
+  "authorization": "User explicitly requested local background removal and game integration.",
+  "method": "rembg isnet-general-use CPU; alpha cleanup; proportional layout in transparent canvas",
+  "assets": [
+    {
+      "name": "status",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanelNavigation20260915\\SubjectOnly\\status_generated_rgb.png",
+      "cutout": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanelNavigation20260915\\SubjectOnly\\status_cutout.png",
+      "runtime": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelUI\\Icons\\Navigation\\status_subject.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "subject_bounds": [
+        42,
+        91,
+        1211,
+        1185
+      ]
+    },
+    {
+      "name": "backpack",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanelNavigation20260915\\SubjectOnly\\backpack_generated_rgb.png",
+      "cutout": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanelNavigation20260915\\SubjectOnly\\backpack_cutout.png",
+      "runtime": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelUI\\Icons\\Navigation\\backpack_subject.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "subject_bounds": [
+        98,
+        28,
+        1160,
+        1209
+      ]
+    },
+    {
+      "name": "skills",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanelNavigation20260915\\SubjectOnly\\skills_generated_rgb.png",
+      "cutout": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PanelNavigation20260915\\SubjectOnly\\skills_cutout.png",
+      "runtime": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelUI\\Icons\\Navigation\\skills_subject.png",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "subject_bounds": [
+        51,
+        111,
+        1208,
+        1072
+      ]
+    }
+  ],
+  "runtime_testing": "Not requested; not performed."
+}

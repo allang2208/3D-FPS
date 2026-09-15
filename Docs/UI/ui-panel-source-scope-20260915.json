@@ -1,0 +1,1148 @@
+{
+  "base_commit": "f4afc1869fa1c20c780a20feb7ea8c61a71aa656",
+  "files": [
+    {
+      "path": "Source/FPSGAME/AKMIntegrationAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "24f0bb3df03b4d91768c6169c68fbc47a5c74f2a34c0d4861fee3de541f44549"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/ColdSteelFormulaBonuses.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "5670dc352234dd34238e1dcc9f9c0ba0d1340a14a5a1151781375bf8c4952297"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+      "reason": "implementation of Source/FPSGAME/Combat/CombatFormulaRuntime.h",
+      "sha256_git_content": "635ffad331a646d671688d3f5d66ad26a1de9d3841b41f972d9d5c9cd1e34258"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatFormulaRuntime.h",
+      "reason": "include from Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "sha256_git_content": "18e4129278272d0c306a07eab67a8d15a5fedb785e24c4613aad07a71e70b759"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.cpp",
+      "reason": "implementation of Source/FPSGAME/Combat/CombatItemFormula.h",
+      "sha256_git_content": "f50907cca2ee7997d7bf06236302be736507e3e90d54b267a9410b6aa615ee48"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatItemFormula.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "sha256_git_content": "2b342ab4fee73be9c8704f8eff01388277b239449644ee7b0bc739816dc8528c"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+      "reason": "implementation of Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "sha256_git_content": "4a00bea8607d4a591e0468e5b125b3c02f9cf82155a5d88962c6b13b31241b2d"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+      "reason": "include from Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "sha256_git_content": "50af682787c04c9c230f427237fe25d075812ac9821e320d41b333b03bbabe0d"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/CoreCombatFormula.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "sha256_git_content": "bc7a1f44fa73fbf49f3989c96a2be64536b194c3a3d1e34ff8938559b6583f37"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ColdSteelDevelopmentTuning.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "daada25d63f9c9641d6bdd8b2938d80287cee8b42bd7170c190d50cd7167c853"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentTuningSubsystem.cpp",
+      "reason": "implementation of Source/FPSGAME/Development/DevelopmentTuningSubsystem.h",
+      "sha256_git_content": "3380843a862da1941bc14bdf4b9c8a40f076f3870ba45b8110b25f29df167439"
+    },
+    {
+      "path": "Source/FPSGAME/Development/DevelopmentTuningSubsystem.h",
+      "reason": "include from Source/FPSGAME/UI/DevelopmentPanelWidget.h",
+      "sha256_git_content": "883b57b19adbd2ee3fbe40701c98dc600ece18a4efea23b4581b7625da8cf28b"
+    },
+    {
+      "path": "Source/FPSGAME/DrumGripAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "0a4754ebaf39714f9c3ea73ffc7823c2d533a70c85e02be05547c36eed5fcc21"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "reason": "implementation of Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "4ea785db301dd8302bb0e6e23cdbe64989510c76c29eea099754f742d05df310"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "sha256_git_content": "2414a89cee5e0fc984d7ae32db3196b97920158dcdd5be671af41f1aebec36e1"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "f9a3f16334e29967aa350f9bf18d7354346196c77236729c81ca40f9b268fc43"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "reason": "implementation of Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "55619680bf7e13756488ff568ed54243a4d8327a74b7664386cf4fb479f22ca4"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+      "sha256_git_content": "dcc88107afb2fa7b4d68d1548aa8d455aa23f87addc987ec059b1d32a32e27ec"
+    },
+    {
+      "path": "Source/FPSGAME/ForegripAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "eb1243950dbb4adb45c09f2ce36bc649a7ea365fcd539c2e6ed1d6662a2dae29"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+      "sha256_git_content": "d53713f60f33c09ba721e0b58526023943fefebf7186d2d9b46c585caf2a872c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "sha256_git_content": "0d7450fa2478bfb23af51f1dbe16be11985ef13dca397bb657c7cf834df5030c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/HandBrainMonster.h",
+      "sha256_git_content": "66dc507c86075cc14f4dab6613d83b6a5dbdaab7aa0e5cde032067d0a6c7ef5f"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.h",
+      "reason": "include from Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "sha256_git_content": "a8f27c6ffa44c826f0b7825dab7db9cac69b390c3c31bc3b4b77080568912e38"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCharacterMovementComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/MonsterCharacterMovementComponent.h",
+      "sha256_git_content": "56ec96ac780ebe32e76daff4a21bbfbaf41835f5299c47ca5315007f8d7fcccb"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCharacterMovementComponent.h",
+      "reason": "include from Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp",
+      "sha256_git_content": "781acb8bfb1736d83f41878982e86112ba8787e86b0dd7a9bf20bebd00db0e45"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "sha256_git_content": "26f04fbf015f0cc7f809c194f3b3a1518c84126dfba102404729fb08be78c343"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "reason": "include from Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "sha256_git_content": "0b8452afd1afe79d7d57a23f04ffb749955b6eabb8d7e2add4fae9d3424d2076"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatTuning.h",
+      "reason": "include from Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "sha256_git_content": "18a5ec768565c496992b625d0357c57dfc1701784b26c03ce0bf6ed764778d6d"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterParryReaction.cpp",
+      "reason": "UMonsterCombatComponent implementation declared in Source/FPSGAME/Monsters/MonsterCombatComponent.h",
+      "sha256_git_content": "16579612c588c05f481435e58021381b2ad89590e32ee0c44f8543eaf5d235b8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/PoisonMaggotMonster.h",
+      "sha256_git_content": "e58547d9d354f1ee61f9266071df8b4599e34fbaa8379094a7eb02b4bfc43655"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotMonster.h",
+      "reason": "include from Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "sha256_git_content": "7ea5bca215d65a510be04068a397ede54c4605fd2d8b51511da5e27a87ae4446"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/PoisonMaggotProjectile.h",
+      "sha256_git_content": "569383bfa2b13a51dfe93be9347833dec9e3cbc710cb98ec6ea827074a9bdea1"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.h",
+      "reason": "include from Source/FPSGAME/Monsters/PoisonMaggotMonster.cpp",
+      "sha256_git_content": "4374eb829a16552776b0ceeb7c1953c36071b4d6b6680a50817c5adc5d61e58b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotVenomFX.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/PoisonMaggotVenomFX.h",
+      "sha256_git_content": "85bc9e58639012b97e4830f94fa982399be5c0cad63c42e3f23e3bcab53ced15"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotVenomFX.h",
+      "reason": "include from Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp",
+      "sha256_git_content": "073a5f31c91e74c1092d7293c83cf1b0718692da7ad4c3fffe5fc45ec7a70bac"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.h",
+      "sha256_git_content": "947854a2bf6532de355482eb88a7e36800f34be62f7d94c45a5d6f60258e3439"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/QuadrupedAnimationTemplate.h",
+      "reason": "include from Source/FPSGAME/Monsters/WolfMonster.cpp",
+      "sha256_git_content": "e8f13af73eec24c545b3ed09951d7ea8a3f56f76ce48bbff732aab3753a798da"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+      "reason": "implementation of Source/FPSGAME/Monsters/WolfMonster.h",
+      "sha256_git_content": "59ed0f32af79a9f385121968092457220095c6560ea3f11fef40638907b564b0"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.h",
+      "reason": "include from Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+      "sha256_git_content": "4e047505850b202bbc15648acc061509d3e79933af716ae581f9debb8541ac8d"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "sha256_git_content": "416707792a3300113ad844d485e7b24871e4179d4a93af5b7f645489ddd404f1"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "5ccbebdf28608173400c77e0d2169ee4b18c8a0a446c02b2fd59570f4fad80cb"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDodgeMovement.cpp",
+      "reason": "UFPSCharacterMovementComponent implementation declared in Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "sha256_git_content": "e209b928bf7434cea7d13df1aee2911e16a0a92abb2d0f68cafc2611ba1e6597"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDodgeRootMotionSource.cpp",
+      "reason": "implementation of Source/FPSGAME/Movement/FPSDodgeRootMotionSource.h",
+      "sha256_git_content": "a2073b4f18392fc05c5dcf4cea02cad0b6fa56cdd4b5c21af3c67a533252d39a"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSDodgeRootMotionSource.h",
+      "reason": "include from Source/FPSGAME/Movement/FPSDodgeMovement.cpp",
+      "sha256_git_content": "ea516a0e3bf343391377456711f0dfa93a86e78f2915f541fa5b7ad2f6488666"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSMeleeLungeMovement.cpp",
+      "reason": "UFPSCharacterMovementComponent implementation declared in Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "sha256_git_content": "65017712a1b47afd70c9d4fd93c5cdb8de17bbbbd8f6f088260bf30a61816c65"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "522fc4a21c1bf86c073c2d654d17df9cc396952092e963229b82bd338635cb7a"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStairAudit.cpp",
+      "reason": "implementation of Source/FPSGAME/Movement/FPSStairAudit.h",
+      "sha256_git_content": "5fc0e91be4d66278ebe1970a3b8ea16b1c656450980e615d39e5d72e2cc53f0e"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStairAudit.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "9cb769c3240593610297da488e7d0c69caee2a02067f3b29c1f5b954f63a5104"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "3e23fa1e710fc5c48a1c3e7d8b48b7ca15d31ca88842a035b583b230a241a82a"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaTuning.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "sha256_git_content": "e682c5401b169cd8c086f87d8ea9d505e87a880c6f27b99607eb0d5813a6c91d"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalArmsComponent.h",
+      "reason": "include from Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+      "sha256_git_content": "1cee577ebb2bfeb15e25fe856c4b4f1c2128c86c686392e03b605e3fd83877c5"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalComponent.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "aeacfbc42fdab962c485a1b11c60f950c7c364cf89d693a91d8e8513769a8724"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSTraversalExecution.cpp",
+      "reason": "UFPSTraversalComponent implementation declared in Source/FPSGAME/Movement/FPSTraversalComponent.h",
+      "sha256_git_content": "5cb59fc22e49b80acbf1f74cda9192194b11510249726be7923eb927c574e93c"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Movement/PlayerGuardBreakComponent.h",
+      "sha256_git_content": "666a8a82e67b537d10cb6ac16688e3c976821c6b4566f8840b215a32cec5ba7b"
+    },
+    {
+      "path": "Source/FPSGAME/Movement/PlayerGuardBreakComponent.h",
+      "reason": "include from Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "sha256_git_content": "59608edbd55a320109973e84bd85a21e95d5de1ec02b19e04e3299fe903bba7c"
+    },
+    {
+      "path": "Source/FPSGAME/MuzzleMigrationAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "b2129cabe4bf2c1c58b2a2eeaec18bf8964bd762b91e11bc3ff404a7b2bfb914"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Production/ProductionToolComponent.h",
+      "sha256_git_content": "9311e19e4c184af8fe4a230413ae49988bf1cfad469f7f0240621728345dc366"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolComponent.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "bfdb0543ff54a1468bccea12c3d456346b8bf54e0f653881374ba482c541b471"
+    },
+    {
+      "path": "Source/FPSGAME/QBZ191IntegrationAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "f36aee427aa2d888f2a6f287dacc42197757ae1b8530dec3d4e8f1bf02e7932b"
+    },
+    {
+      "path": "Source/FPSGAME/ReloadTimingAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "94b2f250d4690137ef91b5c84a82c1bbd5b44b374ebb25205c8b21f2ff1ddad6"
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.cpp",
+      "reason": "implementation of Source/FPSGAME/SceneTestPortal.h",
+      "sha256_git_content": "86c3b14949448d09c05916541f35530f558f3e011894d627a076d1e2be79279f"
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.h",
+      "reason": "include from Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "sha256_git_content": "4b2e1373e0924013a962b17233bc6d63fdfa874cb34d052acc7114b760df0fd1"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelAdditionalMasteries.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "887a5e5ad5e6a388cb444b9dcae8bc8d844f4ca9de5a9c51334688965e4d4879"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "114537047ff0ef9026eedb48ef500bb7008d7947dfe44ea56ab311848af468db"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "977f6c30fd082834f35acb6cde74025e4b85129ac82af22ac092a5b9a2cfa1b0"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "5676a603eb43b34487380116217150d6b732bd1ed5d1164dd56646eb1b5048db"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.cpp",
+      "reason": "implementation of Source/FPSGAME/Skills/ColdSteelSkillRules.h",
+      "sha256_git_content": "0a90f8c76120aceba46b2368a77f39c4ffdc24643bab6c64ecdb05d33eb904c2"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillRules.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "sha256_git_content": "cbe609ded340e49f3d2858fbef3ba8589bef31a172b590144465a45640a0124c"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "sha256_git_content": "2abdccc46da8d04f63d170e1bed865020cc7a46da6e31e27f824363ec69c1e4d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/EnemyAttackDamage.h",
+      "reason": "include from Source/FPSGAME/Movement/FPSPlayerDodge.cpp",
+      "sha256_git_content": "d9fec08a180d7e4fb250f51e1ba5e915a6ca6f9656dccf5658b636f3ac5a9bde"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Skills/FPSCastingMeshComponent.h",
+      "sha256_git_content": "ec2836a324de0a95755e26a2c8e1266f2688909de153d3bc1e950500af00d273"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSCastingMeshComponent.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "94f18134b329843af6c71c770ee02c10f2b518ff1a53562ebf0b1ef0236c8f72"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "sha256_git_content": "839469131fa97c0337209fe0dfa0fc541cd1493ff05438ccb569cf1fb7e71a78"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "sha256_git_content": "4856e6ea7fba5132031f45b8cb83fe9d051f19270eb9eb029b83872b7100246f"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.cpp",
+      "reason": "implementation of Source/FPSGAME/Skills/FPSFireballProjectile.h",
+      "sha256_git_content": "0b09774477ae1cf93cde9eefe79494f68c44706b1629db0a1acd2a63ff2cfa5b"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSFireballProjectile.h",
+      "reason": "include from Source/FPSGAME/Skills/FPSFireballComponent.cpp",
+      "sha256_git_content": "548b6859e707c947ee192d31ec1dbd8fe214e5c642f673e6a12af3f2ae144869"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballCastMotion.h",
+      "reason": "include from Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "sha256_git_content": "dfcdf24e21d15490567fa4808c569ce94a44a35229ebe88cf62254d5a21f1b85"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballDamage.h",
+      "reason": "include from Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+      "sha256_git_content": "22e3bc28d9f2e54bd8cc06269e8d78bfa33972a1cbb6370447fb269e7856491d"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballHandPose.cpp",
+      "reason": "implementation of Source/FPSGAME/Skills/FireballHandPose.h",
+      "sha256_git_content": "2ae6d7cd0a017ac263160ed50f82580ebd216f08188eb7d76d5a02ca35835f99"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballHandPose.h",
+      "reason": "include from Source/FPSGAME/Skills/FPSFireballComponent.h",
+      "sha256_git_content": "1917a9d41e7e9aec012b419bf47b4c0abda901e86337d1505e1a8c041c4100a5"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FireballTypes.h",
+      "reason": "include from Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "sha256_git_content": "91ea4b34d3ba9e3f73326464928ed7755a6c2971746912223af5b8f0c4c43742"
+    },
+    {
+      "path": "Source/FPSGAME/SlideCombatAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "8f06baa036c39fa0ea6430989d9099507f1256ba26adf4ed62fc8adfd6f829e0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/CantedForegripAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "733080f799ee23209a8b533926df66a43bab8dbae3dbbb44e130e80cd90de071"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "8efef3c51acda89a65b712626646cd5dcadd12bca6edc0e5affa7e62664e8804"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAmmoReadout.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "7cbb4f41a7db9c3ab70d6503a8a8e7842bfad512304b907cad7e9553c7483530"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "3193de4407f8b16f7e1730bb54c6ee4f80a60afaeec7d29c62433d05cd97598b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDisclosureIndicator.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "b19c5b9f8841f96e7a46b73e8019ef0db9e50ccf520063cf175cc18cba2bc183"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDisclosureIndicator.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "9c2b781276b930af20316834d68b85564240da637bd2d1f2c9ac93f907cdc961"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDropHitchAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "26a3c785ddf4696349651b4b4d54cdb5a3afba5a0ff7006226f2c6e27a58ec36"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelDualPistolRuntime.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "fc1fc1278603fe8ac4978f57ac29a0def9ed93252113f54cb9528f68cda41bf0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "4069e4effb9963b2de6f104bbdd006d00bc7943074554e5d3be061105bea7cdd"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementAuditTarget.h",
+      "reason": "include from Source/FPSGAME/QBZ191IntegrationAudit.cpp",
+      "sha256_git_content": "832a63f8df5f078d1f0de43f069fd2a58c37513b02d6382977c06b8bb65a1f5d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "9d64b42264de3dd40d4e5c85d8b2ca34d7109df3d1d9aefc247285cb79d98b23"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementLayout.cpp",
+      "reason": "UColdSteelEnhancementWidget implementation declared in Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "sha256_git_content": "a754fb54c967c69b797b31fdc60700837b87f094fd563c844b945754a0907a8c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementMaterials.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "16d9a274521e08fa04fcfa73401fd3bfe62b3def11415966de8db32d3ab5dbf5"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+      "sha256_git_content": "bac5335fa432d6ecf12ab058d3ca5988783f3db721a92cf4b478cafb0bbb68b8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementSystem.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+      "sha256_git_content": "b64db5c314380c07500ecfd19760d4778e2b1a2e7a5afc6e7732927d58c804ab"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "sha256_git_content": "f553e07bb78d161795a5e15c1c262151cbf18d49499d32bebaaadf872d91c47a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEnhancementWidget.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelEnhancementController.cpp",
+      "sha256_git_content": "c3195b36e4ab9da2cc2a5e35ebbab8775e9afae238b71e204b9f1ff3a3e04ec3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelEventTimeline.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "b8e5e7b77b79cc2d580c12b13a1812d7722eb99e95fbd6716f7b74f315b4110f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelFireballHUD.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "78bdcacb3e4e34e51a2e8316dcd7ebb9fa4affa8e62d226b024dda1ab12c82db"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "fc2d0b80aeae42cda04a169a34342f1addbf66e094d4fc60d0f1e5d33e391e70"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "bf5cbb1a472693ebb4a0fe9d764ad5cca716f7f5f7deaf573dd666192290143e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "b63fd424869b7c54380710ab555565debf465fa17ff372b5135bb3d7954a1d16"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryDragAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "c249def7fd709c107440230a1fdb04eb00924bac7b77858d41ee1b18da7455c1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryGlassAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "7ab18101e320f5d16e1e2ab427ebe9c26a4c8f5cc2c09cd778713246c0011840"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "0227839dcfd63fee4a828ddb382056a3d3ebf928381c667c962852d58a8c456c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPopup.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "d1c341002a93d1841362d9f2445d90c7fac2b2b71aa05967939c2fb3f8bcf73b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "907f2dc1dc81a0426a437d8840e5b61622c038da85cced1d363ad7a8ea6f167c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "reason": "Required implementation of shared inventory, weapon or input interface",
+      "sha256_git_content": "bc019f748a491a8f0145c868e5140ce7ce39a1982804f5600b18a6ca4f294da6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "ba37e5908aacb2d9478aa2f25e22708ab5af02e415e7ac1bf0cf8cc0f3b721de"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipData.h",
+      "sha256_git_content": "0340f39a7bb27aee59b657e24b689701a8feff166fa8597a3190a3f3aed83a25",
+      "publication_note": "Tree growth edits excluded from staged content; full local file retained."
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryVisualAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "f02e60794dd195d1786942efde735bd04696837efea9fe13544a0c041fa2f6d9"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+      "sha256_git_content": "9bf7466b4389c2734fc7337b1d0745c1d4413abf61c00667332a13da8e467225"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "sha256_git_content": "c719b48259beb919a704d0cd82ad1b099d1c64cc84309424a499419f0adbb2cf"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltip.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "bb934282f494ec65147e7000515d6412e7c7689065d9b5f9764e28393a90ce78"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltip.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "5d9b2bde1ade1da645092d23286cc196003f11a8e0494ebd194e1e26a468dd77"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "9d43656710774dc43c5c390e1b68ddcde8e5768b30041b312034440844816fb0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "4c4daad6006c0906067540a5b4473bfab4c4b7e19149c943269ae6f5708bc968"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "fe4301c46203477e6ca3106d288f03d31c3dca89450be227c8ac7467b7ab1b0c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipFormula.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "d16c228beba1c7529e46521f28df9e8152af83ab2b7643e09ef246e0ddd0cdca"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "2f0418e1e7a7c33ea89ef1d86852a6ab8999f13a81153d2020e5390869709a7a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "4f83c79aafdce7f5b98a5f6eb1d7f2532733366463d46311dd39a0656356678a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMeleeIcon.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "b46e5d2282e7c0345991f61cacaa12b96e1a8ce5db9de832d234391a547e6bbb"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMeleePreview.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "9d0736eeb7701ef49166a2f3816ffd187daa8a8d90f874b47ebc1d9d5cb78ef3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelMultiSwapAudit.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelInventoryDragAudit.cpp",
+      "sha256_git_content": "342042f804caecdbc80eca7bb5aae1ba2ec736c0db2f86efc905d6f083aeb2b2"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "9f6e8f16f4ab546b6055ec8bd2e53402152ff43f3ba7d802f074b41824131b35"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupConsumable.cpp",
+      "reason": "Required implementation of shared inventory, weapon or input interface",
+      "sha256_git_content": "0414c2cac401a8a60a3278c78835e7bb36dac9fd571c3fd0cb5d3ec3f0a4441f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "reason": "Required implementation of shared inventory, weapon or input interface",
+      "sha256_git_content": "d7d99158fcfab36637f85dfb90fbf59837718d5b47ba82d071e252beae7e3e4b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "679223cf1c7c8f631270daec98641959bd745517a9681d58f87b027c0cd53ecb",
+      "publication_note": "Tree growth edits excluded from staged content; full local file retained."
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProgressNotification.cpp",
+      "reason": "Required implementation of shared inventory, weapon or input interface",
+      "sha256_git_content": "af97071e8471540c059372ede6f7c78d420f6588849c4924cbf18825a320211d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarModel.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "a7538279a32f40ebf9905c4827711a930bdb9ca7290d19e6d55c686fff5404d4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickBarTypes.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "ae261b1db152ee4c0d1c160dda1cb6aa68bfce04d582ac0f7ca5e55e07594463"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "4e59bef0651a220ba589f325957112b5c4911db3075bb021fabfc3856722182d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickDrag.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "de7897c3c474046be26fb5dbd8a44d1eca016aec4a796eebf63b6c159f9716c2"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "98d1bf7be92361477c7b76e4cf52c7c0ced9e322ad02fc8e2c8e2ef6eb6afc5c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuickSlot.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "82440242ba5761e9361ac0215bdf4035b69a3ce05a23a9cce0dc60bb8ffedce2"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelResourceMeter.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelResourceMeter.h",
+      "sha256_git_content": "b5c127933cd998a5ad8af7a727f24744505a28b1507fa9159806340b2d31910b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelResourceMeter.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+      "sha256_git_content": "baf3ab0bb602952891ec2ecd584c7b52807a9fca69e56090213fc5e8b3c9c537"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "sha256_git_content": "6875d67a005b2831db9a564bbdfdd08df2c1166277b9af5acc1434f216613d61"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSkillPage.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "sha256_git_content": "4836bd090b91e786578bf364806d201fb12e5d350e1f5a3568aeb5f217a1000d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "f4414c2cdfa557bd976548d33957772d390f987d6a41192ad1cf1d8e6725a767"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "c700a1a7e65dde5e6d2d5aae486154660df47cc305df722ee307714d611aa5ba"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "sha256_git_content": "bcbabd6bdbb00aa5d9fea0b8ffa00901a4f3d278d0f6119966abb67a9b05e2ef",
+      "publication_note": "Tree growth edits excluded from staged content; full local file retained."
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelSwapPlacement.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "sha256_git_content": "a60a72ecf992a1dae1fc4790e8a1d11a717ae93ddeed1f6554b8cc8af58ca2c1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "ab096b9ac7597ab0725643f27677517cfd74747979977e6ba9a59f227a93c66a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "d8bb73bf80a9d69bdff7d00ea41d75d7cacb47520d2e32417a7bae4b616cc922"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseGlassAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "9ff867588a7c0b0f92a1e14b6203fd26dde30e3c9e6ac3663c0b6b8575a0ff77"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "56b0cb2af50c51c47d8af3a2da84050397d07d3fc921437adcabc36fd664b1fa"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "reason": "UColdSteelStatusModel implementation declared in Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_git_content": "45d50c896decf41af4d8445796e592ebe705b09caa05ac9ce80dc9467c9bd7f0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseRules.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelWarehouseRules.h",
+      "sha256_git_content": "66a58d5050e58c9c741d1e226af0f8fa5422d9e623fd24bcd3ae22f150a8f386"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseRules.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "sha256_git_content": "3d572149be4db6a4e63cf30272c5b641a45ab1ee9835455949113b205652a4fd"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseSpatialAudit.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelWarehouseAudit.cpp",
+      "sha256_git_content": "3aaa8bfa0442d52f8bbf7c1d53977543d87d9bf22a2d286378ca2cf2592b1fa4"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseWidget.cpp",
+      "reason": "implementation of Source/FPSGAME/UI/ColdSteelWarehouseWidget.h",
+      "sha256_git_content": "9e476a39a34d32efc86b845a61e6afd1a1684c57433dbf720a44e15f4d8d3cc6"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseWidget.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp",
+      "sha256_git_content": "1ea90ee0386a8a38b0aec5aaed151933792c72668d68e9f125aa063fa8f8b26c"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconAudit.cpp",
+      "reason": "UColdSteelHUDWidget implementation declared in Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_git_content": "795577cac6d5d7afa861fe5aefc54b3cf48c3c4f2b2b98a3c67e6af4f1da2cfd"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "fbcea62c25a6a8384cb94eee5f696189d204c22cb43f1a5aa5227d13d0213b64"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "c340d48692fa3a9f7c2af797e0ed67e5af133421fc5deb081ada753e8d815392"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "f3bc7e68ae847ff64bc2a1919783733a3fa4ab343034d07ce8b0ce758697282b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "ec78fa60c1105d360b5ed6ce013476de9bff6e349680aeeac7b13ede440a6df0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "9b5bb2cf8206a9a0e3dc30cdc52e34fd1aa9a3b55ef4ac6a0f3e57f55634ca27"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentTuningPanel.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "d1797b0004edaade58358867e9fa1c6fa4a81b1eb67f372a4682425366f1deff"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GunsmithLayoutAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "728b52cce81c2468c80c641e570f9543c5ce1f0dd2da80df0a0e779f74e2b766"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GunsmithWorkbenchAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "b9c605ef5ac1b35e0e8e43010eebc61e62a63e80a8d83595f08d12be2794fa06"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "069da1b1dd1b63f87ec4df602540829b85ed7e92bf8ca6cb6322cce0a431cb66"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithController.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "508d44099f3b3469ec611c0755fbb823b649c372a2c4e793abe7815fc7af338e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "f76bc963721dd4a5597abbb1830ac8e5e0bcab5c660711eb3f625b12d848e280"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "fde6260882b6febf70754f31c7644f20ebde138a69e167035537dd4b279d9934"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreview.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "5ddd9d7ce0d82f4cef32e6eb4c9a796e8edea14b097604b852292a100e15c8cb"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "e6ddb81784d464c8a2620b0ee880b6fe3e48a844c38b10e4d2a110ac542824d0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "579a287b6159cb99e84f1ea6e21326a0bd58628a1bc6af2b64a8febe715fab49"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "1f50b61044675765ffb1dc45b691035d0e35e0b514f47780e6f2888a0f0a8538"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithWidget.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "52731f6aff7015e6a365d1950eeee73815ff1aa7bf525c747b2d4ecd93fb1fff"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4MeleePreview.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "5e5981b14fcfa473d55a24d3229fcd50d5d5974d8bac5625fa72dbdd73861b6d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4StandalonePreview.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "5bf6c35d8699ed082c54b647fc08e29374016c85071b7931cefe3f3431d0337e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/PrismHandstopAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "47df8d4261994da4fd3fcbdc03eff5f75fbf9f97194e5af6f98a0ad292945c0b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SAttachmentSelectionPulse.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "870571f3cc3ac8c10c75be4b0eeae8b359985aaa0501b6169b5ad6b5c765b557"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SAttachmentSelectionPulse.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "4ad931aef3fdaf8683d87d789d3b7042362cdad3724ab79b580c7cdad23a7a91"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelCooldownMask.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "194921d78e869ad9de595268e3e7317c64735fa864bfca5200f07c187fdf878d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelCooldownMask.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "108a30b5937520353f2ec50c6b197738192c648600c93c16da5fb16c4c2da21e"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SM4PreviewSurface.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "6b9de89c90b548a59b7085fea9eee4faf6f9f898cf8f155503440c0db9c7d278"
+    },
+    {
+      "path": "Source/FPSGAME/UI/VerticalForegripAudit.cpp",
+      "reason": "AFPSGAMEPlayerController implementation declared in Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_git_content": "8ee9aa35b1f1cae8e4bf2ed143f3eb7fb7872b800e696a04c60750a7cd989b39"
+    },
+    {
+      "path": "Source/FPSGAME/UI/WeatherControlWidget.cpp",
+      "reason": "UI implementation",
+      "sha256_git_content": "8092459bd595b6cca600f5b91ef16760c8fe4d5a74496cd77ac6fc77bedd256f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/WeatherControlWidget.h",
+      "reason": "UI implementation",
+      "sha256_git_content": "3d4d2c6e72f9304da1ba38fdfcf83d2f49b7a196ddb3873843fa344a5b27b711"
+    },
+    {
+      "path": "Source/FPSGAME/WeaponWheelAudit.cpp",
+      "reason": "Required implementation of shared inventory, weapon or input interface",
+      "sha256_git_content": "3ed57a76780a3fc52bb7b2af0384fdb6ab67a317c104027f07f2c6897fd8fbcb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/AKMAttachmentVisual.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "1730f59cc8198a81f9c53584a9878b1466eeffc607be1d8286926b3153b63dba"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h",
+      "sha256_git_content": "8e8b503a151613514c27ff5f86d058568c6f578e8a8a3063320bf1603174586a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ColdSteelEnchantmentCombat.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "407ca8697c5ccaf70f585a60a9f7bb551984bdd14bec17c53a412e2c2f5586df"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/DanWesson715WeaponAssets.h",
+      "reason": "include from Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "sha256_git_content": "144a711622308547ef348531e811093e47387884b3e9d4b464d59ab95f8f4bb1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/FPSBallisticsComponent.h",
+      "sha256_git_content": "7327f15656be5063589c8cb70e6788f52f6a9131d5f090139ec41c8c4b31ec2a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSBallisticsComponent.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "303b61320ab2585f894aaea28a5223585860fec77833d5db163671f91fd08e3f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGAMECharacterPistolLocomotion.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "d709f5ce1c670aca1119c258ce70e7bfc8d51461b5660d4ebe1cad6dd487183a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/FPSGunplayAnimInstance.h",
+      "sha256_git_content": "af333d13f17b81d0110e91e1a1ef7e9bda54e7757fd4e131845b32f6396d2964"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGunplayAnimInstance.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "c436750a64c5918e11229f71a20908c346cf948934be3bf538f12e5b0d3343ea"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/FPSWeaponFXComponent.h",
+      "sha256_git_content": "5603119e905d296aa757d14062936d38f23e2c10e316616234a73794f74bfe4b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSWeaponFXComponent.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "77d30550b51c4a7e9d753aec1ab3390827d1472f5e16aa55dfed8c651909cb3c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "reason": "Required implementation of shared inventory, weapon or input interface",
+      "sha256_git_content": "a755381bbfafd052327d937f8b4598c6beeaab6d8e36edcf1dee34757febf9c1"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M1911AttachmentVisual.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "6351056ad82d4d2d1af3af610334ccde293950c64ba930d23feadf40ba657e93"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M1911WeaponAssets.h",
+      "reason": "include from Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "sha256_git_content": "df516d9227b0e71c7f02aa24b497a0479a4901c80bdf8f79c92b6a3b824f6113"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "07198a8ab4b8e2b54c5b5ee29582984d8f4ef3e5e9c00234070df01e9afdb069"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "f5094276ddb2bc322d350d037fed943c887b22e6208c6dfe789d6f04a8ed8843"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "0d106e40ea64f80f99771dbe1e432294b4c023ef851a09fba3796311e0c05242"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualAimNode.h",
+      "reason": "include from Source/FPSGAME/Weapons/FPSGunplayAnimInstance.cpp",
+      "sha256_git_content": "50f5449053cdf0017da6ebc7292fd4430f707ce52492826bb3ae6351cedf4695"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldAim.cpp",
+      "reason": "UPistolDualWieldComponent implementation declared in Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "sha256_git_content": "16e807f1c29104f2733a71f878298952560fbce5c45c51aebb404979b4ee6829"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp",
+      "reason": "UPistolDualWieldComponent implementation declared in Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "sha256_git_content": "3257ad78e7c87f50d3e18b32162a67a8a4309d56958851a793f94530246d60e6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "sha256_git_content": "5b17d5884032cc175ed24aa0759c6ada1e239f9b81f85347a5afdb14e555525a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolDualWieldComponent.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "sha256_git_content": "c0d19d852671d5affc00273bb56eb240f2ed525119240f6c041378c7d515cf8d"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PistolLocomotionAssets.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "92787cd1075f2dd695a6dc8e16355eb1d9ed982f961614c15e2a07da1ee77de4"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/QBZ191Attachments.h",
+      "reason": "include from Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+      "sha256_git_content": "4dba438255f82827d75b746116111a4405cc9d4e933dc980f42c8fcdd192bc1e"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordCombatTuning.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "sha256_git_content": "41f45621e06c3345313e9a7bb2d63a5da85015ae667700410e22aa921dac8278"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "sha256_git_content": "ea6019e5998e08ddbb7d4e5b731f7d97f55481574410bd169ac5b82c57e6c905"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelQuickSlot.cpp",
+      "sha256_git_content": "e93e8b5bf0831f75324d0ce7e1f56fbcdb14f5cc7a2207dc22003b1e6c9c14b6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "reason": "URuneSwordComponent implementation declared in Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "sha256_git_content": "f376a46e7b8cb13d1d1513d9421644cf4886ca93b5feb7de7a908286247642bb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuardTuning.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "sha256_git_content": "d22811c927367dbc5ebf9d951ecb076efad7b4b0d6247bece36e8603db32b258"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHeavyRhythm.h",
+      "reason": "include from Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "sha256_git_content": "335d4eb2dc7d29d6fcdde75ae5cdae92c0e5fa946b6fa7570d7d32bd7bef3518"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHitQuery.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/RuneSwordHitQuery.h",
+      "sha256_git_content": "59cc98d005139e800393ad0133f938e3d60a811187a939801eab483b8e4a1b3b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHitQuery.h",
+      "reason": "include from Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "sha256_git_content": "0bc24934fa10e268f38dd5925a0e9b2e2bf552402af4a037290bd205d47dea71"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordRhythm.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "sha256_git_content": "015fda41aea3e9cc9c5be46d8b9563eeab04f299e70f38f68d9308cb5319bf89"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordThrustRhythm.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "sha256_git_content": "e04821abba7f90aae7162345ea442889fa33a12b337efaedcfb5de6f78bad59a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SkeletonStockAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "f1991ad6f375d4024ac0bf7d25e1c6150220e0efe6275888e9a6d6f24e931170"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "33167b226590e67a690956694178ca293da42c511775002a7596a9fa75b7bf34"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "b6980ba9e0d369ff12b7d538f482d5fc846121d91ecfbd8574c0293fd6791f41"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.h",
+      "reason": "include from Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "sha256_git_content": "9ab6b2bf17de7e37bdd3b4df3ad9a1182065efdd5ab3949171bdee4a3bbd021d"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalSuppressorAssets.h",
+      "reason": "include from Source/FPSGAME/Weapons/M1911WeaponAssets.h",
+      "sha256_git_content": "a0b7d81bf3ab15a6242462275e56a6bad93957f9cad6e88b38576f006d7db66c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponDamageFalloff.h",
+      "reason": "include from Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_git_content": "7e094cbe01ee29c38854fa5e342e10db9090c6b30f8660cf3ec621bffc2ca719"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp",
+      "reason": "implementation of Source/FPSGAME/Weapons/WeaponStatEvaluation.h",
+      "sha256_git_content": "9af3bcbf5d7761e70fe526b9a4b5244ddff766807125879c0107058546553e0c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponStatEvaluation.h",
+      "reason": "include from Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "sha256_git_content": "421c115b023cf540a8b6093c3bfb851632483e5148de9a3eb1a7d70ee9d58a30"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WeaponVolumeAudit.cpp",
+      "reason": "AFPSGAMECharacter implementation declared in Source/FPSGAME/FPSGAMECharacter.h",
+      "sha256_git_content": "d0328828d5970f0383206f497b9776abee6e62c81704360d2e0a2098677a0873"
+    }
+  ]
+}

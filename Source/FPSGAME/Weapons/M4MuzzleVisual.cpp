@@ -2,6 +2,7 @@
 #include "AKMSovietCalibration.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
+#include "TacticalSuppressorAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -14,7 +15,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
     if (bUseDanWesson715) return;
     if (bUseM1911) { SetM1911Muzzle(Variant); return; }
-    const bool Valid=Variant==TEXT("true")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
+    const bool Valid=Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
     if(bUseQBZ191){
         const bool Enabled=Valid&&bInventoryWeaponReady;
         const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
@@ -45,9 +46,10 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     if(!Desired.IsEmpty())
     {
         const FString Key=Desired==TEXT("true")?TEXT("suppressor"):Desired;
-        const FString Path=TEXT("/Game/Weapons/M4MuzzlesV1/SM_M4_")+Key;
+        const FString Path=Key==TEXT("tactical_suppressor")?TacticalSuppressorAssets::MeshPath(TEXT("M4")):TEXT("/Game/Weapons/M4MuzzlesV1/SM_M4_")+Key;
         auto* MuzzleMesh=LoadObject<UStaticMesh>(nullptr,*Path);if(!MuzzleMesh){UE_LOG(LogTemp,Error,TEXT("MUZZLE: missing %s"),*Path);return;}
         if(!MuzzleAttachment){MuzzleAttachment=NewObject<UStaticMeshComponent>(this,TEXT("M4MuzzleAttachment"));MuzzleAttachment->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));MuzzleAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);MuzzleAttachment->SetCastShadow(false);MuzzleAttachment->RegisterComponent();}
+        if(MuzzleAttachment->GetStaticMesh()!=MuzzleMesh)MuzzleAttachment->EmptyOverrideMaterials();
         MuzzleAttachment->SetStaticMesh(MuzzleMesh);
         const auto B=MuzzleMesh->GetBounds();int32 Axis=0;if(B.BoxExtent.Y>B.BoxExtent.X)Axis=1;if(B.BoxExtent.Z>B.BoxExtent[Axis])Axis=2;
         MuzzleLocalAxis=FVector::ZeroVector;MuzzleLocalAxis[Axis]=B.Origin[Axis]>=0?1.f:-1.f;

@@ -69,13 +69,19 @@ void ASceneTestPortal::BeginPlay()
     }
 }
 
+bool ASceneTestPortal::IsWithinInteractionRange(const APawn* Pawn) const
+{
+    if(!Pawn)return false;
+    const FVector Delta=Pawn->GetActorLocation()-GetActorLocation();
+    return Delta.SizeSquared2D()<=FMath::Square(200.f)&&FMath::Abs(Delta.Z)<=250.f;
+}
+
 void ASceneTestPortal::UsePortal()
 {
     APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
     APawn* Pawn = PC ? PC->GetPawn() : nullptr;
     if (bTravelling || !Pawn || PC->bShowMouseCursor || GetNetMode() != NM_Standalone) return;
-    const FVector Delta = Pawn->GetActorLocation() - GetActorLocation();
-    if (Delta.SizeSquared2D() > FMath::Square(200.f) || FMath::Abs(Delta.Z) > 250.f) return;
+    if (!IsWithinInteractionRange(Pawn)) return;
     if (!FPackageName::DoesPackageExist(Destination))
     {
         if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Portal destination missing; travel cancelled."));

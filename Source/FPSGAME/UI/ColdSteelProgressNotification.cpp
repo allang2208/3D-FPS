@@ -93,7 +93,15 @@ void UColdSteelProgressNotification::NativeTick(const FGeometry& Geometry,float 
     if(Audio)Audio->SetPaused(Paused);
     if(!Paused)
     {
-        if(!bActive && Model && Model->PopProgressNotice(Active)){bActive=true;Elapsed=0;PlayCue();}
+        if(!bActive && Model && Model->PopProgressNotice(Active))
+        {
+            TArray<uint8> Bytes;
+            IconTexture=nullptr;
+            if(!Active.Icon.IsEmpty()&&FFileHelper::LoadFileToArray(Bytes,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Active.Icon)))
+                IconTexture=FImageUtils::ImportBufferAsTexture2D(Bytes);
+            IconBrush.SetResourceObject(IconTexture);IconBrush.DrawAs=IconTexture?ESlateBrushDrawType::Image:ESlateBrushDrawType::NoDrawType;
+            bActive=true;Elapsed=0;PlayCue();
+        }
         if(bActive)
         {
             Elapsed+=Delta;

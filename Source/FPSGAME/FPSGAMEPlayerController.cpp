@@ -1,4 +1,7 @@
 #include "FPSGAMEPlayerController.h"
+#include "UI/ColdSteelQuickBarTypes.h"
+#include "SceneTestPortal.h"
+#include "EngineUtils.h"
 #include "FPSGAMECharacter.h"
 #include "Building/VoxelBuildComponent.h"
 
@@ -13,6 +16,8 @@
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
 #include "UI/WeatherControlWidget.h"
+#include "UI/DevelopmentPanelWidget.h"
+#include "Development/DevelopmentSpawnComponent.h"
 #include "UI/WeatherPanelValidation.h"
 #include "Components/InputComponent.h"
 #include "HAL/FileManager.h"
@@ -25,8 +30,8 @@
 #include "UnrealClient.h"
 
 void RunRetiredWeaponsAudit(AFPSGAMEPlayerController* PC);
+void RunWeaponWheelAudit(AFPSGAMEPlayerController* PC);
 void RunWorldInteractionAudit(AFPSGAMEPlayerController* PC);
-
 void RunConsumablePickupAudit(AFPSGAMEPlayerController* PC);
 void RunEnhancementMaterialPickupAudit(AFPSGAMEPlayerController* PC);
 void RunMagicScrollAudit(AFPSGAMEPlayerController* PC);
@@ -35,26 +40,37 @@ void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
     VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));
+    DevelopmentSpawner=CreateDefaultSubobject<UDevelopmentSpawnComponent>(TEXT("DevelopmentSpawner"));
     bShowMouseCursor = false;
 }
 
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    if(FParse::Param(FCommandLine::Get(),TEXT("ConsumablePickupAudit")))
-    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunConsumablePickupAudit(this);}),8.f,false);}
-    if(FParse::Param(FCommandLine::Get(),TEXT("EnhancementMaterialPickupAudit")))
-    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunEnhancementMaterialPickupAudit(this);}),8.f,false);}
-    if(FParse::Param(FCommandLine::Get(),TEXT("MagicScrollAudit")))
-    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunMagicScrollAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("LootGlowAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunLootGlowAudit(this);}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("MagicScrollAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunMagicScrollAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("DropHitchAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){if(ColdSteelHUD)ColdSteelHUD->RunDropHitchAudit();}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("EnhancementMaterialPickupAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunEnhancementMaterialPickupAudit(this);}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("ConsumablePickupAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunConsumablePickupAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("WorldInteractionAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunWorldInteractionAudit(this);}),8.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("WeaponWheelAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunWeaponWheelAudit(this);}),5.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("ColdSteelEnhancementAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunEnhancementAudit,12.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("GunsmithWorkbenchAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunGunsmithWorkbenchAudit,5.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("CantedForegripAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunCantedForegripAudit,5.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("VerticalForegripAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunVerticalForegripAudit,5.f,false);}
+    if(FParse::Param(FCommandLine::Get(),TEXT("PrismHandstopAudit")))
+    {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunPrismHandstopAudit,5.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("M4DrumAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,this,&ThisClass::RunM4DrumAudit,5.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("M4GunsmithAudit")))
@@ -69,9 +85,12 @@ void AFPSGAMEPlayerController::BeginPlay()
         return;
     }
 
-    WeatherPanel = CreateWidget<UWeatherControlWidget>(this, UWeatherControlWidget::StaticClass());
-    if (WeatherPanel) WeatherPanel->AddToPlayerScreen(40);
+#if !UE_BUILD_SHIPPING
+    WeatherPanel = CreateWidget<UDevelopmentPanelWidget>(this, UDevelopmentPanelWidget::StaticClass());
+    // Keep the shortcut below inventory; the unified panel owns the F6 input context.
+    if (WeatherPanel) WeatherPanel->AddToPlayerScreen(15);
     StartWeatherPanelValidation(this, WeatherPanel);
+#endif
     ColdSteelHUD = CreateWidget<UColdSteelHUDWidget>(this, UColdSteelHUDWidget::StaticClass());
     ScopeOverlay=CreateWidget<ULPVOScopeWidget>(this,ULPVOScopeWidget::StaticClass());
     if(ScopeOverlay){ScopeOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);ScopeOverlay->AddToPlayerScreen(10);}
@@ -181,28 +200,35 @@ void AFPSGAMEPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
     if (InputComponent)
     {
-        InputComponent->BindKey(EKeys::LeftAlt, IE_Pressed, this, &AFPSGAMEPlayerController::BeginTimelineInteraction);
-        InputComponent->BindKey(EKeys::LeftAlt, IE_Released, this, &AFPSGAMEPlayerController::EndTimelineInteraction);
+        InputComponent->BindKey(EKeys::LeftAlt, IE_Pressed, this, &AFPSGAMEPlayerController::ToggleTimelineInteraction);
     }
 }
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    if(ColdSteelHUD&&ColdSteelHUD->IsQuickDragging())
+    {
+        if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();
+        return Params.Event==IE_Released?Super::InputKey(Params):true;
+    }
+    // UI has already received this event; do not forward unhandled cursor clicks to gameplay.
+    if (bShowMouseCursor && Params.Key.IsMouseButton() && Params.Event != IE_Released) return true;
+    if (Params.Event == IE_Pressed && Params.Key == EKeys::F6) { ToggleDevelopmentPanel(); return true; }
+    if (WeatherPanel && WeatherPanel->IsPanelOpen())
+    {
+        if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) WeatherPanel->SetPanelOpen(false);
+        return Params.Event == IE_Released ? Super::InputKey(Params) : true;
+    }
     const bool BuildMenuOpen=GunsmithPanel||(WeatherPanel&&WeatherPanel->IsPanelOpen())||(ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen());
     if(VoxelBuilder&&VoxelBuilder->HandleInput(Params,BuildMenuOpen))return true;
+    if(EnhancementPanel){if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::K||Params.Key==EKeys::Tab))CloseEnhancement();return true;}
+    if(Params.Event==IE_Pressed&&Params.Key==EKeys::K){OpenEnhancement();return true;}
     if(GunsmithPanel)
     {
         if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::J||Params.Key==EKeys::Tab))CloseGunsmith();
         return true;
     }
     if(Params.Event==IE_Pressed&&Params.Key==EKeys::J){OpenGunsmith();return true;}
-    if (Params.Event == IE_Pressed && Params.Key == EKeys::F6)
-    {
-        ToggleWeatherPanel();
-        return true;
-    }
-    if (WeatherPanel && WeatherPanel->IsPanelOpen())
-        return Params.Event == IE_Released ? Super::InputKey(Params) : true;
     if ((Params.Event == IE_Pressed || Params.Event == IE_Repeat) && ColdSteelHUD &&
         ColdSteelHUD->HandlePanelShortcut(Params.Key, Params.Event == IE_Repeat))
     {
@@ -219,72 +245,18 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::F7){Profile->StowProductionTool();return true;}
         if(Params.Key==EKeys::G || Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
         {if (const auto* C=Cast<AFPSGAMECharacter>(GetPawn()); !C || !C->IsTraversing()) Profile->CycleWeapon();return true;}
-        const FKey Keys[]={EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four};
-        for(int32 Index=0;Index<4;++Index)if(Params.Key==Keys[Index]){Profile->UseHotbar(Index);return true;}
         if(Params.Key==EKeys::E&&GetPawn())
         {
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
             if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
+            // Nearby portals receive E through their existing input component before a bound skill.
+            for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn()))return Super::InputKey(Params);
         }
+        const int32 QuickIndex=ColdSteelQuickBar::KeyIndex(Params.Key);
+        if(QuickIndex>=0){Profile->UseQuickBinding(QuickIndex);return true;}
     }
     return Super::InputKey(Params);
-}
-
-void AFPSGAMEPlayerController::ToggleInventory()
-{
-    if (WeatherPanel && WeatherPanel->IsPanelOpen()) WeatherPanel->SetPanelOpen(false);
-    if (ColdSteelHUD)
-    {
-        ColdSteelHUD->ToggleInventory();
-        UE_LOG(LogTemp, Display, TEXT("ColdSteelUI: inventory toggled, open=%s"),
-            ColdSteelHUD->IsInventoryOpen() ? TEXT("true") : TEXT("false"));
-    }
-}
-
-void AFPSGAMEPlayerController::BeginTimelineInteraction()
-{
-    if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
-    if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
-    bShowMouseCursor = true;
-    FInputModeGameAndUI InputMode;
-    InputMode.SetWidgetToFocus(ColdSteelHUD->TakeWidget());
-    InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-    InputMode.SetHideCursorDuringCapture(false);
-    SetInputMode(InputMode);
-}
-
-void AFPSGAMEPlayerController::EndTimelineInteraction()
-{
-    if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
-    if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
-    bShowMouseCursor = false;
-    SetInputMode(FInputModeGameOnly());
-}
-
-void AFPSGAMEPlayerController::ToggleWeatherPanel()
-{
-    if (!WeatherPanel) return;
-    if (ColdSteelHUD && ColdSteelHUD->IsInventoryOpen()) ColdSteelHUD->ToggleInventory();
-    WeatherPanel->SetPanelOpen(!WeatherPanel->IsPanelOpen());
-}
-
-void AFPSGAMEPlayerController::CaptureTimelineAudit(const FString& Filename, int32 State)
-{
-    if (!ColdSteelHUD) return;
-    ColdSteelHUD->SetEventTimelineAuditState(State);
-    const FString Directory = FPaths::ProjectSavedDir() / TEXT("UIAudit/2026-09-09");
-    IFileManager::Get().MakeDirectory(*Directory, true);
-    FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
-}
-
-void AFPSGAMEPlayerController::CaptureInventoryAudit(const FString& Filename, int32 State)
-{
-    if (!ColdSteelHUD) return;
-    ColdSteelHUD->SetInventoryAuditState(State);
-    const FString Directory = FPaths::ProjectSavedDir() / TEXT("UIAudit/2026-09-09");
-    IFileManager::Get().MakeDirectory(*Directory, true);
-    FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
 }
 
 void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
@@ -305,4 +277,66 @@ void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
         for(const auto& Entry:ScopePanelVisibility)if(Entry.Key.IsValid())Entry.Key->SetVisibility(static_cast<ESlateVisibility>(Entry.Value));
         ScopePanelVisibility.Reset();
     }
+}
+
+void AFPSGAMEPlayerController::ToggleInventory()
+{
+    if (WeatherPanel && WeatherPanel->IsPanelOpen()) WeatherPanel->SetPanelOpen(false);
+    if (ColdSteelHUD)
+    {
+        ColdSteelHUD->ToggleInventory();
+        UE_LOG(LogTemp, Display, TEXT("ColdSteelUI: inventory toggled, open=%s"),
+            ColdSteelHUD->IsInventoryOpen() ? TEXT("true") : TEXT("false"));
+    }
+}
+
+void AFPSGAMEPlayerController::ToggleTimelineInteraction()
+{
+    if (GunsmithPanel || EnhancementPanel) return;
+    if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
+    if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
+    if (bShowMouseCursor)
+    {
+        bShowMouseCursor = false;
+        SetInputMode(FInputModeGameOnly());
+        return;
+    }
+    bShowMouseCursor = true;
+    FInputModeGameAndUI InputMode;
+    InputMode.SetWidgetToFocus(ColdSteelHUD->TakeWidget());
+    InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+    InputMode.SetHideCursorDuringCapture(false);
+    SetInputMode(InputMode);
+}
+
+void AFPSGAMEPlayerController::ToggleWeatherPanel()
+{
+    ToggleDevelopmentPanel();
+}
+
+void AFPSGAMEPlayerController::ToggleDevelopmentPanel()
+{
+    if (!WeatherPanel) return;
+    if (GunsmithPanel) CloseGunsmith();
+    if (EnhancementPanel) CloseEnhancement();
+    if (ColdSteelHUD && ColdSteelHUD->IsInventoryOpen()) ColdSteelHUD->ToggleInventory();
+    WeatherPanel->SetPanelOpen(!WeatherPanel->IsPanelOpen());
+}
+
+void AFPSGAMEPlayerController::CaptureTimelineAudit(const FString& Filename, int32 State)
+{
+    if (!ColdSteelHUD) return;
+    ColdSteelHUD->SetEventTimelineAuditState(State);
+    const FString Directory = FPaths::ProjectSavedDir() / TEXT("UIAudit/2026-09-09");
+    IFileManager::Get().MakeDirectory(*Directory, true);
+    FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
+}
+
+void AFPSGAMEPlayerController::CaptureInventoryAudit(const FString& Filename, int32 State)
+{
+    if (!ColdSteelHUD) return;
+    ColdSteelHUD->SetInventoryAuditState(State);
+    const FString Directory = FPaths::ProjectSavedDir() / TEXT("UIAudit/2026-09-09");
+    IFileManager::Get().MakeDirectory(*Directory, true);
+    FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
 }

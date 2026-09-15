@@ -1,21 +1,31 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/PistolDualWieldComponent.h"
+#include "Development/DevelopmentTuningSubsystem.h"
 #include "Production/ProductionToolComponent.h"
+#include "Weapons/RuneSwordComponent.h"
+#include "Weapons/RuneSwordGuardTuning.h"
 #include "Skills/ColdSteelSkillRules.h"
+#include "Skills/FPSFireballComponent.h"
+#include "Skills/FPSCastingMeshComponent.h"
 #include "Perception/AISense_Hearing.h"
+#include "Weapons/AKMSovietCalibration.h"
+#include "Weapons/AKMAttachmentVisual.h"
 #include "Movement/FPSTraversalComponent.h"
 #include "Movement/FPSFootstepAudioComponent.h"
+#include "Movement/FPSCharacterMovementComponent.h"
+#include "Movement/FPSStairAudit.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
-#include "Weapons/AKMSovietCalibration.h"
-#include "Weapons/AKMAttachmentVisual.h"
 #include "Weapons/M4DrumReloadTiming.h"
 #include "Weapons/M1911WeaponAssets.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/GunsmithSystem.h"
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/FPSBallisticsComponent.h"
+#include "Weapons/WeaponDamageFalloff.h"
+#include "Weapons/ColdSteelEnchantmentCombat.h"
 
 #include "Animation/AnimSequence.h"
 #include "Animation/Skeleton.h"
@@ -32,7 +42,9 @@
 #include "HAL/PlatformMisc.h"
 #include "HighResScreenshot.h"
 #include "Sound/SoundBase.h"
+#include "Sound/SoundConcurrency.h"
 #include "Weapons/FPSVisualRecoil.h"
+#include "Weapons/PistolLocomotionAssets.h"
 #include "TimerManager.h"
 
 namespace AKMSource
@@ -70,17 +82,23 @@ namespace M1911Source
     constexpr float SlideRelease = 192.f / 120.f;
 }
 
-AFPSGAMECharacter::AFPSGAMECharacter()
+AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer)
+    : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
     CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
+    RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
+    CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
 
+    USceneComponent* StairVisualRoot = CreateDefaultSubobject<USceneComponent>(TEXT("StairVisualRoot"));
+    StairVisualRoot->SetupAttachment(GetCapsuleComponent());
+    CastChecked<UFPSCharacterMovementComponent>(GetCharacterMovement())->SetStairVisualRoot(StairVisualRoot);
     FirstPersonCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
-    FirstPersonCamera->SetupAttachment(GetCapsuleComponent());
+    FirstPersonCamera->SetupAttachment(StairVisualRoot);
     FirstPersonCamera->SetRelativeLocation(FVector(0.0f, 0.0f, StandingCameraHeight));
     // UpdateCamera composes control aim and presentation once. GetCameraView must not overwrite it.
     FirstPersonCamera->bUsePawnControlRotation = false;
@@ -91,7 +109,7 @@ AFPSGAMECharacter::AFPSGAMECharacter()
     FirstPersonCamera->PostProcessSettings.bOverride_MotionBlurAmount = true;
     FirstPersonCamera->PostProcessSettings.MotionBlurAmount = 0.0f;
 
-    AKMViewmodel = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("AKMViewmodel"));
+    AKMViewmodel = CreateDefaultSubobject<UFPSCastingMeshComponent>(TEXT("AKMViewmodel"));
     AKMViewmodel->SetupAttachment(FirstPersonCamera);
     AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
     AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
@@ -104,6 +122,7 @@ AFPSGAMECharacter::AFPSGAMECharacter()
     AKMViewmodel->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     AKMViewmodel->PrimaryComponentTick.AddPrerequisite(this, PrimaryActorTick);
     WeaponFX = CreateDefaultSubobject<UFPSWeaponFXComponent>(TEXT("WeaponFX"));
+    DualPistols = CreateDefaultSubobject<UPistolDualWieldComponent>(TEXT("DualPistols"));
     Ballistics = CreateDefaultSubobject<UFPSBallisticsComponent>(TEXT("Ballistics"));
     CreateDefaultSubobject<UFPSFootstepAudioComponent>(TEXT("FootstepAudio"));
     M4FireVoice = CreateDefaultSubobject<UAudioComponent>(TEXT("M4FireVoice"));
@@ -128,7 +147,7 @@ AFPSGAMECharacter::AFPSGAMECharacter()
     Movement->GroundFriction = 6.0f;
     Movement->BrakingFrictionFactor = 1.0f;
     Movement->BrakingDecelerationWalking = 5400.0f;
-    Movement->MaxStepHeight = 50.0f;
+    Movement->MaxStepHeight = 40.0f;
     Movement->SetWalkableFloorAngle(45.0f);
     Movement->bCanWalkOffLedgesWhenCrouching = true;
     Movement->SetCrouchedHalfHeight(72.0f);
@@ -148,6 +167,16 @@ void AFPSGAMECharacter::BeginPlay()
     }
     CameraRestLocation = FirstPersonCamera->GetRelativeLocation();
     ConfirmedMonsterHitSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/PlayerHitFeedback20260914/S_Player_MonsterHit.S_Player_MonsterHit"));
+    if (FParse::Param(FCommandLine::Get(), TEXT("WeaponVolumeAudit")))
+    {
+        RunWeaponVolumeAudit();
+        return;
+    }
+    if (FParse::Param(FCommandLine::Get(), TEXT("StairMovementAudit")))
+    {
+        auto* StairAudit = NewObject<UFPSStairAudit>(this);
+        AddInstanceComponent(StairAudit); StairAudit->RegisterComponent();
+    }
     FirstPersonCamera->SetFieldOfView(VerticalToHorizontalFOV(BaseVerticalFieldOfView));
     SavedGroundFriction = GetCharacterMovement()->GroundFriction;
     SavedBrakingDeceleration = GetCharacterMovement()->BrakingDecelerationWalking;
@@ -159,6 +188,12 @@ void AFPSGAMECharacter::BeginPlay()
     StartEquipCharge();
     bRunWeaponAudit = FParse::Param(FCommandLine::Get(), TEXT("AKMWeaponAudit"));
     bRunGunplayAcceptance = FParse::Param(FCommandLine::Get(), TEXT("GunplayAudit"));
+    bRunInfiniteAmmoAudit = FParse::Param(FCommandLine::Get(), TEXT("InfiniteAmmoAudit"));
+    bRunDrumGripAudit = FParse::Param(FCommandLine::Get(), TEXT("DrumGripAudit"));
+    bRunAKMIntegrationAudit = FParse::Param(FCommandLine::Get(), TEXT("AKMIntegrationAudit"));
+    bRunWeaponHandlingAudit = FParse::Param(FCommandLine::Get(), TEXT("WeaponHandlingAudit"));
+    bRunMuzzleMigrationAudit = FParse::Param(FCommandLine::Get(), TEXT("MuzzleMigrationAudit"));
+    bRunSlideCombatAudit = FParse::Param(FCommandLine::Get(), TEXT("SlideCombatAudit"));
     if (APlayerController* PC = Cast<APlayerController>(Controller))
     {
         PC->SetShowMouseCursor(false);
@@ -168,6 +203,8 @@ void AFPSGAMECharacter::BeginPlay()
 
 void AFPSGAMECharacter::InitializeWeaponVisuals()
 {
+    if(RearGripAttachment)RearGripAttachment->DestroyComponent();
+    RearGripAttachment=nullptr;
     if(StockAttachment)StockAttachment->DestroyComponent();
     StockAttachment=nullptr;bSkeletonStock=false;
     // Mounts and meshes belong to a weapon definition; rebuild them on a weapon swap.
@@ -181,7 +218,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     HipViewmodelLocation=M4HipViewmodelLocation;
     ADSRearEyeDistance=18.f;
     EquipAnimation=nullptr;
-    USkeletalMesh* ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    USkeletalMesh* ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
+    if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/WalnutFab/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
@@ -210,7 +248,8 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     }
     if (bUseQBZ191)
     {
-        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/QBZ191/Attachments20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"));
+        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"));
+        if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/QBZ191/Attachments20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"));
         bUsingM4Infima = ViewmodelMesh != nullptr;
         HipViewmodelLocation = M4HipViewmodelLocation;
         ADSRearEyeDistance = 12.f;
@@ -220,7 +259,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     {
         ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, M1911Source::MeshPath);
         bUsingM4Infima = ViewmodelMesh != nullptr; // Common Manny pose/cue clock.
-        HipViewmodelLocation = FVector(0.f, 6.f, -5.f);
+        HipViewmodelLocation = PistolHipViewmodelLocation;
         ADSRearEyeDistance = 38.f;
         bPistolShotPending = false;
     }
@@ -228,7 +267,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     {
         ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, DanWesson715WeaponAssets::MeshPath);
         bUsingM4Infima = ViewmodelMesh != nullptr;
-        HipViewmodelLocation = FVector(0.f, 6.f, -5.f);
+        HipViewmodelLocation = RevolverHipViewmodelLocation;
         ADSRearEyeDistance = 38.f;
         bPistolShotPending = false;
     }
@@ -262,7 +301,10 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload"));
         DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AKMIntegration/SovietFab/ReloadPolish/base/A_AKM_drum_reload_empty"));
     }
-    if (bUseQBZ191) { DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload")); DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty")); }
+    if (bUseQBZ191) {
+        DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload"));
+        DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty"));
+    }
     // The accepted pistol set has no inspection clip; do not resolve a fictional asset.
     InspectAnimation = bUseDanWesson715 ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima || bUseM1911 ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
@@ -283,6 +325,10 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         InitializeCantedGripAnimations();
     }
     PistolIdleEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_idle_empty")) : nullptr;
+    PistolSprintAnimation = IsPistolWeapon()
+        ? LoadObject<UAnimSequence>(nullptr, *PistolLocomotionAssets::AnimationPath(bUseDanWesson715)) : nullptr;
+    PistolSprintEmptyAnimation = bUseM1911
+        ? LoadObject<UAnimSequence>(nullptr, *PistolLocomotionAssets::AnimationPath(false, true)) : nullptr;
     PistolAimEmptyAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_empty")) : nullptr;
     PistolFireLastAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_fire_last")) : nullptr;
     PistolAimFireLastAnimation = bUseM1911 ? LoadAKMAnimation(TEXT("A_AKM_aim_fire_last")) : nullptr;
@@ -301,6 +347,31 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     if (bUseDanWesson715)
         for (const auto& Cue : DanWesson715WeaponAssets::SpeedloaderSoundCues)
             RevolverSpeedloaderSounds.Add(LoadObject<USoundBase>(nullptr, *DanWesson715WeaponAssets::SpeedloaderSoundPath(Cue.Name)));
+    RifleFireVariants.Reset();
+    RifleSuppressedVariants.Reset();
+    LastRifleFireVariant = INDEX_NONE;
+    if (bUsingM4Infima && !IsPistolWeapon())
+    {
+        const TCHAR* AudioWeapon = bUseQBZ191 ? TEXT("QBZ191") : TEXT("M4");
+        for (int32 Index = 1; Index <= 4; ++Index)
+        {
+            const FString Base = FString::Printf(TEXT("/Game/Weapons/FreeFirearmAudio20260913/S_%s_"), AudioWeapon);
+            const FString FirePath = bUseQBZ191
+                ? Base + FString::Printf(TEXT("Fire_%02d"), Index)
+                : FString::Printf(TEXT("/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_%02d"), Index);
+            if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *FirePath))
+                RifleFireVariants.Add(Sound);
+            if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *(Base + FString::Printf(TEXT("Suppressed_%02d"), Index))))
+                RifleSuppressedVariants.Add(Sound);
+        }
+        if (!RifleFireVariants.IsEmpty()) FireSound = RifleFireVariants[0];
+        if (!RifleSuppressedVariants.IsEmpty()) SuppressedFireSound = RifleSuppressedVariants[0];
+        RifleFireConcurrency = NewObject<USoundConcurrency>(this);
+        RifleFireConcurrency->Concurrency.MaxCount = 6;
+        RifleFireConcurrency->Concurrency.bLimitToOwner = true;
+        RifleFireConcurrency->Concurrency.ResolutionRule = EMaxConcurrentResolutionRule::StopOldest;
+        RifleFireConcurrency->Concurrency.VoiceStealReleaseTime = 0.02f;
+    }
     EquipSound = LoadAKMSound(TEXT("S_AKM_Equip"));
     MagOutSound = LoadAKMSound(TEXT("S_AKM_MagOut"));
     MagInsertSound = LoadAKMSound(TEXT("S_AKM_MagInsert"));
@@ -326,7 +397,7 @@ void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAction(TEXT("Sprint"), IE_Released, this, &AFPSGAMECharacter::SprintReleased);
     Input->BindAction(TEXT("Slide"), IE_Pressed, this, &AFPSGAMECharacter::SlidePressed);
     Input->BindAction(TEXT("Fire"), IE_Pressed, this, &AFPSGAMECharacter::FirePressed);
-    Input->BindAction(TEXT("Fire"), IE_Released, this, &AFPSGAMECharacter::FireReleased);
+    Input->BindAction(TEXT("Fire"), IE_Released, this, &AFPSGAMECharacter::FireInputReleased);
     Input->BindAction(TEXT("Aim"), IE_Pressed, this, &AFPSGAMECharacter::AimPressed);
     Input->BindAction(TEXT("Aim"), IE_Released, this, &AFPSGAMECharacter::AimReleased);
     Input->BindAction(TEXT("Reload"), IE_Pressed, this, &AFPSGAMECharacter::ReloadPressed);
@@ -345,9 +416,10 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     TryBufferedJump();
     RefreshMovementState();
     UpdateWeaponState(DeltaSeconds);
+    ServiceReloadAfterCasting();
     ServiceRevolverReloadAfterFire();
     // Also recover an empty magazine loaded from a saved profile after equipping.
-    if (HasInfiniteReserveAmmo() && bInventoryWeaponReady && MagazineAmmo == 0 && !IsWeaponBusy()) ReloadPressed();
+    if (!IsDualWieldingPistols() && HasInfiniteReserveAmmo() && bInventoryWeaponReady && MagazineAmmo == 0 && !IsWeaponBusy()) ReloadPressed();
     UpdateWeaponFeedback(DeltaSeconds);
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
@@ -358,43 +430,68 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     UpdateDrumDropVisual();
     UpdateFoldingSights(DeltaSeconds);
     if (bRunWeaponAudit) RunWeaponAudit(DeltaSeconds);
+    if (bRunInfiniteAmmoAudit) RunInfiniteAmmoAudit();
+    if (bRunDrumGripAudit) RunDrumGripAudit();
+    if (FParse::Param(FCommandLine::Get(), TEXT("SkeletonStockAudit"))) RunStockAudit();
+    if (FParse::Param(FCommandLine::Get(), TEXT("ReloadTimingAudit"))) RunReloadTimingAudit();
+    if (FParse::Param(FCommandLine::Get(), TEXT("ForegripAudit")) || FParse::Param(FCommandLine::Get(), TEXT("PrismGripAudit")) || FParse::Param(FCommandLine::Get(), TEXT("VerticalGripAudit")) || FParse::Param(FCommandLine::Get(), TEXT("CantedGripAudit"))) RunForegripAudit();
+    if (bRunAKMIntegrationAudit) RunAKMIntegrationAudit();
+    if (FParse::Param(FCommandLine::Get(), TEXT("QBZ191IntegrationAudit"))) RunQBZ191IntegrationAudit();
+    if (bRunSlideCombatAudit) RunSlideCombatAcceptance(DeltaSeconds);
+    else if (bRunGunplayAcceptance) RunGunplayAcceptance(DeltaSeconds);
+    if (bRunWeaponHandlingAudit) RunWeaponHandlingAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("M1911Audit"))) RunM1911DevelopmentAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("BallisticPresentationAudit"))) RunBallisticPresentationAudit();
-    if (FParse::Param(FCommandLine::Get(), TEXT("InfiniteAmmoAudit"))) RunInfiniteAmmoAudit();
-    if (FParse::Param(FCommandLine::Get(), TEXT("DrumGripAudit"))) RunDrumGripAudit();
-    if (bRunGunplayAcceptance) RunGunplayAcceptance(DeltaSeconds);
-    if (FParse::Param(FCommandLine::Get(), TEXT("WeaponHandlingAudit"))) RunWeaponHandlingAudit();
-    if (FParse::Param(FCommandLine::Get(), TEXT("MuzzleMigrationAudit"))) RunMuzzleMigrationAudit();
+    if (bRunMuzzleMigrationAudit) RunMuzzleMigrationAudit();
     LookInput = FVector2D::ZeroVector;
 }
 
 void AFPSGAMECharacter::MoveForward(float Value)
 {
     MoveInput.Y = Value;
-    if (!bIsSliding && !FMath::IsNearlyZero(Value) && Controller)
+    if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
 }
 
 void AFPSGAMECharacter::MoveRight(float Value)
 {
     MoveInput.X = Value;
-    if (!bIsSliding && !FMath::IsNearlyZero(Value) && Controller)
+    if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::Y), Value);
 }
 
-void AFPSGAMECharacter::Turn(float Value) { LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale()); }
-void AFPSGAMECharacter::LookUp(float Value) { LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale()); }
+void AFPSGAMECharacter::Turn(float Value)
+{
+    if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
+    LookInput.X += Value; AddControllerYawInput(Value * LookSensitivityScale());
+}
+void AFPSGAMECharacter::LookUp(float Value)
+{
+    if (const auto* PC=Cast<APlayerController>(Controller); PC && PC->bShowMouseCursor) return;
+    LookInput.Y += Value; AddControllerPitchInput(Value * LookSensitivityScale());
+}
 void AFPSGAMECharacter::SprintPressed()
 {
+    if (bSprintHeld) return;
+    SprintPressedAt=(!IsDodging() && !IsTraversing() && Controller && !Controller->IsMoveInputIgnored())
+        ? GetWorld()->GetTimeSeconds() : -1.0;
     bSprintHeld = true;
+    if (IsDodging()) return;
     if (bIsSliding && CanStand()) StopSlide(true);
     else if (bIsCrouched && CanStand()) UnCrouch();
 }
-void AFPSGAMECharacter::SprintReleased() { bSprintHeld = false; }
+void AFPSGAMECharacter::SprintReleased()
+{
+    const bool bTap=bSprintHeld && SprintPressedAt>=0.0 &&
+        GetWorld()->GetTimeSeconds()-SprintPressedAt<=DodgeTapMaximumHold;
+    bSprintHeld=false;
+    SprintPressedAt=-1.0;
+    if (bTap) TryDodge();
+}
 
 void AFPSGAMECharacter::SlidePressed()
 {
-    if (IsTraversing()) return;
+    if (IsTraversing() || IsDodging()) return;
     if (bIsSliding) { StopSlide(false); return; }
     if (bIsCrouched) { if (CanStand()) UnCrouch(); return; }
     if (GetCharacterMovement()->IsMovingOnGround() && HorizontalSpeed() >= SlideMinimumSpeed) StartSlide(); else Crouch();
@@ -402,6 +499,7 @@ void AFPSGAMECharacter::SlidePressed()
 
 void AFPSGAMECharacter::JumpPressed()
 {
+    if (IsDodging()) return;
     Traversal->SetJumpHeld(true);
     if (IsTraversing()) return;
     if (Traversal->TryStart(!bIsSliding && !IsWeaponBusy())) { JumpBufferRemaining=0.f; StopJumping(); return; }
@@ -416,6 +514,13 @@ void AFPSGAMECharacter::JumpReleased()
 
 void AFPSGAMECharacter::FirePressed()
 {
+    if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
+    if(IsCastBlockingLeftHandAction())
+    {
+        if(RuneSword && RuneSword->IsEquipped())return;
+        if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
+    }
+    if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginPrimaryAttack();return;}
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
     if (!bFireHeld)
@@ -430,9 +535,19 @@ void AFPSGAMECharacter::FirePressed()
     ServiceHeldFire();
 }
 
+void AFPSGAMECharacter::FireInputReleased()
+{
+    // Only the physical input release may commit a charged sword attack.
+    // Menu/traversal/equipment callers still use FireReleased to stop actions.
+    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
+    FireReleased();
+}
+
 void AFPSGAMECharacter::FireReleased()
 {
+    if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
     bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
+    if(RuneSword && RuneSword->IsEquipped())RuneSword->CancelAction();
     const double Now=GetWorld()->GetTimeSeconds();
     AdvanceVisualWeaponRecoil(Now);
     // Preserve the initial kick even when a tap is released in the shot frame.
@@ -441,17 +556,32 @@ void AFPSGAMECharacter::FireReleased()
 
 void AFPSGAMECharacter::AimPressed()
 {
+    if(IsDualWieldingPistols()){DualPistols->Trigger(1,true);return;}
+    if(IsCastBlockingLeftHandAction())return;
+    if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
     bAimHeld = true;
     InterruptPistolEquip();
     ExitSprintForWeapon();
-    if (!IsWeaponBusy() && !bIsSliding) { SetAimingState(true); ResumeWeaponPose(); }
+    if (!IsWeaponBusy()) { SetAimingState(true); ResumeWeaponPose(); }
 }
 
-void AFPSGAMECharacter::AimReleased() { bAimHeld = false; SetAimingState(false); if (!IsWeaponBusy()) ResumeWeaponPose(); }
+void AFPSGAMECharacter::AimReleased()
+{
+    if(IsDualWieldingPistols()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
+    bAimHeld=false;
+    if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleaseGuard();return;}
+    SetAimingState(false);if(!IsWeaponBusy())ResumeWeaponPose();
+}
 
 void AFPSGAMECharacter::ReloadPressed()
 {
+    if(IsDualWieldingPistols()){DualPistols->Reload();return;}
+    if(IsCastBlockingLeftHandAction())
+    {
+        if(bInventoryWeaponReady && MagazineAmmo==0)bReloadAfterCasting=true;
+        return;
+    }
     if (!bInventoryWeaponReady || IsWeaponBusy() || MagazineAmmo >= MagazineCapacity || (!HasInfiniteReserveAmmo() && ReserveAmmo <= 0)) return;
     if (IsRevolverFireActionPlaying())
     {
@@ -461,6 +591,7 @@ void AFPSGAMECharacter::ReloadPressed()
         return;
     }
     bRevolverReloadAfterFire = false;
+    bReloadAfterCasting=false;
     bRevolverSingleReload = bUseDanWesson715 && !bRevolverSpeedloaderInstalled;
     UAnimSequence* RevolverClip = nullptr;
     if (bUseDanWesson715)
@@ -601,6 +732,8 @@ void AFPSGAMECharacter::ReloadPressed()
         }
         if (bUseQBZ191)
         {
+            // QBZ uses the normal magazine exchange followed by its dedicated
+            // charging-handle action, not the M4 bolt-release slap.
             MechanicalCueTimes = {29.f/60.f, 76.f/60.f, 95.f/60.f};
             MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
             if(bPendingEmptyReload){
@@ -613,7 +746,12 @@ void AFPSGAMECharacter::ReloadPressed()
 
 void AFPSGAMECharacter::InspectPressed()
 {
-    if (IsWeaponBusy() || !InspectAnimation) return;
+    if(RuneSword && RuneSword->IsEquipped())
+    {
+        if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
+        ExitSprintForWeapon();RuneSword->BeginInspect();return;
+    }
+    if (IsCastBlockingLeftHandAction() || IsWeaponBusy() || !InspectAnimation) return;
     FireReleased();
     SetAimingState(false);
     WeaponState = EAKMWeaponState::Inspecting;
@@ -627,17 +765,25 @@ void AFPSGAMECharacter::RefreshMovementState()
 {
     const bool bForwardIntent = MoveInput.Y > 0.5f && MoveInput.Size() > 0.7f;
     const bool bPreviouslySprinting = bIsSprinting;
-    SetAimingState(bAimHeld && !IsWeaponBusy() && !bIsSliding);
-    bIsSprinting = bSprintHeld && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!bFireHeld || IsReloading()) && bForwardIntent;
+    const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const bool Guarding=RuneSword && RuneSword->IsGuarding();
+    SetAimingState(bAimHeld && !IsWeaponBusy());
+    bIsSprinting = !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!bFireHeld || IsReloading()) && bForwardIntent;
     if (!bPreviouslySprinting && bIsSprinting) SprintStartedAt = GetWorld()->GetTimeSeconds();
     if (bPreviouslySprinting && !bIsSprinting) StartSprintToFireLock(GetWorld()->GetTimeSeconds());
     GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : (bIsAiming ? ADSWalkSpeed : WalkSpeed);
-    GetCharacterMovement()->MaxWalkSpeedCrouched = bIsAiming ? 220.0f : CrouchSpeed;
+    GetCharacterMovement()->MaxWalkSpeedCrouched = bIsAiming ? 220.0f * PistolMoveSpeedMultiplier : CrouchSpeed;
+    if(Guarding)
+    {
+        GetCharacterMovement()->MaxWalkSpeed*=RuneSwordGuardTuning::MoveMultiplier;
+        GetCharacterMovement()->MaxWalkSpeedCrouched*=RuneSwordGuardTuning::MoveMultiplier;
+    }
 }
 
 void AFPSGAMECharacter::StartSlide()
 {
-    SetAimingState(false);
+    // Sliding changes locomotion only; weapon actions keep their own state/clock.
+    ExitSprintForWeapon();
     bIsSliding = true;
     SlideAge = 0.0f;
     SlideTimeRemaining = SlideMaximumTime;
@@ -658,8 +804,6 @@ void AFPSGAMECharacter::StartSlide()
 void AFPSGAMECharacter::StopSlide(bool bTryToStand)
 {
     bIsSliding = false;
-    // Slide exit is observed now; its blocked interval never becomes fire debt.
-    NextAllowedShotTime = FMath::Max(NextAllowedShotTime, static_cast<double>(GetWorld()->GetTimeSeconds()));
     GetCharacterMovement()->GroundFriction = SavedGroundFriction;
     GetCharacterMovement()->BrakingDecelerationWalking = SavedBrakingDeceleration;
     if (bTryToStand && CanStand()) UnCrouch();
@@ -667,6 +811,7 @@ void AFPSGAMECharacter::StopSlide(bool bTryToStand)
 
 void AFPSGAMECharacter::TryBufferedJump()
 {
+    if (IsDodging()) return;
     if (JumpBufferRemaining <= 0.0f || !GetCharacterMovement()->IsMovingOnGround() || !CanStand()) return;
     if (bIsSliding)
     {
@@ -697,6 +842,7 @@ void AFPSGAMECharacter::UpdateSlide(float DeltaSeconds)
 
 void AFPSGAMECharacter::UpdateWeaponState(float DeltaSeconds)
 {
+    if(IsDualWieldingPistols())return;
     if (WeaponState == EAKMWeaponState::Idle) return;
     // Input can start an action immediately before Tick. Do not charge that new
     // action for the elapsed interval which preceded the input event.
@@ -782,6 +928,10 @@ void AFPSGAMECharacter::UpdateADSProgress()
 
 void AFPSGAMECharacter::SetAimingState(bool bNewAiming)
 {
+    if(IsDualWieldingPistols())bNewAiming=false;
+    // A waiting cast leaves existing ADS untouched until the player releases it.
+    // An active cast cannot enter ADS through input or an action-completion callback.
+    if(bNewAiming && IsCastingWithLeftHand())bNewAiming=false;
     if (bIsAiming == bNewAiming) return;
     // Finish the old direction at the input/state-change time. A new transition
     // cannot consume time from before that event, including on a hitch frame.
@@ -789,6 +939,16 @@ void AFPSGAMECharacter::SetAimingState(bool bNewAiming)
     ADSStartProgress = ADSProgress;
     ADSStartedAt = GetWorld()->GetTimeSeconds();
     bIsAiming = bNewAiming;
+}
+
+FTransform AFPSGAMECharacter::GetMeleeAimTransform() const
+{
+    FVector Eye=CameraRestLocation;
+    Eye.Z=(bIsSliding || bIsCrouched)?SlidingCameraHeight:StandingCameraHeight;
+    const auto* Parent=FirstPersonCamera->GetAttachParent();
+    const FTransform& ParentWorld=Parent?Parent->GetComponentTransform():GetActorTransform();
+    const FQuat Aim=Controller?Controller->GetControlRotation().Quaternion():GetActorQuat();
+    return FTransform(Aim,ParentWorld.TransformPosition(Eye));
 }
 
 void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
@@ -806,7 +966,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     FVector TargetLocation = CameraRestLocation;
     TargetLocation.Z = (bIsSliding || bIsCrouched) ? SlidingCameraHeight : StandingCameraHeight;
     float MovementRoll = 0.0f;
-    if (bGrounded && !bIsSliding && Speed > 20.0f)
+    if (bGrounded && !bIsSliding && !IsDodging() && Speed > 20.0f)
     {
         CameraBobPhase += DeltaSeconds * (bIsSprinting ? 12.0f : 8.0f);
         const float Weight = 1.0f - CameraADSFactor * 0.85f;
@@ -815,21 +975,34 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         TargetLocation.Z += FMath::Cos(CameraBobPhase * 2.0f) * Amplitude;
         MovementRoll = FMath::RadiansToDegrees(FMath::Sin(CameraBobPhase) * (Amplitude / 100.0f) * 0.25f);
     }
+    const float DodgeWeight=DodgePresentationWeight()*CameraMotionScale;
+    TargetLocation.Z-=3.f*DodgeWeight;
+    if (IsDodging())
+    {
+        const auto* Move=CastChecked<UFPSCharacterMovementComponent>(GetCharacterMovement());
+        const FVector ViewRight=FRotationMatrix(FRotator(0.f,GetViewRotation().Yaw,0.f)).GetUnitAxis(EAxis::Y);
+        MovementRoll+=3.f*DodgeWeight*FVector::DotProduct(Move->GetDodgeDirection(),ViewRight);
+    }
     TargetLocation.Z += LandingOffset * (1.0f - CameraADSFactor * 0.8f) * CameraMotionScale;
     const float TraumaStrength = FMath::Square(FireTrauma) * AKMSource::FeedbackScale * CameraMotionScale * (1.0f - 0.8f * CameraADSFactor);
     const float NoiseRight = FMath::PerlinNoise1D(FeedbackTime * 11.0f) * 4.5f * TraumaStrength;
     const float NoiseUp = FMath::PerlinNoise1D(FeedbackTime * 13.0f + 91.3f) * 4.5f * TraumaStrength;
     TargetLocation += FVector(-CameraJitterPosition.Z * 100.0f, CameraJitterPosition.X * 100.0f + NoiseRight, CameraJitterPosition.Y * 100.0f + NoiseUp);
+    FVector SwordCameraLocation=FVector::ZeroVector;
+    FRotator SwordCameraRotation=FRotator::ZeroRotator;
+    RuneSword->GetCameraMotion(SwordCameraLocation,SwordCameraRotation);
+    const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
+    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*CameraMotionScale;
     FirstPersonCamera->SetRelativeLocation(Traversal->IsCameraRecovering()?TargetLocation:
         FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
     const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;
     const float NoiseYaw = FMath::PerlinNoise1D(FeedbackTime * 7.0f + 55.0f) * 0.03f * TraumaStrength;
-    const FRotator CameraFeedback(
+    FRotator CameraFeedback(
         FMath::RadiansToDegrees(CameraKickPitch + CameraJitterRotation.X + NoisePitch),
         FMath::RadiansToDegrees(CameraKickYaw + CameraJitterRotation.Y + NoiseYaw),
         MovementRoll + FMath::RadiansToDegrees(CameraJitterRotation.Z));
-    const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
+    CameraFeedback+=SwordCameraRotation*CameraMotionScale;
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
     float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);
@@ -847,57 +1020,37 @@ FRotator AFPSGAMECharacter::GetViewmodelBaseRotation() const
 
 void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 {
+    if(IsDualWieldingPistols()){DualPistols->Advance(DeltaSeconds);return;}
     UpdateADSPose();
     // Reload/inspection need room for the support hand. Equip is performed at
     // this weapon's hip anchor and must not visit the centered action framing.
     const bool bUseActionFraming = bUsingM4Infima && !IsPistolWeapon() && !IsTraversing() && IsWeaponBusy() && WeaponState != EAKMWeaponState::Equipping;
     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
-    if (bDrumInstalled && IsReloading())
-    {
-        // Center only after the support hand leaves the foregrip. Drum framing
-        // moves sideways/up, without the previous 14 cm depth excursion.
-        const float SourceFrame = ReloadSourceTime(WeaponStateElapsed) * 60.0f;
-        ActionFramingTarget = FMath::SmoothStep(bPendingEmptyReload ? 16.0f : 20.0f,
-            bPendingEmptyReload ? 43.0f : 50.0f, SourceFrame);
-    }
     M4ActionFramingAlpha = FMath::Lerp(M4ActionFramingAlpha, ActionFramingTarget,
         1.0f - FMath::Exp(-16.0f * DeltaSeconds));
     const float SpeedM = HorizontalSpeed() / 100.0f;
     const bool bPistol = IsPistolWeapon();
     WeaponBobTime += DeltaSeconds * (5.0f + SpeedM * 0.85f);
     const float SprintSpeedAlpha = FMath::Clamp((HorizontalSpeed() - 50.0f) / FMath::Max(SprintSpeed - 50.0f, 1.0f), 0.0f, 1.0f);
-    const float SprintTarget = bIsSprinting && !IsWeaponBusy() ? ((bUsingM4Infima || bPistol) ? SprintSpeedAlpha : 1.0f) : 0.0f;
-    const bool bPistolActionTransition = IsWeaponBusy() || bIsAiming || bFireHeld;
+    const bool bPistolActionTransition = IsWeaponBusy() || bIsAiming || bFireHeld
+        || IsTraversing() || IsDodging() || (bPistol && IsCastBlockingLeftHandAction());
+    const float SprintTarget = bIsSprinting && !IsWeaponBusy() && !(bPistol && bPistolActionTransition)
+        ? ((bUsingM4Infima || bPistol) ? SprintSpeedAlpha : 1.0f) : 0.0f;
     const float SprintBlendRate = bPistol
-        ? (bPistolActionTransition ? 18.f : (SprintTarget < SprintPoseFactor ? 8.5f : 5.5f))
+        ? (bPistolActionTransition ? 28.f : (SprintTarget < SprintPoseFactor ? 12.f : 8.f))
         : (bUsingM4Infima && SprintTarget < SprintPoseFactor ? 24.0f : 12.0f);
     SprintPoseFactor = FMath::Lerp(SprintPoseFactor, SprintTarget, 1.0f - FMath::Exp(-SprintBlendRate * DeltaSeconds));
     // Distance-driven stride: 1.65 complete left/right cycles per second at full sprint.
     if (bUsingM4Infima && !bPistol)
         M4SprintPhase = FMath::Fmod(M4SprintPhase + DeltaSeconds * 2.0f * PI * 1.65f * SprintSpeedAlpha, 2.0f * PI);
-    // Keep the accepted idle hand contacts. Footstep distance supplies the
-    // cadence; do not layer the rifle's fixed 35-degree raised-ready pose here.
-    if (bPistol && SpeedM > 0.5f && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding)
-        if (const auto* Footsteps = FindComponentByClass<UFPSFootstepAudioComponent>())
-            PistolSprintPhase = Footsteps->GetStridePhaseRadians();
-    const float PistolWeight = bPistol ? SprintPoseFactor * SprintPoseFactor * (3.f - 2.f * SprintPoseFactor) : 0.f;
-    const float PistolSide = FMath::Cos(PistolSprintPhase);
-    const float PistolStep = FMath::Cos(2.f * PistolSprintPhase);
-    const float PistolWrist = FMath::Cos(PistolSprintPhase - 0.30f);
-    const FVector PistolOffsetTarget = FVector(
-        PistolSprintAmplitudeCM.X * FMath::Sin(2.f * PistolSprintPhase),
-        PistolSprintAmplitudeCM.Y * PistolSide,
-        -PistolSprintAmplitudeCM.Z * PistolStep) * PistolWeight;
-    const FRotator PistolRotationTarget(
-        PistolSprintAngularAmplitude.Pitch * FMath::Sin(2.f * PistolSprintPhase - 0.30f) * PistolWeight,
-        PistolSprintAngularAmplitude.Yaw * PistolWrist * PistolWeight,
-        -PistolSprintAngularAmplitude.Roll * PistolWrist * PistolWeight);
-    const float PistolFollow = 1.f - FMath::Exp(-(bPistolActionTransition ? 24.f : 18.f) * DeltaSeconds);
-    PistolSprintOffset = FMath::Lerp(PistolSprintOffset, PistolOffsetTarget, PistolFollow);
-    PistolSprintRotation = FMath::Lerp(PistolSprintRotation, PistolRotationTarget, PistolFollow);
+    UpdatePistolLocomotion(DeltaSeconds);
     FVector BobTarget = FVector::ZeroVector;
     FVector BobRotationTarget = FVector::ZeroVector;
-    if (SpeedM <= 0.5f || bIsSliding || !GetCharacterMovement()->IsMovingOnGround())
+    if (bPistol)
+    {
+        // Authored stride and pistol breathing replace the unrelated legacy bob clock.
+    }
+    else if (SpeedM <= 0.5f || bIsSliding || !GetCharacterMovement()->IsMovingOnGround())
         BobTarget.Y = FMath::Sin(WeaponBobTime * 0.5f) * 0.003f;
     else
     {
@@ -926,7 +1079,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const float LegacySprint = (bUsingM4Infima || bPistol) ? 0.0f : SprintPoseFactor;
     const float SprintSide = FMath::Sin(M4SprintPhase);
     const float SprintStep = FMath::Cos(2.0f * M4SprintPhase);
-    const FVector SprintOffset = bPistol ? PistolSprintOffset : bUsingM4Infima
+    const FVector SprintOffset = bPistol ? PistolLocomotionOffset : bUsingM4Infima
         ? (M4SprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, 0.45f * SprintStep)) * SprintPoseFactor
         : FVector::ZeroVector;
     const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress;
@@ -946,11 +1099,9 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const float WallTarget = bNearWall ? 1.0f - FMath::Clamp((WallHit.Distance - 25.0f) / 55.0f, 0.0f, 1.0f) : 0.0f;
     NearWallAlpha = FMath::Lerp(NearWallAlpha, WallTarget, 1.0f - FMath::Exp(-12.0f * DeltaSeconds));
     const FVector ADSTarget = bSightCalibrated ? CalibratedADSLocation : ADSViewmodelLocation;
-    // The bulky drum uses one fixed clearance in both idle and reload. Changing
-    // only the reload depth made the rifle pull back and then extend again.
-    const FVector HipLocation = HipViewmodelLocation + (bDrumInstalled ? FVector(6.0f, 0.0f, 0.0f) : FVector::ZeroVector);
-    const FVector ActionLocation = bDrumInstalled
-        ? FVector(HipLocation.X, 4.0f, 0.0f) : M4ActionViewmodelLocation;
+    // Standard magazine and drum share the same camera-space framing.
+    const FVector HipLocation = HipViewmodelLocation;
+    const FVector ActionLocation = M4ActionViewmodelLocation;
     const FVector HipFraming = bUsingM4Infima
         ? FMath::Lerp(HipLocation, ActionLocation, M4ActionFramingAlpha)
         : HipLocation;
@@ -966,11 +1117,12 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
     // rotates about the wrong axis and fails to raise the muzzle.
     const FRotator SprintAngles = M4SprintRotation + FRotator(0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Cos(M4SprintPhase));
-    const FQuat SprintRotation = bPistol ? PistolSprintRotation.Quaternion() : bUsingM4Infima
+    const FQuat SprintRotation = bPistol ? PistolLocomotionRotation.Quaternion() : bUsingM4Infima
         ? FQuat::Slerp(FQuat::Identity, SprintAngles.Quaternion(), SprintPoseFactor)
         : FQuat::Identity;
     const FQuat ADSBase = bSightCalibrated ? CalibratedADSRotation : (IsPistolWeapon() ? BaseRotation : ADSViewmodelRotation).Quaternion();
     const FQuat ADSRotation = FRotator(FMath::RadiansToDegrees(ADSKickAngles.X), -FMath::RadiansToDegrees(ADSKickAngles.Y), -FMath::RadiansToDegrees(ADSKickAngles.Z)).Quaternion() * ADSBase;
+    TargetLocation+=FVector(-2.f,0.f,-6.f)*DodgePresentationWeight();
     AKMViewmodel->SetRelativeLocation(TargetLocation);
     AKMViewmodel->SetRelativeRotation(FQuat::Slerp(SprintRotation * HipRotation.Quaternion(), ADSRotation, WeaponADSFactor));
     // The gunsmith side view uses the actual equipped assembly and its attachments.
@@ -983,9 +1135,10 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 
 void AFPSGAMECharacter::ServiceHeldFire()
 {
+    if(IsDualWieldingPistols())return;
     if (!bFireHeld || (IsPistolWeapon() && !bPistolShotPending)) return;
     const double Now = GetWorld()->GetTimeSeconds();
-    if (IsWeaponBusy() || bIsSliding || bIsSprinting)
+    if (IsWeaponBusy() || bIsSprinting)
     {
         NextAllowedShotTime = FMath::Max(NextAllowedShotTime, Now);
         return;
@@ -1000,10 +1153,10 @@ void AFPSGAMECharacter::ServiceHeldFire()
         const double PreviousDeadline = NextAllowedShotTime;
         FireShot();
         if (IsPistolWeapon()) break;
-        if (IsWeaponBusy() || bIsSliding || bIsSprinting || !bFireHeld
+        if (IsWeaponBusy() || bIsSprinting || !bFireHeld
             || NextAllowedShotTime <= PreviousDeadline) break;
     }
-    if (bFireHeld && !IsWeaponBusy() && !bIsSliding && !bIsSprinting && Now + 1.e-6 >= NextAllowedShotTime)
+    if (bFireHeld && !IsWeaponBusy() && !bIsSprinting && Now + 1.e-6 >= NextAllowedShotTime)
     {
         // A custom world limit may allow a much longer hitch. Discard excess
         // beyond the bounded batch, preserving cadence without future debt.
@@ -1015,16 +1168,19 @@ void AFPSGAMECharacter::ServiceHeldFire()
 
 void AFPSGAMECharacter::FireShot()
 {
+    if(IsDualWieldingPistols())return;
     if (!bInventoryWeaponReady) return;
+    const float WeaponAudioGain = bUseQBZ191 ? 1.0f : 2.0f;
     const double Now = GetWorld()->GetTimeSeconds();
-    if (IsWeaponBusy() || bIsSliding || bIsSprinting || Now < SprintFireUnlockTime || Now + 1.e-6 < NextAllowedShotTime) return;
+    if (IsWeaponBusy() || bIsSprinting || Now < SprintFireUnlockTime || Now + 1.e-6 < NextAllowedShotTime) return;
     if (MagazineAmmo <= 0)
     {
         if (HasInfiniteReserveAmmo() || ReserveAmmo > 0) ReloadPressed();
-        else { FireReleased(); PlaySound2D(DryClickSound, 0.501187f); }
+        else { FireReleased(); PlaySound2D(DryClickSound, 0.501187f * WeaponAudioGain); }
         return;
     }
     --MagazineAmmo;
+    if(MagazineAmmo==0 && IsCastBlockingLeftHandAction())bReloadAfterCasting=true;
     if (IsPistolWeapon()) bPistolShotPending = false;
     ++ShotsFired;
     UAISense_Hearing::ReportNoiseEvent(this,GetActorLocation(),1.f,this,IsMuzzleSuppressed()?500.f:1800.f,TEXT("Gunshot"));
@@ -1034,26 +1190,38 @@ void AFPSGAMECharacter::FireShot()
     // Snapshot visible aim before restarting the mechanical action or adding recoil.
     const FVector TraceStart = FirstPersonCamera->GetComponentLocation();
     const FVector TraceDirection = ComputeShotDirection();
-    const FVector Muzzle = GetEffectiveMuzzleLocation() + GetEffectiveMuzzleForward().GetSafeNormal() * 2.f; // Snapshot before restarting animation.
+    const FVector Muzzle = GetEffectiveMuzzleLocation() + GetEffectiveMuzzleForward().GetSafeNormal() * 2.f; // 2 cm clearance beyond the current attachment exit, before animation.
     UAnimSequence* Animation = bIsAiming ? AimFireAnimation : FireAnimation;
     if (bUseM1911 && MagazineAmmo == 0)
         Animation = bIsAiming ? PistolAimFireLastAnimation : PistolFireLastAnimation;
     PlayWeaponAnimation(Animation, false);
     GetWorldTimerManager().ClearTimer(WeaponPoseTimerHandle);
     USoundBase* ShotSound=IsMuzzleSuppressed()&&SuppressedFireSound?SuppressedFireSound.Get():FireSound.Get();
-    if (bUsingM4Infima && M4FireVoice && ShotSound)
+    const auto& RifleVariants = IsMuzzleSuppressed() ? RifleSuppressedVariants : RifleFireVariants;
+    if (!RifleVariants.IsEmpty())
+    {
+        int32 Variant = FMath::RandRange(0, RifleVariants.Num() - 1);
+        if (RifleVariants.Num() > 1 && Variant == LastRifleFireVariant)
+            Variant = (Variant + FMath::RandRange(1, RifleVariants.Num() - 1)) % RifleVariants.Num();
+        LastRifleFireVariant = Variant;
+        // Overlapping short recording tails survive the next shot; concurrency bounds burst buildup.
+        UGameplayStatics::PlaySound2D(this, RifleVariants[Variant], AKMSource::FireVolume * WeaponAudioGain,
+            bUseQBZ191 ? FMath::FRandRange(0.992f, 1.008f) : 1.0f, 0.0f, RifleFireConcurrency, this);
+    }
+    else if (bUsingM4Infima && M4FireVoice && ShotSound)
     {
         // Match Godot's single AudioStreamPlayer: restart each shot at original pitch.
         M4FireVoice->Stop();
         M4FireVoice->SetSound(ShotSound);
-        M4FireVoice->SetVolumeMultiplier(AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f));
+        M4FireVoice->SetVolumeMultiplier(AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
         M4FireVoice->SetPitchMultiplier(1.0f);
         M4FireVoice->Play();
     }
-    else PlaySound2D(ShotSound, AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f));
+    else PlaySound2D(ShotSound, AKMSource::FireVolume * (IsPistolWeapon() ? 1.5f : 1.0f) * WeaponAudioGain);
 
     const float ShotDamage=DamagePerShot;
     const auto Training=ColdSteelSkills::Snapshot(this);
+    const auto Effects=ColdSteelCombat::Snapshot(this);
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(AKMFire), true, this);
     Params.bReturnPhysicalMaterial = true;
@@ -1066,16 +1234,29 @@ void AFPSGAMECharacter::FireShot()
     bLastShotMuzzleBlocked = bHit;
     if (!bHit)
     {
-        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,DamagePerShot,WeaponFX,CriticalHitSound);
-        else {
+        if(ProjectileSpeedCM>0)Ballistics->Launch(Muzzle,(AimTarget-Muzzle).GetSafeNormal(),ProjectileSpeedCM,TraceDistance,DamagePerShot,WeaponFX,CriticalHitSound,EffectiveWeaponRangeCM);
+        else
+        {
             bHit=GetWorld()->LineTraceSingleByChannel(Hit,Muzzle,AimTarget+TraceDirection*2.f,ECC_Visibility,Params);
             WeaponFX->OnTracerSegment(Muzzle,bHit?Hit.ImpactPoint:AimTarget);
         }
     }
     if (bHit && Hit.GetActor())
     {
-        NotifyConfirmedWeaponHit(Hit.GetActor(), ColdSteelSkills::ApplyHit(this,Hit,ShotDamage,TraceDirection,Training));
-        if (Hit.BoneName.ToString().Contains(TEXT("head"), ESearchCase::IgnoreCase))
+        const float HitDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,Hit.ImpactPoint),EffectiveWeaponRangeCM);
+        NotifyConfirmedWeaponHit(Hit.GetActor(), ColdSteelSkills::ApplyHit(this,Hit,HitDamage,TraceDirection,Training));
+        ColdSteelCombat::OnHit(Hit.GetActor(),this,Effects.Poison);
+        if(!bLastShotMuzzleBlocked&&ProjectileSpeedCM<=0){
+            FHitResult NextHit=Hit;int32 Remaining=Effects.Piercing;
+            while(Remaining-->0&&Cast<APawn>(NextHit.GetActor())){
+                Params.AddIgnoredActor(NextHit.GetActor());
+                if(!GetWorld()->LineTraceSingleByChannel(NextHit,Muzzle,TraceStart+TraceDirection*TraceDistance,ECC_Visibility,Params))break;
+                const float NextDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,NextHit.ImpactPoint),EffectiveWeaponRangeCM);
+                if(NextHit.GetActor())NotifyConfirmedWeaponHit(NextHit.GetActor(),ColdSteelSkills::ApplyHit(this,NextHit,NextDamage,TraceDirection,Training));
+                ColdSteelCombat::OnHit(NextHit.GetActor(),this,Effects.Poison);WeaponFX->OnImpact(NextHit);
+            }
+        }
+        if (ColdSteelSkills::IsCriticalHit(Hit))
             PlaySound2D(CriticalHitSound, AKMSource::ActionVolume);
     }
     WeaponFX->OnShot(bIsAiming);
@@ -1116,8 +1297,12 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     const float RecoilLoad = (1.0f + FMath::Clamp((CurrentSpread + MoveSpread + AirSpread) / 0.024f, 0.0f, 2.0f) * 0.7f);
     GunKickPositionVelocity += FVector(-Horizontal * 0.24f, FMath::FRandRange(0.04f, 0.10f), FMath::FRandRange(0.55f, 0.85f)) * VisualProfile.Position * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale * BurstGain;
     GunKickRotationVelocity += FVector(FMath::FRandRange(0.55f, 1.0f), Horizontal * 0.50f, FMath::FRandRange(-0.7f, 0.7f)) * VisualProfile.Rotation * AKMSource::ViewmodelGain * RecoilLoad * WeaponHandling.RecoilScale * BurstGain;
-    const FVector PositionImpulse = FVector(FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f)) * RecoilLoad * WeaponHandling.ShakeScale;
-    const FVector RotationImpulse = FVector(FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f)) * RecoilLoad * WeaponHandling.ShakeScale;
+    // Godot's ADS convergence is applied once to the common gun/camera pulse.
+    // Aim progress already eases continuously through both ADS transitions.
+    const float JitterScale = RecoilLoad * WeaponHandling.ShakeScale
+        * FMath::Lerp(1.f, FWeaponHandling::ADSJitterMultiplier, WeaponADSFactor);
+    const FVector PositionImpulse = FVector(FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f), FMath::FRandRange(-0.7f, 0.7f)) * JitterScale;
+    const FVector RotationImpulse = FVector(FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f), FMath::FRandRange(-2.2f, 2.2f)) * JitterScale;
     GunJitterPositionVelocity += PositionImpulse * VisualProfile.Jitter;
     GunJitterRotationVelocity += RotationImpulse * VisualProfile.Jitter;
     GunFlipVelocity += 1.5f * RecoilLoad * WeaponHandling.RecoilScale * VisualProfile.Flip * BurstGain;
@@ -1129,6 +1314,22 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     FOVPunch = FMath::Lerp(0.65f, 0.15f, WeaponADSFactor);
     // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear.
     FireTrauma = FMath::Min(1.0f, FireTrauma + 0.06f * RecoilLoad * FMath::Sqrt(WeaponHandling.ShakeScale));
+}
+
+FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
+{
+    const auto* PC=Cast<APlayerController>(Controller);
+    if(!PC)return FVector2D::ZeroVector;
+    int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
+    if(Width<=0||Height<=0)return FVector2D::ZeroVector;
+    const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
+    const float Spread=GetHipSpread()*1000.f;
+    FVector2D ScreenCenter,Right,Up;
+    if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
+        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread,Right,true)
+        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread,Up,true))return FVector2D::ZeroVector;
+    return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
+        FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
 }
 
 FVector AFPSGAMECharacter::ComputeShotDirection() const
@@ -1233,12 +1434,15 @@ void AFPSGAMECharacter::StartEquipCharge()
     ADSProgress = ADSStartProgress = CameraADSFactor = WeaponADSFactor = 0.0f;
     ADSStartedAt = GetWorld()->GetTimeSeconds();
     M4ActionFramingAlpha = SprintPoseFactor = 0.0f;
+    ResetPistolLocomotion();
+    WeaponBobPosition = WeaponBobRotation = FVector::ZeroVector;
     AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
     AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
     if (GunplayAnimation)
     {
         GunplayAnimation->AimAlpha = 0.0f;
         GunplayAnimation->ActionAlpha = 0.0f;
+        GunplayAnimation->SprintAlpha = 0.0f;
     }
     WeaponState = EAKMWeaponState::Equipping;
     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
@@ -1307,7 +1511,7 @@ void AFPSGAMECharacter::FinishWeaponAction()
         if (GunplayAnimation) GunplayAnimation->ActionAlpha = 0.f;
     }
     MechanicalCueTimes.Reset(); MechanicalCueSounds.Reset(); NextMechanicalCue = 0;
-    SetAimingState(bAimHeld && !bIsSliding);
+    SetAimingState(bAimHeld);
     ResumeWeaponPose();
 }
 
@@ -1323,7 +1527,9 @@ void AFPSGAMECharacter::FinishReload()
 
 bool AFPSGAMECharacter::HasInfiniteReserveAmmo() const
 {
-    // GetCurrentLevelName strips the PIE prefix; the rule does not persist in saves.
+    if (const auto* Tuning = UDevelopmentTuningSubsystem::Find(this))
+        return Tuning->IsEnabled(EDevelopmentTuningOption::InfiniteReserveAmmo);
+    // Retain the original range default if no game-instance subsystem exists.
     return GetWorld() && UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting");
 }
 
@@ -1374,7 +1580,7 @@ void AFPSGAMECharacter::PlayMechanicalSound(USoundBase* Sound, float Volume, flo
     }
     Voice->Stop();
     Voice->SetSound(Sound);
-    Voice->SetVolumeMultiplier(Volume);
+    Voice->SetVolumeMultiplier(Volume * (bUseQBZ191 ? 1.0f : 2.0f));
     Voice->SetPitchMultiplier(1.0f);
     Voice->Play(StartTime);
 }
@@ -1476,6 +1682,33 @@ bool AFPSGAMECharacter::CanStand() const
 }
 
 bool AFPSGAMECharacter::IsTraversing() const { return Traversal && Traversal->IsTraversing(); }
+bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
+{
+    if(IsDualWieldingPistols() && DualPistols->LeftBusy())return true;
+    if(IsTraversing() || WeaponState!=EAKMWeaponState::Idle || bAimHeld || bIsAiming || ADSProgress>UE_KINDA_SMALL_NUMBER)return true;
+    if(RuneSword && RuneSword->IsBusy())return true;
+    const auto* Tools=FindComponentByClass<UProductionToolComponent>();
+    return Tools && Tools->IsBusy();
+}
+bool AFPSGAMECharacter::IsCastingWithLeftHand() const
+{
+    const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
+    return Magic && Magic->IsOccupyingLeftHand();
+}
+bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
+{
+    const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
+    return Magic && Magic->BlocksNewLeftHandAction();
+}
+void AFPSGAMECharacter::ServiceReloadAfterCasting()
+{
+    if(!bReloadAfterCasting)return;
+    if(!bInventoryWeaponReady || MagazineAmmo>0){bReloadAfterCasting=false;return;}
+    if(IsCastBlockingLeftHandAction() || IsWeaponBusy())return;
+    if(const auto* H=FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){bReloadAfterCasting=false;return;}
+    bReloadAfterCasting=false;
+    ReloadPressed();
+}
 bool AFPSGAMECharacter::IsRevolverFireActionPlaying() const
 {
     return bUseDanWesson715 && ActiveActionAnimation
@@ -1496,11 +1729,13 @@ void AFPSGAMECharacter::ServiceRevolverReloadAfterFire()
         bRevolverReloadAfterFire = false;
         return;
     }
-    if (IsRevolverFireActionPlaying() || IsWeaponBusy()) return;
+    if (IsRevolverFireActionPlaying() || IsWeaponBusy() || IsCastBlockingLeftHandAction()) return;
     bRevolverReloadAfterFire = false;
     ReloadPressed();
 }
-bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || WeaponState != EAKMWeaponState::Idle; }
+bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && DualPistols->IsActive(); }
+bool AFPSGAMECharacter::IsReloading() const { return (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
+bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState != EAKMWeaponState::Idle; }
 float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
 
 float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const
@@ -1676,6 +1911,7 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
 
 void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
 {
+    if(IsDualWieldingPistols())return;
     if (!GunplayAnimation) return;
     const auto DrumPose=[this](UAnimSequence* Clip)->UAnimSequence*
     {
@@ -1702,6 +1938,11 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
     GunplayAnimation->AimClip=PistolEmpty ? PistolAimEmptyAnimation.Get() : DrumPose(AimAnimation);
     GunplayAnimation->BaseTime = FeedbackTime;
     GunplayAnimation->AimAlpha = WeaponADSFactor;
+    GunplayAnimation->SprintClip = PistolEmpty ? PistolSprintEmptyAnimation : PistolSprintAnimation;
+    GunplayAnimation->SprintTime = GunplayAnimation->SprintClip
+        ? PistolSprintPhase / (2.f * PI) * GunplayAnimation->SprintClip->GetPlayLength() : 0.f;
+    GunplayAnimation->SprintAlpha = IsPistolWeapon() && !bPistolWorkbench && !IsTraversing()
+        && !IsCastBlockingLeftHandAction() ? PistolLocomotionAlpha : 0.f;
     if (ActiveActionAnimation)
     {
         // A reload can start during input, before this frame's Tick. Adding
@@ -1788,21 +2029,4 @@ void AFPSGAMECharacter::AdvanceSpring(float& Position, float& Velocity, float St
     const float OldPosition = Position;
     Position = OldPosition * C0 + Velocity * C1;
     Velocity = OldPosition * C2 + Velocity * C3;
-}
-
-
-FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
-{
-    const auto* PC=Cast<APlayerController>(Controller);
-    if(!PC)return FVector2D::ZeroVector;
-    int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
-    if(Width<=0||Height<=0)return FVector2D::ZeroVector;
-    const FVector Center=FirstPersonCamera->GetComponentLocation()+FirstPersonCamera->GetForwardVector()*1000.f;
-    const float Spread=GetHipSpread()*1000.f;
-    FVector2D ScreenCenter,Right,Up;
-    if(!PC->ProjectWorldLocationToScreen(Center,ScreenCenter,true)
-        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetRightVector()*Spread,Right,true)
-        ||!PC->ProjectWorldLocationToScreen(Center+FirstPersonCamera->GetUpVector()*Spread,Up,true))return FVector2D::ZeroVector;
-    return FVector2D(FMath::Abs(Right.X-ScreenCenter.X)*LocalSize.X/Width,
-        FMath::Abs(Up.Y-ScreenCenter.Y)*LocalSize.Y/Height);
 }

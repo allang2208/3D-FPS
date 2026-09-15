@@ -1,4 +1,14 @@
 {
+  "gold": {
+    "id": "gold",
+    "name": "金币",
+    "category": "gold",
+    "type": "货币",
+    "desc": "用于装备强化等交易的通用货币。",
+    "rarity": "common",
+    "stack_max": 9007199254740991,
+    "price": 1
+  },
   "aluminumOre": {
     "category": "tribute",
     "desc": "轻盈坚韧，只是不够硬。",
@@ -2757,30 +2767,6 @@
     "weaponType": "rifle",
     "ue_icon": "Icons/ue_m4a1.png"
   },
-  "ue_qbz191": {
-    "category": "weapon",
-    "desc": "QBZ-191 自动步枪，使用独立的 5.8mm 弹药与 30 发标准弹匣。",
-    "equipSlot": "weapon",
-    "icon": "Icons/ue_qbz191.png",
-    "id": "ue_qbz191",
-    "isTwoHanded": true,
-    "name": "QBZ-191",
-    "rarity": "common",
-    "stack_max": 1,
-    "stats": [
-      {
-        "name": "物理攻击",
-        "value": "32"
-      },
-      {
-        "name": "弹匣容量",
-        "value": "30"
-      }
-    ],
-    "type": "武器",
-    "weaponType": "rifle",
-    "ue_icon": "Icons/ue_qbz191.png"
-  },
   "ue_akm": {
     "category": "weapon",
     "desc": "AKM，使用 7.62mm 弹药，30 发标准弹匣。",
@@ -2805,6 +2791,30 @@
     "weaponType": "rifle",
     "ue_icon": "Icons/ue_akm.png"
   },
+  "ue_qbz191": {
+    "category": "weapon",
+    "desc": "QBZ-191 自动步枪，使用独立的 5.8mm 弹药与 30 发标准弹匣。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_qbz191.png",
+    "id": "ue_qbz191",
+    "isTwoHanded": true,
+    "name": "QBZ-191",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "32"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "ue_icon": "Icons/ue_qbz191.png"
+  },
   "ue_m1911": {
     "id": "ue_m1911",
     "name": "M1911",
@@ -2815,7 +2825,7 @@
     "rangedType": "pistol",
     "weaponTypeTag": "手枪",
     "equipSlot": "weapon",
-    "isTwoHanded": true,
+    "isTwoHanded": false,
     "rarity": "common",
     "stack_max": 1,
     "grid_w": 3,
@@ -2845,6 +2855,36 @@
     "type": "弹药",
     "ue_icon": "Icons/ammo_556.png"
   },
+  "ue_rune_sword": {
+    "id": "ue_rune_sword",
+    "name": "苍蓝星辉·双手符文剑",
+    "category": "weapon_melee",
+    "type": "双手符文剑",
+    "weaponType": "sword",
+    "weaponTypeTag": "双手剑",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "rarity": "epic",
+    "grade": "epic",
+    "stack_max": 1,
+    "grid_w": 2,
+    "grid_h": 4,
+    "price": 3200,
+    "level": 1,
+    "enhanceLevel": 0,
+    "desc": "苍蓝符文镶嵌于剑脊。右手握护手下方、左手握剑首上方；左键交替挥砍，收势阶段再次点击可衔接下一斩。",
+    "ue_icon": "Icons/ue_rune_sword.png",
+    "melee_damage": 55,
+    "melee_reach_cm": 180,
+    "attack_seconds": 1.775,
+    "contact_start": 0.85,
+    "contact_end": 0.965,
+    "viewmodel_mesh": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny.SK_AzureRunesword_Manny",
+    "world_mesh": "/Game/Weapons/AzureRunesword20260913/SM_AzureRunesword.SM_AzureRunesword",
+    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
+    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit"
+  },
   "ue_dan_wesson715": {
     "id": "ue_dan_wesson715",
     "name": "Dan-Wesson 715",
@@ -2856,7 +2896,7 @@
     "rangedType": "pistol",
     "weaponTypeTag": "左轮手枪",
     "equipSlot": "weapon",
-    "isTwoHanded": true,
+    "isTwoHanded": false,
     "rarity": "common",
     "stack_max": 1,
     "grid_w": 3,

@@ -1,5 +1,11 @@
 #include "HandBrainMonster.h"
+#include "../Combat/CombatFormulaRuntime.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
+#include "../Skills/CorrosivePusDamage.h"
+#include "../Skills/FireballDamage.h"
+#include "MonsterCharacterMovementComponent.h"
 #include "MonsterCombatComponent.h"
+#include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
 #include "HandBrainFearComponent.h"
 #include "FPSCombatHealthComponent.h"
@@ -32,7 +38,8 @@
 #include "Rendering/SkeletalMeshLODModel.h"
 #endif
 
-AHandBrainMonster::AHandBrainMonster()
+AHandBrainMonster::AHandBrainMonster(const FObjectInitializer& ObjectInitializer)
+ : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
  Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));Combat->PoiseThreshold=150;Combat->StaggerDuration=.6f;Combat->StunDuration=.9f;
  AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
@@ -42,7 +49,7 @@ AHandBrainMonster::AHandBrainMonster()
  GetMesh()->SetRelativeLocation(FVector(0,0,-102));GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
  GetMesh()->SetCollisionResponseToAllChannels(ECR_Ignore);GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
  GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
- GetCharacterMovement()->bRunPhysicsWithNoController=true;GetCharacterMovement()->MaxStepHeight=35;
+ GetCharacterMovement()->bRunPhysicsWithNoController=true;GetCharacterMovement()->MaxStepHeight=40;
  GetCharacterMovement()->bCanWalkOffLedges=false;bUseControllerRotationYaw=false;
  Tags.Add(TEXT("Enemy"));Tags.Add(TEXT("HandBrain"));
  SlamRing=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SlamWarning"));HowlRing=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HowlWave"));
@@ -106,7 +113,8 @@ void AHandBrainMonster::DealSlam()
   auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
   FVector Delta=P->GetActorLocation()-SlamCenter;
   if(Delta.Size2D()>SlamRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,SlamCenter+FVector(0,0,60)))continue;
-  UGameplayStatics::ApplyDamage(P,PhysicalAttack*2,GetController(),this,UDamageType::StaticClass());++SlamHits;
+  UGameplayStatics::ApplyDamage(P,PhysicalAttack*2,GetController(),this,UEnemyMeleeDamage::StaticClass());++SlamHits;
+  if(State!=EHandBrainState::Slam)return;
  }
  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_SLAM time=%.3f hits=%d center=%s"),StateSeconds,SlamHits,*SlamCenter.ToString());
 }
@@ -118,8 +126,8 @@ void AHandBrainMonster::DealHowl()
   APawn* P=It->Get()?It->Get()->GetPawn():nullptr;if(!P)continue;auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
   FVector Delta=P->GetActorLocation()-GetActorLocation();
   if(Delta.Size2D()>HowlRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,GetActorLocation()+FVector(0,0,30)))continue;
-  UGameplayStatics::ApplyDamage(P,MagicAttack*.5f,GetController(),this,UHandBrainMagicDamage::StaticClass());++HowlHits;
-  if(!H||!H->IsDead()){auto* Fear=P->FindComponentByClass<UHandBrainFearComponent>();if(!Fear){Fear=NewObject<UHandBrainFearComponent>(P);P->AddInstanceComponent(Fear);Fear->RegisterComponent();}Fear->Apply(this);}
+  const float Applied=UGameplayStatics::ApplyDamage(P,MagicAttack*.5f,GetController(),this,UHandBrainMagicDamage::StaticClass());++HowlHits;
+  if(Applied>0.f&&(!H||!H->IsDead())){auto* Fear=P->FindComponentByClass<UHandBrainFearComponent>();if(!Fear){Fear=NewObject<UHandBrainFearComponent>(P);P->AddInstanceComponent(Fear);Fear->RegisterComponent();}Fear->Apply(this);}
  }
  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_HOWL time=%.3f hits=%d"),StateSeconds,HowlHits);
 }
@@ -127,11 +135,19 @@ void AHandBrainMonster::Tick(float Dt)
 {
  Super::Tick(Dt);if(!HasAuthority())return;StateSeconds+=Dt;SlamLeft=FMath::Max(0.f,SlamLeft-Dt);HowlLeft=FMath::Max(0.f,HowlLeft-Dt);
  if(State==EHandBrainState::Ragdoll){if(StateSeconds>8)GetMesh()->PutAllRigidBodiesToSleep();return;}
- if(State==EHandBrainState::Dying){GetMesh()->SetPosition(FMath::Min(StateSeconds,DeathClip->GetPlayLength()),false);if(StateSeconds>=RagdollStartSeconds)EnterRagdoll();return;}
+ if(State==EHandBrainState::Dying)
+ {
+  const float Handoff=DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:RagdollStartSeconds;
+  if(DeathClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,Handoff),false);
+  if(StateSeconds>=Handoff)EnterRagdoll();return;
+ }
  if(State==EHandBrainState::Slam)
  {
   GetMesh()->SetPosition(FMath::Min(StateSeconds,2.f),false);
   if(StateSeconds>=1.f)DealSlam();
+  // Parry interrupts inside ApplyDamage; do not restore the slam warning,
+  // hit further targets or finish the old attack after that interruption.
+  if(State!=EHandBrainState::Slam)return;
   ShowRing(SlamRing,SlamCenter,SlamRadius,StateSeconds<1?FLinearColor(1,.12f,.015f):FLinearColor(1,.75f,.2f),StateSeconds<1?.8f:FMath::Max(0.f,1-(StateSeconds-1)*3));
   if(StateSeconds>=2){State=EHandBrainState::Recovery;StateSeconds=0;SlamRing->SetVisibility(false);}return;
  }
@@ -150,8 +166,7 @@ void AHandBrainMonster::InterruptAttack(float Seconds){if(!HasAuthority()||Dead(
 float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,AController* DamageInstigator,AActor* Causer)
 {
  if(!HasAuthority()||Dead()||Damage<=0)return 0;
- const bool Magic=Event.DamageTypeClass&&Event.DamageTypeClass->IsChildOf(UHandBrainMagicDamage::StaticClass());
- float Applied=FMath::Min(Health,Magic?FMath::Max(1.f,Damage-MagicDefense):Damage);Health-=Applied;Super::TakeDamage(Applied,Event,DamageInstigator,Causer);
+ const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,DamageInstigator,Causer)?Health:FMath::Min(Health,CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer));if(Applied<=0)return 0;Health-=Applied;Super::TakeDamage(Applied,Event,DamageInstigator,Causer);
  if(Causer)LastImpulse=(GetActorLocation()-Causer->GetActorLocation()).GetSafeNormal2D()*60;
  if(Health<=0)
  {
@@ -164,6 +179,7 @@ float AHandBrainMonster::TakeDamage(float Damage,const FDamageEvent& Event,ACont
 }
 void AHandBrainMonster::EnterRagdoll()
 {
+ if(DeathClip){GetMesh()->SetPosition(DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction,false);GetMesh()->TickAnimation(0.f,false);}
  GetMesh()->RefreshBoneTransforms();GetMesh()->bPauseAnims=true;GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
  GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);
  GetMesh()->SetAllBodiesSimulatePhysics(true);GetMesh()->SetSimulatePhysics(true);GetMesh()->SetAllPhysicsLinearVelocity(FVector::ZeroVector);GetMesh()->WakeAllRigidBodies();GetMesh()->AddImpulse(LastImpulse,TEXT("cranium"),true);

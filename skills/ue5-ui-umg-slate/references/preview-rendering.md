@@ -31,3 +31,5 @@
 2026-09-13 实现采用 FinalToneCurveHDR 颜色、无光照覆盖率、至多 2 倍采样／2048 最长边、展示纹理短期续载和活动／静止分档刷新。这些是本机案例参数，不是所有预览的固定标准。Editor／Game 必要构建已完成，未做实际画面与游戏验收，不能写成已验证的视觉范例。
 
 合成材质由 `Tools/AssetPipeline/build_gunsmith_preview_resolved.py` 恢复，依赖既有工作台的 `RT_PreviewDefault`；资产位于已有 cook 目录 `Content/UI/GunsmithWorkbench`。旧背景／环境恢复器不等于新版合成材质恢复器。案例说明见工程 `Docs/UI/gunsmith-preview-quality-20260913.md`。
+
+2026-09-14 剑的展示接入：加工面板经 `M4MeleePreview.cpp` 创建独立静态模型，共用 `world_mesh` 资产、枪械双通道合成及流送；`ColdSteelMeleeIcon.cpp` 在现有图标队列中生成竖向剑图，`ColdSteelMeleePreview.h` 共用轴向与几何居中。枪械／剑的共享表面支持拖动旋转、滚轮缩放和双击复位；剑隐藏瞄准按钮，同一物品普通刷新保留角度。缓存键包含剑模型路径，OnReady 沿用现有背包、装备、仓库和浮窗订阅；面板观察角度不影响固定图标构图。`ColdSteelWeaponIconCatalog` 的 `-Definition=ue_rune_sword` 可仅制作剑目录图，命令行读取物品目录但不初始化玩家存档。制作与构建记录见 `Docs/UI/sword-preview-icons-plan-20260914.md`，不代表实机测试。

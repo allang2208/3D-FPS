@@ -100,7 +100,19 @@ void UColdSteelHUDWidget::BuildEventTimeline(UCanvasPanel* Root)
     if(TimelineGradientTexture && TimelineGradientTexture->GetPlatformData())
     {
         auto& Mip=TimelineGradientTexture->GetPlatformData()->Mips[0];auto* Pixels=static_cast<FColor*>(Mip.BulkData.Lock(LOCK_READ_WRITE));
-        for(int32 X=0;X<128;++X)Pixels[X]=FColor(FMath::RoundToInt(FMath::Lerp(214.f,90.f,X/127.f)),FMath::RoundToInt(FMath::Lerp(214.f,90.f,X/127.f)),FMath::RoundToInt(FMath::Lerp(214.f,90.f,X/127.f)),255);
+        // game-dev game-style.css .world-invasion-bar: red / yellow / blue / green.
+        const FColor Colors[]={FColor(229,65,62),FColor(241,193,63),FColor(65,139,231),FColor(61,196,91)};
+        const float Stops[]={0.f,.33f,.66f,1.f};
+        for(int32 X=0;X<128;++X)
+        {
+            const float Position=X/127.f;
+            const int32 Segment=Position<=Stops[1]?0:Position<=Stops[2]?1:2;
+            const float T=(Position-Stops[Segment])/(Stops[Segment+1]-Stops[Segment]);
+            const FColor& From=Colors[Segment];const FColor& To=Colors[Segment+1];
+            Pixels[X]=FColor(FMath::RoundToInt(FMath::Lerp(float(From.R),float(To.R),T)),
+                FMath::RoundToInt(FMath::Lerp(float(From.G),float(To.G),T)),
+                FMath::RoundToInt(FMath::Lerp(float(From.B),float(To.B),T)),255);
+        }
         Mip.BulkData.Unlock();TimelineGradientTexture->UpdateResource();LoadedTextures.Add(TimelineGradientTexture);
     }
     TimelineGradient=WidgetTree->ConstructWidget<UImage>();TimelineGradient->SetBrushFromTexture(TimelineGradientTexture,false);

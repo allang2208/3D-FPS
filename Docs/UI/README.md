@@ -2,6 +2,7 @@
 
 实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。新面板和栏目先走 [面板与栏目工作流](../../UI-WORKFLOW.md)，使用 [规划模板](panel-column-plan-template.md)；视觉统一使用 [冷钢 UI 正式规则](ui-cold-steel-design-system.md)，冲突的旧字体、配色、透明度和按钮条款由该文替换。
 
+- [2026-09-15 UI 与必要系统发布、归档和资源恢复](ui-panel-publication-20260915.md)
 - [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
 - [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
 - [装备／背包图标修复经验](inventory-icons-20260913.md)
@@ -16,6 +17,20 @@
 - [仓库空间网格与四按钮规则](warehouse-spatial-cold-glass-20260912.md)
 - [背包装备玻璃升级](inventory-cold-glass-20260912.md)
 - [改造台正式接入](gunsmith-cold-glass-implementation-20260912.md)
+- [改造台当前配件详情与流动选中效果](gunsmith-selected-details-plan-20260914.md)
+- [武器详情放大与 gamedev 快捷栏效果迁移](weapon-details-quickbar-plan-20260914.md)
+- [右下角武器名称与备弹栏扩展](ammo-readout-expanded-plan-20260914.md)
+- [右下角近战普攻次数与体力回满时间](melee-stamina-readout-plan-20260914.md)
+- [双持手枪主副手字号与布局统一](dual-pistol-readout-layout-plan-20260915.md)
+- [人物状态、背包、技能图标入口与快捷键闪动](panel-navigation-plan-20260915.md)
+- [栏目图标去底、双倍尺寸与悬停放大](panel-navigation-subjects-plan-20260915.md)
+- [装备浮窗摘要、详情与同槽对比](item-inspector-plan-20260914.md)
+- [用户确认的冷白鉴定卡与实际实现](item-inspector-cold-white-plan-20260914.md)
+- [枪械浮窗六项核心属性、攻击公式与改造分组](item-inspector-firearm-details-plan-20260914.md)
+- [武器公式精简与近战五项核心属性](item-inspector-melee-formula-plan-20260914.md)
+- [剑的动态预览与背包装备图标](sword-preview-icons-plan-20260914.md)
+- [浮窗关闭按钮对齐与完整参数](item-inspector-close-details-plan-20260914.md)
+- [装备与背包加工角标圆角匹配](item-processing-rounded-corners-plan-20260914.md)
 
 以下是历史实现记录，结果只代表对应版本；默认由用户自行测试：
 

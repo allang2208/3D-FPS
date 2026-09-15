@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "maxWeaponLevel": 15,
+  "maxArmorLevel": 10,
+  "baseGold": 100,
+  "goldGrowth": 1.5,
+  "stones": 1,
+  "weaponIncreasePerLevel": 0.05,
+  "scrolls": [
+    {"id":"skeletonArcher","item":"enchant_scroll_skeleton","name":"骷髅射手","slot":"suffix","restriction":"firearm","dust":400,"description":"穿透目标 +2","effects":{"piercingBonus":2}},
+    {"id":"tarantula","item":"enchant_scroll_tarantula","name":"狼蛛","slot":"suffix","restriction":"weapon","dust":200,"description":"命中叠加 1 层中毒，每秒每层造成 1 点伤害，持续 5 秒","effects":{"poisonOnHit":true,"poisonStacks":1}},
+    {"id":"heavy","item":"enchant_scroll_heavy","name":"沉重","slot":"prefix","restriction":"sword","dust":100,"description":"攻击力 +60%，攻击间隔 ×1.35","effects":{"damagePercent":0.6,"attackIntervalMul":1.35}},
+    {"id":"sharp","item":"enchant_scroll_sharp","name":"锋利的","slot":"prefix","restriction":"sword","dust":100,"description":"暴击率 +50%","effects":{"critRate":0.5}}
+  ]
+}

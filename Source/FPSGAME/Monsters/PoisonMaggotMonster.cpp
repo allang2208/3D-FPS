@@ -1,6 +1,10 @@
 #include "PoisonMaggotMonster.h"
+#include "../Combat/CombatFormulaRuntime.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
+#include "MonsterCharacterMovementComponent.h"
 #include "PoisonMaggotProjectile.h"
 #include "MonsterCombatComponent.h"
+#include "MonsterCombatTuning.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -26,7 +30,8 @@
 #include "Materials/Material.h"
 #include "ShaderCompiler.h"
 #endif
-APoisonMaggotMonster::APoisonMaggotMonster()
+APoisonMaggotMonster::APoisonMaggotMonster(const FObjectInitializer& ObjectInitializer)
+ : Super(ObjectInitializer.SetDefaultSubobjectClass<UMonsterCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
  PrimaryActorTick.bCanEverTick=true;Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
  Combat->PoiseThreshold=80;Combat->StaggerDuration=.45f;Combat->StunDuration=1;
@@ -35,7 +40,7 @@ APoisonMaggotMonster::APoisonMaggotMonster()
  GetMesh()->SetRelativeLocation(FVector(0,0,-70));GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
  GetMesh()->SetCollisionResponseToAllChannels(ECR_Ignore);GetMesh()->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
  GetMesh()->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
- auto* Move=GetCharacterMovement();Move->bOrientRotationToMovement=true;Move->RotationRate=FRotator(0,130,0);Move->bRunPhysicsWithNoController=true;Move->MaxStepHeight=25;Move->bCanWalkOffLedges=false;
+ auto* Move=GetCharacterMovement();Move->bOrientRotationToMovement=true;Move->RotationRate=FRotator(0,130,0);Move->bRunPhysicsWithNoController=true;Move->MaxStepHeight=40;Move->bCanWalkOffLedges=false;
  bUseControllerRotationYaw=false;Tags.Add(TEXT("Enemy"));Tags.Add(TEXT("PoisonMaggot"));
 }
 void APoisonMaggotMonster::OnConstruction(const FTransform& T){Super::OnConstruction(T);if(VisualMesh)GetMesh()->SetSkeletalMeshAsset(VisualMesh);}
@@ -57,7 +62,7 @@ void APoisonMaggotMonster::SetState(EPoisonMaggotState New)
 FVector APoisonMaggotMonster::Mouth() const{return GetMesh()->GetSocketLocation(TEXT("mouth_socket"));}
 bool APoisonMaggotMonster::CanSpit(APawn* Victim) const
 {
- if(!IsValid(Victim)||Combat->IsBusy()||CooldownLeft>0||FVector::Dist2D(Victim->GetActorLocation(),GetActorLocation())>AttackRange)return false;
+ if(!IsValid(Victim)||Combat->IsBusy()||CooldownLeft>0||FVector::Dist2D(Victim->GetActorLocation(),GetActorLocation())>MonsterCombatTuning::AttackDistance(AttackRange))return false;
  auto* H=Victim->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())return false;
  FCollisionQueryParams Q(SCENE_QUERY_STAT(MaggotSight),false,this);Q.AddIgnoredActor(Victim);FHitResult Hit;
  return !GetWorld()->LineTraceSingleByChannel(Hit,Mouth(),Victim->GetActorLocation(),ECC_Visibility,Q);
@@ -74,7 +79,7 @@ void APoisonMaggotMonster::Emit(float Scheduled)
  const FVector Direction=LockedAim.RotateAngleAxis(FMath::FRandRange(-FanDegrees*.5f,FanDegrees*.5f),FVector::UpVector);
  FActorSpawnParameters P;P.Owner=this;P.Instigator=this;P.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
  auto* Ball=GetWorld()->SpawnActor<APoisonMaggotProjectile>(Mouth(),Direction.Rotation(),P);
- if(Ball){Ball->Launch(this,Direction,ProjectileSpeed,ProjectileRange,FMath::RoundToFloat(MagicAttack*.33f),PoisonChance);Projectiles.Add(Ball);++ProjectilesFired;EmissionTimes.Add(Scheduled);}
+ if(Ball){Ball->Launch(this,Direction,ProjectileSpeed,MonsterCombatTuning::AttackDistance(ProjectileRange),FMath::RoundToFloat(MagicAttack*.33f),PoisonChance);Projectiles.Add(Ball);++ProjectilesFired;EmissionTimes.Add(Scheduled);}
  if(SpitSound&&NextEmission%3==0)UGameplayStatics::PlaySoundAtLocation(this,SpitSound,Mouth(),.3f);
 }
 void APoisonMaggotMonster::Tick(float Dt)
@@ -91,7 +96,12 @@ void APoisonMaggotMonster::Tick(float Dt)
   if(StateSeconds>=Duration){SetState(EPoisonMaggotState::Recovery);if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();}return;
  }
  if(State==EPoisonMaggotState::Stagger){if(StateSeconds>=ReactionSeconds)Combat->FinishReaction();return;}
- if(State==EPoisonMaggotState::Dying){GetMesh()->SetPosition(FMath::Min(StateSeconds,DeathClip->GetPlayLength()),false);if(StateSeconds>=RagdollStartSeconds)EnterRagdoll();return;}
+ if(State==EPoisonMaggotState::Dying)
+ {
+  const float Handoff=DeathClip?DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction:RagdollStartSeconds;
+  if(DeathClip)GetMesh()->SetPosition(FMath::Min(StateSeconds,Handoff),false);
+  if(StateSeconds>=Handoff)EnterRagdoll();return;
+ }
  if(State==EPoisonMaggotState::Ragdoll){if(StateSeconds>7)GetMesh()->PutAllRigidBodiesToSleep();return;}
  if(State==EPoisonMaggotState::Chase||State==EPoisonMaggotState::Returning)GetMesh()->SetPlayRate(FMath::Clamp(GetVelocity().Size2D()/WalkSpeed,0.f,1.5f));
  Projectiles.RemoveAll([](const auto& P){return !P.IsValid();});
@@ -100,7 +110,7 @@ void APoisonMaggotMonster::InterruptAttack(float Seconds)
 {if(!HasAuthority()||Dead())return;ReactionSeconds=FMath::Max(.1f,Seconds);SetState(EPoisonMaggotState::Stagger);Combat->BeginReaction(ReactionSeconds);}
 float APoisonMaggotMonster::TakeDamage(float Damage,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
 {
- if(!HasAuthority()||Dead()||Damage<=0)return 0;const float Applied=FMath::Min(Health,Damage);Health-=Applied;Super::TakeDamage(Applied,Event,EventInstigator,Causer);
+ if(!HasAuthority()||Dead()||Damage<=0)return 0;const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,EventInstigator,Causer)?Health:FMath::Min(Health,CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer));if(Applied<=0)return 0;Health-=Applied;Super::TakeDamage(Applied,Event,EventInstigator,Causer);
  if(Health<=0)
  {
   ClearProjectiles();Target.Reset();SetState(EPoisonMaggotState::Dying);GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);GetMesh()->SetCollisionEnabled(ECollisionEnabled::NoCollision);SetLifeSpan(CorpseSeconds);
@@ -113,6 +123,7 @@ void APoisonMaggotMonster::ClearProjectiles(){for(auto& P:Projectiles)if(P.IsVal
 void APoisonMaggotMonster::EndPlay(const EEndPlayReason::Type Reason){ClearProjectiles();Super::EndPlay(Reason);}
 void APoisonMaggotMonster::EnterRagdoll()
 {
+ if(DeathClip){GetMesh()->SetPosition(DeathClip->GetPlayLength()*MonsterCombatTuning::DeathAnimationFraction,false);GetMesh()->TickAnimation(0.f,false);}
  GetMesh()->RefreshBoneTransforms();GetMesh()->bPauseAnims=true;GetMesh()->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
  GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));GetMesh()->SetCollisionResponseToChannel(ECC_Pawn,ECR_Ignore);GetMesh()->SetAllBodiesSimulatePhysics(true);GetMesh()->SetSimulatePhysics(true);GetMesh()->SetAllPhysicsLinearVelocity(FVector::ZeroVector);GetMesh()->WakeAllRigidBodies();SetState(EPoisonMaggotState::Ragdoll);
  // A non-colliding root body anchors component/physics space. Physical support

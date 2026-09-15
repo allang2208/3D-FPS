@@ -65,12 +65,14 @@ namespace DanWesson715WeaponAssets
     inline constexpr float SingleSeatTime(int32 Index, bool bEmpty) { return SingleLoopBegin(bEmpty) + SingleStep * Index + SingleSeat; }
     inline FString SingleAnimationPath(int32 StartLive, int32 Count)
     {
+        if (StartLive == 0)
+            return FString::Printf(TEXT("/Game/Weapons/DanWesson715/EjectHand20260915/Animations/A_DW715_single_0_%d.A_DW715_single_0_%d"), Count, Count);
         return FString::Printf(TEXT("/Game/Weapons/DanWesson715/LeftRecovery20260914/Animations/A_DW715_single_%d_%d.A_DW715_single_%d_%d"), StartLive, Count, StartLive, Count);
     }
     inline FString SpeedAnimationPath()
     {
         // The installed speedloader always empties the cylinder before loading.
-        return TEXT("/Game/Weapons/DanWesson715/LeftRecovery20260914/LoaderStow/A_DW715_speed_0.A_DW715_speed_0");
+        return TEXT("/Game/Weapons/DanWesson715/EjectHand20260915/Animations/A_DW715_speed_0.A_DW715_speed_0");
     }
     inline FString AnimationPath(const TCHAR* Clip)
     {

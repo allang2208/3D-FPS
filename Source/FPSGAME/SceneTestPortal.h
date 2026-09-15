@@ -14,6 +14,7 @@ class FPSGAME_API ASceneTestPortal : public AActor
 public:
     ASceneTestPortal();
     void Configure(const FString& Map, const FString& Label, const FString& Options = FString(), FColor Color = FColor::Cyan);
+    bool IsWithinInteractionRange(const APawn* Pawn) const;
 protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;

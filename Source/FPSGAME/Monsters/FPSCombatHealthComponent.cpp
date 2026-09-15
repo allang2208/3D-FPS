@@ -1,4 +1,9 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Combat/CoreCombatFormula.h"
+#include "../Combat/CombatStatusFormula.h"
+#include "../Combat/CombatFormulaRuntime.h"
+#include "../FPSGAMECharacter.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "HandBrainMonster.h"
 #include "PoisonMaggotMonster.h"
 #include "../Skills/CorrosivePusDamage.h"
@@ -12,6 +17,15 @@
 #include "GameFramework/GameModeBase.h"
 #include "Camera/PlayerCameraManager.h"
 #include "TimerManager.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
+
+bool UFPSCombatHealthComponent::IsInvulnerable() const
+{
+    const auto* Character=Cast<ACharacter>(GetOwner());
+    if (UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Character, EDevelopmentTuningOption::Invincible)) return true;
+    const auto* Move=Character?Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement()):nullptr;
+    return Move && Move->IsDodging();
+}
 
 void UFPSCombatHealthComponent::BeginPlay()
 {
@@ -20,12 +34,22 @@ void UFPSCombatHealthComponent::BeginPlay()
     GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UFPSCombatHealthComponent::OnDamage);
 }
 
+float UFPSCombatHealthComponent::DamageAfterArmor(float Damage,const UDamageType* Type) const
+{
+    if(Type&&Type->IsA<UCombatDirectDamage>())return Damage;
+    const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
+    if(GetWorld()->GetNetMode()==NM_Standalone && !(Type && Type->IsA<UMaggotPoisonDamage>()))
+        if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+            Damage=CoreCombatFormula::Defense(Damage,Profile->Derived(CombatFormulaRuntime::IsMagic(Type)?TEXT("mdef"):TEXT("def")),CombatFormulaRuntime::IsMagic(Type),0,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
+    if(CombatFormulaRuntime::IsMagic(Type)&&Status)Damage=FMath::FloorToFloat(Damage*Status->MagicVulnerabilityMultiplier());
+    return Status?FMath::FloorToFloat(Damage*Status->FinalMultiplier()):Damage;
+}
+
 void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDamageType* Type, AController*, AActor*)
 {
     if (!Actor->HasAuthority() || IsDead() || Damage <= 0.f) return;
-    if(GetWorld()->GetNetMode()==NM_Standalone && !(Type && Type->IsA<UMaggotPoisonDamage>()))
-        if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-            Damage=FMath::Max(1.f,Damage-Profile->Derived(Type && (Type->IsA<UHandBrainMagicDamage>() || Type->IsA<UCorrosivePusDamage>()) ? TEXT("mdef") : TEXT("def")));
+    if(IsInvulnerable() && (!(Type&&Type->IsA<UCombatDirectDamage>())||UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Cast<APawn>(Actor),EDevelopmentTuningOption::Invincible)))return;
+    if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type);
     Health = FMath::Max(0.f, Health - Damage);
     UE_LOG(LogTemp, Display, TEXT("PLAYER_DAMAGE amount=%.1f health=%.1f"), Damage, Health);
     if (GEngine) GEngine->AddOnScreenDebugMessage(91401, 3.f, FColor::Red,

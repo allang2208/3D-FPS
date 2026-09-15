@@ -1,0 +1,65 @@
+{
+  "binary_publication": "Local only; restore from the authorized host. Generated provenance is not a redistribution approval.",
+  "files": [
+    {
+      "path": "Content/ColdSteelUI/Icons/Navigation/backpack_subject.png",
+      "bytes": 308146,
+      "sha256": "63d67e2043af28c6ee4286bf1e8b19bcc44d7c7bd6bc8ce93e1207645d4d5ad7"
+    },
+    {
+      "path": "Content/ColdSteelUI/Icons/Navigation/skills_subject.png",
+      "bytes": 239041,
+      "sha256": "b5ccb99c9083c3c3fceb7e56b3967ca05ae2b7d603718bf1c234321715a2aa7e"
+    },
+    {
+      "path": "Content/ColdSteelUI/Icons/Navigation/status_subject.png",
+      "bytes": 202799,
+      "sha256": "b0927b2ff94c6e39ef07e1b7c35ebcda2b9fdb27d02ccc32e042eab8a1ecb473"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/backpack.png",
+      "bytes": 2034997,
+      "sha256": "519f612f99054f6c11fbc112394bb3ce30b55d8100e3ee8fea121c5698815e06"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/skills.png",
+      "bytes": 1912124,
+      "sha256": "364aa90b90641ca5607e773aa0e0f11256f4645971f3005a2f962f438636a11d"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/status.png",
+      "bytes": 1889684,
+      "sha256": "ffe809a8edfe49050a66bc5e739ae3abec5f5ae6738fce384d7eeea97087ffcf"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/SubjectOnly/backpack_cutout.png",
+      "bytes": 2966966,
+      "sha256": "f69acf82efb005904aa941ede064ad52c6ab90548b53f4e44b39c91ae113f32e"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/SubjectOnly/backpack_generated_rgb.png",
+      "bytes": 2824057,
+      "sha256": "0dc6bf5ae82fb34cdf981caddd8e9dc8e346e5f18bde2fa9f2ebc00aa4c280fb"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/SubjectOnly/skills_cutout.png",
+      "bytes": 2875731,
+      "sha256": "3359ca5420c8648152c9a0cca6f1c8deea3b3d1f732ed402ff214c5a36554b3d"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/SubjectOnly/skills_generated_rgb.png",
+      "bytes": 2584275,
+      "sha256": "8ce8146c289bcae41ba69e62cf011acebcae11cf54ae007b8978f7206c74f8f2"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/SubjectOnly/status_cutout.png",
+      "bytes": 2333746,
+      "sha256": "708a5b579556e33447ea4cca520dcc76d053487a018ded9e9794d3972ebcba93"
+    },
+    {
+      "path": "SourceAssets/PanelNavigation20260915/SubjectOnly/status_generated_rgb.png",
+      "bytes": 2183619,
+      "sha256": "b4a1ed328c74f92a0948950cb72262a2c30914277b677007ff12e182bbb74977"
+    }
+  ]
+}

@@ -10,10 +10,12 @@ class FPSGAME_API UTacticalDeviceComponent : public UActorComponent
 public:
     UTacticalDeviceComponent();
     void Configure(const FString& Family,const FString& Variant,class USkeletalMeshComponent* Rifle,bool Enabled);
+    void SetPresentationHidden(bool Hidden);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Function) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
     FString Kind,AssetPath;
+    bool bPresentationHidden=false;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> Body;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> Dot;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> Beam;

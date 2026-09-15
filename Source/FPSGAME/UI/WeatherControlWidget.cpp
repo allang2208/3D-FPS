@@ -2,6 +2,8 @@
 #include "ColdSteelUIStyle.h"
 #include "../FPSWeatherManager.h"
 #include "../FPSGAMEPlayerController.h"
+#include "../FPSGAMECharacter.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/Border.h"
@@ -63,16 +65,21 @@ void UWeatherControlWidget::NativeOnInitialized()
     Title->SetFont(ColdSteelUI::TextFont(18 / PixelScale));
     Title->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     Stack->AddChildToVerticalBox(Title)->SetPadding(FMargin(0, 0, 0, 12));
-    Status = WidgetTree->ConstructWidget<UTextBlock>();
-    Status->SetFont(ColdSteelUI::TextFont(10.5f / PixelScale));
-    Status->SetColorAndOpacity(ColdSteelUI::Accent);
-    Status->SetAutoWrapText(true);
-    Stack->AddChildToVerticalBox(Status)->SetPadding(FMargin(0, 0, 0, 14));
     auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
     Scroll->SetScrollbarThickness(FVector2D(4, 4));
     Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     auto* Presets = WidgetTree->ConstructWidget<UVerticalBox>();
     Scroll->AddChild(Presets);
+    BuildWeatherContent(Presets);
+    CloseButton = AddButton(Stack, TEXT("返回游戏  ·  F6 / Esc"), TEXT("WeatherClose"));
+    CloseButton->OnClicked.AddDynamic(this, &ThisClass::CloseClicked);
+    Panel->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UWeatherControlWidget::BuildWeatherContent(UVerticalBox* Presets)
+{
+    Status = CreatePanelText(TEXT("正在读取天气"), 14, ColdSteelUI::TextSecondary);
+    Presets->AddChildToVerticalBox(Status)->SetPadding(FMargin(0, 0, 0, 14));
     const TCHAR* Captions[] = {TEXT("晴天 · 疏云"), TEXT("多云 · 无降雨"), TEXT("小雨 · 35% · 轻柔雨声"),
         TEXT("中雨 · 68% · 密集雨滴"), TEXT("暴风雨 · 100% · 闪电与雷声"), TEXT("恢复自动天气")};
     for (int32 Index = 0; Index < 6; ++Index)
@@ -83,34 +90,43 @@ void UWeatherControlWidget::NativeOnInitialized()
     PresetButtons[3]->OnClicked.AddDynamic(this, &ThisClass::RainClicked);
     PresetButtons[4]->OnClicked.AddDynamic(this, &ThisClass::StormClicked);
     PresetButtons[5]->OnClicked.AddDynamic(this, &ThisClass::AutoClicked);
-    auto* Help = WidgetTree->ConstructWidget<UTextBlock>();
-    Help->SetText(FText::FromString(TEXT("降雨前先转多云，再渐增雨量；手动选择会暂停自动天气。\n昼夜继续运行，进入遮蔽物后雨滴与雨声减弱。")));
-    Help->SetFont(ColdSteelUI::TextFont(9 / PixelScale));
-    Help->SetColorAndOpacity(ColdSteelUI::TextSecondary);
-    Help->SetAutoWrapText(true);
+    auto* Help = CreatePanelText(TEXT("降雨前先转多云，再渐增雨量；手动选择会暂停自动天气。\n昼夜继续运行，进入遮蔽物后雨滴与雨声减弱。"), 12, ColdSteelUI::TextSecondary);
     Presets->AddChildToVerticalBox(Help)->SetPadding(FMargin(0, 10, 0, 10));
-    CloseButton = AddButton(Stack, TEXT("返回游戏  ·  F6 / Esc"), TEXT("WeatherClose"));
-    CloseButton->OnClicked.AddDynamic(this, &ThisClass::CloseClicked);
-    Panel->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+UTextBlock* UWeatherControlWidget::CreatePanelText(const FString& Caption, float Pixels, FLinearColor Color)
+{
+    auto* Text = WidgetTree->ConstructWidget<UTextBlock>();
+    Text->SetText(FText::FromString(Caption));
+    Text->SetFont(ColdSteelUI::TextFont(Pixels * .75f / ColdSteelUI::PixelScale(this)));
+    Text->SetColorAndOpacity(Color); Text->SetAutoWrapText(true);
+    TextSizes.Emplace(Text, Pixels);
+    return Text;
+}
+
+UButton* UWeatherControlWidget::CreatePanelButton(const FString& Caption, FName Name)
+{
+    auto* Button = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), Name);
+    Button->SetStyle(ColdSteelUI::ButtonStyle(1.f / ColdSteelUI::PixelScale(this)));
+    auto* Text = CreatePanelText(Caption, 14, ColdSteelUI::TextPrimary);
+    Text->SetJustification(ETextJustify::Center);
+    Button->AddChild(Text);
+    return Button;
 }
 
 UButton* UWeatherControlWidget::AddButton(UVerticalBox* Stack, const FString& Caption, const FName Name)
 {
-    auto* Button = WidgetTree->ConstructWidget<UButton>(UButton::StaticClass(), Name);
-    FButtonStyle Style;
-    Style.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonNormal, 12));
-    Style.SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, 12, ColdSteelUI::Accent));
-    Style.SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed, 12, ColdSteelUI::Accent));
-    Style.SetNormalPadding(FMargin(12, 9));
-    Style.SetPressedPadding(FMargin(12, 9));
-    Button->SetStyle(Style);
-    auto* Text = WidgetTree->ConstructWidget<UTextBlock>();
-    Text->SetText(FText::FromString(Caption));
-    Text->SetFont(ColdSteelUI::TextFont(12 / ColdSteelUI::PixelScale(this)));
-    Text->SetColorAndOpacity(ColdSteelUI::TextPrimary);
-    Button->AddChild(Text);
+    auto* Button = CreatePanelButton(Caption, Name);
     Stack->AddChildToVerticalBox(Button)->SetPadding(FMargin(0, 3));
     return Button;
+}
+
+void UWeatherControlWidget::RefreshPanelTypography()
+{
+    const float Scale = ColdSteelUI::PixelScale(this);
+    for (const auto& Item : TextSizes) if (Item.Key.IsValid()) Item.Key->SetFont(ColdSteelUI::TextFont(Item.Value * .75f / Scale));
+    TArray<UWidget*> Widgets; WidgetTree->GetAllWidgets(Widgets);
+    for (auto* Widget : Widgets) if (auto* Button = Cast<UButton>(Widget)) Button->SetStyle(ColdSteelUI::ButtonStyle(1.f / Scale));
 }
 
 AFPSWeatherManager* UWeatherControlWidget::ResolveWeather()
@@ -132,6 +148,8 @@ void UWeatherControlWidget::SetPanelOpen(bool bOpen)
         PC->bShowMouseCursor = bOpen;
         if (bOpen)
         {
+            UWidgetBlueprintLibrary::CancelDragDrop();
+            if (auto* Character = Cast<AFPSGAMECharacter>(PC->GetPawn())) Character->SuspendWeaponForMenu();
             FInputModeGameAndUI Mode;
             Mode.SetWidgetToFocus(TakeWidget());
             Mode.SetHideCursorDuringCapture(false);
@@ -141,8 +159,8 @@ void UWeatherControlWidget::SetPanelOpen(bool bOpen)
         }
         else PC->SetInputMode(FInputModeGameOnly());
     }
-    GetWorld()->GetTimerManager().ClearTimer(RefreshTimer);
-    if (bOpen)
+    if (GetWorld()) GetWorld()->GetTimerManager().ClearTimer(RefreshTimer);
+    if (bOpen && GetWorld())
     {
         RefreshStatus();
         GetWorld()->GetTimerManager().SetTimer(RefreshTimer, this, &ThisClass::RefreshStatus, 0.2f, true);
@@ -166,8 +184,13 @@ void UWeatherControlWidget::RefreshStatus()
             PresetNames[FMath::Clamp(static_cast<int32>(Manager->GetPendingRainState()), 0, 4)]);
     Status->SetText(FText::FromString(StatusText));
     for (int32 Index = 0; Index < PresetButtons.Num(); ++Index)
-        PresetButtons[Index]->SetBackgroundColor((Index == 5 ? Manager->bAutomaticSchedule :
-            static_cast<int32>(Manager->CurrentState) == Index) ? ColdSteelUI::Accent : FLinearColor::White);
+    {
+        const bool Selected = Index == 5 ? Manager->bAutomaticSchedule : !Manager->bAutomaticSchedule &&
+            static_cast<int32>(Manager->IsRainPending() ? Manager->GetPendingRainState() : Manager->CurrentState) == Index;
+        auto Style = ColdSteelUI::ButtonStyle(1.f / ColdSteelUI::PixelScale(this));
+        if (Selected) Style.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / ColdSteelUI::PixelScale(this), ColdSteelUI::Accent));
+        PresetButtons[Index]->SetStyle(Style);
+    }
 }
 
 void UWeatherControlWidget::SelectPreset(int32 State)

@@ -1,4 +1,5 @@
 #include "ColdSteelWeaponIcons.h"
+#include "ColdSteelMeleePreview.h"
 #include "ColdSteelPickupStudio.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -25,11 +26,14 @@
 #include "AssetCompilingManager.h"
 #include "ImageUtils.h"
 #include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
+#include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
+    if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I);
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Result=I.Definition;for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
@@ -46,6 +50,7 @@ void UColdSteelWeaponIcons::Deinitialize()
 {
     Queue.Empty();Pending.Empty();OnReady.Clear();if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();}
     CaptureMeshes.Empty();CaptureMaterials.Empty();CaptureTextures.Empty();
+    if(MeleeMesh){Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
     Capture=nullptr;Rig=nullptr;Studio.Reset();Target=nullptr;Cache.Empty();Textures.Empty();Failed.Empty();Super::Deinitialize();
 }
 bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
@@ -59,10 +64,17 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         Capture=NewObject<USceneCaptureComponent2D>(GetTransientPackage(),NAME_None,RF_Transient);Capture->TextureTarget=Target;Capture->CaptureSource=SCS_SceneColorHDR;Capture->ProjectionType=ECameraProjectionMode::Orthographic;Capture->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
         Capture->bCaptureEveryFrame=false;Capture->bCaptureOnMovement=false;Capture->ShowFlags.SetAtmosphere(false);Capture->ShowFlags.SetFog(false);Capture->ShowFlags.SetVolumetricFog(false);Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetBloom(false);
         Capture->PostProcessSettings.bOverride_AutoExposureMethod=true;Capture->PostProcessSettings.AutoExposureMethod=AEM_Manual;Studio->AddComponent(Capture,FTransform::Identity);
+    }
+    if(ColdSteelMeleePreview::Supports(I))return PrepareMelee(I);
+    if(!Rig){
         FActorSpawnParameters Spawn;Spawn.ObjectFlags=RF_Transient;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+#if WITH_EDITOR
+        Spawn.bTemporaryEditorActor=true;
+#endif
         Rig=Studio->GetWorld()->SpawnActor<AFPSGAMECharacter>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);
         if(!Rig)return false;
-        // This world never begins play: no profile attachment, input, sound or gameplay ticking.
+        // This actor only supplies visuals; the editor preview flag also blocks
+        // nested BeginPlay inherited from an actor in the gameplay world.
         Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
     }
     if(Rig->HasActorBegunPlay())return false;
@@ -72,7 +84,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
     Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));
-    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->UpdateFoldingSights(1.f);
+    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->UpdateFoldingSights(1.f);
     const auto* Asset=Mesh->GetSkeletalMeshAsset();const auto* Render=Asset->GetResourceForRendering();if(!Render||Render->LODRenderData.IsEmpty())return false;
     for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S){
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;const FString Name=Asset->GetMaterials()[M].MaterialSlotName.ToString().ToLower();
@@ -103,7 +115,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     const float CullingScale=FMath::Max3(float(Required.X/FMath::Max(Extent.X,.01)),float(Required.Y/FMath::Max(Extent.Y,.01)),float(Required.Z/FMath::Max(Extent.Z,.01)));
     Mesh->SetBoundsScale(FMath::Max(1.f,CullingScale*1.02f));Mesh->InvalidateCachedBounds();Mesh->UpdateBounds();
     const int32 Width=(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"))?480:768;
-    if(Target->SizeX!=Width)Target->ResizeTarget(Width,320);
+    if(Target->SizeX!=Width||Target->SizeY!=320)Target->ResizeTarget(Width,320);
     const FVector Size=Bounds.GetSize(),Center=Bounds.GetCenter();const float Aspect=float(Width)/320.f;
     Capture->SetWorldLocation(FVector(Bounds.Min.X-200,Center.Y,Center.Z));Capture->SetWorldRotation(FRotator::ZeroRotator);Capture->OrthoWidth=FMath::Max(float(Size.Y),float(Size.Z)*Aspect)/.91f;
     Capture->bAutoCalculateOrthoPlanes=false;Capture->bUseCustomProjectionMatrix=true;Capture->CustomProjectionMatrix=FReversedZOrthoMatrix(Capture->OrthoWidth*.5f,Capture->OrthoWidth*.5f/Aspect,1.f/2000.f,-.1f);
@@ -133,7 +145,7 @@ bool UColdSteelWeaponIcons::Readback(const FString& K)
     }
     TArray<FColor> Pixels;Pixels.Reserve(Linear.Num());int32 Visible=0;
     for(auto P:Linear){const float Alpha=FMath::Clamp(1.f-P.A,0.f,1.f);if(Alpha>.1f)++Visible;P.A=Alpha;auto Color=P.ToFColorSRGB();Color.A=FMath::RoundToInt(Alpha*255);Pixels.Add(Color);}
-    if(Visible<100){UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: empty capture key=%s visible=%d mesh_bounds=%s"),*K,Visible,*Rig->AKMViewmodel->Bounds.ToString());return false;}
+    if(Visible<100){UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: empty capture key=%s visible=%d"),*K,Visible);return false;}
     auto* Texture=UTexture2D::CreateTransient(Width,Height,PF_B8G8R8A8);if(!Texture)return false;Texture->SRGB=true;Texture->NeverStream=true;Texture->Filter=TF_Bilinear;
     auto& Mip=Texture->GetPlatformData()->Mips[0];void* Data=Mip.BulkData.Lock(LOCK_READ_WRITE);FMemory::Memcpy(Data,Pixels.GetData(),Pixels.Num()*sizeof(FColor));Mip.BulkData.Unlock();Texture->UpdateResource();
     if(Cache.Num()>=64){FString Old;uint64 Use=MAX_uint64;for(const auto& Pair:Cache)if(Pair.Value.Use<Use){Use=Pair.Value.Use;Old=Pair.Key;}Cache.Remove(Old);Textures.Remove(Old);}
@@ -194,6 +206,12 @@ bool UColdSteelWeaponIcons::ExportCatalogIcon(const FString& Definition,const FS
     // No profile subsystems, gameplay world or player equipment are created.
     bCatalogExport=true;
     FColdSteelItem Item;Item.Definition=Definition;Item.Data=TEXT("{}");
+    FString CatalogText;TSharedPtr<FJsonObject> Catalog;
+    if(FFileHelper::LoadFileToString(CatalogText,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),Catalog)&&Catalog)
+    {
+        const TSharedPtr<FJsonObject>* Data=nullptr;
+        if(Catalog->TryGetObjectField(Definition,Data)){Item.Data.Reset();FJsonSerializer::Serialize((*Data).ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
+    }
     Request(Item);Tick(0.f);
     FAssetCompilingManager::Get().FinishAllCompilation();
     for(UTexture* Texture:CaptureTextures)Texture->WaitForStreaming();
@@ -206,7 +224,7 @@ bool UColdSteelWeaponIcons::ExportCatalogIcon(const FString& Definition,const FS
         ENQUEUE_RENDER_COMMAND(WeaponIconEndFrame)([](FRHICommandListImmediate& RHICmdList){RHICmdList.EndFrame();});
         FlushRenderingCommands();
     }
-    const auto* Entry=Textures.Find(Definition);if(!Entry)return false;
+    const auto* Entry=Textures.Find(Key(Item));if(!Entry)return false;
     auto* Texture=Entry->Get();auto& Mip=Texture->GetPlatformData()->Mips[0];
     TArray64<uint8> Png;
     const auto* Pixels=static_cast<const FColor*>(Mip.BulkData.LockReadOnly());

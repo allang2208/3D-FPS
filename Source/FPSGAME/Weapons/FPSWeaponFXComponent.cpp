@@ -79,7 +79,7 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     }
     if (!FlashLight)
     {
-        FlashLight = NewObject<UPointLightComponent>(GetOwner(), TEXT("WeaponMuzzleLight"));
+        FlashLight = NewObject<UPointLightComponent>(GetOwner());
         GetOwner()->AddInstanceComponent(FlashLight);
         FlashLight->SetMobility(EComponentMobility::Movable);
         FlashLight->SetCastShadows(false);
@@ -109,11 +109,23 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
     UE_LOG(LogTemp, Display, TEXT("GUNPLAY_FX_READY muzzle=%s eject=%s max_particles=%d"), *MuzzleSocket.ToString(), *EjectSocket.ToString(), MaxParticles);
 }
 
-FVector UFPSWeaponFXComponent::MuzzleLocation() const { if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleLocation();return WeaponMesh->GetSocketLocation(MuzzleSocket); }
+void UFPSWeaponFXComponent::SetIndependentPistol(bool Revolver,bool Suppressed,USceneComponent* Exit)
+{
+    bIndependentPistol=true;bIndependentRevolver=Revolver;IndependentSuppressed=Suppressed;
+    IndependentExit=Exit;bUseCharacterMuzzle=false;
+}
+FVector UFPSWeaponFXComponent::MuzzleLocation() const
+{
+    if(IsValid(IndependentExit))return IndependentExit->GetComponentLocation();
+    if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleLocation();
+    return WeaponMesh->GetSocketLocation(MuzzleSocket);
+}
 
 FVector UFPSWeaponFXComponent::MuzzleForward() const
 {
-    if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleForward();
+    if(IsValid(IndependentExit))return IndependentExit->GetForwardVector();
+    if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleForward();
+    if(bIndependentPistol)return (WeaponMesh->GetSocketLocation(TEXT("WPN_FrontSight"))-WeaponMesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
     // Imported WPN local Y lies along the bore; mirrored source rigs need a sign correction.
     FVector Forward = WeaponMesh->GetSocketQuaternion(MuzzleSocket).GetAxisY();
     if (FVector::DotProduct(Forward, Camera->GetForwardVector()) < 0.0f) Forward *= -1.0f;
@@ -255,7 +267,7 @@ void UFPSWeaponFXComponent::UpdateSmokeStream(float DeltaTime)
     if (!SmokeStream && TargetRate <= 0.f) return;
     if (!SmokeStream)
     {
-        SmokeStream = NewObject<UNiagaraComponent>(GetOwner(), TEXT("WeaponSmokeStream"));
+        SmokeStream = NewObject<UNiagaraComponent>(GetOwner());
         SmokeStream->SetAutoActivate(false);
         SmokeStream->SetAutoDestroy(false);
         SmokeStream->SetAsset(EpicSmokeSystem);
@@ -299,10 +311,10 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
 {
     if (!bReady) return;
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
-    const float Suppression=Character&&Character->IsMuzzleSuppressed()?.12f:1.f;
+    const float Suppression=(bIndependentPistol?IndependentSuppressed:(Character&&Character->IsMuzzleSuppressed()))?.12f:1.f;
     LastSuppression=Suppression;
     LastADSMultiplier = bADS ? 0.94f : 1.0f;
-    LastWeaponFlashMultiplier = Character && Character->IsPistolWeapon() ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
+    LastWeaponFlashMultiplier = bIndependentPistol || (Character && Character->IsPistolWeapon()) ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
     const float Scale = FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier;
     LastFXShotTime=GetWorld()->GetTimeSeconds();
     const bool bScope = ShouldHideCasings();
@@ -338,7 +350,7 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
             ApplyParticleTransform(*P);
         }
     }
-    if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); !OwnerCharacter || !OwnerCharacter->bUseDanWesson715) SpawnCasing();
+    if (const auto* OwnerCharacter = Cast<AFPSGAMECharacter>(GetOwner()); bIndependentPistol?!bIndependentRevolver:(!OwnerCharacter || !OwnerCharacter->bUseDanWesson715)) SpawnCasing();
     PendingHeat = FMath::Min(1.0f, PendingHeat + 0.18f);
     SmokeHeatAtLastShot = FMath::Min(1.f, BarrelHeat + PendingHeat);
     SmokeFeedUntil = LastFXShotTime + FMath::Lerp(.18f, .24f, SmokeHeatAtLastShot);
@@ -355,6 +367,7 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
 
 bool UFPSWeaponFXComponent::ShouldHideCasings() const
 {
+    if(bIndependentPistol)return false;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     // LPVO at 1x is still scope mode. Cover both aim-in and the remaining scope fade-out.
     return Character && Character->GetGunsmithOpticVariant() == TEXT("lpvo_1_6x")
@@ -365,7 +378,7 @@ void UFPSWeaponFXComponent::SpawnCasing()
 {
     if (ShouldHideCasings()) return;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
-    const bool bRifle = Character && !Character->IsPistolWeapon();
+    const bool bRifle = !bIndependentPistol && Character && !Character->IsPistolWeapon();
     const bool bUseRifleMesh = bRifle && RifleCasingMesh && RifleCasingMaterial;
     UStaticMesh* Geometry = bUseRifleMesh ? RifleCasingMesh.Get() : CylinderMesh.Get();
     UMaterialInterface* Surface = bUseRifleMesh ? RifleCasingMaterial.Get() : BrassMaterial.Get();

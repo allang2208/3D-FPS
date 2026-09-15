@@ -1,5 +1,7 @@
 #include "ColdSteelInventoryTypes.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "ColdSteelSwapPlacement.h"
+#include "ColdSteelWarehouseRules.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
@@ -14,7 +16,7 @@ static TSharedPtr<FJsonObject> Object(const FColdSteelItem& Item)
 }
 FString Text(const FColdSteelItem& Item, const TCHAR* Key) { auto O = Object(Item); FString V; if(O) O->TryGetStringField(Key,V); return V; }
 double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=Object(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
-bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { auto O=Object(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
+bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if(IsDualPistol(Item) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=Object(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
 FIntPoint Footprint(const FColdSteelItem& I)
 {
     const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
@@ -50,15 +52,15 @@ bool CanEquip(const FColdSteelItem& I,int32 Slot)
     const bool Support=Type==TEXT("shield")||Type==TEXT("spellbook")||Type==TEXT("magic_book")||Off==TEXT("shield")||Off==TEXT("spellbook")||Off==TEXT("magic_book")||Category==TEXT("magic_book");
     const bool Weapon=!Type.IsEmpty()||Category.Contains(TEXT("weapon"))||!Text(I,TEXT("rangedType")).IsEmpty();
     if(Slot==6||Slot==9) return Weapon&&!Support;
-    if(Slot==8||Slot==11) return Support&&!Flag(I,TEXT("isTwoHanded"));
+    if(Slot==8||Slot==11) return (Support||IsDualPistol(I))&&!Flag(I,TEXT("isTwoHanded"));
     static const TCHAR* Keys[]={TEXT("earring"),TEXT("helmet"),TEXT("ring1"),TEXT("gloves"),TEXT("necklace"),TEXT("cloak"),TEXT("weapon"),TEXT("armor"),TEXT("offhand"),TEXT("weapon2"),TEXT("belt"),TEXT("ring2"),TEXT("extra"),TEXT("boots"),TEXT("backpack")};
     return !Weapon && Text(I,TEXT("equipSlot"))==Keys[Slot];
 }
 int32 Owner(const TArray<FColdSteelItem>& Items,int32 Place,int32 Cell)
 {
     for(int32 N=0;N<Items.Num();++N) { const auto& I=Items[N]; if(I.Place!=Place) continue;
-        if(Place!=0) { if(I.Cell==Cell) return N; }
-        else if(Cell>=0&&Cell<72&&Cell%18>=I.Cell%18&&Cell%18<I.Cell%18+I.Width&&Cell/18>=I.Cell/18&&Cell/18<I.Cell/18+I.Height) return N;
+        if(Place!=0&&Place!=4) { if(I.Cell==Cell) return N; }
+        else if(Cell>=0&&(Place==4?Cell/ColdSteelWarehouse::CellsPerPage==I.Cell/ColdSteelWarehouse::CellsPerPage:Cell<72)&&Cell%18>=I.Cell%18&&Cell%18<I.Cell%18+I.Width&&Cell/18>=I.Cell/18&&Cell/18<I.Cell/18+I.Height) return N;
     } return INDEX_NONE;
 }
 bool Locked(const TArray<FColdSteelItem>& Items,int32 Slot)
@@ -117,8 +119,21 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
             if(Cell<0||Cell>=72||Cell%18+Moving.Width>18||Cell/18+Moving.Height>4){R.Reason=TEXT("物品超出背包边界，请向内移动");return R;}
             TSet<int32> Blockers;
             for(int32 Y=0;Y<Moving.Height;++Y) for(int32 X=0;X<Moving.Width;++X){int32 N=Owner(R.Items,0,Cell+Y*18+X);if(N>=0)Blockers.Add(N);}
-            if(Blockers.Num()>1){R.Reason=TEXT("目标覆盖多件物品，请先腾出完整空间");return R;}
-            if(Blockers.Num()==1) {
+            if(Blockers.Num()>0&&OldPlace==0&&!(Blockers.Num()==1&&Compatible(Moving,R.Items[*Blockers.CreateConstIterator()])))
+            {
+                TArray<FColdSteelItem> Displaced;
+                for(int32 N=R.Items.Num()-1;N>=0;--N)if(Blockers.Contains(N)){Displaced.Add(R.Items[N]);R.Items.RemoveAt(N);}
+                Moving.Place=0;Moving.Cell=Cell;R.Items.Add(Moving);
+                bool Exhausted=false;
+                if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Items[From],Cell,Exhausted))
+                {
+                    R.Items=Items;
+                    R.Reason=Exhausted?TEXT("自动摆放较复杂，请调整落点后重试"):TEXT("没有足够的连续空间安置被交换物品");
+                    return R;
+                }
+            }
+            else if(Blockers.Num()>1){R.Items=Items;R.Reason=TEXT("装备槽无法同时接收多件物品，请先卸到空位");return R;}
+            else if(Blockers.Num()==1) {
                 int32 N=*Blockers.CreateConstIterator(); auto Other=R.Items[N];
                 if(OldPlace==0&&Compatible(Moving,Other)) {
                     const int64 Amount=FMath::Min(Moving.Count,Other.StackMax-Other.Count); if(Amount<=0){R.Reason=TEXT("目标堆叠已满");return R;}
@@ -144,12 +159,14 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
 bool Validate(const FColdSteelProfile& P,FString& Reason)
 {
     if(!ColdSteelSkills::Validate(P,Reason))return false;
+    if(!ColdSteelQuickBar::Validate(P,Reason))return false;
+    if(P.StaminaVersion<0||P.StaminaVersion>1||!FMath::IsFinite(P.Stamina)||P.Stamina<0||!FMath::IsFinite(P.StaminaRecoveryDelay)||P.StaminaRecoveryDelay<0||P.StaminaRecoveryDelay>60){Reason=TEXT("体力数据无效");return false;}
     Reason=TEXT("存档数据未通过校验，保留原文件");
-    if((P.Version!=1&&P.Version!=2)||P.WarehousePages<1||P.WarehousePages>500||P.Level<1||P.Level>10000||P.Experience<0||P.Points<0||P.Kills<0||P.Generation<0||P.Items.Num()>10000||P.Hotbar.Num()!=4||P.HotbarDefinitions.Num()!=4||!FMath::IsFinite(P.Health)||!FMath::IsFinite(P.Mana)||P.Health<0||P.Mana<0)return false;
+    if((P.Version!=1&&P.Version!=2)||P.WarehouseLayoutVersion<0||P.WarehouseLayoutVersion>1||P.WarehousePages<1||P.WarehousePages>(P.WarehouseLayoutVersion?ColdSteelWarehouse::MaxPages:500)||P.Level<1||P.Level>10000||P.Experience<0||P.Points<0||P.Kills<0||P.Generation<0||P.Items.Num()>10000||P.Hotbar.Num()!=4||P.HotbarDefinitions.Num()!=4||!FMath::IsFinite(P.Health)||!FMath::IsFinite(P.Mana)||P.Health<0||P.Mana<0)return false;
     if(P.Experience >= (20ll+P.Level*20ll+P.Level*int64(P.Level)*12)*8)return false;
     if(P.ActiveWeaponSlot!=6&&P.ActiveWeaponSlot!=9)return false;
     for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")}) {auto V=P.Attributes.Find(Key);if(!V||*V<0||*V>1000000)return false;}
-    TSet<FString> Ids;TArray<FColdSteelItem> Placed;
+    TSet<FString> Ids;TSet<int32> LegacyWarehouseCells;TArray<FColdSteelItem> Placed;
     for(const auto& I:P.Items) {
         if(I.InstanceId.IsEmpty()||Ids.Contains(I.InstanceId)||I.Definition.IsEmpty()||!Object(I)||I.Count<=0||I.StackMax<1||I.Count>I.StackMax||I.StackMax>9007199254740991ll||I.Width<1||I.Width>18||I.Height<1||I.Height>4||I.Place<0||(I.Place>2&&I.Place!=4)||!FMath::IsFinite(I.Cooldown)||I.Cooldown<0||I.Magazine<0||I.Reserve<0)return false;
         Ids.Add(I.InstanceId);
@@ -157,7 +174,10 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
         if(I.Place==0&&!Fits(Placed,I,I.Cell))return false;
         if(I.Place==1&&(!CanEquip(I,I.Cell)||Owner(Placed,1,I.Cell)>=0))return false;
         if(I.Place==2&&(I.Map.IsEmpty()||I.Position.ContainsNaN()||I.WorldRotation.ContainsNaN()))return false;
-        if(I.Place==4&&(I.Cell<0||I.Cell>=P.WarehousePages*20||Owner(Placed,4,I.Cell)>=0))return false;
+        if(I.Place==4){
+            if(P.WarehouseLayoutVersion==0){if(I.Cell<0||I.Cell>=P.WarehousePages*20||LegacyWarehouseCells.Contains(I.Cell))return false;LegacyWarehouseCells.Add(I.Cell);}
+            else if(!ColdSteelWarehouse::Fits(Placed,I,I.Cell,P.WarehousePages*ColdSteelWarehouse::CellsPerPage))return false;
+        }
         Placed.Add(I);
     }
     for(int32 S:{8,11})if(Locked(Placed,S)&&Owner(Placed,1,S)>=0)return false;

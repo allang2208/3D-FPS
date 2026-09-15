@@ -28,26 +28,47 @@ UCLASS()
 class FPSGAME_API AFPSGAMECharacter : public ACharacter
 {
     GENERATED_BODY()
-    friend class AColdSteelPickup;
-    friend class UFPSTraversalComponent;
 
     friend class UColdSteelWeaponIcons;
+    friend class AColdSteelPickup;
     friend class UM4GunsmithWidget;
+    friend class UFPSTraversalComponent;
+    friend class UFPSStairAudit;
     friend class UTacticalDeviceComponent;
+    friend class UPistolDualWieldComponent;
 
 public:
-    bool IsTraversing() const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseDanWesson715 = false;
+    bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
+    bool IsDualWieldingPistols() const;
+    void RunWeaponVolumeAudit();
     int32 GetRevolverCaseCount() const { return RevolverCaseCount; }
-    AFPSGAMECharacter();
+    AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     void ApplyColdSteelProfile(class UColdSteelStatusModel* Profile);
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
+    // Casting owns the left hand independently from movement and firearm hip fire.
+    bool IsLeftHandBusyForCast() const;
+    bool IsCastingWithLeftHand() const;
+    bool IsCastBlockingLeftHandAction() const;
     float GetHipSpread() const { return 2.f * (0.0175f + CurrentSpread + MoveSpread + AirSpread) * HipSpreadMultiplier; }
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage);
     float GetHitMarkerOpacity() const;
     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
+private:
+    double LastConfirmedWeaponHitTime = -1000.0;
+    UPROPERTY(Transient) TObjectPtr<USoundBase> ConfirmedMonsterHitSound;
+    FMonsterHitFeedback LastMonsterHit;
+public:
+    bool IsTraversing() const;
+    UFUNCTION(BlueprintPure, Category="FPS Movement|Dodge") bool IsDodging() const;
+    UFUNCTION(BlueprintCallable, Category="FPS Movement|Dodge") bool TryDodge();
+    virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent,
+        AController* EventInstigator, AActor* DamageCauser) override;
     void SuspendWeaponForMenu(){FireReleased();AimReleased();}
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
@@ -65,23 +86,25 @@ public:
     void SetGunsmithMuzzle(const FString& Variant);
     void SetGunsmithHandstop(const FString& Variant);
     void SetGunsmithStock(const FString& Variant);
+    void SetGunsmithRearGrip(const FString& Variant);
     void SetGunsmithTactical(const FString& Variant);
     UPROPERTY(Transient) TObjectPtr<class UTacticalDeviceComponent> TacticalDevice;
-    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
-    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseDanWesson715 = false;
-    bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> RearGripAttachment;
     bool HasSkeletonStock() const;
     bool ValidateStockAttachment() const;
+    void RunStockAudit();
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> StockAttachment;
     FTransform StockMount;
     bool bSkeletonStock=false;
+    int32 StockAuditStage=0, StockAuditChecks=0, StockAuditFailures=0;
+    float StockAuditNextTime=0.f;
     bool HasPrismHandstop() const;
     bool HasVerticalForegrip() const;
     bool HasCantedForegrip() const;
     bool HasAngledForegrip() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true");}
+    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor");}
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
@@ -95,12 +118,14 @@ public:
     bool MeasureHolographicOrientation(float& ScreenRollDegrees,float& RailErrorDegrees) const;
     bool ValidateFoldingSights(bool bFolded) const;
     virtual void Tick(float DeltaSeconds) override;
+    /** Stable eye/control-aim frame for melee; excludes cosmetic camera feedback. */
+    FTransform GetMeleeAimTransform() const;
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSprinting() const { return bIsSprinting; }
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSliding() const { return bIsSliding; }
     UFUNCTION(BlueprintPure, Category = "AKM") bool IsAiming() const { return bIsAiming; }
-    UFUNCTION(BlueprintPure, Category = "AKM") bool IsReloading() const { return WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
+    UFUNCTION(BlueprintPure, Category = "AKM") bool IsReloading() const;
     UFUNCTION(BlueprintPure, Category = "AKM") int32 GetMagazineAmmo() const { return MagazineAmmo; }
     int32 GetMagazineCapacity() const { return MagazineCapacity; }
     UFUNCTION(BlueprintPure, Category = "AKM") int32 GetReserveAmmo() const { return ReserveAmmo; }
@@ -109,6 +134,7 @@ public:
 
 protected:
     UPROPERTY(VisibleAnywhere, Category="FPS Movement") TObjectPtr<class UFPSTraversalComponent> Traversal;
+    UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class URuneSwordComponent> RuneSword;
     void SetAngledForegrip(bool bEnabled);
     void InitializeForegripAnimations();
     void InitializePrismGripAnimations();
@@ -120,6 +146,12 @@ protected:
     void SetVerticalForegrip(bool bEnabled);
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> VerticalForegrip;
     UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> VerticalGripAnimations;
+    void RunForegripAudit();
+    int32 ForegripAuditStage=0, ForegripAuditFailures=0, ForegripAuditCapture=0;
+    float ForegripAuditNextTime=0.f, ForegripAuditLastCapture=-1.f;
+    FVector ForegripAuditSeatedMagazine=FVector::ZeroVector;
+    FVector ForegripAuditSeatedHand=FVector::ZeroVector;
+    bool bForegripAuditSawPull=false,bForegripAuditSawDrop=false;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> AngledForegrip;
     UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> ForegripAnimations;
     UPROPERTY(Transient) TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> PrismGripAnimations;
@@ -131,21 +163,21 @@ protected:
     FVector MuzzleLocalTip=FVector::ZeroVector;
     FVector MuzzleLocalAxis=FVector::ForwardVector;
     float ProjectileSpeedCM=9000.f;
+    float EffectiveWeaponRangeCM=100000.f;
     float HipSpreadMultiplier=1.f;
     int32 ADSHorizontalRecoilIndex=0;
-    double LastConfirmedWeaponHitTime=-1000.0;
-    UPROPERTY(Transient) TObjectPtr<USoundBase> ConfirmedMonsterHitSound;
-    FMonsterHitFeedback LastMonsterHit;
-    void RunBallisticPresentationAudit();
     void RunMuzzleMigrationAudit();
     FWeaponHandling WeaponHandling;
     void RunWeaponHandlingAudit();
     void RunM1911DevelopmentAudit();
+    void RunBallisticPresentationAudit();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     void InitializeWeaponVisuals();
     FString ActiveInventoryWeapon;
     bool bInventoryWeaponReady = true;
+    bool bReloadAfterCasting = false;
+    void ServiceReloadAfterCasting();
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera") TObjectPtr<UCameraComponent> FirstPersonCamera;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AKM") TObjectPtr<USkeletalMeshComponent> AKMViewmodel;
@@ -166,6 +198,11 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Speed") float WalkSpeed = 450.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Speed") float SprintSpeed = 700.0f;
+    float PistolMoveSpeedMultiplier = 1.f;
+    UPROPERTY(EditDefaultsOnly, Category="FPS Movement|Dodge", meta=(ClampMin="0.01", Units="s")) float DodgeDuration = .3f;
+    UPROPERTY(EditDefaultsOnly, Category="FPS Movement|Dodge", meta=(ClampMin="1", Units="cm")) float DodgeDistance = 300.f;
+    bool bDodgeMeleeRewarded=false, bDodgeRangedRewarded=false;
+    UPROPERTY(EditDefaultsOnly, Category="FPS Movement|Dodge", meta=(ClampMin="0.01", Units="s")) float DodgeTapMaximumHold = .2f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Speed") float CrouchSpeed = 250.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideMinimumSpeed = 600.0f;
     UPROPERTY(EditDefaultsOnly, Category = "FPS Movement|Slide") float SlideSpeedMultiplier = 2.0f;
@@ -193,12 +230,20 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint") FRotator M4SprintRotation = FRotator(35.0f, -12.0f, -8.0f);
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint", meta = (ClampMin = "0.0", ClampMax = "4.0")) float M4SprintSwayCM = 1.8f;
     float M4SprintPhase = 0.0f;
-    // Zero-mean motion around the pistol's existing hip grip, in camera space.
-    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Sprint") FVector PistolSprintAmplitudeCM = FVector(0.18f, 2.2f, 0.22f);
-    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Sprint") FRotator PistolSprintAngularAmplitude = FRotator(0.35f, 1.5f, 1.8f);
-    FVector PistolSprintOffset = FVector::ZeroVector;
-    FRotator PistolSprintRotation = FRotator::ZeroRotator;
+    // Camera-space framing; sprint arm/weapon motion is authored in separate clips.
+    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Viewmodel") FVector PistolHipViewmodelLocation = FVector(-2.f, 3.f, -6.5f);
+    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Viewmodel") FVector RevolverHipViewmodelLocation = FVector(1.f, 3.2f, -7.f);
+    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Locomotion") FVector PistolWalkAmplitudeCM = FVector(.20f, .65f, .32f);
+    UPROPERTY(EditDefaultsOnly, Category = "Pistol|Locomotion", meta = (ClampMin = "0.0", ClampMax = "1.0")) float PistolIdleBreathCM = .12f;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolSprintAnimation;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> PistolSprintEmptyAnimation;
+    FVector PistolLocomotionOffset = FVector::ZeroVector;
+    FRotator PistolLocomotionRotation = FRotator::ZeroRotator;
+    FVector PistolLaggedVelocity = FVector::ZeroVector;
+    float PistolLocomotionAlpha = 0.0f;
     float PistolSprintPhase = 0.0f;
+    void UpdatePistolLocomotion(float DeltaSeconds);
+    void ResetPistolLocomotion();
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FVector ADSViewmodelLocation = FVector(11.8734f, -0.0085f, 1.6058f);
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FVector ViewmodelScale = FVector(1.0f);
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Viewmodel") FRotator ViewmodelRotation = FRotator(0.0f, 90.0f, 0.0f);
@@ -207,13 +252,15 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float FireInterval = 0.12f;
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float DamagePerShot = 30.0f;
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float TraceDistance = 100000.0f;
-    UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float ReloadDuration = 2.7f;
-    UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float EmptyReloadDuration = 3.466667f;
+    UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float ReloadDuration = 2.1f;
+    UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") float EmptyReloadDuration = 2.7f;
     UPROPERTY(EditDefaultsOnly, Category = "AKM|Combat") int32 MagazineCapacity = 30;
 
 private:
     void RunInfiniteAmmoAudit();
     void RunDrumGripAudit();
+    void RunAKMIntegrationAudit();
+    void RunQBZ191IntegrationAudit();
     int32 DrumGripAuditStage = 0;
     int32 DrumGripAuditFailures = 0;
     int32 DrumGripAuditReserve = 0;
@@ -221,6 +268,8 @@ private:
     float DrumGripAuditLastCapture = -1.f;
     float DrumGripAuditRightDepthMin = 0.f;
     float DrumGripAuditRightDepthMax = 0.f;
+    float DrumGripAuditFramingMaxError = 0.f;
+    float DrumGripAuditReloadDuration = 0.f;
     int32 InfiniteAmmoAuditStage = 0;
     int32 InfiniteAmmoAuditReserve = 0;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> HolographicOptic;
@@ -230,7 +279,6 @@ private:
     FString OpticVariant;
     float LPVOMagnification=1.f;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> LPVORing;
-    FVector OpticLocalAimPoint() const;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> LargeDrum;
     FTransform DrumMount;
     bool bDrumVisual=false;
@@ -253,6 +301,7 @@ private:
     void InitializeFoldingSights();
     void UpdateFoldingSights(float DeltaSeconds);
     FVector HolographicAimPoint() const;
+    FVector OpticLocalAimPoint() const;
     bool bUsingM4Infima = false;
     void MoveForward(float Value);
     void MoveRight(float Value);
@@ -260,10 +309,12 @@ private:
     void LookUp(float Value);
     void SprintPressed();
     void SprintReleased();
+    float DodgePresentationWeight() const;
     void SlidePressed();
     void JumpPressed();
     void JumpReleased();
     void FirePressed();
+    void FireInputReleased();
     void FireReleased();
     void AimPressed();
     void AimReleased();
@@ -345,6 +396,7 @@ private:
     float SavedBrakingDeceleration = 0.0f;
 
     UPROPERTY(Transient) bool bSprintHeld = false;
+    double SprintPressedAt = -1.0;
     UPROPERTY(Transient) bool bIsSprinting = false;
     UPROPERTY(Transient) bool bIsSliding = false;
     UPROPERTY(Transient) bool bIsAiming = false;
@@ -366,6 +418,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ActiveActionAnimation;
     UPROPERTY(Transient) TObjectPtr<USoundBase> FireSound;
     UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> RevolverSpeedloaderSounds;
+    UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> RifleFireVariants;
+    UPROPERTY(Transient) TArray<TObjectPtr<USoundBase>> RifleSuppressedVariants;
+    UPROPERTY(Transient) TObjectPtr<class USoundConcurrency> RifleFireConcurrency;
+    int32 LastRifleFireVariant = INDEX_NONE;
     UPROPERTY(VisibleAnywhere, Category = "M4|Audio") TObjectPtr<UAudioComponent> M4FireVoice;
     UPROPERTY(Transient) TMap<FName, TObjectPtr<UAudioComponent>> MechanicalVoices;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BoltReleaseSound;
@@ -457,6 +513,14 @@ private:
     FTimerHandle FireTimerHandle;
     FTimerHandle WeaponPoseTimerHandle;
     bool bRunWeaponAudit = false;
+    void RunSlideCombatAcceptance(float DeltaSeconds);
+    void RunReloadTimingAudit();
+    bool bRunInfiniteAmmoAudit = false;
+    bool bRunDrumGripAudit = false;
+    bool bRunAKMIntegrationAudit = false;
+    bool bRunWeaponHandlingAudit = false;
+    bool bRunMuzzleMigrationAudit = false;
+    bool bRunSlideCombatAudit = false;
     float WeaponAuditTime = 0.0f;
     int32 WeaponAuditStage = 0;
     bool bRunGunplayAcceptance = false;

@@ -1,5 +1,7 @@
 # 物品浮窗：白底与原项目布局
 
+历史记录：2026-09-14 起，横向三卡与禁止换行条款由 [当前浮窗规划](item-inspector-plan-20260914.md) 和 [正式规则第 12 节](ui-cold-steel-design-system.md#12-装备浮窗摘要与固定详情) 替换；白底鉴定卡保留，字体采用当前共享主题。
+
 用户本次明确要求白色底。只读核对了 Godot 的 `ui/item_tooltip.gd`、`ui/tooltip_typography.gd`、`ui/gun_tooltip_rows.gd`、`ui/craft_effect_display.gd` 和 `UI-WORKFLOW.md`。实际 Godot 渲染现已被公共玻璃主题覆盖为深色，旧 `COLOR_TT_*` 仍记录白底配色；因此本轮采用用户指定白底，同时保留现行宋体及业务布局。
 
 ## 显示合同

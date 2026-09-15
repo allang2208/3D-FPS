@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "FireballTypes.h"
 #include "ColdSteelSkillTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -15,24 +16,51 @@ struct FColdSteelSkillDefinition
     FName Id = TEXT("rifleMastery");
     FString Name = TEXT("步枪精通");
     FString Description = TEXT("精通步枪的精准射击，每颗子弹都命中要害。");
-    FString Icon = TEXT("Skills/rifle_mastery.png");
+    FString Icon = TEXT("Skills/rifle_mastery_cold_steel.png");
     FString UpgradeSound = TEXT("Skills/player_upgrade.wav");
     int32 MaxLevel = 20, ExperiencePerLevel = 100, KillExperience = 10, CriticalExperience = 5;
     float DamagePercentPerLevel = .01f, FlatDamagePerLevel = 1.f, WeakpointPerLevel = .01f;
     int32 WisdomPerLevel = 1;
+    int32 StrengthPerLevel=0,ConstitutionPerLevel=0,HitExperience=0,MultiHitExperience=0;
+    float CooldownReductionPerLevel=0,SpreadDelayPerLevel=0,KnockbackPerLevel=0;
+    float DodgeDistanceCMPerLevel = 10.f, DodgeCostReductionPerLevel = .015f;
+    int32 UseExperience = 1, MeleeDodgeExperience = 5, RangedDodgeExperience = 10;
+    int32 DexterityPerLevel = 1, ReloadExperience = 5;
+    float ReloadSpeedPerLevel = .01f;
+    float MoveSpeedPerLevel = .01f;
+    float CriticalDamageBase = .50f, CriticalDamagePerLevel = .05f;
+    int32 LuckPerLevel = 1, CriticalHitExperience = 1, CriticalKillExperience = 10;
+    float HeavyMultiplierBase=2.5f,HeavyMultiplierPerLevel=.1f,HeavyChargeBase=2.f,HeavyChargeReductionPerLevel=.05f;
+    int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;
+    FFireballTuning Fireball;
 };
 
 struct FColdSteelSkillEffect
 {
     float DamagePercent = 0, FlatDamage = 0, WeakpointPercent = 0;
     int32 Wisdom = 0;
+    int32 Strength=0,Constitution=0;
+    float HeavyMultiplier=0,HeavyChargeSeconds=0;
+    float CooldownReduction=0,SpreadDelay=0,Knockback=0;
+    float DodgeDistanceCM = 0, DodgeCostReduction = 0;
+    int32 Dexterity = 0;
+    float ReloadSpeed = 0;
+    float MoveSpeed = 0;
+    float CriticalDamageBonus = 0;
+    int32 Luck = 0;
 };
 
 // Captured at fire time; weapon swaps and later skill upgrades cannot alter a flying round.
 struct FColdSteelSkillShot
 {
+    FName MasteryId;
+    int32 ExtraMasteryExperience=0;
+    float ArmorPenetration=0;
+    float CriticalChance = 0;
     bool bRifle = false;
+    bool bPistol = false;
     float WeakpointPercent = 0;
+    float CriticalDamageBonus = 0;
 };
 
 struct FColdSteelProgressNotice

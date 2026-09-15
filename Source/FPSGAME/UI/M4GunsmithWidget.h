@@ -27,10 +27,12 @@ public:
     void SetCompareFactory(bool bFactory);
     void RefreshPresentation();
     void RotatePreview(FVector2D Delta);
+    void ZoomPreview(float WheelDelta);
     FVector2D GetPreviewOrbit() const {return PreviewOrbit;}
     TSharedPtr<class SWidget> GetPreviewSurface() const {return PreviewSurface;}
     const TArray<FGunsmithOverviewRow>& GetOverviewRows() const {return Overview;}
-    bool HasWorkbenchCapture() const {return Capture!=nullptr&&PreviewTarget!=nullptr;}
+    bool HasWorkbenchCapture() const {return Capture!=nullptr&&PreviewTarget!=nullptr&&(!bStandalone||StandaloneRig!=nullptr||StandaloneMelee!=nullptr);}
+    bool CanAimPreview() const {return HasWorkbenchCapture()&&StandaloneMelee==nullptr;}
     void SetStandaloneItem(const FColdSteelItem& Item);
     void TickStandalonePreview(float Delta,TSharedPtr<class SWidget> Surface);
     void CloseStandalonePreview();
@@ -48,7 +50,14 @@ private:
     class UGunsmithSystem* Model() const;
     TSharedRef<SWidget> BuildWorkbench();
     TSharedRef<SWidget> BuildOption(const FString& SlotKey,const FString& Id);
+    bool IsCategoryAvailable(const FString& SlotKey) const;
+    void RefreshSelectedOption();
+    float SelectedDetailsWidth() const;
+    float OverviewSectionHeight() const;
+    void UpdateResponsiveLayout();
+    TSharedRef<SWidget> GlassPanel(TSharedRef<SWidget> Content,FMargin Padding=FMargin(14));
     void LoadCategoryIcons();
+    FString CategoryPartName(const FString& SlotKey) const;
     void InitializePreview();
     void ReleasePreview();
     void SyncStudioPreview();
@@ -56,10 +65,13 @@ private:
     void CapturePreview();
     void TickCapture(float Delta);
     void PoseStandalone();
+    void SetStandaloneMeleeItem(const FColdSteelItem& Item);
+    void SyncStandaloneMeleePreview();
     bool bStandalone=false;
     FString StandaloneKey;
     TMap<FString,FString> StandaloneParts;
     UPROPERTY(Transient) TObjectPtr<class AFPSGAMECharacter> StandaloneRig;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> StandaloneMelee;
     TUniquePtr<FPreviewScene> Studio;
     TMap<TWeakObjectPtr<class UPrimitiveComponent>,class UMeshComponent*> StudioCopies;
     struct FPreviewBoundsCache { uint32 Signature=0; FBox Box=FBox(ForceInit); };
@@ -67,15 +79,26 @@ private:
     FBox PreviewFramingBounds=FBox(ForceInit);
     class UDirectionalLightComponent* StudioFill=nullptr;
     TSharedPtr<class SVerticalBox> ModificationList,OverviewList;
-    TMap<FString,TSharedPtr<FSlateBrush>> CategoryBrushes,AttachmentBrushes;
-    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> CategoryTextures;
+    TSharedPtr<class SBox> BodyHost;
+    TSharedPtr<class SWidget> RailContent,CenterContent,InspectorContent,FooterContent;
+    TSharedPtr<class SScrollBox> CategoryScroll,OverviewScroll,BodyScroll,InspectorScroll;
+    TMap<FString,TSharedPtr<class SWidget>> CategoryButtons;
+    TMap<FString,TSharedPtr<FSlateBrush>> CategoryBrushes;
+    TMap<FString,TSharedPtr<FSlateBrush>> AttachmentBrushes;
     UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> AttachmentTextures;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UTexture2D>> CategoryTextures;
     UPROPERTY(Transient) TArray<TObjectPtr<class UMaterialInstanceDynamic>> CategoryMaterials;
+    int32 LayoutMode=-1;
+    float RailWidth=208.f,InspectorWidth=560.f;
+    TArray<TSharedPtr<class SBackgroundBlur>> GlassLayers;
+    FSlateBrush GlassFallback,CategoryButtonBrush,OptionFrameBrush;
     TSharedPtr<class SScrollBox> OptionScroll;
     TMap<FString,TSharedPtr<class SWidget>> OptionCards;
     FString OptionsSignature,OptionsCategory;
+    FString InspectedOptionKey;
     TSharedPtr<class SWidget> PreviewSurface;
     FVector2D PreviewOrbit=FVector2D::ZeroVector;
+    float PreviewZoom=1.f;
     TArray<FGunsmithOverviewRow> Overview;
     FString SelectedCategory=TEXT("magazine");
     FString StatusText;

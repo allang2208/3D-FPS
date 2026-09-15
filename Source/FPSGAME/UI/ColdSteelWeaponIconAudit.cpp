@@ -11,6 +11,8 @@
 #include "ImageUtils.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 #include "HAL/FileManager.h"
 #include "TimerManager.h"
 #include "UnrealClient.h"
@@ -25,8 +27,10 @@ void UColdSteelHUDWidget::RunWeaponIconAudit()
     auto State=P->Snapshot();State.Items.Empty();State.Hotbar.Init(TEXT(""),4);State.HotbarDefinitions.Init(TEXT(""),4);
     const TCHAR* Muzzles[]={TEXT("false"),TEXT("true"),TEXT("brake"),TEXT("titanium_brake"),TEXT("false")};
     const int32 Variants=Guns->Weapon(TEXT("ue_akm"))?5:4;
-    for(int32 N=0;N<Variants;++N){auto I=P->CreateItem(N==4?TEXT("ue_akm"):TEXT("ue_m4a1"));I.Place=N==0?1:0;I.Cell=N==0?6:N==4?36:(N-1)*5;
+    const bool bAKM=FParse::Param(FCommandLine::Get(),TEXT("AKMAttachmentAudit"));
+    for(int32 N=0;N<Variants;++N){auto I=P->CreateItem((N==4)!=bAKM?TEXT("ue_akm"):TEXT("ue_m4a1"));I.Place=N==0?1:0;I.Cell=N==0?6:N==4?36:(N-1)*5;
         if(N>0&&N<4){TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data);auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("muzzle"),Muzzles[N]);if(N==1){Parts->SetStringField(TEXT("optic"),TEXT("holographic"));Parts->SetStringField(TEXT("magazine"),TEXT("large_drum"));}Data->SetObjectField(TEXT("gunsmith_parts"),Parts);I.Data.Empty();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));}
+        if(bAKM&&(N==1||N==2)){TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data);Data->GetObjectField(TEXT("gunsmith_parts"))->SetStringField(TEXT("underbarrel"),N==1?TEXT("prism_handstop"):TEXT("angled_foregrip"));I.Data.Empty();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));}
         R->Ids.Add(I.InstanceId);State.Items.Add(I);
     }
     Check(P->CommitState(State),TEXT("isolated factory modified and AKM inventory fixture"));SetInventoryOpen(true);SetInventoryTab(false);

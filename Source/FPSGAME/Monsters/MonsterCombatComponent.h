@@ -34,9 +34,18 @@ public:
  FVector Home() const;
  void ReachedHome();
  void ReceiveHit(float Damage,APawn* Attacker);
+ void ReceiveParry(APawn* Defender,float Seconds,float KnockbackCM);
+ bool IsParryReaction() const { return bParryReaction; }
+ const FVector& GetParryDirection() const { return ParryPushDirection; }
  void BeginReaction(float Duration);
  void FinishReaction();
  UFUNCTION(BlueprintCallable,Category="MonsterAI|Editor") static bool AuthorHitClip(UAnimSequence* Clip,bool bHandBrain);
 private:
  float SinceHit=100.f,ReactionTime=0,ReactionDuration=0;
+ void UpdateReactionPresentation();
+ bool bParryReaction=false;
+ void TickParryPush(float Delta);
+ bool MoveParryPush(float Distance);
+ FVector ParryPushDirection=FVector::ZeroVector;
+ float ParryPushDistance=0.f,ParryPushAge=0.f;
 };

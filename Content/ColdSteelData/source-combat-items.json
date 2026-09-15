@@ -1,0 +1,4451 @@
+{
+  "weapon1": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.8,
+          "perEnhance": 0.2
+        },
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.2
+        }
+      ]
+    }
+  },
+  "生锈的长剑": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.8,
+          "perEnhance": 0.2
+        },
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.2
+        }
+      ]
+    }
+  },
+  "weapon9": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.35,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.4,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "G18": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.35,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.4,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "weapon10": {
+    "attackFormula": {
+      "base": 30,
+      "enhanceFlat": 0,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 1,
+          "perEnhance": 0
+        },
+        {
+          "key": "wis",
+          "base": 2,
+          "perEnhance": 0
+        }
+      ]
+    }
+  },
+  "沙漠之鹰": {
+    "attackFormula": {
+      "base": 30,
+      "enhanceFlat": 0,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 1,
+          "perEnhance": 0
+        },
+        {
+          "key": "wis",
+          "base": 2,
+          "perEnhance": 0
+        }
+      ]
+    }
+  },
+  "weapon22": {
+    "attackFormula": {
+      "base": 26,
+      "enhanceFlat": 0,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 1.6,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  ".357麦格农左轮": {
+    "attackFormula": {
+      "base": 26,
+      "enhanceFlat": 0,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 1.6,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "weapon18": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.75,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 1,
+          "perEnhance": 0.25
+        }
+      ]
+    }
+  },
+  "P4040": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.75,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 1,
+          "perEnhance": 0.25
+        }
+      ]
+    }
+  },
+  "weapon19": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.5,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "Beretta 93R": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.5,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "weapon49": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.45,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.35,
+          "perEnhance": 0.05
+        },
+        {
+          "key": "wis",
+          "base": 0.3,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "M1911A1": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.45,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.35,
+          "perEnhance": 0.05
+        },
+        {
+          "key": "wis",
+          "base": 0.3,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "weapon50": {
+    "attackFormula": {
+      "base": 9,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.55,
+          "perEnhance": 0.13
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.13
+        }
+      ]
+    }
+  },
+  "USP .45": {
+    "attackFormula": {
+      "base": 9,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.55,
+          "perEnhance": 0.13
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.13
+        }
+      ]
+    }
+  },
+  "weapon51": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.55,
+          "perEnhance": 0.06
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "FN Five-seveN": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.55,
+          "perEnhance": 0.06
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "weapon52": {
+    "attackFormula": {
+      "base": 20,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.6,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 1.2,
+          "perEnhance": 0.18
+        }
+      ]
+    }
+  },
+  "恒星圣谕": {
+    "attackFormula": {
+      "base": 20,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.6,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 1.2,
+          "perEnhance": 0.18
+        }
+      ]
+    }
+  },
+  "weapon53": {
+    "attackFormula": {
+      "base": 16,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.8,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "猎隼裁令": {
+    "attackFormula": {
+      "base": 16,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.8,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "weapon54": {
+    "attackFormula": {
+      "base": 17,
+      "enhanceFlat": 2.1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.83,
+          "perEnhance": 0.16
+        },
+        {
+          "key": "wis",
+          "base": 0.83,
+          "perEnhance": 0.16
+        }
+      ]
+    }
+  },
+  "赤冕清算": {
+    "attackFormula": {
+      "base": 17,
+      "enhanceFlat": 2.1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.83,
+          "perEnhance": 0.16
+        },
+        {
+          "key": "wis",
+          "base": 0.83,
+          "perEnhance": 0.16
+        }
+      ]
+    }
+  },
+  "weapon55": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1.7,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.65,
+          "perEnhance": 0.12
+        },
+        {
+          "key": "wis",
+          "base": 0.65,
+          "perEnhance": 0.12
+        }
+      ]
+    }
+  },
+  "万象回廊": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1.7,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.65,
+          "perEnhance": 0.12
+        },
+        {
+          "key": "wis",
+          "base": 0.65,
+          "perEnhance": 0.12
+        }
+      ]
+    }
+  },
+  "weapon20": {
+    "matkFormula": {
+      "base": 5,
+      "intMul": 0.5,
+      "wisMul": 0.5,
+      "enhanceBase": 1,
+      "enhanceIntMul": 0.2,
+      "enhanceWisMul": 0.2
+    }
+  },
+  "学徒长杖": {
+    "matkFormula": {
+      "base": 5,
+      "intMul": 0.5,
+      "wisMul": 0.5,
+      "enhanceBase": 1,
+      "enhanceIntMul": 0.2,
+      "enhanceWisMul": 0.2
+    }
+  },
+  "weapon6": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.45,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.3,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "PKM": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.45,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.3,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "weapon7": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 0.6,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.29,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.29,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "AKM": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 0.6,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.29,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.29,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "weapon23": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.24,
+          "perEnhance": 0.04
+        },
+        {
+          "key": "wis",
+          "base": 0.24,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "STG-44": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.24,
+          "perEnhance": 0.04
+        },
+        {
+          "key": "wis",
+          "base": 0.24,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "weapon21": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.27,
+          "perEnhance": 0.04
+        },
+        {
+          "key": "wis",
+          "base": 0.27,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "M416": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.27,
+          "perEnhance": 0.04
+        },
+        {
+          "key": "wis",
+          "base": 0.27,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "weapon24": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.4,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.22,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.22,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "QBZ-95": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.4,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.22,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.22,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "weapon25": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "边境突击步枪": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "weapon26": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.5,
+          "perEnhance": 0.08
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.08
+        }
+      ]
+    }
+  },
+  "复仇之神": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.5,
+          "perEnhance": 0.08
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.08
+        }
+      ]
+    }
+  },
+  "weapon27": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.26,
+          "perEnhance": 0.043
+        },
+        {
+          "key": "wis",
+          "base": 0.26,
+          "perEnhance": 0.043
+        }
+      ]
+    }
+  },
+  "星潮协议": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.26,
+          "perEnhance": 0.043
+        },
+        {
+          "key": "wis",
+          "base": 0.26,
+          "perEnhance": 0.043
+        }
+      ]
+    }
+  },
+  "weapon28": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "零点仲裁": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "weapon29": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "日冕裁律": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "weapon30": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.27,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.27,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "终末回声": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.27,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.27,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "weapon8": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.4,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.21,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.21,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "QBZ-191": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.4,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.21,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.21,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "weapon11": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.15,
+          "perEnhance": 0.025
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.03
+        }
+      ]
+    }
+  },
+  "QJB-201": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.15,
+          "perEnhance": 0.025
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.03
+        }
+      ]
+    }
+  },
+  "weapon31": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.23,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.025
+        }
+      ]
+    }
+  },
+  "RPD": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.23,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.025
+        }
+      ]
+    }
+  },
+  "weapon32": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.19,
+          "perEnhance": 0.029
+        },
+        {
+          "key": "wis",
+          "base": 0.18,
+          "perEnhance": 0.028
+        }
+      ]
+    }
+  },
+  "M249 SAW": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.19,
+          "perEnhance": 0.029
+        },
+        {
+          "key": "wis",
+          "base": 0.18,
+          "perEnhance": 0.028
+        }
+      ]
+    }
+  },
+  "weapon33": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.26,
+          "perEnhance": 0.038
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.037
+        }
+      ]
+    }
+  },
+  "Ultimax 100 Mk8": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.26,
+          "perEnhance": 0.038
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.037
+        }
+      ]
+    }
+  },
+  "weapon34": {
+    "attackFormula": {
+      "base": 3.5,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.13,
+          "perEnhance": 0.02
+        },
+        {
+          "key": "wis",
+          "base": 0.13,
+          "perEnhance": 0.02
+        }
+      ]
+    }
+  },
+  "MG42": {
+    "attackFormula": {
+      "base": 3.5,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.13,
+          "perEnhance": 0.02
+        },
+        {
+          "key": "wis",
+          "base": 0.13,
+          "perEnhance": 0.02
+        }
+      ]
+    }
+  },
+  "weapon35": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.55,
+          "perEnhance": 0.085
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.08
+        }
+      ]
+    }
+  },
+  "熔核轻机枪": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.55,
+          "perEnhance": 0.085
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.08
+        }
+      ]
+    }
+  },
+  "weapon36": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.42,
+          "perEnhance": 0.065
+        },
+        {
+          "key": "wis",
+          "base": 0.42,
+          "perEnhance": 0.065
+        }
+      ]
+    }
+  },
+  "奇点织机": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.42,
+          "perEnhance": 0.065
+        },
+        {
+          "key": "wis",
+          "base": 0.42,
+          "perEnhance": 0.065
+        }
+      ]
+    }
+  },
+  "weapon37": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.46,
+          "perEnhance": 0.07
+        },
+        {
+          "key": "wis",
+          "base": 0.46,
+          "perEnhance": 0.07
+        }
+      ]
+    }
+  },
+  "天穹测绘者": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.46,
+          "perEnhance": 0.07
+        },
+        {
+          "key": "wis",
+          "base": 0.46,
+          "perEnhance": 0.07
+        }
+      ]
+    }
+  },
+  "weapon38": {
+    "attackFormula": {
+      "base": 15,
+      "enhanceFlat": 1.05,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.5,
+          "perEnhance": 0.075
+        },
+        {
+          "key": "wis",
+          "base": 0.48,
+          "perEnhance": 0.072
+        }
+      ]
+    }
+  },
+  "冥约颂炮": {
+    "attackFormula": {
+      "base": 15,
+      "enhanceFlat": 1.05,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.5,
+          "perEnhance": 0.075
+        },
+        {
+          "key": "wis",
+          "base": 0.48,
+          "perEnhance": 0.072
+        }
+      ]
+    }
+  },
+  "weapon39": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.25,
+          "perEnhance": 0.08
+        },
+        {
+          "key": "wis",
+          "base": 0.35,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 22,
+          "enhanceFlat": 2.4,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.5,
+              "perEnhance": 0.08
+            },
+            {
+              "key": "wis",
+              "base": 0.7,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "S686": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.25,
+          "perEnhance": 0.08
+        },
+        {
+          "key": "wis",
+          "base": 0.35,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 22,
+          "enhanceFlat": 2.4,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.5,
+              "perEnhance": 0.08
+            },
+            {
+              "key": "wis",
+              "base": 0.7,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon40": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.4,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.07
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 20,
+          "enhanceFlat": 2.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.65,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.45,
+              "perEnhance": 0.08
+            }
+          ]
+        }
+      }
+    }
+  },
+  "M870 短管型": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.4,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.07
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 20,
+          "enhanceFlat": 2.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.65,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.45,
+              "perEnhance": 0.08
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon41": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.35,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.3,
+          "perEnhance": 0.09
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 20,
+          "enhanceFlat": 2.7,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.5,
+              "perEnhance": 0.09
+            }
+          ]
+        }
+      }
+    }
+  },
+  "KSG-12": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.35,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.3,
+          "perEnhance": 0.09
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 20,
+          "enhanceFlat": 2.7,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.5,
+              "perEnhance": 0.09
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon42": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.45,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.08
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 20,
+          "enhanceFlat": 2.8,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.75,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.45,
+              "perEnhance": 0.08
+            }
+          ]
+        }
+      }
+    }
+  },
+  "SPAS-12": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.45,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.08
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 20,
+          "enhanceFlat": 2.8,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.75,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.45,
+              "perEnhance": 0.08
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon43": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 1.1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.3,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.08
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 11,
+          "enhanceFlat": 2.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.5,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.4,
+              "perEnhance": 0.08
+            }
+          ]
+        }
+      }
+    }
+  },
+  "AA-12": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 1.1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.3,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.08
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 11,
+          "enhanceFlat": 2.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.5,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.4,
+              "perEnhance": 0.08
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon44": {
+    "attackFormula": {
+      "base": 18,
+      "enhanceFlat": 1.3,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.35,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.55,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 29,
+          "enhanceFlat": 3.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.9,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Winchester 1887": {
+    "attackFormula": {
+      "base": 18,
+      "enhanceFlat": 1.3,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.35,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.55,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 29,
+          "enhanceFlat": 3.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.9,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon45": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1.05,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.45,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 22,
+          "enhanceFlat": 3,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.75,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.75,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "末日钟摆": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1.05,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.45,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 22,
+          "enhanceFlat": 3,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.75,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.75,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon46": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.35,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 23,
+          "enhanceFlat": 3,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.85,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "虚空葬潮": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.35,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 23,
+          "enhanceFlat": 3,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.85,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon47": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1.1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.48,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.48,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 23,
+          "enhanceFlat": 3.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.8,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.8,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "黑日圣裁": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1.1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.48,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.48,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 23,
+          "enhanceFlat": 3.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.8,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.8,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon48": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1.1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.55,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 24,
+          "enhanceFlat": 3.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.9,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.7,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "王猎终局": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1.1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.55,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 24,
+          "enhanceFlat": 3.2,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.9,
+              "perEnhance": 0.1
+            },
+            {
+              "key": "wis",
+              "base": 0.7,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon12": {
+    "attackFormula": {
+      "base": 10,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.2,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.15
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 8,
+          "enhanceFlat": 5,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.05
+            },
+            {
+              "key": "wis",
+              "base": 1,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Super90": {
+    "attackFormula": {
+      "base": 10,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.2,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.15
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 8,
+          "enhanceFlat": 5,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.05
+            },
+            {
+              "key": "wis",
+              "base": 1,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon13": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.5,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 8,
+          "enhanceFlat": 5,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.05
+            },
+            {
+              "key": "wis",
+              "base": 1,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "SAIGA-12K": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "con",
+          "base": 0.5,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.1
+        }
+      ],
+      "variants": {
+        "slugMode": {
+          "base": 8,
+          "enhanceFlat": 5,
+          "attrs": [
+            {
+              "key": "con",
+              "base": 0.6,
+              "perEnhance": 0.05
+            },
+            {
+              "key": "wis",
+              "base": 1,
+              "perEnhance": 0.1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "weapon2": {
+    "attackFormula": {
+      "base": 20,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 2,
+          "perEnhance": 0.35
+        },
+        {
+          "key": "dex",
+          "base": 1.5,
+          "perEnhance": 0.25
+        }
+      ]
+    }
+  },
+  "骑士长剑": {
+    "attackFormula": {
+      "base": 20,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 2,
+          "perEnhance": 0.35
+        },
+        {
+          "key": "dex",
+          "base": 1.5,
+          "perEnhance": 0.25
+        }
+      ]
+    }
+  },
+  "weapon4": {
+    "attackFormula": {
+      "base": 16,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 2,
+          "perEnhance": 0.4
+        },
+        {
+          "key": "str",
+          "base": 1.2,
+          "perEnhance": 0.2
+        }
+      ]
+    }
+  },
+  "符文长剑": {
+    "attackFormula": {
+      "base": 16,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 2,
+          "perEnhance": 0.4
+        },
+        {
+          "key": "str",
+          "base": 1.2,
+          "perEnhance": 0.2
+        }
+      ]
+    }
+  },
+  "weapon5": {
+    "attackFormula": {
+      "base": 24,
+      "enhanceFlat": 2.2,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 2,
+          "perEnhance": 0.5
+        },
+        {
+          "key": "str",
+          "base": 1.2,
+          "perEnhance": 0.2
+        }
+      ]
+    }
+  },
+  "夜与火之剑": {
+    "attackFormula": {
+      "base": 24,
+      "enhanceFlat": 2.2,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 2,
+          "perEnhance": 0.5
+        },
+        {
+          "key": "str",
+          "base": 1.2,
+          "perEnhance": 0.2
+        }
+      ]
+    }
+  },
+  "weapon15": {
+    "attackFormula": {
+      "base": 4,
+      "enhanceFlat": 0,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.2,
+          "perEnhance": 0.03
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "能量轻机枪": {
+    "attackFormula": {
+      "base": 4,
+      "enhanceFlat": 0,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.2,
+          "perEnhance": 0.03
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "weapon14": {
+    "attackFormula": {
+      "base": 50,
+      "enhanceFlat": 1,
+      "attrs": []
+    }
+  },
+  "训练用弓": {
+    "attackFormula": {
+      "base": 50,
+      "enhanceFlat": 1,
+      "attrs": []
+    }
+  },
+  "weapon16": {
+    "attackFormula": {
+      "base": 60,
+      "enhanceFlat": 15,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 2.5,
+          "perEnhance": 1.75
+        },
+        {
+          "key": "str",
+          "base": 2,
+          "perEnhance": 1.75
+        }
+      ]
+    }
+  },
+  "边境长弓": {
+    "attackFormula": {
+      "base": 60,
+      "enhanceFlat": 15,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 2.5,
+          "perEnhance": 1.75
+        },
+        {
+          "key": "str",
+          "base": 2,
+          "perEnhance": 1.75
+        }
+      ]
+    }
+  },
+  "weapon17": {
+    "defense": {
+      "base": 15,
+      "perEnhance": 1.5,
+      "damageReduction": 0.5,
+      "staminaCost": 20,
+      "parryWindow": 1000,
+      "parryAngle": 120,
+      "parryStun": 1000,
+      "parryKnockback": 100,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "小圆盾": {
+    "defense": {
+      "base": 15,
+      "perEnhance": 1.5,
+      "damageReduction": 0.5,
+      "staminaCost": 20,
+      "parryWindow": 1000,
+      "parryAngle": 120,
+      "parryStun": 1000,
+      "parryKnockback": 100,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "weapon56": {
+    "defense": {
+      "base": 18,
+      "perEnhance": 1.8,
+      "damageReduction": 0.5,
+      "staminaCost": 16,
+      "parryWindow": 1000,
+      "parryAngle": 120,
+      "parryStun": 1200,
+      "parryKnockback": 90,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "锻钢拳盾": {
+    "defense": {
+      "base": 18,
+      "perEnhance": 1.8,
+      "damageReduction": 0.5,
+      "staminaCost": 16,
+      "parryWindow": 1000,
+      "parryAngle": 120,
+      "parryStun": 1200,
+      "parryKnockback": 90,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "weapon57": {
+    "defense": {
+      "base": 26,
+      "perEnhance": 2.6,
+      "damageReduction": 0.42,
+      "staminaCost": 22,
+      "parryWindow": 850,
+      "parryAngle": 120,
+      "parryStun": 1000,
+      "parryKnockback": 120,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "橡木卫戍盾": {
+    "defense": {
+      "base": 26,
+      "perEnhance": 2.6,
+      "damageReduction": 0.42,
+      "staminaCost": 22,
+      "parryWindow": 850,
+      "parryAngle": 120,
+      "parryStun": 1000,
+      "parryKnockback": 120,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "weapon58": {
+    "defense": {
+      "base": 24,
+      "perEnhance": 2.5,
+      "damageReduction": 0.45,
+      "staminaCost": 14,
+      "parryWindow": 1120,
+      "parryAngle": 120,
+      "parryStun": 1350,
+      "parryKnockback": 100,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "月银折光盾": {
+    "defense": {
+      "base": 24,
+      "perEnhance": 2.5,
+      "damageReduction": 0.45,
+      "staminaCost": 14,
+      "parryWindow": 1120,
+      "parryAngle": 120,
+      "parryStun": 1350,
+      "parryKnockback": 100,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "weapon59": {
+    "defense": {
+      "base": 34,
+      "perEnhance": 3.5,
+      "damageReduction": 0.36,
+      "staminaCost": 25,
+      "parryWindow": 760,
+      "parryAngle": 120,
+      "parryStun": 1150,
+      "parryKnockback": 155,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "玄铁城垒盾": {
+    "defense": {
+      "base": 34,
+      "perEnhance": 3.5,
+      "damageReduction": 0.36,
+      "staminaCost": 25,
+      "parryWindow": 760,
+      "parryAngle": 120,
+      "parryStun": 1150,
+      "parryKnockback": 155,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "weapon60": {
+    "defense": {
+      "base": 32,
+      "perEnhance": 3.2,
+      "damageReduction": 0.4,
+      "staminaCost": 19,
+      "parryWindow": 970,
+      "parryAngle": 120,
+      "parryStun": 1450,
+      "parryKnockback": 130,
+      "stunOnExhaustion": 1500,
+      "parryReflection": {
+        "ratio": 0.3,
+        "maxHpCapRatio": 0.1,
+        "cooldownMs": 1000
+      }
+    }
+  },
+  "荆棘誓返盾": {
+    "defense": {
+      "base": 32,
+      "perEnhance": 3.2,
+      "damageReduction": 0.4,
+      "staminaCost": 19,
+      "parryWindow": 970,
+      "parryAngle": 120,
+      "parryStun": 1450,
+      "parryKnockback": 130,
+      "stunOnExhaustion": 1500,
+      "parryReflection": {
+        "ratio": 0.3,
+        "maxHpCapRatio": 0.1,
+        "cooldownMs": 1000
+      }
+    }
+  },
+  "weapon61": {
+    "defense": {
+      "base": 28,
+      "perEnhance": 2.8,
+      "damageReduction": 0.48,
+      "magicBlockRemainingDamageRatio": 0.28,
+      "staminaCost": 17,
+      "parryWindow": 1080,
+      "parryAngle": 120,
+      "parryStun": 1050,
+      "parryKnockback": 85,
+      "stunOnExhaustion": 1500,
+      "arcaneRetort": {
+        "baseDamage": 48,
+        "matkRatio": 0.55,
+        "preventedDamageRatio": 0.45,
+        "capBaseDamage": 80,
+        "capMatkRatio": 1.5,
+        "mdefShredRatio": 0.18,
+        "mdefShredDurationMs": 5000,
+        "cooldownMs": 2200
+      }
+    }
+  },
+  "蚀星法镜盾": {
+    "defense": {
+      "base": 28,
+      "perEnhance": 2.8,
+      "damageReduction": 0.48,
+      "magicBlockRemainingDamageRatio": 0.28,
+      "staminaCost": 17,
+      "parryWindow": 1080,
+      "parryAngle": 120,
+      "parryStun": 1050,
+      "parryKnockback": 85,
+      "stunOnExhaustion": 1500,
+      "arcaneRetort": {
+        "baseDamage": 48,
+        "matkRatio": 0.55,
+        "preventedDamageRatio": 0.45,
+        "capBaseDamage": 80,
+        "capMatkRatio": 1.5,
+        "mdefShredRatio": 0.18,
+        "mdefShredDurationMs": 5000,
+        "cooldownMs": 2200
+      }
+    }
+  },
+  "weapon62": {
+    "defense": {
+      "base": 38,
+      "perEnhance": 3.8,
+      "damageReduction": 0.35,
+      "staminaCost": 22,
+      "parryWindow": 860,
+      "parryAngle": 120,
+      "parryStun": 1500,
+      "parryKnockback": 160,
+      "stunOnExhaustion": 1500,
+      "returnGuard": {
+        "requiredStacks": 3,
+        "stackDurationMs": 5000,
+        "parryWindowPerStackMs": 120,
+        "staminaRefundPerStack": 5,
+        "readyDurationMs": 3200,
+        "cooldownMs": 5500
+      }
+    }
+  },
+  "天柱回天壁": {
+    "defense": {
+      "base": 38,
+      "perEnhance": 3.8,
+      "damageReduction": 0.35,
+      "staminaCost": 22,
+      "parryWindow": 860,
+      "parryAngle": 120,
+      "parryStun": 1500,
+      "parryKnockback": 160,
+      "stunOnExhaustion": 1500,
+      "returnGuard": {
+        "requiredStacks": 3,
+        "stackDurationMs": 5000,
+        "parryWindowPerStackMs": 120,
+        "staminaRefundPerStack": 5,
+        "readyDurationMs": 3200,
+        "cooldownMs": 5500
+      }
+    }
+  },
+  "weapon63": {
+    "defense": {
+      "base": 30,
+      "perEnhance": 3,
+      "damageReduction": 0.46,
+      "magicBlockRemainingDamageRatio": 0.25,
+      "staminaCost": 17,
+      "parryWindow": 1100,
+      "parryAngle": 120,
+      "parryStun": 1050,
+      "parryKnockback": 90,
+      "stunOnExhaustion": 1500,
+      "nullField": {
+        "triggerStamina": 18,
+        "durationMs": 240,
+        "remainingDamageRatio": 0.1,
+        "cooldownMs": 3200,
+        "parryCooldownRefundMs": 0
+      }
+    }
+  },
+  "归墟吞星镜": {
+    "defense": {
+      "base": 30,
+      "perEnhance": 3,
+      "damageReduction": 0.46,
+      "magicBlockRemainingDamageRatio": 0.25,
+      "staminaCost": 17,
+      "parryWindow": 1100,
+      "parryAngle": 120,
+      "parryStun": 1050,
+      "parryKnockback": 90,
+      "stunOnExhaustion": 1500,
+      "nullField": {
+        "triggerStamina": 18,
+        "durationMs": 240,
+        "remainingDamageRatio": 0.1,
+        "cooldownMs": 3200,
+        "parryCooldownRefundMs": 0
+      }
+    }
+  },
+  "weapon64": {
+    "defense": {
+      "base": 46,
+      "perEnhance": 4.6,
+      "damageReduction": 0.3,
+      "staminaCost": 24,
+      "parryWindow": 780,
+      "parryAngle": 120,
+      "parryStun": 1750,
+      "parryKnockback": 175,
+      "stunOnExhaustion": 1800,
+      "causalDebt": {
+        "splitRatio": 0.65,
+        "maxHpCapRatio": 0.28,
+        "graceMs": 1200,
+        "repayDurationMs": 4500,
+        "eraseOnParryRatio": 0.7
+      }
+    }
+  },
+  "逆命劫轮盾": {
+    "defense": {
+      "base": 46,
+      "perEnhance": 4.6,
+      "damageReduction": 0.3,
+      "staminaCost": 24,
+      "parryWindow": 780,
+      "parryAngle": 120,
+      "parryStun": 1750,
+      "parryKnockback": 175,
+      "stunOnExhaustion": 1800,
+      "causalDebt": {
+        "splitRatio": 0.65,
+        "maxHpCapRatio": 0.28,
+        "graceMs": 1200,
+        "repayDurationMs": 4500,
+        "eraseOnParryRatio": 0.7
+      }
+    }
+  },
+  "weapon65": {
+    "defense": {
+      "base": 42,
+      "perEnhance": 4.2,
+      "damageReduction": 0.34,
+      "magicBlockRemainingDamageRatio": 0.28,
+      "staminaCost": 21,
+      "parryWindow": 950,
+      "parryAngle": 120,
+      "parryStun": 1350,
+      "parryKnockback": 130,
+      "stunOnExhaustion": 1650,
+      "oathReserve": {
+        "conversionRatio": 0.45,
+        "maxHpCapRatio": 0.24,
+        "decayAfterMs": 2800,
+        "sanctifyDurationMs": 3000,
+        "wardDurationMs": 4000,
+        "wardRadius": 240,
+        "wardReductionRatio": 0.35
+      }
+    }
+  },
+  "圣城终誓门": {
+    "defense": {
+      "base": 42,
+      "perEnhance": 4.2,
+      "damageReduction": 0.34,
+      "magicBlockRemainingDamageRatio": 0.28,
+      "staminaCost": 21,
+      "parryWindow": 950,
+      "parryAngle": 120,
+      "parryStun": 1350,
+      "parryKnockback": 130,
+      "stunOnExhaustion": 1650,
+      "oathReserve": {
+        "conversionRatio": 0.45,
+        "maxHpCapRatio": 0.24,
+        "decayAfterMs": 2800,
+        "sanctifyDurationMs": 3000,
+        "wardDurationMs": 4000,
+        "wardRadius": 240,
+        "wardReductionRatio": 0.35
+      }
+    }
+  },
+  "training_bow": {
+    "attackFormula": {
+      "base": 50,
+      "enhanceFlat": 1,
+      "attrs": []
+    }
+  },
+  "small_shield": {
+    "defense": {
+      "base": 15,
+      "perEnhance": 1.5,
+      "damageReduction": 0.5,
+      "staminaCost": 20,
+      "parryWindow": 1000,
+      "parryAngle": 120,
+      "parryStun": 1000,
+      "parryKnockback": 100,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "forged_duelist_buckler": {
+    "defense": {
+      "base": 18,
+      "perEnhance": 1.8,
+      "damageReduction": 0.5,
+      "staminaCost": 16,
+      "parryWindow": 1000,
+      "parryAngle": 120,
+      "parryStun": 1200,
+      "parryKnockback": 90,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "oak_garrison_shield": {
+    "defense": {
+      "base": 26,
+      "perEnhance": 2.6,
+      "damageReduction": 0.42,
+      "staminaCost": 22,
+      "parryWindow": 850,
+      "parryAngle": 120,
+      "parryStun": 1000,
+      "parryKnockback": 120,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "moonsilver_deflection_shield": {
+    "defense": {
+      "base": 24,
+      "perEnhance": 2.5,
+      "damageReduction": 0.45,
+      "staminaCost": 14,
+      "parryWindow": 1120,
+      "parryAngle": 120,
+      "parryStun": 1350,
+      "parryKnockback": 100,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "blackiron_citadel_shield": {
+    "defense": {
+      "base": 34,
+      "perEnhance": 3.5,
+      "damageReduction": 0.36,
+      "staminaCost": 25,
+      "parryWindow": 760,
+      "parryAngle": 120,
+      "parryStun": 1150,
+      "parryKnockback": 155,
+      "stunOnExhaustion": 1500
+    }
+  },
+  "thorn_oath_reprisal_shield": {
+    "defense": {
+      "base": 32,
+      "perEnhance": 3.2,
+      "damageReduction": 0.4,
+      "staminaCost": 19,
+      "parryWindow": 970,
+      "parryAngle": 120,
+      "parryStun": 1450,
+      "parryKnockback": 130,
+      "stunOnExhaustion": 1500,
+      "parryReflection": {
+        "ratio": 0.3,
+        "maxHpCapRatio": 0.1,
+        "cooldownMs": 1000
+      }
+    }
+  },
+  "star_eater_arcane_mirror_shield": {
+    "defense": {
+      "base": 28,
+      "perEnhance": 2.8,
+      "damageReduction": 0.48,
+      "magicBlockRemainingDamageRatio": 0.28,
+      "staminaCost": 17,
+      "parryWindow": 1080,
+      "parryAngle": 120,
+      "parryStun": 1050,
+      "parryKnockback": 85,
+      "stunOnExhaustion": 1500,
+      "arcaneRetort": {
+        "baseDamage": 48,
+        "matkRatio": 0.55,
+        "preventedDamageRatio": 0.45,
+        "capBaseDamage": 80,
+        "capMatkRatio": 1.5,
+        "mdefShredRatio": 0.18,
+        "mdefShredDurationMs": 5000,
+        "cooldownMs": 2200
+      }
+    }
+  },
+  "heaven_pillar_returning_bulwark": {
+    "defense": {
+      "base": 38,
+      "perEnhance": 3.8,
+      "damageReduction": 0.35,
+      "staminaCost": 22,
+      "parryWindow": 860,
+      "parryAngle": 120,
+      "parryStun": 1500,
+      "parryKnockback": 160,
+      "stunOnExhaustion": 1500,
+      "returnGuard": {
+        "requiredStacks": 3,
+        "stackDurationMs": 5000,
+        "parryWindowPerStackMs": 120,
+        "staminaRefundPerStack": 5,
+        "readyDurationMs": 3200,
+        "cooldownMs": 5500
+      }
+    }
+  },
+  "abyss_return_star_devouring_mirror": {
+    "defense": {
+      "base": 30,
+      "perEnhance": 3,
+      "damageReduction": 0.46,
+      "magicBlockRemainingDamageRatio": 0.25,
+      "staminaCost": 17,
+      "parryWindow": 1100,
+      "parryAngle": 120,
+      "parryStun": 1050,
+      "parryKnockback": 90,
+      "stunOnExhaustion": 1500,
+      "nullField": {
+        "triggerStamina": 18,
+        "durationMs": 240,
+        "remainingDamageRatio": 0.1,
+        "cooldownMs": 3200,
+        "parryCooldownRefundMs": 0
+      }
+    }
+  },
+  "reverse_fate_doomwheel_shield": {
+    "defense": {
+      "base": 46,
+      "perEnhance": 4.6,
+      "damageReduction": 0.3,
+      "staminaCost": 24,
+      "parryWindow": 780,
+      "parryAngle": 120,
+      "parryStun": 1750,
+      "parryKnockback": 175,
+      "stunOnExhaustion": 1800,
+      "causalDebt": {
+        "splitRatio": 0.65,
+        "maxHpCapRatio": 0.28,
+        "graceMs": 1200,
+        "repayDurationMs": 4500,
+        "eraseOnParryRatio": 0.7
+      }
+    }
+  },
+  "last_oath_sanctum_gate_shield": {
+    "defense": {
+      "base": 42,
+      "perEnhance": 4.2,
+      "damageReduction": 0.34,
+      "magicBlockRemainingDamageRatio": 0.28,
+      "staminaCost": 21,
+      "parryWindow": 950,
+      "parryAngle": 120,
+      "parryStun": 1350,
+      "parryKnockback": 130,
+      "stunOnExhaustion": 1650,
+      "oathReserve": {
+        "conversionRatio": 0.45,
+        "maxHpCapRatio": 0.24,
+        "decayAfterMs": 2800,
+        "sanctifyDurationMs": 3000,
+        "wardDurationMs": 4000,
+        "wardRadius": 240,
+        "wardReductionRatio": 0.35
+      }
+    }
+  },
+  "g18_pistol": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.35,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.4,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "p4040": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.75,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 1,
+          "perEnhance": 0.25
+        }
+      ]
+    }
+  },
+  "beretta93r": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.5,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "m1911a1": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.45,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.35,
+          "perEnhance": 0.05
+        },
+        {
+          "key": "wis",
+          "base": 0.3,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "usp45": {
+    "attackFormula": {
+      "base": 9,
+      "enhanceFlat": 0.75,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.55,
+          "perEnhance": 0.13
+        },
+        {
+          "key": "wis",
+          "base": 0.45,
+          "perEnhance": 0.13
+        }
+      ]
+    }
+  },
+  "five_seven": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.55,
+          "perEnhance": 0.06
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "eternal_edict": {
+    "attackFormula": {
+      "base": 20,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.6,
+          "perEnhance": 0.1
+        },
+        {
+          "key": "wis",
+          "base": 1.2,
+          "perEnhance": 0.18
+        }
+      ]
+    }
+  },
+  "falcon_edict": {
+    "attackFormula": {
+      "base": 16,
+      "enhanceFlat": 2,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.8,
+          "perEnhance": 0.15
+        },
+        {
+          "key": "wis",
+          "base": 0.8,
+          "perEnhance": 0.15
+        }
+      ]
+    }
+  },
+  "crimson_crown_settlement": {
+    "attackFormula": {
+      "base": 17,
+      "enhanceFlat": 2.1,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.83,
+          "perEnhance": 0.16
+        },
+        {
+          "key": "wis",
+          "base": 0.83,
+          "perEnhance": 0.16
+        }
+      ]
+    }
+  },
+  "myriad_corridor": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 1.7,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 0.65,
+          "perEnhance": 0.12
+        },
+        {
+          "key": "wis",
+          "base": 0.65,
+          "perEnhance": 0.12
+        }
+      ]
+    }
+  },
+  "apprentice_staff": {
+    "matkFormula": {
+      "base": 5,
+      "intMul": 0.5,
+      "wisMul": 0.5,
+      "enhanceBase": 1,
+      "enhanceIntMul": 0.2,
+      "enhanceWisMul": 0.2
+    }
+  },
+  "akm": {
+    "attackFormula": {
+      "base": 8,
+      "enhanceFlat": 0.6,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.29,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.29,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "singularity_loom_lmg": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.42,
+          "perEnhance": 0.065
+        },
+        {
+          "key": "wis",
+          "base": 0.42,
+          "perEnhance": 0.065
+        }
+      ]
+    }
+  },
+  "celestial_cartographer_lmg": {
+    "attackFormula": {
+      "base": 13,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.46,
+          "perEnhance": 0.07
+        },
+        {
+          "key": "wis",
+          "base": 0.46,
+          "perEnhance": 0.07
+        }
+      ]
+    }
+  },
+  "grave_covenant_cantor_lmg": {
+    "attackFormula": {
+      "base": 15,
+      "enhanceFlat": 1.05,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.5,
+          "perEnhance": 0.075
+        },
+        {
+          "key": "wis",
+          "base": 0.48,
+          "perEnhance": 0.072
+        }
+      ]
+    }
+  },
+  "m416": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.27,
+          "perEnhance": 0.04
+        },
+        {
+          "key": "wis",
+          "base": 0.27,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "qbz191": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.4,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.21,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.21,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "疾风轻盔": {
+    "armorSet": "light",
+    "defense": {
+      "base": 6,
+      "perEnhance": 1.5
+    }
+  },
+  "light_helmet": {
+    "armorSet": "light",
+    "defense": {
+      "base": 6,
+      "perEnhance": 1.5
+    }
+  },
+  "疾风轻甲": {
+    "armorSet": "light",
+    "defense": {
+      "base": 10,
+      "perEnhance": 2
+    }
+  },
+  "light_armor": {
+    "armorSet": "light",
+    "defense": {
+      "base": 10,
+      "perEnhance": 2
+    }
+  },
+  "疾风轻靴": {
+    "armorSet": "light",
+    "defense": {
+      "base": 4,
+      "perEnhance": 1
+    }
+  },
+  "light_boots": {
+    "armorSet": "light",
+    "defense": {
+      "base": 4,
+      "perEnhance": 1
+    }
+  },
+  "秘法法帽": {
+    "armorSet": "robe",
+    "bonusStats": {
+      "wis": 1
+    },
+    "bonusPerEnhance": {
+      "wis": 1
+    },
+    "defense": {
+      "base": 5,
+      "perEnhance": 1
+    }
+  },
+  "robe_helmet": {
+    "armorSet": "robe",
+    "bonusStats": {
+      "wis": 1
+    },
+    "bonusPerEnhance": {
+      "wis": 1
+    },
+    "defense": {
+      "base": 5,
+      "perEnhance": 1
+    }
+  },
+  "秘法长袍": {
+    "armorSet": "robe",
+    "bonusStats": {
+      "int": 1
+    },
+    "bonusPerEnhance": {
+      "int": 1
+    },
+    "defense": {
+      "base": 7,
+      "perEnhance": 1
+    }
+  },
+  "robe_armor": {
+    "armorSet": "robe",
+    "bonusStats": {
+      "int": 1
+    },
+    "bonusPerEnhance": {
+      "int": 1
+    },
+    "defense": {
+      "base": 7,
+      "perEnhance": 1
+    }
+  },
+  "秘法长靴": {
+    "armorSet": "robe",
+    "defense": {
+      "base": 3,
+      "perEnhance": 1
+    }
+  },
+  "robe_boots": {
+    "armorSet": "robe",
+    "defense": {
+      "base": 3,
+      "perEnhance": 1
+    }
+  },
+  "壁垒重盔": {
+    "armorSet": "heavy",
+    "bonusStats": {
+      "maxHp": 15
+    },
+    "bonusPerEnhance": {
+      "maxHp": 5
+    },
+    "defense": {
+      "base": 24,
+      "perEnhance": 2
+    }
+  },
+  "heavy_helmet": {
+    "armorSet": "heavy",
+    "bonusStats": {
+      "maxHp": 15
+    },
+    "bonusPerEnhance": {
+      "maxHp": 5
+    },
+    "defense": {
+      "base": 24,
+      "perEnhance": 2
+    }
+  },
+  "壁垒重甲": {
+    "armorSet": "heavy",
+    "defense": {
+      "base": 34,
+      "perEnhance": 3
+    }
+  },
+  "heavy_armor": {
+    "armorSet": "heavy",
+    "defense": {
+      "base": 34,
+      "perEnhance": 3
+    }
+  },
+  "壁垒重靴": {
+    "armorSet": "heavy",
+    "defense": {
+      "base": 12,
+      "perEnhance": 2
+    }
+  },
+  "heavy_boots": {
+    "armorSet": "heavy",
+    "defense": {
+      "base": 12,
+      "perEnhance": 2
+    }
+  },
+  "狮心项链": {
+    "bonusStats": {
+      "str": 2,
+      "con": 2
+    },
+    "bonusPerEnhance": {
+      "str": 1,
+      "con": 1
+    }
+  },
+  "necklace_strcon": {
+    "bonusStats": {
+      "str": 2,
+      "con": 2
+    },
+    "bonusPerEnhance": {
+      "str": 1,
+      "con": 1
+    }
+  },
+  "贤者项链": {
+    "bonusStats": {
+      "int": 2,
+      "wis": 2
+    },
+    "bonusPerEnhance": {
+      "int": 1,
+      "wis": 1
+    }
+  },
+  "necklace_intwis": {
+    "bonusStats": {
+      "int": 2,
+      "wis": 2
+    },
+    "bonusPerEnhance": {
+      "int": 1,
+      "wis": 1
+    }
+  },
+  "风灵项链": {
+    "bonusStats": {
+      "dex": 2,
+      "luck": 2
+    },
+    "bonusPerEnhance": {
+      "dex": 1,
+      "luck": 1
+    }
+  },
+  "necklace_dexluck": {
+    "bonusStats": {
+      "dex": 2,
+      "luck": 2
+    },
+    "bonusPerEnhance": {
+      "dex": 1,
+      "luck": 1
+    }
+  },
+  "猛攻戒指": {
+    "bonusStats": {
+      "atk": 3
+    },
+    "bonusPerEnhance": {
+      "atk": 2
+    }
+  },
+  "ring_atk": {
+    "bonusStats": {
+      "atk": 3
+    },
+    "bonusPerEnhance": {
+      "atk": 2
+    }
+  },
+  "致命戒指": {
+    "bonusStats": {
+      "crit": 3
+    },
+    "bonusPerEnhance": {
+      "crit": 1
+    }
+  },
+  "ring_crit": {
+    "bonusStats": {
+      "crit": 3
+    },
+    "bonusPerEnhance": {
+      "crit": 1
+    }
+  },
+  "秘法戒指": {
+    "bonusStats": {
+      "matk": 3
+    },
+    "bonusPerEnhance": {
+      "matk": 2
+    }
+  },
+  "ring_matk": {
+    "bonusStats": {
+      "matk": 3
+    },
+    "bonusPerEnhance": {
+      "matk": 2
+    }
+  },
+  "生命腰带": {
+    "bonusStats": {
+      "maxHp": 30
+    },
+    "bonusPerEnhance": {
+      "maxHp": 15
+    }
+  },
+  "belt_hp": {
+    "bonusStats": {
+      "maxHp": 30
+    },
+    "bonusPerEnhance": {
+      "maxHp": 15
+    }
+  },
+  "魔力腰带": {
+    "bonusStats": {
+      "maxMp": 20
+    },
+    "bonusPerEnhance": {
+      "maxMp": 10
+    }
+  },
+  "belt_mp": {
+    "bonusStats": {
+      "maxMp": 20
+    },
+    "bonusPerEnhance": {
+      "maxMp": 10
+    }
+  },
+  "体力腰带": {
+    "bonusStats": {
+      "maxStamina": 20
+    },
+    "bonusPerEnhance": {
+      "maxStamina": 5
+    }
+  },
+  "belt_stamina": {
+    "bonusStats": {
+      "maxStamina": 20
+    },
+    "bonusPerEnhance": {
+      "maxStamina": 5
+    }
+  },
+  "流云轻盔": {
+    "armorSet": "flowing",
+    "defense": {
+      "base": 8,
+      "perEnhance": 2
+    }
+  },
+  "flowing_helmet": {
+    "armorSet": "flowing",
+    "defense": {
+      "base": 8,
+      "perEnhance": 2
+    }
+  },
+  "流云轻甲": {
+    "armorSet": "flowing",
+    "defense": {
+      "base": 13,
+      "perEnhance": 2.5
+    }
+  },
+  "flowing_armor": {
+    "armorSet": "flowing",
+    "defense": {
+      "base": 13,
+      "perEnhance": 2.5
+    }
+  },
+  "流云轻靴": {
+    "armorSet": "flowing",
+    "defense": {
+      "base": 5,
+      "perEnhance": 1.5
+    }
+  },
+  "flowing_boots": {
+    "armorSet": "flowing",
+    "defense": {
+      "base": 5,
+      "perEnhance": 1.5
+    }
+  },
+  "蚀月法帽": {
+    "armorSet": "eclipse",
+    "bonusStats": {
+      "wis": 2
+    },
+    "bonusPerEnhance": {
+      "wis": 1.5
+    },
+    "defense": {
+      "base": 7,
+      "perEnhance": 1.5
+    }
+  },
+  "eclipse_helmet": {
+    "armorSet": "eclipse",
+    "bonusStats": {
+      "wis": 2
+    },
+    "bonusPerEnhance": {
+      "wis": 1.5
+    },
+    "defense": {
+      "base": 7,
+      "perEnhance": 1.5
+    }
+  },
+  "蚀月法袍": {
+    "armorSet": "eclipse",
+    "bonusStats": {
+      "int": 2
+    },
+    "bonusPerEnhance": {
+      "int": 1.5
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 1.5
+    }
+  },
+  "eclipse_armor": {
+    "armorSet": "eclipse",
+    "bonusStats": {
+      "int": 2
+    },
+    "bonusPerEnhance": {
+      "int": 1.5
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 1.5
+    }
+  },
+  "蚀月长靴": {
+    "armorSet": "eclipse",
+    "defense": {
+      "base": 4,
+      "perEnhance": 1.5
+    }
+  },
+  "eclipse_boots": {
+    "armorSet": "eclipse",
+    "defense": {
+      "base": 4,
+      "perEnhance": 1.5
+    }
+  },
+  "镇岳重盔": {
+    "armorSet": "zhenyue",
+    "bonusStats": {
+      "maxHp": 19
+    },
+    "bonusPerEnhance": {
+      "maxHp": 6.5
+    },
+    "defense": {
+      "base": 30,
+      "perEnhance": 2.5
+    }
+  },
+  "zhenyue_helmet": {
+    "armorSet": "zhenyue",
+    "bonusStats": {
+      "maxHp": 19
+    },
+    "bonusPerEnhance": {
+      "maxHp": 6.5
+    },
+    "defense": {
+      "base": 30,
+      "perEnhance": 2.5
+    }
+  },
+  "镇岳重甲": {
+    "armorSet": "zhenyue",
+    "defense": {
+      "base": 43,
+      "perEnhance": 4
+    }
+  },
+  "zhenyue_armor": {
+    "armorSet": "zhenyue",
+    "defense": {
+      "base": 43,
+      "perEnhance": 4
+    }
+  },
+  "镇岳重靴": {
+    "armorSet": "zhenyue",
+    "defense": {
+      "base": 15,
+      "perEnhance": 2.5
+    }
+  },
+  "zhenyue_boots": {
+    "armorSet": "zhenyue",
+    "defense": {
+      "base": 15,
+      "perEnhance": 2.5
+    }
+  },
+  "星陨之戒": {
+    "bonusStats": {
+      "atk": 4
+    },
+    "bonusPerEnhance": {
+      "atk": 2.5
+    }
+  },
+  "ring_starfall": {
+    "bonusStats": {
+      "atk": 4
+    },
+    "bonusPerEnhance": {
+      "atk": 2.5
+    }
+  },
+  "不息腰带": {
+    "bonusStats": {
+      "maxHp": 38
+    },
+    "bonusPerEnhance": {
+      "maxHp": 19
+    }
+  },
+  "belt_endless": {
+    "bonusStats": {
+      "maxHp": 38
+    },
+    "bonusPerEnhance": {
+      "maxHp": 19
+    }
+  },
+  "磐心项链": {
+    "bonusStats": {
+      "str": 3,
+      "con": 3
+    },
+    "bonusPerEnhance": {
+      "str": 1.5,
+      "con": 1.5
+    }
+  },
+  "necklace_boulder": {
+    "bonusStats": {
+      "str": 3,
+      "con": 3
+    },
+    "bonusPerEnhance": {
+      "str": 1.5,
+      "con": 1.5
+    }
+  },
+  "星穹战盔": {
+    "armorSet": "stellar",
+    "bonusStats": {
+      "maxHp": 24
+    },
+    "bonusPerEnhance": {
+      "maxHp": 8.5
+    },
+    "defense": {
+      "base": 10,
+      "perEnhance": 2.5
+    }
+  },
+  "stellar_helmet": {
+    "armorSet": "stellar",
+    "bonusStats": {
+      "maxHp": 24
+    },
+    "bonusPerEnhance": {
+      "maxHp": 8.5
+    },
+    "defense": {
+      "base": 10,
+      "perEnhance": 2.5
+    }
+  },
+  "星穹战甲": {
+    "armorSet": "stellar",
+    "defense": {
+      "base": 17,
+      "perEnhance": 3.5
+    }
+  },
+  "stellar_armor": {
+    "armorSet": "stellar",
+    "defense": {
+      "base": 17,
+      "perEnhance": 3.5
+    }
+  },
+  "星穹战靴": {
+    "armorSet": "stellar",
+    "defense": {
+      "base": 7,
+      "perEnhance": 2
+    }
+  },
+  "stellar_boots": {
+    "armorSet": "stellar",
+    "defense": {
+      "base": 7,
+      "perEnhance": 2
+    }
+  },
+  "星穹项链": {
+    "bonusStats": {
+      "str": 4,
+      "dex": 4
+    },
+    "bonusPerEnhance": {
+      "str": 2,
+      "dex": 2
+    }
+  },
+  "necklace_stellar": {
+    "bonusStats": {
+      "str": 4,
+      "dex": 4
+    },
+    "bonusPerEnhance": {
+      "str": 2,
+      "dex": 2
+    }
+  },
+  "星穹之戒": {
+    "bonusStats": {
+      "atk": 5
+    },
+    "bonusPerEnhance": {
+      "atk": 3.5
+    }
+  },
+  "ring_stellar": {
+    "bonusStats": {
+      "atk": 5
+    },
+    "bonusPerEnhance": {
+      "atk": 3.5
+    }
+  },
+  "星穹腰带": {
+    "bonusStats": {
+      "maxHp": 48
+    },
+    "bonusPerEnhance": {
+      "maxHp": 24
+    }
+  },
+  "belt_stellar": {
+    "bonusStats": {
+      "maxHp": 48
+    },
+    "bonusPerEnhance": {
+      "maxHp": 24
+    }
+  },
+  "苍月法帽": {
+    "armorSet": "lunar",
+    "bonusStats": {
+      "wis": 3
+    },
+    "bonusPerEnhance": {
+      "wis": 2
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 2
+    }
+  },
+  "lunar_helmet": {
+    "armorSet": "lunar",
+    "bonusStats": {
+      "wis": 3
+    },
+    "bonusPerEnhance": {
+      "wis": 2
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 2
+    }
+  },
+  "苍月法袍": {
+    "armorSet": "lunar",
+    "bonusStats": {
+      "int": 3
+    },
+    "bonusPerEnhance": {
+      "int": 2
+    },
+    "defense": {
+      "base": 12,
+      "perEnhance": 2
+    }
+  },
+  "lunar_armor": {
+    "armorSet": "lunar",
+    "bonusStats": {
+      "int": 3
+    },
+    "bonusPerEnhance": {
+      "int": 2
+    },
+    "defense": {
+      "base": 12,
+      "perEnhance": 2
+    }
+  },
+  "苍月长靴": {
+    "armorSet": "lunar",
+    "defense": {
+      "base": 5,
+      "perEnhance": 2
+    }
+  },
+  "lunar_boots": {
+    "armorSet": "lunar",
+    "defense": {
+      "base": 5,
+      "perEnhance": 2
+    }
+  },
+  "天罡重盔": {
+    "armorSet": "tiangang",
+    "bonusStats": {
+      "maxHp": 24
+    },
+    "bonusPerEnhance": {
+      "maxHp": 8.5
+    },
+    "defense": {
+      "base": 38,
+      "perEnhance": 3.5
+    }
+  },
+  "tiangang_helmet": {
+    "armorSet": "tiangang",
+    "bonusStats": {
+      "maxHp": 24
+    },
+    "bonusPerEnhance": {
+      "maxHp": 8.5
+    },
+    "defense": {
+      "base": 38,
+      "perEnhance": 3.5
+    }
+  },
+  "天罡重甲": {
+    "armorSet": "tiangang",
+    "defense": {
+      "base": 54,
+      "perEnhance": 5
+    }
+  },
+  "tiangang_armor": {
+    "armorSet": "tiangang",
+    "defense": {
+      "base": 54,
+      "perEnhance": 5
+    }
+  },
+  "天罡重靴": {
+    "armorSet": "tiangang",
+    "defense": {
+      "base": 19,
+      "perEnhance": 3.5
+    }
+  },
+  "tiangang_boots": {
+    "armorSet": "tiangang",
+    "defense": {
+      "base": 19,
+      "perEnhance": 3.5
+    }
+  },
+  "神域战盔": {
+    "armorSet": "oracle",
+    "bonusStats": {
+      "maxHp": 28
+    },
+    "bonusPerEnhance": {
+      "maxHp": 9.5
+    },
+    "defense": {
+      "base": 12,
+      "perEnhance": 3
+    }
+  },
+  "oracle_helmet": {
+    "armorSet": "oracle",
+    "bonusStats": {
+      "maxHp": 28
+    },
+    "bonusPerEnhance": {
+      "maxHp": 9.5
+    },
+    "defense": {
+      "base": 12,
+      "perEnhance": 3
+    }
+  },
+  "神域战甲": {
+    "armorSet": "oracle",
+    "bonusStats": {
+      "maxHp": 45
+    },
+    "bonusPerEnhance": {
+      "maxHp": 13
+    },
+    "defense": {
+      "base": 20,
+      "perEnhance": 4.2
+    }
+  },
+  "oracle_armor": {
+    "armorSet": "oracle",
+    "bonusStats": {
+      "maxHp": 45
+    },
+    "bonusPerEnhance": {
+      "maxHp": 13
+    },
+    "defense": {
+      "base": 20,
+      "perEnhance": 4.2
+    }
+  },
+  "神域战靴": {
+    "armorSet": "oracle",
+    "bonusStats": {
+      "maxHp": 20
+    },
+    "bonusPerEnhance": {
+      "maxHp": 7
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 2.4
+    }
+  },
+  "oracle_boots": {
+    "armorSet": "oracle",
+    "bonusStats": {
+      "maxHp": 20
+    },
+    "bonusPerEnhance": {
+      "maxHp": 7
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 2.4
+    }
+  },
+  "神域项链": {
+    "bonusStats": {
+      "str": 6,
+      "dex": 6
+    },
+    "bonusPerEnhance": {
+      "str": 3,
+      "dex": 3
+    }
+  },
+  "necklace_oracle": {
+    "bonusStats": {
+      "str": 6,
+      "dex": 6
+    },
+    "bonusPerEnhance": {
+      "str": 3,
+      "dex": 3
+    }
+  },
+  "神域之戒": {
+    "bonusStats": {
+      "atk": 8
+    },
+    "bonusPerEnhance": {
+      "atk": 4.5
+    }
+  },
+  "ring_oracle": {
+    "bonusStats": {
+      "atk": 8
+    },
+    "bonusPerEnhance": {
+      "atk": 4.5
+    }
+  },
+  "神域腰带": {
+    "bonusStats": {
+      "maxHp": 60
+    },
+    "bonusPerEnhance": {
+      "maxHp": 30
+    }
+  },
+  "belt_oracle": {
+    "bonusStats": {
+      "maxHp": 60
+    },
+    "bonusPerEnhance": {
+      "maxHp": 30
+    }
+  },
+  "神谕法帽": {
+    "armorSet": "oracle_robe",
+    "bonusStats": {
+      "wis": 4
+    },
+    "bonusPerEnhance": {
+      "wis": 2.5
+    },
+    "defense": {
+      "base": 11,
+      "perEnhance": 2.6
+    }
+  },
+  "oracle_robe_helmet": {
+    "armorSet": "oracle_robe",
+    "bonusStats": {
+      "wis": 4
+    },
+    "bonusPerEnhance": {
+      "wis": 2.5
+    },
+    "defense": {
+      "base": 11,
+      "perEnhance": 2.6
+    }
+  },
+  "神谕法袍": {
+    "armorSet": "oracle_robe",
+    "bonusStats": {
+      "int": 4
+    },
+    "bonusPerEnhance": {
+      "int": 2.5
+    },
+    "defense": {
+      "base": 15,
+      "perEnhance": 2.6
+    }
+  },
+  "oracle_robe_armor": {
+    "armorSet": "oracle_robe",
+    "bonusStats": {
+      "int": 4
+    },
+    "bonusPerEnhance": {
+      "int": 2.5
+    },
+    "defense": {
+      "base": 15,
+      "perEnhance": 2.6
+    }
+  },
+  "神谕长靴": {
+    "armorSet": "oracle_robe",
+    "defense": {
+      "base": 6,
+      "perEnhance": 2.5
+    }
+  },
+  "oracle_robe_boots": {
+    "armorSet": "oracle_robe",
+    "defense": {
+      "base": 6,
+      "perEnhance": 2.5
+    }
+  },
+  "圣辉轻盔": {
+    "armorSet": "holy",
+    "bonusStats": {
+      "maxHp": 28
+    },
+    "bonusPerEnhance": {
+      "maxHp": 9.5
+    },
+    "defense": {
+      "base": 12,
+      "perEnhance": 3
+    }
+  },
+  "holy_helmet": {
+    "armorSet": "holy",
+    "bonusStats": {
+      "maxHp": 28
+    },
+    "bonusPerEnhance": {
+      "maxHp": 9.5
+    },
+    "defense": {
+      "base": 12,
+      "perEnhance": 3
+    }
+  },
+  "圣辉轻甲": {
+    "armorSet": "holy",
+    "bonusStats": {
+      "maxHp": 45
+    },
+    "bonusPerEnhance": {
+      "maxHp": 13
+    },
+    "defense": {
+      "base": 20,
+      "perEnhance": 4.2
+    }
+  },
+  "holy_armor": {
+    "armorSet": "holy",
+    "bonusStats": {
+      "maxHp": 45
+    },
+    "bonusPerEnhance": {
+      "maxHp": 13
+    },
+    "defense": {
+      "base": 20,
+      "perEnhance": 4.2
+    }
+  },
+  "圣辉轻靴": {
+    "armorSet": "holy",
+    "bonusStats": {
+      "maxHp": 20
+    },
+    "bonusPerEnhance": {
+      "maxHp": 7
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 2.4
+    }
+  },
+  "holy_boots": {
+    "armorSet": "holy",
+    "bonusStats": {
+      "maxHp": 20
+    },
+    "bonusPerEnhance": {
+      "maxHp": 7
+    },
+    "defense": {
+      "base": 9,
+      "perEnhance": 2.4
+    }
+  },
+  "stg44": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.24,
+          "perEnhance": 0.04
+        },
+        {
+          "key": "wis",
+          "base": 0.24,
+          "perEnhance": 0.04
+        }
+      ]
+    }
+  },
+  "qbz95": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.4,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.22,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.22,
+          "perEnhance": 0.035
+        }
+      ]
+    }
+  },
+  "frontier_rifle": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "vengeance_rifle": {
+    "attackFormula": {
+      "base": 12,
+      "enhanceFlat": 1,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.5,
+          "perEnhance": 0.08
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.08
+        }
+      ]
+    }
+  },
+  "astral_tide_rifle": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.26,
+          "perEnhance": 0.043
+        },
+        {
+          "key": "wis",
+          "base": 0.26,
+          "perEnhance": 0.043
+        }
+      ]
+    }
+  },
+  "zero_point_rifle": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "corona_cadence_rifle": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.55,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.28,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.28,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "terminal_echo_rifle": {
+    "attackFormula": {
+      "base": 7,
+      "enhanceFlat": 0.5,
+      "attrs": [
+        {
+          "key": "int",
+          "base": 0.27,
+          "perEnhance": 0.045
+        },
+        {
+          "key": "wis",
+          "base": 0.27,
+          "perEnhance": 0.045
+        }
+      ]
+    }
+  },
+  "rpd": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.23,
+          "perEnhance": 0.035
+        },
+        {
+          "key": "wis",
+          "base": 0.2,
+          "perEnhance": 0.025
+        }
+      ]
+    }
+  },
+  "m249": {
+    "attackFormula": {
+      "base": 5,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.19,
+          "perEnhance": 0.029
+        },
+        {
+          "key": "wis",
+          "base": 0.18,
+          "perEnhance": 0.028
+        }
+      ]
+    }
+  },
+  "ultimax100": {
+    "attackFormula": {
+      "base": 6,
+      "enhanceFlat": 0.3,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.26,
+          "perEnhance": 0.038
+        },
+        {
+          "key": "wis",
+          "base": 0.25,
+          "perEnhance": 0.037
+        }
+      ]
+    }
+  },
+  "mg42": {
+    "attackFormula": {
+      "base": 3.5,
+      "enhanceFlat": 0.25,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.13,
+          "perEnhance": 0.02
+        },
+        {
+          "key": "wis",
+          "base": 0.13,
+          "perEnhance": 0.02
+        }
+      ]
+    }
+  },
+  "fusion_core_lmg": {
+    "attackFormula": {
+      "base": 14,
+      "enhanceFlat": 0.9,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 0.55,
+          "perEnhance": 0.085
+        },
+        {
+          "key": "wis",
+          "base": 0.5,
+          "perEnhance": 0.08
+        }
+      ]
+    }
+  }
+}

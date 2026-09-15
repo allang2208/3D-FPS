@@ -17,7 +17,7 @@ class FPSGAME_API APoisonMaggotMonster : public ACharacter
 {
  GENERATED_BODY()
 public:
- APoisonMaggotMonster();
+ APoisonMaggotMonster(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
  virtual void OnConstruction(const FTransform& Transform) override;
  virtual void BeginPlay() override;
  virtual void Tick(float DeltaSeconds) override;
@@ -45,7 +45,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Spit") float FanDegrees=45;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Spit") float PoisonChance=.33f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death") float CorpseSeconds=15;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death") float RagdollStartSeconds=1.65f;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Maggot|Death",meta=(ToolTip="Fallback without a death clip; configured death clips hand off at 60%.")) float RagdollStartSeconds=1.65f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") EPoisonMaggotState State=EPoisonMaggotState::Idle;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float Health=800;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Maggot|Runtime") float StateSeconds=0;

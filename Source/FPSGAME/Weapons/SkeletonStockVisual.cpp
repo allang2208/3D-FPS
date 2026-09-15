@@ -16,20 +16,26 @@ bool IsFactoryStock(FString Name)
 
 void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
 {
-    if (bUseM1911) return;
+    if (IsPistolWeapon()) return;
     auto* Rifle=AKMViewmodel.Get();auto* Asset=Rifle?Rifle->GetSkeletalMeshAsset():nullptr;
     if(!Asset)return;
     const bool AKM=AKMSoviet::Matches(Rifle);
     const bool QR=Variant==TEXT("qr_performance");
-    const bool Enabled=(Variant==TEXT("skeleton")||QR)&&(bUsingM4Infima||AKM)&&bInventoryWeaponReady;
+    const bool Core=Variant==TEXT("core_stock");
+    const bool Tactical=Variant==TEXT("tactical_telescopic");
+    const bool Enabled=(Variant==TEXT("skeleton")||QR||Core||Tactical)&&(bUsingM4Infima||AKM||bUseQBZ191)&&bInventoryWeaponReady;
     bool HasSection=false;
     for(const auto& Material:Asset->GetMaterials())HasSection|=IsFactoryStock(Material.MaterialSlotName.ToString());
     if(Enabled&&!HasSection){UE_LOG(LogTemp,Error,TEXT("SKELETON_STOCK: factory stock section missing on %s"),*Asset->GetPathName());return;}
     if(Enabled)
     {
-        const TCHAR* StockPath=QR
-            ?(AKM?TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/SM_PerformanceStock.SM_PerformanceStock"):TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/M4/SM_PerformanceStock.SM_PerformanceStock"))
-            :(AKM?TEXT("/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock"):TEXT("/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock"));
+        const TCHAR* StockPath=AKM?TEXT("/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock"):TEXT("/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock");
+        if(QR)
+            StockPath=AKM?TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/AKM/SM_PerformanceStock.SM_PerformanceStock"):TEXT("/Game/Weapons/QRPerformanceStock/Meshy20260913/M4/SM_PerformanceStock.SM_PerformanceStock");
+        else if(Core)
+            StockPath=AKM?TEXT("/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/SM_CoreStock.SM_CoreStock"):TEXT("/Game/Weapons/CoreStock20260914/Meshy0914005605/M4/SM_CoreStock.SM_CoreStock");
+        else if(Tactical)
+            StockPath=AKM?TEXT("/Game/Weapons/TacticalTelescopicStock20260914/AKM/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock"):TEXT("/Game/Weapons/TacticalTelescopicStock20260914/M4/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock");
         auto* StockMesh=LoadObject<UStaticMesh>(nullptr,bUseQBZ191?*QBZ191Attachments::MeshPath(Variant):StockPath);
         if(!StockMesh){UE_LOG(LogTemp,Error,TEXT("SKELETON_STOCK: mesh missing"));return;}
         if(!StockAttachment)

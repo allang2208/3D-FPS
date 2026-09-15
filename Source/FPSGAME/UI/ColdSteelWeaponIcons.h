@@ -39,6 +39,7 @@ private:
     mutable uint64 Serial=0;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<class UTexture2D>> Textures;
     UPROPERTY(Transient) TObjectPtr<class AFPSGAMECharacter> Rig;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> MeleeMesh;
     UPROPERTY(Transient) TObjectPtr<class USceneCaptureComponent2D> Capture;
     UPROPERTY(Transient) TObjectPtr<class UTextureRenderTarget2D> Target;
     UPROPERTY(Transient) TArray<TObjectPtr<class UMeshComponent>> CaptureMeshes;
@@ -51,6 +52,7 @@ private:
     int32 Stage=0,Completed=0;
     bool bCatalogExport=false;
     bool Prepare(const FColdSteelItem& Item);
+    bool PrepareMelee(const FColdSteelItem& Item);
     bool Readback(const FString& Key);
     void FinishJob(bool bSuccess);
 };

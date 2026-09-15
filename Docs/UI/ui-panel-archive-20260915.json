@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-15",
+  "scope": "HUD navigation framed runtime assets only",
+  "files": [
+    {
+      "source": "Content/ColdSteelUI/Icons/Navigation/status.png",
+      "archive": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/status.png",
+      "bytes": 1889684,
+      "sha256": "ffe809a8edfe49050a66bc5e739ae3abec5f5ae6738fce384d7eeea97087ffcf",
+      "reason": "Superseded framed HUD navigation runtime asset; generated source retained.",
+      "replacement": "Content/ColdSteelUI/Icons/Navigation/status_subject.png"
+    },
+    {
+      "source": "Content/ColdSteelUI/Icons/Navigation/status.uasset",
+      "archive": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/status.uasset",
+      "bytes": 2070562,
+      "sha256": "fe4e01025fb7408731805ec25a073c4835c0dc0e9325b9f840c42de3f36cc3ec",
+      "reason": "Superseded framed HUD navigation runtime asset; generated source retained.",
+      "replacement": "Content/ColdSteelUI/Icons/Navigation/status_subject.uasset"
+    },
+    {
+      "source": "Content/ColdSteelUI/Icons/Navigation/backpack.png",
+      "archive": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/backpack.png",
+      "bytes": 2034997,
+      "sha256": "519f612f99054f6c11fbc112394bb3ce30b55d8100e3ee8fea121c5698815e06",
+      "reason": "Superseded framed HUD navigation runtime asset; generated source retained.",
+      "replacement": "Content/ColdSteelUI/Icons/Navigation/backpack_subject.png"
+    },
+    {
+      "source": "Content/ColdSteelUI/Icons/Navigation/backpack.uasset",
+      "archive": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/backpack.uasset",
+      "bytes": 2216663,
+      "sha256": "c3c942fa20c5f20da3ff581e7ce86abd35e90022fe90690fed3aae306806af42",
+      "reason": "Superseded framed HUD navigation runtime asset; generated source retained.",
+      "replacement": "Content/ColdSteelUI/Icons/Navigation/backpack_subject.uasset"
+    },
+    {
+      "source": "Content/ColdSteelUI/Icons/Navigation/skills.png",
+      "archive": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/skills.png",
+      "bytes": 1912124,
+      "sha256": "364aa90b90641ca5607e773aa0e0f11256f4645971f3005a2f962f438636a11d",
+      "reason": "Superseded framed HUD navigation runtime asset; generated source retained.",
+      "replacement": "Content/ColdSteelUI/Icons/Navigation/skills_subject.png"
+    },
+    {
+      "source": "Content/ColdSteelUI/Icons/Navigation/skills.uasset",
+      "archive": "trash/ui-panel-polish-20260915/Content/ColdSteelUI/Icons/Navigation/skills.uasset",
+      "bytes": 2090384,
+      "sha256": "0bc91fc4d7aee2115ad18c2842a230bbef97a3c33c4b3ab351eeb963ef180c3c",
+      "reason": "Superseded framed HUD navigation runtime asset; generated source retained.",
+      "replacement": "Content/ColdSteelUI/Icons/Navigation/skills_subject.uasset"
+    }
+  ]
+}

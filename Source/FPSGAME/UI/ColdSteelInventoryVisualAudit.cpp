@@ -97,7 +97,8 @@ void UColdSteelHUDWidget::RunInventoryVisualAudit()
             const auto Current=P->Snapshot();bool Same=Current.Items.Num()==R->Fixture.Items.Num()&&Current.Hotbar==R->Fixture.Hotbar&&Current.ActiveWeaponSlot==R->Fixture.ActiveWeaponSlot;
             for(const auto& Before:R->Fixture.Items){const auto* After=P->FindItem(Before.InstanceId);Same&=After&&After->Data==Before.Data&&After->Count==Before.Count&&After->Place==Before.Place&&After->Cell==Before.Cell&&After->Magazine==Before.Magazine&&After->Reserve==Before.Reserve;}
             // The normal five-second autosave advances Generation even without user writes.
-            Check(Same,TEXT("visual browsing preserves exact item data positions counts ammo and hotbar"));Board->CancelInteraction();SetInventoryOpen(false);GetWorld()->GetTimerManager().ClearTimer(R->Timer);UE_LOG(LogTemp,Display,TEXT("InventoryVisualAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));break;}
+            Check(Same,TEXT("visual browsing preserves exact item data positions counts ammo and hotbar"));Board->CancelInteraction();GetWorld()->GetTimerManager().ClearTimer(R->Timer);UE_LOG(LogTemp,Display,TEXT("InventoryVisualAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);
+            if(FParse::Param(FCommandLine::Get(),TEXT("InventoryColdGlassAudit")))RunInventoryGlassAudit();else{SetInventoryOpen(false);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));}break;}
         }
     }),1.f,true);
 }

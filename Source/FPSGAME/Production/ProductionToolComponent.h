@@ -26,6 +26,7 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     bool IsEquipped() const { return !EquippedId.IsEmpty(); }
+    bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f; }
     void RefreshHeldTool();
     void BeginUse();
     void CancelUse();

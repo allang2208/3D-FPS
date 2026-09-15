@@ -21,14 +21,14 @@
 void UColdSteelHUDWidget::BuildWarehouse(UCanvasPanel* Root)
 {
     WarehouseWidget=CreateWidget<UColdSteelWarehouseWidget>(GetOwningPlayer());WarehouseWidget->Configure(this);
-    WarehouseSlot=Root->AddChildToCanvas(WarehouseWidget);WarehouseSlot->SetAnchors(FAnchors(.55f,0,.55f,1));WarehouseSlot->SetAlignment(FVector2D(1,0));WarehouseSlot->SetOffsets(FMargin(0,0,ReferenceUnits(380),0));WarehouseSlot->SetZOrder(40);WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);
+    WarehouseSlot=Root->AddChildToCanvas(WarehouseWidget);WarehouseSlot->SetAnchors(FAnchors(0,0,0,1));WarehouseSlot->SetAlignment(FVector2D::ZeroVector);WarehouseSlot->SetOffsets(FMargin(ReferenceUnits(12),ReferenceUnits(12),ReferenceUnits(720),ReferenceUnits(12)));WarehouseSlot->SetZOrder(42);WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);
 }
 void UColdSteelHUDWidget::OpenWarehouse(AColdSteelWarehouseChest* Chest)
 {
     if(!Chest||!Chest->CanInteract(GetOwningPlayerPawn()))return;
     if(bWarehouseOpen)return;
     WarehouseChest=Chest;SetInventoryTab(false);SetInventoryOpen(true);
-    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->GrantStartingArmory();M->bWarehouseOpen=true;
+    auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();M->GrantStartingArmory();if(!M->IsAudit())M->GrantEnhancementMaterials();M->bWarehouseOpen=true;
     bWarehouseOpen=true;WarehouseStart=WarehouseMotion;WarehouseElapsed=0;
     WarehouseWidget->ResetPage();WarehouseWidget->SetVisibility(ESlateVisibility::Visible);WarehouseWidget->SetKeyboardFocus();Chest->SetOpen(true);
 }
@@ -37,6 +37,7 @@ void UColdSteelHUDWidget::CloseWarehouse()
     HideItemTooltip(true);
     if(!bWarehouseOpen)return;
     HideWarehouseDetails();
+    WarehouseWidget->CancelInteraction();
     FSlateApplication::Get().CancelDragDrop();bWarehouseOpen=false;
     GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->bWarehouseOpen=false;
     WarehouseStart=WarehouseMotion;WarehouseElapsed=0;WarehouseWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
@@ -64,14 +65,14 @@ void UColdSteelHUDWidget::TickWarehouse(const FGeometry& G,float Delta)
     const float T=WarehouseElapsed/.3f;
     auto Bezier=[](float X,float A,float B){float Low=0,High=1,U=0;for(int N=0;N<16;++N){U=(Low+High)*.5f;float V=3*(1-U)*(1-U)*U*A+3*(1-U)*U*U*B+U*U*U;if(V<X)Low=U;else High=U;}return 3*(1-U)*U*U+U*U*U;};
     WarehouseMotion=FMath::Lerp(WarehouseStart,bWarehouseOpen?1.f:0.f,Bezier(T,.4f,.2f));
-    int32 Width,Height;GetOwningPlayer()->GetViewportSize(Width,Height);
-    const float Pixels=Width<=1100?FMath::Min(380.f,Width*.44f):380.f;
-    WarehouseSlot->SetOffsets(FMargin(0,0,ReferenceUnits(Pixels),0));
-    WarehouseWidget->SetRenderTranslation(FVector2D((1-WarehouseMotion)*ReferenceUnits(Pixels),0));WarehouseWidget->SetRenderOpacity(WarehouseMotion);
+    const float Scale=ColdSteelUI::PixelScale(this);
+    WarehouseWidget->SetRenderTranslation(FVector2D(-(1-WarehouseMotion)*(InventoryWidth+12)/Scale,0));WarehouseWidget->SetRenderOpacity(WarehouseMotion);
     if(!bWarehouseOpen&&T>=1){WarehouseWidget->SetVisibility(ESlateVisibility::Collapsed);if(WarehouseChest.IsValid())WarehouseChest->SetOpen(false);WarehouseChest.Reset();}
 }
 bool UColdSteelHUDWidget::HandleInventoryOutsideClick(FVector2D Position)
 {
+    if(QuickBarDropIndex(Position)>=0)return false;
+    if(PanelNavigation&&PanelNavigation->IsVisible()&&PanelNavigation->GetCachedGeometry().IsUnderLocation(Position))return false;
     if(bInventoryOpen&&!UWidgetBlueprintLibrary::IsDragDropping()){
         const bool InBag=InventoryPanel&&InventoryPanel->GetCachedGeometry().IsUnderLocation(Position);
         const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);

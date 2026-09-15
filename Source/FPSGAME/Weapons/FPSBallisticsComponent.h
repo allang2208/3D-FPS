@@ -5,12 +5,16 @@
 #include "FPSBallisticsComponent.generated.h"
 class UFPSWeaponFXComponent;
 class USoundBase;
+struct FColdSteelItem;
 struct FFPSFlyingRound
 {
     FVector Position,Direction;
     float Speed=0,Remaining=0,Damage=0;
+    float TraveledCM=0,EffectiveRangeCM=0;
     double Timestamp=0;
+    int32 Piercing=0,Poison=0;
     FColdSteelSkillShot Training;
+    TArray<TWeakObjectPtr<AActor>> HitActors;
 };
 /** Straight swept projectiles, matching the source Godot zero-gravity fire path. */
 UCLASS()
@@ -19,7 +23,7 @@ class FPSGAME_API UFPSBallisticsComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UFPSBallisticsComponent();
-    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot);
+    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn) override;
     int32 ActiveCount()const{return Rounds.Num();}
     int32 ImpactCount=0;

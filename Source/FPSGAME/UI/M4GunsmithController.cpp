@@ -9,6 +9,7 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 bool AFPSGAMEPlayerController::OpenGunsmith(const FString& Instance)
 {
+    if(EnhancementPanel)CloseEnhancement();
     if(GunsmithPanel)return false;
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
     const FString Id=Instance.IsEmpty()?(P->Equipped()?P->Equipped()->InstanceId:TEXT("")):Instance;

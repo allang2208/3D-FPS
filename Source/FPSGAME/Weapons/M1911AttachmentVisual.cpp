@@ -60,7 +60,7 @@ void AFPSGAMECharacter::SetM1911Optic(const FString& Variant)
 
 void AFPSGAMECharacter::SetM1911Muzzle(const FString& Variant)
 {
-    const bool Enabled = bInventoryWeaponReady && (Variant == TEXT("true") || Variant == TEXT("brake"));
+    const bool Enabled = bInventoryWeaponReady && (Variant == TEXT("true") || Variant == TEXT("tactical_suppressor") || Variant == TEXT("brake"));
     if (!Enabled)
     {
         // Profile refresh propagates weapon visibility to children. An unequipped
@@ -78,8 +78,8 @@ void AFPSGAMECharacter::SetM1911Muzzle(const FString& Variant)
     }
     if (!MuzzleAttachment || MuzzleVariant != Variant)
     {
-        const bool Suppressor = Variant == TEXT("true");
-        const FString Part = Suppressor ? TEXT("suppressor") : TEXT("brake");
+        const bool Suppressor = Variant == TEXT("true") || Variant == TEXT("tactical_suppressor");
+        const FString Part = Variant == TEXT("tactical_suppressor") ? Variant : Suppressor ? TEXT("suppressor") : TEXT("brake");
         auto* AttachmentMesh = LoadObject<UStaticMesh>(nullptr, *M1911WeaponAssets::AttachmentPath(Part));
         if (!AttachmentMesh) { UE_LOG(LogTemp, Error, TEXT("M1911 missing muzzle %s"), *Part); return; }
         if (!MuzzleAttachment)

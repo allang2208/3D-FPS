@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "../Skills/ColdSteelSkillTypes.h"
+#include "ColdSteelQuickBarTypes.h"
 #include "ColdSteelInventoryTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -29,6 +30,17 @@ struct FColdSteelItem
 };
 
 USTRUCT()
+struct FColdSteelFormulaBuff
+{
+    GENERATED_BODY()
+    UPROPERTY() FName Id;
+    UPROPERTY() TMap<FName,float> Effects;
+    UPROPERTY() float RemainingSeconds=0;
+    UPROPERTY() FString Rarity;
+    UPROPERTY() int32 Battles=0;
+    UPROPERTY() bool bTribute=false;
+};
+USTRUCT()
 struct FColdSteelProfile
 {
     GENERATED_BODY()
@@ -45,16 +57,28 @@ struct FColdSteelProfile
     UPROPERTY() TArray<FColdSteelItem> Items;
     UPROPERTY() TArray<FString> Hotbar;
     UPROPERTY() TArray<FString> HotbarDefinitions;
+    UPROPERTY() int32 QuickBarVersion = 0;
+    UPROPERTY() TArray<FColdSteelQuickBinding> QuickBindings;
     UPROPERTY() float Health = 200;
     UPROPERTY() float Mana = 250;
+    UPROPERTY() int32 StaminaVersion = 0;
+    UPROPERTY() float Stamina = 100;
+    UPROPERTY() float StaminaRecoveryDelay = 0;
+    UPROPERTY() bool bSprintExhausted = false;
     UPROPERTY() int32 WarehousePages = 5;
+    // Missing in legacy saves: one item per cell. Version 1 uses spatial pages.
+    UPROPERTY() int32 WarehouseLayoutVersion = 0;
     UPROPERTY() TArray<FString> ArmoryReceived;
+    UPROPERTY() int32 EnhancementSupplyVersion = 0;
+    UPROPERTY() int32 SkillProgressVersion = 0;
+    UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
+    UPROPERTY() TArray<FColdSteelFormulaBuff> FormulaBuffs;
+    UPROPERTY() float FireballCooldown = 0;
+    UPROPERTY() bool bFireballReserved = false;
     // Optional tagged fields: legacy profiles start with no tools or depleted nodes.
     UPROPERTY() int32 ProductionSupplyVersion = 0;
     UPROPERTY() FString ActiveProductionTool;
     UPROPERTY() TMap<FString,int32> HarvestProgress; // world GUID:v1:layer:candidate -> 1..3 hits
-    UPROPERTY() int32 SkillProgressVersion = 0;
-    UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
 };
 
 UCLASS()
@@ -76,6 +100,7 @@ struct FColdSteelProposal
 
 namespace ColdSteelInventory
 {
+    inline bool IsDualPistol(const FColdSteelItem& I) { return I.Definition==TEXT("ue_m1911") || I.Definition==TEXT("ue_dan_wesson715"); }
     FPSGAME_API FString Text(const FColdSteelItem& Item, const TCHAR* Key);
     FPSGAME_API double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default = 0);
     FPSGAME_API bool Flag(const FColdSteelItem& Item, const TCHAR* Key);

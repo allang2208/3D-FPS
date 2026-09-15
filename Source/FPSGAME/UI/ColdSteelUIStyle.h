@@ -20,6 +20,8 @@ namespace ColdSteelUI
     inline const FLinearColor Accent = Gray(214);
     inline const FLinearColor Border = Gray(222,46);
     inline const FLinearColor Warning = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F0BE71FF")));
+    inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
+    inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
     inline const FLinearColor Danger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF8193FF")));
     inline const FLinearColor Success = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("68D5ADFF")));
     inline const FLinearColor ButtonNormal = Gray(43,190);
@@ -32,13 +34,25 @@ namespace ColdSteelUI
     inline constexpr float GlassBlurStrength=9.f,PanelRadius=10.f,CardRadius=8.f,ButtonRadius=6.f;
     inline constexpr int32 GlassBlurRadius=21;
     inline constexpr float ActionHeight=36.f,ActionGap=4.f;
+    inline constexpr float NavigationSize=88.f,NavigationGap=25.f,NavigationRight=32.f;
+    inline constexpr float NavigationHoverScale=1.25f,NavigationHoverDuration=.2f;
+    inline constexpr float NavigationOverflow=NavigationSize*(NavigationHoverScale-1.f)*.5f;
+    inline constexpr float NavigationDrawerInset=NavigationRight+NavigationSize+NavigationOverflow+12.f;
+    inline const FLinearColor NavigationSelected = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
+    inline const FLinearColor NavigationKey = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("54D9DCFF")));
+    inline constexpr float InventoryItemRadius=5.f,ProcessingCornerUnderlap=.5f;
     // Item inspection cards: source white tooltip, explicitly requested 2026-09-09.
-    inline const FLinearColor ItemTooltipSurface = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F5F5F5FF")));
-    inline const FLinearColor ItemTooltipText = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("292520FF")));
-    inline const FLinearColor ItemTooltipSecondary = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6B5D4FFF")));
+    inline const FLinearColor ItemTooltipSurface = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("EEF0F2FF")));
+    inline const FLinearColor ItemTooltipHeader = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E2E6E9FF")));
+    inline const FLinearColor ItemTooltipText = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("252A2EFF")));
+    inline const FLinearColor ItemTooltipSecondary = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("697278FF")));
+    inline const FLinearColor ItemTooltipRule = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("CDD2D5FF")));
     inline const FLinearColor ItemTooltipBorder = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("00000033")));
     inline const FLinearColor ItemTooltipPositive = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("247124FF")));
     inline const FLinearColor ItemTooltipNegative = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B82020FF")));
+    inline const FLinearColor ItemTooltipDisclosure = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
+    inline const FLinearColor ItemTooltipDisclosureFlash = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57BCD5FF")));
+    inline const FLinearColor ItemTooltipDisclosureOutline = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("123D4BFF")));
 
     FPSGAME_API FSlateBrush RoundedBrush(const FLinearColor& Fill, float Radius, const FLinearColor& Outline = Border, float OutlineWidth = 1.0f);
     FPSGAME_API FButtonStyle ButtonStyle(float Scale=1.f);

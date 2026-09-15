@@ -36,6 +36,7 @@ private:
     UFUNCTION() void ConfirmSplit();
     UFUNCTION() void Drop();
     UFUNCTION() void OpenGunsmith();
+    UFUNCTION() void OpenEnhancement();
     UFUNCTION() void Details();
     UFUNCTION() void SortBag();
     UFUNCTION() void SaveBag();

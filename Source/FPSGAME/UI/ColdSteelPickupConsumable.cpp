@@ -6,6 +6,15 @@
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
     const FString& Id=Item.Definition;
+    if(Id==TEXT("ue_rune_sword"))
+    {
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
+        if(!Asset)return false;
+        const auto Bounds=Asset->GetBounds();
+        Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
+        Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1)));
+        return true;
+    }
     const bool bMaterial=Id==TEXT("enhancement_stone")||Id==TEXT("magic_dust");
     const bool bScroll=Id==TEXT("enchant_scroll_heavy")||Id==TEXT("enchant_scroll_sharp")||Id==TEXT("enchant_scroll_skeleton")||Id==TEXT("enchant_scroll_tarantula");
     if(!bMaterial&&!bScroll&&Id!=TEXT("hp_potion")&&Id!=TEXT("mp_potion")&&Id!=TEXT("ammo_556")&&Id!=TEXT("ammo_762"))return false;

@@ -45,6 +45,11 @@ public:
     UFPSWeaponFXComponent();
     UFUNCTION(BlueprintCallable, Category="Weapon FX")
     void Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera);
+    void SetIndependentPistol(bool Revolver,bool Suppressed,class USceneComponent* Exit);
+    FVector ShotOrigin() const { return MuzzleLocation(); }
+    FVector ShotForward() const { return MuzzleForward(); }
+    bool IndependentSuppressed=false;
+    bool bUseCharacterMuzzle=true;
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnShot(bool bADS);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
     void OnTracerSegment(const FVector& Start,const FVector& End);
@@ -70,6 +75,8 @@ public:
     UPROPERTY(EditAnywhere, Category="Weapon FX|Smoke", meta=(ClampMin="1.0", ClampMax="2.5")) float SmokeSpreadScale = 1.6f;
 
 private:
+    bool bIndependentPistol=false, bIndependentRevolver=false;
+    UPROPERTY(Transient) TObjectPtr<class USceneComponent> IndependentExit;
     void SpawnCasing();
     bool ShouldHideCasings() const;
     bool SpawnEpicFX(FVector Position, FVector Forward, float Scale);

@@ -4,6 +4,8 @@
 #include "AnimNodes/AnimNode_SequenceEvaluator.h"
 #include "AnimNodes/AnimNode_TwoWayBlend.h"
 #include "Animation/BoneReference.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "PistolDualAimNode.h"
 
 // Apply cartridge visibility after blending so a partially loaded cylinder
 // never gains live rounds from the idle pose. Baked extraction stays intact.
@@ -53,39 +55,58 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     FAnimNode_SequenceEvaluator_Standalone Idle;
     FAnimNode_SequenceEvaluator_Standalone Aim;
     FAnimNode_SequenceEvaluator_Standalone Action;
+    FAnimNode_SequenceEvaluator_Standalone Sprint;
+    FAnimNode_TwoWayBlend SprintBlend;
     FAnimNode_TwoWayBlend AimBlend;
     FAnimNode_TwoWayBlend ActionBlend;
     FDW715CartridgePose CartridgePose;
+    FAnimNode_SequenceEvaluator_Standalone DualAimReference;
+    FPistolDualAimNode DualAim;
 
     explicit FFPSGunplayAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
-        AimBlend.A.SetLinkNode(&Idle);
+        SprintBlend.A.SetLinkNode(&Idle);
+        SprintBlend.B.SetLinkNode(&Sprint);
+        AimBlend.A.SetLinkNode(&SprintBlend);
         AimBlend.B.SetLinkNode(&Aim);
         ActionBlend.A.SetLinkNode(&AimBlend);
         ActionBlend.B.SetLinkNode(&Action);
         CartridgePose.Source.SetLinkNode(&ActionBlend);
+        DualAim.Source.SetLinkNode(&CartridgePose);
+        DualAim.Reference.SetLinkNode(&DualAimReference);
     }
 
-    virtual FAnimNode_Base* GetCustomRootNode() override { return &CartridgePose; }
+    virtual FAnimNode_Base* GetCustomRootNode() override { return &DualAim; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Idle, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose});
+        Nodes.Append({&Idle, &Sprint, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
         FAnimInstanceProxy::PreUpdate(Instance, DeltaSeconds);
         const UFPSGunplayAnimInstance* Data = CastChecked<UFPSGunplayAnimInstance>(Instance);
+        DualAim.bEnabled=Data->bDualPistolAim;
+        DualAim.Side=FMath::Clamp(Data->DualPistolSide,0,1);
+        DualAim.Weight=Data->DualPistolAimAlpha;
+        if(DualAim.bEnabled)DualAim.Target=GetSkelMeshComponent()->GetComponentTransform().InverseTransformPosition(Data->DualPistolAimTargetWorld);
+        DualAimReference.SetSequence(Data->IdleClip);
+        DualAimReference.SetExplicitTime(0.f);
         CartridgePose.bEnabled = Data->bRevolver;
         CartridgePose.LiveRounds = Data->RevolverLiveRounds;
         CartridgePose.Cartridges = Data->RevolverCartridges;
         Idle.SetSequence(Data->IdleClip);
         Aim.SetSequence(Data->AimClip ? Data->AimClip : Data->IdleClip);
         Action.SetSequence(Data->ActionClip ? Data->ActionClip : Data->IdleClip);
+        Sprint.SetSequence(Data->SprintClip ? Data->SprintClip : Data->IdleClip);
+        Sprint.SetExplicitTime(Data->SprintTime);
+        // Locomotion precedes ADS and action blending: reload/fire own their contacts.
+        SprintBlend.Alpha = Data->SprintClip ? Data->SprintAlpha : 0.f;
         const auto LoopTime = [](UAnimSequence* Clip, float Time)
         {
             return Clip && Clip->GetPlayLength() > SMALL_NUMBER ? FMath::Fmod(Time, Clip->GetPlayLength()) : 0.0f;
         };
         Idle.SetExplicitTime(LoopTime(Data->IdleClip, Data->BaseTime));
+        DualAimReference.SetExplicitTime(LoopTime(Data->IdleClip, Data->BaseTime));
         // A stable aim reference makes entering ADS deterministic. Breathing is a separate small pose layer.
         Aim.SetExplicitTime(0.0f);
         Action.SetExplicitTime(Data->ActionTime);

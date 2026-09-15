@@ -3,7 +3,13 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "M4GunsmithWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "GunsmithUIStyle.h"
+#include "Widgets/Layout/SBox.h"
+#include "Widgets/Layout/SScrollBox.h"
+#include "Widgets/Layout/SBackgroundBlur.h"
+#include "Widgets/SBoxPanel.h"
 #include "Components/SceneCaptureComponent2D.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Engine.h"
 #include "TimerManager.h"
@@ -30,7 +36,12 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
         Check(PreviewWorlds()==BaselineWorlds+1,TEXT("isolated studio world created"));
         GunsmithPanel->Choose(true);GunsmithPanel->ChooseDrum(true);
         const auto& Rows=GunsmithPanel->GetOverviewRows();
-        Check(Rows.Num()==18&&Rows.ContainsByPredicate([](const auto& R){return R.Label==TEXT("枪械稳定性 ↑");}),TEXT("all eighteen overview rows include quantified handling"));
+        Check(Rows.Num()==20&&Rows.ContainsByPredicate([](const auto& R){return R.Label==TEXT("ADS水平上限/发");}),TEXT("all twenty overview rows retain vertical and horizontal handling"));
+        Check(GunsmithPanel->CategoryButtons.Num()==9&&GunsmithPanel->CategoryTextures.Num()==9&&GunsmithPanel->CategoryMaterials.Num()==9,TEXT("all nine generated category icons use packaged UI materials"));
+        Check(GunsmithPanel->GlassLayers.Num()==3&&GunsmithPanel->PanelBrush.TintColor.GetSpecifiedColor().A<.85f,TEXT("three real blur panels have translucent tint"));
+        for(const auto& Blur:GunsmithPanel->GlassLayers)Check(!Blur->IsUsingLowQualityFallbackBrush(),TEXT("glass uses real blur render path"));
+        for(const TCHAR* Font:{TEXT("NotoSansSC-Regular.otf"),TEXT("NotoSansSC-Medium.otf"),TEXT("JetBrainsMono-Regular.ttf"),TEXT("JetBrainsMono-Medium.ttf")})
+            Check(IFileManager::Get().FileExists(*(FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts")/Font)),TEXT("project font exists independently of Windows installed faces"));
         const auto* Capacity=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("弹匣容量");});
         const auto* ADS=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("开镜耗时");});
         const auto* Reload=Rows.FindByPredicate([](const auto& R){return R.Label==TEXT("普通换弹");});
@@ -38,7 +49,7 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
         Check(Capacity&&Capacity->Current==TEXT("30 发")&&Capacity->Final==TEXT("50 发")&&Capacity->Benefit==1,TEXT("capacity before after and benefit"));
         Check(ADS&&ADS->Current==TEXT("240 ms")&&ADS->Final==TEXT("209 ms")&&ADS->Benefit==1,TEXT("faster ADS uses lower-is-better semantics"));
         Check(Reload&&Reload->Benefit==-1&&Reload->Final==FString::Printf(TEXT("%.2f s"),G->Calculate(G->Definition(),G->Draft()).Reload),TEXT("reload display derives from current catalog"));
-        Check(Speed&&Speed->Final==TEXT("即时命中"),TEXT("hitscan does not display zero projectile speed"));
+        Check(Speed&&Speed->Final==TEXT("90 m/s"),TEXT("projectile speed matches migrated M4 baseline"));
         Check(C->GetMagazineCapacity()==30&&C->GetMagazineAmmo()==17,TEXT("presentation preview preserves live ammo"));
     });
     Later(4,[this,C,G,Check](){
@@ -65,7 +76,35 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
         App.ProcessMouseButtonDoubleClickEvent(Window->GetNativeWindow(),FPointerEvent(0,At,At,Held,EKeys::LeftMouseButton,0,FModifierKeysState()));
         Check(GunsmithPanel->GetPreviewOrbit().IsNearlyZero()&&!Surface->HasMouseCapture(),TEXT("double click restores horizontal pose"));
     });
-    Later(7,[Dir](){FScreenshotRequest::RequestScreenshot(Dir/TEXT("workbench-draft.png"),true,false);});
+    Later(7,[this,Check,Dir](){
+        if(auto* Panel=GunsmithPanel.Get())
+        {
+            const auto Body=Panel->BodyHost->GetCachedGeometry();const auto Rail=Panel->CategoryScroll->GetCachedGeometry();
+            const FVector2D RailAt=Body.AbsoluteToLocal(Rail.GetAbsolutePosition());
+            Check(RailAt.X>=0&&RailAt.X+Rail.GetLocalSize().X<=Body.GetLocalSize().X,TEXT("left category rail stays within viewport body"));
+            Check(Panel->OverviewList->GetChildren()->Num()==20,TEXT("every overview row remains reachable in table scroll"));
+            const auto Footer=Panel->FooterContent->GetCachedGeometry();const auto Root=Panel->TakeWidget()->GetCachedGeometry();
+            Check(Footer.GetAbsolutePosition().Y+Footer.GetAbsoluteSize().Y<=Root.GetAbsolutePosition().Y+Root.GetAbsoluteSize().Y+2,TEXT("apply and undo remain within viewport bottom"));
+            Panel->CategoryScroll->ScrollToEnd();
+            Check(Panel->Capture->ProjectionType==ECameraProjectionMode::Orthographic,TEXT("default exhibition uses flat orthographic view"));
+            for(const auto& Pair:Panel->StudioCopies)if(auto* Rifle=Cast<USkeletalMeshComponent>(Pair.Value);Rifle&&Rifle->DoesSocketExist(TEXT("WPN_FrontSight")))
+            {
+                const FVector Axis=(Rifle->GetSocketLocation(TEXT("WPN_FrontSight"))-Rifle->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+                const FVector Up=Rifle->GetSocketLocation(TEXT("WPN_RearSight"))-Rifle->GetSocketLocation(TEXT("WPN_SOCKET_Magazine"));
+                const FVector Upright=(Up-Axis*FVector::DotProduct(Up,Axis)).GetSafeNormal();
+                Check(FVector::DotProduct(Axis,-Panel->Capture->GetRightVector())>.9999,TEXT("barrel is horizontal without perspective yaw"));
+                Check(FVector::DotProduct(Upright,Panel->Capture->GetUpVector())>.9999,TEXT("default rifle has no inherited roll"));break;
+            }
+        }
+        FScreenshotRequest::RequestScreenshot(Dir/TEXT("workbench-draft.png"),true,false);
+    });
+    Later(7.5f,[this,Check](){if(!GunsmithPanel)return;auto* Panel=GunsmithPanel.Get();
+        const auto Scroll=Panel->CategoryScroll->GetCachedGeometry();
+        const auto Last=Panel->CategoryButtons.FindChecked(TEXT("tactical"))->GetCachedGeometry();
+        const FVector2D At=Scroll.AbsoluteToLocal(Last.GetAbsolutePosition());
+        Check(At.Y>=-2&&At.Y+Last.GetLocalSize().Y<=Scroll.GetLocalSize().Y+2,TEXT("last category fully reachable after scrolling"));
+        Panel->CategoryScroll->ScrollToStart();
+    });
     Later(8,[this,P,G,Check](){if(!GunsmithPanel)return;P->AuditFailNextSave=true;Check(!GunsmithPanel->ApplyDraft()&&G->Pending()==2,TEXT("failed save retains draft"));Check(GunsmithPanel->ApplyDraft(),TEXT("apply uses existing transaction"));
         bool Unchanged=true;for(const auto& R:GunsmithPanel->GetOverviewRows())Unchanged&=R.Delta==TEXT("—");Check(Unchanged,TEXT("after application current comparison has no deltas"));
         GunsmithPanel->SetCompareFactory(true);const auto& Rows=GunsmithPanel->GetOverviewRows();Check(Rows[1].Current==TEXT("30 发")&&Rows[1].Delta==TEXT("+20 发"),TEXT("factory comparison retains cumulative attachment impact"));
@@ -79,7 +118,10 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
         if(Window){const auto Geometry=Surface->GetCachedGeometry();const FVector2D At=Geometry.LocalToAbsolute(Geometry.GetLocalSize()*.5f);const TSet<FKey> Held{EKeys::LeftMouseButton};App.ProcessMouseButtonDownEvent(Window->GetNativeWindow(),FPointerEvent(0,At,At,Held,EKeys::LeftMouseButton,0,FModifierKeysState()));}
         Check(Surface->HasMouseCapture(),TEXT("begin captured drag before closing"));CloseGunsmith();Check(!Surface->HasMouseCapture(),TEXT("closing during drag releases pointer"));
         Check(!Panel->HasWorkbenchCapture()&&PreviewWorlds()==BaselineWorlds,TEXT("close releases capture and studio world"));Check(C->HasGunsmithDrum()&&C->GetMagazineCapacity()==50,TEXT("closing preserves applied configuration"));Check(P->ReloadProfile()&&C->HasGunsmithDrum(),TEXT("saved configuration restores"));});
-    Later(15,[this,G,Check](){Check(OpenGunsmith(),TEXT("reopen workbench"));if(!GunsmithPanel)return;GunsmithPanel->ChooseDrum(false);G->Undo();GunsmithPanel->ChooseDrum(G->Draft().FindRef(TEXT("magazine"))==TEXT("large_drum"));Check(G->Pending()==0,TEXT("undo retains installed drum"));CloseGunsmith();});
+    Later(15,[this,G,C,Check](){Check(OpenGunsmith(),TEXT("reopen workbench"));if(!GunsmithPanel)return;
+        GunsmithPanel->ChooseOption(TEXT("optic"),TEXT("prism_scope_2x"));Check(GunsmithPanel->ApplyDraft(),TEXT("save non-holographic optic for undo regression"));
+        GunsmithPanel->ChooseDrum(false);GunsmithPanel->ChooseOption(TEXT("optic"),TEXT("lpvo_1_6x"));GunsmithPanel->UndoDraft();
+        Check(G->Pending()==0&&C->HasGunsmithDrum()&&C->GetGunsmithOpticVariant()==TEXT("prism_scope_2x"),TEXT("undo restores installed drum and exact optic variant"));CloseGunsmith();});
     Later(16,[this,P,Check](){auto State=P->Snapshot();auto Other=P->CreateItem(TEXT("ue_m4a1"));Other.Place=0;Other.Cell=0;Other.Magazine=11;State.Items.Add(Other);Check(P->CommitState(State)&&OpenGunsmith(Other.InstanceId),TEXT("inventory instance opens with explicit unequipped placeholder"));});
     Later(18,[Dir](){FScreenshotRequest::RequestScreenshot(Dir/TEXT("workbench-unequipped.png"),true,false);});
     Later(19,[this,Check,Counts,PreviewWorlds,BaselineWorlds](){auto* Panel=GunsmithPanel.Get();CloseGunsmith();Check(Panel&&!Panel->HasWorkbenchCapture()&&PreviewWorlds()==BaselineWorlds,TEXT("repeated close leaves no captures or studio worlds"));if(FParse::Param(FCommandLine::Get(),TEXT("GunsmithLayoutStress"))){RunGunsmithLayoutStress(Counts);return;}UE_LOG(LogTemp,Display,TEXT("WORKBENCH: COMPLETE checks=%d failures=%d"),Counts->X,Counts->Y);ConsoleCommand(TEXT("quit"));});

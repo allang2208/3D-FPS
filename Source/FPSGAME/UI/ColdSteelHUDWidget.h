@@ -18,6 +18,7 @@ class UTextBlock;
 class UTexture2D;
 class UVerticalBox;
 class UWidget;
+class UOverlay;
 class UColdSteelDetailRow;
 class UColdSteelStatusModel;
 
@@ -31,6 +32,7 @@ public:
     void ToggleInventory();
     bool HandlePanelShortcut(const FKey& Key, bool bRepeat = false);
     bool HandleInventoryOutsideClick(FVector2D ScreenPosition);
+    bool HandlePanelNavigationClick(FVector2D ScreenPosition);
 
     UFUNCTION(BlueprintPure, Category = "Cold Steel UI")
     bool IsInventoryOpen() const { return bInventoryOpen; }
@@ -44,8 +46,19 @@ public:
     void RunInventoryAudit();
     void RunWeaponIconAudit();
     void RunInventoryVisualAudit();
+    void RunInventoryGlassAudit();
     void RunInventoryDragAudit();
     void RunDropHitchAudit();
+    void BeginInventoryDrag(class UColdSteelItemDrag* Drag);
+    void UpdateInventoryDrag(class UColdSteelItemDrag* Drag,FVector2D ScreenPosition);
+    void EndInventoryDrag();
+    class UColdSteelQuickDrag* StartQuickDrag(FName Skill,int32 From,const FSlateBrush* Icon,FVector2D Position);
+    void UpdateQuickDrag(UColdSteelQuickDrag* Drag,FVector2D Position);
+    bool DropQuickDrag(UColdSteelQuickDrag* Drag,int32 Target);
+    bool DropInventoryOnQuickBar(UColdSteelItemDrag* Drag,int32 Target);
+    void EndQuickDrag();
+    void CancelQuickDrag();
+    bool IsQuickDragging() const { return QuickDrag.IsValid(); }
     void RunItemTooltipAudit();
     void RunTopVitalsAudit();
     void ShowItemTooltip(const FString& Id,FVector2D ScreenAnchor,bool Pinned=false,UWidget* Source=nullptr);
@@ -58,25 +71,48 @@ public:
     void CloseWarehouse();
     bool IsWarehouseOpen() const { return bWarehouseOpen; }
     void RunWarehouseAudit();
+    void RunWarehouseGlassAudit();
     void ShowWarehouseDetails(UWidget* Details);
     UFUNCTION() void HideWarehouseDetails();
 
 protected:
     virtual void NativeOnInitialized() override;
     virtual void NativeConstruct() override;
-    virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
     virtual void NativeDestruct() override;
     virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+    virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
     virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
     virtual FReply NativeOnPreviewKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
     virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
     virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
+    virtual bool NativeOnDragOver(const FGeometry&,const FDragDropEvent&,class UDragDropOperation*) override;
+    virtual bool NativeOnDrop(const FGeometry&,const FDragDropEvent&,class UDragDropOperation*) override;
     virtual UWidget* NativeGetDesiredFocusTarget() const override;
 
 private:
     friend struct FWeatherWorldAudit;
     UPROPERTY() TObjectPtr<class UColdSteelItemTooltip> ItemTooltip;
     void BuildInterface();
+    void BuildPanelNavigation(UCanvasPanel* Root);
+    void TickPanelNavigation(const FGeometry& Geometry,float Delta);
+    void ActivatePanelNavigation(int32 Page);
+    UFUNCTION() void HandleNavigationStatus();
+    UFUNCTION() void HandleNavigationBackpack();
+    UFUNCTION() void HandleNavigationSkills();
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> PanelNavigation;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> PanelNavigationSlot;
+    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> PanelNavigationButtons;
+    UPROPERTY(Transient) TArray<TObjectPtr<USizeBox>> PanelNavigationSizes;
+    UPROPERTY(Transient) TArray<TObjectPtr<UImage>> PanelNavigationMarkers;
+    UPROPERTY(Transient) TArray<TObjectPtr<UWidget>> PanelNavigationSubjects;
+    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> PanelNavigationKeys;
+    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> PanelNavigationFallbacks;
+    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> PanelNavigationNames;
+    float PanelNavigationElapsed=0.f,PanelNavigationScale=0.f;
+    float PanelNavigationSize=0.f,PanelNavigationGap=0.f;
+    struct FNavigationHover {float Value=0.f,From=0.f,Elapsed=.2f;bool Target=false;};
+    TArray<FNavigationHover> PanelNavigationHover;
+    TArray<uint8> PanelNavigationStates;
     void BuildWarehouse(UCanvasPanel* Root);
     void TickWarehouse(const FGeometry& Geometry,float Delta);
     UPROPERTY() TObjectPtr<class UColdSteelWarehouseWidget> WarehouseWidget;
@@ -86,6 +122,36 @@ private:
     bool bWarehouseOpen=false;
     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
     void BuildHotbar(UCanvasPanel* Root);
+    void BuildQuickSlot(UOverlay* Overlay,int32 Index);
+    void RefreshQuickBar();
+    int32 QuickBarDropIndex(FVector2D Position) const;
+    void HighlightQuickBar(int32 Index,bool Valid);
+    void HandleQuickDragActivation(bool Active);
+    TWeakObjectPtr<UColdSteelQuickDrag> QuickDrag;
+    FDelegateHandle QuickDragActivationHandle;
+    bool bCloseAfterQuickDrag=false;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UColdSteelQuickSlot>> QuickSlots;
+    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> QuickSlotSurfaces;
+    void BuildStamina(UCanvasPanel* Root);
+    void RefreshStamina();
+    void UpdateStaminaLayout(const FGeometry& Geometry);
+    FDelegateHandle StaminaHandle;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> StaminaSlot;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> StaminaValue;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> StaminaMeterSize;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelResourceMeter> StaminaMeter;
+    UPROPERTY(Transient) TObjectPtr<UProgressBar> StaminaSheetBar;
+    float StaminaLayoutScale=0;
+    FVector2D StaminaLayoutView=FVector2D::ZeroVector;
+    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> HotbarCanvasSlot;
+    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> HotbarDropSlots;
+    TWeakObjectPtr<class UColdSteelItemDrag> InventoryDrag;
+    FSlateRect InventoryDragBounds;
+    bool bInventoryDragOutside=false;
+    FDelegateHandle InventoryDragActivationHandle;
+    void HandleInventoryDragActivation(bool Active);
+    int32 HotbarDropIndex(FVector2D ScreenPosition)const;
+    bool CanDropOnHotbar(const class UColdSteelItemDrag* Drag)const;
     void BuildAmmoReadout(UCanvasPanel* Root);
     void BuildInventory(UCanvasPanel* Root);
     void UpdateInventoryLayout(const FGeometry& Geometry);

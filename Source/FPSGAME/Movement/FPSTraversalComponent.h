@@ -5,6 +5,7 @@
 #include "FPSTraversalComponent.generated.h"
 
 class ACharacter;
+class USceneComponent;
 
 USTRUCT(BlueprintType)
 struct FPSGAME_API FFPSTraversalHandhold
@@ -58,6 +59,7 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
     void InitializePresentation();
+    void SetWeaponHiddenForTraversal(bool bHidden);
     void RunRuntimeAudit();
     void RunVillageAudit();
     void RunAirAudit();
@@ -72,6 +74,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> MantleClip;
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> ClimbClip;
     UPROPERTY(Transient) TObjectPtr<class UAnimSequence> ActiveClip;
+    // Preserve existing hidden flags while traversal temporarily owns the hands.
+    TMap<TWeakObjectPtr<USceneComponent>,bool> HiddenWeaponComponents;
     bool bTraversing = false;
     bool bJumpHeld = false;
     bool bJumpRequestConsumed = false;
@@ -85,7 +89,7 @@ private:
     FVector EntryVelocity=FVector::ZeroVector;
     float EntryLiftTangent=0.f;
     FRotator EntryView;
-    FVector StartLocation, StartCamera, LastCamera, StartFoot, EdgeCorrection, EndCorrection;
+    FVector StartLocation, StartCamera, LastCamera, StartFoot, EdgeCorrection;
     FVector CameraLocalOffset;
     FVector LastExitLocation=FVector::ZeroVector;
     FQuat Facing;

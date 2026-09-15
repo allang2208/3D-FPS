@@ -15,6 +15,9 @@ public:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> IdleClip;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> AimClip;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ActionClip;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> SprintClip;
+    float SprintTime = 0.0f;
+    float SprintAlpha = 0.0f;
     float BaseTime = 0.0f;
     float AimAlpha = 0.0f;
     float ActionTime = 0.0f;
@@ -22,6 +25,10 @@ public:
     bool bRevolver = false;
     int32 RevolverLiveRounds = 6;
     int32 RevolverCartridges = 6;
+    bool bDualPistolAim=false;
+    int32 DualPistolSide=0;
+    float DualPistolAimAlpha=0.f;
+    FVector DualPistolAimTargetWorld=FVector::ZeroVector;
 protected:
     virtual FAnimInstanceProxy* CreateAnimInstanceProxy() override;
     virtual void DestroyAnimInstanceProxy(FAnimInstanceProxy* Proxy) override;

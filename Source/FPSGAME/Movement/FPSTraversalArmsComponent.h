@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "Components/SkeletalMeshComponent.h"
+#include "../Skills/FPSCastingMeshComponent.h"
 #include "FPSTraversalArmsComponent.generated.h"
 
 struct FFPSTraversalTarget;
@@ -8,7 +8,7 @@ struct FFPSTraversalTarget;
 // Manually evaluated, single-player traversal view mesh. Adjust the evaluated
 // pose before its component-space buffers are published to sockets and skinning.
 UCLASS()
-class FPSGAME_API UFPSTraversalArmsComponent : public USkeletalMeshComponent
+class FPSGAME_API UFPSTraversalArmsComponent : public UFPSCastingMeshComponent
 {
     GENERATED_BODY()
 public:

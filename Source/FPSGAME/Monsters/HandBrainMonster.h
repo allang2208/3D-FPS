@@ -2,10 +2,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/DamageType.h"
+#include "../Skills/EnemyAttackDamage.h"
 #include "HandBrainMonster.generated.h"
 class UAnimSequence; class USoundBase; class UAudioComponent; class UStaticMeshComponent; class UMaterialInterface; class UMaterialInstanceDynamic; class USkeletalMesh; class UPhysicsAsset;
 UCLASS()
-class FPSGAME_API UHandBrainMagicDamage : public UDamageType { GENERATED_BODY() };
+class FPSGAME_API UHandBrainMagicDamage : public UEnemyRangedDamage { GENERATED_BODY() };
 UENUM(BlueprintType)
 enum class EHandBrainState : uint8 { Idle, Chase, Returning, Slam, Howl, Stagger, Dying, Ragdoll, Recovery };
 /** Standalone village boss. Combat clock owns one-shot animations and damage events. */
@@ -14,7 +15,7 @@ class FPSGAME_API AHandBrainMonster : public ACharacter
 {
  GENERATED_BODY()
 public:
- AHandBrainMonster();
+ AHandBrainMonster(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
  friend class UMonsterCombatComponent;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
  virtual void OnConstruction(const FTransform& Transform) override;
@@ -46,7 +47,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float SlamCooldown=6.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlRadius=600.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Combat") float HowlCooldown=30.f;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float RagdollStartSeconds=1.15f;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death",meta=(ToolTip="Fallback without a death clip; configured death clips hand off at 60%.")) float RagdollStartSeconds=1.15f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="HandBrain|Death") float CorpseSeconds=15.f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") float Health=1500.f;
  UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="HandBrain|Runtime") EHandBrainState State=EHandBrainState::Idle;

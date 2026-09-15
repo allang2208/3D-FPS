@@ -49,6 +49,10 @@ void UTacticalDeviceComponent::HideEffects()
     if(Beam)Beam->SetVisibility(false);
     if(Light)Light->SetVisibility(false);
 }
+void UTacticalDeviceComponent::SetPresentationHidden(bool Hidden)
+{
+    bPresentationHidden=Hidden;if(Body)Body->SetVisibility(!Hidden && IsComponentTickEnabled());if(Hidden)HideEffects();
+}
 void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Variant,USkeletalMeshComponent* Rifle,bool Enabled)
 {
     HideEffects();Kind=Variant;Host=Rifle;
@@ -65,7 +69,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
         :FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/%s/SM_TacticalDevice"),*Family,*Variant);
     if(!Body)
     {
-        Body=NewObject<UStaticMeshComponent>(GetOwner(),TEXT("TacticalDeviceBody"));
+        Body=NewObject<UStaticMeshComponent>(GetOwner());
         Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);Body->SetCastShadow(false);Body->bReceivesDecals=false;
         Body->SetupAttachment(Rifle,TEXT("WPN_root"));Body->RegisterComponent();
         AddTickPrerequisiteComponent(Rifle);
@@ -97,7 +101,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     Body->SetVisibility(Body->GetStaticMesh()!=nullptr);
     auto MakeEffect=[&](const TCHAR* Name,const TCHAR* Mesh,const TCHAR* Material)
     {
-        auto* C=NewObject<UStaticMeshComponent>(GetOwner(),Name);
+        auto* C=NewObject<UStaticMeshComponent>(GetOwner());
         C->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,Mesh));C->SetMaterial(0,LoadObject<UMaterialInterface>(nullptr,Material));
         C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->SetCastShadow(false);C->bReceivesDecals=false;C->SetVisibility(false);C->RegisterComponent();return C;
     };
@@ -105,7 +109,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     if(!Beam)Beam=MakeEffect(TEXT("TacticalLaserBeam"),TEXT("/Engine/BasicShapes/Cylinder"),TEXT("/Game/Weapons/TacticalDevices20260913/Effects/M_LaserBeam"));
     if(!Light)
     {
-        Light=NewObject<USpotLightComponent>(GetOwner(),TEXT("TacticalFlashlight"));
+        Light=NewObject<USpotLightComponent>(GetOwner());
         Light->SetMobility(EComponentMobility::Movable);Light->SetIntensityUnits(ELightUnits::Lumens);Light->SetIntensity(850.f);
         Light->SetAttenuationRadius(4000.f);Light->SetInnerConeAngle(9.f);Light->SetOuterConeAngle(30.f);
         Light->SetSourceRadius(.6f);Light->SetSoftSourceRadius(.9f);
@@ -115,6 +119,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
 void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Function)
 {
     Super::TickComponent(Delta,Type,Function);HideEffects();
+    if(bPresentationHidden)return;
     const auto* C=Cast<AFPSGAMECharacter>(GetOwner());
     // Preview and dropped-weapon rigs keep geometry, never illuminate the live world.
     if(!C||!C->GetController()||!C->IsLocallyControlled()||C->IsHidden()||!C->HasInventoryWeapon()||C->IsTraversing()||!Host||!Host->IsVisible()||!Body||!Body->IsVisible()||!Body->GetStaticMesh())return;

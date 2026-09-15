@@ -47,11 +47,16 @@ void UColdSteelHUDWidget::NativeConstruct()
     if (StatusModel && !StatusModelHandle.IsValid())
         StatusModelHandle = StatusModel->OnChanged.AddUObject(this, &ThisClass::RefreshCharacterSheet);
     RefreshCharacterSheet();
+    if(StatusModel&&!StaminaHandle.IsValid())StaminaHandle=StatusModel->OnStaminaChanged.AddUObject(this,&ThisClass::RefreshStamina);
+    RefreshStamina();
 }
 void UColdSteelHUDWidget::NativeDestruct()
 {
+    CancelQuickDrag();
     if (StatusModel) StatusModel->OnChanged.Remove(StatusModelHandle);
     StatusModelHandle.Reset();
+    if(StatusModel)StatusModel->OnStaminaChanged.Remove(StaminaHandle);
+    StaminaHandle.Reset();
     if (bInventoryOpen) SetInventoryOpen(false);
     HideStatusTooltip(); HideEquipmentTooltip();
     Super::NativeDestruct();
@@ -121,7 +126,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     const float Scale = ColdSteelUI::PixelScale(this);
     HealthBar = AddCharacterRow(State, TEXT("生命"), TEXT("hp"), TEXT("当前生命 / 当前生命上限。受伤与恢复直接读取角色生命组件。"))->AddMeter(ColdSteelUI::Success, Scale);
     ManaBar = AddCharacterRow(State, TEXT("魔法"), TEXT("mp"), TEXT("当前魔法 / 魔法上限。药水可恢复，随角色保存。"))->AddMeter(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("55799D"))), Scale);
-    AddCharacterRow(State, TEXT("体力"), TEXT("stamina"), TEXT("当前冲刺与滑铲不消耗体力。破折号表示暂无独立体力数值。"))->AddMeter(FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44F"))), Scale);
+    StaminaSheetBar=AddCharacterRow(State, TEXT("体力"), TEXT("stamina"), TEXT("奔跑、近战攻击、采集与闪避消耗体力；不足时无法开始对应动作。体力上限为 100 + 装备加成，基础敏捷与装备敏捷提高恢复速度。"))->AddMeter(ColdSteelUI::Stamina, Scale);
     ExperienceBar = AddCharacterRow(State, TEXT("经验"), TEXT("exp"), TEXT("升级经验 = (20 + 等级×20 + 等级²×12)×8；每级 3 点，余下经验保留。"))->AddMeter(ColdSteelUI::Warning, Scale);
 
     auto* Attributes = AddCharacterCard(Content, TEXT("基础属性"));
@@ -131,9 +136,9 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     const TCHAR* Details[] = {
         TEXT("基础物攻 = 四舍五入(10 + 力量×0.05 + 敏捷×0.10)\n物防 = 向下取整(体质×1.2 + 力量×0.3)"),
         TEXT("攻速倍率 = 1 + 敏捷×0.02\n体力恢复倍率 = 1 + 敏捷×0.01"),
-        TEXT("魔攻 = 向下取整(智力×1.5 + 精神×0.5)\n理论魔法上限 = 100 + 精神×10 + 智力×5"),
-        TEXT("理论生命上限 = 100 + 体质×10\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%"),
-        TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)\n理论魔法上限 = 100 + 精神×10 + 智力×5"),
+        TEXT("魔攻 = 向下取整(智力×1.5 + 精神×0.5)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
+        TEXT("理论生命上限 = 100 + 体质×10 + (等级-1)×10\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%"),
+        TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
         TEXT("幸运不提供随机暴击概率。要害命中由实际命中部位判定。")};
     for (int32 I = 0; I < 6; ++I)
     {
@@ -147,10 +152,12 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     AddCharacterRow(Combat, TEXT("物理防御"), TEXT("def"), TEXT("物防 = 向下取整(体质×1.2 + 力量×0.3)。"));
     AddCharacterRow(Combat, TEXT("魔法攻击"), TEXT("matk"), TEXT("魔攻 = 向下取整(智力×1.5 + 精神×0.5)。"));
     AddCharacterRow(Combat, TEXT("魔法防御"), TEXT("mdef"), TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)。"));
-    AddCharacterRow(Combat, TEXT("暴击条件"), TEXT("crit"), TEXT("命中敌人要害时由伤害接收方判定；无随机暴击。"));
+    AddCharacterRow(Combat, TEXT("暴击率"), TEXT("crit"), TEXT("基础暴击率 = 向下取整(2 + 幸运)。随机暴击率 = max(0, 暴击率 - 目标抗暴)。头部要害仍可触发一次暴击。"));
+    AddCharacterRow(Combat, TEXT("暴击倍率"), TEXT("critMultiplier"), TEXT("技能倍率 = 1 + 50% + 技能等级 × 5%；步枪精通的要害倍率另行相乘。"));
     AddCharacterRow(Combat, TEXT("暴击抵抗"), TEXT("critRes"), TEXT("基础抵抗 = 体质%。"));
     AddCharacterRow(Combat, TEXT("攻速倍率"), TEXT("aspd"), TEXT("攻速倍率 = 1 + 敏捷×0.02；实际射击间隔 = 基础间隔 / 倍率。"));
-    AddCharacterRow(Combat, TEXT("移动速度"), TEXT("moveSpeed"), TEXT("当前姿态下的最大移动速度；随瞄准、蹲伏及冲刺变化。单位：米/秒。"));
+    AddCharacterRow(Combat, TEXT("步行速度"), TEXT("moveSpeed"), TEXT("站立、未瞄准时的步行速度上限，读取角色步行配置；不采样实时速度。单位：米/秒。"));
+    AddCharacterRow(Combat, TEXT("奔跑速度"), TEXT("moveSpeedDetail"), TEXT("站立冲刺状态的速度上限，读取角色奔跑配置；不包含滑铲、瞄准或过渡状态。单位：米/秒。"));
 
     auto* Weapon = AddCharacterCard(Content, TEXT("当前武器实值"));
     AddCharacterRow(Weapon, TEXT("武器"), TEXT("weapon"), TEXT("当前角色使用的实际第一人称武器。"));
@@ -162,15 +169,14 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     AddCharacterRow(Weapon, TEXT("弹药"), TEXT("ammo"), TEXT("弹匣剩余 / 备用弹药；射击与换弹后更新。"));
 
     auto* Detail = AddCharacterCard(Content, TEXT("详细信息"));
-    AddCharacterRow(Detail, TEXT("体力恢复"), TEXT("staminaRegen"), TEXT("原项目基础倍率 = 1 + 敏捷×0.01。当前角色尚无体力消耗。"));
-    AddCharacterRow(Detail, TEXT("生命恢复"), TEXT("hpRegen"), TEXT("当前角色无被动生命恢复。"));
-    AddCharacterRow(Detail, TEXT("魔法恢复"), TEXT("mpRegen"), TEXT("当前角色尚无魔法恢复能力。"));
+    AddCharacterRow(Detail, TEXT("体力恢复"), TEXT("staminaRegen"), TEXT("停止消耗后延迟恢复；恢复速度 = 基础恢复 × (1 + 敏捷×0.01)。"));
+    AddCharacterRow(Detail, TEXT("生命恢复"), TEXT("hpRegen"), TEXT("每秒恢复 (1 + 祭品固定加成) × 祭品恢复倍率。"));
+    AddCharacterRow(Detail, TEXT("魔法恢复"), TEXT("mpRegen"), TEXT("每秒恢复 1 + 精神×0.08 + 智力×0.02，四舍五入保留两位小数；战斗中也恢复。"));
     AddCharacterRow(Detail, TEXT("碰撞体积"), TEXT("collisionRadius"), TEXT("角色胶囊体的当前碰撞半径，单位：米。"));
-    AddCharacterRow(Detail, TEXT("移动速度"), TEXT("moveSpeedDetail"), TEXT("当前水平实际速度，单位：米/秒；静止时为零。"));
     AddCharacterRow(Detail, TEXT("闪避冷却"), TEXT("dodgeCooldown"), TEXT("当前角色使用滑铲，没有独立的闪避技能冷却。"));
     AddCharacterRow(Detail, TEXT("攻击距离"), TEXT("attackRange"), TEXT("当前枪械射线检测的最大距离，单位：米。"));
     AddCharacterRow(Detail, TEXT("击退距离"), TEXT("knockback"), TEXT("击退由目标受击逻辑决定，当前无统一角色数值。"));
-    AddCharacterRow(Detail, TEXT("视野宽度"), TEXT("viewRange"), TEXT("相机当前水平视角；随瞄准、冲刺与窗口比例变化。"));
+    AddCharacterRow(Detail, TEXT("常态垂直视角"), TEXT("viewRange"), TEXT("未瞄准、未冲刺时的基础垂直视角配置；不含开镜缩放、冲刺扩张和开火震动，不受窗口宽高比影响。"));
     auto* Loop = AddCharacterCard(Content, TEXT("轮回信息"));
     const TCHAR* LoopLabels[] = {TEXT("轮回次数"), TEXT("存活天数"), TEXT("击杀数"), TEXT("完成任务"), TEXT("基因锁"), TEXT("主神评价")};
     const TCHAR* LoopKeys[] = {TEXT("loopCount"), TEXT("surviveDays"), TEXT("kills"), TEXT("quests"), TEXT("geneLock"), TEXT("rank")};
@@ -185,6 +191,7 @@ void UColdSteelHUDWidget::SetCharacterValue(const FString& Key, const FString& V
 void UColdSteelHUDWidget::RefreshCharacterSheet()
 {
     RefreshTopVitals();
+    RefreshStamina();
     if (!StatusModel && GetGameInstance()) StatusModel = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if (StatusModel)
     {
@@ -199,6 +206,14 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         SetCharacterValue(TEXT("kills"),FString::FromInt(StatusModel->Kills()));
         CharacterDetails.Add(TEXT("kills"),TEXT("实际击杀累计，每个敌人死亡只结算一次，随角色保存。"));
         CharacterDetails.Add(TEXT("wis"),FString::Printf(TEXT("精神提升魔法防御、魔法攻击与魔力上限。基础 %d + 步枪精通 %d；技能加成常驻，不占用属性点。"),StatusModel->Attributes.FindRef(TEXT("wis")),StatusModel->RifleEffect().Wisdom));
+        CharacterDetails.Add(TEXT("luck"),FString::Printf(TEXT("基础 %d + 暴击技能 %d；暴击率 = 2 + 总幸运，扣除目标体质抗暴后掷随机暴击。要害命中不重复叠加暴击倍率。"),StatusModel->Attributes.FindRef(TEXT("luck")),StatusModel->CriticalStrikeEffect().Luck));
+        SetCharacterValue(TEXT("critMultiplier"),FString::Printf(TEXT("%.2fx"),1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
+        CharacterDetails.Add(TEXT("critMultiplier"),FString::Printf(TEXT("暴击技能提供额外 %.0f%% 伤害；技能倍率 %.2f。随机暴击或要害命中只应用一次；步枪要害倍率仍独立。"),StatusModel->CriticalStrikeEffect().CriticalDamageBonus*100,1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
+        CharacterDetails.Add(TEXT("dex"),FString::Printf(TEXT("基础 %d + 巧手 %d + 手枪精通 %d；技能加成常驻，不占用属性点。\n攻速倍率 = 1 + 总敏捷×0.02\n体力恢复倍率 = 1 + (基础敏捷+装备敏捷)×0.01\n巧手额外提供换弹速度 +%.0f%%。"),StatusModel->Attributes.FindRef(TEXT("dex")),StatusModel->DexterousHandsEffect().Dexterity,StatusModel->PistolEffect().Dexterity,StatusModel->DexterousHandsEffect().ReloadSpeed*100));
+        const FString MovementDetail=FString::Printf(TEXT("实际持手枪时，基础移动速度 ×（1 + 手枪精通移速加成）。当前倍率 %.2f；收起手枪或改持工具时移除。"),StatusModel->PistolMovementMultiplier());
+        CharacterDetails.Add(TEXT("moveSpeed"),MovementDetail);CharacterDetails.Add(TEXT("moveSpeedDetail"),MovementDetail);
+        const FString ReloadDetail=FString::Printf(TEXT("当前枪械与配件耗时 ÷ 巧手速度倍率 %.2f。普通、空仓换弹均生效；动作与音效同步加速。"),StatusModel->ReloadSpeedMultiplier());
+        CharacterDetails.Add(TEXT("reload"),ReloadDetail);CharacterDetails.Add(TEXT("emptyReload"),ReloadDetail);
         for (const auto& Pair : StatusModel->Attributes)
         {
             SetCharacterValue(Pair.Key.ToString(), FString::FromInt(StatusModel->Attribute(Pair.Key)));
@@ -206,9 +221,18 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         }
         for (const TCHAR* Key : {TEXT("atk"), TEXT("def"), TEXT("matk"), TEXT("mdef")}) SetCharacterValue(Key, FString::Printf(TEXT("%.0f"), StatusModel->Derived(Key)));
         SetCharacterValue(TEXT("critRes"), FString::Printf(TEXT("%.0f%%"), StatusModel->Derived(TEXT("critRes"))));
-        for (const TCHAR* Key : {TEXT("aspd"), TEXT("staminaRegen")}) SetCharacterValue(Key, FString::Printf(TEXT("%.2fx"), StatusModel->Derived(Key)));
+        SetCharacterValue(TEXT("aspd"),FString::Printf(TEXT("%.2fx"),StatusModel->Derived(TEXT("aspd"))));
+        SetCharacterValue(TEXT("crit"),FString::Printf(TEXT("%.0f%%"),StatusModel->Derived(TEXT("crit"))));
+        SetCharacterValue(TEXT("hpRegen"),FString::Printf(TEXT("%.2f/秒"),StatusModel->Derived(TEXT("hpRegen"))));
+        SetCharacterValue(TEXT("mpRegen"),FString::Printf(TEXT("%.2f/秒"),StatusModel->Derived(TEXT("mpRegen"))));
+        CharacterDetails.Add(TEXT("def"),TEXT("物防 = floor(体质×1.2 + 力量×0.3) + 装备防御。减伤 = floor(伤害×60/(防御+60))，不低于 floor(原伤害×10%)；格挡随后独立计算。"));
+        CharacterDetails.Add(TEXT("mdef"),TEXT("魔防 = floor(精神×1.2 + 智力×0.3)。魔法减伤使用同一 60/(魔防+60) 公式与10%下限。"));
+        SetCharacterValue(TEXT("staminaRegen"),FString::Printf(TEXT("%.1f/秒"),StatusModel->StaminaRecoveryRate()));
+        const auto& T=StatusModel->StaminaSettings();
+        CharacterDetails.Add(TEXT("staminaRegen"),FString::Printf(TEXT("停止消耗 %.1f 秒后恢复。基础 %.1f/秒 × 敏捷倍率 %.2f = %.1f/秒。"),T.RecoveryDelay,T.RecoveryPerSecond,StatusModel->Derived(TEXT("staminaRegen")),StatusModel->StaminaRecoveryRate()));
+        CharacterDetails.Add(TEXT("stamina"),FString::Printf(TEXT("上限 = %.0f + 装备加成（体质系数 %.0f）。奔跑 %.1f/秒；近战 %.1f/次；采集 %.1f/次；当前闪避 %.2f/次。"),T.BaseMaximum,T.PerConstitution,T.SprintPerSecond,T.MeleeCost,T.HarvestCost,StatusModel->DodgeStaminaCost()));
+        CharacterDetails.Add(TEXT("con"),FString::Printf(TEXT("生命上限 = 100 + 体质×10 + (等级-1)×10\n体力上限 = %.0f + 装备加成（体质系数 %.0f）\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%%"),T.BaseMaximum,T.PerConstitution));
     }
-    SetCharacterValue(TEXT("crit"), TEXT("命中要害"));
     const auto* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
     // Clear former-pawn values when possession changes or no compatible pawn exists.
     for (const TCHAR* Key : {TEXT("hp"), TEXT("moveSpeed"), TEXT("moveSpeedDetail"), TEXT("weapon"), TEXT("damage"), TEXT("fireInterval"), TEXT("reload"), TEXT("emptyReload"), TEXT("ads"), TEXT("ammo"), TEXT("collisionRadius"), TEXT("viewRange"), TEXT("attackRange")}) SetCharacterValue(Key, TEXT("—"), false);
@@ -221,8 +245,8 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         if (HealthBar) { HealthBar->SetPercent(Ratio); HealthBar->SetFillColorAndOpacity(Ratio <= .25f ? ColdSteelUI::Danger : Ratio <= .5f ? ColdSteelUI::Warning : ColdSteelUI::Success); }
         SetCharacterValue(TEXT("hp"), FString::Printf(TEXT("%.0f/%.0f"), FMath::Max(0.f, Health->Health), Health->MaxHealth));
     }
-    if (Character->GetCharacterMovement()) SetCharacterValue(TEXT("moveSpeed"), FString::Printf(TEXT("%.1f m/s"), Character->GetCharacterMovement()->MaxWalkSpeed / 100));
-    SetCharacterValue(TEXT("moveSpeedDetail"), FString::Printf(TEXT("%.1f m/s"), Character->GetVelocity().Size2D() / 100));
+    SetCharacterValue(TEXT("moveSpeed"), FString::Printf(TEXT("%.1f m/s"), ReadFloat(Character, TEXT("WalkSpeed")) / 100));
+    SetCharacterValue(TEXT("moveSpeedDetail"), FString::Printf(TEXT("%.1f m/s"), ReadFloat(Character, TEXT("SprintSpeed")) / 100));
     const auto* Equipped = StatusModel ? StatusModel->Equipped() : nullptr;
     const FString Weapon = Equipped ? ColdSteelInventory::Text(*Equipped,TEXT("name")) : TEXT("未装备");
     SetCharacterValue(TEXT("weapon"), Weapon);
@@ -232,7 +256,7 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
     for (auto Pair : Timings) SetCharacterValue(Pair.Key, FString::Printf(TEXT("%.0f ms"), ReadFloat(Character, Pair.Value) * 1000));
     SetCharacterValue(TEXT("ammo"), FString::Printf(TEXT("%d / %d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo()));
     if (Character->GetCapsuleComponent()) SetCharacterValue(TEXT("collisionRadius"), FString::Printf(TEXT("%.2f m"), Character->GetCapsuleComponent()->GetScaledCapsuleRadius() / 100));
-    if (auto* Camera = Character->FindComponentByClass<UCameraComponent>()) SetCharacterValue(TEXT("viewRange"), FString::Printf(TEXT("%.1f°"), Camera->FieldOfView));
+    SetCharacterValue(TEXT("viewRange"), FString::Printf(TEXT("%.1f°"), ReadFloat(Character, TEXT("BaseVerticalFieldOfView"))));
     SetCharacterValue(TEXT("attackRange"), FString::Printf(TEXT("%.0f m"), ReadFloat(Character, TEXT("TraceDistance")) / 100));
     if (!ActiveStatusKey.IsEmpty()) ShowStatusTooltip(ActiveStatusKey);
 }
@@ -258,7 +282,7 @@ void UColdSteelHUDWidget::ShowStatusTooltip(const FString& InKey)
     CurrentValue->SetAutoWrapText(true);CurrentValue->SetJustification(ETextJustify::Right);
     auto* CurrentValueSlot=CurrentRow->AddChildToHorizontalBox(CurrentValue);CurrentValueSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CurrentValueSlot->SetPadding(FMargin(ReferenceUnits(8),0,0,0));
     const bool bBase = StatusModel && (StatusModel->Attributes.Contains(*Key) || Key == TEXT("atk") || Key == TEXT("def") || Key == TEXT("matk") || Key == TEXT("mdef") || Key == TEXT("critRes") || Key == TEXT("aspd") || Key == TEXT("staminaRegen"));
-    StatusTooltipNote->SetText(FText::FromString(bBase ? TEXT("物攻加入枪械伤害；物防抵消伤害（最低 1）；攻速倍率缩短射击间隔。体质、精神影响资源上限。魔法技能尚未迁移。") : TEXT("")));
+    StatusTooltipNote->SetText(FText::FromString(bBase ? TEXT("武器按独立属性系数计算伤害；物防和魔防按比例减伤。生命与魔法上限含每级成长，魔法值按秒恢复。") : TEXT("")));
     StatusTooltipNote->SetWrapTextAt(ReferenceUnits(286));
     StatusTooltipNote->SetVisibility(bBase ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
     StatusTooltip->SetVisibility(ESlateVisibility::HitTestInvisible);
@@ -303,6 +327,7 @@ void UColdSteelHUDWidget::OpenStatus() { SetInventoryTab(true); SetInventoryOpen
 
 FReply UColdSteelHUDWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry, const FKeyEvent& Event)
 {
+    if(IsQuickDragging()&&Event.GetKey()==EKeys::Escape){CancelQuickDrag();return FReply::Handled();}
     if (HandlePanelShortcut(Event.GetKey(), Event.IsRepeat())) return FReply::Handled();
     if(Event.GetKey()==EKeys::Escape && (bTimelineDetailsOpen || TimelineDetailMotion>0)){SetTimelineDetailsOpen(false);return FReply::Handled();}
     if(Event.GetKey()==EKeys::Escape&&HasPinnedItemTooltip()){HideItemTooltip(true);return FReply::Handled();}

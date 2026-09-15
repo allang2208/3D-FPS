@@ -1,4 +1,5 @@
 #include "M4GunsmithWidget.h"
+#include "ColdSteelMeleePreview.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
@@ -11,20 +12,30 @@
 void UM4GunsmithWidget::SetStandaloneItem(const FColdSteelItem& Item)
 {
     bStandalone=true;auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
+    if(ColdSteelMeleePreview::Supports(Item)){SetStandaloneMeleeItem(Item);return;}
     if(!G->Weapon(Item.Definition)){CloseStandalonePreview();return;}
+    if(StandaloneMelee)CloseStandalonePreview();
     const auto Parts=G->Installed(Item);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Key=Item.InstanceId+TEXT("|")+Item.Definition;for(const auto& N:Names)Key+=TEXT("|")+N+TEXT("=")+Parts[N];
     if(Key==StandaloneKey&&StandaloneRig)return;
     InitializePreview();if(!Studio)return;
-    if(!StandaloneRig){FActorSpawnParameters Spawn;Spawn.ObjectFlags=RF_Transient;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;StandaloneRig=Studio->GetWorld()->SpawnActor<AFPSGAMECharacter>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);}
+    if(!StandaloneRig)
+    {
+        FActorSpawnParameters Spawn;Spawn.ObjectFlags=RF_Transient;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+#if WITH_EDITOR
+        Spawn.bTemporaryEditorActor=true;
+#endif
+        StandaloneRig=Studio->GetWorld()->SpawnActor<AFPSGAMECharacter>(FVector::ZeroVector,FRotator::ZeroRotator,Spawn);
+    }
     if(!StandaloneRig)return;
     auto* Rig=StandaloneRig.Get();Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
     Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();
-    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));Rig->UpdateFoldingSights(1.f);
+    Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));Rig->UpdateFoldingSights(1.f);
     StandaloneKey=Key;StandaloneParts=Parts;PreviewBoundsCache.Empty();SetSidePreview(true);
 }
 void UM4GunsmithWidget::PoseStandalone()
 {
+    if(StandaloneMelee){SyncStandaloneMeleePreview();return;}
     if(!StandaloneRig)return;auto* Rig=StandaloneRig.Get();auto* Mesh=Rig->AKMViewmodel.Get();
     Mesh->SetVisibility(true);Mesh->PlayAnimation(bAimPreview?Rig->AimAnimation:Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();
     Rig->FirstPersonCamera->SetFieldOfView(Rig->VerticalToHorizontalFOV(bAimPreview?Rig->EffectiveADSVerticalFOV():Rig->BaseVerticalFieldOfView));

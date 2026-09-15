@@ -10,6 +10,7 @@ class FPSGAME_API UColdSteelResourceMeter : public UWidget
     GENERATED_BODY()
 public:
     void SetValue(float InRatio, bool bInMana);
+    void SetStaminaValue(float InRatio);
     float Ratio() const { return Value; }
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
 protected:
@@ -17,5 +18,6 @@ protected:
 private:
     float Value=0;
     bool bMana=false;
+    bool bStamina=false;
     TSharedPtr<class SColdSteelResourceMeter> Meter;
 };

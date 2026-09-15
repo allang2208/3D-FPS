@@ -1,4 +1,5 @@
 #include "ProductionToolComponent.h"
+#include "../Skills/FPSCastingMeshComponent.h"
 #include "ProductionHarvestSubsystem.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -15,6 +16,7 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/GameInstance.h"
+#include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
@@ -41,7 +43,12 @@ void UProductionToolComponent::BeginPlay()
 {
     Super::BeginPlay();
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner()); Character=Pawn;
-    if (!Pawn || Pawn->GetNetMode()!=NM_Standalone) { SetComponentTickEnabled(false); return; }
+    auto* World=GetWorld();
+    auto* GameInstance=World?World->GetGameInstance():nullptr;
+    // Preview worlds also report standalone. They have no player inventory and
+    // can receive BeginPlay while a different world's pawn is being spawned.
+    if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || Pawn->GetNetMode()!=NM_Standalone)
+    { SetComponentTickEnabled(false); return; }
     AddTickPrerequisiteActor(Pawn);
     Camera=Pawn->FindComponentByClass<UCameraComponent>();
     Pivot=NewObject<USceneComponent>(Pawn,TEXT("ProductionToolPivot"));
@@ -51,7 +58,7 @@ void UProductionToolComponent::BeginPlay()
     Pawn->AddInstanceComponent(ToolMesh); ToolMesh->SetupAttachment(Pivot);
     ToolMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision); ToolMesh->SetCanEverAffectNavigation(false);
     ToolMesh->SetCastShadow(false); ToolMesh->SetOnlyOwnerSee(true); ToolMesh->SetVisibility(false); ToolMesh->RegisterComponent();
-    Viewmodel=NewObject<USkeletalMeshComponent>(Pawn,TEXT("ProductionToolHands"));
+    Viewmodel=NewObject<UFPSCastingMeshComponent>(Pawn,TEXT("ProductionToolHands"));
     Pawn->AddInstanceComponent(Viewmodel); Viewmodel->SetupAttachment(Camera);
     Viewmodel->SetRelativeRotation(FRotator(0,90,0));
     Viewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision); Viewmodel->SetCanEverAffectNavigation(false);
@@ -60,7 +67,7 @@ void UProductionToolComponent::BeginPlay()
     Viewmodel->RegisterComponent(); Viewmodel->SetVisibility(false);
     // Sample once from the harvest clock; hidden tools do not evaluate animation.
     Viewmodel->SetComponentTickEnabled(false);
-    if (auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Profile->GrantProductionTools();
+    if (auto* Profile=GameInstance->GetSubsystem<UColdSteelStatusModel>()) Profile->GrantProductionTools();
     RefreshHeldTool();
 }
 
@@ -133,9 +140,12 @@ bool UProductionToolComponent::CanUse() const
 
 void UProductionToolComponent::BeginUse()
 {
+    if(Character.IsValid() && Character->IsCastBlockingLeftHandAction())return;
     if (!IsEquipped() || !CanUse() || Elapsed>=0) return;
     if (!HasReadyPresentation()) { Feedback=TEXT("正在加载工具…"); FeedbackSeconds=1.f; return; }
     if(EquipElapsed>=0)return;
+    if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        if(!Profile->SpendStamina(Profile->StaminaSettings().HarvestCost)){Feedback=TEXT("体力不足，稍作休息再采集");FeedbackSeconds=1.5f;return;}
     Elapsed=0; bContacted=false; bHitConfirmed=false; bSwingSoundPlayed=false;
 }
 

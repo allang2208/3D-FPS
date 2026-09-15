@@ -2,6 +2,7 @@
 #include "AKMSovietCalibration.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
+#include "TacticalSuppressorAssets.h"
 namespace AKMAttachment
 {
 inline FString GripAnimationPath(const TCHAR* Key,const TCHAR* Clip)
@@ -18,10 +19,11 @@ inline UStaticMeshComponent* Configure(AActor* Owner,USkeletalMeshComponent* Rif
         FCString::Strcmp(Key,TEXT("prism"))==0||FCString::Strcmp(Key,TEXT("drum"))==0||
         FCString::Strcmp(Key,TEXT("suppressor"))==0||FCString::Strcmp(Key,TEXT("brake"))==0||FCString::Strcmp(Key,TEXT("titanium_brake"))==0;
     const TCHAR* Directory=ReceiverFinish?TEXT("/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_"):NewGrip?TEXT("/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_"):FCString::Strcmp(Key,TEXT("optic"))==0?TEXT("/Game/Weapons/AKMIntegration/SovietFab/OpticSteel/SM_AKM_"):TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_");
-    const FString MeshPath=FCString::Strcmp(Key,TEXT("angled"))==0?TEXT("/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/AKM/SM_ResonanceGrip"):(FString(Directory)+Key+(FCString::Strcmp(Key,TEXT("canted"))==0?TEXT("_CompactMount"):TEXT("")));
+    const FString MeshPath=FCString::Strcmp(Key,TEXT("tactical_suppressor"))==0?TacticalSuppressorAssets::MeshPath(TEXT("AKM")):FCString::Strcmp(Key,TEXT("angled"))==0?TEXT("/Game/Weapons/ResonanceGrip20260913/MeshyIntegration/AKM/SM_ResonanceGrip"):(FString(Directory)+Key+(FCString::Strcmp(Key,TEXT("canted"))==0?TEXT("_CompactMount"):TEXT("")));
     auto* Mesh=LoadObject<UStaticMesh>(nullptr,*MeshPath);
     if(!Mesh){UE_LOG(LogTemp,Error,TEXT("AKM_ATTACHMENT missing %s"),Key);return Part;}
     if(!Part){Part=NewObject<UStaticMeshComponent>(Owner);Part->SetupAttachment(Rifle,Bone);Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);Part->bReceivesDecals=false;Part->RegisterComponent();}
+    if(Part->GetStaticMesh()!=Mesh)Part->EmptyOverrideMaterials();
     Part->SetStaticMesh(Mesh);Part->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));Part->SetVisibility(true);return Part;
 }
 inline const FVector HoloPointCM(.08,4.846218,16.475324);

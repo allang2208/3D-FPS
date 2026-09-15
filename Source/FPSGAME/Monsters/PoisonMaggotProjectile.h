@@ -15,6 +15,11 @@ public:
  virtual void Tick(float Dt) override;
  UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Visual;
 private:
+ void UpdateLiquidVisual(float DeltaTime, const FVector& Start, const FVector& End);
+ UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> LiquidCore;
+ FRandomStream VisualRandom;
+ float VisualAge=0,VisualPhase=0,NextTrail=0;
+ int32 TrailCount=0;
  TWeakObjectPtr<APoisonMaggotMonster> Shooter;
  FVector Velocity;
  float Remaining=0,HitDamage=0,PoisonChance=0;
