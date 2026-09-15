@@ -1,32 +1,31 @@
 # 双手符文剑 · 当前作者入口
 
-本目录保存 2026-09-13 至 09-14 的符文剑制作资料。当前宿主为 `D:/FPS3D/FPSGAME`，物品 ID 为 `ue_rune_sword`，UE 内容目录为 `/Game/Weapons/AzureRunesword20260913`。
+宿主及 Git 根为 `D:/FPS3D/FPSGAME`，物品 `ue_rune_sword`，游戏资源目录 `/Game/Weapons/AzureRunesword20260913`。
 
-**用户已接受普通斩击、重击、第三段突刺及其一米跨步和范围扩大；格挡姿态 V18/V19 仍未满意，2026-09-14 暂停。当前 GuardPoseV19 是下次继续的版本，不是成功格挡母版。此次整理没有继续改动画或运行游戏测试。**
+**2026-09-15：用户否定转剑检视 V35，要求暂停。检视没有最终获接受的版本；当前游戏文件冻结为 V35，不继续导入或替换。废案已移入 trash，后续状态以 [暂停与归档说明](../../Docs/Weapons/sword-inspect-paused-20260915.md) 为准。**
 
-- [近战武器标准工作流](../../MELEE-WEAPON-WORKFLOW.md)
-- [当前参数、接受状态与继续入口](../../Docs/Weapons/runesword-baseline-20260914.md)
-- [本轮归档与公开发布边界](../../Docs/Weapons/melee-publication-20260914.md)
-- [归档清单：路径、原因、替代物与 SHA-256](../../Docs/Weapons/runesword-archive-20260914.json)
+## 保留的动作与作者源
 
-## 作者依赖
+| 用途 | 当前入口 |
+| --- | --- |
+| 普通左右斩、重击、突刺和跨步 | V8/V12/V16/V17 与其保留依赖，见 [参数和状态](../../Docs/Weapons/runesword-baseline-20260914.md) |
+| 左拳抵剑格挡 | [FistBraceGuardV21](FistBraceGuardV21/README.md)，用户反馈“成功”；V20 是必要姿态输入 |
+| 蓄力左臂及释放/未蓄满衔接 | [ChargedArmV22](ChargedArmV22/README.md)，用户反馈“OK了” |
+| 切剑装备 | [BackDrawEquipV23](BackDrawEquipV23/README.md)，用户明确保留的 1.20 秒背后拔剑 |
+| 霜晶剑正在引用的完整母版 | [WristOutsideInspectV34](WristOutsideInspectV34/README.md)，只保留 Blend；其中 Inspect 未接受 |
+| CSGO 源动画读取与配合研究 | [GitHubMotionStudy20260915](GitHubMotionStudy20260915/README.md)，原始资源留本机，公开原创研究工具与文字 |
+| 两个指定视频的连续帧 | [VideoReferenceStudy20260915](VideoReferenceStudy20260915/README.md) 与 [PivotStudy20260915](PivotStudy20260915/README.md) |
 
-完整作者源和 UE 二进制留本机。保留的主要依赖顺序是：
+已用源依赖为 `WeightLeftV5 → DiagonalHeavyV6 → CompactRecoveryV8 → ChargedHeavyV12 → StrideThrustV16 → GuardParryV18 → GuardPoseV19 → FistBraceGuardV20 → FistBraceGuardV21 → ChargedArmV22 → BackDrawEquipV23`，V3/V4 等保留材质、抓握与历史读取依赖。版本旧或含未接受姿态，不自动等于整个目录可退役。
 
-`WeightLeftV5 → DiagonalHeavyV6 → CompactRecoveryV8 → ChargedHeavyV12 → StrideThrustV16 → GuardParryV18 → GuardPoseV19`
+V24–V33、V35 检视目录及 V34 非共享内容归档至 `trash/sword-inspect-paused-20260915/SourceAssets/RuneSword20260913/`。完整原始位置、散列与保留原因见 [归档清单](../../Docs/AssetArchives/sword-inspect-paused-20260915.json)。旧脚本可能覆盖同名 UE 动画，未经用户恢复制作的指示不要运行。
 
-V5 读取原始剑与当前 Manny/VRE 输入；V8 沿用 V6 空间轨迹，V12 增加重击，V16 增加当前突刺，V18/V19 增加及改写格挡。早期 ReachSweepV2 / WristRiftV3 / CompactNaturalV4 保留材质、握姿来源和失败对照；V3 的读取脚本仍引用 V2，不能按版本号整批移除。
+## 公开与恢复边界
 
-根目录 `build_sword.py` / `import_sword.py` 是初始资产制作入口，**不会自动生成当前全部动作**。各版本脚本可能覆盖相同 UE 资产路径，应按目标版本及作者依赖执行。完整本机工程继续开发不需要依次重跑旧导入器。V5 的 `ImportHost` 是后续导入器的本地依赖。
+本轮只发布选定作者代码、研究脚本、文档和 Skill。模型、Manny 手臂、图像/视频、声音、Blend/FBX/uasset、反编译模型及密集源骨骼数据留本机；原始素材各自遵守来源许可。只克隆 Git 不能恢复完整可运行画面。
 
-## 归档和历史材料
+V5 的 ImportHost 仍是本机导入依赖，不递归移动其 Content 联接。根目录 `build_sword.py` / `import_sword.py` 只是初始制作入口，不生成当前全部版本。本次未改原生代码或运行游戏测试。
 
-已退役 V7、V15、旧 Before/NativeBuildSnapshot、多余格挡读取中间件、Python 缓存及临时 GitHub 参考克隆移到本机 `trash/runesword-melee-superseded-20260914`。原首版 README 同时归档，避免旧双段循环和旧距离被误当成当前参数。
-
-保留 V18、V19 的 Before 和 V18 当前原生模块快照，供暂停后继续与恢复。早期 README、制作回执和报告是带版本的历史记录；其中 Before、快照等旧路径按归档清单恢复，不表示文件仍在原位，也不表示本轮重新检查通过。
-
-## 来源和公开范围
-
-用户指定的 Meshy Azure Starblade 模型、Manny 手臂、抓握输入、贴图、声音、Blend/FBX/uasset 和密集骨骼数据留本机。各类资产分别遵守来源许可，不能用单手参考动画的 CC0 覆盖其他资产。[Reference 说明](Reference/README.md) 和随附 LICENSE/COMMIT 保留来源记录。
-
-Git 仅发布本轮选定的作者代码、参数说明、文档与技能；公开快照需要自行准备已授权输入。本轮没有发布与其他开发交叉的近战原生运行集成，不能仅凭这些作者脚本得到完整可运行的符文剑。
+- [近战武器标准](../../MELEE-WEAPON-WORKFLOW.md)
+- [上一轮归档与发布边界](../../Docs/Weapons/melee-publication-20260914.md)
+- [Source/CSGO 手部 Skill](../../skills/ue5-fps-arms-animation/references/source-hand-animation-study.md)
