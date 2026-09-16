@@ -1,0 +1,269 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\AzureRunesword_PommelStrikeV46.blend",
+  "clip": "A_RuneSword_PommelStrike",
+  "idle_start_delta_mm": 0.00028778922432404707,
+  "idle_end_delta_mm": 0.00028778922432404707,
+  "grip_l": {
+    "max_offset_mm": 116.28581387741039,
+    "max_rotation_deg": 342.50005449634284
+  },
+  "grip_r": {
+    "max_offset_mm": 95.01606506868069,
+    "max_rotation_deg": 77.50001866292448
+  },
+  "samples": [
+    {
+      "seconds": 0.0,
+      "hilt": [
+        0.13,
+        0.48,
+        -0.08
+      ],
+      "counterweight": [
+        0.13,
+        0.3966,
+        -0.3368
+      ],
+      "blade_tip": [
+        0.13,
+        0.7272,
+        0.6808
+      ],
+      "elbow_l": 58.8,
+      "elbow_r": 85.5,
+      "shoulder_shift_cm": 0.0,
+      "blade_to_aim_line_m": 0.142,
+      "blade_tip_in_front": true
+    },
+    {
+      "seconds": 0.2,
+      "hilt": [
+        0.17,
+        0.42,
+        -0.065
+      ],
+      "counterweight": [
+        0.0924,
+        0.4031,
+        -0.323
+      ],
+      "blade_tip": [
+        0.4,
+        0.4701,
+        0.6996
+      ],
+      "elbow_l": 64.3,
+      "elbow_r": 94.8,
+      "shoulder_shift_cm": 0.67,
+      "blade_to_aim_line_m": 0.182,
+      "blade_tip_in_front": true
+    },
+    {
+      "seconds": 0.4,
+      "hilt": [
+        0.21,
+        0.36,
+        -0.05
+      ],
+      "counterweight": [
+        0.1938,
+        0.4247,
+        -0.3116
+      ],
+      "blade_tip": [
+        0.2579,
+        0.1682,
+        0.7252
+      ],
+      "elbow_l": 31.5,
+      "elbow_r": 103.3,
+      "shoulder_shift_cm": 3.9,
+      "blade_to_aim_line_m": 0.228,
+      "blade_tip_in_front": true
+    },
+    {
+      "seconds": 0.58,
+      "hilt": [
+        0.21,
+        0.22,
+        -0.03
+      ],
+      "counterweight": [
+        0.2586,
+        0.447,
+        -0.1678
+      ],
+      "blade_tip": [
+        0.0659,
+        -0.4526,
+        0.3784
+      ],
+      "elbow_l": 70.5,
+      "elbow_r": 120.5,
+      "shoulder_shift_cm": 8.43,
+      "blade_to_aim_line_m": 0.191,
+      "blade_tip_in_front": false
+    },
+    {
+      "seconds": 0.72,
+      "hilt": [
+        0.2,
+        0.2,
+        0.06
+      ],
+      "counterweight": [
+        0.2486,
+        0.427,
+        -0.0778
+      ],
+      "blade_tip": [
+        0.0559,
+        -0.4726,
+        0.4684
+      ],
+      "elbow_l": 64.1,
+      "elbow_r": 109.4,
+      "shoulder_shift_cm": 6.11,
+      "blade_to_aim_line_m": 0.225,
+      "blade_tip_in_front": false
+    },
+    {
+      "seconds": 0.84,
+      "hilt": [
+        0.1998,
+        0.2005,
+        0.0596
+      ],
+      "counterweight": [
+        0.2485,
+        0.4277,
+        -0.0781
+      ],
+      "blade_tip": [
+        0.0557,
+        -0.4724,
+        0.4675
+      ],
+      "elbow_l": 64.0,
+      "elbow_r": 109.4,
+      "shoulder_shift_cm": 6.11,
+      "blade_to_aim_line_m": 0.225,
+      "blade_tip_in_front": false
+    },
+    {
+      "seconds": 0.88,
+      "hilt": [
+        0.1531,
+        0.3565,
+        -0.0652
+      ],
+      "counterweight": [
+        0.1999,
+        0.6069,
+        -0.1546
+      ],
+      "blade_tip": [
+        0.0142,
+        -0.3855,
+        0.1997
+      ],
+      "elbow_l": 42.2,
+      "elbow_r": 103.7,
+      "shoulder_shift_cm": 11.98,
+      "blade_to_aim_line_m": 0.106,
+      "blade_tip_in_front": false
+    },
+    {
+      "seconds": 0.92,
+      "hilt": [
+        0.14,
+        0.4,
+        -0.1
+      ],
+      "counterweight": [
+        0.1857,
+        0.6553,
+        -0.1752
+      ],
+      "blade_tip": [
+        0.0047,
+        -0.3563,
+        0.1229
+      ],
+      "elbow_l": 29.4,
+      "elbow_r": 92.7,
+      "shoulder_shift_cm": 12.55,
+      "blade_to_aim_line_m": 0.07,
+      "blade_tip_in_front": false
+    },
+    {
+      "seconds": 0.98,
+      "hilt": [
+        0.1401,
+        0.3998,
+        -0.0999
+      ],
+      "counterweight": [
+        0.1854,
+        0.6549,
+        -0.1758
+      ],
+      "blade_tip": [
+        0.006,
+        -0.3561,
+        0.125
+      ],
+      "elbow_l": 29.4,
+      "elbow_r": 93.1,
+      "shoulder_shift_cm": 12.5,
+      "blade_to_aim_line_m": 0.071,
+      "blade_tip_in_front": false
+    },
+    {
+      "seconds": 1.14,
+      "hilt": [
+        0.1838,
+        0.3125,
+        -0.0737
+      ],
+      "counterweight": [
+        0.1609,
+        0.3707,
+        -0.3364
+      ],
+      "blade_tip": [
+        0.2513,
+        0.1402,
+        0.7045
+      ],
+      "elbow_l": 67.9,
+      "elbow_r": 115.4,
+      "shoulder_shift_cm": 1.1,
+      "blade_to_aim_line_m": 0.2,
+      "blade_tip_in_front": true
+    },
+    {
+      "seconds": 1.6,
+      "hilt": [
+        0.13,
+        0.48,
+        -0.08
+      ],
+      "counterweight": [
+        0.13,
+        0.3966,
+        -0.3368
+      ],
+      "blade_tip": [
+        0.13,
+        0.7272,
+        0.6808
+      ],
+      "elbow_l": 58.8,
+      "elbow_r": 85.5,
+      "shoulder_shift_cm": 0.0,
+      "blade_to_aim_line_m": 0.142,
+      "blade_tip_in_front": true
+    }
+  ]
+}

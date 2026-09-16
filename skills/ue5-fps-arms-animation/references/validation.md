@@ -20,6 +20,15 @@
 
 实际 WAV 可与许可明确的来源片段做相关匹配，结合 cue 日志和关键帧判断：是否真的播放、是否错片段、是否截断/削波、是否明显滞后。录音起点、混音缓冲和截图频率会引入偏移，应明确记录。全程时间轴只做统一起点对齐，不逐事件挪音来掩盖游戏不同步。
 
+## 读图与请求体预算
+
+本机 `deepseek-v4-flash` 已开原生图片输入（`C:/Users/allan/.codex/models.json` 的 `input_modalities` 含 `image`），`view_image` 读进来的图会以 base64 留在会话里，而每轮请求都会重发整段历史（`disable_response_storage = true` 时不走服务端存储）。评审 sheet 单张 1–4 MB，2026-09-16 的蓄力左臂线程累计 26 张、约 49 MB 图片：最后一次成功的请求体约 50.0 MB，再加一张 1.6 MB 的 `sheet_fp.png` 涨到约 51.7 MB 就返回 `413 Payload Too Large: Failed to buffer the request body: length limit exceeded`，此后再发任何消息（含“继续”）都失败，整条线程报废。上限是上游缓冲限制，越界点按实测推断，不是官方文档数字。
+
+- 看之前先缩：用 `D:/FPS3D/FPSGAME/Tools/shrink-for-view.ps1` 生成长边 ≤1400、JPEG q80 的副本（默认写入原图同级的 `View/`）再 `view_image`，单张落到约 150–400 KB。副本只用于看；像素测量、alpha 底边拟合、IoU 这类定量结论必须继续读原图。
+- 单线程图片预算：内联图片累计控制在约 10 MB、8 张以内。换一版（V44→V45）就开新线程，只带 3–5 行简报加关键数据文件路径，不要把上一版整段历史带过来。
+- 已经 413 的线程不要再发消息；`/compact` 也需要发同一体积的请求，通常同样失败。新开线程，旧 transcript 仍留在 `C:/Users/allan/.codex/sessions/<年>/<月>/<日>/`。
+- 只需要文字描述时走 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1`（独立 HTTP 调用，不发图片字节），用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`。
+
 ## 本机复用入口
 
 工作目录选择新候选；以下路径均是案例，先检查存在与脚本所写目的地：

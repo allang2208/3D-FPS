@@ -1,0 +1,1240 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\AzureRunesword_ChargedHoldV45.blend",
+  "fps": 480.0,
+  "objects": [
+    "Armature",
+    "Armature",
+    "CS_Cube",
+    "Camera",
+    "Camera",
+    "Fk_Ik_switch_controller_I.001",
+    "Fk_Ik_switch_controller_I.001",
+    "Fk_Ik_switch_controller_I.002",
+    "Fk_Ik_switch_controller_I.002",
+    "Fk_Ik_switch_controller_I.003",
+    "Fk_Ik_switch_controller_I.003",
+    "Fk_Ik_switch_controller_II.001",
+    "Fk_Ik_switch_controller_II.001",
+    "Fk_Ik_switch_controller_II.002",
+    "Fk_Ik_switch_controller_II.002",
+    "Fk_Ik_switch_controller_II.003",
+    "Fk_Ik_switch_controller_II.003",
+    "Motion_Reference_Cubes",
+    "Motion_Reference_Cubes",
+    "Reference_76_78_Camera",
+    "RuneSword_Blade",
+    "SKEL_AssaultRifle",
+    "SKEL_AssaultRifle",
+    "SK_AssaultRifle",
+    "SK_AssaultRifle",
+    "SK_Manny_Arms",
+    "SK_Manny_Arms",
+    "SK_Manny_Arms_Export",
+    "SK_Manny_Simple",
+    "SK_Manny_Simple",
+    "SK_RuneSword_Rig",
+    "SM_AssaultRifle_Casing",
+    "SM_AssaultRifle_Casing",
+    "SM_AssaultRifle_Magazine",
+    "SM_AssaultRifle_Magazine",
+    "SM_RuneRift_Heavy",
+    "SM_RuneRift_Thrust",
+    "_CS_Circle",
+    "_CS_Cube",
+    "_CS_Cube",
+    "_CS_Finger_Metacarpal",
+    "_CS_Fingers",
+    "_Credit",
+    "_Credit",
+    "base_controller.001",
+    "base_controller.002",
+    "base_controller.002",
+    "base_controller.003",
+    "base_controller.003",
+    "base_controller.004",
+    "base_controller.004",
+    "base_controller.005",
+    "base_controller.005",
+    "base_controller.006",
+    "base_controller.006",
+    "base_controller.007",
+    "base_controller.007",
+    "base_controller.008",
+    "base_controller.008",
+    "base_controller.009",
+    "base_controller.009",
+    "base_controller.010",
+    "base_controller.010",
+    "base_controller.011",
+    "base_controller.011",
+    "base_controller.012",
+    "base_controller.012",
+    "base_controller.013",
+    "base_controller.013",
+    "base_controller.014",
+    "base_controller.014",
+    "base_controller.015",
+    "base_controller.015",
+    "base_controller.016",
+    "base_controller.016",
+    "base_controller.017",
+    "base_controller.017",
+    "base_controller.018",
+    "base_controller.018",
+    "base_controller.019",
+    "base_controller.019",
+    "base_controller.020",
+    "base_controller.020",
+    "base_controller.021",
+    "base_controller.021",
+    "base_controller.022",
+    "base_controller.022",
+    "base_controller.023",
+    "base_controller.023",
+    "base_controller.024",
+    "base_controller.024",
+    "base_controller.025",
+    "base_controller.025",
+    "base_controller.026",
+    "base_controller.026",
+    "base_controller.027",
+    "base_controller.027",
+    "base_controller.028",
+    "base_controller.028",
+    "base_controller.029",
+    "base_controller.030",
+    "base_controller.030",
+    "base_controller.031",
+    "base_controller.031",
+    "base_controller.032",
+    "base_controller.032",
+    "base_controller.033",
+    "base_controller.034",
+    "base_controller.034",
+    "base_controller.035",
+    "base_controller.035",
+    "base_controller_I.036",
+    "base_controller_I.036",
+    "base_controller_II.036",
+    "base_controller_II.036",
+    "common_controller.001",
+    "common_controller.001",
+    "common_controller.002",
+    "common_controller.003",
+    "common_controller.003",
+    "common_controller.004",
+    "common_controller.004",
+    "common_controller.005",
+    "common_controller.005",
+    "common_controller.006",
+    "common_controller.006",
+    "common_controller.007",
+    "common_controller.007",
+    "common_controller.008",
+    "common_controller.008",
+    "common_controller.009",
+    "common_controller.009",
+    "common_controller.010",
+    "common_controller.010",
+    "common_controller.011",
+    "common_controller.011",
+    "common_controller.012",
+    "common_controller.012",
+    "common_controller.013",
+    "common_controller.013",
+    "common_controller.014",
+    "common_controller.014",
+    "common_controller.015",
+    "common_controller.015",
+    "common_controller.016",
+    "common_controller.016",
+    "common_controller.017",
+    "common_controller.017",
+    "common_controller.018",
+    "common_controller.018",
+    "directional_controller.001",
+    "directional_controller.001",
+    "directional_controller.002",
+    "directional_controller.002",
+    "directional_controller.003",
+    "directional_controller.003",
+    "directional_controller.004",
+    "directional_controller.004",
+    "directional_controller.005",
+    "directional_controller.005",
+    "directional_controller.006",
+    "directional_controller.006",
+    "directional_controller.007",
+    "directional_controller.007",
+    "directional_controller.008",
+    "directional_controller.008",
+    "directional_controller.009",
+    "directional_controller.009",
+    "directional_controller.010",
+    "directional_controller.010",
+    "directional_controller.011",
+    "directional_controller.011",
+    "directional_controller.012",
+    "directional_controller.012",
+    "directional_controller.013",
+    "directional_controller.013",
+    "directional_controller.014",
+    "directional_controller.014",
+    "directional_controller.015",
+    "directional_controller.015",
+    "directional_controller.016",
+    "directional_controller.016",
+    "directional_controller.017",
+    "directional_controller.017",
+    "eye_controller.001",
+    "eye_controller.001",
+    "eye_controller.002",
+    "eye_controller.002",
+    "eye_controller.003",
+    "eye_controller.003",
+    "other_controller.001",
+    "other_controller.002",
+    "other_controller.002",
+    "other_controller.003",
+    "other_controller.004",
+    "other_controller.004",
+    "other_controller.005",
+    "other_controller.005",
+    "other_controller.006",
+    "other_controller.007",
+    "rotational_controller.001",
+    "rotational_controller.001",
+    "rotational_controller.002",
+    "rotational_controller.002",
+    "rotational_controller.003",
+    "rotational_controller.003",
+    "rotational_controller.004",
+    "rotational_controller.004",
+    "rotational_controller.005",
+    "rotational_controller.006",
+    "rotational_controller.007",
+    "rotational_controller.007",
+    "rotational_controller.008",
+    "rotational_controller.008",
+    "rotational_controller.009",
+    "rotational_controller.009",
+    "rotational_controller.010",
+    "rotational_controller.010",
+    "rotational_controller.011",
+    "rotational_controller.011",
+    "rotational_controller.012",
+    "rotational_controller.012",
+    "rotational_controller.013",
+    "rotational_controller.013",
+    "rotational_controller.014",
+    "rotational_controller.014",
+    "rotational_controller.015",
+    "rotational_controller.015",
+    "rotational_controller.016",
+    "rotational_controller.016",
+    "rotational_controller.017",
+    "rotational_controller.017",
+    "rotational_controller.018",
+    "rotational_controller.018"
+  ],
+  "actions": {
+    "A_FP_AssaultRifle_Aim_Pose": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "A_FP_AssaultRifle_Equip": [
+      0.0,
+      62.0,
+      0.1292
+    ],
+    "A_FP_AssaultRifle_Fire": [
+      0.0,
+      46.0,
+      0.0958
+    ],
+    "A_FP_AssaultRifle_Fire_Aimed": [
+      0.0,
+      46.0,
+      0.0958
+    ],
+    "A_FP_AssaultRifle_Holster": [
+      0.0,
+      42.0,
+      0.0875
+    ],
+    "A_FP_AssaultRifle_Idle_Loop": [
+      -12.0,
+      210.0,
+      0.4625
+    ],
+    "A_FP_AssaultRifle_Idle_Loop_Aimed": [
+      -12.0,
+      210.0,
+      0.4625
+    ],
+    "A_FP_AssaultRifle_Idle_Pose": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "A_FP_AssaultRifle_Reload": [
+      0.0,
+      188.0,
+      0.3917
+    ],
+    "A_FP_AssaultRifle_Run_Loop": [
+      -4.0,
+      54.0,
+      0.1208
+    ],
+    "A_FP_AssaultRifle_Walk_F_Loop": [
+      -4.0,
+      60.0,
+      0.1333
+    ],
+    "A_FP_AssaultRifle_Walk_F_Loop_Aimed": [
+      -4.0,
+      60.0,
+      0.1333
+    ],
+    "A_FP_WEP_AssaultRifle_Fire": [
+      0.0,
+      8.0,
+      0.0167
+    ],
+    "A_FP_WEP_AssaultRifle_Reload": [
+      0.0,
+      114.0,
+      0.2375
+    ],
+    "A_M4_HK416_drum_reload": [
+      0.0,
+      252.0,
+      0.525
+    ],
+    "A_M4_HK416_drum_reload_empty": [
+      0.0,
+      324.0,
+      0.675
+    ],
+    "A_M4_Vertical_idle": [
+      0.0,
+      360.0,
+      0.75
+    ],
+    "A_Reference": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "A_RuneSword_Equip": [
+      0.0,
+      576.0,
+      1.2
+    ],
+    "A_RuneSword_Guard": [
+      0.0,
+      96.0,
+      0.2
+    ],
+    "A_RuneSword_GuardBreak": [
+      0.0,
+      192.0,
+      0.4
+    ],
+    "A_RuneSword_GuardHit": [
+      0.0,
+      106.0,
+      0.2208
+    ],
+    "A_RuneSword_HeavyCharge": [
+      0.0,
+      960.0,
+      2.0
+    ],
+    "A_RuneSword_HeavyRelease": [
+      0.0,
+      480.0,
+      1.0
+    ],
+    "A_RuneSword_Inspect": [
+      0.0,
+      348.0,
+      0.725
+    ],
+    "A_RuneSword_Reference_76_78": [
+      0.0,
+      240.0,
+      0.5
+    ],
+    "A_RuneSword_Slash1": [
+      0.0,
+      852.0,
+      1.775
+    ],
+    "A_RuneSword_Slash2": [
+      0.0,
+      852.0,
+      1.775
+    ],
+    "A_RuneSword_Thrust": [
+      0.0,
+      600.0,
+      1.25
+    ],
+    "A_WEP_Reference": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "M4_aim": [
+      0.0,
+      4.0,
+      0.0083
+    ],
+    "M4_aim_fire": [
+      0.0,
+      92.0,
+      0.1917
+    ],
+    "M4_equip": [
+      0.0,
+      124.0,
+      0.2583
+    ],
+    "M4_fire": [
+      0.0,
+      92.0,
+      0.1917
+    ],
+    "M4_HK416_equip_charge": [
+      0.0,
+      76.0,
+      0.1583
+    ],
+    "M4_HK416_reload": [
+      0.0,
+      252.0,
+      0.525
+    ],
+    "M4_HK416_reload_empty": [
+      0.0,
+      324.0,
+      0.675
+    ],
+    "M4_idle": [
+      0.0,
+      360.0,
+      0.75
+    ],
+    "M4_inspect": [
+      0.0,
+      360.0,
+      0.75
+    ],
+    "M4_MAT_equip_charge": [
+      0.0,
+      76.0,
+      0.1583
+    ],
+    "M4_MAT_reload": [
+      0.0,
+      252.0,
+      0.525
+    ],
+    "M4_MAT_reload_empty": [
+      0.0,
+      324.0,
+      0.675
+    ],
+    "M4_reload": [
+      0.0,
+      376.0,
+      0.7833
+    ],
+    "M4_reload_empty": [
+      0.0,
+      376.0,
+      0.7833
+    ],
+    "M4_reload_empty_BoltRelease": [
+      0.0,
+      456.0,
+      0.95
+    ],
+    "M4_reload_empty_FingerCurl": [
+      0.0,
+      376.0,
+      0.7833
+    ],
+    "M4_reload_FingerCurl": [
+      0.0,
+      376.0,
+      0.7833
+    ],
+    "REF_V18_A_RuneSword_Guard": [
+      0.0,
+      96.0,
+      0.2
+    ],
+    "REF_V18_A_RuneSword_GuardBreak": [
+      0.0,
+      192.0,
+      0.4
+    ],
+    "REF_V18_A_RuneSword_GuardHit": [
+      0.0,
+      106.0,
+      0.2208
+    ],
+    "REF_V19_A_RuneSword_Guard": [
+      0.0,
+      96.0,
+      0.2
+    ],
+    "REF_V19_A_RuneSword_GuardBreak": [
+      0.0,
+      192.0,
+      0.4
+    ],
+    "REF_V19_A_RuneSword_GuardHit": [
+      0.0,
+      106.0,
+      0.2208
+    ],
+    "REF_V20_A_RuneSword_Guard": [
+      0.0,
+      96.0,
+      0.2
+    ],
+    "REF_V20_A_RuneSword_GuardBreak": [
+      0.0,
+      192.0,
+      0.4
+    ],
+    "REF_V20_A_RuneSword_GuardHit": [
+      0.0,
+      106.0,
+      0.2208
+    ],
+    "REF_V21_A_RuneSword_HeavyCharge": [
+      0.0,
+      960.0,
+      2.0
+    ],
+    "REF_V21_A_RuneSword_HeavyRelease": [
+      0.0,
+      480.0,
+      1.0
+    ],
+    "REF_V21_A_RuneSword_Slash1": [
+      0.0,
+      852.0,
+      1.775
+    ],
+    "REF_V44_A_RuneSword_HeavyCharge": [
+      0.0,
+      960.0,
+      2.0
+    ],
+    "REF_V44_A_RuneSword_HeavyRelease": [
+      0.0,
+      480.0,
+      1.0
+    ],
+    "REF_V44_A_RuneSword_Slash1": [
+      0.0,
+      852.0,
+      1.775
+    ],
+    "REF_V45_A_RuneSword_HeavyCharge": [
+      0.0,
+      960.0,
+      2.0
+    ],
+    "REF_V45_A_RuneSword_HeavyRelease": [
+      0.0,
+      480.0,
+      1.0
+    ],
+    "REF_V45_A_RuneSword_Slash1": [
+      0.0,
+      852.0,
+      1.775
+    ],
+    "REF_V6_A_RuneSword_Slash1": [
+      0.0,
+      792.0,
+      1.65
+    ],
+    "REF_V6_A_RuneSword_Slash2": [
+      0.0,
+      792.0,
+      1.65
+    ],
+    "RETAINED_V36_A_RuneSword_Inspect": [
+      0.0,
+      348.0,
+      0.725
+    ],
+    "RETAINED_V40_A_RuneSword_Inspect": [
+      0.0,
+      348.0,
+      0.725
+    ],
+    "RETAINED_V41_A_RuneSword_Inspect": [
+      0.0,
+      348.0,
+      0.725
+    ]
+  },
+  "bones": [
+    "VM_Root",
+    "root",
+    "pelvis",
+    "spine_01",
+    "spine_02",
+    "spine_03",
+    "spine_04",
+    "spine_05",
+    "neck_01",
+    "neck_02",
+    "head",
+    "clavicle_l",
+    "upperarm_l",
+    "lowerarm_l",
+    "lowerarm_twist_02_l",
+    "lowerarm_twist_01_l",
+    "hand_l",
+    "index_metacarpal_l",
+    "index_01_l",
+    "index_02_l",
+    "index_03_l",
+    "middle_metacarpal_l",
+    "middle_01_l",
+    "middle_02_l",
+    "middle_03_l",
+    "thumb_01_l",
+    "thumb_02_l",
+    "thumb_03_l",
+    "pinky_metacarpal_l",
+    "pinky_01_l",
+    "pinky_02_l",
+    "pinky_03_l",
+    "ring_metacarpal_l",
+    "ring_01_l",
+    "ring_02_l",
+    "ring_03_l",
+    "upperarm_twist_01_l",
+    "upperarm_twist_02_l",
+    "clavicle_r",
+    "upperarm_r",
+    "lowerarm_r",
+    "lowerarm_twist_02_r",
+    "lowerarm_twist_01_r",
+    "hand_r",
+    "pinky_metacarpal_r",
+    "pinky_01_r",
+    "pinky_02_r",
+    "pinky_03_r",
+    "ring_metacarpal_r",
+    "ring_01_r",
+    "ring_02_r",
+    "ring_03_r",
+    "middle_metacarpal_r",
+    "middle_01_r",
+    "middle_02_r",
+    "middle_03_r",
+    "index_metacarpal_r",
+    "index_01_r",
+    "index_02_r",
+    "index_03_r",
+    "thumb_01_r",
+    "thumb_02_r",
+    "thumb_03_r",
+    "upperarm_twist_01_r",
+    "upperarm_twist_02_r",
+    "thigh_r",
+    "calf_r",
+    "foot_r",
+    "ball_r",
+    "calf_twist_02_r",
+    "calf_twist_01_r",
+    "thigh_twist_01_r",
+    "thigh_twist_02_r",
+    "thigh_l",
+    "calf_l",
+    "foot_l",
+    "ball_l",
+    "calf_twist_02_l",
+    "calf_twist_01_l",
+    "thigh_twist_01_l",
+    "thigh_twist_02_l",
+    "ik_foot_root",
+    "ik_foot_l",
+    "ik_foot_r",
+    "ik_hand_root",
+    "ik_hand_gun",
+    "ik_hand_l",
+    "ik_hand_r",
+    "WPN_root",
+    "WPN_SOCKET_Magazine",
+    "WPN_Trigger",
+    "WPN_bolt",
+    "WPN_RearSight",
+    "WPN_FrontSight",
+    "WPN_SOCKET_Muzzle",
+    "WPN_SOCKET_Eject",
+    "WPN_ChargingHandle",
+    "WPN_BoltCatch",
+    "Blade_Base",
+    "Blade_Tip",
+    "interaction",
+    "center_of_mass"
+  ],
+  "rest": {
+    "WPN_root": [
+      0.05769,
+      0.14375,
+      -0.09835
+    ],
+    "Blade_Base": [
+      0.05507,
+      0.14375,
+      -0.06847
+    ],
+    "Blade_Tip": [
+      -0.02947,
+      0.14375,
+      0.89784
+    ],
+    "hand_l": [
+      -0.47769,
+      0.15036,
+      -0.58109
+    ],
+    "hand_r": [
+      0.47768,
+      0.15036,
+      -0.58109
+    ],
+    "lowerarm_l": [
+      -0.35007,
+      -0.0257,
+      -0.41683
+    ],
+    "lowerarm_r": [
+      0.35007,
+      -0.0257,
+      -0.41683
+    ],
+    "upperarm_l": [
+      -0.1901,
+      -0.0322,
+      -0.18992
+    ],
+    "upperarm_r": [
+      0.1901,
+      -0.0322,
+      -0.18992
+    ],
+    "clavicle_l": [
+      -0.01428,
+      -0.02403,
+      -0.16274
+    ],
+    "clavicle_r": [
+      0.01428,
+      -0.02403,
+      -0.16274
+    ]
+  },
+  "idle_pose": {},
+  "grip_in_root": {},
+  "Slash1_first": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02458,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "Slash1_last": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02458,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "Slash2_first": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02457,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "Slash2_last": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02457,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "Thrust_first": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02457,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "Thrust_last": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02457,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "HeavyCharge_first": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02458,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "HeavyCharge_last": {
+    "WPN_root": [
+      0.23546,
+      0.22929,
+      0.12452
+    ],
+    "hand_l_world": [
+      0.10033,
+      0.3075,
+      0.01806
+    ],
+    "hand_l_in_root": [
+      -0.07532,
+      0.00935,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.24183,
+      0.27582,
+      0.03022
+    ],
+    "hand_r_in_root": [
+      -0.0116,
+      -0.07501,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.24751,
+      0.21145,
+      0.13513
+    ],
+    "Blade_Base_in_root": [
+      0.0,
+      -0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.63732,
+      -0.36523,
+      0.47816
+    ],
+    "Blade_Tip_in_root": [
+      0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "HeavyRelease_first": {
+    "WPN_root": [
+      0.23546,
+      0.22929,
+      0.12452
+    ],
+    "hand_l_world": [
+      0.10033,
+      0.3075,
+      0.01806
+    ],
+    "hand_l_in_root": [
+      -0.07532,
+      0.00935,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.24183,
+      0.27582,
+      0.03022
+    ],
+    "hand_r_in_root": [
+      -0.0116,
+      -0.07501,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.24751,
+      0.21145,
+      0.13513
+    ],
+    "Blade_Base_in_root": [
+      0.0,
+      -0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.63732,
+      -0.36523,
+      0.47816
+    ],
+    "Blade_Tip_in_root": [
+      0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "HeavyRelease_last": {
+    "WPN_root": [
+      0.13,
+      0.48,
+      -0.08
+    ],
+    "hand_l_world": [
+      0.05453,
+      0.41884,
+      -0.2421
+    ],
+    "hand_l_in_root": [
+      0.02458,
+      0.07181,
+      -0.17306
+    ],
+    "hand_r_world": [
+      0.19695,
+      0.42341,
+      -0.13844
+    ],
+    "hand_r_in_root": [
+      -0.0607,
+      -0.04556,
+      -0.07306
+    ],
+    "Blade_Base_world": [
+      0.13,
+      0.48742,
+      -0.05717
+    ],
+    "Blade_Base_in_root": [
+      -0.0,
+      0.0,
+      0.024
+    ],
+    "Blade_Tip_world": [
+      0.13,
+      0.72721,
+      0.68085
+    ],
+    "Blade_Tip_in_root": [
+      -0.0,
+      0.0,
+      0.8
+    ]
+  },
+  "arms_mesh": {
+    "vertices": 20326
+  },
+  "blade_bounds_local": {
+    "min": [
+      0.0388,
+      0.3293,
+      -0.3518
+    ],
+    "max": [
+      0.2206,
+      0.7346,
+      0.6922
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "revision": "MeleePommelAttack20260916",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\AzureRunesword_ChargedHoldV45.blend",
+  "donor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.blend",
+  "clip": "A_RuneSword_PommelStrike",
+  "seconds": 1.6,
+  "fps": 480,
+  "loop": false,
+  "turn_end": 0.4,
+  "draw_end": 0.58,
+  "raise_end": 0.72,
+  "contact_seconds": [
+    0.84,
+    0.92
+  ],
+  "arrest_end": 0.98,
+  "return_corner": 1.3,
+  "counterweight_m": 0.27,
+  "drawn_hilt_m": [
+    0.21,
+    0.22,
+    -0.03
+  ],
+  "raised_hilt_m": [
+    0.2,
+    0.2,
+    0.06
+  ],
+  "extended_hilt_m": [
+    0.14,
+    0.4,
+    -0.1
+  ],
+  "hilt_travel_m": 0.2630589332364538,
+  "counterweight_travel_m": 0.25601582803331085,
+  "rift": "SM_RuneRift_Pommel",
+  "retained": "Manny mesh, weights, bones, both hilt contacts, idle pose, V8 slashes, V16 thrust, V44/V45 charged hold",
+  "arm_solution": "continuous grasp path plus joint elbow-plane optimisation; fixed held load; quaternion-continuous bake",
+  "reference": "BV1hCJFzQEyR 100.0-101.0 s (#6 \u67c4\u6345), blade kept above the shoulder instead of crossing the view"
+}

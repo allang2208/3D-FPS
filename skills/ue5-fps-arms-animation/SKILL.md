@@ -30,9 +30,9 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 
 - 技能／魔法的左手凝聚、发射、脱手恢复，或翻掌导致手臂变细：[施法与完整骨段](references/casting-arm-volume.md)。业务状态和资源存档另读 [技能／魔法工作流](../ue5-skill-magic-workflow/SKILL.md)。
 
-- 手枪动作、M1911/P9 迁移、空仓机械与回握缩尾：[手枪动作适配](references/pistol-adaptation.md)。M4 的拍击/装备拉栓合同不直接套到手枪。
-
 - 单手斧头、十字镐等采集工具的抓握与力度：[单手工具动作](references/single-hand-tools.md)。固定手与工具接触，联动腕臂，以采集提交驱动命中停顿和回弹；已有导入/构建结果不等于游戏内接受。
+
+- 手枪动作、M1911/P9 迁移、空仓机械与回握缩尾：[手枪动作适配](references/pistol-adaptation.md)。M4 的拍击/装备拉栓合同不直接套到手枪。
 
 - 手臂换皮肤、衣物/手套材质、更换装备外观、延长袖口与薄卷边：[手部装备表现标准](references/hand-equipment-appearance.md)。保留已接受 Manny 动作，按区域覆盖与角色独立材质驱动，区分材质卷边和实际几何厚度。
 
@@ -51,5 +51,9 @@ description: 制作、迁移和修正 UE5 第一人称手臂动画及手部装�
 ## 交付要求
 
 按已授权范围完成候选、导入、实际引用和回归。交付可编辑 Blend/FBX 或 UE Control Rig 序列及实际模型/游戏预览；有音效变更时记录实际混音并核对接触，不用静音 GIF 证明同步。小改只检查相关动作及受影响的相邻状态，不重复跑无关大测试。
+
+读图与视觉判读：需要自己看渲染、截图或候选图时走 `D:/FPS3D/FPSGAME/Tools/deepseek-vision.ps1`（用法与边界见 `D:/FPS3D/FPSGAME/Docs/deepseek-vision.md`）。读图只做定性确认和列差异；角度、朝向、偏移、接触位置和尺寸用像素测量；最终视觉与手感验收由用户决定。
+
+会话内看图先用 `D:/FPS3D/FPSGAME/Tools/shrink-for-view.ps1` 把评审 sheet 缩成 ≤1 MB 的副本再 `view_image`（定量测量仍读原图）：原生图片输入会把 base64 留在历史里并随每轮重发，单线程内联图片累计到约 50 MB 就会 `413 Payload Too Large`，那条线程连同未完成的候选一起废掉；单线程控制在约 10 MB 以内、换一版开新线程。
 
 通用枪械、许可、ADS、装备数据和改造约束见 [UE5 枪械工作流](../ue5-weapon-workflow/SKILL.md)。

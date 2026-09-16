@@ -1,0 +1,171 @@
+{
+    "date":  "2026-09-16",
+    "status":  "archived",
+    "project":  "D:\\FPS3D\\FPSGAME",
+    "trash":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916",
+    "scope":  "第四段柄尾配重砸击：被否定的举锤版资产备份、被替换的首版评审渲染、读图临时副本",
+    "hash_check":  "移动前后 SHA-256 一致 20/20",
+    "note":  "uasset/png 受 .gitignore 排除，本清单用于本机恢复与追溯",
+    "targets":  [
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Before\\A_RuneSword_PommelStrike.uasset",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Before\\A_RuneSword_PommelStrike.uasset",
+                        "bytes":  3801406,
+                        "sha256":  "34077C2192CE76FF32732E42DC27D9D9BF3587B6CDCA7FB1955CCAC71C6C3D73",
+                        "reason":  "被用户否定的「举锤式前下砸」第二轮版本（1.55 s / 0.435 m）导入后留下的上一版资产备份",
+                        "replacement":  "当前同路径资产：初版姿态家族 + 抬臂蓄力 + 24 cm 前踏（1.60 s / 0.256 m）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Before\\WristRiftV3\\SM_RuneRift_Pommel.uasset",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Before\\WristRiftV3\\SM_RuneRift_Pommel.uasset",
+                        "bytes":  87143,
+                        "sha256":  "C01094432ED771CF1333A6F561DF6EDC110F5C9454E47CF4C5F643D3E25B65A4",
+                        "reason":  "被用户否定的「举锤式前下砸」第二轮版本（1.55 s / 0.435 m）导入后留下的上一版资产备份",
+                        "replacement":  "当前同路径资产：初版姿态家族 + 抬臂蓄力 + 24 cm 前踏（1.60 s / 0.256 m）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_1300ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_1300ms.png",
+                        "bytes":  630070,
+                        "sha256":  "63A62DC00AB33040954EFCD1E2BDBF00C2E5C49C3DA26D5DB6DC579D7C0E8DBE",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_150ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_150ms.png",
+                        "bytes":  650732,
+                        "sha256":  "51DE8EFE140FF12894B32CFD304317AD7AEDA79E734397760ED06B75A6F2A3E9",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_300ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_300ms.png",
+                        "bytes":  638806,
+                        "sha256":  "500EE8CB01CA5A31CA9A8694A4C16C6DB99C96511863E7281858C843B6C0CCB9",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_460ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_460ms.png",
+                        "bytes":  638549,
+                        "sha256":  "C97A59852A97C390481C3931C696DBAA90465F95FE4D41B258501ABDC4002FEA",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_520ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_520ms.png",
+                        "bytes":  638003,
+                        "sha256":  "997E9CD90ED4FE6D74E3B3DCD1F7CF4B5E0C2B4D2A9273AD23D342D42476CDEF",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_570ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_570ms.png",
+                        "bytes":  626471,
+                        "sha256":  "21578BF3443131694E2A90E55CD58546DA1B7CFDD6F87B9D29995071048DB807",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_680ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_680ms.png",
+                        "bytes":  608216,
+                        "sha256":  "BFF350AF5BFC8B8F83018563A82B972E2C8E802FC7B93010112E806494826931",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_850ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\fp_850ms.png",
+                        "bytes":  684724,
+                        "sha256":  "8CE5ADFA8FE6A63C7D8D11572E06066C3A114430CA0E83BE8A0B8525872C910A",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\joint_300ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\joint_300ms.png",
+                        "bytes":  648576,
+                        "sha256":  "51B2C26AB78537487FC21857AF46AB065EDDD634B15B8453606089E7D8C6B75E",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\joint_460ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\joint_460ms.png",
+                        "bytes":  713936,
+                        "sha256":  "3363A6E034FA57DE358823BDE8DAD0AD5FD41EDE3434C40308901A35E2B2685D",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\joint_850ms.png",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\previous_v1\\joint_850ms.png",
+                        "bytes":  646828,
+                        "sha256":  "9C9021E4E5034BB9AF618D6003F08367DADA324A1C8160D105D57B4E351214C5",
+                        "reason":  "首版评审渲染（1.30 s / 0.141 m 行程、柄尾前捅），已被最终版评审取代",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png（最终版）"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_300ms.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_300ms.jpg",
+                        "bytes":  31854,
+                        "sha256":  "4088BEF377E97FC952E9B25EC1A6DB73D6C59DD06746EA09B3DA5567170CED39",
+                        "reason":  "读图用缩放副本（shrink-for-view 生成，可重建）",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png 原图"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_460ms.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_460ms.jpg",
+                        "bytes":  32184,
+                        "sha256":  "A63A34171BF0ABEB17EC60DFB4D9E264C29719545BD152D364C37A8759DFF2B9",
+                        "reason":  "读图用缩放副本（shrink-for-view 生成，可重建）",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png 原图"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_620ms.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_620ms.jpg",
+                        "bytes":  27040,
+                        "sha256":  "B435497E9A31A15F1E1D4AC4C3E5F5CF2256D1E99DA76886175D561C836D7B83",
+                        "reason":  "读图用缩放副本（shrink-for-view 生成，可重建）",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png 原图"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_680ms.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_680ms.jpg",
+                        "bytes":  50459,
+                        "sha256":  "D7DC0838C797582322E1DC3CC4AF70FF5E1DE22CB1AAD226093B8131AB3AADD7",
+                        "reason":  "读图用缩放副本（shrink-for-view 生成，可重建）",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png 原图"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_860ms.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\MeleePommelAttack20260916\\Review\\View\\fp_860ms.jpg",
+                        "bytes":  34317,
+                        "sha256":  "1571D5DF5A8BAD644417414ABBBBD9B7474150E87A425B11F065968CF00AB32E",
+                        "reason":  "读图用缩放副本（shrink-for-view 生成，可重建）",
+                        "replacement":  "SourceAssets\\MeleePommelAttack20260916\\Review\\*.png 原图"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\ReviewV45\\View\\sheet_fp.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\ReviewV45\\View\\sheet_fp.jpg",
+                        "bytes":  99589,
+                        "sha256":  "159EF58484545E7A0BD5CD301A77407D2EFF28E3026911B0A1500923CACA83C5",
+                        "reason":  "蓄力左臂案例下同类读图缩放副本（可重建）",
+                        "replacement":  "SourceAssets\\RuneSword20260913\\ChargedErgoV43\\ReviewV45\\sheet_*.png 原图"
+                    },
+                    {
+                        "source":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\ReviewV45\\View\\sheet_joint.jpg",
+                        "destination":  "D:\\FPS3D\\FPSGAME\\trash\\melee-pommel-strike-superseded-20260916\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\ReviewV45\\View\\sheet_joint.jpg",
+                        "bytes":  102421,
+                        "sha256":  "9FEF5B24883E4E3F77C4B33322DEA2AC805B859AF60D6B40C31ACFA21C039962",
+                        "reason":  "蓄力左臂案例下同类读图缩放副本（可重建）",
+                        "replacement":  "SourceAssets\\RuneSword20260913\\ChargedErgoV43\\ReviewV45\\sheet_*.png 原图"
+                    }
+                ]
+}
