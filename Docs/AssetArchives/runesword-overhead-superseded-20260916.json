@@ -1,0 +1,197 @@
+{
+    "date":  "2026-09-16",
+    "project":  "D:/FPS3D/FPSGAME",
+    "archive_root":  "trash/runesword-overhead-superseded-20260916",
+    "status":  "completed_sha256_verified",
+    "reason":  "Superseded iterations of the sprint overhead chop: V49 (heavy attack retimed; user reported it read like a faster first slash), V50 (IK-lifted raise; user reported too fast), V51 (slower clock). The user stopped the line because the arms twist badly. V52 stays as the current entry.",
+    "retained":  "ReviewV49/ReviewV50/ReviewV51 comparison sheets, probe_chop_vs_slash.py, probe_overhead_source.py, probe_overhead_curve.py, the whole V52 revision and ExportV52/",
+    "runtime":  "Game asset A_RuneSword_Overhead is V52 (2.60 s); no superseded revision was ever left in Content.",
+    "files":  [
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v49.json",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v49.json",
+                      "bytes":  21773,
+                      "sha256":  "6d3dbc28472cb2c5721d6d745628f2dfaf735e7e6f68d4da98eeaea5df4757a9"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v50.json",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v50.json",
+                      "bytes":  13504,
+                      "sha256":  "972da7ddec9187f28e6bdadcfcf61563a473f01dbceaa16868ac71bc3e88dc99"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v51.json",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v51.json",
+                      "bytes":  24915,
+                      "sha256":  "74d23e4c453146ae5bf39ffa4c3a3c9c12e814abfe860485dbfdec03ac7a1efd"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/author_overhead_v49.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_overhead_v49.py",
+                      "bytes":  8345,
+                      "sha256":  "13a56a6de50a1cf7d30af19a60e7bcd80550298d33efd6bf8187ea0d0fbf750e"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/author_overhead_v50.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_overhead_v50.py",
+                      "bytes":  10619,
+                      "sha256":  "196da03df488d00a1bcdb557243fe5291bcd67d3d94620caef644462e286b9b9"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/author_overhead_v51.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_overhead_v51.py",
+                      "bytes":  9727,
+                      "sha256":  "61d63f5c402f53f09fd584d1bc98e3eebe3bf05955a39c1a79bf313959c72550"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v49.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v49.log",
+                      "bytes":  2906,
+                      "sha256":  "6683de52b80e6bd6fa7f99c9155f215a9725c007a795e82a9c8c67b7b12c9dee"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v50.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v50.log",
+                      "bytes":  2790,
+                      "sha256":  "f274bdc467629eed57adeeded4726d698a251a64f8b8807888d11497078029af"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v51.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v51.log",
+                      "bytes":  2740,
+                      "sha256":  "0e0089a3319feafbd3675efab6c13c171d4eff8ba28c39a665512dfc45a98d47"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_OverheadV49.blend",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_OverheadV49.blend",
+                      "bytes":  155039762,
+                      "sha256":  "03a2fd8592d3cc5beac55850946e7ed9321d50891fce943b0b9addb7e2e45297"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_OverheadV50.blend",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_OverheadV50.blend",
+                      "bytes":  155057499,
+                      "sha256":  "1c17ecb2672a545eec6715d62983dc163fedfb0f7268a62025bbaf0a9b1237a8"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_OverheadV51.blend",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_OverheadV51.blend",
+                      "bytes":  156037735,
+                      "sha256":  "44a15e31e9b2794442b95b89bcdea5d748941c8b0054dd0d2495629dfb59f39a"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_console_v49.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_console_v49.log",
+                      "bytes":  40032,
+                      "sha256":  "dd953a58cfd25211361ca4fac4ab0780fea9ba4acc09836b7a918cec7a307641"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_console_v50.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_console_v50.log",
+                      "bytes":  59028,
+                      "sha256":  "7f1deb7bab676985325a3dc6400f64410719c50459cbc960a70bbf8b6b93d3c5"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_overhead_v49.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_overhead_v49.py",
+                      "bytes":  2383,
+                      "sha256":  "972e1d4cf4cee647a59d25f6da73cfc7d3b466878f59e026e75ff717ff61c8ef"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_overhead_v50.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_overhead_v50.py",
+                      "bytes":  2710,
+                      "sha256":  "68c558cf8678f320e075263f133d284ccb55ac61c70be2dec0dd8b978aa20c04"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_overhead_v51.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_overhead_v51.py",
+                      "bytes":  2513,
+                      "sha256":  "3e2546e0e3d01c46c6d07aec38fbd8f784bcdd812ba9dd8efee72b0ec10ae8a1"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v49.json",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v49.json",
+                      "bytes":  551,
+                      "sha256":  "9e59f084fefdbf3bf3c4a65029441413ffc254c814d92b21687c4bd039cb81c0"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v50.json",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v50.json",
+                      "bytes":  583,
+                      "sha256":  "33554b04c9e62c06c3d9335ed23108e7162c90150b66a6e4ca18f4a489d96a7d"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v51.json",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v51.json",
+                      "bytes":  596,
+                      "sha256":  "fdd06ba40434ba580c51075e182ef4600fe67e714a553a7542b47af602b81359"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_v49.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_v49.log",
+                      "bytes":  235910,
+                      "sha256":  "5201c0460debac36073eff51fad1269fca2de28c684bdf8b665bd6bbb2cadeaf"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/import_v50.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_v50.log",
+                      "bytes":  238286,
+                      "sha256":  "51a9c5379f524e46fbb1fe09b67b2ade6d60b15302e05e45546b1a2f4bee3b8c"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/render_overhead_v49.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_overhead_v49.py",
+                      "bytes":  2103,
+                      "sha256":  "d883348ade8b7503cb1da2765572d1013f338ea753571ddeb16d9b678c974255"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/render_overhead_v50.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_overhead_v50.py",
+                      "bytes":  2081,
+                      "sha256":  "ad42e0b07cb3a22c2876d4d3f27ffb70542863aecbf2fe59e2f27a3d55770e37"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/render_overhead_v51.py",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_overhead_v51.py",
+                      "bytes":  2113,
+                      "sha256":  "a54757c6a4a370e958fce07e8c2041f121aeb41fd12bab8cd8f98ac29ee1ddcf"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v49.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v49.log",
+                      "bytes":  5148,
+                      "sha256":  "579cfb55f0ab10fe5f6a6ea0f58c718e00c144793ae6b53c98992f67a7ac8203"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v50.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v50.log",
+                      "bytes":  5408,
+                      "sha256":  "8c7fae577a0a5f54b528e8cea28183b7c13ace59e979dcfa25a1ee4d1516054f"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v51.log",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v51.log",
+                      "bytes":  5928,
+                      "sha256":  "6eb24b24f7b67013dbd96d5e0c6c816681bb2146e497d74f4f9dadea98ba51fc"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/ExportV49/A_RuneSword_Overhead.fbx",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/ExportV49/A_RuneSword_Overhead.fbx",
+                      "bytes":  1539356,
+                      "sha256":  "c636f9cdd1b176a72a10aaadb54bd93c4eedf5cc157d61c1c0f72c7a53157a84"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/ExportV50/A_RuneSword_Overhead.fbx",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/ExportV50/A_RuneSword_Overhead.fbx",
+                      "bytes":  1551244,
+                      "sha256":  "2490f471ccaaf271fd0879c093922763251ef5bb59bef296d732bbdd742ff08a"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/SourceAssets/RuneSword20260913/InspectGripArcV46/ExportV51/A_RuneSword_Overhead.fbx",
+                      "destination":  "trash/runesword-overhead-superseded-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/ExportV51/A_RuneSword_Overhead.fbx",
+                      "bytes":  2217244,
+                      "sha256":  "c2e3dcd42dbf022f383ad8c82522739c6e726add333ea674eb205063d5f033a5"
+                  }
+              ]
+}

@@ -1,0 +1,136 @@
+{
+    "date":  "2026-09-16",
+    "project":  "D:/FPS3D/FPSGAME",
+    "archive_root":  "trash/sword-twirl-v48-retired-20260916",
+    "status":  "completed_sha256_verified",
+    "reason":  "User asked to drop the V48 original two-revolution twirl and its L key binding; the move was too hard to make read well with a 1.09 m blade.",
+    "runtime":  "A_RuneSword_Twirl.uasset moved out of Content; L binding, BeginTwirl and the Twirl clip entry reverted; F inspect (V47) untouched.",
+    "files":  [
+                  {
+                      "source":  "Content/Weapons/AzureRunesword20260913/A_RuneSword_Twirl.uasset",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/Content/Weapons/AzureRunesword20260913/A_RuneSword_Twirl.uasset",
+                      "bytes":  3595947,
+                      "sha256":  "334796cc2123bc6885b13bd24a2778bc1ca54a024f71e7d0406b12e060903cc1"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v48.json",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/authoring_v48.json",
+                      "bytes":  54028,
+                      "sha256":  "983a401e395c629a6389e5f85e50d5b421c27ce5c598264adaf6a45786779d47"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/author_twirl_v48.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_twirl_v48.py",
+                      "bytes":  15385,
+                      "sha256":  "1384fc06902b197306c5228091a0e655a39e028c8b6923fefd416fcf08dffd5d"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/author_v48.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/author_v48.log",
+                      "bytes":  2778,
+                      "sha256":  "95e24aa851030ebe86ed5034bd649361e784380edd9c64447ac7e49f635acdae"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_TwirlV48.blend",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/AzureRunesword_TwirlV48.blend",
+                      "bytes":  133703446,
+                      "sha256":  "365cbaf3b3c163842fb7777cf43cff7b346ef213f551b1eb4db085a088e63160"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/import_console_v48.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_console_v48.log",
+                      "bytes":  39494,
+                      "sha256":  "54746aff3b77d502404ef52fe4c7b49c12e1d0864351222c67f99f935fecd42c"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v48.json",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_receipt_v48.json",
+                      "bytes":  535,
+                      "sha256":  "fdbe7af595f06330e50d0ecd7628a308ac0d1231ee0d86b5cc52c1128ef0d3d8"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/import_twirl_v48.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_twirl_v48.py",
+                      "bytes":  2378,
+                      "sha256":  "7e67bcb8beaf3036c9fffc9f2b1fba00e5ae5fbcd4bcc4d371c3de64179b554c"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/import_v48.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/import_v48.log",
+                      "bytes":  235134,
+                      "sha256":  "c2bc255919959f94bd7b638772657843a6a3dac2be55878150436be625795ee5"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_debug.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_debug.log",
+                      "bytes":  5148,
+                      "sha256":  "46c82ddf09281245d0bfb03a9840739e52f99d9f85206c869b16c1f82e723eb3"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_debug.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_debug.py",
+                      "bytes":  1728,
+                      "sha256":  "a533a91330bb5851e5625de5c53bc9cfb3186376b39d9d19e59014b5202e96f4"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_identity.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_identity.log",
+                      "bytes":  3170,
+                      "sha256":  "5754d4327072a25696f84282bffc3b16acb6c96bd23a6394add5bf8247f35781"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_identity.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_identity.py",
+                      "bytes":  3390,
+                      "sha256":  "a3dd39d0c4c5d7ef022473f9357afd76b5f5446dbbb1645e0a896d7a35019a63"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_standalone.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_standalone.log",
+                      "bytes":  3484,
+                      "sha256":  "5598658a6bc3363e61411dfe9da7fcc94bc89874efc219ad95649ff532e4d04d"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_standalone.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_standalone.py",
+                      "bytes":  5259,
+                      "sha256":  "0eed02d846c556fb73c9523cdee6314917e96f551927c66d529dd4637ea13c10"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_steps.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_steps.log",
+                      "bytes":  2942,
+                      "sha256":  "06b2686fb5feea67cd2df99f16f93f2860e1f92281dcae5f59fdc063df6f3d3d"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_steps.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/probe_v48_steps.py",
+                      "bytes":  3645,
+                      "sha256":  "2665be1d7eba7204eaba60e7db14a828c49d86943394632d80eaa01c9d7a655f"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/render_twirl_v48.py",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_twirl_v48.py",
+                      "bytes":  2096,
+                      "sha256":  "f1f858ff3f8dad53cd21b8227f1945bb776c9c87ed56b69a90aa80f207ad295f"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/render_v48.log",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/render_v48.log",
+                      "bytes":  5684,
+                      "sha256":  "c9c1cec04e4d2d4834acc06190fbab452cb1315a64da36982c8ce11deb648e3c"
+                  },
+                  {
+                      "source":  "SourceAssets/RuneSword20260913/InspectGripArcV46/ReviewV48/twirl_v48_sheet.png",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/SourceAssets/RuneSword20260913/InspectGripArcV46/ReviewV48/twirl_v48_sheet.png",
+                      "bytes":  1390150,
+                      "sha256":  "d1d4e1771a8ca0f291944adebaa3706a8026a5ef6aa9e018e20f2ca075c2f777"
+                  },
+                  {
+                      "source":  "Docs/Weapons/runesword-twirl-20260916.md",
+                      "destination":  "trash/sword-twirl-v48-retired-20260916/Docs/Weapons/runesword-twirl-20260916.md",
+                      "bytes":  4564,
+                      "sha256":  "32393daba8e65f711837e0029e24aff193e2741d2665b670e5458ecc818dd292"
+                  }
+              ]
+}
