@@ -106,8 +106,22 @@ bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason,bool* O
     const FVector Center=Min+FVector(10);const FBox Box(Min+FVector(.25),Min+FVector(19.75));
     if(OutAnchor)*OutAnchor=false;
     for(TActorIterator<ACharacter> It(GetWorld());It;++It)
-        if(auto* Capsule=It->GetCapsuleComponent();Capsule&&Capsule->IsCollisionEnabled()&&Box.Intersect(Capsule->Bounds.GetBox()))
+    {
+        auto* Capsule=It->GetCapsuleComponent();
+        if(!Capsule||!Capsule->IsCollisionEnabled())continue;
+        // Test the capsule itself, not its bounding box. A 34 cm radius capsule has a ~68 cm wide
+        // AABB, so the old test also rejected the two or three neighbouring 20 cm cells around the
+        // body; because one bad cell rejects the whole brush, a player standing on their own build
+        // could no longer raise it (2026-09-16 "cannot build above 2 m" report).
+        const float Radius=Capsule->GetScaledCapsuleRadius();
+        const float Half= Capsule->GetScaledCapsuleHalfHeight();
+        const FVector Up=Capsule->GetUpVector();
+        const FVector A=Capsule->GetComponentLocation()+Up*FMath::Max(0.f,Half-Radius);
+        const FVector B=Capsule->GetComponentLocation()-Up*FMath::Max(0.f,Half-Radius);
+        const FVector Nearest=FMath::ClosestPointOnSegment(Center,A,B);
+        if(FVector::DistSquared(Box.GetClosestPointTo(Nearest),Nearest)<double(Radius)*Radius)
         {Reason=TEXT("位置被角色占用");return false;}
+    }
     const auto Params=VoxelGrounding::Query(GetWorld(),this);VoxelGrounding::FFootprint Ground;
     // A slope may cross an upper foundation cell without supporting every
     // corner of that cell. Permit that terrain intersection, but only mark

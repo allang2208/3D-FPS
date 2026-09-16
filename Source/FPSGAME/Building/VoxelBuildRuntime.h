@@ -74,4 +74,11 @@ struct FVoxelBuildRuntime
     bool bSaveDirty=false,bSaveFailed=false,bStressApproximate=false;
     double SaveAt=0,StructureAt=0,LoadSampleAt=0,MotionSaveAt=0;
     int32 AwakeBodies=0,AwakeShapes=0;
+    // Build-failure isolation (Docs/Building/voxel-build-workflow.md 3.6). FreshCells holds the
+    // cells added by the most recent accepted placement batch and FreshAt is when it was committed.
+    // While that window is open the stress result may destroy the batch, but never the structure that
+    // was already standing; bFreshRolledBack only feeds the on-screen status line.
+    TSet<FVoxelBuildKey> FreshCells;
+    double FreshAt=0;
+    bool bFreshRolledBack=false;
 };

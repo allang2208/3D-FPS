@@ -21,6 +21,7 @@ UVoxelBuildSave* AVoxelBuildWorld::MakeSnapshot() const
     auto* Data=NewObject<UVoxelBuildSave>();Data->WorldKey=WorldKey;Data->Cells.Reserve(Cells.Num());
     for(const auto& E:Cells){auto& C=Data->Cells.AddDefaulted_GetRef();C.Position=E.Key;C.Material=E.Value;}
     for(const auto& E:FreeVolumes)if(!E.Value.Cells.IsEmpty())Data->FreeVolumes.Add(E.Value);
+    Data->Prefabs=Prefabs;
     Data->Damage=CellDamage;Data->LegacyProtected=LegacyProtected;
     for(const auto& B:SupportGraph->Broken)if(!VolumeMaterialAt(B.A.Volume,B.A.Cell).IsNone()&&!VolumeMaterialAt(B.B.Volume,B.B.Cell).IsNone())
         Data->BrokenBonds.Add(B);

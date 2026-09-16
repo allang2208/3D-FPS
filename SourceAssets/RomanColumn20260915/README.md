@@ -219,3 +219,49 @@ Fab 库 20 个条目**没有大理石／石材瓷砖材质包**；与石材相�
 | 顶梁 | 103.2 – 115.7 |
 
 关卡已保存（23:59:56，0.81 MB），`SM_Balustrade_Plinth.uasset` 已落盘（14.7 KB）。
+
+## 接入建造面板构件（2026-09-16 追加）
+
+用户要求把**罗马柱**和**矮栏杆罗马柱**加入建造组件。作者脚本 `add_panel_components.py`，只读盘点脚本 `inspect_prefab_palettes.py`。
+
+### 先修掉的调色板错位
+
+`UVoxelBuildComponent` 默认加载 `/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette`，而 9-16 上午那次 7 条注册写进了父目录的初版 `/Game/Building/Voxels/DA_VoxelBuildPalette`（`register_palette_prefabs.py`、`apply_stone_material_and_palette.py`、`wrap.log` 都是这一份）。活动调色板的 `components` 实际是 **0**，所以面板的「构件」页一直是空的。本轮把两根柱子写进**活动**调色板；初版调色板保持原样，其中 7 条（柱／围栏整体段／体素块 ×2／凉亭 ×3）目前不被任何组件引用。
+
+### 本轮写入的构件
+
+| 稳定 ID | 名称 | 网格 | 20 cm 占格 | 网格实际尺寸 | 材质 |
+| --- | --- | --- | --- | --- | --- |
+| `roman_column` | 罗马柱 | `SM_RomanColumn_Detailed` | 4 × 4 × 13 | 80 × 80 × 260 cm | `M_RomanStone_V2` |
+| `baluster_small` | 矮栏杆罗马柱 | `SM_RomanBaluster_Small` | 2 × 2 × 5 | 40 × 40 × 100 cm | `M_Plaster_Detailed` |
+
+两者的占格都与网格包围盒**逐轴相等**（脚本内已做 `OK / MISMATCH` 自检并打印），所以放置时按 20 cm 格吸附不会出现半格偏移；材质取各自网格当前槽位 0 的材质，放置后外观与案例里摆进场景的那批一致。
+
+### 保存通道与证据
+
+- 编辑器正开着该资产，外部进程保存会静默失败，因此脚本走**运行中编辑器**的 Python 远程执行通道。
+- `unreal.EditorAssetLibrary.save_*` 在远程执行上下文里返回 `False`（编辑器处于 PIE 时更明显），可用的保存入口是 `unreal.EditorLoadingAndSavingUtils.save_packages`。此结论会随编辑器状态变化，写入前仍要按磁盘时间戳复核。
+- 证据：`save_packages=True`；同进程读回 2 条；关卡**外部**看到的 `DA_VoxelBuildPalette.uasset` 由 3241 B / 17:19:15 变为 4512 B / 17:19:32；直接扫描该文件字节，`SM_RomanColumn_Detailed`、`SM_RomanBaluster_Small`、`M_RomanStone_V2`、`M_Plaster_Detailed`、`roman_column`、`baluster_small` 均存在。
+
+### 边界
+
+- 面板在**进入建造世界时**读取一次调色板内容，已经在 PIE 里的话需要重新进入世界才会看到新增构件。
+- 本轮只写数据资产并读回，没有在游戏里点选放置、没有截图；构件是否摆得正、碰撞和手感如何由用户测试。
+- 初版调色板里的围栏整体段、体素块、凉亭三件**没有**一并搬过来（用户本次只要两根柱子）；需要的话把 `register_palette_prefabs.py` 的入口指向活动调色板再跑一次即可。
+
+## 大理石体素（2026-09-16 追加）
+
+用户要求：「体素栏新加入一个新的体素，大理石体素，就用罗马柱的材质做一个 20*20cm 的体素块」。脚本 `add_marble_voxel.py`，写入活动调色板 `/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette` 的**材质**列表：
+
+| 稳定 ID | 名称 | 表面材质 | 物理参数 |
+| --- | --- | --- | --- |
+| `marble` | 大理石 | `M_RomanStone_V2`（罗马柱材质） | 密度 2600 kg/m³、抗压 3,000,000 Pa、抗拉 12,000 Pa、抗剪 40,000 Pa、耐久 500、15 J/点（**显式 override**，与代码里 `stone` 的取值一致） |
+
+两点依据：
+
+1. 体素表面生成器自己写**世界投影 UV**（`P[轴]/80`），而 `M_RomanStone_V2` 是纯 UV0 材质（参数为 `StoneNoise` / `StoneDetail` / `StoneBody` / `StoneDirt` / `StoneRoughnessMin|Max`，无 WorldPosition 节点），所以罗马柱材质可以直接铺在 20 cm 体素块上，不需要另做材质。
+2. `UVoxelBuildPalette::Physical()` 只对 `id == "stone"` 走石材数值，其余 ID 落到默认（木材）数值。新 ID 若不写 override 会**悄悄变成木材**，所以条目自带显式物理参数。
+
+数量键同步改成「当前分类第 N 项」：面板里 1-9 选当前分类第 N 张卡（材质 1 木材 / 2 石头 / 3 大理石）；建造中 1-3 是材质、4-9 是构件。已通过编辑器内 `LiveCoding.CompileSync` 热补丁生效（17:33:18 `Live coding succeeded`）。
+
+证据：`save_packages=True`；读回 3 条材质；外部看到 `DA_VoxelBuildPalette.uasset` 由 4512 B / 17:19:32 变为 4973 B / 17:32:12。未在游戏里铺过，实际贴图尺度由用户测试。

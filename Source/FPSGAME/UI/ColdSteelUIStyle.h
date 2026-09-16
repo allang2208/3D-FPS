@@ -31,6 +31,12 @@ namespace ColdSteelUI
     inline const FLinearColor AttributeRow = Gray(200,9);
     inline const FLinearColor StatusCard = Gray(37,232);
     inline const FLinearColor Tooltip = Gray(25,252);
+    // Shared tooltip-card tokens (equipment tooltip and the building panel use the same card).
+    inline const FLinearColor TooltipGlass = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("0B1116FA")));
+    inline const FLinearColor TooltipOutline = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7187928A")));
+    inline const FLinearColor TooltipRule = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("B8D6DF3D")));
+    inline const FLinearColor TooltipCloseNormal = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C83232CC")));
+    inline const FLinearColor TooltipCloseHover = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("DC4646FF")));
     inline constexpr float GlassBlurStrength=9.f,PanelRadius=10.f,CardRadius=8.f,ButtonRadius=6.f;
     inline constexpr int32 GlassBlurRadius=21;
     inline constexpr float ActionHeight=36.f,ActionGap=4.f;

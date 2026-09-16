@@ -19,12 +19,17 @@ static FArchive& operator<<(FArchive& Ar,FVoxelBrokenBond& B){return Ar<<B.A<<B.
 static FArchive& operator<<(FArchive& Ar,FVoxelDebrisCell& C){return Ar<<C.Key<<C.Min<<C.Material<<C.Damage;}
 static FArchive& operator<<(FArchive& Ar,FVoxelFragmentSave& F)
 {return Ar<<F.Id<<F.Transform<<F.Cells<<F.BrokenBonds<<F.Velocity<<F.AngularVelocity<<F.bSleeping;}
+static FArchive& operator<<(FArchive& Ar,FVoxelBuildPrefabInstance& P){return Ar<<P.Id<<P.Cell<<P.Yaw<<P.Footprint;}
 
 namespace
 {
     constexpr uint32 Magic=0x33584256; // VBX3, independent of USaveGame/UObject serialization.
+    // Version 4 appends placed prefab pieces; older files stop before that field.
     void Serialize(FArchive& Ar,FVoxelDiskSnapshot& S)
-    {Ar<<S.Version<<S.CellSizeCm<<S.WorldKey<<S.Cells<<S.FreeVolumes<<S.Damage<<S.BrokenBonds<<S.Fragments<<S.LegacyProtected;}
+    {
+        Ar<<S.Version<<S.CellSizeCm<<S.WorldKey<<S.Cells<<S.FreeVolumes<<S.Damage<<S.BrokenBonds<<S.Fragments<<S.LegacyProtected;
+        if(S.Version>=4)Ar<<S.Prefabs;
+    }
     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
 }
 
@@ -32,7 +37,8 @@ FVoxelDiskSnapshot VoxelPersistence::Take(UVoxelBuildSave* S)
 {
     FVoxelDiskSnapshot D;D.Version=S->Version;D.CellSizeCm=S->CellSizeCm;D.WorldKey=MoveTemp(S->WorldKey);
     D.Cells=MoveTemp(S->Cells);D.FreeVolumes=MoveTemp(S->FreeVolumes);D.Damage=MoveTemp(S->Damage);
-    D.BrokenBonds=MoveTemp(S->BrokenBonds);D.Fragments=MoveTemp(S->Fragments);D.LegacyProtected=MoveTemp(S->LegacyProtected);return D;
+    D.BrokenBonds=MoveTemp(S->BrokenBonds);D.Fragments=MoveTemp(S->Fragments);D.LegacyProtected=MoveTemp(S->LegacyProtected);
+    D.Prefabs=MoveTemp(S->Prefabs);return D;
 }
 
 UVoxelBuildSave* VoxelPersistence::Load(const FString& Slot)
@@ -48,7 +54,8 @@ UVoxelBuildSave* VoxelPersistence::Load(const FString& Slot)
     if(Ar.IsError()||Reader.Tell()!=Bytes.Num())return nullptr;
     auto* S=NewObject<UVoxelBuildSave>();S->Version=Payload.Version;S->CellSizeCm=Payload.CellSizeCm;S->WorldKey=MoveTemp(Payload.WorldKey);
     S->Cells=MoveTemp(Payload.Cells);S->FreeVolumes=MoveTemp(Payload.FreeVolumes);S->Damage=MoveTemp(Payload.Damage);
-    S->BrokenBonds=MoveTemp(Payload.BrokenBonds);S->Fragments=MoveTemp(Payload.Fragments);S->LegacyProtected=MoveTemp(Payload.LegacyProtected);return S;
+    S->BrokenBonds=MoveTemp(Payload.BrokenBonds);S->Fragments=MoveTemp(Payload.Fragments);S->LegacyProtected=MoveTemp(Payload.LegacyProtected);
+    S->Prefabs=MoveTemp(Payload.Prefabs);return S;
 }
 
 bool VoxelPersistence::Write(FString Slot,FVoxelDiskSnapshot Snapshot)

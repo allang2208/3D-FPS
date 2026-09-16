@@ -3,6 +3,7 @@
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPersistence.h"
 #include "VoxelCollapseFragment.h"
+#include "VoxelBuildPrefabActor.h"
 
 #include "Components/DynamicMeshComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -14,6 +15,25 @@
 
 // Keep construction cleanup of the runtime pointer where its type is complete.
 AVoxelBuildWorld::AVoxelBuildWorld(FVTableHelper& Helper) : Super(Helper) {}
+
+// TEMPORARY placement diagnostics for the 2026-09-16 "cannot build above 2 m" report.
+// The on-screen message already says why; this records the same reason plus the cell so the
+// rejected branch can be identified from the log. Rate limited and de-duplicated; delete once
+// the cause is fixed.
+namespace
+{
+    void LogPlacementReject(const TCHAR* Stage,const FVoxelBuildKey& Key,const FVector& Min,const FString& Reason)
+    {
+        static double LastTime=-10.;
+        static FString LastKey;
+        const FString Signature=FString::Printf(TEXT("%s|%d,%d,%d|%s"),Stage,Key.Cell.X,Key.Cell.Y,Key.Cell.Z,*Reason);
+        const double Now=FPlatformTime::Seconds();
+        if(Signature==LastKey||Now-LastTime<.5)return;
+        LastTime=Now;LastKey=Signature;
+        UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=%s cell=%d,%d,%d min=%.1f,%.1f,%.1f reason=%s"),
+            Stage,Key.Cell.X,Key.Cell.Y,Key.Cell.Z,Min.X,Min.Y,Min.Z,*Reason);
+    }
+}
 
 AVoxelBuildWorld::AVoxelBuildWorld()
 {
@@ -80,7 +100,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
     {
         LoadedData=VoxelPersistence::Load(SaveSlot);
-        if(!LoadedData||LoadedData->Version<1||LoadedData->Version>3||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
+        if(!LoadedData||LoadedData->Version<1||LoadedData->Version>4||LoadedData->CellSizeCm!=20||LoadedData->WorldKey!=WorldKey)
         {Message=TEXT("建筑存档版本不兼容，已保留原档");return false;}
         for(const auto& Cell:LoadedData->Cells)
         {
@@ -104,6 +124,15 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
             for(const auto& C:F.Cells)if(!MaterialSlots.Contains(C.Material)||C.Min.ContainsNaN())
             {Message=TEXT("残骸材料或位置无效，已保留原档");return false;}
         }
+        for(FVoxelBuildPrefabInstance Piece:LoadedData->Prefabs)
+        {
+            // Footprints come from the palette so edited component assets stay authoritative.
+            const FVoxelBuildPrefab* Definition=Palette->FindComponent(Piece.Id);
+            if(!Definition||Piece.Yaw<0||Piece.Yaw>3||!Definition->Mesh.LoadSynchronous())
+            {UE_LOG(LogTemp,Warning,TEXT("Voxel structure skipped an unknown prefab piece: %s"),*Piece.Id.ToString());continue;}
+            Piece.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Piece.Yaw);
+            Prefabs.Add(Piece);
+        }
         CellDamage=LoadedData->Damage;LegacyProtected=LoadedData->LegacyProtected;
     }
     RefreshSupportGraph();
@@ -117,20 +146,37 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Loaded.Add({E.Key,NAME_None,E.Value,V.Key});
     RebuildAffected(Loaded);bReady=true;
     for(const auto& E:SupportGraph->Nodes)if(!LegacyProtected.Contains(E.Key))Runtime->DirtySupport.Add(E.Key);
+    for(const FVoxelBuildPrefabInstance& Piece:Prefabs)SpawnPrefab(Piece);
+    RefreshPrefabOccupancy();
     if(LoadedData)for(const auto& F:LoadedData->Fragments)EnqueueFragment(F);
-    Message=LegacyProtected.IsEmpty()?TEXT("建筑已载入 · 承重系统已启用"):TEXT("旧建筑已保留 · 编辑相关结构后启用承重");
+    Message=Prefabs.IsEmpty()?(LegacyProtected.IsEmpty()?TEXT("建筑已载入 · 承重系统已启用"):TEXT("旧建筑已保留 · 编辑相关结构后启用承重"))
+        :FString::Printf(TEXT("建筑已载入 · 构件 %d 件 · 承重系统已启用"),Prefabs.Num());
     return true;
 }
 
 bool AVoxelBuildWorld::CanPlace(const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
 {return CanPlaceInVolume({},Positions,Material,Reason);}
+
+bool AVoxelBuildWorld::DebugInitialize(const FString& InWorldKey)
+{
+    UVoxelBuildPalette* Asset=LoadObject<UVoxelBuildPalette>(nullptr,
+        TEXT("/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette"));
+    if(!Asset){UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=debug-load-palette reason=palette not loadable"));return false;}
+    const bool bOk=Initialize(InWorldKey,Asset);
+    UE_LOG(LogTemp,Warning,TEXT("VOXEL_AUDIT debug initialize key=%s ok=%d message=%s"),*InWorldKey,bOk?1:0,*Message);
+    return bOk;
+}
 bool AVoxelBuildWorld::EditCells(const TArray<FIntVector>& Positions,FName Material)
 {return EditVolumeCells({},Positions,Material);}
 
 bool AVoxelBuildWorld::CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
 {
     if(Volume.IsValid()&&!FreeVolumes.Contains(Volume)){Reason=TEXT("目标建筑已改变");return false;}
-    for(const auto& Cell:Positions)if(!VolumeMaterialAt(Volume,Cell).IsNone()){Reason=TEXT("该位置已有方块");return false;}
+    for(const auto& Cell:Positions)
+    {
+        if(!VolumeMaterialAt(Volume,Cell).IsNone()){Reason=TEXT("该位置已有方块");return false;}
+        if(PrefabCells.Contains(Cell)){Reason=TEXT("该位置已有构件");return false;}
+    }
     return CanPlaceAt(VolumeOrigin(Volume),Positions,Material,Reason);
 }
 bool AVoxelBuildWorld::CanPlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
@@ -174,9 +220,9 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
     {
         if(Seen.Contains(Cell))continue;Seen.Add(Cell);
         const FVector Min=Origin+CellMin(Cell);
-        if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");return false;}
+        if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");LogPlacementReject(TEXT("overlap"),{FGuid(),Cell},Min,Reason);return false;}
         bool Anchored=false;
-        if(!ScenePlacementAllowed(Min,Reason,&Anchored))return false;
+        if(!ScenePlacementAllowed(Min,Reason,&Anchored)){LogPlacementReject(TEXT("scene"),{FGuid(),Cell},Min,Reason);return false;}
         for(const auto& Key:SupportGraph->Near(Min))
         {
             const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;
@@ -186,7 +232,26 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
         Draft.Add({{DraftId,Cell},Min,Anchored,Definition->bSupportsWeight});
     }
     Draft.SolveConnectivity();
-    if(Draft.Supported.Num()!=Draft.Nodes.Num()){Reason=TEXT("缺少与地基相连的接触面");return false;}
+    if(Draft.Supported.Num()!=Draft.Nodes.Num())
+    {
+        Reason=TEXT("缺少与地基相连的接触面");
+        const TArray<FIntVector> ProbeList=Seen.Array();
+        const FIntVector Probe=ProbeList.IsEmpty()?FIntVector::ZeroValue:ProbeList[0];
+        const FVector Min=Origin+CellMin(Probe);
+        FString NeighbourState;
+        for(const auto& Key:SupportGraph->Near(Min))
+        {
+            const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;
+            const bool bContact=FVoxelSupportGraph::Contact(Existing.Min,Min,Contact);
+            NeighbourState+=FString::Printf(TEXT(" [%d,%d,%d anchor=%d bearing=%d supported=%d pending=%d contact=%d]"),
+                Key.Cell.X,Key.Cell.Y,Key.Cell.Z,Existing.bAnchor?1:0,Existing.bBearing?1:0,
+                SupportGraph->Supported.Contains(Key)?1:0,Runtime->PendingCells.Contains(Key)?1:0,bContact?1:0);
+        }
+        UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=support cell=%d,%d,%d min=%.1f,%.1f,%.1f nodes=%d supported=%d pending=%d neighbours:%s"),
+            Probe.X,Probe.Y,Probe.Z,Min.X,Min.Y,Min.Z,SupportGraph->Nodes.Num(),SupportGraph->Supported.Num(),
+            Runtime->PendingCells.Num(),*NeighbourState);
+        return false;
+    }
     Reason=FString::Printf(TEXT("可放置 %d 格 · 新增 %.1f kg · 放置后计算承重"),Seen.Num(),Seen.Num()*Palette->Physical(Material).DensityKgM3*.008f);
     return true;
 }
@@ -225,10 +290,11 @@ bool AVoxelBuildWorld::CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Rea
         if(Runtime->PendingCells.Contains(Key)){Reason=TEXT("该结构正在倒塌，请稍候");return false;}
         if(!E.After.IsNone())
         {
-            if(!Palette->Find(E.After)){Reason=TEXT("缺少建筑材料定义");return false;}
+            if(!Palette->Find(E.After)){Reason=TEXT("缺少建筑材料定义");LogPlacementReject(TEXT("material"),Key,VolumeOrigin(E.Volume)+CellMin(E.Position),Reason);return false;}
             const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
-            if(!ScenePlacementAllowed(Min,Reason))return false;
-            if(E.Before.IsNone()&&SupportGraph->Overlaps(Min)){Reason=TEXT("编辑位置与已有建筑重叠");return false;}
+            if(!ScenePlacementAllowed(Min,Reason)){LogPlacementReject(TEXT("commit-scene"),Key,Min,Reason);return false;}
+            if(E.Before.IsNone()&&SupportGraph->Overlaps(Min)){Reason=TEXT("编辑位置与已有建筑重叠");LogPlacementReject(TEXT("commit-overlap"),Key,Min,Reason);return false;}
+            if(E.Before.IsNone()&&PrefabCells.Contains(E.Position)){Reason=TEXT("该位置已有构件");LogPlacementReject(TEXT("commit-prefab"),Key,Min,Reason);return false;}
         }
     }
     return true;
@@ -276,6 +342,12 @@ bool AVoxelBuildWorld::Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember)
 {
     if(!CanCommit(Edit,Message))return false;
     ApplyChanges(Edit);
+    // Remember what this accepted batch added. TickStructure uses the set so a placement that turns
+    // out to be too heavy fails on its own cells instead of taking the standing build down with it;
+    // see Docs/Building/voxel-build-workflow.md 3.6.
+    Runtime->FreshCells.Reset();Runtime->bFreshRolledBack=false;
+    if(bRemember)for(const auto& E:Edit)if(!E.After.IsNone())Runtime->FreshCells.Add({E.Volume,E.Position});
+    Runtime->FreshAt=GetWorld()->GetTimeSeconds();
     if(bRemember){History.Add(Edit);if(History.Num()>32)History.RemoveAt(0);}
     Message=FString::Printf(TEXT("已修改 %d 格 · 正在计算承重并保存"),Edit.Num());return true;
 }
@@ -313,6 +385,7 @@ void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)
 FString AVoxelBuildWorld::StructureStatus() const
 {
     if(Runtime->bSaveFailed)return TEXT("保存失败 · 建筑仍在内存中，将重试");
+    if(Runtime->bFreshRolledBack)return TEXT("新建部分承重不足，已倒塌 · 原有结构未受影响");
     if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())
         return FString::Printf(TEXT("倒塌处理中 · 活动物理块 %d"),Runtime->AwakeBodies);
     if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())return TEXT("正在计算承重");

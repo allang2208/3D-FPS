@@ -6,7 +6,7 @@ class UVoxelBuildSave;
 /** Plain payload, safe to encode and write on a worker. */
 struct FVoxelDiskSnapshot
 {
-    int32 Version=3,CellSizeCm=20;
+    int32 Version=4,CellSizeCm=20;
     FString WorldKey;
     TArray<FVoxelSavedCell> Cells;
     TArray<FVoxelFreeVolume> FreeVolumes;
@@ -14,6 +14,7 @@ struct FVoxelDiskSnapshot
     TSet<FVoxelBrokenBond> BrokenBonds;
     TArray<FVoxelFragmentSave> Fragments;
     TSet<FVoxelBuildKey> LegacyProtected;
+    TArray<FVoxelBuildPrefabInstance> Prefabs;
 };
 namespace VoxelPersistence
 {

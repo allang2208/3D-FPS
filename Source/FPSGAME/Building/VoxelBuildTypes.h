@@ -70,3 +70,13 @@ struct FVoxelFragmentSave
     UPROPERTY() FVector AngularVelocity=FVector::ZeroVector;
     UPROPERTY() bool bSleeping=false;
 };
+
+// One placed prefab piece (roman column, balustrade, ...) on the 20 cm building lattice.
+// Cell is the min corner of the occupied box; Footprint is already rotated by Yaw.
+struct FVoxelBuildPrefabInstance
+{
+    FName Id;
+    FIntVector Cell=FIntVector::ZeroValue;
+    int32 Yaw=0;
+    FIntVector Footprint=FIntVector(1,1,1);
+};

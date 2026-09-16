@@ -10,6 +10,7 @@ class UDynamicMeshComponent;
 class UMaterialInterface;
 class UPhysicalMaterial;
 class AVoxelCollapseFragment;
+class AVoxelBuildPrefabActor;
 struct FVoxelSupportGraph;
 struct FVoxelBuildRuntime;
 struct FVoxelGeometry;
@@ -19,7 +20,7 @@ class FPSGAME_API UVoxelBuildSave : public USaveGame
 {
     GENERATED_BODY()
 public:
-    UPROPERTY() int32 Version=3;
+    UPROPERTY() int32 Version=4;
     UPROPERTY() int32 CellSizeCm=20;
     UPROPERTY() FString WorldKey;
     UPROPERTY() TArray<FVoxelSavedCell> Cells;
@@ -28,6 +29,8 @@ public:
     UPROPERTY() TSet<FVoxelBrokenBond> BrokenBonds;
     UPROPERTY() TArray<FVoxelFragmentSave> Fragments;
     UPROPERTY() TSet<FVoxelBuildKey> LegacyProtected;
+    // Written by the custom VBX snapshot serializer, not by UObject reflection.
+    TArray<FVoxelBuildPrefabInstance> Prefabs;
 };
 
 /** Local single-player world owner. Static voxels are batched; debris uses compound bodies. */
@@ -49,6 +52,9 @@ public:
     static FVector CellCenter(FIntVector Cell);
     static FIntVector ChunkFor(FIntVector Cell);
     bool Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette);
+    /** Test/diagnostic entry: initialise with the default palette and no player controller
+        so Tools/Building/audit_voxel_placement.py can reproduce placement reports headless. */
+    UFUNCTION(BlueprintCallable,Category="Building|Debug") bool DebugInitialize(const FString& InWorldKey);
     UFUNCTION(BlueprintPure,Category="Building") FName MaterialAt(FIntVector Cell) const;
     UFUNCTION(BlueprintPure,Category="Building") int32 BlockCount() const;
     UFUNCTION(BlueprintPure,Category="Building") int32 UnsupportedBlockCount() const;
@@ -72,6 +78,11 @@ public:
     bool OwnsSurface(const UPrimitiveComponent* Component) const;
     uint64 StructureRevision() const {return Revision;}
     FString StructureStatus() const;
+    /** Prefabricated pieces (roman column, balustrade, ...) placed on the 20 cm lattice. */
+    UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool PlacePrefab(FName Id,FIntVector Cell,int32 Yaw=0);
+    UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool RemovePrefab(AActor* Piece);
+    UFUNCTION(BlueprintPure,Category="Building|Prefab") int32 PrefabCount() const {return Prefabs.Num();}
+    bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason) const;
     UPhysicalMaterial* ContactMaterial() const {return StructuralContact;}
     void QueueFragmentDamage(AVoxelCollapseFragment* Fragment,FVector Position,float Amount,float Radius,float Energy);
     void QueueCollapseImpact(AActor* Other,const FHitResult& Hit,float Energy);
@@ -82,8 +93,11 @@ private:
     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> SurfaceMaterials;
     UPROPERTY() TObjectPtr<UPhysicalMaterial> StructuralContact;
     UPROPERTY() TMap<FGuid,TObjectPtr<AVoxelCollapseFragment>> Fragments;
+    UPROPERTY() TMap<FIntVector,TWeakObjectPtr<AActor>> PrefabActors;
     TMap<FIntVector,FName> Cells;
     TMap<FGuid,FVoxelFreeVolume> FreeVolumes;
+    TArray<FVoxelBuildPrefabInstance> Prefabs;
+    TSet<FIntVector> PrefabCells;
     TMap<FVoxelBuildKey,bool> AnchorCache;
     TMap<FVoxelBuildKey,float> CellDamage;
     TSet<FVoxelBuildKey> LegacyProtected;
@@ -100,6 +114,8 @@ private:
     bool IsGroundAnchor(FVector Min) const;
     bool CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Reason) const;
     void RefreshSupportGraph();
+    AVoxelBuildPrefabActor* SpawnPrefab(const FVoxelBuildPrefabInstance& Instance);
+    void RefreshPrefabOccupancy();
     void SetCell(const FVoxelEditCell& Edit,bool bAfter);
     void ApplyChanges(const TArray<FVoxelEditCell>& Edit);
     void RebuildAffected(const TArray<FVoxelEditCell>& Edit);
