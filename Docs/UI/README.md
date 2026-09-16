@@ -3,6 +3,9 @@
 实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。新面板和栏目先走 [面板与栏目工作流](../../UI-WORKFLOW.md)，使用 [规划模板](panel-column-plan-template.md)；视觉统一使用 [冷钢 UI 正式规则](ui-cold-steel-design-system.md)，冲突的旧字体、配色、透明度和按钮条款由该文替换。
 
 - [2026-09-15 UI 与必要系统发布、归档和资源恢复](ui-panel-publication-20260915.md)
+- [???????????????](backpack-icon-gunsmith-mods-20260916.md)
+- [?????????F ??](backpack-item-rotation-20260916.md)
+- [??????????? HUD ??](drawer-right-edge-and-hud-hide-20260916.md)
 - [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
 - [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
 - [装备／背包图标修复经验](inventory-icons-20260913.md)

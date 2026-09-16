@@ -126,8 +126,8 @@ public:
     bool ClearQuickBinding(int32 Index);
     bool UseQuickBinding(int32 Index);
     FColdSteelItem CreateItem(const FString& Definition, int64 Count=1) const;
-    FColdSteelProposal ProposeMove(const FString& Id,int32 Place,int32 Cell) const;
-    bool MoveItem(const FString& Id,int32 Place,int32 Cell);
+    FColdSteelProposal ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1) const;
+    bool MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1);
     bool CommitProposal(const FColdSteelProposal& Proposal);
     UFUNCTION(BlueprintCallable, Category="Inventory") bool AddItem(const FString& Definition,int64 Count=1);
     /** 全有或全无地扣除物品（背包优先、仓库兜底），一次事务；不足时不扣任何东西并写入原因。 */
@@ -147,8 +147,8 @@ public:
     /** 提示栏：屏幕上方的进度提示队列（升级提示用的同一位置），供各系统播报信息。 */
     void PostNotice(const FString& Title,const FString& Detail=FString(),const FString& Icon=FString(),float Duration=2.8f);
     bool DefaultAction(const FString& Id);
-    FColdSteelProposal ProposeWarehouse(const FString& Id,int32 Place,int32 Cell=-1) const;
-    bool TransferWarehouse(const FString& Id,int32 Place,int32 Cell=-1);
+    FColdSteelProposal ProposeWarehouse(const FString& Id,int32 Place,int32 Cell=-1,int32 Orientation=-1) const;
+    bool TransferWarehouse(const FString& Id,int32 Place,int32 Cell=-1,int32 Orientation=-1);
     bool WarehouseBatch(bool bMatching);
     bool StoreMatchingToWarehouse();
     bool SortWarehouse(const FString& Mode,int32 Category=-1);

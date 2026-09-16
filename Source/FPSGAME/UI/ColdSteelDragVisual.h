@@ -9,7 +9,8 @@ class UColdSteelDragVisual : public UUserWidget
 {
     GENERATED_BODY()
 public:
-    void Configure(const FSlateBrush* Brush,FVector2D Size,FVector2D Grab,FVector2D Position);
+    /** Rect is the fitted image box; a rotated ghost draws it turned a quarter turn about its centre. */
+    void Configure(const FSlateBrush* Brush,FVector2D Size,FVector2D Grab,FVector2D Position,bool bInRotated=false);
     void MoveTo(FVector2D Position);
     FVector2D ScreenOrigin()const{return Cursor-GrabOffset;}
     FVector2D ScreenSize()const{return Size;}
@@ -18,4 +19,5 @@ protected:
 private:
     UPROPERTY(Transient) FSlateBrush ImageBrush;
     FVector2D Size,GrabOffset,Cursor;
+    bool bRotated=false;
 };

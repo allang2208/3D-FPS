@@ -1,3 +1,15 @@
+        // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
+        if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);
+    // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
+    // so the board that started the drag may not be the widget receiving this event.
+    if (InKeyEvent.GetKey() == EKeys::F && !InKeyEvent.IsRepeat() && InventoryDrag.IsValid())
+    {
+        if (auto* Board = InventoryDrag->SourceBoard.Get())
+            if (Board->RotateDraggedItem(Board->GetCachedGeometry())) return FReply::Handled();
+    }
+    // The drawer hugs the right edge, so the world clock yields the corner while it is out.
+    if (WorldClock) WorldClock->SetVisibility(bInventoryOpen || DrawerProgress > KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
+#include "ColdSteelWorldClock.h"
 #include "ColdSteelHUDWidget.h"
 #include "Widgets/SWidget.h"
 #include "ColdSteelSkillPage.h"
@@ -1375,3 +1387,15 @@ void UColdSteelHUDWidget::HandleCloseClicked()
 {
     SetInventoryOpen(false);
 }
+#include "ColdSteelWorldClock.h"
+    // The drawer hugs the right edge, so the world clock yields the corner while it is out.
+    if (WorldClock) WorldClock->SetVisibility(bInventoryOpen || DrawerProgress > KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
+    // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
+    // so the board that started the drag may not be the widget receiving this event.
+    if (InKeyEvent.GetKey() == EKeys::F && !InKeyEvent.IsRepeat() && InventoryDrag.IsValid())
+    {
+        if (auto* Board = InventoryDrag->SourceBoard.Get())
+            if (Board->RotateDraggedItem(Board->GetCachedGeometry())) return FReply::Handled();
+    }
+        // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
+        if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);

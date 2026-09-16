@@ -43,7 +43,9 @@ namespace ColdSteelUI
     inline constexpr float NavigationSize=88.f,NavigationGap=25.f,NavigationRight=32.f;
     inline constexpr float NavigationHoverScale=1.25f,NavigationHoverDuration=.2f;
     inline constexpr float NavigationOverflow=NavigationSize*(NavigationHoverScale-1.f)*.5f;
-    inline constexpr float NavigationDrawerInset=NavigationRight+NavigationSize+NavigationOverflow+12.f;
+// The drawer hugs the right screen edge; the navigation strip steps aside while it is out, so it
+// reserves no width. Keep this at zero when changing NavigationRight/Size/Overflow.
+inline constexpr float NavigationDrawerInset=0.f;
     inline const FLinearColor NavigationSelected = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("176C86FF")));
     inline const FLinearColor NavigationKey = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("54D9DCFF")));
     inline constexpr float InventoryItemRadius=5.f,ProcessingCornerUnderlap=.5f;

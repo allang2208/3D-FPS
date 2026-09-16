@@ -18,6 +18,16 @@
 - 抽屉预留必须包含悬停外伸；矮窗按顶部 HUD 与武器栏的剩余空间先收紧间距。独立物品弹层也要转发入口点击和快捷键，仅处理 HUD 内的外部点击保护并不足够。
 - 关闭沿用控制器的输入消费与焦点恢复，避免鼠标点击穿透为攻击。图标缓存就绪仅替换图片，不重建正在交互的入口或清空滚动位置。
 
+## 抽屉贴右边缘（2026-09-16）
+
+用户要求装备栏抽屉贴近屏幕右缘、弹出方式不变，并在抽屉出现时隐藏右侧入口列、时钟与右下角武器详情。要点：
+
+- 抽屉的右留白由 `ColdSteelUI::NavigationDrawerInset` 一处决定（抽屉右偏移、滑出距离、背包内容右留白三个使用者），置 `0` 即"右缘＝视口右缘、内容用满、滑出距离＝抽屉宽"；不要分别改三处，也不要为了贴边改 `DrawerProgress` 的插值或键位。
+- 让步条件用 `bInventoryOpen || DrawerProgress > KINDA_SMALL_NUMBER`，收起动画播完才恢复；入口列（`PanelNavigation`）在未打开时保留原有"显示光标即可交互、否则 `HitTestInvisible`"的行为。
+- 右下角武器详情 `AmmoReadout` 自身只在 `MenuOpen` 为真时收起，角色指针为空时会漏掉，所以让步侧要再兜一层 `Collapsed`；时钟 `WorldClock` 仅前置声明在 HUD 头里，直接设可见性必须先 include `ColdSteelWorldClock.h`。
+- 抽屉与仓库的配对宽度、12px 间隙和左侧滑入规则不随贴边改变；入口列隐藏后页签切换依赖 Caps／P／Tab。
+- 左缘还有过一个由 `ColdSteelCharacterSheet.cpp::BuildCharacterSummary` 建立的 `Caps 角色状态` 按钮（`FAnchors(0,.5f)`、x=16），2026-09-16 按用户要求删除；注意它与右侧入口列的「人物状态/Caps」是两个不同入口，删一个不影响 `Caps` 键与抽屉页脚提示。
+
 ## 归档和源码发布
 
 旧运行图停用后可与对应导入副本归档；用于生成、抠图、恢复的原始输入仍是有效源，不因首次输出没有 alpha 而当作废案。归档路径、字节数、SHA-256、替代物见工程 `Docs/UI/ui-panel-archive-20260915.json`。

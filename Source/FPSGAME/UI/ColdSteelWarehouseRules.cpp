@@ -50,7 +50,7 @@ bool Insert(TArray<FColdSteelItem>& Items,FColdSteelItem I,int32 Capacity,int32 
     }
     Items=MoveTemp(Next);return true;
 }
-FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Destination,int32 Cell,int32 Capacity,int32 Page)
+FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Destination,int32 Cell,int32 Capacity,int32 Page,int32 Orientation)
 {
     FColdSteelProposal R;R.Items=Items;R.Reason=TEXT("无法移动：空间不足或目标无效，物品保留原处");
     const int32 From=Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});
@@ -59,7 +59,9 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
     if(OldPlace!=0&&OldPlace!=1&&OldPlace!=Place)return R;
     if(Destination!=Place&&!(OldPlace==Place&&(Destination==0||Destination==1)))return R;
     if(Destination==Place&&Cell>=Capacity)return R;
-    if(OldPlace==Destination&&Cell==OldCell){R.bValid=true;R.Reason.Empty();return R;}
+    // Bag and warehouse placement carry the pending orientation; equipping keeps the authored shape.
+    if(Destination==0||Destination==Place)ApplyOrientation(I,Orientation);
+    if(OldPlace==Destination&&Cell==OldCell&&I.Width==Items[From].Width&&I.Height==Items[From].Height){R.bValid=true;R.Reason.Empty();return R;}
     if(OldPlace==Place&&Destination==Place&&Cell<0)return R;
     R.Items.RemoveAt(From);
     if(Cell==-1){

@@ -214,14 +214,15 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
 {
     FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
     if(const FString* Data=Definitions.Find(Def))I.Data=*Data;
-    I.Magazine=Number(I,TEXT("gunsmith_base_mag"),30);
+    I.Magazine=IsMeleeWeapon(I)?0:Number(I,TEXT("gunsmith_base_mag"),30);
+    if(IsMeleeWeapon(I))I.Reserve=0;
     I.StackMax=Number(I,TEXT("maxStack"),Number(I,TEXT("stack_max"),1));
     if(Def==TEXT("reforge_ticket"))I.StackMax=9999;
     if(Text(I,TEXT("category"))==TEXT("gold"))I.StackMax=9007199254740991ll;
     const auto Size=Footprint(I);I.Width=Size.X;I.Height=Size.Y;
     return I;
 }
-FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell);P.Revision=Current.Generation;return P;}
+FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
 bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0)P.ActiveWeaponSlot=R.ActiveWeaponSlot;return CommitState(P);}
 bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell));}
 bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}

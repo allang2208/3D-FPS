@@ -17,7 +17,7 @@ static TSharedPtr<FJsonObject> Object(const FColdSteelItem& Item)
 FString Text(const FColdSteelItem& Item, const TCHAR* Key) { auto O = Object(Item); FString V; if(O) O->TryGetStringField(Key,V); return V; }
 double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default) { auto O=Object(Item); double V=Default; if(O) O->TryGetNumberField(Key,V); return V; }
 bool Flag(const FColdSteelItem& Item, const TCHAR* Key) { if(IsDualPistol(Item) && FCString::Strcmp(Key,TEXT("isTwoHanded"))==0)return false; auto O=Object(Item); bool V=false; if(O) O->TryGetBoolField(Key,V); return V; }
-FIntPoint Footprint(const FColdSteelItem& I)
+FIntPoint BaseFootprint(const FColdSteelItem& I)
 {
     const FString Type=Text(I,TEXT("weaponType")),Ranged=Text(I,TEXT("rangedType")),Category=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
     const bool Firearm=Type==TEXT("rifle")||!Ranged.IsEmpty()||Category==TEXT("weapon_ranged");
@@ -34,6 +34,17 @@ FIntPoint Footprint(const FColdSteelItem& I)
     if(Slot==TEXT("cloak")||Slot==TEXT("backpack"))return FIntPoint(3,3);
     if(Slot==TEXT("belt"))return FIntPoint(2,1);
     return FIntPoint(1,1);
+}
+FIntPoint Footprint(const FColdSteelItem& I)
+{
+    const FIntPoint Base=BaseFootprint(I);
+    return I.bRotated?FIntPoint(Base.Y,Base.X):Base;
+}
+void ApplyOrientation(FColdSteelItem& Item,int32 Orientation)
+{
+    // Square items keep a single footprint shape; the flag stays false so their art never turns.
+    if(Orientation>=0&&CanRotate(Item))Item.bRotated=Orientation!=0;
+    const FIntPoint Size=Footprint(Item);Item.Width=Size.X;Item.Height=Size.Y;
 }
 const TArray<FString>& SlotNames() { static const TArray<FString> Names={TEXT("左耳环"),TEXT("头盔"),TEXT("右耳环"),TEXT("手套"),TEXT("项链"),TEXT("披风"),TEXT("主手武器"),TEXT("铠甲"),TEXT("副手武器"),TEXT("主手武器2"),TEXT("腰带"),TEXT("副手武器2"),TEXT("额外物品"),TEXT("靴子"),TEXT("背包装备")}; return Names; }
 bool Compatible(const FColdSteelItem& A,const FColdSteelItem& B)
@@ -91,13 +102,17 @@ bool Insert(TArray<FColdSteelItem>& Items,FColdSteelItem I,int32 Preferred)
     }
     Items=MoveTemp(Next); return true;
 }
-FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Place,int32 Cell)
+FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,int32 Place,int32 Cell,int32 Orientation)
 {
     FColdSteelProposal R; R.Items=Items; R.Reason=TEXT("目标位置无法容纳物品");
     const int32 From=Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});
     if(From<0||(Place!=0&&Place!=1)||Items[From].Place>1) return R;
-    auto Moving=Items[From]; const int32 OldPlace=Moving.Place,OldCell=Moving.Cell;
-    if(Place==OldPlace&&Cell==OldCell){R.bValid=true;if(Place==1&&(Cell==6||Cell==9))R.ActiveWeaponSlot=Cell;return R;}
+    auto Moving=Items[From];
+    // Equipment slots keep the authored shape; only bag placement carries an orientation.
+    if(Place==0)ApplyOrientation(Moving,Orientation);
+    const int32 OldPlace=Moving.Place,OldCell=Moving.Cell;
+    const bool bTurned=Moving.Width!=Items[From].Width||Moving.Height!=Items[From].Height;
+    if(Place==OldPlace&&Cell==OldCell&&!bTurned){R.bValid=true;if(Place==1&&(Cell==6||Cell==9))R.ActiveWeaponSlot=Cell;return R;}
     R.Items.RemoveAt(From);
     if(Place==1) {
         if(Cell==6||Cell==9)R.ActiveWeaponSlot=Cell;
@@ -125,7 +140,9 @@ FColdSteelProposal Move(const TArray<FColdSteelItem>& Items,const FString& Id,in
                 for(int32 N=R.Items.Num()-1;N>=0;--N)if(Blockers.Contains(N)){Displaced.Add(R.Items[N]);R.Items.RemoveAt(N);}
                 Moving.Place=0;Moving.Cell=Cell;R.Items.Add(Moving);
                 bool Exhausted=false;
-                if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Items[From],Cell,Exhausted))
+                // The vacated rect keeps its meaning; the anchor carries the pending orientation.
+                auto Anchor=Moving;Anchor.Place=OldPlace;Anchor.Cell=OldCell;
+                if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Anchor,Cell,Exhausted))
                 {
                     R.Items=Items;
                     R.Reason=Exhausted?TEXT("自动摆放较复杂，请调整落点后重试"):TEXT("没有足够的连续空间安置被交换物品");
@@ -168,7 +185,8 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
     for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")}) {auto V=P.Attributes.Find(Key);if(!V||*V<0||*V>1000000)return false;}
     TSet<FString> Ids;TSet<int32> LegacyWarehouseCells;TArray<FColdSteelItem> Placed;
     for(const auto& I:P.Items) {
-        if(I.InstanceId.IsEmpty()||Ids.Contains(I.InstanceId)||I.Definition.IsEmpty()||!Object(I)||I.Count<=0||I.StackMax<1||I.Count>I.StackMax||I.StackMax>9007199254740991ll||I.Width<1||I.Width>18||I.Height<1||I.Height>4||I.Place<0||(I.Place>2&&I.Place!=4)||!FMath::IsFinite(I.Cooldown)||I.Cooldown<0||I.Magazine<0||I.Reserve<0)return false;
+        // Rows are bounded per container by Fits below; a rotated instance may exceed the backpack's four.
+        if(I.InstanceId.IsEmpty()||Ids.Contains(I.InstanceId)||I.Definition.IsEmpty()||!Object(I)||I.Count<=0||I.StackMax<1||I.Count>I.StackMax||I.StackMax>9007199254740991ll||I.Width<1||I.Width>18||I.Height<1||I.Height>ColdSteelWarehouse::Rows||I.Place<0||(I.Place>2&&I.Place!=4)||!FMath::IsFinite(I.Cooldown)||I.Cooldown<0||I.Magazine<0||I.Reserve<0)return false;
         Ids.Add(I.InstanceId);
         if(Footprint(I)!=FIntPoint(I.Width,I.Height))return false;
         if(I.Place==0&&!Fits(Placed,I,I.Cell))return false;

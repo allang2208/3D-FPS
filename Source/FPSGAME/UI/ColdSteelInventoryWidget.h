@@ -16,6 +16,14 @@ public:
     int32 SourcePlace=-1,SourceCell=-1;
     FColdSteelItem SourceSnapshot;
     bool bHasSourceSnapshot=false;
+    // Pending drop orientation, absolute; initialised from the source instance.
+    bool bRotated=false;
+    // Pointer position inside the item's cell rect, normalised, so a turn keeps the same corner.
+    FVector2D GrabNorm=FVector2D(.5f,.5f);
+    // Grab geometry captured at drag start; turns derive from these so they can never drift.
+    FIntPoint BaseGrabOffset=FIntPoint::ZeroValue;
+    FVector2D BaseGrabNorm=FVector2D(.5f,.5f);
+    TWeakObjectPtr<class UColdSteelInventoryWidget> PreviewBoard;
     bool IsCurrent(const UColdSteelStatusModel* Model) const;
     TWeakObjectPtr<class UColdSteelInventoryWidget> SourceBoard;
     TWeakObjectPtr<class UColdSteelHUDWidget> SourceHUD;
@@ -33,13 +41,17 @@ class FPSGAME_API UColdSteelInventoryWidget : public UUserWidget
 public:
     void SelectItem(const FString& Id){Selected=Id;}
     void PerformAction(int32 Action);
-    bool DropAt(const FString& Id,int32 Place,int32 Cell);
+    bool DropAt(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1);
     void CancelInteraction();
     void FinishDrag();
     void OpenItemMenu(FVector2D Anchor,bool SplitOnly=false);
     FString Selection()const{return Selected;}
     void ConfigureWarehouse(class UColdSteelHUDWidget* Owner);
     void ResetStoragePage();
+    /** Re-evaluates this board's drop highlight after the drag orientation changed. */
+    void RefreshDragPreview(class UColdSteelItemDrag& Drag);
+    /** Turns the in-flight drag a quarter turn; the host may call it while the pointer is outside this board. */
+    bool RotateDraggedItem(const FGeometry& G);
 protected:
     virtual FReply NativeOnMouseMove(const FGeometry&,const FPointerEvent&)override;
     virtual void NativeOnMouseLeave(const FPointerEvent&)override;
@@ -91,6 +103,9 @@ private:
     bool bPreviewValid=false;
     TArray<FIntRect> SwapDestinations;
     int32 PreviewPlace=-1,PreviewCell=-1;
+    // Highlight footprint follows the pending orientation of the drag in progress.
+    FIntPoint PreviewCells=FIntPoint(1,1);
+    bool bPreviewRotatable=false;
     int32 FocusPlace=0,FocusCell=0;
     int32 PressPlace=-1,PressCell=-1;
     bool bConfirmDrop=false;
@@ -101,6 +116,10 @@ private:
     FString IdAt(int32 Place,int32 Cell)const;
     void LoadIcons();
     void RefreshPresentation();
+    void ClearDragPreview();
+    FIntPoint PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const;
+    bool PreviewItemDrag(UColdSteelItemDrag& Drag,FVector2D Screen);
+    void UpdateDragGhost(UColdSteelItemDrag& Drag,const FGeometry& G,FVector2D CursorPos)const;
     struct FItemPresentation {FString Name,Rarity;int32 Enhancement=0;bool Crafted=false,Enchanted=false;};
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;

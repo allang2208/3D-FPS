@@ -1,11 +1,11 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWarehouseRules.h"
 using namespace ColdSteelInventory;
-FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int32 Place,int32 Cell) const
+FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation) const
 {
-    auto R=ColdSteelWarehouse::Transfer(Current.Items,Id,Place,Cell,WarehouseCapacity(),WarehousePage);R.Revision=Current.Generation;return R;
+    auto R=ColdSteelWarehouse::Transfer(Current.Items,Id,Place,Cell,WarehouseCapacity(),WarehousePage,Orientation);R.Revision=Current.Generation;return R;
 }
-bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell){SyncRuntime();return CommitProposal(ProposeWarehouse(Id,Place,Cell));}
+bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeWarehouse(Id,Place,Cell,Orientation));}
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
@@ -112,7 +112,7 @@ bool UColdSteelStatusModel::AddWarehouseItem(const FColdSteelItem& Item,int32 Pr
 int64 UColdSteelStatusModel::WarehouseRemainingCapacity(const FColdSteelItem& Item)const
 {
     if(Item.Definition.IsEmpty()||Item.StackMax<1||Item.StackMax>9007199254740991ll)return 0;
-    if(Item.Width<1||Item.Width>18||Item.Height<1||Item.Height>4)return 0;
+    if(Item.Width<1||Item.Width>18||Item.Height<1||Item.Height>ColdSteelWarehouse::Rows)return 0;
     int64 Total=0;TArray<uint32> Occupied;Occupied.Init(0,WarehouseCapacity()/18);
     auto Add=[&](int64 N){Total+=FMath::Min(N,MAX_int64-Total);};
     for(const auto& I:Items())if(I.Place==4){if(Compatible(I,Item))Add(FMath::Max<int64>(0,I.StackMax-I.Count));for(int32 Y=0;Y<I.Height;++Y)Occupied[I.Cell/18+Y]|=((1u<<I.Width)-1)<<(I.Cell%18);}

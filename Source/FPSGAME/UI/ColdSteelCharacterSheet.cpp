@@ -316,12 +316,9 @@ void UColdSteelHUDWidget::UpdateStatusTooltipPlacement()
 
 void UColdSteelHUDWidget::BuildCharacterSummary(UCanvasPanel* Root)
 {
+    // The left-edge "Caps 角色状态" entry is removed on request; Caps still opens the character sheet
+    // through HandlePanelShortcut, and the right rail keeps its 人物状态 entry while the drawer is out.
     BuildTopVitals(Root);
-    auto* Button = WidgetTree->ConstructWidget<UButton>();
-    Button->SetStyle(FButtonStyle().SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint, 8)).SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, 8, ColdSteelUI::Accent)).SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed, 8)));
-    Button->SetContent(MakeReferenceText(TEXT("Caps  角色状态"), 14, ColdSteelUI::TextPrimary));
-    Button->OnClicked.AddDynamic(this, &ThisClass::HandleStatusTabClicked);
-    auto* NavSlot = Root->AddChildToCanvas(Button); NavSlot->SetAnchors(FAnchors(0, .5f)); NavSlot->SetPosition(FVector2D(ReferenceUnits(16), 0)); NavSlot->SetAutoSize(true);
 }
 void UColdSteelHUDWidget::OpenStatus() { SetInventoryTab(true); SetInventoryOpen(true); }
 

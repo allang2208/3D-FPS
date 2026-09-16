@@ -126,7 +126,9 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
     if(!PanelNavigationSlot->GetPosition().Equals(Position,.1f))PanelNavigationSlot->SetPosition(Position);
     auto* PC=GetOwningPlayer();
     const bool Interactive=PC&&PC->bShowMouseCursor;
-    PanelNavigation->SetVisibility(Interactive?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible);
+    // The drawer sits against the right edge now, so the entry column steps aside while it is out.
+    const bool bDrawerOut=bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER;
+    PanelNavigation->SetVisibility(bDrawerOut?ESlateVisibility::Collapsed:(Interactive?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible));
     PanelNavigationElapsed=FMath::Fmod(PanelNavigationElapsed+Delta,ColdSteelQuickSlotFX::KeyPeriod);
     const float KeyAlpha=ColdSteelQuickSlotFX::KeyOpacity(PanelNavigationElapsed);
     const int32 Active=bInventoryOpen?(bStatusTabActive?0:bSkillsTabActive?2:1):INDEX_NONE;

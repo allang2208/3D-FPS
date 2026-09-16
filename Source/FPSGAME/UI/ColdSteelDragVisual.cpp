@@ -4,11 +4,13 @@
 #include "Components/SizeBox.h"
 #include "Rendering/DrawElements.h"
 
-void UColdSteelDragVisual::Configure(const FSlateBrush* Brush,FVector2D InSize,FVector2D Grab,FVector2D Position)
+void UColdSteelDragVisual::Configure(const FSlateBrush* Brush,FVector2D InSize,FVector2D Grab,FVector2D Position,bool bInRotated)
 {
     if(Brush)ImageBrush=*Brush;
-    Size=InSize;GrabOffset=Grab;Cursor=Position;
-    WidgetTree->RootWidget=WidgetTree->ConstructWidget<USizeBox>();
+    Size=InSize;GrabOffset=Grab;Cursor=Position;bRotated=bInRotated;
+    // Configure is called again whenever the carried item is turned; rebuilding a live widget tree here
+    // would discard the constructed Slate widget mid-drag.
+    if(!WidgetTree->RootWidget)WidgetTree->RootWidget=WidgetTree->ConstructWidget<USizeBox>();
     SetVisibility(ESlateVisibility::HitTestInvisible);
     SetIsFocusable(false);
     SetAnchorsInViewport(FAnchors(0,0,1,1));
@@ -31,6 +33,10 @@ int32 UColdSteelDragVisual::NativePaint(const FPaintArgs& A,const FGeometry& G,c
     const FVector2D Image=ImageBrush.ImageSize;
     const double Fit=FMath::Min(Extent.X/FMath::Max(1.0,Image.X),Extent.Y/FMath::Max(1.0,Image.Y));
     const FVector2D DrawSize=Image*Fit;
-    FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(DrawSize,FSlateLayoutTransform(Local+(Extent-DrawSize)*.5)),&ImageBrush,ESlateDrawEffect::None,FLinearColor(1,1,1,.9f));
+    const auto Geometry=G.ToPaintGeometry(DrawSize,FSlateLayoutTransform(Local+(Extent-DrawSize)*.5));
+    // The caller passes the transposed rect for a horizontal item, so the drawn box stays inside it.
+    // An unset rotation point turns about the box centre (the parameter is local pixels, not normalised).
+    if(bRotated)FSlateDrawElement::MakeRotatedBox(Out,Layer+1,Geometry,&ImageBrush,ESlateDrawEffect::None,PI*.5f,TOptional<FVector2f>(),FSlateDrawElement::RelativeToElement,FLinearColor(1,1,1,.9f));
+    else FSlateDrawElement::MakeBox(Out,Layer+1,Geometry,&ImageBrush,ESlateDrawEffect::None,FLinearColor(1,1,1,.9f));
     return Layer+1;
 }

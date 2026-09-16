@@ -33,3 +33,12 @@
 合成材质由 `Tools/AssetPipeline/build_gunsmith_preview_resolved.py` 恢复，依赖既有工作台的 `RT_PreviewDefault`；资产位于已有 cook 目录 `Content/UI/GunsmithWorkbench`。旧背景／环境恢复器不等于新版合成材质恢复器。案例说明见工程 `Docs/UI/gunsmith-preview-quality-20260913.md`。
 
 2026-09-14 剑的展示接入：加工面板经 `M4MeleePreview.cpp` 创建独立静态模型，共用 `world_mesh` 资产、枪械双通道合成及流送；`ColdSteelMeleeIcon.cpp` 在现有图标队列中生成竖向剑图，`ColdSteelMeleePreview.h` 共用轴向与几何居中。枪械／剑的共享表面支持拖动旋转、滚轮缩放和双击复位；剑隐藏瞄准按钮，同一物品普通刷新保留角度。缓存键包含剑模型路径，OnReady 沿用现有背包、装备、仓库和浮窗订阅；面板观察角度不影响固定图标构图。`ColdSteelWeaponIconCatalog` 的 `-Definition=ue_rune_sword` 可仅制作剑目录图，命令行读取物品目录但不初始化玩家存档。制作与构建记录见 `Docs/UI/sword-preview-icons-plan-20260914.md`，不代表实机测试。
+
+## 背包改装图与材质编译（2026-09-16）
+
+- 枪械图标按实例已保存的配件组合实时生成；编辑器下任一参与材质编译失败，整张改装图会静默退回基础目录图，面板本身不报错。用户侧表现就是“只有部分枪的贴图反映改造”。
+- 定位顺序：日志 `WeaponIcon: material compile failed …` 与 `WeaponIcon: render failed …; using catalog image` → 对应材质资产 → 修资产本身，不要先改图标管线或复制主题。该放弃任务的分支在 `#if WITH_EDITOR` 内；打包运行不会放弃，坏部件改用默认材质渲染。
+- 已知缺陷类：材质里 clamp 已接 `MP_ROUGHNESS`，但 clamp 的输入引脚为空（作者脚本丢线）。这类材质往往同时用于游戏内视图模型，属于资产修复。
+- 审计与修复入口：`Tools/UI/scan_weapon_material_clamps.py`、`Tools/UI/repair_weapon_roughness_clamps.py`；资产被运行中的编辑器独占时，用编辑器内最小脚本（仅 `get_material_expressions`／`connect_material_expressions`／`recompile_material`／`save_loaded_asset`）恢复接线，并用 Restart Manager 确认持有进程。
+- 不要在交互编辑器的远程执行里调用 `unreal.MaterialEditingLibrary.get_material_property_input_node`：2026-09-16 实测会令 `UnrealEditor-MaterialEditor.dll` 访问违例崩溃编辑器。属性接线查询放到无界面 `UnrealEditor-Cmd -ExecutePythonScript` 进程中。
+- 案例与备份：`Docs/UI/backpack-icon-gunsmith-mods-20260916.md`、`Saved/BackpackIconModFix20260916/`。

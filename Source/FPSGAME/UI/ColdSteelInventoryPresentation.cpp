@@ -121,9 +121,21 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
         const float CornerRadius=FMath::Max(0.f,CardRadius-CornerInset);
         const float CornerSize=FMath::Max(CornerRadius,FMath::Min(FMath::Clamp(H*.28f,7.f,18.f),(W-6)/3));
         if(const auto* Brush=ItemBrush(I)){
-            const float ImageX=GearSlot>=0?W*.48f:Left,ImageWidth=W-ImageX-Right;
-            FVector2D Size=Brush->ImageSize;const float Fit=FMath::Min(FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,H-(Name?20:8))/FMath::Max(1.f,float(Size.Y)));Size*=Fit;
-            FSlateDrawElement::MakeBox(Out,Layer+2,G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform(FVector2D(X+ImageX+(ImageWidth-Size.X)/2,Y+(H-Size.Y)/2+(Name?6:0))/Scale)),Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,Opacity));
+            const float ImageX=GearSlot>=0?W*.48f:Left,ImageWidth=W-ImageX-Right,ImageHeight=H-(Name?20:8);
+            // A turned bag item draws upright and rotates about its centre, so the fit is transposed.
+            const bool Turned=GearSlot<0&&I.bRotated;
+            FVector2D Size=Brush->ImageSize;
+            const float Fit=Turned?FMath::Min(FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.Y)))
+                                  :FMath::Min(FMath::Max(1.f,ImageWidth)/FMath::Max(1.f,float(Size.X)),FMath::Max(1.f,ImageHeight)/FMath::Max(1.f,float(Size.Y)));
+            Size*=Fit;
+            // Both orientations centre the box on the card's image area; a turn then keeps the
+            // transposed art inside the same card instead of hanging out of the cell.
+            const FVector2D ImageCenter(X+ImageX+ImageWidth*.5f,Y+H*.5f+(Name?6:0));
+            const auto Geometry=G.ToPaintGeometry(Size/Scale,FSlateLayoutTransform((ImageCenter-Size*.5f)/Scale));
+            // The rotation point is local pixels, not normalised: an unset value turns about the box centre,
+            // which keeps the transposed art centred inside the item card.
+            if(Turned)FSlateDrawElement::MakeRotatedBox(Out,Layer+2,Geometry,Brush,ESlateDrawEffect::None,PI*.5f,TOptional<FVector2f>(),FSlateDrawElement::RelativeToElement,FLinearColor(1,1,1,Opacity));
+            else FSlateDrawElement::MakeBox(Out,Layer+2,Geometry,Brush,ESlateDrawEffect::None,FLinearColor(1,1,1,Opacity));
         }else if(GearSlot<0)Label(P?P->Name:I.Definition,X+Left,Y+H/2-6,12,GunsmithUI::Text,W-Left-Right);
         if(GearSlot>=0){
             const float TextWidth=W*.48f-18;const bool Active=Model->Equipped()&&Model->Equipped()->InstanceId==I.InstanceId;
@@ -189,11 +201,17 @@ int32 UColdSteelInventoryWidget::NativePaint(const FPaintArgs& A,const FGeometry
     }
     if(PreviewPlace==Container&&bPreviewValid)for(const auto& R:SwapDestinations)Box(12+R.Min.X*L.Cell,L.BagY+R.Min.Y*L.Cell,R.Width()*L.Cell,R.Height()*L.Cell,Fade(ColdSteelUI::Accent,.1f),ColdSteelUI::Accent,2,1,5);
     if(PreviewPlace>=0&&PreviewCell>=0){const auto* I=Model->FindItem(HoverPreview);float X=12,Y=0,W=48,H=L.GearHeight;
-        if(PreviewPlace==Container){X+=PreviewCell%18*L.Cell;Y=L.BagY+(PreviewCell-Start)/18*L.Cell;W=FMath::Min((I?I->Width:1)*L.Cell,L.Width-X-12);H=FMath::Min((I?I->Height:1)*L.Cell,L.BagY+Rows*L.Cell-Y);}
+        if(PreviewPlace==Container){
+            // A drag supplies the pending footprint; external preview setters keep the instance shape.
+            FIntPoint PreviewSpan=PreviewCells;
+            if(PreviewSpan.X*PreviewSpan.Y<=1&&I&&I->Width*I->Height>1)PreviewSpan=FIntPoint(I->Width,I->Height);
+            X+=PreviewCell%18*L.Cell;Y=L.BagY+(PreviewCell-Start)/18*L.Cell;W=FMath::Min(PreviewSpan.X*L.Cell,L.Width-X-12);H=FMath::Min(PreviewSpan.Y*L.Cell,L.BagY+Rows*L.Cell-Y);}
         else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+6);Y=L.GearY+PreviewCell/3*L.GearPitch;W=L.GearWidth;}else{X+=PreviewCell*54;Y=L.HotY;H=46;}
         const auto Color=I?(bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger):ColdSteelUI::Accent;Box(X,Y,W,H,Fade(Color,.12f),Color,2,2,5);
     }
-    FString Message=TEXT("拖动放置 / 交换物品");FLinearColor Tone=GunsmithUI::Secondary;
+    FString Message=TEXT("拖动放置 / 交换物品");
+    if(bPreviewRotatable)Message+=TEXT(" · F 调整摆放方向");
+    FLinearColor Tone=GunsmithUI::Secondary;
     if(PreviewPlace>=0&&!PreviewReason.IsEmpty()){Message=PreviewReason;Tone=bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger;}
     else if(!InteractionMessage.IsEmpty()){Message=InteractionMessage;Tone=ColdSteelUI::Accent;}
     else if(const auto* P=Presentation.Find(Selected)){Message=TEXT("已选中 · ")+P->Name;Tone=ColdSteelUI::TextPrimary;}

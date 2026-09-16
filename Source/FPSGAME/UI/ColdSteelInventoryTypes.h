@@ -1,3 +1,11 @@
+    // Authored footprint before the placement orientation is applied.
+    FPSGAME_API FIntPoint BaseFootprint(const FColdSteelItem& Item);
+    // Orientation is 0 upright, 1 rotated, and negative keeps the current value.
+    // Square items never rotate; stored Width/Height always follow the result.
+    FPSGAME_API void ApplyOrientation(FColdSteelItem& Item, int32 Orientation);
+    inline bool CanRotate(const FColdSteelItem& Item) { const FIntPoint Base = BaseFootprint(Item); return Base.X != Base.Y; }
+    // Bag/warehouse placement orientation: a rotated instance swaps its grid footprint.
+    UPROPERTY() bool bRotated = false;
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
@@ -116,7 +124,7 @@ namespace ColdSteelInventory
     FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell);
     FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items, const FColdSteelItem& Item, int32 Cell);
     FPSGAME_API bool Insert(TArray<FColdSteelItem>& Items, FColdSteelItem Item, int32 Preferred = -1);
-    FPSGAME_API FColdSteelProposal Move(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Place, int32 Cell);
+    FPSGAME_API FColdSteelProposal Move(const TArray<FColdSteelItem>& Items, const FString& Id, int32 Place, int32 Cell, int32 Orientation = -1);
     FPSGAME_API bool Validate(const FColdSteelProfile& Profile, FString& Reason);
     FPSGAME_API const TArray<FString>& SlotNames();
 }
