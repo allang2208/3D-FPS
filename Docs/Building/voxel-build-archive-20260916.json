@@ -1,0 +1,188 @@
+{
+    "Task":  "RomanColumn20260915 / voxel building line",
+    "ArchivedOn":  "2026-09-16",
+    "Rule":  "WORKFLOW.md section 4",
+    "Count":  20,
+    "Files":  [
+                  {
+                      "Name":  "build_bkey.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bkey.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_bkey.log",
+                      "Bytes":  18895,
+                      "SHA256":  "4F818687419B8FFF875DA642B1D849B0236AC6EAF2A8D2B4B3790E629D2BEF2B",
+                      "Reason":  "UnrealBuildTool 运行日志（2026-09-16 09:14 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_bkey2.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bkey2.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_bkey2.log",
+                      "Bytes":  24850,
+                      "SHA256":  "4E77DA886A21A239B9822C1415C078E4A05A38A3312978047B8B05116F5F2FD2",
+                      "Reason":  "UnrealBuildTool 运行日志（09:15 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_bkey3.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bkey3.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_bkey3.log",
+                      "Bytes":  13600,
+                      "SHA256":  "7463BC674F27787260BE48BD1E71BB4113F3C17EA2E6C8E867402445ED3A15E4",
+                      "Reason":  "UnrealBuildTool 运行日志（09:17 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_palette.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_palette.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_palette.log",
+                      "Bytes":  9459,
+                      "SHA256":  "BB41BDA4FA2F591C107425514DD7423B176F9DE822E2B10345054B6A8603240D",
+                      "Reason":  "UnrealBuildTool 运行日志（09:35 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_palette2.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_palette2.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_palette2.log",
+                      "Bytes":  12486,
+                      "SHA256":  "4440D4E8C4318D372703A4FE45E616A218A51C5F16B94F8BB1761AAFA62E4E7C",
+                      "Reason":  "UnrealBuildTool 运行日志（09:35 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "diag.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/diag.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/diag.log",
+                      "Bytes":  273044,
+                      "SHA256":  "D003FB486348313C8F8E26A7DBC955BAA6B3009AFAA5FC33A98F9367DDED7A08",
+                      "Reason":  "材质诊断运行日志（16:14）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "fixpal.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/fixpal.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/fixpal.log",
+                      "Bytes":  272613,
+                      "SHA256":  "26B96B32896F3B759BE7F6E44FE030FAC7148674D255C07399E9C3E3BD1B4733",
+                      "Reason":  "调色板修复运行日志（16:19）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "headless_build.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/headless_build.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/headless_build.log",
+                      "Bytes":  277894,
+                      "SHA256":  "862FAE7E7E3058DF356F86524FC1EB74FAE4DA9C68C4D25A1A1B84768C40FE47",
+                      "Reason":  "一次无头构建运行日志（09:48）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "optimize.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/optimize.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/optimize.log",
+                      "Bytes":  290266,
+                      "SHA256":  "6C529EEBB487E5F03C95402EA72E821AB73A8B2BD41D1EF3636D04CC69F49FEB",
+                      "Reason":  "柱子优化运行日志（16:17）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "optimize2.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/optimize2.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/optimize2.log",
+                      "Bytes":  290507,
+                      "SHA256":  "03502734C07F0FBF358EB6809E5C05DCB95CDFD6200089CD30A2952167D10B1D",
+                      "Reason":  "柱子优化运行日志（16:18）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "palette_register.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/palette_register.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/palette_register.log",
+                      "Bytes":  273980,
+                      "SHA256":  "0933DEB56FE73DA1F4653B628D15C16FD68044DA5959B23A98F7C43773BBC2B7",
+                      "Reason":  "调色板注册运行日志（10:48）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "v1style.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/v1style.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/v1style.log",
+                      "Bytes":  275239,
+                      "SHA256":  "07D9A317673BD5B89565A6C2B3CB8B464E92811A3E1E900A651311F1A169BFFD",
+                      "Reason":  "V1 风格重建运行日志（16:15）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "v1style2.log",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/v1style2.log",
+                      "ArchivedTo":  "trash/RomanColumn20260915/v1style2.log",
+                      "Bytes":  303463,
+                      "SHA256":  "0A547E4221A4F9E630D90C335760BD19AFE52618B1473A9902629A3F45AA4B11",
+                      "Reason":  "V1 风格重建运行日志（16:16）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "panel_mockup.png",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/panel_mockup.png",
+                      "ArchivedTo":  "trash/RomanColumn20260915/panel_mockup.png",
+                      "Bytes":  149578,
+                      "SHA256":  "026DCFE1E4AAC731F0861E4A55F769F5D823E1B4405B457039F9E9361787C8A9",
+                      "Reason":  "建造面板模拟图（已被正式实现取代）",
+                      "Replacement":  "Source/FPSGAME/Building/VoxelBuildWidget.cpp + Docs/UI/voxel-build-panel-plan-20260916.md"
+                  },
+                  {
+                      "Name":  "build_bkey.json",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bkey.json",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_bkey.json",
+                      "Bytes":  55403,
+                      "SHA256":  "47AE88755B73DE363FE305781D40BB99B60CDFEA88B53A798FE2744B52D18499",
+                      "Reason":  "UnrealBuildTool JSON 日志（09:14 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_bkey2.json",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bkey2.json",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_bkey2.json",
+                      "Bytes":  66478,
+                      "SHA256":  "5AF083C8272C3B68E557C6BF617D552EE584FEC9AD70C182F0F7E3C96BE7F7B6",
+                      "Reason":  "UnrealBuildTool JSON 日志（09:15 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_bkey3.json",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bkey3.json",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_bkey3.json",
+                      "Bytes":  40632,
+                      "SHA256":  "CB27F7A3770F9CC60AC11F6264B379D5BA0EB4365C24B33FF41AC4B77EC5A0ED",
+                      "Reason":  "UnrealBuildTool JSON 日志（09:17 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_palette.json",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_palette.json",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_palette.json",
+                      "Bytes":  32871,
+                      "SHA256":  "E394F6E60A39261110E3B4B40BAA704571203A83A80E1766F51FE65425D4D3E1",
+                      "Reason":  "UnrealBuildTool JSON 日志（09:35 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_palette2.json",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_palette2.json",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_palette2.json",
+                      "Bytes":  37000,
+                      "SHA256":  "E0B7A46259B1D107FF502E7CBF00978177B44FC08004FEA7BADB1C1B189925C0",
+                      "Reason":  "UnrealBuildTool JSON 日志（09:35 排障编译）",
+                      "Replacement":  "Docs/Building/voxel-build-workflow.md 与 SourceAssets/RomanColumn20260915/README.md 的结论"
+                  },
+                  {
+                      "Name":  "build_panel_mockup.ps1",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_panel_mockup.ps1",
+                      "ArchivedTo":  "trash/RomanColumn20260915/build_panel_mockup.ps1",
+                      "Bytes":  7397,
+                      "SHA256":  "70EE5857CD86E5A2C5EB24B05034871E49BF1EBCDDB75A56F8482C75BF66CDF3",
+                      "Reason":  "建造面板模拟图生成脚本（已被正式实现取代）",
+                      "Replacement":  "Source/FPSGAME/Building/VoxelBuildWidget.cpp + Docs/UI/voxel-build-panel-plan-20260916.md"
+                  }
+              ]
+}
