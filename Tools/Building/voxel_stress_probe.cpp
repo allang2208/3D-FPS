@@ -15,9 +15,9 @@ namespace
 using VoxelJointStrength::FMaterial;
 
 const FMaterial Materials[] = {
-    { 600.0,  700000.0, 260000.0, 120000.0 },  // wood  (keep in sync with UVoxelBuildPalette::Physical())
-    { 2600.0, 6000000.0, 900000.0, 80000.0 },  // stone
-    { 2600.0, 6000000.0, 900000.0, 80000.0 },  // marble
+    { 150.0,  700000.0, 260000.0, 120000.0 },  // wood  (keep in sync with UVoxelBuildPalette::Physical())
+    { 650.0, 6000000.0, 900000.0, 300000.0 },  // stone
+    { 650.0, 6000000.0, 900000.0, 300000.0 },  // marble
 };
 const char* Names[] = { "wood", "stone", "marble" };
 
@@ -41,8 +41,12 @@ int main()
             Material.MassPerCellKg());
         printf("   load per m^2 section: %.1f t   mass per cell: %.2f kg\n",
             Material.LoadPerSquareMeterT(), Material.MassPerCellKg());
+        // 25 cells = the published 5.0 m publication range; the extended scan reports where a span
+        // actually fails after the 2026-09-16 weight change (1/4 of the old mass).
         printf("   max clear span: self=%.2f m   with 100kg mid-span=%.2f m\n",
             VoxelJointStrength::MaxSpanMeters(Material, 0.0), VoxelJointStrength::MaxSpanMeters(Material, 100.0));
+        printf("   extended scan (up to 10 m): self=%.2f m   with 100kg mid-span=%.2f m\n",
+            VoxelJointStrength::MaxSpanMeters(Material, 0.0, 50), VoxelJointStrength::MaxSpanMeters(Material, 100.0, 50));
         for (int Span : { 5, 10, 12, 14, 16, 20 })
         {
             ReportSpan(Material, Span, 0.0);

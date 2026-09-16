@@ -13,7 +13,10 @@ import unreal
 ACTIVE = "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette"
 OVERRIDES = {
     # 2026-09-16: doubled per user request (see Docs/Building/voxel-build-workflow.md).
-    "marble": (2600.0, 6000000.0, 900000.0, 80000.0, 500.0, 15.0),
+    # 2026-09-16 (second pass): shear 80 -> 300 kPa for the "cannot build past 1 m" report; the
+    # diagnosis is in Docs/Building/voxel-vertical-build-diagnosis-20260916.md.
+    # 2026-09-16 (third pass): every voxel weighs a quarter of what it did (2600 -> 650 kg/m3).
+    "marble": (650.0, 6000000.0, 900.0 * 1000.0, 300.0 * 1000.0, 500.0, 15.0),
 }
 
 
