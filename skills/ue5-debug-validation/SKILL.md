@@ -6,6 +6,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 # Quick Start
 - For weather/cloud validation, read [weather transition diagnostics](../ue5-weather-workflow/references/storm-rain-integration.md); sample after all light writers and distinguish editor actor enumeration from runtime world state.
 - For imported maps, spawn/floating bugs and relocation, read [scene validation](references/scene-import-spawn-validation.md).
+- For changes that only reproduce in one editor session, whether a hot patch can carry a change, or assets reading back as None, read [live coding vs full build](references/live-coding-vs-full-build.md).
 - Reproduce issue with minimal steps.
 - Collect output log lines and relevant actor/asset state.
 - Classify fault domain: data, Blueprint, C++, networking, or editor config.
@@ -94,6 +95,12 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 - Symptom: runtime mismatch only happens on packaged builds.
   - Locate: build config/cook differences versus editor run.
   - Fix: compare packaged and editor config/assets and validate load order.
+- Symptom: a bug only reproduces in the session where the code was hot patched.
+  - Locate: file-scope static state reset by the module reload, or an in-session patch that never reached the on-disk binary.
+  - Fix: move the state into a UPROPERTY member or re-resolve it from a safe host, then confirm with a full build instead of trusting the patch.
+- Symptom: asset fields read back as None right after a code change.
+  - Locate: a USTRUCT that backs an asset had its layout or defaults changed through a hot patch, so the saved tag no longer matches.
+  - Fix: close the editor, full build, then re-author the asset; verify with disk timestamp, byte scan and an independent process read-back.
 
 # Validation Ops
 - Always keep a minimal repro artifact (steps, map, config) with the diagnosis.

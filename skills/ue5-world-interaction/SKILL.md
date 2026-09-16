@@ -6,6 +6,7 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 # Quick Start
 - For harvested trees, original stumps, cut-plane hinges, or Nanite tree crowns, read [tree cutting and falling](references/tree-harvest-cut-and-fall.md).
 - For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
+- For FPSGAME 20 cm voxel building (grid snapping, ghost preview, instanced gold outline, snap vs free placement), read [voxel placement interaction](references/fpsgame-voxel-placement.md).
 - For FPSGAME item art, three-view references, or RTX 5080 model generation, use the `ue5-item-asset-workflow` skill for photorealistic item style and asset validation.
 - Define interaction model: overlap-driven, trace-driven, or explicit use key.
 - Define actor set: pickup actor, optional spawner, optional visual mapping data asset.
@@ -100,6 +101,12 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 - Symptom: frame spikes near dense interaction areas.
   - Locate: per-frame trace/overlap workload and unnecessary ticking.
   - Fix: reduce polling frequency, gate traces by input/distance, disable idle tick.
+- Symptom: preview ghost or highlight survives after leaving the interaction mode.
+  - Locate: cached component pointers kept in file-scope statics (reset by a Live Coding reload), instance buffer cleared but never hidden (or hidden but never cleared), no cleanup on the non-key exit paths.
+  - Fix: clear instances + visibility + the rebuild signature cache on every exit path, re-resolve the component by name from a UPROPERTY host when the cache is empty, and add a cheap per-frame safety net while the mode is off.
+- Symptom: a material change on the highlight has no visible effect.
+  - Locate: material missing the "Used with Instanced Static Meshes" usage flag (the engine silently swaps in the default material), or an unlit emissive left at ~1.0 in a daylight scene.
+  - Fix: set the usage flag and push the emissive into HDR range; check the one-line engine warning in the log.
 
 # Interaction Authority Ops
 - Use server-validated interaction resolution for shared gameplay effects.
