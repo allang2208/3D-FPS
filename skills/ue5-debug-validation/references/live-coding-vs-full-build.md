@@ -38,3 +38,14 @@ python Tools/AssetPipeline/ue_python_exec.py --statement "import unreal; unreal.
 | 资产字段全读成 `None` | 是否热补丁改过带资产的 USTRUCT；关编辑器全量编译后按清单修复 |
 | "改了代码没反应" | 补丁是否真的 succeeded；是否改的是只在退出后才生效的东西（磁盘 DLL） |
 | 编辑器关掉后行为回退 | 说明改动只是热补丁，从未落到磁盘 DLL |
+
+## 单文件编译校验的边界（2026-09-16）
+
+- UBT 在 `Intermediate/Build/Win64/x64/<Target>/<Config>/<Module>/*.cpp.obj.rsp` 留下每个 TU 的完整编译命令（含共享 PCH）。**只改 `.cpp`** 时可以用它快速校验：
+  `cmd /c ""<vcvarsall.bat>" x64 && cd /d "E:\Program Files (x86)\UE_5.8\Engine\Source" && cl.exe "@D:/FPS3D/FPSGAME/Intermediate/.../X.cpp.obj.rsp""`（工作目录必须是引擎 `Engine/Source`，共享 rsp 里的 `/I` 都是相对该目录）。
+- **改过带 UHT 的头文件后这条路径无效**：`GENERATED_BODY()` 会拼出 `<文件ID>_<行号>_GENERATED_BODY` 宏名，头里插删行会让宏名对不上，出现 `缺少";"(在"<class-head>"的前面)`、`NativeConstruct 不是成员` 之类假错误——必须让 UBT 重跑 UnrealHeaderTool（完整构建）。
+- 生成器为 `-SingleFile=` 时不带共享 PCH，会报引擎头里的 `C2143/C2039` 假错误，同样不能作为结论。
+
+## 编辑器内远程执行的崩溃陷阱（2026-09-16）
+
+不要在用 `Tools/AssetPipeline/ue_python_exec.py` 连到**正在运行的编辑器**时调用材质编辑器相关查询（`unreal.MaterialEditingLibrary.get_material_property_input_node` 等）：本机实测触发 `UnrealEditor-MaterialEditor.dll` 访问违例，直接把编辑器打崩且可能丢失未保存改动。材质图/属性接线查询放无界面 `UnrealEditor-Cmd -ExecutePythonScript` 进程；必须在编辑器内改材质时只用 `get_material_expressions` / `connect_material_expressions` / `recompile_material` / `save_loaded_asset`，并先用 Restart Manager 确认资产是否被编辑器独占。
