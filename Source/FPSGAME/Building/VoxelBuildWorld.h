@@ -59,7 +59,9 @@ public:
     UFUNCTION(BlueprintPure,Category="Building") int32 BlockCount() const;
     UFUNCTION(BlueprintPure,Category="Building") int32 UnsupportedBlockCount() const;
     UFUNCTION(BlueprintCallable,Category="Building") bool EditCells(const TArray<FIntVector>& Positions,FName Material);
+    /** 撤销 = 拆除最后一批**放置**（不再把拆掉的东西变回来）；拆下来的方块由调用方回收进背包。 */
     UFUNCTION(BlueprintCallable,Category="Building") bool Undo();
+    bool Undo(TMap<FName,int32>* OutRemovedBlocks);
     UFUNCTION(BlueprintCallable,Category="Building") bool Save();
     UFUNCTION(BlueprintCallable,Category="Building|Structure") void SetAppliedLoad(FName LoadId,FVector ContactPoint,float MassKg);
     UFUNCTION(BlueprintCallable,Category="Building|Damage") void DamageBuilding(FVector Position,float Amount,float RadiusCm=0);
@@ -78,6 +80,22 @@ public:
     bool OwnsSurface(const UPrimitiveComponent* Component) const;
     uint64 StructureRevision() const {return Revision;}
     FString StructureStatus() const;
+    /** 存档槽名（不带扩展名）；验收工具会用它核对磁盘文件。 */
+    const FString& SaveSlotName() const;
+    /** 最弱接缝占比（1.0 = 断裂）。面板与提示栏用它做结构预警。 */
+    float WeakestJointRatio() const;
+    /** 最弱接缝摘要："抗剪 92% · 格(39,-30,10)"；没有解算结果时为空。 */
+    FString WeakestJointSummary() const;
+    /** 最近一次解算的观测值（面板读数 + 验收基线）：耗时、节点数、边界节点数。 */
+    void SolverStats(float& OutSeconds,int32& OutNodes,int32& OutBoundary) const;
+    /** 最近一次解算是否覆盖整块连通结构（false = 局部裁剪求解）。 */
+    bool LastSolveWasFull() const;
+    /** 求解规模/耗时摘要（状态行用）。 */
+    FString SolverSummary() const;
+    /** 主动拆除残骸时移除它（记录 + Actor + 存档脏标记）；方块物品由调用方发放。 */
+    void RemoveFragment(class AVoxelCollapseFragment* Fragment);
+    /** 过载渐进损伤：按经过时间给过载格累积损伤，损伤满耐久才掉块。 */
+    void ApplyOverloadDamage(const TArray<struct FVoxelOverloadCell>& Overload,double Seconds);
     /** Prefabricated pieces (roman column, balustrade, ...) placed on the 20 cm lattice. */
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool PlacePrefab(FName Id,FIntVector Cell,int32 Yaw=0);
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool RemovePrefab(AActor* Piece);
@@ -128,6 +146,6 @@ private:
     void TickPersistence(bool bFlush=false);
     void MarkSaveDirty();
     UVoxelBuildSave* MakeSnapshot() const;
-    void EnqueueFragment(FVoxelFragmentSave State,TArray<FVoxelBuildKey> Sources={},FGuid Replaces={});
+    void EnqueueFragment(FVoxelFragmentSave State,TArray<FVoxelBuildKey> Sources={},FGuid Replaces={},bool bFailureDebris=false);
     UFUNCTION() void OnBuildingHit(UPrimitiveComponent* Component,AActor* Other,UPrimitiveComponent* OtherComponent,FVector Impulse,const FHitResult& Hit);
 };

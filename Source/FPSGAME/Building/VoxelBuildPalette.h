@@ -44,6 +44,9 @@ struct FVoxelBuildPrefab
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Grid", meta=(ClampMin="1")) FIntVector Footprint=FIntVector(1,1,1);
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Surface") TSoftObjectPtr<UMaterialInterface> Surface;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Grid", meta=(Units="cm")) FVector PivotOffsetCm=FVector::ZeroVector;
+    /** Drawer grouping: the material row whose 其他构造 submenu lists this piece (stable material ID).
+        Empty keeps the piece in the drawer's 其他 category only. */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Panel") FName Material;
 };
 
 /** Shared material IDs, not separate wall/floor inventory items. Grid size is a save contract. */
@@ -58,7 +61,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Components") TArray<FVoxelBuildPrefab> Components;
     UPROPERTY(EditAnywhere, BlueprintReadOnly) TSoftObjectPtr<UMaterialInterface> PreviewMaterial;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Surface", meta=(ClampMin="0.25",ClampMax="3.0",Units="cm")) float EdgeRadiusCm=1.4f;
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Support", meta=(ClampMin="0",Units="cm")) float MaxCantileverCm=200.f;
     const FVoxelBuildMaterial* Find(FName Id) const;
     FVoxelPhysicalMaterial Physical(FName Id) const;
     const FVoxelBuildPrefab* FindComponent(FName Id) const

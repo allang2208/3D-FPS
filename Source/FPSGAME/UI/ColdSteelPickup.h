@@ -35,6 +35,9 @@ private:
     bool BuildProductionMaterial(const FColdSteelItem& Item);
     void InstallProductionMaterial(class UStaticMesh* Asset,bool Wood);
     void TickProductionMaterial(float Delta);
+    /** Voxel blocks drop as the 20 cm cube of their palette material, so the pickup matches the build. */
+    bool BuildVoxelBlock(const FColdSteelItem& Item);
+    bool bVoxelBlock=false;
     bool bProductionMaterial=false;
     bool bProductionMaterialReady=false;
     float ProductionSettleSeconds=0;

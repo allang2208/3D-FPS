@@ -41,6 +41,9 @@ protected:
 private:
     UPROPERTY(VisibleAnywhere, Category="Development") TObjectPtr<UDevelopmentSpawnComponent> DevelopmentSpawner;
     UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVoxelBuildComponent> VoxelBuilder;
+    /** -VoxelBuildAudit 时创建的建筑系统验收运行器。 */
+    UPROPERTY(Transient) TObjectPtr<class UVoxelBuildAudit> VoxelBuildAudit;
+    FTimerHandle VoxelBuildAuditTimer;
     bool bScopePanelsHidden=false;
     TMap<TWeakObjectPtr<class UUserWidget>,uint8> ScopePanelVisibility;
     UPROPERTY(Transient) TObjectPtr<class UM4GunsmithWidget> GunsmithPanel;

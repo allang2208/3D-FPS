@@ -22,6 +22,8 @@ struct FVoxelPendingFragment
     FVoxelFragmentSave State;
     TArray<FVoxelBuildKey> Sources;
     FGuid Replaces;
+    /** Spawned as failed-placement debris: it falls, but it does not damage the standing building. */
+    bool bFailureDebris=false;
     TFuture<TArray<FVoxelPreparedFragment>> Future;
     TArray<FVoxelPreparedFragment> Prepared;
     TArray<TWeakObjectPtr<AVoxelCollapseFragment>> Spawned;
@@ -52,6 +54,8 @@ struct FVoxelContactLoad
 struct FVoxelBuildRuntime
 {
     TSet<FVoxelBuildKey> DirtySupport,PendingCells;
+    /** 本次收集的 BFS 深度；配合 SolveRegionHops 把求解限制在改动附近。 */
+    TMap<FVoxelBuildKey,int32> GatherHops;
     TMap<FVoxelBuildKey,uint64> NodeEpoch,JobEpoch;
     TArray<FVoxelBuildKey> GatherQueue;
     TSet<FVoxelBuildKey> GatherSeen,JobKeys;
@@ -71,8 +75,17 @@ struct FVoxelBuildRuntime
     TArray<FVoxelContactLoad> ContactLoads;
     int32 LoadRead=0;
     TFuture<bool> SaveJob;
+    /** 求解观测：面板与验收用它报告"每次解算的耗时/规模"。 */
+    double SolveStartedAt=0,LastFullSolveAt=0;
+    float LastSolveSeconds=0;
+    int32 LastSolveNodes=0,LastSolveBoundary=0;
+    bool bGatherFullSolve=true;
+    // Weakest joint of the last published solve, and the one that killed the last placement.
+    FVoxelBondStress WorstBond,FailureBond;
     bool bSaveDirty=false,bSaveFailed=false,bStressApproximate=false;
     double SaveAt=0,StructureAt=0,LoadSampleAt=0,MotionSaveAt=0;
+    /** 上次结算过载损伤的时间；过载期间以固定步长持续累积。 */
+    double OverloadAt=0;
     int32 AwakeBodies=0,AwakeShapes=0;
     // Build-failure isolation (Docs/Building/voxel-build-workflow.md 3.6). FreshCells holds the
     // cells added by the most recent accepted placement batch and FreshAt is when it was committed.

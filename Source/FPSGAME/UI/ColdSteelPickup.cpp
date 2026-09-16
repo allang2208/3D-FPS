@@ -36,9 +36,9 @@ AColdSteelPickup::AColdSteelPickup()
 }
 void AColdSteelPickup::InitializeItem(const FColdSteelItem& Item)
 {
-    ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun&&!BuildProductionTool(Item)&&!BuildProductionMaterial(Item))BuildConsumable(Item);Mesh->SetVisibility(!Gun);
+    ItemId=Item.InstanceId;const bool Gun=BuildWeapon(Item);if(!Gun&&!BuildProductionTool(Item)&&!BuildProductionMaterial(Item)&&!BuildVoxelBlock(Item))BuildConsumable(Item);Mesh->SetVisibility(!Gun);
     auto* Surface=NewObject<UPhysicalMaterial>(this);Surface->Friction=.8f;Surface->Restitution=.08f;Body->SetPhysMaterialOverride(Surface);
-    Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:bProductionMaterial?ProductionMassKg:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(!bProductionMaterial||bProductionMaterialReady);
+    Body->SetMassOverrideInKg(NAME_None,Gun?3.4f:bVoxelBlock?2.5f:bProductionMaterial?ProductionMassKg:.4f);Body->SetEnableGravity(true);Body->SetSimulatePhysics(!bProductionMaterial||bProductionMaterialReady);
     BuildLootGlow(Item);
     Prompt->InitWidget();if(auto* UI=Cast<UColdSteelPickupPrompt>(Prompt->GetUserWidgetObject())){
         FString Name=ColdSteelInventory::Text(Item,TEXT("name"));if(Name.IsEmpty())Name=Item.Definition;

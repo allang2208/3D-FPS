@@ -40,6 +40,29 @@
 
 ## 边界
 
+## 面板「其他构造」与 1×5 直线构造（2026-09-16 第二版）
+
+用户指定：材质行右侧加展开按钮，子菜单列出这栏材质可用的其余构造；新增 1×5 体素的水平与垂直直线；同材质构件归入对应材质的子菜单（罗马柱 → 大理石）；原「构件」分类改名「其他」。
+
+| 项 | 实现 |
+| --- | --- |
+| 体素构造表 | `VoxelBuildComponent.cpp` 文件级 `BrushShapes`：单格 1×1×1、1 m² 地块 5×5×1、1 m² 墙面 5×1×5、1×5 水平直线 5×1×1、1×5 垂直直线 1×1×5（20 cm 格） |
+| 滚轮顺序 | `(Brush ± 1) mod 5`：单格 → 地块 → 墙面 → 水平直线 → 垂直直线；`R` 只交换墙面与水平直线的 X／Y |
+| 形状选择 | `UVoxelBuildComponent::SelectShape(MaterialId,ShapeMode)`：一次设置材质＋形状＋清除构件，然后回到建造 |
+| 子菜单 | 材质行＝`Pick` 按钮＋「其他构造」披露按钮（兄弟控件，展开不会顺带选材质）；展开时在该行下方插入 5 个形状条目与同材质构件条目，缩进 14px、随列表滚动 |
+| 归属数据 | `FVoxelBuildPrefab::Material`（稳定材质 ID）。`set_prefab_panel_material.py` 写入：`roman_column → marble`、`baluster_small → stone`；空值只出现在「其他」分类 |
+| 分类改名 | 页签「构件」→「其他」，仍是一览全部放置构件；建造中数字键仍是材质 1-3、构件 4-9 |
+| 抽屉编号 | 1-9 按可见行（含展开的子条目），与鼠标点击共用 `Pick` |
+| 卡片网格（2026-09-16 第四版） | 子菜单条目改为**统一卡片**：116 × 150 px 卡片、104 × 104 px 图片、8 px 等距、`UWrapBox` 满行换行；卡片含缩略图＋名称，选中 2px 银白边。缩略图由 `UVoxelBuildIcons` 抓取（与工作台同一套双通道＋`M_WeaponPreviewResolved` 合成），所有条目同一视角 `FRotator(-18,-35,0)` 正交、按包围盒最长边归一化到画面 78%，体素形状用该材质行的体素方块网格绘制 |
+
+形状仍是**体素**：它们走 `Placement`／`EditVolumeCells`／承重图／体素存档，与单格完全相同，不进 `Prefabs` 数组。构件归属只影响面板与浮窗显示，不进存档。
+
+### 本轮落地范围
+
+- 关闭编辑器后 `Tools/Build/Build-Editor.ps1` 完成 Editor Development 全量编译（`Result: Succeeded`；`UnrealEditor-FPSGAME.dll` 落盘）。新增 USTRUCT 字段与 `UPROPERTY` 不能用 Live Coding 热补丁，**必须关掉编辑器再全量编译**。
+- 调色板归属由 `set_prefab_panel_material.py` 无头写入活动调色板：`save_packages=True`，同进程读回 `roman_column material=marble`、`baluster_small material=stone`；资产文件 19:33:26、4969 B，名字表出现新的 `Material` 属性名。换归属只改这一条数据，不动代码与存档。
+- 未运行游戏、未截图；面板展开、直线构造的放置与拆除手感由用户测试。
+
 ## 已接入的构件（2026-09-16）
 
 活动调色板是 `UVoxelBuildComponent` 实际加载的 `/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette`。上午那次注册写进了父目录的初版调色板，活动调色板的 `components` 一直是 0，因此面板构件页为空；现已写入两根柱子：

@@ -1,4 +1,5 @@
 #include "VoxelBuildWorld.h"
+#include "VoxelBuildDebug.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPersistence.h"
@@ -22,10 +23,15 @@ AVoxelBuildWorld::AVoxelBuildWorld(FVTableHelper& Helper) : Super(Helper) {}
 // the cause is fixed.
 namespace
 {
+    /** 建筑诊断日志总开关（默认关）：VOXEL_AIM / VOXEL_REJECT / VOXEL_AUDIT 都看它。 */
+    TAutoConsoleVariable<int32> DebugLogCVar(TEXT("fps.Building.DebugLog"),0,
+        TEXT("1 = 输出建筑诊断日志（VOXEL_AIM/REJECT/AUDIT）。默认 0。"));
+
     void LogPlacementReject(const TCHAR* Stage,const FVoxelBuildKey& Key,const FVector& Min,const FString& Reason)
     {
         static double LastTime=-10.;
         static FString LastKey;
+        if(!VoxelBuildDebug::Enabled())return;
         const FString Signature=FString::Printf(TEXT("%s|%d,%d,%d|%s"),Stage,Key.Cell.X,Key.Cell.Y,Key.Cell.Z,*Reason);
         const double Now=FPlatformTime::Seconds();
         if(Signature==LastKey||Now-LastTime<.5)return;
@@ -161,9 +167,14 @@ bool AVoxelBuildWorld::DebugInitialize(const FString& InWorldKey)
 {
     UVoxelBuildPalette* Asset=LoadObject<UVoxelBuildPalette>(nullptr,
         TEXT("/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette"));
-    if(!Asset){UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=debug-load-palette reason=palette not loadable"));return false;}
+    if(!Asset)
+    {
+        if(VoxelBuildDebug::Enabled())UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=debug-load-palette reason=palette not loadable"));
+        return false;
+    }
     const bool bOk=Initialize(InWorldKey,Asset);
-    UE_LOG(LogTemp,Warning,TEXT("VOXEL_AUDIT debug initialize key=%s ok=%d message=%s"),*InWorldKey,bOk?1:0,*Message);
+    if(VoxelBuildDebug::Enabled())
+        UE_LOG(LogTemp,Warning,TEXT("VOXEL_AUDIT debug initialize key=%s ok=%d message=%s"),*InWorldKey,bOk?1:0,*Message);
     return bOk;
 }
 bool AVoxelBuildWorld::EditCells(const TArray<FIntVector>& Positions,FName Material)
@@ -247,9 +258,10 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
                 Key.Cell.X,Key.Cell.Y,Key.Cell.Z,Existing.bAnchor?1:0,Existing.bBearing?1:0,
                 SupportGraph->Supported.Contains(Key)?1:0,Runtime->PendingCells.Contains(Key)?1:0,bContact?1:0);
         }
-        UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=support cell=%d,%d,%d min=%.1f,%.1f,%.1f nodes=%d supported=%d pending=%d neighbours:%s"),
-            Probe.X,Probe.Y,Probe.Z,Min.X,Min.Y,Min.Z,SupportGraph->Nodes.Num(),SupportGraph->Supported.Num(),
-            Runtime->PendingCells.Num(),*NeighbourState);
+        if(VoxelBuildDebug::Enabled())
+            UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=support cell=%d,%d,%d min=%.1f,%.1f,%.1f nodes=%d supported=%d pending=%d neighbours:%s"),
+                Probe.X,Probe.Y,Probe.Z,Min.X,Min.Y,Min.Z,SupportGraph->Nodes.Num(),SupportGraph->Supported.Num(),
+                Runtime->PendingCells.Num(),*NeighbourState);
         return false;
     }
     Reason=FString::Printf(TEXT("可放置 %d 格 · 新增 %.1f kg · 放置后计算承重"),Seen.Num(),Seen.Num()*Palette->Physical(Material).DensityKgM3*.008f);
@@ -348,16 +360,42 @@ bool AVoxelBuildWorld::Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember)
     Runtime->FreshCells.Reset();Runtime->bFreshRolledBack=false;
     if(bRemember)for(const auto& E:Edit)if(!E.After.IsNone())Runtime->FreshCells.Add({E.Volume,E.Position});
     Runtime->FreshAt=GetWorld()->GetTimeSeconds();
-    if(bRemember){History.Add(Edit);if(History.Num()>32)History.RemoveAt(0);}
+    if(bRemember)
+    {
+        // 2026-09-16（用户指定）：历史只记"放上去"的批次。**任何拆除之后本次建筑不再可撤销**——只要
+        // 这一批里含拆除（After 为空），历史整段清空，避免"拆掉 → 撤销复原 → 方块白得"的刷取路径。
+        bool bAnyRemoval=false;TArray<FVoxelEditCell> Added;
+        for(const FVoxelEditCell& E:Edit){if(E.After.IsNone())bAnyRemoval=true;else Added.Add(E);}
+        if(bAnyRemoval)History.Reset();
+        else if(!Added.IsEmpty()){History.Add(MoveTemp(Added));if(History.Num()>32)History.RemoveAt(0);}
+    }
     Message=FString::Printf(TEXT("已修改 %d 格 · 正在计算承重并保存"),Edit.Num());return true;
 }
 
 bool AVoxelBuildWorld::Undo()
 {
-    if(!bReady||History.IsEmpty()){Message=TEXT("没有可撤销的操作");return false;}
-    TArray<FVoxelEditCell> Reverse;for(const auto& E:History.Last())Reverse.Add({E.Position,E.After,E.Before,E.Volume});
-    if(!Commit(Reverse,false))return false;
-    History.Pop();Message=TEXT("已撤销 · 正在保存");return true;
+    return Undo(nullptr);
+}
+
+bool AVoxelBuildWorld::Undo(TMap<FName,int32>* OutRemovedBlocks)
+{
+    if(!bReady||History.IsEmpty()){Message=TEXT("没有可撤销的建造");return false;}
+    // 撤销 = 拆除最后一批放置（方块交回调用方回收），而不是恢复之前拆掉的东西。
+    const TArray<FVoxelEditCell> Batch=History.Last();History.Pop();
+    TArray<FVoxelEditCell> Reverse;TMap<FName,int32> Removed;
+    for(const FVoxelEditCell& E:Batch)
+    {
+        if(E.After.IsNone())continue;
+        const FName Existing=VolumeMaterialAt(E.Volume,E.Position);
+        if(Existing.IsNone())continue;
+        Removed.FindOrAdd(Existing)++;
+        Reverse.Add({E.Position,Existing,NAME_None,E.Volume});
+    }
+    if(Reverse.IsEmpty()){Message=TEXT("没有可撤销的建造");return false;}
+    if(!Commit(Reverse,false)){Message=TEXT("撤销失败 · 结构未改变");return false;}
+    if(OutRemovedBlocks)*OutRemovedBlocks=MoveTemp(Removed);
+    Message=TEXT("已拆除最近一批建造");
+    return true;
 }
 
 void AVoxelBuildWorld::Tick(float Delta)
@@ -382,14 +420,68 @@ void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)
     Super::EndPlay(Reason);
 }
 
+namespace
+{
+    // One joint described for the player: which stress term governs it, how full it is and where it is.
+    FString JointSummary(const FVoxelBondStress& Bond,bool bWithStress)
+    {
+        if(!Bond.bValid||Bond.Ratio<=0)return FString();
+        const TCHAR* Kind=Bond.Kind==EVoxelBondStress::Compression?TEXT("抗压"):
+            Bond.Kind==EVoxelBondStress::Shear?TEXT("抗剪"):TEXT("抗拉·弯");
+        if(!bWithStress)return FString::Printf(TEXT("%s %.0f%% · 格(%d,%d,%d)"),
+            Kind,Bond.Ratio*100.,Bond.A.Cell.X,Bond.A.Cell.Y,Bond.A.Cell.Z);
+        return FString::Printf(TEXT("\n最弱接缝 %s %.0f/%.0f kPa · %.0f%% · 格(%d,%d,%d)"),
+            Kind,Bond.StressPa/1000.,Bond.LimitPa/1000.,Bond.Ratio*100.,
+            Bond.A.Cell.X,Bond.A.Cell.Y,Bond.A.Cell.Z);
+    }
+}
+
+const FString& AVoxelBuildWorld::SaveSlotName() const
+{
+    return SaveSlot;
+}
+
+void AVoxelBuildWorld::SolverStats(float& OutSeconds,int32& OutNodes,int32& OutBoundary) const
+{
+    OutSeconds=Runtime->LastSolveSeconds;OutNodes=Runtime->LastSolveNodes;OutBoundary=Runtime->LastSolveBoundary;
+}
+
+bool AVoxelBuildWorld::LastSolveWasFull() const
+{
+    return Runtime->bGatherFullSolve;
+}
+
+float AVoxelBuildWorld::WeakestJointRatio() const
+{
+    return Runtime->WorstBond.bValid?Runtime->WorstBond.Ratio:0.f;
+}
+
+FString AVoxelBuildWorld::WeakestJointSummary() const
+{
+    return JointSummary(Runtime->WorstBond,false);
+}
+
 FString AVoxelBuildWorld::StructureStatus() const
 {
     if(Runtime->bSaveFailed)return TEXT("保存失败 · 建筑仍在内存中，将重试");
-    if(Runtime->bFreshRolledBack)return TEXT("新建部分承重不足，已倒塌 · 原有结构未受影响");
+    if(Runtime->bFreshRolledBack)
+        return FString(TEXT("新建部分承重不足，已倒塌 · 原有结构未受影响"))+JointSummary(Runtime->FailureBond,true);
     if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())
         return FString::Printf(TEXT("倒塌处理中 · 活动物理块 %d"),Runtime->AwakeBodies);
     if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())return TEXT("正在计算承重");
     if(Runtime->bStressApproximate)return TEXT("结构求解未收敛 · 未应用估算破坏");
     if(!LegacyProtected.IsEmpty())return TEXT("旧建筑保留 · 编辑或破坏后计算承重");
-    return Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?TEXT("正在保存"):TEXT("承重已更新");
+    return (Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?FString(TEXT("正在保存")):FString(TEXT("承重已更新")))
+        +JointSummary(Runtime->WorstBond,true)
+        +SolverSummary();
+}
+
+FString AVoxelBuildWorld::SolverSummary() const
+{
+    if(Runtime->LastSolveNodes<=0)return FString();
+    // 求解规模/耗时直接写进状态行：既是给玩家的"这块多大、算得多快"的反馈，也是性能优化的基线读数。
+    return Runtime->bGatherFullSolve
+        ?FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量）"),Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes)
+        :FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（局部 + %d 边界）"),Runtime->LastSolveSeconds*1000.f,
+            Runtime->LastSolveNodes,Runtime->LastSolveBoundary);
 }

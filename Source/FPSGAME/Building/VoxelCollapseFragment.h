@@ -24,10 +24,19 @@ public:
     void EnableWaitingCollision();
     FVoxelFragmentSave Snapshot() const;
     void UpdateCellDamage(TArray<FVoxelDebrisCell> Cells);
+    /** Failed-placement debris: falls like any other piece but never damages the standing building. */
+    void SetFailureDebris(bool bFailure) {bFailureDebris=bFailure;}
     virtual float TakeDamage(float Amount,const FDamageEvent& Event,AController* Instigator,AActor* Causer) override;
     FGuid Id() const {return State.Id;}
     int32 ShapeCount() const {return Shapes;}
     bool IsMoving() const;
+    /** Time this debris has spent at rest; the building world recycles it into voxel blocks. */
+    bool AccrueRestSeconds(float Delta,float Threshold)
+    {
+        if(IsMoving()){RestSeconds=0;return false;}
+        RestSeconds+=Delta;
+        return RestSeconds>=Threshold;
+    }
     bool HasStarted() const {return bStarted;}
     const FVoxelFragmentSave& Data() const {return State;}
     float MassKg() const {return Mass;}
@@ -39,6 +48,8 @@ private:
     FVector PreviousVelocity=FVector::ZeroVector;
     FVector DesiredCenter=FVector::ZeroVector;
     bool bStarted=false,bReplacing=false;
+    bool bFailureDebris=false;
+    float RestSeconds=0;
     float Mass=1;
     int32 Shapes=0;
     double LastImpactTime=-1;

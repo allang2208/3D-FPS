@@ -54,3 +54,5 @@ description: 为 FPSGAME 制作非枪械物品：写实图标、三视图、5080
 - UE 5.8 Substrate 下本次透明瓶体采用 Thin Translucent、Surface Per Pixel Lighting、透射色控制玻璃，根 Opacity=0 保留透射。转换代码会将透射色向黑色按 Opacity 插值；设为1曾出现不透明外壳。以当前引擎代码与运行渲染为准，不直接照搬离线 transmission 或其他 UE 版本的默认值。
 - 本机 UE 5.8 `DeleteAllMaterialExpressions` 遍历时修改表达式集合，重复导入曾留下 Thin Translucent 输出并造成着色器编译失败。脚本改为复制 `get_material_expressions()` 列表后逐个删除，断言清空，再建图；导入成功不等于运行材质编译成功。
 - 2026-09-11 两款材料地面模型接入 `/Game/Items/EnhancementMaterials`，14/16cm，运行审计 `EnhancementMaterialPickupAudit` 27项通过。冷启动发生编译卡顿时，以刚体实际落稳判定进入保存/拾取检查，固定两秒等待可能产生假阴性；正立材质对照截图与真实重力落地截图分别记录。
+
+- 2026-09-16 体素块（`voxel_block_wood/stone/marble`）：物品的"模型"就是建造用的 20 cm 体素方块，因此**不新建模型文件**，拾取物直接读活动调色板 `DA_VoxelBuildPalette` 的 `ExampleMesh` + `Surface`（缺省回落 `SM_Voxel20_Stone`），图标复用工程既有写实材质图（`Icons/wood|stone|marble.png`）。需要"方块造型图标"时再按图标流程补。残骸回收与范围拾取见 `Docs/UI/area-pickup-and-notice-bar-20260916.md`。

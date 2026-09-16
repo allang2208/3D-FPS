@@ -130,6 +130,8 @@ public:
     bool MoveItem(const FString& Id,int32 Place,int32 Cell);
     bool CommitProposal(const FColdSteelProposal& Proposal);
     UFUNCTION(BlueprintCallable, Category="Inventory") bool AddItem(const FString& Definition,int64 Count=1);
+    /** 全有或全无地扣除物品（背包优先、仓库兜底），一次事务；不足时不扣任何东西并写入原因。 */
+    bool ConsumeItem(const FString& Definition,int64 Count,FString& OutReason);
     bool Split(const FString& Id,int64 Count);
     bool Sort();
     bool BindHotbar(int32 Index,const FString& Id);
@@ -138,6 +140,12 @@ public:
     bool UseHotbar(int32 Index);
     bool Drop(const FString& Id);
     bool Pickup(const FString& Id);
+    /** Z 键范围拾取：把半径内的地面掉落一次事务收进背包；放不下的留在地面并在提示栏播报。 */
+    int32 PickupNearby(float RadiusCm);
+    /** 残骸转体素块：把一组方块物品放到世界坐标，一次事务。 */
+    bool GrantWorldBlocks(const TMap<FString,int64>& Blocks,const FVector& Position);
+    /** 提示栏：屏幕上方的进度提示队列（升级提示用的同一位置），供各系统播报信息。 */
+    void PostNotice(const FString& Title,const FString& Detail=FString(),const FString& Icon=FString(),float Duration=2.8f);
     bool DefaultAction(const FString& Id);
     FColdSteelProposal ProposeWarehouse(const FString& Id,int32 Place,int32 Cell=-1) const;
     bool TransferWarehouse(const FString& Id,int32 Place,int32 Cell=-1);

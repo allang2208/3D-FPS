@@ -96,6 +96,10 @@ float AVoxelCollapseFragment::TakeDamage(float Amount,const FDamageEvent& Event,
 void AVoxelCollapseFragment::OnCollision(UPrimitiveComponent* Component,AActor* Other,UPrimitiveComponent* OtherComponent,FVector Impulse,const FHitResult& Hit)
 {
     if(!Building.IsValid()||bReplacing||!bStarted)return;
+    // A failed placement must not wear the structure down: its debris falls and stops, and only
+    // characters/fragments it hits still take the impact. Without this the same wall lost 179 damage
+    // points (36% of its strength) every time a player retried a placement it refused.
+    if(bFailureDebris&&Other==Building.Get())return;
     const auto* OtherFragment=Cast<AVoxelCollapseFragment>(Other);
     if(OtherFragment&&GetUniqueID()>OtherFragment->GetUniqueID())return;
     const double Now=GetWorld()->GetTimeSeconds();if(Now-LastImpactTime<.12)return;

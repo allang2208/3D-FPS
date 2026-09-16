@@ -142,6 +142,10 @@ void AVoxelBuildWorld::TickDamage()
         FVector Point=Body->GetComponentTransform().TransformPosition(Contact.LocalContact);float Mass=Body->IsSimulatingPhysics()?Body->GetMass():0;
         if(auto* Character=Cast<ACharacter>(Body->GetOwner()))
         {Point=Character->GetActorLocation()-FVector(0,0,Character->GetCapsuleComponent()->GetScaledCapsuleHalfHeight());Mass=Character->GetCharacterMovement()->Mass;}
+        // Collapse debris is not a live load. A 25-cell marble fragment (520 kg before the 2026-09-16
+        // weight change) used to be registered on the cell under it; landing on a bridged course over a
+        // window pushed the joints to 1.9-5.8x their limit and brought the standing wall down with it.
+        else if(Cast<AVoxelCollapseFragment>(Body->GetOwner()))Mass=0;
         FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelLiveLoad),true,Body->GetOwner());FHitResult Hit;
         const bool Supported=GetWorld()->LineTraceSingleByChannel(Hit,Point+FVector(0,0,2),Point-FVector(0,0,5),ECC_Visibility,Query)&&Hit.GetActor()==this&&Hit.ImpactNormal.Z>.5;
         SetAppliedLoad(Contact.Id,Supported?Hit.ImpactPoint:Point,Supported?Mass:0);

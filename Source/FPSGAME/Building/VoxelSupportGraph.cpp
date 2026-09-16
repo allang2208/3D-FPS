@@ -1,5 +1,6 @@
 #include "VoxelSupportGraph.h"
 #include "FPSBlast.h"
+#include "VoxelJointStrength.h"
 
 namespace
 {
@@ -106,7 +107,8 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
         TArray<FVoxelBuildKey> Component{Entry.Key};Seen.Add(Entry.Key);bool Anchored=false;
         for(int32 Read=0;Read<Component.Num();++Read)
         {
-            const auto Key=Component[Read];Anchored|=Graph.Nodes.FindChecked(Key).bAnchor;
+            // 局部求解的边界节点视为固定支撑：超大结构只解变化附近，不会把远处误判成失去地基。
+            const auto Key=Component[Read];Anchored|=Graph.Nodes.FindChecked(Key).bAnchor||Input.Boundary.Contains(Key);
             if(const auto* Next=Graph.Edges.Find(Key))for(const auto& Other:*Next)
                 if(!Seen.Contains(Other)){Seen.Add(Other);Component.Add(Other);}
         }
@@ -136,7 +138,8 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
         for(const auto& Key:Component)
         {
             const auto& N=Graph.Nodes.FindChecked(Key);
-            if(N.bAnchor)AddBond(Key,Key,{N.Min+FVector(10,10,0),FVector(0,0,-1),.04,.2,.2},true);
+            if(N.bAnchor||Input.Boundary.Contains(Key))
+                AddBond(Key,Key,{N.Min+FVector(10,10,0),FVector(0,0,-1),.04,.2,.2},true);
             if(const auto* Next=Graph.Edges.Find(Key))for(const auto& Other:*Next)
                 if(Indices.FindChecked(Key)<Indices.FindChecked(Other))
                 {FVoxelContact C;if(FVoxelSupportGraph::Contact(N.Min,Graph.Nodes.FindChecked(Other).Min,C))AddBond(Key,Other,C,false);}
@@ -162,6 +165,37 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
             const float Ratio=float(FMath::Max3(C,T,S));
             Result.LoadRatios.FindOrAdd(L.A)=FMath::Max(Result.LoadRatios.FindRef(L.A),Ratio);
             Result.LoadRatios.FindOrAdd(L.B)=FMath::Max(Result.LoadRatios.FindRef(L.B),Ratio);
+            // Keep the worst joint of the whole solve (not only the failing ones) so the panel can
+            // say which seam is closest to breaking and by which stress term.
+            if(Ratio>Result.WorstBond.Ratio)
+            {
+                const bool bCompression=C>=T&&C>=S,bShear=S>T&&S>=C;
+                Result.WorstBond={true,L.A,L.B,
+                    bCompression?EVoxelBondStress::Compression:bShear?EVoxelBondStress::Shear:EVoxelBondStress::Tension,
+                    Ratio,float(bCompression?Compression:bShear?Shear:Tension),
+                    float(bCompression?FMath::Min(A.Physics.CompressionPa,B.Physics.CompressionPa)*Health:
+                        bShear?FMath::Min(A.Physics.ShearPa,B.Physics.ShearPa)*Health:
+                        FMath::Min(A.Physics.TensionPa,B.Physics.TensionPa)*Health)};
+            }
+            // 过载 = 会受伤，而不是立刻断。每秒损伤按"该格自身耐久 / 断裂秒数"换算，断裂秒数随超载
+            // 程度从 OverloadGraceSeconds（刚好过线）压缩到 OverloadMinSeconds（重度过载），所以三种
+            // 材质的"过载到断"时间一致，只有损伤数值按各自耐久不同。
+            if(Ratio>1&&Converged)
+            {
+                const double Grace=FMath::Max(1.f,Input.OverloadGraceSeconds);
+                const double Seconds=VoxelJointStrength::OverloadSecondsToFailure(Ratio,Grace,FMath::Max(1.f,Input.OverloadMinSeconds));
+                const FVoxelBuildKey Keys[2]={L.A,L.B};
+                for(const FVoxelBuildKey& Key:Keys)
+                {
+                    const float Durability=Key==L.A?A.Physics.Durability:B.Physics.Durability;
+                    const float Rate=float(Durability/FMath::Max(Seconds,.05));
+                    if(FVoxelOverloadCell* Existing=Result.Overload.FindByPredicate([&](const FVoxelOverloadCell& E){return E.Key==Key;}))
+                    {
+                        if(Rate>Existing->RatePerSecond){Existing->RatePerSecond=Rate;Existing->Ratio=Ratio;}
+                    }
+                    else Result.Overload.Add({Key,Rate,Ratio});
+                }
+            }
             // An unconverged estimate must not cause irreversible destruction.
             if(!Converged||Ratio<=1||Result.Broken.Num()+Result.Crushed.Num()>=64)continue;
             if(C>1||L.Ground)Result.Crushed.AddUnique(A.Physics.CompressionPa<=B.Physics.CompressionPa?L.A:L.B);

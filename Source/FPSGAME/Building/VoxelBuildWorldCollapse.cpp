@@ -1,4 +1,5 @@
 #include "VoxelBuildWorld.h"
+#include "../UI/ColdSteelStatusModel.h"
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelCollapseFragment.h"
@@ -14,10 +15,20 @@ namespace
     TAutoConsoleVariable<int32> ShapesPerBody(TEXT("fps.Building.ShapesPerBody"),64,TEXT("Maximum compound boxes per prepared piece."));
 }
 
-void AVoxelBuildWorld::EnqueueFragment(FVoxelFragmentSave State,TArray<FVoxelBuildKey> Sources,FGuid Replaces)
+void AVoxelBuildWorld::RemoveFragment(AVoxelCollapseFragment* Fragment)
+{
+    if(!IsValid(Fragment))return;
+    Fragments.Remove(Fragment->Id());
+    Fragment->Destroy();
+    History.Reset();
+    MarkSaveDirty();
+}
+
+void AVoxelBuildWorld::EnqueueFragment(FVoxelFragmentSave State,TArray<FVoxelBuildKey> Sources,FGuid Replaces,bool bFailureDebris)
 {
     if(State.Cells.IsEmpty())return;
     auto Pending=MakeShared<FVoxelPendingFragment>();Pending->State=MoveTemp(State);Pending->Sources=MoveTemp(Sources);Pending->Replaces=Replaces;
+    Pending->bFailureDebris=bFailureDebris;
     for(const auto& Key:Pending->Sources)Runtime->PendingCells.Add(Key);
     Runtime->PendingFragments.Add(Pending->State.Id,Pending);
 }
@@ -67,6 +78,7 @@ void AVoxelBuildWorld::TickFragments()
             auto* Actor=GetWorld()->SpawnActor<AVoxelCollapseFragment>(AVoxelCollapseFragment::StaticClass(),Ready.State.Transform,Parameters);
             if(!Actor)break;
             Actor->Initialize(this,Ready.State,MoveTemp(Ready.Geometry),SurfaceMaterials);
+            Actor->SetFailureDebris(P.bFailureDebris);
             P.Spawned.Add(Actor);++P.NextSpawn;++Spawned;
             if(FPlatformTime::Seconds()-Start>.0015)break;
         }
@@ -104,6 +116,26 @@ void AVoxelBuildWorld::TickFragments()
         if(E.Value->GetActorLocation().Z<GetWorld()->GetWorldSettings()->KillZ)OutsideWorld.Add(E.Key);
     }
     for(FGuid Id:OutsideWorld){Fragments.FindChecked(Id)->Destroy();Fragments.Remove(Id);MarkSaveDirty();}
+    // Settled debris comes back as pick-up-able voxel blocks: same 20 cm cube, same material, so a
+    // collapsed wall turns into blocks the player can collect (Z) and build with again.
+    TArray<FGuid> Recycled;
+    const float FrameDelta=GetWorld()->GetDeltaSeconds();
+    for(const auto& E:Fragments)
+    {
+        AVoxelCollapseFragment* Fragment=E.Value;
+        if(!IsValid(Fragment)||!Fragment->AccrueRestSeconds(FrameDelta,2.f))continue;
+        const FVoxelFragmentSave Settled=Fragment->Snapshot();
+        TMap<FString,int64> Blocks;
+        for(const FVoxelDebrisCell& Cell:Settled.Cells)
+            if(!Cell.Material.IsNone())Blocks.FindOrAdd(FString(TEXT("voxel_block_"))+Cell.Material.ToString())++;
+        auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+        if(Model&&!Blocks.IsEmpty()&&Model->GrantWorldBlocks(Blocks,Fragment->GetActorLocation()))Recycled.Add(E.Key);
+    }
+    for(const FGuid Id:Recycled)
+    {
+        if(AVoxelCollapseFragment* Fragment=Fragments.FindRef(Id))Fragment->Destroy();
+        Fragments.Remove(Id);MarkSaveDirty();
+    }
     int32 Activated=0;
     for(int32 I=0;I<Runtime->Activation.Num();)
     {

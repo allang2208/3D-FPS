@@ -4,6 +4,7 @@
 #include "EngineUtils.h"
 #include "FPSGAMECharacter.h"
 #include "Building/VoxelBuildComponent.h"
+#include "Building/VoxelBuildAudit.h"
 
 #include "UI/ColdSteelHUDWidget.h"
 #include "UI/LPVOScopeWidget.h"
@@ -21,6 +22,14 @@
 #include "UI/WeatherPanelValidation.h"
 #include "Components/InputComponent.h"
 #include "HAL/FileManager.h"
+#include "HAL/IConsoleManager.h"
+
+namespace
+{
+    /** Z 键范围拾取半径；默认 5 m，可现场用控制台调整。 */
+    TAutoConsoleVariable<float> AreaPickupRadiusCm(TEXT("fps.Pickup.AreaRadiusCm"),500.f,
+        TEXT("Z 键一键拾取的作用半径（cm）。"));
+}
 #include "InputKeyEventArgs.h"
 #include "InputCoreTypes.h"
 #include "Misc/CommandLine.h"
@@ -47,6 +56,17 @@ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+    // 建筑系统验收：-VoxelBuildAudit（材质表 / 过载曲线 / 体素块目录 / 放置-撤销-拆除闭环 / 存档落盘）
+    if(UVoxelBuildAudit::Requested())
+    {
+        VoxelBuildAudit=NewObject<UVoxelBuildAudit>(this);
+        VoxelBuildAudit->Start(this);
+        GetWorldTimerManager().SetTimer(VoxelBuildAuditTimer,
+            FTimerDelegate::CreateWeakLambda(this,[this]()
+            {
+                if(VoxelBuildAudit&&VoxelBuildAudit->Tick())GetWorldTimerManager().ClearTimer(VoxelBuildAuditTimer);
+            }),1.5f,true,8.f);
+    }
     if(FParse::Param(FCommandLine::Get(),TEXT("LootGlowAudit")))
     {FTimerHandle Timer;GetWorldTimerManager().SetTimer(Timer,FTimerDelegate::CreateWeakLambda(this,[this](){RunLootGlowAudit(this);}),8.f,false);}
     if(FParse::Param(FCommandLine::Get(),TEXT("MagicScrollAudit")))
@@ -253,6 +273,10 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
             // Nearby portals receive E through their existing input component before a bound skill.
             for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn()))return Super::InputKey(Params);
         }
+        // Z: one key picks up every drop around the player (blocks, equipment, materials). Ctrl+Z is
+        // the build undo and is consumed by the building component before it reaches this branch.
+        if(Params.Key==EKeys::Z&&GetPawn()&&!IsInputKeyDown(EKeys::LeftControl)&&!IsInputKeyDown(EKeys::RightControl))
+        {Profile->PickupNearby(AreaPickupRadiusCm.GetValueOnGameThread());return true;}
         const int32 QuickIndex=ColdSteelQuickBar::KeyIndex(Params.Key);
         if(QuickIndex>=0){Profile->UseQuickBinding(QuickIndex);return true;}
     }

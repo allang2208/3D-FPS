@@ -1,4 +1,5 @@
 #include "VoxelBuildComponent.h"
+#include "VoxelBuildDebug.h"
 #include "VoxelCollapseFragment.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPalette.h"
@@ -58,46 +59,6 @@ namespace
     // ClipLocalPlayerCells). File scope keeps the fix hot-patchable; there is one local builder.
     int32 ClippedPlayerCells=0;
     // True when the current plan grows the aimed column upward instead of placing beside it.
-    bool GrowUpPlan=false;
-    // Interaction smoothing: the ghost follows the camera every frame, but a momentary aim miss
-    // keeps the previous snapped plan briefly instead of jumping to the floating fallback position.
-    double LastSnapTime=-10.;
-    double GroundSampleAt=-10.;
-    // Gold edge highlight on the snapped neighbour block. Held here (not as UPROPERTY members) so the
-    // change stays a body-only hot patch; the components are owned by the preview Actor, and the
-    // pointers are refreshed in TryInitializeWorld, so they are GC-safe and never dangle across maps.
-    UInstancedStaticMeshComponent* AimEdgeComponent=nullptr;
-    UMaterialInstanceDynamic* AimEdgeMaterial=nullptr;
-    FIntVector AimEdgeCell(INT32_MAX);
-    bool bAimEdgeGold=false;
-    uint32 AimEdgeSignature=0;
-    int32 AimEdgeCount=-1;
-    // Set when the last update had to use the cone aim assist instead of the centre ray.
-    bool LastAimWasAssisted=false;
-
-    /** Re-resolves the gold outline component from the preview Actor when the cached pointer is gone.
-
-        The cache above is a file-scope pointer, and a Live Coding reload can drop it while the old
-        instance buffer stays registered and visible - nothing could clear it any more, which is the
-        "outline survives leaving build mode" report. The preview Actor is a UPROPERTY member, so
-        looking the component up by name whenever the cache is empty always finds the live one. */
-    UInstancedStaticMeshComponent* FindAimEdge(AActor* PreviewActor)
-    {
-        if(AimEdgeComponent&&AimEdgeComponent->IsValidLowLevelFast())return AimEdgeComponent;
-        AimEdgeComponent=nullptr;
-        if(!PreviewActor)return nullptr;
-        for(UActorComponent* Component:PreviewActor->GetComponents())
-            if(auto* Instanced=Cast<UInstancedStaticMeshComponent>(Component))
-                if(Instanced->GetFName()==FName(TEXT("VoxelAimEdges"))){AimEdgeComponent=Instanced;break;}
-        return AimEdgeComponent;
-    }
-    /** Drops and hides the gold outline. Safe to call repeatedly and works even if the cache was lost. */
-    void ClearAimHighlight(AActor* PreviewActor)
-    {
-        if(auto* Edges=FindAimEdge(PreviewActor)){Edges->ClearInstances();Edges->SetVisibility(false);}
-        AimEdgeCell=FIntVector(INT32_MAX);AimEdgeSignature=0;AimEdgeCount=-1;
-    }
-
     FString StrengthText(double Pascal)
     {
         return Pascal>=1000000.?FString::Printf(TEXT("%.1f MPa"),Pascal/1000000.):FString::Printf(TEXT("%.0f kPa"),Pascal/1000.);
@@ -121,6 +82,35 @@ namespace
     // Last frame the drawer widget consumed a key itself; keeps the same press from running twice.
     // File scope instead of a member so the change stays a function-body patch.
     uint64 DrawerKeyFrame=0;
+    // Voxel construction shapes. The index is the stable brush id: the mouse wheel cycles it and the
+    // drawer lists the same table in each material's 其他构造 submenu. bSwapsXY shapes turn with R.
+    struct FVoxelBrushShape
+    {
+        const TCHAR* Name;
+        FIntVector Size;
+        bool bSwapsXY;
+    };
+    const FVoxelBrushShape BrushShapes[]=
+    {
+        {TEXT("单格"),FIntVector(1,1,1),false},
+        {TEXT("1 平方米地块"),FIntVector(5,5,1),false},
+        {TEXT("1 平方米墙面"),FIntVector(5,1,5),true},
+        {TEXT("1×5 水平直线"),FIntVector(5,1,1),true},
+        {TEXT("1×5 垂直直线"),FIntVector(1,1,5),false},
+    };
+}
+
+int32 UVoxelBuildComponent::ShapeCount(){return UE_ARRAY_COUNT(BrushShapes);}
+
+FIntVector UVoxelBuildComponent::ShapeSize(int32 Shape,bool bRotate)
+{
+    const FVoxelBrushShape& Entry=BrushShapes[FMath::Clamp(Shape,0,ShapeCount()-1)];
+    return (bRotate&&Entry.bSwapsXY)?FIntVector(Entry.Size.Y,Entry.Size.X,Entry.Size.Z):Entry.Size;
+}
+
+const TCHAR* UVoxelBuildComponent::ShapeName(int32 Shape)
+{
+    return BrushShapes[FMath::Clamp(Shape,0,ShapeCount()-1)].Name;
 }
 
 UVoxelBuildComponent::UVoxelBuildComponent()
@@ -128,6 +118,25 @@ UVoxelBuildComponent::UVoxelBuildComponent()
     PrimaryComponentTick.bCanEverTick=true;
     PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
     PaletteAsset=TSoftObjectPtr<UVoxelBuildPalette>(FSoftObjectPath(TEXT("/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette")));
+}
+
+UInstancedStaticMeshComponent* UVoxelBuildComponent::FindAimEdge(AActor* PreviewActorArg)
+{
+    // 组件由预览 Actor 持有；缓存丢了（Live Coding 重载、世界切换）就按名字重新认领。
+    if(AimEdgeComponent&&AimEdgeComponent->IsValidLowLevelFast())return AimEdgeComponent;
+    AimEdgeComponent=nullptr;
+    AActor* Owner=IsValid(PreviewActorArg)?PreviewActorArg:PreviewActor.Get();
+    if(!Owner)return nullptr;
+    for(UActorComponent* Component:Owner->GetComponents())
+        if(auto* Instanced=Cast<UInstancedStaticMeshComponent>(Component))
+            if(Instanced->GetFName()==FName(TEXT("VoxelAimEdges"))){AimEdgeComponent=Instanced;break;}
+    return AimEdgeComponent;
+}
+
+void UVoxelBuildComponent::ClearAimHighlight(AActor* PreviewActorArg)
+{
+    if(auto* Edges=FindAimEdge(PreviewActorArg)){Edges->ClearInstances();Edges->SetVisibility(false);}
+    AimEdgeCell=FIntVector(INT32_MAX);AimEdgeSignature=0;AimEdgeCount=-1;
 }
 
 void UVoxelBuildComponent::TryInitializeWorld()
@@ -280,15 +289,31 @@ bool UVoxelBuildComponent::HandleDrawerKey(const FKey& Key)
     return HandlePanelKey(Key);
 }
 
+void UVoxelBuildComponent::MarkDrawerKeyHandled()
+{
+    DrawerKeyFrame=GFrameCounter;
+}
+
 void UVoxelBuildComponent::SelectMaterial(FName Id)
 {
     if(Palette&&Palette->Find(Id))
     {
         SelectedMaterial=Id;SelectedComponent=NAME_None;ComponentYaw=0;
         FeedbackTime=0;TargetUpdateAt=0;PlacementCheckAt=0;
-        if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent);
+        if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
         SetPanelOpen(false);
     }
+}
+
+void UVoxelBuildComponent::SelectShape(FName MaterialId,int32 ShapeMode)
+{
+    // Drawer 其他构造 entry: the material row owns the shape, so both are set in one action.
+    if(!Palette||!Palette->Find(MaterialId))return;
+    SelectedMaterial=MaterialId;SelectedComponent=NAME_None;ComponentYaw=0;
+    Brush=FMath::Clamp(ShapeMode,0,ShapeCount()-1);
+    FeedbackTime=0;TargetUpdateAt=0;PlacementCheckAt=0;
+    if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
+    if(bActive)SetPanelOpen(false);
 }
 
 void UVoxelBuildComponent::SelectComponent(FName Id)
@@ -297,7 +322,7 @@ void UVoxelBuildComponent::SelectComponent(FName Id)
     SelectedComponent=(Palette&&Palette->FindComponent(Id))?Id:NAME_None;
     ComponentYaw=0;AimedPrefab=nullptr;bPrefabValid=false;
     FeedbackTime=0;TargetUpdateAt=0;PlacementCheckAt=0;
-    if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent);
+    if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
     if(bActive)SetPanelOpen(false);
 }
 
@@ -350,8 +375,38 @@ void UVoxelBuildComponent::PushPanelContent()
         Card.Rows.Add({TEXT("最长挑空（跨中站人）"),SpanText(SpanLoaded,SpanSweepCells*0.2)});
         Card.Rows.Add({TEXT("每平方米承重"),FString::Printf(TEXT("%s/m²"),*MassText(Joint.LoadPerSquareMeterT()*1000.))});
         Card.Rows.Add({TEXT("单格承重（20×20 cm 面）"),MassText(CellLoadT*1000.)});
-        Card.Note=TEXT("净跨 2.0 m 以内最稳（含跨中站人）；超过上限会断键、失去地基连接并倒塌成残骸。墙与柱没有实际跨度上限。");
+        Card.bExpandable=true;
+        Card.Note=TEXT("净跨 2.0 m 以内最稳（含跨中站人）；超过上限会断键、失去地基连接并倒塌成残骸。墙与柱没有实际跨度上限。右侧「其他构造」展开这栏材质可用的体素形状与同材质构件。");
+        // The drawer draws this material's shapes with the same 20 cm block the player places.
+        Card.IconMesh=Entry.ExampleMesh;
+        if(Card.IconMesh.IsNull())
+            Card.IconMesh=TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(Entry.Id==TEXT("wood")
+                ?TEXT("/Game/Building/Voxels/Rounded/SM_Voxel20_Wood.SM_Voxel20_Wood")
+                :TEXT("/Game/Building/Voxels/Rounded/SM_Voxel20_Stone.SM_Voxel20_Stone")));
+        Card.IconSurface=Entry.Surface;
         Materials.Add(MoveTemp(Card));
+    }
+    // The drawer lists these under every material row, so a shape entry is only ever picked together
+    // with the material that owns it (SelectShape).
+    TArray<FVoxelBuildPanelCard> Shapes;
+    for(int32 Index=0;Index<ShapeCount();++Index)
+    {
+        const FIntVector Cells=ShapeSize(Index);
+        FVoxelBuildPanelCard Card;
+        Card.Id=FName(*FString::Printf(TEXT("shape_%d"),Index));
+        Card.Caption=ShapeName(Index);
+        Card.Detail=FString::Printf(TEXT("%d×%d×%d"),Cells.X*20,Cells.Y*20,Cells.Z*20);
+        Card.ShapeMode=Index;
+        for(int32 Z=0;Z<Cells.Z;++Z)for(int32 Y=0;Y<Cells.Y;++Y)for(int32 X=0;X<Cells.X;++X)
+            Card.IconCells.Add(FIntVector(X,Y,Z));
+        Card.Subtitle=TEXT("体素构造 · 20 cm 格吸附");
+        Card.Rows.Add({TEXT("尺寸"),FString::Printf(TEXT("%d × %d × %d cm"),Cells.X*20,Cells.Y*20,Cells.Z*20)});
+        Card.Rows.Add({TEXT("20 cm 占格"),FString::Printf(TEXT("%d × %d × %d"),Cells.X,Cells.Y,Cells.Z)});
+        Card.Rows.Add({TEXT("占格数"),FString::Printf(TEXT("%d 格"),Cells.X*Cells.Y*Cells.Z)});
+        Card.Rows.Add({TEXT("旋转（R）"),ShapeSize(Index,true)==Cells?TEXT("尺寸不变"):TEXT("交换 X／Y")});
+        Card.Note=Index==0?TEXT("与滚轮顺序一致：单格 → 1 平方米地块 → 1 平方米墙面 → 1×5 水平直线 → 1×5 垂直直线。体素按 20 cm 格放置，参与承重与倒塌。"):
+            TEXT("形状与材质一起选中：点这一条就用该材质放这个形状。放置、拆除、承重和存档与单格体素完全相同。");
+        Shapes.Add(MoveTemp(Card));
     }
     for(const FVoxelBuildPrefab& Entry:Palette->Components)
     {
@@ -361,23 +416,25 @@ void UVoxelBuildComponent::PushPanelContent()
         Card.Caption=Entry.DisplayName.IsEmpty()?Entry.Id.ToString():Entry.DisplayName.ToString();
         Card.Detail=FString::Printf(TEXT("%d × %d × %d cm"),Entry.Footprint.X*20,Entry.Footprint.Y*20,Entry.Footprint.Z*20);
         Card.bComponent=true;
+        Card.MaterialId=Entry.Material;
+        Card.IconMesh=Entry.Mesh;Card.IconSurface=Entry.Surface;Card.IconPivotOffsetCm=Entry.PivotOffsetCm;
         Card.Subtitle=TEXT("构件 · 20 cm 格吸附");
+        const FVoxelBuildMaterial* Group=Entry.Material.IsNone()?nullptr:Palette->Find(Entry.Material);
+        Card.Rows.Add({TEXT("归属构造"),Group?(Group->DisplayName.IsEmpty()?Group->Id.ToString():Group->DisplayName.ToString()):TEXT("其他（未归类）")});
         Card.Rows.Add({TEXT("占格尺寸"),Card.Detail});
         Card.Rows.Add({TEXT("20 cm 占格"),FString::Printf(TEXT("%d × %d × %d"),Entry.Footprint.X,Entry.Footprint.Y,Entry.Footprint.Z)});
         Card.Rows.Add({TEXT("网格"),Entry.Mesh.IsNull()?TEXT("—"):Entry.Mesh.GetAssetName()});
         Card.Rows.Add({TEXT("材质"),Entry.Surface.IsNull()?TEXT("—"):Entry.Surface.GetAssetName()});
-        Card.Note=TEXT("构件按 20 cm 网格放置（R 旋转 90°、右键拆除）。构件不参与承重：它不与体素焊合，也不提供支撑路径。");
+        Card.Note=TEXT("构件按 20 cm 网格放置（R 旋转 90°、右键拆除）。构件不参与承重：它不与体素焊合，也不提供支撑路径。「归属构造」决定它出现在哪一栏材质的「其他构造」里，改归属只需改调色板。");
         Components.Add(MoveTemp(Card));
     }
-    Widget->SetContent(Materials,Components);
-    Widget->SetSelection(SelectedMaterial,SelectedComponent);
+    Widget->SetContent(Materials,Shapes,Components);
+    Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
 }
 
 FIntVector UVoxelBuildComponent::BrushSize() const
 {
-    if(Brush==1)return FIntVector(5,5,1);
-    if(Brush==2)return bRotate?FIntVector(1,5,5):FIntVector(5,1,5);
-    return FIntVector(1,1,1);
+    return ShapeSize(Brush,bRotate);
 }
 
 void UVoxelBuildComponent::FillBrush(FIntVector Base,TArray<FIntVector>& Result) const
@@ -489,9 +546,6 @@ void UVoxelBuildComponent::UpdateTarget()
             const FVector PlanMax=Plan.IsValid?Plan.Max:FVector::ZeroVector;
             // Rebuild only when the cursor or the plan box actually moved: the steady state must not
             // allocate or touch the instance buffer every frame.
-            static FVector LastCursorPoint(TNumericLimits<double>::Max());
-            static FVector LastCursorNormal=FVector::ZeroVector;
-            static FVector LastPlanMin=FVector::ZeroVector,LastPlanMax=FVector::ZeroVector;
             const bool bCursorMoved=!LastCursorPoint.Equals(CursorPoint,.05f)||!LastCursorNormal.Equals(Hit.ImpactNormal,.01f);
             const bool bPlanMoved=!LastPlanMin.Equals(PlanMin,.05f)||!LastPlanMax.Equals(PlanMax,.05f);
             if(bCursorMoved||bPlanMoved)
@@ -523,27 +577,8 @@ void UVoxelBuildComponent::UpdateTarget()
         // Gold edges on every existing block that touches the plan (blink is driven in TickComponent).
         if(auto* Edges=FindAimEdge(PreviewActor))
         {
-            // A pure gold emissive reads better than the placement material's world grid, whose thin
-            // bars sample mostly dark pattern. Swap lazily so a live world picks it up without re-entry.
-            static bool bGoldChecked=false;
-            static UMaterialInterface* GoldMaterial=nullptr;
-            static UMaterialInstanceDynamic* GoldMID=nullptr;
-            static bool bAimEdgeLogged=false;
-            // Retry until the gold material loads: a failed first attempt must never latch, and the
-            // component is re-assigned whenever it is not on that MID (self-healing after edits).
-            if(!GoldMaterial)GoldMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Building/Voxels/Rounded/M_VoxelAimEdge.M_VoxelAimEdge"));
-            if(GoldMaterial&&(!AimEdgeMaterial||AimEdgeMaterial!=GoldMID))
-            {
-                AimEdgeMaterial=UMaterialInstanceDynamic::Create(GoldMaterial,this);
-                GoldMID=AimEdgeMaterial;bAimEdgeGold=true;
-                Edges->SetMaterial(0,AimEdgeMaterial);
-            }
-            if(!bAimEdgeLogged)
-            {
-                bAimEdgeLogged=true;
-                UE_LOG(LogTemp,Warning,TEXT("VOXEL_AIMEDGE gold=%d material=%s"),
-                    GoldMaterial?1:0,GoldMaterial?*GoldMaterial->GetPathName():TEXT("NOT FOUND (edges keep the preview material)"));
-            }
+            // 金色自发光比预览材质的世界网格更清楚；材质在 TryInitializeWorld 里一次性装好（缺材质时
+            // 退回预览材质）。2026-09-16 清理：去掉了这里的函数 static 自愈逻辑与一次性日志。
             // Cheap signature pass (no allocation): only rebuild the instance buffer when the set of
             // touching blocks actually changes, so the steady state costs a handful of map lookups.
             static const FIntVector Directions[6]={{1,0,0},{-1,0,0},{0,1,0},{0,-1,0},{0,0,1},{0,0,-1}};
@@ -630,9 +665,10 @@ void UVoxelBuildComponent::UpdateTarget()
     if(AimSignature!=LastAimSignature)
     {
         LastAimSignature=AimSignature;
-        static double LastAimLog=-10.;
-        if(Now-LastAimLog<.5)return;   // keep the diagnostic readable now that it runs per frame
-        LastAimLog=Now;
+    // 诊断日志默认关闭（fps.Building.DebugLog 1 打开），避免每帧刷屏与日志膨胀。
+    if(!VoxelBuildDebug::Enabled())return;
+    if(Now-LastAimLog<.5)return;
+    LastAimLog=Now;
         UE_LOG(LogTemp,Warning,TEXT("VOXEL_AIM hit=%d building=%d cell=%d,%d,%d plan=%d valid=%d grow=%d assist=%d snap=%d origin=%.1f,%.1f,%.1f message=%s"),
             HasHit?1:0,BuildingHit?1:0,HitCell.Cell.X,HitCell.Cell.Y,HitCell.Cell.Z,Placement.Num(),bCanPlace?1:0,GrowUpPlan?1:0,
             LastAimWasAssisted?1:0,bSnapEnabled?1:0,PlacementOrigin.X,PlacementOrigin.Y,PlacementOrigin.Z,*TargetMessage);
@@ -784,8 +820,8 @@ void UVoxelBuildComponent::ValidatePlacement()
     {
         bCheckedValid=bPlacementSnap?BuildWorld->CanPlaceInVolume(PlacementVolume,Placement,PlacementMaterial,CheckedMessage):
             BuildWorld->CanPlaceFree(PlacementOrigin,Placement,PlacementMaterial,CheckedMessage);
-        // TEMPORARY diagnostics for the 2026-09-16 "cannot build above 2 m" report.
-        if(!bCheckedValid&&!LastPreviewReject.Equals(CheckedMessage))
+        // 诊断：默认关闭（fps.Building.DebugLog 1），只在拒绝原因变化时记一行。
+        if(VoxelBuildDebug::Enabled()&&!bCheckedValid&&!LastPreviewReject.Equals(CheckedMessage))
         {
             LastPreviewReject=CheckedMessage;
             UE_LOG(LogTemp,Warning,TEXT("VOXEL_REJECT stage=preview origin=%.1f,%.1f,%.1f snap=%d cells=%d message=%s"),
@@ -827,11 +863,13 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     }
     if(Pressed&&(Key==EKeys::Tab||Key==EKeys::K||Key==EKeys::J||Key==EKeys::F6||Key==EKeys::LeftAlt))
     {SetBuildMode(false);return false;}
-    if(Pressed&&HandlePanelKey(Key))return true;
+    // The drawer numbers its own visible rows (a 其他构造 submenu shifts them), so a key it already
+    // consumed this frame must not also run the palette-order shortcut.
+    if(Pressed&&!bDrawerHandled&&HandlePanelKey(Key))return true;
     // Placement commands belong to the aiming state; the drawer does not move or build.
     if(bPanelOpen)return false;
     if(Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown)
-    {if(Pressed){Brush=(Brush+(Key==EKeys::MouseScrollUp?1:2))%3;FeedbackTime=0;TargetUpdateAt=0;}return true;}
+    {if(Pressed){Brush=(Brush+(Key==EKeys::MouseScrollUp?1:ShapeCount()-1))%ShapeCount();FeedbackTime=0;TargetUpdateAt=0;}return true;}
     if(Key==EKeys::R)
     {
         // Components turn in quarter turns; the voxel wall brush keeps its single toggle.
@@ -842,7 +880,17 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     if(Key==EKeys::LeftControl||Key==EKeys::RightControl)
     {bUndoModifier=Event.Event!=IE_Released;return true;}
     if(Key==EKeys::Z&&bUndoModifier)
-    {if(Pressed){bFeedbackValid=BuildWorld->Undo();Feedback=BuildWorld->ResultMessage();FeedbackTime=2;}return true;}
+    {
+        if(Pressed)
+        {
+            // 撤销 = 拆除最后一**批**放置：方块按拆除规则回收（进背包，溢出掉脚下），不再恢复旧方块。
+            TMap<FName,int32> Removed;
+            bFeedbackValid=BuildWorld->Undo(&Removed);
+            if(bFeedbackValid)GrantDismantledBlocks(Removed);
+            Feedback=BuildWorld->ResultMessage();FeedbackTime=2;
+        }
+        return true;
+    }
     if(Key==EKeys::MiddleMouseButton)
     {if(Pressed&&!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));return true;}
     if(Key==EKeys::LeftMouseButton||Key==EKeys::RightMouseButton)
@@ -857,17 +905,46 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
                 if(SelectedPrefab())PlacePrefab();
                 else if(bCanPlace)
                 {
-                    if(bPlacementSnap)bFeedbackValid=BuildWorld->EditVolumeCells(PlacementVolume,Placement,PlacementMaterial);
-                    else bFeedbackValid=BuildWorld->PlaceFree(PlacementOrigin,Placement,PlacementMaterial);
+                    // 2026-09-16：建造消耗体素块（背包优先、仓库兜底）。先扣料再提交，提交失败立刻退回。
+                    const int32 Cost=Placement.Num();
+                    if(!ConsumePlacementBlocks(PlacementMaterial,Cost)){bFeedbackValid=false;Feedback=BlockMessage;FeedbackTime=2.5f;}
+                    else
+                    {
+                        if(bPlacementSnap)bFeedbackValid=BuildWorld->EditVolumeCells(PlacementVolume,Placement,PlacementMaterial);
+                        else bFeedbackValid=BuildWorld->PlaceFree(PlacementOrigin,Placement,PlacementMaterial);
+                        if(!bFeedbackValid)RefundPlacementBlocks(PlacementMaterial,Cost);
+                    }
                     Feedback=BuildWorld->ResultMessage();
                 }
                 else {bFeedbackValid=false;Feedback=TargetMessage;}
             }
             else if(auto* Piece=Cast<AVoxelBuildPrefabActor>(AimedPrefab.Get()))
             {bFeedbackValid=BuildWorld->RemovePrefab(Piece);Feedback=BuildWorld->ResultMessage();}
-            else if(!Removal.IsEmpty()){bFeedbackValid=BuildWorld->EditVolumeCells(HitCell.Volume,Removal,NAME_None);Feedback=BuildWorld->ResultMessage();}
+            else if(!Removal.IsEmpty())
+            {
+                // 拆除出来的体素直接进背包：先按材料统计，编辑成功后才发放，失败不会凭空产生物品。
+                TMap<FName,int32> Removed;
+                for(const FIntVector& Cell:Removal)
+                {const FName Material=BuildWorld->VolumeMaterialAt(HitCell.Volume,Cell);if(!Material.IsNone())Removed.FindOrAdd(Material)++;}
+                bFeedbackValid=BuildWorld->EditVolumeCells(HitCell.Volume,Removal,NAME_None);
+                Feedback=BuildWorld->ResultMessage();
+                if(bFeedbackValid)GrantDismantledBlocks(Removed);
+            }
             else if(auto* Debris=Cast<AVoxelCollapseFragment>(Hit.GetActor()))
-            {BuildWorld->QueueFragmentDamage(Debris,Hit.ImpactPoint-Hit.ImpactNormal*.25,1000000,0,0);bFeedbackValid=true;Feedback=TEXT("已提交残骸拆除");}
+            {
+                // 拆除静止的残骸 = 直接回收成体素块（进背包，放不下的掉在脚下）；还在下落时仍按撞击拆碎。
+                if(!Debris->IsMoving())
+                {
+                    TMap<FName,int32> Removed;
+                    for(const FVoxelDebrisCell& Cell:Debris->Data().Cells)
+                        if(!Cell.Material.IsNone())Removed.FindOrAdd(Cell.Material)++;
+                    BuildWorld->RemoveFragment(Debris);
+                    GrantDismantledBlocks(Removed);
+                    bFeedbackValid=true;Feedback=TEXT("残骸已回收为体素块");
+                }
+                else
+                {BuildWorld->QueueFragmentDamage(Debris,Hit.ImpactPoint-Hit.ImpactNormal*.25,1000000,0,0);bFeedbackValid=true;Feedback=TEXT("已提交残骸拆除");}
+            }
             else {bFeedbackValid=false;Feedback=TEXT("只能拆除自己建造的体素和残骸");}
             FeedbackTime=2;
             PlacementCheckAt=0;TargetUpdateAt=0;
@@ -882,11 +959,13 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
 void UVoxelBuildComponent::UpdateWidget()
 {
     if(!Widget||!Palette||!BuildWorld)return;
-    Widget->SetSelection(SelectedMaterial,SelectedComponent);
+    Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
+    UpdateStructureWarning(*BuildWorld);
     if(bPanelOpen)
     {
         Widget->ShowState(TEXT("选择要建造的对象"),TEXT("点击卡片或按 1-9 · 选中后自动回到建造"),
-            TEXT("面板已接管光标 · 游戏操作暂停 · Esc 关闭后继续建造"),true,bSnapEnabled);
+            TEXT("面板已接管光标 · 游戏操作暂停 · Esc 关闭后继续建造"),true,bSnapEnabled,
+            BuildWorld->WeakestJointRatio(),BuildWorld->WeakestJointSummary());
         return;
     }
     const FString ClipNote=ClippedPlayerCells>0?FString::Printf(TEXT(" · 已跳过 %d 格（角色所在位置）"),ClippedPlayerCells):FString();
@@ -896,19 +975,84 @@ void UVoxelBuildComponent::UpdateWidget()
         const FIntVector Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Prefab->Footprint,ComponentYaw);
         Widget->ShowState(FString::Printf(TEXT("%s · 构件 %d 件 · 体素 %d 格"),*Prefab->DisplayName.ToString(),BuildWorld->PrefabCount(),BuildWorld->BlockCount()),
             FString::Printf(TEXT("构件 · %d × %d × %d cm · %d°"),Footprint.X*20,Footprint.Y*20,Footprint.Z*20,ComponentYaw*90),
-            Message,FeedbackTime>0?bFeedbackValid:bPrefabValid,bSnapEnabled);
+            Message,FeedbackTime>0?bFeedbackValid:bPrefabValid,bSnapEnabled,
+            BuildWorld->WeakestJointRatio(),BuildWorld->WeakestJointSummary());
         return;
     }
     const auto* Entry=Palette->Find(SelectedMaterial);const FIntVector Size=BrushSize()*20;
     const FString Name=Entry?Entry->DisplayName.ToString():SelectedMaterial.ToString();
-    const TCHAR* Shape=Brush==0?TEXT("单格"):Brush==1?TEXT("地板"):TEXT("墙面");
+    const TCHAR* Shape=ShapeName(Brush);
     // Where the plan actually lands: layer index and cell, so upward building is unambiguous.
     const FIntVector FirstCell=Placement.IsEmpty()?FIntVector::ZeroValue:Placement[0];
     const FString Where=Placement.IsEmpty()?FString():
         FString::Printf(TEXT(" · 第 %d 层 格(%d,%d,%d)"),FirstCell.Z+1,FirstCell.X,FirstCell.Y,FirstCell.Z);
     Widget->ShowState(FString::Printf(TEXT("%s · 已建造 %d 格"),*Name,BuildWorld->BlockCount()),
         FString::Printf(TEXT("%s · %d × %d × %d cm%s"),Shape,Size.X,Size.Y,Size.Z,*Where),
-        Message,FeedbackTime>0?bFeedbackValid:bCanPlace,bSnapEnabled);
+        Message,FeedbackTime>0?bFeedbackValid:bCanPlace,bSnapEnabled,
+        BuildWorld->WeakestJointRatio(),BuildWorld->WeakestJointSummary());
+}
+
+void UVoxelBuildComponent::UpdateStructureWarning(AVoxelBuildWorld& World)
+{
+    const float Risk=World.WeakestJointRatio();
+    // Below the warning line the warning re-arms, so a structure that recovers can warn again while a
+    // structure that simply sits at the limit does not spam the notice bar.
+    if(Risk<.8f){NoticeRisk=0;return;}
+    if(Risk<.85f)return;
+    auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Model)return;
+    const FString Summary=World.WeakestJointSummary();
+    const FString Detail=Summary.IsEmpty()?FString::Printf(TEXT("%.0f%%"),Risk*100.):Summary;
+    if(Risk>=1.f&&NoticeRisk<1.f)
+        Model->PostNotice(TEXT("结构超限"),Detail+FString(TEXT(" · 接缝正在断裂")),FString(),3.2f);
+    else if(NoticeRisk<.85f)
+        Model->PostNotice(TEXT("结构预警"),Detail+FString(TEXT(" · 加厚或补支撑")),FString(),3.2f);
+    NoticeRisk=Risk;
+}
+
+bool UVoxelBuildComponent::ConsumePlacementBlocks(FName Material,int32 Count)
+{
+    BlockMessage.Empty();
+    if(Count<=0||Material.IsNone())return true;
+    auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Model)return true;   // 没有档案时不拦建造（预览/审计世界）
+    const FString Definition=FString::Printf(TEXT("voxel_block_%s"),*Material.ToString());
+    if(Model->ConsumeItem(Definition,Count,BlockMessage))return true;
+    // 提示栏播报，让玩家立刻知道该去补材料而不是以为卡住了。
+    Model->PostNotice(TEXT("材料不足"),BlockMessage.IsEmpty()?FString::Printf(TEXT("缺少 %d 块体素块"),Count):BlockMessage,FString(),3.f);
+    return false;
+}
+
+void UVoxelBuildComponent::RefundPlacementBlocks(FName Material,int32 Count)
+{
+    if(Count<=0||Material.IsNone())return;
+    auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Model)return;
+    const FString Definition=FString::Printf(TEXT("voxel_block_%s"),*Material.ToString());
+    // 编辑最终没生效：把刚扣掉的方块退回去，退不进背包就掉在脚下。
+    if(Model->AddItem(Definition,Count))return;
+    TMap<FString,int64> Overflow;Overflow.Add(Definition,Count);
+    Model->GrantWorldBlocks(Overflow,Hit.ImpactPoint);
+    Model->PostNotice(TEXT("放置失败"),FString::Printf(TEXT("%d 块体素已退回脚下 · 按 Z 拾取"),Count),FString(),3.f);
+}
+
+void UVoxelBuildComponent::GrantDismantledBlocks(const TMap<FName,int32>& Removed)
+{
+    if(Removed.IsEmpty())return;
+    auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Model)return;
+    TMap<FString,int64> Overflow;int64 OverflowTotal=0;
+    for(const TPair<FName,int32>& Entry:Removed)
+    {
+        if(Entry.Value<=0)continue;
+        const FString Definition=FString::Printf(TEXT("voxel_block_%s"),*Entry.Key.ToString());
+        // Backpack first; whatever does not fit drops at the feet so it is never lost.
+        if(Model->AddItem(Definition,Entry.Value))continue;
+        Overflow.Add(Definition,Entry.Value);OverflowTotal+=Entry.Value;
+    }
+    if(Overflow.IsEmpty())return;
+    Model->GrantWorldBlocks(Overflow,Hit.ImpactPoint);
+    Model->PostNotice(TEXT("背包已满"),FString::Printf(TEXT("%lld 块体素掉在脚下 · 按 Z 拾取"),OverflowTotal),FString(),3.2f);
 }
 
 void UVoxelBuildComponent::PlacePrefab()

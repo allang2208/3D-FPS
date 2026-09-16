@@ -1,5 +1,6 @@
 ﻿#include "VoxelBuildWidget.h"
 #include "VoxelBuildComponent.h"
+#include "VoxelBuildIcons.h"
 #include "../UI/ColdSteelUIStyle.h"
 #include "../UI/GunsmithUIStyle.h"
 #include "Blueprint/WidgetTree.h"
@@ -12,18 +13,26 @@
 #include "Components/CanvasPanelSlot.h"
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
+#include "Components/Image.h"
 #include "Components/ScrollBox.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Components/WrapBox.h"
+#include "Components/WrapBoxSlot.h"
 #include "GameFramework/PlayerController.h"
+#include "Engine/GameInstance.h"
 #include "InputCoreTypes.h"
 
 // Pixel sizes follow Docs/UI/ui-cold-steel-design-system.md (20/16/14/12 tiers).
 namespace
 {
     constexpr float HeaderHeight=36.f,CardHeight=44.f,CardGap=4.f;
+    // Material rows carry the 其他构造 disclosure; its submenu rows are indented underneath.
+    constexpr float ChildIndent=14.f,DisclosureWidth=96.f,DisclosureHeight=26.f;
+    // 其他构造 grid: one identical card per construction, equal gaps, wrapping when a row is full.
+    constexpr float GridGap=8.f,GridCardWidth=116.f,GridCardHeight=150.f,GridIconPixels=104.f;
     constexpr float DrawerViewportFraction=.48f,DrawerMinWidth=720.f,DrawerMaxWidth=1040.f,DrawerEdgeInset=12.f;
     // Number row while the drawer is focused: the Nth card of the visible category.
     int32 NumberKeyIndex(const FKey& Key)
@@ -36,7 +45,9 @@ namespace
 
 void UVoxelBuildCardProxy::Clicked()
 {
-    if(auto* Owner=Panel.Get())Owner->Pick(CardId,bComponentCard);
+    auto* Owner=Panel.Get();if(!Owner)return;
+    // The 其他构造 disclosure sits on the same row as the material pick button.
+    if(bToggleCard)Owner->ToggleMaterial(CardId);else Owner->Pick(CardId,bComponentCard,ShapeMode);
 }
 
 void UVoxelBuildCardProxy::Hovered()
@@ -108,9 +119,15 @@ void UVoxelBuildWidget::NativeOnInitialized()
     Structure=Text(TEXT(""),12);Structure->SetColorAndOpacity(ColdSteelUI::TextSecondary);
     Structure->SetAutoWrapText(true);
     Body->AddChildToVerticalBox(Structure)->SetPadding(FMargin(18/Scale,0,12/Scale,10/Scale));
+    // Structure warning: hidden until the weakest joint passes 85% of its limit, then it names the
+    // governing stress, the percentage and the cell so the player knows what to thicken or support.
+    Risk=Text(TEXT(""),12,false,true);Risk->SetAutoWrapText(true);Risk->SetVisibility(ESlateVisibility::Collapsed);
+    Body->AddChildToVerticalBox(Risk)->SetPadding(FMargin(18/Scale,0,12/Scale,8/Scale));
     auto* Tabs=WidgetTree->ConstructWidget<UHorizontalBox>();
     Body->AddChildToVerticalBox(Tabs)->SetPadding(FMargin(12/Scale,0,12/Scale,8/Scale));
-    MaterialTab=Tab(TEXT("材质"),false);ComponentTab=Tab(TEXT("构件"),true);
+    // 2026-09-16: the old 构件 category is renamed 其他, because constructions are now grouped under
+    // the material that owns them; this category keeps every piece in one flat list.
+    MaterialTab=Tab(TEXT("材质"),false);ComponentTab=Tab(TEXT("其他"),true);
     for(UButton* Entry:{MaterialTab.Get(),ComponentTab.Get()})
     {
         auto* TabSlot=Tabs->AddChildToHorizontalBox(Entry);TabSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
@@ -161,11 +178,9 @@ void UVoxelBuildWidget::BuildTooltipCard()
 
 void UVoxelBuildWidget::ShowTooltip(int32 CardIndex)
 {
-    if(!TooltipCard||!TooltipBox||!Cards.IsValidIndex(CardIndex))return;
-    const FCard& Card=Cards[CardIndex];
-    const TArray<FVoxelBuildPanelCard>& Source=Card.bComponent?ComponentCards:MaterialCards;
-    const FVoxelBuildPanelCard* Entry=Source.FindByPredicate([&Card](const FVoxelBuildPanelCard& Candidate){return Candidate.Id==Card.Id;});
-    if(!Entry)return;
+    // VisibleCards holds the same rows as Cards in list order, so a submenu row shows its own card.
+    if(!TooltipCard||!TooltipBox||!VisibleCards.IsValidIndex(CardIndex))return;
+    const FVoxelBuildPanelCard* Entry=&VisibleCards[CardIndex];
     const float Scale=ColdSteelUI::PixelScale(this);
     TooltipTitle->SetText(FText::FromString(Entry->Caption));
     TooltipSubtitle->SetText(FText::FromString(Entry->Subtitle));
@@ -249,29 +264,42 @@ void UVoxelBuildWidget::SetDrawerOpen(bool Open)
     else HideTooltip(true);
 }
 
-void UVoxelBuildWidget::SetContent(const TArray<FVoxelBuildPanelCard>& Materials,const TArray<FVoxelBuildPanelCard>& Components)
+void UVoxelBuildWidget::SetContent(const TArray<FVoxelBuildPanelCard>& Materials,const TArray<FVoxelBuildPanelCard>& Shapes,
+    const TArray<FVoxelBuildPanelCard>& Components)
 {
-    bool bChanged=MaterialCards.Num()!=Materials.Num()||ComponentCards.Num()!=Components.Num();
-    for(int32 Index=0;!bChanged&&Index<Materials.Num();++Index)
-        bChanged=MaterialCards[Index].Id!=Materials[Index].Id||MaterialCards[Index].Caption!=Materials[Index].Caption||MaterialCards[Index].Detail!=Materials[Index].Detail;
-    for(int32 Index=0;!bChanged&&Index<Components.Num();++Index)
-        bChanged=ComponentCards[Index].Id!=Components[Index].Id||ComponentCards[Index].Caption!=Components[Index].Caption||ComponentCards[Index].Detail!=Components[Index].Detail;
-    if(!bChanged)return;
-    MaterialCards=Materials;ComponentCards=Components;bCardsDirty=true;
+    auto Same=[](const TArray<FVoxelBuildPanelCard>& Current,const TArray<FVoxelBuildPanelCard>& Next)
+    {
+        if(Current.Num()!=Next.Num())return false;
+        for(int32 Index=0;Index<Next.Num();++Index)
+            if(Current[Index].Id!=Next[Index].Id||Current[Index].Caption!=Next[Index].Caption||
+                Current[Index].Detail!=Next[Index].Detail||Current[Index].MaterialId!=Next[Index].MaterialId)return false;
+        return true;
+    };
+    if(Same(MaterialCards,Materials)&&Same(ShapeCards,Shapes)&&Same(ComponentCards,Components))return;
+    MaterialCards=Materials;ShapeCards=Shapes;ComponentCards=Components;bCardsDirty=true;
 }
 
-void UVoxelBuildWidget::SetSelection(FName Material,FName Component)
+void UVoxelBuildWidget::SetSelection(FName Material,FName Component,int32 ShapeMode)
 {
-    if(SelectedMaterial==Material&&SelectedComponent==Component)return;
-    SelectedMaterial=Material;SelectedComponent=Component;bSelectionDirty=true;
+    if(SelectedMaterial==Material&&SelectedComponent==Component&&SelectedShape==ShapeMode)return;
+    SelectedMaterial=Material;SelectedComponent=Component;SelectedShape=ShapeMode;bSelectionDirty=true;
 }
 
-void UVoxelBuildWidget::Pick(FName Id,bool bComponent)
+void UVoxelBuildWidget::ToggleMaterial(FName MaterialId)
+{
+    if(MaterialId.IsNone())return;
+    if(ExpandedMaterials.Contains(MaterialId))ExpandedMaterials.Remove(MaterialId);else ExpandedMaterials.Add(MaterialId);
+    bCardsDirty=true;
+}
+
+void UVoxelBuildWidget::Pick(FName Id,bool bComponent,int32 ShapeMode)
 {
     auto* Owner=Builder();
     if(!Owner)return;
     // Picking an entry ends the mouse phase; the component restores game input and aiming.
-    if(bComponent)Owner->SelectComponent(Id);else Owner->SelectMaterial(Id);
+    if(bComponent)Owner->SelectComponent(Id);
+    else if(ShapeMode>=0)Owner->SelectShape(Id,ShapeMode);
+    else Owner->SelectMaterial(Id);
 }
 
 UVoxelBuildComponent* UVoxelBuildWidget::Builder() const
@@ -284,15 +312,18 @@ FReply UVoxelBuildWidget::NativeOnKeyDown(const FGeometry& Geometry,const FKeyEv
 {
     auto* Owner=Builder();
     if(!Owner)return Super::NativeOnKeyDown(Geometry,Event);
+    // Every key the focused drawer sees is consumed here; the game-side shortcuts skip that frame.
+    Owner->MarkDrawerKeyHandled();
     const FKey Key=Event.GetKey();
     if(Key!=EKeys::Zero)
     {
         const int32 Number=NumberKeyIndex(Key);
         if(Number!=INDEX_NONE&&Cards.IsValidIndex(Number))
         {
-            // Picking a card always returns to building (SelectMaterial/SelectComponent close the drawer).
+            // Picking a card always returns to building (Select* closes the drawer); the index follows
+            // the visible rows, so an expanded 其他构造 submenu shifts the numbers under it.
             const FCard& Card=Cards[Number];
-            if(Card.bComponent)Owner->SelectComponent(Card.Id);else Owner->SelectMaterial(Card.Id);
+            Pick(Card.Id,Card.bComponent,Card.ShapeMode);
             return FReply::Handled();
         }
     }
@@ -303,43 +334,216 @@ FReply UVoxelBuildWidget::NativeOnKeyDown(const FGeometry& Geometry,const FKeyEv
 void UVoxelBuildWidget::ShowMaterialCategory(){if(bComponentCategory){bComponentCategory=false;bCardsDirty=true;}}
 void UVoxelBuildWidget::ShowComponentCategory(){if(!bComponentCategory){bComponentCategory=true;bCardsDirty=true;}}
 
+UButton* UVoxelBuildWidget::DisclosureButton(FName MaterialId,bool bExpanded)
+{
+    const float Scale=ColdSteelUI::PixelScale(this);
+    auto* Proxy=NewObject<UVoxelBuildCardProxy>(this);
+    Proxy->CardId=MaterialId;Proxy->bToggleCard=true;Proxy->Panel=this;
+    CardProxies.Add(Proxy);
+    auto* Button=WidgetTree->ConstructWidget<UButton>();
+    // Expanded rows reuse the category tabs' selected style, so the state reads without an arrow glyph.
+    Button->SetStyle(ColdSteelUI::ButtonStyle(Scale));
+    if(bExpanded)Button->SetStyle(ColdSteelUI::ButtonStyle(Scale).SetNormal(
+        ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale)));
+    Button->OnClicked.AddDynamic(Proxy,&UVoxelBuildCardProxy::Clicked);
+    auto* Size=WidgetTree->ConstructWidget<USizeBox>();
+    Size->SetWidthOverride(DisclosureWidth/Scale);Size->SetHeightOverride(DisclosureHeight/Scale);
+    Button->SetContent(Size);
+    auto* Label=Text(bExpanded?TEXT("收起构造"):TEXT("其他构造"),12,false,true);
+    Label->SetJustification(ETextJustify::Center);
+    Size->AddChild(Label);
+    return Button;
+}
+
+UVoxelBuildIcons* UVoxelBuildWidget::IconsFor() const
+{
+    const auto* PC=GetOwningPlayer();
+    auto* Instance=PC?PC->GetGameInstance():nullptr;
+    return Instance?Instance->GetSubsystem<UVoxelBuildIcons>():nullptr;
+}
+
+void UVoxelBuildWidget::RefreshIcons()
+{
+    auto* Icons=IconsFor();
+    if(!Icons)return;
+    for(const FCard& Card:Cards)
+    {
+        auto* Image=Card.Image.Get();
+        if(!Image||Card.IconKey.IsEmpty())continue;
+        // Already painted; the subsystem keeps the material alive for the cached key.
+        if(Image->GetBrush().GetResourceObject())continue;
+        if(UMaterialInterface* Material=Icons->Find(Card.IconKey))Image->SetBrushFromMaterial(Material);
+    }
+}
+
+void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& Entry,FName MaterialId,bool bChild,
+    const FVoxelBuildPanelCard* MaterialRow)
+{
+    if(!Grid)return;
+    const float Scale=ColdSteelUI::PixelScale(this);
+    // Shapes reuse the material row's block mesh and surface, so the thumbnail shows the same stone /
+    // wood / marble the player would place; pieces bring their own mesh.
+    FVoxelBuildIconRequest Request;
+    if(Entry.bComponent)
+    {
+        Request.Key=UVoxelBuildIcons::KeyForPiece(Entry.Id);
+        Request.Mesh=Entry.IconMesh;Request.Surface=Entry.IconSurface;
+        Request.PivotOffsetCm=Entry.IconPivotOffsetCm;
+    }
+    else
+    {
+        Request.Key=UVoxelBuildIcons::KeyForShape(MaterialId,Entry.ShapeMode);
+        Request.Cells=Entry.IconCells;
+        if(MaterialRow){Request.Mesh=MaterialRow->IconMesh;Request.Surface=MaterialRow->IconSurface;}
+    }
+    if(auto* Icons=IconsFor())Icons->Request(Request);
+
+    auto* Proxy=NewObject<UVoxelBuildCardProxy>(this);
+    Proxy->CardId=bChild?MaterialId:Entry.Id;
+    Proxy->bComponentCard=Entry.bComponent;
+    Proxy->ShapeMode=bChild?Entry.ShapeMode:INDEX_NONE;
+    Proxy->Panel=this;Proxy->CardIndex=Cards.Num();
+    CardProxies.Add(Proxy);
+
+    auto* Button=WidgetTree->ConstructWidget<UButton>();
+    Button->SetStyle(FButtonStyle()
+        .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::CardRadius/Scale,FLinearColor::Transparent,0))
+        .SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale))
+        .SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Accent,1/Scale)));
+    Button->OnClicked.AddDynamic(Proxy,&UVoxelBuildCardProxy::Clicked);
+    Button->OnHovered.AddDynamic(Proxy,&UVoxelBuildCardProxy::Hovered);
+    Button->OnUnhovered.AddDynamic(Proxy,&UVoxelBuildCardProxy::Unhovered);
+    auto* Box=WidgetTree->ConstructWidget<USizeBox>();
+    Box->SetWidthOverride(GridCardWidth/Scale);Box->SetHeightOverride(GridCardHeight/Scale);
+    Button->SetContent(Box);
+    auto* SurfaceCard=WidgetTree->ConstructWidget<UBorder>();
+    SurfaceCard->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,ColdSteelUI::CardRadius/Scale));
+    SurfaceCard->SetPadding(FMargin(5/Scale));Box->SetContent(SurfaceCard);
+    auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();SurfaceCard->SetContent(Column);
+    auto* IconBox=WidgetTree->ConstructWidget<USizeBox>();
+    IconBox->SetWidthOverride(GridIconPixels/Scale);IconBox->SetHeightOverride(GridIconPixels/Scale);
+    auto* Picture=WidgetTree->ConstructWidget<UImage>();
+    Picture->SetColorAndOpacity(FLinearColor::White);Picture->SetVisibility(ESlateVisibility::HitTestInvisible);
+    IconBox->SetContent(Picture);
+    auto* PictureSlot=Column->AddChildToVerticalBox(IconBox);
+    PictureSlot->SetHorizontalAlignment(HAlign_Center);PictureSlot->SetVerticalAlignment(VAlign_Center);
+    auto* Label=Text(Entry.Caption,12);Label->SetJustification(ETextJustify::Center);Label->SetAutoWrapText(true);
+    auto* LabelSlot=Column->AddChildToVerticalBox(Label);
+    LabelSlot->SetHorizontalAlignment(HAlign_Center);
+    LabelSlot->SetPadding(FMargin(2/Scale,4/Scale,2/Scale,0));
+    Cards.Add({Proxy->CardId,Entry.bComponent,Proxy->ShapeMode,bChild,Request.Key,Button,SurfaceCard,Picture,Box,IconBox});
+    VisibleCards.Add(Entry);
+    if(auto* WrapSlot=Grid->AddChildToWrapBox(Button))WrapSlot->SetHorizontalAlignment(HAlign_Center);
+}
+
+void UVoxelBuildWidget::AddMaterialRow(const FVoxelBuildPanelCard& Entry)
+{
+    const float Scale=ColdSteelUI::PixelScale(this);
+    const bool bExpanded=ExpandedMaterials.Contains(Entry.Id);
+    auto* RowSurface=WidgetTree->ConstructWidget<UBorder>();
+    RowSurface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale));
+    RowSurface->SetPadding(FMargin(4/Scale));
+    auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();RowSurface->SetContent(Row);
+    auto* Proxy=NewObject<UVoxelBuildCardProxy>(this);
+    Proxy->CardId=Entry.Id;Proxy->bComponentCard=false;Proxy->Panel=this;Proxy->CardIndex=Cards.Num();
+    CardProxies.Add(Proxy);
+    // Pick button and 其他构造 button are siblings: expanding a material never also selects it.
+    auto* Button=WidgetTree->ConstructWidget<UButton>();
+    Button->SetStyle(FButtonStyle()
+        .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::CardRadius/Scale,FLinearColor::Transparent,0))
+        .SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::AttributeRow,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale))
+        .SetPressed(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale)));
+    Button->OnClicked.AddDynamic(Proxy,&UVoxelBuildCardProxy::Clicked);
+    Button->OnHovered.AddDynamic(Proxy,&UVoxelBuildCardProxy::Hovered);
+    Button->OnUnhovered.AddDynamic(Proxy,&UVoxelBuildCardProxy::Unhovered);
+    auto* Size=WidgetTree->ConstructWidget<USizeBox>();
+    Size->SetHeightOverride((CardHeight-8.f)/Scale);Button->SetContent(Size);
+    auto* Line=WidgetTree->ConstructWidget<UHorizontalBox>();Size->SetContent(Line);
+    // 材质行也带缩略图：用该材质自己的体素方块网格，和「其他构造」的卡片同一套取景。
+    // 注意：这里只往 Line 里插图标，行本身的挂载与 FCard 登记一律走函数末尾的同一条路径，
+    // 否则会出现"材质行变空行"（2026-09-16 的一次回退，就是因为在这里提前 return）。
+    FString IconKey;UImage* Picture=nullptr;USizeBox* IconBox=nullptr;
+    if(!Entry.IconMesh.IsNull())
+    {
+        FVoxelBuildIconRequest Request;
+        Request.Key=UVoxelBuildIcons::KeyForShape(Entry.Id,-1);
+        Request.Mesh=Entry.IconMesh;Request.Surface=Entry.IconSurface;
+        Request.Cells.Add(FIntVector(0,0,0));
+        if(auto* Icons=IconsFor())Icons->Request(Request);
+        IconKey=Request.Key;
+        IconBox=WidgetTree->ConstructWidget<USizeBox>();
+        const float ThumbSize=28.f;
+        IconBox->SetWidthOverride(ThumbSize/Scale);IconBox->SetHeightOverride(ThumbSize/Scale);
+        Picture=WidgetTree->ConstructWidget<UImage>();
+        Picture->SetVisibility(ESlateVisibility::HitTestInvisible);
+        IconBox->SetContent(Picture);
+        auto* IconSlot=Line->AddChildToHorizontalBox(IconBox);
+        IconSlot->SetVerticalAlignment(VAlign_Center);IconSlot->SetPadding(FMargin(0,0,8/Scale,0));
+    }
+    auto* Caption=Text(Entry.Caption,14,false,false);
+    auto* CaptionSlot=Line->AddChildToHorizontalBox(Caption);
+    CaptionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CaptionSlot->SetVerticalAlignment(VAlign_Center);
+    auto* Detail=Text(Entry.Detail,12,true);Detail->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    Line->AddChildToHorizontalBox(Detail)->SetVerticalAlignment(VAlign_Center);
+    auto* MainSlot=Row->AddChildToHorizontalBox(Button);
+    MainSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));MainSlot->SetVerticalAlignment(VAlign_Center);
+    if(Entry.bExpandable)
+    {
+        auto* DisclosureSlot=Row->AddChildToHorizontalBox(DisclosureButton(Entry.Id,bExpanded));
+        DisclosureSlot->SetVerticalAlignment(VAlign_Center);
+        DisclosureSlot->SetPadding(FMargin(6/Scale,0,0,0));
+    }
+    // IconKey/Picture/IconBox 在没图标时是空的，RefreshIcons 会跳过它们。
+    Cards.Add({Entry.Id,false,INDEX_NONE,false,IconKey,Button,RowSurface,Picture,Size,IconBox});
+    VisibleCards.Add(Entry);
+    CardList->AddChildToVerticalBox(RowSurface)->SetPadding(FMargin(0,0,0,CardGap/Scale));
+}
+
 void UVoxelBuildWidget::RebuildCards()
 {
     if(!CardList)return;
     HideTooltip(true);
     const float Scale=ColdSteelUI::PixelScale(this);
-    CardList->ClearChildren();Cards.Reset();CardProxies.Reset();
-    const TArray<FVoxelBuildPanelCard>& Source=bComponentCategory?ComponentCards:MaterialCards;
-    if(Source.IsEmpty())
+    CardList->ClearChildren();Cards.Reset();CardProxies.Reset();VisibleCards.Reset();Grids.Reset();
+    if(!bComponentCategory)
     {
-        auto* Empty=Text(bComponentCategory?TEXT("暂无构件 · 请在调色板 Components 中添加"):TEXT("暂无可用材质"),12);
+        if(MaterialCards.IsEmpty())
+        {
+            auto* Empty=Text(TEXT("暂无可用材质"),12);
+            Empty->SetColorAndOpacity(ColdSteelUI::TextTertiary);
+            CardList->AddChildToVerticalBox(Empty)->SetPadding(FMargin(2/Scale,6/Scale));
+            return;
+        }
+        for(const FVoxelBuildPanelCard& Material:MaterialCards)
+        {
+            AddMaterialRow(Material);
+            if(!ExpandedMaterials.Contains(Material.Id))continue;
+            // 其他构造 = the shared voxel construction shapes plus this material's own components,
+            // all as identical cards that wrap once the row is full.
+            auto* Grid=WidgetTree->ConstructWidget<UWrapBox>();
+            Grid->SetInnerSlotPadding(FVector2D(GridGap/Scale,GridGap/Scale));
+            CardList->AddChildToVerticalBox(Grid)->SetPadding(FMargin(ChildIndent/Scale,0,0,GridGap/Scale));
+            Grids.Add(Grid);
+            for(const FVoxelBuildPanelCard& Shape:ShapeCards)AddGridCard(Grid,Shape,Material.Id,true,&Material);
+            for(const FVoxelBuildPanelCard& Entry:ComponentCards)
+                if(Entry.MaterialId==Material.Id)AddGridCard(Grid,Entry,Material.Id,true,nullptr);
+        }
+        RefreshIcons();
+        return;
+    }
+    if(ComponentCards.IsEmpty())
+    {
+        auto* Empty=Text(TEXT("暂无其他构造 · 请在调色板 Components 中添加"),12);
         Empty->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         CardList->AddChildToVerticalBox(Empty)->SetPadding(FMargin(2/Scale,6/Scale));
         return;
     }
-    for(const auto& Entry:Source)
-    {
-        auto* Proxy=NewObject<UVoxelBuildCardProxy>(this);Proxy->CardId=Entry.Id;Proxy->bComponentCard=Entry.bComponent;Proxy->Panel=this;
-        Proxy->CardIndex=Cards.Num();
-        CardProxies.Add(Proxy);
-        auto* Button=WidgetTree->ConstructWidget<UButton>();
-        Button->SetStyle(ColdSteelUI::ButtonStyle(Scale));
-        Button->OnClicked.AddDynamic(Proxy,&UVoxelBuildCardProxy::Clicked);
-        Button->OnHovered.AddDynamic(Proxy,&UVoxelBuildCardProxy::Hovered);
-        Button->OnUnhovered.AddDynamic(Proxy,&UVoxelBuildCardProxy::Unhovered);
-        auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetHeightOverride(CardHeight/Scale);Button->SetContent(Size);
-        auto* SurfaceCard=WidgetTree->ConstructWidget<UBorder>();
-        SurfaceCard->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::StatusCard,ColdSteelUI::CardRadius/Scale));
-        SurfaceCard->SetPadding(FMargin(10/Scale,6/Scale));Size->SetContent(SurfaceCard);
-        auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();SurfaceCard->SetContent(Row);
-        auto* Caption=Text(Entry.Caption,14,false,false);
-        auto* CaptionSlot=Row->AddChildToHorizontalBox(Caption);
-        CaptionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CaptionSlot->SetVerticalAlignment(VAlign_Center);
-        auto* Detail=Text(Entry.Detail,12,true);Detail->SetColorAndOpacity(ColdSteelUI::TextSecondary);
-        Row->AddChildToHorizontalBox(Detail)->SetVerticalAlignment(VAlign_Center);
-        Cards.Add({Entry.Id,Entry.bComponent,Button,SurfaceCard});
-        CardList->AddChildToVerticalBox(Button)->SetPadding(FMargin(0,0,0,CardGap/Scale));
-    }
+    auto* Grid=WidgetTree->ConstructWidget<UWrapBox>();
+    Grid->SetInnerSlotPadding(FVector2D(GridGap/Scale,GridGap/Scale));
+    CardList->AddChildToVerticalBox(Grid)->SetPadding(FMargin(0,2/Scale,0,GridGap/Scale));
+    Grids.Add(Grid);
+    for(const FVoxelBuildPanelCard& Entry:ComponentCards)AddGridCard(Grid,Entry,NAME_None,false,nullptr);
+    RefreshIcons();
 }
 
 void UVoxelBuildWidget::RefreshSelection()
@@ -348,9 +552,14 @@ void UVoxelBuildWidget::RefreshSelection()
     for(const FCard& Card:Cards)
     {
         auto* Widget=Card.Surface.Get();if(!Widget)continue;
-        const bool bSelected=Card.bComponent?(!SelectedComponent.IsNone()&&SelectedComponent==Card.Id):(SelectedComponent.IsNone()&&SelectedMaterial==Card.Id);
-        Widget->SetBrush(ColdSteelUI::RoundedBrush(bSelected?ColdSteelUI::ButtonHover:ColdSteelUI::StatusCard,
-            ColdSteelUI::CardRadius/Scale,bSelected?ColdSteelUI::Accent:ColdSteelUI::Border,bSelected?2/Scale:1/Scale));
+        // Material rows stay highlighted for the current material; a submenu row highlights only when
+        // it is the exact shape or component in hand.
+        const bool bSelected=Card.bComponent?(!SelectedComponent.IsNone()&&SelectedComponent==Card.Id):
+            (SelectedComponent.IsNone()&&SelectedMaterial==Card.Id&&(Card.ShapeMode==INDEX_NONE||Card.ShapeMode==SelectedShape));
+        Widget->SetBrush(ColdSteelUI::RoundedBrush(bSelected?ColdSteelUI::ButtonHover:(Card.bChild?ColdSteelUI::Content:ColdSteelUI::StatusCard),
+            (Card.bChild?ColdSteelUI::ButtonRadius:ColdSteelUI::CardRadius)/Scale,
+            bSelected?ColdSteelUI::Accent:ColdSteelUI::Border,
+            bSelected?2/Scale:1/Scale));
     }
 }
 
@@ -376,21 +585,48 @@ void UVoxelBuildWidget::RefreshLayout()
     Surface->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale));
     if(Blur)Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius/Scale));
     if(Scroll)Scroll->SetScrollbarThickness(FVector2D(6/Scale));
+    // Grid spacing and the identical card sizes are DPI-dependent, so they are re-applied with the
+    // same scale as the fonts instead of being baked at construction time.
+    const FVector2D GridPadding(GridGap/Scale,GridGap/Scale);
+    for(const TWeakObjectPtr<UWrapBox>& Grid:Grids)if(auto* Box=Grid.Get())Box->SetInnerSlotPadding(GridPadding);
+    for(const FCard& Card:Cards)
+    {
+        if(auto* CardBox=Card.Box.Get()){CardBox->SetWidthOverride(GridCardWidth/Scale);CardBox->SetHeightOverride(GridCardHeight/Scale);}
+        if(auto* IconBox=Card.IconBox.Get()){IconBox->SetWidthOverride(GridIconPixels/Scale);IconBox->SetHeightOverride(GridIconPixels/Scale);}
+    }
     for(const FLabel& Label:Labels)if(auto* TextBlock=Label.Widget.Get())
         TextBlock->SetFont(Label.Numeric?GunsmithUI::NumberFont(Label.Pixels/Scale,Label.Medium):GunsmithUI::TextFont(Label.Pixels/Scale,Label.Medium));
     Controls->SetText(FText::FromString(View.Y<650?
         TEXT("B 建造 ⇄ 面板 · 面板中再按 B 退出建造\n")
-        TEXT("选中即回到建造：滚轮形状 · R 旋转 · F 吸附\n")
-        TEXT("左键放 / 右键拆 · Esc 退一层 · Ctrl+Z 撤销"):
+        TEXT("材质卡右侧「其他构造」展开该材质的形状与构件 · 1-9 选择 · 0 取消构件\n")
+        TEXT("左键放（消耗体素块）/ 右键拆（方块进背包）· Ctrl+Z 拆掉最近一批 · Z 拾取周围掉落"):
         TEXT("B 进入建造（面板选择）· 建造中 B 回面板 · 面板中再按 B 退出建造\n")
-        TEXT("面板中 1-9 选择当前分类第 N 项 · 0 取消构件\n")
-        TEXT("建造中 1 木材 2 石头 3 大理石 · 4-9 构件 · 滚轮切换形状\n")
-        TEXT("R 旋转 · F 吸附 · 左键放置 / 右键拆除 · 中键取样 · Esc 退一层 · Ctrl+Z 撤销")));
+        TEXT("材质分类：点材质卡换材质，右侧「其他构造」展开该材质的体素形状与同材质构件\n")
+        TEXT("其他分类：全部放置构件；面板中 1-9 选当前分类第 N 项 · 0 取消构件\n")
+        TEXT("形状顺序 单格 / 1 m² 地块 / 1 m² 墙面 / 1×5 水平直线 / 1×5 垂直直线（建造中滚轮切换）\n")
+        TEXT("R 旋转 · F 吸附 · 左键放置（消耗体素块）/ 右键拆除（方块进背包）· 中键取样\n")
+        TEXT("Ctrl+Z 拆掉最近一批建造 · Z 拾取周围掉落（含体素块、装备）· Esc 退一层")));
     RefreshCategory();
 }
 
-void UVoxelBuildWidget::ShowState(const FString& Headline,const FString& Brush,const FString& Message,bool bValid,bool bSnapEnabled)
+void UVoxelBuildWidget::ShowState(const FString& Headline,const FString& Brush,const FString& Message,bool bValid,bool bSnapEnabled,
+    float StructureRisk,const FString& StructureSummary)
 {
+    if(Risk)
+    {
+        // 85% warns, 100% means a joint is breaking: same semantic colours as the rest of the HUD.
+        const bool bDanger=StructureRisk>=1.f;
+        const bool bWarn=StructureRisk>=.85f;
+        Risk->SetVisibility(bWarn?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+        if(bWarn)
+        {
+            const FString Detail=StructureSummary.IsEmpty()?FString::Printf(TEXT("%.0f%%"),StructureRisk*100.):StructureSummary;
+            Risk->SetText(FText::FromString(bDanger
+                ?FString::Printf(TEXT("结构超限 · 正在断裂 · %s"),*Detail)
+                :FString::Printf(TEXT("结构预警 · %s · 加厚或补支撑"),*Detail)));
+            Risk->SetColorAndOpacity(bDanger?ColdSteelUI::Danger:ColdSteelUI::Warning);
+        }
+    }
     const FString SelectionText=FString::Printf(TEXT("%s\n%s\n%s"),*Headline,*Brush,bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附"));
     const FString Signature=SelectionText+Message+(bValid?TEXT("1"):TEXT("0"));
     if(Signature!=LastState){LastState=Signature;Selection->SetText(FText::FromString(SelectionText));}
@@ -403,6 +639,8 @@ void UVoxelBuildWidget::NativeTick(const FGeometry& Geometry,float Delta)
     Super::NativeTick(Geometry,Delta);
     RefreshLayout();
     if(bCardsDirty){bCardsDirty=false;RebuildCards();bSelectionDirty=true;RefreshCategory();}
+    // Thumbnails are captured one per frame by the icon subsystem; the cards pick them up here.
+    RefreshIcons();
     if(bSelectionDirty){bSelectionDirty=false;RefreshSelection();}
     if(TooltipIndex!=INDEX_NONE)UpdateTooltipPlacement();
     DrawerProgress=FMath::FInterpConstantTo(DrawerProgress,bDrawerOpen?1.f:0.f,Delta,4.f);

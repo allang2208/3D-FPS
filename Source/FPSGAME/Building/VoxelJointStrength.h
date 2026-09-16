@@ -27,6 +27,16 @@ namespace VoxelJointStrength
     inline constexpr double LeverM = 0.2;
     inline constexpr double GravityMS2 = -9.81;
 
+    /**
+     * 过载到失效的秒数（2026-09-16 用户指定 30 s 上限）：刚好过线时约 GraceSeconds，越超载越快，
+     * 最低 MinSeconds。时间与材质无关——材质只决定每秒损伤的数值（= 自身耐久 / 该秒数）。
+     */
+    inline double OverloadSecondsToFailure(double Ratio, double GraceSeconds = 30.0, double MinSeconds = 3.0)
+    {
+        if (Ratio <= 1.0) return GraceSeconds;
+        return std::max(MinSeconds, std::min(GraceSeconds, GraceSeconds / Ratio));
+    }
+
     struct FMaterial
     {
         double DensityKgM3 = 600.0;

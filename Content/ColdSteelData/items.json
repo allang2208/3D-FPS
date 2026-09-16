@@ -2669,6 +2669,36 @@
     "type": "祭品",
     "ue_icon": "Icons/tungstenOre.png"
   },
+  "voxel_block_marble": {
+    "category": "material",
+    "desc": "大理石体素块。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取范围内所有掉落物，也用于搭建大理石建筑。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "大理石体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/marble.png"
+  },
+  "voxel_block_stone": {
+    "category": "material",
+    "desc": "石块体素块。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取范围内所有掉落物，也用于搭建石质建筑。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "石块体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/stone.png"
+  },
+  "voxel_block_wood": {
+    "category": "material",
+    "desc": "木材体素块。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取范围内所有掉落物，也用于搭建木质建筑。",
+    "icon": "res://assets/ui/building/floor.png",
+    "name": "木材体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/wood.png"
+  },
   "watermelon": {
     "category": "tribute",
     "desc": "解暑圣品，就是太沉。",
