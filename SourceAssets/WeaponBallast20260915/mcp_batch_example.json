@@ -1,0 +1,4 @@
+[
+  { "tool": "list_toolsets", "arguments": {} },
+  { "tool": "describe_toolset", "arguments": { "toolset_name": "Vibe3D.ModelingService" } }
+]

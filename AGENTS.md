@@ -10,7 +10,13 @@
 - 新建或改造面板、页签、栏目、卡片与弹窗，先读 [面板与栏目工作流](UI-WORKFLOW.md) 和 [UE UI 技能](skills/ue5-ui-umg-slate/SKILL.md)，按 [规划模板](Docs/UI/panel-column-plan-template.md) 明确结构、响应布局、数据范围、状态和交互，再按授权阶段制作／接入。
 - 冷钢 UI 以 [正式设计规则](Docs/UI/ui-cold-steel-design-system.md) 为准：黑灰低透明度玻璃、Noto Sans SC／JetBrains Mono、统一按钮；冲突的旧字体、配色和抽屉条款由该文替换。共享 `ColdSteelUIStyle`，不再复制近似主题。
 - 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、5080 模型、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。
+- 怪物制作、混元管线、专用绑骨、动画、布娃娃、战斗和村庄刷怪读 [ue5-monster-workflow](skills/ue5-monster-workflow/SKILL.md)。手脑案例中的未通过项不作为已完成标准。
 - 保留动画时序、UI、库存、存档和并行修改。源码编译与真实运行验收分别报告。
+- 截图、渲染与候选图的判读走 [读图工具](Tools/deepseek-vision.ps1)，用法与边界见 [DeepSeek Flash 读图](Docs/deepseek-vision.md)。读图只做定性确认和差异列表；定量几何用像素测量，最终视觉验收仍由用户拍板。
 - 技能与魔法开发、迁移及左手施法读 [技能／魔法标准工作流](skills/ue5-skill-magic-workflow/SKILL.md)。当前火球左手 V3 已获用户认可，后续复用动作占用、数据接入与完整骨段方法，数值按具体技能调整。
 - 唯一日常开发及 Git 工作目录为 `D:/FPS3D/FPSGAME`，直接从这里提交并推送 `origin/main`。本目录已有独立 `.git`，不依赖 E 盘仓库。E 盘旧仓库/发布副本已退出工作流；不要再建立常驻同步副本。并行修改精确暂存，保留未提交工作。
 - 退役文件放 `trash/<task>/` 并记录散列。二进制资源及恢复边界见 [AssetSetup](Docs/AssetSetup.md)，未审核再分发许可的原始资源不公开提交。
+
+## 通用模型生成入口（2026-09-13）
+
+用户指定新的配件、枪械、怪物、道具和建材模型生成采用 [asset-model-workflow](skills/asset-model-workflow/SKILL.md)。先按同一对象三视图与 5080 候选流程制作，再转对应领域技能。保留明确指定的模型路线与已认可资产；不得将后握把参数直接套到所有类别。继续遵守默认不主动测试、预览或验收的用户规则。

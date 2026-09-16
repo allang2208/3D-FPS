@@ -96,6 +96,10 @@ V11 烟雾降低透明度与累积烟量、加快消散，并保留连续扩散�
 
 随后运行 [雨滴可见性修正生成器](../Tools/Weather/fix_rain_visibility.py)，生成 `Content/Weather/RainVisibility` 下四个修正版资产。当前运行入口是该目录的 `DA_WeatherPresentation`；它沿用 NaturalV2 的屏幕、枪械、天空与其余雨效，仅替换下落雨丝和水坑材质。原始雨丝着色器在 `SourceAssets/RainVisibility20260912`，详见 [雨滴与水坑修正](RainVisibility-20260912.md)。两个生成器都通过 UE Python commandlet 执行。
 
+## 冷钢玻璃改造台（2026-09-12）
+
+保留 `Content/UI/GunsmithWorkbench/T_WorkshopBackground`，恢复同目录 `ColdGlass` 中的九张分类纹理与 `M_CategoryIcon`，以及 `Fonts` 中四份字体、两个 OFL 许可和 provenance。字体可用 [准备器](../Tools/UI/prepare_cold_glass_fonts.py) 从固定官方提交重新下载；分类图标需本机 `SourceAssets/GunsmithComponentIcons20260912/Candidates/cold-steel-v1` 原图，再通过 UE Python 运行 [导入器](../Tools/UI/import_cold_glass_icons.py)。本机 PNG 保持 RGB，透明效果由 UI 材质完成。详见 [接入与验证](UI/gunsmith-cold-glass-implementation-20260912.md)。
+
 
 ## QBZ191 与逐枪配件涂层（2026-09-13）
 

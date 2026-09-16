@@ -1,0 +1,29 @@
+{
+  "source_object": "SM_FrostCrystalSword",
+  "source_material": "/Game/Weapons/FrostCrystalSword20260915/M_FrostCrystalSword.M_FrostCrystalSword",
+  "how_measured": {
+    "step_1": "read_blade_uvs.py 沿最长轴做 60 段横截面宽度剖面，护手为唯一峰值（z=0.000 m 处 108.8 mm）",
+    "step_2": "剑身取护手以上到剑尖前 3 cm，即 0.019..0.782 m，13625 顶点 / 81759 个 UV 采样点",
+    "step_3": "按这些 UV 在 BaseColor / Metallic / Roughness 贴图上逐点取样求均值",
+    "cross_check": "剖面低端 28 mm（配重锤）→ 23 mm（握柄）→ 109 mm（护手）→ 60 递减到 7 mm（剑身到剑尖），与配重锤/剑尖的 authoring 记录一致"
+  },
+  "profile_mm": [28, 39, 31, 23, 23, 23, 23, 23, 23, 23, 23, 24, 24, 29, 54, 109, 106, 60, 46, 42, 46, 54, 54, 54, 54, 53, 53, 53, 52, 52, 52, 52, 51, 51, 51, 50, 50, 50, 50, 49, 49, 49, 48, 48, 48, 48, 47, 47, 47, 47, 46, 46, 46, 44, 38, 32, 26, 20, 13, 7],
+  "guard_z_m": 0.0,
+  "blade_band_m": [0.019, 0.782],
+  "sampled_mean_srgb_255": {
+    "base_color_rgb": [15.9, 159.4, 199.0],
+    "metallic": 42.1,
+    "roughness": 64.1
+  },
+  "sampled_range_srgb_255": {
+    "base_color_luminance": [21, 193],
+    "metallic": [0, 210],
+    "roughness": [40, 97]
+  },
+  "derived": {
+    "base_color_linear": [0.0052, 0.3486, 0.5705],
+    "metallic_scalar": 0.1651,
+    "roughness_scalar": 0.2514,
+    "notes": "剑身是蓝青结晶、非金属（金属度 0.165）、表面较光（粗糙度 0.251）。玻璃版本把金属度降到 0，并按清玻璃/磨砂两种粗糙度各渲一版。"
+  }
+}
