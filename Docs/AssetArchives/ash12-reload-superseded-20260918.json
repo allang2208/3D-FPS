@@ -1,0 +1,22 @@
+{
+ "date": "2026-09-18",
+ "project": "D:/FPS3D/FPSGAME",
+ "archive_root": "trash/ash12-reload-superseded-20260918",
+ "status": "archived",
+ "reason": "换弹动作收尾时清掉两个不再可靠的工具：sweep_arm_pole.py 的肘位重解算写错、跑一次就抛异常（正确的做法是改 build.py 的 RIGHT_ARM_POLE 再重建+探针）；probe_reload_contacts.py 只探骨骼原点/骨节，实测只报出 5 mm 而手臂网格实际穿透 116 mm，已被 probe_reload_visibility.py（网格+真眼位）取代。",
+ "runtime": "两者都只是 SourceAssets/ASH1220260917/Scripts 下的开发量具，不进游戏、不被 build.py 或 import_ue.py 引用，移走不影响构建。",
+ "files": [
+  {
+   "source": "SourceAssets/ASH1220260917/Scripts/probe_reload_contacts.py",
+   "destination": "trash/ash12-reload-superseded-20260918/probe_reload_contacts.py",
+   "sha256": "3a96c7f7756dacf0a72993c388fa50022fdbf33142336c2cca4a33ab302adb04",
+   "bytes": 4082
+  },
+  {
+   "source": "SourceAssets/ASH1220260917/Scripts/sweep_arm_pole.py",
+   "destination": "trash/ash12-reload-superseded-20260918/sweep_arm_pole.py",
+   "sha256": "a6e5257116468339b77c9bc392772b6d5161886ff58fbfff42dacf9d574997b1",
+   "bytes": 5541
+  }
+ ]
+}

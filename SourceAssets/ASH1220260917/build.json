@@ -142,7 +142,17 @@
       "frames": 162,
       "fps": 60,
       "sample_rate": 120,
-      "left_arm_shift": true
+      "left_arm_shift": false,
+      "reach": {
+        "r": [
+          0.82,
+          38.0
+        ],
+        "l": [
+          0.964,
+          133.0
+        ]
+      }
     },
     "equip_charge": {
       "source": "M4_HK416_equip_charge",

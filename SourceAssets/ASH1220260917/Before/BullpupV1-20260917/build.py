@@ -90,99 +90,41 @@ BULLPUP_CLIPS = ("reload_empty",)
 
 # Receiver frame: +X the shooter's left, +Y toward the stock, +Z up. It is the
 # local frame of WPN_root, so anything authored here rides the roll for free.
-#
-# Geometry that the beats below have to live inside (measured off the fitted
-# rig): the firing shoulder sits 0.34 m behind and 0.21 m above the receiver
-# origin with 0.55 m of arm, and the support hand already holds the rail at 97%
-# of its reach in the accepted idle. So the firing hand can dip about 0.17 m
-# below the magazine socket and no further; past that the magazine is released
-# and finishes the extraction on its own, which is also what the accepted M4
-# contract does with the old magazine.
-# Magazine travel measured from its socket, receiver-local metres. The reference
-# (2:06-2:10) changes the magazine inside one continuous hand move -- the
-# receiver barely moves, the firing hand takes the old magazine down and brings
-# the fresh one straight back up -- so the magazine stays in the hand from the
-# out cue to the seat cue instead of being flung out of frame.
+# Magazine travel measured from its socket, receiver-local metres.
 MAG_PATH = [
     (0.0, 0.000, 0.000, 0.000),
     (21.0, 0.000, 0.000, 0.000),      # cue: magazine out
-    (30.0, 0.004, 0.008, -0.070),
-    (40.0, 0.010, 0.020, -0.150),
-    (46.0, 0.012, 0.024, -0.168),     # fully clear of the well, still in hand
-    (52.0, 0.008, 0.016, -0.115),
-    (54.0, 0.006, 0.014, -0.098),     # cue: the fresh magazine meets the well mouth
-    (66.0, 0.003, 0.007, -0.042),
+    (30.0, 0.004, 0.010, -0.090),
+    (38.0, 0.013, 0.026, -0.190),
+    (46.0, 0.022, 0.042, -0.250),     # clear of the well, dropping out of frame
+    (54.0, 0.008, 0.024, -0.120),     # cue: the fresh magazine meets the well mouth
+    (62.0, 0.004, 0.014, -0.070),
+    (72.0, 0.001, 0.005, -0.026),
     (80.0, 0.000, 0.000, 0.000),      # cue: seated
     (162.0, 0.000, 0.000, 0.000),
 ]
-# Firing hand: inside a carry window it is locked to the magazine, outside it
+# Firing hand: inside the carry window it is locked to the magazine, outside it
 # follows the grip / charging handle anchors sampled off the accepted hold.
-HAND_CARRY = ((21.0, 80.0),)
-# Where the knuckles have to land on the magazine: the exposed body below the
-# stock's bottom line, which is the only part a hand can close on. The wrist is
-# then placed from the measured knuckle offset, exactly as for the handle.
-MAG_GRAB_POINT = Vector((0.004, 0.006, -0.105))
-MAG_GRIP_BIAS = Vector((0.000, 0.006, -0.008))
-
-# The charging handle sits flush on the receiver's right shoulder. The hand
-# keeps the accepted grip's curl, so where the wrist has to sit is fixed by how
-# far the knuckles are from it: the offset below is measured off the rig at
-# build time and puts the knuckles on the handle instead of leaving the hand
-# floating a hand's length away from it.
-HANDLE_GRIP_BIAS = Vector((-0.012, 0.010, -0.016))
-# The support hand holds the rail a touch further back than the accepted idle
-# does: that pose is already at 97% of the arm's reach, and the roll would push
-# it past full extension.
-LEFT_BIAS = Vector((0.000, 0.024, -0.004))
-# Receiver performance authored from the reference: the receiver tips toward the
-# shooter's left and holds that tilt while the magazine is worked, then rolls
-# deepest at the charging handle -- the roll is what turns the handle out to the
-# firing hand, and it is also what swings the magazine's exposed length clear of
-# the stock. Measured from the eye (sweep_mag_visibility.py): below 30 degrees of
-# roll the magazine is completely hidden by the stock, 45 degrees shows about a
-# quarter of it, and that is the ceiling -- only the bottom 35% of a bullpup
-# magazine is outside the stock at all. (frame, pitch, yaw, roll, back, down).
+HAND_CARRY = (21.0, 80.0)
+MAG_GRIP = Vector((0.004, -0.004, -0.105))     # where the hand takes the magazine
+# Receiver performance authored from the reference: the receiver rolls about its
+# own axis toward the shooter's left while the magazine is worked, so the well
+# and the charging handle both turn toward the firing hand. (frame, pitch, yaw,
+# roll, back, down) in degrees and metres.
 RECEIVER_CURVE = [
     (0.0, 0.0, 0.0, 0.0, 0.000, 0.000),
-    (13.0, -3.0, 0.5, 38.0, 0.004, 0.002),
-    (21.0, -5.0, 0.8, 44.0, 0.007, 0.004),     # cue: magazine out
-    (54.0, -7.0, 1.2, 48.0, 0.010, 0.006),     # cue: fresh magazine at the mouth
-    (80.0, -7.0, 1.4, 50.0, 0.011, 0.006),     # cue: seated
-    (105.0, -6.0, 1.6, 56.0, 0.012, 0.006),
-    (122.0, -5.0, 1.8, 62.0, 0.012, 0.006),    # deepest: the handle faces the hand
-    (136.0, -4.0, 1.4, 50.0, 0.009, 0.005),
-    (150.0, -1.5, 0.6, 22.0, 0.004, 0.002),
+    (14.0, 1.0, 0.5, 16.0, 0.003, 0.002),
+    (21.0, 2.0, 1.0, 38.0, 0.007, 0.004),
+    (40.0, 3.5, 2.0, 60.0, 0.011, 0.006),
+    (80.0, 4.0, 2.0, 58.0, 0.011, 0.006),
+    (110.0, 3.0, 1.5, 44.0, 0.009, 0.005),
+    (130.0, 2.0, 1.0, 26.0, 0.006, 0.003),
+    (150.0, 0.8, 0.4, 8.0, 0.002, 0.001),
     (162.0, 0.0, 0.0, 0.0, 0.000, 0.000),
-]
-# Where the firing hand's elbow should swing, receiver frame. Left at zero the
-# IK keeps the accepted hold's elbow, which is right on the grip but drives the
-# forearm through the stock on the way to the well; on the handle the elbow goes
-# outboard instead so the arm crosses above the receiver.
-RIGHT_POLE = [
-    (0.0, 0.00, 0.00, 0.00),
-    (14.0, 0.00, 0.35, -0.94),
-    (80.0, 0.00, 0.35, -0.94),
-    (96.0, -0.70, 0.20, -0.60),
-    (108.0, -0.95, 0.12, -0.26),
-    (140.0, -0.95, 0.12, -0.26),
-    (152.0, 0.00, 0.00, 0.00),
-    (162.0, 0.00, 0.00, 0.00),
-]
-# How far the firing hand's hold turns toward the receiver while it works the
-# charging handle, degrees about the receiver's up axis. The hand keeps the
-# accepted grip curl, so without this it reaches the handle palm-up as if
-# placing the hand on top of the receiver instead of taking the handle sideways.
-RIGHT_HAND_TURN = [
-    (0.0, 0.0),
-    (96.0, 0.0),
-    (108.0, 42.0),
-    (140.0, 42.0),
-    (152.0, 0.0),
-    (162.0, 0.0),
 ]
 # Charging handle: met by the firing hand, pulled straight back along the
 # receiver, then let fly. (frame, metres).
-HANDLE_PULL = [(0.0, 0.0), (108.0, 0.0), (118.0, 0.058), (126.0, 0.058), (133.0, 0.0), (162.0, 0.0)]
+HANDLE_PULL = [(0.0, 0.0), (114.0, 0.0), (122.0, 0.055), (128.0, 0.058), (132.0, 0.058), (135.0, 0.0), (162.0, 0.0)]
 # Bolt: held back by the bolt catch for the whole empty reload, then released
 # with the handle and driven home. (frame, metres back from rest).
 # Magazine seat snap at the seat cue. The reference jolts the whole viewmodel at
@@ -200,24 +142,6 @@ TWIST_SHARE = 0.55
 # reference the hand-to-grip alignment is already within 5 degrees, so this
 # stays at zero; the constant exists for a later hand-pose pass.
 WRIST_BEND_DEGREES = 0.0
-
-# The bullpup stock reaches 0.46 m behind the receiver's origin, so the accepted
-# M4 hold puts the firing forearm inside it -- and in ADS that same arm sits
-# 4.6 cm from the camera, which is the "blob of hand" the player sees on screen.
-# Every clip re-solves the elbow outboard of the stock; the hand does not move.
-RIGHT_ARM_POLE = (-0.95, 0.12, -0.26)
-# A fist for the charging handle. The accepted grip leaves the trigger finger
-# lying along the receiver, which reads as one finger sticking out once the hand
-# turns toward the handle, so the fingers are curled evenly instead. Values are
-# the local Z rotation of each joint, the axis the M4 poses curl on.
-HANDLE_FIST = {"01": 58.0, "02": 62.0, "03": 34.0}
-# How much of that fist is closed, per frame: closes as the hand leaves the
-# magazine and opens again once it is back on the grip.
-# Closed twice: once around the magazine and once around the charging handle.
-HANDLE_FIST_BLEND = [(0.0, 0.0), (14.0, 0.0), (26.0, 1.0), (74.0, 1.0), (86.0, 0.0),
-                     (98.0, 0.0), (110.0, 1.0), (140.0, 1.0), (150.0, 0.0), (162.0, 0.0)]
-# Share of the hand's turn that the forearm takes instead of the wrist.
-TURN_SHARE = 0.6
 
 # The source receiver is not square to its own sights: measured against the
 # sight markers its rail leans 3.9 degrees to the right, and the accepted M4
@@ -325,6 +249,7 @@ print("ASH12_COMPONENTS", len(groups), "trigger_verts", len(trigger_verts))
 
 mag_slots = {i for i, m in enumerate(me.materials) if m and m.name in MAGAZINE_MATERIALS}
 
+CHARGING_HANDLE_SOURCE_CENTRE = tuple((a + b) / 2.0 for a, b in zip(*CHARGING_HANDLE_SOURCE_BBOX))
 _hb0, _hb1 = CHARGING_HANDLE_SOURCE_BBOX
 def in_handle(index):
     co = me.vertices[index].co
@@ -355,6 +280,8 @@ corner_normals = [n.vector.copy() for n in me.corner_normals]
 xf = root_pose.inverted() @ fit_matrix
 markers = {name: (rest["WPN_root"] @ (xf @ Vector(pos))) for name, pos in MARKERS.items()}
 markers["WPN_SOCKET_Magazine"] = rest["WPN_root"] @ (xf @ Vector(MAG_SOCKET_SOURCE))
+# Where the support hand has to meet the charging handle, in the receiver's frame.
+HANDLE_LOCAL = (xf @ Vector(CHARGING_HANDLE_SOURCE_CENTRE)) - Vector(WELL_LOCAL) + Vector((-0.018, 0.010, -0.012))
 bpy.ops.object.select_all(action="DESELECT")
 rig.select_set(True)
 bpy.context.view_layer.objects.active = rig
@@ -519,137 +446,66 @@ def prepare_bullpup(source):
     Both hands are frozen as receiver-local matrices: the position travels along
     the authored path, the orientation stays the natural hold it has at frame 0.
     That keeps the M4 clip's own hand rotation out of the result and lets the
-    roll carry the hands without extra maths. The receiver's frame-0 pose is kept
-    too, because this clip replaces the M4 clip's weapon performance outright.
+    roll carry the hands without extra maths.
     """
     pose = sample(source, 0.0)
     inv = pose["WPN_root"].inverted()
-    root0 = pose["WPN_root"].copy()
     grip = (inv @ pose["hand_r"]).copy()
     left = (inv @ pose["hand_l"]).copy()
-    left.translation += LEFT_BIAS
     bolt_back = (inv @ pose["WPN_bolt"].translation) - BOLT_LOCAL
-    knuckle = (inv @ pose["index_01_r"].translation) - grip.translation
-    grab = WELL_LOCAL + MAG_GRAB_POINT - knuckle * 1.06 + MAG_GRIP_BIAS
+    grab = WELL_LOCAL + MAG_GRIP
     # The two hands of the charge phase share one pull table, so the handle and
     # the hand holding it cannot drift apart.
-    def key(frame, point):
-        return (frame, point[0], point[1], point[2])
-
-    handle_grip = -knuckle * 1.06 + HANDLE_GRIP_BIAS
-    print("ASH12_HANDLE_GRIP knuckle=%.3f m  mag_wrist=(%.3f, %.3f, %.3f)  handle_wrist=(%.3f, %.3f, %.3f)"
-          % (knuckle.length, grab.x, grab.y, grab.z, handle_grip.x, handle_grip.y, handle_grip.z))
-    pull = [key(f, HANDLE_LOCAL + handle_grip + Vector((0.0, m, 0.0))) for f, m in HANDLE_PULL if 100.0 < f < 145.0]
-    # The hand goes along the receiver's right flank to reach the handle, not
-    # through the receiver and not down from above: a straight line from the
-    # well to the handle passes inside the lower.
-    mid = Vector((-0.096, 0.010, -0.046))
-    hand_keys = ([key(0.0, grip.translation), key(3.0, grip.translation), key(21.0, grab), key(80.0, grab)]
-                 + [key(96.0, mid)]
+    pull = [(f, tuple(HANDLE_LOCAL + Vector((0.0, m, 0.0)))) for f, m in HANDLE_PULL if 100.0 < f < 145.0]
+    mid = grip.translation.lerp(HANDLE_LOCAL, 0.55) + Vector((0.012, 0.010, -0.020))
+    hand_keys = ([(0.0, tuple(grip.translation)), (14.0, tuple(grip.translation)), (21.0, tuple(grab)),
+                  (80.0, tuple(grab)), (96.0, tuple(mid))]
                  + pull
-                 + [key(152.0, grip.translation), key(162.0, grip.translation)])
+                 + [(150.0, tuple(grip.translation)), (162.0, tuple(grip.translation))])
     arm_len = {}
-    holds = {}
-    # How far each finger joint has to turn to make a fist for the handle: the
-    # accepted grip curls them around the pistol grip with the trigger finger
-    # lying along the receiver, which reads as one finger sticking out once the
-    # hand turns to take the charging handle.
-    fist_delta = {}
-    for name in hand_subtree("r"):
-        parts = name.split("_")
-        if len(parts) != 3 or parts[0] not in ("index", "middle", "ring", "pinky"):
-            continue
-        target = HANDLE_FIST.get(parts[1])
-        if target is None:
-            continue
-        current = math.degrees(rig.pose.bones[name].rotation_quaternion.to_euler("XYZ").z)
-        fist_delta[name] = target - current
     for side in ("l", "r"):
         upper = pose["upperarm_" + side].translation
         lower = pose["lowerarm_" + side].translation
         hand = pose["hand_" + side].translation
         arm_len[side] = (lower - upper).length + (hand - lower).length
-        # The whole hand, fingers included, is frozen on the gun: the M4 clip
-        # opens and closes these fingers to work a magazine under the receiver,
-        # which under a bullpup is a hand doing nothing on the handguard.
-        holds[side] = {name: inv @ pose[name] for name in hand_subtree(side)}
-        # Where the shoulder sits in the receiver frame, so the authored targets
-        # can be read against it.
-        shoulder = inv @ upper
-        print("ASH12_ARM_%s shoulder_recv=(%.3f, %.3f, %.3f) length=%.3f"
-              % (side, shoulder.x, shoulder.y, shoulder.z, arm_len[side]))
-    for side, hold in (("l", left), ("r", grip)):
-        reach = ((pose["WPN_root"] @ hold).translation - pose["upperarm_" + side].translation).length / arm_len[side]
-        print("ASH12_HOLD frame0 reach_%s=%.3f" % (side, reach))
-    return {"left": left, "grip": grip, "grab": grab, "hand_keys": hand_keys, "holds": holds,
-            "bolt_back": bolt_back, "arm_len": arm_len, "reach": {}, "root0": root0,
-            "fist_delta": fist_delta}
+    return {"left": left, "grip": grip, "grab": grab, "hand_keys": hand_keys,
+            "bolt_back": bolt_back, "arm_len": arm_len, "reach": {}}
 
 
-def bullpup_receiver(pose, frame, data):
-    """Author the receiver's own performance, replacing the M4 clip's.
-
-    The accepted M4 reload drives the receiver through an arc of its own --
-    measured roll -46 degrees at frame 18, +101 at 24, then a steady -50 through
-    the middle. Adding the bullpup roll on top of that put the gun past 140
-    degrees, and an inherited arc is the wrong performance for this reload
-    anyway, so the receiver is driven from this clip's frame instead: the pose it
-    holds at frame 0 plus the authored tip, yaw, roll and travel.
-    """
+def bullpup_receiver(pose, frame):
+    """Roll the receiver toward the shooter's left and let its parts ride."""
     pitch, yaw, roll, back, down = curve(RECEIVER_CURVE, frame)
-    target = (data["root0"]
-              @ Matrix.Translation(Vector((0.0, back, -down)))
-              @ Quaternion(Vector((0.0, 1.0, 0.0)), math.radians(roll)).to_matrix().to_4x4()
-              @ Quaternion(Vector((0.0, 0.0, 1.0)), math.radians(yaw)).to_matrix().to_4x4()
-              @ Quaternion(Vector((1.0, 0.0, 0.0)), math.radians(pitch)).to_matrix().to_4x4())
-    rigid = target @ pose["WPN_root"].inverted()
+    q = pose["WPN_root"].to_quaternion()
+    pivot = pose["WPN_root"].translation.copy()
+    lateral = (q @ Vector((1.0, 0.0, 0.0))).normalized()
+    up = (q @ Vector((0.0, 0.0, 1.0))).normalized()
+    bore = (q @ Vector((0.0, 1.0, 0.0))).normalized()
+    rigid = (Matrix.Translation(q @ Vector((0.0, back, -down)))
+             @ Matrix.Translation(pivot)
+             @ Quaternion(bore, math.radians(roll)).to_matrix().to_4x4()
+             @ Quaternion(up, math.radians(yaw)).to_matrix().to_4x4()
+             @ Quaternion(lateral, math.radians(pitch)).to_matrix().to_4x4()
+             @ Matrix.Translation(-pivot))
     for name in WEAPON_BONES:
         pose[name] = rigid @ pose[name]
     return roll
 
 
-def hold_hand(pose, side, offset, roll_degrees, data, frame):
-    """Put one hand, fingers and all, exactly where the receiver says.
+def hold_hand(pose, side, local, roll_degrees, data):
+    """Drive one hand onto a receiver-local hold and roll it with the gun.
 
-    ``shift_arm`` solves the reach from the untouched arm, so its segment lengths
-    stay the ones the accepted clips have. The hand and its fingers are then
-    placed from the keep pose sampled at frame 0, which keeps the M4 clip's own
-    hand rotation and finger work out of the result. The roll arrives at the hand
-    from the gun, so the forearm pays for part of it: all of it on the wrist
-    alone reads as a broken joint.
+    The target already carries the roll, because it is expressed in the
+    receiver's own frame. ``shift_arm`` is left to solve the reach from the
+    untouched arm, so its segment lengths stay the ones the accepted clips have;
+    the rotation is applied afterwards, about the wrist.
     """
     hand, lower, upper = "hand_" + side, "lowerarm_" + side, "upperarm_" + side
-    anchor = data["grip"] if side == "r" else data["left"]
-    local = Matrix.Translation(offset) @ anchor
-    turn = curl = 0.0
-    if side == "r":
-        turn = curve(RIGHT_HAND_TURN, frame)[0]
-        curl = curve(HANDLE_FIST_BLEND, frame)[0]
-        if abs(turn) > 0.05:
-            # About the wrist, so the hand turns without moving off the handle.
-            pivot = anchor.translation
-            spin = Matrix.Rotation(math.radians(turn), 4, "Z")
-            local = (Matrix.Translation(pivot) @ spin @ Matrix.Translation(-pivot) @ local)
     target = pose["WPN_root"] @ local
     reach = (target.translation - pose[upper].translation).length / max(1e-6, data["arm_len"][side])
-    if reach > data["reach"].get(side, (0.0, 0.0))[0]:
-        data["reach"][side] = (reach, frame)
-    pole = None
-    if side == "r":
-        hint = Vector(curve(RIGHT_POLE, frame))
-        if hint.length > 1e-6:
-            pole = (pose["WPN_root"].to_quaternion() @ hint).normalized()
-    shift_arm(pose, side, target.translation - pose[hand].translation, pole)
-    # Whatever the hand turns by, the forearm pays most of it: the same turn all
-    # at the wrist is what reads as a twisted arm.
-    if abs(turn) > 0.05:
-        elbow = pose[lower].translation.copy()
-        axis = (pose[hand].translation - elbow).normalized()
-        spin = math.radians(turn * TURN_SHARE)
-        pronate = (Matrix.Translation(elbow) @ Quaternion(axis, spin).to_matrix().to_4x4()
-                   @ Matrix.Translation(-elbow))
-        for name in _descendants(lower):
-            pose[name] = pronate @ pose[name]
+    data["reach"][side] = max(data["reach"].get(side, 0.0), reach)
+    shift_arm(pose, side, target.translation - pose[hand].translation)
+    # The roll arrives at the hand from the gun, so the forearm has to pay for
+    # part of it: all of it on the wrist reads as a broken joint.
     if abs(roll_degrees) > 0.05:
         elbow = pose[lower].translation.copy()
         axis = (pose[hand].translation - elbow).normalized()
@@ -658,10 +514,11 @@ def hold_hand(pose, side, offset, roll_degrees, data, frame):
                    @ Matrix.Translation(-elbow))
         for name in _descendants(lower):
             pose[name] = pronate @ pose[name]
-    for name, hold in data["holds"][side].items():
-        pose[name] = pose["WPN_root"] @ Matrix.Translation(offset) @ hold
-        if side == "r" and curl > 0.001:
-            pose[name] = pose[name] @ Matrix.Rotation(math.radians(data["fist_delta"].get(name, 0.0) * curl), 4, "Z")
+    pivot = pose[hand].translation.copy()
+    fix = target.to_quaternion() @ pose[hand].to_quaternion().inverted()
+    turn = Matrix.Translation(pivot) @ fix.to_matrix().to_4x4() @ Matrix.Translation(-pivot)
+    for name in hand_subtree(side):
+        pose[name] = turn @ pose[name]
 
 
 def viewmodel_jolt(pose, kind, frame):
@@ -688,28 +545,32 @@ def viewmodel_jolt(pose, kind, frame):
 
 def bullpup_reload(pose, frame, data):
     """One frame of the bullpup empty reload, authored on the M4 cue clock."""
-    roll = bullpup_receiver(pose, frame, data)
+    roll = bullpup_receiver(pose, frame)
+    q = pose["WPN_root"].to_quaternion()
+    inv = pose["WPN_root"].inverted()
 
-    # The magazine, bolt and charging handle are placed outright: the M4 clip
-    # animates all three (its magazine flies a 0.7 m arc), and none of that
-    # belongs to a bullpup change.
     magazine = Vector(curve(MAG_PATH, frame))
-    pose["WPN_SOCKET_Magazine"] = pose["WPN_root"] @ Matrix.Translation(WELL_LOCAL + magazine)
+    pose["WPN_SOCKET_Magazine"] = Matrix.Translation(q @ magazine) @ pose["WPN_SOCKET_Magazine"]
 
     pull = curve(HANDLE_PULL, frame)[0]
     held = data["bolt_back"] * (1.0 - smooth((frame - BOLT_RELEASE) / 3.0))
-    pose["WPN_bolt"] = pose["WPN_root"] @ Matrix.Translation(BOLT_LOCAL + held + Vector((0.0, pull, 0.0)))
-    pose["WPN_ChargingHandle"] = pose["WPN_root"] @ Matrix.Translation(HANDLE_LOCAL + Vector((0.0, pull, 0.0)))
+    want = held + Vector((0.0, pull, 0.0))
+    now = (inv @ pose["WPN_bolt"].translation) - BOLT_LOCAL
+    pose["WPN_bolt"] = Matrix.Translation(q @ (want - now)) @ pose["WPN_bolt"]
+    if pull > 1e-5:
+        pose["WPN_ChargingHandle"] = (Matrix.Translation(q @ Vector((0.0, pull, 0.0)))
+                                      @ pose["WPN_ChargingHandle"])
 
-    if any(lo <= frame <= hi for lo, hi in HAND_CARRY):
+    if HAND_CARRY[0] <= frame <= HAND_CARRY[1]:
         target = data["grab"] + magazine          # locked to the magazine
     else:
         target = Vector(curve(data["hand_keys"], frame))
-    hold_hand(pose, "r", target - data["grip"].translation, roll, data, frame)
-    hold_hand(pose, "l", Vector((0.0, 0.0, 0.0)), roll, data, frame)
+    right = Matrix.Translation(target - data["grip"].translation) @ data["grip"]
+    hold_hand(pose, "r", right, roll, data)
+    hold_hand(pose, "l", data["left"], roll, data)
 
 
-def shift_arm(pose, side, shift, pole_hint=None):
+def shift_arm(pose, side, shift):
     upper, lower, hand = "upperarm_" + side, "lowerarm_" + side, "hand_" + side
     a, b, c = [pose[n].translation.copy() for n in (upper, lower, hand)]
     goal = c + shift
@@ -720,14 +581,8 @@ def shift_arm(pose, side, shift, pole_hint=None):
     if d >= l1 + l2:
         a += axis * (d - l1 - l2 + 0.0001)
         d = (goal - a).length
-    # Where the elbow ends up decides whether the forearm clears the receiver:
-    # the accepted hold keeps it high, which sends the arm straight through the
-    # stock on the way to a bullpup magazine well. A caller can name the side the
-    # elbow should swing to instead.
-    pole = pole_hint.copy() if pole_hint is not None else (b - a)
+    pole = b - a
     pole -= axis * pole.dot(axis)
-    if pole.length < 1e-6:
-        pole = (b - a) - axis * (b - a).dot(axis)
     pole.normalize()
     along = (l1 * l1 - l2 * l2 + d * d) / (2 * d)
     elbow = a + axis * along + pole * math.sqrt(max(0.0, l1 * l1 - along * along))
@@ -776,13 +631,6 @@ for kind, (source_name, end) in CLIPS.items():
                 # The offset lives in the receiver's frame, so it has to follow
                 # this frame's receiver orientation, not the idle one.
                 shift_arm(pose, "l", pose["WPN_root"].to_quaternion() @ (delta_local * weight))
-        if not bullpup:
-            # The bullpup stock reaches 0.46 m behind the receiver's origin, so
-            # the accepted M4 hold buries the firing forearm in it; in ADS the
-            # same arm ends up 4.6 cm from the camera. Re-solve the elbow
-            # outboard without moving the hand.
-            pole = (pose["WPN_root"].to_quaternion() @ Vector(RIGHT_ARM_POLE)).normalized()
-            shift_arm(pose, "r", Vector((0.0, 0.0, 0.0)), pole)
         for name in PINNED_MARKERS:
             pose[name] = pose["WPN_root"] @ rest["WPN_root"].inverted() @ rest[name]
         poses.append(pose)
@@ -827,11 +675,10 @@ for kind, (source_name, end) in CLIPS.items():
     report[kind] = {"source": source_name, "duration": end / 60.0, "frames": end, "fps": 60,
                     "sample_rate": 120, "left_arm_shift": bool(grab)}
     if data:
-        report[kind]["reach"] = {side: [round(value, 3), frame] for side, (value, frame) in data["reach"].items()}
-        for side, (value, frame) in sorted(data["reach"].items()):
+        report[kind]["reach"] = {side: round(value, 3) for side, value in data["reach"].items()}
+        for side, value in sorted(data["reach"].items()):
             if value > 1.0:
-                print("ASH12_REACH_WARNING %s arm_%s %.3f of full extension at frame %.1f"
-                      % (kind, side, value, frame))
+                print("ASH12_REACH_WARNING %s arm_%s %.3f of full extension" % (kind, side, value))
 
 set_action(bpy.data.actions["ASH12_idle"])
 scene.frame_set(0)

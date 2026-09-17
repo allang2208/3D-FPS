@@ -21,7 +21,7 @@ void AFPSGAMECharacter::RunASH12IntegrationAudit()
     auto* P=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     auto* PC=Cast<APlayerController>(Controller);
     if(!P||!PC||!P->ProfileSlot().Contains(TEXT("ASH12SightAudit"))||GetWorld()->GetTimeSeconds()<5)return;
-    static int Stage=0;static double At=0;
+    static int Stage=0;static double At=0;static int32 BeatIndex=0;
     static const float EyeReliefs[]={12.f,18.f,24.f};
     FString Run;FParse::Value(FCommandLine::Get(),TEXT("ASH12Run="),Run);Run=FPaths::MakeValidFileName(Run);
     const FString Out=FPaths::ProjectSavedDir()/TEXT("ASH12SightAudit")/Run;
@@ -91,5 +91,37 @@ void AFPSGAMECharacter::RunASH12IntegrationAudit()
     }
     else if(Stage==13&&Now-At>1.0){bGunsmithInspection=true;Stage=14;At=Now;}
     else if(Stage==14&&Now-At>1.5){Capture(TEXT("ASH12-closeup.png"));bGunsmithInspection=false;Stage=15;At=Now;}
-    else if(Stage==15&&Now-At>0.5){PC->ConsoleCommand(TEXT("quit"));Stage=20;}
+    else if(Stage==15&&Now-At>0.6)
+    {
+        // Empty the magazine so the reload that follows is the empty one, then
+        // drive it with the same key a player presses. Captures land on the
+        // frames the runtime fires its mechanical cues on (21/60, 54/60, 80/60,
+        // 130/60 of the 2.7 s clip), plus the pull-out beat.
+        auto S=P->Snapshot();S.Items.Reset();S.Hotbar.Init(TEXT(""),4);S.HotbarDefinitions.Init(TEXT(""),4);
+        auto Rifle=P->CreateItem(TEXT("ue_ash12"));Rifle.Place=1;Rifle.Cell=9;Rifle.Magazine=0;S.Items.Add(Rifle);
+        auto Ammo=P->CreateItem(TEXT("ammo_127"),120);if(!Ammo.Data.IsEmpty())S.Items.Add(Ammo);
+        if(!P->CommitState(S))UE_LOG(LogTemp,Error,TEXT("ASH12_RELOAD_CAPTURE could not empty the rifle"));
+        Stage=16;At=Now;
+    }
+    else if(Stage==16&&Now-At>1.0)
+    {
+        PC->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::R,IE_Pressed,1.0f));
+        PC->InputKey(FInputKeyEventArgs::CreateSimulated(EKeys::R,IE_Released,0.0f));
+        UE_LOG(LogTemp,Display,TEXT("ASH12_RELOAD_CAPTURE key=R source_time=%.4f"),ReloadSourceTime(WeaponStateElapsed));
+        Stage=17;At=Now;BeatIndex=0;
+    }
+    else if(Stage==17)
+    {
+        static const float Beats[]={0.35f,0.70f,0.90f,1.33f,2.17f};
+        const double Since=Now-At;
+        if(BeatIndex<int32(UE_ARRAY_COUNT(Beats))&&Since>=Beats[BeatIndex])
+        {
+            UE_LOG(LogTemp,Display,TEXT("ASH12_RELOAD_CAPTURE beat=%.2f source_time=%.4f"),
+                Beats[BeatIndex],ReloadSourceTime(WeaponStateElapsed));
+            Capture(*FString::Printf(TEXT("ASH12-reload-t%03d.png"),int32(Beats[BeatIndex]*100)));
+            ++BeatIndex;
+        }
+        else if(BeatIndex>=int32(UE_ARRAY_COUNT(Beats))&&Since>3.6)Stage=20;
+    }
+    else if(Stage==20){PC->ConsoleCommand(TEXT("quit"));}
 }
