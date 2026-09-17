@@ -265,3 +265,187 @@ Fab 库 20 个条目**没有大理石／石材瓷砖材质包**；与石材相�
 数量键同步改成「当前分类第 N 项」：面板里 1-9 选当前分类第 N 张卡（材质 1 木材 / 2 石头 / 3 大理石）；建造中 1-3 是材质、4-9 是构件。已通过编辑器内 `LiveCoding.CompileSync` 热补丁生效（17:33:18 `Live coding succeeded`）。
 
 证据：`save_packages=True`；读回 3 条材质；外部看到 `DA_VoxelBuildPalette.uasset` 由 4512 B / 17:19:32 变为 4973 B / 17:32:12。未在游戏里铺过，实际贴图尺度由用户测试。
+
+## 矮栏杆罗马柱古典化升级（2026-09-17 追加，v2 已被 v3 取代）
+
+用户确认方向后对 `SM_RomanBaluster_Small`（面板 ID `baluster_small`）做模型优化升级。**当前磁盘版本为 v3**（`upgrade_baluster_v3_20260917.py`，19:39 落盘 491,146 B）。作者脚本沿革：v2 `upgrade_baluster_20260917.py`（有黑块回归，保留作记录）→ v3。
+
+### 升级内容（v1 → v3）
+
+| 项 | 9-16 版（v1） | v3 |
+| --- | --- | --- |
+| 柱身剖面 | 4–6 点直边收分圆台 | 56 点古典花瓶式：下 torus 环（r19.25）→ 凹弧 scotia → 鼓腹（r17.8，带收分）→ **双 astragal 珠环** → echinus 外翻 |
+| 凹槽 | 无 | 16 条浅圆凹槽（Ø3 刀具 @ R17.8，z 35–67），只在鼓腹段切入，两端自然淡出 |
+| 倒角/微位移 | 无 | polygroup bevel 0.12 + `T_Stone_V2_Detail` 置换 0.10 |
+| 旋成分辨率 | 48 | 64 |
+| 材质 | `M_Plaster_Detailed` | **`M_RomanStone_V2`**（槽 0 + 调色板 surface，家族统一） |
+| 面数 | 约 0.9–1.9k | 13,648 |
+
+### v2 黑块回归与根因
+
+v2 曾把三个壳体 `self_union` 合并（无头环境返回 success、单流形），用户在引擎里看到**柱身黑色块**。v3 复制 `rebuild_in_editor.py` 的已验证契约：**不做并集**，壳体间 0.5 cm 重叠各自封闭。对 v3 的独立进程网格法证（`dump_baluster_obj.py` 导出三角面汤）：存储法线与环绕方向 **100% 一致、零翻转面片**，体积 102,374 cm³ 与引擎读数一致，按存储法线着色无任何黑块。结论：v2 黑块来自无头 `self_union` 对焊接面法线/环绕的破坏。
+
+**教训**：无头环境 `self_union` 即使返回 success 且拓扑封闭，也可能破坏法线方向；多壳体重叠方案是首选，与其 9-16 `rebuild_in_editor.py` 一致。
+
+### 体素契约保持不变
+
+bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最大半径 19.25 < 20。
+
+### 证据
+
+- 磁盘：`SM_RomanBaluster_Small.uasset` 491,146 B / 19:39；`Rounded/DA_VoxelBuildPalette.uasset` 19:38（surface=`M_RomanStone_V2`）。
+- 进程内 v3 构建：`RESULT: PASS`（8 步 0 失败，封闭、开放边 0、3 壳体、bbox 40×40×100）。
+- 下一进程（dump 运行）读回：6828 顶点 / 13,648 面 / closed / 3 comps。
+- 离线渲染 `preview_20260917/v3_shading_stored.png`、`v3_front_stored.png`：真实资产网格按存储法线着色，无黑块。
+- 碰撞：ConvexHulls(8) 重建。
+
+### 边界与遗留
+
+- **保存事故重演**：19:37 首次 v3 运行时用户编辑器仍开着并持有该资产，网格保存被静默吞掉（调色板却落盘了）；编辑器关闭后 19:39 重跑才真正落盘。验证必须看磁盘时间戳，进程内 success=True 不算数。
+- 真实引擎画面截图脚本 `preview_engine_20260917.py` 已就绪（SceneCapture2D + 显式 `capture_scene()` + `export_render_target`；`take_high_res_screenshot` 与 HighResShot 控制台在远程执行下均不产文件）。PIE 运行中会截到黑图，需在非 PIE 状态跑：`python Tools/AssetPipeline/ue_python_exec.py --script SourceAssets/RomanColumn20260915/preview_engine_20260917.py`。
+- 材质为家族统一的 `M_RomanStone_V2`（BaseColor 噪声插值 + 粗糙度，无法线贴图）。若要更精致的表面，可为该材质加"高度转法线"链，但 XAtlas 岛间会出缝，需先离线烘焙平铺法线贴图——待用户确认再动。
+- 踩坑记录：Git Bash 给 `UnrealEditor-Cmd.exe` 传反斜杠路径会静默失败（进程未启动、无任何输出），统一用正斜杠路径。
+
+## 栏杆套件接入建造调色板（2026-09-17 晚追加）
+
+用户要求把好看的罗马栏杆融入建造系统。代码事实（`VoxelBuildPalette.h` / `VoxelBuildWorldPrefab.cpp`）：预制构件支持 90° 旋转（`ComponentYaw`+`RotatedFootprint`）、无支撑校验（顶梁可悬空跨放）、占格不重叠即可放置——**接入零代码，只写调色板数据**。
+
+### 新建网格
+
+| 资产 | 尺寸 | 说明 |
+| --- | --- | --- |
+| `SM_RomanRail_100/_200/_300` | 100/200/300 × 40 × 40 cm | 圆弧顶梁，截面**逐点复刻** `SM_BalustradeSegment_20` 的模压梁（用户在游戏中认可的样式），20 格对齐，`M_RomanStone_V2` |
+
+### 调色板新增（活动 `Rounded/DA_VoxelBuildPalette`）
+
+| 稳定 ID | 名称 | 占格 | 网格 |
+| --- | --- | --- | --- |
+| `balustrade_rail_100/200/300` | 罗马栏杆顶梁 1/2/3米 | (5|10|15)×2×2 | `SM_RomanRail_*` |
+| `balustrade_segment` | 罗马栏杆整体段 2米 | 10×2×8 | `SM_BalustradeSegment_20` |
+
+### 门构件字段回归与修复
+
+当日早些时候的调色板重建脚本只复制了 `FVoxelBuildPrefab` 9 个字段中的 6 个，**抹掉了门构件的 `actor_class`/`actor_offset_cm`/`material`**（门会退化成静态方块、不能 E 键开）。`integrate_railing_kit_20260917.py` 改为全字段复制并按 `add_door_prefab_entries_20260917.py` 的表恢复 4 扇门。教训：**重建 USTRUCT 数组必须拷贝全部字段**，新增字段后旧脚本会静默丢数据。
+
+### 证据
+
+- 顶梁磁盘：20:57 落盘（首版剖面 X 未居中被否，60 宽→40 宽修正后经编辑器通道重存）。
+- 调色板磁盘：9,374 B / 20:59；下一无头进程读回 10 条：4 门 `actor_class` 全部恢复、4 栏杆件占格尺寸自检 OK。
+- 首次无头写调色板失败（Error 32 文件共享冲突）：**运行中的编辑器持有调色板**；改走编辑器内远程执行通道（9-16 先例）成功。
+
+### 玩家用法
+
+- 整体段连排：`罗马栏杆整体段 2米` 沿 20 格铺开，端面截面一致，天然拼合成连续栏杆。
+- 自由组合：`矮栏杆罗马柱`（2×2×5）按 100/200 cm 间距摆 → `顶梁 1/2/3米` 放柱顶上一行（占格不重叠、可悬空），旋转 90° 换方向。
+- 遗留可选：拐角/末端收口件、两柱间自动桥接顶梁（需写代码）、材质法线贴图。
+
+## 建造世界实装替换（2026-09-17 深夜追加）
+
+用户要求删掉游戏里现存的手砌体素栏杆，换成新构件，柱间空隙用体素块拼接。目标存档 `Voxel20_EA319301D380398C3E2B85F8D5D81163.sav`（WorldKey `ColdSteelPlayer|DayNight_Lighting`）。
+
+### 旧布局 → 新布局
+
+- 旧：305 块大理石体素手砌（x27..36，y-36..-18，台阶状），0 预制件——"方形顶梁"问题的本体。
+- 新（同区域，x 格 28..29，沿 y）：
+  - `baluster_small` ×3，锚点 y=-36/-27/-18（180 cm 节奏，占格 2×2×5）
+  - 大理石体素填缝 ×56：两段 7 格间隙 × 2 格宽 × 2 格高（z 0..1，与柱础 40 cm 齐平，视觉上把柱子连成整体）
+  - `balustrade_rail_200` ×2，z 格 5（柱顶上一行），y=-36 与 -26，400 cm 闭合无重叠
+
+### 踩坑记录（重要）
+
+1. **无头 commandlet 放不了体素**：`ScenePlacementAllowed` 的地面锚定射线在 commandlet 世界全部失败（`VOXEL_REJECT stage=support`、格子无锚），即使 `load_map` 加载了 DayNight 也一样；而预制件（`PlacePrefab`）不做地面/支撑校验所以能放。**体素操作必须在活着的 PIE 建造世界里做**——用户会话里 305 块体素本身就是证明。
+2. **活会话自动存档覆盖**：用户在建造模式时，其会话的 `TickPersistence` 会把内存旧状态写回存档，无头进程的 `Save()` 结果几分钟后即被覆盖（三次实测）。结论：改建造世界必须改**活世界**（远程执行进 PIE）或确认用户完全退出。
+3. 最终路径：轮询远程执行通道 → 检测 PIE 内 `VoxelBuildWorld` Actor → 就地改建（`RemovePrefab`/`EditCells(None)` 清场 → `PlacePrefab` ×5 → `EditCells` 填缝 ×56）→ `Save()`。
+
+### 证据
+
+存档 1,619 B / 21:44：含 `baluster_small`、`balustrade_rail_200`、恰好 56 处 `marble`。脚本 `rebuild_railing_20260917.py`（无头版，含诊断）、`rebuild_live_20260917.py`（活世界版，最终采用）、`dump_build_world.py`（布局 dump）。
+
+## 凉亭 v2：更大跨度 + 真半球穹顶 + 140 凹格（2026-09-17 追加）
+
+用户要求：场地扩大（原来太小）、穹顶要真圆顶并带浮雕（现在像圆锥）、参考 GitHub 上的建筑资料。作者脚本
+`build_pavilion2_20260917.py`（建模+摆场）、`integrate_pavilion2_20260917.py`（柱环整体件+调色板）、
+`render_pavilion2.py`（离线几何自查渲染）、`probe_*.py`（根因与约定探针）。
+
+### 旧穹顶为什么是圆锥（根因，不是感觉问题）
+
+离线导出旧 `SM_PavilionDome_20` 的三角面汤后按 z 分桶：**z=20 与 z=286 之间一个顶点都没有**——外壳是一条直弦，
+字面上的圆锥。根因是最初 `build_pavilion.py` 里的 `self_union(dome, True, True)`：两个布尔参数实为
+`bFillHoles` / `bTrimFlaps`，`bTrimFlaps=True` 会把弧面塌成弦。同一剖面分阶段实测（`probe_bisect_dome.py`）：
+
+| 阶段 | 三角面 | z 60..260 的顶点环 |
+| --- | --- | --- |
+| 原始 revolve（剖面没变） | 6144 | 有（69/92/116/138/160…） |
+| + `self_union(True, True)` | 2112 | **无**（直弦） |
+| + `self_union(False, False)` | 5857 | 有 |
+| + auto_uv / 保存 | 不变 | 不变 |
+
+结论：**无头几何不要用 `self_union(True, True)`**；至少传 `(False, False)`，而本工程既有的"多壳重叠、不并集"
+做法（[矮栏杆 v3](#矮栏杆罗马柱古典化升级2026-09-17-追加v2-已被-v3-取代)）更稳。
+
+### 新尺寸与建筑依据（按万神殿实测数据 1:6.1 缩放）
+
+| 构件 | 网格 | 20 cm 占格 | 实际尺寸 |
+| --- | --- | --- | --- |
+| 台基 | `SM_RomanPavilionBase_20` | 48 × 48 × 1 | 960 × 960 × 20 |
+| 柱环（10 柱 + 额枋，整体件） | `SM_RomanPavilionColonnade_20` | 44 × 44 × 17 | 880 × 880 × 340 |
+| 额枋环（单件，可单独用） | `SM_RomanPavilionArch_20` | 44 × 44 × 4 | 880 × 880 × 80 |
+| 穹顶 | `SM_RomanPavilionDome_20` | 40 × 40 × 20 | 800 × 800 × 400 |
+
+- 平面：柱环半径 360（10 柱，柱距 226）、台基半径 480、额枋内缘 320 / 面 400 / 檐口 440、穹顶外半径 400、
+  内壳（soffit）360、天窗半径 72。穹顶外缘与额枋面、柱础外缘同处 r=400，是"上下同一竖面"的古典关系。
+- 比例：内部直径 720、内部净高 740 ≈ **1:1**——万神殿的规则（起拱在总高一半、顶点等于直径）。
+- 凹格：**5 行 × 每行 28 格 = 140**（万神殿实测 140 格），行高按 `Δφ = k·sinφ`（k = 0.78·2π/28）递减，
+  这是让穹顶读成穹顶而不是帐篷的关键；顶部留 137 cm **素面穹冠**。格深 13（≈格宽 1/5）、环肋 14、子午肋 16，
+  后两者 = 万神殿实测 0.84 m / 1.0 m ÷ 6.1。
+- 天窗：72/360 = 0.20（万神殿 0.202）；天窗圈外侧有凸出 6 cm 的压顶环。
+- 外侧：下半部 3 道**内退**阶梯环（每道 5 cm）+ 天窗圈。凹格在罗马做法里只做内侧（万神殿 141 格全在内）。
+- 没能照抄的地方：万神殿阶梯环之所以深，是因为壳厚（5.9 m / 44 m = 13%）；本件壳厚 40 / 720 = 5.6%，
+  阶梯一级只能退 5 cm，再深会切穿内壳。这是尺寸缩放带来的硬约束，不是省事。
+
+### 与旧版对比
+
+| 项 | 旧（9-16） | v2 |
+| --- | --- | --- |
+| 平面直径 | 640（柱环 480） | 960（柱环 720） |
+| 柱数 | 8 @ R240 | 10 @ R360 |
+| 穹顶 | 直圆锥，2112 面 | 半球壳 + 140 凹格，23712 面 |
+| 内部面积 | ≈ 18 m² | ≈ 41 m² |
+| 内部净高 | 620 | 740 |
+
+### 场景（DayNight_Lighting）
+
+- 旧 11 个 `Pavilion_*` actor 删除，新 13 个 `RomanPavilion2_*`：台基 z=0、10 柱 z=20、额枋 z=280、穹顶 z=360。
+- 位置由 (1350, 0) 后移到 **(1350, -400)**：新台基直径 960 会压到大理石地板（地板边缘 y=150），后移后留 70 cm。
+- 下一进程读回：关卡 38 actor、13 个新凉亭、0 个旧凉亭；关卡文件 21:55:03 落盘。
+
+### 建造调色板
+
+- 活动调色板 `Rounded/DA_VoxelBuildPalette` 新增 4 条（`pavilion_base` / `pavilion_colonnade` / `pavilion_arch` /
+  `pavilion_dome`），共 14 条；四条占格与网格包围盒逐轴相等（脚本自检 OK），4 扇门的 `actor_class` 经整字段复制保留。
+- **柱环整体件存在的原因**：10 根柱子的柱心在 R360 圆周上，坐标不是 20 cm 格点（如 291.2 cm = 14.56 格），
+  玩家无法徒手摆正——把柱环和额枋合成一件才能保证几何正确。
+- 柱环里的柱身经容差简化到 6,422 面（源 32,708，20%），整体件 68,116 面 / 3.73 MB；单件 `roman_column`
+  仍是全精度网格，节庆级细节未被牺牲。
+
+### 本次踩到的新坑（已同步进技能与记忆）
+
+1. **UE 5.8 Python 的 `unreal.Rotator(...)` 构造参数顺序是 (roll, pitch, yaw)**，不是 C++ 的 (pitch, yaw, roll)
+   ——`Rotator(10, 20, 30)` 读回 pitch=20 yaw=30 roll=10。按 C++ 顺序传会把径向肋条绕错轴、镜像到起拱面以下
+   （实测顶点 z = -356.1）。该旋转下的局部轴：X 沿子午线、Y 切向、Z 法线，模板盒子要"深度在 X、宽度在 Y"。
+2. **无头 commandlet 里 `spawn_static_mesh_actor` 不生成 actor**（`LogUtils: Warning: SpawnActorFromObject.
+   No actor was spawned.`，Vibe3D 报 handle -1）；用 `EditorActorSubsystem.spawn_actor_from_class(StaticMeshActor)`
+   再 `set_static_mesh` 替代（`dump_build_world.py` 早在用这条）。
+3. **同一进程里先加载关卡会让调色板 `save_packages` 返回 False 且不落盘**；把调色板写入排在所有关卡操作之前即可
+   （`integrate_pavilion2_20260917.py` 的顺序即为此）。
+4. 保存仍可能撞 **MoveFile Error 32**（OneDrive/杀软短暂锁住刚写过的 `.uasset`，日志里是 `LogFileManager:
+   Warning: MoveFile was unable to move … (Error Code 32)`）。进程内 `success=True` 不算数——`publish()` 现在
+   读磁盘时间戳，STALE 时延迟重试。
+5. 保存顺序踩坑：一次构建里台基/额枋**磁盘未更新而穹顶更新了**，逐件磁盘时间戳是唯一可信证据。
+
+### 验证边界
+
+- 已做（进程内 + 跨进程）：几何自检（凹格射线内外判定、顶点 z 范围恰好 0..400、包围盒 = 占格）、逐件磁盘时间戳、
+  下一进程读回关卡、4 条碰撞射线（柱间可通行 / 柱身实心 / 檐口实心 / 中轴命中）。
+- **未做**：引擎内视觉验收、实机走动与光照观感。`preview_20260917/p2_*.png` 是自写 z-buffer 的离线几何自查
+  （`render_pavilion2.py`，不经过引擎），只用于确认凹凸格与体量，不代表引擎画面。
