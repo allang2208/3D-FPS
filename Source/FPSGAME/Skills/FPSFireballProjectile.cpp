@@ -2,6 +2,7 @@
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../WorldGeneration/TerrainDestruction.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SphereComponent.h"
@@ -127,6 +128,9 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
     const FVector Normal=Hit?FVector(Hit->ImpactNormal):-Velocity.GetSafeNormal();
     const FVector Contact=Hit?FVector(Hit->ImpactPoint):Center;
     const FRotator ImpactRotation=FRotationMatrix::MakeFromZ(Normal).Rotator();
+    // Terrain damage: the hills heightfield gets a stamped crater. The hub arena is a
+    // static floor and stays unchanged.
+    TerrainDestruction::CarveCrater(this,Contact,Normal,Cast.Radius);
     const float EffectScale=Cast.Radius/FireballImpactVisuals::BaselineRadius;
     // Set the hit contract before activation, including when taking a pooled component.
     // The local-space transform scales spread; Niagara sprite sizes are world

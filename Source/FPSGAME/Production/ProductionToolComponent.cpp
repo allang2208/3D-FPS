@@ -7,6 +7,7 @@
 #include "../Building/VoxelBuildComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
+#include "HAL/IConsoleManager.h"
 #include "Camera/CameraComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -26,6 +27,13 @@
 
 namespace
 {
+    // The shovel digs where the crosshair points; the heightfield keeps its 20 cm
+    // layer rule, so one swing is one whole layer instead of a melee poke.
+    // The shovel is an aiming tool, not a melee reach: without this it could only hit
+    // ground inside 3.2 m, i.e. straight down at the player's feet.
+    static TAutoConsoleVariable<float> ToolDigReach(
+        TEXT("fps.Tool.DigReach"), 1000.f,
+        TEXT("Shovel aim trace length in cm; the shovel digs where the crosshair points."));
     FSoftObjectPath HarvestMotionPath(const FString& Prefix,const TCHAR* Clip)
     {
         const FString Package=Prefix+Clip;
@@ -165,7 +173,8 @@ bool UProductionToolComponent::TraceResource(FProductionResource& Resource,FHitR
     if (!Camera || !Character.IsValid()) return false;
     FCollisionQueryParams Q(SCENE_QUERY_STAT(ProductionTool),false,Character.Get());
     const FVector Start=Camera->GetComponentLocation();
-    if (!GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Camera->GetForwardVector()*Reach,ECC_Visibility,Q))
+    const float Length=Kind==TEXT("shovel")?ToolDigReach.GetValueOnGameThread():Reach;
+    if (!GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Camera->GetForwardVector()*Length,ECC_Visibility,Q))
     { Reason=TEXT("靠近树干、独立岩块或干燥地面（3.2 米内）"); return false; }
     for (TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
         if (It->ResolveProductionResource(Hit,Resource,Reason)) return true;
@@ -193,7 +202,30 @@ bool UProductionToolComponent::ResolveContact()
     if (HitSound) UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,.65f);
     if (ImpactDust&&(!Depleted||Target.Layer==2)) UGameplayStatics::SpawnEmitterAtLocation(GetWorld(),ImpactDust,Hit.ImpactPoint,Hit.ImpactNormal.Rotation(),FVector(.25f),true,EPSCPoolMethod::AutoRelease);
     if (Depleted && Target.World.IsValid()) Target.World->CompleteProductionHarvest(Target,Hit,Camera->GetForwardVector());
+    if (Depleted && Target.Layer==2)
+    {
+        // The world just removed one 20 cm layer; say so instead of only "collected".
+        Feedback=TEXT("表土挖低 20 cm（继续左键下挖，右键回填）");
+        FeedbackSeconds=3.f;
+    }
     return true;
+}
+
+void UProductionToolComponent::BeginRefill()
+{
+    if(!IsEquipped()||IsBusy())return;
+    if(Kind!=TEXT("shovel")){ShowFeedback(TEXT("回填地面需要铁铲（8）"));return;}
+    if(!Camera||!Character.IsValid())return;
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(ProductionTool),false,Character.Get());
+    const FVector Start=Camera->GetComponentLocation();
+    FHitResult Hit;
+    if(!GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Camera->GetForwardVector()*ToolDigReach.GetValueOnGameThread(),ECC_Visibility,Q))
+    {ShowFeedback(TEXT("瞄准地面再回填"));return;}
+    FString Message;
+    for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
+        if(It->ApplySoilRefill(Hit.ImpactPoint,Message))break;
+    if(Message.IsEmpty())Message=TEXT("这里不是可回填的地形");
+    ShowFeedback(Message);
 }
 
 void UProductionToolComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
@@ -251,7 +283,7 @@ void UProductionToolComponent::UpdateHint()
         if (TraceResource(Target,Hit,Detail))
         {
             auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-            Detail=FString::Printf(TEXT("%s · %d / %d"),*Target.Name,Profile->HarvestProgress(Target.Id),FProductionResource::RequiredHits);
+            Detail=FString::Printf(TEXT("%s · %d / %d"),*Target.Name,Profile->HarvestProgress(Target.Id),Target.HitsNeeded());
         }
     }
     Prompt->SetCaption((IsEquipped()?ToolName+TEXT(" · 左键使用 · 6 斧 / 7 镐 / 8 铲 · F7 收起\n"):FString())+Detail);

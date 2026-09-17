@@ -114,6 +114,16 @@ int32 UColdSteelStatusModel::HarvestProgress(const FString& Id) const
     return Current.HarvestProgress.FindRef(Id);
 }
 
+bool UColdSteelStatusModel::ResetHarvestProgress(const FString& Id)
+{
+    // Topsoil excavation digs one 20 cm layer per completed cycle, so the cell has to
+    // become harvestable again; trees and rocks keep their single-depletion rule.
+    if (Id.IsEmpty() || !Current.HarvestProgress.Contains(Id)) return false;
+    SyncRuntime(); auto P=Snapshot();
+    P.HarvestProgress.Remove(Id);
+    return CommitState(MoveTemp(P));
+}
+
 bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Target, bool& Depleted)
 {
     Depleted=false;
@@ -122,11 +132,12 @@ bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Targe
     if (ColdSteelInventory::Text(*Tool,TEXT("tool_kind")) != Target.RequiredTool)
     { Message=TEXT("工具类型不匹配"); return false; }
     const int32 Before=HarvestProgress(Target.Id);
-    if (Before >= FProductionResource::RequiredHits) { Message=TEXT("此处资源已经采尽"); return false; }
+    const int32 Needed=Target.HitsNeeded();
+    if (Before >= Needed) { Message=TEXT("此处资源已经采尽"); return false; }
     SyncRuntime(); auto P=Snapshot();
     const int32 After=Before+1;
     TArray<FString> Drops;
-    if (After == FProductionResource::RequiredHits)
+    if (After == Needed)
     {
         if(Target.Layer<2)
         {
@@ -152,11 +163,11 @@ bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Targe
     P.HarvestProgress.Add(Target.Id,After);
     // Depletion and every ground pickup are one profile transaction, before visuals.
     if (!CommitState(MoveTemp(P))) return false;
-    Depleted=After == FProductionResource::RequiredHits;
+    Depleted=After == Needed;
     if(!Drops.IsEmpty())GetWorld()->GetSubsystem<UProductionHarvestSubsystem>()->DelayDrops(Drops,
         Target.Layer==0?FProductionTreeFallPlan::Make(Target).ReleaseSeconds():.25f);
     Message=Depleted ? (Target.Layer==0?TEXT("树木正在倒下，落地后对准木材按 E 拾取"):
         Target.Layer==1?TEXT("岩石已破碎，对准石材或矿石按 E 拾取"):TEXT("表土已采集，材料收入背包")) :
-        FString::Printf(TEXT("%s  %d / %d"),*Target.Name,After,FProductionResource::RequiredHits);
+        FString::Printf(TEXT("%s  %d / %d"),*Target.Name,After,Needed);
     return true;
 }

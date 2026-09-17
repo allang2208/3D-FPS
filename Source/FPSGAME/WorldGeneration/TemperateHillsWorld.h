@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/SaveGame.h"
 #include "../FPSGAMEGameMode.h"
+#include "TemperateHillsSurface.h"
 #include "TemperateHillsRiver.h"
 #include "TemperateHillsWorld.generated.h"
 
@@ -54,15 +55,45 @@ public:
     UPROPERTY(EditAnywhere, Category="Fog", meta=(ClampMin="0",ClampMax="1")) float ValleyFogDensity = .32f;
 };
 
-/** V1 stores the world identity/seed. It does not claim harvest/building persistence. */
+USTRUCT(BlueprintType)
+struct FHillsCraterRecord
+{
+    GENERATED_BODY()
+    UPROPERTY() double X=0;
+    UPROPERTY() double Y=0;
+    UPROPERTY() double Radius=0;
+    UPROPERTY() double Depth=0;
+    UPROPERTY() double Rim=0;
+};
+
+USTRUCT(BlueprintType)
+struct FHillsTerrainEditRecord
+{
+    GENERATED_BODY()
+    UPROPERTY() int32 Type=0;
+    UPROPERTY() double X=0;
+    UPROPERTY() double Y=0;
+    UPROPERTY() double Radius=0;
+    UPROPERTY() double HalfX=0;
+    UPROPERTY() double HalfY=0;
+    UPROPERTY() double Amplitude=0;
+    UPROPERTY() double Lip=0;
+    UPROPERTY() int32 Seed=0;
+};
+
+/** V1 stores the world identity/seed; V2 craters; V3 general terrain edits. */
 UCLASS()
 class FPSGAME_API UTemperateHillsSave : public USaveGame
 {
     GENERATED_BODY()
 public:
-    UPROPERTY() int32 Version = 1;
-    UPROPERTY() int32 Seed = 122;
-    UPROPERTY() FGuid WorldId;
+    // Exposed for maintenance tooling (Tools/WorldGeneration/clean_hills_edits.py).
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) int32 Version = 1;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) int32 Seed = 122;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) FGuid WorldId;
+    // Kept so V2 saves still load; new saves write Edits only.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FHillsCraterRecord> Craters;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FHillsTerrainEditRecord> Edits;
 };
 
 struct FTemperatePlacement
@@ -96,7 +127,26 @@ public:
     TemperateRiver::FSample SampleRiver(double X, double Y) const
     { return RiverPlan ? RiverPlan->Sample(X, Y) : TemperateRiver::FSample(); }
     FVector SurfaceNormal(double X, double Y) const;
-    void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+    /** Generated height before any runtime crater is applied. */
+    double BaseHeight(double X, double Y) const;
+    /** Signed height delta from all runtime terrain edits (+raised, -dug). */
+    double TerrainOffsetAt(double X, double Y) const;
+    /** True when any edit still influences this point (bucketed lookup). */
+    bool TerrainEditTouchesPoint(double X, double Y) const;
+    /** Fireball/dig crater: world-space centre, radius and depth in centimetres. */
+    bool ApplyCrater(const FVector& Location, double RadiusCm, double DepthCm, double RimCm);
+    /**
+     * Grid-aligned shovel edit. Half extents and amplitude are centimetres; a
+     * negative amplitude digs down, so every call moves the ground by whole
+     * 20 cm layers. Callers snap the centre to the 20 cm world grid.
+     */
+    bool ApplyTerrainStep(const FVector& Location, double HalfXCm, double HalfYCm, double AmplitudeCm, uint32 Seed);
+    /** Right-click refill: raises one 20 cm layer and consumes the shovel's soil. */
+    bool ApplySoilRefill(const FVector& Location, FString& OutMessage);
+    /** Removes PCG ground cover (grass only, never trees/rocks) inside a radius. */
+    int32 DestroyGroundCover(const FVector& Center, double RadiusCm);
+    int32 GetTerrainEditCount() const { return TerrainEdits.Num(); }
+    void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out, bool IncludeRegrowth=false) const;
     uint32 LayoutHash(int32 Layer) const;
     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
@@ -154,6 +204,17 @@ private:
     void EndBackdrop();
     void ResolveSession();
     void RunAudit();
+    void InvalidateTerrainCells(const FVector2D& Center, double Radius);
+    void PersistTerrainEdits();
+    void AddTerrainEdit(const TemperateHillsSurface::FTerrainEdit& Edit);
+    /** Coarse spatial index (bucket -> indices into TerrainEdits), rebuilt on every change. */
+    void RebuildEditBuckets();
+    /** Clears PCG ground cover inside one edit's footprint. */
+    int32 ClearCoverForEdit(const TemperateHillsSurface::FTerrainEdit& Edit);
+    bool IsGroundCoverMesh(const class UStaticMesh* Mesh) const;
+    TArray<TemperateHillsSurface::FTerrainEdit> TerrainEdits;
+    TMap<int64, TArray<int32>> EditBuckets;
+    double NextCoverSweep = 0;
     void AuditCheck(bool Pass, const TCHAR* Message);
 };
 

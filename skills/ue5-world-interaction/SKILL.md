@@ -7,6 +7,7 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 - For harvested trees, original stumps, cut-plane hinges, or Nanite tree crowns, read [tree cutting and falling](references/tree-harvest-cut-and-fall.md).
 - For FPSGAME dropped weapon models, gravity, camera-aimed E interactions, or drop hitches, read [physical pickups and preview reuse](references/fpsgame-physical-pickups.md).
 - For FPSGAME 20 cm voxel building (grid snapping, ghost preview, instanced gold outline, snap vs free placement), read [voxel placement interaction](references/fpsgame-voxel-placement.md).
+- For FPSGAME heightfield terrain destruction (explosion craters, shovel dig/refill, 20 cm grid quantization, sink/rise caps, per-cell rebuild and edit bucketing), read [terrain destruction](references/fpsgame-terrain-destruction.md).
 - For FPSGAME item art, three-view references, or RTX 5080 model generation, use the `ue5-item-asset-workflow` skill for photorealistic item style and asset validation.
 - Define interaction model: overlap-driven, trace-driven, or explicit use key.
 - Define actor set: pickup actor, optional spawner, optional visual mapping data asset.
@@ -101,6 +102,12 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 - Symptom: frame spikes near dense interaction areas.
   - Locate: per-frame trace/overlap workload and unnecessary ticking.
   - Fix: reduce polling frequency, gate traces by input/distance, disable idle tick.
+- Symptom: a dig tool only reaches the ground right at the player's feet.
+  - Locate: the tool is still using the melee/production reach (e.g. 3.2 m), so at eye height the ray only meets the ground at a steep downward angle.
+  - Fix: give aiming tools their own trace length (project: `fps.Tool.DigReach`), keep the short reach for harvesting, and drive dig/refill from the crosshair ray.
+- Symptom: a terrain edit raises the ground where it should sink (or the reverse).
+  - Locate: the height delta is already signed (negative = sink) but the call site subtracts it again.
+  - Fix: define the edit value as "the delta added to the generated height" and use `+` at every site (height lookup, mesh vertex, numeric normal); one extra negation turns every pit into a mound.
 - Symptom: preview ghost or highlight survives after leaving the interaction mode.
   - Locate: cached component pointers kept in file-scope statics (reset by a Live Coding reload), instance buffer cleared but never hidden (or hidden but never cleared), no cleanup on the non-key exit paths.
   - Fix: clear instances + visibility + the rebuild signature cache on every exit path, re-resolve the component by name from a UPROPERTY host when the cache is empty, and add a cheap per-frame safety net while the mode is off.

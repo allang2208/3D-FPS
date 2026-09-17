@@ -29,6 +29,8 @@ public:
     bool IsBusy() const { return Elapsed>=0.f || EquipElapsed>=0.f; }
     void RefreshHeldTool();
     void BeginUse();
+    /** Right-click while a shovel is out: raise one 20 cm layer, spending soil. */
+    void BeginRefill();
     void CancelUse();
     void ShowFeedback(const FString& Message);
     UPROPERTY(EditAnywhere,Category="Production",meta=(ClampMin="100",ClampMax="500",Units="cm")) float Reach = 320.f;

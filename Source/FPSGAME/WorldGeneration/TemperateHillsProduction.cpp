@@ -19,7 +19,10 @@ FString ATemperateHillsWorld::ProductionResourceId(int32 Layer,uint64 Candidate)
 bool ATemperateHillsWorld::IsProductionDepleted(int32 Layer,uint64 Candidate) const
 {
     const auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
-    return Profile && Profile->HarvestProgress(ProductionResourceId(Layer,Candidate))>=FProductionResource::RequiredHits;
+    const FString Id=ProductionResourceId(Layer,Candidate);
+    // Surface soil digs one 20 cm layer per cycle; trees and rocks still deplete once.
+    const int32 Needed=Layer==2?1:FProductionResource::RequiredHits;
+    return Profile && Profile->HarvestProgress(Id)>=Needed;
 }
 
 bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const
@@ -36,6 +39,8 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         Resource.CandidateId=(uint64(uint32(X))<<32)|uint32(Y);
         Resource.Layer=2; Resource.World=const_cast<ATemperateHillsWorld*>(this);
         Resource.Id=ProductionResourceId(2,Resource.CandidateId); Resource.Name=TEXT("表土");
+        // One swing per 20 cm layer: the excavation below runs on every hit.
+        Resource.HitsRequired=1;
         Resource.RequiredTool=TEXT("shovel"); Resource.Rewards.Add(TEXT("soil"),2);
         Resource.Transform=FTransform(FVector((X+.5)*250,(Y+.5)*250,Height((X+.5)*250,(Y+.5)*250)));
         return true;
@@ -78,7 +83,24 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
 
 void ATemperateHillsWorld::CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction)
 {
-    if (Resource.Layer==2) return; // Soil is a finite surface harvest, not terrain excavation.
+    if (Resource.Layer==2)
+    {
+        // Topsoil is real excavation: one completed shovel cycle removes one 20 cm
+        // layer over a 240 cm footprint (12 x 12 cells of the 20 cm building grid),
+        // then the cell becomes harvestable again so the next cycle digs deeper.
+        constexpr double SnapCm=20.0;
+        constexpr double HalfCm=120.0;
+        constexpr double LayerCm=20.0;
+        const double CX=FMath::GridSnap(Resource.Transform.GetLocation().X,SnapCm);
+        const double CY=FMath::GridSnap(Resource.Transform.GetLocation().Y,SnapCm);
+        // The sink limit lives in ApplyTerrainStep (fps.Hills.MaxDropCm). Once it is hit the
+        // dig is refused and the cell stays depleted, so soil cannot be farmed forever.
+        if(ApplyTerrainStep(FVector(CX,CY,Height(CX,CY)),HalfCm,HalfCm,-LayerCm,
+            TemperateHillsSurface::Key(int32(CX),int32(CY),uint32(Seed),9111)))
+            if(auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
+                Profile->ResetHarvestProgress(Resource.Id);
+        return;
+    }
     if (auto* ISM=Cast<UInstancedStaticMeshComponent>(Hit.GetComponent())) ISM->RemoveInstance(Hit.Item);
     if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())
     {

@@ -37,10 +37,17 @@
 
 namespace HillsStreaming
 {
+// Edited cells are meshed at this multiple of the normal quad count. 1 disables the
+// refinement (cheaper, faceted); 2 is the shipped default.
+static TAutoConsoleVariable<int32> EditMeshBoost(
+    TEXT("fps.Hills.EditMeshBoost"), 2,
+    TEXT("Extra mesh resolution for cells touched by a crater or shovel edit (1..4)."));
 constexpr double CellSize=6400.0;
 struct FMeshResult
 {
     FIntPoint Key;
+    // Terrain-edit count this mesh was built with; a newer edit makes it stale.
+    int32 EditCount=0;
     bool Detailed=false;
     UE::Geometry::FDynamicMesh3 Mesh;
     UE::Geometry::FDynamicMesh3 Water;
@@ -57,6 +64,9 @@ struct FCell
     TWeakObjectPtr<UInstancedStaticMeshComponent> Trunks;
     TWeakObjectPtr<UDynamicMeshComponent> Water;
     bool Detailed=false;
+    // Set when a runtime crater landed in this cell: the live mesh stays until a
+    // replacement is cooked, then the cell is rebuilt from the new crater list.
+    bool Dirty=false;
     bool PendingDetailed=false;
 };
 struct FCVarOverride
@@ -66,23 +76,43 @@ struct FCVarOverride
     float Applied=0;
 };
 
-TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed,double Half,int32 Seed,TemperateRiver::FPlanPtr River)
+TSharedPtr<FMeshResult,ESPMode::ThreadSafe> MakeMesh(FIntPoint Key,bool Detailed,double Half,int32 Seed,TemperateRiver::FPlanPtr River,const TArray<TemperateHillsSurface::FTerrainEdit>& Edits)
 {
+    Result->EditCount=Edits.Num();
     auto Result=MakeShared<FMeshResult,ESPMode::ThreadSafe>();Result->Key=Key;Result->Detailed=Detailed;
     auto& Mesh=Result->Mesh;Mesh.EnableAttributes();Mesh.Attributes()->EnablePrimaryColors();
     auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
     auto* Colors=Mesh.Attributes()->PrimaryColors();
     const double OX=-Half+Key.X*CellSize,OY=-Half+Key.Y*CellSize;
+    // Only the edits that can still reach this cell (plus the normal stencil) travel into the job.
+    TArray<TemperateHillsSurface::FTerrainEdit> LocalEdits;
+    if(!Edits.IsEmpty())for(const TemperateHillsSurface::FTerrainEdit& Edit:Edits)
+    {
+        const double Reach=TemperateHillsSurface::TerrainEditReach(Edit)+110;
+        if(Edit.X>OX-Reach&&Edit.X<OX+CellSize+Reach&&Edit.Y>OY-Reach&&Edit.Y<OY+CellSize+Reach)LocalEdits.Add(Edit);
+    }
     const bool RiverCell=River&&River->IntersectsCell(OX,OY,CellSize);
     // Even distant river cells retain 2 m terrain spacing to avoid a coarse LOD
     // spanning across the shallow channel and covering its water surface.
-    const int32 Quads=RiverCell?(Detailed?64:32):(Detailed?32:8);
+    // Edited ground gets twice the resolution: a 3 m crater or a 20 cm shovel step
+    // needs the extra vertices to avoid reading as a faceted polygon.
+    const int32 Boost=!LocalEdits.IsEmpty()?FMath::Clamp(HillsStreaming::EditMeshBoost.GetValueOnAnyThread(),1,4):1;
+    const int32 Quads=(RiverCell?(Detailed?64:32):(Detailed?32:8))*Boost;
     const double Step=CellSize/Quads;
     for(int32 Y=0;Y<=Quads;++Y)for(int32 X=0;X<=Quads;++X)
     {
         const double WX=OX+X*Step,WY=OY+Y*Step;
-        Mesh.AppendVertex(FVector3d(X*Step,Y*Step,River?River->Height(WX,WY,Seed):TemperateHillsSurface::Height(WX,WY,Seed)));
-        Normals->AppendElement(FVector3f(River?River->Normal(WX,WY,Seed):TemperateHillsSurface::Normal(WX,WY,Seed)));
+        double Z=River?River->Height(WX,WY,Seed):TemperateHillsSurface::Height(WX,WY,Seed);
+        if(!LocalEdits.IsEmpty())Z+=TemperateHillsSurface::TerrainEditOffset(LocalEdits,WX,WY);
+        Mesh.AppendVertex(FVector3d(X*Step,Y*Step,Z));
+        FVector Normal=River?River->Normal(WX,WY,Seed):TemperateHillsSurface::Normal(WX,WY,Seed);
+        if(!LocalEdits.IsEmpty()&&TemperateHillsSurface::TerrainEditTouches(LocalEdits,WX,WY))
+            Normal=TemperateHillsSurface::NumericNormal([&](double PX,double PY)
+            {
+                const double Base=River?River->Height(PX,PY,Seed):TemperateHillsSurface::Height(PX,PY,Seed);
+                return Base+TemperateHillsSurface::TerrainEditOffset(LocalEdits,PX,PY);
+            },WX,WY);
+        Normals->AppendElement(FVector3f(Normal));
         UVs->AppendElement(FVector2f(WX/400,WY/400));
         const auto Bank=River?River->Sample(WX,WY):TemperateRiver::FSample();
         Colors->AppendElement(FVector4f(Bank.Bank,Bank.Wet,0,1));
@@ -302,7 +332,7 @@ void ATemperateHillsWorld::TickStreaming()
         }
         if(Ready)
         {
-            RemoveMesh(Cell.Mesh.Get());Pending->SetVisibility(true);Cell.Mesh=Pending;Cell.Pending.Reset();Cell.Detailed=Cell.PendingDetailed;
+            RemoveMesh(Cell.Mesh.Get());Pending->SetVisibility(true);Cell.Mesh=Pending;Cell.Pending.Reset();Cell.Detailed=Cell.PendingDetailed;Cell.Dirty=false;
             SetBackdropCellVisible(Pair.Key,true);
         }
     }
@@ -312,7 +342,9 @@ void ATemperateHillsWorld::TickStreaming()
         if(!S.Jobs[I].Future.IsReady())continue;
         auto Result=S.Jobs[I].Future.Get();S.Jobs.RemoveAt(I);
         bool Detailed=false;
-        if(!Wanted(Result->Key,Detailed)||Detailed!=Result->Detailed)break;
+        // An edit that landed while this mesh was cooking makes it stale; drop it
+        // and let the cell rebuild from the newer edit list.
+        if(!Wanted(Result->Key,Detailed)||Detailed!=Result->Detailed||Result->EditCount!=TerrainEdits.Num())break;
         auto& Cell=S.Cells.FindOrAdd(Result->Key);
         auto* C=NewObject<UDynamicMeshComponent>(this);
         AddInstanceComponent(C);C->SetupAttachment(RootComponent);C->SetRelativeLocation(CellOrigin(Result->Key));
@@ -355,14 +387,14 @@ void ATemperateHillsWorld::TickStreaming()
         {
             const FIntPoint Key(X,Y);bool Detailed=false;if(!Wanted(Key,Detailed))continue;
             const auto* Cell=S.Cells.Find(Key);
-            if(Cell&&(Cell->Pending.IsValid()||(Cell->Mesh.IsValid()&&Cell->Detailed==Detailed)))continue;
+            if(Cell&&(Cell->Pending.IsValid()||(!Cell->Dirty&&Cell->Mesh.IsValid()&&Cell->Detailed==Detailed)))continue;
             if(S.Jobs.ContainsByPredicate([&](const auto& J){return J.Key==Key;}))continue;
             const double Candidate=DistanceSquared(Key)+(Detailed?0:1.e12);
             if(Candidate<Score){Score=Candidate;Best=Key;BestDetailed=Detailed;}
         }
         if(Best.X<0)break;
         HillsStreaming::FJob Job;Job.Key=Best;
-        Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed,River=RiverPlan](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed,River);});
+        Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed,River=RiverPlan,Edits=TerrainEdits](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed,River,Edits);});
         S.Jobs.Add(MoveTemp(Job));
     }
     // The worker starts before the first cell can finish; mask uploads follow all
@@ -416,6 +448,50 @@ void ATemperateHillsWorld::TickStreaming()
         for(const auto& Tree:Trees){const double Scale=Tree.Transform.GetScale3D().X;Transforms.Emplace(Tree.Transform.GetRotation(),Tree.Transform.GetLocation()+FVector(0,0,300*Scale),FVector(.42*Scale,.42*Scale,6*Scale));}
         T->AddInstances(Transforms,false,true,false);Cell.Trunks=T;break;
     }
+    // PCG ground cover streams back in with its cell, so edits near the player clear
+    // their grass again on a slow cadence. The bounds early-out keeps this cheap.
+    {
+        const double Now=GetWorld()->GetTimeSeconds();
+        if(Now>=NextCoverSweep)
+        {
+            NextCoverSweep=Now+1.0;
+            const FVector Eye=Pawn?Pawn->GetActorLocation():GetStartLocation();
+            for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)
+            {
+                if(FVector2D::DistSquared(FVector2D(Edit.X,Edit.Y),FVector2D(Eye.X,Eye.Y))>FMath::Square(8000.0))continue;
+                DestroyGroundCover(FVector(Edit.X,Edit.Y,Height(Edit.X,Edit.Y)),
+                    Edit.Type==1?FMath::Max(Edit.HalfX,Edit.HalfY)+20:Edit.Radius*1.15);
+            }
+        }
+    }
+}
+
+// A runtime crater only dirties the cells it reaches. Their live meshes stay
+// visible until a replacement is cooked, so the player never falls through.
+void ATemperateHillsWorld::InvalidateTerrainCells(const FVector2D& Center,double Radius)
+{
+    if(!Streaming||Streaming->Stopping)return;
+    auto& S=*Streaming;
+    constexpr double Size=HillsStreaming::CellSize;
+    const double Half=SizeMeters*50;
+    const int32 Count=FMath::RoundToInt(SizeMeters*100/Size);
+    const int32 MinX=FMath::Clamp(FMath::FloorToInt((Center.X-Radius+Half)/Size),0,Count-1);
+    const int32 MaxX=FMath::Clamp(FMath::FloorToInt((Center.X+Radius+Half)/Size),0,Count-1);
+    const int32 MinY=FMath::Clamp(FMath::FloorToInt((Center.Y-Radius+Half)/Size),0,Count-1);
+    const int32 MaxY=FMath::Clamp(FMath::FloorToInt((Center.Y+Radius+Half)/Size),0,Count-1);
+    int32 Invalidated=0;
+    for(int32 Y=MinY;Y<=MaxY;++Y)for(int32 X=MinX;X<=MaxX;++X)
+    {
+        auto* Cell=S.Cells.Find(FIntPoint(X,Y));
+        if(!Cell)continue;
+        if(auto* Pending=Cell->Pending.Get())
+        {
+            // The in-flight mesh was built with the previous crater list.
+            Terrain.Remove(Pending);RemoveInstanceComponent(Pending);Pending->DestroyComponent();Cell->Pending.Reset();
+        }
+        Cell->Dirty=true;++Invalidated;
+    }
+    UE_LOG(LogTemp,Display,TEXT("HILLS_CRATER invalidate_cells=%d x=%.0f y=%.0f radius=%.0f"),Invalidated,Center.X,Center.Y,Radius);
     if(S.FogReady&&GetWorld()->GetTimeSeconds()>=S.NextFogTime){BuildValleyFog();S.NextFogTime=GetWorld()->GetTimeSeconds()+.5;}
 }
 

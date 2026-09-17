@@ -18,4 +18,8 @@ struct FProductionResource
     uint32 Seed = 0;
     uint64 CandidateId = 0;
     static constexpr int32 RequiredHits = 3;
+    // 0 = default (trees and rocks need three hits). Surface soil digs one 20 cm
+    // layer per swing, so it asks for one.
+    int32 HitsRequired = 0;
+    int32 HitsNeeded() const { return HitsRequired > 0 ? HitsRequired : RequiredHits; }
 };

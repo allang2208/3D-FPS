@@ -12,6 +12,7 @@
 - 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、5080 模型、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。
 - 怪物制作、混元管线、专用绑骨、动画、布娃娃、战斗和村庄刷怪读 [ue5-monster-workflow](skills/ue5-monster-workflow/SKILL.md)。手脑案例中的未通过项不作为已完成标准。
 - 20 cm 体素建造（材质、放置构件、承重与倒塌数值）读 [体素建造工作流](Docs/Building/voxel-build-workflow.md)：任何材质的净跨 2 m 必须成立，改承重数值必须跑 `Tools/Building/run_voxel_stress_probe.ps1` 离线探针；带资产的 USTRUCT 不要用热补丁改。
+- 地貌破坏（丘陵高度场弹坑、铲子挖／填、下沉与抬升上限、性能开关）读 [地貌破坏：高度场方案](Docs/WorldGeneration/terrain-destruction-20260916.md)；体素地形已退役（归档在 `trash/voxel-terrain-retired-20260916/`），不要再叠加第二套地形。它与 20 cm 建造体素是两套语义，不要混用。
 - 保留动画时序、UI、库存、存档和并行修改。源码编译与真实运行验收分别报告。
 - 截图、渲染与候选图的判读走 [读图工具](Tools/deepseek-vision.ps1)，用法与边界见 [DeepSeek Flash 读图](Docs/deepseek-vision.md)。读图只做定性确认和差异列表；定量几何用像素测量，最终视觉验收仍由用户拍板。
 - 技能与魔法开发、迁移及左手施法读 [技能／魔法标准工作流](skills/ue5-skill-magic-workflow/SKILL.md)。当前火球左手 V3 已获用户认可，后续复用动作占用、数据接入与完整骨段方法，数值按具体技能调整。

@@ -561,7 +561,8 @@ void AFPSGAMECharacter::AimPressed()
     if(IsDualWieldingPistols()){DualPistols->Trigger(1,true);return;}
     if(IsCastBlockingLeftHandAction())return;
     if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginGuard();return;}
-    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
+    // Right-click with a production tool out is the shovel's refill, never ADS.
+    if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped()){Tools->BeginRefill();return;}
     bAimHeld = true;
     InterruptPistolEquip();
     ExitSprintForWeapon();

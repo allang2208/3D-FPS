@@ -160,6 +160,8 @@ public:
     bool SelectProductionTool(const FString& Definition);
     bool StowProductionTool();
     int32 HarvestProgress(const FString& Id) const;
+    /** Clears one harvest counter so an excavated topsoil cell can be dug again. */
+    bool ResetHarvestProgress(const FString& Id);
     bool CommitHarvestStrike(const struct FProductionResource& Target,bool& Depleted);
     bool AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred=-1);
     int64 WarehouseRemainingCapacity(const FColdSteelItem& Item) const;

@@ -2,6 +2,7 @@
 #include "TemperateHillsSurface.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Engine/GameInstance.h"
+#include "PCGManagedResource.h"
 #include "PCGComponent.h"
 #include "PCGGraph.h"
 #include "PCGWorldActor.h"
@@ -34,12 +35,24 @@
 #include "HAL/IConsoleManager.h"
 #include "HighResScreenshot.h"
 #include "TimerManager.h"
+#include "../UI/ColdSteelStatusModel.h"
 #include "../FPSWeatherManager.h"
 
 namespace TemperateHills
 {
 uint32 Mix(uint32 V) { V ^= V >> 16; V *= 0x7feb352dU; V ^= V >> 15; V *= 0x846ca68bU; return V ^ (V >> 16); }
 uint32 Key(int32 X, int32 Y, uint32 Seed, uint32 Salt) { return Mix(Mix(uint32(X)*0x9e3779b9U) ^ Mix(uint32(Y)*0x85ebca6bU+0x1b873593U) ^ Mix(Seed+Salt)); }
+// Spatial buckets for terrain-edit lookups: Height()/SurfaceNormal() are called millions
+// of times by vegetation placement, so they must not walk the whole edit list.
+constexpr double EditBucketCm = 3200.0;
+// Terrain destruction limits (cm). Digging and craters stop this far below the generated
+// surface; refilling stops this far above it.
+static TAutoConsoleVariable<float> MaxDropCm(
+    TEXT("fps.Hills.MaxDropCm"), 400.f,
+    TEXT("How far terrain destruction may sink below the generated surface (cm)."));
+static TAutoConsoleVariable<float> MaxRiseCm(
+    TEXT("fps.Hills.MaxRiseCm"), 100.f,
+    TEXT("How far refilling may raise terrain above the generated surface (cm)."));
 uint64 CellId(int32 X,int32 Y) { return (uint64(uint32(X))<<32)|uint32(Y); }
 double Unit(uint32 V) { return double(Mix(V) & 0x00ffffffU) / 16777216.0; }
 double Smooth(double T) { T=FMath::Clamp(T,0.0,1.0); return T*T*(3-2*T); }
@@ -102,18 +115,42 @@ void ATemperateHillsWorld::ResolveSession()
     const bool Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
     const bool NewWorld=!ContinueWorld&&FParse::Param(FCommandLine::Get(),TEXT("HillsNewWorld"));
     UTemperateHillsSave* Saved=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
-    if(Saved&&!NewWorld&&!Explicit&&Saved->Version!=1)
+    if(Saved&&!NewWorld&&!Explicit&&Saved->Version>3)
     {
         UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION incompatible version=%d; original save retained"),Saved->Version);
         Slot.Reset();return;
     }
-    if(Saved&&!NewWorld&&!Explicit){Seed=Saved->Seed;WorldId=Saved->WorldId;}
+    if(Saved&&!NewWorld&&!Explicit)
+    {
+        Seed=Saved->Seed;WorldId=Saved->WorldId;
+        // V1 saves carry no edits and simply start with untouched ground. V2 stored
+        // circular craters only; they migrate to the general edit list as bowls.
+        TerrainEdits.Reset(Saved->Edits.Num()+Saved->Craters.Num());
+        for(const FHillsCraterRecord& Record:Saved->Craters)
+        {
+            TemperateHillsSurface::FTerrainEdit Edit;
+            Edit.Type=0;Edit.X=Record.X;Edit.Y=Record.Y;Edit.Radius=Record.Radius;
+            Edit.Amplitude=-Record.Depth;Edit.Lip=Record.Rim;
+            Edit.Seed=TemperateHills::Key(int32(Record.X),int32(Record.Y),uint32(Seed),7043);
+            if(TemperateHillsSurface::TerrainEditValid(Edit))TerrainEdits.Add(Edit);
+        }
+        for(const FHillsTerrainEditRecord& Record:Saved->Edits)
+        {
+            TemperateHillsSurface::FTerrainEdit Edit;
+            Edit.Type=Record.Type;Edit.X=Record.X;Edit.Y=Record.Y;Edit.Radius=Record.Radius;
+            Edit.HalfX=Record.HalfX;Edit.HalfY=Record.HalfY;Edit.Amplitude=Record.Amplitude;
+            Edit.Lip=Record.Lip;Edit.Seed=uint32(Record.Seed);
+            if(TemperateHillsSurface::TerrainEditValid(Edit))TerrainEdits.Add(Edit);
+        }
+        if(!TerrainEdits.IsEmpty())UE_LOG(LogTemp,Display,TEXT("HILLS_EDIT restored=%d seed=%d"),TerrainEdits.Num(),Seed);
+        RebuildEditBuckets();
+    }
     else
     {
         Seed=Explicit?Requested:int32(TemperateHills::Mix(FGuid::NewGuid().A));
         WorldId=FGuid::NewGuid();
         auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
-        Save->Seed=Seed;Save->WorldId=WorldId;
+        Save->Version=3;Save->Seed=Seed;Save->WorldId=WorldId;
         if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION save failed"));Slot.Reset();}
     }
 }
@@ -147,10 +184,219 @@ double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
 }
 
 double ATemperateHillsWorld::PathDistance(double X,double Y) const {return FMath::Abs(Y-TemperateHills::ValleyY(X,Seed));}
+{return BaseHeight(X,Y)+TerrainOffsetAt(X,Y);}
+double ATemperateHillsWorld::BaseHeight(double X,double Y) const
 double ATemperateHillsWorld::Height(double X,double Y) const
+double ATemperateHillsWorld::TerrainOffsetAt(double X,double Y) const
+{
+    if(TerrainEdits.IsEmpty())return 0;
+    const TArray<int32>* Bucket=EditBuckets.Find(
+        TemperateHills::CellId(FMath::FloorToInt(X/TemperateHills::EditBucketCm),FMath::FloorToInt(Y/TemperateHills::EditBucketCm)));
+    if(!Bucket||Bucket->IsEmpty())return 0;
+    TArray<TemperateHillsSurface::FTerrainEdit,TInlineAllocator<8>> Local;
+    Local.Reserve(Bucket->Num());
+    for(const int32 Index:*Bucket)Local.Add(TerrainEdits[Index]);
+    return TemperateHillsSurface::TerrainEditOffset(Local,X,Y);
+}
+bool ATemperateHillsWorld::TerrainEditTouchesPoint(double X,double Y) const
+{
+    if(TerrainEdits.IsEmpty())return false;
+    // The 3x3 neighbourhood catches edits that only reach across a bucket border.
+    const int32 BaseX=FMath::FloorToInt(X/TemperateHills::EditBucketCm);
+    const int32 BaseY=FMath::FloorToInt(Y/TemperateHills::EditBucketCm);
+    for(int32 DY=-1;DY<=1;++DY)for(int32 DX=-1;DX<=1;++DX)
+    {
+        const TArray<int32>* Bucket=EditBuckets.Find(TemperateHills::CellId(BaseX+DX,BaseY+DY));
+        if(!Bucket)continue;
+        for(const int32 Index:*Bucket)
+            if(TemperateHillsSurface::TerrainEditTouches(TerrainEdits[Index],X,Y))return true;
+    }
+    return false;
+}
+void ATemperateHillsWorld::RebuildEditBuckets()
+{
+    EditBuckets.Reset();
+    for(int32 Index=0;Index<TerrainEdits.Num();++Index)
+    {
+        const TemperateHillsSurface::FTerrainEdit& Edit=TerrainEdits[Index];
+        const double Reach=TemperateHillsSurface::TerrainEditReach(Edit);
+        const int32 MinX=FMath::FloorToInt((Edit.X-Reach)/TemperateHills::EditBucketCm);
+        const int32 MaxX=FMath::FloorToInt((Edit.X+Reach)/TemperateHills::EditBucketCm);
+        const int32 MinY=FMath::FloorToInt((Edit.Y-Reach)/TemperateHills::EditBucketCm);
+        const int32 MaxY=FMath::FloorToInt((Edit.Y+Reach)/TemperateHills::EditBucketCm);
+        for(int32 Y=MinY;Y<=MaxY;++Y)for(int32 X=MinX;X<=MaxX;++X)
+            EditBuckets.FindOrAdd(TemperateHills::CellId(X,Y)).Add(Index);
+    }
+}
 {return RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed);}
 FVector ATemperateHillsWorld::SurfaceNormal(double X,double Y) const
-{return RiverPlan?RiverPlan->Normal(X,Y,Seed):TemperateHillsSurface::Normal(X,Y,Seed);}
+{
+    // Edits only bend the normal where they actually touch the ground; outside
+    // their influence the generated normal is still exact and much cheaper.
+    if(TerrainEditTouchesPoint(X,Y))
+        return TemperateHillsSurface::NumericNormal([this](double PX,double PY){return Height(PX,PY);},X,Y);
+    return RiverPlan?RiverPlan->Normal(X,Y,Seed):TemperateHillsSurface::Normal(X,Y,Seed);
+}
+void ATemperateHillsWorld::PersistTerrainEdits()
+{
+    if(Slot.IsEmpty())return;
+    auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
+    if(!Save)Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
+    if(!Save)return;
+    Save->Version=3;Save->Seed=Seed;Save->WorldId=WorldId;
+    Save->Craters.Reset();
+    Save->Edits.Reset(TerrainEdits.Num());
+    for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)
+    {
+        FHillsTerrainEditRecord Record;
+        Record.Type=Edit.Type;Record.X=Edit.X;Record.Y=Edit.Y;Record.Radius=Edit.Radius;
+        Record.HalfX=Edit.HalfX;Record.HalfY=Edit.HalfY;Record.Amplitude=Edit.Amplitude;
+        Record.Lip=Edit.Lip;Record.Seed=int32(Edit.Seed);
+        Save->Edits.Add(Record);
+    }
+    if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0))UE_LOG(LogTemp,Error,TEXT("HILLS_EDIT save failed edits=%d"),TerrainEdits.Num());
+}
+bool ATemperateHillsWorld::ApplyCrater(const FVector& Location,double RadiusCm,double DepthCm,double RimCm)
+{
+    if(RadiusCm<=0||DepthCm<=0)return false;
+    // Sink limit: a crater may only use the depth still available under this spot.
+    const double Room=FMath::Max(0.0,TemperateHills::MaxDropCm.GetValueOnGameThread()+TerrainOffsetAt(Location.X,Location.Y));
+    DepthCm=FMath::Min(DepthCm,Room);
+    if(DepthCm<=0)return false;
+    TemperateHillsSurface::FTerrainEdit Edit;
+    Edit.Type=0;
+    Edit.X=Location.X;Edit.Y=Location.Y;Edit.Radius=RadiusCm;
+    Edit.Amplitude=-DepthCm;Edit.Lip=RimCm;
+    // Deterministic per-position seed: the same spot always gets the same outline,
+    // and two blasts side by side do not share one shape.
+    Edit.Seed=TemperateHills::Key(int32(Location.X),int32(Location.Y),uint32(Seed),7043);
+    AddTerrainEdit(Edit);
+    UE_LOG(LogTemp,Display,TEXT("HILLS_CRATER x=%.1f y=%.1f radius=%.1f depth=%.1f rim=%.1f count=%d"),
+        Edit.X,Edit.Y,Edit.Radius,DepthCm,RimCm,TerrainEdits.Num());
+    return true;
+}
+bool ATemperateHillsWorld::ApplyTerrainStep(const FVector& Location,double HalfXCm,double HalfYCm,double AmplitudeCm,uint32 EditSeed)
+{
+    if(HalfXCm<=0||HalfYCm<=0||AmplitudeCm==0)return false;
+    // Digging stops at the sink limit, refilling stops at the rise limit; both limits are
+    // measured against the generated surface, so a pit can never eat into the landscape
+    // forever and a dirt pile can never become a tower.
+    const double Offset=TerrainOffsetAt(Location.X,Location.Y);
+    if(AmplitudeCm<0)
+        AmplitudeCm=-FMath::Min(-AmplitudeCm,FMath::Max(0.0,TemperateHills::MaxDropCm.GetValueOnGameThread()+Offset));
+    else
+        AmplitudeCm=FMath::Min(AmplitudeCm,FMath::Max(0.0,TemperateHills::MaxRiseCm.GetValueOnGameThread()-Offset));
+    if(AmplitudeCm==0)return false;
+    TemperateHillsSurface::FTerrainEdit Edit;
+    Edit.Type=1;
+    Edit.X=Location.X;Edit.Y=Location.Y;
+    Edit.HalfX=HalfXCm;Edit.HalfY=HalfYCm;
+    Edit.Amplitude=AmplitudeCm;Edit.Seed=EditSeed;
+    AddTerrainEdit(Edit);
+    UE_LOG(LogTemp,Display,TEXT("HILLS_STEP x=%.1f y=%.1f half=%.1f/%.1f amount=%.1f count=%d"),
+        Edit.X,Edit.Y,Edit.HalfX,Edit.HalfY,Edit.Amplitude,TerrainEdits.Num());
+    return true;
+}
+void ATemperateHillsWorld::AddTerrainEdit(const TemperateHillsSurface::FTerrainEdit& Edit)
+{
+    // Edits are cheap but unbounded; the oldest is retired past the cap and its
+    // cells are rebuilt back to the generated height.
+    constexpr int32 MaxEdits=256;
+    if(TerrainEdits.Num()>=MaxEdits)
+    {
+        const TemperateHillsSurface::FTerrainEdit Old=TerrainEdits[0];
+        TerrainEdits.RemoveAtSwap(0);
+        InvalidateTerrainCells(FVector2D(Old.X,Old.Y),TemperateHillsSurface::TerrainEditReach(Old));
+    }
+    TerrainEdits.Add(Edit);
+    RebuildEditBuckets();
+    // Only the cells the edit reaches are rebuilt; the rest of the world keeps its
+    // meshes, so one crater or one shovel layer costs a few cells, not a re-stream.
+    InvalidateTerrainCells(FVector2D(Edit.X,Edit.Y),TemperateHillsSurface::TerrainEditReach(Edit));
+    ClearCoverForEdit(Edit);
+    PersistTerrainEdits();
+}
+
+bool ATemperateHillsWorld::IsGroundCoverMesh(const UStaticMesh* Mesh) const
+{
+    if(!Mesh||!Assets)return false;
+    const auto Matches=[&](const TArray<TSoftObjectPtr<UStaticMesh>>& List)
+    {
+        for(const TSoftObjectPtr<UStaticMesh>& Entry:List)
+            if(Entry.Get()==Mesh)return true;
+        return false;
+    };
+    // Grass layers only. Trees are skeletal instances and rocks/shrubs are props, so
+    // they are never touched here. River-ecology cover joins this list once that
+    // (still uncommitted) workstream lands.
+    return Matches(Assets->Grass)||Matches(Assets->GrassAccents);
+}
+
+int32 ATemperateHillsWorld::DestroyGroundCover(const FVector& Center,double RadiusCm)
+{
+    if(RadiusCm<=0||!Assets)return 0;
+    const double R2=RadiusCm*RadiusCm;
+    const FBox Reach(Center-FVector(RadiusCm,RadiusCm,600),Center+FVector(RadiusCm,RadiusCm,600));
+    int32 Removed=0;
+    // PCG owns the instances, but the components themselves are ordinary streamed
+    // ISMs, so they are found the same way tree instances are removed below.
+    for(TObjectIterator<UInstancedStaticMeshComponent> It;It;++It)
+    {
+        auto* Instances=*It;
+        if(!Instances||Instances->GetWorld()!=GetWorld()||Instances->GetInstanceCount()<=0)continue;
+        if(!IsGroundCoverMesh(Instances->GetStaticMesh()))continue;
+        if(!Instances->Bounds.GetBox().Intersect(Reach))continue;
+        for(int32 Index=Instances->GetInstanceCount()-1;Index>=0;--Index)
+        {
+            FTransform Transform;
+            if(!Instances->GetInstanceTransform(Index,Transform,true))continue;
+            const FVector P=Transform.GetLocation();
+            if(FMath::Square(P.X-Center.X)+FMath::Square(P.Y-Center.Y)>R2)continue;
+            if(FMath::Abs(P.Z-Center.Z)>500)continue;
+            Instances->RemoveInstance(Index);++Removed;
+        }
+    }
+    return Removed;
+}
+
+int32 ATemperateHillsWorld::ClearCoverForEdit(const TemperateHillsSurface::FTerrainEdit& Edit)
+{
+    if(Edit.Type==1)
+    {
+        // Shovel layers take the turf with them: clear a slightly larger box.
+        const double Radius=FMath::Max(Edit.HalfX,Edit.HalfY)+20;
+        return DestroyGroundCover(FVector(Edit.X,Edit.Y,Height(Edit.X,Edit.Y)),Radius);
+    }
+    // Crater: the scorched zone is a little wider than the bowl.
+    const double Radius=Edit.Radius*1.15;
+    const int32 Removed=DestroyGroundCover(FVector(Edit.X,Edit.Y,Height(Edit.X,Edit.Y)+40),Radius);
+    UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND_COVER removed=%d x=%.0f y=%.0f radius=%.0f"),Removed,Edit.X,Edit.Y,Radius);
+    return Removed;
+}
+
+bool ATemperateHillsWorld::ApplySoilRefill(const FVector& Location,FString& OutMessage)
+{
+    // Refill uses the same 20 cm unit as digging: one 20 cm layer over a 240 cm
+    // footprint (12 x 12 cells of the 20 cm building grid), centre snapped to the grid.
+    constexpr double SnapCm=20.0;
+    constexpr double HalfCm=120.0;
+    constexpr double LayerCm=20.0;
+    constexpr int64 SoilPerLayer=2;   // symmetric with the 2 soil one topsoil dig yields
+    const double CX=FMath::GridSnap(Location.X,SnapCm),CY=FMath::GridSnap(Location.Y,SnapCm);
+    const double RiseLimit=TemperateHills::MaxRiseCm.GetValueOnGameThread();
+    if(TerrainOffsetAt(CX,CY)>=RiseLimit)
+    {OutMessage=FString::Printf(TEXT("这里已经回填到上限（%.0f cm），换一处再填"),RiseLimit);return false;}
+    auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    if(!Profile){OutMessage=TEXT("找不到角色档案");return false;}
+    FString Reason;
+    if(!Profile->ConsumeItem(TEXT("soil"),SoilPerLayer,Reason))
+    {OutMessage=FString::Printf(TEXT("回填一层需要 %lld 个泥土，当前不够"),SoilPerLayer);return false;}
+    ApplyTerrainStep(FVector(CX,CY,Height(CX,CY)),HalfCm,HalfCm,LayerCm,
+        TemperateHills::Key(int32(CX),int32(CY),uint32(Seed),9111));
+    UE_LOG(LogTemp,Display,TEXT("HILLS_REFILL x=%.1f y=%.1f amount=%.1f soil=%lld"),CX,CY,LayerCm,SoilPerLayer);
+    OutMessage=TEXT("回填 20 cm 泥土层");
+    return true;
+}
 
 double ATemperateHillsWorld::ForestWeight(double X,double Y) const
 {return TemperateHills::Smooth((Noise(X*.00014,Y*.00014,173)+.45)/1.05);}
