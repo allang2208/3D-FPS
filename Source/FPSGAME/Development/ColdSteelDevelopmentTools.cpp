@@ -31,7 +31,7 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
         TEXT("heavyStrike"),TEXT("criticalStrike"),TEXT("dodge"),
-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike")};
+        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("quickCombat")};
     return Ids;
 }
 
@@ -44,6 +44,7 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::DevelopmentSkillDefiniti
     if(Id==TEXT("criticalStrike"))return CriticalStrikeDefinition();
     if(Id==TEXT("fireball"))return FireballDefinition();
     if(Id==TEXT("iceSpike"))return IceSpikeDefinition();
+    if(Id==TEXT("quickCombat"))return QuickCombatDefinition();
     return MasteryDefinition(Id);
 }
 

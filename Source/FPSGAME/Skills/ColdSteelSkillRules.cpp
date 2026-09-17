@@ -1,6 +1,8 @@
 #include "ColdSteelSkillRules.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
+#include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/WeaponStatEvaluation.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
 #include "Misc/FileHelper.h"
@@ -17,6 +19,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("pistolMastery")){D.Name=TEXT("手枪精通");D.Description=TEXT("精通手枪的快速射击，在移动中也能精准命中。");D.Icon=TEXT("Skills/pistol_mastery_cold_steel.png");}
     if(Id==TEXT("criticalStrike")){D.Name=TEXT("暴击");D.Description=TEXT("精通暴击之道，每次暴击都能造成更致命的打击。");D.Icon=TEXT("Skills/critical_strike_cold_steel.png");}
     if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射。直击要害必定暴击，普通直击与爆炸波及目标各自随机判定暴击。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
+    if(Id==TEXT("quickCombat")){D.Name=TEXT("快速进战");D.Description=TEXT("按 F 快速进入战斗姿态。占位技能：正式效果与成长待定义。");D.Icon=TEXT("Skills/quick_combat_placeholder.png");}
     FString Json; TSharedPtr<FJsonObject> Root;
     if (!FFileHelper::LoadFileToString(Json, *(FPaths::ProjectContentDir()/TEXT("ColdSteelData/skills.json"))) ||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root) return D;
@@ -91,11 +94,21 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),12);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
     }
+    if(Id==TEXT("quickCombat"))
+    {
+        auto& Q=D.QuickCombat;
+        Q.DamageBase=Num(TEXT("damageBase"),25);Q.DamagePerLevel=Num(TEXT("damagePerLevel"),5);
+        Q.StrengthFactorBase=Num(TEXT("strengthFactorBase"),5);Q.StrengthFactorPerLevel=Num(TEXT("strengthFactorPerLevel"),.1);
+        Q.KnockbackCM=FMath::Clamp(float(Num(TEXT("knockbackCM"),100)),0.f,1000.f);
+        Q.RangeCM=FMath::Clamp(float(Num(TEXT("rangeCM"),200)),50.f,1000.f);
+        Q.StunBase=Num(TEXT("stunBase"),2.5);Q.StunPerLevel=Num(TEXT("stunPerLevel"),.1);
+        Q.Cooldown=FMath::Clamp(float(Num(TEXT("cooldown"),12)),0.f,300.f);
+    }
     return D;
 }
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 10) return false;
+    if (P.SkillProgressVersion >= 11) return false;
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -116,12 +129,14 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     }
     }
     P.Skills.FindOrAdd(TEXT("iceSpike"));
-    P.SkillProgressVersion=10;
+    // Version 11 adds quickCombat; the early return above means only <11 reaches here.
+    P.Skills.FindOrAdd(TEXT("quickCombat"));
+    P.SkillProgressVersion=11;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>10 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>11 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
     if (P.SkillProgressVersion>=1 && !P.Skills.Contains(TEXT("rifleMastery"))) { Reason=TEXT("技能进度缺失"); return false; }
     if (P.SkillProgressVersion>=2 && !P.Skills.Contains(TEXT("dodge"))) { Reason=TEXT("闪避进度缺失"); return false; }
     if (P.SkillProgressVersion>=3 && !P.Skills.Contains(TEXT("dexterousHands"))) { Reason=TEXT("巧手进度缺失"); return false; }
@@ -131,6 +146,8 @@ bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
     if(P.SkillProgressVersion>=8&&!P.Skills.Contains(TEXT("heavyStrike"))){Reason=TEXT("重击进度缺失");return false;}
     if(P.SkillProgressVersion>=9&&(!FMath::IsFinite(P.FireballCooldownDuration)||P.FireballCooldownDuration<P.FireballCooldown||P.FireballCooldownDuration>300)){Reason=TEXT("火球冷却总时长无效");return false;}
     if(P.SkillProgressVersion>=10&&(!P.Skills.Contains(TEXT("iceSpike"))||!FMath::IsFinite(P.IceSpikeCooldown)||P.IceSpikeCooldown<0||!FMath::IsFinite(P.IceSpikeCooldownDuration)||P.IceSpikeCooldownDuration<P.IceSpikeCooldown||P.IceSpikeCooldownDuration>300)){Reason=TEXT("冰锥进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=11&&!P.Skills.Contains(TEXT("quickCombat"))){Reason=TEXT("快速进战进度缺失");return false;}
+    if(P.SkillProgressVersion>=11&&(!FMath::IsFinite(P.QuickCombatCooldown)||P.QuickCombatCooldown<0||!FMath::IsFinite(P.QuickCombatCooldownDuration)||P.QuickCombatCooldownDuration<P.QuickCombatCooldown||P.QuickCombatCooldownDuration>300)){Reason=TEXT("快速进战冷却无效");return false;}
     for (const auto& Pair:P.Skills)
         if (Pair.Key.IsNone() || Pair.Value.Level<1 || Pair.Value.Level>20 || Pair.Value.Experience<0 || Pair.Value.Experience>2000000 || (Pair.Value.Level==20 && Pair.Value.Experience!=0))
         { Reason=TEXT("技能等级或修炼值无效"); return false; }
@@ -150,6 +167,8 @@ FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D
     {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;E.SpreadDelay=L*D.SpreadDelayPerLevel;E.Knockback=L*D.KnockbackPerLevel;return E;}
     if(D.Id==TEXT("criticalStrike")){FColdSteelSkillEffect E;E.CriticalDamageBonus=L>0?D.CriticalDamageBase+L*D.CriticalDamagePerLevel:0.f;E.Luck=L*D.LuckPerLevel;return E;}
     if(D.Id==TEXT("dodge")){FColdSteelSkillEffect E;E.DodgeDistanceCM=L*D.DodgeDistanceCMPerLevel;E.DodgeCostReduction=L*D.DodgeCostReductionPerLevel;return E;}
+    // 占位技能：正式效果定义前保持零收益，避免落入步枪精通的通用档。
+    if(D.Id==TEXT("quickCombat")){FColdSteelSkillEffect E;return E;}
     if(D.Id==TEXT("dexterousHands")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.ReloadSpeed=L*D.ReloadSpeedPerLevel;return E;}
     if(D.Id==TEXT("pistolMastery")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.MoveSpeed=L*D.MoveSpeedPerLevel;return E;}
     FColdSteelSkillEffect E; E.DamagePercent=L*D.DamagePercentPerLevel; E.FlatDamage=L*D.FlatDamagePerLevel;
@@ -180,6 +199,7 @@ return FString::Printf(TEXT("步枪伤害 +%.0f%% / +%.0f   ·   精神 +%d   ·
 FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelItem* Item)
 {
     FColdSteelSkillShot Shot;
+    if(const FColdSteelItem* Source=Item?Item:nullptr)Shot.ItemDefinition=Source->Definition;
     if (Shooter && Shooter->GetGameInstance()) if (auto* M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
     { Shot.bRifle=IsRifle(Item?Item:M->Equipped());Shot.bPistol=IsPistol(Item?Item:M->Equipped()); Shot.WeakpointPercent=Shot.bRifle?M->RifleEffect().WeakpointPercent:0;Shot.CriticalDamageBonus=M->CriticalStrikeEffect().CriticalDamageBonus; }
     if(Shooter&&Shooter->GetGameInstance())if(auto* M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
@@ -189,14 +209,23 @@ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelIt
         {
             Shot.CriticalChance+=100*E->Effect(*I,TEXT("critRate"));
             Shot.ArmorPenetration=E->CraftEffect(*I,TEXT("armorPenetrationPercent"))+E->Effect(*I,TEXT("armorPenetrationPercent"));
+            Shot.MagicPenetration=E->CraftEffect(*I,TEXT("magicPenetrationPercent"))+E->Effect(*I,TEXT("magicPenetrationPercent"));
+        }
+        if(const auto* I=Item?Item:M->Equipped())
+        {
+            if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
+            if(ColdSteelInventory::IsMeleeWeapon(*I))Shot.DamagePanel=ColdSteelMelee::Evaluate(*I,M).DamageParts;
+            else if(const auto* G=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->Weapon(I->Definition))
+                Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,G->Calculate(I->Definition,G->Installed(*I)).Damage);
         }
     }
     return Shot;
 }
-float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot)
+float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result)
 {
+    if(Result)*Result={};
     if (Shooter && Shooter->GetGameInstance()) if (auto* M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-        return M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot);
+        return M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result);
     const auto* Pawn=Cast<APawn>(Shooter);
     return UGameplayStatics::ApplyPointDamage(Hit.GetActor(),Damage,Direction,Hit,Pawn?Pawn->GetController():nullptr,Shooter,nullptr);
 }

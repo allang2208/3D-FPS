@@ -58,3 +58,7 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 ## 蓄力近战与修炼
 
 开发重击等蓄力近战技能时，读取 [蓄力近战与修炼](references/charged-melee-training.md)。
+
+## 快速进战（F 键主动技能，2026-09-17）
+
+`quickCombat`：触发键 F（武器检视已让位到 L）。剑类走符文剑第四连击配重锤（`BeginQuickCombatStrike`，复用第四击节奏与单目标窄走廊）；单持手枪走程序化握把砸击（**用户否决，挂起待重做**，教训见 [手枪握把砸击尝试](../ue5-fps-arms-animation/references/pistol-grip-bash-attempt.md)）。命中 2m 单目标：伤害 25+5×等级+力量×(5+0.1×等级)，击退 1m、眩晕 (2.5+0.1×等级) 秒（怪物 `ReceiveStun`）；基础冷却 12s（预留-结束起跳合同）；修炼释放 +1、技能击杀 +15。数据入口 `skills.json:quickCombat`，动作参数 `QuickCombatPistolMotion.h`，案例与挂起原因 `Docs/Skills/quick-combat-placeholder-20260917.md`。

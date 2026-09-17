@@ -23,9 +23,12 @@
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
 
-void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex)
+void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex,FName InFixedSkill)
 {
-    HUD=Owner;Index=SlotIndex;SetVisibility(ESlateVisibility::Visible);
+    HUD=Owner;Index=SlotIndex;FixedSkill=InFixedSkill;
+    // 专属槽的键位标注与固定技能一起给定（如 F · 快速进战），不走混放键位表。
+    FixedKeyLabel=FixedSkill.IsNone()?FString():TEXT("F");
+    SetVisibility(ESlateVisibility::Visible);
     const float Scale=ColdSteelUI::PixelScale(this);
     auto* Overlay=WidgetTree->ConstructWidget<UOverlay>();WidgetTree->RootWidget=Overlay;
     Overlay->SetClipping(EWidgetClipping::ClipToBounds);
@@ -58,7 +61,7 @@ void UColdSteelQuickSlot::Configure(UColdSteelHUDWidget* Owner,int32 SlotIndex)
     ReadyFlash=WidgetTree->ConstructWidget<UImage>();
     ReadyFlash->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::White,6/Scale,FLinearColor::Transparent,0));
     ReadyFlash->SetRenderOpacity(0);ReadyFlash->SetVisibility(ESlateVisibility::HitTestInvisible);Fill(ReadyFlash);
-    Key=Text(ColdSteelQuickBar::KeyLabel(Index));Key->SetFont(ColdSteelUI::NumberFont(9/Scale));Key->SetColorAndOpacity(ColdSteelUI::Accent);
+    Key=Text(FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel);Key->SetFont(ColdSteelUI::NumberFont(9/Scale));Key->SetColorAndOpacity(ColdSteelUI::Accent);
     auto* K=Overlay->AddChildToOverlay(Key);K->SetHorizontalAlignment(HAlign_Right);K->SetVerticalAlignment(VAlign_Bottom);K->SetPadding(FMargin(0,0,4/Scale,2/Scale));
     Count=Text(TEXT(""));Count->SetFont(ColdSteelUI::NumberFont(9/Scale,true));auto* C=Overlay->AddChildToOverlay(Count);
     C->SetHorizontalAlignment(HAlign_Center);C->SetVerticalAlignment(VAlign_Top);C->SetPadding(FMargin(0,1/Scale,0,0));
@@ -82,12 +85,35 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
             CooldownTransitionElapsed/ColdSteelQuickSlotFX::MaskTransition);
         CooldownMask->SetFraction(DisplayedCooldownFraction);
     }
+    // A rejected left-hand request blinks in place for its window instead of
+    // queueing, so the slot drives that pulse for the bound spell.
+    bool Notice=false;float NoticeAlpha=1.f,NoticeRise=0.f;
+    if(const auto* Player=GetOwningPlayerPawn())
+    {
+        if(Displayed.Skill==TEXT("fireball"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("iceSpike"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+    }
+    if(State)
+    {
+        State->SetRenderOpacity(Notice?NoticeAlpha:1.f);
+        State->SetRenderTranslation(FVector2D(0,Notice?-NoticeRise:0));
+    }
 }
 
 void UColdSteelQuickSlot::Refresh()
 {
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Model||!Icon)return;
-    const auto Binding=Model->QuickBinding(Index);const auto* Item=Model->ResolveQuickItem(Index);
+    // 专属槽不读混放绑定，恒显固定技能；其余数据（图标、冷却、变暗）走同一条显示路径。
+    const auto Binding=FixedSkill.IsNone()?Model->QuickBinding(Index):[&]{FColdSteelQuickBinding B;B.Skill=FixedSkill;return B;}();
+    const auto* Item=Model->ResolveQuickItem(Index);
     const bool BindingChanged=!bLoaded||!(Binding==Displayed);
     if(BindingChanged)
     {
@@ -105,8 +131,10 @@ void UColdSteelQuickSlot::Refresh()
         const float Pixels=Binding.Skill.IsNone()?40.f:48.f;
         IconFrame->SetWidthOverride(Pixels/ColdSteelUI::PixelScale(this));IconFrame->SetHeightOverride(Pixels/ColdSteelUI::PixelScale(this));
         FallbackIcon->SetVisibility(!Texture&&!Binding.IsEmpty()?ESlateVisibility::HitTestInvisible:ESlateVisibility::Hidden);
-        SetToolTipText(FText::FromString(Binding.IsEmpty()?FString::Printf(TEXT("%s · 拖入主动技能或消耗品"),ColdSteelQuickBar::KeyLabel(Index)):
-            FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,ColdSteelQuickBar::KeyLabel(Index))));
+        const FString KeyText=FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel;
+        SetToolTipText(FText::FromString(FixedSkill.IsNone()?(Binding.IsEmpty()?FString::Printf(TEXT("%s · 拖入主动技能或消耗品"),*KeyText):
+            FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,*KeyText)):
+            FString::Printf(TEXT("%s · %s\n按 %s 直接触发；冷却结束后可用"),*KeyText,*Name,*KeyText)));
     }
     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
     Count->SetText(FText::GetEmpty());
@@ -114,14 +142,16 @@ void UColdSteelQuickSlot::Refresh()
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSFireballComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
-        if(Fraction>0)Remaining=Model->FireballCooldown();
+        // The refusal notice answers the press itself, so it outranks the countdown.
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->FireballCooldown();
         Dim=!Model->CanSpendMana(Model->FireballStats().ManaCost)&&(!Ability||(!Ability->IsPrepared()&&!Ability->IsFlying()));
     }
     else if(Binding.Skill==TEXT("iceSpike"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSIceSpikeComponent>():nullptr;
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();if(Ability->ActiveCount()>0)Count->SetText(FText::AsNumber(Ability->ActiveCount()));}
-        if(Fraction>0)Remaining=Model->IceSpikeCooldown();
+        // The refusal notice answers the press itself, so it outranks the countdown.
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->IceSpikeCooldown();
         Dim=!Model->CanSpendMana(Model->IceSpikeStats().ManaCost)&&(!Ability||Ability->ActiveCount()==0);
     }
     else if(Binding.Skill==TEXT("heavyStrike"))
@@ -136,6 +166,18 @@ void UColdSteelQuickSlot::Refresh()
     {
         if(const auto* Player=GetOwningPlayerPawn<AFPSGAMECharacter>();Player&&Player->IsDodging())Message=TEXT("闪避");
         Dim=!Model->CanSpendStamina(Model->DodgeStaminaCost());
+    }
+    else if(Binding.Skill==TEXT("quickCombat"))
+    {
+        // 剑类或单持手枪：单手砸击只要求右手，双持时左手被副枪占用。
+        const auto* Player=GetOwningPlayerPawn<AFPSGAMECharacter>();
+        const bool bReady=(Player&&Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols())
+            ||(Player&&Player->FindComponentByClass<URuneSwordComponent>()&&Player->FindComponentByClass<URuneSwordComponent>()->IsEquipped());
+        Fraction=Model->QuickCombatCooldownDuration()>0?Model->QuickCombatCooldown()/Model->QuickCombatCooldownDuration():0.f;
+        // The equip hint outranks the countdown: an unusable slot explains why.
+        if(bReady)Remaining=Model->QuickCombatCooldown();else Message=TEXT("需剑/枪");
+        // Availability darkening mirrors the mask: unusable while cooling, or without a matching weapon.
+        Dim=!bReady||Fraction>0.f;
     }
     else if(!Binding.ItemDefinition.IsEmpty())
     {
@@ -166,6 +208,8 @@ void UColdSteelQuickSlot::Refresh()
 }
 FReply UColdSteelQuickSlot::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent& E)
 {
+    // 专属槽只读：不响应按下捕获，也就不会进入拖动流程。
+    if(!FixedSkill.IsNone())return FReply::Unhandled();
     if(E.GetEffectingButton()!=EKeys::LeftMouseButton||!HUD.IsValid())return FReply::Unhandled();
     const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(Model->QuickBinding(Index).IsEmpty())return FReply::Handled();
@@ -174,9 +218,13 @@ FReply UColdSteelQuickSlot::NativeOnMouseButtonDown(const FGeometry&,const FPoin
 FReply UColdSteelQuickSlot::NativeOnMouseButtonUp(const FGeometry&,const FPointerEvent&)
 {return FReply::Handled().ReleaseMouseCapture();}
 void UColdSteelQuickSlot::NativeOnDragDetected(const FGeometry&,const FPointerEvent& E,UDragDropOperation*& Out)
-{if(HUD.IsValid())Out=HUD->StartQuickDrag(NAME_None,Index,&Icon->GetBrush(),E.GetScreenSpacePosition());}
+{
+    if(!FixedSkill.IsNone())return;
+    if(HUD.IsValid())Out=HUD->StartQuickDrag(NAME_None,Index,&Icon->GetBrush(),E.GetScreenSpacePosition());
+}
 bool UColdSteelQuickSlot::NativeOnDragOver(const FGeometry&,const FDragDropEvent& E,UDragDropOperation* Operation)
 {
+    if(!FixedSkill.IsNone())return false;
     if(!HUD.IsValid())return false;
     if(auto* D=Cast<UColdSteelQuickDrag>(Operation)){HUD->UpdateQuickDrag(D,E.GetScreenSpacePosition());return true;}
     if(auto* D=Cast<UColdSteelItemDrag>(Operation)){HUD->UpdateInventoryDrag(D,E.GetScreenSpacePosition());return true;}
@@ -184,6 +232,7 @@ bool UColdSteelQuickSlot::NativeOnDragOver(const FGeometry&,const FDragDropEvent
 }
 bool UColdSteelQuickSlot::NativeOnDrop(const FGeometry&,const FDragDropEvent&,UDragDropOperation* Operation)
 {
+    if(!FixedSkill.IsNone())return false;
     if(!HUD.IsValid())return false;
     if(auto* D=Cast<UColdSteelQuickDrag>(Operation))return HUD->DropQuickDrag(D,Index);
     if(auto* D=Cast<UColdSteelItemDrag>(Operation))return HUD->DropInventoryOnQuickBar(D,Index);

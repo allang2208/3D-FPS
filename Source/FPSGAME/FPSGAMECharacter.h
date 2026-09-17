@@ -40,11 +40,16 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
 public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseASH12 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseDanWesson715 = false;
     bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
+    UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
     bool IsDualWieldingPistols() const;
+    /** 手枪版快速进战：单持松左手、右手持枪握把前砸；仲裁通过后转交动作组件。 */
+bool TriggerPistolQuickCombat();
+    bool IsWeaponFireHeld() const;
     void RunWeaponVolumeAudit();
     int32 GetRevolverCaseCount() const { return RevolverCaseCount; }
     AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
@@ -57,9 +62,12 @@ public:
     bool IsLeftHandHeldForCast() const;
     bool IsCastingWithLeftHand() const;
     bool IsCastBlockingLeftHandAction() const;
-    float GetHipSpread() const { return 2.f * (0.0175f + CurrentSpread + MoveSpread + AirSpread) * HipSpreadMultiplier; }
+    // Single-weapon hip cone, or the real per-hand dual cone while both pistols
+    // are out; the reticle and the shot direction must share this one value.
+    float GetHipSpread() const;
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
-    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage);
+    /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */
+    void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false);
     float GetHitMarkerOpacity() const;
     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
 private:
@@ -82,11 +90,15 @@ public:
     bool AdjustOpticMagnification(float Delta);
     void SetLPVOMagnification(float Value);
     float GetScopePresentationAlpha() const;
+    // Optic-layer firing presentation facts. Read-only: they never write
+    // ControlRotation, the shot direction or the trace.
+    float GetLastShotAgeSeconds() const;
+    float GetLastShotSeed() const;
     void UpdateScopePresentation();
 private:
     TArray<TWeakObjectPtr<class UPrimitiveComponent>> ScopeHiddenParts;
 public:
-    void SetGunsmithDrum(bool bDrum);
+    void SetGunsmithMagazineAttachment(const FString& Id);
     void SetGunsmithMuzzle(const FString& Variant);
     void SetGunsmithHandstop(const FString& Variant);
     void SetGunsmithStock(const FString& Variant);
@@ -179,6 +191,10 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     void InitializeWeaponVisuals();
     FString ActiveInventoryWeapon;
+    FString ActiveInventoryWeaponDefinition;
+    void ApplyWeaponAttachmentPresentation(const TMap<FString,FString>& Parts);
+    TMap<FString,FString> AppliedWeaponVisualParts;
+    bool bWeaponVisualPartsApplied = false;
     bool bInventoryWeaponReady = true;
     bool bReloadAfterCasting = false;
     void ServiceReloadAfterCasting();
@@ -233,7 +249,21 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint") FVector M4SprintOffset = FVector(6.0f, 3.0f, -9.0f);
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint") FRotator M4SprintRotation = FRotator(35.0f, -12.0f, -8.0f);
     UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint", meta = (ClampMin = "0.0", ClampMax = "4.0")) float M4SprintSwayCM = 1.8f;
+    UPROPERTY(EditDefaultsOnly, Category = "M4|Sprint") FVector M4SprintMidpointOffset = FVector(-1.5f, -0.5f, -1.0f);
     float M4SprintPhase = 0.0f;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Locomotion", meta = (ClampMin = "0.0", ClampMax = "2.0")) float RifleLocomotionScale = 1.0f;
+    void UpdateLocomotionPresentation(float DeltaSeconds);
+    void ResetRifleLocomotion();
+    FVector LocomotionLaggedVelocity = FVector::ZeroVector;
+    FVector RifleInertiaOffset = FVector::ZeroVector;
+    FVector RifleInertiaVelocity = FVector::ZeroVector;
+    // Camera-space degrees: pitch, yaw, roll. Kept separate from mesh import axes.
+    FVector RifleInertiaAngles = FVector::ZeroVector;
+    FVector RifleInertiaAngularVelocity = FVector::ZeroVector;
+    float GroundLocomotionWeight = 0.0f;
+    float LocomotionSideAlpha = 0.0f;
+    float RifleLocomotionWeight = 0.0f;
+    bool bLocomotionInitialized = false;
     // Camera-space framing; sprint arm/weapon motion is authored in separate clips.
     UPROPERTY(EditDefaultsOnly, Category = "Pistol|Viewmodel") FVector PistolHipViewmodelLocation = FVector(-2.f, 3.f, -6.5f);
     UPROPERTY(EditDefaultsOnly, Category = "Pistol|Viewmodel") FVector RevolverHipViewmodelLocation = FVector(1.f, 3.2f, -7.f);
@@ -265,6 +295,7 @@ private:
     void RunDrumGripAudit();
     void RunAKMIntegrationAudit();
     void RunQBZ191IntegrationAudit();
+    void RunASH12IntegrationAudit();
     int32 DrumGripAuditStage = 0;
     int32 DrumGripAuditFailures = 0;
     int32 DrumGripAuditReserve = 0;
@@ -285,6 +316,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> LPVORing;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> LargeDrum;
     FTransform DrumMount;
+    FString MagazineAttachmentId;
     bool bDrumVisual=false;
     void UpdateDrumDropVisual();
     bool bDrumReleasedDuringReload=false;
@@ -324,6 +356,7 @@ private:
     void AimReleased();
     void ReloadPressed();
     void InspectPressed();
+    void QuickCombatPressed();
     void RefreshMovementState();
     void StartSlide();
     void StopSlide(bool bTryToStand);
@@ -360,6 +393,7 @@ private:
     FVector ComputeShotDirection() const;
     void RunWeaponAudit(float DeltaSeconds);
     void RunGunplayAcceptance(float DeltaSeconds);
+    void RunRifleSprintAcceptance(float DeltaSeconds);
     void PlayWeaponAnimation(UAnimSequence* Animation, bool bLoop, float PlayRate = 1.0f, float StartPosition = 0.0f);
     void ResumeWeaponPose();
     void PlaySound2D(USoundBase* Sound, float VolumeMultiplier) const;
@@ -404,6 +438,7 @@ private:
     UPROPERTY(Transient) bool bIsSprinting = false;
     UPROPERTY(Transient) bool bIsSliding = false;
     UPROPERTY(Transient) bool bIsAiming = false;
+    // Single-weapon input only. Common consumers query IsWeaponFireHeld().
     UPROPERTY(Transient) bool bFireHeld = false;
     bool bAimHeld = false;
     UPROPERTY(Transient) int32 MagazineAmmo = 30;
@@ -490,7 +525,28 @@ private:
     FVector GunJitterRotationVelocity = FVector::ZeroVector;
     float GunFlip = 0.0f;
     float GunFlipVelocity = 0.0f;
+    // Seconds since the last shot for the fire clip compensation layer, negative
+    // when idle. Weapons whose own fire animation carries no gun motion read
+    // their recoil from FPSVisualRecoil::FProfile::ClipPosition/Rotation.
+    float ClipRecoilSeconds = -1.0f;
     void AdvanceVisualWeaponRecoil(double Now);
+    // Dual wield keeps one recoil spring set per hand. UPistolDualWieldComponent
+    // owns the per-hand control-rotation pattern, so these only add the
+    // presentation layers the single-weapon path gets from ApplyShotFeedback().
+    struct FDualWieldRecoil
+    {
+        FVector Position = FVector::ZeroVector, PositionVelocity = FVector::ZeroVector;
+        FVector Rotation = FVector::ZeroVector, RotationVelocity = FVector::ZeroVector;
+        FVector JitterPosition = FVector::ZeroVector, JitterPositionVelocity = FVector::ZeroVector;
+        FVector JitterRotation = FVector::ZeroVector, JitterRotationVelocity = FVector::ZeroVector;
+        float Flip = 0.0f, FlipVelocity = 0.0f;
+        double UpdatedAt = -1.0, RecoverAt = -10.0;
+    };
+    FDualWieldRecoil DualRecoil[2];
+    void ApplyDualWieldShotFeedback(int32 HandIndex, bool bRevolver, const FWeaponHandling& Handling,
+        int32 ShotIndex, float Interval, float RecoilLoad);
+    void AdvanceDualWieldHandRecoil(int32 HandIndex, bool bRevolver, const FWeaponHandling& Handling, float DeltaSeconds);
+    void GetDualWieldHandRecoil(int32 HandIndex, FVector& OutOffset, FVector& OutAngles) const;
     double VisualRecoilUpdatedAt = -1.0;
     double LastVisualShotAt = -10.0;
     double VisualRecoverAt = -10.0;
@@ -552,7 +608,3 @@ private:
     float AuditMaxMechanicalLateness = 0.0f;
     float AuditMaxEmptyBoltTravelCM = 0.0f;
 };
-    // Seconds since the last shot for the fire clip compensation layer, negative
-    // when idle. Weapons whose own fire animation carries no gun motion read
-    // their recoil from FPSVisualRecoil::FProfile::ClipPosition/Rotation.
-    float ClipRecoilSeconds = -1.0f;

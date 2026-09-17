@@ -48,7 +48,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
     {
         if(!B.Skill.IsNone())
         {
-            if((B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
+            if((B.Skill!=TEXT("fireball")&&B.Skill!=TEXT("iceSpike")&&B.Skill!=TEXT("dodge")&&B.Skill!=TEXT("heavyStrike")&&B.Skill!=TEXT("quickCombat"))||!B.ItemId.IsEmpty()||!B.ItemDefinition.IsEmpty()||Skills.Contains(B.Skill))return false;
             Skills.Add(B.Skill);
         }
         else if(!B.ItemDefinition.IsEmpty())
@@ -65,7 +65,7 @@ bool Validate(const FColdSteelProfile& P,FString& Reason)
 FColdSteelQuickBinding UColdSteelStatusModel::QuickBinding(int32 Index) const
 { return Current.QuickBindings.IsValidIndex(Index)?Current.QuickBindings[Index]:FColdSteelQuickBinding(); }
 const FColdSteelSkillDefinition* UColdSteelStatusModel::QuickSkillDefinition(FName Id) const
-{ if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike"))return &MasteryDefinition(Id);return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
+{ if(Id==TEXT("iceSpike"))return &IceSpikeSkill;if(Id==TEXT("heavyStrike"))return &MasteryDefinition(Id);if(Id==TEXT("quickCombat"))return &QuickCombatSkill;return Id==TEXT("fireball")?&FireballSkill:Id==TEXT("dodge")?&DodgeSkill:nullptr; }
 bool UColdSteelStatusModel::CanBindQuickSkill(FName Id) const
 { const auto* P=Current.Skills.Find(Id);return QuickSkillDefinition(Id)&&P&&P->Level>0; }
 const FColdSteelItem* UColdSteelStatusModel::ResolveQuickItem(int32 Index) const
@@ -119,6 +119,7 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
     if(!Player||!CanBindQuickSkill(B.Skill))return false;
     if(B.Skill==TEXT("heavyStrike"))if(auto* Ability=Player->FindComponentByClass<URuneSwordComponent>())return Ability->TriggerHeavySkill();
     if(B.Skill==TEXT("dodge"))return Player->TryDodge();
+    if(B.Skill==TEXT("quickCombat"))return TriggerQuickCombat();
     if(B.Skill==TEXT("fireball"))if(auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>()){Ability->Trigger();return true;}
     if(B.Skill==TEXT("iceSpike"))if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>()){Ability->Trigger();return true;}
     return false;

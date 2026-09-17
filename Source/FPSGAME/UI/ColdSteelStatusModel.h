@@ -63,6 +63,18 @@ public:
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress DexterousHandsProgress() const;
     FColdSteelSkillEffect DexterousHandsEffect(int32 AtLevel=-1) const;
     UFUNCTION(BlueprintPure, Category="Skills") float ReloadSpeedMultiplier() const;
+    /** 「快速进战」：定义、进度、按等级与当前力量取值的施放结算与 F 键入口。 */
+    const FColdSteelSkillDefinition& QuickCombatDefinition() const { return QuickCombatSkill; }
+    UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress QuickCombatProgress() const;
+    FQuickCombatCast QuickCombatStats(int32 AtLevel=-1) const;
+    float QuickCombatCooldown() const;
+    float QuickCombatCooldownDuration() const { return Current.QuickCombatCooldownDuration; }
+    /** 按 F/快捷栏触发：限剑类武器，转交符文剑的配重锤技能打击；冷却中拒绝。 */
+    bool TriggerQuickCombat();
+    bool TrainQuickCombat(int32 Amount);
+    /** 动作实际开始时预留冷却；挥击结束（FinishQuickCombatCast）后才起跳走表。 */
+    bool CommitQuickCombatCast();
+    void FinishQuickCombatCast();
     const FColdSteelSkillDefinition& RifleDefinition() const { return RifleSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress RifleProgress() const;
     FColdSteelSkillEffect RifleEffect(int32 AtLevel=-1) const;
@@ -240,6 +252,7 @@ private:
     FColdSteelSkillDefinition CriticalStrikeSkill;
     FColdSteelSkillDefinition FireballSkill;
     FColdSteelSkillDefinition IceSpikeSkill;
+    FColdSteelSkillDefinition QuickCombatSkill;
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;

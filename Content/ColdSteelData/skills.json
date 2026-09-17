@@ -226,5 +226,27 @@
     "heavyKill2Experience": 12,
     "heavyHit5Experience": 25,
     "heavyKill5Experience": 60
+  },
+  "quickCombat": {
+    "name": "快速进战",
+    "description": "限剑类或单持手枪。按 F 快速打击：剑顺势使出第四连击的配重锤打击，手枪则松开左手、右手持枪以握把向前猛砸。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。基础冷却 12 秒。",
+    "icon": "Skills/quick_combat_placeholder.png",
+    "upgradeSound": "Skills/player_upgrade.wav",
+    "maxLevel": 20,
+    "experiencePerLevel": 100,
+    "useExperience": 1,
+    "killExperience": 15,
+    "damageBase": 25,
+    "damagePerLevel": 5,
+    "strengthFactorBase": 5,
+    "strengthFactorPerLevel": 0.1,
+    "knockbackCM": 100,
+    "rangeCM": 200,
+    "stunBase": 2.5,
+    "stunPerLevel": 0.1,
+    "cooldown": 12,
+    "triggerKey": "F",
+    "source": "game-dev/data/skills.json:quickCombat",
+    "balanceRevision": "2026-09-17: 用户定义正式效果——前方 2m 单目标配重锤打击，伤害 25+5×等级+力量×(5+0.1×等级)（同日二次下调，原 50+10×等级），击退 1m，眩晕 (2.5+0.1×等级)s，基础冷却 12s。修炼：施放 +1、技能击杀 +15（参考重击档 12 与火球 24 之间的单目标口径）。其他武器后续设计。"
   }
 }

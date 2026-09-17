@@ -13,6 +13,7 @@ ICONS = {
     "rifle_mastery_cold_steel.png": "SourceAssets/Skills20260913/Candidates/rifle_mastery_B_M4_v2.png",
     "dexterous_hands.png": "SourceAssets/DexterousHands20260913/dexterous_hands.png",
     "dodge_cold_steel.png": "SourceAssets/DexterousHands20260913/dodge_cold_steel.png",
+    "quick_combat_placeholder.png": "SourceAssets/QuickCombat20260917/quick_combat_placeholder.png",
 }
 
 

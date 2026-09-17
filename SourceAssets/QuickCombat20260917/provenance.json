@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-17",
+  "tool": "PIL procedural derivative (frame reuse + drawn symbol)",
+  "status": "placeholder; to be replaced when quickCombat gameplay is defined",
+  "skill": "quickCombat",
+  "styleReference": "Content/ColdSteelData/Skills/critical_strike_cold_steel.png (1254x1254 RGB, hexagonal brushed-silver frame)",
+  "sourceImage": "quick_combat_placeholder.png",
+  "generatedSource": "procedural (PIL, this directory): base = current critical strike icon frame; central emblem area repainted with fitted interior gradient; brushed-metal double chevron drawn as central symbol",
+  "runtime": "Content/ColdSteelData/Skills/quick_combat_placeholder.png",
+  "operation": "keeps frame proportions, margins and lighting per skill-icon-series rule; only the central skill symbol was replaced",
+  "usage": "占位技能「快速进战」图标，遵循冷钢技能图标系列（六边银框、石墨内凹、左上柔光、居中金属浮雕、无烘焙文字）。正式技能定义后用同一生成流程重制并替换 skills.json 的 icon 字段；替换后需重新进入游戏刷新已加载纹理缓存。"
+}

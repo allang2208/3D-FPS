@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "FireballTypes.h"
 #include "IceSpikeTypes.h"
+#include "../Combat/WeaponDamageTypes.h"
 #include "ColdSteelSkillTypes.generated.h"
 
 USTRUCT(BlueprintType)
@@ -10,6 +11,26 @@ struct FColdSteelSkillProgress
     GENERATED_BODY()
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) int32 Level = 1;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) int32 Experience = 0;
+};
+
+/** 快速进战：第四连击配重锤打击的固定档参数（skills.json: quickCombat）。 */
+struct FQuickCombatTuning
+{
+    float DamageBase=25.f, DamagePerLevel=5.f;
+    float StrengthFactorBase=5.f, StrengthFactorPerLevel=.1f;
+    float KnockbackCM=100.f, RangeCM=200.f;
+    float StunBase=2.5f, StunPerLevel=.1f;
+    float Cooldown=12.f;
+};
+
+/** 施放时按等级与当前力量取值的一次结算快照。 */
+struct FQuickCombatCast
+{
+    float Damage=0.f;
+    float KnockbackCM=100.f;
+    float StunSeconds=0.f;
+    float RangeCM=200.f;
+    float CooldownSeconds=12.f;
 };
 
 struct FColdSteelSkillDefinition
@@ -35,6 +56,7 @@ struct FColdSteelSkillDefinition
     int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;
     FFireballTuning Fireball;
     FIceSpikeTuning IceSpike;
+    FQuickCombatTuning QuickCombat;
 };
 
 struct FColdSteelSkillEffect

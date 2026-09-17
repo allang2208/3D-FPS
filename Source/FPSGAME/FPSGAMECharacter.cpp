@@ -3,10 +3,12 @@
 #include "Development/DevelopmentTuningSubsystem.h"
 #include "Production/ProductionToolComponent.h"
 #include "Weapons/RuneSwordComponent.h"
+#include "Weapons/FrostRuneVisualDiagnosis.h"
 #include "Weapons/RuneSwordGuardTuning.h"
 #include "Skills/ColdSteelSkillRules.h"
 #include "Skills/FPSFireballComponent.h"
 #include "Skills/FPSIceSpikeComponent.h"
+#include "Skills/FPSQuickCombatComponent.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Perception/AISense_Hearing.h"
 #include "Weapons/AKMSovietCalibration.h"
@@ -16,12 +18,14 @@
 #include "Movement/FPSCharacterMovementComponent.h"
 #include "Movement/FPSStairAudit.h"
 #include "UI/ColdSteelStatusModel.h"
+#include "Building/VoxelBuildComponent.h"
 #include "Engine/GameInstance.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
 #include "Weapons/M4DrumReloadTiming.h"
 #include "Weapons/M1911WeaponAssets.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
+#include "Weapons/ASH12WeaponAssets.h"
 #include "Weapons/GunsmithSystem.h"
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/FPSBallisticsComponent.h"
@@ -46,22 +50,29 @@
 #include "Sound/SoundConcurrency.h"
 #include "Weapons/FPSVisualRecoil.h"
 #include "Weapons/PistolLocomotionAssets.h"
+#include "Weapons/M4TacticalSprintComponent.h"
+#include "Weapons/WeaponActionCameraComponent.h"
+#include "TimerManager.h"
 #include "HAL/IConsoleManager.h"
+
+// Voxel build mode snaps to a 20 cm lattice, so full FPS look sensitivity overshoots the wanted
+// cell. Tune live with `fps.Building.LookSensitivity` (1 = unchanged).
+static TAutoConsoleVariable<float> BuildLookSensitivity(TEXT("fps.Building.LookSensitivity"),0.45f,
+    TEXT("Mouse look multiplier while the voxel build mode is active."));
 
 // Single live dial for the strength of the shot camera layer. The authored
 // bases inside AKMSource already carry the wanted default punch; this only
 // scales presentation (camera offsets and FOV punch), never aim, traces,
-// cadence or the viewmodel springs. Reload/equip camera strength lives in
-// its own component dial.
+// cadence or the viewmodel springs. Reload/equip camera strength is separate
+// (fps.Camera.ActionShake in WeaponActionCameraComponent).
 static TAutoConsoleVariable<float> CameraShakeScale(TEXT("fps.Camera.Shake"),1.f,
     TEXT("Multiplier on the per-shot camera shake: kick, jitter, trauma and FOV punch. 1 = authored base."));
 
 // The M4 fire clip carries the gun kick inside the animation; the AKM and QBZ
 // clips do not (see Docs/Weapons/rifle-fire-clip-recoil-20260917.md). This dial
-// scales the compensation layer that fills that gap.
+// scales the compensation layer that fills that gap. 0 disables it.
 static TAutoConsoleVariable<float> ClipRecoilScale(TEXT("fps.Weapon.ClipRecoil"),1.f,
-    TEXT("Multiplier on the fire clip recoil compensation. 0 disables it, a negative value flips its direction."));
-#include "TimerManager.h"
+    TEXT("Multiplier on the fire clip recoil compensation for weapons whose fire animation carries no gun motion. 0 disables it, a negative value flips its direction."));
 
 namespace AKMSource
 {
@@ -110,10 +121,13 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     PrimaryActorTick.bCanEverTick = true;
     Traversal = CreateDefaultSubobject<UFPSTraversalComponent>(TEXT("Traversal"));
     CreateDefaultSubobject<UProductionToolComponent>(TEXT("ProductionTools"));
+    CreateDefaultSubobject<UM4TacticalSprintComponent>(TEXT("M4TacticalSprint"));
+    CreateDefaultSubobject<UWeaponActionCameraComponent>(TEXT("WeaponActionCamera"));
     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
     CreateDefaultSubobject<UFPSCombatHealthComponent>(TEXT("CombatHealth"));
     CreateDefaultSubobject<UFPSFireballComponent>(TEXT("FireballSkill"));
     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
+    QuickCombatPistol=CreateDefaultSubobject<UFPSQuickCombatComponent>(TEXT("QuickCombatPistol"));
     GetCapsuleComponent()->InitCapsuleSize(42.0f, 96.0f);
     GetCapsuleComponent()->SetCollisionProfileName(TEXT("Pawn"));
 
@@ -226,6 +240,7 @@ void AFPSGAMECharacter::BeginPlay()
 
 void AFPSGAMECharacter::InitializeWeaponVisuals()
 {
+    bWeaponVisualPartsApplied=false;
     if(RearGripAttachment)RearGripAttachment->DestroyComponent();
     RearGripAttachment=nullptr;
     if(StockAttachment)StockAttachment->DestroyComponent();
@@ -277,6 +292,14 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         HipViewmodelLocation = M4HipViewmodelLocation;
         ADSRearEyeDistance = 12.f;
         UE_LOG(LogTemp, Display, TEXT("QBZ191_ACTIVE mesh=%s"), *GetPathNameSafe(ViewmodelMesh));
+    }
+    if (bUseASH12)
+    {
+        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, ASH12WeaponAssets::MeshPath, nullptr, LOAD_NoWarn);
+        bUsingM4Infima = ViewmodelMesh != nullptr; // Shared Manny pose/cue clock.
+        HipViewmodelLocation = M4HipViewmodelLocation;
+        ADSRearEyeDistance = ASH12WeaponAssets::ADSRearEyeDistance;
+        UE_LOG(LogTemp, Display, TEXT("ASH12_ACTIVE mesh=%s eye=%.2f"), *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance);
     }
     if (bUseM1911)
     {
@@ -358,6 +381,11 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     if (IsPistolWeapon()) { DrumReloadAnimation = nullptr; DrumReloadEmptyAnimation = nullptr; }
     ActiveActionAnimation = nullptr;
     AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
+    if (auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>())
+        Sprint->Configure(IsPistolWeapon() ? ERifleSprintWeapon::None
+            : bUseQBZ191 ? ERifleSprintWeapon::QBZ191
+            : bUsingM4Infima && bUseM4Infima ? ERifleSprintWeapon::M4
+            : AKMSoviet::Matches(AKMViewmodel) ? ERifleSprintWeapon::AKM : ERifleSprintWeapon::None);
     GunplayAnimation = Cast<UFPSGunplayAnimInstance>(AKMViewmodel->GetAnimInstance());
     if (GunplayAnimation)
     {
@@ -425,6 +453,7 @@ void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
     Input->BindAction(TEXT("Aim"), IE_Released, this, &AFPSGAMECharacter::AimReleased);
     Input->BindAction(TEXT("Reload"), IE_Pressed, this, &AFPSGAMECharacter::ReloadPressed);
     Input->BindAction(TEXT("InspectWeapon"), IE_Pressed, this, &AFPSGAMECharacter::InspectPressed);
+    Input->BindAction(TEXT("QuickCombat"), IE_Pressed, this, &AFPSGAMECharacter::QuickCombatPressed);
 }
 
 void AFPSGAMECharacter::Tick(float DeltaSeconds)
@@ -460,10 +489,12 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     if (FParse::Param(FCommandLine::Get(), TEXT("ForegripAudit")) || FParse::Param(FCommandLine::Get(), TEXT("PrismGripAudit")) || FParse::Param(FCommandLine::Get(), TEXT("VerticalGripAudit")) || FParse::Param(FCommandLine::Get(), TEXT("CantedGripAudit"))) RunForegripAudit();
     if (bRunAKMIntegrationAudit) RunAKMIntegrationAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("QBZ191IntegrationAudit"))) RunQBZ191IntegrationAudit();
+    if (FParse::Param(FCommandLine::Get(), TEXT("ASH12SightCapture"))) RunASH12IntegrationAudit();
     if (bRunSlideCombatAudit) RunSlideCombatAcceptance(DeltaSeconds);
     else if (bRunGunplayAcceptance) RunGunplayAcceptance(DeltaSeconds);
     if (bRunWeaponHandlingAudit) RunWeaponHandlingAudit();
     if (FParse::Param(FCommandLine::Get(), TEXT("M1911Audit"))) RunM1911DevelopmentAudit();
+    if (FParse::Param(FCommandLine::Get(), TEXT("FrostRuneVisualAudit"))) TickFrostRuneVisualDiagnosis(this);
     if (FParse::Param(FCommandLine::Get(), TEXT("BallisticPresentationAudit"))) RunBallisticPresentationAudit();
     if (bRunMuzzleMigrationAudit) RunMuzzleMigrationAudit();
     LookInput = FVector2D::ZeroVector;
@@ -538,12 +569,24 @@ void AFPSGAMECharacter::JumpReleased()
 void AFPSGAMECharacter::FirePressed()
 {
     if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
+    // 手枪砸击进行中不接开火（枪已离姿态，动作结束才恢复）。
+    if(QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())return;
     if(IsCastBlockingLeftHandAction())
     {
         if(RuneSword && RuneSword->IsEquipped())return;
         if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())return;
     }
-    if(RuneSword && RuneSword->IsEquipped()){ExitSprintForWeapon();RuneSword->BeginPrimaryAttack();return;}
+    // Sprinting with a two-handed sword gives the overhead chop instead of the
+    // ordinary slash; everything else keeps the charge/slash flow.
+    if(RuneSword && RuneSword->IsEquipped())
+    {
+        // Read the sprint state first: ExitSprintForWeapon clears it.
+        const bool bSprintAttack=bIsSprinting;
+        UE_LOG(LogTemp,Log,TEXT("RuneSword attack pressed: sprinting=%d"),bSprintAttack?1:0);
+        ExitSprintForWeapon();
+        if(bSprintAttack)RuneSword->BeginOverhead();else RuneSword->BeginPrimaryAttack();
+        return;
+    }
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
     if (!bFireHeld)
@@ -568,8 +611,8 @@ void AFPSGAMECharacter::FireInputReleased()
 
 void AFPSGAMECharacter::FireReleased()
 {
-    if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
     bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
+    if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
     if(RuneSword && RuneSword->IsEquipped())RuneSword->CancelAction();
     const double Now=GetWorld()->GetTimeSeconds();
     AdvanceVisualWeaponRecoil(Now);
@@ -785,6 +828,38 @@ void AFPSGAMECharacter::InspectPressed()
     PlayWeaponAnimation(InspectAnimation, false);
 }
 
+// 「快速进战」F 键入口：转交状态模型，由其路由到符文剑的配重锤技能打击（限剑类武器）。
+void AFPSGAMECharacter::QuickCombatPressed()
+{
+    if(auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
+        Profile->TriggerQuickCombat();
+}
+
+// 手枪版快速进战：单持时松开左手、右手持枪以握把前砸。这里只做武装与动作仲裁，
+// 时钟、接触结算与技能提交在动作组件里。
+bool AFPSGAMECharacter::TriggerPistolQuickCombat()
+{
+    auto Gate=[&](const TCHAR* Reason)
+    {
+        UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 手枪砸击被拒绝：%s"),Reason);
+        return false;
+    };
+    if(!IsPistolWeapon())return Gate(TEXT("当前不是手枪"));
+    if(IsDualWieldingPistols())return Gate(TEXT("双持状态"));
+    if(IsCastBlockingLeftHandAction())return Gate(TEXT("施法/其他动作占用左手"));
+    if(IsWeaponBusy())return Gate(TEXT("武器动作未结束"));
+    if(IsTraversing()||IsDodging()||bIsSliding)return Gate(TEXT("移动动作中"));
+    if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return Gate(TEXT("已死亡"));
+    if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return Gate(TEXT("视模不可用"));
+    FireReleased();
+    SetAimingState(false);
+    ExitSprintForWeapon();
+    bFireHeld=false;bPistolShotPending=false;
+    const bool bStarted=QuickCombatPistol&&QuickCombatPistol->BeginAction();
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 手枪砸击%s"),bStarted?TEXT("开始"):TEXT("启动失败"));
+    return bStarted;
+}
+
 void AFPSGAMECharacter::RefreshMovementState()
 {
     const bool bForwardIntent = MoveInput.Y > 0.5f && MoveInput.Size() > 0.7f;
@@ -792,7 +867,7 @@ void AFPSGAMECharacter::RefreshMovementState()
     const auto* StaminaProfile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Guarding=RuneSword && RuneSword->IsGuarding();
     SetAimingState(bAimHeld && !IsWeaponBusy());
-    bIsSprinting = !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!bFireHeld || IsReloading()) && bForwardIntent;
+    bIsSprinting = !Guarding && bSprintHeld && (!StaminaProfile||StaminaProfile->CanSprint()) && !IsDodging() && GetCharacterMovement()->IsMovingOnGround() && !bIsSliding && !bIsCrouched && !bIsAiming && (!IsWeaponFireHeld() || IsReloading()) && bForwardIntent;
     if (!bPreviouslySprinting && bIsSprinting) SprintStartedAt = GetWorld()->GetTimeSeconds();
     if (bPreviouslySprinting && !bIsSprinting) StartSprintToFireLock(GetWorld()->GetTimeSeconds());
     GetCharacterMovement()->MaxWalkSpeed = bIsSprinting ? SprintSpeed : (bIsAiming ? ADSWalkSpeed : WalkSpeed);
@@ -927,8 +1002,8 @@ void AFPSGAMECharacter::UpdateWeaponFeedback(float DeltaSeconds)
     // Scale spring time, not frame-dependent interpolation or damping alone.
     // Peak impulse response retains its amplitude; higher stability settles sooner.
     const float FeedbackDelta = DeltaSeconds * WeaponHandling.RecoveryRate();
-    if(ClipRecoilSeconds>=0.f)ClipRecoilSeconds+=DeltaSeconds;
     AdvanceVisualWeaponRecoil(GetWorld()->GetTimeSeconds());
+    if(ClipRecoilSeconds>=0.f)ClipRecoilSeconds+=DeltaSeconds;
     AdvanceSpring(CameraKickPitch, CameraKickPitchVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
     AdvanceSpring(CameraKickYaw, CameraKickYawVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
     AdvanceSpring(CameraJitterPosition, CameraJitterPositionVelocity, AKMSource::JitterStiffness, AKMSource::JitterDamping, FeedbackDelta);
@@ -981,7 +1056,20 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     UpdateADSProgress();
     CameraADSFactor = FMath::SmoothStep(0.0f, 1.0f, ADSProgress);
     WeaponADSFactor = CameraADSFactor;
-    const float Speed = HorizontalSpeed();
+    UpdateLocomotionPresentation(DeltaSeconds);
+    auto* ActionCamera = FindComponentByClass<UWeaponActionCameraComponent>();
+    const auto* TacticalSprint = FindComponentByClass<UM4TacticalSprintComponent>();
+    const bool bRifleSprintCamera = bInventoryWeaponReady && !IsPistolWeapon() && !IsDualWieldingPistols()
+        && TacticalSprint && TacticalSprint->OwnsPose() && !bGunsmithInspection
+        && !IsTraversing() && !IsCastBlockingLeftHandAction() && !IsDodging() && !bIsSliding;
+    if (ActionCamera)
+        ActionCamera->UpdateSprint(DeltaSeconds, bRifleSprintCamera,
+            bIsSprinting && !IsWeaponBusy() && !bAimHeld && !bFireHeld && HorizontalSpeed() > 50.f,
+            M4SprintPhase, GroundLocomotionWeight * FMath::Clamp(HorizontalSpeed() / FMath::Max(SprintSpeed, 1.f), 0.f, 1.f));
+    // Crossfade from the ordinary walking bob into the stronger rendered view
+    // offset, keeping both layers on the same footstep phase.
+    const float LegacyBobWeight = ActionCamera ? 1.f - ActionCamera->SprintCameraWeight() : 1.f;
+    SprintCameraFactor = FMath::Lerp(SprintCameraFactor, bIsSprinting ? 1.0f : 0.0f, 1.0f - FMath::Exp(-9.0f * DeltaSeconds));
     const bool bGrounded = GetCharacterMovement()->IsMovingOnGround();
     if (bGrounded && !bWasGrounded)
         LandingVelocity -= FMath::Clamp(-PreviousVerticalVelocity / 650.0f, 0.0f, 1.8f) * 36.0f;
@@ -991,15 +1079,19 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     FVector TargetLocation = CameraRestLocation;
     TargetLocation.Z = (bIsSliding || bIsCrouched) ? SlidingCameraHeight : StandingCameraHeight;
     float MovementRoll = 0.0f;
-    if (bGrounded && !bIsSliding && !IsDodging() && Speed > 20.0f)
+    float MovementPitch = 0.0f;
+    if (GroundLocomotionWeight > 0.001f)
     {
-        CameraBobPhase += DeltaSeconds * (bIsSprinting ? 12.0f : 8.0f);
         const float Weight = 1.0f - CameraADSFactor * 0.85f;
-        const float Amplitude = (bIsSprinting ? 2.4f : 1.0f) * FMath::Min(Speed / 450.0f, 1.0f) * Weight * CameraMotionScale;
-        TargetLocation.Y += FMath::Sin(CameraBobPhase) * Amplitude;
-        TargetLocation.Z += FMath::Cos(CameraBobPhase * 2.0f) * Amplitude;
-        MovementRoll = FMath::RadiansToDegrees(FMath::Sin(CameraBobPhase) * (Amplitude / 100.0f) * 0.25f);
+        const float Amplitude = FMath::Lerp(1.0f, 2.4f, SprintCameraFactor) * GroundLocomotionWeight * Weight * CameraMotionScale * LegacyBobWeight;
+        const float Side = FMath::Cos(CameraBobPhase);
+        const float Step = FMath::Cos(CameraBobPhase * 2.0f);
+        TargetLocation.Y += Side * Amplitude * .65f;
+        TargetLocation.Z -= Step * Amplitude * .75f;
+        MovementRoll = Side * Amplitude * .14f;
+        MovementPitch = -Step * Amplitude * .08f;
     }
+    MovementRoll -= LocomotionSideAlpha * .35f * (1.f - CameraADSFactor * .9f) * CameraMotionScale;
     const float DodgeWeight=DodgePresentationWeight()*CameraMotionScale;
     TargetLocation.Z-=3.f*DodgeWeight;
     if (IsDodging())
@@ -1024,16 +1116,43 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     const float NoisePitch = FMath::PerlinNoise1D(FeedbackTime * 9.0f + 17.0f) * 0.03f * TraumaStrength;
     const float NoiseYaw = FMath::PerlinNoise1D(FeedbackTime * 7.0f + 55.0f) * 0.03f * TraumaStrength;
     FRotator CameraFeedback(
-        FMath::RadiansToDegrees(CameraKickPitch + CameraJitterRotation.X + NoisePitch),
+        MovementPitch + FMath::RadiansToDegrees(CameraKickPitch + CameraJitterRotation.X + NoisePitch),
         FMath::RadiansToDegrees(CameraKickYaw + CameraJitterRotation.Y + NoiseYaw),
         MovementRoll + FMath::RadiansToDegrees(CameraJitterRotation.Z));
     CameraFeedback+=SwordCameraRotation*CameraMotionScale;
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
     float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);
-    SprintCameraFactor = FMath::Lerp(SprintCameraFactor, bIsSprinting ? 1.0f : 0.0f, 1.0f - FMath::Exp(-9.0f * DeltaSeconds));
     TargetHorizontalFOV = FMath::Lerp(TargetHorizontalFOV, SprintFieldOfView, SprintCameraFactor * (1.0f - CameraADSFactor));
     FirstPersonCamera->SetFieldOfView(TargetHorizontalFOV);
+    if (ActionCamera)
+    {
+        EM4CameraAction CameraAction = EM4CameraAction::None;
+        float SourceTime = 0.f;
+        float SourceEnd = 0.f;
+        const bool bM4Camera = bInventoryWeaponReady && bUsingM4Infima && bUseM4Infima
+            && !bUseQBZ191 && !IsPistolWeapon() && !IsDualWieldingPistols()
+            && !bGunsmithInspection && !IsTraversing() && !IsCastBlockingLeftHandAction();
+        if (bM4Camera && ActiveActionAnimation)
+        {
+            if (IsReloading())
+            {
+                CameraAction = bDrumInstalled
+                    ? (bPendingEmptyReload ? EM4CameraAction::DrumReloadEmpty : EM4CameraAction::DrumReload)
+                    : (bPendingEmptyReload ? EM4CameraAction::ReloadEmpty : EM4CameraAction::Reload);
+                SourceTime = ReloadSourceTime(WeaponStateElapsed);
+                SourceEnd = ReloadSourceTime(WeaponStateDuration);
+            }
+            else if (WeaponState == EAKMWeaponState::Equipping && ActiveActionAnimation == EquipAnimation)
+            {
+                CameraAction = EM4CameraAction::EquipCharge;
+                SourceTime = ActionStartPosition + WeaponStateElapsed * ActionPlayRate;
+                SourceEnd = ActiveActionAnimation->GetPlayLength();
+            }
+        }
+        ActionCamera->Apply(*FirstPersonCamera, CameraAction, SourceTime, SourceEnd,
+            MechanicalCueTimes, CameraMotionScale * (1.f - CameraADSFactor));
+    }
 }
 
 FRotator AFPSGAMECharacter::GetViewmodelBaseRotation() const
@@ -1065,29 +1184,47 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         ? (bPistolActionTransition ? 28.f : (SprintTarget < SprintPoseFactor ? 12.f : 8.f))
         : (bUsingM4Infima && SprintTarget < SprintPoseFactor ? 24.0f : 12.0f);
     SprintPoseFactor = FMath::Lerp(SprintPoseFactor, SprintTarget, 1.0f - FMath::Exp(-SprintBlendRate * DeltaSeconds));
-    // Distance-driven stride: 1.65 complete left/right cycles per second at full sprint.
-    if (bUsingM4Infima && !bPistol)
-        M4SprintPhase = FMath::Fmod(M4SprintPhase + DeltaSeconds * 2.0f * PI * 1.65f * SprintSpeedAlpha, 2.0f * PI);
     UpdatePistolLocomotion(DeltaSeconds);
+    auto* TacticalSprint = FindComponentByClass<UM4TacticalSprintComponent>();
+    if (TacticalSprint)
+    {
+        const EM4SprintGrip Grip = HasAngledForegrip() ? EM4SprintGrip::Angled
+            : HasCantedForegrip() ? EM4SprintGrip::Canted
+            : HasVerticalForegrip() ? EM4SprintGrip::Vertical
+            : HasPrismHandstop() ? EM4SprintGrip::Prism
+            : bDrumInstalled ? EM4SprintGrip::Drum : EM4SprintGrip::Base;
+        const bool bReady = bInventoryWeaponReady && !bPistol;
+        const bool bRequest = bIsSprinting && !IsWeaponBusy() && !bAimHeld && !bFireHeld
+            && !IsTraversing() && !IsDodging() && !bIsSliding && !IsCastBlockingLeftHandAction()
+            && !bGunsmithInspection && HorizontalSpeed() > 50.f;
+        TacticalSprint->Advance(DeltaSeconds, bReady, bRequest, Grip, M4SprintPhase, GroundLocomotionWeight,
+            bAimHeld || bFireHeld || IsWeaponBusy());
+    }
+    const bool bAuthoredRifleSprint = TacticalSprint && TacticalSprint->OwnsPose();
     FVector BobTarget = FVector::ZeroVector;
     FVector BobRotationTarget = FVector::ZeroVector;
     if (bPistol)
     {
         // Authored stride and pistol breathing replace the unrelated legacy bob clock.
     }
-    else if (SpeedM <= 0.5f || bIsSliding || !GetCharacterMovement()->IsMovingOnGround())
-        BobTarget.Y = FMath::Sin(WeaponBobTime * 0.5f) * 0.003f;
     else
     {
-        const float Amplitude = (bUsingM4Infima || bPistol) ? 0.7f * (1.0f - SprintPoseFactor) : (SprintPoseFactor > 0.5f ? 1.35f : 0.7f);
-        BobTarget = FVector(FMath::Sin(WeaponBobTime) * 0.011f * Amplitude, FMath::Abs(FMath::Cos(WeaponBobTime)) * 0.016f * Amplitude, 0.0f);
-        BobRotationTarget = FVector(FMath::Sin(WeaponBobTime * 0.5f) * 0.010f * Amplitude, 0.0f, FMath::Sin(WeaponBobTime) * 0.008f * Amplitude);
+        const float Amplitude = ((bUsingM4Infima || bAuthoredRifleSprint) ? .7f * (1.f - (bAuthoredRifleSprint ? TacticalSprint->PoseProgress() : SprintPoseFactor))
+            : FMath::Lerp(.7f, 1.15f, SprintPoseFactor)) * GroundLocomotionWeight
+            * RifleLocomotionWeight * RifleLocomotionScale;
+        const float Side = FMath::Cos(CameraBobPhase);
+        const float Step = FMath::Cos(2.f * CameraBobPhase);
+        BobTarget = FVector(Side * .010f, -Step * .008f, FMath::Sin(2.f * CameraBobPhase) * .002f) * Amplitude;
+        BobRotationTarget = FVector(FMath::Sin(2.f * CameraBobPhase) * .004f, 0.f, Side * .007f) * Amplitude;
+        BobTarget.Y += FMath::Sin(WeaponBobTime * .5f) * .0015f * (1.f - GroundLocomotionWeight)
+            * RifleLocomotionWeight * RifleLocomotionScale;
     }
     WeaponBobPosition = FMath::Lerp(WeaponBobPosition, BobTarget, 1.0f - FMath::Exp(-14.0f * DeltaSeconds));
     WeaponBobRotation = FMath::Lerp(WeaponBobRotation, BobRotationTarget, 1.0f - FMath::Exp(-14.0f * DeltaSeconds));
     const FVector2D LookRate = (LookInput / FMath::Max(DeltaSeconds, 0.001f) / 60.0f).GetClampedToMaxSize(8.0f);
     WeaponSwayPosition = FMath::Lerp(WeaponSwayPosition, FVector(LookRate.X * 0.0006f, LookRate.Y * 0.0006f, 0.0f), 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
     WeaponSwayRotation = FMath::Lerp(WeaponSwayRotation, FVector(LookRate.Y * 0.002f, LookRate.X * 0.003f, 0.0f), 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
+
     // Fire clip compensation. A weapon whose fire animation carries no gun
     // motion reads the reference punch here instead, so both present the same
     // recoil. It is added after the spring clamps: it stands in for authored
@@ -1100,7 +1237,6 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const FVector ClipRotation=RecoilProfile.ClipRotation*ClipWave;
     const FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
     const FVector ClipADSRotation=RecoilProfile.ClipADSRotation*ClipWave;
-
     FVector HipOffset(GunKickPosition.X, GunKickPosition.Y * 0.4f, GunKickPosition.Z * AKMSource::HipAxialScale);
     HipOffset += GunJitterPosition * 0.35f;
     HipOffset.X = 0.018f * FMath::Tanh(HipOffset.X / 0.018f);
@@ -1113,11 +1249,13 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     HipAngles.Z = 0.025f * FMath::Tanh(HipAngles.Z / 0.025f);
 
     const float Suppress = 1.0f - WeaponADSFactor;
-    const float LegacySprint = (bUsingM4Infima || bPistol) ? 0.0f : SprintPoseFactor;
-    const float SprintSide = FMath::Sin(M4SprintPhase);
+    const float LegacySprint = (bUsingM4Infima || bPistol || bAuthoredRifleSprint) ? 0.0f : SprintPoseFactor;
+    const float SprintSide = FMath::Cos(M4SprintPhase);
     const float SprintStep = FMath::Cos(2.0f * M4SprintPhase);
-    const FVector SprintOffset = bPistol ? PistolLocomotionOffset : bUsingM4Infima
-        ? (M4SprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, 0.45f * SprintStep)) * SprintPoseFactor
+    const float RifleSprintAlpha = FMath::SmoothStep(0.f, 1.f, SprintPoseFactor);
+    const FVector SprintOffset = bPistol ? PistolLocomotionOffset : bUsingM4Infima && !bAuthoredRifleSprint
+        ? (M4SprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, -0.45f * SprintStep) * GroundLocomotionWeight) * RifleSprintAlpha
+            + M4SprintMidpointOffset * (4.f * RifleSprintAlpha * (1.f - RifleSprintAlpha))
         : FVector::ZeroVector;
     const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress + ClipPosition;
     const FVector UEHipPose(-GodotPose.Z * 100.0f, GodotPose.X * 100.0f, GodotPose.Y * 100.0f);
@@ -1146,6 +1284,8 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         ? FMath::Lerp(HipLocation, ActionLocation, M4ActionFramingAlpha)
         : HipLocation;
     FVector TargetLocation = FMath::Lerp(HipFraming + UEHipPose + SprintOffset, ADSTarget + UEADSRecoil, WeaponADSFactor);
+    const float RifleMotionWeight = bPistol ? 0.f : RifleLocomotionWeight * Suppress * Suppress;
+    TargetLocation += RifleInertiaOffset * RifleMotionWeight;
     TargetLocation += FVector(-NearWallAlpha * 12.0f, 0.0f, LandingOffset * 0.35f * (1.0f - WeaponADSFactor));
 
     FVector ADSKickAngles = GunKickRotation + GunJitterRotation + FVector(GunFlip, 0.0f, 0.0f);
@@ -1163,15 +1303,17 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
     // rotates about the wrong axis and fails to raise the muzzle.
-    const FRotator SprintAngles = M4SprintRotation + FRotator(0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Cos(M4SprintPhase));
-    const FQuat SprintRotation = bPistol ? PistolLocomotionRotation.Quaternion() : bUsingM4Infima
-        ? FQuat::Slerp(FQuat::Identity, SprintAngles.Quaternion(), SprintPoseFactor)
+    const FRotator SprintAngles = M4SprintRotation + FRotator(-0.8f * SprintStep, 2.3f * SprintSide, 1.6f * FMath::Sin(M4SprintPhase)) * GroundLocomotionWeight;
+    const FQuat SprintRotation = bPistol ? PistolLocomotionRotation.Quaternion() : bUsingM4Infima && !bAuthoredRifleSprint
+        ? FQuat::Slerp(FQuat::Identity, SprintAngles.Quaternion(), RifleSprintAlpha)
         : FQuat::Identity;
     const FQuat ADSBase = bSightCalibrated ? CalibratedADSRotation : (IsPistolWeapon() ? BaseRotation : ADSViewmodelRotation).Quaternion();
     const FQuat ADSRotation = FRotator(FMath::RadiansToDegrees(ADSKickAngles.X), -FMath::RadiansToDegrees(ADSKickAngles.Y), -FMath::RadiansToDegrees(ADSKickAngles.Z)).Quaternion() * ADSBase;
     TargetLocation+=FVector(-2.f,0.f,-6.f)*DodgePresentationWeight();
     AKMViewmodel->SetRelativeLocation(TargetLocation);
-    AKMViewmodel->SetRelativeRotation(FQuat::Slerp(SprintRotation * HipRotation.Quaternion(), ADSRotation, WeaponADSFactor));
+    const FQuat InertiaRotation = FRotator(RifleInertiaAngles.X, RifleInertiaAngles.Y, RifleInertiaAngles.Z).Quaternion();
+    AKMViewmodel->SetRelativeRotation(FQuat::Slerp(FQuat::Identity, InertiaRotation, RifleMotionWeight)
+        * FQuat::Slerp(SprintRotation * HipRotation.Quaternion(), ADSRotation, WeaponADSFactor));
     // The gunsmith side view uses the actual equipped assembly and its attachments.
     if(bGunsmithInspection)
     {
@@ -1291,7 +1433,9 @@ void AFPSGAMECharacter::FireShot()
     if (bHit && Hit.GetActor())
     {
         const float HitDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,Hit.ImpactPoint),EffectiveWeaponRangeCM);
-        NotifyConfirmedWeaponHit(Hit.GetActor(), ColdSteelSkills::ApplyHit(this,Hit,HitDamage,TraceDirection,Training));
+        FWeaponDamageResult DamageResult;
+        const float Applied=ColdSteelSkills::ApplyHit(this,Hit,HitDamage,TraceDirection,Training,&DamageResult);
+        NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true);
         ColdSteelCombat::OnHit(Hit.GetActor(),this,Effects.Poison);
         if(!bLastShotMuzzleBlocked&&ProjectileSpeedCM<=0){
             FHitResult NextHit=Hit;int32 Remaining=Effects.Piercing;
@@ -1299,7 +1443,12 @@ void AFPSGAMECharacter::FireShot()
                 Params.AddIgnoredActor(NextHit.GetActor());
                 if(!GetWorld()->LineTraceSingleByChannel(NextHit,Muzzle,TraceStart+TraceDirection*TraceDistance,ECC_Visibility,Params))break;
                 const float NextDamage=ShotDamage*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,NextHit.ImpactPoint),EffectiveWeaponRangeCM);
-                if(NextHit.GetActor())NotifyConfirmedWeaponHit(NextHit.GetActor(),ColdSteelSkills::ApplyHit(this,NextHit,NextDamage,TraceDirection,Training));
+                if(NextHit.GetActor())
+                {
+                    FWeaponDamageResult NextResult;
+                    const float NextApplied=ColdSteelSkills::ApplyHit(this,NextHit,NextDamage,TraceDirection,Training,&NextResult);
+                    NotifyConfirmedWeaponHit(NextHit.GetActor(),NextApplied,&NextResult,true);
+                }
                 ColdSteelCombat::OnHit(NextHit.GetActor(),this,Effects.Poison);WeaponFX->OnImpact(NextHit);
             }
         }
@@ -1318,11 +1467,11 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     AdvanceVisualWeaponRecoil(VisualNow);
     const double BurstReset=FMath::Clamp(static_cast<double>(FireInterval)*2.5,.25,.45);
     VisualBurstIndex=VisualNow-LastVisualShotAt>BurstReset?0:FMath::Min(VisualBurstIndex+1,8);
-    ClipRecoilSeconds=0.f;
     LastVisualShotAt=VisualNow;
+    ClipRecoilSeconds=0.f;
     VisualRecoverAt=VisualNow+FMath::Clamp(static_cast<double>(FireInterval)*.8,.065,.12);
-    const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread());
     const auto VisualProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
+    const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread());
     // A defined first pulse followed by smaller settled pulses, rather than
     // increasing random tumbling as the automatic burst continues.
     const float BurstGain=VisualBurstIndex==0?1.12f:FMath::Lerp(1.f,.86f,VisualBurstIndex/8.f);
@@ -1364,6 +1513,105 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear,
     // and the gain below is what makes a burst build up before the crosshair.
     FireTrauma = FMath::Min(1.0f, FireTrauma + 0.11f * RecoilLoad * FMath::Sqrt(WeaponHandling.ShakeScale));
+}
+
+// Dual wield fires two independent triggers into one camera. The per-hand
+// control-rotation pattern already lives in UPistolDualWieldComponent, so this
+// adds the layers the single-weapon path receives from ApplyShotFeedback(): one
+// viewmodel spring set per hand plus the shared camera kick, jitter, trauma and
+// FOV punch. Presentation only - ballistics, cadence and damage are untouched.
+void AFPSGAMECharacter::ApplyDualWieldShotFeedback(int32 HandIndex, bool bRevolver, const FWeaponHandling& Handling,
+    int32 ShotIndex, float Interval, float RecoilLoad)
+{
+    auto& R=DualRecoil[FMath::Clamp(HandIndex,0,1)];
+    const double Now=GetWorld()->GetTimeSeconds();
+    const auto Profile=FPSVisualRecoil::ForWeapon(true,bRevolver,false,false);
+    const auto Dual=FPSVisualRecoil::ForDualWield(bRevolver);
+    const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread());
+    // A defined first pulse then smaller settled pulses, exactly like the single
+    // rig; the dual hand keeps its own burst clock instead of the rifle's.
+    const float BurstGain=ShotIndex<=0?1.12f:FMath::Lerp(1.f,.86f,FMath::Min(ShotIndex,8)/8.f);
+    R.RecoverAt=Now+static_cast<double>(FMath::Clamp(Interval*.8f,.065f,.12f));
+    R.UpdatedAt=Now;
+    const FVector2D Pattern=FWeaponHandling::Pattern(ShotIndex);
+    const float Horizontal=FMath::Clamp(Pattern.Y/0.003f+FMath::FRandRange(-0.35f,0.35f),-1.0f,1.0f);
+    const float HandGain=Dual.HandGain*RecoilLoad*Handling.RecoilScale*BurstGain;
+    R.PositionVelocity+=FVector(-Horizontal*0.24f,FMath::FRandRange(0.04f,0.10f),FMath::FRandRange(0.55f,0.85f))
+        *Profile.Position*AKMSource::ViewmodelGain*HandGain;
+    R.RotationVelocity+=FVector(FMath::FRandRange(0.55f,1.0f),Horizontal*0.50f,FMath::FRandRange(-0.7f,0.7f))
+        *Profile.Rotation*AKMSource::ViewmodelGain*HandGain;
+    R.FlipVelocity+=1.5f*HandGain*Profile.Flip;
+    const float JitterScale=RecoilLoad*Handling.ShakeScale*Dual.HandGain;
+    const FVector PositionImpulse=FVector(FMath::FRandRange(-0.7f,0.7f),FMath::FRandRange(-0.7f,0.7f),FMath::FRandRange(-0.7f,0.7f))*JitterScale;
+    const FVector RotationImpulse=FVector(FMath::FRandRange(-2.2f,2.2f),FMath::FRandRange(-2.2f,2.2f),FMath::FRandRange(-2.2f,2.2f))*JitterScale;
+    R.JitterPositionVelocity+=PositionImpulse*Profile.Jitter;
+    R.JitterRotationVelocity+=RotationImpulse*Profile.Jitter;
+    // Shared camera layers. Dual pistols never aim down sights, so only the hip
+    // weighting of the single rig applies.
+    CameraJitterPositionVelocity+=PositionImpulse*0.11f*AKMSource::FeedbackScale*CameraShake;
+    CameraJitterRotationVelocity+=RotationImpulse*0.34f*AKMSource::FeedbackScale*CameraShake;
+    const float CameraGain=Dual.CameraGain*Handling.ShakeScale;
+    const float ImpulseScale=FMath::Lerp(13.0f,19.0f,0.0f)*VisualRecoilScale*CameraGain*CameraShake;
+    CameraKickPitchVelocity+=(Pattern.X+FMath::FRandRange(-0.0012f,0.0012f))*ImpulseScale*AKMSource::FeedbackScale;
+    CameraKickYawVelocity+=(Pattern.Y+FMath::FRandRange(-0.0008f,0.0008f))*ImpulseScale*AKMSource::FeedbackScale;
+    FOVPunch=FMath::Max(FOVPunch,1.2f*Dual.CameraGain*CameraShake);
+    FireTrauma=FMath::Min(1.0f,FireTrauma+0.11f*RecoilLoad*FMath::Sqrt(Handling.ShakeScale)*Dual.CameraGain);
+}
+
+void AFPSGAMECharacter::AdvanceDualWieldHandRecoil(int32 HandIndex, bool bRevolver, const FWeaponHandling& Handling, float DeltaSeconds)
+{
+    auto& R=DualRecoil[FMath::Clamp(HandIndex,0,1)];
+    const double Now=GetWorld()->GetTimeSeconds();
+    const double Previous=R.UpdatedAt<0.?Now:R.UpdatedAt;
+    R.UpdatedAt=Now;
+    const float Elapsed=FMath::Max(0.f,static_cast<float>(Now-Previous));
+    if(Elapsed<=0.f)return;
+    const auto Profile=FPSVisualRecoil::ForWeapon(true,bRevolver,false,false);
+    // Same event-boundary split as the single rig: the impulse shares use the
+    // attack damping, the remainder recovers. No frame integrates twice.
+    const float Attack=FMath::Clamp(static_cast<float>(R.RecoverAt-Previous),0.f,Elapsed);
+    auto Integrate=[&](float Seconds,bool Recovering)
+    {
+        if(Seconds<=0.f)return;
+        const float Dt=Seconds*Handling.RecoveryRate();
+        const float PositionDamping=Recovering?1.94f*FMath::Sqrt(Profile.PositionStiffness):Profile.PositionDamping;
+        const float RotationDamping=Recovering?1.94f*FMath::Sqrt(Profile.RotationStiffness):Profile.RotationDamping;
+        AdvanceSpring(R.Position,R.PositionVelocity,Profile.PositionStiffness,PositionDamping,Dt);
+        AdvanceSpring(R.Rotation,R.RotationVelocity,Profile.RotationStiffness,RotationDamping,Dt);
+        AdvanceSpring(R.Flip,R.FlipVelocity,Profile.RotationStiffness,RotationDamping,Dt);
+        AdvanceSpring(R.JitterPosition,R.JitterPositionVelocity,7000.f,Recovering?70.f:54.f,Dt);
+        AdvanceSpring(R.JitterRotation,R.JitterRotationVelocity,7000.f,Recovering?70.f:54.f,Dt);
+    };
+    Integrate(Attack,false);
+    Integrate(Elapsed-Attack,true);
+}
+
+void AFPSGAMECharacter::GetDualWieldHandRecoil(int32 HandIndex, FVector& OutOffset, FVector& OutAngles) const
+{
+    const auto& R=DualRecoil[FMath::Clamp(HandIndex,0,1)];
+    // Identical camera-space conversion and clamps to the single-pistol hip rig
+    // below, so a dual hand and a lone pistol share one recoil language.
+    FVector Offset(R.Position.X,R.Position.Y*0.4f,R.Position.Z*AKMSource::HipAxialScale);
+    Offset+=R.JitterPosition*0.35f;
+    Offset.X=0.018f*FMath::Tanh(Offset.X/0.018f);
+    Offset.Y=0.008f*FMath::Tanh(Offset.Y/0.008f);
+    Offset.Z=0.065f*FMath::Tanh(Offset.Z/0.065f);
+    FVector Angles(R.Rotation.X*0.45f+R.Flip*0.18f,R.Rotation.Y,R.Rotation.Z*0.6f);
+    Angles+=R.JitterRotation*0.35f;
+    Angles.X=0.045f*FMath::Tanh(Angles.X/0.045f);
+    Angles.Y=0.030f*FMath::Tanh(Angles.Y/0.030f);
+    Angles.Z=0.025f*FMath::Tanh(Angles.Z/0.025f);
+    OutOffset=Offset;OutAngles=Angles;
+}
+
+float AFPSGAMECharacter::GetHipSpread() const
+{
+    // Dual pistols never aim down sights, so there is no ADS tightening to fall
+    // back on: the reticle carries the whole cone, including each hand's own
+    // bloom, averaged across both guns. Ballistics stay where they were - the dual
+    // component still owns the shot direction and pattern.
+    if(IsDualWieldingPistols()&&DualPistols)return DualPistols->SharedConeSpread();
+    return 2.f*(0.0175f+CurrentSpread+MoveSpread+AirSpread)*HipSpreadMultiplier;
 }
 
 FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const
@@ -1481,10 +1729,14 @@ void AFPSGAMECharacter::StartEquipCharge()
     // Switching can interrupt ADS, reload or sprint. Their cached presentation
     // offsets belong to the previous weapon, not the new equip animation.
     SetAimingState(false);
+    FirstPersonCamera->ClearAdditiveOffset();
+    if (auto* ActionCamera = FindComponentByClass<UWeaponActionCameraComponent>()) ActionCamera->ResetSprint();
     ADSProgress = ADSStartProgress = CameraADSFactor = WeaponADSFactor = 0.0f;
     ADSStartedAt = GetWorld()->GetTimeSeconds();
     M4ActionFramingAlpha = SprintPoseFactor = 0.0f;
+    if (auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>()) Sprint->Reset();
     ResetPistolLocomotion();
+    ResetRifleLocomotion();
     WeaponBobPosition = WeaponBobRotation = FVector::ZeroVector;
     AKMViewmodel->SetRelativeLocation(HipViewmodelLocation);
     AKMViewmodel->SetRelativeRotation(GetViewmodelBaseRotation());
@@ -1665,6 +1917,12 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
         const TCHAR* Revision=(Clip.Contains(TEXT("reload")) || Clip==TEXT("equip_charge"))?TEXT("Attachments20260913"):TEXT("Refined20260913");
         return LoadObject<UAnimSequence>(nullptr, *FString::Printf(TEXT("/Game/Weapons/QBZ191/%s/Animations/base/A_QBZ191_%s.A_QBZ191_%s"), Revision, *Clip, *Clip));
     }
+    if (bUseASH12)
+    {
+        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
+        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
+        return LoadObject<UAnimSequence>(nullptr, *ASH12WeaponAssets::AnimationPath(*Clip));
+    }
     if (bUsingM4Infima)
     {
         const TCHAR* Clip = nullptr;
@@ -1743,7 +2001,8 @@ bool AFPSGAMECharacter::IsLeftHandBusyForCast() const
 bool AFPSGAMECharacter::IsCastingWithLeftHand() const
 {
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
-    return Magic && Magic->IsOccupyingLeftHand();
+    const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
+    return (Magic && Magic->IsOccupyingLeftHand())||(Bash&&Bash->IsOccupyingLeftHand());
 }
 bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return IsDualWieldingPistols(); }
 void AFPSGAMECharacter::SuspendWeaponForMenu()
@@ -1756,7 +2015,9 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 {
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
-    return Magic && Magic->BlocksNewLeftHandAction();
+    const auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>();
+    const auto* Bash=FindComponentByClass<UFPSQuickCombatComponent>();
+    return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Bash&&Bash->IsOccupyingLeftHand());
 }
 void AFPSGAMECharacter::ServiceReloadAfterCasting()
 {
@@ -1792,8 +2053,9 @@ void AFPSGAMECharacter::ServiceRevolverReloadAfterFire()
     ReloadPressed();
 }
 bool AFPSGAMECharacter::IsDualWieldingPistols() const { return DualPistols && DualPistols->IsActive(); }
+bool AFPSGAMECharacter::IsWeaponFireHeld() const { return IsDualWieldingPistols()?DualPistols->HasHeldTrigger():bFireHeld; }
 bool AFPSGAMECharacter::IsReloading() const { return (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState == EAKMWeaponState::Reloading || WeaponState == EAKMWeaponState::ReloadingEmpty; }
-bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState != EAKMWeaponState::Idle; }
+bool AFPSGAMECharacter::IsWeaponBusy() const { return IsTraversing() || (RuneSword && RuneSword->IsBusy()) || (IsDualWieldingPistols() && DualPistols->IsReloading()) || WeaponState != EAKMWeaponState::Idle || (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()); }
 float AFPSGAMECharacter::HorizontalSpeed() const { return FVector(GetVelocity().X, GetVelocity().Y, 0.0f).Size(); }
 
 float AFPSGAMECharacter::VerticalToHorizontalFOV(float VerticalFOV) const
@@ -1806,7 +2068,17 @@ float AFPSGAMECharacter::LookSensitivityScale() const
     // Match screen-space motion across magnification; mouse deltas stay raw (no aim smoothing).
     const float Ratio = FMath::Tan(FMath::DegreesToRadians(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor)) * 0.5f)
         / FMath::Tan(FMath::DegreesToRadians(BaseVerticalFieldOfView) * 0.5f);
-    return FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
+    float Scale = FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
+    // Voxel building snaps to 20 cm cells, so full FPS sensitivity overshoots the cell the player is
+    // aiming at. Scale the look down while build mode is active; tune live with the console variable.
+    if (const auto* PC = Cast<APlayerController>(Controller))
+    {
+        if (const auto* Builder = PC->FindComponentByClass<UVoxelBuildComponent>())
+        {
+            if (Builder->IsBuilding()) Scale *= FMath::Clamp(BuildLookSensitivity.GetValueOnGameThread(), .05f, 1.f);
+        }
+    }
+    return Scale;
 }
 
 void AFPSGAMECharacter::StartSprintToFireLock(double StartTime)
@@ -1963,7 +2235,10 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
         // A seated magazine and released bolt push the whole supported weapon; wrists retain their source pose.
         GunKickPositionVelocity.Z += CueIndex == 2 ? 0.10f : 0.16f;
         GunKickRotationVelocity.X += CueIndex == 2 ? -0.08f : 0.14f;
-        CameraKickPitchVelocity += 0.018f;
+        // M4 contacts now use a separately sampled camera layer. Keep the gun
+        // impulse and other weapon families' existing camera behavior.
+        if (!(bUsingM4Infima && bUseM4Infima && !bUseQBZ191 && !IsPistolWeapon()))
+            CameraKickPitchVelocity += 0.018f;
     }
 }
 
@@ -2001,6 +2276,11 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         ? PistolSprintPhase / (2.f * PI) * GunplayAnimation->SprintClip->GetPlayLength() : 0.f;
     GunplayAnimation->SprintAlpha = IsPistolWeapon() && !bPistolWorkbench && !IsTraversing()
         && !IsCastBlockingLeftHandAction() ? PistolLocomotionAlpha : 0.f;
+    GunplayAnimation->SprintLoopClip = nullptr;
+    GunplayAnimation->SprintLoopAlpha = 0.f;
+    GunplayAnimation->SprintLoopTime = 0.f;
+    if (!IsPistolWeapon() && bInventoryWeaponReady)
+        if (const auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>()) Sprint->Apply(*GunplayAnimation);
     if (ActiveActionAnimation)
     {
         // A reload can start during input, before this frame's Tick. Adding
@@ -2009,7 +2289,7 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         const bool bFireAction = ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || ActiveActionAnimation == PistolFireLastAnimation || ActiveActionAnimation == PistolAimFireLastAnimation;
         if (bUseDanWesson715 && bFireAction)
             ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
-        else if (IsReloading() || ((bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
+        else if (IsReloading() || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
         else ActionElapsed += DeltaSeconds;
         const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
         const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale;

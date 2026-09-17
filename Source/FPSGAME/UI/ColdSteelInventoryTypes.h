@@ -104,6 +104,9 @@ struct FColdSteelProfile
     UPROPERTY() float IceSpikeCooldown = 0;
     UPROPERTY() float IceSpikeCooldownDuration = 0;
     UPROPERTY() bool bIceSpikeReserved = false;
+    UPROPERTY() float QuickCombatCooldown = 0;
+    UPROPERTY() float QuickCombatCooldownDuration = 0;
+    UPROPERTY() bool bQuickCombatReserved = false;
     // Optional tagged fields: legacy profiles start with no tools or depleted nodes.
     UPROPERTY() int32 ProductionSupplyVersion = 0;
     UPROPERTY() FString ActiveProductionTool;

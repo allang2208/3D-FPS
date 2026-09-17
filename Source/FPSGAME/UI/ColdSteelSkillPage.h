@@ -38,14 +38,15 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> CriticalIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> FireballIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceSpikeIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> QuickCombatIconTexture;
     TSharedPtr<SButton> IceSpikeDetailButton;
     FSlateBrush IceSpikeIconBrush;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> HeavyIconTexture;
     TSharedPtr<SBox> Root;
     TSharedPtr<SScrollBox> Scroll;
-    TSharedPtr<SButton> DetailButton,PistolDetailButton,CriticalDetailButton,FireballDetailButton,HeavyDetailButton,DodgeDetailButton,DexterousHandsDetailButton,BackButton;
+    TSharedPtr<SButton> DetailButton,PistolDetailButton,CriticalDetailButton,FireballDetailButton,HeavyDetailButton,DodgeDetailButton,DexterousHandsDetailButton,QuickCombatDetailButton,BackButton;
     TArray<TSharedPtr<SButton>> FilterButtons;
-    FSlateBrush IconBrush,PistolIconBrush,CriticalIconBrush,FireballIconBrush,HeavyIconBrush,DodgeIconBrush,DexterousHandsIconBrush,CardBrush;
+    FSlateBrush IconBrush,PistolIconBrush,CriticalIconBrush,FireballIconBrush,HeavyIconBrush,DodgeIconBrush,DexterousHandsIconBrush,QuickCombatIconBrush,CardBrush;
     FName SelectedSkill=TEXT("rifleMastery");
     const FColdSteelSkillDefinition& Definition(FName Id) const;
     FColdSteelSkillProgress Progress(FName Id) const;

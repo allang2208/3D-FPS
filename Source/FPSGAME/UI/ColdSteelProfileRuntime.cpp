@@ -68,6 +68,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     IceSpikeSkill=ColdSteelSkills::LoadDefinition(TEXT("iceSpike"));
     DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
+    QuickCombatSkill=ColdSteelSkills::LoadDefinition(TEXT("quickCombat"));
     ColdSteelSkills::Migrate(Current);
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
@@ -84,7 +85,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     const bool Exists=UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_A"),0)||UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_B"),0);
     if(Exists){if(ReloadProfile()){GrantStartingArmory();if(!bAudit)GrantEnhancementMaterials();}return;}
     auto Seed=Snapshot();auto Weapon=CreateItem(TEXT("ue_m4a1"));Weapon.Place=1;Weapon.Cell=6;Seed.Items.Add(Weapon);
-    for(const auto& Pair:TArray<TPair<FString,int64>>{{TEXT("hp_potion"),5},{TEXT("mp_potion"),3},{TEXT("gold"),200},{TEXT("ammo_556"),90},{TEXT("ammo_762"),90}}) {
+    for(const auto& Pair:TArray<TPair<FString,int64>>{{TEXT("hp_potion"),5},{TEXT("mp_potion"),3},{TEXT("gold"),200},{TEXT("ammo_556"),90},{TEXT("ammo_762"),90},{TEXT("ammo_127"),60}}) {
         auto I=CreateItem(Pair.Key,Pair.Value); if(!I.Data.IsEmpty())Insert(Seed.Items,I);
     }
     for(int32 Index=0;Index<2;++Index){const FString Def=Index==0?TEXT("hp_potion"):TEXT("mp_potion");for(const auto& I:Seed.Items)if(I.Definition==Def){Seed.Hotbar[Index]=I.InstanceId;Seed.HotbarDefinitions[Index]=Def;break;}}
@@ -191,7 +192,8 @@ bool UColdSteelStatusModel::ReloadProfile()
     const bool StaminaMigrated=NormalizeStamina(Clean);
     const bool AbandonedFireball=Clean.bFireballReserved;Clean.bFireballReserved=false;
     const bool AbandonedIce=Clean.bIceSpikeReserved;Clean.bIceSpikeReserved=false;
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce;
+    const bool AbandonedQuick=Clean.bQuickCombatReserved;Clean.bQuickCombatReserved=false;
+    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||AbandonedFireball||AbandonedIce||AbandonedQuick;
     // Refresh authorized material rarity and scroll presentation on existing instances.
     for(auto& I:Clean.Items)
     {
@@ -217,7 +219,13 @@ bool UColdSteelStatusModel::ReloadProfile()
     else Publish(Clean);
     ApplyToPawn();RefreshDrops();OnChanged.Broadcast();return true;
 }
-bool UColdSteelStatusModel::SaveNow(){SyncRuntime();return CommitState(Snapshot());}
+bool UColdSteelStatusModel::SaveNow()
+{
+    SyncRuntime();
+    // Saving captures the live weapon; it is not an equipment command. Keep the
+    // checked transaction and UI publication without reapplying the pawn to itself.
+    return PersistState(Snapshot(),false);
+}
 int64 UColdSteelStatusModel::MaxExperience()const{return(20ll+Level*20ll+int64(Level)*Level*12)*8;}
 bool UColdSteelStatusModel::GainExperience(int64 Amount)
 {
@@ -262,7 +270,7 @@ FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)
 }
 FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
 bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0)P.ActiveWeaponSlot=R.ActiveWeaponSlot;return CommitState(P);}
-bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell));}
+bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation){SyncRuntime();return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));}
 bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
 bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
 {
@@ -317,9 +325,13 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
 void UColdSteelStatusModel::SyncRuntime()
 {
     if(!CurrentPawn.IsValid())return;
-    if(const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>())Dual->SyncInventory(Current.Items);
+    const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>();
+    const bool DualActive=Dual && Dual->IsActive();
+    if(DualActive)Dual->SyncInventory(Current.Items);
     if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
-    for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot&&I.Definition!=TEXT("ue_rune_sword"))
+    // Dual hand counters are authoritative even inside a synchronous hit/reward
+    // callback, before the character's main-hand display cache has been updated.
+    if(!DualActive)for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot&&!IsMeleeWeapon(I))
     {
         I.Magazine=CurrentPawn->GetMagazineAmmo();
         if(I.Definition==TEXT("ue_dan_wesson715") && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
@@ -338,6 +350,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
     if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
     else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
+    if(HasNoAbilityCooldown())Current.QuickCombatCooldown=0.f;
+    else if(!Current.bQuickCombatReserved)Current.QuickCombatCooldown=FMath::Max(0.f,Current.QuickCombatCooldown-Delta);
     TickFormulaBuffs(Delta);
     TickStamina(Delta,Pawn);
     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){

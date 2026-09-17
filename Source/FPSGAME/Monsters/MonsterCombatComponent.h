@@ -38,6 +38,8 @@ public:
  float ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage);
  void ReceiveParry(APawn* Defender,float Seconds,float KnockbackCM);
  void ReceiveMeleeKnockback(APawn* Attacker,float DistanceCM);
+ /** 技能硬控：打断当前攻击进入眩晕反应，并沿受击方向推退。无招架表现标记。 */
+ void ReceiveStun(APawn* Attacker,float Seconds,float KnockbackCM);
  bool IsParryReaction() const { return bParryReaction; }
  const FVector& GetParryDirection() const { return ParryPushDirection; }
  void BeginReaction(float Duration);
@@ -52,4 +54,8 @@ private:
  bool MoveParryPush(float Distance);
  FVector ParryPushDirection=FVector::ZeroVector;
  float ParryPushDistance=0.f,ParryPushAge=0.f;
+ void TickMeleePush(float Delta);
+ bool MoveMeleePush(float Distance);
+ FVector MeleePushDirection=FVector::ZeroVector;
+ float MeleePushDistance=0.f,MeleePushAge=0.f;
 };

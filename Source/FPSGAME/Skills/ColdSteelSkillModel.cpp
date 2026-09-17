@@ -3,6 +3,10 @@
 #include "../Combat/CoreCombatFormula.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/RuneSwordComponent.h"
+#include "../FPSGAMECharacter.h"
+#include "Engine/GameInstance.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -40,6 +44,62 @@ bool UColdSteelStatusModel::TrainDodge(int32 Amount)
     if(Amount<=0||DodgeProgress().Level>=DodgeSkill.MaxLevel)return false;
     SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DodgeSkill,Amount);return CommitState(P);
 }
+FColdSteelSkillProgress UColdSteelStatusModel::QuickCombatProgress() const
+{ const auto* P=Current.Skills.Find(QuickCombatSkill.Id);return P?*P:FColdSteelSkillProgress(); }
+FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel) const
+{
+    // 用户公式按「×技能等级」字面结算（1 级基础 30 伤 / 2.6 秒眩晕）；力量取当前总值。
+    const auto& T=QuickCombatSkill.QuickCombat;
+    const int32 L=FMath::Clamp(AtLevel<0?QuickCombatProgress().Level:AtLevel,1,QuickCombatSkill.MaxLevel);
+    const float Strength=float(Attribute(TEXT("str")));
+    FQuickCombatCast C;
+    C.Damage=T.DamageBase+T.DamagePerLevel*L+Strength*(T.StrengthFactorBase+T.StrengthFactorPerLevel*L);
+    C.StunSeconds=T.StunBase+T.StunPerLevel*L;
+    C.KnockbackCM=T.KnockbackCM;
+    C.RangeCM=T.RangeCM;
+    C.CooldownSeconds=T.Cooldown;
+    return C;
+}
+bool UColdSteelStatusModel::TrainQuickCombat(int32 Amount)
+{
+    if(Amount<=0||QuickCombatProgress().Level>=QuickCombatSkill.MaxLevel)return false;
+    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,QuickCombatSkill,Amount);return CommitState(P);
+}
+float UColdSteelStatusModel::QuickCombatCooldown() const
+{ return HasNoAbilityCooldown() ? 0.f : Current.QuickCombatCooldown; }
+bool UColdSteelStatusModel::CommitQuickCombatCast()
+{
+    // 动作实际开始时预留全额冷却；预留期间不走表，挥击结束才起跳（与火球/冰锥同合同）。
+    if(Current.bQuickCombatReserved)return true;
+    SyncRuntime();auto P=Snapshot();
+    P.bQuickCombatReserved=true;
+    P.QuickCombatCooldown=HasNoAbilityCooldown()?0.f:QuickCombatSkill.QuickCombat.Cooldown;
+    P.QuickCombatCooldownDuration=P.QuickCombatCooldown;
+    return CommitState(P);
+}
+void UColdSteelStatusModel::FinishQuickCombatCast()
+{
+    if(!Current.bQuickCombatReserved)return;
+    // 冷却保留，只解除预留让走表开始；取消/死亡同样保留已提交的冷却。
+    Current.bQuickCombatReserved=false;SyncRuntime();CommitState(Snapshot());
+}
+bool UColdSteelStatusModel::TriggerQuickCombat()
+{
+    // F/快捷栏统一入口：冷却中拒绝；剑类走符文剑配重锤，单持手枪走握把砸击。
+    if(Current.bQuickCombatReserved || QuickCombatCooldown()>0)
+    {
+        UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 冷却中（剩余 %.1f 秒），忽略触发"),QuickCombatCooldown());
+        return false;
+    }
+    auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+    if(!Player)return false;
+    if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>())
+        if(Sword->IsEquipped())return Sword->BeginQuickCombatStrike();
+    if(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols()&&Player->QuickCombatPistol)
+        return Player->TriggerPistolQuickCombat();
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 当前武器不支持快速进战（限剑类或单持手枪）"));
+    return false;
+}
 FColdSteelSkillEffect UColdSteelStatusModel::RifleEffect(int32 AtLevel) const
 { return ColdSteelSkills::Effect(RifleSkill,AtLevel<0?RifleProgress().Level:AtLevel); }
 float UColdSteelStatusModel::RifleWeaponDamage(const FColdSteelItem& Item,float WeaponDamage) const
@@ -47,10 +107,10 @@ float UColdSteelStatusModel::RifleWeaponDamage(const FColdSteelItem& Item,float 
     if (!ColdSteelSkills::IsRifle(&Item)) return WeaponDamage;
     const auto E=RifleEffect(); return FMath::RoundToFloat(WeaponDamage*(1+E.DamagePercent)+E.FlatDamage);
 }
-float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot)
+float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result)
 {
     AActor* Victim=Hit.GetActor(); const auto* Pawn=Cast<APawn>(Shooter);
-    const auto* Combat=Victim?Victim->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+    auto* Combat=Victim?Victim->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     FTrainingHit Training; Training.Victim=Victim;
     const FName Mastery=Shot.MasteryId.IsNone()?(Shot.bPistol?FName(TEXT("pistolMastery")):(Shot.bRifle?FName(TEXT("rifleMastery")):NAME_None)):Shot.MasteryId;
     const auto& Skill=MasteryDefinition(Mastery);
@@ -91,7 +151,9 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         };
         if(!Training.SkillId.IsNone())Train(Skill,Skill.HitExperience+Training.ExtraExperience+(Training.bCritical?Skill.CriticalExperience:0));
         if(Training.bCritical)Train(CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience);
-        if(Trained)CommitState(P);
+        // Hit experience is high-frequency: stage it in the live profile and let
+        // the coalesced save own the disk transaction instead of saving per hit.
+        if(Trained)StageTraining(MoveTemp(P));
     }
     return Applied;
 }
@@ -103,7 +165,7 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         N.Detail=FString::Printf(TEXT("获得 %d 点属性点 · 打开角色状态进行分配"),After.Points-Before.Points);
         ProgressNotices.Add(MoveTemp(N));
     }
-    const FColdSteelSkillDefinition* NoticeDefinitions[]={&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&DodgeSkill,&DexterousHandsSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike"))};
+    const FColdSteelSkillDefinition* NoticeDefinitions[]={&RifleSkill,&PistolSkill,&CriticalStrikeSkill,&FireballSkill,&IceSpikeSkill,&DodgeSkill,&DexterousHandsSkill,&QuickCombatSkill,&MasteryDefinition(TEXT("swordMastery")),&MasteryDefinition(TEXT("machineGunMastery")),&MasteryDefinition(TEXT("shotgunMastery")),&MasteryDefinition(TEXT("bowMastery")),&MasteryDefinition(TEXT("heavyStrike"))};
     for(const auto* Definition:NoticeDefinitions)
     {
     const auto* Old=Before.Skills.Find(Definition->Id); const auto* New=After.Skills.Find(Definition->Id);
@@ -113,6 +175,7 @@ void UColdSteelStatusModel::QueueProgressNotices(const FColdSteelProfile& Before
         N.Detail=ColdSteelSkills::EffectSummary(ColdSteelSkills::Effect(*Definition,New->Level)); N.Icon=Definition->Icon;
         if(Definition->Id==TEXT("fireball"))N.Detail=FString::Printf(TEXT("火球威力提升 · 爆炸半径 %.2f 米"),FireballStats(New->Level).Radius/100);
         if(Definition->Id==TEXT("iceSpike"))N.Detail=FString::Printf(TEXT("冰锥威力提升 · 当前 %d 枚"),IceSpikeStats(New->Level).Count);
+        if(Definition->Id==TEXT("quickCombat"))N.Detail=FString::Printf(TEXT("配重锤打击 %.0f · 眩晕 %.1f 秒"),QuickCombatStats(New->Level).Damage,QuickCombatStats(New->Level).StunSeconds);
         ProgressNotices.Add(MoveTemp(N));
     }
     }
