@@ -1,0 +1,51 @@
+{
+  "weapon": "AKM",
+  "profile": "Prism",
+  "source": "VREGripExtensions20260912/Final/akm/prism/A_AKM_prism_idle.blend",
+  "source_action": "A_AKM_prism_idle.001",
+  "coordinates": "+Y forward, +X right, +Z up; metres",
+  "reference": "M4TacticalSprint20260915 one-handed sprint; each rifle uses its accepted grip idle",
+  "upright_pitch_delta": 70.790912342136,
+  "right_wrist_offset_m": [
+    0.115,
+    0.115,
+    -0.015
+  ],
+  "left_wrist_relax": {
+    "released_share": 0.55,
+    "withdrawn_share": 0.4
+  },
+  "left_wrist_hang": {
+    "reach": 0.98,
+    "side_offset": [
+      -0.055,
+      0.03
+    ],
+    "swing": [
+      -0.006,
+      -0.05
+    ]
+  },
+  "finger_relax": 0.68,
+  "status": "Authored and exported; not rendered or tested",
+  "clips": {
+    "Enter": {
+      "action": "AKM_TacticalSprint_Prism_Enter",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleTacticalSprint20260915\\AKM\\Prism\\Animations\\A_AKM_TacticalSprint_Prism_Enter.fbx"
+    },
+    "Loop": {
+      "action": "AKM_TacticalSprint_Prism_Loop",
+      "duration": 0.6,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleTacticalSprint20260915\\AKM\\Prism\\Animations\\A_AKM_TacticalSprint_Prism_Loop.fbx"
+    },
+    "Exit": {
+      "action": "AKM_TacticalSprint_Prism_Exit",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleTacticalSprint20260915\\AKM\\Prism\\Animations\\A_AKM_TacticalSprint_Prism_Exit.fbx"
+    }
+  }
+}

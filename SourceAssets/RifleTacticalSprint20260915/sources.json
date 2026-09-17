@@ -1,0 +1,27 @@
+{
+  "AKM": {
+    "mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+    "right_wrist_offset_m": [0.115, 0.115, -0.015],
+    "left_wrist_relax": {"released_share": 0.55, "withdrawn_share": 0.40},
+    "left_wrist_hang": {"reach": 0.98, "side_offset": [-0.055, 0.03], "swing": [-0.006, -0.050]},
+    "finger_relax": 0.68,
+    "profiles": {
+      "Base": ["AKMSoviet20260911/AKM_Soviet_Editable.blend", "AKM_Native_idle"],
+      "Angled": ["CantedGripMigration20260911/akm/angled/A_AKM_angled_idle.blend", null],
+      "Vertical": ["MannyGraspDonor20260912/Final/akm/vertical/A_AKM_vertical_idle.blend", null],
+      "Canted": ["VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_idle.blend", null],
+      "Prism": ["VREGripExtensions20260912/Final/akm/prism/A_AKM_prism_idle.blend", null]
+    }
+  },
+  "QBZ191": {
+    "mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+    "right_wrist_offset_m": [0.105, 0.095, -0.015],
+    "profiles": {
+      "Base": ["QBZ191Refine20260913/QBZ191_base_Editable.blend", "QBZ191_base_idle"],
+      "Angled": ["QBZ191Refine20260913/QBZ191_angled_Editable.blend", "QBZ191_angled_idle"],
+      "Vertical": ["QBZ191Refine20260913/QBZ191_vertical_Editable.blend", "QBZ191_vertical_idle"],
+      "Canted": ["QBZ191Refine20260913/QBZ191_canted_Editable.blend", "QBZ191_canted_idle"],
+      "Prism": ["QBZ191Refine20260913/QBZ191_prism_Editable.blend", "QBZ191_prism_idle"]
+    }
+  }
+}
