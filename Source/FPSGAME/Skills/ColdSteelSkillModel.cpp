@@ -59,11 +59,28 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     const bool Weakpoint=ColdSteelSkills::IsCriticalHit(Hit);
     Training.bCritical=Weakpoint||(Combat&&FMath::FRand()*100<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim)));
     float Amount=Damage*(Shot.bRifle && Weakpoint?1+Shot.WeakpointPercent:1);
-    if(Training.bCritical&&Shot.CriticalDamageBonus>0)Amount=FMath::FloorToFloat(Amount*(1+Shot.CriticalDamageBonus));
+    if(Training.bCritical&&Shot.CriticalDamageBonus>0)Amount*=1+Shot.CriticalDamageBonus;
     TGuardValue<FTrainingHit*> HitScope(ActiveTrainingHit,&Training);
-    const double Penetration=Shot.ArmorPenetration;
-    TGuardValue<const double*> ArmorScope(CombatFormulaRuntime::ActivePhysicalPenetration,&Penetration);
-    const float Applied=UGameplayStatics::ApplyPointDamage(Victim,Amount,Direction,Hit,Pawn?Pawn->GetController():nullptr,Shooter,nullptr);
+    CombatFormulaRuntime::WeaponHit WeaponHit;WeaponHit.Target=Victim;
+    // Damage already contains this attack's heavy/combo/range multiplier. Apply
+    // the same multiplier and shared critical roll to every panel component.
+    WeaponHit.Incoming=Shot.DamagePanel.Total()>0?Shot.DamagePanel.Scaled(Amount/Shot.DamagePanel.Total()):FWeaponDamageParts{Amount,0,0,0};
+    WeaponHit.PhysicalPenetration=Shot.ArmorPenetration;WeaponHit.MagicPenetration=Shot.MagicPenetration;
+    TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
+    // 枪械默认不给怪物硬直：只有目录显式声明 hit_stagger 的枪才关闭这道闸门。
+    // 闸门关闭时受击端只记住攻击者，不动状态机、韧性时钟或受击表现。
+    bool bHitStagger=false;
+    const FString WeaponDefinition=Shot.ItemDefinition.IsEmpty()?(Equipped()?Equipped()->Definition:FString()):Shot.ItemDefinition;
+    if(!WeaponDefinition.IsEmpty())if(auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+        if(const auto* W=G->Weapon(WeaponDefinition))bHitStagger=W->bHitStagger;
+    auto ApplyDamage=[&](){ return UGameplayStatics::ApplyPointDamage(Victim,Amount,Direction,Hit,
+        Pawn?Pawn->GetController():nullptr,Shooter,nullptr); };
+    const float Applied=(Combat&&!bHitStagger)?Combat->ApplyHitWithReactionScale(0.f,ApplyDamage):ApplyDamage();
+    if(Result)
+    {
+        Result->BeforeDefense=WeaponHit.Incoming;Result->AfterDefense=WeaponHit.Mitigated;
+        Result->Applied=WeaponHit.Mitigated.LimitedTo(Applied);Result->bResolved=WeaponHit.bResolved;Result->bCritical=Training.bCritical;
+    }
     // Lethal rewards are committed together with the monster's AwardKill transaction.
     if (Applied>0 && Training.bEligible && !Training.bKillAttempted)
     {

@@ -14,6 +14,19 @@ namespace FPSVisualRecoil
         float PositionStiffness = 300.f, PositionDamping = 24.f;
         float RotationStiffness = 320.f, RotationDamping = 25.f;
     };
+    // Dual wield fires two independent triggers from one unsupported hand pair.
+    // Each shot keeps the single-pistol profile and adds an explicit one-hand
+    // gain; the revolver (source 155 recoil / 125 camera shake against the
+    // M1911's 110 / 95) is the heavier of the two hands.
+    struct FDualWield
+    {
+        float HandGain = 1.f;
+        float CameraGain = 1.f;
+    };
+    inline FDualWield ForDualWield(bool Revolver)
+    {
+        return Revolver ? FDualWield{1.35f,1.60f} : FDualWield{1.10f,1.25f};
+    }
     inline FProfile ForWeapon(bool Pistol,bool Revolver,bool QBZ,bool M4)
     {
         FProfile P;

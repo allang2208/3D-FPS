@@ -28,13 +28,12 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
     if(G&&G->Weapon(Item.Definition))
     {
         auto S=G->Calculate(Item.Definition,G->Installed(Item));
-        if(Item.Definition==TEXT("ue_m4a1")){S.Interval=ColdSteelWeaponStats::NativeM4Base(Model,TEXT("FireInterval"));}
         Add(TEXT("damage"),TEXT("枪械伤害"),ColdSteelWeaponStats::Damage(Item,Model,S.Damage),TEXT(""),2);
         Add(TEXT("fire_interval"),TEXT("攻击间隔"),ColdSteelWeaponStats::Interval(&Item,Model,S.Interval)*1000,TEXT(" ms"),0,true);
-        Add(TEXT("reload"),TEXT("正常换弹"),ColdSteelWeaponStats::Reload(Model,S.Reload),TEXT(" s"),2,true);
+        Add(TEXT("reload"),TEXT("正常换弹"),ColdSteelWeaponStats::Reload(&Item,Model,S.Reload),TEXT(" s"),2,true);
         Add(TEXT("capacity"),TEXT("弹容量"),S.Capacity,TEXT(" 发"));
         Add(TEXT("ads"),TEXT("瞄准耗时"),S.ADS*1000,TEXT(" ms"),0,true,false);
-        Add(TEXT("empty_reload"),TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(Model,S.EmptyReload),TEXT(" s"),2,true);
+        Add(TEXT("empty_reload"),TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(&Item,Model,S.EmptyReload),TEXT(" s"),2,true);
         Add(TEXT("recoil"),TEXT("后坐力指数"),S.Recoil,TEXT(""),1,true,false);
         Add(TEXT("stability"),TEXT("枪械稳定性"),S.Handling.Stability,TEXT(" 分"),1,false,false);
         Add(TEXT("range"),TEXT("有效射程"),S.Range,TEXT(" m"),2);

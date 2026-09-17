@@ -92,8 +92,12 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
 }
 void UColdSteelStatusModel::Deinitialize(){SaveNow();Super::Deinitialize();}
 FColdSteelProfile UColdSteelStatusModel::Snapshot() const {auto P=Current;P.Name=CharacterName;P.Class=CharacterClass;P.Level=Level;P.Points=AttributePoints;P.Attributes=Attributes;return P;}
-void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;OnStaminaChanged.Broadcast();}
+void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;bTrainingDirty=false;TrainingFlushAccumulator=0.f;OnStaminaChanged.Broadcast();}
 bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
+{
+    return PersistState(MoveTemp(State),true);
+}
+bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn)
 {
     if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)){Message=TEXT("当前玩家数据不可写入");return false;}
     RemoveRetiredWeapons(State);
@@ -138,7 +142,41 @@ bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
     auto* Verify=ReadCheckedProfile(Slot);
     if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){Message=TEXT("存档写入校验失败，操作未提交");return false;}
     QueueProgressNotices(Current,State);
-    Publish(State);Message=TEXT("已保存");ApplyToPawn();OnChanged.Broadcast();return true;
+    Publish(State);Message=TEXT("已保存");
+    if(bApplyPawn)ApplyToPawn();
+    OnChanged.Broadcast();return true;
+}
+// Automatic fire lands ten or more accepted hits per second, and every
+// critical hit used to run the full checked transaction inside the damage call:
+// two slot writes, two reads, a checksum write, two validations and a complete
+// profile re-apply. That synchronous disk work on the game thread is what reads
+// as stutter while shooting a monster. Training is now applied to the live
+// profile immediately - so damage, rewards and panel readings stay exact - and
+// the checked save is coalesced to the autosave clock.
+bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
+{
+    bool bLeveled=false;
+    for(const auto& Pair:State.Skills)
+    {
+        const auto* Before=Current.Skills.Find(Pair.Key);
+        if(!Before||Pair.Value.Level>Before->Level){bLeveled=true;break;}
+    }
+    bLeveled|=State.Level>Current.Level;
+    Current=MoveTemp(State);
+    // A level-up owns a progress notice plus derived stat changes, so it keeps
+    // the immediate checked transaction. Ordinary hit experience does not.
+    if(bLeveled)
+    {
+        if(PersistState(Snapshot(),true))return true;
+        // A rejected save keeps the staged training queued for the next flush.
+        bTrainingDirty=true;TrainingFlushAccumulator=0.f;return false;
+    }
+    bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+    // Coalesced panel refresh: readings already come from the live profile, so
+    // the sheet does not need to rebuild once per bullet.
+    const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.;
+    if(Now-LastTrainingPublish>=.15){LastTrainingPublish=Now;OnChanged.Broadcast();}
+    return true;
 }
 bool UColdSteelStatusModel::ReloadProfile()
 {
@@ -306,6 +344,10 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
         Current.Mana=FMath::Clamp(Current.Mana+Derived(TEXT("mpRegen"))*Delta,0.f,Derived(TEXT("maxMp")));
         Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
     }
+    TickTreeGrowthClock(Delta);
+    // Training experience accumulates in the live profile and lands in the next
+    // checked save, at most once per second, instead of one save per bullet.
+    if(bTrainingDirty){TrainingFlushAccumulator+=Delta;if(TrainingFlushAccumulator>=1.f)SaveNow();}
     SaveAccumulator+=Delta;if(SaveAccumulator>=5){SaveAccumulator=0;SaveNow();}
 }
 FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();if(I)if(const auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>())if(const auto* W=G->Weapon(I->Definition))return W->Ammo;return TEXT("ammo_556");}

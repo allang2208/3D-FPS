@@ -84,7 +84,6 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     auto& Main=Out.Cards.AddDefaulted_GetRef();Main.MinimumWidth=460;
     const TArray<TSharedPtr<FJsonValue>>* Stats=nullptr;
     FGunsmithStats S;if(Weapon)S=G->Calculate(I.Definition,Parts);
-    if(I.Definition==TEXT("ue_m4a1")){S.Interval=ColdSteelWeaponStats::NativeM4Base(Model,TEXT("FireInterval"));}
     if(O->TryGetArrayField(TEXT("stats"),Stats))for(const auto& V:*Stats){const auto St=V->AsObject();const FString Label=String(St,TEXT("name"),String(St,TEXT("label")));FString Val=St->HasField(TEXT("value"))?Value(St->Values[TEXT("value")]):TEXT("");
         if((Weapon||I.Definition==TEXT("ue_rune_sword"))&&Label==TEXT("物理攻击"))continue;
         if(Weapon&&Label==TEXT("弹匣容量"))continue;
@@ -108,7 +107,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
         const double FireInterval=ColdSteelWeaponStats::Interval(&I,Model,S.Interval);
         Row(Main,TEXT("理论射速"),FireInterval>0?N(60./FireInterval)+TEXT(" 发/分"):TEXT("—"));
-        Row(Main,TEXT("正常换弹"),N(ColdSteelWeaponStats::Reload(Model,S.Reload))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(Model,S.EmptyReload))+TEXT(" s"));
+        Row(Main,TEXT("正常换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,S.Reload))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,S.EmptyReload))+TEXT(" s"));
         Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(S.ADS*1000))+TEXT("ms"));Row(Main,TEXT("后坐力（越低越好）"),N(S.Recoil));Row(Main,TEXT("枪械稳定性（越高越好）"),N(S.Handling.Stability)+TEXT(" /100"));
         Row(Main,TEXT("首发上跳"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstShotDegrees()));
         Row(Main,TEXT("连射上跳/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxVerticalDegrees()));
@@ -122,7 +121,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Section(Main,TEXT("枪械参数"));const auto* D=GetDefault<AFPSGAMECharacter>();
         Row(Main,TEXT("当前伤害"),N(Damage(S.Damage)));Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,D->GetMagazineCapacity()));
         Row(Main,TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
-        Row(Main,TEXT("普通换弹"),N(ColdSteelWeaponStats::Reload(Model,Field(D,TEXT("ReloadDuration"))))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(Model,Field(D,TEXT("EmptyReloadDuration"))))+TEXT(" s"));Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(Field(D,TEXT("ADSInDuration"))*1000))+TEXT("ms"));
+        Row(Main,TEXT("普通换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,Field(D,TEXT("ReloadDuration"))))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,Field(D,TEXT("EmptyReloadDuration"))))+TEXT(" s"));Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(Field(D,TEXT("ADSInDuration"))*1000))+TEXT("ms"));
     }else if(Attack){Section(Main,TEXT("攻击参数"));
         const struct{const TCHAR* Key;const TCHAR* Label;const TCHAR* Unit;} Fields[]={{TEXT("range"),TEXT("攻击距离"),TEXT("px")},{TEXT("bulletSpeed"),TEXT("子弹速度"),TEXT("px/s")},{TEXT("projectileSpeed"),TEXT("投射速度"),TEXT("px/s")},{TEXT("attackInterval"),TEXT("攻击间隔"),TEXT("ms")},{TEXT("knockback"),TEXT("击退距离"),TEXT("px")}};
         for(const auto& F:Fields)if(Attack->HasField(F.Key))Row(Main,F.Label,N(Number(Attack,F.Key))+F.Unit);Row(Main,TEXT("伤害类型"),String(Attack,TEXT("damageType")));Row(Main,TEXT("命中类型"),String(Attack,TEXT("hitType")));

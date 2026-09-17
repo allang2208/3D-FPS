@@ -24,6 +24,8 @@ struct FGunsmithOption
 struct FGunsmithWeapon
 {
     FString Id, Model, Name, Ammo;
+    /** 目录显式声明该枪命中会造成硬直；缺省 false = 枪械默认不硬直。 */
+    bool bHitStagger = false;
     TArray<FString> Allowed;
     TMap<FString,TArray<FGunsmithOption>> Options;
     FGunsmithStats Base;

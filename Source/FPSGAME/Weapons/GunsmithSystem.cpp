@@ -26,6 +26,9 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
     for(const auto& V:Catalog->GetArrayField(TEXT("weapons"))){
         const auto O=V->AsObject();FGunsmithWeapon W;W.Source=O;
         W.Id=O->GetStringField(TEXT("id"));W.Model=O->GetStringField(TEXT("model"));W.Name=O->GetStringField(TEXT("name"));W.Allowed=Strings(O,TEXT("allowed"));
+        // Explicit opt-in only: firearms never stagger monsters unless the catalog
+        // entry says so ("hit_stagger": true).
+        O->TryGetBoolField(TEXT("hit_stagger"),W.bHitStagger);
         // Common numeric parts apply to every catalog weapon, including future entries.
         const TSharedPtr<FJsonObject>* Common=nullptr;
         if(Catalog->TryGetObjectField(TEXT("common_options"),Common))

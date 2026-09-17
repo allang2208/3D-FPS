@@ -171,8 +171,8 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
         H.Stats=G->Calculate(H.Item.Definition,Parts);
         H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage);
         H.Stats.Interval=ColdSteelWeaponStats::Interval(&H.Item,Profile,H.Stats.Interval);
-        H.Stats.Reload=ColdSteelWeaponStats::Reload(Profile,H.Stats.Reload);
-        H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(Profile,H.Stats.EmptyReload);
+        H.Stats.Reload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.Reload);
+        H.Stats.EmptyReload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.EmptyReload);
         H.Rounds=FMath::Clamp(H.Item.Magazine,0,H.Stats.Capacity);
         H.Cases=H.Revolver?FMath::Clamp(int32(ColdSteelInventory::Number(H.Item,TEXT("revolver_case_count"),H.Rounds)),H.Rounds,6):H.Rounds;
         H.Speedloader=H.Revolver && Parts.FindRef(TEXT("reload_device"))==TEXT("dw715_speedloader");
@@ -306,7 +306,16 @@ void UPistolDualWieldComponent::Advance(float Delta)
     }
     for(int32 Side=0;Side<2;++Side)
     {
-        auto& H=Hands[Side];H.Bloom=FMath::Max(0.f,H.Bloom-Delta*.028f);
+        // Bloom follows the single-weapon contract: rise per shot, recover only
+        // after the hand actually stops firing. The old continuous 0.028/s decay
+        // outran the 0.003 rise at both pistol cadences (0.18 s and 0.32 s), so
+        // sustained fire could never open the cone and the reticle only blipped
+        // per shot. The hold scales with this hand's own cadence, so a fast pistol
+        // and a slow revolver both reach full bloom in a few seconds of fire.
+        auto& H=Hands[Side];
+        const float Hold=FMath::Max(.12f,float(H.Stats.Interval)*DualPistolSpread::BloomHold);
+        const float Recovery=FMath::Clamp(float(GetWorld()->GetTimeSeconds()-H.LastShot-Hold),0.f,Delta);
+        H.Bloom=FMath::Max(0.f,H.Bloom-Recovery*DualPistolSpread::BloomRecovery);
         if(H.Action)
         {
             const float Previous=H.ActionTime/FMath::Max(.001f,H.Action->GetPlayLength())*H.SourceLength;
@@ -365,6 +374,17 @@ void UPistolDualWieldComponent::Pose(int32 Index,float Delta)
     FVector Offset(-Player->NearWallAlpha*12,0,Player->LandingOffset*.35f-Player->NearWallAlpha*6);
     Offset+=FVector(-2,0,-6)*Player->DodgePresentationWeight();
     if(!H.Action)Offset+=FVector(.10f*FMath::Sin(2*HandPhase)*Walk,.24f*FMath::Cos(HandPhase)*Walk,.15f*FMath::Sin(Clock*1.9f)*(1-H.Sprint)-.24f*FMath::Cos(2*HandPhase)*Walk);
+    // Shot recoil: one spring set per hand, sampled through the same
+    // camera-space conversion as the single-pistol rig and mirrored for the left
+    // hand. The authored fire clip and the ballistic pattern stay untouched.
+    Player->AdvanceDualWieldHandRecoil(Index,H.Revolver,H.Stats.Handling,Delta);
+    FVector KickOffset,KickAngles;Player->GetDualWieldHandRecoil(Index,KickOffset,KickAngles);
+    const float Mirror=Index?-1.f:1.f;
+    Offset+=FVector(-KickOffset.Z*100.f,KickOffset.X*100.f*Mirror,KickOffset.Y*100.f);
+    FRotator Rotation(0,-90,0);
+    Rotation.Pitch+=FMath::RadiansToDegrees(KickAngles.X);
+    Rotation.Yaw-=FMath::RadiansToDegrees(KickAngles.Y)*Mirror;
+    Rotation.Roll-=FMath::RadiansToDegrees(KickAngles.Z)*Mirror;
     H.Mesh->SetRelativeLocation(Offset);
-    H.Mesh->SetRelativeRotation(FRotator(0,-90,0));
+    H.Mesh->SetRelativeRotation(Rotation);
 }

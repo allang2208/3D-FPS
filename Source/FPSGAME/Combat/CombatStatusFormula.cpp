@@ -45,9 +45,18 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     auto Expire=[&](float& Time,int32& Stacks,FName Name){if(Time<=0)return;Time=FMath::Max(0.f,Time-Delta);if(Time==0){Stacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(Name);}};
     Expire(ChillTime,ChillStacks,TEXT("chill"));Expire(HasteTime,HasteStacks,TEXT("haste"));Expire(ChainTime,ChainStacks,TEXT("chainSpell"));
     FrozenTime=FMath::Max(0.f,FrozenTime-Delta);
+    RuneVulnerabilityTime=FMath::Max(0.f,RuneVulnerabilityTime-Delta);
+    RiposteTime=FMath::Max(0.f,RiposteTime-Delta);
     if(CorrosionStacks>0){CorrosionTime-=Delta;while(CorrosionTime<=0&&CorrosionStacks>0){--CorrosionStacks;CorrosionTime+=CorrosionDuration;}}
     if(VulnerabilityStacks>0){VulnerabilityTime-=Delta;while(VulnerabilityTime<=0&&VulnerabilityStacks>0){--VulnerabilityStacks;VulnerabilityTime+=5;}}
-    auto Apply=[&](float Damage,AActor* Source,bool bMagicDamage){const auto* Pawn=Cast<APawn>(Source);UGameplayStatics::ApplyDamage(GetOwner(),Damage,Pawn?Pawn->GetController():nullptr,Source,bMagicDamage?UFireballDamage::StaticClass():UCombatDirectDamage::StaticClass());};
+    // 状态跳伤（流血、灼烧）不进入硬直闸门：伤害类型保持不变以避免影响减伤公式，
+    // 只在怪物受击端把反应倍率临时压到 0。玩家目标没有该组件时按原样结算。
+    auto Apply=[&](float Damage,AActor* Source,bool bMagicDamage){
+        const auto* Pawn=Cast<APawn>(Source);
+        auto Deal=[&](){ return UGameplayStatics::ApplyDamage(GetOwner(),Damage,Pawn?Pawn->GetController():nullptr,Source,
+            bMagicDamage?UFireballDamage::StaticClass():UCombatDirectDamage::StaticClass()); };
+        if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())Combat->ApplyHitWithReactionScale(0.f,Deal);else Deal();
+    };
     if(BleedStacks>0)
     {
         BleedTime-=Delta;BleedTick-=Delta;

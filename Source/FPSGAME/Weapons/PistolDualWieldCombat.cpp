@@ -14,6 +14,23 @@
 #include "Kismet/GameplayStatics.h"
 #include "Perception/AISense_Hearing.h"
 
+// One source of truth for a dual hand's hip cone. Constants live in
+// DualPistolSpread (PistolDualWieldComponent.h); the shared reticle reads the
+// averaged cone through AFPSGAMECharacter::GetHipSpread().
+float UPistolDualWieldComponent::HandConeSpread(int32 Index) const
+{
+    using namespace DualPistolSpread;
+    if(!Player||!Hands.IsValidIndex(Index))return BaseHipSpread*BaseScale;
+    const auto& H=Hands[Index];
+    return (BaseHipSpread+H.Bloom+Player->MoveSpread+Player->AirSpread)*BaseScale*float(H.Stats.Spread);
+}
+
+float UPistolDualWieldComponent::SharedConeSpread() const
+{
+    if(Hands.Num()<2)return HandConeSpread(0);
+    return .5f*(HandConeSpread(0)+HandConeSpread(1));
+}
+
 void UPistolDualWieldComponent::TryFire(int32 Index)
 {
     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
@@ -27,7 +44,8 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
         return;
     }
     const FVector Eye=Player->FirstPersonCamera->GetComponentLocation();
-    const float Spread=(.0175f+H.Bloom+Player->MoveSpread+Player->AirSpread)*float(H.Stats.Spread)*1.15f;
+    // Both hands shoot the averaged akimbo cone, the same value the reticle shows.
+    const float Spread=SharedConeSpread();
     const FVector Direction=FMath::VRandCone(SightDirection(),Spread);
     const FVector Muzzle=H.FX->ShotOrigin()+H.FX->ShotForward()*2.f;
     const float Range=FMath::Max(10000.f,float(H.Stats.Range)*300.f);
@@ -65,11 +83,13 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
         Aim.Pitch=FMath::Clamp(FRotator::NormalizeAxis(Aim.Pitch)+FMath::RadiansToDegrees(Pattern.X)*Scale,-85.f,85.f);
         Aim.Yaw+=FMath::RadiansToDegrees(Pattern.Y)*Scale*(Index?-1.f:1.f);Controller->SetControlRotation(Aim);
     }
-    H.Bloom=FMath::Min(.018f,H.Bloom+.003f);
-    Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;
-    // Publish only to the live inventory here, as the original single weapon does;
-    // ordinary autosave / inventory transactions persist both instance counters.
-    Profile->SyncRuntime();
+    // Presentation layers the single-weapon path receives from
+    // ApplyShotFeedback(): this hand's viewmodel kick plus the shared camera
+    // kick, jitter, trauma and FOV punch. The recoil load uses this hand's own
+    // bloom, the same input its spread used for this shot.
+    const float DualRecoilLoad=1.f+FMath::Clamp((H.Bloom+Player->MoveSpread+Player->AirSpread)/DualPistolSpread::RecoilLoadScale,0.f,2.f)*.7f;
+    Player->ApplyDualWieldShotFeedback(Index,H.Revolver,H.Stats.Handling,H.Pattern,float(H.Stats.Interval),DualRecoilLoad);
+    H.Bloom=FMath::Min(DualPistolSpread::BloomMax,H.Bloom+DualPistolSpread::BloomPerShot);
     if(H.Rounds==0 && Player->HasInfiniteReserveAmmo())H.ReloadQueued=true;
 }
 
@@ -97,7 +117,10 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     const bool UseEmpty=Empty || (H.Revolver && H.Speedloader);
     const float Base=W?float(UseEmpty?W->Base.EmptyReload:W->Base.Reload):H.SourceLength;
     const float Modified=float(UseEmpty?H.Stats.EmptyReload:H.Stats.Reload);
-    StartAction(Index,Clip,Base/FMath::Max(.05f,Modified));
+    // +33% akimbo reload: the same source clip played slower, so mechanical cues
+    // and the ammo commit still land on the animation's own beats.
+    const float Duration=FMath::Max(.05f,Modified)*DualPistolReload::TimeScale;
+    StartAction(Index,Clip,Base/Duration);
     H.Reloading=H.Action!=nullptr;
     H.Pending=false;
 }

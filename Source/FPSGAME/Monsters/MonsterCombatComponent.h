@@ -34,13 +34,17 @@ public:
  FVector Home() const;
  void ReachedHome();
  void ReceiveHit(float Damage,APawn* Attacker);
+ // The multiplier is scoped to this target's synchronous hit receipt, never to poison or parries.
+ float ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage);
  void ReceiveParry(APawn* Defender,float Seconds,float KnockbackCM);
+ void ReceiveMeleeKnockback(APawn* Attacker,float DistanceCM);
  bool IsParryReaction() const { return bParryReaction; }
  const FVector& GetParryDirection() const { return ParryPushDirection; }
  void BeginReaction(float Duration);
  void FinishReaction();
  UFUNCTION(BlueprintCallable,Category="MonsterAI|Editor") static bool AuthorHitClip(UAnimSequence* Clip,bool bHandBrain);
 private:
+ float IncomingHitReactionMultiplier=1.f;
  float SinceHit=100.f,ReactionTime=0,ReactionDuration=0;
  void UpdateReactionPresentation();
  bool bParryReaction=false;

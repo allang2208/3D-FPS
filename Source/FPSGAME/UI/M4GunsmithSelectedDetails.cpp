@@ -2,6 +2,7 @@
 #include "GunsmithUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/WeaponStatEvaluation.h"
 #include "Engine/GameInstance.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -79,12 +80,17 @@ void UM4GunsmithWidget::RefreshSelectedOption()
             ModificationList->AddSlot().AutoHeight().Padding(0,0,0,8)
                 [Paragraph(TEXT("当前组合实值 · 差值相对该栏原厂配置"),12,GunsmithUI::Muted)];
         const auto Color = ((Delta>0)!=Lower) ? ColdSteelUI::Success : ColdSteelUI::Danger;
+        const FString PercentText=FMath::IsNearlyZero(Percent,.01)?FString():FString::Printf(TEXT("（%+.0f%%）"),Percent);
         ModificationList->AddSlot().AutoHeight().Padding(0,0,0,4)
             [SNew(SBorder).BorderImage(&RowBrush).Padding(8,6)
                 [SNew(SHorizontalBox)
                     +SHorizontalBox::Slot().FillWidth(1.f).VAlign(VAlign_Center).Padding(0,0,10,0)
-                    [SNew(STextBlock).Text(FText::FromString(Name)).Font(GunsmithUI::TextFont(14)).ColorAndOpacity(GunsmithUI::Secondary)
-                        .WrapTextAt_Lambda([this](){return (SelectedDetailsWidth()-26.f)*.5f;})]
+                    [SNew(SHorizontalBox)
+                        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
+                        [SNew(STextBlock).Text(FText::FromString(Name)).Font(GunsmithUI::TextFont(14)).ColorAndOpacity(GunsmithUI::Secondary)
+                            .WrapTextAt_Lambda([this](){return (SelectedDetailsWidth()-26.f)*.5f;})]
+                        +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(4,0,0,0)
+                        [SNew(STextBlock).Text(FText::FromString(PercentText)).Font(GunsmithUI::NumberFont(13)).ColorAndOpacity(Color)]]
                     +SHorizontalBox::Slot().FillWidth(1.f).VAlign(VAlign_Center)
                     [SNew(SVerticalBox)
                         +SVerticalBox::Slot().AutoHeight()
@@ -94,18 +100,25 @@ void UM4GunsmithWidget::RefreshSelectedOption()
                         [SNew(STextBlock).Text(FText::FromString(FString::Printf(TEXT("%+.*f%s"),Digits,Delta,Unit)))
                             .Font(GunsmithUI::NumberFont(12)).ColorAndOpacity(Color).Justification(ETextJustify::Right)]]]];
     };
-    AddValue(TEXT("开镜耗时"),Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true);
+    if(!IsMeleeWorkbench())
+    {
+    // Every row reports its own ratio, so stacked accessories stay truthful; the
+    // ADS row reports the catalog's 开镜耗时 percent unchanged.
+    auto Ratio=[&](double Was,double Now){return Was>.00001?(Now/Was-1.)*100.:0.;};
+    AddValue(TEXT("开镜耗时"),Before.ADS*1000,After.ADS*1000,0,TEXT(" ms"),true,Option->ADS*100.);
     AddValue(TEXT("弹匣容量"),Before.Capacity,After.Capacity,0,TEXT(" 发"));
-    AddValue(TEXT("普通换弹"),Before.Reload,After.Reload,2,TEXT(" s"),true);
-    AddValue(TEXT("空仓换弹"),Before.EmptyReload,After.EmptyReload,2,TEXT(" s"),true);
-    const double AttackSpeed=FMath::Max(1.f,Profile->Derived(TEXT("aspd")));
-    AddValue(TEXT("射击间隔"),Before.Interval*1000/AttackSpeed,After.Interval*1000/AttackSpeed,0,TEXT(" ms"),true);
-    AddValue(TEXT("后坐力指数"),Before.Recoil,After.Recoil,1,TEXT(""),true);
-    AddValue(TEXT("枪械稳定性"),Before.Handling.Stability,After.Handling.Stability,1,TEXT(" 分"));
-    if(!FMath::IsNearlyEqual(Option->Shake,1.0))AddValue(TEXT("开火抖动指数"),Before.Shake,After.Shake,1,TEXT(""),true);
-    AddValue(TEXT("腰射散布系数"),Before.Spread,After.Spread,2,TEXT("×"),true);
-    AddValue(TEXT("有效射程"),Before.Range,After.Range,0,TEXT(" m"));
-    AddValue(TEXT("子弹速度"),Before.Speed,After.Speed,0,TEXT(" m/s"));
+    // Shared reload stack (敏捷 × 快手 × 附魔 × 配件); the ratio stays the attachment's own effect.
+    AddValue(TEXT("普通换弹"),ColdSteelWeaponStats::Reload(Item,Profile,Before.Reload),ColdSteelWeaponStats::Reload(Item,Profile,After.Reload),2,TEXT(" s"),true,Ratio(Before.Reload,After.Reload));
+    AddValue(TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(Item,Profile,Before.EmptyReload),ColdSteelWeaponStats::Reload(Item,Profile,After.EmptyReload),2,TEXT(" s"),true,Ratio(Before.EmptyReload,After.EmptyReload));
+    // Catalog interval, undivided by the character's melee attack rate.
+    AddValue(TEXT("射击间隔"),Before.Interval*1000,After.Interval*1000,0,TEXT(" ms"),true,Ratio(Before.Interval,After.Interval));
+    AddValue(TEXT("后坐力指数"),Before.Recoil,After.Recoil,1,TEXT(""),true,Ratio(Before.Recoil,After.Recoil));
+    AddValue(TEXT("枪械稳定性"),Before.Handling.Stability,After.Handling.Stability,1,TEXT(" 分"),false,Ratio(Before.Handling.Stability,After.Handling.Stability));
+    if(!FMath::IsNearlyEqual(Option->Shake,1.0))AddValue(TEXT("开火抖动指数"),Before.Shake,After.Shake,1,TEXT(""),true,Ratio(Before.Shake,After.Shake));
+    AddValue(TEXT("腰射散布系数"),Before.Spread,After.Spread,2,TEXT("×"),true,Ratio(Before.Spread,After.Spread));
+    AddValue(TEXT("有效射程"),Before.Range,After.Range,0,TEXT(" m"),false,Ratio(Before.Range,After.Range));
+    AddValue(TEXT("子弹速度"),Before.Speed,After.Speed,0,TEXT(" m/s"),false,Ratio(Before.Speed,After.Speed));
+    }
     if (RowCount == 0)
     {
         if (Option->Effects.IsEmpty())

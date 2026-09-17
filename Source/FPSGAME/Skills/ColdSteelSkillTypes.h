@@ -56,8 +56,12 @@ struct FColdSteelSkillEffect
 struct FColdSteelSkillShot
 {
     FName MasteryId;
+    /** 命中时用于查询目录开关（枪械默认不造成硬直）。 */
+    FString ItemDefinition;
     int32 ExtraMasteryExperience=0;
     float ArmorPenetration=0;
+    float MagicPenetration=0;
+    FWeaponDamageParts DamagePanel;
     float CriticalChance = 0;
     bool bRifle = false;
     bool bPistol = false;

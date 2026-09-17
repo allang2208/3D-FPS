@@ -31,7 +31,9 @@ void UColdSteelPoisonComponent::AddStacks(AActor* Source,int32 Amount)
 void UColdSteelPoisonComponent::Pulse()
 {
     if(Stacks<=0||TicksLeft<=0)return;
-    UGameplayStatics::ApplyDamage(GetOwner(),Stacks,Instigator.Get(),Shooter.Get(),UCombatDirectDamage::StaticClass());
+    // 中毒跳伤不进入硬直闸门（伤害类型不变，避免影响减伤结算）。
+    auto Deal=[&](){ return UGameplayStatics::ApplyDamage(GetOwner(),Stacks,Instigator.Get(),Shooter.Get(),UCombatDirectDamage::StaticClass()); };
+    if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())Combat->ApplyHitWithReactionScale(0.f,Deal);else Deal();
     if(--TicksLeft<=0){--Stacks;TicksLeft=5;if(Stacks<=0)GetWorld()->GetTimerManager().ClearTimer(Timer);}
 }
 void UColdSteelPoisonComponent::EndPlay(const EEndPlayReason::Type R){if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(Timer);Super::EndPlay(R);}

@@ -38,10 +38,14 @@ void UM4GunsmithWidget::RefreshPresentation()
     const double AttackSpeed=FMath::Max(1.f,P->Derived(TEXT("aspd")));
     Row(TEXT("开镜耗时"),B.ADS*1000,S.ADS*1000,0,TEXT(" ms"),true);
     Row(TEXT("弹匣容量"),B.Capacity,S.Capacity,0,TEXT(" 发"));
-    Row(TEXT("普通换弹"),B.Reload,S.Reload,2,TEXT(" s"),true);
-    Row(TEXT("空仓换弹"),B.EmptyReload,S.EmptyReload,2,TEXT(" s"),true);
-    Row(TEXT("射击间隔"),B.Interval*1000/AttackSpeed,S.Interval*1000/AttackSpeed,0,TEXT(" ms"),true);
-    Row(TEXT("射速"),60*AttackSpeed/B.Interval,60*AttackSpeed/S.Interval,0,TEXT(" /min"));
+    // Reload rows go through the shared stack (敏捷 × 快手 × 附魔 × 配件) so the
+    // panel shows the time the player actually spends.
+    Row(TEXT("普通换弹"),ColdSteelWeaponStats::Reload(I,P,B.Reload),ColdSteelWeaponStats::Reload(I,P,S.Reload),2,TEXT(" s"),true);
+    Row(TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(I,P,B.EmptyReload),ColdSteelWeaponStats::Reload(I,P,S.EmptyReload),2,TEXT(" s"),true);
+    // Firearms no longer scale with the character's attack rate (2026-09-17), so
+    // these rows show the catalog interval the weapon actually fires at.
+    Row(TEXT("射击间隔"),B.Interval*1000,S.Interval*1000,0,TEXT(" ms"),true);
+    Row(TEXT("射速"),60/B.Interval,60/S.Interval,0,TEXT(" /min"));
     auto* Enhancement=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
     Row(TEXT("基础命中伤害"),Enhancement->ProcessedDamage(*I,B.Damage,P->Derived(TEXT("atk"))),Enhancement->ProcessedDamage(*I,S.Damage,P->Derived(TEXT("atk"))),1,TEXT(""));
     Row(TEXT("后坐力 ↓"),B.Recoil,S.Recoil,1,TEXT(""),true);

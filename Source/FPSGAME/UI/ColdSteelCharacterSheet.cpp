@@ -135,7 +135,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     const TCHAR* Keys[] = {TEXT("str"), TEXT("dex"), TEXT("intt"), TEXT("con"), TEXT("wis"), TEXT("luck")};
     const TCHAR* Details[] = {
         TEXT("基础物攻 = 四舍五入(10 + 力量×0.05 + 敏捷×0.10)\n物防 = 向下取整(体质×1.2 + 力量×0.3)"),
-        TEXT("攻速倍率 = 1 + 敏捷×0.02\n体力恢复倍率 = 1 + 敏捷×0.01"),
+        TEXT("攻速倍率 = 1 + 敏捷×0.02（只作用于近战，枪械射速取武器基础值）\n体力恢复倍率 = 1 + 敏捷×0.015\n换弹速度 = ×（1 + 敏捷×0.003），与快手、附魔各自相乘"),
         TEXT("魔攻 = 向下取整(智力×1.5 + 精神×0.5)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
         TEXT("理论生命上限 = 100 + 体质×10 + (等级-1)×10\n物防 = 向下取整(体质×1.2 + 力量×0.3)\n暴击抵抗 = 体质%"),
         TEXT("魔防 = 向下取整(精神×1.2 + 智力×0.3)\n理论魔法上限 = 100 + 精神×10 + 智力×5 + (等级-1)×10"),
@@ -169,7 +169,7 @@ UWidget* UColdSteelHUDWidget::BuildStatusPage()
     AddCharacterRow(Weapon, TEXT("弹药"), TEXT("ammo"), TEXT("弹匣剩余 / 备用弹药；射击与换弹后更新。"));
 
     auto* Detail = AddCharacterCard(Content, TEXT("详细信息"));
-    AddCharacterRow(Detail, TEXT("体力恢复"), TEXT("staminaRegen"), TEXT("停止消耗后延迟恢复；恢复速度 = 基础恢复 × (1 + 敏捷×0.01)。"));
+    AddCharacterRow(Detail, TEXT("体力恢复"), TEXT("staminaRegen"), TEXT("停止消耗后延迟恢复；恢复速度 = 基础恢复 × (1 + 敏捷×0.015)。"));
     AddCharacterRow(Detail, TEXT("生命恢复"), TEXT("hpRegen"), TEXT("每秒恢复 (1 + 祭品固定加成) × 祭品恢复倍率。"));
     AddCharacterRow(Detail, TEXT("魔法恢复"), TEXT("mpRegen"), TEXT("每秒恢复 1 + 精神×0.08 + 智力×0.02，四舍五入保留两位小数；战斗中也恢复。"));
     AddCharacterRow(Detail, TEXT("碰撞体积"), TEXT("collisionRadius"), TEXT("角色胶囊体的当前碰撞半径，单位：米。"));
@@ -209,10 +209,11 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         CharacterDetails.Add(TEXT("luck"),FString::Printf(TEXT("基础 %d + 暴击技能 %d；暴击率 = 2 + 总幸运，扣除目标体质抗暴后掷随机暴击。要害命中不重复叠加暴击倍率。"),StatusModel->Attributes.FindRef(TEXT("luck")),StatusModel->CriticalStrikeEffect().Luck));
         SetCharacterValue(TEXT("critMultiplier"),FString::Printf(TEXT("%.2fx"),1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
         CharacterDetails.Add(TEXT("critMultiplier"),FString::Printf(TEXT("暴击技能提供额外 %.0f%% 伤害；技能倍率 %.2f。随机暴击或要害命中只应用一次；步枪要害倍率仍独立。"),StatusModel->CriticalStrikeEffect().CriticalDamageBonus*100,1+StatusModel->CriticalStrikeEffect().CriticalDamageBonus));
-        CharacterDetails.Add(TEXT("dex"),FString::Printf(TEXT("基础 %d + 巧手 %d + 手枪精通 %d；技能加成常驻，不占用属性点。\n攻速倍率 = 1 + 总敏捷×0.02\n体力恢复倍率 = 1 + (基础敏捷+装备敏捷)×0.01\n巧手额外提供换弹速度 +%.0f%%。"),StatusModel->Attributes.FindRef(TEXT("dex")),StatusModel->DexterousHandsEffect().Dexterity,StatusModel->PistolEffect().Dexterity,StatusModel->DexterousHandsEffect().ReloadSpeed*100));
+        CharacterDetails.Add(TEXT("dex"),FString::Printf(TEXT("基础 %d + 巧手 %d + 手枪精通 %d；技能加成常驻，不占用属性点。\n近战攻速倍率 = 1 + 总敏捷×0.02（枪械射速取武器基础值，不受敏捷影响）\n体力恢复倍率 = 1 + (基础敏捷+装备敏捷)×0.015\n换弹速度 ×（1 + (基础敏捷+装备敏捷)×0.003），与快手、附魔各自相乘\n巧手额外提供换弹速度 +%.0f%%。"),StatusModel->Attributes.FindRef(TEXT("dex")),StatusModel->DexterousHandsEffect().Dexterity,StatusModel->PistolEffect().Dexterity,StatusModel->DexterousHandsEffect().ReloadSpeed*100));
         const FString MovementDetail=FString::Printf(TEXT("实际持手枪时，基础移动速度 ×（1 + 手枪精通移速加成）。当前倍率 %.2f；收起手枪或改持工具时移除。"),StatusModel->PistolMovementMultiplier());
         CharacterDetails.Add(TEXT("moveSpeed"),MovementDetail);CharacterDetails.Add(TEXT("moveSpeedDetail"),MovementDetail);
-        const FString ReloadDetail=FString::Printf(TEXT("当前枪械与配件耗时 ÷ 巧手速度倍率 %.2f。普通、空仓换弹均生效；动作与音效同步加速。"),StatusModel->ReloadSpeedMultiplier());
+        const double DexReloadSpeed=1.+FMath::Max(0.,double(StatusModel->Attribute(TEXT("dex")))+StatusModel->EquipmentBonus(TEXT("dex")))*ColdSteelWeaponStats::DexReloadSpeedPerPoint;
+        const FString ReloadDetail=FString::Printf(TEXT("基础耗时 ÷（敏捷 %.2f × 快手 %.2f × 附魔/改造）= 实际换弹时间；普通、空仓换弹均生效，动作与音效同步加速。"),DexReloadSpeed,StatusModel->ReloadSpeedMultiplier());
         CharacterDetails.Add(TEXT("reload"),ReloadDetail);CharacterDetails.Add(TEXT("emptyReload"),ReloadDetail);
         for (const auto& Pair : StatusModel->Attributes)
         {

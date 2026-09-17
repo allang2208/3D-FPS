@@ -91,19 +91,29 @@ float UMonsterCombatComponent::LeashRange() const{if(auto* W=Cast<AWolfMonster>(
 float UMonsterCombatComponent::StopRange() const{if(auto* W=Cast<AWolfMonster>(GetOwner()))return FMath::Max(55.f,W->BiteTriggerRange-30.f);if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return MonsterCombatTuning::AttackDistance(M->AttackRange)*.72f;if(auto* N=Cast<ANurseZombie>(GetOwner()))return FMath::Max(40.f,MonsterCombatTuning::AttackDistance(N->AttackRange)-30);if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->SlamTriggerRange*.65f;return 100;}
 FVector UMonsterCombatComponent::Home() const{if(auto* W=Cast<AWolfMonster>(GetOwner()))return W->Home;if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))return M->Home;if(auto* N=Cast<ANurseZombie>(GetOwner()))return N->SpawnPosition;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))return H->Home;return GetOwner()->GetActorLocation();}
 void UMonsterCombatComponent::ReachedHome(){if(auto* W=Cast<AWolfMonster>(GetOwner()))W->ReachedHome();if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->Health=M->MaxHealth;if(auto* H=Cast<AHandBrainMonster>(GetOwner()))H->Health=H->MaxHealth;SetLocomotion(false);}
+float UMonsterCombatComponent::ApplyHitWithReactionScale(float Multiplier,TFunctionRef<float()> ApplyDamage)
+{
+ TGuardValue<float> Scope(IncomingHitReactionMultiplier,Multiplier);
+ return ApplyDamage();
+}
 void UMonsterCombatComponent::ReceiveHit(float Damage,APawn* Attacker)
 {
  if(!GetOwner()->HasAuthority()||IsDead())return;
  if(auto* Pawn=Cast<APawn>(GetOwner()))if(auto* AI=Cast<AMonsterAIController>(Pawn->GetController()))AI->RememberDamage(Attacker);
+ // Closed reaction gate (firearms by default): the monster still remembers who
+ // shot it, but never flips the state machine, the poise clock or the hit
+ // presentation. Melee and skills keep the existing scaled behaviour.
+ if(IncomingHitReactionMultiplier<=0.f)return;
  Poise+=Damage;SinceHit=0;const bool TriggerStun=Poise>=PoiseThreshold;
  const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
  const float Remaining=FMath::Max(IsControlled()?FMath::Max(0.f,ReactionDuration-ReactionTime):0.f,Status?Status->FrozenRemaining():0.f);
  bStunned=TriggerStun||(bStunned&&Remaining>0);
  if(TriggerStun)Poise=0;
- if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(FMath::Max(Remaining,TriggerStun?StunDuration:StaggerDuration));
- if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(FMath::Max(Remaining,TriggerStun?StunDuration:StaggerDuration));
- if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(FMath::Max(Remaining,TriggerStun?StunDuration:StaggerDuration));
- else if(auto* H=Cast<AHandBrainMonster>(GetOwner())){if(TriggerStun)H->InterruptAttack(FMath::Max(Remaining,StunDuration));}
+ const float Duration=(TriggerStun?StunDuration:StaggerDuration)*IncomingHitReactionMultiplier;
+ if(auto* W=Cast<AWolfMonster>(GetOwner()))W->InterruptAttack(FMath::Max(Remaining,Duration));
+ if(auto* M=Cast<APoisonMaggotMonster>(GetOwner()))M->InterruptAttack(FMath::Max(Remaining,Duration));
+ if(auto* N=Cast<ANurseZombie>(GetOwner()))N->InterruptAttack(FMath::Max(Remaining,Duration));
+ else if(auto* H=Cast<AHandBrainMonster>(GetOwner())){if(TriggerStun)H->InterruptAttack(FMath::Max(Remaining,Duration));}
 }
 void UMonsterCombatComponent::BeginReaction(float Duration)
 {

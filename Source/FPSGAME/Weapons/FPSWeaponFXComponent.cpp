@@ -31,6 +31,18 @@ namespace WeaponFX
     constexpr float StreamMaxLifetime = 1.1f;
 }
 
+// Optic firing presentation (LPVO 1-6x only). At high magnification the world
+// muzzle flash leaves the narrow frustum almost completely, so the world layer is
+// compensated with a damped, capped factor and a small forward offset instead of
+// being made brighter. Presentation only: the muzzle socket, the shot direction
+// and the trace are untouched.
+static TAutoConsoleVariable<float> ScopeWorldScaleExponent(TEXT("fps.Scope.WorldScaleExponent"),.5f,
+    TEXT("Damped magnification exponent for the world muzzle flash (0 = off)."));
+static TAutoConsoleVariable<float> ScopeWorldScaleMax(TEXT("fps.Scope.WorldScaleMax"),2.5f,
+    TEXT("Hard cap for the world muzzle flash compensation."));
+static TAutoConsoleVariable<float> ScopeWorldForwardCM(TEXT("fps.Scope.WorldForwardCM"),12.f,
+    TEXT("Centimetres to push the world flash along the barrel at full compensation."));
+
 UFPSWeaponFXComponent::UFPSWeaponFXComponent()
 {
     PrimaryComponentTick.bCanEverTick = true;
@@ -226,9 +238,19 @@ bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float S
         FX->SetAsset(System);FX->SetCastShadow(false);FX->RegisterComponent();EpicFXPool.Add(FX);
     }
     if(!FX)return true;
+    const bool bScope = ShouldHideCasings(); // The same LPVO 1-6x presentation contract.
+    if(bScope)
+    {
+        const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
+        const float Magnification=Character?FMath::Max(1.f,Character->GetOpticMagnification()):1.f;
+        const float Compensation=FMath::Clamp(FMath::Pow(Magnification,
+            FMath::Clamp(ScopeWorldScaleExponent.GetValueOnGameThread(),0.f,1.f)),1.f,
+            FMath::Max(1.f,ScopeWorldScaleMax.GetValueOnGameThread()));
+        Scale*=Compensation;
+        Position+=Forward*FMath::Max(0.f,ScopeWorldForwardCM.GetValueOnGameThread())*(Compensation-1.f);
+    }
     FX->SetWorldLocationAndRotation(Position,Forward.Rotation());
     FX->SetVariableFloat(TEXT("User.Global Scale"),Scale);
-    const bool bScope = ShouldHideCasings(); // The same LPVO 1-6x presentation contract.
     FX->SetVariableFloat(TEXT("User.Length Randomness"), FMath::FRandRange(.50f, .85f));
     // Randomize the actual side-lobe geometry, not the muzzle origin or firing direction.
     FX->SetVariableFloat(TEXT("User.Side Flash Angle"), FMath::FRandRange(0.f, 360.f));

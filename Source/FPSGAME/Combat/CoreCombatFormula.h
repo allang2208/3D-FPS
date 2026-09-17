@@ -23,7 +23,7 @@ inline Stats Player(const Attributes& A,int Level=1)
         std::floor(A.Int*1.5+A.Wis*.5),std::floor(A.Wis*1.2+A.Int*.3),
         std::floor(2+A.Luck),std::floor(A.Con),
         1+A.Dex*.02,std::floor(130.528125+A.Dex*.05),100+A.Con*10+(Level-1)*10,
-        100+A.Wis*10+A.Int*5+(Level-1)*10,1+A.Dex*.01,
+        100+A.Wis*10+A.Int*5+(Level-1)*10,1+A.Dex*.015,
         std::max(0.,Round((1+A.Wis*.08+A.Int*.02)*100)/100)};
 }
 inline Stats Enemy(const Attributes& A)

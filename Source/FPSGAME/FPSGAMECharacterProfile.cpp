@@ -29,16 +29,21 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         GunKickPosition=GunKickPositionVelocity=GunKickRotation=GunKickRotationVelocity=FVector::ZeroVector;
         GunJitterPosition=GunJitterPositionVelocity=GunJitterRotation=GunJitterRotationVelocity=FVector::ZeroVector;
         GunFlip=GunFlipVelocity=0.f;
+        // A weapon change resets both hands so a new loadout starts from rest.
+        for(auto& Dual:DualRecoil)Dual=FDualWieldRecoil();
         bReloadAfterCasting=false;
         bRevolverReloadAfterFire=false;
         if (IsTraversing()) Traversal->Cancel();
         StopMechanicalAudio();
         FireReleased();AimReleased();
+        if(DualPistols)DualPistols->Deactivate();
         ActiveInventoryWeapon=Id;
+        ActiveInventoryWeaponDefinition=Definition;
+        bWeaponVisualPartsApplied=false;
         if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseM1911=I->Definition==TEXT("ue_m1911");bUseDanWesson715=I->Definition==TEXT("ue_dan_wesson715");InitializeWeaponVisuals();StartEquipCharge();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
-    AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),true);
+    AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),ChangedWeapon);
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>())Tools->RefreshHeldTool();
     if(RuneSword)RuneSword->RefreshEquipment(Profile);
     // Handling stays in UE units; damage resolves through the canonical gamedev weapon formula below.
@@ -81,15 +86,18 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
             EffectiveWeaponRangeCM=FMath::Max(1.f,static_cast<float>(Stats.Range*100.));
             // Keep ballistic lifetime separate from the full-damage range.
             TraceDistance=FMath::Max(Defaults->TraceDistance,EffectiveWeaponRangeCM*3.f);
-            DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));if(I->Definition!=TEXT("ue_m4a1"))FireInterval=Stats.Interval;}
+            // Every catalog weapon, M4 included, drives cadence from the same
+            // gunsmith data the panel and tooltips read. The old M4 exception
+            // silently ignored the catalog fire interval.
+            DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval;}
     }
     // Rebuild from weapon/attachment values on each publication; never compound
     // the passive bonus into the previous duration. Active action clocks stay fixed.
-    ReloadDuration=ColdSteelWeaponStats::Reload(Profile,ReloadDuration);
-    EmptyReloadDuration=ColdSteelWeaponStats::Reload(Profile,EmptyReloadDuration);
+    ReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,ReloadDuration);
+    EmptyReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,EmptyReloadDuration);
     FireInterval=ColdSteelWeaponStats::Interval(I,Profile,FireInterval);
     if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")));
-    MagazineAmmo=I&&I->Definition!=TEXT("ue_rune_sword")?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&I->Definition==TEXT("ue_rune_sword")?0:Profile->AmmoCount();
+    MagazineAmmo=I&&!ColdSteelInventory::IsMeleeWeapon(*I)?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&ColdSteelInventory::IsMeleeWeapon(*I)?0:Profile->AmmoCount();
     if(RuneSword && RuneSword->IsEquipped())
     {DamagePerShot=RuneSword->EquippedDamage();FireInterval=RuneSword->AttackSeconds();MagazineCapacity=0;ReloadDuration=EmptyReloadDuration=0;}
     if (bUseDanWesson715 && I)
