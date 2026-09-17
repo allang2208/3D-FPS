@@ -37,6 +37,8 @@
 | M3 | **命中窗 1.22–1.40 s 未经验证** | 已按 V52 时钟编译进 DLL | 动作本身被 M1 挡住，没人试过冲刺劈砍是否真的打中 | 修好 M1 后再实测一次；窗口取值依据见 `Docs/Weapons/runesword-overhead-20260916.md` 第七节 |
 | M4 | **F 键检视 V47 待用户验证** | 已接入并写盘（V46 前臂扭转分布 + V47 转刀重建），用户尚未反馈 | 用户把注意力放在冲刺竖劈上 | 用户试过后如仍有偏差，按 `source-hand-animation-study.md` 的接触驱动方法继续；不要再回到"固定剑轨迹再让手让位" |
 
+| M5 | **步枪枪托砸击（快速进战步枪版）废案待重做** | 已退役（2026-09-17）：V1 拍脑袋参数、V2 按 BV13K421e7Rw 复刻均被实机否决 | 参数/拟合没有 Blender 对位预览就进 DLL，观感不达标；代码已回退、文件入 trash | 下次开发按 [废案记录](Rejected/rifle-stock-melee-20260917.md) 的恢复入口清单先做 Blender 对位预览再接运行时 |
+
 废案位置：`trash/runesword-overhead-superseded-20260916/`（V49/V50/V51 共 31 个文件、450 MB，
 逐文件散列见 `Docs/AssetArchives/runesword-overhead-superseded-20260916.json`）；
 更早的原创转剑废案在 `trash/sword-twirl-v48-retired-20260916/`。

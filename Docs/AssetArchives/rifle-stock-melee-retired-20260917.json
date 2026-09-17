@@ -1,0 +1,33 @@
+{
+  "task": "步枪枪托砸击（快速进战步枪版）废案退役",
+  "date": "2026-09-17",
+  "reason": "用户实机判定 V1/V2 均不符合预期，开发留待下次；按指示废案文件移入 trash。共享文件（Character/CastingMesh/SkillModel）中的接入代码已精确回退，仅保留并行会话改动。",
+  "resumption": "恢复入口与 GitHub 调研结论见 Docs/Rejected/rifle-stock-melee-20260917.md；F 键路由/姿态层/伤害路径的接入点清单在该文档末节。",
+  "entries": [
+    {
+      "original": "Source/FPSGAME/Skills/FPSRifleStockMeleeComponent.cpp",
+      "trash": "trash/rifle-stock-melee-retired-20260917/Source_FPSGAME_Skills/FPSRifleStockMeleeComponent.cpp",
+      "bytes": 6035,
+      "sha256": "87b2e814082cba0330bf6077fc6b4b692b935858cef38135d7d217b12f51baec"
+    },
+    {
+      "original": "Source/FPSGAME/Skills/FPSRifleStockMeleeComponent.h",
+      "trash": "trash/rifle-stock-melee-retired-20260917/Source_FPSGAME_Skills/FPSRifleStockMeleeComponent.h",
+      "bytes": 1908,
+      "sha256": "9276099d821f93fae70b4112cf9b3acd791ecf7c80c42fbf4c2d202e73a7ec17"
+    },
+    {
+      "original": "Source/FPSGAME/Skills/QuickCombatRifleMotion.h",
+      "trash": "trash/rifle-stock-melee-retired-20260917/Source_FPSGAME_Skills/QuickCombatRifleMotion.h",
+      "bytes": 2163,
+      "sha256": "7fdc29401394f7ce237fcf86de694cb36b9dac51a7f610bb7ac65f4d2c7a8199"
+    },
+    {
+      "original": "Saved/Reference/RifleStockBV13K421e7Rw20260917/ (目录整体，含 src.mp4 与读谱帧图)",
+      "trash": "trash/rifle-stock-melee-retired-20260917/reference",
+      "files": 83,
+      "bytes": 42203516,
+      "sha256": "目录不逐文件散列（参考素材，本地保留）"
+    }
+  ]
+}
