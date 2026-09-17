@@ -49,6 +49,7 @@ BASE_PATH = DIR + "/SM_RomanPavilionBase_20"
 ARCH_PATH = DIR + "/SM_RomanPavilionArch_20"
 DOME_PATH = DIR + "/SM_RomanPavilionDome_20"
 MAT = DIR + "/M_RomanStone_V2"
+COLUMN_PATH = DIR + "/SM_RomanColumn_Detailed"
 
 # ------------------------------------------------------------------ dimensions
 V = 20.0                       # build grid cell (cm)
@@ -73,7 +74,7 @@ DENTIL_H = 16.0
 R_OUT = 400.0                  # dome reference radius (hemisphere extrados above the steps)
 R_IN = 360.0                   # dome soffit radius
 R_OC = 72.0                    # oculus radius
-CLOSE_OCULUS = False           # True: no opening, the shell runs on to the apex
+CLOSE_OCULUS = True            # False builds the open-oculus variant (collar ring)
 STEPS = 96                     # revolve segments
 ARC_STEP_DEG = 2.5             # extrados / soffit sampling
 
@@ -220,23 +221,27 @@ publish(base, BASE_PATH, "AlignedBoxes", 1)
 
 # ============================================================= 2. entablature
 arch = SV.create_mesh().handle
+# PROFILE Z IS LOCAL (0 at the piece's own foot). Writing absolute world heights here instead
+# (280/360) shifted the whole mesh 280 above its pivot: the piece then floated a storey above
+# the columns and its ring poked out through the upper dome.
+H_ARCH = Z_ARCH1 - Z_ARCH0
 arch_profile = [
-    v2(R_ARCH_IN, Z_ARCH0),          # inner bottom corner (the soffit starts here)
-    v2(R_ARCH_FACE - 8.0, Z_ARCH0),  # soffit outwards
-    v2(R_ARCH_FACE - 8.0, Z_ARCH0 + 8.0),
-    v2(R_ARCH_FACE - 16.0, Z_ARCH0 + 12.0),   # cyma under the architrave
-    v2(R_ARCH_FACE - 16.0, Z_ARCH0 + 26.0),   # architrave, lower fascia
-    v2(R_ARCH_FACE - 10.0, Z_ARCH0 + 26.0),   # taenia steps out
-    v2(R_ARCH_FACE - 10.0, Z_ARCH0 + 38.0),   # upper fascia
-    v2(R_ARCH_FACE - 18.0, Z_ARCH0 + 38.0),   # frieze is recessed
-    v2(R_ARCH_FACE - 18.0, Z_ARCH0 + 60.0),   # frieze face
-    v2(R_ARCH_FACE - 6.0, Z_ARCH0 + 60.0),    # bed mould out
-    v2(R_ARCH_FACE - 6.0, Z_ARCH0 + 68.0),    # dentil band background
-    v2(R_ARCH_FACE + 8.0, Z_ARCH0 + 72.0),    # cornice slope
-    v2(R_ARCH_OUT, Z_ARCH0 + 76.0),           # cornice projects to the stylobate plane
-    v2(R_ARCH_OUT, Z_ARCH1),                  # cornice face
-    v2(400.0, Z_ARCH1),                       # top surface (dome seat, r400 = dome base)
-    v2(R_ARCH_IN, Z_ARCH1),
+    v2(R_ARCH_IN, 0.0),              # inner bottom corner (the soffit starts here)
+    v2(R_ARCH_FACE - 8.0, 0.0),      # soffit outwards
+    v2(R_ARCH_FACE - 8.0, 8.0),
+    v2(R_ARCH_FACE - 16.0, 12.0),    # cyma under the architrave
+    v2(R_ARCH_FACE - 16.0, 26.0),    # architrave, lower fascia
+    v2(R_ARCH_FACE - 10.0, 26.0),    # taenia steps out
+    v2(R_ARCH_FACE - 10.0, 38.0),    # upper fascia
+    v2(R_ARCH_FACE - 18.0, 38.0),    # frieze is recessed
+    v2(R_ARCH_FACE - 18.0, 60.0),    # frieze face
+    v2(R_ARCH_FACE - 6.0, 60.0),     # bed mould out
+    v2(R_ARCH_FACE - 6.0, 68.0),     # dentil band background
+    v2(R_ARCH_FACE + 8.0, 72.0),     # cornice slope
+    v2(R_ARCH_OUT, 76.0),            # cornice face
+    v2(R_ARCH_OUT, H_ARCH),          # cornice top
+    v2(400.0, H_ARCH),               # dome seat (r400 = dome base)
+    v2(R_ARCH_IN, H_ARCH),
 ]
 SV.append_revolve_polygon(arch, tf(), arch_profile, 0.0, STEPS, 360.0, 0)
 
@@ -246,7 +251,7 @@ dentil = SV.create_mesh().handle
 SV.append_box(dentil, tf(0.0, 0.0, 0.0), DENTIL_D, DENTIL_W, DENTIL_H, 0, 0, 0, "Center", 0)
 dentil_at = []
 r_dentil = R_ARCH_FACE + 4.0
-z_dentil = Z_ARCH0 + 64.0
+z_dentil = 64.0          # local, like the profile
 for k in range(N_DENTIL):
     theta = 360.0 * k / N_DENTIL
     dentil_at.append(tf(r_dentil * math.cos(math.radians(theta)),
@@ -344,8 +349,8 @@ alphas, phi = [COFFER_TOP], COFFER_TOP
 for _ in range(ROW_COUNT):
     phi -= math.degrees(K_ROW * math.sin(math.radians(phi))) + band_deg
     alphas.append(max(phi, a_in))
-log("coffer rows: %d x %d coffers, boundaries %s, calotte to oculus at %.1f deg"
-    % (ROW_COUNT, ROW_COFFERS, ["%.1f" % a for a in alphas], a_in))
+log("coffer rows: %d x %d coffers, boundaries %s, plain calotte from %.1f deg to the apex/oculus"
+    % (ROW_COUNT, ROW_COFFERS, ["%.1f" % a for a in alphas], alphas[-1]))
 
 
 def rib_ring(alpha_deg):
@@ -361,10 +366,8 @@ def rib_ring(alpha_deg):
     return [v2(*inner[0]), v2(*inner[1]), v2(*outer[1]), v2(*outer[0])]
 
 
-for alpha in alphas[:-1]:          # every row boundary, including the field's lower edge
+for alpha in alphas:               # every row boundary, including the field's lower edge
     SV.append_revolve_polygon(dome, tf(), rib_ring(alpha), 0.0, STEPS, 360.0, 0)
-# oculus rim ring, proud of the collar
-SV.append_revolve_polygon(dome, tf(), rib_ring(alphas[-1]), 0.0, STEPS, 360.0, 0)
 info(dome, "dome + ring ribs")
 
 # Meridional ribs: one box template per row (its length follows the row's arc), placed by
@@ -405,8 +408,8 @@ coffer_pt = unreal.Vector(
     probe_r * math.cos(math.radians(row_mid)))
 coffer_ok = SV.is_point_inside(dome, coffer_pt)
 log("probe: rib interior=%s (want True), coffer void=%s (want False)" % (rib_ok, coffer_ok))
-log("probe: plain calotte at %.0f deg, oculus rim at %.1f deg, calotte arc %.0f cm"
-    % (alphas[-1], a_in, math.radians(alphas[-1] - a_in) * R_IN))
+log("probe: plain calotte %.0f deg -> %s, arc %.0f cm" % (
+    alphas[-1], "apex" if CLOSE_OCULUS else "oculus", math.radians(alphas[-1]) * R_IN))
 
 lo_z, hi_z = z_extent(dome)
 log("vertex z range: %.2f .. %.2f (want 0 .. %.1f)" % (lo_z, hi_z, R_OUT))
@@ -450,6 +453,19 @@ if rib_ok and not coffer_ok and geometry_ok:
 
     ox, oy = PAVILION_ORIGIN
     placed = 0
+    # each piece's mesh must sit on z=0 locally, otherwise the actor z below is a lie: the
+    # first build wrote absolute heights into the arch profile and left an 80 cm gap with the
+    # entablature floating through the dome. Assert the stack closes before spawning.
+    expected = ((BASE_PATH, 0.0, 20.0), (COLUMN_PATH, V, 280.0),
+                (ARCH_PATH, Z_ARCH0, Z_ARCH1), (DOME_PATH, Z_ARCH1, Z_ARCH1 + 400.0))
+    for path, z0, z1 in expected:
+        mesh = wait(path, 10.0)
+        bb = mesh.get_bounds()
+        lo, hi = bb.origin.z - bb.box_extent.z, bb.origin.z + bb.box_extent.z
+        ok = abs(lo) < 0.5
+        LOG.append(("pivot_" + path.rsplit("/", 1)[-1], ok))
+        log("pivot %-30s local z %.1f..%.1f %s" % (path.rsplit("/", 1)[-1], lo, hi,
+                                                   "OK" if ok else "OFFSET from the pivot!"))
     for path, z, name in ((BASE_PATH, 0.0, "RomanPavilion2_Base"),
                           (ARCH_PATH, Z_ARCH0, "RomanPavilion2_Arch"),
                           (DOME_PATH, Z_ARCH1, "RomanPavilion2_Dome")):

@@ -35,8 +35,8 @@ V = 20.0
 
 R_COL = 360.0
 N_COL = 10
-Z_ARCH0 = 280.0
-Z_ARCH1 = 360.0
+COL_H = 260.0          # column height: the entablature's foot, local to this piece
+ARCH_H = 80.0          # entablature height
 R_ARCH_IN = 320.0
 R_ARCH_FACE = 400.0
 R_ARCH_OUT = 440.0
@@ -106,15 +106,16 @@ def dims_of(path):
 
 # ------------------------------------------------- 1. colonnade (10 columns + arch)
 col = SV.create_mesh().handle
+# local z: 0 = the foot of this piece (the column bases), so the actor's pivot is its base
 arch_profile = [
-    v2(R_ARCH_IN, Z_ARCH0),
-    v2(R_ARCH_FACE - 8.0, Z_ARCH0), v2(R_ARCH_FACE - 8.0, Z_ARCH0 + 8.0),
-    v2(R_ARCH_FACE - 16.0, Z_ARCH0 + 12.0), v2(R_ARCH_FACE - 16.0, Z_ARCH0 + 26.0),
-    v2(R_ARCH_FACE - 10.0, Z_ARCH0 + 26.0), v2(R_ARCH_FACE - 10.0, Z_ARCH0 + 38.0),
-    v2(R_ARCH_FACE - 18.0, Z_ARCH0 + 38.0), v2(R_ARCH_FACE - 18.0, Z_ARCH0 + 60.0),
-    v2(R_ARCH_FACE - 6.0, Z_ARCH0 + 60.0), v2(R_ARCH_FACE - 6.0, Z_ARCH0 + 68.0),
-    v2(R_ARCH_FACE + 8.0, Z_ARCH0 + 72.0), v2(R_ARCH_OUT, Z_ARCH0 + 76.0),
-    v2(R_ARCH_OUT, Z_ARCH1), v2(400.0, Z_ARCH1), v2(R_ARCH_IN, Z_ARCH1),
+    v2(R_ARCH_IN, COL_H),
+    v2(R_ARCH_FACE - 8.0, COL_H), v2(R_ARCH_FACE - 8.0, COL_H + 8.0),
+    v2(R_ARCH_FACE - 16.0, COL_H + 12.0), v2(R_ARCH_FACE - 16.0, COL_H + 26.0),
+    v2(R_ARCH_FACE - 10.0, COL_H + 26.0), v2(R_ARCH_FACE - 10.0, COL_H + 38.0),
+    v2(R_ARCH_FACE - 18.0, COL_H + 38.0), v2(R_ARCH_FACE - 18.0, COL_H + 60.0),
+    v2(R_ARCH_FACE - 6.0, COL_H + 60.0), v2(R_ARCH_FACE - 6.0, COL_H + 68.0),
+    v2(R_ARCH_FACE + 8.0, COL_H + 72.0), v2(R_ARCH_OUT, COL_H + 76.0),
+    v2(R_ARCH_OUT, COL_H + ARCH_H), v2(400.0, COL_H + ARCH_H), v2(R_ARCH_IN, COL_H + ARCH_H),
 ]
 do("arch revolve", SV.append_revolve_polygon(col, tf(), arch_profile, 0.0, STEPS, 360.0, 0))
 
@@ -125,7 +126,7 @@ for k in range(N_DENTIL):
     theta = 360.0 * k / N_DENTIL
     dentil_at.append(tf((R_ARCH_FACE + 4.0) * math.cos(math.radians(theta)),
                         (R_ARCH_FACE + 4.0) * math.sin(math.radians(theta)),
-                        Z_ARCH0 + 64.0, 0.0, theta, 0.0))
+                        COL_H + 64.0, 0.0, theta, 0.0))
 SV.append_mesh_at_transforms(col, dentil, dentil_at)
 SV.release_mesh(dentil)
 
@@ -147,8 +148,10 @@ if tris < 4000 or tris > 16000:
     column_handle = getattr(loaded, "handle", None)
     tris = SV.get_mesh_info(column_handle).triangle_count
 log("column in rack: %d tris (source %d, %.0f%%)" % (tris, full_tris, 100.0 * tris / full_tris))
+# columns at local z 0 so the piece's pivot is its foot (the build script places it at the
+# first cell above the base)
 column_at = [tf(R_COL * math.cos(2.0 * math.pi * k / N_COL),
-                R_COL * math.sin(2.0 * math.pi * k / N_COL), V) for k in range(N_COL)]
+                R_COL * math.sin(2.0 * math.pi * k / N_COL), 0.0) for k in range(N_COL)]
 do("column ring", SV.append_mesh_at_transforms(col, column_handle, column_at))
 SV.release_mesh(column_handle)
 info = SV.get_mesh_info(col)
@@ -162,7 +165,11 @@ SV.release_mesh(col)
 wait(COLONNADE)
 do("collision", SV.generate_collision(COLONNADE, "ConvexHulls", 12, 25, True))
 do("material", SV.set_asset_materials(COLONNADE, STONE, True))
-log("colonnade dims: %s" % (dims_of(COLONNADE),))
+_bb = wait(COLONNADE).get_bounds()
+_lo = _bb.origin.z - _bb.box_extent.z
+LOG.append(("pivot_colonnade", abs(_lo) < 0.5))
+log("colonnade dims: %s  local z %.1f..%.1f (pivot must be the foot) %s" % (
+    dims_of(COLONNADE), _lo, _bb.origin.z + _bb.box_extent.z, "OK" if abs(_lo) < 0.5 else "OFFSET"))
 
 # ------------------------------------------------- 3. prove the collision is walkable
 # Runs last on purpose: opening the level in the same process as the palette write is what
