@@ -58,8 +58,8 @@ n = SV.selection_count(work, "plinth")
 SV.delete_faces(work, "plinth")
 info = SV.get_mesh_info(work)
 plinth_top = info.bounds_min.z
-log("base plinth: removed %d tris, remaining min z = %.2f -> plinth height %.2f" % (n, plinth_top, plinth_top))
-SV.append_cylinder(work, tf(0.0, 0.0, 0.0), 40.0, plinth_top, 48, 0, True, "Base", 0)
+log("base plinth: removed %d tris, remaining min z = %.2f -> plinth height %.2f, disc r45" % (n, plinth_top, plinth_top))
+SV.append_cylinder(work, tf(0.0, 0.0, 0.0), 45.0, plinth_top, 48, 0, True, "Base", 0)
 
 # --- abacus: same trick at the top corner
 SV.select_connected(work, "abacus", unreal.Vector(38.5, 38.5, 250.0))
@@ -72,8 +72,8 @@ log("abacus: removed %d tris, remaining max z = %.2f -> abacus %.2f..260" % (
 SV.append_cylinder(work, tf(0.0, 0.0, capital_top), 40.0, 260.0 - capital_top, 48, 0, True, "Base", 0)
 
 info = SV.get_mesh_info(work)
-ok = (abs((info.bounds_max.x - info.bounds_min.x) - 80.0) < 1.0 and
-      abs((info.bounds_max.y - info.bounds_min.y) - 80.0) < 1.0 and
+ok = (abs((info.bounds_max.x - info.bounds_min.x) - 90.0) < 1.0 and
+      abs((info.bounds_max.y - info.bounds_min.y) - 90.0) < 1.0 and
       abs((info.bounds_max.z - info.bounds_min.z) - 260.0) < 1.0 and
       info.open_border_edges == 0 and
       n > 10 and n2 > 10 and

@@ -7,7 +7,7 @@ Everything is centimetres on the 20 cm build grid; each piece's bbox is an exact
 multiple so the palette footprint self-check passes.
 
   base   SM_RomanPavilionBase_20    disc r480, 20 tall              48 x 48 x  1 cells
-  10 columns on ring radius 360     SM_RomanColumn_Detailed, 260 tall  (shared asset)
+  10 columns on ring radius 360     SM_RomanColumn_Round_20, 260 tall (round plates)
   arch   SM_RomanPavilionArch_20    entablature ring r320-480,
                                     z 280-360, 72 dentils           48 x 48 x  4 cells
   dome   SM_RomanPavilionDome_20    hemisphere shell, soffit r360, oculus r72,
@@ -49,7 +49,9 @@ BASE_PATH = DIR + "/SM_RomanPavilionBase_20"
 ARCH_PATH = DIR + "/SM_RomanPavilionArch_20"
 DOME_PATH = DIR + "/SM_RomanPavilionDome_20"
 MAT = DIR + "/M_RomanStone_V2"
-COLUMN_PATH = DIR + "/SM_RomanColumn_Detailed"
+# the pavilion uses the round-plate column variant (square bases/abaci read wrong on a
+# circular colonnade); the linear colonnade keeps SM_RomanColumn_Detailed
+COLUMN_PATH = DIR + "/SM_RomanColumn_Round_20"
 
 # ------------------------------------------------------------------ dimensions
 V = 20.0                       # build grid cell (cm)
@@ -337,22 +339,24 @@ arch = SV.create_mesh().handle
 # (280/360) shifted the whole mesh 280 above its pivot: the piece then floated a storey above
 # the columns and its ring poked out through the upper dome.
 H_ARCH = Z_ARCH1 - Z_ARCH0
+# Width: the soffit runs all the way out to the column's outer edge (r400), so the beam sits
+# exactly on the capital's round abacus (r320-400) and the abacus cannot stick out past it.
+# Every face above the soffit is at r >= 394, i.e. still covering the abacus's edge.
 arch_profile = [
     v2(R_ARCH_IN, 0.0),              # inner bottom corner (the soffit starts here)
-    v2(R_ARCH_FACE - 8.0, 0.0),      # soffit outwards
-    v2(R_ARCH_FACE - 8.0, 8.0),
-    v2(R_ARCH_FACE - 16.0, 12.0),    # cyma under the architrave
-    v2(R_ARCH_FACE - 16.0, 26.0),    # architrave, lower fascia
-    v2(R_ARCH_FACE - 10.0, 26.0),    # taenia steps out
-    v2(R_ARCH_FACE - 10.0, 38.0),    # upper fascia
-    v2(R_ARCH_FACE - 18.0, 38.0),    # frieze is recessed
-    v2(R_ARCH_FACE - 18.0, 60.0),    # frieze face
-    v2(R_ARCH_FACE - 6.0, 60.0),     # bed mould out
-    v2(R_ARCH_FACE - 6.0, 68.0),     # dentil band background
-    v2(R_ARCH_FACE + 8.0, 72.0),     # cornice slope
+    v2(R_ARCH_FACE, 0.0),            # soffit out to r400 = the abacus edge
+    v2(R_ARCH_FACE - 4.0, 8.0),      # cyma steps in just above the abacus
+    v2(R_ARCH_FACE - 4.0, 26.0),     # architrave face
+    v2(R_ARCH_FACE, 30.0),           # taenia back out to r400
+    v2(R_ARCH_FACE, 40.0),
+    v2(R_ARCH_FACE - 6.0, 44.0),     # frieze, barely recessed
+    v2(R_ARCH_FACE - 6.0, 60.0),     # frieze face
+    v2(R_ARCH_FACE + 2.0, 62.0),     # bed mould out
+    v2(R_ARCH_FACE + 2.0, 68.0),     # dentil band background
+    v2(R_ARCH_FACE + 12.0, 72.0),    # cornice slope
     v2(R_ARCH_OUT, 76.0),            # cornice face
     v2(R_ARCH_OUT, H_ARCH),          # cornice top
-    v2(400.0, H_ARCH),               # dome seat (r400 = dome base)
+    v2(R_ARCH_FACE, H_ARCH),         # dome seat (r400 = dome base)
     v2(R_ARCH_IN, H_ARCH),
 ]
 SV.append_revolve_polygon(arch, tf(), arch_profile, 0.0, STEPS, 360.0, 0)
@@ -586,7 +590,7 @@ if rib_ok and not coffer_ok and geometry_ok:
         angle = 2.0 * math.pi * k / N_COL
         label = "RomanPavilion2_Column_%02d" % (k + 1)
         location = unreal.Vector(ox + R_COL * math.cos(angle), oy + R_COL * math.sin(angle), V)
-        placed += 1 if spawn(DIR + "/SM_RomanColumn_Detailed", location, label) else 0
+        placed += 1 if spawn(COLUMN_PATH, location, label) else 0
     log("placed %d new pavilion actors at (%.0f, %.0f)" % (placed, ox, oy))
     try:
         saved = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).save_current_level()
