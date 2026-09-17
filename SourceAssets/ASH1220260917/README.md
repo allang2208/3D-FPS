@@ -77,6 +77,15 @@
 
 **定稿数值一览**：滚转 0→44–50°（换匣段）→61.3°（拉栓帧 120）→0；弹匣出井约 0.20 m 后归零、可见度帧 42–48 达 97.6%；枪机保持 3.4 cm 后移、帧 120–132 被拉动、帧 138 复位；指尖到拉机柄 30 mm、到弹匣抓点约 10 mm；手臂网格对枪体最深 19.8 mm（与已认可基线同级）；ADS 眼到手 77 mm、手臂进枪体 6 mm；`reload_empty` 仍 2.700 s。
 
+## 发布（2026-09-18）
+
+提交 `f16ab00`（"Rework the ASH-12 empty reload onto the reference's bullpup beats"），已推送 `origin/main`，远端回读 `f16ab00f6ffd90ce108c747d9b5246cb836982a3` = 本地 HEAD。
+
+- 发布目录：`SourceAssets/ASH1220260917/`（脚本、案例文档、备份）+ `Docs/Backlog.md`、`Docs/Weapons/ash12-integration-20260917.md`、`Docs/AssetArchives/ash12-reload-superseded-20260918.json`、`Source/FPSGAME/ASH12IntegrationAudit.cpp`、`skills/ue5-fps-arms-animation/SKILL.md`。
+- 精确暂存 23 个文件（无 `git add -A`；工作区仍留有并行会话的 1056 处未提交改动，未夹带）。`git diff --cached --check` 干净；提交内无二进制（`*.fbx`/`*.blend`/`*.uasset`/`SourceAssets/**/*.png` 按忽略规则只留本地）。
+- 推送验证：首次 `git push` 连接被重置/超时，加 `-c http.version=HTTP/1.1` 后成功（`f0b23e6..f16ab00`）。
+- 仍依赖本地的内容：`SK_ASH12_Manny.fbx`、`ASH12_Editable.blend`、7 段 FBX 与 `Content/Weapons/ASH12/**` 的 uasset 都不进仓库（GitHub 是源码库，不是资源备份）；`Saved/Ash12ReloadRef/ref.mp4` 与 `Reference/*.png` 同样只在本地。
+
 ## 4c. 搁置点（2026-09-18）
 
 换弹动作做到这里先停，等实机判读。**已完成并导入 UE**：空仓换弹的斗牛犬编排（侧滚、左手锁护木、右手取匣→拉栓）、换匣与拉栓两处的手型与腕向、右臂绕开枪托、音效 cue 对齐，以及五轮实机反馈的修正。**未做**：`reload`（战术换弹）仍是 M4 支撑手路线；手指开合只有两段整体收拳、没有逐帧时序；实机静帧夹具已就绪但 `-game -RenderOffscreen` 在当前构建下约 15 s 崩溃（与本枪无关，见 `Docs/Backlog.md` A4）。
