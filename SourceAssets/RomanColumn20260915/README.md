@@ -634,6 +634,14 @@ coverage 走 `SCS_SceneColorHDR` 作 alpha，两者交给 `M_WeaponPreviewResolv
 只动 `.cpp`（无头文件改动），已通过编辑器内 Live Coding 热补丁生效（15:26:07 `Live coding succeeded`）。
 作者脚本：`forensic_rails_20260917.py`；补丁文件 `Source/FPSGAME/Building/VoxelBuildIcons.cpp`。
 
+### 退役归档（2026-09-17）
+
+本任务取代的脚本与 2026-09-16 版凉亭三件资产已按 WORKFLOW.md 第 4 节归档：文件在
+`trash/roman-pavilion-v2-20260917/`（本地，gitignore），字段记录（原路径／目标／大小／SHA-256／原因／替代物，
+共 18 项）在 `Docs/AssetArchives/roman-pavilion-v2-20260917.json` 与同名 `.md`。归档脚本
+`archive_superseded_20260917.py`（精确清单，无通配）。资产搬移前已核对：调色板 12 条与 `DayNight_Lighting`
+都不再引用三件老凉亭。
+
 ### 本次踩到的新坑（已同步进技能与记忆）
 
 1. **UE 5.8 Python 的 `unreal.Rotator(...)` 构造参数顺序是 (roll, pitch, yaw)**，不是 C++ 的 (pitch, yaw, roll)

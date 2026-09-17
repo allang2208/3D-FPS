@@ -76,6 +76,22 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 - Do not mix instrumentation changes with functional fixes in one step.
 - Preserve failing evidence before introducing mitigation changes.
 
+# 无头进程的物理查询不可信（2026-09-17）
+
+1. **`-run=pythonscript` commandlet 里，物理查询只认本进程新建的 actor**：从 `.umap` 读入的关卡几何（连地面都算）永远不返回命中，"射线没打中 = 这里通的"是**假阴性**，不能作为通行性/碰撞结论。判据：先打一条**正对照**（对刚 spawn 的 actor 或已知实心处），命中才说明这一次查询可信。
+2. **碰撞判定要在运行中的编辑器里做**（`Tools/AssetPipeline/ue_python_exec.py`），那里的物理是活的。该通道里 `HitResult` 的 `location`/`hit_actor` 读不出来，改用 `SystemLibrary.sphere_overlap_actors(WorldContext, Pos, Radius, ObjectTypes, ActorClassFilter, ActorsToIgnore)` **点名阻挡者**——2026-09-17 凉亭"进不去"就是这样一步定位的（穹顶的生成碰撞罩住了整个内部）。
+3. **射线扫掠要覆盖角色胶囊的全身高度**：42 半径球在 z=30 会碰到地面造成假命中、在 z=150 又漏掉脚下；至少取 60/96/150 三个高度，并先确认扫掠高度不会自顾自压到地面。
+
+# 资产"看不见/没图/发黑"的网格法证（2026-09-17）
+
+面板缩略图缺失、模型发黑、某件"没显示"这类症状，先怀疑网格本身，用现成招式给数字（离线，无需渲染）：
+
+1. 导出三角面汤（Vibe3D `load_mesh_from_static_mesh` → `get_dynamic_mesh` → 逐面 `get_triangle_positions`/`get_triangle_face_normal`），比对**存储法线 vs 环绕方向**（UE 引擎约定顺时针为正面，离线右手定则比对会整体反号）与**退化面**数量。
+2. 再算**背离整体的面占比**：健康闭合件应接近 100%；出现大面积内向面就是法线被并集/布尔破坏。
+3. 与一个**已知正常**的同类件逐项对照（面数、连通体、闭合、开放边、不一致率）——三项以上完全相同即可排除网格，去查渲染/缓存/引用链路。
+
+案例：`SourceAssets/RomanColumn20260915/forensic_rails_20260917.py`（三根顶梁指标完全相同 → 排除网格，定位到图标缓存上限与永久拉黑）；凉亭"没图"最终用同参数复现渲染（`probe_icon_capture_20260917.py`）证伪了"渲染失败"假设。
+
 # Failure Handling
 - Symptom: cannot reproduce issue consistently.
   - Locate: missing preconditions, race windows, or nondeterministic setup.

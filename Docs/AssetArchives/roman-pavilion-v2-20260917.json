@@ -1,0 +1,170 @@
+{
+    "Task": "Roman pavilion v2 (roman-pavilion-v2-20260917)",
+    "ArchivedOn": "2026-09-17",
+    "Rule": "WORKFLOW.md section 4",
+    "Count": 18,
+    "Files": [
+        {
+            "Name": "place_pavilion2_20260917.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/place_pavilion2_20260917.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/place_pavilion2_20260917.py",
+            "Bytes": 4501,
+            "SHA256": "BBB590734DCFAEF2C1B86C4E7BB6F9ED094F40DB823CF2272BC054030AB3DAC0",
+            "Reason": "Scene placement helper. Superseded: build_pavilion2_20260917.py now performs the swap itself with EditorActorSubsystem, because spawn_static_mesh_actor spawns nothing in a commandlet",
+            "Replacement": "SourceAssets/RomanColumn20260915/build_pavilion2_20260917.py"
+        },
+        {
+            "Name": "dump_pavilion_obj.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/dump_pavilion_obj.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/dump_pavilion_obj.py",
+            "Bytes": 1571,
+            "SHA256": "C1368220DA2E37488F22A55F8C5D484C2FAEF121EE455EFDE5E6F71E97BD4290",
+            "Reason": "Dump of the old cone dome for the profile forensics. Superseded by dump_pavilion2_pieces.py",
+            "Replacement": "SourceAssets/RomanColumn20260915/dump_pavilion2_pieces.py"
+        },
+        {
+            "Name": "dump_pavilion2_obj.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/dump_pavilion2_obj.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/dump_pavilion2_obj.py",
+            "Bytes": 1579,
+            "SHA256": "B8B38E3882BCE5125D67F52B3D7E0399CDBAC63C49263E277E71EB5865ABCE0B",
+            "Reason": "sed copy of dump_pavilion_obj.py made for a single dump. Superseded by dump_pavilion2_pieces.py",
+            "Replacement": "SourceAssets/RomanColumn20260915/dump_pavilion2_pieces.py"
+        },
+        {
+            "Name": "probe_revolve_20260917.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/probe_revolve_20260917.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/probe_revolve_20260917.py",
+            "Bytes": 3249,
+            "SHA256": "9508D7B715093169DE50FA0DD30696E9367DDEDB8184ADF3BD2E19ED1434B00F",
+            "Reason": "Profile-order probe. Its finding (a well-formed profile keeps the arc; the collapse came from self_union) is recorded in the README, and probe_bisect_dome.py carries the root-cause evidence",
+            "Replacement": "SourceAssets/RomanColumn20260915/probe_bisect_dome.py"
+        },
+        {
+            "Name": "live_probe_pavilion.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/live_probe_pavilion.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/live_probe_pavilion.py",
+            "Bytes": 4168,
+            "SHA256": "B7896AA557A8F29948DAF80F6F18ABDDA2554978A029518F2EE3BA7ADBBB17A8",
+            "Reason": "First in-editor probe: two API mistakes (Rotator ctor order, release_render_target2d arity). Superseded by live_probe_pavilion2.py",
+            "Replacement": "SourceAssets/RomanColumn20260915/live_probe_pavilion2.py"
+        },
+        {
+            "Name": "swap_pavilion_columns_20260917.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/swap_pavilion_columns_20260917.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/swap_pavilion_columns_20260917.py",
+            "Bytes": 2960,
+            "SHA256": "CC0B7E945AE85384855203FD73602757DD29F09EDBDC076A6C5026C43A650BBF",
+            "Reason": "In-editor swap of the pavilion columns to the round-plate variant. Superseded: build_pavilion2_20260917.py now places the round column directly",
+            "Replacement": "SourceAssets/RomanColumn20260915/build_round_column_20260917.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_entry.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_entry.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_entry.py",
+            "Bytes": 3834,
+            "SHA256": "E29D23C0334FB110D25BD66EDF82EE8EED1D7A688AF91605B7AD477BBC091A47",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_entrytrust.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_entrytrust.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_entrytrust.py",
+            "Bytes": 5105,
+            "SHA256": "07BAD9900CB459C174CFABB0E2FA66826660C0B1E5C6653A91D2A3386F38BBA6",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_walkin.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_walkin.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_walkin.py",
+            "Bytes": 4131,
+            "SHA256": "C514B726419F3E52A564468C2238FF85BD53FE10AE1317122CAA66931FA5B2E2",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_nearby.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_nearby.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_nearby.py",
+            "Bytes": 3947,
+            "SHA256": "B1BCE6C1696A0E25BAA17DF5839923DB2D6663CDE0264651096315F940D297D5",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_respawn.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_respawn.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_respawn.py",
+            "Bytes": 6509,
+            "SHA256": "DB978B9A42CE4CA238552B359A4C4F7BA63E02C85400EC1652FBB9A74537A387",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_identify.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_identify.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_identify.py",
+            "Bytes": 1771,
+            "SHA256": "7C225F200011AB1AFB960001EC06B71CD4642086074FBB3FE01AA2BD4AD48C9F",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_bw_now.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_bw_now.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_bw_now.py",
+            "Bytes": 4059,
+            "SHA256": "85EC1F78BE5B255B48AD941E54EA26725321352F3AA47938B1E44A6325948ABF",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_ground.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_ground.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_ground.py",
+            "Bytes": 3734,
+            "SHA256": "C3A6329CE912170469ADE51561BF67D6DAA8B0603B9C97AC9C1C39BBBCCC1DB9",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "diagnose_pavilion2_groundmesh.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/diagnose_pavilion2_groundmesh.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/diagnose_pavilion2_groundmesh.py",
+            "Bytes": 2198,
+            "SHA256": "28493C5D41F8779BEF4A6D92FF7AEC9487A1F23A1C2C125F03C04254169B0B3B",
+            "Reason": "One-off diagnostic from the walk-in investigation; the conclusion is kept in SourceAssets/RomanColumn20260915/README.md (headless physics queries only answer for actors spawned in the same process)",
+            "Replacement": "diagnose_pavilion2_gap.py / diagnose_pavilion2_collisiondata.py / diagnose_pavilion2_own_build.py / live_probe_overlap.py"
+        },
+        {
+            "Name": "SM_PavilionStylobate_20.uasset",
+            "OriginalPath": "Content/Props/RomanColumn20260915/SM_PavilionStylobate_20.uasset",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/SM_PavilionStylobate_20.uasset",
+            "Bytes": 43187,
+            "SHA256": "7551C616D6079F2F2D1891B9332531567B70457DEB310169E26AEF47D6FD95F9",
+            "Reason": "2026-09-16 pavilion stylobate (32-cell plan). Replaced by the v2 set, itself superseded by the one-piece SM_RomanPavilionFull_20. Verified unreferenced by the palette (12 entries) and by DayNight_Lighting before moving",
+            "Replacement": "Content/Props/RomanColumn20260915/SM_RomanPavilionFull_20.uasset"
+        },
+        {
+            "Name": "SM_PavilionRing_20.uasset",
+            "OriginalPath": "Content/Props/RomanColumn20260915/SM_PavilionRing_20.uasset",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/SM_PavilionRing_20.uasset",
+            "Bytes": 53523,
+            "SHA256": "6BAD66D36B8D5687D71C6CA0FF66D2C4CBD651DF6DCBA37A9399BE2DE6135A7A",
+            "Reason": "2026-09-16 pavilion entablature ring. Same reasoning as the stylobate",
+            "Replacement": "Content/Props/RomanColumn20260915/SM_RomanPavilionFull_20.uasset"
+        },
+        {
+            "Name": "SM_PavilionDome_20.uasset",
+            "OriginalPath": "Content/Props/RomanColumn20260915/SM_PavilionDome_20.uasset",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/SM_PavilionDome_20.uasset",
+            "Bytes": 111159,
+            "SHA256": "71E839AA0EF3E50A584B55C1DAC819B5FB7CC49AA65BF4D737EE7F3180152876",
+            "Reason": "2026-09-16 pavilion dome, the straight cone (self_union bTrimFlaps ate the arc). Replaced by SM_RomanPavilionDome_20 and then folded into SM_RomanPavilionFull_20",
+            "Replacement": "Content/Props/RomanColumn20260915/SM_RomanPavilionFull_20.uasset"
+        }
+    ]
+}
