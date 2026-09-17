@@ -49,3 +49,8 @@ python Tools/AssetPipeline/ue_python_exec.py --statement "import unreal; unreal.
 ## 编辑器内远程执行的崩溃陷阱（2026-09-16）
 
 不要在用 `Tools/AssetPipeline/ue_python_exec.py` 连到**正在运行的编辑器**时调用材质编辑器相关查询（`unreal.MaterialEditingLibrary.get_material_property_input_node` 等）：本机实测触发 `UnrealEditor-MaterialEditor.dll` 访问违例，直接把编辑器打崩且可能丢失未保存改动。材质图/属性接线查询放无界面 `UnrealEditor-Cmd -ExecutePythonScript` 进程；必须在编辑器内改材质时只用 `get_material_expressions` / `connect_material_expressions` / `recompile_material` / `save_loaded_asset`，并先用 Restart Manager 确认资产是否被编辑器独占。
+
+## 构建被进程挡住的判定（2026-09-17）
+
+- `Tools/Build/Build-Editor.ps1` 只要发现任何 `UnrealEditor.exe` 或 `UnrealEditor-Cmd.exe`（命令行含 `FPSGAME.uproject` 或为空）就直接拒绝构建、并且**不会**结束进程。并行会话跑的 headless 资源脚本（`UnrealEditor-Cmd -run=pythonscript`）也算，属于短暂占用：先用 `Get-CimInstance Win32_Process -Filter "Name='UnrealEditor-Cmd.exe'"` 看命令行和启动时间，等它自己退出（通常数秒到数十秒）再重跑，不要替别人关进程。
+- 失败日志先分辨归属：`Saved/BuildEditor/build-*.log` 里报错的路径若是并行会话的文件（体素地形、建筑、怪物等），照 WORKFLOW 第 7 节保留对方改动，只在自己的文件上解决；同一文件混着双方未提交改动时按 hunk 精确暂存，不要整文件提交。

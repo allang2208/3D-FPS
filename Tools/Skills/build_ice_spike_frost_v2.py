@@ -20,6 +20,25 @@ def material(name):
     m=u.load_asset(path) if u.EditorAssetLibrary.does_asset_exist(path) else TOOLS.create_asset(name,DEST,u.Material,u.MaterialFactoryNew())
     LIB.delete_all_material_expressions(m);return m
 
+SOURCE_LEFTOVERS=('/Game/NiagaraExamples/','RocketFlare')
+
+def strip_source_renderers(system,emitter):
+    """The RocketTrail source draws every particle twice: its own flare material and
+    the trail we replace at index 0. Keeping the rocket flare core made the ice spikes
+    glow like the fireball, so every derived system drops renderers whose material still
+    comes from the source example package; highest index first keeps the remaining
+    indices valid."""
+    top=API.call_method('GetEmitterTopology',(ref(system,emitter),))
+    renderers=sorted(top.get_editor_property('renderers'),key=lambda r:-r.get_editor_property('renderer_index'))
+    for r in renderers:
+        index=r.get_editor_property('renderer_index')
+        data=API.call_method('GetRendererData',(ref(system,emitter,renderer=index),)).get_editor_property('property_values')
+        values=json.loads(data) if data else {}
+        material=values.get('Material') or {}
+        path=str(material.get('refPath') or '') if isinstance(material,dict) else str(material)
+        if any(tag in path for tag in SOURCE_LEFTOVERS):
+            API.call_method('RemoveRenderer',(ref(system,emitter,renderer=index),))
+
 def mist():
     source=u.load_asset('/Game/NiagaraExamples/Materials/MI_SmokeWispy_8x8_Emissive')
     parent=own(source.get_editor_property('parent').get_path_name(),'M_ColdMist')
@@ -38,6 +57,7 @@ def mist():
     LIB.update_material_instance(m);save(m)
     s=own('/Game/Skills/IceSpike/NS_IceMotes','NS_ColdMist');en='RocketTrail'
     trim(s,en,{'EmitterUpdateScript':['EmitterState','SpawnRate'],'ParticleSpawnScript':['InitializeParticle'],'ParticleUpdateScript':['ParticleState']})
+    strip_source_renderers(s,en)
     for script in ['ParticleSpawnScript','ParticleUpdateScript']:u.EditorAssetLibrary.remove_metadata_tag(s,'Fireball.Assignments.'+en+'.'+script)
     setdata('SetEmitterData',u.NiagaraExt_EmitterData,ref(s,en),{'bLocalSpace':False,'SimTarget':'CPUSim','bInterpolatedSpawning':False})
     setdata('SetRendererData',u.NiagaraExt_RendererData,ref(s,en,renderer=0),{'Material':m.get_path_name(),'MaterialUserParamBinding':{'Parameter':{'Name':'None'}},'SubImageSize':{'X':8,'Y':8},'Alignment':'Unaligned','FacingMode':'FaceCamera','bSubImageBlend':True,'bCastShadows':False,'MotionVectorSetting':'Disable','CutoutTexture':None,'bUseMaterialCutoutTexture':False})
@@ -95,6 +115,7 @@ def crystals():
     m=crystal_material()
     s=own('/Game/Skills/IceSpike/NS_IceMotes','NS_FrostCrystals');en='RocketTrail'
     trim(s,en,{'EmitterUpdateScript':['EmitterState','SpawnRate'],'ParticleSpawnScript':['InitializeParticle'],'ParticleUpdateScript':['ParticleState']})
+    strip_source_renderers(s,en)
     for script in ['ParticleSpawnScript','ParticleUpdateScript']:u.EditorAssetLibrary.remove_metadata_tag(s,'Fireball.Assignments.'+en+'.'+script)
     setdata('SetRendererData',u.NiagaraExt_RendererData,ref(s,en,renderer=0),{'Material':m.get_path_name(),'MaterialUserParamBinding':{'Parameter':{'Name':'None'}},'bCastShadows':False,'MotionVectorSetting':'Disable','SubImageSize':{'X':1,'Y':1},'bSubImageBlend':False,'CutoutTexture':None,'bUseMaterialCutoutTexture':False})
     for name,typ in [('Flight',FLOAT),('Strength',FLOAT),('Side',VEC3),('Up',VEC3)]:user_parameter(s,name,typ)

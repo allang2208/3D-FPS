@@ -52,6 +52,9 @@ public:
     bool HasInventoryWeapon() const { return bInventoryWeaponReady; }
     // Casting owns the left hand independently from movement and firearm hip fire.
     bool IsLeftHandBusyForCast() const;
+    // The off-hand pistol of an akimbo pair holds the left hand until the loadout
+    // changes, so left-hand spells refuse the request instead of queueing behind it.
+    bool IsLeftHandHeldForCast() const;
     bool IsCastingWithLeftHand() const;
     bool IsCastBlockingLeftHandAction() const;
     float GetHipSpread() const { return 2.f * (0.0175f + CurrentSpread + MoveSpread + AirSpread) * HipSpreadMultiplier; }
@@ -69,7 +72,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="FPS Movement|Dodge") bool TryDodge();
     virtual float TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent,
         AController* EventInstigator, AActor* DamageCauser) override;
-    void SuspendWeaponForMenu(){FireReleased();AimReleased();}
+    /** Menus swallow the key release, so a held trajectory preview is dropped here too. */
+    void SuspendWeaponForMenu();
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }

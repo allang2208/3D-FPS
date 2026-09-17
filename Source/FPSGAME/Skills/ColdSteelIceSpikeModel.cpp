@@ -7,6 +7,7 @@
 #include "../FPSGAMECharacter.h"
 #include "ColdSteelSkillRules.h"
 #include "IceSpikeDamage.h"
+#include "FPSMagicPreview.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "Dom/JsonObject.h"
@@ -19,13 +20,16 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     const int32 L=FMath::Clamp(AtLevel<0?IceSpikeProgress().Level:AtLevel,1,IceSpikeSkill.MaxLevel);
     const auto& T=IceSpikeSkill.IceSpike;FIceSpikeCast C;
     C.DamageBase=T.DamageBase+L*T.DamagePerLevel;
-    C.MagicMultiplier=T.MagicBase+L*T.MagicPerLevel;C.IntMultiplier=T.IntBase+L*T.IntPerLevel;
+    C.MagicMultiplier=T.MagicBase+L*T.MagicPerLevel;
     C.MagicContribution=Derived(TEXT("matk"))*C.MagicMultiplier;
-    const double IntBonus=EquipmentBonus(TEXT("intt"));
-    C.IntContribution=(Attribute(TEXT("intt"))+IntBonus-int32(IntBonus))*C.IntMultiplier;
     C.Count=T.CountBase+(L-1)/T.CountLevelStep;
-    C.ManaCost=T.ManaCost;C.Cooldown=T.Cooldown;C.HoverDuration=T.HoverDuration;
+    // Mana grows and the base cooldown shortens with level, both on the fireball's curve.
+    C.ManaCost=T.ManaCost+(L-1)*T.ManaCostPerLevel;
+    const float Growth=float(L-1)/FMath::Max(1,IceSpikeSkill.MaxLevel-1);
+    C.Cooldown=FMath::Max(T.MinimumCooldown,FMath::Lerp(T.Cooldown,T.MinimumCooldown,Growth));
+    C.HoverDuration=T.HoverDuration;
     C.Speed=T.Speed*T.UnitsToCM;C.Range=T.Range*T.UnitsToCM;
+    C.Gravity=T.Gravity*FPSMagicPreview::GravityScale();
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     C.MagicDamageBonus=SetEffect(TEXT("magicDamage"));
     double DamageFactor=1,CostFactor=1,CooldownReduction=0;
@@ -53,7 +57,8 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
             DamageFactor*=1+Chain*Craft(TEXT("chainSpellDamagePercent"));
         }
     C.Count=FMath::Max(1,C.Count);
-    C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+C.MagicContribution+C.IntContribution)*DamageFactor);
+    // The wand hook multiplies every magic spell, so the two spells stay on one damage factor.
+    C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+C.MagicContribution)*DamageFactor*MagicImplementMultiplier());
     C.ManaCost=FMath::Max(0.f,FMath::FloorToFloat(C.ManaCost*CostFactor));
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));
     return C;

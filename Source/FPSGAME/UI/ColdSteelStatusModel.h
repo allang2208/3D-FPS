@@ -86,6 +86,12 @@ public:
     void FinishIceSpikeCast(const FIceSpikeRewards& Rewards);
     FColdSteelSkillProgress FireballProgress() const;
     FFireballCast FireballStats(int32 AtLevel=-1) const;
+    /**
+     * Wand hook: the spell multiplier carried by the equipped wand's item data
+     * (`wandSpellMultiplier`, 1 = unchanged). No wand exists yet, so every spell
+     * multiplies by 1 and today's damage numbers do not move.
+     */
+    double MagicImplementMultiplier() const;
     float FireballCooldown() const;
     float FireballCooldownDuration() const { return Current.FireballCooldownDuration; }
     bool HasInfiniteMana() const;
@@ -125,6 +131,16 @@ public:
     bool SwapQuickBindings(int32 From,int32 To);
     bool ClearQuickBinding(int32 Index);
     bool UseQuickBinding(int32 Index);
+    /**
+     * Magic hold-to-preview: a press while the bound projectile hovers starts the red
+     * trajectory preview instead of firing, and the matching release fires it. A quick tap
+     * behaves like a normal press; drops the request when the preview already died with its
+     * projectile (timeout, death, loadout change).
+     */
+    bool BeginSpellAimPreview(int32 Index);
+    bool EndSpellAimPreview(int32 Index);
+    /** Clears any held preview, e.g. when a menu opens and the key release will not arrive. */
+    void CancelSpellAimPreview();
     FColdSteelItem CreateItem(const FString& Definition, int64 Count=1) const;
     FColdSteelProposal ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1) const;
     bool MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation=-1);
@@ -194,6 +210,8 @@ public:
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
 private:
+    /** Quick slot whose ice spike preview is currently held, INDEX_NONE when none. */
+    int32 AimPreviewIndex = INDEX_NONE;
     FColdSteelStaminaTuning StaminaTuning;
     FColdSteelSkillDefinition DodgeSkill;
     FColdSteelSkillDefinition DexterousHandsSkill;

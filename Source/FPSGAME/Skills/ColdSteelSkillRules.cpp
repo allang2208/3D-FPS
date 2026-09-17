@@ -66,6 +66,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.RadiusScale=FMath::Clamp(float(Num(TEXT("radiusScale"),1.65)),0.1f,10.0f);
         F.Speed=FMath::Clamp(float(Num(TEXT("flySpeed"),1600)),100.0f,10000.0f);
         F.Range=FMath::Clamp(float(Num(TEXT("maxRange"),1200)),100.0f,10000.0f);
+        F.Gravity=FMath::Clamp(float(Num(TEXT("gravity"),400)),0.0f,5000.0f);
         F.ManaCost=FMath::Clamp(float(Num(TEXT("manaCost"),50)),0.0f,10000.0f);
         F.ManaCostPerLevel=FMath::Clamp(float(Num(TEXT("manaCostPerLevel"),2)),0.0f,1000.0f);
         F.Cooldown=FMath::Clamp(float(Num(TEXT("cooldown"),12)),0.1f,300.0f);
@@ -78,13 +79,15 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("iceSpike"))
     {
         auto& F=D.IceSpike;
-        F.DamageBase=Num(TEXT("damageBase"),30);F.DamagePerLevel=Num(TEXT("damagePerLevel"),5);
-        F.MagicBase=Num(TEXT("magicBase"),1.2);F.MagicPerLevel=Num(TEXT("magicPerLevel"),.25);
-        F.IntBase=Num(TEXT("intBase"),1.2);F.IntPerLevel=Num(TEXT("intPerLevel"),.25);
+        // Same shape as the fireball: magic attack only, no independent intelligence term.
+        F.DamageBase=Num(TEXT("damageBase"),21);F.DamagePerLevel=Num(TEXT("damagePerLevel"),3.5);
+        F.MagicBase=Num(TEXT("magicBase"),1.4);F.MagicPerLevel=Num(TEXT("magicPerLevel"),.2917);
         F.CountBase=Num(TEXT("countBase"),2);F.CountLevelStep=FMath::Max(1,int32(Num(TEXT("countLevelStep"),5)));
-        F.Cooldown=Num(TEXT("cooldown"),10);F.ManaCost=Num(TEXT("manaCost"),30);
+        F.Cooldown=Num(TEXT("cooldown"),12);F.MinimumCooldown=Num(TEXT("minimumCooldown"),8);
+        F.ManaCost=Num(TEXT("manaCost"),30);F.ManaCostPerLevel=Num(TEXT("manaCostPerLevel"),2);
         F.HoverDuration=Num(TEXT("hoverDuration"),30);F.Speed=Num(TEXT("flySpeed"),1600);
         F.Range=Num(TEXT("maxRange"),800);F.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
+        F.Gravity=FMath::Clamp(float(Num(TEXT("gravity"),400)),0.f,5000.f);
         F.HitExperience=Num(TEXT("hitExperience"),4);F.KillExperience=Num(TEXT("killExperience"),12);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
     }

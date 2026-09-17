@@ -254,6 +254,17 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     {
         return true;
     }
+    // Magic hold-to-preview consumes its own release: pressing a bound slot while its
+    // projectile hovers shows the red trajectory instead of firing, and letting go fires it.
+    if(Params.Event==IE_Released&&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
+    {
+        const int32 QuickIndex=ColdSteelQuickBar::KeyIndex(Params.Key);
+        if(QuickIndex>=0)
+        {
+            auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+            if(Profile&&Profile->EndSpellAimPreview(QuickIndex))return true;
+        }
+    }
     if(Params.Event==IE_Pressed&&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
     {
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)
@@ -278,7 +289,11 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::Z&&GetPawn()&&!IsInputKeyDown(EKeys::LeftControl)&&!IsInputKeyDown(EKeys::RightControl))
         {Profile->PickupNearby(AreaPickupRadiusCm.GetValueOnGameThread());return true;}
         const int32 QuickIndex=ColdSteelQuickBar::KeyIndex(Params.Key);
-        if(QuickIndex>=0){Profile->UseQuickBinding(QuickIndex);return true;}
+        if(QuickIndex>=0)
+        {
+            if(Profile->BeginSpellAimPreview(QuickIndex))return true;
+            Profile->UseQuickBinding(QuickIndex);return true;
+        }
     }
     return Super::InputKey(Params);
 }

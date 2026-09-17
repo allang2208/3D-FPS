@@ -123,3 +123,58 @@ bool UColdSteelStatusModel::UseQuickBinding(int32 Index)
     if(B.Skill==TEXT("iceSpike"))if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>()){Ability->Trigger();return true;}
     return false;
 }
+
+bool UColdSteelStatusModel::BeginSpellAimPreview(int32 Index)
+{
+    const FName Skill=QuickBinding(Index).Skill;
+    if(Skill!=TEXT("fireball")&&Skill!=TEXT("iceSpike"))return false;
+    auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+    if(!Player)return false;
+    if(Skill==TEXT("fireball"))
+    {
+        auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>();
+        if(!Ability)return false;
+        Ability->SetAimPreview(true);
+        if(!Ability->IsAimPreviewActive())return false;
+    }
+    else
+    {
+        auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>();
+        if(!Ability)return false;
+        Ability->SetAimPreview(true);
+        if(!Ability->IsAimPreviewActive())return false;
+    }
+    AimPreviewIndex=Index;
+    return true;
+}
+
+bool UColdSteelStatusModel::EndSpellAimPreview(int32 Index)
+{
+    if(AimPreviewIndex!=Index)return false;
+    AimPreviewIndex=INDEX_NONE;
+    auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+    if(!Player)return true;
+    const FName Skill=QuickBinding(Index).Skill;
+    // The release fires only while this preview is still alive: a projectile that expired
+    // (hover timeout, death, loadout change) must not start a fresh cast instead.
+    if(Skill==TEXT("fireball"))
+    {
+        if(auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>())
+        {const bool bFire=Ability->IsAimPreviewActive();Ability->SetAimPreview(false);if(bFire)Ability->Trigger();}
+    }
+    else if(Skill==TEXT("iceSpike"))
+    {
+        if(auto* Ability=Player->FindComponentByClass<UFPSIceSpikeComponent>())
+        {const bool bFire=Ability->IsAimPreviewActive();Ability->SetAimPreview(false);if(bFire)Ability->Trigger();}
+    }
+    return true;
+}
+
+void UColdSteelStatusModel::CancelSpellAimPreview()
+{
+    AimPreviewIndex=INDEX_NONE;
+    auto* Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+    if(!Player)return;
+    if(auto* Fireball=Player->FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);
+    if(auto* Ice=Player->FindComponentByClass<UFPSIceSpikeComponent>())Ice->SetAimPreview(false);
+}

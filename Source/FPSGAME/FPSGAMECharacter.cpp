@@ -1698,6 +1698,14 @@ bool AFPSGAMECharacter::IsCastingWithLeftHand() const
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();
     return Magic && Magic->IsOccupyingLeftHand();
 }
+bool AFPSGAMECharacter::IsLeftHandHeldForCast() const { return IsDualWieldingPistols(); }
+void AFPSGAMECharacter::SuspendWeaponForMenu()
+{
+    FireReleased();AimReleased();
+    // A menu owns the keyboard from here on, so the preview's key release will never arrive.
+    if(auto* Fireball=FindComponentByClass<UFPSFireballComponent>())Fireball->SetAimPreview(false);
+    if(auto* Ice=FindComponentByClass<UFPSIceSpikeComponent>())Ice->SetAimPreview(false);
+}
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction() const
 {
     const auto* Magic=FindComponentByClass<UFPSFireballComponent>();

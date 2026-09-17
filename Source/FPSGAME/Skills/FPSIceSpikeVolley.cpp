@@ -6,6 +6,8 @@
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/LineBatchComponent.h"
+#include "FPSMagicPreview.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/GameInstance.h"
@@ -13,6 +15,17 @@
 #include "Kismet/GameplayStatics.h"
 #include "Perception/AISense_Hearing.h"
 #include "NiagaraComponent.h"
+#include "HAL/IConsoleManager.h"
+
+// Live tuning while the user dials the hover by eye; 0 / 1 are the values to bake.
+static TAutoConsoleVariable<float> IceSpikeHoverDropCM(TEXT("fps.IceSpike.HoverDropCM"),0.f,
+    TEXT("Extra downward offset of the hovered ice spike row, in cm."));
+static TAutoConsoleVariable<float> IceSpikeDriftScale(TEXT("fps.IceSpike.DriftScale"),1.f,
+    TEXT("Multiplier on the ice spike hover drift amplitude."));
+static TAutoConsoleVariable<float> IceSpikeWingGap(TEXT("fps.IceSpike.WingGap"),1.4f,
+    TEXT("Half width of the empty centre gap in slot units; .15 is the tightest useful gap."));
+static TAutoConsoleVariable<float> IceSpikeSlotSpacing(TEXT("fps.IceSpike.SlotSpacing"),26.f,
+    TEXT("Upper bound of the slot pitch in cm; the frame width still compresses it per count."));
 
 namespace
 {
@@ -84,24 +97,50 @@ void AFPSIceSpikeVolley::UpdateHover()
         int32 Width=0,Height=0;PC->GetViewportSize(Width,Height);
         if(Width>0&&Height>0)ViewAspect=float(Width)/Height;
     }
-    constexpr float ForwardDistance=44.f;
-    // At full size the upper frustum edge cuts the 54 cm mesh just ahead of its centre.
-    // Its thick rear half stays above the frame; the pointed front extends into the top band.
-    const float OverheadHeight=(ForwardDistance+4.f)*TanVertical;
-    const float HalfRowWidth=ForwardDistance*TanVertical*ViewAspect*.72f;
-    const float Spacing=FMath::Min(18.f,HalfRowWidth*2.f/FMath::Max(1,Flights.Num()-1));
-    const float SideDrift=FMath::Min(2.8f,Spacing*.16f);
-    const float VerticalDrift=FMath::Min(2.f,OverheadHeight*.05f);
+    // SM_IceSpike_01..03 are a 54 cm shard along local +X with a 12.2 x 11.0 cm
+    // cross-section (engine-authoring.json extent 27 / 6.1 / 5.49). The tip points
+    // away from the camera, so the thick base is the nearest and largest silhouette.
+    constexpr float MeshHalfLength=27.f,MeshMaxRadius=6.1f;
+    // Deeper than the first pass: at 44 cm the base disc alone covered more than half
+    // the vertical view, so only the pointed tip could ever reach the frame. Placing
+    // the row further out fits the whole 54 cm shard inside the top band instead of
+    // having the upper frustum edge cut it ahead of its centre.
+    constexpr float ForwardDistance=72.f;
+    const float BaseDepth=ForwardDistance-MeshHalfLength;
+    // Height of the upper frustum edge at the base's own depth, minus the base radius:
+    // the highest point that still keeps the complete shard on screen.
+    const float VisibleHeight=BaseDepth*TanVertical-MeshMaxRadius;
+    // .8 rather than .72: the melee sword sweeps the right side of the frame, so the wings
+    // are allowed to use more of the width before the frame cap compresses them.
+    const float HalfRowWidth=ForwardDistance*TanVertical*ViewAspect*.8f;
+    // The melee weapon sweeps through the middle of the view, so the row keeps the aim
+    // axis clear and fills a left and a right wing instead. Both wings share one slot
+    // ladder, so a level-up shard always lands one step further out and same-wing
+    // neighbours stay two steps apart - a new count never crowds an existing shard.
+    const float GapUnits=FMath::Max(.15f,IceSpikeWingGap.GetValueOnGameThread());
+    const float LadderTop=GapUnits+FMath::Max(0,(Flights.Num()-1)/2);
+    const float PitchCap=FMath::Max(6.f,IceSpikeSlotSpacing.GetValueOnGameThread());
+    const float Spacing=FMath::Min(PitchCap,HalfRowWidth/LadderTop);
+    const float WingGap=GapUnits*Spacing;
+    const float DriftScale=FMath::Max(0.f,IceSpikeDriftScale.GetValueOnGameThread());
+    const float SideDrift=FMath::Min(7.f,Spacing*.34f)*DriftScale;
+    // Leaning on a bigger bob must not push the base out of frame, so the amplitude
+    // comes off the height: the shard stays whole even at the top of the drift.
+    const float VerticalDrift=FMath::Min(5.5f,VisibleHeight*.24f)*DriftScale;
+    const float OverheadHeight=FMath::Max(4.f,VisibleHeight-VerticalDrift-IceSpikeHoverDropCM.GetValueOnGameThread());
     float Grow=FMath::Clamp(Age*Cast.CastSpeed/.95f,0.f,1.f);Grow=Grow*Grow*(3-2*Grow);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(IceSpikeHover),false,Shooter.Get());Query.AddIgnoredActor(this);
     for(int32 I=0;I<Flights.Num();++I)
     {
-        const float Slot=float(I)-float(Flights.Num()-1)*.5f;
+        // Even indices take the left wing, so an odd count keeps its extra shard away
+        // from the right-handed melee weapon.
+        const float Slot=(I%2==0?-1.f:1.f)*(WingGap+float(I/2)*Spacing);
         const auto& Flight=Flights[I];
         const float DriftX=FMath::PerlinNoise1D(Flight.HoverNoiseSeed.X+Age*Flight.HoverNoiseRate.X)*SideDrift*Grow;
         const float DriftY=FMath::PerlinNoise1D(Flight.HoverNoiseSeed.Y+Age*Flight.HoverNoiseRate.Y)*VerticalDrift*Grow;
-        // Preserve each overhead slot while its spike meanders independently, without orbit or spin.
-        FVector Desired=Eye+Forward*ForwardDistance+Right*(Slot*Spacing+DriftX)+Up*(OverheadHeight+DriftY);
+        // Slot is already a cm offset from the aim axis (position already includes Spacing),
+        // so it is added once here; each spike still meanders independently without orbit or spin.
+        FVector Desired=Eye+Forward*ForwardDistance+Right*(Slot+DriftX)+Up*(OverheadHeight+DriftY);
         FHitResult Cover;
         if(GetWorld()->SweepSingleByChannel(Cover,Eye,Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query))Desired=Cover.Location;
         const FVector Previous=Age==0?Desired:Flights[I].Position;
@@ -114,13 +153,45 @@ void AFPSIceSpikeVolley::UpdateHover()
         UpdateVapor(I,Previous,Core->IsVisible()?Grow:0.f);
     }
 }
+void AFPSIceSpikeVolley::SetAimPreviewActive(bool bActive)
+{
+    bAimPreview=bActive;
+    // Lines carry a short lifetime, so stopping the refresh is enough to clear the preview.
+    if(!bActive)FPSMagicPreview::Clear(AimPreviewLines);
+}
+
+void AFPSIceSpikeVolley::RefreshAimPreview()
+{
+    if(!Shooter.IsValid())return;
+    // One frame of segments only: drop the previous frame so panning the view cannot smear
+    // the shard lines across the screen.
+    FPSMagicPreview::BeginRefresh(AimPreviewLines,this);
+    const FVector AimPoint=FPSMagicPreview::AimPoint(Shooter.Get(),this);
+    for(const FFlight& F:Flights)
+    {
+        if(!F.bActive)continue;
+        // Same arc Launch() builds: from this shard's hover offset to the shared aim point, then
+        // dropping under the cast's gravity.
+        const FVector ToAim=AimPoint-F.Position;
+        const FVector Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
+        // Shared prediction: an already dead body is passed through, walls and living enemies stop it.
+        FPSMagicPreview::SamplePath(Shooter.Get(),this,F.Position,Direction*Cast.Speed,Cast.Gravity,
+            FMath::Min(float(ToAim.Size()),Cast.Range),18.f,PreviewPoints);
+        FPSMagicPreview::DrawPath(AimPreviewLines,PreviewPoints);
+    }
+}
+
 void AFPSIceSpikeVolley::Launch(const FVector& AimPoint)
 {
     if(bFinished||bFlying)return;bFlying=true;FlightAge=0;
     for(int32 I=0;I<Flights.Num();++I)
     {
+        // Each shard keeps its own hover offset and flies to the shared aim point, so the volley
+        // converges on what the crosshair covers. Gravity then bends every arc the same way.
         auto& F=Flights[I];const FVector ToAim=AimPoint-F.Position;
-        F.Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);F.Remaining=FMath::Min(float(ToAim.Size()),Cast.Range);F.bAimEndpoint=ToAim.Size()<Cast.Range;
+        const float ToAimDistance=float(ToAim.Size());
+        F.Direction=ToAim.GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);F.Remaining=FMath::Min(ToAimDistance,Cast.Range);F.bAimEndpoint=ToAimDistance<Cast.Range;
+        F.LaunchPosition=F.Position;F.LaunchVelocity=F.Direction*Cast.Speed;
         FRotator Facing=F.Direction.Rotation();Facing.Roll=I*113.f;
         Cores[I]->SetWorldLocation(F.Position);Cores[I]->SetWorldRotation(Facing);Cores[I]->SetWorldScale3D(FVector::OneVector);Cores[I]->SetVisibility(true,true);
         auto* Trail=Trails[I].Get();Trail->SetWorldLocation(F.Position);Trail->SetVariablePosition(TEXT("User.PreviousPosition"),F.Position);Trail->SetVariablePosition(TEXT("User.CurrentPosition"),F.Position);
@@ -134,17 +205,40 @@ void AFPSIceSpikeVolley::Tick(float Delta)
     if(!Shooter.IsValid()||!Source.IsValid()){Destroy();return;}
     if(auto* H=Shooter->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){Destroy();return;}
     Age+=Delta;
-    if(!bFlying){if(Age>=Cast.HoverDuration)Destroy();else UpdateHover();return;}
+    if(!bFlying)
+    {
+        if(Age>=Cast.HoverDuration){Destroy();return;}
+        UpdateHover();
+        if(bAimPreview)RefreshAimPreview();
+        return;
+    }
     FlightAge+=Delta;
     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const FVector Gravity(0,0,-Cast.Gravity);
     for(int32 I=0;I<Flights.Num();++I)
     {
         auto& F=Flights[I];if(!F.bActive)continue;
         const FVector Previous=F.Position;
-        const float Step=FMath::Min(Cast.Speed*Delta,F.Remaining);const FVector End=F.Position+F.Direction*Step;
+        // Ballistic step: the analytic position comes from the shared launch state, so the drop is
+        // frame-rate independent and the preview line reproduces exactly this arc.
+        const FVector Next=F.LaunchPosition+F.LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge;
+        const float Step=FVector::Distance(Previous,Next);const FVector End=Next;
+        F.Direction=(F.LaunchVelocity+Gravity*FlightAge).GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
         Trails[I]->SetVariablePosition(TEXT("User.PreviousPosition"),F.Position);
         FCollisionQueryParams Query(SCENE_QUERY_STAT(IceSpikeFlight),false,Shooter.Get());Query.AddIgnoredActor(this);FHitResult Hit;
-        if(GetWorld()->SweepSingleByChannel(Hit,F.Position,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query))
+        // A body that is already down does not consume a spike: the volley converges on one
+        // aim point, so the spikes arriving after the kill fly through the corpse and carry
+        // on to whatever stands behind it. Walls and live enemies still stop them.
+        bool bBlocked=false;
+        for(int32 Pass=0;Pass<8;++Pass)
+        {
+            bBlocked=GetWorld()->SweepSingleByChannel(Hit,F.Position,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query);
+            if(!bBlocked)break;
+            const auto* Blocking=IsValid(Hit.GetActor())?Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+            if(!Blocking||!Blocking->IsDead())break;
+            Query.AddIgnoredActor(Hit.GetActor());
+        }
+        if(bBlocked)
         {
             const FHitResult First=Hit;
             // Source hit loop settles overlapping contacts before destroying a spike.

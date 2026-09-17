@@ -23,6 +23,9 @@ public:
     void Prepare(UFPSFireballComponent* Ability,APawn* Caster,const FFireballCast& Snapshot,UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound);
     void Launch(const FVector& AimPoint);
     bool IsFlying() const { return bFlying; }
+    /** Hold-to-preview: red segment from the hovering orb to its predicted contact. */
+    void SetAimPreviewActive(bool bActive);
+    bool IsAimPreviewActive() const {return bAimPreview;}
     static FVector HoverPosition(APawn* Caster);
     virtual void Tick(float Delta) override;
 protected:
@@ -39,9 +42,15 @@ private:
     TWeakObjectPtr<APawn> Shooter;
     FFireballCast Cast;
     FVector Velocity=FVector::ZeroVector;
+    /** Ballistic launch state: the flight and the preview share this integration exactly. */
+    FVector LaunchPosition=FVector::ZeroVector,LaunchVelocity=FVector::ZeroVector;
+    TArray<FVector> PreviewPoints;
     float Age=0,Distance=0,FlightAge=0,ImpactAge=0,ImpactLightPeak=0;
     bool bFlying=false,bFinished=false;
+    bool bAimPreview=false;
+    UPROPERTY(Transient) TObjectPtr<class ULineBatchComponent> AimPreviewLines;
     void UpdateFlightFX(const FVector& PreviousPosition);
+    void RefreshAimPreview();
     void Explode(const FHitResult* Hit);
 };
 

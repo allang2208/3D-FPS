@@ -22,6 +22,9 @@ public:
     void Prepare(UFPSIceSpikeComponent* Source,APawn* Shooter,const FIceSpikeCast& Snapshot,const TArray<TObjectPtr<UStaticMesh>>& Spikes,UStaticMesh* Shard,UMaterialInterface* Material,UMaterialInterface* ShellMaterial,UParticleSystem* FX,USoundBase* Sound,UNiagaraSystem* Motes,UNiagaraSystem* ColdMist);
     void Launch(const FVector& AimPoint);
     bool IsFlying() const {return bFlying;}
+    /** Red trajectory preview: one segment per hovering shard, refreshed while held. */
+    void SetAimPreviewActive(bool bActive);
+    bool IsAimPreviewActive() const {return bAimPreview;}
     int32 RemainingCount() const;
     float CastSpeed() const {return Cast.CastSpeed;}
     virtual void Tick(float Delta) override;
@@ -31,11 +34,14 @@ private:
     struct FFlight
     {
         FVector Position=FVector::ZeroVector,Direction=FVector::ForwardVector;
+        /** Ballistic launch state: the flight and the preview share this integration exactly. */
+        FVector LaunchPosition=FVector::ZeroVector,LaunchVelocity=FVector::ZeroVector;
         FVector2D HoverNoiseSeed=FVector2D::ZeroVector,HoverNoiseRate=FVector2D::ZeroVector;
         float Remaining=0;
         bool bActive=true,bAimEndpoint=false;
     };
     TArray<FFlight> Flights;
+    TArray<FVector> PreviewPoints;
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> Cores;
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMeshComponent>> Hearts;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> Trails;
@@ -50,9 +56,12 @@ private:
     FIceSpikeCast Cast;
     FIceSpikeRewards Rewards;
     bool bFlying=false,bFinished=false;
+    bool bAimPreview=false;
+    UPROPERTY(Transient) TObjectPtr<class ULineBatchComponent> AimPreviewLines;
     float Age=0,FlightAge=0;
     double LastSound=-100;
     void UpdateHover();
+    void RefreshAimPreview();
     void UpdateVapor(int32 Index,const FVector& Previous,float Strength);
     void Shatter(int32 Index,const FVector& Position,const FVector& Normal,bool bEffect);
     void Finish();

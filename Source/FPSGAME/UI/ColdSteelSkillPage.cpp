@@ -208,7 +208,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         case 2:return FString::Printf(TEXT("%.0f"),E.Damage*E.Count);
         case 3:return FString::Printf(TEXT("%.0f"),E.DamageBase);
         case 4:return FString::Printf(TEXT("%.2f ×"),E.MagicMultiplier);
-        case 5:return FString::Printf(TEXT("%.2f ×"),E.IntMultiplier);
+        case 5:return FString::Printf(TEXT("%.1f s"),Model->IceSpikeDefinition().IceSpike.MinimumCooldown);
         case 6:return FString::Printf(TEXT("%.0f"),E.ManaCost);
         case 7:return FString::Printf(TEXT("%.1f s"),E.Cooldown);
         case 8:return FString::Printf(TEXT("%.0f m"),E.Range/100);
@@ -425,12 +425,12 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
         }
         else if(SelectedSkill==TEXT("iceSpike"))
         {
-            const TCHAR* Rows[]={TEXT("每枚基础伤害"),TEXT("冰锥数量"),TEXT("整轮理论伤害"),TEXT("固定伤害项"),TEXT("魔攻系数"),TEXT("智力系数"),TEXT("消耗魔法"),TEXT("整组结束后冷却"),TEXT("最大射程"),TEXT("飞行速度"),TEXT("最长悬浮时间")};
+            const TCHAR* Rows[]={TEXT("每枚基础伤害"),TEXT("冰锥数量"),TEXT("整轮理论伤害"),TEXT("固定伤害项"),TEXT("魔攻系数"),TEXT("常规最低冷却"),TEXT("消耗魔法"),TEXT("整组结束后冷却"),TEXT("最大射程"),TEXT("飞行速度"),TEXT("最长悬浮时间")};
             for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("按绑定键凝聚整组冰锥，再按一次朝准星齐射。每枚到达瞄准点或碰撞后碎裂；不会追踪移动目标，也没有范围爆炸伤害。直击头部要害必定暴击，普通命中随机暴击，同一击只应用一次暴击加成。显示伤害未扣魔防、未计暴击和额外套装增伤；整轮数值假定全部有效命中。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("按绑定键凝聚整组冰锥，再按一次朝准星齐射。每枚到达瞄准点或碰撞后碎裂；不会追踪移动目标，也没有范围爆炸伤害。目标已被击杀时，后续冰锥不再被尸体吃掉，会继续飞向后方目标或射程终点。直击头部要害必定暴击，普通命中随机暴击，同一击只应用一次暴击加成。显示伤害未扣魔防、未计暴击和额外套装增伤；整轮数值假定全部有效命中。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
             const auto& T=Model->IceSpikeDefinition().IceSpike;
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(TEXT("每枚伤害 = 向下取整〔%.0f + %.0f × 等级 + 魔攻 ×（%.2f + %.2f × 等级）+ 智力 ×（%.2f + %.2f × 等级）〕，再计法杖改造增伤并取整。基础枚数 = %d + 向下取整〔（等级 − 1）÷ %d〕。凝聚仅扣一次魔法；全部结束或悬浮超时才开始冷却。更换武器或升级不改变已凝聚的这一组。"),T.DamageBase,T.DamagePerLevel,T.MagicBase,T.MagicPerLevel,T.IntBase,T.IntPerLevel,T.CountBase,T.CountLevelStep),12,ColdSteelUI::TextTertiary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(FString::Printf(TEXT("每枚伤害 = 向下取整〔%.0f + %.1f × 等级 + 魔攻 ×（%.3f + %.3f × 等级）〕，再计法杖改造增伤并取整；不再单独计算智力，与火球同口径。基础枚数 = %d + 向下取整〔（等级 − 1）÷ %d〕。蓝耗 = %.0f +（等级 − 1）× %.0f，基础冷却由 1 级 %.1f 秒逐级降至满级 %.1f 秒。凝聚仅扣一次魔法；全部结束或悬浮超时才开始冷却。更换武器或升级不改变已凝聚的这一组。"),T.DamageBase,T.DamagePerLevel,T.MagicBase,T.MagicPerLevel,T.CountBase,T.CountLevelStep,T.ManaCost,T.ManaCostPerLevel,T.Cooldown,T.MinimumCooldown),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else if(SelectedSkill==TEXT("criticalStrike"))
         {

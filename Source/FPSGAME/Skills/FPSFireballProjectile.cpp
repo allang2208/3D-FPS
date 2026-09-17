@@ -1,4 +1,6 @@
 #include "FPSFireballProjectile.h"
+#include "FPSMagicPreview.h"
+#include "Components/LineBatchComponent.h"
 #include "FPSFireballComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -59,12 +61,37 @@ FVector AFPSFireballProjectile::HoverPosition(APawn* Caster)
 void AFPSFireballProjectile::Launch(const FVector& AimPoint)
 {
     if(bFlying||bFinished)return;
+    SetAimPreviewActive(false);
     // Launch from the actual hovering position, including any wall clearance;
     // the remote hand gesture does not pull or teleport the orb toward the hand.
-    bFlying=true;FlightAge=0.f;Velocity=(AimPoint-GetActorLocation()).GetSafeNormal()*Cast.Speed;
-    if(Velocity.IsNearlyZero())Velocity=Shooter->GetActorForwardVector()*Cast.Speed;
+    bFlying=true;FlightAge=0.f;
+    LaunchPosition=GetActorLocation();
+    LaunchVelocity=(AimPoint-LaunchPosition).GetSafeNormal()*Cast.Speed;
+    if(LaunchVelocity.IsNearlyZero())LaunchVelocity=Shooter->GetActorForwardVector()*Cast.Speed;
+    Velocity=LaunchVelocity;
     Core->SetVariableFloat(TEXT("User.Flight"),1.f);
     UpdateFlightFX(GetActorLocation());Trail->Activate(true);
+}
+void AFPSFireballProjectile::SetAimPreviewActive(bool bActive)
+{
+    bAimPreview=bActive;
+    // Segments carry a short lifetime, so stopping the refresh is enough to clear them.
+    if(!bActive)FPSMagicPreview::Clear(AimPreviewLines);
+}
+void AFPSFireballProjectile::RefreshAimPreview()
+{
+    if(!Shooter.IsValid())return;
+    // One frame of segments only: the previous frame is dropped here so a fast camera pan
+    // cannot leave a trail of stale lines behind the orb.
+    FPSMagicPreview::BeginRefresh(AimPreviewLines,this);
+    // Same arc Launch() builds: from the hovering orb toward the camera ray's first hit, then
+    // dropping under the cast's gravity, so the preview shows where the orb will really land.
+    const FVector AimPoint=FPSMagicPreview::AimPoint(Shooter.Get(),this);
+    const FVector Start=GetActorLocation();
+    const FVector Direction=(AimPoint-Start).GetSafeNormal(UE_SMALL_NUMBER,Shooter->GetActorForwardVector());
+    FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,Direction*Cast.Speed,Cast.Gravity,
+        Cast.Range,14.f,PreviewPoints);
+    FPSMagicPreview::DrawPath(AimPreviewLines,PreviewPoints);
 }
 void AFPSFireballProjectile::UpdateFlightFX(const FVector& PreviousPosition)
 {
@@ -109,14 +136,19 @@ void AFPSFireballProjectile::Tick(float Delta)
         SetActorLocation(Blocked?Hit.Location:End);
         // World geometry remains in front of the effect; near-camera retreat fades it out.
         if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
+        if(bAimPreview)RefreshAimPreview();
         return;
     }
     Core->SetVisibility(true);FlightAge+=Delta;
     const FVector PreviousPosition=GetActorLocation();
-    const float Step=FMath::Min(Cast.Speed*Delta,FMath::Max(0.f,Cast.Range-Distance));
-    const FVector End=GetActorLocation()+Velocity.GetSafeNormal()*Step;
-    const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,GetActorLocation(),End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
-    SetActorLocation(Blocked?Hit.Location:End);Distance+=Step;
+    // Ballistic flight: the analytic position keeps the drop frame-rate independent, so the
+    // preview line can reproduce the same arc with the same integration.
+    const FVector Gravity(0,0,-Cast.Gravity);
+    const FVector NextPosition=LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge;
+    Velocity=LaunchVelocity+Gravity*FlightAge;
+    const bool Blocked=GetWorld()->SweepSingleByChannel(Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+    SetActorLocation(Blocked?Hit.Location:NextPosition);
+    Distance+=FVector::Distance(PreviousPosition,GetActorLocation());
     UpdateFlightFX(PreviousPosition);
     if(Blocked)Explode(&Hit);else if(Distance>=Cast.Range-UE_KINDA_SMALL_NUMBER)Explode(nullptr);
 }

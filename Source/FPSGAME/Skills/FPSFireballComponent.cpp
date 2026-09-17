@@ -127,8 +127,22 @@ float UFPSFireballComponent::GatherFraction() const
 { return !GestureOwner.IsValid()&&HandPhase==EFireballHandPhase::Raising?HandPhaseFraction():1.f; }
 void UFPSFireballComponent::Feedback(const FString& Text)
 { LastMessage=Text;MessageUntil=GetWorld()->GetTimeSeconds()+1.5; }
+void UFPSFireballComponent::RejectHeldLeftHand()
+{
+    // Nothing is kept waiting for the hand here: a held hand is released by a
+    // loadout change, not by time, so the request is dropped with the notice.
+    bQueuedCast=bQueuedLaunch=false;
+    if(GetWorld())HandNotice.Show(float(GetWorld()->GetTimeSeconds()));
+}
+bool UFPSFireballComponent::IsHandOccupiedNotice() const
+{ return GetWorld()&&HandNotice.Active(float(GetWorld()->GetTimeSeconds())); }
+float UFPSFireballComponent::HandNoticeAlpha() const
+{ return GetWorld()?HandNotice.Alpha(float(GetWorld()->GetTimeSeconds())):0.f; }
+float UFPSFireballComponent::HandNoticeRise() const
+{ return GetWorld()?HandNotice.Rise(float(GetWorld()->GetTimeSeconds())):0.f; }
 FString UFPSFireballComponent::StatusText() const
 {
+    if(IsHandOccupiedNotice())return TEXT("左手占用");
     if(bQueuedCast || (bQueuedLaunch && HandPhase==EFireballHandPhase::None))return TEXT("等待左手");
     if(GetWorld()&&GetWorld()->GetTimeSeconds()<MessageUntil)return LastMessage;
     if(!GestureOwner.IsValid())
@@ -155,6 +169,9 @@ void UFPSFireballComponent::Trigger()
     if(!Player||!P||!Player->IsLocallyControlled()||GetWorld()->GetNetMode()!=NM_Standalone)return;
     if(auto* H=Player->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return;
     if(IsFlying()||HandPhase==EFireballHandPhase::Releasing||HandPhase==EFireballHandPhase::ReadyingRelease)return;
+    // An akimbo off-hand pistol owns the left hand until the loadout changes.
+    // Waiting would fire the spell minutes later, so the request is refused.
+    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
     if(IsPrepared())
     {
         // A prepared orb is independent from the hand. Keep one release request,
@@ -174,7 +191,9 @@ void UFPSFireballComponent::Trigger()
 void UFPSFireballComponent::TryBeginQueuedCast()
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());auto* P=Model();
-    if(!bQueuedCast||!Player||!P||Player->IsLeftHandBusyForCast())return;
+    if(!bQueuedCast||!Player||!P)return;
+    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
+    if(Player->IsLeftHandBusyForCast())return;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC||PC->IsLookInputIgnored()||PC->IsMoveInputIgnored())return;
     bQueuedCast=false;
@@ -200,7 +219,9 @@ void UFPSFireballComponent::TryBeginQueuedLaunch()
     if(!bQueuedLaunch || HandPhase!=EFireballHandPhase::None)return;
     if(!IsPrepared()){bQueuedLaunch=false;return;}
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!Player || Player->IsLeftHandBusyForCast())return;
+    if(!Player)return;
+    if(Player->IsLeftHandHeldForCast()){RejectHeldLeftHand();return;}
+    if(Player->IsLeftHandBusyForCast())return;
     const auto* PC=Cast<APlayerController>(Player->GetController());
     if(!PC || PC->IsLookInputIgnored() || PC->IsMoveInputIgnored())return;
     // Capture the current weapon's hand pose again; it may have changed while
@@ -268,7 +289,7 @@ void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
 void UFPSFireballComponent::ProjectileFinished(AFPSFireballProjectile* Projectile)
 {
     if(Active.Get()!=Projectile)return;
-    Active.Reset();bQueuedLaunch=false;
+    Active.Reset();bQueuedLaunch=false;bAimPreview=false;
     // Expiry/cancellation while gathering also gives the hand a recovery phase.
     if(!GestureOwner.IsValid()&&(HandPhase==EFireballHandPhase::Raising || HandPhase==EFireballHandPhase::ReadyingRelease ||
        (HandPhase==EFireballHandPhase::Releasing && !bLaunchCommitted)))SetHandPhase(EFireballHandPhase::Recovering);
@@ -278,6 +299,7 @@ void UFPSFireballComponent::Cancel()
 {
     GestureOwner.Reset();GestureContact.Unbind();GestureSpeed=1.f;
     bQueuedCast=bQueuedLaunch=bLaunchCommitted=false;
+    bAimPreview=false;
     if(Active.IsValid())Active->Destroy();Active.Reset();SetHandPhase(EFireballHandPhase::None);
     if(FallbackHands)FallbackHands->SetVisibility(false);
 }
@@ -298,4 +320,11 @@ void UFPSFireballComponent::CancelSpellGesture(UActorComponent* Spell)
     if(GestureOwner.Get()!=Spell)return;
     GestureContact.Unbind();
     if(HandPhase!=EFireballHandPhase::Recovering)SetHandPhase(EFireballHandPhase::Recovering);
+}
+void UFPSFireballComponent::SetAimPreview(bool bActive)
+{
+    // Only a hovering orb previews; during the gather the press keeps its old meaning
+    // (queue the launch), so a second press while charging is never swallowed.
+    bAimPreview=bActive&&IsPrepared()&&HandPhase!=EFireballHandPhase::Raising;
+    if(auto* Ball=Active.Get())Ball->SetAimPreviewActive(bAimPreview);
 }

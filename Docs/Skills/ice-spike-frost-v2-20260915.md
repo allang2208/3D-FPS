@@ -57,3 +57,51 @@
 作者脚本 `Tools/Skills/build_ice_spike_frost_v2.py` 支持 `-IceLightOnly`，只更新冰体光照、冰晶与寒雾亮度，不重导模型。完整重建入口也已同步参数。修正前材质／粒子资产与输入快照现已移入 `trash/skills-magic-20260915/SourceAssets/IceSpike5080_20260915/SoftLight20260915`；制作结果仍在原源目录，归档见 [清单](skills-magic-archive-20260915.json)。
 
 必要材质及 Niagara 编译完成，最终命令行退出 0，记录 `Saved/IceSpike-SoftLight-Final-20260915.log`；未进行游戏测试或截图。初次制作中 Niagara CPU VectorVM 不支持表达式 `smoothstep()`，已展开为等效的 Hermite 多项式后完成编译；不要误用为 GPU／材质也不支持该函数。
+
+## 后续：整体可见与加大漂浮（2026-09-16）
+
+用户反馈悬浮位置太高、只能看到尖端，且浮动幅度太小。按实际网格尺寸重算头顶位置，并加大漂移。
+
+- 网格实测（`SourceAssets/IceSpike20260915/engine-authoring.json`）：54 cm 全长沿局部 +X，包围盒半长 27、横截面半径 6.1／5.49。尖端朝视线外，因此最靠近镜头、画面占位最大的是较粗的根部。
+- 原方案在相机前方 44 cm、高度取 `(44+4)*上视锥正切`，位置取“上视锥边界切过网格中心”，只有尖锐前半段进画面。44 cm 处单是根部圆盘就覆盖超过半个垂直视野，无论怎么下移都无法整体入画，所以这次把整排移到前方 72 cm，再按同一上视锥几何降低高度：`高度 = (72 − 27) × 上视锥正切 − 6.1`，即根部圆盘刚好贴上视锥边界，整根 54 cm 冰锥完整可见，横排仍留在画面上方、不挡准星。
+- 漂移加大：左右上限 2.8→7 cm（仍随槽距缩放），上下上限 2→5.5 cm（取可见高度的 24% 与上限的较小值），并且高度里先减去上下漂移幅度，保证浮动到最高点时冰锥仍然完整。横排基础槽距 18→22 cm，避免更大的左右漂移让相邻冰锥穿插。
+- 现场调参：`fps.IceSpike.HoverDropCM`（额外下降厘米数，0 为当前几何解）与 `fps.IceSpike.DriftScale`（漂移倍率，1 为当前值）在 PIE 中即时生效；用户确认手感后把数值写回默认。ADS／冲刺改变视野时按同一几何公式自动跟随。
+
+未编译、未进 PIE；位置和漂移观感由用户测试。
+
+## 后续：火焰拖尾残留渲染器（2026-09-16）
+
+用户反馈悬浮冰锥有非常刺眼、类似火球红光的光效。按 Niagara 工具集实际读回两个运行系统和火球系统的渲染器列表，定位为继承自火球拖尾链的第二渲染器，已移除并读回确认。
+
+诊断（只读证据 `Saved/IceSpike-Glare-Inspect.json`，由 `Tools/Skills/inspect_ice_spike_glare.py` 生成）：
+
+- `NS_RocketTrail` 的 `RocketTrail` 发射器本来就有**两个**精灵渲染器：`[0]` 是拖尾材质，`[1]` 是 `MI_RocketFlareCore`（火箭火焰核心，暖色高亮）。`NS_IceMotes` → `NS_FrostCrystals`／`NS_ColdMist` 逐级复制时只改了索引 0 的材质，索引 1 原样保留，因此悬浮和飞行的每颗粒子都被额外画了一遍火焰核心 —— 这就是“红色火焰特效”。
+- 工具集读回的渲染器类全部是 `NiagaraSpriteRendererProperties`，两个冰系统里并没有 Niagara 光源渲染器；`.uasset` 中的 `NiagaraLightRendererProperties` 字符串只是派生时留下的类型表残留，不代表实际有灯。
+- `MI_ColdMist` 的参数为黑体温度 0–5000、Emissive Gain 0.06、`Use Particle Color For Emissive` 关闭，实际不产生可见自发光；`M_FrostCrystalSoft`、`M_IceHeart`、`M_IceShell` 与命中特效 `P_IceSpikeImpact` 内都没有火焰／闪光引用。
+
+修复（`Tools/Skills/clear_ice_spike_flare_renderers.py`，headless 执行并读回）：
+
+- 两个运行系统各删除索引 1 的 `MI_RocketFlareCore` 渲染器，只保留索引 0 的自有冰材质渲染器；材质、模块、粒子颜色未改动。
+- 读回结果：`NS_FrostCrystals` 与 `NS_ColdMist` 各剩 1 个渲染器（`M_FrostCrystalSoft`／`MI_ColdMist`），二进制中 `RocketFlare` 引用数为 0；记录 `SourceAssets/IceSpike5080_20260915/FlareCore20260916/authoring.json`，日志 `Saved/IceSpike-NoFlare-20260916.log`。
+- `build_ice_spike_frost_v2.py` 增加 `strip_source_renderers()`：以后从 `NS_IceMotes` 派生时，凡材质仍指向 `/Game/NiagaraExamples/` 或 `RocketFlare` 的渲染器一律丢弃，重建不会再把火焰核心带回来。
+- 火球自身的 `NS_FireballTrail`／`NS_FireballVelocityTrail` 保留该渲染器，属于火球既有表现，本轮未改。
+- 首轮遗留的 `NS_IceMotes`（当前没有任何运行引用，仅作为派生母版）保持原样；如需彻底清理，可在确认不再派生后单独处理。
+
+改动前资产存于 `trash/skills-magic-20260916/IceSpikeFlare20260916/` 并记录散列。本轮未启动游戏、未截图，实际观感由用户测试。
+
+## 后续：中轴留空、左右两翼排列（2026-09-16）
+
+用户反馈悬浮冰锥与近战武器位置重叠，要求以玩家中轴为对称轴把中间让开，改在左右两侧更宽的位置生成，并注意等级提升会增加枚数。
+
+- 原排列是以中轴为中心的等距横排（`Slot = I − (N−1)/2`），枚数越多越往两侧铺，但中轴上始终有冰锥，正好压在近战武器的持握与挥砍区。
+- 现改为两翼阶梯：`Slot = ±(GapUnits + floor(I/2)) × Spacing`，偶数索引走左翼；中轴保留 0.9 个槽距（默认约 20 cm）的空档。两翼共用同一条槽位阶梯，因此升级新增的那一枚永远落在更外面一格，同翼相邻两枚相隔两格，增枚不会与已有冰锥挤在一起。
+- 各枚数位置（视野 75°、16:9，槽距 22 cm）：2 枚 ±19.8；3 枚 ±19.8、−41.8；4 枚 ±19.8、±41.8；5 枚 ±19.8、±41.8、−63.8 cm。奇数多出的那一枚放在左翼，避开右手近战武器。
+- 整排宽度仍以 72% 视锥半宽为上界：窄视野（ADS）或窄画幅时槽距按 `HalfRowWidth / LadderTop` 自动压缩（ADS 下 5 枚压到 16.6 cm），两翼始终在画面内；漂移幅度随槽距一起缩小。
+- 现场调参新增 `fps.IceSpike.WingGap`（中轴空档，单位＝槽距，默认 0.9，最小 0.15），与 `fps.IceSpike.HoverDropCM`、`fps.IceSpike.DriftScale` 一起在 PIE 即时生效。
+- 悬浮高度、漂移幅度、凝聚缩放、墙体避让与从实际位置发射的逻辑不变。
+
+本轮做了单文件编译校验（`cl` 直接编译 `FPSIceSpikeVolley.cpp`，无诊断）；编辑器处于打开状态，未做完整 Editor 构建，未进 PIE。
+
+首次上线的修正：`Slot` 改成“相对中轴的厘米偏移”后，位置表达式仍保留了 `Slot*Spacing`，等于把槽距乘了两次（最外侧约 436 cm），冰锥整体被推到镜头外，用户反馈完全看不到。已改为 `Right*(Slot+DriftX)`，`Slot` 只相加一次；单文件编译通过，并用 `LiveCoding.CompileSync` 成功热补丁到当前会话（`LogLiveCoding: Live coding succeeded`）。磁盘 DLL 仍是修正前的构建，需要关掉编辑器跑一次 `Tools/Build/Build-Editor.ps1` 才会持久化；热补丁会复位 `fps.IceSpike.*` 三个调参变量为默认值。
+
+二次加宽（用户反馈右侧一根仍与剑类武器重叠）：中轴空档 0.9 → 1.4 槽距，槽距上限 22 → 26 cm（新增 `fps.IceSpike.SlotSpacing`），可用画面宽度 72% → 80%。默认位置随之改为（视野 75°、16:9）：2 枚 ±36.4；3 枚 ±36.4、∓62.4；4 枚 ±36.4、±62.4；5 枚 ±32.3、±55.4、∓78.6 cm，**以上数字覆盖本节前面的旧值**。完整 Editor 构建成功，磁盘 DLL 内含 `fps.IceSpike.SlotSpacing` 字符串（`TEXT()` 在 Windows 上是 UTF-16，ASCII 扫描查不到，需按 UTF-16 校验）。构建过程中并行的体素地形会话先后修掉了 `TemperateHillsWorld.cpp` 的命名空间限定与我此前补的 `C2065`、以及 `FPSVoxelCavePad.cpp` 的 `bEnableDistanceFields`（应为 `bGenerateDistanceFields`），两者都不是本次改动。

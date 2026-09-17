@@ -3,6 +3,7 @@
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "ColdSteelSkillRules.h"
 #include "FireballDamage.h"
+#include "FPSMagicPreview.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -53,6 +54,17 @@ bool FireballExposure(UWorld* World,AActor* Target,const FVector& Center,float R
 FColdSteelSkillProgress UColdSteelStatusModel::FireballProgress() const
 { const auto* P=Current.Skills.Find(FireballSkill.Id);return P?*P:FColdSteelSkillProgress(); }
 
+double UColdSteelStatusModel::MagicImplementMultiplier() const
+{
+    // Wand hook (2026-09-16): a wand declares `wandSpellMultiplier` in its item data and
+    // that value multiplies spell damage. Nothing defines the key yet, so this returns 1
+    // and the fireball formula keeps today's numbers until the wand lands.
+    const auto* Item=Equipped();
+    if(!Item)return 1.;
+    const double Value=ColdSteelInventory::Number(*Item,TEXT("wandSpellMultiplier"),1.);
+    return Value>0.?Value:1.;
+}
+
 FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
 {
     const int32 L=FMath::Clamp(AtLevel<0?FireballProgress().Level:AtLevel,1,FireballSkill.MaxLevel);
@@ -65,10 +77,13 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
             C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+E->CraftEffect(*Item,TEXT("critChancePercent"))+E->CraftEffect(*Item,TEXT("magicCritPercent")));
         }
     C.MagicMultiplier=F.MagicBase+(L-1)*F.MagicPerLevel;
-    C.Damage=FMath::FloorToFloat(Derived(TEXT("matk"))*C.MagicMultiplier);
+    // The wand multiplier is a pure damage factor on top of the magic attack scaling;
+    // it stays 1 until a wand with `wandSpellMultiplier` is equipped.
+    C.Damage=FMath::FloorToFloat(Derived(TEXT("matk"))*C.MagicMultiplier*MagicImplementMultiplier());
     C.MagicDamageBonus=SetEffect(TEXT("magicDamage"));
     C.Radius=(F.RadiusBase+L*F.RadiusPerLevel)*F.UnitsToCM*F.RadiusScale;
     C.Speed=F.Speed*F.UnitsToCM;C.Range=F.Range*F.UnitsToCM;
+    C.Gravity=F.Gravity*FPSMagicPreview::GravityScale();
     C.ManaCost=F.ManaCost+(L-1)*F.ManaCostPerLevel;
     const float Growth=float(L-1)/FMath::Max(1,FireballSkill.MaxLevel-1);
     const float BaseCooldown=FMath::Lerp(F.Cooldown,F.MinimumCooldown,Growth);

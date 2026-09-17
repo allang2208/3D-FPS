@@ -3,6 +3,7 @@
 #include "Components/ActorComponent.h"
 #include "FireballHandPose.h"
 #include "FireballCastMotion.h"
+#include "FPSLeftHandNotice.h"
 #include "FPSFireballComponent.generated.h"
 class AFPSFireballProjectile;
 class UColdSteelStatusModel;
@@ -50,6 +51,13 @@ public:
     const FVector& HandEntryElbow() const { return EntryElbow; }
     FVector HeldOrbPosition() const;
     FString StatusText() const;
+    /** Hold-to-preview while the orb hovers: red trajectory line until the release. */
+    void SetAimPreview(bool bActive);
+    bool IsAimPreviewActive() const {return bAimPreview;}
+    // UI pulse for a request that is rejected instead of queued (see FPSLeftHandNotice.h).
+    bool IsHandOccupiedNotice() const;
+    float HandNoticeAlpha() const;
+    float HandNoticeRise() const;
     float CooldownFraction() const;
     void ProjectileFinished(AFPSFireballProjectile* Projectile);
     void Cancel();
@@ -102,5 +110,8 @@ private:
     UColdSteelStatusModel* Model() const;
     FString LastMessage;
     double MessageUntil=0;
+    FFPSLeftHandNotice HandNotice;
+    bool bAimPreview=false;
     void Feedback(const FString& Text);
+    void RejectHeldLeftHand();
 };
