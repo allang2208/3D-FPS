@@ -1,0 +1,128 @@
+{
+  "materials": {
+    "M_ASH12_Upper": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Upper.M_ASH12_Upper",
+      "identity": "gunmetal receiver",
+      "colour": [
+        0.085,
+        0.09,
+        0.098
+      ],
+      "roughness": 0.45,
+      "metallic": 0.7
+    },
+    "M_ASH12_Lower": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Lower.M_ASH12_Lower",
+      "identity": "gunmetal lower",
+      "colour": [
+        0.08,
+        0.085,
+        0.092
+      ],
+      "roughness": 0.47,
+      "metallic": 0.7
+    },
+    "M_ASH12_Front": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Front.M_ASH12_Front",
+      "identity": "gunmetal handguard",
+      "colour": [
+        0.09,
+        0.095,
+        0.103
+      ],
+      "roughness": 0.45,
+      "metallic": 0.7
+    },
+    "M_ASH12_Sights": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Sights.M_ASH12_Sights",
+      "identity": "matte sight housing",
+      "colour": [
+        0.065,
+        0.068,
+        0.072
+      ],
+      "roughness": 0.5,
+      "metallic": 0.65
+    },
+    "M_ASH12_Flash_Hider": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Flash_Hider.M_ASH12_Flash_Hider",
+      "identity": "bare steel",
+      "colour": [
+        0.32,
+        0.33,
+        0.34
+      ],
+      "roughness": 0.32,
+      "metallic": 0.9
+    },
+    "M_ASH12_Magazine": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Magazine.M_ASH12_Magazine",
+      "identity": "black polymer",
+      "colour": [
+        0.05,
+        0.05,
+        0.052
+      ],
+      "roughness": 0.6,
+      "metallic": 0.05
+    },
+    "M_ASH12_Magazine_Base": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Materials/M_ASH12_Magazine_Base.M_ASH12_Magazine_Base",
+      "identity": "black polymer",
+      "colour": [
+        0.044,
+        0.044,
+        0.046
+      ],
+      "roughness": 0.62,
+      "metallic": 0.05
+    }
+  },
+  "mesh": {
+    "path": "/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny.SK_ASH12_Manny",
+    "skeleton": "/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny_Skeleton.SK_ASH12_Manny_Skeleton",
+    "slots": [
+      "M_ASH12_Lower",
+      "M_ASH12_Sights",
+      "M_ASH12_Front",
+      "M_ASH12_Magazine",
+      "M_ASH12_Magazine_Base",
+      "M_ASH12_Flash_Hider",
+      "M_ASH12_Upper",
+      "MI_Manny_01",
+      "MI_Manny_02"
+    ]
+  },
+  "clips": {
+    "idle": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_idle.A_ASH12_idle",
+      "duration": 3.0
+    },
+    "aim": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim.A_ASH12_aim",
+      "duration": 0.03333333507180214
+    },
+    "fire": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_fire.A_ASH12_fire",
+      "duration": 0.7666666507720947
+    },
+    "aim_fire": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_aim_fire.A_ASH12_aim_fire",
+      "duration": 0.7666666507720947
+    },
+    "reload": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_reload.A_ASH12_reload",
+      "duration": 2.0999999046325684
+    },
+    "reload_empty": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_reload_empty.A_ASH12_reload_empty",
+      "duration": 2.700000047683716
+    },
+    "equip_charge": {
+      "path": "/Game/Weapons/ASH12/Integrated20260917/Animations/A_ASH12_equip_charge.A_ASH12_equip_charge",
+      "duration": 0.6333333253860474
+    }
+  },
+  "removed_textures": [],
+  "status": "Imported and saved; gameplay testing pending"
+}

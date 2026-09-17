@@ -1,0 +1,231 @@
+{
+ "source": "D:\\FPS3D\\资产\\oden先辈\\fbx\\weapon.FBX",
+ "objects": [
+  {
+   "name": "Oden_Dream_Killer",
+   "type": "MESH",
+   "location": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rotation_euler": [
+    -0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "matrix_world_translation": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "vertices": 28708,
+   "polygons": 54280,
+   "dimensions": [
+    34.682003,
+    2.616,
+    13.618774
+   ],
+   "local_bbox_min": [
+    -19.849003,
+    -1.308007,
+    -8.813774
+   ],
+   "local_bbox_max": [
+    14.833,
+    1.307993,
+    4.805
+   ],
+   "world_bbox_min": [
+    -19.849003,
+    -1.308007,
+    -8.813774
+   ],
+   "world_bbox_max": [
+    14.833,
+    1.307994,
+    4.805
+   ],
+   "materials": [
+    "09 - Default",
+    "11 - Default",
+    "08 - Default",
+    "16 - Default",
+    "14 - Default",
+    "15 - Default",
+    "10 - Default",
+    "07 - Default",
+    "12 - Default",
+    "13 - Default"
+   ],
+   "uv_layers": [
+    "UVMap"
+   ],
+   "modifiers": [],
+   "vertex_groups": 0,
+   "parent": null
+  }
+ ],
+ "materials": [
+  {
+   "name": "07 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #1",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\flashhider02.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "08 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #4",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\frontend.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "09 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #5",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\lower.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "10 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #6",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\mag.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "11 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #7",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\sights.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "12 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #8",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\stubby01.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "13 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #9",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\upper.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "14 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #10",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\xmag.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "15 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #11",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\laser03.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "16 - Default",
+   "use_nodes": true,
+   "textures": [
+    {
+     "image": "Map #12",
+     "filepath": "D:\\FPS3D\\资产\\oden先辈\\fbx\\cdm\\laser03glass.tga",
+     "size": [
+      0,
+      0
+     ]
+    }
+   ]
+  }
+ ],
+ "combined_world_bbox_min": [
+  -19.849003,
+  -1.308007,
+  -8.813774
+ ],
+ "combined_world_bbox_max": [
+  14.833,
+  1.307994,
+  4.805
+ ],
+ "combined_world_size": [
+  34.682003,
+  2.616001,
+  13.618774
+ ]
+}

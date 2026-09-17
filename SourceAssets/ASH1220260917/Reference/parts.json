@@ -1,0 +1,319 @@
+{
+ "parts": [
+  {
+   "object": "part_09",
+   "material": "09 - Default",
+   "slot": 0,
+   "texture": [
+    "lower.tga"
+   ],
+   "vertices": 4984,
+   "polygons": 9307,
+   "bbox_min": [
+    -19.849,
+    -1.211,
+    -5.476
+   ],
+   "bbox_max": [
+    3.77,
+    1.211,
+    2.749
+   ],
+   "center": [
+    -8.0395,
+    -0.0,
+    -1.3635
+   ],
+   "size": [
+    23.619,
+    2.422,
+    8.225
+   ]
+  },
+  {
+   "object": "part_11",
+   "material": "11 - Default",
+   "slot": 1,
+   "texture": [
+    "sights.tga"
+   ],
+   "vertices": 4742,
+   "polygons": 8826,
+   "bbox_min": [
+    -5.846,
+    -0.737,
+    1.972
+   ],
+   "bbox_max": [
+    2.023,
+    0.617,
+    4.805
+   ],
+   "center": [
+    -1.9115,
+    -0.06,
+    3.3885
+   ],
+   "size": [
+    7.869,
+    1.354,
+    2.833
+   ]
+  },
+  {
+   "object": "part_08",
+   "material": "08 - Default",
+   "slot": 2,
+   "texture": [
+    "frontend.tga"
+   ],
+   "vertices": 2620,
+   "polygons": 4905,
+   "bbox_min": [
+    -7.342,
+    -1.105,
+    -1.535
+   ],
+   "bbox_max": [
+    10.203,
+    1.105,
+    1.059
+   ],
+   "center": [
+    1.4305,
+    0.0,
+    -0.238
+   ],
+   "size": [
+    17.545,
+    2.21,
+    2.594
+   ]
+  },
+  {
+   "object": "part_16",
+   "material": "16 - Default",
+   "slot": 3,
+   "texture": [
+    "laser03glass.tga"
+   ],
+   "vertices": 201,
+   "polygons": 303,
+   "bbox_min": [
+    6.783,
+    -0.716,
+    2.097
+   ],
+   "bbox_max": [
+    7.012,
+    0.651,
+    2.556
+   ],
+   "center": [
+    6.8975,
+    -0.0325,
+    2.3265
+   ],
+   "size": [
+    0.229,
+    1.367,
+    0.459
+   ]
+  },
+  {
+   "object": "part_14",
+   "material": "14 - Default",
+   "slot": 4,
+   "texture": [
+    "xmag.tga"
+   ],
+   "vertices": 1728,
+   "polygons": 3327,
+   "bbox_min": [
+    -10.376,
+    -0.587,
+    -6.971
+   ],
+   "bbox_max": [
+    -5.513,
+    0.574,
+    1.28
+   ],
+   "center": [
+    -7.9445,
+    -0.0065,
+    -2.8455
+   ],
+   "size": [
+    4.863,
+    1.161,
+    8.251
+   ]
+  },
+  {
+   "object": "part_15",
+   "material": "15 - Default",
+   "slot": 5,
+   "texture": [
+    "laser03.tga"
+   ],
+   "vertices": 4483,
+   "polygons": 8757,
+   "bbox_min": [
+    4.085,
+    -0.937,
+    2.024
+   ],
+   "bbox_max": [
+    7.034,
+    0.937,
+    2.687
+   ],
+   "center": [
+    5.5595,
+    -0.0,
+    2.3555
+   ],
+   "size": [
+    2.949,
+    1.874,
+    0.663
+   ]
+  },
+  {
+   "object": "part_10",
+   "material": "10 - Default",
+   "slot": 6,
+   "texture": [
+    "mag.tga"
+   ],
+   "vertices": 289,
+   "polygons": 525,
+   "bbox_min": [
+    -9.007,
+    -0.556,
+    -8.8138
+   ],
+   "bbox_max": [
+    -4.8879,
+    0.542,
+    -6.039
+   ],
+   "center": [
+    -6.9475,
+    -0.007,
+    -7.4264
+   ],
+   "size": [
+    4.1191,
+    1.098,
+    2.7748
+   ]
+  },
+  {
+   "object": "part_07",
+   "material": "07 - Default",
+   "slot": 7,
+   "texture": [
+    "flashhider02.tga"
+   ],
+   "vertices": 2380,
+   "polygons": 4756,
+   "bbox_min": [
+    11.796,
+    -0.605,
+    -0.022
+   ],
+   "bbox_max": [
+    14.833,
+    0.605,
+    1.187
+   ],
+   "center": [
+    13.3145,
+    -0.0,
+    0.5825
+   ],
+   "size": [
+    3.037,
+    1.21,
+    1.209
+   ]
+  },
+  {
+   "object": "part_12",
+   "material": "12 - Default",
+   "slot": 8,
+   "texture": [
+    "stubby01.tga"
+   ],
+   "vertices": 2093,
+   "polygons": 3982,
+   "bbox_min": [
+    6.612,
+    -0.756,
+    -5.022
+   ],
+   "bbox_max": [
+    8.616,
+    0.753,
+    -1.25
+   ],
+   "center": [
+    7.614,
+    -0.0015,
+    -3.136
+   ],
+   "size": [
+    2.004,
+    1.509,
+    3.772
+   ]
+  },
+  {
+   "object": "part_13",
+   "material": "13 - Default",
+   "slot": 9,
+   "texture": [
+    "upper.tga"
+   ],
+   "vertices": 5188,
+   "polygons": 9592,
+   "bbox_min": [
+    -18.599,
+    -1.308,
+    -0.698
+   ],
+   "bbox_max": [
+    12.367,
+    1.308,
+    2.654
+   ],
+   "center": [
+    -3.116,
+    -0.0,
+    0.978
+   ],
+   "size": [
+    30.966,
+    2.616,
+    3.352
+   ]
+  }
+ ],
+ "bbox_min": [
+  -19.849000930786133,
+  -1.3079999685287476,
+  -8.813799858093262
+ ],
+ "bbox_max": [
+  14.833000183105469,
+  1.3079999685287476,
+  4.804999828338623
+ ],
+ "size": [
+  34.68199920654297,
+  2.615999937057495,
+  13.618799209594727
+ ]
+}

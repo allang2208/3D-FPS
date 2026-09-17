@@ -1,0 +1,157 @@
+{
+  "fit": {
+    "scale": 0.0242,
+    "translation": [
+      0.05590000003576279,
+      0.16606999933719635,
+      -0.048170000314712524
+    ],
+    "rotation_z_degrees": 90.0
+  },
+  "markers_source": {
+    "WPN_RearSight": [
+      -5.6,
+      0.0,
+      4.26
+    ],
+    "WPN_FrontSight": [
+      1.4,
+      0.0,
+      4.26
+    ],
+    "WPN_SOCKET_Muzzle": [
+      14.6,
+      0.0,
+      0.58
+    ],
+    "WPN_SOCKET_Eject": [
+      4.5,
+      -0.9,
+      1.3
+    ],
+    "WPN_Trigger": [
+      0.43,
+      0.0,
+      -1.6
+    ]
+  },
+  "magazine_socket_source": [
+    -8.4,
+    0.0,
+    -3.0
+  ],
+  "markers_fitted": {
+    "WPN_RearSight": [
+      0.041668,
+      0.030395,
+      0.054076
+    ],
+    "WPN_FrontSight": [
+      0.041801,
+      0.199795,
+      0.054071
+    ],
+    "WPN_SOCKET_Muzzle": [
+      0.049532,
+      0.519227,
+      -0.034678
+    ],
+    "WPN_SOCKET_Eject": [
+      0.069579,
+      0.274792,
+      -0.01548
+    ],
+    "WPN_Trigger": [
+      0.053693,
+      0.176308,
+      -0.087239
+    ],
+    "WPN_SOCKET_Magazine": [
+      0.05637,
+      -0.037381,
+      -0.120994
+    ]
+  },
+  "materials": {
+    "M_ASH12_Lower": "M_ASH12_Lower",
+    "M_ASH12_Sights": "M_ASH12_Sights",
+    "M_ASH12_Front": "M_ASH12_Front",
+    "M_ASH12_Magazine": "M_ASH12_Magazine",
+    "M_ASH12_Magazine_Base": "M_ASH12_Magazine_Base",
+    "M_ASH12_Flash_Hider": "M_ASH12_Flash_Hider",
+    "M_ASH12_Upper": "M_ASH12_Upper"
+  },
+  "vertices": 21931,
+  "polygons": 41238,
+  "parts": {
+    "trigger_component": 78,
+    "magazine_materials": [
+      "10 - Default",
+      "14 - Default"
+    ]
+  },
+  "deferred_parts": [
+    "12 - Default",
+    "15 - Default",
+    "16 - Default"
+  ],
+  "clips": {
+    "idle": {
+      "source": "M4_idle",
+      "duration": 3.0,
+      "frames": 180,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": false
+    },
+    "aim": {
+      "source": "M4_aim",
+      "duration": 0.03333333333333333,
+      "frames": 2,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": false
+    },
+    "fire": {
+      "source": "M4_fire",
+      "duration": 0.7666666666666667,
+      "frames": 46,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": false
+    },
+    "aim_fire": {
+      "source": "M4_aim_fire",
+      "duration": 0.7666666666666667,
+      "frames": 46,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": false
+    },
+    "reload": {
+      "source": "M4_HK416_reload",
+      "duration": 2.1,
+      "frames": 126,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": true
+    },
+    "reload_empty": {
+      "source": "M4_HK416_reload_empty",
+      "duration": 2.7,
+      "frames": 162,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": true
+    },
+    "equip_charge": {
+      "source": "M4_HK416_equip_charge",
+      "duration": 0.6333333333333333,
+      "frames": 38,
+      "fps": 60,
+      "sample_rate": 120,
+      "left_arm_shift": false
+    }
+  },
+  "hands_source": "M4TacticalToss20260910/SK_Manny_Arms_Export"
+}

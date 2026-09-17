@@ -1,0 +1,61 @@
+{
+  "gunsmith": {
+    "id": "ue_ash12",
+    "allowed": [
+      "optic",
+      "magazine",
+      "muzzle"
+    ],
+    "options": {
+      "optic": [
+        "false",
+        "holographic",
+        "panoramic_red_dot",
+        "prism_scope_2x",
+        "lpvo_1_6x"
+      ],
+      "magazine": [
+        "false"
+      ],
+      "muzzle": [
+        "false",
+        "true"
+      ]
+    },
+    "base": {
+      "ammo_item_id": "ammo_127",
+      "ads_smooth": 14.0,
+      "mag_size": 20,
+      "recoil": 145,
+      "camera_shake": 135,
+      "fire_interval": 0.13,
+      "reload_time": 2.1,
+      "empty_reload_time": 2.7,
+      "damage": 48,
+      "bullet_speed": 78,
+      "effective_range": 80
+    }
+  },
+  "items": [
+    "ue_ash12",
+    "ammo_127"
+  ],
+  "formula": {
+    "source": "ASH12_ITEM",
+    "base": 9,
+    "enhanceFlat": 0.7,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.32,
+        "perEnhance": 0.05
+      },
+      {
+        "key": "wis",
+        "base": 0.32,
+        "perEnhance": 0.05
+      }
+    ]
+  },
+  "status": "catalog entries written; not yet exercised in game"
+}

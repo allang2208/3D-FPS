@@ -1,0 +1,4122 @@
+{
+ "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+ "objects": [
+  {
+   "name": "M4_Trigger Straight Unreal",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 122,
+   "materials": [
+    "Body.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -6.148595,
+    -20.338812,
+    152.051987
+   ],
+   "world_bbox_max": [
+    -5.246494,
+    -19.615273,
+    155.107605
+   ]
+  },
+  {
+   "name": "M4_Stock Classic Unreal",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 1168,
+   "materials": [
+    "Classic Stock.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -8.355892,
+    -11.496343,
+    148.595383
+   ],
+   "world_bbox_max": [
+    -2.359228,
+    9.124378,
+    161.244751
+   ]
+  },
+  {
+   "name": "M4_Magazine Light.003",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 1652,
+   "materials": [
+    "Magazine Light.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -8.023548,
+    -32.350361,
+    140.654129
+   ],
+   "world_bbox_max": [
+    -4.254352,
+    -23.768417,
+    158.288239
+   ]
+  },
+  {
+   "name": "M4_M4 Body",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 4773,
+   "materials": [
+    "Body.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -8.98958,
+    -32.874165,
+    151.088501
+   ],
+   "world_bbox_max": [
+    -2.19688,
+    -10.501726,
+    166.267227
+   ]
+  },
+  {
+   "name": "M4_Handguard Kmode Unreal",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 4181,
+   "materials": [
+    "Keymod material.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -7.872946,
+    -55.423595,
+    157.137115
+   ],
+   "world_bbox_max": [
+    -2.534235,
+    -31.574137,
+    166.406357
+   ]
+  },
+  {
+   "name": "M4_Grip Default Unreal",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 540,
+   "materials": [
+    "Grip Default.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -7.954836,
+    -17.760963,
+    144.320267
+   ],
+   "world_bbox_max": [
+    -4.291058,
+    -8.795032,
+    154.764435
+   ]
+  },
+  {
+   "name": "M4_Flash Hider Unreal",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 463,
+   "materials": [
+    "Flash Hider.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -6.107206,
+    -59.847813,
+    159.093994
+   ],
+   "world_bbox_max": [
+    -4.255543,
+    -55.146072,
+    160.958099
+   ]
+  },
+  {
+   "name": "M4Review",
+   "type": "LIGHT",
+   "parent": null
+  },
+  {
+   "name": "M4Review.001",
+   "type": "LIGHT",
+   "parent": null
+  },
+  {
+   "name": "SK_M4_Infima",
+   "type": "ARMATURE",
+   "parent": null,
+   "bones": 100,
+   "bone_names": [
+    "VM_Root",
+    "root",
+    "pelvis",
+    "spine_01",
+    "spine_02",
+    "spine_03",
+    "spine_04",
+    "spine_05",
+    "neck_01",
+    "neck_02",
+    "head",
+    "clavicle_l",
+    "upperarm_l",
+    "lowerarm_l",
+    "lowerarm_twist_02_l",
+    "lowerarm_twist_01_l",
+    "hand_l",
+    "index_metacarpal_l",
+    "index_01_l",
+    "index_02_l",
+    "index_03_l",
+    "middle_metacarpal_l",
+    "middle_01_l",
+    "middle_02_l",
+    "middle_03_l",
+    "thumb_01_l",
+    "thumb_02_l",
+    "thumb_03_l",
+    "pinky_metacarpal_l",
+    "pinky_01_l",
+    "pinky_02_l",
+    "pinky_03_l",
+    "ring_metacarpal_l",
+    "ring_01_l",
+    "ring_02_l",
+    "ring_03_l",
+    "upperarm_twist_01_l",
+    "upperarm_twist_02_l",
+    "clavicle_r",
+    "upperarm_r",
+    "lowerarm_r",
+    "lowerarm_twist_02_r",
+    "lowerarm_twist_01_r",
+    "hand_r",
+    "pinky_metacarpal_r",
+    "pinky_01_r",
+    "pinky_02_r",
+    "pinky_03_r",
+    "ring_metacarpal_r",
+    "ring_01_r",
+    "ring_02_r",
+    "ring_03_r",
+    "middle_metacarpal_r",
+    "middle_01_r",
+    "middle_02_r",
+    "middle_03_r",
+    "index_metacarpal_r",
+    "index_01_r",
+    "index_02_r",
+    "index_03_r",
+    "thumb_01_r",
+    "thumb_02_r",
+    "thumb_03_r",
+    "upperarm_twist_01_r",
+    "upperarm_twist_02_r",
+    "thigh_r",
+    "calf_r",
+    "foot_r",
+    "ball_r",
+    "calf_twist_02_r",
+    "calf_twist_01_r",
+    "thigh_twist_01_r",
+    "thigh_twist_02_r",
+    "thigh_l",
+    "calf_l",
+    "foot_l",
+    "ball_l",
+    "calf_twist_02_l",
+    "calf_twist_01_l",
+    "thigh_twist_01_l",
+    "thigh_twist_02_l",
+    "ik_foot_root",
+    "ik_foot_l",
+    "ik_foot_r",
+    "ik_hand_root",
+    "ik_hand_gun",
+    "ik_hand_l",
+    "ik_hand_r",
+    "WPN_root",
+    "WPN_SOCKET_Magazine",
+    "WPN_Trigger",
+    "WPN_bolt",
+    "WPN_RearSight",
+    "WPN_FrontSight",
+    "WPN_SOCKET_Muzzle",
+    "WPN_SOCKET_Eject",
+    "WPN_ChargingHandle",
+    "WPN_BoltCatch",
+    "interaction",
+    "center_of_mass"
+   ]
+  },
+  {
+   "name": "M4_Trigger Straight Unreal_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 122,
+   "materials": [
+    "Body.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.052312,
+    0.189814,
+    -0.103925
+   ],
+   "world_bbox_max": [
+    0.061389,
+    0.196905,
+    -0.073374
+   ]
+  },
+  {
+   "name": "M4_Stock Classic Unreal_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 1168,
+   "materials": [
+    "Classic Stock.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.023581,
+    -0.097299,
+    -0.137089
+   ],
+   "world_bbox_max": [
+    0.083438,
+    0.108781,
+    -0.011505
+   ]
+  },
+  {
+   "name": "M4_Magazine Light.003_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 1652,
+   "materials": [
+    "Magazine Light.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.042307,
+    0.231325,
+    -0.218178
+   ],
+   "world_bbox_max": [
+    0.080293,
+    0.316545,
+    -0.041882
+   ]
+  },
+  {
+   "name": "M4_M4 Body_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 4353,
+   "materials": [
+    "Body.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.021836,
+    0.098976,
+    -0.11376
+   ],
+   "world_bbox_max": [
+    0.089688,
+    0.322585,
+    0.014311
+   ]
+  },
+  {
+   "name": "M4_Handguard Kmode Unreal_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 3620,
+   "materials": [
+    "Keymod material.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.024894,
+    0.309664,
+    -0.053776
+   ],
+   "world_bbox_max": [
+    0.078262,
+    0.548084,
+    0.012369
+   ]
+  },
+  {
+   "name": "M4_Grip Default Unreal_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 540,
+   "materials": [
+    "Grip Default.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.042861,
+    0.081191,
+    -0.180924
+   ],
+   "world_bbox_max": [
+    0.079644,
+    0.171078,
+    -0.076643
+   ]
+  },
+  {
+   "name": "M4_Flash Hider Unreal_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 463,
+   "materials": [
+    "Flash Hider.001"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    0.042027,
+    0.545393,
+    -0.035277
+   ],
+   "world_bbox_max": [
+    0.060525,
+    0.592323,
+    -0.016779
+   ]
+  },
+  {
+   "name": "SK_Manny_Arms_Export",
+   "type": "MESH",
+   "parent": "SK_M4_Infima",
+   "vertices": 20326,
+   "materials": [
+    "MI_Manny_01",
+    "MI_Manny_02"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SK_M4_Infima"
+    ]
+   ],
+   "world_bbox_min": [
+    -0.55437,
+    -0.123598,
+    -0.733138
+   ],
+   "world_bbox_max": [
+    0.554371,
+    0.274364,
+    -0.109118
+   ]
+  },
+  {
+   "name": "SM_M4_RearSight",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 420,
+   "materials": [
+    "Body.001"
+   ],
+   "modifiers": [],
+   "world_bbox_min": [
+    0.04175,
+    0.174502,
+    0.004942
+   ],
+   "world_bbox_max": [
+    0.053554,
+    0.184345,
+    0.038267
+   ]
+  },
+  {
+   "name": "SM_M4_FrontSight",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 561,
+   "materials": [
+    "Keymod material.001"
+   ],
+   "modifiers": [],
+   "world_bbox_min": [
+    0.037611,
+    0.488478,
+    0.00763
+   ],
+   "world_bbox_max": [
+    0.056754,
+    0.497973,
+    0.038175
+   ]
+  },
+  {
+   "name": "Camera.001",
+   "type": "CAMERA",
+   "parent": null
+  },
+  {
+   "name": "Area",
+   "type": "LIGHT",
+   "parent": null
+  },
+  {
+   "name": "Area.001",
+   "type": "LIGHT",
+   "parent": null
+  },
+  {
+   "name": "Camera.002",
+   "type": "CAMERA",
+   "parent": null
+  },
+  {
+   "name": "Area.002",
+   "type": "LIGHT",
+   "parent": null
+  },
+  {
+   "name": "Area.003",
+   "type": "LIGHT",
+   "parent": null
+  },
+  {
+   "name": "_CS_Cube",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 8,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -13.896822,
+    -13.896822,
+    -13.896822
+   ],
+   "world_bbox_max": [
+    13.896822,
+    13.896822,
+    13.896822
+   ]
+  },
+  {
+   "name": "_CS_Fingers",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 8,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    181.385147,
+    1e-06,
+    117.241806
+   ],
+   "world_bbox_max": [
+    197.946518,
+    16.561382,
+    133.803177
+   ]
+  },
+  {
+   "name": "_CS_Finger_Metacarpal",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 4,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    260.24823,
+    3e-06,
+    123.635002
+   ],
+   "world_bbox_max": [
+    282.00528,
+    4e-06,
+    127.409988
+   ]
+  },
+  {
+   "name": "_CS_Circle",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    133.188477,
+    2e-06,
+    109.045143
+   ],
+   "world_bbox_max": [
+    166.143188,
+    4e-06,
+    141.999847
+   ]
+  },
+  {
+   "name": "base_controller.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -353.485352,
+    7.428574,
+    14.051125
+   ],
+   "world_bbox_max": [
+    -339.378845,
+    7.428576,
+    28.157646
+   ]
+  },
+  {
+   "name": "base_controller.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 48,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -7.053263
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    7.053259
+   ]
+  },
+  {
+   "name": "base_controller.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 28,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -7.053261
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    7.053261
+   ]
+  },
+  {
+   "name": "base_controller.004",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.05326,
+    -1e-06,
+    -7.053261
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    7.053261
+   ]
+  },
+  {
+   "name": "base_controller.005",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 48,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053259,
+    -1e-06,
+    -7.053263
+   ],
+   "world_bbox_max": [
+    7.053263,
+    1e-06,
+    7.053259
+   ]
+  },
+  {
+   "name": "base_controller.006",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 28,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.05326,
+    -1e-06,
+    -7.053261
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    7.053261
+   ]
+  },
+  {
+   "name": "base_controller.007",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 25,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -5.755462
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    5.529757
+   ]
+  },
+  {
+   "name": "base_controller.008",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 41,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053258,
+    -1e-06,
+    -5.160924
+   ],
+   "world_bbox_max": [
+    7.053265,
+    1e-06,
+    6.124294
+   ]
+  },
+  {
+   "name": "base_controller.009",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 23,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053258,
+    -1e-06,
+    -5.519944
+   ],
+   "world_bbox_max": [
+    7.053265,
+    1e-06,
+    5.765275
+   ]
+  },
+  {
+   "name": "base_controller.010",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 25,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -4.231957
+   ],
+   "world_bbox_max": [
+    7.053265,
+    1e-06,
+    5.642609
+   ]
+  },
+  {
+   "name": "base_controller.011",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 41,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053255,
+    -1e-06,
+    -3.681458
+   ],
+   "world_bbox_max": [
+    7.053271,
+    1e-06,
+    6.193108
+   ]
+  },
+  {
+   "name": "base_controller.012",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 23,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053268,
+    -1e-06,
+    -4.109292
+   ],
+   "world_bbox_max": [
+    7.053258,
+    1e-06,
+    5.765275
+   ]
+  },
+  {
+   "name": "base_controller.013",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 18,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -4.231957
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    4.231957
+   ]
+  },
+  {
+   "name": "base_controller.014",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 34,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -4.231955
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    4.231958
+   ]
+  },
+  {
+   "name": "base_controller.015",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 18,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053268,
+    -1e-06,
+    -4.231958
+   ],
+   "world_bbox_max": [
+    7.053255,
+    1e-06,
+    4.231956
+   ]
+  },
+  {
+   "name": "base_controller.016",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 18,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053268,
+    -0.0,
+    -2.821305
+   ],
+   "world_bbox_max": [
+    7.053255,
+    0.0,
+    2.821305
+   ]
+  },
+  {
+   "name": "base_controller.017",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 34,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053268,
+    -0.0,
+    -2.821302
+   ],
+   "world_bbox_max": [
+    7.053255,
+    0.0,
+    2.821307
+   ]
+  },
+  {
+   "name": "base_controller.018",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 18,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -0.0,
+    -2.821305
+   ],
+   "world_bbox_max": [
+    7.053261,
+    0.0,
+    2.821305
+   ]
+  },
+  {
+   "name": "base_controller.019",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 11,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231959,
+    -1e-06,
+    -7.694467
+   ],
+   "world_bbox_max": [
+    4.231959,
+    1e-06,
+    3.590751
+   ]
+  },
+  {
+   "name": "base_controller.020",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 27,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231966,
+    -1e-06,
+    -5.64261
+   ],
+   "world_bbox_max": [
+    4.231953,
+    1e-06,
+    5.642609
+   ]
+  },
+  {
+   "name": "base_controller.021",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 13,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231966,
+    -1e-06,
+    -6.510705
+   ],
+   "world_bbox_max": [
+    4.231953,
+    1e-06,
+    4.774513
+   ]
+  },
+  {
+   "name": "base_controller.022",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 11,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821309,
+    -1e-06,
+    -6.027332
+   ],
+   "world_bbox_max": [
+    2.821302,
+    1e-06,
+    3.847233
+   ]
+  },
+  {
+   "name": "base_controller.023",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 27,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821315,
+    -1e-06,
+    -4.127463
+   ],
+   "world_bbox_max": [
+    2.821295,
+    1e-06,
+    5.747103
+   ]
+  },
+  {
+   "name": "base_controller.024",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 13,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821309,
+    -1e-06,
+    -5.100053
+   ],
+   "world_bbox_max": [
+    2.821302,
+    1e-06,
+    4.774513
+   ]
+  },
+  {
+   "name": "base_controller.025",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -3.949823,
+    -1e-06,
+    -5.017004
+   ],
+   "world_bbox_max": [
+    3.949823,
+    1e-06,
+    7.396736
+   ]
+  },
+  {
+   "name": "base_controller.026",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -3.949823,
+    -1e-06,
+    -5.202616
+   ],
+   "world_bbox_max": [
+    3.949823,
+    1e-06,
+    8.621777
+   ]
+  },
+  {
+   "name": "base_controller.027",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 44,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -3.949823,
+    -1e-06,
+    -8.463914
+   ],
+   "world_bbox_max": [
+    3.949823,
+    1e-06,
+    8.463914
+   ]
+  },
+  {
+   "name": "base_controller.028",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 44,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -3.949823,
+    -1e-06,
+    -9.874566
+   ],
+   "world_bbox_max": [
+    3.949823,
+    1e-06,
+    9.874566
+   ]
+  },
+  {
+   "name": "base_controller.029",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 56,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -195.49231,
+    7.428574,
+    12.640471
+   ],
+   "world_bbox_max": [
+    -178.564468,
+    7.428576,
+    29.568298
+   ]
+  },
+  {
+   "name": "base_controller.030",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 56,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -9.874603,
+    -1e-06,
+    -9.874567
+   ],
+   "world_bbox_max": [
+    9.874523,
+    1e-06,
+    9.874565
+   ]
+  },
+  {
+   "name": "base_controller.031",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 50,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -8.463892,
+    -1e-06,
+    -4.760882
+   ],
+   "world_bbox_max": [
+    8.463945,
+    1e-06,
+    7.652859
+   ]
+  },
+  {
+   "name": "base_controller.032",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 50,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -9.874563,
+    -1e-06,
+    -4.901942
+   ],
+   "world_bbox_max": [
+    9.874563,
+    1e-06,
+    8.92245
+   ]
+  },
+  {
+   "name": "base_controller.033",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 136,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -152.438309,
+    7.428574,
+    14.080162
+   ],
+   "world_bbox_max": [
+    -138.389862,
+    7.428576,
+    28.128609
+   ]
+  },
+  {
+   "name": "base_controller.034",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 96,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.026786,
+    -1e-06,
+    -7.026767
+   ],
+   "world_bbox_max": [
+    7.026759,
+    1e-06,
+    7.026771
+   ]
+  },
+  {
+   "name": "base_controller.035",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 7,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -8.463919,
+    -1e-06,
+    -7.254781
+   ],
+   "world_bbox_max": [
+    8.463912,
+    1e-06,
+    9.673047
+   ]
+  },
+  {
+   "name": "base_controller_I.036",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 483,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -23.225496,
+    -2e-06,
+    -15.014679
+   ],
+   "world_bbox_max": [
+    13.451454,
+    2e-06,
+    10.377064
+   ]
+  },
+  {
+   "name": "base_controller_II.036",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -1.672467,
+    -0.0,
+    -1.67247
+   ],
+   "world_bbox_max": [
+    1.672467,
+    0.0,
+    1.672467
+   ]
+  },
+  {
+   "name": "common_controller.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 80,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1.481559,
+    -7.053262
+   ],
+   "world_bbox_max": [
+    7.053261,
+    2.312433,
+    7.053261
+   ]
+  },
+  {
+   "name": "common_controller.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 33,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -437.419098,
+    5.289699,
+    35.210907
+   ],
+   "world_bbox_max": [
+    -423.312592,
+    9.236994,
+    49.317429
+   ]
+  },
+  {
+   "name": "common_controller.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642617,
+    -0.0,
+    -2.821305
+   ],
+   "world_bbox_max": [
+    5.642604,
+    0.0,
+    2.821304
+   ]
+  },
+  {
+   "name": "common_controller.004",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821295,
+    -1e-06,
+    -5.642607
+   ],
+   "world_bbox_max": [
+    2.821309,
+    1e-06,
+    5.642611
+   ]
+  },
+  {
+   "name": "common_controller.005",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 40,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642614,
+    -0.0,
+    -2.821305
+   ],
+   "world_bbox_max": [
+    5.642607,
+    0.0,
+    2.821304
+   ]
+  },
+  {
+   "name": "common_controller.006",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 40,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821302,
+    -1e-06,
+    -5.642609
+   ],
+   "world_bbox_max": [
+    2.821309,
+    1e-06,
+    5.642609
+   ]
+  },
+  {
+   "name": "common_controller.007",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 36,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642614,
+    -1e-06,
+    -5.642609
+   ],
+   "world_bbox_max": [
+    5.642605,
+    1e-06,
+    5.642609
+   ]
+  },
+  {
+   "name": "common_controller.008",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 36,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642611,
+    -1e-06,
+    -5.642609
+   ],
+   "world_bbox_max": [
+    5.642609,
+    1e-06,
+    5.642609
+   ]
+  },
+  {
+   "name": "common_controller.009",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 6,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642609,
+    -0.0,
+    -1.692783
+   ],
+   "world_bbox_max": [
+    5.642609,
+    0.0,
+    1.692783
+   ]
+  },
+  {
+   "name": "common_controller.010",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 6,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -1.692783,
+    -1e-06,
+    -5.642609
+   ],
+   "world_bbox_max": [
+    1.692783,
+    1e-06,
+    5.642609
+   ]
+  },
+  {
+   "name": "common_controller.011",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642617,
+    -0.0,
+    -2.821305
+   ],
+   "world_bbox_max": [
+    5.642604,
+    0.0,
+    2.821305
+   ]
+  },
+  {
+   "name": "common_controller.012",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821295,
+    -1e-06,
+    -5.642611
+   ],
+   "world_bbox_max": [
+    2.821309,
+    1e-06,
+    5.642611
+   ]
+  },
+  {
+   "name": "common_controller.013",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 40,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642614,
+    -0.0,
+    -2.821305
+   ],
+   "world_bbox_max": [
+    5.642607,
+    0.0,
+    2.821305
+   ]
+  },
+  {
+   "name": "common_controller.014",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 40,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.821302,
+    -1e-06,
+    -5.642611
+   ],
+   "world_bbox_max": [
+    2.821309,
+    1e-06,
+    5.642611
+   ]
+  },
+  {
+   "name": "common_controller.015",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642614,
+    -1e-06,
+    -5.642611
+   ],
+   "world_bbox_max": [
+    5.642605,
+    1e-06,
+    5.642611
+   ]
+  },
+  {
+   "name": "common_controller.016",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642611,
+    -1e-06,
+    -5.642611
+   ],
+   "world_bbox_max": [
+    5.642609,
+    1e-06,
+    5.642611
+   ]
+  },
+  {
+   "name": "common_controller.017",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 8,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642609,
+    -0.0,
+    -1.692781
+   ],
+   "world_bbox_max": [
+    5.642609,
+    0.0,
+    1.692781
+   ]
+  },
+  {
+   "name": "common_controller.018",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 8,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -1.692783,
+    -1e-06,
+    -5.642611
+   ],
+   "world_bbox_max": [
+    1.692783,
+    1e-06,
+    5.642611
+   ]
+  },
+  {
+   "name": "directional_controller.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 10,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.564261,
+    -0.564261,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    0.564261,
+    0.564261,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 10,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.282131,
+    -0.282131,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    0.28213,
+    0.282131,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 10,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.564261,
+    -0.564261,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    0.564261,
+    0.564261,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.004",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 10,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.282131,
+    -0.282131,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    0.28213,
+    0.282131,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.005",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 6,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.564261,
+    -0.564261,
+    -6.112827
+   ],
+   "world_bbox_max": [
+    0.564261,
+    0.564261,
+    2.351085
+   ]
+  },
+  {
+   "name": "directional_controller.006",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 6,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.282131,
+    -0.28213,
+    -6.112827
+   ],
+   "world_bbox_max": [
+    0.28213,
+    0.282131,
+    2.351085
+   ]
+  },
+  {
+   "name": "directional_controller.007",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 6,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.564262,
+    -0.564261,
+    -6.112827
+   ],
+   "world_bbox_max": [
+    0.56426,
+    0.564261,
+    2.351085
+   ]
+  },
+  {
+   "name": "directional_controller.008",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 6,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -0.282131,
+    -0.28213,
+    -6.112827
+   ],
+   "world_bbox_max": [
+    0.28213,
+    0.282131,
+    2.351085
+   ]
+  },
+  {
+   "name": "directional_controller.009",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 21,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231956,
+    -0.564261,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    4.231957,
+    0.564261,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.010",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 21,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231956,
+    -0.282131,
+    -4.231953
+   ],
+   "world_bbox_max": [
+    4.231957,
+    0.282131,
+    4.231959
+   ]
+  },
+  {
+   "name": "directional_controller.011",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 21,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231958,
+    -0.564261,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    4.231956,
+    0.564261,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.012",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 21,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231958,
+    -0.282131,
+    -4.231953
+   ],
+   "world_bbox_max": [
+    4.231956,
+    0.282131,
+    4.231959
+   ]
+  },
+  {
+   "name": "directional_controller.013",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 31,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231956,
+    -4.231957,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    4.231956,
+    4.231957,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.014",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 31,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231956,
+    -4.231957,
+    -4.231953
+   ],
+   "world_bbox_max": [
+    4.231956,
+    4.231957,
+    4.231959
+   ]
+  },
+  {
+   "name": "directional_controller.015",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 31,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231959,
+    -4.231957,
+    -4.231956
+   ],
+   "world_bbox_max": [
+    4.231953,
+    4.231957,
+    4.231956
+   ]
+  },
+  {
+   "name": "directional_controller.016",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 31,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -4.231959,
+    -4.231957,
+    -4.231953
+   ],
+   "world_bbox_max": [
+    4.231953,
+    4.231957,
+    4.231959
+   ]
+  },
+  {
+   "name": "directional_controller.017",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 24,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.289948,
+    -1e-06,
+    -5.289953
+   ],
+   "world_bbox_max": [
+    5.289944,
+    1e-06,
+    5.289939
+   ]
+  },
+  {
+   "name": "eye_controller.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 102,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -10.579879,
+    -1e-06,
+    -3.526631
+   ],
+   "world_bbox_max": [
+    10.579906,
+    1e-06,
+    3.526631
+   ]
+  },
+  {
+   "name": "eye_controller.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 126,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -10.579879,
+    -1e-06,
+    -3.526631
+   ],
+   "world_bbox_max": [
+    10.579906,
+    1e-06,
+    3.526631
+   ]
+  },
+  {
+   "name": "eye_controller.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 96,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -1e-06,
+    -7.053261
+   ],
+   "world_bbox_max": [
+    7.053261,
+    1e-06,
+    7.053261
+   ]
+  },
+  {
+   "name": "Fk_Ik_switch_controller_I.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 407,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.937225,
+    -1e-06,
+    -6.157468
+   ],
+   "world_bbox_max": [
+    6.1989,
+    0.0,
+    1.720922
+   ]
+  },
+  {
+   "name": "Fk_Ik_switch_controller_I.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 407,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.937225,
+    -1e-06,
+    -6.157508
+   ],
+   "world_bbox_max": [
+    6.1989,
+    0.0,
+    1.720884
+   ]
+  },
+  {
+   "name": "Fk_Ik_switch_controller_I.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 407,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.937225,
+    -1e-06,
+    -6.157498
+   ],
+   "world_bbox_max": [
+    6.1989,
+    0.0,
+    1.720891
+   ]
+  },
+  {
+   "name": "Fk_Ik_switch_controller_II.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.0906,
+    -0.0,
+    -2.090594
+   ],
+   "world_bbox_max": [
+    2.090574,
+    0.0,
+    2.09058
+   ]
+  },
+  {
+   "name": "Fk_Ik_switch_controller_II.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 36,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.0906,
+    -0.0,
+    -2.090587
+   ],
+   "world_bbox_max": [
+    2.090574,
+    0.0,
+    2.090587
+   ]
+  },
+  {
+   "name": "Fk_Ik_switch_controller_II.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -2.0906,
+    -0.0,
+    -2.090594
+   ],
+   "world_bbox_max": [
+    2.090574,
+    0.0,
+    2.09058
+   ]
+  },
+  {
+   "name": "other_controller.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 90,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -416.259338,
+    0.375324,
+    84.583748
+   ],
+   "world_bbox_max": [
+    -402.152832,
+    14.481846,
+    98.690262
+   ]
+  },
+  {
+   "name": "other_controller.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 8,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -7.053261,
+    -7.053262,
+    -7.053262
+   ],
+   "world_bbox_max": [
+    7.053261,
+    7.053262,
+    7.053262
+   ]
+  },
+  {
+   "name": "other_controller.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 64,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -373.939819,
+    5.588021,
+    84.58374
+   ],
+   "world_bbox_max": [
+    -359.833313,
+    10.525305,
+    98.690262
+   ]
+  },
+  {
+   "name": "other_controller.004",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 12,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -6.347932,
+    -1e-06,
+    -6.347932
+   ],
+   "world_bbox_max": [
+    6.347932,
+    1e-06,
+    6.347932
+   ]
+  },
+  {
+   "name": "other_controller.005",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 48,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -6.347936,
+    -1e-06,
+    -6.347946
+   ],
+   "world_bbox_max": [
+    6.347936,
+    1e-06,
+    6.347919
+   ]
+  },
+  {
+   "name": "other_controller.006",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 66,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -373.821045,
+    7.428589,
+    110.373962
+   ],
+   "world_bbox_max": [
+    -359.952118,
+    7.42859,
+    116.720703
+   ]
+  },
+  {
+   "name": "other_controller.007",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 20,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -350.664032,
+    7.428584,
+    95.375221
+   ],
+   "world_bbox_max": [
+    -340.789459,
+    7.428586,
+    116.111809
+   ]
+  },
+  {
+   "name": "rotational_controller.001",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 84,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.924734,
+    -1e-06,
+    -5.924747
+   ],
+   "world_bbox_max": [
+    5.924747,
+    1e-06,
+    5.924734
+   ]
+  },
+  {
+   "name": "rotational_controller.002",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 76,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.924747,
+    -1e-06,
+    -5.924727
+   ],
+   "world_bbox_max": [
+    5.924734,
+    1e-06,
+    5.924754
+   ]
+  },
+  {
+   "name": "rotational_controller.003",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 166,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.924734,
+    -5.924739,
+    -5.924737
+   ],
+   "world_bbox_max": [
+    5.924747,
+    5.924739,
+    5.924744
+   ]
+  },
+  {
+   "name": "rotational_controller.004",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 150,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.924754,
+    -5.924739,
+    -5.924734
+   ],
+   "world_bbox_max": [
+    5.924727,
+    5.924739,
+    5.924747
+   ]
+  },
+  {
+   "name": "rotational_controller.005",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 246,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -259.959106,
+    1.503843,
+    64.552467
+   ],
+   "world_bbox_max": [
+    -248.109619,
+    13.353321,
+    76.401955
+   ]
+  },
+  {
+   "name": "rotational_controller.006",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 222,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -259.959076,
+    1.503846,
+    78.658997
+   ],
+   "world_bbox_max": [
+    -248.109604,
+    13.353325,
+    90.508476
+   ]
+  },
+  {
+   "name": "rotational_controller.007",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 68,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.92473,
+    -1e-06,
+    -5.924727
+   ],
+   "world_bbox_max": [
+    5.924747,
+    1e-06,
+    5.924754
+   ]
+  },
+  {
+   "name": "rotational_controller.008",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 72,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.924747,
+    -1e-06,
+    -5.92474
+   ],
+   "world_bbox_max": [
+    5.924734,
+    1e-06,
+    5.92474
+   ]
+  },
+  {
+   "name": "rotational_controller.009",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 68,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.924747,
+    -1e-06,
+    -5.924727
+   ],
+   "world_bbox_max": [
+    5.924734,
+    1e-06,
+    5.924754
+   ]
+  },
+  {
+   "name": "rotational_controller.010",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 72,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.92474,
+    -1e-06,
+    -5.92474
+   ],
+   "world_bbox_max": [
+    5.92474,
+    1e-06,
+    5.92474
+   ]
+  },
+  {
+   "name": "rotational_controller.011",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 30,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642611,
+    -1e-06,
+    -5.642624
+   ],
+   "world_bbox_max": [
+    5.642607,
+    1e-06,
+    5.642597
+   ]
+  },
+  {
+   "name": "rotational_controller.012",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.64366,
+    -1e-06,
+    -5.642059
+   ],
+   "world_bbox_max": [
+    5.641561,
+    1e-06,
+    5.643162
+   ]
+  },
+  {
+   "name": "rotational_controller.013",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 30,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642617,
+    -1e-06,
+    -5.642624
+   ],
+   "world_bbox_max": [
+    5.642604,
+    1e-06,
+    5.642597
+   ]
+  },
+  {
+   "name": "rotational_controller.014",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 32,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.641561,
+    -1e-06,
+    -5.642059
+   ],
+   "world_bbox_max": [
+    5.64366,
+    1e-06,
+    5.643162
+   ]
+  },
+  {
+   "name": "rotational_controller.015",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 34,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642611,
+    -1e-06,
+    -5.642631
+   ],
+   "world_bbox_max": [
+    5.642611,
+    1e-06,
+    5.64259
+   ]
+  },
+  {
+   "name": "rotational_controller.016",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 38,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.640828,
+    -1e-06,
+    -5.642644
+   ],
+   "world_bbox_max": [
+    5.644393,
+    1e-06,
+    5.642577
+   ]
+  },
+  {
+   "name": "rotational_controller.017",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 33,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.642604,
+    -1e-06,
+    -5.717577
+   ],
+   "world_bbox_max": [
+    5.642617,
+    1e-06,
+    5.567643
+   ]
+  },
+  {
+   "name": "rotational_controller.018",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 35,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -5.641642,
+    -1e-06,
+    -5.990142
+   ],
+   "world_bbox_max": [
+    5.643579,
+    1e-06,
+    5.295078
+   ]
+  },
+  {
+   "name": "_Credit",
+   "type": "FONT",
+   "parent": null
+  },
+  {
+   "name": "SK_Manny_Simple",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 48705,
+   "materials": [
+    "MI_Manny_01",
+    "MI_Manny_02"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "Armature"
+    ]
+   ],
+   "world_bbox_min": [
+    -55.437031,
+    -28.099476,
+    -0.020281
+   ],
+   "world_bbox_max": [
+    55.437031,
+    14.392334,
+    180.523621
+   ]
+  },
+  {
+   "name": "SK_Manny_Arms",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 20326,
+   "materials": [
+    "MI_Manny_01",
+    "MI_Manny_02"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "Armature"
+    ]
+   ],
+   "world_bbox_min": [
+    -55.437035,
+    -28.099483,
+    89.261299
+   ],
+   "world_bbox_max": [
+    55.437027,
+    11.696644,
+    151.663254
+   ]
+  },
+  {
+   "name": "Armature",
+   "type": "ARMATURE",
+   "parent": null,
+   "bones": 263,
+   "bone_names": [
+    "root",
+    "pelvis",
+    "spine_01",
+    "spine_02",
+    "spine_03",
+    "spine_04",
+    "spine_05",
+    "neck_01",
+    "neck_02",
+    "head",
+    "clavicle_l",
+    "upperarm_l",
+    "lowerarm_l",
+    "lowerarm_twist_02_l",
+    "lowerarm_twist_01_l",
+    "hand_l",
+    "index_metacarpal_l",
+    "index_01_l",
+    "index_02_l",
+    "index_03_l",
+    "middle_metacarpal_l",
+    "middle_01_l",
+    "middle_02_l",
+    "middle_03_l",
+    "thumb_01_l",
+    "thumb_02_l",
+    "thumb_03_l",
+    "pinky_metacarpal_l",
+    "pinky_01_l",
+    "pinky_02_l",
+    "pinky_03_l",
+    "ring_metacarpal_l",
+    "ring_01_l",
+    "ring_02_l",
+    "ring_03_l",
+    "upperarm_twist_01_l",
+    "upperarm_twist_02_l",
+    "clavicle_r",
+    "upperarm_r",
+    "lowerarm_r",
+    "lowerarm_twist_02_r",
+    "lowerarm_twist_01_r",
+    "hand_r",
+    "pinky_metacarpal_r",
+    "pinky_01_r",
+    "pinky_02_r",
+    "pinky_03_r",
+    "ring_metacarpal_r",
+    "ring_01_r",
+    "ring_02_r",
+    "ring_03_r",
+    "middle_metacarpal_r",
+    "middle_01_r",
+    "middle_02_r",
+    "middle_03_r",
+    "index_metacarpal_r",
+    "index_01_r",
+    "index_02_r",
+    "index_03_r",
+    "thumb_01_r",
+    "thumb_02_r",
+    "thumb_03_r",
+    "upperarm_twist_01_r",
+    "upperarm_twist_02_r",
+    "thigh_r",
+    "calf_r",
+    "foot_r",
+    "ball_r",
+    "calf_twist_02_r",
+    "calf_twist_01_r",
+    "thigh_twist_01_r",
+    "thigh_twist_02_r",
+    "thigh_l",
+    "calf_l",
+    "foot_l",
+    "ball_l",
+    "calf_twist_02_l",
+    "calf_twist_01_l",
+    "thigh_twist_01_l",
+    "thigh_twist_02_l",
+    "ik_foot_root",
+    "ik_foot_l",
+    "ik_foot_r",
+    "ik_hand_root",
+    "ik_hand_gun",
+    "ik_hand_l",
+    "ik_hand_r",
+    "interaction",
+    "center_of_mass",
+    "CB_root",
+    "CB_pelvis",
+    "REF_pelvis",
+    "CB_spine_01",
+    "REF_spine_01",
+    "CB_spine_02",
+    "REF_spine_02",
+    "CB_spine_03",
+    "REF_spine_03",
+    "CB_spine_04",
+    "REF_spine_04",
+    "CB_spine_05",
+    "REF_spine_05",
+    "CB_neck_01",
+    "REF_neck_01",
+    "CB_neck_02",
+    "REF_neck_02",
+    "CB_head",
+    "REF_head",
+    "CB_clavicle_l",
+    "REF_clavicle_l",
+    "CB_upperarm_l",
+    "REF_upperarm_l",
+    "CB_lowerarm_l",
+    "REF_lowerarm_l",
+    "CB_lowerarm_twist_02_l",
+    "REF_lowerarm_twist_02_l",
+    "CB_lowerarm_twist_01_l",
+    "REF_lowerarm_twist_01_l",
+    "CB_hand_l",
+    "REF_hand_l",
+    "CB_index_metacarpal_l",
+    "REF_index_metacarpal_l",
+    "CB_index_01_l",
+    "REF_index_01_l",
+    "CB_index_02_l",
+    "REF_index_02_l",
+    "CB_index_03_l",
+    "REF_index_03_l",
+    "CB_middle_metacarpal_l",
+    "REF_middle_metacarpal_l",
+    "CB_middle_01_l",
+    "REF_middle_01_l",
+    "CB_middle_02_l",
+    "REF_middle_02_l",
+    "CB_middle_03_l",
+    "REF_middle_03_l",
+    "CB_pinky_metacarpal_l",
+    "REF_pinky_metacarpal_l",
+    "CB_pinky_01_l",
+    "REF_pinky_01_l",
+    "CB_pinky_02_l",
+    "REF_pinky_02_l",
+    "CB_pinky_03_l",
+    "REF_pinky_03_l",
+    "CB_ring_metacarpal_l",
+    "REF_ring_metacarpal_l",
+    "CB_ring_01_l",
+    "REF_ring_01_l",
+    "CB_ring_02_l",
+    "REF_ring_02_l",
+    "CB_ring_03_l",
+    "REF_ring_03_l",
+    "CB_thumb_01_l",
+    "CB_thumb_02_l",
+    "REF_thumb_02_l",
+    "CB_thumb_03_l",
+    "REF_thumb_03_l",
+    "REF_thumb_01_l",
+    "CB_upperarm_twist_01_l",
+    "REF_upperarm_twist_01_l",
+    "CB_upperarm_twist_02_l",
+    "REF_upperarm_twist_02_l",
+    "CB_clavicle_r",
+    "CB_upperarm_r",
+    "CB_lowerarm_r",
+    "CB_lowerarm_twist_02_r",
+    "REF_lowerarm_twist_02_r",
+    "CB_lowerarm_twist_01_r",
+    "REF_lowerarm_twist_01_r",
+    "REF_lowerarm_r",
+    "CB_hand_r",
+    "REF_hand_r",
+    "CB_pinky_metacarpal_r",
+    "CB_pinky_01_r",
+    "CB_pinky_02_r",
+    "CB_pinky_03_r",
+    "REF_pinky_03_r",
+    "REF_pinky_02_r",
+    "REF_pinky_01_r",
+    "REF_pinky_metacarpal_r",
+    "CB_ring_metacarpal_r",
+    "CB_ring_01_r",
+    "CB_ring_02_r",
+    "CB_ring_03_r",
+    "REF_ring_03_r",
+    "REF_ring_02_r",
+    "REF_ring_01_r",
+    "REF_ring_metacarpal_r",
+    "CB_middle_metacarpal_r",
+    "CB_middle_01_r",
+    "CB_middle_02_r",
+    "CB_middle_03_r",
+    "REF_middle_03_r",
+    "REF_middle_02_r",
+    "REF_middle_01_r",
+    "REF_middle_metacarpal_r",
+    "CB_index_metacarpal_r",
+    "CB_index_01_r",
+    "CB_index_02_r",
+    "CB_index_03_r",
+    "REF_index_03_r",
+    "REF_index_02_r",
+    "REF_index_01_r",
+    "REF_index_metacarpal_r",
+    "CB_thumb_01_r",
+    "CB_thumb_02_r",
+    "CB_thumb_03_r",
+    "REF_thumb_03_r",
+    "REF_thumb_02_r",
+    "REF_thumb_01_r",
+    "CB_upperarm_twist_01_r",
+    "REF_upperarm_twist_01_r",
+    "CB_upperarm_twist_02_r",
+    "REF_upperarm_twist_02_r",
+    "REF_upperarm_r",
+    "REF_clavicle_r",
+    "CB_thigh_r",
+    "REF_thigh_r",
+    "CB_calf_r",
+    "REF_calf_r",
+    "CB_foot_r",
+    "REF_foot_r",
+    "CB_ball_r",
+    "REF_ball_r",
+    "CB_calf_twist_02_r",
+    "REF_calf_twist_02_r",
+    "CB_calf_twist_01_r",
+    "REF_calf_twist_01_r",
+    "CB_thigh_twist_01_r",
+    "REF_thigh_twist_01_r",
+    "CB_thigh_twist_02_r",
+    "REF_thigh_twist_02_r",
+    "CB_thigh_l",
+    "REF_thigh_l",
+    "CB_calf_l",
+    "REF_calf_l",
+    "CB_foot_l",
+    "REF_foot_l",
+    "CB_ball_l",
+    "REF_ball_l",
+    "CB_calf_twist_02_l",
+    "REF_calf_twist_02_l",
+    "CB_calf_twist_01_l",
+    "REF_calf_twist_01_l",
+    "CB_thigh_twist_01_l",
+    "REF_thigh_twist_01_l",
+    "CB_thigh_twist_02_l",
+    "REF_thigh_twist_02_l",
+    "CB_ik_hand_root",
+    "CB_ik_hand_l",
+    "REF_ik_hand_l",
+    "CB_ik_hand_r",
+    "REF_ik_hand_r",
+    "CB_pole_elbow_r",
+    "CB_pole_elbow_l",
+    "REF_root",
+    "CB_ik_foot_root",
+    "CB_ik_foot_l",
+    "CB_pole_knee_r",
+    "CB_pole_knee_l",
+    "CB_ik_foot_r",
+    "CB_Gun",
+    "CB_Head_LookAt"
+   ]
+  },
+  {
+   "name": "Camera",
+   "type": "CAMERA",
+   "parent": null
+  },
+  {
+   "name": "Motion_Reference_Cubes",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 24,
+   "materials": [
+    "M_Motion_Reference"
+   ],
+   "modifiers": [
+    [
+     "MIRROR",
+     null
+    ]
+   ],
+   "world_bbox_min": [
+    174.165527,
+    -447.479004,
+    94.380112
+   ],
+   "world_bbox_max": [
+    323.784058,
+    -312.590607,
+    232.731689
+   ]
+  },
+  {
+   "name": "CS_Cube",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 8,
+   "materials": [],
+   "modifiers": [],
+   "world_bbox_min": [
+    -23.800562,
+    -1.0,
+    -1.0
+   ],
+   "world_bbox_max": [
+    -21.800562,
+    1.0,
+    1.0
+   ]
+  },
+  {
+   "name": "SKEL_AssaultRifle",
+   "type": "ARMATURE",
+   "parent": null,
+   "bones": 4,
+   "bone_names": [
+    "Grip",
+    "Trigger",
+    "Bolt",
+    "Magazine"
+   ]
+  },
+  {
+   "name": "SK_AssaultRifle",
+   "type": "MESH",
+   "parent": "SKEL_AssaultRifle",
+   "vertices": 5004,
+   "materials": [
+    "M_AssaultRifle"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     "SKEL_AssaultRifle"
+    ]
+   ],
+   "world_bbox_min": [
+    -8.406878,
+    -63.255367,
+    141.507431
+   ],
+   "world_bbox_max": [
+    -2.987012,
+    11.590471,
+    162.884598
+   ]
+  },
+  {
+   "name": "SM_AssaultRifle_Magazine",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 748,
+   "materials": [
+    "M_AssaultRifle"
+   ],
+   "modifiers": [],
+   "world_bbox_min": [
+    -8.214996,
+    -27.55728,
+    137.4422
+   ],
+   "world_bbox_max": [
+    -4.489002,
+    -19.446615,
+    154.985199
+   ]
+  },
+  {
+   "name": "SM_AssaultRifle_Casing",
+   "type": "MESH",
+   "parent": null,
+   "vertices": 84,
+   "materials": [
+    "M_AssaultRifle"
+   ],
+   "modifiers": [
+    [
+     "ARMATURE",
+     null
+    ]
+   ],
+   "world_bbox_min": [
+    -0.389381,
+    -2.220924,
+    -0.449632
+   ],
+   "world_bbox_max": [
+    0.389396,
+    1.295218,
+    0.449622
+   ]
+  }
+ ],
+ "actions": [
+  {
+   "name": "A_FP_AssaultRifle_Aim_Pose",
+   "frame_range": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Equip",
+   "frame_range": [
+    0.0,
+    31.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Fire",
+   "frame_range": [
+    0.0,
+    23.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Fire_Aimed",
+   "frame_range": [
+    0.0,
+    23.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Holster",
+   "frame_range": [
+    0.0,
+    21.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Idle_Loop",
+   "frame_range": [
+    -6.0,
+    105.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Idle_Loop_Aimed",
+   "frame_range": [
+    -6.0,
+    105.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Idle_Pose",
+   "frame_range": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Reload",
+   "frame_range": [
+    0.0,
+    94.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Run_Loop",
+   "frame_range": [
+    -2.0,
+    27.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Walk_F_Loop",
+   "frame_range": [
+    -2.0,
+    30.0
+   ]
+  },
+  {
+   "name": "A_FP_AssaultRifle_Walk_F_Loop_Aimed",
+   "frame_range": [
+    -2.0,
+    30.0
+   ]
+  },
+  {
+   "name": "A_FP_WEP_AssaultRifle_Fire",
+   "frame_range": [
+    0.0,
+    4.0
+   ]
+  },
+  {
+   "name": "A_FP_WEP_AssaultRifle_Reload",
+   "frame_range": [
+    0.0,
+    57.0
+   ]
+  },
+  {
+   "name": "A_M4_HK416_drum_reload",
+   "frame_range": [
+    0.0,
+    126.0
+   ]
+  },
+  {
+   "name": "A_M4_HK416_drum_reload_empty",
+   "frame_range": [
+    0.0,
+    162.0
+   ]
+  },
+  {
+   "name": "A_Reference",
+   "frame_range": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "A_WEP_Reference",
+   "frame_range": [
+    0.0,
+    0.0
+   ]
+  },
+  {
+   "name": "M4_aim",
+   "frame_range": [
+    0.0,
+    2.0
+   ]
+  },
+  {
+   "name": "M4_aim_fire",
+   "frame_range": [
+    0.0,
+    46.0
+   ]
+  },
+  {
+   "name": "M4_equip",
+   "frame_range": [
+    0.0,
+    62.0
+   ]
+  },
+  {
+   "name": "M4_fire",
+   "frame_range": [
+    0.0,
+    46.0
+   ]
+  },
+  {
+   "name": "M4_HK416_equip_charge",
+   "frame_range": [
+    0.0,
+    38.0
+   ]
+  },
+  {
+   "name": "M4_HK416_reload",
+   "frame_range": [
+    0.0,
+    126.0
+   ]
+  },
+  {
+   "name": "M4_HK416_reload_empty",
+   "frame_range": [
+    0.0,
+    162.0
+   ]
+  },
+  {
+   "name": "M4_idle",
+   "frame_range": [
+    0.0,
+    180.0
+   ]
+  },
+  {
+   "name": "M4_inspect",
+   "frame_range": [
+    0.0,
+    180.0
+   ]
+  },
+  {
+   "name": "M4_MAT_equip_charge",
+   "frame_range": [
+    0.0,
+    38.0
+   ]
+  },
+  {
+   "name": "M4_MAT_reload",
+   "frame_range": [
+    0.0,
+    126.0
+   ]
+  },
+  {
+   "name": "M4_MAT_reload_empty",
+   "frame_range": [
+    0.0,
+    162.0
+   ]
+  },
+  {
+   "name": "M4_reload",
+   "frame_range": [
+    0.0,
+    188.0
+   ]
+  },
+  {
+   "name": "M4_reload_empty",
+   "frame_range": [
+    0.0,
+    188.0
+   ]
+  },
+  {
+   "name": "M4_reload_empty_BoltRelease",
+   "frame_range": [
+    0.0,
+    228.0
+   ]
+  },
+  {
+   "name": "M4_reload_empty_FingerCurl",
+   "frame_range": [
+    0.0,
+    188.0
+   ]
+  },
+  {
+   "name": "M4_reload_FingerCurl",
+   "frame_range": [
+    0.0,
+    188.0
+   ]
+  },
+  {
+   "name": "REFERENCE_wrap_empty",
+   "frame_range": [
+    0.0,
+    162.0
+   ]
+  },
+  {
+   "name": "REFERENCE_wrap_reload",
+   "frame_range": [
+    0.0,
+    126.0
+   ]
+  }
+ ],
+ "bones": {
+  "root": {
+   "head": [
+    1e-06,
+    -0.006631,
+    -1.625751
+   ],
+   "tail": [
+    1e-06,
+    -0.031631,
+    -1.625751
+   ],
+   "parent": "VM_Root"
+  },
+  "pelvis": {
+   "head": [
+    0.0,
+    0.016177,
+    -0.666783
+   ],
+   "tail": [
+    0.0,
+    -0.008772,
+    -0.668367
+   ],
+   "parent": "root"
+  },
+  "upperarm_l": {
+   "head": [
+    -0.190099,
+    -0.032204,
+    -0.189916
+   ],
+   "tail": [
+    -0.189284,
+    -0.057157,
+    -0.191205
+   ],
+   "parent": "clavicle_l"
+  },
+  "lowerarm_l": {
+   "head": [
+    -0.35007,
+    -0.025701,
+    -0.416831
+   ],
+   "tail": [
+    -0.358495,
+    -0.044731,
+    -0.430683
+   ],
+   "parent": "upperarm_l"
+  },
+  "hand_l": {
+   "head": [
+    -0.477686,
+    0.150358,
+    -0.581086
+   ],
+   "tail": [
+    -0.461548,
+    0.143899,
+    -0.599054
+   ],
+   "parent": "lowerarm_l"
+  },
+  "index_01_l": {
+   "head": [
+    -0.505319,
+    0.230684,
+    -0.628971
+   ],
+   "tail": [
+    -0.487721,
+    0.216973,
+    -0.640254
+   ],
+   "parent": "index_metacarpal_l"
+  },
+  "thumb_01_l": {
+   "head": [
+    -0.462267,
+    0.178327,
+    -0.596167
+   ],
+   "tail": [
+    -0.471218,
+    0.169057,
+    -0.61759
+   ],
+   "parent": "hand_l"
+  },
+  "upperarm_r": {
+   "head": [
+    0.190099,
+    -0.032204,
+    -0.189921
+   ],
+   "tail": [
+    0.190914,
+    -0.00725,
+    -0.188631
+   ],
+   "parent": "clavicle_r"
+  },
+  "lowerarm_r": {
+   "head": [
+    0.350067,
+    -0.025701,
+    -0.416832
+   ],
+   "tail": [
+    0.341642,
+    -0.006671,
+    -0.40298
+   ],
+   "parent": "upperarm_r"
+  },
+  "hand_r": {
+   "head": [
+    0.477683,
+    0.150357,
+    -0.581086
+   ],
+   "tail": [
+    0.493821,
+    0.156816,
+    -0.563118
+   ],
+   "parent": "lowerarm_r"
+  },
+  "index_01_r": {
+   "head": [
+    0.505319,
+    0.230684,
+    -0.62897
+   ],
+   "tail": [
+    0.522917,
+    0.244395,
+    -0.617686
+   ],
+   "parent": "index_metacarpal_r"
+  },
+  "thumb_01_r": {
+   "head": [
+    0.462267,
+    0.178327,
+    -0.59617
+   ],
+   "tail": [
+    0.453316,
+    0.187594,
+    -0.574746
+   ],
+   "parent": "hand_r"
+  },
+  "WPN_root": {
+   "head": [
+    0.057688,
+    0.143748,
+    -0.098353
+   ],
+   "tail": [
+    0.057688,
+    0.118748,
+    -0.098353
+   ],
+   "parent": "ik_hand_gun"
+  },
+  "WPN_SOCKET_Magazine": {
+   "head": [
+    0.064472,
+    0.225198,
+    -0.176231
+   ],
+   "tail": [
+    0.064472,
+    0.200198,
+    -0.176231
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_Trigger": {
+   "head": [
+    0.055565,
+    0.193367,
+    -0.073658
+   ],
+   "tail": [
+    0.055565,
+    0.168367,
+    -0.073658
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_bolt": {
+   "head": [
+    0.054815,
+    0.212838,
+    -0.065514
+   ],
+   "tail": [
+    0.054815,
+    0.187838,
+    -0.065514
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_RearSight": {
+   "head": [
+    0.046152,
+    0.179072,
+    0.033941
+   ],
+   "tail": [
+    0.046152,
+    0.154072,
+    0.033941
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_FrontSight": {
+   "head": [
+    0.046223,
+    0.492525,
+    0.033668
+   ],
+   "tail": [
+    0.046223,
+    0.467525,
+    0.033668
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_SOCKET_Muzzle": {
+   "head": [
+    0.051412,
+    0.593748,
+    -0.026627
+   ],
+   "tail": [
+    0.051412,
+    0.568748,
+    -0.026627
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_SOCKET_Eject": {
+   "head": [
+    0.024378,
+    0.223748,
+    -0.015943
+   ],
+   "tail": [
+    0.024378,
+    0.198748,
+    -0.015943
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_ChargingHandle": {
+   "head": [
+    0.049408,
+    0.133748,
+    -0.003715
+   ],
+   "tail": [
+    0.049408,
+    0.108748,
+    -0.003715
+   ],
+   "parent": "WPN_root"
+  },
+  "WPN_BoltCatch": {
+   "head": [
+    0.038902,
+    0.237148,
+    -0.058037
+   ],
+   "tail": [
+    0.038902,
+    0.212148,
+    -0.058037
+   ],
+   "parent": "WPN_root"
+  }
+ },
+ "pose_idle0": {
+  "lowerarm_l": {
+   "head_world": [
+    -0.150167,
+    0.08068,
+    -0.173205
+   ],
+   "tail_world": [
+    -0.151796,
+    0.089659,
+    -0.196479
+   ],
+   "matrix_rows": [
+    [
+     0.594967,
+     -0.06513,
+     -0.801106,
+     -0.150167
+    ],
+    [
+     0.762976,
+     0.359188,
+     0.537447,
+     0.08068
+    ],
+    [
+     0.252744,
+     -0.930989,
+     0.263398,
+     -0.173205
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "hand_l": {
+   "head_world": [
+    0.011967,
+    0.288599,
+    -0.104329
+   ],
+   "tail_world": [
+    0.030169,
+    0.28371,
+    -0.087904
+   ],
+   "matrix_rows": [
+    [
+     0.251666,
+     0.7281,
+     0.6376,
+     0.011967
+    ],
+    [
+     0.96777,
+     -0.195573,
+     -0.158654,
+     0.288599
+    ],
+    [
+     0.009182,
+     0.656978,
+     -0.753853,
+     -0.104329
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "lowerarm_r": {
+   "head_world": [
+    0.139898,
+    -0.233301,
+    -0.148443
+   ],
+   "tail_world": [
+    0.131566,
+    -0.23475,
+    -0.124917
+   ],
+   "matrix_rows": [
+    [
+     0.149335,
+     -0.333277,
+     -0.93092,
+     0.139898
+    ],
+    [
+     -0.988753,
+     -0.057961,
+     -0.137864,
+     -0.233301
+    ],
+    [
+     -0.008009,
+     0.941041,
+     -0.33819,
+     -0.148443
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "hand_r": {
+   "head_world": [
+    0.099205,
+    0.036146,
+    -0.14626
+   ],
+   "tail_world": [
+    0.12383,
+    0.038458,
+    -0.142618
+   ],
+   "matrix_rows": [
+    [
+     0.076972,
+     0.985003,
+     -0.154414,
+     0.099205
+    ],
+    [
+     -0.991113,
+     0.092455,
+     0.095709,
+     0.036146
+    ],
+    [
+     0.108552,
+     0.145679,
+     0.983357,
+     -0.14626
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_root": {
+   "head_world": [
+    0.057677,
+    0.143919,
+    -0.098113
+   ],
+   "tail_world": [
+    0.057696,
+    0.118919,
+    -0.098113
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000788,
+     -0.08511,
+     0.057677
+    ],
+    [
+     -0.000783,
+     -1.0,
+     -9.3e-05,
+     0.143919
+    ],
+    [
+     -0.08511,
+     -2.6e-05,
+     0.996372,
+     -0.098113
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_SOCKET_Magazine": {
+   "head_world": [
+    0.064237,
+    0.225376,
+    -0.176002
+   ],
+   "tail_world": [
+    0.064257,
+    0.200376,
+    -0.176002
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.064237
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.225376
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     -0.176002
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_Trigger": {
+   "head_world": [
+    0.055566,
+    0.193536,
+    -0.073412
+   ],
+   "tail_world": [
+    0.055586,
+    0.168536,
+    -0.073413
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.055566
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.193536
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     -0.073412
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_bolt": {
+   "head_world": [
+    0.054817,
+    0.213006,
+    -0.065266
+   ],
+   "tail_world": [
+    0.054836,
+    0.188007,
+    -0.065266
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.054817
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.213006
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     -0.065266
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_RearSight": {
+   "head_world": [
+    0.046385,
+    0.179231,
+    0.034206
+   ],
+   "tail_world": [
+    0.046404,
+    0.154231,
+    0.034205
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.046385
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.179231
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     0.034206
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_FrontSight": {
+   "head_world": [
+    0.046209,
+    0.492684,
+    0.033942
+   ],
+   "tail_world": [
+    0.046229,
+    0.467684,
+    0.033941
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.046209
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.492684
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     0.033942
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_SOCKET_Muzzle": {
+   "head_world": [
+    0.051195,
+    0.593912,
+    -0.026362
+   ],
+   "tail_world": [
+    0.051214,
+    0.568912,
+    -0.026362
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.051195
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.593912
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     -0.026362
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_SOCKET_Eject": {
+   "head_world": [
+    0.024474,
+    0.22389,
+    -0.015632
+   ],
+   "tail_world": [
+    0.024493,
+    0.19889,
+    -0.015632
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000787,
+     -0.08511,
+     0.024474
+    ],
+    [
+     -0.000782,
+     -1.0,
+     -9.4e-05,
+     0.22389
+    ],
+    [
+     -0.08511,
+     -2.7e-05,
+     0.996372,
+     -0.015632
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_ChargingHandle": {
+   "head_world": [
+    0.049599,
+    0.13391,
+    -0.003458
+   ],
+   "tail_world": [
+    0.049619,
+    0.10891,
+    -0.003458
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000788,
+     -0.08511,
+     0.049599
+    ],
+    [
+     -0.000783,
+     -1.0,
+     -9.3e-05,
+     0.13391
+    ],
+    [
+     -0.08511,
+     -2.6e-05,
+     0.996372,
+     -0.003458
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  },
+  "WPN_BoltCatch": {
+   "head_world": [
+    0.038901,
+    0.237303,
+    -0.057756
+   ],
+   "tail_world": [
+    0.03892,
+    0.212303,
+    -0.057756
+   ],
+   "matrix_rows": [
+    [
+     -0.996371,
+     0.000788,
+     -0.08511,
+     0.038901
+    ],
+    [
+     -0.000783,
+     -1.0,
+     -9.3e-05,
+     0.237303
+    ],
+    [
+     -0.08511,
+     -2.6e-05,
+     0.996372,
+     -0.057756
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ]
+  }
+ },
+ "armature": "SK_M4_Infima",
+ "scale": [
+  1.0,
+  1.0,
+  1.0
+ ],
+ "world_matrix_rows": [
+  [
+   1.0,
+   0.0,
+   0.0,
+   0.0
+  ],
+  [
+   0.0,
+   1.0,
+   0.0,
+   0.0
+  ],
+  [
+   0.0,
+   0.0,
+   1.0,
+   0.0
+  ],
+  [
+   0.0,
+   0.0,
+   0.0,
+   1.0
+  ]
+ ]
+}
