@@ -212,9 +212,12 @@ def z_extent(handle):
 
 # =============================================================== 1. stylobate
 base = SV.create_mesh().handle
+# Two 10 cm steps instead of one 20 cm lip: with an uneven ground a single 20 cm edge sits
+# right at the character's 40 cm step limit (FPSGAMECharacter.cpp:187), which strands the
+# player outside the colonnade. 10 cm each climbs anywhere.
 SV.append_revolve_polygon(base, tf(), [
-    v2(0.0, 0.0), v2(R_STYLO, 0.0), v2(R_STYLO, 8.0),
-    v2(R_STYLO - 8.0, 12.0), v2(R_STYLO_TOP, H_STYLO), v2(0.0, H_STYLO),
+    v2(0.0, 0.0), v2(R_STYLO, 0.0), v2(R_STYLO, 10.0),
+    v2(R_STYLO - 14.0, 10.0), v2(R_STYLO - 20.0, H_STYLO), v2(0.0, H_STYLO),
 ], 0.0, STEPS, 360.0, 0)
 info(base, "base raw")
 publish(base, BASE_PATH, "AlignedBoxes", 1)

@@ -46,12 +46,18 @@ STEPS = 96
 LEVEL = "/Game/GameMaps/DayNight_Lighting"
 ORIGIN = (1350.0, -400.0)
 
-# id, caption, mesh path, footprint cells  (footprint must equal the mesh bbox / 20)
+# id, caption, mesh path, footprint cells.
+# X/Y are 48 cells for EVERY piece on purpose: the build system centres a mesh's bbox in its
+# footprint (AVoxelBuildPrefabActor::ComputeTransform), so equal footprints mean the pieces
+# line up when stacked on the same cell. With per-mesh footprints (48/44/40) stacking on one
+# cell silently shifts each piece 40-80 cm off the ones below it.
+# Z stays the piece's own height so the reservation matches what it occupies.
+# The entablature-only mesh is NOT registered: pavilion_colonnade already carries it, and two
+# overlapping rings confuse the stack (the likely cause of a blocked bay if both were placed).
 PIECES = [
-    ("pavilion_base", "罗马凉亭台基 9.6米", D + "/SM_RomanPavilionBase_20", (48, 48, 1)),
-    ("pavilion_colonnade", "罗马凉亭柱环 10柱", COLONNADE, (44, 44, 17)),
-    ("pavilion_arch", "罗马凉亭额枋环", D + "/SM_RomanPavilionArch_20", (44, 44, 4)),
-    ("pavilion_dome", "罗马凉亭穹顶 140凹格", D + "/SM_RomanPavilionDome_20", (40, 40, 20)),
+    ("pavilion_base", "罗马凉亭①台基 9.6米", D + "/SM_RomanPavilionBase_20", (48, 48, 1)),
+    ("pavilion_colonnade", "罗马凉亭②柱环10柱(放①上)", COLONNADE, (48, 48, 17)),
+    ("pavilion_dome", "罗马凉亭③穹顶140凹格(放②上)", D + "/SM_RomanPavilionDome_20", (48, 48, 20)),
 ]
 DOORS = {
     "door_wood": ("/Script/FPSGAME.ColdSteelDoor", "wood"),
@@ -264,7 +270,13 @@ for entry in pal.get_editor_property("components") or []:
             LOG.append(("door_" + pid, False))
     rebuilt = [e for e in rebuilt if str(e.get_editor_property("id")) != pid]
     rebuilt.append(copy)
-log("preserved %d existing entries" % len(rebuilt))
+# entries this script no longer registers must be dropped explicitly: rebuilding copies
+# whatever the palette already had, so a stale entry would otherwise survive every run.
+RETIRED = ("pavilion_arch",)
+before_retire = len(rebuilt)
+rebuilt = [e for e in rebuilt if str(e.get_editor_property("id")) not in RETIRED]
+log("preserved %d existing entries, retired %d (%s)" % (
+    len(rebuilt), before_retire - len(rebuilt), ",".join(RETIRED)))
 
 stone = wait(STONE, 10.0)
 for pid, caption, mesh_path, cells in PIECES:
@@ -275,7 +287,11 @@ for pid, caption, mesh_path, cells in PIECES:
         continue
     actual = dims_of(mesh_path)
     wanted = tuple(c * V for c in cells)
-    status = "OK" if actual and all(abs(a - w) < 0.5 for a, w in zip(actual, wanted)) else "MISMATCH"
+    # Footprint XY is deliberately the same (48 cells) for every piece so they align when
+    # stacked on one cell; the mesh only has to FIT inside. Z must equal the mesh height.
+    ok_xy = bool(actual) and cells[0] == cells[1] == 48 and actual[0] <= wanted[0] + 0.5 and actual[1] <= wanted[1] + 0.5
+    ok_z = bool(actual) and abs(actual[2] - wanted[2]) < 0.5
+    status = "OK" if (ok_xy and ok_z) else ("BAD-XY" if not ok_xy else "BAD-Z")
     log("piece %-20s mesh=%-32s dims=%s wanted=%s %s" % (
         pid, mesh_path.split("/")[-1], actual, wanted, status))
     if status != "OK":
