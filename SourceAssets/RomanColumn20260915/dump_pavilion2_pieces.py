@@ -9,7 +9,6 @@ PIECES = {
     "p2_arch": "/Game/Props/RomanColumn20260915/SM_RomanPavilionArch_20",
     "p2_dome": "/Game/Props/RomanColumn20260915/SM_RomanPavilionDome_20",
     "p2_column": "/Game/Props/RomanColumn20260915/SM_RomanColumn_Detailed",
-    "p2_old_dome": "/Game/Props/RomanColumn20260915/SM_PavilionDome_20",
 }
 
 

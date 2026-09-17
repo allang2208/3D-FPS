@@ -1,4 +1,9 @@
-"""Register the roman pieces as placeable prefabs in the voxel build palette.
+"""HISTORICAL (2026-09-16): registered the first pavilion pieces into the then-inactive palette
+/Game/Building/Voxels/DA_VoxelBuildPalette. Those assets are archived in
+trash/roman-pavilion-v2-20260917/; the active palette is maintained by
+integrate_pavilion2_20260917.py and build_pavilion_component_20260917.py. Do not run it again.
+
+Register the roman pieces as placeable prefabs in the voxel build palette.
 
 Runs headless:  UnrealEditor-Cmd <uproject> -run=pythonscript -script=<this> -nullrhi -unattended
 Footprint is in 20 cm grid cells (the save contract for the building system).

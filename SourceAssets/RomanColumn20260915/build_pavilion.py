@@ -1,4 +1,9 @@
-"""Roman domed pavilion, white marble, voxel-aligned (20 cm grid).
+"""HISTORICAL (2026-09-16): the first pavilion build. Its self_union(dome, True, True) is what
+flattened the hemisphere into a straight cone; superseded by build_pavilion2_20260917.py.
+Kept as the record of that defect, and its assets are archived in
+trash/roman-pavilion-v2-20260917/. Do not run it again.
+
+Roman domed pavilion, white marble, voxel-aligned (20 cm grid).
 
 Layers (all multiples of 20):
   stylobate disc   diameter 640 x 20                 (32 x 1 voxels)

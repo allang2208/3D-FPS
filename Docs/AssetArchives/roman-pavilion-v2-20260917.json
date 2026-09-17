@@ -2,7 +2,7 @@
     "Task": "Roman pavilion v2 (roman-pavilion-v2-20260917)",
     "ArchivedOn": "2026-09-17",
     "Rule": "WORKFLOW.md section 4",
-    "Count": 18,
+    "Count": 19,
     "Files": [
         {
             "Name": "place_pavilion2_20260917.py",
@@ -165,6 +165,15 @@
             "SHA256": "71E839AA0EF3E50A584B55C1DAC819B5FB7CC49AA65BF4D737EE7F3180152876",
             "Reason": "2026-09-16 pavilion dome, the straight cone (self_union bTrimFlaps ate the arc). Replaced by SM_RomanPavilionDome_20 and then folded into SM_RomanPavilionFull_20",
             "Replacement": "Content/Props/RomanColumn20260915/SM_RomanPavilionFull_20.uasset"
+        },
+        {
+            "Name": "recon_pavilion_20260917.py",
+            "OriginalPath": "SourceAssets/RomanColumn20260915/recon_pavilion_20260917.py",
+            "ArchivedTo": "trash/roman-pavilion-v2-20260917/recon_pavilion_20260917.py",
+            "Bytes": 3753,
+            "SHA256": "613ABFF034D44CB755DE72376D6407A9831FD5E00258DB31B3CC78004A773E69",
+            "Reason": "First recon of the level/palette; superseded by verify_pavilion2_20260917.py and it referenced the archived 2026-09-16 pavilion meshes",
+            "Replacement": "SourceAssets/RomanColumn20260915/verify_pavilion2_20260917.py"
         }
     ]
 }
