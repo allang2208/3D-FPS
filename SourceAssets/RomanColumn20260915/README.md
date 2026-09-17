@@ -490,6 +490,28 @@ bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最�
 **给用户的现场判断法**：游戏里按 `~` 输入 `showcollision 1`，可直接看到碰撞体——柱间若被某个看不见的体挡住，一眼就能
 看出是哪一件、在什么高度。另外建造面板只在**进入建造世界时**读一次调色板，改过的三件要重进世界才会生效。
 
+### 真正堵住入口的是穹顶的碰撞体（用户再回报"还是进不去"后定位）
+
+上一轮我按"柱子碰撞不可能横跨柱距"推理，并在无头进程里扫过射线，结论是"能通行"——**那个结论是错的**，
+因为无头 commandlet 里物理查询只认本进程新建的 actor（见下一条），没打中不代表通。本轮改用**运行中编辑器**内的
+`Tools/AssetPipeline/ue_python_exec.py` 通道实测（那里的物理是活的），一步就点名了元凶：
+
+| 探针位置（r=42 球体重叠） | 修复前 | 修复后 |
+| --- | --- | --- |
+| 凉亭中心 z=96（胸口） | `['RomanPavilion2_Dome']` | **nothing** |
+| 凉亭中心 z=200 / 300 / 500 | `['Dome']`（含 Arch @300） | **nothing** |
+| 柱间通道 r=360 z=96 | `['Floor','Dome','Base','Column_01']` | 只有 `Column_01`（正确） |
+| 10 个柱间胶囊扫掠（z=96/130/170） | **0/10 通过** | **10/10 通过** |
+
+根因：`generate_collision` 给穹顶**多塞了一个超大的 sphyl（胶囊）形状**——穹顶网格在 z 360–760，而那个胶囊从
+地面一直垂到穹顶，把整个内部和每个柱间全罩住了。台基与柱子的碰撞反而是正常的（台基只在 z=20 命中、柱子只在柱身命中）。
+
+修法：**壳体与环不用生成形状，清空简单碰撞 + `CTF_USE_COMPLEX_AS_SIMPLE`**（三角面自己就是碰撞体：内部通透、
+子弹仍打在穹顶上）。这正是本工程建造体素块用的口径（`VoxelBuildWorldMesh.cpp` 的 `CTF_UseSimpleAsComplex`）。
+已在运行中的编辑器内改写并保存：台基 `{'box':1}`、柱环 `{'box':71}`（逐柱盒）、柱子 `{'convex':70}`、
+穹顶/额枋 `shapes=none + complex-as-simple`。改完必须让场景里的 actor 重建物理状态才生效
+（`set_collision_enabled(NO_COLLISION)` → `QUERY_AND_PHYSICS`；该 Python 绑定里没有 `recreate_physics_state`）。
+
 ### 本次踩到的新坑（已同步进技能与记忆）
 
 1. **UE 5.8 Python 的 `unreal.Rotator(...)` 构造参数顺序是 (roll, pitch, yaw)**，不是 C++ 的 (pitch, yaw, roll)
@@ -507,8 +529,13 @@ bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最�
 6. **旋成剖面的 z 一律用构件局部坐标（0 = 底面）**：写成世界高度会让整个网格偏离 pivot，表现为"构件飘在
    半空 + 另一处出现莫名的一圈"。构件建好后先读 `get_bounds()` 的本地 z 是否为 0 起，再摆场。
 7. **无头 commandlet 里的物理查询只认本进程新建的 actor**：从 `.umap` 读入的关卡几何**永远不返回命中**
-   （连地面都打不中），因此"射线没打中 = 这里通的"是**假阴性**，不能作为通行性结论。判定碰撞要么在同一个进程里
-   重新摆一遍再扫（新 actor 可查询），要么交给用户在游戏里用 `showcollision 1` 看。
+   （连地面都打不中），"射线没打中 = 这里通的"是**假阴性**。**编辑器内的远程通道（`ue_python_exec.py`）则是活的**：
+   碰撞判定要在编辑器里做，并且用 `SystemLibrary.sphere_overlap_actors` **点名阻挡者**——该通道里 HitResult 的
+   `location`/`hit_actor` 字段读不出来，但重叠查询返回的是 actor 本身，反而更好用。
+8. **`generate_collision` 会给圆弧网格塞超大的 sphyl（胶囊）形状**：穹顶的碰撞因此从地面一直垂到穹顶，把整个
+   建筑内部堵死（网格本体在 360–760 完全正常）。壳体/环的正确口径是清空简单碰撞 + `CTF_USE_COMPLEX_AS_SIMPLE`；
+   逐独立壳的 `AlignedBoxes` 对盒子类构件才是对的。改资产后运行中的 actor 要用
+   `set_collision_enabled(NO_COLLISION)` → `QUERY_AND_PHYSICS` 重建物理状态才会生效。
 
 ### 验证边界
 

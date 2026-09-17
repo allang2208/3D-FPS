@@ -102,6 +102,37 @@ def wait(path, timeout=20.0):
     return None
 
 
+def collision_summary(path):
+    """Shape counts straight out of the asset: the only collision evidence available headless.
+
+    A box per connected shell is what AlignedBoxes gives; any convex_elems left over means some
+    shell was welded into a blob, which is what can silently plug the space between columns.
+    """
+    mesh = unreal.EditorAssetLibrary.load_asset(path)
+    setup = mesh.get_editor_property("body_setup") if mesh else None
+    if not setup:
+        return None
+    agg = None
+    for prop in ("agg_geom", "aggregate_geometry"):
+        try:
+            agg = setup.get_editor_property(prop)
+        except Exception:
+            continue
+        if agg:
+            break
+    if not agg:
+        return {}
+    counts = {}
+    for elem in ("box_elems", "convex_elems", "sphere_elems", "sphyl_elems", "taper_elems"):
+        try:
+            arr = agg.get_editor_property(elem)
+            if arr:
+                counts[elem.replace("_elems", "")] = len(arr)
+        except Exception:
+            pass
+    return counts
+
+
 def dims_of(path):
     m = wait(path, 10.0)
     if not m:
@@ -169,13 +200,23 @@ do("uv", SV.auto_uv(col, "XAtlas", 0))
 do("save", SV.save_mesh_to_static_mesh(col, COLONNADE, True, True, False, True))
 SV.release_mesh(col)
 wait(COLONNADE)
-do("collision", SV.generate_collision(COLONNADE, "ConvexHulls", 12, 25, True))
+do("collision", SV.generate_collision(COLONNADE, "AlignedBoxes", 1, 25, True))
 do("material", SV.set_asset_materials(COLONNADE, STONE, True))
 _bb = wait(COLONNADE).get_bounds()
 _lo = _bb.origin.z - _bb.box_extent.z
 LOG.append(("pivot_colonnade", abs(_lo) < 0.5))
 log("colonnade dims: %s  local z %.1f..%.1f (pivot must be the foot) %s" % (
     dims_of(COLONNADE), _lo, _bb.origin.z + _bb.box_extent.z, "OK" if abs(_lo) < 0.5 else "OFFSET"))
+
+# The shared column asset is used by the pavilion, the level's colonnade and this rack; its
+# collision was 70 convex hulls. One box per shell is predictable and cannot reach past the
+# column's own 80 cm footprint, which is the user's question ("is it the columns' collision?").
+do("column collision", SV.generate_collision(COLUMN, "AlignedBoxes", 1, 25, True))
+for label, path_ in (("colonnade", COLONNADE), ("column", COLUMN)):
+    counts = collision_summary(path_) or {}
+    ok = bool(counts.get("box")) and not counts.get("convex")
+    LOG.append(("shapes_" + label, ok))
+    log("collision %-12s %s %s" % (label, counts, "OK (box per shell)" if ok else "UNEXPECTED"))
 
 # ------------------------------------------------- 3. prove the collision is walkable
 # Runs last on purpose: opening the level in the same process as the palette write is what

@@ -144,6 +144,99 @@ def wait(path, timeout=20.0):
     return None
 
 
+# Collision method note: "ConvexHulls" can weld several separate shells of one mesh into a
+# single blob (the pavilion arch asked for 8 hulls on a ring and got a solid disc, the
+# colonnade rack got 852 hulls for ten columns). "AlignedBoxes" emits one axis-aligned box per
+# connected shell — a box per column, a box per dentil — which is what a building piece wants
+# and is the only collision I can still reason about with certainty, since headless physics
+# queries do not answer for level geometry.
+def collision_summary(path):
+    """Shape counts straight out of the asset: the only collision evidence available headless.
+
+    A box per connected shell is what AlignedBoxes gives; any convex_elems left over means some
+    shell was welded into a blob, which is what can silently plug the space between columns.
+    """
+    mesh = unreal.EditorAssetLibrary.load_asset(path)
+    setup = mesh.get_editor_property("body_setup") if mesh else None
+    if not setup:
+        return None
+    agg = None
+    for prop in ("agg_geom", "aggregate_geometry"):
+        try:
+            agg = setup.get_editor_property(prop)
+        except Exception:
+            continue
+        if agg:
+            break
+    if not agg:
+        return {}
+    counts = {}
+    for elem in ("box_elems", "convex_elems", "sphere_elems", "sphyl_elems", "taper_elems"):
+        try:
+            arr = agg.get_editor_property(elem)
+            if arr:
+                counts[elem.replace("_elems", "")] = len(arr)
+        except Exception:
+            pass
+    return counts
+
+
+def collision_summary(path):
+    """Shape counts straight out of the asset (headless physics cannot answer)."""
+    mesh = unreal.EditorAssetLibrary.load_asset(path)
+    setup = mesh.get_editor_property("body_setup") if mesh else None
+    if not setup:
+        return None
+    agg = None
+    for prop in ("agg_geom", "aggregate_geometry"):
+        try:
+            agg = setup.get_editor_property(prop)
+        except Exception:
+            continue
+        if agg:
+            break
+    counts = {}
+    if agg:
+        for elem in ("box_elems", "convex_elems", "sphere_elems", "sphyl_elems", "taper_elems"):
+            try:
+                arr = agg.get_editor_property(elem)
+                counts[elem.replace("_elems", "")] = len(arr) if arr else 0
+            except Exception:
+                pass
+    return counts
+
+
+def make_triangle_collision(path):
+    """Shells and rings: drop the generated simple shapes and let the mesh be the collision.
+
+    The generators handed the dome an oversized capsule (a "sphyl" element) that reached from
+    its springing at z=360 all the way to the ground, so the dome's collision plugged the whole
+    pavilion and every bay — the player could not walk in. A hollow shell has no meaningful
+    box/hull approximation anyway; complex-as-simple keeps the interior open and still stops
+    bullets on the shell.
+    """
+    mesh = unreal.EditorAssetLibrary.load_asset(path)
+    setup = mesh.get_editor_property("body_setup") if mesh else None
+    if not setup:
+        log("no body setup for %s" % path)
+        return False
+    for prop in ("agg_geom", "aggregate_geometry"):
+        try:
+            agg = setup.get_editor_property(prop)
+        except Exception:
+            continue
+        if not agg:
+            continue
+        for elem in ("box_elems", "convex_elems", "sphere_elems", "sphyl_elems", "taper_elems"):
+            try:
+                agg.set_editor_property(elem, [])
+            except Exception:
+                pass
+        break
+    setup.set_editor_property("collision_trace_flag", unreal.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)
+    return True
+
+
 def disk_stamp(path):
     """In-process success is not evidence: the arch asset once reported a save and stayed
     stale on disk. Only the file's size and mtime count."""
@@ -154,7 +247,7 @@ def disk_stamp(path):
     return st.st_size, time.strftime("%H:%M:%S", time.localtime(st.st_mtime)), st.st_mtime
 
 
-def publish(handle, path, method="ConvexHulls", hulls=8):
+def publish(handle, path, method="AlignedBoxes", hulls=8):
     do("uv", SV.auto_uv(handle, "XAtlas", 0))
     do("save", SV.save_mesh_to_static_mesh(handle, path, True, True, False, True))
     SV.release_mesh(handle)
@@ -179,6 +272,22 @@ def publish(handle, path, method="ConvexHulls", hulls=8):
                               "%d B / %s" % (stamp[0], stamp[1]) if stamp else "missing",
                               "FRESH" if fresh else "STALE (save did not land!)"))
     do("collision", SV.generate_collision(path, method, hulls, 25, True))
+    counts = collision_summary(path) or {}
+    # A shell or a ring must not carry a generated solid: the dome's came out with a capsule
+    # spanning the whole pavilion. Those get their triangles as collision instead.
+    hollow = any(counts.get(k) for k in ("sphere", "sphyl", "taper")) or path.rsplit("/", 1)[-1].startswith(
+        ("SM_RomanPavilionDome", "SM_RomanPavilionArch"))
+    if hollow:
+        make_triangle_collision(path)
+        counts = collision_summary(path) or {}
+        log("collision %-28s %s -> triangle collision (shell/ring)" % (path.rsplit("/", 1)[-1], counts))
+        LOG.append(("collision_shapes_" + path.rsplit("/", 1)[-1],
+                    not any(counts.get(k) for k in ("box", "convex", "sphere", "sphyl", "taper"))))
+    else:
+        boxes_only = bool(counts.get("box")) and not counts.get("convex")
+        LOG.append(("collision_shapes_" + path.rsplit("/", 1)[-1], boxes_only))
+        log("collision %-28s %s %s" % (path.rsplit("/", 1)[-1], counts,
+                                       "OK (box per shell)" if boxes_only else "UNEXPECTED"))
     do("material", SV.set_asset_materials(path, MAT, True))
     bb = asset.get_bounds()
     log("   %-28s bbox %.0f x %.0f x %.0f  tris=%d" % (path.rsplit("/", 1)[-1],
@@ -262,7 +371,7 @@ for k in range(N_DENTIL):
 SV.append_mesh_at_transforms(arch, dentil, dentil_at)
 SV.release_mesh(dentil)
 info(arch, "arch raw")
-publish(arch, ARCH_PATH, "ConvexHulls", 8)
+publish(arch, ARCH_PATH, "AlignedBoxes", 1)
 
 # ==================================================================== 3. dome
 dome = SV.create_mesh().handle
@@ -418,7 +527,7 @@ lo_z, hi_z = z_extent(dome)
 log("vertex z range: %.2f .. %.2f (want 0 .. %.1f)" % (lo_z, hi_z, R_OUT))
 geometry_ok = abs(lo_z) < 0.5 and abs(hi_z - R_OUT) < 0.5
 info(dome, "dome final")
-publish(dome, DOME_PATH, "ConvexHulls", 8)
+publish(dome, DOME_PATH, "AlignedBoxes", 1)
 
 # =============================================================== 4. scene swap
 # Only touch the level once the coffers actually read as coffers; the old pavilion
