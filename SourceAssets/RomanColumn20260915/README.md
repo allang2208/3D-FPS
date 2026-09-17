@@ -512,6 +512,23 @@ bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最�
 穹顶/额枋 `shapes=none + complex-as-simple`。改完必须让场景里的 actor 重建物理状态才生效
 （`set_collision_enabled(NO_COLLISION)` → `QUERY_AND_PHYSICS`；该 Python 绑定里没有 `recreate_physics_state`）。
 
+### 凉亭专用圆板柱（用户要求"柱子上下的方形衔接件改成圆形"）
+
+用户指出：柱子上下两块**方形**垫板/顶板与圆形凉亭不协调。只改凉亭用柱，直线柱廊保持原样：
+
+| 项 | 值 |
+| --- | --- |
+| 新资产 | `SM_RomanColumn_Round_20`（柱身、20 道凹槽、柱头钟形与 `SM_RomanColumn_Detailed` 完全一致） |
+| 改动 | 柱础方板（z 0–20）与柱头方板（z 240–260）换成 **Ø80 圆盘**，其余壳体未动 |
+| 契约 | bbox 80 × 80 × 260、pivot 在底面、闭合无开口（32,908 面）、碰撞 = 逐壳 7 个盒 |
+| 用在哪 | 关卡凉亭的 10 根柱 + 建造调色板 `罗马凉亭②柱环10柱` 整体件；直线柱廊 6 根仍用方形柱 |
+
+做法（`build_round_column*.py` 迭代三次才对）：**按独立壳体选取**——方板是一个独立壳体，用
+`select_connected` 打角点 `(38.5, 38.5, 8)` / `(38.5, 38.5, 250)` 正好只在方板内部（圆盘那里是空的，
+所以选不中就是自检），删掉该壳体后**用剩余网格的 min/max z 反推方板高度**（20 / 240→260），再补 Ø80 圆盘。
+两次踩空的原因记在这里：按 z 分带 + "max|x| > 30"判断方形会把 Ø80 的圆盘也算成方形（圆的 max|x| 同样是 40，
+只有**对角半径** 56.5 才区分得出），第一次还因此把柱础和柱头整段误删。
+
 ### 本次踩到的新坑（已同步进技能与记忆）
 
 1. **UE 5.8 Python 的 `unreal.Rotator(...)` 构造参数顺序是 (roll, pitch, yaw)**，不是 C++ 的 (pitch, yaw, roll)
@@ -532,6 +549,9 @@ bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最�
    （连地面都打不中），"射线没打中 = 这里通的"是**假阴性**。**编辑器内的远程通道（`ue_python_exec.py`）则是活的**：
    碰撞判定要在编辑器里做，并且用 `SystemLibrary.sphere_overlap_actors` **点名阻挡者**——该通道里 HitResult 的
    `location`/`hit_actor` 字段读不出来，但重叠查询返回的是 actor 本身，反而更好用。
+9. `SV.selection_bounds` 在本绑定里**返回空**（不能用来校验选区）；要验证选区就用 `selection_count` +
+   删除后的 `get_mesh_info` 边界反推。`select_connected(handle, name, point)` 打一个"只有目标壳体才包含"的点，
+   是拆装多壳体网格最可靠的选取方式。
 8. **`generate_collision` 会给圆弧网格塞超大的 sphyl（胶囊）形状**：穹顶的碰撞因此从地面一直垂到穹顶，把整个
    建筑内部堵死（网格本体在 360–760 完全正常）。壳体/环的正确口径是清空简单碰撞 + `CTF_USE_COMPLEX_AS_SIMPLE`；
    逐独立壳的 `AlignedBoxes` 对盒子类构件才是对的。改资产后运行中的 actor 要用

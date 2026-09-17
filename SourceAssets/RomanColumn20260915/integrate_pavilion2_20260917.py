@@ -30,6 +30,9 @@ D = "/Game/Props/RomanColumn20260915"
 PALETTE = "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette"
 STONE = D + "/M_RomanStone_V2"
 COLUMN = D + "/SM_RomanColumn_Detailed"
+# the pavilion uses the round-plate variant so the circular colonnade does not carry square
+# bases and abaci; the linear colonnade in the level keeps the square-plate column
+ROUND_COLUMN = D + "/SM_RomanColumn_Round_20"
 COLONNADE = D + "/SM_RomanPavilionColonnade_20"
 V = 20.0
 
@@ -167,7 +170,7 @@ for k in range(N_DENTIL):
 SV.append_mesh_at_transforms(col, dentil, dentil_at)
 SV.release_mesh(dentil)
 
-loaded = SV.load_mesh_from_static_mesh(COLUMN, 0)
+loaded = SV.load_mesh_from_static_mesh(ROUND_COLUMN, 0)
 column_handle = getattr(loaded, "handle", None)
 if not column_handle:
     raise RuntimeError("cannot load %s" % COLUMN)
@@ -208,11 +211,10 @@ LOG.append(("pivot_colonnade", abs(_lo) < 0.5))
 log("colonnade dims: %s  local z %.1f..%.1f (pivot must be the foot) %s" % (
     dims_of(COLONNADE), _lo, _bb.origin.z + _bb.box_extent.z, "OK" if abs(_lo) < 0.5 else "OFFSET"))
 
-# The shared column asset is used by the pavilion, the level's colonnade and this rack; its
-# collision was 70 convex hulls. One box per shell is predictable and cannot reach past the
-# column's own 80 cm footprint, which is the user's question ("is it the columns' collision?").
-do("column collision", SV.generate_collision(COLUMN, "AlignedBoxes", 1, 25, True))
-for label, path_ in (("colonnade", COLONNADE), ("column", COLUMN)):
+# The shared square-plate column keeps the collision it already had (the level's linear
+# colonnade is signed off); the rack's own round-plate column gets its collision from the
+# build script, so nothing else is regenerated here.
+for label, path_ in (("colonnade", COLONNADE), ("round column", ROUND_COLUMN)):
     counts = collision_summary(path_) or {}
     ok = bool(counts.get("box")) and not counts.get("convex")
     LOG.append(("shapes_" + label, ok))
