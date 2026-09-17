@@ -20,7 +20,16 @@ namespace
     // 单格 1×1 体素块按一半大小绘制：20 cm 方块与 1 m 地块／1×5 直线同框时不再显得一样大
     // （2026-09-17 用户要求）。只影响单格请求，材质行缩略图与「单格」卡片同样适用。
     constexpr float SingleBlockFrameScale=.5f;
-    constexpr int32 MaxCachedIcons=16;
+    // 16 was one short: the marble row alone shows 5 shapes + 9 pieces, plus the three material
+    // row thumbnails, so visible entries exceeded the cap and the eviction pass had to run while
+    // every key was pinned. Cards that lost their icon stayed empty (2026-09-17 user report:
+    // pavilion and the 1 m / 3 m rails). Kept above the worst case instead of one short.
+    constexpr int32 MaxCachedIcons=32;
+    /** How many times a key may be re-queued after a failed build before it is given up on. */
+    constexpr int32 MaxBuildAttempts=3;
+    /** Build attempts per key. File-scope on purpose: a Live Coding patch may reset it, which only
+     *  costs one extra retry. A permanent blacklist (the old Failed set) left cards empty forever. */
+    static TMap<FString,int32> GIconAttempts;
     const TCHAR* ResolvedMaterialPath=TEXT("/Game/UI/GunsmithWorkbench/M_WeaponPreviewResolved.M_WeaponPreviewResolved");
     const TCHAR* StudioSkyPath=TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment");
     const TCHAR* DefaultStoneMesh=TEXT("/Game/Building/Voxels/Rounded/SM_Voxel20_Stone.SM_Voxel20_Stone");
@@ -39,7 +48,13 @@ FString UVoxelBuildIcons::KeyForPiece(FName PieceId)
 void UVoxelBuildIcons::Request(const FVoxelBuildIconRequest& Request)
 {
     if(Request.Key.IsEmpty()||Request.Mesh.IsNull())return;
-    if(Materials.Contains(Request.Key)||Pending.Contains(Request.Key)||Failed.Contains(Request.Key))return;
+    if(Materials.Contains(Request.Key)||Pending.Contains(Request.Key))return;
+    const int32 Tries=GIconAttempts.FindRef(Request.Key);
+    if(Tries>=MaxBuildAttempts)
+    {
+        UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: giving up key=%s after %d attempts"),*Request.Key,Tries);
+        return;
+    }
     Pending.Add(Request.Key);
     Queue.Add({Request});
 }
@@ -226,13 +241,17 @@ void UVoxelBuildIcons::Tick(float DeltaTime)
     Queue.RemoveAt(0);
     const bool bOk=Build(Job.Request);
     Pending.Remove(Job.Request.Key);
+    GIconAttempts.FindOrAdd(Job.Request.Key)++;
     if(!bOk)
     {
-        Failed.Add(Job.Request.Key);
-        UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: failed key=%s mesh=%s"),
-            *Job.Request.Key,*Job.Request.Mesh.ToString());
+        UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: failed key=%s attempt=%d mesh=%s"),
+            *Job.Request.Key,GIconAttempts.FindRef(Job.Request.Key),*Job.Request.Mesh.ToString());
         return;
     }
+    // Success is logged too: the drawer silently showing nothing is the symptom, and without a
+    // line per built key there is no way to tell "never built" from "built then recycled".
+    UE_LOG(LogTemp,Display,TEXT("VoxelBuildIcon: built key=%s cached=%d"),
+        *Job.Request.Key,Materials.Num());
     while(Materials.Num()>MaxCachedIcons)
     {
         FString Oldest;uint64 Use=MAX_uint64;
@@ -240,6 +259,8 @@ void UVoxelBuildIcons::Tick(float DeltaTime)
         for(const TPair<FString,uint64>& Entry:Uses)
             if(!VisibleKeys.Contains(Entry.Key)&&Entry.Value<Use){Use=Entry.Value;Oldest=Entry.Key;}
         if(Oldest.IsEmpty())break;
+        UE_LOG(LogTemp,Display,TEXT("VoxelBuildIcon: recycled key=%s (cache %d, nothing evictable was newer)"),
+            *Oldest,Materials.Num());
         ReleaseEntry(Oldest);
     }
 }
