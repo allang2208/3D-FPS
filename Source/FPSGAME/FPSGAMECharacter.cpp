@@ -46,6 +46,21 @@
 #include "Sound/SoundConcurrency.h"
 #include "Weapons/FPSVisualRecoil.h"
 #include "Weapons/PistolLocomotionAssets.h"
+#include "HAL/IConsoleManager.h"
+
+// Single live dial for the strength of the shot camera layer. The authored
+// bases inside AKMSource already carry the wanted default punch; this only
+// scales presentation (camera offsets and FOV punch), never aim, traces,
+// cadence or the viewmodel springs. Reload/equip camera strength lives in
+// its own component dial.
+static TAutoConsoleVariable<float> CameraShakeScale(TEXT("fps.Camera.Shake"),1.f,
+    TEXT("Multiplier on the per-shot camera shake: kick, jitter, trauma and FOV punch. 1 = authored base."));
+
+// The M4 fire clip carries the gun kick inside the animation; the AKM and QBZ
+// clips do not (see Docs/Weapons/rifle-fire-clip-recoil-20260917.md). This dial
+// scales the compensation layer that fills that gap.
+static TAutoConsoleVariable<float> ClipRecoilScale(TEXT("fps.Weapon.ClipRecoil"),1.f,
+    TEXT("Multiplier on the fire clip recoil compensation. 0 disables it, a negative value flips its direction."));
 #include "TimerManager.h"
 
 namespace AKMSource
@@ -61,13 +76,19 @@ namespace AKMSource
     constexpr float CameraKickStiffness = FWeaponHandling::CameraStiffness;
     constexpr float CameraKickDamping = FWeaponHandling::CameraDamping;
     constexpr float CameraADSExtraDamping = FWeaponHandling::CameraADSDamping;
-    constexpr float FeedbackScale = 0.5f;
+    // Amplitude base of the whole shot camera layer (kick, jitter, trauma). It
+    // was 0.5, which left the per-shot camera motion around 0.2 degrees - the
+    // viewmodel shook while the view behind the crosshair barely moved.
+    constexpr float FeedbackScale = 1.0f;
     constexpr float ViewmodelGain = 0.35f;
     constexpr float ADSCameraImpulse = 34.0f;
     constexpr float ADSAxialScale = 3.2f;
     constexpr float HipAxialScale = 2.2f;
     constexpr float ADSHorizontalScale = 0.30f;
-    constexpr float ShakeDecay = 3.5f;
+    // Trauma is squared when rendered, so the gain sets how many shots it takes
+    // for the sustained burst shake to become visible. 0.11 reaches full trauma
+    // inside one magazine; 3.0 keeps it alive across the gaps of a burst.
+    constexpr float ShakeDecay = 3.0f;
     constexpr float FOVPunchDecay = 6.5f;
     constexpr float FOVSmooth = 10.0f;
     constexpr float RecoveryDelay = 0.30f;
@@ -906,6 +927,7 @@ void AFPSGAMECharacter::UpdateWeaponFeedback(float DeltaSeconds)
     // Scale spring time, not frame-dependent interpolation or damping alone.
     // Peak impulse response retains its amplitude; higher stability settles sooner.
     const float FeedbackDelta = DeltaSeconds * WeaponHandling.RecoveryRate();
+    if(ClipRecoilSeconds>=0.f)ClipRecoilSeconds+=DeltaSeconds;
     AdvanceVisualWeaponRecoil(GetWorld()->GetTimeSeconds());
     AdvanceSpring(CameraKickPitch, CameraKickPitchVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
     AdvanceSpring(CameraKickYaw, CameraKickYawVelocity, AKMSource::CameraKickStiffness, AKMSource::CameraKickDamping + AKMSource::CameraADSExtraDamping * CameraADSFactor, FeedbackDelta);
@@ -987,7 +1009,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         MovementRoll+=3.f*DodgeWeight*FVector::DotProduct(Move->GetDodgeDirection(),ViewRight);
     }
     TargetLocation.Z += LandingOffset * (1.0f - CameraADSFactor * 0.8f) * CameraMotionScale;
-    const float TraumaStrength = FMath::Square(FireTrauma) * AKMSource::FeedbackScale * CameraMotionScale * (1.0f - 0.8f * CameraADSFactor);
+    const float TraumaStrength = FMath::Square(FireTrauma) * AKMSource::FeedbackScale * CameraShakeScale.GetValueOnGameThread() * CameraMotionScale * (1.0f - 0.8f * CameraADSFactor);
     const float NoiseRight = FMath::PerlinNoise1D(FeedbackTime * 11.0f) * 4.5f * TraumaStrength;
     const float NoiseUp = FMath::PerlinNoise1D(FeedbackTime * 13.0f + 91.3f) * 4.5f * TraumaStrength;
     TargetLocation += FVector(-CameraJitterPosition.Z * 100.0f, CameraJitterPosition.X * 100.0f + NoiseRight, CameraJitterPosition.Y * 100.0f + NoiseUp);
@@ -1066,6 +1088,18 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const FVector2D LookRate = (LookInput / FMath::Max(DeltaSeconds, 0.001f) / 60.0f).GetClampedToMaxSize(8.0f);
     WeaponSwayPosition = FMath::Lerp(WeaponSwayPosition, FVector(LookRate.X * 0.0006f, LookRate.Y * 0.0006f, 0.0f), 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
     WeaponSwayRotation = FMath::Lerp(WeaponSwayRotation, FVector(LookRate.Y * 0.002f, LookRate.X * 0.003f, 0.0f), 1.0f - FMath::Exp(-10.0f * DeltaSeconds));
+    // Fire clip compensation. A weapon whose fire animation carries no gun
+    // motion reads the reference punch here instead, so both present the same
+    // recoil. It is added after the spring clamps: it stands in for authored
+    // animation motion and must not be flattened by a spring limit.
+    const auto RecoilProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
+    // A negative multiplier flips the whole compensation, which is how the
+    // direction of the added motion is checked in game without a rebuild.
+    const float ClipWave=FPSVisualRecoil::ClipWave(ClipRecoilSeconds)*ClipRecoilScale.GetValueOnGameThread();
+    const FVector ClipPosition=RecoilProfile.ClipPosition*ClipWave;
+    const FVector ClipRotation=RecoilProfile.ClipRotation*ClipWave;
+    const FVector ClipADSPosition=RecoilProfile.ClipADSPosition*ClipWave;
+    const FVector ClipADSRotation=RecoilProfile.ClipADSRotation*ClipWave;
 
     FVector HipOffset(GunKickPosition.X, GunKickPosition.Y * 0.4f, GunKickPosition.Z * AKMSource::HipAxialScale);
     HipOffset += GunJitterPosition * 0.35f;
@@ -1085,14 +1119,17 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     const FVector SprintOffset = bPistol ? PistolLocomotionOffset : bUsingM4Infima
         ? (M4SprintOffset + FVector(0.25f * SprintStep, M4SprintSwayCM * SprintSide, 0.45f * SprintStep)) * SprintPoseFactor
         : FVector::ZeroVector;
-    const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress;
+    const FVector GodotPose = HipOffset + (WeaponBobPosition + WeaponSwayPosition + FVector(0.0f, -0.10f * LegacySprint, 0.0f)) * Suppress + ClipPosition;
     const FVector UEHipPose(-GodotPose.Z * 100.0f, GodotPose.X * 100.0f, GodotPose.Y * 100.0f);
     const float ScopeWeight=GetScopePresentationAlpha();
     const float ScopeConvergence=FMath::Lerp(1.f,FMath::Clamp(
         FMath::Tan(FMath::DegreesToRadians(EffectiveADSVerticalFOV()*.5f)) /
         FMath::Max(.01f,FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView*.5f))),.22f,1.f),ScopeWeight);
-    const float RecoilDistance = FMath::Clamp(GunKickPosition.Z * AKMSource::ADSAxialScale, -0.01f, 0.055f);
-    FVector2D Lateral(GunKickPosition.X * AKMSource::ADSHorizontalScale + GunJitterPosition.X, GunKickPosition.Y + GunJitterPosition.Y);
+    // The clip compensation is added at its measured scale, not through the
+    // spring conversions: it stands in for authored animation motion, and a
+    // matched rearward push is what keeps the sights on the eye line.
+    const float RecoilDistance = FMath::Clamp(GunKickPosition.Z * AKMSource::ADSAxialScale + ClipADSPosition.Z, -0.01f, 0.055f);
+    FVector2D Lateral(GunKickPosition.X * AKMSource::ADSHorizontalScale + GunJitterPosition.X + ClipADSPosition.X, GunKickPosition.Y + GunJitterPosition.Y + ClipADSPosition.Y);
     Lateral = Lateral.GetClampedToMaxSize(0.012f) * ScopeConvergence;
     const FVector UEADSRecoil(-RecoilDistance * 100.0f, Lateral.X * 18.0f, Lateral.Y * 18.0f);
     FHitResult WallHit;
@@ -1113,8 +1150,15 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
 
     FVector ADSKickAngles = GunKickRotation + GunJitterRotation + FVector(GunFlip, 0.0f, 0.0f);
     ADSKickAngles.Y = GunKickRotation.Y * AKMSource::ADSHorizontalScale + GunJitterRotation.Y;
-    ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale * ScopeConvergence;
-    const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress;
+    // The clip compensation rides outside the spring clamp: it stands in for
+    // authored animation motion, so it must not be flattened by a spring limit.
+    // Unlike the springs it keeps its measured scale (no VisualRecoilScale): the
+    // reference aimed clip is nearly rotation free, and scaling it down here
+    // would break the sight line it is meant to preserve. ADSRotationScale keeps
+    // long iron sight radii (AKM: 38.7 cm) from swinging the post out of the notch.
+    ADSKickAngles = ADSKickAngles.GetClampedToMaxSize(0.025f) * VisualRecoilScale * RecoilProfile.ADSRotationScale * ScopeConvergence
+        + ClipADSRotation * ScopeConvergence;
+    const FVector GodotAngles = HipAngles + (WeaponBobRotation + WeaponSwayRotation + FVector(0.39f * LegacySprint, 0.0f, 0.0f)) * Suppress + ClipRotation;
     const FRotator BaseRotation = GetViewmodelBaseRotation();
     const FRotator HipRotation(BaseRotation.Pitch + FMath::RadiansToDegrees(GodotAngles.X), BaseRotation.Yaw - FMath::RadiansToDegrees(GodotAngles.Y), BaseRotation.Roll - FMath::RadiansToDegrees(GodotAngles.Z));
     // Premultiply in camera space: adding pitch to a mesh already yawed 90 degrees
@@ -1274,8 +1318,10 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     AdvanceVisualWeaponRecoil(VisualNow);
     const double BurstReset=FMath::Clamp(static_cast<double>(FireInterval)*2.5,.25,.45);
     VisualBurstIndex=VisualNow-LastVisualShotAt>BurstReset?0:FMath::Min(VisualBurstIndex+1,8);
+    ClipRecoilSeconds=0.f;
     LastVisualShotAt=VisualNow;
     VisualRecoverAt=VisualNow+FMath::Clamp(static_cast<double>(FireInterval)*.8,.065,.12);
+    const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread());
     const auto VisualProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
     // A defined first pulse followed by smaller settled pulses, rather than
     // increasing random tumbling as the automatic burst continues.
@@ -1309,14 +1355,15 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     GunJitterPositionVelocity += PositionImpulse * VisualProfile.Jitter;
     GunJitterRotationVelocity += RotationImpulse * VisualProfile.Jitter;
     GunFlipVelocity += 1.5f * RecoilLoad * WeaponHandling.RecoilScale * VisualProfile.Flip * BurstGain;
-    CameraJitterPositionVelocity += PositionImpulse * 0.06f * AKMSource::FeedbackScale;
-    CameraJitterRotationVelocity += RotationImpulse * 0.18f * AKMSource::FeedbackScale;
-    const float ImpulseScale = FMath::Lerp(9.0f, 13.0f, WeaponADSFactor) * VisualRecoilScale * WeaponHandling.ShakeScale;
+    CameraJitterPositionVelocity += PositionImpulse * 0.11f * AKMSource::FeedbackScale * CameraShake;
+    CameraJitterRotationVelocity += RotationImpulse * 0.34f * AKMSource::FeedbackScale * CameraShake;
+    const float ImpulseScale = FMath::Lerp(13.0f, 19.0f, WeaponADSFactor) * VisualRecoilScale * WeaponHandling.ShakeScale * CameraShake;
     CameraKickPitchVelocity += (Pattern.X + FMath::FRandRange(-0.0012f, 0.0012f)) * ImpulseScale * AKMSource::FeedbackScale;
     CameraKickYawVelocity += (Pattern.Y + FMath::FRandRange(-0.0008f, 0.0008f)) * ImpulseScale * AKMSource::FeedbackScale;
-    FOVPunch = FMath::Lerp(0.65f, 0.15f, WeaponADSFactor);
-    // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear.
-    FireTrauma = FMath::Min(1.0f, FireTrauma + 0.06f * RecoilLoad * FMath::Sqrt(WeaponHandling.ShakeScale));
+    FOVPunch = FMath::Lerp(1.2f, 0.4f, WeaponADSFactor) * CameraShake;
+    // Trauma is squared when rendered: sqrt keeps a single-shot amplitude linear,
+    // and the gain below is what makes a burst build up before the crosshair.
+    FireTrauma = FMath::Min(1.0f, FireTrauma + 0.11f * RecoilLoad * FMath::Sqrt(WeaponHandling.ShakeScale));
 }
 
 FVector2D AFPSGAMECharacter::GetCrosshairHalfExtent(FVector2D LocalSize) const

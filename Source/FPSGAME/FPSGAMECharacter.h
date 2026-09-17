@@ -552,3 +552,7 @@ private:
     float AuditMaxMechanicalLateness = 0.0f;
     float AuditMaxEmptyBoltTravelCM = 0.0f;
 };
+    // Seconds since the last shot for the fire clip compensation layer, negative
+    // when idle. Weapons whose own fire animation carries no gun motion read
+    // their recoil from FPSVisualRecoil::FProfile::ClipPosition/Rotation.
+    float ClipRecoilSeconds = -1.0f;

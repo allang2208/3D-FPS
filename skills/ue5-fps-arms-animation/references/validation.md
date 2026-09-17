@@ -56,3 +56,6 @@ UE 命令行位于 `E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/`，Blen
 - 实际混音录制时避免同时运行 Blender 渲染、MAT 烘焙或其他重 UE 检查，减少截图遗漏和事件延迟。仍要报告实际缺图。
 - commandlet 的既有 GameFeatureData 或 MCP 端口报错与动画检查分开判断。保留退出码、错误和明确产物读回证据；新错误不能一律列为“已有”。MAT 保存后的已知 Sequencer 退出问题见 [MAT 实操](mat-editing.md)。
 - 不修改运行时的动画任务，只更新技能/文档时，检查前置元数据、链接、镜像和变更边界即可；不要为文档再跑 50 项游戏审计。
+- **DLL 被编辑器占用（LNK1104）**：`Tools/Build/Build-Editor.ps1` 在检测到本工程编辑器时会直接拒绝构建，这是设计行为。此时编译/`.lib` 链接通常已经成功，只有最终写 `UnrealEditor-FPSGAME.dll` 失败——报错要区分这两件事。不要为了让构建过而杀进程：用户可能正在实测，先按"关闭后重跑"处理。判断"编辑器是否还开着"不能用 `tasklist //FI` 这种窄匹配（`UnrealEditor-Cmd.exe`、以及**第二个实例**都会漏判），用 `Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe' OR Name='UnrealEditor-Cmd.exe'"` 再按 `CommandLine -match 'FPSGAME'` 过滤；同名进程要用窗口标题（`MainWindowTitle`）和 `Responding` 确认它到底是活的还是残留。用户说"已关闭"但进程仍在时，先核对日志尾部有没有正常退出（`LogExit: Exiting.`）和 `Saved/Crashes/` 有没有新增目录，再把事实摆出来由用户决定；终止用户进程必须拿到明确授权。
+- 编辑器占用期间的守望：脚本每 15 s 查一次，编辑器一退出就自动补跑 `Build-Editor.ps1`，比反复问用户省事；守望脚本用完即弃，放 `Saved/` 不进仓库。
+- **验证"暂存的子集"要用干净树**：把索引内容 `git checkout-index -f` 写进脏工作区再编译，其他文件带着并行会话的未提交改动，会报出与暂存内容无关的假错误（例如未暂存的函数声明缺失）。要证明某次提交能独立编译，只能建临时工作树（`git worktree add` 指向该提交），或在提交后按该提交重建；不要在脏树上用文件替换法下结论。

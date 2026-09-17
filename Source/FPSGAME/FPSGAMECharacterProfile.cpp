@@ -120,3 +120,4 @@ void AFPSGAMECharacter::EndPlay(const EEndPlayReason::Type Reason)
     if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->SaveNow();
     Super::EndPlay(Reason);
 }
+        ClipRecoilSeconds=-1.f;
