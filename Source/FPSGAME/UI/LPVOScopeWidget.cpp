@@ -19,12 +19,24 @@ static TAutoConsoleVariable<float> ScopeFlashAlpha(TEXT("fps.Scope.FlashAlpha"),
     TEXT("Peak opacity of the in-optic muzzle flash; 0 disables it."));
 static TAutoConsoleVariable<float> ScopeFlashHoldMs(TEXT("fps.Scope.FlashHoldMs"),70.f,
     TEXT("In-optic muzzle flash lifetime in milliseconds."));
-static TAutoConsoleVariable<float> ScopeFlashRadius(TEXT("fps.Scope.FlashRadius"),.30f,
+static TAutoConsoleVariable<float> ScopeFlashRadius(TEXT("fps.Scope.FlashRadius"),.42f,
     TEXT("Flash radius as a fraction of the aperture radius."));
 static TAutoConsoleVariable<float> ScopeFlashOffsetX(TEXT("fps.Scope.FlashOffsetX"),.16f,
     TEXT("Flash centre offset toward the ejection side, in aperture radii."));
-static TAutoConsoleVariable<float> ScopeFlashOffsetY(TEXT("fps.Scope.FlashOffsetY"),.52f,
+static TAutoConsoleVariable<float> ScopeFlashOffsetY(TEXT("fps.Scope.FlashOffsetY"),.85f,
     TEXT("Flash centre offset below the reticle, in aperture radii."));
+static TAutoConsoleVariable<float> ScopeFlashBurstMs(TEXT("fps.Scope.FlashBurstMs"),18.f,
+    TEXT("Near-white core burst window at shot onset, in milliseconds."));
+static TAutoConsoleVariable<float> ScopeEmberAlpha(TEXT("fps.Scope.EmberAlpha"),.12f,
+    TEXT("Peak opacity of the low-orange afterglow; 0 disables it."));
+static TAutoConsoleVariable<float> ScopeEmberHoldMs(TEXT("fps.Scope.EmberHoldMs"),180.f,
+    TEXT("Afterglow lifetime in milliseconds after the shot."));
+static TAutoConsoleVariable<float> ScopeAmbientAlpha(TEXT("fps.Scope.AmbientAlpha"),.12f,
+    TEXT("Peak opacity of the whole-aperture ambient wash; 0 disables it."));
+static TAutoConsoleVariable<float> ScopeAmbientHoldMs(TEXT("fps.Scope.AmbientHoldMs"),50.f,
+    TEXT("Ambient wash lifetime in milliseconds (a few frames)."));
+static TAutoConsoleVariable<float> ScopeSideFlashChance(TEXT("fps.Scope.SideFlashChance"),.15f,
+    TEXT("Fraction of shots whose flash lights the left/right rim instead."));
 static TAutoConsoleVariable<float> ScopeEdgeBloomAlpha(TEXT("fps.Scope.EdgeBloomAlpha"),.38f,
     TEXT("Aperture rim bloom while firing; 0 disables it."));
 static TAutoConsoleVariable<float> ScopeLensDirtAlpha(TEXT("fps.Scope.LensDirtAlpha"),.10f,
@@ -39,6 +51,9 @@ static TAutoConsoleVariable<float> ScopeSmokeHoldMs(TEXT("fps.Scope.SmokeHoldMs"
 struct FScopeFx
 {
     float Flash = 0.f;
+    float Burst = 0.f;
+    float Ember = 0.f;
+    float Ambient = 0.f;
     float Wisp = 0.f;
     float WispT = 0.f;
     float Seed = 0.f;
@@ -156,37 +171,106 @@ void PaintHeatWisp(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     FlushVerts(Out,Layer,Verts,Indices);
 }
 
-void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
-    const FVector2f& Center,float ApertureR,float Alpha,float Seed)
+constexpr float FlashInner=.30f;   // inner radius of the flash blob, in blob radii
+
+// Position, size and orientation for one shot's flash, all derived from the per-shot
+// seed: position jitter, a size roll and a small chance of lighting a side rim instead.
+struct FFlashShape{FVector2f Origin;float Radius=0.f;float Lean=0.f;bool bSide=false;float SideSign=1.f;};
+
+FFlashShape MakeFlashShape(const FVector2f& Center,float ApertureR,float Seed)
 {
-    const float OffsetX=FMath::Clamp(ScopeFlashOffsetX.GetValueOnGameThread(),-.8f,.8f);
-    const float OffsetY=FMath::Clamp(ScopeFlashOffsetY.GetValueOnGameThread(),-.8f,.8f);
-    constexpr float Inner=.30f;
-    // Keep the glow's inner edge below the crosshair so the sight picture stays
-    // readable even if the radius is tuned up.
-    const float Clearance=.14f*ApertureR;
-    const float Radius=FMath::Min(FMath::Clamp(ScopeFlashRadius.GetValueOnGameThread(),.05f,.6f)*ApertureR,
-        FMath::Min(FMath::Max(.02f*ApertureR,(OffsetY*ApertureR-Clearance)/Inner),
-            FMath::Max(.02f*ApertureR,(.97f-FMath::Abs(OffsetY))*ApertureR/1.15f)));
-    const FVector2f Origin=Center+FVector2f(OffsetX*ApertureR,OffsetY*ApertureR);
-    // Muzzle bias: a few degrees of lean per shot keeps repeat fire alive.
-    const float Lean=FMath::Lerp(-.40f,.40f,Seed);
+    const float OffsetX=FMath::Clamp(ScopeFlashOffsetX.GetValueOnGameThread(),-.8f,.8f)
+        +(FMath::Frac(Seed*7.13f+.31f)*2.f-1.f)*.10f;
+    const float OffsetY=FMath::Clamp(ScopeFlashOffsetY.GetValueOnGameThread(),-.8f,.8f)
+        +(FMath::Frac(Seed*3.71f+.17f)*2.f-1.f)*.08f;
+    const float RScale=FMath::Lerp(.85f,1.15f,FMath::Frac(Seed*5.29f+.53f));
+    const float Base=FMath::Clamp(ScopeFlashRadius.GetValueOnGameThread(),.05f,.6f)*ApertureR*RScale;
+    FFlashShape S;
+    S.Lean=FMath::Lerp(-.40f,.40f,Seed);
+    S.bSide=FMath::Frac(Seed*11.37f+.29f)<FMath::Clamp(ScopeSideFlashChance.GetValueOnGameThread(),0.f,1.f);
+    if(S.bSide)
+    {
+        S.SideSign=FMath::Frac(Seed*13.77f+.11f)<.5f?-1.f:1.f;
+        S.Origin=Center+FVector2f(S.SideSign*.90f*ApertureR,.06f*ApertureR);
+        S.Radius=Base*.75f;
+    }
+    else
+    {
+        S.Origin=Center+FVector2f(OffsetX*ApertureR,OffsetY*ApertureR);
+        // Crosshair guard: the blob's inner edge stays just below the centre line.
+        S.Radius=FMath::Min(Base,FMath::Max(.02f*ApertureR,(OffsetY-.06f)*ApertureR/(FlashInner*1.15f)));
+    }
+    return S;
+}
+
+// Whole-aperture ambient wash: the flash lighting the scene for a few frames. At high
+// magnification this brief brightening, not the blob itself, is what reads as "fired".
+void PaintAmbientWash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
+    const FVector2f& Center,float R,float Strength)
+{
+    if(Strength<=0.f)return;
+    const FLinearColor Warm(1.f,.76f,.47f);
+    constexpr int32 Segments=48;
+    TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
+    const int32 Base=Verts.Num();
+    Verts.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(G.GetAccumulatedRenderTransform(),
+        Center,FVector2f(.5f,.5f),FLinearColor(Warm.R,Warm.G,Warm.B,Strength*.55f).ToFColor(true)));
+    for(int32 I=0;I<=Segments;++I)
+    {
+        const float Angle=2.f*PI*I/Segments;
+        // Light floods in from the muzzle below the sight line: the lower rim leads.
+        const float Weight=.35f+.65f*(.5f+.5f*FMath::Sin(Angle));
+        Verts.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(G.GetAccumulatedRenderTransform(),
+            Center+FVector2f(FMath::Cos(Angle),FMath::Sin(Angle))*R,FVector2f(.5f,.5f),
+            FLinearColor(Warm.R,Warm.G,Warm.B,Strength*.35f*Weight).ToFColor(true)));
+        if(I<Segments)Indices.Append({SlateIndex(Base),SlateIndex(Base+1+I),SlateIndex(Base+2+I)});
+    }
+    FlushVerts(Out,Layer,Verts,Indices);
+}
+
+// Low-orange afterglow at the flash's position, outliving the main blob.
+void PaintEmber(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
+    const FVector2f& Center,float ApertureR,float Strength,float Seed)
+{
+    if(Strength<=0.f)return;
+    const FFlashShape S=MakeFlashShape(Center,ApertureR,Seed);
+    TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
+    AppendSoftDisc(Verts,Indices,G,S.Origin,S.Radius*.62f,
+        FLinearColor(1.f,.34f,.12f,Strength),FLinearColor(1.f,.22f,.08f,0.f),.5f,24);
+    FlushVerts(Out,Layer,Verts,Indices);
+}
+
+void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
+    const FVector2f& Center,float ApertureR,float Alpha,float Burst,float Seed)
+{
+    if(Alpha<=0.f)return;
+    const FFlashShape S=MakeFlashShape(Center,ApertureR,Seed);
+    const float Gain=FMath::Lerp(.85f,1.15f,FMath::Frac(Seed*9.41f+.77f));
+    // Side shots lie along the rim: rotate the lobe's long axis by a quarter turn.
+    const float Lean=S.Lean+(S.bSide?PI*.5f:0.f);
     const float Cos=FMath::Cos(Lean),Sin=FMath::Sin(Lean);
-    const FVector2f Along(-Sin,Cos);   // mostly downwards, leaning with the shot
+    const FVector2f Along(-Sin,Cos);   // mostly downwards (or sideways), leaning with the shot
     const FVector2f Across(-Cos,-Sin);
+    const float BurstAmt=FMath::Clamp(Burst,0.f,1.f);
     constexpr int32 Bands=8,Segments=72;
     TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
     Verts.Reserve((Bands+1)*(Segments+1));
     for(int32 Band=0;Band<=Bands;++Band)
     {
         const float T=static_cast<float>(Band)/Bands;
-        const FLinearColor Core=FMath::Lerp(FLinearColor(1.f,.95f,.86f),FLinearColor(1.f,.42f,.10f),T);
-        const float BandAlpha=Alpha*(1.f-T)*(1.f-T);
+        FLinearColor Core=FMath::Lerp(FLinearColor(1.f,.95f,.86f),FLinearColor(1.f,.42f,.10f),T);
+        // The opening burst whitens the core for a frame or two before the colour settles.
+        Core=FMath::Lerp(Core,FLinearColor(1.f,.98f,.95f),BurstAmt*(1.f-T)*.8f);
+        const float BandAlpha=FMath::Min(1.f,Alpha*(1.f-T)*(1.f-T)*Gain*(1.f+BurstAmt*.8f*(1.f-T)));
         for(int32 I=0;I<=Segments;++I)
         {
             const float Angle=2.f*PI*I/Segments;
-            const float Local=FMath::Lerp(Inner,1.f,T)*Radius;
-            const FVector2f P=Origin+Along*(Local*1.15f*FMath::Cos(Angle))+Across*(Local*.80f*FMath::Sin(Angle));
+            const float Local=FMath::Lerp(FlashInner,1.f,T)*S.Radius;
+            FVector2f P=S.Origin+Along*(Local*1.15f*FMath::Cos(Angle))+Across*(Local*.80f*FMath::Sin(Angle));
+            // The tube rim clips the blob: Slate verts are not cut by the painted mask,
+            // so anything outside the aperture is pinned back onto the rim circle.
+            const FVector2f D=P-Center;const float Dist=D.Size();
+            if(Dist>ApertureR&&Dist>UE_KINDA_SMALL_NUMBER)P=Center+(D/Dist)*ApertureR;
             Verts.Add(FSlateVertex::Make<ESlateVertexRounding::Disabled>(G.GetAccumulatedRenderTransform(),P,
                 FVector2f(.5f,.5f),FLinearColor(Core.R,Core.G,Core.B,BandAlpha).ToFColor(true)));
             if(Band<Bands&&I<Segments){const int32 A=Band*(Segments+1)+I,B=A+Segments+1;
@@ -216,10 +300,13 @@ void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     }
     const auto Resource=FSlateApplication::Get().GetRenderer()->GetResourceHandle(*FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")));
     FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Verts,Indices,nullptr,0,0);
-    // Lens stack, all above the aperture mask and below the reticle: dust, flash,
-    // rim bloom, then the post-shot heat wisp. The crosshair is always last.
+    // Lens stack, all above the aperture mask and below the reticle: dust, ambient
+    // wash, flash, afterglow, rim bloom, then the post-shot heat wisp. The crosshair
+    // is always last.
     PaintLensDirt(Out,Layer,G,Center,R,Fx);
-    if(Fx.Flash>0.f)PaintOpticFlash(Out,Layer,G,Center,R,Fx.Flash,Fx.Seed);
+    PaintAmbientWash(Out,Layer,G,Center,R,Fx.Ambient);
+    if(Fx.Flash>0.f)PaintOpticFlash(Out,Layer,G,Center,R,Fx.Flash,Fx.Burst,Fx.Seed);
+    PaintEmber(Out,Layer,G,Center,R,Fx.Ember,Fx.Seed);
     PaintEdgeBloom(Out,Layer,G,Center,R,S,Fx);
     PaintHeatWisp(Out,Layer,G,Center,R,Fx);
     const FLinearColor Red(1,.045f,.025f,Alpha);
@@ -245,23 +332,42 @@ int32 ULPVOScopeWidget::NativePaint(const FPaintArgs& Args,const FGeometry& Geom
         FScopeFx Fx;
         if(Character)
         {
+            Fx.Seed=Character->GetLastShotSeed();
             const float Age=Character->GetLastShotAgeSeconds();
-            if(const float Peak=ScopeFlashAlpha.GetValueOnGameThread();
-                Peak>0.f&&Age<FMath::Max(.01f,ScopeFlashHoldMs.GetValueOnGameThread()*.001f))
+            if(const float Peak=ScopeFlashAlpha.GetValueOnGameThread();Peak>0.f)
             {
-                // Sharp attack, smooth release; the sight picture is never blocked long.
-                const float T=Age/FMath::Max(.01f,ScopeFlashHoldMs.GetValueOnGameThread()*.001f);
-                Fx.Flash=Peak*Alpha*(1.f-T)*(1.f-T);
+                if(Age<FMath::Max(.01f,ScopeFlashHoldMs.GetValueOnGameThread()*.001f))
+                {
+                    // Sharp attack, smooth release; the sight picture is never blocked long.
+                    const float T=Age/FMath::Max(.01f,ScopeFlashHoldMs.GetValueOnGameThread()*.001f);
+                    Fx.Flash=Peak*Alpha*(1.f-T)*(1.f-T);
+                }
+                // Near-white opening burst, then a low-orange ember outliving the flash.
+                const float BurstS=FMath::Max(.005f,ScopeFlashBurstMs.GetValueOnGameThread()*.001f);
+                if(Age<BurstS)Fx.Burst=1.f-Age/BurstS;
+                if(const float Ember=ScopeEmberAlpha.GetValueOnGameThread();Ember>0.f)
+                {
+                    const float Hold=FMath::Max(.02f,ScopeEmberHoldMs.GetValueOnGameThread()*.001f);
+                    if(Age<Hold)Fx.Ember=Ember*Alpha*(1.f-Age/Hold)*(1.f-Age/Hold)
+                        *FMath::Min(1.f,Age/(Hold*.3f));
+                }
+            }
+            if(const float Ambient=ScopeAmbientAlpha.GetValueOnGameThread();Ambient>0.f)
+            {
+                // The whole sight picture lights up for a few frames; a per-shot gain
+                // roll keeps repeat fire from pulsing at one fixed strength.
+                const float Hold=FMath::Max(.01f,ScopeAmbientHoldMs.GetValueOnGameThread()*.001f);
+                if(Age<Hold)Fx.Ambient=Ambient*Alpha*(1.f-Age/Hold)*(1.f-Age/Hold)
+                    *FMath::Lerp(.8f,1.2f,FMath::Frac(Fx.Seed*2.31f+.47f));
             }
             if(const float Smoke=ScopeSmokeAlpha.GetValueOnGameThread();
                 Smoke>0.f&&Age<FMath::Max(.02f,ScopeSmokeHoldMs.GetValueOnGameThread()*.001f))
             {
-                // The wisp outlives the flash and fades in and out on its own clock.
+                // The wisp outlives the flash; the skewed envelope peaks well after the shot.
                 const float T=Age/FMath::Max(.02f,ScopeSmokeHoldMs.GetValueOnGameThread()*.001f);
-                Fx.Wisp=Smoke*Alpha*FMath::Sin(PI*T);
+                Fx.Wisp=Smoke*Alpha*FMath::Sin(PI*FMath::Pow(T,1.4f));
                 Fx.WispT=T;
             }
-            Fx.Seed=Character->GetLastShotSeed();
         }
         PaintLPVOScope(Elements,Result,Geometry,Alpha,Fx);
     }

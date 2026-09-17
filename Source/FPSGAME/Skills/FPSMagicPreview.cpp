@@ -115,12 +115,15 @@ void FPSMagicPreview::DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArr
             const float Piece=FMath::Min(PhaseLength-Phase,Length-Consumed);
             if(bDash)
             {
-                // Only the end touching the spell is softened: it fades in from invisible and is
-                // thinner; the rest of the arc is one crisp, full-strength dashed line.
+                // Only the end touching the spell is softened. Thick batched lines composite
+                // with SE_BLEND_AlphaBlend (Src.rgb*Src.a + Dst.rgb*(1-Src.a)), so the fade
+                // must ride on alpha while RGB stays full strength: pressing RGB at alpha 1
+                // paints opaque dark red over the background, which reads as a shadow band
+                // instead of a fade (2026-09-17 round 3 tried exactly that).
                 const float Progress=FMath::Clamp((Travelled+Consumed)/Total,0.f,1.f);
                 const float Fade=Progress<FadeInFraction?FMath::Clamp(Progress/FadeInFraction,0.f,1.f):1.f;
                 Lines->DrawLine(Start+Step*Consumed,Start+Step*(Consumed+Piece),
-                    FLinearColor(Color.R*Fade,Color.G*Fade,Color.B*Fade,Color.A),
+                    FLinearColor(Color.R,Color.G,Color.B,Color.A*Fade),
                     0,LineThickness*FMath::Lerp(.3f,1.f,Fade),0.f);
             }
             Consumed+=Piece;Phase+=Piece;

@@ -19,11 +19,12 @@
 ## 绘制要点（批量线段的坑）
 
 - 用投射物／volley 自己的 `ULineBatchComponent`，`BeginRefresh()` 每帧先 `Flush()` 再画：线段寿命 0（持久）+ 每帧重建，转视角才不会留下几帧旧线叠成拖影。
-- **不要叠宽而暗的“柔光带”**：这条绘制路径按 alpha 混合处理，深色半透明宽线会把背景压暗，看起来是一圈粗阴影而不是辉光（2026-09-17 实测踩过）。
+- **混合机制（2026-09-17 实锤，勿再猜）**：`ULineBatchComponent` 的厚线段（Thickness > 0）走 `FViewElementPDI::DrawLine → FBatchedElements::AddTranslucentLine`，绘制批以 **`SE_BLEND_AlphaBlend`** 合成：`Dst.rgb = Src.rgb×Src.a + Dst.rgb×(1−Src.a)`（`BatchedElements.cpp` 的 `SetBlendState` 与 `SimpleElementPixelShader.usf` 均已核对）。**alpha 有效，淡出／变透必须挂在 alpha 上，RGB 保持满强度**。压 RGB 而 alpha 恒 1 得到的是不透明暗红线，盖在背景上读成阴影而不是淡出（2026-09-17 第三轮近端淡出因此失败）。注意区分：`PostProcessCompositeDebugPrimitives` 的 `BF_One/BF_One` 加法合成只适用于 `DrawDebugLine` 那类调试 PDI 路径，不是本组件的路径。
+- **不要叠宽而暗的“柔光带”**：深色半透明宽线在 alpha 混合下会把背景压暗，看起来是一圈粗阴影而不是辉光（2026-09-17 实测踩过，已彻底移除叠加带）。
 - 虚线断点按**累计弧长**推进（`fps.Magic.PreviewDashCM`／`PreviewGapCM`），不要按采样点分段，否则断点会随采样密度变化。
-- 近端（贴法术那一端）在路径前 32% 内淡入并略细，远段保持满强度单线；给整条线统一降透明度会被读成“整条线都被改了”。
+- 近端（贴法术那一端）在路径前 32% 内**alpha 从 0 渐升**并略细，远段保持满强度满 alpha 单线；给整条线统一降透明度会被读成“整条线都被改了”。
 
 ## 配色与状态
 
-- 线色为满强度红 `(0.95,0.12,0.08)`；引擎批量线段在部分构建里加法合成、alpha 不参与，所以「更透」只能靠压 RGB——但默认不要压，改动前先问清楚是哪一端要淡。
+- 线色为满强度红 `(0.95,0.12,0.08)`，写满 alpha；端部淡出只乘 alpha 不动 RGB（机制见上节）。
 - 冷却、缺蓝、左手占用等状态仍走原快捷槽通道（`StatusText()` / `FFPSLeftHandNotice`），预览线不承担这些信息。

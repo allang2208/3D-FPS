@@ -24,14 +24,31 @@
 - **镜片污渍**：7 个固定位置的极淡污点常驻镜内，被枪口火光短暂点亮（经典的 lens dirt 反应）。
 - **射击后热浪烟丝**：220 ms 内两条柔软烟雾飘带自镜口下缘向上飘散、淡入淡出，位置是开火时间的纯函数（控件无状态），每发带随机偏移。
 
+## 第二轮：环境闪亮、贴边剪裁与三段时序（2026-09-17）
+
+用户实测第一轮后仍觉得不够；本轮按诊断补四项，全部仍在 `LPVOScopeWidget.cpp`、仍走 CVar：
+
+- **A 全镜口环境闪亮**：开火后约 50 ms 内整个镜口画面被暖色冲刷（峰值 alpha 0.12、`(1-t)²` 衰减），下缘更亮（光从镜口下方涌入），每发亮度 ±20% 随机。高倍下这一帧"环境被照亮"是最强的开火读感，单靠一枚孤立光斑只会读成"玻璃上贴光晕"。
+- **B 光斑贴边＋镜框剪裁**：光斑默认位置下移至 0.85 镜口半径、半径放大至 0.42，核心压在镜口下缘、出画部分被钳回镜口圆——Slate 自定义顶点不会被先画的黑色遮罩裁剪，必须手动钳制。约 15% 的射击改为左右镜缘侧面光斑（长轴转 90°，对应世界层 side flash 随机）。保留"内缘不过十字"守卫（偏移−0.06 半径），不再把光斑整体夹在镜内。
+- **C 三段时序**：近白尖峰（18 ms，核心增白＋亮度 ×(1+0.8·burst)）→ 主衰减（70 ms，原 `(1-t)²`）→ 低橙余烬（180 ms，峰值 0.12，前 30% 快速升起，位置与火斑同源）。热浪烟丝包络改 `sin(π·T^1.4)`，峰值后移至约 130 ms。冲击感靠分段而不是拉长单段，分划遮挡时间不增。
+- **D 每发形态随机**：位置抖动 ±0.10/±0.08 镜口半径、半径 ±15%、亮度 ±15%、侧面光斑左右与触发全部由既有每发种子经 `Frac` 乘数派生，控件保持无状态。
+
+`fps.Scope.FlashAlpha 0` 现在会同时关闭尖峰与余烬（同一族表现）；环境闪亮、烟丝、边缘泛光各自独立开关。
+
 ## 参数（控制台变量，默认值即当前手感；设 0 即关闭该项）
 
 | 变量 | 默认 | 作用 |
 | --- | --- | --- |
-| `fps.Scope.FlashAlpha` | 0.55 | 镜内火光峰值透明度 |
-| `fps.Scope.FlashHoldMs` | 70 | 镜内火光生命周期（ms） |
-| `fps.Scope.FlashRadius` | 0.30 | 火光半径占镜口半径比例 |
-| `fps.Scope.FlashOffsetX / Y` | 0.16 / 0.52 | 火光中心偏移（镜口半径为单位） |
+| `fps.Scope.FlashAlpha` | 0.55 | 镜内火光峰值透明度（设 0 同时关闭尖峰与余烬） |
+| `fps.Scope.FlashHoldMs` | 70 | 镜内火光主衰减生命周期（ms） |
+| `fps.Scope.FlashBurstMs` | 18 | 开火瞬间近白尖峰窗口（ms，1–2 帧） |
+| `fps.Scope.EmberAlpha` | 0.12 | 低橙余烬峰值透明度 |
+| `fps.Scope.EmberHoldMs` | 180 | 余烬生命周期（ms） |
+| `fps.Scope.AmbientAlpha` | 0.12 | 全镜口环境闪亮峰值透明度 |
+| `fps.Scope.AmbientHoldMs` | 50 | 环境闪亮窗口（ms，约 3 帧） |
+| `fps.Scope.FlashRadius` | 0.42 | 火光半径占镜口半径比例 |
+| `fps.Scope.FlashOffsetX / Y` | 0.16 / 0.85 | 火光中心偏移（镜口半径为单位；每发另叠加 ±0.10/±0.08 抖动） |
+| `fps.Scope.SideFlashChance` | 0.15 | 每发落在左右镜缘侧面光斑的概率 |
 | `fps.Scope.EdgeBloomAlpha` | 0.38 | 镜口边缘泛光强度 |
 | `fps.Scope.LensDirtAlpha` | 0.10 | 镜片污渍基础不透明度 |
 | `fps.Scope.SmokeAlpha` | 0.16 | 热浪烟丝峰值不透明度 |
@@ -54,3 +71,5 @@
 ## 状态
 
 `FPSGAMECharacter.cpp`、`M4GunsmithVisual.cpp`、`LPVOScopeWidget.cpp`、`FPSWeaponFXComponent.cpp` 均编译通过、无诊断（日志 `Saved/BuildEditor/build-scopefx23-compile.log`）。按用户规则**未启动游戏、未截图、未做视觉验收**；实机请在 1×/2×/6× 下确认尺寸、亮度、连发观感与分划可读性。落地时编辑器仍开着，DLL 链接被占用（`LNK1104`），需关闭编辑器或授权结束后重跑 `Tools/Build/Build-Editor.ps1`。
+
+第二轮（同日）：仅改 `LPVOScopeWidget.cpp`；源码 14:38 定稿后模块 DLL 于 14:54 构建完成（期间机器死机重启一次），编辑器 14:58 启动、加载的已是新模块，复核 `Build.bat FPSGAMEEditor` 报告 Target is up to date、Result: Succeeded。同样**未做视觉验收**；实机建议在 6× 下先看单发三段节奏（尖峰一白、主衰减、余烬）与整镜口闪亮，再连发看随机形态，最后回 1× 确认不过分刺眼。所有参数为 CVar，可在 PIE 控制台直接调：嫌环境闪亮过强用 `fps.Scope.AmbientAlpha`，余烬拖太长用 `fps.Scope.EmberHoldMs`，侧面光斑频率用 `fps.Scope.SideFlashChance`。

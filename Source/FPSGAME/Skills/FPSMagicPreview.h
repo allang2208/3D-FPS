@@ -25,8 +25,8 @@ namespace FPSMagicPreview
 
     /**
      * Full-strength red. Only the end touching the spell is softened (see DrawPath); the rest of
-     * the arc stays one crisp line. Alpha is written for paths that honour it, but the engine's
-     * batched lines are composited additively, where the colour value alone decides strength.
+     * the arc stays one crisp line. Thick batched lines composite with SE_BLEND_AlphaBlend, so a
+     * fade must ride on alpha; dimming RGB at alpha 1 just paints opaque dark red.
      */
     FLinearColor LineColor();
     /** Live multiplier on the configured spell gravity (`fps.Magic.GravityScale`, 1 = as set). */
