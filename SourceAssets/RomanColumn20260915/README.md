@@ -587,6 +587,27 @@ bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最�
 由空值改为 `marble`（23:07:42 落盘）。现在各行：大理石 = 罗马柱／矮栏杆罗马柱／大理石门／顶梁×3／整体段／
 凉亭整体／圆底罗马柱；石头 = 石门；木材 = 木门；**「其他」只剩铁门（撞开）**。
 
+### 凉亭面板缩略图排查（2026-09-17 深夜）
+
+用户报告「凉亭还没预览图」。面板缩略图由 `VoxelBuildIcons`（GameInstance 子系统）在游戏里实时渲染：
+正交取景（最大边长占画面 `IconFillFraction=0.78`、固定 -18/-35 视角）、color 走 `SCS_FinalToneCurveHDR`、
+coverage 走 `SCS_SceneColorHDR` 作 alpha，两者交给 `M_WeaponPreviewResolved` 合成。**先怀疑渲染对 960 cm
+的大件失效，于是用同一套参数在编辑器内复现**（`probe_icon_capture_20260917.py`，把试件放到 2000 m 高空避免
+关卡几何入镜）：
+
+| 试件 | 取景 | color | coverage |
+| --- | --- | --- | --- |
+| 凉亭（960 cm） | ortho 1231、相机 (-1730,1211,201066) | 出图正常、构图正确 | 干净剪影 |
+| 栏杆整体段（200 cm，对照） | ortho 256 | 出图正常 | 出图正常 |
+
+**结论：渲染路径对凉亭有效**，两条通道都能出图，遮罩也合格——所以面板缺图不是渲染失败，而是运行时
+「请求／缓存／卡片取用」这一段的时序问题（`Failed` 集合是一次失败即永久拉黑；`RefreshIcons` 每帧轮询
+并在无图时重排队的自愈逻辑见 `VoxelBuildWidget.cpp:368`）。
+
+顺带产出**棚拍预览**（`shoot_pavilion_preview.py`，编辑器内临时布光、用完即删、关卡不保存）：
+`preview_20260917/pavilion_hero_768.png`（3/4 特写）、`pavilion_card_256.png`（面板同口径 256×256）、
+`column_card_256.png`（圆底柱）。原始导出是 16 位 PNG，看图前先转 8 位（`*_8.png`）。
+
 ### 本次踩到的新坑（已同步进技能与记忆）
 
 1. **UE 5.8 Python 的 `unreal.Rotator(...)` 构造参数顺序是 (roll, pitch, yaw)**，不是 C++ 的 (pitch, yaw, roll)
