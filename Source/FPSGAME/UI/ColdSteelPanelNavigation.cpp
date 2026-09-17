@@ -127,7 +127,8 @@ void UColdSteelHUDWidget::TickPanelNavigation(const FGeometry& Geometry,float De
     auto* PC=GetOwningPlayer();
     const bool Interactive=PC&&PC->bShowMouseCursor;
     // The drawer sits against the right edge now, so the entry column steps aside while it is out.
-    const bool bDrawerOut=bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER;
+    // 开发面板（外部抽屉）共用同一让位条件。
+    const bool bDrawerOut=bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen;
     PanelNavigation->SetVisibility(bDrawerOut?ESlateVisibility::Collapsed:(Interactive?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible));
     PanelNavigationElapsed=FMath::Fmod(PanelNavigationElapsed+Delta,ColdSteelQuickSlotFX::KeyPeriod);
     const float KeyAlpha=ColdSteelQuickSlotFX::KeyOpacity(PanelNavigationElapsed);

@@ -130,6 +130,8 @@ private:
     /** 放置消耗体素块（背包优先、仓库兜底）；不足时返回 false 并写入 BlockMessage。 */
     bool ConsumePlacementBlocks(FName Material,int32 Count);
     void RefundPlacementBlocks(FName Material,int32 Count);
+    /** 开发面板开关：开启时放置不扣体块，扣料与退回同时跳过。 */
+    bool IsFreeBuilding() const;
     /** 结构预警：跨过 85% / 100% 各播报一次提示栏，回落到 80% 以下重新武装。 */
     void UpdateStructureWarning(class AVoxelBuildWorld& World);
     /** Removes plan cells that sit inside the local player so a brush can still be placed around them. */

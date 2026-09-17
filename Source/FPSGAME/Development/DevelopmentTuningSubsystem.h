@@ -16,7 +16,9 @@ enum class EDevelopmentTuningOption : uint8
     OneHitKill,
     InfiniteReserveAmmo,
     InfiniteMana,
-    NoAbilityCooldown
+    NoAbilityCooldown,
+    /** 建造不消耗资源：放置体素块时不扣背包／仓库里的体块。 */
+    FreeBuilding
 };
 
 /** Single-player session overrides. These flags are deliberately absent from the profile/save. */

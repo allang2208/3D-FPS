@@ -7,6 +7,7 @@
 #include "VoxelBuildWidget.h"
 #include "VoxelJointStrength.h"
 #include "../FPSGAMECharacter.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Components/StaticMeshComponent.h"
@@ -205,7 +206,12 @@ void UVoxelBuildComponent::TryInitializeWorld()
 void UVoxelBuildComponent::SetBuildMode(bool Enabled)
 {
     auto* PC=Cast<APlayerController>(GetOwner());
-    if(Enabled&&(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))return;
+    if(Enabled&&(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))
+    {
+        UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL SetBuildMode(true) 被输入锁拒绝 cursor=%d move=%d look=%d"),
+            PC&&PC->bShowMouseCursor?1:0,PC&&PC->IsMoveInputIgnored()?1:0,PC&&PC->IsLookInputIgnored()?1:0);
+        return;
+    }
     if(Enabled&&(!BuildWorld||!BuildWorld->IsReady()))
     {
         // Pressing V may retry after assets have been authored in the same session.
@@ -235,6 +241,7 @@ void UVoxelBuildComponent::SetPanelOpen(bool Open)
 {
     if(bPanelOpen==Open)return;
     bPanelOpen=Open;
+    UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL SetPanelOpen(%d) active=%d"),Open?1:0,bActive?1:0);
     // Visibility first: Slate cannot focus a collapsed widget.
     if(Widget)Widget->SetDrawerOpen(Open);
     if(auto* PC=Cast<APlayerController>(GetOwner()))
@@ -299,6 +306,7 @@ void UVoxelBuildComponent::SelectMaterial(FName Id)
     if(Palette&&Palette->Find(Id))
     {
         SelectedMaterial=Id;SelectedComponent=NAME_None;ComponentYaw=0;
+        UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL SelectMaterial %s"),*Id.ToString());
         FeedbackTime=0;TargetUpdateAt=0;PlacementCheckAt=0;
         if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
         SetPanelOpen(false);
@@ -311,6 +319,7 @@ void UVoxelBuildComponent::SelectShape(FName MaterialId,int32 ShapeMode)
     if(!Palette||!Palette->Find(MaterialId))return;
     SelectedMaterial=MaterialId;SelectedComponent=NAME_None;ComponentYaw=0;
     Brush=FMath::Clamp(ShapeMode,0,ShapeCount()-1);
+    UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL SelectShape %s shape=%d"),*MaterialId.ToString(),Brush);
     FeedbackTime=0;TargetUpdateAt=0;PlacementCheckAt=0;
     if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
     if(bActive)SetPanelOpen(false);
@@ -320,6 +329,8 @@ void UVoxelBuildComponent::SelectComponent(FName Id)
 {
     // Selecting a component leaves voxel material selection untouched; 1/2 returns to voxels.
     SelectedComponent=(Palette&&Palette->FindComponent(Id))?Id:NAME_None;
+    UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL SelectComponent 请求=%s 生效=%s"),*Id.ToString(),
+        SelectedComponent.IsNone()?TEXT("None"):*SelectedComponent.ToString());
     ComponentYaw=0;AimedPrefab=nullptr;bPrefabValid=false;
     FeedbackTime=0;TargetUpdateAt=0;PlacementCheckAt=0;
     if(Widget)Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
@@ -680,7 +691,13 @@ void UVoxelBuildComponent::UpdatePrefabTarget(bool bHit)
     AimedPrefab=nullptr;bPrefabAimHit=bHit;bPrefabValid=false;bCanPlace=false;PrefabMessage=TEXT("");
     const FVoxelBuildPrefab* Prefab=SelectedPrefab();
     if(!Prefab||!BuildWorld){TargetMessage=TEXT("构件定义已失效");PrefabMessage=TargetMessage;return;}
-    if(bHit)AimedPrefab=Cast<AVoxelBuildPrefabActor>(Hit.GetActor());
+    if(bHit)
+    {
+        // 逻辑构件（门）挂在占位 Actor 下，准星命中的是门本身：沿挂载链向上找它的占位记录，
+        // 否则右键拆除会因为"命中的不是 AVoxelBuildPrefabActor"而拒绝。
+        for(AActor* Actor=Hit.GetActor();Actor;Actor=Actor->GetAttachParentActor())
+            if(auto* Piece=Cast<AVoxelBuildPrefabActor>(Actor)){AimedPrefab=Piece;break;}
+    }
     const FIntVector Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Prefab->Footprint,ComponentYaw);
     // Removing voxels stays available while a component is selected: right click the aimed block.
     if(BuildWorld->ResolveHit(Hit,HitCell))FillBrush(HitCell.Cell,Removal);
@@ -708,7 +725,24 @@ void UVoxelBuildComponent::UpdatePrefabPreview()
     UStaticMesh* Mesh=Prefab?Prefab->Mesh.LoadSynchronous():nullptr;
     if(!Prefab||!Mesh||!bPrefabAimHit){Preview->SetVisibility(false);return;}
     Preview->SetStaticMesh(Mesh);
-    const FTransform Transform=AVoxelBuildPrefabActor::ComputeTransform(*Prefab,Mesh,PrefabCell,ComponentYaw);
+    // 逻辑构件（门）与普通构件的摆放口径不同：前者锚点在占格底面中心、构件自己往上搭，
+    // 后者网格包围盒居中于占格。预览必须与 AVoxelBuildWorld::SpawnPrefab 用同一口径，
+    // 否则落地的门会比预览高一个半身高（2026-09-17 用户反馈）。
+    FTransform Transform;
+    if(!Prefab->ActorClass.IsNull())
+    {
+        const FIntVector Size=AVoxelBuildPrefabActor::RotatedFootprint(Prefab->Footprint,ComponentYaw);
+        const FQuat Rotation(FRotator(0.f,ComponentYaw*90.f,0.f));
+        const FBoxSphereBounds Bounds=Mesh->GetBounds();
+        const FVector Centre=FVector(PrefabCell)*20.+FVector(Size.X,Size.Y,0)*10.;
+        // 网格包围盒底面贴占格底面，X／Y 居中于占格。
+        Transform=FTransform(Rotation,Centre-Rotation.RotateVector(Bounds.Origin)
+            +FVector(0,0,Bounds.BoxExtent.Z)+Prefab->PivotOffsetCm);
+    }
+    else
+    {
+        Transform=AVoxelBuildPrefabActor::ComputeTransform(*Prefab,Mesh,PrefabCell,ComponentYaw);
+    }
     Preview->SetWorldLocationAndRotation(Transform.GetLocation(),Transform.GetRotation());
     Preview->SetWorldScale3D(FVector(1));
     if(PreviewMID)
@@ -840,9 +874,23 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     if(!PC)return false;
     const FKey Key=Event.Key;const bool Pressed=Event.Event==IE_Pressed;
     // Other menus still end building; our own drawer keeps the cursor and stays open.
-    if(bMenuOpen){if(bActive)SetBuildMode(false);return false;}
+    if(bMenuOpen)
+    {
+        UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL 建造输入被其它菜单挡住 key=%s active=%d panel=%d"),
+            *Key.ToString(),bActive?1:0,bPanelOpen?1:0);
+        if(bActive)SetBuildMode(false);
+        return false;
+    }
     if(!bPanelOpen&&(PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))
-    {if(bActive)SetBuildMode(false);return false;}
+    {
+        // 画面里没有别的菜单时，光标/输入锁只可能来自退出不干净的界面；先清干净再让建造继续，
+        // 否则 SetBuildMode(true) 的守卫会静默拒绝，表现为"按 B 打不开面板、数字键也换不了料"。
+        UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL 检测到残留输入锁 cursor=%d move=%d look=%d active=%d panel=%d key=%s"),
+            PC->bShowMouseCursor?1:0,PC->IsMoveInputIgnored()?1:0,PC->IsLookInputIgnored()?1:0,
+            bActive?1:0,bPanelOpen?1:0,*Key.ToString());
+        PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);PC->bShowMouseCursor=false;
+        PC->SetInputMode(FInputModeGameOnly());
+    }
     // A key the focused drawer widget already handled must not run twice in the same frame.
     const bool bDrawerHandled=GFrameCounter==DrawerKeyFrame;
     if(Key==EKeys::B)
@@ -852,6 +900,8 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
             if(!bActive)SetBuildMode(true);          // enter building, drawer open
             else if(bPanelOpen)SetBuildMode(false);  // second B in the drawer: leave building
             else SetPanelOpen(true);                 // back to the drawer from placing
+            UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL B 键 active=%d panel=%d 处理过=%d"),
+                bActive?1:0,bPanelOpen?1:0,bDrawerHandled?1:0);
         }
         return true;
     }
@@ -1010,12 +1060,20 @@ void UVoxelBuildComponent::UpdateStructureWarning(AVoxelBuildWorld& World)
     NoticeRisk=Risk;
 }
 
+bool UVoxelBuildComponent::IsFreeBuilding() const
+{
+    // 开发面板「建造不消耗资源」：扣料与退回共用同一判断，避免免费建造时又凭失败补偿刷出体块。
+    const auto* PC=Cast<APlayerController>(GetOwner());
+    return PC && UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(PC->GetPawn(),EDevelopmentTuningOption::FreeBuilding);
+}
+
 bool UVoxelBuildComponent::ConsumePlacementBlocks(FName Material,int32 Count)
 {
     BlockMessage.Empty();
     if(Count<=0||Material.IsNone())return true;
     auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Model)return true;   // 没有档案时不拦建造（预览/审计世界）
+    if(IsFreeBuilding())return true;
     const FString Definition=FString::Printf(TEXT("voxel_block_%s"),*Material.ToString());
     if(Model->ConsumeItem(Definition,Count,BlockMessage))return true;
     // 提示栏播报，让玩家立刻知道该去补材料而不是以为卡住了。
@@ -1026,6 +1084,8 @@ bool UVoxelBuildComponent::ConsumePlacementBlocks(FName Material,int32 Count)
 void UVoxelBuildComponent::RefundPlacementBlocks(FName Material,int32 Count)
 {
     if(Count<=0||Material.IsNone())return;
+    // 免费建造没有扣过料，失败时也不能退回，否则等于凭空生成体块。
+    if(IsFreeBuilding())return;
     auto* Model=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
     if(!Model)return;
     const FString Definition=FString::Printf(TEXT("voxel_block_%s"),*Material.ToString());

@@ -1,0 +1,26 @@
+{
+    "Task":  "Door System integration (doorsystem-20260917)",
+    "ArchivedOn":  "2026-09-17",
+    "Rule":  "WORKFLOW.md section 4",
+    "Count":  2,
+    "Files":  [
+                  {
+                      "Name":  "audit_door_components_20260917.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/audit_door_components_20260917.py",
+                      "ArchivedTo":  "trash/doorsystem-20260917/audit_door_components_20260917.py",
+                      "Bytes":  1968,
+                      "SHA256":  "79F25FA71CEC2E1E1963394F124A6B4617342133C0F6C5D89F2B662037812C27",
+                      "Reason":  "Headless UnrealEditor-Cmd crash: editor-only API (SubobjectDataSubsystem) is unavailable in that context; the script never produced a usable result",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/audit_migrated_doors_20260917.py plus in-editor remote execution (Tools/AssetPipeline/ue_python_exec.py)"
+                  },
+                  {
+                      "Name":  "audit_door_material_slots_20260917.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/audit_door_material_slots_20260917.py",
+                      "ArchivedTo":  "trash/doorsystem-20260917/audit_door_material_slots_20260917.py",
+                      "Bytes":  896,
+                      "SHA256":  "72A7159138EB5E51BE30B39D58E1BFEBC59CF4BA6C788E92D9EBD306D57B0BD6",
+                      "Reason":  "Same headless crash (EditorStaticMeshLibrary); superseded because the door material rule changed to replace every slot on leaf and frame",
+                      "Replacement":  "Docs/Building/door-system-integration-plan-20260917.md section 6.6 (all-slot replacement) and Source/FPSGAME/Building/ColdSteelDoor.cpp Configure()"
+                  }
+    ]
+}

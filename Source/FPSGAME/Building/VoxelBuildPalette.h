@@ -44,6 +44,12 @@ struct FVoxelBuildPrefab
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Grid", meta=(ClampMin="1")) FIntVector Footprint=FIntVector(1,1,1);
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Surface") TSoftObjectPtr<UMaterialInterface> Surface;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Grid", meta=(Units="cm")) FVector PivotOffsetCm=FVector::ZeroVector;
+    /** 需要自带逻辑的构件（门、可动构件）：留空按普通静态网格放置；填了就按 20 cm 格生成该
+        Actor 类并挂在同一占位记录下（拆除、存档与静态构件走同一条路径）。 */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Logic") TSoftClassPtr<AActor> ActorClass;
+    /** 生成 Actor 类构件时，相对格锚点的额外偏移（cm）；静态网格路径继续用 PivotOffsetCm。 */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Logic", meta=(EditCondition="!ActorClass.IsNull()", Units="cm"))
+    FVector ActorOffsetCm=FVector::ZeroVector;
     /** Drawer grouping: the material row whose 其他构造 submenu lists this piece (stable material ID).
         Empty keeps the piece in the drawer's 其他 category only. */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Panel") FName Material;

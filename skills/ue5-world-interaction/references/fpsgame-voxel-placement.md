@@ -41,3 +41,17 @@
 | 预览间歇性消失 / 点击无效 | 被节流跳过的帧是否清空了方案与可用性 |
 | 镜头稍偏预览就跳到空中 | 缺少锥形吸附辅助 |
 | 建造失败时整栋跟着塌 | 求解结果是否只按"最新那批新增格"过滤，见 `Docs/Building/voxel-build-workflow.md` 3.6 |
+
+## 预制件（prefab）：预览与落地必须同口径（2026-09-17）
+
+"先看幽灵、再点击生成"的对象一旦预览与生成用了两套摆放公式，就必然出现"预览在这儿、造出来在那儿"。
+FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildComponent::UpdatePrefabPreview()`（预览）与
+`AVoxelBuildWorld::SpawnPrefab()`（生成）。判据写在 `Docs/Building/voxel-build-workflow.md` 3.8。
+
+- **分流条件看构件类型，不要看字段是否为空**。2026-09-17 的事故就是 `SpawnPrefab()` 按 `Mesh` 是否为空分流：
+  门这类"逻辑构件"也要填 `Mesh`（只用于抽屉缩略图），于是走了普通构件的居中口径，落地比预览高了一个半身高（门高 200 cm）。
+- **按包围盒摆放，不要按 pivot**。第三方/StarterContent 网格的 pivot 常在边界（门框在底边、门板在角上）。
+  统一 `FBoxSphereBounds`：位置 = 目标中心 − `Origin`，贴地再加 `BoxExtent.Z`（`AColdSteelDoor::AlignGeometry()` 是参考实现）。
+- **同格对照**是验收动作：同一占格里预览／落地各放一次，目视两者的包围盒是否重合；预览网格比落地外形小一圈（如门板 vs 门框）允许 5–15 cm 轮廓差，不允许整体差半个身位。
+- 逻辑构件的完整契约（`ActorClass`／`ActorOffsetCm`、材质整体替换、拆除沿挂载链解析）见
+  `Docs/Building/voxel-build-workflow.md` 5.1。

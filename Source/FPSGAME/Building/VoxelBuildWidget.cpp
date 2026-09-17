@@ -35,7 +35,9 @@ namespace
     constexpr float GridGap=8.f,GridCardWidth=116.f,GridCardHeight=150.f,GridIconPixels=104.f;
     constexpr float DrawerViewportFraction=.48f,DrawerMinWidth=720.f,DrawerMaxWidth=1040.f,DrawerEdgeInset=12.f;
     // Number row while the drawer is focused: the Nth card of the visible category.
-    int32 NumberKeyIndex(const FKey& Key)
+    // Unity builds concatenate this file with VoxelBuildComponent.cpp, which already
+    // declares its own anonymous-namespace NumberKeyIndex; keep this one distinct.
+    int32 WidgetNumberKeyIndex(const FKey& Key)
     {
         static const FKey Keys[]={EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four,EKeys::Five,EKeys::Six,EKeys::Seven,EKeys::Eight,EKeys::Nine};
         for(int32 Index=0;Index<UE_ARRAY_COUNT(Keys);++Index)if(Key==Keys[Index])return Index;
@@ -296,6 +298,7 @@ void UVoxelBuildWidget::Pick(FName Id,bool bComponent,int32 ShapeMode)
 {
     auto* Owner=Builder();
     if(!Owner)return;
+    UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL 点击卡片 id=%s component=%d shape=%d"),*Id.ToString(),bComponent?1:0,ShapeMode);
     // Picking an entry ends the mouse phase; the component restores game input and aiming.
     if(bComponent)Owner->SelectComponent(Id);
     else if(ShapeMode>=0)Owner->SelectShape(Id,ShapeMode);
@@ -317,7 +320,7 @@ FReply UVoxelBuildWidget::NativeOnKeyDown(const FGeometry& Geometry,const FKeyEv
     const FKey Key=Event.GetKey();
     if(Key!=EKeys::Zero)
     {
-        const int32 Number=NumberKeyIndex(Key);
+        const int32 Number=WidgetNumberKeyIndex(Key);
         if(Number!=INDEX_NONE&&Cards.IsValidIndex(Number))
         {
             // Picking a card always returns to building (Select* closes the drawer); the index follows
@@ -364,16 +367,35 @@ UVoxelBuildIcons* UVoxelBuildWidget::IconsFor() const
 
 void UVoxelBuildWidget::RefreshIcons()
 {
+    RefreshIconPins();
     auto* Icons=IconsFor();
     if(!Icons)return;
     for(const FCard& Card:Cards)
     {
         auto* Image=Card.Image.Get();
         if(!Image||Card.IconKey.IsEmpty())continue;
-        // Already painted; the subsystem keeps the material alive for the cached key.
-        if(Image->GetBrush().GetResourceObject())continue;
-        if(UMaterialInterface* Material=Icons->Find(Card.IconKey))Image->SetBrushFromMaterial(Material);
+        if(UMaterialInterface* Material=Icons->Find(Card.IconKey))
+        {
+            // 同一键的缩略图会被重建（换了材质或重新出图），画刷还指着旧实例就重新绑定。
+            if(Cast<UMaterialInterface>(Image->GetBrush().GetResourceObject())!=Material)
+                Image->SetBrushFromMaterial(Material);
+            continue;
+        }
+        // 未就绪或被回收：没有图时按原参数再排一次队；失败键不会重复入队。
+        if(!Image->GetBrush().GetResourceObject()&&(!Card.IconRequest.Mesh.IsNull()||!Card.IconRequest.Cells.IsEmpty()))
+            Icons->Request(Card.IconRequest);
     }
+}
+
+void UVoxelBuildWidget::RefreshIconPins()
+{
+    if(!bIconPinsDirty)return;
+    bIconPinsDirty=false;
+    auto* Icons=IconsFor();
+    if(!Icons)return;
+    TSet<FString> Keys;
+    for(const FCard& Card:Cards)if(!Card.IconKey.IsEmpty())Keys.Add(Card.IconKey);
+    Icons->SetVisibleKeys(Keys);
 }
 
 void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& Entry,FName MaterialId,bool bChild,
@@ -399,7 +421,10 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     if(auto* Icons=IconsFor())Icons->Request(Request);
 
     auto* Proxy=NewObject<UVoxelBuildCardProxy>(this);
-    Proxy->CardId=bChild?MaterialId:Entry.Id;
+    // 形状卡由所属材质行代持（点它 = 选该材质的这个形状）；构件卡必须始终用构件自己的 ID：
+    // 之前这里对 bChild 的构件也写了材质 ID，结果「点材质栏下的门」等于选了材质并清空构件，
+    // 看上去就像仍停在之前选择的构件上（2026-09-17 用户反馈）。
+    Proxy->CardId=Entry.bComponent?Entry.Id:(bChild?MaterialId:Entry.Id);
     Proxy->bComponentCard=Entry.bComponent;
     Proxy->ShapeMode=bChild?Entry.ShapeMode:INDEX_NONE;
     Proxy->Panel=this;Proxy->CardIndex=Cards.Num();
@@ -431,7 +456,7 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     auto* LabelSlot=Column->AddChildToVerticalBox(Label);
     LabelSlot->SetHorizontalAlignment(HAlign_Center);
     LabelSlot->SetPadding(FMargin(2/Scale,4/Scale,2/Scale,0));
-    Cards.Add({Proxy->CardId,Entry.bComponent,Proxy->ShapeMode,bChild,Request.Key,Button,SurfaceCard,Picture,Box,IconBox});
+    Cards.Add({Proxy->CardId,Entry.bComponent,Proxy->ShapeMode,bChild,Request.Key,Request,Button,SurfaceCard,Picture,Box,IconBox});
     VisibleCards.Add(Entry);
     if(auto* WrapSlot=Grid->AddChildToWrapBox(Button))WrapSlot->SetHorizontalAlignment(HAlign_Center);
 }
@@ -463,14 +488,14 @@ void UVoxelBuildWidget::AddMaterialRow(const FVoxelBuildPanelCard& Entry)
     // 注意：这里只往 Line 里插图标，行本身的挂载与 FCard 登记一律走函数末尾的同一条路径，
     // 否则会出现"材质行变空行"（2026-09-16 的一次回退，就是因为在这里提前 return）。
     FString IconKey;UImage* Picture=nullptr;USizeBox* IconBox=nullptr;
+    FVoxelBuildIconRequest IconRequest;
     if(!Entry.IconMesh.IsNull())
     {
-        FVoxelBuildIconRequest Request;
-        Request.Key=UVoxelBuildIcons::KeyForShape(Entry.Id,-1);
-        Request.Mesh=Entry.IconMesh;Request.Surface=Entry.IconSurface;
-        Request.Cells.Add(FIntVector(0,0,0));
-        if(auto* Icons=IconsFor())Icons->Request(Request);
-        IconKey=Request.Key;
+        IconRequest.Key=UVoxelBuildIcons::KeyForShape(Entry.Id,-1);
+        IconRequest.Mesh=Entry.IconMesh;IconRequest.Surface=Entry.IconSurface;
+        IconRequest.Cells.Add(FIntVector(0,0,0));
+        if(auto* Icons=IconsFor())Icons->Request(IconRequest);
+        IconKey=IconRequest.Key;
         IconBox=WidgetTree->ConstructWidget<USizeBox>();
         const float ThumbSize=28.f;
         IconBox->SetWidthOverride(ThumbSize/Scale);IconBox->SetHeightOverride(ThumbSize/Scale);
@@ -494,7 +519,7 @@ void UVoxelBuildWidget::AddMaterialRow(const FVoxelBuildPanelCard& Entry)
         DisclosureSlot->SetPadding(FMargin(6/Scale,0,0,0));
     }
     // IconKey/Picture/IconBox 在没图标时是空的，RefreshIcons 会跳过它们。
-    Cards.Add({Entry.Id,false,INDEX_NONE,false,IconKey,Button,RowSurface,Picture,Size,IconBox});
+    Cards.Add({Entry.Id,false,INDEX_NONE,false,IconKey,IconRequest,Button,RowSurface,Picture,Size,IconBox});
     VisibleCards.Add(Entry);
     CardList->AddChildToVerticalBox(RowSurface)->SetPadding(FMargin(0,0,0,CardGap/Scale));
 }
@@ -505,6 +530,8 @@ void UVoxelBuildWidget::RebuildCards()
     HideTooltip(true);
     const float Scale=ColdSteelUI::PixelScale(this);
     CardList->ClearChildren();Cards.Reset();CardProxies.Reset();VisibleCards.Reset();Grids.Reset();
+    // 卡片重来一遍：缩略图键集合跟着换，旧键失去"正在显示"的保护后随淘汰回收。
+    bIconPinsDirty=true;
     if(!bComponentCategory)
     {
         if(MaterialCards.IsEmpty())
@@ -531,9 +558,14 @@ void UVoxelBuildWidget::RebuildCards()
         RefreshIcons();
         return;
     }
-    if(ComponentCards.IsEmpty())
+    // 「其他」分类只列**未归类**的构件（调色板 Material 留空）；归到某栏材质的构件只在该材质的
+    // 「其他构造」里出现，同一个门不会在两处重复（2026-09-17 用户要求）。
+    TArray<const FVoxelBuildPanelCard*> Unclassified;
+    for(const FVoxelBuildPanelCard& Entry:ComponentCards)
+        if(Entry.MaterialId.IsNone())Unclassified.Add(&Entry);
+    if(Unclassified.IsEmpty())
     {
-        auto* Empty=Text(TEXT("暂无其他构造 · 请在调色板 Components 中添加"),12);
+        auto* Empty=Text(TEXT("暂无未归类的其他构造 · 请在调色板 Components 中添加"),12);
         Empty->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         CardList->AddChildToVerticalBox(Empty)->SetPadding(FMargin(2/Scale,6/Scale));
         return;
@@ -542,7 +574,7 @@ void UVoxelBuildWidget::RebuildCards()
     Grid->SetInnerSlotPadding(FVector2D(GridGap/Scale,GridGap/Scale));
     CardList->AddChildToVerticalBox(Grid)->SetPadding(FMargin(0,2/Scale,0,GridGap/Scale));
     Grids.Add(Grid);
-    for(const FVoxelBuildPanelCard& Entry:ComponentCards)AddGridCard(Grid,Entry,NAME_None,false,nullptr);
+    for(const FVoxelBuildPanelCard* Entry:Unclassified)AddGridCard(Grid,*Entry,NAME_None,false,nullptr);
     RefreshIcons();
 }
 

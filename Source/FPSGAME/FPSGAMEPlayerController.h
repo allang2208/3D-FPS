@@ -19,6 +19,8 @@ public:
     void ToggleWeatherPanel();
     void ToggleDevelopmentPanel();
     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
+    /** 开发面板打开期间与背包共用右侧 HUD 让位规则。 */
+    UColdSteelHUDWidget* GetColdSteelHUD() const { return ColdSteelHUD; }
     bool OpenGunsmith(const FString& Instance=TEXT(""));
     void CloseGunsmith();
     bool OpenEnhancement(const FString& Instance=TEXT(""));

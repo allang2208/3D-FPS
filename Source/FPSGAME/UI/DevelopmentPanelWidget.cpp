@@ -1,7 +1,10 @@
 #include "DevelopmentPanelWidget.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
+#include "../FPSGAMECharacter.h"
 #include "../Development/DevelopmentSpawnComponent.h"
+#include "Engine/GameInstance.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/BackgroundBlur.h"
@@ -29,21 +32,33 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     auto* Root = WidgetTree->ConstructWidget<UCanvasPanel>();
     Root->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
     WidgetTree->RootWidget = Root;
-    auto* Shortcut = CreatePanelButton(TEXT("F6  开发面板"), TEXT("DevelopmentOpen"));
+    // 与背包装备同一抽屉：全屏压暗底在面板之下，随送出／收回进度淡入淡出。
+    DrawerBackdrop = WidgetTree->ConstructWidget<UBorder>();
+    DrawerBackdrop->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor(0.f, 0.f, 0.f, .40f), 0.f, FLinearColor::Transparent, 0.f));
+    DrawerBackdrop->SetVisibility(ESlateVisibility::Collapsed);
+    auto* BackdropSlot = Root->AddChildToCanvas(DrawerBackdrop);
+    BackdropSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
+    BackdropSlot->SetOffsets(FMargin(0.f));
+    BackdropSlot->SetZOrder(0);
+    Shortcut = CreatePanelButton(TEXT("F6  开发面板"), TEXT("DevelopmentOpen"));
     Shortcut->OnClicked.AddDynamic(this, &ThisClass::OpenDeveloper);
     ShortcutSlot = Root->AddChildToCanvas(Shortcut);
     ShortcutSlot->SetAnchors(FAnchors(0, 1));
     ShortcutSlot->SetAlignment(FVector2D(0, 1));
     ShortcutSlot->SetAutoSize(true);
+    ShortcutSlot->SetZOrder(2);
 
     auto* Shell = WidgetTree->ConstructWidget<UOverlay>();
     Panel = Shell;
     PanelSlot = Root->AddChildToCanvas(Shell);
-    PanelSlot->SetAnchors(FAnchors(1, 0));
+    // 与背包同源：贴右边缘、上下各 12px 的右侧抽屉。
+    PanelSlot->SetAnchors(FAnchors(1, 0, 1, 1));
     PanelSlot->SetAlignment(FVector2D(1, 0));
+    PanelSlot->SetZOrder(1);
     Blur = WidgetTree->ConstructWidget<UBackgroundBlur>();
     Blur->SetBlurStrength(ColdSteelUI::GlassBlurStrength);
     Blur->SetBlurRadius(ColdSteelUI::GlassBlurRadius);
+    Blur->SetOverrideAutoRadiusCalculation(true);
     Blur->SetApplyAlphaToBlur(false);
     auto* BlurSlot = Shell->AddChildToOverlay(Blur);
     BlurSlot->SetHorizontalAlignment(HAlign_Fill); BlurSlot->SetVerticalAlignment(VAlign_Fill);
@@ -112,7 +127,8 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     ClearButton->OnClicked.AddDynamic(this, &ThisClass::ClearMonstersClicked);
     CloseButton = AddButton(Stack, TEXT("返回游戏  ·  F6 / Esc"), TEXT("DevelopmentClose"));
     CloseButton->OnClicked.AddDynamic(this, &ThisClass::CloseDeveloper);
-    PopulateMonsters(); SetPage(2); UpdateLayout();
+    PopulateMonsters(); PopulateItems(); PopulateSkills();
+    SetPage(2); UpdateLayout(); RefreshFeatures();
     Panel->SetVisibility(ESlateVisibility::Collapsed);
 }
 
@@ -121,10 +137,78 @@ UWidget* UDevelopmentPanelWidget::GenerateMonsterOption(FString Item)
     return CreatePanelText(Item, 10.5f, ColdSteelUI::TextPrimary);
 }
 
+UWidget* UDevelopmentPanelWidget::GenerateListOption(FString Item)
+{
+    // 物品与技能下拉的条目可长可短，固定不换行，避免行高被折行撑开。
+    auto* Text = CreatePanelText(Item, 12, ColdSteelUI::TextPrimary);
+    Text->SetAutoWrapText(false);
+    return Text;
+}
+
 UDevelopmentSpawnComponent* UDevelopmentPanelWidget::ResolveSpawner() const
 {
     const auto* Player = GetOwningPlayer<AFPSGAMEPlayerController>();
     return Player ? Player->GetDevelopmentSpawner() : nullptr;
+}
+
+UColdSteelStatusModel* UDevelopmentPanelWidget::ResolveModel() const
+{
+    if (const auto* Player = GetOwningPlayer()) if (auto* Instance = Player->GetGameInstance())
+        return Instance->GetSubsystem<UColdSteelStatusModel>();
+    return nullptr;
+}
+
+UColdSteelHUDWidget* UDevelopmentPanelWidget::ResolveHUD() const
+{
+    const auto* Player = GetOwningPlayer<AFPSGAMEPlayerController>();
+    return Player ? Player->GetColdSteelHUD() : nullptr;
+}
+
+const FColdSteelCatalogEntry* UDevelopmentPanelWidget::SelectedItem() const
+{
+    return ItemOptions.FindByPredicate([this](const FColdSteelCatalogEntry& Entry)
+        { return Entry.Definition == SelectedItemDefinition; });
+}
+
+void UDevelopmentPanelWidget::PopulateItems()
+{
+    if (!ItemChoice) return;
+    const FString Previous = SelectedItemDefinition;
+    ItemOptions.Reset(); ItemChoice->ClearOptions();
+    if (const auto* Model = ResolveModel())
+    {
+        for (const auto& Entry : Model->ItemCatalog())
+        {
+            ItemOptions.Add(Entry);
+            ItemChoice->AddOption(FString::Printf(TEXT("%s · %s"), *Entry.Group, *Entry.Name));
+        }
+    }
+    int32 Index = INDEX_NONE;
+    if (!Previous.IsEmpty())
+        for (int32 N = 0; N < ItemOptions.Num(); ++N) if (ItemOptions[N].Definition == Previous) { Index = N; break; }
+    ItemChoice->SetIsEnabled(!ItemOptions.IsEmpty());
+    if (ItemOptions.IsEmpty()) { SelectedItemDefinition.Reset(); return; }
+    const int32 Pick = Index == INDEX_NONE ? 0 : Index;
+    ItemChoice->SetSelectedIndex(Pick);
+    SelectedItemDefinition = ItemOptions[Pick].Definition;
+}
+
+void UDevelopmentPanelWidget::PopulateSkills()
+{
+    if (!SkillChoice) return;
+    const FName Previous = SelectedSkill;
+    SkillIds.Reset(); SkillChoice->ClearOptions();
+    if (const auto* Model = ResolveModel())
+    {
+        SkillIds = Model->SkillCatalog();
+        for (const FName Id : SkillIds) SkillChoice->AddOption(Model->DevelopmentSkillDefinition(Id).Name);
+    }
+    const int32 Index = SkillIds.IndexOfByKey(Previous);
+    SkillChoice->SetIsEnabled(!SkillIds.IsEmpty());
+    if (SkillIds.IsEmpty()) { SelectedSkill = NAME_None; return; }
+    const int32 Pick = Index == INDEX_NONE ? 0 : Index;
+    SkillChoice->SetSelectedIndex(Pick);
+    SelectedSkill = SkillIds[Pick];
 }
 
 void UDevelopmentPanelWidget::PopulateMonsters()
@@ -143,7 +227,19 @@ void UDevelopmentPanelWidget::PopulateMonsters()
 void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
 {
     Super::SetPanelOpen(bOpen);
-    if (bOpen) { PopulateMonsters(); UpdateLayout(); RefreshStatus(); RefreshTuning(); }
+    // 基础实现直接折叠面板；抽屉收回顾动画由 TickDrawer 驱动，动画期间保持可见。
+    if (bOpen || DrawerProgress > KINDA_SMALL_NUMBER)
+    {
+        if (Panel) Panel->SetVisibility(ESlateVisibility::Visible);
+        if (DrawerBackdrop) DrawerBackdrop->SetVisibility(ESlateVisibility::Visible);
+    }
+    if (bOpen)
+    {
+        // 让位在收回动画播完后由 TickDrawer 复位，与背包装备的恢复时机一致。
+        if (auto* HUD = ResolveHUD()) { HUD->SetExternalDrawerOpen(true); bHudYielded = true; }
+        PopulateMonsters(); PopulateItems(); PopulateSkills();
+        UpdateLayout(); RefreshStatus(); RefreshTuning(); RefreshFeatures();
+    }
 }
 
 void UDevelopmentPanelWidget::SetPage(int32 Index)
@@ -160,6 +256,7 @@ void UDevelopmentPanelWidget::SetPage(int32 Index)
     TuningTab->SetStyle(Index == 2 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     RefreshStatus();
     RefreshTuning();
+    RefreshFeatures();
 }
 
 void UDevelopmentPanelWidget::RefreshStatus()
@@ -206,45 +303,193 @@ void UDevelopmentPanelWidget::MonsterSelected(FString Name, ESelectInfo::Type Ty
     if (SpawnButton) RefreshStatus();
 }
 
+void UDevelopmentPanelWidget::ItemSelected(FString Name, ESelectInfo::Type Type)
+{
+    const int32 Index = ItemChoice->GetSelectedIndex();
+    SelectedItemDefinition = ItemOptions.IsValidIndex(Index) ? ItemOptions[Index].Definition : FString();
+    if (GenerateItemButton) RefreshFeatures();
+}
+
+void UDevelopmentPanelWidget::SkillSelected(FString Name, ESelectInfo::Type Type)
+{
+    const int32 Index = SkillChoice->GetSelectedIndex();
+    SelectedSkill = SkillIds.IsValidIndex(Index) ? SkillIds[Index] : NAME_None;
+    RefreshFeatures();
+}
+
+void UDevelopmentPanelWidget::SetFeatureMessage(const FString& Text, const FLinearColor& Color)
+{
+    if (!FeatureStatus) return;
+    FeatureStatus->SetText(FText::FromString(Text));
+    FeatureStatus->SetColorAndOpacity(Color);
+}
+
+void UDevelopmentPanelWidget::RefreshFeatures()
+{
+    const auto* Model = ResolveModel();
+    const auto* Player = GetOwningPlayer();
+    const bool bUsable = Model && Player && Player->HasAuthority() && Player->IsLocalController() &&
+        Cast<AFPSGAMECharacter>(Player->GetPawn()) != nullptr;
+    if (LevelHelp)
+    {
+        LevelHelp->SetText(FText::FromString(Model
+            ? FString::Printf(TEXT("当前 Lv.%d · 属性点 %d · 经验 %lld / %lld · 每级 +3 点"),
+                Model->Level, Model->AttributePoints, Model->Experience(), Model->MaxExperience())
+            : TEXT("未读取到玩家档案")));
+        LevelHelp->SetColorAndOpacity(Model ? ColdSteelUI::TextSecondary : ColdSteelUI::Warning);
+    }
+    if (SkillHelp)
+    {
+        FString Text = TEXT("未读取到技能进度");
+        if (Model && !SelectedSkill.IsNone())
+        {
+            const auto& Definition = Model->DevelopmentSkillDefinition(SelectedSkill);
+            const auto Progress = Model->MasteryProgress(SelectedSkill);
+            Text = FString::Printf(TEXT("当前：%s Lv.%d / %d · 修炼值 %d"),
+                *Definition.Name, Progress.Level, Definition.MaxLevel, Progress.Experience);
+        }
+        SkillHelp->SetText(FText::FromString(Text));
+        SkillHelp->SetColorAndOpacity(Model ? ColdSteelUI::TextSecondary : ColdSteelUI::Warning);
+    }
+    if (GenerateItemButton) GenerateItemButton->SetIsEnabled(bUsable && !SelectedItemDefinition.IsEmpty() && !ItemOptions.IsEmpty());
+    if (GrantLevelButton) GrantLevelButton->SetIsEnabled(bUsable);
+    const bool bSkillReady = bUsable && !SelectedSkill.IsNone() && Model &&
+        Model->MasteryProgress(SelectedSkill).Level < Model->DevelopmentSkillDefinition(SelectedSkill).MaxLevel;
+    if (RaiseSkillButton) RaiseSkillButton->SetIsEnabled(bSkillReady);
+    if (MaxSkillButton) MaxSkillButton->SetIsEnabled(bSkillReady);
+}
+
+void UDevelopmentPanelWidget::GenerateItemClicked()
+{
+    auto* Model = ResolveModel();
+    const int32 Count = ItemCountBox ? FMath::Clamp(FMath::RoundToInt(ItemCountBox->GetValue()), 1, 9999) : 1;
+    const FColdSteelCatalogEntry* Entry = SelectedItem();
+    if (!Model || !Entry) { SetFeatureMessage(TEXT("请选择要生成的物品"), ColdSteelUI::Warning); return; }
+    const FString Name = Entry->Name;
+    if (Model->AddItem(SelectedItemDefinition, Count))
+        SetFeatureMessage(FString::Printf(TEXT("已生成 %s ×%d → 背包"), *Name, Count), ColdSteelUI::Success);
+    else
+        SetFeatureMessage(FString::Printf(TEXT("生成失败：%s"), *Model->ResultMessage()), ColdSteelUI::Warning);
+    RefreshFeatures();
+}
+
+void UDevelopmentPanelWidget::GrantLevelClicked()
+{
+    auto* Model = ResolveModel();
+    if (!Model) { SetFeatureMessage(TEXT("未读取到玩家档案"), ColdSteelUI::Warning); return; }
+    if (Model->GrantLevel(1))
+        SetFeatureMessage(FString::Printf(TEXT("角色等级提升 → Lv.%d · 属性点 %d"), Model->Level, Model->AttributePoints), ColdSteelUI::Success);
+    else
+        SetFeatureMessage(FString::Printf(TEXT("等级提升失败：%s"), *Model->ResultMessage()), ColdSteelUI::Warning);
+    RefreshFeatures();
+}
+
+void UDevelopmentPanelWidget::RaiseSkillClicked()
+{
+    auto* Model = ResolveModel();
+    if (!Model || SelectedSkill.IsNone()) { SetFeatureMessage(TEXT("请选择要提升的技能"), ColdSteelUI::Warning); return; }
+    const FString Name = Model->DevelopmentSkillDefinition(SelectedSkill).Name;
+    if (Model->RaiseSkillLevel(SelectedSkill, 1))
+        SetFeatureMessage(FString::Printf(TEXT("%s → Lv.%d"), *Name, Model->MasteryProgress(SelectedSkill).Level), ColdSteelUI::Success);
+    else
+        SetFeatureMessage(FString::Printf(TEXT("%s 已是满级或无法提升"), *Name), ColdSteelUI::Warning);
+    RefreshFeatures();
+}
+
+void UDevelopmentPanelWidget::MaxSkillClicked()
+{
+    auto* Model = ResolveModel();
+    if (!Model || SelectedSkill.IsNone()) { SetFeatureMessage(TEXT("请选择要提升的技能"), ColdSteelUI::Warning); return; }
+    const FString Name = Model->DevelopmentSkillDefinition(SelectedSkill).Name;
+    const int32 Max = Model->DevelopmentSkillDefinition(SelectedSkill).MaxLevel;
+    if (Model->MaxSkillLevel(SelectedSkill))
+        SetFeatureMessage(FString::Printf(TEXT("%s 已提升至满级 Lv.%d"), *Name, Max), ColdSteelUI::Success);
+    else
+        SetFeatureMessage(FString::Printf(TEXT("%s 已是满级"), *Name), ColdSteelUI::Warning);
+    RefreshFeatures();
+}
+
 void UDevelopmentPanelWidget::UpdateLayout()
 {
     const FVector2D View = UWidgetLayoutLibrary::GetViewportSize(this);
     const float Scale = ColdSteelUI::PixelScale(this);
     if (View.X < 1 || View.Y < 1 || (LastViewport.Equals(View) && FMath::IsNearlyEqual(LastPixelScale, Scale))) return;
     LastViewport = View; LastPixelScale = Scale;
-    const float Width = View.X < 720.f ? View.X - 24.f : FMath::Min(520.f, View.X - 24.f);
-    PanelSlot->SetPosition(FVector2D(-12.f,12.f) / Scale);
-    PanelSlot->SetSize(FVector2D(FMath::Max(1.f, Width), FMath::Max(1.f, FMath::Min(820.f, View.Y - 24.f))) / Scale);
+    // 与背包装备同一抽屉规格：贴右边缘、上下各 12px，宽度 = min(视口-12, clamp(48%, 720, 1040))。
+    const float RightInset = ColdSteelUI::NavigationDrawerInset;
+    const float Width = FMath::Min(View.X - RightInset - 12.f, FMath::Clamp(View.X * .48f, 720.f, 1040.f));
+    DrawerSlide = FMath::Max(1.f, Width);
+    PanelSlot->SetOffsets(FMargin(-RightInset / Scale, 12.f / Scale, DrawerSlide / Scale, 12.f / Scale));
     ShortcutSlot->SetPosition(FVector2D(16.f,-90.f) / Scale);
     Surface->SetPadding(FMargin(18.f / Scale));
     Surface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint, ColdSteelUI::PanelRadius / Scale));
     Blur->SetCornerRadius(FVector4(ColdSteelUI::PanelRadius / Scale));
+    Blur->SetLowQualityFallbackBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback, ColdSteelUI::PanelRadius / Scale));
     RefreshPanelTypography();
     UpdateTuningLayout(FMath::Max(1.f, Width - 36.f), Scale);
-    auto ComboStyle = MonsterChoice->GetWidgetStyle();
+    UpdateFeatureLayout(FMath::Max(1.f, Width - 36.f), Scale);
+    StyleChoice(MonsterChoice, Scale);
+    StyleChoice(ItemChoice, Scale);
+    StyleChoice(SkillChoice, Scale);
+    for (auto* Spin : {CountBox.Get(), DistanceBox.Get(), ItemCountBox.Get()}) StyleCount(Spin, Scale);
+    SetPage(ActivePage);
+}
+
+void UDevelopmentPanelWidget::StyleChoice(UComboBoxString* Combo, float Scale)
+{
+    if (!Combo) return;
+    auto ComboStyle = Combo->GetWidgetStyle();
     ComboStyle.ComboButtonStyle.ButtonStyle = ColdSteelUI::ButtonStyle(1.f / Scale);
     ComboStyle.ComboButtonStyle.DownArrowImage.TintColor = ColdSteelUI::TextSecondary;
     ComboStyle.ComboButtonStyle.MenuBorderBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback, ColdSteelUI::ButtonRadius / Scale);
-    MonsterChoice->SetWidgetStyle(ComboStyle);
-    for (auto* Spin : {CountBox.Get(), DistanceBox.Get()})
+    Combo->SetWidgetStyle(ComboStyle);
+}
+
+void UDevelopmentPanelWidget::StyleCount(USpinBox* Spin, float Scale)
+{
+    if (!Spin) return;
+    Spin->SetFont(ColdSteelUI::NumberFont(10.5f / Scale));
+    Spin->SetForegroundColor(ColdSteelUI::TextPrimary);
+    auto Style = Spin->GetWidgetStyle();
+    Style.SetBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale));
+    Style.SetHoveredBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / Scale));
+    Style.SetActiveBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale, ColdSteelUI::Accent));
+    Style.SetActiveFillBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / Scale));
+    Style.SetInactiveFillBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale));
+    Spin->SetWidgetStyle(Style);
+}
+
+void UDevelopmentPanelWidget::TickDrawer(float Delta)
+{
+    const bool bOpen = IsPanelOpen();
+    DrawerProgress = FMath::FInterpConstantTo(DrawerProgress, bOpen ? 1.f : 0.f, Delta, 4.f);
+    const float Scale = ColdSteelUI::PixelScale(this);
+    const bool bOut = bOpen || DrawerProgress > KINDA_SMALL_NUMBER;
+    if (Panel)
     {
-        Spin->SetFont(ColdSteelUI::NumberFont(10.5f / Scale));
-        Spin->SetForegroundColor(ColdSteelUI::TextPrimary);
-        auto Style = Spin->GetWidgetStyle();
-        Style.SetBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale));
-        Style.SetHoveredBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / Scale));
-        Style.SetActiveBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale, ColdSteelUI::Accent));
-        Style.SetActiveFillBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / Scale));
-        Style.SetInactiveFillBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale));
-        Spin->SetWidgetStyle(Style);
+        Panel->SetRenderTranslation(FVector2D((1.f - DrawerProgress) * DrawerSlide / Scale, 0.f));
+        Panel->SetVisibility(bOut ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
     }
-    SetPage(ActivePage);
+    if (DrawerBackdrop)
+    {
+        DrawerBackdrop->SetRenderOpacity(DrawerProgress);
+        DrawerBackdrop->SetVisibility(bOut ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+    }
+    if (Blur) Blur->SetRenderOpacity(DrawerProgress);
+    // 入口按钮与 HUD 的右侧栏目一样，在抽屉出现期间（含收回动画）让位。
+    if (Shortcut) Shortcut->SetVisibility(bOut ? ESlateVisibility::Collapsed : ESlateVisibility::Visible);
+    if (!bOpen && !bOut && bHudYielded)
+    {
+        bHudYielded = false;
+        if (auto* HUD = ResolveHUD()) HUD->SetExternalDrawerOpen(false);
+    }
 }
 
 void UDevelopmentPanelWidget::NativeTick(const FGeometry& Geometry, float DeltaSeconds)
 {
     Super::NativeTick(Geometry, DeltaSeconds);
     UpdateLayout();
+    TickDrawer(DeltaSeconds);
 }
 
 void UDevelopmentPanelWidget::OpenDeveloper() { if (auto* Player = GetOwningPlayer<AFPSGAMEPlayerController>()) Player->ToggleDevelopmentPanel(); }

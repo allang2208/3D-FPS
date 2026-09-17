@@ -1,5 +1,6 @@
 #include "DevelopmentPanelWidget.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelHUDWidget.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
@@ -23,6 +24,12 @@ void UDevelopmentPanelWidget::NativeConstruct()
 
 void UDevelopmentPanelWidget::NativeDestruct()
 {
+    // 面板被销毁时收回动画不会跑完，HUD 让位必须在这里直接解除。
+    if (bHudYielded)
+    {
+        bHudYielded = false;
+        if (auto* HUD = ResolveHUD()) HUD->SetExternalDrawerOpen(false);
+    }
     if (auto* Tuning = BoundTuning.Get()) Tuning->OnChanged.Remove(TuningChangedHandle);
     TuningChangedHandle.Reset();
     BoundTuning.Reset();
@@ -37,6 +44,8 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
     Page->AddChildToVerticalBox(CreatePanelText(
         TEXT("开关立即生效，关闭面板后保持；结束本次游戏后重置。"), 12, ColdSteelUI::TextTertiary))
         ->SetPadding(FMargin(0,0,0,12.f / Scale));
+    Page->AddChildToVerticalBox(CreatePanelText(TEXT("会话开关"), 16, ColdSteelUI::TextPrimary))
+        ->SetPadding(FMargin(0,0,0,8.f / Scale));
 
     struct FOptionCopy { EDevelopmentTuningOption Option; const TCHAR* Title; const TCHAR* Help; const TCHAR* Name; };
     const FOptionCopy Options[] = {
@@ -44,7 +53,8 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         {EDevelopmentTuningOption::OneHitKill, TEXT("秒杀"), TEXT("玩家有效命中即可击杀敌方怪物，照常结算掉落与经验。"), TEXT("DevelopmentOneHitKill")},
         {EDevelopmentTuningOption::InfiniteReserveAmmo, TEXT("无限备弹"), TEXT("换弹不消耗背包弹药，弹匣打空后仍需换弹。"), TEXT("DevelopmentInfiniteAmmo")},
         {EDevelopmentTuningOption::InfiniteMana, TEXT("无限魔法值"), TEXT("魔法值保持可用上限，施法不扣蓝；关闭后恢复原有数值。"), TEXT("DevelopmentInfiniteMana")},
-        {EDevelopmentTuningOption::NoAbilityCooldown, TEXT("魔法／技能无 CD"), TEXT("清除现有冷却，施放后不再等待 CD；保留施法动作与飞行过程。"), TEXT("DevelopmentNoCooldown")}
+        {EDevelopmentTuningOption::NoAbilityCooldown, TEXT("魔法／技能无 CD"), TEXT("清除现有冷却，施放后不再等待 CD；保留施法动作与飞行过程。"), TEXT("DevelopmentNoCooldown")},
+        {EDevelopmentTuningOption::FreeBuilding, TEXT("建造不消耗资源"), TEXT("放置体素块不扣背包／仓库体块；拆除回收仍按原规则发放。"), TEXT("DevelopmentFreeBuilding")}
     };
     for (const auto& Option : Options)
     {
@@ -75,9 +85,11 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         case EDevelopmentTuningOption::InfiniteReserveAmmo: Button->OnClicked.AddDynamic(this,&ThisClass::InfiniteAmmoClicked); break;
         case EDevelopmentTuningOption::InfiniteMana: Button->OnClicked.AddDynamic(this,&ThisClass::InfiniteManaClicked); break;
         case EDevelopmentTuningOption::NoAbilityCooldown: Button->OnClicked.AddDynamic(this,&ThisClass::NoCooldownClicked); break;
+        case EDevelopmentTuningOption::FreeBuilding: Button->OnClicked.AddDynamic(this,&ThisClass::FreeBuildingClicked); break;
         }
         TuningRows.Add(Row);
     }
+    BuildFeatureRows(Page);
 }
 
 void UDevelopmentPanelWidget::UpdateTuningLayout(float ContentWidth, float Scale)
@@ -129,7 +141,7 @@ void UDevelopmentPanelWidget::RefreshTuning()
         }
     }
     TuningStatus->SetText(FText::FromString(bTuningAvailable
-        ? FString::Printf(TEXT("当前已开启 %d / 5 项"),Enabled)
+        ? FString::Printf(TEXT("当前已开启 %d / %d 项"),Enabled,TuningRows.Num())
         : TEXT("进入单机游戏并控制角色后，可使用基本调参。")));
     TuningStatus->SetColorAndOpacity(bTuningAvailable ? ColdSteelUI::TextSecondary : ColdSteelUI::Warning);
     if (DisableTuningButton) DisableTuningButton->SetIsEnabled(bTuningAvailable && Enabled > 0);
@@ -146,6 +158,7 @@ void UDevelopmentPanelWidget::OneHitKillClicked() { ToggleTuning(EDevelopmentTun
 void UDevelopmentPanelWidget::InfiniteAmmoClicked() { ToggleTuning(EDevelopmentTuningOption::InfiniteReserveAmmo); }
 void UDevelopmentPanelWidget::InfiniteManaClicked() { ToggleTuning(EDevelopmentTuningOption::InfiniteMana); }
 void UDevelopmentPanelWidget::NoCooldownClicked() { ToggleTuning(EDevelopmentTuningOption::NoAbilityCooldown); }
+void UDevelopmentPanelWidget::FreeBuildingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeBuilding); }
 void UDevelopmentPanelWidget::DisableTuningClicked()
 {
     if (auto* Tuning = UDevelopmentTuningSubsystem::Find(this)) Tuning->DisableAll(GetOwningPlayer());

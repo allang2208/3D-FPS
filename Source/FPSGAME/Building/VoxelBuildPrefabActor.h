@@ -22,12 +22,16 @@ public:
     FIntVector AnchorCell() const {return Cell;}
     int32 Yaw() const {return QuarterTurns;}
     UStaticMeshComponent* Body() const {return MeshComponent;}
+    /** 逻辑构件（门等自带 Actor 的构件）挂在占位记录下的实例；拆除时一并销毁。 */
+    void AttachLogicActor(AActor* InLogicActor) {LogicActor=InLogicActor;}
+    AActor* Logic() const {return LogicActor;}
     /** Authored footprint in 20 cm cells after the requested quarter turns. */
     static FIntVector RotatedFootprint(FIntVector Footprint,int32 QuarterTurns);
     /** Bounds-centred transform so a rotated piece keeps filling its snapped cell box. */
     static FTransform ComputeTransform(const FVoxelBuildPrefab& Definition,UStaticMesh* Mesh,FIntVector Cell,int32 QuarterTurns);
 private:
     UPROPERTY() TObjectPtr<UStaticMeshComponent> MeshComponent;
+    UPROPERTY(Transient) TObjectPtr<AActor> LogicActor;
     FName Id;
     FIntVector Cell=FIntVector::ZeroValue;
     int32 QuarterTurns=0;

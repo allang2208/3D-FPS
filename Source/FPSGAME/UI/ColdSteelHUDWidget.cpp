@@ -1,22 +1,12 @@
-        // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
-        if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);
-    // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
-    // so the board that started the drag may not be the widget receiving this event.
-    if (InKeyEvent.GetKey() == EKeys::F && !InKeyEvent.IsRepeat() && InventoryDrag.IsValid())
-    {
-        if (auto* Board = InventoryDrag->SourceBoard.Get())
-            if (Board->RotateDraggedItem(Board->GetCachedGeometry())) return FReply::Handled();
-    }
-    // The drawer hugs the right edge, so the world clock yields the corner while it is out.
-    if (WorldClock) WorldClock->SetVisibility(bInventoryOpen || DrawerProgress > KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
-#include "ColdSteelWorldClock.h"
 #include "ColdSteelHUDWidget.h"
 #include "Widgets/SWidget.h"
 #include "ColdSteelSkillPage.h"
 #include "ColdSteelProgressNotification.h"
 #include "ColdSteelAmmoReadout.h"
 #include "ColdSteelInventoryWidget.h"
+#include "ColdSteelWorldClock.h"
 #include "ColdSteelStatusModel.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Engine/GameInstance.h"
 
@@ -80,7 +70,7 @@ namespace
     const FLinearColor TimelineCriticalColor = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF665CFF")));
     const FLinearColor StatusCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("172028D9")));
     const FLinearColor AttributeRow = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("2730397A")));
-    const FLinearColor TooltipSurface = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("0B1116FA")));
+    const FLinearColor TooltipSurface = ColdSteelUI::TooltipGlass;
 
     FProgressBarStyle StatusBarStyle()
     {
@@ -216,17 +206,28 @@ void UColdSteelHUDWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaT
     {
         UpdateEquipmentTooltipPlacement();
     }
-    if (!bInventoryOpen && !IsQuickDragging() && DrawerProgress <= KINDA_SMALL_NUMBER)
+    // 开发面板（外部抽屉）打开时同样按抽屉展开期处理，收起动画播完才恢复。
+    const bool bDrawerOut=bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen;
+    if (!bInventoryOpen && !IsQuickDragging() && DrawerProgress <= KINDA_SMALL_NUMBER && !bExternalDrawerOpen)
     {
         InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);
         InventoryBackdrop->SetVisibility(ESlateVisibility::Collapsed);
         InventoryBlur->SetVisibility(ESlateVisibility::Collapsed);
     }
+    // The drawer hugs the right edge, so the world clock yields the corner while it is out.
+    if (WorldClock) WorldClock->SetVisibility(bDrawerOut ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
 }
 
 FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
 {
     if (HandlePanelShortcut(InKeyEvent.GetKey(), InKeyEvent.IsRepeat())) return FReply::Handled();
+    // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
+    // so the board that started the drag may not be the widget receiving this event.
+    if (InKeyEvent.GetKey() == EKeys::F && !InKeyEvent.IsRepeat() && InventoryDrag.IsValid())
+    {
+        if (auto* Board = InventoryDrag->SourceBoard.Get())
+            if (Board->RotateDraggedItem(Board->GetCachedGeometry())) return FReply::Handled();
+    }
     if (InKeyEvent.GetKey() == EKeys::Escape && TimelinePopover && TimelinePopover->IsVisible())
     {
         SetTimelineDetailsOpen(false);
@@ -563,7 +564,7 @@ void UColdSteelHUDWidget::BuildEquipmentTooltip(UCanvasPanel* Root)
     Close->OnClicked.AddDynamic(this, &UColdSteelHUDWidget::HandleEquipmentTooltipCloseClicked);
     USizeBox* CloseSize = WidgetTree->ConstructWidget<USizeBox>(); CloseSize->SetWidthOverride(ReferenceUnits(24)); CloseSize->SetHeightOverride(ReferenceUnits(24)); CloseSize->SetContent(Close);
     Meta->AddChildToHorizontalBox(CloseSize);
-    EquipmentDamageValue = AddTooltipRow(Main, TEXT("物理攻击"), TEXT("30"), ColdSteelUI::TextPrimary, true);
+    EquipmentDamageValue = AddTooltipRow(Main, TEXT("武器总伤害"), TEXT("30"), ColdSteelUI::TextPrimary, true);
     EquipmentCapacityValue = AddTooltipRow(Main, TEXT("弹匣容量"), TEXT("30 发"), ColdSteelUI::TextPrimary);
     AddTooltipRow(Main, TEXT("分类"), TEXT("武器"), ColdSteelUI::TextPrimary);
     AddTooltipRow(Main, TEXT("武器类型"), TEXT("步枪"), ColdSteelUI::TextPrimary);
@@ -1015,6 +1016,15 @@ void UColdSteelHUDWidget::HandleTimelineFilterWeatherClicked()
     SetTimelineDetailsOpen(false);
 }
 
+void UColdSteelHUDWidget::SetExternalDrawerOpen(bool bOpen)
+{
+    if(bExternalDrawerOpen==bOpen)return;
+    bExternalDrawerOpen=bOpen;
+    // 入口列、世界时钟与武器详情都在逐帧 Tick 里读这个标记；这里再刷一次弹药栏，
+    // 让面板弹出的同一帧就收起它（该面板的可见性由它自己的 Refresh 决定）。
+    RefreshAmmo();
+}
+
 void UColdSteelHUDWidget::SetInventoryOpen(bool bOpen)
 {
     if(!bOpen)CancelQuickDrag();
@@ -1105,6 +1115,8 @@ void UColdSteelHUDWidget::RefreshAmmo()
     if(AmmoReadout)
     {
         AmmoReadout->Refresh(Character,StatusModel,bInventoryOpen);
+        // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
+        if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);
         const float S=ColdSteelUI::PixelScale(this);
         FVector2D View=GetCachedGeometry().GetLocalSize();
         if(View.X<100)View=UWidgetLayoutLibrary::GetViewportSize(this)/S;
@@ -1140,7 +1152,7 @@ void UColdSteelHUDWidget::RefreshStatus()
     }
     if (AmmoStatusValueText)
     {
-        const bool Sword=StatusModel&&StatusModel->Equipped()&&StatusModel->Equipped()->Definition==TEXT("ue_rune_sword");
+        const bool Sword=StatusModel&&StatusModel->Equipped()&&ColdSteelInventory::IsTwoHandedSword(*StatusModel->Equipped());
         AmmoStatusValueText->SetText(FText::FromString(Sword?TEXT("近战"):FString::Printf(TEXT("%d/%d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo())));
     }
     if (MoveSpeedValueText && Character->GetCharacterMovement())
@@ -1157,12 +1169,14 @@ void UColdSteelHUDWidget::RefreshStatus()
         if (const FFloatProperty* Property = FindFProperty<FFloatProperty>(Character->GetClass(), TEXT("FireInterval"))) Interval = Property->GetPropertyValue_InContainer(Character);
         if (const FFloatProperty* Property = FindFProperty<FFloatProperty>(Character->GetClass(), TEXT("ReloadDuration"))) Reload = Property->GetPropertyValue_InContainer(Character);
         if (const FIntProperty* Property = FindFProperty<FIntProperty>(Character->GetClass(), TEXT("MagazineCapacity"))) Capacity = Property->GetPropertyValue_InContainer(Character);
-        EquipmentDamageValue->SetText(FText::FromString(FString::Printf(TEXT("%.0f"), Damage)));
+        if(StatusModel&&StatusModel->Equipped()&&ColdSteelInventory::IsTwoHandedSword(*StatusModel->Equipped()))
+            Damage=ColdSteelMelee::Evaluate(*StatusModel->Equipped(),StatusModel).Damage;
+        EquipmentDamageValue->SetText(FText::FromString(FString::Printf(TEXT("%.2f"), Damage)));
         EquipmentCapacityValue->SetText(FText::FromString(FString::Printf(TEXT("%d 发"), Capacity)));
         EquipmentIntervalValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), Interval * 1000.0f)));
         EquipmentReloadValue->SetText(FText::FromString(FString::Printf(TEXT("%.0fms"), Reload * 1000.0f)));
         EquipmentAmmoValue->SetText(FText::FromString(FString::Printf(TEXT("%d / %d"), Character->GetMagazineAmmo(), Character->GetReserveAmmo())));
-        if(StatusModel&&StatusModel->Equipped()&&StatusModel->Equipped()->Definition==TEXT("ue_rune_sword"))
+        if(StatusModel&&StatusModel->Equipped()&&ColdSteelInventory::IsTwoHandedSword(*StatusModel->Equipped()))
         {EquipmentCapacityValue->SetText(FText::FromString(TEXT("—")));EquipmentReloadValue->SetText(FText::FromString(TEXT("—")));EquipmentAmmoValue->SetText(FText::FromString(TEXT("近战")));}
     }
 }
@@ -1387,15 +1401,3 @@ void UColdSteelHUDWidget::HandleCloseClicked()
 {
     SetInventoryOpen(false);
 }
-#include "ColdSteelWorldClock.h"
-    // The drawer hugs the right edge, so the world clock yields the corner while it is out.
-    if (WorldClock) WorldClock->SetVisibility(bInventoryOpen || DrawerProgress > KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible);
-    // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
-    // so the board that started the drag may not be the widget receiving this event.
-    if (InKeyEvent.GetKey() == EKeys::F && !InKeyEvent.IsRepeat() && InventoryDrag.IsValid())
-    {
-        if (auto* Board = InventoryDrag->SourceBoard.Get())
-            if (Board->RotateDraggedItem(Board->GetCachedGeometry())) return FReply::Handled();
-    }
-        // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
-        if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);

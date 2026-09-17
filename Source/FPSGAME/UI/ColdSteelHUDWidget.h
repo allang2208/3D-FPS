@@ -37,6 +37,10 @@ public:
     UFUNCTION(BlueprintPure, Category = "Cold Steel UI")
     bool IsInventoryOpen() const { return bInventoryOpen; }
 
+    /** 开发面板等外部右侧抽屉与背包装备共享让位规则：打开期间入口列、世界时钟与武器详情一起收起。 */
+    void SetExternalDrawerOpen(bool bOpen);
+    bool IsExternalDrawerOpen() const { return bExternalDrawerOpen; }
+
     /** Deterministic compact / expanded / detail states used by the runtime UI audit. */
     void SetEventTimelineAuditState(int32 State);
 
@@ -423,6 +427,8 @@ private:
     TObjectPtr<UTexture2D> TimelineGradientTexture;
 
     bool bInventoryOpen = false;
+    /** 外部抽屉（F6 开发面板）打开期间的同一让位标记。 */
+    bool bExternalDrawerOpen = false;
     float DrawerProgress = 0.0f;
     float AmmoRefreshAccumulator = 0.0f;
     float StatusRefreshAccumulator = 0.0f;

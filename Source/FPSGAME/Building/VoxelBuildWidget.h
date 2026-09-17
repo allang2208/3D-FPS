@@ -94,6 +94,8 @@ private:
         bool bChild=false;
         /** Cached drawer thumbnail for this card; empty when the entry has no preview. */
         FString IconKey;
+        /** 建卡时的缩略图请求：缓存被回收后按同一份参数重新排队。 */
+        FVoxelBuildIconRequest IconRequest;
         TWeakObjectPtr<UButton> Button;
         TWeakObjectPtr<UBorder> Surface;
         TWeakObjectPtr<UImage> Image;
@@ -135,6 +137,8 @@ private:
     FVector2D LastViewport=FVector2D::ZeroVector;
     float LastScale=0,DrawerProgress=0,DrawerWidth=0;
     bool bDrawerOpen=false,bComponentCategory=false,bCardsDirty=true,bSelectionDirty=true;
+    /** 卡片重建后需要把新的缩略图键集合交给图标子系统（正在显示的键不参与回收）。 */
+    bool bIconPinsDirty=true;
     UTextBlock* Text(const FString& Caption,float Pixels,bool Numeric=false,bool Medium=false,bool bTrack=true);
     UButton* Tab(const FString& Caption,bool bComponents);
     class UVoxelBuildComponent* Builder() const;
@@ -148,6 +152,8 @@ private:
         const FVoxelBuildPanelCard* MaterialRow);
     class UVoxelBuildIcons* IconsFor() const;
     void RefreshIcons();
+    /** 把当前卡片的缩略图键交给图标子系统，声明它们是「正在显示、不参与回收」。 */
+    void RefreshIconPins();
     void RebuildCards();
     void RefreshSelection();
     void RefreshCategory();

@@ -253,6 +253,31 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 | `Tools/Building/build_blast.py` | 构建 `Source/ThirdParty/Blast` 的 `FPSBlast.lib` | 探针链接失败时 |
 | `SourceAssets/RomanColumn20260915/*` | 调色板、构件、材质的作者脚本（Python 远程执行／无头 commandlet） | 改活动调色板条目、新增构件、批量改材质 |
 
+### 3.8 预览必须与落地同口径（2026-09-17 预制件事故，重点）
+
+**规则（写死在标准里）**：任何"先看幽灵预览、再点击生成"的对象，**预览与生成必须用同一套摆放口径**。
+两处入口只有一对——预览 `UVoxelBuildComponent::UpdatePrefabPreview()`、生成 `AVoxelBuildWorld::SpawnPrefab()`；
+改任意一侧都必须同时改另一侧，否则必然出现"预览在这儿、造出来在那儿"。
+
+事故（2026-09-17 门构件）：门是**逻辑构件**（`ActorClass` 指向 `AColdSteelDoor`），它的 `Mesh` 字段只用于抽屉缩略图。
+`SpawnPrefab()` 当时按 **`Mesh` 是否为空**分流——门 `Mesh` 非空 → 走了普通构件的 `ComputeTransform()`（网格包围盒**居中**于占格）；
+而逻辑构件的实际行为是"锚点在占格底面中心、构件自己往上搭"。门身高 200 cm，于是落地比预览**高约一个半身高**、水平还偏半个门宽。
+
+现行口径：
+
+| 构件类型 | 判定 | 锚点／预览位置 |
+| --- | --- | --- |
+| 普通构件 | `ActorClass` 为空 | `AVoxelBuildPrefabActor::ComputeTransform()`：网格**包围盒居中**于占格体积（历史口径：罗马柱、矮栏杆等） |
+| 逻辑构件 | `ActorClass` 非空 | 锚点 = **占格底面中心**（`格×20 + (占格X/2, 占格Y/2, 0)`），构件自己从锚点往上搭；预览用同一口径：ghost 网格**底面对齐占格底面、X／Y 居中于占格** |
+
+新增或改造放置物时的自查清单（与 3.1／3.5 同一类教训）：
+
+1. 生成与预览是否调用同一函数或同一公式？**分流条件看构件类型，不要看有没有 `Mesh`**。
+2. 摆放是按 **pivot** 还是按**包围盒**？StarterContent 一类网格的 pivot 常在边界（门框在底边、门板在角上），按 pivot 放会整体抬高或偏移；
+   统一用 `FBoxSphereBounds`：位置 = 目标中心 − `Origin`，需要贴地时再加 `BoxExtent.Z`。
+3. 改完必须做一次"同格对照"：同一占格里切换预览与落地，目视／日志确认两者包围盒重合。
+   预览用门板网格而落地带门框时允许 5–15 cm 的轮廓差（本例 12 cm），但**不允许整体高度差半个身位**。
+
 ## 4. 新增一种体素（材质）
 
 1. 准备表面材质：体素表面由生成器写**世界投影 UV**（`P[轴]/80`），所以纯 UV0 材质（如罗马柱的 `M_RomanStone_V2`：`StoneNoise`/`StoneDetail`/`StoneBody`/`StoneDirt`/`StoneRoughnessMin|Max`）可以直接用；需要雨天湿润等世界参数的材质才走 `M_Voxel_*` 那一套（含 `MPC_FPS_Weather.WeatherWetness`）。
@@ -266,8 +291,11 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 材质行右侧的「其他构造」按钮展开后显示两类条目，顺序固定：先 5 种体素构造，再该材质的构件。
 
 - **体素构造**由 `VoxelBuildComponent.cpp` 文件级 `BrushShapes` 表定义（名称、尺寸、`bSwapsXY`），滚轮顺序、直线形状和面板条目共用这一张表，改形状只改这一处。面板条目点击走 `SelectShape(材质 ID, 形状序号)`：一次动作同时设置材质与形状。
-- **同材质构件**由调色板 `Components[].Material`（稳定材质 ID，如 `marble`）决定；空值只在「其他」分类出现。写入脚本 `SourceAssets/RomanColumn20260915/set_prefab_panel_material.py`。
-- 分类页签「其他」＝全部放置构件的一览，进入建造的 1-9 编号仍是材质 1-3、构件 4-9，不受子菜单影响。
+- **分类规则（2026-09-17 用户口径，优先看材质）**：构件由调色板 `Components[].Material`（稳定材质 ID，如 `marble`）决定归属——
+  填了材质 ID → **只**出现在该材质行的「其他构造」里；**没填材质 → 丢到「其他」分类**。同一构件不会在两处重复。
+  写入脚本 `SourceAssets/RomanColumn20260915/set_prefab_panel_material.py` 与 `add_door_prefab_entries_20260917.py`。
+- 分类页签「其他」＝**未归类**构件的一览（`Material` 留空）；归到某栏材质的构件只在该材质下出现。
+  进入建造的 1-9 编号仍是材质 1-3、构件 4-9，不受子菜单影响。
 - 抽屉内 1-9 按**可见行**编号（含展开出的子条目），与鼠标点击走同一条 `Pick` 路径。展开后抽屉顺序与调色板顺序不同，所以抽屉每次按键都在文件级 `DrawerKeyFrame`（`GFrameCounter`）上登记，`HandleInput` 的 `HandlePanelKey` 跳过同一帧已被抽屉消费的按键——和 B/Esc 用的是同一个守卫。
 
 ### 4.1 悬浮浮窗（2026-09-16 起）
@@ -293,6 +321,23 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 4. 面板卡片显示 `名称 + 格数×20cm`，脚本 `SourceAssets/RomanColumn20260915/add_panel_components.py` 是参考实现。
 5. 写 `Material`＝该构件应在哪一栏材质的「其他构造」下出现（稳定材质 ID，空值＝只在「其他」分类）。脚本 `set_prefab_panel_material.py` 是参考实现；面板与浮窗的「归属构造」行都读它，**不需要改代码或存档**。
 
+### 5.1 逻辑构件（自带 Actor 的门等，2026-09-17 起）
+
+静态网格构件只能"摆在那儿"，带开关／动画／交互的构件（门）走**逻辑构件**通道：
+
+1. 调色板条目填 `ActorClass`（C++ 类路径如 `/Script/FPSGAME.ColdSteelDoor`，或蓝图类 `..._C`）与可选 `ActorOffsetCm`；
+   `Mesh` 仍然填门板网格——它只用于抽屉缩略图与预览 ghost，不再是摆放依据。
+2. 生成：`SpawnPrefab()` 在占格底面中心生成该 Actor，并 `AttachToActor` 到占位记录 `AVoxelBuildPrefabActor` 上；
+   占格／拆除／存档仍走原来的 `Prefabs`（`Id／Cell／Yaw／Footprint`），旧存档不需要迁移。
+3. 外观：生成时把条目的 `Surface` 传给构件（`AColdSteelDoor::Configure()`），**门板与门框的所有材质槽一起替换**，
+   这样一扇门可以和玩家砌的同材质墙体一致；需要保留网格自带玻璃窗时改回只换 slot 0。
+4. 拆除：准星命中的是**逻辑构件本身**，不是占位 Actor，所以 `UpdatePrefabTarget`／`RemovePrefab` 都要沿
+   `GetAttachParentActor()` 向上解析占位记录，否则右键会报"只能拆除自己放置的构件"。
+5. 交互：第三方或自研门的入口按约定函数名暴露（`ToggleDoor`／`OpenDoor`／`OnInteraction`…），
+   由 `UColdSteelDoorInteraction` 按名调用；外部门资产如果内部写死了它自己的玩家类（`GetPlayerCharacter`＋Cast），
+   不要指望外部调用就能用——那时改用本工程自己的门类。门的完整口径（开向、铰链侧、被挡反向、玩家不参与阻塞、静音）见
+   [Door System 接入评估与方案](door-system-integration-plan-20260917.md)。
+
 ## 6. 资产写入与热补丁的硬规则
 
 1. **编辑器正在运行时**改 `.uasset` 必须在编辑器进程内做（Python 远程执行／MCP），外部进程会静默失败。远程执行上下文里 `EditorAssetLibrary.save_*` 会返回 `False`（PIE 中更明显），可用 `unreal.EditorLoadingAndSavingUtils.save_packages([unreal.load_package(path)], False)`。
@@ -302,10 +347,12 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 
 | 数组 | 必需条目 |
 | --- | --- |
-| Materials | `wood` 木材 → `Rounded/M_Voxel_Wood`；`stone` 石头 → `Rounded/M_Voxel_Stone`；`marble` 大理石 → `Props/RomanColumn20260915/M_RomanStone_V2`（override 2600/3M/450k/40k/500/15） |
+| Materials | `wood` 木材 → `Rounded/M_Voxel_Wood`；`stone` 石头 → `Rounded/M_Voxel_Stone`；`marble` 大理石 → `Props/RomanColumn20260915/M_RomanStone_V2`（override；2026-09-17 盘点实际值 650/6M/900k/300k/500/15，与 `UVoxelBuildPalette::Physical()` 的石材类调参一致。`repair_palette_materials.py` 里仍写着调参前的 2600/3M/450k/40k，重跑那个脚本会把大理石改回四倍重量） |
 | Components | `roman_column` 罗马柱 → `SM_RomanColumn_Detailed` 4×4×13 `M_RomanStone_V2`；`baluster_small` 矮栏杆罗马柱 → `SM_RomanBaluster_Small` 2×2×5 `M_Plaster_Detailed` |
 
 修复脚本：`SourceAssets/RomanColumn20260915/repair_palette_materials.py`（新建一个进程跑，编辑器关闭时最稳）。
+
+5. **核对／盘点资产时不要再起第二个 `UnrealEditor-Cmd`**：同项目已有编辑器在跑时，额外的 `-run=pythonscript` 进程会在引擎初始化阶段就退出（日志表现为 `HttpListener unable to bind to 127.0.0.1:8000` 之后立刻 `Failure - 1 error(s)`，脚本根本不会执行）。只读盘点走编辑器内的远程执行：`python Tools/AssetPipeline/ue_python_exec.py --list` 找到 FPSGAME 节点，再 `--script <脚本>`。远程上下文里 `EditorAssetLibrary.load_asset`／`does_asset_exist` 可能返回 None／False，要用 `unreal.load_asset(path)` 兜底。本轮只读盘点脚本：`SourceAssets/RomanColumn20260915/audit_panel_icons_20260917.py`（字段与标准表逐项比对）与 `audit_panel_icons_text_20260917.py`（中文名称按码位回读、资产类型与 LOD／三角面）。
 
 2026-09-16 事故已按上述流程修复（全量编译 + headless 修复 + 独立进程读回 + 磁盘字节校验）；之后再改 `FVoxelPhysicalMaterial` / `FVoxelBuildMaterial` 这类带资产的 USTRUCT，一律先关编辑器全量编译，不要用热补丁。
 

@@ -17,6 +17,9 @@ namespace
     // Largest bounding-box edge maps to this fraction of the orthographic frame, so every card shows
     // its construction at the same size.
     constexpr float IconFillFraction=.78f;
+    // 单格 1×1 体素块按一半大小绘制：20 cm 方块与 1 m 地块／1×5 直线同框时不再显得一样大
+    // （2026-09-17 用户要求）。只影响单格请求，材质行缩略图与「单格」卡片同样适用。
+    constexpr float SingleBlockFrameScale=.5f;
     constexpr int32 MaxCachedIcons=16;
     const TCHAR* ResolvedMaterialPath=TEXT("/Game/UI/GunsmithWorkbench/M_WeaponPreviewResolved.M_WeaponPreviewResolved");
     const TCHAR* StudioSkyPath=TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment");
@@ -47,6 +50,18 @@ UMaterialInterface* UVoxelBuildIcons::Find(const FString& Key) const
     return nullptr;
 }
 
+void UVoxelBuildIcons::SetVisibleKeys(const TSet<FString>& Keys)
+{
+    // 控件每帧都会调用；内容不变时不重写集合，避免每帧重建哈希表。
+    if(VisibleKeys.Num()==Keys.Num())
+    {
+        bool bSame=true;
+        for(const FString& Key:Keys)if(!VisibleKeys.Contains(Key)){bSame=false;break;}
+        if(bSame)return;
+    }
+    VisibleKeys=Keys;
+}
+
 void UVoxelBuildIcons::ReleaseEntry(const FString& Key)
 {
     if(auto* Target=ColorTargets.Find(Key))if(*Target)(*Target)->ReleaseResource();
@@ -56,7 +71,7 @@ void UVoxelBuildIcons::ReleaseEntry(const FString& Key)
 
 void UVoxelBuildIcons::Deinitialize()
 {
-    Queue.Reset();Pending.Reset();Failed.Reset();
+    Queue.Reset();Pending.Reset();Failed.Reset();VisibleKeys.Reset();
     if(ColorCapture){ColorCapture->TextureTarget=nullptr;if(Studio.IsValid())Studio->RemoveComponent(ColorCapture);ColorCapture->DestroyComponent();ColorCapture=nullptr;}
     if(CoverageCapture){CoverageCapture->TextureTarget=nullptr;if(Studio.IsValid())Studio->RemoveComponent(CoverageCapture);CoverageCapture->DestroyComponent();CoverageCapture=nullptr;}
     for(TPair<FString,TObjectPtr<UTextureRenderTarget2D>>& Entry:ColorTargets)if(Entry.Value)Entry.Value->ReleaseResource();
@@ -172,7 +187,9 @@ bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
     {Component->AddWorldOffset(-Centre);Component->UpdateComponentToWorld();}
     const FVector Size=Bounds.GetSize();
     const double MaxDim=FMath::Max(Size.X,FMath::Max(Size.Y,Size.Z));
-    const float OrthoWidth=FMath::Max(24.f,float(MaxDim)/IconFillFraction);
+    // 单格（1×1×1 体素块）用一半的取景比例，因此在同样的卡片里只占一半大小。
+    const float Fill=IconFillFraction*(Request.Cells.Num()==1?SingleBlockFrameScale:1.f);
+    const float OrthoWidth=FMath::Max(24.f,float(MaxDim)/Fill);
     const float Distance=300.f+float(MaxDim)*2.f;
     const FVector Forward=IconView.Vector();
     ColorCapture->ShowOnlyComponents.Reset();CoverageCapture->ShowOnlyComponents.Reset();
@@ -219,7 +236,9 @@ void UVoxelBuildIcons::Tick(float DeltaTime)
     while(Materials.Num()>MaxCachedIcons)
     {
         FString Oldest;uint64 Use=MAX_uint64;
-        for(const TPair<FString,uint64>& Entry:Uses)if(Entry.Value<Use){Use=Entry.Value;Oldest=Entry.Key;}
+        // 抽屉正在显示的缩略图不回收：全部都在显示时宁可超过上限，也不让卡片变成空图。
+        for(const TPair<FString,uint64>& Entry:Uses)
+            if(!VisibleKeys.Contains(Entry.Key)&&Entry.Value<Use){Use=Entry.Value;Oldest=Entry.Key;}
         if(Oldest.IsEmpty())break;
         ReleaseEntry(Oldest);
     }

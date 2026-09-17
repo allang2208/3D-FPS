@@ -5,6 +5,7 @@
 #include "FPSGAMECharacter.h"
 #include "Building/VoxelBuildComponent.h"
 #include "Building/VoxelBuildAudit.h"
+#include "Building/ColdSteelDoorInteraction.h"
 
 #include "UI/ColdSteelHUDWidget.h"
 #include "UI/LPVOScopeWidget.h"
@@ -107,8 +108,10 @@ void AFPSGAMEPlayerController::BeginPlay()
 
 #if !UE_BUILD_SHIPPING
     WeatherPanel = CreateWidget<UDevelopmentPanelWidget>(this, UDevelopmentPanelWidget::StaticClass());
-    // Keep the shortcut below inventory; the unified panel owns the F6 input context.
-    if (WeatherPanel) WeatherPanel->AddToPlayerScreen(15);
+    // The unified panel owns the F6 input context. Its drawer now shares the backpack's
+    // size, slide and HUD-yield rules, so it must sit above the HUD (20) to dim it the
+    // same way; gunsmith/enhancement panels (60) and drag visuals (1000) stay on top.
+    if (WeatherPanel) WeatherPanel->AddToPlayerScreen(30);
     StartWeatherPanelValidation(this, WeatherPanel);
 #endif
     ColdSteelHUD = CreateWidget<UColdSteelHUDWidget>(this, UColdSteelHUDWidget::StaticClass());
@@ -240,6 +243,10 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         return Params.Event == IE_Released ? Super::InputKey(Params) : true;
     }
     const bool BuildMenuOpen=GunsmithPanel||(WeatherPanel&&WeatherPanel->IsPanelOpen())||(ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen());
+    if(BuildMenuOpen&&Params.Event==IE_Pressed)
+        UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL BuildMenuOpen 来源 gunsmith=%d devpanel=%d inventory=%d key=%s"),
+            GunsmithPanel?1:0,(WeatherPanel&&WeatherPanel->IsPanelOpen())?1:0,
+            (ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen())?1:0,*Params.Key.ToString());
     if(VoxelBuilder&&VoxelBuilder->HandleInput(Params,BuildMenuOpen))return true;
     if(EnhancementPanel){if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::K||Params.Key==EKeys::Tab))CloseEnhancement();return true;}
     if(Params.Event==IE_Pressed&&Params.Key==EKeys::K){OpenEnhancement();return true;}
@@ -281,6 +288,17 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
             auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
             if(auto* Chest=Cast<AColdSteelWarehouseChest>(Target);Chest&&ColdSteelHUD){ColdSteelHUD->OpenWarehouse(Chest);return true;}
             if(auto* Pickup=Cast<AColdSteelPickup>(Target)){Profile->Pickup(Pickup->ItemId);return true;}
+            // Door System 的门：准星命中后按门自己的交互入口开门／关门（隐藏玩家代理在子系统里维护）。
+            if(Target&&UColdSteelDoorInteraction::IsDoor(Target))
+            {
+                if(auto* Doors=GetWorld()?GetWorld()->GetSubsystem<UColdSteelDoorInteraction>():nullptr)
+                {
+                    FString Entry;
+                    // 开关门保持安静：不占提示栏、也不触发提示栏的音效；入口名仍然写日志便于排查。
+                    Doors->TryInteract(Target,GetPawn(),Entry);
+                    return true;
+                }
+            }
             // Nearby portals receive E through their existing input component before a bound skill.
             for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn()))return Super::InputKey(Params);
         }

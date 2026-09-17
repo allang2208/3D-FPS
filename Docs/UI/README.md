@@ -3,9 +3,12 @@
 实现位于 `Source/FPSGAME/UI/`，物品与枪匠数据位于 `Content/ColdSteelData/`。新面板和栏目先走 [面板与栏目工作流](../../UI-WORKFLOW.md)，使用 [规划模板](panel-column-plan-template.md)；视觉统一使用 [冷钢 UI 正式规则](ui-cold-steel-design-system.md)，冲突的旧字体、配色、透明度和按钮条款由该文替换。
 
 - [2026-09-15 UI 与必要系统发布、归档和资源恢复](ui-panel-publication-20260915.md)
-- [???????????????](backpack-icon-gunsmith-mods-20260916.md)
-- [?????????F ??](backpack-item-rotation-20260916.md)
-- [??????????? HUD ??](drawer-right-edge-and-hud-hide-20260916.md)
+- [背包与装备栏图标的改造同步修复](backpack-icon-gunsmith-mods-20260916.md)
+- [F6 开发面板抽屉规格与开发功能](development-panel-tools-plan-20260916.md)
+- [背包物品拖动转向（F 键）](backpack-item-rotation-20260916.md)
+- [抽屉贴右边缘与打开时的 HUD 让步](drawer-right-edge-and-hud-hide-20260916.md)
+- [建造面板抽屉与构件卡片规划](voxel-build-panel-plan-20260916.md)
+- [建造抽屉缩略图存活与单格取景](voxel-build-icon-lifetime-plan-20260917.md)
 - [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
 - [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
 - [装备／背包图标修复经验](inventory-icons-20260913.md)

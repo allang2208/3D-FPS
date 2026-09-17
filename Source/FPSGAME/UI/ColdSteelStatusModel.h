@@ -101,7 +101,7 @@ public:
     bool BeginFireballCast();
     void FinishFireballCast();
     void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
-    float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot);
+    float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
     bool PopProgressNotice(FColdSteelProgressNotice& Out);
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     virtual void Deinitialize() override;
@@ -112,6 +112,18 @@ public:
     float Derived(FName Key) const;
     UFUNCTION(BlueprintCallable, Category="Character") bool GainExperience(int64 Amount);
     UFUNCTION(BlueprintCallable, Category="Character") bool AwardKill(AActor* Victim, int64 ExperienceReward);
+    /** 开发面板：直接提升角色等级，按正常升级发放属性点，经验夹到当前等级门槛以下。 */
+    UFUNCTION(BlueprintCallable, Category="Development") bool GrantLevel(int32 Count=1);
+    /** 开发面板：存档中的技能目录（规范顺序，与 ColdSteelSkills::Migrate 的键一致）。 */
+    const TArray<FName>& SkillCatalog() const;
+    /** 开发面板：技能的真实定义（名称／满级／图标）；MasteryDefinition 只覆盖武器精通，其余会回退到步枪。 */
+    const FColdSteelSkillDefinition& DevelopmentSkillDefinition(FName Id) const;
+    /** 开发面板：把指定技能提升 Count 级，不超过满级；满级清零修炼值。 */
+    UFUNCTION(BlueprintCallable, Category="Development") bool RaiseSkillLevel(FName Id,int32 Count=1);
+    /** 开发面板：把指定技能直接提升到满级。 */
+    UFUNCTION(BlueprintCallable, Category="Development") bool MaxSkillLevel(FName Id);
+    /** 开发面板：当前加载的物品目录（定义 id、名称与归纳类别），供分类下拉使用。 */
+    const TArray<FColdSteelCatalogEntry>& ItemCatalog() const;
     int64 MaxExperience() const;
     int64 Experience() const { return Current.Experience; }
     int32 Kills() const { return Current.Kills; }
@@ -178,6 +190,11 @@ public:
     int32 HarvestProgress(const FString& Id) const;
     /** Clears one harvest counter so an excavated topsoil cell can be dug again. */
     bool ResetHarvestProgress(const FString& Id);
+    bool HasTreeGrowth(const FString& Id) const;
+    float TreeGrowthScale(const FString& Id) const;
+    float TreeStumpScale(const FString& Id) const;
+    bool IsTreeMature(const FString& Id) const;
+    void TickTreeGrowthClock(float Delta);
     bool CommitHarvestStrike(const struct FProductionResource& Target,bool& Depleted);
     bool AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred=-1);
     int64 WarehouseRemainingCapacity(const FColdSteelItem& Item) const;
@@ -231,6 +248,9 @@ private:
     void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
     FColdSteelProfile Current;
     TMap<FString,FString> Definitions;
+    // 开发面板目录：首次读取时按 items.json 的类别归纳并排序，之后只读复用。
+    mutable TArray<FColdSteelCatalogEntry> ItemCatalogCache;
+    mutable bool bItemCatalogBuilt = false;
     TSet<TWeakObjectPtr<AActor>> RewardedVictims;
     TWeakObjectPtr<class AFPSGAMECharacter> CurrentPawn;
     FString SaveSlot;
@@ -238,7 +258,18 @@ private:
     bool bPersistenceBlocked=false;
     bool bAudit=false;
     float SaveAccumulator=0;
+    TWeakObjectPtr<class AFPSWeatherManager> TreeGrowthWeather;
+    float TreeGrowthWeatherSearch=0;
     void Publish(const FColdSteelProfile& State);
+    // Runtime capture only persists; gameplay transactions also apply their changes.
+    bool PersistState(FColdSteelProfile State, bool bApplyPawn);
+    // Hit-driven training arrives once per accepted bullet. The live profile is
+    // updated immediately, while the checked A/B save is coalesced instead of
+    // running inside every hit.
+    bool StageTraining(FColdSteelProfile&& State);
+    bool bTrainingDirty = false;
+    float TrainingFlushAccumulator = 0.f;
+    double LastTrainingPublish = -10.;
     void ApplyToPawn();
     void RefreshDrops();
     void LoadProductionDefinitions();

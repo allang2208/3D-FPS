@@ -48,6 +48,12 @@ public:
     void Request(const FVoxelBuildIconRequest& Request);
     /** Ready-to-draw UI material for a card image, or null while its job is still queued. */
     UMaterialInterface* Find(const FString& Key) const;
+    /**
+     * 抽屉当前显示的缩略图键。这些键不参与 LRU 淘汰，所以展开多栏材质时不会把先出图的
+     * 木制条目回收掉（2026-09-17：三栏全展开需要 18 张图，旧上限 16 会淘汰最早的两张）。
+     * 重建卡片时整体替换；不再显示的键随下一次淘汰回收。
+     */
+    void SetVisibleKeys(const TSet<FString>& Keys);
     static FString KeyForShape(FName MaterialId,int32 Shape);
     static FString KeyForPiece(FName PieceId);
 private:
@@ -59,6 +65,7 @@ private:
     TUniquePtr<FPreviewScene> Studio;
     TArray<FJob> Queue;
     TSet<FString> Pending,Failed;
+    TSet<FString> VisibleKeys;
     mutable uint64 Serial=0;
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> ResolvedMaterial;
     UPROPERTY(Transient) TObjectPtr<USceneCaptureComponent2D> ColorCapture;
