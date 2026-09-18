@@ -169,3 +169,8 @@ B 档原始定义是"用 WaterAdvanced 的浅水 SWE Niagara 驱动水面"。实
 - 水声仍是占位（脚步水花随机播）。
 - 焦散仍用包内 `M_Caustics`，未目视确认。
 - 性能只有"分级与开关"，**没有实测帧时间**（按规则不做主动性能测试）。
+
+发布记录：提交 `8c283c1`（`origin/main`），发布目录 `D:/FPS3D/FPSGAME`，普通推送 `HEAD:main`。
+内容依赖：`M_FountainWater` + `MIC_FountainWater/Foam/Wet/Cascade/Caustics`、`SM_RomanFountain_20`、
+`SM_RomanFountain_WaterFX`（均在本机 `Content/*`，按忽略规则不入库）。
+关卡里那座喷泉的**新增落点水花组件需要编辑器重载关卡后才会出现在已有实例上**（C++ 新增默认子组件）。
