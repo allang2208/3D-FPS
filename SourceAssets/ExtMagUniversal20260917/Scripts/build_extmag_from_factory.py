@@ -29,7 +29,11 @@ RIFLE_FBX = (r"D:\FPS3D\FPSGAME\SourceAssets\PhantomRearGripIntegration20260913"
 MAG_OBJECT = "AKM_FactoryMagazine_Preview"
 MAG_SLOT = "M_AKM_Soviet_Magazine"
 EXTENSION = 0.06          # 6 cm, the accepted +10 round extension
-BAND_FRACTION = 0.30      # where the inserted body band starts along the magazine
+# Where the extension band sits along the magazine. It has to stay clear of the
+# reload animation's left-hand grip: the accepted reload closes the hand on the
+# upper body, so the 6 cm that gets stretched goes low, just above the floor
+# plate, and the surface the fingers wrap stays factory geometry.
+BAND_FRACTION = 0.12
 
 
 def import_fbx(path):
