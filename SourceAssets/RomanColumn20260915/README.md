@@ -380,6 +380,224 @@ bbox 恰好 40×40×100、pivot 底面中心、z=0、占格 2×2×5；剖面最�
 下一进程重新加载 umap：columns=8 rails=8 voxel_cubes=128 old=0；column_01 x 580..620 / z 20..120；rail_08 x 1900..2100 / z 120..160。
 
 另：建造世界存档（`Voxel20_EA31....sav`）里的新栏杆（3 柱+2 梁+56 缝）与本图围栏是两处独立内容，均保留。
+
+## 青铜火把（2026-09-18 凌晨追加）
+
+用户要求：查 FAB 有无青铜火把，无则建一款欧式古典青铜火把挂罗马柱。
+
+### FAB 盘点结论
+
+工程已挂的 EasyBuildingSystem V10 有火把（`SM_Dummy/Polygonal/Stylized_Torch` + BP/GC），但源自生存 RPG 素材包（2021 年 "Easy Survival RPG" Props），单一通用材质 `MI_Stylized_Props`——**中世纪奇幻木棍火把，无青铜古典款**，与大理石罗马环境不匹配。判定：需要自建。
+
+### `build_bronze_torch_20260918.py`（无头）
+
+- 网格 `SM_BronzeTorch`（局部原点=柱轴心，托臂沿 +X）：柱箍 torus r21.8/t2.4（包住柱身 r≈21，内嵌 1.5 cm）→ 托臂 box x19..36 + 臂下撑板 → 立杆 z0..20 → 杆上珠环 → 喇叭杯 revolve（唇口 z+40，Ø27）。**6 壳体重叠、不做 self_union**（9-17 黑块教训）。2840 面 / 开放边 0 / bbox 73.6×48.4×62.2。
+- 材质 `M_Bronze`：参数化（BronzeBody 0.42/0.26/0.11 ↔ BronzePatinaColor 铜绿 0.20/0.38/0.33，`T_BronzePatina`(seed 5150) 驱动颜色，`T_BronzeDetail`(seed 5151) 驱动粗糙度 0.30–0.60，Metallic=1.0）。
+- 摆位：柱廊 C01..C06 柱轴心 (600+300k, 600, 190)，**yaw=-90 托臂朝南**（展示面）。命名 `ColonnadeTorch_01..06`。
+- 证据：map save=True（00:30）；下一进程 fresh-load 6 支、torch01 loc=(600,600,190) yaw=-90、override=M_Bronze、资产槽0=M_Bronze。
+
+### 踩坑
+
+- **Unreal Python Rotator 参数序是 (roll, pitch, yaw)**：`Rotator(0,-90,0)` 是 pitch=-90（火把朝下栽），必须 `Rotator(0,0,-90)`。首轮摆位 yaw 读回 0 抓到，已修。
+- umap 被并行会话遗留的僵尸 commandlet（PID 75836）锁住导致首轮 map save=False；它自行退出后重跑成功。**教训：跑地图写入前先 `tasklist` 查占用 + 试写锁。**
+- FAB 侧远端未联网查询，以本地 VaultCache/FabLibrary + 工程挂载盘点为准（与 9-15 盘点口径一致）。
+
+### 边界
+
+- 火把**没有火焰**（Niagara 火焰 + 点光源属于特效工作，未授权）；要加说一声。
+- 未注册进建造调色板（用户没要求）；需要的话按 marble 分组加一条 `bronze_torch`。
+- 离线示意图 `preview_20260917/bronze_torch_34.png`（真实资产网格渲染），引擎内实拍未做。
+
+### 火把 v3 重设计（2026-09-18 凌晨，用户反馈后）
+
+用户反馈 v1：衔接部位脱节、不要环状座环、要求"一根杆子"直接挂柱、主体细节要丰富。
+
+- **v2 弃案**：`append_sweep_polyline` 扫掠管 42 条开放边且帧朝向不可靠（bbox 串位），弃用。
+- **v3 定案**（`build_bronze_torch_v3_20260918.py`）：弯杆 = 横圆柱（pitch 旋转 90°，x 18..30，**根部嵌进柱身石料 2.9 cm**）+ 竖圆柱（z 2..22）+ 肘部球 r1.9 填角，视觉上是一根连续弯杆；杆饰 = 肘上箍环 z3 + 中段珠环 z14；杯体 = 古典 crater 剖面重做（座 flare→腰→knop→外鼓腹→内卷唇→内腔），唇口 z50 Ø26.8；**3 支火叉**凸出唇口 4 cm（120° 分布）。9 壳全封闭、开放边 0、3536 面。
+- 摆位不变（6 柱、yaw=-90、z190、override M_Bronze）；umap 被并行会话锁定期间用"试写锁→重试"循环等到释放后保存 PASS。
+- 下一进程 fresh-load：6 支、yaw=-90、override=M_Bronze ✅；离线渲染 `bronze_torch_v3_34.png` / `bronze_torch_v3_side.png`（真实资产网格）。
+
+#### 新踩坑（重要）
+
+1. **`append_cylinder` 的 translation 是底面圆心、高度沿 +Z 延伸**（非居中）——`retune` 里"base disc 20-32"与 bbox 实测双重印证。居中思维会造出悬空/断开的杆件。
+2. **`unreal.Rotator` 参数序 (roll, pitch, yaw)** 的连环坑：`Rotator(pitch,0,0)` 实为 roll=90（杆指向侧向 Y）；`Rotator(0,pitch,0)` 才是 pitch；且 **UE pitch +90 把 +Z 转向 -X**（不是 +X），横杆朝外要用 pitch=-90。
+3. 旋转圆柱后务必用 **bbox 实测**核对指向，不要信参数直觉。
+
+### 火把 v4：按用户参考图重做（2026-09-18）
+
+用户给出参考照片（深色青铜壁式火炬：菱形双板熟铁托架 + 倒悬火炬体，杯盘朝上、杆身下收成水滴尾椎）。`build_bronze_torch_v4_20260918.py`：
+
+- 托架：方杆横臂（2.2 见方，x16..33，根部嵌柱身 5 cm）+ **两块菱形板**（10.6 与 7.0 见方薄板，pitch 45°，板面朝东西；前板半嵌柱身，后板贴杯座）+ 臂端联环。
+- 火炬体倒悬：杯盘在上（flare→鼓腹→内卷唇，唇口 Ø28，本地 z28=世界 238，腔体可见）→ 杆身向下 44 cm 车削收分（双箍环 + 水滴形尾椎），臂位 z210。
+- 6 壳全封闭开放边 0、3428 面；摆位 6 柱 yaw=-90 不变；map save=True；fresh-load 6 支 yaw=-90 override=M_Bronze ✅。
+- 渲染对照 `bronze_torch_v4b_34.png`（两轮：首轮双菱板挤簇，次轮拉开间距定稿）。
+- 备注：参考图为壁挂（平墙贴合），圆柱适配方案 = 杆穿柱 + 菱形板骑杆（半嵌柱身），保留参考图的托架词汇；杯口世界高度从 240 微调至 238，臂位从 190 提到 210。
+
+### 火把 v6：臂再外伸 + 杯盘下移衔接 + 法线贴图（2026-09-18）
+
+用户三连：再外伸、材质贴图法线重新检查并渲染、火炬与臂衔接下移。`build_bronze_torch_v6_20260918.py`：
+
+- **外伸**：横臂加长到 34 cm（x16..50），火炬轴心 x42→50，杯盘内缘距柱面净空 4.4→**12.4 cm**；臂端加菱形收头。
+- **衔接下移**：火炬整体相对横臂上抬 12 cm——臂/夹箍现在夹在杯盘**下方 12 cm** 的杆身上（参考图构图），杯盘 z 12..41（唇口世界 251），夹箍套筒在臂位咬杆。
+- **材质法线**：`M_Bronze` 原本无法线（金属度 1.0 + 平面法线 = 塑料感根因）。离线 FFT 烘焙 **1024 可平铺青铜法线** `T_Bronze_Normal`（TC_NORMALMAP、sRGB 关），TextureSampleParameter2D "BronzeNormal" → MP_NORMAL；粗糙度带改 0.25–0.55，本体提亮 0.48/0.31/0.14。
+- 延伸段细节：臂端菱形收头 + 夹箍套筒，菱形板 B 移回裸杆段。
+- 4336 面 / 8 壳 / 开放边 0；摆位 6 柱 yaw=-90 z=210 不变；map save=True @09:23；fresh-load 6 支 ✅。
+- 渲染：编辑器又被关闭，SceneCapture 引擎实拍未成（相机 Rotator 同款参数序坑记入）；交付离线法线扰动渲染 `bronze_torch_v6_34.png` / `bronze_torch_v6_side.png`。引擎实拍命令：进编辑器后 `python Tools/AssetPipeline/ue_python_exec.py --script <capture 脚本>`（SceneCapture 管线已验证）。
+
+
+### 火把 v5：加长臂 + 主体精修（2026-09-18，用户二次反馈）
+
+用户：主体细节仍粗糙（再对照参考图）；伸出距离太短易与柱子粘连。`build_bronze_torch_v5_20260918.py`：
+
+- **粘连实锤**：v4 杯盘内缘 x16 < 柱身半径 21——杯盘内侧插进柱身石料 5 cm。v5 横臂加长到 26 cm（x16..42，嵌柱 5 cm），火炬轴心外移 x30→42，**杯盘内缘 25.4，距柱面净空 4.4 cm**。
+- 杯盘重做（对照参考图）：宽鼓腹 + **外卷厚唇**（唇径 Ø33，卷边回勾）+ 两级杯座 + 内腔；这是参考图辨识度最高的部件。
+- 杆身车削加深：水滴尾椎 + **4 道深箍/珠结**（箍径 2.6–3.4 对比杆径 1.3–1.7，对比拉大才读得出来），顶部喇叭座接杯。
+- 菱形板：前板 10.6 半嵌柱身，后板 7.4 @x33 收进杯座下方（视觉上托住杯底）。
+- 4420 面 / 6 壳 / 开放边 0；摆位 6 柱 z=210 yaw=-90 不变；map save=True @09:05；fresh-load 6 支 ✅。渲染 `bronze_torch_v5_34.png`。
+
+### 火把 v7：光滑青铜 + 主体精修 + 黄昏/夜晚自动点火（2026-09-18 晚）
+
+用户三连：**表面颗粒感跟预期不符，要光滑的青铜表面**；**模型还有提升空间**；**接入点火，黄昏和夜晚自动点火**。
+
+#### 1. 颗粒感的根因是材质，不是网格
+
+v6 为了消掉"塑料感"给 `M_Bronze` 加了两层高频：1024 的 FFT 微法线 `T_Bronze_Normal`（整张是密铺随机切向噪声）
+接到 `MP_NORMAL`，以及 `T_BronzeDetail`（scale 24 / 3 阶）逐像素把粗糙度在 0.25–0.55 之间抖。金属度 1.0 +
+逐像素法线 + 逐像素粗糙度 = 砂纸反光，正是用户看到的颗粒。另外 `T_BronzePatina` 是 5 阶噪声，最细一阶
+（1024 上约 256 个周期）还会把细斑直接写进基色。
+
+v7 重建 `M_Bronze`（作者脚本 `build_bronze_torch_v7_20260918.py`，在运行中的编辑器里远程执行）：
+
+| 项 | v6 | v7 |
+| --- | --- | --- |
+| `MP_NORMAL` | 微法线噪声贴图 | **不接**（光滑青铜；形体细节由网格承担） |
+| 粗糙度 | `lerp(0.25, 0.55, DetailNoise)` | `lerp(0.16, 0.30, 同一张低频遮罩)` |
+| 基色 | `lerp(0.48/0.31/0.14, 铜绿)` | `lerp(0.56/0.36/0.16, 铜绿 × 0.18)` |
+| 遮罩 | 5 阶 / scale 4 | **2 阶 / scale 3**（低到只读得出"大块色泽"，不产生细斑） |
+| 结构 | 9 个表达式（含法线与细节噪声） | 10 个表达式，**零法线、零高频细节噪声** |
+
+参数名沿用（`BronzeBody` / `BronzePatinaColor` / `BronzeRoughMin` / `BronzeRoughMax` / `PatinaMask`），
+新增 `BronzePatinaStrength`（默认 0.18）。`T_Bronze_Normal` 与 `T_BronzeDetail` 资产保留在磁盘上备用，已不被材质引用。
+依据是物品写实合同那条：写实靠材质参数（粗糙度/金属度/微表面），不靠"加噪点、加脏、加划痕"。
+
+#### 2. 模型精修（`SM_BronzeTorch`，11,956 面 / 21 壳 / 开放边 0）
+
+外契约一个字没动——局部原点仍是柱轴心、托臂朝 +X、箍环仍是 r21.8/t2.4（贴 r≈21 柱身），
+所以关卡里 6 支火把的位置、朝向、与柱子的配合全部照旧生效。改的是形体与密度：
+
+| 部位 | v6 | v7 |
+| --- | --- | --- |
+| 杯体 | 48→64 段旋成，剖面 16 点 | **96 段**，23 点剖面：杯脚 → 束颈 → 外鼓腹 → 卷唇 → **真实内腔** |
+| 杯口 | 直接以壳体收口 | 追加 **唇口珠环**（Ø32.7/t0.75，凸出杯壳 0.6） |
+| 杆身 | 48 段，17 点（含尾椎 + 4 珠） | **64 段**，28 点：水滴尾椎拉长到 z-44、四道珠结、顶部喇叭座 |
+| 托臂 | 等截面方杆 + 臂端菱形（x50，实际埋进夹箍） | **根部靴座（凸出柱面 4）+ 主方杆 + 收细端头**，一路插进夹箍套筒 |
+| 菱形板 | 两块薄板 | 每块加 **中央凸台**；四角各一枚 **铆钉球**（前板 Ø1.7 ×4、后板 Ø1.4 ×4） |
+
+铆钉位置按几何算过：45° 方板的角不在 (±S/2, ±S/2)，而在 (±S/√2, 0) 与 (0, ±S/√2)——
+第一版按 (±5.5, ±5.5) 摆会整排飘到板外。脚本自检改为比对包围盒（x -24.2..67.1 / z -44..43.1）。
+`get_bounds()` 读回：extent (45.65, 24.2, 43.53)、origin (21.45, 0, -0.47)、槽 0 = `M_Bronze`。
+
+#### 3. 点火：`ABronzeTorch` + 黄昏/夜晚自动点火
+
+新增 `Source/FPSGAME/Building/BronzeTorch.h/.cpp`（**尚未编译**，见文末边界）：
+
+- 组件：`TorchBody`（`SM_BronzeTorch` + `M_Bronze`）/ `TorchFlame`（Niagara，默认关闭）/ `TorchLight`
+  （点光，Lumens，1600 lm / 半径 900，暖色 1.0/0.60/0.26，默认不投影）。
+- 时钟口径与 `ATemperateHillsWorld::TickDayNightSky()`、`AFPSWeatherManager` 一致：`Frac(NormalizedDayTime)*24`，
+  **不另建计时器**，所以跳时、传送、跨午夜都不需要特殊分支。默认 **17:00 点火、05:30 熄灭**，
+  6 秒淡入淡出；窗口跨午夜时按"或"判断；找不到天气管理器的关卡回落到 `bStartLit`。
+- 闪烁按帧、时钟每 0.2 s 读一次；每支火把相位按世界坐标错开，整排不会同步闪。状态翻转打 `TORCH_STATE` 日志。
+- 手动接口：`SetLit()` 关闭自动模式，`SetAutomaticIgnition(true)` 交回时钟。
+- 火焰母版用 `NiagaraExamples/FX_Misc/NS_Fire`（Epic Niagara Examples，工程内既有授权依赖，与火球外焰同源），
+  `FlameScale` 默认 0.35 缩到火把尺寸；想换 Vefects / 裁剪专用火可在组件上直接换（该包在工程里没有来源记录，
+  未作为默认）。
+- 摆放脚本 `place_bronze_torches_v7_20260918.py`：保留原 6 个位姿，把 `ColonnadeTorch_01..06` 从
+  StaticMeshActor 换成 `ABronzeTorch`（幂等，可重跑），只动这 6 个 actor。
+
+#### 执行与结果（2026-09-18 晚，同日完成）
+
+- 材质与网格是在**运行中的编辑器**里远程执行改的（20:09 / 20:19 落盘），保存返回 True 并已跨进程读回。
+- `ABronzeTorch` 的编译**没有关编辑器**：20:28 触发 `LiveCoding.CompileSync`，20:29:09 日志
+  `LogLiveCoding: Warning: Live coding succeeded`，随后 `/Script/FPSGAME.BronzeTorch` 可 `load_class`。
+  **修正旧记录**：UE 5.8 的 Live Coding 实测**可以新增 UCLASS**（本项目 9-16 那条"新增 UFUNCTION 必须全量编译"
+  的结论不适用于"新增一个类"这一情形）；不过这条路径会连同模块里别人的未提交 .cpp 一起编译进当前会话
+  （本次带进了 `FPSQuickCombatComponent.cpp` 19:49 的改动），所以仍属于"编译窗口"这类需要排队的共享资源。
+- 6 支火把已换成 `ABronzeTorch`（`place_bronze_torches_v7_20260918.py`，map save=True）。读回：
+  `ColonnadeTorch_01..06` 类=BronzeTorch、loc=(600+300k, 600, 190)、yaw=-90、mesh=SM_BronzeTorch、
+  flame=`NS_Fire`、light=1600 lm / r900 / 编辑器内熄（运行时由时钟驱动）、`IgniteHour=16.5`、`ExtinguishHour=6.0`。
+- 踩坑：**Live Coding 新注册的类在 Python 里只认 C++ 原名**（`BodyMesh`），不吃 snake_case（`body_mesh`）。
+  第一版摆放脚本因此在第 1 个 actor 上抛错，把 5 支旧火把删掉后没补回来；脚本改为两个名字都试后重跑，
+  6 支已补齐（`RESULT: PASS`）。
+
+#### 验证边界
+
+- 点火窗口与天空相位对齐：夕阳段 16.5 起、日出段 6.0 结束（`TemperateHillsDayNightSky.cpp`）。
+  PIE 从 06:00 开始，要等约 15.8 分钟游戏时间才到黄昏；想立刻看火焰，把某支的 `IgniteHour` 临时改成 0、
+  `ExtinguishHour` 改成 23.9 即可（覆盖全天），看完改回。
+- **未做**：引擎内观感、点火时序实拍、火焰尺寸/亮度是否合适——按用户规则未自测，交由用户验收。
+
+### 火把 v8：去圆环 + 直线连接杆（2026-09-18 晚，用户第二轮反馈）
+
+用户四条：**去除金属圆环**；**跟附着物连接的杆子使用直线、不添加任何形状装饰**；**跟罗马柱衔接的位置降低一些**。
+作者脚本 `build_bronze_torch_v8_20260918.py`（网格）+ `lower_torches_v8_20260918.py`（高度）。
+
+| 项 | v7 | v8 |
+| --- | --- | --- |
+| 柱箍 / 杆顶环 / 杯唇环 | 3 个 torus（r21.8 环柱箍、r4.5、Ø32.7） | **全部删除** |
+| 横臂 | 根部靴座 3.4 → 主杆 2.2 → 收细端头 1.7，端头插进夹箍 | **一根等截面直杆 2.2，x16..50** |
+| 托架装饰 | 两块菱形板 + 两个中央凸台 + 8 枚铆钉球 + 夹箍套筒 | **全部删除**，直杆直接插进立杆 |
+| 网格 | 11,956 面 / 21 壳 | **8,012 面 / 3 壳**（直杆 + 立杆 + 杯体），开放边 0 |
+| 包围盒 | x -24.2..67.1（柱箍撑着） | **x 16.0..66.5 / y ±16.5 / z -44..42.6**——不再有任何超出杆与杯的形状 |
+
+保留：立杆的车削剖面（水滴尾椎 + 四道珠结，v5 用户要求的主体细节）与 v7 的杯体（96 段：杯脚／束颈／
+鼓腹／卷唇／内腔）。**如果立杆上那四道珠结也算"圆环"，说一声一并去掉。** 材质沿用 v7 的光滑青铜，未改动。
+
+衔接位置下移 **20 cm**：网格局部原点仍按约定放在"柱轴心 + 横臂平面"，高度由 actor 摆位给出——
+`ColonnadeTorch_*` 的 z 从 210 改到 **190**（杯口世界高度 252.6 → **232.6**，柱顶 260 下方留出 27 cm，
+不再顶到柱头）。占用方式：
+
+- `lower_torches_v8_20260918.py`：只改这 6 个 actor 的 Z，**不 load_map**（不丢别人未保存的编辑），幂等。
+  已在 20:23 执行：6 支 210 → 190，`map save=True`，`DayNight_Lighting.umap` 20:23:28 落盘。
+- `place_bronze_torches_v7_20260918.py`：`COLUMNS` 的 z 已改成 190，旧 actor 只继承朝向；随后 6 支整体换装为
+  `ABronzeTorch`（同一高度）。
+
+**未做**：引擎内观感、下移后的构图、点火时序全部未验收，交由用户自测。
+
+
+
+
+
+## 大理石地板 vs 大理石体素材质核查（2026-09-17 深夜追加）
+
+用户提出：大理石地板"经过处理和重新渲染"，与现在的大理石体素块不同。**核查结论：属实**。
+
+### 地板现状（下一进程读回）
+
+- 网格：1800×800×20 cm、121,006 三角面、单流形；缝是**几何体**（100 cm 网格刻槽 1 cm 宽 1.2 cm 深）；UV 为世界平面投影（比例 1/80），脉络跨整块地板连续流动，无逐砖接缝。
+- 材质：槽 0 = **`M_WhiteMarble_V2`**——9-16 09:07 `build_pavilion.py` 为凉亭创建的**专用抛光白大理石**：象牙白 0.94/0.93/0.91 ↔ 蓝灰脉络 0.66/0.67/0.70，专用纹理 `T_MarbleV2_Veins`(seed 4242, 6 阶大脉络)/`T_MarbleV2_Detail`(seed 4243)，粗糙度 **0.12–0.28（抛光）**。
+- 材质沿革：9-15 `M_MarbleTiles`(seed 771/991) → 9-16 08:56 网格重建+`MI_MarbleFloor_Chest` → 9-16 16:29 `fix_floor_marble.py` 换为 `M_WhiteMarble_V2` 至今。
+
+### 体素/栏杆材质（对照）
+
+- `M_RomanStone_V2`：灰石 0.62/0.61/0.58 ↔ 深灰 0.40/0.39/0.36，纹理 `T_Stone_V2_Noise/Detail`，粗糙度 **0.55–0.78（哑光）**；体素表面按世界投影 UV（P/80）。
+- 体素块本体是引擎 Cube 缩 0.2，盒式 UV，逐块重复、无刻缝。
+
+### 结论
+
+地板 = 专用重建网格（几何刻缝 + 平面连续 UV）+ 专用抛光白大理石材质，与体素块（哑光灰石 + 盒式 UV）是**两套完全不同的处理管线**，用户观察属实。视觉含义：围栏填缝/矮柱（灰哑光）与脚下地板（白抛光）存在材质代差；如需统一，可把栏杆套件 surface 换成 `M_WhiteMarble_V2`（改调色板+资产槽各一次），或给地板套件单开"白大理石"体素材质条目——待用户决定。
+
+## 白大理石统一（2026-09-17 深夜追加，方案① + 凉亭）
+
+用户选方案①并要求凉亭一并处理。`whitemarble_switch_20260917.py` 在**运行中的编辑器内**执行（编辑器持有资产，外部进程写盘会锁失败）：
+
+- 资产槽 0 → `M_WhiteMarble_V2`：栏杆套件 5 件（矮柱/顶梁×3/整体段）+ 凉亭 v2 全部 6 件（Base/Arch/Dome/Colonnade/Full/圆柱 Round）。**范围外**：方底罗马柱 `SM_RomanColumn_Detailed` 保持灰石（用户未点名）。
+- 地图 Actor 材质 override：RomanFence_* 144 个 + RomanPavilion2_* 13 个 → 白大理石（这些 Actor 生成时写的是逐 Actor override，光换资产槽不够）。
+- 调色板（9 字段全拷贝重建）：baluster_small / rails ×3 / segment / pavilion_full / roman_column_round 的 surface + **marble 材质行的 surface**（玩家在建造模式砌的大理石体素从此也是白抛光）+ door_marble。roman_column 与 wood/stone 行不动。
+- 关键巧合：地板 UV 为平面投影 1/80，体素表面发生器也是世界投影 P/80——白大理石体素与地板纹理空间一致，拼放贴图连续。
+
+证据：编辑器内 save_packages=True、map save=True；磁盘 23:36:55 全部 FRESH（11 资产 + 调色板 10,611 B + umap 1,065,877 B）；下一进程（15:37）读回 4 个抽样资产 slot0 与 marble 行 surface 均为 `M_WhiteMarble_V2`。
+
+
 ：含 `baluster_small`、`balustrade_rail_200`、恰好 56 处 `marble`。脚本 `rebuild_railing_20260917.py`（无头版，含诊断）、`rebuild_live_20260917.py`（活世界版，最终采用）、`dump_build_world.py`（布局 dump）。
 
 ## 凉亭 v2：更大跨度 + 真半球穹顶 + 140 凹格（2026-09-17 追加）
@@ -678,3 +896,165 @@ coverage 走 `SCS_SceneColorHDR` 作 alpha，两者交给 `M_WeaponPreviewResolv
   柱环件本地 z 0..340、调色板 4 条占格自检 OK 且落盘。
 - **未做**：引擎内视觉验收、实机走动与光照观感。`preview_20260917/p2_*.png` 是自写 z-buffer 的离线几何自查
   （`render_pavilion2.py`，不经过引擎），只用于确认凹凸格与体量，不代表引擎画面。
+
+## 事故与修复：火把"又消失"（2026-09-18 20:50，用户回报）
+
+### 现象与根因
+
+用户回报火把不见了。加载日志（21:52 那次启动）逐条点名：
+
+```
+LoadErrors: Warning: 创建导出：资产"TorchFlame"的外部容器加载失败：BronzeTorch ...BronzeTorch_1  (1..6 全有)
+LoadErrors: Warning: 创建导出：资产"TorchLight"/"TorchRoot"/"TorchBody" 的外部容器加载失败：BronzeTorch ...
+```
+
+根因：`ABronzeTorch` 当时**只存在于 Live Coding 补丁**里。补丁 20:28 成功、20:30 摆了 6 支火把并保存关卡，
+但磁盘上的 `UnrealEditor-FPSGAME.dll` 还是 19:32:56 那份、不含这个类；20:50:48 编辑器重启后类消失，
+关卡里 6 个 actor 找不到类 → 建不出 actor（编辑器里 `torches = 0`）。
+
+这正是项目文档里写着、我仍然踩了的那条：**热补丁只活在当前会话，编辑器退出后热补丁消失**。
+教训（已写入下面的规矩）：**把热补丁新增的类写进关卡/资产数据之前，必须先全量编译把类落到 DLL。**
+
+### 数据没丢，恢复过程
+
+1. 检查磁盘：`DayNight_Lighting.umap` 时间戳仍是 20:30:05（没被重存），文件里 `ColonnadeTorch_01..06`
+   六个标签都在；加载报错还逐个点名了 `TorchRoot/TorchBody/TorchFlame/TorchLight` ×6 —— actor 与组件数据完整。
+2. **先保住别人的工作**：编辑器里除这张图外还有 2 个未保存的脏包 `/Game/ImportProbe/Probe_new_build`、
+   `Probe_known_good`（磁盘上还不存在）。先把这两个包 save，让会话只剩"我们本来就要丢弃的那份地图"。
+3. 关编辑器：**不能用正常退出**（会弹"保存关卡"，一保存就把内存里 0 支火把的版本写回磁盘）。
+   确认脏包只剩地图后，强制作业结束（`Stop-Process`），磁盘地图保持原样。
+4. `Tools/Build/Build-Editor.ps1` 全量编译：**70 秒，Result: Succeeded**；`UnrealEditor-FPSGAME.dll`
+   21:00:36 落盘（9,293,824 B，含 `ABronzeTorch`）。
+5. 重开编辑器，读回：`/Script/FPSGAME.BronzeTorch` 可加载；地图 = `DayNight_Lighting`；
+   **torches = 6**，全是 `BronzeTorch`，loc=(600+300k, 600, 190)，mesh=`SM_BronzeTorch`、
+   flame=`NS_Fire`、灯强度 0（运行时由时钟驱动）、`IgniteHour=16.5`、`ExtinguishHour=6.0`、`FlameScale=0.35`；
+   此时脏包为空（内存与磁盘一致，再保存也安全）。
+
+### 规矩（本次事故的产物）
+
+- 新增 C++ 类并要在关卡里摆放 → **先全量编译落盘，再摆 actor**；Live Coding 只用来验证函数体改动。
+- 反过来：已经在关卡里引用了热补丁类时，**关编辑器前先编译**，否则下次启动关卡会缺类。
+- 关卡出现"缺类"时，**不要保存这张图**——内存里是残状态，保存会把磁盘上的 actor 抹掉。
+
+## 火把"只有光没有火"（2026-09-18 21:05，用户回报"是不是火的位置错位了"）
+
+### 两个根因
+
+1. **火焰原点埋在杯腔里**：v7/v8 的 `FlameOffset` 是局部 `(50, 0, 16)`，而杯口在 `z≈42.6`、杯腔深约 27 cm，
+   火苗缩到 0.35 后整团被杯壁挡住，只剩灯。
+2. **火焰母版选错**：`/Game/NiagaraExamples/FX_Misc/NS_Fire` 是 Epic 的**环境火**，还带一个吃静态网格的 CPU
+   发射器，日志逐帧刷：
+   `LogNiagara: NiagaraStaticMeshDataInterface used by CPU emitter and does not allow CPU access.
+   System: NS_Fire, Mesh: SM_BronzeTorch`。工程自己的火球文档里就写过"原系统是环境火焰，不能直接挂上"。
+   （附带发现：`NiagaraComponent::SetRelativeScale3D` 对火的**粒子尺寸无效**，SpriteSize 是给渲染器的世界尺寸，
+   这一点火球文档也记过——所以 `FlameScale` 基本调不动火的大小。）
+
+### 改法（已落盘，21:1x）
+
+| 项 | 之前 | 现在 |
+| --- | --- | --- |
+| 火焰系统 | `NiagaraExamples/FX_Misc/NS_Fire`（环境火 + 网格发射器） | `Vefects/Free_Fire/Shared/Particles/NS_Fire_Small` |
+| `FlameOffset` | `(50, 0, 16)` 杯腔底 | **`(50, 0, 36)` 杯口**（杯口 z≈42.6） |
+| 点光 | 1600 lm | **600 lm**（1600 时 30 cm 近景会把杯和柱打爆） |
+
+### 近景验证（SceneCapture，编辑器内，不保存）
+
+`preview_20260917/capture_backside.png`（灯关、只开火）与 `torch_flame_final.png`（灯 600 lm）：
+火苗从杯口正常燃起、带火星，位置正确。视口相机 API 在 Python 里是 no-op，所以用临时 SceneCapture 从
+正/背两个机位取图；临时 actor 拍完即删，关卡未保存。
+
+### 还没做完：火苗偏大（营地火尺度）
+
+`NS_Fire_Small` 的火苗约 50–70 cm，会舔到上方额枋；对 33 cm 杯口来说偏大。已复制出项目内副本
+`/Game/Props/RomanColumn20260915/NS_TorchFlame`，并用 Niagara 工具集做了两处改动：
+
+- `NE_Flame_01` / `NE_Flame_02` 的 `ScaleSpriteSize -> Uniform Curve Scale`：1 → **0.3**；
+- 删掉系统自带的 `NE_Lights`（光照留给我方那个受点火曲线控制、可调的点光）。
+
+但**改过堆栈的 Niagara 系统需要重新编译**才生效——这一步还没打通（`save_packages` 返回 True 但仍不出粒子），
+所以关卡里仍指向 pack 原系统，副本目前是**未被引用**的半成品。要缩到火把尺度，下一步就是把这个副本编译/重建。
+
+### 这一轮的抓图踩坑（复现用）
+
+- 同一个进程里连续导出多张 RenderTarget，会拿到**同一帧**（不同尺度、不同机位全一样）；要换机位/换进程才分辨得出，
+  所以判断"有没有火"必须一张一张拍。
+- `NiagaraComponent.set_asset()` 之后立刻 `activate()` **不出粒子**；分开调用（或只 `activate()`）才有火。
+- `CaptureEditorImage`（MCP `EditorAppToolset`）抓的是整窗快照，视口不重绘时会是旧帧；`capture_editor_image.ps1`
+  用 `Invoke-WebRequest` 会踩 SSE 解析的 NullReference，改走 `mcp_call_codex.ps1 -Tool call_tool -ArgumentsFile`。
+
+### 本轮未做
+
+- 火苗尺寸的最终验收（偏大）；点光与火光的比例；PIE 里黄昏/夜晚的实拍。**均由用户验收。**
+- `BronzeTorch.h` 的 `LightLumens` 默认值已改成 600，但**尚未全量编译**（编辑器占用）；关卡里 6 支已显式写 600，
+  所以行为正确，这个默认值只影响以后新摆的火把。
+
+### 火花是独立发射器（2026-09-18 晚，用户提问"能去掉迸发的火花吗"）
+
+**能，而且和火焰本身无关。** `NS_TorchFlame` 的系统结构（Niagara 工具集 `GetSystemSummary` 读出来）：
+
+| 发射器 | 作用 | 现状 |
+| --- | --- | --- |
+| `NE_Flame_01` / `NE_Flame_02` | 主火焰两层（Sprite） | 保留，`ScaleSpriteSize → Uniform Curve Scale` 1 → **0.3**（火苗缩到约 1/3） |
+| `NE_Sparkles` | **迸发的火花** | **已删除** |
+| `NE_Ashes` | 飘灰（暗色小片，不是亮火花） | 保留（要一起去就说一声） |
+| `NE_Heat` | 热扰动 | 保留 |
+| `NE_Lights` | 系统自带光发射器 | 已删除（光照用我方那个受点火曲线控制、可调的点光） |
+
+**6 支火把现已指向副本**（actor 属性 + 组件资产都写成 `/Game/Props/RomanColumn20260915/NS_TorchFlame`，
+灯 600 lm，点位/点火窗口不变），关卡已保存。用临时 NiagaraActor 挂副本抓图确认：**正常出火、约原来 1/3 大小、无火花**
+（`preview_20260917/probe_copy_flame.png`）。
+
+### 又一个坑：编辑器里换 Niagara 资产不会立刻出粒子
+
+`NiagaraComponent.set_asset(新系统)` 之后即使 `activate()` 也不出粒子（组件实例没重建）——我因此两次误判"副本不出火"。
+判定系统本身是否可用要用**新建的组件/actor**（临时 NiagaraActor）或关卡重载/PIE 之后看。
+Niagara 工具集的 `GetSystemCompileState` 可确认堆栈改动是否已编译（本次为 `UpToDate`、无错误）。
+
+### 仍待编译
+
+`BronzeTorch.cpp` 的火焰默认路径已改成 `NS_TorchFlame`（`LightLumens` 默认 600 同步更新），但**还没全量编译**
+（编辑器占用 DLL）。关卡里 6 支已显式存了资产与亮度，行为正确；这两个默认值只影响今后新摆的火把。
+
+## 青铜火把进建造系统：壁挂构件（2026-09-18 晚，用户要求）
+
+用户："把这个火把做到其他建筑组件中，必须附着墙壁、表面才能放置。"
+
+### 调色板条目
+
+活动调色板 `/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette` 新增 **`bronze_torch`**（第 20 条，
+归 `marble` 行 → 面板「大理石 → 其他构造」），注册脚本 `add_torch_prefab_20260918.py`（按 Id 幂等更新，
+不动其它条目）：
+
+| 字段 | 值 | 依据 |
+| --- | --- | --- |
+| Mesh / Surface | `SM_BronzeTorch` / `M_Bronze` | 抽屉缩略图与占位网格 |
+| ActorClass | `/Script/FPSGAME.BronzeTorch` | 每件自带火焰、点光与黄昏/夜晚自动点火 |
+| Footprint | **3 × 2 × 5 格**（60 × 40 × 100 cm） | 网格实测 x 16..66.5 / y ±16.5 / z -44..42.6 |
+| Footprint 口径 | 逻辑构件分支：锚点 = 占格底面中心 | 与门／窗／喷泉同一条路径 |
+| `ActorOffsetCm` | **(-51, 0, 44)** | -51：杆根(局部 x=16)嵌进墙面 5 cm、杯心离墙 29 cm；+44：尾椎尖贴占格底面 |
+| `PivotOffsetCm` | **(-9.75, 0, 0)** | 幽灵预览用包围盒公式，必须与落地同一口径（= -51 - (-41.25)） |
+| `Mount` | **`Wall`** | 见下 |
+
+### 新的放置规则 `Mount`
+
+`FVoxelBuildPalette.h` 新增 `EVoxelPrefabMount { Free, Wall }`，`FVoxelBuildPrefab::Mount` 默认 `Free`（老条目行为不变）：
+
+| 行为 | 实现位置 |
+| --- | --- |
+| 只认**竖直表面**：地面/天花板直接拒绝，提示"必须贴在墙面或结构表面 · 壁挂构件不能放在地面或天花板" | `VoxelBuildComponent.cpp::UpdatePrefabTarget`（`abs(法线.Z) > 0.5` 判竖直） |
+| **朝向跟随表面外法线**（局部 +X 是伸出方向），四向吸附；壁挂件的 `R` 手动旋转被禁用 | 同上（`atan2(N.Y,N.X)` 取整到 90°） |
+| 占格贴着表面往外长：法线轴向最小面压在表面上，切向与竖直方向以准星为中心 | 同上 |
+| 落盘前复检："必须贴在墙面或结构表面才能放置" | `VoxelBuildWorldPrefab.cpp::CanPlacePrefab(..., bSurfaceBacked)` |
+| 壁挂件**不参与"失去支撑脱落"**（它钉在墙/柱上，不靠地面；否则挂在关卡网格上的一动土就掉） | 同文件 `IsPrefabSupported` 提前返回 |
+| 已在关卡里时右键拆除、存档、撤销路径不变 | 沿用 `FVoxelBuildPrefabInstance`（未加字段，存档兼容） |
+
+**修掉的一个自锁**：`AVoxelBuildWorld::PlacePrefab` 内部会再调一次 `CanPlacePrefab`，默认参数会把壁挂件
+按"没贴墙"挡掉；现在这条复检把"瞄准的是竖直面"带进去。
+
+### 编译与验证边界
+
+- 这次改动含 `FVoxelBuildPrefab`（带资产的 USTRUCT）新增字段，按工作流规范**关编辑器全量编译**
+  （21:38、21:40 两次 `Result: Succeeded`），之后才写调色板资产——顺序不能倒。
+- 读回：调色板 20 条，`bronze_torch` footprint 3×2×5、`mount=WALL`、`actor_class=/Script/FPSGAME.BronzeTorch`、
+  `actor_offset=(-51,0,44)`；网格实测包围盒 x 16..66.5 / y ±16.5 / z -44..42.6 与上面的偏移算式一致。
+- **未做**：实机（PIE）里瞄墙吸附、地面拒绝提示、幽灵位置与"火把是否贴平墙面"的观感。按用户规则交用户验收。

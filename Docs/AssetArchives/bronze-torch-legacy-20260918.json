@@ -1,0 +1,189 @@
+﻿{
+    "Task":  "Bronze torch legacy iterations (bronze-torch-legacy-20260918)",
+    "ArchivedOn":  "2026-09-18",
+    "Rule":  "WORKFLOW.md section 4",
+    "Count":  20,
+    "Note":  "Only superseded scripts of the bronze-torch line move here. Ignored iteration logs (*.log) and preview PNG/OBJ stay in place: they are outside the repo and are still cited as evidence in SourceAssets/RomanColumn20260915/README.md.",
+    "Files":  [
+                  {
+                      "Name":  "build_bronze_torch_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bronze_torch_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/build_bronze_torch_20260918.py",
+                      "Bytes":  7574,
+                      "SHA256":  "FE7A261D370C007AA530DC6282DF750D1A9CCD41BE3F209F4F5BC3C8B98FD802",
+                      "Reason":  "青铜火把 v1（柱箍 + 方杆 + 喇叭杯）。被 v3–v8 的重设计取代",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "build_bronze_torch_v2_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v2_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/build_bronze_torch_v2_20260918.py",
+                      "Bytes":  5506,
+                      "SHA256":  "A03B621C562AAD159D21CACF6CBD87DEF1CCC8F00522FF9BEA57BAEE1E917309",
+                      "Reason":  "v2 弃案：append_sweep_polyline 扫掠管产生 42 条开放边、帧朝向不可靠",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "build_bronze_torch_v3_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v3_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/build_bronze_torch_v3_20260918.py",
+                      "Bytes":  4581,
+                      "SHA256":  "9A52A78D288DCAEE95D163DCD683371D8ED4F71CD026BD44842B1BC5AD324252",
+                      "Reason":  "v3：弯圆柱 + 三支火叉版本，后续按参考图重做成 v4 托架",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "build_bronze_torch_v4_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v4_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/build_bronze_torch_v4_20260918.py",
+                      "Bytes":  4944,
+                      "SHA256":  "DA359FB2687173B7BAAC05C3570AC6582078618059D45582974208E8BB96BA76",
+                      "Reason":  "v4：按参考图的菱形双板托架版，被 v5/v6/v8 取代",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "build_bronze_torch_v5_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v5_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/build_bronze_torch_v5_20260918.py",
+                      "Bytes":  4846,
+                      "SHA256":  "B0F5C3E949FEAAC25277A6D27044A5B2AD102D99D837366C4872636841556823",
+                      "Reason":  "v5：加长臂 + 主体精修，被 v6/v8 取代",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "build_bronze_torch_v6_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v6_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/build_bronze_torch_v6_20260918.py",
+                      "Bytes":  7378,
+                      "SHA256":  "2C3D7C33D78C5F50C450F70AF2943F36D3CE13768A0000D3D785A05F7221199F",
+                      "Reason":  "v6：臂再外伸 + 1024 微法线贴图版；该微法线正是用户报\"表面颗粒感\"的根因",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "dump_torch_obj.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/dump_torch_obj.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/dump_torch_obj.py",
+                      "Bytes":  1447,
+                      "SHA256":  "C3920A5870A99956B2946DFB98B4D0101DD118F3D71F2EBC190F30C46A849B49",
+                      "Reason":  "v1 的 OBJ 导出探针，被后续版本的自查取代",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "dump_torch_v3.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/dump_torch_v3.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/dump_torch_v3.py",
+                      "Bytes":  1450,
+                      "SHA256":  "6117D853FA5B3192BDF1DF4C52EC23735D935FCDA05028626FFD92520B77223E",
+                      "Reason":  "v3 的 OBJ 导出探针",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "dump_torch_v4.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/dump_torch_v4.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/dump_torch_v4.py",
+                      "Bytes":  1450,
+                      "SHA256":  "1218E0548FB38136C6D82C0A95FB3DD5880E2C7832B32861D39373D4CC2022DE",
+                      "Reason":  "v4 的 OBJ 导出探针",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "dump_torch_v5.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/dump_torch_v5.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/dump_torch_v5.py",
+                      "Bytes":  1450,
+                      "SHA256":  "7795A46B781FBBB68FAC25B3234656240598D8BC8F1876FCF1DEE6116BC98E5A",
+                      "Reason":  "v5 的 OBJ 导出探针",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "dump_torch_v6.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/dump_torch_v6.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/dump_torch_v6.py",
+                      "Bytes":  1450,
+                      "SHA256":  "C11285DE6E30326941482CB7450F5ED9ECEF95D2A062BCBB57CB148C462E7D0D",
+                      "Reason":  "v6 的 OBJ 导出探针",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "preview_torch_flame_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/preview_torch_flame_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/preview_torch_flame_20260918.py",
+                      "Bytes":  1158,
+                      "SHA256":  "5276B6E359CA18C92EF9421B810A84A480A47B84B58BA440E7B5EBDFE06E9C30",
+                      "Reason":  "弃案：视口相机 API set_level_viewport_camera_info 在 Python 里是 no-op，改用临时 SceneCapture",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "probe_bronze_torch_props.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/probe_bronze_torch_props.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/probe_bronze_torch_props.py",
+                      "Bytes":  1400,
+                      "SHA256":  "441C9EADFF4B6E2112C83636B591D86B0FD14D0F48DFFB367D6EC128D4DF451C",
+                      "Reason":  "属性名探针（当时误用 snake_case 全失败，结论已写入 README）",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_torches_placed.py"
+                  },
+                  {
+                      "Name":  "probe_copy_system_renders.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/probe_copy_system_renders.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/probe_copy_system_renders.py",
+                      "Bytes":  2127,
+                      "SHA256":  "2AEC2029BA6A9B443D327D472201D1752016BA71BED94CC070EB40BD6275F683",
+                      "Reason":  "一次性验证：临时 NiagaraActor 挂副本能出火",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/README.md"
+                  },
+                  {
+                      "Name":  "probe_torch_v7_api.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/probe_torch_v7_api.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/probe_torch_v7_api.py",
+                      "Bytes":  3096,
+                      "SHA256":  "F4129DE36944C6E0FE6F9813D6C7F2AB17648A2355068925B4114526C619679B",
+                      "Reason":  "v7 期间的 ModelingService API 签名探针",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/build_bronze_torch_v8_20260918.py"
+                  },
+                  {
+                      "Name":  "probe_torch_v7_result.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/probe_torch_v7_result.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/probe_torch_v7_result.py",
+                      "Bytes":  1077,
+                      "SHA256":  "5D90E3DD859C8B0897BEBD28B84A838F7DC1B92DB9E21047564ABBF1B8D054E1",
+                      "Reason":  "v7 材质/网格读回探针",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_after_build.py"
+                  },
+                  {
+                      "Name":  "retune_torch_flames_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/retune_torch_flames_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/retune_torch_flames_20260918.py",
+                      "Bytes":  2795,
+                      "SHA256":  "5BADD2DCFDF00050736E1FE7989DABA29CCBF2801DFE4ED2C9F64FD41F68ADC2",
+                      "Reason":  "火焰改用 pack 原系统 + 抬高原点的临时脚本，被 finalize 版取代",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/finalize_torch_flame_20260918.py"
+                  },
+                  {
+                      "Name":  "shoot_torch_flame_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/shoot_torch_flame_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/shoot_torch_flame_20260918.py",
+                      "Bytes":  3676,
+                      "SHA256":  "0D892E7FDB8411374DC2FAE7E0B38266D5D324D7B6CA626A535E0D5DDFFBFBD9",
+                      "Reason":  "早期取图脚本，被带激活时序修正的 probe_capture_live.py 取代",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_capture_live.py"
+                  },
+                  {
+                      "Name":  "try_torchflame_copy_20260918.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/try_torchflame_copy_20260918.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/try_torchflame_copy_20260918.py",
+                      "Bytes":  3130,
+                      "SHA256":  "AA971A9AF1E861712EE7B1958C0D9478481422C0BDFD328FABD5B9002B46526B",
+                      "Reason":  "一次性实验：验证项目副本 NS_TorchFlame 能出火；结论已写入 README",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/finalize_torch_flame_20260918.py"
+                  },
+                  {
+                      "Name":  "verify_torch.py",
+                      "OriginalPath":  "SourceAssets/RomanColumn20260915/verify_torch.py",
+                      "ArchivedTo":  "trash/bronze-torch-legacy-20260918/verify_torch.py",
+                      "Bytes":  1328,
+                      "SHA256":  "50178ADF432DBC56D9F5B335AD6D34B795183B627A1398C732A6FF5E6907B4BC",
+                      "Reason":  "v1 的资产读回校验",
+                      "Replacement":  "SourceAssets/RomanColumn20260915/probe_torches_placed.py"
+                  }
+              ]
+}

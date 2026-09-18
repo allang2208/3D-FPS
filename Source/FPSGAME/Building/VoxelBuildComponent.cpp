@@ -708,12 +708,47 @@ void UVoxelBuildComponent::UpdatePrefabTarget(bool bHit)
         TargetMessage=PrefabMessage;
         return;
     }
-    // The 20 cm footprint is centred on the aimed column and always lands on lattice multiples.
-    const FVector Base=Hit.ImpactPoint+Hit.ImpactNormal*.5;
-    FIntVector Cell=AVoxelBuildWorld::ToCell(Base);
-    Cell.X-=Footprint.X/2;Cell.Y-=Footprint.Y/2;
+    FIntVector Cell;
+    bool bSurfaceBacked=false;
+    if(Prefab->Mount==EVoxelPrefabMount::Wall)
+    {
+        // 壁挂构件（火把等）：只认竖直表面，朝向由表面外法线定（局部 +X 是伸出方向，四向吸附）。
+        const FVector Normal2D=Hit.ImpactNormal.GetSafeNormal2D();
+        if(Normal2D.IsNearlyZero()||FMath::Abs(Hit.ImpactNormal.Z)>.5)
+        {
+            // 红幽灵留在准星处，而不是上一帧的位置。
+            PrefabCell=AVoxelBuildWorld::ToCell(Hit.ImpactPoint);
+            PrefabMessage=TEXT("必须贴在墙面或结构表面 · 壁挂构件不能放在地面或天花板");
+            TargetMessage=PrefabMessage;
+            return;
+        }
+        ComponentYaw=((FMath::RoundToInt(FMath::Atan2(Normal2D.Y,Normal2D.X)/(PI/2))%4)+4)%4;
+        const FIntVector Size=AVoxelBuildPrefabActor::RotatedFootprint(Prefab->Footprint,ComponentYaw);
+        // 占格贴着表面往外长：法线轴向最小面压在表面上，切向与竖直方向都以准星为中心。
+        FVector Min=Hit.ImpactPoint;
+        if(FMath::Abs(Normal2D.X)>.5)
+        {
+            Min.X=Hit.ImpactPoint.X+Normal2D.X*.5;
+            Min.Y=Hit.ImpactPoint.Y-Size.Y*10.;
+        }
+        else
+        {
+            Min.Y=Hit.ImpactPoint.Y+Normal2D.Y*.5;
+            Min.X=Hit.ImpactPoint.X-Size.X*10.;
+        }
+        Min.Z=Hit.ImpactPoint.Z-Size.Z*10.;
+        Cell=AVoxelBuildWorld::ToCell(Min);
+        bSurfaceBacked=true;
+    }
+    else
+    {
+        // The 20 cm footprint is centred on the aimed column and always lands on lattice multiples.
+        const FVector Base=Hit.ImpactPoint+Hit.ImpactNormal*.5;
+        Cell=AVoxelBuildWorld::ToCell(Base);
+        Cell.X-=Footprint.X/2;Cell.Y-=Footprint.Y/2;
+    }
     PrefabCell=Cell;
-    bPrefabValid=BuildWorld->CanPlacePrefab(Prefab->Id,Cell,ComponentYaw,PrefabMessage);
+    bPrefabValid=BuildWorld->CanPlacePrefab(Prefab->Id,Cell,ComponentYaw,PrefabMessage,bSurfaceBacked);
     bCanPlace=bPrefabValid;TargetMessage=PrefabMessage;
 }
 
@@ -928,7 +963,14 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     if(Key==EKeys::R)
     {
         // Components turn in quarter turns; the voxel wall brush keeps its single toggle.
-        if(Pressed){if(SelectedPrefab())ComponentYaw=(ComponentYaw+1)%4;else bRotate=!bRotate;FeedbackTime=0;TargetUpdateAt=0;}
+        // 壁挂构件的朝向跟随表面法线，手动旋转对它没有意义（转了下一帧也会被吸附回去）。
+        if(Pressed)
+        {
+            const FVoxelBuildPrefab* Rotating=SelectedPrefab();
+            if(Rotating){if(Rotating->Mount!=EVoxelPrefabMount::Wall)ComponentYaw=(ComponentYaw+1)%4;}
+            else bRotate=!bRotate;
+            FeedbackTime=0;TargetUpdateAt=0;
+        }
         return true;
     }
     if(Key==EKeys::F){if(Pressed){bSnapEnabled=!bSnapEnabled;FeedbackTime=0;TargetUpdateAt=0;}return true;}

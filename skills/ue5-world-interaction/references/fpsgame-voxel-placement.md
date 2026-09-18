@@ -225,3 +225,24 @@ UE_LOG(LogTemp,Display,TEXT("ColdSteelFountain %s 位置=(...) 质量=%d 距离�
 4. **退掉旧几何用隐藏材质**：不能（也不敢）在整件网格上做材质槽手术时，给旧的那一层套
    **Masked + OpacityMask=0** 的材质（像素直接剔除、零绘制成本），新几何放在自己的网格里。
    —— 顺带提醒：**远距离分级不要连水面一起关**（喷泉曾把水面放在 FX 网格里，>62 m 整块隐藏 → 远看没有水）。
+
+## 壁挂构件：`Mount = Wall`（2026-09-18，青铜火把）
+
+调色板条目新增放置规则字段 `FVoxelBuildPrefab::Mount`（`Free` 默认／`Wall` 壁挂）。做"必须附着墙壁/表面才能放"的
+构件（火把、灯笼、壁挂招牌）照这几条走：
+
+- **竖直面判定在组件侧**：`VoxelBuildComponent::UpdatePrefabTarget` 里 `abs(Hit.ImpactNormal.Z) > 0.5` 直接拒绝
+  （地面/天花板放不了），提示写清"必须贴在墙面或结构表面"。
+- **朝向由表面法线决定**：`QuarterTurns = round(atan2(N.Y, N.X) / 90°)`（构件局部 +X 约定为伸出方向）；
+  壁挂件的 `R` 手动旋转要禁用——转了下一帧也会被吸附回去，手感像坏了。
+- **占格贴着表面往外长**：法线轴向的**最小面压在表面上**，切向与竖直方向以准星为中心。不要沿用普通构件那套
+  "以准星为中心再各减半格"，那会让壁挂件浮在墙外半格。
+- **壁挂件不参与"失去支撑脱落"**：`IsPrefabSupported` 要提前返回 true。否则挂在关卡网格（非体素）上的那几件
+  会在附近一动土就整排掉下来——它靠的是墙面，不是地面。
+- **落地前的复检会自锁**：`AVoxelBuildWorld::PlacePrefab` 内部还会再调一次 `CanPlacePrefab`；壁挂件的这次复检
+  必须把"瞄准的是竖直面"一起带进去（默认参数 = 没贴墙 → 永远放不下）。这是 2026-09-18 踩到并修掉的坑。
+- **预览与落地两套公式要对齐**：逻辑构件（`ActorClass` 非空）的幽灵用包围盒公式（`-R*BoundsOrigin +
+  (0,0,ExtentZ) + PivotOffsetCm`），落地用"占格底面中心 + `ActorOffsetCm`"。等价关系是
+  `ActorOffset = (-BoundsOrigin.X, 0, ExtentZ - BoundsOrigin.Z) + PivotOffset`；火把实测量级：
+  `ActorOffsetCm=(-51,0,44)`、`PivotOffsetCm=(-9.75,0,0)`（差 41.25 = 网格包围盒 origin.x）。
+- **顺序**：`FVoxelBuildPrefab` 是带资产的 USTRUCT，加字段必须**关编辑器全量编译**之后再写调色板资产。

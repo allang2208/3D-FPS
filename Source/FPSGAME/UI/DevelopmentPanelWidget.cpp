@@ -3,8 +3,10 @@
 #include "ColdSteelHUDWidget.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../FPSGAMECharacter.h"
+#include "../FPSWeatherManager.h"
 #include "../Development/DevelopmentSpawnComponent.h"
 #include "Engine/GameInstance.h"
+#include "EngineUtils.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/BackgroundBlur.h"
@@ -262,6 +264,8 @@ void UDevelopmentPanelWidget::SetPage(int32 Index)
 void UDevelopmentPanelWidget::RefreshStatus()
 {
     Super::RefreshStatus();
+    // 面板打开期间每 0.2 s 走一次：快进后的世界时间要立刻反映在卡片说明里。
+    RefreshTimeHelp();
     const auto* Tuning = UDevelopmentTuningSubsystem::Find(this);
     if (bTuningAvailable != (Tuning && Tuning->CanEdit(GetOwningPlayer()))) RefreshTuning();
     if (!SpawnCount) return;
@@ -357,6 +361,44 @@ void UDevelopmentPanelWidget::RefreshFeatures()
         Model->MasteryProgress(SelectedSkill).Level < Model->DevelopmentSkillDefinition(SelectedSkill).MaxLevel;
     if (RaiseSkillButton) RaiseSkillButton->SetIsEnabled(bSkillReady);
     if (MaxSkillButton) MaxSkillButton->SetIsEnabled(bSkillReady);
+    RefreshTimeHelp();
+}
+
+AFPSWeatherManager* UDevelopmentPanelWidget::ResolveWeatherClock() const
+{
+    if (UWorld* World = GetWorld())
+        for (TActorIterator<AFPSWeatherManager> It(World); It; ++It) return *It;
+    return nullptr;
+}
+
+void UDevelopmentPanelWidget::RefreshTimeHelp()
+{
+    if (!TimeHelp) return;
+    const auto* Manager = ResolveWeatherClock();
+    if (!Manager)
+    {
+        TimeHelp->SetText(FText::FromString(TEXT("当前场景未找到天气系统")));
+        TimeHelp->SetColorAndOpacity(ColdSteelUI::Warning);
+        if (AdvanceHourButton) AdvanceHourButton->SetIsEnabled(false);
+        return;
+    }
+    const int32 Minutes = FMath::FloorToInt(Manager->NormalizedDayTime * 1440.0f) % 1440;
+    TimeHelp->SetText(FText::FromString(FString::Printf(TEXT("现在 %02d:%02d · %s"),
+        Minutes / 60, Minutes % 60,
+        Manager->IsSkyClockConnected() ? TEXT("天空时钟") : TEXT("场景时钟"))));
+    TimeHelp->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    if (AdvanceHourButton) AdvanceHourButton->SetIsEnabled(true);
+}
+
+void UDevelopmentPanelWidget::AdvanceHourClicked()
+{
+    auto* Manager = ResolveWeatherClock();
+    if (!Manager) { SetFeatureMessage(TEXT("当前场景未找到天气系统"), ColdSteelUI::Warning); return; }
+    // 一小时 = 1/24 天；天空时钟驱动的关卡由管理器去推那个 SunHeight（0..2400）。
+    Manager->AdvanceGameTime(1.0f);
+    RefreshFeatures();
+    const int32 Minutes = FMath::FloorToInt(Manager->NormalizedDayTime * 1440.0f) % 1440;
+    SetFeatureMessage(FString::Printf(TEXT("世界时间前推 1 小时 → %02d:%02d"), Minutes / 60, Minutes % 60), ColdSteelUI::Success);
 }
 
 void UDevelopmentPanelWidget::GenerateItemClicked()

@@ -71,3 +71,22 @@ Archive only confirmed superseded files to `trash` with original path, size, and
 SHA-256. Preserve final previews, reproducible scripts, source assets, and
 licenses. Publish a source/evidence snapshot from an isolated worktree and use
 an ordinary non-force push after staged diff and remote ancestry checks.
+
+## 时钟驱动的世界道具（2026-09-18，柱廊青铜火把）
+
+给场景道具加"黄昏/夜晚自动点亮"时，只读时钟、不另建计时器：
+
+- **唯一权威时钟**仍只有 `AFPSWeatherManager`：`Hour = Frac(NormalizedDayTime) * 24`；日落段 16.5 起、
+  日出段 6.0 结束（与 `TemperateHillsDayNightSky.cpp` 的相位边界同一套数字）。道具照这个窗口写即可，
+  跳时/传送/跨午夜都不需要特殊分支（窗口跨午夜按"或"判断）。
+- **两条时钟路径都要认**：有 `BP_FPS_DayNightManager.SunHeight`（0..2400 = 一天）的关卡里，管理器每帧从它
+  同步时间、自身时钟被旁路。给道具/面板加"设置时间"能力时必须走管理器接口
+  `AFPSWeatherManager::AdvanceGameTime(Hours)`：有天空时钟就推那个属性（`LastSkyTimeUnits` 不碰，
+  跨午夜的日序交给既有回绕逻辑记一次），否则推内部 `WeatherClockSeconds`。
+- **点火要有淡入淡出**：`IgnitionAmount` 按 `DeltaSeconds / IgnitionBlendSeconds` 夹到 0..1，火焰在 >0 时激活、
+  点光强度 = 基准 × 点火量 × 闪烁；每支按世界坐标错开相位，整排不会同步闪。出生时直接取目标状态
+  （`BeginPlay` 里 snap），否则进关卡先看 6 秒淡入。
+- **点光别贪亮**：1600 lm 的火把贴在自己 30 cm 处会把铜杯和柱子一起打爆（近景一片白）。
+  实用档位：600 lm / 半径 900 cm / 默认不投影；要阴影时逐支打开（6 支阴影点光 = 6 张立方体阴影图）。
+- **位置比亮度更容易错**：火焰原点要放在**容器口**（杯口 z≈42.6）而不是腔底（z≈16），否则火苗整团埋进
+  27 cm 深的杯里，只剩灯可见——用户看到的正是"只有光没有火"。

@@ -46,3 +46,21 @@
 先读宿主 WORKFLOW.md 第 8 节。只将明确废弃的草图、错误朝向预览和失败烘焙放入 `trash/<任务>`，记录原路径、目标、大小、SHA-256、原因和保留替代品；移动前检查目标仍在指定工程内，移动后复核散列。生成原始高模、成功对比母版、可编辑源和有用诊断回执不是仅凭 candidate/日期就可归档的废案。
 
 共享工作区按本任务路径与差异暂存，保留其他任务工作。未审核二进制素材分发许可时保持本机内容，发布恢复清单与作者工具；不得把“源码已推送”说成完整资产已经备份到远端。个人技能与工程镜像同步。
+
+## Niagara 火焰接入（2026-09-18，青铜火把）
+
+给道具加火焰/烟雾时，这四条能省掉整轮返工：
+
+- **不要直接挂"环境火"**：`NiagaraExamples/FX_Misc/NS_Fire` 这类环境火自带"吃静态网格"的 CPU 发射器，
+  挂到道具上会逐帧报 `NiagaraStaticMeshDataInterface used by CPU emitter and does not allow CPU access.
+  System: NS_Fire, Mesh: <你的网格>`，而且不出火。火球文档里那句"不能直接挂上"就是这条。
+  选独立火焰系统（本例 Vefects `NS_Fire_Small`），并**复制成项目内副本**再改，不动第三方 pack 原件。
+- **`SetRelativeScale3D` 不会缩小粒子**：Niagara 的 SpriteSize 是给渲染器的世界尺寸，组件缩放只影响局部空间位置。
+  要与道具尺寸匹配必须改系统内部：`NiagaraToolset_System` 的 `GetSystemSummary` 列发射器 →
+  `GetEmitterTopology` 找模块 → `SetStackInputData` 改 `ScaleSpriteSize` 的 `Uniform Curve Scale`（本例 1 → 0.3），
+  或用 `RemoveEmitter` 去掉不需要的发射器（火星 `NE_Sparkles`、系统自带光 `NE_Lights`）。
+- **编辑器里 `set_asset()` 之后立刻 `activate()` 不出粒子**（组件实例没重建）。判断"这套系统到底能不能出火"要用
+  **新建的**组件/actor（临时 `NiagaraActor`）或关卡重载/PIE 后再看；`GetSystemCompileState` 可确认堆栈改动已编译
+  （`aggregateStatus=UpToDate`、`bHasErrors=false`）。
+- **取图必须一次一张**：同一进程里连续 `export_render_target` 多张会拿到同一帧（不同机位/尺度看着一模一样）；
+  MCP 的 `CaptureEditorImage` 抓整窗，视口不重绘时给的是旧帧。验收图要一次进程一张。

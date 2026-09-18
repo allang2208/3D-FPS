@@ -7,6 +7,7 @@
 
 class UDevelopmentSpawnComponent;
 class UColdSteelHUDWidget;
+class AFPSWeatherManager;
 class UWidgetSwitcher;
 class USpinBox;
 class UCanvasPanelSlot;
@@ -49,8 +50,10 @@ private:
     void UpdateFeatureLayout(float ContentWidth, float Scale);
     void RefreshTuning();
     void RefreshFeatures();
+    void RefreshTimeHelp();
     void SetFeatureMessage(const FString& Text, const FLinearColor& Color);
     void ToggleTuning(EDevelopmentTuningOption Option);
+    AFPSWeatherManager* ResolveWeatherClock() const;
     const FColdSteelCatalogEntry* SelectedItem() const;
     UFUNCTION() void OpenDeveloper();
     UFUNCTION() void CloseDeveloper();
@@ -68,6 +71,7 @@ private:
     UFUNCTION() void GrantLevelClicked();
     UFUNCTION() void RaiseSkillClicked();
     UFUNCTION() void MaxSkillClicked();
+    UFUNCTION() void AdvanceHourClicked();
     UFUNCTION() void SpawnClicked();
     UFUNCTION() void ClearMonstersClicked();
     UFUNCTION() UWidget* GenerateMonsterOption(FString Item);
@@ -87,6 +91,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> FeatureStatus;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> LevelHelp;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> SkillHelp;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeHelp;
     UPROPERTY(Transient) TObjectPtr<UButton> WeatherTab;
     UPROPERTY(Transient) TObjectPtr<UButton> MonsterTab;
     UPROPERTY(Transient) TObjectPtr<UButton> TuningTab;
@@ -95,6 +100,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UButton> GrantLevelButton;
     UPROPERTY(Transient) TObjectPtr<UButton> RaiseSkillButton;
     UPROPERTY(Transient) TObjectPtr<UButton> MaxSkillButton;
+    UPROPERTY(Transient) TObjectPtr<UButton> AdvanceHourButton;
     UPROPERTY(Transient) TObjectPtr<UButton> DisableTuningButton;
     UPROPERTY(Transient) TObjectPtr<UWidget> TuningActions;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TuningStatus;

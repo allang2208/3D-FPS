@@ -213,6 +213,62 @@ float AFPSWeatherManager::GetSurfaceWetness() const
     return SurfaceEffects ? SurfaceEffects->GetWetness() : 0;
 }
 
+void AFPSWeatherManager::AdvanceGameTime(float Hours)
+{
+    if (Hours == 0.0f) return;
+
+    // 与 TrySynchronizeWithSkyClock 同一套属性发现规则（类名含 FPS_DayNightManager、属性名含 SunHeight，
+    // 0..2400 = 一天）。这里再走一遍是为了不往头文件加新的反射成员。
+    for (TActorIterator<AActor> It(GetWorld()); It; ++It)
+    {
+        AActor* Actor = *It;
+        if (!Actor->GetClass()->GetName().Contains(TEXT("FPS_DayNightManager"))) continue;
+        for (TFieldIterator<FProperty> PropertyIt(Actor->GetClass()); PropertyIt; ++PropertyIt)
+        {
+            FProperty* Property = *PropertyIt;
+            const FString PropertyName = Property->GetName().Replace(TEXT("_"), TEXT("")).Replace(TEXT(" "), TEXT(""));
+            FString DisplayName;
+#if WITH_EDITOR
+            DisplayName = Property->GetDisplayNameText().ToString().Replace(TEXT(" "), TEXT(""));
+#endif
+            if (!PropertyName.Contains(TEXT("SunHeight"), ESearchCase::IgnoreCase) &&
+                !DisplayName.Contains(TEXT("SunHeight"), ESearchCase::IgnoreCase)) continue;
+
+            const float Advance = Hours / 24.0f * 2400.0f;
+            if (FFloatProperty* FloatProperty = CastField<FFloatProperty>(Property))
+            {
+                const float Units = FloatProperty->GetPropertyValue_InContainer(Actor);
+                if (Units < 0.0f) continue;
+                const float Advanced = FMath::Fmod(Units + Advance + 2400.0f, 2400.0f);
+                FloatProperty->SetPropertyValue_InContainer(Actor, Advanced);
+                // 立刻刷新读数；LastSkyTimeUnits 故意不碰，跨午夜的日序仍由同步逻辑自己记一次。
+                NormalizedDayTime = Advanced / 2400.0f;
+                WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
+                UE_LOG(LogTemp, Display, TEXT("WEATHER_TIME sky-clock +%.2fh -> %.0f/2400 (%.2f)"), Hours, Advanced, NormalizedDayTime);
+                return;
+            }
+            if (FDoubleProperty* DoubleProperty = CastField<FDoubleProperty>(Property))
+            {
+                const double Units = DoubleProperty->GetPropertyValue_InContainer(Actor);
+                if (Units < 0.0) continue;
+                const double Advanced = FMath::Fmod(Units + Advance + 2400.0, 2400.0);
+                DoubleProperty->SetPropertyValue_InContainer(Actor, Advanced);
+                NormalizedDayTime = static_cast<float>(Advanced) / 2400.0f;
+                WeatherClockSeconds = NormalizedDayTime * RealSecondsPerGameDay;
+                UE_LOG(LogTemp, Display, TEXT("WEATHER_TIME sky-clock +%.2fh -> %.0f/2400 (%.2f)"), Hours, Advanced, NormalizedDayTime);
+                return;
+            }
+        }
+    }
+
+    // 没有天空时钟的关卡：推进内部时钟，日序沿用 Tick 里的回绕判断。
+    const float Previous = NormalizedDayTime;
+    WeatherClockSeconds = FMath::Fmod(WeatherClockSeconds + Hours / 24.0f * RealSecondsPerGameDay, RealSecondsPerGameDay);
+    NormalizedDayTime = WeatherClockSeconds / RealSecondsPerGameDay;
+    if (NormalizedDayTime < Previous) ++DaySerial;
+    UE_LOG(LogTemp, Display, TEXT("WEATHER_TIME internal +%.2fh -> %.2f"), Hours, NormalizedDayTime);
+}
+
 void AFPSWeatherManager::SetWeatherState(EFPSWeatherState NewState, bool bDisableAutomaticSchedule)
 {
     if (bDisableAutomaticSchedule)
@@ -489,6 +545,10 @@ void AFPSWeatherManager::InitializeHillsLighting()
     Settings.LocalExposureMethod = ELocalExposureMethod::Bilateral;
     Settings.bOverride_LocalExposureShadowContrastScale = true;
     Settings.LocalExposureShadowContrastScale = HillsDayShadowContrast;
+    // HDR skies contain isolated bright pixels. Camera lens ghosts turn these
+    // into unrelated blue/red spots; hills retain bloom without those ghosts.
+    Settings.bOverride_LensFlareIntensity = true;
+    Settings.LensFlareIntensity = 0.0f;
     HillsExposure->RegisterComponent();
 }
 

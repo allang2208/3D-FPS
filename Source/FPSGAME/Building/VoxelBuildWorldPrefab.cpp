@@ -52,6 +52,9 @@ bool AVoxelBuildWorld::IsPrefabSupported(const FVoxelBuildPrefabInstance& Instan
 {
     const FVoxelBuildPrefab* Definition=Palette?Palette->FindComponent(Instance.Id):nullptr;
     if(!Definition)return true;   // 定义缺失时不在这里判死，交给生成路径报错
+    // 壁挂构件（火把等）钉在墙面/柱面上，靠的是表面而不是地面：不参与"失去支撑脱落"，
+    // 否则挂在非体素表面（关卡网格、导入模型）上的那几件会在附近一动土就掉下来。
+    if(Definition->Mount==EVoxelPrefabMount::Wall)return true;
     const FIntVector Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Instance.Yaw);
     // ① 地形：先试这一条，站在地上的大件（凉亭、喷泉）在这里就短路了。
     if(IsPrefabOnGround(Instance.Cell,Footprint))return true;
@@ -109,11 +112,12 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
             Model->PostNotice(TEXT("构件脱落"),Message,FString(),3.2f);
 }
 
-bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason) const
+bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason,bool bSurfaceBacked) const
 {
     if(!bReady||!Palette){Reason=Message;return false;}
     const FVoxelBuildPrefab* Definition=Palette->FindComponent(Id);
     if(!Definition){Reason=TEXT("缺少该构件定义");return false;}
+    const bool bWallMount=Definition->Mount==EVoxelPrefabMount::Wall;
     // 逻辑构件（门）只要求 Actor 类；普通构件仍然要求网格。
     if(Definition->ActorClass.IsNull()&&!Definition->Mesh.LoadSynchronous())
     {Reason=TEXT("构件网格尚未导入");return false;}
@@ -124,11 +128,19 @@ bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString
         if(PrefabCells.Contains(Entry)){Reason=TEXT("该位置已有构件");return false;}
         if(!VolumeMaterialAt({},Entry).IsNone()){Reason=TEXT("该位置已有体素方块");return false;}
     }
-    // 悬空的构件不能放（2026-09-18 用户口径：构件要挂在结构上，不然拆掉周围就剩它浮着）。
-    FVoxelBuildPrefabInstance Probe;
-    Probe.Id=Id;Probe.Cell=Cell;Probe.Yaw=Yaw;Probe.Footprint=Footprint;
-    if(!IsPrefabSupported(Probe))
-    {Reason=TEXT("该位置悬空 · 构件要与体素、别的构件或地面接触");return false;}
+    if(bWallMount)
+    {
+        // 壁挂件：必须由瞄准到的竖直表面托住（表面法线已在组件侧校验过）。
+        if(!bSurfaceBacked){Reason=TEXT("必须贴在墙面或结构表面才能放置");return false;}
+    }
+    else
+    {
+        // 悬空的构件不能放（2026-09-18 用户口径：构件要挂在结构上，不然拆掉周围就剩它浮着）。
+        FVoxelBuildPrefabInstance Probe;
+        Probe.Id=Id;Probe.Cell=Cell;Probe.Yaw=Yaw;Probe.Footprint=Footprint;
+        if(!IsPrefabSupported(Probe))
+        {Reason=TEXT("该位置悬空 · 构件要与体素、别的构件或地面接触");return false;}
+    }
     Reason=FString::Printf(TEXT("可放置 %s · %d × %d × %d cm · 左键确认"),
         *Definition->DisplayName.ToString(),Footprint.X*CellSizeCm,Footprint.Y*CellSizeCm,Footprint.Z*CellSizeCm);
     return true;
@@ -181,8 +193,12 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
 bool AVoxelBuildWorld::PlacePrefab(FName Id,FIntVector Cell,int32 Yaw)
 {
     if(!bReady||GetNetMode()!=NM_Standalone)return false;
-    if(!CanPlacePrefab(Id,Cell,Yaw,Message))return false;
-    const FVoxelBuildPrefab* Definition=Palette->FindComponent(Id);
+    const FVoxelBuildPrefab* Looking=Palette?Palette->FindComponent(Id):nullptr;
+    // 壁挂件在组件侧已经确认过"瞄准的是竖直表面"，这里复检时要把这一点带进来，
+    // 否则同一件会被自己的"必须贴墙"规则挡掉。
+    const bool bSurfaceBacked=Looking&&Looking->Mount==EVoxelPrefabMount::Wall;
+    if(!CanPlacePrefab(Id,Cell,Yaw,Message,bSurfaceBacked))return false;
+    const FVoxelBuildPrefab* Definition=Looking;
     FVoxelBuildPrefabInstance Instance;
     Instance.Id=Id;Instance.Cell=Cell;Instance.Yaw=((Yaw%4)+4)%4;
     Instance.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Instance.Yaw);

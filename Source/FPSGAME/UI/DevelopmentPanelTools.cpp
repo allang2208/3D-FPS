@@ -21,7 +21,7 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
     const float Scale = ColdSteelUI::PixelScale(this);
     Page->AddChildToVerticalBox(CreatePanelText(TEXT("开发功能"), 16, ColdSteelUI::TextPrimary))
         ->SetPadding(FMargin(0, 14.f / Scale, 0, 8.f / Scale));
-    FeatureStatus = CreatePanelText(TEXT("生成物品、提升等级与技能等级立即走存档事务。"), 12, ColdSteelUI::TextSecondary);
+    FeatureStatus = CreatePanelText(TEXT("生成物品、提升等级与技能等级立即走存档事务；快进时间只推世界时钟。"), 12, ColdSteelUI::TextSecondary);
     Page->AddChildToVerticalBox(FeatureStatus)->SetPadding(FMargin(0, 0, 0, 8.f / Scale));
 
     struct FCardParts
@@ -116,6 +116,17 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
         MaxSkillButton = MakeButton(TEXT("提升至满级"), TEXT("DevelopmentSkillMax"));
         MaxSkillButton->OnClicked.AddDynamic(this, &ThisClass::MaxSkillClicked);
         AddFixed(Parts, MaxSkillButton, 120.f);
+        FeatureRows.Add(Parts.Row);
+    }
+
+    // 快进时间：世界时钟整体前推 1 小时，用来快速走到黄昏/夜晚核对点火、光照与天气。
+    {
+        FCardParts Parts = NewCard(TEXT("快进时间"),
+            TEXT("把世界时钟整体前推 1 小时，可反复点击；到达黄昏/夜晚看火把自动点火。"));
+        TimeHelp = Parts.Help;
+        AdvanceHourButton = MakeButton(TEXT("快进 1 小时"), TEXT("DevelopmentAdvanceHour"));
+        AdvanceHourButton->OnClicked.AddDynamic(this, &ThisClass::AdvanceHourClicked);
+        AddFixed(Parts, AdvanceHourButton, 130.f);
         FeatureRows.Add(Parts.Row);
     }
 }

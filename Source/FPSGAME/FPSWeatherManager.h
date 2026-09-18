@@ -43,6 +43,14 @@ public:
     UFUNCTION(BlueprintCallable, Category="Weather")
     void ResumeAutomaticSchedule();
 
+    /**
+     * 开发面板用：把世界时钟整体前推 Hours 小时（正数）。
+     * 由天空时钟驱动的关卡（场景里有 BP_FPS_DayNightManager 的 SunHeight）推它自己的时间，
+     * 其余关卡推本管理器内部时钟；两条路径都维持"唯一权威时钟"的约定，不另建计时器。
+     */
+    UFUNCTION(BlueprintCallable, Category="Weather")
+    void AdvanceGameTime(float Hours);
+
     UFUNCTION(BlueprintPure, Category="Weather")
     float GetEffectiveRainIntensity() const { return EffectiveRainIntensity; }
     float GetSurfaceWetness() const;

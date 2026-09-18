@@ -33,6 +33,14 @@ struct FVoxelBuildMaterial
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Physics",meta=(EditCondition="bOverridePhysics")) FVoxelPhysicalMaterial Physics;
 };
 
+/** 构件放置规则：Free = 任意表面/地面；Wall = 必须贴在竖直面（墙、柱子、结构面）上，按表面法线自动定向。 */
+UENUM(BlueprintType)
+enum class EVoxelPrefabMount : uint8
+{
+    Free,
+    Wall
+};
+
 /** One placeable prefab: a mesh plus the grid footprint it occupies. */
 USTRUCT(BlueprintType)
 struct FVoxelBuildPrefab
@@ -42,6 +50,8 @@ struct FVoxelBuildPrefab
     UPROPERTY(EditAnywhere, BlueprintReadOnly) FText DisplayName;
     UPROPERTY(EditAnywhere, BlueprintReadOnly) TSoftObjectPtr<UStaticMesh> Mesh;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Grid", meta=(ClampMin="1")) FIntVector Footprint=FIntVector(1,1,1);
+    /** 放置规则。Wall 表示壁挂件：只能贴竖直表面、朝向跟随该面，且不参与"失去支撑脱落"。 */
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Placement") EVoxelPrefabMount Mount=EVoxelPrefabMount::Free;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Surface") TSoftObjectPtr<UMaterialInterface> Surface;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Grid", meta=(Units="cm")) FVector PivotOffsetCm=FVector::ZeroVector;
     /** 需要自带逻辑的构件（门、可动构件）：留空按普通静态网格放置；填了就按 20 cm 格生成该

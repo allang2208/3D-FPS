@@ -54,3 +54,26 @@ python Tools/AssetPipeline/ue_python_exec.py --statement "import unreal; unreal.
 
 - `Tools/Build/Build-Editor.ps1` 只要发现任何 `UnrealEditor.exe` 或 `UnrealEditor-Cmd.exe`（命令行含 `FPSGAME.uproject` 或为空）就直接拒绝构建、并且**不会**结束进程。并行会话跑的 headless 资源脚本（`UnrealEditor-Cmd -run=pythonscript`）也算，属于短暂占用：先用 `Get-CimInstance Win32_Process -Filter "Name='UnrealEditor-Cmd.exe'"` 看命令行和启动时间，等它自己退出（通常数秒到数十秒）再重跑，不要替别人关进程。
 - 失败日志先分辨归属：`Saved/BuildEditor/build-*.log` 里报错的路径若是并行会话的文件（体素地形、建筑、怪物等），照 WORKFLOW 第 7 节保留对方改动，只在自己的文件上解决；同一文件混着双方未提交改动时按 hunk 精确暂存，不要整文件提交。
+
+## 热补丁类不能成为关卡/资产的依赖（2026-09-18 事故，青铜火把）
+
+**症状**：摆好的一批 actor 在编辑器重启后"整批消失"，加载日志逐条报
+`LoadErrors: Warning: 创建导出：资产"<ComponentName>"的外部容器加载失败：<Class> ... :PersistentLevel.<Actor>_1`。
+
+**根因**：这些 actor 的类当时只存在于 Live Coding 补丁里（补丁成功、摆件、保存关卡都正常），但磁盘上的
+`UnrealEditor-FPSGAME.dll` 仍是旧构建、不含这个类。编辑器一重启，类没了 → actor 建不出来（内存里 0 件）。
+这正是本文开头那条"热补丁只活在当前会话"的后果。
+
+**规矩**：
+
+- 新增 C++ 类并且要**写进关卡/资产数据**时：先全量编译把类落到 DLL，再摆件；Live Coding 只用来验证函数体改动。
+- 反过来：关卡里已经引用了补丁类时，**关编辑器之前先编译**，否则下次启动就是上面那条报错。
+- 关卡出现"缺类"时**不要保存这张图**：内存里是残状态（actor 数量为 0 或半残），一保存就把磁盘上的 actor 抹掉。
+  正确顺序：确认磁盘文件没被重存（时间戳 + 二进制里还能搜到 actor 标签）→ 先保住别人未保存的脏包
+  （`EditorLoadingAndSavingUtils.save_packages`）→ **强制结束编辑器**（别走"正常退出"，它会弹"保存关卡"）
+  → `Tools/Build/Build-Editor.ps1` 全量编译 → 重开编辑器，actor 会带着组件与属性自己回来。
+
+**实测补充（2026-09-18）**：`LiveCoding.CompileSync` 在 UE 5.8 **可以新增 UCLASS**（本次 `ABronzeTorch`
+补丁成功后 `load_class('/Script/FPSGAME.BronzeTorch')` 立刻可用，日志有
+`LogClass: Function AdvanceGameTime is new or belongs to a modified class.`）。它不改变上面这条规矩——
+补丁只活在会话里，一旦要落盘到关卡数据仍必须全量编译。

@@ -327,6 +327,27 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 7. **可叠放的多件套，X/Y 占格统一取最大值**：`ComputeTransform` 把网格**包围盒居中**进占格体积，占格不同会让同一格叠放的各件互相偏掉半个差值（凉亭三件 48/44/40 格叠放时偏 40~80 cm）。统一占格后放同一格自动对齐；Z 仍取各自高度。
 8. 普通构件（`ActorClass` 为空）的预览与落地都走 `ComputeTransform`，**与 pivot 无关**——pivot 在底面还是角上都不影响落位，所以自检要按 `mesh.get_bounds()` 的包围盒算，不要按 pivot 算。
 
+### 5.3 壁挂构件（`Mount = Wall`，2026-09-18 起）
+
+`FVoxelBuildPrefab::Mount`：`Free`（默认，老条目行为不变）／`Wall`（壁挂，必须附着墙壁或结构表面才能放置）。
+
+| 规则 | 行为 |
+| --- | --- |
+| 表面类型 | 只认**竖直面**：瞄准地面或天花板直接拒绝，提示"必须贴在墙面或结构表面 · 壁挂构件不能放在地面或天花板" |
+| 朝向 | 跟随表面**外法线**（构件局部 +X = 伸出方向），四向吸附；壁挂件的 `R` 手动旋转被禁用 |
+| 占格 | 贴着表面往外长：法线轴向的最小面压在表面上，切向与竖直方向以准星为中心 |
+| 结构 | **不参与"失去支撑脱落"**（`IsPrefabSupported` 提前返回）：它钉在墙/柱上，不靠地面——否则挂在关卡网格（非体素）上的那几件会在附近一动土就掉 |
+| 复检 | 落地前再复检一次贴墙（`CanPlacePrefab(..., bSurfaceBacked)`）；`PlacePrefab` 复检时把这面是竖直面带进去，否则会被自己的规则挡掉 |
+
+首个实例：**`bronze_torch`（青铜火把）**，3×2×5 格，归大理石行「其他构造」；注册脚本
+`SourceAssets/RomanColumn20260915/add_torch_prefab_20260918.py`。它是逻辑构件
+（`ActorClass=/Script/FPSGAME.BronzeTorch`），落地即自带火焰、点光与黄昏/夜晚自动点火；
+`ActorOffsetCm=(-51,0,44)`（杆根 x=16 嵌墙 5 cm、杯心离墙 29 cm）、`PivotOffsetCm=(-9.75,0,0)`
+（幽灵预览与落地同口径，两者公式不同，必须对齐）。构件仍按现行口径**免料**。
+
+**顺序**：`FVoxelBuildPrefab` 是带资产的 USTRUCT，加字段必须**关编辑器全量编译**之后再写调色板资产
+（本次：21:38／21:40 两次 `Result: Succeeded` → 再跑注册脚本）。
+
 ### 5.2 抽屉缩略图子系统（2026-09-17 补）
 
 缩略图由 `UVoxelBuildIcons`（GameInstance 子系统，仅游戏内存在）**实时渲染**，不是静态图片；`FVoxelBuildPrefab` 九个字段里**没有图标字段**，塞不进外部贴图。它的取景对所有条目统一：正交投影、最大包围盒边长占画面 `IconFillFraction=0.78`、固定 -18/-35 视角，color 层 `SCS_FinalToneCurveHDR` + coverage 层 `SCS_SceneColorHDR` 合成 alpha。两条实战规则：

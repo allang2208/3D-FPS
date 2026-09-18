@@ -100,7 +100,8 @@ public:
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool PlacePrefab(FName Id,FIntVector Cell,int32 Yaw=0);
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool RemovePrefab(AActor* Piece);
     UFUNCTION(BlueprintPure,Category="Building|Prefab") int32 PrefabCount() const {return Prefabs.Num();}
-    bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason) const;
+    /** bSurfaceBacked：本次瞄准命中了竖直表面（壁挂构件用它代替地面/邻接支撑判定）。 */
+    bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason,bool bSurfaceBacked=false) const;
     /** 构件底面下有没有地形（中心＋四角共 5 个探测点，与体素地面锚定同一口径）。 */
     bool IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint) const;
     /**
