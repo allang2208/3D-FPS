@@ -247,3 +247,8 @@ v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水�
   **只吃 XY 范围包含目标的那个面**。
 - 并行会话的 Unreal 进程会随时抢锁：一次 84 s 的运行里材质保存就全失败了（`LogSavePackage: Error: Error saving`），
   所以脚本改成"重跑幂等 + 每次核对 mtime"。
+
+发布记录：提交 `62b4a7b`（`origin/main`），发布目录 `D:/FPS3D/FPSGAME`，普通推送 `HEAD:main`，
+`git ls-remote` 回读一致（推送期间 GitHub 连接抖动，多次重试后成功，未强推）。
+内容依赖：`M_FountainWater`、5 个 `MIC_Fountain*`、`SM_RomanFountain_20`、`SM_RomanFountain_WaterFX`、
+`RomanFountain1` 的关卡变换（`DayNight_Lighting.umap` 16:38:47）。
