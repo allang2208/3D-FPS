@@ -1,12 +1,13 @@
 """200×200 双开门网格：门框 SM_DoubleDoorFrame_200 + 单扇门扇 SM_DoubleDoorLeaf_200（左右两扇共用）。
 
-尺寸口径（cm，20 cm 体素格；2026-09-18 用户指定 2×2 m 双开门，当天第三轮把高度统一到 2.2 m）：
-  门框 **40(X)** × 200(Y) × **220(Z)** —— 与单扇门统一进深 40（2 格体素）与高度 220（11 格体素），
-  占格 **(2,10,11)**；洞口 184 × **204**（边梃 8），两组门扇各 91.5 × **203** 对开，中间留 1 cm 缝、上下各留 0.5 cm。
+尺寸口径（cm，20 cm 体素格；2026-09-18 用户指定 2×2 m 双开门，当天第三／四轮把高度统一到 2.4 m）：
+  门框 **40(X)** × 200(Y) × **240(Z)** —— 与单扇门统一进深 40（2 格体素）与高度 240（12 格体素），
+  占格 **(2,10,12)**；洞口 184 × **224**（边梃 8），两组门扇各 91.5 × **223** 对开，中间留 1 cm 缝、上下各留 0.5 cm。
+  门扇高度不写死：`LEAF_H = FRAME_H − 2×边梃 − 1 cm 缝`，以后改高度只动 `FRAME_H` 一处。
 
 门扇**不再是自建盒体**（2026-09-18 用户第二轮口径："把现在单开门的单门模型放到双开门中，单扇门进行替换"）：
 直接拿包里单扇门用的 `SM_Door` 逐轴缩放到一扇洞口（见 `bake_pack_leaf()`），
-  - 逐轴比例 = (1.0, 91.5/90, 203/200)：X 不缩放，门扇板厚保持 5 cm ＝ `LeafHalfThicknessCm×2`，铰链深度才对得上；
+  - 逐轴比例 = (1.0, 91.5/90, LEAF_H/200)：X 不缩放，门扇板厚保持 5 cm ＝ `LeafHalfThicknessCm×2`，铰链深度才对得上；
   - 绕 Z 转 180° 把把手转到网格 **+Y**（包门扇把手在网格 −Y），与 `AColdSteelWindow`／`AColdSteelDoubleDoor`
     "把手 +Y、右扇转 180°"的约定一致，C++ 一行都不用改；
   - 平移把包围盒中心放回网格原点（原模型 pivot 在角落、包围盒中心偏 (0,−45,+100)），
@@ -37,9 +38,10 @@ OUT_DIR = r"D:\FPS3D\FPSGAME\SourceAssets\DoubleDoor20260918\preview_20260918"
 COLOR_JSON = os.path.join(OUT_DIR, "material_colors.json")
 
 # --- 尺寸（cm）。改这里就要同步调色板占格与 ColdSteelDoubleDoor 的 FrameMemberCm／LeafHalfThicknessCm。
-FRAME_DEPTH, FRAME_W, FRAME_H = 40.0, 200.0, 220.0   # 进深 40 = 2 格、高 220 = 11 格（与单扇门统一，用户指定）
+FRAME_DEPTH, FRAME_W, FRAME_H = 40.0, 200.0, 240.0   # 进深 40 = 2 格、高 240 = 12 格（与单扇门统一，用户指定）
 MEMBER = 8.0                      # 门框边梃宽
-LEAF_W, LEAF_H = 91.5, 203.0      # 单扇门扇占的洞口格（洞口 184×204，上下各留 0.5 cm 缝）
+LEAF_W = 91.5                     # 一扇的宽度：洞口 184 的一半，中间留 1 cm 缝
+LEAF_H = FRAME_H - 2.0 * MEMBER - 1.0   # 223：洞口 224 高，上下各留 0.5 cm 缝
 LEAF_NOMINAL_T = 5.0              # 门扇板厚 ＝ ColdSteelDoubleDoor 的 2×LeafHalfThicknessCm
 PACK_LEAF = "/Game/DoorSystem/Demo/StarterContent/Props/SM_Door"   # 单扇门用的门扇模型（本轮的替换来源）
 
@@ -113,7 +115,7 @@ def ensure_asset(source_path, target_path):
 def bake_pack_leaf():
     """单扇门的门扇模型（SM_Door）→ 双开门一扇：逐轴缩放 + 把手转向 +Y + 包围盒居中。
 
-    尺寸：X 不缩放（板厚保持 5 cm ＝ 2×LeafHalfThicknessCm），Y → 91.5、Z → 203（一扇的洞口格）。
+    尺寸：X 不缩放（板厚保持 5 cm ＝ 2×LeafHalfThicknessCm），Y → 91.5、Z → LEAF_H（一扇的洞口格）。
     """
     source, dm = load_dynamic(PACK_LEAF)
     if not dm:
@@ -310,11 +312,11 @@ bad = [entry for entry in LOG if entry[1] is False]
 log("steps=%d failed=%d" % (len(LOG), len(bad)))
 for label, ok, msg in bad:
     log("  FAILED %s %s" % (label, msg))
-want_frame = (40.0, 200.0, 220.0)
+want_frame = (40.0, 200.0, 240.0)
 # 门扇的 X 保持源模型的包围盒（板厚 5 ＋ 两面把手凸出），Y／Z 才是本轮的目标尺寸。
-want_leaf = (leaf_size[0] if leaf_size else 0.0, 91.5, 203.0)
-ok = (not bad and frame_size == want_frame and leaf_size == want_leaf and frame_cells == (2, 10, 11))
+want_leaf = (leaf_size[0] if leaf_size else 0.0, 91.5, LEAF_H)
+ok = (not bad and frame_size == want_frame and leaf_size == want_leaf and frame_cells == (2, 10, 12))
 log("RESULT: %s（门框 %s 期望 %s／门扇 %s 期望 %s）/ 占格 %s" % (
     "PASS" if ok else "CHECK", frame_size, want_frame, leaf_size, want_leaf, frame_cells))
-log("门框 %.0f(X) × %.0f(Y) × %.0f(Z)：进深 %.1f 格、高度 %.1f 格；占格 %s（调色板条目要同步成 (2,10,11)）" % (
+log("门框 %.0f(X) × %.0f(Y) × %.0f(Z)：进深 %.1f 格、高度 %.1f 格；占格 %s（调色板条目按包围盒自动取整）" % (
     FRAME_DEPTH, FRAME_W, FRAME_H, FRAME_DEPTH / 20.0, FRAME_H / 20.0, frame_cells))

@@ -402,6 +402,8 @@ SetMaterial(0, Surface)"）。想在游戏里保住那扇小窗的玻璃，把 `
 
 ## 10. 高度统一 2.2 m（2026-09-18 第三轮，已完成）
 
+> 第三轮口径是 2.2 m；**第四轮（下节）已改成 2.4 m**，本节按当时记录保留。
+
 用户口径："同步调整高度，做好高度统一 2.2 米，门、门框都同步调整。"
 
 - 单扇门：门框 `SM_SingleDoorFrame_D40` 重新烘焙成 **40 × 114 × 220**（24.84 × 113.99 × 212，
@@ -416,3 +418,20 @@ SetMaterial(0, Surface)"）。想在游戏里保住那扇小窗的玻璃，把 `
 - 构建：Game／Editor 两目标 Succeeded；**未实机实测**（放置、预览、按 E 开合、被挡反向、存档由用户测试）。
 - 发布记录：提交 `5b3b684`（`origin/main`），普通推送 `HEAD:main`，`git ls-remote` 回读一致；
   新增内容依赖 `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_H208`。
+
+## 11. 高度改为 2.4 m（2026-09-18 第四轮，已完成）
+
+用户口径："高度调整为 2.4 m。"
+
+- 单扇门：门框 `SM_SingleDoorFrame_D40` → **40 × 114 × 240**（高度 12 格，占格 **(2,6,12)**）；
+  门板换成 `SM_SingleDoorLeaf_D40`（包里 `SM_Door` 按同一 Z 比例 240/212 → **226.42 cm**）。
+  烘焙脚本改名为 `SourceAssets/SingleDoor20260918/bake_single_door_meshes_20260918.py`
+  （取代 `bake_single_door_d40_h220_20260918.py`），新增
+  `register_single_door_prefabs_20260918.py` 同步单扇门三条调色板条目。
+- 双开门：门框 **40 × 200 × 240**（占格 **(2,10,12)**、洞口 184×224），门扇 **91.5 × 223**
+  （门扇高度改由 `FRAME_H − 2×边梃 − 1 cm` 推出）；细节见
+  [双开门案例第 10 节](double-door-200x200-20260918.md#10-第四轮高度改为-24-m2026-09-18)。
+- **改动收敛**：资产名不再带高度、调色板占格改成按包围盒自动取整，所以"再调高度"只改两个脚本里的
+  `HEIGHT_CM` / `FRAME_H` 常量重跑，C++ 与调色板脚本都不用动。
+- 退役：`/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_H208` 移入 `trash/door-h208-superseded-20260918/`。
+- 构建：Game／Editor 两目标 Succeeded；**未实机实测**（放置、预览、按 E 开合、被挡反向、存档由用户测试）。

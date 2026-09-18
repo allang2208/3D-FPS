@@ -1,4 +1,4 @@
-"""把 200×200 双开门登记为建造构件（逻辑构件路径，与窗同一套流程）。
+"""把双开门（当前 40 × 200 × 240，占格由门框包围盒算）登记为建造构件（逻辑构件路径，与窗同一套流程）。
 
 门分三档材质，分别归到调色板的木材／石头／大理石栏：条目 `Material` 填对应材质 ID，
 `ActorClass` 指向 `/Script/FPSGAME.ColdSteelDoubleDoor`（继承 `AColdSteelWindow` 的双扇平开逻辑），
@@ -15,13 +15,13 @@ import unreal
 PALETTE = "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette"
 FRAME_MESH = "/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200"
 DOOR_CLASS = "/Script/FPSGAME.ColdSteelDoubleDoor"
-# 门框 40×200×220 cm → 占格 **(2,10,11)**（进深 40 ＝ 2 格、高度 220 ＝ 11 格，2026-09-18 与单扇门统一）；
-# 洞口 184×204，两扇 91.5×203 对开，门扇由单扇门模型缩放而来（不进调色板）。
-CELLS = (2, 10, 11)
+# 占格不写死：由门框包围盒逐轴 /20 向上取整算出来（2026-09-18 第四轮高度 2.4 m → 40×200×240 → (2,10,12)）。
+# 洞口 = 框高 − 2×边梃、门扇 = 洞口 − 1 cm 缝，都在 build_double_door_meshes 里按 FRAME_H 推。
+CELLS = None
 ENTRIES = [
-    ("double_door_wood", "木双开门（E 键开关·2×2.2 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Wood", "wood"),
-    ("double_door_stone", "石双开门（E 键开关·2×2.2 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Stone", "stone"),
-    ("double_door_marble", "大理石双开门（E 键开关·2×2.2 m）", "/Game/Props/RomanColumn20260915/M_RomanStone_V2", "marble"),
+    ("double_door_wood", "木双开门（E 键开关·2×2.4 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Wood", "wood"),
+    ("double_door_stone", "石双开门（E 键开关·2×2.4 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Stone", "stone"),
+    ("double_door_marble", "大理石双开门（E 键开关·2×2.4 m）", "/Game/Props/RomanColumn20260915/M_RomanStone_V2", "marble"),
 ]
 
 
@@ -38,9 +38,10 @@ def size_of(path):
 
 
 frame_size = size_of(FRAME_MESH)
-got = tuple(int(round(v / 20.0)) for v in frame_size) if frame_size else None
-log("SM_DoubleDoorFrame_200=%s 占格=%s 期望=%s %s" % (
-    frame_size, got, CELLS, "OK" if got == CELLS else "MISMATCH"))
+CELLS = tuple(max(1, int((v + 19.9) // 20)) for v in frame_size) if frame_size else None
+exact = all(abs(v - 20.0 * round(v / 20.0)) < 0.6 for v in frame_size) if frame_size else False
+log("SM_DoubleDoorFrame_200=%s 占格=%s 逐轴整格=%s" % (
+    frame_size, CELLS, "OK" if exact else "CHECK"))
 
 palette = unreal.EditorAssetLibrary.load_asset(PALETTE) or unreal.load_asset(PALETTE)
 if not palette:

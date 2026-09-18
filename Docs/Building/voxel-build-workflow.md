@@ -416,6 +416,14 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
    **保存要核实真落盘**：这一轮第一遍跑完脚本"读回正确但磁盘没变"——并行会话的 Unreal 进程占着这些包，
    `LogFileManager: Error moving … (Error Code 32)`＋`LogSavePackage: Error: Error saving …`，保存静默失败
    （同进程读回是内存值，不算证据）。要等那些进程退出后重跑，并核对 `.uasset` 的 mtime 确实变新。
+   **第四轮（2026-09-18 晚）高度 2.2 m → 2.4 m**：口径不变，只把高度常量改一处——
+   单扇门 `bake_single_door_meshes_20260918.py` 的 `HEIGHT_CM`（门框 40×114×**240**、门板同比例 226.42、
+   占格 **(2,6,12)**），双开门 `build_double_door_meshes_20260918.py` 的 `FRAME_H`（框 40×200×**240**、
+   洞口 184×224、门扇 223、占格 **(2,10,12)**）。为此把**资产名去掉了高度**（`SM_SingleDoorFrame_D40`／
+   `SM_SingleDoorLeaf_D40` 只标进深）、**调色板占格改成按包围盒逐轴 /20 向上取整**算出来
+   （`register_*_prefabs_*.py`），C++ 一行没动。单扇门的三条调色板条目这次也要同步
+   （`register_single_door_prefabs_20260918.py`：占格＋`Mesh` → 当前门板）。被取代的
+   `SM_SingleDoorLeaf_H208` 移入 `trash/door-h208-superseded-20260918/`。
 11. **同类构件登记三条材质是现行口径**：门／窗／双开门都是 wood／stone／marble 各一条（`Material` 分组决定进哪栏），
    这样玩家用哪种体素砌墙就能配哪种构件。命名 `window_*` / `door_*` / `double_door_*`，占格逐轴等于网格包围盒/20。
 

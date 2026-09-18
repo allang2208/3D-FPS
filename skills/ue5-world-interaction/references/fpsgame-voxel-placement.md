@@ -121,3 +121,9 @@ FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildCompo
    保存会静默失败（`LogFileManager: Error moving … (Error Code 32)`、`LogSavePackage: Error: Error saving …`），
    表现是"脚本 PASS、磁盘 `.uasset` 却没变"。要等那些进程退出后重跑，并核对文件 mtime 变新；
    判断有没有别的会话在跑：`Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe' OR Name='UnrealEditor-Cmd.exe'"`。
+8. **把"可调数值"收敛成一处**：用户在同一天把高度从 2.2 m 又改成 2.4 m（第三→第四轮）。为了不再改一圈文件：
+   - **资产名不带可调尺寸**（`SM_SingleDoorFrame_D40`／`SM_SingleDoorLeaf_D40` 只标进深），C++ 只认路径，改高度不用动；
+   - 只保留一个高度常量（单扇门脚本的 `HEIGHT_CM`；双开门脚本的 `FRAME_H`，门扇高 = `FRAME_H − 2×边梃 − 1 cm` 推出来）；
+   - **调色板占格按包围盒逐轴 /20 向上取整算**（`register_*_prefabs_*.py` 里从 `mesh.get_bounds()` 算），不再写死 `CELLS`；
+   - 单扇门的三条调色板条目（`door_wood/stone/marble`）除了占格，还要把 `Mesh` 指向当前门板，
+     否则抽屉缩略图与预览 ghost 会停在旧门板尺寸；被取代的旧门板资产移入 `trash/<task>/` 并记散列。

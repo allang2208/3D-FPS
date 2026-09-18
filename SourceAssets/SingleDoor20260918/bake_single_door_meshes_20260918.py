@@ -1,31 +1,37 @@
-"""单扇门的门框与门板：进深 40 cm、高度 220 cm（2026-09-18 第二／第三轮）。
+"""单扇门的门框与门板：进深 40 cm、高度 240 cm（2026-09-18 第二～四轮）。
 
 用户口径：
   - 第二轮："统一门框的进深大小为 20 cm 体素格的整数倍，设置为 **40 CM**。"
-  - 第三轮（本轮）："同步调整高度，做好高度统一 **2.2 米**，门、门框都同步调整。"
+  - 第三轮："同步调整高度，做好高度统一 **2.2 米**，门、门框都同步调整。"
+  - 第四轮（本轮）："高度调整为 **2.4 米**。"
 
 | 新资产 | 源（Door System 包） | 源尺寸（cm） | 目标（cm） | 缩放 |
 | --- | --- | --- | --- | --- |
-| `/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40` | `SM_DoorFrame` | 24.84 × 113.99 × 212.00 | **40 × 114 × 220** | 进深 40/24.84 ＝ 2 格、高度 220/212 ＝ 11 格 |
-| `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_H208` | `SM_Door` | 18.48 × 90.00 × 200.00 | **18.48 × 90 × 207.55** | 只缩 Z，与门框同比例 220/212 |
+| `/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40` | `SM_DoorFrame` | 24.84 × 113.99 × 212.00 | **40 × 114 × 240** | 进深 40/24.84 ＝ 2 格、高度 240/212 ＝ 12 格 |
+| `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40` | `SM_Door` | 18.48 × 90.00 × 200.00 | **18.48 × 90 × 226.42** | 只缩 Z，与门框同比例 240/212 |
 
 - 包门框的洞口正好是 **90 × 200 ＝ 门板尺寸**（实测顶点：洞口 y ±45、z 0..200），所以门框与门板按**同一个 Z 比例**
-  缩放后洞口仍被门板填满，门板／门框相对关系不变——"同步调整"就是这个意思。
-- 只缩进深与高度两轴，宽度 113.99 保持（占格 Y 取整 6 格＝120）；占格仍是 **(2,6,11)**，调色板 `door_*` 条目不用改。
-- 门板保持源模型的 pivot／origin（本工程的 `AColdSteelDoor` 一律按包围盒摆位，不要求原点居中）。
+  缩放后洞口仍被门板填满，门板／门框相对关系不变——"同高度、一起调"就是这个意思。
+- 只缩进深与高度两轴，宽度 113.99 保持（占格 Y 取整 6 格＝120）；占格 = 包围盒/20 向上取整 →
+  **(2,6,12)**，调色板 `door_*` 三条的 `Footprint` 由
+  `SourceAssets/SingleDoor20260918/register_single_door_prefabs_20260918.py` 同步。
+- **资产名不带高度**（`…_D40` 只标进深）：高度是按格子调的，再改一次只改本脚本的 `HEIGHT_CM` 重跑，
+  C++ 路径与调色板脚本都不用动。
 
 三条口径（缩放事故的教训，见 skills/asset-model-workflow 的"缩放已有网格"一节）：
   1. 不重建几何：`copy_mesh_from_static_mesh → scale_mesh(逐轴) → copy_mesh_to_static_mesh`；
-  2. **逐槽拷回材质**：`copy_mesh_to_static_mesh` 默认只留一个空槽（上一轮把门扇的 M_Glass 小窗弄丢过），
+  2. **逐槽拷回材质**：`copy_mesh_to_static_mesh` 默认只留一个空槽（曾把门扇的 M_Glass 小窗弄丢过），
      容器用 `duplicate_asset` 复制源资产（本版 Python 没有 `StaticMeshFactoryNew`）；
   3. 门框是**环状**网格：清空过期简单碰撞并设 `CTF_USE_COMPLEX_AS_SIMPLE`（包成盒会把门洞堵死）；
      门板是实体薄板，用 AlignedBoxes。
 
 包里的 `/Game/DoorSystem/**` 原样不动（物理门 `door_physics` 还在用）。
+**保存要核实真落盘**：并行会话的 Unreal 进程占着包时保存会静默失败（`Error saving`／`Error Code 32`），
+脚本里的读回只是同进程内存值——跑之前确认没有其它 UnrealEditor 在跑，跑完核对 `.uasset` 的 mtime。
 
 运行（编辑器关闭时最稳）：
   UnrealEditor-Cmd.exe D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript \
-      -Script=D:/FPS3D/FPSGAME/SourceAssets/SingleDoor20260918/bake_single_door_d40_h220_20260918.py \
+      -Script=D:/FPS3D/FPSGAME/SourceAssets/SingleDoor20260918/bake_single_door_meshes_20260918.py \
       -unattended -nop4 -nosplash -NullRHI -nosound -abslog=<日志>
 """
 
@@ -36,13 +42,13 @@ import unreal
 PACK_FRAME = "/Game/DoorSystem/Demo/StarterContent/Props/SM_DoorFrame"
 PACK_LEAF = "/Game/DoorSystem/Demo/StarterContent/Props/SM_Door"
 DIR = "/Game/Props/SingleDoor20260918"
-DEPTH_CM = 40.0
-HEIGHT_CM = 220.0
+DEPTH_CM = 40.0      # 进深：2 格体素（用户指定）
+HEIGHT_CM = 240.0    # 外廓高度：12 格体素（2.4 m，用户指定）
 LOG = []
 
 
 def log(m):
-    print("[door-h220] " + m)
+    print("[door-h240] " + m)
 
 
 def check(label, ok):
@@ -157,7 +163,7 @@ def bake(label, source_path, target_path, target_size, ring):
     return got, native
 
 
-# 门框：进深 40（2 格）＋高度 220（11 格），宽度保持源模型的 113.99
+# 门框：进深 40（2 格）＋高度 240（12 格），宽度保持源模型的 113.99
 pack_frame, _ = load_dynamic(PACK_FRAME)
 native_frame = (pack_frame.get_bounds().box_extent.x * 2.0,
                 pack_frame.get_bounds().box_extent.y * 2.0,
@@ -165,21 +171,21 @@ native_frame = (pack_frame.get_bounds().box_extent.x * 2.0,
 frame_target = (DEPTH_CM, round(native_frame[1], 2), HEIGHT_CM)
 bake("frame", PACK_FRAME, DIR + "/SM_SingleDoorFrame_D40", frame_target, True)
 
-# 门板：只缩 Z（220/212），与门框同一比例 —— 包洞口 90×200 ＝ 门板尺寸，缩完仍然严丝合缝
+# 门板：只缩 Z（240/212），与门框同一比例 —— 包洞口 90×200 ＝ 门板尺寸，缩完仍然严丝合缝
 leaf_scale_z = HEIGHT_CM / native_frame[2]
 pack_leaf, _ = load_dynamic(PACK_LEAF)
 native_leaf = (pack_leaf.get_bounds().box_extent.x * 2.0,
                pack_leaf.get_bounds().box_extent.y * 2.0,
                pack_leaf.get_bounds().box_extent.z * 2.0)
 leaf_target = (round(native_leaf[0], 2), round(native_leaf[1], 2), round(native_leaf[2] * leaf_scale_z, 2))
-bake("leaf", PACK_LEAF, DIR + "/SM_SingleDoorLeaf_H208", leaf_target, False)
+bake("leaf", PACK_LEAF, DIR + "/SM_SingleDoorLeaf_D40", leaf_target, False)
 
-log("门框 %.2f × %.2f × %.2f（应 ＝ 40 × 113.99 × 220）：占格按 %s" % (
+log("门框 %.2f × %.2f × %.2f（应 ＝ 40 × 113.99 × 240）：占格按 %s" % (
     frame_target[0], frame_target[1], frame_target[2],
     tuple(max(1, int((v + 19.9) // 20)) for v in frame_target)))
 log("门板 %.2f × %.2f × %.2f（洞口 90 × 200 同比例 → %.2f），Z 比例 %.6f" % (
     leaf_target[0], leaf_target[1], leaf_target[2], native_leaf[2] * leaf_scale_z, leaf_scale_z))
-check("frame_footprint_2_6_11", tuple(max(1, int((v + 19.9) // 20)) for v in frame_target) == (2, 6, 11))
+check("frame_footprint_2_6_12", tuple(max(1, int((v + 19.9) // 20)) for v in frame_target) == (2, 6, 12))
 check("leaf_fits_frame_height", abs(leaf_target[2] - native_leaf[2] * leaf_scale_z) < 0.05
       and leaf_target[2] < frame_target[2])
 check("pack_untouched", abs(native_frame[1] - 113.99) < 0.05 and abs(native_frame[2] - 212.0) < 0.05)
