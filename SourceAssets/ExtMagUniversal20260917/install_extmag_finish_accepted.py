@@ -151,7 +151,14 @@ if not original:
 qbz_path = MD + '/M_QBZ191_ext_mag_Receiver_0'
 if E.does_asset_exist(qbz_path):
     E.delete_asset(qbz_path)
-qbz_material = E.duplicate_asset(original.get_path_name(), qbz_path)
+# Self-contained coating: only the magazine's own baked atlas is sampled. Cloning
+# the rifle-atlas material (as the accepted parts do) left its magazine maps on
+# UV0, which no longer line up on a rebuilt mesh and showed up as a mosaic of
+# atlas tiles. A rebuilt part therefore bakes its whole look into its own atlas.
+qbz_material = A.create_asset('M_QBZ191_ext_mag_Receiver_0', MD, u.Material,
+                              u.MaterialFactoryNew())
+if not qbz_material:
+    raise RuntimeError('Could not create the QBZ magazine coating material')
 uv = node(qbz_material, u.MaterialExpressionTextureCoordinate, coordinate_index=1)
 samples = {}
 for kind, texture in qbz_textures.items():

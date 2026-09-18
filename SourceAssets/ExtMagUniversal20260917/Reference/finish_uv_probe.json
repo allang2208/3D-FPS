@@ -1,0 +1,31 @@
+{
+ "/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_QBZ40": {
+  "uv_channels": "unavailable: StaticMesh: Failed to find property 'uv_channel_count' for attribute 'uv_channel_count' on 'StaticMesh'"
+ },
+ "/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440": {
+  "uv_channels": "unavailable: StaticMesh: Failed to find property 'uv_channel_count' for attribute 'uv_channel_count' on 'StaticMesh'"
+ },
+ "/Game/Weapons/ExtMagUniversal20260917/Materials/M_QBZ191_ext_mag_Receiver_0": {
+  "coordinate_indices": [
+   1
+  ],
+  "samples": [
+   "T_QBZ191_Wear_Magazine_BaseColor",
+   "T_QBZ191_Wear_Magazine_ORM",
+   "T_QBZ191_Wear_Magazine_Normal",
+   "T_ExtMag_QBZ191_BaseColor",
+   "T_ExtMag_QBZ191_ORM"
+  ]
+ },
+ "/Game/Weapons/ExtMagUniversal20260917/Materials/M_M4_ext_mag": {
+  "coordinate_indices": [
+   1
+  ],
+  "samples": [
+   "Body_BaseColor",
+   "Body_BaseColor",
+   "T_M4_Receiver_BaseColor",
+   "T_M4_Receiver_Roughness"
+  ]
+ }
+}
