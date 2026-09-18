@@ -122,3 +122,32 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
     （`…_D40` 只标进深）、脚本里只留**一个常量**（高度），下游（调色板占格／缩略图网格）改成**从包围盒算**
     而不是写死数字——这样下一次调尺寸只改一个常量重跑，C++ 与注册脚本都不用动。被取代的旧资产移入
     `trash/<task>/` 并记录原路径、大小、SHA-256 与保留替代物。
+
+## 用 Python 造材质／材质实例（2026-09-18 喷泉水体，实战踩坑表）
+
+项目里已经有一套成熟的"无头 Python 造材质"路线（先例 `Tools/Building/create_voxel_assets.py`、
+`Tools/ZombieDog/install_random_wounds.py`、`Tools/Building/create_build_preview.py`）。喷泉那轮又补了几条：
+
+1. **`create_asset` 要工厂实例**：`TOOLS.create_asset(name, folder, unreal.Material, unreal.MaterialFactoryNew())`
+   —— 传**类**会报 `Cannot nativize 'MaterialFactoryNew' as 'Factory'`；材质实例用
+   `unreal.MaterialInstanceConstantFactoryNew()`。顺带：本版 Python **没有** `unreal.StaticMeshFactoryNew`
+   （静态网格容器要靠 `duplicate_asset` 复制一份源资产）。
+2. **引脚名**：`MaterialExpressionTextureSample[Parameter2D]` 的 UV 输入叫 **`UVs`**（不是 `UV`）；
+   `MaterialExpressionClamp` 的输入是**默认名**（`""`）；`Multiply/Add` 用 `A/B`，`LinearInterpolate` 用
+   `A/B/Alpha`，`Power` 用 `Base/Exp`，`Fresnel` 用 `ExponentIn/BaseReflectFractionIn/Normal`，
+   纹理采样节点取单通道用输出名 `"R"`。连错时 `connect_material_expressions` 返回 False **但不抛异常**——
+   必须逐条检查返回值，否则会得到一个"能编译但没接对"的材质。
+3. **`recompile_material` 返回的是错误列表**：`[]` ＝ 编译通过；`bool([])` 是 False，别拿它当 bool 判。
+   结构自证可以用 `get_material_expressions().Num()` 加上
+   `get_material_property_input_node(mat, MP_EMISSIVE_COLOR / MP_OPACITY)` 看输出挂在哪个节点上。
+4. **`FCustomInput` 没有 `input_type`**（5.8 会报 `Failed to find property 'input_type'`）：
+   Custom 节点的输入类型**跟着接入的表达式走**，只设 `input_name` 即可。
+5. **特效网格不要依赖网格 UV**：本工程网格走 XAtlas，UV 方向不可控。水膜/泡沫/水帘这类"要按方向滚动"的材质，
+   在 Custom 节点里**自算柱面 UV**（`ObjectPositionWS` → `atan2(y,x)` 与 `−z`，按世界尺寸归一），
+   这样泡沫尺寸是世界尺寸、与 UV 岛无关；`MaterialExpressionObjectPositionWS` 在本版可用。
+6. **实例参数写不进去也别慌**：`set_material_instance_scalar/vector/texture_parameter_value` 在 5.8 常返回 False
+   但**实际写成功**（ZombieDog 那轮已记）；判断依据是 `scalar_parameter_values / vector_parameter_values /
+   texture_parameter_values` 里出现的覆盖项名字与数量，把这份清单打进日志，用户才能知道有哪些旋钮可调。
+7. **无头 commandlet 里没有关卡编辑器状态**：`LevelEditorSubsystem.is_in_play_in_editor()` 会
+   `ACCESS_VIOLATION` 崩进程（喷泉那轮又踩一次）；无头脚本用环境变量护栏跳过 PIE 查询，
+   加载关卡用 `LevelEditorSubsystem.load_level()` 是安全的。

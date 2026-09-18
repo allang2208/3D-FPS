@@ -3,6 +3,7 @@
 #include "VoxelBuildPrefabActor.h"
 #include "ColdSteelDoor.h"
 #include "ColdSteelWindow.h"
+#include "ColdSteelFountain.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/GameInstance.h"
@@ -168,6 +169,7 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
             // 逻辑构件自己接管外观：门／窗按调色板条目的材质整体替换（框与扇同一材质）。
             if(auto* Door=Cast<AColdSteelDoor>(Logic))Door->Configure(Definition->Surface.LoadSynchronous());
             else if(auto* Window=Cast<AColdSteelWindow>(Logic))Window->Configure(Definition->Surface.LoadSynchronous());
+            else if(auto* Fountain=Cast<AColdSteelFountain>(Logic))Fountain->Configure(Definition->Surface.LoadSynchronous());
             Logic->AttachToActor(Piece,FAttachmentTransformRules::KeepWorldTransform);
             Piece->AttachLogicActor(Logic);
         }

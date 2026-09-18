@@ -126,4 +126,23 @@ FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildCompo
    - 只保留一个高度常量（单扇门脚本的 `HEIGHT_CM`；双开门脚本的 `FRAME_H`，门扇高 = `FRAME_H − 2×边梃 − 1 cm` 推出来）；
    - **调色板占格按包围盒逐轴 /20 向上取整算**（`register_*_prefabs_*.py` 里从 `mesh.get_bounds()` 算），不再写死 `CELLS`；
    - 单扇门的三条调色板条目（`door_wood/stone/marble`）除了占格，还要把 `Mesh` 指向当前门板，
-     否则抽屉缩略图与预览 ghost 会停在旧门板尺寸；被取代的旧门板资产移入 `trash/<task>/` 并记散列。
+    否则抽屉缩略图与预览 ghost 会停在旧门板尺寸；被取代的旧门板资产移入 `trash/<task>/` 并记散列。
+
+## 带特效的逻辑构件（喷泉水体，2026-09-18）
+
+构件如果"只有一个静态网格"，面板摆出来就是没有水/没有火的半成品（喷泉 v1–v4 就是这样：关卡里的喷泉有水柱，
+面板摆的没有——水柱是**关卡 actor**，不是构件的一部分）。喷泉这轮把它升级成逻辑构件，几点可复用：
+
+- **构件自带特效网格**：新加一张 `SM_<prop>_WaterFX` 网格专门放水膜/溢流/接触环，**挂在主网格之下**
+  （`SetupAttachment(MainMesh)`，相对变换 0）——两者共用同一物体空间，所以"包围盒贴地"只需要动主网格，
+  特效网格自动跟随，不会出现两层错位。
+- **特效网格不带碰撞、不投影**（`NoCollision` + `SetCastShadow(false)`）；碰撞仍由主网格承担。
+- **点状发射器（水柱）按包围盒定位**：`SetRelativeLocation(0,0,BoxExtent.Z*2)` ＝ 包围盒顶面中心
+  （即塔尖）。**不要把关卡里的硬编码 z 抄进代码**：喷泉旧水柱写死 z=720，而 actor 在 z=−360、网格高 720，
+  水柱实际比塔尖高了 360 cm——用户报的"水体悬空"里就有这一条。
+- **`Configure(Surface)` 只覆盖 slot0**：材质行的 Surface 换的是主体材质（大理石），水/泡沫/焦散是自带实例，
+  不能被一起换掉（`AVoxelBuildPrefabActor::Configure` 与逻辑构件分支都要遵守这一点）。
+- **质量 CVar**：`fps.<Prop>.Quality`（喷泉是 `fps.Fountain.Quality`：0 = 只留主网格自身的水面，1 = 默认）。
+  actor 以 0.25 s 的 tick 间隔读 CVar，切开关在 0.25 s 内生效，且不必每帧 tick。
+- **关卡迁移**：老关卡里同名 actor（静态网格 + 独立特效 actor）合成一个逻辑构件时，沿用旧 actor 的变换、
+  销毁旧 actor、`save_current_level()`；无头运行**必须**跳过 PIE 查询（见 asset-model-workflow 的坑表）。
