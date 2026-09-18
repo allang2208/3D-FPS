@@ -23,12 +23,18 @@ BLENDS = os.path.join(SA, "PhantomRearGripIntegration20260913")
 EXTENSION = 0.06
 BAND_FRACTION = 0.12
 
+# The magazine is taken from each rifle's own source so its seat comes from the
+# rifle itself (the earlier AKM-workspace copy sat in another scene's frame,
+# which is why the M4 part was misaligned). mode="arc" follows the fitted
+# curvature centre, which a curved 5.8 mm magazine needs; the straight M4
+# magazine is fine with the local-tangent shift.
 JOBS = {
-    "M4": dict(source=os.path.join(BLENDS, "AKM", "AKM_RearGripSections_Editable.blend"),
-               blend=True, object="M4_Magazine Light.003_Export", match="magazine",
+    "M4": dict(source=os.path.join(SA, "M4HK416Replica20260910",
+                                   "SK_M4_FoldingSights_HK416.fbx"),
+               blend=False, object=None, match="magazine", mode="translate",
                out="SM_ExtMag_M440_factory.fbx"),
-    "QBZ": dict(source=os.path.join(BLENDS, "QBZ191", "QBZ191_RearGripSections_Editable.blend"),
-                blend=True, object="QBZ_Magazine", match="magazine",
+    "QBZ": dict(source=os.path.join(BLENDS, "QBZ191", "SK_QBZ191_Manny.fbx"),
+                blend=False, object=None, match="magazine", mode="arc",
                 out="SM_ExtMag_QBZ40_factory.fbx"),
 }
 
@@ -42,15 +48,44 @@ def load_source(cfg):
 
 
 def pick_object(cfg):
-    if cfg["object"] in bpy.data.objects:
+    if cfg["object"] and cfg["object"] in bpy.data.objects:
         return bpy.data.objects[cfg["object"]]
     for ob in bpy.data.objects:
-        if ob.type != "MESH":
-            continue
-        for material in ob.data.materials:
-            if material and cfg["match"] in material.name.lower():
-                return ob
+        if ob.type == "MESH":
+            for material in ob.data.materials:
+                if material and cfg["match"] in material.name.lower():
+                    return ob
     raise RuntimeError("magazine object not found in " + cfg["source"])
+
+
+def keep_magazine_slot(ob, match):
+    """Reduce a rifle mesh to the faces of its own magazine slot."""
+    import bmesh
+    index = next((i for i, m in enumerate(ob.data.materials)
+                  if m and match in m.name.lower()), None)
+    if index is None:
+        raise RuntimeError('no magazine material slot on ' + ob.name)
+    counts = {}
+    for face in ob.data.polygons:
+        counts[face.material_index] = counts.get(face.material_index, 0) + 1
+    print("SECTIONS_SLOTS", ob.name, [(i, (m.name if m else None), counts.get(i, 0))
+                                      for i, m in enumerate(ob.data.materials)], flush=True)
+    bm = bmesh.new()
+    bm.from_mesh(ob.data)
+    drop = [face for face in bm.faces if face.material_index != index]
+    if drop:
+        bmesh.ops.delete(bm, geom=drop, context='FACES')
+    loose = [vert for vert in bm.verts if not vert.link_faces]
+    if loose:
+        bmesh.ops.delete(bm, geom=loose, context='VERTS')
+    for face in bm.faces:
+        face.material_index = 0
+    bm.to_mesh(ob.data)
+    bm.free()
+    kept = ob.data.materials[index]
+    ob.data.materials.clear()
+    ob.data.materials.append(kept)
+    ob.data.update()
 
 
 report = {}
@@ -69,6 +104,8 @@ for gun, cfg in JOBS.items():
     bpy.context.view_layer.objects.active = ob
     bpy.ops.object.select_all(action='DESELECT')
     ob.select_set(True)
+    if cfg["object"] is None:
+        keep_magazine_slot(ob, cfg["match"])
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
     points = [ob.matrix_world @ v.co for v in mesh.vertices]
@@ -109,15 +146,57 @@ for gun, cfg in JOBS.items():
     band_bottom = low + (high - low) * BAND_FRACTION
     band_top = band_bottom + EXTENSION
     inverse = ob.matrix_world.inverted()
-    for vertex in mesh.vertices:
-        point = ob.matrix_world @ vertex.co
-        value = (point - centroid).dot(seed_axis)
-        ramp = (band_top - value) / EXTENSION
-        if ramp <= 0.0:
-            continue
-        ramp = min(1.0, ramp)
-        ramp = ramp * ramp * (3.0 - 2.0 * ramp)
-        vertex.co = inverse @ (point - tangent(value) * (EXTENSION * ramp))
+    if cfg["mode"] == "arc":
+        # Curved magazine: extend along the arc instead of a straight shift, so
+        # the lower body keeps its angle to the rest of the magazine.
+        band_centre = Vector((np.polyval(polys[0], band_top), np.polyval(polys[1], band_top),
+                              np.polyval(polys[2], band_top)))
+        second = np.array([2.0 * p[0] for p in polys])          # |p''| ~ curvature
+        curvature = float(np.linalg.norm(second))
+        thin = int(np.argmin(hi - lo))
+        band_tangent = tangent(band_top)
+        planar = [i for i in range(3) if i != thin]
+        normal = Vector((0.0, 0.0, 0.0))
+        normal[planar[0]] = -band_tangent[planar[1]]
+        normal[planar[1]] = band_tangent[planar[0]]
+        if normal.length < 1e-6:
+            normal = Vector((1.0, 0.0, 0.0)) if thin != 0 else Vector((0.0, 1.0, 0.0))
+        normal.normalize()
+        if curvature < 1e-6:
+            centre = band_centre + normal * 100.0
+        else:
+            centre = band_centre + normal * (1.0 / curvature)
+        angle = EXTENSION * curvature
+        print("SECTIONS_ARC", gun, "radius_cm", round(1.0 / max(curvature, 1e-6) * 100, 2),
+              "angle_deg", round(math.degrees(angle), 2), flush=True)
+        below = [(ob.matrix_world @ v.co - centroid).dot(seed_axis) < band_top for v in mesh.vertices]
+
+        def rotate(point, sign):
+            offset = point - centre
+            a = sign * angle
+            rotated = offset.copy()
+            u, v = planar
+            rotated[u] = offset[u] * math.cos(a) - offset[v] * math.sin(a)
+            rotated[v] = offset[u] * math.sin(a) + offset[v] * math.cos(a)
+            return centre + rotated
+
+        lowest = min((ob.matrix_world @ v.co for v in mesh.vertices), key=lambda p: (p - centroid).dot(seed_axis))
+        top_centre = Vector((np.polyval(polys[0], high), np.polyval(polys[1], high),
+                             np.polyval(polys[2], high)))
+        sign = 1.0 if (rotate(lowest, 1.0) - top_centre).length > (rotate(lowest, -1.0) - top_centre).length else -1.0
+        for vertex, is_below in zip(mesh.vertices, below):
+            if is_below:
+                vertex.co = inverse @ rotate(ob.matrix_world @ vertex.co, sign)
+    else:
+        for vertex in mesh.vertices:
+            point = ob.matrix_world @ vertex.co
+            value = (point - centroid).dot(seed_axis)
+            ramp = (band_top - value) / EXTENSION
+            if ramp <= 0.0:
+                continue
+            ramp = min(1.0, ramp)
+            ramp = ramp * ramp * (3.0 - 2.0 * ramp)
+            vertex.co = inverse @ (point - tangent(value) * (EXTENSION * ramp))
     mesh.update()
 
     new_points = [ob.matrix_world @ v.co for v in mesh.vertices]

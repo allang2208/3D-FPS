@@ -1,7 +1,7 @@
 {
  "M4": {
-  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
-  "object": "M4_Magazine Light.003_Export",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbx",
+  "object": null,
   "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_factory.fbx",
   "dims_cm": [
    4.21,
@@ -15,12 +15,12 @@
   ]
  },
  "QBZ": {
-  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
-  "object": "QBZ_Magazine",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\SK_QBZ191_Manny.fbx",
+  "object": null,
   "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_factory.fbx",
   "dims_cm": [
-   4.57,
-   13.16,
+   4.12,
+   12.97,
    24.64
   ],
   "band_fraction": 0.12,
