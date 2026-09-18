@@ -15,5 +15,5 @@ namespace ColdSteelSkills
     FPSGAME_API void AddExperience(FColdSteelProfile& Profile, const FColdSteelSkillDefinition& Definition, int32 Amount);
     FPSGAME_API FString EffectSummary(const FColdSteelSkillEffect& Effect);
     FPSGAME_API FColdSteelSkillShot Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr);
-    FPSGAME_API float ApplyHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot);
+    FPSGAME_API float ApplyHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
 }

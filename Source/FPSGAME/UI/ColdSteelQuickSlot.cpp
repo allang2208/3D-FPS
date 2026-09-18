@@ -169,15 +169,12 @@ void UColdSteelQuickSlot::Refresh()
     }
     else if(Binding.Skill==TEXT("quickCombat"))
     {
-        // 剑类或单持手枪：单手砸击只要求右手，双持时左手被副枪占用。
-        const auto* Player=GetOwningPlayerPawn<AFPSGAMECharacter>();
-        const bool bReady=(Player&&Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols())
-            ||(Player&&Player->FindComponentByClass<URuneSwordComponent>()&&Player->FindComponentByClass<URuneSwordComponent>()->IsEquipped());
+        // 用户 2026-09-18：取消武器类型锁——有没有可用动作由技能路由决定，
+        // 快捷槽只显示冷却，不再因为"手里不是剑/单持手枪"变暗或提示需剑/枪。
         Fraction=Model->QuickCombatCooldownDuration()>0?Model->QuickCombatCooldown()/Model->QuickCombatCooldownDuration():0.f;
-        // The equip hint outranks the countdown: an unusable slot explains why.
-        if(bReady)Remaining=Model->QuickCombatCooldown();else Message=TEXT("需剑/枪");
-        // Availability darkening mirrors the mask: unusable while cooling, or without a matching weapon.
-        Dim=!bReady||Fraction>0.f;
+        Remaining=Model->QuickCombatCooldown();
+        // Availability darkening mirrors the mask: unusable only while cooling.
+        Dim=Fraction>0.f;
     }
     else if(!Binding.ItemDefinition.IsEmpty())
     {

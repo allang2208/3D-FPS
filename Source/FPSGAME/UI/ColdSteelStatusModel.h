@@ -69,7 +69,7 @@ public:
     FQuickCombatCast QuickCombatStats(int32 AtLevel=-1) const;
     float QuickCombatCooldown() const;
     float QuickCombatCooldownDuration() const { return Current.QuickCombatCooldownDuration; }
-    /** 按 F/快捷栏触发：限剑类武器，转交符文剑的配重锤技能打击；冷却中拒绝。 */
+    /** 按 F/快捷栏触发：不限定武器类型，按当前武器选动作（剑/手枪/步枪）；冷却中拒绝。 */
     bool TriggerQuickCombat();
     bool TrainQuickCombat(int32 Amount);
     /** 动作实际开始时预留冷却；挥击结束（FinishQuickCombatCast）后才起跳走表。 */

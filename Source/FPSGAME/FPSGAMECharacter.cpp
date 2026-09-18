@@ -316,6 +316,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         HipViewmodelLocation = RevolverHipViewmodelLocation;
         ADSRearEyeDistance = 38.f;
         bPistolShotPending = false;
+        QuickCombatAnimation = LoadObject<UAnimSequence>(nullptr, DanWesson715WeaponAssets::QuickCombatAnimationPath);
     }
     bUsingReplacement = ViewmodelMesh != nullptr;
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"));
@@ -828,7 +829,8 @@ void AFPSGAMECharacter::InspectPressed()
     PlayWeaponAnimation(InspectAnimation, false);
 }
 
-// 「快速进战」F 键入口：转交状态模型，由其路由到符文剑的配重锤技能打击（限剑类武器）。
+// 「快速进战」F 键入口：转交状态模型，由其按当前武器路由（剑 → 配重锤 / 手枪 → 握把砸击 /
+// 其余枪械 → 步枪枪托砸击）。武器类型锁已于 2026-09-18 按用户要求取消。
 void AFPSGAMECharacter::QuickCombatPressed()
 {
     if(auto* Profile=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
@@ -851,12 +853,99 @@ bool AFPSGAMECharacter::TriggerPistolQuickCombat()
     if(IsTraversing()||IsDodging()||bIsSliding)return Gate(TEXT("移动动作中"));
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return Gate(TEXT("已死亡"));
     if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return Gate(TEXT("视模不可用"));
+    // 没有作者源 clip 的手枪不要"提交冷却但什么都不播"（M1911 等），宁可明确拒绝。
+    if(!QuickCombatAnimation)return Gate(TEXT("该枪没有快速进战 clip"));
     FireReleased();
     SetAimingState(false);
     ExitSprintForWeapon();
     bFireHeld=false;bPistolShotPending=false;
+    // 组件的时间轴按实际 clip 长度换算（作者源改节奏不需要同步改代码）。
+    if (QuickCombatPistol && QuickCombatAnimation)
+        QuickCombatPistol->ConfigureForClipLength(QuickCombatAnimation->GetPlayLength());
     const bool bStarted=QuickCombatPistol&&QuickCombatPistol->BeginAction();
-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 手枪砸击%s"),bStarted?TEXT("开始"):TEXT("启动失败"));
+    if (bStarted && QuickCombatAnimation)
+    {
+        // 动作本体是作者源 clip（WPN_root 驱动右手、左手松握下垂回握），
+        // 组件只负责命中射线、冷却与修炼；两者共用 0.60s / 接触 0.30s 的时钟。
+        WeaponState = EAKMWeaponState::QuickCombat;
+        WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
+        WeaponStateElapsed = 0.0f;
+        WeaponStateDuration = QuickCombatAnimation->GetPlayLength();
+        PlayWeaponAnimation(QuickCombatAnimation, false);
+    }
+    // R0 诊断：动作入口带枪型，和入场快照那行日志一起用于对齐实机反馈。
+    const TCHAR* WeaponName=bUseDanWesson715?TEXT("DanWesson715"):(bUseM1911?TEXT("M1911"):TEXT("OtherPistol"));
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 手枪砸击%s 枪型=%s"),bStarted?TEXT("开始"):TEXT("启动失败"),WeaponName);
+    return bStarted;
+}
+
+// 步枪版快速进战：M4 的枪托砸击。双手全程持枪，动作本体是作者源 clip
+// （整枪刚体搬运写在 WPN_ 骨上，双手由握把关系带动），与手枪版共用同一个
+// 动作组件（时钟/命中射线/冷却/修炼/镜头）与同一套 skill 数值合同。
+EM4SprintGrip AFPSGAMECharacter::ResolveRifleGripProfile() const
+{
+    // 与战术冲刺同源：握把配置由当前配件解析，六个配置各有自己的 clip。
+    return HasAngledForegrip() ? EM4SprintGrip::Angled
+        : HasCantedForegrip() ? EM4SprintGrip::Canted
+        : HasVerticalForegrip() ? EM4SprintGrip::Vertical
+        : HasPrismHandstop() ? EM4SprintGrip::Prism
+        : bDrumInstalled ? EM4SprintGrip::Drum : EM4SprintGrip::Base;
+}
+
+UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
+{
+    if (RifleQuickCombatClips.Num() != 6)
+    {
+        RifleQuickCombatClips.Reset();
+        for (const TCHAR* Name : {TEXT("Base"), TEXT("Drum"), TEXT("Angled"),
+                                  TEXT("Vertical"), TEXT("Canted"), TEXT("Prism")})
+            RifleQuickCombatClips.Add(LoadObject<UAnimSequence>(nullptr,
+                *FString::Printf(TEXT("/Game/Weapons/M4StockMelee20260918/%s/A_M4_QuickCombat_%s.A_M4_QuickCombat_%s"),
+                    Name, Name, Name)));
+    }
+    const int32 Index = static_cast<int32>(Grip);
+    return RifleQuickCombatClips.IsValidIndex(Index) ? RifleQuickCombatClips[Index].Get() : nullptr;
+}
+
+bool AFPSGAMECharacter::TriggerRifleStockMelee()
+{
+    auto Gate=[&](const TCHAR* Reason)
+    {
+        UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 步枪砸击被拒绝：%s"),Reason);
+        return false;
+    };
+    // 用户 2026-09-18：取消武器类型锁——任何非手枪的枪械都可以用这记枪托砸击。
+    // 非 M4 的枪目前复用 M4 的整枪 clip（各枪共用同一套 Manny 手臂骨架 + WPN_ 骨），
+    // 需要时再按枪型补自己的作者源。
+    if(IsPistolWeapon())return Gate(TEXT("当前是手枪"));
+    if(IsCastBlockingLeftHandAction())return Gate(TEXT("施法/其他动作占用左手"));
+    if(IsWeaponBusy())return Gate(TEXT("武器动作未结束"));
+    if(IsTraversing()||IsDodging()||bIsSliding)return Gate(TEXT("移动动作中"));
+    if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return Gate(TEXT("已死亡"));
+    if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return Gate(TEXT("视模不可用"));
+    const EM4SprintGrip Grip=ResolveRifleGripProfile();
+    UAnimSequence* Clip=RifleQuickCombatClip(Grip);
+    if(!Clip)return Gate(TEXT("枪托砸击 clip 未加载"));
+    FireReleased();
+    SetAimingState(false);
+    ExitSprintForWeapon();
+    bFireHeld=false;bPistolShotPending=false;
+    // 组件按实际 clip 长度换算时钟（作者源改节奏不需要同步改代码）。
+    if(QuickCombatPistol)QuickCombatPistol->ConfigureForRifle(Clip->GetPlayLength());
+    const bool bStarted=QuickCombatPistol&&QuickCombatPistol->BeginAction();
+    if(bStarted)
+    {
+        WeaponState=EAKMWeaponState::QuickCombat;
+        WeaponActionStartedAt=GetWorld()->GetTimeSeconds();
+        WeaponStateElapsed=0.0f;
+        WeaponStateDuration=Clip->GetPlayLength();
+        PlayWeaponAnimation(Clip,false);
+    }
+    static const TCHAR* const GripNames[]={TEXT("Base"),TEXT("Drum"),TEXT("Angled"),TEXT("Vertical"),TEXT("Canted"),TEXT("Prism")};
+    const TCHAR* WeaponName=bUsingM4Infima?TEXT("M4"):(bUseQBZ191?TEXT("QBZ191"):(bUseASH12?TEXT("ASH12"):TEXT("AKM")));
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 步枪砸击%s 枪型=%s（clip=%s）握把=%s 总长=%.3f"),
+        bStarted?TEXT("开始"):TEXT("启动失败"),WeaponName,bUsingM4Infima?TEXT("本枪"):TEXT("M4 回退"),
+        GripNames[static_cast<int32>(Grip)],Clip->GetPlayLength());
     return bStarted;
 }
 
@@ -1108,8 +1197,13 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
     FVector SwordCameraLocation=FVector::ZeroVector;
     FRotator SwordCameraRotation=FRotator::ZeroRotator;
     RuneSword->GetCameraMotion(SwordCameraLocation,SwordCameraRotation);
+    // 手枪砸击的镜头语言（上抬随动/前捅压头/命中下压冲量）与剑版同一叠加口径。
+    FVector BashCameraLocation=FVector::ZeroVector;
+    FRotator BashCameraRotation=FRotator::ZeroRotator;
+    if(QuickCombatPistol)QuickCombatPistol->GetCameraMotion(BashCameraLocation,BashCameraRotation);
     const FQuat ControlAim = Controller ? Controller->GetControlRotation().Quaternion() : GetActorQuat();
     TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(SwordCameraLocation))*CameraMotionScale;
+    TargetLocation+=GetActorQuat().UnrotateVector(ControlAim.RotateVector(BashCameraLocation))*CameraMotionScale;
     FirstPersonCamera->SetRelativeLocation(Traversal->IsCameraRecovering()?TargetLocation:
         FMath::Lerp(FirstPersonCamera->GetRelativeLocation(), TargetLocation, 1.0f - FMath::Exp(-18.0f * DeltaSeconds)));
 
@@ -1120,6 +1214,7 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         FMath::RadiansToDegrees(CameraKickYaw + CameraJitterRotation.Y + NoiseYaw),
         MovementRoll + FMath::RadiansToDegrees(CameraJitterRotation.Z));
     CameraFeedback+=SwordCameraRotation*CameraMotionScale;
+    CameraFeedback+=BashCameraRotation*CameraMotionScale;
     FirstPersonCamera->SetWorldRotation(ControlAim * CameraFeedback.Quaternion());
 
     float TargetHorizontalFOV = VerticalToHorizontalFOV(FMath::Lerp(BaseVerticalFieldOfView, EffectiveADSVerticalFOV(), CameraADSFactor) + FOVPunch);
@@ -1188,11 +1283,8 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     auto* TacticalSprint = FindComponentByClass<UM4TacticalSprintComponent>();
     if (TacticalSprint)
     {
-        const EM4SprintGrip Grip = HasAngledForegrip() ? EM4SprintGrip::Angled
-            : HasCantedForegrip() ? EM4SprintGrip::Canted
-            : HasVerticalForegrip() ? EM4SprintGrip::Vertical
-            : HasPrismHandstop() ? EM4SprintGrip::Prism
-            : bDrumInstalled ? EM4SprintGrip::Drum : EM4SprintGrip::Base;
+        // 与枪托砸击共用同一解析口径，避免两处各写一份判定。
+        const EM4SprintGrip Grip = ResolveRifleGripProfile();
         const bool bReady = bInventoryWeaponReady && !bPistol;
         const bool bRequest = bIsSprinting && !IsWeaponBusy() && !bAimHeld && !bFireHeld
             && !IsTraversing() && !IsDodging() && !bIsSliding && !IsCastBlockingLeftHandAction()

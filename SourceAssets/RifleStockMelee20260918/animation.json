@@ -1,0 +1,111 @@
+{
+  "sample_rate": 120,
+  "clip": "quickcombat",
+  "duration": 0.72,
+  "contact": 0.348,
+  "motion": {
+    "times": [
+      0.0,
+      0.058,
+      0.186,
+      0.244,
+      0.348,
+      0.383,
+      0.511,
+      0.72
+    ],
+    "pitch": [
+      0.0,
+      2.0,
+      5.0,
+      5.0,
+      -3.0,
+      -4.0,
+      -3.0,
+      0.0
+    ],
+    "yaw": [
+      0.0,
+      24.0,
+      46.0,
+      46.0,
+      -12.0,
+      -22.0,
+      -36.0,
+      0.0
+    ],
+    "roll": [
+      0.0,
+      4.0,
+      10.0,
+      11.0,
+      -8.0,
+      -10.0,
+      -8.0,
+      0.0
+    ],
+    "offset": [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.01,
+        0.05,
+        0.01
+      ],
+      [
+        0.02,
+        0.12,
+        0.02
+      ],
+      [
+        0.02,
+        0.12,
+        0.02
+      ],
+      [
+        0.0,
+        0.18,
+        0.0
+      ],
+      [
+        -0.01,
+        0.19,
+        0.0
+      ],
+      [
+        -0.02,
+        0.2,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0
+      ]
+    ],
+    "ease": [
+      "smooth",
+      "decel",
+      "accel",
+      "linear",
+      "decel",
+      "smooth",
+      "smooth"
+    ]
+  },
+  "space": "armature: +Y forward, +X right, +Z up; metres",
+  "convention": "WPN_ bones carry the rigid rifle motion; both hands ride the grip relations",
+  "destination": "/Game/Weapons/M4StockMelee20260918",
+  "profiles": [
+    "Angled",
+    "Base",
+    "Canted",
+    "Drum",
+    "Prism",
+    "Vertical"
+  ],
+  "testing": "Not performed; user testing"
+}

@@ -85,7 +85,9 @@ void UColdSteelStatusModel::FinishQuickCombatCast()
 }
 bool UColdSteelStatusModel::TriggerQuickCombat()
 {
-    // F/快捷栏统一入口：冷却中拒绝；剑类走符文剑配重锤，单持手枪走握把砸击。
+    // F/快捷栏统一入口：冷却中拒绝；**不限定武器类型**——按当前手里的武器选动作，
+    // 三者共用同一套冷却/修炼/数值合同：
+    //   剑类 → 符文剑配重锤；单持手枪 → 握把砸击；其余枪械 → 步枪枪托砸击。
     if(Current.bQuickCombatReserved || QuickCombatCooldown()>0)
     {
         UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 冷却中（剩余 %.1f 秒），忽略触发"),QuickCombatCooldown());
@@ -95,9 +97,9 @@ bool UColdSteelStatusModel::TriggerQuickCombat()
     if(!Player)return false;
     if(auto* Sword=Player->FindComponentByClass<URuneSwordComponent>())
         if(Sword->IsEquipped())return Sword->BeginQuickCombatStrike();
-    if(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols()&&Player->QuickCombatPistol)
-        return Player->TriggerPistolQuickCombat();
-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 当前武器不支持快速进战（限剑类或单持手枪）"));
+    if(Player->QuickCombatPistol)
+        return Player->IsPistolWeapon()?Player->TriggerPistolQuickCombat():Player->TriggerRifleStockMelee();
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 角色没有快速进战动作组件，无法触发"));
     return false;
 }
 FColdSteelSkillEffect UColdSteelStatusModel::RifleEffect(int32 AtLevel) const

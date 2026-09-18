@@ -1,0 +1,781 @@
+{
+  "clip": "quickcombat",
+  "variant": "C",
+  "duration": 0.72,
+  "contact": 0.348,
+  "sample_rate": 120,
+  "coordinates": "armature: +Y forward, +X right, +Z up; metres",
+  "convention": "WPN_ bones carry the rigid rifle motion; both hands ride the grip relations",
+  "reference": "BV13K421e7Rw 1:05-1:07 AK47 stock melee (motion language only)",
+  "status": "Authored and exported; not rendered or tested",
+  "profiles": {
+    "Base": {
+      "source": "M4ContactImpact20260910/M4_Hand_MAT_Editable.blend",
+      "source_action": "M4_idle",
+      "action": "M4_QuickCombat_Base",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleStockMelee20260918\\Base\\Animations\\A_M4_QuickCombat_Base.fbx",
+      "grip_invariant": [
+        {
+          "t": 0.0,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.058,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            -0.144,
+            0.578,
+            0.002
+          ],
+          "butt": [
+            0.132,
+            -0.073,
+            -0.091
+          ]
+        },
+        {
+          "t": 0.186,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            -0.3,
+            0.512,
+            0.032
+          ],
+          "butt": [
+            0.206,
+            0.023,
+            -0.083
+          ]
+        },
+        {
+          "t": 0.244,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            -0.279,
+            0.541,
+            0.03
+          ],
+          "butt": [
+            0.197,
+            0.022,
+            -0.084
+          ]
+        },
+        {
+          "t": 0.348,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            0.162,
+            0.78,
+            -0.065
+          ],
+          "butt": [
+            0.017,
+            0.082,
+            -0.097
+          ]
+        },
+        {
+          "t": 0.383,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            0.235,
+            0.775,
+            -0.075
+          ],
+          "butt": [
+            -0.013,
+            0.106,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.511,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            0.354,
+            0.73,
+            -0.06
+          ],
+          "butt": [
+            -0.049,
+            0.143,
+            -0.099
+          ]
+        },
+        {
+          "t": 0.72,
+          "d_right": 0.1251,
+          "d_left": 0.1633,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        }
+      ]
+    },
+    "Drum": {
+      "source": "M4ContactImpact20260910/M4_Hand_MAT_Editable.blend",
+      "source_action": "M4_idle",
+      "action": "M4_QuickCombat_Drum",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleStockMelee20260918\\Drum\\Animations\\A_M4_QuickCombat_Drum.fbx",
+      "grip_invariant": [
+        {
+          "t": 0.0,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.058,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            -0.144,
+            0.578,
+            0.002
+          ],
+          "butt": [
+            0.132,
+            -0.073,
+            -0.091
+          ]
+        },
+        {
+          "t": 0.186,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            -0.3,
+            0.512,
+            0.032
+          ],
+          "butt": [
+            0.206,
+            0.023,
+            -0.083
+          ]
+        },
+        {
+          "t": 0.244,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            -0.279,
+            0.541,
+            0.03
+          ],
+          "butt": [
+            0.197,
+            0.022,
+            -0.084
+          ]
+        },
+        {
+          "t": 0.348,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            0.162,
+            0.78,
+            -0.065
+          ],
+          "butt": [
+            0.017,
+            0.082,
+            -0.097
+          ]
+        },
+        {
+          "t": 0.383,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            0.235,
+            0.775,
+            -0.075
+          ],
+          "butt": [
+            -0.013,
+            0.106,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.511,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            0.354,
+            0.73,
+            -0.06
+          ],
+          "butt": [
+            -0.049,
+            0.143,
+            -0.099
+          ]
+        },
+        {
+          "t": 0.72,
+          "d_right": 0.1251,
+          "d_left": 0.1826,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        }
+      ]
+    },
+    "Angled": {
+      "source": "AngledForegrip20260910/WristNatural/A_M4_Foregrip_idle.blend",
+      "source_action": "A_M4_Foregrip_idle",
+      "action": "M4_QuickCombat_Angled",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleStockMelee20260918\\Angled\\Animations\\A_M4_QuickCombat_Angled.fbx",
+      "grip_invariant": [
+        {
+          "t": 0.0,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.058,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            -0.144,
+            0.578,
+            0.002
+          ],
+          "butt": [
+            0.132,
+            -0.073,
+            -0.091
+          ]
+        },
+        {
+          "t": 0.186,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            -0.3,
+            0.512,
+            0.032
+          ],
+          "butt": [
+            0.206,
+            0.023,
+            -0.083
+          ]
+        },
+        {
+          "t": 0.244,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            -0.279,
+            0.541,
+            0.03
+          ],
+          "butt": [
+            0.197,
+            0.022,
+            -0.084
+          ]
+        },
+        {
+          "t": 0.348,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            0.162,
+            0.78,
+            -0.065
+          ],
+          "butt": [
+            0.017,
+            0.082,
+            -0.097
+          ]
+        },
+        {
+          "t": 0.383,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            0.235,
+            0.775,
+            -0.075
+          ],
+          "butt": [
+            -0.013,
+            0.106,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.511,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            0.354,
+            0.73,
+            -0.06
+          ],
+          "butt": [
+            -0.049,
+            0.143,
+            -0.099
+          ]
+        },
+        {
+          "t": 0.72,
+          "d_right": 0.1251,
+          "d_left": 0.2822,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        }
+      ]
+    },
+    "Vertical": {
+      "source": "MannyGraspDonor20260912/Final/m4/vertical/A_M4_Vertical_idle.blend",
+      "source_action": "A_M4_Vertical_idle.001",
+      "action": "M4_QuickCombat_Vertical",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleStockMelee20260918\\Vertical\\Animations\\A_M4_QuickCombat_Vertical.fbx",
+      "grip_invariant": [
+        {
+          "t": 0.0,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.058,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            -0.144,
+            0.578,
+            0.002
+          ],
+          "butt": [
+            0.132,
+            -0.073,
+            -0.091
+          ]
+        },
+        {
+          "t": 0.186,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            -0.3,
+            0.512,
+            0.032
+          ],
+          "butt": [
+            0.206,
+            0.023,
+            -0.083
+          ]
+        },
+        {
+          "t": 0.244,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            -0.279,
+            0.541,
+            0.03
+          ],
+          "butt": [
+            0.197,
+            0.022,
+            -0.084
+          ]
+        },
+        {
+          "t": 0.348,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            0.162,
+            0.78,
+            -0.065
+          ],
+          "butt": [
+            0.017,
+            0.082,
+            -0.097
+          ]
+        },
+        {
+          "t": 0.383,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            0.235,
+            0.775,
+            -0.075
+          ],
+          "butt": [
+            -0.013,
+            0.106,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.511,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            0.354,
+            0.73,
+            -0.06
+          ],
+          "butt": [
+            -0.049,
+            0.143,
+            -0.099
+          ]
+        },
+        {
+          "t": 0.72,
+          "d_right": 0.1251,
+          "d_left": 0.2442,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        }
+      ]
+    },
+    "Canted": {
+      "source": "VREGripExtensions20260912/Final/m4/canted/A_M4_Canted_idle.blend",
+      "source_action": "A_M4_Canted_idle.001",
+      "action": "M4_QuickCombat_Canted",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleStockMelee20260918\\Canted\\Animations\\A_M4_QuickCombat_Canted.fbx",
+      "grip_invariant": [
+        {
+          "t": 0.0,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.058,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            -0.144,
+            0.578,
+            0.002
+          ],
+          "butt": [
+            0.132,
+            -0.073,
+            -0.091
+          ]
+        },
+        {
+          "t": 0.186,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            -0.3,
+            0.512,
+            0.032
+          ],
+          "butt": [
+            0.206,
+            0.023,
+            -0.083
+          ]
+        },
+        {
+          "t": 0.244,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            -0.279,
+            0.541,
+            0.03
+          ],
+          "butt": [
+            0.197,
+            0.022,
+            -0.084
+          ]
+        },
+        {
+          "t": 0.348,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            0.162,
+            0.78,
+            -0.065
+          ],
+          "butt": [
+            0.017,
+            0.082,
+            -0.097
+          ]
+        },
+        {
+          "t": 0.383,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            0.235,
+            0.775,
+            -0.075
+          ],
+          "butt": [
+            -0.013,
+            0.106,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.511,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            0.354,
+            0.73,
+            -0.06
+          ],
+          "butt": [
+            -0.049,
+            0.143,
+            -0.099
+          ]
+        },
+        {
+          "t": 0.72,
+          "d_right": 0.1251,
+          "d_left": 0.2519,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        }
+      ]
+    },
+    "Prism": {
+      "source": "VREGripExtensions20260912/Final/m4/prism/A_M4_Prism_idle.blend",
+      "source_action": "A_M4_Prism_idle.001",
+      "action": "M4_QuickCombat_Prism",
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleStockMelee20260918\\Prism\\Animations\\A_M4_QuickCombat_Prism.fbx",
+      "grip_invariant": [
+        {
+          "t": 0.0,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.058,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            -0.144,
+            0.578,
+            0.002
+          ],
+          "butt": [
+            0.132,
+            -0.073,
+            -0.091
+          ]
+        },
+        {
+          "t": 0.186,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            -0.3,
+            0.512,
+            0.032
+          ],
+          "butt": [
+            0.206,
+            0.023,
+            -0.083
+          ]
+        },
+        {
+          "t": 0.244,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            -0.279,
+            0.541,
+            0.03
+          ],
+          "butt": [
+            0.197,
+            0.022,
+            -0.084
+          ]
+        },
+        {
+          "t": 0.348,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            0.162,
+            0.78,
+            -0.065
+          ],
+          "butt": [
+            0.017,
+            0.082,
+            -0.097
+          ]
+        },
+        {
+          "t": 0.383,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            0.235,
+            0.775,
+            -0.075
+          ],
+          "butt": [
+            -0.013,
+            0.106,
+            -0.098
+          ]
+        },
+        {
+          "t": 0.511,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            0.354,
+            0.73,
+            -0.06
+          ],
+          "butt": [
+            -0.049,
+            0.143,
+            -0.099
+          ]
+        },
+        {
+          "t": 0.72,
+          "d_right": 0.1251,
+          "d_left": 0.2441,
+          "muzzle": [
+            0.051,
+            0.594,
+            -0.026
+          ],
+          "butt": [
+            0.058,
+            -0.116,
+            -0.098
+          ]
+        }
+      ]
+    }
+  }
+}

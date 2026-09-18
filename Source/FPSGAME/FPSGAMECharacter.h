@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Weapons/WeaponHandling.h"
+#include "Weapons/M4TacticalSprintComponent.h"
 #include "Monsters/MonsterHitFeedback.h"
 #include "FPSGAMECharacter.generated.h"
 
@@ -21,7 +22,8 @@ enum class EAKMWeaponState : uint8
     Idle,
     Reloading,
     ReloadingEmpty,
-    Inspecting
+    Inspecting,
+    QuickCombat
 };
 
 UCLASS()
@@ -49,6 +51,8 @@ public:
     bool IsDualWieldingPistols() const;
     /** 手枪版快速进战：单持松左手、右手持枪握把前砸；仲裁通过后转交动作组件。 */
 bool TriggerPistolQuickCombat();
+    /** 步枪版快速进战（M4 枪托砸击）：双手持枪的整枪动作；仲裁通过后转交同一动作组件。 */
+    bool TriggerRifleStockMelee();
     bool IsWeaponFireHeld() const;
     void RunWeaponVolumeAudit();
     int32 GetRevolverCaseCount() const { return RevolverCaseCount; }
@@ -357,6 +361,10 @@ private:
     void ReloadPressed();
     void InspectPressed();
     void QuickCombatPressed();
+    /** 当前 M4 的握把配置（冲刺与枪托砸击共用同一解析口径）。 */
+    EM4SprintGrip ResolveRifleGripProfile() const;
+    /** 按握把配置取枪托砸击 clip（六个配置各自一条作者源动画）。 */
+    UAnimSequence* RifleQuickCombatClip(EM4SprintGrip Grip);
     void RefreshMovementState();
     void StartSlide();
     void StopSlide(bool bTryToStand);
@@ -452,6 +460,10 @@ private:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ReloadAnimation;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ReloadEmptyAnimation;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> InspectAnimation;
+    /** 快速进战（手枪握把砸击）单发动作；仅 Dan Wesson 715 有作者源 clip。 */
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> QuickCombatAnimation;
+    /** 快速进战（步枪枪托砸击）六条作者源 clip：Base/Drum/Angled/Vertical/Canted/Prism。 */
+    UPROPERTY(Transient) TArray<TObjectPtr<UAnimSequence>> RifleQuickCombatClips;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> EquipAnimation;
     UPROPERTY(Transient) TObjectPtr<UFPSGunplayAnimInstance> GunplayAnimation;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ActiveActionAnimation;

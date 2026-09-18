@@ -163,7 +163,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::Overview(bool bCompact,FName Id)
     if(Id==TEXT("fireball")){Tags=TEXT("火焰 / 范围 / 主动魔法");SkillIcon=&FireballIconBrush;}
     if(Id==TEXT("iceSpike")){Tags=TEXT("寒冰 / 齐射 / 主动魔法");SkillIcon=&IceSpikeIconBrush;}
     if(Id==TEXT("heavyStrike")){Tags=TEXT("近战 / 蓄力 / 主动");SkillIcon=&HeavyIconBrush;}
-    if(Id==TEXT("quickCombat")){Tags=TEXT("剑技 / 打击 / 主动");SkillIcon=&QuickCombatIconBrush;}
+    if(Id==TEXT("quickCombat")){Tags=TEXT("近战 / 打击 / 主动");SkillIcon=&QuickCombatIconBrush;}
     if(Additional(Id))Tags=TEXT("武器精通 / 被动");
     auto LevelLabel=[this,Id](){return SNew(STextBlock).Text_Lambda([this,Id]{return FText::FromString(FString::Printf(TEXT("Lv.%d / %d"),Progress(Id).Level,Definition(Id).MaxLevel));})
         .Font(ColdSteelUI::NumberFont(16*.75f/Scale,true)).ColorAndOpacity(ColdSteelUI::Accent).AutoWrapText(false);};
@@ -490,7 +490,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             const TCHAR* Rows[]={TEXT("触发快捷键"),TEXT("打击伤害（含当前力量）"),TEXT("力量系数"),TEXT("眩晕时间"),TEXT("击退距离"),TEXT("常规冷却")};
             for(int32 I=0;I<UE_ARRAY_COUNT(Rows);++I)Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(Rows[I],I)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
-            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("限剑类或单持手枪。按 F 或快捷栏绑定键快速打击：剑顺势使出第四连击的配重锤打击；手枪则松开左手、右手持枪以握把向前猛砸。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。力量取当前总值，基础属性、装备与技能加成合并计算。基础冷却 12 秒，冷却在动作结束后开始走表。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
+            Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[Paragraph(TEXT("不限武器类型。按 F 或快捷栏绑定键快速打击，按当前手里的武器选动作：剑顺势使出第四连击的配重锤打击；单持手枪松开左手、右手持枪以握把向前猛砸；步枪双手持枪以枪托/枪身前段向前下砸（当前用 M4 的整枪作者源）。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。力量取当前总值，基础属性、装备与技能加成合并计算。基础冷却 12 秒，冷却在动作结束后开始走表。"),14,ColdSteelUI::TextSecondary,PageWidth-44)];
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("命中同时按武器命中修炼剑/手枪精通与暴击。冷却中按键无效。连击进行中按 F，剑会在接触段结束后排队补发一记。双持手枪左手被副枪占用，不触发本技能。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }
         else

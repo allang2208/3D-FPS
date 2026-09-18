@@ -1,5 +1,7 @@
 #include "FPSCastingMeshComponent.h"
 #include "FPSFireballComponent.h"
+#include "QuickCombatPistolMotion.h"
+#include "QuickCombatRifleMotion.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "TwoBoneIK.h"
@@ -13,6 +15,7 @@ FQuat LimbFrame(const FVector& Direction,const FVector& Plane)
 void UFPSCastingMeshComponent::CacheCastSkeleton()
 {
     PoseMesh=GetSkeletalMeshAsset();ReferencePose.Reset();LeftBones.Reset();EntryLocal.Reset();EntrySerial=0;
+    BashHandR=GetBoneIndex(TEXT("hand_r"));   // 打击探针（命中射线起点）用的握把手骨
     CastClavicleIndex=GetBoneIndex(TEXT("clavicle_l"));CastUpperIndex=GetBoneIndex(TEXT("upperarm_l"));CastLowerIndex=GetBoneIndex(TEXT("lowerarm_l"));CastHandIndex=GetBoneIndex(TEXT("hand_l"));
     if(!PoseMesh.IsValid() || CastClavicleIndex==INDEX_NONE || CastUpperIndex==INDEX_NONE || CastLowerIndex==INDEX_NONE || CastHandIndex==INDEX_NONE)return;
     const auto& Ref=PoseMesh->GetRefSkeleton();ReferencePose=Ref.GetRefBonePose();
@@ -33,11 +36,12 @@ void UFPSCastingMeshComponent::CacheCastSkeleton()
 
 void UFPSCastingMeshComponent::FinalizeBoneTransform()
 {
-    if(auto* Magic=bApplyLeftHandCast && GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr)
-    {
-        if(Magic->IsOccupyingLeftHand() && IsVisible() && !bHiddenInGame)ApplyCastPose(Magic);
-        else if(!Magic->IsOccupyingLeftHand()){EntrySerial=0;EntryLocal.Reset();}
-    }
+    auto* Magic=bApplyLeftHandCast&&GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr;
+    const bool bCastActive=Magic&&Magic->IsOccupyingLeftHand();
+    bool bApplied=false;
+    if(bCastActive&&IsVisible()&&!bHiddenInGame){ApplyCastPose(Magic);bApplied=true;}
+    // 火球施法结束（不再占用左手）时清入场快照，下一次施法重新捕获。
+    if(!bCastActive){EntrySerial=0;EntryLocal.Reset();}
     Super::FinalizeBoneTransform();
 }
 
@@ -157,4 +161,43 @@ void UFPSCastingMeshComponent::ApplyCastPose(UFPSFireballComponent* Magic)
         const FTransform DesiredLocal=GoalPose[I].GetRelativeTransform(GoalPose[Parent]);
         Local.BlendWith(DesiredLocal,LayerBlend);Pose[I]=Local*Pose[Parent];
     }
+}
+
+bool UFPSCastingMeshComponent::GetQuickCombatStrikeProbe(FVector& OutOrigin) const
+{
+    // 惰性初始化：砸击已经不走姿态层，不能假设 CacheCastSkeleton 被火球路径调用过；
+    // 不初始化会让探针静默退化成"眼位起点"（V10 实机日志里就是这么暴露的）。
+    if(PoseMesh.Get()!=GetSkeletalMeshAsset()||BashHandR==INDEX_NONE)
+        const_cast<UFPSCastingMeshComponent*>(this)->CacheCastSkeleton();
+    if(BashHandR==INDEX_NONE||!GetOwner())return false;
+    const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
+    if(!Camera)return false;
+    const FTransform CameraWorld=Camera->GetComponentTransform();
+    // 握把底 = 手骨世界位置 + 相机空间的握把偏移：命中射线的起点与画面同源；
+    // 方向由角色瞄准给出（与其它武器/技能同一合同），不再从眼位前扫。
+    const FTransform HandWorld=GetSocketTransform(FName(TEXT("hand_r")),RTS_World);
+    OutOrigin=HandWorld.GetLocation()+CameraWorld.TransformVectorNoScale(QuickCombatPistolMotion::GripPointOffset());
+    return true;
+}
+
+bool UFPSCastingMeshComponent::GetRifleStockMeleeProbe(FVector& OutOrigin) const
+{
+    // 步枪砸击是整枪动作：命中点落在枪身前段，必须读**当前动画姿态**的枪骨，
+    // 而不是入场快照——挥击本身就在动枪，探针要跟画面同源。
+    if(!GetSkeletalMeshAsset()||!GetOwner())return false;
+    const int32 MuzzleIndex=GetBoneIndex(TEXT("WPN_SOCKET_Muzzle"));
+    const int32 RootIndex=GetBoneIndex(TEXT("WPN_root"));
+    if(MuzzleIndex==INDEX_NONE&&RootIndex==INDEX_NONE)return false;
+    const FTransform Muzzle=MuzzleIndex!=INDEX_NONE
+        ?GetSocketTransform(FName(TEXT("WPN_SOCKET_Muzzle")),RTS_World)
+        :GetSocketTransform(FName(TEXT("WPN_root")),RTS_World);
+    // 枪轴 = 枪根 → 枪口；枪口沿轴回撤固定距离得到「枪身前段」。
+    FVector Axis=FVector::ForwardVector;
+    if(MuzzleIndex!=INDEX_NONE&&RootIndex!=INDEX_NONE)
+    {
+        const FVector Delta=Muzzle.GetLocation()-GetSocketTransform(FName(TEXT("WPN_root")),RTS_World).GetLocation();
+        if(Delta.SizeSquared()>1.f)Axis=Delta.GetSafeNormal();
+    }
+    OutOrigin=Muzzle.GetLocation()-Axis*QuickCombatRifleMotion::MuzzleBackOffCM;
+    return true;
 }

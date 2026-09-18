@@ -19,7 +19,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("pistolMastery")){D.Name=TEXT("手枪精通");D.Description=TEXT("精通手枪的快速射击，在移动中也能精准命中。");D.Icon=TEXT("Skills/pistol_mastery_cold_steel.png");}
     if(Id==TEXT("criticalStrike")){D.Name=TEXT("暴击");D.Description=TEXT("精通暴击之道，每次暴击都能造成更致命的打击。");D.Icon=TEXT("Skills/critical_strike_cold_steel.png");}
     if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射。直击要害必定暴击，普通直击与爆炸波及目标各自随机判定暴击。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
-    if(Id==TEXT("quickCombat")){D.Name=TEXT("快速进战");D.Description=TEXT("按 F 快速进入战斗姿态。占位技能：正式效果与成长待定义。");D.Icon=TEXT("Skills/quick_combat_placeholder.png");}
+    if(Id==TEXT("quickCombat")){D.Name=TEXT("快速进战");D.Description=TEXT("不限武器类型。按 F 快速打击，按当前手里的武器选动作：剑顺势使出第四连击的配重锤打击，单持手枪松开左手、右手持枪以握把向前猛砸，步枪双手持枪以枪托/枪身前段向前下砸。对前方 2 米的单个目标造成 25 + 等级×5 + 力量×（5 + 等级×0.1）伤害，击退 1 米并眩晕（2.5 + 等级×0.1）秒。基础冷却 12 秒。");D.Icon=TEXT("Skills/quick_combat_placeholder.png");}
     FString Json; TSharedPtr<FJsonObject> Root;
     if (!FFileHelper::LoadFileToString(Json, *(FPaths::ProjectContentDir()/TEXT("ColdSteelData/skills.json"))) ||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root) return D;
