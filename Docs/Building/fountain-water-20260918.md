@@ -374,3 +374,33 @@ ColdSteelFountain <名> 位置=(x,y,z) 质量=q 距离档=t 组件: Main=<网格
 关卡那台 `RomanFountain1`（喷泉正南 1150、站在广场地面上，位置 (1350,−1550,0)）**已确认**带着
 `FountainMesh / FountainWaterFx / FountainWater` 三个网格组件与 `FountainJet`；
 如果它在你眼里还是"固体"，那就只剩"运行态显示什么"这一层，日志会给出答案。
+
+## 9.7 真正的"实心感"主因：盆底是一块**不透明**衬底（2026-09-18 19:00）
+
+用户回执"仍像固体"，于是先读**游戏日志**：18:53:33 那次 PIE 进的是正确的图 `DayNight_Lighting`，
+日志里有 `Compiling System ... FountainLightweight`（说明关卡那台喷泉就是新类实例化），
+而它用的是 **18:50 刚烘好的资产** —— 所以"没导进去"可以排除；再看**存档**：`Voxel20_*.sav` 里只有
+`door_marble/double_door_marble/window_marble`，**没有任何喷泉构件** → 用户看的就是关卡那台。
+
+接着用只读探针 `probe_fountain_flatness_20260918.py` 找"看起来实心"的来源，命中：
+
+| 读数 | 结论 |
+| --- | --- |
+| `M_Caustics: blend=**BLEND_OPAQUE**`、`shading=DEFAULT_LIT`、`Colour=(0.8,0.8,0.8)` | 我用它做的"焦散衬底"是**每个盆底一块不透明平面圆盘**（r 到 178 cm，覆盖整个盆底）。透过半透明水看下去 = **一块平的实心地板** → 水面波浪再大也改不了这个读感（**这就是"像固体"的主要来源**） |
+| 关卡实例组件 | `FountainMesh=SM_RomanFountain_20 slot0=M_RomanStone_V2`、`FountainWaterFx=SM_RomanFountain_WaterFX slot0=MIC_FountainFoam`、`FountainWater=SM_RomanFountain_WaterWaves slot0=MIC_FountainWaveWater`，都可见 —— 链路正确 |
+
+**修法**：新建 `M_FountainCausticsOverlay`（**ADDITIVE + Unlit**，只把焦散花纹当光加在盆体表面），
+把 `MIC_FountainCaustics` 的父级换成它（`Colour/Speed/Tiling/Intensity` 参数名保持一致，旧覆盖项继续生效）。
+这样看到的是**雕刻过的石盆 + 会流动的焦散光**，而不是一块平板。同时：
+
+- 水面不透明度 `0.34 → 0.45`、`FresnelOpacity 0.30 → 0.35`（水面本身要看得见，不能只剩一层薄雾）；
+- `ColdSteelFountain` 对 `WaterMesh` 显式 `bEvaluateWorldPositionOffset = true`（WPO 求值兜底）。
+
+落盘证据：`M_FountainCausticsOverlay` 19:00:53（编译 `[]`）、`MIC_FountainCaustics parent -> M_FountainCausticsOverlay`
+（`caustics_is_additive OK`）、`MIC_FountainWaveWater` 19:00:53、脚本 **39/39 PASS**、无保存错误；
+Game／Editor 两目标 Succeeded（`fountain-caustics-game-20260918.log`、`build-20260918-190126.log`）。
+
+**下一步实测（用户）**：重开编辑器进 PIE，重点看"盆底"——应该是**有起伏的石头盆**（不是平板），
+上面有一层会动的焦散光，水面缓慢起伏。若盆底仍是平板，请把 `MIC_FountainCaustics` 的
+`Intensity` 设 0（应看到纯石盆）来确认是不是这条链；若水面仍看不出起伏，把
+`MIC_FountainWaveWater.WaterColorShallow` 临时设成品红——变粉就说明水面在渲染（链路 OK，剩下是幅度/审美）。

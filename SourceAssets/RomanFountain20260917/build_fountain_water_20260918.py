@@ -55,6 +55,8 @@ HIDDEN_MAT = MATDIR + "/M_FountainHidden"
 WAVE_MAT = MATDIR + "/M_FountainWaveWater"
 WAVE_INST = MATDIR + "/MIC_FountainWaveWater"
 WAVE_MESH = DIR + "/SM_RomanFountain_WaterWaves"
+CAUSTICS_OVERLAY = MATDIR + "/M_FountainCausticsOverlay"
+T_CAUSTICS = "/Game/WaterMaterials/Textures/T_Caustics"
 PACK = "/Game/WaterMaterials"
 CLEAN = PACK + "/Materials/M_Water_Clean"
 CAUSTICS = PACK + "/Materials/M_Caustics"
@@ -618,6 +620,49 @@ def build_hidden_material():
     return mat
 
 
+def build_caustics_overlay():
+    """盆底焦散：**加法叠加的光**，不是不透明底板。
+
+    探针（`probe_fountain_flatness_20260918.py`）读回包内 `M_Caustics` 是 `BLEND_OPAQUE`：
+    用它当"衬底"等于在每个盆底放一块不透明平板 → 透过半透明水看下去就是一块实心地板（用户反馈"像固体"）。
+    这里改成 ADDITIVE + Unlit：只把焦散花纹当光加在**石盆表面**上，盆体本身的起伏/明暗照常可见。
+    """
+    mat = ensure_asset(CAUSTICS_OVERLAY, unreal.Material, unreal.MaterialFactoryNew)
+    if not mat or (MEL.get_material_expressions(mat) or []):
+        log("caustics overlay exists - skip rebuild")
+        return mat
+    MEL.delete_all_material_expressions(mat)
+    mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_ADDITIVE)
+    mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_UNLIT)
+    mat.set_editor_property("two_sided", True)
+
+    t = ex(mat, unreal.MaterialExpressionTime)
+    speed = scalar(mat, "Speed", 0.25)
+    ts = ex(mat, unreal.MaterialExpressionMultiply)
+    link(t, ts, "A")
+    link(speed, ts, "B")
+    uv = custom(mat, "return P.xy / max(Tiling, 0.001) + float2(T, T * 0.6);",
+                {"P": ex(mat, POS_CLS), "Tiling": scalar(mat, "Tiling", 90.0), "T": ts},
+                unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                 "Tiling": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                 "T": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    tex = texture_param(mat, "CausticsTexture", T_CAUSTICS)
+    link_any(uv, tex, ["UVs", "UV"])
+    col = vector(mat, "Colour", unreal.LinearColor(0.42, 0.68, 0.66, 1.0))
+    mul = ex(mat, unreal.MaterialExpressionMultiply)
+    link(tex, mul, "A", "RGB")
+    link(col, mul, "B")
+    emis = ex(mat, unreal.MaterialExpressionMultiply)
+    link(mul, emis, "A")
+    link(scalar(mat, "Intensity", 0.55), emis, "B")
+    MEL.connect_material_property(emis, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+    errs = MEL.recompile_material(mat)
+    log("caustics overlay recompile -> %s" % errs)
+    save_fresh(mat, CAUSTICS_OVERLAY, "M_FountainCausticsOverlay")
+    return mat
+
+
 def build_wave_mesh(wave_inst):
     """把 3 个**密集网格**水面盘放进独立网格（WPO 需要足够顶点才看得出起伏）。"""
     handle = SV.create_mesh().handle
@@ -1152,8 +1197,17 @@ cascade = make_instance(MATDIR + "/MIC_FountainCascade", film_mat,
                         {"FilmColor": unreal.LinearColor(0.94, 0.97, 0.99, 1.0)},
                         {"FoamTexture": T_FOAM_FALL, "FoamTexture2": T_FOAM_FALL})
 caustics = make_instance(MATDIR + "/MIC_FountainCaustics", unreal.load_asset(CAUSTICS),
-                         {"Speed": 0.35, "SamplingScale": 1.6},
+                         {"Speed": 0.35, "Tiling": 110.0, "Intensity": 0.6},
                          {"Colour": unreal.LinearColor(0.42, 0.68, 0.66, 1.0)})
+# 盆底衬底换成"加法叠加的焦散光"（包内 M_Caustics 是不透明材质，会把盆底变成一块平板）
+caustics_overlay = build_caustics_overlay()
+if caustics and caustics_overlay:
+    MEL.set_material_instance_parent(caustics, caustics_overlay)
+    MEL.update_material_instance(caustics)
+    save_fresh(caustics, MATDIR + "/MIC_FountainCaustics", "MIC_FountainCaustics(overlay)")
+    par = caustics.get_editor_property("parent")
+    log("MIC_FountainCaustics parent -> %s" % (par.get_name() if par else "None"))
+    check("caustics_is_additive", bool(par) and par.get_name() == "M_FountainCausticsOverlay")
 # 旧的"平面水"实例不再使用（主网格 slot1 会被隐藏材质接管，水面改由会起伏的 WaterWaves 网格承担）
 water = None
 
@@ -1172,7 +1226,7 @@ wave_inst = make_instance(WAVE_INST, wave_mat,
                            "NoiseScale": 240.0, "NoiseSpeed": 0.4, "NoiseStrength": 0.6, "NoiseDelta": 5.0,
                            "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
                            "RippleFreq": 0.6, "RippleWidth": 260.0, "RippleStrength": 1.4,
-                           "OpacityBase": 0.34, "FresnelOpacity": 0.30, "FresnelPower": 3.0,
+                           "OpacityBase": 0.45, "FresnelOpacity": 0.35, "FresnelPower": 3.0,
                            "ReflectionStrength": 0.9, "CrestFoam": 0.5,
                            "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0},
                           {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),

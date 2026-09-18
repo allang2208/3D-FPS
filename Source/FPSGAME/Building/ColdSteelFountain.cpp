@@ -64,6 +64,8 @@ AColdSteelFountain::AColdSteelFountain()
     WaterMesh->SetCastShadow(false);
     WaterMesh->bVisibleInRayTracing=false;
     WaterMesh->bAffectDistanceFieldLighting=false;
+    // 水面靠 WPO 起伏：显式打开 WPO 求值（默认 true，但被关卡/默认值改动过时这里兜底）
+    WaterMesh->bEvaluateWorldPositionOffset=true;
 
     Jet=CreateDefaultSubobject<UNiagaraComponent>(TEXT("FountainJet"));
     Jet->SetupAttachment(FountainMesh);
