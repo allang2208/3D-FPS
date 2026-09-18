@@ -230,10 +230,13 @@ def link_any(from_node, to_node, pins, from_pin=""):
 def scene_depth_node(mat, want_depth=True):
     n = ex(mat, unreal.MaterialExpressionSceneTexture)
     enum = None
-    for cand in ("PPI_SceneDepth" if want_depth else "PPI_SceneColor",):
+    # 真实枚举名（探针 probe_water_state_20260918.py 读出）：PPI_SCENE_DEPTH / PPI_SCENE_COLOR
+    for cand in ("PPI_SCENE_DEPTH" if want_depth else "PPI_SCENE_COLOR",):
         enum = getattr(unreal.SceneTextureId, cand, None)
     if enum is not None:
         n.set_editor_property("scene_texture_id", enum)
+    else:
+        log("WARN: SceneTextureId 里没有 %s —— 节点会退回默认 SceneColor，深度会失真" % cand)
     return n
 
 
@@ -400,6 +403,19 @@ def build_water_material():
     mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
     mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_DEFAULT_LIT)
     mat.set_editor_property("two_sided", True)
+    # 关键：半透明 Default Lit 的默认光照模式是 Volumetric NonDirectional，几乎收不到直射太阳光 →
+    # 水面会读成"没有光的暗板/固体"。水/海面必须用 Surface Per Pixel。
+    tlm = None
+    # 真实枚举名（探针读出）：TLM_SURFACE_PER_PIXEL_LIGHTING
+    for cand in ("TLM_SURFACE_PER_PIXEL_LIGHTING", "TLM_SURFACE"):
+        tlm = getattr(unreal.TranslucencyLightingMode, cand, None)
+        if tlm is not None:
+            break
+    if tlm is not None:
+        mat.set_editor_property("translucency_lighting_mode", tlm)
+        log("translucency_lighting_mode = %s" % tlm)
+    else:
+        log("WARN: 找不到 SurfacePerPixel 光照模式枚举，水面可能只吃间接光")
 
     pos = ex(mat, POS_CLS)
     scale = scalar(mat, "FountainScale", SCALE)
@@ -489,6 +505,10 @@ return normalize(float3(xy, 1.0));""",
 
     # --- 场景深度：浅（透、亮）→ 深（暗、实）
     sd = scene_depth_node(mat, True)
+    try:
+        log("scene_texture_id = %s" % sd.get_editor_property("scene_texture_id"))
+    except Exception as exc:  # noqa: BLE001
+        log("scene_texture_id readback failed: %s" % exc)
     pixel = ex(mat, unreal.MaterialExpressionPixelDepth)
     sub = ex(mat, unreal.MaterialExpressionSubtract)
     if not MEL.connect_material_expressions(sd, "Color", sub, "A"):
@@ -500,8 +520,8 @@ return normalize(float3(xy, 1.0));""",
     fade = ex(mat, unreal.MaterialExpressionClamp)
     link(div, fade, "")
 
-    shallow = vector(mat, "WaterColorShallow", unreal.LinearColor(0.34, 0.66, 0.66, 1.0))
-    deep = vector(mat, "WaterColorDeep", unreal.LinearColor(0.05, 0.22, 0.26, 1.0))
+    shallow = vector(mat, "WaterColorShallow", unreal.LinearColor(0.40, 0.72, 0.72, 1.0))
+    deep = vector(mat, "WaterColorDeep", unreal.LinearColor(0.09, 0.28, 0.32, 1.0))
     col = ex(mat, unreal.MaterialExpressionLinearInterpolate)
     link(shallow, col, "A")
     link(deep, col, "B")
@@ -530,10 +550,18 @@ return normalize(float3(xy, 1.0));""",
     crest_mul = ex(mat, unreal.MaterialExpressionMultiply)
     link(crest, crest_mul, "A")
     link(scalar(mat, "RippleFoam", 0.45), crest_mul, "B")
+    # 与立方图无关的"天空底色"：即使反射贴图偏暗，水面也永远有一点天光，不会读成黑板
+    sky_tint = vector(mat, "SkyTint", unreal.LinearColor(0.55, 0.72, 0.82, 1.0))
+    sky_amb = ex(mat, unreal.MaterialExpressionMultiply)
+    link(sky_tint, sky_amb, "A")
+    link(scalar(mat, "SkyAmbient", 0.14), sky_amb, "B")
     emis_sum = ex(mat, unreal.MaterialExpressionAdd)
     link(emis, emis_sum, "A")
     link(crest_mul, emis_sum, "B")
-    MEL.connect_material_property(emis_sum, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+    emis_sum2 = ex(mat, unreal.MaterialExpressionAdd)
+    link(emis_sum, emis_sum2, "A")
+    link(sky_amb, emis_sum2, "B")
+    MEL.connect_material_property(emis_sum2, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
 
     op = ex(mat, unreal.MaterialExpressionMultiply)
     link(scalar(mat, "OpacityBase", 0.42), op, "A")
@@ -552,6 +580,7 @@ return normalize(float3(xy, 1.0));""",
     link(op_crest, op_sum2, "B")
     op_cl = ex(mat, unreal.MaterialExpressionClamp)
     link(op_sum2, op_cl, "")
+    link_any(scalar(mat, "MaxOpacity", 0.62), op_cl, ["Max"])
     MEL.connect_material_property(op_cl, "", unreal.MaterialProperty.MP_OPACITY)
     MEL.connect_material_property(scalar(mat, "Roughness", 0.06), "", unreal.MaterialProperty.MP_ROUGHNESS)
     MEL.connect_material_property(scalar(mat, "Specular", 1.0), "", unreal.MaterialProperty.MP_SPECULAR)
@@ -681,15 +710,16 @@ caustics = make_instance(MATDIR + "/MIC_FountainCaustics", unreal.load_asset(CAU
                          {"Colour": unreal.LinearColor(0.42, 0.68, 0.66, 1.0)})
 water = make_instance(water_inst_path, water_mat,
                       {"FountainScale": SCALE, "DepthScale": 190.0,
-                       "OpacityBase": 0.40, "FresnelOpacity": 0.55, "FresnelPower": 3.0,
-                       "ReflectionStrength": 0.85, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
+                       "OpacityBase": 0.34, "FresnelOpacity": 0.30, "MaxOpacity": 0.62, "FresnelPower": 3.0,
+                       "ReflectionStrength": 0.9, "SkyAmbient": 0.16, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
                        "WaveScale": 150.0, "WaveSpeed": 0.05, "Wave2Scale": 62.0, "Wave2Speed": 0.09,
-                       "NormalStrength": 0.6, "NormalStrength2": 0.4,
+                       "NormalStrength": 0.9, "NormalStrength2": 0.6,
                        "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
-                       "RippleFreq": 0.45, "RippleWidth": 210.0, "RippleStrength": 0.5,
-                       "RippleFoam": 0.5, "RippleFoamOpacity": 0.35},
-                      {"WaterColorShallow": unreal.LinearColor(0.34, 0.66, 0.66, 1.0),
-                       "WaterColorDeep": unreal.LinearColor(0.05, 0.22, 0.26, 1.0)},
+                       "RippleFreq": 0.45, "RippleWidth": 210.0, "RippleStrength": 0.85,
+                       "RippleFoam": 0.7, "RippleFoamOpacity": 0.4},
+                      {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),
+                       "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0),
+                       "SkyTint": unreal.LinearColor(0.55, 0.72, 0.82, 1.0)},
                       {"NormalTex": WAVE_NORMAL_A, "NormalTex2": WAVE_NORMAL_B, "ReflectionCubemap": CUBEMAP})
 
 # 实例参数读回（UE 5.8 的 set_* 常常返回 False 但实际写进去了，所以按"写入值是否落在实例上"判断）

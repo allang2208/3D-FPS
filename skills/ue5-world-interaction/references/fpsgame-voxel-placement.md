@@ -169,3 +169,27 @@ FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildCompo
    （带重力，会落回），**没有雾系统**；缩小的副本可以当落点水花用；
 6. 分档：距离分级（近=粒子+水柱，中=水柱，远=只留水面材质）+ `fps.<Prop>.Quality` 一键全关 +
    特效网格 `bVisibleInRayTracing=false`/`bAffectDistanceFieldLighting=false`，别让几厘米厚的半透明片占 RT 几何常驻显存。
+
+## 半透明水面的两个"静默退回"陷阱（喷泉，2026-09-18）
+
+只读探针读出来的两条，都是"代码看着对、引擎悄悄用了默认值"：
+
+1. **半透明 Default Lit 必须显式设光照模式**：默认 `TLM_VOLUMETRIC_NON_DIRECTIONAL` 只吃间接光，
+   水面/玻璃会读成"没光的暗板"。设
+   `mat.set_editor_property("translucency_lighting_mode", unreal.TranslucencyLightingMode.TLM_SURFACE_PER_PIXEL_LIGHTING)`。
+   注意本版枚举名是 **`TLM_SURFACE_PER_PIXEL_LIGHTING`**（不是 `TLM_SurfacePerPixelLighting`）；
+   写错时 `getattr(..., None)` 静默拿 None，材质就留在默认值。
+2. **`MaterialExpressionSceneTexture` 的场景枚举是大写**：`unreal.SceneTextureId.PPI_SCENE_DEPTH` / `PPI_SCENE_COLOR`
+   （不是 `PPI_SceneDepth`）。写错时节点保持默认 **SceneColor**，靠场景深度做的浅深配色/透明度整条链失效
+   （`fade` 恒 0），水面只剩菲涅尔一层。
+   **凡是用枚举/字符串设属性，设完立刻读回并打日志**，别让默认值替你做决定。
+
+## 放置过的道具要核对世界包围盒，不要相信"贴地公式"（喷泉，2026-09-18）
+
+喷泉被埋 3.6 m 而没人发现：当初按 `actor.z = -bbox.origin.z` "贴地"，这条公式只在 pivot 位于**包围盒中心**时成立，
+而本工程网格 pivot 常在**底面**（`origin.z` 就是半个高度）。规矩：
+
+- 摆放脚本落位后，读回**组件的世界包围盒**（不是 actor 的 location），与关卡里真正的**地面 actor**
+  （名字含 `Floor` 的静态网格）的**包围盒顶面**对照；差一个"半高"就是这类公式错。
+- 只读探针模式：`load_level` → 打印地面/参照物/目标 actor 的 location + bounds z（不需要 PIE，也不触发保存）。
+- 无头 commandlet 里**不要指望射线**问地形（本轮 `line_trace_single` 直接崩），用包围盒对照。

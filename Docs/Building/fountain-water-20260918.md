@@ -174,3 +174,56 @@ B 档原始定义是"用 WaterAdvanced 的浅水 SWE Niagara 驱动水面"。实
 内容依赖：`M_FountainWater` + `MIC_FountainWater/Foam/Wet/Cascade/Caustics`、`SM_RomanFountain_20`、
 `SM_RomanFountain_WaterFX`（均在本机 `Content/*`，按忽略规则不入库）。
 关卡里那座喷泉的**新增落点水花组件需要编辑器重载关卡后才会出现在已有实例上**（C++ 新增默认子组件）。
+
+---
+
+# 七次迭代：三条确认的根因（2026-09-18 深夜，只读排查）
+
+用户回执："还是不对，喷泉跟固体差不多，而且喷水的位置也不对。"
+这轮**先不盲调**：用两个只读探针把事实钉下来（`probe_water_state_20260918.py`、`probe_level_ground_20260918.py`，
+日志 `probe_water.log` / `probe_level.log`）。编辑器开着也能跑、不写任何资产。
+
+## 7.1 根因一：喷泉整座沉进地面 3.6 m（最大的"看起来不对"）
+
+| 探针读数 | 值 |
+| --- | --- |
+| `Floor`（500 m 地面）包围盒 | z=[**−40..0**] → 地面顶面 z=0 |
+| `MarbleFloor_Colonnade` / `RomanPavilion2_Base` / 10 根柱 | z=[0..20] / z=0 / z=20（都在地面上） |
+| **`RomanFountain1`（ColdSteelFountain）** | loc z=**−360**、包围盒 z=[**−361..360**] |
+
+`place_fountain_2x_20260918.py` 当初按"pivot 在包围盒中心"用 `-bb.origin.z` 贴地；但喷泉网格 pivot 在**底面**
+（探针读回 `origin_z=360`＝高度一半，本地包围盒 z=[0..720]）。于是整座喷泉沉到地面以下 3.6 m：
+**大盆与它的水面全埋在地下**，画面里只剩上半截"蛋糕塔"——这同时解释了"跟固体差不多"
+（可见水面是被截断的中/顶盘）与"喷水位置不对"（水柱在本地 z=720＝真正塔尖，但相对**可见**的塔顶高了 3.6 m）。
+
+**修法**：`reground_fountain_20260918.py` —— 从名字含 `Floor` 的静态网格 actor 取地面顶面 z，把 Actor 的 z 设成它
+（`AlignGeometry()` 会把网格包围盒底面放到 Actor 原点，所以 Actor z = 地面 z），做一次包围盒相交检查后保存关卡。
+
+## 7.2 根因二：水面材质光照模式还是默认值（收不到直射光）
+
+探针读回：`blend=BLEND_TRANSLUCENT`、`shading=MSM_DEFAULT_LIT`、`tlm=TLM_VOLUMETRIC_NON_DIRECTIONAL`。
+**半透明 Default Lit 的默认光照模式只吃间接光**，直射阳光几乎不参与 → 水面读成"没有光的暗板"。
+上一版脚本按 `TLM_SurfacePerPixelLighting` 找枚举（**本版不存在**）→ 静默留在默认值。
+正确名是 **`TLM_SURFACE_PER_PIXEL_LIGHTING`**（探针读出），已写进脚本。
+
+## 7.3 根因三：SceneDepth 节点实际取的是 SceneColor
+
+探针读回：`SceneTexture id = PPI_SCENE_COLOR` —— 上版写的 `PPI_SceneDepth` 也不存在（真实名 **`PPI_SCENE_DEPTH`**），
+节点静默退回 SceneColor → "场景深度→浅深配色与透明度"整条链失效（`fade` 恒 0）：水面既无深度感，
+透明度只由菲涅尔决定 → 掠射角更实、更像一块板。两处枚举名已改正，并加了"找不到就报 WARN"的护栏。
+
+## 7.4 同时去掉的：四根乱喷的水柱
+
+v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水花**放在两个落水点周围 —— 实际观感是
+**盆里多了四根小喷泉**（"喷水位置不对"的另一半）。已从 `AColdSteelFountain` 移除；要落点水花得专门做 Niagara，
+不再复用向上喷模板。
+
+## 7.5 待配合的一步（这轮没能烘到磁盘）
+
+你现在开着编辑器（`UnrealEditor.exe`，16:12 启动），它持有 `.uasset`/`.umap` 的共享锁 → 材质与关卡的写入会
+**静默失败**（前几轮踩过 `Error Code 32`）。所以上述修复目前只在脚本/源码里：
+
+1. 你关掉编辑器后回我一声；
+2. 我按顺序跑：① `build_fountain_water_20260918.py`（重烘水面材质：光照模式 + SceneDepth + 亮度/透明度/涟漪）
+   → ② `reground_fountain_20260918.py`（喷泉贴地）→ ③ `Tools/Build/Build-Editor.ps1`（落点水花移除的 C++ 改动）；
+3. 你重启编辑器进 PIE：喷泉应整座立在地面上、水柱在塔尖、水面亮且有涟漪。

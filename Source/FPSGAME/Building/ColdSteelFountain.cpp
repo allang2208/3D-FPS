@@ -24,12 +24,6 @@ namespace
     const TCHAR* FountainSplash2=TEXT("/Game/Audio/FreeFootsteps/S_splash2.S_splash2");
     const TCHAR* FountainSplashDeep=TEXT("/Game/Audio/FreeFootsteps/S_splash1_deep.S_splash1_deep");
     constexpr float FountainJetScale=1.2f;
-    constexpr float FountainSplashScale=0.42f;
-    // 落点（主网格物体空间，2× 尺寸）：顶盘→中盘砸在中盘水面 r≈184 / z=412；
-    // 中盘→大盘砸在大盘水面 r≈274 / z=148。各放两处对称点。
-    const FVector FountainSplashPoints[]={
-        FVector(184.f,0.f,412.f),FVector(-184.f,0.f,412.f),
-        FVector(274.f,0.f,148.f),FVector(-274.f,0.f,148.f)};
 }
 
 static TAutoConsoleVariable<int32> CVarFountainQuality(
@@ -64,19 +58,6 @@ AColdSteelFountain::AColdSteelFountain()
     Jet->SetupAttachment(FountainMesh);
     Jet->SetMobility(EComponentMobility::Movable);
     Jet->SetRelativeScale3D(FVector(FountainJetScale));
-
-    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> SplashAsset(FountainJetAsset);
-    for(int32 Index=0;Index<UE_ARRAY_COUNT(FountainSplashPoints);++Index)
-    {
-        UNiagaraComponent* Splash=CreateDefaultSubobject<UNiagaraComponent>(
-            *FString::Printf(TEXT("FountainSplash%d"),Index));
-        Splash->SetupAttachment(FountainMesh);
-        Splash->SetMobility(EComponentMobility::Movable);
-        Splash->SetRelativeLocation(FountainSplashPoints[Index]);
-        Splash->SetRelativeScale3D(FVector(FountainSplashScale));
-        if(SplashAsset.Succeeded())Splash->SetAsset(SplashAsset.Object);
-        Splashes.Add(Splash);
-    }
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(FountainMeshAsset);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> FxAsset(FountainFxMeshAsset);
@@ -139,7 +120,6 @@ int32 AColdSteelFountain::ComputeTier() const
     const APawn* Pawn=World?UGameplayStatics::GetPlayerPawn(World,0):nullptr;
     if(!Pawn)return 0;
     const float Dist=FVector::Dist(Pawn->GetActorLocation(),GetActorLocation());
-    if(Dist<=NearSplashDistanceCm)return 0;
     if(Dist<=MidJetDistanceCm)return 1;
     return 2;
 }
@@ -150,13 +130,8 @@ void AColdSteelFountain::ApplyTier(int32 Tier)
     CachedTier=Tier;
     const bool bFxMesh=Tier<=1;
     const bool bJet=Tier<=1;
-    const bool bSplash=Tier==0;
     if(WaterFxMesh)WaterFxMesh->SetVisibility(bFxMesh,true);
     if(Jet)(bJet?Jet->Activate(true):Jet->Deactivate());
-    for(const TObjectPtr<UNiagaraComponent>& Splash:Splashes)
-    {
-        if(Splash)(bSplash?Splash->Activate(true):Splash->Deactivate());
-    }
 }
 
 void AColdSteelFountain::Tick(float DeltaSeconds)
