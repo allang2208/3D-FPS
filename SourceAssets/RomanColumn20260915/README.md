@@ -1058,3 +1058,91 @@ Niagara 工具集的 `GetSystemCompileState` 可确认堆栈改动是否已编�
 - 读回：调色板 20 条，`bronze_torch` footprint 3×2×5、`mount=WALL`、`actor_class=/Script/FPSGAME.BronzeTorch`、
   `actor_offset=(-51,0,44)`；网格实测包围盒 x 16..66.5 / y ±16.5 / z -44..42.6 与上面的偏移算式一致。
 - **未做**：实机（PIE）里瞄墙吸附、地面拒绝提示、幽灵位置与"火把是否贴平墙面"的观感。按用户规则交用户验收。
+
+## 【已回滚】火球主体加进 NS_TorchFlame 的尝试（2026-09-18 晚）
+
+用户原话："看一下青铜火把的火焰特效，你可以加入火球技能火球主体强化燃烧效果吗"——
+**方向理解反了**：真实要求是把**火把的火焰**加进**火球技能的火球**，不是把火球主体加进火把。
+`NS_TorchFlame.uasset` 已恢复成改动前的 1,292,861 B（21:30 那版，只有 pack 的四层：两层火苗 + 飘灰 + 热扰动）。
+火球那一侧同样作废（用户实机判定"效果并不理想"，要求退回）：脚本、探针与记录归档在
+`trash/torch-fireball-experiments-20260918/`（gitignored，本机保留，供重做取回），清理清单见
+`Docs/AssetArchives/torch-fireball-experiments-20260918.md`；可复用经验沉淀在
+`skills/ue5-skill-magic-workflow/references/fireball-vfx.md`。
+
+本节保留为过程记录——下面两条坑与"为什么看不出变化"的排查结论都还有效，只是成品不在这里。
+
+做法是**只改火焰系统资产**：直接往 `/Game/Props/RomanColumn20260915/NS_TorchFlame` 里加火球主体发射器。
+6 支 `ColonnadeTorch_*`、建造调色板的 `bronze_torch`、以后新摆的火把都指向这一个系统，所以
+**不用改 C++、不用改关卡、不用全量编译**，改完所有火把一起生效（PIE 里要重新进入一次才看得到）。
+
+作者脚本 `add_fireball_core_to_torch_flame_20260918.py`（幂等；**已随本次作废归档，本机 trash 保留**）：
+
+| 新发射器 | 火球来源材质 | 作用 |
+| --- | --- | --- |
+| `NE_FireballFluidBody_A` | `FluidBurn20260914/M_FireballFluid_A` | 火球主体燃烧层 A（Mantaflow 烘焙、64 帧 RGBA 图集） |
+| `NE_FireballFluidBody_B` | `FluidBurn20260914/M_FireballFluid_B` | 火球主体燃烧层 B（第二视角、错相位） |
+| `NE_FireballFluidShortFlames` | `FluidBurn20260914/MI_FluidShortFlames` | 火球短外焰（杯口上方的舌状外焰） |
+
+口径与火球 2026-09-14 流体主体一致，只改两处：
+
+1. 尺寸与位移整体乘 **`SCALE`**。第一版 0.42（精灵约 16–18.5 cm）只有杯口一半宽、被原有 Vefects 火苗盖住，
+   用户反馈"感觉跟原来没变化"；第二版 0.70（精灵约 26.6–30.8 cm）与 Ø27 cm 杯口同宽略溢出，短外焰提到 9 个/秒、
+   主体 alpha 由 .72/.52 提到 .85/.62。**两版都已随回滚撤掉**，脚本已归档（改这一行常量即可重做）。
+2. 去掉飞行混合：火球里 `lerp(root, rear, blend)` 的 `blend` 由 `User.Flight / User.FlightAge` 驱动（发射后向 -X 拖尾），
+   火把一直静止，固定取悬浮态（只用 `root`）；外焰上升量按 `SCALE` 缩到 13*SCALE（0.70 时 9.1 cm/s）。
+
+材质、图集、渲染器口径全部沿用火球现有资产（8×8 SubUV、CustomAlignment、pivot 0.71/0.82、
+`MotionVectorSetting=Precise`、关阴影、清空 `NE_Core` 自带的爆炸 CutoutTexture），**不复制不改写火球本体**。
+火把原有 `NE_Flame_01 / NE_Flame_02 / NE_Ashes / NE_Heat` 四个发射器原样保留，是"加主体"不是"换火"。
+
+### 两个坑（复现用）
+
+- **EmitterState 在 `Life Cycle Mode = System` 下不接受 `Loop Behavior` 写入**（`set_input` 返回 False）。
+  探针 `probe_torch_core_lifecycle_20260918.py`（已归档）：写 System 成功、随后写 Infinite 返回 False；改成 Self 后两者都成功。
+  所以新发射器照抄**火球主体自己**的生命周期（Self + Infinite），不照抄火把的 `NE_Flame_01`（System）。
+  `ABronzeTorch` 点火/熄灭 NiagaraComponent 时，火球主体跟着一起亮灭。
+- **编辑器在 PIE 时 `EditorAssetLibrary.save_loaded_asset` 会失败**：22:00 那次返回 False，
+  日志是 `LogUtils: Error: The Editor is currently in a play mode.`（脚本由此在保存前中断，资产改完但没落盘）。
+  改用 `unreal.EditorLoadingAndSavingUtils.save_packages([package], False)` 在 PIE 里正常落盘，脚本已固定走这条路径。
+  顺带解释同一分钟里 `get_editor_world()` 返回 None、`get_all_level_actors()` 返回 0：PIE 期间编辑器世界被替换。
+
+### 读回证据（当时的 `probe_torch_core_result_20260918.py`，已归档）
+
+- 发射器 = `NE_Flame_01, NE_Flame_02, NE_Ashes, NE_Heat, NE_FireballFluidBody_A, NE_FireballFluidBody_B, NE_FireballFluidShortFlames`。
+- 主体 A/B：local space、CPUSim、材质 `M_FireballFluid_A/B`、8×8 SubUV、pivot y=0.71、Precise、无阴影、无 Cutout、sort=2、
+  速率 2.1 / 1.7 个/秒、寿命 0.85–1.2 s、图集滚动 22–26 帧/秒；精灵 0.42 版是 `float2(15.96+1.68*seed, 16.80+1.68*variant)`，
+  0.70 版是 `float2(26.6+2.8*seed, 28.0+2.8*variant)`。
+- 短外焰：pivot y=0.82、寿命 0.38–0.66 s；速率 6（0.42 版）→ **9 个/秒**（0.70 版），
+  精灵由 `float2(3.78…, 5.46…)` 变 `float2(6.3…, 9.1…)*(1-0.30*NormalizedAge)`。
+- 落盘：`NS_TorchFlame.uasset` 1,292,861 B（21:30，无火球主体）→ 2,707,559 B（22:00:50，SCALE 0.42）→
+  2,723,386 B（22:44:58，SCALE 0.70）→ **1,292,861 B（22:5x 回滚成原样）**。
+  三个版本副本都在 `trash/torch-fireball-core-20260918/`：`NS_TorchFlame.before-fireball-core.uasset`（原样，= 现用）、
+  `NS_TorchFlame.scale042.uasset`、`NS_TorchFlame.with-fireball-core-070.uasset`。
+- 记录 `fireball_core_flame_20260918.json`（已归档）。
+
+### 为什么第一版"感觉跟原来没变化"（2026-09-18 22:45 排查）
+
+两件事叠在一起，**改动本身是生效的，但当时根本没火可看**：
+
+1. **编辑器视口里火把从来不点火**：`ABronzeTorch` 的 Niagara 组件是 `SetAutoActivate(false)`，只有运行时 Tick/点火才 `Activate`。
+   所以在编辑器里看 6 支火把（或刚用建造面板摆的那支）永远是一支没有火的青铜杆，改前改后都一样。
+2. **PIE 从白天开始、火把要等黄昏**：点火窗口 16.5h → 6.0h。`Saved/Logs` 里 22:08、22:12 两次 PIE 的
+   `TORCH_STATE` 全是 `lit=0 hour=12.00`（白天，压根没点火）；而 21:25 那次 `hour=20.10 clock=1` 才是亮的。
+   开发面板（`DevelopmentPanelWidget` 的"世界时间前推 1 小时"按钮，内部调 `AFPSWeatherManager::AdvanceGameTime`）
+   推到黄昏后马上就能看到火。
+
+结论：要在 PIE 里看火，先把世界时间推到 16:30 之后；要一边搭场景一边看火，需要另加"编辑器预览火"（改 C++，尚未做，等用户确认）。
+
+### 重跑方式（两条路都能落盘；脚本现在躺在 trash，用之前先取回）
+
+- 脚本位置：`trash/torch-fireball-experiments-20260918/fireball-core-into-torch/add_fireball_core_to_torch_flame_20260918.py`
+- 编辑器开着：`python Tools/AssetPipeline/ue_python_exec.py --script <上面的脚本>`
+  （注意 PIE 期间 `EditorAssetLibrary.save_loaded_asset` 会被"The Editor is currently in a play mode"挡下，脚本已改用 `save_packages`。）
+- 编辑器关着：`UnrealEditor-Cmd.exe D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript -script=<上面的脚本>`
+  `-unattended -nosplash -multiprocess -NullRHI -abslog=<日志>`
+  —— 2026-09-18 22:44 的 SCALE 0.70 这一版就是这么跑的（`Result: Success - 0 error(s)`，30 s）。
+
+### 本轮未做
+
+- 火球主体在火把杯口的实际观感（大小是否压住杯口、与 Vefects 火苗的叠影、白天/夜晚曝光、与点光的配比）；
+- PIE 里黄昏点火的实拍。**按用户规则全部交用户验收**——编辑器里的 PIE 会话需退出重进才会加载新系统。

@@ -30,6 +30,36 @@
 - Niagara CPU VectorVM 的 Custom HLSL 不支持本例使用的 `smoothstep`，按 `t=saturate((x-a)/(b-a)); t*t*(3-2*t)` 展开；不要与材质 HLSL 的可用函数混为一谈。
 - 动态材质参数的 Niagara 类型使用 `Vector4f`；不要因为都是四通道就替换成 `LinearColor`。材质输入名可能本地化，用编辑 API 取得真实 pin 名。
 
+## 火把火焰并入火球：试过、被否（2026-09-18）
+
+用户要求把青铜火把现在的火焰效果加进火球技能的火球。**做出来后被用户实机否决（"效果并不理想"），已退回**——
+`NS_FireballSlowBurnCore.uasset` 按字节还原成改动前版本（2,722,693 B），脚本/探针/记录归档到
+`trash/torch-fireball-experiments-20260918/`（本机保留，不随 Git 发布），清单见
+`Docs/AssetArchives/torch-fireball-experiments-20260918.md`。**不要照抄这个做法重做**；下面留的是口径与坑。
+
+火把火焰本体：`NS_TorchFlame`（Vefects `NS_Fire_Small` 副本）＝两层火苗 + 飘灰 + 热扰动，副本把两层火苗的
+`ScaleSpriteSize` 曲线降到 0.3、删掉自带火星与光源；那两层火苗来自 pack 的发射器资产
+`/Game/Vefects/Free_Fire/Shared/Particles/NE_FireFlame`，材质 `MI_VFX_Fire_01/02`，速率 15/25 个/秒。
+当时的叠法：曲线 0.3 → 0.75（15–21 cm → 约 37–52 cm，包住 38–44 cm 的流体主体）、pack 的 world space 改
+local space（火球会飞，火苗要跟球走）、关阴影、Precise 运动矢量、SortOrderHint=3、系统 fixed bounds 放大到 ±100 cm，
+火球原有流体主体/短外焰/薄烟/热折射全部保留。
+
+事故（2026-09-18 当晚）：第一版套用了火球主体自己的 `Self`——Vefects 发射器是按 System 编写的，
+Self 下发射器立刻结束，**整条 Niagara 系统随之失效，火球完全不渲染**（连流体主体一起消失，不只是新层不出粒子）。
+定位手段：编辑器内临时 NiagaraActor 轮询 `UNiagaraComponent::is_active()`
+（当前系统 False×8 / 去掉这两层 True×8 / 改回 System True×8 / 火把 True×8）；
+改回 System 后 `active_trace=True×10` 恢复。教训：往系统里加**外部包的发射器资产**时，
+生命周期按那个资产原本的写法，不要顺手套目标系统里其它发射器的模式。
+另一个坑：在活编辑器里 remove+re-add 发射器后 `compile_rain()` 可能返回 False
+（`LogNiagara: Failed to generate consistent results for System spawn and update scripts`），
+`unreal.SystemLibrary.collect_garbage()` 后重编译即通过；结构性改动优先关编辑器走无头 commandlet。
+
+反方向（把火球主体加进火把）也做错方向并已回滚，过程记录在 `SourceAssets/RomanColumn20260915/README.md`，
+其中两条坑同样有效：
+`EmitterState` 在 `Life Cycle Mode = System` 下不接受 `Loop Behavior` 写入（要写就得用 Self）；
+编辑器 PIE 期间 `EditorAssetLibrary.save_loaded_asset` 会被 "The Editor is currently in a play mode" 挡下，
+落盘改用 `unreal.EditorLoadingAndSavingUtils.save_packages([package], False)`。
+
 ## 重建链和归档边界
 
 2026-09-14 用户确认悬浮／飞行火球基本合格后，命中升级到 `/Game/Skills/Fireball/ImpactRealistic20260914`：非循环 `T_Explosion_EOO` 爆燃，按真实命中点、法线和世界上方向展开；激活前覆盖 SurfaceHit／LocalUp，保持池复用正确。原彩色圆环替换为热折射波，实体用平面、空爆用球壳；0.24 秒短暖光和分层声音同步接触。随后按用户要求加强范围：运行时爆燃缩放乘 1.50、热浪半径乘 1.65，HeatStrength 覆盖为 0.060，热浪时长 0.36 秒、衰减指数 1.35；调节入口为 `FPSFireballProjectile.cpp` 的 `FireballImpactVisuals`。作者入口 `build_fireball_impact_realistic.py`，来源和未测试范围见项目 `Docs/Skills/fireball-realistic-impact-20260914.md`。保留原技能结算中心与数值；焦痕和表面类型分支未在本阶段接入。新命中尚未获用户视觉验收。

@@ -42,7 +42,7 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 - 动作前实际查看现有参考，读取时长、帧率、接触和左右手职责。自然节奏来自起势、加速、制动、收势与肩肘腕／手指先后，不只对两个姿态作同速插值。
 - 制作施法手势或处理手臂变细时，读取 [施法与完整骨段](../ue5-fps-arms-animation/references/casting-arm-volume.md)，再修改现用左臂层；保持当前 Manny 网格、骨长、权重和右手职责。
-- 特效资产选择、缓慢燃烧、按速度向后拖尾以及棋盘格修复见 [火球 VFX 制作经验](references/fireball-vfx.md)。先辨认现有资产的输入和依赖，再创建项目专用副本。
+- 特效资产选择、缓慢燃烧、按速度向后拖尾以及棋盘格修复见 [火球 VFX 制作经验](references/fireball-vfx.md)。先辨认现有资产的输入和依赖，再创建项目专用副本。往现有系统里加**外部包的发射器资产**前，先确认那个资产原本的生命周期与输入口径：把 Vefects 火苗套成主体用的 `Self` 曾让整条火球系统静默失效（2026-09-18，见该引用文末）。
 - 同步可编辑源、作者参数和引擎导出。火球游戏内使用程序化左臂层，源 FBX 作为继续编辑的交付；不要误称正在播放整副手臂 FBX。
 
 ## 5. 归档和交付
@@ -61,4 +61,4 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 ## 快速进战（F 键主动技能，2026-09-17）
 
-`quickCombat`：触发键 F（武器检视已让位到 L）。剑类走符文剑第四连击配重锤（`BeginQuickCombatStrike`，复用第四击节奏与单目标窄走廊）；单持手枪走程序化握把砸击（**用户否决，挂起待重做**，教训见 [手枪握把砸击尝试](../ue5-fps-arms-animation/references/pistol-grip-bash-attempt.md)）。命中 2m 单目标：伤害 25+5×等级+力量×(5+0.1×等级)，击退 1m、眩晕 (2.5+0.1×等级) 秒（怪物 `ReceiveStun`）；基础冷却 12s（预留-结束起跳合同）；修炼释放 +1、技能击杀 +15。数据入口 `skills.json:quickCombat`，动作参数 `QuickCombatPistolMotion.h`，案例与挂起原因 `Docs/Skills/quick-combat-placeholder-20260917.md`。
+`quickCombat`：触发键 F（武器检视已让位到 L）。剑类走符文剑第四连击配重锤（`BeginQuickCombatStrike`，复用第四击节奏与单目标窄走廊）；单持手枪走程序化握把砸击（**V5 关键帧化候选，等 Dan Wesson 715 实机验收**；V1–V4 被否，根因与教训见 [手枪握把砸击尝试](../ue5-fps-arms-animation/references/pistol-grip-bash-attempt.md)）。命中 2m 单目标：伤害 25+5×等级+力量×(5+0.1×等级)，击退 1m、眩晕 (2.5+0.1×等级) 秒（怪物 `ReceiveStun`）；基础冷却 12s（预留-结束起跳合同）；修炼释放 +1、技能击杀 +15。数据入口 `skills.json:quickCombat`；动作参数集中在 `QuickCombatPistolMotion.h` 的 7 键表（0.60s 六段节奏、肘极/肩线/左手松握/相机语言、命中探针方向），组件 `FPSQuickCombatComponent.*`，姿态层 `FPSCastingMeshComponent::ApplyQuickCombatPose`，打击探针 `GetQuickCombatStrikeProbe()`；案例与未测范围 `Docs/Skills/quick-combat-placeholder-20260917.md`。

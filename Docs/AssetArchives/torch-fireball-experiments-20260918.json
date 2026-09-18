@@ -1,0 +1,245 @@
+{
+  "Task": "Torch and fireball flame experiments (torch-fireball-experiments-20260918)",
+  "ArchivedOn": "2026-09-18",
+  "Rule": "WORKFLOW.md section 4",
+  "Count": 22,
+  "Note": "两条线都作废：①用户原话要求把青铜火把的火焰效果加进火球技能的火球，第一轮理解反了（把火球主体加进火把）；②反方向做出来后用户实机判定效果不理想，要求退回。两侧资产均已还原：NS_TorchFlame.uasset = 1,292,861 B（21:30 那版）、NS_FireballSlowBurnCore.uasset = 2,722,693 B（SHA-256 与改动前备份一致）。trash/ 被 .gitignore 忽略，这些文件只在本机保留，供重做时取回；可复用的经验已沉淀到 skills/ue5-skill-magic-workflow/references/fireball-vfx.md。",
+  "RestoredAssets": [
+    {
+      "Asset": "Content/Props/RomanColumn20260915/NS_TorchFlame.uasset",
+      "State": "恢复为改动前版本（1,292,861 B / SHA256 6A26D28CC4B5518A64C143D5AF4FB77E89699E19DBBC1B5DE0F4986D531D8F43）",
+      "Backup": "trash/torch-fireball-core-20260918/NS_TorchFlame.before-fireball-core.uasset"
+    },
+    {
+      "Asset": "Content/Skills/Fireball/NS_FireballSlowBurnCore.uasset",
+      "State": "按字节还原为改动前版本（2,722,693 B / SHA256 16393B241B1A270AD56E2D1DA9C77730F8E1BF317E06DCEC4DC5F45876C04D62，与备份逐字节一致）",
+      "Backup": "trash/torch-flame-into-fireball-20260918/NS_FireballSlowBurnCore.before-torch-flame.uasset"
+    }
+  ],
+  "RetiredAssetCandidates": [
+    {
+      "Name": "NS_TorchFlame.scale042.uasset",
+      "ArchivedTo": "trash/torch-fireball-core-20260918/NS_TorchFlame.scale042.uasset",
+      "Bytes": 2707559,
+      "SHA256": "48A58F71FE33DE70FAA9C3F109DD09349AE478CB435EB057723E4D313C0D865D",
+      "Reason": "火把里加火球主体（SCALE 0.42）的候选，方向作废",
+      "Replacement": "无（火把保持 pack 原样）"
+    },
+    {
+      "Name": "NS_TorchFlame.with-fireball-core-070.uasset",
+      "ArchivedTo": "trash/torch-fireball-core-20260918/NS_TorchFlame.with-fireball-core-070.uasset",
+      "Bytes": 2723386,
+      "SHA256": "FD3D849E9287B547F1342A7A38F1D7519326F2D440C1FE426905B5A3D0D2CD37",
+      "Reason": "火把里加火球主体（SCALE 0.70）的候选，方向作废",
+      "Replacement": "无（火把保持 pack 原样）"
+    },
+    {
+      "Name": "NS_FireballSlowBurnCore.with-torch-flame.uasset",
+      "ArchivedTo": "trash/torch-flame-into-fireball-20260918/NS_FireballSlowBurnCore.with-torch-flame.uasset",
+      "Bytes": 3316988,
+      "SHA256": "08D8E0BA1F9D1442B00B604B3CEBDFF23120B2737C4326855C81BE05A1DC9802",
+      "Reason": "火球里叠火把火苗（两层 NE_FireFlame，曲线 0.75）的候选，用户判定效果不理想",
+      "Replacement": "无（火球恢复原样）；重做起点可用本副本"
+    }
+  ],
+  "Files": [
+    {
+      "Name": "add_fireball_core_to_torch_flame_20260918.py",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/add_fireball_core_to_torch_flame_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/add_fireball_core_to_torch_flame_20260918.py",
+      "Bytes": 13174,
+      "SHA256": "0ADE949F9908688FAF80A4E28A3CFAA2B76B55AC7C05BC185EF0E5520FE0036C",
+      "Reason": "把火球主体加进火把的作者脚本；方向理解反了，已回滚",
+      "Replacement": "无（火把保持 pack 原样）；经验见 skills/ue5-skill-magic-workflow/references/fireball-vfx.md"
+    },
+    {
+      "Name": "fireball_core_flame_20260918.json",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/fireball_core_flame_20260918.json",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/fireball_core_flame_20260918.json",
+      "Bytes": 2719,
+      "SHA256": "F2B8D36DC50F154402DB090A7CA76A7D4B625EA9789926F69398BFA49FEF3F7D",
+      "Reason": "该方向的安装记录",
+      "Replacement": "Docs/AssetArchives/torch-fireball-experiments-20260918.json"
+    },
+    {
+      "Name": "probe_torch_core_plan_20260918.py",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/probe_torch_core_plan_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/probe_torch_core_plan_20260918.py",
+      "Bytes": 4621,
+      "SHA256": "50E1FD85CD510BFF9977801B197D6AD6106B8D2DE4CB34FA543D12FD48BA74BC",
+      "Reason": "该方向的读前探针",
+      "Replacement": "无"
+    },
+    {
+      "Name": "probe_torch_core_lifecycle_20260918.py",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/probe_torch_core_lifecycle_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/probe_torch_core_lifecycle_20260918.py",
+      "Bytes": 2682,
+      "SHA256": "A14B915AA9B83C74968BA3F987253E88DA1CE45160CD1391B41C1BE41783417C",
+      "Reason": "生命周期探针（发现 EmitterState 在 System 生命模式下不接受 Loop Behavior 写入）",
+      "Replacement": "结论见 skills/ue5-skill-magic-workflow/references/fireball-vfx.md"
+    },
+    {
+      "Name": "probe_torch_core_result_20260918.py",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/probe_torch_core_result_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/probe_torch_core_result_20260918.py",
+      "Bytes": 3229,
+      "SHA256": "BCCFBE336BA41C69AE196DC8028FE7DD7E445B692F5EA68204B6E3CA8BEE240F",
+      "Reason": "该方向的读回探针",
+      "Replacement": "无"
+    },
+    {
+      "Name": "probe_torch_flame_modules_20260918.py",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/probe_torch_flame_modules_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/probe_torch_flame_modules_20260918.py",
+      "Bytes": 2954,
+      "SHA256": "33DD74B1E83AA60DC3336E3A0E5C59CC1FE13EA09686E255073AE508B41D4135",
+      "Reason": "火把火苗模块结构探针（读出 NE_FireFlame 栈与 ScaleSpriteSize 曲线口径）",
+      "Replacement": "结论见 skills/ue5-skill-magic-workflow/references/fireball-vfx.md"
+    },
+    {
+      "Name": "probe_fireball_torch_flame_plan_20260918.py",
+      "OriginalPath": "SourceAssets/RomanColumn20260915/probe_fireball_torch_flame_plan_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/fireball-core-into-torch/probe_fireball_torch_flame_plan_20260918.py",
+      "Bytes": 3521,
+      "SHA256": "BDFF1D576E4482C730C0D4048D3B03A4F9AFB16D950DF8FE5C17FE7E5E075697",
+      "Reason": "规划探针（火球固定包围盒、pack 火苗速率与材质）",
+      "Replacement": "无"
+    },
+    {
+      "Name": "add_torch_flame_to_fireball_20260918.py",
+      "OriginalPath": "Tools/Skills/add_torch_flame_to_fireball_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/add_torch_flame_to_fireball_20260918.py",
+      "Bytes": 9846,
+      "SHA256": "9557A4FEFE6A94F501E40242E6969286C943D2C4AECA6FD76364C569A2844CAB",
+      "Reason": "把火把火苗加进火球的作者脚本；用户判定效果不理想，火球已按字节还原",
+      "Replacement": "无（火球恢复原样）；重做起点见 RetiredAssetCandidates"
+    },
+    {
+      "Name": "fireball-torch-flame-20260918.md",
+      "OriginalPath": "Docs/Skills/fireball-torch-flame-20260918.md",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/fireball-torch-flame-20260918.md",
+      "Bytes": 7563,
+      "SHA256": "8F4736EE56100E15B53C68366BAF965A77CC1DFD7E3653C3C6453D847599ADC0",
+      "Reason": "该尝试的案例记录（含火球整条不渲染的事故与修复）",
+      "Replacement": "经验沉淀 skills/ue5-skill-magic-workflow/references/fireball-vfx.md"
+    },
+    {
+      "Name": "installation.json",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/installation.json",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/installation.json",
+      "Bytes": 3519,
+      "SHA256": "0DF32147F2B2F2ACE2B27C418081AA836B68774A64947C9F5120F1F5BDE879CD",
+      "Reason": "该尝试的安装记录（已标注 rolled_back）",
+      "Replacement": "Docs/AssetArchives/torch-fireball-experiments-20260918.json"
+    },
+    {
+      "Name": "probe_result_20260918.py",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/probe_result_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/probe_result_20260918.py",
+      "Bytes": 2533,
+      "SHA256": "640DAD7A0597272C35A7ED2A057E3B4F936B52B0E3EB82020882CAFF234934DC",
+      "Reason": "磁盘态读回探针",
+      "Replacement": "无"
+    },
+    {
+      "Name": "probe_live_20260918.py",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/probe_live_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/probe_live_20260918.py",
+      "Bytes": 3193,
+      "SHA256": "F00750D701E3805E580A7A1107E0650B65CFED188B99E87584FFE767AF04A432",
+      "Reason": "编辑器内临时 actor + SceneCapture 诊断（本次截图管线拍不到已出火的系统，结论改用 is_active）",
+      "Replacement": "无"
+    },
+    {
+      "Name": "probe_active_20260918.py",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/probe_active_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/probe_active_20260918.py",
+      "Bytes": 3557,
+      "SHA256": "8F8DFC20CFBCE2AA18721B0609977852188A59441B009C1B09C2BF654DEE0037",
+      "Reason": "定位火球整条不渲染的对照探针（is_active 轮询 + _Scratch 副本对照）",
+      "Replacement": "方法见 skills/ue5-skill-magic-workflow/references/fireball-vfx.md"
+    },
+    {
+      "Name": "fix_lifecycle_20260918.py",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/fix_lifecycle_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/fix_lifecycle_20260918.py",
+      "Bytes": 2435,
+      "SHA256": "88807B69373F83920C133976441E34FF1C24266DE9FFB0447EA04B061F953937",
+      "Reason": "把两层火苗从 Self 改回 System 并恢复有效编译的修复脚本（含 GC 后再编译）",
+      "Replacement": "结论见 skills/ue5-skill-magic-workflow/references/fireball-vfx.md"
+    },
+    {
+      "Name": "verify_active_20260918.py",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/verify_active_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/verify_active_20260918.py",
+      "Bytes": 1710,
+      "SHA256": "BC7D7715DC31BFF359EF8F0C82F6418926CFF49FE0FEB7398E359F35783DA83C",
+      "Reason": "修复后的激活复测脚本",
+      "Replacement": "无"
+    },
+    {
+      "Name": "verify_rollback_20260918.py",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/verify_rollback_20260918.py",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/verify_rollback_20260918.py",
+      "Bytes": 751,
+      "SHA256": "8F4F2E81BD6EA7D06AF926CDB715A705374C0C4C08982365DF3F660AA9CEF49A",
+      "Reason": "退回后读回脚本（5 个原发射器、原始包围盒）",
+      "Replacement": "无"
+    },
+    {
+      "Name": "install.log",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/install.log",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/install.log",
+      "Bytes": 280066,
+      "SHA256": "80E2C85D85E1CF935D79980F3AA4F94FD1E3506705F7535174CD85B4BDD30E77",
+      "Reason": "安装期无头 commandlet 日志（*.log 本就被忽略，随目录整体归档）",
+      "Replacement": "无"
+    },
+    {
+      "Name": "install-backup-2026.09.18-14.57.31.log",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/install-backup-2026.09.18-14.57.31.log",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/install-backup-2026.09.18-14.57.31.log",
+      "Bytes": 275683,
+      "SHA256": "C103649D48F3DE6EA580FC5815EA421842BA67D818704AA85478EB550C1F2973",
+      "Reason": "安装期日志轮转备份",
+      "Replacement": "无"
+    },
+    {
+      "Name": "probe_result_20260918.log",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/probe_result_20260918.log",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/probe_result_20260918.log",
+      "Bytes": 273968,
+      "SHA256": "CA32882626230C17835F38DED9665AFB13A3B60468F7A0C35C33629E7986257D",
+      "Reason": "读回探针日志",
+      "Replacement": "无"
+    },
+    {
+      "Name": "verify_rollback_20260918.log",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/verify_rollback_20260918.log",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/verify_rollback_20260918.log",
+      "Bytes": 271043,
+      "SHA256": "BAE65470E500F41368B8C416CE775A701D78249A640ED9359F6E34C7C0167713",
+      "Reason": "退回读回日志",
+      "Replacement": "无"
+    },
+    {
+      "Name": "core_now.png",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/core_now.png",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/core_now.png",
+      "Bytes": 1173227,
+      "SHA256": "7A5B6E963C1C571D99904A07D27B867378BBB29F2173DD95CB4D74149ABAC1EA",
+      "Reason": "当时火球系统的抓图（本次截图管线未拍到临时 actor 的火，仅作过程留存）",
+      "Replacement": "无"
+    },
+    {
+      "Name": "torch_reference.png",
+      "OriginalPath": "SourceAssets/FireballTorchFlame20260918/torch_reference.png",
+      "ArchivedTo": "trash/torch-fireball-experiments-20260918/torch-flame-into-fireball/torch_reference.png",
+      "Bytes": 1173227,
+      "SHA256": "AC29D1A94C0A375E6E855E735F562C013E1B46A7030E243EED58DF9789D2FDFE",
+      "Reason": "同一轮的火把参照抓图（同上，未拍到火）",
+      "Replacement": "无"
+    }
+  ]
+}
