@@ -2,8 +2,8 @@
 #include "TemperateHillsSurface.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Engine/GameInstance.h"
-#include "PCGManagedResource.h"
 #include "PCGComponent.h"
+#include "PCGManagedResource.h"
 #include "PCGGraph.h"
 #include "PCGWorldActor.h"
 #include "Subsystems/PCGSubsystem.h"
@@ -35,13 +35,14 @@
 #include "HAL/IConsoleManager.h"
 #include "HighResScreenshot.h"
 #include "TimerManager.h"
-#include "../UI/ColdSteelStatusModel.h"
 #include "../FPSWeatherManager.h"
+#include "../UI/ColdSteelStatusModel.h"
 
 namespace TemperateHills
 {
 uint32 Mix(uint32 V) { V ^= V >> 16; V *= 0x7feb352dU; V ^= V >> 15; V *= 0x846ca68bU; return V ^ (V >> 16); }
 uint32 Key(int32 X, int32 Y, uint32 Seed, uint32 Salt) { return Mix(Mix(uint32(X)*0x9e3779b9U) ^ Mix(uint32(Y)*0x85ebca6bU+0x1b873593U) ^ Mix(Seed+Salt)); }
+uint64 CellId(int32 X,int32 Y) { return (uint64(uint32(X))<<32)|uint32(Y); }
 // Spatial buckets for terrain-edit lookups: Height()/SurfaceNormal() are called millions
 // of times by vegetation placement, so they must not walk the whole edit list.
 constexpr double EditBucketCm = 3200.0;
@@ -53,7 +54,6 @@ static TAutoConsoleVariable<float> MaxDropCm(
 static TAutoConsoleVariable<float> MaxRiseCm(
     TEXT("fps.Hills.MaxRiseCm"), 100.f,
     TEXT("How far refilling may raise terrain above the generated surface (cm)."));
-uint64 CellId(int32 X,int32 Y) { return (uint64(uint32(X))<<32)|uint32(Y); }
 double Unit(uint32 V) { return double(Mix(V) & 0x00ffffffU) / 16777216.0; }
 double Smooth(double T) { T=FMath::Clamp(T,0.0,1.0); return T*T*(3-2*T); }
 double ValleyY(double X, int32 Seed) { return 1900*FMath::Sin(X*.000065+Unit(Seed)*3)+850*FMath::Sin(X*.00014); }
@@ -184,9 +184,10 @@ double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
 }
 
 double ATemperateHillsWorld::PathDistance(double X,double Y) const {return FMath::Abs(Y-TemperateHills::ValleyY(X,Seed));}
+double ATemperateHillsWorld::Height(double X,double Y) const
 {return BaseHeight(X,Y)+TerrainOffsetAt(X,Y);}
 double ATemperateHillsWorld::BaseHeight(double X,double Y) const
-double ATemperateHillsWorld::Height(double X,double Y) const
+{return RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed);}
 double ATemperateHillsWorld::TerrainOffsetAt(double X,double Y) const
 {
     if(TerrainEdits.IsEmpty())return 0;
@@ -228,7 +229,6 @@ void ATemperateHillsWorld::RebuildEditBuckets()
             EditBuckets.FindOrAdd(TemperateHills::CellId(X,Y)).Add(Index);
     }
 }
-{return RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed);}
 FVector ATemperateHillsWorld::SurfaceNormal(double X,double Y) const
 {
     // Edits only bend the normal where they actually touch the ground; outside
@@ -305,7 +305,9 @@ void ATemperateHillsWorld::AddTerrainEdit(const TemperateHillsSurface::FTerrainE
     if(TerrainEdits.Num()>=MaxEdits)
     {
         const TemperateHillsSurface::FTerrainEdit Old=TerrainEdits[0];
-        TerrainEdits.RemoveAtSwap(0);
+        // RemoveAt (not RemoveAtSwap): the swap moves the newest edit into slot 0,
+        // so the next "oldest" eviction would discard a fresh player edit instead.
+        TerrainEdits.RemoveAt(0);
         InvalidateTerrainCells(FVector2D(Old.X,Old.Y),TemperateHillsSurface::TerrainEditReach(Old));
     }
     TerrainEdits.Add(Edit);
@@ -438,10 +440,12 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
     return !Out.Mesh.IsNull();
 }
 
-void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
+void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool IncludeRegrowth) const
 {
     if(!Assets||Layer<0||Layer>3)return;
-    if(Layer==3){GetGrassPlacements(Bounds,Out);GetGroundDebrisPlacements(Bounds,Out);return;}
+    if(Layer==3){GetGrassPlacements(Bounds,Out);GetGroundDebrisPlacements(Bounds,Out);GetRiverPlantPlacements(Bounds,Out);GetRiverPebblePlacements(Bounds,Out);return;}
+    if(Layer==2)GetRiverShrubPlacements(Bounds,Out);
+    if(Layer==0 && IncludeRegrowth)GetRegrowingTrees(Bounds,Out);
     const double Spacing=Layer==0?1200:(Layer==1?2400:650);
     const double Half=SizeMeters*50;
     const double MinX=FMath::Max(-Half,Bounds.Min.X),MinY=FMath::Max(-Half,Bounds.Min.Y);
@@ -548,6 +552,7 @@ void ATemperateHillsWorld::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
     TickStreaming();
+    TickDayNightSky();
     if(!bReady)return;
     for(TActorIterator<AFPSWeatherManager> It(GetWorld());It;++It)
     {

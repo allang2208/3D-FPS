@@ -154,6 +154,12 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
 // as stutter while shooting a monster. Training is now applied to the live
 // profile immediately - so damage, rewards and panel readings stay exact - and
 // the checked save is coalesced to the autosave clock.
+//
+// Deliberate trade-off (2026-09-18 audit): a hard crash can lose at most the
+// coalescing window (one second, see the Tick flush) of hit experience, and a
+// rejected level-up save keeps the new level in memory until the next flush
+// self-heals it. Do not "fix" this back to a per-hit checked transaction -
+// that is the stutter this staging removed.
 bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
 {
     bool bLeveled=false;
@@ -248,6 +254,7 @@ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
             ColdSteelSkills::AddExperience(P,Skill,Skill.KillExperience+Skill.HitExperience+ActiveTrainingHit->ExtraExperience+(ActiveTrainingHit->bCritical?Skill.CriticalExperience:0));
         }
         if(ActiveTrainingHit->bCritical)ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience+CriticalStrikeSkill.CriticalKillExperience);
+        if(ActiveTrainingHit->bMelee)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.MeleeKillExperience+DexterousHandsSkill.MeleeHitExperience);
     }
     while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
     if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);

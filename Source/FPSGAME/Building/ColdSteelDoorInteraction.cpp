@@ -16,8 +16,10 @@ namespace
         FName(TEXT("AutoDoorActivated")),
         FName(TEXT("OpenDoor")),
         FName(TEXT("OpenWindow")),
-        FName(TEXT("Interact")),
-        FName(TEXT("Activate")),
+        // 不收录 Interact／Activate 这类通用名：全包 uasset 的名字表里两者都没有独立的
+        // 门函数（唯一的 "Interact" 在演示角色 BP_ThirdPersonCharacter 里，"Activate" 只以
+        // Activated/AutoDoorActivated 形式出现，2026-09-18 取证）。名字表匹配过宽会误触
+        // 无关蓝图的同名事件。
     };
     const TCHAR* InteractInterfacePath = TEXT("/Game/DoorSystem/Player/Blueprints/BI_Interact.BI_Interact_C");
     UClass* LoadInteractInterface()

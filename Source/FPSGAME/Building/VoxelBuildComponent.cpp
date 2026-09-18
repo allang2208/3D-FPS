@@ -885,6 +885,11 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     {
         // 画面里没有别的菜单时，光标/输入锁只可能来自退出不干净的界面；先清干净再让建造继续，
         // 否则 SetBuildMode(true) 的守卫会静默拒绝，表现为"按 B 打不开面板、数字键也换不了料"。
+        // 只在建造自己消费的键上清（B/数字键/滚轮）：其它系统若合法持有这些锁
+        // （过场、脚本化视角等），建造路径之外的按键不把它们踩掉。
+        const bool bBuildOwnedKey=Key==EKeys::B||Key==EKeys::Zero||NumberKeyIndex(Key)!=INDEX_NONE
+            ||Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown;
+        if(!bBuildOwnedKey)return false;
         UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL 检测到残留输入锁 cursor=%d move=%d look=%d active=%d panel=%d key=%s"),
             PC->bShowMouseCursor?1:0,PC->IsMoveInputIgnored()?1:0,PC->IsLookInputIgnored()?1:0,
             bActive?1:0,bPanelOpen?1:0,*Key.ToString());
