@@ -17,6 +17,7 @@ def log(m):
 log("SceneTextureId members: %s" % [n for n in dir(unreal.SceneTextureId) if n.startswith("PPI")])
 log("TranslucencyLightingMode members: %s"
     % [n for n in dir(unreal.TranslucencyLightingMode) if n.startswith("TLM")])
+log("ClampMode members: %s" % [n for n in dir(unreal.ClampMode) if n.startswith("CMODE")])
 
 mat = unreal.EditorAssetLibrary.load_asset(MAT) or unreal.load_asset(MAT)
 if not mat:

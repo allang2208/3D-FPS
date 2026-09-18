@@ -227,3 +227,23 @@ v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水�
 2. 我按顺序跑：① `build_fountain_water_20260918.py`（重烘水面材质：光照模式 + SceneDepth + 亮度/透明度/涟漪）
    → ② `reground_fountain_20260918.py`（喷泉贴地）→ ③ `Tools/Build/Build-Editor.ps1`（落点水花移除的 C++ 改动）；
 3. 你重启编辑器进 PIE：喷泉应整座立在地面上、水柱在塔尖、水面亮且有涟漪。
+
+## 7.6 执行结果（2026-09-18 16:34–16:39，已落盘并复核）
+
+| 步骤 | 结果 | 证据 |
+| --- | --- | --- |
+| ① 水面材质属性修复 | `water tlm = TLM_SURFACE_PER_PIXEL_LIGHTING: 5`、`SceneTexture id = PPI_SCENE_DEPTH: 1`、`opacity clamp max = 0.62 (mode CMODE_CLAMP_MAX: 2)`、`water recompile -> []`、**32/32 PASS**、`M_FountainWater.uasset` 16:37:45 落盘（无 `Error saving`） | `SourceAssets/RomanFountain20260917/build_water.log` |
+| ② 喷泉贴地 | 地面候选只认"XY 包含喷泉"的面 → `[('Floor', 0.0)]`；`move RomanFountain1: z 20.0 -> 0.0` → **世界包围盒 z=[−1.2..720.0]**；`save=True`，`DayNight_Lighting.umap` 16:38:47 落盘 | `reground.log` |
+| ③ 编辑器模块 | Editor 构建 Succeeded（`Saved/BuildEditor/build-20260918-163851.log`）；**编辑器 DLL 与 Game EXE 里都已搜不到 `FountainSplash`**（四根乱喷水柱已从构件里彻底移除） | `binaries` 字符串复核 |
+| ④ 只读复核 | `RomanFountain1` = `(1350,−1550,0)`，包围盒 `z=[−1..720]`，与 `Floor`（top 0）/ 凉亭台基（0..20）同一地面 | `probe_level.log` |
+
+踩坑补充（都已进 skill）：
+
+- `delete_all_material_expressions` 即便先删掉引用它的材质实例也会断言崩溃——被删对象在 GC 前仍持有引用。
+  本轮改成**只改属性**（光照模式 / SceneTexture 节点 id / Opacity 上的 Clamp 参数），不再重建图。
+- 本版枚举全部是**大写 + 下划线**：`TLM_SURFACE_PER_PIXEL_LIGHTING`、`PPI_SCENE_DEPTH`、`CMODE_CLAMP_MAX`
+  （`ClampMode` 没有 MinMax）。写错时全部静默退回默认值，必须"设完立刻读回"。
+- 贴地脚本第一版取"最高的 Floor 面"，结果选到 2100 cm 外抬高的凉亭台基（top=20）→ 改成
+  **只吃 XY 范围包含目标的那个面**。
+- 并行会话的 Unreal 进程会随时抢锁：一次 84 s 的运行里材质保存就全失败了（`LogSavePackage: Error: Error saving`），
+  所以脚本改成"重跑幂等 + 每次核对 mtime"。

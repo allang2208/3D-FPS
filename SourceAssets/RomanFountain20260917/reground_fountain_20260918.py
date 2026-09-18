@@ -49,16 +49,29 @@ fountains = [a for a in actors if "ColdSteelFountain" in a.get_class().get_name(
 log("fountains=%d" % len(fountains))
 
 ground_z = GROUND_Z_OVERRIDE
+ground_actor = None
 if ground_z is None:
+    # 只认 **XY 范围包含喷泉** 的地面（关卡里既有 500 m 大地面，也有凉亭那块抬高的大理石台基；
+    # 直接取"最高"会选到 2100 cm 外、根本不在脚下的台基）。同 XY 内取最高的那个面。
+    fx = fy = None
+    if fountains:
+        fl = fountains[0].get_actor_location()
+        fx, fy = fl.x, fl.y
     cands = []
     for a in actors:
         label = a.get_actor_label() or ""
-        if GROUND_HINT in label and "StaticMesh" in a.get_class().get_name():
-            o, e = a.get_actor_bounds(False)
+        if not ("StaticMesh" in a.get_class().get_name()):
+            continue
+        o, e = a.get_actor_bounds(False)
+        if fx is not None and not (abs(o.x - fx) <= e.x and abs(o.y - fy) <= e.y):
+            continue
+        if GROUND_HINT in label or "Floor" in label:
             cands.append((label, o.z + e.z))
     log("ground candidates: %s" % cands)
     if cands:
         ground_z = max(z for _, z in cands)
+        ground_actor = [a for a in actors if (a.get_actor_label() or "") ==
+                        [n for n, z in cands if z == ground_z][0]]
 if ground_z is None:
     raise RuntimeError("找不到地面 actor；可给 GROUND_Z_OVERRIDE 填数字")
 log("ground_z=%.1f" % ground_z)
@@ -75,6 +88,8 @@ for f in fountains:
     for a in actors:
         if a == f or a.get_attach_parent_actor() == f:
             continue
+        if ground_actor and a in ground_actor:
+            continue      # 地面本身必然"相交"，不算 clash
         if "ColdSteelFountain" in a.get_class().get_name():
             continue
         ao, ae = a.get_actor_bounds(False)

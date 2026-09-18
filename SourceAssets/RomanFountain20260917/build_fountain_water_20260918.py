@@ -388,17 +388,77 @@ return float2(u, v) / max(FoamSize, 1.0);""",
 
 
 # ------------------------------------------------------------------ 2. 实例
+def fix_water_material(mat):
+    """只改属性：光照模式 / SceneDepth 节点 id / 透明度上限。不碰表达式表。"""
+    tlm = getattr(unreal.TranslucencyLightingMode, "TLM_SURFACE_PER_PIXEL_LIGHTING", None)
+    if tlm is not None:
+        mat.set_editor_property("translucency_lighting_mode", tlm)
+        check("water_tlm_surface_per_pixel",
+              mat.get_editor_property("translucency_lighting_mode") == tlm)
+    else:
+        check("water_tlm_surface_per_pixel", False)
+    log("water tlm = %s" % mat.get_editor_property("translucency_lighting_mode"))
+
+    depth_enum = getattr(unreal.SceneTextureId, "PPI_SCENE_DEPTH", None)
+    fixed_scene = 0
+    for e in (MEL.get_material_expressions(mat) or []):
+        if "SceneTexture" not in e.get_class().get_name():
+            continue
+        if depth_enum is not None:
+            e.set_editor_property("scene_texture_id", depth_enum)
+        log("SceneTexture id = %s" % e.get_editor_property("scene_texture_id"))
+        fixed_scene += 1
+    check("water_scene_depth_nodes", fixed_scene >= 1)
+
+    # 接在 Opacity 上的那个 Clamp：把上限压到 0.62，避免掠射角读成实心板
+    try:
+        op_node = MEL.get_material_property_input_node(mat, unreal.MaterialProperty.MP_OPACITY)
+        if op_node and "Clamp" in op_node.get_class().get_name():
+            # 本版 ClampMode 只有 CMODE_CLAMP / CMODE_CLAMP_MAX / CMODE_CLAMP_MIN（探针读出），
+            # 没有 MinMax；透明度各项恒非负，所以 CLAMP_MAX(0.62) 等价于 [0, 0.62]。
+            mode = None
+            for cand in ("CMODE_CLAMP_MAX", "CMODE_CLAMP"):
+                mode = getattr(unreal.ClampMode, cand, None)
+                if mode is not None:
+                    break
+            if mode is not None:
+                op_node.set_editor_property("clamp_mode", mode)
+            op_node.set_editor_property("max_default", 0.62)
+            log("opacity clamp max = %s (mode %s)" % (
+                op_node.get_editor_property("max_default"), op_node.get_editor_property("clamp_mode")))
+            check("water_opacity_cap", abs(op_node.get_editor_property("max_default") - 0.62) < 0.01)
+        else:
+            check("water_opacity_cap", False)
+    except Exception as exc:  # noqa: BLE001
+        log("opacity clamp fix failed: %s" % exc)
+        check("water_opacity_cap", False)
+
+    errs = MEL.recompile_material(mat)
+    log("water recompile (property-only) -> %s" % errs)
+    save_fresh(mat, WATER_MAT, "M_FountainWater")
+    return mat
+
+
 def build_water_material():
     """工程自制水面材质：极坐标双层滚动法线 + 落水驱动的解析涟漪 + 场景深度配色 + 菲涅尔天空反射。
 
     为什么不用包内 `M_Water_Clean` 实例：那套材质在 XAtlas UV 上滚法线，尺度不可控、又偏暗，
     实测读成"深色固体"。这里把法线/涟漪全部放在自算的极坐标上，并按场景深度做浅→深过渡。
+
+    **已存在时走"只改属性"路径**：重建表达式表会被断言 !IsRooted() 杀掉进程
+    （材质被已保存的网格/实例引用，连删掉实例都不够——被删对象在 GC 前仍持有引用）。
+    本轮要修的三件事全是属性，不需要动图：
+      ① 材质光照模式 → TLM_SURFACE_PER_PIXEL_LIGHTING（默认 Volumetric NonDirectional 收不到直射光）
+      ② SceneTexture 节点 id → PPI_SCENE_DEPTH（建图时写错枚举名，静默退回 SceneColor）
+      ③ 接在 Opacity 上的 Clamp 的 Max → 0.62（避免掠射角变成实心板）
     """
     mat = ensure_asset(WATER_MAT, unreal.Material, unreal.MaterialFactoryNew)
     if not mat:
         check("water_material_created", False)
         return None
     check("water_material_created", True)
+    if MEL.get_material_expressions(mat) or []:
+        return fix_water_material(mat)
     MEL.delete_all_material_expressions(mat)
     mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
     mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_DEFAULT_LIT)
@@ -710,16 +770,15 @@ caustics = make_instance(MATDIR + "/MIC_FountainCaustics", unreal.load_asset(CAU
                          {"Colour": unreal.LinearColor(0.42, 0.68, 0.66, 1.0)})
 water = make_instance(water_inst_path, water_mat,
                       {"FountainScale": SCALE, "DepthScale": 190.0,
-                       "OpacityBase": 0.34, "FresnelOpacity": 0.30, "MaxOpacity": 0.62, "FresnelPower": 3.0,
-                       "ReflectionStrength": 0.9, "SkyAmbient": 0.16, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
+                       "OpacityBase": 0.34, "FresnelOpacity": 0.30, "FresnelPower": 3.0,
+                       "ReflectionStrength": 0.9, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
                        "WaveScale": 150.0, "WaveSpeed": 0.05, "Wave2Scale": 62.0, "Wave2Speed": 0.09,
                        "NormalStrength": 0.9, "NormalStrength2": 0.6,
                        "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
                        "RippleFreq": 0.45, "RippleWidth": 210.0, "RippleStrength": 0.85,
                        "RippleFoam": 0.7, "RippleFoamOpacity": 0.4},
                       {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),
-                       "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0),
-                       "SkyTint": unreal.LinearColor(0.55, 0.72, 0.82, 1.0)},
+                       "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0)},
                       {"NormalTex": WAVE_NORMAL_A, "NormalTex2": WAVE_NORMAL_B, "ReflectionCubemap": CUBEMAP})
 
 # 实例参数读回（UE 5.8 的 set_* 常常返回 False 但实际写进去了，所以按"写入值是否落在实例上"判断）

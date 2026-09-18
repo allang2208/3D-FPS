@@ -170,3 +170,19 @@ v1-v2）→ M_Water_Opaque（不透明，v3；**无暴露参数，不能调色**
 - **水帘提亮加速**（`MIC_FountainCascade`）、**新增 4 个落点水花**（引擎模板缩到 0.42）。
 - **性能**：近/中/远距离分级（26 m / 62 m）、`fps.Fountain.Quality 0` 一键全关、水效网格排除出 RT 几何与距离场。
 - B 档（浅水 SWE 真模拟）本轮**用解析涟漪替代**（理由与升级路径见文档 6.3）；水雾/飞沫、WPO 摆动、正式水声仍未做。
+
+
+## 2026-09-18 七次迭代：三条根因与修复（已落盘）
+
+用户回执"还是假、水像固体、喷水位置不对"。只读探针（`probe_water_state_*.py`、`probe_level_ground_*.py`）查出三条叠加根因：
+
+1. **整座喷泉沉进地面 3.6 m**：`Floor` 顶面 z=0、凉亭在 z=0/20，而喷泉 actor 在 z=−360（当初按 pivot 在包围盒中心
+   套 `-bb.origin.z`，而本网格 pivot 在底面）。大盆连水一起埋在地下，画面只剩上半截 → 既像固体、水柱又偏高。
+   已用 `reground_fountain_20260918.py` 贴地：**loc=(1350,−1550,0)、包围盒 z=[−1..720]**。
+2. **水面材质光照模式是默认值** `TLM_VOLUMETRIC_NON_DIRECTIONAL`（半透明 Default Lit 只吃间接光 → 暗板）。
+   已改 `TLM_SURFACE_PER_PIXEL_LIGHTING`（读回确认）。
+3. **SceneDepth 节点实际取 SceneColor**（枚举名写错被静默退回）→ 深度配色/透明度链失效。已改 `PPI_SCENE_DEPTH`，
+   并给 Opacity 的 Clamp 加 0.62 上限（`CMODE_CLAMP_MAX`）。
+
+另外：v6 用"向上喷"模板当落点水花，实际是盆里多了四根小喷泉 —— 已从 `AColdSteelFountain` 移除，
+编辑器 DLL 与 Game EXE 里都已搜不到 `FountainSplash`。
