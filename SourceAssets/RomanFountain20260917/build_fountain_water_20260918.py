@@ -1164,14 +1164,16 @@ if EAL.does_asset_exist(WAVE_INST):
     EAL.delete_asset(WAVE_INST)
 wave_inst = make_instance(WAVE_INST, wave_mat,
                           {"FountainScale": SCALE, "DepthScale": 190.0,
-                           "WaveHeight": 7.0, "NormalSlope": 1.0,
-                           "Wave1Length": 300.0, "Wave1Speed": 0.55, "Wave1Amp": 0.55,
-                           "Wave2Length": 170.0, "Wave2Speed": 0.85, "Wave2Amp": 0.35,
-                           "NoiseScale": 260.0, "NoiseSpeed": 0.35, "NoiseStrength": 0.35, "NoiseDelta": 6.0,
+                           # 第一版 7 cm 起伏放在 7 m 水盘上"看不出来"（用户实测反馈），这轮先调到一眼可见，
+                           # 观感过强时只降 WaveHeight 一个数即可。
+                           "WaveHeight": 22.0, "NormalSlope": 1.6,
+                           "Wave1Length": 240.0, "Wave1Speed": 0.5, "Wave1Amp": 0.7,
+                           "Wave2Length": 140.0, "Wave2Speed": 0.8, "Wave2Amp": 0.5,
+                           "NoiseScale": 240.0, "NoiseSpeed": 0.4, "NoiseStrength": 0.6, "NoiseDelta": 5.0,
                            "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
-                           "RippleFreq": 0.6, "RippleWidth": 260.0, "RippleStrength": 1.1,
-                           "OpacityBase": 0.30, "FresnelOpacity": 0.25, "FresnelPower": 3.0,
-                           "ReflectionStrength": 0.9, "CrestFoam": 0.35,
+                           "RippleFreq": 0.6, "RippleWidth": 260.0, "RippleStrength": 1.4,
+                           "OpacityBase": 0.34, "FresnelOpacity": 0.30, "FresnelPower": 3.0,
+                           "ReflectionStrength": 0.9, "CrestFoam": 0.5,
                            "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0},
                           {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),
                            "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0)},

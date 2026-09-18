@@ -328,3 +328,24 @@ v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水�
 `WaveHeight`（起伏幅度，默认 7 cm）、`Wave1/2 Length|Speed|Amp`（两层波）、
 `NoiseScale|Speed|Strength`（不规则度）、`RippleStrength|RippleFreq|RippleWidth`（落水涟漪）、
 `OpacityBase|FresnelOpacity|ReflectionStrength`（水感/反射强度）、`NormalSlope`（亮面起伏强度）。
+
+## 9.5 用户回执"没有看出来有变化" → 只读取证 + 幅度上调（2026-09-18 18:49）
+
+`probe_fountain_runtime_20260918.py`（只读，日志 `probe_runtime.log`）证明**资产与关卡都已在位**：
+
+| 检查 | 读数 |
+| --- | --- |
+| `M_FountainWaveWater` | blend=TRANSLUCENT、shading=DEFAULT_LIT、tlm=**TLM_SURFACE_PER_PIXEL_LIGHTING**、**tangent_space_normal=False**、61 表达式；**WPO ← Custom**、**Normal ← Custom**、Opacity ← Clamp、BaseColor ← Lerp、Emissive ← Add |
+| `MIC_FountainWaveWater` | parent=M_FountainWaveWater，28 个 scalar 覆盖；`WaveHeight=7`（本轮已上调，见下） |
+| `SM_RomanFountain_WaterWaves` | tris=16128、bbox 729×729×422、slots=['MIC_FountainWaveWater'] |
+| `SM_RomanFountain_20` | slots=['M_RomanStone_V2', **'M_FountainHidden'**]（旧平面水已剔除） |
+| 关卡 `RomanFountain1` | **(1350,−1550,0)**（已贴地）；组件 = `FountainMesh` / `FountainWaterFx` / **`FountainWater`**（都在、都可见）+ `FountainJet` |
+
+即：C++ 新增的 `FountainWater` 组件**确实补到了已摆放的实例上**，水面网格也挂着会起伏的材质。
+那么"看不出变化"的最大嫌疑是**编辑器会话是旧的**（若没有重开编辑器，连"喷泉从埋地变成立在地面上"都看不到），
+其次是**7 cm 起伏放在 7 m 水盘上确实太小**。
+
+因此本轮把幅度调到一眼可见（`MIC_FountainWaveWater`，已落盘 18:50:13）：
+`WaveHeight 7 → 22`、`NormalSlope 1.0 → 1.6`、`Wave1Length 300→240 / Amp 0.55→0.7`、
+`Wave2Length 170→140 / Amp 0.35→0.5`、`NoiseStrength 0.35→0.6`、`RippleStrength 1.1→1.4`、`CrestFoam 0.35→0.5`、
+`OpacityBase 0.30→0.34 / FresnelOpacity 0.25→0.30`。**观感过强时只降 `WaveHeight` 一个数即可。**
