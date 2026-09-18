@@ -14,6 +14,7 @@ Run: UnrealEditor-Cmd.exe FPSGAME.uproject -run=pythonscript -script=<this file>
 """
 import unreal as u
 import json
+import sys
 from pathlib import Path
 
 O = Path(__file__).parent
@@ -43,12 +44,16 @@ JOBS = {
 
 
 def save(asset):
+    # wepaon-finish.md: a locked editor makes the external save fail silently or
+    # throw, so every asset records its own outcome instead of aborting the run.
     if not E.save_loaded_asset(asset, False):
         raise RuntimeError('Save failed ' + asset.get_path_name())
 
 
-report = {}
-for name, cfg in JOBS.items():
+ARGV = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+ONLY = set(ARGV)
+
+def install(name, cfg):
     if cfg['fbx']:
         task = u.AssetImportTask()
         task.filename = str(O / 'FBX' / cfg['fbx'])
@@ -71,12 +76,10 @@ for name, cfg in JOBS.items():
 
     mesh = u.load_asset(D + '/' + name)
     if not mesh:
-        report[name] = 'MESH MISSING'
-        continue
+        return 'MESH MISSING'
     material = u.load_asset(cfg['magazine_material'])
     if not material:
-        report[name] = 'MATERIAL MISSING ' + cfg['magazine_material']
-        continue
+        return 'MATERIAL MISSING ' + cfg['magazine_material']
     slots = mesh.get_editor_property('static_materials')
     for index, slot in enumerate(slots):
         slot.material_interface = material
@@ -87,7 +90,7 @@ for name, cfg in JOBS.items():
     save(mesh)
 
     bounds = mesh.get_bounds()
-    report[name] = {
+    return {
         'material': material.get_path_name(),
         'rifle': cfg['rifle'],
         'slots': [str(slot.material_slot_name) for slot in slots],
@@ -97,6 +100,16 @@ for name, cfg in JOBS.items():
                       round(bounds.box_extent.z * 2, 2)],
         'note': cfg['note'],
     }
+
+
+report = {}
+for name, cfg in JOBS.items():
+    if ONLY and name not in ONLY:
+        continue
+    try:
+        report[name] = install(name, cfg)
+    except Exception as err:
+        report[name] = 'FAILED (editor may hold the asset): %s' % err
 
 (O / 'factory_install_receipt.json').write_text(json.dumps(report, indent=2, ensure_ascii=False, default=str))
 u.log('EXTMAG_FACTORY_INSTALLED ' + json.dumps(report, ensure_ascii=False, default=str))
