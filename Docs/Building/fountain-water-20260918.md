@@ -69,6 +69,14 @@ $env:FOUNTAIN_HEADLESS='1'; UnrealEditor-Cmd.exe <uproject> -run=pythonscript \
 | 关卡 | 迁移 11 项全 PASS，umap mtime 13:05:33 |
 | 构建 | Game `Saved/BuildEditor/fountain-water-game-20260918.log`、Editor `Saved/BuildEditor/build-20260918-130435.log` 均 Succeeded |
 
+发布记录：提交 `780c93a`（`origin/main`），发布目录 `D:/FPS3D/FPSGAME`，普通推送 `HEAD:main`。
+内容依赖（本机 `Content/*`，按忽略规则不入库）：`SM_RomanFountain_20`、`SM_RomanFountain_WaterFX`、
+`M_FountainWaterFilm` 与 5 个 `MIC_Fountain*` 实例。
+**待办**：喷泉 v1–v4 的作者脚本（`build_fountain_20260917.py`、`scale_fountain_2x_20260918.py`、
+`add_socle_20260918.py`、`place_fountain_2x_20260918.py`、`probe*/verify*`、`forensic_fountain.obj`）在本轮之前
+就**未被跟踪**（不是本轮的改动），所以新克隆里只有本轮的 `build_fountain_water_20260918.py` 与
+`register_fountain_prefab_20260918.py`；是否把它们一并入库需要用户确认。
+
 ## 4. 交给用户的实测清单（本轮未实测）
 
 1. 进游戏看关卡喷泉：**水柱应贴在塔尖**（不再悬在塔尖上方）；三级盘沿应有向下流动的水帘，落点有泡沫环；水线处有泡沫与湿痕，水面半透明能看到盆底焦散。
