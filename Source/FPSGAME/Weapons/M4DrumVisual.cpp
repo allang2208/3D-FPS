@@ -38,31 +38,80 @@ void AFPSGAMECharacter::SetGunsmithInspection(bool bInspect)
             }
 }
 
-void AFPSGAMECharacter::SetGunsmithDrum(bool bDrum)
+void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
-    if (IsPistolWeapon()) return;
+    bool bDrum=Id==TEXT("large_drum");
+    bool bExtMag=Id==TEXT("ext_mag");
+    if (IsPistolWeapon()) { MagazineAttachmentId.Reset(); return; }
+    const bool bRifle=bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel)||bUseQBZ191;
+    MagazineAttachmentId=(bDrum||bExtMag)&&bRifle&&bInventoryWeaponReady?Id:FString();
+    // Preserve the historical drum gating exactly; the universal extended
+    // magazine covers all three rifles.
     bDrum=bDrum&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel))&&bInventoryWeaponReady;
+    bExtMag=MagazineAttachmentId==TEXT("ext_mag");
     auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();if(!WeaponMesh)return;
-    if(bUseQBZ191){
-        LargeDrum=QBZ191Attachments::ConfigureFitted(this,AKMViewmodel,LargeDrum,TEXT("drum"),bDrum,TEXT("WPN_SOCKET_Magazine"));
+    if(bUseQBZ191&&bDrum){
+        LargeDrum=QBZ191Attachments::ConfigureFitted(this,AKMViewmodel,LargeDrum,TEXT("drum"),true,TEXT("WPN_SOCKET_Magazine"));
         DrumMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
     }
-    if(AKMSoviet::Matches(AKMViewmodel)){
-        LargeDrum=AKMAttachment::Configure(this,AKMViewmodel,LargeDrum,TEXT("drum"),bDrum,TEXT("WPN_SOCKET_Magazine"));
+    if(AKMSoviet::Matches(AKMViewmodel)&&bDrum){
+        LargeDrum=AKMAttachment::Configure(this,AKMViewmodel,LargeDrum,TEXT("drum"),true,TEXT("WPN_SOCKET_Magazine"));
         DrumMount=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
     }
-    if(bDrum&&!LargeDrum&&!bUseQBZ191)
+    if(bDrum&&!bUseQBZ191)
     {
         auto* Asset=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_LargeDrum"));
         if(!Asset){UE_LOG(LogTemp,Error,TEXT("M4_DRUM: missing mesh"));return;}
-        LargeDrum=NewObject<UStaticMeshComponent>(this,TEXT("M4LargeDrum"));LargeDrum->SetStaticMesh(Asset);
-        LargeDrum->SetCollisionEnabled(ECollisionEnabled::NoCollision);LargeDrum->SetCastShadow(false);LargeDrum->bReceivesDecals=false;
-        LargeDrum->SetupAttachment(AKMViewmodel,TEXT("WPN_SOCKET_Magazine"));LargeDrum->RegisterComponent();
+        // Always re-apply the drum mesh: the shared component may still hold
+        // the extended-magazine mesh after switching options in one session.
+        if(!LargeDrum)
+        {
+            LargeDrum=NewObject<UStaticMeshComponent>(this,TEXT("M4LargeDrum"));
+            LargeDrum->SetCollisionEnabled(ECollisionEnabled::NoCollision);LargeDrum->SetCastShadow(false);LargeDrum->bReceivesDecals=false;
+            LargeDrum->SetupAttachment(AKMViewmodel,TEXT("WPN_SOCKET_Magazine"));LargeDrum->RegisterComponent();
+        }
+        if(LargeDrum->GetStaticMesh()!=Asset)LargeDrum->EmptyOverrideMaterials();
+        LargeDrum->SetStaticMesh(Asset);
         const auto& Ref=WeaponMesh->GetRefSkeleton();FTransform Bone=FTransform::Identity;
         for(int32 I=Ref.FindBoneIndex(TEXT("WPN_SOCKET_Magazine"));I!=INDEX_NONE;I=Ref.GetParentIndex(I))Bone=Bone*Ref.GetRefBonePose()[I];
         DrumMount=FTransform::Identity.GetRelativeTransform(Bone);LargeDrum->SetRelativeTransform(DrumMount);
     }
-    bDrumVisual=bDrum;if(LargeDrum)LargeDrum->SetVisibility(bDrum);
+    if(bExtMag)
+    {
+        // Each rifle takes its own factory magazine shape, so each gets its own
+        // asset: QBZ-191 the 5.8 mm magazine, M4 and AKM the PMAG they share.
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseQBZ191
+            ?TEXT("/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_QBZ40.SM_ExtMag_QBZ40")
+            :AKMSoviet::Matches(AKMViewmodel)
+                ?TEXT("/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_AKM40.SM_ExtMag_AKM40")
+                :TEXT("/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440.SM_ExtMag_M440"));
+        if(!Asset){UE_LOG(LogTemp,Error,TEXT("EXT_MAG: missing mesh"));return;}
+        if(!LargeDrum)
+        {
+            LargeDrum=NewObject<UStaticMeshComponent>(this,TEXT("GunsmithExtMag"));
+            LargeDrum->SetCollisionEnabled(ECollisionEnabled::NoCollision);LargeDrum->SetCastShadow(false);LargeDrum->bReceivesDecals=false;
+            LargeDrum->SetupAttachment(AKMViewmodel,TEXT("WPN_SOCKET_Magazine"));LargeDrum->RegisterComponent();
+        }
+        if(LargeDrum->GetStaticMesh()!=Asset)LargeDrum->EmptyOverrideMaterials();
+        LargeDrum->SetStaticMesh(Asset);
+        // Each mesh is authored inside its own rifle's WPN_SOCKET_Magazine frame
+        // (factory assembly pose, lengthened in place), so the installed angle
+        // and depth come from the weapon interface itself - no fitted rake and
+        // no pose guessed from a bounding-box axis. The runtime skeleton is
+        // scaled x100, so the seat keeps the 0.01 scale the accepted drum mounts
+        // use (see DrumMount below); with unit scale the magazine inherits x100
+        // and lands hundreds of metres off the weapon.
+        LargeDrum->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
+        UE_LOG(LogTemp,Display,TEXT("EXT_MAG: attached id=%s mesh=%s rel_loc=%s world_loc=%s parent=%s parent_loc=%s weapon_loc=%s socket_ok=%d skel=%s"),
+            *MagazineAttachmentId,*Asset->GetName(),*LargeDrum->GetRelativeLocation().ToString(),*LargeDrum->GetComponentLocation().ToString(),
+            LargeDrum->GetAttachParent()?*LargeDrum->GetAttachParent()->GetName():TEXT("none"),
+            LargeDrum->GetAttachParent()?*LargeDrum->GetAttachParent()->GetComponentLocation().ToString():TEXT("-"),
+            *AKMViewmodel->GetComponentLocation().ToString(),
+            AKMViewmodel->DoesSocketExist(TEXT("WPN_SOCKET_Magazine"))?1:0,
+            WeaponMesh?*WeaponMesh->GetName():TEXT("none"));
+        DrumMount=LargeDrum->GetRelativeTransform();
+    }
+    bDrumVisual=bDrum;if(LargeDrum)LargeDrum->SetVisibility(bDrum||bExtMag);
     // Hide the complete original magazine, preserving the receiver and all skin weights.
     if(const auto* Render=WeaponMesh->GetResourceForRendering())
         for(int32 L=0;L<Render->LODRenderData.Num();++L)
@@ -70,7 +119,7 @@ void AFPSGAMECharacter::SetGunsmithDrum(bool bDrum)
             {
                 const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
                 if(WeaponMesh->GetMaterials().IsValidIndex(M)&&WeaponMesh->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Magazine")))
-                    AKMViewmodel->ShowMaterialSection(M,S,!bDrum,L);
+                    AKMViewmodel->ShowMaterialSection(M,S,!(bDrum||bExtMag),L);
             }
 }
 bool AFPSGAMECharacter::ValidateDrumAttachment() const
@@ -89,6 +138,13 @@ bool AFPSGAMECharacter::ValidateDrumAttachment() const
 void AFPSGAMECharacter::UpdateDrumDropVisual()
 {
     if(!LargeDrum)return;
+    if(MagazineAttachmentId==TEXT("ext_mag"))
+    {
+        // The universal magazine is socket-bound and rides the authored
+        // reload path; no drum drop choreography.
+        bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
+        LargeDrum->SetVisibility(true);return;
+    }
     if(!bDrumInstalled||!IsReloading())
     {
         bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
