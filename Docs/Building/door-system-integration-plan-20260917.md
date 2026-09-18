@@ -396,3 +396,5 @@ SetMaterial(0, Surface)"）。想在游戏里保住那扇小窗的玻璃，把 `
   `DefaultFrameMesh`），UBT 的 unity 合并会把它们并进同一块报 `C2374 重定义`；现已按类命名。
 - **未实机实测**：Game／Editor 两目标编译 Succeeded、网格与调色板脚本自检 PASS（各自的 `SourceAssets/**` 日志），
   但**没有进游戏**验证放置、预览、按 E 开合、被挡反向与存档，按约定由用户测试。
+- 发布记录：提交 `50275bf`（`origin/main`），发布目录 `D:/FPS3D/FPSGAME`，普通推送 `HEAD:main`，
+  `git ls-remote` 回读一致；新增内容依赖 `/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40`。
