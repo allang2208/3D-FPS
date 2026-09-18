@@ -10,9 +10,13 @@
 
 namespace
 {
-    // 包自带的门板／门框（迁移在 Content/DoorSystem 下）；换外观只需改这两个默认值。
-    const TCHAR* DefaultLeafMesh=TEXT("/Game/DoorSystem/Demo/StarterContent/Props/SM_Door.SM_Door");
-    const TCHAR* DefaultFrameMesh=TEXT("/Game/DoorSystem/Demo/StarterContent/Props/SM_DoorFrame.SM_DoorFrame");
+    // 门板仍是包里的 SM_Door（迁移在 Content/DoorSystem 下）；门框用本工程缩放进深后的资产
+    // （SourceAssets/SingleDoor20260918/bake_single_door_frame_d40_20260918.py：24.8 → 40 cm，
+    //  进深 40 ＝ 2 格体素，与双开门统一；其余两轴与包资产一致）。换外观只需改这两个默认值。
+    // 名字按类区分：这三个门的 .cpp 会被 UBT 合并进同一个 unity 文件，
+    // 匿名命名空间在合并块里是共享的，同名常量会报 C2374 重定义。
+    const TCHAR* SingleDoorLeafMesh=TEXT("/Game/DoorSystem/Demo/StarterContent/Props/SM_Door.SM_Door");
+    const TCHAR* SingleDoorFrameMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40.SM_SingleDoorFrame_D40");
     // 门框内沿到中线的距离（cm）：门板宽 90 → 铰链在 −45，门板中心在 +45。
     constexpr float LeafHalfWidth=45.f;
     constexpr float LeafCenterZ=100.f;
@@ -40,8 +44,8 @@ AColdSteelDoor::AColdSteelDoor()
     Leaf->SetCollisionProfileName(TEXT("BlockAll"));
     Leaf->SetCanEverAffectNavigation(false);
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeafAsset(DefaultLeafMesh);
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> FrameAsset(DefaultFrameMesh);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeafAsset(SingleDoorLeafMesh);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> FrameAsset(SingleDoorFrameMesh);
     if(LeafAsset.Succeeded())Leaf->SetStaticMesh(LeafAsset.Object);
     if(FrameAsset.Succeeded())Frame->SetStaticMesh(FrameAsset.Object);
 }

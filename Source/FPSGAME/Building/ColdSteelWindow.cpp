@@ -11,8 +11,9 @@
 namespace
 {
     // 本工程自己的窗网格（SourceAssets/Window20260918 生成）；换外观只改这两个默认值。
-    const TCHAR* DefaultFrameMesh=TEXT("/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100");
-    const TCHAR* DefaultLeafMesh=TEXT("/Game/Props/Window20260918/SM_WindowLeaf_100.SM_WindowLeaf_100");
+    // 名字按类区分（unity 合并块里匿名命名空间是共享的，同名常量会撞 C2374）。
+    const TCHAR* WindowFrameMesh=TEXT("/Game/Props/Window20260918/SM_WindowFrame_100.SM_WindowFrame_100");
+    const TCHAR* WindowLeafMesh=TEXT("/Game/Props/Window20260918/SM_WindowLeaf_100.SM_WindowLeaf_100");
     // 100×100 双开窗的标称尺寸（cm）：AlignGeometry 之后 Y／Z 仍以网格包围盒为准。
     constexpr float NominalOpeningHalfY=44.f;
     constexpr float NominalLeafHalfY=21.75f;
@@ -57,8 +58,8 @@ AColdSteelWindow::AColdSteelWindow()
     LeafRight->SetCollisionProfileName(TEXT("BlockAll"));
     LeafRight->SetCanEverAffectNavigation(false);
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> FrameAsset(DefaultFrameMesh);
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeafAsset(DefaultLeafMesh);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> FrameAsset(WindowFrameMesh);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> LeafAsset(WindowLeafMesh);
     if(FrameAsset.Succeeded())Frame->SetStaticMesh(FrameAsset.Object);
     if(LeafAsset.Succeeded())
     {

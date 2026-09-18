@@ -380,7 +380,9 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
    高度卡在 10 格与 11 格之间——**要用包里的模型就用"逐轴缩放"而不是重做几何**：
    `copy_mesh_from_static_mesh → scale_mesh(逐轴) → copy_mesh_to_static_mesh`（先例
    `SourceAssets/RomanFountain20260917/scale_fountain_2x_20260918.py`，门的缩放版见
-   `SourceAssets/SingleDoor20260918/bake_resized_door_meshes_20260918.py`），缩放后**必须**清空过期简单碰撞并改
+   `SourceAssets/SingleDoor20260918/bake_single_door_frame_d40_20260918.py` 与
+   `SourceAssets/DoubleDoor20260918/build_double_door_meshes_20260918.py` 的 `bake_pack_leaf()`），
+   缩放后**必须**清空过期简单碰撞并改
    `CTF_USE_COMPLEX_AS_SIMPLE`（环状门框包成盒会把门洞堵死）。包里的 pivot 常在边上／底边，缩放不改这一点，
    所以 Actor 摆位与离线渲染都按包围盒算（渲染脚本要先平移成"Actor 口径"，否则门板会飘到半空）。
    **两条硬教训（2026-09-18 门尺寸统一化事故，已整轮回退）**：① **缩放时必须保留材质槽**——
@@ -389,8 +391,23 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
    ② **只改网格时不要动 Actor 代码**：门线原代码一律按包围盒摆位，等比缩放后照常工作；那次顺手重写了
    铰链贴面／开角／转 180° 的扇侧，结果"开门完全错误"、整轮回退。正确顺序：改网格 → 出渲染 →
    进游戏只验"能放、能开" → 确认无回归后再谈代码。
-   同族件共用同一套分件构造（门扇：边梃 10 ＋ 上冒头 10 ＋ 下冒头 20 ＋ 凹面板 ＋ 圆形把手；窗扇：边梃 ＋ 凹面板），
+  同族件共用同一套分件构造（门扇：边梃 10 ＋ 上冒头 10 ＋ 下冒头 20 ＋ 凹面板 ＋ 圆形把手；窗扇：边梃 ＋ 凹面板），
    改一处两边都跟着改。
+   **第二轮（2026-09-18 晚，已完成，取代第一次的整轮回退）**：单扇门与双开门的门框进深统一成 **40 cm（2 格体素）**，
+   双开门门扇换成单扇门的门扇模型。落点：
+   - 单扇门框 `Props/SingleDoor20260918/SM_SingleDoorFrame_D40`：24.84 × 113.99 × 212 → **40 × 114 × 212**
+     （**只缩 X**），占格仍是 (2,6,11)；门板、铰链、开角、Actor 代码一行未改，只把 `ColdSteelDoor.cpp` 的
+     门框默认路径换成它。
+   - 双开门框重建为 **40 × 200 × 200**，调色板三条双开门条目从 (1,10,10) 改成 **(2,10,10)**。
+   - 双开门门扇 = 包里 `SM_Door` 逐轴缩放 (1.0, 91.5/90, 183/200)：**X 不缩放**（板厚 5 cm ＝ 2×
+     `LeafHalfThicknessCm`，铰链深度才对得上）＋ 绕 Z 转 180° 把把手转到网格 **+Y**（包门扇把手在 −Y，
+     转过来才符合基类"把手 +Y／右扇 180°"的约定，C++ 不动）＋ **平移把包围盒中心放回网格原点**——
+     `AlignGeometry` 的右扇 Y 公式只在"原点＝包围盒中心"时成立，原模型原点偏 (0,−45,+100)，
+     不归零右扇会整体偏半个门宽。
+   - 烘焙容器用 `duplicate_asset` 复制一份源资产再覆盖几何（本版 Python 没有 `StaticMeshFactoryNew`），
+     或烘完逐槽拷回 `static_materials`；两条路都要核对 `slots` 数与源一致（门扇应保留 2 槽含 M_Glass）。
+   - 同一模块里多个 .cpp 在**匿名命名空间定义同名常量**会被 UBT 的 unity 合并撞出 `C2374 重定义`
+     （门／窗／双开门三个文件原本都叫 `DefaultLeafMesh`／`DefaultFrameMesh`）——常量名按类区分。
 11. **同类构件登记三条材质是现行口径**：门／窗／双开门都是 wood／stone／marble 各一条（`Material` 分组决定进哪栏），
    这样玩家用哪种体素砌墙就能配哪种构件。命名 `window_*` / `door_*` / `double_door_*`，占格逐轴等于网格包围盒/20。
 
