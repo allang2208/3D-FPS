@@ -20,7 +20,7 @@
    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\QBZ\\T_ExtMag_QBZ191_ORM.png"
   },
   "uv_layers": [
-   "UVMap",
+   "HeroUV",
    "QBZCoatingUV"
   ],
   "note": "bake_coating.py rule: rifle coating + contact wear on the part atlas"

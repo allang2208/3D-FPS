@@ -51,7 +51,7 @@ report = {}
 
 # ---------------------------------------------------------------- M4: physical UV
 bpy.ops.wm.read_factory_settings(use_empty=True)
-ob = import_fbx(FBXDIR / 'SM_ExtMag_M440_finish.fbx')[-1]
+ob = import_fbx(FBXDIR / 'SM_ExtMag_M440_factory.fbx')[-1]
 bpy.ops.object.select_all(action='DESELECT')
 ob.select_set(True)
 bpy.context.view_layer.objects.active = ob
@@ -137,7 +137,7 @@ emit = nodes.new('ShaderNodeEmission')
 target = nodes.new('ShaderNodeTexImage')
 nodes.active = target
 
-qbz = import_fbx(FBXDIR / 'SM_ExtMag_QBZ40_finish.fbx')[-1]
+qbz = import_fbx(FBXDIR / 'SM_ExtMag_QBZ40_factory.fbx')[-1]
 bpy.ops.object.select_all(action='DESELECT')
 qbz.select_set(True)
 bpy.context.view_layer.objects.active = qbz

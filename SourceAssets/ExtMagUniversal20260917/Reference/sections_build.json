@@ -1,0 +1,32 @@
+{
+ "M4": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\AKM_RearGripSections_Editable.blend",
+  "object": "M4_Magazine Light.003_Export",
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_factory.fbx",
+  "dims_cm": [
+   4.21,
+   9.37,
+   23.55
+  ],
+  "band_fraction": 0.12,
+  "extension_cm": 6.0,
+  "uv_layers": [
+   "UVMap"
+  ]
+ },
+ "QBZ": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\QBZ191_RearGripSections_Editable.blend",
+  "object": "QBZ_Magazine",
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_factory.fbx",
+  "dims_cm": [
+   4.57,
+   13.16,
+   24.64
+  ],
+  "band_fraction": 0.12,
+  "extension_cm": 6.0,
+  "uv_layers": [
+   "HeroUV"
+  ]
+ }
+}
