@@ -1,3 +1,38 @@
+# 第三次修正：AKM 弹匣按曲率延长、M4/191 改用已验收配件涂层（2026-09-18 晚）
+
+用户反馈：**AKM 弹匣下方截面是尖的**、**M4/191 材质渲染不合格**，并要求直接沿用前面已验收的做法。本轮不再自创做法，两处都改成复用已验收工程。
+
+## 1. AKM 弹匣：只延长，不改形（`Scripts/build_extmag_from_factory.py`）
+
+前两版的毛病都在"怎么把下段移下去"：
+
+- 第一版沿一个方向整体平移 → 弯弹匣被拉直，底板离开曲线，底部读出"尖角"；
+- 第二版插入一段复制体并焊接 → 接缝处留下开放边（实测 312 条边、接缝处 428 个顶点簇），实机是一条明显台阶。
+
+定稿做法：**每个截面沿它自己的局部切线下移**（切线取弹匣中心线的二次拟合求导，抗肋骨噪声），位移量在 6 cm 带内用 smoothstep 渐入。这样弹匣沿着自己的曲率变长、底板与横筋保持原厂几何，闭合性与原厂一致（开放边 98 条 = 原厂同值），实测 4.49 × 18.99 × 23.73 cm（原厂 4.09 × 15.21 × 19.11 cm）。
+
+对照渲染：`Reference/akm_factory_mag_{left,bottom,threequarter}.png`（原厂）与 `Reference/akm_ext_mag_*.png`（延长后）同机位。
+
+## 2. M4/191：改用已验收的配件涂层路线（`Scripts/author_extmag_finish.py` + `install_extmag_finish_accepted.py`）
+
+不再自己做烘焙，直接复用两个已验收工程的代码与材质：
+
+| 枪 | 沿用工程 | 本轮做法 |
+| --- | --- | --- |
+| M4A1 | `WeaponAttachmentFinish20260913` | 按 `author_uv.py` 的物理投影 UV（12×5 cm，按面主法轴选平面）加 `ReceiverFinishPhysicalUV`（索引 1，UV0 与分离法线不动）；UE 侧复制已验收的 `M_M4_drum_1`（它采样物理 UV）为 `M_M4_ext_mag`，把纹理坐标通道 2→1，绑到弹匣 |
+| QBZ-191 | `QBZ191MetalCoat20260913` | 按 `bake_coating.py` 把 QBZ 机匣程序化涂层 + 接触磨损烘焙到弹匣自己的 `QBZCoatingUV`（2048²，BaseColor/ORM）；UE 侧按 `import_coating.py` 克隆原弹匣材质为 `M_QBZ191_ext_mag_Receiver_0`，UV1 采样烘焙图、UV0 结构与法线保持、白色刻字用原底色亮度遮罩 |
+| AKM | 已验收的 AKM 配件涂层源 | 保持 `M_AKM_Soviet_PBR`（该枪机匣/弹匣本身即此材质） |
+
+回执 `finish_install_accepted_receipt.json`；旧的自制烘焙产物（`M_ExtMag_Finish_*`）只作记录保留。
+
+## 3. 状态
+
+- 三件网格与材质已写入正式资产（`SM_ExtMag_M440 / QBZ40 / AKM40`）。
+- **未能取得实机截图**：`FPSGAME.exe` 现在启动即报 `Failed to initialize ShaderCodeLibrary … Global shader library is missing from ../../Content/`，而 `Content/ShaderCodeLibrary` 目录已不存在（并行会话的构建/清理后遗留）。需要先恢复该库才能跑游戏侧捕获；本轮用 Blender 同机位渲染（见上）替代，未做游戏内验收。
+- 按用户规则未做游戏内验收；AKM 底部形状、M4/191 涂层观感由用户确认。
+
+---
+
 # 回归修正：AKM 改用自家弹匣、三枪材质改为原厂弹匣槽（2026-09-18 第二次收口）
 
 用户实机反馈三点：**AKM 没插进弹仓**、**M4/191 材质没统一**、**模型还要优化升级**。三点的根因都在"借件 + 猜坐标系"，本轮改成"各枪自己的弹匣"。

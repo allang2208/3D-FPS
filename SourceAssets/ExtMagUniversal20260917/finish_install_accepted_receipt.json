@@ -1,0 +1,20 @@
+{
+  "SM_ExtMag_M440": {
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_M4_ext_mag.M_M4_ext_mag",
+    "from": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_drum_1.M_M4_drum_1",
+    "uv_index": 1
+  },
+  "SM_ExtMag_QBZ40": {
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_QBZ191_ext_mag_Receiver_0.M_QBZ191_ext_mag_Receiver_0",
+    "textures": {
+      "BaseColor": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_QBZ191_BaseColor.T_ExtMag_QBZ191_BaseColor",
+      "ORM": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_QBZ191_ORM.T_ExtMag_QBZ191_ORM"
+    },
+    "uv_index": 1
+  },
+  "SM_ExtMag_AKM40": {
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "note": "rebuilt factory magazine, rifle magazine material",
+    "triangles": 5496
+  }
+}

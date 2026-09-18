@@ -1,0 +1,28 @@
+{
+ "M4": {
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_finish_uv.fbx",
+  "uv_index": 1,
+  "physical_tile_m": [
+   0.12,
+   0.05
+  ],
+  "uv_layers": [
+   "UVMap",
+   "ReceiverFinishPhysicalUV"
+  ],
+  "note": "author_uv.py rule: keep UV0/split normals, add physical UV"
+ },
+ "QBZ": {
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_finish_uv.fbx",
+  "uv_index": 1,
+  "textures": {
+   "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\QBZ\\T_ExtMag_QBZ191_BaseColor.png",
+   "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\QBZ\\T_ExtMag_QBZ191_ORM.png"
+  },
+  "uv_layers": [
+   "UVMap",
+   "QBZCoatingUV"
+  ],
+  "note": "bake_coating.py rule: rifle coating + contact wear on the part atlas"
+ }
+}

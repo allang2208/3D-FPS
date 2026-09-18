@@ -11,9 +11,9 @@ M4A1 / AKM / QBZ-191 的弹匣槽选项 `ext_mag`：在原厂弹匣基础上加�
 
 | 枪 | 运行网格 | 材质（＝该枪弹匣槽同一材质） | 造型来源 |
 | --- | --- | --- | --- |
-| M4A1 | `/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440` | `/Game/Weapons/M4InfimaV3/Magazine_Light_001` | M4 原厂 PMAG 延长 6 cm |
+| M4A1 | `/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440` | `…/Materials/M_M4_ext_mag`（沿用已验收 `M_M4_drum_1` 的物理 UV 涂层） | M4 原厂 PMAG 延长 6 cm |
 | AKM | `…/SM_ExtMag_AKM40` | `/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR` | AKM 原厂 7.62 弯弹匣原位延长 6 cm |
-| QBZ-191 | `…/SM_ExtMag_QBZ40` | `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer` | QBZ 原厂 5.8 mm 弹匣延长 6 cm |
+| QBZ-191 | `…/SM_ExtMag_QBZ40` | `…/Materials/M_QBZ191_ext_mag_Receiver_0`（按 QBZ191MetalCoat 烘焙的机匣涂层） | QBZ 原厂 5.8 mm 弹匣延长 6 cm |
 
 - 网格：三件都是**该枪原厂弹匣**的几何原样延长（UV0、法线、底板、刻字均为原厂），插入段与喉部完全未改，因此落位由原厂件本身保证。逐枪机匣涂层烘焙（`M_ExtMag_Finish_*`、`Textures/*`、`finish_install_receipt.json`）保留在磁盘作记录，**已被否决、不再引用**：小配件上的机匣贴图盒式投影在实机里呈花斑，用户判定"材质没统一"。
 - 材质：直接绑该枪弹匣槽正在使用的同一材质（M4 为 MIC、QBZ/AKM 为 Material），白色刻字/磨损/金属分区与该枪原厂弹匣同源；回执 `factory_install_receipt.json`。
@@ -28,6 +28,7 @@ M4A1 / AKM / QBZ-191 的弹匣槽选项 `ext_mag`：在原厂弹匣基础上加�
 
 ## 状态
 
-- 平滑过渡版 AKM 网格已写入正式资产，三件材质回执 `factory_install_receipt.json`；`M4DrumVisual.cpp` 两个目标已编译（Editor 18:27:07 / Game 18:27:40），含本轮座位改动。
+- AKM 改为**按弹匣自身曲率延长**（每截面沿局部切线渐入位移，闭合性与原厂一致），网格已写入正式资产；M4/191 材质改为**沿用已验收配件涂层路线**（M4 物理 UV + 复用 `M_M4_drum_1`；QBZ 机匣涂层烘焙 + 按 `import_coating.py` 克隆）。回执 `finish_install_accepted_receipt.json`。
+- 游戏侧截图暂不可用：`FPSGAME.exe` 报 `Failed to initialize ShaderCodeLibrary`（`Content/ShaderCodeLibrary` 缺失），本轮以 Blender 同机位渲染（`Reference/akm_*`）替代，未做游戏内验收。
 - **未由用户实机验收**：三枪观感、换弹跟随与图标显示由用户确认。
 - 换弹接触：延伸段落在左手握点下方，几何上与原厂接触一致（握点为动画固定值、弹匣刚体挂在同一根骨骼）；如需精修仍需实机观察。

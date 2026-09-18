@@ -3,7 +3,7 @@
  "source_object": "AKM_FactoryMagazine_Preview",
  "source_slot": "M_AKM_Soviet_Magazine",
  "extension_cm": 6.0,
- "cut_fraction": 0.45,
+ "band_fraction": 0.3,
  "axis_up": [
   -0.047395,
   -0.638679,
@@ -25,11 +25,11 @@
   [
    0.04443,
    0.15814,
-   -0.3211
+   -0.32635
   ],
   [
-   0.08783,
-   0.32063,
+   0.08932,
+   0.34804,
    -0.08907
   ]
  ],
@@ -39,9 +39,9 @@
   19.11
  ],
  "extended_dims_cm": [
-  4.34,
-  16.25,
-  23.2
+  4.49,
+  18.99,
+  23.73
  ],
  "vertices": 2801,
  "polygons": 2776,
