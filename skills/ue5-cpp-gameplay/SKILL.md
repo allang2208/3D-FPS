@@ -74,6 +74,7 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 - Keep includes minimal; use forward declarations in headers.
 - Avoid hardcoded asset paths unless explicitly requested.
 - Prefer `TObjectPtr<>` in UPROPERTY object references in headers.
+- Append new reflected members at the end of a class, never in the middle. Inserting a `UPROPERTY` moves every member declared after it, and any translation unit that was not rebuilt then reads those members at the old offset.
 - Keep server-authoritative checks explicit for any network-affecting gameplay action.
 
 # Failure Handling
@@ -101,6 +102,9 @@ For Godot first-person weapon ports, read [migration contracts and validation](r
 - Symptom: GameplayTag logic silently fails.
   - Locate: invalid tag names or missing tag config.
   - Fix: validate tags on startup and guard with explicit fallback behavior.
+- Symptom: the editor crashes while constructing a class CDO, or a member reads as zero/garbage right after a header edit.
+  - Locate: whether the header added or reordered reflected members, and whether every dependent translation unit really recompiled. This project has been built with `-NoUBTMakefiles`, which skips dependents, so stale object files keep the previous class layout while the regenerated reflection uses the new one.
+  - Fix: append new reflected members instead of inserting them; if a layout change is already in flight, delete the affected objects under `Intermediate/Build/<Platform>/.../` (or build with `-Clean`) and rebuild before changing logic. Confirm by comparing each dependent `.cpp.obj` timestamp against the header's.
 
 # UE5.6-UE5.8 Compatibility Notes
 - Reflection, replication, and GameplayTag APIs above are stable across UE5.6-UE5.8.
