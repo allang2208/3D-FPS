@@ -1,3 +1,116 @@
+# 第七轮：弹匣延长改成"弧管"重建（2026-09-18 深夜）
+
+用户实机反馈：**191 与 M4 的扩容弹匣建模错误，有错误截断**。
+
+## 1. 查证：错在哪
+
+第五/六轮走的都是"切一段带体、再复制到下方"：
+
+- **切面方向**：早先用包围盒轴切，对倾斜/弧形弹匣是**斜切**，切出来的不是截面；第七轮改成按弹匣自身中线（切片质心二次拟合）求切线，M4 切面法线与轴线夹角 3.55°、QBZ 13.74°。
+- **两环不共形**：即便按自身轴线切，倾斜/带锥度的身体取两段切环仍有 1.8–2.5 mm RMS 的差异（实测 `ring_fit_rms_mm`），所以**没有任何刚性变换能把副本严丝合缝放到接缝上**；
+- **硬钉=皱**：第六轮把副本的环硬吸附到下方环（缝补均值 1–2.5 mm、个别 6–7.5 mm），渲染里接缝处出现可见揉皱；第五轮只做平移，实测是整段下半部横向错位（QBZ 还歪着，因为缺了弧线的旋转）。两版在审查图里都能看出来。
+
+## 2. 现定稿做法（`Scripts/build_extmag_arc_tube.py`）
+
+1. 在距底板 3 cm 处、按弹匣**自身**切线方向切一刀；
+2. 取该切面的外环——先筛"环心贴近轴线"的环，再取其中周长最大者（否则会挑到擦过凸筋的长环，QBZ 曾挑到半径大 40% 的环）；
+3. 把该环沿弹匣自身弧度按 **6 段刚性推进**（每段旋转 + 沿法线下移 1 cm）生成延长管，**第一环直接复用切面顶点**：接缝由构造闭合，回执里 `seam_gap_mm = 0.000`；
+4. 底板段随**同一个**弧步整体下移 6 cm，其顶环正好落在延长管末环上（同一组顶点同一变换，`remove_doubles` 合并）。
+
+读数（`Reference/arc_tube_build.json`）：
+
+| 件 | 尺寸 (cm) | 环顶点 | 切面容差 | 弧弯（6 cm 内） | 接缝间隙 |
+| --- | --- | --- | --- | --- | --- |
+| M4 | 4.14 × 8.42 × 23.49 | 76 | 3.55° | 5.27° | 0.000 mm |
+| QBZ-191 | 4.55 × 13.42 × 24.42 | 313 | 13.74° | 5.91° | 0.000 mm |
+
+同机位审查（原厂件与延长件分开出图，脚本 `Scripts/render_dupb_review.py`）：`Reference/dupb_review_{M4,QBZ}_factory_{side,front,top,bottom}.png` 与 `..._ext_*.png`。延长件渲染结果：无横向错位、无揉皱、弧线连续、底板在末端。
+
+## 3. 已知取舍与边界
+
+- **前六轮的废案位置**：构建产物（旧 FBX 变体）、被否决的脚本、旧回执与对照图统一退役到 `trash/extmag-arc-superseded-20260918/`（逐条路径/大小/SHA-256/理由见该目录 `MOVED.json` 与 `MANIFEST.md`）；本 README 里前几轮写下的旧路径按该清单对应，正文不再逐条改写。本机 `FPSGAME/trash/`（仓库根）另有整批退役件，同样不入公开 Git。
+- **延长段是一段干净弧管，不带肋纹**：原厂肋在切面处停止、在移下来的底板上继续。这是相对"复制带"路线的取舍——复制带能延续肋纹，但必然留 1–2 mm 错位或在接缝揉皱，上一版正是因此被判"建模错误"。若后续要求肋纹连续，需要在弧管上额外生成肋环（尚未做）。
+- **UE 已安装**（22:16 用运行中编辑器的 MCP 直连完成）：旧件备份到 `/Game/_ExtMagSuperseded/{SM_ExtMag_M440,SM_ExtMag_QBZ40}_round5`，再 `delete → import_file(_arc.fbx) → set_material(该枪弹匣槽) → save_assets`。读回：M4 `4.139 × 8.420 × 23.494 cm` / 5783 顶点 / 4372 三角、材质 `M4InfimaV3/Magazine_Light_001`；QBZ `4.551 × 13.421 × 24.424 cm` / 15618 顶点 / 11675 三角、材质 `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer`。回执 `install_extmag_arc_receipt.json`。
+  （第一次尝试时编辑器刚被并行会话重启，其资产工具对这三个资产一律返回 false，`import_file` 报 `produced no assets`；等它恢复后同一条路径即可用。离线备选入口仍是 `install_extmag_arc.py`。）
+- **仍未进游戏、未由用户实机验收**：井口缝线、换弹跟随与实机观感由用户判读。`Saved/ExtMagEditor/*` 是第四轮图，早已不代表当前件。
+
+---
+
+# 第五轮：M4/QBZ 改用"复制带"重建并装入 UE（2026-09-18 晚）
+
+第四轮结束时，M4/QBZ 的延长段仍是**拉伸带**：`build_extmag_from_sections.py` / `build_extmag_from_factory.py` 把带内顶点沿轴向按 smoothstep 位移，几何没坏但带内表面（肋距、刻字）被拉开。本轮把 M4/QBZ 换成**复制带**：一根顶点都不拉伸，只把一段完整肋距的干净带体复制到下方，再与下段焊接。
+
+## 1. 做法（`Scripts/build_extmag_duplicate_band.py`）
+
+1. 在 `band_bottom`（距底板 1.8 cm）和 `band_bottom + 带高` 两处切面；上方一律不动——插入段与换弹抓握区保持原厂几何；
+2. 带高取**整数个肋距**（自相关测得的肋距，M4 1.212 cm / QBZ 0.819 cm），否则接缝处肋相位错开，眼睛会读成台阶；
+3. 复制带体 + 底板段，沿"把带的**下环**映到**上环**"的刚性变换整体下移（`band_transform` 用带体表面自身打分找方向，M4 还含几度前倾），原底板段删除、由副本取代；
+4. `remove_doubles`（0.01 mm）焊接三条环 → 重新闭合的单一壳体。
+
+实测：M4 4.32 × 9.36 × 23.61 cm（原厂 17.63 cm 长）、开放边 282（焊接前 383）、非流形边 60；QBZ 4.57 × 14.52 × 23.87 cm（原厂 18.73 cm）、开放边 334（焊接前 751）、非流形 4。逐件数值与肋距见 `Reference/duplicate_band_build.json`；同机位对照（原厂件 vs 加长件）`Reference/dupb_M4_pair.png`、`dupb_M4_band.png`、`dupb_QBZ_pair.png`、`dupb_QBZ_band.png`。
+
+## 2. 装入 UE（运行中编辑器 MCP 直连）
+
+`AssetTools.duplicate`（先把旧件备份到 `/Game/_ExtMagSuperseded/{SM_ExtMag_M440,SM_ExtMag_QBZ40}_round4`）→ `AssetTools.delete` → `StaticMeshTools.import_file`（`combine_meshes=true`、不导入材质）→ `StaticMeshTools.set_material` → `AssetTools.save_assets`。安装回执 `install_extmag_dupb_receipt.json`，逐件读回：
+
+| 件 | 读回包围盒 (cm) | LOD0 顶点/三角 | 材质槽 | 绑定材质 |
+| --- | --- | --- | --- | --- |
+| `SM_ExtMag_M440` | 4.322 × 9.359 × 23.609 | 5946 / 5359 | `Magazine Light_001` | `/Game/Weapons/M4InfimaV3/Magazine_Light_001`（**本轮改绑**，＝该枪弹匣槽材质） |
+| `SM_ExtMag_QBZ40` | 4.566 × 14.516 × 23.870 | 12058 / 11867 | `M_QBZ191_Wear_Magazine` | `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer`（不变） |
+| `SM_ExtMag_AKM40` | 4.488 × 18.897 × 23.719 | 3446 / 5496 | `M_AKM_Soviet_Magazine` | `M_AKM_Soviet_PBR`（本轮未动） |
+
+**M4 材质口径变更**：M4 件也是"原厂 PMAG 原位延长、UV0 未改"，本轮起与 AKM/QBZ 一致，直接绑该枪弹匣槽正在用的材质（`M4InfimaV3/Magazine_Light_001`）。旧的 `Materials/M_M4_ext_mag`（沿用已验收弹鼓涂层的物理投影 UV）保留在磁盘，不再被引用。
+
+## 3. 仍未做
+
+- **AKM 仍是第四轮之前的"逐截面切线渐入"（拉伸带）**：它的 6 cm 带用 smoothstep 引入、带内表面被拉开，没有并入本轮复制带管线；弯弹匣的刚性复制还没做（本轮脚本的 `band_transform` 只给一个刚性方向，弯件需要绕曲率中心）。AKM 编辑器对照当时判为通过，但口径与 M4/QBZ 不同，属**待统一项**。
+- **未进游戏、未由用户实机验收**：本轮只做"重建 → 导入 → 绑材质 → 保存 + 读回"；落位、换弹跟随、观感仍由用户判读。
+- `Saved/ExtMagEditor/*.png` 是**第四轮**拍的对照图，对应的是被本轮替换掉的网格，不能当作当前资产的证据。
+
+---
+
+# 第四次收口：编辑器直连取证（落位/弧度/表面）+ QBZ 材质改绑原厂弹匣槽（2026-09-18 晚）
+
+上一轮交接的唯一未做项是**编辑器内的视觉取证**（`FPSGAME.exe` 曾因 `Content/ShaderCodeLibrary` 缺失启动失败）。本轮按 [ue-mcp-20260918.md](../../Docs/ue-mcp-20260918.md) 的编辑器直连路线走完，并按图判定后改了一处材质。**未启动游戏（夹具/实机验收仍待用户）**。
+
+## 1. 方法：编辑器里怎么等价复现运行时装配
+
+- 运行中的编辑器（MCP `127.0.0.1:8000/mcp`）里用 `SceneTools.add_to_scene_from_asset` 各生成一个 SkeletalMeshActor（枪）与 StaticMeshActor（扩容弹匣），**都以原点恒等变换**摆放。三件扩容弹匣都写在**该枪网格坐标系**里，运行时组件是"挂 `WPN_SOCKET_Magazine` 的 socket + 座位取 socket 链的逆"，两者在组件空间上等价于恒等——所以原点对原点就是运行时装配，不需要再算座位。
+- 关卡是黄昏的 `DayNight_Lighting`，不加灯只能拍到剪影；本轮临时生成一盏 SpotLight（`Intensity=2500`、`AttenuationRadius=400`、锥角 55/30、`CastShadows=false`）打亮枪身，截图后连同枪、弹匣一起删除，并把关卡视口相机恢复到进入前的位姿（`Find_actors` 复查残留 = 0）。
+- **判定手法**：先拍"枪 + 扩容弹匣"，再删掉扩容弹匣、同一机位拍"枪 + 原厂弹匣"，两张同尺度对比。只有与原厂件同一套表面语言才算"材质统一"。
+
+## 2. 资产实测（编辑器读回，非截图估算）
+
+| 枪 | 网格 | 网格空间包围盒尺寸 (cm) | 材质槽 | 绑定材质 |
+| --- | --- | --- | --- | --- |
+| M4A1 | `SM_ExtMag_M440` | 4.21 × 9.37 × 23.55 | `Magazine_Light_001` | `M_M4_ext_mag`（沿用已验收 `M_M4_drum_1` 的物理投影 UV） |
+| AKM | `SM_ExtMag_AKM40` | 4.49 × 18.90 × 23.72 | `M_AKM_Soviet_Magazine` | `M_AKM_Soviet_PBR`（＝该枪弹匣槽材质） |
+| QBZ-191 | `SM_ExtMag_QBZ40` | 4.12 × 12.97 × 24.64 | `M_QBZ191_Wear_Magazine` | **本轮改绑** `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer`（＝该枪弹匣槽材质） |
+
+三把枪的网格空间包围盒都落在枪体网格的下方弹匣井区间（枪体包围盒 Z 下界约 −73 cm、扩容件顶面 −4…−9 cm），说明"资产写在枪体坐标系"的约定在正式资产里成立。
+
+## 3. 看图判定
+
+- **M4**：扩容件收在机匣下方、多出的 6 cm 垂在底板以下；表面是与原厂 PMAG 同一套浅色聚合物 + 网格肋（延长段肋距被拉宽，属已知的 UV 拉伸，未做重排）。**通过**。
+- **AKM**：7.62 弯弹匣沿自身曲率连续变长，中段无台阶、底板与横筋均为原厂几何，表面是同一套苏式钢件。**通过**。
+- **QBZ-191（本轮唯一发现的问题）**：落位与弧度都在井内、连续；但表面**不合格**——上一版用的是"机匣涂层烘到弹匣自己的 atlas"（`M_QBZ191_ext_mag_Receiver_0`），同光照下弹匣上出现机匣刻字/面板线摊成的黑斑，和旁边干净的原厂弹匣一眼是两种表面（正是用户早先说的"花斑"）。已改绑**该枪弹匣槽正在用的材质**（QBZ 原厂弹匣本体延长、UV0 未改，所以这等价于"同一件弹匣、只是更长"），改后同机位复拍立刻与原厂弹匣一致。
+
+## 4. 改动与证据
+
+- 资产改动：`/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_QBZ40` 的 `M_QBZ191_Wear_Magazine` 槽 → `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer`，`save_assets` 返回 `true`。回执 `extmag_editor_verification_20260918.json`。
+- 证据（`Saved/ExtMagEditor/`）：
+  - 三枪同机位同光照：`m4_lit_side_right.png` / `akm_lit_side_right.png` / `qbz_fixed_lit_side_right.png`（含扩容弹匣）与 `m4_factory_lit_side_right.png` / `akm_factory_lit_side_right.png` / `qbz_factory_lit_side_right.png`（原厂弹匣对照）。
+  - 表面判定对照（2× 裁切）：`m4_cmp_ext.png` / `m4_cmp_factory.png`、`qbz_cmp_ext.png` / `qbz_cmp_factory.png` / `qbz_cmp_fixed.png`。
+  - 黄昏剪影版（不额外打灯，用于看落位/弧度）：`{m4,akm,qbz}_{side_right,side_left,front_low_right}.png` 与 `*_mag_zoom.png`。
+- 沉淀：`skills/ue5-weapon-workflow/references/extmag-lengthening.md` 第 4 节改为"按 UV 岛是否改变分两条路"、第 5 节新增"原厂件 vs 加长件同光照对照"的判定手法（个人技能副本与工程镜像 SHA-256 一致：`ED0D96CB…D7FC9E`）；`references/attachment-standard.md` 的"逐枪烘焙"与"绑宿主槽"两条互相打架的条目各加一句**适用条件**，把"UV 岛未改＝绑同类槽 / UV 岛已改＝自包含烘焙"钉死。
+
+## 5. 仍未做
+
+- **未进游戏、未实机验收**：换弹跟随、ADS 视线与真机观感仍由用户判读；本轮只做了编辑器直连的装配与表面取证。
+- M4 的材质当时仍是"已验收配件涂层"路线（`M_M4_ext_mag`）——本轮同机位下与原厂 PMAG 读感一致，未改动；**第五轮已按同源口径改绑 `M4InfimaV3/Magazine_Light_001`**（见文首）。
+
+---
+
 # 第三次修正：AKM 弹匣按曲率延长、M4/191 改用已验收配件涂层（2026-09-18 晚）
 
 用户反馈：**AKM 弹匣下方截面是尖的**、**M4/191 材质渲染不合格**，并要求直接沿用前面已验收的做法。本轮不再自创做法，两处都改成复用已验收工程。

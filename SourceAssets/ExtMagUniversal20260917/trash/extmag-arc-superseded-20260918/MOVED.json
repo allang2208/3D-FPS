@@ -1,0 +1,1345 @@
+﻿[
+    {
+        "source":  "FBX/SM_ExtMag_M440_dupb.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  531228,
+        "sha256":  "13201AAB5CC8FB28A933CCC8571DD4FC1A39E1726C1F35C271FE1D61D164BD99",
+        "verified":  true
+    },
+    {
+        "source":  "FBX/SM_ExtMag_QBZ40_dupb.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1296348,
+        "sha256":  "96E5C5B5A36C1740245877BFBFE8FE00E6DC8DD2D0E232F77572F79017EABFB3",
+        "verified":  true
+    },
+    {
+        "source":  "FBX/SM_ExtMag_M440_factory.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  358604,
+        "sha256":  "47C31A53F8BA247705C69EBCEDF984AD46FA195B69857054E10481D842AE5061",
+        "verified":  true
+    },
+    {
+        "source":  "FBX/SM_ExtMag_QBZ40_factory.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1017964,
+        "sha256":  "623AB48B210E8290CC82E4C0BB89F8BA58EA4A3D536FA6D0B527B8AF0D4AA47B",
+        "verified":  true
+    },
+    {
+        "source":  "FBX/SM_ExtMag_M440_finish_uv.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  589324,
+        "sha256":  "09C44AC7BBF6A083FD99DE30723C75E9EB64425560A6C606751F81C259819F27",
+        "verified":  true
+    },
+    {
+        "source":  "FBX/SM_ExtMag_QBZ40_finish_uv.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1741964,
+        "sha256":  "A3E7AB5DED86C9B01EB1CB3298A099E4E2816F26D3322BBE5C928C6C226F8569",
+        "verified":  true
+    },
+    {
+        "source":  "FBX/SM_ExtMag_PMAG40.fbm",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "directory",
+        "files":  4,
+        "bytes":  2628696,
+        "tree_sha256":  1524893871,
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/build_extmag_duplicate_band.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  28907,
+        "sha256":  "D0B1FA40A602FA938E91076B9484A91D0EE58713BD2D797D1ACE7969B917ECAF",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/build_extmag_from_sections.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  10144,
+        "sha256":  "B610469F08A9C2C80245490A3B1412F9CAB0CB41C3A98B7B9415E5445C949FD6",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/author_extmag_finish.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  8825,
+        "sha256":  "BE71E6C6FED5A5CB0BCF337A8418FB9CD2CA6BFC141A31C1B555E764A35A7B2E",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_ring_structure.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  6574,
+        "sha256":  "87AB740515F472CAC126A6D2031D5FD3F9299E57CB1EE38741FE18B88C92329A",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_extmag_seams.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1246,
+        "sha256":  "D8BE07B60E9A0C1A5EBAEAB7AA0DD46952BBCEA2E804723DC0ADD52AB8DB7D2B",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_factory_mag.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1819,
+        "sha256":  "50ADB52AEF4EA0E2C8A48CCA9A71ADD811393867AB744BF96220EFE8AE877F51",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_mag_bottom.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  3451,
+        "sha256":  "6525E3FEC04057ED695D0288259B9910ABA234274330AA515FD744338C79FA7A",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_original_mag.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2743,
+        "sha256":  "9AC8AB1504930059A3C486C0DB21F96DA882E68236C47233EA0B5E23D95AFE9D",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_ref2.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  260,
+        "sha256":  "58B423B1B068D8BFA8B97A376D45D864C1FCDB52173F9EBDC2AC1B5ED1E17D8A",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_ref3.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  248,
+        "sha256":  "4D2C3815B57A77E3463C650DC115F6779E6F2D2FCFD45360975EE9F9F7730BD2",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_ref4.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  260,
+        "sha256":  "7F05DC7A722FC956E1ACF40FF2D2389BAE829D48D3C09B2CD7A28AF86F82C6E5",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_ref5.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1111,
+        "sha256":  "39DA03CBEB5B7EDAEB1EB461CD0124428FFBB86517A640445186C454161AACC9",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_akm_ref6.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  948,
+        "sha256":  "4E251EA2F895E569639C0C03B6C7A2B1C29304AEFD0CCBF3EAE333D8FDB99D86",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_factory_mags.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1984,
+        "sha256":  "1CF9756904C0F275D4A2E666AAB4DEB15190D1A26306217C6B010DB917A03469",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_finish_uv.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1588,
+        "sha256":  "DEAF5326B1C89CB3EA4FDC8879193CF62E3AA69BD60AA0B8D402DFC2ABD6ED8D",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_mag_slots.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2047,
+        "sha256":  "F16C95173ADB99154978C593FB36C087873C90467FDCABF4CE13170408CA2FC2",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_bounds.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  829,
+        "sha256":  "E1FAA27E8CFF1007C54DCB0A0BEDB4448A104E78FA28F267C51E9FC2C32F0AEE",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_mesh_geo.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  863,
+        "sha256":  "B941F1B47E3A8F43A8BA71B2FF8AD3C2A358FA1B33CCBDA2A646407EBF0E4995",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/probe_icon_frame.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2202,
+        "sha256":  "24AD650104B184C1300BD59BA1062592DA69471AF70B06A2C3DBF0809E5016CB",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/render_akm_mag_views.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2916,
+        "sha256":  "A3341A9EAFFAA02D16D2F3492FAAD5B4B5B92BA2883E21F62BB42C5D4EFEDC04",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/render_icon_qbz40.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2530,
+        "sha256":  "79F223F26674C377A21A70A219C6E6CDFD580E3213AE6EFB1B7CBE285E23950D",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/build_drum.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  14055,
+        "sha256":  "6DE9F9B47677704804891EB755FC0F9904BD2311C90ADAEBD615EDFCAB4B1366",
+        "verified":  true
+    },
+    {
+        "source":  "Scripts/measure_drum.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2317,
+        "sha256":  "392A7951B688BBAE57E765E395290EB0DE739C932D55D20488E5F5E95F767EA4",
+        "verified":  true
+    },
+    {
+        "source":  "bind_extmag_finish.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2621,
+        "sha256":  "8105C7823B548B0D75582BA3B2AC1485FDAE8CC79FE1E70E8A3EFD541D238225",
+        "verified":  true
+    },
+    {
+        "source":  "bind_extmag_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  731,
+        "sha256":  "7116FD106975BF4271A469A27B7FF241870D450298BF02763AB8DD59C672FBC6",
+        "verified":  true
+    },
+    {
+        "source":  "extmag_editor_verification_20260918.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  5099,
+        "sha256":  "4C3A43D37382F86FD6AA2995DF373EE71D9FA58C69963A1DFAB93E5B0FBE478A",
+        "verified":  true
+    },
+    {
+        "source":  "finish_install_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1951,
+        "sha256":  "6B541E2C794B13BC6A9181A90B47DBBBDBB02196679B0C12A78B734CEFF0A97B",
+        "verified":  true
+    },
+    {
+        "source":  "finish_install_accepted_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  874,
+        "sha256":  "3F76C1797E3AFFEDC18DC86AB3611DC5BAD90C208A53FAE3858F3FFE332F537C",
+        "verified":  true
+    },
+    {
+        "source":  "import_drum_icon.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  821,
+        "sha256":  "A478F8D373EA8CC1E48C65A351FC3EAC20F66E297CF765D1F6AFE16392154DC0",
+        "verified":  true
+    },
+    {
+        "source":  "import_drum_icon_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  101,
+        "sha256":  "C18CB564933EDF16ACE6D9719643A0FF045819225E724F64875B2AAC7482F97D",
+        "verified":  true
+    },
+    {
+        "source":  "import_drum_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  780,
+        "sha256":  "C024FADA4A154B2D6E496271A93CE36E89D267A266F04320D28F868B28E46F2A",
+        "verified":  true
+    },
+    {
+        "source":  "import_drum_ue.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  4416,
+        "sha256":  "49B23430A6AD2D3CF524733CD2DFE213EA0A9F93AD44953D4E756E951BCA6F6B",
+        "verified":  true
+    },
+    {
+        "source":  "import_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  95,
+        "sha256":  "4E67D6040AFF771B18DF25C3417860602816E8449698CEA0FBEA0AD5F5308032",
+        "verified":  true
+    },
+    {
+        "source":  "import_ue.py",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  4611,
+        "sha256":  "0AEFC7EDBD5F6C6F77CD6A8E8E91F9420B2ED75C68F37061CF18AD0DB4EDFA0B",
+        "verified":  true
+    },
+    {
+        "source":  "install_extmag_dupb_receipt.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  3119,
+        "sha256":  "E402CD56A6D5335F8833851BE162C68C9E09DC8D43A0D4DC02F3F5E3CC5A681E",
+        "verified":  true
+    },
+    {
+        "source":  "ExtMag40_AKM_Editable.blend1",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  225815,
+        "sha256":  "CB3320A9E93EC3161803612D4A4405F71CEEF32DDB0DD8D0F82E03D96CC9B8D4",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/View",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "directory",
+        "files":  14,
+        "bytes":  826020,
+        "tree_sha256":  720797647,
+        "verified":  true
+    },
+    {
+        "source":  "Reference/duplicate_band_build.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1540,
+        "sha256":  "C3CE48F9B8BF6679BAA3B936298E222D7608EA42FD68FB7CC6D60A3BBA0FD364",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/ring_structure_probe.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  4601,
+        "sha256":  "6FECB46D0AA42A5E4E1C4EAA3ACCD69A046B5F3E5908E2EFEA43CEBCA95CDF9E",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/dupb_M4_pair.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1496182,
+        "sha256":  "7087467E89020FFF3725C956C545A825562585F6143387C2AF51B19FAC6443F8",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/dupb_M4_band.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1573518,
+        "sha256":  "E7F53C1EAA956365D866812DB9AA216AAEB13EB131A8D00B81CA5350BE459493",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/dupb_QBZ_pair.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1802354,
+        "sha256":  "2509C3810009E172C4BCB0B4D1CBEFCE7A99603DC3E03E1145FB607E289472C8",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/dupb_QBZ_band.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  2249523,
+        "sha256":  "6A11842A4CB9426496397C8D1F876170FE4F88630CA5C76309A05EA94BAFF63C",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/sections_build.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  777,
+        "sha256":  "E42BFCB79DE15279EA1205DECF2C499A9E055B2FF4D978A2A266D4570FA86932",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/finish_authoring.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  871,
+        "sha256":  "103DC296BA41FE346897B6CC3537DADAE9135402E783F2EF2F168525A0D1F133",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/finish_bake.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  1604,
+        "sha256":  "0B056FA40C653EBD0C7909BDA43F3448FB766A31048DE0872171B12006DDC7F7",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/finish_uv_probe.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  964,
+        "sha256":  "7AC86081B26031B26D93C4FFBB3251CEAFFF3731263D2FFD2A0DFC5B8BC04C3B",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum.AKM.inspect.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  617,
+        "sha256":  "2C1A338E10009AEA2A161FFBC7B3E559ED834BD33B25AF0FCFB04C769BB8689B",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum.M4.inspect.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  601,
+        "sha256":  "5191CBC99FBD3EFA71846D2CE56B5686755EBAD0B247F2C1D7A069C92368F15C",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum_measure.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  7701,
+        "sha256":  "D12958C16B20C2FC9B65D6730B1F11DA16B5DC4A49AE9C14294F33BB39961303",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum_new_report.json",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  592,
+        "sha256":  "7DC8BEE674577BB526705B127046B6B494F1C311A960098BF67A9F713EEA8A62",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum_current_iso.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  744485,
+        "sha256":  "F6DD0D320F44176DCA3CE823B6432068E1E0FA6937EC4E6070C5B4EDC880504C",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum_new_M4.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  921366,
+        "sha256":  "275C477C9A7CE35381890CDF89758C50BD29A82E9289E961618A7B3AD2096398",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum_new_AKM.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  918421,
+        "sha256":  "5892CB0A2193AF27E7DD12A6D72AFDE9FCB69EA6AD67FA02FC31E82B3C3C2CC7",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/drum_new_QBZ.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  917776,
+        "sha256":  "9374FD21F5EB2FE21D89F3F46B712B3044A0DCD1B31B38ED87135BF2874A9599",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/magazine_large_drum_before_20260917.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  567372,
+        "sha256":  "7B6053CF99AFD4599205C891BCFE0F6FF997A44D953C40C52BCC2518398C6C28",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/icon_magazine_ext_mag.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  430685,
+        "sha256":  "AFAF93C549174F0503B10EC363A18E388A1EDC6B34DFC9B0D0DC7B7E042617D1",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/icon_magazine_ext_mag_before_qbz40.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  430685,
+        "sha256":  "AFAF93C549174F0503B10EC363A18E388A1EDC6B34DFC9B0D0DC7B7E042617D1",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/icon_magazine_ext_mag_qbz40.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  472730,
+        "sha256":  "3EBDAC5107C4AEE937843ABD6436B48805ABC64D1556390345E44186D07E7941",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/icon_check.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  108914,
+        "sha256":  "B0B20FD980586E1E501A53AFDF22C86BFE85E5B8DC786E8F937F6143A4A5990D",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/icon_drum_check.png",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  261060,
+        "sha256":  "A780B0A70C29DA06C71EAE1DD086F688EA085B119562C546A89D5579000DAAA6",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/qbz_factory_magazine.fbx",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "file",
+        "bytes":  320428,
+        "sha256":  "8BE366E0990339E2977D45F14301C6B7F1141FC20263E4DA043A985FE3474731",
+        "verified":  true
+    },
+    {
+        "source":  "Reference/qbz_factory_magazine.fbm",
+        "reason":  "superseded by the round-7 arc-tube rebuild",
+        "replacement":  "Scripts/build_extmag_arc_tube.py + install_extmag_arc.py",
+        "kind":  "directory",
+        "files":  5,
+        "bytes":  42128227,
+        "tree_sha256":  1643721600,
+        "verified":  true
+    },
+    {
+        "source":  "Reference/akm_cmp_000.png",
+        "kind":  "file",
+        "bytes":  392724,
+        "sha256":  "A6C5E2DD645DEC3397FAF273DA4009A410251B97BC2FF8630CAF83A6913B0424",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_cmp_001.png",
+        "kind":  "file",
+        "bytes":  413082,
+        "sha256":  "EA136359C04E7E51AE609D9CEDB63E48C249A94314E119B2F792ED5090709E9E",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_cmp_002.png",
+        "kind":  "file",
+        "bytes":  408575,
+        "sha256":  "69DF3C90E0CF739D7ABB7C3EE427FC9238E58D2709398DFAA99D72ED7647C2E3",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_cmp_003.png",
+        "kind":  "file",
+        "bytes":  407560,
+        "sha256":  "14CBC084B6EACAFA515A75328628B548AB8D1BEB5248C8A3BD95813E98060B86",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_diff_005.png",
+        "kind":  "file",
+        "bytes":  288854,
+        "sha256":  "5BB7DB87EAD79A48A08112BFD1BB2236D1916AA42A0CA575AB59954C20C3F3B6",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_diff_008.png",
+        "kind":  "file",
+        "bytes":  281814,
+        "sha256":  "60C7DBB13BF07841DA27B27E8FB8790B953AF740AE28948F212267F3576906BF",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_diff_012.png",
+        "kind":  "file",
+        "bytes":  259635,
+        "sha256":  "8B75C4F5DA6D4C414C728B79F71797025F6D231A49B85AD7F1DB559D819FDFBC",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_diff_020.png",
+        "kind":  "file",
+        "bytes":  277291,
+        "sha256":  "506D27A2EAD5252A68F466FAD894DA0F54E472ACC3230B4B7D57F6033B161CEA",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_diff_026.png",
+        "kind":  "file",
+        "bytes":  247776,
+        "sha256":  "DF99463AC5E2A5916AA62B8782C46FCA2237C7CC34CE1E8966F9338BF29A3C03",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_hand_cmp.png",
+        "kind":  "file",
+        "bytes":  438968,
+        "sha256":  "1027BB7F6A11E35CE47FBAE9D85FE7FFCE9A47E074D268D219E5C3D8A19125F2",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/akm_idle_cmp.png",
+        "kind":  "file",
+        "bytes":  980009,
+        "sha256":  "2B221CB84A81A1A4662F21C7CC6EAB92738774AD45E426A196C22AB492981DFD",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/asm_ext40_left.png",
+        "kind":  "file",
+        "bytes":  805228,
+        "sha256":  "67257D3B8A685F2DD2B0D08728E2B9397835020DF5B472198B31216989D07741",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/asm_ext40_quarter.png",
+        "kind":  "file",
+        "bytes":  490362,
+        "sha256":  "1CECDA431952FB6CA2749A2CA09A78C6D94E84DD53D9FE74ECDBDB1AA187605F",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/asm_factory_left.png",
+        "kind":  "file",
+        "bytes":  774075,
+        "sha256":  "F9C9AADC2DCD413C99140E956A08B609A892B2E500145138323B7450E18347F1",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/asm_factory_quarter.png",
+        "kind":  "file",
+        "bytes":  490362,
+        "sha256":  "1CECDA431952FB6CA2749A2CA09A78C6D94E84DD53D9FE74ECDBDB1AA187605F",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/asm_review_cmp.png",
+        "kind":  "file",
+        "bytes":  1115046,
+        "sha256":  "7387CF7DA423BB1E8DAD9735C612C35B39549557EDC5148D20D5A486F958BC2B",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/bisect_compare.png",
+        "kind":  "file",
+        "bytes":  503889,
+        "sha256":  "7CBEC96D6DFC55AD3CE36CA566D93555A1FDC8C9B98A8884CD10C9F5A9BA1274",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/calib2_sheet.png",
+        "kind":  "file",
+        "bytes":  3734944,
+        "sha256":  "E7D147BCA0F22526D0AAF60122FB4668FD59F12F5D4F1A53C06E4C4463040580",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_000.png",
+        "kind":  "file",
+        "bytes":  249590,
+        "sha256":  "792DDF90F5102CEAC1D86FAAC81449257BADE65E95E176ED58B5F425DF41E908",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_001.png",
+        "kind":  "file",
+        "bytes":  280101,
+        "sha256":  "EF0F8DAED9E342045F26C55222617CF65AB87FF3FDCD96A27F12531BA57F74A2",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_002.png",
+        "kind":  "file",
+        "bytes":  274370,
+        "sha256":  "0C0993D644BF20DAB16C80CB33B44348D804A781C853869DE7E7A654736020FC",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_ext40_front.png",
+        "kind":  "file",
+        "bytes":  423502,
+        "sha256":  "23625C47872EF76E246A638824D2036FD7618823A702B130078D710596565CB7",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_ext40_side.png",
+        "kind":  "file",
+        "bytes":  581793,
+        "sha256":  "5765EF062BE630B84ABFB8298DA81E68D0FD9AF2B823D2E2A71C021A1FEA4FE5",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_factory_front.png",
+        "kind":  "file",
+        "bytes":  423502,
+        "sha256":  "23625C47872EF76E246A638824D2036FD7618823A702B130078D710596565CB7",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/cmp_factory_side.png",
+        "kind":  "file",
+        "bytes":  542361,
+        "sha256":  "82B6B1DF360870566ABD9226955C0BC820AB1AB96CA8471636C43D0948773F40",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/compose_AKM.png",
+        "kind":  "file",
+        "bytes":  1116370,
+        "sha256":  "4869E64357D86334A65B0D40F830C2F19172917281FB69A9DA618D3D65434259",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/compose_AKM_side.png",
+        "kind":  "file",
+        "bytes":  1115505,
+        "sha256":  "FC051346C7F6BBDCE52CE6B08FFB503308450CE31BD9C7982777BCD2C2367096",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/compose_M4.png",
+        "kind":  "file",
+        "bytes":  1127421,
+        "sha256":  "BF8F84EB62002BA14F0D4F1053D15BAD841F6B04FB78D26F6D26674580312872",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/compose_M4_side.png",
+        "kind":  "file",
+        "bytes":  1112172,
+        "sha256":  "02FD277E5BAFFC0E0D31CEDF1E8CCD0505038154E46FA47CF38A23ECCC51A079",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/compose_QBZ.png",
+        "kind":  "file",
+        "bytes":  1122683,
+        "sha256":  "9C6745C92CD1BCC92D6FBCC3832403D6E8938C57A380D425194A8390690EA9B7",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/compose_QBZ_side.png",
+        "kind":  "file",
+        "bytes":  1119520,
+        "sha256":  "BCB31D2EE677DB7FE3DEA4C28D32F1CA9BE56436493AE85445ACA60150E6AD2A",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/extmag_check5_sheet.png",
+        "kind":  "file",
+        "bytes":  2504660,
+        "sha256":  "1F46EDE51B5158BDF89EA4EC144DF241720E44B40DB7837B71705A738DF2E499",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/extmag40_front.png",
+        "kind":  "file",
+        "bytes":  418659,
+        "sha256":  "E10CA69ECE2B89D4B5FB67170530443F4961FA8057031FF8ECD0FCB331AB626F",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/extmag40_side.png",
+        "kind":  "file",
+        "bytes":  495081,
+        "sha256":  "F7A22638BAA9DC3C23755C02F98B4A056058F6EF567107642435178F1334DAC7",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/extmag40_three_quarter.png",
+        "kind":  "file",
+        "bytes":  474304,
+        "sha256":  "81E16F188614AB82D8D693B841B07AD37BEE0862FA6DB16D7C4E1D1D25258F44",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/factory_vs_ext.png",
+        "kind":  "file",
+        "bytes":  502142,
+        "sha256":  "F9D73DB700CC592FA8B837440FF7112D3E5A2523E099D96BB97524F9E7687B97",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/framefix_compare6.png",
+        "kind":  "file",
+        "bytes":  465467,
+        "sha256":  "D5E01AB6BD11F8695C81B9EF86199BD86E5B428333A7057A14AF672831FBA6CD",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/framefix1_sheet.png",
+        "kind":  "file",
+        "bytes":  3720730,
+        "sha256":  "702792FE53F08DF7EE9AC222D06E5EC9FD7189EF67F2EE978A07859D5F630B1F",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/m4_ext_mag_back.png",
+        "kind":  "file",
+        "bytes":  390885,
+        "sha256":  "DCE5C03C31FA7346F9D211A7A51036759223117466C83CD3C306DFCB6EBB7A82",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/m4_ext_mag_bottom.png",
+        "kind":  "file",
+        "bytes":  366012,
+        "sha256":  "9D471EBA66A3C359632A8831EB42DA40B88515897991B4104BFFC4C571C5E422",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/m4_ext_mag_front.png",
+        "kind":  "file",
+        "bytes":  410377,
+        "sha256":  "7D4EF0B5E1EAC8C092F952A64B73972512DA2ACCA6BC6597884CD2E87FDA32D4",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/m4_ext_mag_left.png",
+        "kind":  "file",
+        "bytes":  546232,
+        "sha256":  "B5DB59EB822E3696FE5A38823598C6D454740CC2BB4D66A9CBC2DFFA5AF53BC7",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/m4_ext_mag_threequarter.png",
+        "kind":  "file",
+        "bytes":  542867,
+        "sha256":  "BCAB076AC107AD762799D4140A28E73BABA1D8824828473CC0297375E7BED906",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/mag_only_front.png",
+        "kind":  "file",
+        "bytes":  582473,
+        "sha256":  "F7E61FF09C74849369A4C082D97D66A04F9D1F5C35F20C3AF84D06C880186BFC",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/mag_only_iso.png",
+        "kind":  "file",
+        "bytes":  588772,
+        "sha256":  "2DCA985279397F2FB9E56086F1ABECEA8DCE4030B5B3AD1826337AD3528FF324",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/mag_only_side.png",
+        "kind":  "file",
+        "bytes":  589441,
+        "sha256":  "6B828CA6E7CF0E3718CA922D0240518C0A970284AFBA0E6F533D6468358ED540",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/material_preview_ue_akm_coating.png",
+        "kind":  "file",
+        "bytes":  224723,
+        "sha256":  "2A0B1BB48C920A8047BF483F727C5F1F331A8A6B8E4158310B2D5DEA1A6EFB5F",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/material_preview_ue_m4a1_coating.png",
+        "kind":  "file",
+        "bytes":  602791,
+        "sha256":  "5032FD484F02DA587B200EC02424AC42CE8E78B4C90ACD7F95F8002F608F5535",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/material_preview_ue_qbz191_coating.png",
+        "kind":  "file",
+        "bytes":  768982,
+        "sha256":  "7A9F6E31D75909C7AF699E24C01A3569CDCF9829B69F708204D4E168B80C9E7D",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_AKM_front.png",
+        "kind":  "file",
+        "bytes":  757106,
+        "sha256":  "926AFC24A7CB1EC56E9439589307A98986C3654D99F943A768CC80262823F390",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_AKM_seat_front.png",
+        "kind":  "file",
+        "bytes":  969113,
+        "sha256":  "F100E7EB0D1DB69D86CEA0BADE0639EC77A1445187C32DD1CF3D5FF49860A48A",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_AKM_seat_side.png",
+        "kind":  "file",
+        "bytes":  951104,
+        "sha256":  "A90C31E6B6C3F4234A46065951834FCACB9C9CD76C212B091EEDD4E1E7E22F9E",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_AKM_side.png",
+        "kind":  "file",
+        "bytes":  755819,
+        "sha256":  "904FA0A112F0DC26FC73787FEFC88CE7ED5FAD1A0760CF4378A8C7963BDAAA9C",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_final_AKM_front.png",
+        "kind":  "file",
+        "bytes":  1067782,
+        "sha256":  "9727BF668C3603AB9F0304DC3EC10F3A8CE16AA2D578EDDEE67323E33BC5D19B",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_final_AKM_side.png",
+        "kind":  "file",
+        "bytes":  1072750,
+        "sha256":  "42B824E192F80181F62F5AF3FE74568FE065CBDC25F01A7E308CFB6C35F18783",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_final_M4_front.png",
+        "kind":  "file",
+        "bytes":  953943,
+        "sha256":  "AAD0FB15D88913A1D755F26990961DC9D50F47B94057B5A09155A4A7A3C77E99",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_final_M4_side.png",
+        "kind":  "file",
+        "bytes":  954735,
+        "sha256":  "396E3127D07210F98B724894FD36133B8E9137201BC13CCD7CB20D99B2B92E26",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_final_QBZ_front.png",
+        "kind":  "file",
+        "bytes":  971848,
+        "sha256":  "8E902D84CDC0BE9513E145287F9B627FD366E49611B60E5D7022E14966228184",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_final_QBZ_side.png",
+        "kind":  "file",
+        "bytes":  958774,
+        "sha256":  "EEA0BBAA98F33896C66D31D01C42FB9B57AEA41CF46C83893843E07310AD2A1C",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_M4_front.png",
+        "kind":  "file",
+        "bytes":  752720,
+        "sha256":  "7E5407C436E53DB21C5ABF25D1A72B18E7FFB5ACD4FAEC0585AD374D1233781A",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_M4_seat_front.png",
+        "kind":  "file",
+        "bytes":  959021,
+        "sha256":  "534A15D026717506282CCFD9B48D1970EC698677D13EDFE35A7A94342935C4C5",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_M4_seat_side.png",
+        "kind":  "file",
+        "bytes":  956961,
+        "sha256":  "1E11A9C52FC916E49B551C9C8731D1BABB155492EFFA1EE68EA29460466DCE89",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_M4_side.png",
+        "kind":  "file",
+        "bytes":  752828,
+        "sha256":  "7D70EF6D556E105ED501AEF928952A478C80D7A8015D6BB8ED5C9B584EFBD26C",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_QBZ_front.png",
+        "kind":  "file",
+        "bytes":  755510,
+        "sha256":  "9CEDA6A1724432E06F3B42D50CB4F127CB4BD5E6915E809FE0AC5A893503FFDE",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_QBZ_seat_front.png",
+        "kind":  "file",
+        "bytes":  980323,
+        "sha256":  "0CC0C3EC0592DBF58CAEC4B089712E4630B57CA610215637AE2027C04FA1C6C0",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_QBZ_seat_side.png",
+        "kind":  "file",
+        "bytes":  961623,
+        "sha256":  "F9BC9B836DA0392DF05D042254E3CB3E7104D38C1B6665EA0A26D8C77A8EE2B3",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/render_QBZ_side.png",
+        "kind":  "file",
+        "bytes":  754917,
+        "sha256":  "9C87BBFFDE611FC643A10C8F1EE9EF9176FEEB7C3E4D53FFBF74361B0C927C8B",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/seatcheck_left.png",
+        "kind":  "file",
+        "bytes":  733905,
+        "sha256":  "649011D65B959F8D54EEC7ED2494A6CA33B06C053E87BA6F3AB4D0161A33E0F6",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/seatcheck_quarter.png",
+        "kind":  "file",
+        "bytes":  490362,
+        "sha256":  "1D75B99E5055BD4B14A879EE2AE87B745A9A34B204D3297BB3155A7B52F876D4",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/three_guns_sheet.png",
+        "kind":  "file",
+        "bytes":  968238,
+        "sha256":  "43C22F507EA7FD063E8C790F4D3F3B33BD391FB7B45BDAB9E868959FCE7FC676",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    },
+    {
+        "source":  "Reference/well_compare.png",
+        "kind":  "file",
+        "bytes":  709527,
+        "sha256":  "08359E09C3D57822250F776CCBCC1E95174005E9C3CC158A6C174661C2481551",
+        "verified":  true,
+        "pass":  2,
+        "reason":  "superseded round 1-6 authoring render",
+        "replacement":  "Reference/dupb_review_*.png (round 7)"
+    }
+]

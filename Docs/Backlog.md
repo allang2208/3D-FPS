@@ -27,6 +27,16 @@
 - 建造存档槽按"档案+地图"生成（`Voxel20_<md5>.sav`），构建/清单工具见 `Tools/Building/`。
 
 ## 其它系统的待办（并行会话相关，仅登记不处理）
+## 扩容弹匣 `ext_mag`（2026-09-18 第七轮之后）
+
+用户实机反馈"191 与 M4 的弹匣建模错误、有错误截断"后，延长段改走**弧管重建**（按弹匣自身切线切一刀、沿自身弧度推进 6 段、首环复用切面顶点，接缝间隙 0），FBX、离线对位与 UE 安装都已完成（旧件备份 `/Game/_ExtMagSuperseded/*_round5`）。记录见 [扩容弹匣接入记录](Weapons/extmag-universal-20260918.md)，过程与回执在 `SourceAssets/ExtMagUniversal20260917/`（构建 `Reference/arc_tube_build.json`、安装 `install_extmag_arc_receipt.json`）。
+
+| 编号 | 事项 | 现状 | 为什么没做 / 需要什么 | 建议下一步 |
+| --- | --- | --- | --- | --- |
+| X1 | **弧管版已装入 UE** | 已完成（22:16 MCP 直连：备份 round5 → delete → import(_arc.fbx) → set_material → save；读回尺寸与构建回执逐一吻合） | — | 无需后续动作；若要重装，用 `install_extmag_arc.py` 或同样的 MCP 序列 |
+| X2 | **AKM 并入弧管重建** | 未做（AKM 仍是第三轮"逐截面切线 + smoothstep 渐入"，带内表面被拉伸） | 弧管重建脚本目前只接了 M4/QBZ；AKM 源件（焊在机匣壳内的松动弹匣）需要单独提取，且是弯件、切线拟合要单独校 | 在 `Scripts/build_extmag_arc_tube.py` 加 AKM 工程（源 `PhantomRearGripIntegration20260913/AKM/SK_AKM_MannyNative.fbx` 的 `AKM_FactoryMagazine_Preview`），弧弯角写进回执 |
+| X3 | **延长段肋纹** | 未做（弧管段是干净管体，没有原厂肋纹；这是为"接缝不皱"做的取舍） | 要在弧管上生成肋环，需要把带体表面的肋剖面沿弧重采样 | 若实机觉得延长段太素，再按"切面带 + 肋剖面沿弧重采样"补肋，先出单枪对照再推广 |
+| X4 | **三枪实机验收** | 未做（本轮只到"重建 → 导出 → 离线对位"，未进游戏） | 本仓库规则：观感与动作由用户实机判读 | 三枪各装一次 `ext_mag`：看井口缝线/露出长度、换弹时是否跟手、专属图标是否显示 |
 
 ## 近战武器（2026-09-16 暂停）
 

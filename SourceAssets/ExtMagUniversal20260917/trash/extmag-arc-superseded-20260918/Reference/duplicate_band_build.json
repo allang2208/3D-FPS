@@ -1,0 +1,58 @@
+{
+ "M4": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbx",
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_dupb.fbx",
+  "factory_length_cm": 17.63,
+  "dims_cm": [
+   4.2,
+   8.71,
+   23.52
+  ],
+  "band_bottom_cm_above_floor": 1.8,
+  "cut_cm_above_floor": 6.03,
+  "rib_pitch_cm": 1.212,
+  "band_height_cm": 6.06,
+  "ring_separation_cm": 6.046,
+  "band_bend_deg": 5.325,
+  "fit_method": "arc-step",
+  "stitch_max_mm": 5.8822,
+  "stitch_mean_mm": 1.029,
+  "rigid_move": "arc",
+  "verts": 2798,
+  "polys": 5090,
+  "open_edges_before_weld": 489,
+  "open_edges_after_weld": 258,
+  "non_manifold_edges": 44,
+  "uv_layers": [
+   "UVMap"
+  ]
+ },
+ "QBZ": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\SK_QBZ191_Manny.fbx",
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_dupb.fbx",
+  "factory_length_cm": 18.73,
+  "dims_cm": [
+   4.44,
+   15.52,
+   24.05
+  ],
+  "band_bottom_cm_above_floor": 1.8,
+  "cut_cm_above_floor": 5.75,
+  "rib_pitch_cm": 0.819,
+  "band_height_cm": 5.736,
+  "ring_separation_cm": 6.461,
+  "band_bend_deg": 5.654,
+  "fit_method": "arc-step",
+  "stitch_max_mm": 7.4813,
+  "stitch_mean_mm": 2.4911,
+  "rigid_move": "arc",
+  "verts": 6780,
+  "polys": 12735,
+  "open_edges_before_weld": 900,
+  "open_edges_after_weld": 325,
+  "non_manifold_edges": 4,
+  "uv_layers": [
+   "HeroUV"
+  ]
+ }
+}

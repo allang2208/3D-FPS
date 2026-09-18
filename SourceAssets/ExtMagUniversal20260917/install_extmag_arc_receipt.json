@@ -1,0 +1,51 @@
+{
+ "round": "arc-tube rebuild + UE install (round 7)",
+ "date": "2026-09-18",
+ "build_script": "Scripts/build_extmag_arc_tube.py",
+ "build_receipt": "Reference/arc_tube_build.json",
+ "install_route": "running UE editor over MCP: AssetTools.duplicate (backup round5) -> AssetTools.delete -> StaticMeshTools.import_file (combine_meshes, no materials) -> StaticMeshTools.set_material (that rifle's own magazine-slot material) -> AssetTools.save_assets",
+ "assets": {
+  "SM_ExtMag_M440": {
+   "fbx": "FBX/SM_ExtMag_M440_arc.fbx",
+   "saved": true,
+   "bounds_cm": {
+    "size": [4.139, 8.420, 23.494],
+    "min": [4.2307, -31.5522, -27.6819],
+    "max": [8.3693, -23.1325, -4.1882]
+   },
+   "lod0_vertices": 5783,
+   "lod0_triangles": 4372,
+   "material_slot": "Magazine Light_001",
+   "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+   "note": "factory PMAG cut 3 cm above the floor plate and extended by a generated arc tube"
+  },
+  "SM_ExtMag_QBZ40": {
+   "fbx": "FBX/SM_ExtMag_QBZ40_arc.fbx",
+   "saved": true,
+   "bounds_cm": {
+    "size": [4.551, 13.421, 24.424],
+    "min": [4.0942, -37.0117, -29.4645],
+    "max": [8.6457, -23.5909, -5.0408]
+   },
+   "lod0_vertices": 15618,
+   "lod0_triangles": 11675,
+   "material_slot": "M_QBZ191_Wear_Magazine",
+   "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+   "note": "factory 5.8 mm magazine cut 3 cm above the floor plate and extended by a generated arc tube"
+  },
+  "SM_ExtMag_AKM40": {
+   "saved": false,
+   "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+   "note": "untouched: still the round-3 per-section tangent build (stretched band)"
+  }
+ },
+ "backups": {
+  "/Game/_ExtMagSuperseded/SM_ExtMag_M440_round5": "the round-5 copy-band mesh that showed the wrong truncation",
+  "/Game/_ExtMagSuperseded/SM_ExtMag_QBZ40_round5": "the round-5 copy-band mesh that showed the wrong truncation"
+ },
+ "not_done": [
+  "not launched in game and not judged by the user: seating, reload follow and in-game look are still user-side checks",
+  "the extension section carries no ribs (by design, see README round 7) - ask before generating rib rings",
+  "AKM is not converted to the arc-tube build yet"
+ ]
+}

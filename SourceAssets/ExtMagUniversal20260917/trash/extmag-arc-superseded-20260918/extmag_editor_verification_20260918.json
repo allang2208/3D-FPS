@@ -1,0 +1,68 @@
+{
+  "round": "编辑器直连取证与 QBZ 材质改绑（第四次收口）",
+  "date": "2026-09-18",
+  "method": {
+    "route": "UE editor MCP over HTTP (127.0.0.1:8000/mcp), editor process from 19:43 run session; PIE was released before capture",
+    "assembly": "SceneTools.add_to_scene_from_asset for the rifle skeletal mesh and the magazine static mesh, both at identity transform at the origin; the magazine assets are authored in their rifle's mesh frame, so identity-in-component-space reproduces the runtime 'asset in weapon frame + seat_t^-1' mounting",
+    "lighting": "temporary SpotLight (Intensity=2500, AttenuationRadius=400, OuterConeAngle=55, InnerConeAngle=30, CastShadows=false) because the DayNight_Lighting level was at dusk and only produced silhouettes",
+    "comparison": "capture rifle+extended magazine, then remove the magazine actor and capture the same pose with the factory magazine; equal lighting and framing",
+    "cleanup": "all EXTMAGCHK actors removed (find_actors leftover = 0) and the level viewport camera restored to its pre-capture pose"
+  },
+  "assets_measured": {
+    "SM_ExtMag_M440": {
+      "bounds_cm": { "size": [4.21, 9.37, 23.55], "min": [4.2307, -32.5045, -27.7427], "max": [8.4454, -23.1325, -4.1882] },
+      "material_slot": "Magazine_Light_001",
+      "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_M4_ext_mag",
+      "rifle_mesh": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+      "rifle_magazine_slot_material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001"
+    },
+    "SM_ExtMag_AKM40": {
+      "bounds_cm": { "size": [4.49, 18.90, 23.72], "min": [4.4435, -34.7107, -32.6261], "max": [8.9310, -15.8139, -8.9073] },
+      "material_slot": "M_AKM_Soviet_Magazine",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+      "rifle_mesh": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+      "rifle_magazine_slot_material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR"
+    },
+    "SM_ExtMag_QBZ40": {
+      "bounds_cm": { "size": [4.12, 12.97, 24.64], "min": [4.0942, -36.5596, -29.6800], "max": [8.2176, -23.5909, -5.0408] },
+      "material_slot": "M_QBZ191_Wear_Magazine",
+      "material_before": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_QBZ191_ext_mag_Receiver_0",
+      "material_after": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+      "rifle_mesh": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+      "rifle_magazine_slot_material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer"
+    }
+  },
+  "findings": {
+    "M4": "seated in the well, extension hangs below the receiver; surface reads as the same light polymer PMAG language as the factory magazine (extended band shows expected UV stretch, no re-layout)",
+    "AKM": "curved 7.62 magazine lengthened along its own curvature; no step at mid-body, factory floor plate and ribs, same Soviet steel material as the factory magazine",
+    "QBZ": "seating and curvature pass; surface failed - the receiver-coating bake on the magazine's own atlas showed mottled black patches and receiver glyphs, clearly a different surface from the factory magazine. Fixed by binding the rifle's magazine-slot material (valid because this part is the factory magazine lengthened in place with unchanged UV0). Re-captured after the change and it matches the factory magazine."
+  },
+  "change_applied": {
+    "asset": "/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_QBZ40",
+    "operation": "StaticMeshTools.set_material(slot M_QBZ191_Wear_Magazine -> M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer) + AssetTools.save_assets",
+    "saved": true,
+    "material_readback": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+    "note": "M4 keeps its accepted accessory-finish material (M_M4_ext_mag); it read consistent with the factory PMAG in the same capture and was not changed."
+  },
+  "evidence": [
+    "Saved/ExtMagEditor/m4_lit_side_right.png",
+    "Saved/ExtMagEditor/m4_factory_lit_side_right.png",
+    "Saved/ExtMagEditor/akm_lit_side_right.png",
+    "Saved/ExtMagEditor/akm_factory_lit_side_right.png",
+    "Saved/ExtMagEditor/qbz_lit_side_right.png",
+    "Saved/ExtMagEditor/qbz_factory_lit_side_right.png",
+    "Saved/ExtMagEditor/qbz_fixed_lit_side_right.png",
+    "Saved/ExtMagEditor/m4_cmp_ext.png",
+    "Saved/ExtMagEditor/m4_cmp_factory.png",
+    "Saved/ExtMagEditor/qbz_cmp_ext.png",
+    "Saved/ExtMagEditor/qbz_cmp_factory.png",
+    "Saved/ExtMagEditor/qbz_cmp_fixed.png",
+    "Saved/ExtMagEditor/{m4,akm,qbz}_{side_right,side_left,front_low_right}.png",
+    "Saved/ExtMagEditor/{m4,akm,qbz}_mag_zoom.png"
+  ],
+  "not_done": [
+    "no game run, no in-game (DrumGripAudit fixture) capture and no user real-machine acceptance",
+    "reload follow and ADS sight line still need user judgement",
+    "Content/ShaderCodeLibrary is still absent, so FPSGAME.exe fixture captures still fail at startup"
+  ]
+}

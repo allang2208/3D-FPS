@@ -1,0 +1,54 @@
+{
+ "M4": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbx",
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_arc.fbx",
+  "factory_length_cm": 17.63,
+  "cut_cm_above_floor": 3.0,
+  "extension_cm": 6.0,
+  "segments": 6,
+  "cut_normal_vs_axis_deg": 3.55,
+  "bend_over_extension_deg": 5.273,
+  "ring_verts": 76,
+  "seam_gap_mm": 0.0,
+  "dims_cm": [
+   4.14,
+   8.42,
+   23.49
+  ],
+  "verts": 2217,
+  "polys": 3824,
+  "open_edges_before_weld": 268,
+  "open_edges_after_weld": 126,
+  "non_manifold_edges": 42,
+  "uv_layers": [
+   "UVMap"
+  ],
+  "note": "extension is a generated arc tube off the cut ring: no vertex is stretched and the seam is shared, but the tube carries no ribs"
+ },
+ "QBZ": {
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\SK_QBZ191_Manny.fbx",
+  "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_arc.fbx",
+  "factory_length_cm": 18.73,
+  "cut_cm_above_floor": 3.0,
+  "extension_cm": 6.0,
+  "segments": 6,
+  "cut_normal_vs_axis_deg": 13.74,
+  "bend_over_extension_deg": 5.907,
+  "ring_verts": 313,
+  "seam_gap_mm": 0.0,
+  "dims_cm": [
+   4.55,
+   13.42,
+   24.42
+  ],
+  "verts": 6595,
+  "polys": 11450,
+  "open_edges_before_weld": 736,
+  "open_edges_after_weld": 332,
+  "non_manifold_edges": 58,
+  "uv_layers": [
+   "HeroUV"
+  ],
+  "note": "extension is a generated arc tube off the cut ring: no vertex is stretched and the seam is shared, but the tube carries no ribs"
+ }
+}

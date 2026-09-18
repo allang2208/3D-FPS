@@ -1,0 +1,59 @@
+{
+  "round": "duplicate-band rebuild + UE install (round 5)",
+  "date": "2026-09-18",
+  "build_script": "Scripts/build_extmag_duplicate_band.py",
+  "build_receipt": "Reference/duplicate_band_build.json",
+  "install_route": "running UE editor over MCP (127.0.0.1:8000/mcp): AssetTools.duplicate (backup) -> AssetTools.delete -> StaticMeshTools.import_file (combine_meshes=true, import_materials=false) -> StaticMeshTools.set_material (that rifle's own magazine-slot material) -> AssetTools.save_assets",
+  "assets": {
+    "SM_ExtMag_M440": {
+      "fbx": "FBX/SM_ExtMag_M440_dupb.fbx",
+      "saved": true,
+      "bounds_cm": {
+        "size": [4.322, 9.359, 23.609],
+        "min": [4.2307, -32.4915, -27.7970],
+        "max": [8.5524, -23.1325, -4.1882]
+      },
+      "lod0_vertices": 5946,
+      "lod0_triangles": 5359,
+      "material_slot": "Magazine Light_001",
+      "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+      "material_before": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_M4_ext_mag.M_M4_ext_mag",
+      "note": "factory PMAG extended by a repeated clean band; UV0 is the factory magazine's own UV, so the part binds the rifle's magazine-slot material like AKM/QBZ"
+    },
+    "SM_ExtMag_QBZ40": {
+      "fbx": "FBX/SM_ExtMag_QBZ40_dupb.fbx",
+      "saved": true,
+      "bounds_cm": {
+        "size": [4.566, 14.516, 23.870],
+        "min": [4.0942, -38.1068, -28.9108],
+        "max": [8.6603, -23.5909, -5.0408]
+      },
+      "lod0_vertices": 12058,
+      "lod0_triangles": 11867,
+      "material_slot": "M_QBZ191_Wear_Magazine",
+      "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+      "note": "factory 5.8 mm magazine extended by a repeated clean band; material unchanged from round 4"
+    },
+    "SM_ExtMag_AKM40": {
+      "saved": false,
+      "bounds_cm": {
+        "size": [4.488, 18.897, 23.719],
+        "min": [4.4435, -34.7107, -32.6261],
+        "max": [8.9310, -15.8139, -8.9073]
+      },
+      "lod0_vertices": 3446,
+      "lod0_triangles": 5496,
+      "material_slot": "M_AKM_Soviet_Magazine",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "note": "untouched this round: still the round-3 per-section tangent build (build_extmag_from_factory.py), whose 6 cm band is ramped in with a smoothstep, i.e. the surface inside the band is stretched rather than repeated. Not part of the duplicate-band rebuild."
+    }
+  },
+  "backups": {
+    "/Game/_ExtMagSuperseded/SM_ExtMag_M440_round4": "the pre-round-5 M4 mesh (bounds 4.346 x 9.694 x 23.630 cm, material M_M4_ext_mag)",
+    "/Game/_ExtMagSuperseded/SM_ExtMag_QBZ40_round4": "the pre-round-5 QBZ mesh (bounds 4.628 x 13.273 x 24.729 cm)"
+  },
+  "not_done": [
+    "not launched in game and not judged by the user: seating, reload follow and in-game look are still user-side checks",
+    "Saved/ExtMagEditor/*.png were captured in round 4 and show the pre-round-5 meshes; they are not evidence for the meshes installed now"
+  ]
+}
