@@ -1,0 +1,187 @@
+{
+ "M4": {
+  "socket_head": [
+   0.0645,
+   0.2252,
+   -0.1762
+  ],
+  "root_head": [
+   0.0577,
+   0.1437,
+   -0.0984
+  ],
+  "source": "M4_Magazine Light.003_Export",
+  "n": 1652,
+  "top_extent_along_axis": 0.1318,
+  "bottom_extent": -0.0452,
+  "axis_world": [
+   -0.0502,
+   -0.1484,
+   0.9876
+  ],
+  "tilt_deg": 9.02,
+  "neck": {
+   "n": 76,
+   "u_min": 0.0379,
+   "u_max": 0.0601,
+   "v_min": 0.2212,
+   "v_max": 0.2534
+  },
+  "mid": {
+   "n": 255,
+   "u_min": 0.0395,
+   "u_max": 0.0626,
+   "v_min": 0.2116,
+   "v_max": 0.2806
+  }
+ },
+ "AKM": {
+  "socket_head": [
+   0.0645,
+   0.2252,
+   -0.1762
+  ],
+  "root_head": [
+   0.0577,
+   0.1437,
+   -0.0984
+  ],
+  "source": "AKM_Soviet_Native region",
+  "n": 1998,
+  "top_extent_along_axis": 0.0313,
+  "bottom_extent": -0.1054,
+  "axis_world": [
+   -0.0612,
+   -0.7841,
+   0.6176
+  ],
+  "tilt_deg": 51.86,
+  "neck": {
+   "n": 35,
+   "u_min": 0.034,
+   "u_max": 0.0602,
+   "v_min": -0.0282,
+   "v_max": -0.0101
+  },
+  "mid": {
+   "n": 133,
+   "u_min": 0.0333,
+   "u_max": 0.0611,
+   "v_min": -0.0474,
+   "v_max": 0.0187
+  }
+ },
+ "QBZ": {
+  "socket_head": [
+   0.0645,
+   0.2252,
+   -0.1762
+  ],
+  "root_head": [
+   0.0577,
+   0.1437,
+   -0.0984
+  ],
+  "source": "QBZ191_Magazine_Export",
+  "n": 4620,
+  "top_extent_along_axis": 0.112,
+  "bottom_extent": -0.0861,
+  "axis_world": [
+   -0.0669,
+   -0.3579,
+   0.9314
+  ],
+  "tilt_deg": 21.35,
+  "neck": {
+   "n": 298,
+   "u_min": 0.0311,
+   "u_max": 0.0564,
+   "v_min": 0.1975,
+   "v_max": 0.2251
+  },
+  "mid": {
+   "n": 640,
+   "u_min": 0.0316,
+   "u_max": 0.0576,
+   "v_min": 0.1832,
+   "v_max": 0.2531
+  }
+ },
+ "drum_necks": {
+  "M4": {
+   "mount": "root",
+   "top_z": -0.1453,
+   "neck_center": [
+    0.0088,
+    -0.1036,
+    -0.1453
+   ],
+   "neck_in_socket": [
+    0.0528,
+    0.2473,
+    -0.0425
+   ],
+   "n_neck": 86,
+   "placed_bbox_min": [
+    -0.0528,
+    -0.1609,
+    -0.3439
+   ],
+   "placed_bbox_max": [
+    0.0705,
+    -0.0813,
+    -0.1453
+   ]
+  },
+  "AKM": {
+   "mount": "socket",
+   "top_z": -0.0893,
+   "neck_center": [
+    0.0566,
+    0.1879,
+    -0.0893
+   ],
+   "neck_in_socket": [
+    0.0003,
+    0.0373,
+    0.0873
+   ],
+   "n_neck": 86,
+   "placed_bbox_min": [
+    0.0065,
+    0.1657,
+    -0.288
+   ],
+   "placed_bbox_max": [
+    0.1298,
+    0.2453,
+    -0.0893
+   ]
+  },
+  "QBZ": {
+   "mount": "socket",
+   "top_z": -0.1285,
+   "neck_center": [
+    0.0601,
+    0.3341,
+    -0.1285
+   ],
+   "neck_in_socket": [
+    0.0002,
+    -0.1089,
+    0.0479
+   ],
+   "n_neck": 86,
+   "placed_bbox_min": [
+    0.01,
+    0.3127,
+    -0.3274
+   ],
+   "placed_bbox_max": [
+    0.1333,
+    0.3923,
+    -0.1285
+   ]
+  }
+ }
+}

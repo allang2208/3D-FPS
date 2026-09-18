@@ -1,0 +1,32 @@
+{
+ "file": "D:/FPS3D/FPSGAME/SourceAssets/WeaponAttachmentFinish20260913/FBX/AKM/drum.fbx",
+ "objects": [
+  {
+   "name": "AKM_drum",
+   "mats": [
+    "M_M4DrumPolymer.001",
+    "M_M4DrumFasteners.001",
+    "M_M4DrumIndex.001"
+   ],
+   "bbox": {
+    "min": [
+     -0.06090106815099716,
+     -0.020092612132430077,
+     -0.11190228909254074
+    ],
+    "max": [
+     0.062408626079559326,
+     0.05949026718735695,
+     0.08675375580787659
+    ],
+    "size": [
+     0.12330969423055649,
+     0.07958287931978703,
+     0.19865604490041733
+    ]
+   },
+   "verts": 7014
+  }
+ ],
+ "bones": {}
+}

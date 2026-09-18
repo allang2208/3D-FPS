@@ -1,0 +1,44 @@
+{
+  "SM_ExtMag_M440": {
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_ExtMag_Finish_M4.M_ExtMag_Finish_M4",
+    "base": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "coating_uv": 1,
+    "textures": {
+      "BaseColor": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_M4_BaseColor.T_ExtMag_M4_BaseColor",
+      "ORM": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_M4_ORM.T_ExtMag_M4_ORM"
+    },
+    "slots": [
+      "Magazine_Light_001"
+    ],
+    "rifle": "M4",
+    "normal_note": "original structure normal/AO kept (UV0)"
+  },
+  "SM_ExtMag_QBZ40": {
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_ExtMag_Finish_QBZ191.M_ExtMag_Finish_QBZ191",
+    "base": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+    "coating_uv": 1,
+    "textures": {
+      "BaseColor": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_QBZ191_BaseColor.T_ExtMag_QBZ191_BaseColor",
+      "ORM": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_QBZ191_ORM.T_ExtMag_QBZ191_ORM"
+    },
+    "slots": [
+      "M_QBZ191_Magazine"
+    ],
+    "rifle": "QBZ191",
+    "normal_note": "original structure normal/AO kept (UV0)"
+  },
+  "SM_ExtMag_AKM40": {
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_ExtMag_Finish_AKM.M_ExtMag_Finish_AKM",
+    "base": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "coating_uv": 1,
+    "textures": {
+      "BaseColor": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_AKM_BaseColor.T_ExtMag_AKM_BaseColor",
+      "ORM": "/Game/Weapons/ExtMagUniversal20260917/Textures/T_ExtMag_AKM_ORM.T_ExtMag_AKM_ORM"
+    },
+    "slots": [
+      "Magazine_Light_001"
+    ],
+    "rifle": "AKM",
+    "normal_note": "original structure normal/AO kept (UV0)"
+  }
+}

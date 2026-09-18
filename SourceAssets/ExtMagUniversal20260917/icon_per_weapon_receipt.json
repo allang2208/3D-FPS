@@ -1,0 +1,20 @@
+{
+  "ue_m4a1_magazine_ext_mag": {
+    "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m4a1_magazine_ext_mag.png",
+    "texture": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m4a1_magazine_ext_mag.ue_m4a1_magazine_ext_mag",
+    "weapon": "ue_m4a1",
+    "shared_fallback": "magazine_ext_mag.png (QBZ-191 silhouette, unchanged)"
+  },
+  "ue_akm_magazine_ext_mag": {
+    "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_magazine_ext_mag.png",
+    "texture": "/Game/ColdSteelData/AttachmentIcons20260913/ue_akm_magazine_ext_mag.ue_akm_magazine_ext_mag",
+    "weapon": "ue_akm",
+    "shared_fallback": "magazine_ext_mag.png (QBZ-191 silhouette, unchanged)"
+  },
+  "ue_qbz191_magazine_ext_mag": {
+    "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_magazine_ext_mag.png",
+    "texture": "/Game/ColdSteelData/AttachmentIcons20260913/ue_qbz191_magazine_ext_mag.ue_qbz191_magazine_ext_mag",
+    "weapon": "ue_qbz191",
+    "shared_fallback": "magazine_ext_mag.png (QBZ-191 silhouette, unchanged)"
+  }
+}

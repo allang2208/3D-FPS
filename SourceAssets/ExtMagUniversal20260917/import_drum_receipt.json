@@ -1,0 +1,41 @@
+{
+  "M4": {
+    "mesh": "/Game/Weapons/DrumRemodel20260917/M4/SM_M4_LargeDrum.SM_M4_LargeDrum",
+    "slots": [
+      "DrumPolymer",
+      "DrumFasteners",
+      "DrumIndex"
+    ],
+    "extent": [
+      4.54,
+      6.26,
+      8.69
+    ]
+  },
+  "AKM": {
+    "mesh": "/Game/Weapons/DrumRemodel20260917/AKM/SM_AKM_drum.SM_AKM_drum",
+    "slots": [
+      "drum_DrumPolymer",
+      "drum_DrumFasteners",
+      "drum_DrumIndex"
+    ],
+    "extent": [
+      4.5,
+      6.28,
+      9.37
+    ]
+  },
+  "QBZ": {
+    "mesh": "/Game/Weapons/DrumRemodel20260917/QBZ/SM_QBZ191_drum.SM_QBZ191_drum",
+    "slots": [
+      "QBZ_SRC_drum_0",
+      "QBZ_SRC_drum_1",
+      "QBZ_SRC_drum_2"
+    ],
+    "extent": [
+      4.49,
+      8.13,
+      13.87
+    ]
+  }
+}

@@ -94,16 +94,44 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
         }
         if(LargeDrum->GetStaticMesh()!=Asset)LargeDrum->EmptyOverrideMaterials();
         LargeDrum->SetStaticMesh(Asset);
-        // Each mesh is authored inside its own rifle's WPN_SOCKET_Magazine frame
-        // (factory assembly pose, lengthened in place), so the installed angle
-        // and depth come from the weapon interface itself - no fitted rake and
-        // no pose guessed from a bounding-box axis. The runtime skeleton is
-        // scaled x100, so the seat keeps the 0.01 scale the accepted drum mounts
-        // use (see DrumMount below); with unit scale the magazine inherits x100
-        // and lands hundreds of metres off the weapon.
-        LargeDrum->SetRelativeTransform(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f)));
-        UE_LOG(LogTemp,Display,TEXT("EXT_MAG: attached id=%s mesh=%s rel_loc=%s world_loc=%s parent=%s parent_loc=%s weapon_loc=%s socket_ok=%d skel=%s"),
-            *MagazineAttachmentId,*Asset->GetName(),*LargeDrum->GetRelativeLocation().ToString(),*LargeDrum->GetComponentLocation().ToString(),
+        // The meshes carry the factory magazine's own placement in the weapon's
+        // frame (Scripts/rebuild_in_weapon_frame.py fits each one onto its own
+        // rifle's factory magazine, throat to throat, with the added 6 cm below
+        // the floor plate) - the same convention the accepted large drum uses,
+        // and the factory magazine is skinned 100% to WPN_SOCKET_Magazine.
+        // Use the drum's own accumulation verbatim: it is the only seat formula
+        // in this file that has been verified in game. A parent-first product of
+        // the same ref poses (the "textbook" socket transform) reads differently
+        // here and buried the magazine inside the receiver instead of the well,
+        // so both are logged for comparison.
+        const auto& Ref=WeaponMesh->GetRefSkeleton();
+        TArray<int32> MagChain;
+        FTransform Bone=FTransform::Identity;
+        for(int32 I=Ref.FindBoneIndex(TEXT("WPN_SOCKET_Magazine"));I!=INDEX_NONE;I=Ref.GetParentIndex(I)){MagChain.Add(I);Bone=Bone*Ref.GetRefBonePose()[I];}
+        FTransform ParentFirst=FTransform::Identity;
+        for(int32 K=MagChain.Num()-1;K>=0;--K)ParentFirst=ParentFirst*Ref.GetRefBonePose()[MagChain[K]];
+        // Two frame conventions are in play, and each magazine is authored for its
+        // own rifle's accepted path:
+        //  - M4/QBZ: the mesh carries the placement in the weapon frame, and the
+        //    accepted drum is mounted with the socket's inverse.
+        //  - AKM: that rifle's accepted drum is authored in the WPN_SOCKET_Magazine
+        //    frame and mounted identity/ignoring translation, with only the unit
+        //    scale; the socket-inverse accumulation left the AKM magazine ~7 cm out
+        //    of the well (logged as parentfirst_t/seat_t below).
+        const FVector BoneScale=Bone.GetScale3D().GetAbs();
+        const FVector MagUnitScale(1.f/FMath::Max(UE_SMALL_NUMBER,BoneScale.X),
+                                   1.f/FMath::Max(UE_SMALL_NUMBER,BoneScale.Y),
+                                   1.f/FMath::Max(UE_SMALL_NUMBER,BoneScale.Z));
+        const bool bSocketFrameMag=AKMSoviet::Matches(AKMViewmodel);
+        LargeDrum->SetRelativeTransform(bSocketFrameMag
+            ? FTransform(FQuat::Identity,FVector::ZeroVector,MagUnitScale)
+            : FTransform::Identity.GetRelativeTransform(Bone));
+        const FBoxSphereBounds SeatBounds=Asset->GetBounds().TransformBy(LargeDrum->GetComponentTransform());
+        UE_LOG(LogTemp,Display,TEXT("EXT_MAG: attached id=%s mesh=%s frame=%s rel_loc=%s rel_scale=%s bind_scale=%s seat_t=%s parentfirst_t=%s world_loc=%s world_extent=%s parent=%s parent_loc=%s weapon_loc=%s socket_ok=%d skel=%s"),
+            *MagazineAttachmentId,*Asset->GetName(),bSocketFrameMag?TEXT("socket"):TEXT("weapon"),
+            *LargeDrum->GetRelativeLocation().ToString(),*LargeDrum->GetRelativeScale3D().ToString(),
+            *Bone.GetScale3D().ToString(),*Bone.GetLocation().ToString(),*ParentFirst.GetLocation().ToString(),
+            *LargeDrum->GetComponentLocation().ToString(),*SeatBounds.BoxExtent.ToString(),
             LargeDrum->GetAttachParent()?*LargeDrum->GetAttachParent()->GetName():TEXT("none"),
             LargeDrum->GetAttachParent()?*LargeDrum->GetAttachParent()->GetComponentLocation().ToString():TEXT("-"),
             *AKMViewmodel->GetComponentLocation().ToString(),

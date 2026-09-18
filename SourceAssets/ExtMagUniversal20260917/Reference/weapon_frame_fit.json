@@ -1,0 +1,118 @@
+{
+ "M4": {
+  "out": "SM_ExtMag_M440_inframe.fbx",
+  "fit": {
+   "total": 1652,
+   "inliers": 795,
+   "inlier_share": 0.481,
+   "rms_kept_mm": 0.0,
+   "overshoot_above_throat_mm": 0.0,
+   "candidates": [
+    {
+     "tag": "larger",
+     "inliers": 857,
+     "overshoot_above_throat_mm": 59.24,
+     "rms_mm": 0.0
+    },
+    {
+     "tag": "complement",
+     "inliers": 795,
+     "overshoot_above_throat_mm": 0.0,
+     "rms_mm": 0.0
+    }
+   ]
+  },
+  "frame": "own factory magazine (index-wise Kabsch)",
+  "new_bounds_m": [
+   0.04231,
+   0.23132,
+   -0.27741,
+   0.08552,
+   0.32452,
+   -0.04188
+  ]
+ },
+ "QBZ": {
+  "out": "SM_ExtMag_QBZ40_inframe.fbx",
+  "fit": {
+   "total": 4620,
+   "inliers": 2398,
+   "inlier_share": 0.519,
+   "rms_kept_mm": 0.0,
+   "overshoot_above_throat_mm": 0.0,
+   "candidates": [
+    {
+     "tag": "larger",
+     "inliers": 2398,
+     "overshoot_above_throat_mm": 0.0,
+     "rms_mm": 0.0
+    },
+    {
+     "tag": "complement",
+     "inliers": 2222,
+     "overshoot_above_throat_mm": 54.52,
+     "rms_mm": 0.0
+    }
+   ]
+  },
+  "frame": "own factory magazine (index-wise Kabsch)",
+  "new_bounds_m": [
+   0.04094,
+   0.23591,
+   -0.29223,
+   0.087,
+   0.38061,
+   -0.0504
+  ]
+ },
+ "AKM": {
+  "out": "SM_ExtMag_AKM40_inframe.fbx",
+  "frame": "PMAG fitted to M4 magazine, then placed at the AKM magazine throat",
+  "pmag_fit": {
+   "total": 1652,
+   "inliers": 795,
+   "inlier_share": 0.481,
+   "rms_kept_mm": 0.0,
+   "overshoot_above_throat_mm": 0.0,
+   "candidates": [
+    {
+     "tag": "larger",
+     "inliers": 857,
+     "overshoot_above_throat_mm": 59.24,
+     "rms_mm": 0.0
+    },
+    {
+     "tag": "complement",
+     "inliers": 795,
+     "overshoot_above_throat_mm": 0.0,
+     "rms_mm": 0.0
+    }
+   ]
+  },
+  "akm_up_axis": [
+   -0.0419,
+   0.1168,
+   0.99227
+  ],
+  "akm_throat_top_m": [
+   0.05714,
+   0.21204,
+   -0.09038
+  ],
+  "m4_throat_top_m": [
+   0.0529,
+   0.23921,
+   -0.0441
+  ],
+  "m4_pmag_length_m": 0.17667,
+  "akm_factory_length_m": 0.18274,
+  "new_bounds_m": [
+   0.04613,
+   0.17172,
+   -0.32436,
+   0.07937,
+   0.26796,
+   -0.08699
+  ]
+ }
+}

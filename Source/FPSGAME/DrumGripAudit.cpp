@@ -89,10 +89,15 @@ void AFPSGAMECharacter::RunDrumGripAudit()
             UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: COMPLETE failures=%d"),DrumGripAuditFailures);
             PC->ConsoleCommand(TEXT("quit"));return;
         }
-        // Magazine audit close-out: yaw the viewmodel 90 deg so the side of the
-        // seated magazine faces the camera, let the screenshot land, restore, quit.
-        static bool bTurned=false;static double TurnedAt=0;static double ShotAt=0;static FRotator Keep;
-        if(!bTurned){Keep=AKMViewmodel->GetRelativeRotation();AKMViewmodel->SetRelativeRotation(FRotator(0,90,0));bTurned=true;TurnedAt=FPlatformTime::Seconds();return;}
+        // Magazine audit close-out: raise the viewmodel clear of the weapon info
+        // panel and yaw it 90 deg, so the seated magazine is actually visible in
+        // the capture. The panel hid the magazine region in every earlier round.
+        static bool bTurned=false;static double TurnedAt=0;static double ShotAt=0;static FRotator Keep;static FVector KeepLoc;
+        if(!bTurned){Keep=AKMViewmodel->GetRelativeRotation();KeepLoc=AKMViewmodel->GetRelativeLocation();
+            AKMViewmodel->SetRelativeLocation(KeepLoc+FVector(0,0,18));
+            AKMViewmodel->SetRelativeRotation(FRotator(0,90,0));
+            FScreenshotRequest::RequestScreenshot(Out/TEXT("raised_side.png"),true,false);
+            bTurned=true;TurnedAt=FPlatformTime::Seconds();return;}
         if(ShotAt==0.0)
         {
             if(FPlatformTime::Seconds()-TurnedAt<0.8)return;
@@ -106,7 +111,7 @@ void AFPSGAMECharacter::RunDrumGripAudit()
             ShotAt=FPlatformTime::Seconds();return;
         }
         if(FPlatformTime::Seconds()-ShotAt<0.8)return;
-        AKMViewmodel->SetRelativeRotation(Keep);
+        AKMViewmodel->SetRelativeRotation(Keep);AKMViewmodel->SetRelativeLocation(KeepLoc);
         if(FParse::Param(FCommandLine::Get(),TEXT("DrumCaptureAudio")))
             UAudioMixerBlueprintLibrary::StopRecordingOutput(this,EAudioRecordingExportType::WavFile,TEXT("DrumAudio"),Out+TEXT("/"));
         UE_LOG(LogTemp,Display,TEXT("DRUM_GRIP: COMPLETE failures=%d"),DrumGripAuditFailures);

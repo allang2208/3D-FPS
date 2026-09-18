@@ -1,8 +1,160 @@
-# 扩容弹匣 `ext_mag` ——**当前状态：待办，未通过验收**（2026-09-18）
+# 收口：正式资产写入、AKM 插座系生效、逐枪图标（2026-09-18 收尾）
+
+上一轮结束时编辑器仍占着正式网格，只能把逐枪烘焙结果写到 `SM_ExtMag_*_Finish` 变体；本轮把结果落回**正式资产名**，并补齐逐枪图标与旧件退役。**未由用户实机验收**，游戏内表现仍由用户确认。
+
+## 1. 正式资产落盘（`install_extmag_finish.py`，16:38:25）
+
+- 三件网格重新导入到正式名 `SM_ExtMag_{M440,AKM40,QBZ40}`（带 UV0 + `MagazineCoatUV` 双层 UV，AKM 网格为插座系写法），材质建成 `M_ExtMag_Finish_{M4,AKM,QBZ191}` 并逐槽绑定。
+- 材质做法：克隆**该枪弹匣槽的宿主材质**（M4 `Magazine_Light_001`、QBZ `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer`、AKM `M_AKM_Soviet_PBR`），BaseColor/ORM 改采涂层 UV（索引 1），原 UV0 的结构法线与 AO 保持连接，白色刻字用原底色亮度遮罩保留；元数据记 `WeaponFinishCoatingUV=1` 与 `WeaponFinishReference`。回执 `finish_install_receipt.json`，三件全部 `saved=true`。
+- 编辑器占用期间的变体 `SM_ExtMag_*_Finish` 保留在磁盘作回退，装配引用（`M4DrumVisual.cpp`）指向正式名。
+
+## 2. 三枪落位实测（夹具日志，非人工验收）
+
+`Saved/DrumGripAudit/canon_{m4,akm,qbz}.log` 记录本轮正式资产的第一人称捕获（`raised_side.png` 及 `normal_* / empty_*` 序列；`_zoom.png` 为裁切放大）：
+
+| 枪 | `frame` | `rel_scale` | `world_extent`（半长） | 弹匣全长 |
+| --- | --- | --- | --- | --- |
+| M4A1 | `weapon` | 0.01 | 4.699 × 2.176 × 11.794 | 23.6 cm |
+| AKM | `socket` | 0.01 | 4.823 × 1.770 × 11.873 | 23.75 cm |
+| QBZ-191 | `weapon` | 0.01 | 7.237 × 2.335 × 12.097 | 24.19 cm |
+
+三把枪的弹匣都收在机匣下方、与原厂件同一井口缝线，多出的约 6 cm 垂在底板以下；AKM 走插座系（`identity / 零位移 / 单位缩放补偿`）后落点已回到井内（上一轮误差约 7 cm 的 `parentfirst_t` 路径已弃用，日志同时打印两种累加结果备查）。`empty_012.png` 一类换弹帧可见左手整把握在弹匣体上，延伸段落在握点**下方**，几何上与原厂换弹接触一致（握点是动画固定值，弹匣为刚体挂在同一根骨骼上）。
+
+## 3. 逐枪图标（`Scripts/render_icon_per_weapon.py` + `import_extmag_icons.py`）
+
+按 `attachment-icons.md` 的专属图覆盖规则补三张，UI 解析顺序为「武器专属 → 共享」：
+
+- `ue_m4a1_magazine_ext_mag.png`（PMAG 造型）、`ue_akm_magazine_ext_mag.png`（PMAG 造型）、`ue_qbz191_magazine_ext_mag.png`（5.8 mm 弯弹匣造型）；共享图 `magazine_ext_mag.png` 保持 QBZ 造型作未列枪型回退。
+- 图标本体沿用已验收的既有表达（正交侧视、枪口方向朝左、透明底、单件、中性聚合物棚拍）；逐枪烘焙涂层另出 `Reference/material_preview_<weapon>_coating.png` 作材质证据（涂层是 12 cm 盒式投影的机匣贴图，放到 24 cm 配件上在图标尺寸下呈噪点，故不进图标本体）。
+- 纹理副本同目录同名 `.uasset` 已同步，回执 `icon_per_weapon_receipt.json`。
+
+## 4. 旧件退役
+
+`SM_ExtMag_Universal`、`SM_ExtMag_PMAG40`、`M_ExtMag_Metal`、`M_ExtMag_Polymer` 四件（`Source/`、`Content/` 其余资产均无引用）按 `publication.md` 移入 `trash/extmag-superseded-20260918/Content_Weapons_ExtMagUniversal20260917/`，移动前后 SHA-256 一致（`MOVED.json`、`MANIFEST.md`）。
+
+## 5. 构建与仍未完成
+
+- `UnrealEditor-FPSGAME.dll` 16:50、`FPSGAME.exe` 16:51，两个目标都含本轮 C++（`EXT_MAG: attached … frame=` 诊断串）。
+- **未由用户确认**：三枪游戏内观感、换弹跟随、逐枪图标在枪匠面板的显示。
+- 仍未做：逐枪图标的最终视觉确认（用户）；AKM 换弹接触的实机复核（本轮只做了几何推断与既有机位截图核对）。
+- 另注：正式资产现在带双层 UV，若后续再改网格，`MagazineCoatUV`（索引 1）必须保留，否则逐枪涂层会失效。
+
+---
+
+# 扩容弹匣 `ext_mag` —— 按枪烘焙涂层 + AKM 落位修正（2026-09-18）
+
+用户反馈两点：M4/191 位置已可，但材质未按配件标准做"针对该枪的统一"（缺烘焙与法线处理）；AKM 弹匣仍错位。本轮针对两者处理，并在游戏内对照确认。
+
+## 材质：每把枪独立烘焙（不再直接套宿主槽）
+
+按 [weapon-finish.md](../../skills/ue5-weapon-workflow/references/weapon-finish.md) 与两个既有案例（`WeaponAttachmentFinish20260913` 的投影 UV + 逐枪材质；`QBZ191MetalCoat20260913` 的逐件烘焙）执行：
+
+- **`Scripts/bake_extmag_finish.py`**（Blender）：保留 UV0 与导入的分离法线（原结构法线/AO 的采样基础），新增涂层 UV `MagazineCoatUV`（索引 1，smart project），再用**各枪自己的机匣涂层**按固定物理尺度做盒式投影并烘焙：
+  - M4：`T_M4_Receiver_BaseColor` + `T_M4_Receiver_Roughness`（沿用例内记录的 Phong→金属粗糙转换口径，metal 0.8），tile 12×5 cm；
+  - QBZ-191：`T_QBZ_Hero_Body_BaseColor` + `_ORM`（G=粗糙度、B=金属度），tile 12×5 cm；
+  - AKM：`T_AKM_Mount_Base_color / _Roughness / _Metallic`，tile 12×2.5 cm。
+  产物：`Textures/<枪>/T_ExtMag_<枪>_{BaseColor,ORM}.png`（2048²），回执 `Reference/finish_bake.json`。
+- **`install_extmag_finish.py`**（UE）：导入烘焙贴图与带双层 UV 的网格，克隆**该枪弹匣槽的宿主材质**建图（BaseColor/Roughness/Metallic 改采涂层 UV，金属与白色刻字用原底色的亮度遮罩保留，**原 UV0 结构法线与 AO 保持连接**），产出 `M_ExtMag_Finish_{M4,QBZ191,AKM}` 并逐槽绑定；元数据记录参考枪身材质与涂层 UV。回执 `finish_install_receipt.json`。
+- 编辑器占用原网格时按标准保存**专用变体**（`SM_ExtMag_*_Finish`），装配引用同步更新，未关闭他人编辑器；原资产保留可回退。
+
+## AKM 落位：改用该枪弹鼓的插座系约定
+
+已验收大弹鼓在 AKM/QBZ 上是"资产写在 `WPN_SOCKET_Magazine` 系 + 座位 identity/零位移/仅单位缩放"，而 M4 是"资产写枪体坐标系 + 插座绑定逆"。上一版对 AKM 用了 M4 那套，插座逆的累加在 AKM 骨链上不精确（组件离网格原点约 7 cm）——即用户看到的错位。本轮把 AKM 网格重写到插座系（`bake_extmag_finish.py` 的 AKM 分支，取该枪源姿态插座矩阵的逆），C++ 对 AKM 走 `identity/零位移/单位缩放`（日志 `frame=socket`），M4/QBZ 维持原路径（日志 `frame=weapon`）。
+
+## 实机对照（本轮已看图）
+
+`Saved/DrumGripAudit/fin_{m4,akm,qbz}/raised_side.png`（及 `_zoom.png`）vs 原厂件对照 `ref_factory_{m4,akm,qbz}/`：
+
+- 三把枪的扩容弹匣都收在机匣下方、与原厂件同一井口缝线处，多出的约 6 cm 垂在底板以下；AKM 不再偏低；
+- 表面已是各自枪身的涂层语言（M4 暖灰磨损、QBZ 深色涂层+白色磨损痕、AKM 苏联钢件），白色痕迹与肋条细节保留。
+
+两个目标已编译（FPSGAMEEditor 目标通过；game 目标需编辑器释放后再补）。
+
+---
+
+# 上一轮：实机对照定位并修正挂点（2026-09-18 深夜）
+
+用户要求直接在游戏里看。照做后定位到两件事，都已修：
+
+## 1. 挂点累加方式错了（弹匣被埋进机匣，所以"根本没插进枪里"）
+
+我上一版用"教科书式"的父→子累加求插座绑定变换；在本工程的 rig 上它**不等于**插座的组件空间变换：
+
+| 累加方式 | 平移（组件空间） |
+| --- | --- |
+| 大弹鼓的写法（从插座向上逐级 `Bone = Bone * GetRefBonePose[I]`） | `(6.447, -22.520, -17.623)` ← 与已知插座位置一致 |
+| 我上一版的父→子连乘 | `(0.955, -1.140, -1.125)` ← 完全不同的变换 |
+
+用错的那个变换后，组件世界缩放虽仍是 1、包围盒也仍是 23.6 cm，但姿态被转走，弹匣整根埋进机匣内部（截图里井口空空）。现在 `M4DrumVisual.cpp` 的 ext_mag 分支**逐字使用大弹鼓的累加**（这是本文件里唯一在游戏里验证过的写法），两种结果都打进日志备查。
+
+## 2. 之前的"验证截图"其实一直被武器信息面板挡住
+
+弹匣比弹鼓短，装好后正好落在右下角武器信息面板背后；前几轮（包括"侧面捕获"）看到的都是面板，所以既看不到错位也看不到正确。已改 `DrumGripAudit`：收尾时把视模抬高 18 cm 再侧转，拍 `raised_side.png`，弹匣区域不再被遮挡。同时确认 `DrumGripAudit` 的 side 阶段现在是活代码（会真的落盘）。
+
+## 实机对照证据（同机位、同姿态 A/B）
+
+- 扩容弹匣：`Saved/DrumGripAudit/extm_m4c|extm_akm|extm_qbz/raised_side.png`
+- 原厂弹匣对照（`-MagazineAudit=none`，保留原厂件可见）：`Saved/DrumGripAudit/ref_factory_m4|akm|qbz/raised_side.png`
+- 结论：三把枪的扩容弹匣**与原厂弹匣在同一井口缝线处**露出（顶部都收在机匣下方），区别只是多出的 ~6 cm 垂在底板以下；M4/AKM 为 PMAG 造型、QBZ 为 5.8 mm 弯弹匣造型，与资产来源一致。日志侧 `bind_scale=100 / rel_scale=0.01 / 世界全长 23.9–24.6 cm` 同步吻合。
+
+**仍未由用户确认**：换弹过程中弹匣跟随弹匣骨（组件刚性挂在该骨上，行为应与原厂件蒙皮一致）；AKM 的插座累加残差比 M4/QBZ 大（组件中心离网格原点 6.9 cm vs 0.6 cm），视觉对照没看出问题，但若 AKM 实机仍有偏差，应改为按 AKM 弹鼓的做法（资产放插座系 + 座位 `identity/0.01`）重导。
+
+---
+
+# 上一轮：按已验收大弹鼓的落位方式重建（2026-09-18 晚）
+
+## 这一轮为什么改挂法：插座不是井口
+
+用户反馈"没有一把枪的弹夹正确插入弹仓"，据此回查已验收大弹鼓的落位判定，得到三条硬证据：
+
+1. **原厂弹匣 100% 蒙皮在 `WPN_SOCKET_Magazine` 上**（Blender 源场景实测：`M4_Magazine Light.003_Export` 与 `QBZ191_Magazine_Export` 的权重全在这根骨上）。所以"正确插入"= 该骨骼绑定姿态下的位置。
+2. **插座在井口下方 5.7–12.1 cm，井轴还倾斜 7.1–22.5°**（`Reference/seat_final.json`：M4 mouth_z −0.1053 / tilt 22.47°，AKM −0.1279 / 7.13°，QBZ −0.0730 / 19.12°）。前几轮把资产放进插座系、座位取恒等，等于把弹匣按插座位置挂上去——必然差这一段。
+3. **已验收大弹鼓的挂法是"资产自带落位 + 挂在枪网格原点"**（M4 弹鼓 `DrumMount = Identity.GetRelativeTransform(Bone)`，资产坐标就是枪体坐标系）。它不依赖插座系，所以从来没有这个偏差。
+
+## 本轮做法
+
+- **重建资产**（`Scripts/rebuild_in_weapon_frame.py`，Blender）：把三个弹匣放回**各自原厂弹匣的落位**——喉部顶面与原厂顶面重合、加长的 6 cm 垂在弹匣底板之下，坐标系换成枪体坐标系（`Reference/weapon_frame_fit.json`）。M4/QBZ 用索引对应 + RANSAC 精配到各自原厂弹匣（不变段 52%、残差 **0.000 mm**）；AKM 是共用 PMAG，先配到 M4 弹匣形状再按 `seat_final.json` 的 AKM 井轴/喉部高度落位。
+  - **两解判定**：加长件的上段与下段各自都能与"原厂件"刚性对齐（RANSAC 会挑到顶点更多的那一段，M4 上就挑错了）。物理判据是**喉部必须与原厂顶面重合、加长段只能在底板下方**；脚本按此选解并记录两个候选的越顶量（0.0 mm vs 59.2 mm）。
+- **改挂点**（`Source/FPSGAME/Weapons/M4DrumVisual.cpp`）：挂到 `WPN_SOCKET_Magazine`，座位取自**该骨骼绑定变换的逆**（父→子累加 `GetRefBonePose`，写死缩放/偏移全部删除）。这样弹匣静止时在井内，换弹时跟着同一根骨骼走，等价于原厂件的蒙皮行为。
+- **资产落地**：`SM_ExtMag_{QBZ40,M440,AKM40}_inframe.fbx` 导入并覆盖同名 UE 资产（`import_extmag_receipt.json`：`saved=true`，实测尺寸 M4 4.32×9.32×23.55 / AKM 3.32×9.62×23.74 / QBZ 4.61×14.47×24.18 cm，`unit_verdict=OK`），材质仍逐枪绑原厂弹匣槽（`bind_extmag_receipt.json`，三件 `saved=true`）。
+- **编译**：`UnrealEditor-FPSGAME.dll` 12:51:01、`FPSGAME.exe` 12:53（两个目标都含新诊断串 `bind_scale`）。中途 game 目标曾被并行会话在 `Skills/FPSCastingMeshComponent.cpp` 的在改文件挡住一次，等对方改完重跑通过。
+
+**本轮未启动游戏、未截图、未验收**；实机表现与换弹跟随仍需用户确认。核对方式：看 `EXT_MAG: attached` 的 `rel_scale`（AKM/QBZ 应约 `0.01`、M4 `1`）与 `world_extent`（全长 23.5–24.2 cm），并观察弹匣是否贴在井口、换弹时是否跟着弹匣骨骼。
+
+---
+
+# 上一轮：座位单位修复与三枪重导（2026-09-18 下午）
+
+本轮查清了连续两轮"看不见 / 没插进去"的根因是**挂点帧单位**，改法、回执与实机核对方法如下。**本轮未启动游戏、未截图、未验收**，实机表现仍需用户确认。
+
+## 根因：三枪挂点帧单位本来就不同
+
+- `Source/FPSGAME/Weapons/AKMSovietCalibration.h` 原文：`WPN_root inherits the FBX 100x scale; these coordinates remain in metres` —— AKM/QBZ 的挂点帧是**米制**，所以厘米量纲的配件要 `0.01`（`QBZ191Attachments::OpticMount`、`M4GunsmithVisual` 的 AKM/QBZ 分支同此）。
+- `M4MuzzleVisual.cpp`（`6.0775f`、`27.f` 等）与 `M4GunsmithVisual.cpp` 的 M4 分支用 `FVector::OneVector` —— M4 挂点帧是**厘米制**，配件相对缩放必须是 `1`。
+- 因此 `SetRelativeTransform(..., FVector(.01f))` 只对 AKM/QBZ 成立；对 M4 会小 100 倍（20 cm 弹匣剩 2.5 mm），与 9/17 记录过的"2mm 弹匣"是同一类错误。
+
+## 本轮改动
+
+- **C++（`Source/FPSGAME/Weapons/M4DrumVisual.cpp`，12:22:39）**：ext_mag 座位不再写死缩放，改为 `SeatScale = 1 / socket 世界缩放`（M4 → 1，AKM/QBZ → 0.01），位移与旋转仍保持零（网格已存在于各自 `WPN_SOCKET_Magazine` 帧）。同一处日志扩展为 `EXT_MAG: attached ... rel_scale= socket_scale= world_extent=`，可直接读数判定落位与尺寸。
+- **导入（`import_extmag_runtime.py` → `import_extmag_receipt.json`）**：三件 `saved=true`，实测全长 QBZ **24.09** / M4 **22.66** / AKM **23.42 cm**，`unit_verdict=OK`，每件 1 个材质槽。脚本新增全长/半长口径区分与越界即 `SUSPECT_UNIT` 的判定，并强制写回执文件。
+- **材质（`bind_extmag_finish.py` → `bind_extmag_receipt.json`）**：三件 `saved=true`，逐枪绑到本方原厂弹匣槽：QBZ → `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer`，M4 → `Magazine_Light_001`，AKM → `M_AKM_Soviet_PBR`（AKM 原厂弹匣本身即用机匣材质）。槽位找不到会记为 `FAILED`，不再静默跳过。
+- **编译**：`UnrealEditor-FPSGAME.dll` 12:30:33、`FPSGAME.exe` 12:31:45，两个目标都含本轮改动（二进制内可检索到 `rel_scale` / `socket_scale` 串）。`Saved/BuildEditor/build-20260918-123209.log`。
+
+## 实机核对方法（由用户执行）
+
+带 ext_mag 进游戏看一条日志即可：M4 应 `rel_scale=1`、AKM/QBZ 应 `0.01`；`world_extent` 的弹匣全长应约 22.7–24.1 cm。这条数字同时也在验证"Blender 骨骼帧 = 运行时插座帧"的**旋转**假设——此前只在 Blender 内自证过（QBZ 收敛到 1.7 mm），未在运行时核对。
+
+## 仍未完成
+
+1. **换弹接触**：加长 6 cm 落在距喉部 10 cm 以下，若左手插入段正好抓在那个区间，接触会随之下移 6 cm。需先量当前已验收换弹里左手距喉部的抓握距离，再决定抬高切面还是改握点，不能凭猜。
+2. **按枪型图标**：M4/AKM 是 PMAG 造型、QBZ 是 5.8 mm 造型，当前共享图仍是 QBZ 造型。要出 `ue_m4a1_magazine_ext_mag.png` 等专属图，需各自的安装帧（`AttachmentIconAudit20260914` 的 `frame: rig` 流程）；本轮不按最长包围盒轴猜正反面，故未出图。
+3. **旧资产清理**：`SM_ExtMag_Universal`、`SM_ExtMag_PMAG40` 已无源码引用，清单见 `trash/extmag-superseded-20260918/MANIFEST.md`，未删除。
+
+以下为 12:04 当时的原始记录，保留作对照。
 
 用户判定"**还是没成功**"，并指出姿态/动作适配是我们把握不足的部分，本项降为待办。已完成制作、未通过实机验证。
 
-**待办清单（交接顺序）**
+**第一轮待办清单（12:04 记录，其中 1、2 已由本轮完成）**
 
 1. 编辑器释放后重跑 `import_extmag_runtime.py` 与 `bind_extmag_finish.py`。编辑器被占用时外部保存会**静默失败**：`SM_ExtMag_QBZ40.uasset` 的时间戳仍停在 11:25（入枪姿态版没写盘），材质绑定同样没落盘；同一时段**新建**的 `SM_ExtMag_M440/AKM40` 反而写入成功（11:54:16）。
 2. 编译 `Source/FPSGAME/Weapons/M4DrumVisual.cpp`（三枪各自资产 + 恒等座位），跑 `DrumGripAudit` 夹具实测三枪（`-AuditWeapon=ue_qbz191 / ue_m4a1 / ue_akm`）。`Tools/Build/Build-Editor.ps1` 检测到 UnrealEditor 进程会直接拒绝构建，不会去关别人的编辑器。

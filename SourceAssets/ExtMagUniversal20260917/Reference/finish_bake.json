@@ -1,0 +1,59 @@
+{
+ "M4": {
+  "fbx": "SM_ExtMag_M440_finish.fbx",
+  "textures": {
+   "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\M4\\T_ExtMag_M4_BaseColor.png",
+   "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\M4\\T_ExtMag_M4_ORM.png"
+  },
+  "coating_uv": 1,
+  "uv_name": "MagazineCoatUV",
+  "physical_tile_m": [
+   0.12,
+   0.05
+  ],
+  "frame": "weapon frame",
+  "slots": [
+   "Magazine Light.001"
+  ]
+ },
+ "QBZ": {
+  "fbx": "SM_ExtMag_QBZ40_finish.fbx",
+  "textures": {
+   "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\QBZ\\T_ExtMag_QBZ_BaseColor.png",
+   "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\QBZ\\T_ExtMag_QBZ_ORM.png"
+  },
+  "coating_uv": 1,
+  "uv_name": "MagazineCoatUV",
+  "physical_tile_m": [
+   0.12,
+   0.05
+  ],
+  "frame": "weapon frame",
+  "slots": [
+   "M_QBZ191_Body",
+   "M_QBZ191_Magazine",
+   "M_QBZ191_Irons",
+   "M_QBZ191_Irons_Machined",
+   "M_QBZ191_Irons_Inner",
+   "M_QBZ191_Polymer",
+   "M_QBZ191_Steel"
+  ]
+ },
+ "AKM": {
+  "fbx": "SM_ExtMag_AKM40_finish.fbx",
+  "textures": {
+   "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\AKM\\T_ExtMag_AKM_BaseColor.png",
+   "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\AKM\\T_ExtMag_AKM_ORM.png"
+  },
+  "coating_uv": 1,
+  "uv_name": "MagazineCoatUV",
+  "physical_tile_m": [
+   0.12,
+   0.025
+  ],
+  "frame": "WPN_SOCKET_Magazine (socket)",
+  "slots": [
+   "Magazine Light.001"
+  ]
+ }
+}

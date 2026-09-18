@@ -1,0 +1,26 @@
+{
+  "SM_ExtMag_QBZ40": {
+    "saved": true,
+    "bound_to": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+    "bound_slot_count": 1,
+    "slots": [
+      "M_QBZ191_Magazine"
+    ]
+  },
+  "SM_ExtMag_M440": {
+    "saved": true,
+    "bound_to": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "bound_slot_count": 1,
+    "slots": [
+      "Magazine_Light_001"
+    ]
+  },
+  "SM_ExtMag_AKM40": {
+    "saved": true,
+    "bound_to": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "bound_slot_count": 1,
+    "slots": [
+      "Magazine_Light_001"
+    ]
+  }
+}

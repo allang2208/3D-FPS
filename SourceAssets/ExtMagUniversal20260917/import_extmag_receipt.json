@@ -1,0 +1,59 @@
+{
+  "SM_ExtMag_QBZ40": {
+    "fbx": "SM_ExtMag_QBZ40_inframe.fbx",
+    "saved": true,
+    "slot_count": 1,
+    "slots": [
+      "M_QBZ191_Magazine"
+    ],
+    "size_cm": [
+      4.61,
+      14.47,
+      24.18
+    ],
+    "bounds_center_cm": [
+      6.4,
+      -30.83,
+      -17.13
+    ],
+    "unit_verdict": "OK"
+  },
+  "SM_ExtMag_M440": {
+    "fbx": "SM_ExtMag_M440_inframe.fbx",
+    "saved": true,
+    "slot_count": 1,
+    "slots": [
+      "Magazine_Light_001"
+    ],
+    "size_cm": [
+      4.32,
+      9.32,
+      23.55
+    ],
+    "bounds_center_cm": [
+      6.39,
+      -27.79,
+      -15.96
+    ],
+    "unit_verdict": "OK"
+  },
+  "SM_ExtMag_AKM40": {
+    "fbx": "SM_ExtMag_AKM40_inframe.fbx",
+    "saved": true,
+    "slot_count": 1,
+    "slots": [
+      "Magazine_Light_001"
+    ],
+    "size_cm": [
+      3.32,
+      9.62,
+      23.74
+    ],
+    "bounds_center_cm": [
+      6.27,
+      -21.98,
+      -20.57
+    ],
+    "unit_verdict": "OK"
+  }
+}
