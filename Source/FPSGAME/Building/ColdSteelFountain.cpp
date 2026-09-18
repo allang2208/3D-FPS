@@ -93,6 +93,23 @@ void AColdSteelFountain::BeginPlay()
     AlignGeometry();
     ApplyFxQuality();
     AudioCountdown=FMath::FRandRange(AudioMinInterval,AudioMaxInterval);
+    // 运行期一次性自证：这台喷泉实际在渲染哪些网格/材质（排查"看着没变化"时按这行日志对账）
+    const auto Describe=[](const UStaticMeshComponent* Comp)->FString
+    {
+        if(!Comp)return FString(TEXT("null"));
+        const UStaticMesh* Mesh=Comp->GetStaticMesh();
+        const UMaterialInterface* Mat=Comp->GetMaterial(0);
+        FString Out=Comp->GetName();
+        Out+=TEXT("{")+(Mesh?Mesh->GetName():FString(TEXT("none")));
+        Out+=TEXT("|mat:")+(Mat?Mat->GetName():FString(TEXT("none")));
+        Out+=FString::Printf(TEXT("|vis:%d}"),Comp->IsVisible()?1:0);
+        return Out;
+    };
+    UE_LOG(LogTemp,Display,
+        TEXT("ColdSteelFountain %s 位置=(%.0f,%.0f,%.0f) 质量=%d 距离档=%d 组件: Main=%s Water=%s Fx=%s Jet=%s"),
+        *GetName(),GetActorLocation().X,GetActorLocation().Y,GetActorLocation().Z,
+        CachedQuality,CachedTier,*Describe(FountainMesh),*Describe(WaterMesh),*Describe(WaterFxMesh),
+        Jet?*Jet->GetName():TEXT("null"));
 }
 
 void AColdSteelFountain::Configure(UMaterialInterface* Surface)

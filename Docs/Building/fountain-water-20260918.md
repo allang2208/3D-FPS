@@ -349,3 +349,28 @@ v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水�
 `WaveHeight 7 → 22`、`NormalSlope 1.0 → 1.6`、`Wave1Length 300→240 / Amp 0.55→0.7`、
 `Wave2Length 170→140 / Amp 0.35→0.5`、`NoiseStrength 0.35→0.6`、`RippleStrength 1.1→1.4`、`CrestFoam 0.35→0.5`、
 `OpacityBase 0.30→0.34 / FresnelOpacity 0.25→0.30`。**观感过强时只降 `WaveHeight` 一个数即可。**
+
+## 9.6 用户回执"仍像固体" → 加运行期自证日志 + 两个待排除项（2026-09-18 18:54）
+
+连"亮面/轮廓在变"都看不到，说明不只是幅度问题。已经在 `AColdSteelFountain::BeginPlay` 加一次性日志
+（Game 与 Editor 两个二进制都已包含）：
+
+```
+ColdSteelFountain <名> 位置=(x,y,z) 质量=q 距离档=t 组件: Main=<网格|mat:材质|vis> Water=... Fx=... Jet=...
+```
+
+进 PIE 时按 `ColdSteelFountain` 过滤 `Saved/Logs/FPSGAME.log` 就能直接看到**这台喷泉实际在渲染哪些网格与材质**：
+`Water=` 若为 `SM_RomanFountain_WaterWaves|mat:MIC_FountainWaveWater` 且 `vis:1`，就说明水面链路在跑；
+若 `Water=none`/`vis:0`，或者位置不是 `(1350,-1550,0)`（关卡那台），那就是**另一台喷泉**。
+
+两个待排除项（都不需要我看图就能分辨）：
+
+1. **旧构件实例**：今天改成逻辑构件**之前**从建造面板摆下的喷泉是普通静态构件（只有主网格），
+   它的水槽现在指向隐藏材质 → 那台会变成**干盆**（看着就是一块实心石头）。修法：拆掉重新摆一台
+   （现在面板条目会生成 `AColdSteelFountain`），或把坐标给我，我用迁移脚本把它一起换掉。
+2. **编辑器会话未重开**：材质/网格/关卡都改过，PIE 前必须**完全关闭并重开编辑器**；
+   只用"停止 PIE 再开始"不会重新加载资产。
+
+关卡那台 `RomanFountain1`（喷泉正南 1150、站在广场地面上，位置 (1350,−1550,0)）**已确认**带着
+`FountainMesh / FountainWaterFx / FountainWater` 三个网格组件与 `FountainJet`；
+如果它在你眼里还是"固体"，那就只剩"运行态显示什么"这一层，日志会给出答案。
