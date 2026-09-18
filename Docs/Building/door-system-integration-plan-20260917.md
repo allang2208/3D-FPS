@@ -414,3 +414,5 @@ SetMaterial(0, Surface)"）。想在游戏里保住那扇小窗的玻璃，把 `
   细节见 [双开门案例第 9 节](double-door-200x200-20260918.md#9-第三轮高度统一-22-m2026-09-18)。
 - 占格：单扇门仍 (2,6,11)，双开门 (2,10,10) → **(2,10,11)**，显示名改成 `2×2.2 m`。
 - 构建：Game／Editor 两目标 Succeeded；**未实机实测**（放置、预览、按 E 开合、被挡反向、存档由用户测试）。
+- 发布记录：提交 `5b3b684`（`origin/main`），普通推送 `HEAD:main`，`git ls-remote` 回读一致；
+  新增内容依赖 `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_H208`。
