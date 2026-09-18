@@ -94,3 +94,78 @@ $env:FOUNTAIN_HEADLESS='1'; UnrealEditor-Cmd.exe <uproject> -run=pythonscript \
 - 焦散用包内 `M_Caustics`，其混合方式/亮度未目视确认。
 - 水效网格 +13,184 tri、7 个半透明网格部件：**未做性能实测**；`fps.Fountain.Quality` 是预留的开关。
 - 迁移脚本按"旧 actor 的变换"放置新 actor，没有重新贴地（无头 commandlet 不能用射线问地形）；如果喷泉整体看着埋进地面或浮空，那是 actor z=−360 的历史占位问题，要不要一起改请你定。
+
+---
+
+# 六次迭代：水体 v6（更像水 + 落水驱动，2026-09-18 晚）
+
+用户回执（附 PIE 截图）："也还是很假，水体一点流动感都没有，完全是像个固体一样，你看一下 GitHub 有没有水体优化项目，
+我们现有的资产能否做到，向我汇报。"→ 先做调研，再按用户选定的 **A+B** 落地（"剩下按你建议做，注意性能开销"）。
+**按 AGENTS.md 全局规则：本批未实机验收，进游戏测试由用户执行。**
+
+## 6.1 调研结论（GitHub 与"现有资产能不能做到"）
+
+GitHub 上没有 UE5.8 可即插即用的"水体美化"项目，开源的几家都是**模拟实验**：
+`mushe/NiagaraFluid`（MIT，143★，SPH + 屏幕空间水面渲染，自述 O(N²)、2024-03 停更）、
+`AlfonsoPrograms/FluidForge`（MIT，v0.4 早期）、`The-Mooncake/ComputeFluidSim`（MIT）、
+`W298/gvdb-fluid-unreal`（MIT，FLIP + NVIDIA GVDB）、`levvs-one/undine`（MIT，液体光学/射线焦散，含 Unreal HLSL）。
+**结论：不需要引入第三方**——真正相关的两套系统**已经装在本机引擎里**：
+Water / **WaterAdvanced**（245+72+147 资产，含 `NDC_ShallowWater`、`Grid2D_SW_River_Emitter`、`ShallowWaterRiverEmitter`、
+`Water_Material_Simple`、`GenerateCausticsTextures`）与 **NiagaraFluids**（530 资产，含 `BP_WaterRenderer` 屏幕空间水面渲染）；
+内容包 `/Game/WaterMaterials` 里还有**径向专用**的泡沫/波函数（`MF_Foam_Motion_Radial`、`MF_OceanWave_Motion_Radial`）、
+成套的 `SM_Waterfall_Arc`+`MIC_Waterfall_Arc`、溅水材质/贴图/粒子、法线图与立方图。
+
+## 6.2 v6 改了什么
+
+| 项 | v5（用户判"固体"） | v6 |
+| --- | --- | --- |
+| 水面材质 | 包内 `M_Water_Clean` 实例：深色 + 在 XAtlas UV 上滚法线 + 无反射 | **工程自制 `M_FountainWater`**（58 表达式，编译 0 错误）：极坐标双层滚动法线（世界尺寸可控）、**落水驱动的解析涟漪**（在两个落点半径 r=92/137（1×）上生成向外扩散、按距离衰减的波列）、**场景深度浅→深配色与透明度**、**菲涅尔天空反射（`T_Cubemap`）**、波峰白沫 |
+| 溢流水帘 | 白但看不见 | `MIC_FountainCascade` 提亮（FilmColor 0.94/0.97/0.99、OpacityBase 0.78）、泡沫滚动加快到 0.42/0.68、`FoamSize` 减到 34（更细的条纹） |
+| 落点 | 只有泡沫环 | 逻辑构件新增 **4 个落点水花**（引擎 `FountainLightweight` 缩到 0.42 放在两级水帘的落水点，±对称） |
+| 性能 | 无分级 | 距离分级：**近（≤26 m）全开 / 中（≤62 m）关水花 / 远（>62 m）只留水面材质**；`fps.Fountain.Quality` 0 仍可一键全关；**水效网格排除出 RT 几何与距离场**（`bVisibleInRayTracing=false`、`bAffectDistanceFieldLighting=false`） |
+
+## 6.3 与"真模拟"（B 档）的取舍（需要你知情）
+
+B 档原始定义是"用 WaterAdvanced 的浅水 SWE Niagara 驱动水面"。实现时我改了做法，理由如下：
+
+1. Water 插件的 WaterZone/WaterInfo 是**景观级**水体（构建自己的水体网格与 RT），项目里目前没有任何 Water Body；
+   给"玩家可反复放置的喷泉"每座挂一套 SWE 网格 + RT + 水体信息，与"注意性能开销"直接冲突；
+2. 无头 commandlet 里不能做视觉验证（也不能按你们规则自渲染），把这种高耦合集成交付出去风险很高；
+3. **同样的观感可以用解析涟漪做到**：本工程雨系统的"水面雨点/涟漪"就是解析计算（`Docs/RAIN_UPGRADE_20260910.md`），
+   喷泉这轮照这个路子做——落点的扩散波列、按距离衰减、与法线/泡沫联动，成本几乎为零。
+
+如果实机看过 v6 后你觉得"还是想要真的模拟"，可选的下一步是：
+① **单座展示用**接 `Grid2D_SW_River_Emitter`/`NDC_ShallowWater`（限定 1 座、非建造物）；
+② 用 NiagaraFluids 的 2D 流体 + `BP_WaterRenderer` 生成一张共享涟漪 RT 给若干喷泉采样（需要 1 张 RT + 距离限流）。
+
+## 6.4 证据
+
+- 水面材质：`water recompile -> []`（无错误）、58 个表达式、`BaseColor←LinearInterpolate`、`Opacity←Clamp`、
+  `Normal←Custom`、`Emissive←Add`；`MIC_FountainWater` 读回 **23 scalar + 2 vector + 3 texture** 覆盖项（全部可调）。
+- 水效网格与主网格：`tris=13184 comps=20 open_edges=0`、`slots=['MIC_FountainFoam','MIC_FountainWet','MIC_FountainCascade','MIC_FountainCaustics']`；
+  主网格 `960×960×720 / 23808 tri / slots=['M_RomanStone_V2','MIC_FountainWater']`；脚本 `checks=30 failed=0 / RESULT: PASS`。
+- 构建：Game `Saved/BuildEditor/fountain-water2-game-20260918.log`、Editor `build-20260918-142444.log` 均 Succeeded；
+  两个二进制里都能搜到 `FountainSplash`（新增的落点水花组件）。
+- **踩坑**：v6 第一版给水帘加了 WPO，随后又给水面材质重建表达式表，两次都在无头 MaterialEditor 里
+  触发 `Assertion failed: !IsRooted()` 崩进程——**根因是"材质已被已保存的网格/实例引用时，重建它的表达式表"**。
+  现在的做法：材质已存在且有表达式就**只改实例参数**，不再重建图；真要改图先删掉引用它的实例（v6 就是这么换掉
+  水面实例父级的），或者换一个新的资产名。
+
+## 6.5 交给用户的实测清单（v6 未实测）
+
+1. 水面：应为**亮青、能看到天空反射与连续涟漪**，落点附近波纹最密、向外衰减；不应再是深色镜面板。
+2. 水帘：三级+台阶水帘应有明显的**向下快速流动的白色条纹**，亮度和透明度比 v5 高。
+3. 落点：两级水帘砸下的位置应有**向上溅起的水花**（4 个 Niagara 组件，缩放 0.42）。
+4. 性能：走近时全开、走到 ~26 m 外水花停、~62 m 外只剩水面材质；`fps.Fountain.Quality 0` 全部关掉。
+   RT 几何常驻内存告警（截图里的 85.662 MiB）应因水效网格退出 RT 几何而略有下降——请留意是否仍在报。
+5. 编辑器里调参（都是实例，即时可见）：`MIC_FountainWater` 的 `WaterColorShallow/Deep`、`OpacityBase`、
+   `ReflectionStrength`、`WaveScale/WaveSpeed`、`RippleStrength/RippleFreq/RippleLambda`、
+   `MIC_FountainCascade` 的 `OpacityBase/FoamSpeed`。
+
+## 6.6 仍未做（如实记录）
+
+- **没有水雾/飞沫**：引擎模板里没有可直接复用的雾系统，自建 Niagara 在无头环境里做不出来（也无法目视验证）。
+- 水帘没有 WPO 摆动（被上面那个断言挡下）；要摆动得在编辑器里手工加 WPO，或改用 Niagara ribbon。
+- 水声仍是占位（脚步水花随机播）。
+- 焦散仍用包内 `M_Caustics`，未目视确认。
+- 性能只有"分级与开关"，**没有实测帧时间**（按规则不做主动性能测试）。

@@ -18,10 +18,12 @@ class USoundBase;
  *   WaterFxMesh  — `SM_RomanFountain_WaterFX`（4 槽：泡沫 / 湿膜 / 溢流 / 焦散），挂在门口网格之下、
  *                  无碰撞、不投影。三个网格部件共用同一物体空间，所以对齐只需动 FountainMesh。
  *   Jet          — 引擎模板 `FountainLightweight`（塔尖水柱），位置由包围盒算出来（pivot 不在中心也对）。
+ *   Splashes     — 同模板缩小的落点水花（两级水帘砸在水面上的位置），只在近处 tier 激活。
  *
  * 占格不变（48×48×36），存档字段不变（Id/Cell/Yaw/Footprint）；只在"逻辑构件"分支被生成。
  *
  * 质量开关 `fps.Fountain.Quality`：0 = 只留主网格水面（关水膜/溢流/水柱/水声），1 = 默认，2 = 预留。
+ * 距离分级（性能）：近处 = 水效网格 + 水柱 + 水花；中距 = 水效网格 + 水柱；远处 = 只留水面材质。
  */
 UCLASS()
 class FPSGAME_API AColdSteelFountain : public AActor
@@ -44,6 +46,11 @@ protected:
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> FountainMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> WaterFxMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Jet;
+    UPROPERTY(VisibleAnywhere) TArray<TObjectPtr<UNiagaraComponent>> Splashes;
+
+    /** 距离分级阈值（cm）：超过 Near 保留水柱、超过 Mid 只留水面材质。 */
+    UPROPERTY(EditAnywhere, Category="Fountain|Perf") float NearSplashDistanceCm=2600.f;
+    UPROPERTY(EditAnywhere, Category="Fountain|Perf") float MidJetDistanceCm=6200.f;
 
     /** 占位水声：工程里没有水流循环声，用户已同意先用脚步水花在近距离随机播放（见 Docs）。 */
     UPROPERTY(EditAnywhere, Category="Fountain|Audio") bool bEnableAudio=true;
@@ -57,4 +64,8 @@ protected:
 private:
     float AudioCountdown=0.f;
     int32 CachedQuality=INDEX_NONE;
+    int32 CachedTier=INDEX_NONE;
+    /** 近/中/远三档：0 = 全开，1 = 关水花，2 = 只留水面材质 */
+    int32 ComputeTier() const;
+    void ApplyTier(int32 Tier);
 };

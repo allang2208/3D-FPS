@@ -156,3 +156,17 @@ v1-v2）→ M_Water_Opaque（不透明，v3；**无暴露参数，不能调色**
 - **接入**：调色板 `roman_fountain` 的 ActorClass → `ColdSteelFountain`（面板摆出来也有水效，占格 48×48×36 不变）；
   质量开关 `fps.Fountain.Quality`；水声按用户要求先用脚步水花**占位**。
 - 未做：水柱仍是引擎模板（没有落回/水雾粒子）、无粒子层、无正式水流声、性能未实测。
+
+
+## 2026-09-18 六次迭代：水体 v6（更像水 + 落水驱动 + 性能分级）
+
+用户回执"还是很假、完全没有流动感、像个固体"（附 PIE 截图），并要求先调研 GitHub 水体项目、评估现有资产。
+调研结论 + 实现见 [Docs/Building/fountain-water-20260918.md](../../Docs/Building/fountain-water-20260918.md) 第 6 节。要点：
+
+- **不需要第三方**：引擎已装 Water/WaterAdvanced（浅水 SWE、`Water_Material_Simple`、焦散生成）与 NiagaraFluids（`BP_WaterRenderer`）；
+  开源那几家（NiagaraFluid SPH、FluidForge、GVDB FLIP、undine）都是模拟实验/早期项目，不适合可反复放置的喷泉。
+- **水面换成自制材质** `M_FountainWater`（58 表达式）：极坐标双层滚动法线 + **落点驱动的解析涟漪** + 场景深度配色 +
+  菲涅尔天空反射 + 波峰白沫；`MIC_FountainWater` 全部参数（23 scalar / 2 vector / 3 texture）可调。
+- **水帘提亮加速**（`MIC_FountainCascade`）、**新增 4 个落点水花**（引擎模板缩到 0.42）。
+- **性能**：近/中/远距离分级（26 m / 62 m）、`fps.Fountain.Quality 0` 一键全关、水效网格排除出 RT 几何与距离场。
+- B 档（浅水 SWE 真模拟）本轮**用解析涟漪替代**（理由与升级路径见文档 6.3）；水雾/飞沫、WPO 摆动、正式水声仍未做。

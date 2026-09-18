@@ -24,6 +24,12 @@ namespace
     const TCHAR* FountainSplash2=TEXT("/Game/Audio/FreeFootsteps/S_splash2.S_splash2");
     const TCHAR* FountainSplashDeep=TEXT("/Game/Audio/FreeFootsteps/S_splash1_deep.S_splash1_deep");
     constexpr float FountainJetScale=1.2f;
+    constexpr float FountainSplashScale=0.42f;
+    // 落点（主网格物体空间，2× 尺寸）：顶盘→中盘砸在中盘水面 r≈184 / z=412；
+    // 中盘→大盘砸在大盘水面 r≈274 / z=148。各放两处对称点。
+    const FVector FountainSplashPoints[]={
+        FVector(184.f,0.f,412.f),FVector(-184.f,0.f,412.f),
+        FVector(274.f,0.f,148.f),FVector(-274.f,0.f,148.f)};
 }
 
 static TAutoConsoleVariable<int32> CVarFountainQuality(
@@ -50,11 +56,27 @@ AColdSteelFountain::AColdSteelFountain()
     WaterFxMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     WaterFxMesh->SetCanEverAffectNavigation(false);
     WaterFxMesh->SetCastShadow(false);
+    // 水效网格不进 RT 几何/距离场：它只有几厘米厚、又是半透明，白占常驻显存（截图里的 RT 几何超预算告警）
+    WaterFxMesh->bVisibleInRayTracing=false;
+    WaterFxMesh->bAffectDistanceFieldLighting=false;
 
     Jet=CreateDefaultSubobject<UNiagaraComponent>(TEXT("FountainJet"));
     Jet->SetupAttachment(FountainMesh);
     Jet->SetMobility(EComponentMobility::Movable);
     Jet->SetRelativeScale3D(FVector(FountainJetScale));
+
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> SplashAsset(FountainJetAsset);
+    for(int32 Index=0;Index<UE_ARRAY_COUNT(FountainSplashPoints);++Index)
+    {
+        UNiagaraComponent* Splash=CreateDefaultSubobject<UNiagaraComponent>(
+            *FString::Printf(TEXT("FountainSplash%d"),Index));
+        Splash->SetupAttachment(FountainMesh);
+        Splash->SetMobility(EComponentMobility::Movable);
+        Splash->SetRelativeLocation(FountainSplashPoints[Index]);
+        Splash->SetRelativeScale3D(FVector(FountainSplashScale));
+        if(SplashAsset.Succeeded())Splash->SetAsset(SplashAsset.Object);
+        Splashes.Add(Splash);
+    }
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(FountainMeshAsset);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> FxAsset(FountainFxMeshAsset);
@@ -103,14 +125,37 @@ void AColdSteelFountain::AlignGeometry()
 void AColdSteelFountain::ApplyFxQuality()
 {
     const int32 Quality=FMath::Clamp(CVarFountainQuality.GetValueOnGameThread(),0,2);
-    if(Quality==CachedQuality)return;
-    CachedQuality=Quality;
-    const bool bFx=Quality>=1;
-    if(WaterFxMesh)WaterFxMesh->SetVisibility(bFx,false);
-    if(Jet)
+    if(Quality!=CachedQuality)
     {
-        if(bFx)Jet->Activate(true);
-        else Jet->Deactivate();
+        CachedQuality=Quality;
+        CachedTier=INDEX_NONE;   // 质量变了要重算距离档
+    }
+    ApplyTier(Quality<1?2:ComputeTier());
+}
+
+int32 AColdSteelFountain::ComputeTier() const
+{
+    const UWorld* World=GetWorld();
+    const APawn* Pawn=World?UGameplayStatics::GetPlayerPawn(World,0):nullptr;
+    if(!Pawn)return 0;
+    const float Dist=FVector::Dist(Pawn->GetActorLocation(),GetActorLocation());
+    if(Dist<=NearSplashDistanceCm)return 0;
+    if(Dist<=MidJetDistanceCm)return 1;
+    return 2;
+}
+
+void AColdSteelFountain::ApplyTier(int32 Tier)
+{
+    if(Tier==CachedTier)return;
+    CachedTier=Tier;
+    const bool bFxMesh=Tier<=1;
+    const bool bJet=Tier<=1;
+    const bool bSplash=Tier==0;
+    if(WaterFxMesh)WaterFxMesh->SetVisibility(bFxMesh,true);
+    if(Jet)(bJet?Jet->Activate(true):Jet->Deactivate());
+    for(const TObjectPtr<UNiagaraComponent>& Splash:Splashes)
+    {
+        if(Splash)(bSplash?Splash->Activate(true):Splash->Deactivate());
     }
 }
 
@@ -118,7 +163,7 @@ void AColdSteelFountain::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
     ApplyFxQuality();
-    if(!bEnableAudio||CachedQuality<1||SplashCues.Num()==0)return;
+    if(!bEnableAudio||CachedQuality<1||CachedTier!=0||SplashCues.Num()==0)return;
     AudioCountdown-=DeltaSeconds;
     if(AudioCountdown>0.f)return;
     AudioCountdown=FMath::FRandRange(AudioMinInterval,AudioMaxInterval);

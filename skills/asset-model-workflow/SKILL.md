@@ -151,3 +151,12 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
 7. **无头 commandlet 里没有关卡编辑器状态**：`LevelEditorSubsystem.is_in_play_in_editor()` 会
    `ACCESS_VIOLATION` 崩进程（喷泉那轮又踩一次）；无头脚本用环境变量护栏跳过 PIE 查询，
    加载关卡用 `LevelEditorSubsystem.load_level()` 是安全的。
+8. **材质已被引用时不要重建它的表达式表**（2026-09-18 喷泉水面 v6，崩了两次）：
+   `MaterialEditingLibrary.delete_all_material_expressions(mat)` 对**已被已保存的网格/材质实例引用**的材质
+   会断言 `!IsRooted()`（`UObjectBaseUtility.h:209`）并直接杀掉进程。规矩：
+   - 常态化做法是**只改材质实例参数**（`set_material_instance_*` + `update_material_instance`），图不动；
+   - 非要改图：先删掉引用它的实例（并把网格槽指过去之前不要保存），或**换一个新的材质资产名**再建；
+   - 脚本里写成"已存在且有表达式 → 跳过重建并打印提示"，就不会因为重跑而崩。
+9. **别用 PowerShell 的 `Set-Content`/`Out-File` 改写源文件**：PS 5.1 会加 UTF-8 BOM、换行也可能被改，
+   中文注释在 `Select-String` 默认编码下还会显示成乱码（看起来像文件坏了，其实只是读法）。只读检查用
+   `-Encoding UTF8` 或 Python `open(..., encoding="utf-8")` 读；真要改文本走 `apply_patch`。

@@ -146,3 +146,26 @@ FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildCompo
   actor 以 0.25 s 的 tick 间隔读 CVar，切开关在 0.25 s 内生效，且不必每帧 tick。
 - **关卡迁移**：老关卡里同名 actor（静态网格 + 独立特效 actor）合成一个逻辑构件时，沿用旧 actor 的变换、
   销毁旧 actor、`save_current_level()`；无头运行**必须**跳过 PIE 查询（见 asset-model-workflow 的坑表）。
+
+## 水/流体观感：先查引擎自带的，再谈 GitHub（喷泉水体，2026-09-18）
+
+用户问"有没有水体优化项目"时，先看本机引擎里**已经装了**什么，第三方基本不需要：
+
+- **Water / WaterAdvanced / WaterExtras** 插件（245 + 72 + 147 资产）：`NDC_ShallowWater`、`Grid2D_SW_River_Emitter`、
+  `ShallowWaterRiverEmitter`（Niagara 浅水 SWE）、`Water_Material_Simple`、`GenerateCausticsTextures`、WaterZone/Buoyancy。
+- **NiagaraFluids** 插件（530 资产）：2D/3D 网格流体 + `BP_WaterRenderer`（粒子流体的屏幕空间水面渲染）+ `MI_FluidMaterial_Water`。
+- 内容包 `/Game/WaterMaterials`：**径向专用** `MF_Foam_Motion_Radial`/`MF_OceanWave_Motion_Radial`、
+  `SM_Waterfall_Arc`+`MIC_Waterfall_Arc`、`M_Waterfall`（4 向泡沫参数）、`M_WaterSplash`/`P_Water_Splashes`、
+  `T_Water_EdgeNormals`/`T_Lake_Waves01_Normals`、`T_Cubemap`。
+
+**"水看起来像水"的最小配方**（喷泉实测踩出来的，比"把水面做平再调颜色"有效得多）：
+
+1. 水面**必须亮**：深色 + 高光 = 深色镜面/固体。水色取天空青，深色只留深水区；
+2. **可见的动态法线**：两层世界尺寸可控的法线在极坐标上滚动（本工程网格走 XAtlas，UV 方向不可控，
+   所以像水膜/水面这种材质一律**自算 UV**，见 asset-model-workflow 第 5 条）；
+3. **落水驱动**：在落点半径上做解析涟漪波列（向外扩散 + 按距离衰减 + 波峰泡沫），这就是"水被推动"的观感；
+4. **菲涅尔 + 立方图天空反射**：没有 SSR 也要有反射层，否则水面读不出"水";
+5. **粒子层**：水花/水雾是"流动感"的最后一块。引擎模板里现成可用的只有 `FountainLightweight` 这类 sprite 锥形喷泉
+   （带重力，会落回），**没有雾系统**；缩小的副本可以当落点水花用；
+6. 分档：距离分级（近=粒子+水柱，中=水柱，远=只留水面材质）+ `fps.<Prop>.Quality` 一键全关 +
+   特效网格 `bVisibleInRayTracing=false`/`bAffectDistanceFieldLighting=false`，别让几厘米厚的半透明片占 RT 几何常驻显存。

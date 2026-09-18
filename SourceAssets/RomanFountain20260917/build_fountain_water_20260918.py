@@ -5,12 +5,16 @@ What this builds (all assets, no level edits):
 1. `M_FountainWaterFilm` — 工程自制的水膜/泡沫/溢流材质（Unlit + Translucent + TwoSided）。
    自算**柱面 UV**（从物体空间位置取 atan2 与 z，按世界尺寸 FoamSize 归一），所以泡沫/水痕不依赖
    网格 UV（本工程网格走 XAtlas，UV 方向不可控）；两层泡沫贴图反向滚动 + 对比度 + Fresnel 提亮。
+   水帘的动感靠**两层泡沫贴图快速反向滚动**表现（原计划的 WPO 径向摆动在无头 MaterialEditor 里
+   触发 `!IsRooted()` 断言，已去掉；要摆动得在编辑器里手工加 WPO 或改用 Niagara ribbon）。
    实例（都在 `Props/RomanFountain20260917/Materials` 下，暴露参数，用户可在编辑器里直接调）：
      MIC_FountainFoam    白泡沫（水线/落点/穿出物周围的接触环）
      MIC_FountainWet     深色湿膜（水线以上到盘沿的湿痕带）
      MIC_FountainCascade 溢流水帘（快速向下滚动的条状泡沫）
-2. `MIC_FountainWater` — 包内 `M_Water_Clean` 的实例（半透明 + 深度淡出 + 多层波浪法线），
-   把表面从 v3 的"不透明平板"换回**像水**的半透明水；参数逐个按存在与否设置并读回。
+2. `M_FountainWater` + `MIC_FountainWater` — **工程自制水面材质**（Default Lit + Translucent + TwoSided）：
+   极坐标 UV 的两层滚动法线、**落水驱动的解析涟漪**（在两个落点半径上生成向外的涟漪波列）、
+   依据场景深度的"浅→深"配色与透明度、菲涅尔天空反射（立方图）、波峰泡沫。
+   （v5 用包内 `M_Water_Clean` 实例被用户判为"深色固体"，这轮改成自建材质并把亮度/动感调到水。）
 3. `MIC_FountainCaustics` — 包内 `M_Caustics` 实例（盆底衬底）。
 4. `SM_RomanFountain_WaterFX` — 新网格：水线接触环、湿痕带、穿出物（基座/柱墩/松果）接触环、
    三级溢流水帘（顶盘→中盘→大盘→台阶）、落点泡沫环、盆底焦散衬底。薄壁实体（闭合剖面，0 开放边）。
@@ -44,12 +48,18 @@ FULL = DIR + "/SM_RomanFountain_20"
 FX = DIR + "/SM_RomanFountain_WaterFX"
 MARBLE = "/Game/Props/RomanColumn20260915/M_RomanStone_V2"
 FILM = MATDIR + "/M_FountainWaterFilm"
+WATER_MAT = MATDIR + "/M_FountainWater"
 PACK = "/Game/WaterMaterials"
 CLEAN = PACK + "/Materials/M_Water_Clean"
 CAUSTICS = PACK + "/Materials/M_Caustics"
 T_FOAM_POND = PACK + "/Textures/T_Pond_Foam"
 T_FOAM_EDGE = PACK + "/Textures/T_Ocean_EdgeFoam"
 T_FOAM_FALL = PACK + "/Textures/T_Waterfall_Foam_Directional"
+WAVE_NORMAL_A = PACK + "/Textures/T_Lake_Waves01_Normals"
+WAVE_NORMAL_B = PACK + "/Textures/T_Water_Normal"
+CUBEMAP = PACK + "/Textures/T_Cubemap"
+POS_CLS = getattr(unreal, "MaterialExpressionObjectPositionWS", None) or \
+    getattr(unreal, "MaterialExpressionObjectPosition", None)
 SCALE = 2.0
 STEPS = 96
 STARTED = time.time()
@@ -172,6 +182,14 @@ def texture_param(mat, name, tex_path):
     return n
 
 
+def cube_param(mat, name, tex_path):
+    n = param_node(mat, unreal.MaterialExpressionTextureSampleParameterCube, name)
+    tex = unreal.load_asset(tex_path)
+    if tex:
+        n.set_editor_property("texture", tex)
+    return n
+
+
 def custom(mat, code, inputs, output_type=None, input_types=None):
     n = MEL.create_material_expression(mat, unreal.MaterialExpressionCustom)
     if output_type is not None:
@@ -199,6 +217,26 @@ def link(from_node, to_node, to_pin, from_pin=""):
     return ok
 
 
+def link_any(from_node, to_node, pins, from_pin=""):
+    """引脚名在不同版本里可能不同：按候选依次尝试，成功即返回。"""
+    for p in pins:
+        if MEL.connect_material_expressions(from_node, from_pin, to_node, p):
+            return p
+    log("connect %s -> %s{%s} all failed" % (
+        from_node.get_class().get_name(), to_node.get_class().get_name(), ",".join(pins)))
+    return None
+
+
+def scene_depth_node(mat, want_depth=True):
+    n = ex(mat, unreal.MaterialExpressionSceneTexture)
+    enum = None
+    for cand in ("PPI_SceneDepth" if want_depth else "PPI_SceneColor",):
+        enum = getattr(unreal.SceneTextureId, cand, None)
+    if enum is not None:
+        n.set_editor_property("scene_texture_id", enum)
+    return n
+
+
 # ------------------------------------------------------------------ 1. 水膜材质
 def build_film_material():
     mat = ensure_asset(FILM, unreal.Material, unreal.MaterialFactoryNew)
@@ -206,6 +244,14 @@ def build_film_material():
         check("film_material_created", False)
         return None
     check("film_material_created", True)
+    if (MEL.get_material_expressions(mat) or []):
+        # 已是成品：**不要**重建表达式表。该材质已被 FX 网格的槽经实例引用，
+        # 无头 MaterialEditor 里 delete_all_material_expressions 会断言 !IsRooted() 直接崩进程。
+        # 要改图：先断开引用（删掉实例/网格槽）或换一个新资产名重建。
+        log("film material exists (%d expressions) - skip rebuild, only instances are retuned"
+            % len(MEL.get_material_expressions(mat) or []))
+        return mat
+    log("step: delete_all_material_expressions")
     MEL.delete_all_material_expressions(mat)
     mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
     mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_UNLIT)
@@ -222,8 +268,10 @@ def build_film_material():
         return None
     log("object position node: %s" % pos_cls.__name__)
     pos = ex(mat, pos_cls)
+    log("step: pos node ok")
     foam_size = scalar(mat, "FoamSize", 60.0)
     around = scalar(mat, "AroundRepeat", 1.0)
+    log("step: scalars ok")
     uv = custom(mat, """
 float r = length(P.xy);
 float u = atan2(P.y, P.x) * 0.159154943 * max(r, 1.0) * Around;
@@ -234,6 +282,7 @@ return float2(u, v) / max(FoamSize, 1.0);""",
                 {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
                  "FoamSize": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
                  "Around": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    log("step: uv custom ok")
 
     speed = scalar(mat, "FoamSpeed", 0.03)
     t = ex(mat, unreal.MaterialExpressionTime)
@@ -249,6 +298,7 @@ return float2(u, v) / max(FoamSize, 1.0);""",
     link(uv_shift, add1, "B")
     s1 = texture_param(mat, "FoamTexture", T_FOAM_EDGE)
     link(add1, s1, "UVs")
+    log("step: sample1 ok")
 
     # 第二层：缩放 + 反向/更快，制造两向流动
     uv2 = ex(mat, unreal.MaterialExpressionMultiply)
@@ -268,6 +318,7 @@ return float2(u, v) / max(FoamSize, 1.0);""",
     link(uv2_shift, add2, "B")
     s2 = texture_param(mat, "FoamTexture2", T_FOAM_EDGE)
     link(add2, s2, "UVs")
+    log("step: sample2 ok")
 
     mul = ex(mat, unreal.MaterialExpressionMultiply)
     link(s1, mul, "A", "R")
@@ -283,6 +334,7 @@ return float2(u, v) / max(FoamSize, 1.0);""",
     cl = ex(mat, unreal.MaterialExpressionClamp)
     link(pw, cl, "")
     foam = cl
+    log("step: foam chain ok")
 
     colour = vector(mat, "FilmColor", unreal.LinearColor(0.88, 0.93, 0.96, 1.0))
     white = ex(mat, unreal.MaterialExpressionConstant3Vector)
@@ -315,8 +367,7 @@ return float2(u, v) / max(FoamSize, 1.0);""",
     oc = ex(mat, unreal.MaterialExpressionClamp)
     link(a2, oc, "")
     MEL.connect_material_property(oc, "", unreal.MaterialProperty.MP_OPACITY)
-    ok = MEL.recompile_material(mat)
-    # UE 5.8 的 recompile_material 常常返回 False（set_material_instance_* 也这样），
+
     # 所以这里记录返回值、并用"输出属性挂到哪个表达式 + 表达式数量"当结构证据。
     log("recompile_material -> %s" % ok)
     exprs = MEL.get_material_expressions(mat) or []
@@ -334,6 +385,196 @@ return float2(u, v) / max(FoamSize, 1.0);""",
 
 
 # ------------------------------------------------------------------ 2. 实例
+def build_water_material():
+    """工程自制水面材质：极坐标双层滚动法线 + 落水驱动的解析涟漪 + 场景深度配色 + 菲涅尔天空反射。
+
+    为什么不用包内 `M_Water_Clean` 实例：那套材质在 XAtlas UV 上滚法线，尺度不可控、又偏暗，
+    实测读成"深色固体"。这里把法线/涟漪全部放在自算的极坐标上，并按场景深度做浅→深过渡。
+    """
+    mat = ensure_asset(WATER_MAT, unreal.Material, unreal.MaterialFactoryNew)
+    if not mat:
+        check("water_material_created", False)
+        return None
+    check("water_material_created", True)
+    MEL.delete_all_material_expressions(mat)
+    mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
+    mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_DEFAULT_LIT)
+    mat.set_editor_property("two_sided", True)
+
+    pos = ex(mat, POS_CLS)
+    scale = scalar(mat, "FountainScale", SCALE)
+    # --- 极坐标 UV（1× 单位）：u=半径、v=半径×角度 —— 世界等比例，中心畸变被中央基座挡住
+    polar = custom(mat, """
+float r = max(length(P.xy), 0.0) / max(FS, 0.001);
+float th = atan2(P.y, P.x) * 0.159154943;
+return float2(r, r * th * 6.2831853);""",
+                   {"P": pos, "FS": scale}, unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                   {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                    "FS": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    wt = ex(mat, unreal.MaterialExpressionMultiply)
+    link(ex(mat, unreal.MaterialExpressionTime), wt, "A")
+    speed = scalar(mat, "WaveSpeed", 0.05)
+    link(speed, wt, "B")
+    uv1 = custom(mat, """
+float2 uv = P / max(WS, 0.001);
+uv.x -= T;
+return uv;""",
+                 {"P": polar, "WS": scalar(mat, "WaveScale", 150.0), "T": wt},
+                 unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                 {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                  "WS": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                  "T": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    wt2 = ex(mat, unreal.MaterialExpressionMultiply)
+    link(ex(mat, unreal.MaterialExpressionTime), wt2, "A")
+    speed2 = scalar(mat, "Wave2Speed", 0.09)
+    link(speed2, wt2, "B")
+    uv2 = custom(mat, """
+float2 uv = P / max(WS, 0.001);
+uv.x -= T;
+return uv * 1.37 + float2(0.21, 0.57);""",
+                 {"P": polar, "WS": scalar(mat, "Wave2Scale", 62.0), "T": wt2},
+                 unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                 {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                  "WS": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                  "T": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    n1 = texture_param(mat, "NormalTex", WAVE_NORMAL_A)
+    link_any(uv1, n1, ["UVs", "UV"])
+    n2 = texture_param(mat, "NormalTex2", WAVE_NORMAL_B)
+    link_any(uv2, n2, ["UVs", "UV"])
+
+    # --- 落水驱动的解析涟漪：在每个落点半径上生成向外的波列（双环，衰减）
+    ripple = custom(mat, """
+float r = length(P.xy) / max(FS, 0.001);
+float acc = 0.0;
+float R[2] = { RA, RB };
+for (int i = 0; i < 2; ++i)
+{
+    float d = r - R[i];
+    float u = d * 6.2831853 / max(Lam, 0.001) - T * Freq * 6.2831853;
+    acc += sin(u) * exp(-abs(d) / max(Width, 0.001));
+}
+return acc;""",
+                     {"P": pos, "FS": scale, "RA": scalar(mat, "RippleRadiusA", 92.0),
+                      "RB": scalar(mat, "RippleRadiusB", 137.0), "Lam": scalar(mat, "RippleLambda", 78.0),
+                      "Freq": scalar(mat, "RippleFreq", 0.45), "T": ex(mat, unreal.MaterialExpressionTime),
+                      "Width": scalar(mat, "RippleWidth", 210.0)},
+                     unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                     {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                      "FS": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                      "RA": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                      "RB": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                      "Lam": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                      "Freq": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                      "T": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                      "Width": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+
+    # --- 法线合成：两层波浪 + 涟漪扰动
+    normal = custom(mat, """
+float2 xy = (N1 - 0.5) * 2.0 * S1 + (N2 - 0.5) * 2.0 * S2;
+float2 dir = length(P.xy) > 0.01 ? normalize(P.xy) : float2(0, 1);
+xy += dir * Ripple * RS;
+return normalize(float3(xy, 1.0));""",
+                    {"N1": n1, "N2": n2, "P": pos, "Ripple": ripple,
+                     "S1": scalar(mat, "NormalStrength", 0.55), "S2": scalar(mat, "NormalStrength2", 0.35),
+                     "RS": scalar(mat, "RippleStrength", 0.45)},
+                    unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                    {"N1": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                     "N2": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                     "P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                     "Ripple": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                     "S1": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                     "S2": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                     "RS": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    MEL.connect_material_property(normal, "", unreal.MaterialProperty.MP_NORMAL)
+
+    # --- 场景深度：浅（透、亮）→ 深（暗、实）
+    sd = scene_depth_node(mat, True)
+    pixel = ex(mat, unreal.MaterialExpressionPixelDepth)
+    sub = ex(mat, unreal.MaterialExpressionSubtract)
+    if not MEL.connect_material_expressions(sd, "Color", sub, "A"):
+        log("SceneTexture Color -> Subtract.A failed")
+    MEL.connect_material_expressions(pixel, "", sub, "B")
+    div = ex(mat, unreal.MaterialExpressionDivide)
+    link(sub, div, "A")
+    link(scalar(mat, "DepthScale", 190.0), div, "B")
+    fade = ex(mat, unreal.MaterialExpressionClamp)
+    link(div, fade, "")
+
+    shallow = vector(mat, "WaterColorShallow", unreal.LinearColor(0.34, 0.66, 0.66, 1.0))
+    deep = vector(mat, "WaterColorDeep", unreal.LinearColor(0.05, 0.22, 0.26, 1.0))
+    col = ex(mat, unreal.MaterialExpressionLinearInterpolate)
+    link(shallow, col, "A")
+    link(deep, col, "B")
+    link(fade, col, "Alpha")
+    MEL.connect_material_property(col, "", unreal.MaterialProperty.MP_BASE_COLOR)
+
+    # --- 菲涅尔天空反射（立方图）：把"像水"最关键的一层高光/反射补上
+    fres = ex(mat, unreal.MaterialExpressionFresnel)
+    link(scalar(mat, "FresnelPower", 3.5), fres, "ExponentIn")
+    refl_cls = getattr(unreal, "MaterialExpressionReflectionVectorWS", None)
+    refl = ex(mat, refl_cls) if refl_cls else None
+    sky = cube_param(mat, "ReflectionCubemap", CUBEMAP)
+    if refl is not None:
+        link_any(refl, sky, ["UV", "UVs"])
+    else:
+        log("ReflectionVectorWS 不存在 —— 天空反射这一层先用常量（不影响其余水效）")
+    sky_scale = ex(mat, unreal.MaterialExpressionMultiply)
+    link(sky, sky_scale, "A", "RGB")
+    link(scalar(mat, "ReflectionStrength", 0.75), sky_scale, "B")
+    emis = ex(mat, unreal.MaterialExpressionMultiply)
+    link(sky_scale, emis, "A")
+    link(fres, emis, "B")
+    # 波峰泡沫：涟漪正向部分提亮（模拟水花推开的白沫）
+    crest = ex(mat, unreal.MaterialExpressionClamp)
+    link(ripple, crest, "")
+    crest_mul = ex(mat, unreal.MaterialExpressionMultiply)
+    link(crest, crest_mul, "A")
+    link(scalar(mat, "RippleFoam", 0.45), crest_mul, "B")
+    emis_sum = ex(mat, unreal.MaterialExpressionAdd)
+    link(emis, emis_sum, "A")
+    link(crest_mul, emis_sum, "B")
+    MEL.connect_material_property(emis_sum, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+
+    op = ex(mat, unreal.MaterialExpressionMultiply)
+    link(scalar(mat, "OpacityBase", 0.42), op, "A")
+    link(fade, op, "B")
+    op2 = ex(mat, unreal.MaterialExpressionMultiply)
+    link(fres, op2, "A")
+    link(scalar(mat, "FresnelOpacity", 0.5), op2, "B")
+    op_sum = ex(mat, unreal.MaterialExpressionAdd)
+    link(op, op_sum, "A")
+    link(op2, op_sum, "B")
+    op_crest = ex(mat, unreal.MaterialExpressionMultiply)
+    link(crest, op_crest, "A")
+    link(scalar(mat, "RippleFoamOpacity", 0.35), op_crest, "B")
+    op_sum2 = ex(mat, unreal.MaterialExpressionAdd)
+    link(op_sum, op_sum2, "A")
+    link(op_crest, op_sum2, "B")
+    op_cl = ex(mat, unreal.MaterialExpressionClamp)
+    link(op_sum2, op_cl, "")
+    MEL.connect_material_property(op_cl, "", unreal.MaterialProperty.MP_OPACITY)
+    MEL.connect_material_property(scalar(mat, "Roughness", 0.06), "", unreal.MaterialProperty.MP_ROUGHNESS)
+    MEL.connect_material_property(scalar(mat, "Specular", 1.0), "", unreal.MaterialProperty.MP_SPECULAR)
+    MEL.connect_material_property(scalar(mat, "Metallic", 0.0), "", unreal.MaterialProperty.MP_METALLIC)
+
+    errs = MEL.recompile_material(mat)
+    log("water recompile -> %s" % errs)
+    exprs = MEL.get_material_expressions(mat) or []
+    log("water expressions: %d" % len(exprs))
+    for prop, label in ((unreal.MaterialProperty.MP_BASE_COLOR, "BaseColor"),
+                        (unreal.MaterialProperty.MP_OPACITY, "Opacity"),
+                        (unreal.MaterialProperty.MP_NORMAL, "Normal"),
+                        (unreal.MaterialProperty.MP_EMISSIVE_COLOR, "Emissive")):
+        try:
+            node = MEL.get_material_property_input_node(mat, prop)
+            log("%s <- %s" % (label, node.get_class().get_name() if node else "None"))
+        except Exception as exc:  # noqa: BLE001
+            log("%s readback failed: %s" % (label, exc))
+    check("water_material_expressions", len(exprs) >= 25)
+    save_fresh(mat, WATER_MAT, "M_FountainWater")
+    return mat
+
+
 def make_instance(path, parent, scalars=None, vectors=None, textures=None):
     inst = ensure_asset(path, unreal.MaterialInstanceConstant, unreal.MaterialInstanceConstantFactoryNew)
     if not inst:
@@ -408,33 +649,48 @@ def build_fx_mesh(film_foam, film_wet, cascade, caustics):
 
 # ------------------------------------------------------------------ run
 film_mat = build_film_material()
+# 水面实例换父级（v5 的包内实例读成深色固体）：**先删实例**再重建材质，保证重建时材质无人引用
+water_inst_path = MATDIR + "/MIC_FountainWater"
+if EAL.does_asset_exist(water_inst_path):
+    EAL.delete_asset(water_inst_path)
+    log("removed v5 MIC_FountainWater (读成深色固体的包内实例)")
+water_mat = build_water_material()
 film_foam = make_instance(MATDIR + "/MIC_FountainFoam", film_mat,
                           {"FoamSize": 55.0, "FoamSpeed": 0.02, "FoamSpeed2": 0.035,
-                           "FoamIntensity": 1.15, "FoamContrast": 1.8,
-                           "OpacityBase": 0.42, "OpacityFoam": 0.5, "FresnelPower": 4.0, "FresnelBoost": 0.3},
-                          {"FilmColor": unreal.LinearColor(0.90, 0.94, 0.97, 1.0)},
+                           "FoamIntensity": 1.9, "FoamContrast": 1.5,
+                           "OpacityBase": 0.5, "OpacityFoam": 0.55, "FresnelPower": 4.0, "FresnelBoost": 0.3,
+                           },
+                          {"FilmColor": unreal.LinearColor(0.94, 0.97, 0.99, 1.0)},
                           {"FoamTexture": T_FOAM_EDGE, "FoamTexture2": T_FOAM_EDGE})
 film_wet = make_instance(MATDIR + "/MIC_FountainWet", film_mat,
                          {"FoamSize": 90.0, "FoamSpeed": 0.012, "FoamSpeed2": 0.02,
                           "FoamIntensity": 0.35, "FoamContrast": 2.2,
-                          "OpacityBase": 0.34, "OpacityFoam": 0.16, "FresnelPower": 2.5, "FresnelBoost": 0.55},
+                          "OpacityBase": 0.34, "OpacityFoam": 0.16, "FresnelPower": 2.5, "FresnelBoost": 0.55,
+                          },
                          {"FilmColor": unreal.LinearColor(0.15, 0.17, 0.18, 1.0)},
                          {"FoamTexture": T_FOAM_POND, "FoamTexture2": T_FOAM_POND})
 cascade = make_instance(MATDIR + "/MIC_FountainCascade", film_mat,
-                        {"FoamSize": 46.0, "FoamSpeed": 0.22, "FoamSpeed2": 0.38,
-                         "FoamIntensity": 1.05, "FoamContrast": 1.45,
-                         "OpacityBase": 0.6, "OpacityFoam": 0.35, "FresnelPower": 3.0, "FresnelBoost": 0.35},
-                        {"FilmColor": unreal.LinearColor(0.86, 0.92, 0.95, 1.0)},
+                        {"FoamSize": 34.0, "FoamSpeed": 0.42, "FoamSpeed2": 0.68,
+                         "FoamIntensity": 2.2, "FoamContrast": 1.25,
+                         "OpacityBase": 0.78, "OpacityFoam": 0.3, "FresnelPower": 3.0, "FresnelBoost": 0.25,
+                         },
+                        {"FilmColor": unreal.LinearColor(0.94, 0.97, 0.99, 1.0)},
                         {"FoamTexture": T_FOAM_FALL, "FoamTexture2": T_FOAM_FALL})
 caustics = make_instance(MATDIR + "/MIC_FountainCaustics", unreal.load_asset(CAUSTICS),
                          {"Speed": 0.35, "SamplingScale": 1.6},
                          {"Colour": unreal.LinearColor(0.42, 0.68, 0.66, 1.0)})
-water = make_instance(MATDIR + "/MIC_FountainWater", unreal.load_asset(CLEAN),
-                      {"Opacity": 0.55, "Roughness": 0.05, "Specular": 1.0, "SamplingScale": 3.0,
-                       "SpeedX": 0.02, "SpeedY": 0.015, "Wave Height": 0.35, "Wave Size": 1.2,
-                       "Wave Speed": 0.12, "Wave Normal Speed": 0.05, "Fresnel Power": 4.0},
-                      {"Water_Colour_Light": unreal.LinearColor(0.30, 0.52, 0.50, 1.0),
-                       "Water_Colour_Dark": unreal.LinearColor(0.08, 0.19, 0.20, 1.0)})
+water = make_instance(water_inst_path, water_mat,
+                      {"FountainScale": SCALE, "DepthScale": 190.0,
+                       "OpacityBase": 0.40, "FresnelOpacity": 0.55, "FresnelPower": 3.0,
+                       "ReflectionStrength": 0.85, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
+                       "WaveScale": 150.0, "WaveSpeed": 0.05, "Wave2Scale": 62.0, "Wave2Speed": 0.09,
+                       "NormalStrength": 0.6, "NormalStrength2": 0.4,
+                       "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
+                       "RippleFreq": 0.45, "RippleWidth": 210.0, "RippleStrength": 0.5,
+                       "RippleFoam": 0.5, "RippleFoamOpacity": 0.35},
+                      {"WaterColorShallow": unreal.LinearColor(0.34, 0.66, 0.66, 1.0),
+                       "WaterColorDeep": unreal.LinearColor(0.05, 0.22, 0.26, 1.0)},
+                      {"NormalTex": WAVE_NORMAL_A, "NormalTex2": WAVE_NORMAL_B, "ReflectionCubemap": CUBEMAP})
 
 # 实例参数读回（UE 5.8 的 set_* 常常返回 False 但实际写进去了，所以按"写入值是否落在实例上"判断）
 for inst, label in ((water, "MIC_FountainWater"), (caustics, "MIC_FountainCaustics"),
