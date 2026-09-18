@@ -34,10 +34,11 @@ M4/191 本来就是各自原厂弹匣延长（`SM_ExtMag_M440` ← M4 原厂 PMA
 
 AKM 换造型后重渲 `ue_akm_magazine_ext_mag.png`（正交侧视、枪口方向朝左、透明底、单件，中性聚合物棚拍，与既有图标同规格）；M4/191 造型未变，图标不动。
 
-## 5. 状态与阻塞（重要）
+## 5. 状态（编辑器释放后已收尾）
 
 - 代码：`Source/FPSGAME/Weapons/M4DrumVisual.cpp` 的 `ext_mag` 分支已合并为单一座位路径（三枪都走 `seat_t⁻¹`，日志 `frame=weapon`）。
-- **本轮被编辑器占用挡住两步**：用户编辑器（18:20 起）持有弹匣资源，外部保存被拒（`Save failed /Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440`），因此 ①平滑过渡版的 AKM 网格尚未写入正式资产（正式资产里是更早一次成功写入的硬切换版，几何同为"AKM 原厂弹匣 +6 cm"），②C++ 改动尚未编译。**关闭编辑器后需重跑 `install_extmag_factory.py` 并编译两个目标**。
+- 用户关闭编辑器后，`install_extmag_factory.py` 已把**平滑过渡版** AKM 网格写入正式资产（`SM_ExtMag_AKM40` 4.34 × 16.25 × 23.20 cm，绑 `M_AKM_Soviet_PBR`），三件材质回执见 `factory_install_receipt.json`（18:28）。
+- 编译：`M4DrumVisual.cpp.obj` 18:26:50（Editor）/ 18:27:22（Game），`UnrealEditor-FPSGAME.dll` 18:27:07、`FPSGAME.exe` 18:27:40 —— 两个目标都含本轮 C++ 改动；`Tools/Build/Build-Editor.ps1` 复跑报 `Target is up to date`。
 - 按用户规则未做自动化验收；三枪实机观感、换弹跟随与图标显示由用户确认。
 
 ---
