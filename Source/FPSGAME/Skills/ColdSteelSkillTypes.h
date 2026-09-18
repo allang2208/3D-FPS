@@ -44,10 +44,11 @@ struct FColdSteelSkillDefinition
     float DamagePercentPerLevel = .01f, FlatDamagePerLevel = 1.f, WeakpointPerLevel = .01f;
     int32 WisdomPerLevel = 1;
     int32 StrengthPerLevel=0,ConstitutionPerLevel=0,HitExperience=0,MultiHitExperience=0;
-    float CooldownReductionPerLevel=0,SpreadDelayPerLevel=0,KnockbackPerLevel=0;
+    float CooldownReductionPerLevel=0;
     float DodgeDistanceCMPerLevel = 10.f, DodgeCostReductionPerLevel = .015f;
     int32 UseExperience = 1, MeleeDodgeExperience = 5, RangedDodgeExperience = 10;
     int32 DexterityPerLevel = 1, ReloadExperience = 5;
+    int32 MeleeHitExperience=0,MeleeKillExperience=0;
     float ReloadSpeedPerLevel = .01f;
     float MoveSpeedPerLevel = .01f;
     float CriticalDamageBase = .50f, CriticalDamagePerLevel = .05f;
@@ -65,7 +66,7 @@ struct FColdSteelSkillEffect
     int32 Wisdom = 0;
     int32 Strength=0,Constitution=0;
     float HeavyMultiplier=0,HeavyChargeSeconds=0;
-    float CooldownReduction=0,SpreadDelay=0,Knockback=0;
+    float CooldownReduction=0;
     float DodgeDistanceCM = 0, DodgeCostReduction = 0;
     int32 Dexterity = 0;
     float ReloadSpeed = 0;
@@ -87,6 +88,7 @@ struct FColdSteelSkillShot
     float CriticalChance = 0;
     bool bRifle = false;
     bool bPistol = false;
+    bool bMelee = false;
     float WeakpointPercent = 0;
     float CriticalDamageBonus = 0;
 };

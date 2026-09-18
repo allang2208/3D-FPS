@@ -203,8 +203,7 @@ FString UColdSteelSkillPage::EffectValue(int32 Index,bool bNext) const
         if(Index==0)return FString::Printf(TEXT("+%.0f%%"),E.DamagePercent*100);
         if(Index==1)return FString::Printf(TEXT("+%.0f"),E.FlatDamage);
         if(Index==2)return FString::Printf(TEXT("+%d"),E.Strength+E.Constitution+E.Dexterity);
-        if(Index==3)return FString::Printf(TEXT("−%.0f%%"),E.CooldownReduction*100);
-        return FString::Printf(TEXT("+%.1f"),SelectedSkill==TEXT("machineGunMastery")?E.SpreadDelay:E.Knockback);
+        return FString::Printf(TEXT("+%.0f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100);
     }
     if(SelectedSkill==TEXT("iceSpike"))
     {
@@ -355,7 +354,9 @@ TSharedRef<SWidget> UColdSteelSkillPage::TrainingCard()
     else if(SelectedSkill==TEXT("dexterousHands"))
     {
         AddReward(TEXT("完成换弹"),D.ReloadExperience);
-        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("一次换弹实际补入至少一发，结算一次修炼经验。普通与空仓换弹均可修炼；取消、满弹匣或没有补入弹药时不计。满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
+        if(D.MeleeHitExperience)AddReward(TEXT("近战武器命中"),D.MeleeHitExperience);
+        if(D.MeleeKillExperience)AddReward(TEXT("近战武器击杀（含命中）"),D.MeleeKillExperience+D.MeleeHitExperience);
+        Content->AddSlot().AutoHeight().Padding(0,12/Scale,0,0)[Paragraph(TEXT("一次换弹实际补入至少一发，结算一次修炼经验；取消、满弹匣或没有补入弹药时不计。近战兵器命中可修炼目标即结算，剑与配重锤打击都算；击杀合计获得命中与击杀两档。满级后停止积累。"),12,ColdSteelUI::TextTertiary,PageWidth-76)];
     }
     else
     {
@@ -438,7 +439,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             if(SelectedSkill!=TEXT("swordMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("武器伤害倍率"),0)];
             if(SelectedSkill!=TEXT("shotgunMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("固定伤害"),1)];
             if(SelectedSkill!=TEXT("swordMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(SelectedSkill==TEXT("machineGunMastery")?TEXT("力量"):SelectedSkill==TEXT("shotgunMastery")?TEXT("体质"):TEXT("敏捷"),2)];
-            if(SelectedSkill==TEXT("swordMastery")||SelectedSkill==TEXT("bowMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("攻击间隔缩减"),3)];
+            if(SelectedSkill==TEXT("swordMastery")||SelectedSkill==TEXT("bowMastery"))Scroll->AddSlot().Padding(16/Scale,4/Scale)[EffectRow(TEXT("攻击速度提升"),3)];
             Scroll->AddSlot().Padding(16/Scale,16/Scale,16/Scale,12/Scale)[TrainingCard()];
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,16/Scale)[Paragraph(TEXT("属性被动常驻；使用对应武器修炼。伤害、强化、改造和附魔共用当前计算结果。"),12,ColdSteelUI::TextTertiary,PageWidth-44)];
         }

@@ -59,6 +59,8 @@ public:
     FColdSteelSkillEffect DodgeEffect(int32 AtLevel=-1) const;
     float DodgeStaminaCost() const;
     bool TrainDodge(int32 Amount);
+    /** 巧手通用修炼入口（近战命中/击杀走命中事务，翻越与消耗品等一次性动作用本入口）。 */
+    bool TrainDexterousHands(int32 Amount);
     const FColdSteelSkillDefinition& DexterousHandsDefinition() const { return DexterousHandsSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress DexterousHandsProgress() const;
     FColdSteelSkillEffect DexterousHandsEffect(int32 AtLevel=-1) const;
@@ -256,7 +258,7 @@ private:
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;
-    struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false; };
+    struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false,bMelee=false; };
     FTrainingHit* ActiveTrainingHit=nullptr;
     void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
     FColdSteelProfile Current;

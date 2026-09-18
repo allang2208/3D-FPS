@@ -44,6 +44,11 @@ bool UColdSteelStatusModel::TrainDodge(int32 Amount)
     if(Amount<=0||DodgeProgress().Level>=DodgeSkill.MaxLevel)return false;
     SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DodgeSkill,Amount);return CommitState(P);
 }
+bool UColdSteelStatusModel::TrainDexterousHands(int32 Amount)
+{
+    if(Amount<=0||DexterousHandsProgress().Level>=DexterousHandsSkill.MaxLevel)return false;
+    SyncRuntime();auto P=Snapshot();ColdSteelSkills::AddExperience(P,DexterousHandsSkill,Amount);return CommitState(P);
+}
 FColdSteelSkillProgress UColdSteelStatusModel::QuickCombatProgress() const
 { const auto* P=Current.Skills.Find(QuickCombatSkill.Id);return P?*P:FColdSteelSkillProgress(); }
 FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel) const
@@ -116,7 +121,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
     FTrainingHit Training; Training.Victim=Victim;
     const FName Mastery=Shot.MasteryId.IsNone()?(Shot.bPistol?FName(TEXT("pistolMastery")):(Shot.bRifle?FName(TEXT("rifleMastery")):NAME_None)):Shot.MasteryId;
     const auto& Skill=MasteryDefinition(Mastery);
-    Training.SkillId=Mastery;Training.ExtraExperience=Shot.ExtraMasteryExperience;
+    Training.SkillId=Mastery;Training.ExtraExperience=Shot.ExtraMasteryExperience;Training.bMelee=Shot.bMelee;
     Training.bEligible=Combat && !Combat->IsDead() && !Victim->ActorHasTag(TEXT("Summoned")) && !Victim->ActorHasTag(TEXT("NoSkillTraining"));
     const bool Weakpoint=ColdSteelSkills::IsCriticalHit(Hit);
     Training.bCritical=Weakpoint||(Combat&&FMath::FRand()*100<CoreCombatFormula::CriticalChance(Shot.CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim)));
@@ -153,6 +158,7 @@ float UColdSteelStatusModel::ApplySkillWeaponHit(AActor* Shooter,const FHitResul
         };
         if(!Training.SkillId.IsNone())Train(Skill,Skill.HitExperience+Training.ExtraExperience+(Training.bCritical?Skill.CriticalExperience:0));
         if(Training.bCritical)Train(CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience);
+        if(Training.bMelee)Train(DexterousHandsSkill,DexterousHandsSkill.MeleeHitExperience);
         // Hit experience is high-frequency: stage it in the live profile and let
         // the coalesced save own the disk transaction instead of saving per hit.
         if(Trained)StageTraining(MoveTemp(P));
