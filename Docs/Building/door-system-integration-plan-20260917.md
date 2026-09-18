@@ -370,3 +370,10 @@ PIE: Error: 蓝图运行时错误："尝试读取 /Game/DoorSystem/Blueprints/Do
 另外：**原版本身也会替换门扇自带的玻璃**——`AColdSteelDoor::Configure()` 按当初"整体替换材质"的要求把
 门板与门框的**所有**材质槽都换成调色板材质（代码注释里就写了"要保留网格自带玻璃小窗，把两处循环改回只
 SetMaterial(0, Surface)"）。想在游戏里保住那扇小窗的玻璃，把 `Configure()` 改成只换 slot 0 即可（一行）。
+
+### 发布记录（2026-09-18）
+
+- 提交：`502bb27`（`origin/main`），发布目录 `D:/FPS3D/FPSGAME`，普通推送 `HEAD:main`，`git ls-remote` 回读一致。
+- 验证：Game／Editor 两目标编译 Succeeded；调色板与网格经**独立进程**读回（`verify_*.py`，日志在对应 `SourceAssets/` 目录）。
+- 内容依赖：复用既有体素材质与包内 `SM_Door`/`SM_DoorFrame`（未修改包资产）；预览图与日志按忽略规则只留本地。
+- **运行时验收仍由用户执行**（清单见该轮案例文档）。
