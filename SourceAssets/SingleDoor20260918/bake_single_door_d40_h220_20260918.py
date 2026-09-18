@@ -1,0 +1,189 @@
+"""单扇门的门框与门板：进深 40 cm、高度 220 cm（2026-09-18 第二／第三轮）。
+
+用户口径：
+  - 第二轮："统一门框的进深大小为 20 cm 体素格的整数倍，设置为 **40 CM**。"
+  - 第三轮（本轮）："同步调整高度，做好高度统一 **2.2 米**，门、门框都同步调整。"
+
+| 新资产 | 源（Door System 包） | 源尺寸（cm） | 目标（cm） | 缩放 |
+| --- | --- | --- | --- | --- |
+| `/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40` | `SM_DoorFrame` | 24.84 × 113.99 × 212.00 | **40 × 114 × 220** | 进深 40/24.84 ＝ 2 格、高度 220/212 ＝ 11 格 |
+| `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_H208` | `SM_Door` | 18.48 × 90.00 × 200.00 | **18.48 × 90 × 207.55** | 只缩 Z，与门框同比例 220/212 |
+
+- 包门框的洞口正好是 **90 × 200 ＝ 门板尺寸**（实测顶点：洞口 y ±45、z 0..200），所以门框与门板按**同一个 Z 比例**
+  缩放后洞口仍被门板填满，门板／门框相对关系不变——"同步调整"就是这个意思。
+- 只缩进深与高度两轴，宽度 113.99 保持（占格 Y 取整 6 格＝120）；占格仍是 **(2,6,11)**，调色板 `door_*` 条目不用改。
+- 门板保持源模型的 pivot／origin（本工程的 `AColdSteelDoor` 一律按包围盒摆位，不要求原点居中）。
+
+三条口径（缩放事故的教训，见 skills/asset-model-workflow 的"缩放已有网格"一节）：
+  1. 不重建几何：`copy_mesh_from_static_mesh → scale_mesh(逐轴) → copy_mesh_to_static_mesh`；
+  2. **逐槽拷回材质**：`copy_mesh_to_static_mesh` 默认只留一个空槽（上一轮把门扇的 M_Glass 小窗弄丢过），
+     容器用 `duplicate_asset` 复制源资产（本版 Python 没有 `StaticMeshFactoryNew`）；
+  3. 门框是**环状**网格：清空过期简单碰撞并设 `CTF_USE_COMPLEX_AS_SIMPLE`（包成盒会把门洞堵死）；
+     门板是实体薄板，用 AlignedBoxes。
+
+包里的 `/Game/DoorSystem/**` 原样不动（物理门 `door_physics` 还在用）。
+
+运行（编辑器关闭时最稳）：
+  UnrealEditor-Cmd.exe D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript \
+      -Script=D:/FPS3D/FPSGAME/SourceAssets/SingleDoor20260918/bake_single_door_d40_h220_20260918.py \
+      -unattended -nop4 -nosplash -NullRHI -nosound -abslog=<日志>
+"""
+
+import time
+
+import unreal
+
+PACK_FRAME = "/Game/DoorSystem/Demo/StarterContent/Props/SM_DoorFrame"
+PACK_LEAF = "/Game/DoorSystem/Demo/StarterContent/Props/SM_Door"
+DIR = "/Game/Props/SingleDoor20260918"
+DEPTH_CM = 40.0
+HEIGHT_CM = 220.0
+LOG = []
+
+
+def log(m):
+    print("[door-h220] " + m)
+
+
+def check(label, ok):
+    LOG.append((label, bool(ok)))
+    log("%-28s %s" % (label, "OK" if ok else "FAIL"))
+
+
+def load_dynamic(path):
+    mesh = unreal.EditorAssetLibrary.load_asset(path) or unreal.load_asset(path)
+    if not mesh:
+        return None, None
+    dm = unreal.DynamicMesh()
+    dm, outcome = unreal.GeometryScript_AssetUtils.copy_mesh_from_static_mesh(
+        mesh, dm, unreal.GeometryScriptCopyMeshFromAssetOptions(), unreal.GeometryScriptMeshReadLOD())
+    if dm is None or "fail" in str(outcome).lower():
+        return mesh, None
+    return mesh, dm
+
+
+def copy_material_slots(source, target):
+    rebuilt = []
+    for slot in list(source.get_editor_property("static_materials") or []):
+        entry = unreal.StaticMaterial()
+        try:
+            entry.set_editor_property("material_interface", slot.get_editor_property("material_interface"))
+            entry.set_editor_property("material_slot_name", slot.get_editor_property("material_slot_name"))
+        except Exception as exc:  # noqa: BLE001
+            log("材质槽拷贝失败：%s" % exc)
+        rebuilt.append(entry)
+    if not rebuilt:
+        rebuilt = [unreal.StaticMaterial()]
+    target.set_editor_property("static_materials", rebuilt)
+    return len(rebuilt)
+
+
+def clear_simple_collision(target):
+    setup = target.get_editor_property("body_setup")
+    if not setup:
+        return
+    for prop in ("agg_geom", "aggregate_geometry"):
+        try:
+            agg = setup.get_editor_property(prop)
+        except Exception:  # noqa: BLE001
+            continue
+        if not agg:
+            continue
+        for elem in ("box_elems", "convex_elems", "sphere_elems", "sphyl_elems", "taper_elems"):
+            try:
+                agg.set_editor_property(elem, [])
+            except Exception:  # noqa: BLE001
+                pass
+        break
+    setup.set_editor_property("collision_trace_flag",
+                              unreal.CollisionTraceFlag.CTF_USE_COMPLEX_AS_SIMPLE)
+
+
+def bake(label, source_path, target_path, target_size, ring):
+    """逐轴缩放到 target_size；ring=True 用三角面碰撞（门框），否则 AlignedBoxes（门板）。"""
+    source, dm = load_dynamic(source_path)
+    check("load_" + label, dm is not None)
+    if not dm:
+        return None
+    bb = source.get_bounds()
+    native = (bb.box_extent.x * 2.0, bb.box_extent.y * 2.0, bb.box_extent.z * 2.0)
+    scale = (target_size[0] / native[0], target_size[1] / native[1], target_size[2] / native[2])
+    log("%-22s 源 %.2f × %.2f × %.2f → 目标 %.2f × %.2f × %.2f 缩放 %.4f/%.4f/%.4f" % (
+        label, native[0], native[1], native[2], target_size[0], target_size[1], target_size[2],
+        scale[0], scale[1], scale[2]))
+    dm = unreal.GeometryScript_MeshTransforms.scale_mesh(
+        dm, unreal.Vector(scale[0], scale[1], scale[2]), unreal.Vector(0.0, 0.0, 0.0), True)
+
+    target = unreal.EditorAssetLibrary.load_asset(target_path) or unreal.load_asset(target_path)
+    if not target:
+        # 先复制一份包资产当容器（材质槽一并带过来），再覆盖几何。
+        unreal.EditorAssetLibrary.make_directory(target_path.rsplit("/", 1)[0])
+        unreal.EditorAssetLibrary.duplicate_asset(source_path, target_path)
+        target = unreal.EditorAssetLibrary.load_asset(target_path) or unreal.load_asset(target_path)
+    check("target_asset_" + label, target is not None)
+    if not target:
+        return None
+    _, outcome = unreal.GeometryScript_AssetUtils.copy_mesh_to_static_mesh(
+        dm, target, unreal.GeometryScriptCopyMeshToAssetOptions(),
+        unreal.GeometryScriptMeshWriteLOD(), True)
+    check("copy_to_static_" + label, "fail" not in str(outcome).lower())
+    log("  copy_to_static outcome=%s" % outcome)
+    slots = copy_material_slots(source, target)
+    log("  材质槽：源 %d → 目标 %d" % (
+        len(source.get_editor_property("static_materials") or []), slots))
+    unreal.EditorAssetLibrary.save_loaded_asset(target, True)
+    time.sleep(1.0)
+    if ring:
+        clear_simple_collision(target)          # 环状网格：三角面即碰撞体，洞口才不被堵死
+    else:
+        unreal.ModelingService.generate_collision(target_path, "AlignedBoxes", 1, 25, True)
+    unreal.EditorAssetLibrary.save_loaded_asset(target, True)
+
+    back = unreal.EditorAssetLibrary.load_asset(target_path) or unreal.load_asset(target_path)
+    bb2 = back.get_bounds()
+    got = (round(bb2.box_extent.x * 2, 2), round(bb2.box_extent.y * 2, 2), round(bb2.box_extent.z * 2, 2))
+    body = back.get_editor_property("body_setup")
+    geom = body.get_editor_property("agg_geom") if body else None
+    log("  读回 %s bbox %.2f × %.2f × %.2f origin=(%.2f, %.2f, %.2f) tris=%d slots=%d box=%d convex=%d" % (
+        target_path.rsplit("/", 1)[-1], got[0], got[1], got[2],
+        bb2.origin.x, bb2.origin.y, bb2.origin.z, back.get_num_triangles(0),
+        len(back.get_editor_property("static_materials") or []),
+        len(geom.get_editor_property("box_elems")) if geom else -1,
+        len(geom.get_editor_property("convex_elems")) if geom else -1))
+    check("size_" + label, all(abs(got[i] - target_size[i]) < 0.3 for i in range(3)))
+    check("slots_" + label,
+          len(back.get_editor_property("static_materials") or []) ==
+          len(source.get_editor_property("static_materials") or []))
+    return got, native
+
+
+# 门框：进深 40（2 格）＋高度 220（11 格），宽度保持源模型的 113.99
+pack_frame, _ = load_dynamic(PACK_FRAME)
+native_frame = (pack_frame.get_bounds().box_extent.x * 2.0,
+                pack_frame.get_bounds().box_extent.y * 2.0,
+                pack_frame.get_bounds().box_extent.z * 2.0)
+frame_target = (DEPTH_CM, round(native_frame[1], 2), HEIGHT_CM)
+bake("frame", PACK_FRAME, DIR + "/SM_SingleDoorFrame_D40", frame_target, True)
+
+# 门板：只缩 Z（220/212），与门框同一比例 —— 包洞口 90×200 ＝ 门板尺寸，缩完仍然严丝合缝
+leaf_scale_z = HEIGHT_CM / native_frame[2]
+pack_leaf, _ = load_dynamic(PACK_LEAF)
+native_leaf = (pack_leaf.get_bounds().box_extent.x * 2.0,
+               pack_leaf.get_bounds().box_extent.y * 2.0,
+               pack_leaf.get_bounds().box_extent.z * 2.0)
+leaf_target = (round(native_leaf[0], 2), round(native_leaf[1], 2), round(native_leaf[2] * leaf_scale_z, 2))
+bake("leaf", PACK_LEAF, DIR + "/SM_SingleDoorLeaf_H208", leaf_target, False)
+
+log("门框 %.2f × %.2f × %.2f（应 ＝ 40 × 113.99 × 220）：占格按 %s" % (
+    frame_target[0], frame_target[1], frame_target[2],
+    tuple(max(1, int((v + 19.9) // 20)) for v in frame_target)))
+log("门板 %.2f × %.2f × %.2f（洞口 90 × 200 同比例 → %.2f），Z 比例 %.6f" % (
+    leaf_target[0], leaf_target[1], leaf_target[2], native_leaf[2] * leaf_scale_z, leaf_scale_z))
+check("frame_footprint_2_6_11", tuple(max(1, int((v + 19.9) // 20)) for v in frame_target) == (2, 6, 11))
+check("leaf_fits_frame_height", abs(leaf_target[2] - native_leaf[2] * leaf_scale_z) < 0.05
+      and leaf_target[2] < frame_target[2])
+check("pack_untouched", abs(native_frame[1] - 113.99) < 0.05 and abs(native_frame[2] - 212.0) < 0.05)
+
+bad = [x for x in LOG if x[1] is False]
+log("checks=%d failed=%d %s" % (len(LOG), len(bad), [b[0] for b in bad]))
+log("RESULT: " + ("PASS" if not bad else "CHECK"))

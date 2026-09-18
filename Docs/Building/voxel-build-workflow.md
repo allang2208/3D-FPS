@@ -380,7 +380,7 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
    高度卡在 10 格与 11 格之间——**要用包里的模型就用"逐轴缩放"而不是重做几何**：
    `copy_mesh_from_static_mesh → scale_mesh(逐轴) → copy_mesh_to_static_mesh`（先例
    `SourceAssets/RomanFountain20260917/scale_fountain_2x_20260918.py`，门的缩放版见
-   `SourceAssets/SingleDoor20260918/bake_single_door_frame_d40_20260918.py` 与
+   `SourceAssets/SingleDoor20260918/bake_single_door_d40_h220_20260918.py` 与
    `SourceAssets/DoubleDoor20260918/build_double_door_meshes_20260918.py` 的 `bake_pack_leaf()`），
    缩放后**必须**清空过期简单碰撞并改
    `CTF_USE_COMPLEX_AS_SIMPLE`（环状门框包成盒会把门洞堵死）。包里的 pivot 常在边上／底边，缩放不改这一点，
@@ -408,6 +408,14 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
      或烘完逐槽拷回 `static_materials`；两条路都要核对 `slots` 数与源一致（门扇应保留 2 槽含 M_Glass）。
    - 同一模块里多个 .cpp 在**匿名命名空间定义同名常量**会被 UBT 的 unity 合并撞出 `C2374 重定义`
      （门／窗／双开门三个文件原本都叫 `DefaultLeafMesh`／`DefaultFrameMesh`）——常量名按类区分。
+   **第三轮（2026-09-18 晚）高度统一 2.2 m**：两扇门的**外廓高度都做成 220 cm ＝ 11 格**——
+   单扇门框重新烘成 40 × 114 × **220**（占格仍 (2,6,11)），门板换成本工程缩高版 `SM_SingleDoorLeaf_H208`
+   （包里 `SM_Door` 只按同一 Z 比例 220/212 → 207.55 cm；包门框洞口实测正好 90 × 200 ＝ 门板尺寸，
+   同比例缩放后洞口仍被填满，这就是"门、门框同步"）；双开门框重建为 40 × 200 × **220**、
+   占格 (2,10,11)、洞口 184×204、门扇 91.5×203。同族件只要**外廓按格子取整**，洞口／门板跟着同一比例走即可。
+   **保存要核实真落盘**：这一轮第一遍跑完脚本"读回正确但磁盘没变"——并行会话的 Unreal 进程占着这些包，
+   `LogFileManager: Error moving … (Error Code 32)`＋`LogSavePackage: Error: Error saving …`，保存静默失败
+   （同进程读回是内存值，不算证据）。要等那些进程退出后重跑，并核对 `.uasset` 的 mtime 确实变新。
 11. **同类构件登记三条材质是现行口径**：门／窗／双开门都是 wood／stone／marble 各一条（`Material` 分组决定进哪栏），
    这样玩家用哪种体素砌墙就能配哪种构件。命名 `window_*` / `door_*` / `double_door_*`，占格逐轴等于网格包围盒/20。
 

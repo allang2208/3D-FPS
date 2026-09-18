@@ -16,9 +16,10 @@ class UMaterialInterface;
  * Cast 失败并每帧刷 "读取 Player Ref 结果为无"，门也不会动（2026-09-17 实测日志）。
  *
  * 交互入口 `ToggleDoor` / `OpenDoor` / `CloseDoor` 无参，正好落在
- * `UColdSteelDoorInteraction` 的入口表里，所以玩家按 E 就能开关；门板沿用包里的 SM_Door，
- * 门框用本工程缩放进深后的 `Props/SingleDoor20260918/SM_SingleDoorFrame_D40`（40 × 114 × 212，
- * 进深 40 ＝ 2 格体素，2026-09-18 与双开门统一），后续可换成我们自己的门网格，
+ * `UColdSteelDoorInteraction` 的入口表里，所以玩家按 E 就能开关；门框与门板都用本工程按网格尺寸
+ * 烘焙的包模型副本：`Props/SingleDoor20260918/SM_SingleDoorFrame_D40`（40 × 114 × 220：进深 2 格、
+ * 高度 11 格）与 `SM_SingleDoorLeaf_H208`（207.55 cm，按同一 Z 比例缩高），2026-09-18 与双开门统一。
+ * 后续可换成我们自己的门网格，
  * 也可以在这里接第一人称推门动作。
  */
 UCLASS()

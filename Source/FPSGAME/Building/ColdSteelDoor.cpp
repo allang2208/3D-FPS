@@ -10,12 +10,13 @@
 
 namespace
 {
-    // 门板仍是包里的 SM_Door（迁移在 Content/DoorSystem 下）；门框用本工程缩放进深后的资产
-    // （SourceAssets/SingleDoor20260918/bake_single_door_frame_d40_20260918.py：24.8 → 40 cm，
-    //  进深 40 ＝ 2 格体素，与双开门统一；其余两轴与包资产一致）。换外观只需改这两个默认值。
+    // 门框与门板都是本工程按网格尺寸烘焙的包模型副本（SourceAssets/SingleDoor20260918/
+    // bake_single_door_d40_h220_20260918.py）：门框 40 × 114 × 220（进深 2 格、高度 11 格，
+    // 与双开门统一），门板只按同一 Z 比例缩高到 207.55 cm，仍严丝合缝填满门框洞口。
+    // 换外观只需改这两个默认值。
     // 名字按类区分：这三个门的 .cpp 会被 UBT 合并进同一个 unity 文件，
     // 匿名命名空间在合并块里是共享的，同名常量会报 C2374 重定义。
-    const TCHAR* SingleDoorLeafMesh=TEXT("/Game/DoorSystem/Demo/StarterContent/Props/SM_Door.SM_Door");
+    const TCHAR* SingleDoorLeafMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_H208.SM_SingleDoorLeaf_H208");
     const TCHAR* SingleDoorFrameMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40.SM_SingleDoorFrame_D40");
     // 门框内沿到中线的距离（cm）：门板宽 90 → 铰链在 −45，门板中心在 +45。
     constexpr float LeafHalfWidth=45.f;

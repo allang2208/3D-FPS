@@ -15,13 +15,13 @@ import unreal
 PALETTE = "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette"
 FRAME_MESH = "/Game/Props/DoubleDoor20260918/SM_DoubleDoorFrame_200"
 DOOR_CLASS = "/Script/FPSGAME.ColdSteelDoubleDoor"
-# 门框 40×200×200 cm → 占格 **(2,10,10)**（进深 40 ＝ 2 格体素，2026-09-18 第二轮与单扇门统一）；
-# 洞口 184×184，两扇 91.5 宽对开，门扇由单扇门模型缩放而来（不进调色板）。
-CELLS = (2, 10, 10)
+# 门框 40×200×220 cm → 占格 **(2,10,11)**（进深 40 ＝ 2 格、高度 220 ＝ 11 格，2026-09-18 与单扇门统一）；
+# 洞口 184×204，两扇 91.5×203 对开，门扇由单扇门模型缩放而来（不进调色板）。
+CELLS = (2, 10, 11)
 ENTRIES = [
-    ("double_door_wood", "木双开门（E 键开关·2×2 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Wood", "wood"),
-    ("double_door_stone", "石双开门（E 键开关·2×2 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Stone", "stone"),
-    ("double_door_marble", "大理石双开门（E 键开关·2×2 m）", "/Game/Props/RomanColumn20260915/M_RomanStone_V2", "marble"),
+    ("double_door_wood", "木双开门（E 键开关·2×2.2 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Wood", "wood"),
+    ("double_door_stone", "石双开门（E 键开关·2×2.2 m）", "/Game/Building/Voxels/Rounded/M_Voxel_Stone", "stone"),
+    ("double_door_marble", "大理石双开门（E 键开关·2×2.2 m）", "/Game/Props/RomanColumn20260915/M_RomanStone_V2", "marble"),
 ]
 
 

@@ -109,3 +109,15 @@ FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildCompo
 5. **同名常量别放匿名命名空间**：同一个模块里多个 .cpp 都写 `const TCHAR* DefaultLeafMesh=...`，
    UBT 的 unity 合并把其中两个并进一块就报 `C2374 重定义`；常量名按类区分
    （`WindowLeafMesh`／`SingleDoorFrameMesh`／`DoubleDoorLeafMesh`）。
+
+### 同一天第三轮：把高度也统一成 2.2 m（门、门框同步）
+
+6. **"同步"要认准哪个尺寸是基准**：用户要"门、门框都同步调整"时，**外廓取整格、洞口与门板按同一比例走**。
+   包门框的洞口实测正好＝门板尺寸（`SM_DoorFrame` 洞口 90 × 200 ＝ `SM_Door` 的 90 × 200），
+   所以门框与门板套**同一个 Z 比例**（220/212）后洞口仍严丝合缝；自有框（双开门）则直接把门扇取
+   "洞口 − 1 cm 缝"。结果：单扇门框 40 × 114 × 220（占格 (2,6,11)，门板 207.55）、
+   双开门框 40 × 200 × 220（占格 (2,10,11)，洞口 184×204，门扇 91.5×203）。
+7. **保存必须核实真落盘**：烘焙脚本里的"读回"是**同进程内存值**。并行会话的 Unreal 进程占着包时，
+   保存会静默失败（`LogFileManager: Error moving … (Error Code 32)`、`LogSavePackage: Error: Error saving …`），
+   表现是"脚本 PASS、磁盘 `.uasset` 却没变"。要等那些进程退出后重跑，并核对文件 mtime 变新；
+   判断有没有别的会话在跑：`Get-CimInstance Win32_Process -Filter "Name='UnrealEditor.exe' OR Name='UnrealEditor-Cmd.exe'"`。
