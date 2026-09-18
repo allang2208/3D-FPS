@@ -110,25 +110,17 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
         for(int32 I=Ref.FindBoneIndex(TEXT("WPN_SOCKET_Magazine"));I!=INDEX_NONE;I=Ref.GetParentIndex(I)){MagChain.Add(I);Bone=Bone*Ref.GetRefBonePose()[I];}
         FTransform ParentFirst=FTransform::Identity;
         for(int32 K=MagChain.Num()-1;K>=0;--K)ParentFirst=ParentFirst*Ref.GetRefBonePose()[MagChain[K]];
-        // Two frame conventions are in play, and each magazine is authored for its
-        // own rifle's accepted path:
-        //  - M4/QBZ: the mesh carries the placement in the weapon frame, and the
-        //    accepted drum is mounted with the socket's inverse.
-        //  - AKM: that rifle's accepted drum is authored in the WPN_SOCKET_Magazine
-        //    frame and mounted identity/ignoring translation, with only the unit
-        //    scale; the socket-inverse accumulation left the AKM magazine ~7 cm out
-        //    of the well (logged as parentfirst_t/seat_t below).
-        const FVector BoneScale=Bone.GetScale3D().GetAbs();
-        const FVector MagUnitScale(1.f/FMath::Max(UE_SMALL_NUMBER,BoneScale.X),
-                                   1.f/FMath::Max(UE_SMALL_NUMBER,BoneScale.Y),
-                                   1.f/FMath::Max(UE_SMALL_NUMBER,BoneScale.Z));
-        const bool bSocketFrameMag=AKMSoviet::Matches(AKMViewmodel);
-        LargeDrum->SetRelativeTransform(bSocketFrameMag
-            ? FTransform(FQuat::Identity,FVector::ZeroVector,MagUnitScale)
-            : FTransform::Identity.GetRelativeTransform(Bone));
+        // All three magazines are authored in their own rifle's mesh frame: each
+        // part is that rifle's factory magazine lengthened in place, so the
+        // accepted mounting (the socket chain inverse, the same one the accepted
+        // large drum uses) seats the magazine exactly where the factory magazine
+        // sits and lets it ride the same bone through the reload. The AKM used to
+        // be authored in the socket frame instead, which put it about 35 cm
+        // outside the well in game (logged as frame=socket in that round).
+        LargeDrum->SetRelativeTransform(FTransform::Identity.GetRelativeTransform(Bone));
         const FBoxSphereBounds SeatBounds=Asset->GetBounds().TransformBy(LargeDrum->GetComponentTransform());
         UE_LOG(LogTemp,Display,TEXT("EXT_MAG: attached id=%s mesh=%s frame=%s rel_loc=%s rel_scale=%s bind_scale=%s seat_t=%s parentfirst_t=%s world_loc=%s world_extent=%s parent=%s parent_loc=%s weapon_loc=%s socket_ok=%d skel=%s"),
-            *MagazineAttachmentId,*Asset->GetName(),bSocketFrameMag?TEXT("socket"):TEXT("weapon"),
+            *MagazineAttachmentId,*Asset->GetName(),TEXT("weapon"),
             *LargeDrum->GetRelativeLocation().ToString(),*LargeDrum->GetRelativeScale3D().ToString(),
             *Bone.GetScale3D().ToString(),*Bone.GetLocation().ToString(),*ParentFirst.GetLocation().ToString(),
             *LargeDrum->GetComponentLocation().ToString(),*SeatBounds.BoxExtent.ToString(),

@@ -1,0 +1,47 @@
+{
+  "SM_ExtMag_M440": {
+    "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "rifle": "M4",
+    "slots": [
+      "Magazine_Light_001"
+    ],
+    "lod0_vertices": 3867,
+    "lod0_triangles": 3276,
+    "bounds_cm": [
+      4.32,
+      9.32,
+      23.55
+    ],
+    "note": "factory M4 magazine lengthened; material = that rifle magazine slot material"
+  },
+  "SM_ExtMag_QBZ40": {
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+    "rifle": "QBZ191",
+    "slots": [
+      "M_QBZ191_Magazine"
+    ],
+    "lod0_vertices": 3503,
+    "lod0_triangles": 2921,
+    "bounds_cm": [
+      4.61,
+      14.47,
+      24.18
+    ],
+    "note": "factory QBZ-191 magazine lengthened; material = that rifle magazine slot material"
+  },
+  "SM_ExtMag_AKM40": {
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "rifle": "AKM",
+    "slots": [
+      "M_AKM_Soviet_Magazine"
+    ],
+    "lod0_vertices": 3448,
+    "lod0_triangles": 5496,
+    "bounds_cm": [
+      4.37,
+      19.04,
+      23.71
+    ],
+    "note": "factory AKM magazine lengthened in place; material = that rifle magazine slot material"
+  }
+}

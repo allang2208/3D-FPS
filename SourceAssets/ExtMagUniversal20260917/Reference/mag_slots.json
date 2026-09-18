@@ -1,0 +1,187 @@
+{
+ "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416": {
+  "slots": [
+   {
+    "slot": "Flash_Hider_001",
+    "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "Grip_Default_001",
+    "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "Keymod_material_001",
+    "material": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "Body_001",
+    "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "Magazine_Light_001",
+    "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "Classic_Stock_001",
+    "material": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "MI_Manny_01",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "MI_Manny_02",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+    "class": "MaterialInstanceConstant"
+   }
+  ]
+ },
+ "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative": {
+  "slots": [
+   {
+    "slot": "M_AKM_Soviet_Magazine",
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "class": "Material"
+   },
+   {
+    "slot": "M_AKM_Soviet_PBR",
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "class": "Material"
+   },
+   {
+    "slot": "M_AKM_FactoryStock",
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "class": "Material"
+   },
+   {
+    "slot": "M_AKM_FactoryRearGrip",
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "class": "Material"
+   },
+   {
+    "slot": "MI_Manny_01",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "MI_Manny_02",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+    "class": "MaterialInstanceConstant"
+   }
+  ]
+ },
+ "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny": {
+  "slots": [
+   {
+    "slot": "M_QBZ191_Wear_Body",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal.M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_FactoryStock_Metal",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal.M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_Wear_Steel",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal.M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_Flash_Hider",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal.M_QBZ191_Unified_M_QBZ191_Wear_Steel_metal",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_FactoryStock_Polymer",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_FactoryRearGrip",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Polymer_polymer",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_Wear_Rail",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Rail_metal.M_QBZ191_Unified_M_QBZ191_Wear_Rail_metal",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_Wear_Sights",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal.M_QBZ191_Unified_M_QBZ191_Wear_Sights_metal",
+    "class": "Material"
+   },
+   {
+    "slot": "M_QBZ191_Wear_Magazine",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+    "class": "Material"
+   },
+   {
+    "slot": "MI_Manny_01",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "class": "MaterialInstanceConstant"
+   },
+   {
+    "slot": "MI_Manny_02",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+    "class": "MaterialInstanceConstant"
+   }
+  ]
+ },
+ "/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440": {
+  "slots": [
+   {
+    "slot": "Magazine_Light_001",
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_ExtMag_Finish_M4.M_ExtMag_Finish_M4",
+    "class": "MaterialInstanceConstant"
+   }
+  ],
+  "lod0_vertices": 3867,
+  "lod0_triangles": 3276,
+  "bounds_cm": [
+   4.32,
+   9.32,
+   23.55
+  ]
+ },
+ "/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_AKM40": {
+  "slots": [
+   {
+    "slot": "Magazine_Light_001",
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_ExtMag_Finish_AKM.M_ExtMag_Finish_AKM",
+    "class": "Material"
+   }
+  ],
+  "lod0_vertices": 3857,
+  "lod0_triangles": 3276,
+  "bounds_cm": [
+   3.54,
+   9.62,
+   23.74
+  ]
+ },
+ "/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_QBZ40": {
+  "slots": [
+   {
+    "slot": "M_QBZ191_Magazine",
+    "material": "/Game/Weapons/ExtMagUniversal20260917/Materials/M_ExtMag_Finish_QBZ191.M_ExtMag_Finish_QBZ191",
+    "class": "Material"
+   }
+  ],
+  "lod0_vertices": 3503,
+  "lod0_triangles": 2921,
+  "bounds_cm": [
+   4.61,
+   14.47,
+   24.18
+  ]
+ }
+}

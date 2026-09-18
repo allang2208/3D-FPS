@@ -1,3 +1,47 @@
+# 回归修正：AKM 改用自家弹匣、三枪材质改为原厂弹匣槽（2026-09-18 第二次收口）
+
+用户实机反馈三点：**AKM 没插进弹仓**、**M4/191 材质没统一**、**模型还要优化升级**。三点的根因都在"借件 + 猜坐标系"，本轮改成"各枪自己的弹匣"。
+
+## 1. AKM 没插进弹仓：资产写在插座系，运行时却按插座原点摆放
+
+用户日志（`Saved/Logs/FPSGAME.log`，18:09）里 AKM 一条是 `frame=socket rel_scale=0.01 world_loc=X=6.568 Y=-28.850 Z=-19.653`，而同一时刻枪体在原点——即弹匣被放到离枪体 **约 35 cm** 的地方。上一轮把 AKM 网格重写成"插座系资产 + identity/单位缩放座位"，`bake_extmag_finish.py` 用的是**源 FBX 的插座矩阵**（`bone.matrix_local`），与运行时实际使用的座位值不是同一个量，所以整根弹匣被搬出了井口。
+
+改法：**AKM 回到与 M4/191 完全相同的已验证路径**——资产写在枪体/网格坐标系，座位取 `seat_t⁻¹`（`M4DrumVisual.cpp` 里已验收大弹鼓那段累加）。上一轮"AKM 用插座累加不精确"的判断来自手工拟合的网格，不是座位公式；网格换成本枪原厂件后这条路径对三枪一致。
+
+## 2. 模型：AKM 不再借用 M4 的 PMAG，改为本枪原厂弹匣延长
+
+权威源是 `SourceAssets/PhantomRearGripIntegration20260913/AKM/SK_AKM_MannyNative.fbx`（运行资产就是从它导入的：4 个材质槽名与运行时一致）里的 `AKM_FactoryMagazine_Preview` —— 该枪 7.62 弯弹匣本体（2,801 顶点 / 2,776 面 / UV0 / 原厂法线）。`Scripts/build_extmag_from_factory.py`：
+
+- 复制该对象（不碰机匣、不借 M4 网格）；
+- 轴向取"弹匣质心 → `WPN_SOCKET_Magazine` 骨骼"方向，在 45% 高度处切面，切面以下沿轴向**平滑过渡**下移 6 cm（弯弹匣用硬切换会出现台阶，故用 smoothstep 渐变带 4.5 cm）；
+- 结果：4.34 × 16.25 × 23.20 cm（原厂 4.09 × 15.21 × 19.11 cm），**插入段、喉部、UV、底板全部是原厂件**，落在原厂位置；可编辑场景 `ExtMag40_AKM_Editable.blend`，回执 `Reference/akm40_factory_build.json`。
+
+M4/191 本来就是各自原厂弹匣延长（`SM_ExtMag_M440` ← M4 原厂 PMAG、`SM_ExtMag_QBZ40` ← QBZ 5.8 mm 弹匣），本轮不动几何。
+
+## 3. 材质：改绑"该枪弹匣槽的同一材质"
+
+上一轮按 `weapon-finish.md` 的"逐枪烘焙涂层"给三件做了机匣贴图盒式投影烘焙，实机看是花斑、与该枪不像。本轮改回该标准更直接的读法——**材质来源取宿主枪体网格的同一个槽**，即该枪弹匣槽正在用的材质：
+
+| 枪 | 弹匣槽 | 材质 |
+| --- | --- | --- |
+| M4A1 | `Magazine_Light_001` | `/Game/Weapons/M4InfimaV3/Magazine_Light_001`（MIC） |
+| QBZ-191 | `M_QBZ191_Wear_Magazine` | `M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer` |
+| AKM | `M_AKM_Soviet_Magazine` | `M_AKM_Soviet_PBR` |
+
+配件的 UV0 就是该枪原厂弹匣的 UV，所以绑上去等于"同一件弹匣、只是更长"，白色刻字、磨损与金属分区自动同源；烘焙产物 `M_ExtMag_Finish_*` 与 `Textures/*` 保留在磁盘作记录，不再被引用。脚本 `install_extmag_factory.py`，回执 `factory_install_receipt.json`。
+
+## 4. 图标
+
+AKM 换造型后重渲 `ue_akm_magazine_ext_mag.png`（正交侧视、枪口方向朝左、透明底、单件，中性聚合物棚拍，与既有图标同规格）；M4/191 造型未变，图标不动。
+
+## 5. 状态与阻塞（重要）
+
+- 代码：`Source/FPSGAME/Weapons/M4DrumVisual.cpp` 的 `ext_mag` 分支已合并为单一座位路径（三枪都走 `seat_t⁻¹`，日志 `frame=weapon`）。
+- **本轮被编辑器占用挡住两步**：用户编辑器（18:20 起）持有弹匣资源，外部保存被拒（`Save failed /Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440`），因此 ①平滑过渡版的 AKM 网格尚未写入正式资产（正式资产里是更早一次成功写入的硬切换版，几何同为"AKM 原厂弹匣 +6 cm"），②C++ 改动尚未编译。**关闭编辑器后需重跑 `install_extmag_factory.py` 并编译两个目标**。
+- 按用户规则未做自动化验收；三枪实机观感、换弹跟随与图标显示由用户确认。
+
+---
+
 # 收口：正式资产写入、AKM 插座系生效、逐枪图标（2026-09-18 收尾）
 
 上一轮结束时编辑器仍占着正式网格，只能把逐枪烘焙结果写到 `SM_ExtMag_*_Finish` 变体；本轮把结果落回**正式资产名**，并补齐逐枪图标与旧件退役。**未由用户实机验收**，游戏内表现仍由用户确认。

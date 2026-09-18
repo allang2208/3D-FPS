@@ -1,0 +1,56 @@
+{
+ "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\SK_AKM_MannyNative.fbx",
+ "source_object": "AKM_FactoryMagazine_Preview",
+ "source_slot": "M_AKM_Soviet_Magazine",
+ "extension_cm": 6.0,
+ "cut_fraction": 0.45,
+ "axis_up": [
+  -0.047395,
+  -0.638679,
+  0.768012
+ ],
+ "factory_bounds": [
+  [
+   0.04443,
+   0.15814,
+   -0.28013
+  ],
+  [
+   0.08534,
+   0.31026,
+   -0.08907
+  ]
+ ],
+ "extended_bounds": [
+  [
+   0.04443,
+   0.15814,
+   -0.3211
+  ],
+  [
+   0.08783,
+   0.32063,
+   -0.08907
+  ]
+ ],
+ "factory_dims_cm": [
+  4.09,
+  15.21,
+  19.11
+ ],
+ "extended_dims_cm": [
+  4.34,
+  16.25,
+  23.2
+ ],
+ "vertices": 2801,
+ "polygons": 2776,
+ "uv_layers": [
+  "UVMap"
+ ],
+ "materials": [
+  "M_AKM_Soviet_Magazine"
+ ],
+ "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40_factory.fbx",
+ "editable": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\ExtMag40_AKM_Editable.blend"
+}

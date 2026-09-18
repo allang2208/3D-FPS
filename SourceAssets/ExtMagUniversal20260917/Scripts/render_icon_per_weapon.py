@@ -29,13 +29,13 @@ AKM_RIFLE = os.path.join(SA, r"AKMSoviet20260911\SK_AKM_MannyNative.fbx")
 
 ARGV = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
 MODE = ARGV[0] if ARGV else "icon"
+ONLY = ARGV[1:] if len(ARGV) > 1 else []
 
 JOBS = {
     "ue_m4a1": dict(gun="M4", fbx="SM_ExtMag_M440_finish.fbx", socket_frame=False),
-    "ue_akm": dict(gun="AKM", fbx="SM_ExtMag_AKM40_finish.fbx", socket_frame=True),
+    "ue_akm": dict(gun="AKM", fbx="SM_ExtMag_AKM40_factory.fbx", socket_frame=False),
     "ue_qbz191": dict(gun="QBZ", fbx="SM_ExtMag_QBZ40_finish.fbx", socket_frame=False),
 }
-
 
 def import_fbx(path):
     before = set(bpy.context.scene.objects)
@@ -123,6 +123,8 @@ def frame_from_geometry(mesh):
 
 
 for key, cfg in JOBS.items():
+    if ONLY and key not in ONLY:
+        continue
     gun = cfg["gun"]
     bpy.ops.wm.read_factory_settings(use_empty=True)
     objs = [o for o in import_fbx(os.path.join(FBXDIR, cfg["fbx"])) if o.type == "MESH"]
