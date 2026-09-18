@@ -404,3 +404,44 @@ Game／Editor 两目标 Succeeded（`fountain-caustics-game-20260918.log`、`bui
 上面有一层会动的焦散光，水面缓慢起伏。若盆底仍是平板，请把 `MIC_FountainCaustics` 的
 `Intensity` 设 0（应看到纯石盆）来确认是不是这条链；若水面仍看不出起伏，把
 `MIC_FountainWaveWater.WaterColorShallow` 临时设成品红——变粉就说明水面在渲染（链路 OK，剩下是幅度/审美）。
+
+---
+
+# 十、归档与仓库整理（2026-09-18 收尾）
+
+## 10.1 废案归档
+
+`trash/fountain-water-superseded-20260918/`（本机，gitignored）：
+
+| 退役资产 | 大小 / SHA-256 | 原因 |
+| --- | --- | --- |
+| `M_FountainWater` | 34095 B / `D976581C…07B241` | 平面水材质（几何不动，且其唯一实例已删）；被 `M_FountainWaveWater` 取代 |
+| `MIC_FountainCascade` | 8817 B / `5E075AA6…14D7AE` | 贴图驱动水帘实例（低对比度贴图看不出流动）；被 `MIC_FountainCascadeFlow` 取代 |
+
+清单含恢复边界与引用检查（源码/脚本/文档/关卡与三个网格读回都不再指向它们）。
+**未入 trash 的**：`forensic_fountain.obj`（800 KB 网格 dump，可由脚本重建，保持未跟踪）、
+以及全部 `*.log`（按 `.gitignore` 只留本机）。
+
+## 10.2 本轮沉淀（进入 skill）
+
+- `skills/asset-model-workflow/SKILL.md`：
+  - **拿现成材质当"底板/衬底"前先查 blend mode**：包内 `M_Caustics` 是 `BLEND_OPAQUE`，
+    拿它垫盆底＝一块不透明平板，透过半透明水看下去就是"实心地板"——这是本轮"像固体"的真凶；
+    要"叠加光"就自己做一个 ADDITIVE + Unlit 的材质，别拿不透明底板凑合。
+  - **诊断顺序**：先用**只读探针**读资产属性（blend/shading/TLM/tangent-space/参数默认值/WPO.Normal 接在哪个节点），
+    再谈"参数调不调"；探针要"设完立刻读回"，因为本版枚举名写错会**静默退回默认值**。
+- `skills/ue5-world-interaction/references/fpsgame-voxel-placement.md`：
+  - **运行期自证日志**：带特效的逻辑构件在 `BeginPlay` 打印一次
+    "位置 + 质量档 + 各网格组件的 `网格|slot0 材质|可见性`"，排查"看着没变化"时用一行日志定性
+    （本工程 `AColdSteelFountain` 已这么写）。
+  - **先看游戏日志与存档再怀疑资产**：`Saved/Logs/FPSGAME.log` 能证明那次 PIE 进了哪张图、编译了哪些系统；
+    `Saved/SaveGames/Voxel20_*.sav` 能证明玩家**有没有摆过**该构件（本轮据此排除了"旧构件干盆"假设）。
+
+## 10.3 本轮一并入库的喷泉作者脚本
+
+喷泉 v1–v4 的作者脚本此前一直**未被跟踪**（不是本轮产生的改动）。按"保留最小可重建链"的口径，
+本轮把 `SourceAssets/RomanFountain20260917/` 下的 18 个脚本一并入库
+（`build_fountain_20260917.py`、`scale_fountain_2x_20260918.py`、`add_socle_20260918.py`、
+`add_fountain_fx_20260918.py`、`place_fountain_2x_20260918.py`、`scan_level_20260918.py`、
+`shot_socle_20260918.py`、`verify_fountain_20260917.py`、`pal_check.py`、`probe*.py`），
+`forensic_fountain.obj` 保持未跟踪（派生 dump）。

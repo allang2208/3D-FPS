@@ -186,3 +186,18 @@ v1-v2）→ M_Water_Opaque（不透明，v3；**无暴露参数，不能调色**
 
 另外：v6 用"向上喷"模板当落点水花，实际是盆里多了四根小喷泉 —— 已从 `AColdSteelFountain` 移除，
 编辑器 DLL 与 Game EXE 里都已搜不到 `FountainSplash`。
+
+
+## 2026-09-18 八～十次迭代：几何波动 / 加法焦散 / 归档（水体 v8–v10）
+
+- **v8**：只做法线扰动不动几何 → 观感仍是板；给主网格 slot1 换 `M_FountainHidden`（Masked-0）退掉平面水。
+- **v9**：新增 `SM_RomanFountain_WaterWaves`（3 个 14 圈密集面盘）＋ `M_FountainWaveWater`
+  （两层正弦 + 两层噪声 + 落水涟漪的高度场 → WPO 起伏 + 解析梯度作世界空间法线），
+  水面独立成**永远可见**的组件（修掉"远距离把水面一起隐藏"的分级 bug）；
+  水帘换成 `M_FountainCascadeFlow`（程序化条纹，流动确定可见）。
+- **v10**：只读探针查出"像固体"的真凶——包内 `M_Caustics` 是 **BLEND_OPAQUE**，我拿它垫盆底＝一块不透明平板；
+  改为自建 **`M_FountainCausticsOverlay`（ADDITIVE）**，看到的是石盆 + 会流动的焦散光。
+- **归档**：`M_FountainWater`、`MIC_FountainCascade` 移入 `trash/fountain-water-superseded-20260918/`（含散列）；
+  本轮同时把 v1–v4 的 18 个作者脚本入库（此前未跟踪），`forensic_fountain.obj` 保持未跟踪。
+- 运行期自证：`AColdSteelFountain::BeginPlay` 会打印一次各网格组件的"网格|slot0 材质|可见性"，排查时按
+  `Saved/Logs/FPSGAME.log` 搜 `ColdSteelFountain` 即可。

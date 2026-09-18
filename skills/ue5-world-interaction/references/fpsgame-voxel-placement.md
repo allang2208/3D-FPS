@@ -194,6 +194,22 @@ FPSGAME 里这对入口只有两处，**必须成对修改**：`UVoxelBuildCompo
 - 只读探针模式：`load_level` → 打印地面/参照物/目标 actor 的 location + bounds z（不需要 PIE，也不触发保存）。
 - 无头 commandlet 里**不要指望射线**问地形（本轮 `line_trace_single` 直接崩），用包围盒对照。
 
+## 带特效的逻辑构件要自带"运行期自证日志"（喷泉，2026-09-18）
+
+特效构件出问题时，"到底渲染了什么"必须能一行日志定性。本工程 `AColdSteelFountain::BeginPlay` 的做法：
+
+```cpp
+UE_LOG(LogTemp,Display,TEXT("ColdSteelFountain %s 位置=(...) 质量=%d 距离档=%d 组件: Main=%s Water=%s Fx=%s Jet=%s"),
+       *GetName(), CachedQuality, CachedTier, *Describe(FountainMesh), *Describe(WaterMesh), *Describe(WaterFxMesh), ...);
+// Describe() 打印 "<组件名>{<网格>|mat:<槽0材质>|vis:<可见性>}"
+```
+
+排查时按 `Saved/Logs/FPSGAME.log` 搜构件类名即可，能直接区分三种情况：
+资产没烘进（网格/材质名不对）、被分级/质量关掉了（vis:0）、看的是**另一台实例**（位置不对）。
+配套经验：**先看日志与存档，再怀疑资产** —— 日志能证明那次 PIE 进的是哪张图/编译了哪些系统，
+存档（`Saved/SaveGames/Voxel20_*.sav`）能证明玩家有没有摆过该构件；
+本轮就是靠这两条排除了"旧构件干盆"的假设，再用材质属性探针找到真正原因（不透明焦散衬底）。
+
 ## 水面"像固体"的最后一层：几何必须真的起伏（喷泉，2026-09-18）
 
 只在**平面上做法线/贴图扰动**，几何轮廓恒定 → 观感永远是"一块板"。要真的"水在动"：
