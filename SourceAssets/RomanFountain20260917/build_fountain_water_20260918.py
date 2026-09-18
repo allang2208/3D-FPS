@@ -49,6 +49,8 @@ FX = DIR + "/SM_RomanFountain_WaterFX"
 MARBLE = "/Game/Props/RomanColumn20260915/M_RomanStone_V2"
 FILM = MATDIR + "/M_FountainWaterFilm"
 WATER_MAT = MATDIR + "/M_FountainWater"
+CASCADE_MAT = MATDIR + "/M_FountainCascadeFlow"
+CASCADE_INST = MATDIR + "/MIC_FountainCascadeFlow"
 PACK = "/Game/WaterMaterials"
 CLEAN = PACK + "/Materials/M_Water_Clean"
 CAUSTICS = PACK + "/Materials/M_Caustics"
@@ -388,6 +390,99 @@ return float2(u, v) / max(FoamSize, 1.0);""",
 
 
 # ------------------------------------------------------------------ 2. 实例
+def build_cascade_material():
+    """水帘专用材质：**程序化竖向条纹** + 泡沫贴图，滚动方向沿柱面 v（向下）。
+
+    为什么单独做：旧水帘用 `M_FountainWaterFilm` 的"两张泡沫贴图相乘"，若贴图本身对比度低就几乎看不出流动
+    （用户反馈"像固体、没有流动感"）。这里把流动做成 **sin 条纹 + 泡沫贴图** 叠加，条纹是确定可见的，
+    且同样用自算柱面 UV（不依赖网格 UV/切线）。新建资产名，避免重建已被网格引用的旧材质（会触发 !IsRooted 断言）。
+    """
+    mat = ensure_asset(CASCADE_MAT, unreal.Material, unreal.MaterialFactoryNew)
+    if not mat or (MEL.get_material_expressions(mat) or []):
+        log("cascade material exists or unavailable - skip rebuild")
+        return mat
+    MEL.delete_all_material_expressions(mat)
+    mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
+    mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_UNLIT)
+    mat.set_editor_property("two_sided", True)
+
+    pos = ex(mat, POS_CLS)
+    scale = scalar(mat, "SheetScale", 200.0)
+    around = scalar(mat, "AroundRepeat", 26.0)
+    uv = custom(mat, """
+float r = max(length(P.xy), 0.1);
+float u = atan2(P.y, P.x) * 0.159154943;
+float v = -P.z / max(S, 0.001);
+return float2(u * AR, v);""",
+                {"P": pos, "S": scale, "AR": around},
+                unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                 "S": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                 "AR": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    speed = scalar(mat, "FlowSpeed", 1.1)
+    t = ex(mat, unreal.MaterialExpressionTime)
+    ts = ex(mat, unreal.MaterialExpressionMultiply)
+    link(t, ts, "A")
+    link(speed, ts, "B")
+    flow_uv = custom(mat, "return UV + float2(0.0, T);", {"UV": uv, "T": ts},
+                     unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                     {"UV": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                      "T": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    # ① 程序化条纹（确定可见的向下流动）
+    bands = scalar(mat, "BandCount", 9.0)
+    band_amp = scalar(mat, "BandStrength", 0.55)
+    proc = custom(mat, """
+float s = sin(UV.y * BC * 6.2831853 + sin(UV.x * 0.7 + UV.y * 1.3) * 1.2);
+return saturate(0.5 + 0.5 * s * Amp);""",
+                  {"UV": flow_uv, "BC": bands, "Amp": band_amp},
+                  unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                  {"UV": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                   "BC": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                   "Amp": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    # ② 泡沫贴图（有对比度就叠加，没有也不影响条纹）
+    foam_tex = texture_param(mat, "FoamTexture", T_FOAM_FALL)
+    link_any(flow_uv, foam_tex, ["UVs", "UV"])
+    foam_mul = ex(mat, unreal.MaterialExpressionMultiply)
+    link(proc, foam_mul, "A")
+    link(foam_tex, foam_mul, "B", "R")
+    foam_amp = ex(mat, unreal.MaterialExpressionMultiply)
+    link(foam_mul, foam_amp, "A")
+    link(scalar(mat, "FoamStrength", 1.6), foam_amp, "B")
+    foam_cl = ex(mat, unreal.MaterialExpressionClamp)
+    link(foam_amp, foam_cl, "")
+
+    base_col = vector(mat, "SheetColor", unreal.LinearColor(0.72, 0.86, 0.90, 1.0))
+    white = ex(mat, unreal.MaterialExpressionConstant3Vector)
+    white.set_editor_property("constant", unreal.LinearColor(1.0, 1.0, 1.0, 1.0))
+    col = ex(mat, unreal.MaterialExpressionLinearInterpolate)
+    link(base_col, col, "A")
+    link(white, col, "B")
+    link(foam_cl, col, "Alpha")
+    emis = ex(mat, unreal.MaterialExpressionMultiply)
+    link(col, emis, "A")
+    link(scalar(mat, "EmissiveGain", 0.95), emis, "B")
+    MEL.connect_material_property(emis, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+
+    op_base = scalar(mat, "OpacityBase", 0.45)
+    op_foam = ex(mat, unreal.MaterialExpressionMultiply)
+    link(foam_cl, op_foam, "A")
+    link(scalar(mat, "OpacityFoam", 0.45), op_foam, "B")
+    op_sum = ex(mat, unreal.MaterialExpressionAdd)
+    link(op_base, op_sum, "A")
+    link(op_foam, op_sum, "B")
+    op_cl = ex(mat, unreal.MaterialExpressionClamp)
+    link(op_sum, op_cl, "")
+    max_mode = getattr(unreal.ClampMode, "CMODE_CLAMP_MAX", None)
+    if max_mode is not None:
+        op_cl.set_editor_property("clamp_mode", max_mode)
+    op_cl.set_editor_property("max_default", 0.9)
+    MEL.connect_material_property(op_cl, "", unreal.MaterialProperty.MP_OPACITY)
+    errs = MEL.recompile_material(mat)
+    log("cascade recompile -> %s" % errs)
+    save_fresh(mat, CASCADE_MAT, "M_FountainCascadeFlow")
+    return mat
+
+
 def fix_water_material(mat):
     """只改属性：光照模式 / SceneDepth 节点 id / 透明度上限。不碰表达式表。"""
     tlm = getattr(unreal.TranslucencyLightingMode, "TLM_SURFACE_PER_PIXEL_LIGHTING", None)
@@ -398,6 +493,17 @@ def fix_water_material(mat):
     else:
         check("water_tlm_surface_per_pixel", False)
     log("water tlm = %s" % mat.get_editor_property("translucency_lighting_mode"))
+
+    # 关键：本工程网格走 XAtlas，**切线基不可控**（锥面/圆盘的 UV 岛方向随机），
+    # 法线贴图/法线扰动在切线空间里可能完全看不出效果 → 水面像一块没起伏的板。
+    # 水面都是水平盘面，所以直接把法线当**世界空间**用（材质里给的 (x,y,1) 就是世界空间的向上法线）。
+    try:
+        mat.set_editor_property("tangent_space_normal", False)
+        check("water_world_space_normal", mat.get_editor_property("tangent_space_normal") is False)
+        log("tangent_space_normal = %s" % mat.get_editor_property("tangent_space_normal"))
+    except Exception as exc:  # noqa: BLE001
+        log("tangent_space_normal 设置失败: %s" % exc)
+        check("water_world_space_normal", False)
 
     depth_enum = getattr(unreal.SceneTextureId, "PPI_SCENE_DEPTH", None)
     fixed_scene = 0
@@ -423,10 +529,10 @@ def fix_water_material(mat):
                     break
             if mode is not None:
                 op_node.set_editor_property("clamp_mode", mode)
-            op_node.set_editor_property("max_default", 0.62)
+            op_node.set_editor_property("max_default", 0.5)
             log("opacity clamp max = %s (mode %s)" % (
                 op_node.get_editor_property("max_default"), op_node.get_editor_property("clamp_mode")))
-            check("water_opacity_cap", abs(op_node.get_editor_property("max_default") - 0.62) < 0.01)
+            check("water_opacity_cap", abs(op_node.get_editor_property("max_default") - 0.5) < 0.01)
         else:
             check("water_opacity_cap", False)
     except Exception as exc:  # noqa: BLE001
@@ -744,6 +850,14 @@ if EAL.does_asset_exist(water_inst_path):
     EAL.delete_asset(water_inst_path)
     log("removed v5 MIC_FountainWater (读成深色固体的包内实例)")
 water_mat = build_water_material()
+cascade_flow_mat = build_cascade_material()
+cascade_flow = make_instance(CASCADE_INST, cascade_flow_mat,
+                             {"SheetScale": 200.0, "AroundRepeat": 26.0,
+                              "BandCount": 9.0, "BandStrength": 0.5, "FlowSpeed": 1.1,
+                              "FoamStrength": 1.7, "EmissiveGain": 1.0,
+                              "OpacityBase": 0.45, "OpacityFoam": 0.45},
+                             {"SheetColor": unreal.LinearColor(0.70, 0.85, 0.90, 1.0)},
+                             {"FoamTexture": T_FOAM_FALL})
 film_foam = make_instance(MATDIR + "/MIC_FountainFoam", film_mat,
                           {"FoamSize": 55.0, "FoamSpeed": 0.02, "FoamSpeed2": 0.035,
                            "FoamIntensity": 1.9, "FoamContrast": 1.5,
@@ -770,13 +884,13 @@ caustics = make_instance(MATDIR + "/MIC_FountainCaustics", unreal.load_asset(CAU
                          {"Colour": unreal.LinearColor(0.42, 0.68, 0.66, 1.0)})
 water = make_instance(water_inst_path, water_mat,
                       {"FountainScale": SCALE, "DepthScale": 190.0,
-                       "OpacityBase": 0.34, "FresnelOpacity": 0.30, "FresnelPower": 3.0,
+                       "OpacityBase": 0.28, "FresnelOpacity": 0.22, "FresnelPower": 3.0,
                        "ReflectionStrength": 0.9, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
                        "WaveScale": 150.0, "WaveSpeed": 0.05, "Wave2Scale": 62.0, "Wave2Speed": 0.09,
-                       "NormalStrength": 0.9, "NormalStrength2": 0.6,
+                       "NormalStrength": 1.3, "NormalStrength2": 0.9,
                        "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
-                       "RippleFreq": 0.45, "RippleWidth": 210.0, "RippleStrength": 0.85,
-                       "RippleFoam": 0.7, "RippleFoamOpacity": 0.4},
+                       "RippleFreq": 0.6, "RippleWidth": 260.0, "RippleStrength": 1.1,
+                       "RippleFoam": 1.0, "RippleFoamOpacity": 0.55},
                       {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),
                        "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0)},
                       {"NormalTex": WAVE_NORMAL_A, "NormalTex2": WAVE_NORMAL_B, "ReflectionCubemap": CUBEMAP})
@@ -799,8 +913,8 @@ for inst, label in ((water, "MIC_FountainWater"), (caustics, "MIC_FountainCausti
     except Exception as exc:  # noqa: BLE001
         log("%s readback failed: %s" % (label, exc))
 
-if film_mat and film_foam and film_wet and cascade and caustics:
-    build_fx_mesh(film_foam, film_wet, cascade, caustics)
+if film_mat and film_foam and film_wet and caustics:
+    build_fx_mesh(film_foam, film_wet, cascade_flow or cascade, caustics)
 
 # 主网格 slot1 → 半透明水（slot0 大理石不动）
 if water:

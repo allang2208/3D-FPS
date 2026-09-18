@@ -252,3 +252,41 @@ v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水�
 `git ls-remote` 回读一致（推送期间 GitHub 连接抖动，多次重试后成功，未强推）。
 内容依赖：`M_FountainWater`、5 个 `MIC_Fountain*`、`SM_RomanFountain_20`、`SM_RomanFountain_WaterFX`、
 `RomanFountain1` 的关卡变换（`DayNight_Lighting.umap` 16:38:47）。
+
+---
+
+# 八次迭代：让"水在动"变成确定可见（2026-09-18 晚）
+
+用户回执："主要是水体，很僵硬，像固体。" 这轮不调"漂不漂亮"，只解决**为什么看不出水在动**，
+并把关键手法改成不依赖网格 UV/切线的确定性做法。
+
+## 8.1 两个结构性原因
+
+1. **法线扰动原本可能完全不起作用**：本工程网格走 **XAtlas**，圆盘/锥面的 UV 岛方向随机、局部可能退化，
+   而法线贴图是**切线空间**的 → 算好的涟漪法线被乱掉的切线基转掉，观感就是"一块没起伏的平板"。
+   修法：水面都是水平盘面 → `M_FountainWater` 设 **`tangent_space_normal = False`**，材质里的 `(x,y,1)`
+   直接当**世界空间**法线用（纯属性改动，不碰图）。读回 `tangent_space_normal = False` ✓。
+2. **水帘流动只靠泡沫贴图对比度**：贴图偏平（低频灰度）时滚动几乎不可见 → 读成"静止玻璃片"。
+   修法：新建 **`M_FountainCascadeFlow`**（新资产名，避免重建被引用的旧材质触发 `!IsRooted` 断言），
+   用 **程序化 sin 竖条纹 + 泡沫贴图** 叠加、沿柱面 v 快速滚动 —— 条纹**确定可见**，贴图只做细节叠加。
+
+## 8.2 参数强化（都在实例上，可继续调）
+
+| 参数 | 之前 | 现在 | 作用 |
+| --- | --- | --- | --- |
+| `MIC_FountainWater.OpacityBase / FresnelOpacity` | 0.34 / 0.30 | **0.28 / 0.22**（Opacity 上限 **0.5**） | 更透，减少"实心板"读感 |
+| `NormalStrength / NormalStrength2` | 0.9 / 0.6 | **1.3 / 0.9** | 双层波浪起伏更明显 |
+| `RippleStrength / RippleFoam / RippleFoamOpacity` | 0.85 / 0.7 / 0.4 | **1.1 / 1.0 / 0.55** | 落水涟漪与**波峰白沫环**（不依赖切线，一定看得见向外跑） |
+| `RippleFreq / RippleWidth` | 0.45 / 210 | **0.6 / 260** | 涟漪更快、扩散更远 |
+| 水帘 | `MIC_FountainCascade`（贴图驱动） | **`MIC_FountainCascadeFlow`**（程序化条纹；`FlowSpeed 1.1`、`BandCount 9`、`OpacityBase 0.45`） | 向下流动确定可见 |
+
+## 8.3 证据（已落盘）
+
+`build_water.log`：`water_world_space_normal OK / tangent_space_normal = False`、
+`opacity clamp max = 0.5 (CMODE_CLAMP_MAX)`、`cascade recompile -> []`；
+水效网格读回 `slots=['MIC_FountainFoam','MIC_FountainWet','MIC_FountainCascadeFlow','MIC_FountainCaustics']`、
+主网格 `slots=['M_RomanStone_V2','MIC_FountainWater']`、**33/33 PASS**，全部资产 18:13:13 落盘且无 `Error saving`。
+
+**仍未实机判读**（按约定）：请重启编辑器后进 PIE 看三件事——① 水面涟漪/反射是否在动；
+② 落水点是否有向外扩散的白沫环；③ 三级水帘是否有明显向下的流动条纹。若还有不对，给我
+"贴水面的低角度"和"3/4 中景"两张图，我按图定位（数据侧我已经查完了）。
