@@ -2,6 +2,14 @@
 
 Requires the newly compiled FPSGAMEEditor. Run in a separate commandlet process.
 No source-pack asset is saved. No existing gameplay map is opened or changed.
+
+WARNING (2026-09-18): the section below that builds `M_TemperateGround` is superseded.
+The hills ground is now a four-family layered material rebuilt by
+`build_hills_ground_v2.py`, and the data asset points at
+`PebbleShore/M_PebbleShoreGround`. Re-running this script would put the old three-layer
+graph back and repoint `ground_material` at it. Its level, fog, PCG graph and tree-mesh
+sections are still the provenance of those assets - keep them for reference, but do not
+re-run the whole script. See Docs/WorldGeneration/ground-material-layered-20260918.md.
 """
 import json
 from pathlib import Path

@@ -53,6 +53,14 @@ public:
     UPROPERTY(EditAnywhere, Category="Sky") TSoftObjectPtr<UMaterialInterface> SkyCloudMaterial =
         TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/Sky/MI_HillsClouds.MI_HillsClouds")));
     UPROPERTY(EditAnywhere, Category="Fog", meta=(ClampMin="0",ClampMax="1")) float ValleyFogDensity = .32f;
+    // Embedded surface stones. They reuse the loaded rock meshes and ride the grass PCG
+    // layer (no collision, 35-60 m cull) so the ground keeps detail where the player
+    // looks without a second streaming budget. Appended after every existing field on
+    // purpose: adding members in the middle of this class shifts the ones after it, and
+    // a translation unit that is not rebuilt then reads them at the wrong offset.
+    UPROPERTY(EditAnywhere, Category="Grass|Ground Detail", meta=(ClampMin="90",ClampMax="600",Units="cm")) float GroundDebrisSpacingCm = 240.f;
+    UPROPERTY(EditAnywhere, Category="Grass|Ground Detail", meta=(ClampMin="0",ClampMax="1")) float GroundDebrisCoverage = .30f;
+    UPROPERTY(EditAnywhere, Category="Grass|Ground Detail", meta=(ClampMin="4",ClampMax="120",Units="cm")) float GroundDebrisSizeCm = 20.f;
 };
 
 USTRUCT(BlueprintType)
@@ -189,6 +197,8 @@ private:
     double ForestWeight(double X, double Y) const;
     bool TreeCandidate(int32 GX, int32 GY, FTemperatePlacement& Out) const;
     void GetGrassPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+    /** Small embedded surface stones that match the ground material's dry/gravel patches. */
+    void GetGroundDebrisPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
     void BeginStreaming();
     void TickStreaming();
     void EndStreaming();

@@ -441,7 +441,7 @@ bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& 
 void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
     if(!Assets||Layer<0||Layer>3)return;
-    if(Layer==3){GetGrassPlacements(Bounds,Out);return;}
+    if(Layer==3){GetGrassPlacements(Bounds,Out);GetGroundDebrisPlacements(Bounds,Out);return;}
     const double Spacing=Layer==0?1200:(Layer==1?2400:650);
     const double Half=SizeMeters*50;
     const double MinX=FMath::Max(-Half,Bounds.Min.X),MinY=FMath::Max(-Half,Bounds.Min.Y);
