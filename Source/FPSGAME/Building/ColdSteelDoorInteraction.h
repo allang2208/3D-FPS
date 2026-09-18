@@ -9,7 +9,8 @@ class AActor;
 class UFunction;
 
 /**
- * 第三方门资产（Fab Door System，Content/DoorSystem）的接线层。
+ * 第三方门资产（Fab Door System，Content/DoorSystem）的接线层，同时也是**本工程自研可开关构件**
+ * （`AColdSteelDoor` 门、`AColdSteelWindow` 窗）共用的 E 键开关通道。
  *
  * 包里的门是自带逻辑的 Actor 蓝图：交互入口是蓝图接口 `BI_Interact` 的 `OnInteraction`，
  * 部分门另有 `AutoDoorActivated` / `OpenDoor` 之类的自定义事件。它们的参数写的是包自己的
@@ -21,7 +22,7 @@ class FPSGAME_API UColdSteelDoorInteraction : public UWorldSubsystem
 {
     GENERATED_BODY()
 public:
-    /** 准星命中的 Actor 是否是门：实现 BI_Interact，或带约定的交互入口函数。 */
+    /** 准星命中的 Actor 是否可开关：实现 BI_Interact，或带约定入口函数（含 ToggleDoor／ToggleWindow）。 */
     static bool IsDoor(const AActor* Target);
     /** 调用门的交互入口；返回是否真的调用了入口，OutMessage 供提示栏播报。 */
     bool TryInteract(AActor* Target, APawn* Player, FString& OutMessage);

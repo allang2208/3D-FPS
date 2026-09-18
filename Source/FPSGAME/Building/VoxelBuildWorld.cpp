@@ -348,6 +348,8 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
     }
     ++Revision;Runtime->NextIterations=256;Runtime->StructureAt=GetWorld()->GetTimeSeconds()+.08;
     RebuildAffected(Edit);MarkSaveDirty();
+    // 体素增减可能让旁边的构件失去支撑：与承重/倒塌同一时刻判定，墙拆了构件才会跟着掉（2026-09-18）。
+    VerifyPrefabSupport(Edit);
 }
 
 bool AVoxelBuildWorld::Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember)

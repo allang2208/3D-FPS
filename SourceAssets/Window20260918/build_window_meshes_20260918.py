@@ -1,0 +1,264 @@
+"""100×100 双开窗网格：窗框 SM_WindowFrame_100 + 单扇窗扇 SM_WindowLeaf_100（左右两扇共用）。
+
+尺寸口径（cm，20 cm 体素格；2026-09-18 用户从 40×40 → 80×80 → **100×100**，并要求每扇加圆形把手）：
+  窗框 20(X) × 100(Y) × 100(Z) —— 一格厚、五格宽、五格高，占格 (1,5,5)；
+  洞口 88 × 88（边梃 6），两组窗扇各 43.5 × 87 × 4 对开，中间留 1 cm 缝。
+  窗扇自带一对 1 cm 深的凹面板（边梃 5）＋靠中缝那一侧的**圆形把手**（穿杆＋两面圆盘）。
+
+把手做在窗扇网格里、位于网格的 **+Y 侧**：左扇在 Actor 里直接用，右扇在 Actor 里绕 Z 转 180°
+（窗扇本身左右对称，转过来只有把手换到靠中缝那一侧），所以只需要一个窗扇网格。
+代价是窗扇包围盒的 X 半宽从 2 变成 4（含把手凸出），所以 `ColdSteelWindow.cpp` 的铰链深度用
+名义板厚 `LeafHalfThicknessCm` 而不是包围盒——见该文件的注释。
+
+做法与罗马柱一致：`append_box`／`append_cylinder` 拼若干**闭合盒体**，不做布尔（无头 self_union 会坏法线／塌曲率）。
+碰撞用 AlignedBoxes（每个盒体一个盒），不能用 ConvexHulls——凸包会把 88×88 的洞口整个堵死。
+
+运行（编辑器必须关闭）：
+  UnrealEditor-Cmd.exe D:/FPS3D/FPSGAME/FPSGAME.uproject -run=pythonscript \
+      -Script=D:/FPS3D/FPSGAME/SourceAssets/Window20260918/build_window_meshes_20260918.py \
+      -unattended -nop4 -nosplash -NullRHI -nosound -abslog=<日志>
+"""
+
+import json
+import os
+import time
+
+import unreal
+
+SV = unreal.ModelingService
+DIR = "/Game/Props/Window20260918"
+FRAME_PATH = DIR + "/SM_WindowFrame_100"
+LEAF_PATH = DIR + "/SM_WindowLeaf_100"
+# 被取代的旧版：建完新件就删掉，免留孤儿（40×40 一版更早已删）。
+SUPERSEDED = [DIR + "/SM_WindowFrame_80", DIR + "/SM_WindowLeaf_80"]
+MATERIAL = "/Game/Building/Voxels/Rounded/M_Voxel_Wood"
+OUT_DIR = r"D:\FPS3D\FPSGAME\SourceAssets\Window20260918\preview_20260918"
+COLOR_JSON = os.path.join(OUT_DIR, "material_colors.json")
+
+# --- 尺寸（cm）。改这里就能出别的变体，但占格、调色板条目与 C++ 里的 FrameMemberCm 要一起改。
+FRAME_DEPTH, FRAME_W, FRAME_H = 20.0, 100.0, 100.0
+MEMBER = 6.0                      # 窗框边梃宽
+LEAF_W, LEAF_H, LEAF_T = 43.5, 87.0, 4.0
+LEAF_MEMBER = 5.0                 # 窗扇边梃宽
+PANEL_T = 2.0                     # 凹面板厚（每面凹 LEAF_MEMBER-PANEL_T 的一半）
+# --- 圆形把手：位于窗扇网格 +Y 侧（距自由边 HANDLE_INSET cm）、竖直方向居中，穿杆贯穿扇板，两面各一个圆盘。
+HANDLE_INSET = 4.0                # 把手中心距窗扇自由边的距离
+HANDLE_ROD_R, HANDLE_ROD_SIDES = 1.2, 12
+HANDLE_DISC_R, HANDLE_DISC_T, HANDLE_DISC_SIDES = 3.0, 1.6, 16
+HANDLE_PROTRUDE = 4.0             # 把手端面距扇板中面的距离（每面凸出 2 cm）
+
+STARTED = time.time()
+LOG = []
+
+
+def log(m):
+    print("[window] " + m)
+
+
+def tf(x=0.0, y=0.0, z=0.0, pitch=0.0):
+    t = unreal.Transform()
+    t.translation = unreal.Vector(x, y, z)
+    # Python 的 Rotator 构造是 (roll, pitch, yaw)；pitch=+90 把圆柱的 +Z 轴转成 -X，用来做横倒的杆。
+    t.rotation = unreal.Rotator(0.0, pitch, 0.0).quaternion()
+    t.scale3d = unreal.Vector(1.0, 1.0, 1.0)
+    return t
+
+
+def box(handle, label, centre, size):
+    result = SV.append_box(handle, tf(*centre), size[0], size[1], size[2], 0, 0, 0, "Center", 0)
+    ok = getattr(result, "success", None)
+    LOG.append((label, ok, getattr(result, "message", "")))
+    log("%-14s centre=(%.1f, %.1f, %.1f) size=(%.1f, %.1f, %.1f) %s" % (
+        label, centre[0], centre[1], centre[2], size[0], size[1], size[2], ok))
+    return result
+
+
+def rod(handle, label, base_x, y, z, radius, length, sides):
+    """沿 X 横放的圆柱：base_x 是**底面圆心的 X**，圆柱从那里往 −X 长 length（pitch=+90）。"""
+    result = SV.append_cylinder(handle, tf(base_x, y, z, pitch=90.0), radius, length, sides, 0, True, "Base", 0)
+    ok = getattr(result, "success", None)
+    LOG.append((label, ok, getattr(result, "message", "")))
+    log("%-14s base_x=%+.1f y=%+.1f z=%+.1f r=%.1f len=%.1f x=%.1f..%.1f %s" % (
+        label, base_x, y, z, radius, length, base_x - length, base_x, ok))
+    return result
+
+
+def disk(path):
+    full = unreal.Paths.convert_relative_path_to_full(unreal.Paths.project_content_dir()) + \
+        path.split("/Game/", 1)[1] + ".uasset"
+    if not os.path.exists(full):
+        return None
+    st = os.stat(full)
+    return st.st_size, time.strftime("%H:%M:%S", time.localtime(st.st_mtime)), st.st_mtime
+
+
+def finish(handle, path, label):
+    """UV → 存盘 → 碰撞 → 材质 → 读回包围盒。"""
+    SV.auto_uv(handle, "XAtlas", 0)
+    unreal.EditorAssetLibrary.make_directory(DIR)
+    SV.save_mesh_to_static_mesh(handle, path, True, True, False, True)
+    SV.release_mesh(handle)
+    time.sleep(1.0)
+    stamp = disk(path)
+    if not stamp:
+        log("%s: 存盘后找不到资产 %s" % (label, path))
+        return None
+    # AlignedBoxes：每个闭合盒体一个盒。ConvexHulls 会把窗洞堵死，不能用。
+    SV.generate_collision(path, "AlignedBoxes", 1, 25, True)
+    SV.set_asset_materials(path, MATERIAL, True)
+    asset = unreal.EditorAssetLibrary.load_asset(path)
+    bb = asset.get_bounds()
+    log("%s: %d B / %s · bbox %.1f x %.1f x %.1f origin=(%.1f, %.1f, %.1f) tris=%d" % (
+        label, stamp[0], stamp[1], bb.box_extent.x * 2, bb.box_extent.y * 2, bb.box_extent.z * 2,
+        bb.origin.x, bb.origin.y, bb.origin.z, asset.get_num_triangles(0)))
+    return (round(bb.box_extent.x * 2, 1), round(bb.box_extent.y * 2, 1), round(bb.box_extent.z * 2, 1))
+
+
+def dump_obj(path, out_file, label):
+    """三角形汤 OBJ（离线渲染用，不依赖 RHI）。"""
+    loaded = SV.load_mesh_from_static_mesh(path, 0)
+    dm = SV.get_dynamic_mesh(getattr(loaded, "handle", None))
+    print("[dump] %s verts=%d tris=%d closed=%s open_edges=%d comps=%d" % (
+        label, dm.get_vertex_count(), dm.get_triangle_count(), dm.get_is_closed_mesh(),
+        dm.get_num_open_border_edges(), dm.get_num_connected_components()))
+    _, tlist, _ = dm.get_all_triangle_i_ds()
+    tarr = tlist.convert_index_list_to_array()
+    os.makedirs(os.path.dirname(out_file), exist_ok=True)
+    with open(out_file, "w") as f:
+        f.write("# %s triangle soup\n" % label)
+        fi = 0
+        for tid in tarr:
+            ok, v1, v2, v3 = dm.get_triangle_positions(int(tid))
+            fn, ok2 = dm.get_triangle_face_normal(int(tid))
+            fi += 1
+            f.write("v %.4f %.4f %.4f\n" % (v1.x, v1.y, v1.z))
+            f.write("v %.4f %.4f %.4f\n" % (v2.x, v2.y, v2.z))
+            f.write("v %.4f %.4f %.4f\n" % (v3.x, v3.y, v3.z))
+            f.write("vn %.4f %.4f %.4f\n" % (fn.x, fn.y, fn.z))
+            base = fi * 3 - 2
+            f.write("f %d//%d %d//%d %d//%d\n" % (base, fi, base + 1, fi, base + 2, fi))
+    log("dump %s -> %s (%d faces)" % (label, os.path.basename(out_file), len(tarr)))
+
+
+def material_colors():
+    """把三种体素材质的基色抠出来，给离线渲染上色用。
+
+    5.8 的 `MaterialEditingLibrary` 没有 `get_vector_parameter_value`，所以直接遍历材质表达式：
+    优先带 Color／Base／Body 之类名字的参数，否则取最亮的一档（基色通常比污渍／阴影色亮）。
+    """
+    library = unreal.MaterialEditingLibrary
+    names = [n for n in dir(library) if "expression" in n.lower() or "parameter" in n.lower()]
+    log("MaterialEditingLibrary 可用: %s" % ", ".join(names[:14]))
+    out = {}
+    for group, path in (("wood", "/Game/Building/Voxels/Rounded/M_Voxel_Wood"),
+                        ("stone", "/Game/Building/Voxels/Rounded/M_Voxel_Stone"),
+                        ("marble", "/Game/Props/RomanColumn20260915/M_RomanStone_V2")):
+        mat = unreal.EditorAssetLibrary.load_asset(path) or unreal.load_asset(path)
+        entry = {"path": path, "base_color": None, "source": None, "candidates": []}
+        best = None
+        try:
+            for expr in library.get_material_expressions(mat) or []:
+                cls = expr.get_class().get_name()
+                value = None
+                label = None
+                if "VectorParameter" in cls:
+                    value = expr.get_editor_property("default_value")
+                    label = str(expr.get_editor_property("parameter_name"))
+                elif "Constant3Vector" in cls:
+                    value = expr.get_editor_property("constant")
+                    label = "Constant3Vector"
+                if value is None:
+                    continue
+                rgb = [round(value.r, 4), round(value.g, 4), round(value.b, 4)]
+                lum = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
+                entry["candidates"].append([label, rgb, round(lum, 4)])
+                hinted = any(h in (label or "").lower() for h in ("color", "base", "body", "stone", "wood"))
+                if not (0.04 < lum < 0.97):
+                    continue
+                score = lum + (0.5 if hinted else 0.0)
+                if best is None or score > best[0]:
+                    best = (score, label, rgb)
+        except Exception as exc:  # noqa: BLE001
+            log("%s 表达式遍历失败: %s" % (group, exc))
+        if best:
+            entry["base_color"] = best[2]
+            entry["source"] = best[1]
+        out[group] = entry
+        log("%-7s base=%s (%s) 候选=%s" % (group, entry["base_color"], entry["source"],
+                                           [c[0] for c in entry["candidates"]][:6]))
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(COLOR_JSON, "w") as f:
+        json.dump(out, f, indent=2, ensure_ascii=False)
+    log("material colors -> %s" % COLOR_JSON)
+
+
+# ------------------------------------------------------------------ 窗框（4 条边梃）
+frame = SV.create_mesh().handle
+half_y, half_z, half_x = FRAME_W / 2.0, FRAME_H / 2.0, FRAME_DEPTH / 2.0
+inner_y = FRAME_W / 2.0 - MEMBER
+box(frame, "frame_left", (0.0, -inner_y - MEMBER / 2.0, half_z), (FRAME_DEPTH, MEMBER, FRAME_H))
+box(frame, "frame_right", (0.0, inner_y + MEMBER / 2.0, half_z), (FRAME_DEPTH, MEMBER, FRAME_H))
+box(frame, "frame_top", (0.0, 0.0, FRAME_H - MEMBER / 2.0), (FRAME_DEPTH, FRAME_W - 2 * MEMBER, MEMBER))
+box(frame, "frame_bottom", (0.0, 0.0, MEMBER / 2.0), (FRAME_DEPTH, FRAME_W - 2 * MEMBER, MEMBER))
+info = SV.get_mesh_info(frame)
+log("frame: tris=%d comps=%d open_edges=%d bbox %.1f x %.1f x %.1f" % (
+    info.triangle_count, info.connected_components, info.open_border_edges,
+    info.bounds_max.x - info.bounds_min.x, info.bounds_max.y - info.bounds_min.y,
+    info.bounds_max.z - info.bounds_min.z))
+frame_size = finish(frame, FRAME_PATH, "SM_WindowFrame_100")
+
+# ------------------------------- 窗扇（4 条边梃 + 一块凹面板 + 靠中缝一侧的圆形把手）
+leaf = SV.create_mesh().handle
+ring_y = LEAF_W / 2.0 - LEAF_MEMBER / 2.0
+ring_z = LEAF_H / 2.0 - LEAF_MEMBER / 2.0
+box(leaf, "leaf_left", (0.0, -ring_y, 0.0), (LEAF_T, LEAF_MEMBER, LEAF_H))
+box(leaf, "leaf_right", (0.0, ring_y, 0.0), (LEAF_T, LEAF_MEMBER, LEAF_H))
+box(leaf, "leaf_top", (0.0, 0.0, ring_z), (LEAF_T, LEAF_W - 2 * LEAF_MEMBER, LEAF_MEMBER))
+box(leaf, "leaf_bottom", (0.0, 0.0, -ring_z), (LEAF_T, LEAF_W - 2 * LEAF_MEMBER, LEAF_MEMBER))
+box(leaf, "leaf_panel", (0.0, 0.0, 0.0), (PANEL_T, LEAF_W - 2 * LEAF_MEMBER + 2.0, LEAF_H - 2 * LEAF_MEMBER + 2.0))
+# 把手：穿杆跨过扇板（±HANDLE_PROTRUDE），两面各加一个圆盘做握把。位于网格 +Y 侧＝窗中缝那一侧。
+handle_y = LEAF_W / 2.0 - HANDLE_INSET
+rod(leaf, "handle_rod", HANDLE_PROTRUDE, handle_y, 0.0, HANDLE_ROD_R, HANDLE_PROTRUDE * 2.0, HANDLE_ROD_SIDES)
+rod(leaf, "handle_disc_outer", HANDLE_PROTRUDE, handle_y, 0.0,
+    HANDLE_DISC_R, HANDLE_DISC_T, HANDLE_DISC_SIDES)
+rod(leaf, "handle_disc_inner", -(HANDLE_PROTRUDE - HANDLE_DISC_T), handle_y, 0.0,
+    HANDLE_DISC_R, HANDLE_DISC_T, HANDLE_DISC_SIDES)
+info = SV.get_mesh_info(leaf)
+log("leaf: tris=%d comps=%d open_edges=%d bbox %.1f x %.1f x %.1f（X 含把手凸出）" % (
+    info.triangle_count, info.connected_components, info.open_border_edges,
+    info.bounds_max.x - info.bounds_min.x, info.bounds_max.y - info.bounds_min.y,
+    info.bounds_max.z - info.bounds_min.z))
+leaf_size = finish(leaf, LEAF_PATH, "SM_WindowLeaf_100")
+
+# ----------------------------------------------------- 占格自检（逐轴等于包围盒/20）
+def cells(size, label):
+    got = tuple(int(round(v / 20.0)) for v in size) if size else None
+    want = tuple(max(1, int((v + 19.9) // 20)) for v in size) if size else None
+    log("%s 占格=%s（向上取整 %s）%s" % (label, got, want, "OK" if got == want else "MISMATCH"))
+    return got
+
+
+frame_cells = cells(frame_size, "窗框")
+# 窗扇不是独立构件（不单独进调色板），这里只报告尺寸，不做占格判定。
+log("窗扇尺寸 %.1f × %.1f × %.1f cm（由窗框条目一起摆放，不进调色板）" % leaf_size)
+
+# ------------------------------------------------------------ 删掉被取代的 80×80 一版
+for stale in SUPERSEDED:
+    if not unreal.EditorAssetLibrary.does_asset_exist(stale):
+        log("旧版不存在（无需清理）: %s" % stale)
+        continue
+    log("删除被取代的旧网格 %s -> %s" % (stale, unreal.EditorAssetLibrary.delete_asset(stale)))
+
+material_colors()
+dump_obj(FRAME_PATH, os.path.join(OUT_DIR, "window_frame_100.obj"), "frame")
+dump_obj(LEAF_PATH, os.path.join(OUT_DIR, "window_leaf_100.obj"), "leaf")
+
+bad = [entry for entry in LOG if entry[1] is False]
+log("steps=%d failed=%d" % (len(LOG), len(bad)))
+for label, ok, msg in bad:
+    log("  FAILED %s %s" % (label, msg))
+# 窗扇的 X 半宽＝把手凸出（HANDLE_PROTRUDE），Y／Z 仍是不含把手的扇体尺寸。
+want_frame, want_leaf = (20.0, 100.0, 100.0), (HANDLE_PROTRUDE * 2.0, 43.5, 87.0)
+ok = (not bad and frame_size == want_frame and leaf_size == want_leaf and frame_cells == (1, 5, 5))
+log("RESULT: %s（窗框 %s 期望 %s／窗扇 %s 期望 %s）/ 占格 %s" % (
+    "PASS" if ok else "CHECK", frame_size, want_frame, leaf_size, want_leaf, frame_cells))

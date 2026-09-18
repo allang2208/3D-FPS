@@ -2,7 +2,10 @@
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildPrefabActor.h"
 #include "ColdSteelDoor.h"
+#include "ColdSteelWindow.h"
+#include "../UI/ColdSteelStatusModel.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/GameInstance.h"
 
 namespace
 {
@@ -13,17 +16,96 @@ namespace
         for(int32 Z=0;Z<Size.Z;++Z)for(int32 Y=0;Y<Size.Y;++Y)for(int32 X=0;X<Size.X;++X)
             Out.Add(AnchorCell+FIntVector(X,Y,Z));
     }
+
+    // 支撑判定只看六个正对面（与体素的连接键同一套邻接口径）。
+    const FIntVector SupportFaces[]={FIntVector(1,0,0),FIntVector(-1,0,0),FIntVector(0,1,0),
+        FIntVector(0,-1,0),FIntVector(0,0,1),FIntVector(0,0,-1)};
+    // 超大构件（凉亭 48×48×38 ≈ 8.7 万格）不逐格扫：抽样上限内找一个接触就够。
+    constexpr int32 MaxSupportSamples=4096;
 }
 
 void AVoxelBuildWorld::RefreshPrefabOccupancy()
 {
     PrefabCells.Reset();
+    PrefabCellOwner.Reset();
     TArray<FIntVector> Occupied;
     for(const FVoxelBuildPrefabInstance& Entry:Prefabs)
     {
         FillPrefabCells(Entry.Cell,Entry.Footprint,Occupied);
-        for(const FIntVector& Cell:Occupied)PrefabCells.Add(Cell);
+        for(const FIntVector& Cell:Occupied){PrefabCells.Add(Cell);PrefabCellOwner.Add(Cell,Entry.Cell);}
     }
+}
+
+bool AVoxelBuildWorld::IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint) const
+{
+    // 地面探测点：中心 + 四角（起伏地形上只测中心会误判"没着地"）。
+    const int32 LastX=FMath::Max(0,Footprint.X-1),LastY=FMath::Max(0,Footprint.Y-1);
+    const FIntVector Points[]={FIntVector(LastX/2,LastY/2,0),FIntVector(0,0,0),FIntVector(LastX,0,0),
+        FIntVector(0,LastY,0),FIntVector(LastX,LastY,0)};
+    for(const FIntVector& Offset:Points)
+        if(IsGroundAnchor(CellMin(AnchorCell+Offset)))return true;
+    return false;
+}
+
+bool AVoxelBuildWorld::IsPrefabSupported(const FVoxelBuildPrefabInstance& Instance,FIntVector* OutContact) const
+{
+    const FVoxelBuildPrefab* Definition=Palette?Palette->FindComponent(Instance.Id):nullptr;
+    if(!Definition)return true;   // 定义缺失时不在这里判死，交给生成路径报错
+    const FIntVector Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Instance.Yaw);
+    // ① 地形：先试这一条，站在地上的大件（凉亭、喷泉）在这里就短路了。
+    if(IsPrefabOnGround(Instance.Cell,Footprint))return true;
+    // ②／③ 与体素或另一件构件面对面相邻。
+    TArray<FIntVector> Occupied;FillPrefabCells(Instance.Cell,Footprint,Occupied);
+    const int32 Stride=FMath::Max(1,FMath::DivideAndRoundUp(Occupied.Num(),MaxSupportSamples));
+    for(int32 Index=0;Index<Occupied.Num();Index+=Stride)
+    {
+        const FIntVector& Cell=Occupied[Index];
+        for(const FIntVector& Face:SupportFaces)
+        {
+            const FIntVector Neighbor=Cell+Face;
+            if(!VolumeMaterialAt({},Neighbor).IsNone()){if(OutContact)*OutContact=Neighbor;return true;}
+            // 变量名避开 AActor::Owner（项目 C4458 按错误处理）。
+            if(const FIntVector* CellOwner=PrefabCellOwner.Find(Neighbor))
+                if(*CellOwner!=Instance.Cell){if(OutContact)*OutContact=Neighbor;return true;}
+        }
+    }
+    return false;
+}
+
+void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
+{
+    if(Prefabs.IsEmpty()||Edit.IsEmpty())return;
+    // 只看"改动点及一圈邻居"命中的占格：不这样筛，每批编辑都要扫全场构件（凉亭一件 8.7 万格）。
+    TSet<FIntVector> Candidates;
+    for(const FVoxelEditCell& E:Edit)
+    {
+        if(const FIntVector* CellOwner=PrefabCellOwner.Find(E.Position))Candidates.Add(*CellOwner);
+        for(const FIntVector& Face:SupportFaces)
+            if(const FIntVector* CellOwner=PrefabCellOwner.Find(E.Position+Face))Candidates.Add(*CellOwner);
+    }
+    if(Candidates.IsEmpty())return;
+    TArray<FIntVector> Drop;
+    for(const FVoxelBuildPrefabInstance& Instance:Prefabs)
+        if(Candidates.Contains(Instance.Cell)&&!IsPrefabSupported(Instance))
+            Drop.Add(Instance.Cell);
+    if(Drop.IsEmpty())return;
+    FString Names;
+    for(const FIntVector& Anchor:Drop)
+    {
+        const FVoxelBuildPrefabInstance* Instance=Prefabs.FindByPredicate(
+            [Anchor](const FVoxelBuildPrefabInstance& Entry){return Entry.Cell==Anchor;});
+        const FVoxelBuildPrefab* Definition=Instance&&Palette?Palette->FindComponent(Instance->Id):nullptr;
+        const FString Label=Definition?Definition->DisplayName.ToString():
+            (Instance?Instance->Id.ToString():FString(TEXT("构件")));
+        if(AActor* Piece=PrefabActors.FindRef(Anchor).Get())RemovePrefab(Piece);
+        Names+=Names.IsEmpty()?Label:FString::Printf(TEXT("、%s"),*Label);
+        UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 失去支撑 @格(%d,%d,%d)"),
+            *Label,Anchor.X,Anchor.Y,Anchor.Z);
+    }
+    Message=FString::Printf(TEXT("%s 失去支撑已脱落"),*Names);
+    if(UGameInstance* Game=GetWorld()?GetWorld()->GetGameInstance():nullptr)
+        if(auto* Model=Game->GetSubsystem<UColdSteelStatusModel>())
+            Model->PostNotice(TEXT("构件脱落"),Message,FString(),3.2f);
 }
 
 bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason) const
@@ -41,6 +123,11 @@ bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString
         if(PrefabCells.Contains(Entry)){Reason=TEXT("该位置已有构件");return false;}
         if(!VolumeMaterialAt({},Entry).IsNone()){Reason=TEXT("该位置已有体素方块");return false;}
     }
+    // 悬空的构件不能放（2026-09-18 用户口径：构件要挂在结构上，不然拆掉周围就剩它浮着）。
+    FVoxelBuildPrefabInstance Probe;
+    Probe.Id=Id;Probe.Cell=Cell;Probe.Yaw=Yaw;Probe.Footprint=Footprint;
+    if(!IsPrefabSupported(Probe))
+    {Reason=TEXT("该位置悬空 · 构件要与体素、别的构件或地面接触");return false;}
     Reason=FString::Printf(TEXT("可放置 %s · %d × %d × %d cm · 左键确认"),
         *Definition->DisplayName.ToString(),Footprint.X*CellSizeCm,Footprint.Y*CellSizeCm,Footprint.Z*CellSizeCm);
     return true;
@@ -78,8 +165,9 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
         LogicTransform.SetLocation(Transform.GetLocation()+Transform.GetRotation().RotateVector(Definition->ActorOffsetCm));
         if(AActor* Logic=GetWorld()->SpawnActor<AActor>(LogicClass,LogicTransform,LogicSpawn))
         {
-            // 逻辑构件自己接管外观：门按调色板条目的材质整体替换（门板＋门框同一材质）。
+            // 逻辑构件自己接管外观：门／窗按调色板条目的材质整体替换（框与扇同一材质）。
             if(auto* Door=Cast<AColdSteelDoor>(Logic))Door->Configure(Definition->Surface.LoadSynchronous());
+            else if(auto* Window=Cast<AColdSteelWindow>(Logic))Window->Configure(Definition->Surface.LoadSynchronous());
             Logic->AttachToActor(Piece,FAttachmentTransformRules::KeepWorldTransform);
             Piece->AttachLogicActor(Logic);
         }

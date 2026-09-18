@@ -101,6 +101,19 @@ public:
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool RemovePrefab(AActor* Piece);
     UFUNCTION(BlueprintPure,Category="Building|Prefab") int32 PrefabCount() const {return Prefabs.Num();}
     bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason) const;
+    /** 构件底面下有没有地形（中心＋四角共 5 个探测点，与体素地面锚定同一口径）。 */
+    bool IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint) const;
+    /**
+     * 构件是否"有着落"（2026-09-18 用户报"拆掉周围方块后窗悬空"）：
+     *   ① 底面下有地形（与体素共用同一个地面锚定口径 IsGroundAnchor）；
+     *   ② 任一占格与体素面对面相邻（含正下方那一格）；
+     *   ③ 任一占格与**另一件构件**面对面相邻（凉亭三件叠放、栏杆接柱）。
+     * 三条都不成立就是悬空：放置会被拒绝，已放置的会在附近体素被拆／倒塌后脱落。
+     * 大件按格子抽样（实现里有采样上限），超大构件理论上可能漏判一次接触。
+     */
+    bool IsPrefabSupported(const FVoxelBuildPrefabInstance& Instance,FIntVector* OutContact=nullptr) const;
+    /** 体素改动后：改动点一格以内的构件若失去支撑就脱落（与右键拆除同一条路径，不退还材料）。 */
+    void VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit);
     UPhysicalMaterial* ContactMaterial() const {return StructuralContact;}
     void QueueFragmentDamage(AVoxelCollapseFragment* Fragment,FVector Position,float Amount,float Radius,float Energy);
     void QueueCollapseImpact(AActor* Other,const FHitResult& Hit,float Energy);
@@ -116,6 +129,8 @@ private:
     TMap<FGuid,FVoxelFreeVolume> FreeVolumes;
     TArray<FVoxelBuildPrefabInstance> Prefabs;
     TSet<FIntVector> PrefabCells;
+    /** 占格 → 所属构件的锚格：支撑判定要区分"这格是别的构件"（含自己的格子）。 */
+    TMap<FIntVector,FIntVector> PrefabCellOwner;
     TMap<FVoxelBuildKey,bool> AnchorCache;
     TMap<FVoxelBuildKey,float> CellDamage;
     TSet<FVoxelBuildKey> LegacyProtected;

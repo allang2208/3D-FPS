@@ -9,11 +9,13 @@ namespace
     // 包里的门入口：蓝图接口的函数名在前，其余是各门自己的自定义事件名。
     const FName DoorEntryNames[] =
     {
-        // 本工程自己的门先匹配：ToggleDoor 才是开关语义；包的蓝图里没有这个名字。
+        // 本工程自己的门／窗先匹配：ToggleDoor／ToggleWindow 才是开关语义；包的蓝图里没有这两个名字。
         FName(TEXT("ToggleDoor")),
+        FName(TEXT("ToggleWindow")),
         FName(TEXT("OnInteraction")),
         FName(TEXT("AutoDoorActivated")),
         FName(TEXT("OpenDoor")),
+        FName(TEXT("OpenWindow")),
         FName(TEXT("Interact")),
         FName(TEXT("Activate")),
     };

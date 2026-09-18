@@ -133,3 +133,19 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 - Escalate when diagnosis needs platform-specific profiling tools unavailable in current environment.
 
 FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](../ue5-fps-arms-animation/references/traversal-contact.md).
+
+## 假故障：成员指针读到 0／CDO 构造崩溃（构建缓存陷阱，2026-09-18）
+
+给一个 `UCLASS` 加子类、并把基类成员从 `private` 挪到 `protected`（**类布局变了**）之后，子类 CDO 构造直接
+`EXCEPTION_ACCESS_VIOLATION`。特征与判读：
+
+- 崩溃栈落在**新加的子类构造函数**那一行（如 `Frame->SetStaticMesh(...)`）；在同一构造函数里打点会看到
+  **一部分成员正常、一部分为 0**（`frame=0 leafL=1 leafR=1`）＝读到了错误偏移，**不是逻辑错误**。
+- 根因：本工程构建脚本带 **`-NoUBTMakefiles`**（不重生成 makefile），改了头文件布局后依赖它的 .cpp 可能**没被重编**，
+  obj 仍是旧布局。
+- 排查顺序：先比对 `Intermediate/Build/Win64/x64/<Target>/Development/FPSGAME/<File>.cpp.obj` 的 mtime 与源码 mtime，
+  让出问题的 .cpp 重编一次（或去掉 `-NoUBTMakefiles` 跑一遍）即可恢复；**不要先去改代码逻辑**，那只会越走越远。
+  改头文件布局后主动重编相关模块再继续。
+- 通用判据：同一进程里"部分成员正常、部分为 0／垃圾"，优先怀疑 obj 与头文件不同版；其次才是初始化顺序／内存问题。
+- 另外：判断自己的改动有没有进二进制，用**字符串自证**比时间戳硬——例如 `python -c` 扫 DLL 里的 UTF-16 文本字面量
+  （网格路径、提示串），比只对时间戳可靠；本仓库 `git diff` 展示可能错序，疑似编译错误必须核对真实文件。

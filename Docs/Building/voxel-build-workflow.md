@@ -76,14 +76,17 @@
 
 抗拉是决定跨度的唯一关键量：抗压/抗剪几乎不会先到限值（石材连接比里抗压通常 < 0.1）。所以**新增体素时定密度、再由探针反推抗拉**，不要凭感觉填。
 
-当前实测（2026-09-16 翻倍后探针 `max clear span` 行）：
+当前实测（2026-09-18 实跑 `Tools/Building/run_voxel_stress_probe.ps1`；探针与游戏共用同一份 `VoxelJointStrength.h` 与 `Physical()`）：
 
 | 材质 | 自重 | 跨中站 100 kg |
 | --- | ---: | ---: |
-| wood | 4.40 m | 4.00 m |
-| stone / marble | 4.00 m | 3.80 m |
+| wood | 8.80 m | 6.80 m |
+| stone / marble | 7.80 m | 7.40 m |
 
-> 翻倍前那张"1.0 / 2.0 / 2.4 / 2.8 / 3.2 / 4.0 m 逐格比值"表已失效（断裂点整体从 2.8–4.0 m 推到 4.0–4.4 m），所以这里只保留极限跨度。需要逐格证书时跑 `Tools/Building/run_voxel_stress_probe.ps1`，它每格分别打印自重与跨中站人的比值。
+> **这张表 2026-09-18 更正过**：此前写的 4.40 / 4.00 m 是"三段强度翻倍"**之前**的读数（翻倍后跨度正好约 ×2，实测即上表）。
+> 2.0 m 净跨契约余量很大：2.00 m 跨最弱接缝占比 wood 0.09 / stone·marble 0.062，跨中站人后 0.23 / 0.115，离断裂线 1.0 很远。
+> 扫描上限是 5.0 m（与浮窗 `SpanSweepCells=25` 同一口径），因此**三种材质在浮窗里都会显示 ≥5.0 m**——强度再翻倍也不会变，除非调大该上限。
+> 逐格证书跑上面那条命令，它每格分别打印自重与跨中站人的比值。
 
 ## 3. 数值验证入口（必须跑）
 
@@ -333,27 +336,74 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 
 **排查顺序（卡上没有图时）**：① 先做网格法证（法线/环绕/退化面，见 [调试技能](../../skills/ue5-debug-validation/SKILL.md)）；② 用 `SourceAssets/RomanColumn20260915/probe_icon_capture_20260917.py` 按同参数复现渲染（把试件放到高空、避免关卡几何入镜）；③ 最后才查缓存/拉黑逻辑。2026-09-17 案例：三根罗马栏杆顶梁网格指标完全相同（98 面、单壳闭合、法线零不一致）而 1 米／3 米没图、2 米有图，缺陷全在②之外的缓存与拉黑；凉亭（960 cm）的同参数复现证明渲染路径本身可用。
 
-### 5.1 逻辑构件（自带 Actor 的门等，2026-09-17 起）
+### 5.1 逻辑构件（自带 Actor 的门／窗等，2026-09-17 起）
 
-静态网格构件只能"摆在那儿"，带开关／动画／交互的构件（门）走**逻辑构件**通道：
+静态网格构件只能"摆在那儿"，带开关／动画／交互的构件（门、窗）走**逻辑构件**通道：
 
-1. 调色板条目填 `ActorClass`（C++ 类路径如 `/Script/FPSGAME.ColdSteelDoor`，或蓝图类 `..._C`）与可选 `ActorOffsetCm`；
-   `Mesh` 仍然填门板网格——它只用于抽屉缩略图与预览 ghost，不再是摆放依据。
+1. 调色板条目填 `ActorClass`（C++ 类路径如 `/Script/FPSGAME.ColdSteelDoor`／`/Script/FPSGAME.ColdSteelWindow`，
+   或蓝图类 `..._C`）与可选 `ActorOffsetCm`；
+   `Mesh` 仍然填一块代表网格（门板／窗框）——它只用于抽屉缩略图与预览 ghost，不再是摆放依据。
 2. 生成：`SpawnPrefab()` 在占格底面中心生成该 Actor，并 `AttachToActor` 到占位记录 `AVoxelBuildPrefabActor` 上；
    占格／拆除／存档仍走原来的 `Prefabs`（`Id／Cell／Yaw／Footprint`），旧存档不需要迁移。
-3. 外观：生成时把条目的 `Surface` 传给构件（`AColdSteelDoor::Configure()`），**门板与门框的所有材质槽一起替换**，
-   这样一扇门可以和玩家砌的同材质墙体一致；需要保留网格自带玻璃窗时改回只换 slot 0。
+3. 外观：生成时把条目的 `Surface` 传给构件（`AColdSteelDoor::Configure()`／`AColdSteelWindow::Configure()`），
+   **框与扇的所有材质槽一起替换**，这样一个构件可以和玩家砌的同材质墙体一致；需要保留网格自带玻璃窗时改回只换 slot 0。
+   **每加一种逻辑构件类，都要在 `SpawnPrefab()` 里补一支 `Cast<>→Configure()`**，漏了就会退回网格自带材质
+   （＝"换了材质没生效"的复现路径）。
 4. 拆除：准星命中的是**逻辑构件本身**，不是占位 Actor，所以 `UpdatePrefabTarget`／`RemovePrefab` 都要沿
    `GetAttachParentActor()` 向上解析占位记录，否则右键会报"只能拆除自己放置的构件"。
-5. 交互：第三方或自研门的入口按约定函数名暴露（`ToggleDoor`／`OpenDoor`／`OnInteraction`…），
-   由 `UColdSteelDoorInteraction` 按名调用；外部门资产如果内部写死了它自己的玩家类（`GetPlayerCharacter`＋Cast），
+5. 交互：第三方或自研门／窗的入口按约定函数名暴露（`ToggleDoor`／`ToggleWindow`／`OpenDoor`／`OnInteraction`…），
+   由 `UColdSteelDoorInteraction` 按名调用（该类是**门／窗共用的 E 键开关通道**，不是只服务门）；
+   外部门资产如果内部写死了它自己的玩家类（`GetPlayerCharacter`＋Cast），
    不要指望外部调用就能用——那时改用本工程自己的门类。门的完整口径（开向、铰链侧、被挡反向、玩家不参与阻塞、静音）见
-   [Door System 接入评估与方案](door-system-integration-plan-20260917.md)。
+   [Door System 接入评估与方案](door-system-integration-plan-20260917.md)，窗见
+   [100×100 双开窗](window-100x100-20260918.md)。
+6. **多扇可动件的铰链要贴扇面，不能放在框进深中间**（2026-09-18 窗）：窗扇若绕"框进深中点"转，转到 90° 时
+   靠铰链的那半个厚度会切进窗框边梃；正确做法是铰链贴在窗扇的外侧面（向外开）或内侧面（向内开），
+   窗扇整体落在铰链内侧。开向反转时只换铰链贴面、窗扇相对铰链反向偏移，扇自身的世界位置不变（关着不会跳）。
+   门没暴露这个问题，是因为门框薄、门板在洞口里、开角 92°——照抄门的铰链位置做窗会踩到。
+7. **构件必须有"着落"**（2026-09-18 用户报"拆掉周围方块后窗浮空"）：构件不参与体素承重图，
+   所以必须单独判"有没有接触"，三条任一成立即可——① 底面下有地形（`IsGroundAnchor`，与体素地面锚定同一口径）；
+   ② 任一占格与体素面对面相邻（含正下方那一格）；③ 任一占格与**另一件构件**面对面相邻（凉亭三件叠放靠这条）。
+   `CanPlacePrefab()` 悬空直接拒绝放置；`VerifyPrefabSupport()` 由 **`ApplyChanges()`** 触发——那是所有体素增减
+   （玩家编辑、过载压坏、爆炸摧毁、倒塌脱落）的唯一汇合点，构件因此会和墙一起掉。
+   实现上只扫"改动点一格以内"命中的构件（`PrefabCellOwner`：占格 → 锚格），大件按 4096 格抽样。
+   新增构件类型不用改这里，除非它需要额外的接触口径。
+8. **改构件尺寸要同步三处**：网格脚本的尺寸常量、C++ 里由包围盒推出的那几个常量（例如窗的 `FrameMemberCm`，
+   洞口宽度＝框半宽−边梃宽）、调色板条目的 `Footprint`（逐轴等于包围盒/20）。改完照第 1 条打印 `OK/MISMATCH` 自检。
+9. **同族可动件做成子类，不要复制逻辑**（2026-09-18 双开门）：`AColdSteelDoubleDoor` 是 `AColdSteelWindow`
+   的子类，只覆盖网格与三个数值（`FrameMemberCm` 6→8、`LeafHalfThicknessCm` 2→2.5、`AutoCloseSeconds` 0→6）。
+   为此基类把它们从 .cpp 的文件级常量提到 protected 成员，网格组件与开角属性也在 protected。
+   好处：铰链贴面、被挡反向、玩家不参与阻塞、支撑判定、`SpawnPrefab()` 的 `Cast<基类>→Configure()` **全部零重复**。
+   再加同族件（推拉门、活板、百叶）照这条走。
+10. **构件尺寸一律对齐 20 cm 网格**（2026-09-18 门统一化）：判据是**包围盒逐轴能被 20 整除**（不能整除时向上取整占格
+   只适用于"网格略小于占格"的装饰件；门窗这类要人走的洞口必须整除）。包里的 StarterContent 门是 24.8 × 114 × 212，
+   高度卡在 10 格与 11 格之间——**要用包里的模型就用"逐轴缩放"而不是重做几何**：
+   `copy_mesh_from_static_mesh → scale_mesh(逐轴) → copy_mesh_to_static_mesh`（先例
+   `SourceAssets/RomanFountain20260917/scale_fountain_2x_20260918.py`，门的缩放版见
+   `SourceAssets/SingleDoor20260918/bake_resized_door_meshes_20260918.py`），缩放后**必须**清空过期简单碰撞并改
+   `CTF_USE_COMPLEX_AS_SIMPLE`（环状门框包成盒会把门洞堵死）。包里的 pivot 常在边上／底边，缩放不改这一点，
+   所以 Actor 摆位与离线渲染都按包围盒算（渲染脚本要先平移成"Actor 口径"，否则门板会飘到半空）。
+   **两条硬教训（2026-09-18 门尺寸统一化事故，已整轮回退）**：① **缩放时必须保留材质槽**——
+   `copy_mesh_to_static_mesh` 默认只留一个空槽，包里门扇原本 `[M_Door, M_Glass]` 两槽（自带小窗＝半透明），
+   丢了就是"玻璃被替换掉了"；烘焙后要核对 `slots` 数与源一致（喷泉 2× 脚本校验过 `materials_kept`，门的这次漏了）。
+   ② **只改网格时不要动 Actor 代码**：门线原代码一律按包围盒摆位，等比缩放后照常工作；那次顺手重写了
+   铰链贴面／开角／转 180° 的扇侧，结果"开门完全错误"、整轮回退。正确顺序：改网格 → 出渲染 →
+   进游戏只验"能放、能开" → 确认无回归后再谈代码。
+   同族件共用同一套分件构造（门扇：边梃 10 ＋ 上冒头 10 ＋ 下冒头 20 ＋ 凹面板 ＋ 圆形把手；窗扇：边梃 ＋ 凹面板），
+   改一处两边都跟着改。
+11. **同类构件登记三条材质是现行口径**：门／窗／双开门都是 wood／stone／marble 各一条（`Material` 分组决定进哪栏），
+   这样玩家用哪种体素砌墙就能配哪种构件。命名 `window_*` / `door_*` / `double_door_*`，占格逐轴等于网格包围盒/20。
 
 ## 6. 资产写入与热补丁的硬规则
 
 1. **编辑器正在运行时**改 `.uasset` 必须在编辑器进程内做（Python 远程执行／MCP），外部进程会静默失败。远程执行上下文里 `EditorAssetLibrary.save_*` 会返回 `False`（PIE 中更明显），可用 `unreal.EditorLoadingAndSavingUtils.save_packages([unreal.load_package(path)], False)`。
 2. **永远用磁盘时间戳复核**：同进程读回不算证据；至少确认文件 mtime／大小变化，必要时扫字节。
+2b. **`-NoUBTMakefiles`（本工程构建脚本默认带）在"改了头文件布局"之后可能漏编依赖它的 .cpp**（2026-09-18 实测）：
+   把 `AColdSteelWindow` 的成员从 private 挪到 protected（类布局变化）后，`ColdSteelDoubleDoor.cpp` 仍按**旧布局**编译，
+   运行时成员指针读到 0，`AColdSteelDoubleDoor` 的 CDO 构造直接 `EXCEPTION_ACCESS_VIOLATION`。
+   特征日志：同一个构造函数里打点看到 `frame=0` 而 `leafL/leafR/hingeL=1`（读错偏移 ⇒ 部分成员读到垃圾/0）。
+   排查顺序：先怀疑"obj 与头文件不同版"，让出问题的 .cpp 重编一次（或去掉 `-NoUBTMakefiles` 跑一遍）即可恢复；
+   不要先去改代码逻辑——那会越走越远。改头文件布局后建议主动重编一次相关模块再继续。
 3. **不要用 Live Coding 热补丁改带资产的 USTRUCT**（含默认值）：热补丁后新 struct tag 与已保存资产不匹配，`FVoxelBuildMaterial` 之类的字段会整体读成 None，随后任何"读出来再写回去"的脚本都会把空值写进资产。改结构体/属性布局/默认值时：关编辑器 → 全量 `Build.bat FPSGAMEEditor Win64 Development` → 重启后再改资产。函数体与 `.cpp` 数值改动可以用 `LiveCoding.CompileSync`。
 4. 调色板被写坏时的修复清单（活动调色板 `Rounded/DA_VoxelBuildPalette`）：
 
