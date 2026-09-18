@@ -17,6 +17,8 @@ class USoundBase;
  *                  slot1 水永远是 `MIC_FountainWater`。
  *   WaterFxMesh  — `SM_RomanFountain_WaterFX`（4 槽：泡沫 / 湿膜 / 溢流 / 焦散），挂在门口网格之下、
  *                  无碰撞、不投影。三个网格部件共用同一物体空间，所以对齐只需动 FountainMesh。
+ *   WaterMesh    — `SM_RomanFountain_WaterWaves`（3 个密集网格水面盘，会真实起伏/不规则波动）；
+ *                  **永远可见**（远处也只关水膜/水柱，不关水面）。主网格 slot1 是隐藏材质（旧平面水已剔除）。
  *   Jet          — 引擎模板 `FountainLightweight`（塔尖水柱），位置由包围盒算出来（pivot 不在中心也对）。
  *
  * 占格不变（48×48×36），存档字段不变（Id/Cell/Yaw/Footprint）；只在"逻辑构件"分支被生成。
@@ -44,6 +46,7 @@ protected:
 
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> FountainMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> WaterFxMesh;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> WaterMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Jet;
 
     /** 距离分级阈值（cm）：超过该距离只留水面材质（关水效网格与水柱）。 */

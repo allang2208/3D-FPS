@@ -51,6 +51,10 @@ FILM = MATDIR + "/M_FountainWaterFilm"
 WATER_MAT = MATDIR + "/M_FountainWater"
 CASCADE_MAT = MATDIR + "/M_FountainCascadeFlow"
 CASCADE_INST = MATDIR + "/MIC_FountainCascadeFlow"
+HIDDEN_MAT = MATDIR + "/M_FountainHidden"
+WAVE_MAT = MATDIR + "/M_FountainWaveWater"
+WAVE_INST = MATDIR + "/MIC_FountainWaveWater"
+WAVE_MESH = DIR + "/SM_RomanFountain_WaterWaves"
 PACK = "/Game/WaterMaterials"
 CLEAN = PACK + "/Materials/M_Water_Clean"
 CAUSTICS = PACK + "/Materials/M_Caustics"
@@ -60,6 +64,9 @@ T_FOAM_FALL = PACK + "/Textures/T_Waterfall_Foam_Directional"
 WAVE_NORMAL_A = PACK + "/Textures/T_Lake_Waves01_Normals"
 WAVE_NORMAL_B = PACK + "/Textures/T_Water_Normal"
 CUBEMAP = PACK + "/Textures/T_Cubemap"
+NOISE_CANDIDATES = (PACK + "/Textures/T_Noises", PACK + "/Textures/T_Noise_Progressive",
+                    PACK + "/Textures/T_Noise_Curves", T_FOAM_POND)
+T_NOISE = next((p for p in NOISE_CANDIDATES if unreal.load_asset(p) or unreal.load_asset(p.split(".")[0])), NOISE_CANDIDATES[0])
 POS_CLS = getattr(unreal, "MaterialExpressionObjectPositionWS", None) or \
     getattr(unreal, "MaterialExpressionObjectPosition", None)
 SCALE = 2.0
@@ -390,6 +397,271 @@ return float2(u, v) / max(FoamSize, 1.0);""",
 
 
 # ------------------------------------------------------------------ 2. 实例
+WAVE_BODY = """
+float2 p = P.xy / max(FS, 0.001);            // 1× 单位
+float t = T;
+float h = 0.0;
+float2 g = float2(0.0, 0.0);                 // 解析梯度 dh/dp
+// 两层方向不同的正弦（波长 L、速度 S、振幅 A）
+{
+    float2 d = normalize(float2(1.0, 0.30));
+    float k = 6.2831853 / max(L1, 0.001);
+    float ph = dot(p, d) * k - t * S1;
+    h += sin(ph) * A1;
+    g += cos(ph) * k * A1 * d;
+}
+{
+    float2 d = normalize(float2(-0.55, 1.0));
+    float k = 6.2831853 / max(L2, 0.001);
+    float ph = dot(p, d) * k - t * S2;
+    h += sin(ph) * A2;
+    g += cos(ph) * k * A2 * d;
+}
+// 落水涟漪（两个落点半径向外的波列，按距离衰减）
+{
+    float r = length(p);
+    float R[2] = { RA, RB };
+    float2 dr = r > 0.01 ? p / r : float2(0, 1);
+    for (int i = 0; i < 2; ++i)
+    {
+        float d = r - R[i];
+        float k = 6.2831853 / max(Lam, 0.001);
+        float ph = d * k - t * Freq * 6.2831853;
+        float env = exp(-abs(d) / max(Width, 0.001));
+        h += sin(ph) * env * RAS;
+        g += cos(ph) * k * env * RAS * dr;
+    }
+}
+// 噪声（两张采样做方向导数）→ 不规则起伏，避免"规整正弦"的机械感
+h += (N.r - 0.5) * 2.0 * NS;
+g += float2((N.r - N2.r) / max(NoiseDelta, 0.001), (N.r - N3.r) / max(NoiseDelta, 0.001)) * NS;
+"""
+
+
+def wave_node_inputs(mat, pos):
+    """WAVE_BODY 需要的标量/采样输入（两张噪声采样图共用 FoamTexture 之外的 NoiseTex）。"""
+    noise_uv_scale = scalar(mat, "NoiseScale", 260.0)
+    noise_speed = scalar(mat, "NoiseSpeed", 0.35)
+    noise_offset = scalar(mat, "NoiseDelta", 6.0)
+    t = ex(mat, unreal.MaterialExpressionTime)
+    ts = ex(mat, unreal.MaterialExpressionMultiply)
+    link(t, ts, "A")
+    link(noise_speed, ts, "B")
+    uv = custom(mat, "return P.xy / max(NS, 0.001) + float2(0.0, T);",
+                {"P": pos, "NS": noise_uv_scale, "T": ts},
+                unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                {"P": unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                 "NS": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                 "T": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    uv2 = custom(mat, "return UV + float2(D, 0.0) / max(S, 0.001);",
+                 {"UV": uv, "D": noise_offset, "S": noise_uv_scale},
+                 unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                 {"UV": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                  "D": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                  "S": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    uv3 = custom(mat, "return UV + float2(0.0, D) / max(S, 0.001);",
+                 {"UV": uv, "D": noise_offset, "S": noise_uv_scale},
+                 unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                 {"UV": unreal.CustomMaterialOutputType.CMOT_FLOAT2,
+                  "D": unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                  "S": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    n1 = texture_param(mat, "NoiseTex", T_NOISE)
+    n2 = texture_param(mat, "NoiseTex2", T_NOISE)
+    n3 = texture_param(mat, "NoiseTex3", T_NOISE)
+    link_any(uv, n1, ["UVs", "UV"])
+    link_any(uv2, n2, ["UVs", "UV"])
+    link_any(uv3, n3, ["UVs", "UV"])
+    return {"P": pos, "T": t,
+            "N": n1, "N2": n2, "N3": n3,
+            "NS": scalar(mat, "NoiseStrength", 0.35),
+            "NoiseDelta": noise_offset,
+            "L1": scalar(mat, "Wave1Length", 300.0), "S1": scalar(mat, "Wave1Speed", 0.55),
+            "A1": scalar(mat, "Wave1Amp", 0.55),
+            "L2": scalar(mat, "Wave2Length", 170.0), "S2": scalar(mat, "Wave2Speed", 0.85),
+            "A2": scalar(mat, "Wave2Amp", 0.35),
+            "RA": scalar(mat, "RippleRadiusA", 92.0), "RB": scalar(mat, "RippleRadiusB", 137.0),
+            "Lam": scalar(mat, "RippleLambda", 78.0), "Freq": scalar(mat, "RippleFreq", 0.6),
+            "Width": scalar(mat, "RippleWidth", 260.0), "RAS": scalar(mat, "RippleStrength", 1.1),
+            "FS": scalar(mat, "FountainScale", SCALE)}
+
+
+def build_wave_water_material():
+    """会**真正起伏**的水面材质：几何 WPO（多层正弦 + 噪声）+ 与之同源的解析世界空间法线。
+
+    上一版只做了"平面上的法线扰动"，几何完全不动 → 轮廓恒定，读起来还是固体。
+    水面都是水平盘面，所以法线用世界空间（`tangent_space_normal = False`），
+    与 WPO 的高度场解析梯度一致，避免"看起来在动但亮面不动"。
+    """
+    mat = ensure_asset(WAVE_MAT, unreal.Material, unreal.MaterialFactoryNew)
+    if not mat or (MEL.get_material_expressions(mat) or []):
+        log("wave water material exists - skip rebuild")
+        return mat
+    MEL.delete_all_material_expressions(mat)
+    mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_TRANSLUCENT)
+    mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_DEFAULT_LIT)
+    mat.set_editor_property("two_sided", True)
+    tlm = getattr(unreal.TranslucencyLightingMode, "TLM_SURFACE_PER_PIXEL_LIGHTING", None)
+    if tlm is not None:
+        mat.set_editor_property("translucency_lighting_mode", tlm)
+    mat.set_editor_property("tangent_space_normal", False)
+
+    pos = ex(mat, POS_CLS)
+    inputs = wave_node_inputs(mat, pos)
+
+    # ① 几何：高度场 × WaveHeight 作为 WPO
+    height = custom(mat, WAVE_BODY + "\nreturn h;", inputs,
+                    unreal.CustomMaterialOutputType.CMOT_FLOAT1,
+                    {k: (unreal.CustomMaterialOutputType.CMOT_FLOAT3
+                         if k in ("P", "N", "N2", "N3") else unreal.CustomMaterialOutputType.CMOT_FLOAT1)
+                     for k in inputs})
+    wh = scalar(mat, "WaveHeight", 7.0)
+    wpo_h = ex(mat, unreal.MaterialExpressionMultiply)
+    link(height, wpo_h, "A")
+    link(wh, wpo_h, "B")
+    wpo = custom(mat, "return float3(0.0, 0.0, H);", {"H": wpo_h},
+                 unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                 {"H": unreal.CustomMaterialOutputType.CMOT_FLOAT1})
+    MEL.connect_material_property(wpo, "", unreal.MaterialProperty.MP_WORLD_POSITION_OFFSET)
+
+    # ② 法线：高度场梯度的负值（世界空间，向上 +Z），与几何同源
+    nrm = custom(mat, WAVE_BODY + """
+float slope = WH * NSL;
+return normalize(float3(-g.x * slope, -g.y * slope, 1.0));""",
+                 dict(inputs, WH=wh, NSL=scalar(mat, "NormalSlope", 1.0)),
+                 unreal.CustomMaterialOutputType.CMOT_FLOAT3,
+                 {k: (unreal.CustomMaterialOutputType.CMOT_FLOAT3
+                      if k in ("P", "N", "N2", "N3") else unreal.CustomMaterialOutputType.CMOT_FLOAT1)
+                  for k in dict(inputs, WH=wh, NSL=wh)})
+    MEL.connect_material_property(nrm, "", unreal.MaterialProperty.MP_NORMAL)
+
+    # ③ 颜色 / 反射 / 透明度：与旧水面同口径（浅深配色 + 菲涅尔天空反射 + 深度淡入）
+    shallow = vector(mat, "WaterColorShallow", unreal.LinearColor(0.40, 0.72, 0.72, 1.0))
+    deep = vector(mat, "WaterColorDeep", unreal.LinearColor(0.09, 0.28, 0.32, 1.0))
+    sd = scene_depth_node(mat, True)
+    pixel = ex(mat, unreal.MaterialExpressionPixelDepth)
+    sub = ex(mat, unreal.MaterialExpressionSubtract)
+    MEL.connect_material_expressions(sd, "Color", sub, "A")
+    MEL.connect_material_expressions(pixel, "", sub, "B")
+    div = ex(mat, unreal.MaterialExpressionDivide)
+    link(sub, div, "A")
+    link(scalar(mat, "DepthScale", 190.0), div, "B")
+    fade = ex(mat, unreal.MaterialExpressionClamp)
+    link(div, fade, "")
+    col = ex(mat, unreal.MaterialExpressionLinearInterpolate)
+    link(shallow, col, "A")
+    link(deep, col, "B")
+    link(fade, col, "Alpha")
+    MEL.connect_material_property(col, "", unreal.MaterialProperty.MP_BASE_COLOR)
+
+    fres = ex(mat, unreal.MaterialExpressionFresnel)
+    link(scalar(mat, "FresnelPower", 3.0), fres, "ExponentIn")
+    refl_cls = getattr(unreal, "MaterialExpressionReflectionVectorWS", None)
+    sky = cube_param(mat, "ReflectionCubemap", CUBEMAP)
+    if refl_cls:
+        link_any(ex(mat, refl_cls), sky, ["UV", "UVs"])
+    sky_mul = ex(mat, unreal.MaterialExpressionMultiply)
+    link(sky, sky_mul, "A", "RGB")
+    link(scalar(mat, "ReflectionStrength", 0.9), sky_mul, "B")
+    emis = ex(mat, unreal.MaterialExpressionMultiply)
+    link(sky_mul, emis, "A")
+    link(fres, emis, "B")
+    crest = ex(mat, unreal.MaterialExpressionClamp)
+    link(height, crest, "")
+    crest_boost = ex(mat, unreal.MaterialExpressionMultiply)
+    link(crest, crest_boost, "A")
+    link(scalar(mat, "CrestFoam", 0.35), crest_boost, "B")
+    emis_sum = ex(mat, unreal.MaterialExpressionAdd)
+    link(emis, emis_sum, "A")
+    link(crest_boost, emis_sum, "B")
+    MEL.connect_material_property(emis_sum, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+
+    op_base = ex(mat, unreal.MaterialExpressionMultiply)
+    link(scalar(mat, "OpacityBase", 0.30), op_base, "A")
+    link(fade, op_base, "B")
+    op_fres = ex(mat, unreal.MaterialExpressionMultiply)
+    link(fres, op_fres, "A")
+    link(scalar(mat, "FresnelOpacity", 0.25), op_fres, "B")
+    op_sum = ex(mat, unreal.MaterialExpressionAdd)
+    link(op_base, op_sum, "A")
+    link(op_fres, op_sum, "B")
+    op_cl = ex(mat, unreal.MaterialExpressionClamp)
+    link(op_sum, op_cl, "")
+    max_mode = getattr(unreal.ClampMode, "CMODE_CLAMP_MAX", None)
+    if max_mode is not None:
+        op_cl.set_editor_property("clamp_mode", max_mode)
+    op_cl.set_editor_property("max_default", 0.5)
+    MEL.connect_material_property(op_cl, "", unreal.MaterialProperty.MP_OPACITY)
+    MEL.connect_material_property(scalar(mat, "Roughness", 0.05), "", unreal.MaterialProperty.MP_ROUGHNESS)
+    MEL.connect_material_property(scalar(mat, "Specular", 1.0), "", unreal.MaterialProperty.MP_SPECULAR)
+    MEL.connect_material_property(scalar(mat, "Metallic", 0.0), "", unreal.MaterialProperty.MP_METALLIC)
+
+    errs = MEL.recompile_material(mat)
+    log("wave water recompile -> %s" % errs)
+    log("wave water expressions: %d" % len(MEL.get_material_expressions(mat) or []))
+    save_fresh(mat, WAVE_MAT, "M_FountainWaveWater")
+    return mat
+
+
+def build_hidden_material():
+    """把主网格里旧的**平面水体**藏掉（Masked + OpacityMask=0，直接剔除像素，零绘制成本）。"""
+    mat = ensure_asset(HIDDEN_MAT, unreal.Material, unreal.MaterialFactoryNew)
+    if not mat or (MEL.get_material_expressions(mat) or []):
+        return mat
+    MEL.delete_all_material_expressions(mat)
+    mat.set_editor_property("blend_mode", unreal.BlendMode.BLEND_MASKED)
+    mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_UNLIT)
+    zero = ex(mat, unreal.MaterialExpressionConstant)
+    zero.set_editor_property("r", 0.0)
+    MEL.connect_material_property(zero, "", unreal.MaterialProperty.MP_OPACITY_MASK)
+    MEL.recompile_material(mat)
+    save_fresh(mat, HIDDEN_MAT, "M_FountainHidden")
+    return mat
+
+
+def build_wave_mesh(wave_inst):
+    """把 3 个**密集网格**水面盘放进独立网格（WPO 需要足够顶点才看得出起伏）。"""
+    handle = SV.create_mesh().handle
+    rings = 14
+    for name, radius, z in (("disc_low", 182.2, WATER_LOW), ("disc_mid", 110.5, WATER_MID),
+                            ("disc_top", 73.0, WATER_TOP)):
+        prof = []
+        for i in range(rings + 1):
+            prof.append((radius * i / rings, z))
+        for i in range(rings, -1, -1):
+            prof.append((radius * i / rings, z - 3.0))
+        pts = [unreal.Vector2D(r * SCALE, zz * SCALE) for (r, zz) in prof]
+        res = SV.append_revolve_polygon(handle, tf(), pts, 0.0, 96, 360.0, 0)
+        ok = getattr(res, "success", None)
+        LOG.append(("wave_" + name, ok))
+        log("wave piece %-10s rings=%d r=%.1f z=%.1f %s" % (name, rings, radius, z, ok))
+    info = SV.get_mesh_info(handle)
+    log("wave mesh: tris=%d comps=%d open_edges=%d" % (
+        info.triangle_count, info.connected_components, info.open_border_edges))
+    check("wave_mesh_closed", info.open_border_edges == 0)
+    SV.save_mesh_to_static_mesh(handle, WAVE_MESH, True, True, False, True)
+    SV.release_mesh(handle)
+    time.sleep(1.0)
+    m = unreal.load_asset(WAVE_MESH)
+    if m and wave_inst:
+        slots = list(m.get_editor_property("static_materials") or [])
+        while len(slots) < 1:
+            slots.append(unreal.StaticMaterial())
+        slots[0].set_editor_property("material_interface", wave_inst)
+        m.set_editor_property("static_materials", slots)
+        m.modify()
+        EAL.save_loaded_asset(m, True)
+    stamp = save_fresh(unreal.load_asset(WAVE_MESH), WAVE_MESH, "SM_RomanFountain_WaterWaves")
+    m = unreal.load_asset(WAVE_MESH)
+    bb = m.get_bounds()
+    slot_names = [m.get_material(i).get_name() if m.get_material(i) else "None"
+                  for i in range(len(m.get_editor_property("static_materials") or []))]
+    log("wave mesh readback: tris=%d bbox %.0fx%.0fx%.0f origin_z=%.1f slots=%s" % (
+        m.get_num_triangles(0), bb.box_extent.x * 2, bb.box_extent.y * 2, bb.box_extent.z * 2,
+        bb.origin.z, slot_names))
+    check("wave_mesh_saved", bool(stamp))
+    return m
+
+
 def build_cascade_material():
     """水帘专用材质：**程序化竖向条纹** + 泡沫贴图，滚动方向沿柱面 v（向下）。
 
@@ -882,18 +1154,30 @@ cascade = make_instance(MATDIR + "/MIC_FountainCascade", film_mat,
 caustics = make_instance(MATDIR + "/MIC_FountainCaustics", unreal.load_asset(CAUSTICS),
                          {"Speed": 0.35, "SamplingScale": 1.6},
                          {"Colour": unreal.LinearColor(0.42, 0.68, 0.66, 1.0)})
-water = make_instance(water_inst_path, water_mat,
-                      {"FountainScale": SCALE, "DepthScale": 190.0,
-                       "OpacityBase": 0.28, "FresnelOpacity": 0.22, "FresnelPower": 3.0,
-                       "ReflectionStrength": 0.9, "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0,
-                       "WaveScale": 150.0, "WaveSpeed": 0.05, "Wave2Scale": 62.0, "Wave2Speed": 0.09,
-                       "NormalStrength": 1.3, "NormalStrength2": 0.9,
-                       "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
-                       "RippleFreq": 0.6, "RippleWidth": 260.0, "RippleStrength": 1.1,
-                       "RippleFoam": 1.0, "RippleFoamOpacity": 0.55},
-                      {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),
-                       "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0)},
-                      {"NormalTex": WAVE_NORMAL_A, "NormalTex2": WAVE_NORMAL_B, "ReflectionCubemap": CUBEMAP})
+# 旧的"平面水"实例不再使用（主网格 slot1 会被隐藏材质接管，水面改由会起伏的 WaterWaves 网格承担）
+water = None
+
+# 会真正起伏的水面：材质 + 实例 + 密集网格
+hidden_mat = build_hidden_material()
+wave_mat = build_wave_water_material()
+if EAL.does_asset_exist(WAVE_INST):
+    EAL.delete_asset(WAVE_INST)
+wave_inst = make_instance(WAVE_INST, wave_mat,
+                          {"FountainScale": SCALE, "DepthScale": 190.0,
+                           "WaveHeight": 7.0, "NormalSlope": 1.0,
+                           "Wave1Length": 300.0, "Wave1Speed": 0.55, "Wave1Amp": 0.55,
+                           "Wave2Length": 170.0, "Wave2Speed": 0.85, "Wave2Amp": 0.35,
+                           "NoiseScale": 260.0, "NoiseSpeed": 0.35, "NoiseStrength": 0.35, "NoiseDelta": 6.0,
+                           "RippleRadiusA": 92.0, "RippleRadiusB": 137.0, "RippleLambda": 78.0,
+                           "RippleFreq": 0.6, "RippleWidth": 260.0, "RippleStrength": 1.1,
+                           "OpacityBase": 0.30, "FresnelOpacity": 0.25, "FresnelPower": 3.0,
+                           "ReflectionStrength": 0.9, "CrestFoam": 0.35,
+                           "Roughness": 0.05, "Specular": 1.0, "Metallic": 0.0},
+                          {"WaterColorShallow": unreal.LinearColor(0.40, 0.72, 0.72, 1.0),
+                           "WaterColorDeep": unreal.LinearColor(0.09, 0.28, 0.32, 1.0)},
+                          {"NoiseTex": T_NOISE, "NoiseTex2": T_NOISE, "NoiseTex3": T_NOISE,
+                           "ReflectionCubemap": CUBEMAP})
+log("noise texture: %s" % T_NOISE)
 
 # 实例参数读回（UE 5.8 的 set_* 常常返回 False 但实际写进去了，所以按"写入值是否落在实例上"判断）
 for inst, label in ((water, "MIC_FountainWater"), (caustics, "MIC_FountainCaustics"),
@@ -916,9 +1200,12 @@ for inst, label in ((water, "MIC_FountainWater"), (caustics, "MIC_FountainCausti
 if film_mat and film_foam and film_wet and caustics:
     build_fx_mesh(film_foam, film_wet, cascade_flow or cascade, caustics)
 
-# 主网格 slot1 → 半透明水（slot0 大理石不动）
-if water:
-    SV.set_asset_materials(FULL, "%s,%s" % (MARBLE, MATDIR + "/MIC_FountainWater"), True)
+if wave_inst:
+    build_wave_mesh(wave_inst)
+
+# 主网格 slot1 → 隐藏材质（旧的平面水体剔除；slot0 大理石不动）
+if hidden_mat:
+    SV.set_asset_materials(FULL, "%s,%s" % (MARBLE, HIDDEN_MAT), True)
     EAL.save_loaded_asset(unreal.load_asset(FULL), True)
     stamp = save_fresh(unreal.load_asset(FULL), FULL, "SM_RomanFountain_20")
     mesh = unreal.load_asset(FULL)
@@ -928,8 +1215,12 @@ if water:
     log("fountain readback: bbox %.0f x %.0f x %.0f tris=%d slots=%s" % (
         bb.box_extent.x * 2, bb.box_extent.y * 2, bb.box_extent.z * 2,
         mesh.get_num_triangles(0), slots))
-    check("fountain_slot1_is_water_instance", bool(slots) and "MIC_FountainWater" in (slots[-1] or ""))
+    check("fountain_slot1_hidden", bool(slots) and "M_FountainHidden" in (slots[-1] or ""))
     check("fountain_bbox_unchanged", abs(bb.box_extent.x * 2 - 960) < 1 and abs(bb.box_extent.z * 2 - 720) < 1)
+    # 旧平面水实例已无人引用 → 清掉，避免面板/编辑器里出现两个"水面"
+    if EAL.does_asset_exist(water_inst_path):
+        EAL.delete_asset(water_inst_path)
+        log("removed obsolete %s（被 WaterWaves 取代）" % water_inst_path)
 
 bad = [x for x in LOG if x[1] is False]
 log("checks=%d failed=%d %s" % (len(LOG), len(bad), [b[0] for b in bad]))

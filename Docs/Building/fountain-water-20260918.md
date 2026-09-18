@@ -290,3 +290,41 @@ v6 我拿引擎"向上喷"的 `FountainLightweight` 缩到 0.42 当**落点水�
 **仍未实机判读**（按约定）：请重启编辑器后进 PIE 看三件事——① 水面涟漪/反射是否在动；
 ② 落水点是否有向外扩散的白沫环；③ 三级水帘是否有明显向下的流动条纹。若还有不对，给我
 "贴水面的低角度"和"3/4 中景"两张图，我按图定位（数据侧我已经查完了）。
+
+---
+
+# 九次迭代：给水面加**真实的几何波动**（2026-09-18 深夜）
+
+用户回执："还是很僵硬就像固体，是不是没有随机波动？" —— 判断正确，而且指出的是这轮之前**一直没做**的事：
+前面几轮都只在"平面上的法线/贴图"上做文章，**几何本身完全不动**，轮廓恒定，所以永远读成一块板。
+这轮改成几何起伏，并顺手修掉一个我自己埋的 bug。
+
+## 9.1 改了什么
+
+| 项 | 之前 | 现在 |
+| --- | --- | --- |
+| 水面几何 | 平面圆盘，只有 1 圈径向顶点（**WPO 无从下手**，只能"照亮一点"） | 新增 `SM_RomanFountain_WaterWaves`：3 个**14 圈径向顶点**的密集水面盘，16,128 tri、0 开放边、1 个材质槽 |
+| 水面材质 | `M_FountainWater`（平面法线扰动） | **`M_FountainWaveWater`**（61 表达式，编译 0 错误）：**两层方向不同的正弦 + 两层噪声（T_Noises，双采样求方向导数）+ 两处落水涟漪**合成高度场；高度场 → **WPO**（`WaveHeight 7 cm`），同一高度场的**解析梯度** → 世界空间法线（`tangent_space_normal=False`），几何与亮面同源，不会"看着在动但亮面不动" |
+| 随机性 | 只有规整正弦（机械感） | 噪声层：不规则的起伏 + 不规则的亮面（`NoiseScale 260 / NoiseSpeed 0.35 / NoiseStrength 0.35`） |
+| 旧平面水 | 主网格 slot1 = 水面实例 | 主网格 slot1 = **`M_FountainHidden`**（Masked + OpacityMask 0，直接剔除像素），旧平面水不再参与渲染；`MIC_FountainWater` 已删除，避免编辑器里出现两个"水面" |
+| 远处水面 | **bug**：水面在 FX 网格里，而 FX 网格 >62 m 会被整块隐藏 → **远看水面直接消失** | 水面独立成 `WaterMesh` 组件，**永远可见**；距离分级只关"水膜/溢流 + 水柱"，`fps.Fountain.Quality 0` 也只关这些，水面仍在 |
+
+## 9.2 证据（已落盘）
+
+`build_water.log`：`M_FountainWaveWater` 编译 `[]`、61 表达式；`SM_RomanFountain_WaterWaves` 读回
+`tris=16128 bbox 729×729×422 slots=['MIC_FountainWaveWater']`；主网格 `slots=['M_RomanStone_V2','M_FountainHidden']`；
+**38/38 PASS**，无 `Error saving`。Game／Editor 两目标 Succeeded，
+两个二进制里都能搜到 `SM_RomanFountain_WaterWaves`（编辑器 DLL 18:27:07、Game EXE 18:27:40）。
+
+## 9.3 实测清单（未实测）
+
+1. 水面（大盆最明显）应能看到**起伏的明暗与轮廓在缓慢变化**，并且**不是规整的同心波纹**（噪声层给的不规则感）；
+2. 两处落水点的涟漪应向外交替扩散；
+3. 远处（>62 m）看喷泉，**水面仍然在**（只少了水膜/水柱/水花）；
+4. 控制台 `fps.Fountain.Quality 0` 只关水膜/水柱，水面保留。
+
+## 9.4 可以继续调的旋钮（都在 `MIC_FountainWaveWater` 上）
+
+`WaveHeight`（起伏幅度，默认 7 cm）、`Wave1/2 Length|Speed|Amp`（两层波）、
+`NoiseScale|Speed|Strength`（不规则度）、`RippleStrength|RippleFreq|RippleWidth`（落水涟漪）、
+`OpacityBase|FresnelOpacity|ReflectionStrength`（水感/反射强度）、`NormalSlope`（亮面起伏强度）。

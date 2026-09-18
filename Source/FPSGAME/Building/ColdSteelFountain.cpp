@@ -18,6 +18,7 @@ namespace
     // 资产名按类区分（UBT 的 unity 合并会把同模块的 .cpp 并进一块，匿名命名空间是共享的）。
     const TCHAR* FountainMeshAsset=TEXT("/Game/Props/RomanFountain20260917/SM_RomanFountain_20.SM_RomanFountain_20");
     const TCHAR* FountainFxMeshAsset=TEXT("/Game/Props/RomanFountain20260917/SM_RomanFountain_WaterFX.SM_RomanFountain_WaterFX");
+    const TCHAR* FountainWaterMeshAsset=TEXT("/Game/Props/RomanFountain20260917/SM_RomanFountain_WaterWaves.SM_RomanFountain_WaterWaves");
     const TCHAR* FountainJetAsset=TEXT("/Niagara/DefaultAssets/Templates/Systems/FountainLightweight.FountainLightweight");
     // 占位水声：项目里唯一与水相关的现成音频（全量盘点过，没有水流循环声）。
     const TCHAR* FountainSplash1=TEXT("/Game/Audio/FreeFootsteps/S_splash1.S_splash1");
@@ -54,6 +55,16 @@ AColdSteelFountain::AColdSteelFountain()
     WaterFxMesh->bVisibleInRayTracing=false;
     WaterFxMesh->bAffectDistanceFieldLighting=false;
 
+    // 会起伏的水面：独立组件，永远可见（远处只关水膜/水柱，不关水面）
+    WaterMesh=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FountainWater"));
+    WaterMesh->SetupAttachment(FountainMesh);
+    WaterMesh->SetMobility(EComponentMobility::Movable);
+    WaterMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    WaterMesh->SetCanEverAffectNavigation(false);
+    WaterMesh->SetCastShadow(false);
+    WaterMesh->bVisibleInRayTracing=false;
+    WaterMesh->bAffectDistanceFieldLighting=false;
+
     Jet=CreateDefaultSubobject<UNiagaraComponent>(TEXT("FountainJet"));
     Jet->SetupAttachment(FountainMesh);
     Jet->SetMobility(EComponentMobility::Movable);
@@ -61,9 +72,11 @@ AColdSteelFountain::AColdSteelFountain()
 
     static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(FountainMeshAsset);
     static ConstructorHelpers::FObjectFinder<UStaticMesh> FxAsset(FountainFxMeshAsset);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> WaterAsset(FountainWaterMeshAsset);
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> JetAsset(FountainJetAsset);
     if(MeshAsset.Succeeded())FountainMesh->SetStaticMesh(MeshAsset.Object);
     if(FxAsset.Succeeded())WaterFxMesh->SetStaticMesh(FxAsset.Object);
+    if(WaterAsset.Succeeded())WaterMesh->SetStaticMesh(WaterAsset.Object);
     if(JetAsset.Succeeded())Jet->SetAsset(JetAsset.Object);
 
     static ConstructorHelpers::FObjectFinder<USoundBase> Splash1(FountainSplash1);
@@ -128,10 +141,10 @@ void AColdSteelFountain::ApplyTier(int32 Tier)
 {
     if(Tier==CachedTier)return;
     CachedTier=Tier;
-    const bool bFxMesh=Tier<=1;
-    const bool bJet=Tier<=1;
-    if(WaterFxMesh)WaterFxMesh->SetVisibility(bFxMesh,true);
-    if(Jet)(bJet?Jet->Activate(true):Jet->Deactivate());
+    // Tier 0/1 = 全开；Tier 2（远距离或 Quality 0）= 只留会起伏的水面
+    const bool bExtras=Tier<2;
+    if(WaterFxMesh)WaterFxMesh->SetVisibility(bExtras,true);
+    if(Jet)(bExtras?Jet->Activate(true):Jet->Deactivate());
 }
 
 void AColdSteelFountain::Tick(float DeltaSeconds)
