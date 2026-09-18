@@ -1,0 +1,338 @@
+﻿[
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_M4_Graph.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_M4_Graph.uasset",
+        "bytes":  60793,
+        "sha256":  "46695890A91274F5873D5783E1D008206335DED5E387BD54379E607B20A8CA3C",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40_inframe.fbm",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\SM_ExtMag_AKM40_inframe.fbm",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40.fbm",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\SM_ExtMag_QBZ40.fbm",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440.fbx",
+        "bytes":  171420,
+        "sha256":  "5B7F777A8E855064A30C03997272BED0D1A333ED5806764D1AEB15F1072D1698",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_inframe.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_inframe.fbx",
+        "bytes":  318860,
+        "sha256":  "3A53021BBD1C764B7B772768CA4F2FE9318BDA7EC51D996990C6852A1E5176D6",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\rebuild_in_weapon_frame.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\rebuild_in_weapon_frame.py",
+        "bytes":  13803,
+        "sha256":  "CAD0682E70A4306648B526377690E2494F62981A1CEFA1DED35F177CEAB59C92",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40_finish.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40_finish.fbx",
+        "bytes":  551196,
+        "sha256":  "94504F38DC4B00B3840F414B6561DF2456FC74438C24048BCBE44D9580C3E3EB",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40.fbx",
+        "bytes":  323724,
+        "sha256":  "A433E4E9CBBFA32A810050AF0763D0CF941FEF9ED37E5BA52651DDC20F12C6CA",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_finish.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_finish.fbx",
+        "bytes":  561724,
+        "sha256":  "41D8F56322E58DB1343CAA9161C76B27A9AFD59E75B8BFCA612E16E79DBCEFAD",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_inframe.fbm",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\SM_ExtMag_QBZ40_inframe.fbm",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\list_api.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\list_api.py",
+        "bytes":  249,
+        "sha256":  "5C9C34D88AF15B9740CD11993C7BBBD581A578100D3566B11C291E2BB2B142E8",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\bake_extmag_finish.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\bake_extmag_finish.py",
+        "bytes":  9322,
+        "sha256":  "464FE266B9DB91CDDDD37F18D60F1C1F55991606E023A60B42B551E402F7402E",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\SM_ExtMag_QBZ40_Finish.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\SM_ExtMag_QBZ40_Finish.uasset",
+        "bytes":  557050,
+        "sha256":  "99E9305A1A6D73FE2DD424EE134E602AC2B46AD45030B2A19B700CF973DC0BEE",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\measure_mags2.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\measure_mags2.py",
+        "bytes":  6753,
+        "sha256":  "29A8C6DBAE0B48BCC9D63426631A7CE7B40A300ED2736AA52F11CE11D45608A7",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\ExtMag40_Editable.blend1",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\ExtMag40_Editable.blend1",
+        "bytes":  256840744,
+        "sha256":  "475145CC15CCFBE203BA8D2411DE797F09F11640BE5DEFDD1F70A00970C5504D",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40.fbm",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\SM_ExtMag_AKM40.fbm",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_inframe.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_inframe.fbx",
+        "bytes":  170172,
+        "sha256":  "C7634CF113E7D3B6307BFDB182395143163DB86B83C4C37E0577A205683951D6",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\measure_well.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\measure_well.py",
+        "bytes":  8455,
+        "sha256":  "782B0B6133EF1A37B51E7610AFC15FA86FC9500EDC69E7BE7DE1CB8263D63550",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\render_extmag40_review.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\render_extmag40_review.py",
+        "bytes":  4083,
+        "sha256":  "F090EAE2F334DBFA25A976482DEE561FA8FDA02903AFF702457507895F77962D",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_finish.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_QBZ40_finish.fbx",
+        "bytes":  392028,
+        "sha256":  "EDA7A5B87D4265CE5899B565C83517421DDFD923D72AA213A4298360558D3E1D",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_M4.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_M4.uasset",
+        "bytes":  83014,
+        "sha256":  "4A17875B99C89C573299FB9F2C3BD5AED61EEC82DD29394F744B908E38ECBF06",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\probe_akm_ref.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\probe_akm_ref.py",
+        "bytes":  783,
+        "sha256":  "CB1242EB75E661E354C91055C245FCFE527B560625CC2FCCC0CB5B1E86F3D594",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40.fbx",
+        "bytes":  170988,
+        "sha256":  "4A8B13AE0E502BA79E1A894D97710FF45A93FCDCA6BA34AAEE1C345B62B33E4F",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\measure_seat.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\measure_seat.py",
+        "bytes":  8518,
+        "sha256":  "9117F357CD9CE7BFE81C194FCEFE49F4CDA5CF88CACCFC413B92C7B1A9F610B8",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\SM_ExtMag_AKM40_Finish.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\SM_ExtMag_AKM40_Finish.uasset",
+        "bytes":  352650,
+        "sha256":  "C9A5C46DF0B0FB82C43F3F8F780A861DA0B1CFCEE85B60C8BCAC2EABDB40475A",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Textures\\T_ExtMag_M4_ORM.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Textures\\T_ExtMag_M4_ORM.uasset",
+        "bytes":  1471033,
+        "sha256":  "29C9E0BA82C1190FF211FD595B67171A3447BAED9167DA836802E9E6A044720A",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\list_api2.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\list_api2.py",
+        "bytes":  230,
+        "sha256":  "3D9B919FB48E5FDB19CBE7CE39F2F186C4B7226A3BA095C97EB45F7088DEBA93",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40_inframe.fbx",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\FBX\\SM_ExtMag_AKM40_inframe.fbx",
+        "bytes":  170092,
+        "sha256":  "41415AC5672AF23C2D5DEBC8CA557CD49570ED963DD611F7A3E7E1772B731000",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Textures\\T_ExtMag_AKM_ORM.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Textures\\T_ExtMag_AKM_ORM.uasset",
+        "bytes":  1767237,
+        "sha256":  "AFBB85019E919DC0230729AF966A74A73432D7B52D5231D289C61B5ED4A850E4",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\M4",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\M4",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\measure_mags.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\measure_mags.py",
+        "bytes":  9516,
+        "sha256":  "8A2FA76EE0582EC4E6105A5219F55D2E29C44019F7DD40288FDB7B7A2F8F36B9",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Textures\\AKM",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\AKM",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\measure_seat_final.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\measure_seat_final.py",
+        "bytes":  9469,
+        "sha256":  "E65D981ED3752AEC9F043A71A90F937B10AB727880E4CD7766087039F35AA249",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_AKM.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_AKM.uasset",
+        "bytes":  12917,
+        "sha256":  "0A2A371D0585EF06D1B558D9BC11D6EDEACB72DDE9A9D45DFC8A5DF424D65AEC",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\build_extmag.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\build_extmag.py",
+        "bytes":  15156,
+        "sha256":  "B8A923DF9D14A8A3064934F88E30B44CDD9FAA19F4A446A267DEB703E0209465",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\render_drum_icon.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\render_drum_icon.py",
+        "bytes":  2733,
+        "sha256":  "63E92394C36CE44B6C8CBD125ED5FE88736D2958203C9AD269E442E2C642FB3D",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\export_insocket_pose.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\export_insocket_pose.py",
+        "bytes":  3610,
+        "sha256":  "792E19999EFF6119C601BCDEC1364CC6147346BD36A2B47E31FFD4572F547D92",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440.fbm",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\SM_ExtMag_M440.fbm",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\render_icon.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\render_icon.py",
+        "bytes":  2380,
+        "sha256":  "521A2EF1815B3F6D10D6D35A2B114C46501EB2A37811F1101652D0AEAA193633",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\SM_ExtMag_M440_Finish.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\SM_ExtMag_M440_Finish.uasset",
+        "bytes":  355978,
+        "sha256":  "3095D8CD557C1A0D44A10AA8938CCFDF5AFAEA4DAFAF7EC6CF858F43DC43F793",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\FBX\\SM_ExtMag_M440_inframe.fbm",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\SM_ExtMag_M440_inframe.fbm",
+        "bytes":  1,
+        "sha256":  null,
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\inspect_drum.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\inspect_drum.py",
+        "bytes":  1864,
+        "sha256":  "A273F05929AD2E0467B91A30A17A34B8A67DBF9695782614CA6F06313542FF29",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\probe_drum_assets.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\probe_drum_assets.py",
+        "bytes":  730,
+        "sha256":  "1AC63354FFE5356E91C67EAB92F75F41A5AE5A0AFF0B536466D0AD296CA0093B",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_QBZ191.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Materials\\M_ExtMag_Finish_QBZ191.uasset",
+        "bytes":  17488,
+        "sha256":  "75D6D581763BAD61F3123CEC1E03E9B5DC1F322A127920467F4DB5F2628ABB03",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Textures\\T_ExtMag_M4_BaseColor.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Textures\\T_ExtMag_M4_BaseColor.uasset",
+        "bytes":  151044,
+        "sha256":  "0A3703EC96BF5ED59EEC25F795DFD02AF534456A3EE3FE2BF620496D3E2757E0",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\ExtMagUniversal20260917\\Textures\\T_ExtMag_AKM_BaseColor.uasset",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\Content_Weapons_ExtMagUniversal20260917\\Textures\\T_ExtMag_AKM_BaseColor.uasset",
+        "bytes":  2698023,
+        "sha256":  "1F9B4D19EDA918A8CD81A389BFEFE723EAD6AE32E981826926E211A0FD9EBF63",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\seat_constants.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\seat_constants.py",
+        "bytes":  1360,
+        "sha256":  "50BD097111C488ECABFD7FFEA340F89A1CA8CE140C7B0591445A8BA5F8F20411",
+        "match":  true
+    },
+    {
+        "from":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\Scripts\\inspect_sources.py",
+        "to":  "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagUniversal20260917\\trash\\extmag-superseded-20260918\\SourceAssets_ExtMagUniversal20260917\\Scripts\\inspect_sources.py",
+        "bytes":  2641,
+        "sha256":  "3A1BB47C800F841469F11334C5EC1E9F1144AF2E7C0993A6BFE4F8B2FA1BA824",
+        "match":  true
+    }
+]
