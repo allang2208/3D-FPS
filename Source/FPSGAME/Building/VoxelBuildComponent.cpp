@@ -370,9 +370,9 @@ void UVoxelBuildComponent::PushPanelContent()
         FVoxelBuildPanelCard Card;
         Card.Id=Entry.Id;
         Card.Caption=Entry.DisplayName.IsEmpty()?Entry.Id.ToString():Entry.DisplayName.ToString();
-        Card.Detail=Entry.Id.ToString();
+        Card.Detail=TEXT("20 cm");
         Card.bComponent=false;
-        Card.Subtitle=FString::Printf(TEXT("体素 · %s · 20 cm 立方"),Physics.DensityKgM3>=2000.?TEXT("石材类"):TEXT("木材类"));
+        Card.Subtitle=FString::Printf(TEXT("体素 · %s · 20 cm 立方"),*Card.Caption);
         Card.Rows.Add({TEXT("物理参数"),TEXT("")});
         Card.Rows.Add({TEXT("密度"),FString::Printf(TEXT("%.0f kg/m³"),Physics.DensityKgM3)});
         Card.Rows.Add({TEXT("单格质量"),FString::Printf(TEXT("%s（20×20×20 cm）"),*MassText(Joint.MassPerCellKg()))});
@@ -386,8 +386,9 @@ void UVoxelBuildComponent::PushPanelContent()
         Card.Rows.Add({TEXT("最长挑空（跨中站人）"),SpanText(SpanLoaded,SpanSweepCells*0.2)});
         Card.Rows.Add({TEXT("每平方米承重"),FString::Printf(TEXT("%s/m²"),*MassText(Joint.LoadPerSquareMeterT()*1000.))});
         Card.Rows.Add({TEXT("单格承重（20×20 cm 面）"),MassText(CellLoadT*1000.)});
+        for(const auto& Row:Card.Rows)if(!Row.Value.IsEmpty())Card.NumericRows.Add(Row.Key);
         Card.bExpandable=true;
-        Card.Note=TEXT("净跨 2.0 m 以内最稳（含跨中站人）；超过上限会断键、失去地基连接并倒塌成残骸。墙与柱没有实际跨度上限。右侧「其他构造」展开这栏材质可用的体素形状与同材质构件。");
+        Card.Note=TEXT("跨度数值按当前材质强度和标准布置估算，实际承重还取决于形状、载荷与支撑。接缝超限或失去地基连接会倒塌。右侧「其他构造」展开该分类的体素形状与构件。");
         // The drawer draws this material's shapes with the same 20 cm block the player places.
         Card.IconMesh=Entry.ExampleMesh;
         if(Card.IconMesh.IsNull())
@@ -415,6 +416,7 @@ void UVoxelBuildComponent::PushPanelContent()
         Card.Rows.Add({TEXT("20 cm 占格"),FString::Printf(TEXT("%d × %d × %d"),Cells.X,Cells.Y,Cells.Z)});
         Card.Rows.Add({TEXT("占格数"),FString::Printf(TEXT("%d 格"),Cells.X*Cells.Y*Cells.Z)});
         Card.Rows.Add({TEXT("旋转（R）"),ShapeSize(Index,true)==Cells?TEXT("尺寸不变"):TEXT("交换 X／Y")});
+        Card.NumericRows={TEXT("尺寸"),TEXT("20 cm 占格"),TEXT("占格数")};
         Card.Note=Index==0?TEXT("与滚轮顺序一致：单格 → 1 平方米地块 → 1 平方米墙面 → 1×5 水平直线 → 1×5 垂直直线。体素按 20 cm 格放置，参与承重与倒塌。"):
             TEXT("形状与材质一起选中：点这一条就用该材质放这个形状。放置、拆除、承重和存档与单格体素完全相同。");
         Shapes.Add(MoveTemp(Card));
@@ -427,16 +429,19 @@ void UVoxelBuildComponent::PushPanelContent()
         Card.Caption=Entry.DisplayName.IsEmpty()?Entry.Id.ToString():Entry.DisplayName.ToString();
         Card.Detail=FString::Printf(TEXT("%d × %d × %d cm"),Entry.Footprint.X*20,Entry.Footprint.Y*20,Entry.Footprint.Z*20);
         Card.bComponent=true;
-        Card.MaterialId=Entry.Material;
-        Card.IconMesh=Entry.Mesh;Card.IconSurface=Entry.Surface;Card.IconPivotOffsetCm=Entry.PivotOffsetCm;
-        Card.Subtitle=TEXT("构件 · 20 cm 格吸附");
         const FVoxelBuildMaterial* Group=Entry.Material.IsNone()?nullptr:Palette->Find(Entry.Material);
+        Card.MaterialId=Group?Group->Id:NAME_None;
+        Card.IconMesh=Entry.Mesh;Card.IconSurface=Entry.Surface;Card.IconPivotOffsetCm=Entry.PivotOffsetCm;
+        Card.IconActorClass=Entry.ActorClass;
+        const bool bWall=Entry.Mount==EVoxelPrefabMount::Wall;
+        Card.Subtitle=bWall?TEXT("壁挂构件 · 贴合竖直表面"):TEXT("构件 · 20 cm 格吸附");
         Card.Rows.Add({TEXT("归属构造"),Group?(Group->DisplayName.IsEmpty()?Group->Id.ToString():Group->DisplayName.ToString()):TEXT("其他（未归类）")});
         Card.Rows.Add({TEXT("占格尺寸"),Card.Detail});
         Card.Rows.Add({TEXT("20 cm 占格"),FString::Printf(TEXT("%d × %d × %d"),Entry.Footprint.X,Entry.Footprint.Y,Entry.Footprint.Z)});
-        Card.Rows.Add({TEXT("网格"),Entry.Mesh.IsNull()?TEXT("—"):Entry.Mesh.GetAssetName()});
-        Card.Rows.Add({TEXT("材质"),Entry.Surface.IsNull()?TEXT("—"):Entry.Surface.GetAssetName()});
-        Card.Note=TEXT("构件按 20 cm 网格放置（R 旋转 90°、右键拆除）。构件不参与承重：它不与体素焊合，也不提供支撑路径。「归属构造」决定它出现在哪一栏材质的「其他构造」里，改归属只需改调色板。");
+        Card.Rows.Add({TEXT("放置方式"),bWall?TEXT("壁挂 · 朝向跟随墙面"):TEXT("表面放置 · 可切换吸附")});
+        Card.NumericRows={TEXT("占格尺寸"),TEXT("20 cm 占格")};
+        Card.Note=bWall?TEXT("只能贴在墙、柱等竖直表面，右键拆除。壁挂件不参与失去地面支撑后的脱落计算。"):
+            TEXT("R 旋转 90°，右键拆除。构件不按体素接缝计算承重，可为相邻体素提供支撑；失去支撑后会脱落。占格尺寸表示放置范围，缩略图展示构件外观。");
         Components.Add(MoveTemp(Card));
     }
     Widget->SetContent(Materials,Shapes,Components);

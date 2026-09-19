@@ -5,26 +5,29 @@
 #include "ColdSteelFountain.generated.h"
 
 class UStaticMeshComponent;
+class UStaticMesh;
 class UNiagaraComponent;
 class UMaterialInterface;
+class UMaterialInstanceDynamic;
 class USoundBase;
+class UAudioComponent;
 
 /**
  * 罗马喷泉（蛋糕塔）的**逻辑构件**：面板构件与关卡实例共用这一个类，两处水效一致。
  *
  * 组件：
- *   FountainMesh — `SM_RomanFountain_20`（大理石 + 半透明水两槽）；它的 slot0 由建造系统按材质行覆盖，
- *                  slot1 水永远是 `MIC_FountainWater`。
- *   WaterFxMesh  — `SM_RomanFountain_WaterFX`（4 槽：泡沫 / 湿膜 / 溢流 / 焦散），挂在门口网格之下、
- *                  无碰撞、不投影。三个网格部件共用同一物体空间，所以对齐只需动 FountainMesh。
+ *   FountainMesh — 主体石材与碰撞；slot1 的旧平面水已隐藏。
+ *   WaterFxMesh  — 保留现有泡沫 / 湿膜 / 焦散，组件槽 2 隐藏旧的固定水帘。
+ *   CascadeMesh  — V7 单层几何 + V8 随流传播的随机水束/缺口，30–40 m 渐退细噪声。
+ *   LandingSpray — V8 单个 GPU 系统，出生时随机小簇/速度/大小，随后解析轨迹，无场景碰撞。
  *   WaterMesh    — `SM_RomanFountain_WaterWaves`（3 个密集网格水面盘，会真实起伏/不规则波动）；
  *                  **永远可见**（远处也只关水膜/水柱，不关水面）。主网格 slot1 是隐藏材质（旧平面水已剔除）。
  *   Jet          — 引擎模板 `FountainLightweight`（塔尖水柱），位置由包围盒算出来（pivot 不在中心也对）。
  *
  * 占格不变（48×48×36），存档字段不变（Id/Cell/Yaw/Footprint）；只在"逻辑构件"分支被生成。
  *
- * 质量开关 `fps.Fountain.Quality`：0 = 只留主网格水面（关水膜/溢流/水柱/水声），1 = 默认，2 = 预留。
- * 距离分级（性能）：近处 = 水效网格 + 水柱 + 水花；中距 = 水效网格 + 水柱；远处 = 只留水面材质。
+ * 质量 0 = 仅盆水；1/2 = 默认/较密飞沫。20/40/62 m 分级，盆水始终保留。
+ * 每个世界最多 4 座近处可见喷泉运行附加飞沫，统一每 0.25 s 排序。
  */
 UCLASS()
 class FPSGAME_API AColdSteelFountain : public AActor
@@ -43,18 +46,28 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> FountainMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> WaterFxMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> WaterMesh;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> CascadeMesh;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Jet;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> LandingSpray;
+    UPROPERTY() TObjectPtr<UMaterialInterface> CascadeNearMaterial;
+    UPROPERTY() TObjectPtr<UMaterialInterface> CascadeFarMaterial;
+    UPROPERTY() TObjectPtr<UMaterialInterface> HiddenCascadeMaterial;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> CascadeNearInstance;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> CascadeFarInstance;
 
+    UPROPERTY(EditAnywhere, Category="Fountain|Perf") float NearDetailDistanceCm=2000.f;
+    UPROPERTY(EditAnywhere, Category="Fountain|Perf") float SprayEndDistanceCm=4000.f;
     /** 距离分级阈值（cm）：超过该距离只留水面材质（关水效网格与水柱）。 */
     UPROPERTY(EditAnywhere, Category="Fountain|Perf") float MidJetDistanceCm=6200.f;
 
-    /** 占位水声：工程里没有水流循环声，用户已同意先用脚步水花在近距离随机播放（见 Docs）。 */
+    /** V9 两层持续循环水声；旧间隔 / SplashCues 字段只保留序列化兼容。 */
     UPROPERTY(EditAnywhere, Category="Fountain|Audio") bool bEnableAudio=true;
-    UPROPERTY(EditAnywhere, Category="Fountain|Audio") float AudioRadiusCm=1800.f;
+    UPROPERTY(EditAnywhere, Category="Fountain|Audio") float AudioRadiusCm=3200.f;
     UPROPERTY(EditAnywhere, Category="Fountain|Audio") float AudioMinInterval=1.4f;
     UPROPERTY(EditAnywhere, Category="Fountain|Audio") float AudioMaxInterval=3.2f;
     UPROPERTY(EditAnywhere, Category="Fountain|Audio") float AudioVolume=0.5f;
@@ -65,7 +78,24 @@ private:
     float AudioCountdown=0.f;
     int32 CachedQuality=INDEX_NONE;
     int32 CachedTier=INDEX_NONE;
-    /** 近/中/远三档：0 = 全开，1 = 关水花，2 = 只留水面材质 */
+    bool bSprayBudgetGranted=false;
+    float CachedSprayRate=-1.f;
+    /** 0=近景；1=飞沫递减；2=简化水帘；3=仅盆水。 */
     int32 ComputeTier() const;
     void ApplyTier(int32 Tier);
+    void SetSprayBudget(bool bGranted, float DistanceCm);
+    static void RefreshSprayBudgets(UWorld* World);
+
+    // Append new reflected state: existing actor fields retain their layout.
+    UPROPERTY(VisibleAnywhere, Category="Fountain|Audio") TObjectPtr<UAudioComponent> WaterLoop;
+    UPROPERTY(VisibleAnywhere, Category="Fountain|Audio") TObjectPtr<UAudioComponent> CloseWaterLoop;
+    UPROPERTY() TObjectPtr<UMaterialInterface> PolishedStoneMaterial;
+    UPROPERTY() TObjectPtr<UMaterialInterface> OriginalStoneMaterial;
+    bool bBedLoopWanted=false;
+    bool bDetailLoopWanted=false;
+    double NextBedLoopAttempt=0.;
+    double NextDetailLoopAttempt=0.;
+    void InitializeLoopAudio();
+    void UpdateLoopAudio();
+    UPROPERTY() TObjectPtr<UStaticMesh> PolishedFountainMesh;
 };

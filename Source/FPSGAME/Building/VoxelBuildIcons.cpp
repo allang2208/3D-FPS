@@ -1,10 +1,15 @@
 #include "VoxelBuildIcons.h"
+#include "ColdSteelDoor.h"
+#include "ColdSteelWindow.h"
+#include "ColdSteelFountain.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/TextureCube.h"
+#include "Engine/Texture2D.h"
 #include "Engine/TextureRenderTarget2D.h"
+#include "Engine/World.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Materials/MaterialInterface.h"
 
@@ -14,29 +19,29 @@ namespace
     constexpr int32 IconSize=256;
     // One fixed 3/4 view for every entry: the camera looks along this rotation at the framed object.
     const FRotator IconView(-18.f,-35.f,0.f);
-    // Largest bounding-box edge maps to this fraction of the orthographic frame, so every card shows
-    // its construction at the same size.
-    constexpr float IconFillFraction=.78f;
+    // Camera-projected bounds occupy this fraction of the orthographic frame.
+    constexpr float IconFillFraction=.84f;
     // 单格 1×1 体素块按一半大小绘制：20 cm 方块与 1 m 地块／1×5 直线同框时不再显得一样大
     // （2026-09-17 用户要求）。只影响单格请求，材质行缩略图与「单格」卡片同样适用。
     constexpr float SingleBlockFrameScale=.5f;
-    // 16 was one short: the marble row alone shows 5 shapes + 9 pieces, plus the three material
-    // row thumbnails, so visible entries exceeded the cap and the eviction pass had to run while
-    // every key was pinned. Cards that lost their icon stayed empty (2026-09-17 user report:
-    // pavilion and the 1 m / 3 m rails). Kept above the worst case instead of one short.
+    // Soft cap: expanded catalog rows are pinned, and can temporarily exceed this budget.
     constexpr int32 MaxCachedIcons=32;
     /** How many times a key may be re-queued after a failed build before it is given up on. */
     constexpr int32 MaxBuildAttempts=3;
-    /** 失败计数的键。只在失败时递增、成功后清零；成功也计数的旧写法会让被回收后重建的键
-     *  在 3 轮后永久拒绝（2026-09-19 审计）。File-scope on purpose: a Live Coding patch may
-     *  reset it, which only costs one extra retry. */
-    static TMap<FString,int32> GIconAttempts;
-    /** 已放弃的键：放弃时记录一次警告，之后静默跳过，避免抽屉每帧重排时刷日志。 */
-    static TSet<FString> GIconGaveUp;
     const TCHAR* ResolvedMaterialPath=TEXT("/Game/UI/GunsmithWorkbench/M_WeaponPreviewResolved.M_WeaponPreviewResolved");
     const TCHAR* StudioSkyPath=TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment");
-    const TCHAR* DefaultStoneMesh=TEXT("/Game/Building/Voxels/Rounded/SM_Voxel20_Stone.SM_Voxel20_Stone");
 }
+
+FString UVoxelBuildIcons::ContentKey(const FVoxelBuildIconRequest& Request)
+{
+    // Identity alone cannot distinguish a palette entry whose mesh, material or shape changed.
+    FString Content=Request.Mesh.ToString()+TEXT("|")+Request.Surface.ToString()+TEXT("|")+Request.ActorClass.ToString();
+    Content+=FString::Printf(TEXT("|%.9g,%.9g,%.9g"),Request.PivotOffsetCm.X,Request.PivotOffsetCm.Y,Request.PivotOffsetCm.Z);
+    for(const FIntVector& Cell:Request.Cells)Content+=FString::Printf(TEXT("|%d,%d,%d"),Cell.X,Cell.Y,Cell.Z);
+    return Request.Key+FString::Printf(TEXT(":fit2:%08x"),FCrc::StrCrc32(*Content));
+}
+
+bool UVoxelBuildIcons::HasFailed(const FString& Key) const {return FailedKeys.Contains(Key);}
 
 FString UVoxelBuildIcons::KeyForShape(FName MaterialId,int32 Shape)
 {
@@ -50,9 +55,9 @@ FString UVoxelBuildIcons::KeyForPiece(FName PieceId)
 
 void UVoxelBuildIcons::Request(const FVoxelBuildIconRequest& Request)
 {
-    if(Request.Key.IsEmpty()||Request.Mesh.IsNull())return;
+    if(Request.Key.IsEmpty())return;
     if(Materials.Contains(Request.Key)||Pending.Contains(Request.Key))return;
-    if(GIconGaveUp.Contains(Request.Key))return;
+    if(FailedKeys.Contains(Request.Key))return;
     Pending.Add(Request.Key);
     Queue.Add({Request});
 }
@@ -73,6 +78,37 @@ void UVoxelBuildIcons::SetVisibleKeys(const TSet<FString>& Keys)
         if(bSame)return;
     }
     VisibleKeys=Keys;
+    // Folding a category also cancels its unused jobs. Cached images remain available for reopening.
+    Queue.RemoveAll([this](const FJob& Job)
+    {
+        if(VisibleKeys.Contains(Job.Request.Key))return false;
+        if(Job.PreparedAt>0)ClearPool();
+        Pending.Remove(Job.Request.Key);return true;
+    });
+    while(Materials.Num()>MaxCachedIcons)
+    {
+        FString Oldest;uint64 Use=MAX_uint64;
+        for(const auto& Entry:Uses)if(!VisibleKeys.Contains(Entry.Key)&&Entry.Value<Use){Use=Entry.Value;Oldest=Entry.Key;}
+        if(Oldest.IsEmpty())break;
+        ReleaseEntry(Oldest);
+    }
+}
+
+void UVoxelBuildIcons::ClearPool()
+{
+    if(ColorCapture){ColorCapture->ShowOnlyComponents.Reset();ColorCapture->TextureTarget=nullptr;}
+    if(CoverageCapture){CoverageCapture->ShowOnlyComponents.Reset();CoverageCapture->TextureTarget=nullptr;}
+    for(UStaticMeshComponent* Component:Pool)if(Component)
+    {
+        Component->EmptyOverrideMaterials();
+        Component->SetStaticMesh(nullptr);Component->SetVisibility(false);
+    }
+    WarmingTextures.Reset();
+}
+
+void UVoxelBuildIcons::Suspend()
+{
+    Queue.Reset();Pending.Reset();SetVisibleKeys({});ClearPool();
 }
 
 void UVoxelBuildIcons::ReleaseEntry(const FString& Key)
@@ -84,7 +120,7 @@ void UVoxelBuildIcons::ReleaseEntry(const FString& Key)
 
 void UVoxelBuildIcons::Deinitialize()
 {
-    Queue.Reset();Pending.Reset();GIconGaveUp.Reset();GIconAttempts.Reset();VisibleKeys.Reset();
+    Suspend();FailedKeys.Reset();Attempts.Reset();
     if(ColorCapture){ColorCapture->TextureTarget=nullptr;if(Studio.IsValid())Studio->RemoveComponent(ColorCapture);ColorCapture->DestroyComponent();ColorCapture=nullptr;}
     if(CoverageCapture){CoverageCapture->TextureTarget=nullptr;if(Studio.IsValid())Studio->RemoveComponent(CoverageCapture);CoverageCapture->DestroyComponent();CoverageCapture=nullptr;}
     for(TPair<FString,TObjectPtr<UTextureRenderTarget2D>>& Entry:ColorTargets)if(Entry.Value)Entry.Value->ReleaseResource();
@@ -153,21 +189,45 @@ UStaticMeshComponent* UVoxelBuildIcons::TakePoolComponent()
     return Component;
 }
 
-bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
+bool UVoxelBuildIcons::Prepare(const FVoxelBuildIconRequest& Request)
 {
     EnsureStudio();
     if(!Studio.IsValid()||!ColorCapture||!CoverageCapture||!ResolvedMaterial)return false;
     UStaticMesh* Mesh=Request.Mesh.LoadSynchronous();
-    if(!Mesh)Mesh=LoadObject<UStaticMesh>(nullptr,DefaultStoneMesh);
-    if(!Mesh)return false;
     UMaterialInterface* Surface=Request.Surface.LoadSynchronous();
-    if(!Surface)Surface=Mesh->GetMaterial(0);
-    for(UStaticMeshComponent* Component:Pool)
-        if(Component){Component->SetStaticMesh(nullptr);Component->SetVisibility(false);}
+    ClearPool();
     TArray<UStaticMeshComponent*> Used;
     const FVector CellCentre(10.f,10.f,10.f);
-    if(Request.Cells.IsEmpty())
+    if(Request.Cells.IsEmpty()&&!Request.ActorClass.IsNull())
     {
+        // Assemble in an isolated, non-playing world. No BeginPlay, world tick, audio or FX simulation.
+        UClass* Class=Request.ActorClass.LoadSynchronous();
+        if(!Class)return false;
+        FActorSpawnParameters Params;Params.ObjectFlags|=RF_Transient;
+        Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        AActor* Actor=Studio->GetWorld()->SpawnActor<AActor>(Class,FTransform::Identity,Params);
+        if(!Actor)return false;
+        Actor->SetActorTickEnabled(false);
+        if(auto* Door=Cast<AColdSteelDoor>(Actor)){Door->Configure(Surface);Door->PrepareBuildPreview();}
+        else if(auto* Window=Cast<AColdSteelWindow>(Actor)){Window->Configure(Surface);Window->PrepareBuildPreview();}
+        else if(auto* Fountain=Cast<AColdSteelFountain>(Actor)){Fountain->Configure(Surface);Fountain->AlignGeometry();}
+        TInlineComponentArray<UStaticMeshComponent*> Parts(Actor);
+        for(UStaticMeshComponent* Part:Parts)
+        {
+            if(!Part||!Part->GetStaticMesh()||!Part->IsVisible()||Part->bHiddenInGame)continue;
+            Part->UpdateComponentToWorld();
+            auto* Component=TakePoolComponent();
+            Component->SetStaticMesh(Part->GetStaticMesh());
+            for(int32 Slot=0;Slot<Part->GetNumMaterials();++Slot)Component->SetMaterial(Slot,Part->GetMaterial(Slot));
+            Component->SetWorldTransform(Part->GetComponentTransform());
+            Component->SetVisibility(true);Component->UpdateComponentToWorld();Used.Add(Component);
+        }
+        Actor->Destroy();
+        // Actor types that assign their mesh only during BeginPlay use their palette mesh instead.
+    }
+    if(Used.IsEmpty()&&Request.Cells.IsEmpty())
+    {
+        if(!Mesh)return false;
         auto* Component=TakePoolComponent();
         Component->SetStaticMesh(Mesh);
         if(Surface)Component->SetMaterial(0,Surface);
@@ -176,8 +236,9 @@ bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
         Component->SetVisibility(true);Component->UpdateComponentToWorld();
         Used.Add(Component);
     }
-    else
+    else if(!Request.Cells.IsEmpty())
     {
+        if(!Mesh)return false;
         for(const FIntVector& Cell:Request.Cells)
         {
             auto* Component=TakePoolComponent();
@@ -191,18 +252,30 @@ bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
         }
     }
     if(Used.IsEmpty())return false;
-    FBox Bounds(ForceInit);
-    for(UStaticMeshComponent* Component:Used)
-        if(Component->GetStaticMesh())Bounds+=Component->GetStaticMesh()->GetBoundingBox().TransformBy(Component->GetComponentTransform());
-    if(!Bounds.IsValid)return false;
-    const FVector Centre=Bounds.GetCenter();
+    // Union each part in camera space. A world-axis union introduces excess empty space and its
+    // center need not match the visible projected center of an asymmetric assembled construction.
+    FBox ViewBounds(ForceInit);
+    for(UStaticMeshComponent* Component:Used)if(const UStaticMesh* MeshPart=Component->GetStaticMesh())
+    {
+        const FBox LocalBounds=MeshPart->GetBoundingBox();
+        const FTransform& PartTransform=Component->GetComponentTransform();
+        for(int32 Corner=0;Corner<8;++Corner)
+        {
+            const FVector Local(Corner&1?LocalBounds.Max.X:LocalBounds.Min.X,
+                Corner&2?LocalBounds.Max.Y:LocalBounds.Min.Y,Corner&4?LocalBounds.Max.Z:LocalBounds.Min.Z);
+            ViewBounds+=IconView.UnrotateVector(PartTransform.TransformPosition(Local));
+        }
+    }
+    if(!ViewBounds.IsValid)return false;
+    const FVector Centre=IconView.RotateVector(ViewBounds.GetCenter());
     for(UStaticMeshComponent* Component:Used)
     {Component->AddWorldOffset(-Centre);Component->UpdateComponentToWorld();}
-    const FVector Size=Bounds.GetSize();
+    const FVector Size=ViewBounds.GetSize();
     const double MaxDim=FMath::Max(Size.X,FMath::Max(Size.Y,Size.Z));
     // 单格（1×1×1 体素块）用一半的取景比例，因此在同样的卡片里只占一半大小。
     const float Fill=IconFillFraction*(Request.Cells.Num()==1?SingleBlockFrameScale:1.f);
-    const float OrthoWidth=FMath::Max(24.f,float(MaxDim)/Fill);
+    const double ProjectedSize=FMath::Max(Size.Y,Size.Z);
+    const float OrthoWidth=FMath::Max(24.f,float(ProjectedSize)/Fill);
     const float Distance=300.f+float(MaxDim)*2.f;
     const FVector Forward=IconView.Vector();
     ColorCapture->ShowOnlyComponents.Reset();CoverageCapture->ShowOnlyComponents.Reset();
@@ -213,6 +286,24 @@ bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
         Capture->OrthoWidth=OrthoWidth;
         Capture->SetWorldLocationAndRotation(-Forward*Distance,IconView);
     }
+    // A short, bounded warm-up for this thumbnail's textures only; never flush global streaming.
+    for(UStaticMeshComponent* Component:Used)for(int32 Slot=0;Slot<Component->GetNumMaterials();++Slot)
+    {
+        UMaterialInterface* Material=Component->GetMaterial(Slot);if(!Material)continue;
+        TArray<UTexture*> Textures;
+        Material->GetUsedTextures(Textures);
+        for(UTexture* Texture:Textures)if(auto* Texture2D=Cast<UTexture2D>(Texture))
+        {
+            if(WarmingTextures.Contains(Texture2D))continue;
+            Texture2D->SetForceMipLevelsToBeResident(1.f);
+            WarmingTextures.Add(Texture2D);
+        }
+    }
+    return true;
+}
+
+bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
+{
     ReleaseEntry(Request.Key);
     auto* Color=NewObject<UTextureRenderTarget2D>(this);
     Color->RenderTargetFormat=RTF_RGBA16f;Color->ClearColor=FLinearColor(0,0,0,1);
@@ -234,19 +325,34 @@ bool UVoxelBuildIcons::Build(const FVoxelBuildIconRequest& Request)
 void UVoxelBuildIcons::Tick(float DeltaTime)
 {
     if(Queue.IsEmpty())return;
-    // One capture pair per frame: the icons are small but a burst would still hitch the drawer.
-    const FJob Job=Queue[0];
+    FJob& Front=Queue[0];
+    bool bOk=true;
+    if(Front.PreparedAt==0)
+    {
+        bOk=Prepare(Front.Request);
+        if(bOk){Front.PreparedAt=FPlatformTime::Seconds();return;}
+    }
+    if(bOk)
+    {
+        const double Age=FPlatformTime::Seconds()-Front.PreparedAt;
+        bool bReady=true;
+        for(const auto& Texture:WarmingTextures)if(Texture.IsValid()&&!Texture->IsFullyStreamedIn()){bReady=false;break;}
+        if(Age<.05||(!bReady&&Age<.35))return;
+        bOk=Build(Front.Request);
+    }
+    // At most one capture pair per frame, and no scene components retained between jobs.
+    const FJob Job=Front;
     Queue.RemoveAt(0);
-    const bool bOk=Build(Job.Request);
+    ClearPool();
     Pending.Remove(Job.Request.Key);
     if(!bOk)
     {
         // 失败计数只在失败时累加；到上限后放弃并只记一次，之后 Request 静默跳过这个键。
-        int32& Tries=GIconAttempts.FindOrAdd(Job.Request.Key);
+        int32& Tries=Attempts.FindOrAdd(Job.Request.Key);
         ++Tries;
         if(Tries>=MaxBuildAttempts)
         {
-            GIconGaveUp.Add(Job.Request.Key);
+            FailedKeys.Add(Job.Request.Key);
             UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: giving up key=%s after %d attempts"),*Job.Request.Key,Tries);
         }
         else
@@ -257,7 +363,7 @@ void UVoxelBuildIcons::Tick(float DeltaTime)
         return;
     }
     // 成功清零，缩略图被 LRU 回收后仍能重建（此前成功也计数，重建 3 轮后永久拒绝）。
-    GIconAttempts.Remove(Job.Request.Key);
+    Attempts.Remove(Job.Request.Key);
     // Success is logged too: the drawer silently showing nothing is the symptom, and without a
     // line per built key there is no way to tell "never built" from "built then recycled".
     UE_LOG(LogTemp,Display,TEXT("VoxelBuildIcon: built key=%s cached=%d"),

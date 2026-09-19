@@ -1,0 +1,393 @@
+{
+  "date": "2026-09-19",
+  "scope": "Fountain, pavilion roof and building panel session",
+  "archive_root": "trash/building-polish-20260919",
+  "count": 48,
+  "bytes": 67814741.0,
+  "files": [
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/A_Laurel.blend",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/A_Laurel.blend",
+      "bytes": 3647081,
+      "sha256": "81bdfef813601816cabd77ac0bbe2feed56e9205e23e07308eeb589ab5205e49",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/A_Laurel.blend1",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/A_Laurel.blend1",
+      "bytes": 3640944,
+      "sha256": "8b062cefe1346b5f5a001ffd8d6d481a9702ab4a689112ce6866d39fb309a5b4",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/B_Verdigris.blend",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/B_Verdigris.blend",
+      "bytes": 3565101,
+      "sha256": "4bedb496d5f3fd089256b49a2e5b37236ab483177a91a711aac844a281683a91",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/B_Verdigris.blend1",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/B_Verdigris.blend1",
+      "bytes": 3561190,
+      "sha256": "85456c1303cd42b87c92e4967a4955b6c25ca228122cc4cf79dc36fa48a83025",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C_Celestial.blend",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C_Celestial.blend",
+      "bytes": 3651914,
+      "sha256": "aa7ec9919574ec2f1fa039652e2d980181768613d691668f59b9369bbf22c405",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C_Celestial.blend1",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C_Celestial.blend1",
+      "bytes": 3626413,
+      "sha256": "692f0f4af10ef3806557b37e2e17462dc01ff051b46a7e35a222432a8e0bccf2",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_constellations.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_constellations.json",
+      "bytes": 9002,
+      "sha256": "8acb74d8c2dc274d1cbc79cf4512ad09e36555e2c53a0171f48d6f746839b800",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_GoldDecor_bounds.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_GoldDecor_bounds.json",
+      "bytes": 135,
+      "sha256": "ae4d17ac279283e2f651207fe620c4a3a4b293fa2dd24831810aa08c481d564b",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_GoldDecor.fbx",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_GoldDecor.fbx",
+      "bytes": 2047804,
+      "sha256": "1f8dc0be36a4249ac9b81047a9de4773cc07bf9d900ffef9c93f3b5a165103bb",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_integration.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_integration.json",
+      "bytes": 2022,
+      "sha256": "db2065bd699d6194131d5e6640f1b7f67d63fe0391884e6094dca3dbb3314ce4",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_WhiteCelestial.blend",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_WhiteCelestial.blend",
+      "bytes": 3668620,
+      "sha256": "cb6deea9ef43c8d6b4c59c99a916730078dfbfc978f4d5c59a78d30ca4674646",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_WhiteCelestial.blend1",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_WhiteCelestial.blend1",
+      "bytes": 3666145,
+      "sha256": "d84b3767a61680e07595473023b97dae2e524206e41ed7861c8f2ec8b56e7428",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_WhiteGlobe_bounds.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_WhiteGlobe_bounds.json",
+      "bytes": 142,
+      "sha256": "a7dc5824ee658ba8307aa272c48a6375eb8afbd6a6ab1a1c5ad2d768dbceab5e",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C2_WhiteGlobe.fbx",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C2_WhiteGlobe.fbx",
+      "bytes": 48940,
+      "sha256": "53dc0f030f372a934d9b60a45bbf63fdbeb746868ad0c0f91fb2c2bab55f1e4d",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/c2-build.log",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/c2-build.log",
+      "bytes": 2036,
+      "sha256": "ad10d6374ba96474b0d44c649bb16c6cdeccdf40f6192683b0cd8deea0d9b598",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/c2-integration-backup-2026.09.19-11.34.17.log",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/c2-integration-backup-2026.09.19-11.34.17.log",
+      "bytes": 144972,
+      "sha256": "9f25474b4b9640b826235868b0e8f67cb902e3b574f23bdee169008daf64c195",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/c2-integration-console.log",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/c2-integration-console.log",
+      "bytes": 40446,
+      "sha256": "7854e5bf35ed84f6a7f48ed9aa8351892957d053aac847ba4a4f5b4e837c125b",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/c2-integration.log",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/c2-integration.log",
+      "bytes": 291406,
+      "sha256": "647703513edbb0917360163c6d6cc69a776f91c7f6ee51c233ade50e9145f4d1",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_constellations.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_constellations.json",
+      "bytes": 16628,
+      "sha256": "d8928062c3bddb5004467ed4b6b3650cd1a368aac2c3a2d914ab2925843b458f",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_GoldDecor_bounds.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_GoldDecor_bounds.json",
+      "bytes": 135,
+      "sha256": "ae4d17ac279283e2f651207fe620c4a3a4b293fa2dd24831810aa08c481d564b",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_GoldDecor.fbx",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_GoldDecor.fbx",
+      "bytes": 1918924,
+      "sha256": "996a162671d0e40dca15025c8df00935712f1bdbc1318cedaa541e5d7e2beab3",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_integration.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_integration.json",
+      "bytes": 1664,
+      "sha256": "44916349d6fcf615c2b1b3d738e60231028121e8b95dbfbf3decaa0103e2108a",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_WhiteCelestial.blend",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_WhiteCelestial.blend",
+      "bytes": 3682808,
+      "sha256": "e19e70f2f5119dc6f137aeb29d15142de59875bac4cdd07f4c6ff94c01620226",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_WhiteGlobe_bounds.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_WhiteGlobe_bounds.json",
+      "bytes": 142,
+      "sha256": "a7dc5824ee658ba8307aa272c48a6375eb8afbd6a6ab1a1c5ad2d768dbceab5e",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/C3_WhiteGlobe.fbx",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/C3_WhiteGlobe.fbx",
+      "bytes": 48924,
+      "sha256": "68cbe1f8ff7cec5c6627f0e49e92e8ecc8011d1478b4d95fb4aa10acb7840d1d",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/c3-build.log",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/c3-build.log",
+      "bytes": 2036,
+      "sha256": "cfe87eb57ef0076875b9939c8c303519f95c1683bec03bb7c9e0c19da81cac84",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/c3-integration.log",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/c3-integration.log",
+      "bytes": 1082,
+      "sha256": "c0cc55573329e44aca5148a334a5a6783a6227d16d89c999a3ec608bb8686799",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/integrate_c3_white_celestial.py",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/integrate_c3_white_celestial.py",
+      "bytes": 393,
+      "sha256": "4feef4fda48baf80b438a6c352b82948d6b06654f681fec31d5f116a533109c3",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_complete.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_complete.json",
+      "bytes": 192,
+      "sha256": "7148401efcb656fa42115f955450338b5db39b1c8a7fb64831f49080b475ad3f",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_finial.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_finial.png",
+      "bytes": 805507,
+      "sha256": "bbe15399ad1b8fcac7e446967afd4ea74d32ccd5e4241f17740b47bcdde6f6c8",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_hero.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_hero.png",
+      "bytes": 2708549,
+      "sha256": "3593950a72e2eeeb631fca7d54616fdd48d55955ed21f1b474cc9089efed2881",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_roof.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/A_Laurel_roof.png",
+      "bytes": 2041136,
+      "sha256": "fe7390145fa0a0c1ed67aac18c0420739a0973877d473ca240ceeaf302918ba3",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_complete.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_complete.json",
+      "bytes": 195,
+      "sha256": "efc749cabc68d9294c8ba1f6adefd9d18f6ac3f823eaec3477f6fd2770b747a2",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_finial.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_finial.png",
+      "bytes": 1055190,
+      "sha256": "4935f356240fca113a9e4bb9f90e21b0917e4db9c6ab0fc90983ab486fb60754",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_hero.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_hero.png",
+      "bytes": 3050998,
+      "sha256": "7335ea2258a135d8f07f499fbb4caf874736b6aa2129c2a128d434775a1b7cab",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_roof.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/B_Verdigris_roof.png",
+      "bytes": 2603530,
+      "sha256": "af6779c479ea00f3a44d7c1382a42aacc58a247473300ab3b89116766a863534",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_complete.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_complete.json",
+      "bytes": 195,
+      "sha256": "599e0f9fc204521d823f649709e3b9a82b65e955653dfb345c4cc9304bc6834a",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_finial.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_finial.png",
+      "bytes": 1085119,
+      "sha256": "830ae955c01192da7f0776333ca69a911c1fc6337fcef0dd4e11ab1345ced55a",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_hero.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_hero.png",
+      "bytes": 2948791,
+      "sha256": "9521b03292707a9a38d914e8998def9db86e2b750bfa1e845823e45f83cfaa5b",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_roof.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C_Celestial_roof.png",
+      "bytes": 2398883,
+      "sha256": "fc72ffc6883a8c42fbd6fb623ecd692562f2b21b93e611e0c39c51dba0bd7f04",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_complete.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_complete.json",
+      "bytes": 201,
+      "sha256": "592a4b375fc8e72fee909289eb39a252dc8f1fd9e5bcbad1b40916dba0b07fdc",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_finial.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_finial.png",
+      "bytes": 1040339,
+      "sha256": "bb0c2a83f41cb563d55eacd2e29478864297bbe4cfe908534e46e1198b4721b7",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_hero.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_hero.png",
+      "bytes": 2753064,
+      "sha256": "a10d4b63eb9cbfe2cf8187ce7867029086f038905b851960676326eca1828f11",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_roof.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C2_WhiteCelestial_roof.png",
+      "bytes": 2130283,
+      "sha256": "063960a83c19bc645fba3aa5ea533b84935bdb32af5fbf44f581f9c75e6387bf",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_complete.json",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_complete.json",
+      "bytes": 201,
+      "sha256": "83a940dccba34ec12b412ffc8b91c63f961e214185f57c9df6f7dcca5786eedc",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_finial.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_finial.png",
+      "bytes": 1040144,
+      "sha256": "068c2de2c973d44beb2ff4c4240bcd64e708778dff23a440a81a2710c1e569c7",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_hero.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_hero.png",
+      "bytes": 2744705,
+      "sha256": "cbd30ad627c4766fe6666207099641058b871357c638b129e000f7707b645642",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    },
+    {
+      "original": "SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_roof.png",
+      "target": "trash/building-polish-20260919/SourceAssets/RomanPavilionRoof20260919/previews/C3_WhiteCelestial_roof.png",
+      "bytes": 2120470,
+      "sha256": "1d7beb50c9d43ee902120e3b2127181d319605586f55647b15323fbba32585b6",
+      "reason": "Unselected or superseded pavilion roof output; accepted C4 source and shared builders retained",
+      "replacement": "SourceAssets/RomanPavilionRoof20260919/C4_WhiteCelestial.blend"
+    }
+  ]
+}

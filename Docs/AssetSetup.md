@@ -1,5 +1,10 @@
 # 恢复完整 UE5 内容
 
+## 建筑喷泉、星图穹顶与面板（2026-09-19）
+
+当前喷泉采用V8随机溢流和V9石材／双层循环水声（三倍播放音量），凉亭采用C4白色大理石真实星座穹顶；建筑面板保留完整装配预览与冷钢字体。运行资产、V7/V8重建依赖、C4原主体备份、CC0声音和BSD星图来源，以及本机归档范围见 [建筑精修发布整理](Building/building-polish-publication-20260919.md)。公开代码不包含UE资源、模型、音频、字体或预览二进制，需从合法本机素材恢复。
+
+
 ## 寒晶剑模块化与三款握把（2026-09-19）
 
 用户已确认拆分改造结果。恢复 `/Game/Weapons/FrostCrystalSword20260915/Modules20260915`、`GuardsSmooth20260915`、`PommelsRepair20260915`、`Grips20260919`（含 LongGripAnimations）以及 `/Game/Weapons/MeleeRunes20260915/SurfaceV2`。保持 `Content/ColdSteelData/frost-sword-modules.json` 的模型/动画路径、部件位置与符文范围一致；图标从本机 `AttachmentIcons20260913/ue_frost_crystal_sword_*` 恢复。

@@ -1,0 +1,28 @@
+{
+  "revision": "C4",
+  "assets": [
+    "/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/SM_RomanPavilionFull_20_C4.SM_RomanPavilionFull_20_C4",
+    "/Game/Props/RomanColumn20260915/SM_RomanPavilionFull_20.SM_RomanPavilionFull_20",
+    "/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/SM_RomanPavilionDome_20_C4.SM_RomanPavilionDome_20_C4",
+    "/Game/Props/RomanColumn20260915/SM_RomanPavilionDome_20.SM_RomanPavilionDome_20",
+    "/Game/Building/Voxels/Rounded/DA_VoxelBuildPalette.DA_VoxelBuildPalette"
+  ],
+  "runtime_tested": false,
+  "preview_renderer": "Blender 5.1 Cycles",
+  "SM_RomanPavilionFull_20": {
+    "backup": "/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/SourceBackup/SM_RomanPavilionFull_20_BeforeC2",
+    "revision": "/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/SM_RomanPavilionFull_20_C4",
+    "height_cm": 940,
+    "upper_bounds_padding_cm": 8.99993896484375,
+    "stone": "/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2",
+    "material_slots": 2
+  },
+  "SM_RomanPavilionDome_20": {
+    "backup": "/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/SourceBackup/SM_RomanPavilionDome_20_BeforeC2",
+    "revision": "/Game/Props/RomanPavilionRoof20260919/WhiteCelestial/SM_RomanPavilionDome_20_C4",
+    "height_cm": 580,
+    "upper_bounds_padding_cm": 8.990835666656494,
+    "stone": "/Game/Props/RomanColumn20260915/M_WhiteMarble_V2.M_WhiteMarble_V2",
+    "material_slots": 2
+  }
+}

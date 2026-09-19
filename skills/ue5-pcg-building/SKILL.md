@@ -5,6 +5,9 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 # Quick Start
 
+- For decorative fountain overflow, natural water variation and seamless spatial water loops, read [fountain water and audio](references/fountain-water-audio.md).
+- For the accepted white-marble pavilion dome, real constellation inlays and finial authoring, read [pavilion roof decoration](references/pavilion-roof-decoration.md).
+
 ## 统一模型生成入口（2026-09-13）
 
 制作建筑模块本体、建材和装饰网格时，先用 [通用模型生成工作流](../asset-model-workflow/SKILL.md)。生成外观后按明确尺寸、枢轴、拼接面和碰撞制作模块，再接续本文 PCG 排布；PCG 本身不是图生模型。默认不主动测试或验收。

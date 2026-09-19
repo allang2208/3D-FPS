@@ -36,6 +36,8 @@ public:
     UFUNCTION(BlueprintPure, Category="Door") bool IsDoorOpen() const {return bOpen;}
     /** 放置时由建造系统写入材质（不改变几何）。 */
     void Configure(UMaterialInterface* Surface);
+    /** Assemble the closed model in a non-playing thumbnail world. */
+    void PrepareBuildPreview() {AlignGeometry();}
 
 protected:
     virtual void BeginPlay() override;

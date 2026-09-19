@@ -1,0 +1,11 @@
+{
+  "variant": "C4_WhiteCelestial",
+  "renderer": "Blender 5.1 Cycles",
+  "ue_integrated": false,
+  "source": "pavilion_reference.fbx",
+  "views": [
+    "hero",
+    "roof",
+    "finial"
+  ]
+}

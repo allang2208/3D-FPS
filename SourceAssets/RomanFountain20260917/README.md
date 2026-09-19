@@ -1,5 +1,9 @@
 # 罗马喷泉（蛋糕塔）2026-09-17
 
+2026-09-19 当前版本：V8随机水束／簇状飞沫＋V9循环水声、湿石材和局部倒角；用户已认可效果，并指定水声音量三倍。入口依次为 `build_cascade_v7_20260919.py`、`build_cascade_v8_natural_20260919.py`、`prepare_fountain_audio_v9.py`、`build_polish_v9_20260919.py`；V7仍是V8/V9制作依赖。
+方案／接入／预算见 [`溢流V8`](../../Docs/Building/fountain-overflow-v8-natural-20260919.md) 和 [`精修V9`](../../Docs/Building/fountain-polish-v9-20260919.md)。公开源码与本机素材的边界见 [发布整理](../../Docs/Building/building-polish-publication-20260919.md)。
+已认可的盆中水体保持原样；助手未进行实机视觉或试听验收。下文为历史制作记录。
+
 按 `skills/ue5-pcg-building` → `skills/asset-model-workflow` → `Docs/Building/voxel-build-workflow.md`
 的链条制作的第三件大理石家族建筑构件（前两件：罗马凉亭、栏杆套件）。
 

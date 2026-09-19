@@ -36,10 +36,13 @@ struct FVoxelBuildPanelCard
     TArray<FIntVector> IconCells;
     TSoftObjectPtr<UStaticMesh> IconMesh;
     TSoftObjectPtr<UMaterialInterface> IconSurface;
+    TSoftClassPtr<AActor> IconActorClass;
     FVector IconPivotOffsetCm=FVector::ZeroVector;
     /** Tooltip card, same layout as the equipment tooltip: subtitle, rows, section headings. */
     FString Subtitle;
     TArray<TPair<FString,FString>> Rows;
+    /** Only measurement rows use the numeric font; descriptions keep the UI font. */
+    TSet<FString> NumericRows;
     FString Note;
 };
 
@@ -107,11 +110,15 @@ private:
         TWeakObjectPtr<USizeBox> IconBox;
         /** 网格卡（其他构造卡片）：DPI/视口变化时按网格尺寸重排；材质行等行式条目不吃这套尺寸。 */
         bool bGridCard=false;
+        TWeakObjectPtr<UTextBlock> Placeholder;
     };
     UPROPERTY() TObjectPtr<UBorder> Surface;
     /** 全屏 40% 压暗底：与背包装备同一抽屉规格，随进度淡入淡出（2026-09-19 补齐）。 */
     UPROPERTY() TObjectPtr<UBorder> Backdrop;
     UPROPERTY() TObjectPtr<UBackgroundBlur> Blur;
+    UPROPERTY() TObjectPtr<UBorder> GlassTintPanel;
+    UPROPERTY() TObjectPtr<UBorder> HeaderPanel;
+    UPROPERTY() TObjectPtr<USizeBox> HeaderSize;
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> PanelSlot;
     UPROPERTY() TObjectPtr<UTextBlock> Title;
     UPROPERTY() TObjectPtr<UTextBlock> Selection;
@@ -129,6 +136,7 @@ private:
     UPROPERTY() TObjectPtr<UBorder> TooltipCard;
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> TooltipSlot;
     UPROPERTY() TObjectPtr<UVerticalBox> TooltipBox;
+    UPROPERTY() TObjectPtr<UScrollBox> TooltipScroll;
     UPROPERTY() TObjectPtr<UTextBlock> TooltipTitle;
     UPROPERTY() TObjectPtr<UTextBlock> TooltipSubtitle;
     int32 TooltipIndex=INDEX_NONE;

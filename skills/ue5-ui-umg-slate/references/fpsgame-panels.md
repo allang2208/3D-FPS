@@ -120,13 +120,15 @@
 
 ## 图标卡片网格与统一取景（2026-09-16，建造抽屉「其他构造」）
 
+2026-09-19 当前建筑面板分类、字体、完整装配与预算统一见 [建筑面板标准](building-panel.md)。以下尺寸与取景条款已同步；后文有日期的故障记录保留其历史现场值。
+
 一组同类条目（可建造的构造、配件、图鉴项）要"每个一张同尺寸卡片、等距横排、满行换行、卡里带图和名称"时：
 
-- 布局用 `UWrapBox` + `SetInnerSlotPadding(间距)`，卡片用 `USizeBox` 固定宽高（116 × 150 px 量级），**间距与卡片尺寸都按 `PixelScale` 反算**，并在 DPI／视口变化时与字号一起重算；不要在建控件时把像素写死。
-- 卡片结构：`Button(透明常态＋悬停提亮) → SizeBox → Border(Content/StatusCard, 8px 圆角) → VerticalBox[ USizeBox 图片 , 居中 12px 名称 ]`；选中态只改 Border 的画刷（`ButtonHover` + 2px `Accent`），和同一面板里的行卡片共用一套 `RefreshSelection`。
+- 布局用 `UWrapBox` + `SetInnerSlotPadding(间距)`，建筑卡片宽116px、最小高170px、间距8px。14px名称铺满102px内宽，横向排满才换行；长名称自然增高。**间距与卡片尺寸都按 `PixelScale` 反算**，并在 DPI／视口变化时与字号一起重算。
+- 卡片结构：`Button → SizeBox → Border(Content/StatusCard, 8px 圆角) → VerticalBox[104²图片与状态占位, 居中14px名称]`；选中态用 `ButtonHover` + 2px `Accent`，和行卡片共用 `RefreshSelection`。
 - 缩略图**不要另起渲染方案**：复用工作台的 `FPreviewScene`＋`T_StudioEnvironment`＋正交捕获＋`M_WeaponPreviewResolved`（`PreviewTexture` RGB→自发光、`PreviewCoverage` A→OneMinus→不透明度）双通道合成；`SetBrushFromMaterial(MID)` 直接贴到 `UImage`。
-- **同一视角、同一缩放**的落地写法：固定一个旋转（如 `FRotator(-18,-35,0)`）＋正交投影；先算所有可见网格的世界包围盒，把整体平移到光轴中心，再令 `OrthoWidth = 包围盒最长边 / 0.78`。这样 20 cm 方块与 2.6 m 立柱在卡里一样大；要真实相对大小就改成固定 `OrthoWidth`（这是唯一需要跟用户确认的取舍）。
-- 生成要**异步、限速、可缓存**：请求去重（键 = 形状/构件 ID）、每帧只跑一个捕获作业、结果按 LRU 缓存（上限十几个键），DPI 或缓存未就绪时先显示名称、就绪后只换图片，不重建卡片、不打断滚动。
+- 固定 `FRotator(-18,-35,0)` 正交视角；逐组件将局部包围盒角点投影到相机坐标后合并，按投影中心居中，较大投影尺寸除以0.84取景；单格减半占幅，即除以0.42。图片用 ScaleToFit 等比例完整显示，不拉伸、不裁切。
+- 生成按需排队、去重，每帧最多一对捕获。键含 ID 与资源／装配签名；32项软 LRU 缓存保护当前列表，关闭取消待办和保护键。未就绪／失败有文字占位，就绪仅换图片，不重建卡片或打断滚动。
 - 体素类条目没有专用图标网格时，用同一枚体素方块网格按格中心（`格×20 + 10`）摆出形状即可；取景基于**包围盒**而不是 pivot，因此方块 pivot 在角上也不影响构图。
 
 ## 让独立面板复用背包抽屉规格（2026-09-16，F6 开发面板）

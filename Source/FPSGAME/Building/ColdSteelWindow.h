@@ -34,6 +34,8 @@ public:
     UFUNCTION(BlueprintPure, Category="Window") bool IsWindowOpen() const {return bOpen;}
     /** 放置时由建造系统写入材质（不改变几何）：窗框与两扇窗扇的全部材质槽一起替换。 */
     void Configure(UMaterialInterface* Surface);
+    /** Also inherited by double doors; uses the same assembly as BeginPlay. */
+    void PrepareBuildPreview() {AlignGeometry();}
 
 protected:
     virtual void BeginPlay() override;
