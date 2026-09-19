@@ -61,6 +61,7 @@ void ATemperateHillsWorld::TickDayNightSky()
     if(auto* Clouds=Weather->FindComponentByClass<UStormCloudComponent>())
         StormBlend=Clouds->GetStormBlend();
     DayNightSkyMID->SetScalarParameterValue(TEXT("WeatherSkyBlend"),StormBlend);
+    DayNightSkyMID->SetScalarParameterValue(TEXT("FPS_LightningSkyLuminance"),Weather->GetLightningMaterialLuminance().X);
     DayNightSkyMID->SetScalarParameterValue(TEXT("WeatherSkyDaylight"),
         FMath::Clamp(FMath::Sin((Weather->NormalizedDayTime-.25f)*2.f*PI)*3.f+.1f,0.f,1.f));
 }

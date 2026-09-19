@@ -15,35 +15,35 @@ namespace
 // the aperture instead. Presentation only: it never writes ControlRotation, the
 // shot direction or the trace, stays clear of the reticle and can be disabled
 // with `fps.Scope.FlashAlpha 0`.
-static TAutoConsoleVariable<float> ScopeFlashAlpha(TEXT("fps.Scope.FlashAlpha"),.55f,
+static TAutoConsoleVariable<float> ScopeFlashAlpha(TEXT("fps.Scope.FlashAlpha"),.15f,
     TEXT("Peak opacity of the in-optic muzzle flash; 0 disables it."));
-static TAutoConsoleVariable<float> ScopeFlashHoldMs(TEXT("fps.Scope.FlashHoldMs"),70.f,
+static TAutoConsoleVariable<float> ScopeFlashHoldMs(TEXT("fps.Scope.FlashHoldMs"),45.f,
     TEXT("In-optic muzzle flash lifetime in milliseconds."));
-static TAutoConsoleVariable<float> ScopeFlashRadius(TEXT("fps.Scope.FlashRadius"),.42f,
+static TAutoConsoleVariable<float> ScopeFlashRadius(TEXT("fps.Scope.FlashRadius"),.28f,
     TEXT("Flash radius as a fraction of the aperture radius."));
 static TAutoConsoleVariable<float> ScopeFlashOffsetX(TEXT("fps.Scope.FlashOffsetX"),.16f,
     TEXT("Flash centre offset toward the ejection side, in aperture radii."));
-static TAutoConsoleVariable<float> ScopeFlashOffsetY(TEXT("fps.Scope.FlashOffsetY"),.85f,
+static TAutoConsoleVariable<float> ScopeFlashOffsetY(TEXT("fps.Scope.FlashOffsetY"),.90f,
     TEXT("Flash centre offset below the reticle, in aperture radii."));
-static TAutoConsoleVariable<float> ScopeFlashBurstMs(TEXT("fps.Scope.FlashBurstMs"),18.f,
+static TAutoConsoleVariable<float> ScopeFlashBurstMs(TEXT("fps.Scope.FlashBurstMs"),10.f,
     TEXT("Near-white core burst window at shot onset, in milliseconds."));
-static TAutoConsoleVariable<float> ScopeEmberAlpha(TEXT("fps.Scope.EmberAlpha"),.12f,
+static TAutoConsoleVariable<float> ScopeEmberAlpha(TEXT("fps.Scope.EmberAlpha"),.025f,
     TEXT("Peak opacity of the low-orange afterglow; 0 disables it."));
-static TAutoConsoleVariable<float> ScopeEmberHoldMs(TEXT("fps.Scope.EmberHoldMs"),180.f,
+static TAutoConsoleVariable<float> ScopeEmberHoldMs(TEXT("fps.Scope.EmberHoldMs"),85.f,
     TEXT("Afterglow lifetime in milliseconds after the shot."));
-static TAutoConsoleVariable<float> ScopeAmbientAlpha(TEXT("fps.Scope.AmbientAlpha"),.12f,
+static TAutoConsoleVariable<float> ScopeAmbientAlpha(TEXT("fps.Scope.AmbientAlpha"),0.f,
     TEXT("Peak opacity of the whole-aperture ambient wash; 0 disables it."));
 static TAutoConsoleVariable<float> ScopeAmbientHoldMs(TEXT("fps.Scope.AmbientHoldMs"),50.f,
     TEXT("Ambient wash lifetime in milliseconds (a few frames)."));
-static TAutoConsoleVariable<float> ScopeSideFlashChance(TEXT("fps.Scope.SideFlashChance"),.15f,
+static TAutoConsoleVariable<float> ScopeSideFlashChance(TEXT("fps.Scope.SideFlashChance"),.08f,
     TEXT("Fraction of shots whose flash lights the left/right rim instead."));
-static TAutoConsoleVariable<float> ScopeEdgeBloomAlpha(TEXT("fps.Scope.EdgeBloomAlpha"),.38f,
+static TAutoConsoleVariable<float> ScopeEdgeBloomAlpha(TEXT("fps.Scope.EdgeBloomAlpha"),.08f,
     TEXT("Aperture rim bloom while firing; 0 disables it."));
-static TAutoConsoleVariable<float> ScopeLensDirtAlpha(TEXT("fps.Scope.LensDirtAlpha"),.10f,
+static TAutoConsoleVariable<float> ScopeLensDirtAlpha(TEXT("fps.Scope.LensDirtAlpha"),0.f,
     TEXT("Baseline lens dirt opacity inside the aperture; 0 disables it."));
-static TAutoConsoleVariable<float> ScopeSmokeAlpha(TEXT("fps.Scope.SmokeAlpha"),.16f,
+static TAutoConsoleVariable<float> ScopeSmokeAlpha(TEXT("fps.Scope.SmokeAlpha"),.045f,
     TEXT("Peak opacity of the post-shot heat wisp; 0 disables it."));
-static TAutoConsoleVariable<float> ScopeSmokeHoldMs(TEXT("fps.Scope.SmokeHoldMs"),220.f,
+static TAutoConsoleVariable<float> ScopeSmokeHoldMs(TEXT("fps.Scope.SmokeHoldMs"),140.f,
     TEXT("Heat wisp lifetime in milliseconds after the shot."));
 
 // Every lens element below shares the white brush and one custom-vertex batch, so
@@ -106,11 +106,44 @@ void AppendLensRim(TArray<FSlateVertex>& Verts,TArray<SlateIndex>& Indices,const
             SlateIndex(A+I+1),SlateIndex(B+I),SlateIndex(B+I+1)});
 }
 
-void FlushVerts(FSlateWindowElementList& Out,int32 Layer,TArray<FSlateVertex>& Verts,TArray<SlateIndex>& Indices)
+void FlushLensVerts(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
+    const FVector2f& Center,float R,TArray<FSlateVertex>& Verts,TArray<SlateIndex>& Indices)
 {
     if(Indices.IsEmpty())return;
+    // Protect the target behind the reticle, not just the reticle's final layer.
+    // All lens effects share a clear central disc and a wide soft transition.
+    TArray<FVector2f> Local;
+    Local.Reserve(Verts.Num());
+    for(FSlateVertex& V:Verts)
+    {
+        const FVector2f P=FVector2f(G.AbsoluteToLocal(FVector2D(V.Position)))-Center;
+        Local.Add(P);
+        const float Fade=FMath::SmoothStep(.20f,.38f,P.Size()/R);
+        V.Color.A=static_cast<uint8>(V.Color.A*Fade);
+    }
+    auto Cross=[](const FVector2f& A,const FVector2f& B){return A.X*B.Y-A.Y*B.X;};
+    auto EdgeDistanceSq=[](const FVector2f& A,const FVector2f& B)
+    {
+        const FVector2f AB=B-A;
+        const float T=FMath::Clamp(-FVector2f::DotProduct(A,AB)/FMath::Max(AB.SizeSquared(),UE_SMALL_NUMBER),0.f,1.f);
+        return (A+AB*T).SizeSquared();
+    };
+    TArray<SlateIndex> Visible;
+    Visible.Reserve(Indices.Num());
+    const float ClearRadiusSq=FMath::Square(R*.20f);
+    for(int32 I=0;I<Indices.Num();I+=3)
+    {
+        const auto A=Indices[I],B=Indices[I+1],C=Indices[I+2];
+        const float AB=Cross(Local[A],Local[B]),BC=Cross(Local[B],Local[C]),CA=Cross(Local[C],Local[A]);
+        const bool ContainsCenter=(AB>=0.f&&BC>=0.f&&CA>=0.f)||(AB<=0.f&&BC<=0.f&&CA<=0.f);
+        const float DistanceSq=FMath::Min3(EdgeDistanceSq(Local[A],Local[B]),
+            EdgeDistanceSq(Local[B],Local[C]),EdgeDistanceSq(Local[C],Local[A]));
+        // Reject crossing triangles too: vertex alpha alone can bridge the hole.
+        if(!ContainsCenter&&DistanceSq>=ClearRadiusSq)Visible.Append({A,B,C});
+    }
+    if(Visible.IsEmpty())return;
     const auto Resource=FSlateApplication::Get().GetRenderer()->GetResourceHandle(*FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")));
-    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Verts,Indices,nullptr,0,0);
+    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Verts,Visible,nullptr,0,0);
 }
 
 // Fixed lens specks: dust on the glass, briefly lit by the muzzle flash. Positions
@@ -129,7 +162,7 @@ void PaintLensDirt(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     for(const auto& S:Speck)
         AppendSoftDisc(Verts,Indices,G,Center+FVector2f(S[0]*R,S[1]*R),S[2]*R,
             FLinearColor(.62f,.57f,.50f,Lit),FLinearColor(.62f,.57f,.50f,0.f),.5f,20);
-    FlushVerts(Out,Layer,Verts,Indices);
+    FlushLensVerts(Out,Layer,G,Center,R,Verts,Indices);
 }
 
 // Aperture rim bloom: the flash lighting the inside of the tube, one frame thick.
@@ -141,7 +174,7 @@ void PaintEdgeBloom(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
     AppendLensRim(Verts,Indices,G,Center,R-S*1.5f,R+S*3.f,
         FLinearColor(1.f,.86f,.62f,Peak*Fx.Flash),FLinearColor(1.f,.52f,.16f,0.f),128);
-    FlushVerts(Out,Layer,Verts,Indices);
+    FlushLensVerts(Out,Layer,G,Center,R,Verts,Indices);
 }
 
 // Post-shot heat wisp: two soft ribbons drifting up through the lower aperture.
@@ -154,7 +187,7 @@ void PaintHeatWisp(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     for(int32 Ribbon=0;Ribbon<2;++Ribbon)
     {
         const float Rnd=FMath::Frac(Fx.Seed*(1.7f+Ribbon*.9f)+Ribbon*.37f);
-        const float Rise=FMath::Lerp(.34f,-.30f,Fx.WispT);
+        const float Rise=FMath::Lerp(.72f,.46f,Fx.WispT);
         const float Drift=FMath::Lerp(-.22f,.34f,Fx.WispT)*FMath::Lerp(.6f,1.4f,Rnd);
         const FVector2f At=Center+FVector2f(Drift*R,Rise*R);
         const float Rx=R*FMath::Lerp(.16f,.26f,Rnd),Ry=R*FMath::Lerp(.07f,.11f,Rnd);
@@ -168,7 +201,7 @@ void PaintHeatWisp(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
                 FLinearColor(.72f,.70f,.68f,0.f),.30f,24);
         }
     }
-    FlushVerts(Out,Layer,Verts,Indices);
+    FlushLensVerts(Out,Layer,G,Center,R,Verts,Indices);
 }
 
 constexpr float FlashInner=.30f;   // inner radius of the flash blob, in blob radii
@@ -181,7 +214,7 @@ FFlashShape MakeFlashShape(const FVector2f& Center,float ApertureR,float Seed)
 {
     const float OffsetX=FMath::Clamp(ScopeFlashOffsetX.GetValueOnGameThread(),-.8f,.8f)
         +(FMath::Frac(Seed*7.13f+.31f)*2.f-1.f)*.10f;
-    const float OffsetY=FMath::Clamp(ScopeFlashOffsetY.GetValueOnGameThread(),-.8f,.8f)
+    const float OffsetY=FMath::Clamp(ScopeFlashOffsetY.GetValueOnGameThread(),.70f,.98f)
         +(FMath::Frac(Seed*3.71f+.17f)*2.f-1.f)*.08f;
     const float RScale=FMath::Lerp(.85f,1.15f,FMath::Frac(Seed*5.29f+.53f));
     const float Base=FMath::Clamp(ScopeFlashRadius.GetValueOnGameThread(),.05f,.6f)*ApertureR*RScale;
@@ -203,8 +236,7 @@ FFlashShape MakeFlashShape(const FVector2f& Center,float ApertureR,float Seed)
     return S;
 }
 
-// Whole-aperture ambient wash: the flash lighting the scene for a few frames. At high
-// magnification this brief brightening, not the blob itself, is what reads as "fired".
+// Optional ambient wash, disabled by default for a clear night sight picture.
 void PaintAmbientWash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     const FVector2f& Center,float R,float Strength)
 {
@@ -225,7 +257,7 @@ void PaintAmbientWash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& 
             FLinearColor(Warm.R,Warm.G,Warm.B,Strength*.35f*Weight).ToFColor(true)));
         if(I<Segments)Indices.Append({SlateIndex(Base),SlateIndex(Base+1+I),SlateIndex(Base+2+I)});
     }
-    FlushVerts(Out,Layer,Verts,Indices);
+    FlushLensVerts(Out,Layer,G,Center,R,Verts,Indices);
 }
 
 // Low-orange afterglow at the flash's position, outliving the main blob.
@@ -237,7 +269,7 @@ void PaintEmber(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
     TArray<FSlateVertex> Verts;TArray<SlateIndex> Indices;
     AppendSoftDisc(Verts,Indices,G,S.Origin,S.Radius*.62f,
         FLinearColor(1.f,.34f,.12f,Strength),FLinearColor(1.f,.22f,.08f,0.f),.5f,24);
-    FlushVerts(Out,Layer,Verts,Indices);
+    FlushLensVerts(Out,Layer,G,Center,ApertureR,Verts,Indices);
 }
 
 void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,
@@ -260,8 +292,8 @@ void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G
         const float T=static_cast<float>(Band)/Bands;
         FLinearColor Core=FMath::Lerp(FLinearColor(1.f,.95f,.86f),FLinearColor(1.f,.42f,.10f),T);
         // The opening burst whitens the core for a frame or two before the colour settles.
-        Core=FMath::Lerp(Core,FLinearColor(1.f,.98f,.95f),BurstAmt*(1.f-T)*.8f);
-        const float BandAlpha=FMath::Min(1.f,Alpha*(1.f-T)*(1.f-T)*Gain*(1.f+BurstAmt*.8f*(1.f-T)));
+        Core=FMath::Lerp(Core,FLinearColor(1.f,.90f,.72f),BurstAmt*(1.f-T)*.25f);
+        const float BandAlpha=FMath::Min(1.f,Alpha*(1.f-T)*(1.f-T)*Gain*(1.f+BurstAmt*.25f*(1.f-T)));
         for(int32 I=0;I<=Segments;++I)
         {
             const float Angle=2.f*PI*I/Segments;
@@ -277,8 +309,7 @@ void PaintOpticFlash(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G
                 Indices.Append({SlateIndex(A),SlateIndex(B),SlateIndex(A+1),SlateIndex(A+1),SlateIndex(B),SlateIndex(B+1)});}
         }
     }
-    const auto Resource=FSlateApplication::Get().GetRenderer()->GetResourceHandle(*FCoreStyle::Get().GetBrush(TEXT("WhiteBrush")));
-    FSlateDrawElement::MakeCustomVerts(Out,Layer,Resource,Verts,Indices,nullptr,0,0);
+    FlushLensVerts(Out,Layer,G,Center,ApertureR,Verts,Indices);
 }
 
 void PaintLPVOScope(FSlateWindowElementList& Out,int32 Layer,const FGeometry& G,float Alpha,const FScopeFx& Fx)

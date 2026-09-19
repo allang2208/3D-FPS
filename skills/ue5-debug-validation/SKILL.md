@@ -4,6 +4,7 @@ description: UE5.6-UE5.8 debugging and validation workflow for logs, asset check
 ---
 
 # Quick Start
+- For invisible cloud fields or logged lightning/thunder without perceptible output, read [cloud and A/V diagnosis](../ue5-weather-workflow/references/cloud-lightning-audio.md); distinguish material inputs, trigger state, mixer capture and user feedback.
 - For weather/cloud validation, read [weather transition diagnostics](../ue5-weather-workflow/references/storm-rain-integration.md); sample after all light writers and distinguish editor actor enumeration from runtime world state.
 - For imported maps, spawn/floating bugs and relocation, read [scene validation](references/scene-import-spawn-validation.md).
 - For changes that only reproduce in one editor session, whether a hot patch can carry a change, or assets reading back as None, read [live coding vs full build](references/live-coding-vs-full-build.md).

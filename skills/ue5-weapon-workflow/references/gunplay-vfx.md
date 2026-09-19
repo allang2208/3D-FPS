@@ -9,6 +9,11 @@
 
 ## 烟、火光与曳光
 
+- 夜间杂乱光斑先区分相机 Lens Flare、Bloom Dirt、枪口粒子、备用点光和 LPVO 镜内叠加。保留昼夜曝光，分别降低造成干扰的来源；不要用全场压暗掩盖近景过曝。项目相机使用 Lens Flare/Dirt=0、柔和 Gaussian Bloom 0.15；火把柔光参数归天气技能维护。
+- 开镜火光只改表现，不改枪口出口、瞄准射线或控制旋转。保留火焰 HDR 色相与 Alpha 淡出，缩短亮芯/侧焰寿命；默认关闭高倍率镜对世界火光的额外放大。已有 Niagara 路径不重复叠加备用点光，点光压低镜面并关闭体积雾/间接光贡献。
+- LPVO 分划上层绘制不能保护分划后面的目标。所有镜内光斑、热烟与边缘辉光共用中心净空；当前半径 20% 内不绘制，20–38% 柔和过渡。仅将顶点 Alpha 归零仍可能让三角形跨越中心，需同时剔除跨保护圆的面片。
+- 原包火焰材质保留，通过项目独立实例调整发光。火把/枪口生成器重建后接续 `Tools/AssetPipeline/soften_fire_lighting_20260919.py`，只保存目标系统/实例。运行可读性按用户授权确认，不把编译结果当作夜间瞄准验收。
+
 - 不只检查 C++ SetVariable：读回发射器实际绑定。固定 InitializeParticle.Color 会使 User.Smoke Color 的透明度设置完全无效。
 - 复制官方示例为项目资产，检查 emitter life cycle、loop、position offset、local/world space 和 user 参数。移除示例弹壳等已由游戏实现的重复发射器。
 - 火光仅降低 RGB 可能在末帧留下暗斑；同时检查 Alpha 淡出。不要丢失原材质依赖的 HDR 色值。

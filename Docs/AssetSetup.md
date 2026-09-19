@@ -1,5 +1,9 @@
 # 恢复完整 UE5 内容
 
+## 云层、雷电与柔和火光（2026-09-19）
+
+本轮需要恢复项目云/天空材质、四张引擎云纹理、三段 `Weather/Audio/S_Thunder_I/II/III` 派生雷声，以及火把柔光实例和 `NS_FPS_MuzzleFlashV10`。具体路径、制作顺序、音频来源及归档边界见 [天气与火光发布整理](Weather/weather-lighting-publication-20260919.md)。源码及散列元数据公开，原始/派生音频、uasset、第三方素材与 trash 保留本机。
+
 ## 怪物材质统一与僵尸犬 V5.1（2026-09-19）
 
 本轮恢复需要胖子共享母材质 `Monsters/Shared/InfectedSurfaceV1`、胖子/手脑/毒蛆/突变体的 `StyleV1` 资产，以及僵尸犬 `RefinedWoundsV5`、其 V1/V3/V4 有效上游资源和原狼动作。来源、恢复顺序、F6 接入、归档与公开发布边界见 [怪物材质发布说明](Monsters/monster-surface-publication-20260919.md)。Blend、FBX、贴图、uasset 和密集骨架/表面坐标输入留在合法本机素材中；源码发布不是完整资产远程备份。

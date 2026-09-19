@@ -56,6 +56,8 @@ public:
     float GetSurfaceWetness() const;
     float GetRainExposure() const { return 1.0f - ShelterAmount; }
     FVector GetWeatherWind() const { return WeatherWind; }
+    // X = sky radiance, Y = cloud radiance; scaled to the current day/night sky.
+    FVector2D GetLightningMaterialLuminance() const;
     class UWeatherPresentationAssets* GetPresentationAssets() const { return PresentationAssets; }
 
     bool IsSkyClockConnected() const { return bSkyClockConnected; }
@@ -127,6 +129,30 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Audio")
     TArray<TObjectPtr<USoundBase>> ThunderSounds;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(ClampMin="0.0", Units="s"))
+    float LightningHoldSeconds = 0.5f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(ClampMin="0.1", Units="s"))
+    float LightningFadeSeconds = 1.5f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(Units="s"))
+    FVector2D LightningIntervalSeconds = FVector2D(12.0, 25.0);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(Units="s"))
+    FVector2D FirstLightningDelaySeconds = FVector2D(3.0, 6.0);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(Units="s"))
+    FVector2D ThunderDelaySeconds = FVector2D(2.0, 5.0);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(ClampMin="0.0", ClampMax="1.0"))
+    float LightningStrength = 1.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Lightning", meta=(ClampMin="0.0", ClampMax="200000.0"))
+    float LightningFillLumens = 60000.0f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Audio", meta=(ClampMin="0.0", ClampMax="1.0"))
+    float ThunderVolume = 1.0f;
+
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weather|Surface")
     TObjectPtr<UMaterialParameterCollection> WeatherParameters;
 
@@ -141,6 +167,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 private:
     friend struct FWeatherWorldAudit;
@@ -178,6 +205,9 @@ private:
     TObjectPtr<UAudioComponent> ThunderAudio;
 
     UPROPERTY(VisibleAnywhere)
+    TObjectPtr<UAudioComponent> ThunderTailAudio;
+
+    UPROPERTY(VisibleAnywhere)
     TObjectPtr<UPointLightComponent> LightningLight;
 
     UPROPERTY(Transient)
@@ -195,8 +225,20 @@ private:
     float ShelterTarget = 0.0f;
     FVector WeatherWind = FVector(120.0, 40.0, 0.0);
     float ShelterCheckAccumulator = 0.0f;
-    float LightningCountdown = 8.0f;
-    float LightningFlashTime = 0.0f;
+    float LightningCountdown = 12.0f;
+    float LightningFlashElapsed = -1.0f;
+    float LightningPeak = 1.0f;
+    float LightningAmount = 0.0f;
+    float PublishedLightningAmount = -1.0f;
+    float PendingThunderDelay = -1.0f;
+    int32 PendingThunderSound = INDEX_NONE;
+    int32 PendingThunderVoice = INDEX_NONE;
+    int32 LastThunderSound = INDEX_NONE;
+    float LastThunderGain = -1.0f;
+    float LastThunderShelter = -1.0f;
+    float AppliedLightningFill = -1.0f;
+    float ThunderRainDuckSeconds = 0.0f;
+    float ThunderRainMix = 1.0f;
     FRandomStream WeatherRandom;
     bool bSkyClockConnected = false;
     bool bSceneDayNightActive = false;
@@ -217,5 +259,6 @@ private:
     bool TrySynchronizeWithSkyClock();
     EFPSWeatherState ResolveScheduledState() const;
     float StateIntensity(EFPSWeatherState State) const;
-    void PlayDelayedThunder(float DelaySeconds);
+    bool QueueThunder(float DelaySeconds);
+    void ResetLightning(bool bFadeThunder);
 };

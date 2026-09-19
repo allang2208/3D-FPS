@@ -25,6 +25,8 @@ old Godot implementation.
 
 For cloud/solar conflicts, coarse rain particles, pooled wet surfaces or transition
 acceptance, read [storm and rain integration](references/storm-rain-integration.md).
+For missing cloud textures, weak lightning, delayed thunder onset or inaudible mixes,
+read [cloud, lightning and audio output](references/cloud-lightning-audio.md).
 
 - Attach camera-local rain to the player view instead of filling the world with
   emitters. Ground-trace splash placement and cap spawn rates for scalability.
@@ -69,8 +71,11 @@ acceptance, read [storm and rain integration](references/storm-rain-integration.
 
 Archive only confirmed superseded files to `trash` with original path, size, and
 SHA-256. Preserve final previews, reproducible scripts, source assets, and
-licenses. Publish a source/evidence snapshot from an isolated worktree and use
-an ordinary non-force push after staged diff and remote ancestry checks.
+licenses. Publish scoped files/hunks directly from `D:/FPS3D/FPSGAME` after
+reading `WORKFLOW.md` section 8 and `Docs/AssetSetup.md`. Preserve parallel edits;
+use isolation only for an actual conflict. Fetch, inspect staged content and
+unpublished ancestry, then use an ordinary non-force push to `origin/main` and
+read back the remote SHA. Licensed binary content and trash stay local.
 
 ## 时钟驱动的世界道具（2026-09-18，柱廊青铜火把）
 
@@ -87,6 +92,8 @@ an ordinary non-force push after staged diff and remote ancestry checks.
   点光强度 = 基准 × 点火量 × 闪烁；每支按世界坐标错开相位，整排不会同步闪。出生时直接取目标状态
   （`BeginPlay` 里 snap），否则进关卡先看 6 秒淡入。
 - **点光别贪亮**：1600 lm 的火把贴在自己 30 cm 处会把铜杯和柱子一起打爆（近景一片白）。
-  实用档位：600 lm / 半径 900 cm / 默认不投影；要阴影时逐支打开（6 支阴影点光 = 6 张立方体阴影图）。
+  当前柔和档位：350 lm / 半径 500 cm / 默认不投影，SourceRadius 6 cm、SoftSourceRadius 8 cm、
+  SpecularScale 0.6、雾贡献 0.08；亮度波动 ±4%，按位置错开平滑相位。旧 600 lm / 900 cm 默认值
+  需迁移已放置实例；自定义值保留。要阴影时逐支打开（6 支阴影点光 = 6 张立方体阴影图）。
 - **位置比亮度更容易错**：火焰原点要放在**容器口**（杯口 z≈42.6）而不是腔底（z≈16），否则火苗整团埋进
   27 cm 深的杯里，只剩灯可见——用户看到的正是"只有光没有火"。

@@ -41,6 +41,38 @@ namespace FPSWeatherNames
     static const FName Lightning(TEXT("WeatherLightning"));
 }
 
+namespace FPSStormLightning
+{
+    constexpr float AttackSeconds = .05f;
+
+    float RandomSeconds(FRandomStream& Random, const FVector2D& Range, float Minimum)
+    {
+        const float Low = FMath::Max(Minimum, static_cast<float>(FMath::Min(Range.X, Range.Y)));
+        const float High = FMath::Max(Low, static_cast<float>(FMath::Max(Range.X, Range.Y)));
+        return Random.FRandRange(Low, High);
+    }
+
+    void ConfigureFill(UPointLightComponent* Light)
+    {
+        // The sky/cloud materials provide the broad flash. This one existing
+        // local light only supplies soft nearby surface response (35 m above view).
+        Light->SetRelativeLocation(FVector(0.0, 0.0, 2600.0));
+        Light->SetIntensityUnits(ELightUnits::Lumens);
+        Light->SetUseInverseSquaredFalloff(true);
+        Light->SetInverseExposureBlend(0.f);
+        Light->SetAttenuationRadius(9000.f);
+        Light->SetSourceRadius(250.f);
+        Light->SetSoftSourceRadius(350.f);
+        Light->SetLightColor(FColor(210, 225, 255));
+        Light->SetCastShadows(false);
+        Light->SetSpecularScale(.1f);
+        Light->SetVolumetricScatteringIntensity(0.f);
+        Light->SetIndirectLightingIntensity(0.f);
+        Light->SetIntensity(0.f);
+        Light->SetVisibility(false);
+    }
+}
+
 AFPSWeatherManager::AFPSWeatherManager()
 {
     PrimaryActorTick.bCanEverTick = true;
@@ -80,12 +112,13 @@ AFPSWeatherManager::AFPSWeatherManager()
     ThunderAudio->SetupAttachment(SceneRoot);
     ThunderAudio->bAutoActivate = false;
 
+    ThunderTailAudio = CreateDefaultSubobject<UAudioComponent>(TEXT("ThunderTailAudio"));
+    ThunderTailAudio->SetupAttachment(SceneRoot);
+    ThunderTailAudio->bAutoActivate = false;
+
     LightningLight = CreateDefaultSubobject<UPointLightComponent>(TEXT("LightningFlash"));
     LightningLight->SetupAttachment(SceneRoot);
-    LightningLight->SetIntensity(0.0f);
-    LightningLight->SetAttenuationRadius(200000.0f);
-    LightningLight->SetLightColor(FColor(190, 215, 255));
-    LightningLight->SetCastShadows(false);
+    FPSStormLightning::ConfigureFill(LightningLight);
 
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> RainFinder(
         TEXT("/Game/Weather/VFX/NS_FPS_RainFine.NS_FPS_RainFine"));
@@ -106,11 +139,11 @@ AFPSWeatherManager::AFPSWeatherManager()
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> PuddleMaterialFinder(
         TEXT("/Game/Weather/Materials/M_RainWetSurface.M_RainWetSurface"));
     static ConstructorHelpers::FObjectFinder<USoundBase> ThunderOneFinder(
-        TEXT("/Game/Thunder_Sounds/CUE/CUE_Thunder_Lightning_I_Without_rain_wind_background_noise_Cue.CUE_Thunder_Lightning_I_Without_rain_wind_background_noise_Cue"));
+        TEXT("/Game/Weather/Audio/S_Thunder_I.S_Thunder_I"));
     static ConstructorHelpers::FObjectFinder<USoundBase> ThunderTwoFinder(
-        TEXT("/Game/Thunder_Sounds/CUE/CUE_Thunder_Lightning_II_Without_rain_wind_background_noise_Cue.CUE_Thunder_Lightning_II_Without_rain_wind_background_noise_Cue"));
+        TEXT("/Game/Weather/Audio/S_Thunder_II.S_Thunder_II"));
     static ConstructorHelpers::FObjectFinder<USoundBase> ThunderThreeFinder(
-        TEXT("/Game/Thunder_Sounds/CUE/CUE_Thunder_Lightning_III_Without_rain_wind_background_noise_Cue.CUE_Thunder_Lightning_III_Without_rain_wind_background_noise_Cue"));
+        TEXT("/Game/Weather/Audio/S_Thunder_III.S_Thunder_III"));
     if (RainFinder.Succeeded()) RainSystem = RainFinder.Object;
     if (SplashFinder.Succeeded()) SplashSystem = SplashFinder.Object;
     if (MistFinder.Succeeded()) MistSystem = MistFinder.Object;
@@ -142,6 +175,36 @@ void AFPSWeatherManager::BeginPlay()
     }
 
     WeatherRandom.Initialize(WeatherSeed);
+    // Migrate the previous default stored in already-authored weather actors.
+    if (FMath::IsNearlyEqual(ThunderVolume, .75f, 1.e-6f)) ThunderVolume = 1.f;
+    if (FMath::IsNearlyEqual(LightningHoldSeconds, 1.f, 1.e-6f)) LightningHoldSeconds = .5f;
+    // Saved map actors can still reference the old cues. Migrate only those
+    // exact stock sounds; leave authored replacement sounds untouched.
+    const TCHAR* ThunderVariants[] = { TEXT("I"), TEXT("II"), TEXT("III") };
+    for (TObjectPtr<USoundBase>& Sound : ThunderSounds)
+    {
+        if (!Sound) continue;
+        for (const TCHAR* Variant : ThunderVariants)
+        {
+            const FString OldName = FString::Printf(TEXT("CUE_Thunder_Lightning_%s_Without_rain_wind_background_noise_Cue"), Variant);
+            const FString OldPath = FString::Printf(TEXT("/Game/Thunder_Sounds/CUE/%s.%s"), *OldName, *OldName);
+            if (Sound->GetPathName() != OldPath) continue;
+            const FString NewPath = FString::Printf(TEXT("/Game/Weather/Audio/S_Thunder_%s.S_Thunder_%s"), Variant, Variant);
+            if (USoundBase* Prepared = LoadObject<USoundBase>(nullptr, *NewPath)) Sound = Prepared;
+            break;
+        }
+    }
+    // Apply the presentation profile to previously saved component defaults too.
+    FPSStormLightning::ConfigureFill(LightningLight);
+    UAudioComponent* ThunderVoices[] = { ThunderAudio, ThunderTailAudio };
+    for (UAudioComponent* Voice : ThunderVoices)
+    {
+        Voice->bAllowSpatialization = false;
+        Voice->bOverrideAttenuation = true;
+        Voice->AttenuationOverrides.bAttenuate = false;
+        Voice->AttenuationOverrides.bSpatialize = false;
+        Voice->SetLowPassFilterEnabled(true);
+    }
     RainComponent->SetAsset(RainSystem);
     MistComponent->SetAsset(MistSystem);
     SurfaceEffects->Initialize(SplashSystem, RoofDripSystem, PuddleDecalMaterial);
@@ -202,9 +265,9 @@ void AFPSWeatherManager::Tick(float DeltaSeconds)
     UpdateShelter(DeltaSeconds);
     if (CurrentState == EFPSWeatherState::Cloudy) CloudyElapsedSeconds += DeltaSeconds;
     UpdateSchedule();
+    UpdateLightning(DeltaSeconds);
     UpdateEffects(DeltaSeconds);
     UpdateSceneDayNight(DeltaSeconds);
-    UpdateLightning(DeltaSeconds);
 
 }
 
@@ -318,7 +381,9 @@ void AFPSWeatherManager::ApplyState(EFPSWeatherState NewState)
     if (Previous != NewState) CloudyElapsedSeconds = 0.f;
     CurrentState = NewState;
     TargetRainIntensity = StateIntensity(NewState);
-    LightningCountdown = WeatherRandom.FRandRange(6.0f, 18.0f);
+    LightningCountdown = FPSStormLightning::RandomSeconds(WeatherRandom,
+        NewState == EFPSWeatherState::Storm ? FirstLightningDelaySeconds : LightningIntervalSeconds, .5f);
+    if (NewState != EFPSWeatherState::Storm) ResetLightning(true);
     UE_LOG(LogTemp, Display, TEXT("FPS weather changed: %d -> %d (rain %.2f)"),
         static_cast<int32>(Previous), static_cast<int32>(CurrentState), TargetRainIntensity);
     OnWeatherChanged.Broadcast(Previous, CurrentState);
@@ -428,7 +493,7 @@ void AFPSWeatherManager::UpdateEffects(float DeltaSeconds)
     WeatherWind = FMath::Lerp(WeatherWind,WindTarget,1.f-FMath::Exp(-DeltaSeconds*.8f));
     const int32 Quality = UWeatherSurfaceComponent::GetQuality();
     const float VisibleIntensity = Quality > 0 ? OutdoorIntensity * (1.0f-ShelterAmount) : 0;
-    const float AudioShelter = FMath::Lerp(1.0f, 0.25f, ShelterAmount);
+    const float AudioShelter = FMath::Lerp(1.0f, 0.25f, ShelterAmount) * ThunderRainMix;
 
     RainComponent->SetFloatParameter(FPSWeatherNames::RainIntensity, VisibleIntensity);
     RainComponent->SetVariableVec3(TEXT("User.WeatherWind"), WeatherWind);
@@ -465,59 +530,156 @@ void AFPSWeatherManager::UpdateEffects(float DeltaSeconds)
                 CurrentState == EFPSWeatherState::Cloudy ? 0.7f : FMath::Lerp(0.72f, 1.0f, OutdoorIntensity);
             Instance->SetScalarParameterValue(FPSWeatherNames::Wetness, GetSurfaceWetness());
             Instance->SetScalarParameterValue(FPSWeatherNames::Cloudiness, Cloudiness);
-            Instance->SetScalarParameterValue(FPSWeatherNames::Lightning, LightningFlashTime > 0.0f ? 1.0f : 0.0f);
+            // One continuous world-local value feeds all cloud and sky materials.
+            // Hold/idle frames do not upload redundant uniform-buffer updates.
+            if (LightningAmount != PublishedLightningAmount)
+            {
+                Instance->SetScalarParameterValue(FPSWeatherNames::Lightning, LightningAmount);
+                PublishedLightningAmount = LightningAmount;
+            }
         }
     }
+}
+
+FVector2D AFPSWeatherManager::GetLightningMaterialLuminance() const
+{
+    const float Day = FMath::Clamp(FMath::Sin((NormalizedDayTime - .25f) * 2.f * PI) * 3.f + .1f, 0.f, 1.f);
+    // The former sky value (.35) disappears in daylight exposure. Keep night
+    // restrained and smoothly raise radiance with the same sky daylight curve.
+    return FVector2D(FMath::Lerp(.45f, 8.f, Day), FMath::Lerp(1.2f, 12.f, Day));
 }
 
 void AFPSWeatherManager::UpdateLightning(float DeltaSeconds)
 {
-    if (LightningFlashTime > 0.0f)
+    UAudioComponent* Voices[] = { ThunderAudio, ThunderTailAudio };
+    ThunderRainDuckSeconds = FMath::Max(0.f, ThunderRainDuckSeconds - DeltaSeconds);
+    ThunderRainMix = FMath::FInterpTo(ThunderRainMix, ThunderRainDuckSeconds > 0.f ? .35f : 1.f,
+        DeltaSeconds, ThunderRainDuckSeconds > 0.f ? 8.f : .7f);
+    const float Gain = FMath::Clamp(ThunderVolume, 0.f, 1.f) * FMath::Lerp(1.f, .55f, ShelterAmount);
+    if (!FMath::IsNearlyEqual(Gain, LastThunderGain, .01f) ||
+        !FMath::IsNearlyEqual(ShelterAmount, LastThunderShelter, .02f))
     {
-        LightningFlashTime -= DeltaSeconds;
-        const float Phase = FMath::Clamp(LightningFlashTime / 0.32f, 0.0f, 1.0f);
-        const float Pulse = FMath::Square(FMath::Sin(Phase * PI * 3.0f));
-        LightningLight->SetIntensity(Pulse * 1800000.0f);
-    }
-    else
-    {
-        LightningLight->SetIntensity(0.0f);
+        for (UAudioComponent* Voice : Voices)
+        {
+            Voice->SetVolumeMultiplier(Gain);
+            Voice->SetLowPassFilterFrequency(FMath::Lerp(18000.f, 4000.f, ShelterAmount));
+        }
+        LastThunderGain = Gain;
+        LastThunderShelter = ShelterAmount;
     }
 
-    if (CurrentState != EFPSWeatherState::Storm || TargetRainIntensity < 0.9f)
+    // One pending strike and two reusable voices. No timer allocation or sound
+    // component creation per strike, and a new cue never interrupts an old tail.
+    if (PendingThunderDelay >= 0.f)
     {
-        return;
+        PendingThunderDelay -= DeltaSeconds;
+        if (PendingThunderDelay <= 0.f)
+        {
+            if (CurrentState == EFPSWeatherState::Storm && ThunderSounds.IsValidIndex(PendingThunderSound)
+                && PendingThunderVoice != INDEX_NONE)
+            {
+                UAudioComponent* Voice = Voices[PendingThunderVoice];
+                Voice->SetSound(ThunderSounds[PendingThunderSound]);
+                Voice->SetPitchMultiplier(WeatherRandom.FRandRange(.97f, 1.03f));
+                Voice->Play();
+                // Prepared waves begin at the audible onset. Keep rain below
+                // the main roll, then release smoothly without muting gameplay.
+                ThunderRainDuckSeconds = 6.f;
+                LastThunderSound = PendingThunderSound;
+                UE_LOG(LogTemp, Display, TEXT("WeatherThunder: sound=%s gain=%.2f voice=%d"),
+                    *ThunderSounds[PendingThunderSound]->GetName(), Gain, PendingThunderVoice);
+            }
+            PendingThunderDelay = -1.f;
+            PendingThunderVoice = PendingThunderSound = INDEX_NONE;
+        }
     }
 
+    if (LightningFlashElapsed >= 0.f)
+    {
+        LightningFlashElapsed += DeltaSeconds;
+        const float HoldEnd = FPSStormLightning::AttackSeconds + FMath::Max(0.f, LightningHoldSeconds);
+        const float End = HoldEnd + FMath::Max(.1f, LightningFadeSeconds);
+        float Envelope = 1.f;
+        if (LightningFlashElapsed < FPSStormLightning::AttackSeconds)
+            Envelope = FMath::SmoothStep(0.f, FPSStormLightning::AttackSeconds, LightningFlashElapsed);
+        else if (LightningFlashElapsed > HoldEnd)
+            Envelope = 1.f - FMath::SmoothStep(HoldEnd, End, LightningFlashElapsed);
+        LightningAmount = LightningPeak * FMath::Clamp(LightningStrength, 0.f, 1.f) * Envelope;
+        if (LightningFlashElapsed >= End)
+        {
+            LightningFlashElapsed = -1.f;
+            LightningAmount = 0.f;
+        }
+    }
+
+    const float Fill = LightningAmount * FMath::Clamp(LightningFillLumens, 0.f, 200000.f)
+        * FMath::Square(1.f - ShelterAmount);
+    if (Fill != AppliedLightningFill)
+    {
+        LightningLight->SetIntensity(Fill);
+        if ((Fill > .01f) != (AppliedLightningFill > .01f)) LightningLight->SetVisibility(Fill > .01f);
+        AppliedLightningFill = Fill;
+    }
+
+    if (CurrentState != EFPSWeatherState::Storm) return;
     LightningCountdown -= DeltaSeconds;
-    if (LightningCountdown > 0.0f)
+    if (LightningCountdown > 0.f || EffectiveRainIntensity < .5f || LightningFlashElapsed >= 0.f || PendingThunderDelay >= 0.f) return;
+    const float Delay = FPSStormLightning::RandomSeconds(WeatherRandom, ThunderDelaySeconds, .1f);
+    if (!QueueThunder(Delay))
     {
+        // Both tails are still playing: defer the entire strike, retaining A/V pairing.
+        LightningCountdown = 1.f;
         return;
     }
-
-    LightningFlashTime = 0.32f;
-    LightningCountdown = WeatherRandom.FRandRange(6.0f, 18.0f);
-    const float StrikeDistanceCm = WeatherRandom.FRandRange(80000.0f, 400000.0f);
-    PlayDelayedThunder(StrikeDistanceCm / 34300.0f);
+    LightningFlashElapsed = 0.f;
+    LightningPeak = WeatherRandom.FRandRange(.82f, 1.f);
+    LightningCountdown = FPSStormLightning::RandomSeconds(WeatherRandom, LightningIntervalSeconds, 3.f);
+    UE_LOG(LogTemp, Display, TEXT("WeatherLightning: peak=%.2f thunderDelay=%.2fs next=%.2fs"),
+        LightningPeak * LightningStrength, Delay, LightningCountdown);
 }
 
-void AFPSWeatherManager::PlayDelayedThunder(float DelaySeconds)
+bool AFPSWeatherManager::QueueThunder(float DelaySeconds)
 {
-    if (ThunderSounds.IsEmpty())
+    if (ThunderSounds.IsEmpty()) return false;
+    const int32 VoiceIndex = !ThunderAudio->IsPlaying() ? 0 : !ThunderTailAudio->IsPlaying() ? 1 : INDEX_NONE;
+    if (VoiceIndex == INDEX_NONE) return false;
+    int32 SoundIndex;
+    if (ThunderSounds.Num() > 1 && ThunderSounds.IsValidIndex(LastThunderSound))
     {
-        return;
+        SoundIndex = WeatherRandom.RandRange(0, ThunderSounds.Num() - 2);
+        if (SoundIndex >= LastThunderSound) ++SoundIndex;
     }
-    const int32 SoundIndex = WeatherRandom.RandRange(0, ThunderSounds.Num() - 1);
-    TWeakObjectPtr<AFPSWeatherManager> WeakThis(this);
-    FTimerHandle Handle;
-    GetWorldTimerManager().SetTimer(Handle, [WeakThis, SoundIndex]()
+    else SoundIndex = WeatherRandom.RandRange(0, ThunderSounds.Num() - 1);
+    if (!ThunderSounds[SoundIndex]) return false;
+    PendingThunderSound = SoundIndex;
+    PendingThunderVoice = VoiceIndex;
+    PendingThunderDelay = DelaySeconds;
+    return true;
+}
+
+void AFPSWeatherManager::ResetLightning(bool bFadeThunder)
+{
+    PendingThunderDelay = LightningFlashElapsed = -1.f;
+    PendingThunderSound = PendingThunderVoice = INDEX_NONE;
+    LightningAmount = AppliedLightningFill = 0.f;
+    ThunderRainDuckSeconds = 0.f;
+    LightningLight->SetIntensity(0.f);
+    LightningLight->SetVisibility(false);
+    UAudioComponent* Voices[] = { ThunderAudio, ThunderTailAudio };
+    for (UAudioComponent* Voice : Voices)
     {
-        if (WeakThis.IsValid() && WeakThis->CurrentState == EFPSWeatherState::Storm && WeakThis->ThunderSounds.IsValidIndex(SoundIndex))
-        {
-            WeakThis->ThunderAudio->SetSound(WeakThis->ThunderSounds[SoundIndex]);
-            WeakThis->ThunderAudio->Play();
-        }
-    }, DelaySeconds, false);
+        if (bFadeThunder && Voice->IsPlaying()) Voice->FadeOut(.75f, 0.f);
+        else Voice->Stop();
+    }
+}
+
+void AFPSWeatherManager::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    ResetLightning(false);
+    if (WeatherParameters && GetWorld())
+        if (auto* Parameters = GetWorld()->GetParameterCollectionInstance(WeatherParameters))
+            Parameters->SetScalarParameterValue(FPSWeatherNames::Lightning, 0.f);
+    Super::EndPlay(EndPlayReason);
 }
 
 void AFPSWeatherManager::InitializeHillsLighting()

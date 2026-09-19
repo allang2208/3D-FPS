@@ -110,10 +110,10 @@ protected:
     FVector LightOffset = FVector(50.0f, 0.0f, 52.0f);
 
     UPROPERTY(EditAnywhere, Category="Torch|Light")
-    float LightLumens = 600.0f;
+    float LightLumens = 350.0f;
 
     UPROPERTY(EditAnywhere, Category="Torch|Light")
-    float LightRadiusCm = 900.0f;
+    float LightRadiusCm = 500.0f;
 
     UPROPERTY(EditAnywhere, Category="Torch|Light")
     FLinearColor LightColor = FLinearColor(1.0f, 0.60f, 0.26f);
@@ -123,10 +123,10 @@ protected:
     bool bLightCastsShadows = false;
 
     UPROPERTY(EditAnywhere, Category="Torch|Light", meta=(ClampMin="0.0", ClampMax="1.0"))
-    float FlickerAmplitude = 0.12f;
+    float FlickerAmplitude = 0.04f;
 
     UPROPERTY(EditAnywhere, Category="Torch|Light", meta=(ClampMin="0.1"))
-    float FlickerFrequency = 7.5f;
+    float FlickerFrequency = 1.5f;
 
     // ---------------------------------------------------------------- 自动点火
     /** 与天空自己的相位边界对齐：夕阳段 16.5 起、日出段 6.0 结束（见 TemperateHillsDayNightSky.cpp）。 */

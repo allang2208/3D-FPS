@@ -87,6 +87,15 @@ void ABronzeTorch::OnConstruction(const FTransform& Transform)
 void ABronzeTorch::BeginPlay()
 {
     Super::BeginPlay();
+    // Migrate the old authored defaults on already placed/saved torches too.
+    // Keep deliberately customized values; do not rewrite the user's world save.
+    if (FMath::IsNearlyEqual(LightLumens, 600.0f)) LightLumens = 350.0f;
+    if (FMath::IsNearlyEqual(LightRadiusCm, 900.0f)) LightRadiusCm = 500.0f;
+    if (FMath::IsNearlyEqual(FlickerAmplitude, 0.12f)) FlickerAmplitude = 0.04f;
+    if (FMath::IsNearlyEqual(FlickerFrequency, 7.5f)) FlickerFrequency = 1.5f;
+    const FVector TorchPosition = GetActorLocation();
+    const float PhaseSeed = FMath::Sin(TorchPosition.X * 0.017f + TorchPosition.Y * 0.031f + TorchPosition.Z * 0.013f) * 43758.5453f;
+    FlickerPhase = (PhaseSeed - FMath::FloorToFloat(PhaseSeed)) * 2.0f * PI;
     ApplyComponentOffsets();
     ResolveWeatherManager();
     RefreshClock(0.0f);
@@ -119,6 +128,11 @@ void ABronzeTorch::ApplyComponentOffsets()
         TorchLight->SetLightColor(LightColor);
         TorchLight->SetAttenuationRadius(LightRadiusCm);
         TorchLight->SetCastShadows(bLightCastsShadows);
+        // Give the flame a finite source; keep sharp glints and fog halos subdued.
+        TorchLight->SetSourceRadius(6.0f);
+        TorchLight->SetSoftSourceRadius(8.0f);
+        TorchLight->SetSpecularScale(0.6f);
+        TorchLight->SetVolumetricScatteringIntensity(0.08f);
     }
 }
 
@@ -227,8 +241,8 @@ void ABronzeTorch::ApplyVisuals(float DeltaSeconds)
         if (bEnableLight && bIgnited)
         {
             FlickerPhase += DeltaSeconds * FlickerFrequency * 2.0f * PI;
-            const float Flicker = 1.0f + FlickerAmplitude * 0.55f *
-                (FMath::Sin(FlickerPhase) + 0.6f * FMath::Sin(2.7f * FlickerPhase + 1.3f));
+            const float Flicker = 1.0f + FlickerAmplitude *
+                (0.7f * FMath::Sin(FlickerPhase) + 0.3f * FMath::Sin(0.63f * FlickerPhase + 1.3f));
             TorchLight->SetVisibility(true);
             TorchLight->SetIntensity(LightLumens * IgnitionAmount * Flicker);
         }

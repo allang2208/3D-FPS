@@ -39,11 +39,13 @@ public:
     UPROPERTY(EditAnywhere, Category="Weather|Clouds",meta=(ClampMin="0.0001",ClampMax="0.05"))
     float CloudDensity = .008f;
     UPROPERTY(EditAnywhere, Category="Weather|Clouds",meta=(ClampMin="0.0001",ClampMax="0.05"))
-    float StormCloudDensity = .010f;
+    float StormCloudDensity = .0065f;
     UPROPERTY(EditAnywhere, Category="Weather|Hills Clouds")
     float ClearCloudCoverage = -.18f;
     UPROPERTY(EditAnywhere, Category="Weather|Hills Clouds")
     float CloudyCloudCoverage = -.04f;
+    UPROPERTY(EditAnywhere, Category="Weather|Clouds",meta=(ClampMin="0.0",ClampMax="20.0"))
+    float StormWindMultiplier = 10.f;
 private:
     UPROPERTY(Transient) TWeakObjectPtr<UVolumetricCloudComponent> Cloud;
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> OriginalMaterial;
@@ -59,9 +61,13 @@ private:
     float OriginalBottom=2, OriginalHeight=2, OriginalOcclusion=0;
     float Coverage=0, Density=0, Storm=0;
     FLinearColor Albedo=FLinearColor::White;
+    FLinearColor StormAlbedo=FLinearColor(.58f,.62f,.67f,.333333f);
     FLinearColor WindControls=FLinearColor(1.f,.32f,.12f,.333333f);
     FLinearColor LayoutPlacement=FLinearColor::Black;
     FVector2D WindOffset=FVector2D::ZeroVector;
+    double CloudMotionSeconds=0;
+    float CloudLayoutScaleKm=256.f;
+    bool bLayeredClouds=false;
     bool bOriginalVisible=false, bCreatedCloud=false, bOverride=false;
     bool bHillsClouds=false;
     void Discover();

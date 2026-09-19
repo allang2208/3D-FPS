@@ -17,6 +17,7 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Materials/MaterialInterface.h"
 #include "UObject/ConstructorHelpers.h"
+#include "HAL/IConsoleManager.h"
 
 namespace WeaponFX
 {
@@ -36,7 +37,7 @@ namespace WeaponFX
 // compensated with a damped, capped factor and a small forward offset instead of
 // being made brighter. Presentation only: the muzzle socket, the shot direction
 // and the trace are untouched.
-static TAutoConsoleVariable<float> ScopeWorldScaleExponent(TEXT("fps.Scope.WorldScaleExponent"),.5f,
+static TAutoConsoleVariable<float> ScopeWorldScaleExponent(TEXT("fps.Scope.WorldScaleExponent"),0.f,
     TEXT("Damped magnification exponent for the world muzzle flash (0 = off)."));
 static TAutoConsoleVariable<float> ScopeWorldScaleMax(TEXT("fps.Scope.WorldScaleMax"),2.5f,
     TEXT("Hard cap for the world muzzle flash compensation."));
@@ -97,6 +98,11 @@ void UFPSWeaponFXComponent::Initialize(USkeletalMeshComponent* InWeaponMesh, UCa
         FlashLight->SetCastShadows(false);
         FlashLight->SetIntensityUnits(ELightUnits::Lumens);
         FlashLight->SetAttenuationRadius(125.0f);
+        FlashLight->SetSourceRadius(3.0f);
+        FlashLight->SetSoftSourceRadius(5.0f);
+        FlashLight->SetSpecularScale(0.35f);
+        FlashLight->SetVolumetricScatteringIntensity(0.0f);
+        FlashLight->SetIndirectLightingIntensity(0.0f);
         FlashLight->SetLightColor(FLinearColor(1.0f, 0.56f, 0.20f));
         FlashLight->SetVisibility(false);
         FlashLight->RegisterComponent();
@@ -258,7 +264,9 @@ bool UFPSWeaponFXComponent::SpawnEpicFX(FVector Position,FVector Forward,float S
         ? FMath::FRandRange(.45f, .75f) : FMath::FRandRange(.70f, 1.f));
     const FLinearColor SourceFlash=System->GetExposedParameters().GetParameterValue<FLinearColor>(
         FNiagaraVariable(FNiagaraTypeDefinition::GetColorDef(),TEXT("User.Flash Base Color")));
-    const float FlashGain = (bScope ? .90f : .80f) * FMath::FRandRange(.88f, 1.14f);
+    const auto* FlashOwner = Cast<AFPSGAMECharacter>(GetOwner());
+    const bool bAiming = FlashOwner && FlashOwner->IsAiming();
+    const float FlashGain = (bScope ? .35f : bAiming ? .42f : .55f) * FMath::FRandRange(.92f, 1.08f);
     FX->SetVariableLinearColor(TEXT("User.Flash Base Color"),FLinearColor(
         SourceFlash.R*FlashGain,SourceFlash.G*FlashGain,SourceFlash.B*FlashGain,SourceFlash.A));
     if(EpicMuzzleBursts==0)UE_LOG(LogTemp,Display,TEXT("EPIC_GUN_FX source_flash=%s"),*SourceFlash.ToString());
@@ -335,7 +343,7 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwner());
     const float Suppression=(bIndependentPistol?IndependentSuppressed:(Character&&Character->IsMuzzleSuppressed()))?.12f:1.f;
     LastSuppression=Suppression;
-    LastADSMultiplier = bADS ? 0.94f : 1.0f;
+    LastADSMultiplier = bADS ? 0.78f : 1.0f;
     LastWeaponFlashMultiplier = bIndependentPistol || (Character && Character->IsPistolWeapon()) ? FMath::Clamp(PistolFlashScale, 0.f, 1.f) : 1.f;
     const float Scale = FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier;
     LastFXShotTime=GetWorld()->GetTimeSeconds();
@@ -382,7 +390,7 @@ void UFPSWeaponFXComponent::OnShot(bool bADS)
     FlashTime = Epic?0.f:0.045f;
     FlashBirthFrame = GFrameCounter;
     FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
-    FlashLight->SetIntensity(950.0f * Scale * LastSuppression);
+    FlashLight->SetIntensity(350.0f * Scale * LastSuppression);
     FlashLight->SetVisibility(!Epic && Scale > 0.0f);
     SetComponentTickEnabled(true);
 }
@@ -567,7 +575,7 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
     if (FlashTime > 0.0f)
     {
         FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
-        FlashLight->SetIntensity(950.0f * FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier * LastSuppression * FMath::Square(FlashTime / 0.045f));
+        FlashLight->SetIntensity(350.0f * FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier * LastSuppression * FMath::Square(FlashTime / 0.045f));
     }
     else FlashLight->SetVisibility(false);
     const bool bHideCasings = ShouldHideCasings();

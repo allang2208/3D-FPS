@@ -1,0 +1,71 @@
+{
+  "source": "Existing project Thunder Sounds pack; derivative for local game use only.",
+  "redistribution": "No additional redistribution rights granted; do not publish source audio or uassets.",
+  "target_lufs": -20,
+  "true_peak_db": -3,
+  "assets": [
+    {
+      "variant": "I",
+      "source_asset": "/Game/Thunder_Sounds/WAV/WAV_Thunder_Lightning_I_Without_rain_wind_background_noise",
+      "source_sha256": "64d26fa7c03b1564bfd30c624115806bac27b4f713dbc14398297b31d599a4db",
+      "output": "S_Thunder_I.wav",
+      "output_sha256": "dd018cbd8b588e389b3653c7a58e79bac1474efeb6547b2fa6b2ff2362c90c9c",
+      "trimmed_lead_seconds": 3.27,
+      "duration_seconds": 13.5195,
+      "processing": {
+        "input_i": "-27.87",
+        "input_tp": "-7.00",
+        "input_lra": "21.30",
+        "input_thresh": "-42.64",
+        "output_i": "-20.99",
+        "output_tp": "-3.00",
+        "output_lra": "19.50",
+        "output_thresh": "-34.96",
+        "normalization_type": "dynamic",
+        "target_offset": "0.99"
+      }
+    },
+    {
+      "variant": "II",
+      "source_asset": "/Game/Thunder_Sounds/WAV/WAV_Thunder_Lightning_II_Without_rain_wind_background_noise",
+      "source_sha256": "db9d02a795f2cb6c0c4d102ad6bbf3f429b752e25c1aa986b72c656e559dfc0c",
+      "output": "S_Thunder_II.wav",
+      "output_sha256": "a7b7bf527d53cc7826190227a6849725f6cc6f07ddae0af64b448b87fd67a846",
+      "trimmed_lead_seconds": 3.67,
+      "duration_seconds": 17.9522,
+      "processing": {
+        "input_i": "-23.00",
+        "input_tp": "-7.00",
+        "input_lra": "23.30",
+        "input_thresh": "-38.78",
+        "output_i": "-20.00",
+        "output_tp": "-3.62",
+        "output_lra": "19.70",
+        "output_thresh": "-34.73",
+        "normalization_type": "dynamic",
+        "target_offset": "0.00"
+      }
+    },
+    {
+      "variant": "III",
+      "source_asset": "/Game/Thunder_Sounds/WAV/WAV_Thunder_Lightning_III_Without_rain_wind_background_noise",
+      "source_sha256": "d6bcf6b2c573a0e5f3e713e19306aa446ef312e90b0851a7abcddb534c7b4833",
+      "output": "S_Thunder_III.wav",
+      "output_sha256": "dd8fdeba2d3736210ff8fef5069a77bac93e112d52b139be40cab99b82d50005",
+      "trimmed_lead_seconds": 2.92,
+      "duration_seconds": 13.3733,
+      "processing": {
+        "input_i": "-30.71",
+        "input_tp": "-7.00",
+        "input_lra": "23.40",
+        "input_thresh": "-43.95",
+        "output_i": "-21.24",
+        "output_tp": "-3.00",
+        "output_lra": "11.20",
+        "output_thresh": "-31.96",
+        "normalization_type": "dynamic",
+        "target_offset": "1.24"
+      }
+    }
+  ]
+}

@@ -217,7 +217,11 @@ def skies():
                 float3 background=max(Atmosphere.rgb,fallback);
                 return lerp(Base,background,amount);'''
                 color=custom(m,code,dict(Base=(src,out),Atmosphere=node(m,unreal.MaterialExpressionSkyAtmosphereViewLuminance),Direction=node(m,unreal.MaterialExpressionCameraVectorWS),Blend=scalar(m,'WeatherSkyBlend',0),Day=scalar(m,'WeatherSkyDaylight',1)),3,'Atmospheric storm backdrop')
-                prop(color,'EMISSIVE_COLOR');save(m)
+                prop(color,'EMISSIVE_COLOR')
+                import runpy
+                lightning=runpy.run_path('D:/FPS3D/FPSGAME/Tools/Weather/build_storm_lightning_materials.py')
+                lightning['connect_sky_lightning'](m)
+                save(m)
             bases[base.get_path_name()]=m
         target=bases[base.get_path_name()]
         if isinstance(source,unreal.MaterialInstanceConstant):

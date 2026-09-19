@@ -116,6 +116,29 @@ namespace M1911Source
     constexpr float SlideRelease = 192.f / 120.f;
 }
 
+namespace FPSComfortLighting
+{
+    void Apply(UCameraComponent* Camera)
+    {
+        // Camera overrides apply consistently in Home and generated worlds.
+        // Exposure remains owned by the map/weather, preserving night brightness.
+        FPostProcessSettings& Settings = Camera->PostProcessSettings;
+        Camera->PostProcessBlendWeight = 1.0f;
+        Settings.bOverride_LensFlareIntensity = true;
+        Settings.LensFlareIntensity = 0.0f;
+        Settings.bOverride_BloomDirtMaskIntensity = true;
+        Settings.BloomDirtMaskIntensity = 0.0f;
+        Settings.bOverride_BloomMethod = true;
+        Settings.BloomMethod = BM_SOG;
+        Settings.bOverride_BloomIntensity = true;
+        Settings.BloomIntensity = 0.15f;
+        Settings.bOverride_BloomGaussianIntensity = true;
+        Settings.BloomGaussianIntensity = 1.0f;
+        Settings.bOverride_BloomThreshold = true;
+        Settings.BloomThreshold = 2.0f;
+    }
+}
+
 AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer.SetDefaultSubobjectClass<UFPSCharacterMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
@@ -146,6 +169,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     // Preserve sight and hand readability during quick turns and reload contacts.
     FirstPersonCamera->PostProcessSettings.bOverride_MotionBlurAmount = true;
     FirstPersonCamera->PostProcessSettings.MotionBlurAmount = 0.0f;
+    FPSComfortLighting::Apply(FirstPersonCamera);
 
     AKMViewmodel = CreateDefaultSubobject<UFPSCastingMeshComponent>(TEXT("AKMViewmodel"));
     AKMViewmodel->SetupAttachment(FirstPersonCamera);
@@ -204,6 +228,7 @@ void AFPSGAMECharacter::BeginPlay()
         return;
     }
     CameraRestLocation = FirstPersonCamera->GetRelativeLocation();
+    FPSComfortLighting::Apply(FirstPersonCamera);
     ConfirmedMonsterHitSound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/PlayerHitFeedback20260914/S_Player_MonsterHit.S_Player_MonsterHit"));
     if (FParse::Param(FCommandLine::Get(), TEXT("WeaponVolumeAudit")))
     {
