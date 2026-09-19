@@ -1,0 +1,34 @@
+{
+  "reload": {
+    "path": "/Game/Weapons/M4AnimationAuditFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+    "duration": 2.0999999046325684,
+    "before_sha256": "c8c99de887b24b819ea6abf8d53789674feaeedf04e69e597d3d0a0dad8bbd52",
+    "after_sha256": "a720316d0a45896ab38f4ea559f12d01432c895677c57680b0c5a005a0914271",
+    "keys": 1009,
+    "compression_error_cm": 0.0007529150398664651
+  },
+  "reload_empty": {
+    "path": "/Game/Weapons/M4AnimationAuditFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+    "duration": 2.700000047683716,
+    "before_sha256": "145c5e7444520f86f18977481a2f7834950cc7336610e04f8850cbeb8849f1de",
+    "after_sha256": "8620baec3128d12ff9eb211dce5814c360468c89f884c0f77189ed04d545edae",
+    "keys": 1297,
+    "compression_error_cm": 0.006689947621624803
+  },
+  "equip_charge": {
+    "path": "/Game/Weapons/M4AnimationAuditFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+    "duration": 0.6333333253860474,
+    "before_sha256": "7c0515f66767cecda5710b4226bbf92975d65357b9a03b3f2b26bace764d09c9",
+    "after_sha256": "0f026224c58ee2aa0aa184b7e3d130f569fcbb0785c27f9bfcf4a94ae115dfff",
+    "keys": 305,
+    "compression_error_cm": 0.0008669305685929206
+  },
+  "S_HK416_Equip": {
+    "path": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip.S_HK416_Equip",
+    "duration": 0.7200000286102295
+  },
+  "S_HK416_BoltRelease": {
+    "path": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease.S_HK416_BoltRelease",
+    "duration": 0.15000000596046448
+  }
+}

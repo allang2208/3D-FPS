@@ -1,0 +1,44 @@
+{
+  "hand": {
+    "mag_pairs": 0,
+    "body_pairs": 0,
+    "depth_mm": 0,
+    "inside": 0,
+    "nearest_mag_mm": 25.841722264885902
+  },
+  "index": {
+    "mag_pairs": 270,
+    "body_pairs": 0,
+    "depth_mm": 9.696968598291278,
+    "inside": 103,
+    "nearest_mag_mm": 0.00939145957090659
+  },
+  "middle": {
+    "mag_pairs": 231,
+    "body_pairs": 0,
+    "depth_mm": 10.303355287760496,
+    "inside": 43,
+    "nearest_mag_mm": 0.008434431038040202
+  },
+  "ring": {
+    "mag_pairs": 226,
+    "body_pairs": 0,
+    "depth_mm": 10.9514519572258,
+    "inside": 140,
+    "nearest_mag_mm": 0.023664002583245747
+  },
+  "pinky": {
+    "mag_pairs": 144,
+    "body_pairs": 0,
+    "depth_mm": 12.58193887770176,
+    "inside": 129,
+    "nearest_mag_mm": 0.006849145847809268
+  },
+  "thumb": {
+    "mag_pairs": 389,
+    "body_pairs": 0,
+    "depth_mm": 10.22428646683693,
+    "inside": 170,
+    "nearest_mag_mm": 0.00041443854570388794
+  }
+}

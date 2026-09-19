@@ -1,0 +1,3334 @@
+ M .gitignore
+ M AGENTS.md
+ M DESIGN.md
+ M README.md
+ M UI-WORKFLOW.md
+ M WORKFLOW.md
+ D addons/terrain_3d/bin/~libterrain.windows.debug.x86_64.dll~RF2c0691.TMP
+ M assets/data/craft-config.json
+ M assets/data/equipment.json
+ M assets/data/inventory-migration.json
+ M assets/materials/mine_floor_candidate/floor_albedo.png.import
+ M assets/materials/mine_floor_candidate/floor_normal.png.import
+ M assets/materials/mine_floor_candidate/floor_roughness.png.import
+ M assets/models/ak/akm_glb/tex/akm_ao.png.import
+ M assets/models/ak/akm_glb/tex/akm_basecolor.png.import
+ M assets/models/ak/akm_glb/tex/akm_metallic.png.import
+ M assets/models/ak/akm_glb/tex/akm_normal.png.import
+ M assets/models/ak/akm_glb/tex/akm_roughness.png.import
+ M assets/models/ak/akm_glb/tex/magazine_ao.png.import
+ M assets/models/ak/akm_glb/tex/magazine_basecolor.png.import
+ M assets/models/ak/akm_glb/tex/magazine_metallic.png.import
+ M assets/models/ak/akm_glb/tex/magazine_normal.png.import
+ M assets/models/ak/akm_glb/tex/magazine_roughness.png.import
+ M assets/models/ak/lowpoly_akm/lowpoly_body.tres
+ M assets/models/ak/lowpoly_akm/lowpoly_mag.tres
+ M assets/models/altar/altar_tex_altar.png.import
+ M assets/models/black_wolf_rigged_18bone_black_wolf_unirig_Image_0.png.import
+ M assets/models/black_wolf_rigged_18bone_black_wolf_unirig_Image_1.png.import
+ M assets/models/black_wolf_trellis_0.png.import
+ M assets/models/black_wolf_trellis_1.png.import
+ M assets/models/black_wolf_unirig.glb.import
+ M assets/models/black_wolf_unirig_Image_0.png.import
+ M assets/models/black_wolf_unirig_Image_1.png.import
+ M assets/models/foreman_zombie/foreman_v01.glb.import
+ M assets/models/foreman_zombie/foreman_v01_Image_0.png.import
+ M assets/models/foreman_zombie/foreman_v01_Image_1.png.import
+ M assets/models/foreman_zombie/foreman_v04.glb.import
+ M assets/models/foreman_zombie/summons/config.json
+ D assets/models/kenney_nature/tent_detailedOpen.glb
+ D assets/models/kenney_nature/tent_detailedOpen.glb.import
+ M assets/models/kenney_nature/tent_smallClosed.glb.import
+ M assets/models/kenney_nature/tent_smallOpen.glb.import
+ M assets/models/kenney_nature/tree_blocks.glb.import
+ M assets/models/kenney_nature/tree_blocks_dark.glb.import
+ M assets/models/kenney_nature/tree_blocks_fall.glb.import
+ M assets/models/kenney_nature/tree_cone.glb.import
+ M assets/models/kenney_nature/tree_cone_dark.glb.import
+ M assets/models/kenney_nature/tree_cone_fall.glb.import
+ M assets/models/kenney_nature/tree_default.glb.import
+ M assets/models/kenney_nature/tree_default_dark.glb.import
+ M assets/models/kenney_nature/tree_default_fall.glb.import
+ M assets/models/kenney_nature/tree_detailed.glb.import
+ M assets/models/kenney_nature/tree_detailed_dark.glb.import
+ M assets/models/kenney_nature/tree_detailed_fall.glb.import
+ M assets/models/kenney_nature/tree_fat.glb.import
+ M assets/models/kenney_nature/tree_fat_darkh.glb.import
+ M assets/models/kenney_nature/tree_fat_fall.glb.import
+ M assets/models/kenney_nature/tree_oak.glb.import
+ M assets/models/kenney_nature/tree_oak_dark.glb.import
+ M assets/models/kenney_nature/tree_oak_fall.glb.import
+ M assets/models/kenney_nature/tree_palm.glb.import
+ M assets/models/kenney_nature/tree_palmBend.glb.import
+ M assets/models/kenney_nature/tree_palmDetailedShort.glb.import
+ M assets/models/kenney_nature/tree_palmDetailedTall.glb.import
+ M assets/models/kenney_nature/tree_palmShort.glb.import
+ M assets/models/kenney_nature/tree_palmTall.glb.import
+ M assets/models/kenney_nature/tree_pineDefaultA.glb.import
+ M assets/models/kenney_nature/tree_pineDefaultB.glb.import
+ M assets/models/kenney_nature/tree_pineGroundA.glb.import
+ M assets/models/kenney_nature/tree_pineGroundB.glb.import
+ M assets/models/kenney_nature/tree_pineRoundA.glb.import
+ M assets/models/kenney_nature/tree_pineRoundB.glb.import
+ M assets/models/kenney_nature/tree_pineRoundC.glb.import
+ M assets/models/kenney_nature/tree_pineRoundD.glb.import
+ M assets/models/kenney_nature/tree_pineRoundE.glb.import
+ M assets/models/kenney_nature/tree_pineRoundF.glb.import
+ M assets/models/kenney_nature/tree_pineSmallA.glb.import
+ M assets/models/kenney_nature/tree_pineSmallB.glb.import
+ M assets/models/kenney_nature/tree_pineSmallC.glb.import
+ M assets/models/kenney_nature/tree_pineSmallD.glb.import
+ M assets/models/kenney_nature/tree_pineTallA.glb.import
+ M assets/models/kenney_nature/tree_pineTallA_detailed.glb.import
+ M assets/models/kenney_nature/tree_pineTallB.glb.import
+ M assets/models/kenney_nature/tree_pineTallB_detailed.glb.import
+ M assets/models/kenney_nature/tree_pineTallC.glb.import
+ M assets/models/kenney_nature/tree_pineTallC_detailed.glb.import
+ M assets/models/kenney_nature/tree_pineTallD.glb.import
+ M assets/models/kenney_nature/tree_pineTallD_detailed.glb.import
+ M assets/models/kenney_nature/tree_plateau.glb.import
+ M assets/models/kenney_nature/tree_plateau_dark.glb.import
+ M assets/models/kenney_nature/tree_plateau_fall.glb.import
+ M assets/models/kenney_nature/tree_simple.glb.import
+ M assets/models/kenney_nature/tree_simple_dark.glb.import
+ M assets/models/kenney_nature/tree_simple_fall.glb.import
+ M assets/models/kenney_nature/tree_small.glb.import
+ M assets/models/kenney_nature/tree_small_dark.glb.import
+ M assets/models/kenney_nature/tree_small_fall.glb.import
+ M assets/models/kenney_nature/tree_tall.glb.import
+ M assets/models/kenney_nature/tree_tall_dark.glb.import
+ M assets/models/kenney_nature/tree_tall_fall.glb.import
+ M assets/models/kenney_nature/tree_thin.glb.import
+ M assets/models/kenney_nature/tree_thin_dark.glb.import
+ M assets/models/kenney_nature/tree_thin_fall.glb.import
+ M assets/models/kenney_tower_defense/Textures/colormap.png.import
+ M assets/models/kenney_tower_defense/detail-crystal-large.glb.import
+ M assets/models/kenney_tower_defense/detail-crystal.glb.import
+ M assets/models/kenney_tower_defense/detail-dirt-large.glb.import
+ M assets/models/kenney_tower_defense/detail-dirt.glb.import
+ M assets/models/kenney_tower_defense/detail-rocks-large.glb.import
+ M assets/models/kenney_tower_defense/detail-rocks.glb.import
+ M assets/models/kenney_tower_defense/detail-tree-large.glb.import
+ M assets/models/kenney_tower_defense/detail-tree.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-a-weapon.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-a.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-b-weapon.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-b.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-beam-burst.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-beam.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-c-weapon.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-c.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-d-weapon.glb.import
+ M assets/models/kenney_tower_defense/enemy-ufo-d.glb.import
+ M assets/models/kenney_tower_defense/selection-a.glb.import
+ M assets/models/kenney_tower_defense/selection-b.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-crystal-large.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-crystal.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-dirt-large.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-dirt.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-rocks-large.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-rocks.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-tree-large.glb.import
+ M assets/models/kenney_tower_defense/snow-detail-tree.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-bump.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-corner-inner.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-corner-large.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-corner-outer.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-corner-round.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-corner-square.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-crossing.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-crystal.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-dirt.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-end-round.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-end.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-hill.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-bridge.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-corner.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-slope-large.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-slope.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-straight.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-transition.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-river-waterfall.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-rock.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-slope.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-spawn-end-round.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-spawn-end.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-spawn-round.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-spawn.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-split.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-straight-slope-large.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-straight-slope.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-straight.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-transition.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-tree-double.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-tree-quad.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-tree.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-wide-corner.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-wide-split.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-wide-straight.glb.import
+ M assets/models/kenney_tower_defense/snow-tile-wide-transition.glb.import
+ M assets/models/kenney_tower_defense/snow-tile.glb.import
+ M assets/models/kenney_tower_defense/snow-wood-structure-high-part.glb.import
+ M assets/models/kenney_tower_defense/snow-wood-structure-high.glb.import
+ M assets/models/kenney_tower_defense/snow-wood-structure-part.glb.import
+ M assets/models/kenney_tower_defense/snow-wood-structure.glb.import
+ M assets/models/kenney_tower_defense/spawn-round.glb.import
+ M assets/models/kenney_tower_defense/spawn-square.glb.import
+ M assets/models/kenney_tower_defense/tile-bump.glb.import
+ M assets/models/kenney_tower_defense/tile-corner-inner.glb.import
+ M assets/models/kenney_tower_defense/tile-corner-large.glb.import
+ M assets/models/kenney_tower_defense/tile-corner-outer.glb.import
+ M assets/models/kenney_tower_defense/tile-corner-round.glb.import
+ M assets/models/kenney_tower_defense/tile-corner-square.glb.import
+ M assets/models/kenney_tower_defense/tile-crossing.glb.import
+ M assets/models/kenney_tower_defense/tile-crystal.glb.import
+ M assets/models/kenney_tower_defense/tile-dirt.glb.import
+ M assets/models/kenney_tower_defense/tile-end-round.glb.import
+ M assets/models/kenney_tower_defense/tile-end.glb.import
+ M assets/models/kenney_tower_defense/tile-hill.glb.import
+ M assets/models/kenney_tower_defense/tile-river-bridge.glb.import
+ M assets/models/kenney_tower_defense/tile-river-corner.glb.import
+ M assets/models/kenney_tower_defense/tile-river-slope-large.glb.import
+ M assets/models/kenney_tower_defense/tile-river-slope.glb.import
+ M assets/models/kenney_tower_defense/tile-river-straight.glb.import
+ M assets/models/kenney_tower_defense/tile-river-transition.glb.import
+ M assets/models/kenney_tower_defense/tile-river-waterfall.glb.import
+ M assets/models/kenney_tower_defense/tile-rock.glb.import
+ M assets/models/kenney_tower_defense/tile-slope.glb.import
+ M assets/models/kenney_tower_defense/tile-spawn-end-round.glb.import
+ M assets/models/kenney_tower_defense/tile-spawn-end.glb.import
+ M assets/models/kenney_tower_defense/tile-spawn-round.glb.import
+ M assets/models/kenney_tower_defense/tile-spawn.glb.import
+ M assets/models/kenney_tower_defense/tile-split.glb.import
+ M assets/models/kenney_tower_defense/tile-straight-slope-large.glb.import
+ M assets/models/kenney_tower_defense/tile-straight-slope.glb.import
+ M assets/models/kenney_tower_defense/tower-square-build-e.glb.import
+ M assets/models/kenney_tower_defense/tower-square-build-f.glb.import
+ M assets/models/kenney_tower_defense/tower-square-middle-a.glb.import
+ M assets/models/kenney_tower_defense/tower-square-middle-b.glb.import
+ M assets/models/kenney_tower_defense/tower-square-middle-c.glb.import
+ M assets/models/kenney_tower_defense/tower-square-roof-a.glb.import
+ M assets/models/kenney_tower_defense/tower-square-roof-b.glb.import
+ M assets/models/kenney_tower_defense/tower-square-roof-c.glb.import
+ M assets/models/kenney_tower_defense/tower-square-top-a.glb.import
+ M assets/models/kenney_tower_defense/tower-square-top-b.glb.import
+ M assets/models/kenney_tower_defense/tower-square-top-c.glb.import
+ M assets/models/kenney_tower_defense/weapon-ammo-arrow.glb.import
+ M assets/models/kenney_tower_defense/weapon-ammo-boulder.glb.import
+ M assets/models/kenney_tower_defense/weapon-ammo-bullet.glb.import
+ M assets/models/kenney_tower_defense/weapon-ammo-cannonball.glb.import
+ M assets/models/kenney_tower_defense/weapon-ballista.glb.import
+ M assets/models/kenney_tower_defense/weapon-cannon.glb.import
+ M assets/models/kenney_tower_defense/weapon-catapult.glb.import
+ M assets/models/kenney_tower_defense/weapon-turret.glb.import
+ M assets/models/kenney_tower_defense/wood-structure-high-part.glb.import
+ M assets/models/kenney_tower_defense/wood-structure-high.glb.import
+ M assets/models/kenney_tower_defense/wood-structure-part.glb.import
+ M assets/models/kenney_tower_defense/wood-structure.glb.import
+ D assets/models/lolipop_pines/INTEGRATION.md
+ D assets/models/lolipop_pines/SOURCE.md
+ D assets/models/lolipop_pines/needles.gdshader
+ D assets/models/lolipop_pines/needles.gdshader.uid
+ D assets/models/lolipop_pines/source/Pine_pack.fbx
+ D assets/models/lolipop_pines/source/Pine_pack.fbx.import
+ D assets/models/lolipop_pines/textures/Bark_ambientocclusion.png
+ D assets/models/lolipop_pines/textures/Bark_ambientocclusion.png.import
+ D assets/models/lolipop_pines/textures/Bark_basecolor.png
+ D assets/models/lolipop_pines/textures/Bark_basecolor.png.import
+ D assets/models/lolipop_pines/textures/Bark_normal.png
+ D assets/models/lolipop_pines/textures/Bark_normal.png.import
+ D assets/models/lolipop_pines/textures/Bark_roughness.png
+ D assets/models/lolipop_pines/textures/Bark_roughness.png.import
+ D assets/models/lolipop_pines/textures/Cluster_full_Opacity.png
+ D assets/models/lolipop_pines/textures/Cluster_full_Opacity.png.import
+ D assets/models/lolipop_pines/textures/Cluster_full_SubsurfaceAmount.png
+ D assets/models/lolipop_pines/textures/Cluster_full_SubsurfaceAmount.png.import
+ D assets/models/lolipop_pines/textures/Cluster_full_ambientocclusion.png
+ D assets/models/lolipop_pines/textures/Cluster_full_ambientocclusion.png.import
+ D assets/models/lolipop_pines/textures/Cluster_full_basecolor.png
+ D assets/models/lolipop_pines/textures/Cluster_full_basecolor.png.import
+ D assets/models/lolipop_pines/textures/Cluster_full_normal.png
+ D assets/models/lolipop_pines/textures/Cluster_full_normal.png.import
+ D assets/models/lolipop_pines/textures/Cluster_full_roughness.png
+ D assets/models/lolipop_pines/textures/Cluster_full_roughness.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_1_Billboard_Color.png
+ D assets/models/lolipop_pines/textures/Pine_big_1_Billboard_Color.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_1_Billboard_Normal.png
+ D assets/models/lolipop_pines/textures/Pine_big_1_Billboard_Normal.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_1_Billboard_SS.png
+ D assets/models/lolipop_pines/textures/Pine_big_1_Billboard_SS.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_2_Billboard_Color.png
+ D assets/models/lolipop_pines/textures/Pine_big_2_Billboard_Color.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_2_Billboard_Normal.png
+ D assets/models/lolipop_pines/textures/Pine_big_2_Billboard_Normal.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_2_Billboard_SS.png
+ D assets/models/lolipop_pines/textures/Pine_big_2_Billboard_SS.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_3_Billboard_Color.png
+ D assets/models/lolipop_pines/textures/Pine_big_3_Billboard_Color.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_3_Billboard_Normal.png
+ D assets/models/lolipop_pines/textures/Pine_big_3_Billboard_Normal.png.import
+ D assets/models/lolipop_pines/textures/Pine_big_3_Billboard_SS.png
+ D assets/models/lolipop_pines/textures/Pine_big_3_Billboard_SS.png.import
+ M assets/models/ordinary_zombie/zombie_v01.glb.import
+ M assets/models/ordinary_zombie/zombie_v01_Image_0.png.import
+ M assets/models/ordinary_zombie/zombie_v01_Image_1.png.import
+ M assets/models/ordinary_zombie/zombie_v02.glb.import
+ M assets/models/ore_spider/ore_spider_v01_Image_0.png.import
+ M assets/models/ore_spider/ore_spider_v01_Image_1.png.import
+ D assets/models/polyhaven/boulder_01/boulder_01.bin
+ D assets/models/polyhaven/boulder_01/boulder_01_2k.gltf
+ D assets/models/polyhaven/boulder_01/boulder_01_2k.gltf.import
+ D assets/models/polyhaven/boulder_01/textures/boulder_01_arm_2k.jpg
+ D assets/models/polyhaven/boulder_01/textures/boulder_01_arm_2k.jpg.import
+ D assets/models/polyhaven/boulder_01/textures/boulder_01_diff_2k.jpg
+ D assets/models/polyhaven/boulder_01/textures/boulder_01_diff_2k.jpg.import
+ D assets/models/polyhaven/boulder_01/textures/boulder_01_nor_gl_2k.jpg
+ D assets/models/polyhaven/boulder_01/textures/boulder_01_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/dandelion_01/dandelion_01_2k.gltf.import
+ M assets/models/polyhaven/dead_tree_trunk_02/textures/dead_tree_trunk_02_arm_2k.jpg.import
+ M assets/models/polyhaven/dead_tree_trunk_02/textures/dead_tree_trunk_02_diff_2k.jpg.import
+ M assets/models/polyhaven/dead_tree_trunk_02/textures/dead_tree_trunk_02_nor_gl_2k.jpg.import
+ D assets/models/polyhaven/fern_02/fern_02.bin
+ D assets/models/polyhaven/fern_02/fern_02_2k.gltf
+ D assets/models/polyhaven/fern_02/fern_02_2k.gltf.import
+ D assets/models/polyhaven/fern_02/fern_02_arm_2k.jpg.import
+ D assets/models/polyhaven/fern_02/fern_02_diff_2k.jpg.import
+ D assets/models/polyhaven/fern_02/fern_02_nor_gl_2k.jpg.import
+ D assets/models/polyhaven/fern_02/textures/fern_02_arm_2k.jpg
+ D assets/models/polyhaven/fern_02/textures/fern_02_arm_2k.jpg.import
+ D assets/models/polyhaven/fern_02/textures/fern_02_diff_2k.jpg
+ D assets/models/polyhaven/fern_02/textures/fern_02_diff_2k.jpg.import
+ D assets/models/polyhaven/fern_02/textures/fern_02_nor_gl_2k.jpg
+ D assets/models/polyhaven/fern_02/textures/fern_02_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/grass_bermuda_01/textures/grass_bermuda_01_arm_2k.jpg.import
+ M assets/models/polyhaven/grass_bermuda_01/textures/grass_bermuda_01_diff_2k.jpg.import
+ M assets/models/polyhaven/grass_bermuda_01/textures/grass_bermuda_01_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/grass_medium_01/textures/grass_medium_01_arm_2k.jpg.import
+ M assets/models/polyhaven/grass_medium_01/textures/grass_medium_01_diff_2k.jpg.import
+ M assets/models/polyhaven/grass_medium_01/textures/grass_medium_01_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_arm_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_branches_arm_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_branches_diff_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_branches_nor_gl_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_diff_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_leaves_arm_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_leaves_diff_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_leaves_nor_gl_1k.jpg.import
+ M assets/models/polyhaven/island_tree_01/textures/island_tree_01_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/island_tree_02.bin
+ D assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf
+ D assets/models/polyhaven/island_tree_02/island_tree_02_1k.gltf.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_arm_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_arm_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_branches_arm_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_branches_arm_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_branches_diff_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_branches_diff_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_branches_nor_gl_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_branches_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_diff_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_diff_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_leaves_arm_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_leaves_arm_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_leaves_diff_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_leaves_diff_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_leaves_nor_gl_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_leaves_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_nor_gl_1k.jpg
+ D assets/models/polyhaven/island_tree_02/textures/island_tree_02_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/island_tree_03.bin
+ D assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf
+ D assets/models/polyhaven/island_tree_03/island_tree_03_1k.gltf.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_arm_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_arm_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_branches_arm_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_branches_arm_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_branches_diff_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_branches_diff_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_branches_nor_gl_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_branches_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_diff_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_diff_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_leaves_arm_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_leaves_arm_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_leaves_diff_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_leaves_diff_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_leaves_nor_gl_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_leaves_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_nor_gl_1k.jpg
+ D assets/models/polyhaven/island_tree_03/textures/island_tree_03_nor_gl_1k.jpg.import
+ M assets/models/polyhaven/leafy_grass/leafy_grass_2k.gltf.import
+ M assets/models/polyhaven/leafy_grass/textures/leafy_grass_arm_2k.jpg.import
+ M assets/models/polyhaven/leafy_grass/textures/leafy_grass_diff_2k.jpg.import
+ M assets/models/polyhaven/leafy_grass/textures/leafy_grass_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/moss_01/moss_01_2k.gltf.import
+ M assets/models/polyhaven/nettle_plant/nettle_plant_2k.gltf.import
+ M assets/models/polyhaven/nettle_plant/textures/nettle_plant_arm_2k.jpg.import
+ M assets/models/polyhaven/nettle_plant/textures/nettle_plant_diff_2k.jpg.import
+ M assets/models/polyhaven/nettle_plant/textures/nettle_plant_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/othonna_cerarioides/othonna_cerarioides_2k.gltf.import
+ M assets/models/polyhaven/othonna_cerarioides/textures/othonna_cerarioides_arm_2k.jpg.import
+ M assets/models/polyhaven/othonna_cerarioides/textures/othonna_cerarioides_diff_2k.jpg.import
+ M assets/models/polyhaven/othonna_cerarioides/textures/othonna_cerarioides_nor_gl_2k.jpg.import
+ D assets/models/polyhaven/pine_sapling_small/pine_sapling_small.bin
+ D assets/models/polyhaven/pine_sapling_small/pine_sapling_small_1k.gltf
+ D assets/models/polyhaven/pine_sapling_small/pine_sapling_small_1k.gltf.import
+ D assets/models/polyhaven/pine_sapling_small/source-download.json
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_bark_arm_1k.jpg
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_bark_arm_1k.jpg.import
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_bark_diff_1k.jpg
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_bark_diff_1k.jpg.import
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_bark_nor_gl_1k.jpg
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_bark_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_twig_arm_1k.jpg
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_twig_arm_1k.jpg.import
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_twig_diff_1k.jpg
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_twig_diff_1k.jpg.import
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_twig_nor_gl_1k.jpg
+ D assets/models/polyhaven/pine_sapling_small/textures/pine_sapling_small_twig_nor_gl_1k.jpg.import
+ M assets/models/polyhaven/quiver_tree_01/quiver_tree_01_2k.gltf.import
+ M assets/models/polyhaven/quiver_tree_01/textures/quiver_tree_01_leaf_arm_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_01/textures/quiver_tree_01_leaf_diff_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_01/textures/quiver_tree_01_leaf_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_01/textures/quiver_tree_01_trunk_arm_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_01/textures/quiver_tree_01_trunk_diff_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_01/textures/quiver_tree_01_trunk_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_02/textures/quiver_tree_02_arm_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_02/textures/quiver_tree_02_diff_2k.jpg.import
+ M assets/models/polyhaven/quiver_tree_02/textures/quiver_tree_02_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/rock_07/rock_07_2k.gltf.import
+ M assets/models/polyhaven/rock_07/textures/rock_07_arm_2k.jpg.import
+ M assets/models/polyhaven/rock_07/textures/rock_07_diff_2k.jpg.import
+ M assets/models/polyhaven/rock_07/textures/rock_07_nor_gl_2k.jpg.import
+ D assets/models/polyhaven/rock_09/rock_09.bin
+ D assets/models/polyhaven/rock_09/rock_09_2k.gltf
+ D assets/models/polyhaven/rock_09/rock_09_2k.gltf.import
+ D assets/models/polyhaven/rock_09/textures/rock_09_arm_2k.jpg
+ D assets/models/polyhaven/rock_09/textures/rock_09_arm_2k.jpg.import
+ D assets/models/polyhaven/rock_09/textures/rock_09_diff_2k.jpg
+ D assets/models/polyhaven/rock_09/textures/rock_09_diff_2k.jpg.import
+ D assets/models/polyhaven/rock_09/textures/rock_09_nor_gl_2k.jpg
+ D assets/models/polyhaven/rock_09/textures/rock_09_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/rock_moss_set_01/rock_moss_set_01_2k.gltf.import
+ M assets/models/polyhaven/rock_moss_set_01/textures/rock_moss_set_01_diff_2k.jpg.import
+ M assets/models/polyhaven/rock_moss_set_01/textures/rock_moss_set_01_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/rock_moss_set_01/textures/rock_moss_set_01_rough_2k.jpg.import
+ D assets/models/polyhaven/searsia_lucida/searsia_lucida.bin
+ D assets/models/polyhaven/searsia_lucida/searsia_lucida_2k.gltf
+ D assets/models/polyhaven/searsia_lucida/searsia_lucida_2k.gltf.import
+ D assets/models/polyhaven/searsia_lucida/textures/searsia_lucida_arm_2k.jpg
+ D assets/models/polyhaven/searsia_lucida/textures/searsia_lucida_arm_2k.jpg.import
+ D assets/models/polyhaven/searsia_lucida/textures/searsia_lucida_diff_2k.jpg
+ D assets/models/polyhaven/searsia_lucida/textures/searsia_lucida_diff_2k.jpg.import
+ D assets/models/polyhaven/searsia_lucida/textures/searsia_lucida_nor_gl_2k.jpg
+ D assets/models/polyhaven/searsia_lucida/textures/searsia_lucida_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/shrub_01/shrub_01_2k.gltf.import
+ D assets/models/polyhaven/shrub_02/shrub_02.bin
+ D assets/models/polyhaven/shrub_02/shrub_02_2k.gltf
+ D assets/models/polyhaven/shrub_02/shrub_02_2k.gltf.import
+ D assets/models/polyhaven/shrub_02/textures/shrub_02_arm_2k.jpg
+ D assets/models/polyhaven/shrub_02/textures/shrub_02_arm_2k.jpg.import
+ D assets/models/polyhaven/shrub_02/textures/shrub_02_diff_2k.jpg
+ D assets/models/polyhaven/shrub_02/textures/shrub_02_diff_2k.jpg.import
+ D assets/models/polyhaven/shrub_02/textures/shrub_02_nor_gl_2k.jpg
+ D assets/models/polyhaven/shrub_02/textures/shrub_02_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/shrub_03/textures/shrub_03_arm_2k.jpg.import
+ M assets/models/polyhaven/shrub_03/textures/shrub_03_diff_2k.jpg.import
+ M assets/models/polyhaven/shrub_03/textures/shrub_03_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/shrub_04/textures/shrub_04_arm_2k.jpg.import
+ M assets/models/polyhaven/shrub_04/textures/shrub_04_diff_2k.jpg.import
+ M assets/models/polyhaven/shrub_04/textures/shrub_04_nor_gl_2k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_arm_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_arm_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_branch_arm_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_branch_arm_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_branch_diff_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_branch_diff_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_branch_nor_gl_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_branch_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_diff_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_diff_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_leaves_arm_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_leaves_arm_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_leaves_diff_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_leaves_diff_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_leaves_nor_gl_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_leaves_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_nor_gl_1k.jpg
+ D assets/models/polyhaven/tree_small_02/textures/tree_small_02_nor_gl_1k.jpg.import
+ D assets/models/polyhaven/tree_small_02/tree_small_02.bin
+ D assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf
+ D assets/models/polyhaven/tree_small_02/tree_small_02_1k.gltf.import
+ D assets/models/polyhaven/tree_stump_01/textures/tree_stump_01_arm_2k.jpg
+ D assets/models/polyhaven/tree_stump_01/textures/tree_stump_01_arm_2k.jpg.import
+ D assets/models/polyhaven/tree_stump_01/textures/tree_stump_01_diff_2k.jpg
+ D assets/models/polyhaven/tree_stump_01/textures/tree_stump_01_diff_2k.jpg.import
+ D assets/models/polyhaven/tree_stump_01/textures/tree_stump_01_nor_gl_2k.jpg
+ D assets/models/polyhaven/tree_stump_01/textures/tree_stump_01_nor_gl_2k.jpg.import
+ D assets/models/polyhaven/tree_stump_01/tree_stump_01.bin
+ D assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf
+ D assets/models/polyhaven/tree_stump_01/tree_stump_01_2k.gltf.import
+ M assets/models/polyhaven/weed_plant_02/textures/weed_plant_02_arm_2k.jpg.import
+ M assets/models/polyhaven/weed_plant_02/textures/weed_plant_02_diff_2k.jpg.import
+ M assets/models/polyhaven/weed_plant_02/textures/weed_plant_02_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/wild_rooibos_bush/textures/wild_rooibos_bush_arm_2k.jpg.import
+ M assets/models/polyhaven/wild_rooibos_bush/textures/wild_rooibos_bush_diff_2k.jpg.import
+ M assets/models/polyhaven/wild_rooibos_bush/textures/wild_rooibos_bush_nor_gl_2k.jpg.import
+ M assets/models/polyhaven/wild_rooibos_bush/wild_rooibos_bush_2k.gltf.import
+ M assets/models/spitter_zombie/spitter_v01_Image_0.png.import
+ M assets/models/spitter_zombie/spitter_v01_Image_1.png.import
+ M assets/models/tacz_ak47/ak47_mag_v9_0.png.import
+ M assets/models/tacz_ak47/ak47_v9_0.png.import
+ D assets/models/test/red_wolf_trellis_test.glb
+ D assets/models/test/red_wolf_trellis_test.glb.import
+ D assets/models/test/red_wolf_trellis_test_0.png
+ D assets/models/test/red_wolf_trellis_test_0.png.import
+ D assets/models/test/red_wolf_trellis_test_1.png
+ D assets/models/test/red_wolf_trellis_test_1.png.import
+ M assets/models/wolf_quaternius.gltf.import
+ M assets/models/zombie_quaternius.glb.import
+ M assets/original_ui/assets/ui/icons/dungeon-key-token.png.import
+ M assets/shaders/grass_particles.gdshader
+ M assets/shaders/valley_grass.gdshader
+ M assets/shaders/valley_grass_process.gdshader
+ M assets/shaders/valley_water.gdshader
+ M assets/textures/terrain/grass001/Grass001_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/grass001/Grass001_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/grass001/Grass001_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/grass001/Grass001_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/grass001/Grass001_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/grass001/Grass001_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/grass001/Grass001_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/grass004/Grass004_2K-JPG.blend.import
+ M assets/textures/terrain/grass004/Grass004_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/grass004/Grass004_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/grass004/Grass004_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/grass004/Grass004_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/grass004/Grass004_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/grass004/Grass004_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/grass004/Grass004_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/grass005/Grass005_2K-JPG.blend.import
+ M assets/textures/terrain/grass005/Grass005_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/grass005/Grass005_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/grass005/Grass005_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/grass005/Grass005_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/grass005/Grass005_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/grass005/Grass005_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/grass005/Grass005_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/grass007/Grass007_2K-JPG.blend.import
+ M assets/textures/terrain/grass007/Grass007_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/grass007/Grass007_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/grass007/Grass007_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/grass007/Grass007_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/grass007/Grass007_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/grass007/Grass007_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/grass007/Grass007_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/ground020/Ground020_2K-JPG.blend.import
+ M assets/textures/terrain/ground020/Ground020_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/ground020/Ground020_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/ground020/Ground020_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/ground020/Ground020_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/ground020/Ground020_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/ground020/Ground020_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/ground020/Ground020_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/ground030/Ground030_2K-JPG.blend.import
+ M assets/textures/terrain/ground030/Ground030_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/ground030/Ground030_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/ground030/Ground030_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/ground030/Ground030_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/ground030/Ground030_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/ground030/Ground030_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/ground030/Ground030_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/ground037/Ground037_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/ground037/Ground037_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/ground037/Ground037_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/ground037/Ground037_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/ground037/Ground037_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/ground037/Ground037_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/ground037/Ground037_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/ground080/Ground080_2K-JPG.blend.import
+ M assets/textures/terrain/ground080/Ground080_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/ground080/Ground080_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/ground080/Ground080_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/ground080/Ground080_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/ground080/Ground080_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/ground080/Ground080_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/ground080/Ground080_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain/rock063/Rock063_2K-JPG_AmbientOcclusion.jpg.import
+ M assets/textures/terrain/rock063/Rock063_2K-JPG_Color.jpg.import
+ M assets/textures/terrain/rock063/Rock063_2K-JPG_Displacement.jpg.import
+ D assets/textures/terrain/rock063/Rock063_2K-JPG_NormalDX.jpg
+ D assets/textures/terrain/rock063/Rock063_2K-JPG_NormalDX.jpg.import
+ M assets/textures/terrain/rock063/Rock063_2K-JPG_NormalGL.jpg.import
+ M assets/textures/terrain/rock063/Rock063_2K-JPG_Roughness.jpg.import
+ M assets/textures/terrain_prepared/ground080_alb_ht.png.import
+ D assets/ui/audio/click.wav
+ D assets/ui/audio/click.wav.import
+ D assets/ui/audio/confirm.wav
+ D assets/ui/audio/confirm.wav.import
+ M assets/ui/fonts/MicrosoftYaHei.ttc.import
+ M assets/ui/fonts/MicrosoftYaHeiBold.ttc.import
+ D assets/ui/icons/equip/191icon.png
+ D assets/ui/icons/equip/191icon.png.import
+ D assets/ui/icons/equip/akm-equip.png
+ D assets/ui/icons/equip/akm-equip.png.import
+ D assets/ui/icons/equip/m416-equip.png
+ D assets/ui/icons/equip/m416-equip.png.bak
+ D assets/ui/icons/equip/m416-equip.png.import
+ M demo/assets/textures/ground037_alb_ht.png.import
+ M demo/assets/textures/ground037_nrm_rgh.png.import
+ M demo/assets/textures/rock023_alb_ht.png.import
+ M demo/assets/textures/rock023_nrm_rgh.png.import
+ M docs/asset-licenses.md
+ M docs/foreman-zombie-integration.md
+ M docs/ordinary-zombie-integration.md
+ M docs/ore-spider-migration.md
+ D docs/preview/akm_ads_aligned.png
+ D docs/preview/akm_ads_baseline.png
+ D docs/preview/akm_ads_no_blackbox.png
+ D docs/preview/akm_ads_zoom.png
+ D docs/preview/akm_clean2_ads.png
+ D docs/preview/akm_clean2_hip.png
+ D docs/preview/akm_clean_ads.png
+ D docs/preview/akm_clean_hip.png
+ D docs/preview/akm_final_ads.png
+ D docs/preview/akm_final_hip.png
+ D docs/preview/akm_final_reload.png
+ D docs/preview/akm_glb_ads.png
+ D docs/preview/akm_glb_hip.png
+ D docs/preview/akm_glb_ingame.png
+ D docs/preview/akm_glb_reload.png
+ D docs/preview/akm_hip_aligned.png
+ D docs/preview/akm_hip_no_blackbox.png
+ D docs/preview/akm_markers.png
+ D docs/preview/akm_markers_aligned.png
+ D docs/preview/akm_reload_magout.png
+ D docs/preview/akm_sight_anchors.png
+ D docs/preview/akm_sketchfab_34.png
+ D docs/preview/akm_sketchfab_34.png.import
+ D docs/preview/akm_sketchfab_ads.png
+ D docs/preview/akm_sketchfab_hip.png
+ D docs/preview/akm_sketchfab_lit.png
+ D docs/preview/akm_sketchfab_side.png
+ D docs/preview/akm_sketchfab_side.png.import
+ D docs/preview/backpack-badges-720.png
+ D docs/preview/backpack-reference-1912.png
+ D docs/preview/backpack-reference-720.png
+ D docs/preview/backpack-tooltip-720.png
+ D docs/preview/compare_v6_vs_fine.png
+ D docs/preview/compare_v6_vs_fine_34.png
+ D docs/preview/dl_34_ak47_adamkokrito.png
+ D docs/preview/dl_ads_ak47.png
+ D docs/preview/dl_hip_ak47.png
+ D docs/preview/dl_side_ak47_adamkokrito.png
+ D docs/preview/font_file_backpack.png
+ D docs/preview/font_file_backpack.png.import
+ D docs/preview/font_file_hud.png
+ D docs/preview/font_file_hud.png.import
+ D docs/preview/font_file_tooltip.png
+ D docs/preview/font_file_tooltip.png.import
+ D docs/preview/full_v6_2mm_vs_v7_2mm.png
+ D docs/preview/grass_closeup.png
+ D docs/preview/grass_closeup.png.import
+ D docs/preview/ground_foot_fixed.png
+ D docs/preview/ground_foot_fixed.png.import
+ D docs/preview/gun_ads.png
+ D docs/preview/gun_ads.png.import
+ D docs/preview/gun_ads_hunyuan_fixed.png
+ D docs/preview/gun_ads_hunyuan_fixed.png.import
+ D docs/preview/gun_ads_hunyuan_integrated.png
+ D docs/preview/gun_ads_hunyuan_integrated.png.import
+ D docs/preview/gun_ads_hunyuan_lowpoly.png
+ D docs/preview/gun_ads_hunyuan_lowpoly.png.import
+ D docs/preview/gun_ads_trellis_ref.png
+ D docs/preview/gun_ads_trellis_ref.png.import
+ D docs/preview/gun_ads_voxel.png
+ D docs/preview/gun_ads_voxel.png.import
+ D docs/preview/gun_ads_voxel_default.png
+ D docs/preview/gun_ads_voxel_default.png.import
+ D docs/preview/gun_ads_voxel_final.png
+ D docs/preview/gun_ads_voxel_final.png.import
+ D docs/preview/gun_ads_voxel_fixed.png
+ D docs/preview/gun_ads_voxel_fixed.png.import
+ D docs/preview/gun_hip.png
+ D docs/preview/gun_hip.png.import
+ D docs/preview/gun_hip_hunyuan_fixed.png
+ D docs/preview/gun_hip_hunyuan_fixed.png.import
+ D docs/preview/gun_hip_hunyuan_integrated.png
+ D docs/preview/gun_hip_hunyuan_integrated.png.import
+ D docs/preview/gun_hip_hunyuan_lowpoly.png
+ D docs/preview/gun_hip_hunyuan_lowpoly.png.import
+ D docs/preview/gun_hip_trellis_ref.png
+ D docs/preview/gun_hip_trellis_ref.png.import
+ D docs/preview/gun_hip_voxel.png
+ D docs/preview/gun_hip_voxel.png.import
+ D docs/preview/gun_hip_voxel_default.png
+ D docs/preview/gun_hip_voxel_default.png.import
+ D docs/preview/gun_hip_voxel_final.png
+ D docs/preview/gun_hip_voxel_final.png.import
+ D docs/preview/gun_hip_voxel_fixed.png
+ D docs/preview/gun_hip_voxel_fixed.png.import
+ D docs/preview/handbuilt_front34_v6.png
+ D docs/preview/handbuilt_front34_v6fine.png
+ D docs/preview/handbuilt_front34_v7_2mm.png
+ D docs/preview/handbuilt_side_lit_v7_2mm.png
+ D docs/preview/handbuilt_side_v6.png
+ D docs/preview/handbuilt_side_v6fine.png
+ D docs/preview/handbuilt_side_v7_2mm.png
+ D docs/preview/hunyuan_ak_lowpoly_preview.png
+ D docs/preview/hunyuan_ak_lowpoly_preview.png.import
+ D docs/preview/hunyuan_ak_normal_preview.png
+ D docs/preview/hunyuan_ak_normal_preview.png.import
+ D docs/preview/inventory-cold-steel-1080.png
+ D docs/preview/inventory-cold-steel-720.png
+ D docs/preview/lowpoly_ads.png
+ D docs/preview/lowpoly_hip.png
+ D docs/preview/lowpoly_ingame.png
+ D docs/preview/mag_zoom_v6_2mm_vs_v7_2mm.png
+ D docs/preview/monster-weakpoints/front.png
+ D docs/preview/monster-weakpoints/front.png.import
+ D docs/preview/monster-weakpoints/side.png
+ D docs/preview/monster-weakpoints/side.png.import
+ D docs/preview/original-sidebar-1912.png
+ D docs/preview/original-sidebar-1912.png.import
+ D docs/preview/panel_brushed.png
+ D docs/preview/panel_brushed.png.import
+ D docs/preview/river_close_v10_0.png
+ D docs/preview/river_close_v10_1.png
+ D docs/preview/river_close_v10_2.png
+ D docs/preview/river_close_v5_0.png
+ D docs/preview/river_close_v5_1.png
+ D docs/preview/river_close_v5_2.png
+ D docs/preview/river_close_v9_0.png
+ D docs/preview/river_close_v9_1.png
+ D docs/preview/river_close_v9_2.png
+ D docs/preview/river_quality.png
+ D docs/preview/river_quality.png.import
+ D docs/preview/river_view_0.png
+ D docs/preview/river_view_0.png.import
+ D docs/preview/river_view_1.png
+ D docs/preview/river_view_1.png.import
+ D docs/preview/river_view_2.png
+ D docs/preview/river_view_2.png.import
+ D docs/preview/river_view_fixed_0.png
+ D docs/preview/river_view_fixed_0.png.import
+ D docs/preview/river_view_fixed_1.png
+ D docs/preview/river_view_fixed_1.png.import
+ D docs/preview/river_view_fixed_2.png
+ D docs/preview/river_view_fixed_2.png.import
+ D docs/preview/sky_fixed.png
+ D docs/preview/sky_fixed.png.import
+ D docs/preview/spawn_view_v2.png
+ D docs/preview/spawn_view_v6.png
+ D docs/preview/tacz_clean_side.png
+ D docs/preview/tacz_clean_side.png.import
+ D docs/preview/tacz_gun_ads.png
+ D docs/preview/tacz_gun_ads.png.import
+ D docs/preview/tacz_gun_hip.png
+ D docs/preview/tacz_gun_hip.png.import
+ D docs/preview/tacz_gun_reload_magout.png
+ D docs/preview/tacz_gun_reload_magout.png.import
+ D docs/preview/tacz_ingame_static.png
+ D docs/preview/tacz_ingame_v4.png
+ D docs/preview/tacz_ingame_v4.png.import
+ D docs/preview/tacz_obj_side.png
+ D docs/preview/tacz_side_assembled.png
+ D docs/preview/tacz_side_assembled.png.import
+ D docs/preview/tacz_tacz_front34_rest.png
+ D docs/preview/tacz_tacz_front34_rest.png.import
+ D docs/preview/tacz_tacz_idle_additive.png
+ D docs/preview/tacz_tacz_idle_additive.png.import
+ D docs/preview/tacz_tacz_idle_rest.png
+ D docs/preview/tacz_tacz_idle_rest.png.import
+ D docs/preview/tacz_tacz_side_rest.png
+ D docs/preview/tacz_tacz_side_rest.png.import
+ D docs/preview/tacz_v6_side_bright.png
+ D docs/preview/tacz_v6_side_bright.png.import
+ D docs/preview/tacz_v9_solid.png
+ D docs/preview/tacz_v9_solid.png.import
+ D docs/preview/terrain_detail_0.png
+ D docs/preview/terrain_detail_0.png.import
+ D docs/preview/terrain_detail_1.png
+ D docs/preview/terrain_detail_1.png.import
+ D docs/preview/terrain_detail_2.png
+ D docs/preview/terrain_detail_2.png.import
+ D docs/preview/terrain_detail_3.png
+ D docs/preview/terrain_detail_3.png.import
+ D docs/preview/terrain_ground_fixed.png
+ D docs/preview/terrain_ground_fixed.png.import
+ D docs/preview/terrain_overview_fixed.png
+ D docs/preview/terrain_overview_fixed.png.import
+ D docs/preview/terrain_river_v12_0.png
+ D docs/preview/terrain_river_v12_0.png.import
+ D docs/preview/terrain_river_v12_1.png
+ D docs/preview/terrain_river_v12_1.png.import
+ D docs/preview/terrain_river_v12_2.png
+ D docs/preview/terrain_river_v12_2.png.import
+ D docs/preview/terrain_river_v14_0.png
+ D docs/preview/terrain_river_v14_0.png.import
+ D docs/preview/terrain_river_v14_1.png
+ D docs/preview/terrain_river_v14_1.png.import
+ D docs/preview/terrain_river_v14_2.png
+ D docs/preview/terrain_river_v14_2.png.import
+ D docs/preview/terrain_river_v16_0.png
+ D docs/preview/terrain_river_v16_0.png.import
+ D docs/preview/terrain_river_v16_1.png
+ D docs/preview/terrain_river_v16_1.png.import
+ D docs/preview/terrain_river_v16_2.png
+ D docs/preview/terrain_river_v16_2.png.import
+ D docs/preview/terrain_river_v17_0.png
+ D docs/preview/terrain_river_v17_1.png
+ D docs/preview/terrain_river_v17_2.png
+ D docs/preview/terrain_river_v18_0.png
+ D docs/preview/terrain_river_v18_1.png
+ D docs/preview/terrain_river_v18_2.png
+ D docs/preview/terrain_river_v19_0.png
+ D docs/preview/terrain_river_v19_1.png
+ D docs/preview/terrain_river_v19_2.png
+ D docs/preview/terrain_river_v20_0.png
+ D docs/preview/terrain_river_v20_1.png
+ D docs/preview/terrain_river_v20_2.png
+ D docs/preview/terrain_river_v20_3.png
+ D docs/preview/terrain_river_v21_0.png
+ D docs/preview/terrain_river_v21_1.png
+ D docs/preview/terrain_river_v21_2.png
+ D docs/preview/terrain_river_v21_3.png
+ D docs/preview/terrain_river_v23_0.png
+ D docs/preview/terrain_river_v23_1.png
+ D docs/preview/terrain_river_v23_2.png
+ D docs/preview/terrain_river_v24_0.png
+ D docs/preview/terrain_river_v24_1.png
+ D docs/preview/terrain_river_v24_2.png
+ D docs/preview/terrain_river_v24_3.png
+ D docs/preview/terrain_river_v25_0.png
+ D docs/preview/terrain_river_v25_1.png
+ D docs/preview/terrain_river_v25_2.png
+ D docs/preview/terrain_river_v26_0.png
+ D docs/preview/terrain_river_v26_1.png
+ D docs/preview/terrain_river_v26_2.png
+ D docs/preview/terrain_river_v27_0.png
+ D docs/preview/terrain_river_v27_1.png
+ D docs/preview/terrain_river_v27_2.png
+ D docs/preview/terrain_river_vbaseline_0.png
+ D docs/preview/terrain_river_vbaseline_0.png.import
+ D docs/preview/terrain_river_vbaseline_1.png
+ D docs/preview/terrain_river_vbaseline_1.png.import
+ D docs/preview/terrain_river_vbaseline_2.png
+ D docs/preview/terrain_river_vbaseline_2.png.import
+ D docs/preview/ui-audit/after-codex.png
+ D docs/preview/ui-audit/after-codex.png.import
+ D docs/preview/ui-audit/after-craft.png
+ D docs/preview/ui-audit/after-craft.png.import
+ D docs/preview/ui-audit/after-enchant.png
+ D docs/preview/ui-audit/after-enchant.png.import
+ D docs/preview/ui-audit/after-enhance.png
+ D docs/preview/ui-audit/after-enhance.png.import
+ D docs/preview/ui-audit/after-equip.png
+ D docs/preview/ui-audit/after-equip.png.import
+ D docs/preview/ui-audit/after-expedition.png
+ D docs/preview/ui-audit/after-expedition.png.import
+ D docs/preview/ui-audit/after-fusion.png
+ D docs/preview/ui-audit/after-fusion.png.import
+ D docs/preview/ui-audit/after-quest.png
+ D docs/preview/ui-audit/after-quest.png.import
+ D docs/preview/ui-audit/after-shop.png
+ D docs/preview/ui-audit/after-shop.png.import
+ D docs/preview/ui-audit/after-skill.png
+ D docs/preview/ui-audit/after-skill.png.import
+ D docs/preview/ui-audit/after-status.png
+ D docs/preview/ui-audit/after-status.png.import
+ D docs/preview/ui-audit/after-warehouse.png
+ D docs/preview/ui-audit/after-warehouse.png.import
+ D docs/preview/ui-audit/before-codex.png
+ D docs/preview/ui-audit/before-codex.png.import
+ D docs/preview/ui-audit/before-craft.png
+ D docs/preview/ui-audit/before-craft.png.import
+ D docs/preview/ui-audit/before-enchant.png
+ D docs/preview/ui-audit/before-enchant.png.import
+ D docs/preview/ui-audit/before-enhance.png
+ D docs/preview/ui-audit/before-enhance.png.import
+ D docs/preview/ui-audit/before-equip.png
+ D docs/preview/ui-audit/before-equip.png.import
+ D docs/preview/ui-audit/before-expedition.png
+ D docs/preview/ui-audit/before-expedition.png.import
+ D docs/preview/ui-audit/before-fusion.png
+ D docs/preview/ui-audit/before-fusion.png.import
+ D docs/preview/ui-audit/before-quest.png
+ D docs/preview/ui-audit/before-quest.png.import
+ D docs/preview/ui-audit/before-shop.png
+ D docs/preview/ui-audit/before-shop.png.import
+ D docs/preview/ui-audit/before-skill.png
+ D docs/preview/ui-audit/before-skill.png.import
+ D docs/preview/ui-audit/before-status.png
+ D docs/preview/ui-audit/before-status.png.import
+ D docs/preview/ui-audit/before-warehouse.png
+ D docs/preview/ui-audit/before-warehouse.png.import
+ D docs/preview/ui_backpack_font_sync.png
+ D docs/preview/ui_backpack_font_sync.png.import
+ D docs/preview/ui_combat_feedback_v2.png
+ D docs/preview/ui_consistency_v1.png
+ D docs/preview/ui_consistency_v1.png.import
+ D docs/preview/ui_crosshair_fixed.png
+ D docs/preview/ui_hud_font_mono.png
+ D docs/preview/ui_hud_font_mono.png.import
+ D docs/preview/ui_hud_font_yh_light.png
+ D docs/preview/ui_hud_font_yh_light.png.import
+ D docs/preview/ui_hud_font_yh_std.png
+ D docs/preview/ui_hud_font_yh_std.png.import
+ D docs/preview/ui_hud_tooltip.png
+ D docs/preview/ui_hud_tooltip.png.import
+ D docs/preview/ui_panel_equip.png
+ D docs/preview/ui_panel_equip.png.import
+ D docs/preview/ui_panel_status.png
+ D docs/preview/ui_panel_status.png.import
+ D docs/preview/ui_panel_status_before.png
+ D docs/preview/ui_panel_status_before.png.import
+ D docs/preview/ui_panel_texture_settings.png
+ D docs/preview/ui_panel_texture_settings.png.import
+ D docs/preview/ui_panel_tooltip.png
+ D docs/preview/ui_panel_tooltip.png.import
+ D docs/preview/ui_skill_page.png
+ D docs/preview/upgrade_0.png
+ D docs/preview/upgrade_0.png.import
+ D docs/preview/upgrade_1.png
+ D docs/preview/upgrade_1.png.import
+ D docs/preview/upgrade_2.png
+ D docs/preview/upgrade_2.png.import
+ M docs/preview/valley_after_0.png
+ M docs/preview/valley_after_0.png.import
+ M docs/preview/valley_after_1.png
+ M docs/preview/valley_after_1.png.import
+ M docs/preview/valley_after_2.png
+ M docs/preview/valley_after_2.png.import
+ D docs/preview/valley_before.png
+ D docs/preview/valley_before.png.import
+ D docs/preview/valley_before_canopy.png
+ D docs/preview/valley_before_canopy.png.import
+ D docs/preview/valley_grounding_0.png
+ D docs/preview/valley_grounding_0.png.import
+ D docs/preview/valley_grounding_1.png
+ D docs/preview/valley_grounding_1.png.import
+ D docs/preview/valley_grounding_2.png
+ D docs/preview/valley_grounding_2.png.import
+ D docs/preview/valley_lod_comparison.png
+ D docs/preview/valley_lod_comparison.png.import
+ D docs/preview/valley_natural_pines.png
+ D docs/preview/valley_natural_pines.png.import
+ D docs/preview/valley_perf_baseline.png
+ D docs/preview/valley_perf_baseline.png.import
+ D docs/preview/valley_perf_natural_pines.png
+ D docs/preview/valley_perf_natural_pines.png.import
+ D docs/preview/valley_perf_optimized.png
+ D docs/preview/valley_perf_optimized.png.import
+ D docs/preview/valley_pine_variants.png
+ D docs/preview/valley_pine_variants.png.import
+ D docs/preview/valley_tree_candidates.png
+ D docs/preview/valley_tree_candidates.png.import
+ D docs/preview/warehouse-cold-steel-720.png
+ D docs/preview/warehouse/.gitignore
+ D docs/preview/warehouse/1280x720.png
+ D docs/preview/warehouse/1912x948.png
+ D docs/preview/warehouse/drawer-motion.gif
+ D docs/preview/warehouse/equipment-drag.png
+ D docs/preview/warehouse/optimized-960.png
+ M docs/reference/game-dev-cold-steel/README.md
+ M docs/weapon-add-workflow.md
+ M project.godot
+ M scenes/demo_terrain.gd
+ M scenes/demo_terrain.tscn
+ M scenes/enemies/foreman_zombie.tscn
+ M scenes/enemies/ordinary_zombie.tscn
+ M scenes/enemies/ore_spider.tscn
+ D scenes/foreman_demo.tscn
+ D scenes/imported_pine.gd
+ D scenes/imported_pine.gd.uid
+ D scenes/imported_pine.tscn
+ M scenes/main.tscn
+ M scenes/scenic_foliage.gd
+ M scenes/scenic_particle_grass.gd
+ M scenes/scenic_valley.gd
+ M scenes/scenic_valley.tscn
+ M scenes/warehouse_chest_preview/chest_controller.gd
+ M scenes/warehouse_chest_preview/warehouse_chest.tscn
+ M scenes/warehouse_chest_preview/warehouse_chest_v1_marble_albedo.png.import
+ M scripts/altar_interact.gd
+ M scripts/area_skill.gd
+ M scripts/buff_system.gd
+ M scripts/camera_fx.gd
+ M scripts/dungeon_run.gd
+ M scripts/dungeon_zombie.gd
+ M scripts/enemy.gd
+ M scripts/fireball.gd
+ D scripts/foreman_demo.gd
+ D scripts/foreman_demo.gd.uid
+ M scripts/foreman_inspiration.gd
+ M scripts/foreman_mine_cave.gd
+ D scripts/foreman_portal.gd
+ D scripts/foreman_portal.gd.uid
+ M scripts/foreman_zombie.gd
+ M scripts/gun.gd
+ M scripts/ice_spike.gd
+ M scripts/impact_fx.gd
+ M scripts/lightning.gd
+ M scripts/main.gd
+ M scripts/npc_interact.gd
+ M scripts/ordinary_zombie.gd
+ M scripts/ore_crystal_projectile.gd
+ M scripts/ore_spider.gd
+ M scripts/player.gd
+ M scripts/projectile.gd
+ M scripts/spitter_zombie.gd
+ M scripts/thunder_lance.gd
+ M scripts/weapon_data.gd
+ M skills/godot-monster-workflow/SKILL.md
+ M skills/godot-monster-workflow/references/zombie-case.md
+ M skills/godot-terrain-vegetation/SKILL.md
+ D tests/probe_tropical_undergrowth.gd
+ D tests/probe_tropical_undergrowth.gd.uid
+ M tests/render_foreman_zombie.gd
+ D tests/render_valley_lods.gd
+ D tests/render_valley_lods.gd.uid
+ D tests/render_valley_tree_candidates.gd
+ D tests/render_valley_tree_candidates.gd.uid
+ M tests/test_ads_calibration.gd
+ M tests/test_backpack.gd
+ M tests/test_backpack_operations.gd
+ M tests/test_combat.gd
+ M tests/test_equip.gd
+ M tests/test_foreman_entry.gd
+ M tests/test_foreman_motion.gd
+ M tests/test_foreman_zombie.gd
+ M tests/test_ordinary_zombie.gd
+ M tests/test_processing_transfer.gd
+ M tests/test_reload.gd
+ M tests/test_scenic_valley.gd
+ M tests/test_status_bar.gd
+ M tests/test_status_page.gd
+ M tests/test_terrain_details.gd
+ M tests/test_terrain_regression.gd
+ M tests/test_tree_grounding.gd
+ M tests/test_ui_sounds.gd
+ M tests/test_ui_tokens.gd
+ M tests/test_warehouse_equipment_drag.gd
+ M tests/test_zombie_motion.gd
+ M tools/ai-gen/foreman-v01-20260906/foreman-model.blend.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-preview.glb.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-preview_Image_0.png.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-preview_Image_1.png.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-raw.glb.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-raw_0.png.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-raw_1.png.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-rigged.blend.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-whip-v02.blend.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-whip-v02.glb.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-whip-v02_Image_0.png.import
+ M tools/ai-gen/foreman-v01-20260906/foreman-whip-v02_Image_1.png.import
+ D tools/ai-gen/ore-spider-polish-v03-20260906/.gdignore
+ D tools/ai-gen/ore-spider-polish-v03-20260906/after-back.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/after-front.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/after-side.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/before-back.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/before-front.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/before-side.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/build.log
+ D tools/ai-gen/ore-spider-polish-v03-20260906/build_polish.py
+ D tools/ai-gen/ore-spider-polish-v03-20260906/combat.log
+ D tools/ai-gen/ore-spider-polish-v03-20260906/comparison.gif
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-back.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-death.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-front.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-side.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-slam.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-throw.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/godot-walk.png
+ D tools/ai-gen/ore-spider-polish-v03-20260906/import.log
+ D tools/ai-gen/ore-spider-polish-v03-20260906/make_preview.py
+ D tools/ai-gen/ore-spider-polish-v03-20260906/ore-spider-polished.blend
+ D tools/ai-gen/ore-spider-polish-v03-20260906/preview.log
+ D tools/ai-gen/ore-spider-polish-v03-20260906/reload.log
+ D tools/ai-gen/ore-spider-polish-v03-20260906/report.json
+ D tools/ai-gen/ore-spider-polish-v03-20260906/smoke.log
+ D tools/ai-gen/ore-spider-v01-20260906/.gdignore
+ D tools/ai-gen/ore-spider-v01-20260906/analyze_feet.py
+ D tools/ai-gen/ore-spider-v01-20260906/attacking-2-source.jpg
+ D tools/ai-gen/ore-spider-v01-20260906/attacking-source.jpg
+ D tools/ai-gen/ore-spider-v01-20260906/build_rig.py
+ D tools/ai-gen/ore-spider-v01-20260906/combat.log
+ D tools/ai-gen/ore-spider-v01-20260906/death-sequence.gif
+ D tools/ai-gen/ore-spider-v01-20260906/death.gif
+ D tools/ai-gen/ore-spider-v01-20260906/dying-source.jpg
+ D tools/ai-gen/ore-spider-v01-20260906/feet.json
+ D tools/ai-gen/ore-spider-v01-20260906/generate_mesh.py
+ D tools/ai-gen/ore-spider-v01-20260906/identity-source.png
+ D tools/ai-gen/ore-spider-v01-20260906/idle-source.jpg
+ D tools/ai-gen/ore-spider-v01-20260906/idle.gif
+ D tools/ai-gen/ore-spider-v01-20260906/inspect_mesh.py
+ D tools/ai-gen/ore-spider-v01-20260906/mesh-inspection.json
+ D tools/ai-gen/ore-spider-v01-20260906/mesh-workflow.json
+ D tools/ai-gen/ore-spider-v01-20260906/ore-model.blend
+ D tools/ai-gen/ore-spider-v01-20260906/ore-spider-raw.glb
+ D tools/ai-gen/ore-spider-v01-20260906/ore-spider-rigged.blend
+ D tools/ai-gen/ore-spider-v01-20260906/projectile-runtime.gif
+ D tools/ai-gen/ore-spider-v01-20260906/reload.log
+ D tools/ai-gen/ore-spider-v01-20260906/render.log
+ D tools/ai-gen/ore-spider-v01-20260906/rig-report.json
+ D tools/ai-gen/ore-spider-v01-20260906/runtime/death-debris.png
+ D tools/ai-gen/ore-spider-v01-20260906/runtime/default-encounter.png
+ D tools/ai-gen/ore-spider-v01-20260906/runtime/slam-airborne.png
+ D tools/ai-gen/ore-spider-v01-20260906/runtime/slam-contact.png
+ D tools/ai-gen/ore-spider-v01-20260906/slam.gif
+ D tools/ai-gen/ore-spider-v01-20260906/smoke-main.log
+ D tools/ai-gen/ore-spider-v01-20260906/test-final.log
+ D tools/ai-gen/ore-spider-v01-20260906/throw.gif
+ D tools/ai-gen/ore-spider-v01-20260906/walk.gif
+ D tools/ai-gen/ore-spider-v01-20260906/walking-source.jpg
+ D tools/ai-gen/remote-patch/README-mesh-stub.md
+ D tools/ai-gen/remote-patch/README.md
+ D tools/ai-gen/remote-patch/__pycache__/flux_patch.cpython-311.pyc
+ D tools/ai-gen/remote-patch/__pycache__/mesh_node.cpython-311.pyc
+ D tools/ai-gen/remote-patch/__pycache__/nodes.cpython-311.pyc
+ D tools/ai-gen/remote-patch/flux_patch.orig.py
+ D tools/ai-gen/remote-patch/flux_patch.py
+ D tools/ai-gen/remote-patch/mesh_node.py
+ D tools/ai-gen/remote-patch/nodes.orig.py
+ D tools/ai-gen/remote-patch/nodes.py
+ D tools/ai-gen/spitter-main-20260906/.gdignore
+ D tools/ai-gen/spitter-main-20260906/README.md
+ D tools/ai-gen/spitter-main-20260906/default-startup.png
+ D tools/ai-gen/spitter-zombie-reference-20260906/.gdignore
+ D tools/ai-gen/spitter-zombie-reference-20260906/README.md
+ D tools/ai-gen/spitter-zombie-reference-20260906/adapt_death.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/attack-preview.gif
+ D tools/ai-gen/spitter-zombie-reference-20260906/attacking.jpg
+ D tools/ai-gen/spitter-zombie-reference-20260906/build_audio.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/death-preview.gif
+ D tools/ai-gen/spitter-zombie-reference-20260906/dying.jpg
+ D tools/ai-gen/spitter-zombie-reference-20260906/generate_mesh.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/idle-preview.gif
+ D tools/ai-gen/spitter-zombie-reference-20260906/idle.jpg
+ D tools/ai-gen/spitter-zombie-reference-20260906/inspect_mesh.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/mesh-inspection.json
+ D tools/ai-gen/spitter-zombie-reference-20260906/mesh-workflow.json
+ D tools/ai-gen/spitter-zombie-reference-20260906/model-back.png
+ D tools/ai-gen/spitter-zombie-reference-20260906/model-front.png
+ D tools/ai-gen/spitter-zombie-reference-20260906/model-threequarter.png
+ D tools/ai-gen/spitter-zombie-reference-20260906/package_preview.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/probe_mouth.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/reference-prompt.txt
+ D tools/ai-gen/spitter-zombie-reference-20260906/render_review.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/review-report.json
+ D tools/ai-gen/spitter-zombie-reference-20260906/rig-report.json
+ D tools/ai-gen/spitter-zombie-reference-20260906/rig_and_animate.py
+ D tools/ai-gen/spitter-zombie-reference-20260906/source-config.json
+ D tools/ai-gen/spitter-zombie-reference-20260906/spit-godot.gif
+ D tools/ai-gen/spitter-zombie-reference-20260906/spitter-apose.png
+ D tools/ai-gen/spitter-zombie-reference-20260906/spitter-raw.glb
+ D tools/ai-gen/spitter-zombie-reference-20260906/support-report.json
+ D tools/ai-gen/spitter-zombie-reference-20260906/walk-preview.gif
+ D tools/ai-gen/spitter-zombie-reference-20260906/walking.jpg
+ D tools/ai-gen/spitter-zombie-reference-20260906/zombie-model.blend
+ D tools/ai-gen/spitter-zombie-reference-20260906/zombie-preview.glb
+ D tools/ai-gen/spitter-zombie-reference-20260906/zombie-rigged.blend
+ D tools/ai-gen/zombie-3d-v01-20260905/.gdignore
+ D tools/ai-gen/zombie-3d-v01-20260905/README.md
+ D tools/ai-gen/zombie-3d-v01-20260905/attack-preview.gif
+ D tools/ai-gen/zombie-3d-v01-20260905/check_export.py
+ D tools/ai-gen/zombie-3d-v01-20260905/death-preview.gif
+ D tools/ai-gen/zombie-3d-v01-20260905/export-report.json
+ D tools/ai-gen/zombie-3d-v01-20260905/idle-preview.gif
+ D tools/ai-gen/zombie-3d-v01-20260905/inspect_mesh.py
+ D tools/ai-gen/zombie-3d-v01-20260905/migration-contract.json
+ D tools/ai-gen/zombie-3d-v01-20260905/package_preview.py
+ D tools/ai-gen/zombie-3d-v01-20260905/reference-prompt.txt
+ D tools/ai-gen/zombie-3d-v01-20260905/rig-report.json
+ D tools/ai-gen/zombie-3d-v01-20260905/rig_and_animate.py
+ D tools/ai-gen/zombie-3d-v01-20260905/roundtrip-death-report.json
+ D tools/ai-gen/zombie-3d-v01-20260905/roundtrip-report.json
+ D tools/ai-gen/zombie-3d-v01-20260905/roundtrip-walk-report.json
+ D tools/ai-gen/zombie-3d-v01-20260905/walk-preview.gif
+ D tools/ai-gen/zombie-3d-v01-20260905/zombie-apose-reference.png
+ D tools/ai-gen/zombie-3d-v01-20260905/zombie-model.blend
+ D tools/ai-gen/zombie-3d-v01-20260905/zombie-preview.glb
+ D tools/ai-gen/zombie-3d-v01-20260905/zombie-raw.glb
+ D tools/ai-gen/zombie-3d-v01-20260905/zombie-rigged.blend
+ D tools/ai-gen/zombie-death-v03-20260906/.gdignore
+ D tools/ai-gen/zombie-death-v03-20260906/README.md
+ D tools/ai-gen/zombie-death-v03-20260906/build_death.py
+ D tools/ai-gen/zombie-death-v03-20260906/check_clips.py
+ D tools/ai-gen/zombie-death-v03-20260906/death-contact-sheet.jpg
+ D tools/ai-gen/zombie-death-v03-20260906/death-from-attack.gif
+ D tools/ai-gen/zombie-death-v03-20260906/death-from-walk.gif
+ D tools/ai-gen/zombie-death-v03-20260906/death-preview.gif
+ D tools/ai-gen/zombie-death-v03-20260906/package_preview.py
+ D tools/ai-gen/zombie-death-v03-20260906/render_review.py
+ D tools/ai-gen/zombie-death-v03-20260906/review-report.json
+ D tools/ai-gen/zombie-death-v03-20260906/support-report.json
+ D tools/ai-gen/zombie-death-v03-20260906/zombie-preview.glb
+ D tools/ai-gen/zombie-death-v03-20260906/zombie-rigged.blend
+ D tools/ai-gen/zombie-motion-v02-20260906/.gdignore
+ D tools/ai-gen/zombie-motion-v02-20260906/README.md
+ D tools/ai-gen/zombie-motion-v02-20260906/attack-contact-sheet.jpg
+ D tools/ai-gen/zombie-motion-v02-20260906/attack-preview.gif
+ D tools/ai-gen/zombie-motion-v02-20260906/check_export.py
+ D tools/ai-gen/zombie-motion-v02-20260906/contact-front.png
+ D tools/ai-gen/zombie-motion-v02-20260906/contact-side.png
+ D tools/ai-gen/zombie-motion-v02-20260906/death-contact-sheet.jpg
+ D tools/ai-gen/zombie-motion-v02-20260906/death-preview.gif
+ D tools/ai-gen/zombie-motion-v02-20260906/export-report.json
+ D tools/ai-gen/zombie-motion-v02-20260906/motion-overview.gif
+ D tools/ai-gen/zombie-motion-v02-20260906/package_preview.py
+ D tools/ai-gen/zombie-motion-v02-20260906/reference-attack.png
+ D tools/ai-gen/zombie-motion-v02-20260906/reference-death.png
+ D tools/ai-gen/zombie-motion-v02-20260906/reference-walk.png
+ D tools/ai-gen/zombie-motion-v02-20260906/render_review.py
+ D tools/ai-gen/zombie-motion-v02-20260906/review-report.json
+ D tools/ai-gen/zombie-motion-v02-20260906/rig-report.json
+ D tools/ai-gen/zombie-motion-v02-20260906/rig_and_animate.py
+ D tools/ai-gen/zombie-motion-v02-20260906/walk-contact-sheet.jpg
+ D tools/ai-gen/zombie-motion-v02-20260906/walk-preview.gif
+ D tools/ai-gen/zombie-motion-v02-20260906/zombie-model.blend
+ D tools/ai-gen/zombie-motion-v02-20260906/zombie-preview.glb
+ D tools/ai-gen/zombie-motion-v02-20260906/zombie-rigged.blend
+ M tools/migrate_inventory_assets.py
+ M ui/backpack.gd
+ M ui/backpack_hud.gd
+ M ui/backpack_reference_style.gd
+ M ui/checkbox.gd
+ M ui/command_palette.gd
+ M ui/context_menu.gd
+ M ui/craft_layout.gd
+ M ui/craft_panel.gd
+ M ui/dungeon_console.gd
+ M ui/dungeon_route_generator.gd
+ M ui/dungeon_theme.gd
+ M ui/enchant_panel.gd
+ M ui/enhance_panel.gd
+ M ui/equipment.gd
+ M ui/expedition_preparation.gd
+ M ui/fusion_panel.gd
+ M ui/hud.gd
+ M ui/input.gd
+ M ui/inventory_ground_item.gd
+ M ui/inventory_save.gd
+ M ui/item_cell.gd
+ M ui/item_db.gd
+ M ui/item_drag_preview.gd
+ M ui/item_rules.gd
+ M ui/item_tooltip.gd
+ M ui/loading_screen.gd
+ M ui/loading_screen.gd.uid
+ M ui/navigation_menu.gd
+ M ui/npc_bar.gd
+ M ui/npc_config.gd
+ M ui/npc_panel.gd
+ M ui/npc_panels.gd
+ M ui/original_sidebar.gd
+ M ui/palette.json
+ M ui/panel_item_transfer.gd
+ M ui/player_status.gd
+ M ui/quest_panel.gd
+ M ui/registry.json
+ M ui/registry.md
+ M ui/select.gd
+ M ui/settings_demo.gd
+ M ui/shop_panel.gd
+ M ui/skill_page.gd
+ M ui/skillbar.gd
+ M ui/skills_db.gd
+ M ui/slider.gd
+ M ui/sound-config.json
+ M ui/sound.gd
+ M ui/source_panel_motion.gd
+ M ui/status_bar.gd
+ M ui/status_page.gd
+ M ui/style-config.json
+ M ui/style.gd
+ M ui/switch.gd
+ M ui/tabs.gd
+ M ui/warehouse.gd
+ M ui/warehouse_cell.gd
+ M ui/warehouse_panel.gd
+ M ui/warehouse_panel.gd.uid
+ M ui/weapon_formula.gd
+ M weapon_data/akm_dl.tres
+ M weapon_data/akm_glb.tres
+ M weapon_data/akm_sketchfab.tres
+ M weapon_data/lowpoly_akm.tres
+ M weapon_data/tacz_ak47.tres
+?? BUILDING-WORKFLOW.md
+?? CHANGELOG.md
+?? VOXEL-WORKFLOW.md
+?? artifacts/
+?? assets/animations/
+?? assets/candidates/
+?? assets/data/gun-tooltip-source.json
+?? assets/data/retired-equipment-ids.json
+?? assets/data/wilderness/
+?? assets/environment/copper_vein_v1/
+?? assets/environment/day_night.gdshader
+?? assets/environment/day_night.gdshader.uid
+?? assets/environment/day_night_atmosphere.gdshaderinc
+?? assets/environment/day_night_atmosphere.gdshaderinc.uid
+?? assets/environment/gold_vein_v1/
+?? assets/environment/iron_vein_v1/
+?? assets/environment/lightning.gdshader
+?? assets/environment/lightning.gdshader.uid
+?? assets/environment/night_sky/
+?? assets/environment/silver_vein_v1/
+?? assets/environment/sky_base/
+?? assets/environment/starfield.gdshader
+?? assets/environment/starfield.gdshader.uid
+?? assets/environment/weather_clouds.gdshader
+?? assets/environment/weather_clouds.gdshader.uid
+?? assets/materials/forged-metal-v1/
+?? assets/materials/marble-ab-20260908/
+?? assets/materials/mw_ground/
+?? assets/materials/sanctuary-hd-v1/
+?? assets/materials/sanctuary-natural-v2/
+?? assets/materials/weapon_surface_detail/
+?? assets/models/akm_classic/
+?? assets/models/attachments/
+?? assets/models/basic_tools/
+?? assets/models/fab_meadow_runtime/
+?? assets/models/female_zombie/
+?? assets/models/foreman_zombie/foreman_v05.glb
+?? assets/models/foreman_zombie/foreman_v05.glb.import
+?? assets/models/foreman_zombie/foreman_v05_Image_0.png
+?? assets/models/foreman_zombie/foreman_v05_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v05_Image_1.png
+?? assets/models/foreman_zombie/foreman_v05_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v06.glb
+?? assets/models/foreman_zombie/foreman_v06.glb.import
+?? assets/models/foreman_zombie/foreman_v06_Image_0.png
+?? assets/models/foreman_zombie/foreman_v06_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v06_Image_1.png
+?? assets/models/foreman_zombie/foreman_v06_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v07.glb
+?? assets/models/foreman_zombie/foreman_v07.glb.import
+?? assets/models/foreman_zombie/foreman_v07_Image_0.png
+?? assets/models/foreman_zombie/foreman_v07_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v07_Image_1.png
+?? assets/models/foreman_zombie/foreman_v07_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v08.glb
+?? assets/models/foreman_zombie/foreman_v08.glb.import
+?? assets/models/foreman_zombie/foreman_v08_Image_0.png
+?? assets/models/foreman_zombie/foreman_v08_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v08_Image_1.png
+?? assets/models/foreman_zombie/foreman_v08_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v11.glb
+?? assets/models/foreman_zombie/foreman_v11.glb.import
+?? assets/models/foreman_zombie/foreman_v11_Image_0.png
+?? assets/models/foreman_zombie/foreman_v11_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v11_Image_1.png
+?? assets/models/foreman_zombie/foreman_v11_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v11_sleeve-albedo.png
+?? assets/models/foreman_zombie/foreman_v11_sleeve-albedo.png.import
+?? assets/models/foreman_zombie/foreman_v11_sleeve-normal.png
+?? assets/models/foreman_zombie/foreman_v11_sleeve-normal.png.import
+?? assets/models/foreman_zombie/foreman_v11_sleeve-roughness.png
+?? assets/models/foreman_zombie/foreman_v11_sleeve-roughness.png.import
+?? assets/models/foreman_zombie/foreman_v12.glb
+?? assets/models/foreman_zombie/foreman_v12.glb.import
+?? assets/models/foreman_zombie/foreman_v12_Image_0.png
+?? assets/models/foreman_zombie/foreman_v12_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v12_Image_1.png
+?? assets/models/foreman_zombie/foreman_v12_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v12_sleeve-albedo.png
+?? assets/models/foreman_zombie/foreman_v12_sleeve-albedo.png.import
+?? assets/models/foreman_zombie/foreman_v12_sleeve-normal.png
+?? assets/models/foreman_zombie/foreman_v12_sleeve-normal.png.import
+?? assets/models/foreman_zombie/foreman_v12_sleeve-roughness.png
+?? assets/models/foreman_zombie/foreman_v12_sleeve-roughness.png.import
+?? assets/models/foreman_zombie/foreman_v13.glb
+?? assets/models/foreman_zombie/foreman_v13.glb.import
+?? assets/models/foreman_zombie/foreman_v13_Image_0.png
+?? assets/models/foreman_zombie/foreman_v13_Image_0.png.import
+?? assets/models/foreman_zombie/foreman_v13_Image_1.png
+?? assets/models/foreman_zombie/foreman_v13_Image_1.png.import
+?? assets/models/foreman_zombie/foreman_v13_sleeve-albedo.png
+?? assets/models/foreman_zombie/foreman_v13_sleeve-albedo.png.import
+?? assets/models/foreman_zombie/foreman_v13_sleeve-normal.png
+?? assets/models/foreman_zombie/foreman_v13_sleeve-normal.png.import
+?? assets/models/foreman_zombie/foreman_v13_sleeve-roughness.png
+?? assets/models/foreman_zombie/foreman_v13_sleeve-roughness.png.import
+?? assets/models/foreman_zombie/summons/miner/
+?? assets/models/hand/
+?? assets/models/hk416/
+?? assets/models/humanoid_variants/
+?? assets/models/infima/
+?? assets/models/m16/
+?? assets/models/megaplants/
+?? assets/models/mine_kit/
+?? assets/models/modern_zombie/
+?? assets/models/npc/
+?? assets/models/nurse_zombie/
+?? assets/models/ore_spider/ore_spider_v02.glb
+?? assets/models/ore_spider/ore_spider_v02.glb.import
+?? assets/models/ore_spider/ore_spider_v02_Image_0.png
+?? assets/models/ore_spider/ore_spider_v02_Image_0.png.import
+?? assets/models/ore_spider/ore_spider_v02_Image_1.png
+?? assets/models/ore_spider/ore_spider_v02_Image_1.png.import
+?? assets/models/ore_spider/ore_spider_v04_preview.glb
+?? assets/models/ore_spider/ore_spider_v04_preview.glb.import
+?? assets/models/ore_spider/ore_spider_v04_preview_Image_0.png
+?? assets/models/ore_spider/ore_spider_v04_preview_Image_0.png.import
+?? assets/models/ore_spider/ore_spider_v04_preview_Image_1.png
+?? assets/models/ore_spider/ore_spider_v04_preview_Image_1.png.import
+?? assets/models/ore_spider/ore_spider_v05_preview.glb
+?? assets/models/ore_spider/ore_spider_v05_preview.glb.import
+?? assets/models/ore_spider/ore_spider_v05_preview_Image_0.png
+?? assets/models/ore_spider/ore_spider_v05_preview_Image_0.png.import
+?? assets/models/ore_spider/ore_spider_v05_preview_Image_1.png
+?? assets/models/ore_spider/ore_spider_v05_preview_Image_1.png.import
+?? assets/models/ore_spider/ore_spider_v06_preview.glb
+?? assets/models/ore_spider/ore_spider_v06_preview.glb.import
+?? assets/models/ore_spider/ore_spider_v06_preview_Image_0.png
+?? assets/models/ore_spider/ore_spider_v06_preview_Image_0.png.import
+?? assets/models/ore_spider/ore_spider_v06_preview_Image_1.png
+?? assets/models/ore_spider/ore_spider_v06_preview_Image_1.png.import
+?? assets/models/ore_spider/ore_spider_v07_preview.glb
+?? assets/models/ore_spider/ore_spider_v07_preview.glb.import
+?? assets/models/ore_spider/ore_spider_v07_preview_Image_0.png
+?? assets/models/ore_spider/ore_spider_v07_preview_Image_0.png.import
+?? assets/models/ore_spider/ore_spider_v07_preview_Image_1.png
+?? assets/models/ore_spider/ore_spider_v07_preview_Image_1.png.import
+?? assets/models/ore_variants/
+?? assets/models/player_hands/
+?? assets/models/qbz191/
+?? assets/models/tree_study_20260908/
+?? assets/models/zombie_quaternius_Zombie_Atlas.png
+?? assets/models/zombie_quaternius_Zombie_Atlas.png.import
+?? assets/models/zombie_skin_variants/
+?? assets/original_ui/assets/icons/craft-cold-steel/
+?? assets/original_ui/assets/icons/craft-legendary-pistols/
+?? assets/original_ui/assets/icons/craft-legendary-shotguns/
+?? assets/original_ui/assets/icons/craft-mythic-pistols/
+?? assets/original_ui/assets/icons/craft-mythic-shotguns/
+?? assets/original_ui/assets/icons/craft-pistols/
+?? assets/original_ui/assets/icons/craft-shields/
+?? assets/original_ui/assets/icons/craft-shotguns/
+?? assets/sfx/akm/
+?? assets/sfx/akm_classic/
+?? assets/sfx/hk416/
+?? assets/sfx/infima_ar/
+?? assets/sfx/kenney_impact/
+?? assets/sfx/m16/
+?? assets/sfx/p9/
+?? assets/sfx/qbz191/
+?? assets/sfx/rifle-actions-SOURCE.md
+?? assets/sfx/rifle-actions-edit-report.json
+?? assets/sfx/suppressor/
+?? assets/sfx/weather/
+?? assets/shaders/meadow_common.gdshaderinc
+?? assets/shaders/meadow_common.gdshaderinc.uid
+?? assets/shaders/megaplant_impostor.gdshader
+?? assets/shaders/megaplant_impostor.gdshader.uid
+?? assets/shaders/study_meadow.gdshader
+?? assets/shaders/study_meadow.gdshader.uid
+?? assets/shaders/study_stream.gdshader
+?? assets/shaders/study_stream.gdshader.uid
+?? assets/textures/wilderness_generated/
+?? assets/ui/audio/SOURCE.md
+?? assets/ui/audio/button_click.mp3
+?? assets/ui/audio/button_click.mp3.import
+?? assets/ui/building/
+?? assets/ui/event-icons/
+?? assets/ui/fonts/ConsolasBold.ttf
+?? assets/ui/fonts/ConsolasBold.ttf.import
+?? assets/ui/fonts/equipment_ui_font.tres
+?? assets/ui/fonts/equipment_ui_regular.tres
+?? assets/ui/fonts/simsun.ttc
+?? assets/ui/fonts/simsun.ttc.import
+?? assets/ui/gunsmith/
+?? assets/ui/icons/codex/
+?? assets/ui/icons/equip/ammo_556.png
+?? assets/ui/icons/equip/ammo_556.png.import
+?? assets/ui/icons/equip/ammo_58.png
+?? assets/ui/icons/equip/ammo_58.png.import
+?? assets/ui/icons/equip/ammo_762.png
+?? assets/ui/icons/equip/ammo_762.png.import
+?? assets/ui/icons/equip/ammo_9.png
+?? assets/ui/icons/equip/ammo_9.png.import
+?? assets/ui/icons/equip/angled_foregrip.png
+?? assets/ui/icons/equip/angled_foregrip.png.import
+?? assets/ui/icons/equip/fps_akm.png
+?? assets/ui/icons/equip/fps_akm.png.import
+?? assets/ui/icons/equip/fps_akm_classic.png
+?? assets/ui/icons/equip/fps_akm_classic.png.import
+?? assets/ui/icons/equip/fps_hk416.png
+?? assets/ui/icons/equip/fps_hk416.png.import
+?? assets/ui/icons/equip/fps_m16.png
+?? assets/ui/icons/equip/fps_m16.png.import
+?? assets/ui/icons/equip/fps_p9.png
+?? assets/ui/icons/equip/fps_p9.png.import
+?? assets/ui/icons/equip/fps_qbz191.png
+?? assets/ui/icons/equip/fps_qbz191.png.import
+?? assets/ui/icons/equip/generated-v1-prompts.json
+?? assets/ui/icons/equip/generated-v1-source.md
+?? assets/ui/icons/equip/gunsmith/
+?? assets/ui/icons/equip/large_drum.png
+?? assets/ui/icons/equip/large_drum.png.import
+?? assets/ui/icons/gunsmith/
+?? assets/ui/loading/
+?? assets/ui/shaders/liquid_glass.gdshader
+?? assets/ui/shaders/liquid_glass.gdshader.uid
+?? assets/ui/start-screen-background.png
+?? assets/ui/start-screen-background.png.import
+?? assets/vfx/
+?? data/
+?? design-qa.md
+?? docs/ads-visible-aim.md
+?? docs/akm-attachment-ads.png
+?? docs/akm-attachment-ads.png.import
+?? docs/akm-attachment-all.png
+?? docs/akm-attachment-all.png.import
+?? docs/akm-attachment-magazine.png
+?? docs/akm-attachment-magazine.png.import
+?? docs/akm-attachment-motion-20.png
+?? docs/akm-attachment-motion-20.png.import
+?? docs/akm-attachment-motion-50.png
+?? docs/akm-attachment-motion-50.png.import
+?? docs/akm-attachment-motion-80.png
+?? docs/akm-attachment-motion-80.png.import
+?? docs/akm-attachment-motion-before.png
+?? docs/akm-attachment-motion-before.png.import
+?? docs/akm-attachment-muzzle.png
+?? docs/akm-attachment-muzzle.png.import
+?? docs/akm-attachment-optic.png
+?? docs/akm-attachment-optic.png.import
+?? docs/akm-classic-integration.md
+?? docs/akm-grip-reuse-v1.md
+?? docs/akm-material-legacy-0.png
+?? docs/akm-material-legacy-0.png.import
+?? docs/akm-material-legacy-25.png
+?? docs/akm-material-legacy-25.png.import
+?? docs/akm-material-pbr-0.png
+?? docs/akm-material-pbr-0.png.import
+?? docs/akm-material-pbr-25.png
+?? docs/akm-material-pbr-25.png.import
+?? docs/akm-optics-rail-center.png
+?? docs/akm-optics-rail-center.png.import
+?? docs/akm-parts-catalog.png
+?? docs/akm-parts-catalog.png.import
+?? docs/akm-raised-attachment-ads.png
+?? docs/akm-raised-attachment-ads.png.import
+?? docs/akm-raised-reflex-ads-detail.png
+?? docs/akm-raised-reflex-ads-detail.png.import
+?? docs/akm-reflex-ads-detail.png
+?? docs/akm-reflex-ads-detail.png.import
+?? docs/akm-reflex-v2.png
+?? docs/akm-reflex-v2.png.import
+?? docs/all-weapon-ads-audit.md
+?? docs/ammo-readout.md
+?? docs/angled-foregrip-fingers-v2.md
+?? docs/angled-foregrip-v1.md
+?? docs/apple-glass-ui-standard.md
+?? docs/architecture-geometry-polish-20260908.md
+?? docs/attachment-material-match.md
+?? docs/attachment-motion-audit.md
+?? docs/attachment-upgrade-20260909.md
+?? docs/audit/
+?? docs/backpack-audit-20260908.md
+?? docs/backpack-interaction-audit-2026-09-07.md
+?? docs/basic-toolkit.md
+?? docs/build-materials.md
+?? docs/building-workflows-publication.md
+?? docs/caliber-ammunition.md
+?? docs/canted-foregrip-v1.md
+?? docs/canted-foregrip-v2.md
+?? docs/chest-brass-20260908.md
+?? docs/chest-fit-20260908.md
+?? docs/chest-laurel-20260908.md
+?? docs/chest-sapphire-20260908.md
+?? docs/chest-shell-repair-20260908.md
+?? docs/codex-panel.md
+?? docs/cold-steel-fixes-2026-09-06.md
+?? docs/cold-steel-module-audit-2026-09-06.md
+?? docs/cold-steel-ui-release-2026-09-06.md
+?? docs/cold-steel-ui-standard.md
+?? docs/combat-stock-v1.md
+?? docs/copper-vein.md
+?? docs/day-night-system.md
+?? docs/drum-seat-fix-20260908.md
+?? docs/equipment-format-migration-20260906.md
+?? docs/equipment-weapon-binding.md
+?? docs/equipment-weapon-binding.patch
+?? docs/event-timeline-port.md
+?? docs/fab-meadow-integration-20260909.md
+?? docs/fab-nature-candidates-20260909.md
+?? docs/female-zombie-spawning.md
+?? docs/fire-modes.md
+?? docs/firearm-publication-20260906.md
+?? docs/first-person-arms-standard.md
+?? docs/five-rifle-materials-20260908.md
+?? docs/font-standard-audit-2026-09-06.md
+?? docs/foregrip-equip-return-v3.md
+?? docs/foregrip-polish-v3.md
+?? docs/foregrip-universal-v4.md
+?? docs/foreman-animation-audit-20260909.md
+?? docs/foreman-animation-polish-20260909.md
+?? docs/foreman-grounded-walk-20260909.md
+?? docs/foreman-ragdoll-20260909.md
+?? docs/generated-item-icons.png
+?? docs/generated-item-icons.png.import
+?? docs/global-ui-audit-2026-09-07.md
+?? docs/grip-material-publication-20260907.md
+?? docs/gun-tooltip-migration-20260906.md
+?? docs/gunplay-hands-upgrade-20260909.md
+?? docs/gunsmith-full-review-20260907.md
+?? docs/gunsmith-fullscreen-audit-2026-09-06.md
+?? docs/gunsmith-furniture.md
+?? docs/gunsmith-renovation-audit-and-plan-2026-09-07.md
+?? docs/gunsmith-renovation-delivery-2026-09-07.md
+?? docs/half-meter-harvesting-20260907.md
+?? docs/handoffs/
+?? docs/handstop-v1.md
+?? docs/hip-recoil-envelope-v2.md
+?? docs/history/
+?? docs/hk416-attachment-ads.png
+?? docs/hk416-attachment-ads.png.import
+?? docs/hk416-clean-material-integration.md
+?? docs/hk416-color-space-fix.md
+?? docs/hk416-furniture-gunsmith-pending.png
+?? docs/hk416-furniture-gunsmith-pending.png.import
+?? docs/hk416-gunsmith-applied.png
+?? docs/hk416-gunsmith-applied.png.import
+?? docs/hk416-gunsmith-pending.png
+?? docs/hk416-gunsmith-pending.png.import
+?? docs/hk416-gunsmith.md
+?? docs/hk416-integration.md
+?? docs/hk416-material-legacy-0.png
+?? docs/hk416-material-legacy-0.png.import
+?? docs/hk416-material-legacy-25.png
+?? docs/hk416-material-legacy-25.png.import
+?? docs/hk416-material-pbr-0.png
+?? docs/hk416-material-pbr-0.png.import
+?? docs/hk416-material-pbr-25.png
+?? docs/hk416-material-pbr-25.png.import
+?? docs/hk416-material-v1-0.png
+?? docs/hk416-material-v1-0.png.import
+?? docs/hk416-material-v1-25.png
+?? docs/hk416-material-v1-25.png.import
+?? docs/hk416-original-reload-contact.png
+?? docs/hk416-original-reload-contact.png.import
+?? docs/hk416-parts-reload-empty-110.png
+?? docs/hk416-parts-reload-empty-110.png.import
+?? docs/hk416-parts-reload-empty-20.png
+?? docs/hk416-parts-reload-empty-20.png.import
+?? docs/hk416-parts-reload-empty-50.png
+?? docs/hk416-parts-reload-empty-50.png.import
+?? docs/hk416-parts-reload-empty-80.png
+?? docs/hk416-parts-reload-empty-80.png.import
+?? docs/hk416-parts-reload-normal-110.png
+?? docs/hk416-parts-reload-normal-110.png.import
+?? docs/hk416-parts-reload-normal-20.png
+?? docs/hk416-parts-reload-normal-20.png.import
+?? docs/hk416-parts-reload-normal-50.png
+?? docs/hk416-parts-reload-normal-50.png.import
+?? docs/hk416-parts-reload-normal-80.png
+?? docs/hk416-parts-reload-normal-80.png.import
+?? docs/hk416-raised-attachment-ads.png
+?? docs/hk416-raised-attachment-ads.png.import
+?? docs/hk416-raised-reflex-ads-detail.png
+?? docs/hk416-raised-reflex-ads-detail.png.import
+?? docs/hk416-reflex-ads-detail.png
+?? docs/hk416-reflex-ads-detail.png.import
+?? docs/hollow-reargrip.md
+?? docs/impact-cc0-trial-20260908.md
+?? docs/impact-polish-20260908.md
+?? docs/infima-handgun-source.json
+?? docs/infima-handgun.md
+?? docs/infima/
+?? docs/iron-vein.md
+?? docs/large-drum.md
+?? docs/laser-ads-reticle.md
+?? docs/laser-axis-sprint-v2.md
+?? docs/leaf-conservative-20260908.md
+?? docs/liquid-glass-ui-prototype.md
+?? docs/lowered-raised-optic-v3.md
+?? docs/m16-action-audio.md
+?? docs/m16-first-draw.md
+?? docs/m16-integration.md
+?? docs/main-ui-audit-20260906.md
+?? docs/marble-texture-ab-20260908.md
+?? docs/material-cleanup-20260907.Bytes.translation
+?? docs/material-cleanup-20260907.Reason.translation
+?? docs/material-cleanup-20260907.csv
+?? docs/material-cleanup-20260907.csv.import
+?? docs/material-cleanup-20260909.json
+?? docs/material-cleanup-and-riverside-plan-20260907.md
+?? docs/meadow-improvement-20260907.md
+?? docs/megaplants-integration-20260909.md
+?? docs/modern-zombie-publication-20260906.md
+?? docs/modified-muzzle-origin-fix.md
+?? docs/monster-death-ragdoll-workflow.md
+?? docs/muzzle-brake-candidate.md
+?? docs/muzzle-brake-candidate.png
+?? docs/muzzle-brake-candidate.png.import
+?? docs/muzzle-brake-integration.md
+?? docs/muzzle-fit-calibration.md
+?? docs/muzzle-smoke-lifetime-fix.md
+?? docs/muzzle-vfx-refinement.md
+?? docs/mw-ground-review-20260909.md
+?? docs/natural-materials-20260908.md
+?? docs/nature-retirement-20260909.json
+?? docs/nature-retirement-20260909.md
+?? docs/nurse-zombie-integration.md
+?? docs/ordinary-zombie-ragdoll-20260909.md
+?? docs/ore-mining.md
+?? docs/ore-spider-impact-v07.md
+?? docs/ore-spider-integration-checklist.md
+?? docs/ore-spider-joints-v06.md
+?? docs/ore-spider-release.md
+?? docs/ore-spider-texture-v04.md
+?? docs/ore-spider-walk-v05.md
+?? docs/ore-variants.md
+?? docs/p9-attachment-ads.png
+?? docs/p9-attachment-ads.png.import
+?? docs/p9-gunsmith-pending.png
+?? docs/p9-gunsmith-pending.png.import
+?? docs/p9-gunsmith.md
+?? docs/p9-material-legacy-0.png
+?? docs/p9-material-legacy-0.png.import
+?? docs/p9-material-legacy-25.png
+?? docs/p9-material-legacy-25.png.import
+?? docs/p9-material-pbr-0.png
+?? docs/p9-material-pbr-0.png.import
+?? docs/p9-material-pbr-25.png
+?? docs/p9-material-pbr-25.png.import
+?? docs/p9-raised-attachment-ads.png
+?? docs/p9-raised-attachment-ads.png.import
+?? docs/p9-raised-reflex-ads-detail.png
+?? docs/p9-raised-reflex-ads-detail.png.import
+?? docs/p9-reflex-ads-detail.png
+?? docs/p9-reflex-ads-detail.png.import
+?? docs/performance-diagnostics-20260908.md
+?? docs/precious-veins.md
+?? docs/precision-reference-v5.md
+?? docs/preview/attribute-con-1280.png
+?? docs/preview/attribute-con-1280.png.import
+?? docs/preview/attribute-con-960.png
+?? docs/preview/attribute-con-960.png.import
+?? docs/preview/attribute-dex-1280.png
+?? docs/preview/attribute-dex-1280.png.import
+?? docs/preview/attribute-dex-960.png
+?? docs/preview/attribute-dex-960.png.import
+?? docs/preview/attribute-intt-1280.png
+?? docs/preview/attribute-intt-1280.png.import
+?? docs/preview/attribute-intt-960.png
+?? docs/preview/attribute-intt-960.png.import
+?? docs/preview/attribute-luck-1280.png
+?? docs/preview/attribute-luck-1280.png.import
+?? docs/preview/attribute-luck-960.png
+?? docs/preview/attribute-luck-960.png.import
+?? docs/preview/attribute-str-1280.png
+?? docs/preview/attribute-str-1280.png.import
+?? docs/preview/attribute-str-960.png
+?? docs/preview/attribute-str-960.png.import
+?? docs/preview/attribute-wis-1280.png
+?? docs/preview/attribute-wis-1280.png.import
+?? docs/preview/attribute-wis-960.png
+?? docs/preview/attribute-wis-960.png.import
+?? docs/preview/backpack-mood-source-1280x720.png
+?? docs/preview/backpack-mood-source-1280x720.png.import
+?? docs/preview/backpack-seam-before-after.png
+?? docs/preview/backpack-seam-before-after.png.import
+?? docs/preview/backpack-spatial-16x16-1920x1080.png
+?? docs/preview/backpack-spatial-16x16-1920x1080.png.import
+?? docs/preview/backpack-spatial-16x16-720.png
+?? docs/preview/backpack-spatial-16x16-720.png.import
+?? docs/preview/backpack-spatial-16x16-960x540.png
+?? docs/preview/backpack-spatial-16x16-960x540.png.import
+?? docs/preview/backpack-spatial-16x8-1920x1080.png
+?? docs/preview/backpack-spatial-16x8-1920x1080.png.import
+?? docs/preview/backpack-spatial-16x8-720.png
+?? docs/preview/backpack-spatial-16x8-720.png.import
+?? docs/preview/backpack-spatial-16x8-960x540.png
+?? docs/preview/backpack-spatial-16x8-960x540.png.import
+?? docs/preview/backpack-spatial-16x8-before-seam-fix.png
+?? docs/preview/backpack-spatial-16x8-before-seam-fix.png.import
+?? docs/preview/backpack-spatial-8x8-1920x1080.png
+?? docs/preview/backpack-spatial-8x8-1920x1080.png.import
+?? docs/preview/backpack-spatial-8x8-720.png
+?? docs/preview/backpack-spatial-8x8-720.png.import
+?? docs/preview/backpack-spatial-8x8-960x540.png
+?? docs/preview/backpack-spatial-8x8-960x540.png.import
+?? docs/preview/backpack-spatial-drag-8x2-720.png
+?? docs/preview/backpack-spatial-drag-8x2-720.png.import
+?? docs/preview/equipment-format-1280.png
+?? docs/preview/equipment-format-1280.png.import
+?? docs/preview/equipment-format-1920.png
+?? docs/preview/equipment-format-1920.png.import
+?? docs/preview/equipment-format-960.png
+?? docs/preview/equipment-format-960.png.import
+?? docs/preview/equipment-format-fps.png
+?? docs/preview/equipment-format-fps.png.import
+?? docs/preview/equipment-format-long.png
+?? docs/preview/equipment-format-long.png.import
+?? docs/preview/equipment-microfix-1280.png
+?? docs/preview/equipment-microfix-1280.png.import
+?? docs/preview/equipment-microfix-960.png
+?? docs/preview/equipment-microfix-960.png.import
+?? docs/preview/fab-meadow-integration-20260909/
+?? docs/preview/fab-nature-20260909/
+?? docs/preview/gunsmith-clearance-1280x720.png
+?? docs/preview/gunsmith-clearance-1280x720.png.import
+?? docs/preview/gunsmith-clearance-1680x944.png
+?? docs/preview/gunsmith-clearance-1680x944.png.import
+?? docs/preview/gunsmith-cold-steel-cyan-1680x944.png
+?? docs/preview/gunsmith-cold-steel-cyan-1680x944.png.import
+?? docs/preview/gunsmith-layout-optimized-final-1280x720.png
+?? docs/preview/gunsmith-layout-optimized-final-1280x720.png.import
+?? docs/preview/gunsmith-layout-optimized-final-1680x944.png
+?? docs/preview/gunsmith-layout-optimized-final-1680x944.png.import
+?? docs/preview/gunsmith-layout-optimized-final-960x540.png
+?? docs/preview/gunsmith-layout-optimized-final-960x540.png.import
+?? docs/preview/gunsmith-moodboard-option2-horizontal-dock.png
+?? docs/preview/gunsmith-moodboard-option2-horizontal-dock.png.import
+?? docs/preview/gunsmith-moodboard-selected.png
+?? docs/preview/gunsmith-moodboard-selected.png.import
+?? docs/preview/gunsmith-option2-1280x720.png
+?? docs/preview/gunsmith-option2-1280x720.png.import
+?? docs/preview/gunsmith-option2-1680x944.png
+?? docs/preview/gunsmith-option2-1680x944.png.import
+?? docs/preview/gunsmith-option2-2560x1440.png
+?? docs/preview/gunsmith-option2-2560x1440.png.import
+?? docs/preview/gunsmith-option2-960x540.png
+?? docs/preview/gunsmith-option2-960x540.png.import
+?? docs/preview/gunsmith-option2-fused-v2-1280x720.png
+?? docs/preview/gunsmith-option2-fused-v2-1280x720.png.import
+?? docs/preview/gunsmith-option2-fused-v2-1680x944.png
+?? docs/preview/gunsmith-option2-fused-v2-1680x944.png.import
+?? docs/preview/gunsmith-option2-fused-v3-960x540.png
+?? docs/preview/gunsmith-option2-fused-v3-960x540.png.import
+?? docs/preview/half_meter_highlight_20260907.png
+?? docs/preview/half_meter_highlight_20260907.png.import
+?? docs/preview/integrated_meadow_center.png
+?? docs/preview/integrated_meadow_center.png.import
+?? docs/preview/integrated_meadow_outer.png
+?? docs/preview/integrated_meadow_outer.png.import
+?? docs/preview/leaf-budget-after-1280.png
+?? docs/preview/leaf-budget-after-1280.png.import
+?? docs/preview/leaf-budget-after.png
+?? docs/preview/leaf-budget-after.png.import
+?? docs/preview/leaf-budget-before-1280.png
+?? docs/preview/leaf-budget-before-1280.png.import
+?? docs/preview/leaf-budget-before.png
+?? docs/preview/leaf-budget-before.png.import
+?? docs/preview/meadow_after_0.png
+?? docs/preview/meadow_after_0.png.import
+?? docs/preview/meadow_after_1.png
+?? docs/preview/meadow_after_1.png.import
+?? docs/preview/meadow_before_0.png
+?? docs/preview/meadow_before_0.png.import
+?? docs/preview/meadow_before_1.png
+?? docs/preview/meadow_before_1.png.import
+?? docs/preview/meadow_daylight_after_0.png
+?? docs/preview/meadow_daylight_after_0.png.import
+?? docs/preview/meadow_daylight_after_1.png
+?? docs/preview/meadow_daylight_after_1.png.import
+?? docs/preview/meadow_daylight_before_0.png
+?? docs/preview/meadow_daylight_before_0.png.import
+?? docs/preview/meadow_daylight_before_1.png
+?? docs/preview/meadow_daylight_before_1.png.import
+?? docs/preview/meadow_daylight_control_0.png
+?? docs/preview/meadow_daylight_control_0.png.import
+?? docs/preview/meadow_daylight_control_1.png
+?? docs/preview/meadow_daylight_control_1.png.import
+?? docs/preview/meadow_daylight_final_0.png
+?? docs/preview/meadow_daylight_final_0.png.import
+?? docs/preview/meadow_daylight_final_1.png
+?? docs/preview/meadow_daylight_final_1.png.import
+?? docs/preview/meadow_density_ab.json
+?? docs/preview/meadow_density_baseline_0.png
+?? docs/preview/meadow_density_baseline_0.png.import
+?? docs/preview/meadow_density_baseline_1.png
+?? docs/preview/meadow_density_baseline_1.png.import
+?? docs/preview/meadow_density_dense_0.png
+?? docs/preview/meadow_density_dense_0.png.import
+?? docs/preview/meadow_density_dense_1.png
+?? docs/preview/meadow_density_dense_1.png.import
+?? docs/preview/meadow_forward_final_0.png
+?? docs/preview/meadow_forward_final_0.png.import
+?? docs/preview/meadow_forward_final_1.png
+?? docs/preview/meadow_forward_final_1.png.import
+?? docs/preview/megaplants-20260909/
+?? docs/preview/muzzle-brake-integration/
+?? docs/preview/mw-ground-20260909/
+?? docs/preview/nature-retirement-20260909/
+?? docs/preview/performance-panel-1280.png
+?? docs/preview/performance-panel-1280.png.import
+?? docs/preview/performance-panel-1920.png
+?? docs/preview/performance-panel-1920.png.import
+?? docs/preview/performance-panel-960.png
+?? docs/preview/performance-panel-960.png.import
+?? docs/preview/performance-tab-1.png
+?? docs/preview/performance-tab-1.png.import
+?? docs/preview/performance-tab-2.png
+?? docs/preview/performance-tab-2.png.import
+?? docs/preview/performance-tab-3.png
+?? docs/preview/performance-tab-3.png.import
+?? docs/preview/riverside_study_bank.png
+?? docs/preview/riverside_study_bank.png.import
+?? docs/preview/riverside_study_metrics.json
+?? docs/preview/riverside_study_path.png
+?? docs/preview/riverside_study_path.png.import
+?? docs/preview/route_benchmark_cold.png
+?? docs/preview/route_benchmark_cold.png.import
+?? docs/preview/route_benchmark_warm.png
+?? docs/preview/route_benchmark_warm.png.import
+?? docs/preview/route_camp.png
+?? docs/preview/route_camp.png.import
+?? docs/preview/route_uncapped_cold.png
+?? docs/preview/route_uncapped_cold.png.import
+?? docs/preview/route_uncapped_loaded_pass1.png
+?? docs/preview/route_uncapped_loaded_pass1.png.import
+?? docs/preview/route_uncapped_loaded_pass2.png
+?? docs/preview/route_uncapped_loaded_pass2.png.import
+?? docs/preview/route_uncapped_warm.png
+?? docs/preview/route_uncapped_warm.png.import
+?? docs/preview/shore_trails_before_render_tier.png
+?? docs/preview/shore_trails_before_render_tier.png.import
+?? docs/preview/shore_trails_lake.png
+?? docs/preview/shore_trails_lake.png.import
+?? docs/preview/shore_trails_outer.png
+?? docs/preview/shore_trails_outer.png.import
+?? docs/preview/shore_trails_river.png
+?? docs/preview/shore_trails_river.png.import
+?? docs/preview/shore_trails_road.png
+?? docs/preview/shore_trails_road.png.import
+?? docs/preview/start-menu/
+?? docs/preview/valley_perf_grass_before_20260907.png
+?? docs/preview/valley_perf_grass_before_20260907.png.import
+?? docs/preview/valley_perf_meadow_before.png
+?? docs/preview/valley_perf_meadow_before.png.import
+?? docs/preview/valley_perf_meadow_final.png
+?? docs/preview/valley_perf_meadow_final.png.import
+?? docs/preview/valley_perf_meadow_integrated.png
+?? docs/preview/valley_perf_meadow_integrated.png.import
+?? docs/preview/valley_perf_meadow_unified.png
+?? docs/preview/valley_perf_meadow_unified.png.import
+?? docs/preview/valley_water_enhanced_v5.png
+?? docs/preview/valley_water_enhanced_v5.png.import
+?? docs/preview/weather-event-bar/
+?? docs/preview/wilderness-lod-shadow-20260908/
+?? docs/preview/wilderness_outer_edit_20260907.png
+?? docs/preview/wilderness_outer_edit_20260907.png.import
+?? docs/qbz191-attachment-ads.png
+?? docs/qbz191-attachment-ads.png.import
+?? docs/qbz191-gunsmith-combined.png
+?? docs/qbz191-gunsmith-combined.png.import
+?? docs/qbz191-gunsmith.md
+?? docs/qbz191-integration.md
+?? docs/qbz191-raised-attachment-ads.png
+?? docs/qbz191-raised-attachment-ads.png.import
+?? docs/qbz191-raised-reflex-ads-detail.png
+?? docs/qbz191-raised-reflex-ads-detail.png.import
+?? docs/qbz191-reargrip-variants-close.png
+?? docs/qbz191-reargrip-variants-close.png.import
+?? docs/qbz191-reargrip-variants-oblique.png
+?? docs/qbz191-reargrip-variants-oblique.png.import
+?? docs/qbz191-reargrip-variants-opposite.png
+?? docs/qbz191-reargrip-variants-opposite.png.import
+?? docs/qbz191-reargrip-variants.png
+?? docs/qbz191-reargrip-variants.png.import
+?? docs/qbz191-reflex-ads-detail.png
+?? docs/qbz191-reflex-ads-detail.png.import
+?? docs/qbz191-stock-variants-close.png
+?? docs/qbz191-stock-variants-close.png.import
+?? docs/qbz191-stock-variants-oblique.png
+?? docs/qbz191-stock-variants-oblique.png.import
+?? docs/qbz191-stock-variants-opposite.png
+?? docs/qbz191-stock-variants-opposite.png.import
+?? docs/qbz191-stock-variants.png
+?? docs/qbz191-stock-variants.png.import
+?? docs/railing-polish-20260908.md
+?? docs/raised-panorama-bridge-v2.md
+?? docs/raised-panorama-mounted.png
+?? docs/raised-panorama-mounted.png.import
+?? docs/raised-panorama-panel.png
+?? docs/raised-panorama-panel.png.import
+?? docs/raised-panorama.md
+?? docs/range-barrel.md
+?? docs/reargrip-variants-close.png
+?? docs/reargrip-variants-close.png.import
+?? docs/reargrip-variants-oblique.png
+?? docs/reargrip-variants-oblique.png.import
+?? docs/reargrip-variants-opposite.png
+?? docs/reargrip-variants-opposite.png.import
+?? docs/reargrip-variants-panel.png
+?? docs/reargrip-variants-panel.png.import
+?? docs/reargrip-variants.md
+?? docs/reargrip-variants.png
+?? docs/reargrip-variants.png.import
+?? docs/reflex-connected-mounted.png
+?? docs/reflex-connected-mounted.png.import
+?? docs/reflex-fit-calibration.md
+?? docs/reflex-narrow-mounted.png
+?? docs/reflex-narrow-mounted.png.import
+?? docs/rifle-audio-20260908.md
+?? docs/rifle-audio-publication-20260908.md
+?? docs/rifle-clean-finish-v03.md
+?? docs/rifle-layered-polymer-review.md
+?? docs/riverside-material-study.md
+?? docs/riverside-style-unification-20260907.md
+?? docs/route-benchmark-20260907.json
+?? docs/route-benchmark-before-budget-20260907.json
+?? docs/route-benchmark-before-distance-20260907.json
+?? docs/route-benchmark-uncapped-3080ti.json
+?? docs/route-benchmark-uncapped-before-render-tier.json
+?? docs/sanctuary-hd-materials-20260908.md
+?? docs/session-fixes-publication-20260906.md
+?? docs/settings-audit-20260906.md
+?? docs/shore-geometry-improvements-20260907.md
+?? docs/shore-trails-integration-20260907.md
+?? docs/sky-base/
+?? docs/slide-jump.md
+?? docs/source-font-audit-2026-09-07.md
+?? docs/source-hud-cold-steel-audit.md
+?? docs/start-menu-migration-20260906.md
+?? docs/stock-refit-v4.md
+?? docs/stock-variants-before-finish.png
+?? docs/stock-variants-before-finish.png.import
+?? docs/stock-variants-close.png
+?? docs/stock-variants-close.png.import
+?? docs/stock-variants-oblique.png
+?? docs/stock-variants-oblique.png.import
+?? docs/stock-variants-opposite.png
+?? docs/stock-variants-opposite.png.import
+?? docs/stock-variants-panel.png
+?? docs/stock-variants-panel.png.import
+?? docs/stock-variants.md
+?? docs/stock-variants.png
+?? docs/stock-variants.png.import
+?? docs/tactical-attachments.md
+?? docs/tactical-light-flashlight.png
+?? docs/tactical-light-flashlight.png.import
+?? docs/tactical-light-laser.png
+?? docs/tactical-light-laser.png.import
+?? docs/tactical-light-off.png
+?? docs/tactical-light-off.png.import
+?? docs/tactical-mounted-close.png
+?? docs/tactical-mounted-close.png.import
+?? docs/tactical-mounted-oblique.png
+?? docs/tactical-mounted-oblique.png.import
+?? docs/tactical-mounted-opposite.png
+?? docs/tactical-mounted-opposite.png.import
+?? docs/tactical-mounted.png
+?? docs/tactical-mounted.png.import
+?? docs/tactical-panel-fps_akm-flashlight-1280.png
+?? docs/tactical-panel-fps_akm-flashlight-1280.png.import
+?? docs/tactical-panel-fps_akm-laser-1280.png
+?? docs/tactical-panel-fps_akm-laser-1280.png.import
+?? docs/tactical-panel-fps_akm-laser-1920.png
+?? docs/tactical-panel-fps_akm-laser-1920.png.import
+?? docs/tactical-panel-fps_akm-laser-960.png
+?? docs/tactical-panel-fps_akm-laser-960.png.import
+?? docs/tactical-panel-fps_hk416-flashlight-1280.png
+?? docs/tactical-panel-fps_hk416-flashlight-1280.png.import
+?? docs/tactical-panel-fps_hk416-laser-1280.png
+?? docs/tactical-panel-fps_hk416-laser-1280.png.import
+?? docs/tactical-panel-fps_hk416-laser-1920.png
+?? docs/tactical-panel-fps_hk416-laser-1920.png.import
+?? docs/tactical-panel-fps_hk416-laser-960.png
+?? docs/tactical-panel-fps_hk416-laser-960.png.import
+?? docs/tactical-panel-fps_qbz191-flashlight-1280.png
+?? docs/tactical-panel-fps_qbz191-flashlight-1280.png.import
+?? docs/tactical-panel-fps_qbz191-laser-1280.png
+?? docs/tactical-panel-fps_qbz191-laser-1280.png.import
+?? docs/tactical-panel-fps_qbz191-laser-1920.png
+?? docs/tactical-panel-fps_qbz191-laser-1920.png.import
+?? docs/tactical-panel-fps_qbz191-laser-960.png
+?? docs/tactical-panel-fps_qbz191-laser-960.png.import
+?? docs/titanium-brake-integration.md
+?? docs/torch-metal-20260908.md
+?? docs/tree-candidate-comparison-20260908.md
+?? docs/tree-felling.md
+?? docs/two-handed-offhand-reference.md
+?? docs/ui-audit-backpack-black-white-20260906.md
+?? docs/ui-publish-2026-09-08.md
+?? docs/unified-stocks-preview.png
+?? docs/unified-stocks-preview.png.import
+?? docs/unified-stocks.md
+?? docs/validation/
+?? docs/vertical-foregrip-v1.md
+?? docs/viewmodel-recoil-axes.md
+?? docs/weapon-balance-standard.md
+?? docs/weapon-binding-before.json
+?? docs/weapon-feedback.md
+?? docs/weapon-material-activation-audit-20260909.md
+?? docs/weapon-material-consolidation-20260909.md
+?? docs/weapon-polymer-publication-20260907.md
+?? docs/weapon-review-20260908.md
+?? docs/weapon-surface-finish.md
+?? docs/weapon-surface-integration-20260909.md
+?? docs/weapon-switch-stutter-20260908.md
+?? docs/weather-cleanup-20260906.md
+?? docs/weather-development-workflow.md
+?? docs/weather-forecast-ui.md
+?? docs/weather-publication.md
+?? docs/weather-system.md
+?? docs/wilderness-asset-inventory-20260909.md
+?? docs/wilderness-combat-study-20260908.md
+?? docs/wilderness-distance-palette-20260907.md
+?? docs/wilderness-fps-diagnosis-20260907.md
+?? docs/wilderness-full-optimization-plan-20260908.md
+?? docs/wilderness-gameplay-fps-3080ti-half.json
+?? docs/wilderness-gameplay-fps-3080ti.json
+?? docs/wilderness-gameplay-fps-before-render-tier.json
+?? docs/wilderness-generation-plan.md
+?? docs/wilderness-leaf-budget-20260908.md
+?? docs/wilderness-lod-shadow-20260908.md
+?? docs/wilderness-meadow-integration-20260907.md
+?? docs/wilderness-movement-speed-fix-20260907.md
+?? docs/wilderness-release.md
+?? docs/wilderness-render-tiers-20260908.md
+?? docs/wilderness-routes-and-streaming-20260907.md
+?? docs/wilderness-stall-fix-20260908.md
+?? docs/wilderness-submission-budget-20260907.md
+?? docs/wilderness-unified-runtime-20260907.md
+?? scenes/enemies/female_zombie.tscn
+?? scenes/enemies/miner_workwear_zombie.tscn
+?? scenes/enemies/nurse_zombie.tscn
+?? scenes/enemies/ore_spider_v06_preview.tscn
+?? scenes/enemies/ore_spider_v07_preview.tscn
+?? scenes/enemies/runner_zombie.tscn
+?? scenes/fab_nature_study/
+?? scenes/riverside_material_study.gd
+?? scenes/riverside_material_study.gd.uid
+?? scenes/riverside_material_study.tscn
+?? scenes/sky_base/
+?? scenes/ui/start_menu.tscn
+?? scenes/voxel_lab.tscn
+?? scenes/voxel_valley_test.tscn
+?? scenes/warehouse_chest_preview/brass_materials.gd
+?? scenes/warehouse_chest_preview/brass_materials.gd.uid
+?? scenes/warehouse_chest_preview/hd_integration.gd
+?? scenes/warehouse_chest_preview/hd_integration.gd.uid
+?? scenes/warehouse_chest_preview/sapphire.gdshader
+?? scenes/warehouse_chest_preview/sapphire.gdshader.uid
+?? scenes/warehouse_chest_preview/sapphire_materials.gd
+?? scenes/warehouse_chest_preview/sapphire_materials.gd.uid
+?? scenes/warehouse_chest_preview/warehouse_chest_v2.glb
+?? scenes/warehouse_chest_preview/warehouse_chest_v2.glb.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v2_marble_albedo.png
+?? scenes/warehouse_chest_preview/warehouse_chest_v2_marble_albedo.png.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v3.glb
+?? scenes/warehouse_chest_preview/warehouse_chest_v3.glb.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v3_marble_albedo.png
+?? scenes/warehouse_chest_preview/warehouse_chest_v3_marble_albedo.png.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v4.glb
+?? scenes/warehouse_chest_preview/warehouse_chest_v4.glb.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v4_marble_albedo.png
+?? scenes/warehouse_chest_preview/warehouse_chest_v4_marble_albedo.png.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v5.glb
+?? scenes/warehouse_chest_preview/warehouse_chest_v5.glb.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v5_marble_albedo.png
+?? scenes/warehouse_chest_preview/warehouse_chest_v5_marble_albedo.png.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v6.glb
+?? scenes/warehouse_chest_preview/warehouse_chest_v6.glb.import
+?? scenes/warehouse_chest_preview/warehouse_chest_v6_marble_albedo.png
+?? scenes/warehouse_chest_preview/warehouse_chest_v6_marble_albedo.png.import
+?? scenes/weapons/
+?? scenes/wilderness_combat_study.gd
+?? scenes/wilderness_combat_study.gd.uid
+?? scenes/wilderness_combat_study.tscn
+?? scripts/akm_attachment_mounts.gd
+?? scripts/akm_attachment_mounts.gd.uid
+?? scripts/akm_classic_attachment_mounts.gd
+?? scripts/akm_classic_attachment_mounts.gd.uid
+?? scripts/akm_classic_viewmodel.gd
+?? scripts/akm_classic_viewmodel.gd.uid
+?? scripts/angled_foregrip.gd
+?? scripts/angled_foregrip.gd.uid
+?? scripts/attachment_geometry_refinement.gd
+?? scripts/attachment_geometry_refinement.gd.uid
+?? scripts/attachment_material_match.gd
+?? scripts/attachment_material_match.gd.uid
+?? scripts/attachment_surface_detail.gd
+?? scripts/attachment_surface_detail.gd.uid
+?? scripts/barrel_variants.gd
+?? scripts/barrel_variants.gd.uid
+?? scripts/building/
+?? scripts/combat_profiles.gd
+?? scripts/combat_profiles.gd.uid
+?? scripts/day_night_environment.gd
+?? scripts/day_night_environment.gd.uid
+?? scripts/death_ragdoll.gd
+?? scripts/death_ragdoll.gd.uid
+?? scripts/death_ragdoll_pose.gd
+?? scripts/death_ragdoll_pose.gd.uid
+?? scripts/drum_surface_finish.gd
+?? scripts/drum_surface_finish.gd.uid
+?? scripts/drum_tower_refinement.gd
+?? scripts/drum_tower_refinement.gd.uid
+?? scripts/fab_grass_grid.gd
+?? scripts/fab_grass_grid.gd.uid
+?? scripts/fab_meadow.gd
+?? scripts/fab_meadow.gd.uid
+?? scripts/female_ragdoll_profile.gd
+?? scripts/female_ragdoll_profile.gd.uid
+?? scripts/female_zombie_variants.gd
+?? scripts/female_zombie_variants.gd.uid
+?? scripts/fitted_player_hands.gd
+?? scripts/fitted_player_hands.gd.uid
+?? scripts/foregrip_finger_pose.gd
+?? scripts/foregrip_finger_pose.gd.uid
+?? scripts/foregrip_hand_mesh.gd
+?? scripts/foregrip_hand_mesh.gd.uid
+?? scripts/foregrip_pose.gd
+?? scripts/foregrip_pose.gd.uid
+?? scripts/foregrip_rig.gd
+?? scripts/foregrip_rig.gd.uid
+?? scripts/foreman_grounding.gd
+?? scripts/foreman_grounding.gd.uid
+?? scripts/foreman_ragdoll_whip.gd
+?? scripts/foreman_ragdoll_whip.gd.uid
+?? scripts/fps_spring.gd
+?? scripts/fps_spring.gd.uid
+?? scripts/gameplay_player_factory.gd
+?? scripts/gameplay_player_factory.gd.uid
+?? scripts/gunsmith_furniture.gd
+?? scripts/gunsmith_furniture.gd.uid
+?? scripts/held_hand_pose.gd
+?? scripts/held_hand_pose.gd.uid
+?? scripts/hk416_attachment_mounts.gd
+?? scripts/hk416_attachment_mounts.gd.uid
+?? scripts/hk416_materials.gd
+?? scripts/hk416_materials.gd.uid
+?? scripts/hk416_surface_detail.gd
+?? scripts/hk416_surface_detail.gd.uid
+?? scripts/hk416_viewmodel.gd
+?? scripts/hk416_viewmodel.gd.uid
+?? scripts/hollow_grip_mesh.gd
+?? scripts/hollow_grip_mesh.gd.uid
+?? scripts/humanoid_variant_zombie.gd
+?? scripts/humanoid_variant_zombie.gd.uid
+?? scripts/impact_particles.gd
+?? scripts/impact_particles.gd.uid
+?? scripts/infima_viewmodel.gd
+?? scripts/infima_viewmodel.gd.uid
+?? scripts/large_drum_ammo_mesh.gd
+?? scripts/large_drum_ammo_mesh.gd.uid
+?? scripts/large_drum_hand_pose.gd
+?? scripts/large_drum_hand_pose.gd.uid
+?? scripts/large_drum_mount.gd
+?? scripts/large_drum_mount.gd.uid
+?? scripts/large_drum_reload.gd
+?? scripts/large_drum_reload.gd.uid
+?? scripts/m16_action_audio.gd
+?? scripts/m16_action_audio.gd.uid
+?? scripts/m16_attachment_mounts.gd
+?? scripts/m16_attachment_mounts.gd.uid
+?? scripts/m16_equip_animation.gd
+?? scripts/m16_equip_animation.gd.uid
+?? scripts/m16_viewmodel.gd
+?? scripts/m16_viewmodel.gd.uid
+?? scripts/magazine_variants.gd
+?? scripts/magazine_variants.gd.uid
+?? scripts/meadow_style.gd
+?? scripts/meadow_style.gd.uid
+?? scripts/megaplant_asset.gd
+?? scripts/megaplant_asset.gd.uid
+?? scripts/megaplant_visual.gd
+?? scripts/megaplant_visual.gd.uid
+?? scripts/mine_perimeter.gd
+?? scripts/mine_perimeter.gd.uid
+?? scripts/mine_portal.gd
+?? scripts/mine_portal.gd.uid
+?? scripts/modern_zombie.gd
+?? scripts/modern_zombie.gd.uid
+?? scripts/muzzle_variants.gd
+?? scripts/muzzle_variants.gd.uid
+?? scripts/mw_ground.gd
+?? scripts/mw_ground.gd.uid
+?? scripts/night_starfield.gd
+?? scripts/night_starfield.gd.uid
+?? scripts/nurse_death_ragdoll.gd
+?? scripts/nurse_death_ragdoll.gd.uid
+?? scripts/nurse_zombie.gd
+?? scripts/nurse_zombie.gd.uid
+?? scripts/optic_variants.gd
+?? scripts/optic_variants.gd.uid
+?? scripts/ore_rock_impact.gd
+?? scripts/ore_rock_impact.gd.uid
+?? scripts/p9_attachment_mounts.gd
+?? scripts/p9_attachment_mounts.gd.uid
+?? scripts/performance_diagnostics.gd
+?? scripts/performance_diagnostics.gd.uid
+?? scripts/performance_probe.gd
+?? scripts/performance_probe.gd.uid
+?? scripts/performance_report.gd
+?? scripts/performance_report.gd.uid
+?? scripts/qbz191_attachment_mounts.gd
+?? scripts/qbz191_attachment_mounts.gd.uid
+?? scripts/qbz191_viewmodel.gd
+?? scripts/qbz191_viewmodel.gd.uid
+?? scripts/reargrip_variants.gd
+?? scripts/reargrip_variants.gd.uid
+?? scripts/remaining_drum_mounts.gd
+?? scripts/remaining_drum_mounts.gd.uid
+?? scripts/rifle_clean_finish.gd
+?? scripts/rifle_clean_finish.gd.uid
+?? scripts/rifle_polymer_finish.gd
+?? scripts/rifle_polymer_finish.gd.uid
+?? scripts/rifle_reload_audio.gd
+?? scripts/rifle_reload_audio.gd.uid
+?? scripts/roaming_combat_spawner.gd
+?? scripts/roaming_combat_spawner.gd.uid
+?? scripts/spitter_zombie_v02.gd
+?? scripts/spitter_zombie_v02.gd.uid
+?? scripts/stair_camera_spring.gd
+?? scripts/stair_camera_spring.gd.uid
+?? scripts/stock_variants.gd
+?? scripts/stock_variants.gd.uid
+?? scripts/surface_feedback.gd
+?? scripts/surface_feedback.gd.uid
+?? scripts/tactical_device.gd
+?? scripts/tactical_device.gd.uid
+?? scripts/tactical_variants.gd
+?? scripts/tactical_variants.gd.uid
+?? scripts/titanium_muzzle_fit.gd
+?? scripts/titanium_muzzle_fit.gd.uid
+?? scripts/tools/
+?? scripts/voxel_lab/
+?? scripts/weapon_audio_feedback.gd
+?? scripts/weapon_audio_feedback.gd.uid
+?? scripts/weapon_feedback.gd
+?? scripts/weapon_feedback.gd.uid
+?? scripts/weapon_surface_detail.gd
+?? scripts/weapon_surface_detail.gd.uid
+?? scripts/weapon_surface_materials.gd
+?? scripts/weapon_surface_materials.gd.uid
+?? scripts/weather_schedule.gd
+?? scripts/weather_schedule.gd.uid
+?? scripts/weather_system.gd
+?? scripts/weather_system.gd.uid
+?? scripts/wilderness_far_field.gd
+?? scripts/wilderness_far_field.gd.uid
+?? scripts/wilderness_generation/
+?? scripts/wilderness_generation_profile.gd
+?? scripts/wilderness_generation_profile.gd.uid
+?? scripts/wilderness_materials.gd
+?? scripts/wilderness_materials.gd.uid
+?? scripts/world_lighting.gd
+?? scripts/world_lighting.gd.uid
+?? scripts/zombie_skin_variants.gd
+?? scripts/zombie_skin_variants.gd.uid
+?? skills/godot-building-workflow/
+?? skills/godot-cold-steel-ui/
+?? skills/godot-monster-workflow/references/backfall-pus.md
+?? skills/godot-monster-workflow/references/foreman-rigging.md
+?? skills/godot-monster-workflow/references/material-variants.md
+?? skills/godot-monster-workflow/references/modern-zombie-reuse.md
+?? skills/godot-monster-workflow/references/ore-spider-case.md
+?? skills/godot-terrain-vegetation/references/
+?? skills/godot-voxel-workflow/
+?? skills/godot-weapon-workflow/
+?? skills/godot-weather-workflow/
+?? skills/ue5-fps-arms-animation/
+?? skills/ue5-weapon-workflow/
+?? tests/audit_main_ui.gd
+?? tests/audit_main_ui.gd.uid
+?? tests/benchmark_day_night.gd
+?? tests/benchmark_day_night.gd.uid
+?? tests/benchmark_impact_cc0.gd
+?? tests/benchmark_impact_cc0.gd.uid
+?? tests/benchmark_impact_polish.gd
+?? tests/benchmark_impact_polish.gd.uid
+?? tests/benchmark_weapon_switch.gd
+?? tests/benchmark_weapon_switch.gd.uid
+?? tests/benchmark_wilderness_gameplay_fps.gd
+?? tests/benchmark_wilderness_gameplay_fps.gd.uid
+?? tests/benchmark_wilderness_lod_shadow.gd
+?? tests/benchmark_wilderness_lod_shadow.gd.uid
+?? tests/benchmark_wilderness_route.gd
+?? tests/benchmark_wilderness_route.gd.uid
+?? tests/benchmark_wilderness_uncapped.gd
+?? tests/benchmark_wilderness_uncapped.gd.uid
+?? tests/capture_mine_main.gd
+?? tests/capture_mine_main.gd.uid
+?? tests/equipment_display_cases.json
+?? tests/fixtures/
+?? tests/preview_ore_spider_texture.gd
+?? tests/preview_ore_spider_texture.gd.uid
+?? tests/preview_ore_spider_walk.gd
+?? tests/preview_ore_spider_walk.gd.uid
+?? tests/probe_attachment_motion.gd
+?? tests/probe_attachment_motion.gd.uid
+?? tests/probe_autoload.gd
+?? tests/probe_autoload.gd.uid
+?? tests/probe_blizzard_buff.gd.uid
+?? tests/probe_buffs.gd.uid
+?? tests/probe_count.gd.uid
+?? tests/probe_drum_fit.gd
+?? tests/probe_drum_fit.gd.uid
+?? tests/probe_drum_seat.gd
+?? tests/probe_drum_seat.gd.uid
+?? tests/probe_enemy_overload.gd.uid
+?? tests/probe_fireball_main.gd.uid
+?? tests/probe_foreman_ragdoll.gd
+?? tests/probe_foreman_ragdoll.gd.uid
+?? tests/probe_ice_main.gd
+?? tests/probe_ice_main.gd.uid
+?? tests/probe_ice_shatter.gd.uid
+?? tests/probe_ice_v3.gd.uid
+?? tests/probe_lowpoly_sights.gd.uid
+?? tests/probe_m16.gd
+?? tests/probe_m16.gd.uid
+?? tests/probe_mag_offset.gd.uid
+?? tests/probe_mag_reload.gd.uid
+?? tests/probe_mesh2.tscn
+?? tests/probe_muzzle_smoke.gd
+?? tests/probe_muzzle_smoke.gd.uid
+?? tests/probe_ragdoll_reference.gd
+?? tests/probe_ragdoll_reference.gd.uid
+?? tests/probe_remaining_magazines.gd
+?? tests/probe_remaining_magazines.gd.uid
+?? tests/probe_rifle_audio_contacts.gd
+?? tests/probe_rifle_audio_contacts.gd.uid
+?? tests/probe_rifle_material_application.gd
+?? tests/probe_rifle_material_application.gd.uid
+?? tests/probe_skill_enemy.gd.uid
+?? tests/probe_standalone_out.txt
+?? tests/probe_storm.gd.uid
+?? tests/probe_tactical_fit.gd
+?? tests/probe_tactical_fit.gd.uid
+?? tests/probe_titanium_seats.gd
+?? tests/probe_titanium_seats.gd.uid
+?? tests/reload_ui_probe.gd
+?? tests/reload_ui_probe.gd.uid
+?? tests/render_akm_attachments.gd
+?? tests/render_akm_attachments.gd.uid
+?? tests/render_akm_brick.gd
+?? tests/render_akm_brick.gd.uid
+?? tests/render_akm_classic.gd
+?? tests/render_akm_classic.gd.uid
+?? tests/render_akm_classic_icon.gd
+?? tests/render_akm_classic_icon.gd.uid
+?? tests/render_akm_classic_in_game.gd
+?? tests/render_akm_classic_in_game.gd.uid
+?? tests/render_akm_classic_parts.gd
+?? tests/render_akm_classic_parts.gd.uid
+?? tests/render_akm_fine_relief.gd
+?? tests/render_akm_fine_relief.gd.uid
+?? tests/render_akm_part_catalog.gd
+?? tests/render_akm_part_catalog.gd.uid
+?? tests/render_akm_side.gd
+?? tests/render_akm_side.gd.uid
+?? tests/render_all_weapon_ads.gd
+?? tests/render_all_weapon_ads.gd.uid
+?? tests/render_ammo_readout.gd
+?? tests/render_ammo_readout.gd.uid
+?? tests/render_attachment_material_match.gd
+?? tests/render_attachment_material_match.gd.uid
+?? tests/render_basic_tools.gd
+?? tests/render_basic_tools.gd.uid
+?? tests/render_basic_tools_gameplay.gd
+?? tests/render_basic_tools_gameplay.gd.uid
+?? tests/render_binbun_hit.gd
+?? tests/render_binbun_hit.gd.uid
+?? tests/render_cloud_sea_dynamic.gd
+?? tests/render_cloud_sea_dynamic.gd.uid
+?? tests/render_codex.gd
+?? tests/render_codex.gd.uid
+?? tests/render_combat_stock.gd
+?? tests/render_combat_stock.gd.uid
+?? tests/render_combat_stock_fit.gd
+?? tests/render_combat_stock_fit.gd.uid
+?? tests/render_combat_stock_v2.gd
+?? tests/render_combat_stock_v2.gd.uid
+?? tests/render_craft_font_review.gd
+?? tests/render_craft_font_review.gd.uid
+?? tests/render_day_night.gd
+?? tests/render_day_night.gd.uid
+?? tests/render_death_ragdoll.gd
+?? tests/render_death_ragdoll.gd.uid
+?? tests/render_drum_fit.gd
+?? tests/render_drum_fit.gd.uid
+?? tests/render_drum_reload.gd
+?? tests/render_drum_reload.gd.uid
+?? tests/render_drum_remaining.gd
+?? tests/render_drum_remaining.gd.uid
+?? tests/render_drum_seat.gd
+?? tests/render_drum_seat.gd.uid
+?? tests/render_equipment_format.gd
+?? tests/render_equipment_format.gd.uid
+?? tests/render_equipment_microfix.gd
+?? tests/render_equipment_microfix.gd.uid
+?? tests/render_event_timeline.gd
+?? tests/render_event_timeline.gd.uid
+?? tests/render_fab_nature_study.gd
+?? tests/render_fab_nature_study.gd.uid
+?? tests/render_fire_modes.gd
+?? tests/render_fire_modes.gd.uid
+?? tests/render_five_rifle_live_materials.gd
+?? tests/render_five_rifle_live_materials.gd.uid
+?? tests/render_five_rifle_materials.gd
+?? tests/render_five_rifle_materials.gd.uid
+?? tests/render_foreman_grounding.gd
+?? tests/render_foreman_grounding.gd.uid
+?? tests/render_foreman_ragdoll.gd
+?? tests/render_foreman_ragdoll.gd.uid
+?? tests/render_game_menu.gd
+?? tests/render_game_menu.gd.uid
+?? tests/render_generated_item_icons.gd
+?? tests/render_generated_item_icons.gd.uid
+?? tests/render_global_ui.gd
+?? tests/render_global_ui.gd.uid
+?? tests/render_gun_tooltip.gd
+?? tests/render_gun_tooltip.gd.uid
+?? tests/render_gunsmith_backpack_icons.gd
+?? tests/render_gunsmith_backpack_icons.gd.uid
+?? tests/render_hand_test.gd
+?? tests/render_hand_test.gd.uid
+?? tests/render_hipfire_crosshair.gd
+?? tests/render_hipfire_crosshair.gd.uid
+?? tests/render_hk416_materials.gd
+?? tests/render_hk416_materials.gd.uid
+?? tests/render_hollow_grips.gd
+?? tests/render_hollow_grips.gd.uid
+?? tests/render_hud_full.gd.uid
+?? tests/render_hud_tooltip.gd.uid
+?? tests/render_humanoid_lowpoly_v02.gd
+?? tests/render_humanoid_lowpoly_v02.gd.uid
+?? tests/render_humanoid_variants_main.gd
+?? tests/render_humanoid_variants_main.gd.uid
+?? tests/render_impact_cc0.gd
+?? tests/render_impact_cc0.gd.uid
+?? tests/render_impact_cc0_motion.gd
+?? tests/render_impact_cc0_motion.gd.uid
+?? tests/render_impact_polish.gd
+?? tests/render_impact_polish.gd.uid
+?? tests/render_infima_equip.gd
+?? tests/render_infima_equip.gd.uid
+?? tests/render_infima_handgun.gd
+?? tests/render_infima_handgun.gd.uid
+?? tests/render_infima_in_game.gd
+?? tests/render_infima_in_game.gd.uid
+?? tests/render_infima_viewmodel.gd
+?? tests/render_infima_viewmodel.gd.uid
+?? tests/render_integrated_meadow.gd
+?? tests/render_integrated_meadow.gd.uid
+?? tests/render_large_drum.gd
+?? tests/render_large_drum.gd.uid
+?? tests/render_loading_screen.gd
+?? tests/render_loading_screen.gd.uid
+?? tests/render_lower_raised_ads.gd
+?? tests/render_lower_raised_ads.gd.uid
+?? tests/render_m16.gd
+?? tests/render_m16.gd.uid
+?? tests/render_m16_action_audio.gd
+?? tests/render_m16_action_audio.gd.uid
+?? tests/render_m16_mods.gd
+?? tests/render_m16_mods.gd.uid
+?? tests/render_mag_extreme.gd.uid
+?? tests/render_main_hud_optimized.gd
+?? tests/render_main_hud_optimized.gd.uid
+?? tests/render_muzzle_brake_integration.gd
+?? tests/render_muzzle_brake_integration.gd.uid
+?? tests/render_muzzle_fit.gd
+?? tests/render_muzzle_fit.gd.uid
+?? tests/render_muzzle_gameplay.gd
+?? tests/render_muzzle_gameplay.gd.uid
+?? tests/render_ore_mining.gd
+?? tests/render_ore_mining.gd.uid
+?? tests/render_ore_spider_impact.gd
+?? tests/render_ore_spider_impact.gd.uid
+?? tests/render_ore_spider_joints.gd
+?? tests/render_ore_spider_joints.gd.uid
+?? tests/render_ore_spider_release.gd
+?? tests/render_ore_spider_release.gd.uid
+?? tests/render_ore_spider_split.gd
+?? tests/render_ore_spider_split.gd.uid
+?? tests/render_ore_variants.gd
+?? tests/render_ore_variants.gd.uid
+?? tests/render_precision_reference.gd
+?? tests/render_precision_reference.gd.uid
+?? tests/render_qbz191.gd
+?? tests/render_qbz191.gd.uid
+?? tests/render_qbz191_grips.gd
+?? tests/render_qbz191_grips.gd.uid
+?? tests/render_qbz191_stocks.gd
+?? tests/render_qbz191_stocks.gd.uid
+?? tests/render_raised_bridge.gd
+?? tests/render_raised_bridge.gd.uid
+?? tests/render_reargrip_variants.gd
+?? tests/render_reargrip_variants.gd.uid
+?? tests/render_reload_view.gd.uid
+?? tests/render_remaining_drum_fit.gd
+?? tests/render_remaining_drum_fit.gd.uid
+?? tests/render_rifle_audio_review.gd
+?? tests/render_rifle_audio_review.gd.uid
+?? tests/render_rifle_polymer_icons.gd
+?? tests/render_rifle_polymer_icons.gd.uid
+?? tests/render_rifle_polymer_review.gd
+?? tests/render_rifle_polymer_review.gd.uid
+?? tests/render_route_camp.gd
+?? tests/render_route_camp.gd.uid
+?? tests/render_shore_trails.gd
+?? tests/render_shore_trails.gd.uid
+?? tests/render_source_hud_main.gd
+?? tests/render_source_hud_main.gd.uid
+?? tests/render_spatial_backpack.gd
+?? tests/render_spatial_backpack.gd.uid
+?? tests/render_spatial_backpack_drag.gd
+?? tests/render_spatial_backpack_drag.gd.uid
+?? tests/render_spawn_view.gd.uid
+?? tests/render_start_menu.gd
+?? tests/render_start_menu.gd.uid
+?? tests/render_stock_refit.gd
+?? tests/render_stock_refit.gd.uid
+?? tests/render_stock_refit_all.gd
+?? tests/render_stock_refit_all.gd.uid
+?? tests/render_stock_variants.gd
+?? tests/render_stock_variants.gd.uid
+?? tests/render_tactical_attachments.gd
+?? tests/render_tactical_attachments.gd.uid
+?? tests/render_tactical_light.gd
+?? tests/render_tactical_light.gd.uid
+?? tests/render_tacz_modetest.gd
+?? tests/render_tacz_modetest.gd.uid
+?? tests/render_tacz_solid.gd
+?? tests/render_tacz_solid.gd.uid
+?? tests/render_tacz_unshaded.gd
+?? tests/render_tacz_unshaded.gd.uid
+?? tests/render_tacz_v4_side.gd
+?? tests/render_tacz_v4_side.gd.uid
+?? tests/render_terrain_check.gd.uid
+?? tests/render_titanium_brake.gd
+?? tests/render_titanium_brake.gd.uid
+?? tests/render_titanium_fit.gd
+?? tests/render_titanium_fit.gd.uid
+?? tests/render_unified_gun_icons.gd
+?? tests/render_unified_gun_icons.gd.uid
+?? tests/render_valley_water.gd
+?? tests/render_valley_water.gd.uid
+?? tests/render_voxel_lab.gd
+?? tests/render_voxel_lab.gd.uid
+?? tests/render_weapon_feedback.gd
+?? tests/render_weapon_feedback.gd.uid
+?? tests/render_weapon_materials.gd
+?? tests/render_weapon_materials.gd.uid
+?? tests/render_weapon_readout.gd
+?? tests/render_weapon_readout.gd.uid
+?? tests/render_weapon_review_interfaces.gd
+?? tests/render_weapon_review_interfaces.gd.uid
+?? tests/render_weapon_review_reload.gd
+?? tests/render_weapon_review_reload.gd.uid
+?? tests/render_weapon_surface_detail.gd
+?? tests/render_weapon_surface_detail.gd.uid
+?? tests/render_weapon_surface_icons.gd
+?? tests/render_weapon_surface_icons.gd.uid
+?? tests/render_weapon_surface_preview.gd
+?? tests/render_weapon_surface_preview.gd.uid
+?? tests/render_weather.gd
+?? tests/render_weather.gd.uid
+?? tests/render_zombie_death.gd.uid
+?? tests/review_fab_wilderness.gd
+?? tests/review_fab_wilderness.gd.uid
+?? tests/review_meadow_20260907.gd
+?? tests/review_meadow_20260907.gd.uid
+?? tests/review_meadow_20260907.tscn
+?? tests/review_megaplants_specimens.gd
+?? tests/review_megaplants_specimens.gd.uid
+?? tests/review_megaplants_world.gd
+?? tests/review_megaplants_world.gd.uid
+?? tests/review_mw_ground.gd
+?? tests/review_mw_ground.gd.uid
+?? tests/review_wilderness_materials.gd
+?? tests/review_wilderness_materials.gd.uid
+?? tests/test_ads_gameplay_integration.gd
+?? tests/test_ads_gameplay_integration.gd.uid
+?? tests/test_ads_visible_aim.gd
+?? tests/test_ads_visible_aim.gd.uid
+?? tests/test_akm_applied_parts.gd
+?? tests/test_akm_applied_parts.gd.uid
+?? tests/test_akm_attachment_ads.gd
+?? tests/test_akm_attachment_ads.gd.uid
+?? tests/test_akm_brick.gd
+?? tests/test_akm_brick.gd.uid
+?? tests/test_akm_classic.gd
+?? tests/test_akm_classic.gd.uid
+?? tests/test_akm_classic_inventory.gd
+?? tests/test_akm_classic_inventory.gd.uid
+?? tests/test_akm_classic_parts.gd
+?? tests/test_akm_classic_parts.gd.uid
+?? tests/test_akm_classic_parts_flow.gd
+?? tests/test_akm_classic_parts_flow.gd.uid
+?? tests/test_akm_grip_clearance.gd
+?? tests/test_akm_grip_clearance.gd.uid
+?? tests/test_akm_grip_integration.gd
+?? tests/test_akm_grip_integration.gd.uid
+?? tests/test_akm_grip_pose.gd
+?? tests/test_akm_grip_pose.gd.uid
+?? tests/test_akm_polymer_color_space.gd
+?? tests/test_akm_polymer_color_space.gd.uid
+?? tests/test_altar_initialization.gd
+?? tests/test_altar_initialization.gd.uid
+?? tests/test_angled_foregrip_integration.gd
+?? tests/test_angled_foregrip_integration.gd.uid
+?? tests/test_attachment_material_match.gd
+?? tests/test_attachment_material_match.gd.uid
+?? tests/test_backpack_audit.gd
+?? tests/test_backpack_audit.gd.uid
+?? tests/test_backpack_drop_consistency.gd
+?? tests/test_backpack_drop_consistency.gd.uid
+?? tests/test_backpack_grid_capacity.gd
+?? tests/test_backpack_grid_capacity.gd.uid
+?? tests/test_badge_fit.gd
+?? tests/test_badge_fit.gd.uid
+?? tests/test_basic_toolkit.gd
+?? tests/test_basic_toolkit.gd.uid
+?? tests/test_build_materials.gd
+?? tests/test_build_materials.gd.uid
+?? tests/test_caliber_ammunition.gd
+?? tests/test_caliber_ammunition.gd.uid
+?? tests/test_canted_foregrip_clearance.gd
+?? tests/test_canted_foregrip_clearance.gd.uid
+?? tests/test_canted_foregrip_integration.gd
+?? tests/test_canted_foregrip_integration.gd.uid
+?? tests/test_canted_foregrip_pose.gd
+?? tests/test_canted_foregrip_pose.gd.uid
+?? tests/test_codex.gd
+?? tests/test_codex.gd.uid
+?? tests/test_cold_steel_fixes.gd
+?? tests/test_cold_steel_fixes.gd.uid
+?? tests/test_combat_stalls.gd
+?? tests/test_combat_stalls.gd.uid
+?? tests/test_combat_stock_flow.gd
+?? tests/test_combat_stock_flow.gd.uid
+?? tests/test_combat_stock_follow.gd
+?? tests/test_combat_stock_follow.gd.uid
+?? tests/test_combat_stock_geometry.gd
+?? tests/test_combat_stock_geometry.gd.uid
+?? tests/test_combat_stock_stats.gd
+?? tests/test_combat_stock_stats.gd.uid
+?? tests/test_combat_stock_v2_geometry.gd
+?? tests/test_combat_stock_v2_geometry.gd.uid
+?? tests/test_day_night.gd
+?? tests/test_day_night.gd.uid
+?? tests/test_death_ragdoll.gd
+?? tests/test_death_ragdoll.gd.uid
+?? tests/test_dot_source_lifetime.gd
+?? tests/test_dot_source_lifetime.gd.uid
+?? tests/test_drum_flow.gd
+?? tests/test_drum_flow.gd.uid
+?? tests/test_drum_seat.gd
+?? tests/test_drum_seat.gd.uid
+?? tests/test_dynamic_hipfire.gd
+?? tests/test_dynamic_hipfire.gd.uid
+?? tests/test_equipment_display.gd
+?? tests/test_equipment_display.gd.uid
+?? tests/test_equipment_weapon_binding.gd
+?? tests/test_equipment_weapon_binding.gd.uid
+?? tests/test_event_timeline.gd
+?? tests/test_event_timeline.gd.uid
+?? tests/test_fab_meadow_integration.gd
+?? tests/test_fab_meadow_integration.gd.uid
+?? tests/test_female_shared_ragdoll.gd
+?? tests/test_female_shared_ragdoll.gd.uid
+?? tests/test_female_zombie_variants.gd
+?? tests/test_female_zombie_variants.gd.uid
+?? tests/test_fire_modes.gd
+?? tests/test_fire_modes.gd.uid
+?? tests/test_fitted_player_hands.gd
+?? tests/test_fitted_player_hands.gd.uid
+?? tests/test_foregrip_balance.gd
+?? tests/test_foregrip_balance.gd.uid
+?? tests/test_foregrip_equip_return.gd
+?? tests/test_foregrip_equip_return.gd.uid
+?? tests/test_foregrip_finger_clearance.gd
+?? tests/test_foregrip_finger_clearance.gd.uid
+?? tests/test_foregrip_polish.gd
+?? tests/test_foregrip_polish.gd.uid
+?? tests/test_foregrip_pose.gd
+?? tests/test_foregrip_pose.gd.uid
+?? tests/test_foregrip_recoil.gd
+?? tests/test_foregrip_recoil.gd.uid
+?? tests/test_foregrip_stats_integration.gd
+?? tests/test_foregrip_stats_integration.gd.uid
+?? tests/test_foregrip_universal.gd
+?? tests/test_foregrip_universal.gd.uid
+?? tests/test_foregrip_universal_clearance.gd
+?? tests/test_foregrip_universal_clearance.gd.uid
+?? tests/test_foreman_animation_polish.gd
+?? tests/test_foreman_animation_polish.gd.uid
+?? tests/test_foreman_grounding.gd
+?? tests/test_foreman_grounding.gd.uid
+?? tests/test_foreman_ragdoll.gd
+?? tests/test_foreman_ragdoll.gd.uid
+?? tests/test_foreman_review.gd
+?? tests/test_foreman_review.gd.uid
+?? tests/test_game_menu.gd
+?? tests/test_game_menu.gd.uid
+?? tests/test_game_settings_runtime.gd
+?? tests/test_game_settings_runtime.gd.uid
+?? tests/test_global_ui.gd
+?? tests/test_global_ui.gd.uid
+?? tests/test_grass_partition.gd
+?? tests/test_grass_partition.gd.uid
+?? tests/test_grip_stock_balance.gd
+?? tests/test_grip_stock_balance.gd.uid
+?? tests/test_ground_recipe.gd
+?? tests/test_ground_recipe.gd.uid
+?? tests/test_gunsmith_apply_flow.gd
+?? tests/test_gunsmith_apply_flow.gd.uid
+?? tests/test_gunsmith_furniture.gd
+?? tests/test_gunsmith_furniture.gd.uid
+?? tests/test_gunsmith_glass.gd
+?? tests/test_gunsmith_glass.gd.uid
+?? tests/test_gunsmith_muzzle.gd
+?? tests/test_gunsmith_muzzle.gd.uid
+?? tests/test_gunsmith_panel.gd
+?? tests/test_gunsmith_panel.gd.uid
+?? tests/test_half_meter_harvest.gd
+?? tests/test_half_meter_harvest.gd.uid
+?? tests/test_half_meter_wilderness_scene.gd
+?? tests/test_half_meter_wilderness_scene.gd.uid
+?? tests/test_hand_action_interruptions.gd
+?? tests/test_hand_action_interruptions.gd.uid
+?? tests/test_hand_cuff_continuity.gd
+?? tests/test_hand_cuff_continuity.gd.uid
+?? tests/test_hand_input_sequences.gd
+?? tests/test_hand_input_sequences.gd.uid
+?? tests/test_hand_sequence_fuzz.gd
+?? tests/test_hand_sequence_fuzz.gd.uid
+?? tests/test_hand_weapon_interruptions.gd
+?? tests/test_hand_weapon_interruptions.gd.uid
+?? tests/test_handgun.gd
+?? tests/test_handgun.gd.uid
+?? tests/test_handgun_ads.gd
+?? tests/test_handgun_ads.gd.uid
+?? tests/test_handstop_clearance.gd
+?? tests/test_handstop_clearance.gd.uid
+?? tests/test_handstop_integration.gd
+?? tests/test_handstop_integration.gd.uid
+?? tests/test_handstop_pose.gd
+?? tests/test_handstop_pose.gd.uid
+?? tests/test_held_hand_pose.gd
+?? tests/test_held_hand_pose.gd.uid
+?? tests/test_hip_recoil_envelope.gd
+?? tests/test_hip_recoil_envelope.gd.uid
+?? tests/test_hk416.gd
+?? tests/test_hk416.gd.uid
+?? tests/test_hk416_materials.gd
+?? tests/test_hk416_materials.gd.uid
+?? tests/test_hk416_parts_motion.gd
+?? tests/test_hk416_parts_motion.gd.uid
+?? tests/test_hollow_grip_geometry.gd
+?? tests/test_hollow_grip_geometry.gd.uid
+?? tests/test_hollow_grip_integration.gd
+?? tests/test_hollow_grip_integration.gd.uid
+?? tests/test_hotbar_glass.gd
+?? tests/test_hotbar_glass.gd.uid
+?? tests/test_humanoid_variants.gd
+?? tests/test_humanoid_variants.gd.uid
+?? tests/test_impact_cc0.gd
+?? tests/test_impact_cc0.gd.uid
+?? tests/test_impact_polish.gd
+?? tests/test_impact_polish.gd.uid
+?? tests/test_impact_projectile.gd
+?? tests/test_impact_projectile.gd.uid
+?? tests/test_infima_viewmodel.gd
+?? tests/test_infima_viewmodel.gd.uid
+?? tests/test_inventory_18cols.gd
+?? tests/test_inventory_18cols.gd.uid
+?? tests/test_inventory_refresh_visibility.gd
+?? tests/test_inventory_refresh_visibility.gd.uid
+?? tests/test_inventory_save_isolation.gd
+?? tests/test_inventory_save_isolation.gd.uid
+?? tests/test_lab_portal.gd
+?? tests/test_lab_portal.gd.uid
+?? tests/test_large_drum.gd
+?? tests/test_large_drum.gd.uid
+?? tests/test_large_drum_ammo.gd
+?? tests/test_large_drum_ammo.gd.uid
+?? tests/test_large_drum_geometry.gd
+?? tests/test_large_drum_geometry.gd.uid
+?? tests/test_laser_ads_reticle.gd
+?? tests/test_laser_ads_reticle.gd.uid
+?? tests/test_laser_axis_sprint.gd
+?? tests/test_laser_axis_sprint.gd.uid
+?? tests/test_laser_reload_follow.gd
+?? tests/test_laser_reload_follow.gd.uid
+?? tests/test_leaf_budget.gd
+?? tests/test_leaf_budget.gd.uid
+?? tests/test_legacy_wilderness_route_save.gd
+?? tests/test_legacy_wilderness_route_save.gd.uid
+?? tests/test_loading_completion.gd
+?? tests/test_loading_completion.gd.uid
+?? tests/test_loading_screen.gd
+?? tests/test_loading_screen.gd.uid
+?? tests/test_lower_raised_bridge.gd
+?? tests/test_lower_raised_bridge.gd.uid
+?? tests/test_m16.gd
+?? tests/test_m16.gd.uid
+?? tests/test_m16_action_audio.gd
+?? tests/test_m16_action_audio.gd.uid
+?? tests/test_m16_first_draw.gd
+?? tests/test_m16_first_draw.gd.uid
+?? tests/test_m16_gunsmith.gd
+?? tests/test_m16_gunsmith.gd.uid
+?? tests/test_m16_movement.gd
+?? tests/test_m16_movement.gd.uid
+?? tests/test_m16_rendered_skin.gd
+?? tests/test_m16_rendered_skin.gd.uid
+?? tests/test_main_hud_layout.gd
+?? tests/test_main_hud_layout.gd.uid
+?? tests/test_meadow_surface_20260907.gd
+?? tests/test_meadow_surface_20260907.gd.uid
+?? tests/test_megaplants_assets.gd
+?? tests/test_megaplants_assets.gd.uid
+?? tests/test_mine_kit.gd
+?? tests/test_mine_kit.gd.uid
+?? tests/test_modern_zombie_integration.gd
+?? tests/test_modern_zombie_integration.gd.uid
+?? tests/test_modified_muzzle_origin.gd
+?? tests/test_modified_muzzle_origin.gd.uid
+?? tests/test_mouse_king_original.gd
+?? tests/test_mouse_king_original.gd.uid
+?? tests/test_muzzle_brake_geometry.gd
+?? tests/test_muzzle_brake_geometry.gd.uid
+?? tests/test_neutral_craft_color.gd
+?? tests/test_neutral_craft_color.gd.uid
+?? tests/test_new_game_armory.gd
+?? tests/test_new_game_armory.gd.uid
+?? tests/test_nurse_entry.gd
+?? tests/test_nurse_entry.gd.uid
+?? tests/test_nurse_zombie.gd
+?? tests/test_nurse_zombie.gd.uid
+?? tests/test_optic_geometry_fit.gd
+?? tests/test_optic_geometry_fit.gd.uid
+?? tests/test_ore_impact.gd
+?? tests/test_ore_impact.gd.uid
+?? tests/test_ore_mining.gd
+?? tests/test_ore_mining.gd.uid
+?? tests/test_ore_spider_integration.gd
+?? tests/test_ore_spider_integration.gd.uid
+?? tests/test_ore_spider_main.gd
+?? tests/test_ore_spider_main.gd.uid
+?? tests/test_ore_spider_release.gd
+?? tests/test_ore_spider_release.gd.uid
+?? tests/test_ore_spider_v06.gd
+?? tests/test_ore_spider_v06.gd.uid
+?? tests/test_ore_spider_v07.gd
+?? tests/test_ore_spider_v07.gd.uid
+?? tests/test_ore_spider_walk.gd
+?? tests/test_ore_spider_walk.gd.uid
+?? tests/test_ore_variants.gd
+?? tests/test_ore_variants.gd.uid
+?? tests/test_p9_gunsmith.gd
+?? tests/test_p9_gunsmith.gd.uid
+?? tests/test_p9_muzzle_alignment.gd
+?? tests/test_p9_muzzle_alignment.gd.uid
+?? tests/test_performance_integration.gd
+?? tests/test_performance_integration.gd.uid
+?? tests/test_performance_report.gd
+?? tests/test_performance_report.gd.uid
+?? tests/test_player_bullet_shadows.gd
+?? tests/test_player_bullet_shadows.gd.uid
+?? tests/test_polymer_color_space.gd
+?? tests/test_polymer_color_space.gd.uid
+?? tests/test_precision_reference_geometry.gd
+?? tests/test_precision_reference_geometry.gd.uid
+?? tests/test_published_weapon_modules.gd
+?? tests/test_published_weapon_modules.gd.uid
+?? tests/test_qbz191.gd
+?? tests/test_qbz191.gd.uid
+?? tests/test_qbz191_gunsmith_combined.gd
+?? tests/test_qbz191_gunsmith_combined.gd.uid
+?? tests/test_qbz191_movement.gd
+?? tests/test_qbz191_movement.gd.uid
+?? tests/test_qbz191_ui.gd
+?? tests/test_qbz191_ui.gd.uid
+?? tests/test_raised_bridge_follow.gd
+?? tests/test_raised_bridge_follow.gd.uid
+?? tests/test_raised_bridge_geometry.gd
+?? tests/test_raised_bridge_geometry.gd.uid
+?? tests/test_raised_bridge_runtime.gd
+?? tests/test_raised_bridge_runtime.gd.uid
+?? tests/test_raised_panorama.gd
+?? tests/test_raised_panorama.gd.uid
+?? tests/test_range_barrel.gd
+?? tests/test_range_barrel.gd.uid
+?? tests/test_reargrip_variants.gd
+?? tests/test_reargrip_variants.gd.uid
+?? tests/test_recoil_stability.gd
+?? tests/test_recoil_stability.gd.uid
+?? tests/test_reference_movement.gd
+?? tests/test_reference_movement.gd.uid
+?? tests/test_reload_foregrip_contact.gd
+?? tests/test_reload_foregrip_contact.gd.uid
+?? tests/test_reload_movement.gd
+?? tests/test_reload_movement.gd.uid
+?? tests/test_remaining_drum_restore.gd
+?? tests/test_remaining_drum_restore.gd.uid
+?? tests/test_retired_equipment.gd
+?? tests/test_retired_equipment.gd.uid
+?? tests/test_retired_nature_cache.gd
+?? tests/test_retired_nature_cache.gd.uid
+?? tests/test_rifle_polymer_optics.gd
+?? tests/test_rifle_polymer_optics.gd.uid
+?? tests/test_rifle_polymer_parts.gd
+?? tests/test_rifle_polymer_parts.gd.uid
+?? tests/test_rifle_reload_audio.gd
+?? tests/test_rifle_reload_audio.gd.uid
+?? tests/test_roaming_combat.gd
+?? tests/test_roaming_combat.gd.uid
+?? tests/test_runtime_error_regressions.gd
+?? tests/test_runtime_error_regressions.gd.uid
+?? tests/test_scenic_rock_harvest.gd
+?? tests/test_scenic_rock_harvest.gd.uid
+?? tests/test_selected_fire_audio.gd
+?? tests/test_selected_fire_audio.gd.uid
+?? tests/test_shore_hydrology.gd
+?? tests/test_shore_hydrology.gd.uid
+?? tests/test_shore_water_mesh.gd
+?? tests/test_shore_water_mesh.gd.uid
+?? tests/test_slope_movement_speed.gd
+?? tests/test_slope_movement_speed.gd.uid
+?? tests/test_smooth_voxel.gd
+?? tests/test_smooth_voxel.gd.uid
+?? tests/test_source_hud.gd
+?? tests/test_source_hud.gd.uid
+?? tests/test_spatial_inventory.gd
+?? tests/test_spatial_inventory.gd.uid
+?? tests/test_starfield.gd
+?? tests/test_starfield.gd.uid
+?? tests/test_start_menu.gd
+?? tests/test_start_menu.gd.uid
+?? tests/test_starting_warehouse.gd
+?? tests/test_starting_warehouse.gd.uid
+?? tests/test_status_bound_refs.gd
+?? tests/test_status_bound_refs.gd.uid
+?? tests/test_stock_refit_follow.gd
+?? tests/test_stock_refit_follow.gd.uid
+?? tests/test_stock_refit_geometry.gd
+?? tests/test_stock_refit_geometry.gd.uid
+?? tests/test_stock_variants.gd
+?? tests/test_stock_variants.gd.uid
+?? tests/test_streamed_grass_grounding.gd
+?? tests/test_streamed_grass_grounding.gd.uid
+?? tests/test_streamed_meadow.gd
+?? tests/test_streamed_meadow.gd.uid
+?? tests/test_suppressor_stats.gd
+?? tests/test_suppressor_stats.gd.uid
+?? tests/test_tactical_attachments.gd
+?? tests/test_tactical_attachments.gd.uid
+?? tests/test_terrain_submission.gd
+?? tests/test_terrain_submission.gd.uid
+?? tests/test_titanium_brake_geometry.gd
+?? tests/test_titanium_brake_geometry.gd.uid
+?? tests/test_titanium_flow.gd
+?? tests/test_titanium_flow.gd.uid
+?? tests/test_titanium_muzzle.gd
+?? tests/test_titanium_muzzle.gd.uid
+?? tests/test_tracer_emission_boundary.gd
+?? tests/test_tracer_emission_boundary.gd.uid
+?? tests/test_tree_candidate.gd
+?? tests/test_tree_candidate.gd.uid
+?? tests/test_ui_typography.gd
+?? tests/test_ui_typography.gd.uid
+?? tests/test_unified_stock_geometry.gd
+?? tests/test_unified_stock_geometry.gd.uid
+?? tests/test_valley_grass_contract.gd
+?? tests/test_valley_grass_contract.gd.uid
+?? tests/test_vertical_foregrip_clearance.gd
+?? tests/test_vertical_foregrip_clearance.gd.uid
+?? tests/test_vertical_foregrip_integration.gd
+?? tests/test_vertical_foregrip_integration.gd.uid
+?? tests/test_vertical_foregrip_pose.gd
+?? tests/test_vertical_foregrip_pose.gd.uid
+?? tests/test_viewmodel_recoil_axes.gd
+?? tests/test_viewmodel_recoil_axes.gd.uid
+?? tests/test_voxel_lab.gd
+?? tests/test_voxel_lab.gd.uid
+?? tests/test_voxel_lab_input.gd
+?? tests/test_voxel_lab_input.gd.uid
+?? tests/test_voxel_terrain_source.gd
+?? tests/test_voxel_terrain_source.gd.uid
+?? tests/test_voxel_valley.gd
+?? tests/test_voxel_valley.gd.uid
+?? tests/test_weapon_balance.gd
+?? tests/test_weapon_balance.gd.uid
+?? tests/test_weapon_feedback.gd
+?? tests/test_weapon_feedback.gd.uid
+?? tests/test_weapon_inventory_persistence.gd
+?? tests/test_weapon_inventory_persistence.gd.uid
+?? tests/test_weapon_material_coverage.gd
+?? tests/test_weapon_material_coverage.gd.uid
+?? tests/test_weapon_material_live.gd
+?? tests/test_weapon_material_live.gd.uid
+?? tests/test_weapon_material_single_source.gd
+?? tests/test_weapon_material_single_source.gd.uid
+?? tests/test_weapon_surface_detail.gd
+?? tests/test_weapon_surface_detail.gd.uid
+?? tests/test_weapon_surface_save.gd
+?? tests/test_weapon_surface_save.gd.uid
+?? tests/test_weapon_switch_cache.gd
+?? tests/test_weapon_switch_cache.gd.uid
+?? tests/test_weather.gd
+?? tests/test_weather.gd.uid
+?? tests/test_weather_audio_mix.gd
+?? tests/test_weather_audio_mix.gd.uid
+?? tests/test_weather_hud.gd
+?? tests/test_weather_hud.gd.uid
+?? tests/test_weather_schedule.gd
+?? tests/test_weather_schedule.gd.uid
+?? tests/test_wilderness_combat.gd
+?? tests/test_wilderness_combat.gd.uid
+?? tests/test_wilderness_far_field.gd
+?? tests/test_wilderness_far_field.gd.uid
+?? tests/test_wilderness_far_field.tscn
+?? tests/test_wilderness_generation_profile.gd
+?? tests/test_wilderness_generation_profile.gd.uid
+?? tests/test_wilderness_generation_system.gd
+?? tests/test_wilderness_generation_system.gd.uid
+?? tests/test_wilderness_generation_system.tscn
+?? tests/test_wilderness_routes.gd
+?? tests/test_wilderness_routes.gd.uid
+?? tests/test_wilderness_scene.gd
+?? tests/test_wilderness_scene.gd.uid
+?? tests/test_wilderness_shadow_policy.gd
+?? tests/test_wilderness_shadow_policy.gd.uid
+?? tests/test_wilderness_unified_runtime.gd
+?? tests/test_wilderness_unified_runtime.gd.uid
+?? tests/test_wilderness_world.gd
+?? tests/test_wilderness_world.gd.uid
+?? tests/test_zombie_skin_variants.gd
+?? tests/test_zombie_skin_variants.gd.uid
+?? tests/ui_typography_checks.gd
+?? tests/ui_typography_checks.gd.uid
+?? tests/weapon_material_contract.gd
+?? tests/weapon_material_contract.gd.uid
+?? tools/ai-gen/black-wolf-fur-v01-20260906/
+?? tools/ai-gen/create_black_wolf_fur_candidate.py
+?? tools/ai-gen/drum-v2-20260907/
+?? tools/ai-gen/fat-zombie-v01-20260907/
+?? tools/ai-gen/foreman-attack-v06-20260906/
+?? tools/ai-gen/foreman-attack-v09-20260906/
+?? tools/ai-gen/foreman-downstroke-v07-20260906/
+?? tools/ai-gen/foreman-motion-v04-20260906/textures/
+?? tools/ai-gen/foreman-retopo-v08-20260906/
+?? tools/ai-gen/foreman-rig-audit-20260906/
+?? tools/ai-gen/foreman-skin-v05-20260906/
+?? tools/ai-gen/foreman-v01-20260906/textures/
+?? tools/ai-gen/humanoid-detail-v02-20260906/
+?? tools/ai-gen/humanoid-variants-v01-20260906/
+?? tools/ai-gen/leaf-conservative-20260908/
+?? tools/ai-gen/miner-pickaxe-v01-20260909/
+?? tools/ai-gen/miner-pickaxe-v02-20260909/
+?? tools/ai-gen/modern-zombie-v01-20260906/
+?? tools/ai-gen/palettes/
+?? tools/ai-gen/spitter-upgrade-v02-20260906/
+?? tools/ai-gen/tree-study-20260908/
+?? tools/ai-gen/voxel_hand_builder.py
+?? tools/ai-gen/zombie-dog-v01-20260906/
+?? tools/akm_classic/
+?? tools/akm_reflex_geometry.gd
+?? tools/akm_reflex_geometry.gd.uid
+?? tools/architecture-polish-20260908/
+?? tools/attachment-upgrade-20260909/
+?? tools/bake_female_death_fallback.gd
+?? tools/bake_female_death_fallback.gd.uid
+?? tools/bake_megaplant_cuts.gd
+?? tools/bake_megaplant_cuts.gd.uid
+?? tools/bake_wilderness_collision.gd
+?? tools/bake_wilderness_collision.gd.uid
+?? tools/basic-tools/
+?? tools/build_akm_attachments.gd
+?? tools/build_akm_attachments.gd.uid
+?? tools/build_angled_foregrip.gd
+?? tools/build_angled_foregrip.gd.uid
+?? tools/build_canted_foregrip.gd
+?? tools/build_canted_foregrip.gd.uid
+?? tools/build_combat_stock.gd
+?? tools/build_combat_stock.gd.uid
+?? tools/build_combat_stock_v2.gd
+?? tools/build_combat_stock_v2.gd.uid
+?? tools/build_event_timeline_reference.py
+?? tools/build_fab_meadow_runtime.gd
+?? tools/build_fab_meadow_runtime.gd.uid
+?? tools/build_foregrip_hand_polish.gd
+?? tools/build_foregrip_hand_polish.gd.uid
+?? tools/build_generated_drum_scene.gd
+?? tools/build_generated_drum_scene.gd.uid
+?? tools/build_gunsmith_furniture.gd
+?? tools/build_gunsmith_furniture.gd.uid
+?? tools/build_handstop.gd
+?? tools/build_handstop.gd.uid
+?? tools/build_hk416_attachments.gd
+?? tools/build_hk416_attachments.gd.uid
+?? tools/build_hk416_material_masks.gd
+?? tools/build_hk416_material_masks.gd.uid
+?? tools/build_hk416_surface_normals.gd
+?? tools/build_hk416_surface_normals.gd.uid
+?? tools/build_hollow_grip_sources.gd
+?? tools/build_hollow_grip_sources.gd.uid
+?? tools/build_large_drum.gd
+?? tools/build_large_drum.gd.uid
+?? tools/build_megaplants.gd
+?? tools/build_megaplants.gd.uid
+?? tools/build_muzzle_brake.gd
+?? tools/build_muzzle_brake.gd.uid
+?? tools/build_precision_reference.gd
+?? tools/build_precision_reference.gd.uid
+?? tools/build_qbz191_furniture.gd
+?? tools/build_qbz191_furniture.gd.uid
+?? tools/build_qbz_foregrip_seat.gd
+?? tools/build_qbz_foregrip_seat.gd.uid
+?? tools/build_raised_panorama.gd
+?? tools/build_raised_panorama.gd.uid
+?? tools/build_raised_panorama_bridge.gd
+?? tools/build_raised_panorama_bridge.gd.uid
+?? tools/build_reargrip_textures.py
+?? tools/build_reargrips.gd
+?? tools/build_reargrips.gd.uid
+?? tools/build_refined_stocks.gd
+?? tools/build_refined_stocks.gd.uid
+?? tools/build_stock_microtextures.py
+?? tools/build_stock_refit.gd
+?? tools/build_stock_refit.gd.uid
+?? tools/build_stock_variants.gd
+?? tools/build_stock_variants.gd.uid
+?? tools/build_tactical_attachments.gd
+?? tools/build_tactical_attachments.gd.uid
+?? tools/build_titanium_brake.gd
+?? tools/build_titanium_brake.gd.uid
+?? tools/build_unified_stocks.gd
+?? tools/build_unified_stocks.gd.uid
+?? tools/build_vertical_foregrip.gd
+?? tools/build_vertical_foregrip.gd.uid
+?? tools/build_wilderness_pbr_candidates.gd
+?? tools/build_wilderness_pbr_candidates.gd.uid
+?? tools/chest-brass-20260908/
+?? tools/chest-fit-20260908/
+?? tools/chest-fit-inspect-20260908/
+?? tools/chest-laurel-20260908/
+?? tools/chest-sapphire-20260908/
+?? tools/chest-shell-repair-20260908/
+?? tools/combat-study-20260908/
+?? tools/convert_infima.py
+?? tools/convert_infima_handgun.py
+?? tools/extract_megaplants.gd
+?? tools/extract_megaplants.gd.uid
+?? tools/finalize_retirement_report.py
+?? tools/finish_stock_refit.py
+?? tools/foreman-animation-audit-20260909/
+?? tools/foreman-animation-polish-20260909/
+?? tools/foreman-ragdoll-20260909/
+?? tools/foreman-walk-review-20260909/
+?? tools/generate_soft_rain.py
+?? tools/generate_weather_audio.py
+?? tools/generate_wilderness_thunder.py
+?? tools/grant_warehouse_firearms.gd
+?? tools/grant_warehouse_firearms.gd.uid
+?? tools/hand-pose-20260909/
+?? tools/impact-candidate-20260908/
+?? tools/impact-polish-20260908/
+?? tools/inspect_inventory_save.gd
+?? tools/inspect_inventory_save.gd.uid
+?? tools/launch_combat_study.ps1
+?? tools/lod-shadow-20260908/
+?? tools/m16/
+?? tools/marble-ab-20260908/
+?? tools/megaplants/
+?? tools/migrate_craft_display.mjs
+?? tools/migrate_gun_tooltip_source.mjs
+?? tools/mine-kit/
+?? tools/model_hollow_grips.py
+?? tools/natural-materials-20260908/
+?? tools/pack_equipment_icons_20260906.ps1
+?? tools/pack_hollow_grips.gd
+?? tools/pack_hollow_grips.gd.uid
+?? tools/pack_megaplant_impostors.gd
+?? tools/pack_megaplant_impostors.gd.uid
+?? tools/pack_stock_refit.gd
+?? tools/pack_stock_refit.gd.uid
+?? tools/package_rifle_polymer.py
+?? tools/prepare_fab_meadow.py
+?? tools/prepare_generated_inventory_icons.py
+?? tools/prepare_light_rain_field_recording.py
+?? tools/prepare_megaplants.py
+?? tools/prepare_mw_ground.py
+?? tools/prepare_rifle_audio.py
+?? tools/prepare_wilderness_textures.gd
+?? tools/prepare_wilderness_textures.gd.uid
+?? tools/probe_hk416_muzzle_seat.gd
+?? tools/probe_hk416_muzzle_seat.gd.uid
+?? tools/probe_megaplants_fbx.gd
+?? tools/probe_megaplants_fbx.gd.uid
+?? tools/qbz191/
+?? tools/ragdoll-20260909/
+?? tools/railing-polish-20260908/
+?? tools/refine_wilderness_maps.gd
+?? tools/refine_wilderness_maps.gd.uid
+?? tools/render_codex_thumbnails.gd
+?? tools/render_codex_thumbnails.gd.uid
+?? tools/reset_fps_loadout.gd
+?? tools/reset_fps_loadout.gd.uid
+?? tools/sanctuary-hd-20260908/
+?? tools/sky-base/
+?? tools/stall-study-20260908/
+?? tools/torch-metal-20260908/
+?? tools/weapon-material-audit-20260909/
+?? tools/weapon-material-consolidation-20260909/
+?? ui/apple-glass-tokens.json
+?? ui/codex_data.gd
+?? ui/codex_data.gd.uid
+?? ui/codex_page.gd
+?? ui/codex_page.gd.uid
+?? ui/craft_effect_display.gd
+?? ui/craft_effect_display.gd.uid
+?? ui/event_timeline.gd
+?? ui/event_timeline.gd.uid
+?? ui/event_timeline_marker.gd
+?? ui/event_timeline_marker.gd.uid
+?? ui/event_timeline_model.gd
+?? ui/event_timeline_model.gd.uid
+?? ui/event_timeline_style.gd
+?? ui/event_timeline_style.gd.uid
+?? ui/game_clock.gd
+?? ui/game_clock.gd.uid
+?? ui/game_clock_hud.gd
+?? ui/game_clock_hud.gd.uid
+?? ui/game_menu.gd
+?? ui/game_menu.gd.uid
+?? ui/game_settings.gd
+?? ui/game_settings.gd.uid
+?? ui/gun_tooltip_rows.gd
+?? ui/gun_tooltip_rows.gd.uid
+?? ui/gunsmith_panel.gd
+?? ui/gunsmith_panel.gd.uid
+?? ui/gunsmith_preview.gd
+?? ui/gunsmith_preview.gd.uid
+?? ui/gunsmith_style.gd
+?? ui/gunsmith_style.gd.uid
+?? ui/item_icon.gd
+?? ui/item_icon.gd.uid
+?? ui/left_nav.gd.uid
+?? ui/liquid_glass_theme.gd
+?? ui/liquid_glass_theme.gd.uid
+?? ui/modifier_presentation.gd
+?? ui/modifier_presentation.gd.uid
+?? ui/performance_panel.gd
+?? ui/performance_panel.gd.uid
+?? ui/spatial_inventory.gd
+?? ui/spatial_inventory.gd.uid
+?? ui/start_menu.gd
+?? ui/start_menu.gd.uid
+?? ui/starting_warehouse.gd
+?? ui/starting_warehouse.gd.uid
+?? ui/tooltip_typography.gd
+?? ui/tooltip_typography.gd.uid
+?? ui/weapon_display_metadata.gd
+?? ui/weapon_display_metadata.gd.uid
+?? unreal/
+?? weapon_data/akm_classic.tres
+?? weapon_data/hk416.tres
+?? weapon_data/hk416_audio.tres
+?? weapon_data/infima_ar.tres
+?? weapon_data/infima_handgun.tres
+?? weapon_data/m16.tres
+?? weapon_data/qbz191.tres

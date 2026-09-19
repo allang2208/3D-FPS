@@ -1,0 +1,21 @@
+{
+  "runtime_failures": 0,
+  "normal_capture_frames": 81,
+  "version": "Revision5",
+  "checks": [
+    "support grip and whole left-arm hold",
+    "right-hand weapon contact",
+    "insertion contact",
+    "elbow hinge and lengths",
+    "source endpoints",
+    "asset compression",
+    "native build",
+    "normal and empty runtime reload",
+    "one dropped drum per reload",
+    "50-round capacity and reserve accounting"
+  ],
+  "empty_capture_frames": 103,
+  "visual_review": "Reviewed four full-sequence contact sheets, full-size hold/release/downstroke frames and elbow/wrist renders. Delayed framing and full-arm hold remove the initial elbow intrusion seen in the first R5 trial.",
+  "loaded_asset_folder": "/Game/Weapons/M4DrumDrop/Flow",
+  "runtime_run": "drum_flow_r5b"
+}

@@ -1,0 +1,17 @@
+{
+  "asset": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop.SM_PrismHandstop",
+  "size_cm": [
+    5.881507396697998,
+    1.89616060256958,
+    6.499371632642578
+  ],
+  "center_cm": [
+    4.029273986816406e-05,
+    0.00016134977340698242,
+    -3.250223107781494
+  ],
+  "materials": [
+    "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer",
+    "/Game/Weapons/PrismHandstopV1/M_Prism_Saddle.M_Prism_Saddle"
+  ]
+}

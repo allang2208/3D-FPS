@@ -1,0 +1,1125 @@
+{
+  "suppressor": {
+    "min": [
+      -0.024000000208616257,
+      -0.005000004079192877,
+      -0.024000003933906555
+    ],
+    "max": [
+      0.024000000208616257,
+      0.1859000027179718,
+      0.024000003933906555
+    ],
+    "objects": [
+      {
+        "name": "MountCollar",
+        "tris": 192,
+        "materials": [
+          "Material_0"
+        ]
+      },
+      {
+        "name": "Shell",
+        "tris": 192,
+        "materials": [
+          "Material_1"
+        ]
+      },
+      {
+        "name": "GripRing",
+        "tris": 192,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_12",
+        "tris": 192,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_13",
+        "tris": 192,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_14",
+        "tris": 192,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_15",
+        "tris": 192,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "EndCap",
+        "tris": 192,
+        "materials": [
+          "Material_0"
+        ]
+      },
+      {
+        "name": "BoreShadow",
+        "tris": 192,
+        "materials": [
+          "Material_3"
+        ]
+      }
+    ],
+    "markers": {
+      "AKM_Suppressor_01": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Muzzle": [
+        0.0,
+        0.1860000044107437,
+        0.0
+      ],
+      "Mount": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "brake": {
+    "min": [
+      -0.01600000075995922,
+      -0.009999999776482582,
+      -0.01600000075995922
+    ],
+    "max": [
+      0.01600000075995922,
+      0.06800000369548798,
+      0.01600000075995922
+    ],
+    "objects": [
+      {
+        "name": "MachinedShell",
+        "tris": 672,
+        "materials": [
+          "Material_0"
+        ]
+      },
+      {
+        "name": "PortShoulders",
+        "tris": 320,
+        "materials": [
+          "Material_1"
+        ]
+      },
+      {
+        "name": "BoreInterior",
+        "tris": 696,
+        "materials": [
+          "Material_2"
+        ]
+      }
+    ],
+    "markers": {
+      "PortedMuzzleBrake": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Mount": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Muzzle": [
+        0.0,
+        0.0689999982714653,
+        0.0
+      ]
+    }
+  },
+  "titanium_brake": {
+    "min": [
+      -0.018079999834299088,
+      -0.0020000000949949026,
+      -0.018079999834299088
+    ],
+    "max": [
+      0.018079999834299088,
+      0.07249999791383743,
+      0.018079999834299088
+    ],
+    "objects": [
+      {
+        "name": "TitaniumPortedHousing",
+        "tris": 1936,
+        "materials": [
+          "Material_0"
+        ]
+      },
+      {
+        "name": "OpenChannel",
+        "tris": 2696,
+        "materials": [
+          "Material_1"
+        ]
+      },
+      {
+        "name": "PortRevealFaces",
+        "tris": 760,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "FacetedMountCollar",
+        "tris": 144,
+        "materials": [
+          "Material_0"
+        ]
+      },
+      {
+        "name": "CollarInlay",
+        "tris": 512,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_20",
+        "tris": 512,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "FrontCrown",
+        "tris": 1024,
+        "materials": [
+          "Material_0"
+        ]
+      },
+      {
+        "name": "CrownGoldEdge",
+        "tris": 512,
+        "materials": [
+          "Material_2"
+        ]
+      },
+      {
+        "name": "HousingFineGroove",
+        "tris": 512,
+        "materials": [
+          "Material_1"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_21",
+        "tris": 512,
+        "materials": [
+          "Material_1"
+        ]
+      },
+      {
+        "name": "_MeshInstance3D_22",
+        "tris": 512,
+        "materials": [
+          "Material_1"
+        ]
+      }
+    ],
+    "markers": {
+      "TitaniumBrakeCandidate": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Mount": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "Muzzle": [
+        0.0,
+        0.0729999989271164,
+        0.0
+      ]
+    }
+  },
+  "rifle": {
+    "meshes": [
+      {
+        "name": "M4_Trigger Straight Unreal",
+        "triangles": 244,
+        "materials": [
+          "Body.001"
+        ]
+      },
+      {
+        "name": "M4_Stock Classic Unreal",
+        "triangles": 2276,
+        "materials": [
+          "Classic Stock.001"
+        ]
+      },
+      {
+        "name": "M4_Magazine Light.003",
+        "triangles": 3276,
+        "materials": [
+          "Magazine Light.001"
+        ]
+      },
+      {
+        "name": "M4_M4 Body",
+        "triangles": 9083,
+        "materials": [
+          "Body.001"
+        ]
+      },
+      {
+        "name": "M4_Handguard Kmode Unreal",
+        "triangles": 8328,
+        "materials": [
+          "Keymod material.001"
+        ]
+      },
+      {
+        "name": "M4_Grip Default Unreal",
+        "triangles": 1076,
+        "materials": [
+          "Grip Default.001"
+        ]
+      },
+      {
+        "name": "M4_Flash Hider Unreal",
+        "triangles": 948,
+        "materials": [
+          "Flash Hider.001"
+        ]
+      },
+      {
+        "name": "M4_Trigger Straight Unreal_Export",
+        "triangles": 244,
+        "materials": [
+          "Body.001"
+        ]
+      },
+      {
+        "name": "M4_Stock Classic Unreal_Export",
+        "triangles": 2276,
+        "materials": [
+          "Classic Stock.001"
+        ]
+      },
+      {
+        "name": "M4_Magazine Light.003_Export",
+        "triangles": 3276,
+        "materials": [
+          "Magazine Light.001"
+        ]
+      },
+      {
+        "name": "M4_M4 Body_Export",
+        "triangles": 8291,
+        "materials": [
+          "Body.001"
+        ]
+      },
+      {
+        "name": "M4_Handguard Kmode Unreal_Export",
+        "triangles": 7214,
+        "materials": [
+          "Keymod material.001"
+        ]
+      },
+      {
+        "name": "M4_Grip Default Unreal_Export",
+        "triangles": 1076,
+        "materials": [
+          "Grip Default.001"
+        ]
+      },
+      {
+        "name": "M4_Flash Hider Unreal_Export",
+        "triangles": 948,
+        "materials": [
+          "Flash Hider.001"
+        ]
+      },
+      {
+        "name": "SK_Manny_Arms_Export",
+        "triangles": 37802,
+        "materials": [
+          "MI_Manny_01",
+          "MI_Manny_02"
+        ]
+      },
+      {
+        "name": "SM_M4_RearSight",
+        "triangles": 792,
+        "materials": [
+          "Body.001"
+        ]
+      },
+      {
+        "name": "SM_M4_FrontSight",
+        "triangles": 1114,
+        "materials": [
+          "Keymod material.001"
+        ]
+      },
+      {
+        "name": "_CS_Cube",
+        "triangles": 12,
+        "materials": []
+      },
+      {
+        "name": "_CS_Fingers",
+        "triangles": 12,
+        "materials": []
+      },
+      {
+        "name": "_CS_Finger_Metacarpal",
+        "triangles": 2,
+        "materials": []
+      },
+      {
+        "name": "_CS_Circle",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.004",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.005",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.006",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.007",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.008",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.009",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.010",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.011",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.012",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.013",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.014",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.015",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.016",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.017",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.018",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.019",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.020",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.021",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.022",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.023",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.024",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.025",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.026",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.027",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.028",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.029",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.030",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.031",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.032",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.033",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.034",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller.035",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller_I.036",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "base_controller_II.036",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.004",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.005",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.006",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.007",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.008",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.009",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.010",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.011",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.012",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.013",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.014",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.015",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.016",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.017",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "common_controller.018",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.004",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.005",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.006",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.007",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.008",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.009",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.010",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.011",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.012",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.013",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.014",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.015",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.016",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "directional_controller.017",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "eye_controller.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "eye_controller.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "eye_controller.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "Fk_Ik_switch_controller_I.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "Fk_Ik_switch_controller_I.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "Fk_Ik_switch_controller_I.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "Fk_Ik_switch_controller_II.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "Fk_Ik_switch_controller_II.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "Fk_Ik_switch_controller_II.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.004",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.005",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.006",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "other_controller.007",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.001",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.002",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.003",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.004",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.005",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.006",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.007",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.008",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.009",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.010",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.011",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.012",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.013",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.014",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.015",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.016",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.017",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "rotational_controller.018",
+        "triangles": 0,
+        "materials": []
+      },
+      {
+        "name": "SK_Manny_Simple",
+        "triangles": 92178,
+        "materials": [
+          "MI_Manny_01",
+          "MI_Manny_02"
+        ]
+      },
+      {
+        "name": "SK_Manny_Arms",
+        "triangles": 37802,
+        "materials": [
+          "MI_Manny_01",
+          "MI_Manny_02"
+        ]
+      },
+      {
+        "name": "Motion_Reference_Cubes",
+        "triangles": 36,
+        "materials": [
+          "M_Motion_Reference"
+        ]
+      },
+      {
+        "name": "CS_Cube",
+        "triangles": 12,
+        "materials": []
+      },
+      {
+        "name": "SK_AssaultRifle",
+        "triangles": 9637,
+        "materials": [
+          "M_AssaultRifle"
+        ]
+      },
+      {
+        "name": "SM_AssaultRifle_Magazine",
+        "triangles": 1416,
+        "materials": [
+          "M_AssaultRifle"
+        ]
+      },
+      {
+        "name": "SM_AssaultRifle_Casing",
+        "triangles": 160,
+        "materials": [
+          "M_AssaultRifle"
+        ]
+      }
+    ],
+    "bones": {
+      "VM_Root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          0.02500000037252903,
+          0.0
+        ]
+      },
+      "root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          57.96870040893555,
+          0.0
+        ]
+      },
+      "ik_foot_root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          16.349424362182617,
+          0.0
+        ]
+      },
+      "ik_hand_root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          115.9374771118164,
+          0.0
+        ]
+      },
+      "WPN_root": {
+        "head": [
+          0.057687655091285706,
+          0.14374759793281555,
+          -0.09835326671600342
+        ],
+        "tail": [
+          0.0576876662671566,
+          0.11874760687351227,
+          -0.09835326671600342
+        ]
+      },
+      "WPN_RearSight": {
+        "head": [
+          0.046151719987392426,
+          0.17907209694385529,
+          0.03394073620438576
+        ],
+        "tail": [
+          0.04615173116326332,
+          0.154072105884552,
+          0.03394073620438576
+        ]
+      },
+      "WPN_FrontSight": {
+        "head": [
+          0.04622302204370499,
+          0.49252521991729736,
+          0.03366817906498909
+        ],
+        "tail": [
+          0.04622303321957588,
+          0.4675252139568329,
+          0.03366817906498909
+        ]
+      },
+      "WPN_SOCKET_Muzzle": {
+        "head": [
+          0.051412247121334076,
+          0.5937475562095642,
+          -0.026627296581864357
+        ],
+        "tail": [
+          0.05141225829720497,
+          0.5687475800514221,
+          -0.026627294719219208
+        ]
+      },
+      "CB_root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          63.89999771118164
+        ]
+      },
+      "CB_ik_hand_root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          38.50767135620117
+        ]
+      },
+      "REF_root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          57.96870040893555,
+          0.0
+        ]
+      },
+      "CB_ik_foot_root": {
+        "head": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tail": [
+          0.0,
+          0.0,
+          24.500568389892578
+        ]
+      }
+    }
+  }
+}

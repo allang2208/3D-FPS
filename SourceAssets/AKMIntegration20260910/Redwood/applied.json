@@ -1,0 +1,44 @@
+{
+  "source": "https://ambientcg.com/view?id=Wood051",
+  "license": "CC0",
+  "tint_linear": [
+    1.6,
+    0.58,
+    0.32
+  ],
+  "tiling": 2,
+  "normal_strength": 0.18,
+  "roughness": "0.24 + map * 0.25",
+  "mesh": "/Game/Weapons/AKMIntegration/Materials/SK_AKM_MannyNative.SK_AKM_MannyNative",
+  "materials": [
+    {
+      "slot": "M_AKMR_BluedSteel",
+      "asset": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+    },
+    {
+      "slot": "M_AKMR_Walnut",
+      "asset": "/Game/Weapons/AKMIntegration/Materials/M_AKM_Redwood.M_AKM_Redwood"
+    },
+    {
+      "slot": "M_AKMR_Bakelite",
+      "asset": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Bakelite_PBR_Skinned.M_AKMR_Bakelite_PBR_Skinned"
+    },
+    {
+      "slot": "M_AKMR_BoltSteel",
+      "asset": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+    },
+    {
+      "slot": "M_AKMR_Parkerized",
+      "asset": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001"
+    },
+    {
+      "slot": "MI_Manny_01",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ],
+  "sha256": "ef50cd051a1d998bf2a03e243e991474415d948af6d4b76d291c937654c97d4b"
+}

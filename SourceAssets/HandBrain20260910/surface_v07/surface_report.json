@@ -1,0 +1,16 @@
+{
+  "before": {
+    "vertices": 60926,
+    "faces": 120876,
+    "boundary_edges": 0
+  },
+  "after": {
+    "vertices": 91112,
+    "faces": 177990,
+    "boundary_edges": 0
+  },
+  "high_vertices": 538524,
+  "max_surface_shift_m": 0.003762587916934637,
+  "local_refinement": true,
+  "complete_anatomical_retopology": false
+}

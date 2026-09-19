@@ -1,0 +1,277 @@
+--- before/ColdSteelInventoryAudit.cpp
++++ after/ColdSteelInventoryAudit.cpp
+@@ -114,17 +114,24 @@
+             Check(Board&&Board->GetCachedGeometry().GetLocalSize().X>0,TEXT("interactive inventory board has live geometry"));
+             if(Board){
+                 Board->SetKeyboardFocus();
++                const auto Geometry=Board->GetCachedGeometry();const auto Metrics=Board->Layout(Geometry);
++                auto HitAt=[&](FVector2D P,int32 ExpectedPlace,int32 ExpectedCell){int32 Place=-1,Cell=-1;return Board->Hit(Geometry,Geometry.LocalToAbsolute(P/Board->Scale),Place,Cell)&&Place==ExpectedPlace&&Cell==ExpectedCell;};
++                bool GearHits=true;for(int32 N=0;N<15;++N)GearHits&=HitAt(FVector2D(12+N%3*(Metrics.GearWidth+6)+Metrics.GearWidth*.5f,Metrics.GearY+N/3*Metrics.GearPitch+Metrics.GearHeight-2),1,N);
++                Check(GearHits&&Metrics.GearHeight>=52,TEXT("enlarged equipment cards hit all fifteen lower edges correctly"));
++                Check(HitAt(FVector2D(12+17.5f*Metrics.Cell,Metrics.BagY+3.5f*Metrics.Cell),0,71),TEXT("relocated backpack last cell remains reachable"));
++                int32 GapPlace=-1,GapCell=-1;
++                Check(!Board->Hit(Geometry,Geometry.LocalToAbsolute(FVector2D(20,Metrics.GearY+Metrics.GearHeight+3)/Board->Scale),GapPlace,GapCell),TEXT("equipment spacing does not activate adjacent slots"));
+                 const auto* Gun=M->Items().FindByPredicate([](const auto&I){return I.Definition==TEXT("ue_m4a1")&&I.Place==0;});
+                 if(Gun){
+                     auto* Drag=NewObject<UColdSteelItemDrag>(Board);Drag->ItemId=Gun->InstanceId;Drag->SourcePlace=Gun->Place;Drag->SourceCell=Gun->Cell;
+                     const FGeometry G=Board->GetCachedGeometry();const auto Layout=Board->Layout(G);
+                     auto EventAt=[&](FVector2D Local){FVector2D Screen=G.LocalToAbsolute(Local/Board->Scale);FPointerEvent Pointer(0,Screen,Screen,TSet<FKey>{EKeys::LeftMouseButton},EKeys::LeftMouseButton,0,FModifierKeysState());return FDragDropEvent(Pointer,TSharedPtr<FDragDropOperation>());};
+-                    auto BagEvent=EventAt(FVector2D(14,266+2*Layout.Cell));
++                    auto BagEvent=EventAt(FVector2D(14,Layout.BagY+2+2*Layout.Cell));
+                     const int64 Revision=M->Snapshot().Generation;
+                     Check(Board->NativeOnDragOver(G,BagEvent,Drag)&&M->Snapshot().Generation==Revision,TEXT("native drag preview does not commit"));
+                     Check(Board->NativeOnDrop(G,BagEvent,Drag)&&M->FindItem(Drag->ItemId)->Cell==36,TEXT("native spatial drop commits target cell"));
+                     Drag->SourcePlace=M->FindItem(Drag->ItemId)->Place;Drag->SourceCell=M->FindItem(Drag->ItemId)->Cell;
+-                    auto GearEvent=EventAt(FVector2D(16,30+2*40));
++                    auto GearEvent=EventAt(FVector2D(16,Layout.GearY+2*Layout.GearPitch+2));
+                     Check(Board->NativeOnDrop(G,GearEvent,Drag)&&M->Equipped()&&M->Equipped()->InstanceId==Drag->ItemId,TEXT("native equip drop replaces main hand atomically"));
+                     const auto* Character=GetOwningPlayerPawn<AFPSGAMECharacter>();
+                     Check(Character&&Character->bUseM4Infima&&Character->HasInventoryWeapon(),TEXT("equipping native M4 switches actual first person weapon"));
+--- before/ColdSteelInventoryDragAudit.cpp
++++ after/ColdSteelInventoryDragAudit.cpp
+@@ -59,8 +59,8 @@
+         if(Phase>=6&&Phase<46){
+             const int32 Grab=(Phase-6)/4,Step=(Phase-6)%4;
+             if(Step==0){auto Fixture=R->Fixture;Fixture.Items[0].Cell=36;Fixture.Items[1].Cell=0;Check(M->CommitState(Fixture),TEXT("reset edge swap fixture"));HideItemTooltip(true);Board->SetKeyboardFocus();
+-                R->Start=G.LocalToAbsolute(FVector2D(12+(Grab%5+.5f)*L.Cell,264+(2+Grab/5+.5f)*L.Cell)/Board->Scale);
+-                R->End=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,264+.5f*L.Cell)/Board->Scale);
++                R->Start=G.LocalToAbsolute(FVector2D(12+(Grab%5+.5f)*L.Cell,L.BagY+(2+Grab/5+.5f)*L.Cell)/Board->Scale);
++                R->End=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,L.BagY+.5f*L.Cell)/Board->Scale);
+                 App.ProcessMouseMoveEvent(Pointer(R->Start,R->Start,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));
+             }else if(Step==1){App.ProcessMouseMoveEvent(Pointer(R->Start+FVector2D(12,0),R->Start,true));Check(App.IsDragDropping(),TEXT("each covered rifle cell starts real Slate drag"));}
+             else if(Step==2){App.ProcessMouseMoveEvent(Pointer(R->End,R->Start+FVector2D(12,0),true));Check(Board->bPreviewValid&&Board->PreviewCell==0,TEXT("edge potion target aligns valid swap from every grab cell"));if(Grab==9)Capture(TEXT("edge-preview"));}
+@@ -72,8 +72,8 @@
+         case 0:
+             Scroll->ScrollToStart();Board->SetKeyboardFocus();HideItemTooltip(true);Capture(TEXT("before"));break;
+         case 1:
+-            R->Start=G.LocalToAbsolute(FVector2D(12+2.5f*L.Cell,264+1.5f*L.Cell)/Board->Scale);
+-            R->End=G.LocalToAbsolute(FVector2D(12+10.5f*L.Cell,264+1.5f*L.Cell)/Board->Scale);
++            R->Start=G.LocalToAbsolute(FVector2D(12+2.5f*L.Cell,L.BagY+1.5f*L.Cell)/Board->Scale);
++            R->End=G.LocalToAbsolute(FVector2D(12+10.5f*L.Cell,L.BagY+1.5f*L.Cell)/Board->Scale);
+             App.ProcessMouseMoveEvent(Pointer(R->Start,R->Start,false));
+             App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));
+             Check(Board->Selection()==R->Gun,TEXT("Slate mouse press resolves covered rifle cell"));
+@@ -91,7 +91,7 @@
+         {
+             M->CommitState(R->Fixture);
+             auto* D=NewObject<UColdSteelItemDrag>(Board);D->ItemId=R->Gun;D->SourcePlace=0;D->SourceCell=0;
+-            auto At=[&](int32 Cell){const auto P=G.LocalToAbsolute(FVector2D(12+(Cell%18+.5f)*L.Cell,264+(Cell/18+.5f)*L.Cell)/Board->Scale);return FDragDropEvent(Pointer(P,P,true),TSharedPtr<FDragDropOperation>());};
++            auto At=[&](int32 Cell){const auto P=G.LocalToAbsolute(FVector2D(12+(Cell%18+.5f)*L.Cell,L.BagY+(Cell/18+.5f)*L.Cell)/Board->Scale);return FDragDropEvent(Pointer(P,P,true),TSharedPtr<FDragDropOperation>());};
+             auto Blocked=R->Fixture;auto Extra=M->CreateItem(TEXT("mp_potion"),3);Extra.Cell=9;Blocked.Items.Add(Extra);M->CommitState(Blocked);
+             Board->NativeOnDragOver(G,At(8),D);Check(!Board->bPreviewValid&&Board->PreviewReason.Contains(TEXT("多件")),TEXT("multiple blockers reject with immediate reason"));const auto Generation=M->Snapshot().Generation;Board->NativeOnDrop(G,At(8),D);Check(M->Snapshot().Generation==Generation,TEXT("rejected drop leaves save and items unchanged"));
+             M->CommitState(R->Fixture);D->SourceCell=36;Board->NativeOnDrop(G,At(8),D);Check(M->FindItem(R->Gun)->Cell==0&&Board->InteractionMessage.Contains(TEXT("重新")),TEXT("stale source drag rejects safely"));D->SourceCell=0;
+@@ -104,15 +104,15 @@
+         }
+         case 46:
+         {
+-            const auto At=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,264+.5f*L.Cell)/Board->Scale);
++            const auto At=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,L.BagY+.5f*L.Cell)/Board->Scale);
+             FPointerEvent Right(0,At,At,TSet<FKey>{EKeys::RightMouseButton},EKeys::RightMouseButton,0,FModifierKeysState());Board->NativeOnMouseButtonDown(G,Right);
+             Check(M->FindItem(R->Gun)->Place==1&&M->Equipped()&&M->Equipped()->InstanceId==R->Gun,TEXT("right click equips actual rifle"));
+-            const auto Gear=G.LocalToAbsolute(FVector2D(20,118)/Board->Scale);FPointerEvent Unequip(0,Gear,Gear,TSet<FKey>{EKeys::RightMouseButton},EKeys::RightMouseButton,0,FModifierKeysState());Board->NativeOnMouseButtonDown(G,Unequip);
++            const auto Gear=G.LocalToAbsolute(FVector2D(20,L.GearY+2*L.GearPitch+L.GearHeight*.5f)/Board->Scale);FPointerEvent Unequip(0,Gear,Gear,TSet<FKey>{EKeys::RightMouseButton},EKeys::RightMouseButton,0,FModifierKeysState());Board->NativeOnMouseButtonDown(G,Unequip);
+             Check(M->FindItem(R->Gun)->Place==0&&M->FindItem(R->Gun)->Cell==0,TEXT("right click unequips to remembered backpack anchor"));break;
+         }
+         case 47:
+         {
+-            const auto At=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,264+2.5f*L.Cell)/Board->Scale);const FModifierKeysState Shift(true,false,false,false,false,false,false,false,false);
++            const auto At=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,L.BagY+2.5f*L.Cell)/Board->Scale);const FModifierKeysState Shift(true,false,false,false,false,false,false,false,false);
+             const FPointerEvent Down(0,At,At,TSet<FKey>{EKeys::LeftMouseButton},EKeys::LeftMouseButton,0,Shift);const FPointerEvent Up(0,At,At,TSet<FKey>{},EKeys::LeftMouseButton,0,Shift);
+             const int64 Generation=M->Snapshot().Generation;Board->NativeOnMouseButtonDown(G,Down);Check(M->Snapshot().Generation==Generation,TEXT("Shift press does not split before drag or click resolves"));Board->NativeOnMouseButtonUp(G,Up);
+             Check(Board->ItemMenu&&Board->ItemMenu->IsInViewport()&&Board->ItemMenu->Quantity,TEXT("Shift click release opens actual quantity picker"));break;
+@@ -120,14 +120,14 @@
+         case 48:Capture(TEXT("split-picker"));break;
+         case 49:
+         {
+-            Board->ItemMenu->Close();const auto At=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,264+2.5f*L.Cell)/Board->Scale);const FModifierKeysState Shift(true,false,false,false,false,false,false,false,false);
++            Board->ItemMenu->Close();const auto At=G.LocalToAbsolute(FVector2D(12+.5f*L.Cell,L.BagY+2.5f*L.Cell)/Board->Scale);const FModifierKeysState Shift(true,false,false,false,false,false,false,false,false);
+             FPointerEvent Menu(0,At,At,TSet<FKey>{EKeys::RightMouseButton},EKeys::RightMouseButton,0,Shift);Board->NativeOnMouseButtonDown(G,Menu);
+             Check(Board->ItemMenu&&Board->ItemMenu->IsInViewport()&&Board->ItemMenu->DropCaption,TEXT("Shift right click opens item actions without using it"));break;
+         }
+         case 50:Capture(TEXT("item-actions"));break;
+         case 51:
+             Board->ItemMenu->Close();HideItemTooltip(true);Board->SetKeyboardFocus();
+-            R->Start=G.LocalToAbsolute(FVector2D(12+2.5f*L.Cell,264+.5f*L.Cell)/Board->Scale);
++            R->Start=G.LocalToAbsolute(FVector2D(12+2.5f*L.Cell,L.BagY+.5f*L.Cell)/Board->Scale);
+             App.ProcessMouseMoveEvent(Pointer(R->Start,R->Start,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));break;
+         case 52:App.ProcessMouseMoveEvent(Pointer(R->Start+FVector2D(12,0),R->Start,true));Check(App.IsDragDropping(),TEXT("cancel fixture has active real drag"));break;
+         case 53:
+--- before/ColdSteelInventoryWidget.cpp
++++ after/ColdSteelInventoryWidget.cpp
+@@ -27,10 +27,18 @@
+ {
+     Super::NativeOnInitialized();SetIsFocusable(true);Scale=ColdSteelUI::PixelScale(this);
+     Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+-    if(!WidgetTree->RootWidget){auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetMinDesiredHeight(830/Scale);WidgetTree->RootWidget=Size;}
++    if(!WidgetTree->RootWidget){auto* Size=WidgetTree->ConstructWidget<USizeBox>();WidgetTree->RootWidget=Size;}
+     SetVisibility(ESlateVisibility::Visible);LoadIcons();
+ }
+ void UColdSteelInventoryWidget::NativeConstruct(){Super::NativeConstruct();if(Model&&!ModelHandle.IsValid())ModelHandle=Model->OnChanged.AddUObject(this,&ThisClass::LoadIcons);LoadIcons();}
++void UColdSteelInventoryWidget::NativeTick(const FGeometry& G,float Delta)
++{
++    Super::NativeTick(G,Delta);
++    if(auto* Size=Cast<USizeBox>(WidgetTree->RootWidget)){
++        const float Height=Layout(G).Height/Scale;
++        if(!FMath::IsNearlyEqual(Size->GetMinDesiredHeight(),Height,.5f))Size->SetMinDesiredHeight(Height);
++    }
++}
+ void UColdSteelInventoryWidget::NativeDestruct(){if(Model)Model->OnChanged.Remove(ModelHandle);ModelHandle.Reset();CancelInteraction();Super::NativeDestruct();}
+ void UColdSteelInventoryWidget::LoadIcons()
+ {
+@@ -42,14 +50,27 @@
+ }
+ UColdSteelInventoryWidget::FBoardLayout UColdSteelInventoryWidget::Layout(const FGeometry& G)const
+ {
+-    FBoardLayout L;L.Width=G.GetLocalSize().X*Scale;L.Cell=(L.Width-24)/18;L.GearWidth=(L.Width-28)/3;L.HotY=264+4*L.Cell+26;L.ActionY=L.HotY+56;L.DetailY=L.ActionY+100;return L;
++    FBoardLayout L;
++    L.Width=FMath::Max(240.f,float(G.GetLocalSize().X*Scale));
++    L.Cell=(L.Width-24)/18;
++    L.GearWidth=(L.Width-36)/3;
++    L.GearHeight=FMath::Clamp(L.Width*.085f,52.f,72.f);
++    L.GearY=32;L.GearPitch=L.GearHeight+6;
++    L.BagY=L.GearY+5*L.GearPitch-6+48;
++    L.HotY=L.BagY+4*L.Cell+32;
++    L.Height=L.HotY+46+36;
++    return L;
+ }
+ bool UColdSteelInventoryWidget::Hit(const FGeometry& G,FVector2D Screen,int32& Place,int32& Cell)const
+ {
+     const auto L=Layout(G);const FVector2D P=G.AbsoluteToLocal(Screen)*Scale;Place=-1;Cell=-1;
+     if(P.X<12||P.X>L.Width-12)return false;
+-    if(P.Y>=28&&P.Y<228){Place=1;Cell=FMath::Clamp(int32((P.Y-28)/40),0,4)*3+FMath::Clamp(int32((P.X-12)/(L.GearWidth+2)),0,2);return true;}
+-    if(P.Y>=264&&P.Y<264+4*L.Cell){Place=0;Cell=int32((P.Y-264)/L.Cell)*18+FMath::Clamp(int32((P.X-12)/L.Cell),0,17);return true;}
++    if(P.Y>=L.GearY&&P.Y<L.GearY+5*L.GearPitch-6){
++        const int32 Row=int32((P.Y-L.GearY)/L.GearPitch),Col=int32((P.X-12)/(L.GearWidth+6));
++        if(Col>2||P.Y-L.GearY-Row*L.GearPitch>=L.GearHeight||P.X-12-Col*(L.GearWidth+6)>=L.GearWidth)return false;
++        Place=1;Cell=Row*3+Col;return true;
++    }
++    if(P.Y>=L.BagY&&P.Y<L.BagY+4*L.Cell){Place=0;Cell=int32((P.Y-L.BagY)/L.Cell)*18+FMath::Clamp(int32((P.X-12)/L.Cell),0,17);return true;}
+     if(P.Y>=L.HotY&&P.Y<L.HotY+46&&P.X<12+4*54){Place=3;Cell=int32((P.X-12)/54);return true;}
+     return false;
+ }
+@@ -76,36 +97,23 @@
+         ItemOpacity=1;
+     };
+     Label(TEXT("装备栏"),12,4,16,ColdSteelUI::TextPrimary);
+-    Label(TEXT("G 切换已装备武器"),FMath::Max(110.f,L.Width-142),6,12,ColdSteelUI::TextSecondary);
+-    for(int32 N=0;N<15;++N){float X=12+(N%3)*(L.GearWidth+2),Y=28+(N/3)*40;Box(X,Y,L.GearWidth,38,ColdSteelUI::Content,ColdSteelUI::Border);int32 Index=Owner(Model->Items(),1,N);if(Index>=0)Item(Model->Items()[Index],X,Y,L.GearWidth,38,false);else Label(Locked(Model->Items(),N)?TEXT("双手占用"):SlotNames()[N],X+8,Y+10,14,ColdSteelUI::TextSecondary);}
++    
++    for(int32 N=0;N<15;++N){float X=12+(N%3)*(L.GearWidth+6),Y=L.GearY+(N/3)*L.GearPitch;Box(X,Y,L.GearWidth,L.GearHeight,ColdSteelUI::Content,ColdSteelUI::Border);int32 Index=Owner(Model->Items(),1,N);if(Index>=0)Item(Model->Items()[Index],X,Y,L.GearWidth,L.GearHeight,false);else Label(Locked(Model->Items(),N)?TEXT("双手占用"):SlotNames()[N],X+8,Y+(L.GearHeight-16)/2,16,ColdSteelUI::TextSecondary);}
+     int32 Cells=0,Items=0;for(const auto& I:Model->Items())if(I.Place==0){Cells+=I.Width*I.Height;++Items;}
+-    Label(TEXT("背包"),12,240,16,ColdSteelUI::TextPrimary);Label(FString::Printf(TEXT("%d/72 格 · %d 件"),Cells,Items),FMath::Max(100.f,L.Width-145),242,12,ColdSteelUI::TextSecondary,true);
+-    for(int32 N=0;N<72;++N)if(Owner(Model->Items(),0,N)<0)Box(12+N%18*L.Cell,264+N/18*L.Cell,L.Cell,L.Cell,ColdSteelUI::Content,ColdSteelUI::Border);
+-    for(const auto& I:Model->Items())if(I.Place==0)Item(I,12+I.Cell%18*L.Cell,264+I.Cell/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
+-    if(PreviewPlace>=0&&PreviewCell>=0){const auto* I=Model->FindItem(HoverPreview);float X=12,Y=0,W=48,H=38;
+-        if(PreviewPlace==0){X+=PreviewCell%18*L.Cell;Y=264+PreviewCell/18*L.Cell;W=(I?I->Width:1)*L.Cell;H=(I?I->Height:1)*L.Cell;W=FMath::Min(W,L.Width-X-12);H=FMath::Min(H,264+4*L.Cell-Y);}
+-        else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+2);Y=28+PreviewCell/3*40;W=L.GearWidth;}
++    Label(TEXT("背包"),12,L.BagY-28,16,ColdSteelUI::TextPrimary);Label(FString::Printf(TEXT("%d/72 格 · %d 件"),Cells,Items),FMath::Max(100.f,L.Width-212),L.BagY-26,12,ColdSteelUI::TextSecondary,true);
++    Box(L.Width-60,L.BagY-30,48,24,ColdSteelUI::ButtonNormal,ColdSteelUI::Border);Label(TEXT("整理"),L.Width-50,L.BagY-25,12,ColdSteelUI::TextPrimary);
++    for(int32 N=0;N<72;++N)if(Owner(Model->Items(),0,N)<0)Box(12+N%18*L.Cell,L.BagY+N/18*L.Cell,L.Cell,L.Cell,ColdSteelUI::Content,ColdSteelUI::Border);
++    for(const auto& I:Model->Items())if(I.Place==0)Item(I,12+I.Cell%18*L.Cell,L.BagY+I.Cell/18*L.Cell,I.Width*L.Cell,I.Height*L.Cell,true);
++    if(PreviewPlace>=0&&PreviewCell>=0){const auto* I=Model->FindItem(HoverPreview);float X=12,Y=0,W=48,H=L.GearHeight;
++        if(PreviewPlace==0){X+=PreviewCell%18*L.Cell;Y=L.BagY+PreviewCell/18*L.Cell;W=(I?I->Width:1)*L.Cell;H=(I?I->Height:1)*L.Cell;W=FMath::Min(W,L.Width-X-12);H=FMath::Min(H,L.BagY+4*L.Cell-Y);}
++        else if(PreviewPlace==1){X+=PreviewCell%3*(L.GearWidth+6);Y=L.GearY+PreviewCell/3*L.GearPitch;W=L.GearWidth;}
+         else{X+=PreviewCell*54;Y=L.HotY;H=46;}
+         auto Color=bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger;Color.A=.35f;Box(X,Y,W,H,Color,bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger);
+     }
+-    if(!PreviewReason.IsEmpty()&&PreviewPlace>=0)Label(PreviewReason,12,L.HotY-24,11,bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger);
+-    else if(!InteractionMessage.IsEmpty())Label(InteractionMessage,12,L.HotY-24,11,ColdSteelUI::Accent);
+-    Label(TEXT("快捷物品 · 拖回背包解绑 / 右键解绑"),12,L.HotY-11,10,ColdSteelUI::TextSecondary);
++    if(!PreviewReason.IsEmpty()&&PreviewPlace>=0)Label(PreviewReason,12,L.HotY+54,11,bPreviewValid?ColdSteelUI::Success:ColdSteelUI::Danger);
++    else if(!InteractionMessage.IsEmpty())Label(InteractionMessage,12,L.HotY+54,11,ColdSteelUI::Accent);
++    Label(TEXT("快捷物品"),12,L.HotY-20,12,ColdSteelUI::TextSecondary);
+     for(int32 N=0;N<4;++N){float X=12+N*54;Box(X,L.HotY,48,46,ColdSteelUI::Content,ColdSteelUI::Border);if(const auto* I=Model->ResolveHotbar(N))Item(*I,X,L.HotY,48,46,false);Label(FString::FromInt(N+1),X+3,L.HotY+30,12,ColdSteelUI::TextPrimary,true);}
+-    const auto* SelectedItem=Model->FindItem(Selected);
+-    const bool CanModify=SelectedItem&&SelectedItem->Definition==TEXT("ue_m4a1");
+-    const FString Actions[]={TEXT("使用 / 穿戴"),TEXT("拆分"),bConfirmDrop?TEXT("确认丢下"):TEXT("丢下"),TEXT("整理"),TEXT("查看详情"),TEXT("物品菜单"),TEXT("保存"),CanModify?TEXT("改造 · J"):TEXT("取消选择")};
+-    const float AW=(L.Width-30)/4;
+-    for(int32 N=0;N<8;++N){float X=12+(N%4)*(AW+2),Y=L.ActionY+N/4*32;Box(X,Y,AW,28,ColdSteelUI::ButtonNormal,ColdSteelUI::Border);Label(Actions[N],X+5,Y+6,12,ColdSteelUI::TextPrimary);}
+-    Label(TEXT("Shift+点击选择拆分数量 · Shift+右键更多操作"),12,L.ActionY+67,12,ColdSteelUI::TextSecondary);
+-    if(const auto* I=Model->FindItem(Selected)){
+-        Label(Text(*I,TEXT("name")),12,L.DetailY,16,ColdSteelUI::TextPrimary);
+-        FString Detail=Text(*I,TEXT("desc"));const int32 LineChars=FMath::Max(10,int32((L.Width-30)/12));
+-        int32 Line=0;while(!Detail.IsEmpty()&&Line<4){Label(Detail.Left(LineChars),12,L.DetailY+25+Line*18,12,ColdSteelUI::TextSecondary);Detail=Detail.Mid(LineChars);++Line;}
+-        Label(FString::Printf(TEXT("数量 %lld / %lld · 占格 %d×%d"),I->Count,I->StackMax,I->Width,I->Height),12,L.DetailY+102,12,ColdSteelUI::TextPrimary,true);
+-    }else Label(TEXT("选择物品查看；双击使用或穿戴"),12,L.DetailY,14,ColdSteelUI::TextSecondary);
+-    Label(Model->ResultMessage(),12,L.DetailY+124,12,ColdSteelUI::Accent);
+-    Label(TEXT("方向键选格 · F 切区 · 空格拿起/放下 · Enter 使用"),12,L.DetailY+144,12,ColdSteelUI::TextTertiary);
+     return Layer+3;
+ }
+ FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,const FPointerEvent& E)
+@@ -123,7 +131,7 @@
+         if(!Selected.IsEmpty()&&E.GetEffectingButton()==EKeys::LeftMouseButton){PressedItem=Selected;PressPosition=E.GetScreenSpacePosition();bPendingClick=true;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
+         return FReply::Handled();
+     }
+-    if(P.Y>=L.ActionY&&P.Y<L.ActionY+64&&P.X>=12&&P.X<L.Width-12){int32 A=FMath::Clamp(int32((P.X-12)/((L.Width-30)/4+2)),0,3)+int32((P.Y-L.ActionY)/32)*4;PerformAction(A);}
++    if(E.GetEffectingButton()==EKeys::LeftMouseButton&&P.X>=L.Width-60&&P.X<L.Width-12&&P.Y>=L.BagY-30&&P.Y<L.BagY-6)PerformAction(3);
+     return FReply::Handled();
+ }
+ FReply UColdSteelInventoryWidget::NativeOnMouseButtonUp(const FGeometry& G,const FPointerEvent& E)
+@@ -141,13 +149,15 @@
+ {
+     if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);
+     if(!Model)return;
++    const auto L=Layout(GetCachedGeometry());
+     if(Action==7)if(const auto* I=Model->FindItem(Selected))if(I->Definition==TEXT("ue_m4a1"))
+     {if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->OpenGunsmith(Selected);return;}
+-    switch(Action){case 0:Model->DefaultAction(Selected);break;case 1:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,264)/Scale),true);break;case 2:if(bConfirmDrop){Model->Drop(Selected);bConfirmDrop=false;}else bConfirmDrop=true;break;case 3:Model->Sort();break;case 4:if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(Selected,GetCachedGeometry().LocalToAbsolute(FVector2D(12,264)/Scale),true,this);HUD->FocusItemTooltip();}break;case 5:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,264)/Scale));break;case 6:Model->SaveNow();break;case 7:Selected.Empty();bConfirmDrop=false;break;}
+-    InteractionMessage=Model->ResultMessage();LoadIcons();
++    switch(Action){case 0:Model->DefaultAction(Selected);break;case 1:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale),true);break;case 2:if(bConfirmDrop){Model->Drop(Selected);bConfirmDrop=false;}else bConfirmDrop=true;break;case 3:Model->Sort();break;case 4:if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(Selected,GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale),true,this);HUD->FocusItemTooltip();}break;case 5:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale));break;case 6:Model->SaveNow();break;case 7:Selected.Empty();bConfirmDrop=false;break;}
++    InteractionMessage=bConfirmDrop?TEXT("再次按 Delete 确认丢下，Esc 取消"):Model->ResultMessage();LoadIcons();
+ }
+ FReply UColdSteelInventoryWidget::NativeOnKeyDown(const FGeometry& G,const FKeyEvent& E)
+ {
++    if(E.GetKey()==EKeys::Escape&&bConfirmDrop){bConfirmDrop=false;InteractionMessage.Empty();return FReply::Handled();}
+     if(E.GetKey()==EKeys::Escape&&!KeyboardCarry.IsEmpty()){KeyboardCarry.Empty();KeyboardHotbar=-1;PreviewPlace=-1;return FReply::Handled();}
+     if(E.GetKey()==EKeys::J){if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->OpenGunsmith(Selected);return FReply::Handled();}
+     if(E.GetKey()==EKeys::F1){if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(Selected,G.LocalToAbsolute(FVector2D(12,28)/Scale),true,this);HUD->FocusItemTooltip();}return FReply::Handled();}
+@@ -196,7 +206,7 @@
+             const int32 Target=Model->Items()[N].Cell;const auto Swap=Model->ProposeMove(D->ItemId,0,Target);
+             if(Swap.bValid){PreviewCell=Target;Proposal=Swap;}else Proposal.Reason=Swap.Reason;
+         }}
+-        if(Proposal.bValid){const auto L=Layout(G);const auto Local=G.AbsoluteToLocal(E.GetScreenSpacePosition())*Scale;D->Offset=FVector2D((12+PreviewCell%18*L.Cell-Local.X)/(Source->Width*L.Cell),(264+PreviewCell/18*L.Cell-Local.Y)/(Source->Height*L.Cell));}
++        if(Proposal.bValid){const auto L=Layout(G);const auto Local=G.AbsoluteToLocal(E.GetScreenSpacePosition())*Scale;D->Offset=FVector2D((12+PreviewCell%18*L.Cell-Local.X)/(Source->Width*L.Cell),(L.BagY+PreviewCell/18*L.Cell-Local.Y)/(Source->Height*L.Cell));}
+         bPreviewValid=Proposal.bValid;PreviewReason=Proposal.bValid?TEXT("松开放置 / 交换物品"):Proposal.Reason;
+     }
+     else if(PreviewPlace==3){bPreviewValid=Source->Place==0&&Text(*Source,TEXT("category"))==TEXT("consumable");PreviewReason=bPreviewValid?TEXT("松开绑定快捷物品"):TEXT("快捷栏仅接受背包中的消耗品");}
+--- before/ColdSteelInventoryWidget.h
++++ after/ColdSteelInventoryWidget.h
+@@ -36,6 +36,7 @@
+     virtual void NativeOnFocusLost(const FFocusEvent&)override;
+     virtual void NativeOnInitialized() override;
+     virtual void NativeConstruct() override;
++    virtual void NativeTick(const FGeometry&,float) override;
+     virtual void NativeDestruct() override;
+     virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool)const override;
+     virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
+@@ -69,7 +70,7 @@
+     int32 PressPlace=-1,PressCell=-1;
+     bool bConfirmDrop=false;
+     float Scale=1;
+-    struct FBoardLayout {float Width,Cell,GearWidth,HotY,ActionY,DetailY;};
++    struct FBoardLayout {float Width,Cell,GearWidth,GearHeight,GearY,GearPitch,BagY,HotY,Height;};
+     FBoardLayout Layout(const FGeometry& G)const;
+     bool Hit(const FGeometry&,FVector2D Screen,int32& Place,int32& Cell)const;
+     FString IdAt(int32 Place,int32 Cell)const;
+--- before/ColdSteelItemTooltipAudit.cpp
++++ after/ColdSteelItemTooltipAudit.cpp
+@@ -55,7 +55,7 @@
+         auto Capture=[&](const TCHAR* Name){FScreenshotRequest::RequestScreenshot(Out/FString::Printf(TEXT("ue-%s-%dx%d.png"),Name,int32(View.X),int32(View.Y)),true,false);};
+         const auto& RootG=WidgetTree->RootWidget->GetCachedGeometry();auto Screen=[&](FVector2D UV){return RootG.LocalToAbsolute(RootG.GetLocalSize()*UV);};
+         switch(R->Phase++){
+-        case 0:{auto* Scroll=Cast<UScrollBox>(EquipmentPage);auto* Board=Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0));const auto G=Board->GetCachedGeometry();const auto L=Board->Layout(G);const auto* I=M->FindItem(R->Potion);FVector2D Pt=G.LocalToAbsolute(FVector2D(14+I->Cell%18*L.Cell,266+I->Cell/18*L.Cell)/Board->Scale);FPointerEvent E(0,Pt,Pt-FVector2D(1,0),TSet<FKey>(),EKeys::Invalid,0,FModifierKeysState());R->Generation=M->Snapshot().Generation;Board->NativeOnMouseMove(G,E);Check(ItemTooltip&&ItemTooltip->IsVisible()&&ItemTooltip->ItemId()==R->Potion,TEXT("native backpack hover opens shared tooltip"));break;}
++        case 0:{auto* Scroll=Cast<UScrollBox>(EquipmentPage);auto* Board=Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0));const auto G=Board->GetCachedGeometry();const auto L=Board->Layout(G);const auto* I=M->FindItem(R->Potion);FVector2D Pt=G.LocalToAbsolute(FVector2D(14+I->Cell%18*L.Cell,L.BagY+2+I->Cell/18*L.Cell)/Board->Scale);FPointerEvent E(0,Pt,Pt-FVector2D(1,0),TSet<FKey>(),EKeys::Invalid,0,FModifierKeysState());R->Generation=M->Snapshot().Generation;Board->NativeOnMouseMove(G,E);Check(ItemTooltip&&ItemTooltip->IsVisible()&&ItemTooltip->ItemId()==R->Potion,TEXT("native backpack hover opens shared tooltip"));break;}
+         case 1:Check(M->Snapshot().Generation==R->Generation,TEXT("hover is read only"));Capture(TEXT("potion"));break;
+         case 2:ShowItemTooltip(R->Gun,Screen(FVector2D(.97,.93)),true,this);break;
+         case 3:{Check(ItemTooltip->Content().Cards.Num()==3,TEXT("three independent processing cards rendered"));const FVector2D Size=ItemTooltip->Extent()*ItemTooltip->Scale;Check(Size.X<=View.X-20&&Size.Y<=View.Y-20,TEXT("tooltip fits viewport"));Check(ItemTooltip->HasHorizontalOverflow()==(ItemTooltip->Cards->GetDesiredSize().X*ItemTooltip->Scale>View.X-24),TEXT("horizontal scrolling follows actual natural content width"));bool Wrap=false;TArray<UWidget*> Widgets;ItemTooltip->WidgetTree->GetAllWidgets(Widgets);for(auto* W:Widgets)if(auto* T=Cast<UTextBlock>(W))Wrap|=T->GetAutoWrapText();Check(!Wrap,TEXT("all tooltip labels keep source no wrap rule"));Check(ItemTooltip->Close->GetCachedGeometry().GetLocalSize().X>0,TEXT("fixed close button has live geometry"));Capture(TEXT("gun-main"));break;}
+--- before/ColdSteelWarehouseAudit.cpp
++++ after/ColdSteelWarehouseAudit.cpp
+@@ -112,7 +112,7 @@
+             if(Board&&WarehouseWidget->Cells.Num()>0){
+                 auto* Cell=WarehouseWidget->Cells[0].Get();UDragDropOperation* Operation=nullptr;FPointerEvent Pointer(0,FVector2D::ZeroVector,FVector2D::ZeroVector,TSet<FKey>{EKeys::LeftMouseButton},EKeys::LeftMouseButton,0,FModifierKeysState());
+                 Cell->NativeOnDragDetected(Cell->GetCachedGeometry(),Pointer,Operation);auto* Drag=Cast<UColdSteelItemDrag>(Operation);
+-                if(Drag){const FString Id=Drag->ItemId;const auto Geometry=Board->GetCachedGeometry();const auto Layout=Board->Layout(Geometry);const FVector2D Screen=Geometry.LocalToAbsolute(FVector2D(14,266+2*Layout.Cell)/Board->Scale);
++                if(Drag){const FString Id=Drag->ItemId;const auto Geometry=Board->GetCachedGeometry();const auto Layout=Board->Layout(Geometry);const FVector2D Screen=Geometry.LocalToAbsolute(FVector2D(14,Layout.BagY+2+2*Layout.Cell)/Board->Scale);
+                     FPointerEvent P(0,Screen,Screen,TSet<FKey>{EKeys::LeftMouseButton},EKeys::LeftMouseButton,0,FModifierKeysState());FDragDropEvent E(P,TSharedPtr<FDragDropOperation>());FString Original=Signature(M->Items());
+                     Check(Board->NativeOnDragOver(Geometry,E,Drag)&&Original==Signature(M->Items()),TEXT("native warehouse to backpack hover read-only"));
+                     Check(Board->NativeOnDrop(Geometry,E,Drag)&&M->FindItem(Id)&&M->FindItem(Id)->Place==0&&M->FindItem(Id)->Cell==36,TEXT("native warehouse drag drops at precise spatial anchor"));

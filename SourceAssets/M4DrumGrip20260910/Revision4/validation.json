@@ -1,0 +1,2038 @@
+{
+  "reload": {
+    "elbow_off_hinge_deg": 0.0001767312229393918,
+    "max_bone_length_error_cm": 2.0913228954144714e-05,
+    "max_half_frame_rotation_step_deg": 6.457417508794142,
+    "fastest_steps": [
+      [
+        6.457417508794142,
+        107.5,
+        "lowerarm_l"
+      ],
+      [
+        6.414100022191098,
+        30.0,
+        "lowerarm_l"
+      ],
+      [
+        5.915411262302365,
+        30.0,
+        "hand_l"
+      ],
+      [
+        5.68841120589746,
+        28.5,
+        "hand_l"
+      ],
+      [
+        5.683453769220501,
+        29.0,
+        "hand_l"
+      ],
+      [
+        5.656801944192288,
+        28.0,
+        "hand_l"
+      ],
+      [
+        5.6368347399274015,
+        29.5,
+        "hand_l"
+      ],
+      [
+        5.634750678456902,
+        30.5,
+        "hand_l"
+      ],
+      [
+        5.598644590956922,
+        30.5,
+        "lowerarm_l"
+      ],
+      [
+        5.586604248110659,
+        27.5,
+        "hand_l"
+      ],
+      [
+        5.498309965823081,
+        4.0,
+        "hand_r"
+      ],
+      [
+        5.47633596660268,
+        27.0,
+        "hand_l"
+      ]
+    ],
+    "hand_volume_penetration_mm": 0,
+    "visible_contact_samples": [
+      {
+        "frame": 0.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 0.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 1.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 1.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 2.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 2.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 3.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 3.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 4.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 4.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 5.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 5.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 6.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 6.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 7.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 7.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 8.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 8.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 9.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 9.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 10.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 10.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 11.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 11.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 12.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 12.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 13.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 13.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 14.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 14.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 15.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 15.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 16.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 16.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 17.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 17.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 18.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 50.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 50.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 51.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 51.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 52.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 52.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 53.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 53.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 54.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 54.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 55.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 55.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 56.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 56.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 57.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 57.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 58.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 58.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 59.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 59.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 60.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 60.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 61.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 61.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 62.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 62.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 63.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 63.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 64.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 64.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 65.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 65.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 66.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 66.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 67.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 67.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 68.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 68.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 69.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 69.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 70.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 70.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 71.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 71.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 72.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 72.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 73.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 73.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 74.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 74.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 75.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 75.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 76.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 76.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 77.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 77.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 78.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 78.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 79.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 79.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 80.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 80.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 81.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 81.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 82.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 82.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 83.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 83.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 84.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 84.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 85.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 85.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 86.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 86.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 87.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 87.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 88.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 88.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 89.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 89.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 90.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 90.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 91.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 91.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 92.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 92.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 93.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 93.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 94.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 94.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 95.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 95.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 96.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 96.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 97.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 97.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 98.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 98.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 99.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 99.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 100.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 100.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 101.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 101.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 102.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 102.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 103.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 103.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 104.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 104.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 105.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 105.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 106.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 106.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 107.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 107.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 108.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 108.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 109.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 109.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 110.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 110.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 111.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 111.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 112.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 112.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 113.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 113.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 114.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 114.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 115.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 115.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 116.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 116.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 117.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 117.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 118.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 118.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 119.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 119.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 120.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 120.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 121.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 121.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 122.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 122.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 123.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 123.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 124.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 124.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 125.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 125.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 126.0,
+        "hand_penetration_mm": 0.0
+      }
+    ]
+  },
+  "reload_empty": {
+    "elbow_off_hinge_deg": 0.00017416982383532516,
+    "max_bone_length_error_cm": 1.5840974926240037e-05,
+    "max_half_frame_rotation_step_deg": 10.048129490853063,
+    "fastest_steps": [
+      [
+        10.048129490853063,
+        22.5,
+        "lowerarm_l"
+      ],
+      [
+        8.416901024588304,
+        154.5,
+        "hand_l"
+      ],
+      [
+        8.281320062016258,
+        155.0,
+        "hand_l"
+      ],
+      [
+        8.17967062546719,
+        22.5,
+        "hand_l"
+      ],
+      [
+        8.17622223370998,
+        23.0,
+        "lowerarm_l"
+      ],
+      [
+        8.006317009237682,
+        153.5,
+        "hand_l"
+      ],
+      [
+        7.932501447330061,
+        154.0,
+        "hand_l"
+      ],
+      [
+        7.907578087048685,
+        155.5,
+        "hand_l"
+      ],
+      [
+        7.748681419971154,
+        23.0,
+        "hand_l"
+      ],
+      [
+        7.720528233986008,
+        156.0,
+        "hand_l"
+      ],
+      [
+        7.459338385030136,
+        23.5,
+        "hand_l"
+      ],
+      [
+        7.281663820376948,
+        156.5,
+        "hand_l"
+      ]
+    ],
+    "hand_volume_penetration_mm": 0.3492335737230942,
+    "visible_contact_samples": [
+      {
+        "frame": 0.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 0.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 1.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 1.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 2.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 2.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 3.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 3.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 4.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 4.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 5.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 5.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 6.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 6.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 7.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 7.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 8.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 8.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 9.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 9.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 10.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 10.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 11.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 11.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 12.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 12.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 13.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 13.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 14.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 35.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 35.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 36.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 36.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 37.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 37.5,
+        "hand_penetration_mm": 0.07277465964174862
+      },
+      {
+        "frame": 38.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 38.5,
+        "hand_penetration_mm": 0.3492335737230942
+      },
+      {
+        "frame": 39.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 39.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 40.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 40.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 41.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 41.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 42.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 42.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 43.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 43.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 44.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 44.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 45.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 45.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 46.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 46.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 47.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 47.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 48.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 48.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 49.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 49.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 50.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 50.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 51.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 51.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 52.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 52.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 53.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 53.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 54.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 54.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 55.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 55.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 56.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 56.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 57.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 57.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 58.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 58.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 59.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 59.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 60.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 60.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 61.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 61.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 62.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 62.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 63.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 63.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 64.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 64.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 65.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 65.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 66.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 66.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 67.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 67.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 68.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 68.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 69.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 69.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 70.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 70.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 71.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 71.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 72.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 72.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 73.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 73.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 74.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 74.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 75.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 75.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 76.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 76.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 77.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 77.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 78.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 78.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 79.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 79.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 80.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 80.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 81.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 81.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 82.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 82.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 83.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 83.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 84.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 84.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 85.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 85.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 86.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 86.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 87.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 87.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 88.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 88.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 89.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 89.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 90.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 90.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 91.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 91.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 92.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 92.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 93.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 93.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 94.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 94.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 95.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 95.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 96.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 96.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 97.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 97.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 98.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 98.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 99.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 99.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 100.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 100.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 101.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 101.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 102.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 102.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 103.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 103.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 104.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 104.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 105.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 105.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 106.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 106.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 107.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 107.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 108.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 108.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 109.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 109.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 110.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 110.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 111.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 111.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 112.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 112.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 113.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 113.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 114.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 114.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 115.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 115.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 116.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 116.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 117.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 117.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 118.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 118.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 119.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 119.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 120.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 120.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 121.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 121.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 122.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 122.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 123.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 123.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 124.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 124.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 125.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 125.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 126.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 126.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 127.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 127.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 128.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 128.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 129.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 129.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 130.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 130.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 131.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 131.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 132.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 132.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 133.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 133.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 134.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 134.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 135.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 135.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 136.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 136.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 137.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 137.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 138.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 138.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 139.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 139.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 140.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 140.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 141.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 141.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 142.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 142.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 143.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 143.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 144.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 144.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 145.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 145.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 146.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 146.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 147.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 147.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 148.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 148.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 149.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 149.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 150.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 150.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 151.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 151.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 152.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 152.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 153.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 153.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 154.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 154.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 155.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 155.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 156.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 156.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 157.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 157.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 158.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 158.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 159.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 159.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 160.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 160.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 161.0,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 161.5,
+        "hand_penetration_mm": 0.0
+      },
+      {
+        "frame": 162.0,
+        "hand_penetration_mm": 0.0
+      }
+    ]
+  }
+}

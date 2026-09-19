@@ -1,0 +1,46 @@
+{
+  "arms_vertices": 20326,
+  "arms_geometry": "Unchanged native M4 Manny mesh and weights",
+  "clips": {
+    "idle": {
+      "duration": 0.041666666666666664,
+      "max_reach_error_m": 5.960464477539063e-08
+    },
+    "aim": {
+      "duration": 0.041666666666666664,
+      "max_reach_error_m": 3.1828894262453654e-08
+    },
+    "fire": {
+      "duration": 0.1,
+      "max_reach_error_m": 3.1828894262453654e-08
+    },
+    "aim_fire": {
+      "duration": 0.1,
+      "max_reach_error_m": 3.1828894262453654e-08
+    },
+    "reload": {
+      "duration": 3.3333333333333335,
+      "max_reach_error_m": 1.1403283376257097e-07
+    },
+    "reload_empty": {
+      "duration": 4.291666666666667,
+      "max_reach_error_m": 9.996002811937585e-08
+    },
+    "draw": {
+      "duration": 1.2083333333333333,
+      "max_reach_error_m": 9.657056180250437e-08
+    },
+    "holster": {
+      "duration": 0.9583333333333334,
+      "max_reach_error_m": 8.429369702178807e-08
+    },
+    "inspect": {
+      "duration": 6.208333333333333,
+      "max_reach_error_m": 9.685754776000977e-08
+    },
+    "equip": {
+      "duration": 2.725,
+      "max_reach_error_m": 1.0745380149674383e-07
+    }
+  }
+}

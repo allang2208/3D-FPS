@@ -1,0 +1,16 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4DrumDrop/Match/A_M4_DrumMatch_reload.A_M4_DrumMatch_reload",
+    "duration": 2.0999999046325684,
+    "keys": 253,
+    "compression_error_cm": 0.0006180055150745896,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision7\\A_M4_DrumMatch_reload.fbx"
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4DrumDrop/Match/A_M4_DrumMatch_reload_empty.A_M4_DrumMatch_reload_empty",
+    "duration": 2.4666666984558105,
+    "keys": 297,
+    "compression_error_cm": 0.0006034929721085566,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision7\\A_M4_DrumMatch_reload_empty.fbx"
+  }
+}

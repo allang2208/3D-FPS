@@ -1,0 +1,71 @@
+{
+  "duration": 7.765333333333333,
+  "rms": 0.011244176592768168,
+  "clipped_samples": 0,
+  "events": [
+    {
+      "name": "mag_out",
+      "empty": false,
+      "played": true,
+      "correlation": 0.9952081905627996,
+      "log_seconds": 1.142,
+      "wave_seconds": 1.216,
+      "lateness_seconds": 0.040965
+    },
+    {
+      "name": "mag_insert",
+      "empty": false,
+      "played": true,
+      "correlation": 0.9907915091119323,
+      "log_seconds": 2.86,
+      "wave_seconds": 2.9013333333333335,
+      "lateness_seconds": 0.015534
+    },
+    {
+      "name": "mag_seat",
+      "empty": false,
+      "played": true,
+      "correlation": 0.9909397320699462,
+      "log_seconds": 3.298,
+      "wave_seconds": 3.3706666666666667,
+      "lateness_seconds": 0.003325
+    },
+    {
+      "name": "mag_out",
+      "empty": true,
+      "played": true,
+      "correlation": 0.9952081905627996,
+      "log_seconds": 4.173,
+      "wave_seconds": 4.2026666666666666,
+      "lateness_seconds": 0.002317
+    },
+    {
+      "name": "mag_insert",
+      "empty": true,
+      "played": true,
+      "correlation": 0.9907915091119323,
+      "log_seconds": 6.086,
+      "wave_seconds": 6.1226666666666665,
+      "lateness_seconds": 0.009605
+    },
+    {
+      "name": "mag_seat",
+      "empty": true,
+      "played": true,
+      "correlation": 0.9909397320699465,
+      "log_seconds": 6.736,
+      "wave_seconds": 6.762666666666667,
+      "lateness_seconds": 0.00112
+    },
+    {
+      "name": "bolt_release",
+      "empty": true,
+      "played": true,
+      "correlation": 0.9981776179197587,
+      "log_seconds": 7.197,
+      "wave_seconds": 7.232,
+      "lateness_seconds": 0.012427
+    }
+  ],
+  "origin": "log immediately before mixer recording starts; one common origin, no per-event audio shifts"
+}

@@ -1,0 +1,12 @@
+{
+  "source": "Hunyuan3D 3.1 prism_handstop_v01 left reconstructed object",
+  "source_faces": 167606,
+  "final_faces": 16000,
+  "dimensions_m": [
+    0.058807551860809326,
+    0.018944501876831055,
+    0.06498182564973831
+  ],
+  "selection_threshold": -0.1622022581100464,
+  "method": "Hunyuan left reconstruction; 8 passes local smoothing before 16k collapse; rebuilt sharp edges and area-weighted normals; original UVs; calibrated graphite materials; generated normal map intentionally unused"
+}

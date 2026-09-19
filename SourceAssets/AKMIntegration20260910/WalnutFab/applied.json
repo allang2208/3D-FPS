@@ -1,0 +1,50 @@
+{
+  "mesh": "/Game/Weapons/AKMIntegration/WalnutFab/SK_AKM_MannyNative.SK_AKM_MannyNative",
+  "source": "https://www.fab.com/listings/67d7d60c-e92a-4fd9-8994-787f121aeaf9",
+  "materials": [
+    {
+      "slot": "M_AKMR_BluedSteel",
+      "asset": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+    },
+    {
+      "slot": "M_AKMR_Walnut",
+      "asset": "/Game/Weapons/AKMIntegration/WalnutFab/MI_AKM_RedBrownWalnut.MI_AKM_RedBrownWalnut"
+    },
+    {
+      "slot": "M_AKMR_Bakelite",
+      "asset": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Bakelite_PBR_Skinned.M_AKMR_Bakelite_PBR_Skinned"
+    },
+    {
+      "slot": "M_AKMR_BoltSteel",
+      "asset": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+    },
+    {
+      "slot": "M_AKMR_Parkerized",
+      "asset": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+    },
+    {
+      "slot": "MI_Manny_01",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ],
+  "tint": [
+    0.8,
+    0.38,
+    0.25
+  ],
+  "roughness": "0.30+R*0.12",
+  "normal_strength": 0.06,
+  "finish": "Default Lit satin dielectric",
+  "source_hashes": {
+    "Walnut_Veneer_tfdoebqc_4K_BaseColor.jpg": "39f4695cdd1617b8de57a1f4ad2db274d50aad51eef23719e98569875f2bc671",
+    "Walnut_Veneer_tfdoebqc_4K_Cavity.jpg": "80d5c37e5b947a5e65182b770a19190690ced540d98afd8e0bc216bd37959653",
+    "Walnut_Veneer_tfdoebqc_4K_Gloss.jpg": "3ab3d49935557c49c7ff33e70c4025db1a0d6e32fb1db5441ed9b3a12289c21d",
+    "Walnut_Veneer_tfdoebqc_4K_Normal.jpg": "ee1f6c039c7fddae25bdb79504e2bc00c2aa850a5e5b0c89848fbe267108c957",
+    "Walnut_Veneer_tfdoebqc_4K_Roughness.jpg": "375176e3009959e038c8478b0bf0abc43d88960aded2f3cd08744cad3956f077",
+    "Walnut_Veneer_tfdoebqc_4K_Specular.jpg": "f1104fdee18aba04f058e1fb92a7cc5386a1468f99242e7f26206721c6d3a9ba"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "reload": {
+    "left_support_drift_before_release_cm": 2.9729118201988768e-05,
+    "left_support_rotation_deg": 0,
+    "whole_left_arm_hold_drift_cm": 8.892916372125146e-05,
+    "whole_left_arm_hold_rotation_deg": 0,
+    "right_weapon_grip_drift_cm": 3.5720075742507335e-05,
+    "insert_contact_drift_cm": 3.661614061763384e-05,
+    "midsection_rotation_total_deg": 5.822433854807272,
+    "max_half_frame_weapon_rotation_deg": 0.6818463656198543
+  },
+  "reload_empty": {
+    "left_support_drift_before_release_cm": 2.821516441362114e-05,
+    "left_support_rotation_deg": 0,
+    "whole_left_arm_hold_drift_cm": 8.222792525848381e-05,
+    "whole_left_arm_hold_rotation_deg": 0,
+    "right_weapon_grip_drift_cm": 2.3751464678786816e-05,
+    "insert_contact_drift_cm": 3.599486449116815e-05,
+    "midsection_rotation_total_deg": 5.181748927194358,
+    "max_half_frame_weapon_rotation_deg": 0.8364931609297558
+  }
+}

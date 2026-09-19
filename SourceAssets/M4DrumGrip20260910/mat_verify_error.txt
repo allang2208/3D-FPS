@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "D:/FPS3D/FPSGAME/SourceAssets/M4DrumGrip20260910/verify_mat_live.py", line 49, in tick
+    unreal.EditorLevelLibrary.editor_set_viewport_camera_info(center+delta,unreal.MathLibrary.find_look_at_rotation(center+delta,center))
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'EditorLevelLibrary' has no attribute 'editor_set_viewport_camera_info'

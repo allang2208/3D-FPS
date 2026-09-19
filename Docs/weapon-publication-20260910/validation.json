@@ -1,0 +1,14 @@
+{
+  "publication_date": "2026-09-10",
+  "host_runtime_tests": "Historical runs retained; no game code or animation modified during publication. No unrelated Godot tests rerun.",
+  "python_sources_syntax_checked": 33,
+  "skills_validated": 4,
+  "archive_files_verified": 23,
+  "archive_bytes": 903772493,
+  "payload_policy": "Only authored source/excerpts, fitted parameters, skill docs and reports. No asset/engine/audio binaries, videos, secrets or trash payloads.",
+  "published_snapshot": "Requires the existing licensed FPSGAME host; not a standalone project.",
+  "local_reference_links_checked": 28,
+  "max_new_file_bytes": 44399,
+  "host_source_files_verified": 66,
+  "repository_normalization": "CRLF to LF and terminal blank lines normalized; host and repository hashes separately recorded."
+}

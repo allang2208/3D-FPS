@@ -1,0 +1,13 @@
+{
+	"jsonrpc": "2.0",
+	"id": 2,
+	"result":
+	{
+		"content": [
+			{
+				"type": "text",
+				"text": "{\"returnValue\":[{\"output_pins\":[{\"value\":\"\",\"connected_pins\":[{\"direction\":\"EGPD_Input\",\"index_id\":1,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_CallArrayFunction_0\"}}],\"pin_id\":{\"direction\":\"EGPD_Output\",\"index_id\":0,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_0\"}},\"type_id\":\"绑定元素键 结构\",\"name\":\"RigElementKey\"}],\"input_pins\":[{\"value\":\"Bone\",\"connected_pins\":[],\"pin_id\":{\"direction\":\"EGPD_Input\",\"index_id\":0,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_0\"}},\"type_id\":\"ERigElementType枚举值\",\"name\":\"Type\"},{\"value\":\"pelvis\",\"connected_pins\":[],\"pin_id\":{\"direction\":\"EGPD_Input\",\"index_id\":1,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_0\"}},\"type_id\":\"命名\",\"name\":\"Name\"}],\"position\":{\"x\":-2592,\"y\":304},\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_0\"},\"type_id\":\"工具|结构体|MakeRigElementKey\"},{\"output_pins\":[{\"value\":\"\",\"connected_pins\":[{\"direction\":\"EGPD_Input\",\"index_id\":1,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_CallArrayFunction_1\"}}],\"pin_id\":{\"direction\":\"EGPD_Output\",\"index_id\":0,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_1\"}},\"type_id\":\"绑定元素键 结构\",\"name\":\"RigElementKey\"}],\"input_pins\":[{\"value\":\"Control\",\"connected_pins\":[],\"pin_id\":{\"direction\":\"EGPD_Input\",\"index_id\":0,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_1\"}},\"type_id\":\"ERigElementType枚举值\",\"name\":\"Type\"},{\"value\":\"CTRL_C_eyesAim\",\"connected_pins\":[],\"pin_id\":{\"direction\":\"EGPD_Input\",\"index_id\":1,\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_1\"}},\"type_id\":\"命名\",\"name\":\"Name\"}],\"position\":{\"x\":-2592,\"y\":816},\"node\":{\"refPath\":\"/Game/Locodrome/MAT/Locodrome_MAT.Locodrome_MAT:getControlRigType.K2Node_MakeStruct_1\"},\"type_id\":\"工具|结构体|MakeRigElementKey\"}]}"
+			}
+		]
+	}
+}

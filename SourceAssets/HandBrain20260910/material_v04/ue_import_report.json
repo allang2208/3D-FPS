@@ -1,0 +1,21 @@
+{
+  "fab_material_used": true,
+  "previous_materials": [
+    "/Game/Monsters/HandBrain/Materials/M_HandBrain_0.M_HandBrain_0",
+    "/Game/Monsters/HandBrain/Materials/M_HandBrain_1.M_HandBrain_1",
+    "/Game/Monsters/HandBrain/Materials/M_HandBrain_2.M_HandBrain_2",
+    "/Game/Monsters/HandBrain/Materials/M_HandBrain_3.M_HandBrain_3",
+    "/Game/Monsters/HandBrain/Materials/M_HandBrain_4.M_HandBrain_4",
+    "/Game/Monsters/HandBrain/Materials/M_HandBrain_5.M_HandBrain_5"
+  ],
+  "materials": [
+    "/Game/Monsters/HandBrain/RefinedV04/M_HandBrain_Refined_0.M_HandBrain_Refined_0",
+    "/Game/Monsters/HandBrain/RefinedV04/M_HandBrain_Refined_1.M_HandBrain_Refined_1",
+    "/Game/Monsters/HandBrain/RefinedV04/M_HandBrain_Refined_2.M_HandBrain_Refined_2",
+    "/Game/Monsters/HandBrain/RefinedV04/M_HandBrain_Refined_3.M_HandBrain_Refined_3",
+    "/Game/Monsters/HandBrain/RefinedV04/M_HandBrain_Refined_4.M_HandBrain_Refined_4",
+    "/Game/Monsters/HandBrain/RefinedV04/M_HandBrain_Refined_5.M_HandBrain_Refined_5"
+  ],
+  "mesh_changed": false,
+  "animations_changed": false
+}

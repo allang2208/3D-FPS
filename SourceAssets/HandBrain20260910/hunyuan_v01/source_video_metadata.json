@@ -1,0 +1,36 @@
+{
+  "生成指定动作的游戏spritesheet视频 (1).mp4": {
+    "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+    "codec": "h264",
+    "pix_fmt": "yuv420p(progressive)",
+    "audio_codec": "aac",
+    "fps": 24.0,
+    "source_size": [
+      720,
+      720
+    ],
+    "size": [
+      720,
+      720
+    ],
+    "rotate": 0,
+    "duration": 5.09
+  },
+  "生成指定动作的游戏spritesheet视频.mp4": {
+    "ffmpeg_version": "7.1-essentials_build-www.gyan.dev built with gcc 14.2.0 (Rev1, Built by MSYS2 project)",
+    "codec": "h264",
+    "pix_fmt": "yuv420p(progressive)",
+    "audio_codec": "aac",
+    "fps": 24.0,
+    "source_size": [
+      720,
+      720
+    ],
+    "size": [
+      720,
+      720
+    ],
+    "rotate": 0,
+    "duration": 10.08
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "status": "rebuilt_and_default_runtime_verified",
+  "assets": "/Game/Weapons/M4DrumGripRebuilt",
+  "runtime_passes": 201,
+  "runtime_failures": 0,
+  "preview": {
+    "normal": {
+      "captured_frames": 81,
+      "first_elapsed": 0.0,
+      "last_elapsed": 3.65,
+      "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision2\\default_final_normal.gif"
+    },
+    "empty": {
+      "captured_frames": 103,
+      "first_elapsed": 0.0,
+      "last_elapsed": 4.716667,
+      "gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision2\\default_final_empty.gif"
+    }
+  },
+  "source_sha256": "130C9C29EAB8A4BACE9EFD227042FEFDF889C4B57A3083EFE91301C8067CCFBD",
+  "editor_restart_required": true,
+  "mat_workflow": "not_revalidated"
+}

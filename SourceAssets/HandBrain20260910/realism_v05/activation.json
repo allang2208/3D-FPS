@@ -1,0 +1,12 @@
+{
+  "previous_mesh": "/Game/Monsters/HandBrain/SK_HandBrain.SK_HandBrain",
+  "previous_howl": "/Game/Monsters/HandBrain/A_HandBrain_Attack_Howl.A_HandBrain_Attack_Howl",
+  "mesh": "/Game/Monsters/HandBrain/RealismV05/SK_HandBrain_Realism.SK_HandBrain_Realism",
+  "howl": "/Game/Monsters/HandBrain/RealismV05/A_HandBrain_Howl_Realism.A_HandBrain_Howl_Realism",
+  "remaining_clips": {
+    "idle_clip": "/Game/Monsters/HandBrain/A_HandBrain_Idle.A_HandBrain_Idle",
+    "move_clip": "/Game/Monsters/HandBrain/A_HandBrain_Move.A_HandBrain_Move",
+    "slam_clip": "/Game/Monsters/HandBrain/A_HandBrain_Attack_Slam.A_HandBrain_Attack_Slam",
+    "death_clip": "/Game/Monsters/HandBrain/A_HandBrain_Death.A_HandBrain_Death"
+  }
+}

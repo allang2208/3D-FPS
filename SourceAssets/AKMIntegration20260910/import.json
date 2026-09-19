@@ -1,0 +1,34 @@
+{
+  "mesh": "/Game/Weapons/AKMIntegration/SK_AKM_SharedArms.SK_AKM_SharedArms",
+  "skeleton": "/Game/Weapons/AKMReplacement/SK_AKM_Replacement_Skeleton.SK_AKM_Replacement_Skeleton",
+  "materials": [
+    {
+      "slot": "M_AKMR_BluedSteel",
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_BluedSteel_PBR_Skinned.M_AKMR_BluedSteel_PBR_Skinned"
+    },
+    {
+      "slot": "M_AKMR_Walnut",
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Walnut_PBR_Skinned.M_AKMR_Walnut_PBR_Skinned"
+    },
+    {
+      "slot": "M_AKMR_Bakelite",
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Bakelite_PBR_Skinned.M_AKMR_Bakelite_PBR_Skinned"
+    },
+    {
+      "slot": "M_AKMR_BoltSteel",
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_BoltSteel_PBR_Skinned.M_AKMR_BoltSteel_PBR_Skinned"
+    },
+    {
+      "slot": "M_AKMR_Parkerized",
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Parkerized_PBR_Skinned.M_AKMR_Parkerized_PBR_Skinned"
+    },
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ]
+}

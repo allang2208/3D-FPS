@@ -1,0 +1,13 @@
+{
+  "widget": "/Game/Weapons/M4InfimaRigV4/Preview/L_M4RigValidation.L_M4RigValidation:Locodrome_MAT_C_0",
+  "methods": [
+    "acquire_editor_element_handle",
+    "has_keyboard_focus",
+    "on_key_char",
+    "on_key_down",
+    "on_key_up",
+    "on_preview_key_down",
+    "set_keyboard_focus",
+    "supports_keyboard_focus"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "Idle": {
+    "rendered_frames": 24,
+    "playback_fps": 12,
+    "duration_s": 2.0,
+    "gif_repeat_is_preview_only": false
+  },
+  "Move": {
+    "rendered_frames": 12,
+    "playback_fps": 12,
+    "duration_s": 1.0,
+    "gif_repeat_is_preview_only": false
+  },
+  "Attack_Slam": {
+    "rendered_frames": 24,
+    "playback_fps": 12,
+    "duration_s": 2.0,
+    "gif_repeat_is_preview_only": true
+  }
+}

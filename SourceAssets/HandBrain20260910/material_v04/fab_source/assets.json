@@ -1,0 +1,52 @@
+[
+  {
+    "asset": "/Game/ZombiSkinMaterial/Map/DEMO.DEMO",
+    "class": "World"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Map/DEMO_BuiltData.DEMO_BuiltData",
+    "class": "MapBuildDataRegistry"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Material/MI_ZombieSkin_Inst.MI_ZombieSkin_Inst",
+    "class": "MaterialInstanceConstant"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Material/MM/M_ZombieSkin.M_ZombieSkin",
+    "class": "Material"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/SM/SM_Sphere.SM_Sphere",
+    "class": "StaticMesh"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Textures/T_ZombieSkinMaterial1_ambientocclusion.T_ZombieSkinMaterial1_ambientocclusion",
+    "class": "Texture2D",
+    "exported": true,
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\fab_source\\T_ZombieSkinMaterial1_ambientocclusion.png"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Textures/T_ZombieSkinMaterial1_basecolor.T_ZombieSkinMaterial1_basecolor",
+    "class": "Texture2D",
+    "exported": true,
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\fab_source\\T_ZombieSkinMaterial1_basecolor.png"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Textures/T_ZombieSkinMaterial1_height.T_ZombieSkinMaterial1_height",
+    "class": "Texture2D",
+    "exported": true,
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\fab_source\\T_ZombieSkinMaterial1_height.png"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Textures/T_ZombieSkinMaterial1_normal.T_ZombieSkinMaterial1_normal",
+    "class": "Texture2D",
+    "exported": true,
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\fab_source\\T_ZombieSkinMaterial1_normal.png"
+  },
+  {
+    "asset": "/Game/ZombiSkinMaterial/Textures/T_ZombieSkinMaterial1_roughness.T_ZombieSkinMaterial1_roughness",
+    "class": "Texture2D",
+    "exported": true,
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\fab_source\\T_ZombieSkinMaterial1_roughness.png"
+  }
+]

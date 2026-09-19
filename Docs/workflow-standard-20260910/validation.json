@@ -1,0 +1,28 @@
+{
+  "metadata_skills_pass": 10,
+  "skills": [
+    "C:\\Users\\allan\\.codex\\skills\\ue5-weapon-workflow",
+    "C:\\Users\\allan\\.codex\\skills\\ue5-fps-arms-animation",
+    "D:\\FPS3D\\FPSGAME\\skills\\ue5-weapon-workflow",
+    "D:\\FPS3D\\FPSGAME\\skills\\ue5-fps-arms-animation",
+    "E:\\3d\\3-dfps\\skills\\ue5-weapon-workflow",
+    "E:\\3d\\3-dfps\\skills\\ue5-fps-arms-animation",
+    "C:\\Users\\allan\\.codex\\skills\\godot-3d-dev",
+    "C:\\Users\\allan\\.codex\\skills\\ue5-auto-assistant",
+    "C:\\Users\\allan\\.codex\\skills\\ue5-cpp-gameplay",
+    "E:\\3d\\3-dfps\\skills\\godot-weapon-workflow"
+  ],
+  "metadata_ui_pass": 6,
+  "resolved_reference_links": 36,
+  "mirrored_files_equal": 18,
+  "archived_originals_hash_verified": 5,
+  "current_asset_paths_exist": 8,
+  "scope": "Documentation, skill routing, legacy redirects and user-authorized memory note only. No game build or runtime tests rerun. Prior animation results are dated case evidence.",
+  "manual_scenarios": [
+    "Finger distortion routes to arms rig/local axes/contact checks, not unconstrained finger fitting.",
+    "Non-empty toss uses current TacticalToss normal branch, preserves ammo behavior and excludes empty slap.",
+    "M4 remains M4 when adapting HK416 references; contact geometry is adapted, not claimed 100 percent identical.",
+    "MAT editing checks FK capabilities and runtime AnimSequence baking; saving a LevelSequence alone is not runtime application.",
+    "Pure workflow update validates metadata/links, without starting a game or publishing source/assets."
+  ]
+}

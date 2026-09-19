@@ -1,0 +1,81 @@
+{
+  "rig_apis": {
+    "__init__": "Initialize self.  See help(type(self)) for accurate signature.",
+    "__init_subclass__": "This method is called when a class is subclassed.\n\nThe default implementation does nothing. It may be\noverridden to extend subclasses.\n",
+    "_post_init": "_post_init(self) -> None -- called during Unreal object initialization (equivalent to PostInitProperties in C++)",
+    "can_execute": "x.can_execute() -> bool\r\nIs valid for execution\r\n\r\nReturns:\r\n    bool:",
+    "execute": "x.execute(event_name) -> bool\r\nExecute\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:",
+    "execute_event": "x.execute_event(event_name) -> bool\r\nExecute a user defined event\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:",
+    "find_rig_vm_hosts": "X.find_rig_vm_hosts(outer, optional_class) -> Array[RigVMHost]\r\nFind Rig VMHosts\r\n\r\nArgs:\r\n    outer (Object): \r\n    optional_class (type(Class)): \r\n\r\nReturns:\r\n    Array[RigVMHost]:",
+    "get_extended_execute_context": "x.get_extended_execute_context() -> RigVMExtendedExecuteContext\r\nGet Extended Execute Context\r\ndeprecated: This function has been deprecated and it is no longer supported.\r\n\r\nReturns:\r\n    RigVMExtendedExecuteContext:",
+    "get_supported_events": "x.get_supported_events() -> Array[Name]\r\nGet Supported Events\r\n\r\nReturns:\r\n    Array[Name]:",
+    "get_vm": "x.get_vm() -> RigVM\r\nGet VM\r\n\r\nReturns:\r\n    RigVM:",
+    "is_init_required": "x.is_init_required() -> bool\r\nReturns true if this host requires the VM memory to be initialized\r\n\r\nReturns:\r\n    bool:",
+    "remove_run_once_event": "x.remove_run_once_event(event_name) -> bool\r\nRemoves an event running once\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:",
+    "request_init": "x.request_init() -> None\r\nRequests to perform an init during the next execution",
+    "request_run_once_event": "x.request_run_once_event(event_name, event_index=-1) -> None\r\nRequests to run an event once\r\n\r\nArgs:\r\n    event_name (Name): The event to run\r\n    event_index (int32): Deprecated argument. Not used.",
+    "supports_event": "x.supports_event(event_name) -> bool\r\nSupports Event\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:"
+  },
+  "bp_apis": {
+    "create_rig_vm_host": "x.create_rig_vm_host() -> RigVMHost\r\nCreate Rig VMHost\r\n\r\nReturns:\r\n    RigVMHost:",
+    "generated_class": "x.generated_class() -> type(Class)\r\nGets the class generated when this blueprint is compiled\r\n\r\nReturns:\r\n    type(Class): UClass*                      The generated class",
+    "get_auto_vm_recompile": "x.get_auto_vm_recompile() -> bool\r\nGet Auto VMRecompile\r\n\r\nReturns:\r\n    bool:",
+    "get_available_rig_vm_structs": "x.get_available_rig_vm_structs() -> Array[Struct]\r\nGet Available Rig VMStructs\r\n\r\nReturns:\r\n    Array[Struct]:",
+    "get_debugged_rig_vm_host": "x.get_debugged_rig_vm_host() -> RigVMHost\r\nGet Debugged Rig VMHost\r\n\r\nReturns:\r\n    RigVMHost:",
+    "get_rig_vm_host_class": "x.get_rig_vm_host_class() -> type(Class)\r\nGet Rig VMHost Class\r\n\r\nReturns:\r\n    type(Class):",
+    "recompile_modular_rig": "x.recompile_modular_rig() -> None\r\nRecompile Modular Rig",
+    "recompile_vm": "x.recompile_vm() -> None\r\n--- IRigVMClientHost interface End---",
+    "recompile_vm_if_required": "x.recompile_vm_if_required() -> None\r\nRecompile VMIf Required",
+    "request_rig_vm_init": "x.request_rig_vm_init() -> None\r\nRequest Rig VMInit",
+    "set_auto_vm_recompile": "x.set_auto_vm_recompile(auto_recompile) -> None\r\nSet Auto VMRecompile\r\n\r\nArgs:\r\n    auto_recompile (bool):"
+  },
+  "transforms": {
+    "hand_l": "<Struct 'Transform' (0x000001BA793548D0) {rotation: {x: -0.520600, y: 0.608875, z: 0.598460, w: 0.009650}, translation: {x: -47.768587, y: -15.035750, z: -58.108574}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>",
+    "hand_l_fk_ctrl": "<Struct 'Transform' (0x000001BA793548D0) {rotation: {x: -0.139606, y: 0.875685, z: -0.131455, w: -0.443177}, translation: {x: -1.801807, y: -11.476010, z: -23.569540}, scale3d: {x: 99.999863, y: 99.999952, z: 99.999958}}>",
+    "WPN_SOCKET_Magazine": "<Struct 'Transform' (0x000001BA793548D0) {rotation: {x: 0.043619, y: 0.000000, z: -0.999048, w: -0.000000}, translation: {x: 6.447228, y: -22.519747, z: -17.623073}, scale3d: {x: 100.000000, y: 99.999970, z: 99.999988}}>"
+  },
+  "tracks": [
+    {
+      "class": "MovieSceneSpawnTrack",
+      "sections": [
+        {
+          "active": true,
+          "class": "MovieSceneSpawnSection"
+        }
+      ]
+    },
+    {
+      "class": "MovieSceneControlRigParameterTrack",
+      "sections": [
+        {
+          "active": true,
+          "class": "MovieSceneControlRigParameterSection"
+        }
+      ]
+    }
+  ],
+  "bound": [
+    {
+      "actor": "/Game/Weapons/M4InfimaRigV4/Preview/L_M4RigValidation.L_M4RigValidation:PersistentLevel.Skeletal Mesh Actor 1_4",
+      "anim_instance": "<Object '/Game/Weapons/M4InfimaRigV4/Preview/L_M4RigValidation.L_M4RigValidation:PersistentLevel.Skeletal Mesh Actor 1_4.SkeletalMeshComponent0.ControlRigLayerInstance_0' (0x000001BAFDCDC800) Class 'ControlRigLayerInstance'>",
+      "mesh": "<Object '/Game/Weapons/M4DrumGripCandidate/SK_M4_DrumGripPreview.SK_M4_DrumGripPreview' (0x000001BA4519AA00) Class 'SkeletalMesh'>",
+      "hand": "<Struct 'Transform' (0x000001BA793548D0) {rotation: {x: 0.520600, y: -0.608875, z: -0.598460, w: -0.009650}, translation: {x: -47.768586, y: -15.035751, z: 41.891429}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>",
+      "bounds": "(<Struct 'Vector' (0x000001BA7936E220) {x: 0.000019, y: -23.436258, z: 64.058685}>, <Struct 'Vector' (0x000001BA7936E7C0) {x: 55.437031, y: 35.796026, z: 37.372459}>)"
+    }
+  ],
+  "button_apis": [
+    "get_parent",
+    "has_mouse_capture",
+    "has_mouse_capture_by_user",
+    "on_mouse_button_double_click",
+    "on_mouse_button_down",
+    "on_mouse_button_up",
+    "on_mouse_capture_lost",
+    "on_mouse_enter",
+    "on_mouse_leave",
+    "on_mouse_move",
+    "on_mouse_wheel",
+    "on_preview_mouse_button_down",
+    "remove_from_parent"
+  ]
+}

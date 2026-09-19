@@ -1,0 +1,16 @@
+{
+  "lip_vertices_refined": 400,
+  "jaw_rotation_deg": 29,
+  "pivot_m": [
+    0.20000000298023224,
+    0.0,
+    0.8299999833106995
+  ],
+  "howl_seconds": 3,
+  "full_open_seconds": [
+    0.82,
+    1.8
+  ],
+  "closed_seconds": 2.62,
+  "other_actions_modified": false
+}

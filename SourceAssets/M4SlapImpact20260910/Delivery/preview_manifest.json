@@ -1,0 +1,11 @@
+[
+  {
+    "run": "m4-slap-impact",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\Delivery\\M4_拍击提速50与枪身轻震_实际录音.mp4",
+    "fps": 20,
+    "source_frames": 278,
+    "held_missing_frames": 6,
+    "audio_origin_trim": 2.633,
+    "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+  }
+]

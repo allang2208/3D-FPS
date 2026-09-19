@@ -1,0 +1,81 @@
+{
+  "date": "2026-09-10",
+  "status": "presentation integrated and runtime verified",
+  "build": {
+    "result": "Succeeded",
+    "module": "UnrealEditor-FPSGAME-2026091306.dll",
+    "log": "SourceAssets/GunsmithWorkbench20260910/build.log"
+  },
+  "runs": [
+    {
+      "run": "final-v2-1920",
+      "checks": 22,
+      "failures": 0,
+      "module": "UnrealEditor-FPSGAME-2026091305.dll",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1920.log",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1920-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1920-factory.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1920-ads.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1920-unequipped.png"
+      ]
+    },
+    {
+      "run": "final-v2-1280",
+      "checks": 22,
+      "failures": 0,
+      "module": "UnrealEditor-FPSGAME-2026091305.dll",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1280.log",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1280-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1280-factory.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1280-ads.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v2-1280-unequipped.png"
+      ]
+    },
+    {
+      "run": "final-v3-1280",
+      "checks": 22,
+      "failures": 0,
+      "module": "UnrealEditor-FPSGAME-2026091306.dll",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v3-1280.log",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v3-1280-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v3-1280-factory.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v3-1280-ads.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\final-v3-1280-unequipped.png"
+      ]
+    }
+  ],
+  "visual_review": "1920x1080 draft, ADS and unequipped state; 1280x720 final caption and complete table",
+  "assets": [
+    {
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\UI\\GunsmithWorkbench\\M_WeaponPreview.uasset",
+      "sha256": "FEC0E349E0E7AB0B0E5504DD00EB3D3390728265B7BC35D7756CD9952A0F6FC5"
+    },
+    {
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\UI\\GunsmithWorkbench\\RT_PreviewDefault.uasset",
+      "sha256": "73E3BCAD65CE215F65F2D9AC5CFEDC3FCB1254DD54504BBCC46D181A0354DC0E"
+    },
+    {
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\UI\\GunsmithWorkbench\\T_StudioEnvironment.uasset",
+      "sha256": "DA9662A6711A1623A4F028B9808CFB79F2DE8CC32B98CE8D900353DE67ADAAC9"
+    },
+    {
+      "file": "D:\\FPS3D\\FPSGAME\\Content\\UI\\GunsmithWorkbench\\T_WorkshopBackground.uasset",
+      "sha256": "84F4AF7A1E837A28E801D4837A582600CF6B39040514CC483420C89C183F13DC"
+    }
+  ],
+  "import": {
+    "marker": "GUNSMITH_WORKBENCH_IMPORT_PASS",
+    "log": "SourceAssets/GunsmithWorkbench20260910/import-studio-v2.log",
+    "command_exit_code": 1,
+    "note": "Known project GameFeatureData rule error; explicit saves and later real rendering verified"
+  },
+  "scope": "Cold Steel workbench presentation and authoritative stat display; existing gameplay transactions and material assets reused",
+  "limitations": [
+    "Packaged build not tested",
+    "Unequipped inventory instances show an explicit placeholder",
+    "1280 final-v3 only changes caption wrapping relative to final-v2 1920"
+  ]
+}

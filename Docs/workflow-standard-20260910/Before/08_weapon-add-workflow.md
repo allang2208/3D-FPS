@@ -1,0 +1,186 @@
+# 武器添加标准工作流（3-dfps）
+
+> 现行统一入口：[枪械与改造技能](../skills/godot-weapon-workflow/SKILL.md)。瞄具复用、ADS、枪匠、骨骼挂点和材质统一见其引用文档。本文以下保留 2026-08-09 静态网格案例；整体转正/居中规则不适用于带手臂动画的蒙皮视模。
+
+目的：新增一把武器（GLB/OBJ）到游戏的标准步骤，含预处理、贴图、弹匣拆分、
+瞄具锚点、方向、验证与提交纪律。全部坑都来自 AKM 接入实战（2026-08-09）。
+
+## 总览
+
+模型来源/许可证 → 预处理（转正/剔道具/居中）→ 贴图（PBR）→ 弹匣拆分 →
+瞄具锚点 + 方向（玩家实测）→ weapon_data/.tres → 验证清单 → 提交
+
+## 0. 前置纪律
+
+- 新资产一律**新文件名**独立生成并验证，**通过后才覆盖正式文件**；不要中途删
+  `.import`/`.tres`/正式文件（引用错误会让项目打不开）。
+- 文件所有权：动画线动 `scripts/gun.gd`、`weapon_data/`、`assets/models/`、`tools/ai-gen/`、
+  `docs/`、`tests/`；**不碰** `ui/`（除用户明确要求）、`project.godot`、`DESIGN.md`。
+- 每个武器独立提交，`anim:` 前缀，只 `git add` 自己的文件。
+
+## 1. 模型来源与许可证
+
+- 免费可直链：Poly Pizza（CC0/CC-BY）、OpenGameArt（CC0）、Sketchfab（CC-BY，需账号）、
+  CGTrader 免费区（需账号）。国内可达：混元3D API（tools/ai-gen/hunyuan3d_api.py）。
+- **Sketchfab 下载包是 zip，别只解压 OBJ**——里面还有 `.mtl` + `Textures/PBR`（TGA 4096²）。
+- 下载后把来源/作者/许可证/署名要求记入 `docs/asset-licenses.md`（CC-BY 必须署名）。
+- 先检查模型质量：tri 数、是否带贴图、有无独立道具/多部件。
+
+## 2. 预处理（模板：tools/ai-gen/prep_akm_obj.py）
+
+```powershell
+python tools/ai-gen/prep_akm_obj.py --input assets/models/ak/xxx.obj `
+  --out assets/models/ak/xxx_prep.obj --mtl assets/models/ak/xxx_prep.mtl `
+  --tex-dir assets/models/ak/xxx_tex
+```
+
+- **剔道具**：独立"子弹/备用弹匣/支架"等组（与主枪体 AABB 不相交）剔除。
+- **转正**：长轴 → X（Z→X 旋转），矫正倾斜（y-x 斜率），归一化到枪长 1m（gun.gd 缩放才合理）。
+- **居中**：只用保留部件计算 AABB 中心（把被剔除道具算进去会 z 偏心 2cm+）。
+- **方向**：端标记铁证（+X 红球 / -X 蓝球 + GLM 读"木托端在哪"），**最终方向以玩家实测为准**，
+  不要用"细端=枪口"这类启发式跟玩家争（AKM 实战教训：启发式把方向搞反了）。
+- 输出：贴图模式（保留 UV + MTL）或顶点色模式（无贴图兜底）。
+
+## 3. 贴图（PBR）
+
+- TGA → PNG 2048（PIL），命名：`akm_basecolor/normal/roughness/metallic/ao.png`；
+  弹匣独立材质用 `mag_*` 前缀（export 工具按前缀识别拆分）。
+- **Godot OBJ 导入器只读 albedo(map_Kd) + normal(map_Bump)，不读 metallic/roughness/AO**：
+```powershell
+$env:PBR_MESH='res://assets/models/ak/xxx_prep.obj'
+$env:PBR_OUT='res://assets/models/ak/xxx_pbr.tres'      # 枪体（含 PBR 通道）
+$env:PBR_MAG_OUT='res://assets/models/ak/xxx_mag.tres'  # 独立弹匣（可无）
+& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/export_pbr_mesh.gd
+```
+- 材质验证：`tests/tmp_probe_mat.gd` 模式（albedo/metallic/roughness/ao 全非空）。
+
+## 4. 弹匣拆分（有真弹匣则必做）
+
+- `mag_scene` = 弹匣 .tres；`mag_offset` = 弹匣面 AABB 中心（模型原始坐标）。
+- 弹匣节点是 `_model` 子节点（自带旋转/缩放），局部坐标**用原始值，不要再乘 to_gun**
+  （会双重旋转/缩放）。
+- 不接 mag_scene 时 gun.gd 会在弹匣位生成**深色占位盒（黑块）**——玩家会投诉。
+
+## 5. 瞄具锚点 + 方向
+
+- 测照门/前准星模型坐标：顶点顶部剖面（细高凸起）+ 标记球 + GLM 校准高度
+  （锚点偏高会机瞄低头/觇孔不重合）。
+- `sight_rear_override` / `sight_front_override`：模型原始坐标，ZERO=自动检测。
+  **自动检测会把机匣顶当照门（瞄线下倾 10.5°）**，故建议显式锚点（2.1°）。
+- `muzzle_sign_override`：以玩家实测为准；**翻转时必须同步镜像瞄具锚点（x 取反）**，
+  否则 ADS 求解会转 180°（rear_dist 触底 0.38、机瞄画面反转）。
+
+## 6. weapon_data/xxx.tres
+
+- 从 `weapon_data/akm_sketchfab.tres` 复制参数模板，改：`weapon_name`、
+  `model_scene`、`mag_scene`、`muzzle_sign_override`、`sight_*_override`、`mag_offset`。
+- 默认武器切换：`scripts/gun.gd` 的 `@export var data` preload + `_setup` 兜底 load
+  两处改成新 tres（或告知用户切换方法）。
+
+## 7. 验证清单（全部通过才算完成）
+
+```powershell
+$env:GUN_TEST_MODEL='res://assets/models/ak/xxx_pbr.tres'
+& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/test_ads_calibration.gd
+# 通过标准：rot_y=±90、muzzle_local.z<-0.2、ads_rot 无 ±180° yaw、rear_dist∈[0.38,0.75]
+
+& $godot --headless --path 'E:\3d\3-dfps' --script res://tests/probe_gun_projection.gd
+# ADS 时 rear/front 屏幕投影均 ≈ 屏幕中心（1920×1080 → 960,540）
+
+& $godot --rendering-driver opengl3 --path 'E:\3d\3-dfps' --script res://tests/render_gun_markers.gd
+# 红球(枪口)画面左侧、蓝球(枪托)右侧
+
+& $godot --rendering-driver opengl3 --path 'E:\3d\3-dfps' --script res://tests/render_ads_view.gd
+& $godot --rendering-driver opengl3 --path 'E:\3d\3-dfps' --script res://tests/render_reload_frame.gd
+# 腰射/机瞄/换弹中段渲染：无黑块、真弹匣滑出、觇孔重合
+
+& $godot --headless --path 'E:\3d\3-dfps' --quit-after 90
+# 无 SCRIPT ERROR；注意其他线未提交 WIP 可能阻断冒烟（先 git status 确认）
+```
+
+- 十字准星 ADS 隐藏：HUD 绑定时机（ui/hud.gd `_bind_gun` 延迟重试）已修复；
+  新场景若准星不隐藏先查绑定。
+
+## 8. 提交
+
+- `git add` 只加自己的文件（新 OBJ/GLB、.import、tres、贴图、脚本、文档、预览图、许可证记录）。
+- `anim:` 前缀，commit message 写清：模型来源/许可、预处理、锚点/方向、验证结果。
+
+## 相关脚本速查
+
+| 工具 | 作用 |
+| --- | --- |
+| tools/ai-gen/prep_akm_obj.py | OBJ 预处理（转正/剔道具/居中/UV+MTL 或顶点色） |
+| tools/ai-gen/voxelize_glb.py | GLB → 高精度体素（体素风） |
+| tools/ai-gen/voxel_ak_builder.py | 程序化手搭体素 AK（体素风，已搁置） |
+| tests/export_pbr_mesh.gd | OBJ 补 metallic/roughness/AO，导出 .tres（枪体/弹匣分离） |
+| tests/test_ads_calibration.gd | ADS 校准回归 |
+| tests/probe_gun_projection.gd | 打印照门/准星/枪口屏幕投影 |
+| tests/render_gun_markers.gd | 方向标记球渲染 |
+| tests/render_ads_view.gd / render_reload_frame.gd | 第一人称腰射/机瞄/换弹渲染 |
+
+## TACZ（Minecraft 模组）模型特例
+
+1. 下载 TACZ JAR → 解包 → `geo_models/gun/*_geo.json` + `animations/*.animation.json` + `textures/gun/uv/*.png`。
+2. `tools/ai-gen/tacz_geo_to_glb.py` 转出带动画的 GLB（`--pos-mode additive`）+ 独立弹匣 GLB（`--split-bone magazine`，
+   输出 `mag center` 即 `mag_offset`）。
+3. 主轴向 Z：`muzzle_sign_override = -1`（枪口 −Z）；瞄具锚点用 iron_sight3/4 方块簇顶部中心。
+4. GLB 弹匣走 gun.gd 的 `mag_scene is PackedScene` 分支（节点挂 _model 子节点、position=mag_offset）。
+5. 导入缓存坑：`.import` 残留 `valid=false` 时删 `.import` + `.godot/imported/*.md5` 再 `--import`。
+6. **必须 `--normalize-length 1.0 --center`**：gun.gd 视模缩放有 `clampf(...,0.4,1.0)` 下限且
+   GLB 路径不居中。像素单位模型（全长 ~43）不归一化会渲染成 17m 巨物；不居中会偏高贴相机、
+   枪托被近裁剪面切掉 → 看起来"破碎"。转换后把 `body AABB center` 从瞄具锚点/mag_offset 里减掉。
+7. **贴图必须处理两件事**：① Minecraft 模组 PNG 常带"全零 alpha"（Minecraft 忽略、Godot 按透明
+   渲染 → 枪变碎块），转换器自动剥 alpha；② TACZ 黑金属贴图过暗，要 gamma 提亮+抬升暗部
+   （现用 curve: (v/255)^0.55*1.25+42），否则黑枪融进深背景。
+8. **弹匣居中**：弹匣 GLB 顶点必须减**弹匣自身 AABB 中心**（不是 mag_center−body_center），
+   mag_offset 才是 mag_center−body_center。旧代码把 offset 也减进顶点，弹匣整体高 body_center.y
+   一截、浮在机匣里 → 游戏里"弹匣缺失/错位"。
+9. **Godot 导入缓存会卡死**：反复重导同一文件名可能一直用旧资源（md5 变了但 .import/.scn 还是
+   旧哈希，直方图纹丝不动）。遇到"改了没反应"，直接**改文件名**（如 ak47_v3.glb）强制全新导入，
+   再清理旧文件。换名后必须同步更新 .tres 引用。
+10. 许可证：CC BY-NC-ND 4.0，仅测试替身，发布前换掉（记入 docs/asset-licenses.md）。
+
+## TACZ 最终方案：静态 ArrayMesh（不要走骨骼 GLB）
+
+**实测结论（2026-08-10）**：TACZ 骨骼 GLB 路径在 Godot 里渲染持续"破碎"（同一几何导出成
+OBJ 渲染是完整 AK-47，纯几何+法线均验证无误；问题出在 GLB 骨骼导入/材质路径，非几何）。
+**换办法 = 走 AKM 已验证管线**：
+
+1. 转换器生成归一化+居中的 GLB（ak47_v3.glb / ak47_mag_v3.glb）只作中间源。
+2. `tests/export_tacz_mesh.gd` 把 GLB 的 Mesh（bind pose = 原始坐标）转成静态
+   ArrayMesh .tres（去掉 ARRAY_BONES/ARRAY_WEIGHTS，挂 StandardMaterial3D + 提亮贴图）。
+3. `weapon_data/tacz_ak47.tres` 的 model_scene/mag_scene 指向 .tres（与 AKM 同款 Mesh 路径，
+   gun.gd 自动按 AABB 居中、mag_offset 定位弹匣）。
+4. 骨骼动画暂时放弃（gun.gd 的程序化开火/换弹/ADS 已够用）；后续如要 TACZ 动画，
+   另走 Godot AnimationPlayer 驱动拆件（弹匣已独立）。
+
+**v4 补充（2026-08-10）**：TACZ 模型里混着"非枪身"的显示部件，必须排除：
+- `righthand_pos` / `lefthand_pos`：持枪手位置占位大方块（x≈±7 悬浮在枪两侧，实测就是
+  "左右各一块浮空矩形体"），转换时 `--exclude-bones` 剔除。
+- `extd_mag` / `extd_mag2` / `extd_mag3`：三种加长弹匣变体与默认弹匣重叠在同一位置，
+  会渲染成一坨，只留默认 `d_mag`。
+- 排除后枪体 x 宽度从 ±0.161 收窄到 ±0.067（正常 AK 厚度），弹匣 2976→1164 顶点。
+- `ar_stock_adapter`：AR 枪托适配器（改装件），默认木托 AK 不该显示，其顶部方块离群
+  4 单位（约 9cm），是最大的一颗"悬浮颗粒"。
+- `mount`（顶轨/侧轨 29 方块）与 `trigger2`（扳机）：两者由多片小方块组成、片间缝隙
+  0.1~1.4 单位，渲染成"模型主体外的颗粒"。默认造型不需要顶轨/独立扳机片，直接排除。
+- `--bridge-gaps 0.04`：其余小方块按最近邻 AABB 缝隙自动定向膨胀（每边补一半+余量），
+  把 grip/bolt/sight 等 1~15mm 的缝隙全部闭合。
+
+**v6 补充（体素"破碎感"终极处理）**：模型正确后剩余的"破碎感"来自体素方块本身——
+方块间发丝缝 + 每块被光照得亮暗不一（拼图感）。标准解法：
+- `--inflate 0.002`：所有方块轻微膨胀，闭合方块间缝隙。
+- `--face-ao 0.9`：烘焙方块边缘 AO——每个面中心顶点亮(1.0)、四角暗(0.9)并细分 4 三角，
+  顶点色随网格导出（export_tacz_mesh.gd 材质开 vertex_color_use_as_albedo），
+  得到 Minecraft 同款"方块融为一体"观感。0.74 太暗，0.9 合适。
+
+**v9 结论（"悬浮颗粒"根治）**：纯白渲染定位到模型主体外的分离小块共 11 个连通域，
+来源 = 顶轨 mount + 扳机 trigger2 + AR 适配器 + 小缝隙方块。排除 mount/trigger2/
+ar_stock_adapter + `--bridge-gaps` 后，主体外只剩 4 个亚毫米级细节片，肉眼不可见。
+纯白轮廓验证图：docs/preview/tacz_v9_solid.png。
+
+
+## 武器材质表现升级（2026-09-09）
+
+以后新枪及材质优化默认执行[武器材质表现标准](../skills/godot-weapon-workflow/references/surface-detail-standard.md)：保留当前分区风格，恢复可用原生法线和受控粗糙度，区分机械金属与聚合物；正式资源自包含，游戏/预览/图标统一，并验证装卸恢复、动作、ADS及目标 GPU。本文较早的粗糙度或法线起点以新标准的逐部位校准为准。用户已授权的候选替换直接完成接入，不重复要求批准。

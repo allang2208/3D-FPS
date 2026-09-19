@@ -1,0 +1,29 @@
+{
+  "actions": {
+    "Attack_Howl": {
+      "action": "SK_HandBrain|SK_HandBrain|Attack_Howl",
+      "duration_s": 3.0
+    },
+    "Attack_Slam": {
+      "action": "SK_HandBrain|SK_HandBrain|Attack_Slam",
+      "duration_s": 2.0
+    },
+    "Idle": {
+      "action": "SK_HandBrain|SK_HandBrain|Idle",
+      "duration_s": 2.0
+    },
+    "Move": {
+      "action": "SK_HandBrain|SK_HandBrain|Move",
+      "duration_s": 1.0
+    }
+  },
+  "skinned_meshes": [
+    "HandBrain_OralTeeth",
+    "HandBrain_AttackArm",
+    "HandBrain_CrownHands",
+    "HandBrain_Body"
+  ],
+  "bones": 37,
+  "roundtrip_rendered": true,
+  "ue_import_tested": false
+}

@@ -1,0 +1,2236 @@
+{
+  "reload": {
+    "insertion_samples_480hz": 249,
+    "locked_wrist_drift_mm": 0.3352947706760915,
+    "maximum_envelope_depth_mm": 0,
+    "samples": [
+      {
+        "frame": 70.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 90.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 91.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 92.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 93.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 94.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 95.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 96.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 97.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 98.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 99.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 100.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 101.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      }
+    ]
+  },
+  "reload_empty": {
+    "insertion_samples_480hz": 193,
+    "locked_wrist_drift_mm": 0.10445980981470387,
+    "maximum_envelope_depth_mm": 0,
+    "samples": [
+      {
+        "frame": 65.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 65.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 66.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 67.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 68.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 69.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 70.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 71.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 72.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 73.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 74.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 75.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 76.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 77.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 78.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 79.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 80.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 81.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 82.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 83.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 84.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 85.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 86.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 87.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.125,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.25,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.375,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.5,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.625,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.75,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 88.875,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      },
+      {
+        "frame": 89.0,
+        "inside_envelope_vertices_over_0_3mm": 0,
+        "max_depth_mm": 0
+      }
+    ]
+  },
+  "strike": {
+    "before": {
+      "peak_approach_m_s": 1.017635889016771,
+      "peak_rebound_m_s": 0.7142843161015751
+    },
+    "after": {
+      "peak_approach_m_s": 2.974515843852339,
+      "peak_rebound_m_s": 1.2357974525811026
+    }
+  }
+}

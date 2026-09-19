@@ -1,0 +1,333 @@
+{
+  "objects": {
+    "_CS_Cube": [],
+    "base_controller.002": [],
+    "base_controller.003": [],
+    "base_controller.004": [],
+    "base_controller.005": [],
+    "base_controller.006": [],
+    "base_controller.007": [],
+    "base_controller.008": [],
+    "base_controller.009": [],
+    "base_controller.010": [],
+    "base_controller.011": [],
+    "base_controller.012": [],
+    "base_controller.013": [],
+    "base_controller.014": [],
+    "base_controller.015": [],
+    "base_controller.016": [],
+    "base_controller.017": [],
+    "base_controller.018": [],
+    "base_controller.019": [],
+    "base_controller.020": [],
+    "base_controller.021": [],
+    "base_controller.022": [],
+    "base_controller.023": [],
+    "base_controller.024": [],
+    "base_controller.025": [],
+    "base_controller.026": [],
+    "base_controller.027": [],
+    "base_controller.028": [],
+    "base_controller.030": [],
+    "base_controller.031": [],
+    "base_controller.032": [],
+    "base_controller.034": [],
+    "base_controller.035": [],
+    "base_controller_I.036": [],
+    "base_controller_II.036": [],
+    "common_controller.001": [],
+    "common_controller.003": [],
+    "common_controller.004": [],
+    "common_controller.005": [],
+    "common_controller.006": [],
+    "common_controller.007": [],
+    "common_controller.008": [],
+    "common_controller.009": [],
+    "common_controller.010": [],
+    "common_controller.011": [],
+    "common_controller.012": [],
+    "common_controller.013": [],
+    "common_controller.014": [],
+    "common_controller.015": [],
+    "common_controller.016": [],
+    "common_controller.017": [],
+    "common_controller.018": [],
+    "directional_controller.001": [],
+    "directional_controller.002": [],
+    "directional_controller.003": [],
+    "directional_controller.004": [],
+    "directional_controller.005": [],
+    "directional_controller.006": [],
+    "directional_controller.007": [],
+    "directional_controller.008": [],
+    "directional_controller.009": [],
+    "directional_controller.010": [],
+    "directional_controller.011": [],
+    "directional_controller.012": [],
+    "directional_controller.013": [],
+    "directional_controller.014": [],
+    "directional_controller.015": [],
+    "directional_controller.016": [],
+    "directional_controller.017": [],
+    "eye_controller.001": [],
+    "eye_controller.002": [],
+    "eye_controller.003": [],
+    "Fk_Ik_switch_controller_I.001": [],
+    "Fk_Ik_switch_controller_I.002": [],
+    "Fk_Ik_switch_controller_I.003": [],
+    "Fk_Ik_switch_controller_II.001": [],
+    "Fk_Ik_switch_controller_II.002": [],
+    "Fk_Ik_switch_controller_II.003": [],
+    "M4_Flash Hider Unreal": [
+      "Flash Hider.001"
+    ],
+    "M4_Flash Hider Unreal_Export": [
+      "Flash Hider.001"
+    ],
+    "M4_Grip Default Unreal": [
+      "Grip Default.001"
+    ],
+    "M4_Grip Default Unreal_Export": [
+      "Grip Default.001"
+    ],
+    "M4_Handguard Kmode Unreal": [
+      "Keymod material.001"
+    ],
+    "M4_Handguard Kmode Unreal_Export": [
+      "Keymod material.001"
+    ],
+    "M4_M4 Body": [
+      "Body.001"
+    ],
+    "M4_M4 Body_Export": [
+      "Body.001"
+    ],
+    "M4_Magazine Light.003": [
+      "Magazine Light.001"
+    ],
+    "M4_Magazine Light.003_Export": [
+      "Magazine Light.001"
+    ],
+    "M4_Stock Classic Unreal": [
+      "Classic Stock.001"
+    ],
+    "M4_Stock Classic Unreal_Export": [
+      "Classic Stock.001"
+    ],
+    "M4_Trigger Straight Unreal": [
+      "Body.001"
+    ],
+    "M4_Trigger Straight Unreal_Export": [
+      "Body.001"
+    ],
+    "Motion_Reference_Cubes": [
+      "M_Motion_Reference"
+    ],
+    "other_controller.002": [],
+    "other_controller.004": [],
+    "other_controller.005": [],
+    "rotational_controller.001": [],
+    "rotational_controller.002": [],
+    "rotational_controller.003": [],
+    "rotational_controller.004": [],
+    "rotational_controller.007": [],
+    "rotational_controller.008": [],
+    "rotational_controller.009": [],
+    "rotational_controller.010": [],
+    "rotational_controller.011": [],
+    "rotational_controller.012": [],
+    "rotational_controller.013": [],
+    "rotational_controller.014": [],
+    "rotational_controller.015": [],
+    "rotational_controller.016": [],
+    "rotational_controller.017": [],
+    "rotational_controller.018": [],
+    "SK_AssaultRifle": [
+      "M_AssaultRifle"
+    ],
+    "SK_Manny_Arms": [
+      "MI_Manny_01",
+      "MI_Manny_02"
+    ],
+    "SK_Manny_Arms_Export": [
+      "MI_Manny_01",
+      "MI_Manny_02"
+    ],
+    "SK_Manny_Simple": [
+      "MI_Manny_01",
+      "MI_Manny_02"
+    ],
+    "SM_AssaultRifle_Casing": [
+      "M_AssaultRifle"
+    ],
+    "SM_AssaultRifle_Magazine": [
+      "M_AssaultRifle"
+    ],
+    "SM_M4_FrontSight": [
+      "Keymod material.001"
+    ],
+    "SM_M4_RearSight": [
+      "Body.001"
+    ],
+    "CS_Cube": [],
+    "_CS_Circle": [],
+    "_CS_Finger_Metacarpal": [],
+    "_CS_Fingers": [],
+    "base_controller.001": [],
+    "base_controller.029": [],
+    "base_controller.033": [],
+    "common_controller.002": [],
+    "other_controller.001": [],
+    "other_controller.003": [],
+    "other_controller.006": [],
+    "other_controller.007": [],
+    "rotational_controller.005": [],
+    "rotational_controller.006": []
+  },
+  "materials": {
+    "Body.001": [
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Body_BaseColor.png",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Body_Normal.png",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Body_Roughness.png",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Body_Metallic.png",
+        "node": "Image Texture.003"
+      }
+    ],
+    "Classic Stock.001": [
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_BaseColor.png",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_Normal.png",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_Roughness.png",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_Metallic.png",
+        "node": "Image Texture.003"
+      }
+    ],
+    "Dots Stroke": [],
+    "Flash Hider.001": [
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_BaseColor.png",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_Normal.png",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_Roughness.png",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_Metallic.png",
+        "node": "Image Texture.003"
+      }
+    ],
+    "Grip Default.001": [
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_BaseColor.png",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Normal.png",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Roughness.png",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Metallic.png",
+        "node": "Image Texture.003"
+      }
+    ],
+    "Keymod material.001": [
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_BaseColor.png",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_Normal.png",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_Roughness.png",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_Metallic.png",
+        "node": "Image Texture.003"
+      }
+    ],
+    "Magazine Light.001": [
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_BaseColor.png",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_Normal.png",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_Roughness.png",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_Metallic.png",
+        "node": "Image Texture.003"
+      }
+    ],
+    "M_AssaultRifle": [
+      {
+        "image": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "node": "Image Texture"
+      }
+    ],
+    "M_Motion_Reference": [],
+    "MI_Manny_01": [
+      {
+        "image": "//..\\..\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "node": "Image Texture"
+      },
+      {
+        "image": "//..\\..\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "node": "Image Texture.001"
+      }
+    ],
+    "MI_Manny_02": [
+      {
+        "image": "//..\\..\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "node": "Image Texture.001"
+      },
+      {
+        "image": "//..\\..\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "node": "Image Texture.002"
+      },
+      {
+        "image": "//..\\..\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "node": "Image Texture.003"
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "reload": {
+    "half_frame_steps": {
+      "upperarm_l": {
+        "rotation_step_deg": 5.089980766672208,
+        "rotation_frame": 60.5,
+        "distance_step_cm": 1.285423725005442,
+        "local_translation_cm": 5.986484714329441e-05,
+        "location_frame": 1.0
+      },
+      "lowerarm_l": {
+        "rotation_step_deg": 8.473670141874866,
+        "rotation_frame": 3.5,
+        "distance_step_cm": 1.650305868722035,
+        "local_translation_cm": 7.58871900033778e-05,
+        "location_frame": 43.5
+      },
+      "hand_l": {
+        "rotation_step_deg": 9.220208964383612,
+        "rotation_frame": 4.5,
+        "distance_step_cm": 1.5146845148087615,
+        "local_translation_cm": 8.218973167818329e-05,
+        "location_frame": 0.0
+      },
+      "lowerarm_twist_01_l": {
+        "rotation_step_deg": 8.405071990719488,
+        "rotation_frame": 4.5,
+        "distance_step_cm": 1.3669771126629717,
+        "local_translation_cm": 5.101335873789695e-05,
+        "location_frame": 124.5
+      },
+      "lowerarm_twist_02_l": {
+        "rotation_step_deg": 4.233846863175552,
+        "rotation_frame": 4.5,
+        "distance_step_cm": 1.3240081962590484,
+        "local_translation_cm": 4.054238754633901e-05,
+        "location_frame": 123.5
+      },
+      "WPN_SOCKET_Magazine": {
+        "rotation_step_deg": 2.949176645868541,
+        "rotation_frame": 61.5,
+        "distance_step_cm": 0.8125628729165757,
+        "local_translation_cm": 29.525646278509498,
+        "location_frame": 53.0
+      }
+    },
+    "max_local_translation_cm": 8.218973167818329e-05,
+    "max_scale_delta": 7.72109559112447e-05
+  },
+  "reload_empty": {
+    "half_frame_steps": {
+      "upperarm_l": {
+        "rotation_step_deg": 8.449877177901126,
+        "rotation_frame": 107.5,
+        "distance_step_cm": 1.2781131687381149,
+        "local_translation_cm": 6.066163709561489e-05,
+        "location_frame": 31.5
+      },
+      "lowerarm_l": {
+        "rotation_step_deg": 11.29188047172935,
+        "rotation_frame": 2.5,
+        "distance_step_cm": 3.0879841681107583,
+        "local_translation_cm": 8.312991769982265e-05,
+        "location_frame": 111.5
+      },
+      "hand_l": {
+        "rotation_step_deg": 12.549460024353975,
+        "rotation_frame": 3.5,
+        "distance_step_cm": 2.374208371127804,
+        "local_translation_cm": 8.523672608181889e-05,
+        "location_frame": 160.5
+      },
+      "lowerarm_twist_01_l": {
+        "rotation_step_deg": 11.04374140673008,
+        "rotation_frame": 3.5,
+        "distance_step_cm": 1.9631318696124846,
+        "local_translation_cm": 5.4200093386987484e-05,
+        "location_frame": 160.5
+      },
+      "lowerarm_twist_02_l": {
+        "rotation_step_deg": 5.549339162885892,
+        "rotation_frame": 3.5,
+        "distance_step_cm": 2.267136761290767,
+        "local_translation_cm": 4.0537252673600245e-05,
+        "location_frame": 160.5
+      },
+      "WPN_SOCKET_Magazine": {
+        "rotation_step_deg": 5.089519302016409,
+        "rotation_frame": 25.0,
+        "distance_step_cm": 1.5705194350261933,
+        "local_translation_cm": 28.239137958433602,
+        "location_frame": 34.0
+      }
+    },
+    "max_local_translation_cm": 8.523672608181889e-05,
+    "max_scale_delta": 8.871564218603291e-05
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "mesh": "/Game/Weapons/AKMIntegration/Native/SK_AKM_MannyNative.SK_AKM_MannyNative",
+  "clips": {
+    "A_AKM_aim": 0.0416666679084301,
+    "A_AKM_aim_fire": 0.10000000149011612,
+    "A_AKM_draw": 1.2083333730697632,
+    "A_AKM_equip": 2.7249999046325684,
+    "A_AKM_fire": 0.10000000149011612,
+    "A_AKM_holster": 0.9583333134651184,
+    "A_AKM_idle": 0.0416666679084301,
+    "A_AKM_inspect": 6.208333492279053,
+    "A_AKM_reload": 3.3333332538604736,
+    "A_AKM_reload_empty": 4.291666507720947
+  }
+}

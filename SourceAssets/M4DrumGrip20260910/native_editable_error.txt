@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:/FPS3D/FPSGAME/SourceAssets/M4DrumGrip20260910/build_native_editable.py", line 45, in tick
+    assert report[clip]['pass'],errors
+AssertionError: {'hand_l': 37.15987569990192, 'hand_r': 58.77414551276736, 'WPN_SOCKET_Magazine': 31.80221585990548, 'index_03_l': 58.52865708437089, 'thumb_03_l': 42.87633482423038}

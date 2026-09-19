@@ -1,0 +1,11 @@
+{
+  "file": "D:\\FPS3D\\FPSGAME\\Source\\FPSGAME\\FPSGAMECharacter.cpp",
+  "before_sha256": "9b43cdff4bbfe477a0d8d6e30c99ec3e9e88a9d84ef366c5dc17a81f1de9d8cb",
+  "after_sha256": "de15e6500ad291db26e58640cda3136143f27c2fd70e751617877d7ed666cf33",
+  "changes": {
+    "TEXT(\"M4ContactImpactFinal\"), Clip, Clip": "TEXT(\"M4AnimationAuditFinal\"), Clip, Clip",
+    "/Game/Weapons/M4ReloadPolish/S_HK416_Equip.S_HK416_Equip": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip.S_HK416_Equip",
+    "/Game/Weapons/M4HK416Audio/S_HK416_BoltRelease.S_HK416_BoltRelease": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease.S_HK416_BoltRelease",
+    "if (!bEquip) UE_LOG(LogTemp, Display, TEXT(\"M4_CONTACT_IMPACT_ACTIVE clip=%s loaded=%d duration=%.4f\")": "UE_LOG(LogTemp, Display, TEXT(\"M4_ANIMATION_AUDIT_ACTIVE clip=%s loaded=%d duration=%.4f\")"
+  }
+}

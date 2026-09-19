@@ -1,0 +1,21 @@
+{
+  "status": "default_animation_assets_updated",
+  "runtime_passes": 201,
+  "runtime_failures": 0,
+  "wrist": {
+    "reload": {
+      "contact_position_drift_cm": 3.114351601679156E-05,
+      "contact_rotation_drift_deg": 0,
+      "cuff_before_grip_max": 47.89273002708313,
+      "cuff_after_grip_max": 17.035256771198842
+    },
+    "reload_empty": {
+      "contact_position_drift_cm": 3.831121941447409E-05,
+      "contact_rotation_drift_deg": 0,
+      "cuff_before_grip_max": 46.37315614335679,
+      "cuff_after_grip_max": 15.992553262315527
+    }
+  },
+  "source_sha256": "CEAD141AA141E33738D48CEEEF0BD72BEC2641C00206CEB1D666A67CA4DC4472",
+  "native_code_changed": false
+}

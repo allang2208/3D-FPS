@@ -1,0 +1,447 @@
+{
+  "objects": [
+    {
+      "name": "FG_Frame_M4Body",
+      "vertices": 368,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_TopHousing",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_VisualTopLip",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_VisualTopLip.001",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_VisualTopLip.002",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_VisualTopLip.003",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_GripInlay",
+      "vertices": 80,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.001",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.002",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.003",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.004",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.005",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.006",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.001",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.001",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.002",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.002",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.003",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.003",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.004",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.004",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_SupportInset",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripInlay.001",
+      "vertices": 80,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.007",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.008",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.009",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.010",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.011",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.012",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_GripRib.013",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.005",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.005",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.006",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.006",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.007",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.007",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.008",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.008",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_DecorativeFastener.009",
+      "vertices": 256,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Body.001"
+      ]
+    },
+    {
+      "name": "FG_FastenerInset.009",
+      "vertices": 144,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Recess shadow"
+      ]
+    },
+    {
+      "name": "FG_SupportInset.001",
+      "vertices": 96,
+      "nonmanifold_edges": 0,
+      "zero_area_faces": 0,
+      "uv": true,
+      "materials": [
+        "Grip Default.001"
+      ]
+    }
+  ],
+  "all_have_uv": true,
+  "nonmanifold_edges": 0,
+  "zero_area_faces": 0
+}

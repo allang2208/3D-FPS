@@ -1,0 +1,17 @@
+{
+  "before": "m4-polish-av60-final",
+  "after": "m4-contact-av60",
+  "fps": 20,
+  "segments": [
+    [
+      72,
+      115
+    ],
+    [
+      140,
+      185
+    ]
+  ],
+  "audio": "Current run mixer recording, trimmed with the same segment boundaries.",
+  "duration": 4.4
+}

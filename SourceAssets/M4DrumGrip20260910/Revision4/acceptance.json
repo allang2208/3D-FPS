@@ -1,0 +1,11 @@
+{
+  "version": "Revision4",
+  "runtime_run": "drop_release_r4",
+  "wrapper_note": "Original 120 second wrapper expired; game subsequently completed all checks and exited normally. Wrapper budget increased to 300 seconds.",
+  "default_assets": "/Game/Weapons/M4DrumDrop/Final",
+  "runtime_complete": true,
+  "empty_capture_frames": 103,
+  "normal_capture_frames": 81,
+  "visual_review": "Four contact sheets covering both complete sequences, full-size release/grip frames, and model elbow/wrist renders inspected. No recurrence of the prior shoulder protrusion or sideways elbow collapse in reviewed first-person poses.",
+  "runtime_failures": 0
+}

@@ -1,0 +1,32 @@
+{
+  "reload": {
+    "duration": 2.1,
+    "frames": 127,
+    "arm_deformation_source": "M4_reload",
+    "viewmodel_shoulder_controls": "free in camera space"
+  },
+  "reload_empty": {
+    "duration": 2.7,
+    "frames": 163,
+    "arm_deformation_source": "M4_reload",
+    "viewmodel_shoulder_controls": "free in camera space"
+  },
+  "equip_charge": {
+    "duration": 0.6333333333333333,
+    "frames": 39,
+    "arm_deformation_source": "M4_equip",
+    "viewmodel_shoulder_controls": "free in camera space"
+  },
+  "drum_reload": {
+    "duration": 2.1,
+    "frames": 127,
+    "arm_deformation_source": "M4_reload",
+    "viewmodel_shoulder_controls": "free in camera space"
+  },
+  "drum_reload_empty": {
+    "duration": 2.7,
+    "frames": 163,
+    "arm_deformation_source": "M4_reload",
+    "viewmodel_shoulder_controls": "free in camera space"
+  }
+}

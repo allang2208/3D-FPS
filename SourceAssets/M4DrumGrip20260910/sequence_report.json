@@ -1,0 +1,14 @@
+{
+  "reload": {
+    "sequence": "/Game/Weapons/M4DrumGripCandidate/LS_M4_DrumGrip_reload.LS_M4_DrumGrip_reload",
+    "rig_count": 1,
+    "bake_success": true,
+    "frames": 127
+  },
+  "reload_empty": {
+    "sequence": "/Game/Weapons/M4DrumGripCandidate/LS_M4_DrumGrip_reload_empty.LS_M4_DrumGrip_reload_empty",
+    "rig_count": 1,
+    "bake_success": true,
+    "frames": 163
+  }
+}

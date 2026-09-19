@@ -1,0 +1,39 @@
+--- Before/FPSGAMECharacter.cpp
+
++++ FPSGAMECharacter.cpp
+
+@@ -983,9 +983,18 @@
+
+         if (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0) Clip = TEXT("reload");
+         else if (FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0) Clip = TEXT("reload_empty");
+         else if (FCString::Strcmp(AssetName, TEXT("A_AKM_equip")) == 0) Clip = TEXT("equip_charge");
+-        if (Clip) return LoadObject<UAnimSequence>(nullptr, *FString::Printf(TEXT("/Game/Weapons/M4ReloadPolish/A_M4_HK416_%s.A_M4_HK416_%s"), Clip, Clip));
+-    }
+-    FString Folder = bUsingM4Infima ? TEXT("M4InfimaRigV4") : (bUsingReplacement ? TEXT("AKMReplacement") : TEXT("AKM"));
++        if (Clip)
++        {
++            const bool bEquip = FCString::Strcmp(Clip, TEXT("equip_charge")) == 0;
++            const FString Path = FString::Printf(TEXT("/Game/Weapons/%s/A_M4_HK416_%s.A_M4_HK416_%s"),
++                TEXT("M4ContactImpactFinal"), Clip, Clip);
++            UAnimSequence* Animation = LoadObject<UAnimSequence>(nullptr, *Path);
++            if (!bEquip) UE_LOG(LogTemp, Display, TEXT("M4_CONTACT_IMPACT_ACTIVE clip=%s loaded=%d duration=%.4f"),
++                *Path, Animation != nullptr, Animation ? Animation->GetPlayLength() : 0.0f);
++            return Animation;
++        }
++    }
++    FString Folder = bUsingM4Infima ? TEXT("M4ContactImpactFinal") : (bUsingReplacement ? TEXT("AKMReplacement") : TEXT("AKM"));
+     const bool bCurledReload = bUsingM4Infima && (FCString::Strcmp(AssetName, TEXT("A_AKM_reload")) == 0
+         || FCString::Strcmp(AssetName, TEXT("A_AKM_reload_empty")) == 0);
+     if (bCurledReload) Folder += TEXT("/ReloadFinger");
+@@ -1160,7 +1169,9 @@
+
+     const float ScheduledTime = bUsingM4Infima ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
+     const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
+     // Do not emit an obsolete burst of old contacts after a long game-thread stall.
+-    if (Sound && Lateness < Sound->GetDuration()) PlayMechanicalSound(Sound, AKMSource::ActionVolume);
++    const float ContactVolume = AKMSource::ActionVolume *
++        ((bUsingM4Infima && !bDrumInstalled && bPendingEmptyReload && CueIndex == 3) ? 1.25f : 1.0f);
++    if (Sound && Lateness < Sound->GetDuration()) PlayMechanicalSound(Sound, ContactVolume);
+     if (bRunGunplayAcceptance && bUsingM4Infima && !FParse::Param(FCommandLine::Get(), TEXT("EquipFramingAudit")))
+     {
+         if (bPendingEmptyReload) ++AuditEmptyMechanicalCues; else ++AuditNormalMechanicalCues;

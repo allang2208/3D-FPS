@@ -1,0 +1,23 @@
+{
+  "reload": {
+    "duration": 2.1,
+    "keys": 505,
+    "sample_rate": 240,
+    "arm_deformation_source": "M4_reload",
+    "viewmodel_shoulder_controls": "free in camera space"
+  },
+  "reload_empty": {
+    "duration": 2.7,
+    "keys": 649,
+    "sample_rate": 240,
+    "arm_deformation_source": "M4_reload",
+    "viewmodel_shoulder_controls": "free in camera space"
+  },
+  "equip_charge": {
+    "duration": 0.6333333333333333,
+    "keys": 153,
+    "sample_rate": 240,
+    "arm_deformation_source": "M4_equip",
+    "viewmodel_shoulder_controls": "free in camera space"
+  }
+}

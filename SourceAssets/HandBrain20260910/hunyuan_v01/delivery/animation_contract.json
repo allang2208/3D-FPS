@@ -1,0 +1,35 @@
+{
+  "Idle": {
+    "duration_s": 2,
+    "fps": 30,
+    "frames": [
+      1,
+      61
+    ],
+    "loop": true,
+    "root_motion": false
+  },
+  "Move": {
+    "duration_s": 1,
+    "fps": 30,
+    "frames": [
+      1,
+      31
+    ],
+    "loop": true,
+    "root_motion": false
+  },
+  "Attack_Slam": {
+    "duration_s": 2,
+    "fps": 30,
+    "frames": [
+      1,
+      61
+    ],
+    "loop": false,
+    "root_motion": false,
+    "hit_time_s": 1.0,
+    "hit_frame_30fps": 31,
+    "source_frame_1based": 14
+  }
+}

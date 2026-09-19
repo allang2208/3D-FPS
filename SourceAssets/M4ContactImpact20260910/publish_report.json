@@ -1,0 +1,55 @@
+{
+  "reload": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+    "duration": 2.0999999046325684,
+    "before_sha256": "958e0e91d45346f3207266865e7c5a93f81f9cb04236b272ed895e9d2f757357",
+    "after_sha256": "c8c99de887b24b819ea6abf8d53789674feaeedf04e69e597d3d0a0dad8bbd52",
+    "keys": 505,
+    "compression_error_cm": 0.0028275664895351794
+  },
+  "reload_empty": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+    "duration": 2.700000047683716,
+    "before_sha256": "cd77d4e4752e4af1cbd594594320a12738d005318794060a3965cf03be5f274b",
+    "after_sha256": "145c5e7444520f86f18977481a2f7834950cc7336610e04f8850cbeb8849f1de",
+    "keys": 649,
+    "compression_error_cm": 0.004089827738008595
+  },
+  "equip_charge": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+    "duration": 0.6333333253860474,
+    "before_sha256": "61731dbba427088f1005df1e41fa042d979e9bc239ab304081084aba90bd0f5f",
+    "after_sha256": "7c0515f66767cecda5710b4226bbf92975d65357b9a03b3f2b26bace764d09c9",
+    "keys": 153,
+    "compression_error_cm": 0.0004906731403808885
+  },
+  "support_hand_offset_weapon_units": [
+    8.615191269968625e-06,
+    0.011993051779650987,
+    -1.0219012593652363e-06
+  ],
+  "A_AKM_idle": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+    "duration": 3.0,
+    "keys": 181,
+    "hand_world_error_cm": 0.006376172035192594
+  },
+  "A_AKM_aim": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+    "duration": 0.03333333507180214,
+    "keys": 3,
+    "hand_world_error_cm": 1.5208189744727496e-05
+  },
+  "A_AKM_fire": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+    "duration": 0.7666666507720947,
+    "keys": 47,
+    "hand_world_error_cm": 0.0035249544668419647
+  },
+  "A_AKM_aim_fire": {
+    "path": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+    "duration": 0.7666666507720947,
+    "keys": 47,
+    "hand_world_error_cm": 0.010553957503095042
+  }
+}

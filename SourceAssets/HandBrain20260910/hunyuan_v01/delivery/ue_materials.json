@@ -1,0 +1,47 @@
+{
+  "HandBrain_Body": {
+    "BaseColor": {
+      "file": "textures/HandBrain_Body_BaseColor.001.png",
+      "sRGB": true
+    },
+    "Normal_DirectX": {
+      "file": "textures/HandBrain_Body_Normal_DirectX.png",
+      "sRGB": false
+    },
+    "Roughness": {
+      "file": "textures/HandBrain_Body_Roughness.png",
+      "sRGB": false
+    },
+    "Metallic": 0
+  },
+  "HandBrain_AttackArm": {
+    "BaseColor": {
+      "file": "textures/HandBrain_AttackArm_BaseColor.001.png",
+      "sRGB": true
+    },
+    "Normal_DirectX": {
+      "file": "textures/HandBrain_AttackArm_Normal_DirectX.png",
+      "sRGB": false
+    },
+    "Roughness": {
+      "file": "textures/HandBrain_AttackArm_Roughness.png",
+      "sRGB": false
+    },
+    "Metallic": 0
+  },
+  "HandBrain_CrownHands": {
+    "BaseColor": {
+      "file": "textures/HandBrain_CrownHands_BaseColor.001.png",
+      "sRGB": true
+    },
+    "Normal_DirectX": {
+      "file": "textures/HandBrain_CrownHands_Normal_DirectX.png",
+      "sRGB": false
+    },
+    "Roughness": {
+      "file": "textures/HandBrain_CrownHands_Roughness.png",
+      "sRGB": false
+    },
+    "Metallic": 0
+  }
+}

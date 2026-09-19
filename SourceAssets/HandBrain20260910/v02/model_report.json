@@ -1,0 +1,28 @@
+{
+  "vertices": 525853,
+  "polygons": 1062433,
+  "triangles": 1062433,
+  "mesh_objects": 1,
+  "textures": [
+    {
+      "name": "Image_0",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "uv_layers": [
+    1
+  ],
+  "finite_vertices": true,
+  "rigged": false,
+  "display_height_m": 2.0
+}

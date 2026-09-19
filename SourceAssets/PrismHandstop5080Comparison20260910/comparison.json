@@ -1,0 +1,36 @@
+{
+  "trellis": {
+    "file_triangles": 1292930,
+    "raw": {
+      "triangles": 1292930,
+      "vertices": 641429
+    },
+    "normalized_dimensions": [
+      0.8561813235282898,
+      0.37158337235450745,
+      1.0
+    ],
+    "reduction_preprocess": "Sharp octree remesh depth 8; voxel reduction first attempt failed",
+    "removed_small_islands": 0,
+    "reduced": {
+      "triangles": 16000,
+      "vertices": 7898
+    }
+  },
+  "hunyuan": {
+    "file_triangles": 500003,
+    "raw": {
+      "triangles": 167606,
+      "vertices": 83805
+    },
+    "normalized_dimensions": [
+      0.9049419164657593,
+      0.2917143404483795,
+      1.0
+    ],
+    "reduced": {
+      "triangles": 16000,
+      "vertices": 8002
+    }
+  }
+}

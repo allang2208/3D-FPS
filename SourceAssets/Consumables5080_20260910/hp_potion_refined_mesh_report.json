@@ -1,0 +1,47 @@
+{
+  "asset": "hp_potion",
+  "source": "hp_potion_candidate_v02.glb",
+  "bounds_original": [
+    0.07816021144390106,
+    0.07816021144390106,
+    0.17820000648498535
+  ],
+  "meshes": [
+    {
+      "name": "Retopologized health bottle",
+      "vertices": 4816,
+      "triangles": 2428,
+      "materials": [
+        "Clear thick glass"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Red liquid",
+      "vertices": 1012,
+      "triangles": 508,
+      "materials": [
+        "Health liquid"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Cork stopper",
+      "vertices": 576,
+      "triangles": 1148,
+      "materials": [
+        "Natural cork"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": [
+    {
+      "name": "hp_potion_view0_00001_",
+      "size": [
+        716,
+        716
+      ]
+    }
+  ]
+}

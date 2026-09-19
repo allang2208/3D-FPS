@@ -1,0 +1,303 @@
+--- before/ColdSteelHUDWidget.cpp
++++ after/ColdSteelHUDWidget.cpp
+@@ -188,11 +188,11 @@
+     }
+     if (InventoryBackdrop)
+     {
+-        InventoryBackdrop->SetRenderOpacity(DrawerProgress);
++        InventoryBackdrop->SetRenderOpacity(bInventoryDragOutside?0.f:DrawerProgress);
+     }
+     if (InventoryBlur)
+     {
+-        InventoryBlur->SetRenderOpacity(DrawerProgress);
++        InventoryBlur->SetRenderOpacity(bInventoryDragOutside?0.f:DrawerProgress);
+     }
+     if (EquipmentTooltip && EquipmentTooltip->IsVisible() && !bEquipmentTooltipPinned)
+     {
+@@ -303,11 +303,14 @@
+             Divider->SetContent(DividerSize);
+             Row->AddChildToHorizontalBox(Divider)->SetPadding(FMargin(ReferenceUnits(4), ReferenceUnits(8)));
+         }
+-        Row->AddChildToHorizontalBox(MakeHotbarSlot(Slots[Index].Key, Slots[Index].Value))
++        auto* ItemSlot=MakeHotbarSlot(Slots[Index].Key, Slots[Index].Value);
++        if(Index>=3)HotbarDropSlots.Add(ItemSlot);
++        Row->AddChildToHorizontalBox(ItemSlot)
+             ->SetPadding(FMargin(Index == 0 ? 0.0f : ReferenceUnits(HotbarGap * .5f), 0, ReferenceUnits(HotbarGap * .5f), 0));
+     }
+ 
+     UCanvasPanelSlot* CanvasSlot = Root->AddChildToCanvas(Surface);
++    HotbarCanvasSlot=CanvasSlot;
+     CanvasSlot->SetAnchors(FAnchors(0.5f, 1.0f));
+     CanvasSlot->SetAlignment(FVector2D(0.5f, 1.0f));
+     CanvasSlot->SetPosition(FVector2D(0, -ReferenceUnits(12)));
+--- before/ColdSteelHUDWidget.h
++++ after/ColdSteelHUDWidget.h
+@@ -42,6 +42,9 @@
+     void RunUpgradeAudit();
+     void RunInventoryAudit();
+     void RunInventoryDragAudit();
++    void BeginInventoryDrag(class UColdSteelItemDrag* Drag);
++    void UpdateInventoryDrag(class UColdSteelItemDrag* Drag,FVector2D ScreenPosition);
++    void EndInventoryDrag();
+     void RunItemTooltipAudit();
+     void RunTopVitalsAudit();
+     void ShowItemTooltip(const FString& Id,FVector2D ScreenAnchor,bool Pinned=false,UWidget* Source=nullptr);
+@@ -64,6 +67,8 @@
+     virtual FReply NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
+     virtual FReply NativeOnPreviewKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
+     virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&) override;
++    virtual bool NativeOnDragOver(const FGeometry&,const FDragDropEvent&,class UDragDropOperation*) override;
++    virtual bool NativeOnDrop(const FGeometry&,const FDragDropEvent&,class UDragDropOperation*) override;
+     virtual UWidget* NativeGetDesiredFocusTarget() const override;
+ 
+ private:
+@@ -78,6 +83,15 @@
+     bool bWarehouseOpen=false;
+     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
+     void BuildHotbar(UCanvasPanel* Root);
++    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> HotbarCanvasSlot;
++    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> HotbarDropSlots;
++    TWeakObjectPtr<class UColdSteelItemDrag> InventoryDrag;
++    FSlateRect InventoryDragBounds;
++    bool bInventoryDragOutside=false;
++    FDelegateHandle InventoryDragActivationHandle;
++    void HandleInventoryDragActivation(bool Active);
++    int32 HotbarDropIndex(FVector2D ScreenPosition)const;
++    bool CanDropOnHotbar(const class UColdSteelItemDrag* Drag)const;
+     void BuildAmmoReadout(UCanvasPanel* Root);
+     void BuildInventory(UCanvasPanel* Root);
+     UWidget* BuildStatusPage();
+--- before/ColdSteelInventoryWidget.cpp
++++ after/ColdSteelInventoryWidget.cpp
+@@ -17,9 +17,10 @@
+ #include "Framework/Application/SlateApplication.h"
+ #include "InputCoreTypes.h"
+ using namespace ColdSteelInventory;
+-void UColdSteelItemDrag::Drop_Implementation(const FPointerEvent& E){if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::Drop_Implementation(E);}
+-void UColdSteelItemDrag::DragCancelled_Implementation(const FPointerEvent& E){if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::DragCancelled_Implementation(E);}
+-void UColdSteelInventoryWidget::FinishDrag(){DraggedItem.Empty();bPendingClick=false;PreviewPlace=-1;}
++void UColdSteelItemDrag::Drop_Implementation(const FPointerEvent& E){if(SourceHUD.IsValid())SourceHUD->EndInventoryDrag();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::Drop_Implementation(E);}
++void UColdSteelItemDrag::DragCancelled_Implementation(const FPointerEvent& E){if(SourceHUD.IsValid())SourceHUD->EndInventoryDrag();if(SourceBoard.IsValid())SourceBoard->FinishDrag();Super::DragCancelled_Implementation(E);}
++void UColdSteelItemDrag::Dragged_Implementation(const FPointerEvent& E){if(SourceHUD.IsValid())SourceHUD->UpdateInventoryDrag(this,E.GetScreenSpacePosition());Super::Dragged_Implementation(E);}
++void UColdSteelInventoryWidget::FinishDrag(){if(auto* HUD=TooltipHUD())HUD->EndInventoryDrag();DraggedItem.Empty();bPendingClick=false;PreviewPlace=-1;}
+ void UColdSteelInventoryWidget::CancelInteraction(){FinishDrag();Selected.Empty();KeyboardCarry.Empty();KeyboardHotbar=-1;bConfirmDrop=false;InteractionMessage.Empty();if(ItemMenu)ItemMenu->Close(false);ItemMenu=nullptr;}
+ void UColdSteelInventoryWidget::OpenItemMenu(FVector2D Anchor,bool SplitOnly){if(ItemMenu)ItemMenu->Close(false);if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);ItemMenu=CreateWidget<UColdSteelInventoryPopup>(GetOwningPlayer());ItemMenu->Open(this,Model,Selected,Anchor,SplitOnly);}
+ 
+@@ -188,6 +189,7 @@
+     Drag->DefaultDragVisual=Frame;Drag->Pivot=EDragPivot::TopLeft;
+     Drag->Offset=FVector2D(-(Drag->GrabOffset.X+.5f)/I->Width,-(Drag->GrabOffset.Y+.5f)/I->Height);
+     DraggedItem=Selected;Out=Drag;
++    if(auto* HUD=TooltipHUD()){Drag->SourceHUD=HUD;HUD->BeginInventoryDrag(Drag);}
+ }
+ bool UColdSteelInventoryWidget::NativeOnDragOver(const FGeometry& G,const FDragDropEvent& E,UDragDropOperation* O)
+ {
+--- before/ColdSteelInventoryWidget.h
++++ after/ColdSteelInventoryWidget.h
+@@ -14,6 +14,8 @@
+     int32 HotbarIndex=-1;
+     int32 SourcePlace=-1,SourceCell=-1;
+     TWeakObjectPtr<class UColdSteelInventoryWidget> SourceBoard;
++    TWeakObjectPtr<class UColdSteelHUDWidget> SourceHUD;
++    virtual void Dragged_Implementation(const FPointerEvent&)override;
+     virtual void Drop_Implementation(const FPointerEvent&)override;
+     virtual void DragCancelled_Implementation(const FPointerEvent&)override;
+ };
+--- before/ColdSteelInventoryDragAudit.cpp
++++ after/ColdSteelInventoryDragAudit.cpp
+@@ -8,7 +8,9 @@
+ #include "Misc/Parse.h"
+ #include "Serialization/JsonSerializer.h"
+ #include "Blueprint/WidgetLayoutLibrary.h"
++#include "Blueprint/WidgetTree.h"
+ #include "Components/ScrollBox.h"
++#include "Components/Border.h"
+ #include "Engine/Engine.h"
+ #include "Engine/GameViewportClient.h"
+ #include "Engine/GameInstance.h"
+@@ -56,6 +58,39 @@
+         auto Capture=[&](const TCHAR* Name){const auto Size=UWidgetLayoutLibrary::GetViewportSize(this);const FString Dir=FPaths::ProjectSavedDir()/TEXT("InventoryDrag");IFileManager::Get().MakeDirectory(*Dir,true);FScreenshotRequest::RequestScreenshot(Dir/FString::Printf(TEXT("%s-%d.png"),Name,int32(Size.X)),true,false);};
+         if(R->Phase==6&&FParse::Param(FCommandLine::Get(),TEXT("ColdSteelDragAuditQuick"))){auto Fixture=R->Fixture;Fixture.Items[1].Cell=36;M->CommitState(Fixture);R->Phase=46;}
+         const int32 Phase=R->Phase++;
++        if(Phase>=55&&Phase<83){
++            const int32 Target=(Phase-55)/7,Step=(Phase-55)%7;
++            const auto RootGeometry=WidgetTree->RootWidget->GetCachedGeometry();
++            const auto Outside=RootGeometry.LocalToAbsolute(RootGeometry.GetLocalSize()*FVector2D(.25,.6));
++            if(Step==0){
++                if(Target==0){M->CommitState(R->Fixture);Scroll->ScrollToStart();}
++                HideItemTooltip(true);Board->SetKeyboardFocus();
++                R->Start=G.LocalToAbsolute(FVector2D(12+8.5f*L.Cell,L.BagY+.5f*L.Cell)/Board->Scale);
++                App.ProcessMouseMoveEvent(Pointer(R->Start,R->Start,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));
++            }else if(Step==1){
++                App.ProcessMouseMoveEvent(Pointer(R->Start+FVector2D(12,0),R->Start,true));
++                Check(App.IsDragDropping()&&!bInventoryDragOutside&&InventoryPanel->GetRenderOpacity()==1,TEXT("consumable drag starts inside visible backpack"));
++            }else if(Step==2){
++                App.ProcessMouseMoveEvent(Pointer(Outside,R->Start,true));
++                Check(bInventoryDragOutside&&InventoryPanel->GetVisibility()==ESlateVisibility::Hidden&&bInventoryOpen&&GetOwningPlayer()->IsMoveInputIgnored(),TEXT("leaving panel fully hides drawer without ending drag or releasing gameplay input"));
++                if(Target==0)Capture(TEXT("external-outside"));
++            }else if(Step==3){
++                App.ProcessMouseMoveEvent(Pointer(R->Start,Outside,true));
++                Check(!bInventoryDragOutside&&InventoryPanel->GetRenderOpacity()==1&&App.IsDragDropping(),TEXT("returning inside panel restores drawer during same drag"));
++                if(Target==0)Capture(TEXT("external-return"));
++            }else if(Step==4){
++                const auto SlotGeometry=HotbarDropSlots[Target]->GetCachedGeometry();R->End=SlotGeometry.LocalToAbsolute(SlotGeometry.GetLocalSize()*.5f);
++                App.ProcessMouseMoveEvent(Pointer(R->End,R->Start,true));
++                Check(HotbarDropIndex(R->End)==Target&&CanDropOnHotbar(InventoryDrag.Get()),TEXT("actual bottom hotbar target accepts consumable including overlapping drawer area"));
++                if(Target==0)Capture(TEXT("external-hover"));
++            }else if(Step==5){
++                App.ProcessMouseButtonUpEvent(Pointer(R->End,R->End,false,EKeys::LeftMouseButton));
++                const auto* Bound=M->ResolveHotbar(Target);const auto* Item=M->FindItem(R->Potion);
++                Check(Bound&&Bound->InstanceId==R->Potion&&Item&&Item->Count==8&&Item->Cell==8&&Item->Place==0,TEXT("real bottom hotbar drop binds instance without moving or consuming potion"));
++                Check(!App.IsDragDropping()&&!bInventoryDragOutside&&InventoryPanel->GetRenderOpacity()==1,TEXT("drop restores drawer and clears drag presentation"));
++            }else if(Target==3)Capture(TEXT("external-bound"));
++            return;
++        }
+         if(Phase>=6&&Phase<46){
+             const int32 Grab=(Phase-6)/4,Step=(Phase-6)%4;
+             if(Step==0){auto Fixture=R->Fixture;Fixture.Items[0].Cell=36;Fixture.Items[1].Cell=0;Check(M->CommitState(Fixture),TEXT("reset edge swap fixture"));HideItemTooltip(true);Board->SetKeyboardFocus();
+@@ -137,6 +172,30 @@
+             Board->SelectItem(R->Potion);Board->OpenItemMenu(R->End,true);
+             if(Board->ItemMenu){const FKeyEvent Caps(EKeys::CapsLock,FModifierKeysState(),0,false,0,0);Board->ItemMenu->NativeOnPreviewKeyDown(Board->ItemMenu->GetCachedGeometry(),Caps);Check(bStatusTabActive&&(!Board->ItemMenu||!Board->ItemMenu->IsInViewport()),TEXT("Caps switches to character sheet and dismisses quantity picker"));}
+             SetInventoryTab(false);break;
++        case 83:
++        {
++            HideItemTooltip(true);Board->SetKeyboardFocus();
++            R->Start=G.LocalToAbsolute(FVector2D(12+8.5f*L.Cell,L.BagY+.5f*L.Cell)/Board->Scale);
++            App.ProcessMouseMoveEvent(Pointer(R->Start,R->Start,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));break;
++        }
++        case 84:
++            App.ProcessMouseMoveEvent(Pointer(R->Start+FVector2D(12,0),R->Start,true));
++            R->End=WidgetTree->RootWidget->GetCachedGeometry().LocalToAbsolute(FVector2D(40,200));
++            App.ProcessMouseMoveEvent(Pointer(R->End,R->Start,true));break;
++        case 85:
++            HandleInventoryDragActivation(false);App.ProcessMouseButtonUpEvent(Pointer(R->End,R->End,false,EKeys::LeftMouseButton));
++            Check(!bInventoryDragOutside&&!App.IsDragDropping()&&InventoryPanel->GetRenderOpacity()==1&&M->FindItem(R->Potion)->Count==8,TEXT("application focus loss cancels outside drag and restores drawer without item loss"));
++            Check(M->ReloadProfile()&&M->ResolveHotbar(3)&&M->ResolveHotbar(3)->InstanceId==R->Potion,TEXT("bottom hotbar binding survives profile reload"));break;
++        case 86:
++        {
++            const auto SlotGeometry=HotbarDropSlots[0]->GetCachedGeometry();const auto At=SlotGeometry.LocalToAbsolute(SlotGeometry.GetLocalSize()*.5f);
++            auto* Drag=NewObject<UColdSteelItemDrag>(Board);Drag->ItemId=R->Gun;Drag->SourcePlace=0;Drag->SourceCell=0;BeginInventoryDrag(Drag);
++            FDragDropEvent Drop(Pointer(At,At,true),TSharedPtr<FDragDropOperation>());const auto Generation=M->Snapshot().Generation;
++            NativeOnDrop(GetCachedGeometry(),Drop,Drag);
++            Check(M->Snapshot().Generation==Generation&&M->ResolveHotbar(0)->InstanceId==R->Potion,TEXT("nonconsumable outside drop cannot replace hotbar binding"));
++            Drag->ItemId=R->Potion;Drag->SourceCell=9;BeginInventoryDrag(Drag);NativeOnDrop(GetCachedGeometry(),Drop,Drag);
++            Check(M->Snapshot().Generation==Generation,TEXT("stale consumable drag cannot bind bottom hotbar"));break;
++        }
+         default:
+             App.CancelDragDrop();SetInventoryOpen(false);GetWorld()->GetTimerManager().ClearTimer(R->Timer);
+             UE_LOG(LogTemp,Display,TEXT("InventoryDrag: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));break;
+--- before/ColdSteelHotbarDrag.cpp
++++ after/ColdSteelHotbarDrag.cpp
+@@ -0,0 +1,113 @@
++#include "ColdSteelHUDWidget.h"
++#include "ColdSteelInventoryWidget.h"
++#include "ColdSteelStatusModel.h"
++#include "ColdSteelUIStyle.h"
++#include "Components/Border.h"
++#include "Components/BackgroundBlur.h"
++#include "Components/CanvasPanelSlot.h"
++#include "Engine/GameInstance.h"
++#include "Framework/Application/SlateApplication.h"
++
++using namespace ColdSteelInventory;
++
++void UColdSteelHUDWidget::BeginInventoryDrag(UColdSteelItemDrag* Drag)
++{
++    if(!Drag||!bInventoryOpen||bStatusTabActive||!InventoryPanel)return;
++    InventoryDrag=Drag;
++    if(!InventoryDragActivationHandle.IsValid())InventoryDragActivationHandle=FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this,&ThisClass::HandleInventoryDragActivation);
++    const auto PanelGeometry=InventoryPanel->GetCachedGeometry();
++    InventoryDragBounds=FSlateRect(PanelGeometry.LocalToAbsolute(FVector2D::ZeroVector),PanelGeometry.LocalToAbsolute(PanelGeometry.GetLocalSize()));
++    // Keep the interaction session alive while the drawer is visually hidden.
++    // The transparent backdrop receives outside drops, never world-item discard.
++    InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
++    if(HotbarCanvasSlot)HotbarCanvasSlot->SetZOrder(60);
++    HideItemTooltip(true);
++}
++
++int32 UColdSteelHUDWidget::HotbarDropIndex(FVector2D Position)const
++{
++    if(!InventoryDrag.IsValid())return INDEX_NONE;
++    for(int32 N=0;N<HotbarDropSlots.Num();++N)
++        if(HotbarDropSlots[N]->GetCachedGeometry().IsUnderLocation(Position))return N;
++    return INDEX_NONE;
++}
++
++bool UColdSteelHUDWidget::CanDropOnHotbar(const UColdSteelItemDrag* Drag)const
++{
++    if(!Drag||InventoryDrag.Get()!=Drag)return false;
++    const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    const auto* Item=Model?Model->FindItem(Drag->ItemId):nullptr;
++    if(!Item||Item->Place!=Drag->SourcePlace||Item->Cell!=Drag->SourceCell||Item->Place!=0||Text(*Item,TEXT("category"))!=TEXT("consumable"))return false;
++    if(Drag->HotbarIndex>=0){const auto* Bound=Model->ResolveHotbar(Drag->HotbarIndex);return Bound&&Bound->InstanceId==Drag->ItemId;}
++    return true;
++}
++
++void UColdSteelHUDWidget::UpdateInventoryDrag(UColdSteelItemDrag* Drag,FVector2D Position)
++{
++    if(InventoryDrag.Get()!=Drag||!bInventoryOpen)return;
++    const bool Outside=!InventoryDragBounds.ContainsPoint(Position);
++    if(Outside!=bInventoryDragOutside){
++        bInventoryDragOutside=Outside;
++        InventoryPanel->SetRenderOpacity(Outside?0.f:1.f);
++        InventoryPanel->SetVisibility(Outside?ESlateVisibility::Hidden:ESlateVisibility::Visible);
++        InventoryBackdrop->SetRenderOpacity(Outside?0.f:DrawerProgress);
++        InventoryBlur->SetRenderOpacity(Outside?0.f:DrawerProgress);
++    }
++    const int32 Target=HotbarDropIndex(Position);
++    const bool Valid=CanDropOnHotbar(Drag);
++    for(int32 N=0;N<HotbarDropSlots.Num();++N){
++        const bool Hover=N==Target;
++        HotbarDropSlots[N]->SetBrush(ColdSteelUI::RoundedBrush(Hover?ColdSteelUI::ButtonHover:ColdSteelUI::Content,7.f,
++            Hover?(Valid?ColdSteelUI::Success:ColdSteelUI::Danger):ColdSteelUI::Border,Hover?2.f:1.f));
++    }
++}
++
++void UColdSteelHUDWidget::EndInventoryDrag()
++{
++    if(InventoryDragActivationHandle.IsValid()&&FSlateApplication::IsInitialized())FSlateApplication::Get().OnApplicationActivationStateChanged().Remove(InventoryDragActivationHandle);
++    InventoryDragActivationHandle.Reset();
++    if(!InventoryDrag.IsValid()&&!bInventoryDragOutside)return;
++    InventoryDrag.Reset();bInventoryDragOutside=false;
++    if(HotbarCanvasSlot)HotbarCanvasSlot->SetZOrder(30);
++    if(InventoryPanel){InventoryPanel->SetRenderOpacity(1.f);if(bInventoryOpen)InventoryPanel->SetVisibility(ESlateVisibility::Visible);}
++    if(InventoryBackdrop){InventoryBackdrop->SetVisibility(ESlateVisibility::HitTestInvisible);InventoryBackdrop->SetRenderOpacity(DrawerProgress);}
++    if(InventoryBlur)InventoryBlur->SetRenderOpacity(DrawerProgress);
++    for(const auto& DropSlot:HotbarDropSlots)DropSlot->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,7.f,ColdSteelUI::Border));
++}
++
++void UColdSteelHUDWidget::HandleInventoryDragActivation(bool Active)
++{
++    if(!Active){FSlateApplication::Get().CancelDragDrop();EndInventoryDrag();}
++}
++
++bool UColdSteelHUDWidget::NativeOnDragOver(const FGeometry& Geometry,const FDragDropEvent& Event,UDragDropOperation* Operation)
++{
++    auto* Drag=Cast<UColdSteelItemDrag>(Operation);
++    if(!Drag||InventoryDrag.Get()!=Drag)return Super::NativeOnDragOver(Geometry,Event,Operation);
++    UpdateInventoryDrag(Drag,Event.GetScreenSpacePosition());
++    return bInventoryDragOutside||HotbarDropIndex(Event.GetScreenSpacePosition())>=0;
++}
++
++bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDropEvent& Event,UDragDropOperation* Operation)
++{
++    auto* Drag=Cast<UColdSteelItemDrag>(Operation);
++    if(!Drag||InventoryDrag.Get()!=Drag)return Super::NativeOnDrop(Geometry,Event,Operation);
++    // Re-evaluate on release: stale instances or a failed save cannot bind a shortcut.
++    UpdateInventoryDrag(Drag,Event.GetScreenSpacePosition());
++    const int32 Target=HotbarDropIndex(Event.GetScreenSpacePosition());
++    if(Target<0&&!bInventoryDragOutside&&Drag->SourceBoard.IsValid()){
++        // A rapid return-and-release may still route through last frame's backdrop.
++        auto* Board=Drag->SourceBoard.Get();
++        Board->NativeOnDrop(Board->GetCachedGeometry(),Event,Operation);
++    }
++    if(Target>=0&&CanDropOnHotbar(Drag)){
++        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        if(Drag->HotbarIndex>=0)Model->SwapHotbar(Drag->HotbarIndex,Target);
++        else Model->BindHotbar(Target,Drag->ItemId);
++        if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Model->ResultMessage();
++        RefreshAmmo();
++    }
++    // Empty space is cancellation; the item remains in its original backpack cell.
++    EndInventoryDrag();
++    return true;
++}

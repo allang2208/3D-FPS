@@ -1,0 +1,20 @@
+{
+  "reload": {
+    "path": "/Game/Weapons/M4HK416Replica/A_M4_HK416_reload.A_M4_HK416_reload",
+    "duration": 2.0999999046325684,
+    "before_sha256": "5c041579ac9f9b6a0afe0b9d29d0f2b5de5e8ad988f8dd5f77e42f38eaeae2ab",
+    "after_sha256": "2bc1b99d60d27f5409430f4bb9be9243160c54a5b5534af83903586cf1c4ff10"
+  },
+  "reload_empty": {
+    "path": "/Game/Weapons/M4HK416Replica/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+    "duration": 2.700000047683716,
+    "before_sha256": "2562159d949ba483978f3c75a409ec8952577f2695cef99817dbfe2f15b1dea0",
+    "after_sha256": "b6c79d85392f70122fa491f612c3cda6b0cac0901130f7f525359e5476c7ca36"
+  },
+  "equip_charge": {
+    "path": "/Game/Weapons/M4HK416Replica/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+    "duration": 0.6333333253860474,
+    "before_sha256": "5c2592d5b92f7811dd16f7a3346618efada1c1863214097b5fedaddb075346ea",
+    "after_sha256": "8ebc93c3540159196c84182cb3325853f05f29a025c69e31a23d8fdf9637e667"
+  }
+}

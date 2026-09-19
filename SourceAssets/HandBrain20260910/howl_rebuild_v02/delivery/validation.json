@@ -1,0 +1,43 @@
+{
+  "original_bone_matrices_max_error": 0,
+  "retained_body_vertices_unchanged": 59309,
+  "retained_body_vertices_repositioned": 0,
+  "new_body_vertices": 1617,
+  "legacy_deformation_max_error": {
+    "HandBrain_Body": 2.3888378564151935e-07,
+    "HandBrain_AttackArm": 0,
+    "HandBrain_CrownHands": 0
+  },
+  "geometry": {
+    "HandBrain_Body": {
+      "vertices": 60926,
+      "triangles": 122492,
+      "unweighted": 0,
+      "max_influences": 8,
+      "max_weight_sum_error": 1.6997094007820124e-06
+    },
+    "HandBrain_AttackArm": {
+      "vertices": 9287,
+      "triangles": 18562,
+      "unweighted": 0,
+      "max_influences": 2,
+      "max_weight_sum_error": 2.9802322387695312e-08
+    },
+    "HandBrain_CrownHands": {
+      "vertices": 12441,
+      "triangles": 24901,
+      "unweighted": 0,
+      "max_influences": 2,
+      "max_weight_sum_error": 2.9802322387695312e-08
+    },
+    "HandBrain_OralTeeth": {
+      "vertices": 1892,
+      "triangles": 3696,
+      "unweighted": 0,
+      "max_influences": 2,
+      "max_weight_sum_error": 2.421438694000244e-08
+    }
+  },
+  "howl_closure_error": 0.0,
+  "ue_runtime_verified": false
+}

@@ -1,0 +1,199 @@
+[
+  {
+    "path": "M4WrapGrip20260910\\grip_candidate.blend",
+    "MB": 113.02,
+    "python_callers": [
+      "M4WrapGrip20260910/fit_fingers.py",
+      "M4WrapGrip20260910/fit_initial.py",
+      "M4WrapGrip20260910/probe_grip.py"
+    ]
+  },
+  {
+    "path": "M4WrapGrip20260910\\grip_candidate.blend1",
+    "MB": 113.02,
+    "python_callers": []
+  },
+  {
+    "path": "M4WrapGrip20260910\\grip_fitted.blend",
+    "MB": 113.03,
+    "python_callers": [
+      "M4WrapGrip20260910/fit_fingers.py",
+      "M4WrapGrip20260910/fit_open.py",
+      "M4WrapGrip20260910/inspect_fit.py",
+      "M4WrapGrip20260910/natural_contact.py",
+      "M4WrapGrip20260910/natural_grip.py",
+      "M4WrapGrip20260910/natural_rigid_fit.py",
+      "M4WrapGrip20260910/probe_fitted.py",
+      "M4WrapGrip20260910/refine_contact.py",
+      "M4WrapGrip20260910/refine_index.py",
+      "M4WrapGrip20260910/refine_whole.py",
+      "M4WrapGrip20260910/render_fit.py",
+      "M4WrapGrip20260910/thumb_sweep.py",
+      "M4WrapGrip20260910/verify_finger_anatomy.py",
+      "M4WrapGrip20260910/whole_grip_search.py"
+    ]
+  },
+  {
+    "path": "M4WrapGrip20260910\\grip_fitted.blend1",
+    "MB": 113.03,
+    "python_callers": []
+  },
+  {
+    "path": "M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+    "MB": 113.03,
+    "python_callers": [
+      "M4WrapGrip20260910/apply_arm_reference.py",
+      "M4WrapGrip20260910/apply_entry_clearance.py",
+      "M4WrapGrip20260910/entry_probe.py",
+      "M4WrapGrip20260910/find_arm_reference.py",
+      "M4WrapGrip20260910/fit_initial.py",
+      "M4WrapGrip20260910/probe_body.py",
+      "M4WrapGrip20260910/render_after.py",
+      "M4WrapGrip20260910/repair_authored.py",
+      "M4WrapGrip20260910/triangle_contact_probe.py",
+      "M4WrapGrip20260910/validate_polish.py",
+      "M4WrapGrip20260910/validate_surface.py",
+      "M4WrapGrip20260910/verify_contract.py",
+      "M4SlapImpact20260910/author_slap.py",
+      "M4SlapImpact20260910/probe_body.py",
+      "M4SlapImpact20260910/triangle_contact_probe.py",
+      "M4SlapImpact20260910/validate_surface.py",
+      "M4SlapImpact20260910/verify_contract.py",
+      "M4TacticalToss20260910/author_toss.py",
+      "M4TacticalToss20260910/probe_body.py",
+      "M4TacticalToss20260910/triangle_contact_probe.py",
+      "M4TacticalToss20260910/verify_contract.py"
+    ]
+  },
+  {
+    "path": "M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend1",
+    "MB": 113.08,
+    "python_callers": []
+  },
+  {
+    "path": "M4WrapGrip20260910\\natural_final.blend",
+    "MB": 113.03,
+    "python_callers": [
+      "M4WrapGrip20260910/natural_contact.py",
+      "M4WrapGrip20260910/natural_rigid_fit.py"
+    ]
+  },
+  {
+    "path": "M4WrapGrip20260910\\natural_fit.blend",
+    "MB": 113.03,
+    "python_callers": [
+      "M4WrapGrip20260910/natural_rigid_fit.py",
+      "M4WrapGrip20260910/natural_search_full.py",
+      "M4WrapGrip20260910/render_natural.py"
+    ]
+  },
+  {
+    "path": "M4WrapGrip20260910\\natural_grip.blend",
+    "MB": 113.03,
+    "python_callers": [
+      "M4WrapGrip20260910/natural_grip.py",
+      "M4WrapGrip20260910/natural_search.py",
+      "M4WrapGrip20260910/natural_search_full.py",
+      "M4WrapGrip20260910/probe_natural.py"
+    ]
+  },
+  {
+    "path": "M4WrapGrip20260910\\Delivery\\M4_\u7529\u5f39\u5323\u4e0e\u5de6\u624b\u6293\u63e1_\u5b9e\u9645\u5f55\u97f3.mp4",
+    "MB": 1.61,
+    "python_callers": []
+  },
+  {
+    "path": "M4WrapGrip20260910\\Delivery\\M4_\u7529\u5f39\u5323\u4e0e\u5de6\u624b\u6293\u63e1_\u5b9e\u9645\u5f55\u97f3_silent.mp4",
+    "MB": 1.47,
+    "python_callers": []
+  },
+  {
+    "path": "M4WrapGrip20260910\\Delivery\\M4_\u88c5\u5907\u62c9\u6813\u4e0e\u5207\u67aa_\u5b9e\u9645\u5f55\u97f3.mp4",
+    "MB": 0.73,
+    "python_callers": []
+  },
+  {
+    "path": "M4WrapGrip20260910\\Delivery\\M4_\u88c5\u5907\u62c9\u6813\u4e0e\u5207\u67aa_\u5b9e\u9645\u5f55\u97f3_silent.mp4",
+    "MB": 0.67,
+    "python_callers": []
+  },
+  {
+    "path": "M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+    "MB": 128.62,
+    "python_callers": [
+      "M4WrapGrip20260910/apply_arm_reference.py",
+      "M4WrapGrip20260910/apply_entry_clearance.py",
+      "M4WrapGrip20260910/entry_probe.py",
+      "M4WrapGrip20260910/find_arm_reference.py",
+      "M4WrapGrip20260910/fit_initial.py",
+      "M4WrapGrip20260910/probe_body.py",
+      "M4WrapGrip20260910/render_after.py",
+      "M4WrapGrip20260910/repair_authored.py",
+      "M4WrapGrip20260910/triangle_contact_probe.py",
+      "M4WrapGrip20260910/validate_polish.py",
+      "M4WrapGrip20260910/validate_surface.py",
+      "M4WrapGrip20260910/verify_contract.py",
+      "M4SlapImpact20260910/author_slap.py",
+      "M4SlapImpact20260910/probe_body.py",
+      "M4SlapImpact20260910/triangle_contact_probe.py",
+      "M4SlapImpact20260910/validate_surface.py",
+      "M4SlapImpact20260910/verify_contract.py",
+      "M4TacticalToss20260910/author_toss.py",
+      "M4TacticalToss20260910/probe_body.py",
+      "M4TacticalToss20260910/triangle_contact_probe.py",
+      "M4TacticalToss20260910/verify_contract.py"
+    ]
+  },
+  {
+    "path": "M4SlapImpact20260910\\Delivery\\M4_\u62cd\u51fb\u63d0\u901f50\u4e0e\u67aa\u8eab\u8f7b\u9707_\u5b9e\u9645\u5f55\u97f3.mp4",
+    "MB": 1.6,
+    "python_callers": []
+  },
+  {
+    "path": "M4SlapImpact20260910\\Delivery\\M4_\u62cd\u51fb\u63d0\u901f50\u4e0e\u67aa\u8eab\u8f7b\u9707_\u5b9e\u9645\u5f55\u97f3_silent.mp4",
+    "MB": 1.46,
+    "python_callers": []
+  },
+  {
+    "path": "M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+    "MB": 140.44,
+    "python_callers": [
+      "M4WrapGrip20260910/apply_arm_reference.py",
+      "M4WrapGrip20260910/apply_entry_clearance.py",
+      "M4WrapGrip20260910/entry_probe.py",
+      "M4WrapGrip20260910/find_arm_reference.py",
+      "M4WrapGrip20260910/fit_initial.py",
+      "M4WrapGrip20260910/probe_body.py",
+      "M4WrapGrip20260910/render_after.py",
+      "M4WrapGrip20260910/repair_authored.py",
+      "M4WrapGrip20260910/triangle_contact_probe.py",
+      "M4WrapGrip20260910/validate_polish.py",
+      "M4WrapGrip20260910/validate_surface.py",
+      "M4WrapGrip20260910/verify_contract.py",
+      "M4SlapImpact20260910/author_slap.py",
+      "M4SlapImpact20260910/probe_body.py",
+      "M4SlapImpact20260910/triangle_contact_probe.py",
+      "M4SlapImpact20260910/validate_surface.py",
+      "M4SlapImpact20260910/verify_contract.py",
+      "M4TacticalToss20260910/author_toss.py",
+      "M4TacticalToss20260910/probe_body.py",
+      "M4TacticalToss20260910/triangle_contact_probe.py",
+      "M4TacticalToss20260910/verify_contract.py"
+    ]
+  },
+  {
+    "path": "M4TacticalToss20260910\\Delivery\\M4_\u975e\u7a7a\u4ed3\u7529\u5f39\u5323\u4e0e\u53d6\u5f39\u63d2\u5165_\u5b9e\u9645\u5f55\u97f3.mp4",
+    "MB": 1.61,
+    "python_callers": []
+  },
+  {
+    "path": "M4TacticalToss20260910\\Delivery\\M4_\u975e\u7a7a\u4ed3\u7529\u5f39\u5323\u4e0e\u53d6\u5f39\u63d2\u5165_\u5b9e\u9645\u5f55\u97f3_silent.mp4",
+    "MB": 1.47,
+    "python_callers": []
+  },
+  {
+    "path": "M4TacticalToss20260910\\Delivery\\\u975e\u7a7a\u4ed3\u6362\u5f39_\u5b9e\u9645\u6e38\u620f.mp4",
+    "MB": 0.53,
+    "python_callers": []
+  }
+]

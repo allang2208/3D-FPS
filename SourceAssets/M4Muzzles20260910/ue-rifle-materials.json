@@ -1,0 +1,36 @@
+{
+  "materials": [
+    {
+      "slot": "Flash_Hider_001",
+      "asset": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001"
+    },
+    {
+      "slot": "Grip_Default_001",
+      "asset": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+    },
+    {
+      "slot": "Keymod_material_001",
+      "asset": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001"
+    },
+    {
+      "slot": "Body_001",
+      "asset": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+    },
+    {
+      "slot": "Magazine_Light_001",
+      "asset": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001"
+    },
+    {
+      "slot": "Classic_Stock_001",
+      "asset": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001"
+    },
+    {
+      "slot": "MI_Manny_01",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ]
+}

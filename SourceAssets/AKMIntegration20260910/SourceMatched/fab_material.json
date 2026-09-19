@@ -1,0 +1,39 @@
+{
+  "source": "https://www.fab.com/listings/17d58a5d-f1a8-4417-9e6f-f21ed6fc7031",
+  "category": "Quixel imperfection scan, not a complete steel basecolor set",
+  "texture": "/Game/ColdSteelUI/Warehouse20260909/DirtyMetal/T_DirtyMetal_MR_4K.T_DirtyMetal_MR_4K",
+  "material": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel",
+  "roughness": "0.28 + G * 0.20",
+  "dirt": "R * 0.18",
+  "metallic": 0.95,
+  "slots": [
+    {
+      "name": "M_AKMR_BluedSteel",
+      "material": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+    },
+    {
+      "name": "M_AKMR_Walnut",
+      "material": "/Game/Weapons/AKMIntegration/Materials/M_AKM_Redwood.M_AKM_Redwood"
+    },
+    {
+      "name": "M_AKMR_Bakelite",
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Bakelite_PBR_Skinned.M_AKMR_Bakelite_PBR_Skinned"
+    },
+    {
+      "name": "M_AKMR_BoltSteel",
+      "material": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+    },
+    {
+      "name": "M_AKMR_Parkerized",
+      "material": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+    },
+    {
+      "name": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "name": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ]
+}

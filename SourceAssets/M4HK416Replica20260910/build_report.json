@@ -1,0 +1,65 @@
+{
+  "source": "Actual Godot HK416 runtime 60 Hz, including AnimationTree and fitted hand pose",
+  "clips": {
+    "reload": {
+      "duration": 2.1,
+      "samples": 127,
+      "limb_length_error_cm": 5.423989923869499e-06,
+      "shoulder_reach_adaptation_cm": 0,
+      "bake_error_cm": 0.0001892680517077133
+    },
+    "reload_empty": {
+      "duration": 2.7,
+      "samples": 163,
+      "limb_length_error_cm": 5.980741163424952e-06,
+      "shoulder_reach_adaptation_cm": 0,
+      "bake_error_cm": 0.00016335571560356497
+    },
+    "equip_charge": {
+      "duration": 0.6333333333333333,
+      "samples": 39,
+      "limb_length_error_cm": 4.3573972652311e-06,
+      "shoulder_reach_adaptation_cm": 1.6907435801739368,
+      "bake_error_cm": 0.0002130397081453981
+    }
+  },
+  "bone_count": 100,
+  "fit_matrix": [
+    [
+      0.98377525806427,
+      -7.35528883524239e-05,
+      -0.17940588295459747,
+      -0.024023499339818954
+    ],
+    [
+      0.0007027549436315894,
+      0.9999939203262329,
+      0.00344359059818089,
+      -0.0872897133231163
+    ],
+    [
+      0.17940449714660645,
+      -0.0035137974191457033,
+      0.9837691783905029,
+      -0.06460095196962357
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "charging_handle_vertices": 332,
+  "bolt_catch_vertices": 162,
+  "fit_notes": {
+    "equip_forward_clearance_cm": 6,
+    "empty_glove_rotation_deg": [
+      0,
+      -15,
+      -15
+    ],
+    "source_equip_seconds": 0.62,
+    "original_bones_preserved": 98
+  }
+}

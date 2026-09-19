@@ -1,0 +1,24 @@
+{
+  "reload": {
+    "start_frame": 69,
+    "aligned_frame": 75,
+    "seat_frame": 95,
+    "end_frame": 126,
+    "source_seconds": 2.1,
+    "max_wrist_change_cm": 1.7361261427298265,
+    "max_elbow_change_cm": 1.8506308667200753,
+    "max_grip_translation_error_cm": 4.348388884190005e-06,
+    "max_arm_length_error_cm": 5.8098650890237025e-06
+  },
+  "reload_empty": {
+    "start_frame": 47,
+    "aligned_frame": 53,
+    "seat_frame": 80,
+    "end_frame": 148,
+    "source_seconds": 2.466666666666667,
+    "max_wrist_change_cm": 2.3272180185544014,
+    "max_elbow_change_cm": 2.538438136219627,
+    "max_grip_translation_error_cm": 4.535837345527828e-06,
+    "max_arm_length_error_cm": 4.870037978443875e-06
+  }
+}

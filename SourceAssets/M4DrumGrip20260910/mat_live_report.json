@@ -1,0 +1,8 @@
+{
+  "widget": "/Game/Weapons/M4InfimaRigV4/Preview/L_M4RigValidation.L_M4RigValidation:Locodrome_MAT_C_0",
+  "rigs": [
+    "CR_M4_DrumGrip_MAT"
+  ],
+  "SelectedControlRig": "<Struct 'ControlRigSequencerBindingProxy' (0x00000263908B8AD0) {proxy: {binding_id: {}, sequence: None}, control_rig: None, track: None}>",
+  "ControlRigType": "EditorUtilityWidget: Failed to find property 'ControlRigType' for attribute 'ControlRigType' on 'Locodrome_MAT_C'"
+}

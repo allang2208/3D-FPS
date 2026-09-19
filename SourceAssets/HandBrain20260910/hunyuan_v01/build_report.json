@@ -1,0 +1,78 @@
+{
+  "source_triangles": 499868,
+  "body_triangles": 120000,
+  "body_vertices": 59680,
+  "method": "UV-preserving collapse reduction; not semantic quad retopology",
+  "max_weights": 3,
+  "unweighted_vertices": 0,
+  "body_prepared": true,
+  "attack_arm_pending": false,
+  "animation_verified": true,
+  "ue_runtime_verified": false,
+  "attack_arm_triangles": 18387,
+  "bone_count": 25,
+  "source_arm_cut_plane_y": -0.7,
+  "arm_anchor": [
+    0.0,
+    -0.17000000178813934,
+    1.6200000047683716
+  ],
+  "elbow": [
+    0.5642498135566711,
+    -0.1442689597606659,
+    1.3799999952316284
+  ],
+  "wrist": [
+    1.0859358310699463,
+    -0.018396541476249695,
+    0.9479999542236328
+  ],
+  "fist_tip": [
+    1.643593668937683,
+    0.04990850389003754,
+    0.5799999237060547
+  ],
+  "rig_prepared": true,
+  "rig_visual_verified": true,
+  "crown_triangles": 24462,
+  "crown_method": "Raised hands reconstructed from Hunyuan attack reference; independently skinned fan",
+  "clips": {
+    "Idle": {
+      "duration_s": 2,
+      "fps": 30,
+      "frames": [
+        1,
+        61
+      ],
+      "loop": true,
+      "root_motion": false
+    },
+    "Move": {
+      "duration_s": 1,
+      "fps": 30,
+      "frames": [
+        1,
+        31
+      ],
+      "loop": true,
+      "root_motion": false
+    },
+    "Attack_Slam": {
+      "duration_s": 2,
+      "fps": 30,
+      "frames": [
+        1,
+        61
+      ],
+      "loop": false,
+      "root_motion": false,
+      "hit_time_s": 1.0,
+      "hit_frame_30fps": 31,
+      "source_frame_1based": 14
+    }
+  },
+  "impact_mount_degrees": 9.244270324707031,
+  "animation_authored": true,
+  "animation_verification": "FBX and GLB reimport, loop/timing/skin checks, rendered key poses and 60-frame previews",
+  "total_triangles": 163463
+}

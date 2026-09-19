@@ -1,0 +1,101 @@
+{
+  "maps": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_Body_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.5647059082984924,
+      "stddev": 0.08595901727676392
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_Body_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.5490196347236633,
+      "stddev": 0.22113099694252014
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_Body_0_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.23566783964633942
+    },
+    {
+      "object": "HandBrain_Body",
+      "slot": 1,
+      "mode": "constant_mucosa_no_uv",
+      "empty_bake_used": false
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_Body_2_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.32156863808631897,
+      "stddev": 0.10826728492975235
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_Body_2_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.545098066329956,
+      "stddev": 0.24878285825252533
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_Body_2_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.23634102940559387
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_AttackArm_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.5176470875740051,
+      "stddev": 0.0705174133181572
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_AttackArm_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.5490196347236633,
+      "stddev": 0.24272790551185608
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_AttackArm_0_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.2381685972213745
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_CrownHands_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.5058823823928833,
+      "stddev": 0.07519715279340744
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_CrownHands_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.545098066329956,
+      "stddev": 0.20507128536701202
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_CrownHands_0_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.24573323130607605
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_OralTeeth_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.6627451181411743,
+      "stddev": 0.17357571423053741
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_OralTeeth_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.41568630933761597,
+      "stddev": 0.10823708772659302
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\material_v04\\textures\\HandBrain_OralTeeth_0_Normal_DirectX.png",
+      "minimum": 0.46274513006210327,
+      "maximum": 1.0,
+      "stddev": 0.2354171723127365
+    }
+  ],
+  "complete": true
+}

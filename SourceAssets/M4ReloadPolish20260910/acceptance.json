@@ -1,0 +1,67 @@
+{
+  "build": "2026091063",
+  "assets": {
+    "reload": {
+      "path": "/Game/Weapons/M4ReloadPolish/A_M4_HK416_reload.A_M4_HK416_reload",
+      "duration": 2.0999999046325684,
+      "before_sha256": "2bc1b99d60d27f5409430f4bb9be9243160c54a5b5534af83903586cf1c4ff10",
+      "after_sha256": "958e0e91d45346f3207266865e7c5a93f81f9cb04236b272ed895e9d2f757357",
+      "keys": 505,
+      "compression_error_cm": 0.0028275664895351794
+    },
+    "reload_empty": {
+      "path": "/Game/Weapons/M4ReloadPolish/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+      "duration": 2.700000047683716,
+      "before_sha256": "b6c79d85392f70122fa491f612c3cda6b0cac0901130f7f525359e5476c7ca36",
+      "after_sha256": "cd77d4e4752e4af1cbd594594320a12738d005318794060a3965cf03be5f274b",
+      "keys": 649,
+      "compression_error_cm": 0.004089859439880149
+    },
+    "equip_charge": {
+      "path": "/Game/Weapons/M4ReloadPolish/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+      "duration": 0.6333333253860474,
+      "before_sha256": "8ebc93c3540159196c84182cb3325853f05f29a025c69e31a23d8fdf9637e667",
+      "after_sha256": "61731dbba427088f1005df1e41fa042d979e9bc239ab304081084aba90bd0f5f",
+      "keys": 153,
+      "compression_error_cm": 0.0004934240041094098
+    },
+    "equip_audio": {
+      "duration": 0.8112708330154419,
+      "time_stretch_factor": 1.161290322580645,
+      "pitch_preserved": true
+    }
+  },
+  "runtime": [
+    {
+      "label": "m4-polish-av60-final",
+      "requested_hz": 60,
+      "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+      "rhi": "-d3d11",
+      "process_exit": 0,
+      "pass": 50,
+      "fail": 0,
+      "completion_marker": true,
+      "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-polish-av60-final\\assertions.log",
+      "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ReloadPolish20260910\\runtime-m4-polish-av60-final.log",
+      "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+    },
+    {
+      "label": "m4-polish-equip",
+      "requested_hz": 60,
+      "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+      "rhi": "-d3d11",
+      "process_exit": 0,
+      "pass": 21,
+      "fail": 0,
+      "completion_marker": true,
+      "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-polish-equip\\assertions.log",
+      "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ReloadPolish20260910\\runtime-m4-polish-equip.log",
+      "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+    }
+  ],
+  "audio_min_contact_correlation": 0.8020816649118878,
+  "audio_clipped_samples": 0,
+  "asset_readback": "Fresh editor loaded all three saved assets and asserted 505/649/153 keys before baking MAT sequences.",
+  "audio_max_game_cue_lateness_seconds": 0.021787,
+  "rejected_capture": "m4-polish-av60 failed waveform checks during a multi-second stall; final delivery uses m4-polish-av60-final."
+}

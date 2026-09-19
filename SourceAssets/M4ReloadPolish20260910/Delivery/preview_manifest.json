@@ -1,0 +1,20 @@
+[
+  {
+    "run": "m4-polish-av60-final",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ReloadPolish20260910\\Delivery\\M4_换弹与开火_实际录音.mp4",
+    "fps": 20,
+    "source_frames": 278,
+    "held_missing_frames": 6,
+    "audio_origin_trim": 2.613,
+    "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+  },
+  {
+    "run": "m4-polish-equip",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ReloadPolish20260910\\Delivery\\M4_装备拉栓与切枪_实际录音.mp4",
+    "fps": 20,
+    "source_frames": 124,
+    "held_missing_frames": 20,
+    "audio_origin_trim": -0.271926,
+    "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+  }
+]

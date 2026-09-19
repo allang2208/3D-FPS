@@ -1,0 +1,182 @@
+{
+  "glb": {
+    "clips": {
+      "Attack_Slam": {
+        "duration_s": 2.0,
+        "frame_range": [
+          1.0,
+          61.0
+        ],
+        "loop_matrix_error": null,
+        "impact_lowest_z_m": 0.011999726295471191
+      },
+      "Idle": {
+        "duration_s": 2.0,
+        "frame_range": [
+          1.0,
+          61.0
+        ],
+        "loop_matrix_error": 0.0
+      },
+      "Move": {
+        "duration_s": 1.0,
+        "frame_range": [
+          1.0,
+          31.0
+        ],
+        "loop_matrix_error": 6.368163900496397e-18
+      }
+    },
+    "mesh_count": 3,
+    "bone_count": 25,
+    "vertices": 128220,
+    "triangles": 163463,
+    "unweighted": 0,
+    "max_weights": 3,
+    "finite": true,
+    "textures": [
+      {
+        "name": "HandBrain_AttackArm_BaseColor",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "HandBrain_Body_BaseColor",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "HandBrain_CrownHands_BaseColor",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness.001",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_normal",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_normal.001",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      }
+    ]
+  },
+  "fbx": {
+    "clips": {
+      "Attack_Slam": {
+        "duration_s": 2.0,
+        "frame_range": [
+          1.0,
+          61.0
+        ],
+        "loop_matrix_error": null,
+        "impact_lowest_z_m": 0.011999517679214478
+      },
+      "Idle": {
+        "duration_s": 2.0,
+        "frame_range": [
+          1.0,
+          61.0
+        ],
+        "loop_matrix_error": 0.0
+      },
+      "Move": {
+        "duration_s": 1.0,
+        "frame_range": [
+          1.0,
+          31.0
+        ],
+        "loop_matrix_error": 5.169878828456423e-25
+      }
+    },
+    "mesh_count": 3,
+    "bone_count": 25,
+    "vertices": 81408,
+    "triangles": 163463,
+    "unweighted": 0,
+    "max_weights": 3,
+    "finite": true,
+    "textures": [
+      {
+        "name": "HandBrain_AttackArm_BaseColor",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "HandBrain_Body_BaseColor",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "HandBrain_CrownHands_BaseColor",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_normal",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_normal.001",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      },
+      {
+        "name": "texture_pbr_20250901_normal.002",
+        "size": [
+          4096,
+          4096
+        ],
+        "loaded": true
+      }
+    ]
+  }
+}

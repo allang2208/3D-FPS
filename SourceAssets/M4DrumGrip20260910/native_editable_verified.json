@@ -1,0 +1,15 @@
+{
+  "reload": {
+    "sequence": "/Game/Weapons/M4DrumGripCandidate/LS_M4_DrumGrip_FK_reload.LS_M4_DrumGrip_FK_reload",
+    "frame": 76,
+    "bone_error_cm": {
+      "hand_l": 37.15987569990192,
+      "hand_r": 58.77414551276736,
+      "WPN_SOCKET_Magazine": 31.80221585990548,
+      "index_03_l": 58.52865708437089,
+      "thumb_03_l": 42.87633482423038
+    },
+    "pass": false,
+    "optimized_anim_node": 0
+  }
+}

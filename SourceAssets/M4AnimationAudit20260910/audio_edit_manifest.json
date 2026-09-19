@@ -1,0 +1,38 @@
+{
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\Audio\\equip.wav",
+    "segments_start_end_destination_s": [
+      [
+        0.035,
+        0.2,
+        0.235
+      ],
+      [
+        0.395,
+        0.72,
+        0.345
+      ]
+    ],
+    "duration": 0.72,
+    "peak": 0.604827880859375,
+    "pitch": "unchanged; source segments crossfaded without resampling speed"
+  },
+  "bolt_release": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\Audio\\bolt_release.wav",
+    "segments_start_end_destination_s": [
+      [
+        0,
+        0.065,
+        0
+      ],
+      [
+        0.16,
+        0.274020833,
+        0.025
+      ]
+    ],
+    "duration": 0.15,
+    "peak": 0.35933373495936394,
+    "pitch": "unchanged; source segments crossfaded without resampling speed"
+  }
+}

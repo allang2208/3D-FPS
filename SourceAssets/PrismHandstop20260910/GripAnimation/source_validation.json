@@ -1,0 +1,65 @@
+{
+  "idle": {
+    "max_arm_length_change_m": 2.571760338576645e-07,
+    "max_bone_scale_change": 7.633118912497578e-07,
+    "max_finger_local_translation_change_m": 1.8831526502309857e-07,
+    "nonleft_position_change_m": 4.202153877080552e-07,
+    "preserved_contact_position_change_m": 0
+  },
+  "aim": {
+    "max_arm_length_change_m": 1.6035521310797662e-07,
+    "max_bone_scale_change": 5.93058727447164e-07,
+    "max_finger_local_translation_change_m": 1.427388383821363e-07,
+    "nonleft_position_change_m": 2.973997497412422e-07,
+    "preserved_contact_position_change_m": 0
+  },
+  "fire": {
+    "max_arm_length_change_m": 2.9626597869425453e-07,
+    "max_bone_scale_change": 8.429369702178807e-07,
+    "max_finger_local_translation_change_m": 1.7822343460239647e-07,
+    "nonleft_position_change_m": 4.009665469257136e-07,
+    "preserved_contact_position_change_m": 0
+  },
+  "aim_fire": {
+    "max_arm_length_change_m": 2.4508508966736287e-07,
+    "max_bone_scale_change": 5.93058727447164e-07,
+    "max_finger_local_translation_change_m": 1.601314650863293e-07,
+    "nonleft_position_change_m": 4.2083910598160063e-07,
+    "preserved_contact_position_change_m": 0
+  },
+  "equip": {
+    "max_arm_length_change_m": 2.9993383343640545e-07,
+    "max_bone_scale_change": 9.610960183499514e-07,
+    "max_finger_local_translation_change_m": 1.7729673249899522e-07,
+    "nonleft_position_change_m": 7.083661787621563e-07,
+    "preserved_contact_position_change_m": 0
+  },
+  "reload": {
+    "max_arm_length_change_m": 3.923630930102728e-06,
+    "max_bone_scale_change": 9.43957688553864e-06,
+    "max_finger_local_translation_change_m": 2.8133006126728485e-07,
+    "nonleft_position_change_m": 8.535387213003448e-07,
+    "preserved_contact_position_change_m": 9.766798977955544e-07
+  },
+  "reload_empty": {
+    "max_arm_length_change_m": 2.350634434322707e-07,
+    "max_bone_scale_change": 1.0409503696306335e-06,
+    "max_finger_local_translation_change_m": 2.2627437888524641e-07,
+    "nonleft_position_change_m": 8.587662789694691e-07,
+    "preserved_contact_position_change_m": 7.8057055793457e-07
+  },
+  "drum_reload": {
+    "max_arm_length_change_m": 1.3724035159978776e-06,
+    "max_bone_scale_change": 3.3890888633321524e-06,
+    "max_finger_local_translation_change_m": 2.1165224788207292e-07,
+    "nonleft_position_change_m": 9.044403377469491e-07,
+    "preserved_contact_position_change_m": 6.698367261739295e-07
+  },
+  "drum_reload_empty": {
+    "max_arm_length_change_m": 6.591604742589574e-07,
+    "max_bone_scale_change": 1.5359042557150276e-06,
+    "max_finger_local_translation_change_m": 2.813529481804412e-07,
+    "nonleft_position_change_m": 9.974877817141748e-07,
+    "preserved_contact_position_change_m": 6.692678681103848e-07
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-10",
+  "status": "Integrated, build passed and runtime verified",
+  "scope": "Gunsmith layout review, attachment scrolling, generic option selection, status and preview mesh synchronization",
+  "build_log": "SourceAssets/GunsmithWorkbench20260910/build-layout.log",
+  "runs": [
+    {
+      "run": "layout-final-1920",
+      "checks": 44,
+      "failures": 0,
+      "module": "UnrealEditor-FPSGAME-2026091322.dll",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-1920.log",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-1920-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-1920-scroll.png"
+      ]
+    },
+    {
+      "run": "layout-final-1280",
+      "checks": 44,
+      "failures": 0,
+      "module": "UnrealEditor-FPSGAME-2026091322.dll",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-1280.log",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-1280-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-1280-scroll.png"
+      ]
+    },
+    {
+      "run": "layout-final-v2-1280",
+      "checks": 44,
+      "failures": 0,
+      "module": "UnrealEditor-FPSGAME-2026091323.dll",
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-v2-1280.log",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-v2-1280-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\layout-final-v2-1280-scroll.png"
+      ]
+    }
+  ],
+  "stress_options": 14,
+  "fixtures": "12 temporary in-memory options; restored and never saved to production catalog",
+  "visual_review": "Full fourteen-stat table, selected category and comparison, normal cards, scrolled end of attachment list, 720p summary text",
+  "final_revision_note": "720p final-v2 rerun validates shortened card summaries; normal 1080p layout unchanged",
+  "limitations": [
+    "Developed and tested in editor game mode, not packaged build",
+    "Future real attachments still require model and gameplay integration"
+  ]
+}

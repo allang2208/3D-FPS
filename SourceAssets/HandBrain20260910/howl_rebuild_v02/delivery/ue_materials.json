@@ -1,0 +1,95 @@
+{
+  "HandBrain_Body": [
+    {
+      "material": "Material.001",
+      "slot": 0,
+      "BaseColor": {
+        "file": "textures/HandBrain_Body_0_BaseColor.png",
+        "sRGB": true
+      },
+      "Normal_DirectX": {
+        "file": "textures/HandBrain_Body_0_Normal_DirectX.png",
+        "sRGB": false
+      },
+      "Roughness": {
+        "file": "textures/HandBrain_Body_0_Roughness.png",
+        "sRGB": false
+      },
+      "Metallic": 0
+    },
+    {
+      "material": "Oral mucosa - authored local interior",
+      "slot": 1,
+      "BaseColor": [
+        0.02199999988079071,
+        0.0024999999441206455,
+        0.004000000189989805,
+        1.0
+      ],
+      "Roughness": 0.8500000238418579,
+      "Metallic": 0
+    },
+    {
+      "material": "Original skin - reprojected mouth UV",
+      "slot": 2,
+      "BaseColor": {
+        "file": "textures/HandBrain_Body_2_BaseColor.png",
+        "sRGB": true
+      },
+      "Roughness": 0.7799999713897705,
+      "Metallic": 0
+    }
+  ],
+  "HandBrain_AttackArm": [
+    {
+      "material": "Material.002",
+      "slot": 0,
+      "BaseColor": {
+        "file": "textures/HandBrain_AttackArm_0_BaseColor.png",
+        "sRGB": true
+      },
+      "Normal_DirectX": {
+        "file": "textures/HandBrain_AttackArm_0_Normal_DirectX.png",
+        "sRGB": false
+      },
+      "Roughness": {
+        "file": "textures/HandBrain_AttackArm_0_Roughness.png",
+        "sRGB": false
+      },
+      "Metallic": 0
+    }
+  ],
+  "HandBrain_CrownHands": [
+    {
+      "material": "Material.003",
+      "slot": 0,
+      "BaseColor": {
+        "file": "textures/HandBrain_CrownHands_0_BaseColor.png",
+        "sRGB": true
+      },
+      "Normal_DirectX": {
+        "file": "textures/HandBrain_CrownHands_0_Normal_DirectX.png",
+        "sRGB": false
+      },
+      "Roughness": {
+        "file": "textures/HandBrain_CrownHands_0_Roughness.png",
+        "sRGB": false
+      },
+      "Metallic": 0
+    }
+  ],
+  "HandBrain_OralTeeth": [
+    {
+      "material": "Aged teeth",
+      "slot": 0,
+      "BaseColor": [
+        0.47999998927116394,
+        0.4300000071525574,
+        0.2800000011920929,
+        1.0
+      ],
+      "Roughness": 0.5600000023841858,
+      "Metallic": 0
+    }
+  ]
+}

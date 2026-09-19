@@ -1,0 +1,127 @@
+{
+  "unchanged_nonbody_meshes": true,
+  "interpolated_body_weights_normalized": true,
+  "weight_sum_range": [
+    0.9999983002905992,
+    1.0000001004664227
+  ],
+  "sampled_bone_poses_unchanged": true,
+  "actions": {
+    "Idle": [
+      1,
+      16,
+      31,
+      46,
+      61
+    ],
+    "Move": [
+      1,
+      8,
+      16,
+      24,
+      31
+    ],
+    "Attack_Slam": [
+      1,
+      16,
+      31,
+      46,
+      61
+    ],
+    "Attack_Howl": [
+      1,
+      24,
+      46,
+      68,
+      91
+    ],
+    "Death": [
+      1,
+      22,
+      43,
+      64,
+      85
+    ]
+  },
+  "meshes": {
+    "HandBrain_Body": {
+      "vertices": 91112,
+      "polygons": 177990,
+      "weights": "b15d6e2cb16c5f69b91ebbde014ebd7d16e6e1aa2e4b02a2a60fc8a5e2be9c48",
+      "groups": [
+        "root",
+        "base",
+        "neck",
+        "cranium",
+        "crown_00",
+        "crown_01",
+        "crown_02",
+        "crown_03",
+        "crown_04",
+        "crown_05",
+        "crown_06",
+        "crown_07",
+        "arm_mount",
+        "attack_upper",
+        "attack_forearm",
+        "attack_fist",
+        "fan_mount",
+        "fan_00",
+        "fan_01",
+        "fan_02",
+        "fan_03",
+        "fan_04",
+        "fan_05",
+        "fan_06",
+        "fan_07",
+        "mouth_jaw_cranium",
+        "mouth_upper_cranium",
+        "mouth_cheek_L_cranium",
+        "mouth_cheek_R_cranium",
+        "mouth_jaw_neck",
+        "mouth_upper_neck",
+        "mouth_cheek_L_neck",
+        "mouth_cheek_R_neck",
+        "mouth_jaw_base",
+        "mouth_upper_base",
+        "mouth_cheek_L_base",
+        "mouth_cheek_R_base",
+        "death_pivot"
+      ]
+    },
+    "HandBrain_AttackArm": {
+      "vertices": 9287,
+      "polygons": 18387,
+      "weights": "fcaed48737f639ca6e2f58923ff6760e18d74cd6f1b71a7889600f210e0ed1dc",
+      "groups": [
+        "attack_upper",
+        "attack_forearm",
+        "attack_fist"
+      ]
+    },
+    "HandBrain_CrownHands": {
+      "vertices": 12441,
+      "polygons": 24462,
+      "weights": "58c5a826c9063aa0d308f2b0c5800577e00e857b2cb7331a3fb28ce5d62266b4",
+      "groups": [
+        "fan_00",
+        "fan_01",
+        "fan_02",
+        "fan_03",
+        "fan_04",
+        "fan_05",
+        "fan_06",
+        "fan_07"
+      ]
+    },
+    "HandBrain_OralTeeth": {
+      "vertices": 1892,
+      "polygons": 2112,
+      "weights": "19619143cc82520d73cd52cf9ecddfacb214c5c9c15a51b6a705298d582c4eb0",
+      "groups": [
+        "mouth_upper_neck",
+        "mouth_jaw_neck"
+      ]
+    }
+  }
+}

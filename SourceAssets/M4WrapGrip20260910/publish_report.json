@@ -1,0 +1,26 @@
+{
+  "reload": {
+    "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+    "duration": 2.0999999046325684,
+    "before_sha256": "a720316d0a45896ab38f4ea559f12d01432c895677c57680b0c5a005a0914271",
+    "after_sha256": "bc67d4f681ddbdf05a413c38f3a1b33137047bb7e8a618d68ea46e12ebb02dd2",
+    "keys": 1009,
+    "compression_error_cm": 0.0008038384230062684
+  },
+  "reload_empty": {
+    "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+    "duration": 2.700000047683716,
+    "before_sha256": "8620baec3128d12ff9eb211dce5814c360468c89f884c0f77189ed04d545edae",
+    "after_sha256": "5cbe504ad232e91788a397e0b9072f897d3fa6a8d1653f16fea355d0f664b3ed",
+    "keys": 1297,
+    "compression_error_cm": 0.0010425770801882636
+  },
+  "equip_charge": {
+    "path": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+    "duration": 0.6333333253860474,
+    "before_sha256": "0f026224c58ee2aa0aa184b7e3d130f569fcbb0785c27f9bfcf4a94ae115dfff",
+    "after_sha256": "7277d617e477b8447fc47a290ddf29e0f14523702ca1dcf39ca57329be3f70e2",
+    "keys": 305,
+    "compression_error_cm": 0.0008669305685929206
+  }
+}

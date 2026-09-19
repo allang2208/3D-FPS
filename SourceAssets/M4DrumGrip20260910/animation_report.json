@@ -1,0 +1,24 @@
+{
+  "reload": {
+    "frames": 127,
+    "duration": 2.1,
+    "open_start": 8,
+    "grip_locked": 25,
+    "seat": 95,
+    "release_complete": 110,
+    "contact_slip_cm": 1.3329305248569582e-05,
+    "right_hand_change_cm": 0,
+    "loop": false
+  },
+  "reload_empty": {
+    "frames": 163,
+    "duration": 2.7,
+    "open_start": 27,
+    "grip_locked": 43,
+    "seat": 80,
+    "release_complete": 98,
+    "contact_slip_cm": 6.143906154658885e-06,
+    "right_hand_change_cm": 0,
+    "loop": false
+  }
+}

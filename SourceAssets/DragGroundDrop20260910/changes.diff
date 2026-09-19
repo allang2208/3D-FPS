@@ -1,0 +1,123 @@
+--- before/ColdSteelHotbarDrag.cpp
++++ after/ColdSteelHotbarDrag.cpp
+@@ -18,7 +18,7 @@
+     const auto PanelGeometry=InventoryPanel->GetCachedGeometry();
+     InventoryDragBounds=FSlateRect(PanelGeometry.LocalToAbsolute(FVector2D::ZeroVector),PanelGeometry.LocalToAbsolute(PanelGeometry.GetLocalSize()));
+     // Keep the interaction session alive while the drawer is visually hidden.
+-    // The transparent backdrop receives outside drops, never world-item discard.
++    // The transparent backdrop receives released items outside the drawer.
+     InventoryBackdrop->SetVisibility(ESlateVisibility::Visible);
+     if(HotbarCanvasSlot)HotbarCanvasSlot->SetZOrder(60);
+     HideItemTooltip(true);
+@@ -107,7 +107,17 @@
+         if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Model->ResultMessage();
+         RefreshAmmo();
+     }
+-    // Empty space is cancellation; the item remains in its original backpack cell.
++    const FVector2D Position=Event.GetScreenSpacePosition();
++    const bool OverHotbar=HotbarCanvasSlot&&HotbarCanvasSlot->GetContent()&&HotbarCanvasSlot->GetContent()->GetCachedGeometry().IsUnderLocation(Position);
++    if(Target<0&&bInventoryDragOutside&&!OverHotbar&&Geometry.IsUnderLocation(Position)&&Drag->HotbarIndex<0){
++        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++        const auto* Item=Model->FindItem(Drag->ItemId);
++        if(Item&&Item->Place<=1&&Item->Place==Drag->SourcePlace&&Item->Cell==Drag->SourceCell){
++            const bool Dropped=Model->Drop(Drag->ItemId);
++            if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Dropped?TEXT("物品已放到脚边，可重新拾取"):Model->ResultMessage();
++            RefreshAmmo();
++        }
++    }
+     EndInventoryDrag();
+     return true;
+ }
+--- before/ColdSteelProfileRuntime.cpp
++++ after/ColdSteelProfileRuntime.cpp
+@@ -10,6 +10,7 @@
+ #include "Misc/CommandLine.h"
+ #include "Misc/Parse.h"
+ #include "Engine/GameInstance.h"
++#include "Engine/World.h"
+ #include "EngineUtils.h"
+ #include "../Weapons/GunsmithSystem.h"
+ #include "Misc/SecureHash.h"
+@@ -210,7 +211,15 @@
+ bool UColdSteelStatusModel::Drop(const FString& Id)
+ {
+     if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});if(!I||I->Place>1)return false;
+-    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=CurrentPawn->GetActorLocation()+CurrentPawn->GetActorForwardVector()*120;
++    const FVector Origin=CurrentPawn->GetActorLocation();
++    FVector Candidate=Origin+CurrentPawn->GetActorForwardVector()*120;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(InventoryGroundDrop),false,CurrentPawn.Get());
++    FHitResult Obstacle,Ground;
++    if(GetWorld()->LineTraceSingleByChannel(Obstacle,Origin,Candidate,ECC_Visibility,Query))Candidate=Obstacle.ImpactPoint-CurrentPawn->GetActorForwardVector()*20;
++    auto FindGround=[&](FVector At){return GetWorld()->LineTraceSingleByChannel(Ground,At+FVector(0,0,40),At-FVector(0,0,500),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>=.5f&&FVector::Dist(Origin,Ground.ImpactPoint)<=230;};
++    if(!FindGround(Candidate)&&!FindGround(Origin)){Message=TEXT("附近没有可放置物品的地面");return false;}
++    // The existing pickup cube is 20 cm tall; keep its base on the ground.
++    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint+FVector(0,0,10);
+     if(!CommitState(P))return false;RefreshDrops();return true;
+ }
+ bool UColdSteelStatusModel::Pickup(const FString& Id)
+--- before/ColdSteelInventoryDragAudit.cpp
++++ after/ColdSteelInventoryDragAudit.cpp
+@@ -2,6 +2,8 @@
+ #include "ColdSteelInventoryWidget.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelInventoryPopup.h"
++#include "ColdSteelPickup.h"
++#include "EngineUtils.h"
+ #include "Components/EditableTextBox.h"
+ #include "Misc/FileHelper.h"
+ #include "Misc/CommandLine.h"
+@@ -196,6 +198,54 @@
+             Drag->ItemId=R->Potion;Drag->SourceCell=9;BeginInventoryDrag(Drag);NativeOnDrop(GetCachedGeometry(),Drop,Drag);
+             Check(M->Snapshot().Generation==Generation,TEXT("stale consumable drag cannot bind bottom hotbar"));break;
+         }
++        case 87:
++        {
++            const auto At=WidgetTree->RootWidget->GetCachedGeometry().LocalToAbsolute(FVector2D(40,200));
++            auto* Drag=NewObject<UColdSteelItemDrag>(Board);Drag->ItemId=R->Potion;Drag->SourcePlace=0;Drag->SourceCell=9;
++            FDragDropEvent Drop(Pointer(At,At,true),TSharedPtr<FDragDropOperation>());const auto Generation=M->Snapshot().Generation;
++            BeginInventoryDrag(Drag);NativeOnDrop(GetCachedGeometry(),Drop,Drag);
++            Check(M->Snapshot().Generation==Generation&&M->FindItem(R->Potion)->Place==0,TEXT("stale outside release cannot discard item"));
++            Drag->SourceCell=8;M->AuditFailNextSave=true;BeginInventoryDrag(Drag);NativeOnDrop(GetCachedGeometry(),Drop,Drag);
++            int32 Actors=0;for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==R->Potion)++Actors;
++            Check(M->Snapshot().Generation==Generation&&M->FindItem(R->Potion)->Place==0&&M->FindItem(R->Potion)->Count==8&&Actors==0,TEXT("failed drop save keeps complete stack in backpack and creates no world actor"));break;
++        }
++        case 88:
++            HideItemTooltip(true);Board->SetKeyboardFocus();
++            R->Start=G.LocalToAbsolute(FVector2D(12+8.5f*L.Cell,L.BagY+.5f*L.Cell)/Board->Scale);
++            App.ProcessMouseMoveEvent(Pointer(R->Start,R->Start,false));App.ProcessMouseButtonDownEvent(GEngine->GameViewport->GetWindow()->GetNativeWindow(),Pointer(R->Start,R->Start,true,EKeys::LeftMouseButton));break;
++        case 89:
++            App.ProcessMouseMoveEvent(Pointer(R->Start+FVector2D(12,0),R->Start,true));
++            R->End=WidgetTree->RootWidget->GetCachedGeometry().LocalToAbsolute(FVector2D(40,200));
++            App.ProcessMouseMoveEvent(Pointer(R->End,R->Start,true));break;
++        case 90:
++        {
++            App.ProcessMouseButtonUpEvent(Pointer(R->End,R->End,false,EKeys::LeftMouseButton));
++            const auto* Item=M->FindItem(R->Potion);int32 Actors=0;for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==R->Potion)++Actors;
++            Check(Item&&Item->Place==2&&Item->Count==8&&Actors==1,TEXT("real mouse release outside backpack creates one recoverable pickup with original stack"));
++            Check(!M->ResolveHotbar(0)&&!bInventoryDragOutside&&InventoryPanel->GetRenderOpacity()==1,TEXT("ground item leaves quickbar resolution and drawer is restored"));
++            if(Item&&Item->Place==2){FHitResult Ground;FCollisionQueryParams Query;Query.AddIgnoredActor(GetOwningPlayerPawn());
++                const bool Hit=GetWorld()->LineTraceSingleByChannel(Ground,Item->Position,Item->Position-FVector(0,0,30),ECC_Visibility,Query);
++                Check(Hit&&FMath::Abs(Item->Position.Z-Ground.ImpactPoint.Z-10)<.5f,TEXT("pickup base rests on traced floor instead of floating at character height"));}
++            break;
++        }
++        case 91:
++        {
++            const bool Loaded=M->ReloadProfile();const auto* Item=M->FindItem(R->Potion);int32 Actors=0;
++            for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==R->Potion)++Actors;
++            Check(Loaded&&Item&&Item->Place==2&&Item->Count==8&&Actors==1,TEXT("reload preserves dropped instance and does not duplicate pickup actor"));
++            SetInventoryOpen(false);
++            if(Item){FVector Eye;FRotator View;GetOwningPlayer()->GetPlayerViewPoint(Eye,View);GetOwningPlayer()->SetControlRotation((Item->Position-Eye).Rotation());}
++            break;
++        }
++        case 92:Capture(TEXT("ground-drop"));break;
++        case 93:
++        {
++            const bool Picked=M->Pickup(R->Potion);const auto* Item=M->FindItem(R->Potion);int32 Actors=0;
++            for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==R->Potion&&!It->IsActorBeingDestroyed())++Actors;
++            Check(Picked&&Item&&Item->Place==0&&Item->Count==8&&Actors==0,TEXT("pickup returns exact dropped instance and count to backpack and removes world representation"));
++            SetInventoryOpen(true);SetInventoryTab(false);break;
++        }
++        case 94:Capture(TEXT("ground-recovered"));break;
+         default:
+             App.CancelDragDrop();SetInventoryOpen(false);GetWorld()->GetTimerManager().ClearTimer(R->Timer);
+             UE_LOG(LogTemp,Display,TEXT("InventoryDrag: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);GetOwningPlayer()->ConsoleCommand(TEXT("quit"));break;

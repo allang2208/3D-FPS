@@ -1,0 +1,16 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4DrumGripRebuilt/A_M4_DrumGrip_reload.A_M4_DrumGrip_reload",
+    "duration": 2.0999999046325684,
+    "keys": 253,
+    "compression_error_cm": 0.011627143825375996,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision3\\A_M4_DrumGrip_reload.fbx"
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4DrumGripRebuilt/A_M4_DrumGrip_reload_empty.A_M4_DrumGrip_reload_empty",
+    "duration": 2.700000047683716,
+    "keys": 325,
+    "compression_error_cm": 0.0015948838647693935,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision3\\A_M4_DrumGrip_reload_empty.fbx"
+  }
+}

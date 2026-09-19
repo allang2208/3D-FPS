@@ -1,0 +1,103 @@
+{
+  "run": "drum-contact-v2",
+  "module": "UnrealEditor-FPSGAME-2247.dll",
+  "passes": 172,
+  "failures": 0,
+  "complete": true,
+  "source_contact_samples": 326,
+  "max_additional_body_triangles": 0,
+  "compressed_readback": {
+    "reload": {
+      "asset": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+      "compressed_samples": 321,
+      "sample_hz": 960,
+      "straight_insertion_max_lateral_error_cm": 2.160480129443214e-07,
+      "source_duration": 2.0999999046325684
+    },
+    "reload_empty": {
+      "asset": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+      "compressed_samples": 433,
+      "sample_hz": 960,
+      "straight_insertion_max_lateral_error_cm": 4.710179347321797e-07,
+      "source_duration": 2.4666666984558105
+    }
+  },
+  "audio": {
+    "duration": 7.808,
+    "rms": 0.01121341271407061,
+    "clipped_samples": 0,
+    "events": [
+      {
+        "name": "mag_out",
+        "empty": false,
+        "played": true,
+        "correlation": 0.9952081905627996,
+        "log_seconds": 1.109,
+        "wave_seconds": 1.1946666666666668,
+        "lateness_seconds": 0.021595
+      },
+      {
+        "name": "mag_insert",
+        "empty": false,
+        "played": true,
+        "correlation": 0.9907915091119324,
+        "log_seconds": 2.845,
+        "wave_seconds": 2.986666666666667,
+        "lateness_seconds": 0.01505
+      },
+      {
+        "name": "mag_seat",
+        "empty": false,
+        "played": true,
+        "correlation": 0.9909397320699462,
+        "log_seconds": 3.286,
+        "wave_seconds": 3.328,
+        "lateness_seconds": 0.00559
+      },
+      {
+        "name": "mag_out",
+        "empty": true,
+        "played": true,
+        "correlation": 0.9952081905627996,
+        "log_seconds": 4.184,
+        "wave_seconds": 4.224,
+        "lateness_seconds": 0.021213
+      },
+      {
+        "name": "mag_insert",
+        "empty": true,
+        "played": true,
+        "correlation": 0.990791509111932,
+        "log_seconds": 6.08,
+        "wave_seconds": 6.1226666666666665,
+        "lateness_seconds": 0.012604
+      },
+      {
+        "name": "mag_seat",
+        "empty": true,
+        "played": true,
+        "correlation": 0.9909397320699462,
+        "log_seconds": 6.75,
+        "wave_seconds": 6.8053333333333335,
+        "lateness_seconds": 0.023359
+      },
+      {
+        "name": "bolt_release",
+        "empty": true,
+        "played": true,
+        "correlation": 0.9981776179197587,
+        "log_seconds": 7.186,
+        "wave_seconds": 7.274666666666667,
+        "lateness_seconds": 0.009832
+      }
+    ],
+    "origin": "log immediately before mixer recording starts; one common origin, no per-event audio shifts"
+  },
+  "video": {
+    "video": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\Delivery\\M4_drum_reload_with_game_audio.mp4",
+    "actual_screenshots": 140,
+    "video_fps": 30,
+    "duration": 7.808,
+    "note": "Real game screenshots and same-process mixer audio on wall clock. Holds preceding frame between captures; first frame covers recording lead-in."
+  }
+}

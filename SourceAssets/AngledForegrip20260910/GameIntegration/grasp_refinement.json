@@ -1,0 +1,30 @@
+{
+  "index": {
+    "mcp": 0,
+    "pip": 60,
+    "dip": 35,
+    "crossing_triangles": 0
+  },
+  "middle": {
+    "mcp": 0,
+    "pip": 60,
+    "dip": 35,
+    "crossing_triangles": 0
+  },
+  "ring": {
+    "mcp": 0,
+    "pip": 55,
+    "dip": 35,
+    "crossing_triangles": 0
+  },
+  "pinky": {
+    "mcp": 0,
+    "pip": 40,
+    "dip": 35,
+    "crossing_triangles": 0
+  },
+  "thumb": {
+    "native_local_y_delta": 0,
+    "crossing_triangles": 0
+  }
+}

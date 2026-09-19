@@ -1,0 +1,50 @@
+[
+  {
+    "material": "Body.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Body_BaseColor.png",
+    "sha256": "afdd2b3069e5e8121b555354971c7b6fa8ea27259ea2c26e139f691f8fa2d791",
+    "colorspace": "sRGB"
+  },
+  {
+    "material": "Body.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Body_Normal.png",
+    "sha256": "2a057fd74af1496be6dc168193d2bcd774e2cb952d9b49dd2c2271780f1debdc",
+    "colorspace": "Non-Color"
+  },
+  {
+    "material": "Body.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Body_Roughness.png",
+    "sha256": "5c1333356bfe011b006284e259e9cbb4af22ef1ab9d6d426dc796f106700f5e4",
+    "colorspace": "Non-Color"
+  },
+  {
+    "material": "Body.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Body_Metallic.png",
+    "sha256": "781a6e1c6b4c268ac802422ad8a9cf36efe417051e7c52a5f725b8f115b9e2dc",
+    "colorspace": "Non-Color"
+  },
+  {
+    "material": "Grip Default.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Grip Default_BaseColor.png",
+    "sha256": "c0464792f624bd21895e2f711b78d4ae1bd7d0cfe72742ace6777ad98c9ac0cf",
+    "colorspace": "sRGB"
+  },
+  {
+    "material": "Grip Default.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Normal.png",
+    "sha256": "2747db8376fcec62ffedf46288019902d625a06fddb6cb73ba327d14a64d907d",
+    "colorspace": "Non-Color"
+  },
+  {
+    "material": "Grip Default.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Roughness.png",
+    "sha256": "6a76660803e95771f8d06b9aca0ac40cc4f38db89b465754bbc13d86daa596b6",
+    "colorspace": "Non-Color"
+  },
+  {
+    "material": "Grip Default.001",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AngledForegrip20260910\\..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Metallic.png",
+    "sha256": "1f57dbd7635258a60a0c96a7030deb21c942df657a3fc7acaea3c362ce8e6bb6",
+    "colorspace": "Non-Color"
+  }
+]

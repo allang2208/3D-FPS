@@ -1,0 +1,16 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4DrumDrop/Flow/A_M4_DrumFlow_reload.A_M4_DrumFlow_reload",
+    "duration": 2.0999999046325684,
+    "keys": 253,
+    "compression_error_cm": 0.0005408376640596758,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision5\\A_M4_DrumFlow_reload.fbx"
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4DrumDrop/Flow/A_M4_DrumFlow_reload_empty.A_M4_DrumFlow_reload_empty",
+    "duration": 2.700000047683716,
+    "keys": 325,
+    "compression_error_cm": 0.0004476921077224402,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumGrip20260910\\Revision5\\A_M4_DrumFlow_reload_empty.fbx"
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "1": {
+    "class_type": "Trellis2LoadModel",
+    "inputs": {
+      "modelname": "microsoft/TRELLIS.2-4B",
+      "backend": "sdpa",
+      "device": "cuda",
+      "low_vram": true,
+      "keep_models_loaded": false,
+      "conv_backend": "flex_gemm",
+      "sparse_backend": "xformers",
+      "use_reconviagen": false
+    }
+  },
+  "2": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "consumable_ammo_762_20260910.png"
+    }
+  },
+  "10": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "2",
+        0
+      ],
+      "x": 0,
+      "y": 0,
+      "width": 724,
+      "height": 724
+    }
+  },
+  "11": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "10",
+        0
+      ],
+      "x": 4,
+      "y": 4,
+      "width": 716,
+      "height": 716
+    }
+  },
+  "12": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "11",
+        0
+      ],
+      "filename_prefix": "Consumables20260910/ammo_762_view0"
+    }
+  },
+  "13": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "2",
+        0
+      ],
+      "x": 724,
+      "y": 0,
+      "width": 724,
+      "height": 724
+    }
+  },
+  "14": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "13",
+        0
+      ],
+      "x": 4,
+      "y": 4,
+      "width": 716,
+      "height": 716
+    }
+  },
+  "15": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "14",
+        0
+      ],
+      "filename_prefix": "Consumables20260910/ammo_762_view1"
+    }
+  },
+  "16": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "2",
+        0
+      ],
+      "x": 1448,
+      "y": 0,
+      "width": 724,
+      "height": 724
+    }
+  },
+  "17": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "16",
+        0
+      ],
+      "x": 4,
+      "y": 4,
+      "width": 716,
+      "height": 716
+    }
+  },
+  "18": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "17",
+        0
+      ],
+      "filename_prefix": "Consumables20260910/ammo_762_view2"
+    }
+  },
+  "4": {
+    "class_type": "Trellis2MeshWithVoxelMultiViewGenerator",
+    "inputs": {
+      "seed": 91053,
+      "pipeline_type": "512",
+      "sparse_structure_steps": 12,
+      "sparse_structure_guidance_strength": 6.5,
+      "sparse_structure_guidance_rescale": 0.05,
+      "sparse_structure_rescale_t": 4.0,
+      "shape_steps": 16,
+      "shape_guidance_strength": 6.5,
+      "shape_guidance_rescale": 0.05,
+      "shape_rescale_t": 4.0,
+      "texture_steps": 12,
+      "texture_guidance_strength": 3.0,
+      "texture_guidance_rescale": 0.2,
+      "texture_rescale_t": 3.0,
+      "max_num_tokens": 49152,
+      "sparse_structure_resolution": 32,
+      "generate_texture_slat": true,
+      "sparse_structure_guidance_interval_start": 0.1,
+      "sparse_structure_guidance_interval_end": 1.0,
+      "shape_guidance_interval_start": 0.1,
+      "shape_guidance_interval_end": 1.0,
+      "texture_guidance_interval_start": 0.0,
+      "texture_guidance_interval_end": 0.9,
+      "use_tiled_decoder": true,
+      "front_axis": "z",
+      "blend_temperature": 1.0,
+      "sampler": "euler",
+      "fill_holes": false,
+      "hole_iterations": 1,
+      "verbose": false,
+      "dino_lock": 0.0,
+      "dino_substeps": 4,
+      "hole_fill_algorithm": "flood_fill",
+      "dino_foundation_cap": 1.0,
+      "keep_only_shell": true,
+      "pipeline": [
+        "1",
+        0
+      ],
+      "front_image": [
+        "11",
+        0
+      ],
+      "right_image": [
+        "14",
+        0
+      ],
+      "back_image": [
+        "17",
+        0
+      ]
+    }
+  },
+  "5": {
+    "class_type": "Trellis2OvoxelExportToGLB",
+    "inputs": {
+      "mesh": [
+        "4",
+        0
+      ],
+      "resolution": 512,
+      "texture_size": 2048,
+      "target_face_num": 20000
+    }
+  },
+  "6": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "5",
+        0
+      ],
+      "filename_prefix": "Consumables20260910/ammo_762_candidate_v01",
+      "file_format": "glb"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "rig_type": "1",
+  "selected": [
+    "index_02_l_ctrl",
+    "middle_02_l_ctrl"
+  ],
+  "before": {
+    "index_02_l_ctrl": "<Struct 'EulerTransform' (0x000002298C2690B0) {location: {x: -0.000000, y: 0.000001, z: -0.000000}, rotation: {pitch: -0.000036, yaw: -36.999458, roll: 0.000032}, scale: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "middle_02_l_ctrl": "<Struct 'EulerTransform' (0x000002298C267B70) {location: {x: -0.000001, y: 0.000003, z: 0.000001}, rotation: {pitch: -10.679858, yaw: -59.449543, roll: -1.584130}, scale: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "after": {
+    "index_02_l_ctrl": "<Struct 'EulerTransform' (0x000002298C26DE80) {location: {x: -0.000000, y: 0.000001, z: -0.000000}, rotation: {pitch: -0.000036, yaw: -36.999458, roll: 0.000032}, scale: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "middle_02_l_ctrl": "<Struct 'EulerTransform' (0x000002298C267080) {location: {x: -0.000001, y: 0.000003, z: 0.000001}, rotation: {pitch: -10.679858, yaw: -59.449543, roll: -1.584130}, scale: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "tween_result": "None",
+  "key_result": "None",
+  "export_api": "X.export_anim_sequence(world, sequence, anim_sequence, export_options, binding, create_link) -> bool\r\nExport Passed in Binding as an Anim Sequence. Note use this when you want to export without an open Level Sequence in Sequencer, and\nknow that all spawnables that may be dynamically created and destroyed will be valid. If the spawnable won't be fully created and you have\nan open Sequencer use UControlRigSequencerEditorLibrary::ExportAnimSequenceFromSequencer instead.\r\nInWorld: World to export\r\nInSequence: Sequence to export\r\nAnimSequence: The AnimSequence to save into.\r\nExportOption: The export options for the sequence.\r\nInBinding: Binding to export that has a skelmesh component on it\r\nInAnimSequenceFilename: File to create\r\nbCreateLink: If true will create a link between the animation sequence and the level sequence\r\n\r\nArgs:\r\n    world (World): \r\n    sequence (LevelSequence): \r\n    anim_sequence (AnimSequence): \r\n    export_options (AnimSeqExportOption): \r\n    binding (MovieSceneBindingProxy): \r\n    create_link (bool): \r\n\r\nReturns:\r\n    bool:",
+  "capture_api": "<class 'EditorAppToolset'>"
+}

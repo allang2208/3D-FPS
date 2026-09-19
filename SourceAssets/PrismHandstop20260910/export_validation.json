@@ -1,0 +1,12 @@
+{
+  "mesh_count": 1,
+  "triangles": 16000,
+  "uv_layers": 1,
+  "zero_area_faces": 0,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "materials": [
+    "Prism_Polymer",
+    "Prism_Saddle"
+  ]
+}

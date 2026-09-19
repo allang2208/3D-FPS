@@ -1,0 +1,11 @@
+[
+  {
+    "run": "m4-tactical-toss",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\Delivery\\M4_非空仓甩弹匣与取弹插入_实际录音.mp4",
+    "fps": 20,
+    "source_frames": 279,
+    "held_missing_frames": 5,
+    "audio_origin_trim": 2.639,
+    "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+  }
+]

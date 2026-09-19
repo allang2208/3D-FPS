@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "D:/FPS3D/FPSGAME/SourceAssets/M4HandMATRepair20260910/import_mat.py", line 58, in tick
+    state['last']=stamp;exec(compile(queue.read_text(encoding='utf-8-sig'),str(queue),'exec'),globals());(O/'queue_done.txt').write_text(stamp)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\FPS3D\FPSGAME\SourceAssets\M4HandMATRepair20260910\editor_queue.py", line 23, in <module>
+    report2['capture_doc']=str(unreal.EditorAppToolset.capture_editor_image.__doc__)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'EditorAppToolset' has no attribute 'capture_editor_image'

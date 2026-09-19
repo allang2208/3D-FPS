@@ -1,0 +1,222 @@
+{
+  "scope": "Actual deformed glove vertices; receiver left-side approach at 120 Hz, 2.0-2.2833 s. Not a whole-character collision test.",
+  "samples": [
+    {
+      "source_time": 2.0,
+      "receiver_side_margin_mm": 120.26971578598022,
+      "nearest_catch_surface_mm": 122.15808106254585,
+      "vertices_tested": 5655
+    },
+    {
+      "source_time": 2.0083333333333333,
+      "receiver_side_margin_mm": 120.27448415756226,
+      "nearest_catch_surface_mm": 122.12622291950184,
+      "vertices_tested": 5646
+    },
+    {
+      "source_time": 2.0166666666666666,
+      "receiver_side_margin_mm": 120.09786069393158,
+      "nearest_catch_surface_mm": 122.10685116079043,
+      "vertices_tested": 5625
+    },
+    {
+      "source_time": 2.025,
+      "receiver_side_margin_mm": 120.41334807872772,
+      "nearest_catch_surface_mm": 122.10074613103957,
+      "vertices_tested": 5613
+    },
+    {
+      "source_time": 2.033333333333333,
+      "receiver_side_margin_mm": 120.66805362701416,
+      "nearest_catch_surface_mm": 122.10305577959494,
+      "vertices_tested": 5599
+    },
+    {
+      "source_time": 2.0416666666666665,
+      "receiver_side_margin_mm": 120.60247361660004,
+      "nearest_catch_surface_mm": 122.11150797476972,
+      "vertices_tested": 5578
+    },
+    {
+      "source_time": 2.05,
+      "receiver_side_margin_mm": 120.54835259914398,
+      "nearest_catch_surface_mm": 122.12511499904633,
+      "vertices_tested": 5553
+    },
+    {
+      "source_time": 2.058333333333333,
+      "receiver_side_margin_mm": 120.44723331928253,
+      "nearest_catch_surface_mm": 122.13832026234805,
+      "vertices_tested": 5519
+    },
+    {
+      "source_time": 2.066666666666667,
+      "receiver_side_margin_mm": 120.34457921981812,
+      "nearest_catch_surface_mm": 122.15222419350839,
+      "vertices_tested": 5491
+    },
+    {
+      "source_time": 2.075,
+      "receiver_side_margin_mm": 120.30823528766632,
+      "nearest_catch_surface_mm": 122.15823400231297,
+      "vertices_tested": 5485
+    },
+    {
+      "source_time": 2.0833333333333335,
+      "receiver_side_margin_mm": 120.2714741230011,
+      "nearest_catch_surface_mm": 122.16374654081267,
+      "vertices_tested": 5473
+    },
+    {
+      "source_time": 2.091666666666667,
+      "receiver_side_margin_mm": 113.16920816898346,
+      "nearest_catch_surface_mm": 114.73005127490114,
+      "vertices_tested": 5580
+    },
+    {
+      "source_time": 2.1,
+      "receiver_side_margin_mm": 105.06747663021088,
+      "nearest_catch_surface_mm": 107.30428642751286,
+      "vertices_tested": 5630
+    },
+    {
+      "source_time": 2.1083333333333334,
+      "receiver_side_margin_mm": 97.81323373317719,
+      "nearest_catch_surface_mm": 99.89119592492936,
+      "vertices_tested": 5666
+    },
+    {
+      "source_time": 2.1166666666666667,
+      "receiver_side_margin_mm": 90.8123031258583,
+      "nearest_catch_surface_mm": 92.48996260048578,
+      "vertices_tested": 5654
+    },
+    {
+      "source_time": 2.125,
+      "receiver_side_margin_mm": 75.47956705093384,
+      "nearest_catch_surface_mm": 76.58698664541852,
+      "vertices_tested": 5561
+    },
+    {
+      "source_time": 2.1333333333333333,
+      "receiver_side_margin_mm": 60.1462796330452,
+      "nearest_catch_surface_mm": 60.68131612471603,
+      "vertices_tested": 5462
+    },
+    {
+      "source_time": 2.1416666666666666,
+      "receiver_side_margin_mm": 43.90144348144531,
+      "nearest_catch_surface_mm": 44.881810685920584,
+      "vertices_tested": 5347
+    },
+    {
+      "source_time": 2.15,
+      "receiver_side_margin_mm": 27.86140888929367,
+      "nearest_catch_surface_mm": 29.377400817950445,
+      "vertices_tested": 5215
+    },
+    {
+      "source_time": 2.158333333333333,
+      "receiver_side_margin_mm": 13.403885066509247,
+      "nearest_catch_surface_mm": 14.207624018836423,
+      "vertices_tested": 5085
+    },
+    {
+      "source_time": 2.1666666666666665,
+      "receiver_side_margin_mm": 0.25324150919914246,
+      "nearest_catch_surface_mm": 1.9212905607112367,
+      "vertices_tested": 4932
+    },
+    {
+      "source_time": 2.175,
+      "receiver_side_margin_mm": 1.1037066578865051,
+      "nearest_catch_surface_mm": 1.9217098853410535,
+      "vertices_tested": 4932
+    },
+    {
+      "source_time": 2.183333333333333,
+      "receiver_side_margin_mm": 2.0001884549856186,
+      "nearest_catch_surface_mm": 1.9213836825881179,
+      "vertices_tested": 4932
+    },
+    {
+      "source_time": 2.191666666666667,
+      "receiver_side_margin_mm": 6.4635612070560455,
+      "nearest_catch_surface_mm": 5.360657552748775,
+      "vertices_tested": 5006
+    },
+    {
+      "source_time": 2.2,
+      "receiver_side_margin_mm": 11.707603931427002,
+      "nearest_catch_surface_mm": 9.959685755081573,
+      "vertices_tested": 5047
+    },
+    {
+      "source_time": 2.2083333333333335,
+      "receiver_side_margin_mm": 21.306291222572327,
+      "nearest_catch_surface_mm": 20.934782681509827,
+      "vertices_tested": 5167
+    },
+    {
+      "source_time": 2.216666666666667,
+      "receiver_side_margin_mm": 31.552419066429138,
+      "nearest_catch_surface_mm": 32.345335017430244,
+      "vertices_tested": 5288
+    },
+    {
+      "source_time": 2.225,
+      "receiver_side_margin_mm": 42.487721890211105,
+      "nearest_catch_surface_mm": 44.058980749216666,
+      "vertices_tested": 5390
+    },
+    {
+      "source_time": 2.2333333333333334,
+      "receiver_side_margin_mm": 53.65628004074097,
+      "nearest_catch_surface_mm": 55.87621758010393,
+      "vertices_tested": 5489
+    },
+    {
+      "source_time": 2.2416666666666667,
+      "receiver_side_margin_mm": 58.736734092235565,
+      "nearest_catch_surface_mm": 61.270559422255445,
+      "vertices_tested": 5547
+    },
+    {
+      "source_time": 2.25,
+      "receiver_side_margin_mm": 63.81233036518097,
+      "nearest_catch_surface_mm": 66.66832231979113,
+      "vertices_tested": 5573
+    },
+    {
+      "source_time": 2.2583333333333333,
+      "receiver_side_margin_mm": 62.608227133750916,
+      "nearest_catch_surface_mm": 65.32629542161585,
+      "vertices_tested": 5583
+    },
+    {
+      "source_time": 2.2666666666666666,
+      "receiver_side_margin_mm": 61.41934543848038,
+      "nearest_catch_surface_mm": 64.00941660177874,
+      "vertices_tested": 5592
+    },
+    {
+      "source_time": 2.275,
+      "receiver_side_margin_mm": 58.32558125257492,
+      "nearest_catch_surface_mm": 61.23900702329594,
+      "vertices_tested": 5619
+    },
+    {
+      "source_time": 2.283333333333333,
+      "receiver_side_margin_mm": 55.30577898025513,
+      "nearest_catch_surface_mm": 59.45300143399945,
+      "vertices_tested": 5554
+    }
+  ],
+  "minimum_margin_mm": 0.25324150919914246,
+  "contact_at_130": {
+    "source_time": 2.1666666666666665,
+    "receiver_side_margin_mm": 0.25324150919914246,
+    "nearest_catch_surface_mm": 1.9212905607112367,
+    "vertices_tested": 4932
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "events": [
+    "Forwards Solve",
+    "Backwards Solve"
+  ],
+  "can_execute": true,
+  "nodes": 406,
+  "links": 404,
+  "pins": {
+    "Forward": {
+      "ExecutePin": "()"
+    },
+    "Backward": {
+      "ExecutePin": "()"
+    },
+    "Get_Forward_hand_l": {
+      "Item": "(Type=Control,Name=\"hand_l_fk_ctrl\")",
+      "Space": "GlobalSpace",
+      "bInitial": "False",
+      "Transform": "(Rotation=(X=0.000000,Y=0.000000,Z=0.000000,W=1.000000),Translation=(X=0.000000,Y=0.000000,Z=0.000000),Scale3D=(X=1.000000,Y=1.000000,Z=1.000000))",
+      "CachedIndex": "(Key=(Type=None,Name=\"None\"),Index=65535,ContainerVersion=-1)"
+    },
+    "Set_Forward_hand_l": {
+      "ExecutePin": "()",
+      "Item": "(Type=Bone,Name=\"hand_l\")",
+      "Space": "GlobalSpace",
+      "bInitial": "False",
+      "Value": "(Rotation=(X=0.000000,Y=0.000000,Z=0.000000,W=1.000000),Translation=(X=0.000000,Y=0.000000,Z=0.000000),Scale3D=(X=1.000000,Y=1.000000,Z=1.000000))",
+      "Weight": "1.000000",
+      "bPropagateToChildren": "True",
+      "CachedIndex": "()"
+    }
+  },
+  "before": "<Struct 'Transform' (0x000001BA792A9D10) {rotation: {x: -0.520600, y: 0.608875, z: 0.598460, w: 0.009650}, translation: {x: -47.768587, y: -15.035750, z: -58.108574}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>",
+  "execute": false,
+  "after": "<Struct 'Transform' (0x000001BA792A9D10) {rotation: {x: -0.520600, y: 0.608875, z: 0.598460, w: 0.009650}, translation: {x: -47.768587, y: -15.035750, z: -58.108574}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>"
+}

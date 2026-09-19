@@ -1,0 +1,48 @@
+{
+  "categories": [
+    "瞄具",
+    "枪口",
+    "弹匣",
+    "枪管",
+    "后握把",
+    "枪托",
+    "扳机",
+    "战术挂件",
+    "前握把"
+  ],
+  "defaults": [
+    "原厂瞄具",
+    "标准枪口",
+    "标准弹匣",
+    "标准枪管",
+    "原厂后握把",
+    "原厂枪托",
+    "标准扳机",
+    "无战术挂件",
+    "无前握把"
+  ],
+  "fixtures": [],
+  "slots": [
+    "optic",
+    "muzzle",
+    "magazine",
+    "foregrip",
+    "reargrip",
+    "stock",
+    "trigger",
+    "tactical",
+    "underbarrel"
+  ],
+  "version": 1,
+  "weapons": [{
+    "id": "ue_m4a1", "model": "M4FoldingSights", "name": "M4A1", "allowed": ["optic", "magazine"],
+    "base": {"ammo_item_id":"ammo_556", "ads_smooth":12.482217806475, "mag_size":30, "recoil":100, "camera_shake":100, "fire_interval":0.12, "reload_time":2.1, "empty_reload_time":2.7, "damage":30, "bullet_speed":0, "effective_range":1000},
+    "options": {"optic":[
+      {"id":"false","name":"原厂机械瞄具","description":"使用 M4 原有照门与准星。","effects":[],"stats":{}},
+      {"id":"holographic","name":"全息瞄准镜","description":"1×环形分划全息瞄准镜；安装在 M4 顶部导轨，保持原枪开镜速度。","effects":[{"text":"1×全息瞄具；开镜时间不变","benefit":0}],"stats":{}}
+    ],"magazine":[
+      {"id":"false","name":"原厂弹匣","description":"30 发标准弹匣。","effects":[],"stats":{}},
+      {"id":"large_drum","name":"大弹鼓","description":"50 发大容量弹鼓，延长持续射击时间，装填耗时更长。","effects":[{"text":"弹匣容量增加20发","benefit":1},{"text":"换弹时间增加75%","benefit":-1},{"text":"开镜速度提高15%","benefit":1}],"stats":{"mag_delta":20,"reload_mult":1.75,"ads_percent":-0.13043478260869565}}
+    ]}
+  }]
+}

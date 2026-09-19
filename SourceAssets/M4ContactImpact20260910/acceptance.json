@@ -1,0 +1,87 @@
+{
+  "version": "M4ContactImpactFinal",
+  "native_build": "2026091083",
+  "source_folder": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910",
+  "runtime_assets": "/Game/Weapons/M4ContactImpactFinal",
+  "previous_version_was_applied": true,
+  "current_user_editor_at_last_check": {
+    "pid": 41756,
+    "module": "UnrealEditor-FPSGAME-2026091071.dll",
+    "restart_required": true
+  },
+  "magazine_triangle_sweep": {
+    "reload": {
+      "samples_120hz": 253,
+      "max_intersecting_triangle_pairs": 0
+    },
+    "reload_empty": {
+      "samples_120hz": 325,
+      "max_intersecting_triangle_pairs": 0
+    }
+  },
+  "post_insertion_480hz": {
+    "reload": {
+      "insertion_samples_480hz": 449,
+      "locked_wrist_drift_mm": 0.3352947706760915,
+      "maximum_envelope_depth_mm": 0
+    },
+    "reload_empty": {
+      "insertion_samples_480hz": 777,
+      "locked_wrist_drift_mm": 0.10445980981470387,
+      "maximum_envelope_depth_mm": 0
+    }
+  },
+  "runtime": [
+    {
+      "label": "m4-contact-av60",
+      "requested_hz": 60,
+      "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+      "rhi": "-d3d11",
+      "process_exit": 0,
+      "pass": 50,
+      "fail": 0,
+      "completion_marker": true,
+      "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-contact-av60\\assertions.log",
+      "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\runtime-m4-contact-av60.log",
+      "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+    },
+    {
+      "label": "m4-contact-equip",
+      "requested_hz": 60,
+      "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+      "rhi": "-d3d11",
+      "process_exit": 0,
+      "pass": 21,
+      "fail": 0,
+      "completion_marker": true,
+      "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-contact-equip\\assertions.log",
+      "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\runtime-m4-contact-equip.log",
+      "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+    }
+  ],
+  "audio": {
+    "reload_events": 11,
+    "min_waveform_correlation": 0.8461889149771329,
+    "clipped_samples": 0
+  },
+  "mat_saved_readback": {
+    "reload": {
+      "channels": 909,
+      "keys": 459045
+    },
+    "reload_empty": {
+      "channels": 909,
+      "keys": 589941
+    },
+    "equip_charge": {
+      "channels": 909,
+      "keys": 139077
+    }
+  },
+  "artifact_hashes": {
+    "M4_Hand_MAT_Editable.blend": "ab2f5172f4d3c50161bf26bb7ee72ff19fb77d328c02268011bbb8e3227d5ac3",
+    "A_M4_MAT_reload.fbx": "c1c19ae4ce9ed20d8d6d1dc51c96705fe1c8c15c6f6e1ebcddd85c5c30089177",
+    "A_M4_MAT_reload_empty.fbx": "0d5434a27aa7afb3c379f378f96b351c36644cc2709f7b19cbd8208002686aa5",
+    "A_M4_MAT_equip_charge.fbx": "1a10a7afc7e1110e5516adda6f64052e4de8279de8a930cb3c875a47fb955e46"
+  }
+}

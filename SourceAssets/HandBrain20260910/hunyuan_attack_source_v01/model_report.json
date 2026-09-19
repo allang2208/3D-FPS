@@ -1,0 +1,35 @@
+{
+  "vertices": 249764,
+  "polygons": 500000,
+  "triangles": 500000,
+  "mesh_objects": 1,
+  "textures": [
+    {
+      "name": "texture_pbr_20250901",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "texture_pbr_20250901_normal",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "uv_layers": [
+    1
+  ],
+  "finite_vertices": true,
+  "rigged": false,
+  "display_height_m": 2.0
+}

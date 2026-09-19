@@ -1,0 +1,14 @@
+{
+  "reload": {
+    "start": 50,
+    "end": 98,
+    "position_error_cm": 0.000108645714125384,
+    "angle_error_deg": 0
+  },
+  "reload_empty": {
+    "start": 43,
+    "end": 88,
+    "position_error_cm": 0.0001156641147752108,
+    "angle_error_deg": 0
+  }
+}

@@ -1,0 +1,5 @@
+Replace Godot project tree with current UE5 FPSGAME source
+
+Make FPSGAME.uproject, complete Source targets/module, Config and authored data the repository root. Preserve UE migration evidence and update UE5 development, weapon and arms workflows. Keep licensed Content binaries local and document restoration.
+
+Archive the previous Godot main with a tag and a verified local trash manifest. Validate Editor and Game Win64 Development builds, 107 Python tools, five skills, 66 relative links and 325 source hashes. Reuse the host Mesh-to-MuzzleMesh compile fix. Preserve shared local work and Git history.

@@ -1,0 +1,52 @@
+{
+  "reload": {
+    "duration": 2.0999999046325684,
+    "sampled_keys": 127,
+    "samples_120hz": 253,
+    "compressed_error_cm": 0.0028356813375145016,
+    "rigid_drift_cm": 3.566496158597958e-05,
+    "handle_travel_cm": 5.395003892922541e-06,
+    "bolt_travel_cm": 7.084448185897295e-06
+  },
+  "reload_empty": {
+    "duration": 2.700000047683716,
+    "sampled_keys": 163,
+    "samples_120hz": 325,
+    "compressed_error_cm": 0.0040924346764583605,
+    "rigid_drift_cm": 3.637932313192961e-05,
+    "handle_travel_cm": 6.895232017697427e-06,
+    "bolt_travel_cm": 3.5000494469961043
+  },
+  "equip_charge": {
+    "duration": 0.6333333253860474,
+    "sampled_keys": 39,
+    "samples_120hz": 77,
+    "compressed_error_cm": 0.0024284728161063063,
+    "rigid_drift_cm": 3.134126787627036e-05,
+    "handle_travel_cm": 6.407486865007021,
+    "bolt_travel_cm": 6.407483249994396
+  },
+  "drum_reload": {
+    "duration": 2.0999999046325684,
+    "sampled_keys": 127,
+    "samples_120hz": 253,
+    "compressed_error_cm": 0.0028369994395868042,
+    "rigid_drift_cm": 3.3089769745875914e-05,
+    "handle_travel_cm": 4.518021903546813e-06,
+    "bolt_travel_cm": 6.651569126733082e-06
+  },
+  "drum_reload_empty": {
+    "duration": 2.700000047683716,
+    "sampled_keys": 163,
+    "samples_120hz": 325,
+    "compressed_error_cm": 0.004090252254200058,
+    "rigid_drift_cm": 3.416364371561663e-05,
+    "handle_travel_cm": 7.202481025247497e-06,
+    "bolt_travel_cm": 3.500047395663955
+  },
+  "old_idle_compatible": true,
+  "equip_sound": {
+    "duration": 0.7200000286102295,
+    "source_sha256": "7eba8ab806762f21f1c4eba24f155e0c98944ac5151816dd3150bff05f6547d9"
+  }
+}

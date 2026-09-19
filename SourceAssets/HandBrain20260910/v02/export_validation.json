@@ -1,0 +1,27 @@
+{
+  "fbx_meshes": 1,
+  "fbx_polygons": 1062433,
+  "fbx_uv_layers": [
+    1
+  ],
+  "fbx_images": [
+    {
+      "name": "Image_0",
+      "size": [
+        4096,
+        4096
+      ],
+      "has_data": true
+    },
+    {
+      "name": "Image_0.001",
+      "size": [
+        4096,
+        4096
+      ],
+      "has_data": true
+    }
+  ],
+  "polygon_count_matches": true,
+  "passed": true
+}

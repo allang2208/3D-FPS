@@ -1,0 +1,30 @@
+{
+  "reload": {
+    "support_grip_drift_cm": 2.1261007705714063e-05,
+    "right_grip_drift_cm": 3.543532476006184e-05,
+    "right_hand_depth_range_cm": 3.129243850708008e-05,
+    "acquire_position_m": [
+      -0.44321486353874207,
+      -0.31381237506866455,
+      -0.40836969017982483
+    ],
+    "carried_drum_contact_drift_cm": 4.5537864649103334e-05,
+    "installation_contact_drift_cm": 2.658563019851119e-05,
+    "accepted_installation_bone_position_error_cm": 0.00012187109428997241,
+    "accepted_installation_bone_angle_error_deg": 0
+  },
+  "reload_empty": {
+    "support_grip_drift_cm": 1.7351866761473088e-05,
+    "right_grip_drift_cm": 3.6240775904105037e-05,
+    "right_hand_depth_range_cm": 3.166496753692627e-05,
+    "acquire_position_m": [
+      -0.4697856903076172,
+      -0.3057219684123993,
+      -0.4307009279727936
+    ],
+    "carried_drum_contact_drift_cm": 1.9951181639132008e-05,
+    "installation_contact_drift_cm": 3.119694310284307e-05,
+    "accepted_installation_bone_position_error_cm": 0.0001457878924445511,
+    "accepted_installation_bone_angle_error_deg": 0
+  }
+}

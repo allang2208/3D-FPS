@@ -1,0 +1,14 @@
+{
+  "actions": {
+    "SK_HandBrain|SK_HandBrain|Attack_Howl": 3.0,
+    "SK_HandBrain|SK_HandBrain|Attack_Slam": 2.0,
+    "SK_HandBrain|SK_HandBrain|Death": 2.8,
+    "SK_HandBrain|SK_HandBrain|Idle": 2.0,
+    "SK_HandBrain|SK_HandBrain|Move": 1.0
+  },
+  "floor_min_m": -4.76837158203125e-07,
+  "floor_max_m": 3.5762786865234375e-07,
+  "settled_pose_error": 0.0,
+  "root_motion_error": 0.0,
+  "ue_runtime_verified": false
+}

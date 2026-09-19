@@ -1,0 +1,17 @@
+{
+  "source": "M4TacticalToss20260910/SK_Manny_Arms_Export",
+  "vertices": 20326,
+  "materials": [
+    "MI_Manny_01",
+    "MI_Manny_02"
+  ],
+  "remapped_groups": {},
+  "meshes": [
+    "AKMR_Bolt",
+    "AKMR_Body",
+    "AKMR_Magazine",
+    "AKMR_Trigger",
+    "AKMR_FunctionalIronSights",
+    "SK_AKM_MannyArms"
+  ]
+}

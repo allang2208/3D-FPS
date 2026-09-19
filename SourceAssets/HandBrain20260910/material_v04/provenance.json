@@ -1,0 +1,29 @@
+{
+  "local_package": "/Game/ZombiSkinMaterial",
+  "provided_by": "User added package to UE project on 2026-09-11",
+  "previously_selected_listing": "https://www.fab.com/listings/e41a57c0-4685-48cf-bed4-d77be4963b5a",
+  "listing_attribution": "Organic Surface Material by Stone Material; CC BY 4.0 as verified in previous browser session. Local package naming is ZombiSkinMaterial; no embedded listing identifier was found in asset enumeration.",
+  "modifications": "Original Hunyuan skin and wound placement retained. Fab height, AO, basecolor luminance and roughness box-projected in rest space and baked to existing UV. Green tint authored locally. Fab normal exported but not used: height is converted to correctly projected bumps instead of interpreting box-projected tangent normals.",
+  "files": [
+    {
+      "file": "T_ZombieSkinMaterial1_ambientocclusion.png",
+      "sha256": "a60fcbbf319f690de70676e0f75db96726a4c29fe559179f606e7ec65b577945"
+    },
+    {
+      "file": "T_ZombieSkinMaterial1_basecolor.png",
+      "sha256": "137d06e26f96a598172e1a3125b792a73a7a4daa2c2fee99527b31df857e06f8"
+    },
+    {
+      "file": "T_ZombieSkinMaterial1_height.png",
+      "sha256": "8884879c894c35e4b623da9b2e7b3a6b85907e886bc3c6ea20591bded56aad35"
+    },
+    {
+      "file": "T_ZombieSkinMaterial1_normal.png",
+      "sha256": "3e043f7f7289f50c6512a2ca44e124570fe190fdc8db68d3386c92f866ea28f5"
+    },
+    {
+      "file": "T_ZombieSkinMaterial1_roughness.png",
+      "sha256": "481476de112c14eb4c2c309d186107676282b95d9f586353d20064cf8b905a4e"
+    }
+  ]
+}

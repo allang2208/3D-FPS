@@ -1,0 +1,40 @@
+{
+  "asset": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop",
+  "source": "Hunyuan3D 3.1",
+  "job_id": "1489624951358898176",
+  "triangles": 16000,
+  "runtime_checks": 24,
+  "runtime_failures": 0,
+  "runtime_exit_code": 0,
+  "runtime_log": "../prism-polished/runtime.log",
+  "visual_review": [
+    "side",
+    "rotated",
+    "first-person",
+    "all-parts"
+  ],
+  "full_animation_contact_audit": false,
+  "packaged_build_verified": false,
+  "native_source_changed": false,
+  "import_exit_code": 1,
+  "import_pass": true,
+  "import_errors": [
+    "Existing GameFeatureData settings",
+    "HTTP listener port 8000 occupied"
+  ],
+  "files": [
+    {
+      "sha256": "F5083B31FDACF55FBE7A4FAF0B50635D88B4897B5DE06BF0A36AEA3ED60F7B84",
+      "name": "PrismHandstop_Editable.blend"
+    },
+    {
+      "sha256": "8730F5FB0173AC94047F3DA55EB2F44B17C7FDBD990EBC8AD50D3E5880948D2B",
+      "name": "SM_PrismHandstop.fbx"
+    },
+    {
+      "sha256": "723F643298EAC509D86BEE97BCB8C057623875895106B393C97953442ABA9D05",
+      "name": "PrismHandstop.glb"
+    }
+  ],
+  "ue_mesh_sha256": "8574163871D72E99B2D1F3BE3250BE8A277E47E9669D50FA40BB50874598AD1F"
+}

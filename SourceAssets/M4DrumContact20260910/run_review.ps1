@@ -1,0 +1,13 @@
+param([string]$Run='drum-contact-v1',[switch]$DefaultAssets,[string]$ExtraFlags='')
+$ErrorActionPreference='Stop'
+$root='D:/FPS3D/FPSGAME'
+$candidateFlag=if($DefaultAssets){''}else{'-DrumGripCandidate'}
+$arguments='"{0}/FPSGAME.uproject" /Game/Weapons/M4InfimaRigV4/Preview/L_M4RigValidation -game -windowed -RenderOffscreen -ResX=640 -ResY=360 -AudioMixer -DrumCaptureAudio -ini:Engine:[Audio]:UnfocusedVolumeMultiplier=1.0 -unattended -nosplash  {2} -DrumGripAudit -DrumGripCaptureRun={1} -ColdSteelProfile=DrumGripAudit_{1} -ExecCmds="DisableAllScreenMessages,t.MaxFPS 60,au.NeverDisableSubmixes 1" -abslog="{0}/SourceAssets/M4DrumContact20260910/runtime-{1}.log"' -f $root,$Run,$candidateFlag
+$process=Start-Process 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe' -ArgumentList ($arguments+' '+$ExtraFlags) -WindowStyle Hidden -PassThru
+Write-Output "Review PID $($process.Id)"
+$deadline=[DateTime]::UtcNow.AddSeconds(300)
+while(!$process.WaitForExit(1000)){if([DateTime]::UtcNow -gt $deadline){throw "Review timeout, PID $($process.Id)"}}
+$log=Get-Content -LiteralPath "$root/SourceAssets/M4DrumContact20260910/runtime-$Run.log" -Raw
+if($process.ExitCode -ne 0 -or $log -notmatch 'DRUM_GRIP: COMPLETE failures=0' -or $log -match 'DRUM_GRIP: FAIL'){throw 'Review runtime validation failed'}
+Write-Output "DRUM_GRIP_REVIEW_PASS $Run"
+

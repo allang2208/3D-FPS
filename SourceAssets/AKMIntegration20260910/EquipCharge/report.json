@@ -1,0 +1,13 @@
+{
+  "duration": 1.7,
+  "source_frames": [
+    84,
+    252
+  ],
+  "pull_time": 0.55,
+  "release_time": 0.8,
+  "fixed_magazine_bones": [
+    "WPN_SOCKET_Magazine"
+  ],
+  "left_and_mag_position_error_m": 8.717518996798305e-08
+}

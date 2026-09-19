@@ -1,0 +1,227 @@
+{
+  "prompt": [
+    4,
+    "5c8867a9-80a0-46c9-a825-da244e737db9",
+    {
+      "1": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "handbrain_source_20260910.png"
+        }
+      },
+      "2": {
+        "class_type": "ImageCrop",
+        "inputs": {
+          "width": 720,
+          "height": 670,
+          "x": 0,
+          "y": 0,
+          "image": [
+            "1",
+            0
+          ]
+        }
+      },
+      "30": {
+        "class_type": "ImageToMask",
+        "inputs": {
+          "image": [
+            "2",
+            0
+          ],
+          "channel": "red"
+        }
+      },
+      "40": {
+        "class_type": "ThresholdMask",
+        "inputs": {
+          "value": 0.73,
+          "mask": [
+            "30",
+            0
+          ]
+        }
+      },
+      "50": {
+        "class_type": "JoinImageWithAlpha",
+        "inputs": {
+          "image": [
+            "2",
+            0
+          ],
+          "alpha": [
+            "40",
+            0
+          ]
+        }
+      },
+      "5": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "padding": 24,
+          "remove_background": false,
+          "max_size": 1536,
+          "image": [
+            "50",
+            0
+          ]
+        }
+      },
+      "20": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "filename_prefix": "HandBrain20260910/reference_source_v02",
+          "images": [
+            "5",
+            0
+          ]
+        }
+      },
+      "8": {
+        "class_type": "Trellis2LoadModel",
+        "inputs": {
+          "modelname": "microsoft/TRELLIS.2-4B",
+          "backend": "sdpa",
+          "device": "cuda",
+          "low_vram": true,
+          "keep_models_loaded": false,
+          "conv_backend": "flex_gemm",
+          "sparse_backend": "xformers",
+          "use_reconviagen": false
+        }
+      },
+      "9": {
+        "class_type": "Trellis2MeshWithVoxelGenerator",
+        "inputs": {
+          "seed": 20260910,
+          "pipeline_type": "1024_cascade",
+          "sparse_structure_steps": 16,
+          "shape_steps": 16,
+          "texture_steps": 16,
+          "max_num_tokens": 32768,
+          "max_views": 4,
+          "sparse_structure_resolution": 32,
+          "generate_texture_slat": true,
+          "use_tiled_decoder": true,
+          "sampler": "euler",
+          "fill_holes": true,
+          "hole_iterations": 1,
+          "hole_fill_algorithm": "flood_fill",
+          "keep_only_shell": true,
+          "pipeline": [
+            "8",
+            0
+          ],
+          "image": [
+            "5",
+            0
+          ]
+        }
+      },
+      "10": {
+        "class_type": "Trellis2PostProcessAndUnWrapAndRasterizer",
+        "inputs": {
+          "mesh_cluster_threshold_cone_half_angle_rad": 60.0,
+          "mesh_cluster_refine_iterations": 0,
+          "mesh_cluster_global_iterations": 1,
+          "mesh_cluster_smooth_strength": 1,
+          "texture_size": 4096,
+          "remesh": true,
+          "remesh_band": 1.0,
+          "remesh_project": 0.0,
+          "target_face_num": 1000000,
+          "simplify_method": "Cumesh",
+          "fill_holes": true,
+          "texture_alpha_mode": "OPAQUE",
+          "dual_contouring_resolution": "1024",
+          "double_side_material": false,
+          "remove_floaters": true,
+          "bake_on_vertices": false,
+          "use_custom_normals": false,
+          "remove_inner_faces": true,
+          "inpainting": "telea",
+          "reorient_vertices": "90 degrees",
+          "mesh": [
+            "9",
+            0
+          ],
+          "bvh": [
+            "9",
+            1
+          ]
+        }
+      },
+      "11": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "filename_prefix": "HandBrain20260910/handbrain_detailed_v02",
+          "file_format": "glb",
+          "trimesh": [
+            "10",
+            0
+          ]
+        }
+      }
+    },
+    {
+      "client_id": "handbrain-v02",
+      "create_time": 1789048680641
+    },
+    [
+      "20",
+      "10",
+      "11",
+      "8",
+      "9"
+    ]
+  ],
+  "outputs": {
+    "20": {
+      "images": [
+        {
+          "filename": "reference_source_v02_00001_.png",
+          "subfolder": "HandBrain20260910",
+          "type": "output"
+        }
+      ]
+    }
+  },
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "5c8867a9-80a0-46c9-a825-da244e737db9",
+          "timestamp": 1789048680641
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [
+            "8"
+          ],
+          "prompt_id": "5c8867a9-80a0-46c9-a825-da244e737db9",
+          "timestamp": 1789048680664
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "5c8867a9-80a0-46c9-a825-da244e737db9",
+          "timestamp": 1789049422697
+        }
+      ]
+    ]
+  },
+  "meta": {
+    "20": {
+      "node_id": "20",
+      "display_node": "20",
+      "parent_node": null,
+      "real_node_id": "20"
+    }
+  }
+}

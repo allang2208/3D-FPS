@@ -1,0 +1,106 @@
+{
+  "standard_reload": {
+    "label": "m4-audit-final",
+    "requested_hz": 60,
+    "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+    "rhi": "-d3d11",
+    "process_exit": 0,
+    "pass": 50,
+    "fail": 0,
+    "completion_marker": true,
+    "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-audit-final\\assertions.log",
+    "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4AnimationAudit20260910\\runtime-m4-audit-final.log",
+    "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+  },
+  "equip": {
+    "label": "m4-audit-equip",
+    "requested_hz": 60,
+    "clock_mode": "Real time with FPS cap; actual mixer recording. Background audio enabled only for this validation process.",
+    "rhi": "-d3d11",
+    "process_exit": 0,
+    "pass": 21,
+    "fail": 0,
+    "completion_marker": true,
+    "assertions": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-audit-equip\\assertions.log",
+    "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4AnimationAudit20260910\\runtime-m4-audit-equip.log",
+    "note": "Real rendered game, isolated clear floor, simulated controller inputs."
+  },
+  "assets": {
+    "reload": {
+      "path": "/Game/Weapons/M4AnimationAuditFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+      "duration": 2.0999999046325684,
+      "before_sha256": "c8c99de887b24b819ea6abf8d53789674feaeedf04e69e597d3d0a0dad8bbd52",
+      "after_sha256": "a720316d0a45896ab38f4ea559f12d01432c895677c57680b0c5a005a0914271",
+      "keys": 1009,
+      "compression_error_cm": 0.0007529150398664651
+    },
+    "reload_empty": {
+      "path": "/Game/Weapons/M4AnimationAuditFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+      "duration": 2.700000047683716,
+      "before_sha256": "145c5e7444520f86f18977481a2f7834950cc7336610e04f8850cbeb8849f1de",
+      "after_sha256": "8620baec3128d12ff9eb211dce5814c360468c89f884c0f77189ed04d545edae",
+      "keys": 1297,
+      "compression_error_cm": 0.006689947621624803
+    },
+    "equip_charge": {
+      "path": "/Game/Weapons/M4AnimationAuditFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+      "duration": 0.6333333253860474,
+      "before_sha256": "7c0515f66767cecda5710b4226bbf92975d65357b9a03b3f2b26bace764d09c9",
+      "after_sha256": "0f026224c58ee2aa0aa184b7e3d130f569fcbb0785c27f9bfcf4a94ae115dfff",
+      "keys": 305,
+      "compression_error_cm": 0.0008669305685929206
+    },
+    "S_HK416_Equip": {
+      "path": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_Equip.S_HK416_Equip",
+      "duration": 0.7200000286102295
+    },
+    "S_HK416_BoltRelease": {
+      "path": "/Game/Weapons/M4AnimationAuditFinal/S_HK416_BoltRelease.S_HK416_BoltRelease",
+      "duration": 0.15000000596046448
+    }
+  },
+  "compressed_pose": {
+    "reload": {
+      "keys": 1009,
+      "duration": 2.0999999046325684,
+      "samples_960hz": 2017,
+      "held_drift_mm": 0.16006845004034526,
+      "grasp_drift_mm": 0.2980497445600949,
+      "hook_drift_mm": 0
+    },
+    "reload_empty": {
+      "keys": 1297,
+      "duration": 2.700000047683716,
+      "samples_960hz": 2593,
+      "held_drift_mm": 0.37414711218129504,
+      "grasp_drift_mm": 0.06881167449124868,
+      "hook_drift_mm": 0
+    },
+    "equip_charge": {
+      "keys": 305,
+      "duration": 0.6333333253860474,
+      "samples_960hz": 609,
+      "held_drift_mm": 0.30527214161549643,
+      "grasp_drift_mm": 0,
+      "hook_drift_mm": 0.017737413264226037
+    }
+  },
+  "editable_mat": {
+    "reload": {
+      "channels": 909,
+      "keys": 917181
+    },
+    "reload_empty": {
+      "channels": 909,
+      "keys": 1178973
+    },
+    "equip_charge": {
+      "channels": 909,
+      "keys": 277245
+    }
+  },
+  "audio_min_correlation": 0.8461889149771329,
+  "audio_events": 11,
+  "scope": "Ordinary curved M4 magazine; preserve drum branch. Current user editor PID 41756 still uses UnrealEditor-FPSGAME-2026091071.dll; fresh isolated game proved final paths loaded.",
+  "tool_limitations": "UE commandlets report unrelated existing GameFeatureData/MCP port errors; assertions and fresh persisted readback pass. MAT helper saved all sequences then exited with code 3 during Sequencer shutdown; separately reloaded saved keys successfully."
+}

@@ -1,0 +1,69 @@
+{
+  "Idle": {
+    "duration_s": 2,
+    "fps": 30,
+    "frames": [
+      1,
+      61
+    ],
+    "loop": true,
+    "root_motion": false
+  },
+  "Move": {
+    "duration_s": 1,
+    "fps": 30,
+    "frames": [
+      1,
+      31
+    ],
+    "loop": true,
+    "root_motion": false
+  },
+  "Attack_Slam": {
+    "duration_s": 2,
+    "fps": 30,
+    "frames": [
+      1,
+      61
+    ],
+    "loop": false,
+    "root_motion": false,
+    "hit_time_s": 1.0,
+    "hit_frame_30fps": 31,
+    "source_frame_1based": 14
+  },
+  "Attack_Howl": {
+    "duration_s": 3,
+    "fps": 30,
+    "frames": [
+      1,
+      91
+    ],
+    "loop": false,
+    "root_motion": false,
+    "full_open_s": [
+      0.82,
+      1.8
+    ],
+    "closed_s": 2.62,
+    "source": "attacking-2.png, 28 frames",
+    "gameplay_damage_starts_s": 0,
+    "gameplay_damage_interval_s": 0.5,
+    "ue_gameplay_integrated": false
+  },
+  "Death": {
+    "duration_s": 2.8,
+    "fps": 30,
+    "frames": [
+      1,
+      85
+    ],
+    "loop": false,
+    "hold_last_frame": true,
+    "impact_s": 1.12,
+    "settled_s": 2.05,
+    "root_motion": false,
+    "design": "Original authored side collapse; no dedicated source death clip exists",
+    "ue_integrated": false
+  }
+}

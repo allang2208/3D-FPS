@@ -1,0 +1,12 @@
+{
+  "reload": {
+    "arm_reference": "Original M4_reload frame 146",
+    "hand_contact": "Preserved complete hand transform and finger local poses",
+    "frames": 1009
+  },
+  "reload_empty": {
+    "arm_reference": "Original M4_reload frame 146",
+    "hand_contact": "Preserved complete hand transform and finger local poses",
+    "frames": 1297
+  }
+}

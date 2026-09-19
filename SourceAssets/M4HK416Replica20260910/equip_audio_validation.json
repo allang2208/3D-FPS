@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "equip_at": 1.6,
+      "wave_start": 1.536,
+      "correlation": 0.9975306456974797
+    },
+    {
+      "equip_at": 3.5,
+      "wave_start": 3.4346666666666668,
+      "correlation": 0.9975306456974797
+    }
+  ],
+  "peak": 0.2752838134765625,
+  "duration": 7.061333333333334,
+  "note": "Actual mixer recording correlated with original HK416 equip.mp3 decoded to WAV. Interrupted equips are checked by runtime voice/queue assertions."
+}

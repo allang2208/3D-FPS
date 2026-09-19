@@ -1,0 +1,38 @@
+{
+  "low": {
+    "vertices": 60926,
+    "moved": 6137,
+    "max_delta_m": 0.005730885546654463
+  },
+  "high": {
+    "vertices": 1456656,
+    "moved": 26082,
+    "max_delta_m": 0.0021582655608654022
+  },
+  "fingers": 92,
+  "hands": 26,
+  "rejected": [],
+  "bones": 38,
+  "actions": {
+    "Attack_Howl": [
+      1.0,
+      91.0
+    ],
+    "Attack_Slam": [
+      1.0,
+      61.0
+    ],
+    "Death": [
+      1.0,
+      85.0
+    ],
+    "Idle": [
+      1.0,
+      61.0
+    ],
+    "Move": [
+      1.0,
+      31.0
+    ]
+  }
+}

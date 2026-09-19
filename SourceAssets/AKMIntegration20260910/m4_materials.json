@@ -1,0 +1,154 @@
+[
+  {
+    "slot": "Flash_Hider_001",
+    "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal"
+      },
+      {
+        "name": "ShininessMap",
+        "value": "/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness"
+      }
+    ]
+  },
+  {
+    "slot": "Grip_Default_001",
+    "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/Grip_Default_BaseColor.Grip_Default_BaseColor"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/Grip_Default_Normal.Grip_Default_Normal"
+      },
+      {
+        "name": "ShininessMap",
+        "value": "/Game/Weapons/M4InfimaV3/Grip_Default_Roughness.Grip_Default_Roughness"
+      }
+    ]
+  },
+  {
+    "slot": "Keymod_material_001",
+    "material": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/Keymod_material_BaseColor.Keymod_material_BaseColor"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/Keymod_material_Normal.Keymod_material_Normal"
+      },
+      {
+        "name": "ShininessMap",
+        "value": "/Game/Weapons/M4InfimaV3/Keymod_material_Roughness.Keymod_material_Roughness"
+      }
+    ]
+  },
+  {
+    "slot": "Body_001",
+    "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/Body_BaseColor.Body_BaseColor"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/Body_Normal.Body_Normal"
+      },
+      {
+        "name": "ShininessMap",
+        "value": "/Game/Weapons/M4InfimaV3/Body_Roughness.Body_Roughness"
+      }
+    ]
+  },
+  {
+    "slot": "Magazine_Light_001",
+    "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/Magazine_Light_BaseColor.Magazine_Light_BaseColor"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/Magazine_Light_Normal.Magazine_Light_Normal"
+      },
+      {
+        "name": "ShininessMap",
+        "value": "/Game/Weapons/M4InfimaV3/Magazine_Light_Roughness.Magazine_Light_Roughness"
+      }
+    ]
+  },
+  {
+    "slot": "Classic_Stock_001",
+    "material": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/Classic_Stock_BaseColor.Classic_Stock_BaseColor"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/Classic_Stock_Normal.Classic_Stock_Normal"
+      },
+      {
+        "name": "ShininessMap",
+        "value": "/Game/Weapons/M4InfimaV3/Classic_Stock_Roughness.Classic_Stock_Roughness"
+      }
+    ]
+  },
+  {
+    "slot": "MI_Manny_01",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/T_Manny_01_D.T_Manny_01_D"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/T_Manny_01_N.T_Manny_01_N"
+      }
+    ]
+  },
+  {
+    "slot": "MI_Manny_02",
+    "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+    "class": "MaterialInstanceConstant",
+    "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+    "textures": [
+      {
+        "name": "DiffuseColorMap",
+        "value": "/Game/Weapons/M4InfimaV3/T_Manny_02_D.T_Manny_02_D"
+      },
+      {
+        "name": "NormalMap",
+        "value": "/Game/Weapons/M4InfimaV3/T_Manny_02_N.T_Manny_02_N"
+      }
+    ]
+  }
+]

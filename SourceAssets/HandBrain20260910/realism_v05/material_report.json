@@ -1,0 +1,51 @@
+{
+  "fab_downloaded": true,
+  "sources": "Existing Hunyuan maps plus user-added ZombiSkinMaterial height, AO, color luminance and roughness; local green/wound blend",
+  "materials": [
+    {
+      "object": "HandBrain_Body",
+      "slot": 0,
+      "name": "Refined_HandBrain_Body_0",
+      "semantic": "skin_wound"
+    },
+    {
+      "object": "HandBrain_Body",
+      "slot": 1,
+      "name": "Refined_HandBrain_Body_1",
+      "semantic": "mouth"
+    },
+    {
+      "object": "HandBrain_Body",
+      "slot": 2,
+      "name": "Refined_HandBrain_Body_2",
+      "semantic": "skin_wound"
+    },
+    {
+      "object": "HandBrain_AttackArm",
+      "slot": 0,
+      "name": "Refined_HandBrain_AttackArm_0",
+      "semantic": "skin_wound"
+    },
+    {
+      "object": "HandBrain_CrownHands",
+      "slot": 0,
+      "name": "Refined_HandBrain_CrownHands_0",
+      "semantic": "skin_wound"
+    },
+    {
+      "object": "HandBrain_OralTeeth",
+      "slot": 0,
+      "name": "Refined_HandBrain_OralTeeth_0",
+      "semantic": "teeth"
+    }
+  ],
+  "material_pass_preserves_adjusted_geometry": true,
+  "bones": 38,
+  "actions": {
+    "Attack_Howl": 3.0,
+    "Attack_Slam": 2.0,
+    "Death": 2.8,
+    "Idle": 2.0,
+    "Move": 1.0
+  }
+}

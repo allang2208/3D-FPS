@@ -1,0 +1,30 @@
+{
+  "asset": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop",
+  "job_id": "1489624951358898176",
+  "weapon": "ue_m4a1",
+  "slot": "underbarrel",
+  "option": "prism_handstop",
+  "runtime_checks": 24,
+  "runtime_failures": 0,
+  "runtime_log": "prism-final/runtime.log",
+  "triangles": 16000,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "native_build": "Succeeded",
+  "full_animation_contact_audit": false,
+  "packaged_build_verified": false,
+  "files": [
+    {
+      "name": "PrismHandstop_Editable.blend",
+      "sha256": "96C00C0213AEB5DA0B59511A7506633866252530D782F5C9DFB3B3440B721798"
+    },
+    {
+      "name": "SM_PrismHandstop.fbx",
+      "sha256": "81244554C178F6BCECE2CFD3F1C9B196082F0F7FE0E37C72E4D6A5A84892DF11"
+    },
+    {
+      "name": "PrismHandstop.glb",
+      "sha256": "BACD7EEB7EA7932B6820BCD6E64FD5278E580BBC5E2FCB759674C0CF333E544D"
+    }
+  ]
+}

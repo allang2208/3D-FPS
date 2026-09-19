@@ -1,0 +1,33 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4HandMATRepair/A_M4_MAT_reload.A_M4_MAT_reload",
+    "duration": 2.0999999046325684,
+    "compressed_position_error_cm": 0.002833775218586329,
+    "sequence": "/Game/Weapons/M4HandMATRepair/LS_M4_Hand_reload.LS_M4_Hand_reload",
+    "bake_success": true
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4HandMATRepair/A_M4_MAT_reload_empty.A_M4_MAT_reload_empty",
+    "duration": 2.700000047683716,
+    "compressed_position_error_cm": 0.0040924799222892315,
+    "sequence": "/Game/Weapons/M4HandMATRepair/LS_M4_Hand_reload_empty.LS_M4_Hand_reload_empty",
+    "bake_success": true
+  },
+  "equip_charge": {
+    "asset": "/Game/Weapons/M4HandMATRepair/A_M4_MAT_equip_charge.A_M4_MAT_equip_charge",
+    "duration": 0.6333333253860474,
+    "compressed_position_error_cm": 0.0010491489882075618,
+    "sequence": "/Game/Weapons/M4HandMATRepair/LS_M4_Hand_equip_charge.LS_M4_Hand_equip_charge",
+    "bake_success": true
+  },
+  "drum_reload": {
+    "asset": "/Game/Weapons/M4HandMATRepair/A_M4_MAT_drum_reload.A_M4_MAT_drum_reload",
+    "duration": 2.0999999046325684,
+    "compressed_position_error_cm": 0.002833127446464336
+  },
+  "drum_reload_empty": {
+    "asset": "/Game/Weapons/M4HandMATRepair/A_M4_MAT_drum_reload_empty.A_M4_MAT_drum_reload_empty",
+    "duration": 2.700000047683716,
+    "compressed_position_error_cm": 0.004089765838334096
+  }
+}

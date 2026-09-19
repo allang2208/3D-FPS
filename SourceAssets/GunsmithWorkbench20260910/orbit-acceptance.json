@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-10",
+  "feature": "Horizontal resting presentation and mouse drag orbit",
+  "build": "Succeeded",
+  "build_log": "SourceAssets/GunsmithWorkbench20260910/build-orbit.log",
+  "runs": [
+    {
+      "run": "orbit-v2-1920",
+      "checks": 31,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-v2-1920.log",
+      "module": "UnrealEditor-FPSGAME-2026091312.dll",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-v2-1920-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-v2-1920-rotated.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-v2-1920-ads.png"
+      ]
+    },
+    {
+      "run": "orbit-final-1280",
+      "checks": 31,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-final-1280.log",
+      "module": "UnrealEditor-FPSGAME-2026091093.dll",
+      "screenshots": [
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-final-1280-draft.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-final-1280-rotated.png",
+        "D:\\FPS3D\\FPSGAME\\Saved\\GunsmithWorkbenchAudit\\orbit-final-1280-ads.png"
+      ]
+    }
+  ],
+  "input": "Routed Slate pointer events, captured drag, release outside, double click and close during capture",
+  "visual_review": "Default horizontal pose and rotated assembly inspected; all attachments move together",
+  "scope": "Preview transforms and pointer handling only"
+}

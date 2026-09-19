@@ -1,0 +1,16 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+    "compressed_samples": 321,
+    "sample_hz": 960,
+    "straight_insertion_max_lateral_error_cm": 2.160480129443214e-07,
+    "source_duration": 2.0999999046325684
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+    "compressed_samples": 433,
+    "sample_hz": 960,
+    "straight_insertion_max_lateral_error_cm": 4.710179347321797e-07,
+    "source_duration": 2.4666666984558105
+  }
+}

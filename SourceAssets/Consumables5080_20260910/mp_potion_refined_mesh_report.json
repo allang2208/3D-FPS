@@ -1,0 +1,57 @@
+{
+  "asset": "mp_potion",
+  "source": "mp_potion_candidate_v02.glb",
+  "bounds_original": [
+    0.11520000547170639,
+    0.11520000547170639,
+    0.18522000312805176
+  ],
+  "meshes": [
+    {
+      "name": "Retopologized mana bottle",
+      "vertices": 2400,
+      "triangles": 4796,
+      "materials": [
+        "Clear thick glass"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Blue liquid",
+      "vertices": 672,
+      "triangles": 1340,
+      "materials": [
+        "Mana liquid"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Silver stopper collar",
+      "vertices": 512,
+      "triangles": 1020,
+      "materials": [
+        "Brushed silver"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Silver stopper",
+      "vertices": 1223,
+      "triangles": 2208,
+      "materials": [
+        "Brushed silver"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Silver neck spiral",
+      "vertices": 2509,
+      "triangles": 4608,
+      "materials": [
+        "Brushed silver"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": []
+}

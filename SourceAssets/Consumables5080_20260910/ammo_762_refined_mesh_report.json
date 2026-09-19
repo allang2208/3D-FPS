@@ -1,0 +1,52 @@
+{
+  "asset": "ammo_762",
+  "source": "ammo_762_candidate_v02.glb",
+  "bounds_original": [
+    0.999657154083252,
+    0.5878947973251343,
+    0.8632965087890625
+  ],
+  "meshes": [
+    {
+      "name": "geometry_0",
+      "vertices": 22166,
+      "triangles": 19571,
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Correct caliber printing",
+      "vertices": 8,
+      "triangles": 6,
+      "materials": [
+        "Reference cardboard print"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": [
+    {
+      "name": "ammo_762_view0_00001_",
+      "size": [
+        716,
+        716
+      ]
+    },
+    {
+      "name": "Image_0",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ]
+}

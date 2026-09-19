@@ -1,0 +1,42 @@
+{
+  "node_0": {
+    "vertices": 296790,
+    "polygons": 500003,
+    "dimensions": [
+      1.11421799659729,
+      0.48755306005477905,
+      0.22652602195739746
+    ],
+    "materials": [
+      "Material.001"
+    ]
+  },
+  "textures": {
+    "Material.001": [
+      {
+        "node": "Image Texture",
+        "image": "texture_pbr_20250901",
+        "size": [
+          4096,
+          4096
+        ]
+      },
+      {
+        "node": "Image Texture.001",
+        "image": "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+        "size": [
+          4096,
+          4096
+        ]
+      },
+      {
+        "node": "Image Texture.002",
+        "image": "texture_pbr_20250901_normal",
+        "size": [
+          4096,
+          4096
+        ]
+      }
+    ]
+  }
+}

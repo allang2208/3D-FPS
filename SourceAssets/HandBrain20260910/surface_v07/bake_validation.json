@@ -1,0 +1,113 @@
+{
+  "maps": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\sculpt_v06\\textures\\Sculpt_Final_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.5921568870544434,
+      "stddev": 0.08028174936771393
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.6000000238418579,
+      "stddev": 0.2528509795665741
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\surface_v07\\textures\\Surface_Final_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.23638001084327698
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_1_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.3450980484485626,
+      "stddev": 0.10886329412460327
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_1_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.32156863808631897,
+      "stddev": 0.1263539046049118
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_1_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.23581543564796448
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_2_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.3450980484485626,
+      "stddev": 0.10125692188739777
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_2_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.5960784554481506,
+      "stddev": 0.27289676666259766
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_Body_2_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.2357637584209442
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_AttackArm_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.545098066329956,
+      "stddev": 0.06454422324895859
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_AttackArm_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.5960784554481506,
+      "stddev": 0.2742491364479065
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_AttackArm_0_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.23777130246162415
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_CrownHands_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.5411764979362488,
+      "stddev": 0.06842668354511261
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_CrownHands_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.5960784554481506,
+      "stddev": 0.23136529326438904
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_CrownHands_0_Normal_DirectX.png",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "stddev": 0.24392589926719666
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_OralTeeth_0_BaseColor.png",
+      "minimum": 0.0,
+      "maximum": 0.6627451181411743,
+      "stddev": 0.17357571423053741
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_OralTeeth_0_Roughness.png",
+      "minimum": 0.0,
+      "maximum": 0.41568630933761597,
+      "stddev": 0.10823708772659302
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HandBrain20260910\\realism_v05\\textures\\HandBrain_OralTeeth_0_Normal_DirectX.png",
+      "minimum": 0.46274513006210327,
+      "maximum": 1.0,
+      "stddev": 0.2354171723127365
+    }
+  ],
+  "complete": true
+}

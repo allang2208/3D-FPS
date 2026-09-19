@@ -1,0 +1,17 @@
+{
+  "HandBrain_Body": {
+    "unweighted": 0,
+    "max_weights": 3,
+    "max_weight_sum_error": 4.470348358154297e-08
+  },
+  "HandBrain_AttackArm": {
+    "unweighted": 0,
+    "max_weights": 2,
+    "max_weight_sum_error": 2.9802322387695312e-08
+  },
+  "HandBrain_CrownHands": {
+    "unweighted": 0,
+    "max_weights": 2,
+    "max_weight_sum_error": 2.9802322387695312e-08
+  }
+}

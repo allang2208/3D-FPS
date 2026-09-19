@@ -1,0 +1,20 @@
+[
+  {
+    "run": "m4-hk416-final-av60",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\Delivery\\M4_换弹与开火_实际录音.mp4",
+    "fps": 20,
+    "source_frames": 277,
+    "held_missing_frames": 7,
+    "audio_origin_trim": 2.5359999999999996,
+    "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+  },
+  {
+    "run": "m4-hk416-equip-final",
+    "output": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\Delivery\\M4_装备拉栓与切枪_实际录音.mp4",
+    "fps": 20,
+    "source_frames": 134,
+    "held_missing_frames": 10,
+    "audio_origin_trim": -0.185341,
+    "note": "Same run rendered frames and actual mixer output. Missing screenshot indices hold previous frame; no per-event audio replacement or shifts."
+  }
+]

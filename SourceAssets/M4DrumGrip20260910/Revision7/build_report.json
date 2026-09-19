@@ -1,0 +1,20 @@
+{
+  "reload": {
+    "frames": 126,
+    "duration": 2.1,
+    "weapon_position_difference_cm": 3.0719530773294424e-06,
+    "weapon_angle_difference_deg": 0,
+    "slap_source_contact_frame": null,
+    "slap_new_contact_frame": null,
+    "removed_windup_frames": 0
+  },
+  "reload_empty": {
+    "frames": 148,
+    "duration": 2.466666666666667,
+    "weapon_position_difference_cm": 3.514431838712321e-06,
+    "weapon_angle_difference_deg": 0,
+    "slap_source_contact_frame": 130,
+    "slap_new_contact_frame": 116,
+    "removed_windup_frames": 14
+  }
+}

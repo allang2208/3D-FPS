@@ -1,0 +1,18 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+    "duration": 2.0999999046325684,
+    "keys": 505,
+    "compression_error_cm": 0.012479830603237223,
+    "verification_hz": 960,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\A_M4_DrumContact_reload.fbx"
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+    "duration": 2.4666666984558105,
+    "keys": 593,
+    "compression_error_cm": 0.00708712280654121,
+    "verification_hz": 960,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\A_M4_DrumContact_reload_empty.fbx"
+  }
+}
