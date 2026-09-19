@@ -1,0 +1,38 @@
+{
+  "QBZ191_balanced": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\SM_BalancedRearGrip.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\Textures\\T_QBZ191_Coating_QBZ191_balanced_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\Textures\\T_QBZ191_Coating_QBZ191_balanced_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      "M_BalancedRearGrip",
+      "M_BalancedRearGrip_Collar"
+    ],
+    "export_slots": [
+      "M_BalancedRearGrip",
+      "M_BalancedRearGrip_Collar"
+    ]
+  },
+  "QBZ191_phantom": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\SM_PhantomRearGrip.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\Textures\\T_QBZ191_Coating_QBZ191_phantom_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\Textures\\T_QBZ191_Coating_QBZ191_phantom_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      "M_PhantomRearGrip",
+      "M_PhantomRearGrip_Collar"
+    ],
+    "export_slots": [
+      "M_PhantomRearGrip",
+      "M_PhantomRearGrip_Collar"
+    ]
+  }
+}

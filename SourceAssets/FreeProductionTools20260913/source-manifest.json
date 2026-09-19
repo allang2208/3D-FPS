@@ -1,0 +1,19 @@
+{
+  "scope": "Only tool_axe; pickaxe deferred by user",
+  "title": "Axe Game Ready 3D Asset",
+  "publisher": "VEE ANIMATION",
+  "listing": "https://www.fab.com/listings/cd5e9124-55b7-4021-8544-a4dc9a7ca0d7",
+  "listing_license": "Fab Standard License",
+  "acquired_by": "User via Fab",
+  "mesh_source": "D:/FPS3D/VaultCache/FabLibrary/Axe_Game_Ready_3D_Asset-cd5e9124/fbx/axe_fbx_extracted/Axe.fbx",
+  "texture_archive": "D:/FPS3D/资产/axe_textures.zip",
+  "source_mesh_sha256": "855cb698d9290ff814d031e80c47cb06fdf89a307e4435301a66b413c42482a7",
+  "output_mesh": "/Game/Items/ProductionTools/FreeFab20260913/Axe/SM_Free_Axe.SM_Free_Axe",
+  "preserved_mesh": "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Hatchet.SM_Polygonal_Hatchet",
+  "source_triangles": 1728,
+  "height_cm": 78,
+  "texture_limit": 1024,
+  "metalness": "Reconstructed from per-component vertex colors; original texture archive contains no metalness map",
+  "binary_redistribution": "Not published; retain licensed local source and UE assets",
+  "runtime_tested": false
+}

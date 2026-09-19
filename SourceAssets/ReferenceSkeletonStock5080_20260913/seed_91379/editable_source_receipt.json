@@ -1,0 +1,31 @@
+{
+  "operation": "GLB import, original texture extraction, and packed editable source save",
+  "source": "textured_master_00001_.glb",
+  "blend": "SkeletonStock_5080_Candidate_Editable.blend",
+  "blender_version": "5.1.2",
+  "textures": [
+    {
+      "file": "Textures\\00_Image_0.png",
+      "image_name": "Image_0",
+      "color_space": "sRGB",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "file": "Textures\\01_Image_1.png",
+      "image_name": "Image_1",
+      "color_space": "Non-Color",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "geometry_edits": false,
+  "rendered": false,
+  "tested": false,
+  "ue_imported": false,
+  "runtime_reference": null
+}

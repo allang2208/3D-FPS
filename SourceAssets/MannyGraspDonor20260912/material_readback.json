@@ -1,0 +1,112 @@
+{
+  "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416": [
+    {
+      "slot": "Flash_Hider_001",
+      "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+      "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x0000027951834830) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Flash_Hider_BaseColor.Flash_Hider_BaseColor'\"}>",
+        "<Struct 'TextureParameterValue' (0x0000027951834880) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Flash_Hider_Normal.Flash_Hider_Normal'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08C9C0) {parameter_info: {name: \"ShininessMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Flash_Hider_Roughness.Flash_Hider_Roughness'\"}>"
+      ]
+    },
+    {
+      "slot": "Grip_Default_001",
+      "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+      "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08E500) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Grip_Default_BaseColor.Grip_Default_BaseColor'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08E4C0) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Grip_Default_Normal.Grip_Default_Normal'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08DA40) {parameter_info: {name: \"ShininessMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Grip_Default_Roughness.Grip_Default_Roughness'\"}>"
+      ]
+    },
+    {
+      "slot": "Keymod_material_001",
+      "material": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001",
+      "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08A9C0) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Keymod_material_BaseColor.Keymod_material_BaseColor'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08A6C0) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Keymod_material_Normal.Keymod_material_Normal'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08A400) {parameter_info: {name: \"ShininessMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Keymod_material_Roughness.Keymod_material_Roughness'\"}>"
+      ]
+    },
+    {
+      "slot": "Body_001",
+      "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+      "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08B240) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Body_BaseColor.Body_BaseColor'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08B6C0) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Body_Normal.Body_Normal'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08B740) {parameter_info: {name: \"ShininessMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Body_Roughness.Body_Roughness'\"}>"
+      ]
+    },
+    {
+      "slot": "Magazine_Light_001",
+      "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+      "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08B5C0) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Magazine_Light_BaseColor.Magazine_Light_BaseColor'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08B900) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Magazine_Light_Normal.Magazine_Light_Normal'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08BBC0) {parameter_info: {name: \"ShininessMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Magazine_Light_Roughness.Magazine_Light_Roughness'\"}>"
+      ]
+    },
+    {
+      "slot": "Classic_Stock_001",
+      "material": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001",
+      "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08B880) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Classic_Stock_BaseColor.Classic_Stock_BaseColor'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08C040) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Classic_Stock_Normal.Classic_Stock_Normal'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08B680) {parameter_info: {name: \"ShininessMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/Classic_Stock_Roughness.Classic_Stock_Roughness'\"}>"
+      ]
+    },
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+      "base": "/Game/Characters/ArmsBlackWhiteTrial/M_Manny_BlackWhite_01.M_Manny_BlackWhite_01",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08EAC0) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_01_D.T_Manny_01_D'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08D8C0) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_01_N.T_Manny_01_N'\"}>"
+      ]
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+      "base": "/Game/Characters/ArmsBlackWhiteTrial/M_Manny_BlackWhite_02.M_Manny_BlackWhite_02",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x0000027951834970) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_02_D.T_Manny_02_D'\"}>",
+        "<Struct 'TextureParameterValue' (0x00000279518349C0) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_02_N.T_Manny_02_N'\"}>"
+      ]
+    }
+  ],
+  "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SK_AKM_MannyNative": [
+    {
+      "slot": "M_AKM_Soviet_PBR",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "base": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+    },
+    {
+      "slot": "M_AKM_Soviet_Magazine",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "base": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+    },
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+      "base": "/Game/Characters/ArmsBlackWhiteTrial/M_Manny_BlackWhite_01.M_Manny_BlackWhite_01",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08F440) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_01_D.T_Manny_01_D'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08F400) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_01_N.T_Manny_01_N'\"}>"
+      ]
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+      "base": "/Game/Characters/ArmsBlackWhiteTrial/M_Manny_BlackWhite_02.M_Manny_BlackWhite_02",
+      "textures": [
+        "<Struct 'TextureParameterValue' (0x000002798F08F280) {parameter_info: {name: \"DiffuseColorMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_02_D.T_Manny_02_D'\"}>",
+        "<Struct 'TextureParameterValue' (0x000002798F08F240) {parameter_info: {name: \"NormalMap\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/Weapons/M4InfimaV3/T_Manny_02_N.T_Manny_02_N'\"}>"
+      ]
+    }
+  ]
+}

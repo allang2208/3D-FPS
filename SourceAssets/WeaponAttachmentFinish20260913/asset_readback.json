@@ -1,0 +1,928 @@
+{
+  "scope": "Saved mesh/material bindings only; no gameplay or rendered comparison",
+  "mesh_count": 14,
+  "checks": 230,
+  "failures": [],
+  "results": [
+    {
+      "ok": true,
+      "check": "M4/drum saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumPolymer saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumPolymer non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumFasteners retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumIndex saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/drum/DrumIndex non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Holosight retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Red_Dot saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/holographic/Red_Dot non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Glass saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Glass non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Reticle saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Reticle non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/panoramic_red_dot/Panoramic_Body retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Reticle saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Reticle non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Glass saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Glass non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism_scope_2x/Scope2X_Body retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Reticle saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Reticle non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Glass saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Glass non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_1_6x/LPVO_Body retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/lpvo_ring/LPVO_Body retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Polymer saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Polymer non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle saved binding"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "M4/prism/Prism_Saddle retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumPolymer saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumPolymer non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumFasteners retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumIndex saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/drum/drum_DrumIndex non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RifleMetal retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RecessMetal saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/suppressor/suppressor_RecessMetal non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RifleMetal retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RecessMetal saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/brake/brake_RecessMetal non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RifleMetal retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RecessMetal saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_RecessMetal non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_TitaniumTrim saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/titanium_brake/titanium_brake_TitaniumTrim non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/Body_004 retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/AKM_AdapterSteel saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/vertical/AKM_AdapterSteel non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/Body_004 retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/AKM_AdapterSteel saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/canted/AKM_AdapterSteel non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism saved variant loads"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism triangle count unchanged"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism original section names and order retained"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism target receiver recorded"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Polymer saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Polymer non-target material preserved"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/prism_Prism_Saddle retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel saved binding"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel receiver-specific finish"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel correct coating UV channel"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel target receiver texture channels"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel retained <MaterialProperty.MP_NORMAL: 10>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel retained <MaterialProperty.MP_AMBIENT_OCCLUSION: 18>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel retained <MaterialProperty.MP_OPACITY: 1>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel retained <MaterialProperty.MP_OPACITY_MASK: 2>"
+    },
+    {
+      "ok": true,
+      "check": "AKM/prism/AKM_AdapterSteel retained <MaterialProperty.MP_EMISSIVE_COLOR: 0>"
+    },
+    {
+      "ok": true,
+      "check": "14 selected mesh variants saved"
+    }
+  ]
+}

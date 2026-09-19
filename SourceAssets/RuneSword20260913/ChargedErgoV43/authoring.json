@@ -1,0 +1,66 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\OffscreenLeftInspectV42\\AzureRunesword_OffscreenLeftInspectV42.blend",
+  "fps": 480.0,
+  "edited_bones": [
+    "lowerarm_l",
+    "lowerarm_twist_01_l",
+    "lowerarm_twist_02_l",
+    "hand_l"
+  ],
+  "clips": [
+    {
+      "clip": "HeavyCharge",
+      "frames": [
+        0,
+        960
+      ],
+      "seconds": 2.0,
+      "weight_first": 0.0,
+      "weight_last": 1.0,
+      "weight_max": 1.0,
+      "authored_roll_deg_range": [
+        -100.55757476720213,
+        105.3339257585324
+      ],
+      "decomposition_error_deg_max": 6.066002341018074e-05
+    },
+    {
+      "clip": "HeavyRelease",
+      "frames": [
+        0,
+        480
+      ],
+      "seconds": 1.0,
+      "weight_first": 1.0,
+      "weight_last": 0.0,
+      "weight_max": 1.0,
+      "authored_roll_deg_range": [
+        -178.23949113487515,
+        172.65510917880755
+      ],
+      "decomposition_error_deg_max": 5.680804870604651e-05
+    },
+    {
+      "clip": "Slash1",
+      "frames": [
+        0,
+        852
+      ],
+      "seconds": 1.775,
+      "weight_first": 0.0,
+      "weight_last": 0.0,
+      "weight_max": 1.0,
+      "authored_roll_deg_range": [
+        -179.57201133840806,
+        175.10976234093405
+      ],
+      "decomposition_error_deg_max": 6.0318076591708806e-05
+    }
+  ],
+  "method": "Left forearm axial rotation moved from lowerarm_l onto a linear gradient over lowerarm_twist_02_l / lowerarm_twist_01_l, with the hand rebuilt against the new parent so its world orientation and the grip are unchanged",
+  "envelopes": {
+    "HeavyCharge": "ramp in over 100 ms, held to the end",
+    "HeavyRelease": "held to 850 ms, ramp out to 1000 ms",
+    "Slash1": "charge clock from the early release, out over 650-850 ms"
+  }
+}

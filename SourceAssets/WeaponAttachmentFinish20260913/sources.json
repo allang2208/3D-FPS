@@ -1,0 +1,345 @@
+{
+  "M4/drum": {
+    "path": "/Game/Weapons/M4Drum/SM_M4_LargeDrum",
+    "slots": [
+      {
+        "slot": "DrumPolymer",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer"
+      },
+      {
+        "slot": "DrumFasteners",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners"
+      },
+      {
+        "slot": "DrumIndex",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+      }
+    ],
+    "triangles": 13908,
+    "family": "M4",
+    "key": "drum",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\drum.fbx"
+  },
+  "M4/holographic": {
+    "path": "/Game/Weapons/M4Holographic/SM_M4_Holographic",
+    "slots": [
+      {
+        "slot": "Holosight",
+        "material": "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody"
+      },
+      {
+        "slot": "Red_Dot",
+        "material": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+      }
+    ],
+    "triangles": 8680,
+    "family": "M4",
+    "key": "holographic",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\holographic.fbx"
+  },
+  "M4/panoramic_red_dot": {
+    "path": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot",
+    "slots": [
+      {
+        "slot": "Panoramic_Glass",
+        "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+      },
+      {
+        "slot": "Panoramic_Reticle",
+        "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+      },
+      {
+        "slot": "Panoramic_Body",
+        "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Body.M_Panoramic_Body"
+      }
+    ],
+    "triangles": 15894,
+    "family": "M4",
+    "key": "panoramic_red_dot",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\panoramic_red_dot.fbx"
+  },
+  "M4/prism_scope_2x": {
+    "path": "/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X",
+    "slots": [
+      {
+        "slot": "Scope2X_Reticle",
+        "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle"
+      },
+      {
+        "slot": "Scope2X_Glass",
+        "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass"
+      },
+      {
+        "slot": "Scope2X_Body",
+        "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Body.M_Scope2X_Body"
+      }
+    ],
+    "triangles": 18040,
+    "family": "M4",
+    "key": "prism_scope_2x",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\prism_scope_2x.fbx"
+  },
+  "M4/lpvo_1_6x": {
+    "path": "/Game/Weapons/LPVO1to6X/SM_LPVO1to6X",
+    "slots": [
+      {
+        "slot": "LPVO_Reticle",
+        "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle"
+      },
+      {
+        "slot": "LPVO_Glass",
+        "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass"
+      },
+      {
+        "slot": "LPVO_Body",
+        "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body"
+      }
+    ],
+    "triangles": 20608,
+    "family": "M4",
+    "key": "lpvo_1_6x",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\lpvo_1_6x.fbx"
+  },
+  "M4/lpvo_ring": {
+    "path": "/Game/Weapons/LPVO1to6X/SM_LPVORing",
+    "slots": [
+      {
+        "slot": "LPVO_Body",
+        "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Body.M_LPVO_Body"
+      }
+    ],
+    "triangles": 2204,
+    "family": "M4",
+    "key": "lpvo_ring",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\lpvo_ring.fbx"
+  },
+  "M4/prism": {
+    "path": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop",
+    "slots": [
+      {
+        "slot": "Prism_Polymer",
+        "material": "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer"
+      },
+      {
+        "slot": "Prism_Saddle",
+        "material": "/Game/Weapons/PrismHandstopV1/M_Prism_Saddle.M_Prism_Saddle"
+      }
+    ],
+    "triangles": 16000,
+    "family": "M4",
+    "key": "prism",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\prism.fbx"
+  },
+  "M4/reargrip": {
+    "path": "/Game/Weapons/PhantomRearGrip/M4/SM_PhantomRearGrip",
+    "slots": [
+      {
+        "slot": "M_PhantomRearGrip",
+        "material": "/Game/Weapons/PhantomRearGrip/M_PhantomRearGrip.M_PhantomRearGrip"
+      }
+    ],
+    "triangles": 50000,
+    "family": "M4",
+    "key": "reargrip",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\M4\\reargrip.fbx"
+  },
+  "AKM/skeleton": {
+    "path": "/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock",
+    "slots": [
+      {
+        "slot": "StockMetal",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+      },
+      {
+        "slot": "StockPolymer",
+        "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+      },
+      {
+        "slot": "StockRubber",
+        "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+      }
+    ],
+    "triangles": 40530,
+    "family": "AKM",
+    "key": "skeleton",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\skeleton.fbx"
+  },
+  "AKM/qr_performance": {
+    "path": "/Game/Weapons/QRPerformanceStock/AKM/SM_QRPerformanceStock",
+    "slots": [
+      {
+        "slot": "StockMetal_Refined",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+      },
+      {
+        "slot": "StockPolymer_Refined",
+        "material": "/Game/Weapons/QRPerformanceStock/Refined/M_QR_RefinedPolymer.M_QR_RefinedPolymer"
+      },
+      {
+        "slot": "StockRubber_Refined",
+        "material": "/Game/Weapons/QRPerformanceStock/Refined/M_QR_RefinedRubber.M_QR_RefinedRubber"
+      }
+    ],
+    "triangles": 97180,
+    "family": "AKM",
+    "key": "qr_performance",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\qr_performance.fbx"
+  },
+  "AKM/drum": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_drum",
+    "slots": [
+      {
+        "slot": "drum_DrumPolymer",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer"
+      },
+      {
+        "slot": "drum_DrumFasteners",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners"
+      },
+      {
+        "slot": "drum_DrumIndex",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+      }
+    ],
+    "triangles": 13908,
+    "family": "AKM",
+    "key": "drum",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\drum.fbx"
+  },
+  "AKM/suppressor": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_suppressor",
+    "slots": [
+      {
+        "slot": "suppressor_RifleMetal",
+        "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001"
+      },
+      {
+        "slot": "suppressor_RecessMetal",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      }
+    ],
+    "triangles": 40512,
+    "family": "AKM",
+    "key": "suppressor",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\suppressor.fbx"
+  },
+  "AKM/brake": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_brake",
+    "slots": [
+      {
+        "slot": "brake_RifleMetal",
+        "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001"
+      },
+      {
+        "slot": "brake_RecessMetal",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      }
+    ],
+    "triangles": 7016,
+    "family": "AKM",
+    "key": "brake",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\brake.fbx"
+  },
+  "AKM/titanium_brake": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_titanium_brake",
+    "slots": [
+      {
+        "slot": "titanium_brake_RifleMetal",
+        "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001"
+      },
+      {
+        "slot": "titanium_brake_RecessMetal",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      },
+      {
+        "slot": "titanium_brake_TitaniumTrim",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+      }
+    ],
+    "triangles": 32304,
+    "family": "AKM",
+    "key": "titanium_brake",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\titanium_brake.fbx"
+  },
+  "AKM/vertical": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_vertical",
+    "slots": [
+      {
+        "slot": "Body_004",
+        "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+      },
+      {
+        "slot": "AKM_AdapterSteel",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+      }
+    ],
+    "triangles": 26648,
+    "family": "AKM",
+    "key": "vertical",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\vertical.fbx"
+  },
+  "AKM/canted": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_canted_CompactMount",
+    "slots": [
+      {
+        "slot": "Body_004",
+        "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+      },
+      {
+        "slot": "AKM_AdapterSteel",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+      }
+    ],
+    "triangles": 26648,
+    "family": "AKM",
+    "key": "canted",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\canted.fbx"
+  },
+  "AKM/prism": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_prism",
+    "slots": [
+      {
+        "slot": "prism_Prism_Polymer",
+        "material": "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer"
+      },
+      {
+        "slot": "prism_Prism_Saddle",
+        "material": "/Game/Weapons/PrismHandstopV1/M_Prism_Saddle.M_Prism_Saddle"
+      },
+      {
+        "slot": "AKM_AdapterSteel",
+        "material": "/Game/Weapons/AKMIntegration/SourceMatched/M_AKM_FabGunsteel.M_AKM_FabGunsteel"
+      }
+    ],
+    "triangles": 16324,
+    "family": "AKM",
+    "key": "prism",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\prism.fbx"
+  },
+  "AKM/reargrip": {
+    "path": "/Game/Weapons/PhantomRearGrip/AKM/SM_PhantomRearGrip",
+    "slots": [
+      {
+        "slot": "M_PhantomRearGrip",
+        "material": "/Game/Weapons/PhantomRearGrip/M_PhantomRearGrip.M_PhantomRearGrip"
+      }
+    ],
+    "triangles": 50000,
+    "family": "AKM",
+    "key": "reargrip",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\AKM\\reargrip.fbx"
+  },
+  "QBZ191/reargrip": {
+    "path": "/Game/Weapons/PhantomRearGrip/QBZ191/SM_PhantomRearGrip",
+    "slots": [
+      {
+        "slot": "M_PhantomRearGrip",
+        "material": "/Game/Weapons/PhantomRearGrip/M_PhantomRearGrip.M_PhantomRearGrip"
+      }
+    ],
+    "triangles": 50000,
+    "family": "QBZ191",
+    "key": "reargrip",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WeaponAttachmentFinish20260913\\Sources\\QBZ191\\reargrip.fbx"
+  }
+}

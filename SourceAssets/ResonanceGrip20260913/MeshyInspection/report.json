@@ -1,0 +1,23 @@
+{
+  "meshes": [
+    {
+      "name": "mesh_node",
+      "dimensions": [
+        1.8993406295776367,
+        0.36398518085479736,
+        1.487681269645691
+      ],
+      "rotation": [
+        -4.371138828673793e-08,
+        0.0,
+        0.0
+      ],
+      "vertices": 56227,
+      "triangles": 112466,
+      "uvs": [],
+      "custom_normals": true
+    }
+  ],
+  "images": [],
+  "materials": []
+}

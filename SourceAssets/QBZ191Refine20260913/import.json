@@ -1,0 +1,142 @@
+{
+  "vertical:idle": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_idle.A_QBZ191_vertical_idle",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_idle.fbx"
+  },
+  "vertical:aim": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_aim.A_QBZ191_vertical_aim",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_aim.fbx"
+  },
+  "vertical:fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_fire.A_QBZ191_vertical_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_fire.fbx"
+  },
+  "vertical:aim_fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_aim_fire.A_QBZ191_vertical_aim_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_aim_fire.fbx"
+  },
+  "vertical:reload": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_reload.A_QBZ191_vertical_reload",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_reload.fbx"
+  },
+  "vertical:reload_empty": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_reload_empty.A_QBZ191_vertical_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_reload_empty.fbx"
+  },
+  "vertical:equip_charge": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/vertical/A_QBZ191_vertical_equip_charge.A_QBZ191_vertical_equip_charge",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_equip_charge.fbx"
+  },
+  "canted:idle": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_idle.A_QBZ191_canted_idle",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_idle.fbx"
+  },
+  "canted:aim": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_aim.A_QBZ191_canted_aim",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_aim.fbx"
+  },
+  "canted:fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_fire.A_QBZ191_canted_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_fire.fbx"
+  },
+  "canted:aim_fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_aim_fire.A_QBZ191_canted_aim_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_aim_fire.fbx"
+  },
+  "canted:reload": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_reload.A_QBZ191_canted_reload",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_reload.fbx"
+  },
+  "canted:reload_empty": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_reload_empty.A_QBZ191_canted_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_reload_empty.fbx"
+  },
+  "canted:equip_charge": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/canted/A_QBZ191_canted_equip_charge.A_QBZ191_canted_equip_charge",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_equip_charge.fbx"
+  },
+  "prism:idle": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_idle.A_QBZ191_prism_idle",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_idle.fbx"
+  },
+  "prism:aim": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_aim.A_QBZ191_prism_aim",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_aim.fbx"
+  },
+  "prism:fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_fire.A_QBZ191_prism_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_fire.fbx"
+  },
+  "prism:aim_fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_aim_fire.A_QBZ191_prism_aim_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_aim_fire.fbx"
+  },
+  "prism:reload": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_reload.A_QBZ191_prism_reload",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_reload.fbx"
+  },
+  "prism:reload_empty": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_reload_empty.A_QBZ191_prism_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_reload_empty.fbx"
+  },
+  "prism:equip_charge": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/prism/A_QBZ191_prism_equip_charge.A_QBZ191_prism_equip_charge",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_equip_charge.fbx"
+  },
+  "angled:idle": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_idle.A_QBZ191_angled_idle",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_idle.fbx"
+  },
+  "angled:aim": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_aim.A_QBZ191_angled_aim",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_aim.fbx"
+  },
+  "angled:fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_fire.A_QBZ191_angled_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_fire.fbx"
+  },
+  "angled:aim_fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_aim_fire.A_QBZ191_angled_aim_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_aim_fire.fbx"
+  },
+  "angled:reload": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_reload.A_QBZ191_angled_reload",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_reload.fbx"
+  },
+  "angled:reload_empty": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_reload_empty.A_QBZ191_angled_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_reload_empty.fbx"
+  },
+  "angled:equip_charge": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/angled/A_QBZ191_angled_equip_charge.A_QBZ191_angled_equip_charge",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_equip_charge.fbx"
+  },
+  "base:idle": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_idle.A_QBZ191_idle",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_idle.fbx"
+  },
+  "base:aim": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim.A_QBZ191_aim",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_aim.fbx"
+  },
+  "base:fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_fire.A_QBZ191_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_fire.fbx"
+  },
+  "base:aim_fire": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_aim_fire.A_QBZ191_aim_fire",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_aim_fire.fbx"
+  },
+  "base:reload": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_reload.A_QBZ191_reload",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_reload.fbx"
+  },
+  "base:reload_empty": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_reload_empty.A_QBZ191_reload_empty",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_reload_empty.fbx"
+  },
+  "base:equip_charge": {
+    "asset": "/Game/Weapons/QBZ191/Refined20260913/Animations/base/A_QBZ191_equip_charge.A_QBZ191_equip_charge",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_equip_charge.fbx"
+  }
+}

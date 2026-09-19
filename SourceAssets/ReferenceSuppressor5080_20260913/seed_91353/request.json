@@ -1,0 +1,259 @@
+{
+  "client_id": "ReferenceSuppressor5080_20260913",
+  "prompt": {
+    "1": {
+      "class_type": "Trellis2LoadModel",
+      "inputs": {
+        "modelname": "microsoft/TRELLIS.2-4B",
+        "backend": "sdpa",
+        "device": "cuda",
+        "low_vram": true,
+        "keep_models_loaded": false,
+        "conv_backend": "flex_gemm",
+        "sparse_backend": "xformers",
+        "use_reconviagen": false
+      }
+    },
+    "10": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "reference_suppressor_20260913_three_views.png"
+      }
+    },
+    "4": {
+      "class_type": "Trellis2MeshWithVoxelMultiViewGenerator",
+      "inputs": {
+        "seed": 91353,
+        "pipeline_type": "1024_cascade",
+        "sparse_structure_steps": 16,
+        "sparse_structure_guidance_strength": 6.5,
+        "sparse_structure_guidance_rescale": 0.05,
+        "sparse_structure_rescale_t": 4.0,
+        "shape_steps": 32,
+        "shape_guidance_strength": 6.5,
+        "shape_guidance_rescale": 0.05,
+        "shape_rescale_t": 4.0,
+        "texture_steps": 24,
+        "texture_guidance_strength": 3.0,
+        "texture_guidance_rescale": 0.2,
+        "texture_rescale_t": 3.0,
+        "max_num_tokens": 999999,
+        "sparse_structure_resolution": 64,
+        "generate_texture_slat": true,
+        "sparse_structure_guidance_interval_start": 0.1,
+        "sparse_structure_guidance_interval_end": 1.0,
+        "shape_guidance_interval_start": 0.1,
+        "shape_guidance_interval_end": 1.0,
+        "texture_guidance_interval_start": 0.0,
+        "texture_guidance_interval_end": 0.9,
+        "use_tiled_decoder": true,
+        "front_axis": "z",
+        "blend_temperature": 1.0,
+        "sampler": "euler",
+        "fill_holes": false,
+        "hole_iterations": 1,
+        "verbose": false,
+        "dino_lock": 0.0,
+        "dino_substeps": 4,
+        "hole_fill_algorithm": "flood_fill",
+        "dino_foundation_cap": 1.0,
+        "keep_only_shell": false,
+        "pipeline": [
+          "1",
+          0
+        ],
+        "front_image": [
+          "120",
+          0
+        ],
+        "back_image": [
+          "121",
+          0
+        ],
+        "left_image": [
+          "122",
+          0
+        ]
+      }
+    },
+    "50": {
+      "class_type": "Trellis2MeshWithVoxelToTrimesh",
+      "inputs": {
+        "mesh": [
+          "4",
+          0
+        ],
+        "reorient_vertices": "90 degrees"
+      }
+    },
+    "51": {
+      "class_type": "Trellis2ExportMesh",
+      "inputs": {
+        "trimesh": [
+          "50",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/raw",
+        "file_format": "glb"
+      }
+    },
+    "52": {
+      "class_type": "Trellis2OvoxelExportToGLB",
+      "inputs": {
+        "mesh": [
+          "4",
+          0
+        ],
+        "resolution": 1024,
+        "texture_size": 4096,
+        "target_face_num": 500000
+      }
+    },
+    "53": {
+      "class_type": "Trellis2ExportMesh",
+      "inputs": {
+        "trimesh": [
+          "52",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/textured_master",
+        "file_format": "glb"
+      }
+    },
+    "110": {
+      "class_type": "ImageCrop",
+      "inputs": {
+        "image": [
+          "10",
+          0
+        ],
+        "x": 0,
+        "y": 50,
+        "width": 1536,
+        "height": 325
+      }
+    },
+    "120": {
+      "class_type": "Trellis2PreProcessImage",
+      "inputs": {
+        "image": [
+          "110",
+          0
+        ],
+        "padding": 24,
+        "remove_background": true,
+        "max_size": 2048
+      }
+    },
+    "130": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "120",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/condition_side_a"
+      }
+    },
+    "140": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "110",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/reference_side_a"
+      }
+    },
+    "111": {
+      "class_type": "ImageCrop",
+      "inputs": {
+        "image": [
+          "10",
+          0
+        ],
+        "x": 0,
+        "y": 385,
+        "width": 1536,
+        "height": 280
+      }
+    },
+    "121": {
+      "class_type": "Trellis2PreProcessImage",
+      "inputs": {
+        "image": [
+          "111",
+          0
+        ],
+        "padding": 24,
+        "remove_background": true,
+        "max_size": 2048
+      }
+    },
+    "131": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "121",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/condition_side_b"
+      }
+    },
+    "141": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "111",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/reference_side_b"
+      }
+    },
+    "112": {
+      "class_type": "ImageCrop",
+      "inputs": {
+        "image": [
+          "10",
+          0
+        ],
+        "x": 620,
+        "y": 675,
+        "width": 300,
+        "height": 300
+      }
+    },
+    "122": {
+      "class_type": "Trellis2PreProcessImage",
+      "inputs": {
+        "image": [
+          "112",
+          0
+        ],
+        "padding": 24,
+        "remove_background": true,
+        "max_size": 2048
+      }
+    },
+    "132": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "122",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/condition_front_end"
+      }
+    },
+    "142": {
+      "class_type": "SaveImage",
+      "inputs": {
+        "images": [
+          "112",
+          0
+        ],
+        "filename_prefix": "ReferenceSuppressor5080_20260913/seed_91353/reference_front_end"
+      }
+    }
+  }
+}

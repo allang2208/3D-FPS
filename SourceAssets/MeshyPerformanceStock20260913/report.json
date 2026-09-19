@@ -1,0 +1,109 @@
+{
+  "meshes": [
+    {
+      "name": "Mesh_0",
+      "dimensions": [
+        1.8996260166168213,
+        0.4491739869117737,
+        1.4734009504318237
+      ],
+      "rotation": [
+        -4.371138828673793e-08,
+        0.0,
+        0.0
+      ],
+      "vertices": 286876,
+      "triangles": 573816,
+      "uvs": [
+        "UVMap"
+      ],
+      "custom_normals": true
+    }
+  ],
+  "images": [
+    {
+      "name": "Image_0",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\Image_0.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Image_2",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\Image_2.jpg",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Image_3",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\Image_3.jpg",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "texture_0_metallic.png",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\texture_0_metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "texture_0_roughness.png",
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\texture_0_roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    }
+  ],
+  "materials": [
+    {
+      "name": "Material.001",
+      "nodes": [
+        [
+          "BSDF_PRINCIPLED",
+          "Principled BSDF"
+        ],
+        [
+          "OUTPUT_MATERIAL",
+          "Material Output"
+        ],
+        [
+          "NORMAL_MAP",
+          "Normal Map"
+        ],
+        [
+          "TEX_IMAGE",
+          "Image Texture"
+        ],
+        [
+          "TEX_IMAGE",
+          "Image Texture.001"
+        ],
+        [
+          "TEX_IMAGE",
+          "Image Texture.002"
+        ],
+        [
+          "TEX_IMAGE",
+          "Image Texture.003"
+        ],
+        [
+          "TEX_IMAGE",
+          "Image Texture.004"
+        ]
+      ]
+    }
+  ]
+}

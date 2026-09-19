@@ -1,0 +1,27 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\seed_91353\\Suppressor_5080_Candidate_Editable.blend",
+  "operation": "Local tail exterior reconstruction on original generated source",
+  "blend": "Suppressor_KnurlRefinedV1.blend",
+  "glb": "Suppressor_KnurlRefinedV1.glb",
+  "normalized_axial_interval": [
+    0.025,
+    0.329
+  ],
+  "removed_original_tail_faces": 260019,
+  "new_relief_quads": 98560,
+  "circumferential_groove_count": 56,
+  "groove_tilt_degrees": 34,
+  "groove_depth_to_radius": 0.012,
+  "coating_linear_base_color": [
+    0.023153364658355713,
+    0.022173883393406868,
+    0.022173883393406868
+  ],
+  "coating_roughness": 0.5215686559677124,
+  "coating_metallic": 0.9960784912109375,
+  "coating_source": "Median original smooth-body image values; local constant PBR material, not a new texture set",
+  "preserved": "Retained source vertex positions, faces, UVs, material slots and imported corner normals",
+  "coordinate_units": "Unscaled generator coordinates, not manufacturing dimensions",
+  "game_tested": false,
+  "ue_imported": false
+}

@@ -1,0 +1,144 @@
+{
+  "/Game/EasyBuildingSystem/Materials/Instances/Polygonal/MI_Polygonal_Structures_Wood": {
+    "class": "MaterialInstanceConstant",
+    "parent": "/Game/EasyBuildingSystem/Materials/Masters/Polygonal/MM_Polygonal_Structures_Wood.MM_Polygonal_Structures_Wood",
+    "textures": "[{parameter_info: {name: \"Albedo\", association: GlobalParameter, index: -1}, parameter_value: \"/Script/Engine.Texture2D'/Game/EasyBuildingSystem/Textures/Structures/Polygonal/Wood/T_Polygonal_Structures.T_Polygonal_Structures'\"}]",
+    "scalars": "[{parameter_info: {name: \"Brightness\", association: GlobalParameter, index: -1}, parameter_value: 0.800000}, {parameter_info: {name: \"Saturation\", association: GlobalParameter, index: -1}, parameter_value: 0.100000}, {parameter_info: {name: \"RefractionDepthBias\", association: GlobalParameter, index: -1}, parameter_value: 0.000000}]",
+    "vectors": "[]"
+  },
+  "/Game/EasyBuildingSystem/Materials/Masters/Polygonal/MM_Polygonal_Structures_Wood": {
+    "class": "Material",
+    "expressions": [
+      {
+        "class": "MaterialExpressionDesaturation"
+      },
+      {
+        "class": "MaterialExpressionStaticSwitchParameter",
+        "parameter_name": "Metallic?",
+        "default_value": "False"
+      },
+      {
+        "class": "MaterialExpressionConstant",
+        "r": "0.05000000074505806"
+      },
+      {
+        "class": "MaterialExpressionCrossProduct"
+      },
+      {
+        "class": "MaterialExpressionConstant",
+        "r": "0.0"
+      },
+      {
+        "class": "MaterialExpressionTextureSampleParameter2D",
+        "parameter_name": "Albedo",
+        "texture": "<Object '/Game/EasyBuildingSystem/Textures/Utility/T_Utility_A.T_Utility_A' (0x000001A744667800) Class 'Texture2D'>"
+      },
+      {
+        "class": "MaterialExpressionMultiply"
+      },
+      {
+        "class": "MaterialExpressionScalarParameter",
+        "parameter_name": "Brightness",
+        "default_value": "1.0"
+      },
+      {
+        "class": "MaterialExpressionMultiply"
+      },
+      {
+        "class": "MaterialExpressionVectorParameter",
+        "parameter_name": "Tint",
+        "default_value": "<Struct 'LinearColor' (0x000001A7447C6578) {r: 1.000000, g: 1.000000, b: 1.000000, a: 1.000000}>"
+      },
+      {
+        "class": "MaterialExpressionScalarParameter",
+        "parameter_name": "Saturation",
+        "default_value": "0.0"
+      },
+      {
+        "class": "MaterialExpressionWorldPosition"
+      },
+      {
+        "class": "MaterialExpressionDDX"
+      },
+      {
+        "class": "MaterialExpressionDDY"
+      },
+      {
+        "class": "MaterialExpressionScalarParameter",
+        "parameter_name": "Mask Power",
+        "default_value": "1.0"
+      },
+      {
+        "class": "MaterialExpressionTextureSampleParameter2D",
+        "parameter_name": "Mask",
+        "texture": "<Object '/Game/EasyBuildingSystem/Textures/Environment/Stylized/Misc/T_Misc_Clouds_004.T_Misc_Clouds_004' (0x000001A744667200) Class 'Texture2D'>"
+      },
+      {
+        "class": "MaterialExpressionMultiply"
+      },
+      {
+        "class": "MaterialExpressionTextureCoordinate",
+        "coordinate_index": "0"
+      },
+      {
+        "class": "MaterialExpressionMultiply"
+      },
+      {
+        "class": "MaterialExpressionScalarParameter",
+        "parameter_name": "Mask Tiling",
+        "default_value": "1.0"
+      },
+      {
+        "class": "MaterialExpressionReroute"
+      },
+      {
+        "class": "MaterialExpressionReroute"
+      }
+    ]
+  },
+  "/Game/EasyBuildingSystem/Textures/Structures/Polygonal/Wood/T_Polygonal_Structures": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+    "srgb": true
+  },
+  "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_BaseColor": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+    "srgb": true
+  },
+  "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_Normal": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+    "srgb": false
+  },
+  "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_RHAOM": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+    "srgb": false
+  },
+  "/Game/UnrealNormandy/Textures/T_MetalRust_00A_BaseColor": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+    "srgb": true
+  },
+  "/Game/UnrealNormandy/Textures/T_MetalRust_00A_Normal": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+    "srgb": false
+  },
+  "/Game/UnrealNormandy/Textures/T_MetalRust_00A_RHAOM": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+    "srgb": false
+  },
+  "/Game/MilitaryTrench/Assets/3D/Ind_Mine_Tool_Shovel_Old_01/Textures/T_Ind_Mine_Tool_Shovel_Old_01_B": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+    "srgb": true
+  },
+  "/Game/MilitaryTrench/Assets/3D/Ind_Mine_Tool_Shovel_Old_01/Textures/T_Ind_Mine_Tool_Shovel_Old_01_ORM": {
+    "class": "Texture2D",
+    "compression": "<TextureCompressionSettings.TC_BC7: 11>",
+    "srgb": false
+  }
+}

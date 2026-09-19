@@ -1,0 +1,66 @@
+{
+  "/Game/NiagaraExamples/Materials/MasterMaterials/M_Distortion": {
+    "textures": [],
+    "properties": {
+      "blend_mode": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "shading_model": "<MaterialShadingModel.MSM_UNLIT: 0>",
+      "refraction_method": "<RefractionMode.RM_NONE: 3>",
+      "translucency_pass": "<MaterialTranslucencyPass.MTP_AFTER_DOF: 1>",
+      "two_sided": "False"
+    },
+    "inputs": {
+      "NORMAL": null,
+      "OPACITY": "MaterialExpressionReroute",
+      "REFRACTION": null,
+      "EMISSIVE_COLOR": "MaterialExpressionSceneColor"
+    }
+  },
+  "/Game/RPGEnvironmentVFX/Essentials/Materials/M_HeatDistortion": {
+    "textures": [],
+    "properties": {
+      "blend_mode": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+      "refraction_method": "<RefractionMode.RM_INDEX_OF_REFRACTION: 0>",
+      "translucency_pass": "<MaterialTranslucencyPass.MTP_AFTER_DOF: 1>",
+      "two_sided": "True"
+    },
+    "inputs": {
+      "NORMAL": "MaterialExpressionLinearInterpolate",
+      "OPACITY": "MaterialExpressionConstant",
+      "REFRACTION": "MaterialExpressionLinearInterpolate",
+      "EMISSIVE_COLOR": null
+    }
+  },
+  "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Distortion": {
+    "textures": [],
+    "properties": {
+      "blend_mode": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>",
+      "refraction_method": "<RefractionMode.RM_INDEX_OF_REFRACTION: 0>",
+      "translucency_pass": "<MaterialTranslucencyPass.MTP_AFTER_DOF: 1>",
+      "two_sided": "False"
+    },
+    "inputs": {
+      "NORMAL": "MaterialExpressionLinearInterpolate",
+      "OPACITY": "MaterialExpressionConstant",
+      "REFRACTION": "MaterialExpressionLinearInterpolate",
+      "EMISSIVE_COLOR": null
+    }
+  },
+  "/Game/Realistic_Starter_VFX_Pack_Vol2/Materials/M_Slash": {
+    "textures": [],
+    "properties": {
+      "blend_mode": "<BlendMode.BLEND_TRANSLUCENT: 2>",
+      "shading_model": "<MaterialShadingModel.MSM_UNLIT: 0>",
+      "refraction_method": "<RefractionMode.RM_NONE: 3>",
+      "translucency_pass": "<MaterialTranslucencyPass.MTP_AFTER_DOF: 1>",
+      "two_sided": "False"
+    },
+    "inputs": {
+      "NORMAL": null,
+      "OPACITY": "MaterialExpressionMultiply",
+      "REFRACTION": null,
+      "EMISSIVE_COLOR": "MaterialExpressionMultiply"
+    }
+  }
+}

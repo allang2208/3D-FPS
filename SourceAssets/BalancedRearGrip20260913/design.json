@@ -1,0 +1,14 @@
+{
+  "id": "balanced_reargrip",
+  "name": "均衡后握把",
+  "slot": "reargrip",
+  "requested_effects": {
+    "后坐力控制": "+10%",
+    "枪械稳定性": "+10%"
+  },
+  "recoil_mult": 0.9,
+  "shake_mult": 0.9,
+  "stage": "UE assets and gunsmith integration completed; no gameplay test",
+  "selected_seed": 91703,
+  "integration_record": "../RearGripFinish20260913/README.md"
+}

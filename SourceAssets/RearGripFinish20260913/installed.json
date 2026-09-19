@@ -1,0 +1,62 @@
+{
+  "M4_balanced": {
+    "mesh": "/Game/Weapons/RearGripFinish20260913/M4/balanced/SM_BalancedRearGrip",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "slots": {
+      "M_BalancedRearGrip": "/Game/Weapons/RearGripFinish20260913/M4/balanced/M_M4_balanced_Body.M_M4_balanced_Body",
+      "M_BalancedRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/M4/balanced/M_M4_balanced_Collar.M_M4_balanced_Collar"
+    }
+  },
+  "M4_phantom": {
+    "mesh": "/Game/Weapons/RearGripFinish20260913/M4/phantom/SM_PhantomRearGrip",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "slots": {
+      "M_PhantomRearGrip": "/Game/Weapons/RearGripFinish20260913/M4/phantom/M_M4_phantom_Body.M_M4_phantom_Body",
+      "M_PhantomRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/M4/phantom/M_M4_phantom_Collar.M_M4_phantom_Collar"
+    }
+  },
+  "AKM_balanced": {
+    "mesh": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/SM_BalancedRearGrip",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "slots": {
+      "M_BalancedRearGrip": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/M_AKM_balanced_Body.M_AKM_balanced_Body",
+      "M_BalancedRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/AKM/balanced/M_AKM_balanced_Collar.M_AKM_balanced_Collar"
+    }
+  },
+  "AKM_phantom": {
+    "mesh": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/SM_PhantomRearGrip",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "slots": {
+      "M_PhantomRearGrip": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/M_AKM_phantom_Body.M_AKM_phantom_Body",
+      "M_PhantomRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/AKM/phantom/M_AKM_phantom_Collar.M_AKM_phantom_Collar"
+    }
+  },
+  "QBZ191_balanced": {
+    "mesh": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/SM_BalancedRearGrip",
+    "reference": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "slots": {
+      "M_BalancedRearGrip": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Body.M_QBZ191_balanced_Body",
+      "M_BalancedRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/QBZ191/balanced/M_QBZ191_balanced_Collar.M_QBZ191_balanced_Collar"
+    }
+  },
+  "QBZ191_phantom": {
+    "mesh": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/SM_PhantomRearGrip",
+    "reference": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "slots": {
+      "M_PhantomRearGrip": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Body.M_QBZ191_phantom_Body",
+      "M_PhantomRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/QBZ191/phantom/M_QBZ191_phantom_Collar.M_QBZ191_phantom_Collar"
+    }
+  }
+}

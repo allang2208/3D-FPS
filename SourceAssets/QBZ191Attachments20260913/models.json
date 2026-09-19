@@ -1,0 +1,264 @@
+{
+  "parts": {
+    "skeleton": {
+      "name": "SM_QBZ191_skeleton",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Attachments20260913\\SM_QBZ191_skeleton.fbx",
+      "bindings": {
+        "QBZ_SRC_skeleton_0": {
+          "slot": "StockMetal",
+          "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+          "class": "MaterialInstanceConstant",
+          "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+        },
+        "QBZ_SRC_skeleton_1": {
+          "slot": "StockPolymer",
+          "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer",
+          "class": "Material",
+          "base": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+        },
+        "QBZ_SRC_skeleton_2": {
+          "slot": "StockRubber",
+          "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber",
+          "class": "Material",
+          "base": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+        },
+        "QBZ_AdapterMetal": {
+          "slot": "AdapterMetal",
+          "material": null,
+          "class": "authored"
+        }
+      },
+      "bone": "WPN_root",
+      "mount": "identity_cm_mesh",
+      "shared_scale": 1.0,
+      "receiver_plane_y_m": 0.0557
+    },
+    "qr_performance": {
+      "name": "SM_QBZ191_qr_performance",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Attachments20260913\\SM_QBZ191_qr_performance.fbx",
+      "bindings": {
+        "QBZ_SRC_qr_performance_0": {
+          "slot": "StockMetal_Refined",
+          "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+          "class": "MaterialInstanceConstant",
+          "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+        },
+        "QBZ_SRC_qr_performance_1": {
+          "slot": "StockPolymer_Refined",
+          "material": "/Game/Weapons/QRPerformanceStock/Refined/M_QR_RefinedPolymer.M_QR_RefinedPolymer",
+          "class": "Material",
+          "base": "/Game/Weapons/QRPerformanceStock/Refined/M_QR_RefinedPolymer.M_QR_RefinedPolymer"
+        },
+        "QBZ_SRC_qr_performance_2": {
+          "slot": "StockRubber_Refined",
+          "material": "/Game/Weapons/QRPerformanceStock/Refined/M_QR_RefinedRubber.M_QR_RefinedRubber",
+          "class": "Material",
+          "base": "/Game/Weapons/QRPerformanceStock/Refined/M_QR_RefinedRubber.M_QR_RefinedRubber"
+        },
+        "QBZ_AdapterMetal": {
+          "slot": "AdapterMetal",
+          "material": null,
+          "class": "authored"
+        }
+      },
+      "bone": "WPN_root",
+      "mount": "identity_cm_mesh",
+      "shared_scale": 1.0,
+      "receiver_plane_y_m": 0.0557
+    },
+    "suppressor": {
+      "name": "SM_QBZ191_suppressor",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Attachments20260913\\SM_QBZ191_suppressor.fbx",
+      "bindings": {
+        "QBZ_SRC_suppressor_0": {
+          "slot": "RifleMetal",
+          "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+          "class": "MaterialInstanceConstant",
+          "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+        },
+        "QBZ_SRC_suppressor_1": {
+          "slot": "RecessMetal",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+          "class": "MaterialInstanceConstant",
+          "base": "/Game/Weapons/M4MuzzlesV1/M_MuzzleRecess.M_MuzzleRecess"
+        }
+      },
+      "bone": "WPN_root",
+      "mount": "identity_cm_mesh",
+      "tip_ue_cm": [
+        0.07590000168420374,
+        68.68350058794022,
+        6.077500060200691
+      ],
+      "axis_ue": [
+        0,
+        1,
+        0
+      ]
+    },
+    "brake": {
+      "name": "SM_QBZ191_brake",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Attachments20260913\\SM_QBZ191_brake.fbx",
+      "bindings": {
+        "QBZ_SRC_brake_0": {
+          "slot": "RifleMetal",
+          "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+          "class": "MaterialInstanceConstant",
+          "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+        },
+        "QBZ_SRC_brake_1": {
+          "slot": "RecessMetal",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+          "class": "MaterialInstanceConstant",
+          "base": "/Game/Weapons/M4MuzzlesV1/M_MuzzleRecess.M_MuzzleRecess"
+        }
+      },
+      "bone": "WPN_root",
+      "mount": "identity_cm_mesh",
+      "tip_ue_cm": [
+        0.07590000168420374,
+        56.88350051641464,
+        6.077500060200691
+      ],
+      "axis_ue": [
+        0,
+        1,
+        0
+      ]
+    },
+    "titanium_brake": {
+      "name": "SM_QBZ191_titanium_brake",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Attachments20260913\\SM_QBZ191_titanium_brake.fbx",
+      "bindings": {
+        "QBZ_SRC_titanium_brake_0": {
+          "slot": "RifleMetal",
+          "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+          "class": "MaterialInstanceConstant",
+          "base": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial"
+        },
+        "QBZ_SRC_titanium_brake_1": {
+          "slot": "RecessMetal",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+          "class": "MaterialInstanceConstant",
+          "base": "/Game/Weapons/M4MuzzlesV1/M_MuzzleRecess.M_MuzzleRecess"
+        },
+        "QBZ_SRC_titanium_brake_2": {
+          "slot": "TitaniumTrim",
+          "material": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim",
+          "class": "MaterialInstanceConstant",
+          "base": "/Game/Weapons/M4MuzzlesV1/M_TitaniumTrim.M_TitaniumTrim"
+        }
+      },
+      "bone": "WPN_root",
+      "mount": "identity_cm_mesh",
+      "tip_ue_cm": [
+        0.07590000168420374,
+        57.33349993824959,
+        6.077500060200691
+      ],
+      "axis_ue": [
+        0,
+        1,
+        0
+      ]
+    },
+    "drum": {
+      "name": "SM_QBZ191_drum",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Attachments20260913\\SM_QBZ191_drum.fbx",
+      "bindings": {
+        "QBZ_SRC_drum_0": {
+          "slot": "DrumPolymer",
+          "material": "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer",
+          "class": "Material",
+          "base": "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer"
+        },
+        "QBZ_SRC_drum_1": {
+          "slot": "DrumFasteners",
+          "material": "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners",
+          "class": "Material",
+          "base": "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners"
+        },
+        "QBZ_SRC_drum_2": {
+          "slot": "DrumIndex",
+          "material": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex",
+          "class": "Material",
+          "base": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+        }
+      },
+      "bone": "WPN_SOCKET_Magazine",
+      "mount": "identity_cm_mesh",
+      "asset_to_qbz_root": [
+        [
+          -0.9961947798728943,
+          -1.8052578525384888e-06,
+          -0.08715607225894928,
+          0.04954308271408081
+        ],
+        [
+          1.8787662838803953e-06,
+          -1.0000001192092896,
+          1.4358084854393383e-06,
+          0.13754627108573914
+        ],
+        [
+          -0.08715575933456421,
+          1.143413669524307e-06,
+          0.9961947202682495,
+          0.09417065978050232
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "neck_xy_scale": [
+        1.1239568974562328,
+        1.0521104514109736
+      ],
+      "body_scale": 1.0,
+      "grasp_in_mag": [
+        [
+          -0.10261716693639755,
+          -0.9891649484634399,
+          0.10499107092618942,
+          0.10405933111906052
+        ],
+        [
+          -0.9943097829818726,
+          0.10503510385751724,
+          0.017741423100233078,
+          0.051783833652734756
+        ],
+        [
+          -0.028576606884598732,
+          -0.1025727391242981,
+          -0.9943155646324158,
+          -0.021568868309259415
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    }
+  },
+  "factory_sections": {
+    "QBZ_Stock": "M_QBZ191_FactoryStock_Polymer",
+    "QBZ_Part12": "M_QBZ191_FactoryStock_Metal",
+    "muzzle": {
+      "object": "QBZ_Part19",
+      "material": "M_QBZ191_Flash_Hider",
+      "section_cut_y_m": -0.5005
+    }
+  },
+  "source": "ContactWear20260913",
+  "gun_bindings": {
+    "M_QBZ191_FactoryStock_Polymer": "M_QBZ191_Wear_Polymer",
+    "M_QBZ191_FactoryStock_Metal": "M_QBZ191_Wear_Body",
+    "M_QBZ191_Flash_Hider": "M_QBZ191_Wear_Steel"
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "SM_CutStump_A": {
+    "path": "/Game/Items/HarvestTimber/SM_CutStump_A.SM_CutStump_A",
+    "upper": false,
+    "materials": [
+      "/Game/WorldGeneration/TemperateHills/MI_BlackPoplarPCG_Bark.MI_BlackPoplarPCG_Bark",
+      "/Game/Items/HarvestTimber/M_TreeCutSurface.M_TreeCutSurface"
+    ],
+    "rim_points": 390
+  },
+  "SM_CutUpper_A": {
+    "path": "/Game/Items/HarvestTimber/SM_CutUpper_A.SM_CutUpper_A",
+    "upper": true,
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ]
+  },
+  "SM_CutStump_B": {
+    "path": "/Game/Items/HarvestTimber/SM_CutStump_B.SM_CutStump_B",
+    "upper": false,
+    "materials": [
+      "/Game/WorldGeneration/TemperateHills/MI_BlackPoplarPCG_Bark.MI_BlackPoplarPCG_Bark",
+      "/Game/Items/HarvestTimber/M_TreeCutSurface.M_TreeCutSurface"
+    ],
+    "rim_points": 390
+  },
+  "SM_CutUpper_B": {
+    "path": "/Game/Items/HarvestTimber/SM_CutUpper_B.SM_CutUpper_B",
+    "upper": true,
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ]
+  },
+  "SM_CutStump_C": {
+    "path": "/Game/Items/HarvestTimber/SM_CutStump_C.SM_CutStump_C",
+    "upper": false,
+    "materials": [
+      "/Game/WorldGeneration/TemperateHills/MI_BlackPoplarPCG_Bark.MI_BlackPoplarPCG_Bark",
+      "/Game/Items/HarvestTimber/M_TreeCutSurface.M_TreeCutSurface"
+    ],
+    "rim_points": 566
+  },
+  "SM_CutUpper_C": {
+    "path": "/Game/Items/HarvestTimber/SM_CutUpper_C.SM_CutUpper_C",
+    "upper": true,
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ]
+  },
+  "SM_CutStump_D": {
+    "path": "/Game/Items/HarvestTimber/SM_CutStump_D.SM_CutStump_D",
+    "upper": false,
+    "materials": [
+      "/Game/WorldGeneration/TemperateHills/MI_BlackPoplarPCG_Bark.MI_BlackPoplarPCG_Bark",
+      "/Game/Items/HarvestTimber/M_TreeCutSurface.M_TreeCutSurface"
+    ],
+    "rim_points": 380
+  },
+  "SM_CutUpper_D": {
+    "path": "/Game/Items/HarvestTimber/SM_CutUpper_D.SM_CutUpper_D",
+    "upper": true,
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ]
+  }
+}

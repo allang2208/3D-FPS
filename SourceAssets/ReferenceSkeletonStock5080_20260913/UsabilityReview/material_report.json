@@ -1,0 +1,113 @@
+{
+  "materials": [
+    {
+      "name": "Material_0",
+      "use_nodes": true,
+      "nodes": [
+        {
+          "type": "BSDF_PRINCIPLED",
+          "name": "Principled BSDF",
+          "inputs": {
+            "Base Color": [
+              0.800000011920929,
+              0.800000011920929,
+              0.800000011920929,
+              1.0
+            ],
+            "Roughness": 0.5,
+            "Metallic": 0.0
+          }
+        },
+        {
+          "type": "OUTPUT_MATERIAL",
+          "name": "Material Output"
+        },
+        {
+          "type": "TEX_IMAGE",
+          "name": "Image Texture",
+          "image": "Image_0"
+        },
+        {
+          "type": "SEPARATE_COLOR",
+          "name": "Separate Color"
+        },
+        {
+          "type": "TEX_IMAGE",
+          "name": "Image Texture.001",
+          "image": "Image_1"
+        }
+      ],
+      "links": [
+        {
+          "from": "Principled BSDF.BSDF",
+          "to": "Material Output.Surface"
+        },
+        {
+          "from": "Image Texture.Color",
+          "to": "Principled BSDF.Base Color"
+        },
+        {
+          "from": "Separate Color.Blue",
+          "to": "Principled BSDF.Metallic"
+        },
+        {
+          "from": "Separate Color.Green",
+          "to": "Principled BSDF.Roughness"
+        },
+        {
+          "from": "Image Texture.001.Color",
+          "to": "Separate Color.Color"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "name": "Image_0",
+      "path": "",
+      "size": [
+        4096,
+        4096
+      ],
+      "color_space": "sRGB",
+      "packed_bytes": 21980248,
+      "sample_rgba": [
+        0.27450981736183167,
+        0.27450981736183167,
+        0.27450981736183167,
+        0.9960784912109375
+      ]
+    },
+    {
+      "name": "Image_1",
+      "path": "",
+      "size": [
+        4096,
+        4096
+      ],
+      "color_space": "Non-Color",
+      "packed_bytes": 11428736,
+      "sample_rgba": [
+        0.0,
+        0.30588236451148987,
+        0.7843137979507446,
+        1.0
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "name": "geometry_0",
+      "materials": [
+        "Material_0"
+      ],
+      "active_material": "Material_0"
+    }
+  ],
+  "overrides": [
+    {
+      "name": "ViewLayer",
+      "override": null
+    }
+  ]
+}

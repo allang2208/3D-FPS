@@ -1,0 +1,374 @@
+{
+  "mesh": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny.SK_QBZ191_Manny",
+  "materials": [
+    {
+      "slot": "M_QBZ191_Body",
+      "material": "/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish",
+      "properties": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionTextureSample_0' (0x0000027A04DC3480) Class 'MaterialExpressionTextureSample'>",
+        "<MaterialProperty.MP_METALLIC: 6>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionTextureSample_1' (0x0000027A04DC2D00) Class 'MaterialExpressionTextureSample'>",
+        "<MaterialProperty.MP_ROUGHNESS: 8>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionClamp_0' (0x0000027A04C0CF00) Class 'MaterialExpressionClamp'>",
+        "<MaterialProperty.MP_NORMAL: 10>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionLinearInterpolate_0' (0x0000027A04C0D200) Class 'MaterialExpressionLinearInterpolate'>"
+      },
+      "expressions": [
+        {
+          "type": "MaterialExpressionLinearInterpolate",
+          "inputs": [
+            "A",
+            "B",
+            "Alpha"
+          ],
+          "sources": [
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionConstant3Vector_0' (0x0000027A7442D3C0) Class 'MaterialExpressionConstant3Vector'>",
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionTextureSample_3' (0x0000027A04DC3C00) Class 'MaterialExpressionTextureSample'>",
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Body_SurfacePolish.M_QBZ191_Body_SurfacePolish:MaterialExpressionConstant_2' (0x0000027A7442A8E0) Class 'MaterialExpressionConstant'>"
+          ]
+        },
+        {
+          "type": "MaterialExpressionConstant",
+          "inputs": [],
+          "sources": []
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionConstant3Vector",
+          "inputs": [],
+          "sources": []
+        },
+        {
+          "type": "MaterialExpressionClamp",
+          "inputs": [
+            "None",
+            "Min",
+            "Max"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "M_QBZ191_Magazine",
+      "material": "/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish",
+      "properties": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionTextureSample_0' (0x0000027A04DC4880) Class 'MaterialExpressionTextureSample'>",
+        "<MaterialProperty.MP_METALLIC: 6>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionTextureSample_1' (0x0000027A04DC4B00) Class 'MaterialExpressionTextureSample'>",
+        "<MaterialProperty.MP_ROUGHNESS: 8>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionClamp_0' (0x0000027A04C0D800) Class 'MaterialExpressionClamp'>",
+        "<MaterialProperty.MP_NORMAL: 10>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionLinearInterpolate_0' (0x0000027A04C0D980) Class 'MaterialExpressionLinearInterpolate'>"
+      },
+      "expressions": [
+        {
+          "type": "MaterialExpressionLinearInterpolate",
+          "inputs": [
+            "A",
+            "B",
+            "Alpha"
+          ],
+          "sources": [
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionConstant3Vector_0' (0x0000027A7455E540) Class 'MaterialExpressionConstant3Vector'>",
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionTextureSample_3' (0x0000027A04DC5000) Class 'MaterialExpressionTextureSample'>",
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Magazine_SurfacePolish.M_QBZ191_Magazine_SurfacePolish:MaterialExpressionConstant_2' (0x0000027A7455F420) Class 'MaterialExpressionConstant'>"
+          ]
+        },
+        {
+          "type": "MaterialExpressionConstant",
+          "inputs": [],
+          "sources": []
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionConstant3Vector",
+          "inputs": [],
+          "sources": []
+        },
+        {
+          "type": "MaterialExpressionClamp",
+          "inputs": [
+            "None",
+            "Min",
+            "Max"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "M_QBZ191_Irons",
+      "material": "/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish",
+      "properties": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionTextureSample_0' (0x0000027A04DC3E80) Class 'MaterialExpressionTextureSample'>",
+        "<MaterialProperty.MP_METALLIC: 6>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionTextureSample_1' (0x0000027A04DC4100) Class 'MaterialExpressionTextureSample'>",
+        "<MaterialProperty.MP_ROUGHNESS: 8>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionClamp_0' (0x0000027A04C0D500) Class 'MaterialExpressionClamp'>",
+        "<MaterialProperty.MP_NORMAL: 10>": "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionLinearInterpolate_0' (0x0000027A04C0D680) Class 'MaterialExpressionLinearInterpolate'>"
+      },
+      "expressions": [
+        {
+          "type": "MaterialExpressionLinearInterpolate",
+          "inputs": [
+            "A",
+            "B",
+            "Alpha"
+          ],
+          "sources": [
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionConstant3Vector_0' (0x0000027A74558EA0) Class 'MaterialExpressionConstant3Vector'>",
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionTextureSample_3' (0x0000027A04DC4600) Class 'MaterialExpressionTextureSample'>",
+            "<Object '/Game/Weapons/QBZ191/SurfacePolish/M_QBZ191_Irons_SurfacePolish.M_QBZ191_Irons_SurfacePolish:MaterialExpressionConstant_2' (0x0000027A74558DC0) Class 'MaterialExpressionConstant'>"
+          ]
+        },
+        {
+          "type": "MaterialExpressionConstant",
+          "inputs": [],
+          "sources": []
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionConstant3Vector",
+          "inputs": [],
+          "sources": []
+        },
+        {
+          "type": "MaterialExpressionClamp",
+          "inputs": [
+            "None",
+            "Min",
+            "Max"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        },
+        {
+          "type": "MaterialExpressionTextureSample",
+          "inputs": [
+            "UVs",
+            "Tex",
+            "Apply View MipBias"
+          ],
+          "sources": [
+            "None",
+            "None",
+            "None"
+          ]
+        }
+      ]
+    },
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ],
+  "textures": {
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Body_BaseColor.T_QBZ191_Body_BaseColor": {
+      "srgb": "True",
+      "compression_settings": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Body_Metallic.T_QBZ191_Body_Metallic": {
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_GRAYSCALE: 3>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Body_Normal.T_QBZ191_Body_Normal": {
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "flip_green_channel": "True",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Body_Roughness.T_QBZ191_Body_Roughness": {
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_GRAYSCALE: 3>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Magazine_BaseColor.T_QBZ191_Magazine_BaseColor": {
+      "srgb": "True",
+      "compression_settings": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Magazine_Metallic.T_QBZ191_Magazine_Metallic": {
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_GRAYSCALE: 3>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Magazine_Normal.T_QBZ191_Magazine_Normal": {
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "flip_green_channel": "True",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD_NORMAL_MAP: 1>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    },
+    "/Game/Weapons/QBZ191/Textures/T_QBZ191_Magazine_Roughness.T_QBZ191_Magazine_Roughness": {
+      "srgb": "False",
+      "compression_settings": "<TextureCompressionSettings.TC_GRAYSCALE: 3>",
+      "flip_green_channel": "False",
+      "lod_group": "<TextureGroup.TEXTUREGROUP_WORLD: 0>",
+      "lod_bias": "0",
+      "max_texture_size": "0"
+    }
+  },
+  "attachments": {
+    "vertical": {
+      "path": "/Game/Weapons/M4VerticalGripCompact75/SM_VerticalForegrip",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C1540) {origin: {x: -0.000005, y: -0.000000, z: -5.104999}, box_extent: {x: 1.800000, y: 1.650000, z: 5.174999}, sphere_radius: 5.608810}>"
+    },
+    "canted": {
+      "path": "/Game/Weapons/M4CantedForegrip/SM_CantedForegrip",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C0680) {origin: {x: 0.000000, y: -2.638938, z: -4.093939}, box_extent: {x: 1.800000, y: 4.288937, z: 4.163939}, sphere_radius: 6.048767}>"
+    },
+    "prism": {
+      "path": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C0040) {origin: {x: -0.000101, y: 0.000012, z: -3.250023}, box_extent: {x: 2.940378, y: 0.947225, z: 3.249091}, sphere_radius: 4.131498}>"
+    },
+    "angled": {
+      "path": "/Game/Weapons/M4AngledForegripCompact75/SM_M4_AngledForegrip",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C2DC0) {origin: {x: 4.652102, y: -42.250423, z: -10.235218}, box_extent: {x: 1.463271, y: 7.718140, z: 6.116324}, sphere_radius: 9.463659}>"
+    },
+    "panoramic_red_dot": {
+      "path": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C4880) {origin: {x: -0.012500, y: -0.001577, z: 2.374644}, box_extent: {x: 2.962500, y: 2.764747, z: 2.374644}, sphere_radius: 4.115469}>"
+    },
+    "holographic": {
+      "path": "/Game/Weapons/M4Holographic/SM_M4_Holographic",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C4840) {origin: {x: -0.074168, y: 0.023847, z: 3.596573}, box_extent: {x: 4.973760, y: 2.772346, z: 3.628523}, sphere_radius: 6.533143}>"
+    },
+    "prism_scope_2x": {
+      "path": "/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C5D80) {origin: {x: 0.000000, y: 0.348621, z: 3.311288}, box_extent: {x: 6.480000, y: 2.204610, z: 3.311288}, sphere_radius: 6.972422}>"
+    },
+    "lpvo_1_6x": {
+      "path": "/Game/Weapons/LPVO1to6X/SM_LPVO1to6X",
+      "bounds": "<Struct 'BoxSphereBounds' (0x0000027A068C6880) {origin: {x: 0.000000, y: 0.120250, z: 3.146750}, box_extent: {x: 12.500000, y: 2.173249, z: 3.146750}, sphere_radius: 12.812315}>"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "mesh": "/Game/Weapons/QBZ191/SK_QBZ191_Manny.SK_QBZ191_Manny",
+  "skeleton": "/Game/Weapons/QBZ191/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "slots": [
+    {
+      "M_QBZ191_Body": "/Game/Weapons/QBZ191/M_QBZ191_Body.M_QBZ191_Body"
+    },
+    {
+      "M_QBZ191_Magazine": "/Game/Weapons/QBZ191/M_QBZ191_Magazine.M_QBZ191_Magazine"
+    },
+    {
+      "M_QBZ191_Irons": "/Game/Weapons/QBZ191/M_QBZ191_Body.M_QBZ191_Body"
+    },
+    {
+      "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ],
+  "clips": {
+    "idle": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_idle.A_QBZ191_idle",
+      "duration": 3.0
+    },
+    "aim": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_aim.A_QBZ191_aim",
+      "duration": 0.03333333507180214
+    },
+    "fire": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_fire.A_QBZ191_fire",
+      "duration": 0.7666666507720947
+    },
+    "aim_fire": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_aim_fire.A_QBZ191_aim_fire",
+      "duration": 0.7666666507720947
+    },
+    "reload": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_reload.A_QBZ191_reload",
+      "duration": 2.0999999046325684
+    },
+    "reload_empty": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_reload_empty.A_QBZ191_reload_empty",
+      "duration": 2.7333333492279053
+    },
+    "equip_charge": {
+      "path": "/Game/Weapons/QBZ191/Animations/A_QBZ191_equip_charge.A_QBZ191_equip_charge",
+      "duration": 0.6333333253860474
+    }
+  }
+}

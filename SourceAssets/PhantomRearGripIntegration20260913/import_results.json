@@ -1,0 +1,14 @@
+{
+  "M4": {
+    "grip": "/Game/Weapons/PhantomRearGrip/M4/SM_PhantomRearGrip.SM_PhantomRearGrip"
+  },
+  "AKM": {
+    "grip": "/Game/Weapons/PhantomRearGrip/AKM/SM_PhantomRearGrip.SM_PhantomRearGrip",
+    "sectioned_gun": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative"
+  },
+  "QBZ191": {
+    "grip": "/Game/Weapons/PhantomRearGrip/QBZ191/SM_PhantomRearGrip.SM_PhantomRearGrip",
+    "sectioned_gun": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny.SK_QBZ191_Manny"
+  },
+  "status": "Authored and imported. No runtime tests performed."
+}

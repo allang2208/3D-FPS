@@ -1,0 +1,75 @@
+{
+  "material": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword.M_AzureRunesword",
+  "settings": {
+    "used_with_skeletal_mesh": "False",
+    "automatically_set_usage_in_editor": "True",
+    "blend_mode": "<BlendMode.BLEND_OPAQUE: 0>",
+    "shading_model": "<MaterialShadingModel.MSM_DEFAULT_LIT: 1>"
+  },
+  "inputs": {
+    "BASE_COLOR": "MaterialExpressionTextureSample",
+    "NORMAL": "MaterialExpressionTextureSample",
+    "METALLIC": "MaterialExpressionTextureSample",
+    "ROUGHNESS": "MaterialExpressionTextureSample",
+    "EMISSIVE_COLOR": "MaterialExpressionMultiply"
+  },
+  "textures": {
+    "BaseColor": {
+      "path": "/Game/Weapons/AzureRunesword20260913/T_RuneSword_BaseColor.T_RuneSword_BaseColor",
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "width": 2048,
+      "height": 2048
+    },
+    "Normal": {
+      "path": "/Game/Weapons/AzureRunesword20260913/T_RuneSword_Normal.T_RuneSword_Normal",
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>",
+      "width": 2048,
+      "height": 2048
+    },
+    "Metallic": {
+      "path": "/Game/Weapons/AzureRunesword20260913/T_RuneSword_Metallic.T_RuneSword_Metallic",
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "width": 2048,
+      "height": 2048
+    },
+    "Roughness": {
+      "path": "/Game/Weapons/AzureRunesword20260913/T_RuneSword_Roughness.T_RuneSword_Roughness",
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_MASKS: 2>",
+      "width": 2048,
+      "height": 2048
+    },
+    "Emissive": {
+      "path": "/Game/Weapons/AzureRunesword20260913/T_RuneSword_Emissive.T_RuneSword_Emissive",
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>",
+      "width": 2048,
+      "height": 2048
+    }
+  },
+  "bindings": {
+    "skeletal": [
+      {
+        "slot": "M_AzureRunesword",
+        "material": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword.M_AzureRunesword"
+      },
+      {
+        "slot": "MI_Manny_01",
+        "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+      },
+      {
+        "slot": "MI_Manny_02",
+        "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+      }
+    ],
+    "world": [
+      {
+        "slot": "M_AzureRunesword",
+        "material": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword.M_AzureRunesword"
+      }
+    ]
+  }
+}

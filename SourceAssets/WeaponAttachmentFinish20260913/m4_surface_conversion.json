@@ -1,0 +1,112 @@
+{
+  "function": "/InterchangeAssets/Functions/MF_PhongToMetalRoughness.MF_PhongToMetalRoughness",
+  "inputs": [
+    "AmbientColor",
+    "DiffuseColor",
+    "SpecularColor",
+    "Shininess"
+  ],
+  "outputs": {
+    "<MaterialProperty.MP_BASE_COLOR: 5>": "BaseColor",
+    "<MaterialProperty.MP_METALLIC: 6>": "Metallic",
+    "<MaterialProperty.MP_ROUGHNESS: 8>": "Roughness",
+    "<MaterialProperty.MP_SPECULAR: 7>": "Specular"
+  },
+  "incoming": [
+    "MaterialExpressionLinearInterpolate_1",
+    "MaterialExpressionLinearInterpolate_0",
+    "MaterialExpressionLinearInterpolate_2",
+    "MaterialExpressionLinearInterpolate_6"
+  ],
+  "function_expressions": [
+    {
+      "class": "MaterialExpressionFunctionOutput",
+      "name": "MaterialExpressionFunctionOutput_0",
+      "output_name": "BaseColor",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionFunctionOutput",
+      "name": "MaterialExpressionFunctionOutput_1",
+      "output_name": "Metallic",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionFunctionOutput",
+      "name": "MaterialExpressionFunctionOutput_2",
+      "output_name": "Specular",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionFunctionInput",
+      "name": "MaterialExpressionFunctionInput_0",
+      "input_name": "DiffuseColor",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionFunctionInput",
+      "name": "MaterialExpressionFunctionInput_1",
+      "input_name": "SpecularColor",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionFunctionInput",
+      "name": "MaterialExpressionFunctionInput_2",
+      "input_name": "Shininess",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionFunctionOutput",
+      "name": "MaterialExpressionFunctionOutput_3",
+      "output_name": "Roughness",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionPower",
+      "name": "MaterialExpressionPower_0"
+    },
+    {
+      "class": "MaterialExpressionDivide",
+      "name": "MaterialExpressionDivide_1"
+    },
+    {
+      "class": "MaterialExpressionAdd",
+      "name": "MaterialExpressionAdd_4"
+    },
+    {
+      "class": "MaterialExpressionClamp",
+      "name": "MaterialExpressionClamp_2"
+    },
+    {
+      "class": "MaterialExpressionScalarParameter",
+      "name": "MaterialExpressionScalarParameter_1",
+      "default_value": "1.0"
+    },
+    {
+      "class": "MaterialExpressionDotProduct",
+      "name": "MaterialExpressionDotProduct_0"
+    },
+    {
+      "class": "MaterialExpressionDivide",
+      "name": "MaterialExpressionDivide_0"
+    },
+    {
+      "class": "MaterialExpressionFunctionInput",
+      "name": "MaterialExpressionFunctionInput_3",
+      "input_name": "AmbientColor",
+      "description": ""
+    },
+    {
+      "class": "MaterialExpressionDotProduct",
+      "name": "MaterialExpressionDotProduct_1"
+    },
+    {
+      "class": "MaterialExpressionDivide",
+      "name": "MaterialExpressionDivide_2"
+    },
+    {
+      "class": "MaterialExpressionClamp",
+      "name": "MaterialExpressionClamp_0"
+    }
+  ]
+}

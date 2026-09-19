@@ -1,0 +1,50 @@
+{
+  "listing": "https://www.fab.com/listings/46ea08b2-1947-40f8-b1e7-f1254d49a912",
+  "author": "REAL DEDICATED",
+  "license": "Fab Standard License",
+  "saved": [
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/T_FreePickaxe_BaseColor.T_FreePickaxe_BaseColor",
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/T_FreePickaxe_Normal.T_FreePickaxe_Normal",
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/T_FreePickaxe_Metallic.T_FreePickaxe_Metallic",
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/T_FreePickaxe_Roughness.T_FreePickaxe_Roughness",
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/T_FreePickaxe_Occlusion.T_FreePickaxe_Occlusion",
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/M_FreePickaxe.M_FreePickaxe",
+    "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/SM_Free_Pickaxe.SM_Free_Pickaxe"
+  ],
+  "runtime_tested": false,
+  "mesh": "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/SM_Free_Pickaxe.SM_Free_Pickaxe",
+  "material": "/Game/Items/ProductionTools/FreeFab20260913/Pickaxe/M_FreePickaxe.M_FreePickaxe",
+  "textures": {
+    "BaseColor": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Original\\Pickaxe\\T_BasicPickaxe_BaseColor.tga",
+      "sha256": "d9e089f9ef8d0a36844602885dc4c2e3f84ab81dfad6320de7d5178b05cf9f7f"
+    },
+    "Normal": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Original\\Pickaxe\\T_BasicPickaxe_Normal.tga",
+      "sha256": "4a9e59970c128c49bdb6fa1f663956e6c89b39f76df85d29d2bf08a51f66d892"
+    },
+    "Metallic": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Original\\Pickaxe\\T_BasicPickaxe_Metallic.tga",
+      "sha256": "c325162c8953b4388da3ae5faddfed378a02a30c67bee30c9e169f129b6df559"
+    },
+    "Roughness": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Original\\Pickaxe\\T_BasicPickaxe_Roughness.tga",
+      "sha256": "ea7df5f942260a2fecdacbfe51f20a28781e867ae7f48edcdd107f6ee4e97972"
+    },
+    "Occlusion": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Original\\Pickaxe\\T_BasicPickaxe_Occlusion.tga",
+      "sha256": "3a15981a97fd01a3f68cd2dd79c5bf651eb63ad279df87496a61823c0bb8fc85"
+    }
+  },
+  "height_cm": 70,
+  "lod_triangles": [
+    510,
+    374,
+    190
+  ],
+  "lod_screen_sizes": [
+    1.0,
+    0.15,
+    0.05
+  ]
+}

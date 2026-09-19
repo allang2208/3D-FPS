@@ -1,0 +1,11 @@
+{
+  "source": "Godot archive tactical_device.gd and tactical-fit.png; original model files unavailable in current archive",
+  "pipeline": "TRELLIS.2 multiview 1024_cascade SS64 16/32/24 steps, 4K master",
+  "families": ["M4", "AKM", "QBZ191"],
+  "slot": "tactical",
+  "laser": {"seed": 91803, "range_m": 80, "hip_spread_mult": 0.5, "ads_seconds": -0.2},
+  "flashlight": {"seed": 91827, "lumens": 1000, "range_m": 40, "inner_cone_deg": 12, "outer_cone_deg": 24},
+  "reference_views": {"0": "left broad side -> front node", "1": "optical front -> left node", "2": "right broad side -> back node"},
+  "geometry": "shared generated device, per-rifle surface-conforming saddle, emitter and guide sockets",
+  "status": "both generated; six fitted assets and effects imported; native build succeeded; not game tested"
+}

@@ -1,0 +1,14 @@
+{
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_angled.SM_AKM_angled",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMResonanceGrip20260913\\DetailPolish\\SM_AKM_angled.fbx",
+  "materials": {
+    "AKM_Resonance_Steel": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel",
+    "AKM_AdapterSteel": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel",
+    "Grip_Default_002": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+  },
+  "runtime_tested": false,
+  "rendered": false,
+  "full_precision_uvs": true,
+  "high_precision_tangent_basis": true,
+  "recompute_tangents": true
+}

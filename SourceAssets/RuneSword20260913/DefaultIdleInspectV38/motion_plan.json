@@ -1,0 +1,23 @@
+{
+  "revision": "DefaultIdleInspectV38",
+  "duration": 1.8,
+  "fps": 120,
+  "core_start": 0.5,
+  "core_end": 0.8,
+  "source_spin_seconds": [76.0, 76.3],
+  "right_arm": "Exact accepted front idle matrices, including wrist and all arm helpers",
+  "weapon": "V36 orientation sequence anchored at the idle hand, with a closed-grip start and end",
+  "left_shoulder_outward_degrees": 32.0,
+  "left_shoulder_downward_degrees": 18.0,
+  "phases": [
+    {"seconds": [0.0, 0.16], "motion": "Left fingers release the still handle"},
+    {"seconds": [0.12, 0.4], "motion": "Left arm swings away as one idle-shaped chain from the shoulder"},
+    {"seconds": [0.5, 0.8], "motion": "Sword rotates at the default right grip; right wrist and forearm stay at idle"},
+    {"seconds": [0.8, 1.0], "motion": "Right hand holds the caught sword at the default idle"},
+    {"seconds": [1.0, 1.45], "motion": "Left arm returns along the same shoulder arc"},
+    {"seconds": [1.43, 1.65], "motion": "Left fingers close in sequence"},
+    {"seconds": [1.65, 1.8], "motion": "Full original two-hand idle"}
+  ],
+  "coordinate_system": "+X right, +Y forward, +Z up; meters in the Blender rig",
+  "testing": "No playback, render or game testing requested"
+}

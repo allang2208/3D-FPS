@@ -1,0 +1,33 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSkeletonStock5080_20260913\\seed_91379\\textured_master_00001_.glb",
+  "operations": [
+    {
+      "operation": "coincident vertex/duplicate/degenerate cleanup, remove redundant edge sheets, close tiny boundary loops",
+      "duplicate_faces_removed": 0,
+      "redundant_faces_removed": 10170,
+      "tiny_loops_patched": 1616
+    },
+    {
+      "operation": "UNION",
+      "region": "Lower brace / buttplate missing connection"
+    },
+    {
+      "operation": "UNION",
+      "region": "Front shoulder accidental side punctures"
+    },
+    {
+      "operation": "DIFFERENCE",
+      "region": "Preserve open front socket"
+    },
+    {
+      "operation": "local seam/channel relaxation",
+      "vertices": 18789,
+      "iterations": 3,
+      "factor": 0.15
+    }
+  ],
+  "original_source_modified": false,
+  "global_remesh": false,
+  "rendered": false,
+  "tested": false
+}

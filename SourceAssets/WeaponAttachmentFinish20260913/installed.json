@@ -1,0 +1,205 @@
+{
+  "M4/drum": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_LargeDrum",
+    "previous_mesh": "/Game/Weapons/M4Drum/SM_M4_LargeDrum",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "DrumFasteners"
+    ],
+    "slots": {
+      "DrumPolymer": "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer",
+      "DrumFasteners": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_drum_1.M_M4_drum_1",
+      "DrumIndex": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+    },
+    "triangles": 13908,
+    "uv_index": 2
+  },
+  "M4/holographic": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_Holographic",
+    "previous_mesh": "/Game/Weapons/M4Holographic/SM_M4_Holographic",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "Holosight"
+    ],
+    "slots": {
+      "Holosight": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_holographic_0.M_M4_holographic_0",
+      "Red_Dot": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+    },
+    "triangles": 8680,
+    "uv_index": 2
+  },
+  "M4/panoramic_red_dot": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PanoramicRedDot",
+    "previous_mesh": "/Game/Weapons/PanoramicRedDot/SM_PanoramicRedDot",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "Panoramic_Body"
+    ],
+    "slots": {
+      "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+      "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+      "Panoramic_Body": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_panoramic_red_dot_2.M_M4_panoramic_red_dot_2"
+    },
+    "triangles": 15894,
+    "uv_index": 2
+  },
+  "M4/prism_scope_2x": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismScope2X",
+    "previous_mesh": "/Game/Weapons/PrismScope2XMachined/SM_PrismScope2X",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "Scope2X_Body"
+    ],
+    "slots": {
+      "Scope2X_Reticle": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+      "Scope2X_Glass": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+      "Scope2X_Body": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_prism_scope_2x_2.M_M4_prism_scope_2x_2"
+    },
+    "triangles": 18040,
+    "uv_index": 2
+  },
+  "M4/lpvo_1_6x": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVO1to6X",
+    "previous_mesh": "/Game/Weapons/LPVO1to6X/SM_LPVO1to6X",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "LPVO_Body"
+    ],
+    "slots": {
+      "LPVO_Reticle": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+      "LPVO_Glass": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+      "LPVO_Body": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_lpvo_1_6x_2.M_M4_lpvo_1_6x_2"
+    },
+    "triangles": 20608,
+    "uv_index": 2
+  },
+  "M4/lpvo_ring": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing",
+    "previous_mesh": "/Game/Weapons/LPVO1to6X/SM_LPVORing",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "LPVO_Body"
+    ],
+    "slots": {
+      "LPVO_Body": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_lpvo_ring_0.M_M4_lpvo_ring_0"
+    },
+    "triangles": 2204,
+    "uv_index": 2
+  },
+  "M4/prism": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismHandstop",
+    "previous_mesh": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "changed_slots": [
+      "Prism_Saddle"
+    ],
+    "slots": {
+      "Prism_Polymer": "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer",
+      "Prism_Saddle": "/Game/Weapons/AttachmentFinish20260913/M4/Materials/M_M4_prism_1.M_M4_prism_1"
+    },
+    "triangles": 16000,
+    "uv_index": 2
+  },
+  "AKM/drum": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_drum",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_drum",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "drum_DrumFasteners"
+    ],
+    "slots": {
+      "drum_DrumPolymer": "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer",
+      "drum_DrumFasteners": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_drum_1.M_AKM_drum_1",
+      "drum_DrumIndex": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+    },
+    "triangles": 13908,
+    "uv_index": 2
+  },
+  "AKM/suppressor": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_suppressor",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_suppressor",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "suppressor_RifleMetal"
+    ],
+    "slots": {
+      "suppressor_RifleMetal": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_suppressor_0.M_AKM_suppressor_0",
+      "suppressor_RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+    },
+    "triangles": 40512,
+    "uv_index": 2
+  },
+  "AKM/brake": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_brake",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_brake",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "brake_RifleMetal"
+    ],
+    "slots": {
+      "brake_RifleMetal": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_brake_0.M_AKM_brake_0",
+      "brake_RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+    },
+    "triangles": 7016,
+    "uv_index": 2
+  },
+  "AKM/titanium_brake": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_titanium_brake",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_titanium_brake",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "titanium_brake_RifleMetal"
+    ],
+    "slots": {
+      "titanium_brake_RifleMetal": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_titanium_brake_0.M_AKM_titanium_brake_0",
+      "titanium_brake_RecessMetal": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "titanium_brake_TitaniumTrim": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+    },
+    "triangles": 32304,
+    "uv_index": 2
+  },
+  "AKM/vertical": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_vertical",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_vertical",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "Body_004"
+    ],
+    "slots": {
+      "Body_004": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_vertical_0.M_AKM_vertical_0",
+      "AKM_AdapterSteel": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+    },
+    "triangles": 26648,
+    "uv_index": 3
+  },
+  "AKM/canted": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_canted_CompactMount",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_canted_CompactMount",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "Body_004"
+    ],
+    "slots": {
+      "Body_004": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_canted_0.M_AKM_canted_0",
+      "AKM_AdapterSteel": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+    },
+    "triangles": 26648,
+    "uv_index": 3
+  },
+  "AKM/prism": {
+    "mesh": "/Game/Weapons/AttachmentFinish20260913/AKM/Meshes/SM_AKM_prism",
+    "previous_mesh": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_prism",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "changed_slots": [
+      "prism_Prism_Saddle",
+      "AKM_AdapterSteel"
+    ],
+    "slots": {
+      "prism_Prism_Polymer": "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer",
+      "prism_Prism_Saddle": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_prism_1.M_AKM_prism_1",
+      "AKM_AdapterSteel": "/Game/Weapons/AttachmentFinish20260913/AKM/Materials/M_AKM_prism_2.M_AKM_prism_2"
+    },
+    "triangles": 16324,
+    "uv_index": 2
+  }
+}

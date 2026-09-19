@@ -1,0 +1,12 @@
+Reference/
+Before/
+Export/
+*.blend
+*.blend1
+*.log
+authoring_inputs.json
+reference_annotations.json
+reference_poses.json
+import_receipt.json
+authoring.json
+__pycache__/

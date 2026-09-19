@@ -1,0 +1,17 @@
+{
+  "mesh": "/Game/Weapons/QBZ191/MagazineSeat20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "clips": {
+    "base:reload": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/base/A_QBZ191_reload.A_QBZ191_reload",
+    "base:reload_empty": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/base/A_QBZ191_reload_empty.A_QBZ191_reload_empty",
+    "vertical:reload": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/vertical/A_QBZ191_vertical_reload.A_QBZ191_vertical_reload",
+    "vertical:reload_empty": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/vertical/A_QBZ191_vertical_reload_empty.A_QBZ191_vertical_reload_empty",
+    "canted:reload": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/canted/A_QBZ191_canted_reload.A_QBZ191_canted_reload",
+    "canted:reload_empty": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/canted/A_QBZ191_canted_reload_empty.A_QBZ191_canted_reload_empty",
+    "prism:reload": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/prism/A_QBZ191_prism_reload.A_QBZ191_prism_reload",
+    "prism:reload_empty": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/prism/A_QBZ191_prism_reload_empty.A_QBZ191_prism_reload_empty",
+    "angled:reload": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/angled/A_QBZ191_angled_reload.A_QBZ191_angled_reload",
+    "angled:reload_empty": "/Game/Weapons/QBZ191/MagazineSeat20260913/Animations/angled/A_QBZ191_angled_reload_empty.A_QBZ191_angled_reload_empty"
+  },
+  "status": "imported; no rendered or gameplay test"
+}

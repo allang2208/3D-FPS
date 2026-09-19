@@ -1,0 +1,32 @@
+{
+  "saved": [
+    "/Game/Items/ProductionTools/Materials/T_Production_WoodColor.T_Production_WoodColor",
+    "/Game/Items/ProductionTools/Materials/T_Production_WoodNormal.T_Production_WoodNormal",
+    "/Game/Items/ProductionTools/Materials/T_Production_MetalColor.T_Production_MetalColor",
+    "/Game/Items/ProductionTools/Materials/T_Production_MetalNormal.T_Production_MetalNormal",
+    "/Game/Items/ProductionTools/Materials/M_ProductionTool_Weathered.M_ProductionTool_Weathered",
+    "/Game/Items/ProductionTools/Materials/MI_Production_Hatchet.MI_Production_Hatchet",
+    "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Hatchet.SM_Polygonal_Hatchet",
+    "/Game/Items/ProductionTools/Materials/MI_Production_Pickaxe.MI_Production_Pickaxe",
+    "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Pickaxe.SM_Polygonal_Pickaxe"
+  ],
+  "source_textures": [
+    "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_BaseColor",
+    "/Game/UnrealNormandy/Textures/T_WoodSurface_00A_Normal",
+    "/Game/UnrealNormandy/Textures/T_MetalRust_00A_BaseColor",
+    "/Game/UnrealNormandy/Textures/T_MetalRust_00A_Normal"
+  ],
+  "mesh_bindings": [
+    {
+      "mesh": "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Hatchet",
+      "slot": 0,
+      "material": "/Game/Items/ProductionTools/Materials/MI_Production_Hatchet"
+    },
+    {
+      "mesh": "/Game/EasyBuildingSystem/Meshes/Tools/Polygonal/SM_Polygonal_Pickaxe",
+      "slot": 0,
+      "material": "/Game/Items/ProductionTools/Materials/MI_Production_Pickaxe"
+    }
+  ],
+  "runtime_tested": false
+}

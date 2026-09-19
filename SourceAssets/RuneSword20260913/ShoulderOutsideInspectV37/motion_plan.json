@@ -1,0 +1,30 @@
+{
+  "revision": "ShoulderOutsideInspectV37",
+  "baseline": "ReferenceReplicaV36",
+  "duration": 3.0,
+  "fps": 120,
+  "core_start": 1.0,
+  "core_end": 1.3,
+  "spin_plane_yaw_degrees": 65.0,
+  "spin_start_wrist": [0.39, 0.38, -0.10],
+  "shoulder_wrist": [0.40, 0.27, -0.065],
+  "shoulder_blade_direction": [0.28, -0.94, 0.18],
+  "entry_clear_wrist": [0.33, 0.38, -0.07],
+  "exit_clear_wrist": [0.37, 0.39, -0.08],
+  "left_free_wrist": [-0.24, 0.22, -0.42],
+  "phases": [
+    {"seconds": [0.0, 0.18], "motion": "Left fingers release; right closed grip stays at the project front idle"},
+    {"seconds": [0.18, 0.45], "motion": "Lift the closed right hand and upright blade to the right side"},
+    {"seconds": [0.45, 0.73], "motion": "Blade tips backward outside the right shoulder; left hand withdraws"},
+    {"seconds": [0.73, 1.0], "motion": "Bring blade forward from the shoulder into the outside spin"},
+    {"seconds": [1.0, 1.3], "motion": "V36 native 76.0-76.3 second release, palm roll and catch, coherently reoriented"},
+    {"seconds": [1.3, 1.64], "motion": "Keep the caught grip closed and settle the blade behind the right shoulder"},
+    {"seconds": [1.64, 1.85], "motion": "Brief shoulder carry"},
+    {"seconds": [1.85, 2.11], "motion": "Lift blade upright outside the right arm before moving across to the front"},
+    {"seconds": [2.11, 2.58], "motion": "Bring the closed grip back to the project front idle"},
+    {"seconds": [2.35, 2.74], "motion": "Left hand approaches the stopped handle, palm reaches the original contact"},
+    {"seconds": [2.70, 3.0], "motion": "Left fingers close in sequence and both arms settle into the exact idle endpoint"}
+  ],
+  "coordinate_system": "+X right, +Y forward, +Z up; meters in the Blender authoring rig",
+  "scope": "Rune sword Inspect only. Shoulder carry belongs to the inspection transition; ordinary front idle remains the endpoint."
+}

@@ -1,0 +1,65 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\AzureRunesword_ChargedShoulderV44.blend",
+  "fps": 480.0,
+  "hold_shift_m": 0.07,
+  "edited_bones": [
+    "WPN_root",
+    "upperarm_l",
+    "lowerarm_l",
+    "hand_l",
+    "upperarm_r",
+    "lowerarm_r",
+    "hand_r"
+  ],
+  "clips": [
+    {
+      "clip": "HeavyCharge",
+      "frames": [
+        0,
+        960
+      ],
+      "seconds": 2.0,
+      "left_elbow_before_deg": 108.96467843317889,
+      "left_elbow_after_deg": 126.03666113154489,
+      "right_elbow_before_deg": 99.93451948245088,
+      "right_elbow_after_deg": 114.10544763274567,
+      "left_reach_before_m": 0.5322226357971366,
+      "left_reach_after_m": 0.5044979025501425,
+      "weight_min": 0.0,
+      "weight_max": 1.0
+    },
+    {
+      "clip": "HeavyRelease",
+      "frames": [
+        0,
+        480
+      ],
+      "seconds": 1.0,
+      "left_elbow_before_deg": 128.494545685509,
+      "left_elbow_after_deg": 144.21661662650286,
+      "right_elbow_before_deg": 99.19075286297152,
+      "right_elbow_after_deg": 107.66425139634349,
+      "left_reach_before_m": 0.5322226427966328,
+      "left_reach_after_m": 0.4795875692988436,
+      "weight_min": 0.0,
+      "weight_max": 1.0
+    },
+    {
+      "clip": "Slash1",
+      "frames": [
+        0,
+        852
+      ],
+      "seconds": 1.775,
+      "left_elbow_before_deg": 106.31994722427991,
+      "left_elbow_after_deg": 123.62794027922654,
+      "right_elbow_before_deg": 100.16329666870045,
+      "right_elbow_after_deg": 113.63815341049008,
+      "left_reach_before_m": 0.5042813048722595,
+      "left_reach_after_m": 0.5009139834016832,
+      "weight_min": 0.0,
+      "weight_max": 1.0
+    }
+  ],
+  "method": "Whole hold (sword plus both hands) shifted along the left wrist-to-shoulder line, both arms re-solved with a two-bone IK that keeps the authored elbow side; hand grips and orientations are unchanged so contact with the hilt is preserved"
+}

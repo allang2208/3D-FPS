@@ -1,0 +1,28 @@
+{
+  "source": "skeleton_raw.glb",
+  "method": "weld and decimate actual generated geometry; silhouette height calibrated to legacy proportions; authored PBR rebaked",
+  "raw_triangles": 500000,
+  "raw_vertices": 311141,
+  "welded_vertices": 249998,
+  "triangles": 18000,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "degenerate_faces": 0,
+  "dimensions_cm": [
+    23.0,
+    4.800000190734863,
+    12.600000381469727
+  ],
+  "generated_bounds": [
+    1.002392053604126,
+    0.2555890381336212,
+    0.7558011412620544
+  ],
+  "original_images": [
+    "texture_pbr_20250901",
+    "texture_pbr_20250901_metallic-texture_pbr_20250901_roughness",
+    "texture_pbr_20250901_normal"
+  ],
+  "uv_layers": 1,
+  "material_slots": 1
+}

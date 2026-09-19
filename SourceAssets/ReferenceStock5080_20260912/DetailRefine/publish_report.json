@@ -1,0 +1,50 @@
+{
+  "m4": {
+    "asset": "/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock",
+    "triangles": 35828,
+    "dimensions_cm": [
+      23.024999726495764,
+      2.8800002336502075,
+      11.149381875991821
+    ],
+    "slots": [
+      {
+        "slot": "StockMetal",
+        "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+      },
+      {
+        "slot": "StockPolymer",
+        "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+      },
+      {
+        "slot": "StockRubber",
+        "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+      }
+    ],
+    "body_material_identical": true
+  },
+  "akm": {
+    "asset": "/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock",
+    "triangles": 40530,
+    "dimensions_cm": [
+      23.114999793469906,
+      4.099999904632568,
+      11.149381875991821
+    ],
+    "slots": [
+      {
+        "slot": "StockMetal",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+      },
+      {
+        "slot": "StockPolymer",
+        "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+      },
+      {
+        "slot": "StockRubber",
+        "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+      }
+    ],
+    "body_material_identical": true
+  }
+}

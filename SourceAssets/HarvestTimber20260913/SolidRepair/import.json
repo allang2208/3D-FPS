@@ -1,0 +1,26 @@
+{
+  "SM_PoplarLog_Solid_A": {
+    "path": "/Game/Items/HarvestTimber/SM_PoplarLog_Solid_A.SM_PoplarLog_Solid_A",
+    "bounds": "<Struct 'BoxSphereBounds' (0x0000018A740A9F80) {origin: {x: -0.000002, y: -0.002059, z: -0.051762}, box_extent: {x: 40.000002, y: 15.221584, z: 15.327784}, sphere_radius: 42.836209}>",
+    "materials": [
+      "/Game/Items/HarvestTimber/M_PoplarSolidBark.M_PoplarSolidBark",
+      "/Game/Items/HarvestTimber/M_PoplarSolidEnd.M_PoplarSolidEnd"
+    ]
+  },
+  "SM_PoplarLog_Solid_B": {
+    "path": "/Game/Items/HarvestTimber/SM_PoplarLog_Solid_B.SM_PoplarLog_Solid_B",
+    "bounds": "<Struct 'BoxSphereBounds' (0x0000018A740ADD80) {origin: {x: -0.000004, y: -0.027753, z: -0.160322}, box_extent: {x: 36.500000, y: 14.187405, z: 14.225628}, sphere_radius: 39.185712}>",
+    "materials": [
+      "/Game/Items/HarvestTimber/M_PoplarSolidBark.M_PoplarSolidBark",
+      "/Game/Items/HarvestTimber/M_PoplarSolidEnd.M_PoplarSolidEnd"
+    ]
+  },
+  "SM_PoplarLog_Solid_C": {
+    "path": "/Game/Items/HarvestTimber/SM_PoplarLog_Solid_C.SM_PoplarLog_Solid_C",
+    "bounds": "<Struct 'BoxSphereBounds' (0x0000018A45D9E640) {origin: {x: 0.000000, y: -0.010229, z: -0.073704}, box_extent: {x: 39.500004, y: 16.702612, z: 16.793335}, sphere_radius: 42.926203}>",
+    "materials": [
+      "/Game/Items/HarvestTimber/M_PoplarSolidBark.M_PoplarSolidBark",
+      "/Game/Items/HarvestTimber/M_PoplarSolidEnd.M_PoplarSolidEnd"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "revision": "BackDrawEquipV23",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedArmV22\\AzureRunesword_Manny_Editable.blend",
+  "clip": "A_RuneSword_Equip",
+  "fps": 480,
+  "frames": [
+    0,
+    576
+  ],
+  "duration": 1.2,
+  "loop": false,
+  "phases": {
+    "reach_behind": [
+      0,
+      0.29
+    ],
+    "right_grasp": [
+      0.21,
+      0.31
+    ],
+    "draw_up": [
+      0.32,
+      0.54
+    ],
+    "bring_forward": [
+      0.54,
+      1.08
+    ],
+    "left_join": [
+      0.68,
+      1.03
+    ],
+    "left_close": [
+      0.92,
+      1.06
+    ],
+    "settle_end": 1.2
+  },
+  "contact": "Right-hand hilt frame stays fixed after .29; left joins the accepted lower grip",
+  "source_motion": "Original back-draw adaptation; no downloaded spin/flourish clip",
+  "scope": "First-person shoulder-back draw illusion; no third-person back scabbard or sheath collision asset",
+  "verification": "Not rendered or play-tested; per user default no-tests rule"
+}

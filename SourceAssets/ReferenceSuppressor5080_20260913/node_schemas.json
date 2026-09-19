@@ -1,0 +1,856 @@
+{
+  "Trellis2ExportMesh": {
+    "input": {
+      "required": {
+        "trimesh": [
+          "TRIMESH"
+        ],
+        "filename_prefix": [
+          "STRING",
+          {
+            "default": "3D/Trellis2"
+          }
+        ],
+        "file_format": [
+          [
+            "glb",
+            "obj",
+            "ply",
+            "stl",
+            "3mf",
+            "dae"
+          ]
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "trimesh",
+        "filename_prefix",
+        "file_format"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "STRING",
+      "STRING"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "glb_path",
+      "relative_path"
+    ],
+    "name": "Trellis2ExportMesh",
+    "display_name": "Trellis2 - Export Mesh",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "Trellis2OvoxelExportToGLB": {
+    "input": {
+      "required": {
+        "mesh": [
+          "MESHWITHVOXEL"
+        ],
+        "resolution": [
+          [
+            512,
+            1024
+          ],
+          {
+            "default": 1024
+          }
+        ],
+        "texture_size": [
+          [
+            512,
+            1024,
+            2048,
+            4096
+          ],
+          {
+            "default": 2048
+          }
+        ],
+        "target_face_num": [
+          "INT",
+          {
+            "default": 2000000,
+            "min": 500,
+            "max": 16000000
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "mesh",
+        "resolution",
+        "texture_size",
+        "target_face_num"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "TRIMESH"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "trimesh"
+    ],
+    "name": "Trellis2OvoxelExportToGLB",
+    "display_name": "Trellis2 - Ovoxel Export to GLB",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "Trellis2PreProcessImage": {
+    "input": {
+      "required": {
+        "image": [
+          "IMAGE"
+        ],
+        "padding": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1024
+          }
+        ],
+        "remove_background": [
+          "BOOLEAN",
+          {
+            "default": false
+          }
+        ],
+        "max_size": [
+          "INT",
+          {
+            "default": 2048,
+            "min": 512,
+            "max": 8192,
+            "step": 128
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "image",
+        "padding",
+        "remove_background",
+        "max_size"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "IMAGE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "image"
+    ],
+    "name": "Trellis2PreProcessImage",
+    "display_name": "Trellis2 - PreProcess Image",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "Trellis2MeshWithVoxelMultiViewGenerator": {
+    "input": {
+      "required": {
+        "pipeline": [
+          "TRELLIS2PIPELINE"
+        ],
+        "front_image": [
+          "IMAGE"
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 12345,
+            "min": 0,
+            "max": 2147483647
+          }
+        ],
+        "pipeline_type": [
+          [
+            "512",
+            "1024",
+            "1024_cascade",
+            "1536_cascade"
+          ],
+          {
+            "default": "1024_cascade"
+          }
+        ],
+        "sparse_structure_steps": [
+          "INT",
+          {
+            "default": 12,
+            "min": 1,
+            "max": 100
+          }
+        ],
+        "sparse_structure_guidance_strength": [
+          "FLOAT",
+          {
+            "default": 6.5,
+            "min": 0.0,
+            "max": 99.99,
+            "step": 0.01
+          }
+        ],
+        "sparse_structure_guidance_rescale": [
+          "FLOAT",
+          {
+            "default": 0.05,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "sparse_structure_rescale_t": [
+          "FLOAT",
+          {
+            "default": 4.0,
+            "min": 0.0,
+            "max": 9.99,
+            "step": 0.01
+          }
+        ],
+        "shape_steps": [
+          "INT",
+          {
+            "default": 12,
+            "min": 1,
+            "max": 100
+          }
+        ],
+        "shape_guidance_strength": [
+          "FLOAT",
+          {
+            "default": 6.5,
+            "min": 0.0,
+            "max": 99.99,
+            "step": 0.01
+          }
+        ],
+        "shape_guidance_rescale": [
+          "FLOAT",
+          {
+            "default": 0.05,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "shape_rescale_t": [
+          "FLOAT",
+          {
+            "default": 4.0,
+            "min": 0.0,
+            "max": 9.99,
+            "step": 0.01
+          }
+        ],
+        "texture_steps": [
+          "INT",
+          {
+            "default": 12,
+            "min": 1,
+            "max": 100
+          }
+        ],
+        "texture_guidance_strength": [
+          "FLOAT",
+          {
+            "default": 3.0,
+            "min": 0.0,
+            "max": 99.99,
+            "step": 0.01
+          }
+        ],
+        "texture_guidance_rescale": [
+          "FLOAT",
+          {
+            "default": 0.2,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "texture_rescale_t": [
+          "FLOAT",
+          {
+            "default": 3.0,
+            "min": 0.0,
+            "max": 9.99,
+            "step": 0.01
+          }
+        ],
+        "max_num_tokens": [
+          "INT",
+          {
+            "default": 999999,
+            "min": 0,
+            "max": 999999
+          }
+        ],
+        "sparse_structure_resolution": [
+          "INT",
+          {
+            "default": 32,
+            "min": 32,
+            "max": 128,
+            "step": 4
+          }
+        ],
+        "generate_texture_slat": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "sparse_structure_guidance_interval_start": [
+          "FLOAT",
+          {
+            "default": 0.1,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "sparse_structure_guidance_interval_end": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "shape_guidance_interval_start": [
+          "FLOAT",
+          {
+            "default": 0.1,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "shape_guidance_interval_end": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "texture_guidance_interval_start": [
+          "FLOAT",
+          {
+            "default": 0.0,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "texture_guidance_interval_end": [
+          "FLOAT",
+          {
+            "default": 0.9,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "use_tiled_decoder": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "front_axis": [
+          [
+            "z",
+            "x"
+          ],
+          {
+            "default": "z"
+          }
+        ],
+        "blend_temperature": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": 0.1,
+            "max": 10.0,
+            "step": 0.1
+          }
+        ],
+        "sampler": [
+          [
+            "euler",
+            "heun",
+            "rk4",
+            "rk5"
+          ],
+          {
+            "default": "euler"
+          }
+        ],
+        "fill_holes": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "hole_iterations": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 9,
+            "step": 1
+          }
+        ],
+        "verbose": [
+          "BOOLEAN",
+          {
+            "default": false
+          }
+        ],
+        "dino_lock": [
+          "FLOAT",
+          {
+            "default": 0.0,
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "dino_substeps": [
+          "INT",
+          {
+            "default": 4,
+            "min": 1,
+            "max": 99,
+            "step": 1
+          }
+        ],
+        "hole_fill_algorithm": [
+          [
+            "morphological_closing",
+            "flood_fill",
+            "remove_small_holes"
+          ],
+          {
+            "default": "flood_fill"
+          }
+        ],
+        "dino_foundation_cap": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": 0.01,
+            "max": 1.0,
+            "step": 0.01
+          }
+        ],
+        "keep_only_shell": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ]
+      },
+      "optional": {
+        "back_image": [
+          "IMAGE"
+        ],
+        "left_image": [
+          "IMAGE"
+        ],
+        "right_image": [
+          "IMAGE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "pipeline",
+        "front_image",
+        "seed",
+        "pipeline_type",
+        "sparse_structure_steps",
+        "sparse_structure_guidance_strength",
+        "sparse_structure_guidance_rescale",
+        "sparse_structure_rescale_t",
+        "shape_steps",
+        "shape_guidance_strength",
+        "shape_guidance_rescale",
+        "shape_rescale_t",
+        "texture_steps",
+        "texture_guidance_strength",
+        "texture_guidance_rescale",
+        "texture_rescale_t",
+        "max_num_tokens",
+        "sparse_structure_resolution",
+        "generate_texture_slat",
+        "sparse_structure_guidance_interval_start",
+        "sparse_structure_guidance_interval_end",
+        "shape_guidance_interval_start",
+        "shape_guidance_interval_end",
+        "texture_guidance_interval_start",
+        "texture_guidance_interval_end",
+        "use_tiled_decoder",
+        "front_axis",
+        "blend_temperature",
+        "sampler",
+        "fill_holes",
+        "hole_iterations",
+        "verbose",
+        "dino_lock",
+        "dino_substeps",
+        "hole_fill_algorithm",
+        "dino_foundation_cap",
+        "keep_only_shell"
+      ],
+      "optional": [
+        "back_image",
+        "left_image",
+        "right_image"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MESHWITHVOXEL",
+      "BVH"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "mesh",
+      "bvh"
+    ],
+    "name": "Trellis2MeshWithVoxelMultiViewGenerator",
+    "display_name": "Trellis2 - Mesh With Voxel Multi-View Generator",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "Trellis2LoadModel": {
+    "input": {
+      "required": {
+        "modelname": [
+          [
+            "microsoft/TRELLIS.2-4B",
+            "visualbruno/TRELLIS.2-4B-FP8",
+            "TencentARC/Pixal3D-T"
+          ],
+          {
+            "default": "microsoft/TRELLIS.2-4B"
+          }
+        ],
+        "backend": [
+          [
+            "flash_attn",
+            "xformers",
+            "sdpa",
+            "flash_attn_3"
+          ],
+          {
+            "default": "flash_attn"
+          }
+        ],
+        "device": [
+          [
+            "cpu",
+            "cuda"
+          ],
+          {
+            "default": "cuda"
+          }
+        ],
+        "low_vram": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "keep_models_loaded": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "conv_backend": [
+          [
+            "spconv",
+            "torchsparse",
+            "flex_gemm"
+          ],
+          {
+            "default": "flex_gemm"
+          }
+        ],
+        "sparse_backend": [
+          [
+            "xformers",
+            "flash_attn"
+          ],
+          {
+            "default": "flash_attn"
+          }
+        ],
+        "use_reconviagen": [
+          "BOOLEAN",
+          {
+            "default": false
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "modelname",
+        "backend",
+        "device",
+        "low_vram",
+        "keep_models_loaded",
+        "conv_backend",
+        "sparse_backend",
+        "use_reconviagen"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "TRELLIS2PIPELINE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "pipeline"
+    ],
+    "name": "Trellis2LoadModel",
+    "display_name": "Trellis2 - LoadModel",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "SaveImage": {
+    "input": {
+      "required": {
+        "images": [
+          "IMAGE",
+          {
+            "tooltip": "The images to save."
+          }
+        ],
+        "filename_prefix": [
+          "STRING",
+          {
+            "default": "ComfyUI",
+            "tooltip": "The prefix for the file to save. This may include formatting information such as %date:yyyy-MM-dd% or %Empty Latent Image.width% to include values from nodes."
+          }
+        ]
+      },
+      "hidden": {
+        "prompt": "PROMPT",
+        "extra_pnginfo": "EXTRA_PNGINFO"
+      }
+    },
+    "input_order": {
+      "required": [
+        "images",
+        "filename_prefix"
+      ],
+      "hidden": [
+        "prompt",
+        "extra_pnginfo"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "IMAGE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "images"
+    ],
+    "name": "SaveImage",
+    "display_name": "Save Image",
+    "description": "Saves the input images to your ComfyUI output directory.",
+    "python_module": "nodes",
+    "category": "image",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": [
+      "save",
+      "save image",
+      "export image",
+      "output image",
+      "write image",
+      "download"
+    ],
+    "essentials_category": "Basics"
+  },
+  "Trellis2MeshWithVoxelToTrimesh": {
+    "input": {
+      "required": {
+        "mesh": [
+          "MESHWITHVOXEL"
+        ],
+        "reorient_vertices": [
+          [
+            "None",
+            "90 degrees",
+            "-90 degrees"
+          ],
+          {
+            "default": "90 degrees"
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "mesh",
+        "reorient_vertices"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "TRIMESH"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "trimesh"
+    ],
+    "name": "Trellis2MeshWithVoxelToTrimesh",
+    "display_name": "Trellis2 - Mesh With Voxel To Trimesh",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "ImageCrop": {
+    "input": {
+      "required": {
+        "image": [
+          "IMAGE",
+          {}
+        ],
+        "width": [
+          "INT",
+          {
+            "default": 512,
+            "min": 1,
+            "max": 16384,
+            "step": 1
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 512,
+            "min": 1,
+            "max": 16384,
+            "step": 1
+          }
+        ],
+        "x": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 16384,
+            "step": 1
+          }
+        ],
+        "y": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 16384,
+            "step": 1
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "image",
+        "width",
+        "height",
+        "x",
+        "y"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "IMAGE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "IMAGE"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "ImageCrop",
+    "display_name": "Crop Image (DEPRECATED)",
+    "description": "",
+    "python_module": "comfy_extras.nodes_images",
+    "category": "image/transform",
+    "output_node": false,
+    "deprecated": true,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": [
+      "trim"
+    ],
+    "essentials_category": "Image Tools",
+    "has_intermediate_output": false
+  }
+}

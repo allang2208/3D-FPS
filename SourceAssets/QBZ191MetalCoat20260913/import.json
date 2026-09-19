@@ -1,0 +1,163 @@
+{
+  "skeleton": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_skeleton",
+    "coated_slots": [
+      "QBZ_SRC_skeleton_0",
+      "QBZ_AdapterMetal"
+    ],
+    "bindings": {
+      "QBZ_SRC_skeleton_0": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_skeleton_0.M_QBZ191_Receiver_skeleton_0",
+      "QBZ_SRC_skeleton_1": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_StockPolymer_polymer.M_QBZ191_Unified_M_StockPolymer_polymer",
+      "QBZ_SRC_skeleton_2": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_StockRubber_rubber.M_QBZ191_Unified_M_StockRubber_rubber",
+      "QBZ_AdapterMetal": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_skeleton_3.M_QBZ191_Receiver_skeleton_3"
+    }
+  },
+  "qr_performance": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_qr_performance",
+    "coated_slots": [
+      "QBZ_SRC_qr_performance_0",
+      "QBZ_AdapterMetal"
+    ],
+    "bindings": {
+      "QBZ_SRC_qr_performance_0": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_qr_performance_0.M_QBZ191_Receiver_qr_performance_0",
+      "QBZ_SRC_qr_performance_1": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QR_RefinedPolymer_polymer.M_QBZ191_Unified_M_QR_RefinedPolymer_polymer",
+      "QBZ_SRC_qr_performance_2": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QR_RefinedRubber_rubber.M_QBZ191_Unified_M_QR_RefinedRubber_rubber",
+      "QBZ_AdapterMetal": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_qr_performance_3.M_QBZ191_Receiver_qr_performance_3"
+    }
+  },
+  "drum": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_drum",
+    "coated_slots": [
+      "QBZ_SRC_drum_0",
+      "QBZ_SRC_drum_1"
+    ],
+    "bindings": {
+      "QBZ_SRC_drum_0": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_drum_0.M_QBZ191_Receiver_drum_0",
+      "QBZ_SRC_drum_1": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_drum_1.M_QBZ191_Receiver_drum_1",
+      "QBZ_SRC_drum_2": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+    }
+  },
+  "suppressor": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_suppressor",
+    "coated_slots": [
+      "QBZ_SRC_suppressor_0"
+    ],
+    "bindings": {
+      "QBZ_SRC_suppressor_0": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_suppressor_0.M_QBZ191_Receiver_suppressor_0",
+      "QBZ_SRC_suppressor_1": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+    }
+  },
+  "brake": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_brake",
+    "coated_slots": [
+      "QBZ_SRC_brake_0"
+    ],
+    "bindings": {
+      "QBZ_SRC_brake_0": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_brake_0.M_QBZ191_Receiver_brake_0",
+      "QBZ_SRC_brake_1": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+    }
+  },
+  "titanium_brake": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_titanium_brake",
+    "coated_slots": [
+      "QBZ_SRC_titanium_brake_0"
+    ],
+    "bindings": {
+      "QBZ_SRC_titanium_brake_0": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_titanium_brake_0.M_QBZ191_Receiver_titanium_brake_0",
+      "QBZ_SRC_titanium_brake_1": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "QBZ_SRC_titanium_brake_2": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+    }
+  },
+  "holographic": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_holographic",
+    "coated_slots": [
+      "Holosight"
+    ],
+    "bindings": {
+      "Holosight": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_holographic_0.M_QBZ191_Receiver_holographic_0",
+      "Red_Dot": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+    }
+  },
+  "panoramic_red_dot": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_panoramic_red_dot",
+    "coated_slots": [
+      "Panoramic_Body"
+    ],
+    "bindings": {
+      "Panoramic_Glass": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass",
+      "Panoramic_Reticle": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle",
+      "Panoramic_Body": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_panoramic_red_dot_2.M_QBZ191_Receiver_panoramic_red_dot_2"
+    }
+  },
+  "prism_scope_2x": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_prism_scope_2x",
+    "coated_slots": [
+      "Scope2X_Body"
+    ],
+    "bindings": {
+      "Scope2X_Reticle": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle",
+      "Scope2X_Glass": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass",
+      "Scope2X_Body": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_prism_scope_2x_2.M_QBZ191_Receiver_prism_scope_2x_2"
+    }
+  },
+  "lpvo_1_6x": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_lpvo_1_6x",
+    "coated_slots": [
+      "LPVO_Body"
+    ],
+    "bindings": {
+      "LPVO_Reticle": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle",
+      "LPVO_Glass": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass",
+      "LPVO_Body": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_lpvo_1_6x_2.M_QBZ191_Receiver_lpvo_1_6x_2"
+    }
+  },
+  "lpvo_ring": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_lpvo_ring",
+    "coated_slots": [
+      "LPVO_Body"
+    ],
+    "bindings": {
+      "LPVO_Body": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_lpvo_ring_0.M_QBZ191_Receiver_lpvo_ring_0"
+    }
+  },
+  "vertical": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_vertical",
+    "coated_slots": [
+      "Body_004"
+    ],
+    "bindings": {
+      "Body_004": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_vertical_0.M_QBZ191_Receiver_vertical_0"
+    }
+  },
+  "canted": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_canted",
+    "coated_slots": [
+      "Body_004"
+    ],
+    "bindings": {
+      "Body_004": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_canted_0.M_QBZ191_Receiver_canted_0"
+    }
+  },
+  "prism": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_prism",
+    "coated_slots": [
+      "Prism_Polymer",
+      "Prism_Saddle"
+    ],
+    "bindings": {
+      "Prism_Polymer": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_prism_0.M_QBZ191_Receiver_prism_0",
+      "Prism_Saddle": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_prism_1.M_QBZ191_Receiver_prism_1"
+    }
+  },
+  "angled": {
+    "mesh": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_angled",
+    "coated_slots": [
+      "Body_002"
+    ],
+    "bindings": {
+      "Body_002": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_angled_0.M_QBZ191_Receiver_angled_0",
+      "Grip_Default_002": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Grip_Default_001_polymer.M_QBZ191_Unified_Grip_Default_001_polymer",
+      "Recess_shadow": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+    }
+  }
+}

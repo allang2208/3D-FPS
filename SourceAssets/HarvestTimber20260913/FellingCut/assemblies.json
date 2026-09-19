@@ -1,0 +1,29 @@
+{
+  "B": {
+    "path": "/Game/Items/HarvestTimber/SK_CutUpper_B.SK_CutUpper_B",
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ],
+    "assembly_parts": 11
+  },
+  "C": {
+    "path": "/Game/Items/HarvestTimber/SK_CutUpper_C.SK_CutUpper_C",
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ],
+    "assembly_parts": 14
+  },
+  "D": {
+    "path": "/Game/Items/HarvestTimber/SK_CutUpper_D.SK_CutUpper_D",
+    "materials": [
+      "/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark",
+      "/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage",
+      "/Game/Items/HarvestTimber/M_FallingCutEnd.M_FallingCutEnd"
+    ],
+    "assembly_parts": 12
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "clip": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard.A_RuneSword_Guard",
+    "duration": 0.20000000298023224,
+    "sample_rate": 120,
+    "samples": 25,
+    "max_raw_compressed_position_cm": 0.00023214298033280903,
+    "max_raw_compressed_rotation_deg": 0.03806280461764677,
+    "max_raw_compressed_scale_delta": 0.00041127145919972463
+  },
+  {
+    "clip": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardHit.A_RuneSword_GuardHit",
+    "duration": 0.22083333134651184,
+    "sample_rate": 120,
+    "samples": 27,
+    "max_raw_compressed_position_cm": 0.0001719514524261809,
+    "max_raw_compressed_rotation_deg": 0.034469539557658246,
+    "max_raw_compressed_scale_delta": 0.00043511241472060647
+  },
+  {
+    "clip": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak.A_RuneSword_GuardBreak",
+    "duration": 0.4000000059604645,
+    "sample_rate": 120,
+    "samples": 49,
+    "max_raw_compressed_position_cm": 0.0002445119220783814,
+    "max_raw_compressed_rotation_deg": 0.03320138716261539,
+    "max_raw_compressed_scale_delta": 0.00043511241472060647
+  }
+]

@@ -1,0 +1,93 @@
+{
+  "M4_balanced": {
+    "family": "M4",
+    "kind": "balanced",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\M4\\balanced\\ForwardFit\\SM_BalancedRearGrip.fbx",
+    "mesh_name": "SM_BalancedRearGrip",
+    "uv_index": 1,
+    "tile_metres": [
+      0.12,
+      0.05
+    ],
+    "slots": [
+      "M_BalancedRearGrip",
+      "M_BalancedRearGrip_Collar"
+    ],
+    "fit_revision": "ForwardFit: body -Y 5mm, receiver collar fixed"
+  },
+  "M4_phantom": {
+    "family": "M4",
+    "kind": "phantom",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\M4\\phantom\\SM_PhantomRearGrip.fbx",
+    "mesh_name": "SM_PhantomRearGrip",
+    "uv_index": 1,
+    "tile_metres": [
+      0.12,
+      0.05
+    ],
+    "slots": [
+      "M_PhantomRearGrip",
+      "M_PhantomRearGrip_Collar"
+    ]
+  },
+  "AKM_balanced": {
+    "family": "AKM",
+    "kind": "balanced",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\AKM\\balanced\\SM_BalancedRearGrip.fbx",
+    "mesh_name": "SM_BalancedRearGrip",
+    "uv_index": 1,
+    "tile_metres": [
+      0.12,
+      0.025
+    ],
+    "slots": [
+      "M_BalancedRearGrip",
+      "M_BalancedRearGrip_Collar"
+    ]
+  },
+  "AKM_phantom": {
+    "family": "AKM",
+    "kind": "phantom",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\AKM\\phantom\\SM_PhantomRearGrip.fbx",
+    "mesh_name": "SM_PhantomRearGrip",
+    "uv_index": 1,
+    "tile_metres": [
+      0.12,
+      0.025
+    ],
+    "slots": [
+      "M_PhantomRearGrip",
+      "M_PhantomRearGrip_Collar"
+    ]
+  },
+  "QBZ191_balanced": {
+    "family": "QBZ191",
+    "kind": "balanced",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\QBZ191\\balanced\\SM_BalancedRearGrip.fbx",
+    "mesh_name": "SM_BalancedRearGrip",
+    "uv_index": 1,
+    "tile_metres": [
+      0.12,
+      0.025
+    ],
+    "slots": [
+      "M_BalancedRearGrip",
+      "M_BalancedRearGrip_Collar"
+    ]
+  },
+  "QBZ191_phantom": {
+    "family": "QBZ191",
+    "kind": "phantom",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RearGripFinish20260913\\QBZ191\\phantom\\SM_PhantomRearGrip.fbx",
+    "mesh_name": "SM_PhantomRearGrip",
+    "uv_index": 1,
+    "tile_metres": [
+      0.12,
+      0.025
+    ],
+    "slots": [
+      "M_PhantomRearGrip",
+      "M_PhantomRearGrip_Collar"
+    ]
+  }
+}

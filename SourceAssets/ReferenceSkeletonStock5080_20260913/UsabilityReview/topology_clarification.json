@@ -1,0 +1,32 @@
+{
+  "exact_position_weld": {
+    "vertices": 228193,
+    "boundary_edges": 17,
+    "more_than_two_faces_edges": 6798,
+    "duplicate_faces_ignoring_winding": 1918,
+    "vertex_connected_components": 42,
+    "vertex_connected_component_face_counts_largest20": [
+      475376,
+      364,
+      104,
+      98,
+      90,
+      70,
+      64,
+      58,
+      42,
+      38,
+      36,
+      36,
+      36,
+      22,
+      20,
+      20,
+      20,
+      18,
+      16,
+      16
+    ]
+  },
+  "note": "Exact position welding avoids rounding-induced non-manifold counts. Vertex connectivity includes shared edges with more than two incident faces; surface adjacency splits at those edges."
+}

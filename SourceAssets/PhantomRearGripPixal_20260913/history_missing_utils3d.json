@@ -1,0 +1,337 @@
+{
+  "prompt": [
+    0,
+    "62ccb915-6c12-4867-a2a1-c136c736c0e8",
+    {
+      "1": {
+        "class_type": "Trellis2LoadModel",
+        "inputs": {
+          "modelname": "TencentARC/Pixal3D-T",
+          "backend": "sdpa",
+          "device": "cuda",
+          "low_vram": true,
+          "keep_models_loaded": false,
+          "conv_backend": "flex_gemm",
+          "sparse_backend": "xformers",
+          "use_reconviagen": false
+        }
+      },
+      "10": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "phantom_rear_grip_20260913.jpg"
+        }
+      },
+      "20": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "padding": 24,
+          "remove_background": true,
+          "max_size": 2048,
+          "image": [
+            "11",
+            0
+          ]
+        }
+      },
+      "4": {
+        "class_type": "Trellis2MeshWithVoxelAdvancedGenerator",
+        "inputs": {
+          "seed": 91301,
+          "pipeline_type": "1024_cascade",
+          "sparse_structure_steps": 16,
+          "sparse_structure_guidance_strength": 7.5,
+          "sparse_structure_guidance_rescale": 0.7,
+          "sparse_structure_rescale_t": 5.0,
+          "shape_steps": 32,
+          "shape_guidance_strength": 7.5,
+          "shape_guidance_rescale": 0.5,
+          "shape_rescale_t": 3.0,
+          "texture_steps": 24,
+          "texture_guidance_strength": 1.0,
+          "texture_guidance_rescale": 0.0,
+          "texture_rescale_t": 3.0,
+          "max_num_tokens": 999999,
+          "max_views": 4,
+          "sparse_structure_resolution": 32,
+          "generate_texture_slat": true,
+          "sparse_structure_guidance_interval_start": 0.6,
+          "sparse_structure_guidance_interval_end": 1.0,
+          "shape_guidance_interval_start": 0.6,
+          "shape_guidance_interval_end": 1.0,
+          "texture_guidance_interval_start": 0.6,
+          "texture_guidance_interval_end": 0.9,
+          "use_tiled_decoder": true,
+          "sampler": "euler",
+          "fill_holes": false,
+          "hole_iterations": 1,
+          "verbose": false,
+          "dino_lock": 0.0,
+          "dino_substeps": 4,
+          "hole_fill_algorithm": "flood_fill",
+          "dino_foundation_cap": 1.0,
+          "keep_only_shell": false,
+          "pipeline": [
+            "1",
+            0
+          ],
+          "image": [
+            "20",
+            0
+          ]
+        }
+      },
+      "50": {
+        "class_type": "Trellis2MeshWithVoxelToTrimesh",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "reorient_vertices": "90 degrees"
+        }
+      },
+      "51": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "50",
+            0
+          ],
+          "filename_prefix": "PhantomRearGripPixal20260913/raw",
+          "file_format": "glb"
+        }
+      },
+      "52": {
+        "class_type": "Trellis2OvoxelExportToGLB",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "resolution": 1024,
+          "texture_size": 4096,
+          "target_face_num": 500000
+        }
+      },
+      "53": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "52",
+            0
+          ],
+          "filename_prefix": "PhantomRearGripPixal20260913/textured_master",
+          "file_format": "glb"
+        }
+      },
+      "11": {
+        "class_type": "ImageCrop",
+        "inputs": {
+          "image": [
+            "10",
+            0
+          ],
+          "x": 450,
+          "y": 55,
+          "width": 260,
+          "height": 400
+        }
+      },
+      "21": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "20",
+            0
+          ],
+          "filename_prefix": "PhantomRearGripPixal20260913/input"
+        }
+      }
+    },
+    {
+      "client_id": "PhantomRearGripPixal20260913",
+      "create_time": 1789281013530
+    },
+    [
+      "51",
+      "4",
+      "52",
+      "50",
+      "1",
+      "21",
+      "53"
+    ]
+  ],
+  "outputs": {},
+  "status": {
+    "status_str": "error",
+    "completed": false,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "62ccb915-6c12-4867-a2a1-c136c736c0e8",
+          "timestamp": 1789281013531
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "62ccb915-6c12-4867-a2a1-c136c736c0e8",
+          "timestamp": 1789281013575
+        }
+      ],
+      [
+        "execution_error",
+        {
+          "prompt_id": "62ccb915-6c12-4867-a2a1-c136c736c0e8",
+          "node_id": "4",
+          "node_type": "Trellis2MeshWithVoxelAdvancedGenerator",
+          "executed": [
+            "20",
+            "1",
+            "11",
+            "10"
+          ],
+          "exception_message": "No module named 'utils3d'\n",
+          "exception_type": "ModuleNotFoundError",
+          "traceback": [
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 545, in execute\n    output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 344, in get_output_data\n    return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 318, in _async_map_node_over_list\n    await process_inputs(input_dict, i)\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 306, in process_inputs\n    result = f(**inputs)\n             ^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\nodes.py\", line 1480, in process\n    pipeline.load_moge_model()\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\trellis2\\pipelines\\trellis2_image_to_3d.py\", line 286, in load_moge_model\n    from ...moge.model.v2 import MoGeModel\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\moge\\model\\v2.py\", line 14, in <module>\n    import utils3d\n"
+          ],
+          "current_inputs": {
+            "seed": [
+              91301
+            ],
+            "pipeline_type": [
+              "1024_cascade"
+            ],
+            "sparse_structure_steps": [
+              16
+            ],
+            "sparse_structure_guidance_strength": [
+              7.5
+            ],
+            "sparse_structure_guidance_rescale": [
+              0.7
+            ],
+            "sparse_structure_rescale_t": [
+              5.0
+            ],
+            "shape_steps": [
+              32
+            ],
+            "shape_guidance_strength": [
+              7.5
+            ],
+            "shape_guidance_rescale": [
+              0.5
+            ],
+            "shape_rescale_t": [
+              3.0
+            ],
+            "texture_steps": [
+              24
+            ],
+            "texture_guidance_strength": [
+              1.0
+            ],
+            "texture_guidance_rescale": [
+              0.0
+            ],
+            "texture_rescale_t": [
+              3.0
+            ],
+            "max_num_tokens": [
+              999999
+            ],
+            "max_views": [
+              4
+            ],
+            "sparse_structure_resolution": [
+              32
+            ],
+            "generate_texture_slat": [
+              true
+            ],
+            "sparse_structure_guidance_interval_start": [
+              0.6
+            ],
+            "sparse_structure_guidance_interval_end": [
+              1.0
+            ],
+            "shape_guidance_interval_start": [
+              0.6
+            ],
+            "shape_guidance_interval_end": [
+              1.0
+            ],
+            "texture_guidance_interval_start": [
+              0.6
+            ],
+            "texture_guidance_interval_end": [
+              0.9
+            ],
+            "use_tiled_decoder": [
+              true
+            ],
+            "sampler": [
+              "euler"
+            ],
+            "fill_holes": [
+              false
+            ],
+            "hole_iterations": [
+              1
+            ],
+            "verbose": [
+              false
+            ],
+            "dino_lock": [
+              0.0
+            ],
+            "dino_substeps": [
+              4
+            ],
+            "hole_fill_algorithm": [
+              "flood_fill"
+            ],
+            "dino_foundation_cap": [
+              1.0
+            ],
+            "keep_only_shell": [
+              false
+            ],
+            "pipeline": [
+              "<D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2.trellis2.pipelines.trellis2_image_to_3d.Trellis2ImageTo3DPipeline object at 0x000001C3C32F2F10>"
+            ],
+            "image": [
+              "tensor([[[[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         ...,\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]]]])"
+            ]
+          },
+          "current_outputs": [
+            "51",
+            "4",
+            "52",
+            "20",
+            "50",
+            "1",
+            "11",
+            "10",
+            "21",
+            "53"
+          ],
+          "timestamp": 1789281028670
+        }
+      ]
+    ]
+  },
+  "meta": {}
+}

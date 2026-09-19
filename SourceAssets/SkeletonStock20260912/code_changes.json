@@ -1,0 +1,47 @@
+[
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "before_sha256": "29525dadeca82451cc28d98f1c0386d233944f21758de59229f6be55418e0f5d",
+    "after_sha256": "4311d5b54a6ed92664b5a8c9f771b9f340b7b1c95886135333dfc879066fa50b"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "before_sha256": "f4c35b17229cd749dd4e160fd365851d0e7e78d2d7ff2660b8b88d2a02ddac45",
+    "after_sha256": "3ad1e58c84419367d9b12d32c9ee0d13cd24167820aa18eb52de5a0521be78b9"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "before_sha256": "092271b6dc52de1cb2fe2e6d88672fc203048dcb67ae17d7c8e26a3d8de8ca36",
+    "after_sha256": "8af855545e84e99e76a2b416f7dd86d69b52540a6b5fe2bcc0e2b0dec0275bc2"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+    "before_sha256": "5f6807cc592c679856164e2603359e9f0681bd6fbe60c549357a4e136752b4cc",
+    "after_sha256": "a731c84f4cda3aac5e9879ca8a477bd580dbc7ed60e1c5d7223d91cb7e417e9a"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4StandalonePreview.cpp",
+    "before_sha256": "6d0d771d1dd1e9f08d52123a68bbc37a2aeed73791f28279f911029d5a4aeb42",
+    "after_sha256": "321856478144cb6022992ca383fa5ff17692737efd2b730590176bcd1079cbb9"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+    "before_sha256": "bb9ae86c96e9c147deb54aab76c4f7ebe58f8d4e962363f6995bc058f64d0394",
+    "after_sha256": "c2773373220bbb618f0a2d4897a8ccf056ceb073fc19c1e167b9975a110e7f27"
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithWidget.cpp",
+    "before_sha256": "5bf0046506d4b77bb0be21095e9beb139549463bbdeda38ee78040ad82b33f11",
+    "after_sha256": "ef6f7dec6d61a6d5e1e1076801cb0049a530aa99df973f2fb607661b00c8eb88"
+  },
+  {
+    "path": "Content/ColdSteelData/gunsmith.json",
+    "before_sha256": "8ee09be3e5c637452009046dd8ffaf7e217aedf0f3d07f2788475600bbbe72b5",
+    "after_sha256": "f4be330aeabce8f15bdc78eccc64d69fd549a8938f7b78c7336a1874a40e7fa9"
+  },
+  {
+    "path": "Config/DefaultGame.ini",
+    "before_sha256": "266c7c519a4c661bebcb181d2447c1d7c7ce94397b220fb369ace33d97e6b354",
+    "after_sha256": "93ffc9c9162c78ec7b13fe4a0025320737ff33b0c623e553a79f6b53bcc19329"
+  }
+]

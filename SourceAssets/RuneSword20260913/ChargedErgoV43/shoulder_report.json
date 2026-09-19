@@ -1,0 +1,222 @@
+{
+  "authored": {
+    "HeavyCharge 0.000": {
+      "elbow_deg": -99.29443360286608,
+      "shoulder_deg": 49.026381123369,
+      "humerus_local_deg": 92.43548627762827,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.200": {
+      "elbow_deg": 66.5247044371534,
+      "shoulder_deg": -98.10705792637324,
+      "humerus_local_deg": 164.68375308291925,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.350": {
+      "elbow_deg": 105.32631406816427,
+      "shoulder_deg": -7.608068763578692,
+      "humerus_local_deg": 163.18918687489773,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.500": {
+      "elbow_deg": 87.42660421979237,
+      "shoulder_deg": 19.73643047282001,
+      "humerus_local_deg": 160.88195630776545,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.650": {
+      "elbow_deg": 71.35113083890053,
+      "shoulder_deg": 19.830877170937022,
+      "humerus_local_deg": 160.48083621229688,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 1.000": {
+      "elbow_deg": 46.61652118760261,
+      "shoulder_deg": -0.3104173455606262,
+      "humerus_local_deg": 157.56004228765195,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 1.400": {
+      "elbow_deg": 40.80226455754574,
+      "shoulder_deg": 5.3626714994536195,
+      "humerus_local_deg": 124.14915193473773,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 2.000": {
+      "elbow_deg": 14.160689871795928,
+      "shoulder_deg": 3.770711594686076,
+      "humerus_local_deg": 128.38627889292988,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.075": {
+      "elbow_deg": -77.7182376494356,
+      "shoulder_deg": -41.17142309366249,
+      "humerus_local_deg": 115.72474961728325,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.150": {
+      "elbow_deg": -67.02745702568559,
+      "shoulder_deg": -54.94355935369386,
+      "humerus_local_deg": 116.07406320689762,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.400": {
+      "elbow_deg": -70.38465700102842,
+      "shoulder_deg": -24.135942943210345,
+      "humerus_local_deg": 113.86096505203102,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.600": {
+      "elbow_deg": -125.24758820051662,
+      "shoulder_deg": 20.68585658002848,
+      "humerus_local_deg": 90.73594276590391,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.800": {
+      "elbow_deg": -129.9548101022706,
+      "shoulder_deg": 34.18318752205433,
+      "humerus_local_deg": 63.21875151504948,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 1.000": {
+      "elbow_deg": -99.29444249282618,
+      "shoulder_deg": 49.02636752389884,
+      "humerus_local_deg": 92.43549011460732,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.100": {
+      "elbow_deg": 25.097171314676093,
+      "shoulder_deg": -20.317114413375236,
+      "humerus_local_deg": 117.35236962659602,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.350": {
+      "elbow_deg": 66.49687069765648,
+      "shoulder_deg": 16.450991071429527,
+      "humerus_local_deg": 158.30787400834748,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.650": {
+      "elbow_deg": 34.728346637362705,
+      "shoulder_deg": 3.38468905755632,
+      "humerus_local_deg": 123.60360662062963,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.850": {
+      "elbow_deg": 85.9794078244976,
+      "shoulder_deg": 3.384743915326381,
+      "humerus_local_deg": 123.60360661184252,
+      "humerus_axis_error_deg": 0.0
+    }
+  },
+  "v44": {
+    "HeavyCharge 0.000": {
+      "elbow_deg": -99.29442673769472,
+      "shoulder_deg": 49.02639906942508,
+      "humerus_local_deg": 92.43549362296108,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.200": {
+      "elbow_deg": 4.0164657830241625e-05,
+      "shoulder_deg": -38.517789132300116,
+      "humerus_local_deg": 157.86517833973232,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.350": {
+      "elbow_deg": 1.1705499614605982e-05,
+      "shoulder_deg": 72.71049231219172,
+      "humerus_local_deg": 166.4484610083249,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.500": {
+      "elbow_deg": 0.00010150030595085848,
+      "shoulder_deg": 71.8820738544847,
+      "humerus_local_deg": 164.31300083777631,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 0.650": {
+      "elbow_deg": 6.235418935891973e-05,
+      "shoulder_deg": 60.95111285004619,
+      "humerus_local_deg": 162.9419454359943,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 1.000": {
+      "elbow_deg": 1.7173048576882435e-05,
+      "shoulder_deg": 28.901048869532104,
+      "humerus_local_deg": 158.27865772678442,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 1.400": {
+      "elbow_deg": 1.0886875372250053e-05,
+      "shoulder_deg": 47.696016589689854,
+      "humerus_local_deg": 129.21632229636919,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyCharge 2.000": {
+      "elbow_deg": 1.6151493801185528e-06,
+      "shoulder_deg": 19.88853260888542,
+      "humerus_local_deg": 129.18787968326816,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.075": {
+      "elbow_deg": -52.82640739360162,
+      "shoulder_deg": -136.17140466267105,
+      "humerus_local_deg": 155.51173088478714,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.150": {
+      "elbow_deg": -32.41757516417171,
+      "shoulder_deg": -149.94351749084058,
+      "humerus_local_deg": 162.20020907742116,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.400": {
+      "elbow_deg": -42.963112560281694,
+      "shoulder_deg": -119.13592165768216,
+      "humerus_local_deg": 147.16556068129273,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.600": {
+      "elbow_deg": -150.8942791668217,
+      "shoulder_deg": 115.68584961386958,
+      "humerus_local_deg": 135.31978903284116,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 0.800": {
+      "elbow_deg": -174.3675592323682,
+      "shoulder_deg": 129.18320747441143,
+      "humerus_local_deg": 135.04813262952283,
+      "humerus_axis_error_deg": 0.0
+    },
+    "HeavyRelease 1.000": {
+      "elbow_deg": -99.29445898394607,
+      "shoulder_deg": 49.02640219459771,
+      "humerus_local_deg": 92.43552132553295,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.100": {
+      "elbow_deg": 2.2496743697137787e-05,
+      "shoulder_deg": 12.3928653003182,
+      "humerus_local_deg": 116.65435110639197,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.350": {
+      "elbow_deg": 3.0374200010225518e-06,
+      "shoulder_deg": 55.892397374308864,
+      "humerus_local_deg": 160.6620252519698,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.650": {
+      "elbow_deg": -1.7782172837480608e-06,
+      "shoulder_deg": 40.686624898727246,
+      "humerus_local_deg": 127.3779935587272,
+      "humerus_axis_error_deg": 0.0
+    },
+    "Slash1 0.850": {
+      "elbow_deg": 85.97941185726171,
+      "shoulder_deg": 3.3847468437894843,
+      "humerus_local_deg": 123.60360481991438,
+      "humerus_axis_error_deg": 0.0
+    }
+  }
+}

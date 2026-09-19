@@ -1,0 +1,52 @@
+[
+  {
+    "asset": "S_gravel",
+    "source": "steps\\gravel.ogg",
+    "sha256": "34e6057ec1581b5cb8802e4942952b00b1dac235bfcb0ed8cff0ceb15a3ebbbf"
+  },
+  {
+    "asset": "S_leaves01",
+    "source": "steps\\leaves01.ogg",
+    "sha256": "93b3bbcd06380eec54335d1869924db6ff2cc6c1cb103502133d78484c5ca836"
+  },
+  {
+    "asset": "S_leaves02",
+    "source": "steps\\leaves02.ogg",
+    "sha256": "477c35bfd3f740915b24f93cb66364523217692d2749057f9b8be162eb8209f4"
+  },
+  {
+    "asset": "S_mud02",
+    "source": "steps\\mud02.ogg",
+    "sha256": "354682c2cb340cd787d892d31beb87c45dda94ca6e8363b16828ab2f1d129b82"
+  },
+  {
+    "asset": "S_stone01",
+    "source": "steps\\stone01.ogg",
+    "sha256": "99b04d784eb6b531777a64fb0e319f104eb7cdd6b625c1fac68f511605930a2c"
+  },
+  {
+    "asset": "S_wood01",
+    "source": "steps\\wood01.ogg",
+    "sha256": "482d97c5e1e6eb7b239be46f25d093ebebb94cefb56eedb04807b6a5dc68e972"
+  },
+  {
+    "asset": "S_wood02",
+    "source": "steps\\wood02.ogg",
+    "sha256": "588bb121bd3db005b4c2a5b55c1cf39b8ec620f820c2123ac1f62748d132dac2"
+  },
+  {
+    "asset": "S_wood03",
+    "source": "steps\\wood03.ogg",
+    "sha256": "9b677c284389163f132b94e1323ea713a4c7ac9d5fba849cf7cbf8b53a1627e2"
+  },
+  {
+    "asset": "S_splash1",
+    "source": "splash1.wav",
+    "sha256": "e45d466f7e63e5d566f8a822a7a1a3f7d5131319d17ca0436dcc615b251e9277"
+  },
+  {
+    "asset": "S_splash2",
+    "source": "splash2.wav",
+    "sha256": "ad9472b711666de2d43c3b102d155a5d1118b1fcd0ecd29cb63177256ab63f31"
+  }
+]

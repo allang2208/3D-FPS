@@ -1,0 +1,29 @@
+[
+  {
+    "clip": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge.A_RuneSword_HeavyCharge",
+    "duration": 2.0,
+    "sample_rate": 120,
+    "samples": 241,
+    "max_raw_compressed_position_cm": 0.00019636515961044408,
+    "max_raw_compressed_rotation_deg": 0.03493086693561392,
+    "max_raw_compressed_scale_delta": 0.0004589552172973299
+  },
+  {
+    "clip": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyRelease.A_RuneSword_HeavyRelease",
+    "duration": 1.0,
+    "sample_rate": 120,
+    "samples": 121,
+    "max_raw_compressed_position_cm": 0.0002227951840481698,
+    "max_raw_compressed_rotation_deg": 0.036133608444070354,
+    "max_raw_compressed_scale_delta": 0.00014901160874103425
+  },
+  {
+    "clip": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash1.A_RuneSword_Slash1",
+    "duration": 1.774999976158142,
+    "sample_rate": 120,
+    "samples": 214,
+    "max_raw_compressed_position_cm": 0.0005828715118634228,
+    "max_raw_compressed_rotation_deg": 0.03627960396915298,
+    "max_raw_compressed_scale_delta": 0.0004589552172973299
+  }
+]

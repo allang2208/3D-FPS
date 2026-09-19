@@ -1,0 +1,59 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\OffscreenLeftInspectV42\\AzureRunesword_OffscreenLeftInspectV42.blend",
+  "fps": 480.0,
+  "edited_bones": [
+    "upperarm_l",
+    "lowerarm_l",
+    "hand_l"
+  ],
+  "clips": [
+    {
+      "clip": "HeavyCharge",
+      "frames": [
+        0,
+        960
+      ],
+      "seconds": 2.0,
+      "roll_deg_abs_max": 85.48123472696236,
+      "elbow_before_abs_max": 105.3339257585324,
+      "elbow_after_abs_max": 99.8759856482593,
+      "residual_deg_max": 27.145609791635387,
+      "roll_first": -0.0,
+      "roll_last": 16.117804417541663
+    },
+    {
+      "clip": "HeavyRelease",
+      "frames": [
+        0,
+        480
+      ],
+      "seconds": 1.0,
+      "roll_deg_abs_max": 95.0,
+      "elbow_before_abs_max": 178.23949113487515,
+      "elbow_after_abs_max": 159.7801376027811,
+      "residual_deg_max": 159.7801376027811,
+      "roll_first": 15.0,
+      "roll_last": -0.0
+    },
+    {
+      "clip": "Slash1",
+      "frames": [
+        0,
+        852
+      ],
+      "seconds": 1.775,
+      "roll_deg_abs_max": 77.61026816141239,
+      "elbow_before_abs_max": 179.57201133840806,
+      "elbow_after_abs_max": 179.57201047746585,
+      "residual_deg_max": 160.8445329823345,
+      "roll_first": -0.0,
+      "roll_last": -0.0
+    }
+  ],
+  "method": "Per-frame secant solve rolls upperarm_l about its own axis until the elbow axial difference is zero; the twist is carried by the shoulder. Forearm, wrist, grip, sword, right arm, bone positions and timing unchanged.",
+  "envelopes": {
+    "HeavyCharge": "ramp in over 100 ms, held to the end",
+    "HeavyRelease": "held to 850 ms, ramp out to 1000 ms",
+    "Slash1": "charge clock from the early release, out over 650-850 ms"
+  }
+}

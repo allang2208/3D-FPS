@@ -1,0 +1,26 @@
+{
+  "m4": {
+    "uv_layers": 2,
+    "metal_faces": 14517,
+    "metal_uv_corners_outside_inspected_region": 0,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "zero_area_polygons": 0,
+    "all_vertices_finite": true,
+    "boundary_total_length_cm": 0,
+    "boundary_max_edge_cm": 0,
+    "boundary_after_micron_weld_probe": 0
+  },
+  "akm": {
+    "uv_layers": 2,
+    "metal_faces": 16124,
+    "metal_uv_corners_outside_inspected_region": 0,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "zero_area_polygons": 0,
+    "all_vertices_finite": true,
+    "boundary_total_length_cm": 0,
+    "boundary_max_edge_cm": 0,
+    "boundary_after_micron_weld_probe": 0
+  }
+}

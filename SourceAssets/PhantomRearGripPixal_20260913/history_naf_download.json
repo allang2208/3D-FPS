@@ -1,0 +1,355 @@
+{
+  "prompt": [
+    0,
+    "470d1b66-317f-44e1-a62e-e3a217c8a5a9",
+    {
+      "1": {
+        "class_type": "Trellis2LoadModel",
+        "inputs": {
+          "modelname": "TencentARC/Pixal3D-T",
+          "backend": "sdpa",
+          "device": "cuda",
+          "low_vram": true,
+          "keep_models_loaded": false,
+          "conv_backend": "flex_gemm",
+          "sparse_backend": "xformers",
+          "use_reconviagen": false
+        }
+      },
+      "10": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "phantom_rear_grip_20260913.jpg"
+        }
+      },
+      "20": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "padding": 24,
+          "remove_background": true,
+          "max_size": 2048,
+          "image": [
+            "11",
+            0
+          ]
+        }
+      },
+      "4": {
+        "class_type": "Trellis2MeshWithVoxelAdvancedGenerator",
+        "inputs": {
+          "seed": 91301,
+          "pipeline_type": "1024_cascade",
+          "sparse_structure_steps": 16,
+          "sparse_structure_guidance_strength": 7.5,
+          "sparse_structure_guidance_rescale": 0.7,
+          "sparse_structure_rescale_t": 5.0,
+          "shape_steps": 32,
+          "shape_guidance_strength": 7.5,
+          "shape_guidance_rescale": 0.5,
+          "shape_rescale_t": 3.0,
+          "texture_steps": 24,
+          "texture_guidance_strength": 1.0,
+          "texture_guidance_rescale": 0.0,
+          "texture_rescale_t": 3.0,
+          "max_num_tokens": 999999,
+          "max_views": 4,
+          "sparse_structure_resolution": 32,
+          "generate_texture_slat": true,
+          "sparse_structure_guidance_interval_start": 0.6,
+          "sparse_structure_guidance_interval_end": 1.0,
+          "shape_guidance_interval_start": 0.6,
+          "shape_guidance_interval_end": 1.0,
+          "texture_guidance_interval_start": 0.6,
+          "texture_guidance_interval_end": 0.9,
+          "use_tiled_decoder": true,
+          "sampler": "euler",
+          "fill_holes": false,
+          "hole_iterations": 1,
+          "verbose": false,
+          "dino_lock": 0.0,
+          "dino_substeps": 4,
+          "hole_fill_algorithm": "flood_fill",
+          "dino_foundation_cap": 1.0,
+          "keep_only_shell": false,
+          "pipeline": [
+            "1",
+            0
+          ],
+          "image": [
+            "20",
+            0
+          ]
+        }
+      },
+      "50": {
+        "class_type": "Trellis2MeshWithVoxelToTrimesh",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "reorient_vertices": "90 degrees"
+        }
+      },
+      "51": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "50",
+            0
+          ],
+          "filename_prefix": "PhantomRearGripPixal20260913/raw",
+          "file_format": "glb"
+        }
+      },
+      "52": {
+        "class_type": "Trellis2OvoxelExportToGLB",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "resolution": 1024,
+          "texture_size": 4096,
+          "target_face_num": 500000
+        }
+      },
+      "53": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "52",
+            0
+          ],
+          "filename_prefix": "PhantomRearGripPixal20260913/textured_master",
+          "file_format": "glb"
+        }
+      },
+      "11": {
+        "class_type": "ImageCrop",
+        "inputs": {
+          "image": [
+            "10",
+            0
+          ],
+          "x": 450,
+          "y": 55,
+          "width": 260,
+          "height": 400
+        }
+      },
+      "21": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "20",
+            0
+          ],
+          "filename_prefix": "PhantomRearGripPixal20260913/input"
+        }
+      }
+    },
+    {
+      "client_id": "PhantomRearGripPixal20260913",
+      "create_time": 1789281283366
+    },
+    [
+      "53",
+      "50",
+      "51",
+      "52",
+      "1",
+      "21",
+      "4"
+    ]
+  ],
+  "outputs": {},
+  "status": {
+    "status_str": "error",
+    "completed": false,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "470d1b66-317f-44e1-a62e-e3a217c8a5a9",
+          "timestamp": 1789281283367
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "470d1b66-317f-44e1-a62e-e3a217c8a5a9",
+          "timestamp": 1789281283404
+        }
+      ],
+      [
+        "execution_error",
+        {
+          "prompt_id": "470d1b66-317f-44e1-a62e-e3a217c8a5a9",
+          "node_id": "4",
+          "node_type": "Trellis2MeshWithVoxelAdvancedGenerator",
+          "executed": [
+            "20",
+            "11",
+            "1",
+            "10"
+          ],
+          "exception_message": "Remote end closed connection without response\n",
+          "exception_type": "http.client.RemoteDisconnected",
+          "traceback": [
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 545, in execute\n    output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 344, in get_output_data\n    return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 318, in _async_map_node_over_list\n    await process_inputs(input_dict, i)\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\execution.py\", line 306, in process_inputs\n    result = f(**inputs)\n             ^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\nodes.py\", line 1492, in process\n    mesh = pipeline.run_pixal3d(image=image_in,\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\utils\\_contextlib.py\", line 120, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\trellis2\\pipelines\\trellis2_image_to_3d.py\", line 3744, in run_pixal3d\n    cond_shape_lr = self.get_proj_cond_shape(\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\utils\\_contextlib.py\", line 120, in decorate_context\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\trellis2\\pipelines\\trellis2_image_to_3d.py\", line 630, in get_proj_cond_shape\n    z_global, z_proj = image_cond_model(\n                       ^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1775, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\nn\\modules\\module.py\", line 1786, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\trellis2\\trainers\\flow_matching\\mixins\\image_conditioned_proj.py\", line 565, in forward\n    self._load_naf()\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2\\trellis2\\trainers\\flow_matching\\mixins\\image_conditioned_proj.py\", line 445, in _load_naf\n    self.naf_model = torch.hub.load(\n                     ^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\hub.py\", line 643, in load\n    repo_or_dir = _get_cache_or_reload(\n                  ^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\hub.py\", line 271, in _get_cache_or_reload\n    download_url_to_file(url, cached_file, progress=False)\n",
+            "  File \"D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\.venv\\Lib\\site-packages\\torch\\hub.py\", line 717, in download_url_to_file\n    u = urlopen(req)\n        ^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\urllib\\request.py\", line 216, in urlopen\n    return opener.open(url, data, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\urllib\\request.py\", line 519, in open\n    response = self._open(req, data)\n               ^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\urllib\\request.py\", line 536, in _open\n    result = self._call_chain(self.handle_open, protocol, protocol +\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\urllib\\request.py\", line 496, in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\urllib\\request.py\", line 1391, in https_open\n    return self.do_open(http.client.HTTPSConnection, req,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\urllib\\request.py\", line 1352, in do_open\n    r = h.getresponse()\n        ^^^^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py\", line 1395, in getresponse\n    response.begin()\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py\", line 325, in begin\n    version, status, reason = self._read_status()\n                              ^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"C:\\Users\\WINDOWS\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\http\\client.py\", line 294, in _read_status\n    raise RemoteDisconnected(\"Remote end closed connection without\"\n"
+          ],
+          "current_inputs": {
+            "seed": [
+              91301
+            ],
+            "pipeline_type": [
+              "1024_cascade"
+            ],
+            "sparse_structure_steps": [
+              16
+            ],
+            "sparse_structure_guidance_strength": [
+              7.5
+            ],
+            "sparse_structure_guidance_rescale": [
+              0.7
+            ],
+            "sparse_structure_rescale_t": [
+              5.0
+            ],
+            "shape_steps": [
+              32
+            ],
+            "shape_guidance_strength": [
+              7.5
+            ],
+            "shape_guidance_rescale": [
+              0.5
+            ],
+            "shape_rescale_t": [
+              3.0
+            ],
+            "texture_steps": [
+              24
+            ],
+            "texture_guidance_strength": [
+              1.0
+            ],
+            "texture_guidance_rescale": [
+              0.0
+            ],
+            "texture_rescale_t": [
+              3.0
+            ],
+            "max_num_tokens": [
+              999999
+            ],
+            "max_views": [
+              4
+            ],
+            "sparse_structure_resolution": [
+              32
+            ],
+            "generate_texture_slat": [
+              true
+            ],
+            "sparse_structure_guidance_interval_start": [
+              0.6
+            ],
+            "sparse_structure_guidance_interval_end": [
+              1.0
+            ],
+            "shape_guidance_interval_start": [
+              0.6
+            ],
+            "shape_guidance_interval_end": [
+              1.0
+            ],
+            "texture_guidance_interval_start": [
+              0.6
+            ],
+            "texture_guidance_interval_end": [
+              0.9
+            ],
+            "use_tiled_decoder": [
+              true
+            ],
+            "sampler": [
+              "euler"
+            ],
+            "fill_holes": [
+              false
+            ],
+            "hole_iterations": [
+              1
+            ],
+            "verbose": [
+              false
+            ],
+            "dino_lock": [
+              0.0
+            ],
+            "dino_substeps": [
+              4
+            ],
+            "hole_fill_algorithm": [
+              "flood_fill"
+            ],
+            "dino_foundation_cap": [
+              1.0
+            ],
+            "keep_only_shell": [
+              false
+            ],
+            "pipeline": [
+              "<D:\\\u5f00\u53d1\u6587\u4ef6\\ComfyUI\\custom_nodes\\ComfyUI-Trellis2.trellis2.pipelines.trellis2_image_to_3d.Trellis2ImageTo3DPipeline object at 0x00000242FB663350>"
+            ],
+            "image": [
+              "tensor([[[[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         ...,\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]],\n\n         [[0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.],\n          ...,\n          [0., 0., 0.],\n          [0., 0., 0.],\n          [0., 0., 0.]]]])"
+            ]
+          },
+          "current_outputs": [
+            "53",
+            "21",
+            "50",
+            "51",
+            "52",
+            "11",
+            "1",
+            "20",
+            "10",
+            "4"
+          ],
+          "timestamp": 1789281413969
+        }
+      ]
+    ]
+  },
+  "meta": {}
+}

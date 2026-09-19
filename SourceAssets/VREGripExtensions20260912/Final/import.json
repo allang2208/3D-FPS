@@ -1,0 +1,182 @@
+{
+  "m4:canted:idle": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_idle.A_M4_Canted_idle",
+    "duration": 3.0,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_idle.fbx"
+  },
+  "m4:canted:aim": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_aim.A_M4_Canted_aim",
+    "duration": 0.03333333507180214,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_aim.fbx"
+  },
+  "m4:canted:fire": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_fire.A_M4_Canted_fire",
+    "duration": 0.7666666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_fire.fbx"
+  },
+  "m4:canted:aim_fire": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_aim_fire.A_M4_Canted_aim_fire",
+    "duration": 0.7666666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_aim_fire.fbx"
+  },
+  "m4:canted:equip": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_equip.A_M4_Canted_equip",
+    "duration": 0.6333333253860474,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_equip.fbx"
+  },
+  "m4:canted:reload": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_reload.A_M4_Canted_reload",
+    "duration": 2.0999999046325684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_reload.fbx"
+  },
+  "m4:canted:reload_empty": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_reload_empty.A_M4_Canted_reload_empty",
+    "duration": 2.700000047683716,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_reload_empty.fbx"
+  },
+  "m4:canted:drum_reload": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_drum_reload.A_M4_Canted_drum_reload",
+    "duration": 2.0999999046325684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_drum_reload.fbx"
+  },
+  "m4:canted:drum_reload_empty": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_drum_reload_empty.A_M4_Canted_drum_reload_empty",
+    "duration": 2.4666666984558105,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\canted\\A_M4_Canted_drum_reload_empty.fbx"
+  },
+  "m4:prism:idle": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_idle.A_M4_Prism_idle",
+    "duration": 3.0,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_idle.fbx"
+  },
+  "m4:prism:aim": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_aim.A_M4_Prism_aim",
+    "duration": 0.03333333507180214,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_aim.fbx"
+  },
+  "m4:prism:fire": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_fire.A_M4_Prism_fire",
+    "duration": 0.7666666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_fire.fbx"
+  },
+  "m4:prism:aim_fire": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_aim_fire.A_M4_Prism_aim_fire",
+    "duration": 0.7666666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_aim_fire.fbx"
+  },
+  "m4:prism:equip": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_equip.A_M4_Prism_equip",
+    "duration": 0.6333333253860474,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_equip.fbx"
+  },
+  "m4:prism:reload": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_reload.A_M4_Prism_reload",
+    "duration": 2.0999999046325684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_reload.fbx"
+  },
+  "m4:prism:reload_empty": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_reload_empty.A_M4_Prism_reload_empty",
+    "duration": 2.700000047683716,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_reload_empty.fbx"
+  },
+  "m4:prism:drum_reload": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload.A_M4_Prism_drum_reload",
+    "duration": 2.0999999046325684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_drum_reload.fbx"
+  },
+  "m4:prism:drum_reload_empty": {
+    "asset": "/Game/Weapons/M4VREGripExtensions/Prism/A_M4_Prism_drum_reload_empty.A_M4_Prism_drum_reload_empty",
+    "duration": 2.4666666984558105,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\m4\\prism\\A_M4_Prism_drum_reload_empty.fbx"
+  },
+  "akm:canted:idle": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_idle.A_AKM_canted_idle",
+    "duration": 0.0416666679084301,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_idle.fbx"
+  },
+  "akm:canted:aim": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_aim.A_AKM_canted_aim",
+    "duration": 0.0416666679084301,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_aim.fbx"
+  },
+  "akm:canted:fire": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_fire.A_AKM_canted_fire",
+    "duration": 0.10000000149011612,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_fire.fbx"
+  },
+  "akm:canted:aim_fire": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_aim_fire.A_AKM_canted_aim_fire",
+    "duration": 0.10000000149011612,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_aim_fire.fbx"
+  },
+  "akm:canted:equip": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_equip.A_AKM_canted_equip",
+    "duration": 1.7000000476837158,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_equip.fbx"
+  },
+  "akm:canted:reload": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload.A_AKM_canted_reload",
+    "duration": 3.3333332538604736,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_reload.fbx"
+  },
+  "akm:canted:reload_empty": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_reload_empty.A_AKM_canted_reload_empty",
+    "duration": 4.291666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_reload_empty.fbx"
+  },
+  "akm:canted:drum_reload": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_drum_reload.A_AKM_canted_drum_reload",
+    "duration": 3.3333332538604736,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_drum_reload.fbx"
+  },
+  "akm:canted:drum_reload_empty": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/canted/A_AKM_canted_drum_reload_empty.A_AKM_canted_drum_reload_empty",
+    "duration": 4.291666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\canted\\A_AKM_canted_drum_reload_empty.fbx"
+  },
+  "akm:prism:idle": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_idle.A_AKM_prism_idle",
+    "duration": 0.0416666679084301,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_idle.fbx"
+  },
+  "akm:prism:aim": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_aim.A_AKM_prism_aim",
+    "duration": 0.0416666679084301,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_aim.fbx"
+  },
+  "akm:prism:fire": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_fire.A_AKM_prism_fire",
+    "duration": 0.10000000149011612,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_fire.fbx"
+  },
+  "akm:prism:aim_fire": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_aim_fire.A_AKM_prism_aim_fire",
+    "duration": 0.10000000149011612,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_aim_fire.fbx"
+  },
+  "akm:prism:equip": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_equip.A_AKM_prism_equip",
+    "duration": 1.7000000476837158,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_equip.fbx"
+  },
+  "akm:prism:reload": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload.A_AKM_prism_reload",
+    "duration": 3.3333332538604736,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_reload.fbx"
+  },
+  "akm:prism:reload_empty": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_reload_empty.A_AKM_prism_reload_empty",
+    "duration": 4.291666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_reload_empty.fbx"
+  },
+  "akm:prism:drum_reload": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_drum_reload.A_AKM_prism_drum_reload",
+    "duration": 3.3333332538604736,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_drum_reload.fbx"
+  },
+  "akm:prism:drum_reload_empty": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVREExtensions/prism/A_AKM_prism_drum_reload_empty.A_AKM_prism_drum_reload_empty",
+    "duration": 4.291666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VREGripExtensions20260912\\Final\\akm\\prism\\A_AKM_prism_drum_reload_empty.fbx"
+  }
+}

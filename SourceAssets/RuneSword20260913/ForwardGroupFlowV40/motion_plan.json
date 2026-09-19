@@ -1,0 +1,25 @@
+{
+  "revision": "ForwardGroupFlowV40",
+  "source_revision": "ReferenceReplicaV36",
+  "fps": 120,
+  "duration": 2.9,
+  "reference_start": 0.35,
+  "reference_end": 2.35,
+  "group_yaw_degrees": 65.0,
+  "entry_flow_window": [
+    0.25,
+    0.35
+  ],
+  "exit_flow_window": [
+    2.35,
+    2.45
+  ],
+  "group_members": "All V36 pose bones, including both complete arms, fingers, helper bones and weapon bones",
+  "group_pivot": "V36 right wrist at 0.35 seconds",
+  "group_motion": "The V39 common turn plus a 0.24 m forward translation, smoothly introduced and removed at idle endpoints",
+  "flow_method": "Short cubic position and spherical cubic orientation bridges with endpoint velocities from the existing motion",
+  "scope": "Forward placement and its arm-inclusive entry/exit flow only; V39 yaw, internal V36 pose and timing retained",
+  "previous_revision": "RigidGroupFlowV39",
+  "group_forward_meters": 0.24,
+  "forward_axis": "Global authoring +Y, toward the camera viewing direction; applied after the group turn"
+}

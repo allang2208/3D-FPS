@@ -1,0 +1,75 @@
+{
+  "source": "QBZ191Refine20260913/QBZ191_Editable.blend",
+  "body_source": "QBZ19120260912/QBZ191_Editable.blend",
+  "previous_gun_triangles": 224486,
+  "body_triangles_after_refinement": 107544,
+  "gun_triangles": 112600,
+  "gun_vertices": 56397,
+  "rear_aperture_diameter_mm": 8,
+  "front_guard_inner_diameter_mm": 15,
+  "front_post_tip_width_mm": 0.96,
+  "sight_markers_unchanged": {
+    "rear": [
+      0.000688,
+      0.009231,
+      0.122149
+    ],
+    "front": [
+      0.000689,
+      -0.343514,
+      0.12049
+    ]
+  },
+  "new_parts": {
+    "Rear_Aperture_8mm": {
+      "vertices": 768,
+      "triangles": 1536
+    },
+    "Rear_Sight_Stem": {
+      "vertices": 112,
+      "triangles": 220
+    },
+    "Rear_Protective_Ear_-1": {
+      "vertices": 120,
+      "triangles": 236
+    },
+    "Rear_Ear_Recess_-1": {
+      "vertices": 96,
+      "triangles": 188
+    },
+    "Rear_Protective_Ear_1": {
+      "vertices": 120,
+      "triangles": 236
+    },
+    "Rear_Ear_Recess_1": {
+      "vertices": 96,
+      "triangles": 188
+    },
+    "Front_Protective_Ring_15mm": {
+      "vertices": 768,
+      "triangles": 1536
+    },
+    "Front_Sight_Tower": {
+      "vertices": 112,
+      "triangles": 220
+    },
+    "Front_Sight_Post": {
+      "vertices": 96,
+      "triangles": 188
+    },
+    "Front_Elevation_Collar": {
+      "vertices": 256,
+      "triangles": 508
+    }
+  },
+  "materials": [
+    "M_QBZ191_Body",
+    "M_QBZ191_Magazine",
+    "M_QBZ191_Irons",
+    "M_QBZ191_Irons_Machined",
+    "M_QBZ191_Irons_Inner",
+    "M_QBZ191_Polymer",
+    "M_QBZ191_Steel"
+  ],
+  "status": "authored and exported; no post-change render or gameplay test"
+}

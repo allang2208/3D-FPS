@@ -1,0 +1,122 @@
+{
+  "base:reload": {
+    "name": "A_QBZ191_reload",
+    "family": "base",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\base\\A_QBZ191_reload.fbx",
+    "sample_rate": 240,
+    "duration": 2.1,
+    "action": "QBZ191_Contact_base_reload"
+  },
+  "base:reload_empty": {
+    "name": "A_QBZ191_reload_empty",
+    "family": "base",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\base\\A_QBZ191_reload_empty.fbx",
+    "sample_rate": 240,
+    "duration": 2.7333333333333334,
+    "action": "QBZ191_Contact_base_reload_empty"
+  },
+  "base:equip_charge": {
+    "name": "A_QBZ191_equip_charge",
+    "family": "base",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\base\\A_QBZ191_equip_charge.fbx",
+    "sample_rate": 240,
+    "duration": 0.6333333333333333,
+    "action": "QBZ191_Contact_base_equip_charge"
+  },
+  "vertical:reload": {
+    "name": "A_QBZ191_vertical_reload",
+    "family": "vertical",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\vertical\\A_QBZ191_vertical_reload.fbx",
+    "sample_rate": 240,
+    "duration": 2.1,
+    "action": "QBZ191_Contact_vertical_reload"
+  },
+  "vertical:reload_empty": {
+    "name": "A_QBZ191_vertical_reload_empty",
+    "family": "vertical",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\vertical\\A_QBZ191_vertical_reload_empty.fbx",
+    "sample_rate": 240,
+    "duration": 2.7333333333333334,
+    "action": "QBZ191_Contact_vertical_reload_empty"
+  },
+  "vertical:equip_charge": {
+    "name": "A_QBZ191_vertical_equip_charge",
+    "family": "vertical",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\vertical\\A_QBZ191_vertical_equip_charge.fbx",
+    "sample_rate": 240,
+    "duration": 0.6333333333333333,
+    "action": "QBZ191_Contact_vertical_equip_charge"
+  },
+  "canted:reload": {
+    "name": "A_QBZ191_canted_reload",
+    "family": "canted",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\canted\\A_QBZ191_canted_reload.fbx",
+    "sample_rate": 240,
+    "duration": 2.1,
+    "action": "QBZ191_Contact_canted_reload"
+  },
+  "canted:reload_empty": {
+    "name": "A_QBZ191_canted_reload_empty",
+    "family": "canted",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\canted\\A_QBZ191_canted_reload_empty.fbx",
+    "sample_rate": 240,
+    "duration": 2.7333333333333334,
+    "action": "QBZ191_Contact_canted_reload_empty"
+  },
+  "canted:equip_charge": {
+    "name": "A_QBZ191_canted_equip_charge",
+    "family": "canted",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\canted\\A_QBZ191_canted_equip_charge.fbx",
+    "sample_rate": 240,
+    "duration": 0.6333333333333333,
+    "action": "QBZ191_Contact_canted_equip_charge"
+  },
+  "prism:reload": {
+    "name": "A_QBZ191_prism_reload",
+    "family": "prism",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\prism\\A_QBZ191_prism_reload.fbx",
+    "sample_rate": 240,
+    "duration": 2.1,
+    "action": "QBZ191_Contact_prism_reload"
+  },
+  "prism:reload_empty": {
+    "name": "A_QBZ191_prism_reload_empty",
+    "family": "prism",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\prism\\A_QBZ191_prism_reload_empty.fbx",
+    "sample_rate": 240,
+    "duration": 2.7333333333333334,
+    "action": "QBZ191_Contact_prism_reload_empty"
+  },
+  "prism:equip_charge": {
+    "name": "A_QBZ191_prism_equip_charge",
+    "family": "prism",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\prism\\A_QBZ191_prism_equip_charge.fbx",
+    "sample_rate": 240,
+    "duration": 0.6333333333333333,
+    "action": "QBZ191_Contact_prism_equip_charge"
+  },
+  "angled:reload": {
+    "name": "A_QBZ191_angled_reload",
+    "family": "angled",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\angled\\A_QBZ191_angled_reload.fbx",
+    "sample_rate": 240,
+    "duration": 2.1,
+    "action": "QBZ191_Contact_angled_reload"
+  },
+  "angled:reload_empty": {
+    "name": "A_QBZ191_angled_reload_empty",
+    "family": "angled",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\angled\\A_QBZ191_angled_reload_empty.fbx",
+    "sample_rate": 240,
+    "duration": 2.7333333333333334,
+    "action": "QBZ191_Contact_angled_reload_empty"
+  },
+  "angled:equip_charge": {
+    "name": "A_QBZ191_angled_equip_charge",
+    "family": "angled",
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Animations\\angled\\A_QBZ191_angled_equip_charge.fbx",
+    "sample_rate": 240,
+    "duration": 0.6333333333333333,
+    "action": "QBZ191_Contact_angled_equip_charge"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "HeavyCharge": {
+    "samples": 481,
+    "seconds": 2.0,
+    "max_bone_position_delta_mm": 0.00043622497225715063,
+    "worst_bone": "index_03_l",
+    "max_hand_world_rotation_delta_deg": 5.044674714271349e-05,
+    "max_upperarm_direction_delta_deg": 0.0,
+    "max_forearm_direction_delta_deg": 0.0,
+    "max_arm_length_delta_mm": 0.00023047181851865162,
+    "elbow_metric_abs_max_before": 105.32739418835513,
+    "elbow_metric_abs_max_after": 99.87602000656231
+  },
+  "HeavyRelease": {
+    "samples": 241,
+    "seconds": 1.0,
+    "max_bone_position_delta_mm": 0.0005239829710876119,
+    "worst_bone": "upperarm_twist_02_l",
+    "max_hand_world_rotation_delta_deg": 8.233935559381129e-05,
+    "max_upperarm_direction_delta_deg": 0.0,
+    "max_forearm_direction_delta_deg": 0.0,
+    "max_arm_length_delta_mm": 0.00021530635779809515,
+    "elbow_metric_abs_max_before": 178.23949113487515,
+    "elbow_metric_abs_max_after": 159.78015005379308
+  },
+  "Slash1": {
+    "samples": 427,
+    "seconds": 1.775,
+    "max_bone_position_delta_mm": 0.0004078129584611657,
+    "worst_bone": "index_02_l",
+    "max_hand_world_rotation_delta_deg": 5.851191403988306e-05,
+    "max_upperarm_direction_delta_deg": 0.0,
+    "max_forearm_direction_delta_deg": 0.0,
+    "max_arm_length_delta_mm": 0.00020142259316013877,
+    "elbow_metric_abs_max_before": 175.10976234093405,
+    "elbow_metric_abs_max_after": 175.1097440697158
+  }
+}

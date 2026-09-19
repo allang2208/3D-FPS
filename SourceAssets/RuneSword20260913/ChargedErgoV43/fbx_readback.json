@@ -1,0 +1,104 @@
+{
+  "HeavyCharge": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\Export\\A_RuneSword_HeavyCharge.fbx",
+    "size": 5802060,
+    "armatures": 1,
+    "bones": 102,
+    "has_twist_helpers": true,
+    "action": "SK_RuneSword_Rig|Scene",
+    "frame_range": [
+      1.0,
+      961.0
+    ],
+    "seconds": 2.0,
+    "expected_seconds": 2.0,
+    "local_rotation_deg": {
+      "1": {
+        "lowerarm_l": 108.22,
+        "lowerarm_twist_01_l": 12.16,
+        "lowerarm_twist_02_l": 4.05,
+        "hand_l": 15.91
+      },
+      "169": {
+        "lowerarm_l": 89.23,
+        "lowerarm_twist_01_l": 78.31,
+        "lowerarm_twist_02_l": 26.07,
+        "hand_l": 92.22
+      },
+      "961": {
+        "lowerarm_l": 0.0,
+        "lowerarm_twist_01_l": 0.0,
+        "lowerarm_twist_02_l": 0.0,
+        "hand_l": 0.0
+      }
+    }
+  },
+  "HeavyRelease": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\Export\\A_RuneSword_HeavyRelease.fbx",
+    "size": 3252828,
+    "armatures": 1,
+    "bones": 102,
+    "has_twist_helpers": true,
+    "action": "SK_RuneSword_Rig|Scene",
+    "frame_range": [
+      1.0,
+      481.0
+    ],
+    "seconds": 1.0,
+    "expected_seconds": 1.0,
+    "local_rotation_deg": {
+      "1": {
+        "lowerarm_l": 108.22,
+        "lowerarm_twist_01_l": 12.16,
+        "lowerarm_twist_02_l": 4.05,
+        "hand_l": 15.91
+      },
+      "85": {
+        "lowerarm_l": 110.26,
+        "lowerarm_twist_01_l": 57.62,
+        "lowerarm_twist_02_l": 19.18,
+        "hand_l": 68.18
+      },
+      "481": {
+        "lowerarm_l": 0.0,
+        "lowerarm_twist_01_l": 0.0,
+        "lowerarm_twist_02_l": 0.0,
+        "hand_l": 0.0
+      }
+    }
+  },
+  "Slash1": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\ChargedErgoV43\\Export\\A_RuneSword_Slash1.fbx",
+    "size": 5195916,
+    "armatures": 1,
+    "bones": 102,
+    "has_twist_helpers": true,
+    "action": "SK_RuneSword_Rig|Scene",
+    "frame_range": [
+      1.0,
+      853.0
+    ],
+    "seconds": 1.775,
+    "expected_seconds": 1.775,
+    "local_rotation_deg": {
+      "1": {
+        "lowerarm_l": 0.0,
+        "lowerarm_twist_01_l": 0.0,
+        "lowerarm_twist_02_l": 0.0,
+        "hand_l": 0.0
+      },
+      "150": {
+        "lowerarm_l": 156.68,
+        "lowerarm_twist_01_l": 64.36,
+        "lowerarm_twist_02_l": 21.43,
+        "hand_l": 76.61
+      },
+      "853": {
+        "lowerarm_l": 0.0,
+        "lowerarm_twist_01_l": 0.0,
+        "lowerarm_twist_02_l": 0.0,
+        "hand_l": 0.0
+      }
+    }
+  }
+}

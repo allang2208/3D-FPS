@@ -1,0 +1,282 @@
+{
+  "vertical:idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_idle.fbx",
+    "name": "A_QBZ191_vertical_idle",
+    "family": "vertical",
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "QBZ191_vertical_idle"
+  },
+  "vertical:aim": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_aim.fbx",
+    "name": "A_QBZ191_vertical_aim",
+    "family": "vertical",
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "QBZ191_vertical_aim"
+  },
+  "vertical:fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_fire.fbx",
+    "name": "A_QBZ191_vertical_fire",
+    "family": "vertical",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_vertical_fire"
+  },
+  "vertical:aim_fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_aim_fire.fbx",
+    "name": "A_QBZ191_vertical_aim_fire",
+    "family": "vertical",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_vertical_aim_fire"
+  },
+  "vertical:reload": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_reload.fbx",
+    "name": "A_QBZ191_vertical_reload",
+    "family": "vertical",
+    "duration": 2.1,
+    "sample_rate": 240,
+    "action": "QBZ191_vertical_reload"
+  },
+  "vertical:reload_empty": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_reload_empty.fbx",
+    "name": "A_QBZ191_vertical_reload_empty",
+    "family": "vertical",
+    "duration": 2.7333333333333334,
+    "sample_rate": 240,
+    "action": "QBZ191_vertical_reload_empty"
+  },
+  "vertical:equip_charge": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\vertical\\A_QBZ191_vertical_equip_charge.fbx",
+    "name": "A_QBZ191_vertical_equip_charge",
+    "family": "vertical",
+    "duration": 0.6333333333333333,
+    "sample_rate": 240,
+    "action": "QBZ191_vertical_equip_charge"
+  },
+  "canted:idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_idle.fbx",
+    "name": "A_QBZ191_canted_idle",
+    "family": "canted",
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "QBZ191_canted_idle"
+  },
+  "canted:aim": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_aim.fbx",
+    "name": "A_QBZ191_canted_aim",
+    "family": "canted",
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "QBZ191_canted_aim"
+  },
+  "canted:fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_fire.fbx",
+    "name": "A_QBZ191_canted_fire",
+    "family": "canted",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_canted_fire"
+  },
+  "canted:aim_fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_aim_fire.fbx",
+    "name": "A_QBZ191_canted_aim_fire",
+    "family": "canted",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_canted_aim_fire"
+  },
+  "canted:reload": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_reload.fbx",
+    "name": "A_QBZ191_canted_reload",
+    "family": "canted",
+    "duration": 2.1,
+    "sample_rate": 240,
+    "action": "QBZ191_canted_reload"
+  },
+  "canted:reload_empty": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_reload_empty.fbx",
+    "name": "A_QBZ191_canted_reload_empty",
+    "family": "canted",
+    "duration": 2.7333333333333334,
+    "sample_rate": 240,
+    "action": "QBZ191_canted_reload_empty"
+  },
+  "canted:equip_charge": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\canted\\A_QBZ191_canted_equip_charge.fbx",
+    "name": "A_QBZ191_canted_equip_charge",
+    "family": "canted",
+    "duration": 0.6333333333333333,
+    "sample_rate": 240,
+    "action": "QBZ191_canted_equip_charge"
+  },
+  "prism:idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_idle.fbx",
+    "name": "A_QBZ191_prism_idle",
+    "family": "prism",
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "QBZ191_prism_idle"
+  },
+  "prism:aim": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_aim.fbx",
+    "name": "A_QBZ191_prism_aim",
+    "family": "prism",
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "QBZ191_prism_aim"
+  },
+  "prism:fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_fire.fbx",
+    "name": "A_QBZ191_prism_fire",
+    "family": "prism",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_prism_fire"
+  },
+  "prism:aim_fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_aim_fire.fbx",
+    "name": "A_QBZ191_prism_aim_fire",
+    "family": "prism",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_prism_aim_fire"
+  },
+  "prism:reload": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_reload.fbx",
+    "name": "A_QBZ191_prism_reload",
+    "family": "prism",
+    "duration": 2.1,
+    "sample_rate": 240,
+    "action": "QBZ191_prism_reload"
+  },
+  "prism:reload_empty": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_reload_empty.fbx",
+    "name": "A_QBZ191_prism_reload_empty",
+    "family": "prism",
+    "duration": 2.7333333333333334,
+    "sample_rate": 240,
+    "action": "QBZ191_prism_reload_empty"
+  },
+  "prism:equip_charge": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\prism\\A_QBZ191_prism_equip_charge.fbx",
+    "name": "A_QBZ191_prism_equip_charge",
+    "family": "prism",
+    "duration": 0.6333333333333333,
+    "sample_rate": 240,
+    "action": "QBZ191_prism_equip_charge"
+  },
+  "angled:idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_idle.fbx",
+    "name": "A_QBZ191_angled_idle",
+    "family": "angled",
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "QBZ191_angled_idle"
+  },
+  "angled:aim": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_aim.fbx",
+    "name": "A_QBZ191_angled_aim",
+    "family": "angled",
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "QBZ191_angled_aim"
+  },
+  "angled:fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_fire.fbx",
+    "name": "A_QBZ191_angled_fire",
+    "family": "angled",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_angled_fire"
+  },
+  "angled:aim_fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_aim_fire.fbx",
+    "name": "A_QBZ191_angled_aim_fire",
+    "family": "angled",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_angled_aim_fire"
+  },
+  "angled:reload": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_reload.fbx",
+    "name": "A_QBZ191_angled_reload",
+    "family": "angled",
+    "duration": 2.1,
+    "sample_rate": 240,
+    "action": "QBZ191_angled_reload"
+  },
+  "angled:reload_empty": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_reload_empty.fbx",
+    "name": "A_QBZ191_angled_reload_empty",
+    "family": "angled",
+    "duration": 2.7333333333333334,
+    "sample_rate": 240,
+    "action": "QBZ191_angled_reload_empty"
+  },
+  "angled:equip_charge": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\angled\\A_QBZ191_angled_equip_charge.fbx",
+    "name": "A_QBZ191_angled_equip_charge",
+    "family": "angled",
+    "duration": 0.6333333333333333,
+    "sample_rate": 240,
+    "action": "QBZ191_angled_equip_charge"
+  },
+  "base:idle": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_idle.fbx",
+    "name": "A_QBZ191_idle",
+    "family": "base",
+    "duration": 3.0,
+    "sample_rate": 120,
+    "action": "QBZ191_base_idle"
+  },
+  "base:aim": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_aim.fbx",
+    "name": "A_QBZ191_aim",
+    "family": "base",
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "action": "QBZ191_base_aim"
+  },
+  "base:fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_fire.fbx",
+    "name": "A_QBZ191_fire",
+    "family": "base",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_base_fire"
+  },
+  "base:aim_fire": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_aim_fire.fbx",
+    "name": "A_QBZ191_aim_fire",
+    "family": "base",
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "action": "QBZ191_base_aim_fire"
+  },
+  "base:reload": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_reload.fbx",
+    "name": "A_QBZ191_reload",
+    "family": "base",
+    "duration": 2.1,
+    "sample_rate": 240,
+    "action": "QBZ191_base_reload"
+  },
+  "base:reload_empty": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_reload_empty.fbx",
+    "name": "A_QBZ191_reload_empty",
+    "family": "base",
+    "duration": 2.7333333333333334,
+    "sample_rate": 240,
+    "action": "QBZ191_base_reload_empty"
+  },
+  "base:equip_charge": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Refine20260913\\Animations\\base\\A_QBZ191_equip_charge.fbx",
+    "name": "A_QBZ191_equip_charge",
+    "family": "base",
+    "duration": 0.6333333333333333,
+    "sample_rate": 240,
+    "action": "QBZ191_base_equip_charge"
+  }
+}

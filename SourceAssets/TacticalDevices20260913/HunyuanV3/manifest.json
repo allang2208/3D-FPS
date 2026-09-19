@@ -1,0 +1,53 @@
+{
+  "provider": "tokenhub",
+  "model": "3.1",
+  "stage": "candidate_downloaded",
+  "created_at": 1789300722.600374,
+  "source": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\TacticalDevices20260913\\HunyuanV3\\reference.png",
+    "sha256": "ed98c845b6835c691d95694c180b50ae280d62a8b0077deaf4cc809e84ec4966"
+  },
+  "pbr": true,
+  "job_id": "1490682182439534592",
+  "submit_response": {
+    "id": "1490682182439534592",
+    "request_id": "ce1ab611-512d-4a2c-bf6e-7c1eb1924150",
+    "object": "3d_job",
+    "created_at": 1789300727,
+    "status": "queued"
+  },
+  "last_response": {
+    "request_id": "4cf78553-6241-4921-ba37-1220a04e5572",
+    "object": "3d_job",
+    "created_at": 1789300927,
+    "completed_at": 1789300927,
+    "status": "completed",
+    "data": [
+      {
+        "type": "obj",
+        "url": "https://hunyuan-prod-1258344699.cos.ap-guangzhou.tencentcos.cn/3d/output/1445096041/ce1ab611-512d-4a2c-bf6e-7c1eb1924150_0.zip",
+        "preview_image_url": "https://hunyuan-prod-1258344699.cos.ap-guangzhou.tencentcos.cn/3d/output/1445096041/preview_ce1ab611-512d-4a2c-bf6e-7c1eb1924150_0.png"
+      },
+      {
+        "type": "glb",
+        "url": "https://hunyuan-prod-1258344699.cos.ap-guangzhou.tencentcos.cn/3d/output/1445096041/ce1ab611-512d-4a2c-bf6e-7c1eb1924150_0.glb",
+        "preview_image_url": "https://hunyuan-prod-1258344699.cos.ap-guangzhou.tencentcos.cn/3d/output/1445096041/preview_ce1ab611-512d-4a2c-bf6e-7c1eb1924150_0.png"
+      }
+    ]
+  },
+  "checked_at": 1789300929.3274496,
+  "outputs": [
+    {
+      "file": "asset_00.zip",
+      "bytes": 32585036,
+      "sha256": "064b0cdeca5db2742e5f0c3decf111024bcaabc33335ebfe66d165f19e5bc974"
+    },
+    {
+      "file": "asset_01.glb",
+      "bytes": 43907972,
+      "sha256": "7e9d18c83fbc8c5446cfdee7c9ec918b83e94b0e6fe5d5def8558a27383ecb3d"
+    }
+  ],
+  "rigging_verified": false,
+  "ue_runtime_verified": false
+}

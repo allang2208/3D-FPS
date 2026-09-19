@@ -1,0 +1,56 @@
+[
+  {
+    "image": "guard_hold.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard",
+    "time": 0.2,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000023D6F8AFBC0) {x: 49.083700, y: -13.596617, z: 1.682986}>",
+    "right_hand": "<Struct 'Vector' (0x0000023D6F8AFBC0) {x: 37.577131, y: 21.584976, z: -11.803546}>",
+    "blade_tip": "<Struct 'Vector' (0x0000023D6F8AFBC0) {x: 69.113303, y: -52.566018, z: 22.650800}>"
+  },
+  {
+    "image": "guard_left_joint.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard",
+    "time": 0.2,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000023D6672B030) {x: 49.083700, y: -13.596617, z: 1.682986}>",
+    "right_hand": "<Struct 'Vector' (0x0000023D6672B030) {x: 37.577131, y: 21.584976, z: -11.803546}>",
+    "blade_tip": "<Struct 'Vector' (0x0000023D6672B030) {x: 69.113303, y: -52.566018, z: 22.650800}>"
+  },
+  {
+    "image": "guard_raise.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Guard",
+    "time": 0.1,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 39.483850, y: -14.571854, z: -10.138346}>",
+    "right_hand": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 38.859261, y: 22.752950, z: -8.573897}>",
+    "blade_tip": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 53.329477, y: -20.088572, z: 66.493909}>"
+  },
+  {
+    "image": "guard_hit.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardHit",
+    "time": 0.044,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000023D6672B030) {x: 45.896922, y: -13.596668, z: 0.883125}>",
+    "right_hand": "<Struct 'Vector' (0x0000023D6672B030) {x: 34.965151, y: 21.584932, z: -13.073505}>",
+    "blade_tip": "<Struct 'Vector' (0x0000023D6672B030) {x: 65.030855, y: -52.566013, z: 22.671318}>"
+  },
+  {
+    "image": "guard_break.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak",
+    "time": 0.1,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 42.100917, y: -10.848203, z: -17.141041}>",
+    "right_hand": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 35.079724, y: 29.952927, z: -22.376405}>",
+    "blade_tip": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 66.615760, y: -50.044329, z: -5.467094}>"
+  },
+  {
+    "image": "guard_regrip.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_GuardBreak",
+    "time": 0.3,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 39.613526, y: -1.146761, z: -23.306928}>",
+    "right_hand": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 40.887145, y: 22.735426, z: -15.193608}>",
+    "blade_tip": "<Struct 'Vector' (0x0000023D6672AFE0) {x: 57.627702, y: -6.215839, z: 65.809700}>"
+  }
+]

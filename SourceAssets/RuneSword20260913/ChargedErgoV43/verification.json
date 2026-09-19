@@ -1,0 +1,83 @@
+{
+  "HeavyCharge": {
+    "samples": 241,
+    "max_bone_position_delta_mm": 0.00035009801758738545,
+    "worst_bone": "index_03_l",
+    "max_hand_world_rotation_delta_deg": 5.6787180228329226e-05,
+    "max_upperarm_direction_delta_deg": 0.0,
+    "max_forearm_direction_delta_deg": 0.0,
+    "max_arm_length_delta_mm": 0.0001637759955985807,
+    "axial_deg_abs_max": {
+      "lowerarm_l": {
+        "before": 105.32631406816427,
+        "after": 99.68999385285659
+      },
+      "lowerarm_twist_01_l": {
+        "before": 105.32630694822971,
+        "after": 100.12790034017372
+      },
+      "lowerarm_twist_02_l": {
+        "before": 105.32630578314938,
+        "after": 99.83578692427182
+      }
+    },
+    "elbow_seam_p999_before": 1.7518619728122244,
+    "elbow_seam_p999_after": 1.7418803841022215,
+    "forearm_p999_before": 2.1447561574220626,
+    "forearm_p999_after": 2.2461010009224105
+  },
+  "HeavyRelease": {
+    "samples": 121,
+    "max_bone_position_delta_mm": 0.0003919883500923486,
+    "worst_bone": "middle_03_l",
+    "max_hand_world_rotation_delta_deg": 5.2602416022922175e-05,
+    "max_upperarm_direction_delta_deg": 0.0,
+    "max_forearm_direction_delta_deg": 0.0,
+    "max_arm_length_delta_mm": 0.0001384113277880239,
+    "axial_deg_abs_max": {
+      "lowerarm_l": {
+        "before": 163.69666693100615,
+        "after": 109.15895785873094
+      },
+      "lowerarm_twist_01_l": {
+        "before": 163.6966649683268,
+        "after": 140.61547386731658
+      },
+      "lowerarm_twist_02_l": {
+        "before": 163.69665887297867,
+        "after": 110.30784838353733
+      }
+    },
+    "elbow_seam_p999_before": 2.200944808450858,
+    "elbow_seam_p999_after": 2.130347630070418,
+    "forearm_p999_before": 2.061759190564644,
+    "forearm_p999_after": 1.8795936298165297
+  },
+  "Slash1": {
+    "samples": 214,
+    "max_bone_position_delta_mm": 0.000368935418222545,
+    "worst_bone": "index_03_l",
+    "max_hand_world_rotation_delta_deg": 4.2034811543355884e-05,
+    "max_upperarm_direction_delta_deg": 0.0,
+    "max_forearm_direction_delta_deg": 0.0,
+    "max_arm_length_delta_mm": 0.00014476584742073584,
+    "axial_deg_abs_max": {
+      "lowerarm_l": {
+        "before": 175.10976234093405,
+        "after": 175.10976204340463
+      },
+      "lowerarm_twist_01_l": {
+        "before": 175.10976493634678,
+        "after": 175.10975821402803
+      },
+      "lowerarm_twist_02_l": {
+        "before": 175.10976193264798,
+        "after": 175.1097620889347
+      }
+    },
+    "elbow_seam_p999_before": 2.1907137419422313,
+    "elbow_seam_p999_after": 2.190714699710023,
+    "forearm_p999_before": 2.11464390091148,
+    "forearm_p999_after": 2.230019969759289
+  }
+}

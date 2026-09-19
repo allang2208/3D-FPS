@@ -1,0 +1,197 @@
+{
+  "Body": {
+    "size": 4096,
+    "material": "M_QBZ191_Wear_Body",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Body_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Body_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Body_NormalGL.png"
+    },
+    "objects": [
+      "QBZ_Receiver",
+      "QBZ_Part1",
+      "QBZ_Part2",
+      "QBZ_Part3",
+      "QBZ_Part4",
+      "QBZ_Part5",
+      "QBZ_Part6",
+      "QBZ_Part7",
+      "QBZ_Part8",
+      "QBZ_Part9",
+      "QBZ_Part10",
+      "QBZ_Handguard",
+      "QBZ_Part12",
+      "QBZ_Part14",
+      "QBZ_Part15",
+      "QBZ_Part23",
+      "QBZ_Part24",
+      "QBZ_Part25",
+      "QBZ_Part83",
+      "QBZ_Part84",
+      "QBZ_Part86",
+      "QBZ_Part87",
+      "QBZ_Part88",
+      "QBZ_Part95",
+      "QBZ_Part96",
+      "QBZ_Part97",
+      "QBZ_Part98"
+    ]
+  },
+  "Polymer": {
+    "size": 2048,
+    "material": "M_QBZ191_Wear_Polymer",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Polymer_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Polymer_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Polymer_NormalGL.png"
+    },
+    "objects": [
+      "QBZ_Stock",
+      "QBZ_PistolGrip"
+    ]
+  },
+  "Magazine": {
+    "size": 2048,
+    "material": "M_QBZ191_Wear_Magazine",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Magazine_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Magazine_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Magazine_NormalGL.png"
+    },
+    "objects": [
+      "QBZ_Magazine"
+    ]
+  },
+  "Steel": {
+    "size": 2048,
+    "material": "M_QBZ191_Wear_Steel",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Steel_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Steel_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Steel_NormalGL.png"
+    },
+    "objects": [
+      "QBZ_Part13",
+      "QBZ_Part16",
+      "QBZ_Part17",
+      "QBZ_Part18",
+      "QBZ_Part19",
+      "QBZ_Part20",
+      "QBZ_Part26",
+      "QBZ_Part27",
+      "QBZ_Part28",
+      "QBZ_Part29",
+      "QBZ_Part30",
+      "QBZ_Part31",
+      "QBZ_Part32",
+      "QBZ_Part33",
+      "QBZ_Part34",
+      "QBZ_Part35",
+      "QBZ_Part36",
+      "QBZ_Part37",
+      "QBZ_Part38",
+      "QBZ_Part39",
+      "QBZ_Part40",
+      "QBZ_Part41",
+      "QBZ_Part42",
+      "QBZ_Part43",
+      "QBZ_Part44",
+      "QBZ_Part45",
+      "QBZ_Part46",
+      "QBZ_Part47",
+      "QBZ_Part48",
+      "QBZ_Part49",
+      "QBZ_Part50",
+      "QBZ_Part51",
+      "QBZ_Part52",
+      "QBZ_Part53",
+      "QBZ_Part54",
+      "QBZ_Part55",
+      "QBZ_Part56",
+      "QBZ_Part57",
+      "QBZ_Part58",
+      "QBZ_Part59",
+      "QBZ_Part60",
+      "QBZ_Part61",
+      "QBZ_Part62",
+      "QBZ_Part63",
+      "QBZ_Part64",
+      "QBZ_Part65",
+      "QBZ_Part66",
+      "QBZ_Part67",
+      "QBZ_Part68",
+      "QBZ_Part69",
+      "QBZ_Part70",
+      "QBZ_Part71",
+      "QBZ_Part72",
+      "QBZ_Part73",
+      "QBZ_Part74",
+      "QBZ_Part75",
+      "QBZ_Part76",
+      "QBZ_Part77",
+      "QBZ_Part78",
+      "QBZ_Part79",
+      "QBZ_Part85",
+      "QBZ_ChargingHandle",
+      "QBZ_Part90"
+    ]
+  },
+  "Rail": {
+    "size": 2048,
+    "material": "M_QBZ191_Wear_Rail",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Rail_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Rail_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Rail_NormalGL.png"
+    },
+    "objects": [
+      "QBZ_Rail_Base_21",
+      "QBZ_Rail_Tooth_21_0",
+      "QBZ_Rail_Tooth_21_1",
+      "QBZ_Rail_Tooth_21_2",
+      "QBZ_Rail_Tooth_21_3",
+      "QBZ_Rail_Tooth_21_4",
+      "QBZ_Rail_Tooth_21_5",
+      "QBZ_Rail_Tooth_21_6",
+      "QBZ_Rail_Tooth_21_7",
+      "QBZ_Rail_Tooth_21_8",
+      "QBZ_Rail_Tooth_21_9",
+      "QBZ_Rail_Tooth_21_10",
+      "QBZ_Rail_Tooth_21_11",
+      "QBZ_Rail_Tooth_21_12",
+      "QBZ_Rail_Tooth_21_13",
+      "QBZ_Rail_Tooth_21_14",
+      "QBZ_Rail_Base_22",
+      "QBZ_Rail_Tooth_22_0",
+      "QBZ_Rail_Tooth_22_1",
+      "QBZ_Rail_Tooth_22_2",
+      "QBZ_Rail_Tooth_22_3",
+      "QBZ_Rail_Tooth_22_4",
+      "QBZ_Rail_Tooth_22_5",
+      "QBZ_Rail_Tooth_22_6",
+      "QBZ_Rail_Tooth_22_7",
+      "QBZ_Rail_Tooth_22_8",
+      "QBZ_Rail_Tooth_22_9",
+      "QBZ_Rail_Tooth_22_10",
+      "QBZ_Rail_Tooth_22_11",
+      "QBZ_Rail_Tooth_22_12",
+      "QBZ_Rail_Tooth_22_13",
+      "QBZ_Rail_Tooth_22_14",
+      "QBZ_Rail_Tooth_22_15"
+    ]
+  },
+  "Sights": {
+    "size": 1024,
+    "material": "M_QBZ191_Wear_Sights",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Sights_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Sights_ORM.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Sights_NormalGL.png"
+    },
+    "objects": [
+      "SM_QBZ191_RearSight",
+      "SM_QBZ191_FrontSight",
+      "QBZ_Sight_FixedMounts"
+    ]
+  }
+}

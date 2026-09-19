@@ -1,0 +1,165 @@
+{
+  "revision": "FistBraceGuardV20",
+  "reference": "User left-fist photo, 2026-09-14; closed fingers, outside thumb, palm toward the player",
+  "fps": 480,
+  "raise_seconds": 0.2,
+  "hit_frames": 106,
+  "break_seconds": 0.4,
+  "hilt_m": [
+    0.18,
+    0.465,
+    -0.075
+  ],
+  "blade_direction": [
+    -0.88,
+    0.282,
+    0.376
+  ],
+  "palm_normal": [
+    0.0,
+    -0.8,
+    0.6
+  ],
+  "palm_forward": [
+    0.22,
+    0.5853,
+    0.7804
+  ],
+  "blade_contact_height_m": 0.34,
+  "dorsal_pad_forward_m": 0.073,
+  "shoulder_left_m": [
+    -0.225,
+    0.065,
+    -0.205
+  ],
+  "shoulder_right_m": [
+    0.245,
+    0.06,
+    -0.205
+  ],
+  "elbow_left_m": [
+    -0.275,
+    0.285,
+    -0.285
+  ],
+  "elbow_right_m": [
+    0.365,
+    0.27,
+    -0.255
+  ],
+  "fist": {
+    "index": {
+      "flex": [
+        62,
+        152,
+        207
+      ],
+      "spread": 3
+    },
+    "middle": {
+      "flex": [
+        68,
+        160,
+        218
+      ],
+      "spread": 0
+    },
+    "ring": {
+      "flex": [
+        70,
+        163,
+        220
+      ],
+      "spread": -2
+    },
+    "pinky": {
+      "flex": [
+        73,
+        165,
+        221
+      ],
+      "spread": -5
+    },
+    "thumb": {
+      "flex": [
+        42,
+        25,
+        13
+      ],
+      "spread": [
+        -8,
+        60,
+        87
+      ]
+    }
+  },
+  "release": {
+    "index": {
+      "flex": [
+        20,
+        37,
+        49
+      ],
+      "spread": 2
+    },
+    "middle": {
+      "flex": [
+        23,
+        40,
+        52
+      ],
+      "spread": 0
+    },
+    "ring": {
+      "flex": [
+        25,
+        44,
+        56
+      ],
+      "spread": -2
+    },
+    "pinky": {
+      "flex": [
+        28,
+        46,
+        60
+      ],
+      "spread": -4
+    },
+    "thumb": {
+      "flex": [
+        16,
+        23,
+        30
+      ],
+      "spread": [
+        -42,
+        -36,
+        -30
+      ]
+    }
+  },
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\GuardPoseV19\\AzureRunesword_Manny_Editable.blend",
+  "ready_reference": "A_RuneSword_Slash1 frame 0",
+  "guard_wrist_m": [
+    -0.13596558570861816,
+    0.49083685874938965,
+    0.016829069703817368
+  ],
+  "dorsal_pad_m": [
+    0.0729999989271164,
+    0.0,
+    -0.017125485464930534
+  ],
+  "blade_contact_local_m": [
+    0.0,
+    -0.01730245165526867,
+    0.3400000035762787
+  ],
+  "guard_hit_seconds": 0.22083333333333333,
+  "reference_interpretation": "Palm faces player, fingers closed and thumb outside; elbow and blade support reconstructed in 3D from a single photograph",
+  "arms": "Rest-based whole segments and auxiliary bones; independent shoulder/elbow support; no hilt revolution search",
+  "scope": "Guard, GuardHit, GuardBreak only; existing runtime asset names",
+  "renders_or_tests_run": false,
+  "acceptance": "Pending user playtest"
+}

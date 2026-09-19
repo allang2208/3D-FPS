@@ -1,0 +1,58 @@
+{
+  "source_custom_normals": true,
+  "groups": {
+    "Body": {
+      "low_triangles": 56382,
+      "parts": 27
+    },
+    "Polymer": {
+      "low_triangles": 5746,
+      "parts": 2
+    },
+    "Magazine": {
+      "low_triangles": 9864,
+      "parts": 1
+    },
+    "Steel": {
+      "low_triangles": 28206,
+      "parts": 63
+    },
+    "Rail": {
+      "low_triangles": 2796,
+      "parts": 33
+    },
+    "Sights": {
+      "low_triangles": 6800,
+      "parts": 3
+    }
+  },
+  "rebuilt_rails": [
+    {
+      "component": 21,
+      "range": [
+        -0.328487,
+        -0.17052
+      ],
+      "crown": 0.096473,
+      "slots": 15
+    },
+    {
+      "component": 22,
+      "range": [
+        -0.17027,
+        -0.012373
+      ],
+      "crown": 0.096473,
+      "slots": 16
+    }
+  ],
+  "status": "authored, texture baked and exported; no preview or runtime test",
+  "preserved": [
+    "private rest skeleton",
+    "MagazineSeat reloads",
+    "Refined grip families",
+    "folding sight pivots",
+    "rail crown",
+    "magazine bind correction"
+  ]
+}

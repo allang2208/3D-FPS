@@ -1,0 +1,21 @@
+{
+  "origin_generated": [
+    0.5010226368904114,
+    0.0002347417175769806,
+    0.15233199298381805
+  ],
+  "author_length_cm": 23.03,
+  "dimensions_cm": [
+    23.036962509155273,
+    2.8809814453125,
+    11.192220687866211
+  ],
+  "triangles": 50000,
+  "vertices": 24499,
+  "boundary_edges": 107,
+  "nonmanifold_edges": 429,
+  "degenerate_faces": 0,
+  "normal_bake_rejected_pixels": 38265,
+  "normal_bake_pixels": 16777216,
+  "method": "decimate actual generated textured master; retain generated color and packed metallic/roughness; bake 4K normals from textured master"
+}

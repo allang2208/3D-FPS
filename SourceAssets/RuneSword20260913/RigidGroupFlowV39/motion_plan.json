@@ -1,0 +1,16 @@
+{
+  "revision": "RigidGroupFlowV39",
+  "source_revision": "ReferenceReplicaV36",
+  "fps": 120,
+  "duration": 2.9,
+  "reference_start": 0.35,
+  "reference_end": 2.35,
+  "group_yaw_degrees": 65.0,
+  "entry_flow_window": [0.25, 0.35],
+  "exit_flow_window": [2.35, 2.45],
+  "group_members": "All V36 pose bones, including both complete arms, fingers, helper bones and weapon bones",
+  "group_pivot": "V36 right wrist at 0.35 seconds",
+  "group_motion": "One common rigid transform per frame; unchanged V36 internal pose and contact relationships",
+  "flow_method": "Short cubic position and spherical cubic orientation bridges with endpoint velocities from the existing motion",
+  "scope": "Direction and entry/exit flow only; no new IK, hand pose, finger pose, shoulder carry or retiming"
+}

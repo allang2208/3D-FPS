@@ -1,0 +1,67 @@
+SWORD_AUDIT PASS baseline reproduces thin edge-contact gap on 77.6 cm blade
+SWORD_AUDIT PASS thin target between old lanes now hits
+SWORD_AUDIT PASS baseline reproduces first body stopping cleave
+SWORD_AUDIT PASS one sweep reaches both bodies
+SWORD_AUDIT PASS baseline already-hit body still blocks second
+SWORD_AUDIT PASS already-hit body neither repeats nor shields next
+SWORD_AUDIT PASS wall between eye and target blocks damage
+SWORD_AUDIT PASS wall along blade travel blocks otherwise visible target
+SWORD_AUDIT PASS baseline rear sweep damages behind player
+SWORD_AUDIT PASS backswing cannot damage rear hemisphere
+SWORD_AUDIT PASS contact inside 180 cm cap accepted
+SWORD_AUDIT PASS contact outside 180 cm cap rejected
+SWORD_AUDIT PASS visibility-ignore collider not treated as damage body
+SWORD_AUDIT PASS installed sword mesh and compressed attack clips load
+SWORD_AUDIT PASS installed blade endpoints exist
+SWORD_AUDIT PASS Slash1 installed duration 1.775 s
+SWORD_AUDIT PASS Slash1 blade length stable in compressed poses
+SWORD_RANGE Slash1 length_cm=77.600..77.600 old_lane_spacing_cm=7.760 authored_max_radius_cm=127.214 bounds_min=X=-15.886 Y=-91.554 Z=-79.528 bounds_max=X=124.659 Y=79.646 Z=57.844 rear_samples=115
+SWORD_FRONT_BOUNDS Slash1 min=X=0.072 Y=-91.554 Z=-79.528 max=X=124.659 Y=79.646 Z=57.844
+SWORD_AUDIT PASS Slash2 installed duration 1.775 s
+SWORD_AUDIT PASS Slash2 blade length stable in compressed poses
+SWORD_RANGE Slash2 length_cm=77.600..77.600 old_lane_spacing_cm=7.760 authored_max_radius_cm=127.214 bounds_min=X=-15.886 Y=-79.646 Z=-79.528 bounds_max=X=124.659 Y=91.554 Z=57.843 rear_samples=115
+SWORD_FRONT_BOUNDS Slash2 min=X=0.072 Y=-79.646 Z=-79.528 max=X=124.659 Y=91.554 Z=57.843
+SWORD_AUDIT PASS baseline cosmetic camera changes world blade endpoint
+SWORD_AUDIT PASS damage blade is independent of camera shake
+SWORD_AUDIT PASS native Slash1 5 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 15 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 30 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 60 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 144 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 5 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 15 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 30 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 60 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 144 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 5 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 15 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 30 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 60 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash1 144 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 5 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 15 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 30 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 60 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 144 FPS rate 0.5 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 5 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 15 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 30 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 60 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 144 FPS rate 1.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 5 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 15 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 30 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 60 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native Slash2 144 FPS rate 4.0 exactly one hit damage=55.0
+SWORD_AUDIT PASS native fast slash with large camera motion still hits once
+SWORD_AUDIT PASS native overlapping bodies each take damage exactly once
+SWORD_AUDIT PASS player movement interpolated across hitch longer than whole attack
+SWORD_AUDIT PASS installed nurse class loads for physical-body test
+SWORD_AUDIT PASS native Slash1 installed nurse physics body damage=55.0
+SWORD_AUDIT PASS installed nurse class loads for physical-body test
+SWORD_AUDIT PASS native Slash2 installed nurse physics body damage=55.0
+SWORD_AUDIT PASS no damage during windup or held load
+SWORD_AUDIT PASS hitch crossing whole contact window hits once
+SWORD_AUDIT PASS recovery does not add damage
+SWORD_AUDIT PASS cancel before release prevents pending damage
+SWORD_AUDIT_RESULT checks=62 failures=0

@@ -1,0 +1,92 @@
+{
+  "m4:idle": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_idle.A_M4_Vertical_idle",
+    "duration": 3.0,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_idle.fbx"
+  },
+  "m4:reload": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_reload.A_M4_Vertical_reload",
+    "duration": 2.0999999046325684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_reload.fbx"
+  },
+  "m4:aim": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_aim.A_M4_Vertical_aim",
+    "duration": 0.03333333507180214,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_aim.fbx"
+  },
+  "m4:fire": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_fire.A_M4_Vertical_fire",
+    "duration": 0.7666666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_fire.fbx"
+  },
+  "m4:aim_fire": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_aim_fire.A_M4_Vertical_aim_fire",
+    "duration": 0.7666666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_aim_fire.fbx"
+  },
+  "m4:equip": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_equip.A_M4_Vertical_equip",
+    "duration": 0.6333333253860474,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_equip.fbx"
+  },
+  "m4:reload_empty": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_reload_empty.A_M4_Vertical_reload_empty",
+    "duration": 2.700000047683716,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_reload_empty.fbx"
+  },
+  "m4:drum_reload": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_drum_reload.A_M4_Vertical_drum_reload",
+    "duration": 2.0999999046325684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_drum_reload.fbx"
+  },
+  "m4:drum_reload_empty": {
+    "asset": "/Game/Weapons/M4VerticalGripVRENatural/Vertical/A_M4_Vertical_drum_reload_empty.A_M4_Vertical_drum_reload_empty",
+    "duration": 2.4666666984558105,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\m4\\vertical\\A_M4_Vertical_drum_reload_empty.fbx"
+  },
+  "akm:idle": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_idle.A_AKM_vertical_idle",
+    "duration": 0.0416666679084301,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_idle.fbx"
+  },
+  "akm:aim": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_aim.A_AKM_vertical_aim",
+    "duration": 0.0416666679084301,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_aim.fbx"
+  },
+  "akm:fire": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_fire.A_AKM_vertical_fire",
+    "duration": 0.10000000149011612,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_fire.fbx"
+  },
+  "akm:aim_fire": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_aim_fire.A_AKM_vertical_aim_fire",
+    "duration": 0.10000000149011612,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_aim_fire.fbx"
+  },
+  "akm:equip": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_equip.A_AKM_vertical_equip",
+    "duration": 1.7000000476837158,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_equip.fbx"
+  },
+  "akm:reload": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload.A_AKM_vertical_reload",
+    "duration": 3.3333332538604736,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_reload.fbx"
+  },
+  "akm:reload_empty": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_reload_empty.A_AKM_vertical_reload_empty",
+    "duration": 4.291666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_reload_empty.fbx"
+  },
+  "akm:drum_reload": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_drum_reload.A_AKM_vertical_drum_reload",
+    "duration": 3.3333332538604736,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_drum_reload.fbx"
+  },
+  "akm:drum_reload_empty": {
+    "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripVRENatural/vertical/A_AKM_vertical_drum_reload_empty.A_AKM_vertical_drum_reload_empty",
+    "duration": 4.291666507720947,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MannyGraspDonor20260912\\Final\\akm\\vertical\\A_AKM_vertical_drum_reload_empty.fbx"
+  }
+}

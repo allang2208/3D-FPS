@@ -1,0 +1,24 @@
+[
+  {
+    "object": "FIT_M4_M4 Body_Export",
+    "material": "Body.001",
+    "images": [
+      {
+        "name": "Body_BaseColor.png.001",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SkeletonStock20260912\\..\\..\\Content\\M4NoSkel.fbm\\Body_BaseColor.png"
+      },
+      {
+        "name": "Body_Normal.png.001",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SkeletonStock20260912\\..\\..\\Content\\M4NoSkel.fbm\\Body_Normal.png"
+      },
+      {
+        "name": "Body_Roughness.png.001",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SkeletonStock20260912\\..\\..\\Content\\M4NoSkel.fbm\\Body_Roughness.png"
+      },
+      {
+        "name": "Body_Metallic.png.001",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SkeletonStock20260912\\..\\..\\Content\\M4NoSkel.fbm\\Body_Metallic.png"
+      }
+    ]
+  }
+]

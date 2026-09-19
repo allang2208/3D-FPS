@@ -1,0 +1,36 @@
+{
+  "listing": "https://www.fab.com/listings/cd5e9124-55b7-4021-8544-a4dc9a7ca0d7",
+  "author": "VEE ANIMATION",
+  "license": "Fab Standard License",
+  "saved": [
+    "/Game/Items/ProductionTools/FreeFab20260913/Axe/T_FreeAxe_BaseColor.T_FreeAxe_BaseColor",
+    "/Game/Items/ProductionTools/FreeFab20260913/Axe/T_FreeAxe_Normal.T_FreeAxe_Normal",
+    "/Game/Items/ProductionTools/FreeFab20260913/Axe/T_FreeAxe_Roughness.T_FreeAxe_Roughness",
+    "/Game/Items/ProductionTools/FreeFab20260913/Axe/T_FreeAxe_AO.T_FreeAxe_AO",
+    "/Game/Items/ProductionTools/FreeFab20260913/Axe/M_FreeAxe.M_FreeAxe",
+    "/Game/Items/ProductionTools/FreeFab20260913/Axe/SM_Free_Axe.SM_Free_Axe"
+  ],
+  "runtime_tested": false,
+  "mesh": "/Game/Items/ProductionTools/FreeFab20260913/Axe/SM_Free_Axe.SM_Free_Axe",
+  "material": "/Game/Items/ProductionTools/FreeFab20260913/Axe/M_FreeAxe.M_FreeAxe",
+  "textures": {
+    "BaseColor": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Textures\\Axe textures\\Axe_lambert2_BaseColor.png",
+      "sha256": "a4a9f5ce5a71ff263f8e2605d95e79e44367d461d61dc3cfe1542662e152fd91"
+    },
+    "Normal": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Textures\\Axe textures\\Axe_lambert2_Normal.png",
+      "sha256": "631ac9825dfdabb70fd736ad9d9b3f875dd36008a5df626755fc47be1eae3d72"
+    },
+    "Roughness": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Textures\\Axe textures\\Axe_lambert2_Roughness.png",
+      "sha256": "e1036ba2c21c29fda8c9c5822cd4b7d1039b1337731ec3c1116c5c6b9760abcd"
+    },
+    "AO": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\Textures\\Axe textures\\Axe_lambert2_AO.png",
+      "sha256": "21d95dd4ac95bcfa96176d7a683667286acc729d4485e4134bc2828635559fde"
+    }
+  },
+  "height_cm": 78,
+  "metalness": "Authored vertex mask for steel head/wedge and wood handle; ZIP has no metalness map."
+}

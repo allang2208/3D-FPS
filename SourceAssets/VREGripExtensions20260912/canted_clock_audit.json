@@ -1,0 +1,594 @@
+{
+  "m4": [
+    {
+      "wrist_axis_bend_deg": 31.755236508114272,
+      "elbow_bend_deg": 141.99736522176065,
+      "shoulder_delta_m": [
+        0.10376190394163132,
+        0.46133455634117126,
+        0.029128670692443848
+      ],
+      "twist_deg": -146.0861323775389,
+      "clock_deg": -150,
+      "old_hand_angle_deg": 196.0593506911654,
+      "old_hand_distance_m": 0.14299024378976383,
+      "shoulder_shift_m": 0.4737558302197792
+    },
+    {
+      "wrist_axis_bend_deg": 25.120315616283015,
+      "elbow_bend_deg": 134.64748061817997,
+      "shoulder_delta_m": [
+        0.0652092844247818,
+        0.4355350136756897,
+        0.05912327021360397
+      ],
+      "twist_deg": -137.89747553653157,
+      "clock_deg": -135,
+      "old_hand_angle_deg": 210.2006699714082,
+      "old_hand_distance_m": 0.13735099109400398,
+      "shoulder_shift_m": 0.44434059659380665
+    },
+    {
+      "wrist_axis_bend_deg": 19.80468674377474,
+      "elbow_bend_deg": 126.43755225468962,
+      "shoulder_delta_m": [
+        0.03217288851737976,
+        0.39438673853874207,
+        0.08321098983287811
+      ],
+      "twist_deg": -132.9051695073062,
+      "clock_deg": -120,
+      "old_hand_angle_deg": 224.2807361151743,
+      "old_hand_distance_m": 0.1303401510258062,
+      "shoulder_shift_m": 0.40435140928404867
+    },
+    {
+      "wrist_axis_bend_deg": 15.505728114128281,
+      "elbow_bend_deg": 117.67138694557177,
+      "shoulder_delta_m": [
+        0.0072679221630096436,
+        0.3405643701553345,
+        0.09882696717977524
+      ],
+      "twist_deg": -129.8567683005223,
+      "clock_deg": -105,
+      "old_hand_angle_deg": 238.2603301762495,
+      "old_hand_distance_m": 0.12224526504321646,
+      "shoulder_shift_m": 0.35468814747599203
+    },
+    {
+      "wrist_axis_bend_deg": 11.914195228708492,
+      "elbow_bend_deg": 108.46237949142699,
+      "shoulder_delta_m": [
+        -0.007823511958122253,
+        0.2776247560977936,
+        0.1039699912071228
+      ],
+      "twist_deg": -128.17990733308145,
+      "clock_deg": -90,
+      "old_hand_angle_deg": 252.08490626392214,
+      "old_hand_distance_m": 0.11344900227422833,
+      "shoulder_shift_m": 0.2965577006020958
+    },
+    {
+      "wrist_axis_bend_deg": 8.801629358835845,
+      "elbow_bend_deg": 98.76709671932313,
+      "shoulder_delta_m": [
+        -0.012741461396217346,
+        0.20970101654529572,
+        0.09738951921463013
+      ],
+      "twist_deg": -127.7042072400405,
+      "clock_deg": -75,
+      "old_hand_angle_deg": 94.32738496635564,
+      "old_hand_distance_m": 0.10445165753336808,
+      "shoulder_shift_m": 0.23156333569402096
+    },
+    {
+      "wrist_axis_bend_deg": 6.0118368847968435,
+      "elbow_bend_deg": 88.35805917895296,
+      "shoulder_delta_m": [
+        -0.009006336331367493,
+        0.14114528894424438,
+        0.07882378995418549
+      ],
+      "twist_deg": -128.61861060672376,
+      "clock_deg": -60,
+      "old_hand_angle_deg": 81.10783386555192,
+      "old_hand_distance_m": 0.09589537902279403,
+      "shoulder_shift_m": 0.1619144715606241
+    },
+    {
+      "wrist_axis_bend_deg": 3.44014195590987,
+      "elbow_bend_deg": 76.74635509933775,
+      "shoulder_delta_m": [
+        -0.0009776949882507324,
+        0.07624928653240204,
+        0.04954241216182709
+      ],
+      "twist_deg": -131.70693934367398,
+      "clock_deg": -45,
+      "old_hand_angle_deg": 68.4811022035703,
+      "old_hand_distance_m": 0.08857112422913561,
+      "shoulder_shift_m": 0.09093602114114194
+    },
+    {
+      "wrist_axis_bend_deg": 1.0052206046570502,
+      "elbow_bend_deg": 63.22729337323982,
+      "shoulder_delta_m": [
+        0.0026977062225341797,
+        0.01964607648551464,
+        0.01410781592130661
+      ],
+      "twist_deg": -139.34704050774826,
+      "clock_deg": -30,
+      "old_hand_angle_deg": 56.85367161339115,
+      "old_hand_distance_m": 0.08336050539370482,
+      "shoulder_shift_m": 0.02433673000100402
+    },
+    {
+      "wrist_axis_bend_deg": 1.3619999115426034,
+      "elbow_bend_deg": 48.57651369790037,
+      "shoulder_delta_m": [
+        -0.009417042136192322,
+        -0.020614180713891983,
+        -0.01474686712026596
+      ],
+      "twist_deg": -159.45231223496603,
+      "clock_deg": -15,
+      "old_hand_angle_deg": 46.98223484749809,
+      "old_hand_distance_m": 0.08105159033321584,
+      "shoulder_shift_m": 0.027038772541377973
+    },
+    {
+      "wrist_axis_bend_deg": 2.5947267536550793,
+      "elbow_bend_deg": 43.12361168345318,
+      "shoulder_delta_m": [
+        -0.030114009976387024,
+        -0.03006722405552864,
+        -0.0167805477976799
+      ],
+      "twist_deg": 153.46689930516445,
+      "clock_deg": 0,
+      "old_hand_angle_deg": 40.18952634055578,
+      "old_hand_distance_m": 0.08204801209377752,
+      "shoulder_shift_m": 0.04574361519576723
+    },
+    {
+      "wrist_axis_bend_deg": 0.983773383776387,
+      "elbow_bend_deg": 56.077253274584535,
+      "shoulder_delta_m": [
+        -0.018596217036247253,
+        -0.01116800308227539,
+        -0.002178393304347992
+      ],
+      "twist_deg": 115.43179563128504,
+      "clock_deg": 15,
+      "old_hand_angle_deg": 38.1607996476165,
+      "old_hand_distance_m": 0.0861710624308504,
+      "shoulder_shift_m": 0.02180112310348472
+    },
+    {
+      "wrist_axis_bend_deg": 1.2550739404162883,
+      "elbow_bend_deg": 72.71101103580251,
+      "shoulder_delta_m": [
+        0.029149070382118225,
+        0.013818677514791489,
+        -0.0033728256821632385
+      ],
+      "twist_deg": 101.1440986168734,
+      "clock_deg": 30,
+      "old_hand_angle_deg": 41.59996723435258,
+      "old_hand_distance_m": 0.09275134915365262,
+      "shoulder_shift_m": 0.03243455083454491
+    },
+    {
+      "wrist_axis_bend_deg": 3.714729007479311,
+      "elbow_bend_deg": 86.67138494455332,
+      "shoulder_delta_m": [
+        0.08839307725429535,
+        0.041286651045084,
+        -0.022272132337093353
+      ],
+      "twist_deg": 95.62080357084447,
+      "clock_deg": 45,
+      "old_hand_angle_deg": 49.37604881195289,
+      "old_hand_distance_m": 0.10091445944666214,
+      "shoulder_shift_m": 0.10006983475050275
+    },
+    {
+      "wrist_axis_bend_deg": 6.4731448731317425,
+      "elbow_bend_deg": 98.42354503426066,
+      "shoulder_delta_m": [
+        0.1453302949666977,
+        0.07605477422475815,
+        -0.04877934604883194
+      ],
+      "twist_deg": 93.62179004709905,
+      "clock_deg": 60,
+      "old_hand_angle_deg": 59.81789516600123,
+      "old_hand_distance_m": 0.10982005898294993,
+      "shoulder_shift_m": 0.17112757784398316
+    },
+    {
+      "wrist_axis_bend_deg": 9.626186870912708,
+      "elbow_bend_deg": 108.85419329316477,
+      "shoulder_delta_m": [
+        0.1940501630306244,
+        0.12025415897369385,
+        -0.07510598748922348
+      ],
+      "twist_deg": 93.55069229515112,
+      "clock_deg": 75,
+      "old_hand_angle_deg": 71.7669081377775,
+      "old_hand_distance_m": 0.11876488277179148,
+      "shoulder_shift_m": 0.24032777137654687
+    },
+    {
+      "wrist_axis_bend_deg": 13.329052693577353,
+      "elbow_bend_deg": 118.45364851121333,
+      "shoulder_delta_m": [
+        0.23142412304878235,
+        0.17293480038642883,
+        -0.09633470326662064
+      ],
+      "twist_deg": 94.94378490906186,
+      "clock_deg": 90,
+      "old_hand_angle_deg": 84.58148366231282,
+      "old_hand_distance_m": 0.12719409577102375,
+      "shoulder_shift_m": 0.30453890606625234
+    },
+    {
+      "wrist_axis_bend_deg": 17.824309252422687,
+      "elbow_bend_deg": 127.40304047500594,
+      "shoulder_delta_m": [
+        0.2556307315826416,
+        0.23120728135108948,
+        -0.10948372632265091
+      ],
+      "twist_deg": 97.86965230180213,
+      "clock_deg": 105,
+      "old_hand_angle_deg": 97.91605514873955,
+      "old_hand_distance_m": 0.1346805517951113,
+      "shoulder_shift_m": 0.36164977474756105
+    },
+    {
+      "wrist_axis_bend_deg": 23.45247221342511,
+      "elbow_bend_deg": 135.65206484130545,
+      "shoulder_delta_m": [
+        0.265865296125412,
+        0.2911112904548645,
+        -0.11298603564500809
+      ],
+      "twist_deg": 102.87498414577111,
+      "clock_deg": 120,
+      "old_hand_angle_deg": 111.5770823567362,
+      "old_hand_distance_m": 0.14090093213852822,
+      "shoulder_shift_m": 0.41011704416451467
+    },
+    {
+      "wrist_axis_bend_deg": 30.553959912365354,
+      "elbow_bend_deg": 142.91069811757475,
+      "shoulder_delta_m": [
+        0.26230132579803467,
+        0.3482381999492645,
+        -0.10643794387578964
+      ],
+      "twist_deg": 111.24180168838794,
+      "clock_deg": 135,
+      "old_hand_angle_deg": 125.44953807049059,
+      "old_hand_distance_m": 0.14561648259220483,
+      "shoulder_shift_m": 0.4487770770319671
+    },
+    {
+      "wrist_axis_bend_deg": 38.8621029810259,
+      "elbow_bend_deg": 148.5706982978459,
+      "shoulder_delta_m": [
+        0.2460617870092392,
+        0.3982204496860504,
+        -0.09044425934553146
+      ],
+      "twist_deg": 125.49950300873016,
+      "clock_deg": 150,
+      "old_hand_angle_deg": 139.4603870772078,
+      "old_hand_distance_m": 0.14866081128200986,
+      "shoulder_shift_m": 0.47676628867885057
+    }
+  ],
+  "akm": [
+    {
+      "wrist_axis_bend_deg": 31.805127624906632,
+      "elbow_bend_deg": 141.70975961618976,
+      "shoulder_delta_m": [
+        0.10642079263925552,
+        0.4653576612472534,
+        0.006860673427581787
+      ],
+      "twist_deg": -142.8556679356898,
+      "clock_deg": -150,
+      "old_hand_angle_deg": 196.0593506911654,
+      "old_hand_distance_m": 0.14299070826084573,
+      "shoulder_shift_m": 0.4774203706661783
+    },
+    {
+      "wrist_axis_bend_deg": 24.98564819151246,
+      "elbow_bend_deg": 134.07583476578492,
+      "shoulder_delta_m": [
+        0.07039953768253326,
+        0.439096063375473,
+        0.040381237864494324
+      ],
+      "twist_deg": -135.24641611050842,
+      "clock_deg": -135,
+      "old_hand_angle_deg": 210.2006699714082,
+      "old_hand_distance_m": 0.13735142462813912,
+      "shoulder_shift_m": 0.4465334132565796
+    },
+    {
+      "wrist_axis_bend_deg": 19.61865629644569,
+      "elbow_bend_deg": 125.6351006498615,
+      "shoulder_delta_m": [
+        0.03942196071147919,
+        0.3973795771598816,
+        0.06762301921844482
+      ],
+      "twist_deg": -130.62282935000835,
+      "clock_deg": -120,
+      "old_hand_angle_deg": 224.2807361151743,
+      "old_hand_distance_m": 0.13034055741546002,
+      "shoulder_shift_m": 0.4050154186352153
+    },
+    {
+      "wrist_axis_bend_deg": 15.310094420826191,
+      "elbow_bend_deg": 116.66316906180785,
+      "shoulder_delta_m": [
+        0.015876278281211853,
+        0.3428616523742676,
+        0.08582472801208496
+      ],
+      "twist_deg": -127.78449976646579,
+      "clock_deg": -105,
+      "old_hand_angle_deg": 238.2603301762495,
+      "old_hand_distance_m": 0.12224551311957799,
+      "shoulder_shift_m": 0.35379662701774595
+    },
+    {
+      "wrist_axis_bend_deg": 11.719462266603196,
+      "elbow_bend_deg": 107.2464282342463,
+      "shoulder_delta_m": [
+        0.0012628287076950073,
+        0.27906548976898193,
+        0.0928814709186554
+      ],
+      "twist_deg": -126.19899983169772,
+      "clock_deg": -90,
+      "old_hand_angle_deg": 252.08487894316545,
+      "old_hand_distance_m": 0.11344907410447615,
+      "shoulder_shift_m": 0.29411920418681575
+    },
+    {
+      "wrist_axis_bend_deg": 8.607564901495564,
+      "elbow_bend_deg": 97.30818880317592,
+      "shoulder_delta_m": [
+        -0.004188045859336853,
+        0.21006906032562256,
+        0.08757686614990234
+      ],
+      "twist_deg": -125.71474922932298,
+      "clock_deg": -75,
+      "old_hand_angle_deg": 94.32738496635564,
+      "old_hand_distance_m": 0.10445155680696477,
+      "shoulder_shift_m": 0.22763184600023773
+    },
+    {
+      "wrist_axis_bend_deg": 5.813688828106542,
+      "elbow_bend_deg": 86.56614538982177,
+      "shoulder_delta_m": [
+        -0.002080664038658142,
+        0.14013884961605072,
+        0.06989553570747375
+      ],
+      "twist_deg": -126.52495926255892,
+      "clock_deg": -60,
+      "old_hand_angle_deg": 81.10784752593027,
+      "old_hand_distance_m": 0.09589516581686239,
+      "shoulder_shift_m": 0.15661613185853906
+    },
+    {
+      "wrist_axis_bend_deg": 3.227738440648106,
+      "elbow_bend_deg": 74.42501968726054,
+      "shoulder_delta_m": [
+        0.0031628161668777466,
+        0.07346883416175842,
+        0.041715770959854126
+      ],
+      "twist_deg": -129.424826401007,
+      "clock_deg": -45,
+      "old_hand_angle_deg": 68.48112269413781,
+      "old_hand_distance_m": 0.08857076737667581,
+      "shoulder_shift_m": 0.08454512687590633
+    },
+    {
+      "wrist_axis_bend_deg": 0.7457234153157243,
+      "elbow_bend_deg": 59.99127268789284,
+      "shoulder_delta_m": [
+        0.0028937608003616333,
+        0.01481073722243309,
+        0.008861571550369263
+      ],
+      "twist_deg": -136.9665525848238,
+      "clock_deg": -30,
+      "old_hand_angle_deg": 56.85367161339115,
+      "old_hand_distance_m": 0.08336001335939314,
+      "shoulder_shift_m": 0.017500264193057547
+    },
+    {
+      "wrist_axis_bend_deg": 1.7954776537740509,
+      "elbow_bend_deg": 44.149287530735656,
+      "shoulder_delta_m": [
+        -0.013298556208610535,
+        -0.026372037827968597,
+        -0.014159068465232849
+      ],
+      "twist_deg": -158.84121769450255,
+      "clock_deg": -15,
+      "old_hand_angle_deg": 46.98225192297102,
+      "old_hand_distance_m": 0.08105106087120285,
+      "shoulder_shift_m": 0.032753857970557576
+    },
+    {
+      "wrist_axis_bend_deg": 2.918931714450078,
+      "elbow_bend_deg": 39.94826015340884,
+      "shoulder_delta_m": [
+        -0.033206358551979065,
+        -0.032775022089481354,
+        -0.009988173842430115
+      ],
+      "twist_deg": 145.81881786788094,
+      "clock_deg": 0,
+      "old_hand_angle_deg": 40.18952634055578,
+      "old_hand_distance_m": 0.08204751761669178,
+      "shoulder_shift_m": 0.047714023495082206
+    },
+    {
+      "wrist_axis_bend_deg": 0.86161934581297,
+      "elbow_bend_deg": 55.57435669128025,
+      "shoulder_delta_m": [
+        -0.016126230359077454,
+        -0.009977422654628754,
+        0.0011975765228271484
+      ],
+      "twist_deg": 109.02787651119945,
+      "clock_deg": 15,
+      "old_hand_angle_deg": 38.1607996476165,
+      "old_hand_distance_m": 0.08617063754681226,
+      "shoulder_shift_m": 0.019001011770906847
+    },
+    {
+      "wrist_axis_bend_deg": 1.4917408489308763,
+      "elbow_bend_deg": 73.02496751119132,
+      "shoulder_delta_m": [
+        0.033527716994285583,
+        0.01667614094913006,
+        -0.009539783000946045
+      ],
+      "twist_deg": 97.07267671116279,
+      "clock_deg": 30,
+      "old_hand_angle_deg": 41.60002529096053,
+      "old_hand_distance_m": 0.0927510322319124,
+      "shoulder_shift_m": 0.038642062548462884
+    },
+    {
+      "wrist_axis_bend_deg": 4.019366970406105,
+      "elbow_bend_deg": 87.20137347320046,
+      "shoulder_delta_m": [
+        0.09112970530986786,
+        0.044902388006448746,
+        -0.037516698241233826
+      ],
+      "twist_deg": 92.69022856977543,
+      "clock_deg": 45,
+      "old_hand_angle_deg": 49.376096623277085,
+      "old_hand_distance_m": 0.10091429390435555,
+      "shoulder_shift_m": 0.10829750723400394
+    },
+    {
+      "wrist_axis_bend_deg": 6.8471054141527565,
+      "elbow_bend_deg": 99.06841051455825,
+      "shoulder_delta_m": [
+        0.14516180753707886,
+        0.08017316460609436,
+        -0.07132774591445923
+      ],
+      "twist_deg": 91.2850010530015,
+      "clock_deg": 60,
+      "old_hand_angle_deg": 59.81790882637957,
+      "old_hand_distance_m": 0.10982012764220524,
+      "shoulder_shift_m": 0.18051962104530817
+    },
+    {
+      "wrist_axis_bend_deg": 10.088884375856882,
+      "elbow_bend_deg": 109.60274104506314,
+      "shoulder_delta_m": [
+        0.1909022033214569,
+        0.12474643439054489,
+        -0.10327185690402985
+      ],
+      "twist_deg": 91.54660155824436,
+      "clock_deg": 75,
+      "old_hand_angle_deg": 71.76692862834501,
+      "old_hand_distance_m": 0.11876506103325467,
+      "shoulder_shift_m": 0.25034056875821603
+    },
+    {
+      "wrist_axis_bend_deg": 13.92069904740949,
+      "elbow_bend_deg": 119.30668449703457,
+      "shoulder_delta_m": [
+        0.22578607499599457,
+        0.17769944667816162,
+        -0.12857280671596527
+      ],
+      "twist_deg": 93.134088564594,
+      "clock_deg": 90,
+      "old_hand_angle_deg": 84.58148366231282,
+      "old_hand_distance_m": 0.12719433921492573,
+      "shoulder_shift_m": 0.3147815298548605
+    },
+    {
+      "wrist_axis_bend_deg": 18.61802504530236,
+      "elbow_bend_deg": 128.35880250594417,
+      "shoulder_delta_m": [
+        0.2482815384864807,
+        0.23615404963493347,
+        -0.1443270593881607
+      ],
+      "twist_deg": 96.18505670676649,
+      "clock_deg": 105,
+      "old_hand_angle_deg": 97.91606197892871,
+      "old_hand_distance_m": 0.13468094303503275,
+      "shoulder_shift_m": 0.37181011122684676
+    },
+    {
+      "wrist_axis_bend_deg": 24.577278011226568,
+      "elbow_bend_deg": 136.69931042598682,
+      "shoulder_delta_m": [
+        0.25772255659103394,
+        0.2961570620536804,
+        -0.14903150498867035
+      ],
+      "twist_deg": 101.31941084271104,
+      "clock_deg": 120,
+      "old_hand_angle_deg": 111.5770823567362,
+      "old_hand_distance_m": 0.1409014100033412,
+      "shoulder_shift_m": 0.419928927695021
+    },
+    {
+      "wrist_axis_bend_deg": 32.21741833377611,
+      "elbow_bend_deg": 144.01503042333908,
+      "shoulder_delta_m": [
+        0.254313588142395,
+        0.3533048629760742,
+        -0.14237309992313385
+      ],
+      "twist_deg": 109.98114032542622,
+      "clock_deg": 135,
+      "old_hand_angle_deg": 125.44953807049059,
+      "old_hand_distance_m": 0.14561700384263357,
+      "shoulder_shift_m": 0.45800635453502514
+    },
+    {
+      "wrist_axis_bend_deg": 41.258710492851236,
+      "elbow_bend_deg": 149.64519633731564,
+      "shoulder_delta_m": [
+        0.23911958932876587,
+        0.4032323658466339,
+        -0.12509550154209137
+      ],
+      "twist_deg": 125.15234645720012,
+      "clock_deg": 150,
+      "old_hand_angle_deg": 139.46040073758613,
+      "old_hand_distance_m": 0.14866138834741807,
+      "shoulder_shift_m": 0.4852044997586595
+    }
+  ]
+}

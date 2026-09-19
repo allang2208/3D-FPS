@@ -1,0 +1,46 @@
+{
+  "M4": {
+    "mesh": "/Game/Weapons/TacticalSuppressor20260913/M4/SM_TacticalSuppressor.SM_TacticalSuppressor",
+    "materials": {
+      "Shell": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Shell.M_TacticalSuppressor_Shell",
+      "Recess": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+      "Mount": "/Game/Weapons/TacticalSuppressor20260913/M4/M_TacticalSuppressor_Mount.M_TacticalSuppressor_Mount"
+    },
+    "source_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\M4\\SM_TacticalSuppressor.fbx",
+    "normal_uv": 0,
+    "coating_uv": 1
+  },
+  "AKM": {
+    "mesh": "/Game/Weapons/TacticalSuppressor20260913/AKM/SM_TacticalSuppressor.SM_TacticalSuppressor",
+    "materials": {
+      "Shell": "/Game/Weapons/TacticalSuppressor20260913/AKM/M_TacticalSuppressor_Shell.M_TacticalSuppressor_Shell",
+      "Recess": "/Game/Weapons/TacticalSuppressor20260913/AKM/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+      "Mount": "/Game/Weapons/TacticalSuppressor20260913/AKM/M_TacticalSuppressor_Mount.M_TacticalSuppressor_Mount"
+    },
+    "source_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\AKM\\SM_TacticalSuppressor.fbx",
+    "normal_uv": 0,
+    "coating_uv": 1
+  },
+  "QBZ191": {
+    "mesh": "/Game/Weapons/TacticalSuppressor20260913/QBZ191/SM_TacticalSuppressor.SM_TacticalSuppressor",
+    "materials": {
+      "Shell": "/Game/Weapons/TacticalSuppressor20260913/QBZ191/M_TacticalSuppressor_Shell.M_TacticalSuppressor_Shell",
+      "Recess": "/Game/Weapons/TacticalSuppressor20260913/QBZ191/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+      "Mount": "/Game/Weapons/TacticalSuppressor20260913/QBZ191/M_TacticalSuppressor_Mount.M_TacticalSuppressor_Mount"
+    },
+    "source_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\QBZ191\\SM_TacticalSuppressor.fbx",
+    "normal_uv": 0,
+    "coating_uv": 1
+  },
+  "M1911": {
+    "mesh": "/Game/Weapons/TacticalSuppressor20260913/M1911/SM_TacticalSuppressor.SM_TacticalSuppressor",
+    "materials": {
+      "Shell": "/Game/Weapons/TacticalSuppressor20260913/M1911/M_TacticalSuppressor_Shell.M_TacticalSuppressor_Shell",
+      "Recess": "/Game/Weapons/TacticalSuppressor20260913/M1911/M_TacticalSuppressor_Recess.M_TacticalSuppressor_Recess",
+      "Mount": "/Game/Weapons/TacticalSuppressor20260913/M1911/M_TacticalSuppressor_Mount.M_TacticalSuppressor_Mount"
+    },
+    "source_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\M1911\\SM_TacticalSuppressor.fbx",
+    "normal_uv": 0,
+    "coating_uv": 1
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-14",
+  "source_candidate": "seed_91379",
+  "local_repairs_authored": true,
+  "game_low_mesh_and_4k_bakes_authored": true,
+  "per_rifle_interfaces_exported": ["M4", "AKM", "QBZ191"],
+  "asset_import_script_completed": true,
+  "asset_import_receipt": "import_results.json",
+  "import_process_exit_code": 1,
+  "import_process_error": "Existing project GameFeatureData asset manager rule missing; Python script completed and all three meshes were saved.",
+  "native_build_result": "Succeeded",
+  "native_build_receipt": "build_editor.log",
+  "native_source_routing_updated": true,
+  "attachment_id": "skeleton",
+  "stats_changed": false,
+  "previous_assets_retained": true,
+  "temporary_import_content_junction_retained": true,
+  "junction_cleanup_blocked_by_automatic_approval": true,
+  "new_review_renders": false,
+  "runtime_tested": false,
+  "geometry_acceptance_tested": false
+}

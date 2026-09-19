@@ -1,0 +1,6 @@
+Reference: reference.png supplied by user. Built-in image_gen produced three_views.png.
+Three orthographic projections of one solid ergonomic rear grip: broad left profile, narrow finger-groove face, broad opposite profile, aligned top and bottom, matte graphite polymer and pebbled black rubber, white background, no UI or yellow outline. Unseen views are inferred.
+Crop mapping: 0..600 -> front_image; 600..930 -> left_image; 930..1536 -> back_image. All y0..1024. Trellis front_axis z; author_model rotates -90 degrees around Z into the existing weapon-root convention.
+Icon: icon.png generated from three_views.png using matching silhouette, graphite finish, upper-left soft light, dark background.
+Generated-image originals retained in C:/Users/allan/.codex/generated_images/01a099a4-757c-7771-a13d-1c03a19a6d5f.
+Reference rights remain with the supplied source; generation is not a redistribution license determination.

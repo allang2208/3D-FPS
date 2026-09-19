@@ -1,0 +1,50 @@
+{
+  "source": "D:\\FPS3D\\VaultCache\\FabLibrary\\Basic_Pickaxe-46ea08b2\\fbx\\basicpickaxe_fbx_extracted",
+  "sources_sha256": {
+    "SM_BasicPickaxe.fbx": "c37a54a841b61f77f63f715ef87c0ad3c82a28ff31f72246b333af44715b4d84",
+    "T_BasicPickaxe_BaseColor.tga": "d9e089f9ef8d0a36844602885dc4c2e3f84ab81dfad6320de7d5178b05cf9f7f",
+    "T_BasicPickaxe_Normal.tga": "4a9e59970c128c49bdb6fa1f663956e6c89b39f76df85d29d2bf08a51f66d892",
+    "T_BasicPickaxe_Metallic.tga": "c325162c8953b4388da3ae5faddfed378a02a30c67bee30c9e169f129b6df559",
+    "T_BasicPickaxe_Roughness.tga": "ea7df5f942260a2fecdacbfe51f20a28781e867ae7f48edcdd107f6ee4e97972",
+    "T_BasicPickaxe_Occlusion.tga": "3a15981a97fd01a3f68cd2dd79c5bf651eb63ad279df87496a61823c0bb8fc85"
+  },
+  "height_m": 0.7,
+  "source_scale": 1.4318604259168777,
+  "pivot": "centered Z up",
+  "source_min_m": [
+    -0.21627767384052277,
+    -0.018380265682935715,
+    -0.244455486536026
+  ],
+  "source_max_m": [
+    0.21648892760276794,
+    0.0183803029358387,
+    0.24441897869110107
+  ],
+  "size_m": [
+    0.6196613907814026,
+    0.052636004984378815,
+    0.699999988079071
+  ],
+  "lods": [
+    {
+      "index": 0,
+      "vertices": 259,
+      "triangles": 510,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\UE\\Pickaxe_LOD0.fbx"
+    },
+    {
+      "index": 1,
+      "vertices": 191,
+      "triangles": 374,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\UE\\Pickaxe_LOD1.fbx"
+    },
+    {
+      "index": 2,
+      "vertices": 99,
+      "triangles": 190,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FreeProductionTools20260913\\UE\\Pickaxe_LOD2.fbx"
+    }
+  ],
+  "runtime_tested": false
+}

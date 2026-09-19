@@ -1,0 +1,18 @@
+{
+  "source_master": "SkeletonStock_Repaired_Master.blend",
+  "restored_original_triangles": 356996,
+  "triangles": 49492,
+  "target_triangles": 49500,
+  "textures": [
+    "BaseColor",
+    "MetalRough",
+    "Normal"
+  ],
+  "size": 4096,
+  "uv_source": 0,
+  "uv_bakes": 1,
+  "bake_ray_distance_generator_units": 0.012,
+  "bake_cage_generator_units": 0.003,
+  "tested": false,
+  "rendered_preview": false
+}

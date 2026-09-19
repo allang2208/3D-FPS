@@ -1,0 +1,53 @@
+{
+  "M4": {
+    "path": "/Game/Weapons/M4AngledForegripCompact75/SM_M4_AngledForegrip",
+    "slots": [
+      {
+        "slot": "Body_002",
+        "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+      },
+      {
+        "slot": "Grip_Default_002",
+        "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+      },
+      {
+        "slot": "Recess_shadow",
+        "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+      }
+    ]
+  },
+  "AKM": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_angled",
+    "slots": [
+      {
+        "slot": "AKM_Resonance_Steel",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+      },
+      {
+        "slot": "AKM_AdapterSteel",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+      },
+      {
+        "slot": "Grip_Default_002",
+        "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+      }
+    ]
+  },
+  "QBZ191": {
+    "path": "/Game/Weapons/QBZ191/Attachments20260913/SM_QBZ191_angled",
+    "slots": [
+      {
+        "slot": "Body_002",
+        "material": "/Game/Weapons/QBZ191/MetalCoat20260913/Materials/M_QBZ191_Receiver_angled_0.M_QBZ191_Receiver_angled_0"
+      },
+      {
+        "slot": "Grip_Default_002",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Grip_Default_001_polymer.M_QBZ191_Unified_Grip_Default_001_polymer"
+      },
+      {
+        "slot": "Recess_shadow",
+        "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+      }
+    ]
+  }
+}

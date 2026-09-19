@@ -1,0 +1,14 @@
+{
+  "label": "complete",
+  "passes": 42,
+  "failures": 0,
+  "complete": true,
+  "frames": 168,
+  "runtime_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ19120260912\\runtime-complete.log",
+  "mesh": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny",
+  "video": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ19120260912\\QBZ191-gameplay.mp4",
+  "cross_process_readback_pass": true,
+  "cross_process_readback_log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ19120260912\\runtime-accepted-readback.log",
+  "inventory_icon_visual": "Reviewed actual textured mesh, transparent background, no grey fallback",
+  "loaded_native_module": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME-91263.dll"
+}

@@ -1,0 +1,16 @@
+{
+  "stock": "/Game/Weapons/SkeletonStock/SM_SkeletonStock.SM_SkeletonStock",
+  "triangles": 15494,
+  "material_slots": 1,
+  "bounds_min_cm": "<Struct 'Vector' (0x000002ED6C7ECB80) {x: -0.000000, y: -2.400002, z: -10.764719}>",
+  "bounds_max_cm": "<Struct 'Vector' (0x000002ED6C7EAFD8) {x: 23.030001, y: 2.399998, z: 1.800000}>",
+  "akm": "/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative",
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "materials": {
+    "M_AKM_Soviet_Magazine": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "M_AKM_Soviet_PBR": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "M_AKM_FactoryStock": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+  }
+}

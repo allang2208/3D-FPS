@@ -1,0 +1,35 @@
+{
+  "revision": "FistBraceGuardV21",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\FistBraceGuardV20\\AzureRunesword_Manny_Editable.blend",
+  "fps": 480,
+  "clips": [
+    {
+      "clip": "A_RuneSword_Guard",
+      "frames": [
+        0,
+        96
+      ],
+      "seconds": 0.2
+    },
+    {
+      "clip": "A_RuneSword_GuardHit",
+      "frames": [
+        0,
+        106
+      ],
+      "seconds": 0.22083333333333333
+    },
+    {
+      "clip": "A_RuneSword_GuardBreak",
+      "frames": [
+        0,
+        192
+      ],
+      "seconds": 0.4
+    }
+  ],
+  "changed": "Left clavicle/upper-arm frame and its two complete-segment helpers",
+  "preserved": "V20 upper-arm/elbow/wrist centers, forearm, fist, sword, right arm, timing and contacts",
+  "method": "Shortest-swing upper-arm frame transported from the forearm deformation; smooth entry/regrip",
+  "acceptance": "User-requested source mesh and imported compressed animation inspection complete; final user approval pending; no gameplay regression"
+}

@@ -1,0 +1,27 @@
+{
+  "91871": {
+    "bounds": [
+      0.02926541119813919,
+      0.15436279773712158,
+      0.12232647836208344
+    ],
+    "meshes": [
+      {
+        "vertices": 511612,
+        "triangles": 491757,
+        "boundary_edges": 429721,
+        "nonmanifold_edges": 429721,
+        "uv_channels": 2,
+        "textures": [
+          {
+            "image": "T_M4_Receiver_BaseColor",
+            "size": [
+              491,
+              205
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

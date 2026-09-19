@@ -1,0 +1,10 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMResonanceGrip20260913\\Before\\SM_AKM_angled.blend",
+  "asset": "/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/SM_AKM_angled",
+  "method": "Retain lower contact geometry; replace one-sided block adapter with continuous tapered front/rear upper frame",
+  "existing_grasp_geometry_scaled": false,
+  "animations_changed": false,
+  "metal": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel",
+  "rendered": false,
+  "runtime_tested": false
+}

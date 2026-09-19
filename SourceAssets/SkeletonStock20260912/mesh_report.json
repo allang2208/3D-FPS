@@ -1,0 +1,24 @@
+{
+  "source": "skeleton_raw.glb",
+  "method": "hard-surface rebuild from reviewed three-view and Hunyuan silhouette; generated reduced reference kept in ReducedGenerated",
+  "raw_triangles": 500000,
+  "raw_vertices": 7812,
+  "welded_vertices": 7812,
+  "triangles": 15496,
+  "boundary_edges": 0,
+  "nonmanifold_edges": 0,
+  "degenerate_faces": 0,
+  "dimensions_cm": [
+    23.06999969482422,
+    4.800000190734863,
+    12.600000381469727
+  ],
+  "generated_bounds": [
+    1.002392053604126,
+    0.25558900833129883,
+    0.7558010220527649
+  ],
+  "original_images": [],
+  "uv_layers": 1,
+  "material_slots": 1
+}

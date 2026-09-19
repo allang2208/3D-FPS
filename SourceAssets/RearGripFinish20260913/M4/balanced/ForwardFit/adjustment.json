@@ -1,0 +1,16 @@
+{
+  "family": "M4",
+  "part": "balanced_reargrip",
+  "body_translation_m": [
+    0,
+    -0.005,
+    0
+  ],
+  "receiver_collar_translation_m": [
+    0,
+    0,
+    0
+  ],
+  "source": "../Editable.blend",
+  "game_tested": false
+}

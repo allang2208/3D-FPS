@@ -1,0 +1,397 @@
+{
+  "skeleton": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_skeleton.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_skeleton_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_skeleton_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "QBZ_SRC_skeleton_0",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Body_001_metal.M_QBZ191_Unified_Body_001_metal"
+      },
+      {
+        "slot": "QBZ_SRC_skeleton_1",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_StockPolymer_polymer.M_QBZ191_Unified_M_StockPolymer_polymer"
+      },
+      {
+        "slot": "QBZ_SRC_skeleton_2",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_StockRubber_rubber.M_QBZ191_Unified_M_StockRubber_rubber"
+      },
+      {
+        "slot": "QBZ_AdapterMetal",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_AdapterMetal.M_QBZ191_AdapterMetal"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Body_001_metal",
+      "M_QBZ191_Unified_M_StockPolymer_polymer",
+      "M_QBZ191_Unified_M_StockRubber_rubber",
+      "M_QBZ191_AdapterMetal"
+    ]
+  },
+  "qr_performance": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_qr_performance.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_qr_performance_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_qr_performance_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "QBZ_SRC_qr_performance_0",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Body_001_metal.M_QBZ191_Unified_Body_001_metal"
+      },
+      {
+        "slot": "QBZ_SRC_qr_performance_1",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QR_RefinedPolymer_polymer.M_QBZ191_Unified_M_QR_RefinedPolymer_polymer"
+      },
+      {
+        "slot": "QBZ_SRC_qr_performance_2",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QR_RefinedRubber_rubber.M_QBZ191_Unified_M_QR_RefinedRubber_rubber"
+      },
+      {
+        "slot": "QBZ_AdapterMetal",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_AdapterMetal.M_QBZ191_AdapterMetal"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Body_001_metal.001",
+      "M_QBZ191_Unified_M_QR_RefinedPolymer_polymer",
+      "M_QBZ191_Unified_M_QR_RefinedRubber_rubber",
+      "M_QBZ191_AdapterMetal.001"
+    ]
+  },
+  "drum": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_drum.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_drum_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_drum_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "QBZ_SRC_drum_0",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_M4DrumPolymer_polymer.M_QBZ191_Unified_M_M4DrumPolymer_polymer"
+      },
+      {
+        "slot": "QBZ_SRC_drum_1",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_M4DrumFasteners_metal.M_QBZ191_Unified_M_M4DrumFasteners_metal"
+      },
+      {
+        "slot": "QBZ_SRC_drum_2",
+        "material": "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_M_M4DrumPolymer_polymer",
+      "M_QBZ191_Unified_M_M4DrumFasteners_metal",
+      "M_M4DrumIndex"
+    ]
+  },
+  "suppressor": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_suppressor.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_suppressor_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_suppressor_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "QBZ_SRC_suppressor_0",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Flash_Hider_001_metal.M_QBZ191_Unified_Flash_Hider_001_metal"
+      },
+      {
+        "slot": "QBZ_SRC_suppressor_1",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Flash_Hider_001_metal",
+      "MI_MuzzleRecess"
+    ]
+  },
+  "brake": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_brake.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_brake_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_brake_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "QBZ_SRC_brake_0",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Flash_Hider_001_metal.M_QBZ191_Unified_Flash_Hider_001_metal"
+      },
+      {
+        "slot": "QBZ_SRC_brake_1",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Flash_Hider_001_metal.001",
+      "MI_MuzzleRecess.001"
+    ]
+  },
+  "titanium_brake": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_titanium_brake.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_titanium_brake_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_titanium_brake_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "QBZ_SRC_titanium_brake_0",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Flash_Hider_001_metal.M_QBZ191_Unified_Flash_Hider_001_metal"
+      },
+      {
+        "slot": "QBZ_SRC_titanium_brake_1",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+      },
+      {
+        "slot": "QBZ_SRC_titanium_brake_2",
+        "material": "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Flash_Hider_001_metal.002",
+      "MI_MuzzleRecess.002",
+      "MI_TitaniumTrim"
+    ]
+  },
+  "holographic": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_holographic.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_holographic_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_holographic_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Holosight",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_HoloBody_metal.M_QBZ191_Unified_M_HoloBody_metal"
+      },
+      {
+        "slot": "Red_Dot",
+        "material": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_M_HoloBody_metal",
+      "M_HoloReticle"
+    ]
+  },
+  "panoramic_red_dot": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_panoramic_red_dot.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_panoramic_red_dot_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_panoramic_red_dot_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Panoramic_Glass",
+        "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Glass.M_Panoramic_Glass"
+      },
+      {
+        "slot": "Panoramic_Reticle",
+        "material": "/Game/Weapons/PanoramicRedDot/M_Panoramic_Reticle.M_Panoramic_Reticle"
+      },
+      {
+        "slot": "Panoramic_Body",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_Panoramic_Body_metal.M_QBZ191_Unified_M_Panoramic_Body_metal"
+      }
+    ],
+    "export_slots": [
+      "M_Panoramic_Glass",
+      "M_Panoramic_Reticle",
+      "M_QBZ191_Unified_M_Panoramic_Body_metal"
+    ]
+  },
+  "prism_scope_2x": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_prism_scope_2x.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_prism_scope_2x_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_prism_scope_2x_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Scope2X_Reticle",
+        "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Reticle.M_Scope2X_Reticle"
+      },
+      {
+        "slot": "Scope2X_Glass",
+        "material": "/Game/Weapons/PrismScope2XMachined/M_Scope2X_Glass.M_Scope2X_Glass"
+      },
+      {
+        "slot": "Scope2X_Body",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_Scope2X_Body_metal.M_QBZ191_Unified_M_Scope2X_Body_metal"
+      }
+    ],
+    "export_slots": [
+      "M_Scope2X_Reticle",
+      "M_Scope2X_Glass",
+      "M_QBZ191_Unified_M_Scope2X_Body_metal"
+    ]
+  },
+  "lpvo_1_6x": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_lpvo_1_6x.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_lpvo_1_6x_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_lpvo_1_6x_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "LPVO_Reticle",
+        "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Reticle.M_LPVO_Reticle"
+      },
+      {
+        "slot": "LPVO_Glass",
+        "material": "/Game/Weapons/LPVO1to6X/M_LPVO_Glass.M_LPVO_Glass"
+      },
+      {
+        "slot": "LPVO_Body",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_LPVO_Body_metal.M_QBZ191_Unified_M_LPVO_Body_metal"
+      }
+    ],
+    "export_slots": [
+      "M_LPVO_Reticle",
+      "M_LPVO_Glass",
+      "M_QBZ191_Unified_M_LPVO_Body_metal"
+    ]
+  },
+  "lpvo_ring": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_lpvo_ring.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_lpvo_ring_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_lpvo_ring_ORM.png"
+    },
+    "size": 1024,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "LPVO_Body",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_LPVO_Body_metal.M_QBZ191_Unified_M_LPVO_Body_metal"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_M_LPVO_Body_metal.001"
+    ]
+  },
+  "vertical": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_vertical.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_vertical_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_vertical_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Body_004",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Body_001_polymer.M_QBZ191_Unified_Body_001_polymer"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Body_001_polymer"
+    ]
+  },
+  "canted": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_canted.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_canted_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_canted_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Body_004",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Body_001_polymer.M_QBZ191_Unified_Body_001_polymer"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Body_001_polymer.001"
+    ]
+  },
+  "prism": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_prism.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_prism_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_prism_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Prism_Polymer",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_Prism_Polymer_polymer.M_QBZ191_Unified_M_Prism_Polymer_polymer"
+      },
+      {
+        "slot": "Prism_Saddle",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_Prism_Saddle_metal.M_QBZ191_Unified_M_Prism_Saddle_metal"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_M_Prism_Polymer_polymer",
+      "M_QBZ191_Unified_M_Prism_Saddle_metal"
+    ]
+  },
+  "angled": {
+    "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\SM_QBZ191_angled.fbx",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_angled_BaseColor.png",
+      "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191MetalCoat20260913\\Textures\\T_QBZ191_Coating_angled_ORM.png"
+    },
+    "size": 2048,
+    "coating_uv": 1,
+    "original_uv": 0,
+    "slots": [
+      {
+        "slot": "Body_002",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Body_001_polymer.M_QBZ191_Unified_Body_001_polymer"
+      },
+      {
+        "slot": "Grip_Default_002",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_Grip_Default_001_polymer.M_QBZ191_Unified_Grip_Default_001_polymer"
+      },
+      {
+        "slot": "Recess_shadow",
+        "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+      }
+    ],
+    "export_slots": [
+      "M_QBZ191_Unified_Body_001_polymer.002",
+      "M_QBZ191_Unified_Grip_Default_001_polymer",
+      "Grip_Default_001"
+    ]
+  }
+}

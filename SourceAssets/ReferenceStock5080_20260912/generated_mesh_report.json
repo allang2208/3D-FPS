@@ -1,0 +1,43 @@
+{
+  "source": "reference_stock_high_textured_master_00001_.glb",
+  "sha256": "76510cc4c0db891475f76346ed51c7ccd071824ebb047349ba7ca88d8e65de7f",
+  "postprocess": "preview transforms only; generated geometry and materials retained",
+  "meshes": [
+    {
+      "name": "geometry_0",
+      "vertices": 133031,
+      "triangles": 186763,
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "original_bounds": [
+    1.0018668174743652,
+    0.12531349062919617,
+    0.4868567883968353
+  ],
+  "textures": [
+    {
+      "name": "Image_0",
+      "size": [
+        4096,
+        4096
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        4096,
+        4096
+      ]
+    }
+  ],
+  "raw_geometry": {
+    "source": "reference_stock_high_raw_geometry_00001_.glb",
+    "bytes": 58158148,
+    "triangles": 3253936,
+    "sha256": "d56f529a2800015b53bf748395d75290ba4528f522263f54b8de2ccd7be15e9f"
+  }
+}

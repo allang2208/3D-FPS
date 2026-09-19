@@ -1,0 +1,29 @@
+[
+  {
+    "clip": "Guard",
+    "samples_at_960_hz": 193,
+    "frame_count_unchanged": true,
+    "max_retained_bone_position_delta_mm": 0.1413638536116737,
+    "max_retained_rotation_delta_deg": 0.005363409623309597,
+    "max_arm_segment_length_delta_mm": 0.0022863406327622293,
+    "max_upper_rotation_step_deg_at_960_hz": 4.944751465807356
+  },
+  {
+    "clip": "GuardHit",
+    "samples_at_960_hz": 213,
+    "frame_count_unchanged": true,
+    "max_retained_bone_position_delta_mm": 0.004411674937650526,
+    "max_retained_rotation_delta_deg": 0.0013574260752539523,
+    "max_arm_segment_length_delta_mm": 0.00014353770966257784,
+    "max_upper_rotation_step_deg_at_960_hz": 0.4165969813699356
+  },
+  {
+    "clip": "GuardBreak",
+    "samples_at_960_hz": 385,
+    "frame_count_unchanged": true,
+    "max_retained_bone_position_delta_mm": 0.05427908901661692,
+    "max_retained_rotation_delta_deg": 0.006828768877393666,
+    "max_arm_segment_length_delta_mm": 0.001226933184661494,
+    "max_upper_rotation_step_deg_at_960_hz": 4.944411090125252
+  }
+]

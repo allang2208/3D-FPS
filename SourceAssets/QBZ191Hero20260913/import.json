@@ -1,0 +1,17 @@
+{
+  "materials": {
+    "M_QBZ191_Hero_Body": "/Game/Weapons/QBZ191/Hero20260913/Materials/M_QBZ191_Hero_Body.M_QBZ191_Hero_Body",
+    "M_QBZ191_Hero_Polymer": "/Game/Weapons/QBZ191/Hero20260913/Materials/M_QBZ191_Hero_Polymer.M_QBZ191_Hero_Polymer",
+    "M_QBZ191_Hero_Magazine": "/Game/Weapons/QBZ191/Hero20260913/Materials/M_QBZ191_Hero_Magazine.M_QBZ191_Hero_Magazine",
+    "M_QBZ191_Hero_Steel": "/Game/Weapons/QBZ191/Hero20260913/Materials/M_QBZ191_Hero_Steel.M_QBZ191_Hero_Steel",
+    "M_QBZ191_Hero_Rail": "/Game/Weapons/QBZ191/Hero20260913/Materials/M_QBZ191_Hero_Rail.M_QBZ191_Hero_Rail",
+    "M_QBZ191_Hero_Sights": "/Game/Weapons/QBZ191/Hero20260913/Materials/M_QBZ191_Hero_Sights.M_QBZ191_Hero_Sights"
+  },
+  "meshes": {
+    "SK_QBZ191_Manny": "/Game/Weapons/QBZ191/Hero20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+    "SM_QBZ191_RearSight": "/Game/Weapons/QBZ191/Hero20260913/SM_QBZ191_RearSight.SM_QBZ191_RearSight",
+    "SM_QBZ191_FrontSight": "/Game/Weapons/QBZ191/Hero20260913/SM_QBZ191_FrontSight.SM_QBZ191_FrontSight"
+  },
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "status": "imported; no rendered or gameplay test"
+}

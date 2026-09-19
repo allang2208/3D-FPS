@@ -1,0 +1,147 @@
+{
+  "1": {
+    "class_type": "Trellis2LoadModel",
+    "inputs": {
+      "modelname": "TencentARC/Pixal3D-T",
+      "backend": "sdpa",
+      "device": "cuda",
+      "low_vram": true,
+      "keep_models_loaded": false,
+      "conv_backend": "flex_gemm",
+      "sparse_backend": "xformers",
+      "use_reconviagen": false
+    }
+  },
+  "10": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "phantom_rear_grip_20260913.jpg"
+    }
+  },
+  "20": {
+    "class_type": "Trellis2PreProcessImage",
+    "inputs": {
+      "padding": 24,
+      "remove_background": true,
+      "max_size": 2048,
+      "image": [
+        "11",
+        0
+      ]
+    }
+  },
+  "4": {
+    "class_type": "Trellis2MeshWithVoxelAdvancedGenerator",
+    "inputs": {
+      "seed": 91451,
+      "pipeline_type": "1024_cascade",
+      "sparse_structure_steps": 16,
+      "sparse_structure_guidance_strength": 7.5,
+      "sparse_structure_guidance_rescale": 0.7,
+      "sparse_structure_rescale_t": 5.0,
+      "shape_steps": 40,
+      "shape_guidance_strength": 9.0,
+      "shape_guidance_rescale": 0.5,
+      "shape_rescale_t": 3.0,
+      "texture_steps": 24,
+      "texture_guidance_strength": 1.0,
+      "texture_guidance_rescale": 0.0,
+      "texture_rescale_t": 3.0,
+      "max_num_tokens": 999999,
+      "max_views": 4,
+      "sparse_structure_resolution": 32,
+      "generate_texture_slat": true,
+      "sparse_structure_guidance_interval_start": 0.6,
+      "sparse_structure_guidance_interval_end": 1.0,
+      "shape_guidance_interval_start": 0.6,
+      "shape_guidance_interval_end": 1.0,
+      "texture_guidance_interval_start": 0.6,
+      "texture_guidance_interval_end": 0.9,
+      "use_tiled_decoder": true,
+      "sampler": "euler",
+      "fill_holes": false,
+      "hole_iterations": 1,
+      "verbose": false,
+      "dino_lock": 0.0,
+      "dino_substeps": 4,
+      "hole_fill_algorithm": "flood_fill",
+      "dino_foundation_cap": 1.0,
+      "keep_only_shell": false,
+      "pipeline": [
+        "1",
+        0
+      ],
+      "image": [
+        "20",
+        0
+      ]
+    }
+  },
+  "50": {
+    "class_type": "Trellis2MeshWithVoxelToTrimesh",
+    "inputs": {
+      "mesh": [
+        "4",
+        0
+      ],
+      "reorient_vertices": "90 degrees"
+    }
+  },
+  "51": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "50",
+        0
+      ],
+      "filename_prefix": "PhantomRearGripDraws/seed_91451/raw",
+      "file_format": "glb"
+    }
+  },
+  "52": {
+    "class_type": "Trellis2OvoxelExportToGLB",
+    "inputs": {
+      "mesh": [
+        "4",
+        0
+      ],
+      "resolution": 1024,
+      "texture_size": 4096,
+      "target_face_num": 500000
+    }
+  },
+  "53": {
+    "class_type": "Trellis2ExportMesh",
+    "inputs": {
+      "trimesh": [
+        "52",
+        0
+      ],
+      "filename_prefix": "PhantomRearGripDraws/seed_91451/textured_master",
+      "file_format": "glb"
+    }
+  },
+  "11": {
+    "class_type": "ImageCrop",
+    "inputs": {
+      "image": [
+        "10",
+        0
+      ],
+      "x": 450,
+      "y": 55,
+      "width": 260,
+      "height": 400
+    }
+  },
+  "21": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "20",
+        0
+      ],
+      "filename_prefix": "PhantomRearGripDraws/seed_91451/input"
+    }
+  }
+}

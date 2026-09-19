@@ -1,0 +1,178 @@
+{
+  "M4": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\M4\\SM_TacticalSuppressor.fbx",
+    "object": "SM_TacticalSuppressor_M4",
+    "triangles": 65343,
+    "length_m": 0.186,
+    "mount_surface_source_x": -0.50096595287323,
+    "normal_uv": 0,
+    "coating_uv": 1,
+    "coating_tile_m": [
+      0.12,
+      0.05
+    ],
+    "author_frame": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "materials": [
+      "TacticalShell",
+      "TacticalRecess",
+      "TacticalMount"
+    ]
+  },
+  "AKM": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\AKM\\SM_TacticalSuppressor.fbx",
+    "object": "SM_TacticalSuppressor_AKM",
+    "triangles": 65343,
+    "length_m": 0.186,
+    "mount_surface_source_x": -0.50096595287323,
+    "normal_uv": 0,
+    "coating_uv": 1,
+    "coating_tile_m": [
+      0.12,
+      0.025
+    ],
+    "author_frame": [
+      [
+        -1.0,
+        -8.742277657347586e-08,
+        0.0,
+        0.0007999999797903001
+      ],
+      [
+        8.742277657347586e-08,
+        -1.0,
+        0.0,
+        -0.5770000219345093
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0508882999420166
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "materials": [
+      "TacticalShell",
+      "TacticalRecess",
+      "TacticalMount"
+    ]
+  },
+  "QBZ191": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\QBZ191\\SM_TacticalSuppressor.fbx",
+    "object": "SM_TacticalSuppressor_QBZ191",
+    "triangles": 65343,
+    "length_m": 0.186,
+    "mount_surface_source_x": -0.50096595287323,
+    "normal_uv": 0,
+    "coating_uv": 1,
+    "coating_tile_m": [
+      0.1,
+      0.1
+    ],
+    "author_frame": [
+      [
+        -1.0,
+        -8.742277657347586e-08,
+        0.0,
+        0.0007590000168420374
+      ],
+      [
+        8.742277657347586e-08,
+        -1.0,
+        0.0,
+        -0.5008350014686584
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.06077500060200691
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "materials": [
+      "TacticalShell",
+      "TacticalRecess",
+      "TacticalMount"
+    ]
+  },
+  "M1911": {
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSuppressor5080_20260913\\GameIntegration\\M1911\\SM_TacticalSuppressor.fbx",
+    "object": "SM_TacticalSuppressor_M1911",
+    "triangles": 65343,
+    "length_m": 0.1302,
+    "mount_surface_source_x": -0.50096595287323,
+    "normal_uv": 0,
+    "coating_uv": 1,
+    "coating_tile_m": [
+      0.1,
+      0.1
+    ],
+    "author_frame": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "materials": [
+      "TacticalShell",
+      "TacticalRecess",
+      "TacticalMount"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "M4": {
+    "housing_material": [
+      "StockPolymer_Refined"
+    ],
+    "planar_side_max_corner_normal_degrees": 52.4580009201919,
+    "planar_faces_above_5_degrees": 6,
+    "housing_gun_surface_crossings": [
+      {
+        "gun_object": "FIT_M4_M4 Body_Export",
+        "triangle_pairs": 361,
+        "gun_triangles_bbox_stock_cm": [
+          [
+            0.25597575306892395,
+            -1.608504295349121,
+            -1.6892333030700684
+          ],
+          [
+            0.6271514892578125,
+            1.6161497831344604,
+            1.5354223251342773
+          ]
+        ]
+      }
+    ]
+  },
+  "AKM": {
+    "housing_material": [
+      "StockPolymer_Refined"
+    ],
+    "planar_side_max_corner_normal_degrees": 52.4580009201919,
+    "planar_faces_above_5_degrees": 6,
+    "housing_gun_surface_crossings": [
+      {
+        "gun_object": "FIT_AKM_Soviet_Native",
+        "triangle_pairs": 69,
+        "gun_triangles_bbox_stock_cm": [
+          [
+            0.26258668303489685,
+            -1.065547227859497,
+            0.6890068054199219
+          ],
+          [
+            1.2244216203689575,
+            1.0655442476272583,
+            1.5699801445007324
+          ]
+        ]
+      }
+    ]
+  }
+}

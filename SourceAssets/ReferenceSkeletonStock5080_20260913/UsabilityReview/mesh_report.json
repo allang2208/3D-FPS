@@ -1,0 +1,165 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSkeletonStock5080_20260913\\seed_91379\\textured_master_00001_.glb",
+  "file_bytes": 51627532,
+  "vertices": 390525,
+  "triangles": 476673,
+  "bounds": [
+    [
+      -0.5009945631027222,
+      -0.33569055795669556,
+      -0.13336428999900818
+    ],
+    [
+      0.5009791851043701,
+      0.33582860231399536,
+      0.13139358162879944
+    ]
+  ],
+  "extents": [
+    1.0019737482070923,
+    0.6715191602706909,
+    0.2647578716278076
+  ],
+  "finite_positions": true,
+  "finite_normals": true,
+  "near_zero_area_triangles": 5,
+  "material_definitions": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "roughnessFactor": 1.0,
+        "metallicFactor": 1.0,
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "textures": [
+    {
+      "image_index": 0,
+      "size": [
+        4096,
+        4096
+      ],
+      "mode": "RGBA",
+      "decode_ok": true,
+      "channel_percentiles_0_50_95_100": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          46.0,
+          45.0,
+          46.0,
+          255.0
+        ],
+        [
+          76.0,
+          75.0,
+          76.0,
+          255.0
+        ],
+        [
+          146.0,
+          143.0,
+          143.0,
+          255.0
+        ]
+      ]
+    },
+    {
+      "image_index": 1,
+      "size": [
+        4096,
+        4096
+      ],
+      "mode": "RGB",
+      "decode_ok": true,
+      "channel_percentiles_0_50_95_100": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          135.0,
+          0.0
+        ],
+        [
+          0.0,
+          144.0,
+          193.0
+        ],
+        [
+          0.0,
+          173.0,
+          232.0
+        ]
+      ]
+    }
+  ],
+  "uv": {
+    "vertices": 390525,
+    "finite": true,
+    "outside_unit_square": 0,
+    "zero_area_triangles": 129,
+    "summed_triangle_uv_area": 0.5675679808423972,
+    "normal_texture_present": false
+  },
+  "topology_position_weld_1e6": {
+    "vertices": 228189,
+    "boundary_edges": 14,
+    "more_than_two_faces_edges": 6803,
+    "watertight": false,
+    "winding_consistent": true,
+    "surface_components": 2775,
+    "component_face_counts_largest20": [
+      462700,
+      1996,
+      364,
+      332,
+      262,
+      152,
+      132,
+      96,
+      84,
+      76,
+      70,
+      68,
+      66,
+      64,
+      60,
+      60,
+      48,
+      48,
+      46,
+      46
+    ],
+    "euler_number": -3343
+  },
+  "raw": {
+    "vertices": 4561835,
+    "triangles": 9470880,
+    "extents": [
+      1.0001329183578491,
+      0.6698088943958282,
+      0.26352664828300476
+    ],
+    "note": "Raw export includes its own 90-degree reorientation; not overlaid without registration."
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceSkeletonStock5080_20260913\\seed_91379\\SkeletonStock_5080_Candidate_Editable.blend",
+  "images": [
+    "side_textured.png",
+    "opposite_textured.png",
+    "angle_textured.png",
+    "front_socket_textured.png",
+    "side_clay.png",
+    "angle_clay.png"
+  ],
+  "source_saved_or_modified": false,
+  "blender_extents": [
+    1.0019737482070923,
+    0.2647578716278076,
+    0.6715191602706909
+  ],
+  "along_axis": 0,
+  "up_axis": 2,
+  "source_materials": [
+    "Material_0"
+  ],
+  "review_type": "Blender source geometry and shading; not UE gameplay",
+  "light_powers": [
+    100,
+    40,
+    100
+  ],
+  "exposure": 0
+}

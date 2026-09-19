@@ -1,0 +1,80 @@
+[
+  {
+    "local_file": "reference_side_b_00001_.png",
+    "remote": {
+      "filename": "reference_side_b_00001_.png",
+      "subfolder": "ReferenceSkeletonStock5080_20260913\\seed_91379",
+      "type": "output",
+      "node": "141"
+    },
+    "bytes": 345048
+  },
+  {
+    "local_file": "condition_side_b_00001_.png",
+    "remote": {
+      "filename": "condition_side_b_00001_.png",
+      "subfolder": "ReferenceSkeletonStock5080_20260913\\seed_91379",
+      "type": "output",
+      "node": "131"
+    },
+    "bytes": 231156
+  },
+  {
+    "local_file": "reference_front_end_00001_.png",
+    "remote": {
+      "filename": "reference_front_end_00001_.png",
+      "subfolder": "ReferenceSkeletonStock5080_20260913\\seed_91379",
+      "type": "output",
+      "node": "142"
+    },
+    "bytes": 138145
+  },
+  {
+    "local_file": "condition_front_end_00001_.png",
+    "remote": {
+      "filename": "condition_front_end_00001_.png",
+      "subfolder": "ReferenceSkeletonStock5080_20260913\\seed_91379",
+      "type": "output",
+      "node": "132"
+    },
+    "bytes": 79858
+  },
+  {
+    "local_file": "reference_side_a_00001_.png",
+    "remote": {
+      "filename": "reference_side_a_00001_.png",
+      "subfolder": "ReferenceSkeletonStock5080_20260913\\seed_91379",
+      "type": "output",
+      "node": "140"
+    },
+    "bytes": 349268
+  },
+  {
+    "local_file": "condition_side_a_00001_.png",
+    "remote": {
+      "filename": "condition_side_a_00001_.png",
+      "subfolder": "ReferenceSkeletonStock5080_20260913\\seed_91379",
+      "type": "output",
+      "node": "130"
+    },
+    "bytes": 234227
+  },
+  {
+    "local_file": "raw_00001_.glb",
+    "remote": {
+      "filename": "raw_00001_.glb",
+      "subfolder": "ReferenceSkeletonStock5080_20260913/seed_91379",
+      "type": "output"
+    },
+    "bytes": 168393364
+  },
+  {
+    "local_file": "textured_master_00001_.glb",
+    "remote": {
+      "filename": "textured_master_00001_.glb",
+      "subfolder": "ReferenceSkeletonStock5080_20260913/seed_91379",
+      "type": "output"
+    },
+    "bytes": 51627532
+  }
+]

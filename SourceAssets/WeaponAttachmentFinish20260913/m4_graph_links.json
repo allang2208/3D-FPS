@@ -1,0 +1,602 @@
+{
+  "MaterialExpressionMaterialFunctionCall_8": {
+    "names": [
+      "AmbientColor",
+      "DiffuseColor",
+      "SpecularColor",
+      "Shininess"
+    ],
+    "inputs": [
+      "MaterialExpressionLinearInterpolate_1",
+      "MaterialExpressionLinearInterpolate_0",
+      "MaterialExpressionLinearInterpolate_2",
+      "MaterialExpressionLinearInterpolate_6"
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_4": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionConstant3Vector_0",
+      "MaterialExpressionTextureSampleParameter2D_6",
+      "MaterialExpressionScalarParameter_6"
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_3": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionVectorParameter_4",
+      "MaterialExpressionTextureSampleParameter2D_4",
+      "MaterialExpressionScalarParameter_8"
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_13": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_17",
+      "MaterialExpressionLinearInterpolate_16",
+      "MaterialExpressionScalarParameter_18"
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_14": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionConstant_2",
+      "MaterialExpressionLinearInterpolate_15",
+      "MaterialExpressionScalarParameter_16"
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_5": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_12",
+      "MaterialExpressionTextureSampleParameter2D_8",
+      "MaterialExpressionScalarParameter_11"
+    ]
+  },
+  "MaterialExpressionVectorParameter_0": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_0": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionVectorParameter_2": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_1": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_2": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_6": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionConstant3Vector_0": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_9": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionVectorParameter_3": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_7": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionLinearInterpolate_0": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionVectorParameter_0",
+      "MaterialExpressionTextureSampleParameter2D_0",
+      "MaterialExpressionScalarParameter_0"
+    ]
+  },
+  "MaterialExpressionTextureSampleParameter2D_0": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_1",
+      null
+    ]
+  },
+  "MaterialExpressionTextureSampleParameter2D_1": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_0",
+      null
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_1": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionVectorParameter_3",
+      "MaterialExpressionTextureSampleParameter2D_1",
+      "MaterialExpressionScalarParameter_7"
+    ]
+  },
+  "MaterialExpressionTextureSampleParameter2D_2": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_2",
+      null
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_2": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionVectorParameter_2",
+      "MaterialExpressionTextureSampleParameter2D_2",
+      "MaterialExpressionScalarParameter_1"
+    ]
+  },
+  "MaterialExpressionTextureSampleParameter2D_3": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_3",
+      null
+    ]
+  },
+  "MaterialExpressionVectorParameter_4": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_8": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionTextureSampleParameter2D_4": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_8",
+      null
+    ]
+  },
+  "MaterialExpressionTextureSampleParameter2D_6": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_7",
+      null
+    ]
+  },
+  "MaterialExpressionScalarParameter_11": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionTextureSampleParameter2D_8": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_6",
+      null
+    ]
+  },
+  "MaterialExpressionScalarParameter_12": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionLinearInterpolate_6": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_2",
+      "MaterialExpressionTextureSampleParameter2D_3",
+      "MaterialExpressionScalarParameter_9"
+    ]
+  },
+  "MaterialExpressionScalarParameter_16": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionTextureSampleParameter2D_11": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_5",
+      null
+    ]
+  },
+  "MaterialExpressionConstant_2": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_17": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_18": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionTextureSampleParameter2D_12": {
+    "names": [
+      "UVs",
+      "Apply View MipBias"
+    ],
+    "inputs": [
+      "MaterialExpressionMultiply_4",
+      null
+    ]
+  },
+  "MaterialExpressionScalarParameter_19": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionLinearInterpolate_15": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureSampleParameter2D_11",
+      "MaterialExpressionTextureSampleParameter2D_11",
+      "MaterialExpressionScalarParameter_19"
+    ]
+  },
+  "MaterialExpressionLinearInterpolate_16": {
+    "names": [
+      "A",
+      "B",
+      "Alpha"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureSampleParameter2D_12",
+      "MaterialExpressionTextureSampleParameter2D_12",
+      "MaterialExpressionScalarParameter_19"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_0": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_3": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_4": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_0": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_3",
+      "MaterialExpressionScalarParameter_4"
+    ]
+  },
+  "MaterialExpressionMultiply_0": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_0",
+      "MaterialExpressionAppendVector_0"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_1": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_5": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_10": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_1": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_5",
+      "MaterialExpressionScalarParameter_10"
+    ]
+  },
+  "MaterialExpressionMultiply_1": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_1",
+      "MaterialExpressionAppendVector_1"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_2": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_13": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_14": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_2": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_13",
+      "MaterialExpressionScalarParameter_14"
+    ]
+  },
+  "MaterialExpressionMultiply_2": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_2",
+      "MaterialExpressionAppendVector_2"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_3": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_15": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_20": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_3": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_15",
+      "MaterialExpressionScalarParameter_20"
+    ]
+  },
+  "MaterialExpressionMultiply_3": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_3",
+      "MaterialExpressionAppendVector_3"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_4": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_21": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_22": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_4": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_21",
+      "MaterialExpressionScalarParameter_22"
+    ]
+  },
+  "MaterialExpressionMultiply_4": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_4",
+      "MaterialExpressionAppendVector_4"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_5": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_23": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_24": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_5": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_23",
+      "MaterialExpressionScalarParameter_24"
+    ]
+  },
+  "MaterialExpressionMultiply_5": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_5",
+      "MaterialExpressionAppendVector_5"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_6": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_25": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_26": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_6": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_25",
+      "MaterialExpressionScalarParameter_26"
+    ]
+  },
+  "MaterialExpressionMultiply_6": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_6",
+      "MaterialExpressionAppendVector_6"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_7": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_27": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_28": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_7": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_27",
+      "MaterialExpressionScalarParameter_28"
+    ]
+  },
+  "MaterialExpressionMultiply_7": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_7",
+      "MaterialExpressionAppendVector_7"
+    ]
+  },
+  "MaterialExpressionTextureCoordinate_8": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_29": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionScalarParameter_30": {
+    "names": [],
+    "inputs": []
+  },
+  "MaterialExpressionAppendVector_8": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionScalarParameter_29",
+      "MaterialExpressionScalarParameter_30"
+    ]
+  },
+  "MaterialExpressionMultiply_8": {
+    "names": [
+      "A",
+      "B"
+    ],
+    "inputs": [
+      "MaterialExpressionTextureCoordinate_8",
+      "MaterialExpressionAppendVector_8"
+    ]
+  }
+}

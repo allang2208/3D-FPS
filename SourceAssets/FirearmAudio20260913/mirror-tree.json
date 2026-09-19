@@ -1,0 +1,4012 @@
+{
+  "sha": "a19b7458a593598211c95ec46ef4eb4b6d1f94d7",
+  "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/a19b7458a593598211c95ec46ef4eb4b6d1f94d7",
+  "tree": [
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a1fe8e093ffa5b6732f962c5a85fe1bba5fb79c8",
+      "size": 707,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a1fe8e093ffa5b6732f962c5a85fe1bba5fb79c8"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c09f1e1984127abe44e5e55474939aeae1b94f0f",
+      "size": 61,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c09f1e1984127abe44e5e55474939aeae1b94f0f"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "355f37b413aba7ebcdf8d2611de10d3251c66cc8",
+      "size": 9492,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/355f37b413aba7ebcdf8d2611de10d3251c66cc8"
+    },
+    {
+      "path": "download_hdris.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8ee52cc5f40ad2719a163fbe707a759ab3a0236b",
+      "size": 3920,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8ee52cc5f40ad2719a163fbe707a759ab3a0236b"
+    },
+    {
+      "path": "download_textures.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "76044afa3b243b2404783e2dcb35e2ff50756362",
+      "size": 6034,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/76044afa3b243b2404783e2dcb35e2ff50756362"
+    },
+    {
+      "path": "sfx",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "07a4ec6f95825878bf90b3f46b74e4f7915fe711",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/07a4ec6f95825878bf90b3f46b74e4f7915fe711"
+    },
+    {
+      "path": "sfx/firearm_sfx",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f8cee8a35ff2d57ef10d0ef623a242ab64bc9a50",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/f8cee8a35ff2d57ef10d0ef623a242ab64bc9a50"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "235833b9510156b9b9ba8891dcd7b8ce4e75c8e7",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/235833b9510156b9b9ba8891dcd7b8ce4e75c8e7"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/1911",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "edb98b9e542401681203f331944c643f8a9b3af7",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/edb98b9e542401681203f331944c643f8a9b3af7"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/1911/A_34P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0166a05c72c1be1162edaa03a4f8dd62b3d576b",
+      "size": 5726642,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f0166a05c72c1be1162edaa03a4f8dd62b3d576b"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/1911/A_42P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a5cba446c74d72ec965728e831cf2523169d0c9d",
+      "size": 5489450,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a5cba446c74d72ec965728e831cf2523169d0c9d"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/1917",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3788cebcfab26e7aecc870dc84d7d2f4b516dd5d",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/3788cebcfab26e7aecc870dc84d7d2f4b516dd5d"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/1917/B_16P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7dd94f161bfcc4bf3d9fd441995efb7d5f81d9e5",
+      "size": 5669872,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7dd94f161bfcc4bf3d9fd441995efb7d5f81d9e5"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/1917/B_24P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf40ce5919daec00f06d86d683af72f21519c0be",
+      "size": 6646024,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bf40ce5919daec00f06d86d683af72f21519c0be"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "772fdb897d1c7d2128f968f3d448dbc053692be3",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/772fdb897d1c7d2128f968f3d448dbc053692be3"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47/C_27P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af34e80c4908fedc0df1d2d5fef6179003102f24",
+      "size": 5729424,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/af34e80c4908fedc0df1d2d5fef6179003102f24"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47/C_28P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4c70bf8383b9241ffc9062e2c7138dfb463fa40",
+      "size": 7188780,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f4c70bf8383b9241ffc9062e2c7138dfb463fa40"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47/C_29P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eb5d1bdc54e40bee068328d83bdcbd61ecfc1900",
+      "size": 4993166,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/eb5d1bdc54e40bee068328d83bdcbd61ecfc1900"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47/C_31P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "74e3876f897841c0afe7b7c12a53c0ee4b81e468",
+      "size": 5059512,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/74e3876f897841c0afe7b7c12a53c0ee4b81e468"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47/C_34P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4d06e43a5855ea06087a54ae56de71e6f89b03f",
+      "size": 16936330,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b4d06e43a5855ea06087a54ae56de71e6f89b03f"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AK-47/C_36P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dc4a32f6d03fcf420ebbf3d8118bbd2548557c85",
+      "size": 7082390,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/dc4a32f6d03fcf420ebbf3d8118bbd2548557c85"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AR-15",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ecdf0970f002947e25f08df15b4d2b3d103121a5",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/ecdf0970f002947e25f08df15b4d2b3d103121a5"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AR-15/D_24P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55eb554a1a1ba81f98af6d2b94bc34547b6cce34",
+      "size": 3739958,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/55eb554a1a1ba81f98af6d2b94bc34547b6cce34"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/AR-15/D_32P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5dd9aa8034d08d33b3f115464f614329c970c9e1",
+      "size": 5889684,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5dd9aa8034d08d33b3f115464f614329c970c9e1"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Arisaka",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c3c36251378f19bb9a6f14677e7ccd763c56d169",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/c3c36251378f19bb9a6f14677e7ccd763c56d169"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Arisaka/E_18P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df0894534b6ac46c21ef7caad4b864fc645a69c4",
+      "size": 4846058,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/df0894534b6ac46c21ef7caad4b864fc645a69c4"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Arisaka/E_25P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b1488fbe837293586982a1742aa931ed4cd6094c",
+      "size": 3862686,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b1488fbe837293586982a1742aa931ed4cd6094c"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Bersa",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "480d54c793cd9f267983697600b86b82e92da22a",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/480d54c793cd9f267983697600b86b82e92da22a"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Bersa/F_41P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf1242804b3449d2b7b49640965e46a894b6e3c8",
+      "size": 4824608,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bf1242804b3449d2b7b49640965e46a894b6e3c8"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Bersa/F_47P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8c80b59821b788af0a05198636b00c32f98ee315",
+      "size": 4357762,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8c80b59821b788af0a05198636b00c32f98ee315"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/CD",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "991a166ef53a30801dc6eef388027747fdf5b99a",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/991a166ef53a30801dc6eef388027747fdf5b99a"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/CD/H_16P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e8fed91f1347aa3b2a2b3c20d6641b8d8bc046fc",
+      "size": 4358492,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e8fed91f1347aa3b2a2b3c20d6641b8d8bc046fc"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/CD/H_21P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b91ece1dc1841c5aa00bd41238a49f455b831ae",
+      "size": 3473324,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9b91ece1dc1841c5aa00bd41238a49f455b831ae"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "84a1de94c66919fd8ea3d6a4a9d7fcead98b5b29",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/84a1de94c66919fd8ea3d6a4a9d7fcead98b5b29"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45/G_20P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1681b625069e01575034c20efad4d724e1d708c7",
+      "size": 5109268,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1681b625069e01575034c20efad4d724e1d708c7"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45/G_22P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "174ae5d1f0ea08ac0ce3d3cc6f283d44874a7d00",
+      "size": 5150622,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/174ae5d1f0ea08ac0ce3d3cc6f283d44874a7d00"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45/G_24P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "327445b0936fbbc68e0248dac4bc479abceebbc5",
+      "size": 2688076,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/327445b0936fbbc68e0248dac4bc479abceebbc5"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45/G_31P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5391fa1c7c703286398675b3b7e193f75fc02787",
+      "size": 5294180,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5391fa1c7c703286398675b3b7e193f75fc02787"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45/G_33P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e7cedc1442353d81dfe6315a501a810599bda9ad",
+      "size": 6773400,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e7cedc1442353d81dfe6315a501a810599bda9ad"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Carl Gustav M45/G_35P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2b4e7e48b076335fefc0df315ab328db32bce6b",
+      "size": 5233972,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c2b4e7e48b076335fefc0df315ab328db32bce6b"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Marlin 336",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b2b470d00992eb9603d1091ee6f90816b94e2e55",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/b2b470d00992eb9603d1091ee6f90816b94e2e55"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Marlin 336/I_17P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "246adab54162197909738ae22a7464542bf1a8f1",
+      "size": 6427510,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/246adab54162197909738ae22a7464542bf1a8f1"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Marlin 336/I_22P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f90969a4d8cfc327c5964a151733584a5828b326",
+      "size": 7031522,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f90969a4d8cfc327c5964a151733584a5828b326"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Model 12",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "80ad9e3dc1d4dedb996da4a9d33c228cd0ee5975",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/80ad9e3dc1d4dedb996da4a9d33c228cd0ee5975"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Model 12/K_17P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e062997ddaa10c60074a26015cdb2609365f5e7",
+      "size": 5910056,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7e062997ddaa10c60074a26015cdb2609365f5e7"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Model 12/K_22P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14dcdb48dc19cfe2a066441869e34abcce420489",
+      "size": 6141774,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/14dcdb48dc19cfe2a066441869e34abcce420489"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Model 1894",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3a357ef95bf67357415fb010b84a8e2346f14b3e",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/3a357ef95bf67357415fb010b84a8e2346f14b3e"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Model 1894/L_17P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aee0d1d8749b51efbe71f6e77920df6bb2018fb4",
+      "size": 4560614,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/aee0d1d8749b51efbe71f6e77920df6bb2018fb4"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Model 1894/L_23P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "209e6666037042af0100778e839e8b66c2f1a9fb",
+      "size": 4051538,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/209e6666037042af0100778e839e8b66c2f1a9fb"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Mosin Nagant",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "535af99ae52ba1d96f8c3db200fcf46272c81b15",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/535af99ae52ba1d96f8c3db200fcf46272c81b15"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Mosin Nagant/M_21P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "29d15c82c5b1125e8e7350ea129d8119356756da",
+      "size": 9864044,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/29d15c82c5b1125e8e7350ea129d8119356756da"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Mosin Nagant/M_26P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0896b4e623aed87d1d021ac89e91f6446c0b6cfe",
+      "size": 8863514,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0896b4e623aed87d1d021ac89e91f6446c0b6cfe"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Mossberg",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "52aa9c282c419898111fcd3fbf78e586db908fe5",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/52aa9c282c419898111fcd3fbf78e586db908fe5"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Mossberg/N_26P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d23e9dbae209a73fe1e9a432bf27a95f22342f87",
+      "size": 6606084,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d23e9dbae209a73fe1e9a432bf27a95f22342f87"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Mossberg/N_30P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "763d1f6f0c167782407d9dc877ea3caaad5b0683",
+      "size": 4940968,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/763d1f6f0c167782407d9dc877ea3caaad5b0683"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Nova",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "002b6d1d5d7ed6d0d40a835072aea55b1013d351",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/002b6d1d5d7ed6d0d40a835072aea55b1013d351"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Nova/O_17P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d6a0a3c128bdf70fe6adae2d94c59076ce25623",
+      "size": 3799488,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9d6a0a3c128bdf70fe6adae2d94c59076ce25623"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Nova/O_21P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "538a1baac21c1524ec43629132c99c26dcf762d9",
+      "size": 3931936,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/538a1baac21c1524ec43629132c99c26dcf762d9"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6a5116972838963c8bb8a9a47873cece37715791",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/6a5116972838963c8bb8a9a47873cece37715791"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh/P_16P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a998fac553140fa2751f82014f6b3c9fddfb6aa",
+      "size": 9428556,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2a998fac553140fa2751f82014f6b3c9fddfb6aa"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh/P_18P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b07c7b95c3c1a876ceba50a381399043e38e0d38",
+      "size": 17208014,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b07c7b95c3c1a876ceba50a381399043e38e0d38"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh/P_22P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7cf6627a57cdf423aba6215219400279308719dd",
+      "size": 3125496,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7cf6627a57cdf423aba6215219400279308719dd"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh/P_30P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2552215cc18c4f10cea6fe599206f5982db0626",
+      "size": 10529940,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c2552215cc18c4f10cea6fe599206f5982db0626"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh/P_32P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb6dbb1fd3d197fff3f4cafa1a6b2e4cfb00889c",
+      "size": 5214642,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bb6dbb1fd3d197fff3f4cafa1a6b2e4cfb00889c"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/PPSh/P_34P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7138184d9bf3ec8d704006a4fa281cf57395ea1b",
+      "size": 3337548,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7138184d9bf3ec8d704006a4fa281cf57395ea1b"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Prepared Master Sheet.csv",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d97ec811dc3480d6578008774d5437231333b105",
+      "size": 8802,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d97ec811dc3480d6578008774d5437231333b105"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Ruger Mark III",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "84040a1112a815c937a554afc6e081d52082cfee",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/84040a1112a815c937a554afc6e081d52082cfee"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Ruger Mark III/R_30P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aec7574b15389316f3a01c8cbb1b2dbf3c02d09c",
+      "size": 4417884,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/aec7574b15389316f3a01c8cbb1b2dbf3c02d09c"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Ruger Mark III/R_35P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c499e38527bd496cd5cd9b7086ab4cdc9e07a85",
+      "size": 4402428,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4c499e38527bd496cd5cd9b7086ab4cdc9e07a85"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Ruger Single Six",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "eb8da237e0a616b329c370922d2f29c79fb3d41e",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/eb8da237e0a616b329c370922d2f29c79fb3d41e"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Ruger Single Six/S_11P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "efef76a9defe2e5a87b077645003b2fe8e30066f",
+      "size": 4909674,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/efef76a9defe2e5a87b077645003b2fe8e30066f"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Ruger Single Six/S_14P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a02b72b922dbc6b5987e118d9bf1d6e950e476b",
+      "size": 5413954,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9a02b72b922dbc6b5987e118d9bf1d6e950e476b"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/SKS",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "bdf1f74be8ef84ddb20191f07fe4f14554ad3bbc",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/bdf1f74be8ef84ddb20191f07fe4f14554ad3bbc"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/SKS/U_14P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "62f7624f1c1216370869dca0587095b67ff0e485",
+      "size": 12482484,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/62f7624f1c1216370869dca0587095b67ff0e485"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/SKS/U_19P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f48879e7a7517cd85b3eff719d0118126e1642b",
+      "size": 10185038,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5f48879e7a7517cd85b3eff719d0118126e1642b"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Savage 10 .300 Blackout",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2fdcf67c6aeaaf2598bb41b8b0177c3e438fde54",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/2fdcf67c6aeaaf2598bb41b8b0177c3e438fde54"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Savage 10 .300 Blackout/T_17P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df0e946facefa64384f9e901758742854e659be2",
+      "size": 4399758,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/df0e946facefa64384f9e901758742854e659be2"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Savage 10 .300 Blackout/T_27P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e61f7264658d2a3999b7d9c6cad22150b3f9fc88",
+      "size": 4153180,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e61f7264658d2a3999b7d9c6cad22150b3f9fc88"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Smith & Wesson 642",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "75e2536b43983a04d20aa71f44a0270c3f5be9ff",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/75e2536b43983a04d20aa71f44a0270c3f5be9ff"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Smith & Wesson 642/V_22P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6bc05794fe0c0d6d736b3dd78d69c83f2c1be08d",
+      "size": 5462498,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6bc05794fe0c0d6d736b3dd78d69c83f2c1be08d"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Smith & Wesson 642/V_27P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e8ba4a628c77672f376809dec6f3e3b8964d0066",
+      "size": 6034334,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e8ba4a628c77672f376809dec6f3e3b8964d0066"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Tikka",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "123c622fc76aacfcdc7fc40df788c97ceb786f4c",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/123c622fc76aacfcdc7fc40df788c97ceb786f4c"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Tikka/W_24P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6a1ae0da46cefdebc0b701aeddd4902d59403b28",
+      "size": 5345648,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6a1ae0da46cefdebc0b701aeddd4902d59403b28"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Tikka/W_29P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d45f5003773c41145cba6093ce94b8cc05f3f435",
+      "size": 5593406,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d45f5003773c41145cba6093ce94b8cc05f3f435"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Walther PPQ",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f6de4d7e1a21277023b90c814fe44d4268260e37",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/f6de4d7e1a21277023b90c814fe44d4268260e37"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Walther PPQ/X_31P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c39860e7dded0ab94d730a1401562266217e1491",
+      "size": 5461338,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c39860e7dded0ab94d730a1401562266217e1491"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/Walther PPQ/X_39P.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "03ca3b4a8888f6f27bcfee7b1ee58ce08f705ab5",
+      "size": 9069762,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/03ca3b4a8888f6f27bcfee7b1ee58ce08f705ab5"
+    },
+    {
+      "path": "sfx/firearm_sfx/Prepared SFX Library/desktop.ini",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bb9f3d69c843cecc09a8ed230a4f81fa70b65082",
+      "size": 46,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bb9f3d69c843cecc09a8ed230a4f81fa70b65082"
+    },
+    {
+      "path": "sfx/footsteps",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7b72972a610bb636f61344ce24dfcacc6d7f8635",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/7b72972a610bb636f61344ce24dfcacc6d7f8635"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "adc80fae4dfa72b743ad9935d5a9e793f889584c",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/adc80fae4dfa72b743ad9935d5a9e793f889584c"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "fecd84edcb6e2ad65fcb5b51eeb715b207ef8f3f",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/fecd84edcb6e2ad65fcb5b51eeb715b207ef8f3f"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-SandL1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0db354584b672bc975a4699c7c8276538cc9cb2a",
+      "size": 40317,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0db354584b672bc975a4699c7c8276538cc9cb2a"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-SandL2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d2afd682805dce4222047fbfb28f849738cc1b53",
+      "size": 30870,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d2afd682805dce4222047fbfb28f849738cc1b53"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-SandL3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51bacd3a18f753c356157edf8b4e5132b2018c3d",
+      "size": 29250,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/51bacd3a18f753c356157edf8b4e5132b2018c3d"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-SandR1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4d4fb07cedf222288f38cb1c56b38ddeace904f",
+      "size": 36934,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b4d4fb07cedf222288f38cb1c56b38ddeace904f"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-SandR2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "594ced0d6116a559e67fd38cbae96ff961dc0fdd",
+      "size": 30328,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/594ced0d6116a559e67fd38cbae96ff961dc0fdd"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-SandR3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a55b8650031afad78f8bee4d7db27b0b754113d8",
+      "size": 32496,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a55b8650031afad78f8bee4d7db27b0b754113d8"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-StoneL1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8c325c08d4531babfc2db35c5e3116514442b24",
+      "size": 37045,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f8c325c08d4531babfc2db35c5e3116514442b24"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-StoneL2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d5b4ba54e0f6c0f2dcf29346f8cba9053c1cf147",
+      "size": 33441,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d5b4ba54e0f6c0f2dcf29346f8cba9053c1cf147"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-StoneL3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0b8184f1ca9cadf47aaf9f6ab592d1a5310a398",
+      "size": 34318,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a0b8184f1ca9cadf47aaf9f6ab592d1a5310a398"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-StoneR1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "064ece6f8c017517a9220b4ae1174029a35b7fd7",
+      "size": 36412,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/064ece6f8c017517a9220b4ae1174029a35b7fd7"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-StoneR2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0a1f1b219ac2be498f39071fbbb3871d37718176",
+      "size": 34323,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0a1f1b219ac2be498f39071fbbb3871d37718176"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/flac/Fantozzi-StoneR3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09476af29a0986e6c5db3cf049119506ef8ecc1a",
+      "size": 35929,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/09476af29a0986e6c5db3cf049119506ef8ecc1a"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "721845cc3a24167ef601ef75cd3e2f89dbee4625",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/721845cc3a24167ef601ef75cd3e2f89dbee4625"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-SandL1.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a88b52d20d967c37a521814ab7365149c0e264db",
+      "size": 10440,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a88b52d20d967c37a521814ab7365149c0e264db"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-SandL2.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "830a5bf850f8eb84f6eb54a3d16d9fe406653657",
+      "size": 8922,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/830a5bf850f8eb84f6eb54a3d16d9fe406653657"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-SandL3.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02eb12c7675b19885af1300d8cec9ce39c7e075c",
+      "size": 8246,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/02eb12c7675b19885af1300d8cec9ce39c7e075c"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-SandR1.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d019d7904dd8dcd05087e497d8405c5f2bd7d07a",
+      "size": 9796,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d019d7904dd8dcd05087e497d8405c5f2bd7d07a"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-SandR2.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad5cf71a01d5c0ce5e130c346d002a30e449adc8",
+      "size": 8716,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ad5cf71a01d5c0ce5e130c346d002a30e449adc8"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-SandR3.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "db9cb2c1336e8abea3c3ddc7e5d8d6d5cf1025b8",
+      "size": 8635,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/db9cb2c1336e8abea3c3ddc7e5d8d6d5cf1025b8"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-StoneL1.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "69bbc44f20453a96e256f0e8a93f7e0bd5370389",
+      "size": 8889,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/69bbc44f20453a96e256f0e8a93f7e0bd5370389"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-StoneL2.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3598190c5220d4a8b927aa1e5e71e3c11b012f6d",
+      "size": 8516,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3598190c5220d4a8b927aa1e5e71e3c11b012f6d"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-StoneL3.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "650006c48f3e0140a811e64fdf2a3df6bb29b770",
+      "size": 8207,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/650006c48f3e0140a811e64fdf2a3df6bb29b770"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-StoneR1.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "826916dedfb15c22546adb1409585077521e1aa8",
+      "size": 8855,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/826916dedfb15c22546adb1409585077521e1aa8"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-StoneR2.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "88f3e99f5cb14aa12ab47a2559b94b0416849fbf",
+      "size": 8346,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/88f3e99f5cb14aa12ab47a2559b94b0416849fbf"
+    },
+    {
+      "path": "sfx/footsteps/Fantozzi-footsteps/ogg/Fantozzi-StoneR3.ogg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a81e53d4456dc8ec766e4b699aca16f0c3034c5",
+      "size": 8404,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2a81e53d4456dc8ec766e4b699aca16f0c3034c5"
+    },
+    {
+      "path": "sfx/footsteps_flac",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "fecd84edcb6e2ad65fcb5b51eeb715b207ef8f3f",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/fecd84edcb6e2ad65fcb5b51eeb715b207ef8f3f"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-SandL1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0db354584b672bc975a4699c7c8276538cc9cb2a",
+      "size": 40317,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0db354584b672bc975a4699c7c8276538cc9cb2a"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-SandL2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d2afd682805dce4222047fbfb28f849738cc1b53",
+      "size": 30870,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d2afd682805dce4222047fbfb28f849738cc1b53"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-SandL3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51bacd3a18f753c356157edf8b4e5132b2018c3d",
+      "size": 29250,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/51bacd3a18f753c356157edf8b4e5132b2018c3d"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-SandR1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b4d4fb07cedf222288f38cb1c56b38ddeace904f",
+      "size": 36934,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b4d4fb07cedf222288f38cb1c56b38ddeace904f"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-SandR2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "594ced0d6116a559e67fd38cbae96ff961dc0fdd",
+      "size": 30328,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/594ced0d6116a559e67fd38cbae96ff961dc0fdd"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-SandR3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a55b8650031afad78f8bee4d7db27b0b754113d8",
+      "size": 32496,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a55b8650031afad78f8bee4d7db27b0b754113d8"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-StoneL1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8c325c08d4531babfc2db35c5e3116514442b24",
+      "size": 37045,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f8c325c08d4531babfc2db35c5e3116514442b24"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-StoneL2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d5b4ba54e0f6c0f2dcf29346f8cba9053c1cf147",
+      "size": 33441,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d5b4ba54e0f6c0f2dcf29346f8cba9053c1cf147"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-StoneL3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0b8184f1ca9cadf47aaf9f6ab592d1a5310a398",
+      "size": 34318,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a0b8184f1ca9cadf47aaf9f6ab592d1a5310a398"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-StoneR1.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "064ece6f8c017517a9220b4ae1174029a35b7fd7",
+      "size": 36412,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/064ece6f8c017517a9220b4ae1174029a35b7fd7"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-StoneR2.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0a1f1b219ac2be498f39071fbbb3871d37718176",
+      "size": 34323,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0a1f1b219ac2be498f39071fbbb3871d37718176"
+    },
+    {
+      "path": "sfx/footsteps_flac/Fantozzi-StoneR3.flac",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "09476af29a0986e6c5db3cf049119506ef8ecc1a",
+      "size": 35929,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/09476af29a0986e6c5db3cf049119506ef8ecc1a"
+    },
+    {
+      "path": "sfx/gunshots",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "125eea1f7378a8c8186bb03ffbd7bafd95a768bf",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/125eea1f7378a8c8186bb03ffbd7bafd95a768bf"
+    },
+    {
+      "path": "sfx/gunshots/game_gunshot.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "623acd16583a25eee711ffafadde2b6e0787b297",
+      "size": 17016,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/623acd16583a25eee711ffafadde2b6e0787b297"
+    },
+    {
+      "path": "sfx/gunshots/sniper_shot.wav",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6d008cda09d99185e646d3e1f07851b126896d3e",
+      "size": 17016,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6d008cda09d99185e646d3e1f07851b126896d3e"
+    },
+    {
+      "path": "textures",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "43444936052db2ec91b15a809a4c9e3c87ed5bd6",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/43444936052db2ec91b15a809a4c9e3c87ed5bd6"
+    },
+    {
+      "path": "textures/Asphalt023S",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5abf0680d97dfb209d7e5eeda883f09461334bd5",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/5abf0680d97dfb209d7e5eeda883f09461334bd5"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c4d13baf73ac164be26727bf1b6abcb4d7d9edbb",
+      "size": 477783,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c4d13baf73ac164be26727bf1b6abcb4d7d9edbb"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79461ffb532850016ab567e62ad0996e7dd50656",
+      "size": 1109428,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/79461ffb532850016ab567e62ad0996e7dd50656"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2ea00e3e3b8796310492b4444dd3a131d20bfb22",
+      "size": 2302,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2ea00e3e3b8796310492b4444dd3a131d20bfb22"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75be8e5b9218b2a9ee077c8148dafc73c2658c7d",
+      "size": 1030,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/75be8e5b9218b2a9ee077c8148dafc73c2658c7d"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bfeafc8d0c1d9bd94962ef0afd6e3e21508372bb",
+      "size": 2992,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bfeafc8d0c1d9bd94962ef0afd6e3e21508372bb"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7d932329b7150d46554b1e98070f606205414ad0",
+      "size": 2017450,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7d932329b7150d46554b1e98070f606205414ad0"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "10d1196e00eb25a494736647a234a98d29ac7e66",
+      "size": 6066301,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/10d1196e00eb25a494736647a234a98d29ac7e66"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eba0040d8c7844237c4663b9aa9c3aa432e3853a",
+      "size": 2429084,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/eba0040d8c7844237c4663b9aa9c3aa432e3853a"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2976fc68d9baf987c76eb477cdf0735314ea54ad",
+      "size": 9646343,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2976fc68d9baf987c76eb477cdf0735314ea54ad"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "77a3cc8493876f67fe998556af732a8a0b17fd1d",
+      "size": 9657603,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/77a3cc8493876f67fe998556af732a8a0b17fd1d"
+    },
+    {
+      "path": "textures/Asphalt023S/Asphalt023S_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d5ad875785590c8793aeb0ca26c5732bbf63130",
+      "size": 2620867,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9d5ad875785590c8793aeb0ca26c5732bbf63130"
+    },
+    {
+      "path": "textures/Asphalt025C",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "218377d22d4a71dc391c48d35e9ed8fbbf04cb3b",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/218377d22d4a71dc391c48d35e9ed8fbbf04cb3b"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6b1a212ec619e67f274788045cb19df4b8d8d673",
+      "size": 322026,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6b1a212ec619e67f274788045cb19df4b8d8d673"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75df2dfcbb5f9237a3e0e05efa2c1e75ee2bae73",
+      "size": 1109428,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/75df2dfcbb5f9237a3e0e05efa2c1e75ee2bae73"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1be1f7600e8dbf7b0b832f9b77b612d20e42fdfc",
+      "size": 2302,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1be1f7600e8dbf7b0b832f9b77b612d20e42fdfc"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ddacdccf6995fdd40cabb4138999ebc1661d4c64",
+      "size": 1030,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ddacdccf6995fdd40cabb4138999ebc1661d4c64"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c343deee4445e360fa83a89736e086edb4d3f3f4",
+      "size": 2989,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c343deee4445e360fa83a89736e086edb4d3f3f4"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b268e64e087f089d3cb28e8ab6e2f313fa5edeca",
+      "size": 2959227,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b268e64e087f089d3cb28e8ab6e2f313fa5edeca"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e7b17178eed18efbc9ef6fb161b1245cce1bc8a2",
+      "size": 4321032,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e7b17178eed18efbc9ef6fb161b1245cce1bc8a2"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ac1010f4b89cb9010619f175d862c094bed426f7",
+      "size": 2593385,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ac1010f4b89cb9010619f175d862c094bed426f7"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "934b1cb5bdfea2b5f9c8748ce6598cbf0aa2d208",
+      "size": 9201971,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/934b1cb5bdfea2b5f9c8748ce6598cbf0aa2d208"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1a89716eb02196344f5ac9d8a86b426bb649ad38",
+      "size": 9202291,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1a89716eb02196344f5ac9d8a86b426bb649ad38"
+    },
+    {
+      "path": "textures/Asphalt025C/Asphalt025C_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "439ff74240f765eac9296c3aadfb2126ab59fea7",
+      "size": 2511938,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/439ff74240f765eac9296c3aadfb2126ab59fea7"
+    },
+    {
+      "path": "textures/Asphalt031",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a20d3b2aa969a0a74b667a544613d49db04c52c1",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/a20d3b2aa969a0a74b667a544613d49db04c52c1"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8d8809e437d6b6e5514e75958363958c550b4959",
+      "size": 413063,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8d8809e437d6b6e5514e75958363958c550b4959"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ddf083d46d497bd7696716629b2df762b25264b2",
+      "size": 1109636,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ddf083d46d497bd7696716629b2df762b25264b2"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "296dedaca62dac91777bf038771e8872f30c1ad2",
+      "size": 2287,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/296dedaca62dac91777bf038771e8872f30c1ad2"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "650d751170b25db306b5efcc0bdee1fadbff34bc",
+      "size": 1025,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/650d751170b25db306b5efcc0bdee1fadbff34bc"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7943fb8cfe277b912609f9a9df2bd8946de2d85b",
+      "size": 3012,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7943fb8cfe277b912609f9a9df2bd8946de2d85b"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ed30fa272c4d6e0add0f282abbad39d8f7c3d0a",
+      "size": 3094457,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1ed30fa272c4d6e0add0f282abbad39d8f7c3d0a"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b19e6223af642c04ac62a45d4d99869eb8766e17",
+      "size": 3451112,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b19e6223af642c04ac62a45d4d99869eb8766e17"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b27c7b02fa659924e4d65ec9cb1ba954245708d1",
+      "size": 2476760,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b27c7b02fa659924e4d65ec9cb1ba954245708d1"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0ff31f6a982325ca215449e409d302d3ea5e7f2e",
+      "size": 8517074,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0ff31f6a982325ca215449e409d302d3ea5e7f2e"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ef9a44a93f69f6e087d440bc85080da80de730db",
+      "size": 8527476,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ef9a44a93f69f6e087d440bc85080da80de730db"
+    },
+    {
+      "path": "textures/Asphalt031/Asphalt031_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b59cde98155c4a692615b3a13d0915e5d8eafbe2",
+      "size": 3264169,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b59cde98155c4a692615b3a13d0915e5d8eafbe2"
+    },
+    {
+      "path": "textures/Bricks097",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "cd1fb6c0a66a837034737609bbaa1596908916a3",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/cd1fb6c0a66a837034737609bbaa1596908916a3"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c26a4d4b3246ed3f6111935e76126100e9ba2184",
+      "size": 462888,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c26a4d4b3246ed3f6111935e76126100e9ba2184"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "237190d40652363e0e690a75bd6669552eda7ed0",
+      "size": 1110884,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/237190d40652363e0e690a75bd6669552eda7ed0"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e89575f9c65901905ba99bd69af185925600ccad",
+      "size": 2272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e89575f9c65901905ba99bd69af185925600ccad"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fd0de2b428aa276c08c5ca31fa50d2ac27de6972",
+      "size": 1020,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/fd0de2b428aa276c08c5ca31fa50d2ac27de6972"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0235a9c507da1534ffe069a1706ec5a497c0d1f2",
+      "size": 3097,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0235a9c507da1534ffe069a1706ec5a497c0d1f2"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2e5502c2c39ba3efd9b63cc3dc0731cc785a12b5",
+      "size": 1379175,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2e5502c2c39ba3efd9b63cc3dc0731cc785a12b5"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "219c8b00624f58f08f9c8b5996dd52358844a3ca",
+      "size": 3273092,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/219c8b00624f58f08f9c8b5996dd52358844a3ca"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "742f4001ec1c2995672fdad55b3fdd9916afe993",
+      "size": 615952,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/742f4001ec1c2995672fdad55b3fdd9916afe993"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "93a72e39b1be78f9293906a257e23f42b2bc329d",
+      "size": 3776803,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/93a72e39b1be78f9293906a257e23f42b2bc329d"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b5e89abe93034fd816d721ace0facdd53f36d499",
+      "size": 3767093,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b5e89abe93034fd816d721ace0facdd53f36d499"
+    },
+    {
+      "path": "textures/Bricks097/Bricks097_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0115c9ac5e00215429aed8d8dfc43f45ed648def",
+      "size": 1535720,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0115c9ac5e00215429aed8d8dfc43f45ed648def"
+    },
+    {
+      "path": "textures/Bricks102",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4931e9068d53a56e49703993964b34a33f249738",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/4931e9068d53a56e49703993964b34a33f249738"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8ef08f7d4157295981f002ec3ff9011d5ff5e862",
+      "size": 484242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8ef08f7d4157295981f002ec3ff9011d5ff5e862"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7aaeb1af120098eb5d6a9b8c9ff0b6caa51be733",
+      "size": 1109428,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7aaeb1af120098eb5d6a9b8c9ff0b6caa51be733"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a09eac2cf907377109eee57e90eeda0e7347dae",
+      "size": 2272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4a09eac2cf907377109eee57e90eeda0e7347dae"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0b8526040fa5c687c156fd130a348d6de8b5d026",
+      "size": 1020,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0b8526040fa5c687c156fd130a348d6de8b5d026"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2eaf5e70005906dbea614956488380ab509a4b18",
+      "size": 3003,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2eaf5e70005906dbea614956488380ab509a4b18"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8cd0d986a4f4564bc086f0d245b49effa270bca0",
+      "size": 1101394,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8cd0d986a4f4564bc086f0d245b49effa270bca0"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c6bb730547ff817fbd42d58a6f0c7bf4a896863",
+      "size": 2977236,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4c6bb730547ff817fbd42d58a6f0c7bf4a896863"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e06da74ad76034f174ed46f9c6f9d7df13671fd7",
+      "size": 645608,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e06da74ad76034f174ed46f9c6f9d7df13671fd7"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e704adaa325da3faaf0347ec7b1f06827bf8224",
+      "size": 3398759,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9e704adaa325da3faaf0347ec7b1f06827bf8224"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "684dcdbc6aac7c085ec656b0f52262caa39bbafc",
+      "size": 3406552,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/684dcdbc6aac7c085ec656b0f52262caa39bbafc"
+    },
+    {
+      "path": "textures/Bricks102/Bricks102_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "651bb8b13d97bcce41b349374564409412ef44a0",
+      "size": 1514812,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/651bb8b13d97bcce41b349374564409412ef44a0"
+    },
+    {
+      "path": "textures/Bricks104",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e78c8eb295d6c128022abe2c73bd701a81bd7c41",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/e78c8eb295d6c128022abe2c73bd701a81bd7c41"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2758a9fee5a98c447738ebde1f4e0695d10be52",
+      "size": 362860,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c2758a9fee5a98c447738ebde1f4e0695d10be52"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e1e9557a6fde702d88801e0641eea40a781eb2ee",
+      "size": 1110884,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e1e9557a6fde702d88801e0641eea40a781eb2ee"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d0becde806b0bdc4bae7d7ff7f1654898758627e",
+      "size": 2272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d0becde806b0bdc4bae7d7ff7f1654898758627e"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "92c51539bde28bad977d8f402706f300373d2354",
+      "size": 1020,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/92c51539bde28bad977d8f402706f300373d2354"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "192b331c4d2b8e0639b56135e475ff36aa997e79",
+      "size": 3101,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/192b331c4d2b8e0639b56135e475ff36aa997e79"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a850a4e450c254317319bd2842834cbedb4585e9",
+      "size": 1022403,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a850a4e450c254317319bd2842834cbedb4585e9"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20192ff7c576618c15161075443b4ef9e174c929",
+      "size": 2398111,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/20192ff7c576618c15161075443b4ef9e174c929"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "819405caf80aef339cd6722d6cb73692ef9d3c85",
+      "size": 658483,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/819405caf80aef339cd6722d6cb73692ef9d3c85"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ffdcf4bcd1a0c5bbeb6406d95990454f748fc7e",
+      "size": 3198740,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7ffdcf4bcd1a0c5bbeb6406d95990454f748fc7e"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "468c691e8be80cb72e901e224acb32450aa93513",
+      "size": 3196494,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/468c691e8be80cb72e901e224acb32450aa93513"
+    },
+    {
+      "path": "textures/Bricks104/Bricks104_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4c0bb43c52856327e12f1fd33a7f978fb83e10e8",
+      "size": 1051946,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4c0bb43c52856327e12f1fd33a7f978fb83e10e8"
+    },
+    {
+      "path": "textures/Concrete034",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7ee5e71ab7c05e1c229d15498ee3fb361297dd66",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/7ee5e71ab7c05e1c229d15498ee3fb361297dd66"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6ac0e6adfde7f47e6320cda6fbd696778003ceac",
+      "size": 229324,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6ac0e6adfde7f47e6320cda6fbd696778003ceac"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8a6c8e4e74712e2000b204e049934be5494f632",
+      "size": 1099204,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f8a6c8e4e74712e2000b204e049934be5494f632"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bdba566e5962b6b68881524bad1daa208c9f85ab",
+      "size": 2302,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bdba566e5962b6b68881524bad1daa208c9f85ab"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a08fe595f2c0e7e19b020409e4571c33e700a57",
+      "size": 816,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4a08fe595f2c0e7e19b020409e4571c33e700a57"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e446cfd649d6a60f6abc9c8eaead998ccd3f2ae",
+      "size": 2907,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1e446cfd649d6a60f6abc9c8eaead998ccd3f2ae"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8bff82f42916ba57e9d49cb9c39e55e89a75a3cf",
+      "size": 1156573,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8bff82f42916ba57e9d49cb9c39e55e89a75a3cf"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c9a449030a67b904fe4a73be15f3b93e69122b2",
+      "size": 572145,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0c9a449030a67b904fe4a73be15f3b93e69122b2"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b7be7abd91308051d5b4670ffc847069fd041f1",
+      "size": 3329071,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8b7be7abd91308051d5b4670ffc847069fd041f1"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4d0194cd991ad10ced5cbf5c526badf78102f596",
+      "size": 3325261,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4d0194cd991ad10ced5cbf5c526badf78102f596"
+    },
+    {
+      "path": "textures/Concrete034/Concrete034_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "509dbe195117694c19c0a7e23b3d4315a3d9b792",
+      "size": 879275,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/509dbe195117694c19c0a7e23b3d4315a3d9b792"
+    },
+    {
+      "path": "textures/Concrete047A",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "edc8b6271975574c2ea2d92625a3ec173278ecc7",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/edc8b6271975574c2ea2d92625a3ec173278ecc7"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "84d880da5e2cd7d07d4a1d03b079eab8abe8f9d8",
+      "size": 415852,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/84d880da5e2cd7d07d4a1d03b079eab8abe8f9d8"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f3fa3c53999561273e110e1010bdc1a3ea0a5bb",
+      "size": 1109220,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5f3fa3c53999561273e110e1010bdc1a3ea0a5bb"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0a6f72bc446470e70ee1216f6b8c666b7169a8fb",
+      "size": 2317,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0a6f72bc446470e70ee1216f6b8c666b7169a8fb"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0a4260fd7b52785c0c7064bbec0b6c77c79a93e4",
+      "size": 1035,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0a4260fd7b52785c0c7064bbec0b6c77c79a93e4"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bdb94507740377541fcc36bd92d6864e16c9db0e",
+      "size": 2977,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bdb94507740377541fcc36bd92d6864e16c9db0e"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c283bd62c18c90b1376183f417c8344fb188033e",
+      "size": 3159294,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c283bd62c18c90b1376183f417c8344fb188033e"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "32f5e64b948d4c6e140207ce5a56e08365804423",
+      "size": 6717902,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/32f5e64b948d4c6e140207ce5a56e08365804423"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "565c6d52655bf85040c391410fcf6abb17c63d36",
+      "size": 1708220,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/565c6d52655bf85040c391410fcf6abb17c63d36"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0b296ef28ea8fd339d4db1988efca9e823f4d5ea",
+      "size": 8361010,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0b296ef28ea8fd339d4db1988efca9e823f4d5ea"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd7bd9ffbdff4ef06a4d2ce04c25a55eb2e68639",
+      "size": 8358949,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/cd7bd9ffbdff4ef06a4d2ce04c25a55eb2e68639"
+    },
+    {
+      "path": "textures/Concrete047A/Concrete047A_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b04b41811662ad52c2069ab190e99d5d9c3aca4b",
+      "size": 3079558,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b04b41811662ad52c2069ab190e99d5d9c3aca4b"
+    },
+    {
+      "path": "textures/Concrete048",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4de548a4fc3412a9ec0da8d0c4605805efadc757",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/4de548a4fc3412a9ec0da8d0c4605805efadc757"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "974c5173650d08c8d97fa2b3a7114fef74a232c9",
+      "size": 321425,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/974c5173650d08c8d97fa2b3a7114fef74a232c9"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a1cfd4881ed1b1bd0aa6e978eb257c3b019e566b",
+      "size": 1119396,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a1cfd4881ed1b1bd0aa6e978eb257c3b019e566b"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0aa949bc5182cbfdb84273e4e62d182314002a0",
+      "size": 2649,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f0aa949bc5182cbfdb84273e4e62d182314002a0"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0b3d58f2bdff6c3930b33cd50c06cab5ca4facc6",
+      "size": 1232,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0b3d58f2bdff6c3930b33cd50c06cab5ca4facc6"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1af85c9611cdd8246430bffbe2cdeff6da4adba7",
+      "size": 3067,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1af85c9611cdd8246430bffbe2cdeff6da4adba7"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e56ce219fddad76b64ffcd7efd6b52f04c3ca437",
+      "size": 2962142,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e56ce219fddad76b64ffcd7efd6b52f04c3ca437"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3af2540dcff6196a6e2a30546fa6c9f3eb77487f",
+      "size": 4839090,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3af2540dcff6196a6e2a30546fa6c9f3eb77487f"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aed28112dc57e4f679e1cda0ec162495eccc9d32",
+      "size": 1887023,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/aed28112dc57e4f679e1cda0ec162495eccc9d32"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_Metalness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ed5e9250fa02ee0a2cb7b9ffadbfa39eb8ff467d",
+      "size": 17517,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ed5e9250fa02ee0a2cb7b9ffadbfa39eb8ff467d"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "585dcdbd75993d7aedcb80c4ecd7713585c24d63",
+      "size": 7389082,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/585dcdbd75993d7aedcb80c4ecd7713585c24d63"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3993da29e978ce1ca5dd3cebe9966f5e24193c91",
+      "size": 7369067,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3993da29e978ce1ca5dd3cebe9966f5e24193c91"
+    },
+    {
+      "path": "textures/Concrete048/Concrete048_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ecd6471af322820890d2061bcaba77b5d6129c15",
+      "size": 3076529,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ecd6471af322820890d2061bcaba77b5d6129c15"
+    },
+    {
+      "path": "textures/Ground037",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0e804d469a2d02cd6fcd028f24a2e06cc31d20f5",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/0e804d469a2d02cd6fcd028f24a2e06cc31d20f5"
+    },
+    {
+      "path": "textures/Ground037/Ground037.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a08137dd444b1a91cc5ef267d7640a4e9a002025",
+      "size": 513329,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a08137dd444b1a91cc5ef267d7640a4e9a002025"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "23f225b10f0bab10b02c52e129a6bc7ab25f600e",
+      "size": 1109220,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/23f225b10f0bab10b02c52e129a6bc7ab25f600e"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9322f040e0041f095f3d552ef5601eb6bb19208",
+      "size": 2272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f9322f040e0041f095f3d552ef5601eb6bb19208"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "597c8fc588d43d1075fded52caf1f8a25db6cd9e",
+      "size": 1020,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/597c8fc588d43d1075fded52caf1f8a25db6cd9e"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfecec26ca6d4e9e1b959ae7fc91ba9021846b9b",
+      "size": 2982,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/dfecec26ca6d4e9e1b959ae7fc91ba9021846b9b"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "82bd1103a84d1460e5e4f0528fe53dd2f4cef782",
+      "size": 2102448,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/82bd1103a84d1460e5e4f0528fe53dd2f4cef782"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3aa0b16c5e25c80e0a80decf46c1bdcb3cce3832",
+      "size": 8674228,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3aa0b16c5e25c80e0a80decf46c1bdcb3cce3832"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25ab5fb4fa24a741f0f0cd47b866a2322ae84f20",
+      "size": 1721182,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/25ab5fb4fa24a741f0f0cd47b866a2322ae84f20"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "53e902eec470a4cb6707bdf2ed0c8c8c7ff0fd3e",
+      "size": 10344770,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/53e902eec470a4cb6707bdf2ed0c8c8c7ff0fd3e"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4de0e07ec301c7c0344fb8020188a5ca5ec88df0",
+      "size": 10341826,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4de0e07ec301c7c0344fb8020188a5ca5ec88df0"
+    },
+    {
+      "path": "textures/Ground037/Ground037_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bdace44da4ef6dabbe4ab4b6e951e72233736ec9",
+      "size": 3058522,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bdace44da4ef6dabbe4ab4b6e951e72233736ec9"
+    },
+    {
+      "path": "textures/Ground054",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6d4ae08fca1c51047f5a9decaee170df12410954",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/6d4ae08fca1c51047f5a9decaee170df12410954"
+    },
+    {
+      "path": "textures/Ground054/Ground054.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bd2cd729f8a775f8d1622c9db2c6c1ceabdd5862",
+      "size": 418224,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bd2cd729f8a775f8d1622c9db2c6c1ceabdd5862"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4d5cb326d216ab25ab48a5e3a89165c79345913",
+      "size": 1109428,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d4d5cb326d216ab25ab48a5e3a89165c79345913"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "22e66de4a8470e6d4057828065c35c72a5af3f0d",
+      "size": 2272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/22e66de4a8470e6d4057828065c35c72a5af3f0d"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a34ca463ccebef86332a3e77d063a1c42c71a05",
+      "size": 1020,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2a34ca463ccebef86332a3e77d063a1c42c71a05"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "394d8a86212e1a4eba96b580c9d27a150bcc20d2",
+      "size": 2997,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/394d8a86212e1a4eba96b580c9d27a150bcc20d2"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7d7a189912c11c8010f409ed79c105ada42a28c7",
+      "size": 2291629,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7d7a189912c11c8010f409ed79c105ada42a28c7"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "531fcee1d568be8b1616a0198ed0adccff47319b",
+      "size": 6859366,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/531fcee1d568be8b1616a0198ed0adccff47319b"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9d016a3ba2e6a451a6af7c834d31649c9ef13e2d",
+      "size": 1296415,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9d016a3ba2e6a451a6af7c834d31649c9ef13e2d"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0cbf784debdc929a9576fec5211f6aca7b79e79",
+      "size": 9053784,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f0cbf784debdc929a9576fec5211f6aca7b79e79"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6da390c60a5bbbdd4c2d7f599b3682db5b3585d5",
+      "size": 9053937,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6da390c60a5bbbdd4c2d7f599b3682db5b3585d5"
+    },
+    {
+      "path": "textures/Ground054/Ground054_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "44c701f790316045cbbb2635005c908d0f584dcf",
+      "size": 2896658,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/44c701f790316045cbbb2635005c908d0f584dcf"
+    },
+    {
+      "path": "textures/Ground103",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4348394bbc5405d6dd33714b6f1f0a98a7cd25a7",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/4348394bbc5405d6dd33714b6f1f0a98a7cd25a7"
+    },
+    {
+      "path": "textures/Ground103/Ground103.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "37194944b90129fa83c87826f7770ee3300426fc",
+      "size": 461884,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/37194944b90129fa83c87826f7770ee3300426fc"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "04f0194aabb892abf81c5e03bffdbaa8fb759136",
+      "size": 1110468,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/04f0194aabb892abf81c5e03bffdbaa8fb759136"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "71ce71f60203b83f31703e11d74ce045259f8849",
+      "size": 2272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/71ce71f60203b83f31703e11d74ce045259f8849"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4df02a4c6cd00b872a64238b6b89a7b93f1c52d",
+      "size": 1020,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e4df02a4c6cd00b872a64238b6b89a7b93f1c52d"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8031c8dcad7a6840b54870b9dd1154b6576507e",
+      "size": 3074,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a8031c8dcad7a6840b54870b9dd1154b6576507e"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8ddc6ac010a5d39811ee91fbe46f5eabade286d2",
+      "size": 3619700,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8ddc6ac010a5d39811ee91fbe46f5eabade286d2"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79d8485baba474d98c9251de88371f150268b2a4",
+      "size": 5997214,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/79d8485baba474d98c9251de88371f150268b2a4"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "11d28944787ccf1c80fa366f4ed265b2176f1987",
+      "size": 1554675,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/11d28944787ccf1c80fa366f4ed265b2176f1987"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "82dd59f6dbe609b561fc13047cccca17b7edf567",
+      "size": 8812831,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/82dd59f6dbe609b561fc13047cccca17b7edf567"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ea6326e7c6a0253a0531236fb4f2d15dd59de552",
+      "size": 8811594,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ea6326e7c6a0253a0531236fb4f2d15dd59de552"
+    },
+    {
+      "path": "textures/Ground103/Ground103_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ccfe382808b91a3c15e9d5be906117f2167b273a",
+      "size": 3419150,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ccfe382808b91a3c15e9d5be906117f2167b273a"
+    },
+    {
+      "path": "textures/Metal049A",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6e5b39117f00d41dfd8e682a15edba929eb3fb2f",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/6e5b39117f00d41dfd8e682a15edba929eb3fb2f"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61fa0ae9cd481ff656bd97c3d3e81d91a19cf432",
+      "size": 213095,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/61fa0ae9cd481ff656bd97c3d3e81d91a19cf432"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "66678816591344eddbecce3a8def25ba2e38895c",
+      "size": 1109588,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/66678816591344eddbecce3a8def25ba2e38895c"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "266aa238b01de8090000f25bc8953c872adbf060",
+      "size": 2613,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/266aa238b01de8090000f25bc8953c872adbf060"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ef70ce3ee1110bd12607cc59f3623e0a9a145bf",
+      "size": 1008,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5ef70ce3ee1110bd12607cc59f3623e0a9a145bf"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f775014e1362f1c6cada7a39e21fa5385c2cd7c3",
+      "size": 2978,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f775014e1362f1c6cada7a39e21fa5385c2cd7c3"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c5c497d110bd20cc406878e400b4b9574741126",
+      "size": 1968543,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2c5c497d110bd20cc406878e400b4b9574741126"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b808c51345475e2f165ced9a02196923f38dd574",
+      "size": 17670,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b808c51345475e2f165ced9a02196923f38dd574"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG_Metalness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a7681725f8ce39b28eefc3d90ddb6791c1502883",
+      "size": 20213,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a7681725f8ce39b28eefc3d90ddb6791c1502883"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61517ffcbcff4ea5660ebc8f2ce0bd7ef1da2461",
+      "size": 1250891,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/61517ffcbcff4ea5660ebc8f2ce0bd7ef1da2461"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "05c60040cf96be5d474c365f923ceced0408c93e",
+      "size": 1291902,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/05c60040cf96be5d474c365f923ceced0408c93e"
+    },
+    {
+      "path": "textures/Metal049A/Metal049A_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "75884310df7fb68bf9e5c8f572ff2710eff1eaba",
+      "size": 1308267,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/75884310df7fb68bf9e5c8f572ff2710eff1eaba"
+    },
+    {
+      "path": "textures/Metal055A",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3f36a775bbc169e3435d9f73723eb01e3ff8ebd0",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/3f36a775bbc169e3435d9f73723eb01e3ff8ebd0"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4444347b30516dd712ad4d060afb7338aca0e31c",
+      "size": 276862,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4444347b30516dd712ad4d060afb7338aca0e31c"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6a6dbe471ee9f844f4023b4b509c5eeeed9b06e7",
+      "size": 1109172,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6a6dbe471ee9f844f4023b4b509c5eeeed9b06e7"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a68b9bab49f1ae83971c151d145ec4f328322498",
+      "size": 2613,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a68b9bab49f1ae83971c151d145ec4f328322498"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5b9e1ee2489620ba1950969aafe27c39da7c0164",
+      "size": 1008,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5b9e1ee2489620ba1950969aafe27c39da7c0164"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "546c59b2ff0db8fb755f22a053a49f8d1aa05f41",
+      "size": 2948,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/546c59b2ff0db8fb755f22a053a49f8d1aa05f41"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eb885bf665cb725fef51485f32da8dcc84dd8129",
+      "size": 3371947,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/eb885bf665cb725fef51485f32da8dcc84dd8129"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "17c4dd0efdb71160a92a08dd16af7dbf140c3f3d",
+      "size": 1008602,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/17c4dd0efdb71160a92a08dd16af7dbf140c3f3d"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG_Metalness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7650d325b34ada21164d214099ed3b170748eb5",
+      "size": 247035,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d7650d325b34ada21164d214099ed3b170748eb5"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a3510a4376f9148ea93457291103aeaba8df3fc1",
+      "size": 2992190,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a3510a4376f9148ea93457291103aeaba8df3fc1"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d739b1e8af6ad72d8ef3b7742932c90f42d92553",
+      "size": 2987550,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d739b1e8af6ad72d8ef3b7742932c90f42d92553"
+    },
+    {
+      "path": "textures/Metal055A/Metal055A_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f69d13f6f7522c96199aa8ee229f042d766d3ec",
+      "size": 1991438,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7f69d13f6f7522c96199aa8ee229f042d766d3ec"
+    },
+    {
+      "path": "textures/Metal063",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4584d9df8b8f606ccc36241498823295d87d1fc4",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/4584d9df8b8f606ccc36241498823295d87d1fc4"
+    },
+    {
+      "path": "textures/Metal063/Metal063.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad53295cc590d412f94dabad26c321ece4ca33ab",
+      "size": 314455,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ad53295cc590d412f94dabad26c321ece4ca33ab"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d9edec5162f183fae6b14cd47e248df988d22874",
+      "size": 1111876,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d9edec5162f183fae6b14cd47e248df988d22874"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c1d6d36b179a114da10f664695b76318c9dae5ff",
+      "size": 2595,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c1d6d36b179a114da10f664695b76318c9dae5ff"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4ff8c12f4a1d3cd6777da1cdfd49735c392f5b3",
+      "size": 1003,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d4ff8c12f4a1d3cd6777da1cdfd49735c392f5b3"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b73edc57cb56111c142ef2277f7155cebeebe91",
+      "size": 3150,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8b73edc57cb56111c142ef2277f7155cebeebe91"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dbe258ead2901f23325dd6b2faa828a5bc1d9a1e",
+      "size": 5193905,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/dbe258ead2901f23325dd6b2faa828a5bc1d9a1e"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7d64c8f8288653aca46c79060f7fdbe67df573fa",
+      "size": 3255865,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7d64c8f8288653aca46c79060f7fdbe67df573fa"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG_Metalness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c56e4ec6355dd50d2db20aa71cfedf5c96a03db0",
+      "size": 2587308,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c56e4ec6355dd50d2db20aa71cfedf5c96a03db0"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d9ec0da6da22ef8c2c8628f6dc94efc82dfdc10b",
+      "size": 1380729,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d9ec0da6da22ef8c2c8628f6dc94efc82dfdc10b"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28f04ba1e877b0b1c6b787cd621f8bd1cb6e6199",
+      "size": 1382977,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/28f04ba1e877b0b1c6b787cd621f8bd1cb6e6199"
+    },
+    {
+      "path": "textures/Metal063/Metal063_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "069d94ff6af9289789e84366da332b066b8edee6",
+      "size": 3121777,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/069d94ff6af9289789e84366da332b066b8edee6"
+    },
+    {
+      "path": "textures/Plaster001",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "381911079ca3ddea815f53710e1f92bd236d92db",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/381911079ca3ddea815f53710e1f92bd236d92db"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2367fad22c2a28bf6a079a09137c1e939f7a05d6",
+      "size": 329146,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2367fad22c2a28bf6a079a09137c1e939f7a05d6"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "11ae274deb1d3c7ebe65715beab67f51efaebf07",
+      "size": 1099204,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/11ae274deb1d3c7ebe65715beab67f51efaebf07"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5be10f867e7e1d6752a674832863cf25a7728333",
+      "size": 2287,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5be10f867e7e1d6752a674832863cf25a7728333"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f833d85afd44eff99be68933a68cdd3928d88318",
+      "size": 812,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f833d85afd44eff99be68933a68cdd3928d88318"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c2378cc993880537d923d8a87cb22b8cd0babc3",
+      "size": 2903,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0c2378cc993880537d923d8a87cb22b8cd0babc3"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "993eb6e18c1273c0bec5e33dd26e0c3e35c82b52",
+      "size": 3179623,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/993eb6e18c1273c0bec5e33dd26e0c3e35c82b52"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "523a62cde937537bccede9986197953d8d2b173f",
+      "size": 2155787,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/523a62cde937537bccede9986197953d8d2b173f"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8491b2e46b18d10e7a0efa2cadf671af21f15e0c",
+      "size": 9043699,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8491b2e46b18d10e7a0efa2cadf671af21f15e0c"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0886be42eb39f4608dfe38f5e72d0d093ab3470f",
+      "size": 9042548,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0886be42eb39f4608dfe38f5e72d0d093ab3470f"
+    },
+    {
+      "path": "textures/Plaster001/Plaster001_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4e90e32a04e4fb7cf4ed19a3c9202e7486ed46b4",
+      "size": 1282590,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4e90e32a04e4fb7cf4ed19a3c9202e7486ed46b4"
+    },
+    {
+      "path": "textures/Plaster002",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8287265cb4af52ba85df8b49233c6ea231d89a2b",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/8287265cb4af52ba85df8b49233c6ea231d89a2b"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14705e0ccab21ddeb361240b5d907ee33c208068",
+      "size": 329309,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/14705e0ccab21ddeb361240b5d907ee33c208068"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "242b9262dd8e064ca6d940004f428f8e0addb1a9",
+      "size": 1099204,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/242b9262dd8e064ca6d940004f428f8e0addb1a9"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2a77afbf911d5de01e3bf9226fe323755d4e4db9",
+      "size": 2287,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2a77afbf911d5de01e3bf9226fe323755d4e4db9"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "002f213fa2ba303204e4b49f2a2e4c6ef2ce8ecb",
+      "size": 812,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/002f213fa2ba303204e4b49f2a2e4c6ef2ce8ecb"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4db6e85f657899cc169640a28e35dbd4ed949ee2",
+      "size": 2906,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4db6e85f657899cc169640a28e35dbd4ed949ee2"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "01a5fee42712cfc6cfd9d780bb0ec0422c8a10ff",
+      "size": 3811719,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/01a5fee42712cfc6cfd9d780bb0ec0422c8a10ff"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6811a613ef07463884c2405fb2333158aacd5a63",
+      "size": 1911512,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6811a613ef07463884c2405fb2333158aacd5a63"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ce07900e39f48bbcbbd10967b9024e6ea48116e3",
+      "size": 8540898,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ce07900e39f48bbcbbd10967b9024e6ea48116e3"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d11ae7eb83da7ab502669b58ce33d0dcd264b7df",
+      "size": 8542001,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d11ae7eb83da7ab502669b58ce33d0dcd264b7df"
+    },
+    {
+      "path": "textures/Plaster002/Plaster002_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e303d48897da9c3c2646d5ac99f61dcb496b398",
+      "size": 1721344,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5e303d48897da9c3c2646d5ac99f61dcb496b398"
+    },
+    {
+      "path": "textures/Plaster007",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "3b561e7d4ab5c843d7173fe8efbb6b0a5ba20007",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/3b561e7d4ab5c843d7173fe8efbb6b0a5ba20007"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c44ea982167fcc24801ce5699092c720c193ed0b",
+      "size": 328767,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c44ea982167fcc24801ce5699092c720c193ed0b"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "42763d1f0eef0be90dc68a3253ea030a5fac72ca",
+      "size": 1109636,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/42763d1f0eef0be90dc68a3253ea030a5fac72ca"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d8c68608e943fa62e9eb505eccf4fefec04ceb3e",
+      "size": 2287,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d8c68608e943fa62e9eb505eccf4fefec04ceb3e"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f01679c010eaa44980784aa38ac357c8f3c73e81",
+      "size": 1025,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f01679c010eaa44980784aa38ac357c8f3c73e81"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7e5ee6b8bc49f99b2de8e127cbe7644dc69ee6b",
+      "size": 3004,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c7e5ee6b8bc49f99b2de8e127cbe7644dc69ee6b"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9c6385781820e642d734e878b7f374d4d26bd220",
+      "size": 2652009,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9c6385781820e642d734e878b7f374d4d26bd220"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "551c2d7a1110d17dcd4acf0a58fc847e31fc3ce9",
+      "size": 4573950,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/551c2d7a1110d17dcd4acf0a58fc847e31fc3ce9"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ced905fa1fd43a1cb527e6cbfdda2c653a58d913",
+      "size": 1385453,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ced905fa1fd43a1cb527e6cbfdda2c653a58d913"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c66a6f748163e7dc910d82ca6e24d711e95fdecc",
+      "size": 7430414,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c66a6f748163e7dc910d82ca6e24d711e95fdecc"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "721332adfe07ae17100bc95476798e9466e4624a",
+      "size": 7421342,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/721332adfe07ae17100bc95476798e9466e4624a"
+    },
+    {
+      "path": "textures/Plaster007/Plaster007_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "60ffec3a715d888a443717aa352ae2ca4500484e",
+      "size": 2941802,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/60ffec3a715d888a443717aa352ae2ca4500484e"
+    },
+    {
+      "path": "textures/Rock058",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5dc471b778278ff0e271d7e79f70bdb02141069b",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/5dc471b778278ff0e271d7e79f70bdb02141069b"
+    },
+    {
+      "path": "textures/Rock058/Rock058.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "79d3dd2bf0bf0c035542a4f69f3445d664e9ea62",
+      "size": 369099,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/79d3dd2bf0bf0c035542a4f69f3445d664e9ea62"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dc8a0e4758e58cdec041db6cd9f19a988e7a8931",
+      "size": 1109012,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/dc8a0e4758e58cdec041db6cd9f19a988e7a8931"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e0a115fcbdef5c2608a85ca98e5a06154ddc87a",
+      "size": 2242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5e0a115fcbdef5c2608a85ca98e5a06154ddc87a"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "60b22ad74b5d8905a074ffc237722fd8074134aa",
+      "size": 1010,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/60b22ad74b5d8905a074ffc237722fd8074134aa"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "13802b723a4d2ce5811e69df9681bd67ee6e250f",
+      "size": 2969,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/13802b723a4d2ce5811e69df9681bd67ee6e250f"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "995753efe8506cfcce61d0e5d5ca68279f6149f0",
+      "size": 2223980,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/995753efe8506cfcce61d0e5d5ca68279f6149f0"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ca4e809c680bf30b25fb58377154ddcf154ae9e6",
+      "size": 4525426,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ca4e809c680bf30b25fb58377154ddcf154ae9e6"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e57afeb69b495709345f1fe83b188844f84ebec",
+      "size": 824892,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8e57afeb69b495709345f1fe83b188844f84ebec"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cd843e5182289ff7a3c774bb3e7934d707499fee",
+      "size": 7501578,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/cd843e5182289ff7a3c774bb3e7934d707499fee"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f2c92a190b5820060b7640f6e8a854f5b06c72d",
+      "size": 7540530,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5f2c92a190b5820060b7640f6e8a854f5b06c72d"
+    },
+    {
+      "path": "textures/Rock058/Rock058_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9d0b5e1b1ff8d027d381c48a70ec38933c16024",
+      "size": 3001155,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f9d0b5e1b1ff8d027d381c48a70ec38933c16024"
+    },
+    {
+      "path": "textures/Rock063",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7e7baa0a7f1e83db4f1ba718a0453d3fed95c7dd",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/7e7baa0a7f1e83db4f1ba718a0453d3fed95c7dd"
+    },
+    {
+      "path": "textures/Rock063/Rock063.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7535c66d5fd42950502766a9b00fcd213322952",
+      "size": 463099,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d7535c66d5fd42950502766a9b00fcd213322952"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4d30592c2cc06d54cc4807fc20c0ab7b24e5b5a7",
+      "size": 1111924,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4d30592c2cc06d54cc4807fc20c0ab7b24e5b5a7"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f2b4fa4a55b422d992654bf86eb1df6c38ae605f",
+      "size": 2242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f2b4fa4a55b422d992654bf86eb1df6c38ae605f"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "408bf62da1e49539140ed34bf86a45405e300006",
+      "size": 1010,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/408bf62da1e49539140ed34bf86a45405e300006"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "646c418e57198c1d16d1f1ad0b4ca1e6fafda9d8",
+      "size": 3173,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/646c418e57198c1d16d1f1ad0b4ca1e6fafda9d8"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55ecd893dcc109df0baebca3c0aee4d5f88e17fd",
+      "size": 1258887,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/55ecd893dcc109df0baebca3c0aee4d5f88e17fd"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d42c1c642150321560ada2f0bb73aaa5dec25f3",
+      "size": 3436561,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1d42c1c642150321560ada2f0bb73aaa5dec25f3"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "379f03281fbe5f6a257c3e9f0bcedf898fcc0177",
+      "size": 337684,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/379f03281fbe5f6a257c3e9f0bcedf898fcc0177"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "06594f10ff96af6254d636b7e1744fdc7ee80109",
+      "size": 3439442,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/06594f10ff96af6254d636b7e1744fdc7ee80109"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b0d159d48556415d12c5cfa2310e3f83d50b68a",
+      "size": 3424734,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9b0d159d48556415d12c5cfa2310e3f83d50b68a"
+    },
+    {
+      "path": "textures/Rock063/Rock063_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "32777b9b868680b4d105547d086a8fccbfce0d21",
+      "size": 1437039,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/32777b9b868680b4d105547d086a8fccbfce0d21"
+    },
+    {
+      "path": "textures/Rock064",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8a42def34bfd294bfdee3062c179a87de43a47c2",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/8a42def34bfd294bfdee3062c179a87de43a47c2"
+    },
+    {
+      "path": "textures/Rock064/Rock064.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "de79dfc3f9559f6480f822a9ace9f10524fc7136",
+      "size": 443673,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/de79dfc3f9559f6480f822a9ace9f10524fc7136"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cfee0ebb3fb95f637230f6d37caa40595c474198",
+      "size": 1111092,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/cfee0ebb3fb95f637230f6d37caa40595c474198"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aaef7f655fe78c0f0114765cf933770163a5bef2",
+      "size": 2242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/aaef7f655fe78c0f0114765cf933770163a5bef2"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3850749acd032222688a3b84ebdcc7a647c94b6",
+      "size": 1010,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f3850749acd032222688a3b84ebdcc7a647c94b6"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6476d892ba7c6c0aa890b7743362be75ba4b93ce",
+      "size": 3126,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6476d892ba7c6c0aa890b7743362be75ba4b93ce"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG_AmbientOcclusion.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "234d447a4bfc2c7dc160d5cfb236e8d20a61f17a",
+      "size": 2248026,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/234d447a4bfc2c7dc160d5cfb236e8d20a61f17a"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "74cc795ce1f50e2c39bbf87a346fdfb141088181",
+      "size": 6635383,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/74cc795ce1f50e2c39bbf87a346fdfb141088181"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4aee85d2fb06991b3f7aadcbb723eb4d7f393a93",
+      "size": 865896,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4aee85d2fb06991b3f7aadcbb723eb4d7f393a93"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c55024af0f3c1c31f0f053642edc9031a92bb9b8",
+      "size": 7164516,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c55024af0f3c1c31f0f053642edc9031a92bb9b8"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3326300b1f7f776734bb87936b2dc372ccb8235c",
+      "size": 7152261,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3326300b1f7f776734bb87936b2dc372ccb8235c"
+    },
+    {
+      "path": "textures/Rock064/Rock064_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d43c7162053c2c68d115e2bf269437049e89633f",
+      "size": 2809510,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d43c7162053c2c68d115e2bf269437049e89633f"
+    },
+    {
+      "path": "textures/Wood092",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0862c31283ec9c9e32abdde6ba69e6c70f675fd9",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/0862c31283ec9c9e32abdde6ba69e6c70f675fd9"
+    },
+    {
+      "path": "textures/Wood092/Wood092.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1fbcf241bf7175cfdf9a494e87f815a3ac4e2534",
+      "size": 246035,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1fbcf241bf7175cfdf9a494e87f815a3ac4e2534"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f8aad028c70afff47c04ad8c5825f8a5804d5efd",
+      "size": 1099620,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/f8aad028c70afff47c04ad8c5825f8a5804d5efd"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ed50954675b3bd1489a6ced563bd1f7b21b45b4",
+      "size": 2242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7ed50954675b3bd1489a6ced563bd1f7b21b45b4"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cdee7597fac170c98077ffca769143bd23b9bcaf",
+      "size": 800,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/cdee7597fac170c98077ffca769143bd23b9bcaf"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6f61be1c286dce03eb283bd4a0f9d8d4b598362b",
+      "size": 2934,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6f61be1c286dce03eb283bd4a0f9d8d4b598362b"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3176265f860067fe6204c60113d61fdb05a6eeed",
+      "size": 3513545,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3176265f860067fe6204c60113d61fdb05a6eeed"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1a4710c2906835797bac2fd40a788c4e505a5175",
+      "size": 1959972,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/1a4710c2906835797bac2fd40a788c4e505a5175"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ace5078cbdfbfb8a003e145d46ed143699e0334b",
+      "size": 4864588,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ace5078cbdfbfb8a003e145d46ed143699e0334b"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "737ae9e4490e026ac79d9c279296f5b7031a5385",
+      "size": 4855462,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/737ae9e4490e026ac79d9c279296f5b7031a5385"
+    },
+    {
+      "path": "textures/Wood092/Wood092_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "35abb35f07f1b1fbd9a6b5a4707740c2b5575eab",
+      "size": 1641674,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/35abb35f07f1b1fbd9a6b5a4707740c2b5575eab"
+    },
+    {
+      "path": "textures/Wood094",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "cae341e1e3a9ccfc3dc20d3aac278e4595533b8e",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/cae341e1e3a9ccfc3dc20d3aac278e4595533b8e"
+    },
+    {
+      "path": "textures/Wood094/Wood094.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ac81f86dfe26f65fec7380f8ac7df1b4edb1561e",
+      "size": 261996,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ac81f86dfe26f65fec7380f8ac7df1b4edb1561e"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da3e39c0d4ad7cb81cc442cc52af88b18fce6973",
+      "size": 1098996,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/da3e39c0d4ad7cb81cc442cc52af88b18fce6973"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "df83ed505a6a59a86f894d954b571dfbcf7bc801",
+      "size": 2242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/df83ed505a6a59a86f894d954b571dfbcf7bc801"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bc1c93ed9c500771e2beea7a0f785265de7bd4da",
+      "size": 800,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bc1c93ed9c500771e2beea7a0f785265de7bd4da"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "57b2cb7df7d0e60b428c7a95a13a5816e6c087ac",
+      "size": 2882,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/57b2cb7df7d0e60b428c7a95a13a5816e6c087ac"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3e6317a0f98c956afb3af3495e552d4c43ebb1f2",
+      "size": 4002489,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3e6317a0f98c956afb3af3495e552d4c43ebb1f2"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7fcbce209b740c47e96d5ccad03c29eed884107",
+      "size": 2444753,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c7fcbce209b740c47e96d5ccad03c29eed884107"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c5124d4221583da05c39cf0a8bc8de8ac015317c",
+      "size": 2954496,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c5124d4221583da05c39cf0a8bc8de8ac015317c"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24effd0688132af77bc41d443ffc1492925c779e",
+      "size": 2954350,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/24effd0688132af77bc41d443ffc1492925c779e"
+    },
+    {
+      "path": "textures/Wood094/Wood094_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8c645d00c4141fa9f70eced859d23841084a23d2",
+      "size": 1082030,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8c645d00c4141fa9f70eced859d23841084a23d2"
+    },
+    {
+      "path": "textures/Wood095",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a955152370e0b332fbb523a78ae9e3cd7f9d761b",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/a955152370e0b332fbb523a78ae9e3cd7f9d761b"
+    },
+    {
+      "path": "textures/Wood095/Wood095.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "096fd05e03dbc497d47638920acd9b4569effac9",
+      "size": 296585,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/096fd05e03dbc497d47638920acd9b4569effac9"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "863e8405bfb36ba54e5924a62949a59d92189665",
+      "size": 1101076,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/863e8405bfb36ba54e5924a62949a59d92189665"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG.mtlx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6100be2b97e582e11eae240128a5f1ee585555bf",
+      "size": 2242,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6100be2b97e582e11eae240128a5f1ee585555bf"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG.tres",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7bd4f339dc68f69fbec2db8e644604c3ed789188",
+      "size": 800,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7bd4f339dc68f69fbec2db8e644604c3ed789188"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG.usdc",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "417c0f360012b7c2e8c31a340ea3e12a625bf31b",
+      "size": 3046,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/417c0f360012b7c2e8c31a340ea3e12a625bf31b"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG_Color.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "14ff89f47a4289c95d659c2d95e962b4b72166af",
+      "size": 2229035,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/14ff89f47a4289c95d659c2d95e962b4b72166af"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG_Displacement.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f78c4ba1a357e43282d00aa971a3134042fa3c1",
+      "size": 1293201,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2f78c4ba1a357e43282d00aa971a3134042fa3c1"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG_NormalDX.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c4257ea3bc813cf9fda3138516b97fd6b688579",
+      "size": 3452967,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3c4257ea3bc813cf9fda3138516b97fd6b688579"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG_NormalGL.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e515cff7f4254f14d635646353cbfae45e37593",
+      "size": 3452834,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7e515cff7f4254f14d635646353cbfae45e37593"
+    },
+    {
+      "path": "textures/Wood095/Wood095_2K-JPG_Roughness.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6de1cb1a7f387a60660bf7cf9ebe1828c5b32c33",
+      "size": 1098309,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6de1cb1a7f387a60660bf7cf9ebe1828c5b32c33"
+    },
+    {
+      "path": "weapons",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "7942fba59cced66eb0e50db93aeed839b25d31f0",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/7942fba59cced66eb0e50db93aeed839b25d31f0"
+    },
+    {
+      "path": "weapons/flat_guns_east",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "62987c5ed7b13611594e4b6dc15718efa422035a",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/62987c5ed7b13611594e4b6dc15718efa422035a"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d261359eb29de41f7ba08f50758f1c9ea926cc33",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/d261359eb29de41f7ba08f50758f1c9ea926cc33"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0cf0fa8c286dd5e9a444addba10656386bde682f",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/0cf0fa8c286dd5e9a444addba10656386bde682f"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Pistol_Compact_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "11f5455865c8ba2bc29f73b128f2dbda80cd9712",
+      "size": 59580,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/11f5455865c8ba2bc29f73b128f2dbda80cd9712"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Pistol_Full_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "51db64c724b3021366ffd08f7f2919be2f2cc0e1",
+      "size": 56332,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/51db64c724b3021366ffd08f7f2919be2f2cc0e1"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Rifle_Assault_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8f2109f415755ad0af8aaa1d911ddfea7c2064cd",
+      "size": 92204,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8f2109f415755ad0af8aaa1d911ddfea7c2064cd"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Rifle_Battle_East.RIg.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24f2bfee4166e2208cb070b3de273f0989fafc9d",
+      "size": 91644,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/24f2bfee4166e2208cb070b3de273f0989fafc9d"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/SMG_Compact_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2fadbba99ac6d3373b8f6b04786374c42c54394f",
+      "size": 70348,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2fadbba99ac6d3373b8f6b04786374c42c54394f"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/SMG_Full_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0afcd8085ddbdd3d4e5093a94283c52ab8d17eff",
+      "size": 76508,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0afcd8085ddbdd3d4e5093a94283c52ab8d17eff"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Shotgun_Auto_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7a03c029e22781586ce401c18bea384e2e0abf72",
+      "size": 74380,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7a03c029e22781586ce401c18bea384e2e0abf72"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Shotgun_Pump_East.RIg.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3590c4b06c378037190edd870ca0c24fdaf5ae8a",
+      "size": 60604,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/3590c4b06c378037190edd870ca0c24fdaf5ae8a"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Sniper_Material_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d7f5c21d7aa8f9f282159367049673590f4659dc",
+      "size": 79740,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d7f5c21d7aa8f9f282159367049673590f4659dc"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/FBX/Sniper_Rifle_East.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a743e79ea184966021aba937d30cb6876e2cbaba",
+      "size": 86636,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a743e79ea184966021aba937d30cb6876e2cbaba"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/Flat_Guns_East.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ade0a4b4cf29bf064fc277980884197efa08f51f",
+      "size": 669924,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ade0a4b4cf29bf064fc277980884197efa08f51f"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2c6214903860d2d100bee8ca51bdc9ec36dbe49a",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/2c6214903860d2d100bee8ca51bdc9ec36dbe49a"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Pistol_Compact_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "28e7c987a4ad970719281929badd98dfb89b178d",
+      "size": 120180,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/28e7c987a4ad970719281929badd98dfb89b178d"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Pistol_Full_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e3e082d3bc90177f4acd4b8b9b7a19fab3acfcab",
+      "size": 115180,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e3e082d3bc90177f4acd4b8b9b7a19fab3acfcab"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Rifle_Assault_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d963df6652d2ad620a543fd5464a2d83dc0de28d",
+      "size": 302620,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d963df6652d2ad620a543fd5464a2d83dc0de28d"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Rifle_Battle_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ff72582175608705a07180a2dc60e5eca13b4973",
+      "size": 294364,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ff72582175608705a07180a2dc60e5eca13b4973"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/SMG_Compact_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4699cfd425b23d58d160f0f34a694515156ba3fb",
+      "size": 158532,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4699cfd425b23d58d160f0f34a694515156ba3fb"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/SMG_Full_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33294490773b95b947a0c5c55a9632aa023bd9ff",
+      "size": 201216,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/33294490773b95b947a0c5c55a9632aa023bd9ff"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Shotgun_Auto_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25b40c6065b29e63354c384550b03d3ad7bf8756",
+      "size": 181616,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/25b40c6065b29e63354c384550b03d3ad7bf8756"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Shotgun_Pump_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a565f7bd509c967719945ff6092b665c347cd634",
+      "size": 145012,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a565f7bd509c967719945ff6092b665c347cd634"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Sniper_Material_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c69c6e8d7d86b776a538bcc193e71d4b1efe607",
+      "size": 231548,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7c69c6e8d7d86b776a538bcc193e71d4b1efe607"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/GLB/Sniper_Rifle_East.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fffcf4126e9ff033c4df76b8ad55ee2cf0114901",
+      "size": 270556,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/fffcf4126e9ff033c4df76b8ad55ee2cf0114901"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "813e3f41735ce20706b031fdd8d82696a68dcd3c",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/813e3f41735ce20706b031fdd8d82696a68dcd3c"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Pistol_Compact_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6bb54a95dadb80e37285856aa8abc42b06dc357e",
+      "size": 1602,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6bb54a95dadb80e37285856aa8abc42b06dc357e"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Pistol_Compact_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fb7d27384250473dd184778da110d4bb34fe3ade",
+      "size": 31922,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/fb7d27384250473dd184778da110d4bb34fe3ade"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Pistol_Full_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Pistol_Full_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "410f0b394a1531f4b07f8ec49d656944794db3df",
+      "size": 30728,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/410f0b394a1531f4b07f8ec49d656944794db3df"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Rifle_Assault_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Rifle_Assault_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7b6872a93c55d9f60a7c179a259409d15be43925",
+      "size": 86873,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7b6872a93c55d9f60a7c179a259409d15be43925"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Rifle_Battle_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Rifle_Battle_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "495c078fb53c83f16a7b2d59753dec85efbfa21d",
+      "size": 84306,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/495c078fb53c83f16a7b2d59753dec85efbfa21d"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/SMG_Compact_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/SMG_Compact_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ffef2851b04d3bc0d32bfb866ff189cfa0f68d7e",
+      "size": 44893,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ffef2851b04d3bc0d32bfb866ff189cfa0f68d7e"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/SMG_Full_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/SMG_Full_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d14905b2beba08701920c5406380e6c0645fe548",
+      "size": 57592,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d14905b2beba08701920c5406380e6c0645fe548"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Shotgun_Auto_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b5e9ed45ada7e23beaa4e34b000d9364627819e9",
+      "size": 1410,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/b5e9ed45ada7e23beaa4e34b000d9364627819e9"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Shotgun_Auto_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dbb9e44439b3ff333c28874bb10e1fee32e289f4",
+      "size": 50365,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/dbb9e44439b3ff333c28874bb10e1fee32e289f4"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Shotgun_Pump_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7dada9bc2303dee4d4bdd67d65277f7ac65303f7",
+      "size": 1222,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7dada9bc2303dee4d4bdd67d65277f7ac65303f7"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Shotgun_Pump_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e22ca7104266d2a9133c08f36b5ea839c5fa484",
+      "size": 38272,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7e22ca7104266d2a9133c08f36b5ea839c5fa484"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Sniper_Material_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Sniper_Material_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "daf00bb49a26a5bc4efc957bc443dc4a85ee7740",
+      "size": 62958,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/daf00bb49a26a5bc4efc957bc443dc4a85ee7740"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Sniper_Rifle_East.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80dbe90ea767910fa1eb237ac488c2dc9312b422",
+      "size": 1407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/80dbe90ea767910fa1eb237ac488c2dc9312b422"
+    },
+    {
+      "path": "weapons/flat_guns_east/Flat Guns East/OBJ/Sniper_Rifle_East.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2b6ad0fa676f2c015431514752b2e8befa3f4017",
+      "size": 75110,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2b6ad0fa676f2c015431514752b2e8befa3f4017"
+    },
+    {
+      "path": "weapons/flat_guns_west",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e3459c21d282886369ca427cc689b6025f8f8d81",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/e3459c21d282886369ca427cc689b6025f8f8d81"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "39fdd2dd4a2b427d25ab9c25101b4474f922bdbe",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/39fdd2dd4a2b427d25ab9c25101b4474f922bdbe"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f172619388cea7dc9054b1640b3a3b8b0eb4cecd",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/f172619388cea7dc9054b1640b3a3b8b0eb4cecd"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Pistol_Compact_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a9b000eaac72960858fa487a9035dec746737b96",
+      "size": 64636,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/a9b000eaac72960858fa487a9035dec746737b96"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Pistol_Full_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "098b28c60c8696738469838f7b972eb8f14bc1c1",
+      "size": 67820,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/098b28c60c8696738469838f7b972eb8f14bc1c1"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Rifle_Assault_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7b599dd1b62e8796d6812fbcaa2de47a93666766",
+      "size": 139868,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7b599dd1b62e8796d6812fbcaa2de47a93666766"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Rifle_Battle_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8c6793397c7de15662426243c2e2e3d0235f5d85",
+      "size": 113820,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8c6793397c7de15662426243c2e2e3d0235f5d85"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/SMG_Compact_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c58b4d275116a5cbe4e93542ee97dea53e7dd00e",
+      "size": 90860,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/c58b4d275116a5cbe4e93542ee97dea53e7dd00e"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/SMG_Full_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7210229f1eca4e3bfabf014ddd123610defa72b6",
+      "size": 91916,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/7210229f1eca4e3bfabf014ddd123610defa72b6"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Shotgun_Auto_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2793e5f05466e5a2011236afa38ab1ec1a1a2e69",
+      "size": 73948,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/2793e5f05466e5a2011236afa38ab1ec1a1a2e69"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Shotgun_Pump_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0db8defe94dbbbc60214e2e0626187e5daefe6c8",
+      "size": 52860,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0db8defe94dbbbc60214e2e0626187e5daefe6c8"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Sniper_Material_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "69a626bb4a44be421065c6815afb29dd01413fb4",
+      "size": 114908,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/69a626bb4a44be421065c6815afb29dd01413fb4"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/FBX/Sniper_Rifle_West.Rig.fbx",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5c623279553678dace319b435078fe5736c1df52",
+      "size": 106716,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5c623279553678dace319b435078fe5736c1df52"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/Flat_Guns_West.blend",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63605c5234429df7b6acd1810bc2019ac8f8984a",
+      "size": 742861,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/63605c5234429df7b6acd1810bc2019ac8f8984a"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0d4621431d3c7ae93d821c645c01db972193241a",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/0d4621431d3c7ae93d821c645c01db972193241a"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Pistol_Compact_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "54dd0933675c4917c3e6f1c3cf8642c903dc26d1",
+      "size": 141332,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/54dd0933675c4917c3e6f1c3cf8642c903dc26d1"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Pistol_Full_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "272e32f385f954918814d68e974e98e61ee74291",
+      "size": 158212,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/272e32f385f954918814d68e974e98e61ee74291"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Rifle_Assault_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf1c79ba1f0f32e7764dfc8d95511d385012eccf",
+      "size": 457644,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bf1c79ba1f0f32e7764dfc8d95511d385012eccf"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Rifle_Battle_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4e2aca093255c0032160e385f4cd9b61970a5db6",
+      "size": 335084,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/4e2aca093255c0032160e385f4cd9b61970a5db6"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/SMG_Compact_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6218bb5a91bbc20babdbca47f57e3d2a23d48a33",
+      "size": 237800,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/6218bb5a91bbc20babdbca47f57e3d2a23d48a33"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/SMG_Full_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ea1de2e3f4b0d0564e44e03ae06a9df7c3e2d073",
+      "size": 217848,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ea1de2e3f4b0d0564e44e03ae06a9df7c3e2d073"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Shotgun_Auto_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9330f0eb222e47656c2b62d5536c243ddf5e7e2d",
+      "size": 169364,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9330f0eb222e47656c2b62d5536c243ddf5e7e2d"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Shotgun_Pump_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8e5e79b346de1f3946f13ce0866b2a7d93f46197",
+      "size": 119560,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8e5e79b346de1f3946f13ce0866b2a7d93f46197"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Sniper_Material_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "55048f6cc5bf1f4c2926c6e94fc7d7fdc3ef17fc",
+      "size": 373456,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/55048f6cc5bf1f4c2926c6e94fc7d7fdc3ef17fc"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/GLB/Sniper_Rifle_West.glb",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0577f0d5ee82f35d5d5c8038e4f4d2138c6e0984",
+      "size": 330160,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/0577f0d5ee82f35d5d5c8038e4f4d2138c6e0984"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2ea7ef87106f945cd84eca69e9ad4b627ec001ec",
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/trees/2ea7ef87106f945cd84eca69e9ad4b627ec001ec"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Pistol_Compact_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e34bbf37574856ff8a92336d2af4f514cd37a5ff",
+      "size": 1225,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e34bbf37574856ff8a92336d2af4f514cd37a5ff"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Pistol_Compact_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "488d9c76b263ce205182364c7f468e0019ef2534",
+      "size": 57231,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/488d9c76b263ce205182364c7f468e0019ef2534"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Pistol_Full_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e34bbf37574856ff8a92336d2af4f514cd37a5ff",
+      "size": 1225,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/e34bbf37574856ff8a92336d2af4f514cd37a5ff"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Pistol_Full_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d6489c5f0b5fb719236da7160b206a64e37ef952",
+      "size": 64182,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d6489c5f0b5fb719236da7160b206a64e37ef952"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Rifle_Assault_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5fe9108a130683c25a9b53343be5c4d78d5af723",
+      "size": 1413,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5fe9108a130683c25a9b53343be5c4d78d5af723"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Rifle_Assault_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "36c2bb36728f1385680a5c5529f97fb12fd875b5",
+      "size": 205082,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/36c2bb36728f1385680a5c5529f97fb12fd875b5"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Rifle_Battle_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5fe9108a130683c25a9b53343be5c4d78d5af723",
+      "size": 1413,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5fe9108a130683c25a9b53343be5c4d78d5af723"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Rifle_Battle_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9171cd3f2eb11b0106385ce92095a2b3dbdfdcc0",
+      "size": 148407,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/9171cd3f2eb11b0106385ce92095a2b3dbdfdcc0"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/SMG_Compact_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5fe9108a130683c25a9b53343be5c4d78d5af723",
+      "size": 1413,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5fe9108a130683c25a9b53343be5c4d78d5af723"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/SMG_Compact_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "231a641d79d9daceb248b3af2d9fa37213b1c8fa",
+      "size": 102720,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/231a641d79d9daceb248b3af2d9fa37213b1c8fa"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/SMG_Full_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5fe9108a130683c25a9b53343be5c4d78d5af723",
+      "size": 1413,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5fe9108a130683c25a9b53343be5c4d78d5af723"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/SMG_Full_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa677dc2a6373f2d3988a311286490cee9919ea3",
+      "size": 94926,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/aa677dc2a6373f2d3988a311286490cee9919ea3"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Shotgun_Auto_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d422df710461e4085695bbf9a4cbe1c612ae6f16",
+      "size": 1215,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/d422df710461e4085695bbf9a4cbe1c612ae6f16"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Shotgun_Auto_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ca896ef8dfc8585fb9ea5ee01fbdf23570fc1cd5",
+      "size": 73100,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ca896ef8dfc8585fb9ea5ee01fbdf23570fc1cd5"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Shotgun_Pump_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b8352e801b9bee629328ca96e1e7f8edd9db913",
+      "size": 1222,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/8b8352e801b9bee629328ca96e1e7f8edd9db913"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Shotgun_Pump_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bdc2057caf704464297e9ac7237a0fc3f2242d72",
+      "size": 48635,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/bdc2057caf704464297e9ac7237a0fc3f2242d72"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Sniper_Material_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5fe9108a130683c25a9b53343be5c4d78d5af723",
+      "size": 1413,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5fe9108a130683c25a9b53343be5c4d78d5af723"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Sniper_Material_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "53eee0f97a921f510b2c6df327e05cf201313ef3",
+      "size": 170881,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/53eee0f97a921f510b2c6df327e05cf201313ef3"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Sniper_Rifle_West.mtl",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5fe9108a130683c25a9b53343be5c4d78d5af723",
+      "size": 1413,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/5fe9108a130683c25a9b53343be5c4d78d5af723"
+    },
+    {
+      "path": "weapons/flat_guns_west/Flat Guns West/OBJ/Sniper_Rifle_West.obj",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ad7de985f3578fa18f098c45f3e7c6923ac6d65c",
+      "size": 150121,
+      "url": "https://api.github.com/repos/petroulacl/fps-asset-kit/git/blobs/ad7de985f3578fa18f098c45f3e7c6923ac6d65c"
+    }
+  ],
+  "truncated": false
+}

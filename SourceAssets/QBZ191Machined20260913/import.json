@@ -1,0 +1,16 @@
+{
+  "mesh": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny.SK_QBZ191_Manny",
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "materials": {
+    "M_QBZ191_Body": "/Game/Weapons/QBZ191/Machined20260913/Materials/M_QBZ191_Body.M_QBZ191_Body",
+    "M_QBZ191_Magazine": "/Game/Weapons/QBZ191/Machined20260913/Materials/M_QBZ191_Magazine.M_QBZ191_Magazine",
+    "M_QBZ191_Irons_Machined": "/Game/Weapons/QBZ191/Machined20260913/Materials/M_QBZ191_Irons_Machined.M_QBZ191_Irons_Machined",
+    "M_QBZ191_Irons_Inner": "/Game/Weapons/QBZ191/Machined20260913/Materials/M_QBZ191_Irons_Inner.M_QBZ191_Irons_Inner",
+    "M_QBZ191_Polymer": "/Game/Weapons/QBZ191/Machined20260913/Materials/M_QBZ191_Polymer.M_QBZ191_Polymer",
+    "M_QBZ191_Steel": "/Game/Weapons/QBZ191/Machined20260913/Materials/M_QBZ191_Steel.M_QBZ191_Steel",
+    "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+  },
+  "source_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191Machined20260913\\SK_QBZ191_Manny.fbx",
+  "status": "imported; no gameplay or rendered acceptance"
+}

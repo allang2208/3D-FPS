@@ -1,0 +1,36 @@
+{
+  "M4": {
+    "housing_material": [
+      "StockMetal_Refined"
+    ],
+    "planar_side_max_corner_normal_degrees": 1.876280072315771,
+    "planar_faces_above_5_degrees": 0,
+    "mount_gun_surface_crossings": []
+  },
+  "AKM": {
+    "housing_material": [
+      "StockMetal_Refined"
+    ],
+    "planar_side_max_corner_normal_degrees": 1.876280072315771,
+    "planar_faces_above_5_degrees": 0,
+    "mount_gun_surface_crossings": [
+      {
+        "stock_part": "AKM_receiver_cover",
+        "gun_object": "FIT_AKM_Soviet_Native",
+        "triangle_pairs": 230,
+        "gun_triangles_bbox_stock_cm": [
+          [
+            -0.27800479531288147,
+            -2.0310754776000977,
+            -2.61576509475708
+          ],
+          [
+            0.28204435110092163,
+            2.0310730934143066,
+            1.5906381607055664
+          ]
+        ]
+      }
+    ]
+  }
+}

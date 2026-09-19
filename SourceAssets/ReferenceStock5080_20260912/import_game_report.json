@@ -1,0 +1,15 @@
+{
+  "asset": "/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock",
+  "triangles": 50000,
+  "dimensions_cm": [
+    23.03696174232755,
+    2.8809814453125,
+    11.192220687866211
+  ],
+  "material_slots": 1,
+  "textures": {
+    "BaseColor": "/Game/Weapons/ReferenceStock5080/T_ReferenceStock_BaseColor.T_ReferenceStock_BaseColor",
+    "MetalRough": "/Game/Weapons/ReferenceStock5080/T_ReferenceStock_MetalRough.T_ReferenceStock_MetalRough",
+    "Normal": "/Game/Weapons/ReferenceStock5080/T_ReferenceStock_Normal.T_ReferenceStock_Normal"
+  }
+}

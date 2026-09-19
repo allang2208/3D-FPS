@@ -1,0 +1,65 @@
+[
+  {
+    "image": "charge_raised.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge",
+    "time": 0.65,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AAF40) {x: 26.400287, y: 9.434600, z: -5.496824}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AAF40) {x: 34.835411, y: 22.597376, z: -6.962875}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AAF40) {x: 47.133819, y: 82.472511, z: 55.835959}>"
+  },
+  {
+    "image": "charge_raised_joint.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge",
+    "time": 0.65,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AB170) {x: 26.400287, y: 9.434600, z: -5.496824}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AB170) {x: 34.835411, y: 22.597376, z: -6.962875}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AB170) {x: 47.133819, y: 82.472511, z: 55.835959}>"
+  },
+  {
+    "image": "charge_full.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge",
+    "time": 2.0,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AAF40) {x: 34.821141, y: 14.486804, z: 5.353774}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AAF40) {x: 31.653373, y: 28.637937, z: 6.569710}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AAF40) {x: -32.451543, y: 68.185986, z: 51.363751}>"
+  },
+  {
+    "image": "charge_full_joint.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyCharge",
+    "time": 2.0,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 34.821141, y: 14.486804, z: 5.353774}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 31.653373, y: 28.637937, z: 6.569710}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AB080) {x: -32.451543, y: 68.185986, z: 51.363751}>"
+  },
+  {
+    "image": "heavy_strike.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyRelease",
+    "time": 0.06,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 27.384323, y: -5.749510, z: -16.551586}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 31.522628, y: -13.572681, z: -22.277661}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 91.868808, y: -65.439732, z: -58.977381}>"
+  },
+  {
+    "image": "heavy_recovery.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_HeavyRelease",
+    "time": 0.4,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 28.208942, y: -15.236564, z: -24.385348}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 23.070494, y: -25.169976, z: -25.886450}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 17.604195, y: -102.756899, z: -66.264252}>"
+  },
+  {
+    "image": "fallback_raised.png",
+    "animation": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Slash1",
+    "time": 0.3,
+    "evaluation": "compressed animation sampled into poseable mesh",
+    "left_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 26.310521, y: 9.653541, z: -5.731000}>",
+    "right_hand": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 35.106282, y: 22.566088, z: -6.992984}>",
+    "blade_tip": "<Struct 'Vector' (0x0000011BCE4AB080) {x: 47.171596, y: 82.458064, z: 55.835689}>"
+  }
+]

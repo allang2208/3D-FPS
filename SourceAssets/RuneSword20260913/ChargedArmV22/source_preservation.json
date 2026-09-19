@@ -1,0 +1,295 @@
+{
+  "preservation": [
+    {
+      "clip": "HeavyCharge",
+      "samples_at_960_hz": 1921,
+      "frame_count_unchanged": true,
+      "max_retained_bone_position_delta_mm": 5.016982081999437,
+      "max_retained_rotation_delta_deg": 0.3152796075590045,
+      "max_arm_segment_length_delta_mm": 0.0003429012318534319,
+      "worst_position_sample": {
+        "bone": "index_02_l",
+        "seconds": 0.042708333333333334
+      },
+      "max_retained_key_position_delta_mm": 0.00044841416965504523,
+      "max_retained_key_rotation_delta_deg": 7.144457418073081e-05,
+      "max_right_hand_weapon_delta_mm": 0.0,
+      "largest_steps": [
+        {
+          "time": 0.041666666666666664,
+          "before_deg": 13.125910113229665,
+          "after_deg": 4.701453556239992
+        },
+        {
+          "time": 0.040625,
+          "before_deg": 12.865046147276274,
+          "after_deg": 4.701436793005294
+        },
+        {
+          "time": 0.042708333333333334,
+          "before_deg": 12.521590958582602,
+          "after_deg": 4.590891511512493
+        },
+        {
+          "time": 0.04375,
+          "before_deg": 11.380642538149077,
+          "after_deg": 4.590889286164623
+        },
+        {
+          "time": 0.03958333333333333,
+          "before_deg": 11.715458089509845,
+          "after_deg": 3.829677919560401
+        }
+      ],
+      "largest_original_step_deg": 13.125910113229665
+    },
+    {
+      "clip": "HeavyRelease",
+      "samples_at_960_hz": 961,
+      "frame_count_unchanged": true,
+      "max_retained_bone_position_delta_mm": 4.51499729469763,
+      "max_retained_rotation_delta_deg": 0.9790068571516409,
+      "max_arm_segment_length_delta_mm": 0.00016174687594849857,
+      "worst_position_sample": {
+        "bone": "ring_01_l",
+        "seconds": 0.07395833333333333
+      },
+      "max_retained_key_position_delta_mm": 0.00024978897890806515,
+      "max_retained_key_rotation_delta_deg": 5.585043690057085e-05,
+      "max_right_hand_weapon_delta_mm": 0.0,
+      "largest_steps": [
+        {
+          "time": 0.06666666666666667,
+          "before_deg": 7.235629267125919,
+          "after_deg": 7.227798197313
+        },
+        {
+          "time": 0.065625,
+          "before_deg": 7.2232313726516,
+          "after_deg": 7.227779793319927
+        },
+        {
+          "time": 0.06875,
+          "before_deg": 5.526658553254228,
+          "after_deg": 5.999380997269158
+        },
+        {
+          "time": 0.06770833333333333,
+          "before_deg": 6.487691275843845,
+          "after_deg": 5.99937495703726
+        },
+        {
+          "time": 0.06354166666666666,
+          "before_deg": 5.168809460696695,
+          "after_deg": 5.7857526605986545
+        }
+      ],
+      "largest_original_step_deg": 7.235629267125919
+    },
+    {
+      "clip": "Slash1",
+      "samples_at_960_hz": 1705,
+      "frame_count_unchanged": true,
+      "max_retained_bone_position_delta_mm": 0.7267709385787133,
+      "max_retained_rotation_delta_deg": 0.19029538119049863,
+      "max_arm_segment_length_delta_mm": 0.00022475816269240667,
+      "worst_position_sample": {
+        "bone": "ring_01_l",
+        "seconds": 0.965625
+      },
+      "max_retained_key_position_delta_mm": 0.0005245653216267209,
+      "max_retained_key_rotation_delta_deg": 6.757229531937675e-05,
+      "max_right_hand_weapon_delta_mm": 0.0,
+      "largest_steps": [
+        {
+          "time": 0.959375,
+          "before_deg": 3.0147775145431566,
+          "after_deg": 2.983488321045039
+        },
+        {
+          "time": 0.9604166666666667,
+          "before_deg": 2.953042930850908,
+          "after_deg": 2.983476362392711
+        },
+        {
+          "time": 0.9583333333333334,
+          "before_deg": 2.986807673438017,
+          "after_deg": 2.9319081132106146
+        },
+        {
+          "time": 0.9572916666666667,
+          "before_deg": 2.8775657883560255,
+          "after_deg": 2.931895099336737
+        },
+        {
+          "time": 0.9614583333333333,
+          "before_deg": 2.7971135764776762,
+          "after_deg": 2.671164265673087
+        }
+      ],
+      "largest_original_step_deg": 3.0147775145431566
+    }
+  ],
+  "seams": {
+    "FistBraceGuardV21": [
+      {
+        "name": "full_charge",
+        "left_upper_angle_deg": 1.7075472925031875e-06,
+        "left_upper_position_mm": 0.0,
+        "left_hand_position_mm": 0.0
+      },
+      {
+        "name": "release_idle_endpoint",
+        "left_upper_angle_deg": 2.387228826599056e-05,
+        "left_upper_position_mm": 9.424321830774485e-05,
+        "left_hand_position_mm": 6.332993507385254e-05
+      },
+      {
+        "name": "slash_idle_endpoint",
+        "left_upper_angle_deg": 2.387228826599056e-05,
+        "left_upper_position_mm": 9.424321830774485e-05,
+        "left_hand_position_mm": 6.332993507385254e-05
+      },
+      {
+        "name": "short_charge_0.03",
+        "left_upper_angle_deg": 41.98572339418854,
+        "left_upper_position_mm": 17.4382402467889,
+        "left_hand_position_mm": 6.806764752438323
+      },
+      {
+        "name": "short_charge_0.07",
+        "left_upper_angle_deg": 91.59103609239367,
+        "left_upper_position_mm": 35.93716894569372,
+        "left_hand_position_mm": 31.797678952424302
+      },
+      {
+        "name": "short_charge_0.12",
+        "left_upper_angle_deg": 35.447823802194165,
+        "left_upper_position_mm": 32.59981182981255,
+        "left_hand_position_mm": 16.06728256670434
+      },
+      {
+        "name": "short_charge_0.2",
+        "left_upper_angle_deg": 8.023402371720772,
+        "left_upper_position_mm": 18.630387683767164,
+        "left_hand_position_mm": 5.123773451902015
+      },
+      {
+        "name": "short_charge_0.4",
+        "left_upper_angle_deg": 2.725181652866689,
+        "left_upper_position_mm": 12.059079897419911,
+        "left_hand_position_mm": 2.682441425850769
+      },
+      {
+        "name": "short_charge_0.65",
+        "left_upper_angle_deg": 3.3870860971186545,
+        "left_upper_position_mm": 5.927819025813651,
+        "left_hand_position_mm": 3.262028901836846
+      },
+      {
+        "name": "short_charge_1.0",
+        "left_upper_angle_deg": 5.31994458511445,
+        "left_upper_position_mm": 3.494751516000993,
+        "left_hand_position_mm": 1.897645273873952
+      },
+      {
+        "name": "short_charge_1.4",
+        "left_upper_angle_deg": 1.7156371935999228,
+        "left_upper_position_mm": 10.273265658408674,
+        "left_hand_position_mm": 3.3096160059383384
+      },
+      {
+        "name": "short_charge_1.6",
+        "left_upper_angle_deg": 2.060979975452342,
+        "left_upper_position_mm": 9.36972848555987,
+        "left_hand_position_mm": 3.3114496425012523
+      },
+      {
+        "name": "short_charge_1.9",
+        "left_upper_angle_deg": 39.08239932876512,
+        "left_upper_position_mm": 17.70229471022545,
+        "left_hand_position_mm": 75.45453067715346
+      }
+    ],
+    "ChargedArmV22": [
+      {
+        "name": "full_charge",
+        "left_upper_angle_deg": 0.0,
+        "left_upper_position_mm": 0.0,
+        "left_hand_position_mm": 0.0
+      },
+      {
+        "name": "release_idle_endpoint",
+        "left_upper_angle_deg": 2.515215449206906e-05,
+        "left_upper_position_mm": 9.193243592421015e-05,
+        "left_hand_position_mm": 0.00011057274102908245
+      },
+      {
+        "name": "slash_idle_endpoint",
+        "left_upper_angle_deg": 2.515215449206906e-05,
+        "left_upper_position_mm": 9.193243592421015e-05,
+        "left_hand_position_mm": 0.00011057274102908245
+      },
+      {
+        "name": "short_charge_0.03",
+        "left_upper_angle_deg": 16.035686688215307,
+        "left_upper_position_mm": 17.31394342533824,
+        "left_hand_position_mm": 6.801380625384571
+      },
+      {
+        "name": "short_charge_0.07",
+        "left_upper_angle_deg": 45.41702709218175,
+        "left_upper_position_mm": 35.848896576571114,
+        "left_hand_position_mm": 31.75646273760696
+      },
+      {
+        "name": "short_charge_0.12",
+        "left_upper_angle_deg": 20.061083950506127,
+        "left_upper_position_mm": 32.56228982339105,
+        "left_hand_position_mm": 16.188139648456943
+      },
+      {
+        "name": "short_charge_0.2",
+        "left_upper_angle_deg": 4.534841096003881,
+        "left_upper_position_mm": 18.630568186740387,
+        "left_hand_position_mm": 5.1242980891999235
+      },
+      {
+        "name": "short_charge_0.4",
+        "left_upper_angle_deg": 1.7660920880131854,
+        "left_upper_position_mm": 12.072803159927616,
+        "left_hand_position_mm": 2.675513174980413
+      },
+      {
+        "name": "short_charge_0.65",
+        "left_upper_angle_deg": 3.2758983115748004,
+        "left_upper_position_mm": 5.9279384824110775,
+        "left_hand_position_mm": 3.2631391188688537
+      },
+      {
+        "name": "short_charge_1.0",
+        "left_upper_angle_deg": 4.456196676916462,
+        "left_upper_position_mm": 3.4956698295087114,
+        "left_hand_position_mm": 1.9050385373618908
+      },
+      {
+        "name": "short_charge_1.4",
+        "left_upper_angle_deg": 2.101100166634188,
+        "left_upper_position_mm": 10.273355073564652,
+        "left_hand_position_mm": 3.309731992533547
+      },
+      {
+        "name": "short_charge_1.6",
+        "left_upper_angle_deg": 2.4588292161763228,
+        "left_upper_position_mm": 9.369718954754724,
+        "left_hand_position_mm": 3.311333018688553
+      },
+      {
+        "name": "short_charge_1.9",
+        "left_upper_angle_deg": 20.09576878990475,
+        "left_upper_position_mm": 17.702264089375443,
+        "left_hand_position_mm": 75.4546958105612
+      }
+    ]
+  }
+}

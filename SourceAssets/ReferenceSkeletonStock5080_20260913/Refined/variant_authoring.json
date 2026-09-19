@@ -1,0 +1,52 @@
+{
+  "source": "SkeletonStock_Game_Low_Editable.blend",
+  "opening_center_generator": [
+    -0.5009945631027222,
+    0.0,
+    0.23899999260902405
+  ],
+  "body_length_m": 0.2,
+  "source_uv_kept": 1,
+  "baked_uv": 0,
+  "receiver_uv": 2,
+  "variants": {
+    "M4": {
+      "asset_dir": "/Game/Weapons/ReferenceStock5080/Refined91379/M4",
+      "body_start_m": 0.013000000000000001,
+      "adapter_front_m": 0.007,
+      "triangles": 50916,
+      "materials": [
+        "StockMetal",
+        "StockPolymer",
+        "StockRubber",
+        "StockAdapter"
+      ]
+    },
+    "AKM": {
+      "asset_dir": "/Game/Weapons/ReferenceStock5080/Refined91379/AKM",
+      "body_start_m": 0.0088,
+      "adapter_front_m": 0.0028,
+      "triangles": 52132,
+      "materials": [
+        "StockMetal",
+        "StockPolymer",
+        "StockRubber",
+        "StockAdapter"
+      ]
+    },
+    "QBZ191": {
+      "asset_dir": "/Game/Weapons/ReferenceStock5080/Refined91379/QBZ191",
+      "body_start_m": 0.006,
+      "adapter_front_m": 0,
+      "triangles": 51292,
+      "materials": [
+        "StockMetal",
+        "StockPolymer",
+        "StockRubber",
+        "StockAdapter"
+      ]
+    }
+  },
+  "tested": false,
+  "preview_rendered": false
+}

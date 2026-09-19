@@ -1,0 +1,120 @@
+{
+  "stage": "5080 silhouette accepted; detail refinement integrated",
+  "runtime": {
+    "stock5080-refined-v1/m4-write": {
+      "checks": 270,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\stock5080-refined-v1\\m4-write.log"
+    },
+    "stock5080-refined-v1/m4-load": {
+      "checks": 260,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\stock5080-refined-v1\\m4-load.log"
+    },
+    "stock5080-refined-v1/akm-write": {
+      "checks": 456,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\stock5080-refined-v1\\akm-write.log"
+    },
+    "stock5080-refined-v1/akm-load": {
+      "checks": 458,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\stock5080-refined-v1\\akm-load.log"
+    },
+    "final-runtime/m4-load": {
+      "checks": 234,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\DetailRefine\\final-runtime\\m4-load.log"
+    },
+    "final-runtime/akm-load": {
+      "checks": 552,
+      "failures": 0,
+      "log": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\DetailRefine\\final-runtime\\akm-load.log"
+    }
+  },
+  "checks": 2230,
+  "failures": 0,
+  "final_asset_runtime_checks": 786,
+  "source_topology": {
+    "m4": {
+      "uv_layers": 2,
+      "metal_faces": 14517,
+      "metal_uv_corners_outside_inspected_region": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_polygons": 0,
+      "all_vertices_finite": true,
+      "boundary_total_length_cm": 0,
+      "boundary_max_edge_cm": 0,
+      "boundary_after_micron_weld_probe": 0
+    },
+    "akm": {
+      "uv_layers": 2,
+      "metal_faces": 16124,
+      "metal_uv_corners_outside_inspected_region": 0,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "zero_area_polygons": 0,
+      "all_vertices_finite": true,
+      "boundary_total_length_cm": 0,
+      "boundary_max_edge_cm": 0,
+      "boundary_after_micron_weld_probe": 0
+    }
+  },
+  "published_assets": {
+    "m4": {
+      "asset": "/Game/Weapons/ReferenceStock5080/SM_SkeletonStock.SM_SkeletonStock",
+      "triangles": 35828,
+      "dimensions_cm": [
+        23.024999726495764,
+        2.8800002336502075,
+        11.149381875991821
+      ],
+      "slots": [
+        {
+          "slot": "StockMetal",
+          "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+        },
+        {
+          "slot": "StockPolymer",
+          "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+        },
+        {
+          "slot": "StockRubber",
+          "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+        }
+      ],
+      "body_material_identical": true
+    },
+    "akm": {
+      "asset": "/Game/Weapons/ReferenceStock5080/AKM/SM_SkeletonStock.SM_SkeletonStock",
+      "triangles": 40530,
+      "dimensions_cm": [
+        23.114999793469906,
+        4.099999904632568,
+        11.149381875991821
+      ],
+      "slots": [
+        {
+          "slot": "StockMetal",
+          "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+        },
+        {
+          "slot": "StockPolymer",
+          "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockPolymer.M_StockPolymer"
+        },
+        {
+          "slot": "StockRubber",
+          "material": "/Game/Weapons/ReferenceStock5080/Refined/M_StockRubber.M_StockRubber"
+        }
+      ],
+      "body_material_identical": true
+    }
+  },
+  "visual_evidence": "final-runtime and *_detail.png; latest revision inspected by assistant, final visual acceptance belongs to user",
+  "limits": [
+    "no packaged-build test",
+    "commandlet exits 1 for existing GameFeatureData configuration errors; Python import readback passed",
+    "native full-project build attempts encountered parallel UI/weather errors; this refinement uses the existing stock assembly entry"
+  ]
+}

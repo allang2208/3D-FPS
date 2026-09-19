@@ -1,0 +1,86 @@
+{
+  "M4_laser": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/M4/laser/SM_TacticalDevice",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000002BE4D3A2DC0) {x: 5.306141, y: 36.373674, z: 7.799936}>",
+      "AimGuide": "<Struct 'Vector' (0x000002BE4D3A2960) {x: 5.306142, y: 39.373675, z: 7.799936}>"
+    },
+    "slots": {
+      "M_Tactical_laser": "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Body.M_M4_laser_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/M4/laser/M_M4_laser_Collar.M_M4_laser_Collar"
+    }
+  },
+  "AKM_laser": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/AKM/laser/SM_TacticalDevice",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000002BE4D3A2F80) {x: 4.623187, y: 35.373675, z: 5.699731}>",
+      "AimGuide": "<Struct 'Vector' (0x000002BE4D3A1EE0) {x: 4.623188, y: 38.373676, z: 5.699731}>"
+    },
+    "slots": {
+      "M_Tactical_laser": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Body.M_AKM_laser_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/AKM/laser/M_AKM_laser_Collar.M_AKM_laser_Collar"
+    }
+  },
+  "QBZ191_laser": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/SM_TacticalDevice",
+    "reference": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000002BE4D3A7900) {x: 4.746889, y: 33.573675, z: 6.999806}>",
+      "AimGuide": "<Struct 'Vector' (0x000002BE4D3A7E40) {x: 4.746890, y: 36.573675, z: 6.999806}>"
+    },
+    "slots": {
+      "M_Tactical_laser": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Body.M_QBZ191_laser_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/QBZ191/laser/M_QBZ191_laser_Collar.M_QBZ191_laser_Collar"
+    }
+  },
+  "M4_flashlight": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/M4/flashlight/SM_TacticalDevice",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000002BE4D3A0D60) {x: 5.311273, y: 38.145652, z: 7.794402}>",
+      "AimGuide": "<Struct 'Vector' (0x000002BE4D3A87E0) {x: 5.311273, y: 41.145652, z: 7.794402}>"
+    },
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/M4/flashlight/M_M4_flashlight_Body.M_M4_flashlight_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/M4/flashlight/M_M4_flashlight_Collar.M_M4_flashlight_Collar"
+    }
+  },
+  "AKM_flashlight": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/AKM/flashlight/SM_TacticalDevice",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000002BE4D3A4F00) {x: 4.628319, y: 37.145653, z: 5.694401}>",
+      "AimGuide": "<Struct 'Vector' (0x000002BE4D3A20A0) {x: 4.628319, y: 40.145653, z: 5.694401}>"
+    },
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/AKM/flashlight/M_AKM_flashlight_Body.M_AKM_flashlight_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/AKM/flashlight/M_AKM_flashlight_Collar.M_AKM_flashlight_Collar"
+    }
+  },
+  "QBZ191_flashlight": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/QBZ191/flashlight/SM_TacticalDevice",
+    "reference": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000002BE4D3AA760) {x: 4.752020, y: 35.345652, z: 6.994402}>",
+      "AimGuide": "<Struct 'Vector' (0x000002BE4D3A5360) {x: 4.752021, y: 38.345652, z: 6.994402}>"
+    },
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/QBZ191/flashlight/M_QBZ191_flashlight_Body.M_QBZ191_flashlight_Body",
+      "M_Tactical_Collar_001": "/Game/Weapons/TacticalDevices20260913/QBZ191/flashlight/M_QBZ191_flashlight_Collar.M_QBZ191_flashlight_Collar"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "M4_flashlight": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/SM_TacticalDevice",
+    "reference": "/Game/Weapons/M4InfimaV3/Body_001",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000001F50EA71460) {x: 4.689715, y: 38.102609, z: 7.800582}>",
+      "AimGuide": "<Struct 'Vector' (0x000001F50EA726C0) {x: 4.689716, y: 41.102609, z: 7.800582}>"
+    },
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Body.M_M4_flashlight_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/M4/flashlight/M_M4_flashlight_Collar.M_M4_flashlight_Collar"
+    }
+  },
+  "AKM_flashlight": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/SM_TacticalDevice",
+    "reference": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000001F536BFEBA0) {x: 4.006390, y: 37.102657, z: 5.700583}>",
+      "AimGuide": "<Struct 'Vector' (0x000001F536BFCB40) {x: 4.006390, y: 40.102657, z: 5.700583}>"
+    },
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Body.M_AKM_flashlight_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/AKM/flashlight/M_AKM_flashlight_Collar.M_AKM_flashlight_Collar"
+    }
+  },
+  "QBZ191_flashlight": {
+    "mesh": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/SM_TacticalDevice",
+    "reference": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Body_metal",
+    "coating_uv": 1,
+    "polymer_uv": 0,
+    "sockets": {
+      "Emitter": "<Struct 'Vector' (0x000001F50E1F33E0) {x: 4.130251, y: 35.302657, z: 7.000581}>",
+      "AimGuide": "<Struct 'Vector' (0x000001F50E1F2CE0) {x: 4.130251, y: 38.302657, z: 7.000581}>"
+    },
+    "slots": {
+      "M_Tactical_flashlight": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/M_QBZ191_flashlight_Body.M_QBZ191_flashlight_Body",
+      "M_Tactical_Collar": "/Game/Weapons/TacticalDevices20260913/HunyuanV3/QBZ191/flashlight/M_QBZ191_flashlight_Collar.M_QBZ191_flashlight_Collar"
+    }
+  }
+}

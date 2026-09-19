@@ -1,0 +1,44 @@
+{
+  "m4": {
+    "triangles": 35828,
+    "dimensions_cm": [
+      23.024999618530273,
+      2.880000114440918,
+      11.149381637573242
+    ],
+    "method": "retopology fitted to accepted RTX5080 master; rebuilt torn frame windows, fused fasteners and upper details",
+    "material_slots": [
+      "StockMetal",
+      "StockPolymer",
+      "StockRubber"
+    ],
+    "body_atlas_uv_box": [
+      0.54,
+      0.73,
+      0.655,
+      0.85
+    ],
+    "removed_degenerate_faces": 0
+  },
+  "akm": {
+    "triangles": 40530,
+    "dimensions_cm": [
+      23.114999771118164,
+      4.099999904632568,
+      11.149381637573242
+    ],
+    "method": "retopology fitted to accepted RTX5080 master; rebuilt torn frame windows, fused fasteners and upper details",
+    "material_slots": [
+      "StockMetal",
+      "StockPolymer",
+      "StockRubber"
+    ],
+    "body_atlas_uv_box": [
+      0.055,
+      0.053,
+      0.285,
+      0.092
+    ],
+    "removed_degenerate_faces": 0
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "Slash1": {
+    "max_wrist_bend": {
+      "l": {
+        "degrees": 29.42388120852465,
+        "frame": 9
+      },
+      "r": {
+        "degrees": 18.37336425413792,
+        "frame": 178
+      }
+    },
+    "max_relative_step_degrees": {
+      "hand_l": {
+        "degrees": 12.571376014068804,
+        "frame": 4
+      },
+      "hand_r": {
+        "degrees": 9.768543772154862,
+        "frame": 10
+      },
+      "lowerarm_l": {
+        "degrees": 12.42706756072661,
+        "frame": 10
+      },
+      "lowerarm_r": {
+        "degrees": 9.126768929084408,
+        "frame": 10
+      },
+      "lowerarm_twist_01_l": {
+        "degrees": 12.42706756072661,
+        "frame": 10
+      },
+      "lowerarm_twist_01_r": {
+        "degrees": 9.12668308119981,
+        "frame": 10
+      },
+      "upperarm_l": {
+        "degrees": 13.540848768805539,
+        "frame": 9
+      },
+      "upperarm_r": {
+        "degrees": 13.043708448057716,
+        "frame": 140
+      }
+    },
+    "end_difference_degrees": {
+      "hand_l": 0.0,
+      "hand_r": 0.05595291023658669,
+      "lowerarm_l": 0.0,
+      "lowerarm_r": 0.14803749444005213,
+      "lowerarm_twist_01_l": 0.0,
+      "lowerarm_twist_01_r": 0.14265249836352042,
+      "upperarm_l": 0.0,
+      "upperarm_r": 0.0
+    }
+  },
+  "Slash2": {
+    "max_wrist_bend": {
+      "l": {
+        "degrees": 28.821496089769962,
+        "frame": 192
+      },
+      "r": {
+        "degrees": 18.42981406008078,
+        "frame": 11
+      }
+    },
+    "max_relative_step_degrees": {
+      "hand_l": {
+        "degrees": 7.753430953125203,
+        "frame": 197
+      },
+      "hand_r": {
+        "degrees": 6.699548037605351,
+        "frame": 4
+      },
+      "lowerarm_l": {
+        "degrees": 5.477479667540852,
+        "frame": 200
+      },
+      "lowerarm_r": {
+        "degrees": 7.154386383184071,
+        "frame": 15
+      },
+      "lowerarm_twist_01_l": {
+        "degrees": 5.477336720343879,
+        "frame": 200
+      },
+      "lowerarm_twist_01_r": {
+        "degrees": 7.154386383184071,
+        "frame": 15
+      },
+      "upperarm_l": {
+        "degrees": 12.680574947405967,
+        "frame": 192
+      },
+      "upperarm_r": {
+        "degrees": 11.469673572442796,
+        "frame": 15
+      }
+    },
+    "end_difference_degrees": {
+      "hand_l": 0.0,
+      "hand_r": 0.0,
+      "lowerarm_l": 0.0,
+      "lowerarm_r": 0.14803749444005213,
+      "lowerarm_twist_01_l": 0.0,
+      "lowerarm_twist_01_r": 0.14803749444005213,
+      "upperarm_l": 0.05595291023658669,
+      "upperarm_r": 0.0
+    }
+  }
+}

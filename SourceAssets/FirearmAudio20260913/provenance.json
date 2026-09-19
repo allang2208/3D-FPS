@@ -1,0 +1,152 @@
+{
+  "source_page": "https://opengameart.org/content/the-free-firearm-sound-library",
+  "license": "CC0-1.0",
+  "authors": [
+    "Ben Jaszczak",
+    "Brian Nelson",
+    "Kevin Heras",
+    "Matthew Nanney"
+  ],
+  "mirror": "https://github.com/petroulacl/fps-asset-kit/tree/main/sfx/firearm_sfx",
+  "note": "QBZ191 and suppressed voices are designed composites, not model-specific field recordings.",
+  "sources": [
+    {
+      "file": "Original\\AK-47\\C_27P.wav",
+      "sha256": "c61948fe17d7c0e4f4146dff52a70943686fe901da58d14bfe2f097e3a12d70f"
+    },
+    {
+      "file": "Original\\AK-47\\C_29P.wav",
+      "sha256": "d8731d4c9afce639964fbb5a529677e75c6eb316176aee405d6f634707360987"
+    },
+    {
+      "file": "Original\\AR-15\\D_24P.wav",
+      "sha256": "4c6a54ca0583150bbb32b7f658bc64da9ad9ba42fd3aca769c6120b44af8d3f0"
+    },
+    {
+      "file": "Original\\AR-15\\D_32P.wav",
+      "sha256": "acee9d2106b68fe5956225a19d7aedf943d97793817f9bda9d486a2b74b0a812"
+    }
+  ],
+  "outputs": [
+    {
+      "asset": "S_M4_Fire_01",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 0.584,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Suppressed_01",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 0.584,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Fire_02",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 3.939,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Suppressed_02",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 3.939,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Fire_03",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 0.706,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Suppressed_03",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 0.706,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Fire_04",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 5.65,
+      "body_source": null
+    },
+    {
+      "asset": "S_M4_Suppressed_04",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 5.65,
+      "body_source": null
+    },
+    {
+      "asset": "S_QBZ191_Fire_01",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 0.584,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        1.07
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Suppressed_01",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 0.584,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        1.07
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Fire_02",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 3.939,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        5.612
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Suppressed_02",
+      "ar_source": "AR-15/D_24P.wav",
+      "peak_anchor_seconds": 3.939,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        5.612
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Fire_03",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 0.706,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        1.07
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Suppressed_03",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 0.706,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        1.07
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Fire_04",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 5.65,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        5.612
+      ]
+    },
+    {
+      "asset": "S_QBZ191_Suppressed_04",
+      "ar_source": "AR-15/D_32P.wav",
+      "peak_anchor_seconds": 5.65,
+      "body_source": [
+        "AK-47/C_29P.wav",
+        5.612
+      ]
+    }
+  ]
+}

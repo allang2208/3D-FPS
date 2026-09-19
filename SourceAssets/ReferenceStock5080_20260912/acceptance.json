@@ -1,0 +1,35 @@
+{
+  "generation": "RTX 5080 TRELLIS.2 1024_cascade multiview",
+  "generation_seconds": 257.52,
+  "runtime": {
+    "m4-write": {
+      "checks": 415,
+      "failures": 0,
+      "log": "stock5080-v1\\m4-write.log"
+    },
+    "m4-load": {
+      "checks": 372,
+      "failures": 0,
+      "log": "stock5080-v1\\m4-load.log"
+    },
+    "akm-write": {
+      "checks": 402,
+      "failures": 0,
+      "log": "stock5080-v1\\akm-write.log"
+    },
+    "akm-load": {
+      "checks": 598,
+      "failures": 0,
+      "log": "stock5080-v1\\akm-load.log"
+    }
+  },
+  "checks": 1787,
+  "failures": 0,
+  "visual_status": "inspected by assistant; user has not accepted this revision",
+  "known_limitations": [
+    "generated surface edge waviness and nonmanifold remnants",
+    "commandlet exit 1 with pre-existing GameFeatureData errors",
+    "not packaged",
+    "silent preview only"
+  ]
+}

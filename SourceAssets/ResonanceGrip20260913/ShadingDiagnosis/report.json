@@ -1,0 +1,46 @@
+{
+  "geometry_sha256": "d03cada656a5f9e5ca31d8b22bd53862ac12c83ee70724c6d9499d78ff6af634",
+  "materials": [
+    {
+      "name": "Resonance_Metal_M4",
+      "images": [
+        {
+          "name": "T_M4_Receiver_BaseColor.png",
+          "size": [
+            491,
+            205
+          ],
+          "colorspace": "sRGB"
+        }
+      ],
+      "normal_maps": []
+    },
+    {
+      "name": "Resonance_Polymer",
+      "images": [
+        {
+          "name": "T_Resonance_Polymer_Normal.png",
+          "size": [
+            512,
+            512
+          ],
+          "colorspace": "Non-Color"
+        },
+        {
+          "name": "T_Resonance_Polymer_Roughness.png",
+          "size": [
+            512,
+            512
+          ],
+          "colorspace": "Non-Color"
+        }
+      ],
+      "normal_maps": [
+        {
+          "uv_map": "",
+          "strength": 1.0
+        }
+      ]
+    }
+  ]
+}

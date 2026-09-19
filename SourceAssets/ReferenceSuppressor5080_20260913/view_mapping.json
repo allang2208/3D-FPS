@@ -1,0 +1,42 @@
+{
+  "sheet_size": [
+    1536,
+    1024
+  ],
+  "views": [
+    {
+      "view": "side_a",
+      "node_input": "front_image",
+      "nominal_camera_direction": "+Z",
+      "crop_xywh": [
+        0,
+        50,
+        1536,
+        325
+      ]
+    },
+    {
+      "view": "side_b",
+      "node_input": "back_image",
+      "nominal_camera_direction": "-Z",
+      "crop_xywh": [
+        0,
+        385,
+        1536,
+        280
+      ]
+    },
+    {
+      "view": "front_end",
+      "node_input": "left_image",
+      "nominal_camera_direction": "-X",
+      "crop_xywh": [
+        620,
+        675,
+        300,
+        300
+      ]
+    }
+  ],
+  "note": "Camera labels are generation conditions, not a measured exported mesh orientation. No host fit or dimensional claim."
+}

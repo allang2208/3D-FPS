@@ -1,0 +1,21 @@
+{
+  "source": "QBZ191Folding20260913/QBZ191_Folding_Editable.blend",
+  "magazine_object": "QBZ191_Magazine_Export",
+  "magazine_bone": "WPN_SOCKET_Magazine",
+  "assembly_correction_root_m": [
+    0.013216999359428883,
+    0.0,
+    0.03230999782681465
+  ],
+  "well_lip_z_m": 0.027258995920419693,
+  "seated_insertion_m": 0.02,
+  "contact_frames": {
+    "guide_aligned": 72,
+    "mouth_at_well": 76,
+    "locked": 95,
+    "release": 98,
+    "return_complete": 126
+  },
+  "clips": 10,
+  "status": "authored and exported; no rendered or runtime acceptance"
+}

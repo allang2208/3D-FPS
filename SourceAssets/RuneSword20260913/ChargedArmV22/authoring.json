@@ -1,0 +1,43 @@
+{
+  "revision": "ChargedArmV22",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\FistBraceGuardV21\\AzureRunesword_Manny_Editable.blend",
+  "fps": 480,
+  "clips": [
+    {
+      "clip": "A_RuneSword_HeavyCharge",
+      "frames": [
+        0,
+        960
+      ],
+      "seconds": 2.0
+    },
+    {
+      "clip": "A_RuneSword_HeavyRelease",
+      "frames": [
+        0,
+        480
+      ],
+      "seconds": 1.0
+    },
+    {
+      "clip": "A_RuneSword_Slash1",
+      "frames": [
+        0,
+        852
+      ],
+      "seconds": 1.775
+    }
+  ],
+  "changed": "Left clavicle, upper-arm frame and two upper-arm skin helpers",
+  "preserved": "V21 guard; source hand grips, sword and right arm; upper-arm/elbow/wrist centers; timing",
+  "method": "V21 shortest-swing upper-arm orientation transported from the forearm deformation",
+  "transitions": "120 ms decay of initial idle roll; 25 ms release handoff; Slash1 correction fades during .65-.85 s load hold",
+  "track_scope": [
+    "clavicle_l",
+    "lowerarm_l",
+    "upperarm_l",
+    "upperarm_twist_01_l",
+    "upperarm_twist_02_l"
+  ],
+  "transport_scope": "Full correction in charge; no transported frame through the near-antiparallel fast-swing axis"
+}

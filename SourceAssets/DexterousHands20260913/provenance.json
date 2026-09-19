@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-13",
+  "tool": "built-in image_gen",
+  "styleReference": "SourceAssets/Skills20260913/Candidates/rifle_mastery_B_M4_v2.png",
+  "style": "Selected Cold Steel brushed silver hexagon, graphite face, neutral palette",
+  "status": "Integrated in skills.json and runtime loaders; not game-tested",
+  "assets": [
+    {
+      "id": "dexterousHands",
+      "source": "dexterous_hands.png",
+      "runtime": "Content/ColdSteelData/Skills/dexterous_hands.png",
+      "generatedSource": "C:/Users/allan/.codex/generated_images/01a0902e-4abe-7c50-a826-64f4c54c4f4f/exec-e275738d-d67a-4766-96ef-e88625afb96b.png",
+      "prompt": "dexterous-hands-prompt.txt"
+    },
+    {
+      "id": "dodge",
+      "source": "dodge_cold_steel.png",
+      "runtime": "Content/ColdSteelData/Skills/dodge_cold_steel.png",
+      "generatedSource": "C:/Users/allan/.codex/generated_images/01a0902e-4abe-7c50-a826-64f4c54c4f4f/exec-732ab7f4-815b-46c7-b607-97b0343c2e81.png",
+      "prompt": "dodge-cold-steel-prompt.txt"
+    },
+    {
+      "id": "rifleMastery",
+      "source": "../Skills20260913/Candidates/rifle_mastery_B_M4_v2.png",
+      "runtime": "Content/ColdSteelData/Skills/rifle_mastery_cold_steel.png",
+      "operation": "unchanged copy of previously selected new icon"
+    }
+  ],
+  "provenance": "AI generated using the user's existing selected project badge as style reference. Original source records preserved. No new claim about public redistribution of earlier third-party source assets."
+}

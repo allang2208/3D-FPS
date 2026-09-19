@@ -1,0 +1,318 @@
+{
+  "m4": [
+    {
+      "slot": "Flash_Hider_001",
+      "material": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+      "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "BaseColor"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Metallic"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Roughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionLinearInterpolate",
+          "output": ""
+        }
+      }
+    },
+    {
+      "slot": "Grip_Default_001",
+      "material": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+      "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "BaseColor"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Metallic"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Roughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionLinearInterpolate",
+          "output": ""
+        }
+      }
+    },
+    {
+      "slot": "Keymod_material_001",
+      "material": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001",
+      "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "BaseColor"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Metallic"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Roughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionLinearInterpolate",
+          "output": ""
+        }
+      }
+    },
+    {
+      "slot": "Body_001",
+      "material": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+      "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "BaseColor"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Metallic"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Roughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionLinearInterpolate",
+          "output": ""
+        }
+      }
+    },
+    {
+      "slot": "Magazine_Light_001",
+      "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+      "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "BaseColor"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Metallic"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Roughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionLinearInterpolate",
+          "output": ""
+        }
+      }
+    },
+    {
+      "slot": "Classic_Stock_001",
+      "material": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001",
+      "parent": "/InterchangeAssets/Materials/FBXLegacyPhongSurfaceMaterial.FBXLegacyPhongSurfaceMaterial",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "BaseColor"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Metallic"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionMaterialFunctionCall",
+          "output": "Roughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionLinearInterpolate",
+          "output": ""
+        }
+      }
+    },
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+      "parent": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01.M_Manny_Sleeve_01",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionCustom",
+          "output": "return"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": null,
+          "output": ""
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutRoughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutNormal"
+        }
+      }
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+      "parent": "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02.M_Manny_RolledCuff3cm_02",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionCustom",
+          "output": "return"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": null,
+          "output": ""
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutRoughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutNormal"
+        }
+      }
+    }
+  ],
+  "akm": [
+    {
+      "slot": "M_AKM_Soviet_Magazine",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "parent": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "RGB"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "R"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "R"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "RGB"
+        }
+      }
+    },
+    {
+      "slot": "M_AKM_Soviet_PBR",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "parent": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "RGB"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "R"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "R"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "RGB"
+        }
+      }
+    },
+    {
+      "slot": "M_AKM_FactoryStock",
+      "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "parent": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "RGB"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "R"
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "R"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionTextureSample",
+          "output": "RGB"
+        }
+      }
+    },
+    {
+      "slot": "MI_Manny_01",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+      "parent": "/Game/Characters/ArmsSkinSleeveCandidate/M_Manny_Sleeve_01.M_Manny_Sleeve_01",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionCustom",
+          "output": "return"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": null,
+          "output": ""
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutRoughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutNormal"
+        }
+      }
+    },
+    {
+      "slot": "MI_Manny_02",
+      "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02",
+      "parent": "/Game/Characters/ArmsGloveCuff3cmCandidate/M_Manny_RolledCuff3cm_02.M_Manny_RolledCuff3cm_02",
+      "textures": [],
+      "outputs": {
+        "<MaterialProperty.MP_BASE_COLOR: 5>": {
+          "node": "MaterialExpressionCustom",
+          "output": "return"
+        },
+        "<MaterialProperty.MP_METALLIC: 6>": {
+          "node": null,
+          "output": ""
+        },
+        "<MaterialProperty.MP_ROUGHNESS: 8>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutRoughness"
+        },
+        "<MaterialProperty.MP_NORMAL: 10>": {
+          "node": "MaterialExpressionCustom",
+          "output": "OutNormal"
+        }
+      }
+    }
+  ]
+}

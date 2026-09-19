@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "D:/FPS3D/FPSGAME/SourceAssets/RuneSword20260913/CompactNaturalV4/review_in_ue.py", line 26, in <module>
+    preview=actor.add_component_by_class(u.PoseableMeshComponent,False,u.Transform(),False)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SkeletalMeshActor' object has no attribute 'add_component_by_class'

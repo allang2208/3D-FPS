@@ -1,0 +1,128 @@
+{
+  "HeavyCharge": {
+    "clavicle_l": {
+      "max_step_deg": 21.257014799050854,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.5207499736612481
+    },
+    "upperarm_l": {
+      "max_step_deg": 9.367099866966532,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.36941863354803106
+    },
+    "upperarm_twist_01_l": {
+      "max_step_deg": 9.36710321798293,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.3694185924498321
+    },
+    "upperarm_twist_02_l": {
+      "max_step_deg": 9.367099405218896,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.36941872249454766
+    },
+    "lowerarm_l": {
+      "max_step_deg": 7.639140268574175,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.26075279949882346
+    },
+    "lowerarm_twist_01_l": {
+      "max_step_deg": 7.63914122131563,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.2607527601627002
+    },
+    "lowerarm_twist_02_l": {
+      "max_step_deg": 7.639138355224631,
+      "at_seconds": 0.041666666666666664,
+      "mean_step_deg": 0.26075298835971
+    },
+    "hand_l": {
+      "max_step_deg": 3.44783527535127,
+      "at_seconds": 0.035416666666666666,
+      "mean_step_deg": 0.2520015102881872
+    }
+  },
+  "HeavyRelease": {
+    "clavicle_l": {
+      "max_step_deg": 7.544522995393489,
+      "at_seconds": 0.014583333333333334,
+      "mean_step_deg": 0.09624759597373962
+    },
+    "upperarm_l": {
+      "max_step_deg": 14.455578071097305,
+      "at_seconds": 0.06666666666666667,
+      "mean_step_deg": 0.9345361767654851
+    },
+    "upperarm_twist_01_l": {
+      "max_step_deg": 14.455578178889207,
+      "at_seconds": 0.06666666666666667,
+      "mean_step_deg": 0.934536342233423
+    },
+    "upperarm_twist_02_l": {
+      "max_step_deg": 14.455578616722278,
+      "at_seconds": 0.06666666666666667,
+      "mean_step_deg": 0.9345360769271501
+    },
+    "lowerarm_l": {
+      "max_step_deg": 16.187702404729563,
+      "at_seconds": 0.06666666666666667,
+      "mean_step_deg": 1.2612992221581592
+    },
+    "lowerarm_twist_01_l": {
+      "max_step_deg": 16.187720091407947,
+      "at_seconds": 0.06666666666666667,
+      "mean_step_deg": 1.2612993966757777
+    },
+    "lowerarm_twist_02_l": {
+      "max_step_deg": 16.18771097615303,
+      "at_seconds": 0.06666666666666667,
+      "mean_step_deg": 1.2612992337898206
+    },
+    "hand_l": {
+      "max_step_deg": 9.580989354403844,
+      "at_seconds": 0.05,
+      "mean_step_deg": 1.1487879740092353
+    }
+  },
+  "Slash1": {
+    "clavicle_l": {
+      "max_step_deg": 3.9532696475671933,
+      "at_seconds": 0.46875,
+      "mean_step_deg": 0.4033636444065667
+    },
+    "upperarm_l": {
+      "max_step_deg": 5.966964641171995,
+      "at_seconds": 0.9604166666666667,
+      "mean_step_deg": 0.7750599884002208
+    },
+    "upperarm_twist_01_l": {
+      "max_step_deg": 5.96696270019413,
+      "at_seconds": 0.9604166666666667,
+      "mean_step_deg": 0.7750599869474875
+    },
+    "upperarm_twist_02_l": {
+      "max_step_deg": 5.966961776151111,
+      "at_seconds": 0.9604166666666667,
+      "mean_step_deg": 0.7750599440361752
+    },
+    "lowerarm_l": {
+      "max_step_deg": 7.241333486211948,
+      "at_seconds": 0.9583333333333334,
+      "mean_step_deg": 0.8828879071892911
+    },
+    "lowerarm_twist_01_l": {
+      "max_step_deg": 7.241339084298937,
+      "at_seconds": 0.9583333333333334,
+      "mean_step_deg": 0.88288791638675
+    },
+    "lowerarm_twist_02_l": {
+      "max_step_deg": 7.24133943803926,
+      "at_seconds": 0.9583333333333334,
+      "mean_step_deg": 0.8828879447360667
+    },
+    "hand_l": {
+      "max_step_deg": 5.719646103040022,
+      "at_seconds": 0.925,
+      "mean_step_deg": 0.8129983523765156
+    }
+  }
+}

@@ -1,0 +1,783 @@
+{
+  "idle_0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "idle_2.5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "idle_5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "aim_0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "aim_2.5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "aim_5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_0.0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_25.5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "pinky": 591,
+      "middle": 276,
+      "ring": 29,
+      "index": 928,
+      "thumb": 288
+    },
+    "parts": {
+      "SM_AKM_canted": 2112
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_51.0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "index": 928,
+      "thumb": 288,
+      "middle": 277,
+      "ring": 29,
+      "pinky": 591
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_76.5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "pinky": 591,
+      "middle": 277,
+      "ring": 29,
+      "index": 928,
+      "thumb": 288
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_102.0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "index": 928,
+      "thumb": 288,
+      "middle": 276,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2112
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_127.5": {
+    "crossing_hand_triangles": 579,
+    "pairs_by_digit": {
+      "index": 915,
+      "thumb": 288,
+      "middle": 277,
+      "ring": 29,
+      "pinky": 587
+    },
+    "parts": {
+      "SM_AKM_canted": 2096
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_153.0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "middle": 277,
+      "ring": 29,
+      "pinky": 591,
+      "index": 928,
+      "thumb": 288
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_178.5": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "equip_204.0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_4": {
+    "crossing_hand_triangles": 479,
+    "pairs_by_digit": {
+      "index": 764,
+      "middle": 289,
+      "ring": 20,
+      "pinky": 594
+    },
+    "parts": {
+      "SM_AKM_canted": 1667
+    },
+    "self": {
+      "middle-ring": 102
+    }
+  },
+  "reload_8": {
+    "crossing_hand_triangles": 108,
+    "pairs_by_digit": {
+      "index": 131,
+      "pinky": 260
+    },
+    "parts": {
+      "SM_AKM_canted": 391
+    },
+    "self": {}
+  },
+  "reload_12": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_16": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_20": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_24": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_28": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_32": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_36": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_40": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_270": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_274": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_278": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_282": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_286": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_290": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_294": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_298": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_302": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_306": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_310": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_314": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_318": {
+    "crossing_hand_triangles": 22,
+    "pairs_by_digit": {
+      "index": 46
+    },
+    "parts": {
+      "SM_AKM_canted": 46
+    },
+    "self": {}
+  },
+  "reload_322": {
+    "crossing_hand_triangles": 385,
+    "pairs_by_digit": {
+      "index": 573,
+      "middle": 226,
+      "ring": 20,
+      "pinky": 588
+    },
+    "parts": {
+      "SM_AKM_canted": 1407
+    },
+    "self": {
+      "middle-ring": 40
+    }
+  },
+  "reload_326": {
+    "crossing_hand_triangles": 481,
+    "pairs_by_digit": {
+      "index": 948,
+      "middle": 286,
+      "pinky": 587,
+      "ring": 21
+    },
+    "parts": {
+      "SM_AKM_canted": 1842
+    },
+    "self": {
+      "index-middle": 76,
+      "middle-ring": 146
+    }
+  },
+  "reload_330": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_400": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_empty_0": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_empty_4": {
+    "crossing_hand_triangles": 479,
+    "pairs_by_digit": {
+      "index": 764,
+      "middle": 289,
+      "ring": 20,
+      "pinky": 594
+    },
+    "parts": {
+      "SM_AKM_canted": 1667
+    },
+    "self": {
+      "middle-ring": 102
+    }
+  },
+  "reload_empty_8": {
+    "crossing_hand_triangles": 108,
+    "pairs_by_digit": {
+      "index": 131,
+      "pinky": 260
+    },
+    "parts": {
+      "SM_AKM_canted": 391
+    },
+    "self": {}
+  },
+  "reload_empty_12": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_16": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_20": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_24": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_28": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_32": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_36": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_40": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "ring-pinky": 69
+    }
+  },
+  "reload_empty_380": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "ring-pinky": 41
+    }
+  },
+  "reload_empty_384": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "ring-pinky": 44
+    }
+  },
+  "reload_empty_388": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {
+      "ring-pinky": 38
+    }
+  },
+  "reload_empty_392": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_396": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_400": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_404": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_408": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_412": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_416": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_420": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_424": {
+    "crossing_hand_triangles": 0,
+    "pairs_by_digit": {},
+    "parts": {},
+    "self": {}
+  },
+  "reload_empty_428": {
+    "crossing_hand_triangles": 22,
+    "pairs_by_digit": {
+      "index": 46
+    },
+    "parts": {
+      "SM_AKM_canted": 46
+    },
+    "self": {}
+  },
+  "reload_empty_432": {
+    "crossing_hand_triangles": 385,
+    "pairs_by_digit": {
+      "index": 573,
+      "middle": 226,
+      "ring": 20,
+      "pinky": 588
+    },
+    "parts": {
+      "SM_AKM_canted": 1407
+    },
+    "self": {
+      "middle-ring": 40
+    }
+  },
+  "reload_empty_436": {
+    "crossing_hand_triangles": 481,
+    "pairs_by_digit": {
+      "index": 948,
+      "middle": 286,
+      "pinky": 587,
+      "ring": 21
+    },
+    "parts": {
+      "SM_AKM_canted": 1842
+    },
+    "self": {
+      "index-middle": 76,
+      "middle-ring": 146
+    }
+  },
+  "reload_empty_440": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 215
+    }
+  },
+  "reload_empty_515": {
+    "crossing_hand_triangles": 582,
+    "pairs_by_digit": {
+      "thumb": 288,
+      "index": 928,
+      "middle": 277,
+      "pinky": 591,
+      "ring": 29
+    },
+    "parts": {
+      "SM_AKM_canted": 2113
+    },
+    "self": {
+      "thumb-index": 116,
+      "index-middle": 141,
+      "middle-ring": 120,
+      "ring-pinky": 214
+    }
+  }
+}

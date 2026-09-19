@@ -1,0 +1,34 @@
+{
+  "materials": {
+    "Body": "/Game/Weapons/QBZ191/ContactWear20260913/Materials/M_QBZ191_Wear_Body.M_QBZ191_Wear_Body",
+    "Polymer": "/Game/Weapons/QBZ191/ContactWear20260913/Materials/M_QBZ191_Wear_Polymer.M_QBZ191_Wear_Polymer",
+    "Magazine": "/Game/Weapons/QBZ191/ContactWear20260913/Materials/M_QBZ191_Wear_Magazine.M_QBZ191_Wear_Magazine",
+    "Steel": "/Game/Weapons/QBZ191/ContactWear20260913/Materials/M_QBZ191_Wear_Steel.M_QBZ191_Wear_Steel",
+    "Rail": "/Game/Weapons/QBZ191/ContactWear20260913/Materials/M_QBZ191_Wear_Rail.M_QBZ191_Wear_Rail",
+    "Sights": "/Game/Weapons/QBZ191/ContactWear20260913/Materials/M_QBZ191_Wear_Sights.M_QBZ191_Wear_Sights"
+  },
+  "meshes": {
+    "SK_QBZ191_Manny": "/Game/Weapons/QBZ191/ContactWear20260913/SK_QBZ191_Manny.SK_QBZ191_Manny",
+    "SM_QBZ191_RearSight": "/Game/Weapons/QBZ191/ContactWear20260913/SM_QBZ191_RearSight.SM_QBZ191_RearSight",
+    "SM_QBZ191_FrontSight": "/Game/Weapons/QBZ191/ContactWear20260913/SM_QBZ191_FrontSight.SM_QBZ191_FrontSight"
+  },
+  "clips": {
+    "base:reload": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/base/A_QBZ191_reload.A_QBZ191_reload",
+    "base:reload_empty": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/base/A_QBZ191_reload_empty.A_QBZ191_reload_empty",
+    "base:equip_charge": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/base/A_QBZ191_equip_charge.A_QBZ191_equip_charge",
+    "vertical:reload": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/vertical/A_QBZ191_vertical_reload.A_QBZ191_vertical_reload",
+    "vertical:reload_empty": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/vertical/A_QBZ191_vertical_reload_empty.A_QBZ191_vertical_reload_empty",
+    "vertical:equip_charge": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/vertical/A_QBZ191_vertical_equip_charge.A_QBZ191_vertical_equip_charge",
+    "canted:reload": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/canted/A_QBZ191_canted_reload.A_QBZ191_canted_reload",
+    "canted:reload_empty": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/canted/A_QBZ191_canted_reload_empty.A_QBZ191_canted_reload_empty",
+    "canted:equip_charge": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/canted/A_QBZ191_canted_equip_charge.A_QBZ191_canted_equip_charge",
+    "prism:reload": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/prism/A_QBZ191_prism_reload.A_QBZ191_prism_reload",
+    "prism:reload_empty": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/prism/A_QBZ191_prism_reload_empty.A_QBZ191_prism_reload_empty",
+    "prism:equip_charge": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/prism/A_QBZ191_prism_equip_charge.A_QBZ191_prism_equip_charge",
+    "angled:reload": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/angled/A_QBZ191_angled_reload.A_QBZ191_angled_reload",
+    "angled:reload_empty": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/angled/A_QBZ191_angled_reload_empty.A_QBZ191_angled_reload_empty",
+    "angled:equip_charge": "/Game/Weapons/QBZ191/ContactWear20260913/Animations/angled/A_QBZ191_angled_equip_charge.A_QBZ191_angled_equip_charge"
+  },
+  "skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "status": "saved authoring assets; no runtime acceptance"
+}
