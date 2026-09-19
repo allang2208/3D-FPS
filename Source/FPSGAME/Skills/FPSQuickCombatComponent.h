@@ -17,7 +17,7 @@ enum class EQuickCombatBashPhase : uint8 { None, Release, Cock, Smash, Follow, R
 // 单一绝对时钟 ActionAge 驱动阶段/镜头/接触点，全部由 clip 长度换算，不逐段累计。
 // 两种武器的动作本体都在作者源 clip 里（手枪 DW715、步枪 M4 六个握把配置），
 // 本组件不参与姿态——只给出命中探针来源、结算时机与镜头语言。
-enum class EQuickCombatStyle : uint8 { Pistol, Rifle };
+enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle };
 
 UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSQuickCombatComponent : public UActorComponent
@@ -39,7 +39,7 @@ public:
     /** 按实际 clip 长度推导接触/阶段时间（作者源改节奏不会与结算脱节）。 */
     void ConfigureForClipLength(float Length);
     /** 切换为步枪枪托砸击，并按实际 clip 长度推导时间轴。 */
-    void ConfigureForRifle(float Length);
+    void ConfigureForRifle(float Length,bool bM4Reference=false);
     EQuickCombatStyle GetStyle() const { return Style; }
     /** 镜头语言（配重锤 GetCameraMotion 同款合同）：相机空间位置 cm 与旋转度。 */
     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;

@@ -160,3 +160,7 @@ M4/AKM 新材质变体位于 `Content/Weapons/AttachmentFinish20260913/{M4,AKM}`
 当前冰体与寒气运行目录 `/Game/Skills/IceSpike/FrostV2`；碎片、命中、冰裂纹贴图与音频仍在 `/Game/Skills/IceSpike`。首轮恢复链：保留 `SourceAssets/IceSpike20260915` 的 `IceSpike.blend`、`SM_IceSpike.fbx`、`ice_impact.wav`、`ThirdParty/CrackedIceSelected/ci_cracks.png` 和许可，UE 执行 `Tools/Skills/build_ice_spike_assets.py`。V2 另恢复 `SourceAssets/IceSpike5080_20260915` 的三视图、TRELLIS 母版、`IceSpike5080_Editable.blend` 与 `Game/` FBX／贴图，再执行 `Tools/Skills/build_ice_spike_frost_v2.py`。生成与导出入口为该源目录的 `generate.py` 和 `Tools/Skills/author_ice_spike_5080.py`，前者不会自动生成验收渲染。图标恢复由 `Tools/UI/prepare_cold_steel_skill_icons.py` 处理。依赖已有 Epic Niagara Examples、火球拖尾结构和 Realistic Starter VFX Pack Vol2，二进制原素材沿用许可边界，不公开提交。详见 [5080 模型与寒气升级](Skills/ice-spike-frost-v2-20260915.md)。
 
 GitHub 冰裂纹采用 MIT（Shader Vault），已保存并随 `Content/ColdSteelData/Licenses/CrackedIce-MIT.txt` 打包。完整来源及生成提示见 `SourceAssets/IceSpike20260915/provenance.json`，迁移公式与范围见 `Docs/Skills/ice-spike-migration-20260915.md`。本轮未测试或渲染验收。
+
+## 2026-09-19 枪械快速近战收尾
+
+M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、有效作者依赖、废案归档及公开恢复边界，见 [快速近战发布与恢复](Weapons/quick-melee-publication-20260919.md)。Blend／FBX／uasset、原始参考及密集骨骼数据继续仅保留本机；公共源码不包含完整资源包。

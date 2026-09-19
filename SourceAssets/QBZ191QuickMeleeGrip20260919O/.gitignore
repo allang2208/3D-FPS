@@ -1,0 +1,13 @@
+/Base/
+/Angled/
+/Vertical/
+/Canted/
+/Prism/
+/Before/
+/Review/
+/__pycache__/
+*.log
+
+# Local rig data, pose readbacks and execution receipts.
+/*.json
+/__pycache__/

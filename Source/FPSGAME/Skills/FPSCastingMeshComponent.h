@@ -17,8 +17,8 @@ public:
     virtual void FinalizeBoneTransform() override;
     /** 快速进战打击探针：握把底的世界位置（命中射线起点与画面同源）。 */
     bool GetQuickCombatStrikeProbe(FVector& OutOrigin) const;
-    /** 步枪枪托砸击的命中探针：枪身前段（枪口沿枪轴回撤），跟随实际挥击姿态。 */
-    bool GetRifleStockMeleeProbe(FVector& OutOrigin) const;
+    /** 跟随当前姿态的近战探针：参考动作取各枪枪托，旧动作保留枪身前段。 */
+    bool GetRifleStockMeleeProbe(FVector& OutOrigin,bool bM4StockPoint=false) const;
 private:
     TWeakObjectPtr<USkeletalMesh> PoseMesh;
     TArray<FTransform> ReferencePose, SourcePose, GoalPose, EntryLocal;

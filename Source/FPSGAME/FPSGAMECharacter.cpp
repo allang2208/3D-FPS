@@ -9,6 +9,7 @@
 #include "Skills/FPSFireballComponent.h"
 #include "Skills/FPSIceSpikeComponent.h"
 #include "Skills/FPSQuickCombatComponent.h"
+#include "Weapons/QuickCombatRecovery.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Perception/AISense_Hearing.h"
 #include "Weapons/AKMSovietCalibration.h"
@@ -915,16 +916,30 @@ EM4SprintGrip AFPSGAMECharacter::ResolveRifleGripProfile() const
 
 UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
 {
-    if (RifleQuickCombatClips.Num() != 6)
+    // Each rifle starts and returns to its own fitted idle. All four families
+    // share the reference rhythm; QBZ191 keeps its O grip-locked correction.
+    if (RifleQuickCombatClips.Num() != 24)
     {
         RifleQuickCombatClips.Reset();
-        for (const TCHAR* Name : {TEXT("Base"), TEXT("Drum"), TEXT("Angled"),
-                                  TEXT("Vertical"), TEXT("Canted"), TEXT("Prism")})
-            RifleQuickCombatClips.Add(LoadObject<UAnimSequence>(nullptr,
-                *FString::Printf(TEXT("/Game/Weapons/M4StockMelee20260918/%s/A_M4_QuickCombat_%s.A_M4_QuickCombat_%s"),
-                    Name, Name, Name)));
+        const TCHAR* Weapons[] = {TEXT("AKM"), TEXT("M4"), TEXT("QBZ191"), TEXT("ASH12")};
+        for (int32 Family = 0; Family < 4; ++Family)
+        {
+            const FString Folder = Family == 1 ? TEXT("M4QuickMeleeReplica20260919")
+                : FString::Printf(TEXT("RifleQuickMelee20260919/%s"), Weapons[Family]);
+            for (const TCHAR* Name : {TEXT("Base"), TEXT("Drum"), TEXT("Angled"),
+                                      TEXT("Vertical"), TEXT("Canted"), TEXT("Prism")})
+            {
+                // ASH uses its base clip; AKM/QBZ drums retain their base support hand.
+                const TCHAR* Profile = (Family == 3 || (Family != 1 && FCString::Strcmp(Name, TEXT("Drum")) == 0))
+                    ? TEXT("Base") : Name;
+                RifleQuickCombatClips.Add(LoadObject<UAnimSequence>(nullptr,
+                    *FString::Printf(TEXT("/Game/Weapons/%s/%s/A_%s_QuickCombat_%s.A_%s_QuickCombat_%s"),
+                        *Folder, Profile, Weapons[Family], Profile, Weapons[Family], Profile)));
+            }
+        }
     }
-    const int32 Index = static_cast<int32>(Grip);
+    const int32 Family = bUseASH12 ? 3 : bUseQBZ191 ? 2 : bUsingM4Infima ? 1 : 0;
+    const int32 Index = static_cast<int32>(Grip) + Family * 6;
     return RifleQuickCombatClips.IsValidIndex(Index) ? RifleQuickCombatClips[Index].Get() : nullptr;
 }
 
@@ -936,8 +951,7 @@ bool AFPSGAMECharacter::TriggerRifleStockMelee()
         return false;
     };
     // 用户 2026-09-18：取消武器类型锁——任何非手枪的枪械都可以用这记枪托砸击。
-    // 非 M4 的枪目前复用 M4 的整枪 clip（各枪共用同一套 Manny 手臂骨架 + WPN_ 骨），
-    // 需要时再按枪型补自己的作者源。
+    // AKM、QBZ191、ASH-12 均使用自己的抓握源和 N 版腕臂适配 clip。
     if(IsPistolWeapon())return Gate(TEXT("当前是手枪"));
     if(IsCastBlockingLeftHandAction())return Gate(TEXT("施法/其他动作占用左手"));
     if(IsWeaponBusy())return Gate(TEXT("武器动作未结束"));
@@ -952,7 +966,7 @@ bool AFPSGAMECharacter::TriggerRifleStockMelee()
     ExitSprintForWeapon();
     bFireHeld=false;bPistolShotPending=false;
     // 组件按实际 clip 长度换算时钟（作者源改节奏不需要同步改代码）。
-    if(QuickCombatPistol)QuickCombatPistol->ConfigureForRifle(Clip->GetPlayLength());
+    if(QuickCombatPistol)QuickCombatPistol->ConfigureForRifle(Clip->GetPlayLength(),true);
     const bool bStarted=QuickCombatPistol&&QuickCombatPistol->BeginAction();
     if(bStarted)
     {
@@ -1293,6 +1307,20 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     float ActionFramingTarget = bUseActionFraming ? 1.0f : 0.0f;
     M4ActionFramingAlpha = FMath::Lerp(M4ActionFramingAlpha, ActionFramingTarget,
         1.0f - FMath::Exp(-16.0f * DeltaSeconds));
+    if (WeaponState == EAKMWeaponState::QuickCombat)
+    {
+        // Reach the hip anchor inside the clip's recovery. Filtering this tail
+        // would leave a second component-space correction after the pose ends.
+        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
+            QuickCombatRecovery::RemainingWeight(WeaponStateElapsed, WeaponStateDuration,
+                QuickCombatRecovery::FramingReturnStart));
+    }
+    else if (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())
+    {
+        // The component can finish its tick after the weapon state. Its final
+        // busy frame must not restart action framing after the handoff.
+        M4ActionFramingAlpha = 0.f;
+    }
     const float SpeedM = HorizontalSpeed() / 100.0f;
     const bool bPistol = IsPistolWeapon();
     WeaponBobTime += DeltaSeconds * (5.0f + SpeedM * 0.85f);
@@ -1917,6 +1945,7 @@ void AFPSGAMECharacter::InterruptPistolEquip()
 
 void AFPSGAMECharacter::FinishWeaponAction()
 {
+    const bool bFinishedQuickCombat = WeaponState == EAKMWeaponState::QuickCombat;
     const double CompletedAt = WeaponActionStartedAt + WeaponStateDuration;
     // Only the eligible tail after completion can catch up. Keep a newer input
     // deadline or another active blocker rather than rewinding it to completion.
@@ -1924,12 +1953,13 @@ void AFPSGAMECharacter::FinishWeaponAction()
     WeaponState = EAKMWeaponState::Idle;
     if (bFireHeld) ExitSprintForWeapon(CompletedAt);
     WeaponStateElapsed = WeaponStateDuration = 0.0f;
-    if (IsPistolWeapon())
+    if (IsPistolWeapon() || bFinishedQuickCombat)
     {
         ActiveActionAnimation = nullptr;
         ActionElapsed = ActionDuration = 0.f;
         if (GunplayAnimation) GunplayAnimation->ActionAlpha = 0.f;
     }
+    if (bFinishedQuickCombat) M4ActionFramingAlpha = 0.f;
     MechanicalCueTimes.Reset(); MechanicalCueSounds.Reset(); NextMechanicalCue = 0;
     SetAimingState(bAimHeld);
     ResumeWeaponPose();
@@ -2405,14 +2435,17 @@ void AFPSGAMECharacter::UpdateActionPose(float DeltaSeconds)
         // DeltaSeconds counts time before that input and used to retire the
         // animation early (especially on a hitch) while firing stayed locked.
         const bool bFireAction = ActiveActionAnimation == FireAnimation || ActiveActionAnimation == AimFireAnimation || ActiveActionAnimation == PistolFireLastAnimation || ActiveActionAnimation == PistolAimFireLastAnimation;
+        const bool bQuickCombatAction = WeaponState == EAKMWeaponState::QuickCombat;
         if (bUseDanWesson715 && bFireAction)
             ActionElapsed = static_cast<float>(FMath::Max(0.0, GetWorld()->GetTimeSeconds() - LastShotWorldTime));
-        else if (IsReloading() || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
+        else if (bQuickCombatAction || IsReloading() || ((bUsingM4Infima || bUseQBZ191 || IsPistolWeapon()) && WeaponState == EAKMWeaponState::Equipping)) ActionElapsed = WeaponStateElapsed;
         else ActionElapsed += DeltaSeconds;
         const float BlendScale = IsReloading() ? 1.f / FMath::Max(0.01f, ActionPlayRate) : 1.f;
         const float BlendOut = (bFireAction ? 0.028f : (IsPistolWeapon() && IsReloading() ? 0.025f : 0.10f)) * BlendScale;
         const float In = FMath::Clamp(ActionElapsed / (ActionBlendIn * BlendScale), 0.0f, 1.0f);
-        const float Out = FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
+        const float Out = bQuickCombatAction
+            ? QuickCombatRecovery::RemainingWeight(ActionElapsed, ActionDuration, QuickCombatRecovery::IdleHandoffStart)
+            : FMath::Clamp((ActionDuration - ActionElapsed) / BlendOut, 0.0f, 1.0f);
         GunplayAnimation->ActionClip = DrumPose(ActiveActionAnimation);
         GunplayAnimation->ActionAlpha = FMath::Min(In, Out);
         float SourceTime = ActionStartPosition + ActionElapsed * ActionPlayRate;

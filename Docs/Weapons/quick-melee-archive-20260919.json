@@ -1,0 +1,938 @@
+[
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/.gitignore",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/.gitignore",
+    "bytes": 194,
+    "sha256": "e93c0fb1c92d005488c04a30abf527b70a7921dfb2b7fcd36f37430d3d2e2a4b",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/arm_support.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/arm_support.py",
+    "bytes": 8465,
+    "sha256": "35a579e4323b0781be2059b31d95a53f1e8c99aac200fe41d212e1c9910927a7",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/author_replica.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/author_replica.py",
+    "bytes": 4795,
+    "sha256": "93a3975c9e55f97bb17afd08b7ace1be18e13c3fd08ab0822ae7197b8a4fa565",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/author.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/author.log",
+    "bytes": 5951,
+    "sha256": "77e96c7ce2b86e9dda35845517d3b396e0b94ccbee865b8c4986b6a96a0e3385",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/authoring_input.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/authoring_input.json",
+    "bytes": 59950,
+    "sha256": "c558afdd84cc3a16c2391244fd5e08991eed094605ed4d9915170dd6827271fc",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/authoring.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/authoring.json",
+    "bytes": 5032,
+    "sha256": "4b4d1008b69a84c08c67b87d736d89efafc7fdbf2c2435f1f5a9d9f4ac926f59",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/fit_reference_motion.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/fit_reference_motion.py",
+    "bytes": 2800,
+    "sha256": "e0b1ecc92fa914d3153068b6353e482b71614f69cb5191fa7d64b0a0583e7a13",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/import_replica.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/import_replica.py",
+    "bytes": 2685,
+    "sha256": "5a8a8f50337a889e119f537cdd950ef93aa25cf2f278edcac09107bb2bf6f375",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/import-engine.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/import-engine.log",
+    "bytes": 286863,
+    "sha256": "c371a9613137b71941b962d9e3c4d985a12d7babf38814730e12bf04c8349c58",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/import.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/import.json",
+    "bytes": 1128,
+    "sha256": "30a8390b70e3a01816910f2c84724fc7044bbeaa63b77847d434949a7cdbcbb1",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/import.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/import.log",
+    "bytes": 39279,
+    "sha256": "c0c8d8e302e6669207554ea29d30eb3a0d66f21d7817fcefb7947675e721ee7e",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/motion_frames.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/motion_frames.json",
+    "bytes": 138680,
+    "sha256": "ac5035811132c0ac42c05d53408f5831dd82c0cc95cc8202da72dbcfb3ef9f27",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/README.md",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/README.md",
+    "bytes": 2587,
+    "sha256": "718ef7638198cbe80cc3ab111800973a45d6c592301570a16eca70232a5ab117",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/reference_motion.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/reference_motion.json",
+    "bytes": 3537,
+    "sha256": "bd86405cd644b84e135583ac401faa5dbb080b7d0343023365592b5395c0dd2e",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Angled/M4_QuickCombat_Angled_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Angled/M4_QuickCombat_Angled_Editable.blend",
+    "bytes": 139044552,
+    "sha256": "81063ace89318e51246b110aa2a23fa41fda828b0aa6664f7d2b04a006dc6c9e",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Angled/Animations/A_M4_QuickCombat_Angled.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Angled/Animations/A_M4_QuickCombat_Angled.fbx",
+    "bytes": 1244076,
+    "sha256": "493ddd99f45095e4621d93c0d20900633697797b94ad34b4977caa972a35cd6e",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Base/M4_QuickCombat_Base_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Base/M4_QuickCombat_Base_Editable.blend",
+    "bytes": 97827183,
+    "sha256": "be9f0e59c8789bb816ca0f8be9345fb388ea0a8da5829262bd8d3e03211ce985",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Base/Animations/A_M4_QuickCombat_Base.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Base/Animations/A_M4_QuickCombat_Base.fbx",
+    "bytes": 1239500,
+    "sha256": "28517e4a73aa30771121f755047f35734392f96648540acb1885c104f3eb051e",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "bytes": 366997,
+    "sha256": "3edc91ed581d7b7d2ab4c51723b11e2c9e6af9ece33e9a69546546be6ded1162",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "bytes": 394871,
+    "sha256": "3d17ad411592afee57ad4fbba18ede11d85765e82e2dab16d3f4a0b4d3129902",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "bytes": 366982,
+    "sha256": "a1b2d80e6e4ccb72c120ea625b4d888f93ad8e7d7f6f5c3c5a853c49898895ed",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "bytes": 394874,
+    "sha256": "0de43b3d0082bcd7ccf028c377d7c0b9f5e83a8185ffe6c8e81934394e9a7237",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "bytes": 366974,
+    "sha256": "23fcd2ea22f541e1cbd260406ce88a0466a932b5655045bbad103bfc7fc5a7bb",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/BaselineI/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "bytes": 370496,
+    "sha256": "330c02cc85c56ef9a8a181d45d99d7b2fea6fa9b6124001851472f71a9b35184",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Canted/M4_QuickCombat_Canted_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Canted/M4_QuickCombat_Canted_Editable.blend",
+    "bytes": 139376039,
+    "sha256": "7c13395d1ffdca1005a1864afa6a247e17cc243dcd595c3359725ba3cc1cfa55",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Canted/Animations/A_M4_QuickCombat_Canted.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Canted/Animations/A_M4_QuickCombat_Canted.fbx",
+    "bytes": 1243612,
+    "sha256": "517ea6ca30514386b04b2933968df10ec078f31fa695b0d63272972639076c29",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Drum/M4_QuickCombat_Drum_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Drum/M4_QuickCombat_Drum_Editable.blend",
+    "bytes": 97829271,
+    "sha256": "0dbb8287aad5960b932c39860ffae6e03a17018cee06527242be534c035234a3",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Drum/Animations/A_M4_QuickCombat_Drum.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Drum/Animations/A_M4_QuickCombat_Drum.fbx",
+    "bytes": 1239484,
+    "sha256": "3624f173a6f2dee90827d425c13e4f615323edc0f657d43b0b7a1fe9e8ecce1c",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Prism/M4_QuickCombat_Prism_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Prism/M4_QuickCombat_Prism_Editable.blend",
+    "bytes": 101299634,
+    "sha256": "8abdb5d47d98581a9c19113c359d69086ca6673a1d2486faa47821912ab1f9ac",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Prism/Animations/A_M4_QuickCombat_Prism.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Prism/Animations/A_M4_QuickCombat_Prism.fbx",
+    "bytes": 1243708,
+    "sha256": "8f49ed577ab8fc7a947e308ee7ca3352b197280b0aa0cf96045f19b8c577edcd",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Vertical/M4_QuickCombat_Vertical_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Vertical/M4_QuickCombat_Vertical_Editable.blend",
+    "bytes": 139349815,
+    "sha256": "3fd5ec1ac9aaed0e4d7f0e602c4346bcc6fba432afb6af68fa4d51ea6db20c4d",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/Vertical/Animations/A_M4_QuickCombat_Vertical.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/Vertical/Animations/A_M4_QuickCombat_Vertical.fbx",
+    "bytes": 1243500,
+    "sha256": "9ddc678c0d30a6b949a29f3529f5f4a87313bc8effea4afe7e5a0f8ef06b3f0a",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919J/__pycache__/arm_support.cpython-313.pyc",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919J/__pycache__/arm_support.cpython-313.pyc",
+    "bytes": 12342,
+    "sha256": "51d8368403fc33bd31e06c26a18880eeb8a22b6303a5e3af9fea8f2c7d6d539a",
+    "reason": "Superseded arm placement",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919K"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/.gitignore",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/.gitignore",
+    "bytes": 194,
+    "sha256": "7a8c4f61ada6394b0d27807ab847b66ed4ca1f9c466e9f8a5e8d297d7c9b713a",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/author_wrist.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/author_wrist.py",
+    "bytes": 5780,
+    "sha256": "f673b5beef01b0cb579dd7714ba4d8d55b54caffa168b342de92e4793f6854d0",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/author.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/author.log",
+    "bytes": 5935,
+    "sha256": "ba6171b7574f3e5880bd92fd1dc0af89301b8eff12be4317f2587ae9d7bf10c3",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/authoring.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/authoring.json",
+    "bytes": 2841,
+    "sha256": "aa249089aed4f20e9b1bce294236d00c9ec7323768a8a6039fb31a5968ffa715",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/import_replica.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/import_replica.py",
+    "bytes": 2685,
+    "sha256": "5a8a8f50337a889e119f537cdd950ef93aa25cf2f278edcac09107bb2bf6f375",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/import-engine.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/import-engine.log",
+    "bytes": 283783,
+    "sha256": "32c49ffebf00f8b601a941384b5cd2ebb14f126a0573c468782746d5035ba62a",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/import.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/import.json",
+    "bytes": 1128,
+    "sha256": "30a8390b70e3a01816910f2c84724fc7044bbeaa63b77847d434949a7cdbcbb1",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/import.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/import.log",
+    "bytes": 36726,
+    "sha256": "243b9f268bf7ca3c2badbc721f42946c80a61b7c3ecc80d525de76f8a8d3d986",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/README.md",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/README.md",
+    "bytes": 2028,
+    "sha256": "6093d84d47179f05edeaa525c95e3f09fa868cde429f439e0ce642723338c880",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/wrist_grip.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/wrist_grip.json",
+    "bytes": 554,
+    "sha256": "c47855489b4aeb08a54b951ac7d4657e12e9439bf2786d5649ef682b16395732",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Angled/M4_QuickCombat_Angled_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Angled/M4_QuickCombat_Angled_Editable.blend",
+    "bytes": 139934368,
+    "sha256": "121b1c5cc6e4210bfd4e7e9c316f765cedfaf98dadadf5c98fa7ec32466aee02",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Angled/Animations/A_M4_QuickCombat_Angled.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Angled/Animations/A_M4_QuickCombat_Angled.fbx",
+    "bytes": 1240732,
+    "sha256": "1f2bdeb7e3d5b710d31ac75fed71197a6d9fae393cf55b493ca05847747026eb",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Base/M4_QuickCombat_Base_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Base/M4_QuickCombat_Base_Editable.blend",
+    "bytes": 98680401,
+    "sha256": "a5d58cf17745b986f4402152baf1a2e2b48aa1f1faf7eedca0cba686b3f13361",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Base/Animations/A_M4_QuickCombat_Base.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Base/Animations/A_M4_QuickCombat_Base.fbx",
+    "bytes": 1235916,
+    "sha256": "e58d0b435723ac9543609fb54b4bc70f81927af8a95694aa4f28f9d2fb8e6356",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "bytes": 426210,
+    "sha256": "f237d673d17f5ada794e7c8ec602944f27a6ae6d4de39fef5643ba08a5abdab1",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "bytes": 440131,
+    "sha256": "62a0c243a0c98cbf706fa4eec562c3b35ac2621fac34812f079c5f99403348da",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "bytes": 426195,
+    "sha256": "ce288798e87e3aefc0d763a48b99c5c7c37b786ccb866c3a36e11d64f0e6c01c",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "bytes": 440135,
+    "sha256": "bd378cc6e048a75055b9955319a45baaa4512190bbe4f2a776edd04b24c0557b",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "bytes": 429675,
+    "sha256": "8eddb1b65fc7eb4c58974b9eb9c18839046a3576d37d418c58a99330ad693ae4",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/BaselineK/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "bytes": 433196,
+    "sha256": "a307dffbf5e2c048fb13a6a613e9ec44a296d81fd8acd2ff827ccffe17cf1548",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Canted/M4_QuickCombat_Canted_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Canted/M4_QuickCombat_Canted_Editable.blend",
+    "bytes": 140251407,
+    "sha256": "0e53913a65eaf7f18517397e58ba77f88e65fffa164e1affdccec17993fd8e3e",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Canted/Animations/A_M4_QuickCombat_Canted.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Canted/Animations/A_M4_QuickCombat_Canted.fbx",
+    "bytes": 1240620,
+    "sha256": "4188dc631b3c2ace6b155775f5d104fbbdc19ac9f92afaacbd6b70494fa39ae3",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Drum/M4_QuickCombat_Drum_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Drum/M4_QuickCombat_Drum_Editable.blend",
+    "bytes": 98684432,
+    "sha256": "30e6e1b612538b4912baa792b4e78bc746a563ff35df7a018d4b34196ad227d7",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Drum/Animations/A_M4_QuickCombat_Drum.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Drum/Animations/A_M4_QuickCombat_Drum.fbx",
+    "bytes": 1236188,
+    "sha256": "bc5e6155e22e62c2304f0fca40d491e87c2f31ed2ff423565bde5795066f25b4",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Prism/M4_QuickCombat_Prism_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Prism/M4_QuickCombat_Prism_Editable.blend",
+    "bytes": 102177673,
+    "sha256": "a27efe4e71c3c1ab0bf8ace8ee3cda50ca2759cdaa079dbd41952f63a7b1826f",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Prism/Animations/A_M4_QuickCombat_Prism.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Prism/Animations/A_M4_QuickCombat_Prism.fbx",
+    "bytes": 1240956,
+    "sha256": "454bafdcbc3059bd4677891cee007289484314a6d481e9708102006e4f4eb028",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Vertical/M4_QuickCombat_Vertical_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Vertical/M4_QuickCombat_Vertical_Editable.blend",
+    "bytes": 140227816,
+    "sha256": "b9b9b0f22ae70fb1830d52554998d266c743dd9766299951e974d3ef85a4850a",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919L/Vertical/Animations/A_M4_QuickCombat_Vertical.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919L/Vertical/Animations/A_M4_QuickCombat_Vertical.fbx",
+    "bytes": 1240748,
+    "sha256": "72efb3b210a7f286011652c826666b337b57d09bdf692db6f75f3422438c6158",
+    "reason": "Rejected locked wrist/forearm solution",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/.gitignore",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/.gitignore",
+    "bytes": 194,
+    "sha256": "a8dfbcfd6e0c230ba0f6e0eca72701e9f9bc83e24b78deb14ad9300094106015",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/author_balance.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/author_balance.py",
+    "bytes": 5024,
+    "sha256": "95ea0ffa11e57e1e47fb533b2954b0a9c6807482a555288b5071a019166220c4",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/author.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/author.log",
+    "bytes": 5935,
+    "sha256": "2f5b2018e204dbe02946879a3d77a8aad8df5e312062566d36fc2d726ce02dd6",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/authoring.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/authoring.json",
+    "bytes": 3616,
+    "sha256": "1f8ddf78995c7c8e18402a13cc97c0311b8c6ce67fc29d6db928d4aa56b87460",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/import_replica.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/import_replica.py",
+    "bytes": 2685,
+    "sha256": "5a8a8f50337a889e119f537cdd950ef93aa25cf2f278edcac09107bb2bf6f375",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/import-engine.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/import-engine.log",
+    "bytes": 284719,
+    "sha256": "aba54fdb97dbb61ce4e81d51382d8b4eac8ce7486557771a2ef722b74e7a67ff",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/import.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/import.json",
+    "bytes": 1128,
+    "sha256": "30a8390b70e3a01816910f2c84724fc7044bbeaa63b77847d434949a7cdbcbb1",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/import.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/import.log",
+    "bytes": 37544,
+    "sha256": "e74b32d3aa130d76fd7cb25bea969a2afe369ea3adc2021c2b57604b286f494e",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/README.md",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/README.md",
+    "bytes": 2465,
+    "sha256": "771f4cfa587d94b25fd4cf5dac096aa25f1dd4dd23b17acd347c0b31ec2fe468",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/right_arm_balance.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/right_arm_balance.py",
+    "bytes": 4375,
+    "sha256": "08a5adf89093c1462bd5befe16f4204cb936ec5e913015d0c1fe09ce48bcb66f",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/wrist_balance.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/wrist_balance.json",
+    "bytes": 635,
+    "sha256": "6bbfdfa1bb39be0df861aa3fefb4c6edf8633894ca5b51dc1cb100181bfc07f6",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Angled/M4_QuickCombat_Angled_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Angled/M4_QuickCombat_Angled_Editable.blend",
+    "bytes": 139941238,
+    "sha256": "261e3dc3282f0d7d78b329f2503918a1dda135fcdd6a6d1060b2af3586baab32",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Angled/Animations/A_M4_QuickCombat_Angled.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Angled/Animations/A_M4_QuickCombat_Angled.fbx",
+    "bytes": 1240332,
+    "sha256": "f504bc43379a34245891e9e7f5b4d2c5193953baa3feba87c3c62d747fcc8152",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Base/M4_QuickCombat_Base_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Base/M4_QuickCombat_Base_Editable.blend",
+    "bytes": 98687926,
+    "sha256": "fb7c317a9895cd38bd4849fee5d3f90305e2c2cc097717b6b1a310b9a24306c3",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Base/Animations/A_M4_QuickCombat_Base.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Base/Animations/A_M4_QuickCombat_Base.fbx",
+    "bytes": 1235772,
+    "sha256": "2f2f2582f1b14235aa8471759e8ad8344db32e6031639395b894645b5b7898d9",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "bytes": 447137,
+    "sha256": "27b6c737013499828091da948b7d2a6e27ad66613063c77f04b9137038d8ec34",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "bytes": 461059,
+    "sha256": "dbec8a633d2ec87b82f676837f61a5037e5114fdb8efe65e2bc231c9f95ea7e3",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "bytes": 447122,
+    "sha256": "94fa06e92e9eb00ed7a4e0bc6e078694447205e72a39625e424a00573d3ab457",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "bytes": 461062,
+    "sha256": "9c7c98863c8d4a45217eefc24b2ea9eaaac5a0eaf197f9106f3f97a76a9676ff",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "bytes": 450603,
+    "sha256": "ff3f0e6217177df87a16ba352cf7e2d250f4f020d3a5bd9b54febe348ed9db29",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/BaselineL/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "bytes": 454125,
+    "sha256": "aecca2d7ff6166f43716607c1786ed3e140733980fd4c40a5fa1bc63f5753b6c",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Canted/M4_QuickCombat_Canted_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Canted/M4_QuickCombat_Canted_Editable.blend",
+    "bytes": 140259389,
+    "sha256": "d07f68c972ae679de375c7c685e8333d8ea74eae105a77df274988adceab1ad5",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Canted/Animations/A_M4_QuickCombat_Canted.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Canted/Animations/A_M4_QuickCombat_Canted.fbx",
+    "bytes": 1240204,
+    "sha256": "3c80ce74495340a182c877a2cb333a10bb932233d47ef720458e42b5cb8d6603",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Drum/M4_QuickCombat_Drum_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Drum/M4_QuickCombat_Drum_Editable.blend",
+    "bytes": 98686228,
+    "sha256": "2394abe6d7c8ac5077285d21c352f1ea89dcb935c71dd0aefcfca42d6eff95b9",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Drum/Animations/A_M4_QuickCombat_Drum.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Drum/Animations/A_M4_QuickCombat_Drum.fbx",
+    "bytes": 1236012,
+    "sha256": "1851cdda519787a54e965d4449e1e67791f7686fa340e044ac7c27c16c7a1751",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Prism/M4_QuickCombat_Prism_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Prism/M4_QuickCombat_Prism_Editable.blend",
+    "bytes": 102185653,
+    "sha256": "79a5a1e512dd3228a603188090940fc60619756c05171672d21914e1b1b447d2",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Prism/Animations/A_M4_QuickCombat_Prism.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Prism/Animations/A_M4_QuickCombat_Prism.fbx",
+    "bytes": 1240476,
+    "sha256": "e1570193db1da5cf0ade75f4997dbc076ba6c30d06b1644324a210212d34738e",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Vertical/M4_QuickCombat_Vertical_Editable.blend",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Vertical/M4_QuickCombat_Vertical_Editable.blend",
+    "bytes": 140236643,
+    "sha256": "d50c6c7f669d00c73195eddcecb8179b080a4e2e65fdd9bbe5c6785125862789",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/Vertical/Animations/A_M4_QuickCombat_Vertical.fbx",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/Vertical/Animations/A_M4_QuickCombat_Vertical.fbx",
+    "bytes": 1240444,
+    "sha256": "e387c6d8b4800e4975d62e927137dec27c31935a37d39cc98c6b31ceaf582704",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919M/__pycache__/right_arm_balance.cpython-313.pyc",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919M/__pycache__/right_arm_balance.cpython-313.pyc",
+    "bytes": 7193,
+    "sha256": "cb9570b68f5273001045b311b3e547e28216d4c793698e964f569c874676fa31",
+    "reason": "Rejected limited wrist compensation",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "Docs/Weapons/m4-quick-melee-refine-20260919j.md",
+    "trash": "trash/quick-melee-retired-20260919/Docs/Weapons/m4-quick-melee-refine-20260919j.md",
+    "bytes": 1677,
+    "sha256": "82a366f8786450fd30af85eaaee76145ce3041e97879c8bf7ef669f9332571ce",
+    "reason": "Superseded version record",
+    "retained": "Docs/Weapons/m4-quick-melee-refine-20260919k.md"
+  },
+  {
+    "original": "Docs/Weapons/m4-quick-melee-refine-20260919l.md",
+    "trash": "trash/quick-melee-retired-20260919/Docs/Weapons/m4-quick-melee-refine-20260919l.md",
+    "bytes": 1195,
+    "sha256": "f98341dd50fa6bb763998fbf3bd296d0e3f3c80c555f9f40ab809ec670b8edfb",
+    "reason": "Rejected version record",
+    "retained": "Docs/Weapons/m4-quick-melee-refine-20260919n.md"
+  },
+  {
+    "original": "Docs/Weapons/m4-quick-melee-refine-20260919m.md",
+    "trash": "trash/quick-melee-retired-20260919/Docs/Weapons/m4-quick-melee-refine-20260919m.md",
+    "bytes": 1291,
+    "sha256": "d62414f2c38cf94df80236691a76e4fb8a90657d85b41c1e6935941238315fbf",
+    "reason": "Rejected version record",
+    "retained": "Docs/Weapons/m4-quick-melee-refine-20260919n.md"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "bytes": 464577,
+    "sha256": "398fc64176c09bd0d8d49282628b1cb78ef43d5eadab1ed60d378ce8415ec8e9",
+    "reason": "Superseded UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "bytes": 481987,
+    "sha256": "70b43a4445dfe6631d02035ce1a0379520fd1fb68fe3b8daa484c24d394f4e46",
+    "reason": "Superseded UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "bytes": 464562,
+    "sha256": "9cd226c3e6d3aa0ab3704802f704dcb22701debda993732ece962c807235b497",
+    "reason": "Superseded UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "bytes": 481990,
+    "sha256": "87a3b354f091bbe8f42fcad6492b40cf9f89e9df49739ad1c0431d536857922f",
+    "reason": "Superseded UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "bytes": 481994,
+    "sha256": "eaa6f25db8f9760a4e1daca48b69e051c99fc6bc4c4890404ff0a6157ac69488",
+    "reason": "Superseded UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919K/BaselineJ/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "bytes": 471564,
+    "sha256": "bf84185b6999c3a191488e65123e1ca17e66a2f89df735a25668dd1cf887fcf9",
+    "reason": "Superseded UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Angled/A_M4_QuickCombat_Angled.uasset",
+    "bytes": 440161,
+    "sha256": "ac9be2240ca7bef11c94e4e0b7e5204f285adcb2df5789da30d180834926ea0b",
+    "reason": "Rejected UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Base/A_M4_QuickCombat_Base.uasset",
+    "bytes": 461059,
+    "sha256": "1da9a862f86388da592f1198437c0efc4f3aa88073f97bc7b5d8ef003e2c7f7f",
+    "reason": "Rejected UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Canted/A_M4_QuickCombat_Canted.uasset",
+    "bytes": 440146,
+    "sha256": "75bae51b84dde8f7aac7025c434a075c946dad6ae35aeba381f89f0ba48b675d",
+    "reason": "Rejected UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Drum/A_M4_QuickCombat_Drum.uasset",
+    "bytes": 461063,
+    "sha256": "0127e9a5f11a279b6a740e0e0228084e5ecdf203470b7f18093e038fc0d86d21",
+    "reason": "Rejected UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Prism/A_M4_QuickCombat_Prism.uasset",
+    "bytes": 443626,
+    "sha256": "bbbb357acda85424d0da0e7ec3a000fcd0e40e7f64b62426d0de2b3e908b453d",
+    "reason": "Rejected UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/M4QuickMeleeRefine20260919N/BaselineM/M4QuickMeleeReplica20260919/Vertical/A_M4_QuickCombat_Vertical.uasset",
+    "bytes": 447149,
+    "sha256": "42a1250d6aa20fe990a48052ffe7718da6c721bbf8a216b24b0dda23114aefa6",
+    "reason": "Rejected UE backup",
+    "retained": "SourceAssets/M4QuickMeleeRefine20260919N"
+  },
+  {
+    "original": "SourceAssets/RifleQuickMelee20260919/Before/FPSCastingMeshComponent.cpp",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/RifleQuickMelee20260919/Before/FPSCastingMeshComponent.cpp",
+    "bytes": 13399,
+    "sha256": "22da50ecedfe24247696f56ba11a789a2acdba1a166201130ae44458043ca382",
+    "reason": "Superseded source snapshot; never restore shared files wholesale",
+    "retained": "Source/FPSGAME/FPSGAMECharacter.cpp"
+  },
+  {
+    "original": "SourceAssets/RifleQuickMelee20260919/Before/FPSGAMECharacter.cpp",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/RifleQuickMelee20260919/Before/FPSGAMECharacter.cpp",
+    "bytes": 149546,
+    "sha256": "9ceb9da0754c97e1c9d7c754ba7859a1b51c83c11842f1a4ce386ea2559fe90c",
+    "reason": "Superseded source snapshot; never restore shared files wholesale",
+    "retained": "Source/FPSGAME/FPSGAMECharacter.cpp"
+  },
+  {
+    "original": "SourceAssets/RifleQuickMelee20260919/Before/QuickCombatRifleMotion.h",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/RifleQuickMelee20260919/Before/QuickCombatRifleMotion.h",
+    "bytes": 2433,
+    "sha256": "95a8b45065630e8bf5fd1048d4ccc2236d97337bcad9378e8f5ea7e33f782761",
+    "reason": "Superseded source snapshot; never restore shared files wholesale",
+    "retained": "Source/FPSGAME/FPSGAMECharacter.cpp"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Angled.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Angled.uasset",
+    "bytes": 566052,
+    "sha256": "0c65469b004e56ee8ecbcb0d9a26bf9b62c28ca8123b8a42dff1cb3e1455c776",
+    "reason": "Superseded QBZ191 UE backup",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Base.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Base.uasset",
+    "bytes": 464880,
+    "sha256": "991766aba5b1c94a057119f82a23201fc7534197c56a1fc9e18306c7e95ad203",
+    "reason": "Superseded QBZ191 UE backup",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Canted.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Canted.uasset",
+    "bytes": 436996,
+    "sha256": "a1f145059dc00b910156a0a4b5555d1f97c5a7db07431ef37d20776c0fe7ab4a",
+    "reason": "Superseded QBZ191 UE backup",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Prism.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Prism.uasset",
+    "bytes": 447450,
+    "sha256": "eea354a1196802862804c5c0bdc00348b501a254629479fd81854640a9220fde",
+    "reason": "Superseded QBZ191 UE backup",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Vertical.uasset",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/Before/A_QBZ191_QuickCombat_Vertical.uasset",
+    "bytes": 440504,
+    "sha256": "3dd9074067c8bc255cdb01e9d79248ac9eb92bb7134dd50d9b3c73d7abefb705",
+    "reason": "Superseded QBZ191 UE backup",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/probe_bearing.py",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/probe_bearing.py",
+    "bytes": 1017,
+    "sha256": "d56b30657fc32f689bac306946c7150aae8f16d2532f5894a528d05e52ed1846",
+    "reason": "Completed exploratory solver trial",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O/grip_solver.py"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/bearing_probe.json",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/bearing_probe.json",
+    "bytes": 4320,
+    "sha256": "742d21b7363b14ad9b808c8b7d9e42a86cd75e54faaf722ca2485c9cc5db933c",
+    "reason": "Completed exploratory solver trial output",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O/grip_solver.py"
+  },
+  {
+    "original": "SourceAssets/QBZ191QuickMeleeGrip20260919O/probe.log",
+    "trash": "trash/quick-melee-retired-20260919/SourceAssets/QBZ191QuickMeleeGrip20260919O/probe.log",
+    "bytes": 5349,
+    "sha256": "570b2388693be766ddecf2048ba131d10be24eb512be3a3f13c5b8b51fb8d4a2",
+    "reason": "Completed exploratory solver trial log",
+    "retained": "SourceAssets/QBZ191QuickMeleeGrip20260919O/README.md"
+  }
+]

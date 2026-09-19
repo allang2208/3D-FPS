@@ -1,0 +1,18 @@
+/Reference/
+/Base/
+/Drum/
+/Angled/
+/Vertical/
+/Canted/
+/Prism/
+/*.log
+/authoring_input.json
+/motion_frames.json
+/authoring.json
+/import.json
+/livecoding-request.json
+
+# Local rig data, pose readbacks and execution receipts.
+/*.json
+!/reference_motion.json
+/__pycache__/

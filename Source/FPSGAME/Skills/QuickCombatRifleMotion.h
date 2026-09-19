@@ -1,28 +1,34 @@
 #pragma once
 #include "CoreMinimal.h"
 
-// 快速进战 · 步枪枪托砸击（M4，作者源 clip 路线）
-//
-// 与手枪版（QuickCombatPistolMotion.h）同一技能家族：整段动作在作者源 clip 里
-// （SourceAssets/RifleStockMelee20260918，D 版 0.90s、接触 0.435s），本文件只放
-// 时钟比例、命中探针与镜头常数——改节奏只改作者源，代码按 clip 长度换算。
-//
-// 动作语言（参考 BV13K421e7Rw 1:05-1:07 AK47 枪托近战；H 版 2026-09-19 五次重做，
-// **实机审计闭环标定**——QuickCombatAudit 夹具逐帧量枪托/枪口屏幕轨迹+世界变换后落参）：
-//   蓄势：整枪滚转压平 + **大偏航把枪口甩出画面左侧**（表 yaw+60 → 游戏内 −169°）+ 拉近；
-//   打击：整枪**压平大回旋横扫过画面**——枪口自画左横穿到右侧（u −0.3→0.76）、
-//   枪托自右下入画**扫过画面中心偏左**（u 0.83→0.41→0.38，v≈0.72-0.78）、整枪前伸
-//   （枪口距离 47→96cm）；接触 0.435s。双手全程持枪（握把不变量逐帧恒定）。
-//   教训链：Blender 预览相机 ≠ 游戏相机（视模偏移+运行时镜头层）——离线 tune_motion 的
-//   屏幕预测全部失真，必须以实机审计为准；A~G 七版里 D/E/F/G 都败在"离线模型自洽、
-//   实机读感相反"。实机审计跑法见 SourceAssets/RifleStockMelee20260918/README.md。
-//   A(枪口下劈)/B(抬枪托)/C(小滚转横扫)/D(右腕小回旋)/E(左手小偏航前顶)/F(俯仰正向前捅)
-//   /G(枪尾抬但回旋不足) 七版作废，保留为作者源对照候选（--variant A..H）。
+// 快速进战 · 步枪近战：动作烘焙在作者源 clip，本文件提供事件时钟与命中参数。
+// M4 N 与 RifleQuickMelee20260919（AKM/QBZ191/ASH12）：0.90 s，接触 0.1667 s。
+// BV13K421e7Rw 1:05–1:07：枪托从右向画面中部送出，枪口保持左下，随后收枪。
+// 各枪按自己的待机抓握适配腕臂与枪托点，旧 H 的反向挥击不再作为来源。
 
 namespace QuickCombatRifleMotion
 {
-    // 分段时钟：按 clip 总长的比例给出，与作者源时间轴同比例
-    // （B 版 0.72s：0.058 / 0.244 / 0.348 接触 / 0.511 / 0.72；下面的比值与它一致）。
+    // BV13K421e7Rw native frames 1988..2015: rapid entry/contact, then
+    // loaded follow-through and recovery. All current rifles use this clock.
+    constexpr float M4ReferenceReleaseFraction = 1.f / 27.f;
+    constexpr float M4ReferenceCockFraction = 3.f / 27.f;
+    constexpr float M4ReferenceContactFraction = 5.f / 27.f;
+    constexpr float M4ReferenceFollowFraction = 8.f / 27.f;
+    // Author stock point (0,+0.235,+0.025)m. FBX bone-space Y reverses in UE;
+    // use no-scale centimetres so the imported bone scale is not applied twice.
+    inline FVector M4ReferenceStockPointCM() { return FVector(0.f,-23.5f,2.5f); }
+
+    // Authoring surface anchors from RifleQuickMelee20260919/authoring.json.
+    // Bone-space Y reverses on FBX import; these are no-scale centimetres.
+    inline FVector ReferenceStockPointCM(const FString& MeshPath)
+    {
+        if (MeshPath.Contains(TEXT("/ASH12/"))) return FVector(0.343015f, -45.591554f, -4.261902f);
+        if (MeshPath.Contains(TEXT("/QBZ191/"))) return FVector(0.072809f, -20.850360f, 5.925570f);
+        if (MeshPath.Contains(TEXT("AKM"))) return FVector(0.107212f, -28.872550f, 1.638935f);
+        return M4ReferenceStockPointCM();
+    }
+
+    // 保留旧 clip 的分段时钟供旧调用使用；当前四把步枪均走上方参考时钟。
     constexpr float ReleaseFraction = 0.05f / 0.62f;
     constexpr float CockFraction    = 0.21f / 0.62f;
     constexpr float ContactFraction = 0.30f / 0.62f;

@@ -180,13 +180,21 @@ bool UFPSCastingMeshComponent::GetQuickCombatStrikeProbe(FVector& OutOrigin) con
     return true;
 }
 
-bool UFPSCastingMeshComponent::GetRifleStockMeleeProbe(FVector& OutOrigin) const
+bool UFPSCastingMeshComponent::GetRifleStockMeleeProbe(FVector& OutOrigin,bool bM4StockPoint) const
 {
-    // 步枪砸击是整枪动作：命中点落在枪身前段，必须读**当前动画姿态**的枪骨，
+    // 步枪砸击是整枪动作：参考动作使用各枪自己的枪托点，必须读当前动画姿态的枪骨，
     // 而不是入场快照——挥击本身就在动枪，探针要跟画面同源。
     if(!GetSkeletalMeshAsset()||!GetOwner())return false;
     const int32 MuzzleIndex=GetBoneIndex(TEXT("WPN_SOCKET_Muzzle"));
     const int32 RootIndex=GetBoneIndex(TEXT("WPN_root"));
+    if(bM4StockPoint)
+    {
+        if(RootIndex==INDEX_NONE)return false;
+        const FTransform Root=GetSocketTransform(FName(TEXT("WPN_root")),RTS_World);
+        OutOrigin=Root.GetLocation()+Root.TransformVectorNoScale(
+            QuickCombatRifleMotion::ReferenceStockPointCM(GetSkeletalMeshAsset()->GetPathName()));
+        return true;
+    }
     if(MuzzleIndex==INDEX_NONE&&RootIndex==INDEX_NONE)return false;
     const FTransform Muzzle=MuzzleIndex!=INDEX_NONE
         ?GetSocketTransform(FName(TEXT("WPN_SOCKET_Muzzle")),RTS_World)

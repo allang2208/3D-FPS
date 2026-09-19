@@ -30,15 +30,15 @@ void UFPSQuickCombatComponent::ConfigureForClipLength(float Length)
     AttackEnd=ClipLength;
 }
 
-void UFPSQuickCombatComponent::ConfigureForRifle(float Length)
+void UFPSQuickCombatComponent::ConfigureForRifle(float Length,bool bM4Reference)
 {
     using namespace QuickCombatRifleMotion;
-    Style=EQuickCombatStyle::Rifle;
+    Style=bM4Reference?EQuickCombatStyle::M4ReferenceRifle:EQuickCombatStyle::Rifle;
     ClipLength=FMath::Max(0.05f,Length);
-    ReleaseEnd=ClipLength*ReleaseFraction;
-    CockEnd=ClipLength*CockFraction;
-    ContactTime=ClipLength*ContactFraction;
-    FollowEnd=ClipLength*FollowFraction;
+    ReleaseEnd=ClipLength*(bM4Reference?M4ReferenceReleaseFraction:ReleaseFraction);
+    CockEnd=ClipLength*(bM4Reference?M4ReferenceCockFraction:CockFraction);
+    ContactTime=ClipLength*(bM4Reference?M4ReferenceContactFraction:ContactFraction);
+    FollowEnd=ClipLength*(bM4Reference?M4ReferenceFollowFraction:FollowFraction);
     AttackEnd=ClipLength;
     // 步枪是双手持枪的整枪动作，命中探针改用枪身（见 ContactHit），
     // 其余结算口径与手枪版完全一致：同一冷却、同一修炼、同一击退/眩晕公式。
@@ -115,7 +115,7 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
     if(Phase==EQuickCombatBashPhase::None)return;
     // 步枪与手枪共用同一套镜头语言，只换量级与命中冲量方向：
     // 步枪动作幅度更大（整枪抬升+下扫），因此动作镜头更强、冲量更重。
-    const bool bRifle=Style==EQuickCombatStyle::Rifle;
+    const bool bRifle=Style!=EQuickCombatStyle::Pistol;
     const float Shape=bRifle?QuickCombatRifleMotion::RifleCameraShapeScale:1.f;
     const float Strength=bRifle?QuickCombatRifleMotion::RifleStockCameraStrength:PistolBashCameraStrength;
     // 镜头语言分两层（与剑版同一合同）：
@@ -168,7 +168,7 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
     // 换枪/双持/死亡立刻收手；冷却与已提交的修炼照常保留。
     const auto* Health=Player?Player->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    const bool bWeaponMatches=Player&&(Style==EQuickCombatStyle::Rifle
+    const bool bWeaponMatches=Player&&(Style!=EQuickCombatStyle::Pistol
         ?!Player->IsPistolWeapon()
         :(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols()));
     if(!Player||!bWeaponMatches||(Health&&Health->IsDead())){FinishAction();return;}
@@ -192,9 +192,9 @@ void UFPSQuickCombatComponent::ContactHit()
     FVector ProbeOrigin=FVector::ZeroVector;
     const auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
     // 手枪：握把底（手骨 + 相机空间偏移）；步枪：枪身前段（枪口沿枪轴回撤，跟随实际挥击姿态）。
-    const bool bRifle=Style==EQuickCombatStyle::Rifle;
+    const bool bRifle=Style!=EQuickCombatStyle::Pistol;
     const bool bProbe=bRifle
-        ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin))
+        ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin,Style==EQuickCombatStyle::M4ReferenceRifle))
         :(Viewmodel&&Viewmodel->GetQuickCombatStrikeProbe(ProbeOrigin));
     if(bProbe)Start=ProbeOrigin;
     const FVector End=Start+Direction*Stats.RangeCM;
@@ -209,7 +209,7 @@ void UFPSQuickCombatComponent::ContactHit()
     // R0 诊断：一次动作只打一行，标出射线来源、起点与命中对象，方便对实机反馈。
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=%s 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
         bRifle?TEXT("步枪") :TEXT("手枪"),
-        bProbe?(bRifle?TEXT("枪身前段"):TEXT("握把底")):TEXT("眼位回退"),
+        bProbe?(bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
     auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     if(!Combat||Combat->IsDead())return;

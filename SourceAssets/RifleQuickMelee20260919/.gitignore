@@ -1,0 +1,13 @@
+/AKM/
+/QBZ191/
+/ASH12/
+/Before/
+/ImportHost/
+/__pycache__/
+*.log
+authoring.json
+import.json
+
+# Local rig data, pose readbacks and execution receipts.
+/*.json
+/__pycache__/

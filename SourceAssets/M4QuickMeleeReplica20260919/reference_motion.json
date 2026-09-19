@@ -1,0 +1,33 @@
+{
+  "reference_url": "https://www.bilibili.com/video/BV13K421e7Rw/",
+  "local_video": "D:/FPS3D/test/uzi_ref/uzi_ref.mp4",
+  "requested_reference_seconds": [65, 67],
+  "native_fps": 30,
+  "cycle_start_seconds": 66.2666666667,
+  "duration_seconds": 0.9,
+  "contact_seconds": 0.1666666667,
+  "release_seconds": 0.0333333333,
+  "cock_seconds": 0.1,
+  "follow_seconds": 0.2666666667,
+  "reconstruction_note": "Stock u/v positions are manually annotated from native frames. Depth, yaw and pitch reconstruct the single-view motion on the M4 and are not measurements of the source skeleton. Muzzle remains left/lower through contact; it does not reverse across to screen right.",
+  "camera": {"vertical_fov_degrees": 75, "aspect": 1.7777777778, "position_author_m": [-0.07, 0.0, 0.07]},
+  "stock_point_gun_local_m": [0.0, 0.235, 0.025],
+  "knots": [
+    {"t":0.0, "idle":true},
+    {"t":0.0333333333, "idle_blend_to":2, "weight":0.30},
+    {"t":0.0666666667, "stock_uv":[1.35,0.64], "depth_m":0.24, "yaw":75, "pitch":-9, "roll":4},
+    {"t":0.1, "stock_uv":[0.98,0.28], "depth_m":0.34, "yaw":104, "pitch":-17, "roll":3},
+    {"t":0.1333333333, "stock_uv":[0.67,0.34], "depth_m":0.46, "yaw":125, "pitch":-27, "roll":2},
+    {"t":0.1666666667, "stock_uv":[0.51,0.39], "depth_m":0.53, "yaw":139, "pitch":-31, "roll":0},
+    {"t":0.2, "stock_uv":[0.455,0.40], "depth_m":0.59, "yaw":141, "pitch":-30, "roll":0},
+    {"t":0.2666666667, "stock_uv":[0.49,0.40], "depth_m":0.56, "yaw":138, "pitch":-27, "roll":0},
+    {"t":0.4, "stock_uv":[0.50,0.43], "depth_m":0.56, "yaw":138, "pitch":-24, "roll":0},
+    {"t":0.5, "stock_uv":[0.55,0.43], "depth_m":0.53, "yaw":136, "pitch":-25, "roll":0},
+    {"t":0.6, "stock_uv":[0.80,0.44], "depth_m":0.40, "yaw":124, "pitch":-21, "roll":1},
+    {"t":0.6666666667, "stock_uv":[1.02,0.44], "depth_m":0.26, "yaw":100, "pitch":-17, "roll":3},
+    {"t":0.7333333333, "stock_uv":[1.35,0.69], "depth_m":0.18, "yaw":65, "pitch":-8, "roll":4},
+    {"t":0.8, "idle_blend_to":12, "weight":0.25},
+    {"t":0.8666666667, "idle":true},
+    {"t":0.9, "idle":true}
+  ]
+}
