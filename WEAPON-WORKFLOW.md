@@ -3,7 +3,7 @@
 当前工程入口为根目录 `FPSGAME.uproject`，完整本机宿主及 Git 工作目录都是 `D:/FPS3D/FPSGAME`，直接在该目录提交和推送。
 
 - [M4 枪托砸击（快速进战·步枪版）](Docs/Weapons/m4-stock-melee-20260918.md)：作者源 clip 路线（六握把配置各一条）、Blender 对位胶片、命中探针取枪身前段；未实机测试。
-- [近战武器标准](MELEE-WEAPON-WORKFLOW.md)：双手握持、轻重攻击、三段连击、真实突刺跨步、命中判定与防御；符文剑格挡动作尚未满意，暂停继续。
+- [近战武器标准](MELEE-WEAPON-WORKFLOW.md)：双手握持、轻重攻击、连击、真实突刺跨步、命中判定与防御；包含已接受的 [模块化拆分与改造接口](skills/ue5-weapon-workflow/references/modular-melee.md)。
 - [枪械标准](skills/ue5-weapon-workflow/SKILL.md)：模型/许可、骨架/挂点、ADS、枪匠、装备与存档。
 - [手臂动画](skills/ue5-fps-arms-animation/SKILL.md)：自然抓握、甩匣、取弹插入、拉栓、MAT 和音效。
 - [当前 M4 合同](skills/ue5-fps-arms-animation/references/m4-baseline.md)：参数应用前核对实际 C++ 加载。

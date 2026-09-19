@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "columns": [
+    {
+      "key": "blade_1",
+      "name": "剑身Ⅰ",
+      "default": "原装剑身Ⅰ",
+      "description": "剑刃与刃口结构。保留这把剑原有的刃形、长度和切削轮廓，使用当前攻击伤害与判定。",
+      "options": [
+        {
+          "id": "extended_edge",
+          "name": "延锋刃",
+          "description": "一寸长一寸强，偏范围压制。提升挥砍与突刺的攻击范围和基础伤害，以攻击速度及耐力消耗为代价。耐力消耗：影响范围包括攻击（包括重击）和防御受击的耐力消耗。",
+          "effects": [
+            {"text": "攻击范围 +15%", "benefit": 1},
+            {"text": "基础伤害 +5%", "benefit": 1},
+            {"text": "攻击速度 -10%", "benefit": -1},
+            {"text": "耐力消耗 +5%", "benefit": -1}
+          ],
+          "stats": {"range_mult": 1.15, "damage_mult": 1.05, "attack_speed_mult": 0.9, "stamina_mult": 1.05}
+        },
+        {
+          "id": "heavy_spine",
+          "name": "重脊刃",
+          "description": "重击破防，偏单次爆发。提升基础伤害并延长命中造成的硬直，攻击动作更慢。",
+          "effects": [
+            {"text": "基础伤害 +20%", "benefit": 1},
+            {"text": "造成硬直时间 +15%", "benefit": 1},
+            {"text": "攻击速度 -15%", "benefit": -1}
+          ],
+          "stats": {"damage_mult": 1.2, "hit_reaction_mult": 1.15, "attack_speed_mult": 0.85}
+        },
+        {
+          "id": "feather_edge",
+          "name": "轻羽刃",
+          "description": "快剑连击，偏灵活输出。提高攻击速度、降低耐力消耗；格挡减伤按原有效果的80%计算。耐力消耗：影响范围包括攻击（包括重击）和防御受击的耐力消耗。",
+          "effects": [
+            {"text": "攻击速度 +15%", "benefit": 1},
+            {"text": "耐力消耗 -10%", "benefit": 1},
+            {"text": "格挡减伤 -20%", "benefit": -1}
+          ],
+          "stats": {"attack_speed_mult": 1.15, "stamina_mult": 0.9, "block_reduction_mult": 0.8}
+        }
+      ]
+    },
+    {
+      "key": "blade_2",
+      "name": "剑身Ⅱ",
+      "default": "原装剑身Ⅱ",
+      "description": "刃面、剑尖与血槽处理。原装剑身保留原有纹样，不附加改造符文。",
+      "options": [
+        {
+          "id": "resonance_rune",
+          "name": "共鸣符文",
+          "description": "银白共鸣环纹沿剑身呼吸闪光。当前手持此剑时，魔法技能冷却时间减少25%；施法时确定冷却。",
+          "effects": [{"text": "魔法技能冷却时间 -25%", "benefit": 1}],
+          "stats": {"magic_cooldown_mult": 0.75}
+        },
+        {
+          "id": "erosion_rune",
+          "name": "侵蚀符文",
+          "description": "银白裂纹符文不规则闪烁。智力10%+精神10%先换算为附加魔法伤害并计入武器总伤害面板；随三连击、突刺和重击倍率共同放大，再按目标魔法防御独立结算。",
+          "effects": [{"text": "近战附加魔法伤害：智力×10% + 精神×10%", "benefit": 1}],
+          "stats": {"rune_intelligence": 0.1, "rune_wisdom": 0.1}
+        },
+        {
+          "id": "conduction_rune",
+          "name": "导魔符文",
+          "description": "银白导魔回路沿剑刃流动闪光。当前手持此剑时魔法伤害提高20%；近战命中施加10%魔法易伤，持续10秒，重复命中刷新持续时间。",
+          "effects": [{"text": "魔法伤害 +20%", "benefit": 1}, {"text": "命中施加魔法易伤 +10% · 持续10秒", "benefit": 1}],
+          "stats": {"magic_damage_mult": 1.2, "rune_vulnerability": 0.1, "rune_vulnerability_seconds": 10}
+        }
+      ]
+    },
+    {
+      "key": "guard",
+      "name": "护手",
+      "default": "原装护手",
+      "description": "握柄前方的护手结构。原装使用当前护手；寒晶双手剑的改造护手沿用原V形安装座及双手握点。",
+      "options": [
+        {
+          "id": "bastion_guard", "name": "壁垒护手", "weapons": ["ue_frost_crystal_sword"],
+          "description": "加厚盾翼，强化格挡，偏防守反击。格挡减伤按原有效果的130%计算，弹反判定时间提高25%。耐力消耗影响攻击（包括重击）和防御受击。",
+          "effects": [{"text": "格挡减伤 +30%", "benefit": 1}, {"text": "弹反判定时间 +25%", "benefit": 1}, {"text": "耐力消耗 +10%", "benefit": -1}, {"text": "攻击速度 -5%", "benefit": -1}],
+          "stats": {"block_reduction_mult": 1.3, "parry_window_mult": 1.25, "stamina_mult": 1.1, "attack_speed_mult": 0.95}
+        },
+        {
+          "id": "riposte_guard", "name": "反击护手", "weapons": ["ue_frost_crystal_sword"],
+          "description": "上挑钩刃，强化招架，偏弹反处决。成功弹反获得反击激励：近战攻速提高20%、耐力消耗降低20%，持续6秒；再次成功弹反刷新时间。耐力消耗影响攻击（包括重击）和防御受击。",
+          "effects": [{"text": "成功弹反获得「反击激励」· 持续6秒", "benefit": 1}, {"text": "激励期间攻击速度 +20%", "benefit": 1}, {"text": "激励期间耐力消耗 -20%", "benefit": 1}],
+          "stats": {"riposte_attack_speed_mult": 1.2, "riposte_stamina_mult": 0.8, "riposte_seconds": 6}
+        },
+        {
+          "id": "light_guard", "name": "轻量护手", "weapons": ["ue_frost_crystal_sword"],
+          "description": "镂空细翼，轻量化处理，减少消耗。耐力消耗影响攻击（包括重击）和防御受击。",
+          "effects": [{"text": "攻击速度 +5%", "benefit": 1}, {"text": "耐力消耗 -15%", "benefit": 1}],
+          "stats": {"attack_speed_mult": 1.05, "stamina_mult": 0.85}
+        }
+      ]
+    },
+    {
+      "key": "pommel",
+      "name": "配重锤",
+      "default": "原装配重锤",
+      "description": "柄尾的剑首与配重结构。原装保留当前重量分布的动作表现以及原有挥砍、收势与突刺节奏；配重端同时是第四段连击的砸击端。",
+      "options": [
+        {
+          "id": "ballast_hardened", "name": "硬化配重", "weapons": ["ue_frost_crystal_sword"],
+          "description": "重击砸落，偏击退削韧。重击倍率直接增加0.15，攻击击退距离提高10%；攻击变慢、耐力消耗上升。耐力消耗影响攻击（包括重击）和防御受击。",
+          "effects": [
+            {"text": "重击伤害倍率 +0.15", "benefit": 1},
+            {"text": "攻击造成击退 +10%", "benefit": 1},
+            {"text": "攻击速度 -10%", "benefit": -1},
+            {"text": "耐力消耗 +10%", "benefit": -1}
+          ],
+          "stats": {"heavy_damage_add": 0.15, "knockback_mult": 1.1, "attack_speed_mult": 0.9, "stamina_mult": 1.1}
+        },
+        {
+          "id": "ballast_rune", "name": "符文配重", "weapons": ["ue_frost_crystal_sword"],
+          "description": "快速施法，减少消耗。当前手持此剑时，魔法技能冷却时间与魔法值消耗同时降低。",
+          "effects": [
+            {"text": "魔法技能冷却时间 -15%", "benefit": 1},
+            {"text": "魔法值消耗 -15%", "benefit": 1}
+          ],
+          "stats": {"magic_cooldown_mult": 0.85, "magic_cost_mult": 0.85}
+        },
+        {
+          "id": "ballast_magic_orb", "name": "魔力球配重", "weapons": ["ue_frost_crystal_sword"],
+          "description": "魔法特化，高消耗。当前手持此剑时魔法伤害提高，魔法值消耗上升。",
+          "effects": [
+            {"text": "魔法伤害 +10%", "benefit": 1},
+            {"text": "魔法值消耗 +15%", "benefit": -1}
+          ],
+          "stats": {"magic_damage_mult": 1.1, "magic_cost_mult": 1.15}
+        }
+      ]
+    },
+    {
+      "key": "grip",
+      "name": "握把",
+      "default": "原装握把",
+      "description": "双手接触的握柄区域。寒晶·双手剑可更换吸震缠柄、速握轻柄和长柄双手；长柄同步下移配重锤并适配左手握持。",
+      "options": [
+        {
+          "id": "shock_wrap",
+          "name": "吸震缠柄",
+          "description": "持久作战，偏耐力续航。降低耐力消耗并小幅提升攻击速度。耐力消耗：影响范围包括攻击（包括重击）和防御受击的耐力消耗。",
+          "effects": [
+            {"text": "耐力消耗 -15%", "benefit": 1},
+            {"text": "攻击速度 +5%", "benefit": 1}
+          ],
+          "stats": {"stamina_mult": 0.85, "attack_speed_mult": 1.05}
+        },
+        {
+          "id": "swift_grip",
+          "name": "速握轻柄",
+          "description": "高速连段，偏进攻节奏。提高攻击速度；三连击第二段伤害提高10%、第三段提高15%，各自按原伤害计算。格挡减伤按原有效果的90%计算。",
+          "effects": [
+            {"text": "攻击速度 +15%", "benefit": 1},
+            {"text": "三连击第二段伤害 +10%", "benefit": 1},
+            {"text": "三连击第三段伤害 +15%", "benefit": 1},
+            {"text": "格挡减伤 -10%", "benefit": -1}
+          ],
+          "stats": {"attack_speed_mult": 1.15, "combo_second_damage_mult": 1.1, "combo_third_damage_mult": 1.15, "block_reduction_mult": 0.9}
+        },
+        {
+          "id": "long_twohand",
+          "name": "长柄双手",
+          "description": "双手重剑，偏距离与处决。扩大攻击范围并提高伤害，耐力消耗随之增加。耐力消耗：影响范围包括攻击（包括重击）和防御受击的耐力消耗。",
+          "effects": [
+            {"text": "攻击范围 +10%", "benefit": 1},
+            {"text": "伤害 +5%", "benefit": 1},
+            {"text": "耐力消耗 +5%", "benefit": -1}
+          ],
+          "stats": {"range_mult": 1.1, "damage_mult": 1.05, "stamina_mult": 1.05}
+        }
+      ]
+    }
+  ],
+  "weapons": ["ue_rune_sword", "ue_frost_crystal_sword"]
+}

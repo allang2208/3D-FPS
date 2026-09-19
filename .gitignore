@@ -149,3 +149,12 @@ __pycache__/
 !/Content/ColdSteelData/Licenses/
 /Content/ColdSteelData/Licenses/*
 !/Content/ColdSteelData/Licenses/CrackedIce-MIT.txt
+
+# Frost sword authoring: licensed binaries, dense source/pose records and rollback snapshots stay local.
+/SourceAssets/FrostSword*/Before/
+/SourceAssets/FrostSwordGrips20260919/Animations/
+/SourceAssets/FrostSwordModules20260915/interfaces.json
+/SourceAssets/FrostSwordGrips20260919/original_grip_inputs.json
+/SourceAssets/FrostSwordGrips20260919/source_animation_inputs.json
+/SourceAssets/MeleeGuards20260915/.authoring-deps/
+/SourceAssets/FrostSword*/**/*.exr

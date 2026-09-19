@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "weapon": "ue_frost_crystal_sword",
+  "interface": "frost_hilt_v1",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "drive_bone": "WPN_root",
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Blade_factory.SM_FrostSword_Blade_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "interface": "frost_hilt_v1",
+        "rune_dimensions_cm": [
+          12,
+          10,
+          63
+        ]
+      }
+    },
+    "guard": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_factory.SM_FrostSword_Guard_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "bastion_guard": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_bastion_guard.SM_FrostSword_Guard_bastion_guard",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "riposte_guard": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_riposte_guard.SM_FrostSword_Guard_riposte_guard",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "light_guard": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_light_guard.SM_FrostSword_Guard_light_guard",
+        "location_cm": [
+          0.0,
+          -0.0,
+          0.0
+        ],
+        "interface": "frost_hilt_v1"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Grip_factory.SM_FrostSword_Grip_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -5.000000074505806
+        ],
+        "interface": "frost_hilt_v1"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Pommel_factory.SM_FrostSword_Pommel_factory",
+        "location_cm": [
+          0.0,
+          -0.0,
+          -22.699999809265137
+        ],
+        "interface": "frost_hilt_v1"
+      }
+    }
+  }
+}

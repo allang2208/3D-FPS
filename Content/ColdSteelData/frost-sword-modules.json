@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "weapon": "ue_frost_crystal_sword",
+  "interface": "frost_hilt_v1",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "drive_bone": "WPN_root",
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Blade_factory.SM_FrostSword_Blade_factory",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1",
+        "rune_dimensions_cm": [
+          12,
+          10,
+          63
+        ],
+        "trace_base_cm": [
+          -5.6960768458270795e-06,
+          -5.922449879344363e-06,
+          3.0000085806471968
+        ],
+        "trace_tip_cm": [
+          -1.1983580752188336e-06,
+          -0.00014620040482076095,
+          100.00002186825377
+        ]
+      }
+    },
+    "guard": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_factory.SM_FrostSword_Guard_factory",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "bastion_guard": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_bastion_guard.SM_FrostSword_Guard_bastion_guard",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "riposte_guard": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_riposte_guard.SM_FrostSword_Guard_riposte_guard",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "light_guard": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Guard_light_guard.SM_FrostSword_Guard_light_guard",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "frost_hilt_v1"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Grip_factory.SM_FrostSword_Grip_factory",
+        "location_cm": [
+          0,
+          0,
+          -5.000000074505806
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "shock_wrap": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/shock_wrap/SM_FrostGrip_shock_wrap.SM_FrostGrip_shock_wrap",
+        "location_cm": [
+          0,
+          0,
+          -5.000000074505806
+        ],
+        "interface": "frost_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ]
+      },
+      "swift_grip": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/swift_grip/SM_FrostGrip_swift_grip.SM_FrostGrip_swift_grip",
+        "location_cm": [
+          0,
+          0,
+          -5.000000074505806
+        ],
+        "interface": "frost_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ]
+      },
+      "long_twohand": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/long_twohand/SM_FrostGrip_long_twohand.SM_FrostGrip_long_twohand",
+        "location_cm": [
+          0,
+          0,
+          -5.000000074505806
+        ],
+        "interface": "frost_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -2.8000000000000003
+        ],
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SM_FrostSword_Pommel_factory.SM_FrostSword_Pommel_factory",
+        "location_cm": [
+          0,
+          0,
+          -22.699999809265137
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "ballast_hardened": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+        "location_cm": [
+          0,
+          0,
+          -22.699999809265137
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "ballast_rune": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+        "location_cm": [
+          0,
+          0,
+          -22.699999809265137
+        ],
+        "interface": "frost_hilt_v1"
+      },
+      "ballast_magic_orb": {
+        "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
+        "location_cm": [
+          0,
+          0,
+          -22.699999809265137
+        ],
+        "interface": "frost_hilt_v1"
+      }
+    }
+  },
+  "bone_mount": {
+    "location_cm": [
+      2.2488592227634334e-08,
+      4.251949004085439e-08,
+      -4.767004840075173e-08
+    ],
+    "scale": [
+      0.009999999098201857,
+      0.010000002674481073,
+      0.010000000290294644
+    ],
+    "rotation_xyzw": [
+      9.694049930993584e-08,
+      -1.471765408433967e-07,
+      -2.965553125000755e-08,
+      -0.999999999999984
+    ]
+  }
+}

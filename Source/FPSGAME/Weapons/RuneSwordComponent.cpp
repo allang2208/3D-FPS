@@ -99,11 +99,15 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     }
     const bool Modular=!NewId.IsEmpty()&&ColdSteelModularSword::Supports(*Item);
     const FString NewMeshPath=NewId.IsEmpty()?FString():(Modular?ColdSteelModularSword::ArmsMesh(*Item):ColdSteelMeleeGuard::Viewmodel(*Item));
-    if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item));return;}
+    const FString NewAnimationFolder=NewId.IsEmpty()?FString():ColdSteelModularSword::AnimationFolder(*Item);
+    const UAnimSequence* Idle=Animations.FindRef(TEXT("Idle")).Get();
+    const bool bSameAnimationFolder=NewId.IsEmpty()||(Idle&&Idle->GetPathName().StartsWith(NewAnimationFolder+TEXT("/")));
+    if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item));return;}
     CancelAction();InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
     Viewmodel->SetVisibility(false,true);
     if(NewId.IsEmpty()){RefreshModularSword(nullptr);return;}
-    const FString Folder=ColdSteelInventory::Text(*Item,TEXT("animation_folder"));
+    const FString Folder=NewAnimationFolder;
+    const FString SoundFolder=ColdSteelInventory::Text(*Item,TEXT("animation_folder"));
     auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*EquippedMeshPath);
     Viewmodel->SetSkeletalMesh(Mesh);Animations.Reset();
     RefreshModularSword(Item);
@@ -116,8 +120,8 @@ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
     // Only the fourth hit uses the counterweight impact cue; slash, thrust and the
     // heavy cuts keep the weapon's own hit_sound.
     PommelHitSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick"));
-    BlockSound=LoadObject<USoundBase>(nullptr,*(Folder+TEXT("/S_RuneSword_Block")));
-    ParrySound=LoadObject<USoundBase>(nullptr,*(Folder+TEXT("/S_RuneSword_Parry")));
+    BlockSound=LoadObject<USoundBase>(nullptr,*(SoundFolder+TEXT("/S_RuneSword_Block")));
+    ParrySound=LoadObject<USoundBase>(nullptr,*(SoundFolder+TEXT("/S_RuneSword_Parry")));
     if(!RiftMaterial)
     {
         const FString FXFolder=TEXT("/Game/Weapons/AzureRunesword20260913/WristRiftV3/");

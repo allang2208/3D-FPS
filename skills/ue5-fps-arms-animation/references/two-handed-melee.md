@@ -154,6 +154,10 @@
 
 GitHub `rico345100/unity-basic-melee-combat-system-for-fps-rpg` 的 `firstperson.fbx.meta` 有 GuardStart、Guarding、GuardEnd，但作者指出姿态高度问题；`BigAndCrispy/Unity-First-Person-Melee` 的 Arms 动作仅有待机、左右斩和步行。前者不是成熟双手格挡母版，后者不是格挡素材。读取实际动作和许可后再决定适配方式，不凭仓库名称选择。
 
+## 改造握把与长柄（2026-09-19 已接受）
+
+寒晶剑在保留原装两端安装截面的基础上完成三款独立握把。长柄同步移动配重锤，并在实际握柄阶段适配左手，扶剑/松手阶段沿用原职责。制作与运行切换细节见 [改造握把的手部适配](modular-melee-grips.md)。
+
 ## 第四段柄尾配重砸击（2026-09-16 已接受）
 
 双手剑连段的第四下用柄尾配重端向前砸。作者源 `SourceAssets/MeleePommelAttack20260916/`，1.60 s / 480 Hz，

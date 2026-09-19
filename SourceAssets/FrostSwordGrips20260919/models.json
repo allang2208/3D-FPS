@@ -1,0 +1,35 @@
+[
+  {
+    "id": "shock_wrap",
+    "mesh": "SM_FrostGrip_shock_wrap",
+    "length_cm": 17.7,
+    "pommel_offset_cm": [
+      0,
+      0,
+      0
+    ],
+    "source": "original stock mounting rims retained; Blender precision loft"
+  },
+  {
+    "id": "swift_grip",
+    "mesh": "SM_FrostGrip_swift_grip",
+    "length_cm": 17.7,
+    "pommel_offset_cm": [
+      0,
+      0,
+      0
+    ],
+    "source": "original stock mounting rims retained; Blender precision loft"
+  },
+  {
+    "id": "long_twohand",
+    "mesh": "SM_FrostGrip_long_twohand",
+    "length_cm": 20.5,
+    "pommel_offset_cm": [
+      0,
+      0,
+      -2.8000000000000003
+    ],
+    "source": "original stock mounting rims retained; Blender precision loft"
+  }
+]

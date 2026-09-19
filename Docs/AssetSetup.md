@@ -1,5 +1,11 @@
 # 恢复完整 UE5 内容
 
+## 寒晶剑模块化与三款握把（2026-09-19）
+
+用户已确认拆分改造结果。恢复 `/Game/Weapons/FrostCrystalSword20260915/Modules20260915`、`GuardsSmooth20260915`、`PommelsRepair20260915`、`Grips20260919`（含 LongGripAnimations）以及 `/Game/Weapons/MeleeRunes20260915/SurfaceV2`。保持 `Content/ColdSteelData/frost-sword-modules.json` 的模型/动画路径、部件位置与符文范围一致；图标从本机 `AttachmentIcons20260913/ue_frost_crystal_sword_*` 恢复。
+
+作者源依赖 Meshy 原剑、已接受手臂/原剑动画与现有共享材质。Blend/FBX/uasset、生成 GLB/PBR、逐帧派生动作及接口密集网格数据保留本机，Git 发布可复用代码、作者脚本和恢复说明。具体来源链与归档记录见 [寒晶模块化发布](Weapons/frost-sword-modular-publication-20260919.md)。
+
 ## 火球写实命中（2026-09-14）
 
 恢复 `Content/Skills/Fireball/ImpactRealistic20260914` 的爆燃系统、材质、混音和声音衰减资源。新命中引用由 `FPSFireballComponent` 加载，原悬浮／飞行资产仍沿用现有路径。作者入口为 `Tools/Skills/build_fireball_impact_realistic.py`；运行前从 `SourceAssets/FireballImpactRealistic20260914/author_audio.py` 生成混音，保留 Epic `T_Explosion_EOO`／法线、已有薄烟和 `Realistic_Starter_VFX_Pack_Vol2/T_NoiseNormal_A` 的授权依赖。材质制作需真实 RHI 编译。详见 [写实命中接入](Skills/fireball-realistic-impact-20260914.md)。

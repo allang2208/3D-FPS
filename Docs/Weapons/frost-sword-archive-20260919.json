@@ -1,0 +1,808 @@
+{
+  "date": "2026-09-19",
+  "scope": "Accepted Frost sword modular accessories; no unrelated task cleanup",
+  "archive_root": "trash/frost-sword-retired-20260919",
+  "status": "moved_and_sha256_read_back",
+  "files": [
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/_probe_modeling_api.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/_probe_modeling_api.py",
+      "bytes": 562,
+      "sha256": "97BAF0F2BA4FF9C8F9B941EAD7632CD0D5C83C16AFF0EC1B8BB2EA7B2BDFE412",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/blade_material.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/blade_material.json",
+      "bytes": 1600,
+      "sha256": "2A48F6137C1E99A04EE1D6663D73C0B350ED2621646B7914A3F2ACF01C6B62C3",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/blade_uvs.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/blade_uvs.json",
+      "bytes": 3744092,
+      "sha256": "A330D48CEA779D5BA82F2C057A4389A5712DC641AD7E8354BA845BED194B2ABC",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_ballast_balls.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_ballast_balls.py",
+      "bytes": 16023,
+      "sha256": "35874988057F7360A03B18AFD2BF5D35883F3054CB46C1CAC3DACD85676DE140",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_default.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_default.json",
+      "bytes": 35467,
+      "sha256": "E932BF0324C81DE8BEB736C4C7E507D5546B30E233F05B9D96CC3DF1CD0B20F1",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_default.log",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_default.log",
+      "bytes": 11157,
+      "sha256": "2EE03FCB064D1C04DAAD414B086ABD789C66280AE45460AB868107D97818D1B2",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_native.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_native.json",
+      "bytes": 23337,
+      "sha256": "D0D1E65DA77A16AB073A26756A7FB4FD9B6C83FEE13BB4FD467FF7C2D0D2AD3A",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_native.log",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_native.log",
+      "bytes": 7017,
+      "sha256": "AE8B42DCA1595B233ADB6F8B5668ECA8863EC05CA18E599C9B845A2DEEB72DEB",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_report.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_report.json",
+      "bytes": 2799,
+      "sha256": "57B2FFC3B8D9F391A2E4ED89078AE0342FD77E9BAF73365FEAEEE35F3C030E88",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.28.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.28.json",
+      "bytes": 8124,
+      "sha256": "1A9A44D62F1C59FA9B6124AA8E55A5BC125ABD2C3D98F67905BD5EDBBD6B7FAB",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.28.log",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.28.log",
+      "bytes": 3014,
+      "sha256": "61668025F6DE5156138333A8C083F745DEA4D20716F2A4DA558556EB308E0E1A",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.32.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.32.json",
+      "bytes": 8124,
+      "sha256": "E8121F297677684657E92C4C0BE3EF7CCF9A8F1BF9A14B9D6F67CAA3973D659F",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.32.log",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_suffix-backup-2026.09.15-12.07.32.log",
+      "bytes": 3014,
+      "sha256": "7FFE7C73E6B1956EB486CF5312020EB38330C9C1B6731181209B714433FE6B22",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_suffix.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_suffix.json",
+      "bytes": 119653,
+      "sha256": "6CEF22BAFD4A44E89C17656E5EAD346D0A972C963C42CB3E1F4D5320C5D6104C",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/build_suffix.log",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/build_suffix.log",
+      "bytes": 43733,
+      "sha256": "067C6198CE15052B934790D4A6B83CAF4864C4611D7EBF429C5E4DCB16175F2B",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_batch_example.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_batch_example.json",
+      "bytes": 144,
+      "sha256": "44E6EE81C3BA8570D1B25058C626F9FDD0AD7DB4622E8868835EFCDC610ECD49",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_batch_vibe3d.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_batch_vibe3d.json",
+      "bytes": 143,
+      "sha256": "1BDED7C4AA9A078C4C241E98436E814CBA7CCF6566780A3558C2C225180388EE",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_payload_getlogentries.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_payload_getlogentries.json",
+      "bytes": 156,
+      "sha256": "877DAE94FC99E24073437FCDF68BDA86E637AA9856C5EA9AF4408954BC0C2BAE",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_payload_lc.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_payload_lc.json",
+      "bytes": 101,
+      "sha256": "7763E6584E474243DE713E699D3FF2EE45DA417DF50C26D30B564532573EA229",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_payload_livecoding.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_payload_livecoding.json",
+      "bytes": 69,
+      "sha256": "BE24E2CEA43C1A29072878C5EE42BB7CAB70B833C5111CCF553E02BA8BBF7849",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_payload_logsave.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_payload_logsave.json",
+      "bytes": 187,
+      "sha256": "9409C81793728C8AD52C4FFFFAF28EB32F2B7577B2886FA8AD7C1D7B78D3977E",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_payload_pie.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_payload_pie.json",
+      "bytes": 91,
+      "sha256": "5C20F8BE69B014343FC3C1F0E9323799BEFDBA128A40D7812ACAE7C30DBF551D",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/mcp_payload_vibe3d.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/mcp_payload_vibe3d.json",
+      "bytes": 92,
+      "sha256": "389E9CFE8ACD036C06629C5BCCFB8CA72B26262CCCEE63399B7C6A28A02B3552",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/pommel_material.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/pommel_material.json",
+      "bytes": 1987,
+      "sha256": "7DC9C4D9288C2832612DD901250A486EB0AB1CED246296FF00C70A4C000B8454",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/pommel_uvs.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/pommel_uvs.json",
+      "bytes": 297416,
+      "sha256": "7B7A920705F897BB2BABE77D43AA21CEA28681C5CADAE4807D34FC79814368FF",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/pommel-integration-check.md",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/pommel-integration-check.md",
+      "bytes": 4069,
+      "sha256": "2E45014B091FEBAB13C7556FAC421181223EDBD2E20A13625F594039D7E4ACF5",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/probe_eevee_refraction.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/probe_eevee_refraction.py",
+      "bytes": 919,
+      "sha256": "13947C0921C2FD2FD80E61B06AC2768C5390CCA6C082017FB1B8B522FA965257",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/read_blade_uvs.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/read_blade_uvs.py",
+      "bytes": 3941,
+      "sha256": "061AE99050218244EC61BDE383E172C025DC4611BC7B7A39348AB19300412616",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/read_pommel_uvs.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/read_pommel_uvs.py",
+      "bytes": 4915,
+      "sha256": "72B10702B33E16C59D960AA03E01988E4EECB378DD499289E139E775407D6D9E",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/README.md",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/README.md",
+      "bytes": 12453,
+      "sha256": "4993C3F772352F5779A019EA3DFFB93AC5908DC7A8FF58E06E068670BF8DEA9C",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/render_magic_glass.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/render_magic_glass.py",
+      "bytes": 7717,
+      "sha256": "82A78DF04C22C630B6D74DB7606C0D2D03B1076F06675070800051E373E92E93",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/render_pommel_material.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/render_pommel_material.py",
+      "bytes": 6689,
+      "sha256": "9D9FA4CE3BB18BFEE342D532FD6253D7A97C286FFCD0C9692E1027D876CE432C",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/render_previews.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/render_previews.py",
+      "bytes": 5646,
+      "sha256": "E2B0C35AF07DBCC987A4BAAACAD606E0C4139400B45763C92CFCAF5AE761ED14",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/blend/Ballast_All.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/blend/Ballast_All.blend",
+      "bytes": 159998,
+      "sha256": "5257DD29A3EB5C57E72FAF24706ACC2A52A9168556973BEA317E33E2578BFEAF",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/blend/Ballast_Hardened.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/blend/Ballast_Hardened.blend",
+      "bytes": 107480,
+      "sha256": "48C19701E421206395397C5A9FD0A19106874B07274158A23A975EF0809BCE28",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/blend/Ballast_MagicOrb.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/blend/Ballast_MagicOrb.blend",
+      "bytes": 126772,
+      "sha256": "165733EE5A110F2A7D4C8C235539D3DF1F323AE6FAB6752E2C811B60D4D38CF4",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/blend/Ballast_Rune.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/blend/Ballast_Rune.blend",
+      "bytes": 109683,
+      "sha256": "684E8C94514555C25C54682AEFB639E672ADD4C6498A36B0ADF03A7029D81AAC",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/export/SM_Ballast_Hardened_Candidate.fbx",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/export/SM_Ballast_Hardened_Candidate.fbx",
+      "bytes": 38796,
+      "sha256": "799D7497B8CE434D9F92E865CACB8AEE9387628B19596CFAABE2A8123DF05DFF",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/export/SM_Ballast_Hardened_Candidate.glb",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/export/SM_Ballast_Hardened_Candidate.glb",
+      "bytes": 36256,
+      "sha256": "B7BE7A0D82789BC4C6FA8F58D0F45AFB5BBEDFF6AD1221F9FB674CFC77ED8A14",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/export/SM_Ballast_MagicOrb_Candidate.fbx",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/export/SM_Ballast_MagicOrb_Candidate.fbx",
+      "bytes": 66556,
+      "sha256": "B1A864DA25E94C97DCF48AD0F0B74F2A8E83E466B4B10D5104BB046170581CCE",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/export/SM_Ballast_MagicOrb_Candidate.glb",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/export/SM_Ballast_MagicOrb_Candidate.glb",
+      "bytes": 68808,
+      "sha256": "7357848A9E3776729649F70E1FD99729A90DB9512D54C3C2374F44AEBB96F13E",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/export/SM_Ballast_Rune_Candidate.fbx",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/export/SM_Ballast_Rune_Candidate.fbx",
+      "bytes": 41372,
+      "sha256": "C0ABA7856BFB521477BA1ABAE602DC1D6E30AE3DC74AF524A577835C6896A6D8",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/export/SM_Ballast_Rune_Candidate.glb",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/export/SM_Ballast_Rune_Candidate.glb",
+      "bytes": 39836,
+      "sha256": "04EF35B68799A31E4D15AA7E70245779E821913BA4EE18767865ACB19D27183F",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview/sheet_three_variants.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview/sheet_three_variants.png",
+      "bytes": 620047,
+      "sha256": "8B234ED58937D53F79BFEBC3AADAF5EB4A5A125F803B256CC58EE8B80D8BE45B",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Hardened_Candidate_45.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Hardened_Candidate_45.png",
+      "bytes": 723836,
+      "sha256": "D41142D42EAF005A3FD078B58D97A5EC97C7790E969CC1AA610EABA21FF9DA50",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Hardened_Candidate_front.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Hardened_Candidate_front.png",
+      "bytes": 752445,
+      "sha256": "AB7A845B080D51039CE1D01662B594D57A6CC865E4BB925DCB7025C893B3FE2D",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Hardened_Candidate_interface.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Hardened_Candidate_interface.png",
+      "bytes": 864499,
+      "sha256": "7201D0E6BD3E0B641A0F5D0CF76AE2EE6E61C4A19F992A47E8632187EE6957BF",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview/SM_Ballast_MagicOrb_Candidate_45.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview/SM_Ballast_MagicOrb_Candidate_45.png",
+      "bytes": 760878,
+      "sha256": "9D32AEDE9313586B5E6B179A0CCB55C2C479FF59C3E3A566D3DC055404AFBC0F",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Rune_Candidate_front.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview/SM_Ballast_Rune_Candidate_front.png",
+      "bytes": 780995,
+      "sha256": "CF457E4A86A691B31F6B92ED97A1862D6EBBEE30CDBBD375F30D426403AB2DA1",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_magic_glass/glass_transparency_check.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_magic_glass/glass_transparency_check.png",
+      "bytes": 1332019,
+      "sha256": "613E619D428D1C24E8D7D5B9F8B72877FC2A159EE5F58EF2808A0A87E5B4E138",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_magic_glass/sheet_glass_clear_vs_frosted.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_magic_glass/sheet_glass_clear_vs_frosted.png",
+      "bytes": 1086907,
+      "sha256": "64D1D6CAD1586B83E38D4BF5B781FC393E3B945607783366617FD13711E9FF18",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_magic_glass/SM_Ballast_MagicOrb_glass_45.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_magic_glass/SM_Ballast_MagicOrb_glass_45.png",
+      "bytes": 1298271,
+      "sha256": "D9E7D7DAF67979410CA4E3DC38E5CE58B34DB41D1CA255FD9D12DBF6CA1CC3F3",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_magic_glass/SM_Ballast_MagicOrb_glass_front.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_magic_glass/SM_Ballast_MagicOrb_glass_front.png",
+      "bytes": 1298123,
+      "sha256": "138FD1AA144E47421EBA85681583BEF7C3EF214FD51AAABE763E99957D9E07DF",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_pommel/sheet_two_pommel_material.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_pommel/sheet_two_pommel_material.png",
+      "bytes": 586691,
+      "sha256": "41ADF3DDCA1711615310E9A05EFB37FC686BA6EEB3A64322018DC51915523E53",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_pommel/sheet_two_textured.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_pommel/sheet_two_textured.png",
+      "bytes": 711367,
+      "sha256": "979A8DCA0CF7113D9C40A35AFCBBDE5566C63474EE5A549FBCB20CD088494818",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Hardened_Candidate_pommel_45.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Hardened_Candidate_pommel_45.png",
+      "bytes": 746200,
+      "sha256": "BB189BC5FA07EB8FF5A709121424B9BF268C592909892522CF318E34B9A29ABA",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Hardened_Candidate_pommel_front.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Hardened_Candidate_pommel_front.png",
+      "bytes": 765776,
+      "sha256": "598AC8BCFF399E3FA11EAC1B664A68E2CBE39F47580DEDA98E5FDD3B8AA62B38",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Rune_Candidate_pommel_45.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Rune_Candidate_pommel_45.png",
+      "bytes": 764056,
+      "sha256": "76FEB5F75ECE10D9695B07EEAFC394F125A728971BFE5359C82A0DCC8759B4BF",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Rune_Candidate_pommel_front.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/preview_pommel/SM_Ballast_Rune_Candidate_pommel_front.png",
+      "bytes": 803498,
+      "sha256": "9B97F65D0201BCF5A68A59E07A7151A12688057251587BDCB8CAE7FAA08CF863",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/WeaponBallast20260915/__pycache__/build_ballast_balls.cpython-313.pyc",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/WeaponBallast20260915/__pycache__/build_ballast_balls.cpython-313.pyc",
+      "bytes": 23203,
+      "sha256": "3667B91445CA29A419A6598C06DE0929B5DA1C649124E07A858A25D77BC212AB",
+      "reason": "Early procedural ballast candidate explicitly retired before 5080 modular pommels; no current external code dependency.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/author_pommel.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/author_pommel.py",
+      "bytes": 13641,
+      "sha256": "E563F3F2BE6B7B4CFDE893AB50ABFEBB7F888E07C62C1CBDDF66CFA6502664A7",
+      "reason": "Superseded first-version author/import recipe; current recipe uses repaired geometry and material slots.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/import_pommels.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/import_pommels.py",
+      "bytes": 7048,
+      "sha256": "BFA36C150637F632E243367CE4077A8D5E7A8DCE6CD2BFB5B49E1FE6E3915981",
+      "reason": "Superseded first-version author/import recipe; current recipe uses repaired geometry and material slots.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/make_icon.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/make_icon.py",
+      "bytes": 2703,
+      "sha256": "A9BFADA738CE39E897D70B4B3D2428ED2978A027EB00713CF06E0B51537D0153",
+      "reason": "Superseded first-version author/import recipe; current recipe uses repaired geometry and material slots.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/produce.py",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/produce.py",
+      "bytes": 1582,
+      "sha256": "71A5CFC5B96230D7DEB314E8ADD99A020F944FB962A159389F23D313D277735A",
+      "reason": "Superseded first-version author/import recipe; current recipe uses repaired geometry and material slots.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/FrostPommel_Editable.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/FrostPommel_Editable.blend",
+      "bytes": 145710374,
+      "sha256": "878DCA26208D4FFE70BE74B19646D20B3D3F3CE96390B5E84ADFB1CA69E66CC6",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/Pommel_Icon_Editable.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/Pommel_Icon_Editable.blend",
+      "bytes": 145712373,
+      "sha256": "34DCCD91886683E4128ED702AD0692A9449F011D2AB0D09AB3F2109AB33A7B94",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.fbx",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.fbx",
+      "bytes": 2042044,
+      "sha256": "286DACD8E431DC6016F741804ACBE10C09CE358C518977EC935161011C5EA0FE",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/pommel_icon.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/pommel_icon.png",
+      "bytes": 1021781,
+      "sha256": "5B6C48B579B435F0042D0D6CE19CDDB9B990A2B3AD69ADFCE137A4F829A775CC",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/normal.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/normal.png",
+      "bytes": 3731498,
+      "sha256": "EDBA312632357A50D582377F8622129585BFADFCA8B8FD18A4AA79D4F35D11AB",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/rune_mask.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/rune_mask.png",
+      "bytes": 304633,
+      "sha256": "0D13075AC2CE6D06A6CAE9840663384EE5A2CBB3A3B89E1AC6C01D41C08C33B9",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/generated_base_color.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/generated_base_color.png",
+      "bytes": 26322232,
+      "sha256": "2D5E348B5CEA5CF6FE6E4AD0C7DCEB585791C32217904EC95171D6ECFCBC65E6",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/embedded_0.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/embedded_0.png",
+      "bytes": 23134304,
+      "sha256": "89F4457270FB4DA4CC2B83820B32340078C633449F1DC75FFCD9C37C78CCB44E",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/embedded_1.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/embedded_1.png",
+      "bytes": 15494948,
+      "sha256": "DFFBA9F1462EBB269A517FA1C173CDEDEC990C960091FE72D86198EFD96DD1F1",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/authoring.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/authoring.json",
+      "bytes": 1320,
+      "sha256": "10733CA1C343F72DF6728D463B9B41FC0503E6D16BC41DDD9547B01EB6EE50B9",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/icon_authoring.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_hardened/icon_authoring.json",
+      "bytes": 341,
+      "sha256": "FF578E35879173A9761B20A49B4B4931F78BFDF4A7E35685617C99F254E2C94A",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/FrostPommel_Editable.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/FrostPommel_Editable.blend",
+      "bytes": 108615981,
+      "sha256": "90ECDDE4F28C9C6F86595D28BBCB04962C3AB3D31EFC4056FEB0147FCA68C053",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/Pommel_Icon_Editable.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/Pommel_Icon_Editable.blend",
+      "bytes": 108617882,
+      "sha256": "8BBCB56323E01100626F929E640DFA3BA8676722B6D9BBAFF0BECCE90D03776B",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/SM_FrostPommel_ballast_rune.fbx",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/SM_FrostPommel_ballast_rune.fbx",
+      "bytes": 2038652,
+      "sha256": "72E3C62FA24641B46C92EC9BB6FE995C23958D07E93B53B3B2C779625162FA8C",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/pommel_icon.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/pommel_icon.png",
+      "bytes": 1088252,
+      "sha256": "0AE897ED1D73FE20C314BFFDAA13C2846F0A61D0F1B6C0631E06E5B60A384C52",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/normal.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/normal.png",
+      "bytes": 3993137,
+      "sha256": "3DB7C4BD9AA66913FCE36E993B3BA698A775BF6CA81E9B04CB252C40847857B3",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/rune_mask.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/rune_mask.png",
+      "bytes": 304633,
+      "sha256": "0D13075AC2CE6D06A6CAE9840663384EE5A2CBB3A3B89E1AC6C01D41C08C33B9",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/generated_base_color.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/generated_base_color.png",
+      "bytes": 1394460,
+      "sha256": "967E1426C621DD6B822974390CD21012425A34E369FEB4EFADBB424FAB78CC5E",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/embedded_0.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/embedded_0.png",
+      "bytes": 988372,
+      "sha256": "FBBB2AD80BD0F5798CEE5B5F278D5BB371CC3919968889865681C58B4F08DE3F",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/embedded_1.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/embedded_1.png",
+      "bytes": 336892,
+      "sha256": "FFB980EFC75F75D57AFABDA5B90E8937CE19A24E040A22581DBC076E24B4768B",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/authoring.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/authoring.json",
+      "bytes": 1318,
+      "sha256": "185F5EC60C5279F3B42AACA9ED5F54CF550C109B55D105015DCF51B6D8C2DCE5",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/icon_authoring.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_rune/icon_authoring.json",
+      "bytes": 333,
+      "sha256": "70BADC8BA91F082FEFD7F99E08FEA62D7A93CBA28D5199EB44DD633B605DC068",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/FrostPommel_Editable.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/FrostPommel_Editable.blend",
+      "bytes": 108700582,
+      "sha256": "7290178BFD99150953459C8FC511DC95581EDD20A3E2888421D54AD5F0FBD767",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/Pommel_Icon_Editable.blend",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/Pommel_Icon_Editable.blend",
+      "bytes": 108702583,
+      "sha256": "D32D31B8FC651496A7F2755033E345274D4A80A1A7D3BAC13711DC4F9C30713F",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.fbx",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.fbx",
+      "bytes": 1989900,
+      "sha256": "D9C92DECCA16C0BFBEDFA5B8EC854F7D8798CCD5EF9EFC960B1FE1891AA704F9",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/pommel_icon.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/pommel_icon.png",
+      "bytes": 1144693,
+      "sha256": "41C3848168228F5C101AC67BA0BC2BA0307C9E9D7F891ED8F60A39C5293B683B",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/normal.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/normal.png",
+      "bytes": 3774618,
+      "sha256": "79F768E62B3E8B4F4B657B7CB5A8365F3E42999D1244DFF2E748236433B83861",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/rune_mask.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/rune_mask.png",
+      "bytes": 308078,
+      "sha256": "43C6F24A4FC8FF0162986475A208C0592B2BAED4A24F4C704FA26A98BCBC4D2C",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/generated_base_color.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/generated_base_color.png",
+      "bytes": 782588,
+      "sha256": "63363D7C75B720592ED848BE2EBCC4FA1E542B13638548F0792F2349D1769D27",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/embedded_0.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/embedded_0.png",
+      "bytes": 485880,
+      "sha256": "03B09747CAC88096219C6577D08BEF482631B311A0759985C30D545F238A4820",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/embedded_1.png",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/embedded_1.png",
+      "bytes": 188480,
+      "sha256": "13C9A2969113D738AE1907CFCB0102A9A14F5F023982CD3CBEB61DB9D97C40F1",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/authoring.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/authoring.json",
+      "bytes": 1324,
+      "sha256": "AC976CB4932A940D7B8CB3A037E4907B7A48F1E8171FD2C116A826EBD696CD0B",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/icon_authoring.json",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommels5080_20260915/ballast_magic_orb/icon_authoring.json",
+      "bytes": 343,
+      "sha256": "FE9F4E07A30EB75CD3BAF389D29566967C00239B72E44C90AC8B68C58A22A4F0",
+      "reason": "First-version game output replaced by the accepted 20260919 repair; generation masters/workflows remain in place.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened/Pommel_Icon_Editable.blend1",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened/Pommel_Icon_Editable.blend1",
+      "bytes": 155484543,
+      "sha256": "2FB6A0F1C44A26B94753497E91CFEC084FBF225F813248C3CC823F81A188D969",
+      "reason": "Automatic Blender backup superseded by the retained editable file.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_hardened/Pommel_Icon_Editable.blend"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb/Pommel_Icon_Editable.blend1",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb/Pommel_Icon_Editable.blend1",
+      "bytes": 153309259,
+      "sha256": "63D73DA6FBE6520E7A233FBCC5EA15C83C0F25A6558594F5E102E9D62609EF95",
+      "reason": "Automatic Blender backup superseded by the retained editable file.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_magic_orb/Pommel_Icon_Editable.blend"
+    },
+    {
+      "relative_source": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune/Pommel_Icon_Editable.blend1",
+      "relative_destination": "trash/frost-sword-retired-20260919/SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune/Pommel_Icon_Editable.blend1",
+      "bytes": 153749409,
+      "sha256": "DD274B17F6A2CCA0F6918BD4EB2AF3B2ED2BD777E6CF2FEE58C9A93844C724EF",
+      "reason": "Automatic Blender backup superseded by the retained editable file.",
+      "replacement": "SourceAssets/FrostSwordPommelsRepair20260915/ballast_rune/Pommel_Icon_Editable.blend"
+    }
+  ]
+}

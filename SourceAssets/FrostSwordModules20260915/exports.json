@@ -1,0 +1,78 @@
+{
+  "parts": [
+    {
+      "slot": "blade_1",
+      "id": "factory",
+      "mesh": "SM_FrostSword_Blade_factory",
+      "location_cm": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "slot": "guard",
+      "id": "factory",
+      "mesh": "SM_FrostSword_Guard_factory",
+      "location_cm": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "slot": "grip",
+      "id": "factory",
+      "mesh": "SM_FrostSword_Grip_factory",
+      "location_cm": [
+        0.0,
+        -0.0,
+        -5.000000074505806
+      ]
+    },
+    {
+      "slot": "pommel",
+      "id": "factory",
+      "mesh": "SM_FrostSword_Pommel_factory",
+      "location_cm": [
+        0.0,
+        -0.0,
+        -22.699999809265137
+      ]
+    },
+    {
+      "slot": "guard",
+      "id": "bastion_guard",
+      "mesh": "SM_FrostSword_Guard_bastion_guard",
+      "location_cm": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "slot": "guard",
+      "id": "riposte_guard",
+      "mesh": "SM_FrostSword_Guard_riposte_guard",
+      "location_cm": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    },
+    {
+      "slot": "guard",
+      "id": "light_guard",
+      "mesh": "SM_FrostSword_Guard_light_guard",
+      "location_cm": [
+        0.0,
+        -0.0,
+        0.0
+      ]
+    }
+  ],
+  "arms": "SK_FrostSword_Arms",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\FrostCrystalSword_Manny_Editable.blend",
+  "blade_visual_tip_cm": 81.1727345,
+  "scope": "Module authoring/export only. No rendering or tests."
+}
