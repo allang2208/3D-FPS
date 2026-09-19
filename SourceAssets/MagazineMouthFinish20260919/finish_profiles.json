@@ -1,0 +1,68 @@
+{
+  "M4": {
+    "source_basecolor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\SK_M4_Infima.fbm\\Magazine Light_BaseColor.png",
+    "source_uv0_linear_median": [
+      0.05126945837404324,
+      0.04970656598412723,
+      0.04518620438567554
+    ],
+    "target_linear_color": [
+      0.052860647023180246,
+      0.05126945837404324,
+      0.04970656598412723
+    ],
+    "linear_color_multiplier": [
+      1.0310357998621378,
+      1.0314423730340794,
+      1.1000385329971352
+    ],
+    "material_identity": "polymer",
+    "roughness_center": 0.56,
+    "metallic": 0,
+    "source_roughness_median": 0.49019607843137253
+  },
+  "AKM": {
+    "source_basecolor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMSoviet20260911\\Source\\ak47fbx_extracted\\textures\\AK_Base_color.png",
+    "source_uv0_linear_median": [
+      0.03688945040110004,
+      0.03688945040110004,
+      0.03688945040110004
+    ],
+    "target_linear_color": [
+      0.06480326669290577,
+      0.06301001765316767,
+      0.06301001765316767
+    ],
+    "linear_color_multiplier": [
+      1.7566883211405433,
+      1.7080768883260111,
+      1.7080768883260111
+    ],
+    "material_identity": "steel",
+    "roughness_center": 0.3215686274509804,
+    "metallic": 1.0,
+    "source_roughness_median": 0.3411764705882353
+  },
+  "QBZ": {
+    "source_basecolor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QBZ191ContactWear20260913\\Textures\\T_QBZ191_Wear_Magazine_BaseColor.png",
+    "source_uv0_linear_median": [
+      0.019382360956935723,
+      0.021219010376003555,
+      0.024157632448504756
+    ],
+    "target_linear_color": [
+      0.02500000037252903,
+      0.028999999165534973,
+      0.03200000151991844
+    ],
+    "linear_color_multiplier": [
+      1.289832566222182,
+      1.3666989483322411,
+      1.324633181174966
+    ],
+    "material_identity": "polymer",
+    "roughness_center": 0.57,
+    "metallic": 0,
+    "source_roughness_median": 0.4627450980392157
+  }
+}

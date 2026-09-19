@@ -5,6 +5,7 @@
 // this header only carries the rifle's own paths and measured fit numbers.
 namespace ASH12WeaponAssets
 {
+    inline constexpr const TCHAR* ExtendedMagazineMeshPath = TEXT("/Game/Weapons/ASH12/MagazineFinish20260919/SM_ASH12_ExtMag30_Finish.SM_ASH12_ExtMag30_Finish");
     inline constexpr const TCHAR* Definition = TEXT("ue_ash12");
     inline constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/ASH12/Integrated20260917/SK_ASH12_Manny.SK_ASH12_Manny");
     // The accepted rifles put the iron sight at the receiver's rear, so 12 cm of

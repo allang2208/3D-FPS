@@ -1,0 +1,16 @@
+{
+  "M4": {
+    "seams_m": [
+      0.1115,
+      0.124,
+      0.1365,
+      0.14900000000000002,
+      0.1615,
+      0.174
+    ],
+    "blend_halfwidth_mm": 4.0,
+    "normal_blend": "alternate tangent frame rotated into UV0 frame; matrix in UV2-6",
+    "vertices": 80531,
+    "tested": false
+  }
+}

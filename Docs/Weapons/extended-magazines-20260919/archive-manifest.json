@@ -1,0 +1,1370 @@
+[
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\after.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\after.json",
+    "bytes": 1248,
+    "sha256": "37BF645A9DDD7B50C8DFC28E3C1B83025BE756D6EE4217506344D8BFD0F1CC95",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\author.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\author.log",
+    "bytes": 678,
+    "sha256": "705F0FF901C0674DD1497361D5B0D5267133965C8EF6F0404650145E5FD4925C",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\author.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\author.py",
+    "bytes": 6028,
+    "sha256": "428E17178DBCECC5B1B5B8EA381F43C2F6A2708D9B0F7BE2B636DB408CEDCE82",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\authoring.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\authoring.json",
+    "bytes": 310,
+    "sha256": "E100703141331C8C6A5F3BB7F79F93588D112BA73464926CA5BF617E52F89BB7",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\before.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\before.json",
+    "bytes": 1278,
+    "sha256": "B4FDE384697B335A43E16ECE37A92F3890B57C95277A7464A141624430D28F9F",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\diagnose.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\diagnose.log",
+    "bytes": 1414,
+    "sha256": "D6A6729B2CAF41685DD99B8C1CF184D97B2FB8453649ACCE3BF5B4AB2DA02E09",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\diagnose.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\diagnose.py",
+    "bytes": 1895,
+    "sha256": "3668F4667871C87D00DBBD6C5D15563DCEBB1AE49D63357262E957C0AE95E824",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\diagnose_after.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\diagnose_after.log",
+    "bytes": 1388,
+    "sha256": "B060F6AF61D3CC3F89490CE510475EDDAAE787CC89EB24A0624D13200CA7AC27",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\diagnose_after.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\diagnose_after.py",
+    "bytes": 1899,
+    "sha256": "40637387034DDB02ABF0D19425A5F3EF179F16D3B570B7B064660A59C6E8086A",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\icon.log",
+    "bytes": 1125,
+    "sha256": "4BCD273DDC1179BC9FED765095CD9DA3C053E1A41F3170E50CDBD03202BAAA64",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\M4_ExtMag40_Normals_Editable.blend",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\M4_ExtMag40_Normals_Editable.blend",
+    "bytes": 7821375,
+    "sha256": "A820FEF5CB4F674ADBF508D7B1DDB23DD1ACB8C7065F2094DBEEF522248AE9FE",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\M4_ExtMag_Remodel_Editable.blend",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\M4_ExtMag_Remodel_Editable.blend",
+    "bytes": 62938070,
+    "sha256": "A4F6B0F31DE4A7459360303CD2D22B1FC6E04B200C882789C36CF995F932057F",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\M4_profile.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\M4_profile.json",
+    "bytes": 51542,
+    "sha256": "F515570FC8E0CB96C61AAE1B63F6C9646A45F1E3AE2F0B79B9AC575DCC09DB4F",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\M4_tangent_work.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\M4_tangent_work.json",
+    "bytes": 3216,
+    "sha256": "704B86EBA7C222D04E4B3CD739083F9CF9FCCB8A6B62D246A64A78CD089E814F",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\materials.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\materials.py",
+    "bytes": 3334,
+    "sha256": "8ADEE0E8BFA9B5A44F22C49BE320ED3AA65F8900980CD7901642D9C2966380A3",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\parameters.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\parameters.json",
+    "bytes": 580,
+    "sha256": "7B1CE26CBEBF34E76C5BB0088E46A110CAC1D115149852784385A64799EF132A",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\preserve_normals.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\preserve_normals.log",
+    "bytes": 706,
+    "sha256": "91FBE85F9A078794FB635B75427B7BDA075BB81F338BA214D64FF392C87A595C",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\preserve_normals.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\preserve_normals.py",
+    "bytes": 7578,
+    "sha256": "C890F39ECA4D759422B9D41AC6F8DECF4843BA0E9753535653EFDC5F80003573",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\render.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\render.py",
+    "bytes": 7895,
+    "sha256": "7E2838F70E9466754E7CAF2C27CCD6999C66994FACDC00F15C9BED6F0810663A",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\render_manifest.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\render_manifest.json",
+    "bytes": 1016,
+    "sha256": "5A09C32835E0918B95BD7D338F7B7399EB7007B85453705E0A1B323C01B83910",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\SM_M4_ExtMag40_Normals.fbx",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\SM_M4_ExtMag40_Normals.fbx",
+    "bytes": 13721820,
+    "sha256": "39F44E7B18B701FCC9A753EA65A792FE89C43F76ED4A46DEF0657AA50ABB779E",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\source_normals.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\source_normals.log",
+    "bytes": 1662,
+    "sha256": "21167D2526BC594B55C0E3FC2910CE7017008DC2C7E107F3B6DFA716E7ABA0E4",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\source_normals.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\source_normals.py",
+    "bytes": 12441,
+    "sha256": "6F941CDA59EFBE1F01E576B1414FBC95BB53C8DA38FD531FFEC4BC8BE2FFA175",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\FBX\\SM_ExtMag_M440_Remodel.fbx",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\FBX\\SM_ExtMag_M440_Remodel.fbx",
+    "bytes": 903772,
+    "sha256": "49444E1708AB53CF455DEF03112E82523761051D7E75365AEAEBCE7A844BD828",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\FBX\\SM_M4_ExtMag40_Normals.fbx",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\FBX\\SM_M4_ExtMag40_Normals.fbx",
+    "bytes": 13661804,
+    "sha256": "8674C9FB5B7D69C60ADD8E6E6CFAC882287A4D85E17C13CB33B596970511F0AC",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\Icons\\ue_m4a1_magazine_ext_mag.blend",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\Icons\\ue_m4a1_magazine_ext_mag.blend",
+    "bytes": 5706838,
+    "sha256": "11472CB5206C5B74748BA43B91B2BA0753C0189EF3AD7D14AB92D500BE0C8B20",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\Icons\\ue_m4a1_magazine_ext_mag.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\Icons\\ue_m4a1_magazine_ext_mag.json",
+    "bytes": 1317,
+    "sha256": "0B3A1AB5678940A5F342AD06C681929EB5818DDB7B00A4DB0C9D2B648AD6DD2A",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\Icons\\ue_m4a1_magazine_ext_mag.png",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\Icons\\ue_m4a1_magazine_ext_mag.png",
+    "bytes": 585851,
+    "sha256": "AC03AA5C50EF3A50E4439D0B6BD756F7C7CB74E6371E64D8CDC98F70F4A92766",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ExtMagNormals20260919\\__pycache__\\materials.cpython-313.pyc",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4ExtMagNormals20260919\\__pycache__\\materials.cpython-313.pyc",
+    "bytes": 8064,
+    "sha256": "C139EC6B0865996FE87A3E642CA1BD99E3675702561E1D223EFD4D075F0007A7",
+    "reason": "未接入的 M4 法线/变形废案；替代为 M4GridUnified20260919",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\author_grid.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\author_grid.py",
+    "bytes": 12874,
+    "sha256": "E437890D4BB5175648226F252D49EC4DF15C15928EC17BF9AE50910EB15D0EA1",
+    "reason": "被 author_surface.py 原厂外表面重建替代",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\diagnostic_render.py",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\diagnostic_render.py",
+    "bytes": 797,
+    "sha256": "F6B56952C655E7883B919D68F692E3145467DD77AEC2A7B381CEAAD8296C32F9",
+    "reason": "被 author_surface.py 原厂外表面重建替代",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\geometry_only.png",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\geometry_only.png",
+    "bytes": 518149,
+    "sha256": "1F330ABE8F47C8B312D0572B5FAA94902FCAD21E29E7F59B19709AC54071237D",
+    "reason": "被 author_surface.py 原厂外表面重建替代",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\AKM_ExtMag_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\AKM_ExtMag_Editable.blend1",
+    "bytes": 649775,
+    "sha256": "C1E4EA8A63FA74DBE1F82EBF7C897A808DB4E1CA81AF79F52817AE9D4829AC84",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\build_editor.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\build_editor.json",
+    "bytes": 111052,
+    "sha256": "A0339999152C709B5C8E0A46F7CE40C7DE3234445F69BDA006934AABC86CBA81",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\build_editor.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\build_editor.log",
+    "bytes": 39515,
+    "sha256": "08DB3E8AE1A08183D269953D289C9A85D216C6170C227F1EC9B86B297ADF7F3C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\build_editor_final.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\build_editor_final.json",
+    "bytes": 105480,
+    "sha256": "2495F917888F48713D68C449416717CCE9D070F2C8AA2B06D703E3EB5115F24A",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\build_editor_final.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\build_editor_final.log",
+    "bytes": 38138,
+    "sha256": "65870692DC670400050802C5019525BC074D05A39B6DCA88ECC7DA2A47B11929",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\build_receipt.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\build_receipt.json",
+    "bytes": 1675,
+    "sha256": "D2E61E38FFA3EA0386C990D79C7B2568C9FF16F4390CD6DE8A7351E4D0623D34",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\grip_build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\grip_build.log",
+    "bytes": 2099,
+    "sha256": "9184FD84AFBC5C4ACBBCBAE2C95AA65E7476839B6B5A70B7CBC96A50939F5B78",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\grip_diagnosis_current.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\grip_diagnosis_current.log",
+    "bytes": 1669,
+    "sha256": "0646092F8B9BA9A5746F0C9D36F87F9771411F6B9B2F4680524A4E9F11C7218C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\icons.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\icons.log",
+    "bytes": 1682,
+    "sha256": "6D7E81E51FC803AEBD964643145EDD79887E822F4EAB7A77D7092B4E3019B49B",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import.log",
+    "bytes": 282812,
+    "sha256": "7E2E8D9C91D9F397F19896D26052622544832EC5118F08D601414C70D67F497D",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_console.log",
+    "bytes": 38015,
+    "sha256": "024C4A4D9A406C51A2307A0731333228BB7850975619408C96AEC0C4B16EDD0A",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_editor.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_editor.log",
+    "bytes": 210,
+    "sha256": "41984945FCF88E2463C4DD22D55CC290A46CFC0A7C467661E55A0176B06F549A",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_final.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_final.log",
+    "bytes": 278658,
+    "sha256": "0BCF699EBA56FE650912F931ED648E58591CB05B6E03904ADC3A4C707D131D45",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_isolated.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_isolated.log",
+    "bytes": 246028,
+    "sha256": "A6F414F5C8BE862D21F4FD299D0F11D73A6ABD7A24DF9EADB00E1D6DD3F859FC",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_isolated_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_isolated_console.log",
+    "bytes": 21833,
+    "sha256": "4D8E23E3C77B1703BC4D58B70A4F0CA8F6DB9ABF10A58B4AF82552543ACAE29D",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_legacy.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_legacy.log",
+    "bytes": 279087,
+    "sha256": "A4B3243409A5428EDD13D3A75EE9037EB5A11B7D6CE367E5481B7931AE99A886",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_release-backup-2026.09.19-10.00.09.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_release-backup-2026.09.19-10.00.09.log",
+    "bytes": 283916,
+    "sha256": "354E6EBB2FECB051ACCCB86FECC6920DED13047CC001C4A910E12D0B81DD76AC",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_release-backup-2026.09.19-10.03.33.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_release-backup-2026.09.19-10.03.33.log",
+    "bytes": 142680,
+    "sha256": "B3564A1250C821723D9DBD1A7B106221359DF07CBD8CE884CCD1FEA331050EC5",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_release.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_release.log",
+    "bytes": 181725,
+    "sha256": "ACED827BA7C1767B23AD96F3262CC0E149FDF3EB755D432FFD515C17632CA6F1",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\import_release_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\import_release_console.log",
+    "bytes": 12674,
+    "sha256": "1A7E0B491B04EBCB1E14F7A0BD42ABCEFE6605515A4DDE7F7B04F37D73414B9E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\M4_ExtMag_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\M4_ExtMag_Editable.blend1",
+    "bytes": 63051241,
+    "sha256": "811F6E4F4DF5A4102DFCA6371360BA8345E7BFEA6515E112814A34825A0FCC4A",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\M4_ExtMag_reload_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\M4_ExtMag_reload_Editable.blend1",
+    "bytes": 152337468,
+    "sha256": "F7A88E8128BBEF8201A00FEF92C87DB8BC4F2129F239BB9874BAD9EF58FF9442",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\M4_ExtMag_reload_empty_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\M4_ExtMag_reload_empty_Editable.blend1",
+    "bytes": 144274715,
+    "sha256": "7A983CBE954704A1575571911E88109A28E9E3DB4A71B018C84D7AE7C9253538",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\model_build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\model_build.log",
+    "bytes": 2518,
+    "sha256": "730EE51F3016DDEFFA45A74196B77E7AF81F05F3D749CE619D46A16E9EDE9EA0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRebuild20260919\\QBZ_ExtMag_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRebuild20260919\\QBZ_ExtMag_Editable.blend1",
+    "bytes": 1930237,
+    "sha256": "BEADBBDD7E62A0AA7058EDAF2ED7BC800B4F70B58A1202766F0EDC22F6514769",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\AKM_ExtMag_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\AKM_ExtMag_Editable.blend1",
+    "bytes": 574208,
+    "sha256": "87B963E894D5494CAB37E4D90808F0E12F7C4CF13A66A18522658F4446180021",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\AKM_IconStudio.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\AKM_IconStudio.blend1",
+    "bytes": 582206,
+    "sha256": "ABE8F0A228C0DDB83F3F77F945569B912B044A2672636EA412AC95A32717A31A",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\author.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\author.log",
+    "bytes": 4165,
+    "sha256": "AAF264E392FA84EEEFD3E3A1CA4206F0BE3EA022201347030E7FA109BBB433C0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\build.json",
+    "bytes": 113636,
+    "sha256": "55ABFC816A77254494C93AA6CFB749F3230CE725A0F18631EB83F91B46B644F7",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\build.log",
+    "bytes": 40473,
+    "sha256": "5EE16E88E091642540C10F2B46D9725B999B4990FB8FAD7789191A58F277918E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\build_delivery.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\build_delivery.json",
+    "bytes": 117886,
+    "sha256": "FFC92DC1E2293F3B55126DF3C21628E630FEE01F965B145F8A73D19ECA954B26",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\build_delivery.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\build_delivery.log",
+    "bytes": 42041,
+    "sha256": "A8033ADEE1E26F1C4A7A430A937C509356ED0F33481EE9C9DEE21332CD577DF3",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\icons.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\icons.log",
+    "bytes": 1227,
+    "sha256": "FADED2CF624AB46BE1B223D33EBE4C7EBD590263E4F987192839EB143690DFF0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\icons_delivery.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\icons_delivery.log",
+    "bytes": 1227,
+    "sha256": "AFB4AE2FB73388CE3220EE630FBDD8E15EBF355A3EF96FE4DC7521CE804F0B48",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import.log",
+    "bytes": 225566,
+    "sha256": "D18E06A719F9E4E969F4288BA0912D34AB30FC8554FD4CAE218286AEB1138F7B",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_authored_tangents.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_authored_tangents.log",
+    "bytes": 226015,
+    "sha256": "63F65A1BE1A8D9E7FF9B562D63B348119AEA36D20C867086C73AF168322B22CC",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_authored_tangents_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_authored_tangents_console.log",
+    "bytes": 19327,
+    "sha256": "961525CDB8B5C92CAE34F083AA23D24E5F681206B01025133F4925F655FE3A87",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_console.log",
+    "bytes": 19654,
+    "sha256": "22D325D189EC92F188C6A87ECCA593A4EDA2BEB70CA4AED77BB87C91F1F3AD72",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_delivery.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_delivery.log",
+    "bytes": 231399,
+    "sha256": "1F32EDFFBBB1BBAADAD606D3F63CB849622AD6007684221610D7940CDCA0F3CA",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_delivery_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_delivery_console.log",
+    "bytes": 27111,
+    "sha256": "DAC3B9BE0755848E6327BC876F52819A287259D37C667811EDD23AB1F7120986",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_final.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_final.log",
+    "bytes": 227035,
+    "sha256": "2D47A4B85D5CB96AED59BA1650B5DCB72519BC9F86E722EBE431DC6E5CBA2DF0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_final_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_final_console.log",
+    "bytes": 19806,
+    "sha256": "6CBF4538EDFB09911F65C6CCAE64CC29DA113BA4DD8BE16533D5D37F9A3420F5",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_surface.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_surface.log",
+    "bytes": 223347,
+    "sha256": "546D380D6AD58294136A1F0F2B3D216F720428F55922C23B2E3BA0D8402D26D2",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\import_surface_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\import_surface_console.log",
+    "bytes": 17204,
+    "sha256": "C76C6B696DBAFEDD16A7304F394B2A557D4EACCF83C04174AB3734E3CB1805E8",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\M4_ExtMag_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\M4_ExtMag_Editable.blend1",
+    "bytes": 62889467,
+    "sha256": "EF1C8D8C96DA8897D1060AB0CD406B46989F8EE59B53DAACF403F26BCB94FB7E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\M4_IconStudio.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\M4_IconStudio.blend1",
+    "bytes": 3125251,
+    "sha256": "64708FE46BE7FAE7547CFC0AAFE8A668E5E436479890FDCF1977C838C4DC8C4D",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\material_sources.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\material_sources.log",
+    "bytes": 1053,
+    "sha256": "F6243138675989BCDB1FFB01CB1D5B10FF5800F799B544FB897EF885B82EF645",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\QBZ_ExtMag_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\QBZ_ExtMag_Editable.blend1",
+    "bytes": 817743,
+    "sha256": "9BE5BA9CD68B197C358E8581C3D17289AF992A923E6C63640CF34A2F48E8DEA6",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\QBZ_IconStudio.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagPattern20260919\\QBZ_IconStudio.blend1",
+    "bytes": 833168,
+    "sha256": "96AF4D74F2DD6D3C667A66DD2695FA854261461E8DC60C82DD95460903693F1F",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\AKM_ExtMag_Closed_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\AKM_ExtMag_Closed_Editable.blend1",
+    "bytes": 699102,
+    "sha256": "2A43A861FC3BDE56031D0439B7C743A6B3074F98D15FA9FE1AAF87349D984623",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\author_contacts.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\author_contacts.log",
+    "bytes": 4608,
+    "sha256": "E614EEB940A8E39B09F42A824E58F14A44B6804005BE9338911DECD2AFC1C81E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\author_variants.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\author_variants.log",
+    "bytes": 8684,
+    "sha256": "DD38DDAA61FC3872F642FD57EC02F8881283A0321396CADF617FC5B551FDEE7B",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\build.json",
+    "bytes": 161908,
+    "sha256": "F2CD7528DC14F8D8AE4FE4797FE4F446D2DEEB817A342DA8A1981DB34B93C726",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\build.log",
+    "bytes": 59955,
+    "sha256": "33C3CEAC02635270780614F0C4AA5DBEFD66A8E275F858C5355EEE93D8A3255F",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\build_console.log",
+    "bytes": 46541,
+    "sha256": "6EAEDD6DCCA86E997C8AF8BDB9E5A77E9DF3C0ED0C7F73AEF476EA0C5D84F21B",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\contact_coordinates.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\contact_coordinates.log",
+    "bytes": 1645,
+    "sha256": "308CD8691CEDD15BE5958DC3B12E651AFF07ADC9E2518F74895142799A2EA261",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\diagnose.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\diagnose.log",
+    "bytes": 2941,
+    "sha256": "C23EA1CF34BE6F5AD1BFD444D17A1685B32D93F3DE5DA72B8F0791DB98003671",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\import.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\import.log",
+    "bytes": 333649,
+    "sha256": "360005856ADC9A724BF763B8DAA91A0FD4D46AC3E6589AFF14D8193DD1D74196",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\import_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\import_console.log",
+    "bytes": 28720,
+    "sha256": "85062B1F4B56B9676D4C3D2639A451CC00A7A7DAC7AE617911E17BB1F3D20253",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\make_icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\make_icon.log",
+    "bytes": 644,
+    "sha256": "A76FDD1A409B45D57F293D8E233F1CD73FA05A9F7C139781771BB6683EFD2C86",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\pose_authoring.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\pose_authoring.log",
+    "bytes": 2492,
+    "sha256": "E56452488A13EF04522C5D2EA4D2C808DA8D5755A5F60CE7376FEED21FCA7FA8",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\repair_akm.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\repair_akm.log",
+    "bytes": 700,
+    "sha256": "11DDD71E822A3648676AA1CDE3509D2EB1BB8676DF00829CF10568DD4740045E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\seal_akm.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\seal_akm.log",
+    "bytes": 672,
+    "sha256": "01FF8162E06A144C07A8002D438892ED7C2C76714C9191991691CA89522B35E3",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContact20260919\\show_contact.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContact20260919\\show_contact.log",
+    "bytes": 2096,
+    "sha256": "5860CFA3AC2911850754CE9E21539626416BAEE14A36E7FBE61F1DF2441ECC80",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\build.json",
+    "bytes": 113037,
+    "sha256": "E15331E10BA543D524A72946B463BCF0C91AC7D5869F9AE1EF30D6BDB65ED3A1",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\build.log",
+    "bytes": 40281,
+    "sha256": "37B6C8CC7972238CE1834CA6320892DFAC34B711092A41F941969DB0F438A2D6",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\build_console.log",
+    "bytes": 31308,
+    "sha256": "56E5F5C3B1A71B5087877898257E7CAF183AA11D0EBF86E2ECBC65A5C860B48C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\install.log",
+    "bytes": 225810,
+    "sha256": "0B897648674E335B827F44938BC46E5D42A4EB6A4581EC2DDCA0F7DA9807B834",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\install_console.log",
+    "bytes": 18267,
+    "sha256": "90585CEB5C217DE4C047F3D916D752FA5DF03DD2AD4508109837585987D9B896",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\read_bindings.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\read_bindings.log",
+    "bytes": 216527,
+    "sha256": "BC7AE0132CEDE55194F1C6AC1A68A1ECB8F849A9529DEA1A204563C539A4CB45",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\read_bindings_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\read_bindings_console.log",
+    "bytes": 15925,
+    "sha256": "D65AC9C64E10240975E67E9095FE789D500B53AC144A13DAC875D777A1E14F23",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\read_materials.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\read_materials.log",
+    "bytes": 218347,
+    "sha256": "6F1A033D26F4E0926BB96D4272540FAEC3959197FCE3B43BEF0BA00C1A4B39F1",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\read_materials_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\MagazineMouthFinish20260919\\read_materials_console.log",
+    "bytes": 17743,
+    "sha256": "2098BB54EBCEA84D95FE684D27008529187D4595BF573713DE3A6C5A001E4CB4",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\AKM_ExtMag_Continuous_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\AKM_ExtMag_Continuous_Editable.blend1",
+    "bytes": 1799258,
+    "sha256": "0B257B1F3E29A9C1C3282597B57CFF17AA01ED35326EC797FF72F37AA5C780C6",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\author.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\author.log",
+    "bytes": 1679,
+    "sha256": "784E9F2CE35BA44FA64C86565FCB7977DFB619EAACAC1777836B7B51930BD880",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\build.json",
+    "bytes": 105501,
+    "sha256": "5A70723B5546AC29355179AAF97E88959D270AAB71BF3E29BC6172836620A846",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\build.log",
+    "bytes": 37363,
+    "sha256": "1AC823CDC3479AE4D63889F60FBBF84E0ABD67B5BC791A8E3B082A8A0B44D2F8",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\build_console.log",
+    "bytes": 30250,
+    "sha256": "CC7A7A943C4970AD33043B62D0BFEE4BE730DADBA145893ABAC6D175693BF1AD",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.27.46.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.27.46.log",
+    "bytes": 220396,
+    "sha256": "F34A8291819417479AFC70FCE6D16BC43EDE0854135144A94137E4C368E4E0BC",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.29.26.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.29.26.log",
+    "bytes": 219379,
+    "sha256": "42B2285CD68C7E063161F556DE25A7D1CEB91AFEE7C05C8DC86B785F779FEF97",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.30.49.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.30.49.log",
+    "bytes": 221013,
+    "sha256": "2165805EF4D0420DF1F556074F13A1BC3D08AC2EF3B99F88A66BF3AB9A166906",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.32.09.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.32.09.log",
+    "bytes": 223293,
+    "sha256": "D705D70D89040BEDFB9DE6650D58CCB96CF5F302492A1B07FB5C62D009945234",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.32.58.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.32.58.log",
+    "bytes": 225849,
+    "sha256": "67AC98783EC99D05793FF37407E417DBACEDE69489D036DD9D0B5A21F5EFCF88",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.35.13.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install-backup-2026.09.19-12.35.13.log",
+    "bytes": 229210,
+    "sha256": "23C7A0A22BEFD0DF163EC2F2F06DD1B0E22A67167D1A4D56321BD716D931A6D0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install.log",
+    "bytes": 228122,
+    "sha256": "02F50E85AC514A371A5DF6CBE1D1BA2ECFD03B6E5E5DA957FA1586C073704415",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\install_console.log",
+    "bytes": 16544,
+    "sha256": "36BA7A3CFD223441D1764C945A5E77833AFF48FFC8AFFAA46EE29052CE76EAFC",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\M4_ExtMag_Continuous_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\M4_ExtMag_Continuous_Editable.blend1",
+    "bytes": 5276571,
+    "sha256": "9DDAE6B1387E9B3742B0DC0A3951B77A086DF1E2F20C15BAE0EFE4E946379CD3",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\QBZ_ExtMag_Continuous_Editable.blend1",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagContinuity20260919\\QBZ_ExtMag_Continuous_Editable.blend1",
+    "bytes": 809564,
+    "sha256": "ED239B5E52315BFD090CB99A7BDFE343442CDC672CE754A8AD2A52DEA381C998",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagIcons20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagIcons20260919\\install.log",
+    "bytes": 222839,
+    "sha256": "F428CE4FBB731EB41CADD4BF6CD913024585ACC2A5ADE5732B2EB4E7625A5E0C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagIcons20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagIcons20260919\\install_console.log",
+    "bytes": 17691,
+    "sha256": "FE5FAE4AC93166EB0BDA86673DE5078B803D044869A078E99BA0EB8D582F5B90",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagIcons20260919\\prepare.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagIcons20260919\\prepare.log",
+    "bytes": 400,
+    "sha256": "C6548E747729592921008270C0EF1338E76C1C9A9D46B97D5349161A094AE029",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagIcons20260919\\render.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagIcons20260919\\render.log",
+    "bytes": 1965,
+    "sha256": "4950103E41F2A3D13089B33959F094E6D35E633B25F45EDF522130B28227C725",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagIcons20260919\\render_m4.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagIcons20260919\\render_m4.log",
+    "bytes": 1119,
+    "sha256": "AE04C7E3B04A9148204E0995949FB2D2EA74EC1774202952D9EF0A30A978A89F",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\build.json",
+    "bytes": 129307,
+    "sha256": "A9477D61C4CB0B5169C90C5B7BEB7B5A6BFFECFEB2B2626EFCBA6D641FB074A0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\build.log",
+    "bytes": 45916,
+    "sha256": "7849456E69D0DC0F446223DA126C9DB191034AC5626F71106EB1DE4CA1872EFF",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\build_console.log",
+    "bytes": 37964,
+    "sha256": "FB47484AC081AE2236B5D12AB4A2FB0DB4467715545F46FE473AEFCBB1B0D92E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\finish.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\finish.log",
+    "bytes": 1067,
+    "sha256": "2544A8B29ADA6BD083B0E1EFFFAB8C1648C0F1BF728E71234EE0E9F7730C098F",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\icon.log",
+    "bytes": 1542,
+    "sha256": "BDC1D9D93884EB115261BCACCF79497D3FA5B2878DAE5801565E421E14872C76",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\install.log",
+    "bytes": 220748,
+    "sha256": "5B0AFD325EE7552E2DFB4168E908B2BEE4E79AD9A5B656C3BFE688A4A9A91B3C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\install_console.log",
+    "bytes": 16739,
+    "sha256": "E3A392E929CAB3219309FFA845AB6017F56CE8BD6E36536B53A94E21CACD164D",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\install_icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\install_icon.log",
+    "bytes": 221250,
+    "sha256": "73607D9E92DEBEE2294470F7C83998ACA33FFCA41E068C1D47ED07224FC3DAD2",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\install_icon_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\install_icon_console.log",
+    "bytes": 17160,
+    "sha256": "8710E33205EA89B3831175BB5373ABED87C3B27D902299C1756C23233113A8DE",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\measure.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\measure.log",
+    "bytes": 1077,
+    "sha256": "46F984F9D4415427DF6295A1EE0C10DE82BF7D94F666E67B84C51B72A46036DC",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagRemodel20260919\\rebuild_m4.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ExtMagRemodel20260919\\rebuild_m4.log",
+    "bytes": 1660,
+    "sha256": "6B32C24FEF057B0CD3019D8F5BE9C8885A2C10276050F2B608B08BD12A8A89BF",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\author_grid.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\author_grid.log",
+    "bytes": 1581,
+    "sha256": "3D6F6C3544FB36C3BEC6F8B7D7E041FC78DEA2CEB9A805A946FE9DD2B2692A85",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\author_surface.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\author_surface.log",
+    "bytes": 773,
+    "sha256": "A6A79EED490832E840354CE54808F67B9EA25CCC3D6719892DC809E04EEF74C8",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\build.json",
+    "bytes": 126579,
+    "sha256": "1C05C219E1EAB57AF4B52C299D571C7490E2D896FF5F4730662C2755216B89DA",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\build.log",
+    "bytes": 44946,
+    "sha256": "49DED4FBECF8F8C35E8FC042B51A0B5E4048FB0821CB6F7A957D7F7CC7707B7A",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\build_console.log",
+    "bytes": 36510,
+    "sha256": "02AB4D33D4D3A61F3961DA6F61685F03D0DF534C4C1E9E9ACEB735B793255D40",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\diagnostic_render.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\diagnostic_render.log",
+    "bytes": 2001,
+    "sha256": "DAC228908C7DD15D7A25AC4A52F1996A07B2761A4623F8E98C4571FCA175DB1E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\finish.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\finish.log",
+    "bytes": 696,
+    "sha256": "4FBCEA7EC01C3DCB6952095AC9BBED5CDCB36AAD7E09BBAA13E2A8FC3F404DCE",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\icon.log",
+    "bytes": 1116,
+    "sha256": "1751A644872C4227782A59E0C2FA9FB9A3E7E70265C09DF294CC3C157E66D8DD",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\install-backup-2026.09.19-13.46.00.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\install-backup-2026.09.19-13.46.00.log",
+    "bytes": 219643,
+    "sha256": "09D66CAD4E8BCE1F3A881A86C96955453C382167898EE45114E7007E7269DF37",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\install.log",
+    "bytes": 218991,
+    "sha256": "248E942704E2E1B131472EFBF2D6357C8BEEF0F114ECA601CEB95B674B0B12AD",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\install_console.log",
+    "bytes": 16603,
+    "sha256": "090DB3C7B2A49D43DE39CEF2C73F9E1A266817D3B5413225F852FCAD5A2AC5B5",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\install_icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\install_icon.log",
+    "bytes": 219931,
+    "sha256": "0DF28A013E8E47672521CABD35D9AD6FD490B765E5DB4109AF4D82A0DC5354B9",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4GridUnified20260919\\install_icon_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\M4GridUnified20260919\\install_icon_console.log",
+    "bytes": 16800,
+    "sha256": "BE6F9647F0F82A55FCB475414710E90194E949BB6A247E67FEF6FD99931BA24C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\author.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\author.log",
+    "bytes": 1246,
+    "sha256": "4521ACB7AE66285092A5C169D4995CBF1E158FF78168215FE1F44AD6A914D9A2",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\build-backup-2026.09.19-13.03.28.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\build-backup-2026.09.19-13.03.28.json",
+    "bytes": 131162,
+    "sha256": "B1C23CEA3A242834A2E7CF678BD83EFD402DA489DFA96C53656D5CE8B67C0F4C",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\build-backup-2026.09.19-13.03.28.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\build-backup-2026.09.19-13.03.28.log",
+    "bytes": 46228,
+    "sha256": "7FB13D6ECDDF099D32E71A40940B16BEB509CAED37FDFC77554D2D9A7D65F089",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\build.json",
+    "bytes": 115248,
+    "sha256": "2B390107B15941AF48C3549F1A89250D4AFB24AF3D944F75BDD51C649AD613C7",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\build.log",
+    "bytes": 41992,
+    "sha256": "65A0CEC2019AB4CBB1DB3E40852740FB966CBF20701ACB00A764700D7B687311",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\build_console.log",
+    "bytes": 37021,
+    "sha256": "4DB6F9BEA7008B005C4DB34ACFD2059D5E4DE75ED9435C8C97B1EF6D831F41D1",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\icon.log",
+    "bytes": 1664,
+    "sha256": "02DA6F145ED87428CAADC3C1F9E231F20E98442212FA0C98EBC79DD91F611C5D",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\install.log",
+    "bytes": 221213,
+    "sha256": "762E8680CE0423D49E3E771321A7A464FD6965F0DDC0DF9685B4722B5D1416F8",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\install_console.log",
+    "bytes": 16614,
+    "sha256": "7E713C057B3AC799470DAFA64538BBF5D369EEEF1BF16949CE99D6E863FD698D",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\install_icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\install_icon.log",
+    "bytes": 218917,
+    "sha256": "AF244F16FD5808492BFA10B1B785E99E4B335DE19BC4AE9D0443185A5C7A7811",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\install_icon_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\install_icon_console.log",
+    "bytes": 16681,
+    "sha256": "1E9CBFE4E891F6685A8BA2BC9C4E65E10023918D963A9599D465659EA9118928",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\lower.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\lower.log",
+    "bytes": 3891,
+    "sha256": "11EF4033902D567E743987FD225378D2F8DA0E39D91AD6AAA4751FB442DA4E90",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\measure.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\measure.log",
+    "bytes": 16321,
+    "sha256": "9D64112E3DD477F1F56C3B739E79BEB3635C869396EC7A1D28B8C7EA2B43BEA8",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12ExtendedMagazine20260919\\sections.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12ExtendedMagazine20260919\\sections.log",
+    "bytes": 2273,
+    "sha256": "140074E2C215DD1937FCD6E32461B21F08F2C80EC33B4154F4E2B05EF389FC0E",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\author.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\author.log",
+    "bytes": 1208,
+    "sha256": "A7C578D9FF11340F76F481CFE8B4199CD8A937812655F06CC0400F040876CD2B",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\build.json",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\build.json",
+    "bytes": 126939,
+    "sha256": "88C4251F6737329835893CCD979C4AD696DFC50C1E90D1D6EF1791387E6F402B",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\build.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\build.log",
+    "bytes": 45246,
+    "sha256": "DCCB03352C0255BACB51356E0D255D6BFCC84F940D6332F44566FD0A66B59AC0",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\build_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\build_console.log",
+    "bytes": 37339,
+    "sha256": "E850CADA8EE0FA79C3BF78C5586B5F8B6790211696A694D732059CB348CDFB80",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\diagnose.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\diagnose.log",
+    "bytes": 1391,
+    "sha256": "52FD6968DB8AC7E6C4663FC75F6D56D771AF36547B7BF795C2A89F4E7E8285CE",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\icon.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\icon.log",
+    "bytes": 1650,
+    "sha256": "9309FFFF7D86E136FCB549390191BFDC4D60C2F8F6F7B16D52F9162694E3F9E6",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\install.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\install.log",
+    "bytes": 220544,
+    "sha256": "BFFADADB3535056491B52EF26EC477E9C2C7A560662B63F15B70FB74D0B20E64",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  },
+  {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\install_console.log",
+    "target": "D:\\FPS3D\\FPSGAME\\trash\\extended-magazines-20260919\\SourceAssets\\ASH12MagFinish20260919\\install_console.log",
+    "bytes": 16792,
+    "sha256": "748220DFCFDCBFC158B178E60AAED6205CBC852AC4CA5E18CC81018AA33CF4E2",
+    "reason": "制作过程日志/构建记录/有正式源的自动备份；关键结果保留在 README 和导入回执",
+    "replacement": "SourceAssets/M4GridUnified20260919 (M4); 各枪当前作者入口见发布文档"
+  }
+]

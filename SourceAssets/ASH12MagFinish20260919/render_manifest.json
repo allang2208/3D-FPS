@@ -1,0 +1,40 @@
+{
+  "renders": [
+    {
+      "key": "ue_ash12_magazine_ext_mag",
+      "gun": "ASH12",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12MagFinish20260919\\ASH12_ExtMag30_Finish_Editable.blend",
+      "objects": [
+        "SM_ASH12_ExtMag30_Finish"
+      ],
+      "frame": "measured",
+      "matrix": [
+        [
+          -0.0007783524342812598,
+          -0.9999997615814209,
+          -6.802247662562877e-05,
+          0.0
+        ],
+        [
+          0.9961944222450256,
+          -0.0007813191041350365,
+          0.0871560350060463,
+          0.0
+        ],
+        [
+          -0.08715605735778809,
+          7.449852290619674e-08,
+          0.9961946606636047,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "runtime": "/Game/Weapons/ASH12/MagazineFinish20260919/SM_ASH12_ExtMag30_Finish"
+    }
+  ]
+}

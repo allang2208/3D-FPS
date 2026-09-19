@@ -1,0 +1,115 @@
+{
+  "renders": [
+    {
+      "key": "ue_m4a1_magazine_ext_mag",
+      "gun": "M4",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\M4_ExtMag_Continuous_Editable.blend",
+      "objects": [
+        "SM_ExtMag_M440_Continuous"
+      ],
+      "frame": "measured",
+      "matrix": [
+        [
+          -0.00015016389079391956,
+          -1.0,
+          -1.3278432561492082e-05,
+          0.0
+        ],
+        [
+          0.9961946606636047,
+          -0.00015074976545292884,
+          0.08715584874153137,
+          0.0
+        ],
+        [
+          -0.08715584874153137,
+          -1.40242264023982e-07,
+          0.9961946606636047,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "frame_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\SK_M4_FoldingSights_HK416.fbx",
+      "runtime": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_M440_Continuous"
+    },
+    {
+      "key": "ue_akm_magazine_ext_mag",
+      "gun": "AKM",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\AKM_ExtMag_Continuous_Editable.blend",
+      "objects": [
+        "SM_ExtMag_AKM40_Continuous"
+      ],
+      "frame": "measured",
+      "matrix": [
+        [
+          -0.00015016389079391956,
+          -1.0,
+          -1.3278432561492082e-05,
+          0.0
+        ],
+        [
+          0.9961946606636047,
+          -0.00015074976545292884,
+          0.08715584874153137,
+          0.0
+        ],
+        [
+          -0.08715584874153137,
+          -1.40242264023982e-07,
+          0.9961946606636047,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "frame_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\AKM\\SK_AKM_MannyNative.fbx",
+      "runtime": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_AKM40_Continuous"
+    },
+    {
+      "key": "ue_qbz191_magazine_ext_mag",
+      "gun": "QBZ",
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagContinuity20260919\\QBZ_ExtMag_Continuous_Editable.blend",
+      "objects": [
+        "SM_ExtMag_QBZ40_Continuous"
+      ],
+      "frame": "measured",
+      "matrix": [
+        [
+          4.682544386014342e-06,
+          -1.0,
+          3.1913592124510615e-07,
+          0.0
+        ],
+        [
+          0.9961947202682495,
+          4.6925406422815286e-06,
+          0.08715584874153137,
+          0.0
+        ],
+        [
+          -0.08715584874153137,
+          -9.018961577567097e-08,
+          0.9961947202682495,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "frame_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PhantomRearGripIntegration20260913\\QBZ191\\SK_QBZ191_Manny.fbx",
+      "runtime": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_QBZ40_Continuous"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "M4": {
+    "mesh": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_M440_Continuous.SM_ExtMag_M440_Continuous",
+    "previous": "/Game/Weapons/MagazineMouthFinish20260919/SM_ExtMag_M440",
+    "actual_slots": [
+      {
+        "slot": "Magazine Light_001",
+        "material": "/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4_Continuous.M_M4_Continuous"
+      }
+    ]
+  },
+  "AKM": {
+    "mesh": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_AKM40_Continuous.SM_ExtMag_AKM40_Continuous",
+    "previous": "/Game/Weapons/MagazineMouthFinish20260919/SM_ExtMag_AKM40_Mouth",
+    "actual_slots": [
+      {
+        "slot": "M_AKM_Soviet_Magazine",
+        "material": "/Game/Weapons/ExtMagContinuity20260919/Materials/M_AKM_Continuous_Graph.M_AKM_Continuous_Graph"
+      },
+      {
+        "slot": "AKM_Magazine_Mouth",
+        "material": "/Game/Weapons/MagazineMouthFinish20260919/M_AKM_MagazineMouth.M_AKM_MagazineMouth"
+      }
+    ]
+  },
+  "QBZ": {
+    "mesh": "/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_QBZ40_Continuous.SM_ExtMag_QBZ40_Continuous",
+    "previous": "/Game/Weapons/MagazineMouthFinish20260919/SM_ExtMag_QBZ40",
+    "actual_slots": [
+      {
+        "slot": "M_QBZ191_Wear_Magazine",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer"
+      }
+    ]
+  }
+}

@@ -271,7 +271,7 @@
           {
             "id": "ext_mag",
             "name": "扩容弹匣",
-            "description": "通用加长聚合物弹匣，带余弹观察窗与加长底板，直接替换原厂弹匣。",
+            "description": "沿原厂 M4 聚合物弹匣加长，保留插接段与防滑肋纹。",
             "effects": [
               {
                 "text": "弹匣容量增加10发",
@@ -859,7 +859,7 @@
           {
             "id": "ext_mag",
             "name": "扩容弹匣",
-            "description": "通用加长聚合物弹匣，带余弹观察窗与加长底板，直接替换原厂弹匣。",
+            "description": "沿原厂 AKM 钢制弯弹匣加长，保留弧形轮廓与冲压加强筋。",
             "effects": [
               {
                 "text": "弹匣容量增加10发",
@@ -1447,7 +1447,7 @@
           {
             "id": "ext_mag",
             "name": "扩容弹匣",
-            "description": "通用加长聚合物弹匣，带余弹观察窗与加长底板，直接替换原厂弹匣。",
+            "description": "沿原厂 QBZ-191 聚合物弹匣加长，保留插接段与表面纹理。",
             "effects": [
               {
                 "text": "弹匣容量增加10发",
@@ -2258,6 +2258,30 @@
             "description": "20 发 12.7×55mm 标准弹匣，安装在握把后方的弹匣井。",
             "effects": [],
             "stats": {}
+          },
+          {
+            "id": "ext_mag",
+            "name": "扩容弹匣",
+            "description": "沿 ASH-12 原厂弧形壳体加长，保留插接段、抓握区和独立底板。",
+            "effects": [
+              {
+                "text": "弹匣容量增加10发",
+                "benefit": 1
+              },
+              {
+                "text": "装填耗时增加25%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "mag_delta": 10,
+              "reload_mult": 1.25,
+              "ads_percent": 0.05
+            }
           }
         ],
         "muzzle": [

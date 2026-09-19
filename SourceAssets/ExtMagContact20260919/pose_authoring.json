@@ -1,0 +1,28 @@
+{
+  "A_M4_ExtContact_reload": {
+    "source": "M4TacticalToss20260910/M4_Hand_MAT_Editable.blend",
+    "duration": 2.1,
+    "rate": 480,
+    "contact_window_frames": [
+      43,
+      61,
+      95,
+      108
+    ],
+    "max_unreachable_m": 0.028112134621165796,
+    "donor": "AKM accepted wrap aligned in magazine coordinates"
+  },
+  "A_AKM_ExtContact_reload": {
+    "source": "AKMReloadPolish20260911/base/A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "rate": 240,
+    "contact_window_frames": [
+      76,
+      105,
+      178,
+      207
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  }
+}

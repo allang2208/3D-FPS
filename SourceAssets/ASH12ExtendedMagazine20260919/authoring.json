@@ -1,0 +1,53 @@
+{
+  "ASH12": {
+    "seams_m": [
+      0.0,
+      0.025,
+      0.05,
+      0.07500000000000001
+    ],
+    "blend_halfwidth_mm": 4.0,
+    "normal_blend": "alternate tangent frame rotated into UV0 frame; matrix in UV2-6",
+    "extension_cm": 7.5,
+    "capacity": 30,
+    "center": [
+      -0.4117883780099788,
+      -0.0736650327750843
+    ],
+    "radius_cm": 44.19732667000705,
+    "source": "ASH12Surface20260919/ASH12_Surface_Editable.blend",
+    "cut_z_m": -0.165,
+    "frame": [
+      [
+        -0.0007783524342812598,
+        -0.9999997615814209,
+        -6.802247662562877e-05,
+        0.0
+      ],
+      [
+        0.9961944222450256,
+        -0.0007813191041350365,
+        0.0871560350060463,
+        0.0
+      ],
+      [
+        -0.08715605735778809,
+        7.449852290619674e-08,
+        0.9961946606636047,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "materials": [
+      "M_ASH12_Magazine",
+      "M_ASH12_Magazine_Base"
+    ],
+    "vertices": 8212,
+    "tested": false
+  }
+}

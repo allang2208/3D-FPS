@@ -1,0 +1,16 @@
+{
+  "M4": {
+    "mesh": "/Game/Weapons/ExtMagRemodel20260919/SM_ExtMag_M440_Remodel.SM_ExtMag_M440_Remodel",
+    "materials": [
+      "/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4_Continuous.M_M4_Continuous"
+    ],
+    "tested": false
+  },
+  "QBZ": {
+    "mesh": "/Game/Weapons/ExtMagRemodel20260919/SM_ExtMag_QBZ40_Remodel.SM_ExtMag_QBZ40_Remodel",
+    "materials": [
+      "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer"
+    ],
+    "tested": false
+  }
+}

@@ -693,6 +693,36 @@ void AFPSGAMECharacter::ReloadPressed()
     UAnimSequence* Animation = bPendingEmptyReload ? ReloadEmptyAnimation : ReloadAnimation;
     if (bUseDanWesson715) Animation = RevolverClip;
     if(bDrumInstalled)Animation=bPendingEmptyReload?DrumReloadEmptyAnimation:DrumReloadAnimation;
+    if (bUsingM4Infima && bUseM4Infima && !bUseQBZ191 && !bUseASH12
+        && !IsPistolWeapon() && !bDrumInstalled
+        && (MagazineAttachmentId.IsEmpty() || MagazineAttachmentId == TEXT("ext_mag")))
+    {
+        // bUsingM4Infima also marks QBZ/pistol shared timing. This contact
+        // animation belongs only to the actual M4 mesh and skeleton. Standard
+        // and extended magazines share the unchanged upper contact surface;
+        // both use the same wrapped grasp. Drums keep their separate action.
+        const TCHAR* ExtMagClip = bPendingEmptyReload
+            ? TEXT("/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload_empty")
+            : TEXT("/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload");
+        if (UAnimSequence* ExtMagAnimation = LoadObject<UAnimSequence>(nullptr, ExtMagClip))
+            if (ExtMagAnimation->GetSkeleton() == AKMViewmodel->GetSkeletalMeshAsset()->GetSkeleton())
+                Animation = ExtMagAnimation;
+    }
+    else if (MagazineAttachmentId == TEXT("ext_mag") && AKMSoviet::Matches(AKMViewmodel))
+    {
+        // Keep each attachment's approach/return, with local finger clearance
+        // during the magazine contact. Never route QBZ through this branch.
+        const TCHAR* Grip = HasAngledForegrip() ? TEXT("angled_")
+            : HasCantedForegrip() ? TEXT("canted_")
+            : HasVerticalForegrip() ? TEXT("vertical_")
+            : HasPrismHandstop() ? TEXT("prism_") : TEXT("");
+        const FString ExtMagClip = FString::Printf(
+            TEXT("/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_%s%s"),
+            Grip, bPendingEmptyReload ? TEXT("reload_empty") : TEXT("reload"));
+        if (UAnimSequence* ExtMagAnimation = LoadObject<UAnimSequence>(nullptr, *ExtMagClip))
+            if (ExtMagAnimation->GetSkeleton() == AKMViewmodel->GetSkeletalMeshAsset()->GetSkeleton())
+                Animation = ExtMagAnimation;
+    }
     const float ClipLength = Animation ? Animation->GetPlayLength() : WeaponStateDuration;
     if (IsPistolWeapon() && Animation)
     {

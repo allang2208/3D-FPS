@@ -1,0 +1,42 @@
+{
+  "M4": {
+    "mesh": "/Game/Weapons/MagazineMouthFinish20260919/SM_ExtMag_M440.SM_ExtMag_M440",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\FBX\\SM_ExtMag_M440.fbx",
+    "host": "/Game/Weapons/M4HK416Replica/SK_M4_FoldingSights_HK416",
+    "actual_slots": [
+      {
+        "slot": "Magazine Light_001",
+        "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001"
+      }
+    ],
+    "saved": true
+  },
+  "QBZ": {
+    "mesh": "/Game/Weapons/MagazineMouthFinish20260919/SM_ExtMag_QBZ40.SM_ExtMag_QBZ40",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\FBX\\SM_ExtMag_QBZ40.fbx",
+    "host": "/Game/Weapons/QBZ191/RearGrip20260913/SK_QBZ191_Manny",
+    "actual_slots": [
+      {
+        "slot": "M_QBZ191_Wear_Magazine",
+        "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer"
+      }
+    ],
+    "saved": true
+  },
+  "AKM": {
+    "mesh": "/Game/Weapons/MagazineMouthFinish20260919/SM_ExtMag_AKM40_Mouth.SM_ExtMag_AKM40_Mouth",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MagazineMouthFinish20260919\\FBX\\SM_ExtMag_AKM40_Mouth.fbx",
+    "host": "/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative",
+    "actual_slots": [
+      {
+        "slot": "M_AKM_Soviet_Magazine",
+        "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+      },
+      {
+        "slot": "AKM_Magazine_Mouth",
+        "material": "/Game/Weapons/MagazineMouthFinish20260919/M_AKM_MagazineMouth.M_AKM_MagazineMouth"
+      }
+    ],
+    "saved": true
+  }
+}

@@ -173,3 +173,7 @@ GitHub 冰裂纹采用 MIT（Shader Vault），已保存并随 `Content/ColdStee
 ## 2026-09-19 枪械快速近战收尾
 
 M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、有效作者依赖、废案归档及公开恢复边界，见 [快速近战发布与恢复](Weapons/quick-melee-publication-20260919.md)。Blend／FBX／uasset、原始参考及密集骨骼数据继续仅保留本机；公共源码不包含完整资源包。
+
+## 扩容弹匣（2026-09-19）
+
+当前四枪作者入口、保留输入、最终资源及本地素材恢复边界见 [扩容弹匣发布记录](Weapons/extended-magazines-publication-20260919.md)。未经审核再分发许可的模型、纹理、动画和完整采样数据保持本地。

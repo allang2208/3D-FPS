@@ -1,0 +1,14 @@
+{
+  "mesh": "/Game/Weapons/ASH12/MagazineFinish20260919/SM_ASH12_ExtMag30_Finish.SM_ASH12_ExtMag30_Finish",
+  "slots": [
+    "/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12_Continuous_Graph.M_ASH12_Continuous_Graph",
+    "/Game/Weapons/ASH12/Surface20260919/Materials/M_ASH12_Magazine_Base.M_ASH12_Magazine_Base"
+  ],
+  "vertex_color_import": "REPLACE",
+  "region_mask": [
+    0,
+    0,
+    0,
+    1
+  ]
+}

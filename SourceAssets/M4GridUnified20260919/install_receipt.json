@@ -1,0 +1,20 @@
+[
+  {
+    "key": "ue_m4a1_magazine_ext_mag",
+    "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m4a1_magazine_ext_mag.png",
+    "sha256_before": "c9837fd223b937456456a243edf1fb088bca25e8548d1f4563fdec1d1bd135e9",
+    "sha256_after": "9b46e1573cba5c923edf90ce7440da7ee7a54a0fb2e12e800cfd164a80d85dce",
+    "texture": "/Game/ColdSteelData/AttachmentIcons20260913/ue_m4a1_magazine_ext_mag.ue_m4a1_magazine_ext_mag",
+    "texture_saved": true,
+    "shared_reference": null
+  },
+  {
+    "key": "magazine_ext_mag",
+    "png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\magazine_ext_mag.png",
+    "sha256_before": "c9837fd223b937456456a243edf1fb088bca25e8548d1f4563fdec1d1bd135e9",
+    "sha256_after": "9b46e1573cba5c923edf90ce7440da7ee7a54a0fb2e12e800cfd164a80d85dce",
+    "texture": "/Game/ColdSteelData/AttachmentIcons20260913/magazine_ext_mag.magazine_ext_mag",
+    "texture_saved": true,
+    "shared_reference": "M4 fallback only; three rifles use dedicated PNGs"
+  }
+]

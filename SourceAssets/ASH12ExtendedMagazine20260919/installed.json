@@ -1,0 +1,10 @@
+{
+  "mesh": "/Game/Weapons/ASH12/ExtendedMagazine20260919/SM_ASH12_ExtMag30.SM_ASH12_ExtMag30",
+  "materials": [
+    "/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12_Continuous_Graph.M_ASH12_Continuous_Graph",
+    "/Game/Weapons/ASH12/Surface20260919/Materials/M_ASH12_Magazine_Base.M_ASH12_Magazine_Base"
+  ],
+  "dry": "/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12_Continuous_Graph.M_ASH12_Continuous_Graph",
+  "wet": "/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12Wet_Continuous_Graph.M_ASH12Wet_Continuous_Graph",
+  "tested": false
+}

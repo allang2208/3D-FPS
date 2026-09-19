@@ -1,0 +1,65 @@
+{
+  "M4": {
+    "center_yz": [
+      0.4991745219236667,
+      -0.11029705186443989
+    ],
+    "radius_cm": 23.49260803034385,
+    "edge_radii_cm": [
+      26.77198659508252,
+      20.21322946560518
+    ],
+    "length_cm": 17.700135707855225,
+    "cut_s_cm": 15.1,
+    "period_cm": 1.25,
+    "donor_start_cm": 13.849999999999998,
+    "extension_cm": 6.25,
+    "repeats": 5,
+    "source_contours": 2,
+    "surface": "original clipped faces and per-corner UV, cylindrical continuation",
+    "vertices": 4393,
+    "adjacent_basis_corners": 29
+  },
+  "AKM": {
+    "center_yz": [
+      0.40186458294216726,
+      -0.06563394862446045
+    ],
+    "radius_cm": 21.455743631124903,
+    "edge_radii_cm": [
+      24.678975803441855,
+      18.232511458807945
+    ],
+    "length_cm": 19.84870731830597,
+    "cut_s_cm": 16.998707318305968,
+    "period_cm": 3.0,
+    "donor_start_cm": 13.99870731830597,
+    "extension_cm": 6.0,
+    "repeats": 2,
+    "source_contours": 1,
+    "surface": "original clipped faces and per-corner UV, cylindrical continuation",
+    "vertices": 5208,
+    "adjacent_basis_corners": 21
+  },
+  "QBZ": {
+    "center_yz": [
+      0.530642224219856,
+      -0.05026281500424809
+    ],
+    "radius_cm": 26.154192612777482,
+    "edge_radii_cm": [
+      29.51182945590027,
+      22.796555769654695
+    ],
+    "length_cm": 18.348951637744904,
+    "cut_s_cm": 15.223951637744904,
+    "period_cm": 3.1,
+    "donor_start_cm": 12.123951637744904,
+    "extension_cm": 6.2,
+    "repeats": 2,
+    "source_contours": 1,
+    "surface": "original clipped faces and per-corner UV, cylindrical continuation",
+    "vertices": 6837,
+    "adjacent_basis_corners": 27
+  }
+}

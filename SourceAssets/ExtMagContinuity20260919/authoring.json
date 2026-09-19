@@ -1,0 +1,35 @@
+{
+  "AKM": {
+    "seams_m": [
+      0.14,
+      0.17,
+      0.2
+    ],
+    "blend_halfwidth_mm": 4.0,
+    "normal_blend": "alternate tangent frame rotated into UV0 frame; matrix in UV2-6",
+    "vertices": 12903,
+    "triangles": 22132,
+    "source": "latest mouth + factory longitudinal rib sweep"
+  },
+  "M4": {
+    "seams_m": [
+      0.151,
+      0.1635,
+      0.176,
+      0.1885,
+      0.201,
+      0.2135
+    ],
+    "blend_halfwidth_mm": 4.0,
+    "normal_blend": "alternate tangent frame rotated into UV0 frame; matrix in UV2-6",
+    "vertices": 11533,
+    "triangles": 22138,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\M4_ExtMag_Editable.blend"
+  },
+  "QBZ": {
+    "max_edge_adjustment_mm": 1.6634651013266868,
+    "vertices": 6837,
+    "triangles": 13537,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ExtMagPattern20260919\\QBZ_ExtMag_Editable.blend"
+  }
+}

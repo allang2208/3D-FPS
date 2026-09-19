@@ -1,0 +1,23 @@
+{
+  "M4": {
+    "center_yz": [
+      0.4991745219236667,
+      -0.11029705186443989
+    ],
+    "radius_cm": 23.49260803034385,
+    "edge_radii_cm": [
+      26.77198659508252,
+      20.21322946560518
+    ],
+    "length_cm": 17.700135707855225,
+    "cut_s_cm": 13.200000000000001,
+    "period_cm": 1.25,
+    "donor_start_cm": 11.950000000000001,
+    "extension_cm": 6.25,
+    "repeats": 5,
+    "source_contours": 2,
+    "surface": "original clipped faces and per-corner UV, cylindrical continuation",
+    "vertices": 4654,
+    "adjacent_basis_corners": 5
+  }
+}

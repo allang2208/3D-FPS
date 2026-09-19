@@ -1,0 +1,158 @@
+{
+  "A_M4_ExtContact_reload": {
+    "source": "M4TacticalToss20260910/M4_Hand_MAT_Editable.blend",
+    "duration": 2.1,
+    "rate": 480,
+    "contact_window_frames": [
+      43,
+      61,
+      95,
+      108
+    ],
+    "max_unreachable_m": 0,
+    "donor": "AKM accepted wrap aligned in magazine coordinates"
+  },
+  "A_M4_ExtContact_reload_empty": {
+    "source": "M4SlapImpact20260910/M4_Hand_MAT_Editable.blend",
+    "duration": 2.7,
+    "rate": 480,
+    "contact_window_frames": [
+      35,
+      43,
+      80,
+      100
+    ],
+    "max_unreachable_m": 0,
+    "donor": "AKM accepted wrap aligned in magazine coordinates"
+  },
+  "A_AKM_ExtContact_reload": {
+    "source": "AKMReloadPolish20260911/base/A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "rate": 240,
+    "contact_window_frames": [
+      76,
+      105,
+      178,
+      207
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_reload_empty": {
+    "source": "AKMReloadPolish20260911/base/A_AKM_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "rate": 240,
+    "contact_window_frames": [
+      90,
+      124,
+      256,
+      286
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_angled_reload": {
+    "source": "CantedGripMigration20260911/akm/angled/A_AKM_angled_reload.blend",
+    "duration": 3.3333333333333335,
+    "rate": 120,
+    "contact_window_frames": [
+      76,
+      105,
+      178,
+      207
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_angled_reload_empty": {
+    "source": "CantedGripMigration20260911/akm/angled/A_AKM_angled_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "rate": 120,
+    "contact_window_frames": [
+      90,
+      124,
+      256,
+      286
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_vertical_reload": {
+    "source": "MannyGraspDonor20260912/Final/akm/vertical/A_AKM_vertical_reload.blend",
+    "duration": 3.3333333333333335,
+    "rate": 120,
+    "contact_window_frames": [
+      76,
+      105,
+      178,
+      207
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_vertical_reload_empty": {
+    "source": "MannyGraspDonor20260912/Final/akm/vertical/A_AKM_vertical_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "rate": 120,
+    "contact_window_frames": [
+      90,
+      124,
+      256,
+      286
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_prism_reload": {
+    "source": "VREGripExtensions20260912/Final/akm/prism/A_AKM_prism_reload.blend",
+    "duration": 3.3333333333333335,
+    "rate": 120,
+    "contact_window_frames": [
+      76,
+      105,
+      178,
+      207
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_prism_reload_empty": {
+    "source": "VREGripExtensions20260912/Final/akm/prism/A_AKM_prism_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "rate": 120,
+    "contact_window_frames": [
+      90,
+      124,
+      256,
+      286
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_canted_reload": {
+    "source": "VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload.blend",
+    "duration": 3.3333333333333335,
+    "rate": 120,
+    "contact_window_frames": [
+      76,
+      105,
+      178,
+      207
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  },
+  "A_AKM_ExtContact_canted_reload_empty": {
+    "source": "VREGripExtensions20260912/Final/akm/canted/A_AKM_canted_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "rate": 120,
+    "contact_window_frames": [
+      90,
+      124,
+      256,
+      286
+    ],
+    "max_unreachable_m": 0,
+    "donor": "own source with 2 mm palm clearance and 4 degree finger opening"
+  }
+}

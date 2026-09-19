@@ -1,6 +1,7 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
+#include "ASH12WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -46,7 +47,7 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
     const bool bRifle=bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel)||bUseQBZ191;
     MagazineAttachmentId=(bDrum||bExtMag)&&bRifle&&bInventoryWeaponReady?Id:FString();
     // Preserve the historical drum gating exactly; the universal extended
-    // magazine covers all three rifles.
+    // magazine uses each rifle's own factory-derived mesh.
     bDrum=bDrum&&(bUsingM4Infima||AKMSoviet::Matches(AKMViewmodel))&&bInventoryWeaponReady;
     bExtMag=MagazineAttachmentId==TEXT("ext_mag");
     auto* WeaponMesh=AKMViewmodel->GetSkeletalMeshAsset();if(!WeaponMesh)return;
@@ -79,12 +80,14 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
     if(bExtMag)
     {
         // Each rifle takes its own factory magazine shape, so each gets its own
-        // asset: QBZ-191 the 5.8 mm magazine, M4 and AKM the PMAG they share.
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseQBZ191
-            ?TEXT("/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_QBZ40.SM_ExtMag_QBZ40")
+        // asset: QBZ-191 polymer, M4 PMAG, AKM stamped steel.
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseASH12
+            ?ASH12WeaponAssets::ExtendedMagazineMeshPath
+            :bUseQBZ191
+            ?TEXT("/Game/Weapons/ExtMagRemodel20260919/SM_ExtMag_QBZ40_Remodel.SM_ExtMag_QBZ40_Remodel")
             :AKMSoviet::Matches(AKMViewmodel)
-                ?TEXT("/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_AKM40.SM_ExtMag_AKM40")
-                :TEXT("/Game/Weapons/ExtMagUniversal20260917/SM_ExtMag_M440.SM_ExtMag_M440"));
+                ?TEXT("/Game/Weapons/ExtMagContinuity20260919/SM_ExtMag_AKM40_Continuous.SM_ExtMag_AKM40_Continuous")
+                :TEXT("/Game/Weapons/M4GridUnified20260919/SM_M4_ExtMag40_Grid.SM_M4_ExtMag40_Grid"));
         if(!Asset){UE_LOG(LogTemp,Error,TEXT("EXT_MAG: missing mesh"));return;}
         if(!LargeDrum)
         {
@@ -94,11 +97,10 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
         }
         if(LargeDrum->GetStaticMesh()!=Asset)LargeDrum->EmptyOverrideMaterials();
         LargeDrum->SetStaticMesh(Asset);
-        // The meshes carry the factory magazine's own placement in the weapon's
-        // frame (Scripts/rebuild_in_weapon_frame.py fits each one onto its own
-        // rifle's factory magazine, throat to throat, with the added 6 cm below
-        // the floor plate) - the same convention the accepted large drum uses,
-        // and the factory magazine is skinned 100% to WPN_SOCKET_Magazine.
+        // ExtMagPattern20260919 preserves each factory magazine's mesh-space
+        // upper shell and feed section, extending only the lower body. The
+        // factory magazine is skinned 100% to WPN_SOCKET_Magazine, so retain
+        // its bind-chain inverse for the replacement throughout the reload.
         // Use the drum's own accumulation verbatim: it is the only seat formula
         // in this file that has been verified in game. A parent-first product of
         // the same ref poses (the "textbook" socket transform) reads differently

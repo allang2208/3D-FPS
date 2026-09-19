@@ -1,0 +1,28 @@
+{
+  "M4": {
+    "mesh": "/Game/Weapons/ExtMagRebuild20260919/Release/SM_ExtMag_M440.SM_ExtMag_M440",
+    "material": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "saved": true,
+    "icon_png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m4a1_magazine_ext_mag.png"
+  },
+  "AKM": {
+    "mesh": "/Game/Weapons/ExtMagRebuild20260919/Release/SM_ExtMag_AKM40.SM_ExtMag_AKM40",
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR",
+    "saved": true,
+    "icon_png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_akm_magazine_ext_mag.png"
+  },
+  "QBZ": {
+    "mesh": "/Game/Weapons/ExtMagRebuild20260919/Release/SM_ExtMag_QBZ40.SM_ExtMag_QBZ40",
+    "material": "/Game/Weapons/QBZ191/Attachments20260913/Materials/M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer.M_QBZ191_Unified_M_QBZ191_Wear_Magazine_polymer",
+    "saved": true,
+    "icon_png": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_qbz191_magazine_ext_mag.png"
+  },
+  "reload": {
+    "path": "/Game/Weapons/ExtMagRebuild20260919/Release/A_M4_ExtMagGrip_reload.A_M4_ExtMagGrip_reload",
+    "saved": true
+  },
+  "reload_empty": {
+    "path": "/Game/Weapons/ExtMagRebuild20260919/Release/A_M4_ExtMagGrip_reload_empty.A_M4_ExtMagGrip_reload_empty",
+    "saved": true
+  }
+}

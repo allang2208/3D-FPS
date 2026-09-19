@@ -49,6 +49,21 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* PistolMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715WeaponAssets::WetMaterialsPath))
             for(const auto& Entry:PistolMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    // Extended-magazine seam blending must also survive the wet-material swap.
+    if(Assets)
+    {
+        const TCHAR* Dry[] = {
+            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4_Continuous.M_M4_Continuous"),
+            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_AKM_Continuous_Graph.M_AKM_Continuous_Graph"),
+            TEXT("/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12_Continuous_Graph.M_ASH12_Continuous_Graph")};
+        const TCHAR* Wet[] = {
+            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4Wet_Continuous.M_M4Wet_Continuous"),
+            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_AKMWet_Continuous_Graph.M_AKMWet_Continuous_Graph"),
+            TEXT("/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12Wet_Continuous_Graph.M_ASH12Wet_Continuous_Graph")};
+        for(int32 I=0;I<3;++I)
+            if(auto* Material=LoadObject<UMaterialInterface>(nullptr,Wet[I]))
+                Assets->WetMaterials.Add(Dry[I],Material);
+    }
     if(Assets&&Assets->ScreenMaterial)
     {
         LensMaterial=UMaterialInstanceDynamic::Create(Assets->ScreenMaterial,this);

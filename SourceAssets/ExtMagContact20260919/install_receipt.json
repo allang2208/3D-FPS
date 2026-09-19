@@ -1,0 +1,67 @@
+{
+  "A_M4_ExtContact_reload": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload.A_M4_ExtContact_reload",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_M4_ExtContact_reload_empty": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_M4_ExtContact_reload_empty.A_M4_ExtContact_reload_empty",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_reload": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload.A_AKM_ExtContact_reload",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_reload_empty": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_reload_empty.A_AKM_ExtContact_reload_empty",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_angled_reload": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload.A_AKM_ExtContact_angled_reload",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_angled_reload_empty": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_angled_reload_empty.A_AKM_ExtContact_angled_reload_empty",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_vertical_reload": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload.A_AKM_ExtContact_vertical_reload",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_vertical_reload_empty": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_vertical_reload_empty.A_AKM_ExtContact_vertical_reload_empty",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_prism_reload": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_prism_reload.A_AKM_ExtContact_prism_reload",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_prism_reload_empty": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_prism_reload_empty.A_AKM_ExtContact_prism_reload_empty",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_canted_reload": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_canted_reload.A_AKM_ExtContact_canted_reload",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "A_AKM_ExtContact_canted_reload_empty": {
+    "path": "/Game/Weapons/ExtMagContact20260919/A_AKM_ExtContact_canted_reload_empty.A_AKM_ExtContact_canted_reload_empty",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "saved": true
+  },
+  "SM_ExtMag_AKM40_Closed": {
+    "path": "/Game/Weapons/ExtMagContact20260919/SM_ExtMag_AKM40_Closed.SM_ExtMag_AKM40_Closed",
+    "saved": true,
+    "material": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+  }
+}

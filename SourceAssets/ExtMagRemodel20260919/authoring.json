@@ -1,0 +1,24 @@
+{
+  "M4": {
+    "seams_m": [
+      0.132,
+      0.14450000000000002,
+      0.157,
+      0.1695,
+      0.182,
+      0.1945
+    ],
+    "blend_halfwidth_mm": 4.0,
+    "normal_blend": "alternate tangent frame rotated into UV0 frame; matrix in UV2-6",
+    "vertices": 12870,
+    "tested": false
+  },
+  "QBZ": {
+    "start_m": 0.14223951637744903,
+    "end_m": 0.22023951637744904,
+    "edge_method": "Hermite end tangents; 8 mm rim blend; intact factory plate",
+    "max_displacement_mm": 0.7745639343986912,
+    "vertices": 6837,
+    "tested": false
+  }
+}
