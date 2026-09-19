@@ -1,0 +1,32 @@
+{
+  "total_checks": 136.0,
+  "build": "UnrealEditor-FPSGAME-2026091206.dll",
+  "preview": "Saved/M4DrumAudit/accepted-infinite-1440-reload-drum-panel.png",
+  "runs": [
+    {
+      "run": "accepted-finite-1280-write",
+      "failures": 0,
+      "checks": 35,
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\M4DrumAudit\\accepted-finite-1280-write.log"
+    },
+    {
+      "run": "accepted-finite-1280-reload",
+      "failures": 0,
+      "checks": 33,
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\M4DrumAudit\\accepted-finite-1280-reload.log"
+    },
+    {
+      "run": "accepted-infinite-1440-write",
+      "failures": 0,
+      "checks": 35,
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\M4DrumAudit\\accepted-infinite-1440-write.log"
+    },
+    {
+      "run": "accepted-infinite-1440-reload",
+      "failures": 0,
+      "checks": 33,
+      "log": "D:\\FPS3D\\FPSGAME\\Saved\\M4DrumAudit\\accepted-infinite-1440-reload.log"
+    }
+  ],
+  "source_validation": "SourceAssets/M4Drum20260909/validation.json"
+}

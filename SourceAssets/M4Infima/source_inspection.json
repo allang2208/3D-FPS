@@ -1,0 +1,2253 @@
+{
+  "objects": [
+    {
+      "name": "_Credit",
+      "type": "FONT",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "_CS_Cube",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Armature",
+      "type": "ARMATURE",
+      "library": null,
+      "bones": [
+        "root",
+        "pelvis",
+        "spine_01",
+        "spine_02",
+        "spine_03",
+        "spine_04",
+        "spine_05",
+        "neck_01",
+        "neck_02",
+        "head",
+        "clavicle_l",
+        "upperarm_l",
+        "lowerarm_l",
+        "lowerarm_twist_02_l",
+        "lowerarm_twist_01_l",
+        "hand_l",
+        "index_metacarpal_l",
+        "index_01_l",
+        "index_02_l",
+        "index_03_l",
+        "middle_metacarpal_l",
+        "middle_01_l",
+        "middle_02_l",
+        "middle_03_l",
+        "thumb_01_l",
+        "thumb_02_l",
+        "thumb_03_l",
+        "pinky_metacarpal_l",
+        "pinky_01_l",
+        "pinky_02_l",
+        "pinky_03_l",
+        "ring_metacarpal_l",
+        "ring_01_l",
+        "ring_02_l",
+        "ring_03_l",
+        "upperarm_twist_01_l",
+        "upperarm_twist_02_l",
+        "clavicle_r",
+        "upperarm_r",
+        "lowerarm_r",
+        "lowerarm_twist_02_r",
+        "lowerarm_twist_01_r",
+        "hand_r",
+        "pinky_metacarpal_r",
+        "pinky_01_r",
+        "pinky_02_r",
+        "pinky_03_r",
+        "ring_metacarpal_r",
+        "ring_01_r",
+        "ring_02_r",
+        "ring_03_r",
+        "middle_metacarpal_r",
+        "middle_01_r",
+        "middle_02_r",
+        "middle_03_r",
+        "index_metacarpal_r",
+        "index_01_r",
+        "index_02_r",
+        "index_03_r",
+        "thumb_01_r",
+        "thumb_02_r",
+        "thumb_03_r",
+        "upperarm_twist_01_r",
+        "upperarm_twist_02_r",
+        "thigh_r",
+        "calf_r",
+        "foot_r",
+        "ball_r",
+        "calf_twist_02_r",
+        "calf_twist_01_r",
+        "thigh_twist_01_r",
+        "thigh_twist_02_r",
+        "thigh_l",
+        "calf_l",
+        "foot_l",
+        "ball_l",
+        "calf_twist_02_l",
+        "calf_twist_01_l",
+        "thigh_twist_01_l",
+        "thigh_twist_02_l",
+        "ik_foot_root",
+        "ik_foot_l",
+        "ik_foot_r",
+        "ik_hand_root",
+        "ik_hand_gun",
+        "ik_hand_l",
+        "ik_hand_r",
+        "interaction",
+        "center_of_mass",
+        "CB_root",
+        "CB_pelvis",
+        "REF_pelvis",
+        "CB_spine_01",
+        "REF_spine_01",
+        "CB_spine_02",
+        "REF_spine_02",
+        "CB_spine_03",
+        "REF_spine_03",
+        "CB_spine_04",
+        "REF_spine_04",
+        "CB_spine_05",
+        "REF_spine_05",
+        "CB_neck_01",
+        "REF_neck_01",
+        "CB_neck_02",
+        "REF_neck_02",
+        "CB_head",
+        "REF_head",
+        "CB_clavicle_l",
+        "REF_clavicle_l",
+        "CB_upperarm_l",
+        "REF_upperarm_l",
+        "CB_lowerarm_l",
+        "REF_lowerarm_l",
+        "CB_lowerarm_twist_02_l",
+        "REF_lowerarm_twist_02_l",
+        "CB_lowerarm_twist_01_l",
+        "REF_lowerarm_twist_01_l",
+        "CB_hand_l",
+        "REF_hand_l",
+        "CB_index_metacarpal_l",
+        "REF_index_metacarpal_l",
+        "CB_index_01_l",
+        "REF_index_01_l",
+        "CB_index_02_l",
+        "REF_index_02_l",
+        "CB_index_03_l",
+        "REF_index_03_l",
+        "CB_middle_metacarpal_l",
+        "REF_middle_metacarpal_l",
+        "CB_middle_01_l",
+        "REF_middle_01_l",
+        "CB_middle_02_l",
+        "REF_middle_02_l",
+        "CB_middle_03_l",
+        "REF_middle_03_l",
+        "CB_pinky_metacarpal_l",
+        "REF_pinky_metacarpal_l",
+        "CB_pinky_01_l",
+        "REF_pinky_01_l",
+        "CB_pinky_02_l",
+        "REF_pinky_02_l",
+        "CB_pinky_03_l",
+        "REF_pinky_03_l",
+        "CB_ring_metacarpal_l",
+        "REF_ring_metacarpal_l",
+        "CB_ring_01_l",
+        "REF_ring_01_l",
+        "CB_ring_02_l",
+        "REF_ring_02_l",
+        "CB_ring_03_l",
+        "REF_ring_03_l",
+        "CB_thumb_01_l",
+        "CB_thumb_02_l",
+        "REF_thumb_02_l",
+        "CB_thumb_03_l",
+        "REF_thumb_03_l",
+        "REF_thumb_01_l",
+        "CB_upperarm_twist_01_l",
+        "REF_upperarm_twist_01_l",
+        "CB_upperarm_twist_02_l",
+        "REF_upperarm_twist_02_l",
+        "CB_clavicle_r",
+        "CB_upperarm_r",
+        "CB_lowerarm_r",
+        "CB_lowerarm_twist_02_r",
+        "REF_lowerarm_twist_02_r",
+        "CB_lowerarm_twist_01_r",
+        "REF_lowerarm_twist_01_r",
+        "REF_lowerarm_r",
+        "CB_hand_r",
+        "REF_hand_r",
+        "CB_pinky_metacarpal_r",
+        "CB_pinky_01_r",
+        "CB_pinky_02_r",
+        "CB_pinky_03_r",
+        "REF_pinky_03_r",
+        "REF_pinky_02_r",
+        "REF_pinky_01_r",
+        "REF_pinky_metacarpal_r",
+        "CB_ring_metacarpal_r",
+        "CB_ring_01_r",
+        "CB_ring_02_r",
+        "CB_ring_03_r",
+        "REF_ring_03_r",
+        "REF_ring_02_r",
+        "REF_ring_01_r",
+        "REF_ring_metacarpal_r",
+        "CB_middle_metacarpal_r",
+        "CB_middle_01_r",
+        "CB_middle_02_r",
+        "CB_middle_03_r",
+        "REF_middle_03_r",
+        "REF_middle_02_r",
+        "REF_middle_01_r",
+        "REF_middle_metacarpal_r",
+        "CB_index_metacarpal_r",
+        "CB_index_01_r",
+        "CB_index_02_r",
+        "CB_index_03_r",
+        "REF_index_03_r",
+        "REF_index_02_r",
+        "REF_index_01_r",
+        "REF_index_metacarpal_r",
+        "CB_thumb_01_r",
+        "CB_thumb_02_r",
+        "CB_thumb_03_r",
+        "REF_thumb_03_r",
+        "REF_thumb_02_r",
+        "REF_thumb_01_r",
+        "CB_upperarm_twist_01_r",
+        "REF_upperarm_twist_01_r",
+        "CB_upperarm_twist_02_r",
+        "REF_upperarm_twist_02_r",
+        "REF_upperarm_r",
+        "REF_clavicle_r",
+        "CB_thigh_r",
+        "REF_thigh_r",
+        "CB_calf_r",
+        "REF_calf_r",
+        "CB_foot_r",
+        "REF_foot_r",
+        "CB_ball_r",
+        "REF_ball_r",
+        "CB_calf_twist_02_r",
+        "REF_calf_twist_02_r",
+        "CB_calf_twist_01_r",
+        "REF_calf_twist_01_r",
+        "CB_thigh_twist_01_r",
+        "REF_thigh_twist_01_r",
+        "CB_thigh_twist_02_r",
+        "REF_thigh_twist_02_r",
+        "CB_thigh_l",
+        "REF_thigh_l",
+        "CB_calf_l",
+        "REF_calf_l",
+        "CB_foot_l",
+        "REF_foot_l",
+        "CB_ball_l",
+        "REF_ball_l",
+        "CB_calf_twist_02_l",
+        "REF_calf_twist_02_l",
+        "CB_calf_twist_01_l",
+        "REF_calf_twist_01_l",
+        "CB_thigh_twist_01_l",
+        "REF_thigh_twist_01_l",
+        "CB_thigh_twist_02_l",
+        "REF_thigh_twist_02_l",
+        "CB_ik_hand_root",
+        "CB_ik_hand_l",
+        "REF_ik_hand_l",
+        "CB_ik_hand_r",
+        "REF_ik_hand_r",
+        "CB_pole_elbow_r",
+        "CB_pole_elbow_l",
+        "REF_root",
+        "CB_ik_foot_root",
+        "CB_ik_foot_l",
+        "CB_pole_knee_r",
+        "CB_pole_knee_l",
+        "CB_ik_foot_r",
+        "CB_Gun",
+        "CB_Head_LookAt"
+      ],
+      "parent": null
+    },
+    {
+      "name": "base_controller.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.004",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.005",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.006",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.007",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.008",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.009",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.010",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.011",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.012",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.013",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.014",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.015",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.016",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.017",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.018",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.019",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.020",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.021",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.022",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.023",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.024",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.025",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.026",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.027",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.028",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.030",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.031",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.032",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.034",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.035",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller_I.036",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller_II.036",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Camera",
+      "type": "CAMERA",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.001",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.004",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.005",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.006",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.007",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.008",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.009",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.010",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.011",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.012",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.013",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.014",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.015",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.016",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.017",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.018",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.001",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.004",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.005",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.006",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.007",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.008",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.009",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.010",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.011",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.012",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.013",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.014",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.015",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.016",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.017",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "eye_controller.001",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "eye_controller.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "eye_controller.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_I.001",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_I.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_I.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_II.001",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_II.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_II.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Motion_Reference_Cubes",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.004",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.005",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.001",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.002",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.003",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.004",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.007",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.008",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.009",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.010",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.011",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.012",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.013",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.014",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.015",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.016",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.017",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.018",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SK_AssaultRifle",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": "SKEL_AssaultRifle"
+    },
+    {
+      "name": "SK_Manny_Arms",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SK_Manny_Simple",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SKEL_AssaultRifle",
+      "type": "ARMATURE",
+      "library": null,
+      "bones": [
+        "Grip",
+        "Trigger",
+        "Bolt",
+        "Magazine"
+      ],
+      "parent": null
+    },
+    {
+      "name": "SM_AssaultRifle_Casing",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SM_AssaultRifle_Magazine",
+      "type": "MESH",
+      "library": null,
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "CS_Cube",
+      "type": "MESH",
+      "library": "//..\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SK_AssaultRifle",
+      "type": "MESH",
+      "library": "//..\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+      "bones": [],
+      "parent": "SKEL_AssaultRifle"
+    },
+    {
+      "name": "SKEL_AssaultRifle",
+      "type": "ARMATURE",
+      "library": "//..\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+      "bones": [
+        "Grip",
+        "Trigger",
+        "Bolt",
+        "Magazine"
+      ],
+      "parent": null
+    },
+    {
+      "name": "SM_AssaultRifle_Casing",
+      "type": "MESH",
+      "library": "//..\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SM_AssaultRifle_Magazine",
+      "type": "MESH",
+      "library": "//..\\Rigs\\AssaultRifle\\RIG_AssaultRifle.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "_Credit",
+      "type": "FONT",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "_CS_Circle",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "_CS_Cube",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "_CS_Finger_Metacarpal",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "_CS_Fingers",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Armature",
+      "type": "ARMATURE",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [
+        "root",
+        "pelvis",
+        "spine_01",
+        "spine_02",
+        "spine_03",
+        "spine_04",
+        "spine_05",
+        "neck_01",
+        "neck_02",
+        "head",
+        "clavicle_l",
+        "upperarm_l",
+        "lowerarm_l",
+        "lowerarm_twist_02_l",
+        "lowerarm_twist_01_l",
+        "hand_l",
+        "index_metacarpal_l",
+        "index_01_l",
+        "index_02_l",
+        "index_03_l",
+        "middle_metacarpal_l",
+        "middle_01_l",
+        "middle_02_l",
+        "middle_03_l",
+        "thumb_01_l",
+        "thumb_02_l",
+        "thumb_03_l",
+        "pinky_metacarpal_l",
+        "pinky_01_l",
+        "pinky_02_l",
+        "pinky_03_l",
+        "ring_metacarpal_l",
+        "ring_01_l",
+        "ring_02_l",
+        "ring_03_l",
+        "upperarm_twist_01_l",
+        "upperarm_twist_02_l",
+        "clavicle_r",
+        "upperarm_r",
+        "lowerarm_r",
+        "lowerarm_twist_02_r",
+        "lowerarm_twist_01_r",
+        "hand_r",
+        "pinky_metacarpal_r",
+        "pinky_01_r",
+        "pinky_02_r",
+        "pinky_03_r",
+        "ring_metacarpal_r",
+        "ring_01_r",
+        "ring_02_r",
+        "ring_03_r",
+        "middle_metacarpal_r",
+        "middle_01_r",
+        "middle_02_r",
+        "middle_03_r",
+        "index_metacarpal_r",
+        "index_01_r",
+        "index_02_r",
+        "index_03_r",
+        "thumb_01_r",
+        "thumb_02_r",
+        "thumb_03_r",
+        "upperarm_twist_01_r",
+        "upperarm_twist_02_r",
+        "thigh_r",
+        "calf_r",
+        "foot_r",
+        "ball_r",
+        "calf_twist_02_r",
+        "calf_twist_01_r",
+        "thigh_twist_01_r",
+        "thigh_twist_02_r",
+        "thigh_l",
+        "calf_l",
+        "foot_l",
+        "ball_l",
+        "calf_twist_02_l",
+        "calf_twist_01_l",
+        "thigh_twist_01_l",
+        "thigh_twist_02_l",
+        "ik_foot_root",
+        "ik_foot_l",
+        "ik_foot_r",
+        "ik_hand_root",
+        "ik_hand_gun",
+        "ik_hand_l",
+        "ik_hand_r",
+        "interaction",
+        "center_of_mass",
+        "CB_root",
+        "CB_pelvis",
+        "REF_pelvis",
+        "CB_spine_01",
+        "REF_spine_01",
+        "CB_spine_02",
+        "REF_spine_02",
+        "CB_spine_03",
+        "REF_spine_03",
+        "CB_spine_04",
+        "REF_spine_04",
+        "CB_spine_05",
+        "REF_spine_05",
+        "CB_neck_01",
+        "REF_neck_01",
+        "CB_neck_02",
+        "REF_neck_02",
+        "CB_head",
+        "REF_head",
+        "CB_clavicle_l",
+        "REF_clavicle_l",
+        "CB_upperarm_l",
+        "REF_upperarm_l",
+        "CB_lowerarm_l",
+        "REF_lowerarm_l",
+        "CB_lowerarm_twist_02_l",
+        "REF_lowerarm_twist_02_l",
+        "CB_lowerarm_twist_01_l",
+        "REF_lowerarm_twist_01_l",
+        "CB_hand_l",
+        "REF_hand_l",
+        "CB_index_metacarpal_l",
+        "REF_index_metacarpal_l",
+        "CB_index_01_l",
+        "REF_index_01_l",
+        "CB_index_02_l",
+        "REF_index_02_l",
+        "CB_index_03_l",
+        "REF_index_03_l",
+        "CB_middle_metacarpal_l",
+        "REF_middle_metacarpal_l",
+        "CB_middle_01_l",
+        "REF_middle_01_l",
+        "CB_middle_02_l",
+        "REF_middle_02_l",
+        "CB_middle_03_l",
+        "REF_middle_03_l",
+        "CB_pinky_metacarpal_l",
+        "REF_pinky_metacarpal_l",
+        "CB_pinky_01_l",
+        "REF_pinky_01_l",
+        "CB_pinky_02_l",
+        "REF_pinky_02_l",
+        "CB_pinky_03_l",
+        "REF_pinky_03_l",
+        "CB_ring_metacarpal_l",
+        "REF_ring_metacarpal_l",
+        "CB_ring_01_l",
+        "REF_ring_01_l",
+        "CB_ring_02_l",
+        "REF_ring_02_l",
+        "CB_ring_03_l",
+        "REF_ring_03_l",
+        "CB_thumb_01_l",
+        "CB_thumb_02_l",
+        "REF_thumb_02_l",
+        "CB_thumb_03_l",
+        "REF_thumb_03_l",
+        "REF_thumb_01_l",
+        "CB_upperarm_twist_01_l",
+        "REF_upperarm_twist_01_l",
+        "CB_upperarm_twist_02_l",
+        "REF_upperarm_twist_02_l",
+        "CB_clavicle_r",
+        "CB_upperarm_r",
+        "CB_lowerarm_r",
+        "CB_lowerarm_twist_02_r",
+        "REF_lowerarm_twist_02_r",
+        "CB_lowerarm_twist_01_r",
+        "REF_lowerarm_twist_01_r",
+        "REF_lowerarm_r",
+        "CB_hand_r",
+        "REF_hand_r",
+        "CB_pinky_metacarpal_r",
+        "CB_pinky_01_r",
+        "CB_pinky_02_r",
+        "CB_pinky_03_r",
+        "REF_pinky_03_r",
+        "REF_pinky_02_r",
+        "REF_pinky_01_r",
+        "REF_pinky_metacarpal_r",
+        "CB_ring_metacarpal_r",
+        "CB_ring_01_r",
+        "CB_ring_02_r",
+        "CB_ring_03_r",
+        "REF_ring_03_r",
+        "REF_ring_02_r",
+        "REF_ring_01_r",
+        "REF_ring_metacarpal_r",
+        "CB_middle_metacarpal_r",
+        "CB_middle_01_r",
+        "CB_middle_02_r",
+        "CB_middle_03_r",
+        "REF_middle_03_r",
+        "REF_middle_02_r",
+        "REF_middle_01_r",
+        "REF_middle_metacarpal_r",
+        "CB_index_metacarpal_r",
+        "CB_index_01_r",
+        "CB_index_02_r",
+        "CB_index_03_r",
+        "REF_index_03_r",
+        "REF_index_02_r",
+        "REF_index_01_r",
+        "REF_index_metacarpal_r",
+        "CB_thumb_01_r",
+        "CB_thumb_02_r",
+        "CB_thumb_03_r",
+        "REF_thumb_03_r",
+        "REF_thumb_02_r",
+        "REF_thumb_01_r",
+        "CB_upperarm_twist_01_r",
+        "REF_upperarm_twist_01_r",
+        "CB_upperarm_twist_02_r",
+        "REF_upperarm_twist_02_r",
+        "REF_upperarm_r",
+        "REF_clavicle_r",
+        "CB_thigh_r",
+        "REF_thigh_r",
+        "CB_calf_r",
+        "REF_calf_r",
+        "CB_foot_r",
+        "REF_foot_r",
+        "CB_ball_r",
+        "REF_ball_r",
+        "CB_calf_twist_02_r",
+        "REF_calf_twist_02_r",
+        "CB_calf_twist_01_r",
+        "REF_calf_twist_01_r",
+        "CB_thigh_twist_01_r",
+        "REF_thigh_twist_01_r",
+        "CB_thigh_twist_02_r",
+        "REF_thigh_twist_02_r",
+        "CB_thigh_l",
+        "REF_thigh_l",
+        "CB_calf_l",
+        "REF_calf_l",
+        "CB_foot_l",
+        "REF_foot_l",
+        "CB_ball_l",
+        "REF_ball_l",
+        "CB_calf_twist_02_l",
+        "REF_calf_twist_02_l",
+        "CB_calf_twist_01_l",
+        "REF_calf_twist_01_l",
+        "CB_thigh_twist_01_l",
+        "REF_thigh_twist_01_l",
+        "CB_thigh_twist_02_l",
+        "REF_thigh_twist_02_l",
+        "CB_ik_hand_root",
+        "CB_ik_hand_l",
+        "REF_ik_hand_l",
+        "CB_ik_hand_r",
+        "REF_ik_hand_r",
+        "CB_pole_elbow_r",
+        "CB_pole_elbow_l",
+        "REF_root",
+        "CB_ik_foot_root",
+        "CB_ik_foot_l",
+        "CB_pole_knee_r",
+        "CB_pole_knee_l",
+        "CB_ik_foot_r",
+        "CB_Gun",
+        "CB_Head_LookAt"
+      ],
+      "parent": null
+    },
+    {
+      "name": "base_controller.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.004",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.005",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.006",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.007",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.008",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.009",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.010",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.011",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.012",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.013",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.014",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.015",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.016",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.017",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.018",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.019",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.020",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.021",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.022",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.023",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.024",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.025",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.026",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.027",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.028",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.029",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.030",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.031",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.032",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.033",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.034",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller.035",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller_I.036",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "base_controller_II.036",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Camera",
+      "type": "CAMERA",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.004",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.005",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.006",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.007",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.008",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.009",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.010",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.011",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.012",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.013",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.014",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.015",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.016",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.017",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "common_controller.018",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.004",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.005",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.006",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.007",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.008",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.009",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.010",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.011",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.012",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.013",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.014",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.015",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.016",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "directional_controller.017",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "eye_controller.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "eye_controller.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "eye_controller.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_I.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_I.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_I.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_II.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_II.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Fk_Ik_switch_controller_II.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "Motion_Reference_Cubes",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.004",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.005",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.006",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "other_controller.007",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.001",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.002",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.003",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.004",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.005",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.006",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.007",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.008",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.009",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.010",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.011",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.012",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.013",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.014",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.015",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.016",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.017",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "rotational_controller.018",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SK_Manny_Arms",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    },
+    {
+      "name": "SK_Manny_Simple",
+      "type": "MESH",
+      "library": "//..\\Rigs\\Manny\\RIG_UE5_Manny.blend",
+      "bones": [],
+      "parent": null
+    }
+  ],
+  "actions": [
+    {
+      "name": "A_FP_AssaultRifle_Aim_Pose",
+      "range": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Equip",
+      "range": [
+        0.0,
+        31.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Fire",
+      "range": [
+        0.0,
+        23.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Fire_Aimed",
+      "range": [
+        0.0,
+        23.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Holster",
+      "range": [
+        0.0,
+        21.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Idle_Loop",
+      "range": [
+        -6.0,
+        105.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Idle_Loop_Aimed",
+      "range": [
+        -6.0,
+        105.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Idle_Pose",
+      "range": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Reload",
+      "range": [
+        0.0,
+        94.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Run_Loop",
+      "range": [
+        -2.0,
+        27.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Walk_F_Loop",
+      "range": [
+        -2.0,
+        30.0
+      ]
+    },
+    {
+      "name": "A_FP_AssaultRifle_Walk_F_Loop_Aimed",
+      "range": [
+        -2.0,
+        30.0
+      ]
+    },
+    {
+      "name": "A_FP_WEP_AssaultRifle_Fire",
+      "range": [
+        0.0,
+        4.0
+      ]
+    },
+    {
+      "name": "A_FP_WEP_AssaultRifle_Reload",
+      "range": [
+        0.0,
+        57.0
+      ]
+    },
+    {
+      "name": "A_Reference",
+      "range": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "A_WEP_Reference",
+      "range": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "fps": 30
+}

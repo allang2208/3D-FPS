@@ -1,0 +1,11 @@
+{
+  "mesh": "/Game/Weapons/M4Holographic/SM_M4_Holographic.SM_M4_Holographic",
+  "bounds": [
+    "<Struct 'Vector' (0x000002932D73D5C0) {x: -5.047928, y: -2.748499, z: -0.031951}>",
+    "<Struct 'Vector' (0x000002932D73D5D8) {x: 4.899591, y: 2.796193, z: 7.225096}>"
+  ],
+  "slots": [
+    "Holosight",
+    "Red_Dot"
+  ]
+}

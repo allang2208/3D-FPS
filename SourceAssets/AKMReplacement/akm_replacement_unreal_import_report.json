@@ -1,0 +1,65 @@
+{
+  "mesh": "/Game/Weapons/AKMReplacement/SK_AKM_Replacement.SK_AKM_Replacement",
+  "skeleton": "/Game/Weapons/AKMReplacement/SK_AKM_Replacement_Skeleton.SK_AKM_Replacement_Skeleton",
+  "mesh_paths": [
+    "/Game/Weapons/AKMReplacement/SK_AKM_Replacement.SK_AKM_Replacement"
+  ],
+  "animations": {
+    "idle": [
+      "/Game/Weapons/AKMReplacement/A_AKM_idle.A_AKM_idle"
+    ],
+    "aim": [
+      "/Game/Weapons/AKMReplacement/A_AKM_aim.A_AKM_aim"
+    ],
+    "reload": [
+      "/Game/Weapons/AKMReplacement/A_AKM_reload.A_AKM_reload"
+    ],
+    "reload_empty": [
+      "/Game/Weapons/AKMReplacement/A_AKM_reload_empty.A_AKM_reload_empty"
+    ],
+    "draw": [
+      "/Game/Weapons/AKMReplacement/A_AKM_draw.A_AKM_draw"
+    ],
+    "holster": [
+      "/Game/Weapons/AKMReplacement/A_AKM_holster.A_AKM_holster"
+    ],
+    "inspect": [
+      "/Game/Weapons/AKMReplacement/A_AKM_inspect.A_AKM_inspect"
+    ],
+    "fire": [
+      "/Game/Weapons/AKMReplacement/A_AKM_fire.A_AKM_fire"
+    ],
+    "aim_fire": [
+      "/Game/Weapons/AKMReplacement/A_AKM_aim_fire.A_AKM_aim_fire"
+    ],
+    "equip": [
+      "/Game/Weapons/AKMReplacement/A_AKM_equip.A_AKM_equip"
+    ]
+  },
+  "durations": {
+    "idle": 0.0416666679084301,
+    "aim": 0.0416666679084301,
+    "reload": 3.3333332538604736,
+    "reload_empty": 4.291666507720947,
+    "draw": 1.2083333730697632,
+    "holster": 0.9583333134651184,
+    "inspect": 6.208333492279053,
+    "fire": 0.10000000149011612,
+    "aim_fire": 0.10000000149011612,
+    "equip": 2.7249999046325684
+  },
+  "materials": [
+    "/Game/Weapons/AKMReplacement/M_AKMR_BluedSteel_PBR",
+    "/Game/Weapons/AKMReplacement/M_AKMR_Walnut_PBR",
+    "/Game/Weapons/AKMReplacement/M_AKMR_Bakelite_PBR",
+    "/Game/Weapons/AKMReplacement/M_AKMR_BoltSteel_PBR",
+    "/Game/Weapons/AKMReplacement/M_AKMR_Parkerized_PBR",
+    "/Game/Weapons/AKMReplacement/M_ArmsReplacement_OliveFabric_PBR",
+    "/Game/Weapons/AKMReplacement/M_ArmsReplacement_CharcoalGlove_PBR"
+  ],
+  "arms_replacement_meshes": [
+    "SK_ArmsReplacement_WRAD"
+  ],
+  "missing_source_textures": 12,
+  "destination": "/Game/Weapons/AKMReplacement"
+}

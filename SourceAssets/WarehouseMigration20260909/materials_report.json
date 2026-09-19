@@ -1,0 +1,50 @@
+[
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Brass_Frame.Surface_Brass_Frame",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Brass_Hardware.Surface_Brass_Hardware",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Brass_Strap.Surface_Brass_Strap",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Gold_PBR.Surface_Gold_PBR",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Interior_Magic_Blue.Surface_Interior_Magic_Blue",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Navy_Velvet.Surface_Navy_Velvet",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Sapphire_PBR.Surface_Sapphire_PBR",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_White_Marble_PBR.Surface_White_Marble_PBR",
+    "two_sided": true,
+    "skeletal": true,
+    "parent": "/Game/ColdSteelUI/Warehouse20260909/SurfaceParents/Warehouse_M_GLTF.Warehouse_M_GLTF"
+  }
+]

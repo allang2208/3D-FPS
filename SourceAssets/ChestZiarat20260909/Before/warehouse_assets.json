@@ -1,0 +1,15 @@
+{
+  "mesh": "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid.warehouse_chest_rigid",
+  "close": "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose.warehouse_chest_rigidClose",
+  "open": "/Game/ColdSteelUI/Warehouse20260909/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen.warehouse_chest_rigidOpen",
+  "materials": {
+    "Brass_Frame": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Brass_Frame.Surface_Brass_Frame",
+    "Brass_Hardware": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Brass_Hardware.Surface_Brass_Hardware",
+    "Brass_Strap": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Brass_Strap.Surface_Brass_Strap",
+    "Gold_PBR": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Gold_PBR.Surface_Gold_PBR",
+    "Interior_Magic_Blue": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Interior_Magic_Blue.Surface_Interior_Magic_Blue",
+    "Navy_Velvet": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Navy_Velvet.Surface_Navy_Velvet",
+    "Sapphire_PBR": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_Sapphire_PBR.Surface_Sapphire_PBR",
+    "White_Marble_PBR": "/Game/ColdSteelUI/Warehouse20260909/RuntimeSurfaces/Surface_White_Marble_PBR.Surface_White_Marble_PBR"
+  }
+}

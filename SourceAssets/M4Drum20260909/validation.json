@@ -1,0 +1,19 @@
+{
+  "triangles": 13908,
+  "materials": 3,
+  "feed_contour_max_error_m": 3.4597098121432046e-08,
+  "clips": [
+    {
+      "clip": "A_M4_DrumReload",
+      "frames_checked": 189,
+      "unmodified_bone_max_matrix_error": 7.748603820800781e-07,
+      "max_hand_correction_step_cm": 0.4534674799917619
+    },
+    {
+      "clip": "A_M4_DrumReloadEmpty",
+      "frames_checked": 229,
+      "unmodified_bone_max_matrix_error": 7.152557373046875e-07,
+      "max_hand_correction_step_cm": 0.45346121794934197
+    }
+  ]
+}

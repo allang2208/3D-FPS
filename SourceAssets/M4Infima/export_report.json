@@ -1,0 +1,65 @@
+{
+  "clips": [
+    {
+      "clip": "idle",
+      "duration": 3.0,
+      "source": "Idle_Loop",
+      "frames": 91
+    },
+    {
+      "clip": "aim",
+      "duration": 0.03333333333333333,
+      "source": "Aim_Pose",
+      "frames": 2
+    },
+    {
+      "clip": "fire",
+      "duration": 0.7666666666666667,
+      "source": "Fire",
+      "frames": 24
+    },
+    {
+      "clip": "aim_fire",
+      "duration": 0.7666666666666667,
+      "source": "Fire_Aimed",
+      "frames": 24
+    },
+    {
+      "clip": "reload",
+      "duration": 3.1333333333333333,
+      "source": "Reload",
+      "frames": 95
+    },
+    {
+      "clip": "reload_empty",
+      "duration": 3.1333333333333333,
+      "source": "Reload",
+      "frames": 95
+    },
+    {
+      "clip": "equip",
+      "duration": 1.0333333333333334,
+      "source": "Equip",
+      "frames": 32
+    },
+    {
+      "clip": "inspect",
+      "duration": 3.0,
+      "source": "Idle_Loop",
+      "frames": 91
+    }
+  ],
+  "bones": 98,
+  "meshes": [
+    "M4_Trigger Straight Unreal_Export",
+    "M4_Stock Classic Unreal_Export",
+    "M4_Magazine Light.003_Export",
+    "M4_M4 Body_Export",
+    "M4_Handguard Kmode Unreal_Export",
+    "M4_Grip Default Unreal_Export",
+    "M4_Flash Hider Unreal_Export",
+    "SK_Manny_Arms_Export"
+  ],
+  "inspect": "idle placeholder; source has no inspect clip",
+  "empty_reload": "uses source reload; source has no dedicated empty variant"
+}

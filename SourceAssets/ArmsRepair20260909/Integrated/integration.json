@@ -1,0 +1,16 @@
+{
+  "hands_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ArmsRepair20260909\\SK_ArmsRepair_anatomy_v3.blend",
+  "mesh": "SK_ArmsRepair_WRAD",
+  "bone_count": 82,
+  "bind_matrices_unchanged": true,
+  "linear_skinning": true,
+  "exported_meshes": [
+    "AKMR_Body",
+    "AKMR_Bolt",
+    "AKMR_FunctionalIronSights",
+    "AKMR_Magazine",
+    "AKMR_Trigger",
+    "SK_ArmsRepair_WRAD"
+  ],
+  "animation_assets_changed": false
+}

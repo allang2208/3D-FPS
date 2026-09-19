@@ -1,0 +1,19 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ChestRitual20260909\\warehouse_chest_ritual_v8.glb",
+  "sha256": "2224bd5dce8f0a5b6cb8bb608dbaeea85c6070b4dae23d2f795cdba065faa812",
+  "vertices": 75601,
+  "joints": 5,
+  "animations": [
+    {
+      "name": "Open",
+      "channels": 2,
+      "duration": 0.8999999761581421
+    },
+    {
+      "name": "Close",
+      "channels": 2,
+      "duration": 0.699999988079071
+    }
+  ],
+  "contract": "Source animation channels and hierarchy retained verbatim; rigid weighting only. Open 0.9 s; Close 0.7 s; no looping."
+}

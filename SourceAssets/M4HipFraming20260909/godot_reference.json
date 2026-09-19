@@ -1,0 +1,22 @@
+{
+  "infima_ar": {
+    "fov_vertical": 75.0,
+    "gun_position_m": "(0.12, -0.027753, -0.1)",
+    "gun_rotation": "(0.0, 0.0, 0.0)",
+    "sockets": {
+      "FrontSight": {
+        "camera_local_m": "(0.180003, -0.053753, -0.750901)",
+        "screen_px": "(1504.931, 787.1697)"
+      },
+      "RearSight": {
+        "camera_local_m": "(0.180003, -0.053753, -0.265901)",
+        "screen_px": "(1915.202, 909.6872)"
+      },
+      "SOCKET_Muzzle": {
+        "camera_local_m": "(0.180003, -0.102148, -0.746276)",
+        "screen_px": "(1506.325, 848.4351)"
+      }
+    },
+    "viewport": "(2560, 1440)"
+  }
+}

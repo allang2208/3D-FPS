@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "unchanged action transforms across sampled frames",
+      "max_matrix_deviation": 0,
+      "sample_count": 19
+    },
+    {
+      "name": "finite evaluated meshes and plausible scale",
+      "samples": 28,
+      "max_mesh_extent_m": 0.8750721365213394
+    },
+    {
+      "name": "fire stable hands/root and closed bolt endpoints",
+      "bolt_travel_cm": 7.458074569702148,
+      "duration_s": 0.1
+    },
+    {
+      "name": "aim_fire stable hands/root and closed bolt endpoints",
+      "bolt_travel_cm": 7.458074569702148,
+      "duration_s": 0.1
+    }
+  ],
+  "scope": "Blender source actions, evaluated candidate geometry and binding; UE runtime acceptance separate"
+}

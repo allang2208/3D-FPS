@@ -1,0 +1,21 @@
+{
+  "material": "/Game/ColdSteelUI/Warehouse20260909/DirtyMetal/MI_Chest_DirtyMetal_Brass.MI_Chest_DirtyMetal_Brass",
+  "parent": "/Game/ColdSteelUI/Warehouse20260909/DirtyMetal/M_Chest_DirtyMetal.M_Chest_DirtyMetal",
+  "texture": "/Game/ColdSteelUI/Warehouse20260909/DirtyMetal/T_DirtyMetal_MR_4K.T_DirtyMetal_MR_4K",
+  "uv_tiling": 3.6,
+  "two_sided": true,
+  "skeletal_mesh": true,
+  "channels": {
+    "R": "dirt mask, controls tint and dielectric contamination",
+    "G": "roughness",
+    "B": "constant white; not a metallic map"
+  },
+  "source_category": "imperfection",
+  "base_tint": [
+    0.64,
+    0.36,
+    0.075
+  ],
+  "metallic_clean": 0.82,
+  "metallic_dirty": 0.25
+}

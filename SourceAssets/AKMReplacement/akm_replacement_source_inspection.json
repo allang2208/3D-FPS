@@ -1,0 +1,469 @@
+{
+  "objects": [
+    {
+      "name": "ejection akm",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.13078202307224274
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.03552834689617157
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.25573480129241943
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 218,
+      "triangles": 428,
+      "bounds": [
+        [
+          -0.20974449813365936,
+          0.4227002263069153
+        ],
+        [
+          -0.24917523562908173,
+          0.043093789368867874
+        ],
+        [
+          0.1732599288225174,
+          0.35213083028793335
+        ]
+      ],
+      "materials": [
+        "high part akm",
+        "low part akm"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "high part akm",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.0
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 13963,
+      "triangles": 27640,
+      "bounds": [
+        [
+          -3.059530019760132,
+          3.4422318935394287
+        ],
+        [
+          -0.1648591160774231,
+          0.17693564295768738
+        ],
+        [
+          -0.8907488584518433,
+          0.51615309715271
+        ]
+      ],
+      "materials": [
+        "high part akm",
+        "low part akm"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "magazine akm",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.32097455859184265
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.0
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.6615031957626343
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1884,
+      "triangles": 3700,
+      "bounds": [
+        [
+          -0.18720677495002747,
+          0.9398545026779175
+        ],
+        [
+          -0.10270117968320847,
+          0.10358097404241562
+        ],
+        [
+          -1.3880887031555176,
+          -0.05996166542172432
+        ]
+      ],
+      "materials": [
+        "magazine akm"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "trigger akm",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.691576361656189
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.005988961551338434
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.18199056386947632
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 128,
+      "triangles": 252,
+      "bounds": [
+        [
+          -0.7173241972923279,
+          -0.6029438972473145
+        ],
+        [
+          -0.03512183576822281,
+          0.04720002040266991
+        ],
+        [
+          -0.2923065721988678,
+          -0.13367824256420135
+        ]
+      ],
+      "materials": [
+        "high part akm",
+        "low part akm"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "high part akm",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "low part akm",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "magazine akm",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_Metallic.png"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "name": "cargador_DefaultMaterial_BaseColor.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_BaseColor.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "cargador_DefaultMaterial_Metallic.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_Metallic.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "cargador_DefaultMaterial_Normal.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_Normal.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "cargador_DefaultMaterial_Roughness.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\cargador_DefaultMaterial_Roughness.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte alta_DefaultMaterial_BaseColor.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_BaseColor.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte alta_DefaultMaterial_Metallic.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_Metallic.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte alta_DefaultMaterial_Normal.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_Normal.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte alta_DefaultMaterial_Roughness.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte alta_DefaultMaterial_Roughness.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte baja_DefaultMaterial_BaseColor.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_BaseColor.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte baja_DefaultMaterial_Metallic.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_Metallic.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte baja_DefaultMaterial_Normal.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_Normal.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    },
+    {
+      "name": "parte baja_DefaultMaterial_Roughness.png",
+      "path": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\AKM.fbm\\parte baja_DefaultMaterial_Roughness.png",
+      "size": [
+        0,
+        0
+      ],
+      "packed": false
+    }
+  ]
+}

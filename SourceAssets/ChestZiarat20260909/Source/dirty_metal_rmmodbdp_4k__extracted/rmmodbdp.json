@@ -1,0 +1,309 @@
+{
+  "assetCategories": {
+    "imperfection": {
+      "metal": {
+        "clean": {}
+      }
+    }
+  },
+  "averageColor": "#808080",
+  "categories": [
+    "surface",
+    "imperfections"
+  ],
+  "comp_version": 1,
+  "description": "",
+  "environment": {
+    "biome": "undefined",
+    "region": "undefined"
+  },
+  "highest_available_res": 8192,
+  "id": "rmmodbdp",
+  "json": {
+    "contentLength": 6625,
+    "uri": "rmmodbdp.json"
+  },
+  "maps": [
+    {
+      "averageColor": "#7E7E7E",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 113769415,
+      "maxIntensity": 171,
+      "mimeType": "image/x-exr",
+      "minIntensity": 92,
+      "name": "Gloss",
+      "physicalSize": "1x1",
+      "resolution": "8192x8192",
+      "type": "gloss",
+      "uri": "rmmodbdp_8K_Gloss.exr"
+    },
+    {
+      "averageColor": "#7E7E7E",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 36055231,
+      "maxIntensity": 171,
+      "mimeType": "image/jpeg",
+      "minIntensity": 92,
+      "name": "Gloss",
+      "physicalSize": "1x1",
+      "resolution": "8192x8192",
+      "type": "gloss",
+      "uri": "rmmodbdp_8K_Gloss.jpg"
+    },
+    {
+      "averageColor": "#101010",
+      "bitDepth": 16,
+      "colorSpace": "Linear",
+      "contentLength": 247955946,
+      "maxIntensity": 107,
+      "mimeType": "image/x-exr",
+      "minIntensity": 0,
+      "name": "Mask",
+      "physicalSize": "1x1",
+      "resolution": "8192x8192",
+      "type": "mask",
+      "uri": "rmmodbdp_8K_Mask.exr"
+    },
+    {
+      "averageColor": "#101010",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 46171435,
+      "maxIntensity": 107,
+      "mimeType": "image/jpeg",
+      "minIntensity": 0,
+      "name": "Mask",
+      "physicalSize": "1x1",
+      "resolution": "8192x8192",
+      "type": "mask",
+      "uri": "rmmodbdp_8K_Mask.jpg"
+    },
+    {
+      "averageColor": "#818181",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 102549458,
+      "maxIntensity": 163,
+      "mimeType": "image/x-exr",
+      "minIntensity": 84,
+      "name": "Roughness",
+      "physicalSize": "1x1",
+      "resolution": "8192x8192",
+      "type": "roughness",
+      "uri": "rmmodbdp_8K_Roughness.exr"
+    },
+    {
+      "averageColor": "#818181",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 36079190,
+      "maxIntensity": 163,
+      "mimeType": "image/jpeg",
+      "minIntensity": 84,
+      "name": "Roughness",
+      "physicalSize": "1x1",
+      "resolution": "8192x8192",
+      "type": "roughness",
+      "uri": "rmmodbdp_8K_Roughness.jpg"
+    }
+  ],
+  "meta": [
+    {
+      "key": "scanArea",
+      "name": "Scan Area",
+      "value": "1x1 m"
+    },
+    {
+      "key": "height",
+      "name": "Height",
+      "value": "20 m"
+    },
+    {
+      "key": "tileable",
+      "name": "Tileable",
+      "value": true
+    },
+    {
+      "key": "texelDensity",
+      "name": "Texel Density",
+      "value": "8192 px/m"
+    },
+    {
+      "key": "calibration",
+      "name": "Calibration",
+      "value": "GretagMacbeth ColorChecker Color Rendition Chart"
+    },
+    {
+      "key": "scanner",
+      "name": "Scanner",
+      "value": "MKX"
+    }
+  ],
+  "models": [],
+  "name": "Dirty Metal",
+  "pack": {
+    "_id": "pure-imperfections",
+    "name": "Pure Imperfections"
+  },
+  "physicalSize": null,
+  "points": 0,
+  "previews": {
+    "images": [
+      {
+        "contentLength": 126167,
+        "resolution": "360x360",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "rmmodbdp_Grid_360.png"
+      },
+      {
+        "contentLength": 169733,
+        "resolution": "420x420",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "rmmodbdp_Grid_420.png"
+      },
+      {
+        "contentLength": 477516,
+        "resolution": "720x720",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "rmmodbdp_Grid_720.png"
+      },
+      {
+        "contentLength": 651256,
+        "resolution": "840x840",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "rmmodbdp_Grid_840.png"
+      },
+      {
+        "contentLength": 1316478,
+        "resolution": "1440x768",
+        "tags": [
+          "preview"
+        ],
+        "uri": "rmmodbdp_Popup_1440.png"
+      },
+      {
+        "contentLength": 2421156,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview"
+        ],
+        "uri": "rmmodbdp_Popup_1920.png"
+      },
+      {
+        "contentLength": 5071604,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "rmmodbdp_Popup_2880.png"
+      },
+      {
+        "contentLength": 9565759,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "rmmodbdp_Popup_3840.png"
+      }
+    ],
+    "relativeSize": "1x1",
+    "scaleReferences": []
+  },
+  "process_date": "2024-04-18 10:46:27",
+  "properties": [],
+  "referencePreviews": {
+    "maps": [],
+    "models": []
+  },
+  "references": [],
+  "revised": false,
+  "semanticTags": {
+    "architectural_style": {},
+    "asset_type": "imperfection",
+    "contains": [
+      "dirt",
+      "free"
+    ],
+    "descriptive": [
+      "dirty",
+      " subtle"
+    ],
+    "environment": [],
+    "industry": [
+      "archviz",
+      "games",
+      "VFX"
+    ],
+    "interior_exterior": [
+      "interior",
+      "exterior"
+    ],
+    "latin_name": [],
+    "locations": {},
+    "maxSize": 1,
+    "minSize": 1,
+    "name": "Dirty Metal",
+    "resolution": 8192,
+    "season": [],
+    "subject_matter": "manmade",
+    "theme": [
+      "metal"
+    ]
+  },
+  "tags": [
+    "surface imperfection",
+    "free",
+    "archviz"
+  ],
+  "texelDensity": 8192,
+  "texture_type": "basic",
+  "ue_plugin_archives": [
+    {
+      "contentLength": 104617458,
+      "gltfVersion": "2.0",
+      "tier": 0,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_0/rmmodbdp_tier_0.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 29243378,
+      "gltfVersion": "2.0",
+      "tier": 1,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_1/rmmodbdp_tier_1.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 7336006,
+      "gltfVersion": "2.0",
+      "tier": 2,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_2/rmmodbdp_tier_2.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 1627775,
+      "gltfVersion": "2.0",
+      "tier": 3,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_3/rmmodbdp_tier_3.zip",
+      "version": 1
+    }
+  ],
+  "version": 2
+}

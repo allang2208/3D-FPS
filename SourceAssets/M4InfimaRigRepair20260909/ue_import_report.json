@@ -1,0 +1,38 @@
+{
+  "destination": "/Game/Weapons/M4InfimaRigV4",
+  "clips": {
+    "A_AKM_idle": {
+      "duration": 3.0,
+      "keys": 181
+    },
+    "A_AKM_aim": {
+      "duration": 0.03333333507180214,
+      "keys": 3
+    },
+    "A_AKM_fire": {
+      "duration": 0.7666666507720947,
+      "keys": 47
+    },
+    "A_AKM_aim_fire": {
+      "duration": 0.7666666507720947,
+      "keys": 47
+    },
+    "A_AKM_reload": {
+      "duration": 3.133333444595337,
+      "keys": 189
+    },
+    "A_AKM_reload_empty": {
+      "duration": 3.133333444595337,
+      "keys": 189
+    },
+    "A_AKM_equip": {
+      "duration": 1.0333333015441895,
+      "keys": 63
+    },
+    "A_AKM_inspect": {
+      "duration": 3.0,
+      "keys": 181
+    }
+  },
+  "materials_reused_from": "M4InfimaV3"
+}

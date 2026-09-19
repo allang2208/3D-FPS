@@ -1,0 +1,19 @@
+{
+  "source": "E:\\3d\\3-dfps\\scenes\\warehouse_chest_preview\\warehouse_chest_v6.glb",
+  "sha256": "5e4429cfb88d7c20cab7f3cabee393ade312560b8cfba4bc9125090ebe1b2403",
+  "vertices": 42893,
+  "joints": 5,
+  "animations": [
+    {
+      "name": "Open",
+      "channels": 2,
+      "duration": 0.8999999761581421
+    },
+    {
+      "name": "Close",
+      "channels": 2,
+      "duration": 0.699999988079071
+    }
+  ],
+  "contract": "Source animation channels and hierarchy retained verbatim; rigid weighting only. Open 0.9 s; Close 0.7 s; no looping."
+}

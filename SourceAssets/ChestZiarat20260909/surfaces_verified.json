@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/MI_Chest_Ziarat_4K.MI_Chest_Ziarat_4K",
+    "parent_two_sided": true,
+    "parent_skeletal": true,
+    "before_override": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000026067131560) {}>",
+    "textures": [
+      "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Normal_4K.T_Ziarat_Normal_4K",
+      "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_BaseColor_4K.T_Ziarat_BaseColor_4K",
+      "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Specular_4K.T_Ziarat_Specular_4K",
+      "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Roughness_4K.T_Ziarat_Roughness_4K",
+      "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Cavity_4K.T_Ziarat_Cavity_4K"
+    ],
+    "after_override": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000026067131560) {}>"
+  },
+  {
+    "path": "/Game/ColdSteelUI/Warehouse20260909/DirtyMetal/MI_Chest_DirtyMetal_Brass.MI_Chest_DirtyMetal_Brass",
+    "parent_two_sided": true,
+    "parent_skeletal": true,
+    "before_override": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000026067132560) {}>",
+    "textures": [
+      "/Game/ColdSteelUI/Warehouse20260909/DirtyMetal/T_DirtyMetal_MR_4K.T_DirtyMetal_MR_4K"
+    ],
+    "after_override": "<Struct 'MaterialInstanceBasePropertyOverrides' (0x0000026067132560) {}>"
+  }
+]

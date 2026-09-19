@@ -1,0 +1,24 @@
+{
+  "reload": {
+    "duration": 3.1333333333333333,
+    "frames": 189,
+    "changed_bones": [
+      "index_01_r",
+      "index_02_r",
+      "index_03_r"
+    ],
+    "max_untouched_local_matrix_error": 0,
+    "endpoint_matrix_error": 5.960464477539063e-08
+  },
+  "reload_empty": {
+    "duration": 3.1333333333333333,
+    "frames": 189,
+    "changed_bones": [
+      "index_01_r",
+      "index_02_r",
+      "index_03_r"
+    ],
+    "max_untouched_local_matrix_error": 0,
+    "endpoint_matrix_error": 5.960464477539063e-08
+  }
+}

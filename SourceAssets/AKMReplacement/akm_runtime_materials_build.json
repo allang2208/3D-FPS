@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "mode": "create and save",
+  "mesh": "/Game/Weapons/AKMReplacement/Rendering/SK_AKM_Replacement_Game.SK_AKM_Replacement_Game",
+  "skeleton": "/Game/Weapons/AKMReplacement/SK_AKM_Replacement_Skeleton.SK_AKM_Replacement_Skeleton",
+  "same_source_skeleton": true,
+  "materials": [
+    {
+      "slot": 0,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_BluedSteel_PBR_Skinned.M_AKMR_BluedSteel_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    },
+    {
+      "slot": 1,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Walnut_PBR_Skinned.M_AKMR_Walnut_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    },
+    {
+      "slot": 2,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Bakelite_PBR_Skinned.M_AKMR_Bakelite_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    },
+    {
+      "slot": 3,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_BoltSteel_PBR_Skinned.M_AKMR_BoltSteel_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    },
+    {
+      "slot": 4,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Parkerized_PBR_Skinned.M_AKMR_Parkerized_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    },
+    {
+      "slot": 5,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_ArmsReplacement_OliveFabric_PBR_Skinned.M_ArmsReplacement_OliveFabric_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    },
+    {
+      "slot": 6,
+      "material": "/Game/Weapons/AKMReplacement/Rendering/M_ArmsReplacement_CharcoalGlove_PBR_Skinned.M_ArmsReplacement_CharcoalGlove_PBR_Skinned",
+      "skeletal_mesh_usage": true
+    }
+  ],
+  "compatible_animation_clips": [
+    "/Game/Weapons/AKMReplacement/A_AKM_idle.A_AKM_idle",
+    "/Game/Weapons/AKMReplacement/A_AKM_aim.A_AKM_aim",
+    "/Game/Weapons/AKMReplacement/A_AKM_fire.A_AKM_fire",
+    "/Game/Weapons/AKMReplacement/A_AKM_aim_fire.A_AKM_aim_fire",
+    "/Game/Weapons/AKMReplacement/A_AKM_reload.A_AKM_reload",
+    "/Game/Weapons/AKMReplacement/A_AKM_reload_empty.A_AKM_reload_empty",
+    "/Game/Weapons/AKMReplacement/A_AKM_draw.A_AKM_draw",
+    "/Game/Weapons/AKMReplacement/A_AKM_holster.A_AKM_holster",
+    "/Game/Weapons/AKMReplacement/A_AKM_inspect.A_AKM_inspect",
+    "/Game/Weapons/AKMReplacement/A_AKM_equip.A_AKM_equip"
+  ],
+  "source_assets_modified": false,
+  "destination": "/Game/Weapons/AKMReplacement/Rendering"
+}

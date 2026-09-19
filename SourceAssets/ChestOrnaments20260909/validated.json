@@ -1,0 +1,12 @@
+{
+  "animation_bytes_unchanged": true,
+  "rig_joints": 5,
+  "materials_unchanged": true,
+  "bezel_back_overlap_mm": 0.7,
+  "ray_root_bezel_overlap_mm_min": 5.6,
+  "imported": {
+    "mesh": "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid.warehouse_chest_rigid",
+    "close": "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose.warehouse_chest_rigidClose",
+    "open": "/Game/ColdSteelUI/Warehouse20260909/OrnamentsV7/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen.warehouse_chest_rigidOpen"
+  }
+}

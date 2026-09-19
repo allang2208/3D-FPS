@@ -1,0 +1,56 @@
+{
+  "destination": "/Game/Weapons/AKM",
+  "mesh_paths": [
+    "/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel"
+  ],
+  "mesh_asset": "/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel",
+  "skeleton": "/Game/Weapons/AKM/SK_AKM_Viewmodel_Skeleton.SK_AKM_Viewmodel_Skeleton",
+  "animations": {
+    "idle": [
+      "/Game/Weapons/AKM/A_AKM_idle.A_AKM_idle"
+    ],
+    "aim": [
+      "/Game/Weapons/AKM/A_AKM_aim.A_AKM_aim"
+    ],
+    "fire": [
+      "/Game/Weapons/AKM/A_AKM_fire.A_AKM_fire"
+    ],
+    "aim_fire": [
+      "/Game/Weapons/AKM/A_AKM_aim_fire.A_AKM_aim_fire"
+    ],
+    "reload": [
+      "/Game/Weapons/AKM/A_AKM_reload.A_AKM_reload"
+    ],
+    "reload_empty": [
+      "/Game/Weapons/AKM/A_AKM_reload_empty.A_AKM_reload_empty"
+    ],
+    "draw": [
+      "/Game/Weapons/AKM/A_AKM_draw.A_AKM_draw"
+    ],
+    "holster": [
+      "/Game/Weapons/AKM/A_AKM_holster.A_AKM_holster"
+    ],
+    "inspect": [
+      "/Game/Weapons/AKM/A_AKM_inspect.A_AKM_inspect"
+    ]
+  },
+  "assets": [
+    "/Game/Weapons/AKM/A_AKM_aim.A_AKM_aim",
+    "/Game/Weapons/AKM/A_AKM_aim_fire.A_AKM_aim_fire",
+    "/Game/Weapons/AKM/A_AKM_draw.A_AKM_draw",
+    "/Game/Weapons/AKM/A_AKM_fire.A_AKM_fire",
+    "/Game/Weapons/AKM/A_AKM_holster.A_AKM_holster",
+    "/Game/Weapons/AKM/A_AKM_idle.A_AKM_idle",
+    "/Game/Weapons/AKM/A_AKM_inspect.A_AKM_inspect",
+    "/Game/Weapons/AKM/A_AKM_reload.A_AKM_reload",
+    "/Game/Weapons/AKM/A_AKM_reload_empty.A_AKM_reload_empty",
+    "/Game/Weapons/AKM/AKM_Classic_Bakelite.AKM_Classic_Bakelite",
+    "/Game/Weapons/AKM/AKM_Classic_Metal.AKM_Classic_Metal",
+    "/Game/Weapons/AKM/AKM_Classic_Wood.AKM_Classic_Wood",
+    "/Game/Weapons/AKM/Arms.Arms",
+    "/Game/Weapons/AKM/Material_BaseColor.Material_BaseColor",
+    "/Game/Weapons/AKM/Material_Normal.Material_Normal",
+    "/Game/Weapons/AKM/SK_AKM_Viewmodel.SK_AKM_Viewmodel",
+    "/Game/Weapons/AKM/SK_AKM_Viewmodel_Skeleton.SK_AKM_Viewmodel_Skeleton"
+  ]
+}

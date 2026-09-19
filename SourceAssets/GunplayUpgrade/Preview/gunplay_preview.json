@@ -1,0 +1,45 @@
+{
+  "capture_directory": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\fps60-delivery",
+  "capture_fps": 10,
+  "output_fps": 10,
+  "source_frame_count": 141,
+  "start_index": 0,
+  "end_index": 141,
+  "output_frame_count": 142,
+  "duration_seconds": 14.2,
+  "held_missing_indices": [
+    20
+  ],
+  "gap_policy": "Hold preceding frame; use earliest frame before first available index.",
+  "video_size": [
+    1280,
+    720
+  ],
+  "gif_width": 720,
+  "gif_colors": 96,
+  "panels": [
+    {
+      "title": "Hip / recovered",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\fps60-delivery\\10_Final_Recovered.png"
+    },
+    {
+      "title": "ADS alignment",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\fps60-delivery\\01_ADS_Aligned.png"
+    },
+    {
+      "title": "Hip fire / brief flash and sparks",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\fps60-delivery\\Frames\\Frame_0127.png"
+    },
+    {
+      "title": "Empty reload / magazine seat",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\fps60-delivery\\07_EmptyReload_Charge.png"
+    }
+  ],
+  "outputs": {
+    "gunplay_preview.mp4": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunplayUpgrade\\Preview\\gunplay_preview.mp4",
+    "gunplay_preview.gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunplayUpgrade\\Preview\\gunplay_preview.gif",
+    "gunplay_comparison.png": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunplayUpgrade\\Preview\\gunplay_comparison.png",
+    "gunplay_preview.json": "D:\\FPS3D\\FPSGAME\\SourceAssets\\GunplayUpgrade\\Preview\\gunplay_preview.json"
+  },
+  "note": "Presentation export only; source run assertions and visual acceptance remain separate."
+}

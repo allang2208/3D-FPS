@@ -1,0 +1,21 @@
+{
+  "assets": [
+    "/Game/Weapons/GunplayFX/M_GunFlash_Exposure.M_GunFlash_Exposure"
+  ],
+  "source": "Original analytic HLSL authored for FPSGAME; no downloaded textures",
+  "pool_limit": 64,
+  "flash_exposure_inverse": true,
+  "flash_only_update": true,
+  "flash_seconds": [
+    0.045,
+    0.065
+  ],
+  "smoke_lifetime_seconds": [
+    0.8,
+    1.25
+  ],
+  "smoke_space": "world",
+  "muzzle_socket": "WPN_SOCKET_Muzzle",
+  "eject_socket": "WPN_SOCKET_Eject",
+  "validation": "Materials created, connected, saved and read back; final rendered runtime handled separately"
+}

@@ -1,0 +1,30 @@
+{
+  "reload": {
+    "asset": "/Game/Weapons/M4InfimaRigV4/ReloadFinger/A_AKM_reload.A_AKM_reload",
+    "duration": 3.133333444595337,
+    "samples_120hz": 377,
+    "compression_max_position_error_cm": 0.007330215396934507,
+    "untouched_world_position_error_cm": 0,
+    "untouched_rotation_error_degrees": 0,
+    "endpoint_position_error_cm": 3.1389442414730565e-06,
+    "mid_reload_index_rotation_change_degrees": {
+      "index_01_r": 11.225993558728566,
+      "index_02_r": 68.43147568017123,
+      "index_03_r": 107.74178013200113
+    }
+  },
+  "reload_empty": {
+    "asset": "/Game/Weapons/M4InfimaRigV4/ReloadFinger/A_AKM_reload_empty.A_AKM_reload_empty",
+    "duration": 3.133333444595337,
+    "samples_120hz": 377,
+    "compression_max_position_error_cm": 0.007330215396934507,
+    "untouched_world_position_error_cm": 0,
+    "untouched_rotation_error_degrees": 0,
+    "endpoint_position_error_cm": 3.1389442414730565e-06,
+    "mid_reload_index_rotation_change_degrees": {
+      "index_01_r": 11.225993558728566,
+      "index_02_r": 68.43147568017123,
+      "index_03_r": 107.74178013200113
+    }
+  }
+}

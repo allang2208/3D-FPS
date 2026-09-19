@@ -1,0 +1,67 @@
+{
+  "mesh": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigid.warehouse_chest_rigid",
+  "close": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidClose.warehouse_chest_rigidClose",
+  "open": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/SkeletalMeshes/warehouse_chest_rigidOpen.warehouse_chest_rigidOpen",
+  "materials": {
+    "Gold_PBR": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+    "Brass_Frame": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+    "Brass_Strap": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Strap.MI_Ritual_Strap",
+    "Brass_Hardware": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Hardware.MI_Ritual_Hardware",
+    "Ritual_Gunmetal": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+    "Ritual_Champagne": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Champagne.MI_Ritual_Champagne",
+    "Ritual_Engraving": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Engraving.MI_Ritual_Engraving",
+    "Sapphire_PBR": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Sapphire.MI_Ritual_Sapphire"
+  },
+  "recipes": {
+    "Frame": [
+      [
+        0.11,
+        0.13,
+        0.16
+      ],
+      0.38,
+      0.95,
+      0.3
+    ],
+    "Strap": [
+      [
+        0.13,
+        0.15,
+        0.18
+      ],
+      0.34,
+      0.95,
+      0.24
+    ],
+    "Hardware": [
+      [
+        0.17,
+        0.19,
+        0.21
+      ],
+      0.27,
+      0.95,
+      0.18
+    ],
+    "Champagne": [
+      [
+        0.34,
+        0.29,
+        0.2
+      ],
+      0.31,
+      0.94,
+      0.22
+    ],
+    "Engraving": [
+      [
+        0.025,
+        0.032,
+        0.04
+      ],
+      0.55,
+      0.7,
+      0.15
+    ]
+  }
+}

@@ -1,0 +1,388 @@
+{
+  "raw_source": "D:\\\u8fc5\u96f7\u4e0b\u8f7d\\akm.fbx",
+  "source_to_world_rest": [
+    [
+      0.0,
+      -0.1345899999141693,
+      0.0,
+      0.05999999865889549
+    ],
+    [
+      0.1345899999141693,
+      0.0,
+      0.0,
+      0.25529998540878296
+    ],
+    [
+      0.0,
+      0.0,
+      0.1345899999141693,
+      -0.0949999988079071
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "missing_texture_count": 12,
+  "material_policy": "Authored constant PBR steel/walnut/bakelite substitutes; source FBX textures missing",
+  "sight_geometry": "Added rear notch ears and central front post; supplied source has a solid rear leaf and empty front guard",
+  "mesh_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\SK_AKM_Replacement.fbx",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\SK_AKM_Replacement_Source.blend",
+  "bone_count": 82,
+  "anchors": {
+    "WPN_RearSight": {
+      "source_fbx": [
+        0.3295,
+        0.00604,
+        0.51
+      ],
+      "blender_world_rest_m": [
+        0.05918707326054573,
+        0.29964739084243774,
+        -0.026359103620052338
+      ],
+      "weapon_root_local_cm": [
+        0.08149918913841248,
+        -15.891321182250977,
+        10.34561538696289
+      ]
+    },
+    "WPN_FrontSight": {
+      "source_fbx": [
+        3.124,
+        0.00604,
+        0.51
+      ],
+      "blender_world_rest_m": [
+        0.05918707326054573,
+        0.6757591962814331,
+        -0.026359103620052338
+      ],
+      "weapon_root_local_cm": [
+        0.08143936097621918,
+        -53.502506256103516,
+        10.34554386138916
+      ]
+    },
+    "WPN_SOCKET_Muzzle": {
+      "source_fbx": [
+        3.44223,
+        0.00604,
+        0.13639
+      ],
+      "blender_world_rest_m": [
+        0.05918707326054573,
+        0.718589723110199,
+        -0.07664327323436737
+      ],
+      "weapon_root_local_cm": [
+        0.08143550157546997,
+        -57.78554916381836,
+        5.317117691040039
+      ]
+    },
+    "WPN_SOCKET_Eject": {
+      "source_fbx": [
+        0.04,
+        -0.123,
+        0.265
+      ],
+      "blender_world_rest_m": [
+        0.0765545666217804,
+        0.2606835961341858,
+        -0.05933365225791931
+      ],
+      "weapon_root_local_cm": [
+        -1.6552417278289795,
+        -11.9949312210083,
+        7.048166751861572
+      ]
+    },
+    "WPN_Trigger": {
+      "source_fbx": [
+        -0.645,
+        0.00604,
+        -0.15
+      ],
+      "blender_world_rest_m": [
+        0.05918707326054573,
+        0.16848944127559662,
+        -0.11518850177526474
+      ],
+      "weapon_root_local_cm": [
+        0.08152571320533752,
+        -2.775508403778076,
+        1.4627000093460083
+      ]
+    }
+  },
+  "clips": [
+    {
+      "clip": "idle",
+      "action": "AKM_idle",
+      "fps": 24,
+      "start": 1,
+      "end": 2,
+      "source": "unchanged source action",
+      "duration": 0.041666666666666664,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_idle.fbx"
+    },
+    {
+      "clip": "aim",
+      "action": "AKM_aim",
+      "fps": 24,
+      "start": 1,
+      "end": 2,
+      "source": "unchanged source action",
+      "duration": 0.041666666666666664,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_aim.fbx"
+    },
+    {
+      "clip": "reload",
+      "action": "AKM_reload",
+      "fps": 24,
+      "start": 1,
+      "end": 81,
+      "source": "unchanged source action",
+      "duration": 3.3333333333333335,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_reload.fbx"
+    },
+    {
+      "clip": "reload_empty",
+      "action": "AKM_reload_empty",
+      "fps": 24,
+      "start": 1,
+      "end": 104,
+      "source": "unchanged source action",
+      "duration": 4.291666666666667,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_reload_empty.fbx"
+    },
+    {
+      "clip": "draw",
+      "action": "AKM_draw",
+      "fps": 24,
+      "start": 1,
+      "end": 30,
+      "source": "unchanged source action",
+      "duration": 1.2083333333333333,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_draw.fbx"
+    },
+    {
+      "clip": "holster",
+      "action": "AKM_holster",
+      "fps": 24,
+      "start": 1,
+      "end": 24,
+      "source": "unchanged source action",
+      "duration": 0.9583333333333334,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_holster.fbx"
+    },
+    {
+      "clip": "inspect",
+      "action": "AKM_inspect",
+      "fps": 24,
+      "start": 1,
+      "end": 150,
+      "source": "unchanged source action",
+      "duration": 6.208333333333333,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_inspect.fbx"
+    },
+    {
+      "clip": "fire",
+      "action": "AKMR_fire",
+      "fps": 120,
+      "start": 1,
+      "end": 13,
+      "source": "source bolt displacement envelope, resampled to 0.10 seconds; stable idle/aim hands; added trigger pivot",
+      "duration": 0.1,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_fire.fbx"
+    },
+    {
+      "clip": "aim_fire",
+      "action": "AKMR_aim_fire",
+      "fps": 120,
+      "start": 1,
+      "end": 13,
+      "source": "source bolt displacement envelope, resampled to 0.10 seconds; stable idle/aim hands; added trigger pivot",
+      "duration": 0.1,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_aim_fire.fbx"
+    },
+    {
+      "clip": "equip",
+      "action": "AKMR_equip",
+      "fps": 120,
+      "start": 1,
+      "end": 328,
+      "source": "0.18s smooth idle blend to reload_empty at source 1.75s then remainder; terminal duration quantized +0.003333s",
+      "duration": 2.725,
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReplacement\\A_AKM_equip.fbx"
+    }
+  ],
+  "arms_replacement_meshes": [
+    "SK_ArmsReplacement_WRAD"
+  ],
+  "meshes": [
+    {
+      "name": "AKMR_Body",
+      "vertices": 13963,
+      "triangles": 27640,
+      "groups": [
+        "WPN_root"
+      ]
+    },
+    {
+      "name": "AKMR_Bolt",
+      "vertices": 218,
+      "triangles": 428,
+      "groups": [
+        "WPN_bolt"
+      ]
+    },
+    {
+      "name": "AKMR_FunctionalIronSights",
+      "vertices": 24,
+      "triangles": 36,
+      "groups": [
+        "WPN_root"
+      ]
+    },
+    {
+      "name": "AKMR_Magazine",
+      "vertices": 1884,
+      "triangles": 3700,
+      "groups": [
+        "WPN_SOCKET_Magazine"
+      ]
+    },
+    {
+      "name": "AKMR_Trigger",
+      "vertices": 128,
+      "triangles": 252,
+      "groups": [
+        "WPN_Trigger"
+      ]
+    },
+    {
+      "name": "SK_ArmsReplacement_WRAD",
+      "vertices": 9842,
+      "triangles": 19616,
+      "groups": [
+        "clavicle_l",
+        "clavicle_r",
+        "hand_l",
+        "hand_r",
+        "index_01_l",
+        "index_01_r",
+        "index_02_l",
+        "index_02_r",
+        "index_03_l",
+        "index_03_r",
+        "lowerarm_l",
+        "lowerarm_r",
+        "lowerarm_twist_01_l",
+        "lowerarm_twist_01_r",
+        "middle_01_l",
+        "middle_01_r",
+        "middle_02_l",
+        "middle_02_r",
+        "middle_03_l",
+        "middle_03_r",
+        "pinky_01_l",
+        "pinky_01_r",
+        "pinky_02_l",
+        "pinky_02_r",
+        "pinky_03_l",
+        "pinky_03_r",
+        "ring_01_l",
+        "ring_01_r",
+        "ring_02_l",
+        "ring_02_r",
+        "ring_03_l",
+        "ring_03_r",
+        "thumb_01_l",
+        "thumb_01_r",
+        "thumb_02_l",
+        "thumb_02_r",
+        "thumb_03_l",
+        "thumb_03_r",
+        "upperarm_l",
+        "upperarm_r"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "M_AKMR_BluedSteel",
+      "color": [
+        0.03200000151991844,
+        0.03999999910593033,
+        0.04899999871850014
+      ],
+      "metallic": 0.8199999928474426,
+      "roughness": 0.3799999952316284
+    },
+    {
+      "name": "M_AKMR_Walnut",
+      "color": [
+        0.23000000417232513,
+        0.054999999701976776,
+        0.017000000923871994
+      ],
+      "metallic": 0.0,
+      "roughness": 0.4699999988079071
+    },
+    {
+      "name": "M_AKMR_Bakelite",
+      "color": [
+        0.15000000596046448,
+        0.028999999165534973,
+        0.010999999940395355
+      ],
+      "metallic": 0.0,
+      "roughness": 0.4300000071525574
+    },
+    {
+      "name": "M_AKMR_BoltSteel",
+      "color": [
+        0.09000000357627869,
+        0.10499999672174454,
+        0.11999999731779099
+      ],
+      "metallic": 0.8799999952316284,
+      "roughness": 0.28999999165534973
+    },
+    {
+      "name": "M_AKMR_Parkerized",
+      "color": [
+        0.02500000037252903,
+        0.03200000151991844,
+        0.03799999877810478
+      ],
+      "metallic": 0.7200000286102295,
+      "roughness": 0.5
+    },
+    {
+      "name": "M_ArmsReplacement_OliveFabric",
+      "color": [
+        0.08500000089406967,
+        0.10499999672174454,
+        0.07400000095367432
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8600000143051147
+    },
+    {
+      "name": "M_ArmsReplacement_CharcoalGlove",
+      "color": [
+        0.01899999938905239,
+        0.024000000208616257,
+        0.026000000536441803
+      ],
+      "metallic": 0.0,
+      "roughness": 0.6399999856948853
+    }
+  ]
+}

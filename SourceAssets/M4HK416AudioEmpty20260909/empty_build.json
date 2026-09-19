@@ -1,0 +1,28 @@
+{
+  "frames": 229,
+  "fps": 60,
+  "source_duration": 3.8,
+  "runtime_duration": 3.466667,
+  "cue_frames": [
+    30,
+    90,
+    114,
+    180
+  ],
+  "bolt_closed_frame": 184,
+  "bolt_travel_cm": 3.5,
+  "bolt_vertices": 612,
+  "bone_count": 98,
+  "maximum_arm_length_error_cm": 9.056550909214423e-06,
+  "palm_button_distance_cm_at_press": [
+    1.966420116413441,
+    1.9518135928251408,
+    1.9372085427747658,
+    1.9226379429952878,
+    1.9080602272138698,
+    1.8934927918909563,
+    1.8789429722672522
+  ],
+  "reference": "Godot HK416 reload_empty: seated magazine, lift support hand, press bolt catch, return to foreend",
+  "original_hand_pack": "No separate empty reload or charge action; plain Reload was duplicated before this change."
+}

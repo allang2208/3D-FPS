@@ -1,0 +1,34 @@
+{
+  "material": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/MI_Chest_Ziarat_4K.MI_Chest_Ziarat_4K",
+  "parent": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/M_Chest_Ziarat.M_Chest_Ziarat",
+  "uv_tiling": 1.8,
+  "two_sided": true,
+  "skeletal_mesh": true,
+  "textures": {
+    "BaseColor": {
+      "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_BaseColor_4K.T_Ziarat_BaseColor_4K",
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "Normal": {
+      "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Normal_4K.T_Ziarat_Normal_4K",
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_NORMALMAP: 1>"
+    },
+    "Roughness": {
+      "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Roughness_4K.T_Ziarat_Roughness_4K",
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "Specular": {
+      "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Specular_4K.T_Ziarat_Specular_4K",
+      "srgb": true,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    },
+    "Cavity": {
+      "path": "/Game/ColdSteelUI/Warehouse20260909/ZiaratWhiteMarble/Textures/T_Ziarat_Cavity_4K.T_Ziarat_Cavity_4K",
+      "srgb": false,
+      "compression": "<TextureCompressionSettings.TC_DEFAULT: 0>"
+    }
+  }
+}

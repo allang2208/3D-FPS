@@ -1,0 +1,15 @@
+{
+  "mesh": "/Game/Weapons/AKMReplacement/HandsRepair/SK_AKM_HandsRepair.SK_AKM_HandsRepair",
+  "shared_skeleton": "/Game/Weapons/AKMReplacement/SK_AKM_Replacement_Skeleton.SK_AKM_Replacement_Skeleton",
+  "materials": [
+    "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_BluedSteel_PBR_Skinned.M_AKMR_BluedSteel_PBR_Skinned",
+    "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Walnut_PBR_Skinned.M_AKMR_Walnut_PBR_Skinned",
+    "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Bakelite_PBR_Skinned.M_AKMR_Bakelite_PBR_Skinned",
+    "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_BoltSteel_PBR_Skinned.M_AKMR_BoltSteel_PBR_Skinned",
+    "/Game/Weapons/AKMReplacement/Rendering/M_AKMR_Parkerized_PBR_Skinned.M_AKMR_Parkerized_PBR_Skinned",
+    "/Game/Weapons/AKMReplacement/Rendering/M_ArmsReplacement_OliveFabric_PBR_Skinned.M_ArmsReplacement_OliveFabric_PBR_Skinned",
+    "/Game/Weapons/AKMReplacement/Rendering/M_ArmsReplacement_CharcoalGlove_PBR_Skinned.M_ArmsReplacement_CharcoalGlove_PBR_Skinned"
+  ],
+  "independent_readback": true,
+  "passed": true
+}

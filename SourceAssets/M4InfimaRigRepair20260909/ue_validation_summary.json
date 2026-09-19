@@ -1,0 +1,306 @@
+{
+  "M4InfimaV3": {
+    "idle": {
+      "samples": 361,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 0.004932770075608308,
+        "WPN_RearSight": 0.047828411765318934,
+        "WPN_FrontSight": 0.1490664919570093,
+        "WPN_bolt": 0.030315754380622593
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 0.3018070325127488,
+        "WPN_Trigger": 0.30208488087972374,
+        "WPN_SOCKET_Magazine": 0.30413256173408726,
+        "WPN_bolt": 0.3010093202484281,
+        "WPN_RearSight": 0.2999688486441092,
+        "WPN_FrontSight": 0.369787518700993,
+        "hand_r": 0.32554165420978753,
+        "hand_l": 0.32551414737472406,
+        "pinky_02_l": 0.3572114933719085,
+        "pinky_03_l": 0.354306155795615,
+        "index_01_r": 0.3255473278038687,
+        "index_02_r": 0.3268585656571939,
+        "index_03_r": 0.32555308455526405
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "aim": {
+      "samples": 5,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 0,
+        "WPN_RearSight": 0,
+        "WPN_FrontSight": 0,
+        "WPN_bolt": 0
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 7.450580596923828e-07,
+        "WPN_Trigger": 3.983197842016102e-15,
+        "WPN_SOCKET_Magazine": 1.9073486328125e-06,
+        "WPN_bolt": 1.9073486328125e-06,
+        "WPN_RearSight": 7.152557373046875e-07,
+        "WPN_FrontSight": 1.6689300537109375e-06,
+        "hand_r": 1.018524616398517e-06,
+        "hand_l": 2.1851423716334533e-06,
+        "pinky_02_l": 1.9073486328125e-06,
+        "pinky_03_l": 4.76837158203125e-07,
+        "index_01_r": 1.3696104637475082e-06,
+        "index_02_r": 1.3486991523486091e-06,
+        "index_03_r": 9.5367431640625e-07
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "fire": {
+      "samples": 93,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 0.09124947401326076,
+        "WPN_RearSight": 0.5511363795817029,
+        "WPN_FrontSight": 0.6274620634882822,
+        "WPN_bolt": 8.085643639096768
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 0.3270525498212811,
+        "WPN_Trigger": 0.3341154912510873,
+        "WPN_SOCKET_Magazine": 0.9556196007422456,
+        "WPN_bolt": 0.675785970152425,
+        "WPN_RearSight": 0.29684830248698246,
+        "WPN_FrontSight": 0.4082218786430883,
+        "hand_r": 0.3695546536529223,
+        "hand_l": 0.3107787584583241,
+        "pinky_02_l": 0.3541605195191027,
+        "pinky_03_l": 0.3473985177422039,
+        "index_01_r": 0.36674828850267516,
+        "index_02_r": 0.37973449147896055,
+        "index_03_r": 0.5162524782375653
+      },
+      "trigger_rotation_degrees": 28.999183461027844
+    },
+    "reload": {
+      "samples": 377,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 1.1940099687759187,
+        "WPN_RearSight": 1.2195205392312194,
+        "WPN_FrontSight": 1.1216860877772254,
+        "WPN_bolt": 1.5134823890397244
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 0.8802692144921918,
+        "WPN_Trigger": 0.8737748373237038,
+        "WPN_SOCKET_Magazine": 0.7664130913128213,
+        "WPN_bolt": 0.8205319201971579,
+        "WPN_RearSight": 0.7407221323517051,
+        "WPN_FrontSight": 0.4535971064809673,
+        "hand_r": 0.6958473859203659,
+        "hand_l": 0.8353285735822086,
+        "pinky_02_l": 0.6405267309805167,
+        "pinky_03_l": 0.7144388988102058,
+        "index_01_r": 0.7517808326661441,
+        "index_02_r": 0.8546188696551708,
+        "index_03_r": 0.6350022300498958
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "reload_empty": {
+      "samples": 377,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 1.1940099687759187,
+        "WPN_RearSight": 1.2195205392312194,
+        "WPN_FrontSight": 1.1216860877772254,
+        "WPN_bolt": 1.5134823890397244
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 0.8802692144921918,
+        "WPN_Trigger": 0.8737748373237038,
+        "WPN_SOCKET_Magazine": 0.7664130913128213,
+        "WPN_bolt": 0.8205319201971579,
+        "WPN_RearSight": 0.7407221323517051,
+        "WPN_FrontSight": 0.4535971064809673,
+        "hand_r": 0.6958473859203659,
+        "hand_l": 0.8353285735822086,
+        "pinky_02_l": 0.6405267309805167,
+        "pinky_03_l": 0.7144388988102058,
+        "index_01_r": 0.7517808326661441,
+        "index_02_r": 0.8546188696551708,
+        "index_03_r": 0.6350022300498958
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "equip": {
+      "samples": 125,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 0.2692752716215484,
+        "WPN_RearSight": 1.2462533026221636,
+        "WPN_FrontSight": 1.0191386597856762,
+        "WPN_bolt": 0.9815242938387775
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 0.5842280971718488,
+        "WPN_Trigger": 0.5804447267332477,
+        "WPN_SOCKET_Magazine": 0.45552689604828606,
+        "WPN_bolt": 0.8182472434415577,
+        "WPN_RearSight": 0.8344917808559937,
+        "WPN_FrontSight": 0.7159733836400545,
+        "hand_r": 0.4691612689234551,
+        "hand_l": 0.44353844685658234,
+        "pinky_02_l": 0.4817578632820141,
+        "pinky_03_l": 0.4995912207078132,
+        "index_01_r": 0.5327667622742739,
+        "index_02_r": 0.5501336693889987,
+        "index_03_r": 0.6347061899676559
+      },
+      "trigger_rotation_degrees": 0
+    }
+  },
+  "M4InfimaRigV4": {
+    "idle": {
+      "samples": 361,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 4.5569577887594645e-06,
+        "WPN_RearSight": 7.887283846656475e-06,
+        "WPN_FrontSight": 9.093181174186765e-06,
+        "WPN_bolt": 6.87177082717832e-06
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 4.76837158203125e-07,
+        "WPN_Trigger": 3.844384073399806e-06,
+        "WPN_SOCKET_Magazine": 6.050385256027947e-06,
+        "WPN_bolt": 5.741879739185474e-06,
+        "WPN_RearSight": 4.1019083342755445e-06,
+        "WPN_FrontSight": 2.2937800351725948e-05,
+        "hand_r": 0.00032844571494047316,
+        "hand_l": 0.00013235608305709357,
+        "pinky_02_l": 0.0004679733413660515,
+        "pinky_03_l": 0.00047742640327342933,
+        "index_01_r": 0.0003365673262600192,
+        "index_02_r": 0.0002747840063416874,
+        "index_03_r": 0.000285518368242768
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "aim": {
+      "samples": 5,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 0,
+        "WPN_RearSight": 0,
+        "WPN_FrontSight": 0,
+        "WPN_bolt": 0
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 3.637978807091713e-12,
+        "WPN_Trigger": 1.3500362384826279e-06,
+        "WPN_SOCKET_Magazine": 4.2660928246397554e-06,
+        "WPN_bolt": 1.967818582566554e-06,
+        "WPN_RearSight": 3.2431262427921406e-06,
+        "WPN_FrontSight": 8.338282883488461e-06,
+        "hand_r": 0.00045168146541466303,
+        "hand_l": 0.00010222125331196626,
+        "pinky_02_l": 0.00047593436609371916,
+        "pinky_03_l": 0.00047687417125101734,
+        "index_01_r": 0.0004480189617094295,
+        "index_02_r": 0.000291306626250829,
+        "index_03_r": 0.0002785194626266218
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "fire": {
+      "samples": 93,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 5.593937816012749e-06,
+        "WPN_RearSight": 6.172212498306113e-06,
+        "WPN_FrontSight": 1.2014511107226658e-05,
+        "WPN_bolt": 7.500006663297681
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 1.9073486328125e-06,
+        "WPN_Trigger": 5.091227651611e-06,
+        "WPN_SOCKET_Magazine": 4.291534423828125e-06,
+        "WPN_bolt": 5.531516564595621e-05,
+        "WPN_RearSight": 2.5788912359218523e-06,
+        "WPN_FrontSight": 1.535719195860664e-05,
+        "hand_r": 0.00034086753532068276,
+        "hand_l": 0.00015842304619843615,
+        "pinky_02_l": 0.00045829285393133467,
+        "pinky_03_l": 0.00046747092619987157,
+        "index_01_r": 0.000343567707838789,
+        "index_02_r": 0.00026337473570849475,
+        "index_03_r": 0.0002729512692113862
+      },
+      "trigger_rotation_degrees": 29.000003083728245
+    },
+    "reload": {
+      "samples": 377,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 5.7077322548281855e-06,
+        "WPN_RearSight": 5.919977466569214e-06,
+        "WPN_FrontSight": 1.5635140218284834e-05,
+        "WPN_bolt": 5.834037029185242e-06
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 5.040058235826039e-05,
+        "WPN_Trigger": 4.9648343532086536e-05,
+        "WPN_SOCKET_Magazine": 0.003339795369021261,
+        "WPN_bolt": 5.006563090670276e-05,
+        "WPN_RearSight": 5.023692189452763e-05,
+        "WPN_FrontSight": 5.1683517093045154e-05,
+        "hand_r": 0.0003320611939575595,
+        "hand_l": 0.007330080346096615,
+        "pinky_02_l": 0.009375783046601829,
+        "pinky_03_l": 0.009255641883233558,
+        "index_01_r": 0.00034241556473641615,
+        "index_02_r": 0.00046212187995581613,
+        "index_03_r": 0.0004750341660775428
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "reload_empty": {
+      "samples": 377,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 5.7077322548281855e-06,
+        "WPN_RearSight": 5.919977466569214e-06,
+        "WPN_FrontSight": 1.5635140218284834e-05,
+        "WPN_bolt": 5.834037029185242e-06
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 5.040058235826039e-05,
+        "WPN_Trigger": 4.9648343532086536e-05,
+        "WPN_SOCKET_Magazine": 0.003339795369021261,
+        "WPN_bolt": 5.006563090670276e-05,
+        "WPN_RearSight": 5.023692189452763e-05,
+        "WPN_FrontSight": 5.1683517093045154e-05,
+        "hand_r": 0.0003320611939575595,
+        "hand_l": 0.007330080346096615,
+        "pinky_02_l": 0.009375783046601829,
+        "pinky_03_l": 0.009255641883233558,
+        "index_01_r": 0.00034241556473641615,
+        "index_02_r": 0.00046212187995581613,
+        "index_03_r": 0.0004750341660775428
+      },
+      "trigger_rotation_degrees": 0
+    },
+    "equip": {
+      "samples": 125,
+      "rigid_bone_drift_cm": {
+        "WPN_Trigger": 5.412098958324017e-06,
+        "WPN_RearSight": 5.960647758367211e-06,
+        "WPN_FrontSight": 1.3412339853503817e-05,
+        "WPN_bolt": 4.770698274902294e-06
+      },
+      "raw_vs_compressed_max_position_error_cm": {
+        "WPN_root": 4.76837158203125e-07,
+        "WPN_Trigger": 3.873843385999661e-06,
+        "WPN_SOCKET_Magazine": 6.03156597169567e-06,
+        "WPN_bolt": 4.397837339805774e-06,
+        "WPN_RearSight": 3.27771355745018e-06,
+        "WPN_FrontSight": 2.2953902705658343e-05,
+        "hand_r": 0.0005881364484084375,
+        "hand_l": 0.0003443135965643702,
+        "pinky_02_l": 0.0007859965948297063,
+        "pinky_03_l": 0.000779763918717627,
+        "index_01_r": 0.0006903773792917744,
+        "index_02_r": 0.0005713329033454236,
+        "index_03_r": 0.0005564736625126504
+      },
+      "trigger_rotation_degrees": 0
+    }
+  }
+}

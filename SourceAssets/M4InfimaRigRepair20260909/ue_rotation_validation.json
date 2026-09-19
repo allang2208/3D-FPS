@@ -1,0 +1,54 @@
+{
+  "M4InfimaV3": {
+    "idle": {
+      "max_angle_error_degrees": 0.17693235435862956,
+      "bone": "WPN_root"
+    },
+    "aim": {
+      "max_angle_error_degrees": 0.01975706224501901,
+      "bone": "WPN_root"
+    },
+    "fire": {
+      "max_angle_error_degrees": 0.1822994248574589,
+      "bone": "index_02_r"
+    },
+    "reload": {
+      "max_angle_error_degrees": 0.22918290203082417,
+      "bone": "pinky_02_l"
+    },
+    "reload_empty": {
+      "max_angle_error_degrees": 0.22918290203082417,
+      "bone": "pinky_02_l"
+    },
+    "equip": {
+      "max_angle_error_degrees": 0.13549350117685027,
+      "bone": "WPN_root"
+    }
+  },
+  "M4InfimaRigV4": {
+    "idle": {
+      "max_angle_error_degrees": 0.0001919301386729499,
+      "bone": "hand_r"
+    },
+    "aim": {
+      "max_angle_error_degrees": 0.0001756202221397118,
+      "bone": "hand_r"
+    },
+    "fire": {
+      "max_angle_error_degrees": 0.00019603356861993876,
+      "bone": "index_03_r"
+    },
+    "reload": {
+      "max_angle_error_degrees": 0.015355908635033517,
+      "bone": "hand_l"
+    },
+    "reload_empty": {
+      "max_angle_error_degrees": 0.015355908635033517,
+      "bone": "hand_l"
+    },
+    "equip": {
+      "max_angle_error_degrees": 0.00027165569459853146,
+      "bone": "index_03_r"
+    }
+  }
+}

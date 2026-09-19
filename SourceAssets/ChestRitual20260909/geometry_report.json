@@ -1,0 +1,42 @@
+{
+  "badges": [
+    {
+      "badge_center": [
+        0.0,
+        -71.0,
+        64.16000366210938
+      ],
+      "radius_source": 20.8,
+      "back_overlap_mm": 0.7,
+      "engraved_ticks": 24,
+      "engraving_depth_mm": 2.66
+    },
+    {
+      "badge_center": [
+        -98.0,
+        0.0,
+        59.0
+      ],
+      "radius_source": 17,
+      "back_overlap_mm": 0.7,
+      "engraved_ticks": 24,
+      "engraving_depth_mm": 2.66
+    },
+    {
+      "badge_center": [
+        98.0,
+        0.0,
+        59.0
+      ],
+      "radius_source": 17,
+      "back_overlap_mm": 0.7,
+      "engraved_ticks": 24,
+      "engraving_depth_mm": 2.66
+    }
+  ],
+  "gems": 3,
+  "removed_small_gems": 4,
+  "removed_lid_leaves": 48,
+  "body_vertices": 47184,
+  "body_faces": 21290
+}

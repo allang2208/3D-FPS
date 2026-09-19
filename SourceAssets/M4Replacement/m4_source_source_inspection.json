@@ -1,0 +1,3137 @@
+{
+  "objects": [
+    {
+      "name": "Bullet Fired Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.07883989810943604
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.03818824142217636
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.01781216636300087
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 192,
+      "triangles": 380,
+      "bounds": [
+        [
+          0.07402496784925461,
+          0.08365481346845627
+        ],
+        [
+          0.01838313229382038,
+          0.06863667815923691
+        ],
+        [
+          -0.022627079859375954,
+          -0.01299725566059351
+        ]
+      ],
+      "materials": [
+        "Bullets.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Bullet Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.07883989810943604
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.03818824142217636
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.009360406547784805
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 288,
+      "triangles": 568,
+      "bounds": [
+        [
+          0.07402496784925461,
+          0.08365481346845627
+        ],
+        [
+          0.007022880017757416,
+          0.06863667815923691
+        ],
+        [
+          0.004545492585748434,
+          0.014175317250192165
+        ]
+      ],
+      "materials": [
+        "Bullets.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Flash Hider Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.037083473056554794
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.3013592064380646
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.08560873568058014
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 463,
+      "triangles": 948,
+      "bounds": [
+        [
+          0.027939990162849426,
+          0.04622699320316315
+        ],
+        [
+          -0.34457528591156006,
+          -0.2976451516151428
+        ],
+        [
+          0.07632417976856232,
+          0.09489329159259796
+        ]
+      ],
+      "materials": [
+        "Flash Hider.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Front grip angled Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036962226033210754
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.15462976694107056
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.17389962077140808
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 510,
+      "triangles": 982,
+      "bounds": [
+        [
+          0.027107374742627144,
+          0.04681706428527832
+        ],
+        [
+          -0.23036354780197144,
+          -0.11671634018421173
+        ],
+        [
+          -0.219588503241539,
+          -0.17286790907382965
+        ]
+      ],
+      "materials": [
+        "Front Grip Angled.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Front grip vert Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696221113204956
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.06338070333003998
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.010577518492937088
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 718,
+      "triangles": 1416,
+      "bounds": [
+        [
+          0.023974549025297165,
+          0.04994986951351166
+        ],
+        [
+          -0.0828280970454216,
+          -0.043333783745765686
+        ],
+        [
+          -0.10737264156341553,
+          -0.009590134024620056
+        ]
+      ],
+      "materials": [
+        "Front grip vert.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Grip Default Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036961879581213
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.134431391954422
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.019419092684984207
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 540,
+      "triangles": 1076,
+      "bounds": [
+        [
+          0.02102014236152172,
+          0.05290353298187256
+        ],
+        [
+          0.13266980648040771,
+          0.22255627810955048
+        ],
+        [
+          -0.12270662933588028,
+          -0.019187968224287033
+        ]
+      ],
+      "materials": [
+        "Grip Default.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Grip Elvi Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036961860954761505
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.22541341185569763
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.14645542204380035
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 723,
+      "triangles": 1360,
+      "bounds": [
+        [
+          0.02140483818948269,
+          0.0525188073515892
+        ],
+        [
+          0.22365182638168335,
+          0.31526294350624084
+        ],
+        [
+          -0.25038474798202515,
+          -0.1289263218641281
+        ]
+      ],
+      "materials": [
+        "Grip Elvi.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Grip Holes Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036961879581213
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.134431391954422
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.15511836111545563
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1139,
+      "triangles": 2342,
+      "bounds": [
+        [
+          0.02135511115193367,
+          0.052568547427654266
+        ],
+        [
+          0.13266980648040771,
+          0.22180353105068207
+        ],
+        [
+          -0.25758734345436096,
+          -0.15488722920417786
+        ]
+      ],
+      "materials": [
+        "Grip Holes.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Handguard Classic Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036962203681468964
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.02823369950056076
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.16234183311462402
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 5177,
+      "triangles": 10174,
+      "bounds": [
+        [
+          0.01201694831252098,
+          0.06190746650099754
+        ],
+        [
+          -0.31502991914749146,
+          -0.021704208105802536
+        ],
+        [
+          0.131209135055542,
+          0.22702571749687195
+        ]
+      ],
+      "materials": [
+        "Handguard M4.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Handguard DMR Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -0.09396953135728836
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.022815994918346405
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.03158735856413841
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 8299,
+      "triangles": 16590,
+      "bounds": [
+        [
+          -0.12325341999530792,
+          -0.06468498706817627
+        ],
+        [
+          -0.4417637586593628,
+          -0.018078215420246124
+        ],
+        [
+          0.004002769012004137,
+          0.09645453840494156
+        ]
+      ],
+      "materials": [
+        "Handguard DMR.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Handguard Kmode Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696190193295479
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.008526168763637543
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.032129134982824326
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 4181,
+      "triangles": 8328,
+      "bounds": [
+        [
+          0.010682651773095131,
+          0.06301750987768173
+        ],
+        [
+          -0.24433620274066925,
+          -0.005916653200984001
+        ],
+        [
+          0.005361389834433794,
+          0.09641114622354507
+        ]
+      ],
+      "materials": [
+        "Keymod material.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "M4 Body",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696219623088837
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.04294392839074135
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 4773,
+      "triangles": 9083,
+      "bounds": [
+        [
+          -0.0015340447425842285,
+          0.06901001185178757
+        ],
+        [
+          -0.018837496638298035,
+          0.20477145910263062
+        ],
+        [
+          -0.05413500964641571,
+          0.09713844209909439
+        ]
+      ],
+      "materials": [
+        "Body.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Magazine Default Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036961913108825684
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.07323815673589706
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.1728498488664627
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 571,
+      "triangles": 1162,
+      "bounds": [
+        [
+          0.026190154254436493,
+          0.04773368313908577
+        ],
+        [
+          -0.12137150764465332,
+          -0.04111616685986519
+        ],
+        [
+          -0.33834704756736755,
+          -0.1660950630903244
+        ]
+      ],
+      "materials": [
+        "Magazine Default.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Magazine Large Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696189820766449
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.03818856179714203
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.17738036811351776
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 605,
+      "triangles": 1230,
+      "bounds": [
+        [
+          0.021234842017292976,
+          0.05268896371126175
+        ],
+        [
+          -0.009944790974259377,
+          0.0703105553984642
+        ],
+        [
+          -0.3428775668144226,
+          -0.17062558233737946
+        ]
+      ],
+      "materials": [
+        "Magazine Large.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Magazine Light.003",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696189820766449
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.03818856179714203
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.007759484928101301
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1652,
+      "triangles": 3276,
+      "bounds": [
+        [
+          0.02412494085729122,
+          0.04995795339345932
+        ],
+        [
+          -0.012797224335372448,
+          0.07242265343666077
+        ],
+        [
+          -0.15976451337337494,
+          0.016094956547021866
+        ]
+      ],
+      "materials": [
+        "Magazine Light.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "MK 18 Circle Base Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696192428469658
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.12903888523578644
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.10145430266857147
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 6948,
+      "triangles": 13870,
+      "bounds": [
+        [
+          0.00944351963698864,
+          0.06448033452033997
+        ],
+        [
+          -0.3820340037345886,
+          -0.11853837966918945
+        ],
+        [
+          -0.12729820609092712,
+          -0.03710053488612175
+        ]
+      ],
+      "materials": [
+        "MK18 Guard.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Muzzle Break Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696225583553314
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.30863723158836365
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.012544389814138412
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 508,
+      "triangles": 1032,
+      "bounds": [
+        [
+          0.02790668234229088,
+          0.04601782187819481
+        ],
+        [
+          -0.33859771490097046,
+          -0.2987902760505676
+        ],
+        [
+          -0.021599961444735527,
+          -0.003488820744678378
+        ]
+      ],
+      "materials": [
+        "Muzzle Break.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Stock Classic Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0369618684053421
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.19775867462158203
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.0317310206592083
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1168,
+      "triangles": 2276,
+      "bounds": [
+        [
+          0.006920291110873222,
+          0.06700331717729568
+        ],
+        [
+          0.1949668824672699,
+          0.40104660391807556
+        ],
+        [
+          -0.07888669520616531,
+          0.047176945954561234
+        ]
+      ],
+      "materials": [
+        "Classic Stock.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Stock DMR Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696184605360031
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.3163824677467346
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.1142633780837059
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1982,
+      "triangles": 3746,
+      "bounds": [
+        [
+          0.017234282568097115,
+          0.05668925493955612
+        ],
+        [
+          0.3135908842086792,
+          0.5932211875915527
+        ],
+        [
+          -0.20798005163669586,
+          -0.08779988437891006
+        ]
+      ],
+      "materials": [
+        "Stock DMR.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Stock Light V Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696185350418091
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.2896718978881836
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.1509784758090973
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1165,
+      "triangles": 2290,
+      "bounds": [
+        [
+          0.019930681213736534,
+          0.05424382537603378
+        ],
+        [
+          0.28782209753990173,
+          0.474162220954895
+        ],
+        [
+          0.04202503710985184,
+          0.16791202127933502
+        ]
+      ],
+      "materials": [
+        "Stock Light V.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Stockless Tube Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0369618684053421
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.19775867462158203
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.08803534507751465
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 161,
+      "triangles": 304,
+      "bounds": [
+        [
+          0.02135152369737625,
+          0.05257200822234154
+        ],
+        [
+          0.19775865972042084,
+          0.35892781615257263
+        ],
+        [
+          0.07242508232593536,
+          0.10364556312561035
+        ]
+      ],
+      "materials": [
+        "Stock Tube.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Suppressor Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0372433066368103
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.28926315903663635
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.032034751027822495
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 421,
+      "triangles": 842,
+      "bounds": [
+        [
+          0.022615205496549606,
+          0.0513087697327137
+        ],
+        [
+          -0.4053201377391815,
+          -0.2801581025123596
+        ],
+        [
+          0.017782405018806458,
+          0.046475909650325775
+        ]
+      ],
+      "materials": [
+        "Suppressor.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Supressor Mono Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.03696198761463165
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          -0.4962242841720581
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          0.03212912753224373
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 369,
+      "triangles": 738,
+      "bounds": [
+        [
+          0.02059257961809635,
+          0.05333150178194046
+        ],
+        [
+          -0.6647407412528992,
+          -0.4849952161312103
+        ],
+        [
+          0.015759721398353577,
+          0.04849855601787567
+        ]
+      ],
+      "materials": [
+        "Suppresor Mono.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Trigger Classic Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036961883306503296
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.1104726567864418
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.06107055023312569
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 80,
+      "triangles": 156,
+      "bounds": [
+        [
+          0.033695872873067856,
+          0.040227893739938736
+        ],
+        [
+          0.10483114421367645,
+          0.11591170728206635
+        ],
+        [
+          -0.09119545668363571,
+          -0.06107055023312569
+        ]
+      ],
+      "materials": [
+        "Body.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    },
+    {
+      "name": "Trigger Straight Unreal",
+      "type": "MESH",
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.036961883306503296
+        ],
+        [
+          0.0,
+          1.0,
+          1.6292067073209182e-07,
+          0.11038791388273239
+        ],
+        [
+          0.0,
+          -1.6292067073209182e-07,
+          1.0,
+          -0.015213909558951855
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 122,
+      "triangles": 244,
+      "bounds": [
+        [
+          0.033695872873067856,
+          0.040227893739938736
+        ],
+        [
+          0.10684265941381454,
+          0.11393318325281143
+        ],
+        [
+          -0.04546770453453064,
+          -0.01521391049027443
+        ]
+      ],
+      "materials": [
+        "Body.001"
+      ],
+      "groups": [],
+      "uv_layers": [
+        "UVMap"
+      ]
+    }
+  ],
+  "materials": [
+    {
+      "name": "Body.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Bullets.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Classic Stock.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Flash Hider.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Front Grip Angled.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Front grip vert.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Grip Default.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Grip Elvi.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Grip Holes.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Handguard DMR.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Handguard M4.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Keymod material.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Magazine Default.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Magazine Large.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Magazine Light.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "MK18 Guard.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Muzzle Break.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Stock DMR.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Stock Light V.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Stock Tube.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Suppresor Mono.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_Metallic.png"
+        }
+      ]
+    },
+    {
+      "name": "Suppressor.001",
+      "diffuse": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "nodes": [
+        {
+          "name": "Principled BSDF",
+          "type": "BSDF_PRINCIPLED",
+          "image": null
+        },
+        {
+          "name": "Material Output",
+          "type": "OUTPUT_MATERIAL",
+          "image": null
+        },
+        {
+          "name": "Normal Map",
+          "type": "NORMAL_MAP",
+          "image": null
+        },
+        {
+          "name": "Image Texture",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_BaseColor.png"
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_Normal.png"
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_Roughness.png"
+        },
+        {
+          "name": "Image Texture.003",
+          "type": "TEX_IMAGE",
+          "image": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_Metallic.png"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "name": "Body_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_BaseColor.png",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Body_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_Metallic.png",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Body_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_Normal.png",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Body_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Body_Roughness.png",
+      "size": [
+        4096,
+        4096
+      ],
+      "packed": true
+    },
+    {
+      "name": "Bullets_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Bullets_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Bullets_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Bullets_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Bullets_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Classic Stock_BaseColor.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_BaseColor.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Classic Stock_Metallic.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_Metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Classic Stock_Normal.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_Normal.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Classic Stock_Roughness.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Classic Stock_Roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Flash Hider_BaseColor.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_BaseColor.png",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "name": "Flash Hider_Metallic.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_Metallic.png",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "name": "Flash Hider_Normal.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_Normal.png",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "name": "Flash Hider_Roughness.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Flash Hider_Roughness.png",
+      "size": [
+        256,
+        256
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front Grip Angled_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front Grip Angled_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front Grip Angled_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front Grip Angled_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front Grip Angled_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front grip vert_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front grip vert_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front grip vert_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Front grip vert_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Front grip vert_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Default_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Default_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Default_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Default_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Default_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Elvi_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Elvi_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Elvi_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Elvi_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Elvi_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Holes_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Holes_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Holes_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Grip Holes_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Grip Holes_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard DMR_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_BaseColor.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard DMR_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_Metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard DMR_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_Normal.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard DMR_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard DMR_Roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard M4_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_BaseColor.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard M4_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_Metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard M4_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_Normal.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Handguard M4_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Handguard M4_Roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Keymod material_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_BaseColor.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Keymod material_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_Metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Keymod material_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_Normal.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Keymod material_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Keymod material_Roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Default_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_BaseColor.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Default_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_Metallic.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Default_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_Normal.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Default_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Default_Roughness.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Large_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_BaseColor.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Large_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_Metallic.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Large_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_Normal.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Large_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Large_Roughness.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Light_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_BaseColor.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Light_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_Metallic.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Light_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_Normal.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Magazine Light_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Magazine Light_Roughness.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "MK18 Guard_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_BaseColor.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "MK18 Guard_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_Metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "MK18 Guard_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_Normal.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "MK18 Guard_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\MK18 Guard_Roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Muzzle Break_BaseColor.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Muzzle Break_Metallic.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Muzzle Break_Normal.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Muzzle Break_Roughness.png.002",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Muzzle Break_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock DMR_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_BaseColor.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock DMR_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_Metallic.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock DMR_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_Normal.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock DMR_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock DMR_Roughness.png",
+      "size": [
+        2048,
+        2048
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Light V_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_BaseColor.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Light V_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_Metallic.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Light V_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_Normal.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Light V_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Light V_Roughness.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Tube_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Tube_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Tube_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Stock Tube_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Stock Tube_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppresor Mono_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppresor Mono_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppresor Mono_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppresor Mono_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppresor Mono_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppressor_BaseColor.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_BaseColor.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppressor_Metallic.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_Metallic.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppressor_Normal.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_Normal.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    },
+    {
+      "name": "Suppressor_Roughness.png.001",
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\M4NoSkel.fbm\\Suppressor_Roughness.png",
+      "size": [
+        512,
+        512
+      ],
+      "packed": true
+    }
+  ]
+}

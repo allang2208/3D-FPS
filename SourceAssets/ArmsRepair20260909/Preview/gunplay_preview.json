@@ -1,0 +1,68 @@
+{
+  "capture_directory": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\hands-time-final",
+  "capture_fps": 10,
+  "output_fps": 10,
+  "source_frame_count": 118,
+  "start_index": 0,
+  "end_index": 141,
+  "output_frame_count": 142,
+  "duration_seconds": 14.2,
+  "held_missing_indices": [
+    5,
+    8,
+    10,
+    11,
+    12,
+    20,
+    23,
+    36,
+    39,
+    40,
+    44,
+    48,
+    60,
+    72,
+    77,
+    82,
+    91,
+    101,
+    107,
+    109,
+    119,
+    127,
+    128,
+    138
+  ],
+  "gap_policy": "Hold preceding frame; use earliest frame before first available index.",
+  "video_size": [
+    1280,
+    720
+  ],
+  "gif_width": 720,
+  "gif_colors": 96,
+  "panels": [
+    {
+      "title": "Hip / recovered",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\hands-time-final\\10_Final_Recovered.png"
+    },
+    {
+      "title": "ADS alignment",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\hands-time-final\\01_ADS_Aligned.png"
+    },
+    {
+      "title": "ADS fire / real-time hitch test",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\hands-time-final\\02_ADS_Fire_FX.png"
+    },
+    {
+      "title": "Repaired palm / empty reload",
+      "source": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\hands-time-final\\07_EmptyReload_Charge.png"
+    }
+  ],
+  "outputs": {
+    "gunplay_preview.mp4": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ArmsRepair20260909\\Preview\\gunplay_preview.mp4",
+    "gunplay_preview.gif": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ArmsRepair20260909\\Preview\\gunplay_preview.gif",
+    "gunplay_comparison.png": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ArmsRepair20260909\\Preview\\gunplay_comparison.png",
+    "gunplay_preview.json": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ArmsRepair20260909\\Preview\\gunplay_preview.json"
+  },
+  "note": "Presentation export only; source run assertions and visual acceptance remain separate."
+}

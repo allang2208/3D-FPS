@@ -1,0 +1,29 @@
+{
+  "source_run": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-hk416-av60-audible",
+  "source_frames": 126,
+  "held_missing_indices": [
+    6,
+    10,
+    20,
+    29,
+    38,
+    40,
+    44,
+    47,
+    61,
+    76,
+    77,
+    96,
+    107,
+    110,
+    127,
+    128
+  ],
+  "output_frames": 142,
+  "capture_fps": 10,
+  "duration": 14.2,
+  "actual_mixer_audio": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-hk416-av60-audible\\GunplayAudio.wav",
+  "audio_trim_start": 2.638,
+  "video": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416AudioEmpty20260909\\Preview\\M4_HK416_实际音效与空仓换弹.mp4",
+  "note": "Same-run actual mixer output. Only timeline-origin trim; no per-event audio shifts or replacement sounds. 10 Hz screenshot capture creates stalls and is not a gameplay FPS benchmark."
+}

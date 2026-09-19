@@ -1,0 +1,42 @@
+{
+  "mesh": "/Game/Weapons/M4EmptyReload/SK_M4_Infima_BoltReceiver.SK_M4_Infima_BoltReceiver",
+  "animation": "/Game/Weapons/M4EmptyReload/A_M4_ReloadEmpty_BoltRelease.A_M4_ReloadEmpty_BoltRelease",
+  "duration": 3.799999952316284,
+  "sample_count_120hz": 457,
+  "compression_max_position_error_cm": 0.0003341264810818437,
+  "receiver_parts_relative_error": 3.443761255846407e-07,
+  "bolt_samples": [
+    {
+      "time": 0.0,
+      "relative": [
+        -1.4556179615987653e-07,
+        0.03409106702847394,
+        0.03296500821138655
+      ]
+    },
+    {
+      "time": 3.0,
+      "relative": [
+        -1.5958867228160755e-07,
+        0.034090535923560546,
+        0.03296500907009164
+      ]
+    },
+    {
+      "time": 3.066666666666667,
+      "relative": [
+        -1.4800481496379802e-07,
+        0.06909088337224077,
+        0.03296502521371346
+      ]
+    },
+    {
+      "time": 3.8,
+      "relative": [
+        -1.3600091132603965e-07,
+        0.06909088198041001,
+        0.03296502683784769
+      ]
+    }
+  ]
+}

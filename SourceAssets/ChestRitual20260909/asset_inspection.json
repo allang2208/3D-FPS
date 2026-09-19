@@ -1,0 +1,125 @@
+{
+  "mesh_slots": [
+    {
+      "slot": "Gold_PBR",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Gold_PBR.Gold_PBR",
+      "name": "Gold_PBR"
+    },
+    {
+      "slot": "White_Marble_PBR",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/White_Marble_PBR.White_Marble_PBR",
+      "name": "White_Marble_PBR"
+    },
+    {
+      "slot": "Navy_Velvet",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Navy_Velvet.Navy_Velvet",
+      "name": "Navy_Velvet"
+    },
+    {
+      "slot": "Interior_Magic_Blue",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Interior_Magic_Blue.Interior_Magic_Blue",
+      "name": "Interior_Magic_Blue"
+    },
+    {
+      "slot": "Sapphire_PBR",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Sapphire_PBR.Sapphire_PBR",
+      "name": "Sapphire_PBR"
+    },
+    {
+      "slot": "Brass_Frame",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Frame.Brass_Frame",
+      "name": "Brass_Frame"
+    },
+    {
+      "slot": "Brass_Hardware",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Hardware.Brass_Hardware",
+      "name": "Brass_Hardware"
+    },
+    {
+      "slot": "Ritual_Champagne",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Champagne.Ritual_Champagne",
+      "name": "Ritual_Champagne"
+    },
+    {
+      "slot": "Ritual_Gunmetal",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Gunmetal.Ritual_Gunmetal",
+      "name": "Ritual_Gunmetal"
+    },
+    {
+      "slot": "Ritual_Engraving",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Ritual_Engraving.Ritual_Engraving",
+      "name": "Ritual_Engraving"
+    },
+    {
+      "slot": "Brass_Strap",
+      "material": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/warehouse_chest_rigid/Materials/Brass_Strap.Brass_Strap",
+      "name": "Brass_Strap"
+    }
+  ],
+  "materials": [
+    {
+      "key": "Gold_PBR",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC01655E0) {r: 0.110000, g: 0.130000, b: 0.160000, a: 1.000000}>",
+      "roughness": 0.3799999952316284
+    },
+    {
+      "key": "Brass_Frame",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC0165620) {r: 0.110000, g: 0.130000, b: 0.160000, a: 1.000000}>",
+      "roughness": 0.3799999952316284
+    },
+    {
+      "key": "Brass_Strap",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Strap.MI_Ritual_Strap",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC0165660) {r: 0.130000, g: 0.150000, b: 0.180000, a: 1.000000}>",
+      "roughness": 0.3400000035762787
+    },
+    {
+      "key": "Brass_Hardware",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Hardware.MI_Ritual_Hardware",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC01656A0) {r: 0.170000, g: 0.190000, b: 0.210000, a: 1.000000}>",
+      "roughness": 0.27000001072883606
+    },
+    {
+      "key": "Ritual_Gunmetal",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Frame.MI_Ritual_Frame",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC01656E0) {r: 0.110000, g: 0.130000, b: 0.160000, a: 1.000000}>",
+      "roughness": 0.3799999952316284
+    },
+    {
+      "key": "Ritual_Champagne",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Champagne.MI_Ritual_Champagne",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC0165760) {r: 0.340000, g: 0.290000, b: 0.200000, a: 1.000000}>",
+      "roughness": 0.3100000023841858
+    },
+    {
+      "key": "Ritual_Engraving",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Engraving.MI_Ritual_Engraving",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Metal.M_Ritual_Metal",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC01657A0) {r: 0.025000, g: 0.032000, b: 0.040000, a: 1.000000}>",
+      "roughness": 0.550000011920929
+    },
+    {
+      "key": "Sapphire_PBR",
+      "path": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/MI_Ritual_Sapphire.MI_Ritual_Sapphire",
+      "parent": "/Game/ColdSteelUI/Warehouse20260909/RitualV8/Surfaces/M_Ritual_Sapphire.M_Ritual_Sapphire",
+      "skeletal": true,
+      "tint": "<Struct 'LinearColor' (0x0000018DC01657E0) {r: 0.000000, g: 0.000000, b: 0.000000, a: 1.000000}>",
+      "roughness": 0.0
+    }
+  ]
+}

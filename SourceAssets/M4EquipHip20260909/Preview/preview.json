@@ -1,0 +1,14 @@
+{
+  "run": "D:\\FPS3D\\FPSGAME\\Saved\\GunplayUpgrade\\m4-equip-hip-final60",
+  "frames": 71,
+  "capture_hz": 10,
+  "duration": 7.2,
+  "equip_samples_from_csv": 261,
+  "max_framing_alpha": 0.0,
+  "max_ads_alpha": 0.0,
+  "max_xy_hip_error_cm": 0.0,
+  "missing_frames_held": [
+    0
+  ],
+  "note": "Actual game frames. 10 Hz capture is not measured gameplay FPS. Original equip clip and duration retained."
+}

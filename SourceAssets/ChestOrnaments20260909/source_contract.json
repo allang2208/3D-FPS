@@ -1,0 +1,19 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ChestOrnaments20260909\\warehouse_chest_v7.glb",
+  "sha256": "c26e35868093f0d058e9080f8ced6e377ad9c0260dd992f3f6f0cf91f4c04e6e",
+  "vertices": 79419,
+  "joints": 5,
+  "animations": [
+    {
+      "name": "Open",
+      "channels": 2,
+      "duration": 0.8999999761581421
+    },
+    {
+      "name": "Close",
+      "channels": 2,
+      "duration": 0.699999988079071
+    }
+  ],
+  "contract": "Source animation channels and hierarchy retained verbatim; rigid weighting only. Open 0.9 s; Close 0.7 s; no looping."
+}

@@ -1,0 +1,32 @@
+{
+  "S_HK416_Fire": {
+    "asset": "/Game/Weapons/M4HK416Audio/S_HK416_Fire.S_HK416_Fire",
+    "duration": 0.816,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416AudioEmpty20260909\\Audio\\fire.wav",
+    "sha256": "218da1a19f65c2c6d182a8a1b4e21f37da0e9c96c4e85be9691817a2e60d0fce"
+  },
+  "S_HK416_MagOut": {
+    "asset": "/Game/Weapons/M4HK416Audio/S_HK416_MagOut.S_HK416_MagOut",
+    "duration": 0.1210204081632653,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416AudioEmpty20260909\\Audio\\mag_out.wav",
+    "sha256": "8b8ad37920cc645073c61894355e50c793c7b46e0c4567dfbb36ce2c914164d8"
+  },
+  "S_HK416_MagInsert": {
+    "asset": "/Game/Weapons/M4HK416Audio/S_HK416_MagInsert.S_HK416_MagInsert",
+    "duration": 0.16,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416AudioEmpty20260909\\Audio\\mag_insert.wav",
+    "sha256": "0a65b259ccd8c32d9d3f5073146aaa16d4ecfeaba4ba52e4f776004f3dedd664"
+  },
+  "S_HK416_MagSeat": {
+    "asset": "/Game/Weapons/M4HK416Audio/S_HK416_MagSeat.S_HK416_MagSeat",
+    "duration": 0.12501133786848073,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416AudioEmpty20260909\\Audio\\mag_seat.wav",
+    "sha256": "313fee6f97598b15ab3143c9ea521b48c04dfc89b46498fc7a3451d9cd36f15b"
+  },
+  "S_HK416_BoltRelease": {
+    "asset": "/Game/Weapons/M4HK416Audio/S_HK416_BoltRelease.S_HK416_BoltRelease",
+    "duration": 0.27401360544217684,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416AudioEmpty20260909\\Audio\\bolt_release.wav",
+    "sha256": "aada6f21a5a451c663d39f3d4fd6d45e3a159fe10958ea2ed9df53a80c54b9a3"
+  }
+}
