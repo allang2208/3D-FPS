@@ -47,7 +47,7 @@ namespace
                 const FVector ProbeDirection=(Direction+Offset).GetSafeNormal();
                 FHitResult Probe;
                 if(World->LineTraceSingleByChannel(Probe,Start,Start+ProbeDirection*600,ECC_Visibility,Query)
-                    &&BuildWorld->ResolveHit(Probe,OutCell))
+                    &&(BuildWorld->ResolveHit(Probe,OutCell)||BuildWorld->ResolvePrefabSurfaceCell(Probe,OutCell)))
                 {OutHit=Probe;return true;}
             }
         }
@@ -475,7 +475,17 @@ void UVoxelBuildComponent::UpdateTarget()
     const FVector End=Start+Direction*600;const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelAim),true,PC->GetPawn());
     bool HasHit=GetWorld()->LineTraceSingleByChannel(Hit,Start,End,ECC_Visibility,Query);
-    bool BuildingHit=HasHit&&BuildWorld->ResolveHit(Hit,HitCell);
+    // 瞄准的构件引用必须**每帧**按当前命中重算（2026-09-19 排查顺带修复）：以前只在构件模式里刷新，
+    // 切回体素模式后 AimedPrefab 留着上一帧的门——右键拆除按 AimedPrefab 优先，会拆到根本没瞄准的构件。
+    AimedPrefab=nullptr;
+    if(HasHit)for(AActor* Actor=Hit.GetActor();Actor;Actor=Actor->GetAttachParentActor())
+        if(auto* Piece=Cast<AVoxelBuildPrefabActor>(Actor)){AimedPrefab=Piece;break;}
+    bool bVoxelSurface=HasHit&&BuildWorld->ResolveHit(Hit,HitCell);
+    bool BuildingHit=bVoxelSurface;
+    // 门／窗／柱等构件的碰撞面同样是焊接目标（2026-09-19）：以前瞄准这些面会被当成"非体素表面"
+    // 落回贴地分支，贴地寻优探到门洞／玻璃／框上悬空带就报"地面有陡坡、断崖或障碍"——
+    // 表现为"门框上砌不了方块、窗正上方建不了、幽灵在构件面上不吸附"。拆除笔刷仍只认真实体素面。
+    if(!BuildingHit&&HasHit&&BuildWorld->ResolvePrefabSurfaceCell(Hit,HitCell))BuildingHit=true;
     LastAimWasAssisted=false;
     // Snap mode stays glued to a voxel surface inside a small cone: drifting the aim a little must
     // only switch which surface is snapped, not drop the ghost into the air. Only a real turn away
@@ -483,12 +493,14 @@ void UVoxelBuildComponent::UpdateTarget()
     if(!BuildingHit&&bSnapEnabled&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell))
     {
         HasHit=true;BuildingHit=true;LastAimWasAssisted=true;
+        // 辅助射线可能命中的是构件面：重分辨一次，拆除笔刷只认真实体素。
+        bVoxelSurface=BuildWorld->ResolveHit(Hit,HitCell);
     }
     // Removal is the only thing rebuilt every frame; the placement plan is only cleared by the
     // branch that actually recomputes it, so the throttled branches (terrain sampling, aim miss)
     // keep the previous plan and its validity instead of dropping the click.
     Removal.Reset();
-    if(BuildingHit)FillBrush(HitCell.Cell,Removal);
+    if(bVoxelSurface)FillBrush(HitCell.Cell,Removal);
     if(SelectedPrefab()){Placement.Reset();bCanPlace=false;UpdatePrefabTarget(HasHit);UpdatePrefabPreview();return;}
     const double Now=GetWorld()->GetTimeSeconds();
     if(!HasHit)
@@ -539,7 +551,19 @@ void UVoxelBuildComponent::UpdateTarget()
             if(Axis!=2&&Direction.Z>.05f)
             {
                 const FIntVector Above=HitCell.Cell+FIntVector(0,0,1);
-                if(BuildWorld->VolumeMaterialAt(HitCell.Volume,Above).IsNone()){Base=Above;bGrowUp=true;}
+                // 2026-09-19：命中面可能是构件面（门框／窗框侧面），正上方那格若也被同一构件占着
+                // （框的竖直边柱），叠一层只会一直红——改试占格顶部之上：外廓整格时就是框顶上。
+                if(BuildWorld->VolumeMaterialAt(HitCell.Volume,Above).IsNone()
+                    &&!BuildWorld->IsPrefabCell(FGuid(),Above))
+                {Base=Above;bGrowUp=true;}
+                else
+                {
+                    FIntVector Top;
+                    if(BuildWorld->PrefabColumnTop(HitCell.Cell,Top)
+                        &&BuildWorld->VolumeMaterialAt(HitCell.Volume,Top).IsNone()
+                        &&!BuildWorld->IsPrefabCell(FGuid(),Top))
+                    {Base=Top;bGrowUp=true;}
+                }
             }
         }
         FillBrush(Base,Placement);

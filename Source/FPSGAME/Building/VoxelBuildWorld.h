@@ -75,6 +75,19 @@ public:
     bool ResolveGroundPlacement(const FHitResult& Surface,FIntVector Size,bool bSnap,
         FVector& Origin,TArray<FIntVector>& Positions,FString& Reason) const;
     bool ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) const;
+    /**
+     * 门／窗／柱等**已放置构件**的碰撞面也是体素焊接目标（2026-09-19）：命中构件自身碰撞时，
+     * 返回命中面内侧那一格占用格（世界格子坐标，Volume 置空＝与 PrefabCells／世界格同一坐标系），
+     * 调用方按普通体素面做面偏移出目标格。解决"在门框／窗框上或正上方砌不了体素、幽灵不贴构件面"。
+     * 摆动出来的门／窗扇打在占格体积之外，返回 false（照常落回贴地分支）。
+     */
+    bool ResolvePrefabSurfaceCell(const FHitResult& Hit,FVoxelBuildKey& Key) const;
+    /** 该世界格是否被某件已放置构件占用（自由体积的格先换算回世界格再查）。 */
+    bool IsPrefabCell(FGuid Volume,FIntVector Cell) const;
+    /** 世界最小角对应格的六面对面邻居里有构件占格：构件为体素提供支撑锚（2026-09-19）。 */
+    bool PrefabSupportAt(FVector WorldMin) const;
+    /** 瞄准格落在构件占格内时，给出该列"占格顶之上"那一格（仰视门框侧面＝框上砌块的手势，2026-09-19）。 */
+    bool PrefabColumnTop(FIntVector Cell,FIntVector& OutTopCell) const;
     bool IsReady() const {return bReady;}
     const FString& ResultMessage() const {return Message;}
     bool OwnsSurface(const UPrimitiveComponent* Component) const;
@@ -115,6 +128,11 @@ public:
     bool IsPrefabSupported(const FVoxelBuildPrefabInstance& Instance,FIntVector* OutContact=nullptr) const;
     /** 体素改动后：改动点一格以内的构件若失去支撑就脱落（与右键拆除同一条路径，不退还材料）。 */
     void VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit);
+    /**
+     * 构件被拆除／脱落后：检查腾出格的六面邻格里的体素节点，原来把构件当支撑锚的全部重判
+     * （地面锚定＋构件邻接口径），失去锚定的改判 bAnchor=false 并标脏，交给承重解算按既有流程倒塌。
+     */
+    void ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCells);
     UPhysicalMaterial* ContactMaterial() const {return StructuralContact;}
     void QueueFragmentDamage(AVoxelCollapseFragment* Fragment,FVector Position,float Amount,float Radius,float Energy);
     void QueueCollapseImpact(AActor* Other,const FHitResult& Hit,float Energy);

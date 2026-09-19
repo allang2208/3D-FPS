@@ -1,4 +1,5 @@
 #include "VoxelBuildWorld.h"
+#include "VoxelBuildRuntime.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildPrefabActor.h"
 #include "ColdSteelDoor.h"
@@ -35,6 +36,86 @@ void AVoxelBuildWorld::RefreshPrefabOccupancy()
         FillPrefabCells(Entry.Cell,Entry.Footprint,Occupied);
         for(const FIntVector& Cell:Occupied){PrefabCells.Add(Cell);PrefabCellOwner.Add(Cell,Entry.Cell);}
     }
+}
+
+bool AVoxelBuildWorld::ResolvePrefabSurfaceCell(const FHitResult& Hit,FVoxelBuildKey& Key) const
+{
+    // 命中面必须属于一件已放置构件：占位 Actor 自己，或挂在它下面的逻辑构件（门／窗的组件沿
+    // 挂载链一路上溯到 AVoxelBuildPrefabActor）。
+    const AVoxelBuildPrefabActor* Piece=nullptr;
+    for(AActor* Node=Hit.GetComponent()?Hit.GetComponent()->GetOwner():nullptr;
+        Node;Node=Node->GetAttachParentActor())
+        if((Piece=Cast<AVoxelBuildPrefabActor>(Node)))break;
+    if(!Piece)return false;
+    // 与体素 ResolveHit 同一口径：取面内半厘米处的格子，命中面贴边才不会落到邻格。
+    const FIntVector Cell=ToCell(Hit.ImpactPoint-Hit.ImpactNormal*.5);
+    // 占格表是唯一的权威：摆动出来的门／窗扇打在占格体积之外，这里自然拒绝（落回贴地分支）。
+    if(!IsPrefabCell(FGuid(),Cell))return false;
+    Key=FVoxelBuildKey{{},Cell};return true;
+}
+
+bool AVoxelBuildWorld::IsPrefabCell(FGuid Volume,FIntVector Cell) const
+{
+    if(Volume.IsValid())
+    {
+        // 自由体积的格是本地坐标、原点可以在任意连续位置（自由放置不取整）：
+        // 换算成真实世界格再查（历史缺陷：直接拿本地格查世界占格表）。
+        const auto* Data=FreeVolumes.Find(Volume);if(!Data)return false;
+        Cell=ToCell(Data->Origin+CellMin(Cell));
+    }
+    return PrefabCells.Contains(Cell);
+}
+
+bool AVoxelBuildWorld::PrefabSupportAt(FVector WorldMin) const
+{
+    const FIntVector C=ToCell(WorldMin);
+    for(const FIntVector& Face:SupportFaces)if(IsPrefabCell(FGuid(),C+Face))return true;
+    return false;
+}
+
+bool AVoxelBuildWorld::PrefabColumnTop(FIntVector Cell,FIntVector& OutTopCell) const
+{
+    // 只认**已放置**构件：命中格得在世界占格表里，再反查锚格与 Footprint 推该列顶。
+    const FIntVector* Anchor=PrefabCellOwner.Find(Cell);
+    if(!Anchor)return false;
+    const FVoxelBuildPrefabInstance* Entry=Prefabs.FindByPredicate(
+        [Anchor](const FVoxelBuildPrefabInstance& E){return E.Cell==*Anchor;});
+    if(!Entry)return false;
+    OutTopCell=FIntVector(Cell.X,Cell.Y,Entry->Cell.Z+FMath::Max(1,Entry->Footprint.Z));
+    return true;
+}
+
+void AVoxelBuildWorld::ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCells)
+{
+    if(!SupportGraph||!Runtime||VacatedCells.IsEmpty())return;
+    // 只重判"腾出格外壳一圈"的体素，且只处理**原本有锚、如今既不贴地面也不贴别的构件**的节点——
+    // 重锚发生在拆除／脱落之后，锚只可能变没、不会新增，所以绝大多数节点一次查表就跳过。
+    TSet<FIntVector> VacatedSet;for(const FIntVector& Cell:VacatedCells)VacatedSet.Add(Cell);
+    TSet<FIntVector> Boundary;
+    for(const FIntVector& Cell:VacatedCells)for(const FIntVector& Face:SupportFaces)
+    {
+        const FIntVector Neighbor=Cell+Face;
+        if(VacatedSet.Contains(Neighbor))continue;
+        Boundary.Add(Neighbor);
+    }
+    TSet<FVoxelBuildKey> Done;bool bChanged=false;
+    for(const FIntVector& Cell:Boundary)
+    {
+        for(const FVoxelBuildKey& Key:SupportGraph->Near(CellMin(Cell)))
+        {
+            if(Done.Contains(Key))continue;Done.Add(Key);
+            FVoxelSupportNode* Node=SupportGraph->Nodes.Find(Key);
+            if(!Node||!Node->bAnchor)continue;           // 原本就没锚：不动它（倒塌由既有流程负责）
+            if(PrefabSupportAt(Node->Min))continue;      // 还贴着别的构件：锚不变
+            if(IsGroundAnchor(Node->Min))continue;       // 脚下有地面：锚不变
+            Node->bAnchor=false;AnchorCache.Add(Key,false);
+            Runtime->DirtySupport.Add(Key);Runtime->NodeEpoch.Add(Key,Revision+1);
+            bChanged=true;
+        }
+    }
+    if(!bChanged)return;
+    ++Revision;SupportGraph->SolveConnectivity();
+    Runtime->StructureAt=GetWorld()->GetTimeSeconds()+.08;MarkSaveDirty();
 }
 
 bool AVoxelBuildWorld::IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint) const
@@ -93,6 +174,10 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
         if(Candidates.Contains(Instance.Cell)&&!IsPrefabSupported(Instance))
             Drop.Add(Instance.Cell);
     if(Drop.IsEmpty())return;
+    // 先记下将被腾空的全部占格（逐件 RemovePrefab 会把条目清掉，Footprint 之后就没处查了）。
+    TArray<FIntVector> Vacated;TArray<FIntVector> Scratch;
+    for(const FVoxelBuildPrefabInstance& Entry:Prefabs)
+        if(Drop.Contains(Entry.Cell)){FillPrefabCells(Entry.Cell,Entry.Footprint,Scratch);Vacated.Append(Scratch);}
     FString Names;
     for(const FIntVector& Anchor:Drop)
     {
@@ -106,6 +191,8 @@ void AVoxelBuildWorld::VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit)
         UE_LOG(LogTemp,Warning,TEXT("PREFAB_DROP %s 失去支撑 @格(%d,%d,%d)"),
             *Label,Anchor.X,Anchor.Y,Anchor.Z);
     }
+    // 腾出的格：原本只锚在这些构件上的体素要重判锚定，否则会继续被当"有地基"撑着（2026-09-19）。
+    ReanchorVoxelsAround(Vacated);
     Message=FString::Printf(TEXT("%s 失去支撑已脱落"),*Names);
     if(UGameInstance* Game=GetWorld()?GetWorld()->GetGameInstance():nullptr)
         if(auto* Model=Game->GetSubsystem<UColdSteelStatusModel>())
@@ -216,6 +303,11 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
         if(auto* Found=Cast<AVoxelBuildPrefabActor>(Parent)){Target=Found;break;}
     if(!bReady||GetNetMode()!=NM_Standalone||!Target){Message=TEXT("只能拆除自己放置的构件");return false;}
     const FIntVector Cell=Target->AnchorCell();
+    // 先记下这件构件的占格（RemoveAll 之后 Footprint 就没处查了）：拆除后贴着它的体素要重判锚定。
+    TArray<FIntVector> Vacated;
+    if(const FVoxelBuildPrefabInstance* Entry=Prefabs.FindByPredicate(
+            [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;}))
+        FillPrefabCells(Entry->Cell,Entry->Footprint,Vacated);
     if(Prefabs.RemoveAll([Cell](const FVoxelBuildPrefabInstance& Entry){return Entry.Cell==Cell;})<=0)
     {Message=TEXT("该构件不在建筑记录中");return false;}
     if(auto* Found=PrefabActors.Find(Cell))
@@ -230,7 +322,9 @@ bool AVoxelBuildWorld::RemovePrefab(AActor* Piece)
         PrefabActors.Remove(Cell);
     }
     if(IsValid(Target))Target->Destroy();
-    RefreshPrefabOccupancy();MarkSaveDirty();
+    RefreshPrefabOccupancy();
+    ReanchorVoxelsAround(Vacated);
+    MarkSaveDirty();
     Message=Prefabs.IsEmpty()?TEXT("已拆除构件 · 正在保存"):FString::Printf(TEXT("已拆除构件 · 余 %d 件 · 正在保存"),Prefabs.Num());
     return true;
 }

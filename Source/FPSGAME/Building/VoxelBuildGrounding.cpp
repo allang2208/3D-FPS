@@ -136,7 +136,18 @@ bool AVoxelBuildWorld::ScenePlacementAllowed(FVector Min,FString& Reason,bool* O
         if(GetWorld()->LineTraceSingleByChannel(Obstacle,Center-Axis*8,Center+Axis*8,ECC_Visibility,Params)
             &&!(HasGround&&Ground.Contains(Obstacle.GetComponent())
                 &&Obstacle.ImpactPoint.Z>=Ground.Low-VoxelGrounding::ContactToleranceCm
-                &&Obstacle.ImpactPoint.Z<=Ground.High+VoxelGrounding::ContactToleranceCm))
+                &&Obstacle.ImpactPoint.Z<=Ground.High+VoxelGrounding::ContactToleranceCm)
+            // 2026-09-19：贴已放置构件（门框／窗框／柱）砌块时，相邻占格里的构件面不算"障碍"。
+            // 以前三轴 ±8 cm 探针必打到构件自己 →"位置与场景障碍重叠"，这是"窗顶上方建不了"的
+            // 第二根因（第一根因是瞄准面走贴地分支）。判据与 ResolvePrefabSurfaceCell 同一口径：
+            // 命中点内推半厘米落进构件占格、且那一格与目标格六面相邻。
+            &&![&]
+            {
+                const FIntVector HitCell=ToCell(Obstacle.ImpactPoint-Obstacle.ImpactNormal*.5);
+                const FIntVector Target=ToCell(Min);
+                const FIntVector D=HitCell-Target;
+                return FMath::Abs(D.X)+FMath::Abs(D.Y)+FMath::Abs(D.Z)==1&&IsPrefabCell(FGuid(),HitCell);
+            }())
         {Reason=TEXT("位置与场景障碍重叠");return false;}
     }
     return true;

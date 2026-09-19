@@ -141,6 +141,9 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
         }
         CellDamage=LoadedData->Damage;LegacyProtected=LoadedData->LegacyProtected;
     }
+    // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
+    // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
+    RefreshPrefabOccupancy();
     RefreshSupportGraph();
     if(LoadedData)
     {
@@ -153,7 +156,8 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     RebuildAffected(Loaded);bReady=true;
     for(const auto& E:SupportGraph->Nodes)if(!LegacyProtected.Contains(E.Key))Runtime->DirtySupport.Add(E.Key);
     for(const FVoxelBuildPrefabInstance& Piece:Prefabs)SpawnPrefab(Piece);
-    RefreshPrefabOccupancy();
+    // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
+    // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
     if(LoadedData)for(const auto& F:LoadedData->Fragments)EnqueueFragment(F);
     Message=Prefabs.IsEmpty()?(LegacyProtected.IsEmpty()?TEXT("建筑已载入 · 承重系统已启用"):TEXT("旧建筑已保留 · 编辑相关结构后启用承重"))
         :FString::Printf(TEXT("建筑已载入 · 构件 %d 件 · 承重系统已启用"),Prefabs.Num());
@@ -186,7 +190,8 @@ bool AVoxelBuildWorld::CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& P
     for(const auto& Cell:Positions)
     {
         if(!VolumeMaterialAt(Volume,Cell).IsNone()){Reason=TEXT("该位置已有方块");return false;}
-        if(PrefabCells.Contains(Cell)){Reason=TEXT("该位置已有构件");return false;}
+        // 历史缺陷：自由体积的本地格直接查世界占格表（只有坐标巧合时才会拦住）。
+        if(IsPrefabCell(Volume,Cell)){Reason=TEXT("该位置已有构件");return false;}
     }
     return CanPlaceAt(VolumeOrigin(Volume),Positions,Material,Reason);
 }
@@ -216,7 +221,9 @@ void AVoxelBuildWorld::RefreshSupportGraph()
             FVoxelContact Contact;const auto& Below=SupportGraph->Nodes.FindChecked(Other);
             if(FVoxelSupportGraph::Contact(E.Value.Min,Below.Min,Contact)&&Contact.Normal.Z<-.5&&Contact.Area>.0399){Covered=true;break;}
         }
-        E.Value.bAnchor=!Covered&&IsGroundAnchor(E.Value.Min);AnchorCache.Add(E.Key,E.Value.bAnchor);
+        // 支撑锚（2026-09-19）：地面锚定之外，面对面贴着已放置构件（门／窗／柱）也算有着落——
+        // 以前贴窗框侧面砌的块没有地基路径，整条被"缺少与地基相连的接触面"拒绝。
+        E.Value.bAnchor=!Covered&&(IsGroundAnchor(E.Value.Min)||PrefabSupportAt(E.Value.Min));AnchorCache.Add(E.Key,E.Value.bAnchor);
     }
     SupportGraph->SolveConnectivity();
 }
@@ -234,6 +241,9 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
         if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");LogPlacementReject(TEXT("overlap"),{FGuid(),Cell},Min,Reason);return false;}
         bool Anchored=false;
         if(!ScenePlacementAllowed(Min,Reason,&Anchored)){LogPlacementReject(TEXT("scene"),{FGuid(),Cell},Min,Reason);return false;}
+        // 贴靠构件面的新格直接带锚（与 RefreshSupportGraph／ApplyChanges 同一口径；OutAnchor 会被
+        // ScenePlacementAllowed 覆写，所以判锚必须放在它后面）。
+        Anchored|=PrefabSupportAt(Min);
         for(const auto& Key:SupportGraph->Near(Min))
         {
             const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;
@@ -306,7 +316,8 @@ bool AVoxelBuildWorld::CanCommit(const TArray<FVoxelEditCell>& Edit,FString& Rea
             const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
             if(!ScenePlacementAllowed(Min,Reason)){LogPlacementReject(TEXT("commit-scene"),Key,Min,Reason);return false;}
             if(E.Before.IsNone()&&SupportGraph->Overlaps(Min)){Reason=TEXT("编辑位置与已有建筑重叠");LogPlacementReject(TEXT("commit-overlap"),Key,Min,Reason);return false;}
-            if(E.Before.IsNone()&&PrefabCells.Contains(E.Position)){Reason=TEXT("该位置已有构件");LogPlacementReject(TEXT("commit-prefab"),Key,Min,Reason);return false;}
+            // 与 CanPlaceInVolume 同一修复：自由体积的本地格要换算成世界格再查构件占格表。
+            if(E.Before.IsNone()&&IsPrefabCell(E.Volume,E.Position)){Reason=TEXT("该位置已有构件");LogPlacementReject(TEXT("commit-prefab"),Key,Min,Reason);return false;}
         }
     }
     return true;
@@ -335,7 +346,8 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
         {
             // A newly built block has fresh joints; old debris has independent identities.
             for(auto It=SupportGraph->Broken.CreateIterator();It;++It)if(It->A==Key||It->B==Key)It.RemoveCurrent();
-            const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);const bool Anchor=IsGroundAnchor(Min);
+            const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
+            const bool Anchor=IsGroundAnchor(Min)||PrefabSupportAt(Min);   // 贴靠构件也算地基（2026-09-19）
             const auto* Definition=Palette->Find(E.After);AnchorCache.Add(Key,Anchor);
             SupportGraph->Add({Key,Min,Anchor,Definition&&Definition->bSupportsWeight,E.After,Palette->Physical(E.After)});
             // Connectivity remains provisional until the worker publishes stresses.

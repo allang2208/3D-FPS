@@ -246,3 +246,31 @@ UE_LOG(LogTemp,Display,TEXT("ColdSteelFountain %s 位置=(...) 质量=%d 距离�
   `ActorOffset = (-BoundsOrigin.X, 0, ExtentZ - BoundsOrigin.Z) + PivotOffset`；火把实测量级：
   `ActorOffsetCm=(-51,0,44)`、`PivotOffsetCm=(-9.75,0,0)`（差 41.25 = 网格包围盒 origin.x）。
 - **顺序**：`FVoxelBuildPrefab` 是带资产的 USTRUCT，加字段必须**关编辑器全量编译**之后再写调色板资产。
+
+## 构件面与体素互通：门框上能砌墙（2026-09-19）
+
+上一节"构件必须有着落"把构件做成了**只读邻居**：体素判定支撑时会看构件，但反过来构件既不参与瞄准焊接、
+也不给体素当支撑。门窗上量后玩家立刻撞上三件事（同一根因族）：
+
+1. **准星瞄在门框／窗框／柱子上不吸附、框上砌不了块**——`UpdateTarget` 只认 `ResolveHit`（命中体素网格），
+   构件面一律落回"贴地寻优"分支；垂直探棒打进门洞／玻璃就报"地面有陡坡、断崖或障碍"。
+2. **"锥形辅助失效"的真相**：辅助射线同样只认体素面，而射线越近越先命中——场景里一旦有门／窗／柱挡在
+   墙前面，中心射线与 16 条辅助射线全打在构件上，吸附看起来就是"坏了"。**先怀疑口径被新场景暴露，再怀疑回退。**
+3. **窗正上方建不了块**：即使瞄准修好，`ScenePlacementAllowed` 的三轴 ±8 cm 障碍探针会打到自家窗框
+   （相邻占格里的构件面），判"位置与场景障碍重叠"。这道锁独立于瞄准，修①时必须一起修。
+
+口径（`ResolvePrefabSurfaceCell` / `PrefabSupportAt`，VoxelBuildWorldPrefab.cpp）：
+
+- **命中面→格**：命中 Actor 沿 `GetAttachParentActor()` 上溯到 `AVoxelBuildPrefabActor` 即"构件面"；
+  用与体素 `ResolveHit` 相同的 `ImpactPoint − Normal×0.5` 取内侧格，再验 `PrefabCells`——占格表是唯一权威，
+  摆动出来的门／窗扇打在占格外自动落回贴地分支。**中心射线与锥形辅助两处必须成对改**，否则预览与提交分叉。
+- **构件当锚不当梁**：六面邻居有构件占格 → 体素带锚（`CanPlaceAt` 预览／`ApplyChanges` 提交／
+  `RefreshSupportGraph` 读档三处同改；读档路径要求 `RefreshPrefabOccupancy()` 先于支持图重建）。
+  构件仍不是图节点——只提供"地基"，不传力、不断键。
+- **拆构件要重判邻居锚定**：`ReanchorVoxelsAround(腾出的占格)`（手动拆除与支撑脱落两条路径都调），
+  外壳一圈内"原本有锚、如今既贴不了地也不贴别的构件"的节点改判失锚，交给既有倒塌流程。
+  只降不升；绝大多数节点一次查表跳过。
+- **同一缺陷族的顺手清账**：自由体积（本地格坐标系）直接查世界 `PrefabCells` 的错位有两处
+  （`CanPlaceInVolume`／`CanCommit`），换算＝ `ToCell(Origin+CellMin(Cell))`；
+  `AimedPrefab` 这类"上一帧瞄准引用"必须**每帧**按当前命中重算，切模式不清会误拆没瞄准的构件；
+  仰视"向上叠一层"要处理命中格上方仍是同一构件占格的情形（`PrefabColumnTop`：落到该列占格顶之上）。

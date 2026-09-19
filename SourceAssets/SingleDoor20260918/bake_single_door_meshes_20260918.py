@@ -1,19 +1,24 @@
-"""单扇门的门框与门板：进深 40 cm、高度 240 cm（2026-09-18 第二～四轮）。
+"""单扇门的门框与门板：进深 40 cm、宽 120 cm、高度 240 cm（2026-09-18 第二～四轮＋第五轮）。
 
 用户口径：
   - 第二轮："统一门框的进深大小为 20 cm 体素格的整数倍，设置为 **40 CM**。"
   - 第三轮："同步调整高度，做好高度统一 **2.2 米**，门、门框都同步调整。"
-  - 第四轮（本轮）："高度调整为 **2.4 米**。"
+  - 第四轮："高度调整为 **2.4 米**。"
+  - 第五轮（2026-09-19，本轮）："门跟体素建造之间有缝隙，无法贴合" —— 根因正是第二轮刻意保留的
+    宽度 113.99：占格 Y=6 格（120 cm）而门框只有 114 cm，两侧各差 3.005 cm，20 cm 体素填不进，
+    门框与墙之间就透缝。本轮把宽度也统一成 **120 cm（6 格）**，三轴全部整格。
 
 | 新资产 | 源（Door System 包） | 源尺寸（cm） | 目标（cm） | 缩放 |
 | --- | --- | --- | --- | --- |
-| `/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40` | `SM_DoorFrame` | 24.84 × 113.99 × 212.00 | **40 × 114 × 240** | 进深 40/24.84 ＝ 2 格、高度 240/212 ＝ 12 格 |
-| `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40` | `SM_Door` | 18.48 × 90.00 × 200.00 | **18.48 × 90 × 226.42** | 只缩 Z，与门框同比例 240/212 |
+| `/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40` | `SM_DoorFrame` | 24.84 × 113.99 × 212.00 | **40 × 120 × 240** | 进深 40/24.84 ＝ 2 格、宽 120/113.99 ＝ 6 格、高度 240/212 ＝ 12 格 |
+| `/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40` | `SM_Door` | 18.48 × 90.00 × 200.00 | **18.48 × 94.75 × 226.42** | Y 随门框洞口同比例 120/113.99、Z 同比例 240/212；X 板厚不缩 |
 
-- 包门框的洞口正好是 **90 × 200 ＝ 门板尺寸**（实测顶点：洞口 y ±45、z 0..200），所以门框与门板按**同一个 Z 比例**
-  缩放后洞口仍被门板填满，门板／门框相对关系不变——"同高度、一起调"就是这个意思。
-- 只缩进深与高度两轴，宽度 113.99 保持（占格 Y 取整 6 格＝120）；占格 = 包围盒/20 向上取整 →
-  **(2,6,12)**，调色板 `door_*` 三条的 `Footprint` 由
+- 包门框的洞口正好是 **90 × 200 ＝ 门板尺寸**（实测顶点：洞口 y ±45、z 0..200），所以门框与门板按**同一组比例**
+  缩放后洞口仍被门板填满，门板／门框相对关系不变——"同高度、一起调"就是这个意思。宽度同理：
+  洞口随外框从 90 → 90×120/113.99 ≈ 94.75，门板 Y 用同一比例跟着走。
+- **X（板厚 18.48）不缩**：门板厚度是名义板厚，缩它会连带动铰链贴面与摆向（skill 第二轮结论 1）。
+- 占格 = 包围盒/20 向上取整 → **(2,6,12)**（本轮三轴整除后与实际外形完全一致，不再虚占）；
+  调色板 `door_*` 三条的 `Footprint` 由
   `SourceAssets/SingleDoor20260918/register_single_door_prefabs_20260918.py` 同步。
 - **资产名不带高度**（`…_D40` 只标进深）：高度是按格子调的，再改一次只改本脚本的 `HEIGHT_CM` 重跑，
   C++ 路径与调色板脚本都不用动。
@@ -43,6 +48,7 @@ PACK_FRAME = "/Game/DoorSystem/Demo/StarterContent/Props/SM_DoorFrame"
 PACK_LEAF = "/Game/DoorSystem/Demo/StarterContent/Props/SM_Door"
 DIR = "/Game/Props/SingleDoor20260918"
 DEPTH_CM = 40.0      # 进深：2 格体素（用户指定）
+WIDTH_CM = 120.0     # 外廓宽度：6 格体素（2026-09-19 第五轮：消除门框与墙之间各 3 cm 的透缝）
 HEIGHT_CM = 240.0    # 外廓高度：12 格体素（2.4 m，用户指定）
 LOG = []
 
@@ -163,31 +169,36 @@ def bake(label, source_path, target_path, target_size, ring):
     return got, native
 
 
-# 门框：进深 40（2 格）＋高度 240（12 格），宽度保持源模型的 113.99
+# 门框：进深 40（2 格）＋宽 120（6 格）＋高度 240（12 格），三轴全部整格（2026-09-19 第五轮）
 pack_frame, _ = load_dynamic(PACK_FRAME)
 native_frame = (pack_frame.get_bounds().box_extent.x * 2.0,
                 pack_frame.get_bounds().box_extent.y * 2.0,
                 pack_frame.get_bounds().box_extent.z * 2.0)
-frame_target = (DEPTH_CM, round(native_frame[1], 2), HEIGHT_CM)
+frame_target = (DEPTH_CM, WIDTH_CM, HEIGHT_CM)
 bake("frame", PACK_FRAME, DIR + "/SM_SingleDoorFrame_D40", frame_target, True)
 
-# 门板：只缩 Z（240/212），与门框同一比例 —— 包洞口 90×200 ＝ 门板尺寸，缩完仍然严丝合缝
+# 门板：Y／Z 与门框同一组比例（洞口 90×200 ＝ 门板尺寸，同比例缩放后缩完仍然严丝合缝）；X 板厚不缩
+leaf_scale_y = WIDTH_CM / native_frame[1]
 leaf_scale_z = HEIGHT_CM / native_frame[2]
 pack_leaf, _ = load_dynamic(PACK_LEAF)
 native_leaf = (pack_leaf.get_bounds().box_extent.x * 2.0,
                pack_leaf.get_bounds().box_extent.y * 2.0,
                pack_leaf.get_bounds().box_extent.z * 2.0)
-leaf_target = (round(native_leaf[0], 2), round(native_leaf[1], 2), round(native_leaf[2] * leaf_scale_z, 2))
+leaf_target = (round(native_leaf[0], 2), round(native_leaf[1] * leaf_scale_y, 2),
+               round(native_leaf[2] * leaf_scale_z, 2))
 bake("leaf", PACK_LEAF, DIR + "/SM_SingleDoorLeaf_D40", leaf_target, False)
 
-log("门框 %.2f × %.2f × %.2f（应 ＝ 40 × 113.99 × 240）：占格按 %s" % (
+log("门框 %.2f × %.2f × %.2f（应 ＝ 40 × 120 × 240）：占格按 %s" % (
     frame_target[0], frame_target[1], frame_target[2],
     tuple(max(1, int((v + 19.9) // 20)) for v in frame_target)))
-log("门板 %.2f × %.2f × %.2f（洞口 90 × 200 同比例 → %.2f），Z 比例 %.6f" % (
-    leaf_target[0], leaf_target[1], leaf_target[2], native_leaf[2] * leaf_scale_z, leaf_scale_z))
+log("门板 %.2f × %.2f × %.2f（洞口 90 × 200 同比例 → %.2f × %.2f），Y 比例 %.6f，Z 比例 %.6f" % (
+    leaf_target[0], leaf_target[1], leaf_target[2],
+    native_leaf[1] * leaf_scale_y, native_leaf[2] * leaf_scale_z, leaf_scale_y, leaf_scale_z))
 check("frame_footprint_2_6_12", tuple(max(1, int((v + 19.9) // 20)) for v in frame_target) == (2, 6, 12))
-check("leaf_fits_frame_height", abs(leaf_target[2] - native_leaf[2] * leaf_scale_z) < 0.05
-      and leaf_target[2] < frame_target[2])
+check("frame_width_on_grid", abs(frame_target[1] - 120.0) < 0.05)
+check("leaf_fits_frame_opening", abs(leaf_target[1] - native_leaf[1] * leaf_scale_y) < 0.05
+      and abs(leaf_target[2] - native_leaf[2] * leaf_scale_z) < 0.05
+      and leaf_target[1] < frame_target[1] and leaf_target[2] < frame_target[2])
 check("pack_untouched", abs(native_frame[1] - 113.99) < 0.05 and abs(native_frame[2] - 212.0) < 0.05)
 
 bad = [x for x in LOG if x[1] is False]

@@ -17,8 +17,9 @@ class UMaterialInterface;
  *
  * 交互入口 `ToggleDoor` / `OpenDoor` / `CloseDoor` 无参，正好落在
  * `UColdSteelDoorInteraction` 的入口表里，所以玩家按 E 就能开关；门框与门板都用本工程按网格尺寸
- * 烘焙的包模型副本：`Props/SingleDoor20260918/SM_SingleDoorFrame_D40`（40 × 114 × 240：进深 2 格、
- * 高度 12 格）与 `SM_SingleDoorLeaf_D40`（226.42 cm，按同一 Z 比例缩高），2026-09-18 与双开门统一。
+ * 烘焙的包模型副本：`Props/SingleDoor20260918/SM_SingleDoorFrame_D40`（40 × 120 × 240：进深 2 格、
+ * 宽 6 格、高度 12 格，三轴整格与占格 (2,6,12) 一致，2026-09-19 消除门墙透缝）与
+ * `SM_SingleDoorLeaf_D40`（94.74 × 226.42 cm，按洞口同一 Y／Z 比例），2026-09-18 与双开门统一高度。
  * 后续可换成我们自己的门网格，
  * 也可以在这里接第一人称推门动作。
  */

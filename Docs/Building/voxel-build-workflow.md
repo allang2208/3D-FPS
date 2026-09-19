@@ -320,7 +320,10 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 
 1. 网格占格必须与网格包围盒**逐轴相等**：`Footprint = 尺寸(cm)/20`，取整后与 `mesh.get_bounds()` 对照，脚本里打印 `OK / MISMATCH`（罗马柱 80×80×260 → 4×4×13，矮栏杆罗马柱 40×40×100 → 2×2×5）。
 2. `Mesh` 用最终静态网格，`Surface` 取该网格槽位 0 的材质，`PivotOffsetCm` 默认 0（放置按包围盒中心对齐并吸附 20 cm 格）。
-3. 构件与体素互斥（`PrefabCells`），放置／旋转（R，90°）／拆除（右键）都记录在 `Prefabs` 存档里；构件**不参与**承重图，这是当前范围。
+3. 构件与体素互斥（`PrefabCells`），放置／旋转（R，90°）／拆除（右键）都记录在 `Prefabs` 存档里；构件本身**不进**承重图，
+   但 2026-09-19 起它**为贴靠的体素提供支撑锚**（`PrefabSupportAt`：六面邻居有构件占格＝带锚；拆除／脱落后
+   `ReanchorVoxelsAround` 重判），且构件的碰撞面同样是体素焊接目标（`ResolvePrefabSurfaceCell`，预览与提交同一口径），
+   见 [门系统方案第 13 节](door-system-integration-plan-20260917.md)。
 4. 面板卡片显示 `名称 + 格数×20cm`，脚本 `SourceAssets/RomanColumn20260915/add_panel_components.py` 是参考实现。
 5. 写 `Material`＝该构件应在哪一栏材质的「其他构造」下出现（稳定材质 ID，空值＝只在「其他」分类）。脚本 `set_prefab_panel_material.py` 是参考实现；面板与浮窗的「归属构造」行都读它，**不需要改代码或存档**。
 6. **网格尺寸不是 20 的整数倍时占格只能向上取整**（2026-09-17 圆底罗马柱 90×90×260 → 5×5×13 格）：取小会让构件互相穿插，比"占格略大于网格"糟得多；此时网格在占格里居中、四周留余量，浮窗会同时列出「占格尺寸」和「网格」，差额要能解释（本例两侧各 5 cm）。整数倍的情况仍按第 1 条逐轴相等。
@@ -476,5 +479,5 @@ powershell -NoProfile -File Tools/Building/run_voxel_stress_probe.ps1
 
 - 断键后仍是立刻脱落、残骸按连通块各成一个刚体，落地后不与结构重新合并；观感是"散砖"。要改需动 `TickStructure` 的 `Detached` 处理与 `VoxelGeometry::Split`。
 - 玩家／残骸活载仍直接参与断键判定（当前余量足够，2.0 m 内不触发）。
-- 构件不参与承重；只有体素与体素之间有连接键。
+- 构件自身不参与承重（仍不是图节点）；只有体素与体素之间有连接键。2026-09-19 起构件为贴靠它的体素提供支撑锚（只当"地基"，不传力）。
 - **待全量编译时清理**（都是为"能热补丁"临时留在文件级 static／诊断里的东西）：`VoxelBuildComponent.cpp` 的 `AimEdge*` 缓存与 `LastAimSignature` 等改成正式 `UPROPERTY`／成员；删除 `VOXEL_AIM` / `VOXEL_REJECT` / `VOXEL_AIMEDGE` 三段临时日志；`VoxelBuildPalette.h` 里 `FVoxelPhysicalMaterial` 的占位默认值对齐第 2 节（现在只是检视面板好看，运行时不用）。

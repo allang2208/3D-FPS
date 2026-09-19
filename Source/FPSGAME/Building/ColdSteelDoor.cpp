@@ -11,14 +11,15 @@
 namespace
 {
     // 门框与门板都是本工程按网格尺寸烘焙的包模型副本（SourceAssets/SingleDoor20260918/
-    // bake_single_door_meshes_20260918.py）：门框 40 × 114 × 240（进深 2 格、高度 12 格，
-    // 与双开门统一），门板只按同一 Z 比例缩高到 226.42 cm，仍严丝合缝填满门框洞口。
+    // bake_single_door_meshes_20260918.py）：门框 40 × 120 × 240（进深 2 格、宽 6 格、高度 12 格——
+    // 三轴全部整格，与占格 (2,6,12) 完全一致，2026-09-19 把宽度 114 统一到 120 消除门墙透缝），
+    // 门板按洞口同一 Y／Z 比例 → 94.74 × 226.42 cm，仍严丝合缝填满门框洞口。
     // 资产名不带高度，再调高度只改烘焙脚本的 HEIGHT_CM 重跑。换外观只需改这两个默认值。
     // 名字按类区分：这三个门的 .cpp 会被 UBT 合并进同一个 unity 文件，
     // 匿名命名空间在合并块里是共享的，同名常量会报 C2374 重定义。
     const TCHAR* SingleDoorLeafMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorLeaf_D40.SM_SingleDoorLeaf_D40");
     const TCHAR* SingleDoorFrameMesh=TEXT("/Game/Props/SingleDoor20260918/SM_SingleDoorFrame_D40.SM_SingleDoorFrame_D40");
-    // 门框内沿到中线的距离（cm）：门板宽 90 → 铰链在 −45，门板中心在 +45。
+    // 构造期占位值：BeginPlay 的 AlignGeometry 会按网格包围盒重算铰链与门板位置，改网格无需改这里。
     constexpr float LeafHalfWidth=45.f;
     constexpr float LeafCenterZ=100.f;
 }
