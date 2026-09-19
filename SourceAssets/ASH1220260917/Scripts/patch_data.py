@@ -115,11 +115,11 @@ receipt["items"] = ["ue_ash12", "ammo_127"]
 formulas = load("combat-weapon-formulas.json")
 formulas["ue_ash12"] = {
     "source": "ASH12_ITEM",
-    "base": 9,
-    "enhanceFlat": 0.7,
+    "base": 12,
+    "enhanceFlat": 0.9,
     "attrs": [
-        {"key": "int", "base": 0.32, "perEnhance": 0.05},
-        {"key": "wis", "base": 0.32, "perEnhance": 0.05},
+        {"key": "int", "base": 0.45, "perEnhance": 0.08},
+        {"key": "wis", "base": 0.45, "perEnhance": 0.08},
     ],
 }
 save("combat-weapon-formulas.json", formulas)

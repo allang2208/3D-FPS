@@ -56,6 +56,8 @@ for clip in ("ASH12_aim", "ASH12_idle", "ASH12_reload_empty"):
 
         nearest = (1e9, "", None)
         worst = (0.0, "", None)
+        worst_right = (0.0, "", None)
+        worst_left = (0.0, "", None)
         inside = 0
         for vertex in arms_mesh.vertices:
             point = arms_map @ vertex.co
@@ -73,10 +75,16 @@ for clip in ("ASH12_aim", "ASH12_idle", "ASH12_reload_empty"):
                     owner = max(groups, key=lambda g: g.weight).group if groups else -1
                     name = arms.vertex_groups[owner].name if owner >= 0 else "?"
                     worst = (gap, name, root_inv @ point)
+                    if name.endswith("_r"):
+                        worst_right = worst
+                    elif name.endswith("_l"):
+                        worst_left = worst
         arms_eval.to_mesh_clear()
         gun_eval.to_mesh_clear()
         where = "n/a" if nearest[2] is None else "(%.2f,%.2f,%.2f)" % tuple(nearest[2])
         print("%-22s f=%-5.0f  eye->hand %5.1f mm (%s %s)   inside gun %5.1f mm (%s, %d verts)"
               % (clip, frame, nearest[0] * 1000, nearest[1], where, worst[0] * 1000, worst[1], inside))
+        print("    right inside %5.1f mm (%s)   left inside %5.1f mm (%s)"
+              % (worst_right[0] * 1000, worst_right[1], worst_left[0] * 1000, worst_left[1]))
 
 print("\nASH12_ADS_HANDS_COMPLETE")

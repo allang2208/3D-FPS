@@ -42,7 +42,7 @@
 
 ## 4. 动作
 
-`Scripts/build.py` 逐帧重采样已认可的 M4 动作并重打到本枪骨架，命名 `A_ASH12_<kind>`，60 fps 源 / 120 Hz 采样：
+`Scripts/build.py` 逐帧重采样已认可的 M4 动作并重打到本枪骨架；斗牛犬换弹/装备段再叠加本枪的机匣、弹匣、拉机柄表。命名 `A_ASH12_<kind>`，60 fps 源 / 120 Hz 采样：
 
 | 片段 | 源 | 时长 |
 |---|---|---|
@@ -51,23 +51,25 @@
 | fire / aim_fire | M4_fire / M4_aim_fire | 0.767 s |
 | reload | M4_HK416_reload | 2.1 s |
 | reload_empty | M4_HK416_reload_empty | 2.7 s |
-| equip_charge | M4_HK416_equip_charge | 0.633 s |
+| equip_charge | M4_HK416_equip_charge 帧 0 锚点 + ASH-12 拉机柄表 | 0.633 s |
 
-换弹的左手位移按**弹匣井在机匣坐标系里的位移量**给出：本枪弹匣井比 M4 靠后 26.2 cm、靠上 5.6 cm，整个左臂按这个量平移，抓匣窗口 `reload` 为帧 10–104（空仓换弹已改为下节的斗牛犬编排，不再走这条路）。`reload` 仍沿用两个要点：
+两条换弹现在都走同一套斗牛犬编排（见第 4b 节）：`reload_empty` 用 cue 21/54/80/130 并保留拉栓段；`reload` 用 cue 29/76/95、枪机全程闭合、无拉栓段。下面的“按弹匣井位移量平移左臂”保留为历史实现说明，不再驱动当前 `reload`。
 
 - 位移量取自**定位前的弹匣骨采样**与定位后的 rest 之差。用重采样后的 `base[socket] − to_fit(socket)` 会得到 0（参考姿态已在骨移动之后重采），位移会静默失效。
 - 位移向量按**当帧**的机匣四元数旋转，不是 idle 的。空仓换弹枪身大幅旋转时，用 idle 方向会算错方向、手臂 IK 够不到目标。
 
-## 4b. 空仓换弹按参考重做（斗牛犬编排，2026-09-17）
+## 4b. 换弹按参考重做（斗牛犬编排，2026-09-17 起）
 
 参考（原视频 2:06–2:10，本机片段 `Saved/Ash12ReloadRef/ref.mp4` 的 7.30–8.75 s）的机制与本工程 M4 基底**左右手分工相反**，本轮按参考重排了整条机械链。四项分层与实测数值：
+
+普通（战术）换弹复用同一套机制，差异只在机械层：cue 帧为 29（出匣）/76（新匣到井口）/95（压实），枪机不开，因此没有拉机柄路径；入匣后右手从井口直接回握把，枪身滚转在 95 帧后回正。两段的左手机械层完全相同（锁护木）。
 
 | 层 | 现在 | 实现位置 |
 |---|---|---|
 | 枪身 | 绕枪管轴向射手左侧滚：帧 12 就 35.6°、**换匣全程保持 44–50°**、峰值 **61.3° 在拉栓的帧 120**、末帧 0.4° | `RECEIVER_CURVE` |
 | 左手 | 全程**锁在护木**上不动（腕点机匣局部 `(0.046 −0.121 −0.006)`），手指也冻结 | `hold_hand` + `LEFT_BIAS` |
 | 右手 | 握把 → 弹匣井 → 拔/插（弹匣不离手）→ 绕机匣右侧到拉机柄 → 回握把；肘部走位由极向量控制 | `MAG_PATH` / `HAND_CARRY` / `RIGHT_POLE` |
-| 拉栓 | **右手**够机匣右侧的柄；柄与该手共用一张拉动表 | `HANDLE_PULL` + `HANDLE_GRIP` |
+| 拉栓 | **右手**按参考视频掌面向下、从上方盖住真实手柄；抓点取真实几何顶面外侧 patch，指尖到几何 **12.8 mm**；手柄与枪机的机械同步仍是遗留项 | `HANDLE_GRIP_LOCAL` / `HANDLE_ROLL_DEGREES` / `hand_rot` |
 
 ### 实机反馈第五轮（2026-09-18，本轮定稿）：换匣手也按指节定位
 
@@ -75,7 +77,7 @@
 
 改法与拉栓手一致：抓点定在**露在枪托外的弹匣体**（井口下方 10.5 cm），腕位由**实测腕→指节向量**（0.098 m）反推，手指在换匣与拉栓两段都收成 `HANDLE_FIST`（`HANDLE_FIST_BLEND` 两个窗口：帧 26–74 握匣、帧 110–140 握柄）。实测穿透 **63.6 → 8.2 mm / 56 顶点**（帧 42、48，低于已认可基线的 19.8 mm），指尖到抓点约 1 cm。
 
-**定稿数值一览**：滚转 0→44–50°（换匣段）→61.3°（拉栓帧 120）→0；弹匣出井约 0.20 m 后归零、可见度帧 42–48 达 97.6%；枪机保持 3.4 cm 后移、帧 120–132 被拉动、帧 138 复位；指尖到拉机柄 30 mm、到弹匣抓点约 10 mm；手臂网格对枪体最深 19.8 mm（与已认可基线同级）；ADS 眼到手 77 mm、手臂进枪体 6 mm；`reload_empty` 仍 2.700 s。
+**定稿数值一览**：滚转 0→44–50°（换匣段）→61.3°（拉栓帧 120）→0；弹匣出井约 0.20 m 后归零、可见度帧 42–48 达 97.6%；枪机保持 3.4 cm 后移、帧 120–132 被拉动、帧 138 复位；右手按参考视频从上方抓真实手柄、指尖到几何 **12.8 mm**、到弹匣抓点约 10 mm；手臂网格对枪体最深 19.8 mm（与已认可基线同级）；`reload_empty` 仍 2.700 s。手柄/枪机同步、ADS 右手穿模和 `equip_charge` 仍是遗留项，见 4e 与 Backlog。
 
 ## 发布（2026-09-18）
 
@@ -86,11 +88,52 @@
 - 推送验证：首次 `git push` 连接被重置/超时，加 `-c http.version=HTTP/1.1` 后成功（`f0b23e6..f16ab00`）。
 - 仍依赖本地的内容：`SK_ASH12_Manny.fbx`、`ASH12_Editable.blend`、7 段 FBX 与 `Content/Weapons/ASH12/**` 的 uasset 都不进仓库（GitHub 是源码库，不是资源备份）；`Saved/Ash12ReloadRef/ref.mp4` 与 `Reference/*.png` 同样只在本地。
 
-## 4c. 搁置点（2026-09-18）
+## 4c. 当前状态与搁置点（2026-09-18 第二轮）
 
-换弹动作做到这里先停，等实机判读。**已完成并导入 UE**：空仓换弹的斗牛犬编排（侧滚、左手锁护木、右手取匣→拉栓）、换匣与拉栓两处的手型与腕向、右臂绕开枪托、音效 cue 对齐，以及五轮实机反馈的修正。**未做**：`reload`（战术换弹）仍是 M4 支撑手路线；手指开合只有两段整体收拳、没有逐帧时序；实机静帧夹具已就绪但 `-game -RenderOffscreen` 在当前构建下约 15 s 崩溃（与本枪无关，见 `Docs/Backlog.md` A4）。
+**已完成并导入 UE**：两条换弹共用斗牛犬编排（`reload_empty` 的侧滚/左手锁护木/右手取匣→拉栓，`reload` 的侧滚/左手锁护木/右手取匣→压实、无拉栓）；换匣与拉栓两处的手型与腕向、右臂绕开枪托、音效 cue 对齐、五轮实机反馈修正。ADS 的手臂扭曲另按已验收的 WristNatural 方法修掉（见 4d）。
 
-续作入口：`Scripts/build.py` 的四张表（`RECEIVER_CURVE` / `MAG_PATH` / `RIGHT_POLE` + `RIGHT_HAND_TURN` / `HANDLE_FIST`）就是全部编排参数；`measure_pacing.py`、`probe_reload_visibility.py`、`probe_ads_hands.py`、`verify_reload_export.py` 分别量节奏、可见度与穿透、ADS 眼位、导出回读。
+**仍未做**：手指开合只有两段整体收拳、没有逐帧时序；实机静帧夹具已就绪但 `-game -RenderOffscreen` 在当前构建下约 15 s 崩溃（与本枪无关，见 `Docs/Backlog.md` A4）。按用户规则，本轮只做到重建 FBX、120 Hz 导入 UE 和资产回读；**没有在游戏里目视/手感验收**。
+
+续作入口：`Scripts/build.py` 的 `BULLPUP_SPECS`（`RECEIVER_CURVE`/`RECEIVER_CURVE_RELOAD`、`MAG_PATH`/`MAG_PATH_RELOAD`、`RIGHT_POLE`/`RIGHT_POLE_RELOAD`、`HANDLE_FIST_BLEND`/`HANDLE_FIST_BLEND_RELOAD`）和 `shift_arm_natural` 就是全部编排参数；`measure_pacing.py`、`probe_reload_visibility.py`、`probe_ads_hands.py`、`verify_reload_export.py` 分别量节奏、可见度与穿透、ADS 眼位、导出回读。
+
+### 4d. ADS 手臂自然腕修正（2026-09-18）
+
+用户反馈 ADS 里手臂仍错误扭曲。旧实现为了让右肘绕开斗牛犬枪托，只把上臂/前臂的方向用极向量重解，手骨保持不动，于是肘部改写量全部压到腕关节；同时 `shift_arm` 把 `upperarm_twist_*` / `lowerarm_twist_*` 重置为 rest，前臂蒙皮失去接受动作的扭转分布。
+
+现在改用 `SourceAssets/AngledForegrip20260910/WristNatural` 已验收的解法（`shift_arm_natural`）：保持手腕/手指在枪上的世界矩阵不变，肘部仍从外摆极向量出发以绕开枪托，但按 `ARM_NATURAL_BLEND = 0.8` 混向由手朝向反推的自然肘平面，再把剩余的前臂滚转分摊到 `lowerarm_twist_02`（0.55）与 `lowerarm_twist_01`（0.95）；`upperarm_twist_*` 保留接受动作的相对扭转，不再回 rest。支撑手同样按该自然解法（0.8）重解。脚本入口见 `Scripts/build.py`。
+
+### 4e. 拉机柄按参考视频重做（2026-09-18 第三轮）
+
+用户反馈上一版拉机柄“像一块糊在一起的物件”，本轮把上一版的 `place_part`、手柄/枪机同步和自编 `equip_charge` 全部退回，只按参考视频 8.05–8.30 s 重做空仓换弹的拉栓手型。参考帧显示右手是**掌面向下、从上方盖住手柄**，不是贴在接收器侧面。
+
+- 旧 `hold_hand` 只把 turn 用在腕点位置和前臂扭转上，最后又从帧 0 的握把姿态重新放置手掌，所以手本身根本没有翻过去。现在把完整 `hand_rot` 真正施加到手掌/手指子树，前臂仍按 `TURN_SHARE` 分摊剩余扭转。
+- roll 轴改为机匣 Y（拉栓轴），`HANDLE_ROLL_DEGREES = 80`；角度由参考帧和实测手掌轴计算，不是拍脑袋。手柄抓点取真实手柄几何的**顶面外侧 patch**（194 顶点），指尖到几何 **12.8 mm**。
+- 手柄行程沿用上一版时序；手柄与枪机的机械同步是已知遗留项，本轮没有重新叠加。
+- `equip_charge` 退回 M4 装备拉栓重采样。参考视频只覆盖空仓换弹的拉栓，装备拉栓需要单独参考，本轮不再自编。
+- **空仓换弹右臂扭曲**：旧 `shift_arm` 会把 `upperarm_twist_*` / `lowerarm_twist_*` 重置为 rest，而 `hold_hand` 又会施加 TURN/TWIST 前臂分摊，两者叠加后右前臂蒙皮拧转。现在 `shift_arm` 保留接受动作的相对 twist，不再重置辅助骨；`hold_hand` 的前臂分摊保持不变。已重建并导入。
+
+本轮重建并导入 7 段（120 Hz、`BC_M4Viewmodel`）；糊版在 `/Game/Weapons/ASH12/SupersededBlob20260918/`，扭曲版在 `/Game/Weapons/ASH12/SupersededTwist20260918/`，更早版本在 `/Game/Weapons/ASH12/Superseded20260918/`。**未做游戏内目视/手感验收。**
+
+### 4f. ADS 手臂穿模定位与修复（2026-09-19）
+
+此前"实机右侧穿模、Blender 复现不出"的悬案，用实机夹具（`-ASH12SightCapture`，windowed 模式可跑，offscreen 15 s 崩溃绕开）+ 新探针 `probe_ads_shoulder.py` 定位：
+
+- **不是复现差异，是本来就穿。** ADS 眼位（照门后 18 cm）恰好落在右肩根旁约 7 cm 处；`shift_arm_natural` 只重解肘，上臂蒙皮仍横跨瞄准线——aim 姿态下 **861 个手臂顶点在 55° ADS 视锥内**（yaw 25–42°，即画面右缘到中部），实机静止 ADS 就能看到右下楔形，sway/开镜过渡进一步放大。`probe_ads_hands.py` 量不出来是因为它只报"眼到网格最近距离"，不分方向；其 `eye->hand` 指标对移到相机平面背后的网格天然失效。
+- **修法：肩根本身后移下沉**（`RIGHT_SHOULDER_SHIFT`，世界系、不随机匣旋转——机匣局部 Y 在世界系里正反随片段翻转，第一版按局部系写即南辕北辙）。定稿 `(-0.01, -0.12, -0.10)`：射手后方 12 cm、下 10 cm，肩/肘都落到相机平面背后，整根上臂像标准 FPS viewmodel 一样从画面下缘伸入。手钉枪上、肘极向量不动，第四/五轮的枪托清空与换匣手形不回退。
+- **迭代数据**（视锥内右臂顶点数，遮挡过滤后）：861 → V1 (0.055,0,-0.03) 953 → V2 局部系方向反 912 → V4 世界系 (-0.01,-0.09,-0.08) 0 → **V5 定稿**。
+- **右上角"不明块"第二案（V4 后用户仍报）**：视锥+遮挡双探针都显示右臂清零，但实机右上角仍有灰蓝楔形。像素色带分析（PIL，实体色 167,184,206=金属反天 vs 天空白）确认是实体；`probe_ads_nearplane.py`（近平面区 forward 5..80 mm、右上象限、按材质/骨组）点名 **38 个 `upperarm_twist_01_r` 顶点在眼前 0.5–1.4 cm**（pitch 至 84°、yaw 53–82°）——近平面附近的顶点 pitch/yaw 爆炸，被所有视锥探针当"出锥"丢弃，是探针盲区；近平面（1 cm）切割+透视放大即"清晰斜边楔形"。V5 肩移加大到 `(-0.01,-0.12,-0.10)` 后近平面象限清零（ARMS/GUN 均空）。
+- **验证**：实机夹具 v12（V4）eye18/walk/burst 右下楔形消失、构图不变；V5 为近平面修复，待 v13 复拍。`probe_reload_visibility.py` 复测弹匣可见度（帧 42/48 97.6%）与换匣手穿透（帧 48 8.2 mm）与第五轮定稿一致，无回归；idle 的手臂陷枪托从 106 mm 降到 59.8 mm。
+- **附带判明**：换弹探针里拉栓段（帧 104–136）"77–81 mm 穿透"是 `find_nearest` 法线判据在离表面远处的既知误报（README 4b 已警告过）；`render_reload_preview.py` 渲染帧 112 确认拉栓手只有尺侧 1–2 cm 轻贴合，与 4e 验收状态同级，不是回归。
+
+### 4g. 换弹/装备相机层接入（2026-09-19，C++）
+
+用户反馈"空仓换弹动画还需要优化，镜头抖动要加强"。定位：`FPSGAMECharacter.cpp` 的动作相机层（`WeaponActionCameraComponent`，M4/QBZ/AKM 共用）启用条件里 `bUseM4Infima` 只认 `ue_m4a1`——**ASH-12 换弹全程相机零抖动**，枪身滚转 44–61° 而镜头纹丝不动。
+
+- `bActionCamera` 条件改为 `bUseM4Infima || bUseASH12`；`EM4CameraAction` 新增 `Ash12Reload/Ash12ReloadEmpty`。
+- `Reload()` 加 `bAsh12` 分支：按斗牛犬节拍（cue 21/54/80/130 帧源秒 0.35/0.90/1.33/2.17，普通版 29/76/95）写专用 Follow 曲线（roll 跟随枪身侧滚的约 1/8，拉栓段最深）+ 加重的 12.7 mm 接触冲量。最终量级（Strength 2.8 × MotionScale 0.45）：roll 峰约 16.6°、拉栓冲击 pitch 约 12.7°、Seat 冲击约 12.7°，比 M4 现状（约 10°/7.5°）强 60–70%。装备段与 M4 同源（equip_charge 是 M4 拉栓重采样），Equip 曲线直接共用。
+- 曲线离线单测通过（key 时间严格递增、平滑归零、节拍贴合 cue）。运行时 `fps.Camera.ActionShake` cvar 与 `Strength/FollowStrength/ImpactStrength`（DefaultGame.ini）可调。
+- **换弹重定时（2026-09-19 第二轮，用户反馈"延长换弹、特别是空仓拔插弹匣"）**：`BULLPUP_RETIME` 分段变速——编排帧表不动，导出时间轴把拔插段放慢 1.30×、拉栓段 1.20×（普通换弹拔插段 1.18×）。`reload_empty` 162→194.4 帧（2.700→**3.240 s**）、`reload` 126→139.9 帧（2.100→**2.331 s**）；cue 帧映射 21/54/80/130→**23/66/100/158**、29/76/95→**31/86/109**，已写入 C++ 的 ASH-12 专用分支（`bUsingM4Infima` 共用值不动）。相机曲线中间锚点改为 cue 相对表达式自动跟随；`gunsmith.json` 的 `reload_time/empty_reload_time` 同步为 2.333/3.24（与动画等长，播放速率保持 1）。**retimed FBX 已构建，uasset 导入被编辑器锁定阻塞（Error 32），落盘走后台守护（锁释放自动跑 `Scripts/import_clips_only.py`）。**
+- **生效条件：需重启编辑器后重编/热编 Editor 目标**（Game 目标 2026-09-19 已链接通过；编辑器占用 Editor DLL 期间无法替换）。当前用户编辑器进程启动早于 `bRemoteExecution` 配置，远程执行 socket 未绑定，MCP 桥断连，故资产走 commandlet 导入（`Scripts/import_live.py`，旧资产备份在 `trash/ash12-live-import-backup-20260919/`）。
 
 ### 实机反馈第四轮（2026-09-18）：ADS 手糊脸、拉栓手没握上柄、关节扭曲
 
@@ -173,10 +216,12 @@
 
 导入脚本 `import_ue.py`（commandlet：`-run=pythonscript`）。手臂槽 `MI_Manny_01/02` 绑到 M4 参考网格的同一批材质。
 
+正式目录只保留当前 7 段动画；糊版在 `/Game/Weapons/ASH12/SupersededBlob20260918/`，右臂扭曲版在 `/Game/Weapons/ASH12/SupersededTwist20260918/`，更早版本在 `/Game/Weapons/ASH12/Superseded20260918/`，都可回退。编辑器打开时的重新导入走 `Scripts/export_combined.py` 生成 `SK_ASH12_Manny_WithAnims.fbx`，再用 UE MCP 的 `SkeletalMeshTools.import_file` 导入并改名为正式 `A_ASH12_*`；实测导入后的采样键数与原 120 Hz 资产一致（aim 5 / fire 93 / aim_fire 93 / reload 253 / reload_empty 325 / idle 361 / equip_charge 77）。导入器会为合并 FBX 里的 M4 参考动作一并生成 `SK_ASH12_Probe_Anim_*` 探针；改名 7 个 ASH12 片段后，删除其余探针资产和探针网格。
+
 ## 6. 数据与接入
 
 - `gunsmith.json`：`ue_ash12`，`allowed = [optic, magazine, muzzle]`；`base` = 伤害 48 / 弹匣 20 / 射击间隔 0.13 s / 装填 2.1 s / 空仓 2.7 s / 弹速 78 / 有效射程 80 / 后坐 145 / 镜头抖动 135 / 开镜 14.0。装填时长与导入片段一致。
-- `items.json`：`ue_ash12`、`ammo_127`（12.7mm 弹药）。`combat-weapon-formulas.json`：`ue_ash12` 强化公式。弹药显示名加到 `WeaponStatEvaluation`。
+- `items.json`：`ue_ash12`、`ammo_127`（12.7mm 弹药）。`combat-weapon-formulas.json`：`ue_ash12` 攻击公式 `12 + 0.45 × (智力 + 精神)`；强化公式 `12 + 0.9L + (0.45 + 0.08L) × (智力 + 精神)`（`base=12`、`enhanceFlat=0.9`、`int`/`wis` 各 `base=0.45`、`perEnhance=0.08`）。弹药显示名加到 `WeaponStatEvaluation`。
 - 起始军械库发放 `ue_ash12`（20 发）+ `ammo_127` ×80；新档案预置 `ammo_127` ×60。
 - C++：新增 `Weapons/ASH12WeaponAssets.h`；`bUseASH12` 标志（`FPSGAMECharacter.h`）；`InitializeWeaponVisuals` 网格分支；`LoadAKMAnimation` 分支；枪口装配后座偏移按枪取值（`M4MuzzleVisual`）；曳光长度（`FPSWeaponFXComponent`）；拾取/图标/独立预览三处标志映射与白名单；图标命令列出厂列表。
 - 图标：`Content/ColdSteelData/Icons/ue_ash12.png`（512×256，Blender 侧视，枪口朝左）。
@@ -236,8 +281,9 @@
 
 ### 其余遗留
 
-- 空仓换弹已按参考重做为斗牛犬编排（见 4b）；**战术换弹仍是 M4 支撑手路线**，两条片段在游戏里分工不一致。
-- 空仓换弹的手指开合与腕向未做（见 4b 末段）。
+- 两条换弹已统一为斗牛犬编排（见 4b/4c）；仍未做逐指开合时序（见 4b 末段）。
+- 空仓换弹拉栓已按参考视频改成掌面向下上盖抓法，右臂 twist 辅助骨不再被重置（见 4e）；手柄/枪机机械同步、`equip_charge` 仍是遗留项。
+- ADS 右手穿模未解决：Blender 18 cm 渲染显示的是左下支撑臂楔形，复制不出实机右侧穿模；等实机 ADS 截图或 UE 夹具抓图后再定位，当前不再叠加猜测性肩/眼距改动。
 - 战术冲刺姿态缺席：`ERifleSprintWeapon` 只有 M4/AKM/QBZ191，本枪未接，冲刺时不进入战术冲刺姿态层。
 - 抛壳口 socket 位置按目视估计，未核对。
 - 改造件只开放瞄具与原厂枪口（后座偏移按本枪 6.79 cm）；扩容弹匣/前握把/战术挂件/枪托/后握把未开放。本枪弹匣是 12.7mm 大井，通用扩容弹匣几何不适用，需要时从源套件的加长弹匣做专用件。
@@ -254,9 +300,11 @@
 | `Scripts/components.py` | 连通体清单（识别扳机、提把等） |
 | `Scripts/measure_host.py` | 量 M4 宿主握把/护木/骨骼参考 |
 | `Scripts/build.py` | 装配 + 标记 + 绑定 + 出 7 段动作 FBX |
+| `Scripts/export_combined.py` | 把已装好的网格与 7 段动作合并成一个 FBX，供编辑器开启时的 UE MCP 重新导入（见第 5 节） |
 | `Scripts/render_fit.py` | 装配校验渲染（侧视/眼位/握持） |
 | `Scripts/render_reload_preview.py` | 换弹对位预览：player / side / world / sky / well 五视角，帧由 `ASH12_FRAMES` 给定 |
 | `Scripts/probe_reload_visibility.py` | 从游戏真眼位量弹匣可见度 + 手臂**网格**对枪体的穿透深度 + 指尖到抓点距离（取代只探骨骼的旧探针，见 `trash/ash12-reload-superseded-20260918/`） |
+| `Scripts/probe_handle_geometry.py` | 量真实拉机柄几何包围盒、手柄/枪机/拉机柄骨骼行程和指尖到几何的距离（4e 判据） |
 | `Scripts/sweep_mag_visibility.py` | 扫枪身俯仰/滚转/下探，读弹匣可见度（设计取值用） |
 | `Scripts/measure_roll.py` | 逐帧量机匣滚转/俯仰/偏航与弹匣、右手的机匣局部位置 |
 | `Scripts/inspect_bullpup_reload.py` / `inspect_magazine.py` / `inspect_base_motion.py` / `inspect_mag_track.py` | 骨架与锚点、弹匣几何、基底动作的武器运动、弹匣逐帧轨迹 |

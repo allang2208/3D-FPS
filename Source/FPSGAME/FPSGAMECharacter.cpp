@@ -731,6 +731,22 @@ void AFPSGAMECharacter::ReloadPressed()
     if (bUsingM4Infima)
     {
         // Source animation seconds, evaluated by the very same clock as the pose.
+        if (bUseASH12)
+        {
+            // Retime pass of 2026-09-19: the exported ASH-12 clips stretch the
+            // magazine swap 1.30x and the charge stroke 1.20x (see BULLPUP_RETIME
+            // in SourceAssets/ASH1220260917/Scripts/build.py), so the cues moved
+            // with the beats: empty 21/54/80/130 -> 23/66/100/158 frames,
+            // tactical 29/76/95 -> 31/86/109.
+            MechanicalCueTimes = bPendingEmptyReload
+                ? TArray<float>{23.0f / 60.0f, 66.0f / 60.0f, 100.0f / 60.0f, 158.0f / 60.0f}
+                : TArray<float>{31.0f / 60.0f, 86.0f / 60.0f, 109.0f / 60.0f};
+            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound};
+            if (bPendingEmptyReload)
+                MechanicalCueSounds.Add(BoltReleaseSound);
+        }
+        else
+        {
         MechanicalCueTimes = bPendingEmptyReload
             ? TArray<float>{21.0f / 60.0f, 54.0f / 60.0f, 80.0f / 60.0f}
             : TArray<float>{29.0f / 60.0f, 76.0f / 60.0f, 95.0f / 60.0f};
@@ -739,6 +755,7 @@ void AFPSGAMECharacter::ReloadPressed()
         {
             MechanicalCueTimes.Add(130.0f / 60.0f);
             MechanicalCueSounds.Add(BoltReleaseSound);
+        }
         }
         if(bDrumInstalled)
         {
@@ -1229,14 +1246,19 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         EM4CameraAction CameraAction = EM4CameraAction::None;
         float SourceTime = 0.f;
         float SourceEnd = 0.f;
-        const bool bM4Camera = bInventoryWeaponReady && bUsingM4Infima && bUseM4Infima
+        // ASH-12 shares the M4 pose/cue clock but is not ue_m4a1, so it has to
+        // be named here or it silently loses the whole reload/equip camera.
+        const bool bActionCamera = bInventoryWeaponReady && bUsingM4Infima && (bUseM4Infima || bUseASH12)
             && !bUseQBZ191 && !IsPistolWeapon() && !IsDualWieldingPistols()
             && !bGunsmithInspection && !IsTraversing() && !IsCastBlockingLeftHandAction();
-        if (bM4Camera && ActiveActionAnimation)
+        if (bActionCamera && ActiveActionAnimation)
         {
             if (IsReloading())
             {
-                CameraAction = bDrumInstalled
+                if (bUseASH12)
+                    CameraAction = bPendingEmptyReload ? EM4CameraAction::Ash12ReloadEmpty : EM4CameraAction::Ash12Reload;
+                else
+                    CameraAction = bDrumInstalled
                     ? (bPendingEmptyReload ? EM4CameraAction::DrumReloadEmpty : EM4CameraAction::DrumReload)
                     : (bPendingEmptyReload ? EM4CameraAction::ReloadEmpty : EM4CameraAction::Reload);
                 SourceTime = ReloadSourceTime(WeaponStateElapsed);

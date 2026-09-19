@@ -134,7 +134,17 @@
       "frames": 126,
       "fps": 60,
       "sample_rate": 120,
-      "left_arm_shift": true
+      "left_arm_shift": false,
+      "reach": {
+        "r": [
+          0.977,
+          54.440677966101696
+        ],
+        "l": [
+          0.962,
+          40.03389830508475
+        ]
+      }
     },
     "reload_empty": {
       "source": "M4_HK416_reload_empty",
@@ -145,8 +155,8 @@
       "left_arm_shift": false,
       "reach": {
         "r": [
-          0.82,
-          38.0
+          0.818,
+          38.230769230769226
         ],
         "l": [
           0.964,
