@@ -445,3 +445,118 @@ Game／Editor 两目标 Succeeded（`fountain-caustics-game-20260918.log`、`bui
 `add_fountain_fx_20260918.py`、`place_fountain_2x_20260918.py`、`scan_level_20260918.py`、
 `shot_socle_20260918.py`、`verify_fountain_20260917.py`、`pal_check.py`、`probe*.py`），
 `forensic_fountain.obj` 保持未跟踪（派生 dump）。
+
+---
+
+# 十一、2026-09-19：自拍收敛轮（v12–v18）——唯一根因与收口
+
+用户口径："看看待办事项中喷泉的水体效果，现在不达标，看看 SKILL，理解现状，提出你的改善建议"→ 随后"你来调整改进"。
+本轮**第一次拿到实拍图**（此前十轮全是盲调），并靠图定位到 v5–v10 全部无效的唯一根因。
+
+## 11.1 截图链（新增能力）
+
+`SourceAssets/RomanFountain20260917/shot_fountain_20260919.py`（TAG 递增出图到 `Saved/FountainShots/`）：
+编辑器模式（非 PIE）下 SceneCapture2D 三视角（low_close / wide / jet）。配方要点（已进 SKILL 与记忆）：
+`RenderingLibrary.create_render_target2d(...,RTF_RGBA8_SRGB)`、组件属性走 `set_editor_property`、
+相机用 `set_actor_transform`、`capture_scene()×4` + `export_render_target`（产物无扩展名）。
+**编辑器模式关卡没有太阳/天空**（昼夜是运行时 BP）→ 拍摄前临时 spawn
+DirectionalLight(intensity 30)+SkyAtmosphere+SkyLight(real_time_capture)，拍完销毁、不存关卡。
+Niagara 在编辑器 capture 里不 tick → 水柱只能用户实机确认。
+
+## 11.2 唯一根因：`MaterialExpressionObjectPositionWS` 是物体原点常量
+
+v11 基准图显示水面=完全平坦的淡蓝盘、水帘不可见、泡沫/焦散不可见。隔离拍（逐组件隐藏）+
+"WaveHeight×3 对照拍"证明：WPO/法线/柱面 UV **全部在常量点求值**——四个水材质把
+`ObjectPositionWS`（每物体常量，不是逐像素位置）当位置输入。水面整体刚性升降（看不见）、
+法线均匀倾斜（无明暗变化）、水帘条纹与泡沫/焦散采样单一 texel（平板/隐形）。
+**v5–v10 六轮参数调整因此全部无效**（参数读回全对也照样命中）。
+修法：新建 *V2/*V3 材质，位置输入 = `WorldPosition − ObjectPositionWS`（逐像素、随摆放平移不变）；
+MIC 换父级（参数名一致，旧覆盖项继续生效）；网格槽/C++/关卡零改动。
+
+## 11.3 几何修正（FX 网格原地覆盖，同名资产）
+
+- 溢流水帘旧半径埋在碗**外鼓包里面**（只露出穿墙的暗矩形）→ 改挂外鼓包之外的离唇抛物线薄壳；
+- 湿痕带顶面与盘沿顶面**共面**（z=82/214/286）→ z-fighting 暗锯齿环，湿痕顶收到沿下 1 cm；
+- 泡沫环/水线环收进碗内壁，避免从外侧读成"白圈套盆"。
+`SM_RomanFountain_WaterFX` 13,440 tri / 20 壳 / 0 开放边，四槽 = Foam/Wet/CascadeFlow/Caustics 的 MIC。
+
+## 11.4 对图调参（v12→v18）
+
+| 轮 | 图证问题 | 处理 |
+| --- | --- | --- |
+| v12 | 水面活了但半盆白、水帘玻璃筒、沿口暗锯齿 | 见 v13 |
+| v13 | 波峰白沫改 `saturate((h−CrestMin)×CrestGain)`；水帘改竖向流纹；湿痕收沿下；泡沫下调 | 落盘（编辑器退出时脏包自动 flush） |
+| v14–v15 | 水帘太玻璃/条纹太密 → 太稀 | StreakCount 20 + 亮 SheetColor(0.85,0.93,0.97) |
+| v17–v18 | 水帘仍暗 | ident 判别拍（EmissiveGain×5 → 水帘发光）证明材质链正常、仅增益低 → **EmissiveGain 3.0 / OpacityBase 0.9** |
+
+v18 终态：三级水帘亮白竖纹流动、水面青绿+波峰白沫+落点涟漪、盆底加法焦散、湿痕/泡沫环在位。
+全部 MIC 覆盖值落盘（`MIC_FountainCascadeFlow` 11:55、`MIC_FountainWaveWater` 11:43）。
+
+## 11.5 未做 / 待用户
+
+1. **水柱（Niagara）编辑器 capture 拍不到**——需用户进 PIE 确认水柱位置/形态（运行期日志此前证明组件在位）。
+2. 水声仍是占位（脚步水花随机播）；要正式水流循环声需 Fab 取包。
+3. 截图环境是临时日光（偏黄昏），游戏内昼夜管理器下的正午观感会更亮，若过曝可降
+   `MIC_FountainCascadeFlow.EmissiveGain`（3.0）与 `MIC_FountainWaveWater.ReflectionStrength`（1.4）。
+4. 退役材质（M_FountainWaterFilm / M_FountainCascadeFlow / M_FountainWaveWater / *V2 三件 /
+   M_FountainCausticsOverlay）现已无引用，未移入 trash（无编辑器时不做注册表引用复核，留待下轮归档）。
+5. 本轮脚本：`rebuild_water_v2/v3_20260919.py`、`tune_water_v4..v7`、`probe_isolate/probe_shoot_water/
+   probe_cascade*`、`shot_fountain_20260919.py`；未提交 git（工作区含并行会话 WIP，不混提）。
+
+---
+
+# 十二、2026-09-19 续：水帘"像开箱贴图动画 + 往上滑"（V4–V6）
+
+用户反馈（v18 后）："滑落的水体开箱贴图动画了，几乎一模一样，而且感觉像是往上，而不是往下滑落的。"
+
+## 12.1 往上滑 = 符号反了（用户观感正确）
+
+柱面 UV 里 `v = −P.z/S`，而旧材质 `flow_uv = uv + (0, T)` → 特征点满足 `v + T = const`
+→ `z = S·(T − c)` 随时间**增大** = 向上爬。V4 起所有含 T 的相位统一写成 `(u·a + v·b − T·c)`（b,c>0）= 向下。
+**数值验证法**（`shot_dircheck_slow_20260919.py`）：FlowSpeed 临时调到 0.05（3 s 位移 ≈ 33–40 px，
+小于图案半周期、不混叠），同机位间隔 3 s 拍两张，离线对水帘带做垂直互相关：
+V4 dy=+39（corr 0.99）、V6 dy=+33（corr 0.99），dy>0 = 图案下移 = 水流向下。
+（第一次用 FlowSpeed 1.5 + 2.5 s 间隔测得 dy=0 是**混叠**：位移绕了整数个周期。）
+
+## 12.2 几乎一模一样 = 两个来源
+
+1. 条纹是纯 `sin(u·N)`（N 整数）→ 绕圈整数周期，每圈精确复制；泡沫贴图 AroundRepeat 整数平铺同理。
+2. **V4/V5 的 streak 场算出来却没接到输出**（V3 是靠 `foam_mul = proc × foam` 接的；V4/V5 重构时漏接）
+   → 画面只剩低频泡沫层，V5 的泡沫列尺度又太低 → 读作平板/均匀筒。
+
+V6 修法：26 条基带 × **逐列噪声调制**（相位/宽度/亮度每列不同；噪声与泡沫的 u 采样用非整数列尺度
+0.23/0.317/0.131 → 相邻列取到不同噪声，唯一不连续缝落在背面子午线），并把 streak 接回颜色/不透明链：
+`foam_total = saturate(streak·StreakWeight + foam·FoamWeight)`（两权重为 MIC 参数）。
+v21 实拍：条纹宽窄明暗逐列不同、方向向下、盆水不变。`M_FountainCascadeFlowV6` + MIC 换父级，落盘 12:21。
+
+## 12.3 待用户
+
+进 PIE 看水帘：应为**向下**流动、宽窄不一的竖向水纹；若仍嫌软，调
+`MIC_FountainCascadeFlow.StreakWeight`（0.85↑ 更硬）/ `FoamWeight` / `FlowSpeed`。
+
+## 12.4 废案归档（2026-09-19 收尾，trash/fountain-water-superseded-20260919/，gitignored）
+
+退役材质 9 件（引用复核：MIC 父级 = FilmV2/WaveWaterV3/CausticsOverlayV2/CascadeFlowV6，
+主网格 slot1 = M_FountainHidden，其余零引用）：
+
+| 资产 | 大小 | SHA-256 前缀 | 被谁取代 |
+| --- | --- | --- | --- |
+| `M_FountainWaterFilm.uasset` | 30892 B | `63d7cce9ce32be3b…` | FilmV2（逐像素位置修复） |
+| `M_FountainWaveWater.uasset` | 43488 B | `e1f2eb04e5df70e2…` | WaveWaterV3 |
+| `M_FountainWaveWaterV2.uasset` | 54664 B | `db4be0ecbae7801d…` | WaveWaterV3 |
+| `M_FountainCascadeFlow.uasset` | 18207 B | `f8b57624bc641e95…` | CascadeFlowV6 |
+| `M_FountainCascadeFlowV2.uasset` | 29616 B | `058abb7e7d81f6f0…` | CascadeFlowV6 |
+| `M_FountainCascadeFlowV3.uasset` | 23577 B | `d4d3a8f517ff3fbe…` | CascadeFlowV6 |
+| `M_FountainCascadeFlowV4.uasset` | 25132 B | `98d1567a6065ca03…` | V6（streak 漏接输出） |
+| `M_FountainCascadeFlowV5.uasset` | 25540 B | `8dde4d4830bc0b71…` | V6（同上） |
+| `M_FountainCausticsOverlay.uasset` | 10695 B | `03601cc54215cdb6…` | CausticsOverlayV2 |
+
+**保留在位**：`M_FountainWaterFilmV2`（MIC_FountainFoam/Wet 的父级，活跃）、
+`M_FountainWaveWaterV3`、`M_FountainCausticsOverlayV2`、`M_FountainCascadeFlowV6`、`M_FountainHidden`。
+退役脚本 13 件在 `trash/.../scripts/`（v10 基准拍、daylight/cascade 探针、tune v4–v7、
+rebuild_cascade v4/v5、save_water_v3、shot_v10_baseline、shot_dircheck 首版）。
+**保留在库（未跟踪→本次入库）**：`rebuild_water_v2/v3`、`rebuild_cascade_v6`、`shot_fountain_20260919.py`、
+`shot_dircheck_slow_20260919.py`、`probe_isolate/probe_shoot_water_20260919.py`。
+
+**引用复核教训**：`grep -rl "名字."` 会漏掉 uasset 导入表里的父级引用（FilmV2 因此被误移一次，
+已恢复）；复核 MIC 父级要直接扫 MIC 包字节里的 `M_*` 名字表，或读 `parent` 属性。

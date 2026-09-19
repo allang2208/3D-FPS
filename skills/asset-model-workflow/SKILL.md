@@ -180,3 +180,35 @@ description: 使用参考图、三视图和 5080 管线生成游戏模型，完�
     ③ 读 `Saved/SaveGames/*.sav` 证明玩家**有没有摆过**该构件（本例据此排除了"旧构件干盆"假设）；
     ④ 给构件加**运行期一次性日志**（组件 / 网格 / 槽 0 材质 / 可见性），一条日志定性"到底渲染了什么"。
     这四步比"再猜一轮参数"快得多 —— 本例连续 5 轮盲调没解决，靠 ① 立刻定位到不透明衬底。
+14. **`MaterialExpressionObjectPositionWS` 是"物体原点"常量，不是逐像素位置**（2026-09-19 喷泉水体
+    v5–v10 六轮"像固体"的**唯一根因**）：拿它当 Custom 节点的位置输入，波高场/法线/柱面 UV 全部在
+    **常量点**求值 → 水面整体刚性升降（看不见）、法线均匀倾斜（无明暗变化）、水帘条纹与泡沫/焦散
+    采样单一 texel（平板/隐形）。逐像素局部坐标 = **`WorldPosition − ObjectPositionWS`**（Subtract 节点），
+    既逐像素又随摆放平移不变。判别法：隐藏水面网格拍一张 + 把 WaveHeight 调 3 倍拍一张，若轮廓/明暗
+    都不变即命中此坑（参数读回全对也照样命中）。
+15. **编辑器模式（非 PIE）关卡里没有太阳/天空**：昼夜是运行时 BP（如 `BP_FPS_DayNightManager`）在
+    BeginPlay 生成的，编辑器视口/SceneCapture 拍出来是**夜景黑地**。实拍自检前先临时 spawn
+    `DirectionalLight`(intensity 10–30) + `SkyAtmosphere` + `SkyLight(real_time_capture=True)`，
+    拍完销毁、**不存关卡**。SceneCapture 配方（5.8 远程通道实测）：
+    `RenderingLibrary.create_render_target2d(world,w,h,RTF_RGBA8_SRGB)` →
+    `comp.set_editor_property("texture_target"/"capture_source"(SCS_FINAL_COLOR_LDR)/"fov_angle")` →
+    每视角 `set_actor_transform(Transform(loc, look_at 四元数), False, True)` + `capture_scene()`×4 →
+    `RenderingLibrary.export_render_target(world, rt, dir, name)`（**产物无扩展名**，要自己补 .png；
+    Niagara 在编辑器 capture 里不 tick，水柱/粒子拍不到）。
+16. **PIE 进行中远程脚本会静默早退**：脚本开头的 `is_in_play_in_editor()` 护栏 raise SystemExit(0)，
+    表现为"success=True 但零输出零产物"；先等 PIE 结束（日志里出现 TRAVERSAL/输入行 = 正在 PIE）。
+    另外**编辑器启动未完全就绪时**往远程通道发"重建材质"类命令会触发 MaterialEditor 的
+    `!IsRooted()` 断言崩进程——等 `Engine Initialization) Total time` 日志后再发。
+17. **滚动纹理的方向与"复制感"（2026-09-19 喷泉水帘）**：①柱面 UV 取 `v = −P.z/S` 时，
+    `uv + (0,T)` 是**向上**流（特征点 z = S·(T−c) 递增）；要向下，所有含 T 的相位写成
+    `(u·a + v·b − T·c)` 且 b,c>0。**验证法**：FlowSpeed 临时调到"3 s 位移 < 图案半周期"（如 0.05），
+    同机位间隔 3 s 拍两张，离线对目标带做垂直互相关取 argmax dy（dy>0 = 下移）；正常速度下间隔太大
+    会**混叠**得 dy=0 假阴性。②"几乎一模一样"的两个来源：纯 `sin(u·N)`（N 整数）绕圈精确复制、
+    贴图整数平铺同理 → 用**非整数列尺度**采样噪声/贴图（唯一缝落在背面子午线）+ 逐列噪声调制
+    相位/宽度/亮度。③重构材质图时**逐条核对每个算出来的场是否真接到了输出**（V4/V5 的 streak
+    算了没接，画面只剩泡沫层读作平板）——`get_material_property_input_node` 只能查末级，
+    中间场要顺着 Multiply/Add 链走一遍。
+18. **归档前复核引用别用 `grep "名字."`**：uasset 导入表里的父级/槽引用不带尾点，会漏判
+    （2026-09-19 把活跃的 `M_FountainWaterFilmV2` 当废案移进 trash 一次，靠 MIC 包字节扫描发现后恢复）。
+    正确做法：扫候选资产包字节里的名字表（`re.findall(rb'M_名字[A-Za-z0-9_]*', bytes)`）或直接读
+    MIC 的 `parent` 属性 / 网格的 `get_material(i)`；移完再列一遍 Materials 目录对账"应保留清单"。
