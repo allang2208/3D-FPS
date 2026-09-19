@@ -73,6 +73,7 @@ __pycache__/
 
 # Downloaded Fab production-tool source packages remain local.
 /SourceAssets/FreeProductionTools20260913/Original/
+
 /SourceAssets/M1911Integration20260913/Before/
 /SourceAssets/M1911Integration20260913/manny_reference.json
 /SourceAssets/M1911P9Retarget20260913/donor.pkl
@@ -158,8 +159,20 @@ __pycache__/
 /SourceAssets/FrostSwordGrips20260919/source_animation_inputs.json
 /SourceAssets/MeleeGuards20260915/.authoring-deps/
 /SourceAssets/FrostSword*/**/*.exr
+
 # Task-local UE import hosts are disposable DDC/Zen caches (ResonanceGrip, ReferenceSkeletonStock, RuneSword pattern generalized 2026-09-19).
 /SourceAssets/**/ImportHost/
+# Nested UE project copies inside task folders keep their build/import state local too.
+/SourceAssets/**/Saved/
+/SourceAssets/**/Intermediate/
+/SourceAssets/**/DerivedDataCache/
+/SourceAssets/**/Binaries/
+/SourceAssets/**/*.fbm/
+# Vendored pip package copied next to the M4 preview scripts.
+/SourceAssets/M4Infima/PreviewTools/imageio_ffmpeg/
+/SourceAssets/M4Infima/PreviewTools/imageio_ffmpeg-*.dist-info/
+# Local agent tooling config.
+/.zcode/
 
 # Preview renders, vendored packages and dense numeric captures stay local like png/jpg/wav above.
 /SourceAssets/**/*.gif
