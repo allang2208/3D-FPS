@@ -1,0 +1,24 @@
+[
+  {
+    "binding": "Vertical Grip - Exact Game Mount",
+    "actor": "/Game/GameMaps/DayNight_Lighting.DayNight_Lighting:PersistentLevel.Vertical Grip - Exact Game Mount_1",
+    "location": [
+      2005.3084982843288,
+      -44.92382806198507,
+      145.37704423814395
+    ],
+    "parent": "<Object '/Game/GameMaps/DayNight_Lighting.DayNight_Lighting:PersistentLevel.Skeletal Mesh Actor 8_3' (0x000001AD7E7C0F00) Class 'SkeletalMeshActor'>",
+    "socket": "WPN_root"
+  },
+  {
+    "binding": "Skeletal Mesh Actor 8",
+    "actor": "/Game/GameMaps/DayNight_Lighting.DayNight_Lighting:PersistentLevel.Skeletal Mesh Actor 8_3",
+    "location": [
+      2000.0,
+      0.0,
+      150.0
+    ],
+    "parent": "None",
+    "socket": "None"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "offset_mm": [
+    0,
+    -4,
+    -8
+  ],
+  "method": "minimum translation on 2mm grid retaining common hand and arm directions",
+  "static_crossings": 0
+}

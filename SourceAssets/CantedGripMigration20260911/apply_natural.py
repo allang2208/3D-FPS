@@ -1,0 +1,11 @@
+import bpy,json,math,sys,itertools
+from pathlib import Path
+from mathutils import Matrix,Vector,Quaternion
+from mathutils.bvhtree import BVHTree
+O=Path(__file__).parent;sys.path.insert(0,str(O));from audit_m4 import OLD,apply,render,support
+code=(O/'build_akm.py').read_text();exec(code[code.index('def arm('):code.index('def render(')],globals());src=(O.parent/'VerticalGripErgonomic20260911/fit_pose.py').read_text();exec(src[src.index('def measure('):src.index("if __name__=='__main__':")],globals())
+bpy.ops.wm.open_mainfile(filepath=str(OLD/'A_M4_Canted_idle.blend'));r=bpy.data.objects['SK_M4_Infima'];s=bpy.context.scene;s.frame_set(0);old={b.name:b.matrix.copy() for b in r.pose.bones};rest={b.name:b.matrix_local.copy() for b in r.data.bones};r.animation_data.action=None;solution=json.loads((O/'natural_solution.json').read_text());p={n:m.copy() for n,m in old.items()};H=Matrix(solution['pose']['hand_l']);A=p['upperarm_l'].translation;l1=(p['lowerarm_l'].translation-A).length;l2=(p['hand_l'].translation-p['lowerarm_l'].translation).length;desired=H.to_3x3()@rest['hand_l'].to_3x3().inverted()@(rest['hand_l'].translation-rest['lowerarm_l'].translation).normalized();E=H.translation-desired*l2;delta=(E+(A-E).normalized()*l1-A)*.7;metric=arm(p,rest,H,1,delta)
+for n in p:
+ if n.endswith('_l') and n.startswith(('index','middle','ring','pinky','thumb')):p[n]=Matrix(solution['pose'][n])
+apply(r,p,rest);fit=json.loads((OLD/'fit_final.json').read_text());G=p['WPN_root']@Matrix(fit['grip_in_root']);metric.update(measure(r,G,'CG_'));print('NATURAL_MEASURE',metric,flush=True)
+fit['hand_in_root']=[list(x) for x in p['WPN_root'].inverted()@H];fit['basis']={n:[list(x) for x in r.pose.bones[n].matrix_basis] for n in fit['basis']};fit['shoulder_in_grip']=list(G.inverted()@p['upperarm_l'].translation);fit['body_in_grip']=[list(x) for x in Matrix(fit['grip_matrix']).inverted()@Matrix(json.loads((OLD/'body_frame.json').read_text()))];fit['attachment_local']={ob.name:[list(x) for x in G.inverted()@ob.matrix_world] for ob in s.objects if ob.name.startswith('CG_')};fit['natural_parameters']=solution['parameters'];(O/'natural_fit.json').write_text(json.dumps(fit,indent=2));(O/'natural_measure.json').write_text(json.dumps(metric,indent=2));bpy.ops.wm.save_as_mainfile(filepath=str(O/'Canted_Natural.blend'));render(r,G,'natural')

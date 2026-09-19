@@ -1,0 +1,104 @@
+{
+  "idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_idle.blend",
+    "action": "M4_idle",
+    "frames": 180,
+    "duration": 3.0,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "preserved_bone_position_error_m": 6.043702301583661e-07
+  },
+  "aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_aim.blend",
+    "action": "M4_aim",
+    "frames": 2,
+    "duration": 0.03333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "preserved_bone_position_error_m": 4.807789863616728e-07
+  },
+  "fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_fire.blend",
+    "action": "M4_fire",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "preserved_bone_position_error_m": 5.409886016165212e-07
+  },
+  "aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_aim_fire.blend",
+    "action": "M4_aim_fire",
+    "frames": 46,
+    "duration": 0.7666666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": null,
+    "preserved_bone_position_error_m": 4.881125496077299e-07
+  },
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_equip.blend",
+    "action": "M4_MAT_equip_charge",
+    "frames": 38,
+    "duration": 0.6333333333333333,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0.031497662184724384,
+    "unchanged_contact_interval_frames": null,
+    "preserved_bone_position_error_m": 3.378655522422471e-06
+  },
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_reload.blend",
+    "action": "M4_MAT_reload",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0.08004278509497231,
+    "unchanged_contact_interval_frames": [
+      16,
+      102
+    ],
+    "preserved_bone_position_error_m": 8.264059470978719e-06
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_reload_empty.blend",
+    "action": "M4_MAT_reload_empty",
+    "frames": 162,
+    "duration": 2.7,
+    "sample_rate": 480,
+    "max_shoulder_shift_m": 0,
+    "unchanged_contact_interval_frames": [
+      16,
+      138
+    ],
+    "preserved_bone_position_error_m": 6.983203478512108e-06
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_drum_reload.blend",
+    "action": "A_M4_DrumContact_reload",
+    "frames": 126,
+    "duration": 2.1,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0.02841775650911065,
+    "unchanged_contact_interval_frames": [
+      28,
+      102
+    ],
+    "preserved_bone_position_error_m": 1.4318882478716256e-05
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CantedForegrip20260911\\ThumbClose\\A_M4_Canted_drum_reload_empty.blend",
+    "action": "A_M4_DrumContact_reload_empty",
+    "frames": 148,
+    "duration": 2.466666666666667,
+    "sample_rate": 240,
+    "max_shoulder_shift_m": 0.05482467754331387,
+    "unchanged_contact_interval_frames": [
+      28,
+      124
+    ],
+    "preserved_bone_position_error_m": 9.593007336925344e-06
+  }
+}

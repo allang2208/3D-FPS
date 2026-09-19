@@ -1,0 +1,61 @@
+{
+  "optic": {
+    "asset": "/Game/Weapons/M4Holographic/SM_M4_Holographic",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/M4Holographic20260909/SM_M4_Holographic.fbx",
+    "materials": [
+      "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody",
+      "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle"
+    ]
+  },
+  "drum": {
+    "asset": "/Game/Weapons/M4Drum/SM_M4_LargeDrum",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/M4Drum20260909/SM_M4_LargeDrum.fbx",
+    "materials": [
+      "/Game/Weapons/M4Drum/M_M4DrumPolymer.M_M4DrumPolymer",
+      "/Game/Weapons/M4Drum/M_M4DrumFasteners.M_M4DrumFasteners",
+      "/Game/Weapons/M4Drum/M_M4DrumIndex.M_M4DrumIndex"
+    ]
+  },
+  "prism": {
+    "asset": "/Game/Weapons/PrismHandstopV1/SM_PrismHandstop",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/PrismHandstop20260910/Polish/SM_PrismHandstop.fbx",
+    "materials": [
+      "/Game/Weapons/PrismHandstopV1/M_Prism_Polymer.M_Prism_Polymer",
+      "/Game/Weapons/PrismHandstopV1/M_Prism_Saddle.M_Prism_Saddle"
+    ]
+  },
+  "angled": {
+    "asset": "/Game/Weapons/M4AngledForegripCompact75/SM_M4_AngledForegrip",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/AngledForegrip20260910/Compact75/SM_M4_AngledForegrip.fbx",
+    "materials": [
+      "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+      "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+      "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001"
+    ]
+  },
+  "suppressor": {
+    "asset": "/Game/Weapons/M4MuzzlesV1/SM_M4_suppressor",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/M4Muzzles20260910/SM_M4_suppressor.fbx",
+    "materials": [
+      "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+      "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+    ]
+  },
+  "brake": {
+    "asset": "/Game/Weapons/M4MuzzlesV1/SM_M4_brake",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/M4Muzzles20260910/SM_M4_brake.fbx",
+    "materials": [
+      "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+      "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess"
+    ]
+  },
+  "titanium_brake": {
+    "asset": "/Game/Weapons/M4MuzzlesV1/SM_M4_titanium_brake",
+    "source": "D:/FPS3D/FPSGAME/SourceAssets/M4Muzzles20260910/SM_M4_titanium_brake.fbx",
+    "materials": [
+      "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+      "/Game/Weapons/M4MuzzlesV1/MI_MuzzleRecess.MI_MuzzleRecess",
+      "/Game/Weapons/M4MuzzlesV1/MI_TitaniumTrim.MI_TitaniumTrim"
+    ]
+  }
+}

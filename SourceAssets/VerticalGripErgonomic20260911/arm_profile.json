@@ -1,0 +1,7 @@
+{
+  "reference": "original_idle",
+  "shoulder_in_mount_m": [-0.50, 0.30, -0.10],
+  "elbow_pole_in_mount_m": [-0.28, 0.20, -0.19],
+  "forearm_twist_weights": [0.5, 1.0],
+  "note": "M4 Manny viewmodel only. Preserve hinge-plane orientation and distribute wrist twist along the forearm."
+}

@@ -1,0 +1,277 @@
+{
+  "A_AKM_prism_idle": {
+    "duration": 0.0416666679084301,
+    "preserved_contact_max_position_error_cm": 5.567317994207803e-05,
+    "errors": {
+      "hand_l": 3.853779178741176e-05,
+      "hand_r": 1.0022031813686077e-06,
+      "WPN_root": 1.197644059552047e-05,
+      "WPN_SOCKET_Magazine": 1.6249179965463345e-05,
+      "index_03_l": 5.24287565601092e-05,
+      "middle_03_l": 5.567317994207803e-05,
+      "ring_03_l": 5.447598012770106e-05,
+      "pinky_03_l": 5.4164429290621604e-05,
+      "thumb_03_l": 4.570138790038453e-05
+    }
+  },
+  "A_AKM_prism_aim": {
+    "duration": 0.0416666679084301,
+    "preserved_contact_max_position_error_cm": 3.853412658706425e-05,
+    "errors": {
+      "hand_l": 2.907255817410361e-05,
+      "hand_r": 4.709341415904213e-06,
+      "WPN_root": 1.437505666011478e-05,
+      "WPN_SOCKET_Magazine": 2.0055859242033092e-05,
+      "index_03_l": 3.720889234733704e-05,
+      "middle_03_l": 3.853412658706425e-05,
+      "ring_03_l": 3.578777806194807e-05,
+      "pinky_03_l": 3.4531173127089655e-05,
+      "thumb_03_l": 3.460919579746099e-05
+    }
+  },
+  "A_AKM_prism_fire": {
+    "duration": 0.10000000149011612,
+    "preserved_contact_max_position_error_cm": 5.567317994207803e-05,
+    "errors": {
+      "hand_l": 3.853779178741176e-05,
+      "hand_r": 1.0022031813686077e-06,
+      "WPN_root": 1.197644059552047e-05,
+      "WPN_SOCKET_Magazine": 1.6249179965463345e-05,
+      "index_03_l": 5.24287565601092e-05,
+      "middle_03_l": 5.567317994207803e-05,
+      "ring_03_l": 5.447598012770106e-05,
+      "pinky_03_l": 5.4164429290621604e-05,
+      "thumb_03_l": 4.570138790038453e-05
+    }
+  },
+  "A_AKM_prism_aim_fire": {
+    "duration": 0.10000000149011612,
+    "preserved_contact_max_position_error_cm": 3.853412658706425e-05,
+    "errors": {
+      "hand_l": 2.907255817410361e-05,
+      "hand_r": 4.709341415904213e-06,
+      "WPN_root": 1.437505666011478e-05,
+      "WPN_SOCKET_Magazine": 2.0055859242033092e-05,
+      "index_03_l": 3.720889234733704e-05,
+      "middle_03_l": 3.853412658706425e-05,
+      "ring_03_l": 3.578777806194807e-05,
+      "pinky_03_l": 3.4531173127089655e-05,
+      "thumb_03_l": 3.460919579746099e-05
+    }
+  },
+  "A_AKM_prism_equip": {
+    "duration": 1.7000000476837158,
+    "preserved_contact_max_position_error_cm": 0.0005409019110855222,
+    "errors": {
+      "hand_l": 0.00039554207123668265,
+      "hand_r": 3.6878533065581465e-05,
+      "WPN_root": 1.9498874942979638e-05,
+      "WPN_SOCKET_Magazine": 2.0198537181215138e-05,
+      "index_03_l": 0.0005221444266935674,
+      "middle_03_l": 0.0005409019110855222,
+      "ring_03_l": 0.0005343398930716519,
+      "pinky_03_l": 0.0005264714104020623,
+      "thumb_03_l": 0.00047966222381962966
+    }
+  },
+  "A_AKM_prism_reload": {
+    "duration": 3.3333332538604736,
+    "preserved_contact_max_position_error_cm": 0.00026355911899205115,
+    "errors": {
+      "hand_l": 0.00023485549658089886,
+      "hand_r": 3.924250444027529e-05,
+      "WPN_root": 3.9202676135285566e-05,
+      "WPN_SOCKET_Magazine": 0.00019926739700128093,
+      "index_03_l": 0.00025843463421626787,
+      "middle_03_l": 0.00025893227023763237,
+      "ring_03_l": 0.00026355911899205115,
+      "pinky_03_l": 0.0002504257836223611,
+      "thumb_03_l": 0.00023912385469891393
+    }
+  },
+  "A_AKM_prism_reload_empty": {
+    "duration": 4.291666507720947,
+    "preserved_contact_max_position_error_cm": 0.0005570803205187074,
+    "errors": {
+      "hand_l": 0.00014233479542322965,
+      "hand_r": 4.944676209562265e-05,
+      "WPN_root": 2.3144655731499817e-05,
+      "WPN_SOCKET_Magazine": 4.119153503072554e-05,
+      "index_03_l": 0.0005570803205187074,
+      "middle_03_l": 0.00046040796011560955,
+      "ring_03_l": 0.00044619080286839845,
+      "pinky_03_l": 0.0004879995430357114,
+      "thumb_03_l": 0.0005169832194714542
+    }
+  },
+  "A_AKM_prism_drum_reload": {
+    "duration": 3.3333332538604736,
+    "preserved_contact_max_position_error_cm": 0.0002286791300932291,
+    "errors": {
+      "hand_l": 0.00020316771860036373,
+      "hand_r": 3.924250444027529e-05,
+      "WPN_root": 3.9202676135285566e-05,
+      "WPN_SOCKET_Magazine": 9.942277464908357e-05,
+      "index_03_l": 0.00021564848035334635,
+      "middle_03_l": 0.0002176615512694726,
+      "ring_03_l": 0.0002249573834282886,
+      "pinky_03_l": 0.0002286791300932291,
+      "thumb_03_l": 0.00020647952534606564
+    }
+  },
+  "A_AKM_prism_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "preserved_contact_max_position_error_cm": 0.0005572767629860654,
+    "errors": {
+      "hand_l": 0.0002852337011073559,
+      "hand_r": 4.534805274828296e-05,
+      "WPN_root": 2.3144655731499817e-05,
+      "WPN_SOCKET_Magazine": 0.00014183432995682624,
+      "index_03_l": 0.0005572767629860654,
+      "middle_03_l": 0.0004585662361355014,
+      "ring_03_l": 0.0004474624499135443,
+      "pinky_03_l": 0.0004855875862258926,
+      "thumb_03_l": 0.0005182162370209081
+    }
+  },
+  "A_AKM_angled_idle": {
+    "duration": 0.0416666679084301,
+    "preserved_contact_max_position_error_cm": 5.255412395075855e-05,
+    "errors": {
+      "hand_l": 5.255412395075855e-05,
+      "hand_r": 1.0022031813686077e-06,
+      "WPN_root": 1.197644059552047e-05,
+      "WPN_SOCKET_Magazine": 1.6249179965463345e-05,
+      "index_03_l": 4.6592806227897015e-05,
+      "middle_03_l": 4.8148409519902866e-05,
+      "ring_03_l": 5.0328374863484455e-05,
+      "pinky_03_l": 5.209437032342656e-05,
+      "thumb_03_l": 4.603671761034528e-05
+    }
+  },
+  "A_AKM_angled_aim": {
+    "duration": 0.0416666679084301,
+    "preserved_contact_max_position_error_cm": 5.784448144727336e-05,
+    "errors": {
+      "hand_l": 5.709939310305823e-05,
+      "hand_r": 4.709341415904213e-06,
+      "WPN_root": 1.437505666011478e-05,
+      "WPN_SOCKET_Magazine": 2.0055859242033092e-05,
+      "index_03_l": 5.255497617983679e-05,
+      "middle_03_l": 5.4047153580677275e-05,
+      "ring_03_l": 5.6048638627358105e-05,
+      "pinky_03_l": 5.784448144727336e-05,
+      "thumb_03_l": 5.1929048916637034e-05
+    }
+  },
+  "A_AKM_angled_fire": {
+    "duration": 0.10000000149011612,
+    "preserved_contact_max_position_error_cm": 5.255412395075855e-05,
+    "errors": {
+      "hand_l": 5.255412395075855e-05,
+      "hand_r": 1.0022031813686077e-06,
+      "WPN_root": 1.197644059552047e-05,
+      "WPN_SOCKET_Magazine": 1.6249179965463345e-05,
+      "index_03_l": 4.6592806227897015e-05,
+      "middle_03_l": 4.8148409519902866e-05,
+      "ring_03_l": 5.0328374863484455e-05,
+      "pinky_03_l": 5.209437032342656e-05,
+      "thumb_03_l": 4.603671761034528e-05
+    }
+  },
+  "A_AKM_angled_aim_fire": {
+    "duration": 0.10000000149011612,
+    "preserved_contact_max_position_error_cm": 5.784448144727336e-05,
+    "errors": {
+      "hand_l": 5.709939310305823e-05,
+      "hand_r": 4.709341415904213e-06,
+      "WPN_root": 1.437505666011478e-05,
+      "WPN_SOCKET_Magazine": 2.0055859242033092e-05,
+      "index_03_l": 5.255497617983679e-05,
+      "middle_03_l": 5.4047153580677275e-05,
+      "ring_03_l": 5.6048638627358105e-05,
+      "pinky_03_l": 5.784448144727336e-05,
+      "thumb_03_l": 5.1929048916637034e-05
+    }
+  },
+  "A_AKM_angled_equip": {
+    "duration": 1.7000000476837158,
+    "preserved_contact_max_position_error_cm": 0.00042978182188816734,
+    "errors": {
+      "hand_l": 0.0003524764476634099,
+      "hand_r": 3.6878533065581465e-05,
+      "WPN_root": 1.9498874942979638e-05,
+      "WPN_SOCKET_Magazine": 2.0198537181215138e-05,
+      "index_03_l": 0.0004044191049429316,
+      "middle_03_l": 0.000418662193320164,
+      "ring_03_l": 0.00042978182188816734,
+      "pinky_03_l": 0.00037886580808732686,
+      "thumb_03_l": 0.0003494134846556417
+    }
+  },
+  "A_AKM_angled_reload": {
+    "duration": 3.3333332538604736,
+    "preserved_contact_max_position_error_cm": 0.0002629383023752966,
+    "errors": {
+      "hand_l": 0.00023476611857326549,
+      "hand_r": 3.924250444027529e-05,
+      "WPN_root": 3.9202676135285566e-05,
+      "WPN_SOCKET_Magazine": 0.00019926739700128093,
+      "index_03_l": 0.00025784689457855126,
+      "middle_03_l": 0.00025774874684476856,
+      "ring_03_l": 0.0002629383023752966,
+      "pinky_03_l": 0.0002500639130024696,
+      "thumb_03_l": 0.00023883655713226125
+    }
+  },
+  "A_AKM_angled_reload_empty": {
+    "duration": 4.291666507720947,
+    "preserved_contact_max_position_error_cm": 0.0005362189772984413,
+    "errors": {
+      "hand_l": 0.00014237272300188344,
+      "hand_r": 4.944676209562265e-05,
+      "WPN_root": 2.3144655731499817e-05,
+      "WPN_SOCKET_Magazine": 4.119153503072554e-05,
+      "index_03_l": 0.0005362189772984413,
+      "middle_03_l": 0.00043128397196201627,
+      "ring_03_l": 0.0004186619994673119,
+      "pinky_03_l": 0.00044798016272154436,
+      "thumb_03_l": 0.0004848558415282317
+    }
+  },
+  "A_AKM_angled_drum_reload": {
+    "duration": 3.3333332538604736,
+    "preserved_contact_max_position_error_cm": 0.00022861402223979605,
+    "errors": {
+      "hand_l": 0.00020304267250294828,
+      "hand_r": 3.924250444027529e-05,
+      "WPN_root": 3.9202676135285566e-05,
+      "WPN_SOCKET_Magazine": 9.942277464908357e-05,
+      "index_03_l": 0.00021531793294119768,
+      "middle_03_l": 0.0002171581562318091,
+      "ring_03_l": 0.00022511396180129747,
+      "pinky_03_l": 0.00022861402223979605,
+      "thumb_03_l": 0.0002059216296246403
+    }
+  },
+  "A_AKM_angled_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "preserved_contact_max_position_error_cm": 0.0005580329139108841,
+    "errors": {
+      "hand_l": 0.0002852337011073559,
+      "hand_r": 4.534805274828296e-05,
+      "WPN_root": 2.3144655731499817e-05,
+      "WPN_SOCKET_Magazine": 0.00014183432995682624,
+      "index_03_l": 0.0005580329139108841,
+      "middle_03_l": 0.0004803124931116806,
+      "ring_03_l": 0.0004468299626476678,
+      "pinky_03_l": 0.0004776957571955306,
+      "thumb_03_l": 0.0005170624933018368
+    }
+  },
+  "optic_materials": {
+    "optic_Holosight": "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody",
+    "optic_Red_Dot": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle",
+    "AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+  }
+}

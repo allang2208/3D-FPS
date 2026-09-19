@@ -1,0 +1,272 @@
+{
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_idle.A_M4_Vertical_idle": {
+    "duration": 3.0,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_idle.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_reload.A_M4_Vertical_reload": {
+    "duration": 2.0999999046325684,
+    "sample_rate": 480,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_reload.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_aim.A_M4_Vertical_aim": {
+    "duration": 0.03333333507180214,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_aim.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_fire.A_M4_Vertical_fire": {
+    "duration": 0.7666666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_fire.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_aim_fire.A_M4_Vertical_aim_fire": {
+    "duration": 0.7666666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_aim_fire.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_equip.A_M4_Vertical_equip": {
+    "duration": 0.6333333253860474,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_equip.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_reload_empty.A_M4_Vertical_reload_empty": {
+    "duration": 2.700000047683716,
+    "sample_rate": 480,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_reload_empty.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_drum_reload.A_M4_Vertical_drum_reload": {
+    "duration": 2.0999999046325684,
+    "sample_rate": 240,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_drum_reload.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_drum_reload_empty.A_M4_Vertical_drum_reload_empty": {
+    "duration": 2.4666666984558105,
+    "sample_rate": 240,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_drum_reload_empty.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_idle.A_M4_Prism_idle": {
+    "duration": 3.0,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_idle.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_aim.A_M4_Prism_aim": {
+    "duration": 0.03333333507180214,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_aim.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_fire.A_M4_Prism_fire": {
+    "duration": 0.7666666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_fire.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_aim_fire.A_M4_Prism_aim_fire": {
+    "duration": 0.7666666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_aim_fire.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_equip.A_M4_Prism_equip": {
+    "duration": 0.6333333253860474,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_equip.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_reload.A_M4_Prism_reload": {
+    "duration": 2.0999999046325684,
+    "sample_rate": 480,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_reload.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_reload_empty.A_M4_Prism_reload_empty": {
+    "duration": 2.700000047683716,
+    "sample_rate": 480,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_reload_empty.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_drum_reload.A_M4_Prism_drum_reload": {
+    "duration": 2.0999999046325684,
+    "sample_rate": 240,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_drum_reload.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_drum_reload_empty.A_M4_Prism_drum_reload_empty": {
+    "duration": 2.4666666984558105,
+    "sample_rate": 240,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\prism\\A_M4_Prism_drum_reload_empty.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_idle.A_AKM_vertical_idle": {
+    "duration": 0.0416666679084301,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_idle.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_aim.A_AKM_vertical_aim": {
+    "duration": 0.0416666679084301,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_aim.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_fire.A_AKM_vertical_fire": {
+    "duration": 0.10000000149011612,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_fire.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_aim_fire.A_AKM_vertical_aim_fire": {
+    "duration": 0.10000000149011612,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_aim_fire.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_equip.A_AKM_vertical_equip": {
+    "duration": 1.7000000476837158,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_equip.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_reload.A_AKM_vertical_reload": {
+    "duration": 3.3333332538604736,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_reload.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_reload_empty.A_AKM_vertical_reload_empty": {
+    "duration": 4.291666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_reload_empty.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_drum_reload.A_AKM_vertical_drum_reload": {
+    "duration": 3.3333332538604736,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_drum_reload.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_drum_reload_empty.A_AKM_vertical_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_drum_reload_empty.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_idle.A_AKM_prism_idle": {
+    "duration": 0.0416666679084301,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_idle.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_aim.A_AKM_prism_aim": {
+    "duration": 0.0416666679084301,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_aim.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_fire.A_AKM_prism_fire": {
+    "duration": 0.10000000149011612,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_fire.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_aim_fire.A_AKM_prism_aim_fire": {
+    "duration": 0.10000000149011612,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_aim_fire.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_equip.A_AKM_prism_equip": {
+    "duration": 1.7000000476837158,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_equip.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_reload.A_AKM_prism_reload": {
+    "duration": 3.3333332538604736,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_reload.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_reload_empty.A_AKM_prism_reload_empty": {
+    "duration": 4.291666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_reload_empty.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_drum_reload.A_AKM_prism_drum_reload": {
+    "duration": 3.3333332538604736,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_drum_reload.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_drum_reload_empty.A_AKM_prism_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\prism\\A_AKM_prism_drum_reload_empty.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_idle.A_M4_Vertical_idle": {
+    "duration": 3.0,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_idle.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_reload.A_M4_Vertical_reload": {
+    "duration": 2.0999999046325684,
+    "sample_rate": 480,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_reload.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_aim.A_M4_Vertical_aim": {
+    "duration": 0.03333333507180214,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_aim.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_fire.A_M4_Vertical_fire": {
+    "duration": 0.7666666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_fire.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_aim_fire.A_M4_Vertical_aim_fire": {
+    "duration": 0.7666666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_aim_fire.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_equip.A_M4_Vertical_equip": {
+    "duration": 0.6333333253860474,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_equip.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_reload_empty.A_M4_Vertical_reload_empty": {
+    "duration": 2.700000047683716,
+    "sample_rate": 480,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_reload_empty.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_drum_reload.A_M4_Vertical_drum_reload": {
+    "duration": 2.0999999046325684,
+    "sample_rate": 240,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_drum_reload.fbx"
+  },
+  "/Game/Weapons/M4VerticalGripOpposed/Vertical/A_M4_Vertical_drum_reload_empty.A_M4_Vertical_drum_reload_empty": {
+    "duration": 2.4666666984558105,
+    "sample_rate": 240,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\m4\\vertical\\A_M4_Vertical_drum_reload_empty.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_idle.A_AKM_vertical_idle": {
+    "duration": 0.0416666679084301,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_idle.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_aim.A_AKM_vertical_aim": {
+    "duration": 0.0416666679084301,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_aim.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_fire.A_AKM_vertical_fire": {
+    "duration": 0.10000000149011612,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_fire.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_aim_fire.A_AKM_vertical_aim_fire": {
+    "duration": 0.10000000149011612,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_aim_fire.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_equip.A_AKM_vertical_equip": {
+    "duration": 1.7000000476837158,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_equip.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_reload.A_AKM_vertical_reload": {
+    "duration": 3.3333332538604736,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_reload.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_reload_empty.A_AKM_vertical_reload_empty": {
+    "duration": 4.291666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_reload_empty.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_drum_reload.A_AKM_vertical_drum_reload": {
+    "duration": 3.3333332538604736,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_drum_reload.fbx"
+  },
+  "/Game/Weapons/AKMIntegration/SovietFab/GripOpposed/vertical/A_AKM_vertical_drum_reload_empty.A_AKM_vertical_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "sample_rate": 120,
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripFront20260911\\akm\\vertical\\A_AKM_vertical_drum_reload_empty.fbx"
+  }
+}

@@ -1,0 +1,7 @@
+import json,urllib.request,uuid
+from pathlib import Path
+O=Path(__file__).parent;B='http://192.168.3.142:8188'
+s=json.load(urllib.request.urlopen(B+'/system_stats',timeout=15));(O/'system_stats.json').write_text(json.dumps(s,indent=2));assert '5080' in s['devices'][0]['name']
+f=O/'concept_hero.png';boundary='----'+uuid.uuid4().hex;data=(f'--{boundary}\r\nContent-Disposition: form-data; name="image"; filename="canted_grip_20260911.png"\r\nContent-Type: image/png\r\n\r\n').encode()+f.read_bytes()+f'\r\n--{boundary}--\r\n'.encode();r=json.load(urllib.request.urlopen(urllib.request.Request(B+'/upload/image',data=data,headers={'Content-Type':'multipart/form-data; boundary='+boundary}),timeout=30));(O/'upload.json').write_text(json.dumps(r));request=json.loads((O.parent/'VerticalForegrip20260911/request.json').read_text());request['client_id']='canted-grip-20260911';p=request['prompt'];p['2']['inputs']['image']=r['name'];p.pop('8',None);p.pop('7',None);p['9']['inputs']['alpha']=['2',1];p['4']['inputs']['seed']=911745
+for n,tag in [('6','raw'),('11','textured')]:p[n]['inputs']['filename_prefix']='CantedForegrip20260911/canted_grip_'+tag
+(O/'request.json').write_text(json.dumps(request,indent=2));receipt=json.load(urllib.request.urlopen(urllib.request.Request(B+'/prompt',data=json.dumps(request).encode(),headers={'Content-Type':'application/json'}),timeout=30));(O/'receipt.json').write_text(json.dumps(receipt,indent=2));print(receipt)

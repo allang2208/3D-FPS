@@ -1,0 +1,18 @@
+{
+  "family": "vertical_grip",
+  "variant": "vertical",
+  "animation_prefix": "A_M4_Vertical_",
+  "fitted_mesh": "M4_Vertical_Fitted.blend",
+  "mesh_prefix": "VG_",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\LeftSupport",
+  "shoulder_offset": [
+    0.02534833550453186,
+    0.1502978503704071,
+    -0.18595784902572632
+  ],
+  "forearm_direction": [
+    0.842151939868927,
+    -0.3368607759475708,
+    0.4210759699344635
+  ]
+}

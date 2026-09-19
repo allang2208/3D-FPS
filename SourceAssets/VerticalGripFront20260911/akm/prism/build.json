@@ -1,0 +1,186 @@
+{
+  "idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858079749156946,
+      "shoulder_delta_m": [
+        -0.004245668649673462,
+        -0.00580277293920517,
+        0.002064831554889679
+      ],
+      "twist_deg": 27.228368964425545
+    },
+    "nonleft_error_m": 4.332402106230336e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07
+  },
+  "aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.0145214013159034,
+      "elbow_bend_deg": 22.960389527124253,
+      "shoulder_delta_m": [
+        -0.004763513803482056,
+        -0.008785411715507507,
+        0.0022279545664787292
+      ],
+      "twist_deg": 20.726240041144038
+    },
+    "nonleft_error_m": 4.017197068665021e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07
+  },
+  "fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858079749156946,
+      "shoulder_delta_m": [
+        -0.004245668649673462,
+        -0.00580277293920517,
+        0.002064831554889679
+      ],
+      "twist_deg": 27.228368964425545
+    },
+    "nonleft_error_m": 4.332402106230336e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07
+  },
+  "aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.0145214013159034,
+      "elbow_bend_deg": 22.960389527124253,
+      "shoulder_delta_m": [
+        -0.004763513803482056,
+        -0.008785411715507507,
+        0.0022279545664787292
+      ],
+      "twist_deg": 20.726240041144038
+    },
+    "nonleft_error_m": 4.017197068665021e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 3.95372484964776e-07
+  },
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 1.7,
+    "frames": 204,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858072918967775,
+      "shoulder_delta_m": [
+        -0.004245564341545105,
+        -0.005802631378173828,
+        0.0020647794008255005
+      ],
+      "twist_deg": 27.228430894364788
+    },
+    "nonleft_error_m": 7.178896349934282e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 0,
+    "scale_error": 6.07850493620966e-07
+  },
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858120730291965,
+      "shoulder_delta_m": [
+        -0.004245668649673462,
+        -0.005802765488624573,
+        0.002064824104309082
+      ],
+      "twist_deg": 27.22836285765257
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 4.933162140025749e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 3.7484640320611297e-06,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance"
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858120730291965,
+      "shoulder_delta_m": [
+        -0.004245668649673462,
+        -0.005802765488624573,
+        0.002064824104309082
+      ],
+      "twist_deg": 27.22836285765257
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance"
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858120730291965,
+      "shoulder_delta_m": [
+        -0.004245668649673462,
+        -0.005802765488624573,
+        0.002064824104309082
+      ],
+      "twist_deg": 27.22836285765257
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 5.006878857735229e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 3.127966347551805e-06,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance"
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.5664823361042233,
+      "elbow_bend_deg": 29.858120730291965,
+      "shoulder_delta_m": [
+        -0.004245668649673462,
+        -0.005802765488624573,
+        0.002064824104309082
+      ],
+      "twist_deg": 27.22836285765257
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07,
+    "thumb_release_revision": "outward-before-unfold-with-akm-transition-clearance"
+  }
+}

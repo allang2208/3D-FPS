@@ -1,0 +1,10 @@
+{
+  "family": "vertical_grip",
+  "variant": "vertical",
+  "animation_prefix": "A_M4_Vertical_",
+  "mesh_prefix": "VG_",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\LeftSupport",
+  "fitted_mesh": "FinalFit.blend",
+  "arm_profile": "../arm_profile.json",
+  "revision": "ergonomic-photo-reference"
+}

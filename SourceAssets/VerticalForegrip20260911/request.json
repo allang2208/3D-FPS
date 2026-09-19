@@ -1,0 +1,141 @@
+{
+  "client_id": "vertical-grip-20260911",
+  "prompt": {
+    "2": {
+      "class_type": "LoadImage",
+      "inputs": {
+        "image": "vertical_grip_20260911.jpg"
+      }
+    },
+    "1": {
+      "class_type": "Trellis2LoadModel",
+      "inputs": {
+        "sparse_backend": "xformers",
+        "backend": "sdpa",
+        "low_vram": true,
+        "conv_backend": "flex_gemm",
+        "modelname": "microsoft/TRELLIS.2-4B",
+        "use_reconviagen": false,
+        "device": "cuda",
+        "keep_models_loaded": false
+      }
+    },
+    "5": {
+      "class_type": "Trellis2MeshWithVoxelToTrimesh",
+      "inputs": {
+        "reorient_vertices": "90 degrees",
+        "mesh": [
+          "4",
+          0
+        ]
+      }
+    },
+    "4": {
+      "class_type": "Trellis2MeshWithVoxelGenerator",
+      "inputs": {
+        "hole_fill_algorithm": "flood_fill",
+        "sparse_structure_steps": 12,
+        "seed": 91143,
+        "sparse_structure_resolution": 32,
+        "pipeline_type": "512",
+        "generate_texture_slat": true,
+        "shape_steps": 16,
+        "hole_iterations": 1,
+        "fill_holes": false,
+        "pipeline": [
+          "1",
+          0
+        ],
+        "max_views": 4,
+        "use_tiled_decoder": true,
+        "sampler": "euler",
+        "keep_only_shell": true,
+        "max_num_tokens": 49152,
+        "texture_steps": 12,
+        "image": [
+          "3",
+          0
+        ]
+      }
+    },
+    "3": {
+      "class_type": "Trellis2PreProcessImage",
+      "inputs": {
+        "image": [
+          "9",
+          0
+        ],
+        "remove_background": false,
+        "padding": 30,
+        "max_size": 2048
+      }
+    },
+    "6": {
+      "class_type": "Trellis2ExportMesh",
+      "inputs": {
+        "trimesh": [
+          "5",
+          0
+        ],
+        "filename_prefix": "VerticalForegrip20260911/vertical_grip_raw",
+        "file_format": "glb"
+      }
+    },
+    "7": {
+      "inputs": {
+        "image": [
+          "2",
+          0
+        ],
+        "channel": "red"
+      },
+      "class_type": "ImageToMask"
+    },
+    "9": {
+      "inputs": {
+        "image": [
+          "2",
+          0
+        ],
+        "alpha": [
+          "8",
+          0
+        ]
+      },
+      "class_type": "JoinImageWithAlpha"
+    },
+    "8": {
+      "class_type": "ThresholdMask",
+      "inputs": {
+        "value": 0.61,
+        "mask": [
+          "7",
+          0
+        ]
+      }
+    },
+    "10": {
+      "class_type": "Trellis2OvoxelExportToGLB",
+      "inputs": {
+        "mesh": [
+          "4",
+          0
+        ],
+        "resolution": 512,
+        "texture_size": 2048,
+        "target_face_num": 100000
+      }
+    },
+    "11": {
+      "class_type": "Trellis2ExportMesh",
+      "inputs": {
+        "trimesh": [
+          "10",
+          0
+        ],
+        "filename_prefix": "VerticalForegrip20260911/vertical_grip_textured",
+        "file_format": "glb"
+      }
+    }
+  }
+}

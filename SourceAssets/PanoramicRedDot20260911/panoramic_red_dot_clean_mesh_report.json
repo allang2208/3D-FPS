@@ -1,0 +1,21 @@
+{
+  "asset": "panoramic_red_dot_clean",
+  "source": "panoramic_red_dot_clean.glb",
+  "bounds_original": [
+    0.7136629819869995,
+    0.49619153141975403,
+    0.43764728307724
+  ],
+  "meshes": [
+    {
+      "name": "PanoramicRedDot_5080_CleanCandidate",
+      "vertices": 63404,
+      "triangles": 74493,
+      "materials": [
+        "Graphite_preview"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": []
+}

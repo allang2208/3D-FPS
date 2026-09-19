@@ -1,0 +1,171 @@
+{
+  "7d0144f9-654b-47fe-8277-6c4e27b08a94": {
+    "prompt": [
+      11,
+      "7d0144f9-654b-47fe-8277-6c4e27b08a94",
+      {
+        "2": {
+          "class_type": "LoadImage",
+          "inputs": {
+            "image": "canted_grip_20260911.png"
+          }
+        },
+        "1": {
+          "class_type": "Trellis2LoadModel",
+          "inputs": {
+            "sparse_backend": "xformers",
+            "backend": "sdpa",
+            "low_vram": true,
+            "conv_backend": "flex_gemm",
+            "modelname": "microsoft/TRELLIS.2-4B",
+            "use_reconviagen": false,
+            "device": "cuda",
+            "keep_models_loaded": false
+          }
+        },
+        "5": {
+          "class_type": "Trellis2MeshWithVoxelToTrimesh",
+          "inputs": {
+            "reorient_vertices": "90 degrees",
+            "mesh": [
+              "4",
+              0
+            ]
+          }
+        },
+        "4": {
+          "class_type": "Trellis2MeshWithVoxelGenerator",
+          "inputs": {
+            "hole_fill_algorithm": "flood_fill",
+            "sparse_structure_steps": 12,
+            "seed": 911745,
+            "sparse_structure_resolution": 32,
+            "pipeline_type": "512",
+            "generate_texture_slat": true,
+            "shape_steps": 16,
+            "hole_iterations": 1,
+            "fill_holes": false,
+            "pipeline": [
+              "1",
+              0
+            ],
+            "max_views": 4,
+            "use_tiled_decoder": true,
+            "sampler": "euler",
+            "keep_only_shell": true,
+            "max_num_tokens": 49152,
+            "texture_steps": 12,
+            "image": [
+              "3",
+              0
+            ]
+          }
+        },
+        "3": {
+          "class_type": "Trellis2PreProcessImage",
+          "inputs": {
+            "image": [
+              "9",
+              0
+            ],
+            "remove_background": false,
+            "padding": 30,
+            "max_size": 2048
+          }
+        },
+        "6": {
+          "class_type": "Trellis2ExportMesh",
+          "inputs": {
+            "trimesh": [
+              "5",
+              0
+            ],
+            "filename_prefix": "CantedForegrip20260911/canted_grip_raw",
+            "file_format": "glb"
+          }
+        },
+        "9": {
+          "inputs": {
+            "image": [
+              "2",
+              0
+            ],
+            "alpha": [
+              "2",
+              1
+            ]
+          },
+          "class_type": "JoinImageWithAlpha"
+        },
+        "10": {
+          "class_type": "Trellis2OvoxelExportToGLB",
+          "inputs": {
+            "mesh": [
+              "4",
+              0
+            ],
+            "resolution": 512,
+            "texture_size": 2048,
+            "target_face_num": 100000
+          }
+        },
+        "11": {
+          "class_type": "Trellis2ExportMesh",
+          "inputs": {
+            "trimesh": [
+              "10",
+              0
+            ],
+            "filename_prefix": "CantedForegrip20260911/canted_grip_textured",
+            "file_format": "glb"
+          }
+        }
+      },
+      {
+        "client_id": "canted-alpha-fixed-20260911",
+        "create_time": 1789101608439
+      },
+      [
+        "5",
+        "4",
+        "10",
+        "1",
+        "11",
+        "6"
+      ]
+    ],
+    "outputs": {},
+    "status": {
+      "status_str": "success",
+      "completed": true,
+      "messages": [
+        [
+          "execution_start",
+          {
+            "prompt_id": "7d0144f9-654b-47fe-8277-6c4e27b08a94",
+            "timestamp": 1789101608439
+          }
+        ],
+        [
+          "execution_cached",
+          {
+            "nodes": [
+              "2",
+              "1"
+            ],
+            "prompt_id": "7d0144f9-654b-47fe-8277-6c4e27b08a94",
+            "timestamp": 1789101608459
+          }
+        ],
+        [
+          "execution_success",
+          {
+            "prompt_id": "7d0144f9-654b-47fe-8277-6c4e27b08a94",
+            "timestamp": 1789101664625
+          }
+        ]
+      ]
+    },
+    "meta": {}
+  }
+}

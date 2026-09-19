@@ -1,0 +1,74 @@
+{
+  "bones": 37,
+  "weighted_vertices_per_bone": {
+    "head": 2588,
+    "body_07": 3677,
+    "body_06": 4185,
+    "body_05": 4527,
+    "jaw": 165,
+    "leg_R_05": 138,
+    "leg_R_04": 439,
+    "foot_R_04": 198,
+    "foot_R_05": 1,
+    "foot_R_03": 323,
+    "leg_R_03": 382,
+    "body_04": 4309,
+    "body_03": 4357,
+    "leg_R_02": 339,
+    "foot_R_02": 355,
+    "foot_R_01": 437,
+    "leg_R_01": 412,
+    "leg_L_05": 120,
+    "foot_L_04": 185,
+    "leg_L_04": 341,
+    "foot_L_05": 1,
+    "leg_L_03": 359,
+    "foot_L_03": 311,
+    "foot_L_02": 283,
+    "leg_L_02": 249,
+    "foot_L_01": 385,
+    "leg_L_01": 361,
+    "body_00": 2357,
+    "body_01": 3575,
+    "body_02": 4161,
+    "foot_R_00": 313,
+    "leg_R_00": 440,
+    "leg_L_00": 452,
+    "foot_L_00": 307
+  },
+  "actions": {
+    "Idle": {
+      "seconds": 3,
+      "frames_inclusive": 91,
+      "loop": true
+    },
+    "Move": {
+      "seconds": 2.5,
+      "frames_inclusive": 76,
+      "loop": true
+    },
+    "Spit": {
+      "seconds": 3,
+      "frames_inclusive": 91,
+      "loop": false
+    },
+    "Death": {
+      "seconds": 1.8,
+      "frames_inclusive": 55,
+      "loop": false
+    },
+    "Hit": {
+      "seconds": 0.6,
+      "frames_inclusive": 19,
+      "loop": false
+    }
+  },
+  "max_influences": 4,
+  "ground_correction_max_m": {
+    "Idle": 0.005704521255102009,
+    "Move": 0.02237545430660248,
+    "Spit": 0.014305099956691266,
+    "Death": 0.3428441631793976,
+    "Hit": 0.021322270035743714
+  }
+}

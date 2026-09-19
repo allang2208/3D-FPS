@@ -1,0 +1,50 @@
+{
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "action": "AKM_Native_reload",
+    "frames": 400,
+    "duration": 3.3333333333333335,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0.021027615521297748,
+    "unchanged_contact_interval_frames": [
+      16,
+      376
+    ]
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "action": "AKM_Native_reload_empty",
+    "frames": 515,
+    "duration": 4.291666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0.020115220247993948,
+    "unchanged_contact_interval_frames": [
+      16,
+      491
+    ]
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "action": "AKM_Native_reload",
+    "frames": 400,
+    "duration": 3.3333333333333335,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0.021027615521297748,
+    "unchanged_contact_interval_frames": [
+      28,
+      376
+    ]
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "action": "AKM_Native_reload_empty",
+    "frames": 515,
+    "duration": 4.291666666666667,
+    "sample_rate": 120,
+    "max_shoulder_shift_m": 0.020115220247993948,
+    "unchanged_contact_interval_frames": [
+      28,
+      491
+    ]
+  }
+}

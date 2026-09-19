@@ -1,0 +1,6 @@
+import bpy,json
+from pathlib import Path
+from mathutils import Matrix,Vector
+O=Path(__file__).parent;p=O/'prism';v=O/'vertical';pf=json.loads((p/'fit_final.json').read_text());vf=json.loads((v/'fit_final.json').read_text());pr=json.loads((p/'profile.json').read_text());vp=json.loads((v/'profile.json').read_text());(p/'previous_contact_candidate.json').write_text(json.dumps(pf,indent=2))
+H=Matrix(pf['grip_in_root'])@Matrix(vf['grip_in_root']).inverted()@Matrix(vf['hand_in_root']);pf['hand_in_root']=[list(r) for r in H];pf['basis']=vf['basis'];pf['release_vector']=vf['release_vector'];pf['release_open_speed']=vf.get('release_open_speed',1)
+bpy.ops.wm.open_mainfile(filepath=str(Path(vp['source'])/'A_M4_Vertical_idle.blend'));r=bpy.data.objects['SK_M4_Infima'];bpy.context.scene.frame_set(0);bpy.context.view_layer.update();W=r.pose.bones['WPN_root'].matrix;delta=(W@H).translation-(W@Matrix(vf['hand_in_root'])).translation;pr['shoulder_offset']=list(Vector(vp['shoulder_offset'])+delta);pr['forearm_direction']=vp['forearm_direction'];(p/'profile.json').write_text(json.dumps(pr,indent=2));(p/'fit_final.json').write_text(json.dumps(pf,indent=2));(p/'contact_overrides.json').write_text('{}');(p/'release_profile.json').write_bytes((v/'release_profile.json').read_bytes());print('SHARED_HAND_ARM_READY')

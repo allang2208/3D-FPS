@@ -1,0 +1,24 @@
+{
+  "methods": {
+    "execute_event": "x.execute_event(event_name) -> bool\r\nExecute a user defined event\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:",
+    "get_supported_events": "x.get_supported_events() -> Array[Name]\r\nGet Supported Events\r\n\r\nReturns:\r\n    Array[Name]:",
+    "remove_run_once_event": "x.remove_run_once_event(event_name) -> bool\r\nRemoves an event running once\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:",
+    "request_run_once_event": "x.request_run_once_event(event_name, event_index=-1) -> None\r\nRequests to run an event once\r\n\r\nArgs:\r\n    event_name (Name): The event to run\r\n    event_index (int32): Deprecated argument. Not used.",
+    "supports_event": "x.supports_event(event_name) -> bool\r\nSupports Event\r\n\r\nArgs:\r\n    event_name (Name): \r\n\r\nReturns:\r\n    bool:"
+  },
+  "can": true,
+  "events": [
+    "Forwards Solve",
+    "Backwards Solve"
+  ],
+  "class": "/Game/Weapons/M4ArmsIKEditor/CR_M4_ArmsIK.CR_M4_ArmsIK_C",
+  "execute_results": {
+    "Forwards Solve": true,
+    "Backwards Solve": true
+  },
+  "baseline": {
+    "upperarm_l": "<Struct 'Transform' (0x000001ADA1025DA0) {rotation: {x: -0.459168, y: 0.013127, z: 0.887527, w: 0.035908}, translation: {x: -19.009874, y: 3.220363, z: -18.991570}, scale3d: {x: 99.999970, y: 99.999946, z: 99.999976}}>",
+    "lowerarm_l": "<Struct 'Transform' (0x000001ADA1025DA0) {rotation: {x: 0.432134, y: -0.197363, z: -0.811569, w: 0.340093}, translation: {x: -34.999152, y: 4.655656, z: -41.652567}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999970}}>",
+    "hand_l": "<Struct 'Transform' (0x000001ADA1025DA0) {rotation: {x: -0.520600, y: 0.608875, z: 0.598460, w: 0.009650}, translation: {x: -45.768586, y: -15.035751, z: -57.108571}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "prism_standard_normal.mp4": {
+    "captured_frames": 36,
+    "max_frame_gap_s": 0.3729779999999998,
+    "duration_s": 3.7405780000000015,
+    "audio_rms": 0.004543042117954897,
+    "audio_peak": 0.104949951171875
+  },
+  "prism_standard_empty.mp4": {
+    "captured_frames": 39,
+    "max_frame_gap_s": 0.4000009999999996,
+    "duration_s": 4.602851999999999,
+    "audio_rms": 0.006107092395885085,
+    "audio_peak": 0.1107177734375
+  },
+  "prism_drum_normal.mp4": {
+    "captured_frames": 69,
+    "max_frame_gap_s": 0.10791599999999946,
+    "duration_s": 6.166472999999998,
+    "audio_rms": 0.003456338970906969,
+    "audio_peak": 0.107513427734375
+  },
+  "prism_drum_empty.mp4": {
+    "captured_frames": 80,
+    "max_frame_gap_s": 0.13831699999999714,
+    "duration_s": 7.870127999999999,
+    "audio_rms": 0.00490629120292721,
+    "audio_peak": 0.1107177734375
+  },
+  "angled_standard_normal.mp4": {
+    "captured_frames": 44,
+    "max_frame_gap_s": 0.0899870000000007,
+    "duration_s": 3.694810000000001,
+    "audio_rms": 0.004557941453674209,
+    "audio_peak": 0.10498046875
+  },
+  "angled_standard_empty.mp4": {
+    "captured_frames": 56,
+    "max_frame_gap_s": 0.09010400000000018,
+    "duration_s": 4.647703999999999,
+    "audio_rms": 0.006489742289287536,
+    "audio_peak": 0.1107177734375
+  },
+  "angled_drum_normal.mp4": {
+    "captured_frames": 86,
+    "max_frame_gap_s": 0.09360200000000063,
+    "duration_s": 6.135520000000001,
+    "audio_rms": 0.0034655740714377692,
+    "audio_peak": 0.107513427734375
+  },
+  "angled_drum_empty.mp4": {
+    "captured_frames": 113,
+    "max_frame_gap_s": 0.07910599999999945,
+    "duration_s": 7.855586999999998,
+    "audio_rms": 0.004911041741587201,
+    "audio_peak": 0.1107177734375
+  }
+}

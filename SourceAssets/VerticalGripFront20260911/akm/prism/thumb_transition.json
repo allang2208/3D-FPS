@@ -1,0 +1,50 @@
+{
+  "reload": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "degrees": 3,
+    "start": 25,
+    "peak": 31,
+    "end": 40,
+    "new_gun_or_grip_hits": 0
+  },
+  "reload_empty": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "degrees": 6,
+    "start": 25,
+    "peak": 31,
+    "end": 40,
+    "new_gun_or_grip_hits": 0
+  },
+  "drum_reload": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "degrees": 6,
+    "start": 25,
+    "peak": 31,
+    "end": 40,
+    "new_gun_or_grip_hits": 0
+  },
+  "drum_reload_empty": {
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "degrees": 10,
+    "start": 25,
+    "peak": 31,
+    "end": 40,
+    "new_gun_or_grip_hits": 0
+  }
+}

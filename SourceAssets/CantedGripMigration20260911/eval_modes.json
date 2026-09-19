@@ -1,0 +1,45 @@
+{
+  "properties": {
+    "bone_compression_settings": "<Object '/Game/Weapons/AKMIntegration/SovietFab/GripErgonomic/BC_AKM_GripPrecision.BC_AKM_GripPrecision' (0x0000027622FE3480) Class 'AnimBoneCompressionSettings'>",
+    "retarget_source": "None",
+    "retarget_source_asset": "None",
+    "additive_anim_type": "<AdditiveAnimationType.AAT_NONE: 0>",
+    "parent_asset": "None"
+  },
+  "True<AnimDataEvalType.SOURCE: 0>": {
+    "index_metacarpal_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.030757, y: -0.044831, z: 0.019063, w: -0.998339}, translation: {x: 0.034445, y: 0.003847, z: -0.023793}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: -0.157952, y: -0.035530, z: 0.523240, w: -0.836665}, translation: {x: 0.058771, y: -0.000432, z: 0.002409}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_02_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.000000, y: 0.000001, z: -0.608018, w: 0.793924}, translation: {x: 0.040800, y: -0.000000, z: -0.000000}, scale3d: {x: 0.999999, y: 1.000000, z: 0.999999}}>",
+    "ring_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.055371, y: 0.102232, z: 0.743437, w: -0.658622}, translation: {x: 0.056455, y: 0.000416, z: -0.000207}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "True<AnimDataEvalType.RAW: 1>": {
+    "index_metacarpal_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.030757, y: -0.044831, z: 0.019063, w: -0.998339}, translation: {x: 0.034445, y: 0.003847, z: -0.023793}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: -0.157952, y: -0.035530, z: 0.523240, w: -0.836665}, translation: {x: 0.058771, y: -0.000432, z: 0.002409}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_02_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.000000, y: 0.000001, z: -0.608018, w: 0.793924}, translation: {x: 0.040800, y: -0.000000, z: -0.000000}, scale3d: {x: 0.999999, y: 1.000000, z: 0.999999}}>",
+    "ring_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.055371, y: 0.102232, z: 0.743437, w: -0.658622}, translation: {x: 0.056455, y: 0.000416, z: -0.000207}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "True<AnimDataEvalType.COMPRESSED: 2>": {
+    "index_metacarpal_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.028967, y: -0.063705, z: -0.007109, w: -0.997523}, translation: {x: 0.034445, y: 0.003847, z: -0.023793}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: -0.000001, y: 0.000001, z: 0.202557, w: -0.979271}, translation: {x: 0.058771, y: -0.000432, z: 0.002409}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_02_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.000000, y: 0.000001, z: -0.608018, w: 0.793923}, translation: {x: 0.040800, y: -0.000000, z: -0.000000}, scale3d: {x: 0.999999, y: 1.000000, z: 0.999999}}>",
+    "ring_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.054216, y: -0.013177, z: 0.253539, w: -0.965715}, translation: {x: 0.056455, y: 0.000416, z: -0.000207}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "False<AnimDataEvalType.SOURCE: 0>": {
+    "index_metacarpal_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.028967, y: -0.063705, z: -0.007109, w: -0.997523}, translation: {x: 0.034445, y: 0.003847, z: -0.023793}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: -0.000001, y: 0.000001, z: 0.202557, w: -0.979271}, translation: {x: 0.058771, y: -0.000432, z: 0.002409}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_02_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.000000, y: 0.000001, z: -0.608018, w: 0.793924}, translation: {x: 0.040800, y: -0.000000, z: -0.000000}, scale3d: {x: 0.999999, y: 1.000000, z: 0.999999}}>",
+    "ring_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.054216, y: -0.013177, z: 0.253539, w: -0.965715}, translation: {x: 0.056455, y: 0.000416, z: -0.000207}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "False<AnimDataEvalType.RAW: 1>": {
+    "index_metacarpal_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.028967, y: -0.063705, z: -0.007109, w: -0.997523}, translation: {x: 0.034445, y: 0.003847, z: -0.023793}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: -0.000001, y: 0.000001, z: 0.202557, w: -0.979271}, translation: {x: 0.058771, y: -0.000432, z: 0.002409}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_02_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.000000, y: 0.000001, z: -0.608018, w: 0.793924}, translation: {x: 0.040800, y: -0.000000, z: -0.000000}, scale3d: {x: 0.999999, y: 1.000000, z: 0.999999}}>",
+    "ring_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.054216, y: -0.013177, z: 0.253539, w: -0.965715}, translation: {x: 0.056455, y: 0.000416, z: -0.000207}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  },
+  "False<AnimDataEvalType.COMPRESSED: 2>": {
+    "index_metacarpal_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.028967, y: -0.063705, z: -0.007109, w: -0.997523}, translation: {x: 0.034445, y: 0.003847, z: -0.023793}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: -0.000001, y: 0.000001, z: 0.202557, w: -0.979271}, translation: {x: 0.058771, y: -0.000432, z: 0.002409}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>",
+    "index_02_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.000000, y: 0.000001, z: -0.608018, w: 0.793924}, translation: {x: 0.040800, y: -0.000000, z: -0.000000}, scale3d: {x: 0.999999, y: 1.000000, z: 0.999999}}>",
+    "ring_01_l": "<Struct 'Transform' (0x0000027623D22190) {rotation: {x: 0.054216, y: -0.013177, z: 0.253539, w: -0.965715}, translation: {x: 0.056455, y: 0.000416, z: -0.000207}, scale3d: {x: 1.000000, y: 1.000000, z: 1.000000}}>"
+  }
+}

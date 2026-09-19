@@ -1,0 +1,5 @@
+import bpy
+from pathlib import Path
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
+O=Path(__file__).parent;bpy.ops.wm.open_mainfile(filepath=str(O/'AKM_Attachments_Editable.blend'));r=bpy.data.objects['SK_M4_Infima'];a=bpy.data.actions['AKM_Native_idle'];r.animation_data.action=a;r.animation_data.action_slot=a.slots[0];bpy.context.scene.frame_set(0);bpy.context.view_layer.update();o=bpy.data.objects['AKM_Soviet_Native'];ev=o.evaluated_get(bpy.context.evaluated_depsgraph_get());me=ev.to_mesh();xf=(r.matrix_world@r.pose.bones['WPN_root'].matrix).inverted()@o.matrix_world;b=BVHTree.FromPolygons([xf@v.co for v in me.vertices],[list(p.vertices) for p in me.polygons]);print([(x,y,b.ray_cast(Vector((x,y,.2)),Vector((0,0,-1)),.4)[0]) for x in [-.0205,.0008,.0221] for y in [-.1,-.055,-.01]])

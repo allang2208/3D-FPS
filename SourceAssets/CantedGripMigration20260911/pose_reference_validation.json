@@ -1,0 +1,112 @@
+{
+  "m4/canted": {
+    "True<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 2.283307606631979e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 1.7075354943330012e-06
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 0.0004744078178831046,
+      "worst": "WPN_root-pinky_03_l",
+      "wrist_to_index_error_cm": 0.0004742296124629064
+    },
+    "False<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 2.2833075984607376e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 1.7075354943330012e-06
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 2.2833075984607376e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 1.7075354943330012e-06
+    }
+  },
+  "akm/vertical": {
+    "True<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 2.997573417218291e-05,
+      "worst": "upperarm_l-middle_01_l",
+      "wrist_to_index_error_cm": 6.283179059707322e-06
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 0.00012076724335052802,
+      "worst": "pinky_01_l-thumb_03_l",
+      "wrist_to_index_error_cm": 3.0492621867495018e-05
+    },
+    "False<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 2.0960487525201188e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 2.617052766495931e-06
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 2.0960487525201188e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 2.617052766495931e-06
+    }
+  },
+  "akm/prism": {
+    "True<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 2.2663838038283757e-05,
+      "worst": "upperarm_l-pinky_02_l",
+      "wrist_to_index_error_cm": 8.229094088818556e-06
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 0.00011599653013583122,
+      "worst": "pinky_01_l-thumb_03_l",
+      "wrist_to_index_error_cm": 2.516762245186044e-05
+    },
+    "False<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 3.474333336583868e-05,
+      "worst": "WPN_root-index_03_l",
+      "wrist_to_index_error_cm": 1.258654560487571e-05
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 3.474333336583868e-05,
+      "worst": "WPN_root-index_03_l",
+      "wrist_to_index_error_cm": 1.258654560487571e-05
+    }
+  },
+  "akm/angled": {
+    "True<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 6.501894244429138,
+      "worst": "lowerarm_l-ring_03_l",
+      "wrist_to_index_error_cm": 2.622197232800273
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 0.00010612418171618287,
+      "worst": "pinky_01_l-thumb_03_l",
+      "wrist_to_index_error_cm": 1.8344607807918578e-05
+    },
+    "False<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 0.00010495981207014893,
+      "worst": "WPN_root-pinky_01_l",
+      "wrist_to_index_error_cm": 1.0719325505448296e-05
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 0.00010495981207014893,
+      "worst": "WPN_root-pinky_01_l",
+      "wrist_to_index_error_cm": 1.0719325505448296e-05
+    }
+  },
+  "akm/canted": {
+    "True<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 3.6909972045862105e-05,
+      "worst": "WPN_root-pinky_01_l",
+      "wrist_to_index_error_cm": 6.540858770165414e-07
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 0.00012146629669729236,
+      "worst": "WPN_root-pinky_01_l",
+      "wrist_to_index_error_cm": 3.068104255277149e-05
+    },
+    "False<AnimDataEvalType.RAW: 1>": {
+      "maximum_pair_distance_error_cm": 3.231399934122692e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 4.969299519430592e-06
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>": {
+      "maximum_pair_distance_error_cm": 3.231399934122692e-05,
+      "worst": "WPN_root-lowerarm_l",
+      "wrist_to_index_error_cm": 4.969299519430592e-06
+    }
+  }
+}

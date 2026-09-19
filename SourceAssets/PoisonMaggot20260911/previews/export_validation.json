@@ -1,0 +1,67 @@
+{
+  "Idle": {
+    "imported_action_range": [
+      2.0,
+      92.0
+    ],
+    "seconds": 3.0,
+    "bones": 37,
+    "vertices": 20170,
+    "max_weight_error": 4.470348358154297e-08,
+    "loop_max_vertex_delta_m": 0.0,
+    "min_z_m": 0.005000036209821701,
+    "max_z_m": 0.8121655583381653
+  },
+  "Move": {
+    "imported_action_range": [
+      2.0,
+      77.0
+    ],
+    "seconds": 2.5,
+    "bones": 37,
+    "vertices": 20170,
+    "max_weight_error": 4.470348358154297e-08,
+    "loop_max_vertex_delta_m": 0.0,
+    "min_z_m": 0.004999566823244095,
+    "max_z_m": 0.8353762626647949
+  },
+  "Spit": {
+    "imported_action_range": [
+      2.0,
+      92.0
+    ],
+    "seconds": 3.0,
+    "bones": 37,
+    "vertices": 20170,
+    "max_weight_error": 4.470348358154297e-08,
+    "loop_max_vertex_delta_m": null,
+    "min_z_m": 0.004999713972210884,
+    "max_z_m": 0.9411307573318481
+  },
+  "Death": {
+    "imported_action_range": [
+      2.0,
+      56.0
+    ],
+    "seconds": 1.8,
+    "bones": 37,
+    "vertices": 20170,
+    "max_weight_error": 4.470348358154297e-08,
+    "loop_max_vertex_delta_m": null,
+    "min_z_m": 0.00499959010630846,
+    "max_z_m": 1.1250020265579224
+  },
+  "Hit": {
+    "imported_action_range": [
+      2.0,
+      20.0
+    ],
+    "seconds": 0.6,
+    "bones": 37,
+    "vertices": 20170,
+    "max_weight_error": 4.470348358154297e-08,
+    "loop_max_vertex_delta_m": null,
+    "min_z_m": 0.004999869503080845,
+    "max_z_m": 0.8219611048698425
+  }
+}

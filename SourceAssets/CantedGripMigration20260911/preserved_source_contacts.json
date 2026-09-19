@@ -1,0 +1,3629 @@
+{
+  "m4/canted": {
+    "sampled_contact_times": 12,
+    "new_only_times": [],
+    "details": {
+      "reload_empty": [
+        {
+          "frame": 138.0,
+          "new": {
+            "index-middle": 223,
+            "middle-ring": 258,
+            "ring-pinky": 94
+          },
+          "source": {
+            "index-middle": 223,
+            "middle-ring": 258,
+            "ring-pinky": 94
+          }
+        },
+        {
+          "frame": 138.5,
+          "new": {
+            "index-middle": 239,
+            "middle-ring": 250,
+            "ring-pinky": 93
+          },
+          "source": {
+            "index-middle": 235,
+            "middle-ring": 254,
+            "ring-pinky": 91
+          }
+        },
+        {
+          "frame": 139.0,
+          "new": {
+            "index-middle": 244,
+            "middle-ring": 251,
+            "ring-pinky": 119
+          },
+          "source": {
+            "index-middle": 234,
+            "middle-ring": 261,
+            "ring-pinky": 91
+          }
+        },
+        {
+          "frame": 139.5,
+          "new": {
+            "index-middle": 219,
+            "middle-ring": 244,
+            "ring-pinky": 136
+          },
+          "source": {
+            "index-middle": 235,
+            "middle-ring": 265,
+            "ring-pinky": 91
+          }
+        },
+        {
+          "frame": 140.0,
+          "new": {
+            "index-middle": 227,
+            "middle-ring": 222,
+            "ring-pinky": 149
+          },
+          "source": {
+            "index-middle": 237,
+            "middle-ring": 262,
+            "ring-pinky": 96
+          }
+        },
+        {
+          "frame": 140.5,
+          "new": {
+            "index-middle": 191,
+            "middle-ring": 183,
+            "ring-pinky": 132
+          },
+          "source": {
+            "index-middle": 231,
+            "middle-ring": 253,
+            "ring-pinky": 99
+          }
+        },
+        {
+          "frame": 141.0,
+          "new": {
+            "index-middle": 107,
+            "middle-ring": 128,
+            "ring-pinky": 69
+          },
+          "source": {
+            "index-middle": 224,
+            "middle-ring": 248,
+            "ring-pinky": 96
+          }
+        }
+      ],
+      "drum_reload_empty": [
+        {
+          "frame": 124.0,
+          "new": {
+            "index-middle": 222,
+            "middle-ring": 247,
+            "ring-pinky": 128
+          },
+          "source": {
+            "index-middle": 222,
+            "middle-ring": 247,
+            "ring-pinky": 128
+          }
+        },
+        {
+          "frame": 124.5,
+          "new": {
+            "index-middle": 195,
+            "middle-ring": 206,
+            "ring-pinky": 139
+          },
+          "source": {
+            "index-middle": 203,
+            "middle-ring": 211,
+            "ring-pinky": 140
+          }
+        },
+        {
+          "frame": 125.0,
+          "new": {
+            "index-middle": 134,
+            "middle-ring": 152,
+            "ring-pinky": 126
+          },
+          "source": {
+            "index-middle": 158,
+            "middle-ring": 180,
+            "ring-pinky": 140
+          }
+        },
+        {
+          "frame": 125.5,
+          "new": {
+            "index-middle": 101,
+            "middle-ring": 95,
+            "ring-pinky": 91
+          },
+          "source": {
+            "index-middle": 146,
+            "middle-ring": 136,
+            "ring-pinky": 123
+          }
+        },
+        {
+          "frame": 126.0,
+          "new": {
+            "index-middle": 41
+          },
+          "source": {
+            "index-middle": 95,
+            "middle-ring": 90,
+            "ring-pinky": 76
+          }
+        }
+      ]
+    }
+  },
+  "akm/canted": {
+    "sampled_contact_times": 85,
+    "new_only_times": [],
+    "details": {
+      "reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 44
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 68
+          },
+          "source": {
+            "ring-pinky": 68
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 77
+          },
+          "source": {
+            "ring-pinky": 77
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 82
+          },
+          "source": {
+            "ring-pinky": 82
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "reload_empty": [
+        {
+          "frame": 39.5,
+          "new": {
+            "ring-pinky": 32
+          },
+          "source": {
+            "ring-pinky": 62
+          }
+        },
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 69
+          },
+          "source": {
+            "ring-pinky": 76
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 100
+          },
+          "source": {
+            "ring-pinky": 101
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 108
+          },
+          "source": {
+            "ring-pinky": 111
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 114
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 119
+          },
+          "source": {
+            "ring-pinky": 119
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 121
+          },
+          "source": {
+            "ring-pinky": 121
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 64
+          },
+          "source": {
+            "ring-pinky": 64
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 35
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 37
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 32
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 28
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 8
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        }
+      ],
+      "drum_reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 23
+          },
+          "source": {
+            "ring-pinky": 23
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 58
+          },
+          "source": {
+            "ring-pinky": 58
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 75
+          },
+          "source": {
+            "ring-pinky": 75
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 81
+          },
+          "source": {
+            "ring-pinky": 81
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          },
+          "source": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "drum_reload_empty": [
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 61
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 76
+          },
+          "source": {
+            "ring-pinky": 79
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 102
+          },
+          "source": {
+            "ring-pinky": 105
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 114
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 116
+          },
+          "source": {
+            "ring-pinky": 116
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 66
+          },
+          "source": {
+            "ring-pinky": 66
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          },
+          "source": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 35
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 37
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 32
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 28
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 8
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        }
+      ]
+    }
+  },
+  "akm/vertical": {
+    "sampled_contact_times": 95,
+    "new_only_times": [],
+    "details": {
+      "reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 44
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 68
+          },
+          "source": {
+            "ring-pinky": 68
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 77
+          },
+          "source": {
+            "ring-pinky": 77
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 82
+          },
+          "source": {
+            "ring-pinky": 82
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "reload_empty": [
+        {
+          "frame": 39.5,
+          "new": {
+            "ring-pinky": 46
+          },
+          "source": {
+            "ring-pinky": 62
+          }
+        },
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 77
+          },
+          "source": {
+            "ring-pinky": 76
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 98
+          },
+          "source": {
+            "ring-pinky": 101
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 111
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 114
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 119
+          },
+          "source": {
+            "ring-pinky": 119
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 121
+          },
+          "source": {
+            "ring-pinky": 121
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 64
+          },
+          "source": {
+            "ring-pinky": 64
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.0,
+          "new": {
+            "ring-pinky": 36
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.5,
+          "new": {
+            "ring-pinky": 32
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.0,
+          "new": {
+            "ring-pinky": 26
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.5,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.0,
+          "new": {
+            "ring-pinky": 4
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        }
+      ],
+      "drum_reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 23
+          },
+          "source": {
+            "ring-pinky": 23
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 58
+          },
+          "source": {
+            "ring-pinky": 58
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 75
+          },
+          "source": {
+            "ring-pinky": 75
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 81
+          },
+          "source": {
+            "ring-pinky": 81
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          },
+          "source": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "drum_reload_empty": [
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 59
+          },
+          "source": {
+            "ring-pinky": 61
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 79
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 103
+          },
+          "source": {
+            "ring-pinky": 105
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 114
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 116
+          },
+          "source": {
+            "ring-pinky": 116
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 66
+          },
+          "source": {
+            "ring-pinky": 66
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          },
+          "source": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.0,
+          "new": {
+            "ring-pinky": 36
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.5,
+          "new": {
+            "ring-pinky": 32
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.0,
+          "new": {
+            "ring-pinky": 26
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.5,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.0,
+          "new": {
+            "ring-pinky": 4
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        }
+      ]
+    }
+  },
+  "akm/prism": {
+    "sampled_contact_times": 95,
+    "new_only_times": [],
+    "details": {
+      "reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 44
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 68
+          },
+          "source": {
+            "ring-pinky": 68
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 77
+          },
+          "source": {
+            "ring-pinky": 77
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 82
+          },
+          "source": {
+            "ring-pinky": 82
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "reload_empty": [
+        {
+          "frame": 39.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 62
+          }
+        },
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 73
+          },
+          "source": {
+            "ring-pinky": 76
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 100
+          },
+          "source": {
+            "ring-pinky": 101
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 111
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 114
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 119
+          },
+          "source": {
+            "ring-pinky": 119
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 121
+          },
+          "source": {
+            "ring-pinky": 121
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 64
+          },
+          "source": {
+            "ring-pinky": 64
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 46
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 51
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 46
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.0,
+          "new": {
+            "ring-pinky": 27
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.5,
+          "new": {
+            "ring-pinky": 18
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.0,
+          "new": {
+            "ring-pinky": 9
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        }
+      ],
+      "drum_reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 23
+          },
+          "source": {
+            "ring-pinky": 23
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 58
+          },
+          "source": {
+            "ring-pinky": 58
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 75
+          },
+          "source": {
+            "ring-pinky": 75
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 81
+          },
+          "source": {
+            "ring-pinky": 81
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          },
+          "source": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "drum_reload_empty": [
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 51
+          },
+          "source": {
+            "ring-pinky": 61
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 78
+          },
+          "source": {
+            "ring-pinky": 79
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 103
+          },
+          "source": {
+            "ring-pinky": 105
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 114
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 116
+          },
+          "source": {
+            "ring-pinky": 116
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 66
+          },
+          "source": {
+            "ring-pinky": 66
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          },
+          "source": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 46
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 51
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 46
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 49
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.0,
+          "new": {
+            "ring-pinky": 27
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.5,
+          "new": {
+            "ring-pinky": 18
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.0,
+          "new": {
+            "ring-pinky": 9
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        }
+      ]
+    }
+  },
+  "akm/angled": {
+    "sampled_contact_times": 100,
+    "new_only_times": [],
+    "details": {
+      "reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 44
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 68
+          },
+          "source": {
+            "ring-pinky": 68
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 77
+          },
+          "source": {
+            "ring-pinky": 77
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 82
+          },
+          "source": {
+            "ring-pinky": 82
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "reload_empty": [
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 62
+          },
+          "source": {
+            "ring-pinky": 76
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 93
+          },
+          "source": {
+            "ring-pinky": 101
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 103
+          },
+          "source": {
+            "ring-pinky": 111
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 114
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 119
+          },
+          "source": {
+            "ring-pinky": 119
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 121
+          },
+          "source": {
+            "ring-pinky": 121
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 64
+          },
+          "source": {
+            "ring-pinky": 64
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 84
+          },
+          "source": {
+            "ring-pinky": 84
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 50
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 52
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 65
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 54
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 55
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.5,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.0,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.5,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.0,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.5,
+          "new": {
+            "ring-pinky": 28
+          },
+          "source": {
+            "ring-pinky": 39
+          }
+        },
+        {
+          "frame": 393.0,
+          "new": {
+            "ring-pinky": 24
+          },
+          "source": {
+            "ring-pinky": 39
+          }
+        },
+        {
+          "frame": 393.5,
+          "new": {
+            "ring-pinky": 10
+          },
+          "source": {
+            "ring-pinky": 40
+          }
+        }
+      ],
+      "drum_reload": [
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 23
+          },
+          "source": {
+            "ring-pinky": 23
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 58
+          },
+          "source": {
+            "ring-pinky": 58
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 75
+          },
+          "source": {
+            "ring-pinky": 75
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 81
+          },
+          "source": {
+            "ring-pinky": 81
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 80
+          },
+          "source": {
+            "ring-pinky": 80
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 89
+          },
+          "source": {
+            "ring-pinky": 89
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          },
+          "source": {
+            "ring-pinky": 79,
+            "ring-thumb": 85
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 48
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 12
+          },
+          "source": {
+            "ring-pinky": 12
+          }
+        }
+      ],
+      "drum_reload_empty": [
+        {
+          "frame": 40.0,
+          "new": {
+            "ring-pinky": 30
+          },
+          "source": {
+            "ring-pinky": 61
+          }
+        },
+        {
+          "frame": 40.5,
+          "new": {
+            "ring-pinky": 68
+          },
+          "source": {
+            "ring-pinky": 79
+          }
+        },
+        {
+          "frame": 41.0,
+          "new": {
+            "ring-pinky": 100
+          },
+          "source": {
+            "ring-pinky": 105
+          }
+        },
+        {
+          "frame": 41.5,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 114
+          }
+        },
+        {
+          "frame": 42.0,
+          "new": {
+            "ring-pinky": 112
+          },
+          "source": {
+            "ring-pinky": 112
+          }
+        },
+        {
+          "frame": 42.5,
+          "new": {
+            "ring-pinky": 116
+          },
+          "source": {
+            "ring-pinky": 116
+          }
+        },
+        {
+          "frame": 43.0,
+          "new": {
+            "ring-pinky": 120
+          },
+          "source": {
+            "ring-pinky": 120
+          }
+        },
+        {
+          "frame": 43.5,
+          "new": {
+            "ring-pinky": 129
+          },
+          "source": {
+            "ring-pinky": 129
+          }
+        },
+        {
+          "frame": 44.0,
+          "new": {
+            "ring-pinky": 133
+          },
+          "source": {
+            "ring-pinky": 133
+          }
+        },
+        {
+          "frame": 60.0,
+          "new": {
+            "ring-pinky": 66
+          },
+          "source": {
+            "ring-pinky": 66
+          }
+        },
+        {
+          "frame": 86.0,
+          "new": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          },
+          "source": {
+            "middle-thumb": 45,
+            "ring-pinky": 116,
+            "ring-thumb": 86,
+            "pinky-thumb": 24
+          }
+        },
+        {
+          "frame": 120.0,
+          "new": {
+            "ring-pinky": 85
+          },
+          "source": {
+            "ring-pinky": 85
+          }
+        },
+        {
+          "frame": 200.0,
+          "new": {
+            "ring-pinky": 109
+          },
+          "source": {
+            "ring-pinky": 109
+          }
+        },
+        {
+          "frame": 380.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 380.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 381.5,
+          "new": {
+            "ring-pinky": 43
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.0,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 382.5,
+          "new": {
+            "ring-pinky": 41
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.0,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 383.5,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 384.5,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.0,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 385.5,
+          "new": {
+            "ring-pinky": 47
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.0,
+          "new": {
+            "ring-pinky": 48
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 386.5,
+          "new": {
+            "ring-pinky": 50
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.0,
+          "new": {
+            "ring-pinky": 52
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 387.5,
+          "new": {
+            "ring-pinky": 65
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.0,
+          "new": {
+            "ring-pinky": 54
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 388.5,
+          "new": {
+            "ring-pinky": 55
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.0,
+          "new": {
+            "ring-pinky": 45
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 389.5,
+          "new": {
+            "ring-pinky": 44
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.0,
+          "new": {
+            "ring-pinky": 42
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 390.5,
+          "new": {
+            "ring-pinky": 40
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.0,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 391.5,
+          "new": {
+            "ring-pinky": 38
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.0,
+          "new": {
+            "ring-pinky": 39
+          },
+          "source": {
+            "ring-pinky": 41
+          }
+        },
+        {
+          "frame": 392.5,
+          "new": {
+            "ring-pinky": 28
+          },
+          "source": {
+            "ring-pinky": 39
+          }
+        },
+        {
+          "frame": 393.0,
+          "new": {
+            "ring-pinky": 24
+          },
+          "source": {
+            "ring-pinky": 39
+          }
+        },
+        {
+          "frame": 393.5,
+          "new": {
+            "ring-pinky": 10
+          },
+          "source": {
+            "ring-pinky": 40
+          }
+        }
+      ]
+    }
+  }
+}

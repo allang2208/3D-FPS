@@ -1,0 +1,109 @@
+{
+  "asset": "magic_dust_physical_candidate",
+  "source": "magic_dust_physical_candidate.glb",
+  "bounds_original": [
+    0.13600000739097595,
+    0.13600000739097595,
+    0.15760000050067902
+  ],
+  "meshes": [
+    {
+      "name": "Glass vessel with interior wall",
+      "vertices": 2688,
+      "triangles": 5372,
+      "materials": [
+        "Thick clear glass"
+      ],
+      "uv_layers": 0
+    },
+    {
+      "name": "Closed steel lid with geometric knurling",
+      "vertices": 6892,
+      "triangles": 9212,
+      "materials": [
+        "Weathered silver steel"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Contained powder volume",
+      "vertices": 2697,
+      "triangles": 4798,
+      "materials": [
+        "Fine silver mineral powder"
+      ],
+      "uv_layers": 1
+    },
+    {
+      "name": "Individual powder grains",
+      "vertices": 21600,
+      "triangles": 36000,
+      "materials": [
+        "Fine silver mineral powder.001"
+      ],
+      "uv_layers": 0
+    },
+    {
+      "name": "Packed powder side grains",
+      "vertices": 60000,
+      "triangles": 100000,
+      "materials": [
+        "Fine silver mineral powder.002"
+      ],
+      "uv_layers": 0
+    },
+    {
+      "name": "Embedded crystalline mineral fragments",
+      "vertices": 1140,
+      "triangles": 1900,
+      "materials": [
+        "Pale blue mineral grains"
+      ],
+      "uv_layers": 0
+    }
+  ],
+  "textures": [
+    {
+      "name": "magic_dust_lid_basecolor",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "magic_dust_lid_normal",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "magic_dust_lid_roughness",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "magic_dust_powder_basecolor",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "magic_dust_powder_normal",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "magic_dust_powder_roughness",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ]
+}

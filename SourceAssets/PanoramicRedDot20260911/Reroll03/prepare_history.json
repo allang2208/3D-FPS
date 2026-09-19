@@ -1,0 +1,90 @@
+{
+  "prompt": [
+    5,
+    "a24ff4c1-b462-4256-ae17-89804683a9ac",
+    {
+      "2": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "panoramic_reroll03_white.png"
+        }
+      },
+      "3": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "image": [
+            "2",
+            0
+          ],
+          "padding": 64,
+          "remove_background": true,
+          "max_size": 2048
+        }
+      },
+      "9": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "3",
+            0
+          ],
+          "filename_prefix": "PanoramicRedDot20260911/Reroll03/segmented_input"
+        }
+      }
+    },
+    {
+      "client_id": "panoramic-reroll03",
+      "create_time": 1789086421509
+    },
+    [
+      "9"
+    ]
+  ],
+  "outputs": {
+    "9": {
+      "images": [
+        {
+          "filename": "segmented_input_00001_.png",
+          "subfolder": "PanoramicRedDot20260911\\Reroll03",
+          "type": "output"
+        }
+      ]
+    }
+  },
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "a24ff4c1-b462-4256-ae17-89804683a9ac",
+          "timestamp": 1789086421510
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "a24ff4c1-b462-4256-ae17-89804683a9ac",
+          "timestamp": 1789086421535
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "a24ff4c1-b462-4256-ae17-89804683a9ac",
+          "timestamp": 1789086434391
+        }
+      ]
+    ]
+  },
+  "meta": {
+    "9": {
+      "node_id": "9",
+      "display_node": "9",
+      "parent_node": null,
+      "real_node_id": "9"
+    }
+  }
+}

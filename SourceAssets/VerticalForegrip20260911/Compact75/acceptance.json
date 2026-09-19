@@ -1,0 +1,190 @@
+{
+  "runtime_run": "vertical-compact75-v1",
+  "runtime_checks": 288,
+  "runtime_failures": 0,
+  "ui_note": "Compact model workbench views and 24 UI checks verified in ui_final.log",
+  "animation_variants": 9,
+  "geometry_samples": 446,
+  "sampled_intersections": 0,
+  "source_contract": {
+    "idle": {
+      "max_arm_length_change_m": 1.9576401155685375e-07,
+      "max_bone_scale_change": 6.07850493620966e-07,
+      "max_finger_local_translation_change_m": 1.8831526502309857e-07,
+      "nonleft_position_change_m": 4.202153877080552e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "aim": {
+      "max_arm_length_change_m": 7.377834337907174e-08,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.427388383821363e-07,
+      "nonleft_position_change_m": 2.973997497412422e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "fire": {
+      "max_arm_length_change_m": 1.764810327320454e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.7822343460239647e-07,
+      "nonleft_position_change_m": 4.009665469257136e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "aim_fire": {
+      "max_arm_length_change_m": 1.5080017645718868e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.601314650863293e-07,
+      "nonleft_position_change_m": 4.2083910598160063e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "equip": {
+      "max_arm_length_change_m": 2.943796100218776e-07,
+      "max_bone_scale_change": 7.996802249550068e-07,
+      "max_finger_local_translation_change_m": 1.7729673249899522e-07,
+      "nonleft_position_change_m": 7.083661787621563e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "reload": {
+      "max_arm_length_change_m": 2.473459507268405e-06,
+      "max_bone_scale_change": 1.2587733317579552e-06,
+      "max_finger_local_translation_change_m": 2.8133006126728485e-07,
+      "nonleft_position_change_m": 8.535387213003448e-07,
+      "preserved_contact_position_change_m": 9.766798977955544e-07
+    },
+    "reload_empty": {
+      "max_arm_length_change_m": 2.0890273866314146e-07,
+      "max_bone_scale_change": 7.839767001846972e-07,
+      "max_finger_local_translation_change_m": 2.2627437888524641e-07,
+      "nonleft_position_change_m": 8.587662789694691e-07,
+      "preserved_contact_position_change_m": 7.8057055793457e-07
+    },
+    "drum_reload": {
+      "max_arm_length_change_m": 3.4011473418749105e-06,
+      "max_bone_scale_change": 1.3700902621607895e-05,
+      "max_finger_local_translation_change_m": 2.1165224788207292e-07,
+      "nonleft_position_change_m": 9.044403377469491e-07,
+      "preserved_contact_position_change_m": 6.698367261739295e-07
+    },
+    "drum_reload_empty": {
+      "max_arm_length_change_m": 2.029107028678201e-06,
+      "max_bone_scale_change": 8.17605409597504e-06,
+      "max_finger_local_translation_change_m": 2.813529481804412e-07,
+      "nonleft_position_change_m": 9.974877817141748e-07,
+      "preserved_contact_position_change_m": 6.692678681103848e-07
+    }
+  },
+  "import_clips": {
+    "idle": {
+      "duration": 3.0,
+      "compression_error_cm": 0.0005793266072594346,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_idle.A_M4_Vertical_idle",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+      "right_weapon_difference_cm": 3.65422529225155e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "aim": {
+      "duration": 0.03333333507180214,
+      "compression_error_cm": 0.0005304757589756865,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_aim.A_M4_Vertical_aim",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+      "right_weapon_difference_cm": 1.7366625949812517e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "fire": {
+      "duration": 0.7666666507720947,
+      "compression_error_cm": 0.0005916784561061853,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_fire.A_M4_Vertical_fire",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+      "right_weapon_difference_cm": 3.179254179637135e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "aim_fire": {
+      "duration": 0.7666666507720947,
+      "compression_error_cm": 0.0005320243450658683,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_aim_fire.A_M4_Vertical_aim_fire",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+      "right_weapon_difference_cm": 2.7758796202234874e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "equip": {
+      "duration": 0.6333333253860474,
+      "compression_error_cm": 0.0005884909889043809,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_equip.A_M4_Vertical_equip",
+      "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+      "right_weapon_difference_cm": 0.0001719183978516974,
+      "preserved_contact_difference_cm": 0
+    },
+    "reload": {
+      "duration": 2.0999999046325684,
+      "compression_error_cm": 0.0015053783375959353,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_reload.A_M4_Vertical_reload",
+      "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+      "right_weapon_difference_cm": 0.0001546683194607958,
+      "preserved_contact_difference_cm": 7.809993306546684e-05
+    },
+    "reload_empty": {
+      "duration": 2.700000047683716,
+      "compression_error_cm": 0.000712110160718773,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_reload_empty.A_M4_Vertical_reload_empty",
+      "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+      "right_weapon_difference_cm": 0.0001744400509046272,
+      "preserved_contact_difference_cm": 0.0022516538957427137
+    },
+    "drum_reload": {
+      "duration": 2.0999999046325684,
+      "compression_error_cm": 0.000597607556535836,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_drum_reload.A_M4_Vertical_drum_reload",
+      "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+      "right_weapon_difference_cm": 4.836159536722441e-05,
+      "preserved_contact_difference_cm": 7.853883971813469e-05
+    },
+    "drum_reload_empty": {
+      "duration": 2.4666666984558105,
+      "compression_error_cm": 0.0008621886208034258,
+      "asset": "/Game/Weapons/M4VerticalGripCompact75/A_M4_Vertical_drum_reload_empty.A_M4_Vertical_drum_reload_empty",
+      "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+      "right_weapon_difference_cm": 5.200323149196949e-05,
+      "preserved_contact_difference_cm": 7.234815754908691e-05
+    }
+  },
+  "material_assignment": "M4VerticalGrip mesh scaled uniformly to 75 percent with 0.7 mm mount seating offset; existing M4 material preserved",
+  "import_exit_code": 1,
+  "import_note": "Import and readback passed; process exit 1 includes existing GameFeatureData configuration and occupied localhost:8000 listener errors. New game process independently passed.",
+  "native_build": "Runtime resource references updated; build suffix 2026095117",
+  "packaged_build_verified": false,
+  "preview_note": "Actual game screenshots assembled in capture order using bounded capture-time intervals; silent visual preview, not audio verification.",
+  "preview_frames": 133,
+  "fbx_sha256": {
+    "A_M4_Vertical_aim.fbx": "f96b3e4748a254eb2f5ebb227a19a5be0d02fdbc0eb42ab365b6f9d13ebe5a34",
+    "A_M4_Vertical_aim_fire.fbx": "3cb0eab294368f9236196f70c94ed0c599e96b046a0c76a3926ce4d6b0f685e0",
+    "A_M4_Vertical_drum_reload.fbx": "3e8224c083c94e3f99c8023e01750cc309be50b4e6ee32e67f1a725b1cc45e87",
+    "A_M4_Vertical_drum_reload_empty.fbx": "eac3ffd01ff4f3d853c08523fe75e1b35f21c41d3fa6464e5b660b6f0a183f28",
+    "A_M4_Vertical_equip.fbx": "369de1f0884d7cb43a83c44ffc534b9811319561bf5aff2d62f3e17ceac54ede",
+    "A_M4_Vertical_fire.fbx": "4e7355d47fb18c5993ad9f6abdbb3fb0554b74b3b3cd580d841a80723d0eeb59",
+    "A_M4_Vertical_idle.fbx": "3614d1785ee3b69ddec1e89ebc4c7e888d7dbb871fcca51612c65e9171ea0bab",
+    "A_M4_Vertical_reload.fbx": "d4bb12d53c2534034615d053069b21c7b23069e9d95d9f472840efa2c54dcc1b",
+    "A_M4_Vertical_reload_empty.fbx": "babfdda088035b0f35c2c30856e99cc1eba7dbf6b43cc5a1b902bf57fb7b4a90",
+    "SM_VerticalForegrip.fbx": "df38f706050923022884b2878391d4d853ba9a0c319e56af490dd480b7afa0fd"
+  },
+  "visual_review": "New game palm/front/wrist views reviewed; palm and all finger segments form a closed wrap, thumb opposes; preserved original arm mesh and source action contacts.",
+  "model_scale": {
+    "before_m": [
+      0.047999996691942215,
+      0.04399999603629112,
+      0.13799996949025473
+    ],
+    "after_m": [
+      0.03599999751895666,
+      0.03299999702721834,
+      0.10349997711769104
+    ],
+    "ratio": [
+      0.75,
+      0.75,
+      0.75
+    ],
+    "mount_raise_m": 0.0007
+  },
+  "ui_checks": 24,
+  "ui_failures": 0,
+  "native_build_result": "Succeeded",
+  "runtime_resource_directory": "/Game/Weapons/M4VerticalGripCompact75"
+}

@@ -1,0 +1,133 @@
+{
+  "asset": "/Game/Weapons/PrismScope2X/SM_PrismScope2X.SM_PrismScope2X",
+  "mesh": {
+    "source": "scope2x_textured_master_00001_.glb",
+    "source_triangles": 96513,
+    "aim_point_cm": [
+      -6.15,
+      0,
+      4
+    ],
+    "base_width_cm": 2.5,
+    "meshes": [
+      {
+        "name": "SM_PrismScope2X_Body",
+        "triangles": 20220,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 13,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Coated_Lens",
+        "triangles": 126,
+        "boundary_edges": 128,
+        "nonmanifold_edges": 128,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Coated_Lens.001",
+        "triangles": 126,
+        "boundary_edges": 128,
+        "nonmanifold_edges": 128,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Center_Dot",
+        "triangles": 380,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Horizontal_Stadia",
+        "triangles": 188,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Vertical_Stadia",
+        "triangles": 188,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Horizontal_Stadia.001",
+        "triangles": 188,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      },
+      {
+        "name": "Vertical_Stadia.001",
+        "triangles": 188,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "degenerate_faces": 0
+      }
+    ],
+    "triangles": 21604
+  },
+  "runs": {
+    "write": {
+      "checks": 59,
+      "failures": 0,
+      "magnification_ratio": 2.0,
+      "horizontal_fov": 49.66244,
+      "red_dot_centroid_px": [
+        799.5,
+        449.5
+      ],
+      "screen_center_px": [
+        800,
+        450
+      ],
+      "log": "scope2x-final/write.log"
+    },
+    "reload": {
+      "checks": 55,
+      "failures": 0,
+      "magnification_ratio": 2.0,
+      "horizontal_fov": 49.66244,
+      "red_dot_centroid_px": [
+        799.5,
+        449.5
+      ],
+      "screen_center_px": [
+        800,
+        450
+      ],
+      "log": "scope2x-final/reload.log"
+    }
+  },
+  "native_build": "Succeeded; build_native.log",
+  "import": {
+    "assertion": "SCOPE2X_IMPORT_PASS",
+    "process_exit_code": 1,
+    "existing_errors": [
+      "GameFeatureData asset manager rule missing",
+      "HTTP 127.0.0.1:8000 bind failed"
+    ],
+    "runtime_verified": true
+  },
+  "visual_review": {
+    "ads": "Clear world view through bore and centered reticle",
+    "mount": "25 mm foot on M4 rail; upper optic dimensions retained",
+    "limitations": [
+      "Whole-camera 2x ADS zoom, not separate picture-in-picture optics",
+      "Generated adjustment/focus detail remains softer than machined housing",
+      "13 nonmanifold decorative-shell connections; no collision enabled"
+    ]
+  },
+  "sha256": {
+    "SM_PrismScope2X.fbx": "c2fe51ae49b5b106d45e1f71bf2e102b41ce738c40acd3ec00c4e7008074e677",
+    "PrismScope2X_Editable.blend": "d30cb2e482acae627d872079e1d0ef87774ecb09af6b6290150f346611370f88",
+    "three_views.png": "734ecd76701f49355013f4ac899242b92e612801fbe5a53ed057c374067f0c1d",
+    "reference_white.png": "644c0cf46bad112caa29b378ddfb67a6d04df53d3ea5e07e38ef6430825218f9",
+    "T_Scope2X_BaseColor.png": "c08b34b137da1acc04b72ebe4ec78d5637679a869b03eea7388039c3195e5da9",
+    "T_Scope2X_Roughness.png": "8bc275d0d56aff6ab061b5abf73bb493c70b76a3fabdc12560557a92a66048d3",
+    "T_Scope2X_Metallic.png": "6eb78c0cc4bdac4f1207f5977b57d4ac63a5bef0a913842e18f725237a5270cf",
+    "T_Scope2X_Normal.png": "ca74e088d2413714688d4d1ff71e0579ba5212abb60f953500870a4396a3cad6"
+  }
+}

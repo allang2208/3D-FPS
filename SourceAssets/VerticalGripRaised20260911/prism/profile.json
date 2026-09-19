@@ -1,0 +1,29 @@
+{
+  "family": "vertical_grip",
+  "variant": "prism",
+  "animation_prefix": "A_M4_Prism_",
+  "fitted_mesh": "M4_Prism_Fitted.blend",
+  "mesh_prefix": "PH_",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PrismHandstop20260910\\GripAnimation",
+  "shoulder_offset": [
+    0.024830350652337074,
+    0.14185775816440582,
+    -0.17255274951457977
+  ],
+  "forearm_direction": [
+    0.873163104057312,
+    -0.3492652475833893,
+    0.3400000035762787
+  ],
+  "contact_translation_m": [
+    0.0,
+    -0.004000000189989805,
+    -0.00800000037997961
+  ],
+  "raise_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripClass20260911\\prism",
+  "elbow_raise_in_mount_m": [
+    -0.008451067842543125,
+    0.003380514681339264,
+    0.022093871608376503
+  ]
+}

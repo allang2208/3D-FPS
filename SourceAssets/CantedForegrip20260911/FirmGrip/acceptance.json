@@ -1,0 +1,239 @@
+{
+  "contact_patches": {
+    "cost": 5784.246532385266,
+    "parameters": [
+      4.419520410348531,
+      -5.237602015573779,
+      -4.817023323176426,
+      -6.016496354779885,
+      -6.559321527569273,
+      -3.079628157576524,
+      35.173570803707,
+      59.58455953414698,
+      20.000612376083723,
+      47.14734820409616,
+      45.94783970492377,
+      46.60329321926677,
+      66.69091634956065,
+      45.019552480702835,
+      23.622208315985816,
+      80.82829127022343,
+      43.359586737271385,
+      40.62722283772392,
+      12.74073600962546,
+      -7.591891206125039,
+      -0.29362234487837763,
+      4.808923251317698,
+      2.2840516690098536,
+      -0.7530419062124684,
+      3.1208399456097995,
+      -3.566260989631464,
+      -0.8000073230264584,
+      -4.098676001244707,
+      1.9832191815268334,
+      2.3444505282137906,
+      1.5618606459812188,
+      -0.44146757328878083,
+      21.621551899963443,
+      -9.27543321511283,
+      -21.99732716458538
+    ],
+    "before_patch_distance_mm": [
+      3.287435757338623,
+      1.3197696566062191,
+      1.6912610740292342,
+      2.807215428463384,
+      1.9979398918476772,
+      2.2876314050241646,
+      2.5405866659353804,
+      2.8760419734376437,
+      3.858593232342495,
+      5.026276009313236,
+      3.361615405066622,
+      5.189917286756715,
+      8.020886986203768,
+      7.410947054271685
+    ],
+    "after_patch_distance_mm": [
+      1.6815655995587042,
+      2.885551641929349,
+      2.013921941353755,
+      1.8186675056314894,
+      3.3714217628251024,
+      1.7825954807440905,
+      2.1139571539344724,
+      1.7188189172452693,
+      2.125619830529896,
+      2.66409499883953,
+      1.6702588519751191,
+      2.209500230601898,
+      4.506613703690419,
+      3.363346141001156
+    ]
+  },
+  "runtime_run": "canted-firm-grip-v1",
+  "runtime_checks": 346,
+  "runtime_failures": 0,
+  "ui_note": "UI and canted mesh unchanged; prior 24-check report retained in Integration",
+  "animation_variants": 9,
+  "geometry_samples": 446,
+  "sampled_intersections": 0,
+  "source_contract": {
+    "idle": {
+      "max_arm_length_change_m": 1.3243077801039504e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.8831526502309857e-07,
+      "nonleft_position_change_m": 4.202153877080552e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "aim": {
+      "max_arm_length_change_m": 2.3474929555789004e-08,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.427388383821363e-07,
+      "nonleft_position_change_m": 2.973997497412422e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "fire": {
+      "max_arm_length_change_m": 1.1448852793582986e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.7822343460239647e-07,
+      "nonleft_position_change_m": 4.009665469257136e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "aim_fire": {
+      "max_arm_length_change_m": 1.016725231783866e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.601314650863293e-07,
+      "nonleft_position_change_m": 4.2083910598160063e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "equip": {
+      "max_arm_length_change_m": 1.7685916636756005e-07,
+      "max_bone_scale_change": 7.996802249550068e-07,
+      "max_finger_local_translation_change_m": 1.7729673249899522e-07,
+      "nonleft_position_change_m": 7.083661787621563e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "reload": {
+      "max_arm_length_change_m": 2.1111966770348545e-06,
+      "max_bone_scale_change": 1.6539617688073645e-06,
+      "max_finger_local_translation_change_m": 2.8133006126728485e-07,
+      "nonleft_position_change_m": 8.535387213003448e-07,
+      "preserved_contact_position_change_m": 9.766798977955544e-07
+    },
+    "reload_empty": {
+      "max_arm_length_change_m": 2.0890273866314146e-07,
+      "max_bone_scale_change": 7.839767001846972e-07,
+      "max_finger_local_translation_change_m": 2.2627437888524641e-07,
+      "nonleft_position_change_m": 8.587662789694691e-07,
+      "preserved_contact_position_change_m": 7.8057055793457e-07
+    },
+    "drum_reload": {
+      "max_arm_length_change_m": 3.844603492453302e-06,
+      "max_bone_scale_change": 3.1200056858783723e-06,
+      "max_finger_local_translation_change_m": 2.1165224788207292e-07,
+      "nonleft_position_change_m": 9.044403377469491e-07,
+      "preserved_contact_position_change_m": 6.698367261739295e-07
+    },
+    "drum_reload_empty": {
+      "max_arm_length_change_m": 2.506081623165901e-06,
+      "max_bone_scale_change": 1.3486991523486091e-06,
+      "max_finger_local_translation_change_m": 2.813529481804412e-07,
+      "nonleft_position_change_m": 9.974877817141748e-07,
+      "preserved_contact_position_change_m": 6.692678681103848e-07
+    }
+  },
+  "import_clips": {
+    "idle": {
+      "duration": 3.0,
+      "compression_error_cm": 0.00048683916937932917,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_idle.A_M4_Canted_idle",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+      "right_weapon_difference_cm": 3.65422529225155e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "aim": {
+      "duration": 0.03333333507180214,
+      "compression_error_cm": 0.000451158771356903,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_aim.A_M4_Canted_aim",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+      "right_weapon_difference_cm": 1.7366625949812517e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "fire": {
+      "duration": 0.7666666507720947,
+      "compression_error_cm": 0.0004900284807507347,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_fire.A_M4_Canted_fire",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+      "right_weapon_difference_cm": 3.179254179637135e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "aim_fire": {
+      "duration": 0.7666666507720947,
+      "compression_error_cm": 0.0004555314898487748,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_aim_fire.A_M4_Canted_aim_fire",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+      "right_weapon_difference_cm": 2.7758796202234874e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "equip": {
+      "duration": 0.6333333253860474,
+      "compression_error_cm": 0.0005925528428870096,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_equip.A_M4_Canted_equip",
+      "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+      "right_weapon_difference_cm": 0.0001719183978516974,
+      "preserved_contact_difference_cm": 0
+    },
+    "reload": {
+      "duration": 2.0999999046325684,
+      "compression_error_cm": 0.0015053783375959353,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_reload.A_M4_Canted_reload",
+      "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+      "right_weapon_difference_cm": 0.0001546683194607958,
+      "preserved_contact_difference_cm": 8.642764798931408e-05
+    },
+    "reload_empty": {
+      "duration": 2.700000047683716,
+      "compression_error_cm": 0.0007167493428624754,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_reload_empty.A_M4_Canted_reload_empty",
+      "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+      "right_weapon_difference_cm": 0.0001744400509046272,
+      "preserved_contact_difference_cm": 0.0022425878721990603
+    },
+    "drum_reload": {
+      "duration": 2.0999999046325684,
+      "compression_error_cm": 0.0005316875749405181,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_drum_reload.A_M4_Canted_drum_reload",
+      "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+      "right_weapon_difference_cm": 4.836159536722441e-05,
+      "preserved_contact_difference_cm": 7.16583283642486e-05
+    },
+    "drum_reload_empty": {
+      "duration": 2.4666666984558105,
+      "compression_error_cm": 0.0005615020846193358,
+      "asset": "/Game/Weapons/M4CantedFirmGrip/A_M4_Canted_drum_reload_empty.A_M4_Canted_drum_reload_empty",
+      "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+      "right_weapon_difference_cm": 5.200323149196949e-05,
+      "preserved_contact_difference_cm": 7.811004717757311e-05
+    }
+  },
+  "material_assignment": "Existing M4CantedForegrip mesh and M4 material unchanged",
+  "import_exit_code": 1,
+  "import_note": "Import and readback passed; process exit 1 includes existing GameFeatureData configuration errors. New game process independently passed.",
+  "native_build": "Animation resource path updated; build suffix 2026095439",
+  "packaged_build_verified": false,
+  "preview_note": "Actual game screenshots assembled in capture order using bounded capture-time intervals; silent visual preview, not audio verification.",
+  "preview_frames": 162,
+  "fbx_sha256": {
+    "A_M4_Canted_aim.fbx": "0f080c1faf943646059e154351a681d9f8c80bd5cb5a9339327ec5aac6d2c45e",
+    "A_M4_Canted_aim_fire.fbx": "8040be592b072ab279d0e90bfad14542163ed64484b4031e096412016ea76e15",
+    "A_M4_Canted_drum_reload.fbx": "a88e2119f50a7ea3d09aa177c6202953b94711fe05a1d52f4304276fd64f7801",
+    "A_M4_Canted_drum_reload_empty.fbx": "fe9965c8fb93839704cad7542d18ca313514d5273a68f1392505aba1e3a9e964",
+    "A_M4_Canted_equip.fbx": "087f23e17727d30c55ca59b509dab6bb9719c7b387051173f439116d8dc3c02a",
+    "A_M4_Canted_fire.fbx": "531370d884abd2acbca767bc2cc057063d60542bf93bb292e6ef02b5fa4beef8",
+    "A_M4_Canted_idle.fbx": "f3f168f66637b2aab13149c64c1d43c3521c5b6306b53f806111a610a8b983c4",
+    "A_M4_Canted_reload.fbx": "b17453093e4dc0f7f19e7bf989a175379bd0275d0027e0a8f955e81f564a6315",
+    "A_M4_Canted_reload_empty.fbx": "13436a4a306fea229fcf0c1d63163644642ba7ef1d8f1bb01340e2b09bd113a5"
+  },
+  "visual_review": "New game wrist, palm, front and first-person views reviewed; palm and thumb pulled inward and finger middle/distal joints curled while preserving accepted left cant and original arm mesh."
+}

@@ -1,0 +1,233 @@
+[
+  {
+    "active": true,
+    "channels": 945,
+    "rows": [
+      {
+        "name": "root_fk_ctrl.Location.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Location.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Location.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Rotation.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Rotation.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Rotation.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Scale.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Scale.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "root_fk_ctrl.Scale.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Location.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Location.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Location.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Rotation.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Rotation.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Rotation.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Scale.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Scale.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "upperarm_l_fk_ctrl.Scale.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Location.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Location.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Location.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Rotation.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Rotation.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Rotation.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Scale.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Scale.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_foot_root_fk_ctrl.Scale.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Location.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Location.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Location.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Rotation.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Rotation.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Rotation.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Scale.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Scale.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "ik_hand_root_fk_ctrl.Scale.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Location.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Location.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Location.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Rotation.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Rotation.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Rotation.Z",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Scale.X",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Scale.Y",
+        "keys": 0,
+        "first": null
+      },
+      {
+        "name": "WPN_root_fk_ctrl.Scale.Z",
+        "keys": 0,
+        "first": null
+      }
+    ]
+  }
+]

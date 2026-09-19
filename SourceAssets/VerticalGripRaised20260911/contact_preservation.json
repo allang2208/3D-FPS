@@ -1,0 +1,78 @@
+{
+  "vertical": {
+    "idle": {
+      "max_hand_finger_position_difference_m": 4.6516928907596963e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "aim": {
+      "max_hand_finger_position_difference_m": 1.316562074949763e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "fire": {
+      "max_hand_finger_position_difference_m": 4.716870722575311e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "aim_fire": {
+      "max_hand_finger_position_difference_m": 3.2922483537239845e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "equip": {
+      "max_hand_finger_position_difference_m": 4.172990311664476e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "reload": {
+      "max_hand_finger_position_difference_m": 9.021357925509169e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "reload_empty": {
+      "max_hand_finger_position_difference_m": 5.745407390226342e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "drum_reload": {
+      "max_hand_finger_position_difference_m": 5.435350465726696e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "drum_reload_empty": {
+      "max_hand_finger_position_difference_m": 3.7642026183215166e-07,
+      "max_rotation_difference_degrees": 0
+    }
+  },
+  "prism": {
+    "idle": {
+      "max_hand_finger_position_difference_m": 4.5123708038707733e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "aim": {
+      "max_hand_finger_position_difference_m": 2.1957892497072522e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "fire": {
+      "max_hand_finger_position_difference_m": 3.478711107352004e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "aim_fire": {
+      "max_hand_finger_position_difference_m": 3.1478151938732876e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "equip": {
+      "max_hand_finger_position_difference_m": 3.6446973111137775e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "reload": {
+      "max_hand_finger_position_difference_m": 7.750036492315438e-07,
+      "max_rotation_difference_degrees": 0
+    },
+    "reload_empty": {
+      "max_hand_finger_position_difference_m": 1.0664485296656424e-06,
+      "max_rotation_difference_degrees": 0
+    },
+    "drum_reload": {
+      "max_hand_finger_position_difference_m": 2.135147136584982e-06,
+      "max_rotation_difference_degrees": 0
+    },
+    "drum_reload_empty": {
+      "max_hand_finger_position_difference_m": 4.570583549953233e-07,
+      "max_rotation_difference_degrees": 0
+    }
+  }
+}

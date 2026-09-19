@@ -1,0 +1,74 @@
+{
+  "idle": {
+    "duration": 3.0,
+    "compression_error_cm": 0.00048683916937932917,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_idle.A_M4_Canted_idle",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+    "right_weapon_difference_cm": 3.65422529225155e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "aim": {
+    "duration": 0.03333333507180214,
+    "compression_error_cm": 0.000451158771356903,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_aim.A_M4_Canted_aim",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+    "right_weapon_difference_cm": 1.7366625949812517e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "fire": {
+    "duration": 0.7666666507720947,
+    "compression_error_cm": 0.0004900284807507347,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_fire.A_M4_Canted_fire",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+    "right_weapon_difference_cm": 3.179254179637135e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "aim_fire": {
+    "duration": 0.7666666507720947,
+    "compression_error_cm": 0.0004555314898487748,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_aim_fire.A_M4_Canted_aim_fire",
+    "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+    "right_weapon_difference_cm": 2.7758796202234874e-05,
+    "preserved_contact_difference_cm": 0
+  },
+  "equip": {
+    "duration": 0.6333333253860474,
+    "compression_error_cm": 0.0005931768162233573,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_equip.A_M4_Canted_equip",
+    "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+    "right_weapon_difference_cm": 0.0001719183978516974,
+    "preserved_contact_difference_cm": 0
+  },
+  "reload": {
+    "duration": 2.0999999046325684,
+    "compression_error_cm": 0.0015053783375959353,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_reload.A_M4_Canted_reload",
+    "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+    "right_weapon_difference_cm": 0.0001546683194607958,
+    "preserved_contact_difference_cm": 8.764267760467276e-05
+  },
+  "reload_empty": {
+    "duration": 2.700000047683716,
+    "compression_error_cm": 0.0007167493428624754,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_reload_empty.A_M4_Canted_reload_empty",
+    "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+    "right_weapon_difference_cm": 0.0001744400509046272,
+    "preserved_contact_difference_cm": 0.0022425878721990603
+  },
+  "drum_reload": {
+    "duration": 2.0999999046325684,
+    "compression_error_cm": 0.0005316875749405181,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_drum_reload.A_M4_Canted_drum_reload",
+    "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+    "right_weapon_difference_cm": 4.836159536722441e-05,
+    "preserved_contact_difference_cm": 7.16583283642486e-05
+  },
+  "drum_reload_empty": {
+    "duration": 2.4666666984558105,
+    "compression_error_cm": 0.0005615020846193358,
+    "asset": "/Game/Weapons/M4CantedThumbClose/A_M4_Canted_drum_reload_empty.A_M4_Canted_drum_reload_empty",
+    "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+    "right_weapon_difference_cm": 5.200323149196949e-05,
+    "preserved_contact_difference_cm": 7.40292779389431e-05
+  }
+}

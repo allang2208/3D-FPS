@@ -1,0 +1,98 @@
+{
+  "A_AKM_reload": {
+    "duration": 3.3333332538604736,
+    "index_max_deviation_degrees": 0.028674809372057318
+  },
+  "A_AKM_reload_empty": {
+    "duration": 4.291666507720947,
+    "index_max_deviation_degrees": 0.028674809372057318
+  },
+  "A_AKM_drum_reload": {
+    "duration": 3.3333332538604736,
+    "index_max_deviation_degrees": 0.028674809372057318,
+    "extraction_m": {
+      "0": 0.0,
+      "56": 3.1977618654681077e-08,
+      "64": 0.06927150192289266,
+      "76": 0.16311357843097507,
+      "86": 0.24896709895095945
+    },
+    "unchanged_tail_max_position_error_cm": 0.00029369666873168003
+  },
+  "A_AKM_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "index_max_deviation_degrees": 0.028674809372057318,
+    "extraction_m": {
+      "0": 0.0,
+      "56": 3.2373586252332964e-08,
+      "64": 0.06927148590447535,
+      "76": 0.16311348940674028,
+      "86": 0.24896703341718934
+    },
+    "unchanged_tail_max_position_error_cm": 0.00031489254025720035
+  },
+  "A_AKM_prism_reload": {
+    "duration": 3.3333332538604736,
+    "index_max_deviation_degrees": 0.020389104881155428
+  },
+  "A_AKM_prism_reload_empty": {
+    "duration": 4.291666507720947,
+    "index_max_deviation_degrees": 0.020389104881155428
+  },
+  "A_AKM_prism_drum_reload": {
+    "duration": 3.3333332538604736,
+    "index_max_deviation_degrees": 0.020389104881155428,
+    "extraction_m": {
+      "0": 0.0,
+      "56": 1.4307709180397447e-07,
+      "64": 0.06927143359191644,
+      "76": 0.163113579595073,
+      "86": 0.24896674467112717
+    },
+    "unchanged_tail_max_position_error_cm": 0.00031111177919125035
+  },
+  "A_AKM_prism_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "index_max_deviation_degrees": 0.020389104881155428,
+    "extraction_m": {
+      "0": 0.0,
+      "56": 2.784435883706257e-07,
+      "64": 0.06927161785085668,
+      "76": 0.1631134580612477,
+      "86": 0.24896706797109447
+    },
+    "unchanged_tail_max_position_error_cm": 0.000451230370187909
+  },
+  "A_AKM_angled_reload": {
+    "duration": 3.3333332538604736,
+    "index_max_deviation_degrees": 0.020389104881155428
+  },
+  "A_AKM_angled_reload_empty": {
+    "duration": 4.291666507720947,
+    "index_max_deviation_degrees": 0.020389104881155428
+  },
+  "A_AKM_angled_drum_reload": {
+    "duration": 3.3333332538604736,
+    "index_max_deviation_degrees": 1.5080649355333733e-05,
+    "extraction_m": {
+      "0": 0.0,
+      "56": 2.8976748419457916e-08,
+      "64": 0.06927142861569995,
+      "76": 0.16311352989423517,
+      "86": 0.24896699303168843
+    },
+    "unchanged_tail_max_position_error_cm": 0.00031111177919125035
+  },
+  "A_AKM_angled_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "index_max_deviation_degrees": 0.020389104881155428,
+    "extraction_m": {
+      "0": 0.0,
+      "56": 2.784435883706257e-07,
+      "64": 0.06927161785085668,
+      "76": 0.1631134580612477,
+      "86": 0.24896706797109447
+    },
+    "unchanged_tail_max_position_error_cm": 0.00031190239141213184
+  }
+}

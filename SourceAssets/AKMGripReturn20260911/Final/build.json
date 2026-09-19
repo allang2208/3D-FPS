@@ -1,0 +1,50 @@
+{
+  "A_AKM_prism_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\prism\\A_AKM_prism_reload.blend",
+    "duration": 3.3333333333333335,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": null
+  },
+  "A_AKM_prism_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\prism\\A_AKM_prism_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": null
+  },
+  "A_AKM_prism_drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\prism\\A_AKM_prism_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": 86
+  },
+  "A_AKM_prism_drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\prism\\A_AKM_prism_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": 86
+  },
+  "A_AKM_angled_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\angled\\A_AKM_angled_reload.blend",
+    "duration": 3.3333333333333335,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": null
+  },
+  "A_AKM_angled_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\angled\\A_AKM_angled_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": null
+  },
+  "A_AKM_angled_drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\angled\\A_AKM_angled_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": 86
+  },
+  "A_AKM_angled_drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Baked\\angled\\A_AKM_angled_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "index_pose": "accepted AKM idle",
+    "drum_release_frame120": 86
+  }
+}

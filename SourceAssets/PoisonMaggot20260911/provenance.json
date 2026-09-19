@@ -1,0 +1,24 @@
+{
+  "provider": "tokenhub",
+  "model": "3.1",
+  "job_id": "1489949901173243904",
+  "pbr": true,
+  "outputs": [
+    {
+      "file": "asset_00.zip",
+      "bytes": 42667248,
+      "sha256": "95cfa6333a6f184969777f2f86a186305d63fa26cb61f80d506d115fb9de435e"
+    },
+    {
+      "file": "asset_01.glb",
+      "bytes": 53899048,
+      "sha256": "096beaf71efffa4d386957688b07f56f5942e15c87809b1e7e34341272b9c6b6"
+    }
+  ],
+  "reference": "reference/realistic_identity_v01.png",
+  "reference_tool": "built-in image_gen",
+  "source_identity": "reference/identity.png",
+  "usage": "User-provided project reference; generated and locally edited model; local use; original source redistribution not audited",
+  "audio": "Locally synthesized wet filtered-noise spit, reproducible seed 2414, no external sample",
+  "reference_prompt_summary": "One photorealistic same ivory 9-segment larva, black mouth, six paired short prolegs, neutral pose, uniform light, gray background, no poison mesh"
+}

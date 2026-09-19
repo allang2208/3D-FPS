@@ -1,0 +1,51 @@
+{
+  "raw_triangles": 6199534,
+  "elapsed_generation_seconds": 420.509,
+  "game_integrated": false,
+  "status": "generation_complete_needs_geometry_refinement",
+  "files": [
+    {
+      "bytes": 3429034,
+      "sha256": "38169D81BD0EF086C265D30B48809A0CF3FCCCAD1D9E1D0141C4B79F1F0727F4",
+      "file": "panoramic_red_dot_clean_candidate.blend"
+    },
+    {
+      "bytes": 12545900,
+      "sha256": "DFFBA4FFCF7BD0E65F0A8CA0E0597877A7DDAC7D31841BAC2C9150F02A3A711D",
+      "file": "panoramic_red_dot_clean_editable.blend"
+    },
+    {
+      "bytes": 2572844,
+      "sha256": "037A7D0624467EB2BDF1C5902A6711C15EC9B215BA50AC1E483442D93DE07323",
+      "file": "panoramic_red_dot_clean.fbx"
+    },
+    {
+      "bytes": 2477216,
+      "sha256": "35CF0702D5204E5D7EFD919FB0D4071246964D0BBE4E6285D6335113ED7C48C6",
+      "file": "panoramic_red_dot_clean.glb"
+    },
+    {
+      "bytes": 13457781,
+      "sha256": "7E4C2550BF5EB7837FDC4259E70F03627F2D99DCD746F41C98333948E48999CB",
+      "file": "panoramic_red_dot_high_candidate.blend"
+    },
+    {
+      "bytes": 110856772,
+      "sha256": "CABAB35EF362726BB15436101E8A5AB1994137EAF12554BD3BA6B967FADD251A",
+      "file": "panoramic_red_dot_high_raw_geometry_00001_.glb"
+    },
+    {
+      "bytes": 12805424,
+      "sha256": "54C18172747EC5CDAFCA648DB612D225A2D8A710B43677CFC5EF865A5B450F70",
+      "file": "panoramic_red_dot_high_textured_master_00001_.glb"
+    }
+  ],
+  "thin_frame_aperture": "visually open and continuous",
+  "clean_triangles": 74493,
+  "prompt_id": "fe80e39a-8d30-43b3-99c1-7242cc34242f",
+  "defects": [
+    "Generated base has cavities and melted edges",
+    "Lens and real reticle not implemented"
+  ],
+  "textured_triangles": 93387
+}

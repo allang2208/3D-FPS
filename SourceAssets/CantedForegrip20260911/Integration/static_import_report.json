@@ -1,0 +1,16 @@
+{
+  "m4_materials": {
+    "Flash_Hider_001": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+    "Grip_Default_001": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+    "Keymod_material_001": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001",
+    "Body_001": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+    "Magazine_Light_001": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+    "Classic_Stock_001": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001",
+    "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+    "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+  },
+  "assigned": {
+    "Body_004": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+  },
+  "static_bounds_cm": "<Struct 'BoxSphereBounds' (0x000001A30867C5D0) {origin: {x: 0.000000, y: -2.638938, z: -4.093939}, box_extent: {x: 1.800000, y: 4.288937, z: 4.163939}, sphere_radius: 6.048767}>"
+}

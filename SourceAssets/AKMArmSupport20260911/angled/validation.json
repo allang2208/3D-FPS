@@ -1,0 +1,191 @@
+{
+  "idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\angled\\A_AKM_angled_idle.blend",
+    "frames": 5,
+    "duration": 0.041666666666666664,
+    "metrics": {
+      "wrist_bend_before": 32.009531281103015,
+      "wrist_bend_after": 8.124292305450373,
+      "elbow_before": 34.59541358011317,
+      "elbow_after": 69.21063470881937,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.747713104745731e-07,
+    "max_digit_error_m": 3.313833654896332e-07,
+    "max_preserved_error_m": 3.0211622004122134e-07,
+    "max_length_error_m": 7.71088631279504e-08
+  },
+  "aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\angled\\A_AKM_angled_aim.blend",
+    "frames": 5,
+    "duration": 0.041666666666666664,
+    "metrics": {
+      "wrist_bend_before": 38.097254982673284,
+      "wrist_bend_after": 12.968218068593812,
+      "elbow_before": 28.64754995462995,
+      "elbow_after": 67.32578253565181,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.3348812510944096e-07,
+    "max_digit_error_m": 3.2787316725569774e-07,
+    "max_preserved_error_m": 3.2450812200534224e-07,
+    "max_length_error_m": 3.9509137073068246e-08
+  },
+  "fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\angled\\A_AKM_angled_fire.blend",
+    "frames": 12,
+    "duration": 0.1,
+    "metrics": {
+      "wrist_bend_before": 32.009531281103015,
+      "wrist_bend_after": 8.124292305450373,
+      "elbow_before": 34.59541358011317,
+      "elbow_after": 69.21063470881937,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.747713104745731e-07,
+    "max_digit_error_m": 2.942743548472449e-07,
+    "max_preserved_error_m": 2.723541368012762e-07,
+    "max_length_error_m": 3.802044756806566e-08
+  },
+  "aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\angled\\A_AKM_angled_aim_fire.blend",
+    "frames": 12,
+    "duration": 0.1,
+    "metrics": {
+      "wrist_bend_before": 38.097254982673284,
+      "wrist_bend_after": 12.968218068593812,
+      "elbow_before": 28.64754995462995,
+      "elbow_after": 67.32578253565181,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 9.996002811937585e-08,
+    "max_digit_error_m": 2.9988008435812754e-07,
+    "max_preserved_error_m": 3.032867371843553e-07,
+    "max_length_error_m": 3.578877622034682e-08
+  },
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\angled\\A_AKM_angled_equip.blend",
+    "frames": 204,
+    "duration": 1.7,
+    "metrics": {
+      "wrist_bend_before": 32.00948005468424,
+      "wrist_bend_after": 8.124243640352537,
+      "elbow_before": 34.595468221626525,
+      "elbow_after": 69.21068252014355,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 3.7110253929686973e-07,
+    "max_digit_error_m": 5.813840381771149e-07,
+    "max_preserved_error_m": 5.969770438674131e-07,
+    "max_length_error_m": 1.8282649594247857e-07
+  },
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\angled\\A_AKM_angled_reload.blend",
+    "frames": 400,
+    "duration": 3.3333333333333335,
+    "metrics": {
+      "wrist_bend_before": 32.009531281103015,
+      "wrist_bend_after": 8.124292305450373,
+      "elbow_before": 34.59541358011317,
+      "elbow_after": 69.21062787863019,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.032588849321565e-07,
+    "max_digit_error_m": 4.3724181506398946e-07,
+    "max_preserved_error_m": 3.7133502347401117e-07,
+    "max_length_error_m": 1.643904268822105e-07
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\angled\\A_AKM_angled_reload_empty.blend",
+    "frames": 515,
+    "duration": 4.291666666666667,
+    "metrics": {
+      "wrist_bend_before": 32.009531281103015,
+      "wrist_bend_after": 8.124292305450373,
+      "elbow_before": 34.59541358011317,
+      "elbow_after": 69.21062787863019,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.467706078541159e-07,
+    "max_digit_error_m": 4.5990364640748407e-07,
+    "max_preserved_error_m": 4.075406292431755e-07,
+    "max_length_error_m": 1.6831528482086355e-07
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\angled\\A_AKM_angled_drum_reload.blend",
+    "frames": 400,
+    "duration": 3.3333333333333335,
+    "metrics": {
+      "wrist_bend_before": 32.009531281103015,
+      "wrist_bend_after": 8.124292305450373,
+      "elbow_before": 34.59541358011317,
+      "elbow_after": 69.21062787863019,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.1335215960854819e-07,
+    "max_digit_error_m": 4.4594794163413195e-07,
+    "max_preserved_error_m": 3.7133502347401117e-07,
+    "max_length_error_m": 1.643904268822105e-07
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\angled\\A_AKM_angled_drum_reload_empty.blend",
+    "frames": 515,
+    "duration": 4.291666666666667,
+    "metrics": {
+      "wrist_bend_before": 32.009531281103015,
+      "wrist_bend_after": 8.124292305450373,
+      "elbow_before": 34.59541358011317,
+      "elbow_after": 69.21062787863019,
+      "shoulder_offset_m": [
+        -0.01189211755990982,
+        0.08514221012592316,
+        -0.011481779627501965
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.324727407043274e-07,
+    "max_digit_error_m": 4.702727150338739e-07,
+    "max_preserved_error_m": 4.075406292431755e-07,
+    "max_length_error_m": 1.4695550409893343e-07
+  }
+}

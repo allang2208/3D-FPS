@@ -1,0 +1,6 @@
+import bpy,numpy as np,json
+from pathlib import Path
+O=Path(__file__).parent;OLD=O.parent/'CantedForegrip20260911/ThumbClose'
+bpy.ops.wm.open_mainfile(filepath=str(O/'Canted_Natural.blend'));r=bpy.data.objects['SK_M4_Infima'];ob=bpy.data.objects['SK_Manny_Arms_Export'];D=np.load(OLD/'hand_lbs.npz');names=json.loads((OLD/'hand_lbs.json').read_text())['names'];p=np.array([list(map(list,r.pose.bones[n].matrix)) for n in names]);P=np.array([json.loads((O/'natural_solution.json').read_text())['pose'][n] for n in names]);W=D['weights'];v=D['vertices'];inv=np.linalg.inv(D['rest']);pred=np.einsum('nb,bij,nj->ni',W,p@inv,v);sol=np.einsum('nb,bij,nj->ni',W,P@inv,v);e=ob.evaluated_get(bpy.context.evaluated_depsgraph_get());m=e.to_mesh();actual=np.array([list(e.matrix_world@x.co) for x in m.vertices]);ids=W[:,[names.index(n) for n in names if n.endswith('_l') and n.startswith(('index','middle','ring','pinky','thumb'))]].sum(axis=1)>.8
+print('LBS_CHECK',np.max(np.linalg.norm(pred[ids,:3]-actual[ids],axis=1)),np.max(np.linalg.norm(sol[ids,:3]-actual[ids],axis=1)),list(map(list,r.matrix_world)),flush=True)
+np.savez(O/'exact_state.npz',vertices=v,weights=W,rest=D['rest'],parents=D['parents'],pose=p,actual=actual)

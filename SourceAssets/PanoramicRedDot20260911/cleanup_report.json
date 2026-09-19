@@ -1,0 +1,13 @@
+{
+  "raw_triangles": 6199534,
+  "textured_master_triangles": 93387,
+  "clean_triangles": 74493,
+  "removed_loose_components": 21,
+  "cut_z": -0.213,
+  "material": "Local constant graphite preview; generated textured original retained",
+  "limitations": [
+    "Generated housing details remain soft; not hard-surface retopology",
+    "No functional optical glass or game reticle; not integrated into game",
+    "Normalized generator units, final mounting dimensions not calibrated"
+  ]
+}

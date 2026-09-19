@@ -1,0 +1,13 @@
+{
+  "time": "2026-09-11T07:43:10.302107",
+  "reason": "User accepted current precision and requested pause",
+  "targeted_interrupt_http_status": 200,
+  "job": {
+    "id": "52a207e1-48f8-4344-8019-e7ca317908ad",
+    "status": "in_progress",
+    "priority": 0,
+    "create_time": 1789081624736,
+    "outputs_count": 0
+  },
+  "local_monitors_stopped": true
+}

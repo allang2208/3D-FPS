@@ -1,0 +1,14 @@
+{
+  "method": "Authored physical reconstruction from generated turnaround, not unmodified 5080 output",
+  "height_m": 0.16,
+  "parts": [
+    "Glass vessel with interior wall",
+    "Closed steel lid with geometric knurling",
+    "Contained powder volume",
+    "Individual powder grains",
+    "Packed powder side grains",
+    "Embedded crystalline mineral fragments"
+  ],
+  "procedural_micro_bump": "Steel lid and powder volume baked to 2048 base color, tangent normal and roughness textures; packed in Blender and GLB.",
+  "preview_shadow_approximation": "Glass shadow visibility disabled in studio render to avoid dark interiors without refractive caustics; not UE runtime validation."
+}

@@ -1,0 +1,8 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="game-style.css">
+<style>body{margin:0;background:#64705e;background-image:linear-gradient(125deg,#303c39,#859275);height:100vh}.back-menu-btn{display:block}</style>
+<button class="back-menu-btn">☰ 菜单</button><div id="statusBarContainer" class="status-bar-container"></div>
+<script type="module">
+import {StatusBar} from './ui/status-bar.js';
+StatusBar.addEffect('poison',5000,{stacks:3});StatusBar.addEffect('fear',3000,{stacks:2});StatusBar.addEffect('buff',12000);StatusBar.addEffect('shield',0,{persistent:true});
+window.StatusBar=StatusBar;
+</script>

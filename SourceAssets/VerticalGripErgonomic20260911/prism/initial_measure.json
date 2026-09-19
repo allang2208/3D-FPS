@@ -1,0 +1,43 @@
+{
+  "self": {
+    "index-middle": 0,
+    "index-ring": 0,
+    "index-pinky": 0,
+    "index-thumb": 0,
+    "middle-ring": 0,
+    "middle-pinky": 0,
+    "middle-thumb": 0,
+    "ring-pinky": 0,
+    "ring-thumb": 0,
+    "pinky-thumb": 0
+  },
+  "grip": {
+    "index": 0,
+    "middle": 0,
+    "ring": 0,
+    "pinky": 0,
+    "thumb": 0
+  },
+  "near_mm": {
+    "index": 0.753323325625388,
+    "middle": 0.5351617146516219,
+    "ring": 3.3402704866603017,
+    "pinky": 17.0960349496454,
+    "thumb": 0.39317794107773807
+  },
+  "grip_bounds": [
+    [
+      -0.029404768720269203,
+      0.029402773827314377
+    ],
+    [
+      -0.00947254616767168,
+      0.009471960365772247
+    ],
+    [
+      -0.0649910420179367,
+      -9.228067938238382e-06
+    ]
+  ],
+  "forearm_twist_deg": -20.47843716313055
+}

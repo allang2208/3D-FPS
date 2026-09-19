@@ -1,0 +1,2192 @@
+{
+  "baseline": [
+    {
+      "frame": 0,
+      "max_position_cm": 2.7288511375524266e-05,
+      "max_rotation_deg": 0.012670412263356199,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 1,
+      "max_position_cm": 2.7288511375524266e-05,
+      "max_rotation_deg": 4.7689200557204847e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 2,
+      "max_position_cm": 3.112988704776544e-05,
+      "max_rotation_deg": 0.014717940393969871,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 3,
+      "max_position_cm": 3.112988704776544e-05,
+      "max_rotation_deg": 0.015439825715793198,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 4,
+      "max_position_cm": 2.5658267196906867e-05,
+      "max_rotation_deg": 0.015439825715793198,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 5,
+      "max_position_cm": 2.5658267196906867e-05,
+      "max_rotation_deg": 0.015439825715793198,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 6,
+      "max_position_cm": 2.6855606073640347e-05,
+      "max_rotation_deg": 0.014815360784481493,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 7,
+      "max_position_cm": 2.6855606073640347e-05,
+      "max_rotation_deg": 0.012123263628907052,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 8,
+      "max_position_cm": 2.7288593466097724e-05,
+      "max_rotation_deg": 0.019092532996405023,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 9,
+      "max_position_cm": 2.7288593466097724e-05,
+      "max_rotation_deg": 0.017344174250373608,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 10,
+      "max_position_cm": 2.564734395086016e-05,
+      "max_rotation_deg": 0.018288361316466096,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 11,
+      "max_position_cm": 2.564734395086016e-05,
+      "max_rotation_deg": 0.018288361316466096,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 12,
+      "max_position_cm": 2.684865727204146e-05,
+      "max_rotation_deg": 0.011487669692152926,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 13,
+      "max_position_cm": 2.684865727204146e-05,
+      "max_rotation_deg": 0.01411488824773582,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 14,
+      "max_position_cm": 2.8286055280119464e-05,
+      "max_rotation_deg": 0.01610455811145413,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 15,
+      "max_position_cm": 2.8286055280119464e-05,
+      "max_rotation_deg": 0.012307887771857998,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 16,
+      "max_position_cm": 3.1126373874053204e-05,
+      "max_rotation_deg": 0.01476738739156866,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 17,
+      "max_position_cm": 3.1126373874053204e-05,
+      "max_rotation_deg": 0.01476738739156866,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 18,
+      "max_position_cm": 2.828448516781536e-05,
+      "max_rotation_deg": 0.013106034395459404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 19,
+      "max_position_cm": 2.828448516781536e-05,
+      "max_rotation_deg": 0.014569478753758308,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 20,
+      "max_position_cm": 2.8283623294207463e-05,
+      "max_rotation_deg": 0.017087504434595918,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 21,
+      "max_position_cm": 2.8283623294207463e-05,
+      "max_rotation_deg": 0.014569478753758308,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 22,
+      "max_position_cm": 2.7286271560727928e-05,
+      "max_rotation_deg": 0.015361162553198313,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 23,
+      "max_position_cm": 2.7286271560727928e-05,
+      "max_rotation_deg": 0.01151198055590809,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 24,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 0.013498805585057958,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 25,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 0.012604922360269978,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 26,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 4.931235756498162e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 27,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 4.931235756498162e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 28,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 4.931235756498162e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 29,
+      "max_position_cm": 2.827905403943485e-05,
+      "max_rotation_deg": 0.014334194089691766,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 30,
+      "max_position_cm": 2.827905403943485e-05,
+      "max_rotation_deg": 4.987090580672429e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 31,
+      "max_position_cm": 2.827905403943485e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 32,
+      "max_position_cm": 2.8277278737726077e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 33,
+      "max_position_cm": 2.8277278737726077e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 34,
+      "max_position_cm": 2.8277278737726077e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 35,
+      "max_position_cm": 3.111738158543737e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 36,
+      "max_position_cm": 3.111738158543737e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 37,
+      "max_position_cm": 3.111738158543737e-05,
+      "max_rotation_deg": 0.01527665524632121,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 38,
+      "max_position_cm": 2.727925650389003e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 39,
+      "max_position_cm": 2.727925650389003e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 40,
+      "max_position_cm": 2.727925650389003e-05,
+      "max_rotation_deg": 0.011994269332307267,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 41,
+      "max_position_cm": 3.111368971578786e-05,
+      "max_rotation_deg": 0.014484718287211918,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 42,
+      "max_position_cm": 3.111368971578786e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 43,
+      "max_position_cm": 3.111368971578786e-05,
+      "max_rotation_deg": 0.016453419442246153,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 44,
+      "max_position_cm": 3.111186820587173e-05,
+      "max_rotation_deg": 0.016453419442246153,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 45,
+      "max_position_cm": 3.111186820587173e-05,
+      "max_rotation_deg": 0.013439945510922008,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 46,
+      "max_position_cm": 3.1110696341735215e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 47,
+      "max_position_cm": 3.1110696341735215e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 48,
+      "max_position_cm": 2.8267032473107135e-05,
+      "max_rotation_deg": 0.015031999409317641,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 49,
+      "max_position_cm": 2.8267032473107135e-05,
+      "max_rotation_deg": 0.015031999409317641,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 50,
+      "max_position_cm": 2.826590963929674e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 51,
+      "max_position_cm": 2.826590963929674e-05,
+      "max_rotation_deg": 0.016551438512492137,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 52,
+      "max_position_cm": 2.6830490636821968e-05,
+      "max_rotation_deg": 0.016551438512492137,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 53,
+      "max_position_cm": 2.6830490636821968e-05,
+      "max_rotation_deg": 0.016551438512492137,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 54,
+      "max_position_cm": 2.727063499829945e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 55,
+      "max_position_cm": 2.727063499829945e-05,
+      "max_rotation_deg": 0.013846132914499109,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 56,
+      "max_position_cm": 3.110572183124978e-05,
+      "max_rotation_deg": 0.012659114192579892,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 57,
+      "max_position_cm": 3.110572183124978e-05,
+      "max_rotation_deg": 0.01285213224951472,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 58,
+      "max_position_cm": 2.7268860575283564e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 59,
+      "max_position_cm": 2.7268860575283564e-05,
+      "max_rotation_deg": 0.015258204927602997,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 60,
+      "max_position_cm": 2.726804602156631e-05,
+      "max_rotation_deg": 0.012951933407783887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 61,
+      "max_position_cm": 2.726804602156631e-05,
+      "max_rotation_deg": 0.012951933407783887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 62,
+      "max_position_cm": 2.82605821800646e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 63,
+      "max_position_cm": 2.82605821800646e-05,
+      "max_rotation_deg": 0.012915074788234658,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 64,
+      "max_position_cm": 2.7266564746129936e-05,
+      "max_rotation_deg": 0.012915074788234658,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 65,
+      "max_position_cm": 2.7266564746129936e-05,
+      "max_rotation_deg": 0.012915074788234658,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 66,
+      "max_position_cm": 2.566412213970024e-05,
+      "max_rotation_deg": 0.01224536656227856,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 67,
+      "max_position_cm": 2.566412213970024e-05,
+      "max_rotation_deg": 0.012113052012640868,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 68,
+      "max_position_cm": 2.8258878782319482e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 69,
+      "max_position_cm": 2.8258878782319482e-05,
+      "max_rotation_deg": 0.01219277095118166,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 70,
+      "max_position_cm": 2.825844956715269e-05,
+      "max_rotation_deg": 0.012130667750495688,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 71,
+      "max_position_cm": 2.825844956715269e-05,
+      "max_rotation_deg": 0.01662375088848098,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 72,
+      "max_position_cm": 2.726422327854004e-05,
+      "max_rotation_deg": 0.01187148428949143,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 73,
+      "max_position_cm": 2.726422327854004e-05,
+      "max_rotation_deg": 4.670071607147995e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 74,
+      "max_position_cm": 2.8257808534612252e-05,
+      "max_rotation_deg": 4.762802131385512e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 75,
+      "max_position_cm": 2.8257808534612252e-05,
+      "max_rotation_deg": 0.014985231041535731,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 76,
+      "max_position_cm": 2.5679194171127378e-05,
+      "max_rotation_deg": 0.01891391089014181,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 77,
+      "max_position_cm": 2.5679194171127378e-05,
+      "max_rotation_deg": 0.013196806847459287,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 78,
+      "max_position_cm": 3.110029218531495e-05,
+      "max_rotation_deg": 5.0075116278208596e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 79,
+      "max_position_cm": 3.110029218531495e-05,
+      "max_rotation_deg": 0.013488902322656796,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 80,
+      "max_position_cm": 2.8257447652597832e-05,
+      "max_rotation_deg": 0.013028004083639987,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 81,
+      "max_position_cm": 2.8257447652597832e-05,
+      "max_rotation_deg": 0.013028004083639987,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 82,
+      "max_position_cm": 2.8257503108219772e-05,
+      "max_rotation_deg": 0.013582366997762727,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 83,
+      "max_position_cm": 2.8257503108219772e-05,
+      "max_rotation_deg": 0.01806441237734887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 84,
+      "max_position_cm": 2.8257503108219772e-05,
+      "max_rotation_deg": 0.013028004083639987,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 85,
+      "max_position_cm": 2.825778037295122e-05,
+      "max_rotation_deg": 0.01592684712983427,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 86,
+      "max_position_cm": 2.825778037295122e-05,
+      "max_rotation_deg": 0.017357745703525173,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 87,
+      "max_position_cm": 2.825778037295122e-05,
+      "max_rotation_deg": 0.017357745703525173,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 88,
+      "max_position_cm": 2.7262688819755257e-05,
+      "max_rotation_deg": 0.017357745703525173,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 89,
+      "max_position_cm": 2.7262688819755257e-05,
+      "max_rotation_deg": 4.9341912471779356e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 90,
+      "max_position_cm": 2.7262688819755257e-05,
+      "max_rotation_deg": 4.9341912471779356e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 91,
+      "max_position_cm": 2.8259006676800045e-05,
+      "max_rotation_deg": 0.012580194270708887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 92,
+      "max_position_cm": 2.8259006676800045e-05,
+      "max_rotation_deg": 0.015256109271066194,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 93,
+      "max_position_cm": 2.8259006676800045e-05,
+      "max_rotation_deg": 0.015256109271066194,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 94,
+      "max_position_cm": 2.7263546623187455e-05,
+      "max_rotation_deg": 0.015256109271066194,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 95,
+      "max_position_cm": 2.7263546623187455e-05,
+      "max_rotation_deg": 0.015256109271066194,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 96,
+      "max_position_cm": 2.7263546623187455e-05,
+      "max_rotation_deg": 0.015256109271066194,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 97,
+      "max_position_cm": 2.6856062287995686e-05,
+      "max_rotation_deg": 0.017504799638548715,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 98,
+      "max_position_cm": 2.6856062287995686e-05,
+      "max_rotation_deg": 0.017504799638548715,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 99,
+      "max_position_cm": 2.6856062287995686e-05,
+      "max_rotation_deg": 0.015784513523265056,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 100,
+      "max_position_cm": 3.1104421046277764e-05,
+      "max_rotation_deg": 0.015784513523265056,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 101,
+      "max_position_cm": 3.1104421046277764e-05,
+      "max_rotation_deg": 0.016931928069915995,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 102,
+      "max_position_cm": 3.1104421046277764e-05,
+      "max_rotation_deg": 0.016879380176228007,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 103,
+      "max_position_cm": 2.8264204529408833e-05,
+      "max_rotation_deg": 0.017009777516167165,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 104,
+      "max_position_cm": 2.8264204529408833e-05,
+      "max_rotation_deg": 0.015784513523265056,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 105,
+      "max_position_cm": 2.726703425450947e-05,
+      "max_rotation_deg": 0.017338032548874612,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 106,
+      "max_position_cm": 2.726703425450947e-05,
+      "max_rotation_deg": 0.01603346056424576,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 107,
+      "max_position_cm": 2.7267811726297786e-05,
+      "max_rotation_deg": 0.017763973554081894,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 108,
+      "max_position_cm": 2.7267811726297786e-05,
+      "max_rotation_deg": 0.015748609455735883,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 109,
+      "max_position_cm": 3.110876346776465e-05,
+      "max_rotation_deg": 0.019541214882655002,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 110,
+      "max_position_cm": 3.110876346776465e-05,
+      "max_rotation_deg": 0.019541214882655002,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 111,
+      "max_position_cm": 2.5670005518687137e-05,
+      "max_rotation_deg": 0.01819858156941859,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 112,
+      "max_position_cm": 2.5670005518687137e-05,
+      "max_rotation_deg": 0.015882110432143097,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 113,
+      "max_position_cm": 2.5666443682574412e-05,
+      "max_rotation_deg": 0.015882110432143097,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 114,
+      "max_position_cm": 2.5666443682574412e-05,
+      "max_rotation_deg": 0.015882110432143097,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 115,
+      "max_position_cm": 2.685089190804876e-05,
+      "max_rotation_deg": 0.015748609455735883,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 116,
+      "max_position_cm": 2.685089190804876e-05,
+      "max_rotation_deg": 0.015748609455735883,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 117,
+      "max_position_cm": 3.111289697477957e-05,
+      "max_rotation_deg": 5.39433621553454e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 118,
+      "max_position_cm": 3.111289697477957e-05,
+      "max_rotation_deg": 0.012200039682929913,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 119,
+      "max_position_cm": 2.727261379891223e-05,
+      "max_rotation_deg": 0.012912687372753097,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 120,
+      "max_position_cm": 2.727261379891223e-05,
+      "max_rotation_deg": 0.012912687372753097,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 121,
+      "max_position_cm": 2.7273423290021654e-05,
+      "max_rotation_deg": 0.012912687372753097,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 122,
+      "max_position_cm": 2.7273423290021654e-05,
+      "max_rotation_deg": 0.01242050534423385,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 123,
+      "max_position_cm": 2.6846288374762217e-05,
+      "max_rotation_deg": 0.012687869696505661,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 124,
+      "max_position_cm": 2.6846288374762217e-05,
+      "max_rotation_deg": 0.012658533643654745,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 125,
+      "max_position_cm": 2.684511206068209e-05,
+      "max_rotation_deg": 0.013292538863275314,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 126,
+      "max_position_cm": 2.684511206068209e-05,
+      "max_rotation_deg": 0.01242050534423385,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 127,
+      "max_position_cm": 2.8278887924142296e-05,
+      "max_rotation_deg": 0.01254677876556424,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 128,
+      "max_position_cm": 2.8278887924142296e-05,
+      "max_rotation_deg": 0.013143198276281114,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 129,
+      "max_position_cm": 2.5635737312041168e-05,
+      "max_rotation_deg": 0.013143198276281114,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 130,
+      "max_position_cm": 2.5635737312041168e-05,
+      "max_rotation_deg": 4.735173655176568e-05,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 131,
+      "max_position_cm": 2.7277420810645356e-05,
+      "max_rotation_deg": 0.014096957188033771,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 132,
+      "max_position_cm": 2.7277420810645356e-05,
+      "max_rotation_deg": 0.012655130891200303,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 133,
+      "max_position_cm": 2.7278190705295402e-05,
+      "max_rotation_deg": 0.013362730544903003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 134,
+      "max_position_cm": 2.7278190705295402e-05,
+      "max_rotation_deg": 0.013362730544903003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 135,
+      "max_position_cm": 2.828398707032277e-05,
+      "max_rotation_deg": 0.013362730544903003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 136,
+      "max_position_cm": 2.828398707032277e-05,
+      "max_rotation_deg": 0.013362730544903003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 137,
+      "max_position_cm": 2.727965650542716e-05,
+      "max_rotation_deg": 0.013362730544903003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 138,
+      "max_position_cm": 2.727965650542716e-05,
+      "max_rotation_deg": 0.013362730544903003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 139,
+      "max_position_cm": 2.683842236327605e-05,
+      "max_rotation_deg": 4.5177454878451296e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 140,
+      "max_position_cm": 2.683842236327605e-05,
+      "max_rotation_deg": 0.018602608076520148,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 141,
+      "max_position_cm": 2.7280985084459425e-05,
+      "max_rotation_deg": 0.017609119202845403,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 142,
+      "max_position_cm": 2.7280985084459425e-05,
+      "max_rotation_deg": 4.7505426461073866e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 143,
+      "max_position_cm": 3.112637173337837e-05,
+      "max_rotation_deg": 0.018492914889156463,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 144,
+      "max_position_cm": 3.112637173337837e-05,
+      "max_rotation_deg": 0.018492914889156463,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 145,
+      "max_position_cm": 3.112722558766443e-05,
+      "max_rotation_deg": 0.016416274786127897,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 146,
+      "max_position_cm": 3.112722558766443e-05,
+      "max_rotation_deg": 0.013722367234899556,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 147,
+      "max_position_cm": 3.112722558766443e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 148,
+      "max_position_cm": 3.112722558766443e-05,
+      "max_rotation_deg": 0.013206527440065379,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 149,
+      "max_position_cm": 2.8291574344472366e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 150,
+      "max_position_cm": 2.8291574344472366e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 151,
+      "max_position_cm": 2.8291574344472366e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 152,
+      "max_position_cm": 2.8292778590424558e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 153,
+      "max_position_cm": 2.8292778590424558e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 154,
+      "max_position_cm": 2.8292778590424558e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 155,
+      "max_position_cm": 2.8292778590424558e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 156,
+      "max_position_cm": 2.8294045803148408e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 157,
+      "max_position_cm": 2.8294045803148408e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 158,
+      "max_position_cm": 2.8294045803148408e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 159,
+      "max_position_cm": 3.113122079994263e-05,
+      "max_rotation_deg": 0.016295941882283935,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 160,
+      "max_position_cm": 3.113122079994263e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 161,
+      "max_position_cm": 3.113122079994263e-05,
+      "max_rotation_deg": 0.012502724830865694,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 162,
+      "max_position_cm": 3.1131640710114504e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 163,
+      "max_position_cm": 3.1131640710114504e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 164,
+      "max_position_cm": 3.1131640710114504e-05,
+      "max_rotation_deg": 0.01342621754067694,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 165,
+      "max_position_cm": 2.6843427135253914e-05,
+      "max_rotation_deg": 0.014911673030553817,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 166,
+      "max_position_cm": 2.6843427135253914e-05,
+      "max_rotation_deg": 0.017645897836442232,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 167,
+      "max_position_cm": 2.7283869452682146e-05,
+      "max_rotation_deg": 0.015799498944075275,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 168,
+      "max_position_cm": 2.7283869452682146e-05,
+      "max_rotation_deg": 0.014104964320075542,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 169,
+      "max_position_cm": 2.6846604103946873e-05,
+      "max_rotation_deg": 0.016561839488619508,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 170,
+      "max_position_cm": 2.6846604103946873e-05,
+      "max_rotation_deg": 0.015612382243667912,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 171,
+      "max_position_cm": 3.1132398110951336e-05,
+      "max_rotation_deg": 0.01705340322920925,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 172,
+      "max_position_cm": 3.1132398110951336e-05,
+      "max_rotation_deg": 0.016924300543113877,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 173,
+      "max_position_cm": 2.728364470043528e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 174,
+      "max_position_cm": 2.728364470043528e-05,
+      "max_rotation_deg": 0.01803493587697408,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 175,
+      "max_position_cm": 2.8296639425456944e-05,
+      "max_rotation_deg": 0.017620414262060825,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 176,
+      "max_position_cm": 2.8296639425456944e-05,
+      "max_rotation_deg": 0.01895106600483801,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 177,
+      "max_position_cm": 2.6854108033448992e-05,
+      "max_rotation_deg": 0.01763561905093359,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 178,
+      "max_position_cm": 2.6854108033448992e-05,
+      "max_rotation_deg": 0.01294604984175197,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 179,
+      "max_position_cm": 2.8296678171523734e-05,
+      "max_rotation_deg": 0.01294604984175197,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 180,
+      "max_position_cm": 2.8296678171523734e-05,
+      "max_rotation_deg": 0.015030706076074282,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 181,
+      "max_position_cm": 2.829662251562797e-05,
+      "max_rotation_deg": 0.018188228862378548,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 182,
+      "max_position_cm": 2.829662251562797e-05,
+      "max_rotation_deg": 0.018188228862378548,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 183,
+      "max_position_cm": 2.7283126045920442e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 184,
+      "max_position_cm": 2.7283126045920442e-05,
+      "max_rotation_deg": 0.013616592294878598,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 185,
+      "max_position_cm": 2.7283003638944285e-05,
+      "max_rotation_deg": 0.016449193936854182,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 186,
+      "max_position_cm": 2.7283003638944285e-05,
+      "max_rotation_deg": 0.016449193936854182,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 187,
+      "max_position_cm": 2.686398101205289e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 188,
+      "max_position_cm": 2.686398101205289e-05,
+      "max_rotation_deg": 0.012375594582018971,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 189,
+      "max_position_cm": 2.5666231118344966e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 190,
+      "max_position_cm": 2.5666231118344966e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 191,
+      "max_position_cm": 2.8295643771695572e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 192,
+      "max_position_cm": 2.8295643771695572e-05,
+      "max_rotation_deg": 0.019172131075851664,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 193,
+      "max_position_cm": 2.728249837753772e-05,
+      "max_rotation_deg": 0.019172131075851664,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 194,
+      "max_position_cm": 2.728249837753772e-05,
+      "max_rotation_deg": 0.012081950906427495,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 195,
+      "max_position_cm": 2.6870889405256524e-05,
+      "max_rotation_deg": 0.013446460825958082,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 196,
+      "max_position_cm": 2.6870889405256524e-05,
+      "max_rotation_deg": 0.017194517891958548,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 197,
+      "max_position_cm": 2.568023890069639e-05,
+      "max_rotation_deg": 0.015911775586971207,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 198,
+      "max_position_cm": 2.568023890069639e-05,
+      "max_rotation_deg": 4.7505426461073866e-05,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 199,
+      "max_position_cm": 2.829427455935551e-05,
+      "max_rotation_deg": 5.0423267281580754e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 200,
+      "max_position_cm": 2.829427455935551e-05,
+      "max_rotation_deg": 0.014450906465683694,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 201,
+      "max_position_cm": 2.6874904301081093e-05,
+      "max_rotation_deg": 0.014450906465683694,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 202,
+      "max_position_cm": 2.6874904301081093e-05,
+      "max_rotation_deg": 5.151022382093544e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 203,
+      "max_position_cm": 2.829355057068755e-05,
+      "max_rotation_deg": 0.012087972359225157,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 204,
+      "max_position_cm": 2.829355057068755e-05,
+      "max_rotation_deg": 0.012087972359225157,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 205,
+      "max_position_cm": 2.829355057068755e-05,
+      "max_rotation_deg": 0.015407286473031303,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 206,
+      "max_position_cm": 2.829355057068755e-05,
+      "max_rotation_deg": 0.012087972359225157,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 207,
+      "max_position_cm": 2.5472178144442905e-05,
+      "max_rotation_deg": 0.012087972359225157,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 208,
+      "max_position_cm": 2.5472178144442905e-05,
+      "max_rotation_deg": 0.012087972359225157,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 209,
+      "max_position_cm": 2.5472178144442905e-05,
+      "max_rotation_deg": 0.01318266245804654,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 210,
+      "max_position_cm": 2.5472178144442905e-05,
+      "max_rotation_deg": 4.360100889887781e-05,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 211,
+      "max_position_cm": 2.5472178144442905e-05,
+      "max_rotation_deg": 4.360100889887781e-05,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 212,
+      "max_position_cm": 3.112994193613387e-05,
+      "max_rotation_deg": 4.907527754957194e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 213,
+      "max_position_cm": 3.112994193613387e-05,
+      "max_rotation_deg": 4.907527754957194e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 214,
+      "max_position_cm": 3.112994193613387e-05,
+      "max_rotation_deg": 0.011896288491486856,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 215,
+      "max_position_cm": 2.6878395725077712e-05,
+      "max_rotation_deg": 0.011896288491486856,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 216,
+      "max_position_cm": 2.6878395725077712e-05,
+      "max_rotation_deg": 0.011896288491486856,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 217,
+      "max_position_cm": 2.6878395725077712e-05,
+      "max_rotation_deg": 0.016566346204731425,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 218,
+      "max_position_cm": 2.829174867762288e-05,
+      "max_rotation_deg": 0.016566346204731425,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 219,
+      "max_position_cm": 2.829174867762288e-05,
+      "max_rotation_deg": 5.301652494189108e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 220,
+      "max_position_cm": 2.728437127378623e-05,
+      "max_rotation_deg": 4.716664762235081e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 221,
+      "max_position_cm": 2.728437127378623e-05,
+      "max_rotation_deg": 4.716664762235081e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 222,
+      "max_position_cm": 2.72848632818906e-05,
+      "max_rotation_deg": 0.015195373470695486,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 223,
+      "max_position_cm": 2.72848632818906e-05,
+      "max_rotation_deg": 0.015195373470695486,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 224,
+      "max_position_cm": 2.7285368891569354e-05,
+      "max_rotation_deg": 0.012722165879069186,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 225,
+      "max_position_cm": 2.7285368891569354e-05,
+      "max_rotation_deg": 0.012722165879069186,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 226,
+      "max_position_cm": 2.7285886769648648e-05,
+      "max_rotation_deg": 0.014453558047660091,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 227,
+      "max_position_cm": 2.7285886769648648e-05,
+      "max_rotation_deg": 0.014453558047660091,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 228,
+      "max_position_cm": 3.1130544911110024e-05,
+      "max_rotation_deg": 0.014400092165616777,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 229,
+      "max_position_cm": 3.1130544911110024e-05,
+      "max_rotation_deg": 0.014400092165616777,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 230,
+      "max_position_cm": 2.7286888155720175e-05,
+      "max_rotation_deg": 0.012155391622421376,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 231,
+      "max_position_cm": 2.7286888155720175e-05,
+      "max_rotation_deg": 0.016046310991050913,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 232,
+      "max_position_cm": 2.6870142280824145e-05,
+      "max_rotation_deg": 0.01827446823093412,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 233,
+      "max_position_cm": 2.6870142280824145e-05,
+      "max_rotation_deg": 0.01827446823093412,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 234,
+      "max_position_cm": 2.728773982675149e-05,
+      "max_rotation_deg": 0.016046310991050913,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 235,
+      "max_position_cm": 2.728773982675149e-05,
+      "max_rotation_deg": 0.012407167650535483,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 236,
+      "max_position_cm": 2.8290784612014027e-05,
+      "max_rotation_deg": 0.014627757983822183,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 237,
+      "max_position_cm": 2.8290784612014027e-05,
+      "max_rotation_deg": 0.014856473106783175,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 238,
+      "max_position_cm": 3.113039524508089e-05,
+      "max_rotation_deg": 0.012155391622421376,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 239,
+      "max_position_cm": 3.113039524508089e-05,
+      "max_rotation_deg": 0.018103917864132058,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 240,
+      "max_position_cm": 2.7288511375524266e-05,
+      "max_rotation_deg": 0.018103917864132058,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 241,
+      "max_position_cm": 2.7288511375524266e-05,
+      "max_rotation_deg": 0.018103917864132058,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 242,
+      "max_position_cm": 3.112988704776544e-05,
+      "max_rotation_deg": 0.012692304475085554,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 243,
+      "max_position_cm": 3.112988704776544e-05,
+      "max_rotation_deg": 0.015065484335247748,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 244,
+      "max_position_cm": 2.5658267196906867e-05,
+      "max_rotation_deg": 0.012241525161264024,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 245,
+      "max_position_cm": 2.5658267196906867e-05,
+      "max_rotation_deg": 0.016145803166899078,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 246,
+      "max_position_cm": 2.6855606073640347e-05,
+      "max_rotation_deg": 0.016145803166899078,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 247,
+      "max_position_cm": 2.6855606073640347e-05,
+      "max_rotation_deg": 0.016145803166899078,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 248,
+      "max_position_cm": 2.7288593466097724e-05,
+      "max_rotation_deg": 0.01357077129892939,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 249,
+      "max_position_cm": 2.7288593466097724e-05,
+      "max_rotation_deg": 0.014178420480842575,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 250,
+      "max_position_cm": 2.564734395086016e-05,
+      "max_rotation_deg": 0.01827723145301063,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 251,
+      "max_position_cm": 2.564734395086016e-05,
+      "max_rotation_deg": 0.017843090762219953,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 252,
+      "max_position_cm": 2.684865727204146e-05,
+      "max_rotation_deg": 0.013873133470078871,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 253,
+      "max_position_cm": 2.684865727204146e-05,
+      "max_rotation_deg": 4.9430471165477876e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 254,
+      "max_position_cm": 2.8286055280119464e-05,
+      "max_rotation_deg": 4.9341912471779356e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 255,
+      "max_position_cm": 2.8286055280119464e-05,
+      "max_rotation_deg": 0.01460509979523647,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 256,
+      "max_position_cm": 3.1126373874053204e-05,
+      "max_rotation_deg": 0.014763555413602596,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 257,
+      "max_position_cm": 3.1126373874053204e-05,
+      "max_rotation_deg": 0.013106343738284237,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 258,
+      "max_position_cm": 2.828448516781536e-05,
+      "max_rotation_deg": 0.01660116303427787,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 259,
+      "max_position_cm": 2.828448516781536e-05,
+      "max_rotation_deg": 0.013963160803460188,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 260,
+      "max_position_cm": 2.8283623294207463e-05,
+      "max_rotation_deg": 0.017076210756076845,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 261,
+      "max_position_cm": 2.8283623294207463e-05,
+      "max_rotation_deg": 0.016223412500892303,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 262,
+      "max_position_cm": 2.7286271560727928e-05,
+      "max_rotation_deg": 0.016223412500892303,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 263,
+      "max_position_cm": 2.7286271560727928e-05,
+      "max_rotation_deg": 0.012018077283717971,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 264,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 0.013501057610477003,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 265,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 0.012237415584168364,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 266,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 4.931235756498162e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 267,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 4.931235756498162e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 268,
+      "max_position_cm": 2.828173571609645e-05,
+      "max_rotation_deg": 0.012062448985521024,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 269,
+      "max_position_cm": 2.827905403943485e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 270,
+      "max_position_cm": 2.827905403943485e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 271,
+      "max_position_cm": 2.827905403943485e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 272,
+      "max_position_cm": 2.8277278737726077e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 273,
+      "max_position_cm": 2.8277278737726077e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 274,
+      "max_position_cm": 2.8277278737726077e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 275,
+      "max_position_cm": 3.111738158543737e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 276,
+      "max_position_cm": 3.111738158543737e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 277,
+      "max_position_cm": 3.111738158543737e-05,
+      "max_rotation_deg": 0.015271402325515797,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 278,
+      "max_position_cm": 2.727925650389003e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 279,
+      "max_position_cm": 2.727925650389003e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 280,
+      "max_position_cm": 2.727925650389003e-05,
+      "max_rotation_deg": 0.012744102456847404,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 281,
+      "max_position_cm": 3.111368971578786e-05,
+      "max_rotation_deg": 0.011995219665062557,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 282,
+      "max_position_cm": 3.111368971578786e-05,
+      "max_rotation_deg": 5.397038112130473e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 283,
+      "max_position_cm": 3.111368971578786e-05,
+      "max_rotation_deg": 0.01644435014754032,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 284,
+      "max_position_cm": 3.111186820587173e-05,
+      "max_rotation_deg": 0.01644435014754032,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 285,
+      "max_position_cm": 3.111186820587173e-05,
+      "max_rotation_deg": 0.011523116563533801,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 286,
+      "max_position_cm": 3.1110696341735215e-05,
+      "max_rotation_deg": 5.364525538484522e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 287,
+      "max_position_cm": 3.1110696341735215e-05,
+      "max_rotation_deg": 5.364525538484522e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 288,
+      "max_position_cm": 2.8267032473107135e-05,
+      "max_rotation_deg": 0.013838744641529078,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 289,
+      "max_position_cm": 2.8267032473107135e-05,
+      "max_rotation_deg": 0.013838744641529078,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 290,
+      "max_position_cm": 2.826590963929674e-05,
+      "max_rotation_deg": 5.0711567328481214e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 291,
+      "max_position_cm": 2.826590963929674e-05,
+      "max_rotation_deg": 0.014509422022358545,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 292,
+      "max_position_cm": 2.6830490636821968e-05,
+      "max_rotation_deg": 0.016806662686585455,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 293,
+      "max_position_cm": 2.6830490636821968e-05,
+      "max_rotation_deg": 0.011598755909947644,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 294,
+      "max_position_cm": 2.727063499829945e-05,
+      "max_rotation_deg": 0.011775472946675192,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 295,
+      "max_position_cm": 2.727063499829945e-05,
+      "max_rotation_deg": 0.013846132914499109,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 296,
+      "max_position_cm": 3.110572183124978e-05,
+      "max_rotation_deg": 0.012080494643158364,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 297,
+      "max_position_cm": 3.110572183124978e-05,
+      "max_rotation_deg": 0.01285213224951472,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 298,
+      "max_position_cm": 2.7268860575283564e-05,
+      "max_rotation_deg": 4.7689200557204847e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 299,
+      "max_position_cm": 2.7268860575283564e-05,
+      "max_rotation_deg": 0.015258204927602997,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 300,
+      "max_position_cm": 2.726804602156631e-05,
+      "max_rotation_deg": 0.012951933407783887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 301,
+      "max_position_cm": 2.726804602156631e-05,
+      "max_rotation_deg": 0.012951933407783887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 302,
+      "max_position_cm": 2.82605821800646e-05,
+      "max_rotation_deg": 4.901582837263132e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 303,
+      "max_position_cm": 2.82605821800646e-05,
+      "max_rotation_deg": 0.012915074788234658,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 304,
+      "max_position_cm": 2.7266564746129936e-05,
+      "max_rotation_deg": 0.012915074788234658,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 305,
+      "max_position_cm": 2.7266564746129936e-05,
+      "max_rotation_deg": 0.012915074788234658,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 306,
+      "max_position_cm": 2.566412213970024e-05,
+      "max_rotation_deg": 0.01224536656227856,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 307,
+      "max_position_cm": 2.566412213970024e-05,
+      "max_rotation_deg": 0.012113052012640868,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 308,
+      "max_position_cm": 2.8258878782319482e-05,
+      "max_rotation_deg": 0.011840667790000979,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 309,
+      "max_position_cm": 2.8258878782319482e-05,
+      "max_rotation_deg": 0.01219277095118166,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 310,
+      "max_position_cm": 2.825844956715269e-05,
+      "max_rotation_deg": 0.012130667750495688,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 311,
+      "max_position_cm": 2.825844956715269e-05,
+      "max_rotation_deg": 0.01663343678213804,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 312,
+      "max_position_cm": 2.726422327854004e-05,
+      "max_rotation_deg": 0.011840667790000979,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 313,
+      "max_position_cm": 2.726422327854004e-05,
+      "max_rotation_deg": 0.011840667790000979,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 314,
+      "max_position_cm": 2.8257808534612252e-05,
+      "max_rotation_deg": 0.015516830547968045,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 315,
+      "max_position_cm": 2.8257808534612252e-05,
+      "max_rotation_deg": 0.015516830547968045,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 316,
+      "max_position_cm": 2.5679194171127378e-05,
+      "max_rotation_deg": 4.8357064017786255e-05,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 317,
+      "max_position_cm": 2.5679194171127378e-05,
+      "max_rotation_deg": 0.013782263909251379,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 318,
+      "max_position_cm": 3.110029218531495e-05,
+      "max_rotation_deg": 5.0075116278208596e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 319,
+      "max_position_cm": 3.110029218531495e-05,
+      "max_rotation_deg": 0.013488902322656796,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 320,
+      "max_position_cm": 2.8257447652597832e-05,
+      "max_rotation_deg": 0.015545063413122102,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 321,
+      "max_position_cm": 2.8257447652597832e-05,
+      "max_rotation_deg": 0.015545063413122102,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 322,
+      "max_position_cm": 2.8257503108219772e-05,
+      "max_rotation_deg": 0.01845025293006637,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 323,
+      "max_position_cm": 2.8257503108219772e-05,
+      "max_rotation_deg": 0.01845025293006637,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 324,
+      "max_position_cm": 2.8257503108219772e-05,
+      "max_rotation_deg": 0.011585086377726013,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 325,
+      "max_position_cm": 2.825778037295122e-05,
+      "max_rotation_deg": 0.01756144163551436,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 326,
+      "max_position_cm": 2.825778037295122e-05,
+      "max_rotation_deg": 0.01756144163551436,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 327,
+      "max_position_cm": 2.825778037295122e-05,
+      "max_rotation_deg": 0.01756144163551436,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 328,
+      "max_position_cm": 2.7262688819755257e-05,
+      "max_rotation_deg": 4.9341912471779356e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 329,
+      "max_position_cm": 2.7262688819755257e-05,
+      "max_rotation_deg": 0.012933071415132988,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 330,
+      "max_position_cm": 2.7262688819755257e-05,
+      "max_rotation_deg": 0.012933071415132988,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 331,
+      "max_position_cm": 2.8259006676800045e-05,
+      "max_rotation_deg": 0.012580194270708887,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 332,
+      "max_position_cm": 2.8259006676800045e-05,
+      "max_rotation_deg": 0.011644212216653802,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 333,
+      "max_position_cm": 2.8259006676800045e-05,
+      "max_rotation_deg": 0.011644212216653802,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 334,
+      "max_position_cm": 2.7263546623187455e-05,
+      "max_rotation_deg": 0.011644212216653802,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 335,
+      "max_position_cm": 2.7263546623187455e-05,
+      "max_rotation_deg": 0.011644212216653802,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 336,
+      "max_position_cm": 2.7263546623187455e-05,
+      "max_rotation_deg": 0.011644212216653802,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 337,
+      "max_position_cm": 2.6856062287995686e-05,
+      "max_rotation_deg": 0.017508181366679827,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 338,
+      "max_position_cm": 2.6856062287995686e-05,
+      "max_rotation_deg": 0.013294486328840017,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 339,
+      "max_position_cm": 2.6856062287995686e-05,
+      "max_rotation_deg": 0.013294486328840017,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 340,
+      "max_position_cm": 3.1104421046277764e-05,
+      "max_rotation_deg": 0.013294486328840017,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 341,
+      "max_position_cm": 3.1104421046277764e-05,
+      "max_rotation_deg": 0.016931928069915995,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 342,
+      "max_position_cm": 3.1104421046277764e-05,
+      "max_rotation_deg": 0.016881569666664886,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 343,
+      "max_position_cm": 2.8264204529408833e-05,
+      "max_rotation_deg": 0.017009777516167165,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 344,
+      "max_position_cm": 2.8264204529408833e-05,
+      "max_rotation_deg": 0.013294486328840017,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 345,
+      "max_position_cm": 2.726703425450947e-05,
+      "max_rotation_deg": 0.017338032548874612,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 346,
+      "max_position_cm": 2.726703425450947e-05,
+      "max_rotation_deg": 0.016030472183697256,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 347,
+      "max_position_cm": 2.7267811726297786e-05,
+      "max_rotation_deg": 0.017763973554081894,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 348,
+      "max_position_cm": 2.7267811726297786e-05,
+      "max_rotation_deg": 0.013553420299403903,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 349,
+      "max_position_cm": 3.110876346776465e-05,
+      "max_rotation_deg": 0.018008084803715463,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 350,
+      "max_position_cm": 3.110876346776465e-05,
+      "max_rotation_deg": 0.014465662937713156,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 351,
+      "max_position_cm": 2.5670005518687137e-05,
+      "max_rotation_deg": 0.01819858156941859,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 352,
+      "max_position_cm": 2.5670005518687137e-05,
+      "max_rotation_deg": 0.012871608384151207,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 353,
+      "max_position_cm": 2.5666443682574412e-05,
+      "max_rotation_deg": 0.012871608384151207,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 354,
+      "max_position_cm": 2.5666443682574412e-05,
+      "max_rotation_deg": 0.012871608384151207,
+      "worst": "ik_hand_l"
+    },
+    {
+      "frame": 355,
+      "max_position_cm": 2.685089190804876e-05,
+      "max_rotation_deg": 0.017334145057224217,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 356,
+      "max_position_cm": 2.685089190804876e-05,
+      "max_rotation_deg": 0.017334145057224217,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 357,
+      "max_position_cm": 3.111289697477957e-05,
+      "max_rotation_deg": 5.39433621553454e-05,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 358,
+      "max_position_cm": 3.111289697477957e-05,
+      "max_rotation_deg": 0.012201940958965827,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 359,
+      "max_position_cm": 2.727261379891223e-05,
+      "max_rotation_deg": 0.012912687372753097,
+      "worst": "WPN_SOCKET_Muzzle"
+    },
+    {
+      "frame": 360,
+      "max_position_cm": 2.727261379891223e-05,
+      "max_rotation_deg": 0.012912687372753097,
+      "worst": "WPN_SOCKET_Muzzle"
+    }
+  ],
+  "ik": [
+    {
+      "side": "l",
+      "target_error_cm": 5.654619636414288e-08,
+      "elbow_moved_cm": 2.9033827694837537,
+      "length_error_cm": 8.895068184244792e-07,
+      "finger_rotation_error_deg": 0.0,
+      "pole_elbow_moved_cm": 4.0600018706872385,
+      "pole_hand_error_cm": 0.0,
+      "unreachable_length_error_cm": 8.895068113190518e-07
+    },
+    {
+      "side": "r",
+      "target_error_cm": 1.5444156517073293e-08,
+      "elbow_moved_cm": 0.20371021539353928,
+      "length_error_cm": 8.808813234395529e-07,
+      "finger_rotation_error_deg": 0.0,
+      "pole_elbow_moved_cm": 1.5219310886811381,
+      "pole_hand_error_cm": 0.0,
+      "unreachable_length_error_cm": 8.808813305449803e-07
+    }
+  ]
+}

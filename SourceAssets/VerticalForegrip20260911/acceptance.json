@@ -1,0 +1,27 @@
+{
+  "generation_success": true,
+  "compute_seconds": 61.036,
+  "assets": {
+    "vertical_grip_raw_00001_.glb": {
+      "triangles": 845522,
+      "bytes": 14956856,
+      "sha256": "b26981a25ed2f2a475756f188c794b8046a0ce4ea9ab1f46528248f4b9dacddf",
+      "images": 0
+    },
+    "vertical_grip_textured_00001_.glb": {
+      "triangles": 95198,
+      "bytes": 11203376,
+      "sha256": "fe0145e540b0834b0500595ec1409b73cafecdfe7b07f0ab08fc76646efb8a69",
+      "images": 2
+    }
+  },
+  "visual_review": {
+    "checked": [
+      "beauty.png",
+      "back.png",
+      "side.png"
+    ],
+    "finding": "Overall straight grip silhouette and lower rings preserved. Top has broken-looking artifacts; back has conspicuous seam. Raw generated candidate requires refinement.",
+    "game_integration": false
+  }
+}

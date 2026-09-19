@@ -1,0 +1,12 @@
+import bpy,json,itertools
+from pathlib import Path
+from mathutils import Vector,Matrix
+from mathutils.bvhtree import BVHTree
+O=Path(__file__).parent;p=O/'prism';bpy.ops.wm.open_mainfile(filepath=str(p/'A_M4_Prism_idle.blend'));s=bpy.context.scene;s.frame_set(0);dg=bpy.context.evaluated_depsgraph_get();r=bpy.data.objects['SK_M4_Infima'];ob=bpy.data.objects['SK_Manny_Arms_Export'];ev=ob.evaluated_get(dg);m=ev.to_mesh();m.calc_loop_triangles();verts=[ev.matrix_world@v.co for v in m.vertices];groups={g.index:g.name for g in ob.vertex_groups};finger={v.index:any(groups[g.group].endswith('_l') and groups[g.group].startswith(('index','middle','ring','pinky','thumb')) and g.weight>.1 for g in v.groups) for v in ob.data.vertices};faces=[tuple(t.vertices) for t in m.loop_triangles if any(finger[i] for i in t.vertices)];used=sorted(set(i for f in faces for i in f));mapping={v:i for i,v in enumerate(used)};faces=[tuple(mapping[i] for i in f) for f in faces];verts=[verts[i] for i in used];trees=[]
+for obj in [x for x in s.objects if x.name.startswith('PH_')]:
+ e=obj.evaluated_get(dg);gm=e.to_mesh();gm.calc_loop_triangles();trees.append(BVHTree.FromPolygons([e.matrix_world@v.co for v in gm.vertices],[tuple(t.vertices) for t in gm.loop_triangles],all_triangles=True));e.to_mesh_clear()
+fit=json.loads((p/'fit_final.json').read_text());G=r.matrix_world@r.pose.bones['WPN_root'].matrix@Matrix(fit['grip_in_root']);choices=sorted(itertools.product(range(-10,11,2),range(-6,7,2),range(-18,3,2)),key=lambda t:sum(x*x for x in t));best=None
+for a in choices:
+ v=G.to_3x3()@Vector(a)/1000;tree=BVHTree.FromPolygons([x+v for x in verts],faces,all_triangles=True)
+ if not any(tree.overlap(t) for t in trees):best=a;break
+assert best is not None;print('CONTACT_OFFSET_MM',best);shift=Vector(best)/1000;H=Matrix(fit['hand_in_root']);H.translation+=Matrix(fit['grip_in_root']).to_3x3()@shift;fit['hand_in_root']=[list(row) for row in H];(p/'fit_final.json').write_text(json.dumps(fit,indent=2));profile=json.loads((p/'profile.json').read_text());world_shift=(r.pose.bones['WPN_root'].matrix@Matrix(fit['grip_in_root'])).to_3x3()@shift;profile['shoulder_offset']=list(Vector(profile['shoulder_offset'])+world_shift);profile['contact_translation_m']=list(shift);(p/'profile.json').write_text(json.dumps(profile,indent=2));(p/'translation_fit.json').write_text(json.dumps({'offset_mm':best,'method':'minimum translation on 2mm grid retaining common hand and arm directions','static_crossings':0},indent=2))

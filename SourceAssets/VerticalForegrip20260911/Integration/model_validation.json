@@ -1,0 +1,26 @@
+{
+  "nonmanifold_edges": 0,
+  "zero_area_faces": 0,
+  "uv_layers": 1,
+  "materials": [
+    "Body.001"
+  ],
+  "images": {
+    "Body_BaseColor.png.001": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Integration\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_BaseColor.png",
+      "sha256": "afdd2b3069e5e8121b555354971c7b6fa8ea27259ea2c26e139f691f8fa2d791"
+    },
+    "Body_Normal.png.001": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Integration\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_Normal.png",
+      "sha256": "2a057fd74af1496be6dc168193d2bcd774e2cb952d9b49dd2c2271780f1debdc"
+    },
+    "Body_Roughness.png.001": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Integration\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_Roughness.png",
+      "sha256": "5c1333356bfe011b006284e259e9cbb4af22ef1ab9d6d426dc796f106700f5e4"
+    },
+    "Body_Metallic.png.001": {
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\Integration\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_Metallic.png",
+      "sha256": "781a6e1c6b4c268ac802422ad8a9cf36efe417051e7c52a5f725b8f115b9e2dc"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "mesh": "/Game/Weapons/AKMIntegration/SovietFab/SK_AKM_MannyNative.SK_AKM_MannyNative",
+  "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+  "materials": [
+    {
+      "slot": "M_AKM_Soviet_PBR",
+      "asset": "/Game/Weapons/AKMIntegration/SovietFab/M_AKM_Soviet_PBR.M_AKM_Soviet_PBR"
+    },
+    {
+      "slot": "MI_Manny_01",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+    },
+    {
+      "slot": "MI_Manny_02",
+      "asset": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    }
+  ],
+  "normal_green_flipped": true
+}

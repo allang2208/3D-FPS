@@ -1,0 +1,173 @@
+{
+  "idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.30501092859454,
+      "shoulder_delta_m": [
+        -0.0008457720396108925,
+        -0.0010643340647220612,
+        0.00040443390025757253
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 8.912515568957239e-07,
+    "scale_error": 1.1557769435444663e-06
+  },
+  "aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.041666666666666664,
+    "frames": 5,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.053505773220809,
+      "elbow_bend_deg": 25.16617862901236,
+      "shoulder_delta_m": [
+        -0.0023913471959531307,
+        -0.003996419720351696,
+        0.0010986514389514923
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 8.915914159442384e-07,
+    "scale_error": 4.2146848510894033e-07
+  },
+  "fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.30501092859454,
+      "shoulder_delta_m": [
+        -0.0008457720396108925,
+        -0.0010643340647220612,
+        0.00040443390025757253
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 8.912515568957239e-07,
+    "scale_error": 4.805480091749757e-07
+  },
+  "aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 0.1,
+    "frames": 12,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 1.053505773220809,
+      "elbow_bend_deg": 25.16617862901236,
+      "shoulder_delta_m": [
+        -0.0023913471959531307,
+        -0.003996419720351696,
+        0.0010986514389514923
+      ]
+    },
+    "nonleft_error_m": 3.57981790129485e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 7.418698265046609e-07,
+    "scale_error": 2.457562461863554e-07
+  },
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\AKM_Attachments_Editable.blend",
+    "duration": 1.7,
+    "frames": 204,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.304990438027033,
+      "shoulder_delta_m": [
+        -0.0008456677314825356,
+        -0.001064203679561615,
+        0.00040438174619339406
+      ]
+    },
+    "nonleft_error_m": 7.178896349934282e-07,
+    "preserved_contact_error_m": 0,
+    "local_translation_error_m": 1.0332734628911308e-06,
+    "scale_error": 1.2502775766493696e-06
+  },
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.305017758783713,
+      "shoulder_delta_m": [
+        -0.0008457407238893211,
+        -0.0010643027490004897,
+        0.000404423481086269
+      ]
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 4.933162140025749e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 1.2359882207708192e-06
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.305017758783713,
+      "shoulder_delta_m": [
+        -0.0008457407238893211,
+        -0.0010643027490004897,
+        0.000404423481086269
+      ]
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload.blend",
+    "duration": 3.3333333333333335,
+    "frames": 400,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.305017758783713,
+      "shoulder_delta_m": [
+        -0.0008457407238893211,
+        -0.0010643027490004897,
+        0.000404423481086269
+      ]
+    },
+    "nonleft_error_m": 6.384173792494239e-07,
+    "preserved_contact_error_m": 5.006878857735229e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 1.2359882207708192e-06
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMReloadPolish20260911\\base\\A_AKM_drum_reload_empty.blend",
+    "duration": 4.291666666666667,
+    "frames": 515,
+    "sample_rate": 120,
+    "arm": {
+      "wrist_axis_bend_deg": 0.24787220737396423,
+      "elbow_bend_deg": 31.305017758783713,
+      "shoulder_delta_m": [
+        -0.0008457407238893211,
+        -0.0010643027490004897,
+        0.000404423481086269
+      ]
+    },
+    "nonleft_error_m": 6.368394388663203e-07,
+    "preserved_contact_error_m": 5.69421315320894e-07,
+    "local_translation_error_m": 0,
+    "scale_error": 7.633118912497578e-07
+  }
+}

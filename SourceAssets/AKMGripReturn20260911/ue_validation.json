@@ -1,0 +1,58 @@
+{
+  "A_AKM_prism_reload": {
+    "duration": 3.3333332538604736,
+    "return_start_frame": 270,
+    "grip_held_from_frame": 330,
+    "held_wrist_max_error_m": 4.5202623992046384e-07,
+    "preserved_initial_action_error_cm": 7.514070329074669e-06
+  },
+  "A_AKM_prism_reload_empty": {
+    "duration": 4.291666507720947,
+    "return_start_frame": 380,
+    "grip_held_from_frame": 440,
+    "held_wrist_max_error_m": 5.141304135392003e-07,
+    "preserved_initial_action_error_cm": 0.0003039967414912031
+  },
+  "A_AKM_prism_drum_reload": {
+    "duration": 3.3333332538604736,
+    "return_start_frame": 270,
+    "grip_held_from_frame": 330,
+    "held_wrist_max_error_m": 4.522221946655766e-07,
+    "preserved_initial_action_error_cm": 1.4450040058594646e-05
+  },
+  "A_AKM_prism_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "return_start_frame": 380,
+    "grip_held_from_frame": 440,
+    "held_wrist_max_error_m": 5.144686172251564e-07,
+    "preserved_initial_action_error_cm": 0.0002882687387701669
+  },
+  "A_AKM_angled_reload": {
+    "duration": 3.3333332538604736,
+    "return_start_frame": 270,
+    "grip_held_from_frame": 330,
+    "held_wrist_max_error_m": 1.1151392171526552e-06,
+    "preserved_initial_action_error_cm": 1.8995324262695222e-06
+  },
+  "A_AKM_angled_reload_empty": {
+    "duration": 4.291666507720947,
+    "return_start_frame": 380,
+    "grip_held_from_frame": 440,
+    "held_wrist_max_error_m": 1.229010318956678e-06,
+    "preserved_initial_action_error_cm": 0.0002970505144368445
+  },
+  "A_AKM_angled_drum_reload": {
+    "duration": 3.3333332538604736,
+    "return_start_frame": 270,
+    "grip_held_from_frame": 330,
+    "held_wrist_max_error_m": 1.1151392171526552e-06,
+    "preserved_initial_action_error_cm": 2.255886192855761e-06
+  },
+  "A_AKM_angled_drum_reload_empty": {
+    "duration": 4.291666507720947,
+    "return_start_frame": 380,
+    "grip_held_from_frame": 440,
+    "held_wrist_max_error_m": 1.229010318956678e-06,
+    "preserved_initial_action_error_cm": 0.0002997832477823679
+  }
+}

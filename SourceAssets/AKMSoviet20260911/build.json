@@ -1,0 +1,85 @@
+{
+  "source": "https://www.fab.com/listings/d14e05e8-553a-409a-8df0-7c9a8d2c69f4",
+  "hand_geometry_sha256": "1f664042278b0e91e882e6b20bdda8e1af21a069cdf5edd4c04649d50ecc76ef",
+  "vertices": 16287,
+  "scale": 0.985,
+  "translation": [
+    0.0008,
+    -0.066,
+    0.014
+  ],
+  "components": {
+    "magazine": [
+      0,
+      44,
+      83,
+      92
+    ],
+    "bolt": [
+      19
+    ],
+    "trigger": [
+      33
+    ]
+  },
+  "actions_preserved": [
+    "A_FP_AssaultRifle_Aim_Pose",
+    "A_FP_AssaultRifle_Equip",
+    "A_FP_AssaultRifle_Fire",
+    "A_FP_AssaultRifle_Fire_Aimed",
+    "A_FP_AssaultRifle_Holster",
+    "A_FP_AssaultRifle_Idle_Loop",
+    "A_FP_AssaultRifle_Idle_Loop_Aimed",
+    "A_FP_AssaultRifle_Idle_Pose",
+    "A_FP_AssaultRifle_Reload",
+    "A_FP_AssaultRifle_Run_Loop",
+    "A_FP_AssaultRifle_Walk_F_Loop",
+    "A_FP_AssaultRifle_Walk_F_Loop_Aimed",
+    "A_FP_WEP_AssaultRifle_Fire",
+    "A_FP_WEP_AssaultRifle_Reload",
+    "A_M4_HK416_drum_reload",
+    "A_M4_HK416_drum_reload_empty",
+    "A_Reference",
+    "A_WEP_Reference",
+    "AKM_EquipCharge",
+    "AKM_Native_aim",
+    "AKM_Native_aim_fire",
+    "AKM_Native_draw",
+    "AKM_Native_equip",
+    "AKM_Native_fire",
+    "AKM_Native_holster",
+    "AKM_Native_idle",
+    "AKM_Native_inspect",
+    "AKM_Native_reload",
+    "AKM_Native_reload_empty",
+    "M4_aim",
+    "M4_aim_fire",
+    "M4_equip",
+    "M4_fire",
+    "M4_HK416_equip_charge",
+    "M4_HK416_reload",
+    "M4_HK416_reload_empty",
+    "M4_idle",
+    "M4_inspect",
+    "M4_MAT_equip_charge",
+    "M4_MAT_reload",
+    "M4_MAT_reload_empty",
+    "M4_reload",
+    "M4_reload_empty",
+    "M4_reload_empty_BoltRelease",
+    "M4_reload_empty_FingerCurl",
+    "M4_reload_FingerCurl",
+    "REFERENCE_wrap_empty",
+    "REFERENCE_wrap_reload"
+  ],
+  "source_hashes": {
+    "fab-metadata.json": "9d9c26b4c4df93c43fbca2f120ffa2ab7c7277c031507aa03114478a5c39bb74",
+    "ak47fbx_extracted\\AK47NoSubdiv.fbx": "e24a8fd00bf1b67a9acf8e912b1415d845278a888792d6d66a3c00c6afda6b42",
+    "ak47fbx_extracted\\AK47Subdiv.fbx": "b46e28f48d2a3784f4f34ca04f2f9ea571725ab525a9180fe27e7263470f551d",
+    "ak47fbx_extracted\\textures\\AK_Base_color.png": "60f5bba2dab0f0b56fe8b28bb53854b8f7b960b42f261343b64d2de2a9afd1d6",
+    "ak47fbx_extracted\\textures\\AK_Metallic.png": "043dddb73964cdd5d2375d8cf3f3369f498307599a77fbdb110efd3707e44893",
+    "ak47fbx_extracted\\textures\\AK_Mixed_AO.png": "e02d36042007a48c8a8eb29040c707ec087f9d7bff41384172bcbbf97df4cc63",
+    "ak47fbx_extracted\\textures\\AK_Normal_OpenGL.png": "f6d49a67098e6f61cacc94ad4cab76c33a45baca9faee17ca29bc92b52427b1d",
+    "ak47fbx_extracted\\textures\\AK_Roughness.png": "2f59cbfbbac93e7acdc450a5caf0a3523e90c287e83ef0bca1f7358c07f0f3f4"
+  }
+}

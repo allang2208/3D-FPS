@@ -1,0 +1,25 @@
+{
+  "animation_directory": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupportFinalV2",
+  "compressed_clips": 18,
+  "source_editable_clips": 18,
+  "runtime": {
+    "akm-arm-prism-final": {
+      "complete": true,
+      "failures": 0
+    },
+    "akm-arm-angled-final": {
+      "complete": true,
+      "failures": 0
+    }
+  },
+  "videos": [
+    "angled_drum_empty.mp4",
+    "angled_drum_normal.mp4",
+    "angled_standard_empty.mp4",
+    "angled_standard_normal.mp4",
+    "prism_drum_empty.mp4",
+    "prism_drum_normal.mp4",
+    "prism_standard_empty.mp4",
+    "prism_standard_normal.mp4"
+  ]
+}

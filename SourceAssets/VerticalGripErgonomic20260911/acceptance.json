@@ -1,0 +1,1406 @@
+{
+  "revision": "ergonomic-photo-reference",
+  "members": {
+    "vertical": {
+      "runtime_passes": 346,
+      "runtime_failures": 0,
+      "surface_samples": 446,
+      "hand_grip_crossings": 0,
+      "import_report": {
+        "idle": {
+          "duration": 3.0,
+          "compression_error_cm": 0.000543481997769337,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_idle.A_M4_Vertical_idle",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+          "right_weapon_difference_cm": 3.65422529225155e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim": {
+          "duration": 0.03333333507180214,
+          "compression_error_cm": 0.0004875911836296339,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_aim.A_M4_Vertical_aim",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+          "right_weapon_difference_cm": 1.7366625949812517e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0005186817328951683,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_fire.A_M4_Vertical_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+          "right_weapon_difference_cm": 3.179254179637135e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim_fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0004928968799017108,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_aim_fire.A_M4_Vertical_aim_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+          "right_weapon_difference_cm": 2.7758796202234874e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "equip": {
+          "duration": 0.6333333253860474,
+          "compression_error_cm": 0.0005906633474253123,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_equip.A_M4_Vertical_equip",
+          "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+          "right_weapon_difference_cm": 0.0001719183978516974,
+          "preserved_contact_difference_cm": 0
+        },
+        "reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0015053783375959353,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_reload.A_M4_Vertical_reload",
+          "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+          "right_weapon_difference_cm": 0.0001546683194607958,
+          "preserved_contact_difference_cm": 8.217274638148752e-05
+        },
+        "reload_empty": {
+          "duration": 2.700000047683716,
+          "compression_error_cm": 0.0007139649141693563,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_reload_empty.A_M4_Vertical_reload_empty",
+          "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+          "right_weapon_difference_cm": 0.0001744400509046272,
+          "preserved_contact_difference_cm": 0.002248175451720948
+        },
+        "drum_reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0005924886450303703,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_drum_reload.A_M4_Vertical_drum_reload",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+          "right_weapon_difference_cm": 4.836159536722441e-05,
+          "preserved_contact_difference_cm": 6.550034032991798e-05
+        },
+        "drum_reload_empty": {
+          "duration": 2.4666666984558105,
+          "compression_error_cm": 0.0005675392931096213,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_drum_reload_empty.A_M4_Vertical_drum_reload_empty",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+          "right_weapon_difference_cm": 5.200323149196949e-05,
+          "preserved_contact_difference_cm": 7.937483148099966e-05
+        }
+      },
+      "animation_build": {
+        "idle": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_idle",
+          "frames": 180,
+          "duration": 3.0,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "aim": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_aim",
+          "frames": 2,
+          "duration": 0.03333333333333333,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "fire": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_fire",
+          "frames": 46,
+          "duration": 0.7666666666666667,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "aim_fire": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_aim_fire",
+          "frames": 46,
+          "duration": 0.7666666666666667,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "equip": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_MAT_equip_charge",
+          "frames": 38,
+          "duration": 0.6333333333333333,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "reload": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_MAT_reload",
+          "frames": 126,
+          "duration": 2.1,
+          "sample_rate": 480,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            16,
+            102
+          ]
+        },
+        "reload_empty": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_MAT_reload_empty",
+          "frames": 162,
+          "duration": 2.7,
+          "sample_rate": 480,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            16,
+            138
+          ]
+        },
+        "drum_reload": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+          "action": "A_M4_DrumContact_reload",
+          "frames": 126,
+          "duration": 2.1,
+          "sample_rate": 240,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            28,
+            102
+          ]
+        },
+        "drum_reload_empty": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+          "action": "A_M4_DrumContact_reload_empty",
+          "frames": 148,
+          "duration": 2.466666666666667,
+          "sample_rate": 240,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            28,
+            124
+          ]
+        }
+      },
+      "fbx_sha256": {
+        "A_M4_Vertical_aim.fbx": "0e5f7b8d466ffeeeaaff1c58d8add9e14b74e8b2533cde462bd9e19c73972b3a",
+        "A_M4_Vertical_aim_fire.fbx": "a184db061de74a297cf966e999b8da443ebde5b7d69a5763fd25e76efbac43cd",
+        "A_M4_Vertical_drum_reload.fbx": "2013bd0d8e5b3174396807faf00bb456449df07f3e49be1e9fbde76946a83a1d",
+        "A_M4_Vertical_drum_reload_empty.fbx": "5d8d91c700037f7b9df8452201082241c331ffc47a83ee7195500f9f1e1570da",
+        "A_M4_Vertical_equip.fbx": "86321885dcf5bd53bee4f4a7199bd81fe8536269ada1fe16ab73cc23c738ce62",
+        "A_M4_Vertical_fire.fbx": "c313a7b9d6b83a1ae05f2838e48261031532ce8fac41516b0e3c14fdc006c45a",
+        "A_M4_Vertical_idle.fbx": "e69d607f677d45fc9be6114fb91c1316b82172ea996053a02b911f0c3ce2d441",
+        "A_M4_Vertical_reload.fbx": "732e7c0ab672fb5e1b778739a2ce049e9072b7ab9ec5bbf4bd46369d378a84fd",
+        "A_M4_Vertical_reload_empty.fbx": "02f89a25689930d15d1604deab6232d45f3d9ceb2ea5e60dda025d60c61d0118"
+      },
+      "preview": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\vertical\\M4_Vertical_Ergonomic_Gameplay.mp4",
+      "preview_note": "Actual game screenshot sequence; silent visual evidence."
+    },
+    "prism": {
+      "runtime_passes": 342,
+      "runtime_failures": 0,
+      "surface_samples": 446,
+      "hand_grip_crossings": 0,
+      "import_report": {
+        "idle": {
+          "duration": 3.0,
+          "compression_error_cm": 0.0005341317995989609,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_idle.A_M4_Prism_idle",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+          "right_weapon_difference_cm": 3.65422529225155e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim": {
+          "duration": 0.03333333507180214,
+          "compression_error_cm": 0.00047130392142565996,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim.A_M4_Prism_aim",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+          "right_weapon_difference_cm": 1.7366625949812517e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.000511425043365359,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_fire.A_M4_Prism_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+          "right_weapon_difference_cm": 3.179254179637135e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim_fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0004820295898003127,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim_fire.A_M4_Prism_aim_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+          "right_weapon_difference_cm": 2.7758796202234874e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "equip": {
+          "duration": 0.6333333253860474,
+          "compression_error_cm": 0.0005598547206045204,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_equip.A_M4_Prism_equip",
+          "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+          "right_weapon_difference_cm": 0.0001719183978516974,
+          "preserved_contact_difference_cm": 0
+        },
+        "reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0015053783375959353,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload.A_M4_Prism_reload",
+          "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+          "right_weapon_difference_cm": 0.0001546683194607958,
+          "preserved_contact_difference_cm": 9.485041439980477e-05
+        },
+        "reload_empty": {
+          "duration": 2.700000047683716,
+          "compression_error_cm": 0.0007155849488938142,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload_empty.A_M4_Prism_reload_empty",
+          "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+          "right_weapon_difference_cm": 0.0001744400509046272,
+          "preserved_contact_difference_cm": 0.0022399869846330333
+        },
+        "drum_reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.000480604216752303,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload.A_M4_Prism_drum_reload",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+          "right_weapon_difference_cm": 4.836159536722441e-05,
+          "preserved_contact_difference_cm": 7.827826246361859e-05
+        },
+        "drum_reload_empty": {
+          "duration": 2.4666666984558105,
+          "compression_error_cm": 0.0005558769427271064,
+          "asset": "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload_empty.A_M4_Prism_drum_reload_empty",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+          "right_weapon_difference_cm": 5.200323149196949e-05,
+          "preserved_contact_difference_cm": 8.091367511968458e-05
+        }
+      },
+      "animation_build": {
+        "idle": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_idle",
+          "frames": 180,
+          "duration": 3.0,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "aim": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_aim",
+          "frames": 2,
+          "duration": 0.03333333333333333,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "fire": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_fire",
+          "frames": 46,
+          "duration": 0.7666666666666667,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "aim_fire": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4ContactImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_aim_fire",
+          "frames": 46,
+          "duration": 0.7666666666666667,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "equip": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4WrapGrip20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_MAT_equip_charge",
+          "frames": 38,
+          "duration": 0.6333333333333333,
+          "sample_rate": 120,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": null
+        },
+        "reload": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalToss20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_MAT_reload",
+          "frames": 126,
+          "duration": 2.1,
+          "sample_rate": 480,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            16,
+            102
+          ]
+        },
+        "reload_empty": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4SlapImpact20260910\\M4_Hand_MAT_Editable.blend",
+          "action": "M4_MAT_reload_empty",
+          "frames": 162,
+          "duration": 2.7,
+          "sample_rate": 480,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            16,
+            138
+          ]
+        },
+        "drum_reload": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+          "action": "A_M4_DrumContact_reload",
+          "frames": 126,
+          "duration": 2.1,
+          "sample_rate": 240,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            28,
+            102
+          ]
+        },
+        "drum_reload_empty": {
+          "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4DrumContact20260910\\M4_DrumContact_Editable.blend",
+          "action": "A_M4_DrumContact_reload_empty",
+          "frames": 148,
+          "duration": 2.466666666666667,
+          "sample_rate": 240,
+          "max_shoulder_shift_m": 0,
+          "unchanged_contact_interval_frames": [
+            28,
+            124
+          ]
+        }
+      },
+      "fbx_sha256": {
+        "A_M4_Prism_aim.fbx": "01443ebe0136b7548ea1df0585e5add68a8bdf00909a10950617fc0b67baa7cb",
+        "A_M4_Prism_aim_fire.fbx": "b5c831c73b2e4b9d82974e597fa9c0569d51a0a5a87a89fd9508b027b475adb8",
+        "A_M4_Prism_drum_reload.fbx": "44e3a460408f293aa573c2b0e3df6cabccb16825473bf1e6ac754181bce17940",
+        "A_M4_Prism_drum_reload_empty.fbx": "a7fdddbac1c238999a0c319a2e20160cbef4c63a1632c03bb6583ed8e0f6b261",
+        "A_M4_Prism_equip.fbx": "adc10b4b8d44394c429aa623aedc74d17f454590eb49b7f0707ef55003001e20",
+        "A_M4_Prism_fire.fbx": "9cbe487936dbc7f334f1dbad637204cfc4674fefabd8eabee8a479302c4485a5",
+        "A_M4_Prism_idle.fbx": "7cbe01e65ae6ccb714d3fb9c14d00c2c7d8923e3e2fd79fb85dcb07b3bc77fd8",
+        "A_M4_Prism_reload.fbx": "a8eef5e87142c27ec67bfe33c0a92d26c4b2f9ed6af362ec484b4d0343f2f687",
+        "A_M4_Prism_reload_empty.fbx": "d3e76bd82f932e8c6f171e72816cc20a6d7f378dc5a2efc4c6adbfe73d38ca15"
+      },
+      "preview": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripErgonomic20260911\\prism\\M4_Prism_Ergonomic_Gameplay.mp4",
+      "preview_note": "Actual game screenshot sequence; silent visual evidence."
+    }
+  },
+  "native_build": "UnrealEditor-FPSGAME-2026096187.dll",
+  "packaged_build_verified": false,
+  "audio_changed": false,
+  "manual_control_rig_preserved": "/Game/Weapons/M4ArmsIKEditor/LS_M4_Vertical_Idle_IK_Edit",
+  "pose_metrics": {
+    "vertical": {
+      "wrist_axis_bend_deg": 26.771969763260696,
+      "forearm_twist_deg": -23.29978140532806,
+      "elbow_flex_deg": 43.211475236936224,
+      "flexion_plane_degrees": {
+        "index": 0.0,
+        "middle": 0.0,
+        "ring": 0.0,
+        "pinky": 0.0
+      },
+      "position_mount": {
+        "upperarm_l": [
+          -0.5000000596046448,
+          0.30000007152557373,
+          -0.10000003129243851
+        ],
+        "lowerarm_l": [
+          -0.25931841135025024,
+          0.18853053450584412,
+          -0.18228308856487274
+        ],
+        "hand_l": [
+          -0.04668184742331505,
+          0.06565015017986298,
+          -0.06418157368898392
+        ]
+      },
+      "static_surface": {
+        "self": {
+          "index-middle": 0,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 0,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 0,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "grip": {
+          "index": 0,
+          "middle": 0,
+          "ring": 0,
+          "pinky": 0,
+          "thumb": 0
+        },
+        "near_mm": {
+          "index": 0.711485414285562,
+          "middle": 0.5766940448665991,
+          "ring": 0.4656918354157824,
+          "pinky": 1.113156344217714,
+          "thumb": 10.32233890146017
+        },
+        "grip_bounds": [
+          [
+            -0.017999999225139618,
+            0.01799999363720417
+          ],
+          [
+            -0.01649998500943184,
+            0.01650000736117363
+          ],
+          [
+            -0.10349998623132706,
+            -6.577465683221817e-09
+          ]
+        ]
+      }
+    },
+    "prism": {
+      "wrist_axis_bend_deg": 27.14125930866307,
+      "forearm_twist_deg": -20.478435974708404,
+      "elbow_flex_deg": 44.98750542115255,
+      "flexion_plane_degrees": {
+        "index": 0.0,
+        "middle": 0.0,
+        "ring": 0.0,
+        "pinky": 0.019782341029446364
+      },
+      "position_mount": {
+        "upperarm_l": [
+          -0.5000000596046448,
+          0.30000007152557373,
+          -0.10000024735927582
+        ],
+        "lowerarm_l": [
+          -0.25913333892822266,
+          0.18944549560546875,
+          -0.18297404050827026
+        ],
+        "hand_l": [
+          -0.04496770352125168,
+          0.07742376625537872,
+          -0.05709245428442955
+        ]
+      },
+      "static_surface": {
+        "self": {
+          "index-middle": 0,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 0,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 0,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "grip": {
+          "index": 0,
+          "middle": 0,
+          "ring": 0,
+          "pinky": 0,
+          "thumb": 0
+        },
+        "near_mm": {
+          "index": 0.8255572283815127,
+          "middle": 0.5350883511709981,
+          "ring": 5.214257922489196,
+          "pinky": 17.37046684138477,
+          "thumb": 0.39336327063210774
+        },
+        "grip_bounds": [
+          [
+            -0.029404854401946068,
+            0.029402684420347214
+          ],
+          [
+            -0.009472362697124481,
+            0.009472139179706573
+          ],
+          [
+            -0.06499113142490387,
+            -9.319104719907045e-06
+          ]
+        ]
+      }
+    }
+  },
+  "saved_assets": {
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_idle": {
+      "position_error_cm": 0.0005944293298872083,
+      "rotation_error_deg": 0.00018627141836044989,
+      "duration": 3.0
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_aim": {
+      "position_error_cm": 0.0005495825508777696,
+      "rotation_error_deg": 5.65298740554407e-05,
+      "duration": 0.03333333507180214
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_fire": {
+      "position_error_cm": 0.0006059286434435187,
+      "rotation_error_deg": 0.0001460526997487082,
+      "duration": 0.7666666507720947
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_aim_fire": {
+      "position_error_cm": 0.0005581572781806266,
+      "rotation_error_deg": 6.118644947108295e-05,
+      "duration": 0.7666666507720947
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_equip": {
+      "position_error_cm": 0.0006359373011284245,
+      "rotation_error_deg": 0.000783062645634814,
+      "duration": 0.6333333253860474
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_reload": {
+      "position_error_cm": 0.0007054609295424136,
+      "rotation_error_deg": 0.0003104074885844332,
+      "duration": 2.0999999046325684
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_reload_empty": {
+      "position_error_cm": 0.0007139649141693563,
+      "rotation_error_deg": 0.0002022560756036372,
+      "duration": 2.700000047683716
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_drum_reload": {
+      "position_error_cm": 0.0008082702091113751,
+      "rotation_error_deg": 0.0007541329987287987,
+      "duration": 2.0999999046325684
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_drum_reload_empty": {
+      "position_error_cm": 0.0006774362385110401,
+      "rotation_error_deg": 0.0016693752945894243,
+      "duration": 2.4666666984558105
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_idle": {
+      "position_error_cm": 0.0005989358036185106,
+      "rotation_error_deg": 0.00018943773157034305,
+      "duration": 3.0
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim": {
+      "position_error_cm": 0.0005774125689935902,
+      "rotation_error_deg": 6.053971605038909e-05,
+      "duration": 0.03333333507180214
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_fire": {
+      "position_error_cm": 0.0006177715448383931,
+      "rotation_error_deg": 0.00017184408466438546,
+      "duration": 0.7666666507720947
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim_fire": {
+      "position_error_cm": 0.0005905271073575487,
+      "rotation_error_deg": 0.00010481614620428153,
+      "duration": 0.7666666507720947
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_equip": {
+      "position_error_cm": 0.0006165540413048123,
+      "rotation_error_deg": 0.0007569154806027336,
+      "duration": 0.6333333253860474
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload": {
+      "position_error_cm": 0.0006894968738418622,
+      "rotation_error_deg": 0.00030788929128424894,
+      "duration": 2.0999999046325684
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload_empty": {
+      "position_error_cm": 0.0007155849488938142,
+      "rotation_error_deg": 0.0001578719588129749,
+      "duration": 2.700000047683716
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload": {
+      "position_error_cm": 0.0006965499804883396,
+      "rotation_error_deg": 0.0003159470099543592,
+      "duration": 2.0999999046325684
+    },
+    "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload_empty": {
+      "position_error_cm": 0.000708241194444739,
+      "rotation_error_deg": 0.001983804752058073,
+      "duration": 2.4666666984558105
+    }
+  },
+  "total_runtime_passes": 688,
+  "source_self_contact_comparison": {
+    "vertical": {
+      "reload_empty_138.0": {
+        "source": {
+          "index-middle": 223,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 258,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 94,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 223,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 258,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 94,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_138.5": {
+        "source": {
+          "index-middle": 235,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 254,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 91,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 239,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 252,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 93,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_139.0": {
+        "source": {
+          "index-middle": 234,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 261,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 91,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 238,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 246,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 116,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_139.5": {
+        "source": {
+          "index-middle": 235,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 265,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 91,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 237,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 241,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 135,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_140.0": {
+        "source": {
+          "index-middle": 237,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 262,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 96,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 225,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 229,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 157,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_140.5": {
+        "source": {
+          "index-middle": 231,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 253,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 99,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 220,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 219,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 145,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_141.0": {
+        "source": {
+          "index-middle": 224,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 248,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 96,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 183,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 207,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 142,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_141.5": {
+        "source": {
+          "index-middle": 209,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 234,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 107,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 130,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 188,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 110,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_142.0": {
+        "source": {
+          "index-middle": 197,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 228,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 117,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 73,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 166,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 72,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_142.5": {
+        "source": {
+          "index-middle": 192,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 220,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 126,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 34,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 20,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 0,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_124.0": {
+        "source": {
+          "index-middle": 222,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 247,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 128,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 222,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 247,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 128,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_124.5": {
+        "source": {
+          "index-middle": 203,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 211,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 140,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 201,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 213,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 136,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_125.0": {
+        "source": {
+          "index-middle": 158,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 180,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 140,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 142,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 173,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 138,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_125.5": {
+        "source": {
+          "index-middle": 146,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 136,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 123,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 122,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 120,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 110,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_126.0": {
+        "source": {
+          "index-middle": 95,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 90,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 76,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 83,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 52,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 17,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      }
+    },
+    "prism": {
+      "reload_empty_138.0": {
+        "source": {
+          "index-middle": 223,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 258,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 94,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 223,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 258,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 94,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_138.5": {
+        "source": {
+          "index-middle": 235,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 254,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 91,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 239,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 261,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 96,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_139.0": {
+        "source": {
+          "index-middle": 234,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 261,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 91,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 238,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 256,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 118,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_139.5": {
+        "source": {
+          "index-middle": 235,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 265,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 91,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 230,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 228,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 137,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_140.0": {
+        "source": {
+          "index-middle": 237,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 262,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 96,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 222,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 200,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 155,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_140.5": {
+        "source": {
+          "index-middle": 231,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 253,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 99,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 194,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 178,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 140,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_141.0": {
+        "source": {
+          "index-middle": 224,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 248,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 96,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 186,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 152,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 117,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_141.5": {
+        "source": {
+          "index-middle": 209,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 234,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 107,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 160,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 112,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 42,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_142.0": {
+        "source": {
+          "index-middle": 197,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 228,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 117,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 86,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 53,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 0,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "reload_empty_142.5": {
+        "source": {
+          "index-middle": 192,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 220,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 126,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 50,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 0,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 0,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_124.0": {
+        "source": {
+          "index-middle": 222,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 247,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 128,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 222,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 247,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 128,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_124.5": {
+        "source": {
+          "index-middle": 203,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 211,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 140,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 203,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 206,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 137,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_125.0": {
+        "source": {
+          "index-middle": 158,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 180,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 140,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 142,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 163,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 135,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_125.5": {
+        "source": {
+          "index-middle": 146,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 136,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 123,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 129,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 113,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 99,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      },
+      "drum_reload_empty_126.0": {
+        "source": {
+          "index-middle": 95,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 90,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 76,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        },
+        "current": {
+          "index-middle": 82,
+          "index-ring": 0,
+          "index-pinky": 0,
+          "index-thumb": 0,
+          "middle-ring": 42,
+          "middle-pinky": 0,
+          "middle-thumb": 0,
+          "ring-pinky": 0,
+          "ring-thumb": 0,
+          "pinky-thumb": 0
+        }
+      }
+    }
+  }
+}

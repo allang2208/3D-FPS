@@ -1,0 +1,138 @@
+{
+  "vertical": {
+    "codec": "<Object '/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel' (0x0000019C7EEE6040) Class 'AnimBoneCompressionSettings'>",
+    "codecs": [
+      "<Object '/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel:AnimBoneCompressionCodec_ACL_0' (0x0000019C399862C0) Class 'AnimBoneCompressionCodec_ACL'>"
+    ],
+    "bones": {
+      "clavicle_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.076539, y: 0.000039, z: -0.996801, w: -0.023020}, translation: {x: -11.398197, y: 14.627106, z: -9.015293}, scale3d: {x: 100.000000, y: 99.999946, z: 99.999946}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.076539, y: -0.000039, z: 0.996801, w: 0.023020}, translation: {x: -11.398208, y: 14.627101, z: -9.015261}, scale3d: {x: 99.999976, y: 99.999946, z: 99.999982}}>",
+        "distance": 3.431876268935233e-05
+      },
+      "upperarm_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.863830, y: -0.363031, z: -0.262925, w: 0.229948}, translation: {x: -23.446050, y: 7.234944, z: -12.541374}, scale3d: {x: 99.999946, y: 99.999958, z: 99.999946}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.863830, y: 0.363030, z: 0.262926, w: -0.229948}, translation: {x: -23.446058, y: 7.234938, z: -12.541342}, scale3d: {x: 99.999970, y: 99.999946, z: 99.999976}}>",
+        "distance": 3.2989771160679014e-05
+      },
+      "lowerarm_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.733848, y: -0.582633, z: -0.191134, w: 0.292358}, translation: {x: -6.834538, y: -13.541034, z: -20.519663}, scale3d: {x: 99.999911, y: 99.999958, z: 99.999934}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.733848, y: 0.582633, z: 0.191135, w: -0.292358}, translation: {x: -6.834502, y: -13.541004, z: -20.519707}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999970}}>",
+        "distance": 6.432222492051416e-05
+      },
+      "hand_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.801255, y: -0.597737, z: 0.002726, w: 0.026327}, translation: {x: -0.075963, y: -39.889717, z: -18.880621}, scale3d: {x: 99.999911, y: 99.999970, z: 99.999934}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.801255, y: 0.597737, z: -0.002726, w: -0.026327}, translation: {x: -0.075880, y: -39.889717, z: -18.880610}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>",
+        "distance": 8.359824889897155e-05
+      },
+      "index_metacarpal_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.841628, y: -0.487397, z: 0.030051, w: 0.230661}, translation: {x: 0.603070, y: -43.189765, z: -16.366186}, scale3d: {x: 99.999923, y: 99.999952, z: 99.999911}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.841628, y: 0.487397, z: -0.030051, w: -0.230660}, translation: {x: 0.603179, y: -43.189788, z: -16.366191}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999976}}>",
+        "distance": 0.00011216691153955945
+      },
+      "index_01_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.997542, y: 0.070066, z: 0.000055, w: -0.000848}, translation: {x: 3.671326, y: -48.012447, z: -14.977766}, scale3d: {x: 99.999958, y: 99.999923, z: 99.999934}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.997542, y: -0.070066, z: -0.000055, w: 0.000848}, translation: {x: 3.671421, y: -48.012462, z: -14.977771}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999976}}>",
+        "distance": 9.686825835595978e-05
+      },
+      "index_02_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.819290, y: 0.573379, z: 0.000485, w: -0.000699}, translation: {x: 7.711271, y: -47.442107, z: -14.976818}, scale3d: {x: 99.999869, y: 99.999911, z: 99.999881}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.819290, y: -0.573379, z: -0.000485, w: 0.000699}, translation: {x: 7.711346, y: -47.442108, z: -14.976835}, scale3d: {x: 99.999976, y: 99.999940, z: 99.999988}}>",
+        "distance": 7.689077413392605e-05
+      },
+      "index_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.614779, y: 0.788699, z: 0.000670, w: -0.000524}, translation: {x: 8.599985, y: -45.004053, z: -14.972673}, scale3d: {x: 99.999881, y: 99.999899, z: 99.999905}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.614778, y: -0.788699, z: -0.000670, w: 0.000525}, translation: {x: 8.600056, y: -45.004048, z: -14.972696}, scale3d: {x: 99.999976, y: 99.999940, z: 99.999988}}>",
+        "distance": 7.476026813813474e-05
+      },
+      "middle_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.513442, y: 0.858124, z: 0.000732, w: -0.000431}, translation: {x: 8.783086, y: -44.363531, z: -17.400739}, scale3d: {x: 99.999976, y: 99.999964, z: 99.999964}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.513441, y: -0.858124, z: -0.000732, w: 0.000432}, translation: {x: 8.783160, y: -44.363554, z: -17.400738}, scale3d: {x: 99.999952, y: 99.999928, z: 99.999982}}>",
+        "distance": 7.807448526518387e-05
+      },
+      "ring_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.559781, y: 0.828640, z: 0.000708, w: -0.000468}, translation: {x: 8.903080, y: -44.501248, z: -19.834982}, scale3d: {x: 99.999964, y: 99.999976, z: 99.999958}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.559781, y: -0.828640, z: -0.000708, w: 0.000469}, translation: {x: 8.903179, y: -44.501224, z: -19.834940}, scale3d: {x: 99.999952, y: 99.999899, z: 99.999958}}>",
+        "distance": 0.00011010726900877865
+      },
+      "pinky_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.645884, y: 0.763435, z: 0.000659, w: -0.000565}, translation: {x: 8.558263, y: -44.825244, z: -21.977661}, scale3d: {x: 99.999946, y: 100.000006, z: 99.999952}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.645884, y: -0.763435, z: -0.000659, w: 0.000565}, translation: {x: 8.558407, y: -44.825193, z: -21.977622}, scale3d: {x: 99.999940, y: 99.999928, z: 99.999970}}>",
+        "distance": 0.00015789682841054498
+      },
+      "thumb_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.310668, y: -0.236343, z: -0.479344, w: 0.786038}, translation: {x: 9.017026, y: -40.696383, z: -15.101357}, scale3d: {x: 99.999958, y: 100.000000, z: 99.999952}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.310669, y: 0.236343, z: 0.479344, w: -0.786038}, translation: {x: 9.017100, y: -40.696420, z: -15.101358}, scale3d: {x: 99.999928, y: 99.999911, z: 99.999976}}>",
+        "distance": 8.345930502288782e-05
+      }
+    }
+  },
+  "angled": {
+    "codec": "<Object '/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel' (0x0000019C7EEE6040) Class 'AnimBoneCompressionSettings'>",
+    "codecs": [
+      "<Object '/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel:AnimBoneCompressionCodec_ACL_0' (0x0000019C399862C0) Class 'AnimBoneCompressionCodec_ACL'>"
+    ],
+    "bones": {
+      "clavicle_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.076539, y: 0.000039, z: -0.996801, w: -0.023020}, translation: {x: -12.538467, y: 5.751786, z: -10.950097}, scale3d: {x: 100.000000, y: 99.999946, z: 99.999946}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.076539, y: -0.000039, z: 0.996801, w: 0.023020}, translation: {x: -12.538476, y: 5.751779, z: -10.950069}, scale3d: {x: 99.999976, y: 99.999946, z: 99.999982}}>",
+        "distance": 3.044385568932249e-05
+      },
+      "upperarm_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.137658, y: -0.001030, z: -0.741964, w: 0.656155}, translation: {x: -24.586322, y: -1.640379, z: -14.476177}, scale3d: {x: 99.999934, y: 100.000006, z: 99.999917}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.137658, y: 0.001029, z: 0.741964, w: -0.656155}, translation: {x: -24.586328, y: -1.640387, z: -14.476150}, scale3d: {x: 99.999970, y: 99.999946, z: 99.999976}}>",
+        "distance": 2.922814894367569e-05
+      },
+      "lowerarm_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.112414, y: -0.079459, z: -0.234376, w: 0.962350}, translation: {x: -27.391774, y: -28.688631, z: -20.111599}, scale3d: {x: 99.999982, y: 99.999946, z: 99.999940}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.112414, y: 0.079458, z: 0.234376, w: -0.962350}, translation: {x: -27.391840, y: -28.688654, z: -20.111595}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999970}}>",
+        "distance": 6.943030965555812e-05
+      },
+      "hand_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.926624, y: -0.171427, z: -0.008748, w: 0.334521}, translation: {x: -3.478780, y: -41.468528, z: -17.379894}, scale3d: {x: 99.999970, y: 99.999928, z: 99.999911}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.926624, y: 0.171427, z: 0.008748, w: -0.334520}, translation: {x: -3.478803, y: -41.468531, z: -17.379976}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999982}}>",
+        "distance": 8.493229996497257e-05
+      },
+      "index_metacarpal_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.918456, y: 0.138213, z: -0.021159, w: -0.369983}, translation: {x: -0.045746, y: -41.391048, z: -14.954580}, scale3d: {x: 99.999970, y: 99.999928, z: 99.999923}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.913977, y: -0.156026, z: 0.047717, w: 0.371516}, translation: {x: -0.045751, y: -41.391053, z: -14.954682}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999976}}>",
+        "distance": 0.00010198927665061965
+      },
+      "index_01_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.898447, y: 0.381422, z: -0.121424, w: 0.180462}, translation: {x: 5.597914, y: -42.926542, z: -14.328890}, scale3d: {x: 99.999970, y: 99.999952, z: 99.999923}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.926636, y: -0.032340, z: 0.028526, w: -0.373479}, translation: {x: 5.525351, y: -42.996896, z: -13.962669}, scale3d: {x: 99.999964, y: 99.999940, z: 99.999976}}>",
+        "distance": 0.37991174609268996
+      },
+      "index_02_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: 0.481387, y: 0.849092, z: -0.206125, w: 0.069445}, translation: {x: 8.370459, y: -40.308997, z: -15.780753}, scale3d: {x: 99.999857, y: 99.999934, z: 99.999851}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.716015, y: -0.589087, z: 0.249728, w: -0.279169}, translation: {x: 9.590162, y: -42.839280, z: -14.276938}, scale3d: {x: 99.999976, y: 99.999940, z: 99.999988}}>",
+        "distance": 3.1861368574101916
+      },
+      "index_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.098512, y: 0.971075, z: -0.216633, w: -0.019482}, translation: {x: 7.003194, y: -38.261928, z: -16.601757}, scale3d: {x: 99.999893, y: 99.999928, z: 99.999887}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.418006, y: -0.827630, z: 0.341035, w: -0.154903}, translation: {x: 10.060438, y: -41.012005, z: -16.058472}, scale3d: {x: 99.999976, y: 99.999940, z: 99.999988}}>",
+        "distance": 4.14787013950037
+      },
+      "middle_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.057592, y: 0.961020, z: -0.200080, w: -0.181911}, translation: {x: 5.161009, y: -39.897790, z: -18.520119}, scale3d: {x: 99.999982, y: 99.999934, z: 99.999952}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.370421, y: -0.879151, z: 0.293135, w: -0.062880}, translation: {x: 10.145427, y: -42.636197, z: -18.062843}, scale3d: {x: 99.999952, y: 99.999928, z: 99.999982}}>",
+        "distance": 5.705470536005524
+      },
+      "ring_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.104296, y: 0.939040, z: -0.244265, w: -0.218315}, translation: {x: 3.603767, y: -41.222720, z: -20.637334}, scale3d: {x: 100.000012, y: 99.999988, z: 99.999940}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: -0.434989, y: -0.860750, z: 0.264349, w: -0.003653}, translation: {x: 9.366625, y: -44.309685, z: -20.115233}, scale3d: {x: 99.999952, y: 99.999899, z: 99.999958}}>",
+        "distance": 6.558390233978179
+      },
+      "pinky_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: 0.383186, y: -0.896043, z: 0.017101, w: 0.223569}, translation: {x: 0.835325, y: -40.990321, z: -20.260702}, scale3d: {x: 99.999970, y: 99.999946, z: 99.999893}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F022220) {rotation: {x: -0.222094, y: 0.947370, z: -0.102276, w: -0.206652}, translation: {x: 1.861262, y: -41.977988, z: -20.581748}, scale3d: {x: 99.999940, y: 99.999928, z: 99.999970}}>",
+        "distance": 1.4598300794385874
+      },
+      "thumb_03_l": {
+        "raw": "<Struct 'Transform' (0x0000019C7F023C90) {rotation: {x: 0.146167, y: 0.200755, z: -0.098153, w: 0.963690}, translation: {x: 5.817998, y: -36.557216, z: -16.904984}, scale3d: {x: 100.000012, y: 99.999964, z: 99.999934}}>",
+        "compressed": "<Struct 'Transform' (0x0000019C7F023F60) {rotation: {x: -0.146168, y: -0.200755, z: 0.098153, w: -0.963690}, translation: {x: 5.817987, y: -36.557248, z: -16.905068}, scale3d: {x: 99.999928, y: 99.999911, z: 99.999976}}>",
+        "distance": 9.108864353880291e-05
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_idle": {
+    "position_error_cm": 0.0005944293298872083,
+    "rotation_error_deg": 0.00018627141836044989,
+    "duration": 3.0
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_aim": {
+    "position_error_cm": 0.0005495825508777696,
+    "rotation_error_deg": 5.65298740554407e-05,
+    "duration": 0.03333333507180214
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_fire": {
+    "position_error_cm": 0.0006059286434435187,
+    "rotation_error_deg": 0.0001460526997487082,
+    "duration": 0.7666666507720947
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_aim_fire": {
+    "position_error_cm": 0.0005581572781806266,
+    "rotation_error_deg": 6.118644947108295e-05,
+    "duration": 0.7666666507720947
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_equip": {
+    "position_error_cm": 0.0006359373011284245,
+    "rotation_error_deg": 0.000783062645634814,
+    "duration": 0.6333333253860474
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_reload": {
+    "position_error_cm": 0.0007054609295424136,
+    "rotation_error_deg": 0.0003104074885844332,
+    "duration": 2.0999999046325684
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_reload_empty": {
+    "position_error_cm": 0.0007139649141693563,
+    "rotation_error_deg": 0.0002022560756036372,
+    "duration": 2.700000047683716
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_drum_reload": {
+    "position_error_cm": 0.0008082702091113751,
+    "rotation_error_deg": 0.0007541329987287987,
+    "duration": 2.0999999046325684
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Vertical/A_M4_Vertical_drum_reload_empty": {
+    "position_error_cm": 0.0006774362385110401,
+    "rotation_error_deg": 0.0016693752945894243,
+    "duration": 2.4666666984558105
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_idle": {
+    "position_error_cm": 0.0005989358036185106,
+    "rotation_error_deg": 0.00018943773157034305,
+    "duration": 3.0
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim": {
+    "position_error_cm": 0.0005774125689935902,
+    "rotation_error_deg": 6.053971605038909e-05,
+    "duration": 0.03333333507180214
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_fire": {
+    "position_error_cm": 0.0006177715448383931,
+    "rotation_error_deg": 0.00017184408466438546,
+    "duration": 0.7666666507720947
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_aim_fire": {
+    "position_error_cm": 0.0005905271073575487,
+    "rotation_error_deg": 0.00010481614620428153,
+    "duration": 0.7666666507720947
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_equip": {
+    "position_error_cm": 0.0006165540413048123,
+    "rotation_error_deg": 0.0007569154806027336,
+    "duration": 0.6333333253860474
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload": {
+    "position_error_cm": 0.0006894968738418622,
+    "rotation_error_deg": 0.00030788929128424894,
+    "duration": 2.0999999046325684
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_reload_empty": {
+    "position_error_cm": 0.0007155849488938142,
+    "rotation_error_deg": 0.0001578719588129749,
+    "duration": 2.700000047683716
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload": {
+    "position_error_cm": 0.0006965499804883396,
+    "rotation_error_deg": 0.0003159470099543592,
+    "duration": 2.0999999046325684
+  },
+  "/Game/Weapons/M4VerticalGripErgonomic/Prism/A_M4_Prism_drum_reload_empty": {
+    "position_error_cm": 0.000708241194444739,
+    "rotation_error_deg": 0.001983804752058073,
+    "duration": 2.4666666984558105
+  }
+}

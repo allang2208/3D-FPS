@@ -1,0 +1,175 @@
+{
+  "date": "2026-09-11",
+  "scope": "M4 and AKM vertical/prism player-front thumb, wrist and arm refinement; 36 animations",
+  "native_build": {
+    "module_suffix": "2026096302",
+    "result": "Succeeded"
+  },
+  "runtime": {
+    "front-m4-vertical-final": {
+      "passed_log_checks": 348,
+      "failures": 0
+    },
+    "front-m4-prism-final": {
+      "passed_log_checks": 350,
+      "failures": 0
+    },
+    "front-akm-vertical-final": {
+      "passed_log_checks": 833,
+      "failures": 0
+    },
+    "front-akm-prism-final": {
+      "passed_log_checks": 822,
+      "failures": 0
+    }
+  },
+  "geometry": {
+    "m4/vertical": {
+      "samples": 447,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 15
+    },
+    "m4/prism": {
+      "samples": 447,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 15
+    },
+    "akm/vertical": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 95
+    },
+    "akm/prism": {
+      "samples": 928,
+      "finger_grip_intersection_samples": 0,
+      "finger_self_intersection_samples": 95
+    }
+  },
+  "thumb_gun": {
+    "m4/vertical": {
+      "samples": 330,
+      "intersection_sample_times": 0
+    },
+    "m4/prism": {
+      "samples": 330,
+      "intersection_sample_times": 0
+    },
+    "akm/vertical": {
+      "samples": 418,
+      "intersection_sample_times": 22,
+      "new_only_parts_at_sample": {},
+      "before_contact_samples": 24
+    },
+    "akm/prism": {
+      "samples": 418,
+      "intersection_sample_times": 36,
+      "new_only_parts_at_sample": {},
+      "before_contact_samples": 62
+    }
+  },
+  "inherited_finger_self_intersection_sample_times": 220,
+  "new_only_self_intersection_sample_times": 0,
+  "geometry_scope": "Sampled skinned finger/grip and inter-finger surfaces. Extra thumb/gun check covers visible main gun and factory magazine, excludes separate SM_AKM drum mesh. Source reload contacts remain; this is not continuous collision certification.",
+  "animation_assets_passed": 36,
+  "compression_maxima": {
+    "compression_position_cm": 0.001477555001541763,
+    "compression_rotation_deg": 0.009237882617785041,
+    "preserved_nonleft_cm": 0.0002155756835061308,
+    "preserved_reload_contact_cm": 0.0035090375781265475
+  },
+  "pose_quality": {
+    "m4/vertical": {
+      "before": {
+        "wrist_axis_bend_deg": 26.77213710289536,
+        "elbow_bend_deg": 43.21185772752975
+      },
+      "after": {
+        "wrist_axis_bend_deg": 5.075550284503264,
+        "elbow_bend_deg": 13.826441583089668
+      },
+      "four_finger_rotation_max_change_deg": 0.0
+    },
+    "m4/prism": {
+      "before": {
+        "wrist_axis_bend_deg": 27.141243940737436,
+        "elbow_bend_deg": 44.987457609828354
+      },
+      "after": {
+        "wrist_axis_bend_deg": 4.13441211546486,
+        "elbow_bend_deg": 13.826526960454293
+      },
+      "four_finger_rotation_max_change_deg": 0.0
+    },
+    "akm/vertical": {
+      "before": {
+        "wrist_axis_bend_deg": 0.24787220737396423,
+        "elbow_bend_deg": 31.305017758783713
+      },
+      "after": {
+        "wrist_axis_bend_deg": 0.12354069976706185,
+        "elbow_bend_deg": 31.077630516030233
+      },
+      "four_finger_rotation_max_change_deg": 0.0
+    },
+    "akm/prism": {
+      "before": {
+        "wrist_axis_bend_deg": 1.1915688692259196,
+        "elbow_bend_deg": 30.754374738086454
+      },
+      "after": {
+        "wrist_axis_bend_deg": 0.5664823361042233,
+        "elbow_bend_deg": 29.858086579346114
+      },
+      "four_finger_rotation_max_change_deg": 0.0
+    }
+  },
+  "pose_metric_scope": "Rig axis directions at idle, not anatomical clinical joint angles. Four non-thumb finger local rotations retained.",
+  "formal_animation_paths": [
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_idle",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_reload",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_aim",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_fire",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_aim_fire",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_equip",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_reload_empty",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_drum_reload",
+    "/Game/Weapons/M4VerticalGripFront/Vertical/A_M4_Vertical_drum_reload_empty",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_idle",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_aim",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_fire",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_aim_fire",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_equip",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_reload",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_reload_empty",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_drum_reload",
+    "/Game/Weapons/M4VerticalGripFront/Prism/A_M4_Prism_drum_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/vertical/A_AKM_vertical_drum_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_idle",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_aim",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_aim_fire",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_equip",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_reload_empty",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_drum_reload",
+    "/Game/Weapons/AKMIntegration/SovietFab/GripFront/prism/A_AKM_prism_drum_reload_empty"
+  ],
+  "formal_new_static_paths": [],
+  "editable_families": [
+    "m4/vertical/M4_vertical_Family_Editable.blend",
+    "m4/prism/M4_prism_Family_Editable.blend",
+    "akm/vertical/AKM_vertical_Family_Editable.blend",
+    "akm/prism/AKM_prism_Family_Editable.blend"
+  ],
+  "commandlet_environment": "Import/readback scripts passed. Commandlet exit 1 includes preexisting GameFeatureData AssetManager configuration and HTTP 8000 contention. Fresh runtime processes exited 0.",
+  "preview": "Actual UE captures. Player-view comparison uses the player eye position and FOV 30, with aim focused on the moving hand/thumb. Videos use capture timestamps and are silent visual evidence.",
+  "user_visual_acceptance": "REJECTED: user requires opposed wrapping thumb, not forward extension."
+}

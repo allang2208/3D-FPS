@@ -1,0 +1,14 @@
+{
+  "high_vertices": 250002,
+  "low_vertices": 20170,
+  "low_faces": 20168,
+  "quads": 20168,
+  "mouth_vertices_refined": 10424,
+  "length_m": 2.2,
+  "method": "weld, quadriflow, shrinkwrap, UV unwrap, high-to-low 4k PBR bake",
+  "maps": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PoisonMaggot20260911\\delivery\\T_Maggot_BaseColor.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PoisonMaggot20260911\\delivery\\T_Maggot_Normal.png",
+    "Roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PoisonMaggot20260911\\delivery\\T_Maggot_Roughness.png"
+  }
+}

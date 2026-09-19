@@ -1,0 +1,32 @@
+{
+  "Idle": {
+    "frames": 30,
+    "fps": 10,
+    "source": "reimported FBX render",
+    "playback": "preview repeats; Death/Hit hold last pose for 1.2 s"
+  },
+  "Move": {
+    "frames": 25,
+    "fps": 10,
+    "source": "reimported FBX render",
+    "playback": "preview repeats; Death/Hit hold last pose for 1.2 s"
+  },
+  "Spit": {
+    "frames": 30,
+    "fps": 10,
+    "source": "reimported FBX render",
+    "playback": "preview repeats; Death/Hit hold last pose for 1.2 s"
+  },
+  "Death": {
+    "frames": 18,
+    "fps": 10,
+    "source": "reimported FBX render",
+    "playback": "preview repeats; Death/Hit hold last pose for 1.2 s"
+  },
+  "Hit": {
+    "frames": 6,
+    "fps": 10,
+    "source": "reimported FBX render",
+    "playback": "preview repeats; Death/Hit hold last pose for 1.2 s"
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "runtime_run": "canted-left45-v1",
+  "runtime_checks": 342,
+  "runtime_failures": 0,
+  "ui_checks": 24,
+  "ui_failures": 0,
+  "animation_variants": 9,
+  "geometry_samples": 446,
+  "sampled_intersections": 0,
+  "source_contract": {
+    "idle": {
+      "max_arm_length_change_m": 1.7258708601142203e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.8831526502309857e-07,
+      "nonleft_position_change_m": 4.202153877080552e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "aim": {
+      "max_arm_length_change_m": 3.0182051913296704e-08,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.427388383821363e-07,
+      "nonleft_position_change_m": 2.973997497412422e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "fire": {
+      "max_arm_length_change_m": 1.324306904137984e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.7822343460239647e-07,
+      "nonleft_position_change_m": 4.009665469257136e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "aim_fire": {
+      "max_arm_length_change_m": 1.0765337810081377e-07,
+      "max_bone_scale_change": 5.93058727447164e-07,
+      "max_finger_local_translation_change_m": 1.601314650863293e-07,
+      "nonleft_position_change_m": 4.2083910598160063e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "equip": {
+      "max_arm_length_change_m": 1.9266542594653657e-07,
+      "max_bone_scale_change": 7.996802249550068e-07,
+      "max_finger_local_translation_change_m": 1.7729673249899522e-07,
+      "nonleft_position_change_m": 7.083661787621563e-07,
+      "preserved_contact_position_change_m": 0
+    },
+    "reload": {
+      "max_arm_length_change_m": 2.198344766723981e-06,
+      "max_bone_scale_change": 1.1526989701875279e-06,
+      "max_finger_local_translation_change_m": 2.8133006126728485e-07,
+      "nonleft_position_change_m": 8.535387213003448e-07,
+      "preserved_contact_position_change_m": 9.766798977955544e-07
+    },
+    "reload_empty": {
+      "max_arm_length_change_m": 2.0890273866314146e-07,
+      "max_bone_scale_change": 7.839767001846972e-07,
+      "max_finger_local_translation_change_m": 2.2627437888524641e-07,
+      "nonleft_position_change_m": 8.587662789694691e-07,
+      "preserved_contact_position_change_m": 7.8057055793457e-07
+    },
+    "drum_reload": {
+      "max_arm_length_change_m": 4.952286540904627e-06,
+      "max_bone_scale_change": 5.268524648558485e-06,
+      "max_finger_local_translation_change_m": 2.1165224788207292e-07,
+      "nonleft_position_change_m": 9.044403377469491e-07,
+      "preserved_contact_position_change_m": 6.698367261739295e-07
+    },
+    "drum_reload_empty": {
+      "max_arm_length_change_m": 3.073164761169256e-06,
+      "max_bone_scale_change": 2.9502793957625823e-06,
+      "max_finger_local_translation_change_m": 2.813529481804412e-07,
+      "nonleft_position_change_m": 9.974877817141748e-07,
+      "preserved_contact_position_change_m": 6.692678681103848e-07
+    }
+  },
+  "import_clips": {
+    "idle": {
+      "duration": 3.0,
+      "compression_error_cm": 0.0005183254690064959,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_idle.A_M4_Canted_idle",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+      "right_weapon_difference_cm": 3.65422529225155e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "aim": {
+      "duration": 0.03333333507180214,
+      "compression_error_cm": 0.00045876506462152073,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_aim.A_M4_Canted_aim",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+      "right_weapon_difference_cm": 1.7366625949812517e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "fire": {
+      "duration": 0.7666666507720947,
+      "compression_error_cm": 0.0005041600321227359,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_fire.A_M4_Canted_fire",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+      "right_weapon_difference_cm": 3.179254179637135e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "aim_fire": {
+      "duration": 0.7666666507720947,
+      "compression_error_cm": 0.00046669496171103343,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_aim_fire.A_M4_Canted_aim_fire",
+      "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+      "right_weapon_difference_cm": 2.7758796202234874e-05,
+      "preserved_contact_difference_cm": 0
+    },
+    "equip": {
+      "duration": 0.6333333253860474,
+      "compression_error_cm": 0.0005922407261486502,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_equip.A_M4_Canted_equip",
+      "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+      "right_weapon_difference_cm": 0.0001719183978516974,
+      "preserved_contact_difference_cm": 0
+    },
+    "reload": {
+      "duration": 2.0999999046325684,
+      "compression_error_cm": 0.0015053783375959353,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_reload.A_M4_Canted_reload",
+      "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+      "right_weapon_difference_cm": 0.0001546683194607958,
+      "preserved_contact_difference_cm": 9.239192906472153e-05
+    },
+    "reload_empty": {
+      "duration": 2.700000047683716,
+      "compression_error_cm": 0.0007151917913607857,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_reload_empty.A_M4_Canted_reload_empty",
+      "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+      "right_weapon_difference_cm": 0.0001744400509046272,
+      "preserved_contact_difference_cm": 0.002251639591087153
+    },
+    "drum_reload": {
+      "duration": 2.0999999046325684,
+      "compression_error_cm": 0.0005628808104139693,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_drum_reload.A_M4_Canted_drum_reload",
+      "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+      "right_weapon_difference_cm": 4.836159536722441e-05,
+      "preserved_contact_difference_cm": 7.273510613181442e-05
+    },
+    "drum_reload_empty": {
+      "duration": 2.4666666984558105,
+      "compression_error_cm": 0.0005672273780848472,
+      "asset": "/Game/Weapons/M4CantedForegrip/A_M4_Canted_drum_reload_empty.A_M4_Canted_drum_reload_empty",
+      "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+      "right_weapon_difference_cm": 5.200323149196949e-05,
+      "preserved_contact_difference_cm": 7.174569346141038e-05
+    }
+  },
+  "model": {
+    "triangles": 26324,
+    "cant_degrees": 45,
+    "generated_source": "canted_grip_raw_00002_.glb",
+    "method": "Generated broad radial profile transferred to clean concept topology; mount and rings cleaned; exact left cant; maximum inward profile change 0.3mm in game asset",
+    "radial_delta_range_m": [
+      -0.0003,
+      0
+    ],
+    "dimensions_m": [
+      0.035999998450279236,
+      0.08577874302864075,
+      0.08327876776456833
+    ]
+  },
+  "mesh_arm": {
+    "vertices": 13184,
+    "faces": 12374,
+    "boundary_edges": 0,
+    "nonmanifold_edges": 0,
+    "zero_area_faces": 0,
+    "uv_layers": 1,
+    "scale": [
+      0.9999997019767761,
+      1.0,
+      0.9999997615814209
+    ],
+    "wrist_axis_bend_degrees": 8.492158610184443,
+    "elbow_axis_bend_degrees": 59.882734151792164,
+    "left_arm_mount_y": 0.254833847284317,
+    "grip_bottom_mount_y": 0.05656854435801506
+  },
+  "material_assignment": {
+    "m4_materials": {
+      "Flash_Hider_001": "/Game/Weapons/M4InfimaV3/Flash_Hider_001.Flash_Hider_001",
+      "Grip_Default_001": "/Game/Weapons/M4InfimaV3/Grip_Default_001.Grip_Default_001",
+      "Keymod_material_001": "/Game/Weapons/M4InfimaV3/Keymod_material_001.Keymod_material_001",
+      "Body_001": "/Game/Weapons/M4InfimaV3/Body_001.Body_001",
+      "Magazine_Light_001": "/Game/Weapons/M4InfimaV3/Magazine_Light_001.Magazine_Light_001",
+      "Classic_Stock_001": "/Game/Weapons/M4InfimaV3/Classic_Stock_001.Classic_Stock_001",
+      "MI_Manny_01": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+      "MI_Manny_02": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    },
+    "assigned": {
+      "Body_004": "/Game/Weapons/M4InfimaV3/Body_001.Body_001"
+    },
+    "static_bounds_cm": "<Struct 'BoxSphereBounds' (0x000001A30867C5D0) {origin: {x: 0.000000, y: -2.638938, z: -4.093939}, box_extent: {x: 1.800000, y: 4.288937, z: 4.163939}, sphere_radius: 6.048767}>"
+  },
+  "import_exit_code": 1,
+  "native_build": "2026095345 succeeded",
+  "packaged_build_verified": false,
+  "preview_note": "Silent preview assembled from actual game captures; capture intervals bounded to 16-250ms, no audio validation claimed.",
+  "preview_frames": 160,
+  "fbx_sha256": {
+    "A_M4_Canted_aim.fbx": "a37159768d5d7ac407dbddf09487a19483a6c1ecb73e527b35372ef5f7fb6362",
+    "A_M4_Canted_aim_fire.fbx": "e77dea9278cc7fc19e11bf8b228a90a9e53a6cbf88cd4673cbd765bbbb64208c",
+    "A_M4_Canted_drum_reload.fbx": "3f76ae4344e7a9d114a60f31f7222d56c2c3f81cb30ab40e95a7b9d36f6f0e93",
+    "A_M4_Canted_drum_reload_empty.fbx": "319895118da8527d8d5050a9f440d4ecaed201e426d676b2914b7c8130fedeb4",
+    "A_M4_Canted_equip.fbx": "5294c4bd7ace33e396d6a851824dc7dceb4f8538ce1c3a1d58f1a9aab415dbd9",
+    "A_M4_Canted_fire.fbx": "6aafaf1ffb743ddc9511bc8c0786771a881e50ffa4cb9564c5b4bbd565a4abab",
+    "A_M4_Canted_idle.fbx": "bb0b5eaf1c3136cf11c84aed316ef4081781c63403e1e41451dc0220272069ea",
+    "A_M4_Canted_reload.fbx": "1edf5b4b52d15ac44053fedd8228962205e706ba6d8b83ac772052daabafc95d",
+    "A_M4_Canted_reload_empty.fbx": "db1e5509ce237fa8f2aad558044c54eeaa70c0074c901bddbe79767beb51ca37",
+    "SM_CantedForegrip.fbx": "e860f07d8f9921ef6325c4bbdeca130dc22c6e726122cd5a42e26c2587262562"
+  },
+  "direction": "Shooter left/down 45 degrees, +Y is left in author mount; arm solved without skeleton mirroring",
+  "import_note": "All nine imports and readback passed. Commandlet exited 1 due to existing GameFeatureData AssetManager configuration errors; independent new game runtime passed."
+}

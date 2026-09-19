@@ -1,0 +1,36 @@
+{
+  "asset": "reroll03",
+  "source": "reroll03_textured_master_00001_.glb",
+  "bounds_original": [
+    1.001962423324585,
+    0.9306052923202515,
+    0.7516559362411499
+  ],
+  "meshes": [
+    {
+      "name": "geometry_0",
+      "vertices": 65973,
+      "triangles": 99829,
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": [
+    {
+      "name": "Image_0",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ]
+}

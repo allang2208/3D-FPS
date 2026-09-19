@@ -1,0 +1,36 @@
+{
+  "asset": "scope2x",
+  "source": "scope2x_textured_master_00001_.glb",
+  "bounds_original": [
+    1.001401424407959,
+    0.37518221139907837,
+    0.5456332564353943
+  ],
+  "meshes": [
+    {
+      "name": "geometry_0",
+      "vertices": 94287,
+      "triangles": 96513,
+      "materials": [
+        "Material_0"
+      ],
+      "uv_layers": 1
+    }
+  ],
+  "textures": [
+    {
+      "name": "Image_0",
+      "size": [
+        2048,
+        2048
+      ]
+    },
+    {
+      "name": "Image_1",
+      "size": [
+        2048,
+        2048
+      ]
+    }
+  ]
+}

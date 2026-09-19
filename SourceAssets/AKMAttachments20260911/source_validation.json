@@ -1,0 +1,110 @@
+{
+  "A_AKM_prism_aim": {
+    "frames": 5,
+    "non_left_matrix_error": 7.152557373046875e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 4.3800289799866286e-07
+  },
+  "A_AKM_prism_aim_fire": {
+    "frames": 12,
+    "non_left_matrix_error": 6.556510925292969e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 3.4240261593687705e-07
+  },
+  "A_AKM_prism_drum_reload": {
+    "frames": 400,
+    "non_left_matrix_error": 1.0132789611816406e-06,
+    "original_reload_contact_error": 8.940696716308594e-07,
+    "joint_translation_scale_error": 5.623090941939713e-07
+  },
+  "A_AKM_prism_drum_reload_empty": {
+    "frames": 515,
+    "non_left_matrix_error": 1.1324882507324219e-06,
+    "original_reload_contact_error": 1.1324882507324219e-06,
+    "joint_translation_scale_error": 5.364418029785156e-07
+  },
+  "A_AKM_prism_equip": {
+    "frames": 204,
+    "non_left_matrix_error": 1.0728836059570312e-06,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 7.348554137908192e-07
+  },
+  "A_AKM_prism_fire": {
+    "frames": 12,
+    "non_left_matrix_error": 4.172325134277344e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 2.7957056521316944e-07
+  },
+  "A_AKM_prism_idle": {
+    "frames": 5,
+    "non_left_matrix_error": 7.748603820800781e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 3.769728732309794e-07
+  },
+  "A_AKM_prism_reload": {
+    "frames": 400,
+    "non_left_matrix_error": 1.0132789611816406e-06,
+    "original_reload_contact_error": 8.940696716308594e-07,
+    "joint_translation_scale_error": 5.623090941939713e-07
+  },
+  "A_AKM_prism_reload_empty": {
+    "frames": 515,
+    "non_left_matrix_error": 1.1324882507324219e-06,
+    "original_reload_contact_error": 1.1324882507324219e-06,
+    "joint_translation_scale_error": 5.364418029785156e-07
+  },
+  "A_AKM_angled_aim": {
+    "frames": 5,
+    "non_left_matrix_error": 7.152557373046875e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 4.2146848510894033e-07
+  },
+  "A_AKM_angled_aim_fire": {
+    "frames": 12,
+    "non_left_matrix_error": 6.556510925292969e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 3.371747880871523e-07
+  },
+  "A_AKM_angled_drum_reload": {
+    "frames": 400,
+    "non_left_matrix_error": 1.0132789611816406e-06,
+    "original_reload_contact_error": 8.940696716308594e-07,
+    "joint_translation_scale_error": 5.527507362065139e-07
+  },
+  "A_AKM_angled_drum_reload_empty": {
+    "frames": 515,
+    "non_left_matrix_error": 1.1324882507324219e-06,
+    "original_reload_contact_error": 1.1324882507324219e-06,
+    "joint_translation_scale_error": 5.364418029785156e-07
+  },
+  "A_AKM_angled_equip": {
+    "frames": 204,
+    "non_left_matrix_error": 1.0728836059570312e-06,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 7.275674114068569e-07
+  },
+  "A_AKM_angled_fire": {
+    "frames": 12,
+    "non_left_matrix_error": 4.172325134277344e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 3.03925246810483e-07
+  },
+  "A_AKM_angled_idle": {
+    "frames": 5,
+    "non_left_matrix_error": 7.748603820800781e-07,
+    "original_reload_contact_error": 0.0,
+    "joint_translation_scale_error": 3.769728732309794e-07
+  },
+  "A_AKM_angled_reload": {
+    "frames": 400,
+    "non_left_matrix_error": 1.0132789611816406e-06,
+    "original_reload_contact_error": 8.940696716308594e-07,
+    "joint_translation_scale_error": 5.527507362065139e-07
+  },
+  "A_AKM_angled_reload_empty": {
+    "frames": 515,
+    "non_left_matrix_error": 1.1324882507324219e-06,
+    "original_reload_contact_error": 1.1324882507324219e-06,
+    "joint_translation_scale_error": 5.364418029785156e-07
+  }
+}

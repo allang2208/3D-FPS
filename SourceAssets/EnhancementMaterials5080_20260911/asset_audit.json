@@ -1,0 +1,499 @@
+{
+  "models": [
+    {
+      "file": "enhancement_stone_baseline_raw_geometry_00001_.glb",
+      "sha256": "31124933de6d0a10d20290c7c87aadc5d6c1f58bef1c70ac4805baa0a136c751",
+      "bytes": 42903716,
+      "triangles": 2443554,
+      "vertices": 1131691,
+      "materials": [],
+      "images": []
+    },
+    {
+      "file": "enhancement_stone_baseline_textured_master_00001_.glb",
+      "sha256": "3a47dffd06a0d603002e2f4dbcd05bb6cea04d6840827706a7d8fb758d8f7ea6",
+      "bytes": 14161804,
+      "triangles": 98804,
+      "vertices": 68940,
+      "materials": [
+        {
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "baseColorFactor": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "roughnessFactor": 1.0,
+            "metallicFactor": 1.0,
+            "metallicRoughnessTexture": {
+              "index": 1
+            }
+          },
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 2,
+          "mimeType": "image/png"
+        },
+        {
+          "bufferView": 3,
+          "mimeType": "image/png"
+        }
+      ]
+    },
+    {
+      "file": "enhancement_stone_display_candidate.glb",
+      "sha256": "e067f4b43307c059cd899f98f5ce9228312ece9cda2d3d504a83500ff1078277",
+      "bytes": 18105112,
+      "triangles": 99756,
+      "vertices": 69952,
+      "materials": [
+        {
+          "name": "Material_0",
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "metallicRoughnessTexture": {
+              "index": 1
+            }
+          }
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 4,
+          "mimeType": "image/png",
+          "name": "Image_0"
+        },
+        {
+          "bufferView": 5,
+          "mimeType": "image/png",
+          "name": "Image_1"
+        }
+      ]
+    },
+    {
+      "file": "enhancement_stone_high_raw_geometry_00001_.glb",
+      "sha256": "7a7bdde8334cf6eab2b13b324f56912d355c722c32a8b77ffe8e7c3e4865579e",
+      "bytes": 160919692,
+      "triangles": 9075790,
+      "vertices": 4334119,
+      "materials": [],
+      "images": []
+    },
+    {
+      "file": "enhancement_stone_high_textured_master_00001_.glb",
+      "sha256": "d70526cf6bf29918080bf5903af298f457e958e3e75e7f14d0b1baad193f1dca",
+      "bytes": 18100948,
+      "triangles": 99756,
+      "vertices": 69816,
+      "materials": [
+        {
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "baseColorFactor": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "roughnessFactor": 1.0,
+            "metallicFactor": 1.0,
+            "metallicRoughnessTexture": {
+              "index": 1
+            }
+          },
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 2,
+          "mimeType": "image/png"
+        },
+        {
+          "bufferView": 3,
+          "mimeType": "image/png"
+        }
+      ]
+    },
+    {
+      "file": "enhancement_stone_lod0_candidate.glb",
+      "sha256": "3611b5c9e8589a5f256c0f89b3dbbd1c43b686e8a75e0a8fb83913b212a188af",
+      "bytes": 25469852,
+      "triangles": 20000,
+      "vertices": 21362,
+      "materials": [
+        {
+          "name": "Material_0.001",
+          "normalTexture": {
+            "index": 0
+          },
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 1
+            },
+            "metallicRoughnessTexture": {
+              "index": 2
+            }
+          }
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 4,
+          "mimeType": "image/png",
+          "name": "enhancement_stone_lod0_normal"
+        },
+        {
+          "bufferView": 5,
+          "mimeType": "image/png",
+          "name": "Image_0"
+        },
+        {
+          "bufferView": 6,
+          "mimeType": "image/png",
+          "name": "Image_1"
+        }
+      ]
+    },
+    {
+      "file": "magic_dust_baseline_raw_geometry_00001_.glb",
+      "sha256": "0f2cc0183415faa66f026c97b54125d5e9fe7af2d5cd073f12b2fc31ba1456ab",
+      "bytes": 199312392,
+      "triangles": 11155582,
+      "vertices": 5453719,
+      "materials": [],
+      "images": []
+    },
+    {
+      "file": "magic_dust_baseline_textured_master_00001_.glb",
+      "sha256": "308f4ad95877073fe0200196c8b05ad514d91442d0c6a4b268520464362a95e7",
+      "bytes": 13474604,
+      "triangles": 94554,
+      "vertices": 70213,
+      "materials": [
+        {
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 0
+            },
+            "baseColorFactor": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "roughnessFactor": 1.0,
+            "metallicFactor": 1.0,
+            "metallicRoughnessTexture": {
+              "index": 1
+            }
+          },
+          "alphaMode": "OPAQUE",
+          "doubleSided": false
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 2,
+          "mimeType": "image/png"
+        },
+        {
+          "bufferView": 3,
+          "mimeType": "image/png"
+        }
+      ]
+    },
+    {
+      "file": "magic_dust_lod0_candidate.glb",
+      "sha256": "e7625ba0570f9475de8ade05e962b86f3d0bc140d364fabc4b3dbc9c4bb5bc65",
+      "bytes": 17909996,
+      "triangles": 12070,
+      "vertices": 7437,
+      "materials": [
+        {
+          "doubleSided": true,
+          "extensions": {
+            "KHR_materials_transmission": {
+              "transmissionFactor": 1
+            },
+            "KHR_materials_ior": {
+              "ior": 1.4600000381469727
+            }
+          },
+          "name": "Thick clear glass",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              0.9599999785423279,
+              0.9850000143051147,
+              1,
+              1
+            ],
+            "metallicFactor": 0,
+            "roughnessFactor": 0.06499999761581421
+          }
+        },
+        {
+          "doubleSided": true,
+          "extensions": {
+            "KHR_materials_transmission": {
+              "transmissionFactor": 0.3499999940395355
+            },
+            "KHR_materials_ior": {
+              "ior": 1.4600000381469727
+            }
+          },
+          "name": "Pale blue mineral grains",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              0.6499999761581421,
+              0.8299999833106995,
+              0.949999988079071,
+              1
+            ],
+            "metallicFactor": 0.05000000074505806,
+            "roughnessFactor": 0.20999999344348907
+          }
+        },
+        {
+          "doubleSided": true,
+          "name": "Weathered silver steel.001",
+          "normalTexture": {
+            "index": 0
+          },
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 1
+            },
+            "metallicFactor": 0.9200000166893005,
+            "metallicRoughnessTexture": {
+              "index": 2
+            }
+          }
+        },
+        {
+          "doubleSided": true,
+          "name": "Fine silver mineral powder.003",
+          "normalTexture": {
+            "index": 3
+          },
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 4
+            },
+            "metallicFactor": 0.12999999523162842,
+            "metallicRoughnessTexture": {
+              "index": 5
+            }
+          }
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 10,
+          "mimeType": "image/png",
+          "name": "magic_dust_lid_lod0_normal"
+        },
+        {
+          "bufferView": 11,
+          "mimeType": "image/png",
+          "name": "magic_dust_lid_basecolor"
+        },
+        {
+          "bufferView": 12,
+          "mimeType": "image/png",
+          "name": "magic_dust_lid_roughness"
+        },
+        {
+          "bufferView": 17,
+          "mimeType": "image/png",
+          "name": "magic_dust_powder_lod0_normal"
+        },
+        {
+          "bufferView": 18,
+          "mimeType": "image/png",
+          "name": "magic_dust_powder_lod0_basecolor"
+        },
+        {
+          "bufferView": 19,
+          "mimeType": "image/png",
+          "name": "magic_dust_powder_roughness"
+        }
+      ]
+    },
+    {
+      "file": "magic_dust_physical_candidate.glb",
+      "sha256": "5a28961409ab5c4487bbfc738a2bb3d2f843424ece502463005fcf89ebff7740",
+      "bytes": 21232108,
+      "triangles": 157282,
+      "vertices": 95017,
+      "materials": [
+        {
+          "doubleSided": true,
+          "extensions": {
+            "KHR_materials_transmission": {
+              "transmissionFactor": 1
+            },
+            "KHR_materials_ior": {
+              "ior": 1.4600000381469727
+            }
+          },
+          "name": "Thick clear glass",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              0.9599999785423279,
+              0.9850000143051147,
+              1,
+              1
+            ],
+            "metallicFactor": 0,
+            "roughnessFactor": 0.06499999761581421
+          }
+        },
+        {
+          "doubleSided": true,
+          "name": "Weathered silver steel",
+          "normalTexture": {
+            "index": 0
+          },
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 1
+            },
+            "metallicFactor": 0.9200000166893005,
+            "metallicRoughnessTexture": {
+              "index": 2
+            }
+          }
+        },
+        {
+          "doubleSided": true,
+          "name": "Fine silver mineral powder",
+          "normalTexture": {
+            "index": 3
+          },
+          "pbrMetallicRoughness": {
+            "baseColorTexture": {
+              "index": 4
+            },
+            "metallicFactor": 0.12999999523162842,
+            "metallicRoughnessTexture": {
+              "index": 5
+            }
+          }
+        },
+        {
+          "doubleSided": true,
+          "name": "Fine silver mineral powder.001",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              0.4300000071525574,
+              0.4699999988079071,
+              0.5,
+              1
+            ],
+            "metallicFactor": 0.12999999523162842,
+            "roughnessFactor": 0.8299999833106995
+          }
+        },
+        {
+          "doubleSided": true,
+          "name": "Fine silver mineral powder.002",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              0.4300000071525574,
+              0.4699999988079071,
+              0.5,
+              1
+            ],
+            "metallicFactor": 0.12999999523162842,
+            "roughnessFactor": 0.8299999833106995
+          }
+        },
+        {
+          "doubleSided": true,
+          "extensions": {
+            "KHR_materials_transmission": {
+              "transmissionFactor": 0.3499999940395355
+            },
+            "KHR_materials_ior": {
+              "ior": 1.4600000381469727
+            }
+          },
+          "name": "Pale blue mineral grains",
+          "pbrMetallicRoughness": {
+            "baseColorFactor": [
+              0.6499999761581421,
+              0.8299999833106995,
+              0.949999988079071,
+              1
+            ],
+            "metallicFactor": 0.05000000074505806,
+            "roughnessFactor": 0.20999999344348907
+          }
+        }
+      ],
+      "images": [
+        {
+          "bufferView": 7,
+          "mimeType": "image/png",
+          "name": "magic_dust_lid_normal"
+        },
+        {
+          "bufferView": 8,
+          "mimeType": "image/png",
+          "name": "magic_dust_lid_basecolor"
+        },
+        {
+          "bufferView": 9,
+          "mimeType": "image/png",
+          "name": "magic_dust_lid_roughness"
+        },
+        {
+          "bufferView": 14,
+          "mimeType": "image/png",
+          "name": "magic_dust_powder_normal"
+        },
+        {
+          "bufferView": 15,
+          "mimeType": "image/png",
+          "name": "magic_dust_powder_basecolor"
+        },
+        {
+          "bufferView": 16,
+          "mimeType": "image/png",
+          "name": "magic_dust_powder_roughness"
+        }
+      ]
+    }
+  ],
+  "execution": [
+    {
+      "task": "enhancement_stone_baseline_history",
+      "status": "success",
+      "seconds": 102.29
+    },
+    {
+      "task": "enhancement_stone_high_history",
+      "status": "success",
+      "seconds": 726.05
+    },
+    {
+      "task": "magic_dust_baseline_history",
+      "status": "success",
+      "seconds": 324.13
+    }
+  ]
+}

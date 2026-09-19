@@ -1,0 +1,61 @@
+{
+  "index": {
+    "angles": [
+      0,
+      -5,
+      17,
+      5
+    ],
+    "grip_pairs": 0,
+    "self_pairs": 0,
+    "near_mm": 0.7908747938927263,
+    "tip_mm": 1.1559896811377257
+  },
+  "middle": {
+    "angles": [
+      1,
+      -1,
+      0,
+      2
+    ],
+    "grip_pairs": 0,
+    "self_pairs": 0,
+    "near_mm": 0.8353923573546732,
+    "tip_mm": 1.340618335234467
+  },
+  "ring": {
+    "angles": [
+      -3,
+      -10,
+      -2,
+      20
+    ],
+    "grip_pairs": 0,
+    "self_pairs": 0,
+    "near_mm": 0.8095486846286803,
+    "tip_mm": 0.7429871911881492
+  },
+  "pinky": {
+    "angles": [
+      3,
+      3,
+      14,
+      10
+    ],
+    "grip_pairs": 0,
+    "self_pairs": 0,
+    "near_mm": 7.153230641658108,
+    "tip_mm": 7.819011225365102
+  },
+  "thumb": {
+    "angles": [
+      -18,
+      0,
+      10
+    ],
+    "grip_pairs": 0,
+    "self_pairs": 0,
+    "near_mm": 1.0644163315494855,
+    "tip_mm": 1.0197229275945574
+  }
+}

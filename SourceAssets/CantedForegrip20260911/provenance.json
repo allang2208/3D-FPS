@@ -1,0 +1,20 @@
+{
+  "purpose": "fictional FPS visual accessory",
+  "reference": "Legacy Godot canted gesture; current project M4 material and arms",
+  "direction": "Shooter view, stock toward muzzle, left/down 45 degrees; +Y is left in M4 author mount",
+  "three_view_method": "Native Blender renders of editable concept; image generation service rejected, no AI concept image produced",
+  "generation": "RTX 5080 TRELLIS.2 single hero input; not multi-view fusion",
+  "prompt_id": "7d0144f9-654b-47fe-8277-6c4e27b08a94",
+  "generation_seconds": 56.186,
+  "raw": {
+    "file": "canted_grip_raw_00002_.glb",
+    "sha256": "ae954df4aae07970d293ab69a5df422f2acacd957eea788f6667f14237c0bd1d"
+  },
+  "textured": {
+    "file": "canted_grip_textured_00002_.glb",
+    "sha256": "7d72acd3c3b4ff3c0bbce2b48b113cef4eefe49bbc9c141249abba833c6697e9"
+  },
+  "refinement": "Clean retopology from concept with broad generated body-profile variation, smooth rings, M4 atlas material; corrected side relative to shooter",
+  "raw_direction_note": "Generated input preceded left/right correction. Raw preserved unchanged, final geometry orientation corrected.",
+  "license": "Existing project material and arm licenses retained; no new external reference mesh downloaded; original commercial source not authorized for public redistribution."
+}

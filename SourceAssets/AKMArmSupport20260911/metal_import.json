@@ -1,0 +1,10 @@
+{
+  "optic": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/SM_AKM_optic.SM_AKM_optic",
+    "materials": {
+      "optic_Holosight": "/Game/Weapons/M4Holographic/M_HoloBody.M_HoloBody",
+      "optic_Red_Dot": "/Game/Weapons/M4Holographic/M_HoloReticle.M_HoloReticle",
+      "AKM_Soviet_MountSteel": "/Game/Weapons/AKMIntegration/SovietFab/ArmSupport/M_AKM_Soviet_MountSteel.M_AKM_Soviet_MountSteel"
+    }
+  }
+}

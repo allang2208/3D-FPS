@@ -1,0 +1,10 @@
+{
+  "family": "vertical_grip",
+  "variant": "prism",
+  "animation_prefix": "A_M4_Prism_",
+  "mesh_prefix": "PH_",
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PrismHandstop20260910\\GripAnimation",
+  "fitted_mesh": "FinalFit.blend",
+  "arm_profile": "../arm_profile.json",
+  "revision": "ergonomic-photo-reference"
+}

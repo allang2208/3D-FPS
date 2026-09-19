@@ -1,0 +1,254 @@
+{
+  "idle": {
+    "max_hand_finger_position_delta_m": 4.0788101235541687e-07,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.0659724771976471,
+          0.10618370026350021,
+          -0.07326455414295197
+        ],
+        "old_wrist_axis_bend_deg": 47.84858628710626,
+        "new_wrist_axis_bend_deg": 12.437933280491423,
+        "old_elbow_bend_deg": 26.81976230443057,
+        "new_elbow_bend_deg": 83.27694485159707
+      },
+      "180": {
+        "shoulder_delta_from_compact_m": [
+          0.06590475142002106,
+          0.10606072843074799,
+          -0.0727061927318573
+        ],
+        "old_wrist_axis_bend_deg": 48.053164113126485,
+        "new_wrist_axis_bend_deg": 12.679941396936961,
+        "old_elbow_bend_deg": 26.819808408207468,
+        "new_elbow_bend_deg": 83.3828742554348
+      }
+    }
+  },
+  "aim": {
+    "max_hand_finger_position_delta_m": 1.0536712127723508e-07,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.07398402690887451,
+          0.10506068915128708,
+          -0.0648457258939743
+        ],
+        "old_wrist_axis_bend_deg": 47.178240786109946,
+        "new_wrist_axis_bend_deg": 10.276304766682031,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 85.61956313312804
+      },
+      "2": {
+        "shoulder_delta_from_compact_m": [
+          0.07398402690887451,
+          0.10506068915128708,
+          -0.0648457258939743
+        ],
+        "old_wrist_axis_bend_deg": 47.178240786109946,
+        "new_wrist_axis_bend_deg": 10.276304766682031,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 85.61956313312804
+      }
+    }
+  },
+  "fire": {
+    "max_hand_finger_position_delta_m": 3.516800320507868e-07,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.0658930242061615,
+          0.10617008805274963,
+          -0.07321100682020187
+        ],
+        "old_wrist_axis_bend_deg": 47.89626783770212,
+        "new_wrist_axis_bend_deg": 12.51568986155014,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 83.27599545530244
+      },
+      "46": {
+        "shoulder_delta_from_compact_m": [
+          0.0658930242061615,
+          0.10617008805274963,
+          -0.07321100682020187
+        ],
+        "old_wrist_axis_bend_deg": 47.89626783770212,
+        "new_wrist_axis_bend_deg": 12.51568986155014,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 83.27599545530244
+      }
+    }
+  },
+  "aim_fire": {
+    "max_hand_finger_position_delta_m": 3.846982313223358e-07,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.07398402690887451,
+          0.10506068915128708,
+          -0.0648457258939743
+        ],
+        "old_wrist_axis_bend_deg": 47.178240786109946,
+        "new_wrist_axis_bend_deg": 10.276304766682031,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 85.61956313312804
+      },
+      "46": {
+        "shoulder_delta_from_compact_m": [
+          0.07398402690887451,
+          0.10506068915128708,
+          -0.0648457258939743
+        ],
+        "old_wrist_axis_bend_deg": 47.178240786109946,
+        "new_wrist_axis_bend_deg": 10.276304766682031,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 85.61956313312804
+      }
+    }
+  },
+  "equip": {
+    "max_hand_finger_position_delta_m": 4.6505366856302986e-07,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.07032668590545654,
+          0.11560357362031937,
+          -0.0738065242767334
+        ],
+        "old_wrist_axis_bend_deg": 48.300061791244104,
+        "new_wrist_axis_bend_deg": 11.351992966614633,
+        "old_elbow_bend_deg": 26.819786210092662,
+        "new_elbow_bend_deg": 86.47533802480645
+      },
+      "38": {
+        "shoulder_delta_from_compact_m": [
+          0.07032543420791626,
+          0.11560419201850891,
+          -0.07380740344524384
+        ],
+        "old_wrist_axis_bend_deg": 48.300027640298254,
+        "new_wrist_axis_bend_deg": 11.352287518522589,
+        "old_elbow_bend_deg": 26.819793040281834,
+        "new_elbow_bend_deg": 86.47505798705048
+      }
+    }
+  },
+  "reload": {
+    "max_hand_finger_position_delta_m": 6.7430512295483444e-06,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.07033094763755798,
+          0.11554958671331406,
+          -0.07365813851356506
+        ],
+        "old_wrist_axis_bend_deg": 48.34818730413601,
+        "new_wrist_axis_bend_deg": 11.402094111723969,
+        "old_elbow_bend_deg": 26.819746936504934,
+        "new_elbow_bend_deg": 86.50509032883102
+      },
+      "126": {
+        "shoulder_delta_from_compact_m": [
+          0.0703309029340744,
+          0.11554953455924988,
+          -0.07365811616182327
+        ],
+        "old_wrist_axis_bend_deg": 48.34815998337933,
+        "new_wrist_axis_bend_deg": 11.40211204097054,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 86.50507666845269
+      }
+    }
+  },
+  "reload_empty": {
+    "max_hand_finger_position_delta_m": 9.012739183882977e-07,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.0703309029340744,
+          0.11554951220750809,
+          -0.07365814596414566
+        ],
+        "old_wrist_axis_bend_deg": 48.348173643757676,
+        "new_wrist_axis_bend_deg": 11.402094111723969,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 86.50506983826351
+      },
+      "162": {
+        "shoulder_delta_from_compact_m": [
+          0.07033088803291321,
+          0.1155494749546051,
+          -0.07365808635950089
+        ],
+        "old_wrist_axis_bend_deg": 48.348146323001,
+        "new_wrist_axis_bend_deg": 11.40211204097054,
+        "old_elbow_bend_deg": 26.819793040281834,
+        "new_elbow_bend_deg": 86.50506300807434
+      }
+    }
+  },
+  "drum_reload": {
+    "max_hand_finger_position_delta_m": 2.398150761435021e-05,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.07784755527973175,
+          0.13101708889007568,
+          -0.07474520057439804
+        ],
+        "old_wrist_axis_bend_deg": 49.09236715006017,
+        "new_wrist_axis_bend_deg": 9.750098455287787,
+        "old_elbow_bend_deg": 26.81977084216703,
+        "new_elbow_bend_deg": 91.54457465319568
+      },
+      "126": {
+        "shoulder_delta_from_compact_m": [
+          0.07784761488437653,
+          0.13101708889007568,
+          -0.07474513351917267
+        ],
+        "old_wrist_axis_bend_deg": 49.09238764062768,
+        "new_wrist_axis_bend_deg": 9.750098455287787,
+        "old_elbow_bend_deg": 26.819755474241397,
+        "new_elbow_bend_deg": 91.54458148338485
+      }
+    }
+  },
+  "drum_reload_empty": {
+    "max_hand_finger_position_delta_m": 1.5067365251593319e-05,
+    "max_hand_finger_rotation_delta_deg": 0,
+    "angles": {
+      "0": {
+        "shoulder_delta_from_compact_m": [
+          0.0778476893901825,
+          0.1310172975063324,
+          -0.07474526762962341
+        ],
+        "old_wrist_axis_bend_deg": 49.092360319871,
+        "new_wrist_axis_bend_deg": 9.750018200565039,
+        "old_elbow_bend_deg": 26.8197776723562,
+        "new_elbow_bend_deg": 91.54464295508738
+      },
+      "148": {
+        "shoulder_delta_from_compact_m": [
+          0.07784754037857056,
+          0.13101710379123688,
+          -0.07474519312381744
+        ],
+        "old_wrist_axis_bend_deg": 49.09239447081685,
+        "new_wrist_axis_bend_deg": 9.75013858264916,
+        "old_elbow_bend_deg": 26.81976230443057,
+        "new_elbow_bend_deg": 91.54455416262817
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "2": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "panoramic_reroll03_white.png"
+    }
+  },
+  "3": {
+    "class_type": "Trellis2PreProcessImage",
+    "inputs": {
+      "image": [
+        "2",
+        0
+      ],
+      "padding": 64,
+      "remove_background": true,
+      "max_size": 2048
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "3",
+        0
+      ],
+      "filename_prefix": "PanoramicRedDot20260911/Reroll03/segmented_input"
+    }
+  }
+}

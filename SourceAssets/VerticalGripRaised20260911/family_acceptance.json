@@ -1,0 +1,623 @@
+{
+  "family": "vertical_grip",
+  "shared_pose": {
+    "max_finger_rotation_difference_degrees": 0.032885075912182225,
+    "hand_rotation_difference_degrees": 0.0,
+    "forearm_direction_difference_degrees": 0.022813128496798774,
+    "profiles": {
+      "vertical": {
+        "fingers": {
+          "index_metacarpal_l": [
+            0.9880507588386536,
+            0.07445419579744339,
+            0.009785543195903301,
+            0.1345975697040558
+          ],
+          "index_01_l": [
+            0.948787271976471,
+            -2.3466224519097523e-08,
+            1.3623107975035964e-08,
+            0.31591567397117615
+          ],
+          "index_02_l": [
+            0.8993188738822937,
+            -6.394043339241762e-08,
+            1.6312741379920226e-08,
+            0.43729346990585327
+          ],
+          "index_03_l": [
+            0.99094158411026,
+            5.607057596002107e-10,
+            -6.499550408989307e-08,
+            0.1342938095331192
+          ],
+          "middle_metacarpal_l": [
+            0.9880993366241455,
+            -0.018175587058067322,
+            -0.0027384082786738873,
+            0.1527150571346283
+          ],
+          "middle_01_l": [
+            0.9159819483757019,
+            2.2880389138890678e-08,
+            2.3854930475408764e-08,
+            0.4012194275856018
+          ],
+          "middle_02_l": [
+            0.9486263394355774,
+            -3.2916652514813904e-08,
+            -5.937399460975712e-09,
+            0.31639862060546875
+          ],
+          "middle_03_l": [
+            0.9299349188804626,
+            6.410157737946065e-08,
+            -4.743253612105036e-08,
+            0.36772415041923523
+          ],
+          "thumb_01_l": [
+            0.8984364867210388,
+            0.23278506100177765,
+            0.34510257840156555,
+            0.13974006474018097
+          ],
+          "thumb_02_l": [
+            0.9957984685897827,
+            -0.004960641730576754,
+            -0.0777008906006813,
+            -0.048201460391283035
+          ],
+          "thumb_03_l": [
+            0.9840798377990723,
+            0.115903340280056,
+            0.04080364108085632,
+            0.12840721011161804
+          ],
+          "pinky_metacarpal_l": [
+            0.975328803062439,
+            0.07101181149482727,
+            0.0066492147743701935,
+            0.2089182585477829
+          ],
+          "pinky_01_l": [
+            0.8512977361679077,
+            -2.2153560763626956e-08,
+            -1.0666528105218731e-08,
+            0.5246829390525818
+          ],
+          "pinky_02_l": [
+            0.9444031715393066,
+            -6.367435645415753e-08,
+            2.6408494946394967e-08,
+            0.32878968119621277
+          ],
+          "pinky_03_l": [
+            0.9907102584838867,
+            -1.842783170502571e-08,
+            -2.0134896416834636e-08,
+            0.1359896957874298
+          ],
+          "ring_metacarpal_l": [
+            0.9818856716156006,
+            0.042392902076244354,
+            0.004707309417426586,
+            0.18461096286773682
+          ],
+          "ring_01_l": [
+            0.8687912225723267,
+            -1.9061060285707754e-08,
+            4.163953093438977e-08,
+            0.49517855048179626
+          ],
+          "ring_02_l": [
+            0.9480296969413757,
+            -3.42192727487145e-08,
+            -3.771275292052678e-09,
+            0.3181818723678589
+          ],
+          "ring_03_l": [
+            0.9733587503433228,
+            1.4755769051078005e-08,
+            -1.0182660936663979e-08,
+            0.22928763926029205
+          ]
+        },
+        "hand_rotation": [
+          0.13653618097305298,
+          0.9340693354606628,
+          -0.1279473751783371,
+          0.304141104221344
+        ],
+        "forearm": [
+          0.8731628656387329,
+          -0.3492667078971863,
+          0.3399990200996399
+        ],
+        "hand_in_mount": [
+          -0.028383804485201836,
+          0.047291915863752365,
+          -0.10998093336820602
+        ]
+      },
+      "prism": {
+        "fingers": {
+          "index_metacarpal_l": [
+            0.9880507588386536,
+            0.07445419579744339,
+            0.009785543195903301,
+            0.1345975697040558
+          ],
+          "index_01_l": [
+            0.948787271976471,
+            -2.3466224519097523e-08,
+            1.3623107975035964e-08,
+            0.31591567397117615
+          ],
+          "index_02_l": [
+            0.8993188738822937,
+            -6.394043339241762e-08,
+            1.6312741379920226e-08,
+            0.43729346990585327
+          ],
+          "index_03_l": [
+            0.99094158411026,
+            5.607057596002107e-10,
+            -6.499550408989307e-08,
+            0.1342938095331192
+          ],
+          "middle_metacarpal_l": [
+            0.9880993366241455,
+            -0.018175587058067322,
+            -0.0027384082786738873,
+            0.1527150571346283
+          ],
+          "middle_01_l": [
+            0.9159819483757019,
+            2.2880389138890678e-08,
+            2.3854930475408764e-08,
+            0.4012194275856018
+          ],
+          "middle_02_l": [
+            0.9486263394355774,
+            -3.2916652514813904e-08,
+            -5.937399460975712e-09,
+            0.31639862060546875
+          ],
+          "middle_03_l": [
+            0.9299349188804626,
+            6.410157737946065e-08,
+            -4.743253612105036e-08,
+            0.36772415041923523
+          ],
+          "thumb_01_l": [
+            0.8984364867210388,
+            0.23278506100177765,
+            0.34510257840156555,
+            0.13974006474018097
+          ],
+          "thumb_02_l": [
+            0.9957984685897827,
+            -0.004960641730576754,
+            -0.0777008906006813,
+            -0.048201460391283035
+          ],
+          "thumb_03_l": [
+            0.9840798377990723,
+            0.115903340280056,
+            0.04080364108085632,
+            0.12840721011161804
+          ],
+          "pinky_metacarpal_l": [
+            0.975328803062439,
+            0.07101181149482727,
+            0.0066492147743701935,
+            0.2089182585477829
+          ],
+          "pinky_01_l": [
+            0.8512977361679077,
+            -2.2153560763626956e-08,
+            -1.0666528105218731e-08,
+            0.5246829390525818
+          ],
+          "pinky_02_l": [
+            0.9444031715393066,
+            -6.367435645415753e-08,
+            2.6408494946394967e-08,
+            0.32878968119621277
+          ],
+          "pinky_03_l": [
+            0.9907102584838867,
+            -1.842783170502571e-08,
+            -2.0134896416834636e-08,
+            0.1359896957874298
+          ],
+          "ring_metacarpal_l": [
+            0.9818856716156006,
+            0.042392902076244354,
+            0.004707309417426586,
+            0.18461096286773682
+          ],
+          "ring_01_l": [
+            0.8687912225723267,
+            -1.9061060285707754e-08,
+            4.163953093438977e-08,
+            0.49517855048179626
+          ],
+          "ring_02_l": [
+            0.9480296969413757,
+            -3.42192727487145e-08,
+            -3.771275292052678e-09,
+            0.3181818723678589
+          ],
+          "ring_03_l": [
+            0.9733587503433228,
+            1.4755769051078005e-08,
+            -1.0182660936663979e-08,
+            0.22928763926029205
+          ]
+        },
+        "hand_rotation": [
+          0.13653619587421417,
+          0.9340694546699524,
+          -0.12794743478298187,
+          0.3041410744190216
+        ],
+        "forearm": [
+          0.8731628656387329,
+          -0.3492671847343445,
+          0.33999842405319214
+        ],
+        "hand_in_mount": [
+          -0.028383731842041016,
+          0.0432918556034565,
+          -0.11798109859228134
+        ]
+      }
+    },
+    "common_hand_overrides": {
+      "vertical": {},
+      "prism": {}
+    }
+  },
+  "members": {
+    "vertical": {
+      "run": "vertical-raised-v1",
+      "runtime_checks": 232,
+      "runtime_failures": 0,
+      "geometry_samples": 446,
+      "sampled_intersections": 0,
+      "animation_variants": 9,
+      "import_exit": 1,
+      "import_readback": {
+        "idle": {
+          "duration": 3.0,
+          "compression_error_cm": 0.000568586909896803,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_idle.A_M4_Vertical_idle",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+          "right_weapon_difference_cm": 3.65422529225155e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim": {
+          "duration": 0.03333333507180214,
+          "compression_error_cm": 0.0004999619768278072,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_aim.A_M4_Vertical_aim",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+          "right_weapon_difference_cm": 1.7366625949812517e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0005692962519023795,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_fire.A_M4_Vertical_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+          "right_weapon_difference_cm": 3.179254179637135e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim_fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0005118166692676249,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_aim_fire.A_M4_Vertical_aim_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+          "right_weapon_difference_cm": 2.7758796202234874e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "equip": {
+          "duration": 0.6333333253860474,
+          "compression_error_cm": 0.0005829536999972867,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_equip.A_M4_Vertical_equip",
+          "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+          "right_weapon_difference_cm": 0.0001719183978516974,
+          "preserved_contact_difference_cm": 0
+        },
+        "reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0015053783375959353,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_reload.A_M4_Vertical_reload",
+          "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+          "right_weapon_difference_cm": 0.0001546683194607958,
+          "preserved_contact_difference_cm": 7.709742175285853e-05
+        },
+        "reload_empty": {
+          "duration": 2.700000047683716,
+          "compression_error_cm": 0.0006921219576449797,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_reload_empty.A_M4_Vertical_reload_empty",
+          "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+          "right_weapon_difference_cm": 0.0001744400509046272,
+          "preserved_contact_difference_cm": 0.002259922726012288
+        },
+        "drum_reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0009152725541858554,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_drum_reload.A_M4_Vertical_drum_reload",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+          "right_weapon_difference_cm": 4.836159536722441e-05,
+          "preserved_contact_difference_cm": 9.03125825455911e-05
+        },
+        "drum_reload_empty": {
+          "duration": 2.4666666984558105,
+          "compression_error_cm": 0.0005998371937065473,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Vertical/A_M4_Vertical_drum_reload_empty.A_M4_Vertical_drum_reload_empty",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+          "right_weapon_difference_cm": 5.200323149196949e-05,
+          "preserved_contact_difference_cm": 8.632854899376996e-05
+        }
+      },
+      "profile": {
+        "family": "vertical_grip",
+        "variant": "vertical",
+        "animation_prefix": "A_M4_Vertical_",
+        "fitted_mesh": "M4_Vertical_Fitted.blend",
+        "mesh_prefix": "VG_",
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalForegrip20260911\\LeftSupport",
+        "shoulder_offset": [
+          0.020104505121707916,
+          0.14186212420463562,
+          -0.16422468423843384
+        ],
+        "forearm_direction": [
+          0.873163104057312,
+          -0.3492652475833893,
+          0.3400000035762787
+        ],
+        "raise_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripClass20260911\\vertical",
+        "elbow_raise_in_mount_m": [
+          -0.008451082743704319,
+          0.003380405716598034,
+          0.022093921899795532
+        ]
+      },
+      "fbx_sha256": {
+        "A_M4_Vertical_aim.fbx": "f1e39326dd7ed7e6147e1f0eb4556a3b9ed895821f734427f0cd6479bf5552a0",
+        "A_M4_Vertical_aim_fire.fbx": "be274c5ccec50a5ee2966f73b23a4c35f201b2f99ba0c157526b59d4d754f36f",
+        "A_M4_Vertical_drum_reload.fbx": "c5f39abc7e047ca644489a860b5368af305540b1d87f9da5219856a1c840f800",
+        "A_M4_Vertical_drum_reload_empty.fbx": "8973274a38aaf7e51a02a96c562970cc53b2e884e54deea1e3bebfc5641211e1",
+        "A_M4_Vertical_equip.fbx": "0d7a5f6a5cc7ae094a98f5e54daf28c0367b86fdc21a2e5444ec4e0ad269dc98",
+        "A_M4_Vertical_fire.fbx": "b8a8cfde667ce7bbaae0fcce4436db956711fb8d7dfc22207a7bb961e290ea25",
+        "A_M4_Vertical_idle.fbx": "a807845cb2d3c127dfb3d734abd4e947222e4cafbf54d608f60799ce525c71d7",
+        "A_M4_Vertical_reload.fbx": "d1a9edf7e9a703da55a38a5815f879c763fb0a1b4879a88ccf2c219152ac0f6e",
+        "A_M4_Vertical_reload_empty.fbx": "b4fc18cb4fbdfb98d702b202553fb117112528a61d0c36ab2660c13f281d8cbe"
+      },
+      "preview_frames": 105,
+      "preview_note": "Silent actual-game screenshot sequence, not audio verification"
+    },
+    "prism": {
+      "run": "prism-raised-v1",
+      "runtime_checks": 338,
+      "runtime_failures": 0,
+      "geometry_samples": 446,
+      "sampled_intersections": 0,
+      "animation_variants": 9,
+      "import_exit": 1,
+      "import_readback": {
+        "idle": {
+          "duration": 3.0,
+          "compression_error_cm": 0.0005761437200356284,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_idle.A_M4_Prism_idle",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_idle.A_AKM_idle",
+          "right_weapon_difference_cm": 3.65422529225155e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim": {
+          "duration": 0.03333333507180214,
+          "compression_error_cm": 0.0004966973152386921,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_aim.A_M4_Prism_aim",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim.A_AKM_aim",
+          "right_weapon_difference_cm": 1.7366625949812517e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0005718027911179613,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_fire.A_M4_Prism_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_fire.A_AKM_fire",
+          "right_weapon_difference_cm": 3.179254179637135e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "aim_fire": {
+          "duration": 0.7666666507720947,
+          "compression_error_cm": 0.0005070190770343663,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_aim_fire.A_M4_Prism_aim_fire",
+          "reference": "/Game/Weapons/M4ContactImpactFinal/A_AKM_aim_fire.A_AKM_aim_fire",
+          "right_weapon_difference_cm": 2.7758796202234874e-05,
+          "preserved_contact_difference_cm": 0
+        },
+        "equip": {
+          "duration": 0.6333333253860474,
+          "compression_error_cm": 0.0005873559800921367,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_equip.A_M4_Prism_equip",
+          "reference": "/Game/Weapons/M4WrapGripFinal/A_M4_HK416_equip_charge.A_M4_HK416_equip_charge",
+          "right_weapon_difference_cm": 0.0001719183978516974,
+          "preserved_contact_difference_cm": 0
+        },
+        "reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0015053783375959353,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_reload.A_M4_Prism_reload",
+          "reference": "/Game/Weapons/M4TacticalTossFinal/A_M4_HK416_reload.A_M4_HK416_reload",
+          "right_weapon_difference_cm": 0.0001546683194607958,
+          "preserved_contact_difference_cm": 8.192655132975713e-05
+        },
+        "reload_empty": {
+          "duration": 2.700000047683716,
+          "compression_error_cm": 0.0006993973059511027,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_reload_empty.A_M4_Prism_reload_empty",
+          "reference": "/Game/Weapons/M4SlapImpactFinal/A_M4_HK416_reload_empty.A_M4_HK416_reload_empty",
+          "right_weapon_difference_cm": 0.0001744400509046272,
+          "preserved_contact_difference_cm": 0.0022630229243858807
+        },
+        "drum_reload": {
+          "duration": 2.0999999046325684,
+          "compression_error_cm": 0.0008711851924208556,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_drum_reload.A_M4_Prism_drum_reload",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload.A_M4_DrumContact_reload",
+          "right_weapon_difference_cm": 4.836159536722441e-05,
+          "preserved_contact_difference_cm": 8.237271805439301e-05
+        },
+        "drum_reload_empty": {
+          "duration": 2.4666666984558105,
+          "compression_error_cm": 0.0005973491534505896,
+          "asset": "/Game/Weapons/M4VerticalGripClassRaised/Prism/A_M4_Prism_drum_reload_empty.A_M4_Prism_drum_reload_empty",
+          "reference": "/Game/Weapons/M4DrumDrop/Contact/A_M4_DrumContact_reload_empty.A_M4_DrumContact_reload_empty",
+          "right_weapon_difference_cm": 5.200323149196949e-05,
+          "preserved_contact_difference_cm": 8.902525562879838e-05
+        }
+      },
+      "profile": {
+        "family": "vertical_grip",
+        "variant": "prism",
+        "animation_prefix": "A_M4_Prism_",
+        "fitted_mesh": "M4_Prism_Fitted.blend",
+        "mesh_prefix": "PH_",
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PrismHandstop20260910\\GripAnimation",
+        "shoulder_offset": [
+          0.024830350652337074,
+          0.14185775816440582,
+          -0.17255274951457977
+        ],
+        "forearm_direction": [
+          0.873163104057312,
+          -0.3492652475833893,
+          0.3400000035762787
+        ],
+        "contact_translation_m": [
+          0.0,
+          -0.004000000189989805,
+          -0.00800000037997961
+        ],
+        "raise_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\VerticalGripClass20260911\\prism",
+        "elbow_raise_in_mount_m": [
+          -0.008451067842543125,
+          0.003380514681339264,
+          0.022093871608376503
+        ]
+      },
+      "fbx_sha256": {
+        "A_M4_Prism_aim.fbx": "ac7bc2d20e6c9b39f9cf60d2d3244cf9d4c0aaa703612da33b3e5dcb0169942b",
+        "A_M4_Prism_aim_fire.fbx": "201809b038efe06c1a000bc80759740541d490890178076c2627406bff20834a",
+        "A_M4_Prism_drum_reload.fbx": "c15cc2c91c91e5e1691bb4c1151a5b4ff56c7bec73cd0d12e67f5a15b6aff4e1",
+        "A_M4_Prism_drum_reload_empty.fbx": "74f6add28147baa32ac8a91708683a4d4bfc410ce8d5740291cbb32622b33ad3",
+        "A_M4_Prism_equip.fbx": "05ed3fd18c453d4880b15f987df3f944a12313b034d0354dccc9438921d5c54d",
+        "A_M4_Prism_fire.fbx": "22e5559f6e2b2105bd32e4dc43d09a4fe21e7941395974b8c28c6d21b03412d4",
+        "A_M4_Prism_idle.fbx": "2d6563da6d0841920ea68826213f24f9782d63d83641173a16e7efe81e67f8f5",
+        "A_M4_Prism_reload.fbx": "0042baae58bba758b86d947301d8b64a5606044f68d527b232b05db08e1e4970",
+        "A_M4_Prism_reload_empty.fbx": "1589f17279f30217e7145634133f31583a9fb1da15f2bf6ffc938ad517ed8bab"
+      },
+      "preview_frames": 158,
+      "preview_note": "Silent actual-game screenshot sequence, not audio verification"
+    }
+  },
+  "packaged_build_verified": false,
+  "audio_changed": false,
+  "generator_sha256": "2413282e06f661490cbfb6a9094259834e9e5874edf2903ed11acc9d936fca1f",
+  "total_runtime_checks": 570,
+  "contact_preservation": {
+    "vertical": {
+      "idle": {
+        "max_hand_finger_position_difference_m": 4.6516928907596963e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "aim": {
+        "max_hand_finger_position_difference_m": 1.316562074949763e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "fire": {
+        "max_hand_finger_position_difference_m": 4.716870722575311e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "aim_fire": {
+        "max_hand_finger_position_difference_m": 3.2922483537239845e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "equip": {
+        "max_hand_finger_position_difference_m": 4.172990311664476e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "reload": {
+        "max_hand_finger_position_difference_m": 9.021357925509169e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "reload_empty": {
+        "max_hand_finger_position_difference_m": 5.745407390226342e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "drum_reload": {
+        "max_hand_finger_position_difference_m": 5.435350465726696e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "drum_reload_empty": {
+        "max_hand_finger_position_difference_m": 3.7642026183215166e-07,
+        "max_rotation_difference_degrees": 0
+      }
+    },
+    "prism": {
+      "idle": {
+        "max_hand_finger_position_difference_m": 4.5123708038707733e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "aim": {
+        "max_hand_finger_position_difference_m": 2.1957892497072522e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "fire": {
+        "max_hand_finger_position_difference_m": 3.478711107352004e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "aim_fire": {
+        "max_hand_finger_position_difference_m": 3.1478151938732876e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "equip": {
+        "max_hand_finger_position_difference_m": 3.6446973111137775e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "reload": {
+        "max_hand_finger_position_difference_m": 7.750036492315438e-07,
+        "max_rotation_difference_degrees": 0
+      },
+      "reload_empty": {
+        "max_hand_finger_position_difference_m": 1.0664485296656424e-06,
+        "max_rotation_difference_degrees": 0
+      },
+      "drum_reload": {
+        "max_hand_finger_position_difference_m": 2.135147136584982e-06,
+        "max_rotation_difference_degrees": 0
+      },
+      "drum_reload_empty": {
+        "max_hand_finger_position_difference_m": 4.570583549953233e-07,
+        "max_rotation_difference_degrees": 0
+      }
+    }
+  },
+  "arm_raise": {
+    "vertical": [
+      -0.008451082743704319,
+      0.003380405716598034,
+      0.022093921899795532
+    ],
+    "prism": [
+      -0.008451067842543125,
+      0.003380514681339264,
+      0.022093871608376503
+    ]
+  }
+}

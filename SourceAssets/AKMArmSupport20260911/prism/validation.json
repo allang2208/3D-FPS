@@ -1,0 +1,191 @@
+{
+  "idle": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\prism\\A_AKM_prism_idle.blend",
+    "frames": 5,
+    "duration": 0.041666666666666664,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71755735470895,
+      "elbow_after": 57.71757101508729,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.9556887072930765e-07,
+    "max_digit_error_m": 3.449868232843347e-07,
+    "max_preserved_error_m": 3.0211622004122134e-07,
+    "max_length_error_m": 7.391823664271158e-08
+  },
+  "aim": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\prism\\A_AKM_prism_aim.blend",
+    "frames": 5,
+    "duration": 0.041666666666666664,
+    "metrics": {
+      "wrist_bend_before": 7.470312791479054,
+      "wrist_bend_after": 3.552256736371279,
+      "elbow_before": 57.457497902060716,
+      "elbow_after": 57.457497902060716,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.8645068639877735e-07,
+    "max_digit_error_m": 3.2532365310463517e-07,
+    "max_preserved_error_m": 3.2450812200534224e-07,
+    "max_length_error_m": 1.236982187236002e-07
+  },
+  "fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\prism\\A_AKM_prism_fire.blend",
+    "frames": 12,
+    "duration": 0.1,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71755735470895,
+      "elbow_after": 57.71757101508729,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.1840622928226603e-07,
+    "max_digit_error_m": 2.407356265396403e-07,
+    "max_preserved_error_m": 2.723541368012762e-07,
+    "max_length_error_m": 3.752776672749647e-08
+  },
+  "aim_fire": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\prism\\A_AKM_prism_aim_fire.blend",
+    "frames": 12,
+    "duration": 0.1,
+    "metrics": {
+      "wrist_bend_before": 7.470312791479054,
+      "wrist_bend_after": 3.552256736371279,
+      "elbow_before": 57.457497902060716,
+      "elbow_after": 57.457497902060716,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 1.1151007970493857e-07,
+    "max_digit_error_m": 2.714673510874682e-07,
+    "max_preserved_error_m": 3.032867371843553e-07,
+    "max_length_error_m": 6.514279465852368e-08
+  },
+  "equip": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMAttachments20260911\\prism\\A_AKM_prism_equip.blend",
+    "frames": 204,
+    "duration": 1.7,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71761882641148,
+      "elbow_after": 57.71763248678982,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 4.7520454880899116e-07,
+    "max_digit_error_m": 5.967096461304237e-07,
+    "max_preserved_error_m": 5.969770438674131e-07,
+    "max_length_error_m": 1.907699944680985e-07
+  },
+  "reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\prism\\A_AKM_prism_reload.blend",
+    "frames": 400,
+    "duration": 3.3333333333333335,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71755052451978,
+      "elbow_after": 57.71755052451978,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.886559162707704e-07,
+    "max_digit_error_m": 5.094802676820385e-07,
+    "max_preserved_error_m": 3.7133502347401117e-07,
+    "max_length_error_m": 1.8850025368388756e-07
+  },
+  "reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\prism\\A_AKM_prism_reload_empty.blend",
+    "frames": 515,
+    "duration": 4.291666666666667,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71755052451978,
+      "elbow_after": 57.71755052451978,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.5211161845458495e-07,
+    "max_digit_error_m": 5.721444387658831e-07,
+    "max_preserved_error_m": 4.075406292431755e-07,
+    "max_length_error_m": 1.773663946824655e-07
+  },
+  "drum_reload": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\prism\\A_AKM_prism_drum_reload.blend",
+    "frames": 400,
+    "duration": 3.3333333333333335,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71755052451978,
+      "elbow_after": 57.71755052451978,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.406851797613835e-07,
+    "max_digit_error_m": 5.094802676820385e-07,
+    "max_preserved_error_m": 3.7133502347401117e-07,
+    "max_length_error_m": 1.8850025368388756e-07
+  },
+  "drum_reload_empty": {
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AKMGripReturn20260911\\Final\\prism\\A_AKM_prism_drum_reload_empty.blend",
+    "frames": 515,
+    "duration": 4.291666666666667,
+    "metrics": {
+      "wrist_bend_before": 6.9760329186995635,
+      "wrist_bend_after": 0.05934702678045817,
+      "elbow_before": 57.71755052451978,
+      "elbow_after": 57.71755052451978,
+      "shoulder_offset_m": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "hand_target_unchanged": true
+    },
+    "max_hand_error_m": 2.423515369244081e-07,
+    "max_digit_error_m": 4.789859998358914e-07,
+    "max_preserved_error_m": 4.075406292431755e-07,
+    "max_length_error_m": 1.4695550409893343e-07
+  }
+}

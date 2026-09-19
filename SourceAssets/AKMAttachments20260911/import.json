@@ -1,0 +1,75 @@
+{
+  "optic": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_optic.SM_AKM_optic",
+    "slots": [
+      "optic_Holosight",
+      "optic_Red_Dot",
+      "AKM_AdapterSteel"
+    ]
+  },
+  "drum": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_drum.SM_AKM_drum",
+    "slots": [
+      "drum_DrumPolymer",
+      "drum_DrumFasteners",
+      "drum_DrumIndex"
+    ]
+  },
+  "prism": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_prism.SM_AKM_prism",
+    "slots": [
+      "prism_Prism_Polymer",
+      "prism_Prism_Saddle",
+      "AKM_AdapterSteel"
+    ]
+  },
+  "angled": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_angled.SM_AKM_angled",
+    "slots": [
+      "angled_Body_002",
+      "angled_Grip_Default_002",
+      "angled_Recess_shadow",
+      "AKM_AdapterSteel"
+    ]
+  },
+  "suppressor": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_suppressor.SM_AKM_suppressor",
+    "slots": [
+      "suppressor_RifleMetal",
+      "suppressor_RecessMetal"
+    ]
+  },
+  "brake": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_brake.SM_AKM_brake",
+    "slots": [
+      "brake_RifleMetal",
+      "brake_RecessMetal"
+    ]
+  },
+  "titanium_brake": {
+    "path": "/Game/Weapons/AKMIntegration/SovietFab/Attachments/SM_AKM_titanium_brake.SM_AKM_titanium_brake",
+    "slots": [
+      "titanium_brake_RifleMetal",
+      "titanium_brake_RecessMetal",
+      "titanium_brake_TitaniumTrim"
+    ]
+  },
+  "A_AKM_prism_aim": 0.0416666679084301,
+  "A_AKM_prism_aim_fire": 0.10000000149011612,
+  "A_AKM_prism_drum_reload": 3.3333332538604736,
+  "A_AKM_prism_drum_reload_empty": 4.291666507720947,
+  "A_AKM_prism_equip": 1.7000000476837158,
+  "A_AKM_prism_fire": 0.10000000149011612,
+  "A_AKM_prism_idle": 0.0416666679084301,
+  "A_AKM_prism_reload": 3.3333332538604736,
+  "A_AKM_prism_reload_empty": 4.291666507720947,
+  "A_AKM_angled_aim": 0.0416666679084301,
+  "A_AKM_angled_aim_fire": 0.10000000149011612,
+  "A_AKM_angled_drum_reload": 3.3333332538604736,
+  "A_AKM_angled_drum_reload_empty": 4.291666507720947,
+  "A_AKM_angled_equip": 1.7000000476837158,
+  "A_AKM_angled_fire": 0.10000000149011612,
+  "A_AKM_angled_idle": 0.0416666679084301,
+  "A_AKM_angled_reload": 3.3333332538604736,
+  "A_AKM_angled_reload_empty": 4.291666507720947
+}

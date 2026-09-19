@@ -1,0 +1,183 @@
+{
+  "prompt": [
+    8,
+    "f2b590bb-0e4d-4d25-a317-f55d6f55e9fe",
+    {
+      "2": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "prismscope2x_white.png"
+        }
+      },
+      "3": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "image": [
+            "2",
+            0
+          ],
+          "padding": 64,
+          "remove_background": true,
+          "max_size": 2048
+        }
+      },
+      "9": {
+        "class_type": "SaveImage",
+        "inputs": {
+          "images": [
+            "3",
+            0
+          ],
+          "filename_prefix": "PrismScope2X20260911/segmented_input"
+        }
+      },
+      "1": {
+        "class_type": "Trellis2LoadModel",
+        "inputs": {
+          "modelname": "microsoft/TRELLIS.2-4B",
+          "backend": "sdpa",
+          "device": "cuda",
+          "low_vram": true,
+          "keep_models_loaded": false,
+          "conv_backend": "flex_gemm",
+          "sparse_backend": "xformers",
+          "use_reconviagen": false
+        }
+      },
+      "4": {
+        "class_type": "Trellis2MeshWithVoxelGenerator",
+        "inputs": {
+          "seed": 91162,
+          "pipeline_type": "1024_cascade",
+          "sparse_structure_steps": 16,
+          "shape_steps": 32,
+          "texture_steps": 24,
+          "max_num_tokens": 999999,
+          "max_views": 4,
+          "sparse_structure_resolution": 32,
+          "generate_texture_slat": true,
+          "use_tiled_decoder": true,
+          "sampler": "euler",
+          "fill_holes": false,
+          "hole_iterations": 1,
+          "hole_fill_algorithm": "flood_fill",
+          "keep_only_shell": true,
+          "pipeline": [
+            "1",
+            0
+          ],
+          "image": [
+            "3",
+            0
+          ]
+        }
+      },
+      "5": {
+        "class_type": "Trellis2MeshWithVoxelToTrimesh",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "reorient_vertices": "90 degrees"
+        }
+      },
+      "6": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "5",
+            0
+          ],
+          "filename_prefix": "PrismScope2X20260911/scope2x_raw",
+          "file_format": "glb"
+        }
+      },
+      "7": {
+        "class_type": "Trellis2OvoxelExportToGLB",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "resolution": 1024,
+          "texture_size": 2048,
+          "target_face_num": 100000
+        }
+      },
+      "8": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "7",
+            0
+          ],
+          "filename_prefix": "PrismScope2X20260911/scope2x_textured_master",
+          "file_format": "glb"
+        }
+      }
+    },
+    {
+      "client_id": "panoramic-scope2x",
+      "create_time": 1789093918876
+    },
+    [
+      "7",
+      "5",
+      "4",
+      "9",
+      "1",
+      "8",
+      "6"
+    ]
+  ],
+  "outputs": {
+    "9": {
+      "images": [
+        {
+          "filename": "segmented_input_00001_.png",
+          "subfolder": "PrismScope2X20260911",
+          "type": "output"
+        }
+      ]
+    }
+  },
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "f2b590bb-0e4d-4d25-a317-f55d6f55e9fe",
+          "timestamp": 1789093918877
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [
+            "1"
+          ],
+          "prompt_id": "f2b590bb-0e4d-4d25-a317-f55d6f55e9fe",
+          "timestamp": 1789093918902
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "f2b590bb-0e4d-4d25-a317-f55d6f55e9fe",
+          "timestamp": 1789094096118
+        }
+      ]
+    ]
+  },
+  "meta": {
+    "9": {
+      "node_id": "9",
+      "display_node": "9",
+      "parent_node": null,
+      "real_node_id": "9"
+    }
+  }
+}

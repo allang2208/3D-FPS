@@ -1,0 +1,27 @@
+{
+  "frames": 361,
+  "max_position_cm": 3.1132398110951336e-05,
+  "max_rotation_deg": 0.019541214882655002,
+  "ik": [
+    {
+      "side": "l",
+      "target_error_cm": 5.654619636414288e-08,
+      "elbow_moved_cm": 2.9033827694837537,
+      "length_error_cm": 8.895068184244792e-07,
+      "finger_rotation_error_deg": 0.0,
+      "pole_elbow_moved_cm": 4.0600018706872385,
+      "pole_hand_error_cm": 0.0,
+      "unreachable_length_error_cm": 8.895068113190518e-07
+    },
+    {
+      "side": "r",
+      "target_error_cm": 1.5444156517073293e-08,
+      "elbow_moved_cm": 0.20371021539353928,
+      "length_error_cm": 8.808813234395529e-07,
+      "finger_rotation_error_deg": 0.0,
+      "pole_elbow_moved_cm": 1.5219310886811381,
+      "pole_hand_error_cm": 0.0,
+      "unreachable_length_error_cm": 8.808813305449803e-07
+    }
+  ]
+}

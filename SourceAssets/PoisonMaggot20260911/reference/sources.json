@@ -1,0 +1,66 @@
+[
+  {
+    "state": "idle",
+    "path": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\enemies\\poison_maggot\\idle.png",
+    "sha256": "c63e68931a5ee340d9aef1d0c42eeba7bc05820dc21504ac0970963e576bfbbf",
+    "layout": {
+      "columns": 8,
+      "rows": 3,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frameCount": 24,
+      "footY": 357,
+      "frameRate": 8,
+      "repeat": -1
+    },
+    "seconds": 3.0
+  },
+  {
+    "state": "walk",
+    "path": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\enemies\\poison_maggot\\walking.png",
+    "sha256": "42b2dd89b97ad0ca3d2f53d494115bb8afba3935e28ec17905addec1193cbb03",
+    "layout": {
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 512,
+      "frameHeight": 512,
+      "frameCount": 40,
+      "footY": 357,
+      "frameRate": 16,
+      "repeat": -1
+    },
+    "seconds": 2.5
+  },
+  {
+    "state": "spitting",
+    "path": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\enemies\\poison_maggot\\spitting.png",
+    "sha256": "4eef4990df62aa2f72666fb23a312b3d07dbd0d4e64327dc14caba17118b1833",
+    "layout": {
+      "columns": 8,
+      "rows": 5,
+      "frameWidth": 640,
+      "frameHeight": 512,
+      "frameCount": 33,
+      "footY": 357,
+      "duration": 3000,
+      "repeat": 0
+    },
+    "seconds": 3.0
+  },
+  {
+    "state": "death",
+    "path": "E:\\无尽轮回\\长期备份\\2026-7-13-1\\game-dev\\assets\\enemies\\poison_maggot\\dying.png",
+    "sha256": "6c78045cca33e30e23ba978377ec3f3f4ee52e5271e84b65dbee94c65137c2db",
+    "layout": {
+      "columns": 8,
+      "rows": 4,
+      "frameWidth": 640,
+      "frameHeight": 512,
+      "frameCount": 27,
+      "footY": 357,
+      "duration": 1800,
+      "repeat": 0
+    },
+    "seconds": 1.8
+  }
+]
