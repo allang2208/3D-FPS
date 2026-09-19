@@ -158,3 +158,42 @@ __pycache__/
 /SourceAssets/FrostSwordGrips20260919/source_animation_inputs.json
 /SourceAssets/MeleeGuards20260915/.authoring-deps/
 /SourceAssets/FrostSword*/**/*.exr
+# Task-local UE import hosts are disposable DDC/Zen caches (ResonanceGrip, ReferenceSkeletonStock, RuneSword pattern generalized 2026-09-19).
+/SourceAssets/**/ImportHost/
+
+# Preview renders, vendored packages and dense numeric captures stay local like png/jpg/wav above.
+/SourceAssets/**/*.gif
+/SourceAssets/**/*.ffconcat
+/SourceAssets/**/*.zip
+/SourceAssets/**/*.rar
+/SourceAssets/**/*.7z
+/SourceAssets/**/*.avi
+/SourceAssets/**/*.mov
+/SourceAssets/**/*.npz
+/SourceAssets/**/*.npy
+/SourceAssets/**/*.pkl
+/SourceAssets/**/*.obj
+/SourceAssets/**/*.TGA
+/SourceAssets/**/*.tga
+/SourceAssets/**/*.pth
+/SourceAssets/**/*.ipynb
+/SourceAssets/**/*.exe
+/SourceAssets/**/*.dll
+/SourceAssets/**/*.pdb
+
+# 114 MB reviewed-diff snapshots from the 2026-09-10 repository migration are local audit evidence only.
+/Docs/repository-ue5-root-20260910/reviewed-*.diff
+
+# Vendored third-party research checkout, rollback snapshots and raw texture source files.
+/SourceAssets/PhantomRearGripPixal_20260913/naf_source/
+/SourceAssets/**/*.bak
+/SourceAssets/**/*.exr
+
+# Dense digit/pose sample records and before-snapshots stay local (same class as donor/geometry precedents).
+/SourceAssets/AKMArmSupport20260911/installed_digit_tracks.json
+/SourceAssets/M4InfimaRigRepair20260909/ue_pose_validation.json
+/SourceAssets/ResonanceGrip20260913/ShadingDiagnosis/compare.html
+/SourceAssets/ArmsIKEditor20260911/arm_before.json
+/SourceAssets/ArmsIKEditor20260911/source_snapshot.json
+/SourceAssets/M4DrumGrip20260910/Revision2/reload_empty_samples.json
+/SourceAssets/M4DrumGrip20260910/Revision2/reload_samples.json
