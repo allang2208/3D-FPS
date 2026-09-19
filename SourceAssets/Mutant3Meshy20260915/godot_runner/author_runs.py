@@ -23,7 +23,8 @@ for i in range(round(duration*FPS)+1):
     f=start+i*source_rate/FPS; scene.frame_set(math.floor(f),subframe=f%1)
     frames.append({b.name:donor.matrix_world@b.matrix for b in donor.pose.bones})
 
-bpy.ops.wm.open_mainfile(filepath=str(ROOT.parent/'revision2/Mutant3_Meshy_Animated_Revision2.blend'))
+# Frozen current skin/combat actions; rebuilding locomotion does not need retired revision2.
+bpy.ops.wm.open_mainfile(filepath=str(ROOT/'Mutant3_Meshy_CombatBase.blend'))
 scene=bpy.context.scene; scene.render.fps=FPS; scene.render.fps_base=1
 rig=next(o for o in bpy.data.objects if o.type=='ARMATURE')
 meshes=[o for o in bpy.data.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.object==rig for m in o.modifiers)]

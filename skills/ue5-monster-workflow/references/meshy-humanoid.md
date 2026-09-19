@@ -38,6 +38,10 @@
 
 ## 交付与恢复
 
+### 突变体-3 的局部动作替换（2026-09-19 整理）
+
+当前两条跑步来自旧 Godot runner 的 Denys Almaral `running_58f`（运行别名 `Walk`，CC BY 4.0），已导入但未游戏测试、未获用户认可；站立受击保留 Mesh2Motion `Hit_Chest`。Jog 加 Zombie_Walk_2 上身的跑姿已被用户否定，原 Hit_Knockback 的躺倒受击也已弃用。实际引用追踪、选源教训、速度换算、许可与混合制作包归档见 [怪物动作迁移与归档](monster-motion-migration.md)。当前完整源、固定输入与恢复入口为 `SourceAssets/Mutant3Meshy20260915/godot_runner/README.md`，旧 revision2 及候选已移入 `trash/mutant3-animation-retired-20260919/`，详见 `Docs/AssetArchives/mutant3-animation-20260919.json`。
+
 - 正式运行资产：`Content/Monsters/FatZombieMeshy`，另有 `Content/GameMaps/Geometry/SM_MainGround_Subdivided` 与主地图；作者源、源动作、prepared、native_retarget 和 UEAuthoring 继续保留，属于重建输入。
 - 当前成功流程以 `Docs/fat-zombie-workflow-publication-20260914.md` 和 SourceAssets README 为入口。原修复报告保留历史时序，后续确认与数值更新独立注明。
 - 错误的 100 倍动画、已替代物理/材质/地图副本和旧 WorkProject 进入 `trash/fat-zombie-workflow-20260914`；恢复路径、大小与 SHA-256 见 `Docs/AssetArchives/fat-zombie-20260914.json`。不能用归档整张地图覆盖并行场景更新。

@@ -1,0 +1,948 @@
+{
+  "date": "2026-09-19",
+  "scope": "Mutant3 animation authoring only; formal Content unchanged",
+  "archive_root": "trash/mutant3-animation-retired-20260919",
+  "status": "moved_and_sha256_readback_matched",
+  "file_count": 114,
+  "total_bytes": 393506881,
+  "preserved": [
+    {
+      "source": "SourceAssets/Mutant3Meshy20260915/godot_runner/Mutant3_Meshy_GodotRunner.blend",
+      "retained": "SourceAssets/Mutant3Meshy20260915/godot_runner/Mutant3_Meshy_CombatBase.blend",
+      "bytes": 16286957,
+      "sha256": "02a63f76ee4ad6c1b85f73bb61e47175b59fdc4c830847a77c7ab57bf7b9209a"
+    },
+    {
+      "source": "SourceAssets/Mutant3Meshy20260915/revision2/final/A_Mutant3_Stagger.fbx",
+      "retained": "SourceAssets/Mutant3Meshy20260915/godot_runner/combat_base/A_Mutant3_Stagger.fbx",
+      "bytes": 1217580,
+      "sha256": "09ddf0f4d55d2c72c8c2b01fe8b6b740268e5c532e99adff2f511ac582816e25"
+    },
+    {
+      "source": "SourceAssets/Mutant3Meshy20260915/revision2/prepared/A_M2M_HitChest.fbx",
+      "retained": "SourceAssets/Mutant3Meshy20260915/godot_runner/combat_base/A_M2M_HitChest.fbx",
+      "bytes": 476364,
+      "sha256": "8409a2bab4eb67f89c100a62a2d9a7f7a7f1cb69d7eeaeca7d61d0e4de815394"
+    },
+    {
+      "source": "SourceAssets/Mutant3Meshy20260915/revision2/native_retarget/A_Mutant3_R2_HitChest.fbx",
+      "retained": "SourceAssets/Mutant3Meshy20260915/godot_runner/combat_base/A_Mutant3_R2_HitChest.fbx",
+      "bytes": 397728,
+      "sha256": "0003586bbd76c75a94df5ac1f1f6e112349bb40a5886b7102055b34c10212202"
+    }
+  ],
+  "entries": [
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/animation_contract.json",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/animation_contract.json",
+      "bytes": 975,
+      "sha256": "36b10d74b1fc2c507175f12162acb96170356ebd66be6b0428d437d7334ff6b9",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/animation-authoring.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/animation-authoring.log",
+      "bytes": 1653,
+      "sha256": "5174bcfe4af4c829a05aa627206091e95147a86453fbb7cd43c4c656d66739c0",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/author_replacements.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/author_replacements.py",
+      "bytes": 8142,
+      "sha256": "6db65cc9fb6b31eafcdd4677c54829465cd9a4b0700265442fff8a5332c8562c",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/import_delivery.json",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/import_delivery.json",
+      "bytes": 901,
+      "sha256": "eb706b33672e8fd897bdb31fbdd77c76ae910923ceaec00e077642196b9b7d55",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/import_replacements.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/import_replacements.py",
+      "bytes": 2214,
+      "sha256": "0cebfe68d6e16915a35facac47e322e933a4b5cc4e10a65220d1f9fb62b042e4",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/install_replacements.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/install_replacements.py",
+      "bytes": 2195,
+      "sha256": "2de4f42c882145198b518ee309fe53247277c558cb8c0c70c466b767bab79724",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/install-console.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/install-console.log",
+      "bytes": 29097,
+      "sha256": "2f8db364cacbd1eab0a0c1ad24c785a7a5ab52cfa55cb977c367dbb45a609c0c",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/install.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/install.log",
+      "bytes": 274541,
+      "sha256": "1af087971e37b976a1f5b8f28b45bd8120ace0025c04920a14600b80ab00dca0",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/installed.json",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/installed.json",
+      "bytes": 1140,
+      "sha256": "dbf22d64e570b22560e63426c72e25657cca433d8450e126b62ab890a61dd5f9",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/library_reference.jpg",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/library_reference.jpg",
+      "bytes": 151511,
+      "sha256": "b222336b64b55e2843e3c5084c887611218be5632c9324824d92eaded6ffd91b",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/Mutant3_Meshy_Animated_Revision2.blend",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/Mutant3_Meshy_Animated_Revision2.blend",
+      "bytes": 23761511,
+      "sha256": "ad97bb28f93f9f865ef650399d72eba94626d0e8caf83bd15a795119c323b0f2",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/native_retarget.json",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/native_retarget.json",
+      "bytes": 555,
+      "sha256": "ed15cf1a9e077728269d8016ba1dca5a99c64f9c9d47250893a053dddb6e6aff",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/prepare_sources.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/prepare_sources.py",
+      "bytes": 1833,
+      "sha256": "95f0953119d2a6453d095596b78ea5ae7e52bc229ad4052d8e7b84987c665aa5",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/prepare-sources.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/prepare-sources.log",
+      "bytes": 1982,
+      "sha256": "8c3c6a087f0ccad2091972e922cf37f253b96db5fa7601d12e490fe3586ecb7c",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/previous_packages.json",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/previous_packages.json",
+      "bytes": 999,
+      "sha256": "cdbd8512e7d37d0c108d53490ab3f3249d41586056e7170086cf480111ad69e9",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current_motion.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current_motion.py",
+      "bytes": 1677,
+      "sha256": "e313b591018e2923537f176611e87238ee6cfb2dfb51e1b6599fe9bee18de2f8",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_library.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_library.py",
+      "bytes": 1549,
+      "sha256": "ce301085695ce77e84ae4a1e6ff1114fe81ef9bcc71682c2a5f68da335e9ba1e",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read-current.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read-current.log",
+      "bytes": 1779,
+      "sha256": "3e80b197eb0472ef0ec4041377bab1578294ab5afef672f94d5656bc1d42d322",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/README.md",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/README.md",
+      "bytes": 3232,
+      "sha256": "d732e382e9082b8c38425993c0d0e39e68c40f2caeb1276f1b91ed0d40a0e6f5",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/retarget_sources.py",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/retarget_sources.py",
+      "bytes": 2803,
+      "sha256": "08d66e8567bca438fb0be93f88e7e2e32e1f47b4e54619452caa3faca7b6ae32",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/retarget-console.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/retarget-console.log",
+      "bytes": 26196,
+      "sha256": "b151ce7e3118888f0b1c5bc8e23de777a52097dcb61a38a3bc7742b5caf0c443",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/retarget.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/retarget.log",
+      "bytes": 249521,
+      "sha256": "c5fed1dfac18376757ca4efdd3d2bb41d28d5c1f3317f6216d1b2bf82f71a378",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/source_inputs.json",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/source_inputs.json",
+      "bytes": 624,
+      "sha256": "a18b926f552d8af222aa69d418459d09b39a55c231aa2f2abd7180eb031aeead",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/stage-import-console.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/stage-import-console.log",
+      "bytes": 19984,
+      "sha256": "5ab83aa639dac1f5e96fc5249bee8d4149edfc7d3ff45967b0b858c83fb8ff63",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/stage-import.log",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/stage-import.log",
+      "bytes": 230128,
+      "sha256": "c1b8c6886a9aa9c92d40eb9364df0b707ca42ec1b17913d8193542d41e89d8e2",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/final/A_Mutant3_RunFast.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/final/A_Mutant3_RunFast.fbx",
+      "bytes": 1190188,
+      "sha256": "f5f99477d2ab3ef88d1a95b08d651625fbdb86ddf6215b91d8a742958a5f2836",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/final/A_Mutant3_Running.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/final/A_Mutant3_Running.fbx",
+      "bytes": 1230380,
+      "sha256": "a0593e1cabb1694c77e58e628e509a8692086c37c8ef0b67336139b274d2a569",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/final/A_Mutant3_Stagger.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/final/A_Mutant3_Stagger.fbx",
+      "bytes": 1217580,
+      "sha256": "09ddf0f4d55d2c72c8c2b01fe8b6b740268e5c532e99adff2f511ac582816e25",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/native_retarget/A_Mutant3_R2_HitChest.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/native_retarget/A_Mutant3_R2_HitChest.fbx",
+      "bytes": 397728,
+      "sha256": "0003586bbd76c75a94df5ac1f1f6e112349bb40a5886b7102055b34c10212202",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/native_retarget/A_Mutant3_R2_Jog.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/native_retarget/A_Mutant3_R2_Jog.fbx",
+      "bytes": 624832,
+      "sha256": "f088d00160bdcbc85a12bedbc5a497698831196d3dce930d69127eed4eb46937",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/native_retarget/A_Mutant3_R2_ZombiePosture.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/native_retarget/A_Mutant3_R2_ZombiePosture.fbx",
+      "bytes": 852720,
+      "sha256": "a959bddc98843dfe981868a8c1735320db779f42ed4cdc878c62210aee03c376",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/prepared/A_M2M_HitChest.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/prepared/A_M2M_HitChest.fbx",
+      "bytes": 476364,
+      "sha256": "8409a2bab4eb67f89c100a62a2d9a7f7a7f1cb69d7eeaeca7d61d0e4de815394",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/prepared/A_M2M_Jog.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/prepared/A_M2M_Jog.fbx",
+      "bytes": 569068,
+      "sha256": "e7518eea9d2f1da12f62b452a49b7819b301357e48a1dcb36d6a0748ffa80b7e",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/prepared/A_M2M_ZombiePosture.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/prepared/A_M2M_ZombiePosture.fbx",
+      "bytes": 784924,
+      "sha256": "74d375371a52add494eca82b86cb6d0df45c66441bef50a52f50a0eee2d31a65",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/previous_packages/A_Mutant3_RunFast.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/previous_packages/A_Mutant3_RunFast.uasset",
+      "bytes": 167934,
+      "sha256": "fd3a13348f1c157c503463bbb6880a0bf4f8f43069d26e7cd5d1e7f897e9178c",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/previous_packages/A_Mutant3_Running.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/previous_packages/A_Mutant3_Running.uasset",
+      "bytes": 226014,
+      "sha256": "ad9698e0c6c872abbb1341180d1d67f22959906e6ee31ddfd5f76c10e8c4ba55",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/previous_packages/A_Mutant3_Stagger.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/previous_packages/A_Mutant3_Stagger.uasset",
+      "bytes": 281799,
+      "sha256": "017dd51fb7bc89e93b77be84832274d630875dcf31185cda6b4ab99e2c277afa",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/RunFast_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/RunFast_0.png",
+      "bytes": 92223,
+      "sha256": "72d8b1bbf037b55ad5e4a21642aee43ec9c6c4850f9ee60267b93fa4bf2572e5",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/RunFast_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/RunFast_1.png",
+      "bytes": 92217,
+      "sha256": "48e9cc996f08bca0a576ba11fcc6495cef95a822afbd8311cc22942c05bb4d51",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/RunFast_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/RunFast_2.png",
+      "bytes": 91622,
+      "sha256": "71475af213738fee15332ef1ccc5d6f72cd179fe9a28fa00d292ffa0d665348f",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/RunFast_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/RunFast_3.png",
+      "bytes": 92506,
+      "sha256": "e91b0a9b35221b426d19e8a9468eb0571eeb94597a3e1f0b1f5d5f479bac58da",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/RunFast_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/RunFast_4.png",
+      "bytes": 92214,
+      "sha256": "820a067cb7a6da0b61871304c102ba01f68e1f5a4c062d1c9e1695eb0244be74",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/Stagger_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/Stagger_0.png",
+      "bytes": 92429,
+      "sha256": "e8dbc9861185b6ef799e7944d886a71fbbf4812ea17e0735455d3b1ece0bd8b6",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/Stagger_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/Stagger_1.png",
+      "bytes": 93220,
+      "sha256": "72e7f12e88dd4cf69d478b1cd4fc012bc68e4876c4404f17f24693a061d049bf",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/Stagger_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/Stagger_2.png",
+      "bytes": 93220,
+      "sha256": "765bafcf2e74bbbeb6066ffdc3bb221683c44dd630af5e31e87d1020f685d1f8",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/Stagger_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/Stagger_3.png",
+      "bytes": 88308,
+      "sha256": "f8429a7954365fe5d59f2bd1c96ca0b2a9b83a969fd5e886ce31c0f215c331f1",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/read_current/Stagger_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/read_current/Stagger_4.png",
+      "bytes": 92444,
+      "sha256": "f2dc7122a1d83b92c4e0724c959e5140fe9648576e5cfca22b429215dedd3585",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Chest_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Chest_0.png",
+      "bytes": 9763,
+      "sha256": "10f8f18c8107b5b01fc328bf179dbf093fd15ac17cb0762fe643c68d4a1ec3ed",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Chest_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Chest_1.png",
+      "bytes": 9798,
+      "sha256": "6d1afa8ccb5f5ec6c8c810f68f171256bac2343f20ff2e8551a53b6d59770b52",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Chest_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Chest_2.png",
+      "bytes": 9786,
+      "sha256": "a3bc82c253af2030423e4c52bedc36f4c39e5e9750394d06f555900f362c9339",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Chest_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Chest_3.png",
+      "bytes": 9760,
+      "sha256": "12900a79b9ee49f4c67bb2fe3870107af010058d7605a993805a552593042026",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Chest_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Chest_4.png",
+      "bytes": 9835,
+      "sha256": "e22f788b229f30343e365996ccf6eccaf38eada9d0eddc78b23b26f85ba1cbec",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Chest.mp4",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Chest.mp4",
+      "bytes": 6377,
+      "sha256": "863416bf272e2a5bb2a262f3565f45594f5875f9fdedd8fcc12b49f70ab57573",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Head_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Head_0.png",
+      "bytes": 9766,
+      "sha256": "3d7da002db12e91e92c3729e6c5ae8d5233ffc0e022a4475bd5907c797e92109",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Head_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Head_1.png",
+      "bytes": 9823,
+      "sha256": "48c05e99ec816bae63be9edc06f1d4988768752db080884f244822846764d7c3",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Head_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Head_2.png",
+      "bytes": 9780,
+      "sha256": "40f55191330f55e028dfb3cdbadb964ba4299cfa01291134d8da96a40772be50",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Head_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Head_3.png",
+      "bytes": 9663,
+      "sha256": "78ce9757f47c2072f50fc65941beb321df44900a6e3847bb5ac7102eee2658e5",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Head_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Head_4.png",
+      "bytes": 9786,
+      "sha256": "f1c0ffa108929b5e0eb753ea21a9891e7d3731c68f2e8fe36140f3641500e394",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Head.mp4",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Head.mp4",
+      "bytes": 5214,
+      "sha256": "cdc8a1797871c0d6300d202da08eb367e714f17a105a660abed268638f967f25",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Knockback_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Knockback_0.png",
+      "bytes": 9272,
+      "sha256": "9d938d158961d9501229b4dbab773a316ff9049e32484e3d1bfcbfcbf0060846",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Knockback_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Knockback_1.png",
+      "bytes": 9969,
+      "sha256": "33c081c14c7d0d9bbc3d3af8eac8e1ce8f3221bd3339588cddf0ecd2295e5382",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Knockback_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Knockback_2.png",
+      "bytes": 9779,
+      "sha256": "1bcd4b54194cafe3eb4e76c809b8670bd9f3e8e1214804411d31977590c6a0fe",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Knockback_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Knockback_3.png",
+      "bytes": 9596,
+      "sha256": "89ad0b44e788e82414e9d90b045a95a44678a1453d77d4eebf7af57f437742e0",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Knockback_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Knockback_4.png",
+      "bytes": 10323,
+      "sha256": "cd7b62a127e8ab44e57e124416f855824afbf0186a39cefa579c36d3d56d5eaa",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Hit_Knockback.mp4",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Hit_Knockback.mp4",
+      "bytes": 22783,
+      "sha256": "926868cdbe1ebe23461472fad6f1add965975c606ffec1c7614969fee3371693",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Jog_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Jog_0.png",
+      "bytes": 9786,
+      "sha256": "10369e3b1f493807d836320e409487f188394a096402a8bafbb7e98c29bcc54e",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Jog_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Jog_1.png",
+      "bytes": 10035,
+      "sha256": "631ddbae0e0308d0b6030f01268ce31fc1127eb23017609568bcafc7eabb34c6",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Jog_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Jog_2.png",
+      "bytes": 9983,
+      "sha256": "6d12a3033a5040cbc9693add7d860832191c9668b07d92410f84a4166800a470",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Jog_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Jog_3.png",
+      "bytes": 10172,
+      "sha256": "f7c1e7139fd835b54656dbd68a3ea366ac206b04f8dcf62831fb8032765b99b3",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Jog_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Jog_4.png",
+      "bytes": 10377,
+      "sha256": "0254fe838c7b0a1a0454adae673590817eeaadf695109a6d5daeccfee8ea6855",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Jog.mp4",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Jog.mp4",
+      "bytes": 26253,
+      "sha256": "447d0f035426e0a9affc1676082e09592a750dddd96e31adf0f9d0a9025b13db",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Run_Stealth_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Run_Stealth_0.png",
+      "bytes": 9171,
+      "sha256": "77ef15d43543d94da2c0a14e1855b0c4846ee25e63aa114c250c8446994cf0dd",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Run_Stealth_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Run_Stealth_1.png",
+      "bytes": 9225,
+      "sha256": "8823029621c068c97abc2395e82a597830bc1345e428b4be7d353dcc42cfe062",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Run_Stealth_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Run_Stealth_2.png",
+      "bytes": 9355,
+      "sha256": "0de9a373e94d6a0562b390be6f9d6ae469fe0f6f37ade16567267b5b43866f70",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Run_Stealth_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Run_Stealth_3.png",
+      "bytes": 9394,
+      "sha256": "cfcc1f7bd92d8945a07975b395929c4c081b32cc31abeea9a0e10b0d3f5623ea",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Run_Stealth_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Run_Stealth_4.png",
+      "bytes": 9229,
+      "sha256": "f0beb60e7cf76476b082555cf5aa07b8dc5be3f274ea68bb2c496c64ceb1f80e",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Run_Stealth.mp4",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Run_Stealth.mp4",
+      "bytes": 12318,
+      "sha256": "ef966d39a3cfea3649426c686cfbe89b12378a06a52f1289dd98df71922f5464",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Zombie_Walk_2_0.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Zombie_Walk_2_0.png",
+      "bytes": 8805,
+      "sha256": "9ec50576a881be7e0a11758f37fe23bff3302b92427fec75c194c55b6b2a893b",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Zombie_Walk_2_1.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Zombie_Walk_2_1.png",
+      "bytes": 8673,
+      "sha256": "e66f1fedf6f41ee7aaba021a668b33979bf104c1c29c1702291729ca50ad3be3",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Zombie_Walk_2_2.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Zombie_Walk_2_2.png",
+      "bytes": 9136,
+      "sha256": "4b000300eba3e2f0e21630b5d2261f624261e1c22f30207bb87bf035211c07d8",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Zombie_Walk_2_3.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Zombie_Walk_2_3.png",
+      "bytes": 9275,
+      "sha256": "5a498dfba26ce38f2b891026e59c062425b99804620491722a0194d16d5460f1",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Zombie_Walk_2_4.png",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Zombie_Walk_2_4.png",
+      "bytes": 8878,
+      "sha256": "c57f25f5afa41963b2de954a625fd1abf353ba85419d7201bba7571168cd81b7",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/revision2/reference_videos/Zombie_Walk_2.mp4",
+      "archived": "trash/mutant3-animation-retired-20260919/revision2/reference_videos/Zombie_Walk_2.mp4",
+      "bytes": 40144,
+      "sha256": "aed4a21cb4cfa08ba5b99333c4307e3fc3b68503e850aa76d917061d34662254",
+      "reason": "Rejected Jog locomotion pipeline; active Hit_Chest and full editable current master preserved separately.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/hyperchase/README.md",
+      "archived": "trash/mutant3-animation-retired-20260919/hyperchase/README.md",
+      "bytes": 2927,
+      "sha256": "b86c2f2db63fe6d62ba069bef811c404ef51841928aac7c94eded83b451f1acb",
+      "reason": "Unused commercial-motion investigation; sample did not include Hyper Chase.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/hyperchase/sources/MCO_Demo_Pack_v2.zip",
+      "archived": "trash/mutant3-animation-retired-20260919/hyperchase/sources/MCO_Demo_Pack_v2.zip",
+      "bytes": 243871365,
+      "sha256": "ff42b0d75ebbe7f08ab5e0d91bfceb069441112537b2846e604131b4200eb28a",
+      "reason": "Unused commercial-motion investigation; sample did not include Hyper Chase.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/hyperchase/sources/sample-download.json",
+      "archived": "trash/mutant3-animation-retired-20260919/hyperchase/sources/sample-download.json",
+      "bytes": 487,
+      "sha256": "dcc710159e63db11b0acee6f04ee81cd093749aeba1de43e539b7f79e86f65b4",
+      "reason": "Unused commercial-motion investigation; sample did not include Hyper Chase.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/License-Quaternius.txt",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/License-Quaternius.txt",
+      "bytes": 541,
+      "sha256": "f9b1de4e8feff135555ac1c7d2eec65035a05fd74e4d632a3f826ac985c3f22c",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/README.md",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/README.md",
+      "bytes": 2232,
+      "sha256": "b84affafd724c989dd08a36dcd55c41a1123315c2a86a25efca25097fe7af497",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/UAL2_Standard.glb",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/UAL2_Standard.glb",
+      "bytes": 8061600,
+      "sha256": "0815dd05531cae9bc313fc9c0ba81330bc72f8e19ec45f73738e74ddc5796a43",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/universal_animation_library_2standard.zip",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/universal_animation_library_2standard.zip",
+      "bytes": 10257419,
+      "sha256": "ec0e40d6d78fe9aaad59e322f40865a8675c22f0745e291622e54520391a9217",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/QuaterniusZombieApocalypse/License.txt",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/QuaterniusZombieApocalypse/License.txt",
+      "bytes": 374,
+      "sha256": "de990ef6fc68cffd7fd1ae342c4d0c823b541b8848d8f76bca5d3339f4de6f6e",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/QuaterniusZombieApocalypse/Zombie_Basic.gltf",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/QuaterniusZombieApocalypse/Zombie_Basic.gltf",
+      "bytes": 1703033,
+      "sha256": "c6eab64ef87f89cbd6862b59964b20024ca7e329d3d44f72c76fced6c24861c8",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/QuaterniusZombieApocalypse/Zombie_Chubby.gltf",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/QuaterniusZombieApocalypse/Zombie_Chubby.gltf",
+      "bytes": 1671276,
+      "sha256": "7c65bae6f0c5f7754ca177a7de7658fc0e4c8de7c8aff33a872d7ffff57a423c",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/free_run_candidates/QuaterniusZombieApocalypse/Zombie_Ribcage.gltf",
+      "archived": "trash/mutant3-animation-retired-20260919/free_run_candidates/QuaterniusZombieApocalypse/Zombie_Ribcage.gltf",
+      "bytes": 443873,
+      "sha256": "3b9ee3e504e34e6b1421076e9c51bc5d6a647350900eb6aa214d0a62491866f3",
+      "reason": "Unselected free alternatives; no gameplay integration; no quality acceptance claimed.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/godot_runner/previous_packages/A_Mutant3_RunFast.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/godot_runner/previous_packages/A_Mutant3_RunFast.uasset",
+      "bytes": 235856,
+      "sha256": "0dde1024ae16ea9b3e4791c5544d87d822e5ee5a1e95fce02989d92b43be0478",
+      "reason": "Backups of rejected revision2 Running and RunFast.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/godot_runner/previous_packages/A_Mutant3_Running.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/godot_runner/previous_packages/A_Mutant3_Running.uasset",
+      "bytes": 280208,
+      "sha256": "0117d7b147e40b6ad91c4b868a53c11ae897d508cca11ffe0d64958f5c700fc9",
+      "reason": "Backups of rejected revision2 Running and RunFast.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/godot_runner/previous_packages.json",
+      "archived": "trash/mutant3-animation-retired-20260919/godot_runner/previous_packages.json",
+      "bytes": 507,
+      "sha256": "fda1657d3137d65c2e1e9f33e63f05e21caa82f7e22807fadd8ccbc42d8d9f43",
+      "reason": "Historical backup map accompanies retired packages.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/Mutant3_Meshy_Animated.blend",
+      "archived": "trash/mutant3-animation-retired-20260919/Mutant3_Meshy_Animated.blend",
+      "bytes": 22972939,
+      "sha256": "995372e9a963545028490b5241e25b9aa2b0f7e72f8f0287008607d8627cb9f3",
+      "reason": "Superseded complete first-pass master containing rejected running and falling hit.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/final/A_Mutant3_Running.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/final/A_Mutant3_Running.fbx",
+      "bytes": 1182492,
+      "sha256": "2424c2bd9c7d7cc5a9293317c667cb98403801292813bede9d351a7215967ada",
+      "reason": "Rejected original Meshy run output; current Godot-runner FBX retained.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/final/A_Mutant3_RunFast.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/final/A_Mutant3_RunFast.fbx",
+      "bytes": 1137484,
+      "sha256": "8f81540b010b68ec647cc44bff3995aa233089fa6b1b5950c97debeafaaccdfd",
+      "reason": "Rejected original Meshy fast-run output; current Godot-runner FBX retained.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/final/A_Mutant3_Stagger.fbx",
+      "archived": "trash/mutant3-animation-retired-20260919/final/A_Mutant3_Stagger.fbx",
+      "bytes": 1218828,
+      "sha256": "c4d838a0f4b1a7bca66e62f81ddf013ccb9c47b1b1c16b3b7b325c0a5a615364",
+      "reason": "Rejected falling Hit_Knockback output; standing Hit_Chest retained.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/UEAuthoring/Content/Monsters/Mutant3Meshy/Animations/A_Mutant3_Running.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/UEAuthoring/Content/Monsters/Mutant3Meshy/Animations/A_Mutant3_Running.uasset",
+      "bytes": 280218,
+      "sha256": "31de0248652710c5c222c2e9568c9b638a3ceb5a84eec57a4da8cb9679f0a143",
+      "reason": "Retired staging locomotion; formal Content and current FBX retained.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/UEAuthoring/Content/Monsters/Mutant3Meshy/Animations/A_Mutant3_RunFast.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/UEAuthoring/Content/Monsters/Mutant3Meshy/Animations/A_Mutant3_RunFast.uasset",
+      "bytes": 235866,
+      "sha256": "24d2faa6fbdb4a849ebc0da179ac6ab269fdf343ace12b33063e13e5ee5ad2a9",
+      "reason": "Retired staging locomotion; formal Content and current FBX retained.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/UEAuthoring/Content/Monsters/Mutant3Meshy/Sources/Revision2/A_M2M_Jog.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/UEAuthoring/Content/Monsters/Mutant3Meshy/Sources/Revision2/A_M2M_Jog.uasset",
+      "bytes": 397978,
+      "sha256": "580ed3e610c5d584ef0b2d1a63499489b16ac35bd2dfe39d80fa1b8f95becddc",
+      "reason": "Rejected Jog-specific staging source.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/UEAuthoring/Content/Monsters/Mutant3Meshy/Sources/Revision2/A_M2M_ZombiePosture.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/UEAuthoring/Content/Monsters/Mutant3Meshy/Sources/Revision2/A_M2M_ZombiePosture.uasset",
+      "bytes": 973270,
+      "sha256": "2afe0065dfbef3ac4a8ff9d80640f366ae3c49377978d0152a8478699d2a974f",
+      "reason": "Rejected Jog overlay staging source.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/UEAuthoring/Content/Monsters/Mutant3Meshy/RetargetedRaw/Revision2/A_Mutant3_R2_Jog.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/UEAuthoring/Content/Monsters/Mutant3Meshy/RetargetedRaw/Revision2/A_Mutant3_R2_Jog.uasset",
+      "bytes": 329091,
+      "sha256": "324f46835ef0028c30eb028b7cfda11a6ca7a5ed7206adc93b64636645ca2ab6",
+      "reason": "Rejected Jog-specific retarget output.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/UEAuthoring/Content/Monsters/Mutant3Meshy/RetargetedRaw/Revision2/A_Mutant3_R2_ZombiePosture.uasset",
+      "archived": "trash/mutant3-animation-retired-20260919/UEAuthoring/Content/Monsters/Mutant3Meshy/RetargetedRaw/Revision2/A_Mutant3_R2_ZombiePosture.uasset",
+      "bytes": 775328,
+      "sha256": "62781057ac597aae73baed5f7964c1275710f3b3b65504d146dd116149e5549f",
+      "reason": "Rejected Jog overlay retarget output.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/M2M_human-addon-animations.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/M2M_human-addon-animations.blend1",
+      "bytes": 8016624,
+      "sha256": "3cab1f62224b60cdce6cec34ae4ddd7b706dce60925ca69d4dff14172fa6e660",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/M2M_human-base-animations.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/M2M_human-base-animations.blend1",
+      "bytes": 9364635,
+      "sha256": "cb09be05e1707c53999da66c6443181dc13a518bef0505dbadbbaa78fa45d91a",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/Meshy_RunFast_Source.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/Meshy_RunFast_Source.blend1",
+      "bytes": 9724739,
+      "sha256": "4192dba7c82acf21771e73665a5c6ed7b4ffb8e7cd3689b2c7c7fa99d6d6106e",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/Meshy_Running_Source.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/Meshy_Running_Source.blend1",
+      "bytes": 9752818,
+      "sha256": "79d3c06af9a49817a63c4a38a1ac9ce8248cb5d499c3a064fe15b1bbb0be1762",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/Meshy_Walking_Source.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/Meshy_Walking_Source.blend1",
+      "bytes": 9809067,
+      "sha256": "4f4aebc41985773ae38f5220e14b64745d598e9cea1f2ede46331e4c990ad2fc",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/Mutant3_Meshy_Source.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/Mutant3_Meshy_Source.blend1",
+      "bytes": 9750708,
+      "sha256": "4c53ca7f9bea020058d3a46219935df3ea805990745e478af96f12564da4051d",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    },
+    {
+      "original": "SourceAssets/Mutant3Meshy20260915/godot_runner/GodotRunner_Source.blend1",
+      "archived": "trash/mutant3-animation-retired-20260919/godot_runner/GodotRunner_Source.blend1",
+      "bytes": 6935140,
+      "sha256": "b60130129d37364119d383930ea2fa7f489aada0f6ef7cf1a596369f421c9a4e",
+      "reason": "Superseded Blender automatic backup; current matching editable source remains.",
+      "replacement": "SourceAssets/Mutant3Meshy20260915/godot_runner/README.md"
+    }
+  ]
+}

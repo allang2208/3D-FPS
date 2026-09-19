@@ -23,7 +23,11 @@
 
 prepare_source.py 默认只导出源资产；显式添加 `-- --preview` 才生成旧动作参考帧。新可编辑完整源为 `Mutant3_Meshy_GodotRunner.blend`，两个引擎输入位于 `final/`。原始 Godot 文件、控制器快照与许可位于 `sources/`，原生输出位于 `native_retarget/`。制作工程保存源骨架与重定向器。
 
-`previous_packages/` 保存安装前的两条 revision2 跑步包，可追溯但属于用户已否定的版本；当前 Blender 文件也以 BeforeGodotRunner 前缀保留这两条旧动作。回退跑步不需要覆盖 Stagger。
+2026-09-19 归档时，将当前完整源按字节复制为同目录的 `Mutant3_Meshy_CombatBase.blend`，作为 `author_runs.py` 的固定输入。它保留网格、蒙皮、材质及当前非跑步动作；同目录放置保留原相对资源路径。重建现在不再读取 `../revision2/`。工作源仍为 `Mutant3_Meshy_GodotRunner.blend`；这两个 Blend 都是本机资产依赖，不在 Git 中。
+
+Hit_Chest 的原生重定向输入、输出及最终 `A_Mutant3_Stagger.fbx` 单独保存在 [combat_base/](combat_base/README.md)。当前编辑源中的 BeforeGodotRunner / BeforeRevision2 动作仅为历史动作数据，不是正式导出选择。历史制作脚本及旧跑步包已移到仓库根 `trash/mutant3-animation-retired-20260919/`，逐文件恢复映射见 [归档清单](../../../Docs/AssetArchives/mutant3-animation-20260919.json)。旧 `previous_packages.json` 随旧包归档；今后再次执行安装器会在工作目录新建下一次替换前的备份。
+
+只恢复跑步时使用本目录 `final/` 两条 FBX 与 `install_runs.py`；它不会覆盖 Stagger。完整恢复正式怪物还需要根目录保留的其他动作、模型/PBR 和 Physics Asset，不能只克隆 Git 视为资产恢复完成。
 
 `installed.json` 是本次正式安装记录，`install.log` 是导入日志；导入命令完成不等于游戏画面通过。
 

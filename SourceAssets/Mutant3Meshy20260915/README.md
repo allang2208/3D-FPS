@@ -6,21 +6,21 @@
 
 本次完成模型、材质、移动、快速抓击、受击、弹反、死亡、布娃娃、生命显示、经验奖励与开发面板入口。原项目的五连击、飞扑尚未迁移；Rage 是保留的动作素材，没有配置额外嚎叫伤害。
 
-## 模型与动作
+## 模型与当前动作
 
 - 原始输入：`D:/FPS3D/资产/Meshy_AI_The_Forsaken_Brute_biped.zip`。保留 Mesh0 网格、UV、34 根原骨与蒙皮；角色网格 9,354 顶点、18,679 三角形，参考高度约 170 cm。排除 FBX 附带的 Icosphere 骨骼显示辅助物，FBX/UE 容器根命名为 Mutant3Root。
 - 原四张 BaseColor / Normal / Roughness / Metallic 贴图。UE 法线翻转绿通道，颜色采用 sRGB，法线与遮罩按线性数据导入。Meshy 模型的授权来源与 CC0 动作分开记录。
-- 三段移动保留用户文件的步态、左右差异与上下起伏；仅去除周期净水平漂移，并处理末尾 80 ms 的循环衔接。不会把腾空跑步逐帧压到地面。
+- Walking 保留用户文件的原步态；Running / RunFast 已改用 Godot runner 的 Denys `running_58f`，保留左右差异与腾空，只修正实际穿地和末尾 40 ms 衔接。
 - 待机参考 Mesh2Motion `Zombie_Idle_Crouch`：深屈膝、前倾、双手低垂，保留小幅身体晃动。抓击参考 `Zombie_Scratch`：右手抬起蓄力、前下方抓击、躯干随动后回收，时长由约 1.8 s 收紧到 1.15 s。
-- `Hit_Knockback` 改为 0.9 s 受击片段：0.1 s 快速反应、保持到 0.6 s，再用 0.3 s 收势，与现有反应时钟对应。`Death_D` 保留后倒动作。
+- Stagger 已改为站立 `Hit_Chest`：0.1 s 快速反应、保持到 0.6 s，再用 0.3 s 收势。原 `Hit_Knockback` 的躺倒受击已弃用。`Death_D` 保留后倒动作。
 - 模型没有独立手指骨，此次没有增加手指开合动画。
 
 | 片段 | 时长 | 用途 |
 | --- | ---: | --- |
 | Idle | 2.9333 s | 待机循环 |
 | Walking | 0.95 s | 低速移动 |
-| Running | 0.6167 s | 中速跑步 |
-| RunFast | 0.45 s | 全速追击，保留原独特步态 |
+| Running | 1.875 s | Godot runner；动画参考速度 240 cm/s |
+| RunFast | 1.25 s | Godot runner；动画参考速度 360 cm/s |
 | Attack | 1.15 s | 单次快速抓击；命中窗口 0.40–0.51 s |
 | Stagger | 0.9 s | 普通受击及弹反后硬直 |
 | Death | 2.1667 s | 60%（约 1.30 s）转布娃娃 |
@@ -32,7 +32,17 @@
 
 物理使用原蒙皮拟合的 18 个骨骼形体，加一个不碰撞的根与 18 个约束，总质量 100 kg；简单近战扫掠和复杂枪械 Visibility 射线共用骨骼形体，保留头部命中。死亡交接先采样 60% 姿态再启动模拟。
 
-## 可编辑源与重建顺序
+## 当前恢复入口与归档（2026-09-19）
+
+当前完整可编辑源为 `godot_runner/Mutant3_Meshy_GodotRunner.blend`。跑步重建与导入走 [godot_runner/README.md](godot_runner/README.md)；该目录另存同位置的 `Mutant3_Meshy_CombatBase.blend` 作为固定输入，保留完整网格、蒙皮、材质与 Hit_Chest 等非跑步动作，不再依赖废案 revision2。站立受击的源 FBX、重定向 FBX 与最终 FBX 已保留到 `godot_runner/combat_base/`。
+
+旧 revision2 制作包、原版跑步/倒地受击成品、旧备份及未采用的 Hyper Chase / Quaternius 候选移到 `trash/mutant3-animation-retired-20260919/`。逐文件原路径、目标、大小、SHA-256 和替代入口见 [归档清单](../../Docs/AssetArchives/mutant3-animation-20260919.json)，恢复边界见 [发布说明](../../Docs/mutant3-animation-publication-20260919.md)。正式 `Content/Monsters/Mutant3Meshy` 未改。
+
+Git 仅提供脚本、合同、文档与许可记录；完整本机素材、FBX、Blend、UAsset 及 trash 不随本次推送发布。当前完整源和固定输入都需要从本机资产备份恢复。
+
+## 首次接入制作记录（历史，不作为当前一键重建入口）
+
+以下脚本保留模型、材质、物理和原始适配的制作依据；其原跑步与 Hit_Knockback 已被替换。不要只执行这套旧动画生成/导入流程就覆盖当前资产或 animation_contract.json。需要从原始输入重建时，还须按上述当前恢复入口恢复 Hit_Chest、Godot 跑步和最新合同。
 
 1. `prepare.py`：读取 Meshy 原包与两份源 GLB，导出原网格和原动作。`Meshy_*_Source.blend` 保存用户原移动。
 2. `import_and_retarget.py`：在 `UEAuthoring/Mutant3Authoring.uproject` 中导入 PBR、创建原生 IK Rig / Retargeter、烘焙并导出重定向 FBX，输出物理参考坐标。`native_retarget/` 保存原生输出。
