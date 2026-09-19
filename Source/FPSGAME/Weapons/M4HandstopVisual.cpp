@@ -1,6 +1,8 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
+#include "ASH12Attachments.h"
+#include "ASH12WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -20,9 +22,9 @@ void AFPSGAMECharacter::InitializePrismGripAnimations()
         {DrumReloadEmptyAnimation,TEXT("drum_reload_empty")}};
     for(const auto& Pair:Clips)
     {
-        if(bUseQBZ191&&!Pair.Key)continue;
+        if((bUseQBZ191||bUseASH12)&&!Pair.Key)continue;
         const FString Path=AKMSoviet::Matches(AKMViewmodel)?FString::Printf(TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/prism/A_AKM_prism_%s"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Prism,Pair.Value);
-        const FString ResolvedPath=bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("prism"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("prism"),Pair.Value):Path;
+        const FString ResolvedPath=bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("prism"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("prism"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("prism"),Pair.Value):Path;
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*ResolvedPath);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))PrismGripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("PRISM_GRIP: missing or mismatched clip %s"),*Path);
@@ -34,6 +36,7 @@ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
     SetAngledForegrip(Variant==TEXT("angled_foregrip"));
     SetVerticalForegrip(Variant==TEXT("vertical_foregrip"));
     SetCantedForegrip(Variant==TEXT("canted_foregrip"));
+    if(bUseASH12){PrismHandstop=ASH12Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){PrismHandstop=QBZ191Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),(Variant==TEXT("prism_handstop"))&&bInventoryWeaponReady);return;}
     if(AKMSoviet::Matches(AKMViewmodel)){PrismHandstop=AKMAttachment::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),Variant==TEXT("prism_handstop")&&bInventoryWeaponReady);return;}
     const bool Enabled=Variant==TEXT("prism_handstop")&&bUsingM4Infima&&bInventoryWeaponReady;

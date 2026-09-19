@@ -28,6 +28,10 @@ public:
     /** 动作入口：武装仲裁通过后由角色调用；提交冷却与使用修炼。 */
     bool BeginAction();
     void Cancel();
+    // ASH calls this before its character presentation; other weapons use TickComponent.
+    // ActionAge remains source-clip seconds, including a confirmed-hit pause.
+    void AdvanceAction(float Delta);
+    bool IsImpactPaused() const;
     UFUNCTION(BlueprintPure,Category="Skills|QuickCombat") bool IsOccupyingLeftHand() const { return Phase!=EQuickCombatBashPhase::None; }
     UFUNCTION(BlueprintPure,Category="Skills|QuickCombat") EQuickCombatBashPhase GetPhase() const { return Phase; }
     /** 当前阶段内进度 0..1（回握交还动画用）。 */

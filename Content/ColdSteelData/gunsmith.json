@@ -2174,7 +2174,10 @@
       "allowed": [
         "optic",
         "magazine",
-        "muzzle"
+        "muzzle",
+        "underbarrel",
+        "stock",
+        "tactical"
       ],
       "base": {
         "ammo_item_id": "ammo_127",
@@ -2183,8 +2186,8 @@
         "recoil": 145,
         "camera_shake": 135,
         "fire_interval": 0.13,
-        "reload_time": 2.333,
-        "empty_reload_time": 3.24,
+        "reload_time": 2.4,
+        "empty_reload_time": 3.3,
         "damage": 48,
         "bullet_speed": 78,
         "effective_range": 80
@@ -2315,6 +2318,225 @@
               "stability_mult": 1.1,
               "bullet_speed_mult": 0.85
             }
+          },
+          {
+            "id": "ash12_tactical_suppressor",
+            "name": "ASH 战术消音器",
+            "description": "ASH-12 专属大直径战术消音器，采用纵向凹槽筒身、宽斜纹套环与专用后接座。",
+            "effects": [
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高25%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度降低20%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05
+            }
+          },
+          {
+            "id": "ash12_tactical_brake",
+            "name": "ASH战术制退器",
+            "description": "ASH-12 专属黑色金属制退器，采用短粗多棱壳体、贯通侧窗与专用安装环。",
+            "effects": [
+              {
+                "text": "后坐力降低25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜速度降低10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.15,
+              "ads_percent": 0.1111111111111111
+            }
+          }
+        ],
+        "underbarrel": [
+          {
+            "id": "false",
+            "name": "无前握把",
+            "description": "恢复 ASH-12 原厂护木支撑姿势。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "canted_foregrip",
+            "name": "45°侧倾握把",
+            "description": "向左下侧倾的通用前握把，采用 ASH 导轨夹座与专用支撑姿势。",
+            "effects": [
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性降低15%",
+                "benefit": -1
+              },
+              {
+                "text": "腰射随机散布减少20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 0.85,
+              "hip_spread_mult": 0.8
+            }
+          },
+          {
+            "id": "vertical_foregrip",
+            "name": "垂直握把",
+            "description": "直筒式通用前握把，使用适配 ASH 下导轨的夹座与环握手型。",
+            "effects": [
+              {
+                "text": "开镜耗时增加5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            }
+          },
+          {
+            "id": "prism_handstop",
+            "name": "棱镜阻手器",
+            "description": "棱面短阻手器，聚合物握持面搭配与 ASH 枪身一致的金属夹座。",
+            "effects": [
+              {
+                "text": "开镜耗时减少10%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力降低5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布减少5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.95
+            }
+          },
+          {
+            "id": "angled_foregrip",
+            "name": "共振二代前握把",
+            "description": "紧凑镂空通用前握把，保留穿孔抓握与防滑区，金属框架匹配 ASH 涂层。",
+            "effects": [
+              {
+                "text": "开镜耗时增加10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力降低15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性提高15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15
+            }
+          }
+        ],
+        "stock": [
+          {
+            "id": "false",
+            "name": "原厂后托",
+            "description": "保留 ASH-12 原厂后托，不安装托腮板。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "ash12_cheek_rest",
+            "name": "ASH-12 贴合式托腮板",
+            "description": "ASH-12 专用低矮托腮板，包覆原厂后托顶部，采用软质接触垫与两侧金属固定片。",
+            "effects": [],
+            "stats": {}
+          }
+        ],
+        "tactical": [
+          {
+            "id": "false",
+            "name": "无战术挂件",
+            "description": "卸下 ASH-12 战术配件，关闭照明和激光。",
+            "effects": [],
+            "stats": {}
+          },
+          {
+            "id": "laser",
+            "name": "红色激光镭射",
+            "description": "ASH-12 左侧导轨适配款，黑色金属外壳。80米红色激光，腰射沿发射器方向，开镜时汇聚准星；遇遮挡截断。",
+            "effects": [
+              {
+                "text": "腰射随机散布减少50%",
+                "benefit": 1
+              },
+              {
+                "text": "ADS瞄准耗时减少200ms",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.5,
+              "ads_seconds": -0.2
+            }
+          },
+          {
+            "id": "flashlight",
+            "name": "战术手电筒",
+            "description": "ASH-12 左侧导轨适配款，金属外壳匹配枪身涂层。持枪时提供前向照明，支持遮挡阴影；收起或卸下时关闭。",
+            "effects": [
+              {
+                "text": "提供前向照明",
+                "benefit": 0
+              }
+            ],
+            "stats": {}
           }
         ]
       }

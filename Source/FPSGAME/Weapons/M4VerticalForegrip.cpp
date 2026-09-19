@@ -1,6 +1,8 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
+#include "ASH12Attachments.h"
+#include "ASH12WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -20,8 +22,8 @@ void AFPSGAMECharacter::InitializeVerticalGripAnimations()
         {DrumReloadEmptyAnimation,TEXT("drum_reload_empty")}};
     for(const auto& Pair:Clips)
     {
-        if(bUseQBZ191&&!Pair.Key)continue;
-        const FString Path=bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("vertical"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
+        if((bUseQBZ191||bUseASH12)&&!Pair.Key)continue;
+        const FString Path=bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("vertical"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("vertical"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*Path);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))VerticalGripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("VERTICAL_GRIP: missing or mismatched clip %s"),*Path);
@@ -30,6 +32,7 @@ void AFPSGAMECharacter::InitializeVerticalGripAnimations()
 
 void AFPSGAMECharacter::SetVerticalForegrip(bool bEnabled)
 {
+    if(bUseASH12){VerticalForegrip=ASH12Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){VerticalForegrip=QBZ191Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),(bEnabled)&&bInventoryWeaponReady);return;}
     if(AKMSoviet::Matches(AKMViewmodel)){VerticalForegrip=AKMAttachment::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     const bool Enabled=bEnabled&&bUsingM4Infima&&bInventoryWeaponReady;

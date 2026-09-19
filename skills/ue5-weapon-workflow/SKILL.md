@@ -16,6 +16,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ## 按任务读取
 
+- 普通／消音开火声、连射变体和仅改音色的响度处理：[枪械音效与消音分支](references/weapon-audio.md)。
+
 - 枪托／握把快速近战的跨枪适配、腕臂和 recover 衔接：[快速近战接触与收势](../ue5-fps-arms-animation/references/quick-melee-contact-recovery.md)。保留命中时钟与技能合同，以各枪当前待机为归位目标。
 
 - 近战武器拆分、可替换护手/握把/配重锤、剑身符文与长柄联动：[近战模块化与改造接口](references/modular-melee.md)。

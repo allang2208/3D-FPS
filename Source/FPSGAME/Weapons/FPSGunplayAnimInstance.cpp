@@ -56,6 +56,8 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     FAnimNode_SequenceEvaluator_Standalone Aim;
     FAnimNode_SequenceEvaluator_Standalone Action;
     FAnimNode_SequenceEvaluator_Standalone Sprint;
+    FAnimNode_SequenceEvaluator_Standalone SprintLoop;
+    FAnimNode_TwoWayBlend SprintMotionBlend;
     FAnimNode_TwoWayBlend SprintBlend;
     FAnimNode_TwoWayBlend AimBlend;
     FAnimNode_TwoWayBlend ActionBlend;
@@ -66,7 +68,9 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     explicit FFPSGunplayAnimProxy(UAnimInstance* Instance) : FAnimInstanceProxy(Instance)
     {
         SprintBlend.A.SetLinkNode(&Idle);
-        SprintBlend.B.SetLinkNode(&Sprint);
+        SprintMotionBlend.A.SetLinkNode(&Sprint);
+        SprintMotionBlend.B.SetLinkNode(&SprintLoop);
+        SprintBlend.B.SetLinkNode(&SprintMotionBlend);
         AimBlend.A.SetLinkNode(&SprintBlend);
         AimBlend.B.SetLinkNode(&Aim);
         ActionBlend.A.SetLinkNode(&AimBlend);
@@ -79,7 +83,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     virtual FAnimNode_Base* GetCustomRootNode() override { return &DualAim; }
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
-        Nodes.Append({&Idle, &Sprint, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim});
+        Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAim});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
     {
@@ -99,6 +103,9 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         Action.SetSequence(Data->ActionClip ? Data->ActionClip : Data->IdleClip);
         Sprint.SetSequence(Data->SprintClip ? Data->SprintClip : Data->IdleClip);
         Sprint.SetExplicitTime(Data->SprintTime);
+        SprintLoop.SetSequence(Data->SprintLoopClip ? Data->SprintLoopClip : Data->IdleClip);
+        SprintLoop.SetExplicitTime(Data->SprintLoopTime);
+        SprintMotionBlend.Alpha = Data->SprintLoopClip ? Data->SprintLoopAlpha : 0.f;
         // Locomotion precedes ADS and action blending: reload/fire own their contacts.
         SprintBlend.Alpha = Data->SprintClip ? Data->SprintAlpha : 0.f;
         const auto LoopTime = [](UAnimSequence* Clip, float Time)

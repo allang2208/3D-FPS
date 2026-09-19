@@ -16,8 +16,11 @@ public:
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> AimClip;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> ActionClip;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> SprintClip;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> SprintLoopClip;
     float SprintTime = 0.0f;
     float SprintAlpha = 0.0f;
+    float SprintLoopTime = 0.0f;
+    float SprintLoopAlpha = 0.0f;
     float BaseTime = 0.0f;
     float AimAlpha = 0.0f;
     float ActionTime = 0.0f;

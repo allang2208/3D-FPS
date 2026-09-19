@@ -1,10 +1,12 @@
 #include "FPSQuickCombatComponent.h"
+#include "QuickCombatImpactShake.h"
 #include "ColdSteelSkillRules.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "FPSCastingMeshComponent.h"
+#include "../Weapons/FPSGunplayAnimInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -84,7 +86,19 @@ bool UFPSQuickCombatComponent::BeginAction()
     return true;
 }
 
-void UFPSQuickCombatComponent::Cancel(){if(Phase!=EQuickCombatBashPhase::None)FinishAction();}
+void UFPSQuickCombatComponent::Cancel()
+{
+    if(Phase!=EQuickCombatBashPhase::None)FinishAction();
+    bContactDone=false;ImpactAge=1.f;ImpactStrength=0.f;
+}
+
+bool UFPSQuickCombatComponent::IsImpactPaused() const
+{
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    return Player&&Player->bUseASH12&&Style!=EQuickCombatStyle::Pistol
+        &&Phase!=EQuickCombatBashPhase::None&&ImpactStrength>0.f
+        &&ImpactAge<QuickCombatRifleMotion::ASH12HitStopSeconds;
+}
 
 float UFPSQuickCombatComponent::PhaseFraction() const
 {
@@ -112,16 +126,19 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
 {
     using namespace QuickCombatPistolMotion;
     Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
-    if(Phase==EQuickCombatBashPhase::None)return;
-    // 步枪与手枪共用同一套镜头语言，只换量级与命中冲量方向：
-    // 步枪动作幅度更大（整枪抬升+下扫），因此动作镜头更强、冲量更重。
+    if(Phase==EQuickCombatBashPhase::None)
+    {
+        if(bContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
+        return;
+    }
+    // 步枪的整枪抬升与下扫使用更大的动作镜头幅度；判定冲量统一。
     const bool bRifle=Style!=EQuickCombatStyle::Pistol;
     const float Shape=bRifle?QuickCombatRifleMotion::RifleCameraShapeScale:1.f;
     const float Strength=bRifle?QuickCombatRifleMotion::RifleStockCameraStrength:PistolBashCameraStrength;
     // 镜头语言分两层（与剑版同一合同）：
     // ① 动作镜头：随枪蓄势微抬 → 下砸压头前送 → 跟随回位（动作本体在作者源 clip 里，
     //    这里只做镜头，幅度按已接受的配重锤量级给）。
-    // ② 命中冲量：只在确认接触时叠加 exp·sin 阻尼冲量，方向下压（配重锤「命中才震」）。
+    // ② 判定冲量：伤害查询当帧立即强震一次，随后反向回弹；命中停顿仍单独确认。
     const float T=PhaseFraction();
     if(Phase==EQuickCombatBashPhase::Release)
     {
@@ -152,17 +169,22 @@ void UFPSQuickCombatComponent::GetCameraMotion(FVector& Location,FRotator& Rotat
     }
     Location*=Strength*Shape;
     Rotation*=Strength*Shape;
-    if(ImpactAge<ImpactSpan)
-    {
-        const float Kick=ImpactKick(ImpactAge)*ImpactStrength;
-        Location+=(bRifle?QuickCombatRifleMotion::ImpactLocation():ImpactLocation())*Kick;
-        Rotation+=(bRifle?QuickCombatRifleMotion::ImpactRotation():ImpactRotation())*Kick;
-    }
+    if(bContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
 }
 
 void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
+    // The character advances ASH before sampling its pose and camera. Never
+    // advance twice or let the wall-clock state finish through a hit stop.
+    const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
+    if(Player&&Player->bUseASH12&&Style!=EQuickCombatStyle::Pistol&&IsOccupyingLeftHand())return;
+    AdvanceAction(Delta);
+}
+
+void UFPSQuickCombatComponent::AdvanceAction(float Delta)
+{
+    const float PreviousImpactAge=ImpactAge;
     ImpactAge=FMath::Min(1.f+QuickCombatPistolMotion::ImpactSpan,ImpactAge+Delta);
     if(Phase==EQuickCombatBashPhase::None)return;
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
@@ -171,11 +193,47 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     const bool bWeaponMatches=Player&&(Style!=EQuickCombatStyle::Pistol
         ?!Player->IsPistolWeapon()
         :(Player->IsPistolWeapon()&&!Player->IsDualWieldingPistols()));
-    if(!Player||!bWeaponMatches||(Health&&Health->IsDead())){FinishAction();return;}
-    // 单一绝对时钟：阶段与接触点都由 ActionAge 推导，避免分段累计误差与空转段。
-    ActionAge+=Delta;
-    Phase=PhaseForAge(ActionAge);
-    if(!bContactDone&&ActionAge>=ContactTime){bContactDone=true;ContactHit();}
+    if(!Player||!bWeaponMatches||(Health&&Health->IsDead())){Cancel();return;}
+    const bool bASH12=Player->bUseASH12&&Style!=EQuickCombatStyle::Pistol;
+    if(bASH12)
+    {
+        using namespace QuickCombatRifleMotion;
+        float Remaining=Delta;
+        if(!bContactDone)
+        {
+            const float UntilContact=FMath::Max(0.f,ContactTime-ActionAge)/ASH12EntryRate;
+            if(Remaining<UntilContact)
+            {
+                ActionAge+=Remaining*ASH12EntryRate;
+                Remaining=0.f;
+            }
+            else
+            {
+                Remaining-=UntilContact;
+                ActionAge=ContactTime;
+                Phase=PhaseForAge(ActionAge);
+                bContactDone=true;
+                ContactHit();
+                // Account for the part of this frame after the impact, including
+                // its pause. Every query shakes, but a miss consumes no stop.
+                ImpactAge=Remaining;
+                if(ImpactStrength>0.f)
+                {
+                    Remaining=FMath::Max(0.f,Remaining-ASH12HitStopSeconds);
+                }
+            }
+        }
+        else if(ImpactStrength>0.f)
+            Remaining-=FMath::Clamp(ASH12HitStopSeconds-PreviousImpactAge,0.f,Remaining);
+        ActionAge+=Remaining*ASH12RecoveryRate;
+        Phase=PhaseForAge(ActionAge);
+    }
+    else
+    {
+        ActionAge+=Delta;
+        Phase=PhaseForAge(ActionAge);
+        if(!bContactDone&&ActionAge>=ContactTime){bContactDone=true;ContactHit();}
+    }
     if(ActionAge>=AttackEnd)FinishAction();
 }
 
@@ -190,7 +248,19 @@ void UFPSQuickCombatComponent::ContactHit()
     const FVector Direction=Aim.GetUnitAxis(EAxis::X);
     FVector Start=Aim.GetLocation();
     FVector ProbeOrigin=FVector::ZeroVector;
-    const auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
+    auto* Viewmodel=Player->FindComponentByClass<UFPSCastingMeshComponent>();
+    if(Player->bUseASH12&&Viewmodel)
+    {
+        // Evaluate the exact contact pose once before the sweep. The faster
+        // entry must not trace from the previous frame's wind-up position.
+        if(auto* Animation=Cast<UFPSGunplayAnimInstance>(Viewmodel->GetAnimInstance());Animation&&Animation->ActionClip)
+        {
+            Animation->ActionTime=ContactTime;
+            Animation->ActionAlpha=1.f;
+            Viewmodel->TickAnimation(0.f,false);
+            Viewmodel->RefreshBoneTransforms();
+        }
+    }
     // 手枪：握把底（手骨 + 相机空间偏移）；步枪：枪身前段（枪口沿枪轴回撤，跟随实际挥击姿态）。
     const bool bRifle=Style!=EQuickCombatStyle::Pistol;
     const bool bProbe=bRifle
@@ -204,6 +274,10 @@ void UFPSQuickCombatComponent::ContactHit()
     const float Radius=bRifle?QuickCombatRifleMotion::QueryRadiusCM:QuickCombatPistolMotion::QueryRadiusCM;
     const bool bHit=GetWorld()->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Pawn,
         FCollisionShape::MakeSphere(Radius),Params);
+    // One impulse per damage query, including misses. Keep hit confirmation
+    // separate so ASH only freezes its animation after actual damage.
+    ImpactAge=0.f;
+    Player->RefreshQuickCombatCamera();
     AActor* Target=bHit?Hit.GetActor():nullptr;
     const FString TargetName=Target?Target->GetName():FString(TEXT("无"));
     // R0 诊断：一次动作只打一行，标出射线来源、起点与命中对象，方便对实机反馈。
@@ -225,7 +299,7 @@ void UFPSQuickCombatComponent::ContactHit()
     if(Applied>0.f||bKilled)Player->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult,false);
     // 击退与眩晕合并进 ReceiveStun 的一次提交（无该组件的怪物与剑版口径一致：不硬控）。
     if(Applied>0.f||bKilled)Combat->ReceiveStun(Player,Stats.StunSeconds,Stats.KnockbackCM);
-    // 命中冲量：确认接触才给镜头下压（配重锤同款「命中才震」合同，挥空只有动作语言）。
+    // 命中确认只控制 ASH 停顿；镜头强震已在伤害查询帧触发。
     if(Applied>0.f||bKilled){ImpactAge=0.f;ImpactStrength=1.f;}
     if(Eligible&&bKilled)bKillPending=true;
     if((Applied>0.f||bKilled)&&ImpactSound)
@@ -235,7 +309,7 @@ void UFPSQuickCombatComponent::ContactHit()
             *ImpactSound->GetName(),*TargetName,Applied,*Hit.ImpactPoint.ToCompactString());
     }
     // 用户 2026-09-19：这枚挥击音从「松握即播」改到伤害确认时刻——挥空整段不出声，
-    // 与「命中才震」的镜头冲量同一合同（音量仍按用户指定的 0.8）。
+    // 音效继续要求有效命中，独立于判定帧镜头强震（音量仍为 0.8）。
     if((Applied>0.f||bKilled)&&SwingSound)
         UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
 }

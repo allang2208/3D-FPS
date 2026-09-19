@@ -214,3 +214,14 @@ __pycache__/
 # Licensed wolf rest geometry / sampled surface coordinates are local rebuild inputs.
 /SourceAssets/ZombieDogV1/Source/geometry_layout.json
 /SourceAssets/ZombieDogRandomWoundsV4/wound_surfaces.json
+
+# ASH authoring: publish scripts/docs/provenance; licensed payloads and dense captures stay local.
+/SourceAssets/ASH12*/**
+!/SourceAssets/ASH12*/**/
+!/SourceAssets/ASH12*/**/*.py
+!/SourceAssets/ASH12*/**/*.ps1
+!/SourceAssets/ASH12*/**/*.md
+!/SourceAssets/ASH12*/**/*.hlsl
+!/SourceAssets/ASH12*/**/provenance.json
+/SourceAssets/ASH12*/Before/
+/SourceAssets/ASH12*/BeforeBoundsRepair/

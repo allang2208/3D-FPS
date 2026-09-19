@@ -22,14 +22,14 @@ template<typename TRig> static void ApplyUnderbarrel(TRig* Rig,const FString& Va
 bool AColdSteelPickup::BuildWeapon(const FColdSteelItem& Item,UGameInstance* Context)
 {
     const double Begin=FPlatformTime::Seconds();ON_SCOPE_EXIT { UE_LOG(LogTemp,Display,TEXT("DropTiming: model %.3f ms"),(FPlatformTime::Seconds()-Begin)*1000); };
-    if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_akm")&&Item.Definition!=TEXT("ue_qbz191")&&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_dan_wesson715"))return false;
+    if(Item.Definition!=TEXT("ue_m4a1")&&Item.Definition!=TEXT("ue_akm")&&Item.Definition!=TEXT("ue_qbz191")&&Item.Definition!=TEXT("ue_ash12")&&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_dan_wesson715"))return false;
     if(!Context)Context=GetGameInstance();auto* Pool=Context->GetSubsystem<UColdSteelPickupStudio>();
     bool Created=false;auto* Rig=Pool->Acquire(Item.Definition,Created);if(!Rig)return false;
-    if(Created){Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();}
+    if(Created){Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();}
     auto* Source=Rig->AKMViewmodel.Get();if(!Source||!Source->GetSkeletalMeshAsset())return false;
     Source->SetWorldTransform(FTransform::Identity);Source->PlayAnimation(Rig->IdleAnimation,false);Source->SetPosition(0,false);Source->TickAnimation(0,false);Source->RefreshBoneTransforms();Source->UpdateComponentToWorld();
     const auto Parts=Context->GetSubsystem<UGunsmithSystem>()->Installed(Item);
-    ApplyUnderbarrel(Rig,Parts.FindRef(TEXT("underbarrel")));Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithDrum(Parts.FindRef(TEXT("magazine"))==TEXT("large_drum"));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->UpdateFoldingSights(1);
+    ApplyUnderbarrel(Rig,Parts.FindRef(TEXT("underbarrel")));Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->UpdateFoldingSights(1);
     Source->RefreshBoneTransforms();Source->UpdateChildTransforms();
     auto* Asset=Source->GetSkeletalMeshAsset();const auto* Render=Asset->GetResourceForRendering();if(!Render||Render->LODRenderData.IsEmpty())return false;
     Weapon->SetSkinnedAssetAndUpdate(Asset);Weapon->CopyPoseFromSkeletalComponent(Source);

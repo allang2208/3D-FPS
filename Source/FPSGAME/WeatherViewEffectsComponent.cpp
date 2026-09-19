@@ -14,6 +14,7 @@
 #include "Engine/GameInstance.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
+#include "Weapons/ASH12WeaponAssets.h"
 #include "HAL/IConsoleManager.h"
 
 static TAutoConsoleVariable<float> CVarScreenRain(TEXT("fps.ScreenRain"),.75f,TEXT("Screen edge water strength, 0 disables."),ECVF_Scalability);
@@ -49,6 +50,9 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
     if(Assets)
         if(const auto* PistolMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715WeaponAssets::WetMaterialsPath))
             for(const auto& Entry:PistolMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
+        if(const auto* ASH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,ASH12WeaponAssets::WetMaterialsPath))
+            for(const auto& Entry:ASH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     // Extended-magazine seam blending must also survive the wet-material swap.
     if(Assets)
     {

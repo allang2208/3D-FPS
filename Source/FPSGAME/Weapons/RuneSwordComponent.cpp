@@ -7,6 +7,7 @@
 #include "RuneSwordCombatTuning.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "../Skills/QuickCombatPistolMotion.h"
+#include "../Skills/QuickCombatImpactShake.h"
 #include "ColdSteelEnchantmentCombat.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
@@ -363,6 +364,10 @@ void URuneSwordComponent::QuickCombatContractHit()
     FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickCombatPommel),false,Pawn);
     const bool bHit=GetWorld()->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Pawn,
         FCollisionShape::MakeSphere(QuickCombatPistolMotion::QueryRadiusCM),Params);
+    // Quick-melee shake belongs to this once-only query, including a miss.
+    // Damage, stun, training and confirmation cues still require a real hit.
+    bImpactFeedbackPlayed=true;ImpactAge=0.f;
+    Pawn->RefreshQuickCombatCamera();
     AActor* Target=bHit?Hit.GetActor():nullptr;
     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=剑 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
         bFromPommel?TEXT("配重端"):TEXT("眼位回退"),*Start.ToCompactString(),*Direction.ToCompactString(),
@@ -381,12 +386,6 @@ void URuneSwordComponent::QuickCombatContractHit()
     if(Eligible&&bKilled)QuickCombatKillPending=true;
     if(!Combat->IsDead()&&SwingRuneVulnerability>0)
         if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddRuneMagicVulnerability(SwingRuneVulnerability,SwingRuneVulnerabilitySeconds);
-    if(!bImpactFeedbackPlayed)
-    {
-        bImpactFeedbackPlayed=true;ImpactAge=0.f;
-        bThrustImpact=true;   // 配重命中沿打击轴向踢，同第四连击
-        ImpactStrength=1.75f; // 与配重锤既定量级一致
-    }
     if(!Combat->IsDead()&&Eligible)++SwingTrainingHits;
     Pawn->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult);
     ColdSteelCombat::OnHit(Target,Pawn,SwingPoison);
@@ -636,7 +635,7 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     // Confirmed contact gives one damped impulse per slash. Multi-target
     // sweeps keep their damage but cannot stack camera shake indefinitely.
     const float ImpactSpan=bPommelAttack?.30f:.20f;
-    if(ImpactAge<ImpactSpan)
+    if(!bQuickCombatContactDone&&ImpactAge<ImpactSpan)
     {
         // A counterweight lands heavier than a blade pass: longer shake, bigger
         // axial recoil and a pitch punch on top of it.
@@ -658,6 +657,9 @@ void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) 
     constexpr float SwordCameraStrength=1.5f;
     Location*=SwordCameraStrength;
     Rotation*=SwordCameraStrength;
+    // Add after the sword-only multiplier so all weapon categories receive
+    // the same impulse, with the shared character comfort scale applied once.
+    if(bQuickCombatContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
 }
 
 void URuneSwordComponent::StartRift(float SourceAge)
@@ -904,7 +906,9 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         {
             const bool Queued=bQueuedAttack;const bool QueuedSkill=bQueuedQuickCombat;
             bAttacking=bQueuedAttack=bHeavyAttack=bThrustAttack=bPommelAttack=bOverheadAttack=bQuickCombatStrike=false;
-            bQueuedQuickCombat=false;bQuickCombatContactDone=false;
+            bQueuedQuickCombat=false;
+            // Keep the completed query marker for the short camera tail.
+            // StartSwing and CancelAction reset it before another action.
             bLungeStarted=bLungeBlocked=false;LastAttackEnd=GetWorld()->GetTimeSeconds();
             if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
             {

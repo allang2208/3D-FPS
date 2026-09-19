@@ -1,0 +1,61 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12CameraAudio20260919\\S_ASH12_Fire.wav",
+  "original_source": "D:/FPS3D/资产/音效/ash-12-fire.mp3",
+  "source_sha256": "3a6479522d486c9fcf423d56bac2ae43937476025443e70be3b51a0052e6b35d",
+  "rights": "User-provided ASH source and derivatives retain original source rights; not CC0.",
+  "recipe": "ASH source only; filtered blast, retained low body/mechanics, short chamber returns; compensated source level.",
+  "sample_rate": 48000,
+  "channels": 2,
+  "duration_seconds": 0.288,
+  "pitch_multiplier": 1.0,
+  "runtime_volume_multiplier": "Same as normal ASH fire.",
+  "source_rms": 0.10439770663436891,
+  "source_weighted_rms": 0.11194209717645409,
+  "outputs": [
+    {
+      "asset": "S_ASH12_Suppressed_01",
+      "wav": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12SuppressedAudio20260920\\S_ASH12_Suppressed_01.wav",
+      "lowpass_hz": 3400,
+      "body_gain": 0.36,
+      "chamber_delay_seconds": 0.006,
+      "master_drive": 1.3815569882099226,
+      "rms_db_relative_to_source": 0.697478700171984,
+      "weighted_energy_db_relative_to_source": 0.0008685455391277623,
+      "sample_peak": 0.4457176558274539
+    },
+    {
+      "asset": "S_ASH12_Suppressed_02",
+      "wav": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12SuppressedAudio20260920\\S_ASH12_Suppressed_02.wav",
+      "lowpass_hz": 3250,
+      "body_gain": 0.34,
+      "chamber_delay_seconds": 0.0063,
+      "master_drive": 1.397498453477965,
+      "rms_db_relative_to_source": 0.7301361611004175,
+      "weighted_energy_db_relative_to_source": 0.0008685455436982174,
+      "sample_peak": 0.4542836302530356
+    },
+    {
+      "asset": "S_ASH12_Suppressed_03",
+      "wav": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12SuppressedAudio20260920\\S_ASH12_Suppressed_03.wav",
+      "lowpass_hz": 3500,
+      "body_gain": 0.38,
+      "chamber_delay_seconds": 0.0058,
+      "master_drive": 1.3706431815426185,
+      "rms_db_relative_to_source": 0.6815031785879637,
+      "weighted_energy_db_relative_to_source": 0.0008685455387574976,
+      "sample_peak": 0.4458788374779089
+    },
+    {
+      "asset": "S_ASH12_Suppressed_04",
+      "wav": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ASH12SuppressedAudio20260920\\S_ASH12_Suppressed_04.wav",
+      "lowpass_hz": 3325,
+      "body_gain": 0.355,
+      "chamber_delay_seconds": 0.0061,
+      "master_drive": 1.386621657784417,
+      "rms_db_relative_to_source": 0.7105411821318357,
+      "weighted_energy_db_relative_to_source": 0.000868545547435577,
+      "sample_peak": 0.4525191099327184
+    }
+  ],
+  "listening_or_gameplay_tested": false
+}

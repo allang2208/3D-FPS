@@ -9,7 +9,8 @@
 namespace QuickCombatRifleMotion
 {
     // BV13K421e7Rw native frames 1988..2015: rapid entry/contact, then
-    // loaded follow-through and recovery. All current rifles use this clock.
+    // loaded follow-through and recovery. These are source-clip fractions;
+    // ASH-12 advances the same source clock at its own entry/recovery rates.
     constexpr float M4ReferenceReleaseFraction = 1.f / 27.f;
     constexpr float M4ReferenceCockFraction = 3.f / 27.f;
     constexpr float M4ReferenceContactFraction = 5.f / 27.f;
@@ -50,4 +51,15 @@ namespace QuickCombatRifleMotion
     /** 命中冲量：与手枪同一 exp·sin 家族，幅度取同级略强（步枪是更重的配重打击）。 */
     inline FVector ImpactLocation() { return FVector(-36.f, 0.f, -5.4f); }
     inline FRotator ImpactRotation() { return FRotator(-18.f, 0.f, 3.4f); }
+
+    // ASH retains the fitted clips and contact pose; only their clock changes.
+    constexpr float ASH12EntryRate = 1.4f;
+    constexpr float ASH12RecoveryRate = 1.2f;
+    constexpr float ASH12HitStopSeconds = .05f;
+    constexpr float ASH12ImpactSpan = .34f;
+    inline float ASH12ImpactKick(float Age)
+    {
+        return 1.35f * FMath::Exp(-9.5f * Age) * FMath::Sin(40.f * Age)
+            * (1.f - FMath::SmoothStep(0.f, ASH12ImpactSpan, Age));
+    }
 }

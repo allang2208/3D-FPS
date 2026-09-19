@@ -1,0 +1,186 @@
+[
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/A_ASH12_reload_empty.fbx",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/A_ASH12_reload_empty.fbx",
+    "bytes": 2743468,
+    "sha256": "984a3b9642e702859e4098de9af648e95dc41be16be762e7af0f255cd8f6c684",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/ASH12_ChargeArmRight_Editable.blend",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/ASH12_ChargeArmRight_Editable.blend",
+    "bytes": 113035343,
+    "sha256": "68b203b6414daf8ea873b0551d817e89453c8092155ab12504e1bab7b200e116",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/author_charge_arm.py",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/author_charge_arm.py",
+    "bytes": 7527,
+    "sha256": "1b8a094a63cc1aea7b7ebb12ace65a633fc834baa5c5bf89933a5cdac5f723cc",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/authoring.json",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/authoring.json",
+    "bytes": 939,
+    "sha256": "7019f5861bbb3e9168c757b87774ad91ce7ba7c9eb761d2c2aabfd9de6a02002",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/import_charge_arm.py",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/import_charge_arm.py",
+    "bytes": 2199,
+    "sha256": "18cb5be410a6ac08d3400ecbcd50191eb1ca3fdc0d25862b5199f8a0c8c383df",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/import.json",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/import.json",
+    "bytes": 430,
+    "sha256": "54fbe21872d7e2264ad25fd4f8798a6cc13166b849cf1d3074e2780dd83bc546",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeArmRight20260919/Before/A_ASH12_reload_empty.uasset",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeArmRight20260919/Before/A_ASH12_reload_empty.uasset",
+    "bytes": 2373970,
+    "sha256": "e840d03deb9b105dd6a55f6b8e1c46fca0c8504bfa02d12bc51ee5450cdf37ab",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/A_ASH12_reload_empty.fbx",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/A_ASH12_reload_empty.fbx",
+    "bytes": 2745052,
+    "sha256": "ec1594d49a50c71f9d59724050b085979da7c426cee5221c2fcd5ebce182cc5a",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/ASH12_ChargeHandRight_Editable.blend",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/ASH12_ChargeHandRight_Editable.blend",
+    "bytes": 113034653,
+    "sha256": "eb58f00d9bc14e91e08144ddeb28ec86a15295144e974f5ecf4c269aaad6a006",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/ASH12_ChargeHandRight_Editable.blend1",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/ASH12_ChargeHandRight_Editable.blend1",
+    "bytes": 113030198,
+    "sha256": "f9459af75217e422ff2adcdb789ae897e34d5864fee50a3e7bca29f666799cea",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/author_charge_hand.py",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/author_charge_hand.py",
+    "bytes": 8730,
+    "sha256": "d681bfe5d96eb574e43f33bcf5aa8e3c28b37806e0f7d1f441cd3baca0e0f1ea",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/authoring.json",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/authoring.json",
+    "bytes": 1190,
+    "sha256": "0fabc87debfa40da1e91e2a2b34e8c06bca91ad22edc7c0941480b064577aef9",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/import_charge_hand.py",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/import_charge_hand.py",
+    "bytes": 2199,
+    "sha256": "18cb5be410a6ac08d3400ecbcd50191eb1ca3fdc0d25862b5199f8a0c8c383df",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/import.json",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/import.json",
+    "bytes": 432,
+    "sha256": "16cd1621c83d4e5c60d0cd8a7df3c75471830ec437a021d24ea7717db8c44b10",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH12ChargeHandRight20260919/Before/A_ASH12_reload_empty.uasset",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12ChargeHandRight20260919/Before/A_ASH12_reload_empty.uasset",
+    "bytes": 2185443,
+    "sha256": "4df78a057a4065f01996219b39797925bfcb1ce2343017c88ca0c3df6c37d271",
+    "reason": "Rejected lateral-offset charge attempt; replaced by camera-right entry/withdrawal",
+    "replacement": "SourceAssets/ASH12RightEdgeCharge20260919"
+  },
+  {
+    "original": "SourceAssets/ASH1220260917/ASH12_Editable.blend1",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH1220260917/ASH12_Editable.blend1",
+    "bytes": 167268242,
+    "sha256": "0ac752f5069b329885b4980b9434960171f96c12d303e42422a8fde3c9f197d8",
+    "reason": "Blender automatic previous-save backup; editable .blend retained",
+    "replacement": "SourceAssets/ASH1220260917/ASH12_Editable.blend"
+  },
+  {
+    "original": "SourceAssets/ASH12CheekRest20260919/ASH12_CheekRest_Editable.blend1",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12CheekRest20260919/ASH12_CheekRest_Editable.blend1",
+    "bytes": 2049259,
+    "sha256": "2dac576b48d9cc62084fe618a3bf8074b57611f2822895cd1d9214033cdcf388",
+    "reason": "Blender automatic previous-save backup; editable .blend retained",
+    "replacement": "SourceAssets/ASH12CheekRest20260919/ASH12_CheekRest_Editable.blend"
+  },
+  {
+    "original": "SourceAssets/ASH12Surface20260919/ASH12_Surface_Editable.blend1",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12Surface20260919/ASH12_Surface_Editable.blend1",
+    "bytes": 167759812,
+    "sha256": "9f04a89cf43f522b5fa6bc52b7ebfc91f4d63ab1576e9331c0a9d4f127cccec2",
+    "reason": "Blender automatic previous-save backup; editable .blend retained",
+    "replacement": "SourceAssets/ASH12Surface20260919/ASH12_Surface_Editable.blend"
+  },
+  {
+    "original": "SourceAssets/ASH12TacticalSuppressor20260919/ASH12_TacticalSuppressor_Editable.blend1",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12TacticalSuppressor20260919/ASH12_TacticalSuppressor_Editable.blend1",
+    "bytes": 1388233,
+    "sha256": "407e8cc984b9a27756c16c238bcc7a1abd1973b08b42d3922f0e4f0bbab97202",
+    "reason": "Blender automatic previous-save backup; editable .blend retained",
+    "replacement": "SourceAssets/ASH12TacticalSuppressor20260919/ASH12_TacticalSuppressor_Editable.blend"
+  },
+  {
+    "original": "SourceAssets/ASH12SuppressedAudio20260920/livecoding-schema.txt",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12SuppressedAudio20260920/livecoding-schema.txt",
+    "bytes": 721,
+    "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+    "reason": "One-time tool discovery or compile request; author/import scripts and final result retained",
+    "replacement": "SourceAssets/ASH12SuppressedAudio20260920/README.md"
+  },
+  {
+    "original": "SourceAssets/ASH12SuppressedAudio20260920/mcp-router-schema.json",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12SuppressedAudio20260920/mcp-router-schema.json",
+    "bytes": 1788,
+    "sha256": "500ec9b5da91bc87d3851e4635c009bdf816886eb0f8cc1fb0209b05ff495546",
+    "reason": "One-time tool discovery or compile request; author/import scripts and final result retained",
+    "replacement": "SourceAssets/ASH12SuppressedAudio20260920/README.md"
+  },
+  {
+    "original": "SourceAssets/ASH12SuppressedAudio20260920/mcp-toolsets.txt",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12SuppressedAudio20260920/mcp-toolsets.txt",
+    "bytes": 13635,
+    "sha256": "b96e924966ae4cbbca38def1b6a8377208a694d5dfc736d503c479393fbb452e",
+    "reason": "One-time tool discovery or compile request; author/import scripts and final result retained",
+    "replacement": "SourceAssets/ASH12SuppressedAudio20260920/README.md"
+  },
+  {
+    "original": "SourceAssets/ASH12SuppressedAudio20260920/compile.json",
+    "destination": "trash/ash12-publication-20260920/SourceAssets/ASH12SuppressedAudio20260920/compile.json",
+    "bytes": 102,
+    "sha256": "a082060e1b2f476887d96fd32ea930936c68733f6b1d8024b13c5556af712e9e",
+    "reason": "One-time tool discovery or compile request; author/import scripts and final result retained",
+    "replacement": "SourceAssets/ASH12SuppressedAudio20260920/README.md"
+  }
+]

@@ -124,7 +124,7 @@ public:
     bool HasAngledForegrip() const;
     FVector GetEffectiveMuzzleLocation() const;
     FVector GetEffectiveMuzzleForward() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor");}
+    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"));}
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
@@ -140,6 +140,9 @@ public:
     virtual void Tick(float DeltaSeconds) override;
     /** Stable eye/control-aim frame for melee; excludes cosmetic camera feedback. */
     FTransform GetMeleeAimTransform() const;
+    // Damage queries may tick after the normal camera update; present their
+    // quick-melee impulse immediately without advancing any camera clock.
+    void RefreshQuickCombatCamera();
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
     UFUNCTION(BlueprintPure, Category = "FPS Movement") bool IsSprinting() const { return bIsSprinting; }

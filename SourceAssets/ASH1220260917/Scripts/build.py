@@ -33,6 +33,7 @@ TARGET = Vector((0.0559, 0.16607, -0.04817))
 # reload can work the bolt instead of leaving it frozen in the receiver.
 CHARGING_HANDLE_SOURCE_BBOX = ((2.817, -1.198, 1.163), (3.708, -0.898, 2.749))
 TRIGGER_COMPONENT = 78
+BOLT_COMPONENT = 79
 MAGAZINE_MATERIALS = ("10 - Default", "14 - Default")   # mag.tga, xmag.tga
 
 # Source-space markers, mapped through the fit transform.
@@ -446,6 +447,7 @@ for vert in bm.verts:
     groups.append(members)
 bm.free()
 trigger_verts = set(groups[TRIGGER_COMPONENT])
+bolt_verts = set(groups[BOLT_COMPONENT])
 print("ASH12_COMPONENTS", len(groups), "trigger_verts", len(trigger_verts))
 
 mag_slots = {i for i, m in enumerate(me.materials) if m and m.name in MAGAZINE_MATERIALS}
@@ -462,6 +464,8 @@ for poly in me.polygons:
         bone = "WPN_SOCKET_Magazine"
     elif all(v in trigger_verts for v in poly.vertices):
         bone = "WPN_Trigger"
+    elif all(v in bolt_verts for v in poly.vertices):
+        bone = "WPN_bolt"
     elif all(in_handle(v) for v in poly.vertices):
         bone = "WPN_ChargingHandle"
     for v in poly.vertices:
@@ -532,9 +536,12 @@ base = {b.name: b.matrix.copy() for b in rig.pose.bones}
 # Bind in rest space: the gun is placed in the idle pose, then re-bound rigidly
 # to each part bone, so animation drives the receiver, magazine and trigger.
 newverts = []
+normal_matrices = {}
 for i, v in enumerate(verts):
     bone = bone_for.get(i, "WPN_root")
-    newverts.append(rest[bone] @ base[bone].inverted() @ base["WPN_root"] @ xf @ v)
+    bind = rest[bone] @ base[bone].inverted() @ base["WPN_root"] @ xf
+    newverts.append(bind @ v)
+    normal_matrices[bone] = bind.to_3x3().inverted().transposed()
 
 # Only the vertices the kept faces reference; the deferred parts drop out here.
 used = sorted({v for p in keep_polys for v in me.polygons[p].vertices})
@@ -545,7 +552,8 @@ loop_normals = []
 for p in keep_polys:
     poly = me.polygons[p]
     for li in range(poly.loop_start, poly.loop_start + poly.loop_total):
-        loop_normals.append(corner_normals[li])
+        bone = bone_for.get(me.loops[li].vertex_index, "WPN_root")
+        loop_normals.append((normal_matrices[bone] @ corner_normals[li]).normalized())
 
 mesh = bpy.data.meshes.new("ASH12_Bound")
 mesh.from_pydata(newverts, [], faces)

@@ -1,5 +1,6 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMAttachmentVisual.h"
+#include "ASH12WeaponAssets.h"
 #include "QBZ191Attachments.h"
 #include "M1911WeaponAssets.h"
 #include "Components/StaticMeshComponent.h"
@@ -56,7 +57,9 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     if(bHolographic && (!HolographicOptic || OpticVariant!=Variant))
     {
         const TCHAR* MeshPath=LPVO?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVO1to6X"):Scope2X?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismScope2X"):(Panoramic?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PanoramicRedDot"):TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_Holographic"));
-        auto* OpticMesh=LoadObject<UStaticMesh>(nullptr,bUseQBZ191?*QBZ191Attachments::MeshPath(Variant):MeshPath);
+        const FString SelectedMeshPath = bUseASH12 ? ASH12WeaponAssets::OpticMeshPath(Variant)
+            : bUseQBZ191 ? QBZ191Attachments::MeshPath(Variant) : FString(MeshPath);
+        auto* OpticMesh=LoadObject<UStaticMesh>(nullptr,*SelectedMeshPath);
         if(!OpticMesh){UE_LOG(LogTemp,Error,TEXT("M4_HOLO: missing optic mesh"));return;}
         if(!HolographicOptic){
         HolographicOptic=NewObject<UStaticMeshComponent>(this,TEXT("M4HolographicOptic"));
@@ -65,6 +68,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
         HolographicOptic->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
         HolographicOptic->RegisterComponent();
         }
+        if(HolographicOptic->GetStaticMesh()!=OpticMesh)HolographicOptic->EmptyOverrideMaterials();
         HolographicOptic->SetStaticMesh(OpticMesh);
         const auto& Ref=AKMViewmodel->GetSkeletalMeshAsset()->GetRefSkeleton();
         auto Bone=[&](const TCHAR* Name){FTransform T=FTransform::Identity;for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))T=T*Ref.GetRefBonePose()[I];return T;};
@@ -74,7 +78,12 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
         // not component/world Z, defines the rail normal for a rigid attachment.
         const FVector RailUp=Rear.GetRotation().RotateVector(FVector::UpVector);
         const FQuat Rotation=FRotationMatrix::MakeFromXZ(Axis,RailUp).ToQuat();
-        const FTransform Mount(Rotation,Rear.GetLocation()+Axis*8.f-RailUp*3.2f,FVector::OneVector);
+        // The 3.2 cm saddle drop belongs to the M4/QBZ marker height: their rear
+        // sight marker sits above the rail. The ASH-12's markers are measured on
+        // the rail crown itself, so its saddle goes straight on it.
+        const float RailDrop=bUseASH12?ASH12WeaponAssets::OpticRailDrop:3.2f;
+        const float Along=bUseASH12?ASH12WeaponAssets::OpticAlongCM(Variant):8.f;
+        const FTransform Mount(Rotation,Rear.GetLocation()+Axis*Along-RailUp*RailDrop,FVector::OneVector);
         HolographicMount=bUseQBZ191?QBZ191Attachments::OpticMount(Variant):Mount.GetRelativeTransform(Root);
         HolographicOptic->SetRelativeTransform(HolographicMount);
     }
@@ -84,7 +93,9 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     OpticVariant=bHolographic?Variant:FString();
     UpdateFoldingSights(0.f);
     if(LPVO&&bHolographic&&!LPVORing){
-        auto* RingMesh=LoadObject<UStaticMesh>(nullptr,bUseQBZ191?*QBZ191Attachments::MeshPath(TEXT("lpvo_ring")):TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing"));
+        const FString RingMeshPath = bUseASH12 ? ASH12WeaponAssets::OpticMeshPath(TEXT("lpvo_ring"))
+            : bUseQBZ191 ? QBZ191Attachments::MeshPath(TEXT("lpvo_ring")) : FString(TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing"));
+        auto* RingMesh=LoadObject<UStaticMesh>(nullptr,*RingMeshPath);
         if(RingMesh){LPVORing=NewObject<UStaticMeshComponent>(this,TEXT("LPVOMagnificationRing"));LPVORing->SetStaticMesh(RingMesh);LPVORing->SetCollisionEnabled(ECollisionEnabled::NoCollision);LPVORing->SetCastShadow(false);LPVORing->SetupAttachment(HolographicOptic);LPVORing->RegisterComponent();LPVORing->SetRelativeLocation(FVector(-7.1f,0,4.f));}
     }
     if(LPVORing){LPVORing->SetVisibility(LPVO&&bHolographic);LPVORing->SetRelativeRotation(FRotator(0,0,(LPVOMagnification-1.f)*24.f));}

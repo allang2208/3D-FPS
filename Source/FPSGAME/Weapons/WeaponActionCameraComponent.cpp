@@ -61,59 +61,62 @@ void Impact(FPose& Pose, float Time, float Contact, float Duration,
 void Reload(float Time, float End, TConstArrayView<float> Contacts,
     bool bEmpty, bool bDrum, bool bAsh12, FPose& Follow, FPose& Impacts)
 {
-    if (Contacts.Num() < (bEmpty ? 4 : 3)) return;
+    if (Contacts.Num() < (bEmpty ? (bAsh12 ? 5 : 4) : 3)) return;
     // These are the same source seconds that trigger mechanical audio. The
     // caller has already applied the drum's nonlinear source-time mapping.
     const float Out = Contacts[0], Insert = Contacts[1], Seat = Contacts[2];
     const float Lift = bDrum ? .7f : 1.f;
     if (bAsh12)
     {
-        // The bullpup choreography: the receiver rolls 36 degrees by frame 12,
-        // holds 44-50 through the magazine swap, peaks 61 at the charge stroke
-        // (frame 120) and settles by the end. The camera follows a slice of
-        // that roll plus the tug toward the body, roughly twice the M4 layer,
-        // because the ASH-12 never had any reload camera until now.
+        // Reference: the receiver rolls independently of the background.
+        // Keep reload roll at zero; show weight through pitch and short travel.
+        // These source values still pass through the project's shared gains.
         if (bEmpty)
         {
-            const float SwapMid = (Out + Insert) * .5f;
-            const float ReachBolt = Seat + (Contacts[3] - Seat) * .30f;
+            const float Pull = Contacts[3], Release = Contacts[4];
             const FKey Keys[] = {
                 {0.f, {}, {}},
-                {.20f, {-.9f, .25f, -2.6f}, {.1f, -.5f, -.3f}},
-                {Out + .05f, {-1.6f, .50f, -5.4f}, {.4f, -1.1f, -.7f}},
-                {SwapMid, {-1.3f, .35f, -4.6f}, {.3f, -.9f, -1.0f}},
-                {Insert + .05f, {-1.1f, -.2f, -4.9f}, {.2f, -.7f, -.8f}},
-                {Seat + .10f, {.9f, .10f, -3.2f}, {-.2f, -.4f, .3f}},
-                {ReachBolt, {-1.0f, .80f, -6.6f}, {.5f, -1.3f, -1.1f}},
-                {Contacts[3] + .03f, {-1.5f, .55f, -6.0f}, {.7f, -1.1f, -.9f}},
-                {FMath::Min(Contacts[3] + .30f, End - .02f), {.6f, -.15f, 1.6f}, {-.3f, .2f, .5f}},
+                {Out - .12f, {.25f, .05f, 0.f}, {-.10f, 0.f, -.10f}},
+                {Out + .08f, {-.20f, -.12f, 0.f}, {.10f, -.12f, -.20f}},
+                {Out + .38f, {}, {}},
+                {Insert - .16f, {.14f, .08f, 0.f}, {-.08f, .05f, -.08f}},
+                {Insert + .05f, {-.18f, .04f, 0.f}, {-.10f, .05f, .10f}},
+                {Seat + .15f, {.60f, .10f, 0.f}, {-.12f, 0.f, .10f}},
+                // The reference raises the view as the right hand reaches
+                // over the receiver, then settles after letting go of the handle.
+                {Pull - .06f, {1.90f, .20f, 0.f}, {-.24f, -.10f, .12f}},
+                {Release, {2.10f, .12f, 0.f}, {-.30f, -.08f, .15f}},
+                {Release + .18f, {.45f, -.08f, 0.f}, {.05f, .02f, -.05f}},
+                {FMath::Min(Release + .44f, End - .02f), {}, {}},
                 {End, {}, {}}
             };
             Follow = Curve(Keys, Time);
-            Impact(Impacts, Time, Contacts[3], FMath::Min(.5f, End - Contacts[3]),
-                {-3.4f, .60f, 2.2f}, {-1.05f, .15f, -.5f});
+            Impact(Impacts, Time, Pull, Release - Pull,
+                {.35f, -.06f, 0.f}, {-.18f, .02f, .04f});
+            Impact(Impacts, Time, Release, FMath::Min(.34f, End - Release),
+                {-1.25f, .14f, 0.f}, {.25f, .03f, -.16f});
         }
         else
         {
-            // Tactical: same roll, no charge stroke; the receiver is back
-            // level shortly after the seat cue.
+            // Same magazine beats, then a direct return without the charge lift.
             const FKey Keys[] = {
                 {0.f, {}, {}},
-                {.30f, {-1.0f, .30f, -3.0f}, {.2f, -.7f, -.4f}},
-                {Out + .05f, {-1.6f, .55f, -5.4f}, {.5f, -1.2f, -.8f}},
-                {(Out + Insert) * .5f, {-1.3f, .40f, -4.8f}, {.4f, -1.0f, -1.0f}},
-                {Insert + .05f, {-1.1f, -.2f, -4.9f}, {.3f, -.8f, -.8f}},
-                {Seat + .10f, {.9f, .10f, -3.2f}, {-.2f, -.5f, .3f}},
-                {FMath::Min(Seat + .40f, End - .02f), {-.3f, .05f, 1.0f}, {-.4f, 0.f, .4f}},
+                {Out - .12f, {.25f, .05f, 0.f}, {-.10f, 0.f, -.10f}},
+                {Out + .08f, {-.20f, -.12f, 0.f}, {.10f, -.12f, -.20f}},
+                {Out + .38f, {}, {}},
+                {Insert - .16f, {.14f, .08f, 0.f}, {-.08f, .05f, -.08f}},
+                {Insert + .05f, {-.18f, .04f, 0.f}, {-.10f, .05f, .10f}},
+                {Seat + .08f, {.20f, -.06f, 0.f}, {-.10f, 0.f, .08f}},
+                {FMath::Min(Seat + .35f, End - .02f), {}, {}},
                 {End, {}, {}}
             };
             Follow = Curve(Keys, Time);
         }
-        // A 12.7 mm magazine and a heavy bullpup bolt hit harder than 5.56.
-        // The swing durations stretch with the 2026-09-19 retimed (slower) beats.
-        Impact(Impacts, Time, Out, .62f, {-1.4f, .70f, 3.4f}, {.45f, -.7f, -.35f});
-        Impact(Impacts, Time, Insert, .44f, {-1.0f, -.35f, -1.5f}, {-.5f, .2f, .7f});
-        Impact(Impacts, Time, Seat, FMath::Min(.55f, End - Seat), {3.2f, .20f, -1.8f}, {-.95f, 0.f, .8f});
+        // Let each contact recover before the next. The magazine retrieval
+        // interval is quiet; seating and bolt release have separate rebounds.
+        Impact(Impacts, Time, Out, .34f, {-.55f, .12f, 0.f}, {.12f, -.10f, -.10f});
+        Impact(Impacts, Time, Insert, .20f, {-.35f, -.08f, 0.f}, {-.10f, .04f, .16f});
+        Impact(Impacts, Time, Seat, FMath::Min(.32f, End - Seat), {1.10f, .06f, 0.f}, {-.24f, 0.f, .20f});
         return;
     }
     if (bEmpty)

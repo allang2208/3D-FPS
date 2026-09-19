@@ -1,6 +1,7 @@
 #include "../FPSGAMECharacter.h"
 #include "AKMSovietCalibration.h"
 #include "AKMAttachmentVisual.h"
+#include "ASH12WeaponAssets.h"
 #include "QBZ191Attachments.h"
 #include "TacticalSuppressorAssets.h"
 #include "Components/StaticMeshComponent.h"
@@ -15,7 +16,9 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
     if (bUseDanWesson715) return;
     if (bUseM1911) { SetM1911Muzzle(Variant); return; }
-    const bool Valid=Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
+    const bool bASH12Tactical = bUseASH12 && Variant == TEXT("ash12_tactical_suppressor");
+    const bool bASH12Brake = bUseASH12 && Variant == TEXT("ash12_tactical_brake");
+    const bool Valid=bASH12Tactical||bASH12Brake||Variant==TEXT("true")||Variant==TEXT("tactical_suppressor")||Variant==TEXT("brake")||Variant==TEXT("titanium_brake");
     if(bUseQBZ191){
         const bool Enabled=Valid&&bInventoryWeaponReady;
         const FString Key=Variant==TEXT("true")?TEXT("suppressor"):Variant;
@@ -46,7 +49,9 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     if(!Desired.IsEmpty())
     {
         const FString Key=Desired==TEXT("true")?TEXT("suppressor"):Desired;
-        const FString Path=Key==TEXT("tactical_suppressor")?TacticalSuppressorAssets::MeshPath(TEXT("M4")):TEXT("/Game/Weapons/M4MuzzlesV1/SM_M4_")+Key;
+        const FString Path=bASH12Tactical?ASH12WeaponAssets::TacticalSuppressorMeshPath:
+            bASH12Brake?ASH12WeaponAssets::TacticalBrakeMeshPath:
+            Key==TEXT("tactical_suppressor")?TacticalSuppressorAssets::MeshPath(TEXT("M4")):TEXT("/Game/Weapons/M4MuzzlesV1/SM_M4_")+Key;
         auto* MuzzleMesh=LoadObject<UStaticMesh>(nullptr,*Path);if(!MuzzleMesh){UE_LOG(LogTemp,Error,TEXT("MUZZLE: missing %s"),*Path);return;}
         if(!MuzzleAttachment){MuzzleAttachment=NewObject<UStaticMeshComponent>(this,TEXT("M4MuzzleAttachment"));MuzzleAttachment->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));MuzzleAttachment->SetCollisionEnabled(ECollisionEnabled::NoCollision);MuzzleAttachment->SetCastShadow(false);MuzzleAttachment->RegisterComponent();}
         if(MuzzleAttachment->GetStaticMesh()!=MuzzleMesh)MuzzleAttachment->EmptyOverrideMaterials();
@@ -54,6 +59,11 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         const auto B=MuzzleMesh->GetBounds();int32 Axis=0;if(B.BoxExtent.Y>B.BoxExtent.X)Axis=1;if(B.BoxExtent.Z>B.BoxExtent[Axis])Axis=2;
         MuzzleLocalAxis=FVector::ZeroVector;MuzzleLocalAxis[Axis]=B.Origin[Axis]>=0?1.f:-1.f;
         MuzzleLocalTip=MuzzleLocalAxis*(FMath::Abs(B.Origin[Axis])+B.BoxExtent[Axis]);
+        if(bASH12Tactical||bASH12Brake)
+        {
+            MuzzleLocalAxis=FVector::ForwardVector;
+            MuzzleLocalTip=FVector(bASH12Brake?ASH12WeaponAssets::TacticalBrakeLengthCM:ASH12WeaponAssets::TacticalSuppressorLengthCM,0.f,0.f);
+        }
         const auto& Ref=Rifle->GetRefSkeleton();
         auto Bone=[&](const TCHAR* Name){FTransform T=FTransform::Identity;for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))T=T*Ref.GetRefBonePose()[I];return T;};
         const auto Root=Bone(TEXT("WPN_root")),Rear=Bone(TEXT("WPN_RearSight")),Front=Bone(TEXT("WPN_FrontSight")),Muzzle=Bone(TEXT("WPN_SOCKET_Muzzle"));
@@ -62,7 +72,8 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         const FQuat SourceFrame=FRotationMatrix::MakeFromXZ(MuzzleLocalAxis,FVector::UpVector).ToQuat();
         const FQuat TargetFrame=FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat();
         // Measured from the current export's factory flash-hider rear rim to its socket.
-        const FTransform Mount(TargetFrame*SourceFrame.Inverse(),Muzzle.GetLocation()-Forward*4.83633f,FVector::OneVector);
+        const float BackOffset=bUseASH12?ASH12WeaponAssets::MuzzleBackOffset:4.83633f;
+        const FTransform Mount(TargetFrame*SourceFrame.Inverse(),Muzzle.GetLocation()-Forward*BackOffset,FVector::OneVector);
         MuzzleAttachment->SetRelativeTransform(Mount.GetRelativeTransform(Root));
         if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
     }

@@ -9,12 +9,17 @@ bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int3
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
-    for (const TCHAR* Definition : {TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword")})
+    for (const TCHAR* Definition : {TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
         auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
-        Gun.Magazine=FString(Definition)==TEXT("ue_rune_sword")?0:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_dan_wesson715")?6:30;
+        Gun.Magazine=FString(Definition)==TEXT("ue_rune_sword")?0:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
         if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
+        if(FString(Definition)==TEXT("ue_ash12"))
+        {
+            auto Ammo=CreateItem(TEXT("ammo_127"),80);
+            if(Ammo.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Ammo,WarehouseCapacity()))return false;
+        }
         if(FString(Definition)==TEXT("ue_qbz191"))
         {
             auto Ammo=CreateItem(TEXT("ammo_58"),120);
