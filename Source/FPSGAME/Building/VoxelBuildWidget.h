@@ -17,6 +17,7 @@ class UVerticalBox;
 class UVoxelBuildWidget;
 class UMaterialInterface;
 class UWrapBox;
+class UColdSteelHUDWidget;
 
 /** One selectable entry in the building drawer: a material row, a voxel construction or a component. */
 struct FVoxelBuildPanelCard
@@ -79,8 +80,11 @@ public:
     void ToggleMaterial(FName MaterialId);
     void ShowTooltip(int32 CardIndex);
     void HideTooltip(bool bForce=false);
+    /** 与背包装备同一让位规则：抽屉出现期间右侧入口列、世界时钟与右下武器详情收起。 */
+    void SetHudYielded(bool bYielded);
 protected:
     virtual void NativeOnInitialized() override;
+    virtual void NativeDestruct() override;
     virtual void NativeTick(const FGeometry& Geometry,float Delta) override;
     virtual FReply NativeOnKeyDown(const FGeometry& Geometry,const FKeyEvent& Event) override;
 private:
@@ -101,8 +105,12 @@ private:
         TWeakObjectPtr<UImage> Image;
         TWeakObjectPtr<USizeBox> Box;
         TWeakObjectPtr<USizeBox> IconBox;
+        /** 网格卡（其他构造卡片）：DPI/视口变化时按网格尺寸重排；材质行等行式条目不吃这套尺寸。 */
+        bool bGridCard=false;
     };
     UPROPERTY() TObjectPtr<UBorder> Surface;
+    /** 全屏 40% 压暗底：与背包装备同一抽屉规格，随进度淡入淡出（2026-09-19 补齐）。 */
+    UPROPERTY() TObjectPtr<UBorder> Backdrop;
     UPROPERTY() TObjectPtr<UBackgroundBlur> Blur;
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> PanelSlot;
     UPROPERTY() TObjectPtr<UTextBlock> Title;
@@ -124,6 +132,12 @@ private:
     UPROPERTY() TObjectPtr<UTextBlock> TooltipTitle;
     UPROPERTY() TObjectPtr<UTextBlock> TooltipSubtitle;
     int32 TooltipIndex=INDEX_NONE;
+    /** 跟随一小段时间后钉住位置（停止跟随），关闭按钮才够得到；钉住后指针离开浮窗与来源卡片才收起。 */
+    bool bTooltipPinned=false;
+    /** 当前这张浮窗第一次显示的时间；跟随一小段时间后自动钉住。 */
+    float TooltipShownAtSeconds=-1.f;
+    /** 页签文字：字重随选中态在 RefreshCategory 里按当前 Scale 设置，不走 Text() 的 DPI 托管。 */
+    TWeakObjectPtr<UTextBlock> MaterialTabLabel,ComponentTabLabel;
     TArray<FLabel> Labels;
     TArray<FCard> Cards;
     /** Visible rows in list order; ShowTooltip reads the same index as Cards. */
@@ -139,9 +153,14 @@ private:
     bool bDrawerOpen=false,bComponentCategory=false,bCardsDirty=true,bSelectionDirty=true;
     /** 卡片重建后需要把新的缩略图键集合交给图标子系统（正在显示的键不参与回收）。 */
     bool bIconPinsDirty=true;
+    /** HUD 让位是否已置位：打开即置位，收回动画播完或销毁时复位。 */
+    bool bHudYielded=false;
     UTextBlock* Text(const FString& Caption,float Pixels,bool Numeric=false,bool Medium=false,bool bTrack=true);
     UButton* Tab(const FString& Caption,bool bComponents);
     class UVoxelBuildComponent* Builder() const;
+    class UColdSteelHUDWidget* ResolveHUD() const;
+    /** 指针是否落在目标控件几何内（Margin 为附加余量，控件局部单位）。 */
+    bool PointerWithin(UWidget* Target,float Margin) const;
     void BuildTooltipCard();
     void UpdateTooltipPlacement();
     UFUNCTION() void CloseTooltip();

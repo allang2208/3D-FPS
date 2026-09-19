@@ -954,8 +954,20 @@ bool UVoxelBuildComponent::HandleInput(const FInputKeyEventArgs& Event,bool bMen
     if(Pressed&&(Key==EKeys::Tab||Key==EKeys::K||Key==EKeys::J||Key==EKeys::F6||Key==EKeys::LeftAlt))
     {SetBuildMode(false);return false;}
     // The drawer numbers its own visible rows (a 其他构造 submenu shifts them), so a key it already
-    // consumed this frame must not also run the palette-order shortcut.
-    if(Pressed&&!bDrawerHandled&&HandlePanelKey(Key))return true;
+    // consumed this frame must not also run the palette-order shortcut. While the drawer owns the
+    // cursor, 1-9／0 belong to its widget alone: a press the widget did not see is swallowed
+    // instead of falling back to palette order, which used to pick an entry the current category
+    // was not showing and start building with it (2026-09-19 审计)。建造态（面板收起）仍按调色板
+    // 顺序快捷选择。
+    if(Pressed&&!bDrawerHandled)
+    {
+        const bool bNumberKey=NumberKeyIndex(Key)!=INDEX_NONE||Key==EKeys::Zero;
+        if(bPanelOpen)
+        {
+            if(bNumberKey)return true;
+        }
+        else if(HandlePanelKey(Key))return true;
+    }
     // Placement commands belong to the aiming state; the drawer does not move or build.
     if(bPanelOpen)return false;
     if(Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown)
@@ -1216,6 +1228,8 @@ void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
 void UVoxelBuildComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
     SetBuildMode(false);
+    // 销毁路径不跑收回动画：HUD 让位必须在控件消失前直接解除，否则三块 HUD 元素会一直缺位。
+    if(Widget)Widget->SetHudYielded(false);
     if(PreviewActor)PreviewActor->Destroy();if(Widget)Widget->RemoveFromParent();
     // The preview Actor owns the outline component, so both caches must not outlive it.
     AimEdgeComponent=nullptr;AimEdgeMaterial=nullptr;

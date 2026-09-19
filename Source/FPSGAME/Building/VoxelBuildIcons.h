@@ -64,7 +64,7 @@ private:
     UStaticMeshComponent* TakePoolComponent();
     TUniquePtr<FPreviewScene> Studio;
     TArray<FJob> Queue;
-    TSet<FString> Pending,Failed;
+    TSet<FString> Pending;
     TSet<FString> VisibleKeys;
     mutable uint64 Serial=0;
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> ResolvedMaterial;

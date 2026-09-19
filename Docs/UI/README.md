@@ -9,6 +9,7 @@
 - [抽屉贴右边缘与打开时的 HUD 让步](drawer-right-edge-and-hud-hide-20260916.md)
 - [建造面板抽屉与构件卡片规划](voxel-build-panel-plan-20260916.md)
 - [建造抽屉缩略图存活与单格取景](voxel-build-icon-lifetime-plan-20260917.md)
+- [建造面板静态审计与修复（DPI／数字键／抽屉让位／图标计数）](voxel-build-panel-audit-20260919.md)
 - [UE UI 技能与复用经验](../../skills/ue5-ui-umg-slate/SKILL.md)
 - [面板工作流与废案归档记录](panel-workflow-archive-20260913.md)
 - [装备／背包图标修复经验](inventory-icons-20260913.md)

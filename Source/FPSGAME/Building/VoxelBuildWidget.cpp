@@ -3,6 +3,8 @@
 #include "VoxelBuildIcons.h"
 #include "../UI/ColdSteelUIStyle.h"
 #include "../UI/GunsmithUIStyle.h"
+#include "../UI/ColdSteelHUDWidget.h"
+#include "../FPSGAMEPlayerController.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/BackgroundBlur.h"
@@ -29,10 +31,17 @@
 namespace
 {
     constexpr float HeaderHeight=36.f,CardHeight=44.f,CardGap=4.f;
+    // 指针离浮窗边缘在这个屏幕像素余量内就保持浮窗打开（含指针从卡片移向关闭按钮的路径）。
+    constexpr float TooltipKeepMarginPixels=44.f;
+    // 浮窗显示后跟随鼠标这么久就钉住位置：跟随阶段浮窗永远在光标外 10px，关闭按钮够不到；
+    // 钉住后玩家能移到浮窗上点 ×（2026-09-19 审计）。
+    constexpr float TooltipFollowSeconds=.7f;
     // Material rows carry the 其他构造 disclosure; its submenu rows are indented underneath.
     constexpr float ChildIndent=14.f,DisclosureWidth=96.f,DisclosureHeight=26.f;
     // 其他构造 grid: one identical card per construction, equal gaps, wrapping when a row is full.
     constexpr float GridGap=8.f,GridCardWidth=116.f,GridCardHeight=150.f,GridIconPixels=104.f;
+    /** 材质行左侧缩略图；DPI/视口变化时按此重算，不跟网格卡的 104px 混用。 */
+    constexpr float MaterialThumbPixels=28.f;
     constexpr float DrawerViewportFraction=.48f,DrawerMinWidth=720.f,DrawerMaxWidth=1040.f,DrawerEdgeInset=12.f;
     // Number row while the drawer is focused: the Nth card of the visible category.
     // Unity builds concatenate this file with VoxelBuildComponent.cpp, which already
@@ -78,7 +87,8 @@ UButton* UVoxelBuildWidget::Tab(const FString& Caption,bool bComponents)
     const float Scale=ColdSteelUI::PixelScale(this);
     auto* Button=WidgetTree->ConstructWidget<UButton>();
     Button->SetStyle(ColdSteelUI::ButtonStyle(Scale));
-    Button->SetContent(Text(Caption,14,false,bComponents));
+    // 字重由 RefreshCategory 按选中态设置，所以这里不把页签文字交给 DPI 托管（否则会被重设为 Regular）。
+    Button->SetContent(Text(Caption,14,false,false,false));
     if(bComponents)Button->OnClicked.AddDynamic(this,&ThisClass::ShowComponentCategory);
     else Button->OnClicked.AddDynamic(this,&ThisClass::ShowMaterialCategory);
     return Button;
@@ -90,7 +100,14 @@ void UVoxelBuildWidget::NativeOnInitialized()
     Super::NativeOnInitialized();SetIsFocusable(true);
     const float Scale=ColdSteelUI::PixelScale(this);
     auto* Root=WidgetTree->ConstructWidget<UCanvasPanel>();WidgetTree->RootWidget=Root;
+    // 与背包同一抽屉规格：全屏 40% 压暗底在面板之下，随滑出进度淡入淡出（2026-09-19 补齐）。
+    Backdrop=WidgetTree->ConstructWidget<UBorder>();
+    Backdrop->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor(0,0,0,.40f),0.f,FLinearColor::Transparent,0.f));
+    Backdrop->SetVisibility(ESlateVisibility::Collapsed);
+    auto* BackdropSlot=Root->AddChildToCanvas(Backdrop);
+    BackdropSlot->SetAnchors(FAnchors(0,0,1,1));BackdropSlot->SetOffsets(FMargin(0));BackdropSlot->SetZOrder(0);
     Surface=WidgetTree->ConstructWidget<UBorder>();PanelSlot=Root->AddChildToCanvas(Surface);
+    PanelSlot->SetZOrder(1);
     PanelSlot->SetAnchors(FAnchors(1,0,1,1));PanelSlot->SetAlignment(FVector2D(1,0));
     Surface->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale));
     Surface->SetPadding(FMargin(1/Scale));
@@ -130,6 +147,9 @@ void UVoxelBuildWidget::NativeOnInitialized()
     // 2026-09-16: the old 构件 category is renamed 其他, because constructions are now grouped under
     // the material that owns them; this category keeps every piece in one flat list.
     MaterialTab=Tab(TEXT("材质"),false);ComponentTab=Tab(TEXT("其他"),true);
+    // 页签字重由 RefreshCategory 按选中态设置；此前把分类标志误当 Medium 传进 Text()，两页签字重恒定不同。
+    MaterialTabLabel=Cast<UTextBlock>(MaterialTab->GetContent());
+    ComponentTabLabel=Cast<UTextBlock>(ComponentTab->GetContent());
     for(UButton* Entry:{MaterialTab.Get(),ComponentTab.Get()})
     {
         auto* TabSlot=Tabs->AddChildToHorizontalBox(Entry);TabSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
@@ -213,26 +233,37 @@ void UVoxelBuildWidget::ShowTooltip(int32 CardIndex)
         auto* Note=Text(Entry->Note,12,false,false,false);Note->SetColorAndOpacity(ColdSteelUI::TextTertiary);Note->SetAutoWrapText(true);
         TooltipBox->AddChildToVerticalBox(Note)->SetPadding(FMargin(0,8/Scale,0,0));
     }
+    const bool bSameCard=(TooltipIndex==CardIndex);
     TooltipIndex=CardIndex;
+    // New card: restart the follow phase so the card settles under the pointer's approach.
+    if(!bSameCard){bTooltipPinned=false;TooltipShownAtSeconds=-1.f;}
+    if(TooltipShownAtSeconds<0.f&&GetWorld())TooltipShownAtSeconds=GetWorld()->GetTimeSeconds();
     TooltipCard->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
     UpdateTooltipPlacement();
+}
+
+bool UVoxelBuildWidget::PointerWithin(UWidget* Target,float Margin) const
+{
+    if(!Target)return false;
+    auto* PC=GetOwningPlayer();if(!PC)return false;
+    float MouseX=0,MouseY=0;
+    if(!UWidgetLayoutLibrary::GetMousePositionScaledByDPI(PC,MouseX,MouseY))return false;
+    const FGeometry& Geometry=Target->GetCachedGeometry();
+    const FVector2D Local=Geometry.AbsoluteToLocal(FVector2D(MouseX,MouseY));
+    const FVector2D Size=Geometry.GetLocalSize();
+    return Local.X>=-Margin&&Local.Y>=-Margin&&Local.X<=Size.X+Margin&&Local.Y<=Size.Y+Margin;
 }
 
 void UVoxelBuildWidget::HideTooltip(bool bForce)
 {
     // Keep the card open while the pointer sits on the tooltip itself, so its close button is reachable.
+    // 浮窗跟随阶段永远追不上指针，靠 UpdateTooltipPlacement 的「跟随一小段时间后钉住」让这个分支
+    // 真正可达（2026-09-19 审计：此前关闭按钮永远点不到）。
     if(!bForce&&TooltipIndex!=INDEX_NONE&&TooltipCard&&TooltipCard->IsVisible())
     {
-        float MouseX=0,MouseY=0;
-        if(auto* PC=GetOwningPlayer();PC&&UWidgetLayoutLibrary::GetMousePositionScaledByDPI(PC,MouseX,MouseY))
-        {
-            const FGeometry& Geometry=TooltipCard->GetCachedGeometry();
-            const FVector2D Local=Geometry.AbsoluteToLocal(FVector2D(MouseX,MouseY));
-            const FVector2D Size=Geometry.GetLocalSize();
-            if(Local.X>=0&&Local.Y>=0&&Local.X<=Size.X&&Local.Y<=Size.Y)return;
-        }
+        if(PointerWithin(TooltipCard,TooltipKeepMarginPixels/ColdSteelUI::PixelScale(this)))return;
     }
-    TooltipIndex=INDEX_NONE;
+    TooltipIndex=INDEX_NONE;bTooltipPinned=false;TooltipShownAtSeconds=-1.f;
     if(TooltipCard)TooltipCard->SetVisibility(ESlateVisibility::Collapsed);
 }
 
@@ -241,10 +272,21 @@ void UVoxelBuildWidget::CloseTooltip(){HideTooltip(true);}
 void UVoxelBuildWidget::UpdateTooltipPlacement()
 {
     if(!TooltipCard||!TooltipSlot||TooltipIndex==INDEX_NONE)return;
+    const float Scale=ColdSteelUI::PixelScale(this);
+    const float KeepMargin=TooltipKeepMarginPixels/Scale;
+    // 跟随一段时间后钉住位置，让「指针在浮窗内则保持」的分支真正可达（关闭按钮此前永远点不到）。
+    if(!bTooltipPinned&&TooltipShownAtSeconds>=0.f&&GetWorld()&&
+        GetWorld()->GetTimeSeconds()-TooltipShownAtSeconds>=TooltipFollowSeconds)bTooltipPinned=true;
+    if(bTooltipPinned)
+    {
+        // 钉住后指针离开浮窗和来源卡片一起收掉，避免浮窗永远挂在屏幕上。
+        UButton* Source=Cards.IsValidIndex(TooltipIndex)?Cards[TooltipIndex].Button.Get():nullptr;
+        if(!PointerWithin(TooltipCard,KeepMargin)&&!PointerWithin(Source,KeepMargin))HideTooltip(true);
+        return;
+    }
     auto* PC=GetOwningPlayer();if(!PC)return;
     float MouseX=0,MouseY=0;
     if(!UWidgetLayoutLibrary::GetMousePositionScaledByDPI(PC,MouseX,MouseY))return;
-    const float Scale=ColdSteelUI::PixelScale(this);
     const FVector2D Units=UWidgetLayoutLibrary::GetViewportSize(this)/Scale;
     const FVector2D Extent(FMath::Min(430.f/Scale,FMath::Max(240.f/Scale,Units.X-40/Scale)),
         FMath::Min(430.f/Scale,FMath::Max(200.f/Scale,Units.Y-40/Scale)));
@@ -262,8 +304,36 @@ void UVoxelBuildWidget::SetDrawerOpen(bool Open)
 {
     bDrawerOpen=Open;
     // A collapsed widget is not ticked, so the drawer has to be visible before it can slide in.
-    if(Open){SetVisibility(ESlateVisibility::SelfHitTestInvisible);RefreshLayout();}
+    if(Open){SetVisibility(ESlateVisibility::SelfHitTestInvisible);RefreshLayout();SetHudYielded(true);}
     else HideTooltip(true);
+}
+
+UColdSteelHUDWidget* UVoxelBuildWidget::ResolveHUD() const
+{
+    // HUD 持有让位标志（右侧入口列、世界时钟、右下武器详情共用），与开发面板同一路径。
+    const auto* PC=GetOwningPlayer<AFPSGAMEPlayerController>();
+    return PC?PC->GetColdSteelHUD():nullptr;
+}
+
+void UVoxelBuildWidget::SetHudYielded(bool bYielded)
+{
+    if(bYielded)
+    {
+        // 打开时无条件置位（HUD 可能晚于首次打开才就绪）；重复置位无副作用。
+        if(auto* HUD=ResolveHUD())HUD->SetExternalDrawerOpen(true);
+        bHudYielded=true;
+        return;
+    }
+    if(!bHudYielded)return;
+    bHudYielded=false;
+    if(auto* HUD=ResolveHUD())HUD->SetExternalDrawerOpen(false);
+}
+
+void UVoxelBuildWidget::NativeDestruct()
+{
+    // 面板销毁时收回动画不会跑完，HUD 让位必须在这里直接解除（与开发面板同一处理）。
+    SetHudYielded(false);
+    Super::NativeDestruct();
 }
 
 void UVoxelBuildWidget::SetContent(const TArray<FVoxelBuildPanelCard>& Materials,const TArray<FVoxelBuildPanelCard>& Shapes,
@@ -321,12 +391,11 @@ FReply UVoxelBuildWidget::NativeOnKeyDown(const FGeometry& Geometry,const FKeyEv
     if(Key!=EKeys::Zero)
     {
         const int32 Number=WidgetNumberKeyIndex(Key);
-        if(Number!=INDEX_NONE&&Cards.IsValidIndex(Number))
+        if(Number!=INDEX_NONE)
         {
-            // Picking a card always returns to building (Select* closes the drawer); the index follows
-            // the visible rows, so an expanded 其他构造 submenu shifts the numbers under it.
-            const FCard& Card=Cards[Number];
-            Pick(Card.Id,Card.bComponent,Card.ShapeMode);
+            // 编号只认可见行：未命中即忽略，不再回落到 HandleDrawerKey 的调色板顺序
+            // （2026-09-19 审计：此前会选中当前分类里没显示的条目并直接开建）。
+            if(Cards.IsValidIndex(Number))Pick(Cards[Number].Id,Cards[Number].bComponent,Cards[Number].ShapeMode);
             return FReply::Handled();
         }
     }
@@ -456,7 +525,7 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     auto* LabelSlot=Column->AddChildToVerticalBox(Label);
     LabelSlot->SetHorizontalAlignment(HAlign_Center);
     LabelSlot->SetPadding(FMargin(2/Scale,4/Scale,2/Scale,0));
-    Cards.Add({Proxy->CardId,Entry.bComponent,Proxy->ShapeMode,bChild,Request.Key,Request,Button,SurfaceCard,Picture,Box,IconBox});
+    Cards.Add({Proxy->CardId,Entry.bComponent,Proxy->ShapeMode,bChild,Request.Key,Request,Button,SurfaceCard,Picture,Box,IconBox,true});
     VisibleCards.Add(Entry);
     if(auto* WrapSlot=Grid->AddChildToWrapBox(Button))WrapSlot->SetHorizontalAlignment(HAlign_Center);
 }
@@ -497,8 +566,7 @@ void UVoxelBuildWidget::AddMaterialRow(const FVoxelBuildPanelCard& Entry)
         if(auto* Icons=IconsFor())Icons->Request(IconRequest);
         IconKey=IconRequest.Key;
         IconBox=WidgetTree->ConstructWidget<USizeBox>();
-        const float ThumbSize=28.f;
-        IconBox->SetWidthOverride(ThumbSize/Scale);IconBox->SetHeightOverride(ThumbSize/Scale);
+        IconBox->SetWidthOverride(MaterialThumbPixels/Scale);IconBox->SetHeightOverride(MaterialThumbPixels/Scale);
         Picture=WidgetTree->ConstructWidget<UImage>();
         Picture->SetVisibility(ESlateVisibility::HitTestInvisible);
         IconBox->SetContent(Picture);
@@ -519,7 +587,8 @@ void UVoxelBuildWidget::AddMaterialRow(const FVoxelBuildPanelCard& Entry)
         DisclosureSlot->SetPadding(FMargin(6/Scale,0,0,0));
     }
     // IconKey/Picture/IconBox 在没图标时是空的，RefreshIcons 会跳过它们。
-    Cards.Add({Entry.Id,false,INDEX_NONE,false,IconKey,IconRequest,Button,RowSurface,Picture,Size,IconBox});
+    // 材质行是行式卡片：DPI 重排只重算行高／28px 缩略图，不套网格卡尺寸（bGridCard=false）。
+    Cards.Add({Entry.Id,false,INDEX_NONE,false,IconKey,IconRequest,Button,RowSurface,Picture,Size,IconBox,false});
     VisibleCards.Add(Entry);
     CardList->AddChildToVerticalBox(RowSurface)->SetPadding(FMargin(0,0,0,CardGap/Scale));
 }
@@ -530,6 +599,8 @@ void UVoxelBuildWidget::RebuildCards()
     HideTooltip(true);
     const float Scale=ColdSteelUI::PixelScale(this);
     CardList->ClearChildren();Cards.Reset();CardProxies.Reset();VisibleCards.Reset();Grids.Reset();
+    // 旧卡片随 ClearChildren 脱离控件树；只留下仍在树上的标签，避免 Labels 每次重建都堆积死引用。
+    Labels.RemoveAll([](const FLabel& Label){UWidget* Widget=Label.Widget.Get();return !Widget||!Widget->GetParent();});
     // 卡片重来一遍：缩略图键集合跟着换，旧键失去"正在显示"的保护后随淘汰回收。
     bIconPinsDirty=true;
     if(!bComponentCategory)
@@ -589,7 +660,7 @@ void UVoxelBuildWidget::RefreshSelection()
         const bool bSelected=Card.bComponent?(!SelectedComponent.IsNone()&&SelectedComponent==Card.Id):
             (SelectedComponent.IsNone()&&SelectedMaterial==Card.Id&&(Card.ShapeMode==INDEX_NONE||Card.ShapeMode==SelectedShape));
         Widget->SetBrush(ColdSteelUI::RoundedBrush(bSelected?ColdSteelUI::ButtonHover:(Card.bChild?ColdSteelUI::Content:ColdSteelUI::StatusCard),
-            (Card.bChild?ColdSteelUI::ButtonRadius:ColdSteelUI::CardRadius)/Scale,
+            ColdSteelUI::CardRadius/Scale,
             bSelected?ColdSteelUI::Accent:ColdSteelUI::Border,
             bSelected?2/Scale:1/Scale));
     }
@@ -602,6 +673,13 @@ void UVoxelBuildWidget::RefreshCategory()
     const FButtonStyle Selected=ColdSteelUI::ButtonStyle(Scale).SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
     if(MaterialTab)MaterialTab->SetStyle(bComponentCategory?Normal:Selected);
     if(ComponentTab)ComponentTab->SetStyle(bComponentCategory?Selected:Normal);
+    // 选中＝Medium、未选中＝Regular（规划条款）；两个页签字体各自按当前 Scale 设置。
+    auto ApplyTabFont=[](UTextBlock* Label,bool bSelected,float Scale)
+    {
+        if(Label)Label->SetFont(GunsmithUI::TextFont(14/Scale,bSelected));
+    };
+    ApplyTabFont(MaterialTabLabel.Get(),!bComponentCategory,Scale);
+    ApplyTabFont(ComponentTabLabel.Get(),bComponentCategory,Scale);
 }
 
 void UVoxelBuildWidget::RefreshLayout()
@@ -623,6 +701,15 @@ void UVoxelBuildWidget::RefreshLayout()
     for(const TWeakObjectPtr<UWrapBox>& Grid:Grids)if(auto* Box=Grid.Get())Box->SetInnerSlotPadding(GridPadding);
     for(const FCard& Card:Cards)
     {
+        if(!Card.bGridCard)
+        {
+            // 材质行：只重算它自己的行高与 28px 缩略图，不套 116×150 网格卡尺寸
+            // （2026-09-19 审计：此前 DPI/视口变化把材质行重排成大卡片）。
+            if(auto* CardBox=Card.Box.Get())CardBox->SetHeightOverride((CardHeight-8.f)/Scale);
+            if(auto* IconBox=Card.IconBox.Get())
+            {IconBox->SetWidthOverride(MaterialThumbPixels/Scale);IconBox->SetHeightOverride(MaterialThumbPixels/Scale);}
+            continue;
+        }
         if(auto* CardBox=Card.Box.Get()){CardBox->SetWidthOverride(GridCardWidth/Scale);CardBox->SetHeightOverride(GridCardHeight/Scale);}
         if(auto* IconBox=Card.IconBox.Get()){IconBox->SetWidthOverride(GridIconPixels/Scale);IconBox->SetHeightOverride(GridIconPixels/Scale);}
     }
@@ -677,5 +764,17 @@ void UVoxelBuildWidget::NativeTick(const FGeometry& Geometry,float Delta)
     if(TooltipIndex!=INDEX_NONE)UpdateTooltipPlacement();
     DrawerProgress=FMath::FInterpConstantTo(DrawerProgress,bDrawerOpen?1.f:0.f,Delta,4.f);
     if(Surface)Surface->SetRenderTranslation(FVector2D((1.f-DrawerProgress)*DrawerWidth,0.f));
-    if(!bDrawerOpen&&DrawerProgress<=KINDA_SMALL_NUMBER)SetVisibility(ESlateVisibility::Collapsed);
+    // 与背包同一抽屉规格：压暗底与玻璃随进度淡入（文字保持清晰）；收起动画播完才解让位。
+    // 压暗底只做视觉（HitTestInvisible）：建造面板没有「点外部关闭」，不能吞掉回到瞄准后的点击。
+    if(Backdrop)
+    {
+        Backdrop->SetRenderOpacity(DrawerProgress);
+        Backdrop->SetVisibility(DrawerProgress>KINDA_SMALL_NUMBER?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    }
+    if(Blur)Blur->SetRenderOpacity(DrawerProgress);
+    if(!bDrawerOpen&&DrawerProgress<=KINDA_SMALL_NUMBER)
+    {
+        SetVisibility(ESlateVisibility::Collapsed);
+        SetHudYielded(false);
+    }
 }

@@ -27,9 +27,12 @@ namespace
     constexpr int32 MaxCachedIcons=32;
     /** How many times a key may be re-queued after a failed build before it is given up on. */
     constexpr int32 MaxBuildAttempts=3;
-    /** Build attempts per key. File-scope on purpose: a Live Coding patch may reset it, which only
-     *  costs one extra retry. A permanent blacklist (the old Failed set) left cards empty forever. */
+    /** 失败计数的键。只在失败时递增、成功后清零；成功也计数的旧写法会让被回收后重建的键
+     *  在 3 轮后永久拒绝（2026-09-19 审计）。File-scope on purpose: a Live Coding patch may
+     *  reset it, which only costs one extra retry. */
     static TMap<FString,int32> GIconAttempts;
+    /** 已放弃的键：放弃时记录一次警告，之后静默跳过，避免抽屉每帧重排时刷日志。 */
+    static TSet<FString> GIconGaveUp;
     const TCHAR* ResolvedMaterialPath=TEXT("/Game/UI/GunsmithWorkbench/M_WeaponPreviewResolved.M_WeaponPreviewResolved");
     const TCHAR* StudioSkyPath=TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment");
     const TCHAR* DefaultStoneMesh=TEXT("/Game/Building/Voxels/Rounded/SM_Voxel20_Stone.SM_Voxel20_Stone");
@@ -49,12 +52,7 @@ void UVoxelBuildIcons::Request(const FVoxelBuildIconRequest& Request)
 {
     if(Request.Key.IsEmpty()||Request.Mesh.IsNull())return;
     if(Materials.Contains(Request.Key)||Pending.Contains(Request.Key))return;
-    const int32 Tries=GIconAttempts.FindRef(Request.Key);
-    if(Tries>=MaxBuildAttempts)
-    {
-        UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: giving up key=%s after %d attempts"),*Request.Key,Tries);
-        return;
-    }
+    if(GIconGaveUp.Contains(Request.Key))return;
     Pending.Add(Request.Key);
     Queue.Add({Request});
 }
@@ -86,7 +84,7 @@ void UVoxelBuildIcons::ReleaseEntry(const FString& Key)
 
 void UVoxelBuildIcons::Deinitialize()
 {
-    Queue.Reset();Pending.Reset();Failed.Reset();VisibleKeys.Reset();
+    Queue.Reset();Pending.Reset();GIconGaveUp.Reset();GIconAttempts.Reset();VisibleKeys.Reset();
     if(ColorCapture){ColorCapture->TextureTarget=nullptr;if(Studio.IsValid())Studio->RemoveComponent(ColorCapture);ColorCapture->DestroyComponent();ColorCapture=nullptr;}
     if(CoverageCapture){CoverageCapture->TextureTarget=nullptr;if(Studio.IsValid())Studio->RemoveComponent(CoverageCapture);CoverageCapture->DestroyComponent();CoverageCapture=nullptr;}
     for(TPair<FString,TObjectPtr<UTextureRenderTarget2D>>& Entry:ColorTargets)if(Entry.Value)Entry.Value->ReleaseResource();
@@ -241,13 +239,25 @@ void UVoxelBuildIcons::Tick(float DeltaTime)
     Queue.RemoveAt(0);
     const bool bOk=Build(Job.Request);
     Pending.Remove(Job.Request.Key);
-    GIconAttempts.FindOrAdd(Job.Request.Key)++;
     if(!bOk)
     {
-        UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: failed key=%s attempt=%d mesh=%s"),
-            *Job.Request.Key,GIconAttempts.FindRef(Job.Request.Key),*Job.Request.Mesh.ToString());
+        // 失败计数只在失败时累加；到上限后放弃并只记一次，之后 Request 静默跳过这个键。
+        int32& Tries=GIconAttempts.FindOrAdd(Job.Request.Key);
+        ++Tries;
+        if(Tries>=MaxBuildAttempts)
+        {
+            GIconGaveUp.Add(Job.Request.Key);
+            UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: giving up key=%s after %d attempts"),*Job.Request.Key,Tries);
+        }
+        else
+        {
+            UE_LOG(LogTemp,Warning,TEXT("VoxelBuildIcon: failed key=%s attempt=%d mesh=%s"),
+                *Job.Request.Key,Tries,*Job.Request.Mesh.ToString());
+        }
         return;
     }
+    // 成功清零，缩略图被 LRU 回收后仍能重建（此前成功也计数，重建 3 轮后永久拒绝）。
+    GIconAttempts.Remove(Job.Request.Key);
     // Success is logged too: the drawer silently showing nothing is the symptom, and without a
     // line per built key there is no way to tell "never built" from "built then recycled".
     UE_LOG(LogTemp,Display,TEXT("VoxelBuildIcon: built key=%s cached=%d"),
