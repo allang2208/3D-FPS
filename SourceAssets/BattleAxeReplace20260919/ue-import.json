@@ -1,0 +1,72 @@
+{
+  "saved": [
+    "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_BaseColor.T_BattleAxe_BaseColor",
+    "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_Normal.T_BattleAxe_Normal",
+    "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_Metallic.T_BattleAxe_Metallic",
+    "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_Roughness.T_BattleAxe_Roughness",
+    "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe",
+    "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe.SM_BattleAxe",
+    "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe"
+  ],
+  "runtime_tested": false,
+  "source": "Meshy_AI_Weathered_Battle_Axe_0918025738_texture_fbx.zip (user asset)",
+  "textures": {
+    "T_BattleAxe_BaseColor": {
+      "file": "SourceAssets\\BattleAxeReplace20260919\\Input\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_fbx\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture.png",
+      "sha256": "93b6ce1b96371c6da3524f5a39b90fdf5d3d7cbd13da4cc6ad253001fe3002fd"
+    },
+    "T_BattleAxe_Normal": {
+      "file": "SourceAssets\\BattleAxeReplace20260919\\Input\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_fbx\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_normal.png",
+      "sha256": "18f0932d1fd426f375d49bd40d0281b13972dc5b7ad8be8d4a71a6efe5bc0cc4"
+    },
+    "T_BattleAxe_Metallic": {
+      "file": "SourceAssets\\BattleAxeReplace20260919\\Input\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_fbx\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_metallic.png",
+      "sha256": "5b694b5538834e4e6012674b8eb216e2dd19f51652fb962c340a153b51a05731"
+    },
+    "T_BattleAxe_Roughness": {
+      "file": "SourceAssets\\BattleAxeReplace20260919\\Input\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_fbx\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_roughness.png",
+      "sha256": "37dcea9fc1ec12b40515b65719baa06bda741173348ad0c7bd94cbcf1eb665bc"
+    }
+  },
+  "material_build": "skipped: existing graph kept",
+  "material": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe",
+  "world_mesh": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe.SM_BattleAxe",
+    "triangles": 16000,
+    "lods": [
+      16000,
+      2500,
+      600
+    ],
+    "screen_sizes": [
+      1.0,
+      0.35,
+      0.1
+    ]
+  },
+  "skeleton": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton",
+    "existed_before": true,
+    "bones": 101
+  },
+  "viewmodel": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
+    "triangles": 32000,
+    "slots": [
+      {
+        "slot": "M_Harvest_Axe",
+        "material": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe"
+      },
+      {
+        "slot": "MI_Manny_01",
+        "material": "/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01"
+      },
+      {
+        "slot": "MI_Manny_02",
+        "material": "/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+      }
+    ],
+    "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton"
+  }
+}

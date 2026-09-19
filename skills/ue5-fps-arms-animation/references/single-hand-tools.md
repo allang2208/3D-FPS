@@ -43,3 +43,30 @@
 [Unity-First-Person-Melee 固定提交](https://github.com/BigAndCrispy/Unity-First-Person-Melee/tree/592b08e2e1fe81a51f712fa65d806fa3621e2032) 的作者模型、声音和动画为 CC0，本例少量采用待机轨迹与挥动声；主要工具挥击重新制作。[UnrealMeleeAnimationHelpers](https://github.com/Redesigner/UnrealMeleeAnimationHelpers) 的接触窗口、[ProcHitReact](https://github.com/Vaei/ProcHitReact) 的停留/回收及 [MotionExperiments](https://github.com/josimard/MotionExperiments) 的恢复思路仅作参考，没有安装这些插件。
 
 代码仓库许可、声音许可和 Manny/Fab 美术许可分别记录。公开制作脚本及参数不表示可以公开派生手臂、纹理或整套 FBX；保留本机可编辑源和来源，不把仍被作者脚本使用的母版移入 trash。
+
+## 换工具网格（保留已验收动作）的做法（2026-09-19 战斧替换）
+
+用户给来新模型替换已有单手工具时，不要重做动作：从既有的 `*_SingleHand_Editable.blend` 作者源出发，
+只删旧工具网格、导入新网格、按同一规则放到握点、重新绑到 `WPN_root`，再以 `REST` 姿态导出视模。
+骨架、双臂、五条动作和已验收的挥动轨迹因此原样保留。脚本先例：`SourceAssets/BattleAxeReplace20260919/rebuild_battle_axe_viewmodel.py`。
+
+- **握点要落在裸柄上，并保持与原工具相同的杠杆**。取"手包握高度附近"的网格横截面（本例 `abs(z - grip_z) < 6 cm`）的 x/y 中点当作握心，
+  让该截面居中到原点；`grip_z` 沿用它相对原工具的位置（本例斧头 `-0.26 m`），这样杠杆、挥动力度与手型不用重判。
+  候选握位一次渲染多个再选（`render_grip_zoom.py`），别只调一次就定稿。
+- **刃口朝向必须先与旧模型对齐再居中**：把导入变换烘焙进网格后绕 Z 转 180°（本例新斧刃朝 -X、旧斧朝 +X），
+  否则视模看起来"拿反了"。用分段截面（`max |x|` 沿 z 的变化）判断哪一端是头、刃朝哪边，比肉眼看渲染更可靠。
+- **高模要减面到游戏档位**。46 万面的 Meshy 输出直接进视模不现实；视模取 32k（近景绳缠细节仍可辨），
+  世界网格取 16k，再各出一级 LOD（2.5k / 600）。8k 档的绳纹已经开始融化，先渲染多个档对比轮廓再定，不要一步减到底。
+- **网格 FBX 里丢地面**：`bpy.ops.file.pack_all()` 遇到源包不存在的 `.fbm` 贴图目录会抛错，
+  先删 `users == 0` 的材质与图片再 pack，或把 pack 包在 try 里；导出本身已经成功，不要因为这一步丢掉整个作者源。
+- **UE 侧按槽名绑定**：视模槽名固定为 `M_Harvest_<Tool>` / `MI_Manny_01` / `MI_Manny_02`，
+  用当前 M4 手臂资产的槽表解析手臂材质，工具槽单独指向新材质，避免靠槽序号错配。
+
+## 骨架资产要确认真的落盘（2026-09-19 发现的既有缺陷）
+
+2026-09-13 的抓握导入在内存里创建了 `SK_Harvest_Axe_Skeleton`，但**从未保存该包**（导入日志里没有它的保存记录），
+视模与五条动作因此长期引用一个不存在的骨架路径。当时未在游戏内暴露，是因为视模组件在缺少骨架时不会立刻报错。
+替换工具网格时用新进程读回 `SkeletalMesh.get_editor_property('skeleton')` 会得到 `None`；
+对照未改动的矿镐同样为 `None` 即可判定是既有问题而非本次引入。修法：导入后显式 `save(skeleton)`，
+名字与动画面板引用的路径一致即可自动修复绑定（本例 101 骨，保存后视模和 `A_Harvest_Axe_Idle` 都能解析）。
+凡按槽位/骨架导入骨骼资产，交付前都要在新进程里读回骨架是否非空。

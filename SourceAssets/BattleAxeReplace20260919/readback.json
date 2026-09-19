@@ -1,0 +1,138 @@
+{
+  "sm_battle_axe": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe",
+    "loaded": true,
+    "class": "StaticMesh",
+    "bounds": {
+      "origin": [
+        0.0081,
+        -0.0022,
+        0.0197
+      ],
+      "extent": [
+        11.5282,
+        3.8585,
+        38.9866
+      ]
+    },
+    "materials": [
+      "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe"
+    ],
+    "lod_count": 3,
+    "lod_triangles": [
+      16000,
+      2500,
+      600
+    ]
+  },
+  "m_battle_axe": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe",
+    "loaded": true,
+    "class": "Material",
+    "expressions": 4,
+    "blend": "BLEND_OPAQUE",
+    "two_sided": false,
+    "used_with_skeletal": true
+  },
+  "viewmodel": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe",
+    "loaded": true,
+    "class": "SkeletalMesh",
+    "skeleton_skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "skeleton_Skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "materials": [
+      "M_Harvest_Axe=/Game/Items/ProductionTools/BattleAxe20260919/M_BattleAxe.M_BattleAxe",
+      "MI_Manny_01=/Game/Weapons/M4InfimaV3/MI_Manny_01.MI_Manny_01",
+      "MI_Manny_02=/Game/Weapons/M4InfimaV3/MI_Manny_02.MI_Manny_02"
+    ],
+    "bounds": {
+      "origin": [
+        0.0,
+        -7.5383,
+        -9.8343
+      ],
+      "extent": [
+        135.437,
+        99.8981,
+        143.4795
+      ]
+    },
+    "positive_ext": [
+      80.0,
+      80.0,
+      80.0
+    ],
+    "lod_count": 1,
+    "lod_error": "'SkeletalMeshEditorSubsystem' object has no attribute 'get_lod_triangle_count'"
+  },
+  "skeleton_exists": true,
+  "anim_exists": {
+    "Idle": true,
+    "Walk": true,
+    "Equip": true,
+    "Swing": true,
+    "HitRecover": true
+  },
+  "harvest_material": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/M_Harvest_Axe",
+    "loaded": true,
+    "class": "Material",
+    "expressions": 6,
+    "blend": "BLEND_OPAQUE",
+    "two_sided": false,
+    "used_with_skeletal": true
+  },
+  "tex_BaseColor": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_BaseColor",
+    "loaded": true,
+    "class": "Texture2D",
+    "size": [
+      2048,
+      2048
+    ],
+    "srgb": true,
+    "flip_green": false,
+    "compression": "TC_DEFAULT"
+  },
+  "tex_Normal": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_Normal",
+    "loaded": true,
+    "class": "Texture2D",
+    "size": [
+      2048,
+      2048
+    ],
+    "srgb": false,
+    "flip_green": true,
+    "compression": "TC_NORMALMAP"
+  },
+  "tex_Metallic": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_Metallic",
+    "loaded": true,
+    "class": "Texture2D",
+    "size": [
+      2048,
+      2048
+    ],
+    "srgb": false,
+    "flip_green": false,
+    "compression": "TC_MASKS"
+  },
+  "tex_Roughness": {
+    "asset": "/Game/Items/ProductionTools/BattleAxe20260919/T_BattleAxe_Roughness",
+    "loaded": true,
+    "class": "Texture2D",
+    "size": [
+      2048,
+      2048
+    ],
+    "srgb": false,
+    "flip_green": false,
+    "compression": "TC_MASKS"
+  },
+  "anim_idle": {
+    "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "length": 1.6
+  },
+  "retired_mesh_still_loadable": true
+}

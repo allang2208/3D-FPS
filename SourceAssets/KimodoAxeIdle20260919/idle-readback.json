@@ -1,0 +1,51 @@
+{
+  "clips": {
+    "Idle": {
+      "loaded": true,
+      "play_length_s": 3.0,
+      "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+      "lowerarm_r_rotation_travel_deg": 5.1157,
+      "hand_l_rotation_travel_deg": 3.9441
+    },
+    "Walk": {
+      "loaded": true,
+      "play_length_s": 0.8,
+      "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton"
+    },
+    "Equip": {
+      "loaded": true,
+      "play_length_s": 0.32,
+      "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton"
+    },
+    "Swing": {
+      "loaded": true,
+      "play_length_s": 0.68,
+      "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton"
+    },
+    "HitRecover": {
+      "loaded": true,
+      "play_length_s": 0.44,
+      "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton"
+    },
+    "Pickaxe_Idle": {
+      "loaded": true,
+      "play_length_s": 1.6
+    },
+    "Pickaxe_Walk": {
+      "loaded": true,
+      "play_length_s": 0.8
+    },
+    "Pickaxe_Equip": {
+      "loaded": true,
+      "play_length_s": 0.32
+    },
+    "Pickaxe_Swing": {
+      "loaded": true,
+      "play_length_s": 0.68
+    },
+    "Pickaxe_HitRecover": {
+      "loaded": true,
+      "play_length_s": 0.44
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "A_Harvest_Axe_Idle": {
+    "frames": 240,
+    "tool_position_envelope_m": [
+      0.00082,
+      0.00013,
+      0.00154
+    ],
+    "chest_position_envelope_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "hand_r_perp_to_handle_m": [
+      0.0784,
+      0.0784
+    ],
+    "hand_l_perp_to_handle_m": [
+      0.4644,
+      0.4647
+    ]
+  },
+  "A_Harvest_Axe_Idle2H": {
+    "frames": 450,
+    "tool_position_envelope_m": [
+      0.00804,
+      0.01476,
+      0.0031
+    ],
+    "chest_position_envelope_m": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "hand_r_perp_to_handle_m": [
+      0.0784,
+      0.0784
+    ],
+    "hand_l_perp_to_handle_m": [
+      0.0784,
+      0.0784
+    ]
+  }
+}

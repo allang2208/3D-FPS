@@ -1,0 +1,51 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BattleAxeReplace20260919\\Input\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture_fbx\\Meshy_AI_Weathered_Battle_Axe_0918025738_texture.fbx",
+  "source_sha256": "b657a0bd56a68461b5981c7162fc0568c593be290fa261268a27b8e8a421f445",
+  "source_report": {
+    "objects": [
+      "Mesh_0"
+    ],
+    "vertices": 230330,
+    "triangles": 460716,
+    "custom_normals": [
+      true
+    ],
+    "uv_layers": [
+      [
+        "UVMap"
+      ]
+    ]
+  },
+  "height_m": 0.78,
+  "fit_scale": 0.4101645076988189,
+  "turn_degrees": 180,
+  "triangles_before": 460716,
+  "triangles_after": 8000,
+  "decimate_ratio": 0.01736427647401002,
+  "min": [
+    -0.1154,
+    -0.0383,
+    -0.3893
+  ],
+  "max": [
+    0.115,
+    0.0386,
+    0.3901
+  ],
+  "grip_z": -0.26,
+  "grip_section": {
+    "count": 1102,
+    "x": [
+      -0.0824,
+      -0.0118
+    ],
+    "y": [
+      -0.0383,
+      0.0386
+    ]
+  },
+  "blade_tip_x": 0.115,
+  "poll_x": -0.1154,
+  "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\BattleAxeReplace20260919\\Fitted\\BattleAxe_8000.fbx",
+  "runtime_tested": false
+}

@@ -1,0 +1,22 @@
+{
+  "saved": [
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.A_Harvest_Axe_Idle"
+  ],
+  "runtime_tested": false,
+  "replaced": {
+    "asset": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.A_Harvest_Axe_Idle",
+    "play_length_s": 3.0,
+    "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+    "same_skeleton_as_mesh": true
+  },
+  "source": "SourceAssets\\KimodoAxeIdle20260919\\BuildH\\Export\\A_Harvest_Axe_Idle2H_H.fbx",
+  "previous": {
+    "loaded": true,
+    "play_length_s": 3.0
+  },
+  "mesh_slots": [
+    "M_Harvest_Axe",
+    "MI_Manny_01",
+    "MI_Manny_02"
+  ]
+}

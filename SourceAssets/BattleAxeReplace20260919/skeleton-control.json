@@ -1,0 +1,56 @@
+{
+  "mannequin_skeleton_direct": {
+    "loaded": true,
+    "class": "Skeleton",
+    "bones": "n/a"
+  },
+  "m4_viewmodel_mesh": {
+    "loaded": true,
+    "class": "SkeletalMesh",
+    "skeleton": "/Game/Weapons/M4HK416Replica/SK_M4_HK416_Skeleton.SK_M4_HK416_Skeleton",
+    "skeleton_valid": true
+  },
+  "harvest_axe_mesh": {
+    "loaded": true,
+    "class": "SkeletalMesh",
+    "skeleton": null,
+    "skeleton_valid": false
+  },
+  "harvest_pickaxe_mesh": {
+    "loaded": true,
+    "class": "SkeletalMesh",
+    "skeleton": null,
+    "skeleton_valid": false
+  },
+  "harvest_axe_idle": {
+    "loaded": true,
+    "class": "AnimSequence",
+    "skeleton": null,
+    "length": 1.6
+  },
+  "harvest_pickaxe_idle": {
+    "loaded": true,
+    "class": "AnimSequence",
+    "skeleton": null,
+    "length": 1.6
+  },
+  "accessor_get_skeleton": "ERR 'SkeletalMesh' object has no attribute 'get_skeleton'",
+  "accessor_get_editor_property": null,
+  "folder_assets": [
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Equip.A_Harvest_Axe_Equip",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_HitRecover.A_Harvest_Axe_HitRecover",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.A_Harvest_Axe_Idle",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Swing.A_Harvest_Axe_Swing",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Walk.A_Harvest_Axe_Walk",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Pickaxe_Equip.A_Harvest_Pickaxe_Equip",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Pickaxe_HitRecover.A_Harvest_Pickaxe_HitRecover",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Pickaxe_Idle.A_Harvest_Pickaxe_Idle",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Pickaxe_Swing.A_Harvest_Pickaxe_Swing",
+    "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Pickaxe_Walk.A_Harvest_Pickaxe_Walk",
+    "/Game/Items/ProductionTools/GripMotion20260913/M_Harvest_Axe.M_Harvest_Axe",
+    "/Game/Items/ProductionTools/GripMotion20260913/M_Harvest_Pickaxe.M_Harvest_Pickaxe",
+    "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
+    "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Pickaxe.SK_Harvest_Pickaxe",
+    "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing"
+  ]
+}

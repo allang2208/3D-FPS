@@ -1,0 +1,123 @@
+{
+  "runtime_tested": false,
+  "duration_s": 3.0,
+  "fps": 150,
+  "layout": "horizontal",
+  "blade_yaw_deg": 0.0,
+  "lean_deg": 14.0,
+  "grip_up_m": 0.26,
+  "left_down_m": 0.12,
+  "position_scale": 0.6,
+  "rotation_scale": 0.45,
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KimodoAxeIdle20260919\\sway_s8888.json",
+  "grip_shift_goal": [
+    -0.25,
+    0.42,
+    0.24
+  ],
+  "chosen": {
+    "t": 1.0,
+    "shift_m": [
+      -0.25,
+      0.42,
+      0.24
+    ],
+    "right_slack_m": -0.2745,
+    "left_slack_m": -0.3237,
+    "hand_separation_m": 0.0752
+  },
+  "shift_search": [
+    {
+      "t": 0.0,
+      "right_slack_m": 0.107,
+      "left_slack_m": -0.1165
+    },
+    {
+      "t": 0.1,
+      "right_slack_m": 0.0526,
+      "left_slack_m": -0.1666
+    },
+    {
+      "t": 0.2,
+      "right_slack_m": -0.0018,
+      "left_slack_m": -0.2174
+    },
+    {
+      "t": 0.3,
+      "right_slack_m": -0.0562,
+      "left_slack_m": -0.2686
+    },
+    {
+      "t": 0.4,
+      "right_slack_m": -0.1106,
+      "left_slack_m": -0.3202
+    },
+    {
+      "t": 0.5,
+      "right_slack_m": -0.165,
+      "left_slack_m": -0.3721
+    },
+    {
+      "t": 0.6,
+      "right_slack_m": -0.2195,
+      "left_slack_m": -0.4243
+    },
+    {
+      "t": 0.7,
+      "right_slack_m": -0.2739,
+      "left_slack_m": -0.4767
+    },
+    {
+      "t": 0.8,
+      "right_slack_m": -0.3283,
+      "left_slack_m": -0.5294
+    },
+    {
+      "t": 0.9,
+      "right_slack_m": -0.3828,
+      "left_slack_m": -0.5822
+    },
+    {
+      "t": 1.0,
+      "right_slack_m": -0.4372,
+      "left_slack_m": -0.6351
+    }
+  ],
+  "checks": {
+    "right": {
+      "along_m": 0.2375,
+      "perp_m": 0.0751,
+      "side_dot": null
+    },
+    "left": {
+      "along_m": 0.1628,
+      "perp_m": 0.075,
+      "side_dot": null
+    },
+    "mirror": {
+      "right_local_x": -0.0036,
+      "left_local_x": 0.0051,
+      "same_perp": 0.0002
+    }
+  },
+  "orientation": {
+    "head_axis_world": [
+      0.9655,
+      -0.0995,
+      0.2407
+    ],
+    "head_direction": "player right (+X)"
+  },
+  "tool_travel_m": [
+    0.01321,
+    0.00954,
+    0.0059
+  ],
+  "max_overstretch_m": {
+    "r": 0.08283,
+    "l": 0.10475
+  },
+  "frames": 451,
+  "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KimodoAxeIdle20260919\\BuildH\\Export\\A_Harvest_Axe_Idle2H_H.fbx",
+  "blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\KimodoAxeIdle20260919\\BuildH\\A_Harvest_Axe_Idle2H_H_Editable.blend"
+}

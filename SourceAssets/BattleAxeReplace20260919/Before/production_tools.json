@@ -3,7 +3,7 @@
     "name": "伐木斧", "category": "tool", "tool_kind": "axe", "rarity": "common", "stack_max": 1,
     "grid_w": 2, "grid_h": 3, "ue_icon": "ProductionTools/axe.png",
     "desc": "用于砍伐温带丘陵的树木。6 装备，左键挥动，F7 收起；三次有效命中获得木材。",
-    "tool_mesh": "/Game/Items/ProductionTools/BattleAxe20260919/SM_BattleAxe.SM_BattleAxe",
+    "tool_mesh": "/Game/Items/ProductionTools/FreeFab20260913/Axe/SM_Free_Axe.SM_Free_Axe",
     "tool_viewmodel": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.SK_Harvest_Axe",
     "tool_animation_prefix": "/Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_",
     "tool_swing_sound": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing",

@@ -1,0 +1,14 @@
+{
+  "saved": [
+    "/Game/Items/ProductionTools/KimodoAxeIdle20260919/A_Harvest_Axe_Idle2H.A_Harvest_Axe_Idle2H"
+  ],
+  "runtime_tested": false,
+  "wired_into_game": false,
+  "source": "SourceAssets\\KimodoAxeIdle20260919\\Build\\Export\\A_Harvest_Axe_Idle2H.fbx",
+  "candidate": true,
+  "track_probe": "ERR AnimSequence: Failed to find property 'compressed_data' for attribute 'compressed_data' on 'AnimSequence'",
+  "asset": "/Game/Items/ProductionTools/KimodoAxeIdle20260919/A_Harvest_Axe_Idle2H.A_Harvest_Axe_Idle2H",
+  "skeleton": "/Game/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.SK_Harvest_Axe_Skeleton",
+  "play_length_s": 3.0,
+  "tracks_probed": []
+}
