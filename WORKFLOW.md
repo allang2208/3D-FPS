@@ -38,7 +38,7 @@
 
 1. 核对仓库根、origin、远端默认分支和授权 URL。当前目标为 `https://github.com/allang2208/3D-FPS.git` 的 `main`。
 2. 在 `D:/FPS3D/FPSGAME` 推送前 fetch 并检查 `origin/main..HEAD` 的所有提交，直接从本工程发布。脏目录本身不是复制工程的理由；精确暂存本次修改。只有确实存在无法原位处理的冲突/构建隔离需求时才创建临时工作区，记录用途并在完成后归档，不留下常驻源码副本。
-3. 使用精确路径清单暂存。禁止全库 `git add -A`、`git add .`、`git clean`、`reset --hard`，不夹带其他未发布历史。
+3. 使用精确路径清单暂存。长清单用 `git add --pathspec-from-file`，且 `--pathspec-file-nul` 只配 NUL 分隔清单，误用会静默失败并留下陈旧 `index.lock`。禁止全库 `git add -A`、`git add .`、`git clean`、`reset --hard`，不夹带其他未发布历史。
 4. 检查完整暂存差异、`git diff --cached --check`、大小、敏感信息、许可及与改动相关的验证。文档更新不用跑旧 Godot 测试。生成服务回执（混元/COS/S3/SAS 等预签名 URL）入库前必须剥离查询串，提交前全量 grep `q-ak=AKID` 类凭证模式。
 5. 仓库换引擎时先保留旧主线归档标签，再用普通新提交替换当前树，不使用 orphan 或强推抹去历史。
 6. 只普通非强制推送，显式指定 `HEAD:main`。拒绝后重新 fetch 审查差异，不覆盖新增提交。
