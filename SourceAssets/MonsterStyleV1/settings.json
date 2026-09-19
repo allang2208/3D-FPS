@@ -1,0 +1,31 @@
+{
+  "revision": "1.0",
+  "palette_source": "SourceAssets/FatZombieStyleV1/style_parameters.json",
+  "skin_library": "SourceAssets/HandBrain20260910/material_v04/fab_source",
+  "handbrain": {
+    "source": "SourceAssets/HandBrain20260910/surface_v07/HandBrain_Refined_Baked.blend",
+    "objects": ["HandBrain_Body", "HandBrain_AttackArm", "HandBrain_CrownHands", "HandBrain_OralTeeth"],
+    "features": "SourceAssets/HandBrain20260910/sculpt_v06/projected_features.json",
+    "body_texture_size": 4096,
+    "other_texture_size": 2048,
+    "max_shape_shift_m": 0.002,
+    "skin_dark": [0.095, 0.112, 0.080, 1.0],
+    "skin_light": [0.205, 0.202, 0.156, 1.0]
+  },
+  "maggot": {
+    "source": "SourceAssets/PoisonMaggot20260911/delivery/PoisonMaggot_Animated.blend",
+    "objects": ["PoisonMaggot_Retopo"],
+    "texture_size": 4096,
+    "max_shape_shift_m": 0.006,
+    "skin_dark": [0.235, 0.217, 0.165, 1.0],
+    "skin_light": [0.470, 0.440, 0.340, 1.0],
+    "thin_tissue_color": [0.068, 0.083, 0.038, 1.0]
+  },
+  "mutant": {
+    "source": "SourceAssets/Mutant3Meshy20260915/Mutant3_Meshy_Source.blend",
+    "texture_size": 4096,
+    "skin_dark": [0.180, 0.191, 0.151, 1.0],
+    "skin_light": [0.340, 0.330, 0.270, 1.0]
+  },
+  "scope": "HandBrain and PoisonMaggot local shape plus material; Mutant3 material only. Preserve existing UV, skin weights, skeleton, clips and combat. No preview or tests."
+}

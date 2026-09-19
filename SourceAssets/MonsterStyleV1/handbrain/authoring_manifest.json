@@ -1,0 +1,91 @@
+{
+  "mode": "handbrain",
+  "source": "SourceAssets/HandBrain20260910/surface_v07/HandBrain_Refined_Baked.blend",
+  "authoring": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\handbrain_StyleV1_Authoring.blend",
+  "mesh_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\SK_handbrain_StyleV1.fbx",
+  "shape_edit_limit_metres": 0.002,
+  "materials": [
+    {
+      "object": "HandBrain_Body",
+      "slot": 0,
+      "name": "StyleV1_handbrain_HandBrain_Body_0",
+      "semantic": "skin",
+      "size": 4096,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_0_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_0_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_0_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_0_Normal.png"
+      }
+    },
+    {
+      "object": "HandBrain_Body",
+      "slot": 1,
+      "name": "StyleV1_handbrain_HandBrain_Body_1",
+      "semantic": "oral",
+      "size": 2048,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_1_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_1_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_1_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_1_Normal.png"
+      }
+    },
+    {
+      "object": "HandBrain_Body",
+      "slot": 2,
+      "name": "StyleV1_handbrain_HandBrain_Body_2",
+      "semantic": "skin",
+      "size": 2048,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_2_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_2_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_2_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_Body_2_Normal.png"
+      }
+    },
+    {
+      "object": "HandBrain_AttackArm",
+      "slot": 0,
+      "name": "StyleV1_handbrain_HandBrain_AttackArm_0",
+      "semantic": "skin",
+      "size": 2048,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_AttackArm_0_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_AttackArm_0_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_AttackArm_0_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_AttackArm_0_Normal.png"
+      }
+    },
+    {
+      "object": "HandBrain_CrownHands",
+      "slot": 0,
+      "name": "StyleV1_handbrain_HandBrain_CrownHands_0",
+      "semantic": "skin",
+      "size": 2048,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_CrownHands_0_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_CrownHands_0_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_CrownHands_0_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_CrownHands_0_Normal.png"
+      }
+    },
+    {
+      "object": "HandBrain_OralTeeth",
+      "slot": 0,
+      "name": "StyleV1_handbrain_HandBrain_OralTeeth_0",
+      "semantic": "teeth",
+      "size": 2048,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_OralTeeth_0_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_OralTeeth_0_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_OralTeeth_0_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\handbrain\\Textures\\T_StyleV1_handbrain_HandBrain_OralTeeth_0_Normal.png"
+      }
+    }
+  ],
+  "changes": "Material plus localized same-topology vertex offsets",
+  "animations_modified": false,
+  "preview_rendered": false,
+  "runtime_tested": false
+}

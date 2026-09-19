@@ -18,9 +18,9 @@ UMonsterCombatComponent::UMonsterCombatComponent(){PrimaryComponentTick.bCanEver
 bool UMonsterCombatComponent::GetVitals(float& Health,float& MaxHealth,FText& Name) const
 {
  if(const auto* W=Cast<AWolfMonster>(GetOwner()))
- {Health=W->Health;MaxHealth=W->MaxHealth;Name=FText::FromString(TEXT("野狼"));return true;}
+ {Health=W->Health;MaxHealth=W->MaxHealth;Name=W->MonsterDisplayName;return true;}
  if(const auto* N=Cast<ANurseZombie>(GetOwner()))
- {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
+ {Health=N->Health;MaxHealth=N->MaxHealth;Name=FText::FromString(N->ActorHasTag(TEXT("Mutant3"))?TEXT("突变体-3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("胖子僵尸"):TEXT("护士僵尸"));return true;}
  if(const auto* H=Cast<AHandBrainMonster>(GetOwner()))
  {Health=H->Health;MaxHealth=H->MaxHealth;Name=FText::FromString(TEXT("手脑"));return true;}
  if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner()))

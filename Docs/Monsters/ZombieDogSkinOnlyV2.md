@@ -1,6 +1,6 @@
 # 僵尸犬：无毛皮肤 V2
 
-用户随后要求恢复上一版残毛造型，本无毛方案已退出当前入口。当前材质修订见 [FineSkin V3](ZombieDogFineSkinV3.md)。
+用户随后要求恢复上一版残毛造型，本无毛方案已退出当前入口。2026-09-19 已将该方案源文件、UE 资源和三份专用脚本移入 `trash/monster-surface-publication-20260919/`，保持原相对目录；本页仅保留历史记录。当前材质见 [V5.1](ZombieDogRefinedWoundsV5.md)，归档路径、散列及替代物见 [清单](../AssetArchives/monster-surface-publication-20260919.json)。以下路径均为归档前历史位置，不是当前入口。
 
 2026-09-15。用户反馈残毛不自然，明确要求去掉全部毛发，只保留皮肤和伤口。
 

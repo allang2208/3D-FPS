@@ -1,0 +1,24 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\ZombieDog_RandomWounds_Authoring.blend",
+  "stamps": [
+    "LongTear",
+    "Abrasion",
+    "HealedScar",
+    "IrregularPatch"
+  ],
+  "masks_rgb": [
+    "core",
+    "exposed_skin",
+    "dry_crust"
+  ],
+  "detail_rgb": [
+    "relief_around_0.5",
+    "blood_stain",
+    "fine_fibres"
+  ],
+  "atlas_size": 2048,
+  "fur_position": "nearest underlying skin surface in rest pose",
+  "geometry_modified": false,
+  "runtime_tested": false,
+  "preview_rendered": false
+}

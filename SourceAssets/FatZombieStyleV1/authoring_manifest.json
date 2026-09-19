@@ -1,0 +1,146 @@
+{
+  "source": "SourceAssets/FatZombieMeshy20260913/FatZombie_Meshy_Source.blend",
+  "parameters": {
+    "revision": "1.0",
+    "texture_size": 4096,
+    "source_blend": "SourceAssets/FatZombieMeshy20260913/FatZombie_Meshy_Source.blend",
+    "skin_library": "SourceAssets/HandBrain20260910/material_v04/fab_source",
+    "skin_color_low": [
+      0.125,
+      0.14,
+      0.104,
+      1.0
+    ],
+    "skin_color_high": [
+      0.24,
+      0.23,
+      0.185,
+      1.0
+    ],
+    "inflamed_color": [
+      0.165,
+      0.1,
+      0.085,
+      1.0
+    ],
+    "tissue_color_low": [
+      0.052,
+      0.012,
+      0.01,
+      1.0
+    ],
+    "tissue_color_high": [
+      0.125,
+      0.039,
+      0.027,
+      1.0
+    ],
+    "pus_color_low": [
+      0.115,
+      0.101,
+      0.038,
+      1.0
+    ],
+    "pus_color_high": [
+      0.25,
+      0.217,
+      0.1,
+      1.0
+    ],
+    "scab_color_low": [
+      0.024,
+      0.012,
+      0.007,
+      1.0
+    ],
+    "scab_color_high": [
+      0.071,
+      0.031,
+      0.014,
+      1.0
+    ],
+    "skin_roughness": [
+      0.57,
+      0.7
+    ],
+    "cloth_roughness": [
+      0.78,
+      0.89
+    ],
+    "wet_roughness": [
+      0.29,
+      0.4
+    ],
+    "scab_roughness": [
+      0.73,
+      0.84
+    ],
+    "source_normal_strength": 0.85,
+    "skin_detail_repeat_per_metre": 12.0,
+    "skin_relief_metres": 0.00022,
+    "lesion_relief_metres": 0.00065,
+    "pore_relief_metres": 3.5e-05,
+    "large_wounds": [
+      {
+        "center": [
+          -0.075,
+          -0.195,
+          1.005
+        ],
+        "radii": [
+          0.073,
+          0.065,
+          0.047
+        ]
+      },
+      {
+        "center": [
+          0.168,
+          -0.125,
+          1.335
+        ],
+        "radii": [
+          0.045,
+          0.05,
+          0.032
+        ]
+      },
+      {
+        "center": [
+          -0.11,
+          0.172,
+          1.17
+        ],
+        "radii": [
+          0.046,
+          0.06,
+          0.074
+        ]
+      }
+    ],
+    "note": "Linear RGB. Material sample, not a user-approved universal style. Existing UV, mesh, skinning and animation are retained. No preview or testing requested."
+  },
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieStyleV1\\Textures\\T_FatZombie_StyleV1_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieStyleV1\\Textures\\T_FatZombie_StyleV1_ORM.png",
+    "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieStyleV1\\Textures\\T_FatZombie_StyleV1_TissueMasks.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieStyleV1\\Textures\\T_FatZombie_StyleV1_Normal.png"
+  },
+  "authoring": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FatZombieStyleV1\\FatZombie_StyleV1_Authoring.blend",
+  "library": "SourceAssets/HandBrain20260910/material_v04/fab_source",
+  "channels": {
+    "ORM": [
+      "ao",
+      "roughness",
+      "metallic"
+    ],
+    "TissueMasks": [
+      "skin",
+      "wet",
+      "scab"
+    ]
+  },
+  "scope": "Material authoring only; existing mesh, UV, rig, animations and AI retained",
+  "preview_rendered": false,
+  "runtime_tested": false
+}

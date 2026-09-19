@@ -1,0 +1,18 @@
+{
+  "target_wounds": [
+    6,
+    8
+  ],
+  "material": "/Game/Monsters/ZombieDog/RefinedWoundsV5/Materials/M_ZombieDog_RefinedWounds.M_ZombieDog_RefinedWounds",
+  "assets_saved": true,
+  "main_length_scale": 1.65,
+  "runtime_tested": false,
+  "depth_envelope_scale": 1.3,
+  "revision": "5.1",
+  "width_scale": 2.0,
+  "blueprint": "/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog",
+  "preview_rendered": false,
+  "method": "editor MCP material field and blueprint defaults",
+  "secondary_length_scale": 1.75,
+  "mask_strength_scale": 1.22
+}

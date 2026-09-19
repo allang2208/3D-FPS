@@ -1,0 +1,19 @@
+{
+  "blueprint": "/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog",
+  "mesh": "/Game/Monsters/ZombieDog/RefinedWoundsV5/SK_ZombieDog_RefinedWounds.SK_ZombieDog_RefinedWounds",
+  "dataset": "/Game/Monsters/ZombieDog/RefinedWoundsV5/DA_ZombieDog_RefinedWounds.DA_ZombieDog_RefinedWounds",
+  "previous_dataset": "/Game/Monsters/ZombieDog/RandomWoundsV4/DA_ZombieDog_RandomWounds.DA_ZombieDog_RandomWounds",
+  "materials": {
+    "Body": "/Game/Monsters/ZombieDog/RefinedWoundsV5/Materials/MI_ZombieDog_RefinedBody.MI_ZombieDog_RefinedBody",
+    "Fur": "/Game/Monsters/ZombieDog/RefinedWoundsV5/Materials/MI_ZombieDog_RefinedFur.MI_ZombieDog_RefinedFur",
+    "EarScar": "/Game/Monsters/ZombieDog/RefinedWoundsV5/Materials/MI_ZombieDog_RefinedEarScar.MI_ZombieDog_RefinedEarScar"
+  },
+  "target_wounds": [
+    3,
+    5
+  ],
+  "distribution": "one torso injury and two to four smaller abrasions or scars",
+  "f6_entry": "ZombieDog / 僵尸犬",
+  "runtime_tested": false,
+  "preview_rendered": false
+}

@@ -1,4 +1,5 @@
 #include "WolfMonster.h"
+#include "ZombieDogAppearanceComponent.h"
 #include "QuadrupedAnimationTemplate.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
@@ -28,6 +29,7 @@ AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
 {
     PrimaryActorTick.bCanEverTick = true;
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    WoundAppearance = CreateDefaultSubobject<UZombieDogAppearanceComponent>(TEXT("WoundAppearance"));
     Combat->PoiseThreshold = 40.f; Combat->StaggerDuration = .45f; Combat->StunDuration = 1.1f;
     DeathAnimationFraction = MonsterCombatTuning::DeathAnimationFraction;
     GetCapsuleComponent()->InitCapsuleSize(34.f, 60.f);
@@ -65,7 +67,11 @@ void AWolfMonster::AlignVisual()
     const auto Bounds = Visual->GetBounds();
     GetMesh()->SetRelativeLocation(FVector(0, 0, -GetCapsuleComponent()->GetUnscaledCapsuleHalfHeight() - (Bounds.Origin.Z - Bounds.BoxExtent.Z)));
 }
-void AWolfMonster::OnConstruction(const FTransform& Transform) { Super::OnConstruction(Transform); AlignVisual(); }
+void AWolfMonster::OnConstruction(const FTransform& Transform)
+{
+    Super::OnConstruction(Transform); AlignVisual();
+    WoundAppearance->ApplyAppearance(GetMesh());
+}
 UQuadrupedTemplateAnimInstance* AWolfMonster::Animation() const { return Cast<UQuadrupedTemplateAnimInstance>(GetMesh()->GetAnimInstance()); }
 float AWolfMonster::ClipLength(FName Action) const
 {
@@ -77,6 +83,7 @@ void AWolfMonster::BeginPlay()
     Super::BeginPlay();
     Home = GetActorLocation(); Health = FMath::Max(1.f, MaxHealth);
     AlignVisual();
+    WoundAppearance->ApplyAppearance(GetMesh());
     if (!Animation() || !Animation()->SetAnimationSet(AnimationSet))
     {
         UE_LOG(LogTemp, Error, TEXT("WOLF_ANIMATION_SET_MISSING %s"), *GetName());

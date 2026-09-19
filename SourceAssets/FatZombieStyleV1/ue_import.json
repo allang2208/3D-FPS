@@ -1,0 +1,15 @@
+{
+  "material": "/Game/Monsters/Shared/InfectedSurfaceV1/M_InfectedSurface_V1.M_InfectedSurface_V1",
+  "instance": "/Game/Monsters/FatZombieMeshy/StyleV1/MI_FatZombie_Infected_V1.MI_FatZombie_Infected_V1",
+  "textures": {
+    "BaseColor": "/Game/Monsters/FatZombieMeshy/StyleV1/Textures/T_FatZombie_StyleV1_BaseColor.T_FatZombie_StyleV1_BaseColor",
+    "ORM": "/Game/Monsters/FatZombieMeshy/StyleV1/Textures/T_FatZombie_StyleV1_ORM.T_FatZombie_StyleV1_ORM",
+    "TissueMasks": "/Game/Monsters/FatZombieMeshy/StyleV1/Textures/T_FatZombie_StyleV1_TissueMasks.T_FatZombie_StyleV1_TissueMasks",
+    "Normal": "/Game/Monsters/FatZombieMeshy/StyleV1/Textures/T_FatZombie_StyleV1_Normal.T_FatZombie_StyleV1_Normal"
+  },
+  "target_mesh": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy.SK_FatZombie_Meshy",
+  "target_slot": "Material_002",
+  "activated": false,
+  "runtime_tested": false,
+  "preview_rendered": false
+}

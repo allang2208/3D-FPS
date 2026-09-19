@@ -1,0 +1,163 @@
+{
+  "date": "2026-09-19",
+  "scope": "Monster material style and zombie dog rejected hairless variant",
+  "archive": "trash/monster-surface-publication-20260919",
+  "reference_check": "UE Asset Registry hard/soft/manage/searchable references: no SkinOnlyV2 external referencers",
+  "file_count": 19,
+  "total_bytes": 7310806.0,
+  "files": [
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/activation.json",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/activation.json",
+      "bytes": 471,
+      "sha256": "a97c4f4f67172141ce29859674e638bddb4354b4ed6862a4a15b5275ab63e63d",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/authoring_manifest.json",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/authoring_manifest.json",
+      "bytes": 764,
+      "sha256": "ab91d748270631ceda1f94dc89f41825ea2c0972b66b3ba80f519ae55712a93d",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/SK_ZombieDog_SkinOnly.fbx",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/SK_ZombieDog_SkinOnly.fbx",
+      "bytes": 319196,
+      "sha256": "ab6ff9566dc6baac46ef98821468a23b69dd17f0cf56bef4e22f855e3b219876",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/ue_import.json",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/ue_import.json",
+      "bytes": 315,
+      "sha256": "20bf5a8d2c0300854b3e2cbd0c4b59f1e665b08b3b1f941ec95a8512f5cd88d8",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/ZombieDog_SkinOnly_Authoring.blend",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/ZombieDog_SkinOnly_Authoring.blend",
+      "bytes": 458411,
+      "sha256": "c2c449304bd86d2a742db340ff8f7c2e868a431b4a3fbbcdc140474ef5dd13e8",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/Textures/T_ZombieDog_SkinOnly_BaseColor.png",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/Textures/T_ZombieDog_SkinOnly_BaseColor.png",
+      "bytes": 744441,
+      "sha256": "919746919412dab9ff9bf44b1cc8fa0bb056dcdd9f80690be26913f5eabf98ce",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/Textures/T_ZombieDog_SkinOnly_Normal.png",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/Textures/T_ZombieDog_SkinOnly_Normal.png",
+      "bytes": 356536,
+      "sha256": "954f3a769d93c0af0c3ff9a64c7433df5ca4fa408cf6a5c55bb7ee0557573d62",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "SourceAssets/ZombieDogSkinOnlyV2/Textures/T_ZombieDog_SkinOnly_ORM.png",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogSkinOnlyV2/Textures/T_ZombieDog_SkinOnly_ORM.png",
+      "bytes": 1063997,
+      "sha256": "6875b1deb4d2e1af75e6c30780f64d1fda415c3389590ecfa6bc32a7059dcbb6",
+      "reason": "User rejected the hairless variant and restored the fur silhouette",
+      "retained_replacement": "SourceAssets/ZombieDogRefinedWoundsV5"
+    },
+    {
+      "original": "Content/Monsters/ZombieDog/SkinOnlyV2/DA_ZombieDog_SkinOnly.uasset",
+      "archived": "trash/monster-surface-publication-20260919/Content/Monsters/ZombieDog/SkinOnlyV2/DA_ZombieDog_SkinOnly.uasset",
+      "bytes": 12068,
+      "sha256": "0bbe8454df691541da4f4776b2c77cdc5090ccffb625e5cf786cc529526a3d3e",
+      "reason": "Retired hairless packages; Asset Registry reports no external referencers",
+      "retained_replacement": "Content/Monsters/ZombieDog/RefinedWoundsV5"
+    },
+    {
+      "original": "Content/Monsters/ZombieDog/SkinOnlyV2/M_ZombieDog_SkinOnly.uasset",
+      "archived": "trash/monster-surface-publication-20260919/Content/Monsters/ZombieDog/SkinOnlyV2/M_ZombieDog_SkinOnly.uasset",
+      "bytes": 8853,
+      "sha256": "e7fc1c8308b927c6f17b6c725e80a45f03e951f1da575e54d08c621125dd4562",
+      "reason": "Retired hairless packages; Asset Registry reports no external referencers",
+      "retained_replacement": "Content/Monsters/ZombieDog/RefinedWoundsV5"
+    },
+    {
+      "original": "Content/Monsters/ZombieDog/SkinOnlyV2/SK_ZombieDog_SkinOnly.uasset",
+      "archived": "trash/monster-surface-publication-20260919/Content/Monsters/ZombieDog/SkinOnlyV2/SK_ZombieDog_SkinOnly.uasset",
+      "bytes": 1345014,
+      "sha256": "ed8c56ad86ce0cbc15fdb5e643dfcaea74397bc52909710944904761dd484a4f",
+      "reason": "Retired hairless packages; Asset Registry reports no external referencers",
+      "retained_replacement": "Content/Monsters/ZombieDog/RefinedWoundsV5"
+    },
+    {
+      "original": "Content/Monsters/ZombieDog/SkinOnlyV2/Textures/T_ZombieDog_SkinOnly_BaseColor.uasset",
+      "archived": "trash/monster-surface-publication-20260919/Content/Monsters/ZombieDog/SkinOnlyV2/Textures/T_ZombieDog_SkinOnly_BaseColor.uasset",
+      "bytes": 616734,
+      "sha256": "888ef68e7c2bc11b7a750323ea63574ab2f8211940946e161e7585f4c11aeb89",
+      "reason": "Retired hairless packages; Asset Registry reports no external referencers",
+      "retained_replacement": "Content/Monsters/ZombieDog/RefinedWoundsV5"
+    },
+    {
+      "original": "Content/Monsters/ZombieDog/SkinOnlyV2/Textures/T_ZombieDog_SkinOnly_Normal.uasset",
+      "archived": "trash/monster-surface-publication-20260919/Content/Monsters/ZombieDog/SkinOnlyV2/Textures/T_ZombieDog_SkinOnly_Normal.uasset",
+      "bytes": 231537,
+      "sha256": "a35fdb427c535fad262b939f29cdf0b33f0ecc0d42febcacc47d74394737db77",
+      "reason": "Retired hairless packages; Asset Registry reports no external referencers",
+      "retained_replacement": "Content/Monsters/ZombieDog/RefinedWoundsV5"
+    },
+    {
+      "original": "Content/Monsters/ZombieDog/SkinOnlyV2/Textures/T_ZombieDog_SkinOnly_ORM.uasset",
+      "archived": "trash/monster-surface-publication-20260919/Content/Monsters/ZombieDog/SkinOnlyV2/Textures/T_ZombieDog_SkinOnly_ORM.uasset",
+      "bytes": 884228,
+      "sha256": "2a157f123e1537416b948a8c3d6b23fdfae423d1d6fe885e3feae122742cf751",
+      "reason": "Retired hairless packages; Asset Registry reports no external referencers",
+      "retained_replacement": "Content/Monsters/ZombieDog/RefinedWoundsV5"
+    },
+    {
+      "original": "Tools/ZombieDog/author_skin_only.py",
+      "archived": "trash/monster-surface-publication-20260919/Tools/ZombieDog/author_skin_only.py",
+      "bytes": 5866,
+      "sha256": "791b4faf25877b78c8b9750fa237f427308accbe3b96b27500dda141600dbdd8",
+      "reason": "Authoring entry for the rejected hairless variant",
+      "retained_replacement": "Tools/ZombieDog/author_refined_wounds.py"
+    },
+    {
+      "original": "Tools/ZombieDog/install_skin_only.py",
+      "archived": "trash/monster-surface-publication-20260919/Tools/ZombieDog/install_skin_only.py",
+      "bytes": 5810,
+      "sha256": "5923089abb3c181a56affa5e5338bf6c302a5d221c418bcca8ea51de22d0028a",
+      "reason": "Installer for the rejected hairless variant",
+      "retained_replacement": "Tools/ZombieDog/install_refined_wounds.py"
+    },
+    {
+      "original": "Tools/ZombieDog/activate_skin_only.py",
+      "archived": "trash/monster-surface-publication-20260919/Tools/ZombieDog/activate_skin_only.py",
+      "bytes": 1297,
+      "sha256": "6215f8b65c38bb0862515cae8cc5690f0ff74ab8d01da45eb2993e1a7fa031cc",
+      "reason": "Retired switch that would restore the rejected appearance",
+      "retained_replacement": "Tools/ZombieDog/install_refined_wounds.py"
+    },
+    {
+      "original": "SourceAssets/ZombieDogV1/ZombieDog_Authoring.blend1",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogV1/ZombieDog_Authoring.blend1",
+      "bytes": 728170,
+      "sha256": "3056c4ad21b4655c04d42dd9696b72241bfc0146d8f8b895dcbad9da5a51dd5b",
+      "reason": "Superseded Blender save backup; current authoring source retained",
+      "retained_replacement": "SourceAssets/ZombieDogV1/ZombieDog_Authoring.blend"
+    },
+    {
+      "original": "SourceAssets/ZombieDogV1/Source/Wolf_Source.blend1",
+      "archived": "trash/monster-surface-publication-20260919/SourceAssets/ZombieDogV1/Source/Wolf_Source.blend1",
+      "bytes": 527098,
+      "sha256": "0fd30304e98462ba8f107c2ac8a1d1b76a0cc3c04ffbbda12cd24a10a9645120",
+      "reason": "Superseded Blender save backup; current source retained",
+      "retained_replacement": "SourceAssets/ZombieDogV1/Source/Wolf_Source.blend"
+    }
+  ],
+  "runtime_tested": false
+}

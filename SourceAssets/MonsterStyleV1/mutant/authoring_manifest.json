@@ -1,0 +1,26 @@
+{
+  "mode": "mutant",
+  "source": "SourceAssets/Mutant3Meshy20260915/Mutant3_Meshy_Source.blend",
+  "authoring": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\mutant\\mutant_StyleV1_Authoring.blend",
+  "mesh_fbx": null,
+  "shape_edit_limit_metres": 0,
+  "materials": [
+    {
+      "object": "Mesh0",
+      "slot": 0,
+      "name": "StyleV1_mutant_Mesh0_0",
+      "semantic": "skin",
+      "size": 4096,
+      "textures": {
+        "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\mutant\\Textures\\T_StyleV1_mutant_Mesh0_0_BaseColor.png",
+        "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\mutant\\Textures\\T_StyleV1_mutant_Mesh0_0_ORM.png",
+        "TissueMasks": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\mutant\\Textures\\T_StyleV1_mutant_Mesh0_0_TissueMasks.png",
+        "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MonsterStyleV1\\mutant\\Textures\\T_StyleV1_mutant_Mesh0_0_Normal.png"
+      }
+    }
+  ],
+  "changes": "Material only",
+  "animations_modified": false,
+  "preview_rendered": false,
+  "runtime_tested": false
+}

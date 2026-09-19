@@ -8,6 +8,7 @@ class UQuadrupedAnimationSet;
 class UQuadrupedTemplateAnimInstance;
 class UMonsterCombatComponent;
 class USkeletalMesh;
+class UZombieDogAppearanceComponent;
 
 UENUM(BlueprintType)
 enum class EWolfState : uint8 { Idle, Howl, Chase, Returning, Bite, Pounce, Stagger, Recovery, Dying, Ragdoll };
@@ -26,7 +27,9 @@ public:
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") TObjectPtr<UMonsterCombatComponent> Combat;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf|Appearance") TObjectPtr<UZombieDogAppearanceComponent> WoundAppearance;
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Wolf|Animation") TObjectPtr<UQuadrupedAnimationSet> AnimationSet;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Identity") FText MonsterDisplayName = FText::FromString(TEXT("野狼"));
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MaxHealth = 220.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float PhysicalDefense = 12.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Wolf|Stats") float MagicDefense = 8.f;

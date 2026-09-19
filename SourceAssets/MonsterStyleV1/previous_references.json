@@ -1,0 +1,19 @@
+{
+  "handbrain": {
+    "blueprint": "/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain",
+    "visual_mesh": "/Game/Monsters/HandBrain/SurfaceV07/SK_HandBrain_Surface.SK_HandBrain_Surface"
+  },
+  "maggot": {
+    "blueprint": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot",
+    "visual_mesh": "/Game/Monsters/PoisonMaggot/SK_PoisonMaggot.SK_PoisonMaggot"
+  },
+  "mutant": {
+    "mesh": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy.SK_Mutant3_Meshy",
+    "materials": [
+      {
+        "slot": "Material_001",
+        "material": "/Game/Monsters/Mutant3Meshy/Materials/M_Mutant3_Meshy.M_Mutant3_Meshy"
+      }
+    ]
+  }
+}

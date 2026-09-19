@@ -210,3 +210,7 @@ __pycache__/
 /SourceAssets/ArmsIKEditor20260911/source_snapshot.json
 /SourceAssets/M4DrumGrip20260910/Revision2/reload_empty_samples.json
 /SourceAssets/M4DrumGrip20260910/Revision2/reload_samples.json
+
+# Licensed wolf rest geometry / sampled surface coordinates are local rebuild inputs.
+/SourceAssets/ZombieDogV1/Source/geometry_layout.json
+/SourceAssets/ZombieDogRandomWoundsV4/wound_surfaces.json

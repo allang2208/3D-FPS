@@ -1,0 +1,95 @@
+{
+  "master": "/Game/Monsters/Shared/InfectedSurfaceV1/M_InfectedSurface_V1.M_InfectedSurface_V1",
+  "monsters": {
+    "handbrain": {
+      "folder": "/Game/Monsters/HandBrain/StyleV1",
+      "mesh_name": "SK_HandBrain_StyleV1",
+      "old_mesh": "/Game/Monsters/HandBrain/SurfaceV07/SK_HandBrain_Surface",
+      "blueprint": "/Game/Monsters/HandBrain/BP_HandBrain",
+      "mesh": "/Game/Monsters/HandBrain/StyleV1/SK_HandBrain_StyleV1.SK_HandBrain_StyleV1",
+      "materials": {
+        "StyleV1_handbrain_HandBrain_Body_0": "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_Body_0.MI_StyleV1_handbrain_HandBrain_Body_0",
+        "StyleV1_handbrain_HandBrain_Body_1": "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_Body_1.MI_StyleV1_handbrain_HandBrain_Body_1",
+        "StyleV1_handbrain_HandBrain_Body_2": "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_Body_2.MI_StyleV1_handbrain_HandBrain_Body_2",
+        "StyleV1_handbrain_HandBrain_AttackArm_0": "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_AttackArm_0.MI_StyleV1_handbrain_HandBrain_AttackArm_0",
+        "StyleV1_handbrain_HandBrain_CrownHands_0": "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_CrownHands_0.MI_StyleV1_handbrain_HandBrain_CrownHands_0",
+        "StyleV1_handbrain_HandBrain_OralTeeth_0": "/Game/Monsters/HandBrain/StyleV1/MI_StyleV1_handbrain_HandBrain_OralTeeth_0.MI_StyleV1_handbrain_HandBrain_OralTeeth_0"
+      },
+      "textures": {
+        "StyleV1_handbrain_HandBrain_Body_0": {
+          "BaseColor": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_0_BaseColor.T_StyleV1_handbrain_HandBrain_Body_0_BaseColor",
+          "ORM": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_0_ORM.T_StyleV1_handbrain_HandBrain_Body_0_ORM",
+          "TissueMasks": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_0_TissueMasks.T_StyleV1_handbrain_HandBrain_Body_0_TissueMasks",
+          "Normal": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_0_Normal.T_StyleV1_handbrain_HandBrain_Body_0_Normal"
+        },
+        "StyleV1_handbrain_HandBrain_Body_1": {
+          "BaseColor": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_1_BaseColor.T_StyleV1_handbrain_HandBrain_Body_1_BaseColor",
+          "ORM": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_1_ORM.T_StyleV1_handbrain_HandBrain_Body_1_ORM",
+          "TissueMasks": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_1_TissueMasks.T_StyleV1_handbrain_HandBrain_Body_1_TissueMasks",
+          "Normal": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_1_Normal.T_StyleV1_handbrain_HandBrain_Body_1_Normal"
+        },
+        "StyleV1_handbrain_HandBrain_Body_2": {
+          "BaseColor": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_2_BaseColor.T_StyleV1_handbrain_HandBrain_Body_2_BaseColor",
+          "ORM": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_2_ORM.T_StyleV1_handbrain_HandBrain_Body_2_ORM",
+          "TissueMasks": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_2_TissueMasks.T_StyleV1_handbrain_HandBrain_Body_2_TissueMasks",
+          "Normal": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_Body_2_Normal.T_StyleV1_handbrain_HandBrain_Body_2_Normal"
+        },
+        "StyleV1_handbrain_HandBrain_AttackArm_0": {
+          "BaseColor": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_AttackArm_0_BaseColor.T_StyleV1_handbrain_HandBrain_AttackArm_0_BaseColor",
+          "ORM": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_AttackArm_0_ORM.T_StyleV1_handbrain_HandBrain_AttackArm_0_ORM",
+          "TissueMasks": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_AttackArm_0_TissueMasks.T_StyleV1_handbrain_HandBrain_AttackArm_0_TissueMasks",
+          "Normal": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_AttackArm_0_Normal.T_StyleV1_handbrain_HandBrain_AttackArm_0_Normal"
+        },
+        "StyleV1_handbrain_HandBrain_CrownHands_0": {
+          "BaseColor": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_CrownHands_0_BaseColor.T_StyleV1_handbrain_HandBrain_CrownHands_0_BaseColor",
+          "ORM": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_CrownHands_0_ORM.T_StyleV1_handbrain_HandBrain_CrownHands_0_ORM",
+          "TissueMasks": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_CrownHands_0_TissueMasks.T_StyleV1_handbrain_HandBrain_CrownHands_0_TissueMasks",
+          "Normal": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_CrownHands_0_Normal.T_StyleV1_handbrain_HandBrain_CrownHands_0_Normal"
+        },
+        "StyleV1_handbrain_HandBrain_OralTeeth_0": {
+          "BaseColor": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_OralTeeth_0_BaseColor.T_StyleV1_handbrain_HandBrain_OralTeeth_0_BaseColor",
+          "ORM": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_OralTeeth_0_ORM.T_StyleV1_handbrain_HandBrain_OralTeeth_0_ORM",
+          "TissueMasks": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_OralTeeth_0_TissueMasks.T_StyleV1_handbrain_HandBrain_OralTeeth_0_TissueMasks",
+          "Normal": "/Game/Monsters/HandBrain/StyleV1/Textures/T_StyleV1_handbrain_HandBrain_OralTeeth_0_Normal.T_StyleV1_handbrain_HandBrain_OralTeeth_0_Normal"
+        }
+      }
+    },
+    "maggot": {
+      "folder": "/Game/Monsters/PoisonMaggot/StyleV1",
+      "mesh_name": "SK_PoisonMaggot_StyleV1",
+      "old_mesh": "/Game/Monsters/PoisonMaggot/SK_PoisonMaggot",
+      "blueprint": "/Game/Monsters/PoisonMaggot/BP_PoisonMaggot",
+      "mesh": "/Game/Monsters/PoisonMaggot/StyleV1/SK_PoisonMaggot_StyleV1.SK_PoisonMaggot_StyleV1",
+      "materials": {
+        "StyleV1_maggot_PoisonMaggot_Retopo_0": "/Game/Monsters/PoisonMaggot/StyleV1/MI_StyleV1_maggot_PoisonMaggot_Retopo_0.MI_StyleV1_maggot_PoisonMaggot_Retopo_0"
+      },
+      "textures": {
+        "StyleV1_maggot_PoisonMaggot_Retopo_0": {
+          "BaseColor": "/Game/Monsters/PoisonMaggot/StyleV1/Textures/T_StyleV1_maggot_PoisonMaggot_Retopo_0_BaseColor.T_StyleV1_maggot_PoisonMaggot_Retopo_0_BaseColor",
+          "ORM": "/Game/Monsters/PoisonMaggot/StyleV1/Textures/T_StyleV1_maggot_PoisonMaggot_Retopo_0_ORM.T_StyleV1_maggot_PoisonMaggot_Retopo_0_ORM",
+          "TissueMasks": "/Game/Monsters/PoisonMaggot/StyleV1/Textures/T_StyleV1_maggot_PoisonMaggot_Retopo_0_TissueMasks.T_StyleV1_maggot_PoisonMaggot_Retopo_0_TissueMasks",
+          "Normal": "/Game/Monsters/PoisonMaggot/StyleV1/Textures/T_StyleV1_maggot_PoisonMaggot_Retopo_0_Normal.T_StyleV1_maggot_PoisonMaggot_Retopo_0_Normal"
+        }
+      }
+    },
+    "mutant": {
+      "folder": "/Game/Monsters/Mutant3Meshy/StyleV1",
+      "old_mesh": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy",
+      "mesh": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy",
+      "materials": {
+        "StyleV1_mutant_Mesh0_0": "/Game/Monsters/Mutant3Meshy/StyleV1/MI_StyleV1_mutant_Mesh0_0.MI_StyleV1_mutant_Mesh0_0"
+      },
+      "textures": {
+        "StyleV1_mutant_Mesh0_0": {
+          "BaseColor": "/Game/Monsters/Mutant3Meshy/StyleV1/Textures/T_StyleV1_mutant_Mesh0_0_BaseColor.T_StyleV1_mutant_Mesh0_0_BaseColor",
+          "ORM": "/Game/Monsters/Mutant3Meshy/StyleV1/Textures/T_StyleV1_mutant_Mesh0_0_ORM.T_StyleV1_mutant_Mesh0_0_ORM",
+          "TissueMasks": "/Game/Monsters/Mutant3Meshy/StyleV1/Textures/T_StyleV1_mutant_Mesh0_0_TissueMasks.T_StyleV1_mutant_Mesh0_0_TissueMasks",
+          "Normal": "/Game/Monsters/Mutant3Meshy/StyleV1/Textures/T_StyleV1_mutant_Mesh0_0_Normal.T_StyleV1_mutant_Mesh0_0_Normal"
+        }
+      }
+    }
+  },
+  "activated": false,
+  "preview_rendered": false,
+  "runtime_tested": false
+}

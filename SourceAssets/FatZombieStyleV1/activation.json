@@ -1,0 +1,13 @@
+{
+  "revision": "1.0",
+  "mesh": "/Game/Monsters/FatZombieMeshy/SK_FatZombie_Meshy.SK_FatZombie_Meshy",
+  "slot": "Material_002",
+  "previous_material": "/Game/Monsters/FatZombieMeshy/Materials/M_FatZombie_Meshy.M_FatZombie_Meshy",
+  "material": "/Game/Monsters/FatZombieMeshy/StyleV1/MI_FatZombie_Infected_V1.MI_FatZombie_Infected_V1",
+  "f6_entry": "FatZombie",
+  "scope": "Material slot assignment only",
+  "method": "Offline UE Python commandlet after user closed FPSGAME editor",
+  "assets_saved": true,
+  "runtime_tested": false,
+  "preview_rendered": false
+}
