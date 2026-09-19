@@ -15,6 +15,10 @@ namespace M1911WeaponAssets
     inline constexpr float BrakeTipCM = 3.4f;
     inline constexpr const TCHAR* ActionRoot = TEXT("/Game/Weapons/M1911/Contact20260913");
     inline constexpr const TCHAR* ReloadRoot = TEXT("/Game/Weapons/M1911/ReloadReady20260913");
+    // 快速进战（握把砸击）作者源单发动作：WPN_root 驱动右手，0.55s，接触 0.26s。
+    // 动作表与 DanWesson715QuickCombat20260918 逐值相同；制作记录见 SourceAssets/M1911QuickCombat20260919。
+    inline constexpr const TCHAR* QuickCombatAnimationPath =
+        TEXT("/Game/Weapons/M1911/QuickCombat20260919/Animations/A_M1911_quickcombat.A_M1911_quickcombat");
     inline FString AnimationPath(const TCHAR* Clip)
     {
         const bool Reload = FCString::Strcmp(Clip, TEXT("reload")) == 0 || FCString::Strcmp(Clip, TEXT("reload_empty")) == 0;

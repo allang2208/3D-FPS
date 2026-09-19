@@ -149,3 +149,24 @@ FPSGAME traversal geometry, camera handoff and surface IK: [traversal contact](.
 - 通用判据：同一进程里"部分成员正常、部分为 0／垃圾"，优先怀疑 obj 与头文件不同版；其次才是初始化顺序／内存问题。
 - 另外：判断自己的改动有没有进二进制，用**字符串自证**比时间戳硬——例如 `python -c` 扫 DLL 里的 UTF-16 文本字面量
   （网格路径、提示串），比只对时间戳可靠；本仓库 `git diff` 展示可能错序，疑似编译错误必须核对真实文件。
+
+### -game 实机审计夹具模式（2026-09-19 QuickCombatAudit 先例）
+
+无头 commandlet 拿不到真实渲染/相机/动画链路，编辑器远程通道在 PIE 下截图是黑图——需要
+**实机画面级取证**时，克隆步枪冲刺夹具的模式（`FPSGAMERifleSprintAudit.cpp` /
+`FPSGAMEQuickCombatAudit.cpp`）：
+
+- 入口：`RunGunplayAcceptance` 里按命令行旗标分发（`-GunplayAudit -<Task>Audit
+  -ColdSteelProfile=<Task>Audit-<label> -GunplayLabel=<label>`）；`bAudit` 只看命令行
+  是否含 "Audit"，Profile 槽位名再自查防串。
+- 跑法：`UnrealEditor.exe <uproject> <小验证图> -game -windowed -RenderOffscreen
+  -ResX=960 -ResY=540 -unattended -nosound -UseFixedTimeStep -FPS=60 -GunplayCaptureFrames`；
+  **可与用户开着的编辑器并存**（独立进程只读）。本机首跑要等 ~30-40s 资产编译。
+- 帧捕获：`FScreenshotRequest::RequestScreenshot(绝对路径, false, false)`，30Hz 门控
+  `!IsScreenshotRequested()`；**退出前要留 ≥1s 让异步回读落盘**（否则 0 帧且不报错）；
+  退出时用 `IFileManager::FindFiles` 把磁盘帧数写进 results.log 自证。
+- 世界变换 CSV：相机/关键骨骼/打击端逐帧落盘（屏幕 u,v 用
+  `PC->ProjectWorldLocationToScreen`，相机身后返回 false 要显式标记，否则投影翻转成
+  假"出画"）。
+- 产物在 `Saved/<Task>Audit/<label>/`；对照视频用 ffmpeg 拼帧（imageio_ffmpeg 自带
+  ffmpeg：`-framerate 10 -i Frame_%04d.png` + `setpts` 慢放 + `eq` 提亮）。

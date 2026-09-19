@@ -6,7 +6,11 @@
 #include "RuneSwordRhythm.h"
 #include "RuneSwordHeavyRhythm.h"
 #include "RuneSwordThrustRhythm.h"
+#include "RuneSwordPommelRhythm.h"
+#include "RuneSwordOverheadRhythm.h"
 #include "RuneSwordHitQuery.h"
+#include "MeleeWeaponStats.h"
+#include "../Combat/CombatFormulaRuntime.h"
 #include "RuneSwordComponent.generated.h"
 
 class AFPSGAMECharacter;
@@ -43,34 +47,46 @@ public:
     /** Camera-local centimetres and degrees, composed with the character's existing feedback. */
     void GetCameraMotion(FVector& Location, FRotator& Rotation) const;
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginAttack();
+    UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginOverhead();
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginPrimaryAttack();
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleasePrimaryAttack();
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginHeavyCharge();
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseHeavyCharge();
     UFUNCTION(BlueprintPure, Category="Rune Sword") float HeavyChargeFraction() const { return bCharging ? Elapsed/RuneSwordHeavyRhythm::ChargeSeconds : 0.f; }
     bool TriggerHeavySkill();
+    /** 快速进战：以第四连击的配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
+    UFUNCTION(BlueprintCallable, Category="Rune Sword") bool BeginQuickCombatStrike();
     void CancelAction();
 private:
     friend class URuneSwordAuditCommandlet;
     TWeakObjectPtr<AFPSGAMECharacter> Character;
     UPROPERTY(Transient) TObjectPtr<UCameraComponent> Camera;
     UPROPERTY(Transient) TObjectPtr<USkeletalMeshComponent> Viewmodel;
+    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ModularSword;
+    FVector ModularBladeBase=FVector::ZeroVector,ModularBladeTip=FVector::ZeroVector;
+    void RefreshModularSword(const struct FColdSteelItem* Item);
     UPROPERTY(Transient) TMap<FName,TObjectPtr<UAnimSequence>> Animations;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> CurrentAnimation;
     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> AttackLayerSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> HitSound;
+    /** Impact cue reserved for the fourth hit; other attacks keep the weapon's hit_sound. */
+    UPROPERTY(Transient) TObjectPtr<USoundBase> PommelHitSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BlockSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ParrySound;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> RiftVisual;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> RiftMaterial;
     UPROPERTY(Transient) TArray<TObjectPtr<UStaticMesh>> RiftMeshes;
     FString InstanceId;
+    FString EquippedMeshPath;
+    FMeleeModifiers MeleeModifiers;
+    float SwingRuneVulnerability=0, SwingRuneVulnerabilitySeconds=0;
     FName CurrentClip;
     float Elapsed=0.f, Damage=55.f, AttackRate=1.f, SwingDamage=55.f, SwingRate=1.f;
     // Contact timing follows the installed animation, with range captured per swing.
     float Reach=180.f, ContactStart=RuneSwordRhythm::ContactStart, ContactEnd=RuneSwordRhythm::ContactEnd;
-    float SwingReach=180.f;
+    float SwingReach=180.f, SwingRangeMultiplier=2.f, SwingHitReactionMultiplier=1.f;
+    float SwingKnockbackCM=0.f;
     FTransform PreviousAimFrame;
     float ImpactAge=1.f, ImpactDirection=1.f, ImpactStrength=1.f;
     bool bImpactFeedbackPlayed=false;
@@ -90,6 +106,19 @@ private:
     bool bAttacking=false, bEquipping=false, bInspecting=false, bQueuedAttack=false;
     bool bCharging=false, bReturningCharge=false, bHeavyAttack=false, bSwingCuePlayed=false;
     bool bThrustAttack=false, bLungeStarted=false, bLungeBlocked=false;
+    // Fourth combo stage: the counterweight leads instead of the blade.
+    bool bPommelAttack=false;
+    // 快速进战技能打击：动作与第四连击相同，但伤害/击退/眩晕与范围来自技能公式。
+    bool bQuickCombatStrike=false,bQueuedQuickCombat=false,QuickCombatKillPending=false;
+    float QuickCombatStunSeconds=0.f,QuickCombatKnockbackCM=0.f;
+    // 命中走手枪版同一份合同（QuickCombatContractHit）：距离用技能 rangeCM，
+    // 不再借用普通挥击的 SwingReach；接触帧只判一次。
+    float QuickCombatRangeCM=200.f;
+    bool bQuickCombatContactDone=false;
+    // Sprint attack: the overhead chop reuses the normal swing path with its own
+    // contact window; only the clip and the timing differ.
+    bool bOverheadAttack=false;
+    float PommelDepthCM=RuneSwordPommelRhythm::CounterweightCM;
     FVector LungeDirection=FVector::ZeroVector;
     bool bRiftActive=false;
     bool bGuardHeld=false,bGuarding=false,bReturningGuard=false,bGuardReacting=false,bGuardBreakPose=false;
@@ -98,6 +127,8 @@ private:
     TSet<TWeakObjectPtr<AActor>> HitActors;
     bool CanUse() const;
     bool StartSwing(FName Clip, bool Heavy);
+    bool StartQuickCombatStrike();
+    void QuickCombatContractHit();
     FVector AdvanceThrustLunge(float FromTime,float ToTime);
     void ReturnFromCharge();
     void SetClip(FName Name, bool bLoop);

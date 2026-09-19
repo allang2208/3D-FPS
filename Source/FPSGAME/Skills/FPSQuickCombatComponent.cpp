@@ -57,13 +57,14 @@ EQuickCombatBashPhase UFPSQuickCombatComponent::PhaseForAge(float Age) const
 void UFPSQuickCombatComponent::BeginPlay()
 {
     Super::BeginPlay();
-    // 释放/起手音：用户 2026-09-18 指定的 quickhit2.mp3（导入口径见
-    // SourceAssets/QuickCombatSwingAudio20260918，44.1kHz/立体声/16bit、FORCE_INLINE）。
+    // 挥击音：用户 2026-09-18 指定的 quickhit2.mp3（导入口径见
+    // SourceAssets/QuickCombatSwingAudio20260918，44.1kHz/立体声/16bit、FORCE_INLINE）；
+    // 2026-09-19 起改为命中确认时播放（ContactHit），挥空不出声。
     SwingSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/QuickCombat20260918/S_QuickCombatSwing.S_QuickCombatSwing"));
-    // 命中音：保持与符文剑配重锤共用同一枚钝器音（用户本轮只要求换起手音）。
+    // 命中音：保持与符文剑配重锤共用同一枚钝器音（用户本轮只要求换挥击音时机）。
     ImpactSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick"));
     // 判定用：一行说清两个音各加载到了什么（"声音没换"类问题先看这行）。
-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 音效资产 起手音=%s 命中音=%s"),
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 音效资产 挥击音=%s 命中音=%s"),
         SwingSound?*SwingSound->GetName():TEXT("未加载"),
         ImpactSound?*ImpactSound->GetName():TEXT("未加载"));
 }
@@ -80,7 +81,6 @@ bool UFPSQuickCombatComponent::BeginAction()
     ++Serial;ActionAge=0.f;Phase=EQuickCombatBashPhase::Release;
     bContactDone=bKillPending=false;
     ImpactAge=1.f;ImpactStrength=0.f;
-    bSwingPlayed=false;
     return true;
 }
 
@@ -175,17 +175,6 @@ void UFPSQuickCombatComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // 单一绝对时钟：阶段与接触点都由 ActionAge 推导，避免分段累计误差与空转段。
     ActionAge+=Delta;
     Phase=PhaseForAge(ActionAge);
-    // 起手挥动层：只播一次（近战打击感的「挥」这一半），命中音另有 ImpactSound。
-    if(!bSwingPlayed&&ActionAge>=ReleaseEnd)
-    {
-        bSwingPlayed=true;
-        if(SwingSound&&Player&&Player->IsLocallyControlled())
-        {
-            // 用户指定的起手音：音量 0.8（比原来复用的剑挥动层 0.6 略高，便于听清）。
-            UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
-            UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 起手音播放=%s"),*SwingSound->GetName());
-        }
-    }
     if(!bContactDone&&ActionAge>=ContactTime){bContactDone=true;ContactHit();}
     if(ActionAge>=AttackEnd)FinishAction();
 }
@@ -245,6 +234,10 @@ void UFPSQuickCombatComponent::ContactHit()
         UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 命中音播放=%s 目标=%s 伤害=%.1f 位置=%s"),
             *ImpactSound->GetName(),*TargetName,Applied,*Hit.ImpactPoint.ToCompactString());
     }
+    // 用户 2026-09-19：这枚挥击音从「松握即播」改到伤害确认时刻——挥空整段不出声，
+    // 与「命中才震」的镜头冲量同一合同（音量仍按用户指定的 0.8）。
+    if((Applied>0.f||bKilled)&&SwingSound)
+        UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
 }
 
 void UFPSQuickCombatComponent::FinishAction()

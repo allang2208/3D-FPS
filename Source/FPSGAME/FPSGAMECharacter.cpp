@@ -256,6 +256,9 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     HipViewmodelLocation=M4HipViewmodelLocation;
     ADSRearEyeDistance=18.f;
     EquipAnimation=nullptr;
+    // Quick-combat clips belong to the weapon that authored them; leaving the
+    // previous pistol's clip alive would let a clip-less pistol play it.
+    QuickCombatAnimation=nullptr;
     USkeletalMesh* ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/StockV2/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
     if (!ViewmodelMesh) ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, TEXT("/Game/Weapons/AKMIntegration/SovietFab/Attachments/SK_AKM_MannyNative.SK_AKM_MannyNative"), nullptr, LOAD_NoWarn);
@@ -308,6 +311,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         HipViewmodelLocation = PistolHipViewmodelLocation;
         ADSRearEyeDistance = 38.f;
         bPistolShotPending = false;
+        QuickCombatAnimation = LoadObject<UAnimSequence>(nullptr, M1911WeaponAssets::QuickCombatAnimationPath);
     }
     if (bUseDanWesson715)
     {
@@ -853,7 +857,7 @@ bool AFPSGAMECharacter::TriggerPistolQuickCombat()
     if(IsTraversing()||IsDodging()||bIsSliding)return Gate(TEXT("移动动作中"));
     if(const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return Gate(TEXT("已死亡"));
     if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return Gate(TEXT("视模不可用"));
-    // 没有作者源 clip 的手枪不要"提交冷却但什么都不播"（M1911 等），宁可明确拒绝。
+    // 没有作者源 clip 的手枪不要"提交冷却但什么都不播"，宁可明确拒绝。
     if(!QuickCombatAnimation)return Gate(TEXT("该枪没有快速进战 clip"));
     FireReleased();
     SetAimingState(false);

@@ -402,6 +402,7 @@ private:
     void RunWeaponAudit(float DeltaSeconds);
     void RunGunplayAcceptance(float DeltaSeconds);
     void RunRifleSprintAcceptance(float DeltaSeconds);
+    void RunQuickCombatAcceptance(float DeltaSeconds);
     void PlayWeaponAnimation(UAnimSequence* Animation, bool bLoop, float PlayRate = 1.0f, float StartPosition = 0.0f);
     void ResumeWeaponPose();
     void PlaySound2D(USoundBase* Sound, float VolumeMultiplier) const;

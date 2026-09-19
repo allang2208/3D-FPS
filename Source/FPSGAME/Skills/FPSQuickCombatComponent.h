@@ -59,7 +59,6 @@ private:
     float ImpactStrength=0.f;
     uint32 Serial=0;
     bool bContactDone=false,bKillPending=false;
-    bool bSwingPlayed=false;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ImpactSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
     void ContactHit();

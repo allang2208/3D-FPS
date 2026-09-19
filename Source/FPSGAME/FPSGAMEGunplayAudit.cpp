@@ -33,6 +33,16 @@
 // are fixtures. Movement, action clocks, animation, aim and recoil are never forced.
 void AFPSGAMECharacter::RunGunplayAcceptance(float DeltaSeconds)
 {
+    if (FParse::Param(FCommandLine::Get(), TEXT("QuickCombatAudit")))
+    {
+        RunQuickCombatAcceptance(DeltaSeconds);
+        return;
+    }
+    if (FParse::Param(FCommandLine::Get(), TEXT("RifleSprintAudit")))
+    {
+        RunRifleSprintAcceptance(DeltaSeconds);
+        return;
+    }
     if (FParse::Param(FCommandLine::Get(), TEXT("EquipFramingAudit")))
     {
         RunEquipFramingAcceptance(DeltaSeconds);
