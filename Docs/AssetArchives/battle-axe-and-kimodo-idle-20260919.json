@@ -1,0 +1,271 @@
+{
+  "Task": "Battle axe replacement and Kimodo-seeded two-hand idle (2026-09-19)",
+  "ArchivedOn": "2026-09-19",
+  "Rule": "skills/ue5-weapon-workflow/references/publication.md",
+  "Count": 30,
+  "Note": "Two archives. ① trash/kimodo-axe-idle-superseded-20260919/: the first two-hand idle was a vertical diagonal carry, which the user rejected in favour of a horizontal hold; its build, the generator runs behind it and the rejected/alternate seeds are kept here. The live deliverable is SourceAssets/KimodoAxeIdle20260919/BuildH (horizontal), imported over /Game/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle. ② trash/battle-axe-exploration-20260919/: exploration renders and one-off probes from the model replacement, whose conclusions are recorded in Docs/Weapons/battle-axe-replacement-20260919.md. Also holds Before/DefaultGame.ini because that snapshot carried other parallel sessions' uncommitted cook entries and must not be published from this commit; the only ini change belonging to this task (one BattleAxe cook line) was staged on its own. trash/ is gitignored, so these files stay local for reuse. Reusable lessons went to skills/ue5-fps-arms-animation/references/kimodo-motion-tool.md and single-hand-tools.md.",
+  "RetiredAssetCandidates": [
+    {
+      "Name": "Build",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\Build_vertical",
+      "Bytes": 94137585,
+      "SHA256": "3D336D2CD3F286DF8A9AF2CE251F535167D2AA136E7BFE1F4E4DA9FDFF5433B7",
+      "Reason": "第一版竖向斜持双手待机（用户 2026-09-19 明确否定，要求改横向）",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/BuildH（横向版，已接入生产待机资产）"
+    },
+    {
+      "Name": "fp_axe_idle2h",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\kimodo_runs\\fp_axe_idle2h",
+      "Bytes": 182785,
+      "SHA256": "C26FCAA8F3D15B8F95D85F46ACD195AC69701AEAF821EF1F772283C92E1D2CC3",
+      "Reason": "首版竖向 prompt 的生成产物（seed 4242），随竖版一起作废",
+      "Replacement": "kimodo.cpp/output_fp/fp_axe_horiz_s8888（当前生产版本来源）"
+    },
+    {
+      "Name": "fp_axe_idle2h_horiz",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\kimodo_runs\\fp_axe_idle2h_horiz",
+      "Bytes": 112440,
+      "SHA256": "75E3AB43F2A5A54BBB3CA2B332FF1B8D32A9C3F80106EBFF698EC7DF44A487AA",
+      "Reason": "首个横向 prompt 的生成产物（seed 7777，胸部转 34° 像转身）",
+      "Replacement": "kimodo.cpp/output_fp/fp_axe_horiz_s8888"
+    },
+    {
+      "Name": "fp_axe_horiz_s2025",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\kimodo_runs\\fp_axe_horiz_s2025",
+      "Bytes": 112440,
+      "SHA256": "1A633E43236E3F2A2C1C02838512856AB2483916FFEEF2BEC6E41D0DEA2833B9",
+      "Reason": "横向 calm prompt 的备选 seed（2025），比 8888 更不平稳，未采用",
+      "Replacement": "kimodo.cpp/output_fp/fp_axe_horiz_s8888"
+    },
+    {
+      "Name": "build_two_hand_axe_idle.py",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\authoring\\build_two_hand_axe_idle.py",
+      "Bytes": 20850,
+      "SHA256": "ECD35CF8AE8FD1AB6375C40CE7613CC58F87AC6EDBD013031C5B1771A9A18454",
+      "Reason": "竖版双手待机构建脚本；该版本已被用户否定，最终交付为横向版",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/build_horizontal_axe_idle.py"
+    },
+    {
+      "Name": "sway.json",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\authoring\\sway_vertical_seed4242.json",
+      "Bytes": 65700,
+      "SHA256": "176F57EE3E708DA2DB5C667BECA1AF7B6F8E737C0160AC6C92213AFFBC472B7C",
+      "Reason": "竖版（seed 4242）的摆动信号，随竖版作废",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/sway_s8888.json（横向 seed 8888）"
+    },
+    {
+      "Name": "sway_horiz.json",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\authoring\\sway_horiz_seed7777_rejected.json",
+      "Bytes": 65758,
+      "SHA256": "942DF86B931F4D26CB1BD012DF7B6FF97285EEB300B44C4067805DD45BB27160",
+      "Reason": "首个横向 prompt（seed 7777）的摆动信号；胸部转 34° 像转身，未采用",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/sway_s8888.json"
+    },
+    {
+      "Name": "sway_s2025.json",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\authoring\\sway_s2025_rejected.json",
+      "Bytes": 65179,
+      "SHA256": "1C450D35B12B24D8C853405AAB7A1D26B8D768FABEB7F5C5FF4E072530E29255",
+      "Reason": "横向 calm prompt 的备选 seed 2025；比 8888 更不平稳，未采用",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/sway_s8888.json"
+    },
+    {
+      "Name": "Inspect",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\Inspect_vertical_probe",
+      "Bytes": 867738,
+      "SHA256": "F90DB0416C669C04D49AB8EF9A3552CC455CD3481EAB90396DE28469EB584ED4",
+      "Reason": "竖版生成动作的探针渲染与逐帧数据；竖版作废后失去参照意义",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/BuildH/Preview（横向版预览）"
+    },
+    {
+      "Name": "A_Harvest_Axe_Idle2H_H_Editable.blend1",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\BuildH_blend1\\A_Harvest_Axe_Idle2H_H_Editable.blend1",
+      "Bytes": 44450484,
+      "SHA256": "8537D02642A3847CEB978FFE55CC460C8364C19A0C4DE33B9429B83C68373F30",
+      "Reason": "Blender 覆盖保存产生的上一版中间件；正式可编辑源存在且无活动调用",
+      "Replacement": "SourceAssets/KimodoAxeIdle20260919/BuildH/A_Harvest_Axe_Idle2H_H_Editable.blend"
+    },
+    {
+      "Name": "fp_axe_idle2h.txt",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\prompts\\fp_axe_idle2h_vertical.txt",
+      "Bytes": 259,
+      "SHA256": "1D78B945BCA995C531A754B6C8A2728C01CCD4DE83FF0F83CD774F3130312518",
+      "Reason": "竖版 prompt；该方向已被否定",
+      "Replacement": "D:/FPS3D/kimodo.cpp/prompts/fp_axe_horiz_calm.txt"
+    },
+    {
+      "Name": "fp_axe_idle2h_horiz.txt",
+      "ArchivedTo": "trash\\kimodo-axe-idle-superseded-20260919\\prompts\\fp_axe_idle2h_horiz_seed7777.txt",
+      "Bytes": 300,
+      "SHA256": "3E350F4020CA58662D5A10638A5DF0529C4FC51177463CEEDB982DFF4D2450E4",
+      "Reason": "首个横向 prompt；该 seed 生成的动作像转身，未采用",
+      "Replacement": "D:/FPS3D/kimodo.cpp/prompts/fp_axe_horiz_calm.txt"
+    },
+    {
+      "Name": "SK_Harvest_Axe_OLD.uasset.bak",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\Before\\SK_Harvest_Axe_OLD.uasset.bak",
+      "Bytes": 5122279,
+      "SHA256": "450BE73F47B1447EC35F416D3C25044F0FBFEEEAF375056042B6FF15635ECB67",
+      "Reason": "重复备份：与 Before/GripMotion20260913/SK_Harvest_Axe.uasset 逐字节相同（SHA-256 450BE73F…）",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/SK_Harvest_Axe.uasset"
+    },
+    {
+      "Name": "Preview",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\Preview",
+      "Bytes": 3913828,
+      "SHA256": "332A419A4C6427D4905C33464D798B5CED2F126E08F9D2A3759DD88AD72E7327",
+      "Reason": "握位/减面/朝向的探索对比渲染；结论已固化进 fit_battle_axe.py 与最终预览",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/Viewmodel/*.png（最终视模预览）"
+    },
+    {
+      "Name": "GripCandidates",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\GripCandidates",
+      "Bytes": 9954455,
+      "SHA256": "9B30C6A43FBAC637191CCD517E6656A78D71A9166596011BC41A5BD40A3F5BCB",
+      "Reason": "握位/减面/朝向的探索对比渲染；结论已固化进 fit_battle_axe.py 与最终预览",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/Viewmodel/*.png（最终视模预览）"
+    },
+    {
+      "Name": "GripZoom",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\GripZoom",
+      "Bytes": 8509121,
+      "SHA256": "3922794D0725B80FCC7F50E7359CE588B2E0FE5F804517126236CBEFFC9AFE78",
+      "Reason": "握位/减面/朝向的探索对比渲染；结论已固化进 fit_battle_axe.py 与最终预览",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/Viewmodel/*.png（最终视模预览）"
+    },
+    {
+      "Name": "GameView",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\GameView",
+      "Bytes": 4380377,
+      "SHA256": "DFEDBDBAF18F92BED73C1CD01B167E2DD404245B95A93100FDACEA8EA721D8B0",
+      "Reason": "握位/减面/朝向的探索对比渲染；结论已固化进 fit_battle_axe.py 与最终预览",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/Viewmodel/*.png（最终视模预览）"
+    },
+    {
+      "Name": "DecimateCheck",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\DecimateCheck",
+      "Bytes": 7871752,
+      "SHA256": "1CA2F73B8159629E940BF3CD7AA4EF1D581CE0591BF9C7F42932F47327D0B55B",
+      "Reason": "握位/减面/朝向的探索对比渲染；结论已固化进 fit_battle_axe.py 与最终预览",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/Viewmodel/*.png（最终视模预览）"
+    },
+    {
+      "Name": "inspect_edit_blend.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\inspect_edit_blend.py",
+      "Bytes": 1391,
+      "SHA256": "26BDCF68644791EB3293A94FBD8A6A17EE12795E8F86EDACE5716A40D0498437",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "preview_axes.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\preview_axes.py",
+      "Bytes": 3889,
+      "SHA256": "532C73B5AB48A2744D315FDC5C49D047C5601EDDB7C77E4834BF138FD7F48725",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "probe_grip_section.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\probe_grip_section.py",
+      "Bytes": 2299,
+      "SHA256": "47AD77A8DCB7699731F93643BE67B34B31CE01092B19522CFB7A8CA44EA2D861",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "probe_rig_facing.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\probe_rig_facing.py",
+      "Bytes": 896,
+      "SHA256": "CC16B164CBCF2D1ABCEEADC23C92B5E47886D4C8D4039DFB8F81433EB6FD91C6",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "render_axe_check.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\render_axe_check.py",
+      "Bytes": 2113,
+      "SHA256": "EA215ED97CA802A74A1AA8BBFDCFEA75ACEA25834F6A299BEE1630FAA2904E4D",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "render_grip_zoom.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\render_grip_zoom.py",
+      "Bytes": 3284,
+      "SHA256": "0CFA1A41F4C3FFB3E8FD336AA2C6F5D0E566D6817DB25E2C5B5619DF7172C41B",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "zoom_axe_ends.py",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\zoom_axe_ends.py",
+      "Bytes": 1933,
+      "SHA256": "DAECF4D6D49D47F686D3A971BF20300F8865D15494E7F86D7469F24481BDB6BC",
+      "Reason": "一次性探针/探索渲染脚本；结论已写入 Docs/Weapons/battle-axe-replacement-20260919.md",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/fit_battle_axe.py、rebuild_battle_axe_viewmodel.py"
+    },
+    {
+      "Name": "edit_blend_inspect.json",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\edit_blend_inspect.json",
+      "Bytes": 30506,
+      "SHA256": "E22DDCDC3FA6CB61D08F71773D1FE0AAEE44B09932E0DB285F6B824BB9069FC5",
+      "Reason": "探索期探针原始数据；已提炼进任务文档与最终回执",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/bone-compare.json、readback.json"
+    },
+    {
+      "Name": "measure.json",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\measure.json",
+      "Bytes": 11003,
+      "SHA256": "AE1DE351D0C1252EEAEF87146DBCBE15750F7D1019D2454F19DF0D422CA259F6",
+      "Reason": "探索期探针原始数据；已提炼进任务文档与最终回执",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/bone-compare.json、readback.json"
+    },
+    {
+      "Name": "probe.json",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\probe.json",
+      "Bytes": 10233,
+      "SHA256": "B7ABE1BC5E4916DE57FA78999CC86AE68CC8B90ED809A04AD9669506E5649663",
+      "Reason": "探索期探针原始数据；已提炼进任务文档与最终回执",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/bone-compare.json、readback.json"
+    },
+    {
+      "Name": "source_read.json",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\source_read.json",
+      "Bytes": 2858,
+      "SHA256": "CE57746F34ADEA4338186523611152E257CD944E83A3ACC50BEDDDF477F28ED9",
+      "Reason": "探索期探针原始数据；已提炼进任务文档与最终回执",
+      "Replacement": "SourceAssets/BattleAxeReplace20260919/bone-compare.json、readback.json"
+    },
+    {
+      "Name": "DefaultGame.ini",
+      "ArchivedTo": "trash\\battle-axe-exploration-20260919\\Before\\DefaultGame.ini.workspace-snapshot",
+      "Bytes": 8779,
+      "SHA256": "BCE79B076EE678BE7C2390A016CB33270BA20FDF6619C60417982D091FF0BBEA",
+      "Reason": "工作区快照，含其他并行会话未提交的 DirectoriesToAlwaysCook 行（M4TacticalSprint20260915 等）；提交会变相发布他人在途改动。本任务对 ini 的改动只有一行，已单独精确暂存。",
+      "Replacement": "Config/DefaultGame.ini 的已暂存单行改动（+BattleAxe20260919 cook 目录）"
+    }
+  ],
+  "RestoredAssets": [
+    {
+      "Asset": "Content/Items/ProductionTools/GripMotion20260913/A_Harvest_Axe_Idle.uasset",
+      "State": "replaced in place with the horizontal two-hand clip (3.0 s), then re-verified in a fresh process",
+      "Backup": "SourceAssets/KimodoAxeIdle20260919/Before/A_Harvest_Axe_Idle_vertical2H.uasset (vertical two-hand), SourceAssets/KimodoAxeIdle20260919/Before/A_Harvest_Axe_Idle.uasset (original single-hand)"
+    },
+    {
+      "Asset": "Content/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe.uasset",
+      "State": "re-imported with the battle-axe geometry; rig, arms and five clips preserved",
+      "Backup": "SourceAssets/BattleAxeReplace20260919/Before/GripMotion20260913/SK_Harvest_Axe.uasset"
+    },
+    {
+      "Asset": "Content/Items/ProductionTools/GripMotion20260913/SK_Harvest_Axe_Skeleton.uasset",
+      "State": "newly saved (was missing since the 2026-09-13 import; viewmodel and clips referenced it)",
+      "Backup": "n/a (asset did not exist before this task)"
+    },
+    {
+      "Asset": "Content/ColdSteelData/ProductionTools/axe.png",
+      "State": "new icon rendered from the installed model",
+      "Backup": "SourceAssets/BattleAxeReplace20260919/Before/ProductionTools_axe.png"
+    }
+  ]
+}
