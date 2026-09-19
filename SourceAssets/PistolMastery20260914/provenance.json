@@ -1,0 +1,16 @@
+{
+  "date": "2026-09-14",
+  "tool": "built-in image_gen",
+  "status": "integrated; not game-tested",
+  "skill": "pistolMastery",
+  "ruleSource": "E:/无尽轮回/长期备份/2026-7-13-1/game-dev/data/skills.json:skills.pistolMastery",
+  "ruleSnapshot": "game-dev-pistol-mastery.json",
+  "styleReference": "Content/ColdSteelData/Skills/rifle_mastery_cold_steel.png",
+  "sourceImage": "pistol_mastery_cold_steel.png",
+  "generatedSource": "C:/Users/allan/.codex/generated_images/01a0902e-4abe-7c50-a826-64f4c54c4f4f/exec-49a5bb24-f5d3-4dff-a8b5-6e9e66bbd259.png",
+  "runtime": "Content/ColdSteelData/Skills/pistol_mastery_cold_steel.png",
+  "prompt": "prompt.txt",
+  "operation": "unchanged copy of generated output",
+  "adaptation": "Preserves original dexterity, pistol damage, held-pistol movement and progression values. Critical training uses current UE head weakpoint policy. No extra weakpoint damage.",
+  "usage": "New AI-generated image referencing the user's accepted Cold Steel badge. No legacy pistol icon copied."
+}

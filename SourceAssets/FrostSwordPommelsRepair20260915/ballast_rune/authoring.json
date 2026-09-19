@@ -1,0 +1,64 @@
+{
+  "id": "ballast_rune",
+  "generator_master": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\textured_master_00001_.glb",
+  "uniform_scale": 0.07600292866275456,
+  "original_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordModules20260915\\FrostSword_Modular_Editable.blend",
+  "generated_import_bounds": [
+    [
+      -0.4603872001171112,
+      -0.4607373774051666,
+      -0.5019098520278931
+    ],
+    [
+      0.460629940032959,
+      0.46037134528160095,
+      0.5019956827163696
+    ]
+  ],
+  "body_size_m": [
+    0.07,
+    0.07000696054100336,
+    0.07629976074131266
+  ],
+  "stock_collar_end_m": -0.004,
+  "generated_body_cut_m": -0.014,
+  "pivot": "original grip-pommel interface; UE install [0,0,-22.7] cm",
+  "interface": "frost_hilt_v1",
+  "stock_ring_vertices": 103,
+  "body_ring_vertices": 110,
+  "triangles": 22370,
+  "material_triangles": {
+    "M_FrostCrystalSword": 2470,
+    "M_FrostPommel_Bronze": 19900,
+    "M_FrostPommel_Crystal": 0
+  },
+  "material_slots": [
+    "M_FrostCrystalSword",
+    "M_FrostPommel_Bronze",
+    "M_FrostPommel_Crystal"
+  ],
+  "source_textures": {
+    "base": "Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture.png",
+    "normal": "Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_normal.png",
+    "metallic": "Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_metallic.png",
+    "roughness": "Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_roughness.png"
+  },
+  "testing": "not run",
+  "rune_reconstruction": {
+    "source": "original three_views.png front panel",
+    "method": "fork branches and diamond traced as conforming silver inlay geometry, front and back",
+    "body_rotation_degrees": 20.499999999999996,
+    "geometry": "continuous on the generated lobed body; original mounting rim retained"
+  },
+  "final_triangles": 59298,
+  "final_material_faces": {
+    "M_FrostCrystalSword": 2470,
+    "M_FrostPommel_Bronze": 19900,
+    "M_FrostPommel_Crystal": 0,
+    "M_FrostPommel_InlayBorder": 18656,
+    "M_FrostPommel_SilverInlay": 18272
+  },
+  "collar_finish": "Original UV and normal at rim; smoothly blends into stock bronze patch across 2-4 mm below rim; vertex color PommelFinish",
+  "collapsed_uv_triangles_repaired": 0,
+  "sliver_tangent_faces_repaired": 9
+}

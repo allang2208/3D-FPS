@@ -1,0 +1,29 @@
+[
+  {
+    "id": "extended_edge",
+    "name": "延锋刃",
+    "prompt": "Create one polished realistic game equipment upgrade icon. Output a 1024x1024 PNG with true transparent alpha background. A single detached medieval two-handed sword BLADE ONLY, tip pointing left and the bare root/tang on the right, perfectly horizontal orthographic side view. No handle, guard, pommel, hands, second blade, frame, text, lettering, watermark, floor or ground shadow. Cold forged silver steel with restrained icy blue crystal inlay along the fuller, dark graphite bevel accents. Neutral studio lighting with readable metal edges. Entire silhouette centered, 82% canvas width, generous transparent margins. This is an illustrative menu icon for a numerical blade upgrade; not an in-game model render. Variant: extended edge, an unusually elongated slim straight double-edged blade, long taper toward a sharp point, graceful reach-focused silhouette. Fine blue crystal central seam. Both edges clean and straight, functional realistic forging.",
+    "tool": "image_gen.imagegen",
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0a2ad-38ba-7131-b23f-27ea922c506d\\exec-c93f309d-a817-4d76-9832-8f83805b7158.png",
+    "runtime": "Content/ColdSteelData/AttachmentIcons20260913/blade_1_extended_edge.png",
+    "purpose": "User-requested illustrative numeric upgrade icon; weapon models unchanged."
+  },
+  {
+    "id": "heavy_spine",
+    "name": "重脊刃",
+    "prompt": "Create one polished realistic game equipment upgrade icon. Output a 1024x1024 PNG with true transparent alpha background. A single detached medieval two-handed sword BLADE ONLY, tip pointing left and the bare root/tang on the right, perfectly horizontal orthographic side view. No handle, guard, pommel, hands, second blade, frame, text, lettering, watermark, floor or ground shadow. Cold forged silver steel with restrained icy blue crystal inlay along the fuller, dark graphite bevel accents. Neutral studio lighting with readable metal edges. Entire silhouette centered, 82% canvas width, generous transparent margins. This is an illustrative menu icon for a numerical blade upgrade; not an in-game model render. Variant: heavy spine, a broad powerful straight double-edged blade with a prominent thick reinforced central ridge and wide angular facets. Substantial steel mass with a stout sharp point, visually heavy and impact-focused. Restrained blue crystal seam in the thick spine.",
+    "tool": "image_gen.imagegen",
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0a2ad-38ba-7131-b23f-27ea922c506d\\exec-f27206dc-986c-4aac-95a2-7ce19dec8fb9.png",
+    "runtime": "Content/ColdSteelData/AttachmentIcons20260913/blade_1_heavy_spine.png",
+    "purpose": "User-requested illustrative numeric upgrade icon; weapon models unchanged."
+  },
+  {
+    "id": "feather_edge",
+    "name": "轻羽刃",
+    "prompt": "Create one polished realistic game equipment upgrade icon. Output a 1024x1024 PNG with true transparent alpha background. A single detached medieval two-handed sword BLADE ONLY, tip pointing left and the bare root/tang on the right, perfectly horizontal orthographic side view. No handle, guard, pommel, hands, second blade, frame, text, lettering, watermark, floor or ground shadow. Cold forged silver steel with restrained icy blue crystal inlay along the fuller, dark graphite bevel accents. Neutral studio lighting with readable metal edges. Entire silhouette centered, 82% canvas width, generous transparent margins. This is an illustrative menu icon for a numerical blade upgrade; not an in-game model render. Variant: feather edge, a slender lightweight straight double-edged blade with a deeply recessed long central fuller and fine thin bevels, delicate swift silhouette. A subtle blue crystal accent inside the fuller. Functional solid steel, no feathers or wings.",
+    "tool": "image_gen.imagegen",
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0a2ad-38ba-7131-b23f-27ea922c506d\\exec-b62cc69f-cf21-49c5-8c3a-7332f62bc558.png",
+    "runtime": "Content/ColdSteelData/AttachmentIcons20260913/blade_1_feather_edge.png",
+    "purpose": "User-requested illustrative numeric upgrade icon; weapon models unchanged."
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "assets": [
+    "/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomLiquid.M_VenomLiquid",
+    "/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomCore.M_VenomCore",
+    "/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomDroplet.M_VenomDroplet",
+    "/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomMist.M_VenomMist",
+    "/Game/Monsters/PoisonMaggot/VenomLiquid20260915/M_VenomWetFilm.M_VenomWetFilm"
+  ],
+  "source": "Original procedural HLSL; engine BasicShapes sphere and plane",
+  "presentation": "Turbid olive liquid shell and core, shrinking wet droplets, sparse lit mist, wet impact decal",
+  "gameplay": "Existing swept collision, timing, range, damage and poison unchanged",
+  "status": "Authored and compiled; no gameplay or visual testing"
+}

@@ -1,0 +1,14 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\M4\\PerformanceStock_Editable.blend",
+  "object": "SM_PerformanceStock",
+  "front": "left (-X)",
+  "buttpad": "right (+X)",
+  "camera": "orthographic level side, up +Z, looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "actual_model_render": true,
+  "runtime_tested": false
+}

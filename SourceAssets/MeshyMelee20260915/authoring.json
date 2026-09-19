@@ -1,0 +1,112 @@
+{
+  "name": "寒晶·双手剑",
+  "item_id": "ue_frost_crystal_sword",
+  "supplied_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Original\\Meshy_AI_帮我生成一把半_0914033835_texture_fbx\\Meshy_AI_帮我生成一把半_0914033835_texture.fbx",
+  "arms_and_combat_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WristOutsideInspectV34\\AzureRunesword_Manny_Editable.blend",
+  "locomotion_source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\WeightLeftV5\\AzureRunesword_Manny_Editable.blend",
+  "animation_fps": 480,
+  "grip_datum_original_z_m": -0.427,
+  "blade_scale": 0.5904132882448084,
+  "hilt_scale": 0.5393934795446079,
+  "grip_width_cm": 3.017817623913288,
+  "grip_depth_cm": 4.654083959758282,
+  "blade_tip_cm": 81.17273449897766,
+  "pommel_cm": -28.235143423080444,
+  "triangles": 65858,
+  "runtime_animations": "/Game/Weapons/AzureRunesword20260913",
+  "actions": {
+    "A_RuneSword_Equip": {
+      "frames": [
+        0.0,
+        576.0
+      ],
+      "duration": 1.2
+    },
+    "A_RuneSword_Guard": {
+      "frames": [
+        0.0,
+        96.0
+      ],
+      "duration": 0.2
+    },
+    "A_RuneSword_GuardBreak": {
+      "frames": [
+        0.0,
+        192.0
+      ],
+      "duration": 0.4
+    },
+    "A_RuneSword_GuardHit": {
+      "frames": [
+        0.0,
+        106.0
+      ],
+      "duration": 0.22083333333333333
+    },
+    "A_RuneSword_HeavyCharge": {
+      "frames": [
+        0.0,
+        960.0
+      ],
+      "duration": 2.0
+    },
+    "A_RuneSword_HeavyRelease": {
+      "frames": [
+        0.0,
+        480.0
+      ],
+      "duration": 1.0
+    },
+    "A_RuneSword_Idle": {
+      "frames": [
+        0.0,
+        1600.0
+      ],
+      "duration": 3.3333333333333335
+    },
+    "A_RuneSword_Inspect": {
+      "frames": [
+        0.0,
+        1728.0
+      ],
+      "duration": 3.6
+    },
+    "A_RuneSword_Slash1": {
+      "frames": [
+        0.0,
+        852.0
+      ],
+      "duration": 1.775
+    },
+    "A_RuneSword_Slash2": {
+      "frames": [
+        0.0,
+        852.0
+      ],
+      "duration": 1.775
+    },
+    "A_RuneSword_Sprint": {
+      "frames": [
+        0.0,
+        440.0
+      ],
+      "duration": 0.9166666666666666
+    },
+    "A_RuneSword_Thrust": {
+      "frames": [
+        0.0,
+        600.0
+      ],
+      "duration": 1.25
+    },
+    "A_RuneSword_Walk": {
+      "frames": [
+        0.0,
+        440.0
+      ],
+      "duration": 0.9166666666666666
+    }
+  },
+  "scope": "Mesh/hilt fit only; existing action curves, Manny rest, weights and combat timing retained.",
+  "testing": "Not run; user will test."
+}

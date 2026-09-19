@@ -1,0 +1,20 @@
+{
+  "attachment_id": "core_stock",
+  "display_name": "镂空轻型枪托",
+  "source": "Meshy_AI_Rifle_Stock_0914005605_image-to-3d-texture_fbx.zip",
+  "stats_changed": true,
+  "current_stats": {"recoil_mult": 0.9, "stability_mult": 1.05},
+  "ads_modifier_removed": true,
+  "source_references_updated": true,
+  "low_body_triangles": 80000,
+  "import_status": "Succeeded",
+  "import_exit_code": 0,
+  "import_errors": 0,
+  "import_warnings": 0,
+  "build_status": "Succeeded",
+  "build_exit_code": 0,
+  "build_result_detail": "Target is up to date",
+  "build_log": "build_editor.log",
+  "runtime_tested": false,
+  "preview_rendered": false
+}

@@ -1,0 +1,32 @@
+{
+  "id": "bastion_guard",
+  "generated_master": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\textured_master_00001_.glb",
+  "original_reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\FrostCrystalSword_Manny_Editable.blend",
+  "source_triangles": 463203,
+  "guard_triangles": 1744,
+  "guard_high_triangles": 4344,
+  "mount_half_width_cm": 6,
+  "processing": "5080 surface projection -> local contour retopology and bevels -> original-interface root sleeves",
+  "root_overlap_mm": 3,
+  "original_central_geometry_preserved": true,
+  "blade_grip_body_triangles": 63384,
+  "guard_bounds_cm": {
+    "min": [
+      -14.699999809265137,
+      -1.3425697088241577,
+      -0.7909347414970398
+    ],
+    "max": [
+      14.699999809265137,
+      1.2575182914733887,
+      3.2482128143310547
+    ]
+  },
+  "material_sample_uv": [
+    0.7686589956283569,
+    0.4024629592895508
+  ],
+  "material": "UV1 stock bronze surface transfer; UV0 baked normal and AO with matching export tangents",
+  "render_scope": "existing guard reference requested by user and actual-model inventory icon authoring only",
+  "gameplay_testing": "Not run"
+}

@@ -1,0 +1,79 @@
+{
+  "assets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/bastion_guard/T_Guard_bastion_guard_normal.T_Guard_bastion_guard_normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\ao.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/bastion_guard/T_Guard_bastion_guard_ao.T_Guard_bastion_guard_ao"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\guard_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_guard_bastion_guard.ue_frost_crystal_sword_guard_bastion_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\riposte_guard\\normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/riposte_guard/T_Guard_riposte_guard_normal.T_Guard_riposte_guard_normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\riposte_guard\\ao.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/riposte_guard/T_Guard_riposte_guard_ao.T_Guard_riposte_guard_ao"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\riposte_guard\\guard_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_guard_riposte_guard.ue_frost_crystal_sword_guard_riposte_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\light_guard\\normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/light_guard/T_Guard_light_guard_normal.T_Guard_light_guard_normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\light_guard\\ao.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/light_guard/T_Guard_light_guard_ao.T_Guard_light_guard_ao"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\light_guard\\guard_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_guard_light_guard.ue_frost_crystal_sword_guard_light_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\SM_Guard_bastion_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/bastion_guard/SM_Guard_bastion_guard.SM_Guard_bastion_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\SM_FrostCrystalSword_bastion_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/bastion_guard/SM_FrostCrystalSword_bastion_guard.SM_FrostCrystalSword_bastion_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\bastion_guard\\SK_FrostCrystalSword_bastion_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/bastion_guard/SK_FrostCrystalSword_bastion_guard.SK_FrostCrystalSword_bastion_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\riposte_guard\\SM_Guard_riposte_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/riposte_guard/SM_Guard_riposte_guard.SM_Guard_riposte_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\riposte_guard\\SM_FrostCrystalSword_riposte_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/riposte_guard/SM_FrostCrystalSword_riposte_guard.SM_FrostCrystalSword_riposte_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\riposte_guard\\SK_FrostCrystalSword_riposte_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/riposte_guard/SK_FrostCrystalSword_riposte_guard.SK_FrostCrystalSword_riposte_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\light_guard\\SM_Guard_light_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/light_guard/SM_Guard_light_guard.SM_Guard_light_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\light_guard\\SM_FrostCrystalSword_light_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/light_guard/SM_FrostCrystalSword_light_guard.SM_FrostCrystalSword_light_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeleeGuards20260915\\light_guard\\SK_FrostCrystalSword_light_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/light_guard/SK_FrostCrystalSword_light_guard.SK_FrostCrystalSword_light_guard"
+    }
+  ],
+  "material": "/Game/Weapons/FrostCrystalSword20260915/Guards20260915/M_FrostGuard_Bronze.M_FrostGuard_Bronze",
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "testing": "Not run"
+}

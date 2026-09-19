@@ -1,0 +1,26 @@
+{
+  "animation_repository": "Mesh2Motion/mesh2motion-app",
+  "commit": "2d3d1ff03247d9e7e830d1ae375653da4e2146e2",
+  "animation_license": "CC0-1.0",
+  "downloads": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Mutant3Meshy20260915\\sources\\human-base-animations.glb",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/static/animations/human-base-animations.glb",
+      "sha256": "406eb0a8dc4ab366e623b79b6e3005a4951392e1bda78ae39c1099d31147733c"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Mutant3Meshy20260915\\sources\\human-addon-animations.glb",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/static/animations/human-addon-animations.glb",
+      "sha256": "a0d64d555e0d492026b72d58bf8e16c5e86779295f9093e376dcc001915c2c95"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Mutant3Meshy20260915\\sources\\LICENSE-CC0.MD",
+      "url": "https://raw.githubusercontent.com/Mesh2Motion/mesh2motion-app/2d3d1ff03247d9e7e830d1ae375653da4e2146e2/LICENSE-CC0.MD",
+      "sha256": "52fec1c484df708c16b4c27b2bf0d7f0d3994105c57adc4b9e6f95bcfd9de65f"
+    }
+  ],
+  "user_model": "D:\\FPS3D\\资产\\Meshy_AI_The_Forsaken_Brute_biped.zip",
+  "user_model_sha256": "51f8c09af091e859227866b3c8a16553f29219261aac94418073d3e31a48cfe4",
+  "user_model_license": "User-provided Meshy creation; separate from CC0 animations",
+  "scope": "Model and animation adaptation, UE integration, combat and spawn menu; no gameplay or visual acceptance testing."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "riposte_guard",
+  "method": "Welded C1 tangent transition from original cut boundary; no sleeves or overlapping caps",
+  "sides": {
+    "-1": {
+      "boundary_samples": 84,
+      "loft_rows": 16,
+      "span_mm": [
+        58.15452337265015,
+        83.0
+      ],
+      "end_thickness_mm": 20.0
+    },
+    "1": {
+      "boundary_samples": 76,
+      "loft_rows": 16,
+      "span_mm": [
+        57.39998072385788,
+        83.0
+      ],
+      "end_thickness_mm": 20.0
+    }
+  },
+  "open_edges_in_transition": 0
+}

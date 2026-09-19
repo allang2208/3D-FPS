@@ -1,0 +1,382 @@
+{
+  "version": 1,
+  "source_listing": "https://www.fab.com/listings/2dd7964c-a601-4264-a53d-465dcae1644c",
+  "stage": "UE animation template authoring; not gameplay integration",
+  "runtime_tested": false,
+  "rendered_or_visually_accepted": false,
+  "source_keys_reauthored": false,
+  "entry": "/Game/Monsters/QuadrupedTemplates/WolfV1/BP_QP_Wolf_Template",
+  "native_anim_instance": "/Script/FPSGAME.QuadrupedTemplateAnimInstance",
+  "actions": [
+    {
+      "id": "Idle",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_IdleBreathe",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Idle",
+      "source_seconds": 2.0,
+      "source_frame_intervals": 60,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "IdleAlert",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_IdleAggressive",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_IdleAlert",
+      "source_seconds": 2.0,
+      "source_frame_intervals": 60,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "LookAround",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_IdleLookAround",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_LookAround",
+      "source_seconds": 10.0,
+      "source_frame_intervals": 300,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "Walk",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Walk",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Walk",
+      "source_seconds": 1.0,
+      "source_frame_intervals": 30,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Walk_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "WalkTurnLeft",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnL",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_WalkTurnLeft",
+      "source_seconds": 1.0,
+      "source_frame_intervals": 30,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnL_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "WalkTurnRight",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnR",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_WalkTurnRight",
+      "source_seconds": 1.0,
+      "source_frame_intervals": 30,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnR_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "Run",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Run",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Run",
+      "source_seconds": 0.5333333611488342,
+      "source_frame_intervals": 16,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Run_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "RunTurnLeft",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnL",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RunTurnLeft",
+      "source_seconds": 0.5333333611488342,
+      "source_frame_intervals": 16,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnL_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "RunTurnRight",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnR",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RunTurnRight",
+      "source_seconds": 0.5333333611488342,
+      "source_frame_intervals": 16,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnR_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "AttackBite",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Bite",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_AttackBite",
+      "source_seconds": 0.6666666865348816,
+      "source_frame_intervals": 20,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "AttackRunBite",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunBite",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_AttackRunBite",
+      "source_seconds": 0.5333333611488342,
+      "source_frame_intervals": 16,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunBite_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "AttackPounce",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_JumpBite",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_AttackPounce",
+      "source_seconds": 0.8333333134651184,
+      "source_frame_intervals": 25,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_JumpBite_RM",
+      "created_this_run": true
+    },
+    {
+      "id": "HitFront",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GetHitFront",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_HitFront",
+      "source_seconds": 0.6666666865348816,
+      "source_frame_intervals": 20,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "HitLeft",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GetHitLeft",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_HitLeft",
+      "source_seconds": 0.6666666865348816,
+      "source_frame_intervals": 20,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "HitRight",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GetHitRight",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_HitRight",
+      "source_seconds": 0.6666666865348816,
+      "source_frame_intervals": 20,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "Howl",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Howl",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Howl",
+      "source_seconds": 2.8333332538604736,
+      "source_frame_intervals": 85,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "RestEnter",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GoToRest",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RestEnter",
+      "source_seconds": 1.0,
+      "source_frame_intervals": 30,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": "RestLoop",
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "RestLoop",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Rest",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RestLoop",
+      "source_seconds": 2.0,
+      "source_frame_intervals": 60,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "RestExit",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RestToGoBackUp",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_RestExit",
+      "source_seconds": 1.5,
+      "source_frame_intervals": 45,
+      "loop_default": false,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "SleepLoop",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Sleep",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_SleepLoop",
+      "source_seconds": 2.0,
+      "source_frame_intervals": 60,
+      "loop_default": true,
+      "hold_default": false,
+      "terminal_default": false,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    },
+    {
+      "id": "Death",
+      "source": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Death",
+      "template": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_Death",
+      "source_seconds": 2.066666603088379,
+      "source_frame_intervals": 62,
+      "loop_default": false,
+      "hold_default": true,
+      "terminal_default": true,
+      "next_default": null,
+      "contact_seconds": null,
+      "source_rm_alternative": null,
+      "created_this_run": true
+    }
+  ],
+  "ik_chains": {
+    "MotionRoot": [
+      "root",
+      "root"
+    ],
+    "BodyRoot": [
+      "Wolf_",
+      "Wolf_-Pelvis"
+    ],
+    "Spine": [
+      "Wolf_-Spine",
+      "Wolf_-Spine1"
+    ],
+    "Neck": [
+      "Wolf_-Neck",
+      "Wolf_-Neck2"
+    ],
+    "Head": [
+      "Wolf_-Head",
+      "Wolf_-Head"
+    ],
+    "HeadAccessory": [
+      "Wolf_-Ponytail1",
+      "Wolf_-Ponytail1"
+    ],
+    "Shoulder_L": [
+      "Wolf_-L-Clavicle",
+      "Wolf_-L-Clavicle"
+    ],
+    "Shoulder_R": [
+      "Wolf_-R-Clavicle",
+      "Wolf_-R-Clavicle"
+    ],
+    "ForeLeg_L": [
+      "Wolf_-L-UpperArm",
+      "Wolf_-L-Hand"
+    ],
+    "ForeLeg_R": [
+      "Wolf_-R-UpperArm",
+      "Wolf_-R-Hand"
+    ],
+    "ForeToe_L": [
+      "Wolf_-L-Finger0",
+      "Wolf_-L-Finger0"
+    ],
+    "ForeToe_R": [
+      "Wolf_-R-Finger0",
+      "Wolf_-R-Finger0"
+    ],
+    "HindLeg_L": [
+      "Wolf_-L-Thigh",
+      "Wolf_-L-Foot"
+    ],
+    "HindLeg_R": [
+      "Wolf_-R-Thigh",
+      "Wolf_-R-Foot"
+    ],
+    "Tail": [
+      "Wolf_-Tail",
+      "Wolf_-Tail5"
+    ]
+  },
+  "unclassified_bone": "Wolf_-Ponytail1",
+  "movement": "in_place_external_movement",
+  "nominal_speeds": {
+    "walk_cm_s": 140,
+    "run_cm_s": 450,
+    "basis": "editable initial design values; not measured source travel"
+  },
+  "runtime_damage": "none; contact fields remain -1 until authored from observed motion",
+  "policy": "create missing assets only; preserve existing template edits",
+  "animation_set": "/Game/Monsters/QuadrupedTemplates/WolfV1/DA_QP_Wolf_AnimationSet.DA_QP_Wolf_AnimationSet",
+  "animation_set_created_this_run": true,
+  "source_ik_rig": "/Game/Monsters/QuadrupedTemplates/WolfV1/Rig/IK_QP_Wolf_Source.IK_QP_Wolf_Source",
+  "rig_created_this_run": true,
+  "blueprint_created_this_run": true
+}

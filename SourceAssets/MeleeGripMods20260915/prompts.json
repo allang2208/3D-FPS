@@ -1,0 +1,29 @@
+[
+  {
+    "id": "shock_wrap",
+    "name": "吸震缠柄",
+    "prompt": "Generate one realistic game equipment upgrade icon as a 1024x1024 PNG with true transparent alpha background. Show exactly ONE detached two-handed medieval sword GRIP ONLY, no blade, no crossguard and no pommel. Lay the grip horizontally, blade-facing end on the left, pommel-facing end on the right, level orthographic side view. Center it with generous transparent margins, about 80% of image width. Natural worn leather, finely worked dark steel narrow end collars, restrained cool silver highlights, neutral studio product lighting. Realistic physically plausible construction and readable shape. No hands, lettering, labels, text, numbers, symbols, border, floor, cast shadow, glow, background panel, duplicate objects or loose parts. This is an illustrative 2D numerical-upgrade menu icon, not a new game model. A substantial cushioned sword grip with thick dark brown layered padded leather wrap, soft rounded ergonomic central swell, closely spaced spiral bindings, convincing shock-absorbing leather padding, tiny dull bronze stitching details.",
+    "tool": "image_gen.imagegen",
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0a2ad-38ba-7131-b23f-27ea922c506d\\exec-f07d60d7-f59a-4bd3-83f5-4d8d57a10b60.png",
+    "runtime": "Content/ColdSteelData/AttachmentIcons20260913/grip_shock_wrap.png",
+    "purpose": "User-requested numerical sword grip upgrade illustration; weapon model unchanged."
+  },
+  {
+    "id": "swift_grip",
+    "name": "速握轻柄",
+    "prompt": "Generate one realistic game equipment upgrade icon as a 1024x1024 PNG with true transparent alpha background. Show exactly ONE detached two-handed medieval sword GRIP ONLY, no blade, no crossguard and no pommel. Lay the grip horizontally, blade-facing end on the left, pommel-facing end on the right, level orthographic side view. Center it with generous transparent margins, about 80% of image width. Natural worn leather, finely worked dark steel narrow end collars, restrained cool silver highlights, neutral studio product lighting. Realistic physically plausible construction and readable shape. No hands, lettering, labels, text, numbers, symbols, border, floor, cast shadow, glow, background panel, duplicate objects or loose parts. This is an illustrative 2D numerical-upgrade menu icon, not a new game model. A slim lightweight sword grip with a lean straight profile, fitted charcoal leather in fine diagonal diamond cross-wrap, shallow narrow finger indexing at the front, thin silver steel end collars. Compact minimal material and agile handling.",
+    "tool": "image_gen.imagegen",
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0a2ad-38ba-7131-b23f-27ea922c506d\\exec-4668b154-2b17-4e24-a09e-09498c180bd6.png",
+    "runtime": "Content/ColdSteelData/AttachmentIcons20260913/grip_swift_grip.png",
+    "purpose": "User-requested numerical sword grip upgrade illustration; weapon model unchanged."
+  },
+  {
+    "id": "long_twohand",
+    "name": "长柄双手",
+    "prompt": "Generate one realistic game equipment upgrade icon as a 1024x1024 PNG with true transparent alpha background. Show exactly ONE detached two-handed medieval sword GRIP ONLY, no blade, no crossguard and no pommel. Lay the grip horizontally, blade-facing end on the left, pommel-facing end on the right, level orthographic side view. Center it with generous transparent margins, about 80% of image width. Natural worn leather, finely worked dark steel narrow end collars, restrained cool silver highlights, neutral studio product lighting. Realistic physically plausible construction and readable shape. No hands, lettering, labels, text, numbers, symbols, border, floor, cast shadow, glow, background panel, duplicate objects or loose parts. This is an illustrative 2D numerical-upgrade menu icon, not a new game model. An extra-long two-hand sword grip with two clearly differentiated hand contact zones, dark brown herringbone leather wrap and a narrow central steel separator ring. Long slender slightly tapering shaft, restrained cool-blue enamel details on the end collars. Strong functional long leverage handle.",
+    "tool": "image_gen.imagegen",
+    "source": "C:\\Users\\allan\\.codex\\generated_images\\01a0a2ad-38ba-7131-b23f-27ea922c506d\\exec-26ab3d24-9bb8-45d3-aa66-f333f11ce245.png",
+    "runtime": "Content/ColdSteelData/AttachmentIcons20260913/grip_long_twohand.png",
+    "purpose": "User-requested numerical sword grip upgrade illustration; weapon model unchanged."
+  }
+]

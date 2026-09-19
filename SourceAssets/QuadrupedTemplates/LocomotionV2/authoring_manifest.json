@@ -1,0 +1,31 @@
+{
+  "version": 2,
+  "runtime_tested": false,
+  "post_change_rendered": false,
+  "reference": "D:\\FPS3D\\FPSGAME\\SourceAssets\\QuadrupedTemplates\\LocomotionV2\\source_reference.json",
+  "source_animation_keys_modified": false,
+  "sets": [
+    {
+      "path": "/Game/Monsters/QuadrupedTemplates/WolfV1/DA_QP_Wolf_AnimationSet",
+      "authored_this_run": true,
+      "settings": {
+        "run_blend_start_ratio": 0.3499999940395355,
+        "run_blend_full_ratio": 0.6499999761581421,
+        "full_turn_yaw_rate": 120.0
+      },
+      "walk_source_speed_cm_s": 140.0,
+      "run_source_speed_cm_s": 450.0
+    },
+    {
+      "path": "/Game/Monsters/Wolf/DA_Wolf_AnimationSet",
+      "authored_this_run": true,
+      "settings": {
+        "run_blend_start_ratio": 0.3499999940395355,
+        "run_blend_full_ratio": 0.6499999761581421,
+        "full_turn_yaw_rate": 120.0
+      },
+      "walk_source_speed_cm_s": 92.69999694824219,
+      "run_source_speed_cm_s": 444.5586242675781
+    }
+  ]
+}

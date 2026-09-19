@@ -1,0 +1,178 @@
+{
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "asset": {
+    "version": "2.0",
+    "generator": "https://github.com/mikedh/trimesh"
+  },
+  "accessors": [
+    {
+      "componentType": 5125,
+      "type": "SCALAR",
+      "bufferView": 0,
+      "count": 1384251,
+      "max": [
+        296138
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "componentType": 5126,
+      "type": "VEC3",
+      "byteOffset": 0,
+      "bufferView": 1,
+      "count": 296139,
+      "max": [
+        0.4596574604511261,
+        0.5010281801223755,
+        0.45971545577049255
+      ],
+      "min": [
+        -0.4593631625175476,
+        -0.5009448528289795,
+        -0.4593793451786041
+      ]
+    },
+    {
+      "componentType": 5126,
+      "type": "VEC2",
+      "byteOffset": 0,
+      "bufferView": 4,
+      "count": 296139,
+      "max": [
+        0.999622642993927,
+        0.999622642993927
+      ],
+      "min": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "componentType": 5126,
+      "count": 296139,
+      "type": "VEC3",
+      "byteOffset": 0,
+      "bufferView": 5,
+      "max": [
+        0.9999946355819702,
+        1.0,
+        0.9999998807907104
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.9999995231628418
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "geometry_0",
+      "extras": {},
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 1,
+            "TEXCOORD_0": 2,
+            "NORMAL": 3
+          },
+          "indices": 0,
+          "mode": 4,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "bufferView": 2,
+      "mimeType": "image/png"
+    },
+    {
+      "bufferView": 3,
+      "mimeType": "image/png"
+    }
+  ],
+  "textures": [
+    {
+      "source": 0
+    },
+    {
+      "source": 1
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "roughnessFactor": 1.0,
+        "metallicFactor": 1.0,
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "nodes": [
+    {
+      "name": "geometry_0",
+      "mesh": 0
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 16338716
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 5537004
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 5537004,
+      "byteLength": 3553668
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 9090672,
+      "byteLength": 988372
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10079044,
+      "byteLength": 336892
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10415936,
+      "byteLength": 2369112
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 12785048,
+      "byteLength": 3553668
+    }
+  ]
+}

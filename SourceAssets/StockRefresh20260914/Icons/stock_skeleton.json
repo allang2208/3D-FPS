@@ -1,0 +1,14 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\DetailRefine\\m4\\Stock_Refined_Editable.blend",
+  "object": "SM_SkeletonStock",
+  "front": "left (-X)",
+  "buttpad": "right (+X)",
+  "camera": "orthographic level side, up +Z, looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "actual_model_render": true,
+  "runtime_tested": false
+}

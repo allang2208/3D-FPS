@@ -1,0 +1,94 @@
+{
+  "mesh_skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "clip_skeleton": "/Game/Weapons/QBZ191/Calibrated/SK_QBZ191_Manny_Skeleton.SK_QBZ191_Manny_Skeleton",
+  "samples": {
+    "True<AnimDataEvalType.RAW: 1>0.0": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.043619, y: -0.000001, z: 0.999048, w: 0.000001}, translation: {x: 5.768760, y: -14.374751, z: -9.835332}, scale3d: {x: 100.000000, y: 99.999976, z: 99.999988}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.741804, y: -0.571536, z: 0.217977, w: -0.274882}, translation: {x: 1.043512, y: -28.859742, z: -8.639370}, scale3d: {x: 99.999803, y: 100.000018, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.009648, y: 0.598459, z: -0.608875, w: -0.520600}, translation: {x: 47.768352, y: -15.035593, z: -58.108476}, scale3d: {x: 99.999398, y: 99.999976, z: 99.999964}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.043619, y: 0.000000, z: -0.999048, w: -0.000000}, translation: {x: 5.172231, y: -70.574741, z: -4.165810}, scale3d: {x: 100.000000, y: 99.999976, z: 99.999988}}>"
+    },
+    "True<AnimDataEvalType.RAW: 1>0.15": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.065592, y: 0.482900, z: -0.703000, w: -0.517974}, translation: {x: 47.491087, y: -16.950656, z: -60.650107}, scale3d: {x: 100.000024, y: 100.000030, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.761266, y: 0.550773, z: -0.113780, w: 0.322765}, translation: {x: -15.240426, y: -8.308305, z: -25.566346}, scale3d: {x: 99.999803, y: 100.000018, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.148544, y: -0.001596, z: 0.680454, w: 0.717576}, translation: {x: 27.313417, y: -27.636098, z: -42.386407}, scale3d: {x: 100.000870, y: 99.999470, z: 99.999982}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.065592, y: -0.482899, z: 0.703001, w: 0.517973}, translation: {x: 0.630771, y: -20.974198, z: -91.936902}, scale3d: {x: 100.000024, y: 100.000030, z: 100.000024}}>"
+    },
+    "True<AnimDataEvalType.RAW: 1>0.3": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.211628, y: 0.096490, z: -0.867500, w: -0.439714}, translation: {x: 49.044079, y: -20.794520, z: -66.978913}, scale3d: {x: 100.000024, y: 100.000030, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.769759, y: 0.525090, z: -0.017215, w: 0.362566}, translation: {x: -25.999984, y: 9.999980, z: -35.999938}, scale3d: {x: 99.999803, y: 100.000018, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.492639, y: 0.242527, z: 0.606724, w: 0.574781}, translation: {x: 35.091107, y: -34.673148, z: -43.497522}, scale3d: {x: 100.000870, y: 99.999470, z: 99.999982}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.211628, y: -0.096489, z: 0.867500, w: 0.439713}, translation: {x: 5.430585, y: -56.158597, z: -60.799355}, scale3d: {x: 100.000024, y: 100.000030, z: 100.000024}}>"
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>0.0": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.042594, y: -0.000030, z: -0.999092, w: -0.000393}, translation: {x: 5.767688, y: -14.391866, z: -9.811261}, scale3d: {x: 100.000006, y: 100.000036, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.741804, y: 0.571536, z: -0.217977, w: 0.274882}, translation: {x: 1.043489, y: -28.859755, z: -8.639413}, scale3d: {x: 99.999911, y: 99.999917, z: 99.999940}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.017028, y: -0.089613, z: 0.673411, w: 0.733619}, translation: {x: 9.703776, y: -8.614252, z: -12.134872}, scale3d: {x: 100.000089, y: 100.000417, z: 99.999887}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.042594, y: 0.000030, z: 0.999092, w: 0.000393}, translation: {x: 5.138612, y: -70.591262, z: -4.138972}, scale3d: {x: 100.000000, y: 100.000024, z: 100.000018}}>"
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>0.15": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.067404, y: -0.156422, z: -0.985347, w: 0.008967}, translation: {x: 8.361727, y: -15.904733, z: -8.722603}, scale3d: {x: 100.000006, y: 100.000036, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.761266, y: 0.550773, z: -0.113780, w: 0.322765}, translation: {x: -15.240472, y: -8.308299, z: -25.566401}, scale3d: {x: 99.999911, y: 99.999917, z: 99.999940}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.148545, y: -0.001597, z: 0.680453, w: 0.717576}, translation: {x: 12.425738, y: -11.077218, z: -12.523786}, scale3d: {x: 100.000155, y: 99.999923, z: 99.999487}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.067404, y: 0.156423, z: 0.985347, w: -0.008968}, translation: {x: 7.297522, y: -67.599203, z: 14.025849}, scale3d: {x: 100.000000, y: 100.000024, z: 100.000018}}>"
+    },
+    "True<AnimDataEvalType.COMPRESSED: 2>0.3": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.126921, y: -0.568370, z: -0.812227, w: 0.033677}, translation: {x: 15.446999, y: -18.463418, z: -8.020549}, scale3d: {x: 100.000006, y: 100.000036, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.769760, y: 0.525091, z: -0.017215, w: 0.362566}, translation: {x: -26.000040, y: 10.000003, z: -35.999977}, scale3d: {x: 99.999911, y: 99.999917, z: 99.999940}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.492640, y: 0.242526, z: 0.606723, w: 0.574782}, translation: {x: 20.203401, y: -18.114353, z: -13.634876}, scale3d: {x: 100.000155, y: 99.999923, z: 99.999487}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.126921, y: 0.568370, z: 0.812227, w: -0.033677}, translation: {x: 8.923171, y: -33.031664, z: 46.165703}, scale3d: {x: 100.000000, y: 100.000024, z: 100.000018}}>"
+    },
+    "False<AnimDataEvalType.RAW: 1>0.0": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.042594, y: 0.000030, z: 0.999092, w: 0.000393}, translation: {x: 5.767688, y: -14.391866, z: -9.811261}, scale3d: {x: 100.000006, y: 100.000036, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.741804, y: -0.571536, z: 0.217977, w: -0.274882}, translation: {x: 1.043503, y: -28.859733, z: -8.639383}, scale3d: {x: 99.999797, y: 100.000024, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.017027, y: 0.089613, z: -0.673411, w: -0.733619}, translation: {x: 9.703771, y: -8.614252, z: -12.134879}, scale3d: {x: 100.000089, y: 100.000417, z: 99.999887}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.042594, y: -0.000030, z: -0.999092, w: -0.000393}, translation: {x: 5.138612, y: -70.591262, z: -4.138972}, scale3d: {x: 100.000000, y: 100.000024, z: 100.000018}}>"
+    },
+    "False<AnimDataEvalType.RAW: 1>0.15": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.067404, y: -0.156422, z: -0.985347, w: 0.008967}, translation: {x: 8.361727, y: -15.904733, z: -8.722603}, scale3d: {x: 100.000006, y: 100.000048, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.761266, y: 0.550773, z: -0.113780, w: 0.322765}, translation: {x: -15.240431, y: -8.308300, z: -25.566365}, scale3d: {x: 99.999797, y: 100.000024, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.148545, y: -0.001597, z: 0.680453, w: 0.717576}, translation: {x: 12.425920, y: -11.077481, z: -12.523946}, scale3d: {x: 100.000894, y: 99.999481, z: 99.999964}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.067404, y: 0.156423, z: 0.985347, w: -0.008968}, translation: {x: 7.297522, y: -67.599208, z: 14.025851}, scale3d: {x: 100.000000, y: 100.000036, z: 100.000018}}>"
+    },
+    "False<AnimDataEvalType.RAW: 1>0.3": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.126921, y: -0.568370, z: -0.812227, w: 0.033677}, translation: {x: 15.446999, y: -18.463418, z: -8.020549}, scale3d: {x: 100.000006, y: 100.000048, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.769759, y: 0.525090, z: -0.017216, w: 0.362566}, translation: {x: -25.999985, y: 9.999982, z: -35.999962}, scale3d: {x: 99.999797, y: 100.000024, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.492640, y: 0.242526, z: 0.606723, w: 0.574782}, translation: {x: 20.203607, y: -18.114541, z: -13.635037}, scale3d: {x: 100.000894, y: 99.999481, z: 99.999964}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.126921, y: 0.568370, z: 0.812227, w: -0.033677}, translation: {x: 8.923172, y: -33.031657, z: 46.165700}, scale3d: {x: 100.000000, y: 100.000036, z: 100.000018}}>"
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>0.0": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.042594, y: 0.000030, z: 0.999092, w: 0.000393}, translation: {x: 5.767688, y: -14.391866, z: -9.811261}, scale3d: {x: 100.000006, y: 100.000036, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.741804, y: -0.571536, z: 0.217977, w: -0.274882}, translation: {x: 1.043503, y: -28.859733, z: -8.639383}, scale3d: {x: 99.999797, y: 100.000024, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.017027, y: 0.089613, z: -0.673411, w: -0.733619}, translation: {x: 9.703771, y: -8.614252, z: -12.134879}, scale3d: {x: 100.000089, y: 100.000417, z: 99.999887}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.042594, y: -0.000030, z: -0.999092, w: -0.000393}, translation: {x: 5.138612, y: -70.591262, z: -4.138972}, scale3d: {x: 100.000000, y: 100.000024, z: 100.000018}}>"
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>0.15": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.067404, y: -0.156422, z: -0.985347, w: 0.008967}, translation: {x: 8.361727, y: -15.904733, z: -8.722603}, scale3d: {x: 100.000006, y: 100.000048, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.761266, y: 0.550773, z: -0.113780, w: 0.322765}, translation: {x: -15.240431, y: -8.308300, z: -25.566365}, scale3d: {x: 99.999797, y: 100.000024, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.148545, y: -0.001597, z: 0.680453, w: 0.717576}, translation: {x: 12.425920, y: -11.077481, z: -12.523946}, scale3d: {x: 100.000894, y: 99.999481, z: 99.999964}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.067404, y: 0.156423, z: 0.985347, w: -0.008968}, translation: {x: 7.297522, y: -67.599208, z: 14.025851}, scale3d: {x: 100.000000, y: 100.000036, z: 100.000018}}>"
+    },
+    "False<AnimDataEvalType.COMPRESSED: 2>0.3": {
+      "root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.000000, y: -0.000000, z: -1.000000, w: -0.000000}, translation: {x: 0.000051, y: 0.663122, z: -162.575054}, scale3d: {x: 100.000000, y: 100.000000, z: 100.000000}}>",
+      "WPN_root": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: 0.126921, y: -0.568370, z: -0.812227, w: 0.033677}, translation: {x: 15.446999, y: -18.463418, z: -8.020549}, scale3d: {x: 100.000006, y: 100.000048, z: 100.000024}}>",
+      "hand_l": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.769759, y: 0.525090, z: -0.017216, w: 0.362566}, translation: {x: -25.999985, y: 9.999982, z: -35.999962}, scale3d: {x: 99.999797, y: 100.000024, z: 99.999952}}>",
+      "hand_r": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.492640, y: 0.242526, z: 0.606723, w: 0.574782}, translation: {x: 20.203607, y: -18.114541, z: -13.635037}, scale3d: {x: 100.000894, y: 99.999481, z: 99.999964}}>",
+      "WPN_SOCKET_Muzzle": "<Struct 'Transform' (0x000001D42ECBD410) {rotation: {x: -0.126921, y: 0.568370, z: 0.812227, w: -0.033677}, translation: {x: 8.923172, y: -33.031657, z: 46.165700}, scale3d: {x: 100.000000, y: 100.000036, z: 100.000018}}>"
+    }
+  },
+  "compression": "/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel",
+  "codecs": [
+    "<Object '/Game/Weapons/M4InfimaRigV4/BC_M4Viewmodel.BC_M4Viewmodel:AnimBoneCompressionCodec_ACL_0' (0x000001D3DA4CBE00) Class 'AnimBoneCompressionCodec_ACL'>"
+  ]
+}

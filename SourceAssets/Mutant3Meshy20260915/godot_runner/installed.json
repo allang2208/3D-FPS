@@ -1,0 +1,33 @@
+{
+  "project": "D:\\FPS3D\\FPSGAME",
+  "assets": {
+    "Running": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Running.A_Mutant3_Running",
+      "source": "running_58f (Godot runner Walk alias)",
+      "origin": "Denys Almaral, CC BY 4.0; existing Godot adaptation",
+      "fps": 120,
+      "frames": [
+        0,
+        225
+      ],
+      "seconds": 1.875,
+      "loop": true,
+      "runtime_reference_speed_cms": 240
+    },
+    "RunFast": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_RunFast.A_Mutant3_RunFast",
+      "source": "running_58f (Godot runner Walk alias)",
+      "origin": "Denys Almaral, CC BY 4.0; existing Godot adaptation",
+      "fps": 120,
+      "frames": [
+        0,
+        150
+      ],
+      "seconds": 1.25,
+      "loop": true,
+      "runtime_reference_speed_cms": 360
+    }
+  },
+  "runtime_tested": false,
+  "changes": "Only Running and RunFast replaced. Mesh, skin, Hit_Chest and gameplay code retained."
+}

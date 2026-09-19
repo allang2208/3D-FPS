@@ -1,0 +1,33 @@
+{
+  "id": "pistolMastery",
+  "name": "手枪精通",
+  "icon": "🔫",
+  "iconImage": "assets/skills/pistol_mastery.png",
+  "description": "精通手枪的快速射击，在移动中也能精准命中",
+  "maxLevel": 20,
+  "tags": [
+    {
+      "name": "手枪",
+      "type": "weapon"
+    },
+    {
+      "name": "远程",
+      "type": "ranged"
+    },
+    {
+      "name": "被动",
+      "type": "passive"
+    }
+  ],
+  "effectFormula": {
+    "dexBonus": "level",
+    "damagePercent": "level * 0.01",
+    "damageBonus": "level",
+    "speedPercent": "level * 0.01"
+  },
+  "expFormula": "100 + (level - 1) * 100",
+  "expRewards": {
+    "kill": 10,
+    "crit": 5
+  }
+}

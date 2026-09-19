@@ -1,0 +1,45 @@
+{
+  "Trellis2MeshWithVoxelToTrimesh": {
+    "input": {
+      "required": {
+        "mesh": [
+          "MESHWITHVOXEL"
+        ],
+        "reorient_vertices": [
+          [
+            "None",
+            "90 degrees",
+            "-90 degrees"
+          ],
+          {
+            "default": "90 degrees"
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "mesh",
+        "reorient_vertices"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "TRIMESH"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "trimesh"
+    ],
+    "name": "Trellis2MeshWithVoxelToTrimesh",
+    "display_name": "Trellis2 - Mesh With Voxel To Trimesh",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  }
+}

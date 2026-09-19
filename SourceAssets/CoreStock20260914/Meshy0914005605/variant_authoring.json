@@ -1,0 +1,27 @@
+{
+  "source": "CoreStock_Low_Editable.blend",
+  "body_length_m": 0.2,
+  "uv0": "retained source atlas and game normal",
+  "uv1": "per-rifle receiver coating",
+  "variants": {
+    "M4": {
+      "triangles": 81536,
+      "body_front_m": 0.013000000000000001,
+      "adapter_front_m": 0.007,
+      "asset": "/Game/Weapons/CoreStock20260914/Meshy0914005605/M4/SM_CoreStock"
+    },
+    "AKM": {
+      "triangles": 82752,
+      "body_front_m": 0.0088,
+      "adapter_front_m": 0.0028,
+      "asset": "/Game/Weapons/CoreStock20260914/Meshy0914005605/AKM/SM_CoreStock"
+    },
+    "QBZ191": {
+      "triangles": 81912,
+      "body_front_m": 0.006,
+      "adapter_front_m": 0.0,
+      "asset": "/Game/Weapons/CoreStock20260914/Meshy0914005605/QBZ191/SM_CoreStock"
+    }
+  },
+  "runtime_tested": false
+}

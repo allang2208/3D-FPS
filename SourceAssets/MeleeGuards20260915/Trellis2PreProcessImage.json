@@ -1,0 +1,60 @@
+{
+  "Trellis2PreProcessImage": {
+    "input": {
+      "required": {
+        "image": [
+          "IMAGE"
+        ],
+        "padding": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 1024
+          }
+        ],
+        "remove_background": [
+          "BOOLEAN",
+          {
+            "default": false
+          }
+        ],
+        "max_size": [
+          "INT",
+          {
+            "default": 2048,
+            "min": 512,
+            "max": 8192,
+            "step": 128
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "image",
+        "padding",
+        "remove_background",
+        "max_size"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "IMAGE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "image"
+    ],
+    "name": "Trellis2PreProcessImage",
+    "display_name": "Trellis2 - PreProcess Image",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "stage": "import and save",
+  "gameplay_tested": false,
+  "assets": {
+    "M4": {
+      "path": "/Game/Weapons/TacticalTelescopicStock20260914/M4/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock",
+      "triangles": 81536,
+      "materials": {
+        "TacticalStock_Metal_M4": "/Game/Weapons/TacticalTelescopicStock20260914/M4/M_TacticalStock_Metal_M4.M_TacticalStock_Metal_M4",
+        "TacticalStock_Polymer_M4": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Polymer.M_TacticalStock_Polymer",
+        "TacticalStock_Rubber_M4": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber",
+        "TacticalStock_Adapter_M4": "/Game/Weapons/TacticalTelescopicStock20260914/M4/M_TacticalStock_Adapter_M4.M_TacticalStock_Adapter_M4"
+      }
+    },
+    "AKM": {
+      "path": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock",
+      "triangles": 82752,
+      "materials": {
+        "TacticalStock_Metal_AKM": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/M_TacticalStock_Metal_AKM.M_TacticalStock_Metal_AKM",
+        "TacticalStock_Polymer_AKM": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Polymer.M_TacticalStock_Polymer",
+        "TacticalStock_Rubber_AKM": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber",
+        "TacticalStock_Adapter_AKM": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/M_TacticalStock_Adapter_AKM.M_TacticalStock_Adapter_AKM"
+      }
+    },
+    "QBZ191": {
+      "path": "/Game/Weapons/TacticalTelescopicStock20260914/QBZ191/SM_TacticalTelescopicStock.SM_TacticalTelescopicStock",
+      "triangles": 81912,
+      "materials": {
+        "TacticalStock_Metal_QBZ191": "/Game/Weapons/TacticalTelescopicStock20260914/QBZ191/M_TacticalStock_Metal_QBZ191.M_TacticalStock_Metal_QBZ191",
+        "TacticalStock_Polymer_QBZ191": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Polymer.M_TacticalStock_Polymer",
+        "TacticalStock_Rubber_QBZ191": "/Game/Weapons/TacticalTelescopicStock20260914/M_TacticalStock_Rubber.M_TacticalStock_Rubber",
+        "TacticalStock_Adapter_QBZ191": "/Game/Weapons/TacticalTelescopicStock20260914/QBZ191/M_TacticalStock_Adapter_QBZ191.M_TacticalStock_Adapter_QBZ191"
+      }
+    }
+  }
+}

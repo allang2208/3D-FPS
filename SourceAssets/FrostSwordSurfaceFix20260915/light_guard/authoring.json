@@ -1,0 +1,25 @@
+{
+  "id": "light_guard",
+  "method": "Welded C1 tangent transition from original cut boundary; no sleeves or overlapping caps",
+  "sides": {
+    "-1": {
+      "boundary_samples": 114,
+      "loft_rows": 16,
+      "span_mm": [
+        58.15452337265015,
+        80.0
+      ],
+      "end_thickness_mm": 14.0
+    },
+    "1": {
+      "boundary_samples": 107,
+      "loft_rows": 16,
+      "span_mm": [
+        57.39998072385788,
+        80.0
+      ],
+      "end_thickness_mm": 14.0
+    }
+  },
+  "open_edges_in_transition": 0
+}

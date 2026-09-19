@@ -1,0 +1,22 @@
+{
+  "date": "2026-09-14",
+  "skill": "fireball",
+  "stage": "authored and connected in local skill configuration; not game-tested",
+  "tool": "built-in image_gen",
+  "editTarget": "SourceAssets/Fireball20260914/fireball_cold_steel.png",
+  "generatedSource": "C:/Users/allan/.codex/generated_images/01a0a011-e289-7b63-9014-ad44bd79f77e/exec-8fc623b5-bb62-4d04-b220-baa580255f3f.png",
+  "sourceImage": "SourceAssets/Fireball20260914/IconEmberRed/fireball_ember_red.png",
+  "runtime": "Content/ColdSteelData/Skills/fireball_ember_red.png",
+  "prompt": "prompt.txt",
+  "operation": "Unmodified copy of image_gen edit output into source and runtime PNG paths",
+  "paletteIntent": {
+    "subject": "vermilion and orange-red",
+    "recesses": "deep crimson",
+    "highlights": "restrained amber and small pale-gold core",
+    "background": "neutral graphite",
+    "frame": "brushed neutral silver"
+  },
+  "loading": "skills.json fireball.icon; existing PNG loaders used by quickbar, skill page and upgrade notifications. Old silver image is retained as this edit's source.",
+  "status": "No tests, lint, game launch, screenshots or runtime acceptance performed; user to test.",
+  "publication": "Local asset integration only; no Git commit or push performed."
+}

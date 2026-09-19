@@ -1,0 +1,38 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogV1\\ZombieDog_Authoring.blend",
+  "parameters": {
+    "texture_size": 4096,
+    "skin_repeat_per_metre": 8.0,
+    "skin_relief_m": 0.00065,
+    "wound_edge_relief_m": 0.0016,
+    "pore_repeat_per_metre": 320.0,
+    "pore_relief_m": 9e-05,
+    "dry_skin_roughness": [
+      0.54,
+      0.7
+    ],
+    "wound_roughness": 0.32,
+    "skin_tone_low": [
+      0.055,
+      0.065,
+      0.042,
+      1.0
+    ],
+    "skin_tone_high": [
+      0.145,
+      0.16,
+      0.11,
+      1.0
+    ]
+  },
+  "textures": {
+    "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogFineSkinV3\\Textures\\T_ZombieDog_FineSkin_BaseColor.png",
+    "ORM": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogFineSkinV3\\Textures\\T_ZombieDog_FineSkin_ORM.png",
+    "Opacity": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogFineSkinV3\\Textures\\T_ZombieDog_FineSkin_Opacity.png",
+    "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogFineSkinV3\\Textures\\T_ZombieDog_FineSkin_Normal.png"
+  },
+  "geometry": "V1 body, ear cap and fur shell preserved without edits",
+  "animations_modified": false,
+  "runtime_tested": false,
+  "preview_rendered": false
+}

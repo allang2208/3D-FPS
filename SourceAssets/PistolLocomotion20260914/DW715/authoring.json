@@ -1,0 +1,14 @@
+{
+  "weapon": "DW715",
+  "source": "DanWesson715Upgrade20260914/DanWesson715_Upgrade_Editable.blend",
+  "clips": {
+    "sprint": {
+      "source_action": "DW715V2_idle",
+      "action": "DW715_Locomotion_sprint",
+      "duration": 1.0,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PistolLocomotion20260914\\DW715\\Animations\\A_DW715_sprint.fbx"
+    }
+  },
+  "state": "Authored and exported; not tested or rendered"
+}

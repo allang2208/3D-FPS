@@ -1,0 +1,25 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogFineSkinV3\\ZombieDog_FineSkin_Authoring.blend",
+  "textures": {
+    "CoatBase": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\Textures\\T_ZombieDog_Random_CoatBase.png",
+    "SkinBase": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\Textures\\T_ZombieDog_Random_SkinBase.png",
+    "SurfaceData": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\Textures\\T_ZombieDog_Random_SurfaceData.png",
+    "CoatNormal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\Textures\\T_ZombieDog_Random_CoatNormal.png",
+    "SkinNormal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\Textures\\T_ZombieDog_Random_SkinNormal.png",
+    "RestPosition": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogRandomWoundsV4\\Textures\\T_ZombieDog_Random_RestPosition.exr"
+  },
+  "surface_triangles": 426,
+  "bounds_min": [
+    -25.0,
+    -115.0,
+    -5.0
+  ],
+  "bounds_range": [
+    50.0,
+    210.0,
+    115.0
+  ],
+  "mesh_reused": "/Game/Monsters/ZombieDog/FineSkinV3/SK_ZombieDog_FineSkin",
+  "runtime_tested": false,
+  "preview_rendered": false
+}

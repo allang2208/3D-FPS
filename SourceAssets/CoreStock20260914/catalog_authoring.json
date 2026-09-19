@@ -1,0 +1,29 @@
+{
+  "weapon_ids": [
+    "ue_m4a1",
+    "ue_akm",
+    "ue_qbz191"
+  ],
+  "option": {
+    "id": "core_stock",
+    "name": "镂空轻型枪托",
+    "description": "轻量化镂空枪托，使用对应枪型的安装接口。提升后坐力控制和枪械稳定性，不影响ADS瞄准时间。",
+    "effects": [
+      {
+        "text": "后坐力控制提高10%",
+        "benefit": 1
+      },
+      {
+        "text": "枪械稳定性增加5%",
+        "benefit": 1
+      }
+    ],
+    "stats": {
+      "recoil_mult": 0.9,
+      "stability_mult": 1.05
+    }
+  },
+  "existing_skeleton_values_unchanged": true,
+  "ads_duration_multiplier_when_used_alone": 1.0,
+  "runtime_tested": false
+}

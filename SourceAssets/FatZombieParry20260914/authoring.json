@@ -1,0 +1,81 @@
+{
+  "asset": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Stagger",
+  "base": "/Game/Monsters/FatZombieMeshy/Animations/A_FatZombie_Idle",
+  "authorship": "Authored recoil and arm brace on the accepted Meshy idle pose",
+  "fps": 120,
+  "frames": [
+    0,
+    108
+  ],
+  "seconds": 0.9,
+  "loop": false,
+  "recoil_end": 0.1,
+  "hold_end": 0.6,
+  "recovery_end": 0.9,
+  "parry_entry_time": 0.1,
+  "attack_contact_seconds": [
+    0.65,
+    0.78
+  ],
+  "attack_contact_reference": [
+    {
+      "seconds": 0.6,
+      "right_hand_cm": [
+        -32.542636323502066,
+        -60.52752602837399,
+        123.98781800801525
+      ]
+    },
+    {
+      "seconds": 0.65,
+      "right_hand_cm": [
+        -47.8366406904717,
+        0.2310518757492641,
+        138.73177277309236
+      ]
+    },
+    {
+      "seconds": 0.675,
+      "right_hand_cm": [
+        -34.04752357239347,
+        37.66452275517521,
+        128.39479629208773
+      ]
+    },
+    {
+      "seconds": 0.7,
+      "right_hand_cm": [
+        -7.68500331669604,
+        50.877218089642334,
+        110.96677143814088
+      ]
+    },
+    {
+      "seconds": 0.75,
+      "right_hand_cm": [
+        28.097414150181166,
+        33.59513490451475,
+        79.08435550679405
+      ]
+    },
+    {
+      "seconds": 0.78,
+      "right_hand_cm": [
+        33.560888463778,
+        15.83384501786287,
+        65.57026783588668
+      ]
+    },
+    {
+      "seconds": 1.0,
+      "right_hand_cm": [
+        31.955014061160238,
+        4.741209375869111,
+        47.56755753817484
+      ]
+    }
+  ],
+  "control_seconds": 1.0,
+  "total_knockback_cm": 100,
+  "status": "Authored and saved; gameplay and visual testing remain manual"
+}

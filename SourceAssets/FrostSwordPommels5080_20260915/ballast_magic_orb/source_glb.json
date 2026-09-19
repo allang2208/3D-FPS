@@ -1,0 +1,178 @@
+{
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "asset": {
+    "version": "2.0",
+    "generator": "https://github.com/mikedh/trimesh"
+  },
+  "accessors": [
+    {
+      "componentType": 5125,
+      "type": "SCALAR",
+      "bufferView": 0,
+      "count": 1448523,
+      "max": [
+        318068
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "componentType": 5126,
+      "type": "VEC3",
+      "byteOffset": 0,
+      "bufferView": 1,
+      "count": 318069,
+      "max": [
+        0.4932056665420532,
+        0.5009986162185669,
+        0.4912222623825073
+      ],
+      "min": [
+        -0.4933091700077057,
+        -0.5009301900863647,
+        -0.4910833239555359
+      ]
+    },
+    {
+      "componentType": 5126,
+      "type": "VEC2",
+      "byteOffset": 0,
+      "bufferView": 4,
+      "count": 318069,
+      "max": [
+        0.9995877742767334,
+        0.9995921850204468
+      ],
+      "min": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "componentType": 5126,
+      "count": 318069,
+      "type": "VEC3",
+      "byteOffset": 0,
+      "bufferView": 5,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "name": "geometry_0",
+      "extras": {},
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 1,
+            "TEXCOORD_0": 2,
+            "NORMAL": 3
+          },
+          "indices": 0,
+          "mode": 4,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "bufferView": 2,
+      "mimeType": "image/png"
+    },
+    {
+      "bufferView": 3,
+      "mimeType": "image/png"
+    }
+  ],
+  "textures": [
+    {
+      "source": 0
+    },
+    {
+      "source": 1
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "roughnessFactor": 1.0,
+        "metallicFactor": 1.0,
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      },
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  ],
+  "nodes": [
+    {
+      "name": "geometry_0",
+      "mesh": 0
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 16646660
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 5794092
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 5794092,
+      "byteLength": 3816828
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 9610920,
+      "byteLength": 485880
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10096800,
+      "byteLength": 188480
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 10285280,
+      "byteLength": 2544552
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 12829832,
+      "byteLength": 3816828
+    }
+  ]
+}

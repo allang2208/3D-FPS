@@ -1,0 +1,16 @@
+{
+  "blueprint": "/Game/Monsters/ZombieDog/V1/BP_ZombieDog",
+  "parent": "/Game/Monsters/Wolf/BP_WolfMonster",
+  "mesh": "/Game/Monsters/ZombieDog/V1/SK_ZombieDog.SK_ZombieDog",
+  "animation_set": "/Game/Monsters/ZombieDog/V1/DA_ZombieDog_AnimationSet.DA_ZombieDog_AnimationSet",
+  "materials": [
+    "/Game/Monsters/ZombieDog/V1/Materials/M_ZombieDog_Skin.M_ZombieDog_Skin",
+    "/Game/Monsters/ZombieDog/V1/Materials/M_ZombieDog_RemainingFur.M_ZombieDog_RemainingFur"
+  ],
+  "f6_id": "ZombieDog",
+  "display_name": "僵尸犬",
+  "gameplay": "Inherited wolf AI, combat clock, hit reactions, locomotion V2, bite V2, pounce and ragdoll",
+  "balance": "Inherited wolf defaults: no gameplay rebalance in this visual variant",
+  "runtime_tested": false,
+  "preview_rendered": false
+}

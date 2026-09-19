@@ -1,0 +1,223 @@
+{
+  "prompt": [
+    6,
+    "7d67b53d-240e-4c00-8579-55535b20bf00",
+    {
+      "1": {
+        "class_type": "Trellis2LoadModel",
+        "inputs": {
+          "modelname": "microsoft/TRELLIS.2-4B",
+          "backend": "sdpa",
+          "device": "cuda",
+          "low_vram": true,
+          "keep_models_loaded": false,
+          "conv_backend": "flex_gemm",
+          "sparse_backend": "xformers",
+          "use_reconviagen": false
+        }
+      },
+      "10": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "frost_pommel_ballast_rune_20260915.png"
+        }
+      },
+      "4": {
+        "class_type": "Trellis2MeshWithVoxelMultiViewGenerator",
+        "inputs": {
+          "seed": 915367,
+          "pipeline_type": "512",
+          "sparse_structure_steps": 16,
+          "sparse_structure_guidance_strength": 6.5,
+          "sparse_structure_guidance_rescale": 0.05,
+          "sparse_structure_rescale_t": 4.0,
+          "shape_steps": 32,
+          "shape_guidance_strength": 6.5,
+          "shape_guidance_rescale": 0.05,
+          "shape_rescale_t": 4.0,
+          "texture_steps": 24,
+          "texture_guidance_strength": 3.0,
+          "texture_guidance_rescale": 0.2,
+          "texture_rescale_t": 3.0,
+          "max_num_tokens": 999999,
+          "sparse_structure_resolution": 32,
+          "generate_texture_slat": true,
+          "sparse_structure_guidance_interval_start": 0.1,
+          "sparse_structure_guidance_interval_end": 1.0,
+          "shape_guidance_interval_start": 0.1,
+          "shape_guidance_interval_end": 1.0,
+          "texture_guidance_interval_start": 0.0,
+          "texture_guidance_interval_end": 0.9,
+          "use_tiled_decoder": true,
+          "front_axis": "z",
+          "blend_temperature": 1.0,
+          "sampler": "euler",
+          "fill_holes": false,
+          "hole_iterations": 1,
+          "verbose": true,
+          "dino_lock": 0.0,
+          "dino_substeps": 4,
+          "hole_fill_algorithm": "flood_fill",
+          "dino_foundation_cap": 1.0,
+          "keep_only_shell": false,
+          "pipeline": [
+            "1",
+            0
+          ],
+          "front_image": [
+            "120",
+            0
+          ],
+          "left_image": [
+            "121",
+            0
+          ],
+          "back_image": [
+            "122",
+            0
+          ]
+        }
+      },
+      "52": {
+        "class_type": "Trellis2OvoxelExportToGLB",
+        "inputs": {
+          "mesh": [
+            "4",
+            0
+          ],
+          "resolution": 512,
+          "texture_size": 4096,
+          "target_face_num": 500000
+        }
+      },
+      "53": {
+        "class_type": "Trellis2ExportMesh",
+        "inputs": {
+          "trimesh": [
+            "52",
+            0
+          ],
+          "filename_prefix": "FrostSwordPommelsRepair20260915/ballast_rune/textured_master",
+          "file_format": "glb"
+        }
+      },
+      "110": {
+        "class_type": "ImageCrop",
+        "inputs": {
+          "image": [
+            "10",
+            0
+          ],
+          "x": 0,
+          "y": 0,
+          "width": 591,
+          "height": 887
+        }
+      },
+      "120": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "image": [
+            "110",
+            0
+          ],
+          "padding": 24,
+          "remove_background": true,
+          "max_size": 2048
+        }
+      },
+      "111": {
+        "class_type": "ImageCrop",
+        "inputs": {
+          "image": [
+            "10",
+            0
+          ],
+          "x": 591,
+          "y": 0,
+          "width": 592,
+          "height": 887
+        }
+      },
+      "121": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "image": [
+            "111",
+            0
+          ],
+          "padding": 24,
+          "remove_background": true,
+          "max_size": 2048
+        }
+      },
+      "112": {
+        "class_type": "ImageCrop",
+        "inputs": {
+          "image": [
+            "10",
+            0
+          ],
+          "x": 1183,
+          "y": 0,
+          "width": 591,
+          "height": 887
+        }
+      },
+      "122": {
+        "class_type": "Trellis2PreProcessImage",
+        "inputs": {
+          "image": [
+            "112",
+            0
+          ],
+          "padding": 24,
+          "remove_background": true,
+          "max_size": 2048
+        }
+      }
+    },
+    {
+      "client_id": "FrostSwordPommelsRepair20260915",
+      "create_time": 1789482060535
+    },
+    [
+      "4",
+      "53",
+      "1",
+      "52"
+    ]
+  ],
+  "outputs": {},
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "7d67b53d-240e-4c00-8579-55535b20bf00",
+          "timestamp": 1789482087198
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [
+            "1"
+          ],
+          "prompt_id": "7d67b53d-240e-4c00-8579-55535b20bf00",
+          "timestamp": 1789482087223
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "7d67b53d-240e-4c00-8579-55535b20bf00",
+          "timestamp": 1789482327141
+        }
+      ]
+    ]
+  },
+  "meta": {}
+}

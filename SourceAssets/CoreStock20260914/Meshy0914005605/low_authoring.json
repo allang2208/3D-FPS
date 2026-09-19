@@ -1,0 +1,17 @@
+{
+  "source_triangles": 1945222,
+  "game_body_triangles": 80000,
+  "mount_origin_source": [
+    -0.9517890214920044,
+    0.00039999998989515007,
+    0.4880000054836273
+  ],
+  "body_length_m": 0.2,
+  "source_uv_preserved": 0,
+  "normal_bake": "Textures/Normal_Game.png",
+  "bake_samples": 16,
+  "cage_extrusion_m": 0.001,
+  "max_ray_distance_m": 0.003,
+  "runtime_tested": false,
+  "preview_rendered": false
+}

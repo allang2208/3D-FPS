@@ -1,0 +1,42 @@
+{
+  "variants": {
+    "M4": {
+      "triangles": 81536,
+      "body_front_m": 0.012,
+      "mount_front_m": 0.007,
+      "materials": [
+        "TacticalStock_Metal_M4",
+        "TacticalStock_Polymer_M4",
+        "TacticalStock_Rubber_M4",
+        "TacticalStock_Adapter_M4"
+      ],
+      "asset": "/Game/Weapons/TacticalTelescopicStock20260914/M4/SM_TacticalTelescopicStock"
+    },
+    "AKM": {
+      "triangles": 82752,
+      "body_front_m": 0.0078,
+      "mount_front_m": 0.0028,
+      "materials": [
+        "TacticalStock_Metal_AKM",
+        "TacticalStock_Polymer_AKM",
+        "TacticalStock_Rubber_AKM",
+        "TacticalStock_Adapter_AKM"
+      ],
+      "asset": "/Game/Weapons/TacticalTelescopicStock20260914/AKM/SM_TacticalTelescopicStock"
+    },
+    "QBZ191": {
+      "triangles": 81912,
+      "body_front_m": 0.005,
+      "mount_front_m": 0.0,
+      "materials": [
+        "TacticalStock_Metal_QBZ191",
+        "TacticalStock_Polymer_QBZ191",
+        "TacticalStock_Rubber_QBZ191",
+        "TacticalStock_Adapter_QBZ191"
+      ],
+      "asset": "/Game/Weapons/TacticalTelescopicStock20260914/QBZ191/SM_TacticalTelescopicStock"
+    }
+  },
+  "orientation": "front -X / buttpad +X, before QBZ191 root transform",
+  "runtime_tested": false
+}

@@ -1,0 +1,65 @@
+{
+  "Trellis2OvoxelExportToGLB": {
+    "input": {
+      "required": {
+        "mesh": [
+          "MESHWITHVOXEL"
+        ],
+        "resolution": [
+          [
+            512,
+            1024
+          ],
+          {
+            "default": 1024
+          }
+        ],
+        "texture_size": [
+          [
+            512,
+            1024,
+            2048,
+            4096
+          ],
+          {
+            "default": 2048
+          }
+        ],
+        "target_face_num": [
+          "INT",
+          {
+            "default": 2000000,
+            "min": 500,
+            "max": 16000000
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "mesh",
+        "resolution",
+        "texture_size",
+        "target_face_num"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "TRIMESH"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "trimesh"
+    ],
+    "name": "Trellis2OvoxelExportToGLB",
+    "display_name": "Trellis2 - Ovoxel Export to GLB",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  }
+}

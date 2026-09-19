@@ -1,0 +1,14 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+  "object": "M4_Stock Classic Unreal_Export",
+  "front": "left (-X)",
+  "buttpad": "right (+X)",
+  "camera": "orthographic level side, up +Z, looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "actual_model_render": true,
+  "runtime_tested": false
+}

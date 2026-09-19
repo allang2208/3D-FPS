@@ -1,0 +1,58 @@
+{
+  "source": "CoreStock_Canonical_Editable.blend",
+  "opening_center_generator": [
+    -0.5009945631027222,
+    0.0,
+    0.23899999260902405
+  ],
+  "body_length_m": 0.2,
+  "source_uv_kept": 1,
+  "baked_uv": 0,
+  "receiver_uv": 2,
+  "variants": {
+    "M4": {
+      "asset_dir": "/Game/Weapons/CoreStock20260914/M4",
+      "body_start_m": 0.013000000000000001,
+      "adapter_front_m": 0.007,
+      "triangles": 46206,
+      "materials": [
+        "StockMetal",
+        "StockPolymer",
+        "StockRubber",
+        "StockAdapter",
+        "StockFrontPolymer.001",
+        "StockFrontMetal.001"
+      ]
+    },
+    "AKM": {
+      "asset_dir": "/Game/Weapons/CoreStock20260914/AKM",
+      "body_start_m": 0.0088,
+      "adapter_front_m": 0.0028,
+      "triangles": 47422,
+      "materials": [
+        "StockMetal",
+        "StockPolymer",
+        "StockRubber",
+        "StockAdapter",
+        "StockFrontPolymer.001",
+        "StockFrontMetal.001"
+      ]
+    },
+    "QBZ191": {
+      "asset_dir": "/Game/Weapons/CoreStock20260914/QBZ191",
+      "body_start_m": 0.006,
+      "adapter_front_m": 0,
+      "triangles": 46582,
+      "materials": [
+        "StockMetal",
+        "StockPolymer",
+        "StockRubber",
+        "StockAdapter",
+        "StockFrontPolymer.001",
+        "StockFrontMetal.001"
+      ]
+    }
+  },
+  "tested": false,
+  "preview_rendered": false
+}

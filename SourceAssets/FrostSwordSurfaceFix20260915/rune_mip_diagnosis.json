@@ -1,0 +1,68 @@
+{
+  "resonance_rune": [
+    {
+      "mip_scale": 4,
+      "old_mean_coverage": 0.027207301929593086,
+      "new_mean_coverage": 0.02773861587047577
+    },
+    {
+      "mip_scale": 8,
+      "old_mean_coverage": 0.02479170262813568,
+      "new_mean_coverage": 0.02773861587047577
+    },
+    {
+      "mip_scale": 16,
+      "old_mean_coverage": 0.01651277393102646,
+      "new_mean_coverage": 0.02773861587047577
+    },
+    {
+      "mip_scale": 32,
+      "old_mean_coverage": 0.008558324538171291,
+      "new_mean_coverage": 0.02773861587047577
+    }
+  ],
+  "erosion_rune": [
+    {
+      "mip_scale": 4,
+      "old_mean_coverage": 0.024735813960433006,
+      "new_mean_coverage": 0.024471791461110115
+    },
+    {
+      "mip_scale": 8,
+      "old_mean_coverage": 0.02542933262884617,
+      "new_mean_coverage": 0.024471791461110115
+    },
+    {
+      "mip_scale": 16,
+      "old_mean_coverage": 0.024229297414422035,
+      "new_mean_coverage": 0.024471791461110115
+    },
+    {
+      "mip_scale": 32,
+      "old_mean_coverage": 0.019210556522011757,
+      "new_mean_coverage": 0.024471789598464966
+    }
+  ],
+  "conduction_rune": [
+    {
+      "mip_scale": 4,
+      "old_mean_coverage": 0.04237569868564606,
+      "new_mean_coverage": 0.04058412089943886
+    },
+    {
+      "mip_scale": 8,
+      "old_mean_coverage": 0.04431285336613655,
+      "new_mean_coverage": 0.04058411717414856
+    },
+    {
+      "mip_scale": 16,
+      "old_mean_coverage": 0.04331110417842865,
+      "new_mean_coverage": 0.04058411717414856
+    },
+    {
+      "mip_scale": 32,
+      "old_mean_coverage": 0.038495372980833054,
+      "new_mean_coverage": 0.04058411717414856
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "profile": "Drum",
+  "source": "M4ContactImpact20260910/M4_Hand_MAT_Editable.blend",
+  "source_action": "M4_idle",
+  "coordinates": "+Y forward, +X right, +Z up; metres",
+  "reference": "Existing M4 raised sprint and PistolBV1x6AgeTEPd20260914 release/run reference",
+  "status": "Authored and exported; not rendered or tested",
+  "clips": {
+    "Enter": {
+      "action": "M4_TacticalSprint_Drum_Enter",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalSprint20260915\\Drum\\Animations\\A_M4_TacticalSprint_Drum_Enter.fbx"
+    },
+    "Loop": {
+      "action": "M4_TacticalSprint_Drum_Loop",
+      "duration": 0.6,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalSprint20260915\\Drum\\Animations\\A_M4_TacticalSprint_Drum_Loop.fbx"
+    },
+    "Exit": {
+      "action": "M4_TacticalSprint_Drum_Exit",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalSprint20260915\\Drum\\Animations\\A_M4_TacticalSprint_Drum_Exit.fbx"
+    }
+  }
+}

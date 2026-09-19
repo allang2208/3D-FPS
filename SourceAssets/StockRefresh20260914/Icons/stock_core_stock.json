@@ -1,0 +1,14 @@
+{
+  "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\M4\\CoreStock_Game_Editable.blend",
+  "object": "SM_CoreStock",
+  "front": "left (-X)",
+  "buttpad": "right (+X)",
+  "camera": "orthographic level side, up +Z, looking +Y",
+  "size": [
+    1024,
+    1024
+  ],
+  "transparent": true,
+  "actual_model_render": true,
+  "runtime_tested": false
+}

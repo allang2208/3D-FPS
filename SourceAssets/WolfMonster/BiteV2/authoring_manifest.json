@@ -1,0 +1,212 @@
+{
+  "version": 2,
+  "source": "/Game/Monsters/QuadrupedTemplates/WolfV1/Animations/A_QP_Wolf_AttackBite",
+  "asset": "/Game/Monsters/QuadrupedTemplates/WolfV2/Animations/A_QP_Wolf_Bite_WeightShift",
+  "authored_this_run": false,
+  "seconds": 0.6666666865348816,
+  "intervals": 20,
+  "bindings": [
+    {
+      "set": "/Game/Monsters/QuadrupedTemplates/WolfV1/DA_QP_Wolf_AnimationSet",
+      "previous_sequence": "/Game/Monsters/QuadrupedTemplates/WolfV2/Animations/A_QP_Wolf_Bite_WeightShift.A_QP_Wolf_Bite_WeightShift",
+      "current_sequence": "/Game/Monsters/QuadrupedTemplates/WolfV2/Animations/A_QP_Wolf_Bite_WeightShift.A_QP_Wolf_Bite_WeightShift",
+      "contact_start": -1.0,
+      "contact_end": -1.0
+    },
+    {
+      "set": "/Game/Monsters/Wolf/DA_Wolf_AnimationSet",
+      "previous_sequence": "/Game/Monsters/QuadrupedTemplates/WolfV2/Animations/A_QP_Wolf_Bite_WeightShift.A_QP_Wolf_Bite_WeightShift",
+      "current_sequence": "/Game/Monsters/QuadrupedTemplates/WolfV2/Animations/A_QP_Wolf_Bite_WeightShift.A_QP_Wolf_Bite_WeightShift",
+      "contact_start": 0.20000000298023224,
+      "contact_end": 0.36666667461395264
+    }
+  ],
+  "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\WolfMonster\\BiteV2\\A_QP_Wolf_Bite_WeightShift.fbx",
+  "export_contains": "skeleton_and_animation",
+  "parameters": {
+    "body_forward_cm": [
+      [
+        0,
+        0
+      ],
+      [
+        0.1,
+        -2.5
+      ],
+      [
+        0.2333333333,
+        8
+      ],
+      [
+        0.3,
+        8
+      ],
+      [
+        0.4333333333,
+        4
+      ],
+      [
+        0.5666666667,
+        0.5
+      ],
+      [
+        0.6666666667,
+        0
+      ]
+    ],
+    "body_height_cm": [
+      [
+        0,
+        0
+      ],
+      [
+        0.1,
+        -1
+      ],
+      [
+        0.2333333333,
+        -2.5
+      ],
+      [
+        0.3333333333,
+        -2
+      ],
+      [
+        0.5,
+        -0.5
+      ],
+      [
+        0.6666666667,
+        0
+      ]
+    ],
+    "drive": [
+      [
+        0,
+        0
+      ],
+      [
+        0.1,
+        0.3
+      ],
+      [
+        0.2333333333,
+        1
+      ],
+      [
+        0.3333333333,
+        0.9
+      ],
+      [
+        0.5,
+        0.2
+      ],
+      [
+        0.6666666667,
+        0
+      ]
+    ],
+    "neck_follow": [
+      [
+        0,
+        0
+      ],
+      [
+        0.1,
+        0.05
+      ],
+      [
+        0.2666666667,
+        1
+      ],
+      [
+        0.3666666667,
+        0.7
+      ],
+      [
+        0.5666666667,
+        0
+      ],
+      [
+        0.6666666667,
+        0
+      ]
+    ],
+    "lead_paw_forward_cm": [
+      [
+        0,
+        0
+      ],
+      [
+        0.0666666667,
+        -1
+      ],
+      [
+        0.1333333333,
+        1
+      ],
+      [
+        0.2,
+        4
+      ],
+      [
+        0.4,
+        4
+      ],
+      [
+        0.4666666667,
+        4
+      ],
+      [
+        0.6,
+        0
+      ],
+      [
+        0.6666666667,
+        0
+      ]
+    ],
+    "lead_paw_lift_cm": [
+      [
+        0,
+        0
+      ],
+      [
+        0.0666666667,
+        1.5
+      ],
+      [
+        0.1333333333,
+        3
+      ],
+      [
+        0.2,
+        0
+      ],
+      [
+        0.4333333333,
+        0
+      ],
+      [
+        0.5,
+        2.2
+      ],
+      [
+        0.6,
+        0
+      ],
+      [
+        0.6666666667,
+        0
+      ]
+    ],
+    "shoulder_pitch_degrees": -2.5,
+    "neck_counter_pitch_degrees": 1.5,
+    "reduce_neck_side_arc": 0.38
+  },
+  "source_reference": "Godot Quaternius Attack continuous frames viewed in the preceding comparison",
+  "runtime_tested": false,
+  "rendered_or_visually_accepted": false,
+  "gameplay_timing_modified": false,
+  "actor_movement_modified": false
+}

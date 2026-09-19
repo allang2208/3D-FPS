@@ -1,0 +1,106 @@
+{
+  "assets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/T_Pommel_Normal.T_Pommel_Normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\rune_mask.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/T_Pommel_RuneMask.T_Pommel_RuneMask"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\base_color.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/T_Pommel_BaseColor.T_Pommel_BaseColor"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\orm.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/T_Pommel_ORM.T_Pommel_ORM"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\SM_FrostPommel_ballast_hardened.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_ballast_hardened.ue_frost_crystal_sword_pommel_ballast_hardened"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/T_Pommel_Normal.T_Pommel_Normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\rune_mask.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/T_Pommel_RuneMask.T_Pommel_RuneMask"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\base_color.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/T_Pommel_BaseColor.T_Pommel_BaseColor"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\orm.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/T_Pommel_ORM.T_Pommel_ORM"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\SM_FrostPommel_ballast_rune.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_ballast_rune.ue_frost_crystal_sword_pommel_ballast_rune"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/T_Pommel_Normal.T_Pommel_Normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\rune_mask.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/T_Pommel_RuneMask.T_Pommel_RuneMask"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\base_color.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/T_Pommel_BaseColor.T_Pommel_BaseColor"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\orm.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/T_Pommel_ORM.T_Pommel_ORM"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\SM_FrostPommel_ballast_magic_orb.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_ballast_magic_orb.ue_frost_crystal_sword_pommel_ballast_magic_orb"
+    }
+  ],
+  "catalog_entries": {
+    "ballast_hardened": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+      "location_cm": [
+        0,
+        0,
+        -22.699999809265137
+      ],
+      "interface": "frost_hilt_v1"
+    },
+    "ballast_rune": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+      "location_cm": [
+        0,
+        0,
+        -22.699999809265137
+      ],
+      "interface": "frost_hilt_v1"
+    },
+    "ballast_magic_orb": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
+      "location_cm": [
+        0,
+        0,
+        -22.699999809265137
+      ],
+      "interface": "frost_hilt_v1"
+    }
+  },
+  "testing": "not run"
+}

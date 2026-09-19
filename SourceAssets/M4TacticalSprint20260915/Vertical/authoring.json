@@ -1,0 +1,28 @@
+{
+  "profile": "Vertical",
+  "source": "MannyGraspDonor20260912/Final/m4/vertical/A_M4_Vertical_idle.blend",
+  "source_action": "A_M4_Vertical_idle.001",
+  "coordinates": "+Y forward, +X right, +Z up; metres",
+  "reference": "Existing M4 raised sprint and PistolBV1x6AgeTEPd20260914 release/run reference",
+  "status": "Authored and exported; not rendered or tested",
+  "clips": {
+    "Enter": {
+      "action": "M4_TacticalSprint_Vertical_Enter",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalSprint20260915\\Vertical\\Animations\\A_M4_TacticalSprint_Vertical_Enter.fbx"
+    },
+    "Loop": {
+      "action": "M4_TacticalSprint_Vertical_Loop",
+      "duration": 0.6,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalSprint20260915\\Vertical\\Animations\\A_M4_TacticalSprint_Vertical_Loop.fbx"
+    },
+    "Exit": {
+      "action": "M4_TacticalSprint_Vertical_Exit",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4TacticalSprint20260915\\Vertical\\Animations\\A_M4_TacticalSprint_Vertical_Exit.fbx"
+    }
+  }
+}

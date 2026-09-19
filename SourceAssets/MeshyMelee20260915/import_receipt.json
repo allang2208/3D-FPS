@@ -1,0 +1,32 @@
+{
+  "assets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Original\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_fbx\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/T_FrostCrystalSword_BaseColor.T_FrostCrystalSword_BaseColor"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Original\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_fbx\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_normal.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/T_FrostCrystalSword_Normal.T_FrostCrystalSword_Normal"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Original\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_fbx\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_metallic.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/T_FrostCrystalSword_Metallic.T_FrostCrystalSword_Metallic"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Original\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_fbx\\Meshy_AI_\u5e2e\u6211\u751f\u6210\u4e00\u628a\u534a_0914033835_texture_roughness.png",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/T_FrostCrystalSword_Roughness.T_FrostCrystalSword_Roughness"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Export\\SM_FrostCrystalSword.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/SM_FrostCrystalSword.SM_FrostCrystalSword"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyMelee20260915\\Export\\SK_FrostCrystalSword_Manny.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny.SK_FrostCrystalSword_Manny"
+    }
+  ],
+  "material": "/Game/Weapons/FrostCrystalSword20260915/M_FrostCrystalSword.M_FrostCrystalSword",
+  "shared_skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton",
+  "shared_animation_folder": "/Game/Weapons/AzureRunesword20260913",
+  "testing": "No preview, rendering, gameplay tests or acceptance checks run."
+}

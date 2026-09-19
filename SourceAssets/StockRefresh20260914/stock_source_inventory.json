@@ -1,0 +1,507 @@
+{
+  "tactical": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\StockRefresh20260914\\TacticalTelescopic\\Imported_Source.blend",
+    "objects": [
+      {
+        "name": "mesh_node",
+        "hidden": false,
+        "min": [
+          -0.9519699215888977,
+          -0.13778144121170044,
+          -0.4804508090019226
+        ],
+        "max": [
+          0.9512306451797485,
+          0.1375691145658493,
+          0.4814775884151459
+        ],
+        "materials": [],
+        "front_slices": [
+          {
+            "width": 0.01,
+            "min": [
+              -0.9519699215888977,
+              -0.07786064594984055,
+              0.22650697827339172
+            ],
+            "max": [
+              -0.9419821500778198,
+              0.07885909825563431,
+              0.4181906580924988
+            ]
+          },
+          {
+            "width": 0.03,
+            "min": [
+              -0.9519699215888977,
+              -0.08169244974851608,
+              0.2208472192287445
+            ],
+            "max": [
+              -0.9219878911972046,
+              0.08265561610460281,
+              0.4238274395465851
+            ]
+          },
+          {
+            "width": 0.06,
+            "min": [
+              -0.9519699215888977,
+              -0.08169244974851608,
+              0.22061458230018616
+            ],
+            "max": [
+              -0.8919700384140015,
+              0.08272203803062439,
+              0.42438095808029175
+            ]
+          },
+          {
+            "width": 0.12,
+            "min": [
+              -0.9519699215888977,
+              -0.09637352079153061,
+              0.2067108005285263
+            ],
+            "max": [
+              -0.8319703340530396,
+              0.0970732718706131,
+              0.44072026014328003
+            ]
+          }
+        ]
+      }
+    ],
+    "images": []
+  },
+  "skeleton": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ReferenceStock5080_20260912\\DetailRefine\\m4\\Stock_Refined_Editable.blend",
+    "objects": [
+      {
+        "name": "SM_SkeletonStock",
+        "hidden": false,
+        "min": [
+          0.0,
+          -1.440000057220459,
+          -9.079999923706055
+        ],
+        "max": [
+          23.024999618530273,
+          1.440000057220459,
+          2.0693819522857666
+        ],
+        "materials": [
+          "StockMetal",
+          "StockPolymer",
+          "StockRubber"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "name": "Body_BaseColor.png.001",
+        "path": "//..\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Body_Metallic.png.001",
+        "path": "//..\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Body_Normal.png.001",
+        "path": "//..\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Body_Roughness.png.001",
+        "path": "//..\\..\\..\\..\\Content\\M4NoSkel.fbm\\Body_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Image_0",
+        "path": "//..\\..\\T_ReferenceStock_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Image_1",
+        "path": "//..\\..\\T_ReferenceStock_MetalRough.png",
+        "packed": true
+      },
+      {
+        "name": "T_ReferenceStock_Normal",
+        "path": "//..\\..\\T_ReferenceStock_Normal.png",
+        "packed": true
+      }
+    ]
+  },
+  "performance": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\M4\\PerformanceStock_Editable.blend",
+    "objects": [
+      {
+        "name": "Mesh_0",
+        "hidden": true,
+        "min": [
+          0.0,
+          -0.02128933183848858,
+          -0.11738689243793488
+        ],
+        "max": [
+          0.18000000715255737,
+          0.02127237059175968,
+          0.022225940600037575
+        ],
+        "materials": [
+          "Material.001"
+        ]
+      },
+      {
+        "name": "SM_PerformanceStock",
+        "hidden": false,
+        "min": [
+          0.007000000216066837,
+          -0.02128933183848858,
+          -0.11738689243793488
+        ],
+        "max": [
+          0.18700000643730164,
+          0.02127237059175968,
+          0.022225940600037575
+        ],
+        "materials": [
+          "StockMetal_M4",
+          "StockPolymer_M4",
+          "StockRubber_M4"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "name": "BaseColor.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Textures\\BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Image_0",
+        "path": "//..\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\Image_0.jpg",
+        "packed": true
+      },
+      {
+        "name": "Image_2",
+        "path": "//..\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\Image_2.jpg",
+        "packed": true
+      },
+      {
+        "name": "Image_3",
+        "path": "//..\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\Image_3.jpg",
+        "packed": true
+      },
+      {
+        "name": "Normal.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Textures\\Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Roughness.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\MeshyPerformanceStock20260913\\Textures\\Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "texture_0_metallic.png",
+        "path": "//..\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\texture_0_metallic.png",
+        "packed": true
+      },
+      {
+        "name": "texture_0_roughness.png",
+        "path": "//..\\Source\\Meshy_AI_rifle_stock_3d_0913122821_image-to-3d-texture.fbm\\texture_0_roughness.png",
+        "packed": true
+      }
+    ]
+  },
+  "core": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\M4\\CoreStock_Game_Editable.blend",
+    "objects": [
+      {
+        "name": "Meshy_Selected_High",
+        "hidden": true,
+        "min": [
+          0.0,
+          -0.024056827649474144,
+          -0.12503360211849213
+        ],
+        "max": [
+          0.20000000298023224,
+          0.024043796584010124,
+          0.02216402068734169
+        ],
+        "materials": [
+          "Meshy_Source_Surface"
+        ]
+      },
+      {
+        "name": "CoreStock_Game_Body",
+        "hidden": true,
+        "min": [
+          7.014910352154402e-06,
+          -0.024034596979618073,
+          -0.12504422664642334
+        ],
+        "max": [
+          0.200007364153862,
+          0.02405478060245514,
+          0.022168787196278572
+        ],
+        "materials": [
+          "CoreStock_BakeTarget"
+        ]
+      },
+      {
+        "name": "SM_CoreStock",
+        "hidden": false,
+        "min": [
+          0.007000000216066837,
+          -0.024034596979618073,
+          -0.12504422664642334
+        ],
+        "max": [
+          0.2130073606967926,
+          0.02405478060245514,
+          0.022168787196278572
+        ],
+        "materials": [
+          "CoreStockBody",
+          "CoreStockRubber",
+          "CoreStockAdapter"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "name": "BaseColor.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\Textures\\BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "CoreStock_Game_Normal",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\Textures\\Normal_Game.png",
+        "packed": true
+      },
+      {
+        "name": "Metallic.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\Textures\\Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Normal.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\Textures\\Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Roughness.png",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\CoreStock20260914\\Meshy0914005605\\Textures\\Roughness.png",
+        "packed": true
+      }
+    ]
+  },
+  "factory": {
+    "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4HK416Replica20260910\\M4_HK416_Adapted_Editable.blend",
+    "objects": [
+      {
+        "name": "M4_Stock Classic Unreal",
+        "hidden": true,
+        "min": [
+          -8.416306495666504,
+          -11.494349479675293,
+          148.7050323486328
+        ],
+        "max": [
+          -2.4264111518859863,
+          9.124414443969727,
+          161.3458709716797
+        ],
+        "materials": [
+          "Classic Stock.001"
+        ]
+      },
+      {
+        "name": "M4_Stock Classic Unreal_Export",
+        "hidden": false,
+        "min": [
+          0.023581288754940033,
+          -0.0972989946603775,
+          -0.1370886266231537
+        ],
+        "max": [
+          0.08343839645385742,
+          0.10878071933984756,
+          -0.01150471717119217
+        ],
+        "materials": [
+          "Classic Stock.001"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "name": "Body_BaseColor.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Body_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Body_Metallic.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Body_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Body_Normal.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Body_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Body_Roughness.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Body_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Classic Stock_BaseColor.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Classic Stock_Metallic.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Classic Stock_Normal.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Classic Stock_Roughness.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Classic Stock_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Flash Hider_BaseColor.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Flash Hider_Metallic.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Flash Hider_Normal.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Flash Hider_Roughness.png.002",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Flash Hider_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Grip Default_BaseColor.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Grip Default_Metallic.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Grip Default_Normal.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Grip Default_Roughness.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Grip Default_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Keymod material_BaseColor.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Keymod material_Metallic.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Keymod material_Normal.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Keymod material_Roughness.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Keymod material_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Magazine Light_BaseColor.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_BaseColor.png",
+        "packed": true
+      },
+      {
+        "name": "Magazine Light_Metallic.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_Metallic.png",
+        "packed": true
+      },
+      {
+        "name": "Magazine Light_Normal.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_Normal.png",
+        "packed": true
+      },
+      {
+        "name": "Magazine Light_Roughness.png.001",
+        "path": "//..\\..\\Content\\M4NoSkel.fbm\\Magazine Light_Roughness.png",
+        "packed": true
+      },
+      {
+        "name": "Render Result",
+        "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M4Infima\\Original\\Blender_Source_Files_FreeFpsTemplate",
+        "packed": false
+      },
+      {
+        "name": "T_AssaultRifle_D",
+        "path": "C:\\Users\\David\\Desktop\\FPS_Tutorial_Blender_Files\\_Source\\Textures\\AssaultRifle\\T_AssaultRifle_D.png",
+        "packed": false
+      },
+      {
+        "name": "T_Manny_01_D.TGA.001",
+        "path": "//..\\..\\Textures\\Manny\\T_Manny_01_D.TGA",
+        "packed": false
+      },
+      {
+        "name": "T_Manny_01_MSR_MSK.TGA.001",
+        "path": "//..\\..\\Textures\\Manny\\T_Manny_01_MSR_MSK.TGA",
+        "packed": false
+      },
+      {
+        "name": "T_Manny_01_N.TGA.001",
+        "path": "//..\\..\\Textures\\Manny\\T_Manny_01_N.TGA",
+        "packed": false
+      },
+      {
+        "name": "T_Manny_02_D.TGA.001",
+        "path": "//..\\..\\Textures\\Manny\\T_Manny_02_D.TGA",
+        "packed": false
+      },
+      {
+        "name": "T_Manny_02_MSR_MSK.TGA.001",
+        "path": "//..\\..\\Textures\\Manny\\T_Manny_02_MSR_MSK.TGA",
+        "packed": false
+      },
+      {
+        "name": "T_Manny_02_N.TGA.001",
+        "path": "//..\\..\\Textures\\Manny\\T_Manny_02_N.TGA",
+        "packed": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "mesh": "/Game/Weapons/RearGripFinish20260913/M4/balanced/Seam20260914/SM_BalancedRearGrip.SM_BalancedRearGrip",
+  "source_mesh": "/Game/Weapons/RearGripFinish20260913/M4/balanced/SM_BalancedRearGrip",
+  "materials": {
+    "M_BalancedRearGrip": "/Game/Weapons/RearGripFinish20260913/M4/balanced/M_M4_balanced_Body.M_M4_balanced_Body",
+    "M_BalancedRearGrip_Collar": "/Game/Weapons/RearGripFinish20260913/M4/balanced/M_M4_balanced_Collar.M_M4_balanced_Collar"
+  },
+  "runtime_tested": false
+}

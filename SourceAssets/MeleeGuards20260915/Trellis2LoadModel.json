@@ -1,0 +1,105 @@
+{
+  "Trellis2LoadModel": {
+    "input": {
+      "required": {
+        "modelname": [
+          [
+            "microsoft/TRELLIS.2-4B",
+            "visualbruno/TRELLIS.2-4B-FP8",
+            "TencentARC/Pixal3D-T"
+          ],
+          {
+            "default": "microsoft/TRELLIS.2-4B"
+          }
+        ],
+        "backend": [
+          [
+            "flash_attn",
+            "xformers",
+            "sdpa",
+            "flash_attn_3"
+          ],
+          {
+            "default": "flash_attn"
+          }
+        ],
+        "device": [
+          [
+            "cpu",
+            "cuda"
+          ],
+          {
+            "default": "cuda"
+          }
+        ],
+        "low_vram": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "keep_models_loaded": [
+          "BOOLEAN",
+          {
+            "default": true
+          }
+        ],
+        "conv_backend": [
+          [
+            "spconv",
+            "torchsparse",
+            "flex_gemm"
+          ],
+          {
+            "default": "flex_gemm"
+          }
+        ],
+        "sparse_backend": [
+          [
+            "xformers",
+            "flash_attn"
+          ],
+          {
+            "default": "flash_attn"
+          }
+        ],
+        "use_reconviagen": [
+          "BOOLEAN",
+          {
+            "default": false
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "modelname",
+        "backend",
+        "device",
+        "low_vram",
+        "keep_models_loaded",
+        "conv_backend",
+        "sparse_backend",
+        "use_reconviagen"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "TRELLIS2PIPELINE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "pipeline"
+    ],
+    "name": "Trellis2LoadModel",
+    "display_name": "Trellis2 - LoadModel",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  }
+}

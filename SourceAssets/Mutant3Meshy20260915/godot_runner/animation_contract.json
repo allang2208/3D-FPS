@@ -1,0 +1,32 @@
+{
+  "clips": {
+    "Running": {
+      "source": "running_58f (Godot runner Walk alias)",
+      "origin": "Denys Almaral, CC BY 4.0; existing Godot adaptation",
+      "fps": 120,
+      "frames": [
+        0,
+        225
+      ],
+      "seconds": 1.875,
+      "loop": true,
+      "runtime_reference_speed_cms": 240
+    },
+    "RunFast": {
+      "source": "running_58f (Godot runner Walk alias)",
+      "origin": "Denys Almaral, CC BY 4.0; existing Godot adaptation",
+      "fps": 120,
+      "frames": [
+        0,
+        150
+      ],
+      "seconds": 1.25,
+      "loop": true,
+      "runtime_reference_speed_cms": 360
+    }
+  },
+  "source_seconds": 1.9333332777023315,
+  "leg_length_ratio": 0.9871444678121938,
+  "retarget_reference_speed_cms": 232.7584979220968,
+  "state": "Godot running_58f retarget installed in Running/RunFast; revision2 Hit_Chest retained; gameplay not tested"
+}

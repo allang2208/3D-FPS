@@ -1,0 +1,188 @@
+{
+  "sample_rate": 240,
+  "profiles": {
+    "M4:Base": {
+      "compression_cm": 0.0006178392160380168,
+      "reverse_cm": 0.000244461680828091,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.00568971312115388,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "M4:Drum": {
+      "compression_cm": 0.0006246643430493141,
+      "reverse_cm": 0.0001550875505767885,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.00568971312115388,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "M4:Angled": {
+      "compression_cm": 0.0005504018437060862,
+      "reverse_cm": 3.674114789977582e-05,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0056740863198770095,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "M4:Vertical": {
+      "compression_cm": 0.0007116811408488053,
+      "reverse_cm": 0.00010129024082474686,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0056740863198770095,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "M4:Canted": {
+      "compression_cm": 0.0006388769655117289,
+      "reverse_cm": 6.536162360287668e-05,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0056740863198770095,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "M4:Prism": {
+      "compression_cm": 0.0006375938053550187,
+      "reverse_cm": 9.152441819339986e-05,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0056740863198770095,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "AKM:Base": {
+      "compression_cm": 0.00017057957747087488,
+      "reverse_cm": 0.0001506713878854129,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0057584930282599455,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "AKM:Angled": {
+      "compression_cm": 0.00013546224235504699,
+      "reverse_cm": 6.483738849537884e-05,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0057316355808692335,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "AKM:Vertical": {
+      "compression_cm": 0.0001534240216432603,
+      "reverse_cm": 4.623442974293664e-05,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0057316355808692335,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "AKM:Canted": {
+      "compression_cm": 0.00016547562798370057,
+      "reverse_cm": 8.1892687799219e-05,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.0057316355808692335,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "AKM:Prism": {
+      "compression_cm": 0.00010262267601913715,
+      "reverse_cm": 0.00011140440932127852,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.005736302842939711,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "QBZ191:Base": {
+      "compression_cm": 116.08718584288252,
+      "reverse_cm": 0.00016760940003803776,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.003947243146916197,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "QBZ191:Angled": {
+      "compression_cm": 116.08718584288252,
+      "reverse_cm": 0.00026661983229563785,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.003947243146916197,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "QBZ191:Vertical": {
+      "compression_cm": 116.08718584288252,
+      "reverse_cm": 0.00016760940003803776,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.003947243146916197,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "QBZ191:Canted": {
+      "compression_cm": 116.08718584288252,
+      "reverse_cm": 0.00016760940003803776,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.003947243146916197,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    },
+    "QBZ191:Prism": {
+      "compression_cm": 116.08718584288252,
+      "reverse_cm": 0.00016760940003803776,
+      "loop_cm": 0.0,
+      "right_contact_cm": 0.003947243146916197,
+      "durations": {
+        "Enter": 0.30000001192092896,
+        "Loop": 0.6000000238418579,
+        "Exit": 0.30000001192092896
+      }
+    }
+  },
+  "failures": [
+    "QBZ191:Base compression_cm=116.08718584288252",
+    "QBZ191:Angled compression_cm=116.08718584288252",
+    "QBZ191:Vertical compression_cm=116.08718584288252",
+    "QBZ191:Canted compression_cm=116.08718584288252",
+    "QBZ191:Prism compression_cm=116.08718584288252"
+  ]
+}

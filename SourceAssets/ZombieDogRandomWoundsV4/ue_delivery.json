@@ -1,0 +1,23 @@
+{
+  "blueprint": "/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog",
+  "mesh": "/Game/Monsters/ZombieDog/RandomWoundsV4/SK_ZombieDog_RandomWounds.SK_ZombieDog_RandomWounds",
+  "dataset": "/Game/Monsters/ZombieDog/RandomWoundsV4/DA_ZombieDog_RandomWounds.DA_ZombieDog_RandomWounds",
+  "surface_set": "/Game/Monsters/ZombieDog/RandomWoundsV4/DA_ZombieDog_WoundSurfaces.DA_ZombieDog_WoundSurfaces",
+  "previous_dataset": "/Game/Monsters/ZombieDog/FineSkinV3/DA_ZombieDog_FineSkin.DA_ZombieDog_FineSkin",
+  "materials": {
+    "Body": "/Game/Monsters/ZombieDog/RandomWoundsV4/Materials/MI_ZombieDog_RandomBody.MI_ZombieDog_RandomBody",
+    "Fur": "/Game/Monsters/ZombieDog/RandomWoundsV4/Materials/MI_ZombieDog_RandomFur.MI_ZombieDog_RandomFur",
+    "EarScar": "/Game/Monsters/ZombieDog/RandomWoundsV4/Materials/MI_ZombieDog_RandomEarScar.MI_ZombieDog_RandomEarScar"
+  },
+  "component": "WoundAppearance",
+  "seed_default": 0,
+  "target_wounds": [
+    3,
+    6
+  ],
+  "maximum_wound_slots": 8,
+  "surface_triangles": 426,
+  "f6_entry": "ZombieDog / 僵尸犬",
+  "runtime_tested": false,
+  "preview_rendered": false
+}

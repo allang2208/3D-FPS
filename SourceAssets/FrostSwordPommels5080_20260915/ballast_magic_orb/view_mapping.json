@@ -1,0 +1,31 @@
+{
+  "size": [
+    1774,
+    887
+  ],
+  "panels": [
+    {
+      "view": "front",
+      "x": 0,
+      "y": 0,
+      "width": 591,
+      "height": 887
+    },
+    {
+      "view": "left",
+      "x": 591,
+      "y": 0,
+      "width": 592,
+      "height": 887
+    },
+    {
+      "view": "back",
+      "x": 1183,
+      "y": 0,
+      "width": 591,
+      "height": 887
+    }
+  ],
+  "up": "mounting neck upward",
+  "front_axis": "z"
+}

@@ -1,0 +1,30 @@
+{
+  "assets": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordSurfaceFix20260915\\bastion_guard\\SM_FrostCrystalSword_bastion_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/bastion_guard/SM_FrostCrystalSword_bastion_guard.SM_FrostCrystalSword_bastion_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordSurfaceFix20260915\\bastion_guard\\SK_FrostCrystalSword_bastion_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/bastion_guard/SK_FrostCrystalSword_bastion_guard.SK_FrostCrystalSword_bastion_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordSurfaceFix20260915\\riposte_guard\\SM_FrostCrystalSword_riposte_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/riposte_guard/SM_FrostCrystalSword_riposte_guard.SM_FrostCrystalSword_riposte_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordSurfaceFix20260915\\riposte_guard\\SK_FrostCrystalSword_riposte_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/riposte_guard/SK_FrostCrystalSword_riposte_guard.SK_FrostCrystalSword_riposte_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordSurfaceFix20260915\\light_guard\\SM_FrostCrystalSword_light_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/light_guard/SM_FrostCrystalSword_light_guard.SM_FrostCrystalSword_light_guard"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordSurfaceFix20260915\\light_guard\\SK_FrostCrystalSword_light_guard.fbx",
+      "asset": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/light_guard/SK_FrostCrystalSword_light_guard.SK_FrostCrystalSword_light_guard"
+    }
+  ],
+  "material": "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/M_FrostCrystalSword_SeamlessBronze.M_FrostCrystalSword_SeamlessBronze",
+  "skeleton": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny_Skeleton.SK_AzureRunesword_Manny_Skeleton"
+}

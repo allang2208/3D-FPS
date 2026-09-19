@@ -1,0 +1,25 @@
+{
+  "source_triangles": 3048660,
+  "game_triangles": 80000,
+  "mount_origin_source": [
+    -0.9519699215888977,
+    0.0005147941410541534,
+    0.32249778509140015
+  ],
+  "length_m": 0.23,
+  "front_sleeve_radii_m": [
+    0.00994,
+    0.01231
+  ],
+  "orientation": "front -X; buttpad +X; up +Z",
+  "source_uv_or_materials": false,
+  "uv0": "authored smart projection atlas",
+  "pbr": "authored dark polymer and rubber; metal is replaced by per-rifle receiver coating on UV1",
+  "normal": "selected high to low geometry, OpenGL tangent normal",
+  "material_face_counts": {
+    "metal": 57088,
+    "polymer": 17488,
+    "rubber": 5424
+  },
+  "gameplay_tested": false
+}

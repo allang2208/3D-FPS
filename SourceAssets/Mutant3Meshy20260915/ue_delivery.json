@@ -1,0 +1,118 @@
+{
+  "mesh": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy.SK_Mutant3_Meshy",
+  "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+  "content_folder": "/Game/Monsters/Mutant3Meshy",
+  "stage_project": "D:\\FPS3D\\FPSGAME\\SourceAssets\\Mutant3Meshy20260915\\UEAuthoring\\Mutant3Authoring.uproject",
+  "clips": {
+    "Idle": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Idle.A_Mutant3_Idle",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "Zombie_Idle_Crouch",
+      "origin": "Mesh2Motion CC0",
+      "fps": 120,
+      "frames": [
+        0,
+        352
+      ],
+      "seconds": 2.933333333333333,
+      "loop": true
+    },
+    "Attack": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Attack.A_Mutant3_Attack",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "Zombie_Scratch",
+      "origin": "Mesh2Motion CC0",
+      "fps": 120,
+      "frames": [
+        0,
+        138
+      ],
+      "seconds": 1.15,
+      "loop": false
+    },
+    "Stagger": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Stagger.A_Mutant3_Stagger",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "Hit_Chest",
+      "origin": "Mesh2Motion CC0",
+      "fps": 120,
+      "frames": [
+        0,
+        108
+      ],
+      "seconds": 0.9,
+      "loop": false
+    },
+    "Death": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Death.A_Mutant3_Death",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "Death_D",
+      "origin": "Mesh2Motion CC0",
+      "fps": 120,
+      "frames": [
+        0,
+        260
+      ],
+      "seconds": 2.1666666666666665,
+      "loop": false
+    },
+    "Rage": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Rage.A_Mutant3_Rage",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "Zombie Yell",
+      "origin": "Mesh2Motion CC0",
+      "fps": 120,
+      "frames": [
+        0,
+        440
+      ],
+      "seconds": 3.6666666666666665,
+      "loop": false
+    },
+    "Walking": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Walking.A_Mutant3_Walking",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "Armature|Armature|Armature|Armature|Armature|Armature|Walking",
+      "origin": "User Meshy archive",
+      "fps": 120,
+      "frames": [
+        0,
+        114
+      ],
+      "seconds": 0.95,
+      "loop": true
+    },
+    "Running": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_Running.A_Mutant3_Running",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "running_58f (Godot runner Walk alias)",
+      "origin": "Denys Almaral, CC BY 4.0; existing Godot adaptation",
+      "fps": 120,
+      "frames": [
+        0,
+        225
+      ],
+      "seconds": 1.875,
+      "loop": true,
+      "runtime_reference_speed_cms": 240
+    },
+    "RunFast": {
+      "asset": "/Game/Monsters/Mutant3Meshy/Animations/A_Mutant3_RunFast.A_Mutant3_RunFast",
+      "skeleton": "/Game/Monsters/Mutant3Meshy/SK_Mutant3_Meshy_Skeleton.SK_Mutant3_Meshy_Skeleton",
+      "source": "running_58f (Godot runner Walk alias)",
+      "origin": "Denys Almaral, CC BY 4.0; existing Godot adaptation",
+      "fps": 120,
+      "frames": [
+        0,
+        150
+      ],
+      "seconds": 1.25,
+      "loop": true,
+      "runtime_reference_speed_cms": 360
+    }
+  },
+  "import_record": "final-import.log: final animation save operations completed; manifest written by delivery script",
+  "delivered_directory": "D:\\FPS3D\\FPSGAME\\Content\\Monsters\\Mutant3Meshy",
+  "state": "Godot running_58f retarget installed in Running/RunFast; revision2 Hit_Chest retained; gameplay not tested",
+  "active_revision": "godot_runner"
+}

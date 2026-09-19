@@ -1,0 +1,36 @@
+{
+  "mesh": "/Game/Monsters/Wolf/SK_Wolf_Gameplay.SK_Wolf_Gameplay",
+  "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+  "slots": [
+    {
+      "name": "default",
+      "material": "/Game/AnimalVarietyPack/Wolf/Materials/M_Wolf.M_Wolf"
+    },
+    {
+      "name": "Wolf_Fur",
+      "material": "/Game/AnimalVarietyPack/Wolf/Materials/M_WolfFur.M_WolfFur"
+    }
+  ],
+  "textures": [
+    {
+      "asset": "/Game/AnimalVarietyPack/Wolf/Textures/T_Wolf_BaseColorAlpha.T_Wolf_BaseColorAlpha",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogV1\\Source\\T_Wolf_BaseColorAlpha.png"
+    },
+    {
+      "asset": "/Game/AnimalVarietyPack/Wolf/Textures/T_WolfDark_BaseColorAlpha.T_WolfDark_BaseColorAlpha",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogV1\\Source\\T_WolfDark_BaseColorAlpha.png"
+    },
+    {
+      "asset": "/Game/AnimalVarietyPack/Wolf/Textures/T_Wolf_Nml.T_Wolf_Nml",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogV1\\Source\\T_Wolf_Nml.png"
+    },
+    {
+      "asset": "/Game/AnimalVarietyPack/Wolf/Textures/T_Wolf_OcclusionRoughnessMetallic.T_Wolf_OcclusionRoughnessMetallic",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogV1\\Source\\T_Wolf_OcclusionRoughnessMetallic.png"
+    },
+    {
+      "asset": "/Game/AnimalVarietyPack/Wolf/Textures/T_Wolf_Specular.T_Wolf_Specular",
+      "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ZombieDogV1\\Source\\T_Wolf_Specular.png"
+    }
+  ]
+}

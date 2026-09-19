@@ -1,0 +1,21 @@
+{
+  "weapon": "M1911",
+  "source": "M1911Contact20260913/M1911_Contact_Editable.blend",
+  "clips": {
+    "sprint": {
+      "source_action": "M1911_Contact_idle",
+      "action": "M1911_Locomotion_sprint",
+      "duration": 1.0,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PistolLocomotion20260914\\M1911\\Animations\\A_M1911_sprint.fbx"
+    },
+    "sprint_empty": {
+      "source_action": "M1911_Contact_idle_empty",
+      "action": "M1911_Locomotion_sprint_empty",
+      "duration": 1.0,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\PistolLocomotion20260914\\M1911\\Animations\\A_M1911_sprint_empty.fbx"
+    }
+  },
+  "state": "Authored and exported; not tested or rendered"
+}

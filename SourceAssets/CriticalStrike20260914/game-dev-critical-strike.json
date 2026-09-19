@@ -1,0 +1,27 @@
+{
+  "id": "criticalStrike",
+  "name": "暴击",
+  "icon": "💥",
+  "iconImage": "assets/skills/暴击.png",
+  "description": "精通暴击之道，每次暴击都能造成更致命的打击",
+  "maxLevel": 20,
+  "tags": [
+    {
+      "name": "暴击",
+      "type": "passive"
+    },
+    {
+      "name": "被动",
+      "type": "passive"
+    }
+  ],
+  "effectFormula": {
+    "damageBonus": "0.50 + level * 0.05",
+    "luckBonus": "level"
+  },
+  "expFormula": "100 + (level - 1) * 100",
+  "expRewards": {
+    "crit": 1,
+    "critKill": 10
+  }
+}

@@ -1,0 +1,3005 @@
+{
+  "source": "https://www.fab.com/listings/2dd7964c-a601-4264-a53d-465dcae1644c",
+  "publisher": "PROTOFACTOR INC",
+  "scope": "Installed asset metadata only; animation appearance and contact frames not reviewed.",
+  "animations": [
+    {
+      "name": "ANIM_Crow_DeathGrounded",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_DeathGrounded.ANIM_Crow_DeathGrounded",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.800000011920929,
+      "frame_intervals": 24,
+      "keys_including_t0": 25,
+      "sample_rate_from_intervals_per_second": 29.99999955296517,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_DeathHitTheGround",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_DeathHitTheGround.ANIM_Crow_DeathHitTheGround",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.46666666865348816,
+      "frame_intervals": 14,
+      "keys_including_t0": 15,
+      "sample_rate_from_intervals_per_second": 29.99999987227576,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_EatSomething",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_EatSomething.ANIM_Crow_EatSomething",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 3.1666667461395264,
+      "frame_intervals": 95,
+      "keys_including_t0": 96,
+      "sample_rate_from_intervals_per_second": 29.999999247099243,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Falling",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Falling.ANIM_Crow_Falling",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Fly",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Fly.ANIM_Crow_Fly",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_FlyingAttack",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_FlyingAttack.ANIM_Crow_FlyingAttack",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 1.5,
+      "frame_intervals": 45,
+      "keys_including_t0": 46,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Glide",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Glide.ANIM_Crow_Glide",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Hop",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Hop.ANIM_Crow_Hop",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.5,
+      "frame_intervals": 15,
+      "keys_including_t0": 16,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Hop_RM",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Hop_RM.ANIM_Crow_Hop_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.5,
+      "frame_intervals": 15,
+      "keys_including_t0": 16,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_IdleLookAround",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_IdleLookAround.ANIM_Crow_IdleLookAround",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 3.5,
+      "frame_intervals": 105,
+      "keys_including_t0": 106,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_IdleScratchWing",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_IdleScratchWing.ANIM_Crow_IdleScratchWing",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_IdleStretchWings",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_IdleStretchWings.ANIM_Crow_IdleStretchWings",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_InAirDeathGoToFall",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_InAirDeathGoToFall.ANIM_Crow_InAirDeathGoToFall",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Landing",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Landing.ANIM_Crow_Landing",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_TakeOff",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_TakeOff.ANIM_Crow_TakeOff",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Walk",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Walk.ANIM_Crow_Walk",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Crow_Walk_RM",
+      "asset": "/Game/AnimalVarietyPack/Crow/Animations/ANIM_Crow_Walk_RM.ANIM_Crow_Walk_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_Death",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_Death.ANIM_DeerDoe_Death",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 2.3333332538604736,
+      "frame_intervals": 70,
+      "keys_including_t0": 71,
+      "sample_rate_from_intervals_per_second": 30.000001021793945,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_GetHit",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_GetHit.ANIM_DeerDoe_GetHit",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_GoToRest",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_GoToRest.ANIM_DeerDoe_GoToRest",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_GrazeOnce",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_GrazeOnce.ANIM_DeerDoe_GrazeOnce",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 3.0,
+      "frame_intervals": 90,
+      "keys_including_t0": 91,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_IdleBreathe",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_IdleBreathe.ANIM_DeerDoe_IdleBreathe",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_IdleChew",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_IdleChew.ANIM_DeerDoe_IdleChew",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_IdleGraze",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_IdleGraze.ANIM_DeerDoe_IdleGraze",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.6666666269302368,
+      "frame_intervals": 50,
+      "keys_including_t0": 51,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_IdleLookAround",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_IdleLookAround.ANIM_DeerDoe_IdleLookAround",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 7.666666507720947,
+      "frame_intervals": 230,
+      "keys_including_t0": 231,
+      "sample_rate_from_intervals_per_second": 30.000000621961522,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_IdleRest",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_IdleRest.ANIM_DeerDoe_IdleRest",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_IdleSleep",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_IdleSleep.ANIM_DeerDoe_IdleSleep",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_RestToGoBackUp",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_RestToGoBackUp.ANIM_DeerDoe_RestToGoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_Run",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_Run.ANIM_DeerDoe_Run",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 0.800000011920929,
+      "frame_intervals": 24,
+      "keys_including_t0": 25,
+      "sample_rate_from_intervals_per_second": 29.99999955296517,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_Run_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_Run_RM.ANIM_DeerDoe_Run_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 0.800000011920929,
+      "frame_intervals": 24,
+      "keys_including_t0": 25,
+      "sample_rate_from_intervals_per_second": 29.99999955296517,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_SleepToGoBackUp",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_SleepToGoBackUp.ANIM_DeerDoe_SleepToGoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_Walk",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_Walk.ANIM_DeerDoe_Walk",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_Walk_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_Walk_RM.ANIM_DeerDoe_Walk_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_WalkGraze",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_WalkGraze.ANIM_DeerDoe_WalkGraze",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_WalkGraze_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_WalkGraze_RM.ANIM_DeerDoe_WalkGraze_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_WalkTurnL",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_WalkTurnL.ANIM_DeerDoe_WalkTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_WalkTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_WalkTurnL_RM.ANIM_DeerDoe_WalkTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_WalkTurnR",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_WalkTurnR.ANIM_DeerDoe_WalkTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerDoe_WalkTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerDoe_WalkTurnR_RM.ANIM_DeerDoe_WalkTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_AntlersAttack",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_AntlersAttack.ANIM_DeerStag_AntlersAttack",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_AntlersComboAttack",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_AntlersComboAttack.ANIM_DeerStag_AntlersComboAttack",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_AntlersComboAttack_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_AntlersComboAttack_RM.ANIM_DeerStag_AntlersComboAttack_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Death",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Death.ANIM_DeerStag_Death",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.3333332538604736,
+      "frame_intervals": 70,
+      "keys_including_t0": 71,
+      "sample_rate_from_intervals_per_second": 30.000001021793945,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_GetHit",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_GetHit.ANIM_DeerStag_GetHit",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_GoToRest",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_GoToRest.ANIM_DeerStag_GoToRest",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_GrazeOnce",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_GrazeOnce.ANIM_DeerStag_GrazeOnce",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 3.0,
+      "frame_intervals": 90,
+      "keys_including_t0": 91,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_IdleBreathe",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_IdleBreathe.ANIM_DeerStag_IdleBreathe",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_IdleChew",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_IdleChew.ANIM_DeerStag_IdleChew",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_IdleGraze",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_IdleGraze.ANIM_DeerStag_IdleGraze",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.6666666269302368,
+      "frame_intervals": 50,
+      "keys_including_t0": 51,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_IdleLookAround",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_IdleLookAround.ANIM_DeerStag_IdleLookAround",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 7.666666507720947,
+      "frame_intervals": 230,
+      "keys_including_t0": 231,
+      "sample_rate_from_intervals_per_second": 30.000000621961522,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Rest",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Rest.ANIM_DeerStag_Rest",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_RestToGoBackUp",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_RestToGoBackUp.ANIM_DeerStag_RestToGoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Run",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Run.ANIM_DeerStag_Run",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 0.800000011920929,
+      "frame_intervals": 24,
+      "keys_including_t0": 25,
+      "sample_rate_from_intervals_per_second": 29.99999955296517,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Run_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Run_RM.ANIM_DeerStag_Run_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 0.800000011920929,
+      "frame_intervals": 24,
+      "keys_including_t0": 25,
+      "sample_rate_from_intervals_per_second": 29.99999955296517,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Sleep",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Sleep.ANIM_DeerStag_Sleep",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_SleepToGoBackUp",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_SleepToGoBackUp.ANIM_DeerStag_SleepToGoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Walk",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Walk.ANIM_DeerStag_Walk",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_Walk_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_Walk_RM.ANIM_DeerStag_Walk_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_WalkGraze_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_WalkGraze_RM.ANIM_DeerStag_WalkGraze_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 0.9333333373069763,
+      "frame_intervals": 28,
+      "keys_including_t0": 29,
+      "sample_rate_from_intervals_per_second": 29.99999987227576,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_WalkTurnL",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_WalkTurnL.ANIM_DeerStag_WalkTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_WalkTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_WalkTurnL_RM.ANIM_DeerStag_WalkTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_WalkTurnR",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_WalkTurnR.ANIM_DeerStag_WalkTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_DeerStag_WalkTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Animations/ANIM_DeerStag_WalkTurnR_RM.ANIM_DeerStag_WalkTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Bite",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Bite.ANIM_Fox_Bite",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Death",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Death.ANIM_Fox_Death",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 2.0999999046325684,
+      "frame_intervals": 63,
+      "keys_including_t0": 64,
+      "sample_rate_from_intervals_per_second": 30.00000136239194,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_GetHitFront",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_GetHitFront.ANIM_Fox_GetHitFront",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_GetHitLeft",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_GetHitLeft.ANIM_Fox_GetHitLeft",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_GetHitRight",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_GetHitRight.ANIM_Fox_GetHitRight",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_GoToRest",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_GoToRest.ANIM_Fox_GoToRest",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_IdleAggressive",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_IdleAggressive.ANIM_Fox_IdleAggressive",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_IdleBreathe",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_IdleBreathe.ANIM_Fox_IdleBreathe",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_IdleLookAround",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_IdleLookAround.ANIM_Fox_IdleLookAround",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 10.0,
+      "frame_intervals": 300,
+      "keys_including_t0": 301,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_JumpBite",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_JumpBite.ANIM_Fox_JumpBite",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_JumpBite_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_JumpBite_RM.ANIM_Fox_JumpBite_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Resting",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Resting.ANIM_Fox_Resting",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RestToGoBackUp",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RestToGoBackUp.ANIM_Fox_RestToGoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.5,
+      "frame_intervals": 45,
+      "keys_including_t0": 46,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Run",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Run.ANIM_Fox_Run",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Run_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Run_RM.ANIM_Fox_Run_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RunBite",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RunBite.ANIM_Fox_RunBite",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RunBite_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RunBite_RM.ANIM_Fox_RunBite_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RunTurnL",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RunTurnL.ANIM_Fox_RunTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RunTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RunTurnL_RM.ANIM_Fox_RunTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RunTurnR",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RunTurnR.ANIM_Fox_RunTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_RunTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_RunTurnR_RM.ANIM_Fox_RunTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Sleeping",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Sleeping.ANIM_Fox_Sleeping",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Walk",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Walk.ANIM_Fox_Walk",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_Walk_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_Walk_RM.ANIM_Fox_Walk_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_WalkTurnL",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_WalkTurnL.ANIM_Fox_WalkTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_WalkTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_WalkTurnL_RM.ANIM_Fox_WalkTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_WalkTurnR",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_WalkTurnR.ANIM_Fox_WalkTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Fox_WalkTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/Fox/Animations/ANIM_Fox_WalkTurnR_RM.ANIM_Fox_WalkTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_attack",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_attack.ANIM_Pig_attack",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Chew",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Chew.ANIM_Pig_Chew",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_ComboAttackForward",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_ComboAttackForward.ANIM_Pig_ComboAttackForward",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.6666667461395264,
+      "frame_intervals": 80,
+      "keys_including_t0": 81,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_ComboAttackForward_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_ComboAttackForward_RM.ANIM_Pig_ComboAttackForward_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.6666667461395264,
+      "frame_intervals": 80,
+      "keys_including_t0": 81,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Death",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Death.ANIM_Pig_Death",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.1666667461395264,
+      "frame_intervals": 65,
+      "keys_including_t0": 66,
+      "sample_rate_from_intervals_per_second": 29.9999988996066,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_GetHit",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_GetHit.ANIM_Pig_GetHit",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_GoBackUp",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_GoBackUp.ANIM_Pig_GoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_GoToRest",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_GoToRest.ANIM_Pig_GoToRest",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.3333333730697632,
+      "frame_intervals": 40,
+      "keys_including_t0": 41,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_IdleBreathe",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_IdleBreathe.ANIM_Pig_IdleBreathe",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_IdleLookAround",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_IdleLookAround.ANIM_Pig_IdleLookAround",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 12.0,
+      "frame_intervals": 360,
+      "keys_including_t0": 361,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_JumpAttack",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_JumpAttack.ANIM_Pig_JumpAttack",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.1666666269302368,
+      "frame_intervals": 35,
+      "keys_including_t0": 36,
+      "sample_rate_from_intervals_per_second": 30.000001021793945,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_JumpAttack_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_JumpAttack_RM.ANIM_Pig_JumpAttack_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.1666666269302368,
+      "frame_intervals": 35,
+      "keys_including_t0": 36,
+      "sample_rate_from_intervals_per_second": 30.000001021793945,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Rest",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Rest.ANIM_Pig_Rest",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 2.3333332538604736,
+      "frame_intervals": 70,
+      "keys_including_t0": 71,
+      "sample_rate_from_intervals_per_second": 30.000001021793945,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Run",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Run.ANIM_Pig_Run",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Run_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Run_RM.ANIM_Pig_Run_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_RunTurnL",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_RunTurnL.ANIM_Pig_RunTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_RunTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_RunTurnL_RM.ANIM_Pig_RunTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_RunTurnR",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_RunTurnR.ANIM_Pig_RunTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_RunTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_RunTurnR_RM.ANIM_Pig_RunTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_SniffleforFood",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_SniffleforFood.ANIM_Pig_SniffleforFood",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 3.0,
+      "frame_intervals": 90,
+      "keys_including_t0": 91,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Walk",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Walk.ANIM_Pig_Walk",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_Walk_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_Walk_RM.ANIM_Pig_Walk_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_WalkTurnL",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_WalkTurnL.ANIM_Pig_WalkTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_WalkTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_WalkTurnL_RM.ANIM_Pig_WalkTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.0333333015441895,
+      "frame_intervals": 31,
+      "keys_including_t0": 32,
+      "sample_rate_from_intervals_per_second": 30.000000922910658,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_WalkTurnR",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_WalkTurnR.ANIM_Pig_WalkTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Pig_WalkTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/Pig/Animations/ANIM_Pig_WalkTurnR_RM.ANIM_Pig_WalkTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Bite",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Bite.ANIM_Wolf_Bite",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Death",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Death.ANIM_Wolf_Death",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 2.066666603088379,
+      "frame_intervals": 62,
+      "keys_including_t0": 63,
+      "sample_rate_from_intervals_per_second": 30.000000922910658,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_GetHitFront",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GetHitFront.ANIM_Wolf_GetHitFront",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_GetHitLeft",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GetHitLeft.ANIM_Wolf_GetHitLeft",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_GetHitRight",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GetHitRight.ANIM_Wolf_GetHitRight",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.6666666865348816,
+      "frame_intervals": 20,
+      "keys_including_t0": 21,
+      "sample_rate_from_intervals_per_second": 29.999999105930353,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_GoToRest",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_GoToRest.ANIM_Wolf_GoToRest",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Howl",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Howl.ANIM_Wolf_Howl",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 2.8333332538604736,
+      "frame_intervals": 85,
+      "keys_including_t0": 86,
+      "sample_rate_from_intervals_per_second": 30.000000841477362,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_IdleAggressive",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_IdleAggressive.ANIM_Wolf_IdleAggressive",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_IdleBreathe",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_IdleBreathe.ANIM_Wolf_IdleBreathe",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_IdleLookAround",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_IdleLookAround.ANIM_Wolf_IdleLookAround",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 10.0,
+      "frame_intervals": 300,
+      "keys_including_t0": 301,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_JumpBite",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_JumpBite.ANIM_Wolf_JumpBite",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_JumpBite_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_JumpBite_RM.ANIM_Wolf_JumpBite_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.8333333134651184,
+      "frame_intervals": 25,
+      "keys_including_t0": 26,
+      "sample_rate_from_intervals_per_second": 30.000000715255755,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Rest",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Rest.ANIM_Wolf_Rest",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RestToGoBackUp",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RestToGoBackUp.ANIM_Wolf_RestToGoBackUp",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.5,
+      "frame_intervals": 45,
+      "keys_including_t0": 46,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Run",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Run.ANIM_Wolf_Run",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Run_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Run_RM.ANIM_Wolf_Run_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RunBite",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunBite.ANIM_Wolf_RunBite",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RunBite_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunBite_RM.ANIM_Wolf_RunBite_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RunTurnL",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnL.ANIM_Wolf_RunTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RunTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnL_RM.ANIM_Wolf_RunTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RunTurnR",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnR.ANIM_Wolf_RunTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_RunTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_RunTurnR_RM.ANIM_Wolf_RunTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 0.5333333611488342,
+      "frame_intervals": 16,
+      "keys_including_t0": 17,
+      "sample_rate_from_intervals_per_second": 29.999998435378156,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Sleep",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Sleep.ANIM_Wolf_Sleep",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 2.0,
+      "frame_intervals": 60,
+      "keys_including_t0": 61,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Walk",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Walk.ANIM_Wolf_Walk",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_Walk_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_Walk_RM.ANIM_Wolf_Walk_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_WalkTurnL",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnL.ANIM_Wolf_WalkTurnL",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_WalkTurnL_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnL_RM.ANIM_Wolf_WalkTurnL_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_WalkTurnR",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnR.ANIM_Wolf_WalkTurnR",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    },
+    {
+      "name": "ANIM_Wolf_WalkTurnR_RM",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Animations/ANIM_Wolf_WalkTurnR_RM.ANIM_Wolf_WalkTurnR_RM",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "seconds": 1.0,
+      "frame_intervals": 30,
+      "keys_including_t0": 31,
+      "sample_rate_from_intervals_per_second": 30.0,
+      "enable_root_motion": false,
+      "force_root_lock": false,
+      "rate_scale": 1.0,
+      "notify_names": [],
+      "contact_seconds": null
+    }
+  ],
+  "meshes": [
+    {
+      "name": "SK_Crow",
+      "asset": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow.SK_Crow",
+      "skeleton": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_Skeleton.SK_Crow_Skeleton",
+      "physics_asset": "/Game/AnimalVarietyPack/Crow/Meshes/SK_Crow_PhysicsAsset.SK_Crow_PhysicsAsset",
+      "bones": [
+        {
+          "name": "root",
+          "parent": "None"
+        },
+        {
+          "name": "CROW_",
+          "parent": "root"
+        },
+        {
+          "name": "CROW_-Pelvis",
+          "parent": "CROW_"
+        },
+        {
+          "name": "CROW_-Spine",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CROW_-Neck",
+          "parent": "CROW_-Spine"
+        },
+        {
+          "name": "CROW_-Head",
+          "parent": "CROW_-Neck"
+        },
+        {
+          "name": "CROW_-Queue-de-cheval-1",
+          "parent": "CROW_-Head"
+        },
+        {
+          "name": "CROW_-L-Clavicle",
+          "parent": "CROW_-Spine"
+        },
+        {
+          "name": "CROW_-L-UpperArm",
+          "parent": "CROW_-L-Clavicle"
+        },
+        {
+          "name": "CROW_-L-Forearm",
+          "parent": "CROW_-L-UpperArm"
+        },
+        {
+          "name": "CROW_-L-Hand",
+          "parent": "CROW_-L-Forearm"
+        },
+        {
+          "name": "WingLeftC",
+          "parent": "CROW_-L-Hand"
+        },
+        {
+          "name": "WingLeftH",
+          "parent": "CROW_-L-Hand"
+        },
+        {
+          "name": "WingLeftG",
+          "parent": "CROW_-L-Hand"
+        },
+        {
+          "name": "WingLeftB",
+          "parent": "CROW_-L-Forearm"
+        },
+        {
+          "name": "WingLeftF",
+          "parent": "CROW_-L-Forearm"
+        },
+        {
+          "name": "WingLeftA",
+          "parent": "CROW_-L-UpperArm"
+        },
+        {
+          "name": "WingLeftE",
+          "parent": "CROW_-L-UpperArm"
+        },
+        {
+          "name": "WingLeftD",
+          "parent": "CROW_-L-UpperArm"
+        },
+        {
+          "name": "CROW_-R-Clavicle",
+          "parent": "CROW_-Spine"
+        },
+        {
+          "name": "CROW_-R-UpperArm",
+          "parent": "CROW_-R-Clavicle"
+        },
+        {
+          "name": "CROW_-R-Forearm",
+          "parent": "CROW_-R-UpperArm"
+        },
+        {
+          "name": "CROW_-R-Hand",
+          "parent": "CROW_-R-Forearm"
+        },
+        {
+          "name": "WingRightC",
+          "parent": "CROW_-R-Hand"
+        },
+        {
+          "name": "WingRightG",
+          "parent": "CROW_-R-Hand"
+        },
+        {
+          "name": "WingRightH",
+          "parent": "CROW_-R-Hand"
+        },
+        {
+          "name": "WingRightB",
+          "parent": "CROW_-R-Forearm"
+        },
+        {
+          "name": "WingRightF",
+          "parent": "CROW_-R-Forearm"
+        },
+        {
+          "name": "WingRightD",
+          "parent": "CROW_-R-UpperArm"
+        },
+        {
+          "name": "WingRightE",
+          "parent": "CROW_-R-UpperArm"
+        },
+        {
+          "name": "WingRightA",
+          "parent": "CROW_-R-UpperArm"
+        },
+        {
+          "name": "CrowTailRightFeatherB",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailRightFeatherD",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailRightFeatherA",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailRightFeatherE",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailLeftFeatherA",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailRightFeatherC",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailLeftFeatherC",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailLeftFeatherD",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailLeftFeatherB",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CrowTailLeftFeatherE",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CROW_-L-Thigh",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CROW_-L-Calf",
+          "parent": "CROW_-L-Thigh"
+        },
+        {
+          "name": "CROW_-L-HorseLink",
+          "parent": "CROW_-L-Calf"
+        },
+        {
+          "name": "CROW_-L-Foot",
+          "parent": "CROW_-L-HorseLink"
+        },
+        {
+          "name": "CROW_-L-Toe0",
+          "parent": "CROW_-L-Foot"
+        },
+        {
+          "name": "CROW_-L-Toe01",
+          "parent": "CROW_-L-Toe0"
+        },
+        {
+          "name": "CROW_-L-Toe02",
+          "parent": "CROW_-L-Toe01"
+        },
+        {
+          "name": "CROW_-L-Toe1",
+          "parent": "CROW_-L-Foot"
+        },
+        {
+          "name": "CROW_-L-Toe11",
+          "parent": "CROW_-L-Toe1"
+        },
+        {
+          "name": "CROW_-L-Toe12",
+          "parent": "CROW_-L-Toe11"
+        },
+        {
+          "name": "CROW_-R-Thigh",
+          "parent": "CROW_-Pelvis"
+        },
+        {
+          "name": "CROW_-R-Calf",
+          "parent": "CROW_-R-Thigh"
+        },
+        {
+          "name": "CROW_-R-HorseLink",
+          "parent": "CROW_-R-Calf"
+        },
+        {
+          "name": "CROW_-R-Foot",
+          "parent": "CROW_-R-HorseLink"
+        },
+        {
+          "name": "CROW_-R-Toe0",
+          "parent": "CROW_-R-Foot"
+        },
+        {
+          "name": "CROW_-R-Toe01",
+          "parent": "CROW_-R-Toe0"
+        },
+        {
+          "name": "CROW_-R-Toe02",
+          "parent": "CROW_-R-Toe01"
+        },
+        {
+          "name": "CROW_-R-Toe1",
+          "parent": "CROW_-R-Foot"
+        },
+        {
+          "name": "CROW_-R-Toe11",
+          "parent": "CROW_-R-Toe1"
+        },
+        {
+          "name": "CROW_-R-Toe12",
+          "parent": "CROW_-R-Toe11"
+        }
+      ]
+    },
+    {
+      "name": "SK_DeerDoe",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe.SK_DeerDoe",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_Skeleton.SK_DeerDoe_Skeleton",
+      "physics_asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerDoe_PhysicsAsset.SK_DeerDoe_PhysicsAsset",
+      "bones": [
+        {
+          "name": "root",
+          "parent": "None"
+        },
+        {
+          "name": "DeerDoe_",
+          "parent": "root"
+        },
+        {
+          "name": "DeerDoe_-Pelvis",
+          "parent": "DeerDoe_"
+        },
+        {
+          "name": "DeerDoe_-Spine",
+          "parent": "DeerDoe_-Pelvis"
+        },
+        {
+          "name": "DeerDoe_-Spine1",
+          "parent": "DeerDoe_-Spine"
+        },
+        {
+          "name": "DeerDoe_-Neck",
+          "parent": "DeerDoe_-Spine1"
+        },
+        {
+          "name": "DeerDoe_-Neck1",
+          "parent": "DeerDoe_-Neck"
+        },
+        {
+          "name": "DeerDoe_-Neck2",
+          "parent": "DeerDoe_-Neck1"
+        },
+        {
+          "name": "DeerDoe_-Head",
+          "parent": "DeerDoe_-Neck2"
+        },
+        {
+          "name": "DeerDoe_-Ponytail1",
+          "parent": "DeerDoe_-Head"
+        },
+        {
+          "name": "DeerDoe_-R-Clavicle",
+          "parent": "DeerDoe_-Spine1"
+        },
+        {
+          "name": "DeerDoe_-R-UpperArm",
+          "parent": "DeerDoe_-R-Clavicle"
+        },
+        {
+          "name": "DeerDoe_-R-Forearm",
+          "parent": "DeerDoe_-R-UpperArm"
+        },
+        {
+          "name": "DeerDoe_-R-Hand",
+          "parent": "DeerDoe_-R-Forearm"
+        },
+        {
+          "name": "DeerDoe_-R-Finger0",
+          "parent": "DeerDoe_-R-Hand"
+        },
+        {
+          "name": "DeerDoe_-L-Clavicle",
+          "parent": "DeerDoe_-Spine1"
+        },
+        {
+          "name": "DeerDoe_-L-UpperArm",
+          "parent": "DeerDoe_-L-Clavicle"
+        },
+        {
+          "name": "DeerDoe_-L-Forearm",
+          "parent": "DeerDoe_-L-UpperArm"
+        },
+        {
+          "name": "DeerDoe_-L-Hand",
+          "parent": "DeerDoe_-L-Forearm"
+        },
+        {
+          "name": "DeerDoe_-L-Finger0",
+          "parent": "DeerDoe_-L-Hand"
+        },
+        {
+          "name": "DeerDoe_-L-Thigh",
+          "parent": "DeerDoe_-Spine"
+        },
+        {
+          "name": "DeerDoe_-L-Calf",
+          "parent": "DeerDoe_-L-Thigh"
+        },
+        {
+          "name": "DeerDoe_-L-HorseLink",
+          "parent": "DeerDoe_-L-Calf"
+        },
+        {
+          "name": "DeerDoe_-L-Foot",
+          "parent": "DeerDoe_-L-HorseLink"
+        },
+        {
+          "name": "DeerDoe_-R-Thigh",
+          "parent": "DeerDoe_-Spine"
+        },
+        {
+          "name": "DeerDoe_-R-Calf",
+          "parent": "DeerDoe_-R-Thigh"
+        },
+        {
+          "name": "DeerDoe_-R-HorseLink",
+          "parent": "DeerDoe_-R-Calf"
+        },
+        {
+          "name": "DeerDoe_-R-Foot",
+          "parent": "DeerDoe_-R-HorseLink"
+        },
+        {
+          "name": "DeerDoe_-Tail",
+          "parent": "DeerDoe_-Pelvis"
+        },
+        {
+          "name": "DeerDoe_-Tail1",
+          "parent": "DeerDoe_-Tail"
+        },
+        {
+          "name": "DeerDoe_-Tail2",
+          "parent": "DeerDoe_-Tail1"
+        }
+      ]
+    },
+    {
+      "name": "SK_DeerStag",
+      "asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag.SK_DeerStag",
+      "skeleton": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_Skeleton.SK_DeerStag_Skeleton",
+      "physics_asset": "/Game/AnimalVarietyPack/DeerStagAndDoe/Meshes/SK_DeerStag_PhysicsAsset.SK_DeerStag_PhysicsAsset",
+      "bones": [
+        {
+          "name": "root",
+          "parent": "None"
+        },
+        {
+          "name": "STAG_",
+          "parent": "root"
+        },
+        {
+          "name": "STAG_-Pelvis",
+          "parent": "STAG_"
+        },
+        {
+          "name": "STAG_-Spine",
+          "parent": "STAG_-Pelvis"
+        },
+        {
+          "name": "STAG_-Spine1",
+          "parent": "STAG_-Spine"
+        },
+        {
+          "name": "STAG_-Neck",
+          "parent": "STAG_-Spine1"
+        },
+        {
+          "name": "STAG_-Neck1",
+          "parent": "STAG_-Neck"
+        },
+        {
+          "name": "STAG_-Neck2",
+          "parent": "STAG_-Neck1"
+        },
+        {
+          "name": "STAG_-Head",
+          "parent": "STAG_-Neck2"
+        },
+        {
+          "name": "STAG_-Ponytail1",
+          "parent": "STAG_-Head"
+        },
+        {
+          "name": "STAG_-R-Clavicle",
+          "parent": "STAG_-Spine1"
+        },
+        {
+          "name": "STAG_-R-UpperArm",
+          "parent": "STAG_-R-Clavicle"
+        },
+        {
+          "name": "STAG_-R-Forearm",
+          "parent": "STAG_-R-UpperArm"
+        },
+        {
+          "name": "STAG_-R-Hand",
+          "parent": "STAG_-R-Forearm"
+        },
+        {
+          "name": "STAG_-R-Finger0",
+          "parent": "STAG_-R-Hand"
+        },
+        {
+          "name": "STAG_-L-Clavicle",
+          "parent": "STAG_-Spine1"
+        },
+        {
+          "name": "STAG_-L-UpperArm",
+          "parent": "STAG_-L-Clavicle"
+        },
+        {
+          "name": "STAG_-L-Forearm",
+          "parent": "STAG_-L-UpperArm"
+        },
+        {
+          "name": "STAG_-L-Hand",
+          "parent": "STAG_-L-Forearm"
+        },
+        {
+          "name": "STAG_-L-Finger0",
+          "parent": "STAG_-L-Hand"
+        },
+        {
+          "name": "STAG_-L-Thigh",
+          "parent": "STAG_-Spine"
+        },
+        {
+          "name": "STAG_-L-Calf",
+          "parent": "STAG_-L-Thigh"
+        },
+        {
+          "name": "STAG_-L-HorseLink",
+          "parent": "STAG_-L-Calf"
+        },
+        {
+          "name": "STAG_-L-Foot",
+          "parent": "STAG_-L-HorseLink"
+        },
+        {
+          "name": "STAG_-R-Thigh",
+          "parent": "STAG_-Spine"
+        },
+        {
+          "name": "STAG_-R-Calf",
+          "parent": "STAG_-R-Thigh"
+        },
+        {
+          "name": "STAG_-R-HorseLink",
+          "parent": "STAG_-R-Calf"
+        },
+        {
+          "name": "STAG_-R-Foot",
+          "parent": "STAG_-R-HorseLink"
+        },
+        {
+          "name": "STAG_-Tail",
+          "parent": "STAG_-Pelvis"
+        },
+        {
+          "name": "STAG_-Tail1",
+          "parent": "STAG_-Tail"
+        },
+        {
+          "name": "STAG_-Tail2",
+          "parent": "STAG_-Tail1"
+        }
+      ]
+    },
+    {
+      "name": "SK_Fox",
+      "asset": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox.SK_Fox",
+      "skeleton": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_Skeleton.SK_Fox_Skeleton",
+      "physics_asset": "/Game/AnimalVarietyPack/Fox/Meshes/SK_Fox_PhysicsAsset.SK_Fox_PhysicsAsset",
+      "bones": [
+        {
+          "name": "root",
+          "parent": "None"
+        },
+        {
+          "name": "Fox_",
+          "parent": "root"
+        },
+        {
+          "name": "Fox_-Pelvis",
+          "parent": "Fox_"
+        },
+        {
+          "name": "Fox_-L-Thigh",
+          "parent": "Fox_-Pelvis"
+        },
+        {
+          "name": "Fox_-L-Calf",
+          "parent": "Fox_-L-Thigh"
+        },
+        {
+          "name": "Fox_-L-HorseLink",
+          "parent": "Fox_-L-Calf"
+        },
+        {
+          "name": "Fox_-L-Foot",
+          "parent": "Fox_-L-HorseLink"
+        },
+        {
+          "name": "Fox_-R-Thigh",
+          "parent": "Fox_-Pelvis"
+        },
+        {
+          "name": "Fox_-R-Calf",
+          "parent": "Fox_-R-Thigh"
+        },
+        {
+          "name": "Fox_-R-HorseLink",
+          "parent": "Fox_-R-Calf"
+        },
+        {
+          "name": "Fox_-R-Foot",
+          "parent": "Fox_-R-HorseLink"
+        },
+        {
+          "name": "Fox_-Spine",
+          "parent": "Fox_-Pelvis"
+        },
+        {
+          "name": "Fox_-Spine1",
+          "parent": "Fox_-Spine"
+        },
+        {
+          "name": "Fox_-Neck",
+          "parent": "Fox_-Spine1"
+        },
+        {
+          "name": "Fox_-Neck1",
+          "parent": "Fox_-Neck"
+        },
+        {
+          "name": "Fox_-Neck2",
+          "parent": "Fox_-Neck1"
+        },
+        {
+          "name": "Fox_-Head",
+          "parent": "Fox_-Neck2"
+        },
+        {
+          "name": "Fox_-Queue-de-cheval-1",
+          "parent": "Fox_-Head"
+        },
+        {
+          "name": "Fox_-L-Clavicle",
+          "parent": "Fox_-Spine1"
+        },
+        {
+          "name": "Fox_-L-UpperArm",
+          "parent": "Fox_-L-Clavicle"
+        },
+        {
+          "name": "Fox_-L-Forearm",
+          "parent": "Fox_-L-UpperArm"
+        },
+        {
+          "name": "Fox_-L-Hand",
+          "parent": "Fox_-L-Forearm"
+        },
+        {
+          "name": "Fox_-L-Finger0",
+          "parent": "Fox_-L-Hand"
+        },
+        {
+          "name": "Fox_-R-Clavicle",
+          "parent": "Fox_-Spine1"
+        },
+        {
+          "name": "Fox_-R-UpperArm",
+          "parent": "Fox_-R-Clavicle"
+        },
+        {
+          "name": "Fox_-R-Forearm",
+          "parent": "Fox_-R-UpperArm"
+        },
+        {
+          "name": "Fox_-R-Hand",
+          "parent": "Fox_-R-Forearm"
+        },
+        {
+          "name": "Fox_-R-Finger0",
+          "parent": "Fox_-R-Hand"
+        },
+        {
+          "name": "Fox_-Tail",
+          "parent": "Fox_-Pelvis"
+        },
+        {
+          "name": "Fox_-Tail1",
+          "parent": "Fox_-Tail"
+        },
+        {
+          "name": "Fox_-Tail2",
+          "parent": "Fox_-Tail1"
+        },
+        {
+          "name": "Fox_-Tail3",
+          "parent": "Fox_-Tail2"
+        },
+        {
+          "name": "Fox_-Tail4",
+          "parent": "Fox_-Tail3"
+        },
+        {
+          "name": "Fox_-Tail5",
+          "parent": "Fox_-Tail4"
+        }
+      ]
+    },
+    {
+      "name": "SK_Pig",
+      "asset": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig.SK_Pig",
+      "skeleton": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_Skeleton.SK_Pig_Skeleton",
+      "physics_asset": "/Game/AnimalVarietyPack/Pig/Meshes/SK_Pig_PhysicsAsset.SK_Pig_PhysicsAsset",
+      "bones": [
+        {
+          "name": "root",
+          "parent": "None"
+        },
+        {
+          "name": "PIG_",
+          "parent": "root"
+        },
+        {
+          "name": "PIG_-Pelvis",
+          "parent": "PIG_"
+        },
+        {
+          "name": "PIG_-Spine",
+          "parent": "PIG_-Pelvis"
+        },
+        {
+          "name": "PIG_-Spine1",
+          "parent": "PIG_-Spine"
+        },
+        {
+          "name": "PIG_-Neck",
+          "parent": "PIG_-Spine1"
+        },
+        {
+          "name": "PIG_-Neck1",
+          "parent": "PIG_-Neck"
+        },
+        {
+          "name": "PIG_-Head",
+          "parent": "PIG_-Neck1"
+        },
+        {
+          "name": "PIG_-Queue-de-cheval-1",
+          "parent": "PIG_-Head"
+        },
+        {
+          "name": "Pig_Nose",
+          "parent": "PIG_-Head"
+        },
+        {
+          "name": "PIG_-R-Clavicle",
+          "parent": "PIG_-Spine1"
+        },
+        {
+          "name": "PIG_-R-UpperArm",
+          "parent": "PIG_-R-Clavicle"
+        },
+        {
+          "name": "PIG_-R-Forearm",
+          "parent": "PIG_-R-UpperArm"
+        },
+        {
+          "name": "PIG_-R-Hand",
+          "parent": "PIG_-R-Forearm"
+        },
+        {
+          "name": "PIG_-R-Finger0",
+          "parent": "PIG_-R-Hand"
+        },
+        {
+          "name": "PIG_-L-Clavicle",
+          "parent": "PIG_-Spine1"
+        },
+        {
+          "name": "PIG_-L-UpperArm",
+          "parent": "PIG_-L-Clavicle"
+        },
+        {
+          "name": "PIG_-L-Forearm",
+          "parent": "PIG_-L-UpperArm"
+        },
+        {
+          "name": "PIG_-L-Hand",
+          "parent": "PIG_-L-Forearm"
+        },
+        {
+          "name": "PIG_-L-Finger0",
+          "parent": "PIG_-L-Hand"
+        },
+        {
+          "name": "PIG_-L-Thigh",
+          "parent": "PIG_-Spine"
+        },
+        {
+          "name": "PIG_-L-Calf",
+          "parent": "PIG_-L-Thigh"
+        },
+        {
+          "name": "PIG_-L-HorseLink",
+          "parent": "PIG_-L-Calf"
+        },
+        {
+          "name": "PIG_-L-Foot",
+          "parent": "PIG_-L-HorseLink"
+        },
+        {
+          "name": "PIG_-R-Thigh",
+          "parent": "PIG_-Spine"
+        },
+        {
+          "name": "PIG_-R-Calf",
+          "parent": "PIG_-R-Thigh"
+        },
+        {
+          "name": "PIG_-R-HorseLink",
+          "parent": "PIG_-R-Calf"
+        },
+        {
+          "name": "PIG_-R-Foot",
+          "parent": "PIG_-R-HorseLink"
+        },
+        {
+          "name": "PIG_-Tail",
+          "parent": "PIG_-Pelvis"
+        },
+        {
+          "name": "PIG_-Tail1",
+          "parent": "PIG_-Tail"
+        },
+        {
+          "name": "PIG_-Tail2",
+          "parent": "PIG_-Tail1"
+        },
+        {
+          "name": "PIG_-Tail3",
+          "parent": "PIG_-Tail2"
+        },
+        {
+          "name": "PIG_-Tail4",
+          "parent": "PIG_-Tail3"
+        },
+        {
+          "name": "PIG_-Tail5",
+          "parent": "PIG_-Tail4"
+        },
+        {
+          "name": "PIG_-Tail6",
+          "parent": "PIG_-Tail5"
+        }
+      ]
+    },
+    {
+      "name": "SK_Wolf",
+      "asset": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf.SK_Wolf",
+      "skeleton": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_Skeleton.SK_Wolf_Skeleton",
+      "physics_asset": "/Game/AnimalVarietyPack/Wolf/Meshes/SK_Wolf_PhysicsAsset.SK_Wolf_PhysicsAsset",
+      "bones": [
+        {
+          "name": "root",
+          "parent": "None"
+        },
+        {
+          "name": "Wolf_",
+          "parent": "root"
+        },
+        {
+          "name": "Wolf_-Pelvis",
+          "parent": "Wolf_"
+        },
+        {
+          "name": "Wolf_-L-Thigh",
+          "parent": "Wolf_-Pelvis"
+        },
+        {
+          "name": "Wolf_-L-Calf",
+          "parent": "Wolf_-L-Thigh"
+        },
+        {
+          "name": "Wolf_-L-HorseLink",
+          "parent": "Wolf_-L-Calf"
+        },
+        {
+          "name": "Wolf_-L-Foot",
+          "parent": "Wolf_-L-HorseLink"
+        },
+        {
+          "name": "Wolf_-R-Thigh",
+          "parent": "Wolf_-Pelvis"
+        },
+        {
+          "name": "Wolf_-R-Calf",
+          "parent": "Wolf_-R-Thigh"
+        },
+        {
+          "name": "Wolf_-R-HorseLink",
+          "parent": "Wolf_-R-Calf"
+        },
+        {
+          "name": "Wolf_-R-Foot",
+          "parent": "Wolf_-R-HorseLink"
+        },
+        {
+          "name": "Wolf_-Spine",
+          "parent": "Wolf_-Pelvis"
+        },
+        {
+          "name": "Wolf_-Spine1",
+          "parent": "Wolf_-Spine"
+        },
+        {
+          "name": "Wolf_-Neck",
+          "parent": "Wolf_-Spine1"
+        },
+        {
+          "name": "Wolf_-Neck1",
+          "parent": "Wolf_-Neck"
+        },
+        {
+          "name": "Wolf_-Neck2",
+          "parent": "Wolf_-Neck1"
+        },
+        {
+          "name": "Wolf_-Head",
+          "parent": "Wolf_-Neck2"
+        },
+        {
+          "name": "Wolf_-Ponytail1",
+          "parent": "Wolf_-Head"
+        },
+        {
+          "name": "Wolf_-L-Clavicle",
+          "parent": "Wolf_-Spine1"
+        },
+        {
+          "name": "Wolf_-L-UpperArm",
+          "parent": "Wolf_-L-Clavicle"
+        },
+        {
+          "name": "Wolf_-L-Forearm",
+          "parent": "Wolf_-L-UpperArm"
+        },
+        {
+          "name": "Wolf_-L-Hand",
+          "parent": "Wolf_-L-Forearm"
+        },
+        {
+          "name": "Wolf_-L-Finger0",
+          "parent": "Wolf_-L-Hand"
+        },
+        {
+          "name": "Wolf_-R-Clavicle",
+          "parent": "Wolf_-Spine1"
+        },
+        {
+          "name": "Wolf_-R-UpperArm",
+          "parent": "Wolf_-R-Clavicle"
+        },
+        {
+          "name": "Wolf_-R-Forearm",
+          "parent": "Wolf_-R-UpperArm"
+        },
+        {
+          "name": "Wolf_-R-Hand",
+          "parent": "Wolf_-R-Forearm"
+        },
+        {
+          "name": "Wolf_-R-Finger0",
+          "parent": "Wolf_-R-Hand"
+        },
+        {
+          "name": "Wolf_-Tail",
+          "parent": "Wolf_-Pelvis"
+        },
+        {
+          "name": "Wolf_-Tail1",
+          "parent": "Wolf_-Tail"
+        },
+        {
+          "name": "Wolf_-Tail2",
+          "parent": "Wolf_-Tail1"
+        },
+        {
+          "name": "Wolf_-Tail3",
+          "parent": "Wolf_-Tail2"
+        },
+        {
+          "name": "Wolf_-Tail4",
+          "parent": "Wolf_-Tail3"
+        },
+        {
+          "name": "Wolf_-Tail5",
+          "parent": "Wolf_-Tail4"
+        }
+      ]
+    }
+  ]
+}

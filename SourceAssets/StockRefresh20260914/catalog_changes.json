@@ -1,0 +1,82 @@
+{
+  "weapons": [
+    "ue_m4a1",
+    "ue_akm",
+    "ue_qbz191"
+  ],
+  "updated": {
+    "skeleton": {
+      "effects": [
+        {
+          "text": "ADS瞄准时间减少20%",
+          "benefit": 1
+        },
+        {
+          "text": "后坐力增加15%",
+          "benefit": -1
+        },
+        {
+          "text": "枪械稳定性增加10%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "ads_percent": -0.2,
+        "recoil_mult": 1.15,
+        "stability_mult": 1.1
+      }
+    },
+    "qr_performance": {
+      "effects": [
+        {
+          "text": "后坐力减少20%",
+          "benefit": 1
+        },
+        {
+          "text": "枪械稳定性增加15%",
+          "benefit": 1
+        },
+        {
+          "text": "腰射随机散布减少30%",
+          "benefit": 1
+        }
+      ],
+      "stats": {
+        "recoil_mult": 0.8,
+        "stability_mult": 1.15,
+        "hip_spread_mult": 0.7
+      }
+    }
+  },
+  "added": {
+    "id": "tactical_telescopic",
+    "name": "战术伸缩枪托",
+    "description": "可调节贴腮面与伸缩结构，使用对应枪型的安装接口。缩短ADS瞄准时间，降低后坐力并提升枪械稳定性，但增加腰射随机散布。",
+    "effects": [
+      {
+        "text": "ADS瞄准时间减少5%",
+        "benefit": 1
+      },
+      {
+        "text": "后坐力减少15%",
+        "benefit": 1
+      },
+      {
+        "text": "枪械稳定性增加15%",
+        "benefit": 1
+      },
+      {
+        "text": "腰射随机散布增加25%",
+        "benefit": -1
+      }
+    ],
+    "stats": {
+      "ads_percent": -0.05,
+      "recoil_mult": 0.85,
+      "stability_mult": 1.15,
+      "hip_spread_mult": 1.25
+    }
+  },
+  "core_stock": "unchanged",
+  "gameplay_tested": false
+}

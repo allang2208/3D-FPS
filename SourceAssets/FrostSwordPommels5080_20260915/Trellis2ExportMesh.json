@@ -1,0 +1,55 @@
+{
+  "Trellis2ExportMesh": {
+    "input": {
+      "required": {
+        "trimesh": [
+          "TRIMESH"
+        ],
+        "filename_prefix": [
+          "STRING",
+          {
+            "default": "3D/Trellis2"
+          }
+        ],
+        "file_format": [
+          [
+            "glb",
+            "obj",
+            "ply",
+            "stl",
+            "3mf",
+            "dae"
+          ]
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "trimesh",
+        "filename_prefix",
+        "file_format"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "STRING",
+      "STRING"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "glb_path",
+      "relative_path"
+    ],
+    "name": "Trellis2ExportMesh",
+    "display_name": "Trellis2 - Export Mesh",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-Trellis2",
+    "category": "Trellis2Wrapper",
+    "output_node": true,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  }
+}

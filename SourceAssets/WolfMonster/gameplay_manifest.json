@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "source_listing": "https://www.fab.com/listings/2dd7964c-a601-4264-a53d-465dcae1644c",
+  "stage": "gameplay assets authored; user runtime testing pending",
+  "runtime_tested": false,
+  "rendered_or_visually_accepted": false,
+  "entry": "/Game/Monsters/Wolf/BP_WolfMonster",
+  "animation_set": "/Game/Monsters/Wolf/DA_Wolf_AnimationSet.DA_Wolf_AnimationSet",
+  "mesh": "/Game/Monsters/Wolf/SK_Wolf_Gameplay.SK_Wolf_Gameplay",
+  "physics": "/Game/Monsters/Wolf/PA_Wolf_Gameplay.PA_Wolf_Gameplay",
+  "native_actor": "/Script/FPSGAME.WolfMonster",
+  "native_animation": "/Script/FPSGAME.QuadrupedTemplateAnimInstance",
+  "f6_id": "Wolf",
+  "f6_display_name": "野狼",
+  "contact_source_seconds_half_open": {
+    "AttackBite": [
+      0.2,
+      0.36666666666666664
+    ],
+    "AttackPounce": [
+      0.3333333333333333,
+      0.5333333333333333
+    ]
+  },
+  "contact_basis": "initial windows authored from existing 30 fps bone motion samples; no visual acceptance",
+  "source_speed_cm_s": {
+    "walk": 92.7,
+    "run": 444.55863306446054
+  },
+  "initial_balance": {
+    "health": 220,
+    "physical_defense": 12,
+    "magic_defense": 8,
+    "critical_resistance": 5,
+    "experience": 180,
+    "bite_damage": 22,
+    "pounce_damage": 36,
+    "walk_cm_s": 100,
+    "chase_cm_s": 380
+  },
+  "death_animation_fraction": 0.6,
+  "created_this_run": [
+    "/Game/Monsters/Wolf/PA_Wolf_Gameplay",
+    "/Game/Monsters/Wolf/SK_Wolf_Gameplay",
+    "/Game/Monsters/Wolf/DA_Wolf_AnimationSet",
+    "/Game/Monsters/Wolf/BP_WolfMonster"
+  ],
+  "already_present_this_run": [],
+  "policy": "preserve initialized gameplay assets; original pack and animation mother set remain unchanged"
+}

@@ -1,0 +1,235 @@
+{
+  "source": "RearGripFinish20260913/M4/balanced/ForwardFit/Editable.blend",
+  "family": "M4",
+  "attachment_id": "balanced_reargrip",
+  "body_position": "unchanged; retains prior forward 5 mm fit",
+  "bridge_added_triangles": 5070,
+  "total_triangles": 55318,
+  "receiver_overlap_m": 0.0008,
+  "grip_overlap_m": 0.0012,
+  "receiver_material": "/Game/Weapons/RearGripFinish20260913/M4/balanced/M_M4_balanced_Collar",
+  "coating_uv": 1,
+  "coating_tile_m": [
+    0.12,
+    0.05
+  ],
+  "rows": [
+    {
+      "y_m": -0.024,
+      "lower_halfwidth_m": 0.0121,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.022583333333333334,
+      "lower_halfwidth_m": 0.0121,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.021166666666666667,
+      "lower_halfwidth_m": 0.013600000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.01975,
+      "lower_halfwidth_m": 0.013600000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.018333333333333333,
+      "lower_halfwidth_m": 0.013600000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.016916666666666667,
+      "lower_halfwidth_m": 0.013600000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.015500000000000002,
+      "lower_halfwidth_m": 0.013600000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.014083333333333335,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.012666666666666668,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.011250000000000001,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.009833333333333335,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.008416666666666668,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.007000000000000003,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.005583333333333336,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.004166666666666669,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.0027500000000000024,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": -0.0013333333333333357,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 8.33333333333311e-05,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.0014999999999999979,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.0029166666666666646,
+      "lower_halfwidth_m": 0.013900000000000001,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.004333333333333331,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.005749999999999998,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.007166666666666665,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.008583333333333332,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.009999999999999995,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.011416666666666665,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.012833333333333329,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.014249999999999999,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.015666666666666662,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.017083333333333332,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.018499999999999996,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.019916666666666666,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.02133333333333333,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.022749999999999992,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.024166666666666663,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.025583333333333326,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.026999999999999996,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.02841666666666666,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.02983333333333333,
+      "lower_halfwidth_m": 0.0142,
+      "upper_halfwidth_m": 0.0111
+    },
+    {
+      "y_m": 0.031249999999999993,
+      "lower_halfwidth_m": 0.013300000000000001,
+      "upper_halfwidth_m": 0.010972222222222225
+    },
+    {
+      "y_m": 0.03266666666666666,
+      "lower_halfwidth_m": 0.012100000000000001,
+      "upper_halfwidth_m": 0.01024814814814815
+    },
+    {
+      "y_m": 0.03408333333333333,
+      "lower_halfwidth_m": 0.010600000000000002,
+      "upper_halfwidth_m": 0.009524074074074077
+    },
+    {
+      "y_m": 0.0355,
+      "lower_halfwidth_m": 0.008200000000000002,
+      "upper_halfwidth_m": 0.0088
+    }
+  ],
+  "runtime_tested": false,
+  "preview_rendered": false
+}

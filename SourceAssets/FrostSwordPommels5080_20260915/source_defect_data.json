@@ -1,0 +1,360 @@
+{
+  "ballast_hardened": {
+    "SM_FrostPommel_ballast_hardened": {
+      "verts": 12842,
+      "faces": 13437,
+      "bounds": [
+        [
+          -0.03807992860674858,
+          -0.03509509190917015,
+          -0.06496308743953705
+        ],
+        [
+          0.03810074180364609,
+          0.035022880882024765,
+          0.0
+        ]
+      ],
+      "materials": {
+        "M_FrostCrystalSword": 821,
+        "M_FrostPommel_Bronze": 12616
+      },
+      "boundary_edges": 14733,
+      "uv": [
+        "UVMap",
+        "StockSurfaceUV"
+      ]
+    },
+    "Generated_5080_Master": {
+      "verts": 294651,
+      "faces": 465249,
+      "bounds": [
+        [
+          -0.03799999877810478,
+          -0.03500000014901161,
+          -0.061000000685453415
+        ],
+        [
+          0.03799999877810478,
+          0.03500000014901161,
+          0.0
+        ]
+      ],
+      "materials": {
+        "Material_0": 465249
+      },
+      "boundary_edges": 114919,
+      "uv": [
+        "UVMap"
+      ]
+    },
+    "Generated_Game_Body": {
+      "verts": 29017,
+      "faces": 14000,
+      "bounds": [
+        [
+          -0.03807992860674858,
+          -0.03512372821569443,
+          -0.06496308743953705
+        ],
+        [
+          0.03810074180364609,
+          0.035022880882024765,
+          0.0007324392790906131
+        ]
+      ],
+      "materials": {
+        "Material_0.001": 14000
+      },
+      "boundary_edges": 16210,
+      "uv": [
+        "UVMap"
+      ]
+    },
+    "SM_FrostSword_Pommel_factory": {
+      "verts": 1521,
+      "faces": 3038,
+      "bounds": [
+        [
+          -0.03847487270832062,
+          -0.03870515525341034,
+          -0.055351465940475464
+        ],
+        [
+          0.038700997829437256,
+          0.03846481442451477,
+          0.0
+        ]
+      ],
+      "materials": {
+        "M_FrostCrystalSword": 3038
+      },
+      "boundary_edges": 0,
+      "uv": [
+        "UVMap",
+        "StockBronzeUV"
+      ]
+    },
+    "glb_materials": [
+      {
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0
+          },
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "roughnessFactor": 1.0,
+          "metallicFactor": 1.0,
+          "metallicRoughnessTexture": {
+            "index": 1
+          }
+        },
+        "alphaMode": "OPAQUE",
+        "doubleSided": false
+      }
+    ]
+  },
+  "ballast_rune": {
+    "SM_FrostPommel_ballast_rune": {
+      "verts": 13422,
+      "faces": 12966,
+      "bounds": [
+        [
+          -0.03517888858914375,
+          -0.03222205117344856,
+          -0.060048505663871765
+        ],
+        [
+          0.03523818030953407,
+          0.032290954142808914,
+          0.0
+        ]
+      ],
+      "materials": {
+        "M_FrostCrystalSword": 787,
+        "M_FrostPommel_Bronze": 12179
+      },
+      "boundary_edges": 14880,
+      "uv": [
+        "UVMap",
+        "StockSurfaceUV"
+      ]
+    },
+    "Generated_5080_Master": {
+      "verts": 296139,
+      "faces": 461417,
+      "bounds": [
+        [
+          -0.03500000014901161,
+          -0.03200000151991844,
+          -0.05999999865889549
+        ],
+        [
+          0.03500000014901161,
+          0.03200000151991844,
+          0.0
+        ]
+      ],
+      "materials": {
+        "Material_0": 461417
+      },
+      "boundary_edges": 125123,
+      "uv": [
+        "UVMap"
+      ]
+    },
+    "Generated_Game_Body": {
+      "verts": 25835,
+      "faces": 14000,
+      "bounds": [
+        [
+          -0.03536012023687363,
+          -0.03222205117344856,
+          -0.06043778732419014
+        ],
+        [
+          0.03543773666024208,
+          0.032290954142808914,
+          0.00028778493287973106
+        ]
+      ],
+      "materials": {
+        "Material_0.001": 14000
+      },
+      "boundary_edges": 17484,
+      "uv": [
+        "UVMap"
+      ]
+    },
+    "SM_FrostSword_Pommel_factory": {
+      "verts": 1521,
+      "faces": 3038,
+      "bounds": [
+        [
+          -0.03847487270832062,
+          -0.03870515525341034,
+          -0.055351465940475464
+        ],
+        [
+          0.038700997829437256,
+          0.03846481442451477,
+          0.0
+        ]
+      ],
+      "materials": {
+        "M_FrostCrystalSword": 3038
+      },
+      "boundary_edges": 0,
+      "uv": [
+        "UVMap",
+        "StockBronzeUV"
+      ]
+    },
+    "glb_materials": [
+      {
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0
+          },
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "roughnessFactor": 1.0,
+          "metallicFactor": 1.0,
+          "metallicRoughnessTexture": {
+            "index": 1
+          }
+        },
+        "alphaMode": "OPAQUE",
+        "doubleSided": false
+      }
+    ]
+  },
+  "ballast_magic_orb": {
+    "SM_FrostPommel_ballast_magic_orb": {
+      "verts": 12805,
+      "faces": 12958,
+      "bounds": [
+        [
+          -0.03596687316894531,
+          -0.03401392325758934,
+          -0.062089622020721436
+        ],
+        [
+          0.036040518432855606,
+          0.03410725295543671,
+          0.0
+        ]
+      ],
+      "materials": {
+        "M_FrostCrystalSword": 770,
+        "M_FrostPommel_Bronze": 12172,
+        "M_FrostPommel_Crystal": 16
+      },
+      "boundary_edges": 14176,
+      "uv": [
+        "UVMap",
+        "StockSurfaceUV"
+      ]
+    },
+    "Generated_5080_Master": {
+      "verts": 318069,
+      "faces": 482841,
+      "bounds": [
+        [
+          -0.035999998450279236,
+          -0.03400000184774399,
+          -0.06199999898672104
+        ],
+        [
+          0.035999998450279236,
+          0.03400000184774399,
+          0.0
+        ]
+      ],
+      "materials": {
+        "Material_0": 482841
+      },
+      "boundary_edges": 140059,
+      "uv": [
+        "UVMap"
+      ]
+    },
+    "Generated_Game_Body": {
+      "verts": 33487,
+      "faces": 14000,
+      "bounds": [
+        [
+          -0.03607615828514099,
+          -0.03401392325758934,
+          -0.06291540712118149
+        ],
+        [
+          0.036040518432855606,
+          0.03410725295543671,
+          0.00047724158503115177
+        ]
+      ],
+      "materials": {
+        "Material_0.001": 14000
+      },
+      "boundary_edges": 16694,
+      "uv": [
+        "UVMap"
+      ]
+    },
+    "SM_FrostSword_Pommel_factory": {
+      "verts": 1521,
+      "faces": 3038,
+      "bounds": [
+        [
+          -0.03847487270832062,
+          -0.03870515525341034,
+          -0.055351465940475464
+        ],
+        [
+          0.038700997829437256,
+          0.03846481442451477,
+          0.0
+        ]
+      ],
+      "materials": {
+        "M_FrostCrystalSword": 3038
+      },
+      "boundary_edges": 0,
+      "uv": [
+        "UVMap",
+        "StockBronzeUV"
+      ]
+    },
+    "glb_materials": [
+      {
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 0
+          },
+          "baseColorFactor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "roughnessFactor": 1.0,
+          "metallicFactor": 1.0,
+          "metallicRoughnessTexture": {
+            "index": 1
+          }
+        },
+        "alphaMode": "OPAQUE",
+        "doubleSided": false
+      }
+    ]
+  }
+}

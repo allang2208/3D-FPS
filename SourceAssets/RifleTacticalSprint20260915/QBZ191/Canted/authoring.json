@@ -1,0 +1,35 @@
+{
+  "weapon": "QBZ191",
+  "profile": "Canted",
+  "source": "QBZ191Refine20260913/QBZ191_canted_Editable.blend",
+  "source_action": "QBZ191_canted_idle",
+  "coordinates": "+Y forward, +X right, +Z up; metres",
+  "reference": "M4TacticalSprint20260915 one-handed sprint; each rifle uses its accepted grip idle",
+  "upright_pitch_delta": 70.23691806906,
+  "right_wrist_offset_m": [
+    0.105,
+    0.095,
+    -0.015
+  ],
+  "status": "Authored and exported; not rendered or tested",
+  "clips": {
+    "Enter": {
+      "action": "QBZ191_TacticalSprint_Canted_Enter",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleTacticalSprint20260915\\QBZ191\\Canted\\Animations\\A_QBZ191_TacticalSprint_Canted_Enter.fbx"
+    },
+    "Loop": {
+      "action": "QBZ191_TacticalSprint_Canted_Loop",
+      "duration": 0.6,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleTacticalSprint20260915\\QBZ191\\Canted\\Animations\\A_QBZ191_TacticalSprint_Canted_Loop.fbx"
+    },
+    "Exit": {
+      "action": "QBZ191_TacticalSprint_Canted_Exit",
+      "duration": 0.3,
+      "sample_rate": 120,
+      "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RifleTacticalSprint20260915\\QBZ191\\Canted\\Animations\\A_QBZ191_TacticalSprint_Canted_Exit.fbx"
+    }
+  }
+}
