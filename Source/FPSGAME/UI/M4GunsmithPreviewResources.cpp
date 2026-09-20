@@ -1,4 +1,5 @@
 #include "M4GunsmithWidget.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "Components/MeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
@@ -14,8 +15,11 @@ void UM4GunsmithWidget::UpdatePreviewStreaming(float Delta)
         PreviewStreamedTextures.Reset();
         if(StandaloneMelee)
         {
-            TArray<UTexture*> Textures;StandaloneMelee->GetUsedTextures(Textures,GetCurrentMaterialQualityLevelChecked());
-            for(auto* Texture:Textures)if(auto* Texture2D=Cast<UTexture2D>(Texture))PreviewStreamedTextures.AddUnique(Texture2D);
+            for(auto* Part:ColdSteelModularSword::Components(StandaloneMelee))
+            {
+                TArray<UTexture*> Textures;Part->GetUsedTextures(Textures,GetCurrentMaterialQualityLevelChecked());
+                for(auto* Texture:Textures)if(auto* Texture2D=Cast<UTexture2D>(Texture))PreviewStreamedTextures.AddUnique(Texture2D);
+            }
         }
         for(const auto& Pair:StudioCopies)if(Pair.Key.IsValid()&&Pair.Value&&Pair.Value->IsVisible())
         {

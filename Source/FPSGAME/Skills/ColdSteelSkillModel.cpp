@@ -4,6 +4,7 @@
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
@@ -51,16 +52,18 @@ bool UColdSteelStatusModel::TrainDexterousHands(int32 Amount)
 }
 FColdSteelSkillProgress UColdSteelStatusModel::QuickCombatProgress() const
 { const auto* P=Current.Skills.Find(QuickCombatSkill.Id);return P?*P:FColdSteelSkillProgress(); }
-FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel) const
+FQuickCombatCast UColdSteelStatusModel::QuickCombatStats(int32 AtLevel,const FMeleeModifiers* PreviewModifiers) const
 {
     // 用户公式按「×技能等级」字面结算（1 级基础 30 伤 / 2.6 秒眩晕）；力量取当前总值。
     const auto& T=QuickCombatSkill.QuickCombat;
     const int32 L=FMath::Clamp(AtLevel<0?QuickCombatProgress().Level:AtLevel,1,QuickCombatSkill.MaxLevel);
     const float Strength=float(Attribute(TEXT("str")));
+    const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::EquippedModifiers(this);
     FQuickCombatCast C;
-    C.Damage=T.DamageBase+T.DamagePerLevel*L+Strength*(T.StrengthFactorBase+T.StrengthFactorPerLevel*L);
+    C.DamageMultiplier=1.f+float(Mods.QuickCombatDamageAdd);
+    C.Damage=(T.DamageBase+T.DamagePerLevel*L+Strength*(T.StrengthFactorBase+T.StrengthFactorPerLevel*L))*C.DamageMultiplier;
     C.StunSeconds=T.StunBase+T.StunPerLevel*L;
-    C.KnockbackCM=T.KnockbackCM;
+    C.KnockbackCM=T.KnockbackCM*float(Mods.QuickCombatKnockback);
     C.RangeCM=T.RangeCM;
     C.CooldownSeconds=T.Cooldown;
     return C;

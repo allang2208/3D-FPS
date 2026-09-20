@@ -151,14 +151,14 @@ void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
     }
     if(!ModularSword)
     {
-        ModularSword=NewObject<UStaticMeshComponent>(Character.Get(),TEXT("FrostSwordBlade"));
+        ModularSword=NewObject<UStaticMeshComponent>(Character.Get(),TEXT("ModularSwordBlade"));
         Character->AddInstanceComponent(ModularSword);ModularSword->SetupAttachment(Viewmodel,TEXT("WPN_root"));
         ModularSword->SetMobility(EComponentMobility::Movable);ModularSword->SetOnlyOwnerSee(true);
         ModularSword->SetCollisionEnabled(ECollisionEnabled::NoCollision);ModularSword->SetCanEverAffectNavigation(false);
         ModularSword->SetCastShadow(false);ModularSword->bReceivesDecals=false;
-        ModularSword->SetRelativeTransform(ColdSteelModularSword::BoneMount());
         ModularSword->SetVisibility(Viewmodel->IsVisible());ModularSword->RegisterComponent();
     }
+    ModularSword->SetRelativeTransform(ColdSteelModularSword::BoneMount(*Item));
     ColdSteelModularSword::Apply(ModularSword,*Item);
     ModularBladeBase=ColdSteelModularSword::BladePoint(*Item,false);ModularBladeTip=ColdSteelModularSword::BladePoint(*Item,true);
 }
@@ -207,10 +207,10 @@ void URuneSwordComponent::BeginAttack()
     if(bEquipping){bQueuedAttack=true;return;}
     if(bAttacking){if(Elapsed>=ContactEnd)bQueuedAttack=true;return;}
     if(GetWorld()->GetTimeSeconds()-LastAttackEnd>.85)NextSlash=0;
-    // Four-stage loop: right-to-left slash, left-to-right slash, thrust, then the
-    // counterweight strike that finishes the string.
-    const FName Clip=NextSlash==0?TEXT("Slash1"):(NextSlash==1?TEXT("Slash2"):(NextSlash==2?TEXT("Thrust"):TEXT("PommelStrike")));
-    if(StartSwing(Clip,false))NextSlash=(NextSlash+1)%4;
+    // Repeat the three-stage loop: right-to-left slash, left-to-right slash, thrust.
+    NextSlash%=3;
+    const FName Clip=NextSlash==0?TEXT("Slash1"):(NextSlash==1?TEXT("Slash2"):TEXT("Thrust"));
+    if(StartSwing(Clip,false))NextSlash=(NextSlash+1)%3;
 }
 
 void URuneSwordComponent::BeginOverhead()
@@ -284,9 +284,8 @@ bool URuneSwordComponent::StartSwing(FName Clip,bool Heavy)
         :RuneSwordPommelRhythm::CounterweightCM;
     LungeDirection=FVector::ZeroVector;
     // Snapshot the current action's combo bonus once, not the number of targets hit.
-    // The fourth hit keeps the accepted third-stage bonus: a dedicated stage-four
-    // value would change the item and gunsmith data contract.
-    const int32 ComboStage=Clip==TEXT("Slash2")?2:(Clip==TEXT("Thrust")||Clip==TEXT("PommelStrike"))?3:1;
+    // The independent quick-combat strike supplies its own skill damage below.
+    const int32 ComboStage=Clip==TEXT("Slash2")?2:Clip==TEXT("Thrust")?3:1;
     HitActors.Reset();SwingDamage=Damage*(Heavy?MeleeModifiers.HeavyMultiplier(ChargedMultiplier):MeleeModifiers.ComboMultiplier(ComboStage));
     bHeavyTrainingPending=Heavy;HeavyTrainingHits=HeavyTrainingKills=0;bAutoHeavyRelease=false;
     SwingRate=AttackRate;SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,bThrustAttack?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
@@ -702,7 +701,9 @@ FRuneSwordBladeSample URuneSwordComponent::ReadBlade(const FTransform& AimFrame)
 {
     const FQuat ImportBasis=FRotator(0,90,0).Quaternion();
     FRuneSwordBladeSample Sample;
-    if(ModularSword)
+    // The rune sword already animates its Blade_Base/Tip tracks at the accepted
+    // 80 percent size. Preserve those tracks when only splitting its surface.
+    if(ModularSword&&!ModularSword->ComponentHasTag(TEXT("SwordTraceFromAnimation")))
     {
         const FTransform Frame=ModularSword->GetRelativeTransform()*Viewmodel->GetSocketTransform(TEXT("WPN_root"),RTS_Component);
         const auto Point=[&](FVector P){return AimFrame.TransformPosition(ImportBasis.RotateVector(Frame.TransformPosition(P)));};

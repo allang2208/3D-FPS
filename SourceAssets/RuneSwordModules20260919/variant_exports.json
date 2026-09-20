@@ -1,0 +1,62 @@
+[
+  {
+    "slot": "guard",
+    "id": "bastion_guard",
+    "mesh": "SM_RuneSword_Guard_bastion_guard",
+    "location_cm": [
+      0,
+      0,
+      0.0
+    ]
+  },
+  {
+    "slot": "guard",
+    "id": "riposte_guard",
+    "mesh": "SM_RuneSword_Guard_riposte_guard",
+    "location_cm": [
+      0,
+      0,
+      0.0
+    ]
+  },
+  {
+    "slot": "guard",
+    "id": "light_guard",
+    "mesh": "SM_RuneSword_Guard_light_guard",
+    "location_cm": [
+      0,
+      0,
+      0.0
+    ]
+  },
+  {
+    "slot": "grip",
+    "id": "shock_wrap",
+    "mesh": "SM_RuneSword_Grip_shock_wrap",
+    "location_cm": [
+      0,
+      0,
+      -4.0
+    ]
+  },
+  {
+    "slot": "grip",
+    "id": "swift_grip",
+    "mesh": "SM_RuneSword_Grip_swift_grip",
+    "location_cm": [
+      0,
+      0,
+      -4.0
+    ]
+  },
+  {
+    "slot": "grip",
+    "id": "long_twohand",
+    "mesh": "SM_RuneSword_Grip_long_twohand",
+    "location_cm": [
+      0,
+      0,
+      -4.0
+    ]
+  }
+]

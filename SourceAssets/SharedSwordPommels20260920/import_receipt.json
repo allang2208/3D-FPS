@@ -1,0 +1,34 @@
+{
+  "materials": {
+    "meteor": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_meteor_FrostBronze.MI_SharedPommel_meteor_FrostBronze",
+    "jade_core": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_jade_core_FrostBronze.MI_SharedPommel_jade_core_FrostBronze",
+    "swift": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_swift_FrostBronze.MI_SharedPommel_swift_FrostBronze"
+  },
+  "finishes": {
+    "frost_bronze": {
+      "ballast_hardened": {
+        "materials": {
+          "M_RunePommel_meteor_Opaque": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_meteor_FrostBronze.MI_SharedPommel_meteor_FrostBronze"
+        }
+      },
+      "ballast_rune": {
+        "materials": {
+          "M_RunePommel_jade_core_Opaque": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_jade_core_FrostBronze.MI_SharedPommel_jade_core_FrostBronze"
+        }
+      },
+      "ballast_magic_orb": {
+        "materials": {
+          "M_RunePommel_swift_Opaque": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_swift_FrostBronze.MI_SharedPommel_swift_FrostBronze"
+        }
+      }
+    }
+  },
+  "icons": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_ballast_hardened.ue_frost_crystal_sword_pommel_ballast_hardened",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_ballast_rune.ue_frost_crystal_sword_pommel_ballast_rune",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_ballast_magic_orb.ue_frost_crystal_sword_pommel_ballast_magic_orb"
+  ],
+  "master_material": "/Game/Weapons/SharedSwordPommels20260920/Materials/M_SharedSwordPommel_MetalFinish.M_SharedSwordPommel_MetalFinish",
+  "adapter": "/Game/Weapons/SharedSwordPommels20260920/Interfaces/SM_SwordPommel_FrostAdapter.SM_SwordPommel_FrostAdapter",
+  "testing": "Not run; production icons only."
+}

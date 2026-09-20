@@ -1,0 +1,69 @@
+[
+  {
+    "id": "pommel_hardened",
+    "name": "硬化配重",
+    "description": "加厚硬化剑首，偏重重击威力和击退，以攻速和耐力为代价。",
+    "effects": [
+      {
+        "text": "重击伤害倍率 +0.15",
+        "benefit": 1
+      },
+      {
+        "text": "攻击造成击退 +10%",
+        "benefit": 1
+      },
+      {
+        "text": "攻击速度 -10%",
+        "benefit": -1
+      },
+      {
+        "text": "耐力消耗 +10%",
+        "benefit": -1
+      }
+    ],
+    "stats": {
+      "heavy_damage_add": 0.15,
+      "knockback_mult": 1.1,
+      "attack_speed_mult": 0.9,
+      "stamina_mult": 1.1
+    }
+  },
+  {
+    "id": "pommel_runic",
+    "name": "符文配重",
+    "description": "嵌入苍蓝符文的剑首，手持时缩短魔法冷却并降低魔法值消耗。",
+    "effects": [
+      {
+        "text": "魔法技能冷却时间 -15%",
+        "benefit": 1
+      },
+      {
+        "text": "魔法值消耗 -15%",
+        "benefit": 1
+      }
+    ],
+    "stats": {
+      "magic_cooldown_mult": 0.85,
+      "magic_cost_mult": 0.85
+    }
+  },
+  {
+    "id": "pommel_mana_orb",
+    "name": "魔力球配重",
+    "description": "银色支架包覆蓝色魔力晶球，手持时强化魔法伤害并提高魔法值消耗。",
+    "effects": [
+      {
+        "text": "魔法伤害 +10%",
+        "benefit": 1
+      },
+      {
+        "text": "魔法值消耗 +15%",
+        "benefit": -1
+      }
+    ],
+    "stats": {
+      "magic_damage_mult": 1.1,
+      "magic_cost_mult": 1.15
+    }
+  }
+]

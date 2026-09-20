@@ -66,6 +66,7 @@ void UColdSteelInventoryWidget::RefreshDragPreview(UColdSteelItemDrag& Drag)
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWeaponIcons.h"
+#include "../Weapons/GunsmithSystem.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/SizeBox.h"
@@ -225,7 +226,7 @@ void UColdSteelInventoryWidget::PerformAction(int32 Action)
     if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);
     if(!Model)return;
     const auto L=Layout(GetCachedGeometry());
-    if(Action==7)if(const auto* I=Model->FindItem(Selected))if((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715"))))
+    if(Action==7)if(const auto* I=Model->FindItem(Selected))if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(I->Definition))
     {if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->OpenGunsmith(Selected);return;}
     switch(Action){case 0:Model->DefaultAction(Selected);break;case 1:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale),true);break;case 2:if(bConfirmDrop){Model->Drop(Selected);bConfirmDrop=false;}else bConfirmDrop=true;break;case 3:if(bWarehouse)Model->SortWarehouse(TEXT("category"));else Model->Sort();break;case 4:if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(Selected,GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale),true,this);HUD->FocusItemTooltip();}break;case 5:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale));break;case 6:Model->SaveNow();break;case 7:Selected.Empty();bConfirmDrop=false;break;}
     InteractionMessage=bConfirmDrop?TEXT("再次按 Delete 确认丢下，Esc 取消"):Model->ResultMessage();LoadIcons();
@@ -236,7 +237,7 @@ FReply UColdSteelInventoryWidget::NativeOnKeyDown(const FGeometry& G,const FKeyE
     if(E.GetKey()==EKeys::Escape&&!KeyboardCarry.IsEmpty()){KeyboardCarry.Empty();KeyboardHotbar=-1;PreviewPlace=-1;return FReply::Handled();}
     if(E.GetKey()==EKeys::J||E.GetKey()==EKeys::K){
         if(const auto* I=Model->FindItem(Selected)){
-            if(E.GetKey()==EKeys::J&&I->Definition!=TEXT("ue_m4a1")&&I->Definition!=TEXT("ue_akm")&&I->Definition!=TEXT("ue_qbz191")&&I->Definition!=TEXT("ue_m1911")&&I->Definition!=TEXT("ue_dan_wesson715"))return FReply::Handled();
+            if(E.GetKey()==EKeys::J&&!GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(I->Definition))return FReply::Handled();
             const FString Id=I->InstanceId;
             if(I->Place==4&&!Model->TransferWarehouse(Id,0)){InteractionMessage=Model->ResultMessage();return FReply::Handled();}
             if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer())){if(E.GetKey()==EKeys::J)PC->OpenGunsmith(Id);else PC->OpenEnhancement(Id);}

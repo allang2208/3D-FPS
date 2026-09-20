@@ -1,5 +1,7 @@
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMeleePreview.h"
+#include "../Weapons/MeleeRuneVisual.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "ColdSteelPickupStudio.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -33,7 +35,8 @@
 bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
-    if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I);
+    if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
+    if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I)+TEXT("|")+(bCatalogExport?FString():ColdSteelMeleeRune::Selected(I));
     const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Result=I.Definition;for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
@@ -50,7 +53,7 @@ void UColdSteelWeaponIcons::Deinitialize()
 {
     Queue.Empty();Pending.Empty();OnReady.Clear();if(Capture){Capture->TextureTarget=nullptr;Studio->RemoveComponent(Capture);Capture->DestroyComponent();}
     CaptureMeshes.Empty();CaptureMaterials.Empty();CaptureTextures.Empty();
-    if(MeleeMesh){Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
+    if(MeleeMesh){ColdSteelModularSword::Clear(MeleeMesh);Studio->RemoveComponent(MeleeMesh);MeleeMesh->DestroyComponent();MeleeMesh=nullptr;}
     Capture=nullptr;Rig=nullptr;Studio.Reset();Target=nullptr;Cache.Empty();Textures.Empty();Failed.Empty();Super::Deinitialize();
 }
 bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)

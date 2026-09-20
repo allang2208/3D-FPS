@@ -28,7 +28,7 @@ void UM4GunsmithWidget::UndoDraft()
 {
     Model()->Undo();
     // Synchronize all current variants, including variable optics and underbarrel options.
-    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
+    if(auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();!IsMeleeWorkbench()&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
             C->SetGunsmithOpticVariant(Model()->Draft().FindRef(TEXT("optic")));
@@ -48,10 +48,10 @@ void UM4GunsmithWidget::ChooseDrum(bool bDrum)
 void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
 {
     PreviewMotion=1.f;
-    const auto* Weapon=Model()->Weapon(Model()->Definition());
+    const auto* Weapon=Model()->ModifiableWeapon(Model()->Definition());
     if(!Weapon||!Weapon->Allowed.Contains(SlotKey)||!Model()->Select(SlotKey,Id))return;
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
+    if(!IsMeleeWorkbench()&&P->Equipped()&&P->Equipped()->InstanceId==Model()->Instance())
         if(auto* C=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn()))
         {
             C->SetGunsmithOpticVariant(Model()->Draft().FindRef(TEXT("optic")));
@@ -65,6 +65,7 @@ void UM4GunsmithWidget::ChooseOption(const FString& SlotKey,const FString& Id)
 }
 void UM4GunsmithWidget::SetAimPreview(bool bAim)
 {
+    if(IsMeleeWorkbench())return;
     if(bAim&&StandaloneMelee)return;
     if(bStandalone){bAimPreview=bAim;bSidePreview=!bAim;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;
@@ -76,7 +77,7 @@ void UM4GunsmithWidget::SetAimPreview(bool bAim)
 void UM4GunsmithWidget::SetSidePreview(bool bSide)
 {
     if(bSide)PreviewZoom=1.f;
-    if(bStandalone){bSidePreview=bSide;bAimPreview=false;if(bSide)PreviewOrbit=FVector2D::ZeroVector;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
+    if(bStandalone||StandaloneMelee){bSidePreview=bSide;bAimPreview=false;if(bSide)PreviewOrbit=FVector2D::ZeroVector;PoseStandalone();PreviewMotion=1.f;CaptureAccumulator=1.f;return;}
     PreviewMotion=1.f;
     if(bSide)PreviewOrbit=FVector2D::ZeroVector;
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
@@ -103,7 +104,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::RebuildWidget()
     if(!IsCategoryAvailable(SelectedCategory))
     {
         SelectedCategory.Reset();
-        for(const auto& Key:Model()->Slots())if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
+        for(const auto& Key:Model()->Slots(Model()->Definition()))if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
     }
     return BuildWorkbench();
 }

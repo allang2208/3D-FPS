@@ -1,0 +1,131 @@
+{
+  "FactoryPommel": {
+    "bounds_m": [
+      [
+        -0.05737408623099327,
+        -0.04281827062368393,
+        -0.08735143393278122
+      ],
+      [
+        0.05693550035357475,
+        0.04401589184999466,
+        0.0
+      ]
+    ],
+    "bands": [
+      {
+        "z": 0,
+        "radius_x": 0.015541231259703636,
+        "radius_y": 0.018875105306506157,
+        "vertices": 202
+      },
+      {
+        "z": -0.003,
+        "radius_x": 0.01817781664431095,
+        "radius_y": 0.021961573511362076,
+        "vertices": 210
+      },
+      {
+        "z": -0.006,
+        "radius_x": 0.021491313353180885,
+        "radius_y": 0.023701703175902367,
+        "vertices": 122
+      },
+      {
+        "z": -0.009,
+        "radius_x": 0.02301405556499958,
+        "radius_y": 0.023701703175902367,
+        "vertices": 428
+      },
+      {
+        "z": -0.012,
+        "radius_x": 0.03258080407977104,
+        "radius_y": 0.02587314136326313,
+        "vertices": 139
+      },
+      {
+        "z": -0.015,
+        "radius_x": 0.03873436897993088,
+        "radius_y": 0.035364385694265366,
+        "vertices": 73
+      },
+      {
+        "z": -0.02,
+        "radius_x": 0.04568500071763992,
+        "radius_y": 0.03617018088698387,
+        "vertices": 195
+      },
+      {
+        "z": -0.03,
+        "radius_x": 0.05311397463083267,
+        "radius_y": 0.04115299507975578,
+        "vertices": 128
+      },
+      {
+        "z": -0.045,
+        "radius_x": 0.05737408623099327,
+        "radius_y": 0.04362688586115837,
+        "vertices": 75
+      },
+      {
+        "z": -0.06,
+        "radius_x": 0.05484607070684433,
+        "radius_y": 0.0418507419526577,
+        "vertices": 117
+      },
+      {
+        "z": -0.08,
+        "radius_x": 0.03431076556444168,
+        "radius_y": 0.02870623953640461,
+        "vertices": 47
+      }
+    ]
+  },
+  "StockCollar": {
+    "bounds_m": [
+      [
+        -0.021491313353180885,
+        -0.0228381659835577,
+        -0.008999999612569809
+      ],
+      [
+        0.02103150635957718,
+        0.023701703175902367,
+        0.0
+      ]
+    ],
+    "bands": [
+      {
+        "z": 0,
+        "radius_x": 0.015541231259703636,
+        "radius_y": 0.018875105306506157,
+        "vertices": 202
+      },
+      {
+        "z": -0.003,
+        "radius_x": 0.01817781664431095,
+        "radius_y": 0.021961573511362076,
+        "vertices": 210
+      },
+      {
+        "z": -0.006,
+        "radius_x": 0.021491313353180885,
+        "radius_y": 0.023701703175902367,
+        "vertices": 122
+      },
+      {
+        "z": -0.009,
+        "radius_x": 0.021491313353180885,
+        "radius_y": 0.023701703175902367,
+        "vertices": 429
+      }
+    ]
+  },
+  "material_images": [
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\Original\\Meshy_AI_Azure_Starblade_0913123202_texture_fbx\\Meshy_AI_Azure_Starblade_0913123202_texture.png",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\Original\\Meshy_AI_Azure_Starblade_0913123202_texture_fbx\\Meshy_AI_Azure_Starblade_0913123202_texture_metallic.png",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\Original\\Meshy_AI_Azure_Starblade_0913123202_texture_fbx\\Meshy_AI_Azure_Starblade_0913123202_texture_roughness.png",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\Original\\Meshy_AI_Azure_Starblade_0913123202_texture_fbx\\Meshy_AI_Azure_Starblade_0913123202_texture_emission.png",
+    "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\Original\\Meshy_AI_Azure_Starblade_0913123202_texture_fbx\\Meshy_AI_Azure_Starblade_0913123202_texture_normal.png"
+  ]
+}

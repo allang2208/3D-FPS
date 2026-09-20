@@ -1,0 +1,18 @@
+{
+  "scale": 1.0,
+  "adapter_length_cm": 0.6,
+  "silver_tint": [
+    2.15,
+    2.3,
+    2.5
+  ],
+  "adapter": "SM_SwordPommel_RuneToFrost",
+  "adapter_triangles": 4560,
+  "body_meshes_unchanged": true,
+  "icons": "1024 RGBA, front -Y, mount +Z up",
+  "ids": {
+    "ballast_hardened": "pommel_hardened",
+    "ballast_rune": "pommel_runic",
+    "ballast_magic_orb": "pommel_mana_orb"
+  }
+}

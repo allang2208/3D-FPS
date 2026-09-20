@@ -1,0 +1,112 @@
+[
+  {
+    "id": "meteor",
+    "mesh": "SM_RunePommel_Meteor",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_Meteor.fbx",
+    "glb": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_Meteor.glb",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\meteor\\meteor_BaseColor.png",
+      "Metallic": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\meteor\\meteor_Metallic.png",
+      "Roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\meteor\\meteor_Roughness.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\meteor\\meteor_Normal.png",
+      "Emissive": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\meteor\\meteor_Emissive.png"
+    },
+    "materials": [
+      "M_RunePommel_meteor_Opaque",
+      "M_RunePommel_meteor_Crystal"
+    ],
+    "interface": "azure_hilt_v1",
+    "location_cm": [
+      0,
+      0,
+      -19.5
+    ],
+    "vertices": 17935,
+    "triangles": 31198,
+    "bounds_cm": [
+      [
+        -4.2756520211696625,
+        -4.2756520211696625,
+        -10.599999874830246
+      ],
+      [
+        4.2756520211696625,
+        4.2756520211696625,
+        0.0
+      ]
+    ]
+  },
+  {
+    "id": "jade_core",
+    "mesh": "SM_RunePommel_JadeStar",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_JadeStar.fbx",
+    "glb": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_JadeStar.glb",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\jade_core\\jade_core_BaseColor.png",
+      "Metallic": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\jade_core\\jade_core_Metallic.png",
+      "Roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\jade_core\\jade_core_Roughness.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\jade_core\\jade_core_Normal.png",
+      "Emissive": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\jade_core\\jade_core_Emissive.png"
+    },
+    "materials": [
+      "M_RunePommel_jade_core_Opaque",
+      "M_RunePommel_jade_core_Crystal"
+    ],
+    "interface": "azure_hilt_v1",
+    "location_cm": [
+      0,
+      0,
+      -19.5
+    ],
+    "vertices": 14065,
+    "triangles": 25466,
+    "bounds_cm": [
+      [
+        -4.00516651570797,
+        -4.00516651570797,
+        -11.680000275373459
+      ],
+      [
+        4.00516651570797,
+        4.00516651570797,
+        0.0
+      ]
+    ]
+  },
+  {
+    "id": "swift",
+    "mesh": "SM_RunePommel_Swiftstar",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_Swiftstar.fbx",
+    "glb": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_Swiftstar.glb",
+    "textures": {
+      "BaseColor": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\swift\\swift_BaseColor.png",
+      "Metallic": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\swift\\swift_Metallic.png",
+      "Roughness": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\swift\\swift_Roughness.png",
+      "Normal": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\swift\\swift_Normal.png",
+      "Emissive": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Textures\\swift\\swift_Emissive.png"
+    },
+    "materials": [
+      "M_RunePommel_swift_Opaque"
+    ],
+    "interface": "azure_hilt_v1",
+    "location_cm": [
+      0,
+      0,
+      -19.5
+    ],
+    "vertices": 18869,
+    "triangles": 35386,
+    "bounds_cm": [
+      [
+        -2.267461270093918,
+        -2.28381659835577,
+        -12.060000002384186
+      ],
+      [
+        2.267461270093918,
+        2.3701703175902367,
+        0.0
+      ]
+    ]
+  }
+]

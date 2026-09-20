@@ -4,6 +4,7 @@
 #include "ColdSteelEnhancementSystem.h"
 #include "Engine/GameInstance.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/RuneSwordRhythm.h"
 #include "../Weapons/RuneSwordThrustRhythm.h"
@@ -53,24 +54,48 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Delta(C,TEXT("暴击率"),Number(EE,TEXT("critRate"))*100,TEXT("%"));Delta(C,TEXT("穿透目标"),Number(EE,TEXT("piercingBonus")),TEXT("个"));
             bool Poison=false;if(EE->TryGetBoolField(TEXT("poisonOnHit"),Poison)&&Poison)Row(C,TEXT("特殊效果"),TEXT("攻击叠加中毒"),1);}
     }
-    const auto* Weapon=G?G->Weapon(I.Definition):nullptr;const FGunsmithParts Parts=Weapon?G->Installed(I):FGunsmithParts();
+    const auto* Weapon=G?G->Weapon(I.Definition):nullptr;const FGunsmithParts Parts=G&&G->ModifiableWeapon(I.Definition)?G->Installed(I):FGunsmithParts();
     bool Installed=false;for(const auto& P:Parts)if(G->Option(I.Definition,P.Key,P.Value))Installed=true;
     const J Craft=Object(O,TEXT("_craftData")),CE=Object(O,TEXT("_craftEffects"));
     if(Installed||(Craft&&!Craft->Values.IsEmpty())){
         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("改造项目");C.MinimumWidth=600;
-        if(Installed){for(const auto& Slot:G->Slots())if(const auto* Id=Parts.Find(Slot))if(const auto* P=G->Option(I.Definition,Slot,*Id)){
+        if(Installed){for(const auto& Slot:G->Slots(I.Definition))if(const auto* Id=Parts.Find(Slot))if(const auto* P=G->Option(I.Definition,Slot,*Id)){
                 Section(C,P->Name);
                 if(P->Effects.IsEmpty())Row(C,TEXT(""),P->Description);
                 else for(const auto& E:P->Effects)Row(C,TEXT(""),E.Key,E.Value);
                 C.Rows.Last().bDashedAfter=true;}
             const auto S=G->Calculate(I.Definition,Parts),B=G->Calculate(I.Definition,{});Section(C,TEXT("合计改造数值"));
+            if(G->IsMelee(I.Definition))
+            {
+                Delta(C,TEXT("基础伤害"),(S.Melee.Damage-1)*100,TEXT("%"));
+                Delta(C,TEXT("三连击第二段伤害"),(S.Melee.ComboSecond-1)*100,TEXT("%"));
+                Delta(C,TEXT("三连击第三段伤害"),(S.Melee.ComboThird-1)*100,TEXT("%"));
+                Delta(C,TEXT("魔法技能冷却时间"),(S.Melee.MagicCooldown-1)*100,TEXT("%"),true);
+                Delta(C,TEXT("魔法伤害"),(S.Melee.MagicDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("魔法值消耗"),(S.Melee.MagicCost-1)*100,TEXT("%"),true);
+                Delta(C,TEXT("重击伤害倍率"),(S.Melee.HeavyDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("重击伤害倍率加值"),S.Melee.HeavyDamageAdd,TEXT(""));
+                Delta(C,TEXT("攻击造成击退"),(S.Melee.Knockback-1)*100,TEXT("%"));
+                Delta(C,TEXT("快速近战伤害倍率加值"),S.Melee.QuickCombatDamageAdd,TEXT(""));
+                Delta(C,TEXT("快速近战击退距离"),(S.Melee.QuickCombatKnockback-1)*100,TEXT("%"));
+                Delta(C,TEXT("附加魔法伤害·智力系数"),S.Melee.RuneIntelligence*100,TEXT("%"));
+                Delta(C,TEXT("附加魔法伤害·精神系数"),S.Melee.RuneWisdom*100,TEXT("%"));
+                Delta(C,TEXT("命中魔法易伤"),S.Melee.RuneVulnerability*100,TEXT("%"));
+                Delta(C,TEXT("攻击速度"),(S.Melee.AttackSpeed-1)*100,TEXT("%"));
+                Delta(C,TEXT("攻击范围"),(S.Melee.Range-1)*100,TEXT("%"));
+                Delta(C,TEXT("耐力消耗"),(S.Melee.Stamina-1)*100,TEXT("%"),true);
+                Delta(C,TEXT("造成硬直时间"),(S.Melee.HitReaction-1)*100,TEXT("%"));
+                Delta(C,TEXT("格挡减伤"),(S.Melee.BlockReduction-1)*100,TEXT("%"));
+                Delta(C,TEXT("弹反判定时间"),(S.Melee.ParryWindow-1)*100,TEXT("%"));
+            }
+            else {
             Delta(C,TEXT("伤害"),S.Damage-B.Damage,TEXT(""));Delta(C,TEXT("弹匣容量"),S.Capacity-B.Capacity,TEXT("发"));
             Delta(C,TEXT("瞄准耗时"),(S.ADS-B.ADS)*1000,TEXT("ms"),true);Delta(C,TEXT("射击间隔"),(S.Interval-B.Interval)*1000,TEXT("ms"),true);
             Delta(C,TEXT("普通换弹"),(S.Reload-B.Reload)*1000,TEXT("ms"),true);Delta(C,TEXT("空仓换弹"),(S.EmptyReload-B.EmptyReload)*1000,TEXT("ms"),true);
             Delta(C,TEXT("后坐力指数"),S.Recoil-B.Recoil,TEXT(""),true);Delta(C,TEXT("枪械稳定性"),S.Handling.Stability-B.Handling.Stability,TEXT("分"));
             Delta(C,TEXT("枪械稳定性·回稳90%"),S.Handling.ADSRecoveryMilliseconds()-B.Handling.ADSRecoveryMilliseconds(),TEXT("ms"),true);
             if(B.Spread>0)Delta(C,TEXT("腰射散布"),(S.Spread/B.Spread-1)*100,TEXT("%"),true);
-            Delta(C,TEXT("射程"),S.Range-B.Range,TEXT("m"));Delta(C,TEXT("弹速"),S.Speed-B.Speed,TEXT("m/s"));}
+            Delta(C,TEXT("射程"),S.Range-B.Range,TEXT("m"));Delta(C,TEXT("弹速"),S.Speed-B.Speed,TEXT("m/s"));}}
         if(Craft){const auto Config=Object(Object(Reference(),TEXT("craft")),*I.Definition);const auto Options=Object(Config,TEXT("options"));
             for(const auto& P:Craft->Values){const TArray<TSharedPtr<FJsonValue>>* List=nullptr;if(!Options||!Options->TryGetArrayField(FString(*P.Key),List))continue;
                 for(const auto& V:*List){const auto Option=V->AsObject();if(String(Option,TEXT("id"))==Value(P.Value)){Section(C,String(Option,TEXT("name")));Row(C,TEXT(""),String(Option,TEXT("desc")));C.Rows.Last().bDashedAfter=true;break;}}}}
@@ -85,22 +110,39 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     const TArray<TSharedPtr<FJsonValue>>* Stats=nullptr;
     FGunsmithStats S;if(Weapon)S=G->Calculate(I.Definition,Parts);
     if(O->TryGetArrayField(TEXT("stats"),Stats))for(const auto& V:*Stats){const auto St=V->AsObject();const FString Label=String(St,TEXT("name"),String(St,TEXT("label")));FString Val=St->HasField(TEXT("value"))?Value(St->Values[TEXT("value")]):TEXT("");
-        if((Weapon||I.Definition==TEXT("ue_rune_sword"))&&Label==TEXT("物理攻击"))continue;
+        if((Weapon||ColdSteelInventory::IsTwoHandedSword(I))&&Label==TEXT("物理攻击"))continue;
         if(Weapon&&Label==TEXT("弹匣容量"))continue;
         if(!Weapon&&I.Definition==TEXT("ue_m4a1")&&Label==TEXT("物理攻击"))Val=N(Damage(Field(GetDefault<AFPSGAMECharacter>(),TEXT("DamagePerShot"))));
         bool Positive=false;St->TryGetBoolField(TEXT("pos"),Positive);if(!Label.IsEmpty())Row(Main,Label,Val,Positive?1:0);}
     Section(Main,TEXT("物品信息"));Row(Main,TEXT("分类"),Category(String(O,TEXT("category"))));
     Row(Main,TEXT("武器类型"),String(O,TEXT("weaponTypeTag"),String(O,TEXT("weaponType"))));Row(Main,TEXT("装备槽位"),String(O,TEXT("equipSlot")));
     const FString Cat=String(O,TEXT("category"));const J Attack=Object(O,TEXT("attack")),Defense=Object(O,TEXT("defense"));
-    if(I.Definition==TEXT("ue_rune_sword")){
+    if(ColdSteelInventory::IsTwoHandedSword(I)){
         Section(Main,TEXT("近战参数"));AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
-        auto* EnhanceSystem=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
-        const double Rate=FMath::Clamp((Model?double(Model->Derived(TEXT("aspd"))):1.)/FMath::Max(.1,EnhanceSystem?EnhanceSystem->Effect(I,TEXT("attackIntervalMul"),1):1.)/(Model?1-Model->MasteryEffect(TEXT("swordMastery")).CooldownReduction:1.),.2,4.);
-        Row(Main,TEXT("攻击间隔"),N(RuneSwordRhythm::AttackEnd/Rate)+TEXT(" s"));
-        Row(Main,TEXT("突刺时间"),N(RuneSwordThrustRhythm::AttackEnd/Rate)+TEXT(" s"));
-        Row(Main,TEXT("最大攻击距离"),N(RuneSwordCombatTuning::ScaledReach(Number(O,TEXT("melee_reach_cm"),180),RuneSwordThrustRhythm::ReachBonus)/100)+TEXT(" m"));
-        Row(Main,TEXT("普通挥砍距离"),N(RuneSwordCombatTuning::ScaledReach(Number(O,TEXT("melee_reach_cm"),180))/100)+TEXT(" m"));
-        Row(Main,TEXT("每次格挡体力"),N(RuneSwordGuardTuning::BlockStamina));
+        const auto Melee=ColdSteelMelee::Evaluate(I,Model);
+        Row(Main,TEXT("普通攻击总伤害"),N(Melee.Damage));
+        Row(Main,TEXT("快速近战伤害倍率"),N(Melee.QuickCombat.DamageMultiplier)+TEXT("×"));
+        Row(Main,TEXT("快速近战伤害"),N(Melee.QuickCombat.Damage));
+        Row(Main,TEXT("快速近战击退距离"),N(Melee.QuickCombat.KnockbackCM)+TEXT(" cm"));
+        Row(Main,TEXT("基础物理伤害"),N(Melee.DamageParts.BasePhysical));
+        if(Melee.DamageParts.AddedPhysical>0)Row(Main,TEXT("附加物理伤害"),N(Melee.DamageParts.AddedPhysical));
+        if(Melee.DamageParts.AddedMagic>0)Row(Main,TEXT("附加魔法伤害"),N(Melee.DamageParts.AddedMagic));
+        Row(Main,TEXT("结算方式"),TEXT("基础与附加共同乘攻击方式倍率，再按物理/魔法防御分别减免"));
+        Row(Main,TEXT("三连击第二段伤害"),N(Melee.ComboSecondDamage));
+        Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
+        if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
+        if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
+        if(Melee.Modifiers.RuneVulnerability>0)Row(Main,TEXT("命中魔法易伤"),N(Melee.Modifiers.RuneVulnerability*100)+TEXT("% · ")+N(Melee.Modifiers.RuneVulnerabilitySeconds)+TEXT(" s"));
+        Row(Main,TEXT("攻击间隔"),N(Melee.AttackSeconds)+TEXT(" s"));
+        Row(Main,TEXT("突刺时间"),N(Melee.ThrustSeconds)+TEXT(" s"));
+        Row(Main,TEXT("最大攻击距离"),N(Melee.ThrustReach/100)+TEXT(" m"));
+        Row(Main,TEXT("普通挥砍距离"),N(Melee.SlashReach/100)+TEXT(" m"));
+        Row(Main,TEXT("攻击耐力消耗（含重击）"),N(Melee.AttackStamina));
+        Row(Main,TEXT("命中硬直时间倍率"),N(Melee.Modifiers.HitReaction)+TEXT("×"));
+        Row(Main,TEXT("格挡伤害减免"),N(Melee.BlockReduction*100)+TEXT("%"));
+        Row(Main,TEXT("弹反判定时间"),N(Melee.ParrySeconds)+TEXT(" s"));
+        if(Melee.Modifiers.RiposteSeconds>0)Row(Main,TEXT("成功弹反"),TEXT("反击激励 · ")+N(Melee.Modifiers.RiposteSeconds)+TEXT(" s"));
+        Row(Main,TEXT("防御受击耐力消耗"),N(Melee.BlockStamina));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
     }else if(ColdSteelInventory::IsEquippedProductionTool(I)){
         const bool bPickaxe=I.Definition==TEXT("tool_pickaxe");

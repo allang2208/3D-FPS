@@ -132,33 +132,6 @@
           -22.699999809265137
         ],
         "interface": "frost_hilt_v1"
-      },
-      "ballast_hardened": {
-        "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
-        "location_cm": [
-          0,
-          0,
-          -22.699999809265137
-        ],
-        "interface": "frost_hilt_v1"
-      },
-      "ballast_rune": {
-        "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
-        "location_cm": [
-          0,
-          0,
-          -22.699999809265137
-        ],
-        "interface": "frost_hilt_v1"
-      },
-      "ballast_magic_orb": {
-        "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
-        "location_cm": [
-          0,
-          0,
-          -22.699999809265137
-        ],
-        "interface": "frost_hilt_v1"
       }
     }
   },
@@ -179,5 +152,54 @@
       -2.965553125000755e-08,
       -0.999999999999984
     ]
+  },
+  "pommel_profile": {
+    "library": "shared-sword-pommels.json",
+    "finish": "frost_bronze",
+    "interfaces": {
+      "shared_sword_pommel_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.299999809265138
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.9,
+          0.9,
+          0.9
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/SharedSwordPommels20260920/Interfaces/SM_SwordPommel_FrostAdapter.SM_SwordPommel_FrostAdapter",
+          "location_cm": [
+            0,
+            0,
+            -22.699999809265137
+          ],
+          "interface": "frost_hilt_v1_to_shared_sword_pommel_v1"
+        }
+      },
+      "frost_hilt_v1": {
+        "location_cm": [
+          0,
+          0,
+          -22.699999809265137
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
   }
 }

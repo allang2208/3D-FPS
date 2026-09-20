@@ -1,6 +1,7 @@
 #pragma once
 #include "GunsmithSystem.h"
 #include "../Combat/WeaponDamageTypes.h"
+#include "../Skills/ColdSteelSkillTypes.h"
 
 class UColdSteelStatusModel;
 
@@ -12,6 +13,7 @@ struct FMeleeWeaponStats
     double ComboSecondDamage=55, ComboThirdDamage=55;
     double HeavyMultiplier=2.5;
     double KnockbackCM=0;
+    FQuickCombatCast QuickCombat;
     FWeaponDamageParts DamageParts;
     double ParrySeconds=1;
     double BaseReach=180, SlashReach=360, ThrustReach=360, AttackStamina=0, BlockStamina=20, BlockReduction=.5;

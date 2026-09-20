@@ -1,0 +1,135 @@
+{
+  "shared_options": [
+    {
+      "id": "pommel_hardened",
+      "name": "硬化配重"
+    },
+    {
+      "id": "pommel_runic",
+      "name": "符文配重"
+    },
+    {
+      "id": "pommel_mana_orb",
+      "name": "魔力球配重"
+    },
+    {
+      "id": "ballast_hardened",
+      "name": "陨星锤首"
+    },
+    {
+      "id": "ballast_rune",
+      "name": "凝碧星核"
+    },
+    {
+      "id": "ballast_magic_orb",
+      "name": "疾星配重"
+    }
+  ],
+  "current_swords": [
+    "ue_rune_sword",
+    "ue_frost_crystal_sword"
+  ],
+  "selection_count_including_factory": 7,
+  "profiles": {
+    "ue_rune_sword": {
+      "library": "shared-sword-pommels.json",
+      "finish": "silver",
+      "interfaces": {
+        "shared_sword_pommel_v1": {
+          "location_cm": [
+            0,
+            0,
+            -19.5
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        },
+        "frost_hilt_v1": {
+          "location_cm": [
+            0,
+            0,
+            -20.1
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "adapter": {
+            "mesh": "/Game/Weapons/SixSharedSwordPommels20260920/Interfaces/SM_SwordPommel_RuneToFrost.SM_SwordPommel_RuneToFrost",
+            "location_cm": [
+              0,
+              0,
+              -19.5
+            ],
+            "interface": "azure_hilt_v1_to_frost_hilt_v1"
+          }
+        }
+      }
+    },
+    "ue_frost_crystal_sword": {
+      "library": "shared-sword-pommels.json",
+      "finish": "frost_bronze",
+      "interfaces": {
+        "shared_sword_pommel_v1": {
+          "location_cm": [
+            0,
+            0,
+            -23.299999809265138
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            0.9,
+            0.9,
+            0.9
+          ],
+          "adapter": {
+            "mesh": "/Game/Weapons/SharedSwordPommels20260920/Interfaces/SM_SwordPommel_FrostAdapter.SM_SwordPommel_FrostAdapter",
+            "location_cm": [
+              0,
+              0,
+              -22.699999809265137
+            ],
+            "interface": "frost_hilt_v1_to_shared_sword_pommel_v1"
+          }
+        },
+        "frost_hilt_v1": {
+          "location_cm": [
+            0,
+            0,
+            -22.699999809265137
+          ],
+          "rotation_deg": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        }
+      }
+    }
+  },
+  "save_policy": "Preserve current ballast_* selections on both swords; restored old Frost designs have distinct pommel_* IDs. No user saves rewritten.",
+  "tests_run": false
+}

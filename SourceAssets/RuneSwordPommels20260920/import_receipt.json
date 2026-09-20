@@ -1,0 +1,85 @@
+[
+  {
+    "id": "meteor",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_Meteor.fbx",
+    "asset": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Meteor.SM_RunePommel_Meteor",
+    "materials": {
+      "M_RunePommel_meteor_Opaque": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Materials/M_RunePommel_meteor_Opaque.M_RunePommel_meteor_Opaque",
+      "M_RunePommel_meteor_Crystal": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Materials/M_RunePommel_meteor_Crystal.M_RunePommel_meteor_Crystal"
+    },
+    "textures": {
+      "BaseColor": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_meteor_BaseColor.T_Pommel_meteor_BaseColor",
+      "Metallic": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_meteor_Metallic.T_Pommel_meteor_Metallic",
+      "Roughness": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_meteor_Roughness.T_Pommel_meteor_Roughness",
+      "Normal": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_meteor_Normal.T_Pommel_meteor_Normal",
+      "Emissive": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_meteor_Emissive.T_Pommel_meteor_Emissive"
+    },
+    "lod_ratios": [
+      1,
+      0.55,
+      0.25
+    ],
+    "interface": "azure_hilt_v1",
+    "location_cm": [
+      0,
+      0,
+      -19.5
+    ],
+    "live_catalog_changed": false
+  },
+  {
+    "id": "jade_core",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_JadeStar.fbx",
+    "asset": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_JadeStar.SM_RunePommel_JadeStar",
+    "materials": {
+      "M_RunePommel_jade_core_Opaque": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Materials/M_RunePommel_jade_core_Opaque.M_RunePommel_jade_core_Opaque",
+      "M_RunePommel_jade_core_Crystal": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Materials/M_RunePommel_jade_core_Crystal.M_RunePommel_jade_core_Crystal"
+    },
+    "textures": {
+      "BaseColor": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_jade_core_BaseColor.T_Pommel_jade_core_BaseColor",
+      "Metallic": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_jade_core_Metallic.T_Pommel_jade_core_Metallic",
+      "Roughness": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_jade_core_Roughness.T_Pommel_jade_core_Roughness",
+      "Normal": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_jade_core_Normal.T_Pommel_jade_core_Normal",
+      "Emissive": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_jade_core_Emissive.T_Pommel_jade_core_Emissive"
+    },
+    "lod_ratios": [
+      1,
+      0.55,
+      0.25
+    ],
+    "interface": "azure_hilt_v1",
+    "location_cm": [
+      0,
+      0,
+      -19.5
+    ],
+    "live_catalog_changed": false
+  },
+  {
+    "id": "swift",
+    "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Export\\SM_RunePommel_Swiftstar.fbx",
+    "asset": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar",
+    "materials": {
+      "M_RunePommel_swift_Opaque": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Materials/M_RunePommel_swift_Opaque.M_RunePommel_swift_Opaque"
+    },
+    "textures": {
+      "BaseColor": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_swift_BaseColor.T_Pommel_swift_BaseColor",
+      "Metallic": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_swift_Metallic.T_Pommel_swift_Metallic",
+      "Roughness": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_swift_Roughness.T_Pommel_swift_Roughness",
+      "Normal": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_swift_Normal.T_Pommel_swift_Normal",
+      "Emissive": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Textures/T_Pommel_swift_Emissive.T_Pommel_swift_Emissive"
+    },
+    "lod_ratios": [
+      1,
+      0.55,
+      0.25
+    ],
+    "interface": "azure_hilt_v1",
+    "location_cm": [
+      0,
+      0,
+      -19.5
+    ],
+    "live_catalog_changed": false
+  }
+]

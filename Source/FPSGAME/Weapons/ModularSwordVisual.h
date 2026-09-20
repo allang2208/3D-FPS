@@ -14,6 +14,7 @@ namespace ColdSteelModularSword
     void Clear(UStaticMeshComponent* Blade);
     TArray<UStaticMeshComponent*> Components(UStaticMeshComponent* Blade);
     FBox LocalBounds(UStaticMeshComponent* Blade);
-    FTransform BoneMount();
+    FTransform BoneMount(const FColdSteelItem& Item);
+    FString Appearance(const FColdSteelItem& Item,const FString& Slot,const FString& Option);
     FVector BladePoint(const FColdSteelItem& Item,bool Tip);
 }

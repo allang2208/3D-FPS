@@ -1,0 +1,527 @@
+{
+  "date": "2026-09-20",
+  "scope": "accepted six common sword pommels",
+  "status": "archived_and_hash_verified",
+  "entries": [
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/author_variants.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/author_variants.log",
+      "size_bytes": 5095,
+      "sha256": "f82e1c96632ab0f203ac2a4d5d39edc84794e5c6d78be7e17ac811b759f4a04e",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/build-first.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/build-first.log",
+      "size_bytes": 10740,
+      "sha256": "b1da4720b81649722c8659587893acc8be4367d31e1ae76753f6ba90f9d12dc5",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/build-stale-development-panel.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/build-stale-development-panel.log",
+      "size_bytes": 38890,
+      "sha256": "0ede720d7d7c75e85b865fa35e06f1dd19a43c37f5fbe8187dc637cfb0b5607c",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/author_geometry.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/author_geometry.log",
+      "size_bytes": 918,
+      "sha256": "76a5bb5b7290f51168ffc391cc914b38002b78557ffce4dd1f99a4394f0e5d63",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/bake_export.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/bake_export.log",
+      "size_bytes": 10314,
+      "sha256": "8aef8b15adf419313bcb6f79ca22941fb8cd9e68e940a488c38697562f304443",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/editor_build.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/editor_build.log",
+      "size_bytes": 17334,
+      "sha256": "56b7b3196ec53e48b75e6df1d2fffea655f1d891d5cf755667ccb7d1d186a77b",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/editor_exit.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/editor_exit.log",
+      "size_bytes": 126,
+      "sha256": "86ed3740432e1987bfcaa7b4afa0c677150eb6a7370b7d8303cf82d1a6d00d3b",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/icon_import.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/icon_import.log",
+      "size_bytes": 570,
+      "sha256": "4493e2588bdea2c8a7441fa309d7d3574b1c66f52643a6292079a53976499c10",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/icon_production.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/icon_production.log",
+      "size_bytes": 1520,
+      "sha256": "b7e09643ab153cfadeff7b4d766e2a4bcd09259fcb5668badc7a46f6c1c1297a",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/import_models.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/import_models.log",
+      "size_bytes": 637,
+      "sha256": "0ef53f071285bd5636ce1496c6a149cc1179b8882e3fa89b5aa3e387c4b726f5",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/end-play-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/end-play-01.log",
+      "size_bytes": 210,
+      "sha256": "41984945fcf88e2463c4dd22d55cc290a46cfc0a7c467661e55a0176b06f549a",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/frost_authoring.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/frost_authoring.log",
+      "size_bytes": 3508,
+      "sha256": "8a69268964c570b29ef81346a3c229342c6a06c5ade83652f0f166e83d23ce9b",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/import-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/import-01.log",
+      "size_bytes": 590,
+      "sha256": "c80c0c5f910ff3850761759a2ffee99b8dfc7d078d432fad6736960d319f1ce8",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/import-02.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/import-02.log",
+      "size_bytes": 984,
+      "sha256": "9c3f37236422c845d62150db926554f45b82403114c6ecc54b37ed8e05f8e623",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/import-03.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/import-03.log",
+      "size_bytes": 785,
+      "sha256": "1704a8bc45ab5f2fb3b7698851e91e33e99c83aefa34acc6848041029942c2d9",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/live-coding-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/live-coding-01.log",
+      "size_bytes": 117,
+      "sha256": "1069ed2a1267f77759852caa10c61b4164c043f4092ae1660ffffa8b17c09cc2",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/live-coding-schema-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/live-coding-schema-01.log",
+      "size_bytes": 721,
+      "sha256": "d4e6916c22063b617f8cffdc9361c66a1aa6149bdb0684de947a9916cabfc53f",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/material-pins-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/material-pins-01.log",
+      "size_bytes": 130,
+      "sha256": "778ab6d9220e066ae65f58fe96a6df9a7d7cefa9e663ce47889f81102f52e935",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/mount_source.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/mount_source.log",
+      "size_bytes": 652,
+      "sha256": "9b98f3b0262eef96889a007f4a4ba8f0b21c815973d97a79e078bfceb607de15",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/author_reverse_fit-02.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/author_reverse_fit-02.log",
+      "size_bytes": 3705,
+      "sha256": "b41bf11472497c28be69b90dc0576b8602370bb3e85a4ce864abe3c408fbf2e4",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/author_reverse_fit-03.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/author_reverse_fit-03.log",
+      "size_bytes": 3527,
+      "sha256": "41f0efd26bc667263abfbd7dd9bfea4174723c997cae442dfcaf77f385f30a6f",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/author_reverse_fit.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/author_reverse_fit.log",
+      "size_bytes": 1519,
+      "sha256": "d95f2cedf99846a7757acd54969e189d580ed62b761293d250db2c3d6e3d3d1d",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/import-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/import-01.log",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/import-02.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/import-02.log",
+      "size_bytes": 347,
+      "sha256": "353c94f6a33d279b7e24db92722deb7b7af01814d4f1154fff072b7caf1a4ed4",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/restart-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/restart-01.log",
+      "size_bytes": 1741,
+      "sha256": "1905450f68d7cc707c001313766641d1cf83d06bfb29b1ae5a9fe06a01fd4fcf",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/restart-owned-01.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/restart-owned-01.log",
+      "size_bytes": 155,
+      "sha256": "34e55ee620cef171e435e6f009b3a930491be60165f3a9bf937cf6500bd28402",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/restart-owned-02.log",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/restart-owned-02.log",
+      "size_bytes": 665,
+      "sha256": "77ca6546262e6bf48009f35212c6160decb87fa84015bc22c3f920b9b0fd67dd",
+      "reason": "一次性制作、失败重试或编译/重启日志；生产回执保留",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/merge_workbench.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/merge_workbench.py",
+      "size_bytes": 3148,
+      "sha256": "cc4c65cdafc313b2845e1015d48d4ea7f94601004a4d65a1e00848bb5daf5f99",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/live_coding.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/live_coding.json",
+      "size_bytes": 102,
+      "sha256": "a082060e1b2f476887d96fd32ea930936c68733f6b1d8024b13c5556af712e9e",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/RuneSword_Modular_Editable.blend1",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/RuneSword_Modular_Editable.blend1",
+      "size_bytes": 88524131,
+      "sha256": "66b53057d390c4e64f427630a764f03459aba722c66a25f7ab885d860c80c126",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/RuneSwordModules20260919/RuneSword_Modular_Editable.blend"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/close_for_catalog.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/close_for_catalog.py",
+      "size_bytes": 700,
+      "sha256": "4b16d24094f158db0e354953a4c6c42083084f8dc9c07f724964f1244b1e8bf5",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/install_shared_catalog.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/install_shared_catalog.py",
+      "size_bytes": 3216,
+      "sha256": "19cf2ab72d2d4873dca2d5ab7ee80043c4494f87a27d011f40d25b546e08bc6b",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/end_play_for_build.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/end_play_for_build.py",
+      "size_bytes": 322,
+      "sha256": "1ccf6f20ef9f61d7215791b15921f2ec9e9dba185395749048115b28a834a376",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/save_close_for_build.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/save_close_for_build.py",
+      "size_bytes": 856,
+      "sha256": "68465a779da0d10e144fef7fe972b8d7df593652211d067d1c584efafe3f9b68",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/material_pin_names.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/material_pin_names.py",
+      "size_bytes": 373,
+      "sha256": "b87d76ffae15b489751767bfc65e858d3dc697ead2da9f8ffd0561b9f3d8f076",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/integration_receipt.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/integration_receipt.json",
+      "size_bytes": 1361,
+      "sha256": "71771f07d2cceefdbfe014e9a30c37158c362d1b0b186dbf0df44d7f2eba999c",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/install_pommels.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/install_pommels.py",
+      "size_bytes": 4434,
+      "sha256": "32e2de5132316c455a9397fe984f3c7aab0b6c6ad669267df17ef1c009426ea7",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/close_editor_for_build.py",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/close_editor_for_build.py",
+      "size_bytes": 560,
+      "sha256": "ca093dda3809f159466eb18fc9ad7b75bd30115db2626fef6e8aabf01c3a878e",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/vibe3d-schema.txt",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/vibe3d-schema.txt",
+      "size_bytes": 128753,
+      "sha256": "ff63973c20abffad2827b812da4a47dfc0b55bd20c082bbbb021ba47872ed450",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/integration_receipt.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/integration_receipt.json",
+      "size_bytes": 1818,
+      "sha256": "00d90dc248aed8438e9e8ffcb90ab5d090855ac0d4411594a36f0b60e5afdfe7",
+      "reason": "旧三款目录流程、一次性辅助文件或已存在正式源的自动备份",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/README.md"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/BeforeReplacement/melee-gunsmith.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/BeforeReplacement/melee-gunsmith.json",
+      "size_bytes": 12278,
+      "sha256": "87e1f5c333d524f853e22b274d94384e131927aa0c62e9a2eb7b724bae515aa4",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/BeforeReplacement/rune-sword-modules.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/BeforeReplacement/rune-sword-modules.json",
+      "size_bytes": 5056,
+      "sha256": "3428704e0d264534bf7e1006e57cb8f281677a255b8c8f715ececec568efc6aa",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/BeforeReplacement/skills.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/BeforeReplacement/skills.json",
+      "size_bytes": 9935,
+      "sha256": "a88ccb60edadd6428f250c50ca3da808367d4683439c6583c42b76eaec76d4d6",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/BeforeReplacement/ue_rune_sword_pommel_ballast_hardened.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/BeforeReplacement/ue_rune_sword_pommel_ballast_hardened.png",
+      "size_bytes": 246555,
+      "sha256": "78bbe8a1760e512e2df9b09ef41cc8fcafab4d425454dfa2251358108b53d49b",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/BeforeReplacement/ue_rune_sword_pommel_ballast_magic_orb.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/BeforeReplacement/ue_rune_sword_pommel_ballast_magic_orb.png",
+      "size_bytes": 248839,
+      "sha256": "49169b62ef3cf323f8d80c15000c58d631f5e0245fd9bffeae22112087bff4cf",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordPommels20260920/BeforeReplacement/ue_rune_sword_pommel_ballast_rune.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordPommels20260920/BeforeReplacement/ue_rune_sword_pommel_ballast_rune.png",
+      "size_bytes": 336247,
+      "sha256": "335e944983aaaa7f38a5b24f6a98344f860a346316e00595738b2c3919a3800d",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/frost-sword-modules.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/frost-sword-modules.json",
+      "size_bytes": 5441,
+      "sha256": "a6ce2dd0b4e8ae2f6df0b644954cb936b7002844c63e50e584285ae3de6b6eb1",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/melee-gunsmith.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/melee-gunsmith.json",
+      "size_bytes": 14131,
+      "sha256": "b006267354c6558bcc543a71f822e9ccc87e0880e4e8ca61351c3f4db760298e",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/rune-sword-modules.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/rune-sword-modules.json",
+      "size_bytes": 5114,
+      "sha256": "15373ce6fc8610b3c34f9fd54ffbd9a546af64026a51cb410f67284f0abcb6b5",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_hardened.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_hardened.png",
+      "size_bytes": 847633,
+      "sha256": "680f9075e63b0f45c81fc422f3982cf5ff730053f40e2850aedf6d59ca25eada",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_hardened.uasset",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_hardened.uasset",
+      "size_bytes": 732185,
+      "sha256": "caa037154aaa1561950f31718c5ea725ba4e0663fad97989a9104ae46d4d02c6",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_magic_orb.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_magic_orb.png",
+      "size_bytes": 868057,
+      "sha256": "61a95a77630ce7b2834f099706204cec93cd663b9bda47115e9417bf238ebb15",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_magic_orb.uasset",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_magic_orb.uasset",
+      "size_bytes": 753989,
+      "sha256": "bbef08e017f3e745c8f2c7f2bb96d62d48831de1da9686c08dc87e39443f4591",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_rune.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_rune.png",
+      "size_bytes": 901674,
+      "sha256": "2807c94c9b850f72b3edfe9dc516637dd5f104bf168ab6a3ba1554d3f2539808",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_rune.uasset",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SharedSwordPommels20260920/BeforeShared/ue_frost_crystal_sword_pommel_ballast_rune.uasset",
+      "size_bytes": 763963,
+      "sha256": "4a2690febb8541038e83fd9c5b0d3cac82152cd2517ee85cb212c1faa9cbc203",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/BeforeSix/frost-sword-modules.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/BeforeSix/frost-sword-modules.json",
+      "size_bytes": 5045,
+      "sha256": "d8c40dcfe3415be7f1a913c5d982c4fc3b1b146fa73f57de0832e515e16e7588",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/BeforeSix/melee-gunsmith.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/BeforeSix/melee-gunsmith.json",
+      "size_bytes": 11720,
+      "sha256": "522f464bac8698c99b8d5e0af6f74696db9891d9f54afdc319eb40fc72906984",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/BeforeSix/rune-sword-modules.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/BeforeSix/rune-sword-modules.json",
+      "size_bytes": 4418,
+      "sha256": "2a342642d6eba406077872793a4f7079b583a43252692b686e1261166dad6254",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/SixSharedSwordPommels20260920/BeforeSix/shared-sword-pommels.json",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/SixSharedSwordPommels20260920/BeforeSix/shared-sword-pommels.json",
+      "size_bytes": 1638,
+      "sha256": "276611a49c537aa98ab6318fa005fcbd176ccee4c5a9040947b00e74d88c369b",
+      "reason": "最终六款已获用户认可；回滚快照退出制作输入，原属性已提取到 restored-options.json",
+      "kept_replacement": "SourceAssets/SixSharedSwordPommels20260920/restored-options.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/Export/SM_RuneSword_Pommel_ballast_hardened.fbx",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/Export/SM_RuneSword_Pommel_ballast_hardened.fbx",
+      "size_bytes": 330908,
+      "sha256": "d5c2f17b65be1ab1b5cea984cef8231e6fdf1eb39da3ff6f78cc8905a898ec66",
+      "reason": "早期符文剑配重原型已由星系主体替换；现行导入入口已排除",
+      "kept_replacement": "SourceAssets/RuneSwordPommels20260920/model_exports.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/Icons/ue_rune_sword_pommel_ballast_hardened.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/Icons/ue_rune_sword_pommel_ballast_hardened.png",
+      "size_bytes": 246555,
+      "sha256": "78bbe8a1760e512e2df9b09ef41cc8fcafab4d425454dfa2251358108b53d49b",
+      "reason": "早期符文剑配重原型图标已由实物星系图标替换",
+      "kept_replacement": "SourceAssets/RuneSwordPommels20260920/icon_receipt.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/Export/SM_RuneSword_Pommel_ballast_rune.fbx",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/Export/SM_RuneSword_Pommel_ballast_rune.fbx",
+      "size_bytes": 489628,
+      "sha256": "86575773270ed0724b42a575dd46dd4b886ddcbc662c093095a9d33dc6e0b99b",
+      "reason": "早期符文剑配重原型已由星系主体替换；现行导入入口已排除",
+      "kept_replacement": "SourceAssets/RuneSwordPommels20260920/model_exports.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/Icons/ue_rune_sword_pommel_ballast_rune.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/Icons/ue_rune_sword_pommel_ballast_rune.png",
+      "size_bytes": 336247,
+      "sha256": "335e944983aaaa7f38a5b24f6a98344f860a346316e00595738b2c3919a3800d",
+      "reason": "早期符文剑配重原型图标已由实物星系图标替换",
+      "kept_replacement": "SourceAssets/RuneSwordPommels20260920/icon_receipt.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/Export/SM_RuneSword_Pommel_ballast_magic_orb.fbx",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/Export/SM_RuneSword_Pommel_ballast_magic_orb.fbx",
+      "size_bytes": 204892,
+      "sha256": "cfe42d7da81bf57d781c1dc1817048b075a6187cfb0445c039e166efb8b16510",
+      "reason": "早期符文剑配重原型已由星系主体替换；现行导入入口已排除",
+      "kept_replacement": "SourceAssets/RuneSwordPommels20260920/model_exports.json"
+    },
+    {
+      "source": "SourceAssets/RuneSwordModules20260919/Icons/ue_rune_sword_pommel_ballast_magic_orb.png",
+      "destination": "trash/six-sword-pommels-20260920/SourceAssets/RuneSwordModules20260919/Icons/ue_rune_sword_pommel_ballast_magic_orb.png",
+      "size_bytes": 248839,
+      "sha256": "49169b62ef3cf323f8d80c15000c58d631f5e0245fd9bffeae22112087bff4cf",
+      "reason": "早期符文剑配重原型图标已由实物星系图标替换",
+      "kept_replacement": "SourceAssets/RuneSwordPommels20260920/icon_receipt.json"
+    }
+  ]
+}

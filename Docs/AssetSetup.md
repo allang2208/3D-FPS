@@ -189,3 +189,14 @@ M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、
 ## ASH-12 配件、动作与专属声音（2026-09-20）
 
 当前表面、参考换弹／右侧拉栓、战术冲刺、通用瞄具与握把、托腮板、战术枪口、左侧激光／手电及音频的本机恢复路径与源码发布边界，见 [ASH-12 发布与恢复](Weapons/ash12-publication-20260920.md)。公开代码不包含第三方模型／贴图、手模与动作二进制、用户原声及衍生音频。专属消音声已导入并完成当前进程 Live Coding，基础 DLL 仍待后续常规构建。
+
+## 六款剑类通用配重（2026-09-20）
+
+用户已认可符文长剑与寒晶剑的六款共享方案。[最终恢复入口](../SourceAssets/SixSharedSwordPommels20260920/README.md) 和 [整理清单与发布边界](Weapons/six-sword-pommels-publication-20260920.md) 记录当前依赖。
+
+- 先恢复四份现行数据：`melee-gunsmith.json`、`rune-sword-modules.json`、`frost-sword-modules.json`、`shared-sword-pommels.json`，均在 `Content/ColdSteelData`。
+- 本机保留的 UE 内容包括 `Weapons/AzureRunesword20260913/Modules20260919`、`Weapons/AzureRunesword20260913/Pommels20260920`、`Weapons/FrostCrystalSword20260915/PommelsRepair20260915`、`Weapons/SharedSwordPommels20260920` 以及对应附件图标。原手臂／动作／长柄动画和上游材质继续恢复原已许可版本。
+- 四个本轮作者目录中的 Blend／Export／Textures／Icons 和实际接口采样继续留本机。还需要 FrostSwordModules20260915、FrostSwordPommelsRepair20260915、MeleeGuards20260915 的已许可输入；脚本不是这些素材的替代品。
+- 现行脚本最终入口为 `SourceAssets/SixSharedSwordPommels20260920/install_catalog.py`。旧三款安装器与回滚目录已归档，恢复时不要重跑；`restored-options.json` 保留恢复款原属性和独立 ID。安装器操作现行配置，不重写玩家存档。
+
+公开仓库不包含本轮模型、贴图、图标、uasset 和密集几何采样；重建前需在本地恢复输入并调整作者脚本中明确的宿主路径。必要 native 构建照常进行，游戏测试由用户按需执行。

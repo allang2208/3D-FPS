@@ -1,0 +1,207 @@
+{
+  "version": 1,
+  "weapon": "ue_rune_sword",
+  "interface": "azure_hilt_v1",
+  "drive_bone": "WPN_root",
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1",
+        "rune_dimensions_cm": [
+          10.6,
+          10,
+          63
+        ],
+        "trace_base_cm": [
+          0,
+          0,
+          2.4
+        ],
+        "trace_tip_cm": [
+          0,
+          0,
+          80.0
+        ]
+      }
+    },
+    "guard": {
+      "factory": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_factory.SM_RuneSword_Guard_factory",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1"
+      },
+      "bastion_guard": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_bastion_guard.SM_RuneSword_Guard_bastion_guard",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1"
+      },
+      "riposte_guard": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_riposte_guard.SM_RuneSword_Guard_riposte_guard",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1"
+      },
+      "light_guard": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_light_guard.SM_RuneSword_Guard_light_guard",
+        "location_cm": [
+          0,
+          0,
+          0.0
+        ],
+        "interface": "azure_hilt_v1"
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_factory.SM_RuneSword_Grip_factory",
+        "location_cm": [
+          0,
+          0,
+          -4.0
+        ],
+        "interface": "azure_hilt_v1"
+      },
+      "shock_wrap": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_shock_wrap.SM_RuneSword_Grip_shock_wrap",
+        "location_cm": [
+          0,
+          0,
+          -4.0
+        ],
+        "interface": "azure_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ]
+      },
+      "swift_grip": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_swift_grip.SM_RuneSword_Grip_swift_grip",
+        "location_cm": [
+          0,
+          0,
+          -4.0
+        ],
+        "interface": "azure_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          0
+        ]
+      },
+      "long_twohand": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_long_twohand.SM_RuneSword_Grip_long_twohand",
+        "location_cm": [
+          0,
+          0,
+          -4.0
+        ],
+        "interface": "azure_hilt_v1",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -2.8
+        ],
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
+        "appearance": "加长握柄 · 柄尾联动"
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Pommel_factory.SM_RuneSword_Pommel_factory",
+        "location_cm": [
+          0,
+          0,
+          -19.5
+        ],
+        "interface": "azure_hilt_v1"
+      }
+    }
+  },
+  "bone_mount": {
+    "location_cm": [
+      0,
+      0,
+      0
+    ],
+    "rotation_xyzw": [
+      0,
+      0,
+      0,
+      1
+    ],
+    "scale": [
+      0.00999999940395366,
+      0.010000002980232984,
+      0.010000000596046483
+    ]
+  },
+  "arms_mesh": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms.SK_RuneSword_Arms",
+  "trace_from_animation": true,
+  "pommel_profile": {
+    "library": "shared-sword-pommels.json",
+    "finish": "silver",
+    "interfaces": {
+      "shared_sword_pommel_v1": {
+        "location_cm": [
+          0,
+          0,
+          -19.5
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "frost_hilt_v1": {
+        "location_cm": [
+          0,
+          0,
+          -20.1
+        ],
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/SixSharedSwordPommels20260920/Interfaces/SM_SwordPommel_RuneToFrost.SM_SwordPommel_RuneToFrost",
+          "location_cm": [
+            0,
+            0,
+            -19.5
+          ],
+          "interface": "azure_hilt_v1_to_frost_hilt_v1"
+        }
+      }
+    }
+  }
+}

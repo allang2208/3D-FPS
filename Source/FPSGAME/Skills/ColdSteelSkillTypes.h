@@ -13,7 +13,7 @@ struct FColdSteelSkillProgress
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) int32 Experience = 0;
 };
 
-/** 快速进战：第四连击配重锤打击的固定档参数（skills.json: quickCombat）。 */
+/** 快速进战：独立配重锤/枪托打击的固定档参数（skills.json: quickCombat）。 */
 struct FQuickCombatTuning
 {
     float DamageBase=25.f, DamagePerLevel=5.f;
@@ -27,6 +27,7 @@ struct FQuickCombatTuning
 struct FQuickCombatCast
 {
     float Damage=0.f;
+    float DamageMultiplier=1.f;
     float KnockbackCM=100.f;
     float StunSeconds=0.f;
     float RangeCM=200.f;

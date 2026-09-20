@@ -3,6 +3,8 @@
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
+#include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "Engine/GameInstance.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -12,10 +14,10 @@
 
 bool UM4GunsmithWidget::IsCategoryAvailable(const FString& SlotKey) const
 {
-    const auto* Weapon = Model()->Weapon(Model()->Definition());
+    const auto* Weapon = Model()->ModifiableWeapon(Model()->Definition());
     const auto* Options = Weapon ? Weapon->Options.Find(SlotKey) : nullptr;
     return Weapon && Weapon->Allowed.Contains(SlotKey) && Options &&
-        Options->ContainsByPredicate([](const FGunsmithOption& Option){return Option.Id != TEXT("false");});
+        (IsMeleeWorkbench()?!Options->IsEmpty():Options->ContainsByPredicate([](const FGunsmithOption& Option){return Option.Id != TEXT("false");}));
 }
 
 float UM4GunsmithWidget::SelectedDetailsWidth() const
@@ -66,21 +68,31 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     ModificationList->AddSlot().AutoHeight().Padding(0,5,0,12)
         [Paragraph(Installed==Id?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):TEXT("已选 · 待应用"),12,
             Id==TEXT("false")?GunsmithUI::Muted:ColdSteelUI::Success)];
+    if(Item&&IsMeleeWorkbench())
+    {
+        const FString Appearance=ColdSteelModularSword::Appearance(*Item,SelectedCategory,Id);
+        if(!Appearance.IsEmpty())ModificationList->AddSlot().AutoHeight().Padding(0,0,0,10)
+            [Paragraph(Appearance,12,GunsmithUI::Secondary)];
+    }
 
     auto WithoutPart = Gunsmith->Draft();
     WithoutPart.Remove(SelectedCategory);
     const auto Before = Gunsmith->Calculate(Gunsmith->Definition(),WithoutPart);
     const auto After = Gunsmith->Calculate(Gunsmith->Definition(),Gunsmith->Draft());
     int32 RowCount = 0;
-    auto AddValue = [&](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false)
+    // The card keeps only the basic description, so every numeric change belongs
+    // here and is derived from the catalog multipliers - never hand written.
+    // The percent reads exactly like the catalog field: minus is faster (green),
+    // plus is slower (red), and the value equals ads_percent.
+    auto AddValue = [&](const TCHAR* Name,double Base,double Final,int32 Digits,const TCHAR* Unit,bool Lower=false,double Percent=0.)
     {
         const double Delta = Final-Base;
         if (FMath::Abs(Delta) < .00001) return;
+        const FString PercentText=FMath::IsNearlyZero(Percent,.01)?FString():FString::Printf(TEXT("（%+.0f%%）"),Percent);
         if (RowCount++ == 0)
             ModificationList->AddSlot().AutoHeight().Padding(0,0,0,8)
                 [Paragraph(TEXT("当前组合实值 · 差值相对该栏原厂配置"),12,GunsmithUI::Muted)];
         const auto Color = ((Delta>0)!=Lower) ? ColdSteelUI::Success : ColdSteelUI::Danger;
-        const FString PercentText=FMath::IsNearlyZero(Percent,.01)?FString():FString::Printf(TEXT("（%+.0f%%）"),Percent);
         ModificationList->AddSlot().AutoHeight().Padding(0,0,0,4)
             [SNew(SBorder).BorderImage(&RowBrush).Padding(8,6)
                 [SNew(SHorizontalBox)
@@ -118,6 +130,45 @@ void UM4GunsmithWidget::RefreshSelectedOption()
     AddValue(TEXT("腰射散布系数"),Before.Spread,After.Spread,2,TEXT("×"),true,Ratio(Before.Spread,After.Spread));
     AddValue(TEXT("有效射程"),Before.Range,After.Range,0,TEXT(" m"),false,Ratio(Before.Range,After.Range));
     AddValue(TEXT("子弹速度"),Before.Speed,After.Speed,0,TEXT(" m/s"),false,Ratio(Before.Speed,After.Speed));
+    }
+    else if(Item)
+    {
+        const auto Was=ColdSteelMelee::Evaluate(*Item,Profile,&WithoutPart);
+        const auto Now=ColdSteelMelee::Evaluate(*Item,Profile,&Gunsmith->Draft());
+        const auto& M=Option->Melee;
+        auto Percent=[](double Mult){return (Mult-1.)*100.;};
+        AddValue(TEXT("普通攻击总伤害"),Was.Damage,Now.Damage,2,TEXT(""));
+        AddValue(TEXT("基础物理伤害"),Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage));
+        AddValue(TEXT("附加物理伤害"),Was.DamageParts.AddedPhysical,Now.DamageParts.AddedPhysical,2,TEXT(""));
+        AddValue(TEXT("附加魔法伤害"),Was.DamageParts.AddedMagic,Now.DamageParts.AddedMagic,2,TEXT(""));
+        AddValue(TEXT("第二段横斩伤害"),Was.ComboSecondDamage,Now.ComboSecondDamage,2,TEXT(""),false,Percent(M.ComboSecond));
+        AddValue(TEXT("第三段突刺伤害"),Was.ComboThirdDamage,Now.ComboThirdDamage,2,TEXT(""),false,Percent(M.ComboThird));
+        AddValue(TEXT("攻击速度倍率"),Was.AttackRate,Now.AttackRate,2,TEXT("×"),false,Percent(M.AttackSpeed));
+        AddValue(TEXT("普通攻击耗时"),Was.AttackSeconds,Now.AttackSeconds,2,TEXT(" s"),true);
+        AddValue(TEXT("突刺耗时"),Was.ThrustSeconds,Now.ThrustSeconds,2,TEXT(" s"),true);
+        AddValue(TEXT("普通挥砍距离"),Was.SlashReach/100,Now.SlashReach/100,2,TEXT(" m"),false,Percent(M.Range));
+        AddValue(TEXT("最大攻击距离（含突刺）"),Was.ThrustReach/100,Now.ThrustReach/100,2,TEXT(" m"),false,Percent(M.Range));
+        AddValue(TEXT("攻击耐力消耗（含重击）"),Was.AttackStamina,Now.AttackStamina,2,TEXT(""),true,Percent(M.Stamina));
+        AddValue(TEXT("防御受击耐力消耗"),Was.BlockStamina,Now.BlockStamina,2,TEXT(""),true,Percent(M.Stamina));
+        AddValue(TEXT("格挡伤害减免"),Was.BlockReduction*100,Now.BlockReduction*100,1,TEXT("%"),false,Percent(M.BlockReduction));
+        AddValue(TEXT("命中硬直时间倍率"),Was.Modifiers.HitReaction,Now.Modifiers.HitReaction,2,TEXT("×"),false,Percent(M.HitReaction));
+        AddValue(TEXT("重击伤害倍率"),Was.HeavyMultiplier,Now.HeavyMultiplier,2,TEXT("×"));
+        AddValue(TEXT("重击总伤害"),Was.Damage*Was.HeavyMultiplier,Now.Damage*Now.HeavyMultiplier,2,TEXT(""));
+        AddValue(TEXT("攻击击退距离"),Was.KnockbackCM,Now.KnockbackCM,1,TEXT(" cm"),false,Percent(M.Knockback));
+        AddValue(TEXT("快速近战伤害倍率"),Was.QuickCombat.DamageMultiplier,Now.QuickCombat.DamageMultiplier,2,TEXT("×"));
+        AddValue(TEXT("快速近战伤害"),Was.QuickCombat.Damage,Now.QuickCombat.Damage,2,TEXT(""));
+        AddValue(TEXT("快速近战击退距离"),Was.QuickCombat.KnockbackCM,Now.QuickCombat.KnockbackCM,1,TEXT(" cm"),false,Percent(M.QuickCombatKnockback));
+        AddValue(TEXT("魔法技能冷却倍率"),Was.Modifiers.MagicCooldown,Now.Modifiers.MagicCooldown,2,TEXT("×"),true,Percent(M.MagicCooldown));
+        AddValue(TEXT("魔法值消耗倍率"),Was.Modifiers.MagicCost,Now.Modifiers.MagicCost,2,TEXT("×"),true,Percent(M.MagicCost));
+        AddValue(TEXT("魔法伤害倍率"),Was.Modifiers.MagicDamage,Now.Modifiers.MagicDamage,2,TEXT("×"),false,Percent(M.MagicDamage));
+        AddValue(TEXT("命中施加魔法易伤"),Was.Modifiers.RuneVulnerability*100,Now.Modifiers.RuneVulnerability*100,0,TEXT("%"));
+        AddValue(TEXT("魔法易伤持续时间"),Was.Modifiers.RuneVulnerabilitySeconds,Now.Modifiers.RuneVulnerabilitySeconds,1,TEXT(" s"));
+        AddValue(TEXT("弹反判定时间"),Was.ParrySeconds,Now.ParrySeconds,2,TEXT(" s"),false,Percent(M.ParryWindow));
+        AddValue(TEXT("反击激励攻速倍率"),Was.Modifiers.RiposteSpeed,Now.Modifiers.RiposteSpeed,2,TEXT("×"),false,Percent(M.RiposteSpeed));
+        AddValue(TEXT("反击激励耐力倍率"),Was.Modifiers.RiposteStamina,Now.Modifiers.RiposteStamina,2,TEXT("×"),true,Percent(M.RiposteStamina));
+        AddValue(TEXT("反击激励持续时间"),Was.Modifiers.RiposteSeconds,Now.Modifiers.RiposteSeconds,1,TEXT(" s"));
+        if(!FMath::IsNearlyEqual(M.Range,1.))ModificationList->AddSlot().AutoHeight().Padding(0,6,0,0)
+            [Paragraph(TEXT("范围改造影响挥砍与突刺；快速近战使用技能自身的判定范围。"),12,GunsmithUI::Muted)];
     }
     if (RowCount == 0)
     {

@@ -38,10 +38,14 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("基础物理伤害"),Before.DamageParts.BasePhysical,After.DamageParts.BasePhysical,2,TEXT(""));
     Row(TEXT("附加物理伤害"),Before.DamageParts.AddedPhysical,After.DamageParts.AddedPhysical,2,TEXT(""));
     Row(TEXT("附加魔法伤害"),Before.DamageParts.AddedMagic,After.DamageParts.AddedMagic,2,TEXT(""));
-    Row(TEXT("三连击第二段伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
-    Row(TEXT("三连击第三段伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
+    Row(TEXT("第二段横斩伤害"),Before.ComboSecondDamage,After.ComboSecondDamage,2,TEXT(""));
+    Row(TEXT("第三段突刺伤害"),Before.ComboThirdDamage,After.ComboThirdDamage,2,TEXT(""));
     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));
+    Row(TEXT("重击总伤害"),Before.Damage*Before.HeavyMultiplier,After.Damage*After.HeavyMultiplier,2,TEXT(""));
     Row(TEXT("攻击击退距离"),Before.KnockbackCM,After.KnockbackCM,1,TEXT(" cm"));
+    Row(TEXT("快速近战伤害倍率"),Before.QuickCombat.DamageMultiplier,After.QuickCombat.DamageMultiplier,2,TEXT("×"));
+    Row(TEXT("快速近战伤害"),Before.QuickCombat.Damage,After.QuickCombat.Damage,2,TEXT(""));
+    Row(TEXT("快速近战击退距离"),Before.QuickCombat.KnockbackCM,After.QuickCombat.KnockbackCM,1,TEXT(" cm"));
     Row(TEXT("魔法值消耗倍率"),Before.Modifiers.MagicCost,After.Modifiers.MagicCost,2,TEXT("×"),true);
     Row(TEXT("魔法技能冷却倍率"),Before.Modifiers.MagicCooldown,After.Modifiers.MagicCooldown,2,TEXT("×"),true);
     Row(TEXT("魔法伤害倍率"),Before.Modifiers.MagicDamage,After.Modifiers.MagicDamage,2,TEXT("×"));
@@ -56,6 +60,8 @@ void UM4GunsmithWidget::AppendMeleeOverview(const FColdSteelItem& Item)
     Row(TEXT("格挡伤害减免"),Before.BlockReduction*100,After.BlockReduction*100,0,TEXT("%"));
     Row(TEXT("弹反判定时间"),Before.ParrySeconds,After.ParrySeconds,2,TEXT(" s"));
     Row(TEXT("反击激励持续时间"),Before.Modifiers.RiposteSeconds,After.Modifiers.RiposteSeconds,0,TEXT(" s"));
+    Row(TEXT("反击激励攻速倍率"),Before.Modifiers.RiposteSpeed,After.Modifiers.RiposteSpeed,2,TEXT("×"));
+    Row(TEXT("反击激励耐力倍率"),Before.Modifiers.RiposteStamina,After.Modifiers.RiposteStamina,2,TEXT("×"),true);
     Row(TEXT("防御受击耐力消耗"),Before.BlockStamina,After.BlockStamina,2,TEXT(""),true);
     Overview.Add({TEXT("握持"),TEXT("双手 · 占用副手"),TEXT("双手 · 占用副手"),TEXT("—"),0});
 }

@@ -18,6 +18,7 @@ FMeleeWeaponStats ColdSteelMelee::Evaluate(const FColdSteelItem& Item,const UCol
     const auto* Gunsmith=GI?GI->GetSubsystem<UGunsmithSystem>():nullptr;
     const auto* Enhance=GI?GI->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
     if(Gunsmith)R.Modifiers=Gunsmith->Calculate(Item.Definition,Preview?*Preview:Gunsmith->Installed(Item)).Melee;
+    if(Profile)R.QuickCombat=Profile->QuickCombatStats(-1,&R.Modifiers);
     const auto Temporary=TemporaryModifiers(Profile);
     R.ParrySeconds=RuneSwordGuardTuning::ParrySeconds*R.Modifiers.ParryWindow;
     const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55),Attack=Profile?Profile->Derived(TEXT("atk")):0;

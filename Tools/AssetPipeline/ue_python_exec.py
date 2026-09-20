@@ -81,7 +81,7 @@ def main():
         nodes = []
         while time.time() < deadline:
             nodes = list(remote.remote_nodes)
-            if nodes:
+            if nodes and (not args.node or any(node.get("node_id") == args.node for node in nodes)):
                 break
             time.sleep(0.2)
 

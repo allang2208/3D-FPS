@@ -1,0 +1,29 @@
+{
+  "scale": 0.9,
+  "adapter_length_cm": 0.6,
+  "stock_mount_cm": [
+    0,
+    0,
+    -22.7
+  ],
+  "pommel_mount_cm": [
+    0,
+    0,
+    -23.3
+  ],
+  "metal_tint": [
+    0.7,
+    0.37,
+    0.16
+  ],
+  "metal_desaturation": 1,
+  "roughness_scale": 1.1,
+  "source_meshes_unchanged": true,
+  "adapter": "SM_SwordPommel_FrostAdapter",
+  "adapter_triangles": 4560,
+  "icon_axis": "+Z toward blade, front -Y",
+  "icon_resolution": [
+    1024,
+    1024
+  ]
+}

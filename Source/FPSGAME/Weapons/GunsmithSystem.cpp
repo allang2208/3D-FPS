@@ -75,10 +75,11 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
             }W.Options.Add(FString(*S.Key),Options);
         }Weapons.Add(W.Id,W);
     }
+    LoadMeleeCatalog();
 }
 void UGunsmithSystem::Deinitialize(){Close();Super::Deinitialize();}
 const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Weapons.Find(D);}
-const FGunsmithOption* UGunsmithSystem::Option(const FString& D,const FString& S,const FString& Id)const{const auto* W=Weapon(D);if(!W)return nullptr;const auto* A=W->Options.Find(S);return A?A->FindByPredicate([&](const auto& V){return V.Id==Id;}):nullptr;}
+const FGunsmithOption* UGunsmithSystem::Option(const FString& D,const FString& S,const FString& Id)const{const auto* W=ModifiableWeapon(D);if(!W||!W->Allowed.Contains(S))return nullptr;const auto* A=W->Options.Find(S);return A?A->FindByPredicate([&](const auto& V){return V.Id==Id;}):nullptr;}
 FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts& Input)const
 {
     FGunsmithParts Result;for(const auto& P:Input){FString Id=P.Value;if(P.Key==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");if(Id!=TEXT("false")&&Option(D,P.Key,Id))Result.Add(P.Key,Id);}return Result;
@@ -91,7 +92,31 @@ FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 }
 FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts& P)const
 {
-    const auto* W=Weapon(D);if(!W)return {};auto R=W->Base;
+    const auto* W=ModifiableWeapon(D);if(!W)return {};auto R=W->Base;
+    if(IsMelee(D))
+    {
+        for(const auto& Pair:Normalize(D,P))
+        {
+            const auto& M=Option(D,Pair.Key,Pair.Value)->Melee;
+            R.Melee.Damage*=M.Damage;R.Melee.AttackSpeed*=M.AttackSpeed;R.Melee.Range*=M.Range;
+            R.Melee.Stamina*=M.Stamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;
+            R.Melee.ComboSecond*=M.ComboSecond;R.Melee.ComboThird*=M.ComboThird;
+            R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;
+            R.Melee.MagicCost*=M.MagicCost;
+            R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
+            R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
+            R.Melee.QuickCombatDamageAdd+=M.QuickCombatDamageAdd;
+            R.Melee.QuickCombatKnockback*=M.QuickCombatKnockback;
+            R.Melee.RuneIntelligence+=M.RuneIntelligence;R.Melee.RuneWisdom+=M.RuneWisdom;
+            R.Melee.RuneVulnerability=FMath::Max(R.Melee.RuneVulnerability,M.RuneVulnerability);
+            R.Melee.RuneVulnerabilitySeconds=FMath::Max(R.Melee.RuneVulnerabilitySeconds,M.RuneVulnerabilitySeconds);
+            R.Melee.ParryWindow*=M.ParryWindow;R.Melee.RiposteSpeed*=M.RiposteSpeed;R.Melee.RiposteStamina*=M.RiposteStamina;
+            R.Melee.RiposteSeconds=FMath::Max(R.Melee.RiposteSeconds,M.RiposteSeconds);
+            ++R.ActiveParts;
+        }
+        R.Damage*=R.Melee.Damage;R.Interval/=R.Melee.AttackSpeed;R.Range*=R.Melee.Range;
+        return R;
+    }
     if(D==DanWesson715WeaponAssets::Definition&&Part(Normalize(D,P),DanWesson715WeaponAssets::ReloadDeviceSlot)==DanWesson715WeaponAssets::Speedloader)
     {R.Reload=DanWesson715WeaponAssets::EmptyReload;R.EmptyReload=DanWesson715WeaponAssets::EmptyReload;}
     for(const auto& Pair:Normalize(D,P)){const auto& A=*Option(D,Pair.Key,Pair.Value);R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.Reload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;}
@@ -104,8 +129,9 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
 bool UGunsmithSystem::Begin(const FString& Id)
 {
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();const auto* I=Profile->FindItem(Id);
-    if(!I||I->Place>1||!Weapon(I->Definition))return false;
-    InstanceId=Id;DefinitionId=I->Definition;Original=Installed(*I);Preview=Original;bOpen=true;Status=TEXT("选择配件预览，应用后保存");OnChanged.Broadcast();return true;
+    if(!I||I->Place>1||!ModifiableWeapon(I->Definition))return false;
+    InstanceId=Id;DefinitionId=I->Definition;Original=Installed(*I);Preview=Original;bOpen=true;
+    Status=TEXT("选择配件预览，应用后保存");OnChanged.Broadcast();return true;
 }
 bool UGunsmithSystem::Select(const FString& Slot,const FString& Id)
 {
@@ -114,13 +140,13 @@ bool UGunsmithSystem::Select(const FString& Slot,const FString& Id)
     if(Id==TEXT("false"))Preview.Remove(Slot);else Preview.Add(Slot,Id);
     Status=TEXT("预览已更新，应用后保存");OnChanged.Broadcast();return true;
 }
-int32 UGunsmithSystem::Pending()const{int32 Count=0;for(const auto& S:SlotKeys)if(Part(Original,S)!=Part(Preview,S))++Count;return Count;}
+int32 UGunsmithSystem::Pending()const{int32 Count=0;for(const auto& S:Slots(DefinitionId))if(Part(Original,S)!=Part(Preview,S))++Count;return Count;}
 bool UGunsmithSystem::CanApply(FString& Reason)const
 {
     if(!bOpen||!Pending()){Reason=TEXT("当前配置已应用");return false;}
     auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();const auto* I=P->FindItem(InstanceId);
-    if(!I||I->Place>1||I->Definition!=DefinitionId){Reason=TEXT("枪械已不在背包或装备栏中");return false;}
-    if(!Installed(*I).OrderIndependentCompareEqual(Original)){Reason=TEXT("枪械改装已发生变化，请重新选择");return false;}
+    if(!I||I->Place>1||I->Definition!=DefinitionId){Reason=TEXT("武器已不在背包或装备栏中");return false;}
+    if(!Installed(*I).OrderIndependentCompareEqual(Original)){Reason=TEXT("武器改装已发生变化，请重新选择");return false;}
     if(const auto* Pawn=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0)))
     {
         const bool ActiveOffhand=Pawn->IsDualWieldingPistols() && Pawn->DualPistols->Hand(1).Item.InstanceId==I->InstanceId;
@@ -138,7 +164,7 @@ bool UGunsmithSystem::Apply()
     auto& I=State.Items[Index];TSharedPtr<FJsonObject> Data;if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data))return false;
     auto Parts=MakeShared<FJsonObject>();for(const auto& P:Preview){if(P.Value==TEXT("true"))Parts->SetBoolField(P.Key,true);else Parts->SetStringField(P.Key,P.Value);}
     Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Data->SetNumberField(TEXT("gunsmith_version"),1);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&I.Data));
-    const int32 Overflow=FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
+    const int32 Overflow=IsMelee(DefinitionId)?0:FMath::Max(0,I.Magazine-Calculate(DefinitionId,Preview).Capacity);
     if(Overflow){I.Magazine-=Overflow;const auto Ammo=Profile->CreateItem(Weapon(DefinitionId)->Ammo,Overflow);if(Ammo.Data.IsEmpty()||!ColdSteelInventory::Insert(State.Items,Ammo)){Status=TEXT("背包无空间收回弹药，改造未应用");return false;}}
     if(!Profile->CommitState(State)){Status=Profile->ResultMessage();return false;}
     Original=Preview;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;

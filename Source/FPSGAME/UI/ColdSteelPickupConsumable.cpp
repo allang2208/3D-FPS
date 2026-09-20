@@ -1,4 +1,7 @@
 #include "ColdSteelPickup.h"
+#include "../Weapons/MeleeRuneVisual.h"
+#include "../Weapons/MeleeGuardAssets.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -6,12 +9,21 @@
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
     const FString& Id=Item.Definition;
-    if(Id==TEXT("ue_rune_sword"))
+    if(ColdSteelInventory::IsMeleeWeapon(Item))
     {
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
+        if(ColdSteelModularSword::Supports(Item))
+        {
+            Mesh->SetRelativeScale3D(FVector(1));
+            if(!ColdSteelModularSword::Apply(Mesh,Item))return false;
+            const FBox Bounds=ColdSteelModularSword::LocalBounds(Mesh);
+            Mesh->SetRelativeLocation(-Bounds.GetCenter());Body->SetBoxExtent(Bounds.GetExtent().ComponentMax(FVector(1)));
+            return true;
+        }
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelMeleeGuard::WorldMesh(Item));
         if(!Asset)return false;
         const auto Bounds=Asset->GetBounds();
         Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
+        ColdSteelMeleeRune::Apply(Mesh,ColdSteelMeleeRune::Selected(Item));
         Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1)));
         return true;
     }

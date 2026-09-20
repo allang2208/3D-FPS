@@ -1,5 +1,7 @@
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMeleePreview.h"
+#include "../Weapons/MeleeRuneVisual.h"
+#include "../Weapons/ModularSwordVisual.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -9,19 +11,22 @@
 
 bool UColdSteelWeaponIcons::PrepareMelee(const FColdSteelItem& Item)
 {
-    const FString Path=ColdSteelMeleePreview::MeshPath(Item);
+    const bool Modular=ColdSteelModularSword::Supports(Item);
+    const FString Path=Modular?FString():ColdSteelMeleePreview::MeshPath(Item);
     auto* Asset=Path.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*Path);
-    if(!Asset)return false;
+    if(!Modular&&!Asset)return false;
     if(!MeleeMesh)
     {
         MeleeMesh=NewObject<UStaticMeshComponent>(GetTransientPackage(),NAME_None,RF_Transient);
         MeleeMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);MeleeMesh->SetForcedLodModel(1);
         Studio->AddComponent(MeleeMesh,FTransform::Identity);
     }
-    MeleeMesh->EmptyOverrideMaterials();MeleeMesh->SetStaticMesh(Asset);
-    MeleeMesh->SetWorldTransform(ColdSteelMeleePreview::Pose(*Asset,ColdSteelMeleePreview::Rotation(*Asset,true)));
-    Capture->ShowOnlyComponents.Reset();Capture->ShowOnlyComponent(MeleeMesh);
-    const FBox Bounds=Asset->GetBoundingBox().TransformBy(MeleeMesh->GetComponentTransform());
+    if(Modular){if(!ColdSteelModularSword::Apply(MeleeMesh,Item,nullptr,!bCatalogExport))return false;}
+    else {ColdSteelModularSword::Clear(MeleeMesh);MeleeMesh->EmptyOverrideMaterials();MeleeMesh->SetStaticMesh(Asset);ColdSteelMeleeRune::Apply(MeleeMesh,bCatalogExport?FString():ColdSteelMeleeRune::Selected(Item));}
+    const FBox Local=ColdSteelModularSword::LocalBounds(MeleeMesh);
+    MeleeMesh->SetWorldTransform(ColdSteelMeleePreview::Pose(Local,ColdSteelMeleePreview::Rotation(Local,true)));
+    Capture->ShowOnlyComponents.Reset();for(auto* Part:ColdSteelModularSword::Components(MeleeMesh))Capture->ShowOnlyComponent(Part);
+    const FBox Bounds=Local.TransformBy(MeleeMesh->GetComponentTransform());
     const FVector Size=Bounds.GetSize(),Center=Bounds.GetCenter();
     constexpr int32 Width=384,Height=768;
     if(Target->SizeX!=Width||Target->SizeY!=Height)Target->ResizeTarget(Width,Height);
@@ -30,8 +35,14 @@ bool UColdSteelWeaponIcons::PrepareMelee(const FColdSteelItem& Item)
     Capture->OrthoWidth=FMath::Max(float(Size.Y),float(Size.Z)*Aspect)/.91f;
     Capture->bAutoCalculateOrthoPlanes=false;Capture->bUseCustomProjectionMatrix=true;
     Capture->CustomProjectionMatrix=FReversedZOrthoMatrix(Capture->OrthoWidth*.5f,Capture->OrthoWidth*.5f/Aspect,1.f/2000.f,-.1f);
-    CaptureMeshes.Reset();CaptureMaterials.Reset();CaptureTextures.Reset();CaptureMeshes.Add(MeleeMesh);
-    for(auto* Material:MeleeMesh->GetMaterials())if(Material)CaptureMaterials.AddUnique(Material);
+    CaptureMeshes.Reset();CaptureMaterials.Reset();CaptureTextures.Reset();
+    for(auto* Part:ColdSteelModularSword::Components(MeleeMesh))
+    {
+        CaptureMeshes.Add(Part);
+        for(auto* Material:Part->GetMaterials())if(Material)CaptureMaterials.AddUnique(Material);
+        for(int32 Slot=0;Slot<Part->GetNumMaterials();++Slot)if(auto* Overlay=Part->GetOverlayMaterial(true,Slot))CaptureMaterials.AddUnique(Overlay);
+        Part->PrestreamTextures(12.f,true);
+    }
     for(UMaterialInterface* Material:CaptureMaterials)
     {
         TArray<UTexture*> UsedTextures;Material->GetUsedTextures(UsedTextures);

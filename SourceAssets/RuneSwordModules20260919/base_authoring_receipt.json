@@ -1,0 +1,98 @@
+[
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/SM_AzureRunesword",
+    "operation": "Loaded /Game/Weapons/AzureRunesword20260913/SM_AzureRunesword LOD 0"
+  },
+  {
+    "asset": "",
+    "operation": "Plane cut"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory",
+    "operation": "Assigned 1 material slot(s) on /Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Blade_factory.SM_RuneSword_Blade_factory",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\Export\\SM_RuneSword_Blade_factory.fbx"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/SM_AzureRunesword",
+    "operation": "Loaded /Game/Weapons/AzureRunesword20260913/SM_AzureRunesword LOD 0"
+  },
+  {
+    "asset": "",
+    "operation": "Plane cut"
+  },
+  {
+    "asset": "",
+    "operation": "Plane cut"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_factory",
+    "operation": "Assigned 1 material slot(s) on /Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_factory"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Guard_factory.SM_RuneSword_Guard_factory",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\Export\\SM_RuneSword_Guard_factory.fbx"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/SM_AzureRunesword",
+    "operation": "Loaded /Game/Weapons/AzureRunesword20260913/SM_AzureRunesword LOD 0"
+  },
+  {
+    "asset": "",
+    "operation": "Plane cut"
+  },
+  {
+    "asset": "",
+    "operation": "Plane cut"
+  },
+  {
+    "asset": "",
+    "operation": "Translated"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_factory",
+    "operation": "Assigned 1 material slot(s) on /Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_factory"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Grip_factory.SM_RuneSword_Grip_factory",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\Export\\SM_RuneSword_Grip_factory.fbx"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/SM_AzureRunesword",
+    "operation": "Loaded /Game/Weapons/AzureRunesword20260913/SM_AzureRunesword LOD 0"
+  },
+  {
+    "asset": "",
+    "operation": "Plane cut"
+  },
+  {
+    "asset": "",
+    "operation": "Translated"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Pommel_factory",
+    "operation": "Assigned 1 material slot(s) on /Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Pommel_factory"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Pommel_factory.SM_RuneSword_Pommel_factory",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\Export\\SM_RuneSword_Pommel_factory.fbx"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny.SK_AzureRunesword_Manny",
+    "operation": "Loaded /Game/Weapons/AzureRunesword20260913/SK_AzureRunesword_Manny.SK_AzureRunesword_Manny LOD 0 (with bone weights)"
+  },
+  {
+    "asset": "",
+    "operation": "Deleted 48000 triangles"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms.SK_RuneSword_Arms",
+    "operation": "Created /Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms (3 material slot(s))"
+  },
+  {
+    "asset": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SK_RuneSword_Arms.SK_RuneSword_Arms",
+    "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordModules20260919\\Export\\SK_RuneSword_Arms.fbx"
+  }
+]

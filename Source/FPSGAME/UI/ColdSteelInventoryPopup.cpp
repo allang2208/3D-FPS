@@ -3,6 +3,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelEnhancementSystem.h"
+#include "../Weapons/GunsmithSystem.h"
 #include "Engine/GameInstance.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
@@ -46,7 +47,7 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
         if((I->Place==0||I->Place==4)&&I->Count>1&&Text(*I,TEXT("category"))!=TEXT("gold"))Button(TEXT("拆分数量…"))->OnClicked.AddDynamic(this,&ThisClass::Split);
         Button(TEXT("查看详情"))->OnClicked.AddDynamic(this,&ThisClass::Details);
         auto* D=Button(TEXT("丢下物品…"));DropCaption=Cast<UTextBlock>(D->GetContent());D->OnClicked.AddDynamic(this,&ThisClass::Drop);
-        if((I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715"))))Button(I->Place==4?TEXT("取出并改造"):TEXT("改造武器"))->OnClicked.AddDynamic(this,&ThisClass::OpenGunsmith);
+        if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(I->Definition))Button(I->Place==4?TEXT("取出并改造"):TEXT("改造武器"))->OnClicked.AddDynamic(this,&ThisClass::OpenGunsmith);
         if(GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>()->Supports(*I))Button(I->Place==4?TEXT("取出并强化 / 附魔"):TEXT("强化 / 附魔"))->OnClicked.AddDynamic(this,&ThisClass::OpenEnhancement);
         Button(Board->bWarehouse?TEXT("整理仓库"):TEXT("整理背包"))->OnClicked.AddDynamic(this,&ThisClass::SortBag);
         Button(TEXT("保存物品"))->OnClicked.AddDynamic(this,&ThisClass::SaveBag);

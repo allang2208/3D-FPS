@@ -259,3 +259,7 @@ __pycache__/
 !/SourceAssets/AKMDrumFreeDrop20260920/**/
 !/SourceAssets/AKMDrumFreeDrop20260920/**/*.py
 !/SourceAssets/AKMDrumFreeDrop20260920/**/*.md
+
+# Sword modular authoring: dense interface samples remain with licensed local sources.
+/SourceAssets/RuneSwordModules20260919/interfaces.json
+/SourceAssets/SharedSwordPommels20260920/mount_sources.json

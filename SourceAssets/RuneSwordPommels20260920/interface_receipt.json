@@ -1,0 +1,14 @@
+{
+  "source": "/Game/Weapons/AzureRunesword20260913/Modules20260919/SM_RuneSword_Pommel_factory",
+  "collar_asset": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Source/SM_RunePommel_StockCollar.SM_RunePommel_StockCollar",
+  "material": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword.M_AzureRunesword",
+  "cut_z_cm": -0.9,
+  "placement_cm": [
+    0,
+    0,
+    -19.5
+  ],
+  "units": "centimetres; blade +Z, width X, thickness Y",
+  "interface": "azure_hilt_v1",
+  "export": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Interface\\StockCollar.fbx"
+}

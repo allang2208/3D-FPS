@@ -7,6 +7,7 @@
 #include "ColdSteelStatusModel.generated.h"
 
 class APawn;
+struct FMeleeModifiers;
 
 DECLARE_MULTICAST_DELEGATE(FColdSteelStatusChanged);
 
@@ -68,7 +69,8 @@ public:
     /** 「快速进战」：定义、进度、按等级与当前力量取值的施放结算与 F 键入口。 */
     const FColdSteelSkillDefinition& QuickCombatDefinition() const { return QuickCombatSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress QuickCombatProgress() const;
-    FQuickCombatCast QuickCombatStats(int32 AtLevel=-1) const;
+    // Preview overrides isolate a workbench item's parts from the equipped weapon.
+    FQuickCombatCast QuickCombatStats(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr) const;
     float QuickCombatCooldown() const;
     float QuickCombatCooldownDuration() const { return Current.QuickCombatCooldownDuration; }
     /** 按 F/快捷栏触发：不限定武器类型，按当前武器选动作（剑/手枪/步枪）；冷却中拒绝。 */

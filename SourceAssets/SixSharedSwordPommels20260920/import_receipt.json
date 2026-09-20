@@ -1,0 +1,90 @@
+{
+  "finishes": {
+    "silver": {
+      "pommel_hardened": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_hardened.M_SixPommel_RuneSilver_pommel_hardened"
+        }
+      },
+      "pommel_runic": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_runic.M_SixPommel_RuneSilver_pommel_runic",
+          "M_FrostPommel_InlayBorder": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_InlayBorder.M_SixPommel_RuneSilver_InlayBorder"
+        }
+      },
+      "pommel_mana_orb": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
+        }
+      }
+    }
+  },
+  "meshes": {
+    "pommel_hardened": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+    "pommel_runic": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+    "pommel_mana_orb": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb"
+  },
+  "materials": {
+    "/Game/Weapons/FrostCrystalSword20260915/GuardsSmooth20260915/M_FrostCrystalSword_SeamlessBronze.M_FrostCrystalSword_SeamlessBronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+    "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/M_FrostPommel_Bronze.M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_hardened.M_SixPommel_RuneSilver_pommel_hardened",
+    "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/M_FrostPommel_Bronze.M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_runic.M_SixPommel_RuneSilver_pommel_runic",
+    "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/M_FrostPommel_InlayBorder.M_FrostPommel_InlayBorder": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_InlayBorder.M_SixPommel_RuneSilver_InlayBorder",
+    "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/M_FrostPommel_Bronze.M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
+  },
+  "icons": [
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SixSharedSwordPommels20260920\\Icons\\ue_rune_sword_pommel_pommel_hardened.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_pommel_pommel_hardened.ue_rune_sword_pommel_pommel_hardened"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_pommel_hardened.ue_frost_crystal_sword_pommel_pommel_hardened"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_hardened\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/pommel_pommel_hardened.pommel_pommel_hardened"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SixSharedSwordPommels20260920\\Icons\\ue_rune_sword_pommel_pommel_runic.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_pommel_pommel_runic.ue_rune_sword_pommel_pommel_runic"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_pommel_runic.ue_frost_crystal_sword_pommel_pommel_runic"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_rune\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/pommel_pommel_runic.pommel_pommel_runic"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\SixSharedSwordPommels20260920\\Icons\\ue_rune_sword_pommel_pommel_mana_orb.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_rune_sword_pommel_pommel_mana_orb.ue_rune_sword_pommel_pommel_mana_orb"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/ue_frost_crystal_sword_pommel_pommel_mana_orb.ue_frost_crystal_sword_pommel_pommel_mana_orb"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\FrostSwordPommelsRepair20260915\\ballast_magic_orb\\pommel_icon.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/pommel_pommel_mana_orb.pommel_pommel_mana_orb"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Icons\\ue_rune_sword_pommel_ballast_hardened.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/pommel_ballast_hardened.pommel_ballast_hardened"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Icons\\ue_rune_sword_pommel_ballast_rune.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/pommel_ballast_rune.pommel_ballast_rune"
+    },
+    {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Icons\\ue_rune_sword_pommel_ballast_magic_orb.png",
+      "asset": "/Game/ColdSteelData/AttachmentIcons20260913/pommel_ballast_magic_orb.pommel_ballast_magic_orb"
+    }
+  ],
+  "adapter": "/Game/Weapons/SixSharedSwordPommels20260920/Interfaces/SM_SwordPommel_RuneToFrost.SM_SwordPommel_RuneToFrost",
+  "adapter_material": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneToFrost.M_SixPommel_RuneToFrost",
+  "tests_run": false
+}

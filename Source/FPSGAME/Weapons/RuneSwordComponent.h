@@ -54,7 +54,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleaseHeavyCharge();
     UFUNCTION(BlueprintPure, Category="Rune Sword") float HeavyChargeFraction() const { return bCharging ? Elapsed/RuneSwordHeavyRhythm::ChargeSeconds : 0.f; }
     bool TriggerHeavySkill();
-    /** 快速进战：以第四连击的配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
+    /** 快速进战：以独立配重锤动作发动技能打击（伤害/击退/眩晕走技能公式）。 */
     UFUNCTION(BlueprintCallable, Category="Rune Sword") bool BeginQuickCombatStrike();
     void CancelAction();
 private:
@@ -70,7 +70,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> AttackLayerSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> HitSound;
-    /** Impact cue reserved for the fourth hit; other attacks keep the weapon's hit_sound. */
+    /** Impact cue for the pommel strike; other attacks keep the weapon's hit_sound. */
     UPROPERTY(Transient) TObjectPtr<USoundBase> PommelHitSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BlockSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ParrySound;
@@ -106,9 +106,9 @@ private:
     bool bAttacking=false, bEquipping=false, bInspecting=false, bQueuedAttack=false;
     bool bCharging=false, bReturningCharge=false, bHeavyAttack=false, bSwingCuePlayed=false;
     bool bThrustAttack=false, bLungeStarted=false, bLungeBlocked=false;
-    // Fourth combo stage: the counterweight leads instead of the blade.
+    // Independent quick-combat strike: the counterweight leads instead of the blade.
     bool bPommelAttack=false;
-    // 快速进战技能打击：动作与第四连击相同，但伤害/击退/眩晕与范围来自技能公式。
+    // 快速进战技能打击：使用配重锤动作，伤害/击退/眩晕与范围来自技能公式。
     bool bQuickCombatStrike=false,bQueuedQuickCombat=false,QuickCombatKillPending=false;
     float QuickCombatStunSeconds=0.f,QuickCombatKnockbackCM=0.f;
     // 命中走手枪版同一份合同（QuickCombatContractHit）：距离用技能 rangeCM，

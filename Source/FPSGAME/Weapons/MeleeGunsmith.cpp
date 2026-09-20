@@ -55,6 +55,8 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("heavy_damage_mult"),Part.Melee.HeavyDamage);
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
+            Stats->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
+            Stats->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
             Stats->TryGetNumberField(TEXT("rune_intelligence"),Part.Melee.RuneIntelligence);
             Stats->TryGetNumberField(TEXT("rune_wisdom"),Part.Melee.RuneWisdom);
             Stats->TryGetNumberField(TEXT("rune_vulnerability"),Part.Melee.RuneVulnerability);

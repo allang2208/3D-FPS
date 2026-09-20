@@ -20,11 +20,11 @@ void UM4GunsmithWidget::RefreshPresentation()
 {
     PreviewMotion=1.f;
     auto* G=Model();auto* P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    const auto* I=P->FindItem(G->Instance());if(!I||!G->Weapon(G->Definition()))return;
+    const auto* I=P->FindItem(G->Instance());if(!I||!G->ModifiableWeapon(G->Definition()))return;
     if(!IsCategoryAvailable(SelectedCategory))
     {
         SelectedCategory.Reset();
-        for(const auto& Key:G->Slots())if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
+        for(const auto& Key:G->Slots(G->Definition()))if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
     }
     const auto S=G->Calculate(G->Definition(),G->Draft());
     const auto B=G->Calculate(G->Definition(),bCompareFactory?FGunsmithParts():G->Installed(*I));
@@ -35,7 +35,9 @@ void UM4GunsmithWidget::RefreshPresentation()
         R.Delta=FMath::Abs(D)<.00001?TEXT("—"):FString(D>0?TEXT("+"):TEXT(""))+Value(D,Digits,Unit);
         R.Benefit=FMath::Abs(D)<.00001?0:((D>0)!=Lower?1:-1);Overview.Add(R);
     };
-    const double AttackSpeed=FMath::Max(1.f,P->Derived(TEXT("aspd")));
+    if(IsMeleeWorkbench())AppendMeleeOverview(*I);
+    else
+    {
     Row(TEXT("开镜耗时"),B.ADS*1000,S.ADS*1000,0,TEXT(" ms"),true);
     Row(TEXT("弹匣容量"),B.Capacity,S.Capacity,0,TEXT(" 发"));
     // Reload rows go through the shared stack (敏捷 × 快手 × 附魔 × 配件) so the
@@ -63,10 +65,11 @@ void UM4GunsmithWidget::RefreshPresentation()
     const auto BeforeParts=bCompareFactory?FGunsmithParts():G->Installed(*I);
     Overview.Add({TEXT("瞄具倍率"),BeforeParts.FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):BeforeParts.FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),G->Draft().FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):G->Draft().FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),TEXT("—"),0});
     Overview.Add({TEXT("机械瞄具"),BeforeParts.Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),G->Draft().Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
+    }
     StatusText=G->Pending()>0?FString::Printf(TEXT("待应用 · %d 项    %s"),G->Pending(),*G->Message()):TEXT("当前配置    ")+G->Message();
     if(OptionScroll)
     {
-        const auto* Options=G->Weapon(G->Definition())->Options.Find(SelectedCategory);
+        const auto* Options=G->ModifiableWeapon(G->Definition())->Options.Find(SelectedCategory);
         FString Signature=G->Definition()+TEXT("|")+SelectedCategory;
         if(Options)for(const auto& O:*Options)Signature+=TEXT("|")+O.Id+O.Name+O.Description;
         if(Signature!=OptionsSignature)

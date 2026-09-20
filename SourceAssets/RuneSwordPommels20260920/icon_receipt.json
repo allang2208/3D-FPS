@@ -1,0 +1,53 @@
+[
+  {
+    "id": "ballast_hardened",
+    "weapon": "ue_rune_sword",
+    "model": "SM_RunePommel_Meteor",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\RuneSword_Pommels_PBR.blend",
+    "source_object": "SM_RunePommel_Meteor",
+    "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Icons\\ue_rune_sword_pommel_ballast_hardened.png",
+    "resolution": [
+      1024,
+      1024
+    ],
+    "rgba": true,
+    "mount_axis": "+Z toward blade; pommel body extends -Z",
+    "view": "-Y, level orthographic front",
+    "frame_fill": 0.83,
+    "material_note": "Delivered PBR; Blender crystal transmission approximates UE translucent material."
+  },
+  {
+    "id": "ballast_rune",
+    "weapon": "ue_rune_sword",
+    "model": "SM_RunePommel_JadeStar",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\RuneSword_Pommels_PBR.blend",
+    "source_object": "SM_RunePommel_JadeStar",
+    "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Icons\\ue_rune_sword_pommel_ballast_rune.png",
+    "resolution": [
+      1024,
+      1024
+    ],
+    "rgba": true,
+    "mount_axis": "+Z toward blade; pommel body extends -Z",
+    "view": "-Y, level orthographic front",
+    "frame_fill": 0.83,
+    "material_note": "Delivered PBR; Blender crystal transmission approximates UE translucent material."
+  },
+  {
+    "id": "ballast_magic_orb",
+    "weapon": "ue_rune_sword",
+    "model": "SM_RunePommel_Swiftstar",
+    "source_blend": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\RuneSword_Pommels_PBR.blend",
+    "source_object": "SM_RunePommel_Swiftstar",
+    "image": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSwordPommels20260920\\Icons\\ue_rune_sword_pommel_ballast_magic_orb.png",
+    "resolution": [
+      1024,
+      1024
+    ],
+    "rgba": true,
+    "mount_axis": "+Z toward blade; pommel body extends -Z",
+    "view": "-Y, level orthographic front",
+    "frame_fill": 0.83,
+    "material_note": "Delivered PBR; Blender crystal transmission approximates UE translucent material."
+  }
+]

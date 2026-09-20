@@ -1,0 +1,14 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "method": "Tools/Build/Build-Editor.ps1",
+  "result": "Succeeded",
+  "log": "Saved/BuildEditor/build-20260920-100109.log",
+  "compiled_shared_visual": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+  "base_module_updated": "Binaries/Win64/UnrealEditor-FPSGAME.dll",
+  "earlier_live_coding_result": "CompileNotStarted: Live Coding Action Limit Reached",
+  "normal_restart_user_authorized": true,
+  "editor_already_exited_before_save_close_script": true,
+  "forced_process_termination": false,
+  "tests_run": false,
+  "game_launched": false
+}

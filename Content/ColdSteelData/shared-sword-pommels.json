@@ -1,0 +1,80 @@
+{
+  "version": 2,
+  "interface": "shared_sword_pommel_v1",
+  "options": {
+    "ballast_hardened": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Meteor.SM_RunePommel_Meteor",
+      "interface": "shared_sword_pommel_v1",
+      "appearance": "陨星锤首 · 剑类通用配重"
+    },
+    "ballast_rune": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_JadeStar.SM_RunePommel_JadeStar",
+      "interface": "shared_sword_pommel_v1",
+      "appearance": "凝碧星核 · 剑类通用配重"
+    },
+    "ballast_magic_orb": {
+      "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar",
+      "interface": "shared_sword_pommel_v1",
+      "appearance": "疾星配重 · 剑类通用配重"
+    },
+    "pommel_hardened": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+      "interface": "frost_hilt_v1",
+      "appearance": "硬化配重 · 剑类通用配重"
+    },
+    "pommel_runic": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+      "interface": "frost_hilt_v1",
+      "appearance": "符文配重 · 剑类通用配重"
+    },
+    "pommel_mana_orb": {
+      "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
+      "interface": "frost_hilt_v1",
+      "appearance": "魔力球配重 · 剑类通用配重"
+    }
+  },
+  "finishes": {
+    "frost_bronze": {
+      "ballast_hardened": {
+        "materials": {
+          "M_RunePommel_meteor_Opaque": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_meteor_FrostBronze.MI_SharedPommel_meteor_FrostBronze"
+        }
+      },
+      "ballast_rune": {
+        "materials": {
+          "M_RunePommel_jade_core_Opaque": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_jade_core_FrostBronze.MI_SharedPommel_jade_core_FrostBronze"
+        }
+      },
+      "ballast_magic_orb": {
+        "materials": {
+          "M_RunePommel_swift_Opaque": "/Game/Weapons/SharedSwordPommels20260920/Materials/MI_SharedPommel_swift_FrostBronze.MI_SharedPommel_swift_FrostBronze"
+        }
+      }
+    },
+    "silver": {
+      "pommel_hardened": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_hardened.M_SixPommel_RuneSilver_pommel_hardened"
+        }
+      },
+      "pommel_runic": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_runic.M_SixPommel_RuneSilver_pommel_runic",
+          "M_FrostPommel_InlayBorder": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_InlayBorder.M_SixPommel_RuneSilver_InlayBorder"
+        }
+      },
+      "pommel_mana_orb": {
+        "materials": {
+          "M_FrostPommel_Collar": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_Collar.M_SixPommel_RuneSilver_Collar",
+          "M_FrostPommel_Bronze": "/Game/Weapons/SixSharedSwordPommels20260920/Materials/M_SixPommel_RuneSilver_pommel_mana_orb.M_SixPommel_RuneSilver_pommel_mana_orb"
+        }
+      }
+    }
+  },
+  "interfaces": [
+    "shared_sword_pommel_v1",
+    "frost_hilt_v1"
+  ]
+}
