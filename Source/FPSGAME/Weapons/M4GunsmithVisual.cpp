@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "ASH12WeaponAssets.h"
 #include "QBZ191Attachments.h"
@@ -57,7 +58,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     if(bHolographic && (!HolographicOptic || OpticVariant!=Variant))
     {
         const TCHAR* MeshPath=LPVO?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVO1to6X"):Scope2X?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PrismScope2X"):(Panoramic?TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_PanoramicRedDot"):TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_Holographic"));
-        const FString SelectedMeshPath = bUseASH12 ? ASH12WeaponAssets::OpticMeshPath(Variant)
+        const FString SelectedMeshPath = bUseM16 ? M16Attachments::MeshPath(Variant) : bUseASH12 ? ASH12WeaponAssets::OpticMeshPath(Variant)
             : bUseQBZ191 ? QBZ191Attachments::MeshPath(Variant) : FString(MeshPath);
         auto* OpticMesh=LoadObject<UStaticMesh>(nullptr,*SelectedMeshPath);
         if(!OpticMesh){UE_LOG(LogTemp,Error,TEXT("M4_HOLO: missing optic mesh"));return;}
@@ -84,7 +85,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
         const float RailDrop=bUseASH12?ASH12WeaponAssets::OpticRailDrop:3.2f;
         const float Along=bUseASH12?ASH12WeaponAssets::OpticAlongCM(Variant):8.f;
         const FTransform Mount(Rotation,Rear.GetLocation()+Axis*Along-RailUp*RailDrop,FVector::OneVector);
-        HolographicMount=bUseQBZ191?QBZ191Attachments::OpticMount(Variant):Mount.GetRelativeTransform(Root);
+        HolographicMount=bUseM16?M16Attachments::OpticMount():bUseQBZ191?QBZ191Attachments::OpticMount(Variant):Mount.GetRelativeTransform(Root);
         HolographicOptic->SetRelativeTransform(HolographicMount);
     }
     if(bHolographicOptic!=bHolographic || OpticVariant!=Variant)bSightCalibrated=false;
@@ -93,7 +94,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     OpticVariant=bHolographic?Variant:FString();
     UpdateFoldingSights(0.f);
     if(LPVO&&bHolographic&&!LPVORing){
-        const FString RingMeshPath = bUseASH12 ? ASH12WeaponAssets::OpticMeshPath(TEXT("lpvo_ring"))
+        const FString RingMeshPath = bUseM16 ? M16Attachments::MeshPath(TEXT("lpvo_ring")) : bUseASH12 ? ASH12WeaponAssets::OpticMeshPath(TEXT("lpvo_ring"))
             : bUseQBZ191 ? QBZ191Attachments::MeshPath(TEXT("lpvo_ring")) : FString(TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_LPVORing"));
         auto* RingMesh=LoadObject<UStaticMesh>(nullptr,*RingMeshPath);
         if(RingMesh){LPVORing=NewObject<UStaticMeshComponent>(this,TEXT("LPVOMagnificationRing"));LPVORing->SetStaticMesh(RingMesh);LPVORing->SetCollisionEnabled(ECollisionEnabled::NoCollision);LPVORing->SetCastShadow(false);LPVORing->SetupAttachment(HolographicOptic);LPVORing->RegisterComponent();LPVORing->SetRelativeLocation(FVector(-7.1f,0,4.f));}

@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
 #include "ASH12Attachments.h"
@@ -22,12 +23,15 @@ void AFPSGAMECharacter::InitializeVerticalGripAnimations()
         {DrumReloadEmptyAnimation,TEXT("drum_reload_empty")}};
     for(const auto& Pair:Clips)
     {
-        if((bUseQBZ191||bUseASH12)&&!Pair.Key)continue;
-        const FString Path=bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("vertical"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("vertical"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
+        if((bUseQBZ191||bUseASH12||bUseM16)&&!Pair.Key)continue;
+        const FString Path=bUseM16?M16Attachments::AnimationPath(TEXT("vertical"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("vertical"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("vertical"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("vertical"),Pair.Value):VerticalGripAnimationFamily::M4ClipPath(VerticalGripAnimationFamily::EContactProfile::Vertical,Pair.Value);
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*Path);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))VerticalGripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("VERTICAL_GRIP: missing or mismatched clip %s"),*Path);
     }
+    if(bUseM16&&InspectAnimation)
+        if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("vertical"),TEXT("inspect"))))
+            VerticalGripAnimations.Add(InspectAnimation,Clip);
 }
 
 void AFPSGAMECharacter::SetVerticalForegrip(bool bEnabled)
@@ -35,6 +39,7 @@ void AFPSGAMECharacter::SetVerticalForegrip(bool bEnabled)
     if(VerticalForegrip&&VerticalForegrip->GetStaticMesh()&&
         VerticalForegrip->GetStaticMesh()->GetName()==TEXT("SM_TacticalVerticalForegrip"))
         VerticalForegrip->EmptyOverrideMaterials();
+    if(bUseM16){VerticalForegrip=M16Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseASH12){VerticalForegrip=ASH12Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){VerticalForegrip=QBZ191Attachments::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),(bEnabled)&&bInventoryWeaponReady);return;}
     if(AKMSoviet::Matches(AKMViewmodel)){VerticalForegrip=AKMAttachment::Configure(this,AKMViewmodel,VerticalForegrip,TEXT("vertical"),bEnabled&&bInventoryWeaponReady);return;}

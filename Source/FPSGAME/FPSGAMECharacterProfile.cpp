@@ -19,7 +19,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     if(auto* H=FindComponentByClass<UFPSCombatHealthComponent>()){H->MaxHealth=Profile->Derived(TEXT("maxHp"));H->Health=FMath::Clamp(P.Health,0.f,H->MaxHealth);}
     const auto* I=Profile->Equipped();const FString Id=I?I->InstanceId:TEXT("");
     const bool WasWeaponReady=bInventoryWeaponReady;
-    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
+    bInventoryWeaponReady=!Profile->ActiveProductionTool()&&I&&(I->Definition==TEXT("ue_m4a1")||I->Definition==TEXT("ue_akm")||I->Definition==TEXT("ue_qbz191")||I->Definition==TEXT("ue_ash12")||I->Definition==TEXT("ue_m16a2")||(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715")));
     const bool ChangedWeapon=ActiveInventoryWeapon!=Id||WasWeaponReady!=bInventoryWeaponReady;
     const bool PistolInput=ChangedWeapon&&bInventoryWeaponReady&&(I->Definition==TEXT("ue_m1911")||I->Definition==TEXT("ue_dan_wesson715"));
     const bool ResumePistolAim=PistolInput&&bAimHeld;
@@ -40,7 +40,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
         ActiveInventoryWeapon=Id;
         ActiveInventoryWeaponDefinition=Definition;
         bWeaponVisualPartsApplied=false;
-        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM1911=I->Definition==TEXT("ue_m1911");bUseDanWesson715=I->Definition==TEXT("ue_dan_wesson715");InitializeWeaponVisuals();StartEquipCharge();}
+        if(bInventoryWeaponReady){bUseM4Infima=I->Definition==TEXT("ue_m4a1");bUseQBZ191=I->Definition==TEXT("ue_qbz191");bUseASH12=I->Definition==TEXT("ue_ash12");bUseM16=I->Definition==TEXT("ue_m16a2");bUseM1911=I->Definition==TEXT("ue_m1911");bUseDanWesson715=I->Definition==TEXT("ue_dan_wesson715");InitializeWeaponVisuals();StartEquipCharge();}
         else {WeaponState=EAKMWeaponState::Idle;WeaponStateElapsed=WeaponStateDuration=0;}
     }
     AKMViewmodel->SetVisibility(bInventoryWeaponReady && !IsTraversing(),ChangedWeapon);
@@ -61,6 +61,7 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
     HipSpreadMultiplier=1.f;
     DamagePerShot=Defaults->DamagePerShot+Profile->Derived(TEXT("atk"));
     FireInterval=Defaults->FireInterval;
+    BurstShotCount=1;BurstRecoverySeconds=0.f;
     ReloadDuration=Defaults->ReloadDuration;EmptyReloadDuration=Defaults->EmptyReloadDuration;
     if(auto* Gunsmith=GetGameInstance()->GetSubsystem<UGunsmithSystem>())
     {
@@ -89,12 +90,14 @@ void AFPSGAMECharacter::ApplyColdSteelProfile(UColdSteelStatusModel* Profile)
             // Every catalog weapon, M4 included, drives cadence from the same
             // gunsmith data the panel and tooltips read. The old M4 exception
             // silently ignored the catalog fire interval.
-            DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval;}
+            DamagePerShot=Stats.Damage+Profile->Derived(TEXT("atk"));FireInterval=Stats.Interval;
+            BurstShotCount=Stats.BurstCount;BurstRecoverySeconds=Stats.BurstDelay;}
     }
     // Rebuild from weapon/attachment values on each publication; never compound
     // the passive bonus into the previous duration. Active action clocks stay fixed.
     ReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,ReloadDuration);
     EmptyReloadDuration=ColdSteelWeaponStats::Reload(I,Profile,EmptyReloadDuration);
+    BurstRecoverySeconds=ColdSteelWeaponStats::Interval(I,Profile,BurstRecoverySeconds);
     FireInterval=ColdSteelWeaponStats::Interval(I,Profile,FireInterval);
     if(I)DamagePerShot=ColdSteelWeaponStats::Damage(*I,Profile,DamagePerShot-Profile->Derived(TEXT("atk")));
     MagazineAmmo=I&&!ColdSteelInventory::IsMeleeWeapon(*I)?FMath::Clamp(I->Magazine,0,MagazineCapacity):0;ReserveAmmo=I&&ColdSteelInventory::IsMeleeWeapon(*I)?0:Profile->AmmoCount();

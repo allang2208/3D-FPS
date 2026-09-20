@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -9,7 +10,7 @@ namespace
 bool IsFactoryRearGrip(const FName& Slot)
 {
     const FString Name=Slot.ToString();
-    return Name.Contains(TEXT("Grip_Default"))||Name.Contains(TEXT("FactoryRearGrip"));
+    return Name.Contains(TEXT("Grip_Default"))||Name.Contains(TEXT("FactoryRearGrip"))||Name==TEXT("M_M16_PistolGrip");
 }
 }
 
@@ -25,7 +26,7 @@ void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant)
     if(Enabled&&HasFactory)
     {
         const TCHAR* Family=bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(Rifle)?TEXT("AKM"):TEXT("M4");
-        const FString Path=StableGrip
+        const FString Path=bUseM16?M16Attachments::MeshPath(Variant):StableGrip
             ?FString::Printf(TEXT("/Game/Weapons/StableAntiSlipRearGrip/Selected91727/%s/SM_StableAntiSlipRearGrip.SM_StableAntiSlipRearGrip"),Family)
             :BalancedGrip
                 ?(FCString::Strcmp(Family,TEXT("M4"))==0

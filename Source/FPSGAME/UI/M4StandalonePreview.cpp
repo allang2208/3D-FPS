@@ -29,7 +29,7 @@ void UM4GunsmithWidget::SetStandaloneItem(const FColdSteelItem& Item)
     }
     if(!StandaloneRig)return;
     auto* Rig=StandaloneRig.Get();Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
-    Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();
+    Rig->bUseM4Infima=Item.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=Item.Definition==TEXT("ue_qbz191");Rig->bUseASH12=Item.Definition==TEXT("ue_ash12");Rig->bUseM16=Item.Definition==TEXT("ue_m16a2");Rig->bUseM1911=Item.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=Item.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();
     Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));Rig->SetGunsmithStock(Parts.FindRef(TEXT("stock")));Rig->SetGunsmithRearGrip(Parts.FindRef(TEXT("reargrip")));Rig->SetGunsmithTactical(Parts.FindRef(TEXT("tactical")));Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));Rig->UpdateFoldingSights(1.f);
     StandaloneKey=Key;StandaloneParts=Parts;PreviewBoundsCache.Empty();SetSidePreview(true);
 }

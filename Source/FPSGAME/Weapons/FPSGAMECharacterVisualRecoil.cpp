@@ -8,7 +8,7 @@ void AFPSGAMECharacter::AdvanceVisualWeaponRecoil(double Now)
     const float Elapsed=static_cast<float>(FMath::Max(0.,Now-Previous));
     VisualRecoilUpdatedAt=Now;
     if(Elapsed<=0.f)return;
-    const auto Profile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
+    const auto Profile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
     const float AttackDelta=FMath::Clamp(static_cast<float>(VisualRecoverAt-Previous),0.f,Elapsed);
     // Integrate across the event boundary exactly once. Multiple shots in one
     // frame add impulses at their actual time; Tick never ages a newborn impulse

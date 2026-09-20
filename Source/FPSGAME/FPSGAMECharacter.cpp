@@ -27,6 +27,8 @@
 #include "Weapons/M1911WeaponAssets.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
 #include "Weapons/ASH12WeaponAssets.h"
+#include "Weapons/M16WeaponAssets.h"
+#include "Weapons/M16Attachments.h"
 #include "Weapons/GunsmithSystem.h"
 #include "Weapons/FPSWeaponFXComponent.h"
 #include "Weapons/FPSBallisticsComponent.h"
@@ -332,6 +334,14 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         ADSRearEyeDistance = ASH12WeaponAssets::ADSRearEyeDistance;
         UE_LOG(LogTemp, Display, TEXT("ASH12_ACTIVE mesh=%s eye=%.2f"), *GetPathNameSafe(ViewmodelMesh), ADSRearEyeDistance);
     }
+    if (bUseM16)
+    {
+        ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, M16WeaponAssets::MeshPath);
+        bUsingM4Infima = ViewmodelMesh != nullptr;
+        HipViewmodelLocation = M4HipViewmodelLocation + FVector(5.f, 0.f, 0.f);
+        ADSRearEyeDistance = 18.f;
+        QuickCombatAnimation = LoadObject<UAnimSequence>(nullptr, *M16WeaponAssets::AnimationPath(TEXT("quick_melee")));
+    }
     if (bUseM1911)
     {
         ViewmodelMesh = LoadObject<USkeletalMesh>(nullptr, M1911Source::MeshPath);
@@ -384,11 +394,16 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         DrumReloadAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload"));
         DrumReloadEmptyAnimation=LoadAKMAnimation(TEXT("A_AKM_drum_reload_empty"));
     }
+    if (bUseM16)
+    {
+        DrumReloadAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload")));
+        DrumReloadEmptyAnimation=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("base"),TEXT("drum_reload_empty")));
+    }
     // The accepted pistol set has no inspection clip; do not resolve a fictional asset.
-    InspectAnimation = bUseDanWesson715 ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima || bUseM1911 ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
+    InspectAnimation = bUseDanWesson715 || bUseM16 ? LoadAKMAnimation(TEXT("A_AKM_inspect")) : bUsingM4Infima || bUseM1911 ? nullptr : LoadAKMAnimation(TEXT("A_AKM_inspect"));
     if (bUsingReplacement) EquipAnimation = LoadAKMAnimation(TEXT("A_AKM_equip"));
     DrumSupportAnimations.Reset();
-    if (bUsingM4Infima && !bUseQBZ191 && !IsPistolWeapon())
+    if (bUsingM4Infima && !bUseQBZ191 && !bUseM16 && !IsPistolWeapon())
         for (UAnimSequence* Base : {IdleAnimation.Get(), AimAnimation.Get(), FireAnimation.Get(), AimFireAnimation.Get(), EquipAnimation.Get()})
             if (Base)
             {
@@ -396,6 +411,15 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
                 if (auto* Support=LoadObject<UAnimSequence>(nullptr,*Path))DrumSupportAnimations.Add(Base,Support);
             }
     ForegripAnimations.Reset(); PrismGripAnimations.Reset(); VerticalGripAnimations.Reset(); CantedGripAnimations.Reset();
+    if (bUseM16)
+    {
+        const TPair<UAnimSequence*,const TCHAR*> Support[]={{IdleAnimation,TEXT("idle")},{AimAnimation,TEXT("aim")},
+            {FireAnimation,TEXT("fire")},{AimFireAnimation,TEXT("aim_fire")},{EquipAnimation,TEXT("equip")},{InspectAnimation,TEXT("inspect")}};
+        for(const auto& Pair:Support)
+            if(Pair.Key)
+                if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("drum"),Pair.Value)))
+                    DrumSupportAnimations.Add(Pair.Key,Clip);
+    }
     if (!IsPistolWeapon())
     {
         InitializeForegripAnimations();
@@ -416,6 +440,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
     AKMViewmodel->SetAnimInstanceClass(UFPSGunplayAnimInstance::StaticClass());
     if (auto* Sprint = FindComponentByClass<UM4TacticalSprintComponent>())
         Sprint->Configure(IsPistolWeapon() ? ERifleSprintWeapon::None
+            : bUseM16 ? ERifleSprintWeapon::M16
             : bUseASH12 ? ERifleSprintWeapon::ASH12
             : bUseQBZ191 ? ERifleSprintWeapon::QBZ191
             : bUsingM4Infima && bUseM4Infima ? ERifleSprintWeapon::M4
@@ -444,7 +469,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
             const FString FirePath = bUseQBZ191
                 ? Base + FString::Printf(TEXT("Fire_%02d"), Index)
                 : FString::Printf(TEXT("/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_%02d"), Index);
-            if (!bUseASH12)
+            if (!bUseASH12 && !bUseM16)
                 if (USoundBase* Sound = LoadObject<USoundBase>(nullptr, *FirePath))
                     RifleFireVariants.Add(Sound);
             const FString SuppressedPath = bUseASH12
@@ -456,6 +481,7 @@ void AFPSGAMECharacter::InitializeWeaponVisuals()
         // ASH-12 uses the supplied one-shot in the overlapping-tail player;
         // the generic M4 variant bank must not replace it on equip.
         if (bUseASH12 && FireSound) RifleFireVariants.Add(FireSound);
+        if (bUseM16 && FireSound) RifleFireVariants.Add(FireSound);
         if (!RifleFireVariants.IsEmpty()) FireSound = RifleFireVariants[0];
         if (!RifleSuppressedVariants.IsEmpty()) SuppressedFireSound = RifleSuppressedVariants[0];
         RifleFireConcurrency = NewObject<USoundConcurrency>(this);
@@ -512,7 +538,8 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
     ServiceReloadAfterCasting();
     ServiceRevolverReloadAfterFire();
     // Also recover an empty magazine loaded from a saved profile after equipping.
-    if (!IsDualWieldingPistols() && HasInfiniteReserveAmmo() && bInventoryWeaponReady && MagazineAmmo == 0 && !IsWeaponBusy()) ReloadPressed();
+    if (!IsDualWieldingPistols() && (HasInfiniteReserveAmmo() || (bUseM16 && ReserveAmmo > 0))
+        && bInventoryWeaponReady && MagazineAmmo == 0 && !IsWeaponBusy()) ReloadPressed();
     UpdateWeaponFeedback(DeltaSeconds);
     UpdateCamera(DeltaSeconds);
     UpdateViewmodel(DeltaSeconds);
@@ -657,6 +684,15 @@ void AFPSGAMECharacter::FirePressed()
     }
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
+    if (bUseM16)
+    {
+        if (bBurstTriggerHeld) return;
+        bBurstTriggerHeld = true;
+        // A click during an existing group is not queued as another group.
+        if (BurstShotsRemaining > 0 || !bInventoryWeaponReady || IsWeaponBusy()
+            || IsCastBlockingLeftHandAction() || GetWorld()->GetTimeSeconds() < NextAllowedShotTime) return;
+        BurstShotsRemaining = BurstShotCount;
+    }
     if (!bFireHeld)
     {
         NextAllowedShotTime = FMath::Max(NextAllowedShotTime, static_cast<double>(GetWorld()->GetTimeSeconds()));
@@ -674,12 +710,14 @@ void AFPSGAMECharacter::FireInputReleased()
     // Only the physical input release may commit a charged sword attack.
     // Menu/traversal/equipment callers still use FireReleased to stop actions.
     if(RuneSword && RuneSword->IsEquipped()){RuneSword->ReleasePrimaryAttack();return;}
+    if (bUseM16) { bBurstTriggerHeld = false; return; }
     FireReleased();
 }
 
 void AFPSGAMECharacter::FireReleased()
 {
     bFireHeld=false;bPistolShotPending=false;GetWorldTimerManager().ClearTimer(FireTimerHandle);
+    bBurstTriggerHeld=false;BurstShotsRemaining=0;
     if(IsDualWieldingPistols()){DualPistols->Trigger(0,false);return;}
     if(RuneSword && RuneSword->IsEquipped())RuneSword->CancelAction();
     const double Now=GetWorld()->GetTimeSeconds();
@@ -725,6 +763,7 @@ void AFPSGAMECharacter::ReloadPressed()
         bRevolverReloadAfterFire = true;
         return;
     }
+    if (bUseM16) FireReleased();
     bRevolverReloadAfterFire = false;
     bReloadAfterCasting=false;
     bRevolverSingleReload = bUseDanWesson715 && !bRevolverSpeedloaderInstalled;
@@ -840,6 +879,12 @@ void AFPSGAMECharacter::ReloadPressed()
                 MechanicalCueSounds.Add(ChargeReleaseSound);
             }
         }
+        else if (bUseM16 && bPendingEmptyReload)
+        {
+            MechanicalCueTimes = {M16WeaponAssets::MagazineOut, M16WeaponAssets::MagazineInsert,
+                M16WeaponAssets::MagazineSeat, M16WeaponAssets::ChargePull, M16WeaponAssets::ChargeRelease};
+            MechanicalCueSounds = {MagOutSound, MagInsertSound, MagSeatSound, ChargePullSound, ChargeReleaseSound};
+        }
         else
         {
         MechanicalCueTimes = bPendingEmptyReload
@@ -854,7 +899,9 @@ void AFPSGAMECharacter::ReloadPressed()
         }
         if(bDrumInstalled)
         {
-            MechanicalCueTimes=bPendingEmptyReload
+            MechanicalCueTimes=bUseM16&&bPendingEmptyReload
+                ? TArray<float>{14.f/60.f,54.f/60.f,80.f/60.f,M16WeaponAssets::ChargePull,M16WeaponAssets::ChargeRelease}
+                : bPendingEmptyReload
                 ? TArray<float>{14.0f/60.0f,54.0f/60.0f,80.0f/60.0f,116.0f/60.0f}
                 : TArray<float>{18.0f/60.0f,76.0f/60.0f,95.0f/60.0f};
         }
@@ -1010,6 +1057,14 @@ EM4SprintGrip AFPSGAMECharacter::ResolveRifleGripProfile() const
 
 UAnimSequence* AFPSGAMECharacter::RifleQuickCombatClip(EM4SprintGrip Grip)
 {
+    if (bUseM16)
+    {
+        const TCHAR* Families[]={TEXT("base"),TEXT("drum"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
+        const int32 Index=static_cast<int32>(Grip);
+        return Index>0&&Index<UE_ARRAY_COUNT(Families)
+            ?LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(Families[Index],TEXT("QuickCombat")))
+            :QuickCombatAnimation.Get();
+    }
     // Each rifle starts and returns to its own fitted idle. All four families
     // share the reference rhythm; QBZ191 keeps its O grip-locked correction.
     if (RifleQuickCombatClips.Num() != 24)
@@ -1404,14 +1459,14 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
         float SourceEnd = 0.f;
         // ASH-12 shares the M4 pose/cue clock but is not ue_m4a1, so it has to
         // be named here or it silently loses the whole reload/equip camera.
-        const bool bActionCamera = bInventoryWeaponReady && bUsingM4Infima && (bUseM4Infima || bUseASH12)
+        const bool bActionCamera = bInventoryWeaponReady && bUsingM4Infima && (bUseM4Infima || bUseASH12 || bUseM16)
             && !bUseQBZ191 && !IsPistolWeapon() && !IsDualWieldingPistols()
             && !bGunsmithInspection && !IsTraversing() && !IsCastBlockingLeftHandAction();
         if (bActionCamera && ActiveActionAnimation)
         {
             if (IsReloading())
             {
-                if (bUseASH12)
+                if (bUseASH12 || (bUseM16 && bPendingEmptyReload))
                     CameraAction = bPendingEmptyReload ? EM4CameraAction::Ash12ReloadEmpty : EM4CameraAction::Ash12Reload;
                 else
                     CameraAction = bDrumInstalled
@@ -1427,8 +1482,18 @@ void AFPSGAMECharacter::UpdateCamera(float DeltaSeconds)
                 SourceEnd = ActiveActionAnimation->GetPlayLength();
             }
         }
+        float ActionCameraWeight = CameraMotionScale * (1.f - CameraADSFactor);
+        if (bUseM16 && CameraAction == EM4CameraAction::Ash12ReloadEmpty && MechanicalCueTimes.Num() > 4)
+        {
+            // Reuse the existing five-contact pull/release camera profile with
+            // a lighter M16 charging tail; magazine contacts keep their weight.
+            const float PullTime = MechanicalCueTimes[3], ReleaseTime = MechanicalCueTimes[4];
+            const float ChargeBlend = FMath::SmoothStep(PullTime - .20f, PullTime, SourceTime)
+                * (1.f - FMath::SmoothStep(FMath::Min(ReleaseTime + .22f, SourceEnd - .02f), SourceEnd, SourceTime));
+            ActionCameraWeight *= FMath::Lerp(1.f, .45f, ChargeBlend);
+        }
         ActionCamera->Apply(*FirstPersonCamera, CameraAction, SourceTime, SourceEnd,
-            MechanicalCueTimes, CameraMotionScale * (1.f - CameraADSFactor));
+            MechanicalCueTimes, ActionCameraWeight);
     }
 }
 
@@ -1457,6 +1522,19 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
         M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
             QuickCombatRecovery::RemainingWeight(WeaponStateElapsed, WeaponStateDuration,
                 QuickCombatRecovery::FramingReturnStart));
+    }
+    else if (bUseM16 && IsReloading() && ActiveActionAnimation)
+    {
+        // The M16 pose already ends at idle. Return the component anchor in
+        // that same authored tail, rather than starting a filtered correction
+        // after FinishReload. Empty reload keeps its charging-handle contact
+        // through source frame 143; normal reload recovers from frame 108.
+        const float ReturnSeconds = WeaponState == EAKMWeaponState::ReloadingEmpty
+            ? 19.f / 60.f : 18.f / 60.f;
+        const float RemainingSourceSeconds = ActiveActionAnimation->GetPlayLength()
+            - ReloadSourceTime(WeaponStateElapsed);
+        M4ActionFramingAlpha = FMath::Min(M4ActionFramingAlpha,
+            FMath::Clamp(RemainingSourceSeconds / ReturnSeconds, 0.f, 1.f));
     }
     else if (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand())
     {
@@ -1518,7 +1596,7 @@ void AFPSGAMECharacter::UpdateViewmodel(float DeltaSeconds)
     // motion reads the reference punch here instead, so both present the same
     // recoil. It is added after the spring clamps: it stands in for authored
     // animation motion and must not be flattened by a spring limit.
-    const auto RecoilProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
+    const auto RecoilProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
     // A negative multiplier flips the whole compensation, which is how the
     // direction of the added motion is checked in game without a rebuild.
     const float ClipWave=FPSVisualRecoil::ClipWave(ClipRecoilSeconds)*ClipRecoilScale.GetValueOnGameThread();
@@ -1616,8 +1694,9 @@ void AFPSGAMECharacter::ServiceHeldFire()
     if(IsDualWieldingPistols())return;
     if (!bFireHeld || (IsPistolWeapon() && !bPistolShotPending)) return;
     const double Now = GetWorld()->GetTimeSeconds();
-    if (IsWeaponBusy() || bIsSprinting)
+    if (IsWeaponBusy() || bIsSprinting || (bUseM16 && IsCastBlockingLeftHandAction()))
     {
+        if (bUseM16) FireReleased();
         NextAllowedShotTime = FMath::Max(NextAllowedShotTime, Now);
         return;
     }
@@ -1648,6 +1727,7 @@ void AFPSGAMECharacter::FireShot()
 {
     if(IsDualWieldingPistols())return;
     if (!bInventoryWeaponReady) return;
+    if (bUseM16 && BurstShotsRemaining <= 0) return;
     const float WeaponAudioGain = bUseQBZ191 ? 1.0f : 2.0f;
     const double Now = GetWorld()->GetTimeSeconds();
     if (IsWeaponBusy() || bIsSprinting || Now < SprintFireUnlockTime || Now + 1.e-6 < NextAllowedShotTime) return;
@@ -1665,6 +1745,12 @@ void AFPSGAMECharacter::FireShot()
     LastShotWorldTime = Now; // Actual execution time, not a backdated cadence deadline.
     if (TriggerFirstShotWorldTime < 0.0) TriggerFirstShotWorldTime = Now;
     NextAllowedShotTime += FMath::Max(0.001, static_cast<double>(FireInterval));
+    if (bUseM16 && (--BurstShotsRemaining == 0 || MagazineAmmo == 0))
+    {
+        BurstShotsRemaining=0;
+        bFireHeld=false;
+        NextAllowedShotTime=FMath::Max(NextAllowedShotTime,Now+BurstRecoverySeconds);
+    }
     // Snapshot visible aim before restarting the mechanical action or adding recoil.
     const FVector TraceStart = FirstPersonCamera->GetComponentLocation();
     const FVector TraceDirection = ComputeShotDirection();
@@ -1759,7 +1845,7 @@ void AFPSGAMECharacter::ApplyShotFeedback()
     LastVisualShotAt=VisualNow;
     ClipRecoilSeconds=0.f;
     VisualRecoverAt=VisualNow+FMath::Clamp(static_cast<double>(FireInterval)*.8,.065,.12);
-    const auto VisualProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima);
+    const auto VisualProfile=FPSVisualRecoil::ForWeapon(IsPistolWeapon(),bUseDanWesson715,bUseQBZ191,bUseM4Infima || bUseM16);
     const float CameraShake=FMath::Max(0.f,CameraShakeScale.GetValueOnGameThread());
     // A defined first pulse followed by smaller settled pulses, rather than
     // increasing random tumbling as the automatic burst continues.
@@ -2089,6 +2175,7 @@ void AFPSGAMECharacter::InterruptPistolEquip()
 void AFPSGAMECharacter::FinishWeaponAction()
 {
     const bool bFinishedQuickCombat = WeaponState == EAKMWeaponState::QuickCombat;
+    const bool bFinishedM16Reload = bUseM16 && IsReloading();
     const double CompletedAt = bFinishedQuickCombat && bUseASH12
         ? GetWorld()->GetTimeSeconds() : WeaponActionStartedAt + WeaponStateDuration;
     // Only the eligible tail after completion can catch up. Keep a newer input
@@ -2097,13 +2184,13 @@ void AFPSGAMECharacter::FinishWeaponAction()
     WeaponState = EAKMWeaponState::Idle;
     if (bFireHeld) ExitSprintForWeapon(CompletedAt);
     WeaponStateElapsed = WeaponStateDuration = 0.0f;
-    if (IsPistolWeapon() || bFinishedQuickCombat)
+    if (IsPistolWeapon() || bFinishedQuickCombat || bFinishedM16Reload)
     {
         ActiveActionAnimation = nullptr;
         ActionElapsed = ActionDuration = 0.f;
         if (GunplayAnimation) GunplayAnimation->ActionAlpha = 0.f;
     }
-    if (bFinishedQuickCombat) M4ActionFramingAlpha = 0.f;
+    if (bFinishedQuickCombat || bFinishedM16Reload) M4ActionFramingAlpha = 0.f;
     MechanicalCueTimes.Reset(); MechanicalCueSounds.Reset(); NextMechanicalCue = 0;
     SetAimingState(bAimHeld);
     ResumeWeaponPose();
@@ -2190,6 +2277,12 @@ void AFPSGAMECharacter::StopMechanicalAudio()
 
 UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 {
+    if (bUseM16)
+    {
+        FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
+        if (Clip == TEXT("equip")) Clip = TEXT("equip_charge");
+        return LoadObject<UAnimSequence>(nullptr, *M16WeaponAssets::AnimationPath(*Clip));
+    }
     if (bUseDanWesson715)
     {
         FString Clip(AssetName); Clip.RemoveFromStart(TEXT("A_AKM_"));
@@ -2248,6 +2341,8 @@ UAnimSequence* AFPSGAMECharacter::LoadAKMAnimation(const TCHAR* AssetName)
 
 USoundBase* AFPSGAMECharacter::LoadAKMSound(const TCHAR* AssetName)
 {
+    if (bUseM16 && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
+        return LoadObject<USoundBase>(nullptr, M16WeaponAssets::FireSoundPath);
     if (bUseASH12 && FCString::Strcmp(AssetName, TEXT("S_AKM_Fire")) == 0)
         return LoadObject<USoundBase>(nullptr, ASH12WeaponAssets::FireSoundPath);
     if (bUseDanWesson715 && FCString::Strcmp(AssetName, TEXT("S_AKM_CriticalHit")) != 0)
@@ -2472,7 +2567,7 @@ float AFPSGAMECharacter::ReloadSourceTime(float RuntimeTime) const
     {
         const UAnimSequence* Clip = ActiveActionAnimation;
         float Phase=FMath::Clamp(RuntimeTime / FMath::Max(WeaponStateDuration, 0.01f), 0.0f, 1.0f);
-        if(bDrumInstalled&&!bUseQBZ191)return M4DrumReloadTiming::SourceSeconds(Phase,bPendingEmptyReload);
+        if(bDrumInstalled&&!bUseQBZ191&&!bUseM16)return M4DrumReloadTiming::SourceSeconds(Phase,bPendingEmptyReload);
         return Phase*(Clip ? Clip->GetPlayLength() : 0.0f);
     }
     const float Length = ActiveActionAnimation ? ActiveActionAnimation->GetPlayLength()
@@ -2500,10 +2595,11 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
     const bool bSourceCueClock = bUsingM4Infima && IsReloading();
     const float ScheduledTime = bSourceCueClock ? ReloadRuntimeTime(MechanicalCueTimes[CueIndex]) : MechanicalCueTimes[CueIndex];
     const float Lateness = FMath::Max(0.0f, WeaponStateElapsed - ScheduledTime);
-    const int32 BoltReleaseCueIndex = bUsingM4Infima && !bUseASH12 ? 3 : 4;
+    const int32 BoltReleaseCueIndex = bUsingM4Infima && !bUseASH12 && !bUseM16 ? 3 : 4;
+    const bool bM16ChargeRelease = bUseM16 && bPendingEmptyReload && IsReloading() && CueIndex == BoltReleaseCueIndex;
     // Do not emit an obsolete burst of old contacts after a long game-thread stall.
-    const float ContactVolume = AKMSource::ActionVolume *
-        ((bUsingM4Infima && !bUseDanWesson715 && bPendingEmptyReload && CueIndex == BoltReleaseCueIndex) ? 1.25f : 1.0f);
+    const float ContactVolume = AKMSource::ActionVolume * (bM16ChargeRelease ? .90f :
+        ((bUsingM4Infima && !bUseDanWesson715 && bPendingEmptyReload && CueIndex == BoltReleaseCueIndex) ? 1.25f : 1.0f));
     // A short clip is still relevant until the next contact (or action end).
     // Using clip duration here dropped the seat click on a 170 ms render hitch.
     const float ContactValidUntil = MechanicalCueTimes.IsValidIndex(CueIndex + 1)
@@ -2528,11 +2624,12 @@ void AFPSGAMECharacter::EmitMechanicalCue(int32 CueIndex)
     if (!bUseDanWesson715 && (CueIndex == 2 || CueIndex == BoltReleaseCueIndex))
     {
         // A seated magazine and released bolt push the whole supported weapon; wrists retain their source pose.
-        GunKickPositionVelocity.Z += CueIndex == 2 ? 0.10f : 0.16f;
-        GunKickRotationVelocity.X += CueIndex == 2 ? -0.08f : 0.14f;
+        const float ContactKickScale = bM16ChargeRelease ? .45f : 1.f;
+        GunKickPositionVelocity.Z += (CueIndex == 2 ? 0.10f : 0.16f) * ContactKickScale;
+        GunKickRotationVelocity.X += (CueIndex == 2 ? -0.08f : 0.14f) * ContactKickScale;
         // M4 contacts now use a separately sampled camera layer. Keep the gun
         // impulse and other weapon families' existing camera behavior.
-        if (!(bUsingM4Infima && bUseM4Infima && !bUseQBZ191 && !IsPistolWeapon()))
+        if (!(bUsingM4Infima && (bUseM4Infima || bUseM16) && !bUseQBZ191 && !IsPistolWeapon()))
             CameraKickPitchVelocity += 0.018f;
     }
 }

@@ -1,0 +1,106 @@
+[
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/M_M16_vertical_Body_004_Surface_Incomplete_1789867009",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Materials/M_M16_vertical_Body_004_Surface"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Materials/M_M16_vertical_Body_004_Surface",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Materials/M_M16_vertical_Body_004_Surface.M_M16_vertical_Body_004_Surface",
+        "class": "Material"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_angled_SourceCollision_1789867686",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_angled"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_angled",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_angled.SM_M16_angled",
+        "class": "StaticMesh"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_canted_SourceCollision_1789867684",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_canted"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_canted",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_canted.SM_M16_canted",
+        "class": "StaticMesh"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_large_drum_SourceCollision_1789867688",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_large_drum"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_large_drum",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_large_drum.SM_M16_large_drum",
+        "class": "StaticMesh"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_laser_SourceCollision_1789867688",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_laser"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_laser",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_laser.SM_M16_laser",
+        "class": "StaticMesh"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_prism_SourceCollision_1789867685",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_prism"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_prism",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_prism.SM_M16_prism",
+        "class": "StaticMesh"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_tactical_vertical_SourceCollision_1789867684",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_tactical_vertical"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_tactical_vertical",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_tactical_vertical.SM_M16_tactical_vertical",
+        "class": "StaticMesh"
+      }
+    ]
+  },
+  {
+    "package": "/Game/Weapons/M16A2/UniversalAttachments20260920/AuthoringRecovery/SM_M16_vertical_SourceCollision_1789867683",
+    "referencers": [
+      "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_vertical"
+    ],
+    "resolved": [
+      {
+        "reference": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_vertical",
+        "resolved_asset": "/Game/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_vertical.SM_M16_vertical",
+        "class": "StaticMesh"
+      }
+    ]
+  }
+]

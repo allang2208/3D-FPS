@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
 #include "ASH12WeaponAssets.h"
@@ -63,7 +64,7 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
     // that mesh/contact frame with the M4's mesh-space drum afterward.
     if(bDrum&&!bUseQBZ191&&!AKMSoviet::Matches(AKMViewmodel))
     {
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_LargeDrum"));
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseM16?*M16Attachments::MeshPath(TEXT("large_drum")):TEXT("/Game/Weapons/AttachmentFinish20260913/M4/Meshes/SM_M4_LargeDrum"));
         if(!Asset){UE_LOG(LogTemp,Error,TEXT("M4_DRUM: missing mesh"));return;}
         // Always re-apply the drum mesh: the shared component may still hold
         // the extended-magazine mesh after switching options in one session.
@@ -83,7 +84,7 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
     {
         // Each rifle takes its own factory magazine shape, so each gets its own
         // asset: QBZ-191 polymer, M4 PMAG, AKM stamped steel.
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseASH12
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,bUseM16?*M16Attachments::MeshPath(TEXT("ext_mag")):bUseASH12
             ?ASH12WeaponAssets::ExtendedMagazineMeshPath
             :bUseQBZ191
             ?TEXT("/Game/Weapons/ExtMagRemodel20260919/SM_ExtMag_QBZ40_Remodel.SM_ExtMag_QBZ40_Remodel")
@@ -142,7 +143,7 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
             for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
             {
                 const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-                if(WeaponMesh->GetMaterials().IsValidIndex(M)&&WeaponMesh->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Magazine")))
+                if(WeaponMesh->GetMaterials().IsValidIndex(M)&&(bUseM16?WeaponMesh->GetMaterials()[M].MaterialSlotName==TEXT("M_M16_Magazine"):WeaponMesh->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Magazine"))))
                     AKMViewmodel->ShowMaterialSection(M,S,!(bDrum||bExtMag),L);
             }
 }

@@ -7,6 +7,7 @@
 - [枪械标准](skills/ue5-weapon-workflow/SKILL.md)：模型/许可、骨架/挂点、ADS、枪匠、装备与存档。
 - [手臂动画](skills/ue5-fps-arms-animation/SKILL.md)：自然抓握、甩匣、取弹插入、拉栓、MAT 和音效。
 - [当前 M4 合同](skills/ue5-fps-arms-animation/references/m4-baseline.md)：参数应用前核对实际 C++ 加载。
+- [M16A2 发布与恢复](Docs/Weapons/m16-publication-20260920.md)：三连发、M4 换弹/近战复用、空仓拉机柄、通用配件及四款枪托封口；已获用户确认，保留最终作者依赖链。
 - [发布规则](WORKFLOW.md#8-仓库整理与推送) 与 [资产恢复](Docs/AssetSetup.md)。
 
 M4 普通/空仓都甩掉旧弹匣、镜头外取新匣、左手包握插入；空仓保留拍击，装备按其拉栓动作处理。手枪按实际源动作和机械状态适配，M1911 采用拔枪与空仓套筒释放，支持装备途中开火和 ADS。不同枪型重新校准接触和时序，个人技能源与工程镜像保持同步。

@@ -21,7 +21,7 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
     const float Scale = ColdSteelUI::PixelScale(this);
     Page->AddChildToVerticalBox(CreatePanelText(TEXT("开发功能"), 16, ColdSteelUI::TextPrimary))
         ->SetPadding(FMargin(0, 14.f / Scale, 0, 8.f / Scale));
-    FeatureStatus = CreatePanelText(TEXT("生成物品、提升等级与技能等级立即走存档事务；快进时间只推世界时钟。"), 12, ColdSteelUI::TextSecondary);
+    FeatureStatus = CreatePanelText(TEXT("物品、等级与技能等级按原规则保存；快进时间只推世界时钟。"), 12, ColdSteelUI::TextSecondary);
     Page->AddChildToVerticalBox(FeatureStatus)->SetPadding(FMargin(0, 0, 0, 8.f / Scale));
 
     struct FCardParts
@@ -73,7 +73,7 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
     // 生成物品：一个下拉包含全部物品定义，按类别归纳排列；数量与生成按钮在右侧。
     {
         FCardParts Parts = NewCard(TEXT("生成物品"),
-            TEXT("下拉包含全部物品定义，按类别归纳排列；生成的物品直接进入背包。"));
+            TEXT("物品直接进入背包；武器可装备，弹药按对应口径使用。"));
         ItemChoice = WidgetTree->ConstructWidget<UComboBoxString>();
         ItemChoice->OnGenerateWidgetEvent.BindDynamic(this, &ThisClass::GenerateListOption);
         ItemChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::ItemSelected);

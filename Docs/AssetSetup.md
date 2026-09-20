@@ -209,3 +209,7 @@ M4 N、AKM／ASH-12 跨枪适配、QBZ191 O 与 recover 衔接的运行路径、
 - 现行脚本最终入口为 `SourceAssets/SixSharedSwordPommels20260920/install_catalog.py`。旧三款安装器与回滚目录已归档，恢复时不要重跑；`restored-options.json` 保留恢复款原属性和独立 ID。安装器操作现行配置，不重写玩家存档。
 
 公开仓库不包含本轮模型、贴图、图标、uasset 和密集几何采样；重建前需在本地恢复输入并调整作者脚本中明确的宿主路径。必要 native 构建照常进行，游戏测试由用户按需执行。
+
+## M16A2（2026-09-20）
+
+用户已确认最新换弹回位与四款枪托接口修复成功。正式物品 `ue_m16a2` 的源码、三连发数据、作者依赖和废案归档见 [M16 发布与恢复](Weapons/m16-publication-20260920.md)。当前 Content、Manny/M4 上游动作、原模型 PBR、用户 M16 原声及密集几何/姿态输入保留本机，不公开上传。恢复时保留 Refinement → M4Insert → RemovalMelee 作者链，并最后安装 RecoveryStocks 四款枪托；AuthoringRecovery 中仍被正式资产引用的 8 个包不能随旧失败包一起删除。

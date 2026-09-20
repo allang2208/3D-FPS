@@ -1,5 +1,6 @@
 #include "TacticalDeviceComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "GunsmithSystem.h"
 #include "DanWesson715WeaponAssets.h"
@@ -84,7 +85,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
     const bool Revolver=Family==TEXT("DanWesson715");
     const bool Pistol=Family==TEXT("M1911")||Revolver;
     const bool ASH=Family==TEXT("ASH12");
-    const FString Path=ASH
+    const FString Path=Family==TEXT("M16")?M16Attachments::MeshPath(Variant):ASH
         ?FString::Printf(TEXT("/Game/Weapons/ASH12/TacticalDevices20260920/%s/SM_ASH12_%s"),*Variant,*Variant)
         :Revolver?DanWesson715WeaponAssets::AttachmentPath(Variant):Pistol
         ?FString::Printf(TEXT("/Game/Weapons/M1911/CompactFit20260913/%s/SM_TacticalDevice"),*Variant)
@@ -103,7 +104,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
         Body->EmptyOverrideMaterials();
         Body->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,*Path));AssetPath=Path;
     }
-    if(!Pistol&&!ASH&&Variant==TEXT("laser"))
+    if(!Pistol&&!ASH&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
     {
         const FString OpticalPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/laser/M_%s_laser_Body_OpticalV2"),*Family,*Family);
         if(auto* Optical=LoadObject<UMaterialInterface>(nullptr,*OpticalPath))
@@ -112,7 +113,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Va
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,Optical);
         }
     }
-    if(!Pistol&&!ASH&&Variant==TEXT("flashlight"))
+    if(!Pistol&&!ASH&&Family!=TEXT("M16")&&Variant==TEXT("flashlight"))
     {
         const FString MaterialPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/M_%s_flashlight_Body_MetalTail"),*Family,*Family);
         if(auto* MetalTail=LoadObject<UMaterialInterface>(nullptr,*MaterialPath))
@@ -214,6 +215,6 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant)
         if(Variant!=TEXT("laser")&&Variant!=TEXT("flashlight"))return;
         TacticalDevice=NewObject<UTacticalDeviceComponent>(this,TEXT("TacticalDevice"));TacticalDevice->RegisterComponent();
     }
-    const FString Family=bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    const FString Family=bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
     TacticalDevice->Configure(Family,Variant,AKMViewmodel,bInventoryWeaponReady);
 }

@@ -2956,5 +2956,31 @@
     "ue_icon": "Icons/ammo_556.png",
     "icon_fallback": "▥",
     "desc": "供 Dan-Wesson 715 使用的 .357 Magnum 弹药。"
+  },
+  "ue_m16a2": {
+    "category": "weapon",
+    "desc": "5.56 mm 三连发步枪。每次扣动扳机发射一组，适合中远距离点射。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_m16a2.png",
+    "id": "ue_m16a2",
+    "isTwoHanded": true,
+    "name": "M16A2",
+    "rarity": "common",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "34"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "30"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "rifle",
+    "ue_icon": "Icons/ue_m16a2.png",
+    "grid_w": 5,
+    "grid_h": 2
   }
 }

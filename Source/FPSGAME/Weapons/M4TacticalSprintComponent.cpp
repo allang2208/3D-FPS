@@ -2,6 +2,8 @@
 #include "FPSGunplayAnimInstance.h"
 #include "Animation/AnimSequence.h"
 #include "ASH12WeaponAssets.h"
+#include "M16WeaponAssets.h"
+#include "M16Attachments.h"
 
 UM4TacticalSprintComponent::UM4TacticalSprintComponent()
 {
@@ -16,6 +18,16 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
     CurrentGrip = EM4SprintGrip::Base;
     bEnabled = Weapon != ERifleSprintWeapon::None;
     if (!bEnabled || !Clips.IsEmpty()) return;
+    if (Weapon == ERifleSprintWeapon::M16)
+    {
+        const TCHAR* Families[]={TEXT("base"),TEXT("drum"),TEXT("angled"),TEXT("vertical"),TEXT("canted"),TEXT("prism")};
+        const TCHAR* BaseKinds[]={TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")};
+        const TCHAR* Kinds[]={TEXT("SprintEnter"),TEXT("SprintLoop"),TEXT("SprintExit")};
+        for (int32 Grip=0; Grip<6; ++Grip)
+            for (int32 Kind=0; Kind<3; ++Kind)
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*(Grip==0?M16WeaponAssets::AnimationPath(BaseKinds[Kind]):M16Attachments::AnimationPath(Families[Grip],Kinds[Kind]))));
+        return;
+    }
     if (Weapon == ERifleSprintWeapon::ASH12)
     {
         for (const TCHAR* Grip : {TEXT("base"), TEXT("base"), TEXT("angled"), TEXT("vertical"), TEXT("canted"), TEXT("prism")})

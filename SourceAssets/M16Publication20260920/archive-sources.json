@@ -1,0 +1,338 @@
+[
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty.uasset",
+    "bytes": 2996903,
+    "sha256": "4c3838cbdcb7aabf3e1b09075f172dc28fdfb8f7b9e5c6432f800633070e3295",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload.uasset",
+    "bytes": 1604423,
+    "sha256": "ec88309c351da0831aee211d9b49d7dc6bc24d2dfec98e9cdc12db1ec2aea181",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty.uasset",
+    "bytes": 3028377,
+    "sha256": "21faf3c5103cf1dfb610ba6da2ff661c25e315af02a3d24caf2ce9c3692d6c5e",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload.uasset",
+    "bytes": 1896158,
+    "sha256": "225f802ed35722732ba6648f999bebccb861637427f15cc03c5b929a30066f33",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty.uasset",
+    "bytes": 3028382,
+    "sha256": "6d91781ef4439dcff8c0cbe649cfe15710eaafb12308ea5d6a772b9cc2566942",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload.uasset",
+    "bytes": 1896169,
+    "sha256": "1abfb7206223ec242f823c34fe140fdb964a87e189745801a61b276dfb111e41",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty.uasset",
+    "bytes": 3028351,
+    "sha256": "e88b03fb320d5133d8d3ae5821a8e0bb64977f8176379bad9da341fa5f228efa",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload.uasset",
+    "bytes": 1896153,
+    "sha256": "60993b23885f9b3d733533d395efa279fed685f3d6476d3b1563c37b948699da",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty.uasset",
+    "bytes": 3028437,
+    "sha256": "fcf991e1c4706278cee5c892bcb5ee7f15d80f9228dcbdc1757d50338f40fa06",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload.uasset",
+    "bytes": 1896205,
+    "sha256": "15fd2c8c78b9f1f73fee3b58f2815338c341abf350728489232daa5a56cb8173",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/Candidate/base/A_M16_reload_empty.blend",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/Candidate/base/A_M16_reload_empty.blend",
+    "bytes": 142043491,
+    "sha256": "cae07160f3887d8d686acf10e57e06d469ace227061b8b28fb1fbf3a5104e430",
+    "reason": "preview output superseded by final Animations",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16M4Insert20260920/Candidate/base/A_M16_reload.blend",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16M4Insert20260920/Candidate/base/A_M16_reload.blend",
+    "bytes": 137004803,
+    "sha256": "69f909e7f42ced89805223f3b0a7931b2a55238b470d02ba64b24fc1c765c419",
+    "reason": "preview output superseded by final Animations",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_core_stock.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_core_stock.uasset",
+    "bytes": 6055564,
+    "sha256": "bca1d8067f1b9eb0e06546fb07642cd06ab3785b3959f5ccda3a46786c698e37",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_qr_performance.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_qr_performance.uasset",
+    "bytes": 49831322,
+    "sha256": "406c5161881b21a34d09bf4b0be9655cbaf18afadd9ebf7aa9b855bdf4fb204e",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_skeleton.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_skeleton.uasset",
+    "bytes": 1831903,
+    "sha256": "21187d575a5f22b10ee409eba3e894253dd54193730158147ff2398bd89eb15a",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_tactical_telescopic.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RecoveryStocks20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Meshes/SM_M16_tactical_telescopic.uasset",
+    "bytes": 6487658,
+    "sha256": "24f967baf26faee5ef7d47ea3780a4a94294ef8746990b2e704cb64f73aa591d",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16Refinement20260920/M16_Interfaces_Editable.blend1",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16Refinement20260920/M16_Interfaces_Editable.blend1",
+    "bytes": 133000971,
+    "sha256": "33ed8fc3939954c12b8d539f36c55d7412f4c83ffb8b144ec005db361625187d",
+    "reason": "automatic backup superseded by current editable Blend",
+    "retained": "SourceAssets\\M16Refinement20260920\\M16_Interfaces_Editable.blend"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_quick_melee.uasset",
+    "bytes": 739217,
+    "sha256": "e6285c195c24e54f0327e035b4d184b52c033f2fd1c9707ef26cebf12c671765",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload_empty.uasset",
+    "bytes": 4650680,
+    "sha256": "49c49a529d94f0064370eaeedb8aabf2c33b29906d9a50537b7b959b43700448",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/Gameplay20260919/Animations/A_M16_reload.uasset",
+    "bytes": 2366894,
+    "sha256": "ac1364041544274703d75afcbe7dd306b6039c06c428a95776d50d7e5d8da734",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_QuickCombat.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_QuickCombat.uasset",
+    "bytes": 481821,
+    "sha256": "64d8f58c9f5b9275d20900607a2138893c6a418ad01b51e4a123f1f3c1c6f687",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload_empty.uasset",
+    "bytes": 4640568,
+    "sha256": "ee0ac2362493a15ec81525481ab80f79c46903538b70bb2ab5e04216b14c8bc2",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/angled/A_M16_angled_reload.uasset",
+    "bytes": 2382000,
+    "sha256": "0a0f0260659d0cc59bd46927f94244236ba9c562b492ef4ffdda0993c8a216aa",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_QuickCombat.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_QuickCombat.uasset",
+    "bytes": 481829,
+    "sha256": "327b6a3b3b8feb371c08881fd22dbf269e5b558846ec33b925c7e5b60a3278b0",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload_empty.uasset",
+    "bytes": 4640578,
+    "sha256": "68847561554f8be496ec64e3797606b322a409ad33934de410e1889fc04b8bac",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/canted/A_M16_canted_reload.uasset",
+    "bytes": 2390087,
+    "sha256": "fa0f40d3a52ba8482c5682a13748c3b9718fdd9d6fffa13e0f9547838659590b",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_QuickCombat.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/drum/A_M16_drum_QuickCombat.uasset",
+    "bytes": 513191,
+    "sha256": "ecf263cd669f707c437667f745a65a29a823a32f6e2f293d033643a46f781c4f",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_QuickCombat.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_QuickCombat.uasset",
+    "bytes": 481799,
+    "sha256": "78c2775ac733c1b4b1f06219b63073b566c48fcba7b900d9e85a129316716331",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload_empty.uasset",
+    "bytes": 4640541,
+    "sha256": "f321a26b23b4d6fd06bbc574c941304223ecb8fdaff8ebc085aaa720117ca376",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/prism/A_M16_prism_reload.uasset",
+    "bytes": 2381965,
+    "sha256": "7d51af1d135c7d756e0dd0bba5651710d606ad824c2800b5eb9ea1abdd3e6242",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_QuickCombat.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_QuickCombat.uasset",
+    "bytes": 485342,
+    "sha256": "23c341f2db69a65f5e9658dbf7353e01e7329686603c963c3597f2d0b0686ad0",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload_empty.uasset",
+    "bytes": 4640612,
+    "sha256": "74cb87004504f63a56d46148bf8ed29d9e311adc24f8ae0c756847e192345ab3",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload.uasset",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/PreviousAssets/Weapons/M16A2/UniversalAttachments20260920/Animations/vertical/A_M16_vertical_reload.uasset",
+    "bytes": 2382030,
+    "sha256": "c1eda03ecd9da3c6411d884d00ab62ad3e11fa7e12eb65149b6f94ecb045be8d",
+    "reason": "superseded runtime backup",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/Candidate/base/A_M16_quick_melee.blend",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/Candidate/base/A_M16_quick_melee.blend",
+    "bytes": 195258488,
+    "sha256": "cadcc9fb5fae377dcb5a5bc3d339287fa058ac2560637fd7aeb47b70c80e97e7",
+    "reason": "preview output superseded by final Animations",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/Candidate/base/A_M16_reload_empty.blend",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/Candidate/base/A_M16_reload_empty.blend",
+    "bytes": 146176776,
+    "sha256": "571256a9f92efbbcac4f6136e7a2524f53599273889ce6154d9ae25d7cc9fa6c",
+    "reason": "preview output superseded by final Animations",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/Candidate/base/A_M16_reload.blend",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/Candidate/base/A_M16_reload.blend",
+    "bytes": 140068700,
+    "sha256": "2a58635e50f56a4ecaf3aff770963d29f55498b8a2805e49fa7f322a6d4f9da1",
+    "reason": "preview output superseded by final Animations",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16RemovalMelee20260920/Candidate/vertical/A_M16_vertical_QuickCombat.blend",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16RemovalMelee20260920/Candidate/vertical/A_M16_vertical_QuickCombat.blend",
+    "bytes": 177046395,
+    "sha256": "cb6dee7efa587e7d1d9cf34eaa0227f7eb90bef85d716f12cca455ae90755760",
+    "reason": "preview output superseded by final Animations",
+    "retained": "SourceAssets/M16RemovalMelee20260920/Animations; SourceAssets/M16RecoveryStocks20260920/Meshes"
+  },
+  {
+    "source": "SourceAssets/M16Presentation20260920/before/ue_m16a2.png",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16Presentation20260920/before/ue_m16a2.png",
+    "bytes": 57907,
+    "sha256": "61f20851962c40a03e28ffbe865954c8f6ece5ecca0eb3fca8169c5890efa5e3",
+    "reason": "old Godot catalog icon replaced by UE assembled icon",
+    "retained": "Content/ColdSteelData/Icons/ue_m16a2.png"
+  },
+  {
+    "source": "SourceAssets/M16Gameplay20260919/import_empty_press.py",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16Gameplay20260919/import_empty_press.py",
+    "bytes": 239,
+    "sha256": "e33d8725b0e47c5870b5a6e2a3528b7ebda7cb93bc657d1e1906615369039df0",
+    "reason": "short bolt-release press retired by user-selected charging handle return",
+    "retained": "Docs/Weapons/m16a2-empty-reload-charge-20260920.md; SourceAssets/M16RemovalMelee20260920/Animations"
+  },
+  {
+    "source": "SourceAssets/M16Gameplay20260919/empty_press_import_result.json",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16Gameplay20260919/empty_press_import_result.json",
+    "bytes": 277,
+    "sha256": "34415987b6574405c2f89174003f7e1d099c44e5036c651e0346753e1fa42d85",
+    "reason": "short bolt-release press retired by user-selected charging handle return",
+    "retained": "Docs/Weapons/m16a2-empty-reload-charge-20260920.md; SourceAssets/M16RemovalMelee20260920/Animations"
+  },
+  {
+    "source": "SourceAssets/M16Gameplay20260919/empty-press-build.log",
+    "destination": "trash/m16-retired-20260920/SourceAssets/M16Gameplay20260919/empty-press-build.log",
+    "bytes": 3965,
+    "sha256": "e5063946db3c1420ea4418ce369d6e7fd46875dd325fb23701ff6c6e11720934",
+    "reason": "short bolt-release press retired by user-selected charging handle return",
+    "retained": "Docs/Weapons/m16a2-empty-reload-charge-20260920.md; SourceAssets/M16RemovalMelee20260920/Animations"
+  },
+  {
+    "source": "Docs/Weapons/m16a2-empty-reload-short-press-20260920.md",
+    "destination": "trash/m16-retired-20260920/Docs/Weapons/m16a2-empty-reload-short-press-20260920.md",
+    "bytes": 3673,
+    "sha256": "30db289071addcc158d8223cf90b31ee76fb8e50812ba1f769ef628ac4e94f31",
+    "reason": "short bolt-release press retired by user-selected charging handle return",
+    "retained": "Docs/Weapons/m16a2-empty-reload-charge-20260920.md; SourceAssets/M16RemovalMelee20260920/Animations"
+  }
+]

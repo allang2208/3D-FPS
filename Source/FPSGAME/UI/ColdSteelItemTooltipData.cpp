@@ -158,9 +158,17 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("采集规则"),bPickaxe?TEXT("三次有效命中开采；伤害属性不改变采矿所需次数"):TEXT("三次有效命中砍倒；伤害属性不改变伐木所需次数"));
     }else if(Weapon){Section(Main,TEXT("枪械参数"));AppendColdSteelTooltipAttackFormula(I,Model,S.Damage,Main);
         Row(Main,TEXT("子弹数"),FString::Printf(TEXT("%d / %d 发"),I.Magazine,S.Capacity));Row(Main,TEXT("弹药"),ColdSteelWeaponStats::AmmoName(Weapon->Ammo));
-        Row(Main,TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
+        Row(Main,S.BurstCount>1?TEXT("组内射击间隔"):TEXT("攻击间隔"),N(FMath::RoundToInt(ColdSteelWeaponStats::Interval(&I,Model,S.Interval)*1000))+TEXT(" ms"));
         const double FireInterval=ColdSteelWeaponStats::Interval(&I,Model,S.Interval);
-        Row(Main,TEXT("理论射速"),FireInterval>0?N(60./FireInterval)+TEXT(" 发/分"):TEXT("—"));
+        Row(Main,S.BurstCount>1?TEXT("组内理论射速"):TEXT("理论射速"),FireInterval>0?N(60./FireInterval)+TEXT(" 发/分"):TEXT("—"));
+        if(S.BurstCount>1)
+        {
+            const double BurstDelay=ColdSteelWeaponStats::Interval(&I,Model,S.BurstDelay);
+            const double Cycle=(S.BurstCount-1)*FireInterval+FMath::Max(FireInterval,BurstDelay);
+            Row(Main,TEXT("开火模式"),FString::Printf(TEXT("%d 连发 · 每组重新扣动扳机"),S.BurstCount));
+            Row(Main,TEXT("连发组末发后间隔"),N(FMath::RoundToInt(BurstDelay*1000))+TEXT(" ms"));
+            Row(Main,TEXT("含组间隔理论射速"),N(60.*S.BurstCount/Cycle)+TEXT(" 发/分"));
+        }
         Row(Main,TEXT("正常换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,S.Reload))+TEXT(" s"));Row(Main,TEXT("空仓换弹"),N(ColdSteelWeaponStats::Reload(&I,Model,S.EmptyReload))+TEXT(" s"));
         Row(Main,TEXT("瞄准耗时"),N(FMath::RoundToInt(S.ADS*1000))+TEXT("ms"));Row(Main,TEXT("后坐力（越低越好）"),N(S.Recoil));Row(Main,TEXT("枪械稳定性（越高越好）"),N(S.Handling.Stability)+TEXT(" /100"));
         Row(Main,TEXT("首发上跳"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstShotDegrees()));

@@ -4,6 +4,7 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/WeaponStatEvaluation.h"
 #include "Engine/GameInstance.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SScrollBox.h"
@@ -44,10 +45,19 @@ void UM4GunsmithWidget::RefreshPresentation()
     // panel shows the time the player actually spends.
     Row(TEXT("普通换弹"),ColdSteelWeaponStats::Reload(I,P,B.Reload),ColdSteelWeaponStats::Reload(I,P,S.Reload),2,TEXT(" s"),true);
     Row(TEXT("空仓换弹"),ColdSteelWeaponStats::Reload(I,P,B.EmptyReload),ColdSteelWeaponStats::Reload(I,P,S.EmptyReload),2,TEXT(" s"),true);
-    // Firearms no longer scale with the character's attack rate (2026-09-17), so
-    // these rows show the catalog interval the weapon actually fires at.
-    Row(TEXT("射击间隔"),B.Interval*1000,S.Interval*1000,0,TEXT(" ms"),true);
-    Row(TEXT("射速"),60/B.Interval,60/S.Interval,0,TEXT(" /min"));
+    // Shared item modifiers affect both the shot clock and the burst clock.
+    const double BeforeInterval=ColdSteelWeaponStats::Interval(I,P,B.Interval);
+    const double AfterInterval=ColdSteelWeaponStats::Interval(I,P,S.Interval);
+    Row(S.BurstCount>1?TEXT("组内射击间隔"):TEXT("射击间隔"),BeforeInterval*1000,AfterInterval*1000,0,TEXT(" ms"),true);
+    Row(S.BurstCount>1?TEXT("组内理论射速"):TEXT("射速"),60/BeforeInterval,60/AfterInterval,0,TEXT(" /min"));
+    if(S.BurstCount>1)
+    {
+        Overview.Add({TEXT("开火模式"),TEXT("三连发"),TEXT("三连发"),TEXT("—"),0});
+        const double BeforeDelay=ColdSteelWeaponStats::Interval(I,P,B.BurstDelay);
+        const double AfterDelay=ColdSteelWeaponStats::Interval(I,P,S.BurstDelay);
+        Row(TEXT("连发组末发后间隔"),BeforeDelay*1000,AfterDelay*1000,0,TEXT(" ms"),true);
+        Row(TEXT("含组间隔理论射速"),60*B.BurstCount/((B.BurstCount-1)*BeforeInterval+FMath::Max(BeforeInterval,BeforeDelay)),60*S.BurstCount/((S.BurstCount-1)*AfterInterval+FMath::Max(AfterInterval,AfterDelay)),0,TEXT(" /min"));
+    }
     auto* Enhancement=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
     Row(TEXT("基础命中伤害"),Enhancement->ProcessedDamage(*I,B.Damage,P->Derived(TEXT("atk"))),Enhancement->ProcessedDamage(*I,S.Damage,P->Derived(TEXT("atk"))),1,TEXT(""));
     Row(TEXT("后坐力 ↓"),B.Recoil,S.Recoil,1,TEXT(""),true);
@@ -64,7 +74,8 @@ void UM4GunsmithWidget::RefreshPresentation()
     else Row(TEXT("子弹速度"),B.Speed,S.Speed,0,TEXT(" m/s"));
     const auto BeforeParts=bCompareFactory?FGunsmithParts():G->Installed(*I);
     Overview.Add({TEXT("瞄具倍率"),BeforeParts.FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):BeforeParts.FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),G->Draft().FindRef(TEXT("optic"))==TEXT("lpvo_1_6x")?TEXT("1–6×"):G->Draft().FindRef(TEXT("optic"))==TEXT("prism_scope_2x")?TEXT("2×"):TEXT("1×"),TEXT("—"),0});
-    Overview.Add({TEXT("机械瞄具"),BeforeParts.Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),G->Draft().Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
+    if(G->Definition()==TEXT("ue_m16a2"))Overview.Add({TEXT("机械瞄具"),TEXT("固定提把"),TEXT("固定提把"),TEXT("—"),0});
+    else Overview.Add({TEXT("机械瞄具"),BeforeParts.Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),G->Draft().Contains(TEXT("optic"))?TEXT("折下"):TEXT("竖起"),TEXT("—"),0});
     }
     StatusText=G->Pending()>0?FString::Printf(TEXT("待应用 · %d 项    %s"),G->Pending(),*G->Message()):TEXT("当前配置    ")+G->Message();
     if(OptionScroll)

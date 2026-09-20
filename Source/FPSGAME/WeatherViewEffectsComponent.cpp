@@ -55,6 +55,9 @@ void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAsse
             for(const auto& Entry:ASH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
     // Extended-magazine seam blending must also survive the wet-material swap.
     if(Assets)
+        if(const auto* M16Materials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weapons/M16A2/UniversalAttachments20260920/DA_M16_AttachmentWetMaterials")))
+            for(const auto& Entry:M16Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
+    if(Assets)
     {
         const TCHAR* Dry[] = {
             TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4_Continuous.M_M4_Continuous"),

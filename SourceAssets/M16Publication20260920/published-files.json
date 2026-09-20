@@ -1,0 +1,560 @@
+{
+  "scope": "M16 source publication; index contents before commit; excludes this manifest itself",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 11809,
+      "sha256": "9e363ce796b4267728210135a42e1f8d191f06df65c91cd72e40ae3c84600f91"
+    },
+    {
+      "path": "Config/DefaultGame.ini",
+      "bytes": 8506,
+      "sha256": "ca625ff3893c239737e2712eb4dbbec2115379ccd83d1bdd311b2bb2dc3fb403"
+    },
+    {
+      "path": "Content/ColdSteelData/combat-weapon-formulas.json",
+      "bytes": 2550,
+      "sha256": "6d5c67c4646d3d96ab5c42a5cf65ff43db4d2f5ff3de7146977a4ca7ea340659"
+    },
+    {
+      "path": "Content/ColdSteelData/gunsmith.json",
+      "bytes": 98740,
+      "sha256": "008a54f6d46ee54ae5f196056081d5a74ab4e54a280b753e657317621d2bb6cf"
+    },
+    {
+      "path": "Content/ColdSteelData/items.json",
+      "bytes": 80144,
+      "sha256": "7bd1eef6f781dd6c6027cce396878711cd2fd0419b24c481d6f4d22a020df3f8"
+    },
+    {
+      "path": "Docs/AssetSetup.md",
+      "bytes": 33332,
+      "sha256": "4590145ec1926458eaf68cf1a315550c40ca553cca5b007a038583b7e5bd9964"
+    },
+    {
+      "path": "Docs/UI/development-items-m16-plan-20260919.md",
+      "bytes": 1607,
+      "sha256": "83d31fd902f480694543f6775d4978b187c52c32cb633472072b3b85a492584b"
+    },
+    {
+      "path": "Docs/Weapons/m16-m4-insert-20260920.md",
+      "bytes": 3718,
+      "sha256": "259b825a599947f7ea3938a9c9c3f910f91d6eea003223279410146066ed09ad"
+    },
+    {
+      "path": "Docs/Weapons/m16-publication-20260920.md",
+      "bytes": 6466,
+      "sha256": "649a9af0e36f06f1359962b923c5d8d0b9f1791e7af17736b6e8ffa1e890b2d9"
+    },
+    {
+      "path": "Docs/Weapons/m16-recovery-stocks-20260920.md",
+      "bytes": 3669,
+      "sha256": "68d51c39f250c83cde27b53cb2d5051e1e95ffdfb2fdb4e91aed59644fbfef96"
+    },
+    {
+      "path": "Docs/Weapons/m16-refinement-20260920.md",
+      "bytes": 5142,
+      "sha256": "a35e006cadd1e41952ff1cda9dd8cf6b307b2d20e5e9ea0e3783dd71626fe4da"
+    },
+    {
+      "path": "Docs/Weapons/m16-removal-melee-20260920.md",
+      "bytes": 3892,
+      "sha256": "0c139e2e168bd54bb213cebd37a15bf47b58a44a4ff1efa31527134643d67ab9"
+    },
+    {
+      "path": "Docs/Weapons/m16a2-empty-reload-charge-20260920.md",
+      "bytes": 3705,
+      "sha256": "6ff2b86d9f0800cf150aacd035b05fa71493663e4aa5f4574207b3aeace37fb7"
+    },
+    {
+      "path": "Docs/Weapons/m16a2-gameplay-20260919.md",
+      "bytes": 10560,
+      "sha256": "87adc262253c99a2eca3a4630dc342580153bb9f790e3c7cc69c48c980b68cf5"
+    },
+    {
+      "path": "Docs/Weapons/m16a2-icons-muzzle-20260920.md",
+      "bytes": 3215,
+      "sha256": "67a76521dc94cedb23d5c796b1d796dd3558a1d58591fbf46d94e6b6da1dac13"
+    },
+    {
+      "path": "Docs/Weapons/m16a2-universal-attachments-20260920.md",
+      "bytes": 4756,
+      "sha256": "7d7cf4e58d041f67ff769c1419d07db14790caf3a52f13594f3c3259671f489b"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "bytes": 158801,
+      "sha256": "d9f9f3563e3949b56f4221cbb0847f03c58d35c1c421a1c763225eb678ec0b4e"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacter.h",
+      "bytes": 34578,
+      "sha256": "a7ad4c41a6c280d86d77b526d3160cb1951c3a8394c9f989684359179fff3596"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "bytes": 8826,
+      "sha256": "8f09374964492a960417bfa2b24da8a358136c1ef47ea08e9add031fa6c0039f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "bytes": 22995,
+      "sha256": "509866d83eae991003728b917ed0818d5dcdb6bb24b87f61242c8d5f2e59bc6f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupStudio.cpp",
+      "bytes": 2506,
+      "sha256": "fb3e15f422e25a0ce55a6a5df3c6dd59863c787aba13723be0890a7683d55079"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelPickupWeapon.cpp",
+      "bytes": 6211,
+      "sha256": "3dbc444badb14d9f0db3030fa14a359c5e95fd58dfffcdb3edf0f5561b5fc379"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "bytes": 1427,
+      "sha256": "23e859fe9fd4c2996cabee535035a66aad24ee79ea45159364a359cd96c20581"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIcons.cpp",
+      "bytes": 19184,
+      "sha256": "fa434b4ac7e8d93f87eccf75140c9a1d4ac8033fbead16b081c3b8411637bbcb"
+    },
+    {
+      "path": "Source/FPSGAME/UI/DevelopmentPanelTools.cpp",
+      "bytes": 9684,
+      "sha256": "7ed04f718f2c9ba6e1bf629ab7052f5cffda62047bdf03b8f5f75bab821a5b3d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithOverview.cpp",
+      "bytes": 9427,
+      "sha256": "dbd4c8146c27fd654bf767cf5d4a29a5bf2afe4650dc182563033144f612fb45"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4StandalonePreview.cpp",
+      "bytes": 4168,
+      "sha256": "d657039d66f0c018731f64b67142e643061f3294f8b10b35e508248191b4af73"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/FPSGAMECharacterVisualRecoil.cpp",
+      "bytes": 1786,
+      "sha256": "0102e41bcd26e8b4360157a9b41bca801a52972cd12bce7abb6c313f3ed5e139"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "bytes": 13712,
+      "sha256": "6c5aaf111dd8baaa5905fc005d648b530fadc3771f794a017eae3eeebb388591"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "bytes": 4797,
+      "sha256": "bf96a137fe37dcc645b07d24cb68cfa1c31f1aa8cfc223f2d79d4d61f64b545c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M16Attachments.h",
+      "bytes": 1895,
+      "sha256": "97323ea789b3db44efb22f643d982e0ec91a03a286ba35a255d859f61b286720"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M16WeaponAssets.h",
+      "bytes": 1309,
+      "sha256": "f3450a5172675b24b8aa180221bfe1b04b22ee0ee92d7c95cf4abe8180fb525f"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4AngledForegrip.cpp",
+      "bytes": 4300,
+      "sha256": "be938b6904c2f0c05ef9451c36f16312cddcbd4ad2d06e55fd31005f6fca2408"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4CantedForegrip.cpp",
+      "bytes": 4750,
+      "sha256": "f4971c065a97a1c937a90f9c68ec1ac81db66306612a57c8a9abe0f9593c52f6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4DrumVisual.cpp",
+      "bytes": 14035,
+      "sha256": "6c7229c480a27bb2938dc24097085a3d009b416d19c77444e1e50a79986039bc"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "bytes": 12771,
+      "sha256": "9d1c6bb64daf60a7c509f22b082e07a8e8d5d69d4a15f58707a31bf5570e5845"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4HandstopVisual.cpp",
+      "bytes": 6323,
+      "sha256": "9c37bde3df66e40c6d9b99e2fa6a906a12f68ce54f5814dfca6ffe01eb0fa3b9"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4MuzzleVisual.cpp",
+      "bytes": 8349,
+      "sha256": "a232a9e8cf3f0104c03df47341ec05fa176ebf1d9efa64029dcd860c939c585c"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.cpp",
+      "bytes": 4940,
+      "sha256": "88a7699610e7ba7fe3cd2e1ae766d00b8dfbcc3bd702baaafc924d8268227ae9"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4TacticalSprintComponent.h",
+      "bytes": 1320,
+      "sha256": "9a6f7578ae5069093754bdc688a994befd3485461a586e8e4e2aec00748177ad"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4VerticalForegrip.cpp",
+      "bytes": 5348,
+      "sha256": "3b226a4a87f60c49d20609faca56ba296d69c7e7619e8e860adf397098080dc7"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PhantomRearGripVisual.cpp",
+      "bytes": 3309,
+      "sha256": "abca651338b644d2e3f6bd3ff0cb591ba5bd91e5b569b064b3e365af9ea43c8b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/SkeletonStockVisual.cpp",
+      "bytes": 6467,
+      "sha256": "c8b974d0cb78a24a61a4c5b1c4ef733c47019b90b1d2a6d3cdee86211f7ded51"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/TacticalDeviceComponent.cpp",
+      "bytes": 11739,
+      "sha256": "f0905bc003141513e5442a941dbff7f40c14c298ac73c5fe1c91d274c236d64a"
+    },
+    {
+      "path": "Source/FPSGAME/WeatherViewEffectsComponent.cpp",
+      "bytes": 8952,
+      "sha256": "05a77adfc15cd34fa837322d03620e2e0858d6814fb1cd515c8c9485c773bdb6"
+    },
+    {
+      "path": "SourceAssets/M16A2Migration20260919/ATTRIBUTION.md",
+      "bytes": 1989,
+      "sha256": "00c4ae106b1b66053f9c2ca32f7a7f4905af4503dda9edc07fc0af0653a4cbd8"
+    },
+    {
+      "path": "SourceAssets/M16A2Migration20260919/README.md",
+      "bytes": 4862,
+      "sha256": "66ab9748c21b0871b31824f237dc3aeaecade685efd894b667461e3e762c554f"
+    },
+    {
+      "path": "SourceAssets/M16A2Migration20260919/read_legacy_source.py",
+      "bytes": 1037,
+      "sha256": "886bf60e27b265348be2587902c2fa9a46d9d9bc4578b6a4af29fdcc90e232e6"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/Diagnostics/diagnose_imported_bindings.py",
+      "bytes": 3280,
+      "sha256": "1e06a089736cc0acad683026b5e4ffee904c108171c179e8ec81f39a5590844a"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/Diagnostics/diagnose_part_bindings.py",
+      "bytes": 2314,
+      "sha256": "c645d3a5f8ce71cdd02be10c6d48cfbfe082c2f14c97f47a33b30a9fb06f27ff"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/README.md",
+      "bytes": 2533,
+      "sha256": "9834ddc7bbdc70f42874a624a920a8664326938e26032034ac152a4396e58f55"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/build.py",
+      "bytes": 17064,
+      "sha256": "dc0bfa45316f3cc94a5a1028cb578433d4f74e68b67b644b6aada3c5f8d5a8f9"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/configure_catalog.py",
+      "bytes": 2496,
+      "sha256": "254ccb43e871bd20ca44f77ee59c091ddcfec05b68b8c5859c3bc750c8c1c5ad"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/import_assets.py",
+      "bytes": 3821,
+      "sha256": "683efd03ec2811c32a2522618328ae30cea804a42dedebc7125dff9158349c3c"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/import_empty_charge.py",
+      "bytes": 224,
+      "sha256": "cda4e95ef9df7c818dd0bc41da18e4cd5b3683f5190e730de59d79c874f1d976"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/import_reload.py",
+      "bytes": 233,
+      "sha256": "f5ca4b5d12c6fcc9d315a5f076adec1bb9271f1369239e4e2b05cf4890cec467"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/read_authoring_reference.py",
+      "bytes": 1789,
+      "sha256": "97963f8fd5234a1a0db9a930e829b7af273e2d3c06b72356e79d78a3a722d0a0"
+    },
+    {
+      "path": "SourceAssets/M16Gameplay20260919/read_charging_reference.py",
+      "bytes": 2357,
+      "sha256": "346af0ee748601b8f6730f239544e09de7091aae4aea65330beae1e10d58a805"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/contact_fit.py",
+      "bytes": 1241,
+      "sha256": "629690703d5c001822ebcc3a87c75010b95146d60fc51012ed25d9444ed948dd"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/fit_variants.py",
+      "bytes": 2684,
+      "sha256": "3948fdd5884952f7ddceaefe3481aac92e98b50a78fbbb34bdc06f3e42ef46bf"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/inspect_sources.py",
+      "bytes": 2889,
+      "sha256": "b8c28b9e3b336e4f4c87fbe331a3eaf6820270044f69b7a18d197be0a5b5e3bc"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/install.py",
+      "bytes": 2424,
+      "sha256": "5b3355905368a5162e2886713ae18ca3f40ef30b72f544d3e8f19c82be71429d"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/read_runtime.py",
+      "bytes": 1430,
+      "sha256": "f1c9f2b1712b291e7eeac6abbfbf2d48398ad978e937e3957ddcc6750173d0ec"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/render_insert.py",
+      "bytes": 3027,
+      "sha256": "8d2947f393e5c2da9b41b6b32ff9b28e6c69a9fdad4a3975906fca7d25c81224"
+    },
+    {
+      "path": "SourceAssets/M16M4Insert20260920/transplant.py",
+      "bytes": 7337,
+      "sha256": "64aefaf27af2faf0055e85fb2d82d45e06baf1e043e12a0e8abb22e6a169dd61"
+    },
+    {
+      "path": "SourceAssets/M16Presentation20260920/apply_code.py",
+      "bytes": 647,
+      "sha256": "b89443f55ff69ab388e9cd8d9879c818221d0cff633c971d47884b0576cec56c"
+    },
+    {
+      "path": "SourceAssets/M16Presentation20260920/build_catalog_icon.ps1",
+      "bytes": 1108,
+      "sha256": "f25ee7664a2e3df5d84b98621fc741c8a297020f0c3da842633f528c9f377954"
+    },
+    {
+      "path": "SourceAssets/M16Publication20260920/archive-assets.json",
+      "bytes": 7722,
+      "sha256": "cb52077751e580cb04d93cd37e38436e0bd609895ef8edba49496e2543e7b885"
+    },
+    {
+      "path": "SourceAssets/M16Publication20260920/archive-prototype.json",
+      "bytes": 489,
+      "sha256": "e6a93c2ef229c230f0fddc09fd299a91b4779e2abeeefc9633320d815f4cb03f"
+    },
+    {
+      "path": "SourceAssets/M16Publication20260920/archive-sources.json",
+      "bytes": 24165,
+      "sha256": "2a24e19ce8724ba1905ede3ccbe9e88829c74671101ae92fc2e7906cc9e54c43"
+    },
+    {
+      "path": "SourceAssets/M16Publication20260920/retained-recovery-dependencies.json",
+      "bytes": 4313,
+      "sha256": "3697484ef8f65a0d80b345d33759b906dd815aff10f61aaf4faee038b379bc4e"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/analyze_body.py",
+      "bytes": 1152,
+      "sha256": "6751bdc2cd006db8ab08790f3273c7e2a8a8614ebb07f47ecb985e8b988579bb"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/inspect_repaired.py",
+      "bytes": 2083,
+      "sha256": "35289b73bb0342f1f82be48db1e93675b9f927a7684a8f5ce02fbb6223833769"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/inspect_stocks.py",
+      "bytes": 3561,
+      "sha256": "b4dca2e023590a7d30985373e57ea113a8adc98e206e64a7a14bc40f03cbb3b8"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/install_stocks.py",
+      "bytes": 3153,
+      "sha256": "8b5087df6aae2ecb8a2fb3e47781d16547cfd2f3fca82aaad9d6e446f2923739"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/read_runtime.py",
+      "bytes": 1947,
+      "sha256": "c815dac9ca3846f5fb5beadded19720815d37e9527dde5d9682fd968996bfe58"
+    },
+    {
+      "path": "SourceAssets/M16RecoveryStocks20260920/repair_stocks.py",
+      "bytes": 7162,
+      "sha256": "bf10663890860f081a0a6d42cb1563174dd0c97bb06e595844009f5cf78a8e45"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/capture_holo.py",
+      "bytes": 3105,
+      "sha256": "6987e8e12a5a02a5f7ee7cdd0cfaeba9120fe9669fa2a5923af573b620892efe"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/check_installed.py",
+      "bytes": 1931,
+      "sha256": "29ee8c18144d8723f15059e49fd0396338108980662f56e53a72cd0e4a401659"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/inspect_assets.py",
+      "bytes": 1408,
+      "sha256": "1609a27f2175ad5708f263959ca8ebff82888ff6f6e2870c9893535fd0c0393e"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/inspect_blender.py",
+      "bytes": 3021,
+      "sha256": "28f98746323272440c9f892a7f195bff5beac7df665945e11f957a7b16398dbc"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/inspect_geometry.py",
+      "bytes": 1789,
+      "sha256": "3b21813d7ad75ea4bc97d482bd22250905981d280059439966de2be53652ac44"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/inspect_uv.py",
+      "bytes": 834,
+      "sha256": "bd6ea04a9d8d3474aefbddb079c3ab519f9cb8606c3d9e6ebab7b8ea27ffa99e"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/install.py",
+      "bytes": 4477,
+      "sha256": "f24dfea3c1bddafe4c7f5ad7c69e3665d93320c3f445bf5edba11c341b123a09"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/prepare_audio.py",
+      "bytes": 855,
+      "sha256": "df33ffa3f776a00e08790616de2f431e38d5c418bd27670798d4f814443863ad"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/render_refinement.py",
+      "bytes": 3731,
+      "sha256": "12d785659d8af8bed951a1eb41eac10b66a5e165a2344e3ff01db3b5a8976d38"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/repair_models.py",
+      "bytes": 10780,
+      "sha256": "cd231843beea7a6f949d74c8bd9abadb6032f03b91226e4241b4938b26ebe42a"
+    },
+    {
+      "path": "SourceAssets/M16Refinement20260920/repair_reload.py",
+      "bytes": 6992,
+      "sha256": "a8258622f8993766cffaef1ba3e09d0e3fd2ab5deba4febe6f0ae2f929b9ac3c"
+    },
+    {
+      "path": "SourceAssets/M16RemovalMelee20260920/author.py",
+      "bytes": 7248,
+      "sha256": "d4050147fd5742060372d4ded1045513e2b5e9b49e3230764f6b34657ca9b91d"
+    },
+    {
+      "path": "SourceAssets/M16RemovalMelee20260920/inspect_grips.py",
+      "bytes": 1319,
+      "sha256": "a3f68c9594b0e71e84d6847a9dfa6ce0f4ef10c2535abc067a7e949115337247"
+    },
+    {
+      "path": "SourceAssets/M16RemovalMelee20260920/inspect_motion.py",
+      "bytes": 3400,
+      "sha256": "ce69fc65a9d7bc0eece1ea46550e97c6e98dade133fcde311dfcfcfb7fe8209d"
+    },
+    {
+      "path": "SourceAssets/M16RemovalMelee20260920/install.py",
+      "bytes": 2652,
+      "sha256": "93b923ea103ff694ec2fa3703f94a65d68946dc89be543fc9eb54bfecf7a95b4"
+    },
+    {
+      "path": "SourceAssets/M16RemovalMelee20260920/read_sources.py",
+      "bytes": 1161,
+      "sha256": "ca453cd46a07f66ce30a533f8abecf615b00769474f7210a676d1e3f35ee87ca"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/README.md",
+      "bytes": 2603,
+      "sha256": "191fa339b30e70d2c1b59512ca2a3516f289b6002c70487672c959acc7525b15"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/author_animations.py",
+      "bytes": 6864,
+      "sha256": "002196232f9fa1be1ef6457a175dcbff229756d7dceb48e0013ae788d13f8427"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/author_coating.py",
+      "bytes": 2447,
+      "sha256": "f2497cb5b68dac5af55caec4afe35fe543d613ba58be5ac5ec84401c739dadc0"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/author_models.py",
+      "bytes": 8274,
+      "sha256": "b8f790aec32efe32978a15e34c8b0ecd1d40cbe91efc8e4d6a3a712cbc780533"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/export_sources.py",
+      "bytes": 3302,
+      "sha256": "35f791e37435473fa28c8eb7d82ff9aa95a1e2aa757094b87ce3c8cc68993ab1"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/import_assets.py",
+      "bytes": 11772,
+      "sha256": "15116b366828849e54dcac73d606283a297744fc56f3b70d384e56fe0d9dc2d6"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/install_icons.py",
+      "bytes": 1506,
+      "sha256": "a949ea0ffdef7997f878d41725b3324811b8378ee09d4bb121843b6f6c3ae9e8"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/install_runtime.py",
+      "bytes": 4500,
+      "sha256": "3091624ed619020b20ba29275171677d32540ff37ffc9ca12a4936b8476e6572"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/publish_catalog.py",
+      "bytes": 2288,
+      "sha256": "fdd401265a7d833b7a341ad5efea66281a7cd7d590a6a85aac0b5d733f6581d8"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/read_authoring.py",
+      "bytes": 3052,
+      "sha256": "c933df46a743e792935a9e38e17531b1032c3edb8c6307d3141590356087686a"
+    },
+    {
+      "path": "SourceAssets/M16UniversalAttachments20260920/render_catalog_icons.py",
+      "bytes": 4499,
+      "sha256": "4f07770c4c91d6d170636043a2f3b9d7731dde35e9cc41b0dbd97b322b84a578"
+    },
+    {
+      "path": "Tools/AssetPipeline/export_m16a2_migration.py",
+      "bytes": 8458,
+      "sha256": "51b347e0762894859033818297a2d01128aa913d941c7938e80ebbbad4e3d51a"
+    },
+    {
+      "path": "Tools/AssetPipeline/import_m16a2_migration.py",
+      "bytes": 6120,
+      "sha256": "5e29529bfc525fa0f9d916aaedd561a83089184678cd14a347260f0cf89c4f0e"
+    },
+    {
+      "path": "WEAPON-WORKFLOW.md",
+      "bytes": 2278,
+      "sha256": "7fae4a33de52809036c7e6cb0419ebc3ba364e12ecbb41d973beb62f911fb6ff"
+    },
+    {
+      "path": "skills/asset-model-workflow/SKILL.md",
+      "bytes": 29102,
+      "sha256": "e69e68de220577505346977c2a0c65bb9b28081fca51c46528b8fdb702b2a1df"
+    },
+    {
+      "path": "skills/asset-model-workflow/references/modular-part-interfaces.md",
+      "bytes": 3687,
+      "sha256": "4fb9c95cc79d6ee329b563710c53d9fabca56a16956df60ee4b94dd78d8a252a"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/SKILL.md",
+      "bytes": 23565,
+      "sha256": "21f2c2878e858c40974fecf79634472ddd95fe1cc82208120419157825a2277f"
+    },
+    {
+      "path": "skills/ue5-fps-arms-animation/references/reload-handoff.md",
+      "bytes": 2413,
+      "sha256": "956c90f10de3e2a5cfc164b5fad8c7b6bb357b050ba0a01ba177494cb840ae52"
+    }
+  ]
+}

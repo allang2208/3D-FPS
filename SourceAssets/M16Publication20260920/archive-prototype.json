@@ -1,0 +1,10 @@
+[
+  {
+    "source": "Source/FPSGAME/Development/DevelopmentSpawnComponent.cpp::SpawnItemInFront and matching declaration",
+    "destination": "trash/m16-retired-20260920/InactivePrototype/SpawnItemInFront-retired.cpp.txt",
+    "bytes": 4523,
+    "sha256": "24ec816b89e0d9660aa2db595069b758da0e9ff2cef7dca3c6b60f6186100d2f",
+    "reason": "uncalled static-model F6 prototype replaced by item catalogue",
+    "retained": "F6 -> basic tuning -> SpawnItem; ue_m16a2 catalogue definition"
+  }
+]

@@ -32,7 +32,7 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelMeleePreview::Supports(I)||I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||(I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_dan_wesson715"));}
 FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
 {
     if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
@@ -81,7 +81,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         Rig->SetActorTickEnabled(false);Rig->SetActorEnableCollision(false);
     }
     if(Rig->HasActorBegunPlay())return false;
-    if(RigDefinition!=I.Definition){Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM1911=I.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();RigDefinition=I.Definition;}
+    if(RigDefinition!=I.Definition){Rig->bUseM4Infima=I.Definition==TEXT("ue_m4a1");Rig->bUseQBZ191=I.Definition==TEXT("ue_qbz191");Rig->bUseASH12=I.Definition==TEXT("ue_ash12");Rig->bUseM16=I.Definition==TEXT("ue_m16a2");Rig->bUseM1911=I.Definition==TEXT("ue_m1911");Rig->bUseDanWesson715=I.Definition==TEXT("ue_dan_wesson715");Rig->InitializeWeaponVisuals();RigDefinition=I.Definition;}
     auto* Mesh=Rig->AKMViewmodel.Get();if(!Mesh||!Mesh->GetSkeletalMeshAsset())return false;
     Mesh->SetRelativeTransform(FTransform::Identity);Mesh->SetVisibility(true,true);
     Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
@@ -165,8 +165,14 @@ void UColdSteelWeaponIcons::FinishJob(bool bSuccess)
 void UColdSteelWeaponIcons::Tick(float Delta)
 {
     if(Queue.IsEmpty())return;
-    // A missing shader map must not hold every later weapon behind this job indefinitely.
-    if(Stage!=0){JobSeconds+=Delta;if(JobSeconds>=10.f){UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: material readiness timed out %s"),*Queue[0].Key);FinishJob(false);return;}}
+    // Shader/texture preparation can outlast the first icon request. Yield to
+    // other items, then retry this pending recipe instead of permanently
+    // caching a failure and leaving an old catalog image for the whole session.
+    if(Stage!=0){JobSeconds+=Delta;if(JobSeconds>=10.f){
+        UE_LOG(LogTemp,Display,TEXT("WeaponIcon: material preparation deferred %s"),*Queue[0].Key);
+        FJob Deferred=MoveTemp(Queue[0]);Queue.RemoveAt(0);Queue.Add(MoveTemp(Deferred));
+        Stage=0;Warmup=0;JobSeconds=0;CaptureMaterialsReady.Reset();return;
+    }}
     if(Stage==0){JobSeconds=0;if(Prepare(Queue[0].Item)){Warmup=0;Stage=1;return;}}
     else if(Stage==1){
         Warmup+=Delta;if(Warmup<.3f)return;

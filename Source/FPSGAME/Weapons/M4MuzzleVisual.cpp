@@ -1,7 +1,9 @@
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "AKMAttachmentVisual.h"
 #include "ASH12WeaponAssets.h"
+#include "M16WeaponAssets.h"
 #include "QBZ191Attachments.h"
 #include "TacticalSuppressorAssets.h"
 #include "Components/StaticMeshComponent.h"
@@ -49,7 +51,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     if(!Desired.IsEmpty())
     {
         const FString Key=Desired==TEXT("true")?TEXT("suppressor"):Desired;
-        const FString Path=bASH12Tactical?ASH12WeaponAssets::TacticalSuppressorMeshPath:
+        const FString Path=bUseM16?M16Attachments::MeshPath(Key):bASH12Tactical?ASH12WeaponAssets::TacticalSuppressorMeshPath:
             bASH12Brake?ASH12WeaponAssets::TacticalBrakeMeshPath:
             Key==TEXT("tactical_suppressor")?TacticalSuppressorAssets::MeshPath(TEXT("M4")):TEXT("/Game/Weapons/M4MuzzlesV1/SM_M4_")+Key;
         auto* MuzzleMesh=LoadObject<UStaticMesh>(nullptr,*Path);if(!MuzzleMesh){UE_LOG(LogTemp,Error,TEXT("MUZZLE: missing %s"),*Path);return;}
@@ -67,13 +69,16 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         const auto& Ref=Rifle->GetRefSkeleton();
         auto Bone=[&](const TCHAR* Name){FTransform T=FTransform::Identity;for(int32 I=Ref.FindBoneIndex(Name);I!=INDEX_NONE;I=Ref.GetParentIndex(I))T=T*Ref.GetRefBonePose()[I];return T;};
         const auto Root=Bone(TEXT("WPN_root")),Rear=Bone(TEXT("WPN_RearSight")),Front=Bone(TEXT("WPN_FrontSight")),Muzzle=Bone(TEXT("WPN_SOCKET_Muzzle"));
-        const FVector Forward=(Front.GetLocation()-Rear.GetLocation()).GetSafeNormal();
-        const FVector Up=Rear.GetRotation().GetAxisZ();
+        const FVector Forward=bUseM16?Root.GetRotation().GetAxisY():(Front.GetLocation()-Rear.GetLocation()).GetSafeNormal();
+        const FVector Up=bUseM16?Root.GetRotation().GetAxisZ():Rear.GetRotation().GetAxisZ();
         const FQuat SourceFrame=FRotationMatrix::MakeFromXZ(MuzzleLocalAxis,FVector::UpVector).ToQuat();
         const FQuat TargetFrame=FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat();
         // Measured from the current export's factory flash-hider rear rim to its socket.
         const float BackOffset=bUseASH12?ASH12WeaponAssets::MuzzleBackOffset:4.83633f;
-        const FTransform Mount(TargetFrame*SourceFrame.Inverse(),Muzzle.GetLocation()-Forward*BackOffset,FVector::OneVector);
+        // M16 attachments replace the factory hider at its actual rear bore
+        // centre. Its legacy muzzle marker and sight line are both offset.
+        const FVector MountLocation=bUseM16?Bone(M16WeaponAssets::MuzzleMountBone).GetLocation():Muzzle.GetLocation()-Forward*BackOffset;
+        const FTransform Mount(TargetFrame*SourceFrame.Inverse(),MountLocation,FVector::OneVector);
         MuzzleAttachment->SetRelativeTransform(Mount.GetRelativeTransform(Root));
         if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
     }
@@ -81,17 +86,24 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
     if(const auto* Render=Rifle->GetResourceForRendering())for(int32 L=0;L<Render->LODRenderData.Num();++L)for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
     {
         const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
-        if(Rifle->GetMaterials().IsValidIndex(M)&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("Flash_Hider")))AKMViewmodel->ShowMaterialSection(M,S,Desired.IsEmpty(),L);
+        if(Rifle->GetMaterials().IsValidIndex(M))
+        {
+            const FString Slot=Rifle->GetMaterials()[M].MaterialSlotName.ToString();
+            const bool FactoryMuzzle=bUseM16?Slot==M16WeaponAssets::MuzzleMaterialSlot:Slot.Contains(TEXT("Flash_Hider"));
+            if(FactoryMuzzle)AKMViewmodel->ShowMaterialSection(M,S,Desired.IsEmpty(),L);
+        }
     }
 }
 FVector AFPSGAMECharacter::GetEffectiveMuzzleLocation() const
 {
+    if(bUseM16&&MuzzleVariant.IsEmpty())return AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
     if(AKMSoviet::Matches(AKMViewmodel)&&MuzzleVariant.IsEmpty())return AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
     return !MuzzleVariant.IsEmpty()&&MuzzleAttachment?MuzzleAttachment->GetComponentTransform().TransformPosition(MuzzleLocalTip):AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
 }
 FVector AFPSGAMECharacter::GetEffectiveMuzzleForward() const
 {
     if(!MuzzleVariant.IsEmpty()&&MuzzleAttachment)return MuzzleAttachment->GetComponentQuat().RotateVector(MuzzleLocalAxis);
+    if(bUseM16)return AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
     if(IsPistolWeapon())return (AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
     FVector F=AKMViewmodel->GetSocketQuaternion(TEXT("WPN_SOCKET_Muzzle")).GetAxisY();
     return FVector::DotProduct(F,FirstPersonCamera->GetForwardVector())<0?-F:F;

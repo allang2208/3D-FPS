@@ -126,5 +126,22 @@
         "perEnhance": 0.6
       }
     ]
+  },
+  "ue_m16a2": {
+    "source": "M16A2_BURST_BALANCE",
+    "base": 9,
+    "enhanceFlat": 0.65,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 0.32,
+        "perEnhance": 0.05
+      },
+      {
+        "key": "wis",
+        "base": 0.32,
+        "perEnhance": 0.05
+      }
+    ]
   }
 }

@@ -1,4 +1,5 @@
 #include "../FPSGAMECharacter.h"
+#include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
 #include "ASH12Attachments.h"
@@ -21,16 +22,20 @@ void AFPSGAMECharacter::InitializeCantedGripAnimations()
         {DrumReloadEmptyAnimation,TEXT("drum_reload_empty")}};
     for(const auto& Pair:Clips)
     {
-        if((bUseQBZ191||bUseASH12)&&!Pair.Key)continue;
-        const FString Path=bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("canted"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("canted"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_%s"),Pair.Value);
+        if((bUseQBZ191||bUseASH12||bUseM16)&&!Pair.Key)continue;
+        const FString Path=bUseM16?M16Attachments::AnimationPath(TEXT("canted"),Pair.Value):bUseASH12?ASH12WeaponAssets::GripAnimationPath(TEXT("canted"),Pair.Value):bUseQBZ191?QBZ191Attachments::AnimationPath(TEXT("canted"),Pair.Value):AKMSoviet::Matches(AKMViewmodel)?AKMAttachment::GripAnimationPath(TEXT("canted"),Pair.Value):FString::Printf(TEXT("/Game/Weapons/M4VREGripExtensions/Canted/A_M4_Canted_%s"),Pair.Value);
         auto* Clip=LoadObject<UAnimSequence>(nullptr,*Path);
         if(Pair.Key&&Clip&&FMath::IsNearlyEqual(Pair.Key->GetPlayLength(),Clip->GetPlayLength(),.001f))CantedGripAnimations.Add(Pair.Key,Clip);
         else UE_LOG(LogTemp,Error,TEXT("CANTED_GRIP: missing or mismatched clip %s"),*Path);
     }
+    if(bUseM16&&InspectAnimation)
+        if(auto* Clip=LoadObject<UAnimSequence>(nullptr,*M16Attachments::AnimationPath(TEXT("canted"),TEXT("inspect"))))
+            CantedGripAnimations.Add(InspectAnimation,Clip);
 }
 
 void AFPSGAMECharacter::SetCantedForegrip(bool bEnabled)
 {
+    if(bUseM16){CantedForegrip=M16Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseASH12){CantedForegrip=ASH12Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}
     if(bUseQBZ191){CantedForegrip=QBZ191Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),(bEnabled)&&bInventoryWeaponReady);return;}
     if(AKMSoviet::Matches(AKMViewmodel)){CantedForegrip=AKMAttachment::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bEnabled&&bInventoryWeaponReady);return;}

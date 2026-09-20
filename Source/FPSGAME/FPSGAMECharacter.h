@@ -44,6 +44,7 @@ public:
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseQBZ191 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseASH12 = false;
+    UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM16 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM1911 = false;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseDanWesson715 = false;
     bool IsPistolWeapon() const { return bUseM1911 || bUseDanWesson715; }
@@ -455,6 +456,12 @@ private:
     UPROPERTY(Transient) bool bIsAiming = false;
     // Single-weapon input only. Common consumers query IsWeaponFireHeld().
     UPROPERTY(Transient) bool bFireHeld = false;
+    // Burst continuation and the physical trigger are separate: releasing the
+    // mouse finishes this group, while menu/equipment cancellation stops it.
+    bool bBurstTriggerHeld = false;
+    int32 BurstShotsRemaining = 0;
+    int32 BurstShotCount = 1;
+    float BurstRecoverySeconds = 0.f;
     bool bAimHeld = false;
     UPROPERTY(Transient) int32 MagazineAmmo = 30;
     UPROPERTY(Transient) int32 ReserveAmmo = 90;

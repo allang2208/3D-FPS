@@ -1,4 +1,17 @@
 # Unreal generated/local state
+# M16 publication: source recipes and prose only; licensed assets, dense geometry,
+# sampled poses, UE transport output and local staging snapshots stay on the host.
+/SourceAssets/M16*/**
+!/SourceAssets/M16*/**/
+!/SourceAssets/M16*/**/*.py
+!/SourceAssets/M16*/**/*.ps1
+!/SourceAssets/M16*/**/*.md
+!/SourceAssets/M16Publication20260920/archive-sources.json
+!/SourceAssets/M16Publication20260920/archive-assets.json
+!/SourceAssets/M16Publication20260920/archive-prototype.json
+!/SourceAssets/M16Publication20260920/retained-recovery-dependencies.json
+!/SourceAssets/M16Publication20260920/published-files.json
+/SourceAssets/M16Publication20260920/IndexCandidates/
 # Whirlwind licensed dense poses and local integration receipts remain local.
 /SourceAssets/Whirlwind20260920/**/LongGripExport/*_editable_keys.json
 /SourceAssets/Whirlwind20260920/**/*.txt

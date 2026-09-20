@@ -28,6 +28,9 @@ struct FGunsmithStats
     double ADS=0.3, ADSPercent=0, ADSSeconds=0, Recoil=100, Shake=100, RecoilMultiplier=1, ShakeMultiplier=1, StabilityMultiplier=1;
     double Interval=0.13, Reload=1.5, EmptyReload=1.5, Speed=90, Range=40, Spread=1, Damage=25;
     int32 Capacity=30, ActiveParts=0;
+    int32 BurstCount=1;
+    double BurstDelay=0; // Last shot to next permitted trigger, seconds.
+    double BurstCycle(double ShotInterval) const {return (BurstCount-1)*ShotInterval+FMath::Max(ShotInterval,BurstDelay);}
 };
 struct FGunsmithOption
 {

@@ -17,7 +17,7 @@ int32 UColdSteelWeaponIconCatalogCommandlet::Main(const FString& Params)
     IFileManager::Get().MakeDirectory(*Directory,true);
     int32 Failures=0;
     FString Requested;FParse::Value(*Params,TEXT("Definition="),Requested);
-    const TArray<FString> Definitions=Requested.IsEmpty()?TArray<FString>{TEXT("ue_m1911"),TEXT("ue_akm"),TEXT("ue_m4a1"),TEXT("ue_ash12"),TEXT("ue_dan_wesson715"),TEXT("ue_rune_sword")}:TArray<FString>{Requested};
+    const TArray<FString> Definitions=Requested.IsEmpty()?TArray<FString>{TEXT("ue_m1911"),TEXT("ue_akm"),TEXT("ue_m4a1"),TEXT("ue_m16a2"),TEXT("ue_ash12"),TEXT("ue_dan_wesson715"),TEXT("ue_rune_sword")}:TArray<FString>{Requested};
     for(const FString& Definition:Definitions)
         if(!Icons->ExportCatalogIcon(Definition,Directory/(Definition+TEXT(".png"))))++Failures;
     FlushRenderingCommands();Icons->Deinitialize();
